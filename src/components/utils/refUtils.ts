@@ -41,6 +41,17 @@ export function getRecentExercices (
 }
 
 /**
+ * Récupérer la liste de TOUS exercices.
+ * @param {JSONReferentielObject} refObj le référentiel à récupérer
+ * @returns {ResourceAndItsPath[]} un tableau de tous les exercices (terminaisons) avec leur chemin
+ */
+export function getAllExercises (
+  refObj: JSONReferentielObject
+): ResourceAndItsPath[] {
+  return findResourcesAndPaths(refObj, () => true)
+}
+
+/**
  * Retrouve le titre d'un niveau basé sur son code
  *
  * #### Exemple de code
@@ -152,8 +163,10 @@ export function buildReferentiel (
  * @returns {JSONReferentielObject} un référentiel
  * @see https://tutorial.eyehunts.com/js/javascript-merge-objects-without-overwriting-example-code/
  */
-function mergeReferentielObjects (...objects:JSONReferentielObject[]) : JSONReferentielObject {
-  const isObject = (obj:unknown) => obj && typeof obj === 'object'
+function mergeReferentielObjects (
+  ...objects: JSONReferentielObject[]
+): JSONReferentielObject {
+  const isObject = (obj: unknown) => obj && typeof obj === 'object'
   return objects.reduce((prev, obj) => {
     Object.keys(obj).forEach((key) => {
       const pVal = prev[key]

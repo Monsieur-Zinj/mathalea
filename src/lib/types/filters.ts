@@ -1,4 +1,10 @@
 // inspiration : https://blog.susomejias.dev/blog/design-pattern-criteria
+
+import {
+  isExerciceItemInReferentiel,
+  type ResourceAndItsPath
+} from './referentiels'
+
 /**
  * Définition d'un critère.
  *
@@ -30,7 +36,9 @@ export class MultiCriteria<T> implements Criterion<T> {
       for (const item of criterion) {
         this.criteriaList.push(item)
       }
-    } else { this.criteriaList.push(criterion) }
+    } else {
+      this.criteriaList.push(criterion)
+    }
   }
 
   meetCriterion (items: T[]): T[] {
@@ -87,7 +95,9 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
       for (const item of criterion) {
         this.criteriaList.push(item)
       }
-    } else { this.criteriaList.push(criterion) }
+    } else {
+      this.criteriaList.push(criterion)
+    }
   }
 
   meetCriterion (items: T[]): T[] {
@@ -97,5 +107,84 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
       resultCriterion = new OrCriteria<T>(resultCriterion, criterion)
     }
     return resultCriterion.meetCriterion(items)
+  }
+}
+
+/**
+ * Établie un critère de filtration sur la base d'une liste de spécifications
+ * passée en paramètres
+ * @remark Au 2023-10-01, seulement `amc` et `interactif` comme spécification autorisée
+ * @param {[('interactif' | 'amc')]}specs liste des spécifications à rechercher (sur la base du ET)
+ * @returns {Criterion<ResourceAndItsPath>} un critère pour filtration
+ * @example
+ * ```ts
+ * const all = getAllExercises(baseReferentiel)                // création de l'objet de recherche
+  const amcSpec = featuresCriteria(['amc'])                   // création du filtre
+  const filteredList = amcSpec.meetCriterion(all)             // utilisation du filtre
+  const filteredReferentiel = buildReferentiel(filteredList)  // reconstitution du référentiel
+  ```
+ */
+export function featuresCriteria (
+  specs: ('interactif' | 'amc')[]
+): Criterion<ResourceAndItsPath> {
+  // construction du critère pour la spécification `amc`
+  const amcCriterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]): ResourceAndItsPath[] {
+      return items.filter((item: ResourceAndItsPath) => {
+        if (isExerciceItemInReferentiel(item.resource)) {
+          if (
+            item.resource.features.amc &&
+            item.resource.features.amc.isActive
+          ) {
+            return true
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
+      })
+    }
+  }
+  // construction du critère pour la spécification `interactif`
+  const interactifCriterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]): ResourceAndItsPath[] {
+      return items.filter((item: ResourceAndItsPath) => {
+        if (isExerciceItemInReferentiel(item.resource)) {
+          if (
+            item.resource.features.interactif &&
+            item.resource.features.interactif.isActive
+          ) {
+            return true
+          } else {
+            return false
+          }
+        } else {
+          return false
+        }
+      })
+    }
+  }
+  // on trie en fonction de ce que contient la liste des spécifications
+  if (specs.length < 2) {
+    if (specs.length === 0) {
+      // la liste ne peut pas être vide
+      throw new Error(
+        'La liste des spécifications passée en paramètre est vide !'
+      )
+    }
+    // une seule spécification est présente : on renvoie le critère correspondant
+    switch (specs[0]) {
+      case 'amc':
+        return amcCriterion
+      case 'interactif':
+        return interactifCriterion
+    }
+  } else {
+    // les deux spécifications sont présents, on renvoie l'intersection des deux critères
+    const result = new MultiCriteria<ResourceAndItsPath>()
+    result.addCriterion(amcCriterion)
+    result.addCriterion(interactifCriterion)
+    return result
   }
 }
