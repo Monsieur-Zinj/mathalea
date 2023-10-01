@@ -229,7 +229,7 @@ export default function PavageEtDemiTour2D () {
     texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte += '<br>'
     for (let i = 0; i < this.nbQuestions; i++) {
-      texte += `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ ?`
+      texte += `Donner le numéro de l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$.`
       setReponse(this, i, couples[i][1])
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur72') + '<br>'
       texteCorr += `L'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ est la figure ${couples[i][1]}<br>`

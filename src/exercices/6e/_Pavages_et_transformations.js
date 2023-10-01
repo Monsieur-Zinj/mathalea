@@ -59,6 +59,7 @@ export default function PavagesEtTransformations () {
     const paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0], [5, 5, 6, 0, 8, 8, 0, 6, 60, -9], [5, 5, 8, 0, 4, 4, 2, 8, 50, 0], [5, 5, 4, 0, 6, 4, 0, 6, 50, 5], [4, 6, 8, 0, 7, 4, -1, 4, 50, 10], [5, 5, 8, 0, 4, 4, 0, 8, 50, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]]
     const quad = []
     const quadCorr = []
+    let labelCentre1, labelCentre2, labelCentre3
     let quad1
     let quad2
     let quad3
@@ -506,9 +507,18 @@ export default function PavagesEtTransformations () {
         texteAMC3 = numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie de centre ${s2} ?`, context.isAmc ? 'black' : 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
         texte += '<br>' + texteAMC3
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numC} dans la symétrie de centre ${s2} porte le numéro ${num3}.<br>`, context.isAmc ? 'black' : 'blue')
+        labelCentre1 = tracePoint(centre1, 'red')
+        labelCentre1.epaisseur = 2
+        labelCentre1.taille = 2
+        labelCentre2 = tracePoint(centre2, 'red')
+        labelCentre2.epaisseur = 2
+        labelCentre2.taille = 2
+        labelCentre3 = tracePoint(centre3, 'red')
+        labelCentre3.epaisseur = 2
+        labelCentre3.taille = 2
 
-        objetsEnonce.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3))
-        objetsCorrection.push(tracePoint(centre1), tracePoint(centre2), tracePoint(centre3), labelPoint(centre1), labelPoint(centre2), labelPoint(centre3)
+        objetsEnonce.push(labelCentre1, labelCentre2, labelCentre3, labelPoint(centre1, 'red'), labelPoint(centre2, 'red'), labelPoint(centre3, 'red'))
+        objetsCorrection.push(labelCentre1, labelCentre2, labelCentre3, labelPoint(centre1, 'red'), labelPoint(centre2, 'red'), labelPoint(centre3, 'red')
           , rotationAnimee(quad[numA], centre1, 180, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 180, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, 180, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
         consigneAMC = mathalea2d({
