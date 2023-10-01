@@ -158,9 +158,15 @@ export type JSONReferentielEnding =
   | ExerciceItemInReferentiel
 // Type pour un référentiel complet
 export interface JSONReferentielObject
-  extends Record<string, JSONReferentielEnding | JSONReferentielObject | string | string[]| Features> {}
+  extends Record<
+    string,
+    JSONReferentielEnding | JSONReferentielObject | string | string[] | Features
+  > {}
 
-export type ResourceAndItsPath = { resource: JSONReferentielEnding; pathToResource: string[] }
+export type ResourceAndItsPath = {
+  resource: JSONReferentielEnding
+  pathToResource: string[]
+}
 
 export const isExerciceItemInReferentiel = (
   obj: any
@@ -169,3 +175,6 @@ export const isExerciceItemInReferentiel = (
 export const isJSONReferentielEnding = (
   obj: any
 ): obj is JSONReferentielEnding => obj.uuid !== undefined
+
+export const isResourceHasPlace = (obj: any): obj is ExamItemInReferentiel | ExamWithoutTexItemInReferentiel =>
+  obj.lieu !== undefined

@@ -3,7 +3,8 @@
 import {
   isExerciceItemInReferentiel,
   type ResourceAndItsPath,
-  type Level
+  type Level,
+  isResourceHasPlace
 } from './referentiels'
 
 /**
@@ -241,6 +242,39 @@ export function tagCriterion (
             .map((t) => t.toLowerCase())
             .includes(selectedTag.toLowerCase())
       )
+    }
+  }
+  return criterion
+}
+
+/**
+ * Construit un critère de filtration sur un sujet (chaîne de caractères).
+ * La recherche s'effectue sur le titre (s'il y en a) ou sur le lieu (s'il y en a)
+ * @param subject le sujet à rechercher
+ * @returns { Criterion<ResourceAndItsPath>} un critère pour filtration
+ */
+export function subjectCriterion (
+  subject: string
+): Criterion<ResourceAndItsPath> {
+  const criterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]) {
+      return items.filter((item) => {
+        let placeMatch = false
+        if (isResourceHasPlace(item.resource)) {
+          // si le sujet est un lieu et que la ressource a `lieu` dans ses propriété, on compare
+          placeMatch = item.resource.lieu.toLowerCase().includes(subject.toLowerCase())
+        }
+        if (isExerciceItemInReferentiel(item.resource)) {
+          // la ressource est un exercice : elle a donc un titre
+          if (item.resource.titre.toLowerCase().includes(subject.toLowerCase())) {
+            return true
+          } else {
+            return false || placeMatch
+          }
+        } else {
+          return false || placeMatch
+        }
+      })
     }
   }
   return criterion
