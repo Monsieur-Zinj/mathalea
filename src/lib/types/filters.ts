@@ -2,7 +2,8 @@
 
 import {
   isExerciceItemInReferentiel,
-  type ResourceAndItsPath
+  type ResourceAndItsPath,
+  type Level
 } from './referentiels'
 
 /**
@@ -182,9 +183,37 @@ export function featuresCriteria (
     }
   } else {
     // les deux spécifications sont présents, on renvoie l'intersection des deux critères
-    const result = new MultiCriteria<ResourceAndItsPath>()
-    result.addCriterion(amcCriterion)
-    result.addCriterion(interactifCriterion)
-    return result
+    const criterion = new MultiCriteria<ResourceAndItsPath>()
+    criterion.addCriterion(amcCriterion)
+    criterion.addCriterion(interactifCriterion)
+    return criterion
   }
+}
+
+/**
+ * Construit un critère pour filtrer une liste d 'objets `ResourceAndItsPath`
+ * contre un niveau de classe
+ * @param {Level} level le niveau de classe retenu
+ * @param {boolean} considerCAN doit-on inclure les exos CAN ou pas ?
+ * @returns { Criterion<ResourceAndItsPath>} un critère pour filtration
+ */
+export function levelCriterion (level: Level, considerCAN: boolean): Criterion<ResourceAndItsPath> {
+  const criterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]) {
+      return items.filter((item) => {
+        // CAN est considéré comme un niveau donc on court-circuite les tests
+        if (level === 'CAN') {
+          return item.pathToResource[0] === level
+        }
+        if (considerCAN && item.pathToResource[0] === 'CAN') {
+          // cas où on veut des exercices CAN, on regarde le 2e élément du chemin
+          return item.pathToResource[1] === level
+        } else {
+          // dans l'autre cas, le niveau est dans le 1er élément du chemin
+          return item.pathToResource[0] === level
+        }
+      })
+    }
+  }
+  return criterion
 }

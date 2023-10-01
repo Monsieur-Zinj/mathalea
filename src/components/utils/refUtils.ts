@@ -3,6 +3,7 @@ import {
   type JSONReferentielObject,
   type JSONReferentielEnding,
   type ResourceAndItsPath,
+  type Level,
   isExerciceItemInReferentiel,
   isJSONReferentielEnding
 } from '../../lib/types/referentiels'
@@ -137,24 +138,45 @@ export function findResourcesAndPaths (
 }
 
 /**
+ * À partir d'un objet de type `ResourceAndItsPath`, construit l'objet imbriqué correspondant
+ * @param item Un objet constitué de la liste des nœuds et de la terminaison
+ * @returns un objet aux entrées imbriquées correspondant à une branche + une terminaison
+ */
+function pathToObject (item: ResourceAndItsPath): JSONReferentielObject {
+  return item.pathToResource.reduceRight(
+    (value, key) => ({ [key]: value }),
+    (<unknown>item.resource) as JSONReferentielObject
+  )
+}
+
+/**
+ * Construit à partir d'une liste d'objet de type `ResourceAndItsPath`
+ * la liste des objets imbriqués (branche+terminaison) correspondants
+ * @param {ResourceAndItsPath[]} items la liste des objets à transformer
+ * @returns {JSONReferentielObject[]} la liste des objets transformés
+ */
+function pathsToObjectsArray (
+  items: ResourceAndItsPath[]
+): JSONReferentielObject[] {
+  const result: JSONReferentielObject[] = []
+  for (const item of items) {
+    result.push(pathToObject(item))
+  }
+  return result
+}
+
+/**
  * Fabrique de zéro un référentiels sur la base d'entrées constituées d'un chemin d'accès
  * et d'une terminaison `{resource: JSONReferentielEnding,  pathToResource: string[]}`
- * @param listOfEntries la liste des entrées pour constituer le référentiel
+ * @param {ResourceAndItsPath[]} refList la liste des entrées pour constituer le référentiel
  * @returns {JSONReferentielObject} un référentiel sous forme d'objet
  */
 export function buildReferentiel (
-  listOfEntries: ResourceAndItsPath[]
+  refList: ResourceAndItsPath[]
 ): JSONReferentielObject {
-  const paths: JSONReferentielObject[] = []
-  for (const e of listOfEntries) {
-    const reversePath = e.pathToResource.reverse()
-    paths.push(
-      reversePath.reduce((res, key) => ({ [key]: res }), {
-        ...e.resource
-      } as JSONReferentielObject)
-    )
-  }
-  return mergeReferentielObjects(...paths)
+  return pathsToObjectsArray(refList).reduce((prev, current) => {
+    return mergeReferentielObjects(prev, current)
+  }, {})
 }
 
 /**
@@ -199,4 +221,14 @@ export function isReferentielActivated (refName: string): boolean {
     console.log(refName + ' is not a valid referentiel name !')
     return false
   }
+}
+
+export function updateReferentiel (
+  originalReferentiel: JSONReferentielObject,
+  isAmcOnlySelected: boolean,
+  isInteractiveOnlySelected: boolean,
+  levelsSelected: Level[] // les seuls niveaux acceptés sont ceux stocké dans codeList
+): JSONReferentielObject {
+  const filteredList: ResourceAndItsPath[] =
+    getAllExercises(originalReferentiel)
 }

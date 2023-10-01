@@ -1,9 +1,12 @@
 import type { FrenchDateString } from './dates'
+import codeList from '../../json/codeToLevelList.json'
 // ===========================================================================
 //
 //    Types des bouts de chaînes des référentiels (les données des exercices)
 //
 // ===========================================================================
+
+export type Level = keyof typeof codeList
 /**
  * Paramètres d'une fonctionnalité
  * @interface FeatureParams
