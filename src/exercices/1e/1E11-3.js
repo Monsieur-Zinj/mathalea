@@ -8,6 +8,8 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { sp } from '../../lib/outils/outilString.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -43,9 +45,16 @@ export default function Formacanonique () {
       a = randint(-4, 4, [0])
       b = -2 * a * alpha
       c = a * alpha * alpha + beta
+      while (c === 0) {
+        alpha = randint(-5, 5, [0])
+        beta = randint(-5, 5, [0])
+        a = randint(-4, 4, [0])
+        b = -2 * a * alpha
+        c = a * alpha * alpha + beta
+      }
 
       texte = `$P(x)=${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$`
-      texteCorr = '<br>On sait que si le polynôme, sous forme développée, s\'écrit $P(x)=ax^2+bx+c,$'
+      texteCorr = 'On sait que si le polynôme, sous forme développée, s\'écrit $P(x)=ax^2+bx+c$, '
       texteCorr += 'alors sa forme canonique est de la forme $P(x)=a(x-\\alpha)^2+\\beta$,'
 
       texteCorr += '<br>avec $\\alpha=\\dfrac{-b}{2a}$ et $\\beta=P(\\alpha).$'
@@ -53,18 +62,19 @@ export default function Formacanonique () {
       texteCorr += `<br>On calcule alors $\\beta=P(${alpha})$, et on obtient au final que $\\beta=${beta}$.`
       texteCorr += `<br>d'où, $P(x)=${(a)}\\big(x-${ecritureParentheseSiNegatif(alpha)}\\big)^2+${ecritureParentheseSiNegatif(beta)}$`
       texteCorr += '<br>Au final, $P(x)='
+      let texteCorrSolution = ''
       if (a === 1 || a === -1) {
         if (a === -1) {
-          texteCorr += '-'
+          texteCorrSolution += '-'
         }
       } else {
-        texteCorr += `${a}`
+        texteCorrSolution += `${a}`
       }
-      texteCorr += `(x ${ecritureAlgebrique(-alpha)})^2`
+      texteCorrSolution += `(x ${ecritureAlgebrique(-alpha)})^2`
       if (beta !== 0) {
-        texteCorr += `${ecritureAlgebrique(beta)}`
+        texteCorrSolution += `${ecritureAlgebrique(beta)}`
       }
-      texteCorr += '$'
+      texteCorr += `${miseEnEvidence(texteCorrSolution)}$`
       if (beta > 0) {
         if (alpha > 0) {
           setReponse(this, i, [`${a}(x-${alpha})^2+${beta}`])
@@ -87,7 +97,7 @@ export default function Formacanonique () {
         }
       }
 
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texte: `$${sp()}=${sp()}$` })
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
