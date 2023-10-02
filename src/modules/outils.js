@@ -539,7 +539,7 @@ export function printlatex (e) {
  * @author Rémi Angot
  */
 export function itemize (tableauDeTexte) {
-  if (Array.isArray(tableauDeTexte) && tableauDeTexte.filter(el => typeof el !== 'string').length !== 0) {
+  if (Array.isArray(tableauDeTexte) && tableauDeTexte.filter(el => typeof el === 'string').length !== 0) {
     let texte
     if (context.isHtml) {
       texte = '<div>'
