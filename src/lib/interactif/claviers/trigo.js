@@ -81,7 +81,6 @@ export const CLAVIER_GRECTRIGO = {
   ]
 }
 
-
 export const raccourcisTrigo = {
   alpha: { mode: 'math', value: '\\alpha' },
   beta: { mode: 'math', value: '\\beta' },
@@ -93,7 +92,7 @@ export const raccourcisTrigo = {
   lambda: { mode: 'math', value: '\\lambda' },
   '*': { mode: 'math', value: '\\times' },
   '.': { mode: 'math', value: ',' },
- cos: { mode: 'math',  value: 'cos(#0)' },
- sin: { mode: 'math', value: 'sin(#0)' },
-tan: { mode: 'math', value: 'tan(#0)' }
+  cos: { mode: 'math', value: 'cos(#0)' },
+  sin: { mode: 'math', value: 'sin(#0)' },
+  tan: { mode: 'math', value: 'tan(#0)' }
 }
