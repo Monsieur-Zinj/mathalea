@@ -61,8 +61,8 @@ export default function TrouverChiffre () {
       max: 8,
       melange: 9,
       defaut: 9,
-      nbQuestions: this.nbQuestions,
-      shuffle: false
+      nbQuestions: Math.max(this.nbQuestions, 8),
+      shuffle: true
     })
 
     for (let i = 0, texte, texteCorr, cpt = 0, nb, positionX, a, tabChiffresX, nbAvecChiffreCache,
