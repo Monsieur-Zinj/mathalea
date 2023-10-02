@@ -2314,6 +2314,19 @@
     },
     "datePublication": "14/09/2022"
   },
+  "3A13-5": {
+    "url": "3e/3A13-5.js",
+    "uuid": "2ae9b",
+    "id": "3A13-5",
+    "titre": "Jouer avec la compréhension des multiples d'un nombre",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amcType": "AMCHybride",
+      "amc": true
+    },
+    "datePublication": "30/09/2023"
+  },
   "3A14-0": {
     "url": "3e/3A14-0.js",
     "uuid": "2e22a",
@@ -2489,17 +2502,6 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
-  },
-  "3F13-2": {
-    "url": "3e/3F13-2.js",
-    "uuid": "be398",
-    "id": "3F13-2",
-    "titre": "Spécial escape game",
-    "tags": {
-      "interactif": true,
-      "interactifType": "mathLive",
-      "amc": false
     }
   },
   "3F20": {
@@ -3225,7 +3227,8 @@
     "id": "3L11-9",
     "titre": "Résoudre une Rose multiplicative avec calcul littéral",
     "tags": {
-      "interactif": false,
+      "interactif": true,
+      "interactifType": "custom",
       "amc": false
     },
     "datePublication": "12/08/2022"
@@ -6865,7 +6868,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
-      "amc": false
+      "amcType": "AMCHybride",
+      "amc": true
     },
     "datePublication": "21/10/2022"
   },
@@ -9105,6 +9109,17 @@
       "amc": false
     },
     "datePublication": "1/11/2021"
+  },
+  "beta3F13-2": {
+    "url": "beta/beta3F13-2.js",
+    "uuid": "be398",
+    "id": "beta3F13-2",
+    "titre": "Spécial escape game",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    }
   },
   "betaFonction": {
     "url": "beta/betaEtudeFonction.js",
@@ -11935,6 +11950,18 @@
       "interactifType": "mathLive",
       "amc": false
     }
+  },
+  "can4G09": {
+    "url": "can/4e/can4G09.js",
+    "uuid": "96bcd",
+    "id": "can4G09",
+    "titre": "Trouver la longueur d'un côté de triangle rectangle",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "01/10/2023"
   },
   "can4L01": {
     "url": "can/4e/can4L01.js",
