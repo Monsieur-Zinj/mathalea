@@ -431,7 +431,7 @@ export default function TrouverChiffre () {
           break
       }
       setReponse(this, i, reponse, { formatInteractif: 'texte' })
-      texte += this.interactif ? ('<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25')) : ''
+      texte += this.interactif ? ('<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25 college6eme alphanumeric')) : ''
 
       if (this.questionJamaisPosee(i, nbAvecChiffreCache)) {
         // Si la question n'a jamais été posée, on en crée une autre
