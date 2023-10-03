@@ -80,11 +80,11 @@
       headerExerciceProps.isSortable = false
       headerExerciceProps.isDeletable = false
       headerExerciceProps.isHidable = false
-      if ($globalOptions.setInteractive === '1') {
-        setAllInteractif()
-      } else if ($globalOptions.setInteractive === '0') {
-        removeAllInteractif()
-      }
+      // if ($globalOptions.setInteractive === '1') {
+      //   setAllInteractif()
+      // } else if ($globalOptions.setInteractive === '0') {
+      //   removeAllInteractif()
+      // }
       if (!$globalOptions.isSolutionAccessible) {
         headerExerciceProps.correctionReady = false
         headerExerciceProps.randomReady = false
