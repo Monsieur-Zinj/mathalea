@@ -236,35 +236,53 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
     for (let k = 0; k < 3; k++) {
       const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i * 3 + k}`)
       const reponseEleve = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * 3 + k}`)?.value
-      switch (k) {
-        case 0:
-          if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-            divFeedback.innerHTML = '😎'
-            resultat1 = 'OK'
-          } else {
+      if (this.autoCorrection[i * 3 + k] != null && this.autoCorrection[i * 3 + k].reponse != null && Array.isArray(this.autoCorrection[i * 3 + k].reponse.valeur)) {
+        switch (k) {
+          case 0:
+            if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+              divFeedback.innerHTML = '😎'
+              resultat1 = 'OK'
+            } else {
+              divFeedback.innerHTML = '☹️'
+              resultat1 = 'KO'
+            }
+            break
+          case 1:
+            if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur[0]) ||
+                (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+              divFeedback.innerHTML = '😎'
+              resultat2 = 'OK'
+            } else {
+              divFeedback.innerHTML = '☹️'
+              resultat2 = 'KO'
+            }
+            break
+          case 2:
+            if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+              divFeedback.innerHTML = '😎'
+              resultat3 = 'OK'
+            } else {
+              divFeedback.innerHTML = '☹️'
+              resultat3 = 'KO'
+            }
+            break
+        }
+      } else {
+        window.notify('Quelque chose de pas normal avec l\'autoCorrection : ', { nbQuestions: this.nbQuestions, index: i * 3 + k, autoCorrection: this.autoCorrection })
+        switch (k) {
+          case 0:
             divFeedback.innerHTML = '☹️'
             resultat1 = 'KO'
-          }
-          break
-        case 1:
-          if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur[0]) ||
-                        (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-            divFeedback.innerHTML = '😎'
-            resultat2 = 'OK'
-          } else {
+            break
+          case 1:
             divFeedback.innerHTML = '☹️'
             resultat2 = 'KO'
-          }
-          break
-        case 2:
-          if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-            divFeedback.innerHTML = '😎'
-            resultat3 = 'OK'
-          } else {
+            break
+          case 2:
             divFeedback.innerHTML = '☹️'
             resultat3 = 'KO'
-          }
-          break
+            break
+        }
       }
     }
     return [resultat1, resultat2, resultat3]
