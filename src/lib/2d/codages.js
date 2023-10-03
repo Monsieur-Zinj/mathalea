@@ -332,7 +332,7 @@ export function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizont
   this.color = color
   this.extremite1 = A
   this.extremite2 = B
-  this.texte = texte
+  this.texte = String(texte)
   this.scale = 1
   this.mathOn = true
   this.distance = horizontal ? (d - 0.1 + (isNumeric(this.texte) ? nombreDeChiffresDe(this.texte) : this.texte.length) / 10) : d
@@ -341,8 +341,9 @@ export function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizont
   const s = segment(this.extremite1, this.extremite2)
   let angle
   const pos = pointSurSegment(O, M, this.distance)
-  const space = 0.2 * this.texte.length
+  const space = 0.2 * (this.texte.length ?? 2)
   this.bordures = [pos.x - space, pos.y - space, pos.x + space, pos.y + space]
+  console.log(this.bordures)
   if (horizontal) {
     angle = 0
   } else if (this.extremite2.x > this.extremite1.x) {
@@ -373,8 +374,8 @@ export function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizont
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot
  */
-export function texteSurSegment (...args) {
-  return new TexteSurSegment(...args)
+export function texteSurSegment (texte = '', A, B, color = 'black', d, horizontal) {
+  return new TexteSurSegment(texte, A, B, color, d, horizontal)
 }
 
 /**
