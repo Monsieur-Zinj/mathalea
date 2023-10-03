@@ -123,7 +123,8 @@ export function gestionnaireFormulaireTexte ({
   if (exclus && exclus.length > 0) {
     listeIndex = listeIndex.filter((element) => !exclus.includes(element))
   }
-  if (nbQuestions === 999) nbQuestions = listeIndex.length
+  if (listeIndex.length === 0) listeIndex = [defaut] // EE : Le cas où finalement listeIndex est vide car la saisie n'était pas un paramètre attendu.
+  if (nbQuestions === 999) nbQuestions = listeIndex.length // JCL : C'est quoi cette condition ? A quoi elle sert ?
   listeIndex = shuffle ? combinaisonListes(listeIndex, nbQuestions) : combinaisonListesSansChangerOrdre(listeIndex, nbQuestions)
 
   const Max = Math.max(...listeIndex)
