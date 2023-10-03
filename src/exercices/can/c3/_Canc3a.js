@@ -892,7 +892,7 @@ export default class ClasseCan2023 {
     sortie.diviseurDeLHeure = choice([2, 4]) // diviseur de l'heure
     if (sortie.diviseurDeLHeure === 4) {
       sortie.vitesse = choice([40, 80, 100])
-      sortie.nombreDeMinutes = choice([15, 45])
+      sortie.nombreDeMinutes = 15
     } else {
       sortie.vitesse = choice([30, 60, 90, 120])
       sortie.nombreDeMinutes = 30
