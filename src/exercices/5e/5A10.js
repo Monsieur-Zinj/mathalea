@@ -205,7 +205,7 @@ export default function ListeDesDiviseurs5e () {
       }
       texte += ajouteChampTexteMathLive(this, i, 'largeur35 inline', { texte: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
