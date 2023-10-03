@@ -89,6 +89,11 @@
     }, 100)
     await tick()
     countMathField()
+    if ($globalOptions.setInteractive === '1') {
+      setAllInteractif()
+    } else if ($globalOptions.setInteractive === '0') {
+      removeAllInteractif()
+    }
   })
 
   afterUpdate(async () => {
