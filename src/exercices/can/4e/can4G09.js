@@ -62,7 +62,6 @@ export default function TripletsPythagoriciens () {
     const longueurAB = texteSurSegment(String(triplet[1]), b, a, 'black', 0.5, true)
     const longueurBC = texteSurSegment(String(triplet[0]), c, b, 'black', 0.5, true)
     const longueurCA = texteSurSegment(String(triplet[2]), a, c, 'black', 0.5, true)
-    console.log(triplet)
     const objets = [poly, angleDroit]
     let index = this.sup < 2 ? this.sup - 1 : choice([0, 1]) // on choisit le type de question ou on laisse le hasard (option mélange)
     this.question = `Dans le triangle $${nom.join('')}$ rectangle en $${nom[1]}$, `
@@ -86,7 +85,7 @@ export default function TripletsPythagoriciens () {
       this.optionsChampTexte = { texte: `$${nom[2 - index2]}${nom[1]}=$`, texteApres: `${sp(1)}cm` }
     }
     this.formatInteractif = 'calcul'
-    this.formatChampTexte = 'largeur15 inline'
+    this.formatChampTexte = 'largeur10 inline nospacebefore'
     const figure = mathalea2d(Object.assign({ scale: 0.6, style: 'display: inline;' }, fixeBordures(objets)), objets)
     this.question += figure
   }
