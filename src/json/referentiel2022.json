@@ -13220,6 +13220,18 @@
         },
         "datePublication": "25/09/2023"
       },
+      "2N42-2": {
+        "url": "2e/2N42-2.js",
+        "uuid": "96bac",
+        "id": "2N42-2",
+        "titre": "Exprimer une variable en fonction des autres à  partir de formules mathématiques",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": false
+        },
+        "datePublication": "02/10/2023"
+      },
       "2N42-3": {
         "url": "2e/2N42-3.js",
         "uuid": "327cf",
