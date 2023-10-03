@@ -2,7 +2,7 @@ import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
 export const titre = 'Calculer une expression littérale pour les valeurs données en détaillant les calculs'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante='21/09/2023'
+export const dateDeModifImportante = '21/09/2023'
 
 /**
  * @author Jean-Claude Lhote

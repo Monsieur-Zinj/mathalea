@@ -2,7 +2,7 @@ import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
 export const titre = 'Traduire une expression par une phrase'
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const dateDeModifImportante='21/09/2023'
+export const dateDeModifImportante = '21/09/2023'
 
 /**
  * @author Jean-Claude Lhote

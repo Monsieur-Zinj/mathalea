@@ -2,7 +2,7 @@ import EcrireUneExpressionNumerique from './_Ecrire_une_expression_numerique.js'
 export const titre = 'Traduire une phrase par une expression et la calculer'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante='21/09/2023'
+export const dateDeModifImportante = '21/09/2023'
 
 /**
  * @author Jean-Claude Lhote
@@ -15,4 +15,4 @@ export default function TraduireUnePhraseParUneExpressionLitteraleEtCalculer () 
   this.version = 3
   this.litteral = true
   this.sup4 = '1-2-3'
-  }
+}

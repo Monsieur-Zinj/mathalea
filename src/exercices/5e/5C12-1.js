@@ -4,7 +4,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const titre = 'Traduire une phrase par une expression et la calculer'
-export const dateDeModifImportante='21/09/2023'
+export const dateDeModifImportante = '21/09/2023'
 
 /**
  * @author Jean-Claude Lhote
