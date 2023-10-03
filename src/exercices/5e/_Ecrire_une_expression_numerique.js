@@ -11,9 +11,9 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-//export const amcType = 'AMCOpenNum'
+// export const amcType = 'AMCOpenNum'
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante='21/09/2023'
+export const dateDeModifImportante = '21/09/2023'
 /**
  * Fonction noyau pour 6 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
  * @author Jean-Claude Lhote
@@ -27,6 +27,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
   this.nbColsCorr = 1
   this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
   this.sup3 = true // Si présence ou pas du signe "fois"
+  this.sup4 = 6
   this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 
   this.nouvelleVersion = function () {
@@ -34,18 +35,18 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    
+
     this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
-  
-   const listeTypeDeQuestions = gestionnaireFormulaireTexte({
-        saisie: this.sup4,
-        min: 1,
-        max: 5,
-        melange: 6,
-        defaut: 6,
-        nbQuestions: this.nbQuestions
-      })
-   
+
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup4,
+      min: 1,
+      max: 5,
+      melange: 6,
+      defaut: 6,
+      nbQuestions: this.nbQuestions
+    })
+
     let expf
     let expn
     let expc
@@ -146,7 +147,6 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       }
       if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.version > 2) {
-
           /// vérifier qu'il n'y a plus d'OpenNUM
           if (!context.isAmc) {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })
@@ -184,9 +184,6 @@ export default function EcrireUneExpressionNumerique (calculMental) {
                 }
               ]
             }
-
-
-
           }
           setReponse(this, i, reponse)
         } else if (context.isAmc) { // AMCOpen pour 5C11, 5C11-1, 5L10-1, 5L10-3
@@ -198,7 +195,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
               texte: texteCorr,
               statut: this.version, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
               sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-              pointilles: this.version === 2  // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+              pointilles: this.version === 2 // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
             }
           ]
         }
