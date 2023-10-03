@@ -11,7 +11,7 @@ import {
   medianeTriangle
 } from '../../lib/2d/triangle.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { Triangles } from '../../modules/Triangles.js'
+import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -55,7 +55,7 @@ export default function DroiteRemarquableDuTriangle () {
     else typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, angle, rapport, texte, texteCorr; i < this.nbQuestions; i++) { // this.nbQuestions && cpt<50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      triangles[i] = new Triangles()
+      triangles[i] = new Triangle()
       sommets[i] = triangles[i].getSommets(false)
 
       A0 = point(3, randint(1, 2))

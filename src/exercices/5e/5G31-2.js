@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
-import { Triangles } from '../../modules/Triangles.js'
+import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -101,7 +101,7 @@ export default class anglesTrianglesTableau extends Exercice {
     this.typeTriangle = function (type) {
       const sortie = { texte: '', texteCorr: '', natureTriangleCorr: '' }
       // On crée le triangle
-      const triangle = new Triangles()
+      const triangle = new Triangle()
       switch (type) {
         case 'quelconque':
           triangle.a1 = randint(10, 40, [90])

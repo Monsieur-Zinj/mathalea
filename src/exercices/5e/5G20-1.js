@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { lampeMessage } from '../../lib/format/message.js'
 import { modalTexteLong } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { Triangles } from '../../modules/Triangles.js'
+import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, texEnumerateSansNumero } from '../../modules/outils.js'
@@ -136,11 +136,11 @@ export default function VocabulaireDesTriangles () {
       const angleMax = 100
 
       // on crée les triangles
-      const triangleQuelconque = new Triangles()
-      const triangleIsocele = new Triangles()
-      const triangleEquilateral = new Triangles()
-      const triangleRectangle = new Triangles()
-      const triangleIsoceleRectangle = new Triangles()
+      const triangleQuelconque = new Triangle()
+      const triangleIsocele = new Triangle()
+      const triangleEquilateral = new Triangle()
+      const triangleRectangle = new Triangle()
+      const triangleIsoceleRectangle = new Triangle()
       let partieDecimale1, partieDecimale2, partieDecimale3
       if (this.sup2) {
         partieDecimale1 = calculANePlusJamaisUtiliser(randint(1, 9) / 10 * randint(0, 1))

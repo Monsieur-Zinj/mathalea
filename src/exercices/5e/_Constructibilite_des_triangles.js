@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { Triangles } from '../../modules/Triangles.js'
+import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
@@ -78,7 +78,7 @@ export default function ConstructibiliteDesTriangles () {
       const aMax = 180
 
       // on crée un objet triangle
-      const triangle = new Triangles()
+      const triangle = new Triangle()
       // on crée un tableau pour le triangle courant
       const currentTriangle = []
 

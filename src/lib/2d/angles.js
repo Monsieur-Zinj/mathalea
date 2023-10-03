@@ -1,4 +1,4 @@
-import { colorToLatexOrHTML, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { egal } from '../../modules/outils.js'
 import { arrondi, unSiPositifMoinsUnSinon } from '../outils/nombres.js'
@@ -295,6 +295,16 @@ export function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
   this.color = color
   this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = opaciteDeRemplissage
+  const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / context.pixelsParCm)
+  const b = pointSurSegment(this.sommet, this.arrivee, this.taille * 20 / context.pixelsParCm)
+  let o
+  if (angleOriente(this.depart, this.sommet, this.arrivee) > 0) {
+    o = rotation(this.sommet, a, -90)
+  } else {
+    o = rotation(this.sommet, a, 90)
+  }
+  const bordures = fixeBordures(a, b, o)
+  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
 
   this.svg = function (coeff) {
     const a = pointSurSegment(this.sommet, this.depart, this.taille * 20 / coeff)
