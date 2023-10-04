@@ -5984,7 +5984,8 @@
         "id": "6G10-6",
         "titre": "Appartient ou n'appartient pas ?",
         "tags": {
-          "interactif": false,
+          "interactif": true,
+          "interactifType": "listeDeroulante",
           "amc": false
         },
         "datePublication": "05/10/2022"
@@ -7858,7 +7859,8 @@
           "interactif": false,
           "amcType": "AMCOpen",
           "amc": true
-        }
+        },
+        "dateModification": "21/09/2023"
       },
       "5C11-1": {
         "url": "5e/5C11-1.js",
@@ -7869,7 +7871,8 @@
           "interactif": false,
           "amcType": "AMCOpen",
           "amc": true
-        }
+        },
+        "dateModification": "21/09/2023"
       },
       "5C11-2": {
         "url": "5e/5C11-2.js",
@@ -7904,7 +7907,8 @@
           "interactifType": "mathLive",
           "amcType": "AMCHybride",
           "amc": true
-        }
+        },
+        "dateModification": "21/09/2023"
       },
       "5C12-2": {
         "url": "5e/5C12-2.js",
@@ -8392,7 +8396,8 @@
           "interactif": false,
           "amcType": "AMCOpen",
           "amc": true
-        }
+        },
+        "dateModification": "21/09/2023"
       },
       "5L10-2": {
         "url": "5e/5L10-2.js",
@@ -8416,7 +8421,8 @@
           "interactif": false,
           "amcType": "AMCOpen",
           "amc": true
-        }
+        },
+        "dateModification": "21/09/2023"
       },
       "5L10-4": {
         "url": "5e/5L10-4.js",
@@ -8491,7 +8497,8 @@
           "interactif": false,
           "amcType": "AMCHybride",
           "amc": true
-        }
+        },
+        "dateModification": "21/09/2023"
       },
       "5L14-2": {
         "url": "5e/5L14-2.js",
@@ -8514,7 +8521,8 @@
           "interactif": false,
           "amcType": "AMCHybride",
           "amc": true
-        }
+        },
+        "dateModification": "21/09/2023"
       },
       "5L14-4": {
         "url": "5e/5L14-4.js",
@@ -9591,7 +9599,7 @@
           "amc": true
         },
         "datePublication": "17/03/2022",
-        "dateModification": "24/10/2021"
+        "dateModification": "03/10/2023"
       },
       "4C25-0": {
         "url": "4e/4C25-0.js",
@@ -10548,8 +10556,7 @@
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
-          "amcType": "AMCNum",
-          "amc": true
+          "amc": false
         },
         "datePublication": "29/08/2022"
       },
@@ -10585,7 +10592,8 @@
           "amcType": "AMCHybride",
           "amc": true
         },
-        "datePublication": "28/09/2022"
+        "datePublication": "28/09/2022",
+        "dateModification": "03/10/2023"
       },
       "3A11-1": {
         "url": "3e/3A11-1.js",
