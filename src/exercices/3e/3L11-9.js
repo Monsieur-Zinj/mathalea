@@ -1,7 +1,7 @@
 import { ExoRose } from '../6e/_Roses.js'
 export const titre = 'Résoudre une Rose multiplicative avec calcul littéral'
 export const dateDePublication = '12/08/2022'
-export const dateDeModificationImportante = '01/10/2023'
+export const dateDeModifImportante = '01/10/2023'
 export const interactifReady = true
 export const interactifType = 'custom'
 

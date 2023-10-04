@@ -2502,7 +2502,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "23/09/2023"
   },
   "3F13-1": {
     "url": "3e/3F13-1.js",
@@ -3243,7 +3244,8 @@
       "interactifType": "custom",
       "amc": false
     },
-    "datePublication": "12/08/2022"
+    "datePublication": "12/08/2022",
+    "dateModification": "01/10/2023"
   },
   "3L12": {
     "url": "3e/3L12.js",
@@ -6152,7 +6154,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "24/09/2023"
   },
   "6C10-2": {
     "url": "6e/6C10-2.js",
@@ -6724,7 +6727,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMult",
       "amc": true
-    }
+    },
+    "dateModification": "24/09/2023"
   },
   "6G10-2": {
     "url": "6e/6G10-2.js",
@@ -6781,7 +6785,8 @@
       "interactifType": "listeDeroulante",
       "amc": false
     },
-    "datePublication": "05/10/2022"
+    "datePublication": "05/10/2022",
+    "dateModification": "4/10/2023"
   },
   "6G11": {
     "url": "6e/6G11.js",

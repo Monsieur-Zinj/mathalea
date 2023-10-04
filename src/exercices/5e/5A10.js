@@ -12,7 +12,7 @@ export const dateDeModifImportante = '28/10/2021'
 export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModificationImportante = '03/10/2023'
+export const dateDeModifImportante = '03/10/2023'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'

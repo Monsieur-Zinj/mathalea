@@ -5,7 +5,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeModificationImportante = '24/09/2023'
+export const dateDeModifImportante = '24/09/2023'
 /**
  * Tables de multiplication classiques, à trou ou un mélange des deux.
  *
