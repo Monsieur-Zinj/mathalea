@@ -12,7 +12,7 @@ export const amcType = 'AMCOpen'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Poser divisions euclidiennes'
+export const titre = 'Effectuer des divisions euclidiennes'
 
 /**
  * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.
@@ -98,7 +98,7 @@ export default function DivisionsEuclidiennes () {
       }
       r = randint(0, b - 1) // reste inférieur au diviseur
       a = b * q + r
-      texte = `$${texNombre(a)}\\div${b}$`
+      texte = `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
       if (r === 0) {
         texteCorr = Operation({
           operande1: a,
