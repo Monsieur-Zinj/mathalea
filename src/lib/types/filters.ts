@@ -4,7 +4,8 @@ import {
   isExerciceItemInReferentiel,
   type ResourceAndItsPath,
   type Level,
-  isResourceHasPlace
+  isResourceHasPlace,
+  isLevelType
 } from './referentiels'
 
 /**
@@ -93,7 +94,9 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
     this.criteriaList = [...criteriaList]
   }
 
-  addCriterion (criterion: Criterion<T> | Criterion<T>[]): AtLeastOneOfCriteria<T> {
+  addCriterion (
+    criterion: Criterion<T> | Criterion<T>[]
+  ): AtLeastOneOfCriteria<T> {
     if (Array.isArray(criterion)) {
       for (const item of criterion) {
         this.criteriaList.push(item)
@@ -254,19 +257,27 @@ export function tagCriterion (
  * @returns { Criterion<ResourceAndItsPath>} un critère pour filtration
  */
 export function subjectCriterion (
-  subject: string
+  subject: string,
+  isCanIncluded: boolean = false
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
       return items.filter((item) => {
+        if (item.pathToResource.includes('CAN') && !isCanIncluded) {
+          return false
+        }
         let placeMatch = false
         if (isResourceHasPlace(item.resource)) {
           // si le sujet est un lieu et que la ressource a `lieu` dans ses propriété, on compare
-          placeMatch = item.resource.lieu.toLowerCase().includes(subject.toLowerCase())
+          placeMatch = item.resource.lieu
+            .toLowerCase()
+            .includes(subject.toLowerCase())
         }
         if (isExerciceItemInReferentiel(item.resource)) {
           // la ressource est un exercice : elle a donc un titre
-          if (item.resource.titre.toLowerCase().includes(subject.toLowerCase())) {
+          if (
+            item.resource.titre.toLowerCase().includes(subject.toLowerCase())
+          ) {
             return true
           } else {
             return false || placeMatch
@@ -278,4 +289,122 @@ export function subjectCriterion (
     }
   }
   return criterion
+}
+
+/**
+ * Construit un critère de filtration basé sur une chaine de caractère.
+ * On distingue les niveaux et les sujets.
+ * @param input chaîne de caractère recherchée
+ * @param isCanIncluded flag pour savoir si la recherche doit inclure les exercices CAN ou pas
+ * @returns un critère unique si un seul mot est recherché ou un critère multiple basé sur le OU
+ */
+export function stringToCriteria (
+  input: string,
+  isCanIncluded: boolean = false
+): Criterion<ResourceAndItsPath> {
+  // on construit le tableau des mots recherchés en retirant les espaces superflu
+  const re = /\s+/ // un ou plusieurs espaces
+  // on enlève les espace aux bornes et on partage la chaîne sur un ou plusieurs espace entre les mots (ainsi pas de chaine vide dans le tableau)
+  const words = input.trim().split(re)
+  if (words.length === 0 || (words.length === 1 && words[0].length === 0)) {
+    // la chaîne explorée ne doit pas être vide
+    throw new Error('Search input should not be empty when building Criteria')
+  } else {
+    if (words.length === 1) {
+      // un seul mot dans le champ de recherche
+      if (isLevelType(words[0])) {
+        return levelCriterion(words[0], isCanIncluded)
+      } else {
+        return subjectCriterion(words[0], isCanIncluded)
+      }
+    } else {
+      // plusieurs mots dans le champs de recherche : on construit un critère multiple
+      // basé sur le OU entre tous les critères (niveau + sujets)
+      const levelsCriteria: Criterion<ResourceAndItsPath>[] = []
+      const subjectsCriteria: Criterion<ResourceAndItsPath>[] = []
+      const subjectsAsString: string[] = [] // pour garder trace des sujets comme mots
+      for (const word of words) {
+        // on sépare les mots suivants qu'ils représentent un niveau ou pas (par exemple '4e' est un niveau)
+        // et on crée des critères en conséquences
+        if (isLevelType(word)) {
+          levelsCriteria.push(levelCriterion(word, isCanIncluded))
+        } else {
+          subjectsAsString.push(word)
+          subjectsCriteria.push(subjectCriterion(word.replace('+', ''), isCanIncluded))
+        }
+      }
+      // on a que des critères de niveaux (deux ou plus ici), on en renvoie l'union
+      if (subjectsCriteria.length === 0) {
+        if (levelsCriteria.length === 1) {
+          return levelsCriteria[0]
+        } else {
+          return new AtLeastOneOfCriteria([
+            levelsCriteria[0],
+            levelsCriteria[1],
+            ...levelsCriteria.slice(2)
+          ])
+        }
+      }
+      // on a au moins un critères de sujet donc on traite tous les critères de sujets
+      const parsedSubjectsCriteria: Criterion<ResourceAndItsPath> =
+        parseSubjectsCriteria(subjectsAsString, subjectsCriteria)
+      // on a que des critères de sujets (deux ou plus ici), on renvoie leur traitement
+      if (levelsCriteria.length === 0) {
+        return parsedSubjectsCriteria
+      }
+      // dans ce qui suit, on a soit au moins un niveau ET un sujet et peut-être autre chose
+      // pour chaque niveaux, on construit le critère de recherche niveau ET sujets traités
+      const levelsAndSubjectsCriteria: Criterion<ResourceAndItsPath>[] = []
+      for (const criterion of levelsCriteria) {
+        levelsAndSubjectsCriteria.push(
+          new MultiCriteria<ResourceAndItsPath>()
+            .addCriterion(criterion)
+            .addCriterion(parsedSubjectsCriteria)
+        )
+      }
+      // on construit et renvoie l'union de tous les critères niveau+sujets
+      if (levelsAndSubjectsCriteria.length === 1) {
+        return levelsAndSubjectsCriteria[0]
+      } else {
+        return levelsAndSubjectsCriteria.slice(1).reduce((prev, current) => {
+          return new OrCriteria(prev, current)
+        }, levelsAndSubjectsCriteria[0])
+      }
+    }
+  }
+}
+
+/**
+ * Construit un critère correspondant à un tableau de critères de sujet.
+ * @remark Si le sujet est précédé d'un `+`, on fait une intersection des critères, sinon, on fait une union
+ * @param subjects sujets comme mot
+ * @param subjectsCriteria sujets comme critère
+ * @returns un critère unique
+ */
+function parseSubjectsCriteria (
+  subjects: string[],
+  subjectsCriteria: Criterion<ResourceAndItsPath>[]
+): Criterion<ResourceAndItsPath> {
+  let parsedSubjects: Criterion<ResourceAndItsPath>
+  if (subjectsCriteria.length === 0) {
+    throw new Error('No criterion passed')
+  }
+  if (subjectsCriteria.length !== subjects.length) {
+    throw new Error('Number of criterions and number of subjects are different')
+  }
+  if (subjectsCriteria.length === 1) {
+    parsedSubjects = subjectsCriteria[0]
+  } else {
+    // on a plus d'un sujet, on fait l'union
+    parsedSubjects = subjectsCriteria.slice(1).reduce((prev, current, i) => {
+      if (subjects[i + 1].slice(0, 1) === '+') {
+        return new MultiCriteria<ResourceAndItsPath>()
+          .addCriterion(prev)
+          .addCriterion(current)
+      } else {
+        return new OrCriteria(prev, current)
+      }
+    }, subjectsCriteria[0])
+  }
+  return parsedSubjects
 }

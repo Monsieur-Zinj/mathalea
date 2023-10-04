@@ -178,3 +178,5 @@ export const isJSONReferentielEnding = (
 
 export const isResourceHasPlace = (obj: any): obj is ExamItemInReferentiel | ExamWithoutTexItemInReferentiel =>
   obj.lieu !== undefined
+
+export const isLevelType = (obj: any): obj is Level => Object.keys(codeList).includes(obj)
