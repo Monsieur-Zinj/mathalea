@@ -12,7 +12,9 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Appartient ou n\'appartient pas ?'
-export const dateDePublication = '05/10/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '05/10/2022'
+export const dateDeModificationImportante = '4/10/2023'
+// Ajout de l'interactivité et suppression de (AB] par Rémi Angot
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 /**
