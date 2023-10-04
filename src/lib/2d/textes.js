@@ -582,9 +582,10 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
     } else {
       divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\color{' + this.color[0] + '}' + taille + ' ' + this.texte)}</div>`
     }
-    const thisX = this.x
+    /* const thisX = this.x
     const thisY = this.y
-    return { divLatex, thisX, thisY }
+    return { divLatex, thisX, thisY } */
+    return { divLatex, x, y }
   }
 
   this.tikz = function () {
