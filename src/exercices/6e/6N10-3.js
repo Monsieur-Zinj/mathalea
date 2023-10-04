@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements.js'
 import { nombreDeChiffresDansLaPartieEntiere, rangeMinMax } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
@@ -8,6 +8,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { pow } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { sp } from '../../lib/outils/outilString.js'
 
 export const dateDeModifImportante = '02/10/2022'
 export const titre = 'Décomposer un nombre entier (nombre de ..., chiffres des ...)'
@@ -92,8 +93,6 @@ export default function ChiffreNombreDe () {
 
   this.nbQuestions = 6
 
-  this.consigne = ''
-
   this.nbCols = 1
   this.nbColsCorr = 1
   context.isHtml ? this.spacing = 3 : this.spacing = 2
@@ -102,8 +101,7 @@ export default function ChiffreNombreDe () {
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-
+    this.consigne = (this.interactif && this.sup > 1) ? texteGras('Penser à mettre les espaces nécessaires.') : ''
     switch (this.sup) {
       case 1:
         typesDeQuestionsDisponibles = combinaisonListes(rangeMinMax(0, this.sup2 - 1), this.nbQuestions)
@@ -285,7 +283,9 @@ export default function ChiffreNombreDe () {
 
       texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
       texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
-      setReponse(this, i, reponses[listeTypeDeQuestions[i]])
+      // setReponse(this, i, reponses[listeTypeDeQuestions[i]])
+      setReponse(this, i, texNombre(reponses[listeTypeDeQuestions[i]]), { formatInteractif: 'texte' })
+
       if (context.isAmc) {
         const nbDigitsSupplementaires = randint(1, 2)
         this.autoCorrection[i] = {
@@ -311,7 +311,7 @@ export default function ChiffreNombreDe () {
       }
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nb)) { // Si la question n'a jamais été posée, on en crée une autre
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 college6eme', { texte: `${sp(5)}` })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

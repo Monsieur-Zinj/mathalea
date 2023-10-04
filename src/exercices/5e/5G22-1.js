@@ -2,7 +2,14 @@ import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { cercle } from '../../lib/2d/cercle.js'
 import { afficheLongueurSegment, codageMilieu } from '../../lib/2d/codages.js'
 import { droite, mediatrice } from '../../lib/2d/droites.js'
-import { point, pointAdistance, pointIntersectionDD, pointIntersectionLC, tracePoint } from '../../lib/2d/points.js'
+import {
+  Point,
+  point,
+  pointAdistance,
+  pointIntersectionDD,
+  pointIntersectionLC,
+  tracePoint
+} from '../../lib/2d/points.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
@@ -59,16 +66,19 @@ export default function ProprietesMediatrice () {
       objetsEnonce = []
       objetsCorrection = []
       const nomDesPoints = shuffle(creerNomDePolygone(22, ['O', 'Q', 'W', 'X']))
-      A = point(0, 0, nomDesPoints[0], 'below')
-      B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), nomDesPoints[1])
-      mediatriceAB = mediatrice(A, B, '', 'red')
-      // Le point C est au dessus ou en dessous une fois sur deux
-      if (randint(0, 99) > 50) {
-        C = pointIntersectionLC(mediatriceAB, cercle(A, randint(30, 60) / 10), nomDesPoints[2], 1)
-      } else {
-        C = pointIntersectionLC(mediatriceAB, cercle(A, randint(30, 60) / 10), nomDesPoints[2], 2)
-      }
-      if (!listeSurLaMediatrice[i]) C = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, nomDesPoints[2], 'above') // s'il ne doit pas être sur la médiatrice, on l'en éloigne
+      do {
+        A = point(0, 0, nomDesPoints[0], 'below')
+        B = pointAdistance(A, randint(30, 60) / 10, randint(0, 45), nomDesPoints[1])
+        mediatriceAB = mediatrice(A, B, '', 'red')
+        // Le point C est au dessus ou en dessous une fois sur deux
+
+        if (randint(0, 99) > 50) {
+          C = pointIntersectionLC(mediatriceAB, cercle(A, randint(30, 60) / 10), nomDesPoints[2], 1)
+        } else {
+          C = pointIntersectionLC(mediatriceAB, cercle(A, randint(30, 60) / 10), nomDesPoints[2], 2)
+        }
+        if (!listeSurLaMediatrice[i]) C = point(C.x + randint(-5, 5, 0) / 10, C.y + randint(-5, 5, 0) / 10, nomDesPoints[2], 'above') // s'il ne doit pas être sur la médiatrice, on l'en éloigne
+      } while (C.constructor !== Point || A.constructor !== Point || B.constructor !== Point)
       segmentAB = segment(A, B)
       segmentAC = segment(A, C)
       segmentBC = segment(B, C)
