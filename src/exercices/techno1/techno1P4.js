@@ -98,7 +98,7 @@ export default function ProportiondeProportion () {
         tauxc = new Decimal(c).div(100)
         g = new Decimal(b * c).div(100)
         tauxG = new Decimal(b * c).div(10000)
-        this.question = `Dans un lycée,  $${b}\\,\\%$ des lycéens sont en classe de première et  $${texNombre(g, 2)}\\,\\%$ sont en filière technologique.<br>
+        this.question = `Dans un lycée,  $${b}\\,\\%$ des lycéens sont en classe de première et  $${texNombre(g, 2)}\\,\\%$ des lycéens sont en première technologique.<br>
               Quel est le pourcentage d'élèves en première technologique parmi les élèves de première ?<br>`
         this.correction = `La population de référence est celle des élèves du lycée.<br>
               La sous-population est celle des élèves de première et d'après l'énoncé, $p_1=${b}\\,\\%$.<br>
