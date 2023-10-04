@@ -71,7 +71,7 @@ export function exerciceListeDeroulante (exercice) {
     const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
     if (button) {
       if (!button.hasMathaleaListener) {
-        button.addEventListener('click', event => {
+        button.addEventListener('click', () => {
           let nbQuestionsValidees = 0
           let nbQuestionsNonValidees = 0
           const uiselects = document.querySelectorAll(`.ui.dropdown.ex${exercice.numeroExercice}`)

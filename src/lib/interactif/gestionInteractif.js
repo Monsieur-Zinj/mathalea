@@ -64,7 +64,7 @@ function verifExerciceListeDeroulante (exercice /** Exercice */, divScore /** HT
   uiselects.forEach(function (uiselect) {
     uiselect.classList.add('disabled')
   })
-  for (let i = 0; i < exercice.nbQuestions; i++) {
+  for (let i = 0; i < exercice.autoCorrection.length; i++) {
     const resultat = verifQuestionListeDeroulante(exercice, i)
     resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
   }

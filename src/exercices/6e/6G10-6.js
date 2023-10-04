@@ -9,9 +9,12 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Appartient ou n\'appartient pas ?'
 export const dateDePublication = '05/10/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
+export const interactifReady = true
+export const interactifType = 'listeDeroulante'
 /**
  * Fonction générale pour la notion d'appartenance
  * @author Mickael Guironnet
@@ -127,14 +130,25 @@ export default class constructionElementaire extends Exercice {
             lettre = ['[', ')']
             if (ind <= 5 && ind >= ind1) { sol = '\\in' } else { sol = '\\notin' }
             break
-          case 3 : // demi-droite (]
-            lettre = ['(', ']']
-            if (ind <= 5 && ind <= ind2) { sol = '\\in' } else { sol = '\\notin' }
+          case 3 : // demi-droite [)
+            lettre = ['[', ')']
+            if (ind <= 5 && ind >= ind1) { sol = '\\in' } else { sol = '\\notin' }
             break
+          // case 3 : // demi-droite (]
+          //   lettre = ['(', ']']
+          //   if (ind <= 5 && ind <= ind2) { sol = '\\in' } else { sol = '\\notin' }
+          //   break
         }
-        colonne2 +=
-          numAlpha(questind) +
-          `$${points[ind].nom}${sp(3)}\\ldots\\ldots\\ldots${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<br>`
+        if (this.interactif) {
+          colonne2 +=
+            numAlpha(questind) +
+            `$${points[ind].nom}${sp(3)}$` + choixDeroulant(this, i * this.sup2 + k, undefined, ['∈', '∉'], '...') + `$${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<span id="resultatCheckEx${numeroExercice}Q${i * this.sup2 + k}"></span><br>`
+          setReponse(this, i * this.sup2 + k, sol === '\\notin' ? '∉' : '∈')
+        } else {
+          colonne2 +=
+            numAlpha(questind) +
+            `$${points[ind].nom}${sp(3)}\\ldots\\ldots\\ldots${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<br>`
+        }
         correction2 +=
           numAlpha(questind++) +
           `$${points[ind].nom} ${sol} ${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<br>`
