@@ -560,11 +560,11 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
   this.y = y
   this.largeur = largeur * Math.log10(2 * tailleCaracteres)
   this.hauteur = hauteur * Math.log10(tailleCaracteres)
-  this.colorBackground = colorToLatexOrHTML(colorBackground)
+  this.colorBackground = colorBackground
   this.color = colorToLatexOrHTML(color)
   this.texte = texte
   this.tailleCaracteres = tailleCaracteres
-  this.bordures = [x - (this.texte.length ?? 0) * 0.2, y - 0.02 * this.hauteur, x + (this.texte.length ?? 0) * 0.2, y + 0.02 * this.hauteur]
+  this.bordures = [this.x - (this.texte.length ?? 0) * 0.2, this.y - 0.02 * this.hauteur, this.x + (this.texte.length ?? 0) * 0.2, this.y + 0.02 * this.hauteur]
   let taille
   if (this.tailleCaracteres > 19) taille = '\\huge'
   else if (this.tailleCaracteres > 16) taille = '\\LARGE'
@@ -577,22 +577,23 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
   else taille = '\\normalsize'
   this.svg = function () {
     let divLatex
-    if (colorBackground !== '') {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\colorbox{' + this.colorBackground[0] + '}{ ' + taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
+    if (this.colorBackground !== '') {
+      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\colorbox{' + colorToLatexOrHTML(this.colorBackground)[0] + '}{ ' + taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
     } else {
       divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\color{' + this.color[0] + '}' + taille + ' ' + this.texte)}</div>`
     }
-    return { divLatex, x, y }
+    const thisX = this.x
+    const thisY = this.y
+    return { divLatex, thisX, thisY }
   }
 
   this.tikz = function () {
     let code
     if (this.colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox ${this.colorBackground[1]}{${taille}  \\color${this.color[1]}{$${texte}$}}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox ${colorToLatexOrHTML(this.colorBackground)[1]}{${taille}  \\color${this.color[1]}{$${this.texte}$}}};`
     } else {
-      code = `\\draw (${x},${y}) node[anchor = center] {${taille} \\color${this.color[1]}{$${texte}$}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {${taille} \\color${this.color[1]}{$${this.texte}$}};`
     }
-
     return code
   }
 }
