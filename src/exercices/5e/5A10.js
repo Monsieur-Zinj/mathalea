@@ -8,7 +8,6 @@ import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
-export const dateDeModifImportante = '28/10/2021'
 export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
