@@ -772,6 +772,7 @@
   "fc42d": "6e/beta_liste.js",
   "challengeRelatif": "apps/challengeRelatif.ts",
   "challengeTables": "apps/challengeTables.ts",
+  "parcoursTables": "apps/parcoursTables.ts",
   "permisEquerre": "apps/permisEquerre.ts",
   "permisLitteral": "apps/permisLitteral.ts",
   "be398": "beta/beta3F13-2.js",
