@@ -7,6 +7,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../lib/outils/ecritures.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { texteCentre } from '../../lib/format/miseEnPage.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'
@@ -16,11 +17,15 @@ import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrre
 import {
   listeQuestionsToContenu, randint
 } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Calculer des coordonnées de points appartenant à une coube connaissant l\'abscisse ou l\'ordonnée'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const dateDePublication = '24/09/2022'
+export const dateDeModifImportante = '04/10/2023'
 /**
 * Répondre à des questions sur les fonctions.
-* 24/ 09/2022
+* 24/ 09/2022 Interactif 04/10/2023
 * @author Gilles Mora
 * 3F10-1
 */
@@ -32,8 +37,6 @@ export default function CalculPointSurCourbe () {
   this.sup = 1
   this.sup2 = 1
   this.consigne = ''
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
   this.spacing = 1
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
@@ -95,15 +98,18 @@ export default function CalculPointSurCourbe () {
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$${nom}(x)=${reduireAxPlusB(a, b)}$`)}
               On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-             $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. Quelle est son ordonnée ?`
+             $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. <br>Quelle est son ordonnée ?`
                 correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>
               $${nom}(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(b)}=${ord}$.<br>
               L'ordonnée du point $${point}$ est $${ord}$.`
+
+                setReponse(this, i, ord)
               } else {
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$${nom}(x)=${reduireAxPlusB(a, b)}$`)}
               On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-             $${point}$ est le point de $\\mathscr{C}$ d'ordonnée $${ord}$. Quelle est son abscisse ?`
+             $${point}$ est le point de $\\mathscr{C}$ d'ordonnée $${ord}$.<br>
+              Quelle est son abscisse ?`
                 correction = `$${nom}$ est une fonction affine (non constante), donc il existe un unique point dont l'ordonnée est $${ord}$.<br>
                 Puisque le point $${point}$ appartient à $\\mathscr{C}$, son abscisse est l'antécédent de son ordonnée.<br>
               On cherche donc $x$ tel que $${nom}(x)=${ord}$, c'est-à-dire $${reduireAxPlusB(a, b)}=${ord}$.<br>`
@@ -127,6 +133,7 @@ export default function CalculPointSurCourbe () {
                                                                       \\end{aligned}$<br>`
                 }
                 correction += `L'abscisse du point $${point}$ est $${abs}$.`
+                setReponse(this, i, abs)
               }
 
               break
@@ -145,7 +152,8 @@ export default function CalculPointSurCourbe () {
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$${nom}(x)=${reduireAxPlusB(a, b)}$`)}
               On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-              $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${f.texFraction}$. Quelle est son ordonnée ?
+              $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${f.texFraction}$.<br>
+               Quelle est son ordonnée ?
               `
                 correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>
                 $${nom}\\left(${f.texFraction}\\right)=$`
@@ -162,11 +170,13 @@ export default function CalculPointSurCourbe () {
                ${f1.texFraction}${simplificationDeFractionAvecEtapes(a * f.n + b * f.d, f.d)}$.<br>
                L'ordonnée du point $${point}$ est $${f1.texFractionSimplifiee}$.`
                 }
+                setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
               } else {
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
                ${texteCentre(`$${nom}(x)=${reduireAxPlusB(a, b)}$`)}
                On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-               $${point}$ est le point de $\\mathscr{C}$ d'ordonnée $${f.texFraction}$. Quelle est son abscisse ?
+               $${point}$ est le point de $\\mathscr{C}$ d'ordonnée $${f.texFraction}$. <br>
+               Quelle est son abscisse ?
                `
 
                 correction = `$${nom}$ est une fonction affine (non constante), donc il existe un unique point dont l'ordonnée est $${f.texFraction}$.<br>
@@ -195,6 +205,7 @@ export default function CalculPointSurCourbe () {
                                                 \\end{aligned}$<br>`
                 }
                 correction += `L'abscisse du point $${point}$ est $${fractionC.texFractionSimplifiee}$.`
+                setReponse(this, i, fractionC, { formatInteractif: 'fractionEgale' })
               }
 
               break
@@ -215,7 +226,8 @@ export default function CalculPointSurCourbe () {
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$${nom}(x)=${reduirePolynomeDegre3(0, a, b, c)}$`)}
               On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-              $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. Quelle est son ordonnée ?`
+              $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. <br>
+              Quelle est son ordonnée ?`
 
                 correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br> `
                 if (a !== 1) {
@@ -227,6 +239,7 @@ export default function CalculPointSurCourbe () {
                 =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}=${ord}$.<br>
                 L'ordonnée du point $${point}$ est $${ord}$.`
                 }
+                setReponse(this, i, ord)
               } else {
                 a = randint(-10, 10, 0)
                 b = randint(-10, 10, 0)
@@ -240,6 +253,14 @@ export default function CalculPointSurCourbe () {
                 On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
                 Existe-t-il des points de $\\mathscr{C}$ d'ordonnée $${ord}$ ? <br>
                 Si oui, quelles sont les abscisses possibles de ces points ?`
+                if (this.interactif) {
+                  enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
+${texteCentre(`$${nom}(x)=${reduirePolynomeDegre3(0, a, 0, c)}$`)}
+On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
+Existe-t-il des points de $\\mathscr{C}$ d'ordonnée $${ord}$ ? <br>
+Si oui, quelles sont les abscisses possibles de ces points ?<br>
+Écrire les valeurs dans l'ordre croissant séparées par un point-virgule ou "Aucun" si il n'y en a pas.`
+                }
 
                 correction = ` Si un point de $\\mathscr{C}$ a pour ordonnée $${ord}$, son abscisse est un antécédent de $${ord}$.<br> `
 
@@ -248,20 +269,24 @@ export default function CalculPointSurCourbe () {
                 if (abs === 0) {
                   correction += ` Cette équation n'a qu'une seule solution : $0$.<br>
  On en déduit qu'il existe un unique point de $\\mathscr{C}$ ayant pour ordonnée $${ord}$ : son abscisse est $0$. `
+                  setReponse(this, i, 0)
                 }
                 if (abs < 0) {
                   correction += ` Cette équation n'a pas de solution.<br>
  On en déduit qu'il n'existe pas de point de $\\mathscr{C}$ ayant pour ordonnée $${ord}$. `
+                  setReponse(this, i, ['Aucun', 'aucun'], { formatInteractif: 'texte' })
                 }
                 if (abs > 0) {
                   if (abs === 1 || abs === 4 || abs === 9 || abs === 16) {
                     correction += ` Cette équation a deux solutions : $-\\sqrt{${abs}}=-${Math.sqrt(abs)}$ et $\\sqrt{${abs}}=${Math.sqrt(abs)}$.<br>
                 On en déduit qu'il existe deux points de $\\mathscr{C}$ ayant pour ordonnée $${ord}$.<br>
                 Les  abscisses de ces points sont : $-${Math.sqrt(abs)}$ et $${Math.sqrt(abs)}$. `
+                    setReponse(this, i, [`-${Math.sqrt(abs)};${Math.sqrt(abs)}`])
                   } else {
                     correction += ` Cette équation a deux solutions : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$.<br>
 On en déduit qu'il existe deux points de $\\mathscr{C}$ ayant pour ordonnée $${ord}$.<br>
 Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
+                    setReponse(this, i, [`-\\sqrt{${abs}};\\sqrt{${abs}}`])
                   }
                 }
               }
@@ -276,13 +301,14 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
               f1 = fraction(a * f.n ** 2 + b * f.n * f.d + c * f.d ** 2, f.d ** 2)// ordonnée de A
               nom = choice(nomF)
               point = choice(pointM)
-              fractionb = fraction(b * f.n, f.d)
-              fractionb2 = fraction(b * f.n * f.d, f.d ** 2)
-              fractionc = fraction(c * f.d ** 2, f.d ** 2)
+              fractionb = new FractionEtendue(b * f.n, f.d)
+              fractionb2 = new FractionEtendue(b * f.n * f.d, f.d ** 2)
+              fractionc = new FractionEtendue(c * f.d ** 2, f.d ** 2)
               enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :
               ${texteCentre(`$${nom}(x)=${reduirePolynomeDegre3(0, a, b, c)}$`)}
               On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-              $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${f.texFraction}$. Quelle est son ordonnée ?`
+              $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${f.texFraction}$. <br>
+              Quelle est son ordonnée ?`
               correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>`
               if (a !== 1) {
                 if (b === 0) {
@@ -290,30 +316,30 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
                     $${nom}\\left(${f.texFraction}\\right)=${a}\\times \\left(${f.texFraction}\\right)^2${ecritureAlgebrique(c)}
                 =\\dfrac{${a}\\times ${f.n ** 2}}{${f.d ** 2}}${ecritureAlgebrique(c)}
                 =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionc.ecritureAlgebrique}
-                ${f1.texSimplificationAvecEtapes()}$`
+               = ${f1.texFractionSimplifiee}$`
                 } else {
                   correction += `
                     $${nom}\\left(${f.texFraction}\\right)=${a}\\times \\left(${f.texFraction}\\right)^2${ecritureAlgebrique(b)}\\times${f.texFraction}${ecritureAlgebrique(c)}
                   =\\dfrac{${a}\\times ${f.n ** 2}}{${f.d ** 2}}${fractionb.ecritureAlgebrique}${ecritureAlgebrique(c)}
                   =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionb2.ecritureAlgebrique}${fractionc.ecritureAlgebrique}
-                  ${f1.texSimplificationAvecEtapes()}$`
+                  =${f1.texFractionSimplifiee}$`
                 }
               } else {
                 if (b === 0) {
                   correction += `$${nom}\\left(${f.texFraction}\\right)=\\left(${f.texFraction}\\right)^2${ecritureAlgebrique(c)}
                 =\\dfrac{${f.n ** 2}}{${f.d ** 2}}${ecritureAlgebrique(c)}
                 =\\dfrac{${f.n ** 2}}{${f.d ** 2}}${fractionc.ecritureAlgebrique}
-                ${f1.texSimplificationAvecEtapes()}$`
+                =${f1.texFractionSimplifiee}$`
                 } else {
                   correction += `$${nom}\\left(${f.texFraction}\\right)=\\left(${f.texFraction}\\right)^2${ecritureAlgebrique(b)}\\times${f.texFraction}${ecritureAlgebrique(c)}
                 =\\dfrac{ ${f.n ** 2}}{${f.d ** 2}}${fractionb.ecritureAlgebrique}${ecritureAlgebrique(c)}
                 =\\dfrac{${a * f.n ** 2}}{${f.d ** 2}}${fractionb2.ecritureAlgebrique}${fractionc.ecritureAlgebrique}
-                ${f1.texSimplificationAvecEtapes()}$
+                =${f1.texFractionSimplifiee}$
                 `
                 }
               }
               correction += `<br> L'ordonnée du point $${point}$ est $${f1.texFractionSimplifiee}$.`
-
+              setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
               break
           }
 
@@ -330,14 +356,15 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
                 nom = choice(nomF)
                 point = choice(pointM)
                 while (pgcd(a, abs) !== 1) { a = randint(-9, 9, 0) }
-                f1 = fraction(a + b * abs, abs)// ordonnée de A
-                fa = fraction(a, abs)
-                fb = fraction(b * abs, abs)
+                f1 = new FractionEtendue(a + b * abs, abs)// ordonnée de A
+                fa = new FractionEtendue(a, abs)
+                fb = new FractionEtendue(b * abs, abs)
 
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}^*$ par :
                 ${texteCentre(`$${nom}(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}
                 On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-                $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. Quelle est son ordonnée ?`
+                $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. <br>
+                Quelle est son ordonnée ?`
 
                 correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>
                                 $${nom}(${abs})=\\dfrac{${a}}{${abs}}${ecritureAlgebrique(b)}
@@ -345,13 +372,14 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
                 =${fa.texFractionSimplifiee}${fb.ecritureAlgebrique}=${f1.texFractionSimplifiee}$<br>
   
                 L'ordonnée du point $${point}$ est $${f1.texFractionSimplifiee}$.`
+                setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
               } else {
                 a = randint(-10, 10, 0)
                 b = randint(-9, 9, 0)
                 ord = randint(-9, 9, [0, 1, -1, b])
                 nom = choice(nomF)
                 point = choice(pointM)
-                f1 = fraction(a, ord - b)
+                f1 = new FractionEtendue(a, ord - b)
 
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}^*$ par :
                     ${texteCentre(`$${nom}(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}
@@ -372,6 +400,7 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
                       x&=${f1.texFraction}${f1.texSimplificationAvecEtapes()}\\\\
                                                 \\end{aligned}$<br>
                                                 Un seul point de $\\mathscr{C}$ a pour ordonnée  $${ord}$. Son abcsisse est $${f1.texFractionSimplifiee}$.`
+                setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
               }
 
               break
@@ -382,16 +411,17 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
                 b = randint(-9, 9, 0)
                 abs = choice(obtenirListeFractionsIrreductiblesFaciles())
 
-                f1 = fraction(a * abs.d + b * abs.n, abs.n)// ordonnée de A
-                fa = fraction(a * abs.d, abs.n)
-                fb = fraction(b * abs.n, abs.n)
+                f1 = new FractionEtendue(a * abs.d + b * abs.n, abs.n)// ordonnée de A
+                fa = new FractionEtendue(a * abs.d, abs.n)
+                fb = new FractionEtendue(b * abs.n, abs.n)
 
                 nom = choice(nomF)
                 point = choice(pointM)
                 enonce = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}^*$ par :
               ${texteCentre(`$${nom}(x)=\\dfrac{${a}}{x}${ecritureAlgebrique(b)}$`)}
              On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-                $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs.texFraction}$. Quelle est son ordonnée ?`
+                $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs.texFraction}$.<br>
+                Quelle est son ordonnée ?`
 
                 correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>
               $${nom}\\left(${abs.texFraction}\\right)
@@ -401,6 +431,7 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
               =${f1.texFractionSimplifiee}
               $<br>
               L'ordonnée du point $${point}$ est $${f1.texFractionSimplifiee}$.`
+                setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
               } else {
                 a = randint(-9, 9, 0)
                 b = randint(-9, 9, 0)
@@ -428,6 +459,7 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
                       x&=${f1.texFraction}${f1.texSimplificationAvecEtapes()}
                                                 \\end{aligned}$<br>
                                                 Un seul point de $\\mathscr{C}$ a pour ordonnée  $${ord.texFraction}$. Son abcsisse est $${f1.texFractionSimplifiee}$.`
+                setReponse(this, i, f1, { formatInteractif: 'fractionEgale' })
               }
 
               break
@@ -436,6 +468,7 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
       }
 
       texte = enonce
+      texte += ' ' + ajouteChampTexteMathLive(this, i)
       texteCorr = correction
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
