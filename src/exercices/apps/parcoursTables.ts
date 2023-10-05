@@ -5,7 +5,7 @@ export const titre = 'Parcours avec les tables de multiplication'
 
 class parcoursTables extends ExternalApp {
   constructor () {
-    super('https://coopmaths.fr/apps/parcours')
+    super('https://coopmaths.fr/apps/parcours/?mathalea')
   }
 }
 
