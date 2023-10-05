@@ -45,9 +45,9 @@ export default function LectureGraphiqueVecteurRepere () {
       A = point(xa, ya)
       B = point(xa + k1, ya + k2)
       xmin = Math.min(A.x, B.x, -1) - 1
-      ymin = Math.min(A.y, B.y, -1) - 2
+      ymin = Math.min(A.y, B.y, -1) - 1
       xmax = Math.max(A.x, B.x, 1) + 1
-      ymax = Math.max(A.y, B.y, 1) + 2
+      ymax = Math.max(A.y, B.y, 1) + 1
       AB = segment(A, B, 'blue', '->')
       AB.epaisseur = 2
       vAB = vecteur(A, B)
@@ -81,7 +81,7 @@ export default function LectureGraphiqueVecteurRepere () {
       texte = `Lire les coordonnées du vecteur $\\vec{u}$.<br>
       
       `
-      texte += mathalea2d({ xmin, xmax, ymin, ymax, style: 'display: inline', pixelsParCm: 30, scale: 0.75 },
+      texte += mathalea2d({ xmin, xmax, ymin, ymax, style: 'margin: auto', pixelsParCm: 30, scale: 0.75 },
         r1, o, AB, nomvAB
       )
       texte += `
