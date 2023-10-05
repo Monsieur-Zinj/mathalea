@@ -25,7 +25,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   Exercice.call(this)
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
-  this.sup3 = 2 // 1: on commence toujours par le nombre de la table, 2: on mélange
+  this.sup3 = true
   this.consigne = 'Calculer : '
   this.spacing = 2
 
@@ -35,7 +35,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     4,
     '1 : Classique\n2 : À trous\n3 : Quotient\n4: Mélange'
   ]
-  this.besoinFormulaire3Numerique = ['Le facteur de gauche est celui de la table', 2, '1 : Oui\n2 : Non']
+  this.besoinFormulaire3CaseACocher = ['Le facteur de gauche est celui de la table', true]
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -59,7 +59,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     for (let i = 0, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 100;) {
       a = couples[i][0]
       b = couples[i][1]
-      const ordre = (parseInt(this.sup3) === 1) ? [true] : [true, false]
+      const ordre = this.sup3 ? [true] : [true, false]
       const choix = choice(ordre)
       if (this.sup2 === 1) {
         typesDeQuestions = 'classique'
@@ -84,31 +84,31 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         setReponse(this, i, a * b)
       } else if (typesDeQuestions === 'a_trous') {
         // a trous
-        if (tables.length > 2) {
+        // if (tables.length > 2) {
         // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
 
-          if (choix) {
-            texte = '$' + a.toString() + '\\times '
-            texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore', { texteApres: ` $=${(a * b).toString()}$` }) : ` \\ldots\\ldots =${(a * b).toString()}$`
-            setReponse(this, i, b)
-          } else {
-            texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore', { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
-            setReponse(this, i, a)
-          }
+        if (choix) {
+          texte = '$' + a.toString() + '\\times '
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore', { texteApres: ` $=${(a * b).toString()}$` }) : ` \\ldots\\ldots =${(a * b).toString()}$`
+          setReponse(this, i, b)
         } else {
+          texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore', { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
+          setReponse(this, i, a)
+        }
+        /*   } else {
         // Sinon on demande forcément le 2e facteur
           texte = `$${a.toString()} \\times `
           texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore', { texteApres: ` =${(a * b).toString()}` }) + '$' : `\\ldots\\ldots = ${(a * b).toString()}$`
           setReponse(this, i, b)
-        }
+        } */
         texteCorr = choix
           ? `$${a.toString()} \\times ${miseEnEvidence(b.toString())} =${(a * b).toString()}$`
           : `$${miseEnEvidence(a.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
       } else { // typeDeQuestion === 'quotient'
-        texte = `$${texNombre(a * b, 0)} \\div ${texNombre(b, 0)} = `
+        texte = `$${texNombre(a * b, 0)} \\div ${texNombre(a, 0)} = `
         texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore') : '\\ldots\\ldots$'
-        texteCorr = `$ ${texNombre(a * b, 0)}\\div ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(a, 0))}$`
-        setReponse(this, i, a)
+        texteCorr = `$ ${texNombre(a * b, 0)}\\div ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(b, 0))}$`
+        setReponse(this, i, b)
       }
       if (context.isAmc) {
         this.autoCorrection[i].reponse.param = {
