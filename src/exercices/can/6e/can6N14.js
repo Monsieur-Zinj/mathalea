@@ -140,9 +140,11 @@ export default function DeterminerLeNombre () {
         this.listeCorrections.push(texteCorr)
         i++
       }
+      this.canReponseACompleter = monQcm.texte
+      this.listeCanEnonces.push(this.canEnonce)
+      this.listeCanReponsesACompleter.push(this.canReponseACompleter)
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.canReponseACompleter = monQcm.texte
   }
 }
