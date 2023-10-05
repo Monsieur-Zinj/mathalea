@@ -9,6 +9,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { texteGras } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Lire l\'abscisse entière d\'un point (grands nombres)'
 export const interactifReady = true
@@ -38,17 +39,18 @@ export default function LireAbscisseEntiere2d () {
 
   this.nouvelleVersion = function () {
     // numeroExercice est 0 pour l'exercice 1
+    if (this.interactif) this.consigne += texteGras(' Penser à mettre les espaces nécessaires.')
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (parseInt(this.sup) === 4) {
+    if (this.sup === 4) {
       typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {
       typesDeQuestions = combinaisonListes(
-        [parseInt(this.sup)],
+        [this.sup],
         this.nbQuestions
       )
     }
@@ -119,12 +121,12 @@ export default function LireAbscisseEntiere2d () {
       texteCorr = mathalea2d({ xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
 
       if (this.interactif && context.isHtml) {
-        setReponse(this, 3 * i, reponse1)
-        setReponse(this, 3 * i + 1, reponse2)
-        setReponse(this, 3 * i + 2, reponse3)
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur75', { texte: l1 })
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur75', { texte: l2 })
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur75', { texte: l3 })
+        setReponse(this, 3 * i, texNombre(reponse1, 0), { formatInteractif: 'texte' })
+        setReponse(this, 3 * i + 1, texNombre(reponse2, 0), { formatInteractif: 'texte' })
+        setReponse(this, 3 * i + 2, texNombre(reponse3, 0), { formatInteractif: 'texte' })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur50 college6eme', { texte: l1 })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur50 college6eme', { texte: l2 })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur50 college6eme', { texte: l3 })
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -185,7 +187,7 @@ export default function LireAbscisseEntiere2d () {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
