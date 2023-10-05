@@ -786,7 +786,7 @@ class FractionEtendue extends Fraction {
    * @param {boolean|string} factorisation
    * @return {string}
  */
-  texSimplificationAvecEtapes (factorisation = false) {
+  texSimplificationAvecEtapes (factorisation = false, couleurFinale = '') {
     if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
     else if (this.estIrreductible && this.num * this.den < 0) { // irréductible mais négatifs
       return `=${this.texFSD}`
@@ -852,7 +852,9 @@ class FractionEtendue extends Fraction {
         denominateur = denominateur.substring(0, denominateur.length - 6)
 
         result += `${signe}\\dfrac{${numerateur}}{${denominateur}}`
-        result += `=${signe}${new FractionEtendue(a, b).simplifie().texFraction}`
+        result += couleurFinale !== ''
+          ? `=${miseEnEvidence(`${signe}${new FractionEtendue(a, b).simplifie().texFraction}`, couleurFinale)}`
+          : `=${signe}${new FractionEtendue(a, b).simplifie().texFraction}`
         return result
       } else {
         const signe = this.sign === -1 ? '-' : ''
@@ -860,13 +862,18 @@ class FractionEtendue extends Fraction {
         const den = Math.abs(this.den)
         const pgcd = gcd(num, den)
         if (pgcd !== 1) {
-          let redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
-          if (Math.abs(den / pgcd) !== 1) redaction += `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
-          else redaction += `${signe}${Math.abs(num / pgcd)}`
-          return redaction
+          const redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
+          let redactionFinale
+          if (Math.abs(den / pgcd) !== 1) redactionFinale = `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+          else redactionFinale = `${signe}${Math.abs(num / pgcd)}`
+          if (couleurFinale !== '') redactionFinale = miseEnEvidence(redactionFinale, couleurFinale)
+          return (redaction + redactionFinale)
         } else {
-          if (!egal(Math.abs(den / pgcd), 1)) return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
-          else return `=${signe}${Math.abs(num / pgcd)}`
+          let redactionFinale
+          if (!egal(Math.abs(den / pgcd), 1)) redactionFinale = `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+          else redactionFinale = `=${signe}${Math.abs(num / pgcd)}`
+          if (couleurFinale !== '') redactionFinale = miseEnEvidence(redactionFinale, couleurFinale)
+          return redactionFinale
         }
       }
     }
