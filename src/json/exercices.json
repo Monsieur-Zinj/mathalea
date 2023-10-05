@@ -539,10 +539,12 @@
     "id": "2F20-2",
     "titre": "Calculer des coordonnées de points appartenant à une coube connaissant l'abscisse ou l'ordonnée",
     "tags": {
-      "interactif": false,
+      "interactif": true,
+      "interactifType": "mathLive",
       "amc": false
     },
-    "datePublication": "24/09/2022"
+    "datePublication": "24/09/2022",
+    "dateModification": "04/10/2023"
   },
   "2F21-1": {
     "url": "2e/2F21-1.js",
@@ -6155,7 +6157,7 @@
       "amcType": "AMCNum",
       "amc": true
     },
-    "dateModification": "24/09/2023"
+    "dateModification": "04/10/2023"
   },
   "6C10-2": {
     "url": "6e/6C10-2.js",
@@ -11393,6 +11395,18 @@
     },
     "datePublication": "02/11/2022"
   },
+  "can3F11": {
+    "url": "can/3e/can3F11.js",
+    "uuid": "d85c2",
+    "id": "can3F11",
+    "titre": "Utiliser le vocabulaire image/antécédent",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "02/10/2023"
+  },
   "can3G01": {
     "url": "can/3e/can3G01.js",
     "uuid": "dcc68",
@@ -11885,6 +11899,18 @@
       "amc": true
     },
     "datePublication": "09/09/2023"
+  },
+  "can4C19": {
+    "url": "can/4e/can4C19.js",
+    "uuid": "1ae99",
+    "id": "can4C19",
+    "titre": "Mutiplier des entiers relatifs",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "04/10/2023"
   },
   "can4G01": {
     "url": "can/4e/can4G01.js",
@@ -12490,6 +12516,30 @@
       "amc": true
     },
     "datePublication": "30/03/2023"
+  },
+  "can5C25": {
+    "url": "can/5e/can5C25.js",
+    "uuid": "a7061",
+    "id": "can5C25",
+    "titre": "Additionner des entiers relatifs (avec parenthèses)",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "04/10/2023"
+  },
+  "can5C26": {
+    "url": "can/5e/can5C26.js",
+    "uuid": "8a835",
+    "id": "can5C26",
+    "titre": "Additionner des entiers relatifs (écriture simplifiée)",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "04/10/2023"
   },
   "can5D01": {
     "url": "can/5e/can5D01.js",
