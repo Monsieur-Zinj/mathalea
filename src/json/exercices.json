@@ -1452,7 +1452,7 @@
     "url": "2e/2N32-3.js",
     "uuid": "d9495",
     "id": "2N32-3",
-    "titre": "Écrire le nombre proposé sous la forme $ a\\sqrt{b}$",
+    "titre": "Écrire le nombre proposé sous la forme $\\;a\\sqrt{b}$",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",

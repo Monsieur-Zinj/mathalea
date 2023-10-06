@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
-export const titre = 'Écrire le nombre proposé sous la forme $ a\\sqrt{b}$'
+export const titre = 'Écrire le nombre proposé sous la forme $\\;a\\sqrt{b}$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '26/04/2023' // Ajout de l'interactivité par Rémi Angot
@@ -56,5 +56,5 @@ export default function ExtraireUnCarreParfaitDUneRacineCarree () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnat la racine carrée unité\n2 : Sans indication']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnant la racine carrée unité\n2 : Sans indication']
 }
