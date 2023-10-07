@@ -304,9 +304,12 @@ export function stringToCriteria (
   isCanIncluded: boolean = false
 ): Criterion<ResourceAndItsPath> {
   // on construit le tableau des mots recherchés en retirant les espaces superflus
-  const re = /\s+/ // un ou plusieurs espaces
+  // mais en préservant les chaînes entre guillemets ou apostrophes
+  // pour l'idée, voir : https://stackoverflow.com/a/16261693/6625987
+  const re = /(?:[^\s"']+|['"][^'"]*["'])+/g
   // on enlève les espace aux bornes et on partage la chaîne sur un ou plusieurs espace entre les mots (ainsi pas de chaine vide dans le tableau)
-  const words = input.trim().split(re)
+  const regExpResult = input.trim().match(re)
+  const words = regExpResult === null ? [] : [...regExpResult]
   if (words.length === 0 || (words.length === 1 && words[0].length === 0)) {
     // la chaîne explorée ne doit pas être vide
     throw new Error('Search input should not be empty when building Criteria')
@@ -315,12 +318,27 @@ export function stringToCriteria (
     if (words.map((word) => word.toUpperCase()).includes('CAN')) {
       isCanIncluded = true
     }
+    // on nettoie les doubles quotes si présentes dans une chaîne
+    // (une chaîne peut être : "labyrinthe de multiples", "l'heure")
+    words.forEach((word, index, theArray) => {
+      let w = word
+      if (/^['||"]/.test(word)) { // la chaîne contient un guillemet ou apostrophe au début
+        w = w.slice(1) // on retire le premier caractère
+      }
+      if (/['||"]$/.test(word)) { // la chaîne contient un guillemet ou apostrophe à la fin
+        w = w.slice(0, -1) // on retire le dernier caractère
+      }
+      theArray[index] = w
+    })
     if (words.length === 1) {
       // un seul mot dans le champ de recherche
       if (isLevelType(words[0])) {
         return levelCriterion(words[0], isCanIncluded)
       } else {
-        return new OrCriteria(subjectCriterion(words[0], isCanIncluded), tagCriterion(words[0]))
+        return new OrCriteria(
+          subjectCriterion(words[0], isCanIncluded),
+          tagCriterion(words[0])
+        )
       }
     } else {
       // plusieurs mots dans le champs de recherche : on construit un critère multiple
@@ -336,7 +354,9 @@ export function stringToCriteria (
           levelsCriteria.push(levelCriterion(word, isCanIncluded))
         } else {
           subjectsAsString.push(word)
-          subjectsCriteria.push(subjectCriterion(word.replace('+', ''), isCanIncluded))
+          subjectsCriteria.push(
+            subjectCriterion(word.replace('+', ''), isCanIncluded)
+          )
           tagsCriteria.push(tagCriterion(word.replace('+', '')))
         }
       }
@@ -356,7 +376,7 @@ export function stringToCriteria (
       const parsedSubjectsCriteria: Criterion<ResourceAndItsPath> =
         parseStringCriteria(subjectsAsString, subjectsCriteria)
       const parsedTagsCriteria: Criterion<ResourceAndItsPath> =
-          parseStringCriteria(subjectsAsString, tagsCriteria)
+        parseStringCriteria(subjectsAsString, tagsCriteria)
       // on a que des critères de sujets/tags (deux ou plus ici), on renvoie leur traitement
       if (levelsCriteria.length === 0) {
         return new OrCriteria(parsedSubjectsCriteria, parsedTagsCriteria)
@@ -368,7 +388,9 @@ export function stringToCriteria (
         levelsAndSubjectsCriteria.push(
           new MultiCriteria<ResourceAndItsPath>()
             .addCriterion(criterion)
-            .addCriterion(new OrCriteria(parsedSubjectsCriteria, parsedTagsCriteria))
+            .addCriterion(
+              new OrCriteria(parsedSubjectsCriteria, parsedTagsCriteria)
+            )
         )
       }
       // on construit et renvoie l'union de tous les critères niveau+sujets/tags

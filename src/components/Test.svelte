@@ -47,10 +47,19 @@
   // console.log(buildReferentiel(sToC.meetCriterion(all)))
   console.log('test updateReferentiel')
   console.log(updateReferentiel(baseReferentiel, false, false, ['6e', '5e']))
-  const s2 = '3e static pythagore thalès'
+  const s2 = '3e static   pythagore   thalès'
   const s2ToC = stringToCriteria(s2)
   console.log('avec les tags : ' + s2)
   console.log(buildReferentiel(s2ToC.meetCriterion(all)))
+  const s3 = "'labyrinthe de multiples' 'nombres décimaux'"
+  const s3ToC = stringToCriteria(s3)
+  console.log('avec les tags : ' + s3)
+  console.log(buildReferentiel(s3ToC.meetCriterion(all)))
+  const s4 = 'CAN 6e "informations inutiles" "l\'heure"'
+  const s4ToC = stringToCriteria(s4)
+  console.log('avec les tags : ' + s4)
+  console.log(buildReferentiel(s4ToC.meetCriterion(all)))
+
 </script>
 
 <h1>Tests</h1>
