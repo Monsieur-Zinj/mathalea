@@ -11,7 +11,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '05/10/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '07/10/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
@@ -32,9 +32,9 @@ export default function TableauSignesSecondDegre () {
     this.listeCorrections = []
     let texte, texteCorr, a, b, c, tableau1, tableau2, tableau3
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      a = randint(1, 6) * choice([-1, 1])// coefficient a
+      a = randint(1, 9) * choice([-1, 1])// coefficient a
       b = randint(1, 6) * choice([-1, 1])// racine1
-      c = randint(1, 6, [b, -b]) * choice([-1, 1])// racine2
+      c = randint(1, 9, [b, -b]) * choice([-1, 1])// racine2
       const fonction1 = x => a * (x - b) * (x - c)
       const fonction2 = x => a * (x + b) * (x + c)
       const fonction3 = x => -a * (x - b) * (x - c)
@@ -97,7 +97,7 @@ export default function TableauSignesSecondDegre () {
         texte += propositionsQcm(this, i).texte
       } else {
         texte = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par :
-        $f(x)=${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)}) $ ? `
+        $f(x)=${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)}) $.`
       }
 
       texteCorr = `La fonction $f$ est une fonction polynôme du scond degré. <br>
@@ -106,7 +106,7 @@ export default function TableauSignesSecondDegre () {
       Ici ${a > 0 ? `$a=${a}>0$` : `$a=${a}<0$`} , donc le tableau de signes de $f$ sur $\\mathbb{R}$  est :  <br>
       ` + tableau1
 
-      if (this.questionJamaisPosee(i, a, b)) {
+      if (this.questionJamaisPosee(i, a, b, c)) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
