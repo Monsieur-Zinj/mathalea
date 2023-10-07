@@ -10,6 +10,12 @@ import {
 import codeList from '../../json/codeToLevelList.json'
 import referentielsActivation from '../../json/referentielsActivation.json'
 import { toMap } from './toMap'
+import {
+  levelCriterion,
+  type Criterion,
+  featuresCriteria,
+  AtLeastOneOfCriteria
+} from '../../lib/types/filters'
 // import referentielAlea from '../../json/referentiel2022.json'
 // import referentielStatic from '../../json/referentielStatic.json'
 // const baseReferentiel: JSONReferentielObject = {
@@ -193,7 +199,6 @@ function mergeReferentielObjects (
     Object.keys(obj).forEach((key) => {
       const pVal = prev[key]
       const oVal = obj[key]
-
       if (Array.isArray(pVal) && Array.isArray(oVal)) {
         prev[key] = pVal.concat(...oVal)
       } else if (isObject(pVal) && isObject(oVal)) {
@@ -223,12 +228,64 @@ export function isReferentielActivated (refName: string): boolean {
   }
 }
 
+/**
+ * Sur la base d'un référentiel passé en paramètre, construit un nouveau référentiel
+ * sur la base de trois critères :
+ * - les exercices AMC
+ * - les exercices interactifs
+ * - les niveaux de classe
+ * @param {JSONReferentielObject} originalReferentiel Référentiel à filter
+ * @param {boolean} isAmcOnlySelected flag pour limiter le référentiel aux exercices AMC
+ * @param {boolean} isInteractiveOnlySelected flag pour limiter le référentiel aux exercices interactifs
+ * @param {Level[]} levelsSelected flag pour limiter le référentiel aux exercices de certains niveaux
+ * @returns {JSONReferentielObject} le référentiel filtré
+ */
 export function updateReferentiel (
   originalReferentiel: JSONReferentielObject,
   isAmcOnlySelected: boolean,
   isInteractiveOnlySelected: boolean,
   levelsSelected: Level[] // les seuls niveaux acceptés sont ceux stocké dans codeList
 ): JSONReferentielObject {
-  const filteredList: ResourceAndItsPath[] =
-    getAllExercises(originalReferentiel)
+  // on récupère tous les exercices du référentiel passé en paramètre
+  let filteredList: ResourceAndItsPath[] = getAllExercises(originalReferentiel)
+  // on commence par créer les critères de filtration pour les spécificités (AMC et/ou Interactif)
+  const features: ('amc' | 'interactif')[] = []
+  if (isAmcOnlySelected) {
+    features.push('amc')
+  }
+  if (isInteractiveOnlySelected) {
+    features.push('interactif')
+  }
+  if (features.length !== 0) {
+    // pas de liste de spécificités vide passée à `featuresCriteria`
+    filteredList = featuresCriteria(features).meetCriterion(filteredList)
+  }
+  // on traite les niveaux
+
+  switch (levelsSelected.length) {
+    case 0:
+      // pas de critère, on fait rie
+      break
+    case 1:
+      // un seul critère, on l'applique à la liste
+      filteredList = levelCriterion(levelsSelected[0]).meetCriterion(
+        filteredList
+      )
+      break
+    default:
+      // il y a au moins deux critères : un tableau de critères par niveau
+      // puis union des critères
+      {
+        const levelsCriteria: Criterion<ResourceAndItsPath>[] = []
+        for (const level of levelsSelected) {
+          levelsCriteria.push(levelCriterion(level))
+        }
+        const [first, second, ...others] = [...levelsCriteria]
+        const unionOfCriteria: Criterion<ResourceAndItsPath> =
+          new AtLeastOneOfCriteria([first, second, ...others])
+        filteredList = unionOfCriteria.meetCriterion(filteredList)
+      }
+      break
+  }
+  return buildReferentiel(filteredList)
 }

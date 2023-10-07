@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getRecentExercices, buildReferentiel, getAllExercises } from '../components/utils/refUtils'
+  import { getRecentExercices, buildReferentiel, getAllExercises, updateReferentiel } from '../components/utils/refUtils'
   import { type JSONReferentielObject, type ResourceAndItsPath } from '../lib/types/referentiels'
   import referentielAlea from '../json/referentiel2022.json'
   import referentielStatic from '../json/referentielStatic.json'
@@ -41,10 +41,11 @@
   // phraseEt6e.addCriterion(phrase).addCriterion(sixieme)
   // console.log('phrase+4e')
   // console.log(buildReferentiel(phraseEt6e.meetCriterion(all)))
-  const s = 'can pythagore'
-  const sToC = stringToCriteria(s)
-  console.log(s)
-  console.log(buildReferentiel(sToC.meetCriterion(all)))
+  // const s = 'can pythagore'
+  // const sToC = stringToCriteria(s)
+  // console.log(s)
+  // console.log(buildReferentiel(sToC.meetCriterion(all)))
+  console.log(updateReferentiel(baseReferentiel, false, false, ['6e', '5e']))
 </script>
 
 <h1>Tests</h1>
