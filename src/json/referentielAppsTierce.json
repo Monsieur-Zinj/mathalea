@@ -9,12 +9,33 @@
         "imgPath": "images/apps/app_permis_litteral.png",
         "uuid": "permisLitteral"
       },
+      "permisLitteralRed": {
+        "title":"Permis Littéral - Réduire",
+        "presentation":
+          "L’idée de ce programme est de proposer une étape certificatrice et formatrice dans le processus d’apprentissage sur le calcul littéral en 5e sur la réduction.",
+        "imgPath": "images/apps/app_permis_litteral_reduire.png",
+        "uuid": "permisLitteralReduire"
+      },
+      "permisLitteralDevFact": {
+        "title":"Permis Littéral - Développer et factoriser",
+        "presentation":
+          "L’idée de ce programme est de proposer une étape certificatrice et formatrice dans le processus d’apprentissage sur le calcul littéral en 5e sur la distributivité.",
+        "imgPath": "images/apps/app_permis_litteral_developper_reduire.png",
+        "uuid": "permisLitteralDevFact"
+      },
       "app02": {
         "title":"Permis Équerre",
         "presentation":
           "Exerciseur certifiant qui permet d’apprendre puis certifier l’usage de l’équerre.",
         "imgPath": "images/apps/app_permis_equerre.png",
         "uuid": "permisEquerre"
+      },
+      "app03": {
+        "title":"Priorités opératoires",
+        "presentation":
+          "L'élève doit choisir l'opération à effectuer en premier dans un calcul.",
+        "imgPath": "images/apps/app_priorites_operatoires.png",
+        "uuid": "prioritesOperatoires"
       }
     }
   },
