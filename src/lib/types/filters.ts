@@ -200,12 +200,12 @@ export function featuresCriteria (
  * Construit un critère pour filtrer une liste d'objets `ResourceAndItsPath`
  * contre un niveau de classe
  * @param {Level} level le niveau de classe retenu
- * @param {boolean} considerCAN doit-on inclure les exos CAN ou pas ?
+ * @param {boolean} [considerCAN=false] doit-on inclure les exos CAN ou pas ?
  * @returns { Criterion<ResourceAndItsPath>} un critère pour filtration
  */
 export function levelCriterion (
   level: Level,
-  considerCAN: boolean
+  considerCAN: boolean = false
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
@@ -253,7 +253,8 @@ export function tagCriterion (
 /**
  * Construit un critère de filtration sur un sujet (chaîne de caractères).
  * La recherche s'effectue sur le titre (s'il y en a) ou sur le lieu (s'il y en a)
- * @param subject le sujet à rechercher
+ * @param {String} subject le sujet à rechercher
+ * @param {boolean} [isCanIncluded=false] doit-on inclure les exercices CAN dans le critère de la recherche
  * @returns { Criterion<ResourceAndItsPath>} un critère pour filtration
  */
 export function subjectCriterion (
@@ -294,15 +295,15 @@ export function subjectCriterion (
 /**
  * Construit un critère de filtration basé sur une chaine de caractère.
  * On distingue les niveaux et les sujets.
- * @param input chaîne de caractère recherchée
- * @param isCanIncluded flag pour savoir si la recherche doit inclure les exercices CAN ou pas
+ * @param {string} input chaîne de caractère recherchée
+ * @param {boolean} [isCanIncluded=false] flag pour savoir si la recherche doit inclure les exercices CAN ou pas
  * @returns un critère unique si un seul mot est recherché ou un critère multiple basé sur le OU
  */
 export function stringToCriteria (
   input: string,
   isCanIncluded: boolean = false
 ): Criterion<ResourceAndItsPath> {
-  // on construit le tableau des mots recherchés en retirant les espaces superflu
+  // on construit le tableau des mots recherchés en retirant les espaces superflus
   const re = /\s+/ // un ou plusieurs espaces
   // on enlève les espace aux bornes et on partage la chaîne sur un ou plusieurs espace entre les mots (ainsi pas de chaine vide dans le tableau)
   const words = input.trim().split(re)
@@ -310,6 +311,10 @@ export function stringToCriteria (
     // la chaîne explorée ne doit pas être vide
     throw new Error('Search input should not be empty when building Criteria')
   } else {
+    // on regarde si `CAN` est un mot pour inclure les exos CAN dans le critère de recherche
+    if (words.map((word) => word.toUpperCase()).includes('CAN')) {
+      isCanIncluded = true
+    }
     if (words.length === 1) {
       // un seul mot dans le champ de recherche
       if (isLevelType(words[0])) {
