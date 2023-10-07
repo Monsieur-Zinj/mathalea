@@ -320,13 +320,14 @@ export function stringToCriteria (
       if (isLevelType(words[0])) {
         return levelCriterion(words[0], isCanIncluded)
       } else {
-        return subjectCriterion(words[0], isCanIncluded)
+        return new OrCriteria(subjectCriterion(words[0], isCanIncluded), tagCriterion(words[0]))
       }
     } else {
       // plusieurs mots dans le champs de recherche : on construit un critère multiple
       // basé sur le OU entre tous les critères (niveau + sujets)
       const levelsCriteria: Criterion<ResourceAndItsPath>[] = []
       const subjectsCriteria: Criterion<ResourceAndItsPath>[] = []
+      const tagsCriteria: Criterion<ResourceAndItsPath>[] = []
       const subjectsAsString: string[] = [] // pour garder trace des sujets comme mots
       for (const word of words) {
         // on sépare les mots suivants qu'ils représentent un niveau ou pas (par exemple '4e' est un niveau)
@@ -336,6 +337,7 @@ export function stringToCriteria (
         } else {
           subjectsAsString.push(word)
           subjectsCriteria.push(subjectCriterion(word.replace('+', ''), isCanIncluded))
+          tagsCriteria.push(tagCriterion(word.replace('+', '')))
         }
       }
       // on a que des critères de niveaux (deux ou plus ici), on en renvoie l'union
@@ -350,24 +352,26 @@ export function stringToCriteria (
           ])
         }
       }
-      // on a au moins un critères de sujet donc on traite tous les critères de sujets
+      // on a au moins un critères de sujet donc on traite tous les critères de sujets/tags
       const parsedSubjectsCriteria: Criterion<ResourceAndItsPath> =
-        parseSubjectsCriteria(subjectsAsString, subjectsCriteria)
-      // on a que des critères de sujets (deux ou plus ici), on renvoie leur traitement
+        parseStringCriteria(subjectsAsString, subjectsCriteria)
+      const parsedTagsCriteria: Criterion<ResourceAndItsPath> =
+          parseStringCriteria(subjectsAsString, tagsCriteria)
+      // on a que des critères de sujets/tags (deux ou plus ici), on renvoie leur traitement
       if (levelsCriteria.length === 0) {
-        return parsedSubjectsCriteria
+        return new OrCriteria(parsedSubjectsCriteria, parsedTagsCriteria)
       }
       // dans ce qui suit, on a soit au moins un niveau ET un sujet et peut-être autre chose
-      // pour chaque niveaux, on construit le critère de recherche niveau ET sujets traités
+      // pour chaque niveaux, on construit le critère de recherche niveau ET sujets/tags traités
       const levelsAndSubjectsCriteria: Criterion<ResourceAndItsPath>[] = []
       for (const criterion of levelsCriteria) {
         levelsAndSubjectsCriteria.push(
           new MultiCriteria<ResourceAndItsPath>()
             .addCriterion(criterion)
-            .addCriterion(parsedSubjectsCriteria)
+            .addCriterion(new OrCriteria(parsedSubjectsCriteria, parsedTagsCriteria))
         )
       }
-      // on construit et renvoie l'union de tous les critères niveau+sujets
+      // on construit et renvoie l'union de tous les critères niveau+sujets/tags
       if (levelsAndSubjectsCriteria.length === 1) {
         return levelsAndSubjectsCriteria[0]
       } else {
@@ -386,7 +390,7 @@ export function stringToCriteria (
  * @param subjectsCriteria sujets comme critère
  * @returns un critère unique
  */
-function parseSubjectsCriteria (
+function parseStringCriteria (
   subjects: string[],
   subjectsCriteria: Criterion<ResourceAndItsPath>[]
 ): Criterion<ResourceAndItsPath> {

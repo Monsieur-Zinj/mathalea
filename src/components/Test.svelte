@@ -45,7 +45,12 @@
   // const sToC = stringToCriteria(s)
   // console.log(s)
   // console.log(buildReferentiel(sToC.meetCriterion(all)))
+  console.log('test updateReferentiel')
   console.log(updateReferentiel(baseReferentiel, false, false, ['6e', '5e']))
+  const s2 = '3e static pythagore thalès'
+  const s2ToC = stringToCriteria(s2)
+  console.log('avec les tags : ' + s2)
+  console.log(buildReferentiel(s2ToC.meetCriterion(all)))
 </script>
 
 <h1>Tests</h1>

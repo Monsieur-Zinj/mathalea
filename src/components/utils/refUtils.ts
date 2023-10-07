@@ -16,12 +16,6 @@ import {
   featuresCriteria,
   AtLeastOneOfCriteria
 } from '../../lib/types/filters'
-// import referentielAlea from '../../json/referentiel2022.json'
-// import referentielStatic from '../../json/referentielStatic.json'
-// const baseReferentiel: JSONReferentielObject = {
-//   ...referentielAlea,
-//   static: { ...referentielStatic }
-// }
 
 /**
  * Récupérer la liste des exercices récents !
