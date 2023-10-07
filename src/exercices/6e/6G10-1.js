@@ -6,9 +6,9 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import {propositionsQcm} from "../../lib/interactif/qcm.js";
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const titre = 'Donner description et notation de droites, segments et demi-droites'
 export const amcReady = true
@@ -22,10 +22,10 @@ export const dateDeModifImportante = '24/09/2023' // Interactivité type Qcm par
  * @author Rémi Angot
  */
 export const uuid = 'd81c6'
-export const ref = '6G10-1' 
+export const ref = '6G10-1'
 export default function DescriptionSegmentDroiteDemiDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-   this.nbQuestions = 3
+  this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 1
 
@@ -54,26 +54,26 @@ export default function DescriptionSegmentDroiteDemiDroite () {
             bonneReponse: false
           },
           segment: {
-            phrase:`Le segment d'extrémités $${A.nom}$ et $${B.nom}$`,
+            phrase: `Le segment d'extrémités $${A.nom}$ et $${B.nom}$`,
             notation: `$[${A.nom}${B.nom}]$`,
-            bonneReponse:false,
+            bonneReponse: false
           },
           demiDroite1: {
-            phrase:`La demi-droite d'origine $${A.nom}$ passant par $${B.nom}$`,
+            phrase: `La demi-droite d'origine $${A.nom}$ passant par $${B.nom}$`,
             notation: `$[${A.nom}${B.nom})$`,
-            bonneReponse:false,
+            bonneReponse: false
           },
           demiDroite2: {
-            phrase:`La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$`,
+            phrase: `La demi-droite d'origine $${B.nom}$ passant par $${A.nom}$`,
             notation: `$[${B.nom}${A.nom})$`,
-            bonneReponse:false,
+            bonneReponse: false
           }
         }
         switch (listeTypeDeQuestions[i]) {
           case 1:
             trait = droite(A, B)
             correction = `La droite qui passe par les points $${A.nom}$ et $${B.nom}$ notée $(${A.nom}${B.nom})$.`
-             propsQcm.droite.bonneReponse = true
+            propsQcm.droite.bonneReponse = true
             break
           case 2:
             trait = demiDroite(A, B)
@@ -95,7 +95,7 @@ export default function DescriptionSegmentDroiteDemiDroite () {
       }
       const [dAB, dABCorr, propsQcm] = creerDroiteDemiSegment(A, B)
       const labels = labelPoint(A, B)
-      texte = mathalea2d(
+      texte = '<br>' + mathalea2d(
         { xmin: -2, ymin: -1, xmax: 7, ymax: 3, pixelsParCm: 40, scale: 0.6 },
         dAB,
         t1,
@@ -104,7 +104,7 @@ export default function DescriptionSegmentDroiteDemiDroite () {
       )
       this.autoCorrection[i] = {
         enonce: texte,
-        options: { horizontal: true, ordered: true },
+        options: { vertical: true, ordered: true },
         propositions: [
           {
             texte: propsQcm.droite.phrase,
@@ -124,27 +124,30 @@ export default function DescriptionSegmentDroiteDemiDroite () {
           },
           {
             texte: propsQcm.droite.notation,
-            statut:propsQcm.droite.bonneReponse
+            statut: propsQcm.droite.bonneReponse
           },
           {
             texte: propsQcm.demiDroite1.notation,
-            statut:propsQcm.demiDroite1.bonneReponse
+            statut: propsQcm.demiDroite1.bonneReponse
           },
           {
             texte: propsQcm.demiDroite2.notation,
-            statut:propsQcm.demiDroite2.bonneReponse
+            statut: propsQcm.demiDroite2.bonneReponse
           },
           {
             texte: propsQcm.segment.notation,
-            statut:propsQcm.segment.bonneReponse
-          },
+            statut: propsQcm.segment.bonneReponse
+          }
         ]
       }
 
       const leQcmHtml = propositionsQcm(this, i)
       texte += this.interactif ? leQcmHtml.texte : ''
-      texteCorr = dABCorr+ this.interactif ? leQcmHtml.texteCorr : ''
-
+      if (this.interactif) {
+        texteCorr = dABCorr + leQcmHtml.texteCorr
+      } else {
+        texteCorr = dABCorr
+      }
 
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
