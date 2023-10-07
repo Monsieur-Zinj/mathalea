@@ -392,20 +392,20 @@ export function stringToCriteria (
  */
 function parseStringCriteria (
   subjects: string[],
-  subjectsCriteria: Criterion<ResourceAndItsPath>[]
+  criteria: Criterion<ResourceAndItsPath>[]
 ): Criterion<ResourceAndItsPath> {
   let parsedSubjects: Criterion<ResourceAndItsPath>
-  if (subjectsCriteria.length === 0) {
+  if (criteria.length === 0) {
     throw new Error('No criterion passed')
   }
-  if (subjectsCriteria.length !== subjects.length) {
+  if (criteria.length !== subjects.length) {
     throw new Error('Number of criterions and number of subjects are different')
   }
-  if (subjectsCriteria.length === 1) {
-    parsedSubjects = subjectsCriteria[0]
+  if (criteria.length === 1) {
+    parsedSubjects = criteria[0]
   } else {
     // on a plus d'un sujet, on fait l'union
-    parsedSubjects = subjectsCriteria.slice(1).reduce((prev, current, i) => {
+    parsedSubjects = criteria.slice(1).reduce((prev, current, i) => {
       if (subjects[i + 1].slice(0, 1) === '+') {
         return new MultiCriteria<ResourceAndItsPath>()
           .addCriterion(prev)
@@ -413,7 +413,7 @@ function parseStringCriteria (
       } else {
         return new OrCriteria(prev, current)
       }
-    }, subjectsCriteria[0])
+    }, criteria[0])
   }
   return parsedSubjects
 }
