@@ -9985,6 +9985,18 @@
     },
     "datePublication": "17/11/2022"
   },
+  "can1L11": {
+    "url": "can/1e/can1L11.js",
+    "uuid": "131bd",
+    "id": "can1L11",
+    "titre": "Dresser le tableau de signes d’un polynôme du second degré",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm",
+      "amc": false
+    },
+    "datePublication": "05/10/2023"
+  },
   "can1P01": {
     "url": "can/1e/can1P01.js",
     "uuid": "15f6d",
