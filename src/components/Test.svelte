@@ -157,7 +157,7 @@
 <div class="p-4">
   <SearchExerciceBis origin={filteredReferentiel} bind:results={searchResultReferentiel} />
 </div>
-<ul class="my-20">
+<ul class="my-10 px-8 text-[10px]">
   {#each searchResultReferentiel as item}
     <li>
       {item.pathToResource.join('/')}
@@ -177,7 +177,7 @@
   <FiltresBis filterType='types' />
 </div>
 
-<ul class="mt-20">
+<ul class="mt-10 px-8 text-[10px]">
   {#each filteredReferentiel as item}
     <li>
       {item.pathToResource.join('/')}

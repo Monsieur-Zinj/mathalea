@@ -14,8 +14,7 @@
           $selectedFilters.types.CAN.isSelected
         ).meetCriterion(origin)
       ]
-    }
-    results = results
+    } else { results = [] }
   }
 </script>
 
