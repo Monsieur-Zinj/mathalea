@@ -78,7 +78,7 @@ export default function TrouverLaTransformations () {
   }
 
   function transfoPoly (pol, { type = 'symax', centre, axe, vecteur, angle = 90, sens = true }) {
-    switch (type) { // type est l'une des chaine suivante 'symax', 'trans', 'rot90', 'rot180'
+    switch (type) { // type est l'une des chaines suivantes 'symax', 'trans', 'rot90', 'rot180'
       case 'symax':
         return symetrieAxiale(pol, axe)
       case 'trans':

@@ -554,5 +554,6 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
       }
       break
   }
-  return [expf, expn, expc, souscas, repNum]
+  const expNom = expf.split(' ')[1] // Type de l'expression
+  return [expf, expn, expc, souscas, repNum, expNom]
 }
