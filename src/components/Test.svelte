@@ -9,7 +9,8 @@
     type Features,
     type JSONReferentielObject,
     type Level,
-    type ResourceAndItsPath
+    type ResourceAndItsPath,
+    isExerciceItemInReferentiel
   } from '../lib/types/referentiels'
   import referentielAlea from '../json/referentiel2022.json'
   import referentielStatic from '../json/referentielStatic.json'
@@ -30,6 +31,7 @@
     selectedFilters
   } from './store'
   import { onDestroy } from 'svelte'
+  import SearchExerciceBis from './sidebar/SearchExerciceBis.svelte'
   const baseReferentiel: JSONReferentielObject = {
     ...referentielAlea,
     static: { ...referentielStatic }
@@ -147,9 +149,24 @@
   onDestroy(() => {
     unsubscribeToFiltersStore()
   })
+  let searchResultReferentiel: ResourceAndItsPath[] = []
+
 </script>
 
 <h1 class="text-4xl font-black text-coopmaths-struct mb-10">Tests</h1>
+<div class="p-4">
+  <SearchExerciceBis origin={filteredReferentiel} bind:results={searchResultReferentiel} />
+</div>
+<ul class="my-20">
+  {#each searchResultReferentiel as item}
+    <li>
+      {item.pathToResource.join('/')}
+      {#if isExerciceItemInReferentiel(item.resource)}
+       :  {item.resource.titre}
+      {/if}
+    </li>
+  {/each}
+</ul>
 <div>
   <FiltresBis filterType="levels" />
 </div>
