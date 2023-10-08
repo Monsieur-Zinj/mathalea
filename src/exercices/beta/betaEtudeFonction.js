@@ -1,10 +1,11 @@
 import { Courbe } from '../../lib/2d/courbes.js'
 import { Repere } from '../../lib/2d/reperes.js'
 import { tableauSignesFonction, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction.js'
-import { Polynome } from '../../lib/mathFonctions/Polynome.js'
+// import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const titre = 'Recherche d\'antécédents'
 export const interactifReady = true
@@ -34,38 +35,33 @@ export default class BetaEtudeFonction extends Exercice {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     //
-    const poly = new Polynome({ deg: this.sup, rand: true })
+    /* const poly = new Polynome({ deg: this.sup, rand: true })
     const fonction = poly.fonction
     const polyDerivee = poly.derivee()
     const derivee = polyDerivee.fonction.bind(polyDerivee)
     const latexFonction = poly.toLatex()
-    /*
-            Avec une fonction sinux
-            const fonction = x => x * Math.sin(Math.PI * x / 4) // Pour le tableau de signes et de variations
-            const derivee = x => Math.sin(Math.PI * x / 4) + Math.PI * x * Math.cos(Math.PI * x / 4) / 4 // pour le tableau de variations
-            const latexFonction = 'x\\sin(\\frac{\\Pi x}{4})' // pour l'énoncé
-            const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
-                 */
-    /*
-            Avec une exponentielle
+    const fonction = x => x * Math.sin(Math.PI * x / 4) // Pour le tableau de signes et de variations
+    const derivee = x => Math.sin(Math.PI * x / 4) + Math.PI * x * Math.cos(Math.PI * x / 4) / 4 // pour le tableau de variations
+    const latexFonction = 'x\\sin(\\frac{\\Pi x}{4})' // pour l'énoncé
+    const { xMin, xMax, yMin, yMax } = { xMin: -5, xMax: 5, yMin: -10, yMax: 10 } // pour le repère et la courbe
+    //     Avec une exponentielle
 
-            const fonction = x => x * Math.exp(-x) // Pour le tableau de signes et de variations
-            const derivee = x => (1 - x) * Math.exp(-x) // pour le tableau de variations
-            const latexFonction = 'x\\exp(-x)' // pour l'énoncé
-            const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
-         */
-    /*
-            Avec ln
-            const fonction = x => x * Math.log(Math.abs(x)) // Pour le tableau de signes et de variations
-            const derivee = x => 1 + Math.log(Math.abs(x)) // pour le tableau de variations
-            const latexFonction = 'x\\ln(|x|)' // pour l'énoncé
-             */
-    const { xMin, xMax, yMin, yMax } = { xMin: -4, xMax: 4, yMin: -10, yMax: 10 } // pour le repère et la courbe
+    const fonction = x => x * Math.exp(-x) // Pour le tableau de signes et de variations
+    const derivee = x => (1 - x) * Math.exp(-x) // pour le tableau de variations
+    const latexFonction = 'x\\exp(-x)' // pour l'énoncé
+    const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
+   */
+    //     Avec ln
+    const fonction = x => x * Math.log(Math.abs(x)) // Pour le tableau de signes et de variations
+    const derivee = x => 1 + Math.log(Math.abs(x)) // pour le tableau de variations
+    const latexFonction = 'x\\ln(|x|)' // pour l'énoncé
+
+    const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
     const repere1 = new Repere({
-      xMin: -4,
-      xMax: 4,
-      yMin: -10,
-      yMax: 10,
+      xMin,
+      xMax,
+      yMin,
+      yMax,
       xUnite: 1,
       yUnite: 1
     })
@@ -89,15 +85,17 @@ export default class BetaEtudeFonction extends Exercice {
     objetsCorrection.push(courbe1)
     let texteCorrection = mathalea2d(Object.assign({}, fixeBordures(objetsCorrection)), objetsCorrection)
     texteCorrection += '<br>voici les signes de f : '
-    const tableauSignes = tableauSignesFonction(fonction, xMin, xMax, { latex: true })
+    const tableauSignes = tableauSignesFonction(fonction, xMin, xMax, { substituts: [], step: new FractionEtendue(1, 100), tolerance: 0.001 })
     const tableauVariations = tableauVariationsFonction(fonction, derivee, xMin, xMax, {
       ligneDerivee: true,
       substituts: [
-        { antVal: -10, antTex: '-\\infty', imgVal: -23, imgTex: '-\\infty' },
-        { antVal: 10, antTex: '+\\infty', imgVal: 23, imgTex: '+\\infty' },
-        { antVal: -0.37, antTex: '-\\frac{1}{e}', imgVal: 0.4, imgTex: '\\frac{1}{e}' },
-        { antVal: 0.37, antTex: '\\frac{1}{e}', imgVal: -0.4, imgTex: '-\\frac{1}{e}' }
-      ]
+        { antVal: -10, antTex: '-\\infty', imgVal: -23.026, imgTex: '-\\infty' },
+        { antVal: 10, antTex: '+\\infty', imgVal: 23.026, imgTex: '+\\infty' },
+        { antVal: -0.36, antTex: '-\\frac{1}{e}', imgVal: 0.368, imgTex: '\\frac{1}{e}' },
+        { antVal: 0.37, antTex: '\\frac{1}{e}', imgVal: -0.368, imgTex: '-\\frac{1}{e}' }
+      ],
+      step: new FractionEtendue(1, 100),
+      tolerance: 0.001
     })
     // Attention ! les tableaux de variations et de signes sont des string (html ou latex) plus des objetsMathalea2d.
     texteCorrection += tableauSignes // `<br>${mathalea2d(Object.assign({}, fixeBordures([tableauSignes])), tableauSignes)}`
