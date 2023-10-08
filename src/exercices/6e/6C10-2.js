@@ -34,7 +34,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
-    this.interactifType = parseInt(this.sup2) === 2 ? 'mathLive' : 'qcm'
+    this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -7,11 +7,12 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { context } from '../../modules/context.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = ['mathLive', 'listeDeroulante']
+// export const interactifType = 'mathLive'
 export const amcReady = true
-// export const amcType = 'AMCOpenNum'
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '21/09/2023'
 /**
@@ -31,6 +32,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
   this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
 
   this.nouvelleVersion = function () {
+    this.interactifType = this.version > 2 ? 'mathLive' : 'listeDeroulante'
     this.autoCorrection = []
     let reponse
     this.listeQuestions = [] // Liste de questions
@@ -81,6 +83,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       expn += expn[expn.length - 1] !== '$' ? '$' : ''
       expc = resultats[2]
       nbval = resultats[3]
+      const expNom = resultats[5]
       switch (this.version) {
         case 1:
           this.consigne = 'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul).'
@@ -91,7 +94,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           break
         case 2:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
-          this.consigne = 'Traduire le calcul par une phrase en français.'
+          this.consigne = this.interactif ? 'De quel type est chaque calcul ?' : 'Traduire le calcul par une phrase en français.'
           texte = `${expn}`
           expf = 'l' + expf.substring(1)
           texteCorr = `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
@@ -199,6 +202,9 @@ export default function EcrireUneExpressionNumerique (calculMental) {
             }
           ]
         }
+        } else if (this.version === 2) {
+          texte += sp(10) + choixDeroulant(this, i, 0, ['somme', 'différence', 'produit', 'quotient'], 'une réponse')
+          setReponse(this, i, expNom, { formatInteractif: 'texte' })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
