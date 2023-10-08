@@ -122,7 +122,7 @@
   $: selectedFilters = []
 
   let levelsBoxes = {}
-  const multipleSelections = ['college', 'lycee']
+  const multipleSelections = ['college', 'lycee'] as const
   /**
    * Mise à jour des checkboxes des filtres de niveaux
    * (prise en compte des sélections multiples comme `college` ou `lycee`)
@@ -165,7 +165,7 @@
    * @param {string} key clé à tester
    * @returns {string} le groupe auquel appartient la clé (chaîne vide si pas d'appartenance)
    */
-  const isInOneMultipleSelectedFilters = (key) => {
+  const isInOneMultipleSelectedFilters = (key: string): string => {
     for (const k of multipleSelections) {
       if (levelsMap.get(k).values.includes(key)) {
         return k

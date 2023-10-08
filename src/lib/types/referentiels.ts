@@ -137,7 +137,6 @@ export interface ExerciceItemInReferentiel extends BaseItemInReferentiel {
   datePublication?: FrenchDateString
   dateModification?: FrenchDateString
 }
-
 // ===========================================================================
 //
 //    Type pour les référentiels eux-mêmes
@@ -167,7 +166,11 @@ export type ResourceAndItsPath = {
   resource: JSONReferentielEnding
   pathToResource: string[]
 }
-
+// ===========================================================================
+//
+//     Fonctions pour vérifier les types
+//
+// ===========================================================================
 export const isExerciceItemInReferentiel = (
   obj: any
 ): obj is ExerciceItemInReferentiel =>

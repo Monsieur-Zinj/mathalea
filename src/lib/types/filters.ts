@@ -318,8 +318,8 @@ export function stringToCriteria (
     if (words.map((word) => word.toUpperCase()).includes('CAN')) {
       isCanIncluded = true
     }
-    // on nettoie les doubles quotes si présentes dans une chaîne
-    // (une chaîne peut être : "labyrinthe de multiples", "l'heure")
+    // on nettoie les guillemets ou apostrophes si présentes dans une chaîne
+    // (une chaîne peut être : "labyrinthe de multiples", "l'heure", 'informations inutiles')
     words.forEach((word, index, theArray) => {
       let w = word
       if (/^['||"]/.test(word)) { // la chaîne contient un guillemet ou apostrophe au début

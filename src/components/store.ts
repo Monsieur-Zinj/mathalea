@@ -1,11 +1,14 @@
 import { get, writable } from 'svelte/store'
 import type {
   CallerComponentType,
+  DisplayedFilter,
   InterfaceGlobalOptions,
   InterfaceParams,
   InterfaceResultExercice,
-  bibliothequeExercise
+  bibliothequeExercise,
+  FilterType
 } from '../lib/types'
+import type { Features, Level } from '../lib/types/referentiels'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -107,6 +110,147 @@ export const callerComponent = writable<CallerComponentType>('')
 
 // pour sauvegarder l'objet correspondant à la rubrique choisie pour les exos statiques
 export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
+
+// pour sauvegarder les sélections de filtres
+export const selectedFilters = writable<
+  Record<FilterType, DisplayedFilter<string | Level>>
+>({
+  levels: {
+    '6e': {
+      title: 'Sixième',
+      values: ['6e'],
+      isSelected: false,
+      clicked: 0
+    },
+    '5e': {
+      title: 'Cinquième',
+      values: ['5e'],
+      isSelected: false,
+      clicked: 0
+    },
+    '4e': {
+      title: 'Quatrième',
+      values: ['4e'],
+      isSelected: false,
+      clicked: 0
+    },
+    '3e': {
+      title: 'Troisième',
+      values: ['3e'],
+      isSelected: false,
+      clicked: 0
+    },
+    college: {
+      title: 'Collège',
+      values: ['6e', '5e', '4e', '3e'],
+      isSelected: false,
+      clicked: 0
+    },
+    '2e': {
+      title: 'Seconde',
+      values: ['2e'],
+      isSelected: false,
+      clicked: 0
+    },
+    '1e': {
+      title: 'Première',
+      values: ['1e'],
+      isSelected: false,
+      clicked: 0
+    },
+    techno1: {
+      title: 'Première Technologique',
+      values: ['techno1'],
+      isSelected: false,
+      clicked: 0
+    },
+    Ex: {
+      title: 'Terminale Expert',
+      values: ['Ex'],
+      isSelected: false,
+      clicked: 0
+    },
+    HP: {
+      title: 'Hors-Programme (Lycée)',
+      values: ['HP'],
+      isSelected: false,
+      clicked: 0
+    },
+    lycee: {
+      title: 'Lycée',
+      values: ['2e', '1e', 'techno1', 'Ex', 'HP'],
+      isSelected: false,
+      clicked: 0
+    }
+  },
+  specs: {
+    amc: {
+      title: 'AMC (AutoMultipleChoice)',
+      values: ['amc'],
+      isSelected: false,
+      clicked: 0
+    },
+    interactif: {
+      title: 'Interactif',
+      values: ['interactif'],
+      isSelected: false,
+      clicked: 0
+    }
+  },
+  types: {
+    static: {
+      title: 'Exercices statiques',
+      values: ['static'],
+      isSelected: false,
+      clicked: 0
+    },
+    CAN: {
+      title: 'Course aux nombres',
+      values: ['CAN'],
+      isSelected: false,
+      clicked: 0
+    }
+  }
+})
+
+/**
+ * Retourne la liste de tous les niveaux sélectionnés
+ * @returns {Level[]} la liste des niveaux sélectionnés dans les filtres
+ */
+export function getSelectedLevels (): Level[] {
+  const filters = get(selectedFilters)
+  const selectedLevels: Level[] = []
+  // on regarde les niveaux
+  Object.entries(filters.levels).forEach(([filter, level]) => {
+    if (filter !== 'college' && filter !== 'lycee') {
+      if (level.isSelected) {
+        selectedLevels.push(filter as Level)
+      }
+    }
+  })
+  // on regarde les types (qui sont des niveaux particuliers : CAN, static, etc.)
+  Object.entries(filters.types).forEach(([filter, level]) => {
+    if (level.isSelected) {
+      selectedLevels.push(filter as Level)
+    }
+  })
+  return selectedLevels
+}
+
+/**
+ * Retourne la liste de toutes les fonctionnalités cochées (AMC, interactif)
+ * @returns liste de toutes les fonctionnalités cochées
+ */
+export function getSelectedFeatures (): (keyof Features)[] {
+  const filters = get(selectedFilters)
+  const selectedFeatures: (keyof Features)[] = []
+  Object.entries(filters.specs).forEach(([key, spec]) => {
+    if (spec.isSelected) {
+      selectedFeatures.push(key as (keyof Features))
+    }
+  })
+  return selectedFeatures
+}
 
 /**
  * Déplace un exercice dans exercicesParams
