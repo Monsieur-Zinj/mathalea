@@ -4,6 +4,7 @@ import {
   type JSONReferentielEnding,
   type ResourceAndItsPath,
   type Level,
+  type Features,
   isExerciceItemInReferentiel,
   isJSONReferentielEnding
 } from '../../lib/types/referentiels'
@@ -14,8 +15,10 @@ import {
   levelCriterion,
   type Criterion,
   featuresCriteria,
-  AtLeastOneOfCriteria
+  AtLeastOneOfCriteria,
+  MultiCriteria
 } from '../../lib/types/filters'
+import { getSelectedLevels, getSelectedFeatures } from '../store'
 
 /**
  * Récupérer la liste des exercices récents !
@@ -282,4 +285,64 @@ export function updateReferentiel (
       break
   }
   return buildReferentiel(filteredList)
+}
+
+/**
+   * Applique les filtres sélectionnés dans le store à une liste d'élément
+   * de type `ResourceAndItsPath` et renvoie une liste du même type triée
+   * @param {ResourceAndItsPath[]} original liste originelle
+  */
+export function applyFilters (original: ResourceAndItsPath[]): ResourceAndItsPath[] {
+  // on récupère dans le store les niveaux et les fonctionnalités cochés
+  const selectedLevels: Level[] = getSelectedLevels()
+  const selectedSpecs: (keyof Features)[] = getSelectedFeatures()
+  if (selectedLevels.length === 0 && selectedSpecs.length === 0) {
+    // pas de filtre coché : on renvoie l'original
+    return original
+  } else {
+    // on gère les niveaux cochés
+    let finalLevelsCriterion: Criterion<ResourceAndItsPath> | undefined
+    if (selectedLevels.length !== 0) {
+      const levelsCriteria: Criterion<ResourceAndItsPath>[] = []
+      for (const level of selectedLevels) {
+        levelsCriteria.push(levelCriterion(level))
+      }
+      // au moins un niveau coché !
+      if (levelsCriteria.length < 2) {
+        // un seul niveau coché
+        finalLevelsCriterion = levelsCriteria[0]
+      } else {
+        // au moins deux niveaux cochés, on fait l'UNION
+        const [first, second, ...others] = [...levelsCriteria]
+        finalLevelsCriterion = new AtLeastOneOfCriteria([
+          first,
+          second,
+          ...others
+        ])
+      }
+    }
+    // on gère les fonctionnalités (AMC, interactif)
+    let specsCriteria: Criterion<ResourceAndItsPath> | undefined
+    if (selectedSpecs.length !== 0) {
+      specsCriteria = featuresCriteria(selectedSpecs)
+    }
+    if (finalLevelsCriterion !== undefined) {
+      if (specsCriteria !== undefined) {
+        // on a des niveaux ET des fonctionnalités cochés
+        return new MultiCriteria<ResourceAndItsPath>()
+          .addCriterion(finalLevelsCriterion)
+          .addCriterion(specsCriteria)
+          .meetCriterion(original)
+      } else {
+        // on a que des niveaux cochés
+        return finalLevelsCriterion.meetCriterion(original)
+      }
+    } else {
+      if (specsCriteria !== undefined) {
+        // on a que des fonctionnalités cocées
+        specsCriteria.meetCriterion(original)
+      }
+    }
+    return original
+  }
 }
