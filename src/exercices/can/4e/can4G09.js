@@ -63,7 +63,7 @@ export default function TripletsPythagoriciens () {
     const longueurBC = texteSurSegment(String(triplet[0]), c, b, 'black', 0.5, true)
     const longueurCA = texteSurSegment(String(triplet[2]), a, c, 'black', 0.5, true)
     const objets = [poly, angleDroit]
-    let index = this.sup < 2 ? this.sup - 1 : choice([0, 1]) // on choisit le type de question ou on laisse le hasard (option mélange)
+    let index = this.sup === 1 ? 0 : this.sup === 2 ? 1 : choice([0, 1]) // on choisit le type de question ou on laisse le hasard (option mélange)
     this.question = `Dans le triangle $${nom.join('')}$ rectangle en $${nom[1]}$, `
     if (index === 0) { // calcul de l'hypoténuse
       index = choice([0, 1])
@@ -76,12 +76,12 @@ export default function TripletsPythagoriciens () {
       this.optionsChampTexte = { texte: `$${nom[0]}${nom[2]}$=`, texteApres: `${sp(1)}cm` }
     } else { // calcul d'un côté de l'angle droit
       const index2 = choice([0, 2])
-      objets.push(longueurCA, index2 === 2 ? longueurAB : longueurBC)
-      this.question += `$${nom[0]}${nom[2]}=${triplet[2]}$${sp(1)}cm, $${nom[index2]}${nom[1]}=${triplet[index2 / 2]}$${sp(1)}cm.<br>Calculer $${nom[2 - index2]}${nom[1]}$.`
-      this.correction = `D'après le théorème de Pythagore, $${nom[0]}${nom[2]}^2=${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2$.<br>`
-      this.correction += `Donc $${nom[2 - index2]}${nom[1]}^2=${triplet[2]}^2-${triplet[index2 / 2]}^2=${triplet[2] ** 2}-${triplet[index2 / 2] ** 2}=${triplet[(2 - index2) / 2] ** 2}$.<br>`
-      this.correction += `D'où $${nom[1 - index2]}${nom[2]}=\\sqrt{${triplet[(2 - index2) / 2] ** 2}}=${triplet[(2 - index2) / 2]}$.`
-      this.reponse = triplet[2 - index2]
+      objets.push(longueurCA, index2 === 0 ? longueurAB : longueurBC)
+      this.question += `$${nom[0]}${nom[2]}=${triplet[2]}$${sp(1)}cm, $${nom[index2]}${nom[1]}=${triplet[(2 - index2) / 2]}$${sp(1)}cm.<br>Calculer $${nom[2 - index2]}${nom[1]}$.`
+      this.correction = `D'après le théorème de Pythagore, $${nom[0]}${nom[2]}^2=${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2$ soit $${triplet[2]}^2=${nom[2 - index2]}${nom[1]}^2+${triplet[(2 - index2) / 2]}^2$.<br>`
+      this.correction += `Donc $${nom[2 - index2]}${nom[1]}^2=${triplet[2]}^2-${triplet[(2 - index2) / 2]}^2=${triplet[2] ** 2}-${triplet[(2 - index2) / 2] ** 2}=${triplet[index2 / 2] ** 2}$.<br>`
+      this.correction += `D'où $${nom[2 - index2]}${nom[1]}=\\sqrt{${triplet[index2 / 2] ** 2}}=${triplet[index2 / 2]}$.`
+      this.reponse = triplet[index2 / 2]
       this.optionsChampTexte = { texte: `$${nom[2 - index2]}${nom[1]}=$`, texteApres: `${sp(1)}cm` }
     }
     this.formatInteractif = 'calcul'
