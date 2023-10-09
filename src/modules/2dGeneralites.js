@@ -69,22 +69,20 @@ export function mathalea2d (
     if (!Array.isArray(objets)) {
       try {
         // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
-        if (objets?.isVisible) {
-          if ((!mainlevee) || typeof (objets.svgml) === 'undefined') {
-            const code = objets.svg(pixelsParCm)
-            if (typeof code === 'string') {
-              codeSvg = '\t' + objets.svg(pixelsParCm) + '\n'
-            } else {
-              const xSvg = (code.x - xmin) * pixelsParCm * zoom
-              const ySvg = -(code.y - ymax) * pixelsParCm * zoom
-              const part1 = code.divLatex.substring(0, 81)
-              const part2 = code.divLatex.substring(81)
-              const codeHtml = part1 + ` top: "${ySvg}px"; left: "${xSvg}px"; data-top="${ySvg}" data-left="${xSvg}"` + part2
-              divsLatex.push(codeHtml)
-            }
+        if ((!mainlevee) || typeof (objets.svgml) === 'undefined') {
+          const code = objets.svg(pixelsParCm)
+          if (typeof code === 'string') {
+            codeSvg = '\t' + objets.svg(pixelsParCm) + '\n'
           } else {
-            codeSvg = '\t' + objets.svgml(pixelsParCm, amplitude) + '\n'
+            const xSvg = (code.x - xmin) * pixelsParCm * zoom
+            const ySvg = -(code.y - ymax) * pixelsParCm * zoom
+            const part1 = code.divLatex.substring(0, 81)
+            const part2 = code.divLatex.substring(81)
+            const codeHtml = part1 + ` top: "${ySvg}px"; left: "${xSvg}px"; data-top="${ySvg}" data-left="${xSvg}"` + part2
+            divsLatex.push(codeHtml)
           }
+        } else {
+          codeSvg = '\t' + objets.svgml(pixelsParCm, amplitude) + '\n'
         }
       } catch (error) {
         console.log(error.message)

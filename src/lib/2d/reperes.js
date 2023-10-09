@@ -1117,83 +1117,84 @@ export function Repere ({
    * repere() trace un repère classique. De nombreux paramètres permettent d'en modifier l'aspect
    *
    * @author Rémi Angot
-   * @param {number}  xUnite = 1,
-   * @param {number}  yUnite = 1,
-   * @param {number}  xMin = -10,
-   * @param {number}  xMax = 10,
-   * @param {number}  yMin = -10,
-   * @param {number}  yMax = 10,
-   * @param {boolean}  axeXisVisible = true,
-   * @param {boolean}  axeYisVisible = true,
-   * @param {number}  axesEpaisseur = 2,
-   * @param {string}  axesCouleur = 'black',
-   * @param {string}  axeXStyle = '->',
-   * @param {string}  axeYStyle = '->',
-   * @param {number}  thickEpaisseur = 2,
-   * @param {number}  thickHauteur = 0.2,
-   * @param {string}  thickCouleur = axesCouleur,
-   * @param {number}  xThickDistance = 1,
-   * @param {number[]|boolean}  xThickListe = false,
-   * @param {number}  xThickMin = xMin + xThickDistance,
-   * @param {number}  xThickMax = xMax - xThickDistance,
-   * @param {number}  yThickDistance = 1,
-   * @param {number[]|boolean}  yThickListe = false,
-   * @param {number}  yThickMin = yMin + yThickDistance,
-   * @param {number}  yThickMax = yMax - yThickDistance,
-   * @param {number}  xLabelDistance = xThickDistance,
-   * @param {number[]|boolean}  xLabelListe = false,
-   * @param {number}  xLabelMin = xThickMin,
-   * @param {number}  xLabelMax = xThickMax,
-   * @param {number}  yLabelDistance = yThickDistance,
-   * @param {number[]|boolean}  yLabelListe = false,
-   * @param {number}  yLabelMin = yThickMin,
-   * @param {number}  yLabelMax = yThickMax,
-   * @param {number}  precisionLabelX = 1,
-   * @param {number}  precisionLabelY = 1,
-   * @param {number}  xLabelEcart = 0.5,
-   * @param {number}  yLabelEcart = 0.5,
-   * @param {string}  xLegende = '',
-   * @param {number}  xLegendePosition = [],
-   * @param {string}  yLegende = '',
-   * @param {number}  yLegendePosition = [],
-   * @param {boolean}  grille = true,
-   * @param {number}  grilleDistance = false,
-   * @param {string}  grilleCouleur = 'black',
-   * @param {number}  grilleOpacite = 0.5,
-   * @param {number}  grilleEpaisseur = 1,
-   * @param {boolean}  grilleSecondaire = false,
-   * @param {number}  grilleSecondaireDistance = false,
-   * @param {string}  grilleSecondaireCouleur = 'gray',
-   * @param {number}  grilleSecondaireOpacite = 0.3,
-   * @param {number}  grilleSecondaireEpaisseur = 1,
-   * @param {boolean}  grilleX = grille,
-   * @param {number[]|boolean}  grilleXListe = false,
-   * @param {number}  grilleXDistance = grilleDistance,
-   * @param {number|boolean}  grilleXMin = false,
-   * @param {number|boolean}  grilleXMax = false,
-   * @param {string}  grilleXCouleur = grilleCouleur,
-   * @param {number}  grilleXOpacite = grilleOpacite,
-   * @param {boolean}  grilleY = grille,
-   * @param {number[]|boolean}  grilleYListe = false,
-   * @param {number}  grilleYDistance = grilleDistance,
-   * @param {number|boolean}  grilleYMin = false,
-   * @param {number|boolean}  grilleYMax = false,
-   * @param {string}  grilleYCouleur = grilleCouleur,
-   * @param {number}  grilleYOpacite = grilleOpacite,
-   * @param {boolean}  grilleSecondaireX = grilleSecondaire,
-   * @param {number[]|boolean}  grilleSecondaireXListe = false,
-   * @param {number}  grilleSecondaireXDistance = grilleSecondaireDistance,
-   * @param {number|boolean}  grilleSecondaireXMin = false,
-   * @param {number|boolean}  grilleSecondaireXMax = false,
-   * @param {string}  grilleSecondaireXCouleur = grilleSecondaireCouleur,
-   * @param {number}  grilleSecondaireXOpacite = grilleSecondaireOpacite,
-   * @param {boolean}  grilleSecondaireY = grilleSecondaire,
-   * @param {number[]|boolean}  grilleSecondaireYListe = false,
-   * @param {number}  grilleSecondaireYDistance = grilleSecondaireDistance,
-   * @param {number|boolean}  grilleSecondaireYMin = false,
-   * @param {number|boolean}  grilleSecondaireYMax = false,
-   * @param {string}  grilleSecondaireYCouleur = grilleSecondaireCouleur,
-   * @param {number}  grilleSecondaireYOpacite = grilleSecondaireOpacite
+   * @param {object} options
+   * @param {number}  options.xUnite = 1,
+   * @param {number}  options.yUnite = 1,
+   * @param {number}  options.xMin = -10,
+   * @param {number}  options.xMax = 10,
+   * @param {number}  options.yMin = -10,
+   * @param {number}  options.yMax = 10,
+   * @param {boolean}  options.axeXisVisible = true,
+   * @param {boolean}  options.axeYisVisible = true,
+   * @param {number}  options.axesEpaisseur = 2,
+   * @param {string}  options.axesCouleur = 'black',
+   * @param {string}  options.axeXStyle = '->',
+   * @param {string}  options.axeYStyle = '->',
+   * @param {number}  options.thickEpaisseur = 2,
+   * @param {number}  options.thickHauteur = 0.2,
+   * @param {string}  options.thickCouleur = axesCouleur,
+   * @param {number}  options.xThickDistance = 1,
+   * @param {number[]}  options.xThickListe = false,
+   * @param {number}  options.xThickMin = xMin + xThickDistance,
+   * @param {number}  options.xThickMax = xMax - xThickDistance,
+   * @param {number}  options.yThickDistance = 1,
+   * @param {number[]}  options.yThickListe = false,
+   * @param {number}  options.yThickMin = yMin + yThickDistance,
+   * @param {number}  options.yThickMax = yMax - yThickDistance,
+   * @param {number}  options.xLabelDistance = xThickDistance,
+   * @param {number[]}  options.xLabelListe = false,
+   * @param {number}  options.xLabelMin = xThickMin,
+   * @param {number}  options.xLabelMax = xThickMax,
+   * @param {number}  options.yLabelDistance = yThickDistance,
+   * @param {number[]}  options.yLabelListe = false,
+   * @param {number}  options.yLabelMin = yThickMin,
+   * @param {number}  options.yLabelMax = yThickMax,
+   * @param {number}  options.precisionLabelX = 1,
+   * @param {number}  options.precisionLabelY = 1,
+   * @param {number}  options.xLabelEcart = 0.5,
+   * @param {number}  options.yLabelEcart = 0.5,
+   * @param {string}  options.xLegende = '',
+   * @param {number}  options.xLegendePosition = [],
+   * @param {string}  options.yLegende = '',
+   * @param {number}  options.yLegendePosition = [],
+   * @param {boolean}  options.grille = true,
+   * @param {number}  options.grilleDistance = false,
+   * @param {string}  options.grilleCouleur = 'black',
+   * @param {number}  options.grilleOpacite = 0.5,
+   * @param {number}  options.grilleEpaisseur = 1,
+   * @param {boolean}  options.grilleSecondaire = false,
+   * @param {number}  options.grilleSecondaireDistance = false,
+   * @param {string}  options.grilleSecondaireCouleur = 'gray',
+   * @param {number}  options.grilleSecondaireOpacite = 0.3,
+   * @param {number}  options.grilleSecondaireEpaisseur = 1,
+   * @param {boolean}  options.grilleX = grille,
+   * @param {number[]}  options.grilleXListe = false,
+   * @param {number}  options.grilleXDistance = grilleDistance,
+   * @param {number}  options.grilleXMin = false,
+   * @param {number}  options.grilleXMax = false,
+   * @param {string}  options.grilleXCouleur = grilleCouleur,
+   * @param {number}  options.grilleXOpacite = grilleOpacite,
+   * @param {boolean}  options.grilleY = grille,
+   * @param {number[]}  options.grilleYListe = false,
+   * @param {number}  options.grilleYDistance = grilleDistance,
+   * @param {number}  options.grilleYMin = false,
+   * @param {number}  options.grilleYMax = false,
+   * @param {string}  options.grilleYCouleur = grilleCouleur,
+   * @param {number}  options.grilleYOpacite = grilleOpacite,
+   * @param {boolean}  options.grilleSecondaireX = grilleSecondaire,
+   * @param {number[]}  options.grilleSecondaireXListe = false,
+   * @param {number}  options.grilleSecondaireXDistance = grilleSecondaireDistance,
+   * @param {number}  options.grilleSecondaireXMin = false,
+   * @param {number}  options.grilleSecondaireXMax = false,
+   * @param {string}  options.grilleSecondaireXCouleur = grilleSecondaireCouleur,
+   * @param {number}  options.grilleSecondaireXOpacite = grilleSecondaireOpacite,
+   * @param {boolean}  options.grilleSecondaireY = grilleSecondaire,
+   * @param {number[]}  options.grilleSecondaireYListe = false,
+   * @param {number}  options.grilleSecondaireYDistance = grilleSecondaireDistance,
+   * @param {number}  options.grilleSecondaireYMin = false,
+   * @param {number}  options.grilleSecondaireYMax = false,
+   * @param {string}  options.grilleSecondaireYCouleur = grilleSecondaireCouleur,
+   * @param {number}  options.grilleSecondaireYOpacite = grilleSecondaireOpacite
    */
   xUnite = 1,
   yUnite = 1,
@@ -1211,19 +1212,19 @@ export function Repere ({
   thickHauteur = 0.2,
   thickCouleur = axesCouleur,
   xThickDistance = 1,
-  xThickListe = false,
+  xThickListe = [],
   xThickMin = xMin + xThickDistance,
   xThickMax = xMax - xThickDistance,
   yThickDistance = 1,
-  yThickListe = false,
+  yThickListe = [],
   yThickMin = yMin + yThickDistance,
   yThickMax = yMax - yThickDistance,
   xLabelDistance = xThickDistance,
-  xLabelListe = false,
+  xLabelListe = [],
   xLabelMin = xThickMin,
   xLabelMax = xThickMax,
   yLabelDistance = yThickDistance,
-  yLabelListe = false,
+  yLabelListe = [],
   yLabelMin = yThickMin,
   yLabelMax = yThickMax,
   precisionLabelX = 1,
@@ -1235,41 +1236,41 @@ export function Repere ({
   yLegende = '',
   yLegendePosition = [],
   grille = true,
-  grilleDistance = false,
+  grilleDistance = 1,
   grilleCouleur = 'black',
   grilleOpacite = 0.5,
   grilleEpaisseur = 1,
   grilleSecondaire = false,
-  grilleSecondaireDistance = false,
+  grilleSecondaireDistance = 1,
   grilleSecondaireCouleur = 'gray',
   grilleSecondaireOpacite = 0.3,
   grilleSecondaireEpaisseur = 1,
   grilleX = grille,
-  grilleXListe = false,
+  grilleXListe = [],
   grilleXDistance = grilleDistance,
-  grilleXMin = false,
-  grilleXMax = false,
+  grilleXMin = xMin,
+  grilleXMax = xMax,
   grilleXCouleur = grilleCouleur,
   grilleXOpacite = grilleOpacite,
   grilleY = grille,
-  grilleYListe = false,
+  grilleYListe = [],
   grilleYDistance = grilleDistance,
-  grilleYMin = false,
-  grilleYMax = false,
+  grilleYMin = yMin,
+  grilleYMax = yMax,
   grilleYCouleur = grilleCouleur,
   grilleYOpacite = grilleOpacite,
   grilleSecondaireX = grilleSecondaire,
-  grilleSecondaireXListe = false,
+  grilleSecondaireXListe = [],
   grilleSecondaireXDistance = grilleSecondaireDistance,
-  grilleSecondaireXMin = false,
-  grilleSecondaireXMax = false,
+  grilleSecondaireXMin = xMin,
+  grilleSecondaireXMax = xMax,
   grilleSecondaireXCouleur = grilleSecondaireCouleur,
   grilleSecondaireXOpacite = grilleSecondaireOpacite,
   grilleSecondaireY = grilleSecondaire,
-  grilleSecondaireYListe = false,
+  grilleSecondaireYListe = [],
   grilleSecondaireYDistance = grilleSecondaireDistance,
-  grilleSecondaireYMin = false,
-  grilleSecondaireYMax = false,
+  grilleSecondaireYMin = yMin,
+  grilleSecondaireYMax = yMax,
   grilleSecondaireYCouleur = grilleSecondaireCouleur,
   grilleSecondaireYOpacite = grilleSecondaireOpacite
 }) {
@@ -1310,7 +1311,7 @@ export function Repere ({
 
   // Les traits horizontaux
   if (grilleY) {
-    if (!grilleYListe) {
+    if (grilleYListe.length === 0) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
       if (typeof (grilleYMin) !== 'number') {
         grilleYMin = yThickMin
@@ -1341,7 +1342,7 @@ export function Repere ({
   }
   // Les traits verticaux
   if (grilleX) {
-    if (!grilleXListe) {
+    if (grilleXListe.length === 0) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
       if (typeof (grilleXMin) !== 'number') {
         grilleXMin = xThickMin
@@ -1375,7 +1376,7 @@ export function Repere ({
 
   // Les traits horizontaux
   if (grilleSecondaireY) {
-    if (!grilleSecondaireYListe) {
+    if (grilleSecondaireYListe.length === 0) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
       if (typeof (grilleSecondaireYMin) !== 'number') {
         grilleSecondaireYMin = yThickMin
@@ -1404,7 +1405,7 @@ export function Repere ({
   }
   // Les traits verticaux
   if (grilleSecondaireX) {
-    if (!grilleSecondaireXListe) {
+    if (grilleSecondaireXListe.length === 0) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
       if (typeof (grilleSecondaireXMin) !== 'number') {
         grilleSecondaireXMin = xThickMin
@@ -1433,7 +1434,7 @@ export function Repere ({
   }
   // LES THICKS
   if (axeXisVisible) {
-    if (!xThickListe) {
+    if (xThickListe.length === 0) {
       xThickListe = rangeMinMax(0, xThickMax, [0], xThickDistance).concat(
         rangeMinMax(0, -xThickMin, [0], xThickDistance).map(el => -el)
       )
@@ -1446,7 +1447,7 @@ export function Repere ({
     }
   }
   if (axeYisVisible) {
-    if (!yThickListe) {
+    if (yThickListe.length === 0) {
       yThickListe = rangeMinMax(0, yThickMax, [0], yThickDistance).concat(
         rangeMinMax(0, -yThickMin, [0], yThickDistance).map(el => -el)
       )
@@ -1460,7 +1461,7 @@ export function Repere ({
   }
   // LES LABELS
   if (axeXisVisible) {
-    if (!xLabelListe) {
+    if (xLabelListe.length === 0) {
       xLabelListe = rangeMinMax(0, xLabelMax, [0], xLabelDistance).concat(
         rangeMinMax(0, -xLabelMin, [0], xLabelDistance).map(el => -el)
       )
@@ -1474,7 +1475,7 @@ export function Repere ({
           objets.push(l)
         }
       } else {
-        if (x.valueur <= xMax && x.valeur >= xMin) {
+        if (x.valeur <= xMax && x.valeur >= xMin) {
           l = latexParCoordonnees(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart * 2, 'black', 20, 20, '', 8)
           l.isVisible = false
           objets.push(l)
@@ -1483,7 +1484,7 @@ export function Repere ({
     }
   }
   if (axeYisVisible) {
-    if (!yLabelListe) {
+    if (yLabelListe.length === 0) {
       yLabelListe = rangeMinMax(0, yLabelMax, [0], yLabelDistance).concat(
         rangeMinMax(0, -yLabelMin, [0], yLabelDistance).map(el => -el)
       )
@@ -1512,7 +1513,7 @@ export function Repere ({
   if (yLegende.length > 0) {
     objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
   }
-
+  this.objets = objets
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''
@@ -1569,19 +1570,19 @@ export function repere ({
   thickHauteur = 0.2,
   thickCouleur = axesCouleur,
   xThickDistance = 1,
-  xThickListe = false,
+  xThickListe = [],
   xThickMin = xMin + xThickDistance,
   xThickMax = xMax - xThickDistance,
   yThickDistance = 1,
-  yThickListe = false,
+  yThickListe = [],
   yThickMin = yMin + yThickDistance,
   yThickMax = yMax - yThickDistance,
   xLabelDistance = xThickDistance,
-  xLabelListe = false,
+  xLabelListe = [],
   xLabelMin = xThickMin,
   xLabelMax = xThickMax,
   yLabelDistance = yThickDistance,
-  yLabelListe = false,
+  yLabelListe = [],
   yLabelMin = yThickMin,
   yLabelMax = yThickMax,
   precisionLabelX = 1,
@@ -1593,7 +1594,7 @@ export function repere ({
   yLegende = '',
   yLegendePosition = [0.5, yMax * yUnite + 0.5],
   grille = true,
-  grilleDistance = false,
+  grilleDistance = 1,
   grilleCouleur = 'black',
   grilleOpacite = 0.5,
   grilleEpaisseur = 1,
@@ -1603,31 +1604,31 @@ export function repere ({
   grilleSecondaireOpacite = 0.3,
   grilleSecondaireEpaisseur = 1,
   grilleX = grille,
-  grilleXListe = false,
+  grilleXListe = [],
   grilleXDistance = grilleDistance,
-  grilleXMin = false,
-  grilleXMax = false,
+  grilleXMin,
+  grilleXMax,
   grilleXCouleur = grilleCouleur,
   grilleXOpacite = grilleOpacite,
   grilleY = grille,
-  grilleYListe = false,
+  grilleYListe = [],
   grilleYDistance = grilleDistance,
-  grilleYMin = false,
-  grilleYMax = false,
+  grilleYMin,
+  grilleYMax,
   grilleYCouleur = grilleCouleur,
   grilleYOpacite = grilleOpacite,
   grilleSecondaireX = grilleSecondaire,
-  grilleSecondaireXListe = false,
+  grilleSecondaireXListe = [],
   grilleSecondaireXDistance = grilleSecondaireDistance,
-  grilleSecondaireXMin = false,
-  grilleSecondaireXMax = false,
+  grilleSecondaireXMin,
+  grilleSecondaireXMax,
   grilleSecondaireXCouleur = grilleSecondaireCouleur,
   grilleSecondaireXOpacite = grilleSecondaireOpacite,
   grilleSecondaireY = grilleSecondaire,
-  grilleSecondaireYListe = false,
+  grilleSecondaireYListe = [],
   grilleSecondaireYDistance = grilleSecondaireDistance,
-  grilleSecondaireYMin = false,
-  grilleSecondaireYMax = false,
+  grilleSecondaireYMin,
+  grilleSecondaireYMax,
   grilleSecondaireYCouleur = grilleSecondaireCouleur,
   grilleSecondaireYOpacite = grilleSecondaireOpacite
 } = {}) {
