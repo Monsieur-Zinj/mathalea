@@ -8,6 +8,7 @@ import { context } from '../../modules/context.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']
@@ -30,6 +31,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
   this.sup3 = true // Si présence ou pas du signe "fois"
   this.sup4 = 6
   this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
+  this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
 
   this.nouvelleVersion = function () {
     this.interactifType = this.version > 2 ? 'mathLive' : 'listeDeroulante'
@@ -37,8 +39,6 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
-    this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup4,
@@ -203,7 +203,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           ]
         }
         } else if (this.version === 2) {
-          texte += sp(10) + choixDeroulant(this, i, 0, ['somme', 'différence', 'produit', 'quotient'], 'une réponse')
+          texte += sp(10) + choixDeroulant(this, i, 0, combinaisonListes(['somme', 'différence', 'produit', 'quotient'], 1), 'une réponse')
           setReponse(this, i, expNom, { formatInteractif: 'texte' })
         }
         this.listeQuestions.push(texte)

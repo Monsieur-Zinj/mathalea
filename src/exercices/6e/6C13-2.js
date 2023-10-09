@@ -17,4 +17,5 @@ export default function TraduireUneExpressionParUnePhrase6eme () {
   this.version = 2
   this.nbQuestions = 4
   this.sup4 = '1'
+  this.besoinFormulaire4Texte = false
 }
