@@ -148,7 +148,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
           break
       }
-      if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
+      if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version, expf) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.version > 2) {
           /// vérifier qu'il n'y a plus d'OpenNUM
           if (!context.isAmc) {
