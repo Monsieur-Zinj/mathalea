@@ -150,7 +150,7 @@ export default function RecomposerEntierC3 () {
             nombreStr += randint(1, 9, nombreStr).toString()
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec[i] === 0 ? `,${texNombre(1000)},...$).<br>` : `,... $ ou bien $${texNombre(0.1)}, ${texNombre(0.01)},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -184,7 +184,7 @@ export default function RecomposerEntierC3 () {
             nombreStr += randint(1, 9, nombreStr).toString()
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec[i] === 0 ? `,${texNombre(1000)},...$).<br>` : `,... $ ou bien $${texNombre(0.1)}, ${texNombre(0.01)},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -295,7 +295,7 @@ export default function RecomposerEntierC3 () {
             nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec[i] === 0 ? `,${texNombre(1000)},...$).<br>` : `,... $ ou bien $${texNombre(0.1)}, ${texNombre(0.01)},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -331,7 +331,7 @@ export default function RecomposerEntierC3 () {
             nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec[i] === 0 ? `,${texNombre(1000)},...$).<br>` : `,... $ ou bien $${texNombre(0.1)}, ${texNombre(0.01)},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -538,7 +538,7 @@ export default function RecomposerEntierC3 () {
           nombreStr = remplaceParZero(nombreStr, place)
           nombreStr = remplaceParZero(nombreStr, place + 1)
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec[i] === 0 ? `,${texNombre(1000)},...$).<br>` : `,... $ ou bien $${texNombre(0.1)}, ${texNombre(0.01)},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -575,7 +575,7 @@ export default function RecomposerEntierC3 () {
           nombreStr = remplaceParZero(nombreStr, place)
           nombreStr = remplaceParZero(nombreStr, place + 1)
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec === 0 ? `,${texNombre('1000')},...$).<br>``,${texNombre('1000')},...$).<br>` : `,... $ ou bien $${texNombre('0.1')}, ${texNombre('0.01')},...$).<br>`)
+          texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les valeurs qui conviennent ($1, 10, 100` + (nombreDeChiffresDec[i] === 0 ? `,${texNombre(1000)},...$).<br>` : `,... $ ou bien $${texNombre(0.1)}, ${texNombre(0.01)},...$).<br>`)
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           this.premierChamp[i] = indexChamp
@@ -615,6 +615,8 @@ export default function RecomposerEntierC3 () {
           break
       }
 
+      texte += this.interactif ? '<br>' : ''
+
       if (context.isAmc) {
         this.autoCorrection[i] =
                     {
@@ -641,7 +643,7 @@ export default function RecomposerEntierC3 () {
   }
   this.besoinFormulaireNumerique = ['Nombre de chiffres minimum des nombres à décomposer']
   this.besoinFormulaire2Numerique = ['Nombre de chiffres maximum des nombres à décomposer']
-  this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Trouver le nombre en ordre avec zéros possibles avec groupement\n13 : Trouver le nombre en désordre avec zéros possibles\n14 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n15 : Mélange']
+  this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n10 : Trouver le nombre en désordre avec zéro avec groupement\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Trouver le nombre en ordre avec zéros possibles avec groupement\n13 : Trouver le nombre en désordre avec zéros possibles\n14 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n15 : Mélange']
   this.besoinFormulaire4Texte = ['Nombre de chiffres de la partie décimale', '0 : Aucun chiffre dans la partie décimale\n1 : Un seul chiffre dans la partie décimale\n2 : Que deux chiffres dans la partie décimale\n3 : Que trois chiffres dans la partie décimale\n4 : Mélange']
   this.correctionInteractive = (i) => {
     const champsTexte = []
