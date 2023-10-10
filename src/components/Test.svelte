@@ -22,6 +22,8 @@
   }
   import referentielProfs from '../json/referentielProfs.json'
   let referentielOutil: JSONReferentielObject = { ...referentielProfs }
+  import referentielRessources from '../json/referentielRessources.json'
+  let referentielHtml: JSONReferentielObject = { ...referentielRessources }
   const all = getAllExercises(baseReferentiel)
   let filteredReferentielItems: ResourceAndItsPath[]
   let filteredReferentiel: JSONReferentielObject
@@ -78,6 +80,14 @@
       indexBase={1}
       nestedLevelCount={1}
       levelTitle={'Outils'}
+    />
+  </div>
+  <div class="mt-10 px-8 text-[10px] w-1/3">
+    <ReferentielNode
+      bind:subset={referentielHtml}
+      indexBase={1}
+      nestedLevelCount={1}
+      levelTitle={'Vos ressources'}
     />
   </div>
 </div>

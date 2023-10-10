@@ -155,7 +155,7 @@ export interface ToolItemInReferentiel extends BaseItemInReferentiel {
   url: string
   id: string
   titre: string
-  typeExercice: 'outil'
+  typeExercice: 'outil' | 'html'
 }
 // ===========================================================================
 //
@@ -175,6 +175,7 @@ export type JSONReferentielEnding =
   | ExamItemInReferentiel
   | ExamWithoutTexItemInReferentiel
   | ExerciceItemInReferentiel
+  | ToolItemInReferentiel
 // Type pour un référentiel complet
 export interface JSONReferentielObject
   extends Record<
@@ -203,7 +204,7 @@ export const isJSONReferentielEnding = (
 export const isTool = (
   obj: any
 ): obj is ToolItemInReferentiel =>
-  obj.typeExercice === 'outil'
+  obj.typeExercice === 'outil' || obj.typeExercice === 'html'
 
 export const isResourceHasPlace = (
   obj: any
