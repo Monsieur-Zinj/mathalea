@@ -150,7 +150,7 @@ export interface ExerciceItemInReferentiel extends BaseItemInReferentiel {
  */
 // Type pour un objet situé en fin de référentiel
 export type JSONReferentielEnding =
-  | BaseItemInReferentiel
+  // | BaseItemInReferentiel  <-- pas de terminaison aussi basique
   | StaticItemInreferentiel
   | ExamItemInReferentiel
   | ExamWithoutTexItemInReferentiel

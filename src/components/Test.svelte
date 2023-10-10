@@ -11,6 +11,7 @@
   import { selectedFilters } from './store'
   import { onDestroy } from 'svelte'
   import SearchExerciceBis from './sidebar/SearchExerciceBis.svelte'
+  import ReferentielNode from './sidebar/ReferentielNode.svelte'
   const baseReferentiel: JSONReferentielObject = {
     ...referentielAlea,
     static: { ...referentielStatic }
@@ -55,9 +56,10 @@
 </div>
 
 <ul class="mt-10 px-8 text-[10px]">
-  {#each filteredReferentiel as item}
+  <!-- {#each filteredReferentiel as item}
     <li>
       {item.pathToResource.join('/')}
     </li>
-  {/each}
+  {/each} -->
+  <ReferentielNode subset={filteredReferentiel} indexBase={0} nestedLevelCount={1} levelTitle={'Exercices'} />
 </ul>
