@@ -4,6 +4,7 @@
     "uuid": "ad5f5",
     "url": "profs/P003.js",
     "titre": "Tracer des droites graduées",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P004": {
@@ -11,6 +12,7 @@
     "uuid": "ad5f6",
     "url": "profs/P004.js",
     "titre": "Droites graduées avec zoom",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P005": {
@@ -18,6 +20,7 @@
     "uuid": "ad5f7",
     "url": "profs/P005.js",
     "titre": "Grilles décimales",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P006": {
@@ -25,6 +28,7 @@
     "uuid": "bd5f7",
     "url": "profs/P006.js",
     "titre": "Placer un nombre décimal avec des zooms successifs",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P007": {
@@ -32,6 +36,7 @@
     "uuid": "ad5f8",
     "url": "profs/P007.js",
     "titre": "Fabriquer des pavages pour travailler les transformations",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P008": {
@@ -39,6 +44,7 @@
     "uuid": "691a6",
     "url": "profs/P008.js",
     "titre": "Opérations posées",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P009": {
@@ -46,6 +52,7 @@
     "uuid": "691a7",
     "url": "profs/P009.js",
     "titre": "Simulation d'expériences aléatoires",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P010": {
@@ -53,6 +60,7 @@
     "uuid": "691a8",
     "url": "profs/P010.js",
     "titre": "Étude de fonctions de degré 3",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P011": {
@@ -60,6 +68,7 @@
     "uuid": "697a7",
     "url": "profs/P011.js",
     "titre": "Construction animée d'un triangle",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P012": {
@@ -67,6 +76,7 @@
     "uuid": "62f5e",
     "url": "profs/P012.js",
     "titre": "Faire des camemberts pour travailler les fractions",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P013": {
@@ -74,6 +84,7 @@
     "uuid": "5b767",
     "url": "profs/P013.js",
     "titre": "Interpolation cosinusoïdale",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P014": {
@@ -81,6 +92,7 @@
     "uuid": "295a8",
     "url": "profs/P014.js",
     "titre": "Interpollation de Catmull-Rom",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P015": {
@@ -88,6 +100,7 @@
     "uuid": "085ed",
     "url": "profs/P015.js",
     "titre": "Puzzles géométriques avec animation",
+    "typeExercice" : "outil",
     "datePublication": "14/03/2022",
     "tags": {}
   },
@@ -97,6 +110,7 @@
     "url": "profs/P016.js",
     "titre": "Simulateur de Dés",
     "datePublication": "06/04/2022",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P017": {
@@ -104,6 +118,7 @@
     "uuid": "0ff0f",
     "url": "profs/P017.js",
     "titre": "Encadrer l'aire d'un disque",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P018": {
@@ -111,6 +126,7 @@
     "uuid": "75f89",
     "url": "profs/P018.js",
     "titre": "Générateur de pyramides",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P019": {
@@ -118,6 +134,7 @@
     "uuid": "6fb13",
     "url": "profs/P019.js",
     "titre": "Générateur de Shikaku",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P020": {
@@ -125,6 +142,7 @@
     "uuid": "de353",
     "url": "profs/P020.js",
     "titre": "Encodeur de texte",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P021": {
@@ -132,12 +150,14 @@
     "uuid": "4c7ca",
     "url": "profs/P021.js",
     "titre": "Interpollation par splines avec tangentes",
+    "typeExercice" : "outil",
     "tags": {}
   },
   "P022": {
     "id": "P022",
     "uuid": "spline",
     "titre": "Interpollation par splines (avec formulaires)",
+    "typeExercice" : "outil",
     "url": "OutilSpline.svelte"
   }
 }

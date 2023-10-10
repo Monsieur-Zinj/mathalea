@@ -66,7 +66,7 @@ export interface AppTierceGroup {
 export interface BaseItemInReferentiel {
   uuid: string
   tags: string[]
-  typeExercice: 'alea' | 'dnb' | 'crpe' | 'bac' | 'simple' | 'html' | 'svelte'
+  typeExercice: 'alea' | 'dnb' | 'crpe' | 'bac' | 'simple' | 'html' | 'svelte' | 'e3c' | 'outil' | 'tierce'
 }
 
 /**
@@ -99,6 +99,7 @@ export interface ExamItemInReferentiel extends StaticItemInreferentiel {
   annee: string
   lieu: string
   numeroInitial: string
+  typeExercice: 'dnb' | 'bac' | 'crpe'
 }
 
 /**
@@ -117,6 +118,7 @@ export interface ExamWithoutTexItemInReferentiel extends BaseItemInReferentiel {
   annee: string
   lieu: string
   numeroInitial: string
+  typeExercice: 'crpe' | 'e3c'
 }
 
 /**
@@ -136,6 +138,7 @@ export interface ExerciceItemInReferentiel extends BaseItemInReferentiel {
   features: Features
   datePublication?: FrenchDateString
   dateModification?: FrenchDateString
+  typeExercice: 'alea'
 }
 // ===========================================================================
 //
