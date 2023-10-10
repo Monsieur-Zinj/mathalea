@@ -1,5 +1,9 @@
 <script lang="ts">
-  import { getAllExercises, applyFilters, buildReferentiel } from '../components/utils/refUtils'
+  import {
+    getAllExercises,
+    applyFilters,
+    buildReferentiel
+  } from '../components/utils/refUtils'
   import {
     type JSONReferentielObject,
     type ResourceAndItsPath,
@@ -16,6 +20,8 @@
     ...referentielAlea,
     static: { ...referentielStatic }
   }
+  import referentielProfs from '../json/referentielProfs.json'
+  let referentielOutil: JSONReferentielObject = { ...referentielProfs }
   const all = getAllExercises(baseReferentiel)
   let filteredReferentielItems: ResourceAndItsPath[]
   let filteredReferentiel: JSONReferentielObject
@@ -58,7 +64,20 @@
 </div>
 
 <div class="flex flex-row w-full">
-  <ul class="mt-10 px-8 text-[10px]  w-1/3">
-    <ReferentielNode bind:subset={filteredReferentiel} indexBase={1} nestedLevelCount={1} levelTitle={'Exercices'} />
-  </ul>
+  <div class="mt-10 px-8 text-[10px] w-1/3">
+    <ReferentielNode
+      bind:subset={filteredReferentiel}
+      indexBase={1}
+      nestedLevelCount={1}
+      levelTitle={'Exercices'}
+    />
+  </div>
+  <div class="mt-10 px-8 text-[10px] w-1/3">
+    <ReferentielNode
+      bind:subset={referentielOutil}
+      indexBase={1}
+      nestedLevelCount={1}
+      levelTitle={'Outils'}
+    />
+  </div>
 </div>

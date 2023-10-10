@@ -150,6 +150,13 @@ export interface ExerciceItemInReferentiel extends BaseItemInReferentiel {
   dateModification?: FrenchDateString
   typeExercice: 'alea'
 }
+
+export interface ToolItemInReferentiel extends BaseItemInReferentiel {
+  url: string
+  id: string
+  titre: string
+  typeExercice: 'outil'
+}
 // ===========================================================================
 //
 //    Type pour les référentiels eux-mêmes
@@ -188,15 +195,23 @@ export const isExerciceItemInReferentiel = (
   obj: any
 ): obj is ExerciceItemInReferentiel =>
   obj.uuid !== undefined && obj.features !== undefined
+
 export const isJSONReferentielEnding = (
   obj: any
 ): obj is JSONReferentielEnding => obj.uuid !== undefined
+
+export const isTool = (
+  obj: any
+): obj is ToolItemInReferentiel =>
+  obj.typeExercice === 'outil'
 
 export const isResourceHasPlace = (
   obj: any
 ): obj is ExamItemInReferentiel | ExamWithoutTexItemInReferentiel =>
   obj.lieu !== undefined
+
 export const isResourceHasMonth = (obj: any): obj is ExamItemInReferentiel =>
   obj.mois !== undefined
+
 export const isLevelType = (obj: any): obj is Level =>
   Object.keys(codeList).includes(obj)

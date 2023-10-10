@@ -4,6 +4,7 @@
     isExerciceItemInReferentiel,
     isResourceHasMonth,
     isResourceHasPlace,
+    isTool,
     type JSONReferentielEnding
   } from '../../lib/types/referentiels'
   import renderMathInElement from 'katex/dist/contrib/auto-render.js'
@@ -13,7 +14,7 @@
 
   export let ending: JSONReferentielEnding
   export let nestedLevelCount: number
-
+  const paddingTweak: number = ending.typeExercice === 'outil' ? nestedLevelCount + 3 : nestedLevelCount
   let nomDeExercice: HTMLDivElement
   onMount(() => {
     if (nomDeExercice && nomDeExercice.innerHTML.includes('$')) {
@@ -95,8 +96,8 @@
 
 <div
   class="w-full relative flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-  pl-{nestedLevelCount * 2}"
-  style="padding-left: {(nestedLevelCount * 2) / 4}rem"
+  "
+  style="padding-left: {(paddingTweak * 2) / 4}rem"
 >
   <button
     class="w-full inline-flex text-start justify-start items-start hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
@@ -142,6 +143,13 @@
               {tag}
             </span>
           {/each}
+        </div>
+      {:else if isTool(ending)}
+        <!-- Outils -->
+        <div
+          class="text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
+        >
+          <span class="font-bold">{ending.id} - </span>{ending.titre}
         </div>
       {:else}
         <!-- Exercice de la bibliothèque -->
