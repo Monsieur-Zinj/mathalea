@@ -2643,6 +2643,18 @@
             "amc": false
           },
           "datePublication": "01/10/2023"
+        },
+        "can4G10": {
+          "url": "can/4e/can4G10.js",
+          "uuid": "5344c",
+          "id": "can4G10",
+          "titre": "Un triangle à côtés entiers est-il rectangle ?",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathlive",
+            "amc": false
+          },
+          "datePublication": "01/10/2023"
         }
       },
       "can4L": {
@@ -4838,7 +4850,7 @@
             "interactifType": "qcm",
             "amc": false
           },
-          "datePublication": "05/10/2023"
+          "datePublication": "07/10/2023"
         }
       },
       "can1P": {
@@ -5631,6 +5643,19 @@
           "interactif": false,
           "amc": false
         }
+      },
+      "6C13-2": {
+        "url": "6e/6C13-2.js",
+        "uuid": "e6f62",
+        "id": "6C13-2",
+        "titre": "Traduire une expression par une phrase",
+        "tags": {
+          "interactif": true,
+          "interactifType": "listeDeroulante",
+          "amcType": "AMCOpen",
+          "amc": true
+        },
+        "datePublication": "08/10/2023"
       }
     },
     "6C2": {
@@ -5954,7 +5979,7 @@
           "amcType": "AMCHybride",
           "amc": true
         },
-        "dateModification": "02/01/2022"
+        "dateModification": "09/10/2023"
       },
       "6D13": {
         "url": "6e/6D13.js",
@@ -7017,7 +7042,8 @@
           "amcType": "AMCOpen",
           "amc": true
         },
-        "datePublication": "14/08/2022"
+        "datePublication": "14/08/2022",
+        "dateModification": "09/10/2023"
       },
       "6N11": {
         "url": "6e/6N11.js",
@@ -7931,7 +7957,8 @@
         "id": "5C11-1",
         "titre": "Traduire une expression par une phrase",
         "tags": {
-          "interactif": false,
+          "interactif": true,
+          "interactifType": "listeDeroulante",
           "amcType": "AMCOpen",
           "amc": true
         },
