@@ -283,8 +283,7 @@ export default function CalculerUnAngle () {
           arcEpaisseur: 2,
           mesureEnGras: true
         }))
-      } // On remplit les tableaux d'objets Mathalea2d
-      else {
+      } else { // On remplit les tableaux d'objets Mathalea2d
         objetsCorrection.push(afficheMesureAngle(C, A, D, 'pink', 3, '', {
           ecart: 0.85,
           colorArc: 'pink',

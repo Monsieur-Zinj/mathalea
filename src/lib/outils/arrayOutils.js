@@ -50,6 +50,31 @@ export function enleveElement (array, item) {
 }
 
 /**
+ * Enlève toutes les occurences d'un élément d'un tableau donné (array1) et enlève les éléments associés dans un autre tableau (array2)
+ * @param array array1
+ * @param array array2
+ * @param element item
+ *
+ * @author Rémi Angot
+ */
+export function enleveElementDouble (array1, array2, item) {
+  //
+  for (let i = array1.length - 1; i >= 0; i--) {
+    if (typeof item === 'number') {
+      if (egal(array1[i], item)) {
+        array1.splice(i, 1)
+        array2.splice(i, 1)
+      }
+    } else {
+      if (array1[i] === item) {
+        array1.splice(i, 1)
+        array2.splice(i, 1)
+      }
+    }
+  }
+}
+
+/**
  *
  * Compter les occurences d'un item dans un tableau
  * @param {array} array
