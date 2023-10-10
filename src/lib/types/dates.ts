@@ -30,7 +30,9 @@ export type FrenchDateString = `${DD}/${MM}/${YYYY}`
  * @remark La date passée entre paramètre doit être comprise entre `01/01/1900` et `31/12/2099`
  * @returns {boolean} `true` si moins d'un mois s'est écoulé depuis la date jusqu'à l'appel de la fonction
  */
-export function isLessThanAMonth (dateString: FrenchDateString): boolean {
+export function isLessThanAMonth (
+  dateString: FrenchDateString | undefined
+): boolean {
   if (dateString === undefined) return false
   const [jour, mois, annee] = dateString.split('/')
   const date = new Date(parseInt(annee), parseInt(mois) - 1, parseInt(jour))

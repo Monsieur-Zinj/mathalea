@@ -66,7 +66,17 @@ export interface AppTierceGroup {
 export interface BaseItemInReferentiel {
   uuid: string
   tags: string[]
-  typeExercice: 'alea' | 'dnb' | 'crpe' | 'bac' | 'simple' | 'html' | 'svelte' | 'e3c' | 'outil' | 'tierce'
+  typeExercice:
+    | 'alea'
+    | 'dnb'
+    | 'crpe'
+    | 'bac'
+    | 'simple'
+    | 'html'
+    | 'svelte'
+    | 'e3c'
+    | 'outil'
+    | 'tierce'
 }
 
 /**
@@ -182,7 +192,11 @@ export const isJSONReferentielEnding = (
   obj: any
 ): obj is JSONReferentielEnding => obj.uuid !== undefined
 
-export const isResourceHasPlace = (obj: any): obj is ExamItemInReferentiel | ExamWithoutTexItemInReferentiel =>
+export const isResourceHasPlace = (
+  obj: any
+): obj is ExamItemInReferentiel | ExamWithoutTexItemInReferentiel =>
   obj.lieu !== undefined
-
-export const isLevelType = (obj: any): obj is Level => Object.keys(codeList).includes(obj)
+export const isResourceHasMonth = (obj: any): obj is ExamItemInReferentiel =>
+  obj.mois !== undefined
+export const isLevelType = (obj: any): obj is Level =>
+  Object.keys(codeList).includes(obj)
