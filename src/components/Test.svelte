@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { getAllExercises, applyFilters } from '../components/utils/refUtils'
+  import { getAllExercises, applyFilters, buildReferentiel } from '../components/utils/refUtils'
   import {
     type JSONReferentielObject,
     type ResourceAndItsPath,
@@ -17,10 +17,12 @@
     static: { ...referentielStatic }
   }
   const all = getAllExercises(baseReferentiel)
-  let filteredReferentiel: ResourceAndItsPath[]
+  let filteredReferentielItems: ResourceAndItsPath[]
+  let filteredReferentiel: JSONReferentielObject
   // maj du référentiel chaque fois que le store `selectedFilters` change
   const unsubscribeToFiltersStore = selectedFilters.subscribe(() => {
-    filteredReferentiel = applyFilters(all)
+    filteredReferentielItems = applyFilters(all)
+    filteredReferentiel = buildReferentiel(filteredReferentielItems)
   })
   onDestroy(() => {
     unsubscribeToFiltersStore()
@@ -31,7 +33,7 @@
 <h1 class="text-4xl font-black text-coopmaths-struct mb-10">Tests</h1>
 <div class="p-4">
   <SearchExerciceBis
-    origin={filteredReferentiel}
+    origin={filteredReferentielItems}
     bind:results={searchResultReferentiel}
   />
 </div>
@@ -55,11 +57,8 @@
   <FiltresBis filterType="types" />
 </div>
 
-<ul class="mt-10 px-8 text-[10px]">
-  <!-- {#each filteredReferentiel as item}
-    <li>
-      {item.pathToResource.join('/')}
-    </li>
-  {/each} -->
-  <ReferentielNode subset={filteredReferentiel} indexBase={0} nestedLevelCount={1} levelTitle={'Exercices'} />
-</ul>
+<div class="flex flex-row w-full">
+  <ul class="mt-10 px-8 text-[10px]  w-1/3">
+    <ReferentielNode bind:subset={filteredReferentiel} indexBase={1} nestedLevelCount={1} levelTitle={'Exercices'} />
+  </ul>
+</div>
