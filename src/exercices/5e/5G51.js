@@ -216,8 +216,8 @@ export default function RepresenterUnSolide5e () {
       Ymax = Math.max(D.y, H.y) + 1
       ppc = 20
 
-      if (this.sup2 < 3) { g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) } else { g = '' }
-      if (this.sup2 === 2) { carreaux = seyes(Xmin, Ymin, Xmax, Ymax); sc = 0.8 } else { carreaux = ''; sc = 0.5 }
+      if (this.sup2 < 3) { g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) } else { g = vide2d() }
+      if (this.sup2 === 2) { carreaux = seyes(Xmin, Ymin, Xmax, Ymax); sc = 0.8 } else { carreaux = vide2d(); sc = 0.5 }
 
       const params = {
         xmin: Xmin,

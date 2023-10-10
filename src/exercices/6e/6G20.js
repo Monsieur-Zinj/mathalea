@@ -193,11 +193,11 @@ export default function NommerEtCoderDesPolygones () {
         scale: sc
       }
       if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
-      else g = ''
+      else g = vide2d()
       if (parseInt(this.sup === 2)) {
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
       } else {
-        carreaux = ''
+        carreaux = vide2d()
       }
 
       pol.epaisseur = 2

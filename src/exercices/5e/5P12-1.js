@@ -11,11 +11,10 @@ import { listeQuestionsToContenu, randint, ppcm, calculANePlusJamaisUtiliser } f
 export const titre = 'Problèmes de ratio'
 
 export const uuid = '0a637'
-export const ref = '5P12-1' 
+export const ref = '5P12-1'
 // Ancien 5N15 avant septembre 2023
 export default function ProblemeDeRatio () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
@@ -302,6 +301,4 @@ export default function ProblemeDeRatio () {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   this.besoinFormulaireNumerique = ['Type de ratios', 3, ' 1 : x:y\n 2 : x:y:z\n 3 : Mélange']
-  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,` 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
 } // Fin de l'exercice.

@@ -653,7 +653,7 @@ export default class ConstruireParSymetrie extends Exercice {
       }
       if (this.sup2 < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
       else g = vide2d()
-      if (parseInt(this.sup2) === 2) {
+      if (this.sup2 === 2) {
         k = 0.8
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
       } else {

@@ -7,7 +7,7 @@ import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -28,13 +28,11 @@ export default class constructionElementaire extends Exercice {
 //
   constructor () {
     super()
-    this.titre = titre
     this.nbQuestions = 1
     this.nbCols = 1
     this.nbColsCorr = 1
     this.sup = 1
     this.sup2 = 4
-    this.calling = [0]
     this.besoinFormulaireNumerique = [
       'Type de cahier',
       3,
@@ -72,15 +70,9 @@ export default class constructionElementaire extends Exercice {
       const Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y) + 1)
 
       let g, sc, carreaux
-      if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
-      else g = ''
-      if (parseInt(this.sup) === 2) {
-        sc = 0.8
-        carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
-      } else {
-        sc = 0.5
-        carreaux = ''
-      }
+      if (this.sup < 3) { g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) } else { g = vide2d() }
+      if (this.sup === 2) { carreaux = seyes(Xmin, Ymin, Xmax, Ymax); sc = 0.8 } else { carreaux = vide2d(); sc = 0.5 }
+
       objetsEnonce.push(g, carreaux)
       objetsCorrection.push(g, carreaux)
       const ppc = 20
@@ -113,6 +105,7 @@ export default class constructionElementaire extends Exercice {
         typeOld.push(type)
         const tira = ind.toString() + ind1.toString() + ind2.toString() + type.toString()
         if (tirage.indexOf(tira) > -1) {
+          k--
           continue
         } else {
           tirage.push(tira)
@@ -136,15 +129,11 @@ export default class constructionElementaire extends Exercice {
             lettre = ['[', ')']
             if (ind <= 5 && ind >= ind1) { sol = '\\in' } else { sol = '\\notin' }
             break
-          // case 3 : // demi-droite (]
-          //   lettre = ['(', ']']
-          //   if (ind <= 5 && ind <= ind2) { sol = '\\in' } else { sol = '\\notin' }
-          //   break
         }
         if (this.interactif) {
           colonne2 +=
             numAlpha(questind) +
-            `$${points[ind].nom}${sp(3)}$` + choixDeroulant(this, i * this.sup2 + k, undefined, ['∈', '∉'], '...') + `$${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<span id="resultatCheckEx${numeroExercice}Q${i * this.sup2 + k}"></span><br>`
+            `$${points[ind].nom}${sp(3)}$` + choixDeroulant(this, i * this.sup2 + k, 0, ['∈', '∉'], '...') + `$${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<span id="resultatCheckEx${numeroExercice}Q${i * this.sup2 + k}"></span><br>`
           setReponse(this, i * this.sup2 + k, sol === '\\notin' ? '∉' : '∈')
         } else {
           colonne2 +=
@@ -161,27 +150,20 @@ export default class constructionElementaire extends Exercice {
       const correction = deuxColonnesResp(colonne1, correction2, optionsSol)
 
       /****************************************************/
-      if (this.listeQuestions.indexOf(enonce) === -1) {
+      if (this.questionJamaisPosee(i, enonce)) {
       // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + '<br>')
         this.listeCorrections.push(correction + '<br>')
-
         // listener
         const reportWindowSize = function () {
-          // console.log(options)
           const element = document.getElementById('cols-responsive1-' + options.eleId)
-          // const element2 = document.getElementById('cols-responsive2-' + options.eleId)
           const element3 = document.getElementById('cols-responsive1-s-' + options.eleId)
-          // const element4 = document.getElementById('cols-responsive2-s-' + options.eleId)
           if (element !== null &&
             element3 !== null &&
             element !== undefined &&
             element3 !== undefined &&
             element.clientWidth !== 0) {
-            // console.log(element.clientWidth + ': ' + element.offsetWidth)
-            // console.log(element2.clientWidth + ': ' + element2.offsetWidth)
             const qcms = element.querySelectorAll('.mathalea2d')
-            // console.log('mathalea2d :' + qcms.length + ':' + qcms[0].getAttribute('width'))
             const widthMathalea2d = parseInt(qcms[0].getAttribute('width'))
             let col1 = parseInt(options.widthmincol1.replaceAll('px', ''))
             const col2 = parseInt(options.widthmincol2.replaceAll('px', ''))
@@ -193,11 +175,9 @@ export default class constructionElementaire extends Exercice {
             if (diff > col2) {
               element.parentElement.style.gridTemplateColumns = 'repeat(2, 1fr)'
               element3.parentElement.style.gridTemplateColumns = 'repeat(2, 1fr)'
-              // console.log(element.parentElement.clientWidth + ':repeat(2, 1fr)')
             } else {
               element.parentElement.style.gridTemplateColumns = 'auto'
               element3.parentElement.style.gridTemplateColumns = 'auto'
-              // console.log(element.parentElement.clientWidth + ':auto')
             }
           }
         }

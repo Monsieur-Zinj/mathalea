@@ -378,13 +378,13 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           break
       }
       if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
-      else g = ''
+      else g = vide2d()
       if (parseInt(this.sup) === 2) {
         sc = 0.8
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
       } else {
         sc = 0.5
-        carreaux = ''
+        carreaux = vide2d()
       }
       objetsEnonce.push(g, carreaux)
       objetsCorrection.push(g, carreaux)
