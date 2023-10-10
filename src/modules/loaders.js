@@ -274,7 +274,7 @@ export async function loadMathLive () {
           style += 'margin-left: 25px;'
         }
         style += ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
-        if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
+        if (!mf.classList.contains('largeur01') && !mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
           style += ' width: 25%;'
         }
       } else {
@@ -282,17 +282,18 @@ export async function loadMathLive () {
       }
       if (mf.classList.contains('largeur10')) {
         style += ' width: 10%;'
-      }
-      if (mf.classList.contains('largeur25')) {
+      } else if (mf.classList.contains('largeur25')) {
         style += ' width: 25%;'
-      }
-      if (mf.classList.contains('largeur50')) {
+      } else if (mf.classList.contains('largeur50')) {
         style += ' width: 50%;'
-      }
-      if (mf.classList.contains('largeur75')) {
+      } else if (mf.classList.contains('largeur75')) {
         style += ' width: 75%;'
       }
-      style += ' min-width: 200px'
+      if (mf.classList.contains('largeur01')) {
+        style += ' min-width: 80px'
+      } else {
+        style += ' min-width: 200px'
+      }
       mf.setAttribute('style', style)
     }
   }
