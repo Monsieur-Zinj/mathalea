@@ -4952,7 +4952,8 @@
     "titre": "Construire le symétrique d'un point par symétrie centrale",
     "tags": {
       "interactif": false,
-      "amc": false
+      "amcType": "AMCOpen",
+      "amc": true
     },
     "dateModification": "14/11/2021"
   },
@@ -7700,7 +7701,7 @@
       "amcType": "AMCNum",
       "amc": true
     },
-    "dateModification": "02/10/2022"
+    "dateModification": "11/10/2023"
   },
   "6N10-4": {
     "url": "6e/6N10-4.js",
@@ -9525,13 +9526,14 @@
     "url": "can/1e/can1F05.js",
     "uuid": "053d7",
     "id": "can1F05",
-    "titre": "Lire graphiquement les valeurs de $b$ et $c$ avec une parabole",
+    "titre": "Déterminer graphiquement la valeur de b avec une parabole",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
     },
-    "datePublication": "08/06/2022"
+    "datePublication": "08/06/2022",
+    "dateModification": "11/10/2023"
   },
   "can1F06": {
     "url": "can/1e/can1F06.js",
@@ -13725,6 +13727,18 @@
       "amc": true
     },
     "datePublication": "27/08/2022"
+  },
+  "can6M13": {
+    "url": "can/6e/can6M13.js",
+    "uuid": "59144",
+    "id": "can6M13",
+    "titre": "Manipuler les conversions",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": true
+    },
+    "datePublication": "11/10/2023"
   },
   "can6N01": {
     "url": "can/6e/can6N01.js",
