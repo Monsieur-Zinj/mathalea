@@ -406,6 +406,7 @@ export default function SerieDeTransformations () {
         texte += '\n' + centrage(mathalea2d(paramsEnonce, objetsEnonce))
         texteCorr += '\n' + centrage(mathalea2d(paramsCorrection, objetsCorrection))
       }
+      texteCorr += this.interactif ? 'La réponse était donc : ' + texteEnCouleurEtGras(chemin.toString()) + '.' : ''
       if (context.isAmc) {
         this.autoCorrection = [
           {
