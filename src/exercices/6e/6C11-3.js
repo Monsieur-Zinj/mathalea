@@ -111,7 +111,9 @@ export default function APartirDeDivisionsEuclidiennes () {
                     `${a}=${b}\\times ${q}+${0}`, `${a}=${q}\\times ${b}+${0}`,
                     `${b}\\times ${q}+${0}=${a}`, `${q}\\times ${b}+${0}=${a}`,
                     `${a}=(${b}\\times ${q})+${0}`, `${a}=(${q}\\times ${b})+${0}`,
-                    `(${b}\\times ${q})+${0}=${a}`, `(${q}\\times ${b})+${0}=${a}`])
+                    `(${b}\\times ${q})+${0}=${a}`, `(${q}\\times ${b})+${0}=${a}`,
+                    `${a}\\div${b}=${q}`, `${a}\\div${q}=${b}`,
+                    `${q}=${a}\\div${b}`, `${b}=${a}\\div${q}`])
       } else {
         texteCorr = this.classe === 3
           ? `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}+${r}`)}$`
