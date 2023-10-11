@@ -9,10 +9,10 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { range } from '../../lib/outils/nombres.js'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']
-// export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '21/09/2023'
@@ -67,6 +67,10 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     } else {
       decimal = 1
     }
+    // pour 6C13-2
+    const sousCas = combinaisonListes(range(3), this.nbQuestions)
+    let nbSousCas = 0
+
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       nbOperations = listeTypeDeQuestions[i]
@@ -74,7 +78,8 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
       if (!this.litteral) {
-        resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental)
+        resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental, sousCas[nbSousCas])
+        if (nbOperations === 1) nbSousCas++
       } else {
         resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, calculMental)
       }

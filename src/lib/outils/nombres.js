@@ -126,7 +126,7 @@ export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
     if (!isNaN(except)) sauf = (String(nombre).split('.')[0].split(String(except)).length - 1)
     return String(nombre).split('.')[0].length - sauf
   } else {
-   // if (!isNaN(except)) sauf = (String(nombre).split(String(except)).length - 1) @fixme à quoi sert cette affectation inutile ?
+    // if (!isNaN(except)) sauf = (String(nombre).split(String(except)).length - 1) @fixme à quoi sert cette affectation inutile ?
     return String(nombre).length
   }
 }
