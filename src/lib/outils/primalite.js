@@ -246,7 +246,7 @@ export function decompositionFacteursPremiers (n) {
  * @param {boolean} inférieur si true, commence la recherche à 2 en croissant sinon commence à n+1
  * @returns {number}
  */
-export function premierAvec (n, listeAEviter = [], inférieur = true) {
+export function premierAvec (n, listeAEviter = []) {
   if (n < 2) throw Error(`Impossible de trouver un nombre premier avec ${n}`)
   let candidat = inferieur ? 2 : n + 1
   do {
