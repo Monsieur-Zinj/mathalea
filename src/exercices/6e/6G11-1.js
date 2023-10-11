@@ -7,7 +7,7 @@ import { labelPoint, latexParPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { shuffle } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 import {
@@ -187,11 +187,11 @@ export default class constructionPerpendiculaires extends Exercice {
       }
       const T = tracePoint(A, B, C)
       T.tailleTikz = 0.3
-      
+
       objetsCorrection.push(T, labelPoint(A, B, C), dAB, dAC, dBC, hA, hB, hC)
-      objetsCorrection.push(latexParPoint (pHc.nom, pHc, 'blue', 20, 12, '', 8))
-      objetsCorrection.push(latexParPoint (pHb.nom, pHb, 'green', 20, 12, '', 8))
-      objetsCorrection.push(latexParPoint (pHa.nom, pHa, 'red', 20, 12, '', 8))
+      objetsCorrection.push(latexParPoint(pHc.nom, pHc, 'blue', 20, 12, '', 8))
+      objetsCorrection.push(latexParPoint(pHb.nom, pHb, 'green', 20, 12, '', 8))
+      objetsCorrection.push(latexParPoint(pHa.nom, pHa, 'red', 20, 12, '', 8))
       // objetsCorrection.push(latexParCoordonnees (pHc.nom.substring(1, pHc.nom.length - 1), pHc.x, pHc.y, 'blue', 50, 20, '',8))
       if (typesDeQuestions === 'OrthoInterieur' || typesDeQuestions === 'OrthoExterieur') {
         objetsCorrection.push(codageAngleDroit(B, pointIntersectionDD(hC, dAB), C), codageAngleDroit(C, pointIntersectionDD(hA, dBC), A), codageAngleDroit(B, pointIntersectionDD(hB, dAC), C))
