@@ -27,7 +27,6 @@ export const uuid = 'acd4a'
 export const ref = '6N11'
 export default function LireAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = "Lire l'abscisse de chacun des points suivants."
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -39,6 +38,7 @@ export default function LireAbscisseEntiere2d () {
 
   this.nouvelleVersion = function () {
     // numeroExercice est 0 pour l'exercice 1
+    this.consigne = "Lire l'abscisse de chacun des points suivants."
     if (this.interactif) this.consigne += texteGras(' Penser à mettre les espaces nécessaires.')
     let typesDeQuestions
     this.listeQuestions = []
