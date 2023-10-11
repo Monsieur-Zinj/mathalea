@@ -1,9 +1,9 @@
-import { choice, enleveElement } from '../../lib/outils/arrayOutils.js'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { choice, enleveElement, shuffle } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\'écriture décimale'
 export const interactifReady = true
@@ -42,6 +42,7 @@ export default function ExerciceFractionsDifferentesEcritures () {
     })
     let fractions = []
     let fractions1 = []
+    let aleaMax
     if (!this.sup) {
       fractions = [
         [1, 2, ',5'],
@@ -84,21 +85,20 @@ export default function ExerciceFractionsDifferentesEcritures () {
     } else {
       const denominateursDifferents = new Set(listeDenominateurs)
       const nbDenominateursDifferents = denominateursDifferents.size
-      const aleaMax = Math.ceil(this.nbQuestions / nbDenominateursDifferents)
+      aleaMax = Math.ceil(this.nbQuestions / nbDenominateursDifferents)
       for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200;) {
-        const n = randint(1, aleaMax)
         const b = listeDenominateurs[i]
         const num = randint(1, b - 1)
         let partieDecimale = num * 1000 / b // avec les 8e on a 3 chiffres, avec les 4 2...
         partieDecimale = ',' + partieDecimale.toString().match(/[1-9]+/g)[0]
-        const a = n * b + randint(1, b - 1)
-        if (fractions.filter((element) => element[0] === a && element[1] === b).length === 0) { // la fraction n'a pas encore été construite
-          fractions.push([a, b, n, partieDecimale])
+        if (fractions.filter((element) => element[0] === num && element[1] === b).length === 0) { // la fraction n'a pas encore été construite
+          fractions.push([num, b, partieDecimale])
           i++
         } else {
           cpt++
         }
       }
+      shuffle(fractions)
     }
     for (
       let i = 0, cpt = 0, fraction, a, ed, b, c, n, texte, texteCorr, reponse;
@@ -118,32 +118,34 @@ export default function ExerciceFractionsDifferentesEcritures () {
         a = n * b + c
         ed = n + fraction[2]
       } else {
-        a = fractions[i][0]
+        c = fractions[i][0]
         b = fractions[i][1]
-        n = fractions[i][2]
-        c = a - n * b
-        ed = fractions[i][2].toString() + fractions[i][3]
+        n = randint(1, aleaMax)
+        a = n * b + c
+        ed = n.toString() + fractions[i][2]
       }
+      const frac = new FractionEtendue(a, b)
+      const partieFrac = new FractionEtendue(c, b)
       // enleveElement(fractions, fraction) // Il n'y aura pas 2 fois la même partie décimale
       texte =
                 '$ ' +
-                deprecatedTexFraction(a, b) +
+                frac.texFraction +
                 ' = \\phantom{0000} + ' +
-                deprecatedTexFraction('\\phantom{00000000}', '') +
+                '\\dfrac{\\phantom{00000000}}{}' +
                 ' =  $'
       texteCorr =
                 '$ ' +
-                deprecatedTexFraction(a, b) +
+                frac.texFraction +
                 ' = ' +
                 n +
                 '+' +
-                deprecatedTexFraction(c, b) +
+                 partieFrac.texFraction +
                 ' = ' +
                 ed +
                 ' $'
-      reponse = `${n}+${deprecatedTexFraction(c, b)}=${ed}`
+      reponse = `${n}+${partieFrac.texFraction}=${ed}`
       setReponse(this, i, reponse)
-      if (this.interactif) texte = `$${deprecatedTexFraction(a, b)} = $` + ajouteChampTexteMathLive(this, i)
+      if (this.interactif) texte = `$${frac.texFraction} = $` + ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
