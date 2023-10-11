@@ -199,7 +199,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', droited1.color)}$.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d_1)$ a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
 
           case 2: // symétrie axiale
@@ -231,7 +231,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', droited2.color)}$.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d_2)$ a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
 
           case 3: // symétrie axiale
@@ -263,7 +263,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d)$ a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
 
           case 4: // symétrie axiale
@@ -295,7 +295,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d\')', droitedprime.color)}$.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d')$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, le symétrique de $${lettre1[i]}$ par rapport à $(d')$ a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
 
           case 5: // rotation de 90°
@@ -325,7 +325,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens anti-horaire a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
 
           case 6: // rotation de 90°
@@ -354,7 +354,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la rotation de centre $${lettre2[i]}$ et d'angle 90° dans le sens horaire a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
 
           case 7: // symétrie centrale
@@ -383,7 +383,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la symétrie de centre $${lettre2[i]}$ a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
           case 8: // translation
 
@@ -412,7 +412,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par la translation qui transforme $O$ en $${lettre2[i]}$.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la translation qui transforme $O$ en $${lettre2[i]}$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par la translation qui transforme $O$ en $${lettre2[i]}$ a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
 
           case 9: // homothétie de rapport entier
@@ -443,7 +443,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texNombre(k[i])}$ a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
 
           case 10: // homothétie de rapport fractionnaire
@@ -472,7 +472,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées de l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$.`
             }
-            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$ a pour coordonnées ($${miseEnEvidence(texNombre(punto[i][0]))};${miseEnEvidence(texNombre(punto[i][1]))}$).<br>`
+            texteCorr += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` $${lettre1[i]}'$, l'image de $${lettre1[i]}$ par l'homothétie de centre $${lettre2[i]}$ et de rapport $${texFractionReduite(1, k[i])}$ a pour coordonnées $${miseEnEvidence(`(${texNombre(punto[i][0])};${texNombre(punto[i][1])})`)}$.<br>`
             break
 
           case 11: // rotation de 60°
