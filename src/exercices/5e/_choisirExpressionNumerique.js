@@ -12,10 +12,11 @@ import { randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
  * * l'expression en mode maths LaTex
  * * Le détaillé du calcul en mode maths LaTex
  * * la réponse numérique du calcul (Ajout par EE)
+ * * sousCas permet de choisir son opération quand il n'y a qu'une opération (Ajout par EE)
  * @author Jean-Claude Lhote
  * Fonction utilisée dans plusieurs exercices.
  */
-export default function ChoisirExpressionNumerique (nbOperations, decimal, timesOn = true, calculMental) {
+export default function ChoisirExpressionNumerique (nbOperations, decimal, timesOn = true, calculMental, sousCas) {
   let expf; let expn; let expc; let repNum; const arrondir = Math.log10(decimal)
   let a = arrondi(randint(2 * decimal, 10 * decimal) / decimal, arrondir)
   let b = arrondi(randint(2 * decimal, 10 * decimal, [a * decimal]) / decimal, arrondir)
@@ -27,7 +28,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
   if (timesOn) { signex = ' \\times' }
   switch (nbOperations) {
     case 1: // expressions de base (1 opération)
-      souscas = randint(0, 3)
+      souscas = typeof sousCas === 'number' ? sousCas : randint(0, 3)
       switch (souscas) {
         case 0: // somme de deux nombres
           repNum = arrondi(a + b)
