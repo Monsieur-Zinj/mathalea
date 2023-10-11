@@ -60,7 +60,6 @@ export default function CalculsDeDureesOuHoraires () {
       // d1 : heure de début (h1 heures m1 min)
       // d2 : heure de fin (h2 heures m2 min)
       // d : durée
-
       if (typeDeContexte[i] === 1) {
         h1 = randint(20, 22)
         m1 = randint(35, 58)
@@ -74,7 +73,6 @@ export default function CalculsDeDureesOuHoraires () {
         h = parseInt(d / 60)
         m = d % 60
         d = minToHour(d)
-
         if (typesDeQuestions[i] === 1) {
           texte = `La diffusion d'un film commence à ${d1} et se termine à ${d2}. Combien de temps a duré ce film ?`
           texteCorr = `${d1}$~\\xrightarrow{+${60 - m1}~\\text{min}}${(h1 + 1) % 24}~\\text{h} \\xrightarrow{+${(h2 - h1 - 1) % 24}~\\text{h}~${m2}~\\min}${h2 % 24}~\\text{h}~${m2}~\\text{min}$`
@@ -98,7 +96,7 @@ export default function CalculsDeDureesOuHoraires () {
           texteCorr += `\\xrightarrow{-${m2}~\\text{min}} ${(h2 - h) % 24}~\\text{h} \\xrightarrow{-${Math.abs(m - m2)}~\\text{min}} ${h1}~\\text{h}~${m1}~\\text{min}$`
           texteCorr += `<br>${d2} $-$ ${d} = ${d1}`
           texteCorr += '<br>'
-          texteCorr += `Le film a commencé à ${texteEnCouleurEtGras(d)}.`
+          texteCorr += `Le film a commencé à ${texteEnCouleurEtGras(d1)}.`
           texteInteractif = 'Le film a commencé à'
           setReponse(this, i, Hms.fromString(d1), { formatInteractif: 'hms' })
         }
