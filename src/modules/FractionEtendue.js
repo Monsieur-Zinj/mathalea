@@ -591,16 +591,20 @@ class FractionEtendue extends Fraction {
   * @returns {FractionEtendue} f + FractionEtendue
   */
   sommeFraction (f2) {
-    if (this.den === f2.den) { // on ajoute 2 fractions de même dénominateur
-      return new FractionEtendue(this.num + f2.num, f2.den)
-    } else if ([this.den, f2.den].indexOf(lcm(this.den, f2.den)) !== -1) { // un dénominateur est multiple de l'autre
-      if (this.den === lcm(this.den, f2.den)) { // c'est this qui a le dénominateur commun.
-        return new FractionEtendue(this.num + f2.num * round(this.den / f2.den), this.den) // on transforme f2
-      } else { // c'est f2 qui a le dénominateur commun
-        return new FractionEtendue(f2.num + this.num * round(f2.den / this.den), f2.den) // on transforme this
+    if (f2 instanceof FractionEtendue) {
+      if (this.den === f2.den) { // on ajoute 2 fractions de même dénominateur
+        return new FractionEtendue(this.num + f2.num, f2.den)
+      } else if ([this.den, f2.den].indexOf(lcm(this.den, f2.den)) !== -1) { // un dénominateur est multiple de l'autre
+        if (this.den === lcm(this.den, f2.den)) { // c'est this qui a le dénominateur commun.
+          return new FractionEtendue(this.num + f2.num * round(this.den / f2.den), this.den) // on transforme f2
+        } else { // c'est f2 qui a le dénominateur commun
+          return new FractionEtendue(f2.num + this.num * round(f2.den / this.den), f2.den) // on transforme this
+        }
+      } else { // besoin d'établir le dénominateur commun.
+        return new FractionEtendue(this.num * round(lcm(this.den, f2.den) / this.den) + f2.num * round(lcm(this.den, f2.den) / f2.den), lcm(this.den, f2.den))
       }
-    } else { // besoin d'établir le dénominateur commun.
-      return new FractionEtendue(this.num * round(lcm(this.den, f2.den) / this.den) + f2.num * round(lcm(this.den, f2.den) / f2.den), lcm(this.den, f2.den))
+    } else {
+      window.notify(`FractionEtendue.sommeFraction(fractionAAjouter) a été appelée avec autre chose qu'une fraction étendue, alors que c'est obligatoire !\nVoilci l'argument passé : ${f2}`, { argument: f2 })
     }
   }
 

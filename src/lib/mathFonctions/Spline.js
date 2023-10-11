@@ -98,39 +98,46 @@ export class Spline {
      * @returns {number[]}
      */
   solve (y) {
-    const antecedents = []
-    for (let i = 0; i < this.polys.length; i++) {
-      const polEquation = this.polys[i].add(-y) // Le polynome dont les racines sont les antécédents de y
-      // Algebrite n'aime pas beaucoup les coefficients decimaux...
-      try {
-        const liste = polynomialRoot(...polEquation.monomes)
-        for (const valeur of liste) {
-          let arr
-          if (typeof valeur === 'number') {
-            arr = round(valeur, 3)
-          } else { // complexe !
-            const module = valeur.toPolar().r
-            if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
-              arr = 0
-            } else {
-              if (abs(valeur.arg()) < 0.01 || (abs(valeur.arg() - acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
-                arr = round(valeur.re, 3) // on prend la partie réelle
+    // On a eu des soucis plus loin dans polynome.add(-y) donc on s'assure que y est bien un number.
+    const yArg = y
+    y = Number(y)
+    if (!isNaN(y)) {
+      const antecedents = []
+      for (let i = 0; i < this.polys.length; i++) {
+        const polEquation = this.polys[i].add(-y) // Le polynome dont les racines sont les antécédents de y
+        // Algebrite n'aime pas beaucoup les coefficients decimaux...
+        try {
+          const liste = polynomialRoot(...polEquation.monomes)
+          for (const valeur of liste) {
+            let arr
+            if (typeof valeur === 'number') {
+              arr = round(valeur, 3)
+            } else { // complexe !
+              const module = valeur.toPolar().r
+              if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
+                arr = 0
               } else {
-                arr = null // c'est une vraie racine complexe, du coup, on prend null
+                if (abs(valeur.arg()) < 0.01 || (abs(valeur.arg() - acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
+                  arr = round(valeur.re, 3) // on prend la partie réelle
+                } else {
+                  arr = null // c'est une vraie racine complexe, du coup, on prend null
+                }
+              }
+            }
+            if (arr !== null && arr >= this.x[i] && arr <= this.x[i + 1]) {
+              if (!antecedents.includes(arr)) {
+                antecedents.push(arr)
               }
             }
           }
-          if (arr !== null && arr >= this.x[i] && arr <= this.x[i + 1]) {
-            if (!antecedents.includes(arr)) {
-              antecedents.push(arr)
-            }
-          }
+        } catch (e) {
+          console.log(e)
         }
-      } catch (e) {
-        console.log(e)
       }
+      return antecedents
+    } else {
+      window.notify(`Spline.solve() a reçu un truc bizarre à la place d'un nombre : ${yArg} !`, { valeurArgument: yArg })
     }
-    return antecedents
   }
 
   /**

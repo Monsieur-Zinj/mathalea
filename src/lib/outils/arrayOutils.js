@@ -1,6 +1,22 @@
 import { egal, epsilon } from '../../modules/outils.js'
 
 /**
+ *
+ * @param {any[]} array1
+ * @param {any[]} array2
+ * @return boolean
+ */
+export function compareArrays (array1, array2) {
+  if (!(Array.isArray(array1) && Array.isArray(array2)) || array1.length !== array2.length) return false
+  for (let i = 0; i < array1.length; i++) {
+    // le test suivant ne fonctionne pas avec des array contenant des objets, car objet1 === objet2 est toujours false.
+    // il fonctionne avec des arrays d'array ou de primitives.
+    const test = Array.isArray(array1[i]) ? compareArrays(array1[i], array2[i]) : array1[i] === array2[i]
+    if (!test) return false // on retourne false et le test s'arrête dés que deux éléments ne correspondent pas.
+  }
+  return true
+}
+/**
  * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
  * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
  * Si le nombre de couples possibles est inférieur à nombreDeCouplesMin alors
@@ -29,6 +45,7 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
 
 /**
  * Enlève toutes les occurences d'un élément d'un tableau donné
+ * Ajouté par Jean-Claude Lhote : la gestion des listes contenant des listes. (par exemple, dans 6N20-2).
  * @param liste
  * @param element
  *
@@ -39,6 +56,10 @@ export function enleveElement (array, item) {
   for (let i = array.length - 1; i >= 0; i--) {
     if (typeof item === 'number') {
       if (egal(array[i], item)) {
+        array.splice(i, 1)
+      }
+    } else if (Array.isArray(array[i]) && Array.isArray(item)) {
+      if (compareArrays(array[i], item)) {
         array.splice(i, 1)
       }
     } else {
