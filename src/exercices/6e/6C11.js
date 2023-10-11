@@ -36,7 +36,7 @@ export const uuid = '2da81'
 export const ref = '6C11'
 export default function DivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.sup = 2
+  this.sup = 1
   this.titre = titre
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
