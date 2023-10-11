@@ -103,6 +103,7 @@ export default function ProblemesEvenementsRecurrents () {
       let unite, phenomene1, phenomene2, texte1, texte2, texte3, texte4, texte5
       const typeDeQuestion = randint(1, 3)
       const Robert = personne()
+      let uniteAMC = 'fois'
       switch (saveurs[i]) {
         case 'guirlande':
           texte = `Une guirlande électrique est constituée de lumières rouges et vertes.<br>
@@ -111,7 +112,8 @@ export default function ProblemesEvenementsRecurrents () {
           if (this.interactif || context.isAmc) {
             switch (typeDeQuestion) {
               case 1:
-                texte += 'Au bout de combien de temps ce phénomène se reproduira-t-il la prochaine fois ?'
+                texte += 'Au bout de combien de secondes ce phénomène se reproduira-t-il la prochaine fois ?'
+                uniteAMC = 'secondes'
                 break
               case 2:
                 texte += 'D\'ici la prochaine fois que ce phénomène se reproduira, les lumières rouges s\'allumeront combien de fois ?'
@@ -121,7 +123,7 @@ export default function ProblemesEvenementsRecurrents () {
                 break
             }
           } else {
-            texte += `Au bout de combien de temps ce phénomène se reproduira-t-il la prochaine fois ?<br>
+            texte += `Au bout de combien de secondes ce phénomène se reproduira-t-il la prochaine fois ?<br>
             Les lumières rouges et vertes se seront allumées combien de fois ?`
           }
           unite = 'secondes'
@@ -140,7 +142,8 @@ export default function ProblemesEvenementsRecurrents () {
           if (this.interactif || context.isAmc) {
             switch (typeDeQuestion) {
               case 1:
-                texte += `Au bout de combien de temps fera-t-${Robert.pronom} les deux dans la même journée ?`
+                texte += `Au bout de combien de jours fera-t-${Robert.pronom} les deux dans la même journée ?`
+                uniteAMC = 'jours'
                 break
               case 2:
                 texte += `D'ici la prochaine fois qu'${Robert.pronom} fera les deux dans la même journée, combien de fois nettoiera-t-${Robert.pronom} l'intérieur de sa voiture ?`
@@ -150,7 +153,7 @@ export default function ProblemesEvenementsRecurrents () {
                 break
             }
           } else {
-            texte += `Au bout de combien de temps fera-t-${Robert.pronom} les deux dans la même journée ?<br>
+            texte += `Au bout de combien de jours fera-t-${Robert.pronom} les deux dans la même journée ?<br>
             Combien de fois aura-t-${Robert.pronom} nettoyé l'intérieur et l'extérieur de sa voiture ?`
           }
           unite = 'jours'
@@ -169,7 +172,8 @@ export default function ProblemesEvenementsRecurrents () {
           if (this.interactif || context.isAmc) {
             switch (typeDeQuestion) {
               case 1:
-                texte += `Au bout de combien de temps fera-t-${Robert.pronom} les deux dans la même journée ?`
+                texte += `Au bout de combien de jours fera-t-${Robert.pronom} les deux dans la même journée ?`
+                uniteAMC = 'jours'
                 break
               case 2:
                 texte += `D'ici la prochaine fois qu'${Robert.pronom} fera les deux dans la même journée, combien de fois remplacera-t-${Robert.pronom} la coiffe de sa fusée ?`
@@ -179,7 +183,7 @@ export default function ProblemesEvenementsRecurrents () {
                 break
             }
           } else {
-            texte += `Au bout de combien de temps fera-t-${Robert.pronom} les deux dans la même journée ?<br>
+            texte += `Au bout de combien de jours fera-t-${Robert.pronom} les deux dans la même journée ?<br>
             Combien de fois aura-t-${Robert.pronom} remplacé la coiffe et les boosters de sa fusée ?`
           }
           unite = 'jours'
@@ -198,7 +202,8 @@ export default function ProblemesEvenementsRecurrents () {
           if (this.interactif || context.isAmc) {
             switch (typeDeQuestion) {
               case 1:
-                texte += `Au bout de combien de temps se fera-t-${Robert.pronom} un autre restau - ciné ?`
+                texte += `Au bout de combien de jours se fera-t-${Robert.pronom} un autre restau - ciné ?`
+                uniteAMC = 'jours'
                 break
               case 2:
                 texte += `D'ici la prochaine fois qu'${Robert.pronom} fera un autre restau - ciné, combien de fois sera-t-${Robert.pronom} allé${Robert.pronom === 'il' ? '' : 'e'} au restaurant ?`
@@ -208,7 +213,7 @@ export default function ProblemesEvenementsRecurrents () {
                 break
             }
           } else {
-            texte += `Au bout de combien de temps fera-t-${Robert.pronom} un autre restau - ciné ?<br>
+            texte += `Au bout de combien de jours fera-t-${Robert.pronom} un autre restau - ciné ?<br>
             Combien de fois sera-t-${Robert.pronom} allé${Robert.pronom === 'il' ? '' : 'e'} au restaurant et au cinéma ?`
           }
           unite = 'jours'
@@ -220,18 +225,21 @@ export default function ProblemesEvenementsRecurrents () {
           texte4 = 'le nombre de jours avant le prochain « restau - ciné »'
           break
         case 'engrenages':
-          texte = `Une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}.
+          texte = `Dans un engrenage, une première roue possède ${nombreAvecEspace(Commun * A)} dents et une seconde en possède ${nombreAvecEspace(Commun * B)}.
           Elles tournent jusqu'à revenir (pour la première fois) en position initiale.<br>`
           if (this.interactif || context.isAmc) {
             switch (typeDeQuestion) {
               case 1:
                 texte += 'De combien de dents chaque roue aura tourné ?'
+                uniteAMC = 'dents'
                 break
               case 2:
                 texte += 'Combien de tours aura effectué la première roue ?'
+                uniteAMC = 'tours'
                 break
               case 3:
                 texte += 'Combien de tours aura effectué la deuxième roue ?'
+                uniteAMC = 'tours'
                 break
               default:
                 break
@@ -379,10 +387,10 @@ export default function ProblemesEvenementsRecurrents () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: saveurs[i] === 'guirlande' ? 'Nombre de secondes : ' : saveurs[i] === 'engrenages' ? 'Réponse : ' : 'Nombre de secondes : ',
+                  texte: 'Nombre de ' + uniteAMC + ' : ',
                   valeur: [bonneReponse],
                   param: {
-                    digits: nombreDeChiffresDe(bonneReponse),
+                    digits: Math.max(3, nombreDeChiffresDe(bonneReponse)),
                     decimals: 0,
                     signe: false,
                     approx: 0
