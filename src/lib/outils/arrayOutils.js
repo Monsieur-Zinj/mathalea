@@ -310,7 +310,7 @@ export function combinaisonListes2 (liste, tailleMinimale) {
 }
 
 export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
-  // Concatène liste à elle-même en changeant
+  // Concatène liste à elle-même sans changer l'ordre
   if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
   let l = [...liste] // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
