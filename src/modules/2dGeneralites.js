@@ -67,6 +67,7 @@ export function mathalea2d (
   const ajouteCodeHtml = function (mainlevee, objets, divsLatex, xmin, ymax) {
     let codeSvg = ''
     if (!Array.isArray(objets)) {
+      // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
       try {
         // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
         if ((!mainlevee) || typeof (objets.svgml) === 'undefined') {
