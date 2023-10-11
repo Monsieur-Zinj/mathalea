@@ -2124,6 +2124,19 @@
       "amc": false
     }
   },
+  "3A10-0": {
+    "url": "3e/3A10-0.js",
+    "uuid": "3e436",
+    "id": "3A10-0",
+    "titre": "Reconnaître les premiers nombres premiers",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm",
+      "amcType": "qcmMono",
+      "amc": true
+    },
+    "datePublication": "11/10/2023"
+  },
   "3A10-1": {
     "url": "3e/3A10-1.js",
     "uuid": "bba55",
@@ -10007,6 +10020,18 @@
     "uuid": "131bd",
     "id": "can1L11",
     "titre": "Dresser le tableau de signes d’un polynôme du second degré",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm",
+      "amc": false
+    },
+    "datePublication": "07/10/2023"
+  },
+  "can1L12": {
+    "url": "can/1e/can1L12.js",
+    "uuid": "7c76a",
+    "id": "can1L12",
+    "titre": "Résoudre une inéquation du second degré (avec une forme factorisée)",
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
