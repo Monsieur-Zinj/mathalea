@@ -91,7 +91,7 @@ export default function CalculValeurApprocheeRacineCarree () {
         texteCorr += `et $${texNombre(Math.sqrt(a), 6)}$ est plus proche de $${reponse}$ que de $${pasReponse}$.<br>`
         texteCorr += `Donc l'arrondi ${type} près de $\\sqrt{${a}}$ est $${reponse}$.`
       } else if (listeAvecOuSansCalculatrice[i] === 'sans') {
-        a = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])
+        a = randint(2, 168, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144])
         reponseG = Math.floor(Math.sqrt(a))
         reponseD = Math.ceil(Math.sqrt(a))
         texte = `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers consécutifs.<br>`
