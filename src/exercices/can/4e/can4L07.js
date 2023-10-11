@@ -74,7 +74,6 @@ export default function ReduireExp () {
           e = choice([-1, 1])
           a = randint(1, 4, d)
           this.question = `Écrire le plus simplement possible : <br>
-          
           $${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2${signe(e)}x$.`
 
           if (b + e === 0) {
@@ -92,7 +91,6 @@ export default function ReduireExp () {
           e = choice([-1, 1])
           a = randint(-5, 5, 0)
           this.question = `Écrire le plus simplement possible : <br>
-          
           $${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2${signe(e)}x$.`
 
           if (a + d === 0) {
@@ -116,10 +114,9 @@ export default function ReduireExp () {
           a = randint(-9, 9, 0)
           b = randint(-9, 9, [0, -1, 1])
           if (b > 0) {
-            this.question = `Écrire le plus simplement possible : <br>
-            
+            this.question = `Écrire le plus simplement possible : <br> 
             $${rienSi1(a)}x\\times${b}x$.`
-          } else { this.question = `Écrire le plus simplement possible : <br>$${rienSi1(a)}x\\times(${b}x)$=` }
+          } else { this.question = `Écrire le plus simplement possible : <br>$${rienSi1(a)}x\\times(${b}x)$.` }
           if (b > 0) { this.correction = `$${rienSi1(a)}x\\times${b}x=(${texNombre(a)}\\times  ${ecritureParentheseSiNegatif(b)})x^2=${texNombre(a * b)}x^2$` } else { this.correction = `$${rienSi1(a)}x\\times (${b}x)=(${texNombre(a)}\\times  ${ecritureParentheseSiNegatif(b)})x^2=${texNombre((a * b))}x^2$` }
           this.reponse = printlatex(`${texNombre(a * b)}x^2`)
         }
@@ -127,7 +124,6 @@ export default function ReduireExp () {
           a = randint(-9, 9, 0)
           b = randint(-9, 9, [0, -1, 1])
           this.question = `Écrire le plus simplement possible : <br>
-          
           $${rienSi1(a)}x\\times${ecritureParentheseSiNegatif(b)}$.`
           this.correction = `$${rienSi1(a)}x\\times${ecritureParentheseSiNegatif(b)}=${texNombre(a * b)}x$`
           this.reponse = printlatex(`${texNombre((a * b))}x`)
