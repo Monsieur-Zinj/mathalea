@@ -11,9 +11,11 @@
   import { exercicesParams, globalOptions } from '../store'
   import type { InterfaceParams } from '../../lib/types'
   import { isLessThanAMonth } from '../../lib/types/dates'
+  // import { renderMathInElement } from 'mathlive'
 
   export let ending: JSONReferentielEnding
   export let nestedLevelCount: number
+  // export let useContext: 'search-result' | 'exploration' = 'exploration'
   const paddingTweak: number = ending.typeExercice === 'outil' || ending.typeExercice === 'html' ? nestedLevelCount + 3 : nestedLevelCount
   let nomDeExercice: HTMLDivElement
   onMount(() => {
@@ -31,6 +33,7 @@
         strict: 'warn',
         trust: false
       })
+      // renderMathInElement(nomDeExercice)
     }
   })
   /* --------------------------------------------------------------
@@ -50,6 +53,7 @@
     }
     listeCodes = listeCodes
     selectedCount = listeCodes.filter(isPresent).length
+    selectedCount = selectedCount
   }
   /**
    * Ajouter l'exercice courant à la liste
@@ -93,7 +97,14 @@
     mouseIsOut = true
   }
 </script>
+<!--
+  @component
+  Composant destiné à afficher les terminaisons des branches d'un référentiel.
 
+  #### Paramètres
+  **ending** (_JSONReferentielEnding_) : l'objet représentant la terminaison
+  **nestedLevelCount** (_number_) : compteur du niveau d'imbrication (utilisé pour la mise en page)
+ -->
 <div
   class="w-full relative flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
   "

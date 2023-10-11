@@ -23,6 +23,7 @@
   import referentielProfs from '../json/referentielProfs.json'
   let referentielOutil: JSONReferentielObject = { ...referentielProfs }
   import referentielRessources from '../json/referentielRessources.json'
+  import ReferentielEnding from './sidebar/ReferentielEnding.svelte'
   let referentielHtml: JSONReferentielObject = { ...referentielRessources }
   const all = getAllExercises(baseReferentiel)
   let filteredReferentielItems: ResourceAndItsPath[]
@@ -48,10 +49,11 @@
 <ul class="my-10 px-8 text-[10px]">
   {#each searchResultReferentiel as item}
     <li>
-      {item.pathToResource.join('/')}
+      <!-- {item.pathToResource.join('/')}
       {#if isExerciceItemInReferentiel(item.resource)}
         : {item.resource.titre}
-      {/if}
+      {/if} -->
+      <ReferentielEnding ending={item.resource} nestedLevelCount={1} />
     </li>
   {/each}
 </ul>
@@ -66,7 +68,7 @@
 </div>
 
 <div class="flex flex-row w-full">
-  <div class="mt-10 px-8 text-[10px] w-1/3">
+  <div class="mt-10 px-8 text-[10px] w-1/5">
     <ReferentielNode
       bind:subset={filteredReferentiel}
       indexBase={1}

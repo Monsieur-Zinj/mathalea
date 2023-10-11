@@ -32,11 +32,29 @@
     }
   }
 </script>
+<!--
+  @component
+  Composant destiné à afficher la liste des entrées d'un référentiel à un niveau N.
+  On affiche le titre du niveau N et un clic sur ce titre déploie la liste des entrées
+  du niveau N+1. Lorsque N=1, on considère que c'est un titre de section et le format est différent.
 
+  #### Remarque
+  Le composant s'appelle lui-même afin d'assurer récursivement le parcours entier du référentiel.
+  On détecte si l'objet passé en paramètre est du type `JSONReferentielEnding` pour s'arrèter.
+  Dans ce cas, le composant `ReferentielEnding.svelte` est appelé.
+
+  #### Paramètres
+  - **subset** (_JSONReferentielObject_) : la branche du référentiel à afficher.
+  - **unfold** (_boolean_) : flag pour savoir si le niveau courant est déployé ou pas.
+  - **nestedLevelCount** (_number_) : compteur pour connaître le nombre d'imbrication (utilisé pour la mise en page).
+  - **indexBase** (_number_) : nombre utilisé pour identifier les éléments HTML.
+  - **levelTitle** (_string_) : titre du niveau courant (clé du nœud retraduite sur la base des fichiers `levelsThemesList.json` et `codeToLevelList.json`).
+
+ -->
 <button
   id={'titre-liste-' + indexBase}
   type="button"
-  class="w-full flex flex-row mr-4 items-center justify-between font-bold cursor-pointer first-letter:first-linemarker
+  class="w-full flex flex-row mr-4 text-start items-center justify-between font-bold cursor-pointer first-letter:first-linemarker
   {nestedLevelCount !== 1
     ? 'text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest'
     : 'text-coopmaths-struct dark:text-coopmathsdark-struct py-6'}
