@@ -1,24 +1,21 @@
 import { courbe } from '../../../lib/2d/courbes.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
-import { sp } from '../../../lib/outils/outilString.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { choice } from '../../../lib/outils/arrayOutils.js'
+import { point, tracePoint } from '../../../lib/2d/points.js'
+import { rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-
-import Decimal from 'decimal.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
-
-export const titre = 'Lire graphiquement les valeurs de $b$ et $c$ avec une parabole'
+export const titre = 'Déterminer graphiquement la valeur de b avec une parabole'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '08/06/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
+export const dateDeModifImportante = '11/10/2023'// j'ai enlevé c. J'ai ajoute a=-1
 /**
  *
  * @author Gilles Mora
@@ -37,81 +34,64 @@ export default function LectureGraphiqueParabolebEtc () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-
-    let texte, texteCorr, x1, x2, r, F, o, f, absS
+    let texte, texteCorr, alpha, beta, r, o, f, a, A, traceA
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      x1 = randint(-4, 4)
-      x2 = randint(-2, 3, 0)
+      alpha = randint(-3, 3)
+      beta = randint(-2, 2)
+      a = choice([-1, 1])
       o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-      absS = new Decimal(x1 + x2).div(2)// abscisse sommet
-      f = function (x) {
-        return x ** 2 - (x1 + x2) * x + x1 * x2
-      }
+      A = point(alpha, beta)
+
+      traceA = tracePoint(A, 'blue') // Variable qui trace les points avec une croix
+      f = x => a * (x - alpha) ** 2 + beta
       r = repere({
         yUnite: 1,
         xMin: -5,
-        yMin: Math.floor(f((x1 + x2) / 2)) - 1,
-        yMax: Math.max(3, f(0) + 1),
+        yMin: -4,
+        yMax: 4,
         xMax: 5,
         thickHauteur: 0.1,
         xLabelMin: -4,
         xLabelMax: 4,
-        yLabelMax: Math.max(3, f(0) + 1) - 1,
-        yLabelMin: Math.floor(f((x1 + x2) / 2)) + 1,
+        yLabelMax: 3,
+        yLabelMin: -3,
         // yLabelMin: -9,
         // yLabelListe:[-8,-6,-4,-2,2,4,6,8],
         axeXStyle: '->',
         axeYStyle: '->'
       })
 
-      F = x => (x - x1) * (x - x2)
-
-      texte = `La courbe représente une fonction $f$ définie par $f(x)=x^2+bx+c$ .<br>
-          
-          `
-
-      texte += 'Déterminer les valeurs de $b$ et $c$.<br>'
-      texte += `
-          
-          ` +
-
-                mathalea2d({
-                  xmin: -5,
-                  xmax: 5,
-                  ymin: Math.floor(f((x1 + x2) / 2)) - 1.5,
-                  ymax: Math.max(3, f(0) + 1),
-                  pixelsParCm: 25,
-                  scale: 0.6,
-                  style: 'margin: auto'
-                }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
+      texte = `La courbe représente une fonction $f$ définie par $f(x)=${rienSi1(a)}x^2+bx+c$.<br>
+      Déterminer la valeur de $b$.<br>`
+      texte += mathalea2d({
+        xmin: -5,
+        xmax: 5.05,
+        ymin: -4,
+        ymax: 4, // Math.max(3, f(0) + 1),
+        pixelsParCm: 25,
+        scale: 0.6,
+        style: 'margin: auto'
+      }, r, o, traceA, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
 
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$b=$' })
-        texte += ` ${sp(2)} et ${sp(4)} `
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$c=$' })
-        setReponse(this, 2 * i, -x1 - x2)
-        setReponse(this, 2 * i + 1, x1 * x2)
+        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline nospacebefore', { texte: '$b=$' })
+
+        setReponse(this, i, -2 * a * alpha)
       }
 
-      texteCorr = `Par lecture graphique, la fonction $f$ a deux racines $${x1}$ et $${x2}$.<br>
-          Puisque le coefficient devant $x^2$ est $1$, la forme factorisée de $f(x)$ est $(x${ecritureAlgebrique(-x1)})(x${ecritureAlgebrique(-x2)})$.<br>
-          Le développement de cette expression donne $x^2${ecritureAlgebrique(-x1 - x2)}x${ecritureAlgebrique(x1 * x2)}$.<br>
-         Ainsi, $b=${-x1 - x2}$ et $c=${x1 * x2}$. <br><br>
-          Autre méthode : <br>
-          L'abscisse du sommet de la parabole est $${texNombre(absS, 1)}$ (on l'obtient par la moyenne des racines de $f$).<br>
-          Comme l'abscisse du sommet est aussi donné par $-\\dfrac{b}{2a}$, alors $-\\dfrac{b}{2a}=${texNombre(absS, 1)}$.<br>
-          L'énoncé indique que $a=1$, on en déduit $-\\dfrac{b}{2}=${texNombre(absS, 1)}$, soit $b=${texNombre(absS.mul(-2), 0)}$.<br>
-          La valeur de $c$ est donnée par l'image de $0$ par $f$ soit ici $${x1 * x2}$.`
+      texteCorr = `L'abscisse du sommet de la parabole est $${alpha}$.<br>
+          Comme l'abscisse du sommet est  donné par $-\\dfrac{b}{2a}$, alors $-\\dfrac{b}{2a}=${alpha}$.<br>
+          L'énoncé indique que $a=${a}$, on en déduit $-\\dfrac{b}{${2 * a}}=${alpha}$, soit $b=${a * alpha * (-2)}$.`
 
-      if (this.questionJamaisPosee(i, x1, x2)) {
+      if (this.questionJamaisPosee(i, alpha, beta)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        this.listeCanEnonces.push(texte)
+        this.listeCanReponsesACompleter.push('$b=\\ldots$')
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.canEnonce = texte
-    this.canReponseACompleter = ''
   }
 }
