@@ -6,6 +6,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { sp } from '../../lib/outils/outilString.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -42,6 +44,7 @@ export default function DivisionsEuclidiennes () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
   this.listePackages = 'xlop'
+  this.classe = 6
 
   this.nouvelleVersion = function () {
     this.consigne = 'Poser et effectuer '
@@ -104,19 +107,29 @@ export default function DivisionsEuclidiennes () {
           operande1: a,
           operande2: b,
           type: 'divisionE'
-        }) + `$${texNombre(a)}\\div${b}=${texNombre(q)}$`
-        setReponse(this, i, [`${a}=${b}\\times ${q}`, `${a}=${q}\\times ${b}`,
-                    `${b}\\times ${q}`, `${q}\\times ${b}=${a}`])
+        }) + `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}`)}$`
+        setReponse(this, i, [`${a}=${b}\\times${q}`, `${a}=${q}\\times${b}`,
+        `${b}\\times${q}=${a}`, `${q}\\times${b}=${a}`,
+        `${a}=${b}\\times ${q}+${0}`, `${a}=${q}\\times ${b}+${0}`,
+        `${b}\\times ${q}+${0}=${a}`, `${q}\\times ${b}+${0}=${a}`,
+        `${a}=(${b}\\times ${q})+${0}`, `${a}=(${q}\\times ${b})+${0}`,
+        `(${b}\\times ${q})+${0}=${a}`, `(${q}\\times ${b})+${0}=${a}`,
+        `${a}\\div${b}=${q}`, `${a}\\div${q}=${b}`,
+        `${q}=${a}\\div${b}`, `${b}=${a}\\div${q}`])
       } else {
         texteCorr = Operation({
           operande1: a,
           operande2: b,
           type: 'divisionE'
-        }) + `$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
+        }) + (this.classe !== 6
+          ? `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}+${r}`)}$`
+          : `$${miseEnEvidence(`${texNombre(a)}=(${b}\\times${texNombre(q)})+${r}`)}$`)
         setReponse(this, i, [`${a}=${b}\\times ${q}+${r}`, `${a}=${q}\\times ${b}+${r}`,
-                    `${b}\\times ${q}+${r}=${a}`, `${q}\\times ${b}+${r}=${a}`])
+        `${b}\\times ${q}+${r}=${a}`, `${q}\\times ${b}+${r}=${a}`,
+        `${a}=(${b}\\times ${q})+${r}`, `${a}=(${q}\\times ${b})+${r}`,
+        `(${b}\\times ${q})+${r}=${a}`, `(${q}\\times ${b})+${r}=${a}`])
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { texte: sp(10) + ' Égalité fondamentale :' })
       // Pour AMC question AmcOpen
       if (context.isAmc) {
         this.autoCorrection[i].enonce = 'Poser et effectuer la division euclidienne suivante puis donner l\'égalité fondamentale correspondante.<br>' + texte

@@ -14,7 +14,7 @@ export const uuid = 'bbcac'
 export const ref = '6C21'
 export default function DivisionsEuclidiennesNiv2 () {
   DivisionsEuclidiennes.call(this)
-  this.sup = 2
+  this.sup = 3
   this.titre = titre
   this.tailleDiaporama = 3
 }
