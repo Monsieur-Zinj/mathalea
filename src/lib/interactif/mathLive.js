@@ -81,9 +81,9 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                     resultat = 'OK'
                   }
                 } else {
-                  const reponseCanonique = engine.parse(reponse)
-                  const saisieCanonique = engine.parse(saisie)
-                  if (reponseCanonique.isSame(saisieCanonique)) { // engine.parse() retourne du canonical par défaut.
+                  const reponseNonCanonique = engine.parse(reponse, { canonical: false })
+                  const saisieNonCanonique = engine.parse(saisie, { canonical: false })
+                  if (reponseNonCanonique.isSame(saisieNonCanonique)) { // engine.parse() retourne du canonical par défaut.
                     resultat = 'OK'
                   }
                 }
@@ -232,7 +232,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 nombreSaisi = Number(saisie)
                 if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
                 break
-              case 'puissance' :
+              case 'puissance' : {
                 saisie = champTexte.value.replace(',', '.')
                 // formatOK et formatKO sont deux variables globales,
                 // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
@@ -298,6 +298,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 if (formatKO) {
                   resultat = 'essaieEncorePuissance'
                 }
+              }
                 break
             }
             ii++
