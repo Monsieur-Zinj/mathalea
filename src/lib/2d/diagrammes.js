@@ -26,7 +26,7 @@ export function TraceGraphiqueCartesien (data, repere = {}, {
   epaisseurDuTrait = 2,
   styleDesPoints = 'x', // croix par défaut
   tailleDesPoints = 3
-  
+
 } = {}) {
   ObjetMathalea2D.call(this, {})
   const objets = []
@@ -49,7 +49,7 @@ export function TraceGraphiqueCartesien (data, repere = {}, {
     l.pointilles = 5
   }
   objets.push(l)
-  
+
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''
@@ -160,7 +160,7 @@ export function TraceBarreHorizontale (longueur, y, legende = '', {
     p.hachures = hachures
   }
   const texte = texteParPosition(legende, -0.2, y, angle, 'black', 1, 'gauche')
-  
+
   this.tikz = function () {
     return p.tikz() + '\n' + texte.tikz()
   }
@@ -236,7 +236,7 @@ export function DiagrammeBarres (hauteursBarres, etiquettes, {
       step = istep * 10
       ytick = 5
     }
-    
+
     if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 'black', -3, max(hauteursBarres) / hauteurDiagramme))
     if (axeVertical) diagramme.push(axeY(0, hauteurDiagramme + 1, 0.2, (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 0.2, 'black', ytick, titreAxeVertical))
   }
@@ -405,7 +405,7 @@ export function DiagrammeCirculaire ({
       etiquettes3.push(latexParPoint(texNombre(angle, 0) + '\\degree', similitude(depart, centre, alpha + angle / 2, 0.6), 'black', 20, 12, 'yellow', 8))
     }
     alpha += angle
-    
+
     // on crée les légendes
     switch (legendePosition) {
       case 'droite':
@@ -420,7 +420,7 @@ export function DiagrammeCirculaire ({
         legendeMax = legendeMax + labels[i].length * 0.6 + 2.2
         break
     }
-    
+
     legende.couleurDeRemplissage = a.couleurDeRemplissage
     legende.couleurDesHachures = a.couleurDesHachures
     legende.hachures = hachure

@@ -5,7 +5,7 @@ import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
@@ -134,68 +134,69 @@ export default class constructionElementaire extends Exercice {
       /** ********************** AMC Hybride *****************************/
       this.autoCorrection[i] = {
         enonce: enonce + '<br>',
-  enonceAvant: false  }
-    
+        enonceAvant: false
+      }
+
       this.autoCorrection[i].propositions = [
         {
           type: 'AMCOpen',
-          propositions : [
+          propositions: [
+            {
+              texte: correction,
+              statut: 3,
+              enonce: enonce + '<br>Question \\textbf{a}',
+              sanscadre: true
+            }
+          ]
+        },
         {
-          texte: correction,
-          statut: 3,
-          enonce:enonce + '<br>Question \\textbf{a}',
-          sanscadre: true
+          type: 'AMCOpen',
+          propositions: [
+            {
+              texte: correction,
+              statut: 3,
+              enonce: 'Question \\textbf{b}',
+              sanscadre: true
+            }
+          ]
+        },
+        {
+          type: 'AMCOpen',
+          propositions: [
+            {
+              texte: correction,
+              statut: 3,
+              enonce: 'Question \\textbf{c}',
+              sanscadre: true
+            }
+          ]
+        },
+        {
+          type: 'AMCOpen',
+          propositions: [
+            {
+              texte: correction,
+              statut: 3,
+              enonce: 'Question \\textbf{d}',
+              sanscadre: true
+            }
+          ]
+        },
+        {
+          type: 'AMCOpen',
+          propositions: [
+            {
+              texte: correction,
+              statut: 3,
+              enonce: 'Question \\textbf{e}',
+              sanscadre: true
+            }
+          ]
         }
       ]
-    },
-    {
-      type: 'AMCOpen',
-      propositions :[
-    {
-      texte: correction,
-      statut: 3,
-      enonce:'Question \\textbf{b}',
-      sanscadre: true
-    }
-  ]
-},
-{
-  type: 'AMCOpen',
-  propositions :[
-{
-  texte: correction,
-  statut: 3,
-  enonce:'Question \\textbf{c}',
-  sanscadre: true
-}
-]
-},
-{
-  type: 'AMCOpen',
-  propositions :[
-{
-  texte: correction,
-  statut: 3,
-  enonce:'Question \\textbf{d}',
-  sanscadre: true
-}
-]
-},
-{
-  type: 'AMCOpen',
-  propositions :[
-{
-  texte: correction,
-  statut: 3,
-  enonce:'Question \\textbf{e}',
-  sanscadre: true
-}
-]
-}
-  ]
 
       /****************************************************/
-     
+
       correction += anim.htmlBouton(this.numeroExercice, i)
       if (this.questionJamaisPosee(i, texte)) {
       // Si la question n'a jamais été posée, on en crée une autre
