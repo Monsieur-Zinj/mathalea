@@ -5,7 +5,8 @@ import {
   type ResourceAndItsPath,
   type Level,
   isResourceHasPlace,
-  isLevelType
+  isLevelType,
+  isTool
 } from './referentiels'
 
 /**
@@ -250,6 +251,24 @@ export function tagCriterion (
   return criterion
 }
 
+export function idCriterion (idToMatch: string): Criterion<ResourceAndItsPath> {
+  const criterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]) {
+      return items.filter((item: ResourceAndItsPath) => {
+        if (
+          isExerciceItemInReferentiel(item.resource) ||
+          isTool(item.resource)
+        ) {
+          return item.resource.id.includes(idToMatch)
+        } else {
+          return false
+        }
+      })
+    }
+  }
+  return criterion
+}
+
 /**
  * Construit un critère de filtration sur un sujet (chaîne de caractères).
  * La recherche s'effectue sur le titre (s'il y en a) ou sur le lieu (s'il y en a)
@@ -267,6 +286,7 @@ export function subjectCriterion (
         if (item.pathToResource.includes('CAN') && !isCanIncluded) {
           return false
         }
+        // on recherche un lieu
         let placeMatch = false
         if (isResourceHasPlace(item.resource)) {
           // si le sujet est un lieu et que la ressource a `lieu` dans ses propriété, on compare
@@ -274,6 +294,7 @@ export function subjectCriterion (
             .toLowerCase()
             .includes(subject.toLowerCase())
         }
+        // on rechercher dans le titre
         if (isExerciceItemInReferentiel(item.resource)) {
           // la ressource est un exercice : elle a donc un titre
           if (
@@ -322,10 +343,12 @@ export function stringToCriteria (
     // (une chaîne peut être : "labyrinthe de multiples", "l'heure", 'informations inutiles')
     words.forEach((word, index, theArray) => {
       let w = word
-      if (/^['||"]/.test(word)) { // la chaîne contient un guillemet ou apostrophe au début
+      if (/^['||"]/.test(word)) {
+        // la chaîne contient un guillemet ou apostrophe au début
         w = w.slice(1) // on retire le premier caractère
       }
-      if (/['||"]$/.test(word)) { // la chaîne contient un guillemet ou apostrophe à la fin
+      if (/['||"]$/.test(word)) {
+        // la chaîne contient un guillemet ou apostrophe à la fin
         w = w.slice(0, -1) // on retire le dernier caractère
       }
       theArray[index] = w
@@ -335,10 +358,11 @@ export function stringToCriteria (
       if (isLevelType(words[0])) {
         return levelCriterion(words[0], isCanIncluded)
       } else {
-        return new OrCriteria(
+        return new AtLeastOneOfCriteria([
           subjectCriterion(words[0], isCanIncluded),
-          tagCriterion(words[0])
-        )
+          tagCriterion(words[0]),
+          idCriterion(words[0])
+        ])
       }
     } else {
       // plusieurs mots dans le champs de recherche : on construit un critère multiple
@@ -346,6 +370,7 @@ export function stringToCriteria (
       const levelsCriteria: Criterion<ResourceAndItsPath>[] = []
       const subjectsCriteria: Criterion<ResourceAndItsPath>[] = []
       const tagsCriteria: Criterion<ResourceAndItsPath>[] = []
+      const idsCriteria: Criterion<ResourceAndItsPath>[] = []
       const subjectsAsString: string[] = [] // pour garder trace des sujets comme mots
       for (const word of words) {
         // on sépare les mots suivants qu'ils représentent un niveau ou pas (par exemple '4e' est un niveau)
@@ -358,6 +383,7 @@ export function stringToCriteria (
             subjectCriterion(word.replace('+', ''), isCanIncluded)
           )
           tagsCriteria.push(tagCriterion(word.replace('+', '')))
+          idsCriteria.push(tagCriterion(word.replace('+', '')))
         }
       }
       // on a que des critères de niveaux (deux ou plus ici), on en renvoie l'union
@@ -377,9 +403,15 @@ export function stringToCriteria (
         parseStringCriteria(subjectsAsString, subjectsCriteria)
       const parsedTagsCriteria: Criterion<ResourceAndItsPath> =
         parseStringCriteria(subjectsAsString, tagsCriteria)
+      const parsedIDsCriteria: Criterion<ResourceAndItsPath> =
+        parseStringCriteria(subjectsAsString, idsCriteria)
       // on a que des critères de sujets/tags (deux ou plus ici), on renvoie leur traitement
       if (levelsCriteria.length === 0) {
-        return new OrCriteria(parsedSubjectsCriteria, parsedTagsCriteria)
+        return new AtLeastOneOfCriteria([
+          parsedSubjectsCriteria,
+          parsedTagsCriteria,
+          parsedIDsCriteria
+        ])
       }
       // dans ce qui suit, on a soit au moins un niveau ET un sujet et peut-être autre chose
       // pour chaque niveaux, on construit le critère de recherche niveau ET sujets/tags traités
@@ -389,7 +421,11 @@ export function stringToCriteria (
           new MultiCriteria<ResourceAndItsPath>()
             .addCriterion(criterion)
             .addCriterion(
-              new OrCriteria(parsedSubjectsCriteria, parsedTagsCriteria)
+              new AtLeastOneOfCriteria([
+                parsedSubjectsCriteria,
+                parsedTagsCriteria,
+                parsedIDsCriteria
+              ])
             )
         )
       }

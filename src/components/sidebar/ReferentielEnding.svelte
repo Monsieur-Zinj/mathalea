@@ -16,7 +16,7 @@
   export let ending: JSONReferentielEnding
   export let nestedLevelCount: number
   // export let useContext: 'search-result' | 'exploration' = 'exploration'
-  const paddingTweak: number = ending.typeExercice === 'outil' || ending.typeExercice === 'html' ? nestedLevelCount + 3 : nestedLevelCount
+  // const paddingTweak: number = ending.typeExercice === 'outil' || ending.typeExercice === 'html' || nestedLevelCount < 2 ? nestedLevelCount + 3 : nestedLevelCount
   let nomDeExercice: HTMLDivElement
   onMount(() => {
     if (nomDeExercice && nomDeExercice.innerHTML.includes('$')) {
@@ -39,20 +39,25 @@
   /* --------------------------------------------------------------
     Gestions des exercices via la liste
    --------------------------------------------------------------- */
-  const isPresent = (code: string) => {
+  /**
+   * Compare un code à UUID courante
+   * @param {string} code le code de l'UUID à comparer à l'UUID courante
+   * @returns {boolean} `true` si les deux chaînes sont égales
+   */
+  const compareCodes = (code: string): boolean => {
     return code === ending.uuid
   }
-  let selectedCount = 0
-  let listeCodes: string[]
+  let selectedCount = 0 // pour compter le nb de fois où la ressource a été sélectionnée
+  let uuidList: string[] // pour stocker la liste des UUIDs sélectionnées
   // on compte réactivement le nombre d'occurences
   // de l'exercice dans la liste des sélectionnés
   $: {
-    listeCodes = []
+    uuidList = []
     for (const exo of $exercicesParams) {
-      listeCodes.push(exo.uuid)
+      uuidList.push(exo.uuid)
     }
-    listeCodes = listeCodes
-    selectedCount = listeCodes.filter(isPresent).length
+    uuidList = uuidList
+    selectedCount = uuidList.filter(compareCodes).length
     selectedCount = selectedCount
   }
   /**
@@ -73,7 +78,7 @@
    * la première est retirée)
    */
   function removeFromList () {
-    const matchingIndex = listeCodes.findIndex(isPresent)
+    const matchingIndex = uuidList.findIndex(compareCodes)
     exercicesParams.update((list) => [
       ...list.slice(0, matchingIndex),
       ...list.slice(matchingIndex + 1)
@@ -97,6 +102,7 @@
     mouseIsOut = true
   }
 </script>
+
 <!--
   @component
   Composant destiné à afficher les terminaisons des branches d'un référentiel.
@@ -106,16 +112,16 @@
   **nestedLevelCount** (_number_) : compteur du niveau d'imbrication (utilisé pour la mise en page)
  -->
 <div
-  class="w-full relative flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
+  class="w-full flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
   "
-  style="padding-left: {(paddingTweak * 2) / 4}rem"
+  style="padding-left: {(nestedLevelCount * 2) / 4}rem"
 >
   <button
-    class="w-full inline-flex text-start justify-start items-start hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
+    class="w-full relative inline-flex text-start justify-start items-start hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
     on:click={addToList}
   >
     <div
-      class="ml-[3px] pl-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1"
+      class="ml-[3px] pl-2 pr-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1"
       bind:this={nomDeExercice}
     >
       {#if isExerciceItemInReferentiel(ending)}
@@ -168,30 +174,29 @@
           <span class="font-bold">{ending.uuid}</span>
         </div>
       {/if}
+      {#if selectedCount >= 1}
+        <button
+          type="button"
+          class="absolute -left-4 -top-[0.15rem]"
+          on:mouseover={handleMouseOver}
+          on:focus={handleMouseOver}
+          on:mouseout={handleMouseOut}
+          on:blur={handleMouseOut}
+          on:click={removeFromList}
+          on:keydown={removeFromList}
+        >
+          <i
+            class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}"
+          />
+        </button>
+      {/if}
+      {#if selectedCount >= 2 && mouseIsOut}
+        <div
+          class="absolute -left-3 -top-0 text-[0.6rem] font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas-dark"
+        >
+          {selectedCount}
+        </div>
+      {/if}
     </div>
   </button>
-
-  {#if selectedCount >= 1}
-    <button
-      type="button"
-      class="absolute {nestedLevelCount === 4 ? 'left-4' : 'left-6'}"
-      on:mouseover={handleMouseOver}
-      on:focus={handleMouseOver}
-      on:mouseout={handleMouseOut}
-      on:blur={handleMouseOut}
-      on:click={removeFromList}
-      on:keydown={removeFromList}
-    >
-      <i
-        class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}"
-      />
-    </button>
-  {/if}
-  {#if selectedCount >= 2 && mouseIsOut}
-    <div
-      class="absolute {nestedLevelCount === 4 ? 'left-5' : 'left-7'} text-[0.6rem] font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas-dark"
-    >
-      {selectedCount}
-    </div>
-  {/if}
 </div>

@@ -6,8 +6,7 @@
   } from '../components/utils/refUtils'
   import {
     type JSONReferentielObject,
-    type ResourceAndItsPath,
-    isExerciceItemInReferentiel
+    type ResourceAndItsPath
   } from '../lib/types/referentiels'
   import referentielAlea from '../json/referentiel2022.json'
   import referentielStatic from '../json/referentielStatic.json'
@@ -46,13 +45,9 @@
     bind:results={searchResultReferentiel}
   />
 </div>
-<ul class="my-10 px-8 text-[10px]">
+<ul class="my-10 mx-4 p-4 text-[10px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
   {#each searchResultReferentiel as item}
     <li>
-      <!-- {item.pathToResource.join('/')}
-      {#if isExerciceItemInReferentiel(item.resource)}
-        : {item.resource.titre}
-      {/if} -->
       <ReferentielEnding ending={item.resource} nestedLevelCount={1} />
     </li>
   {/each}
@@ -68,7 +63,7 @@
 </div>
 
 <div class="flex flex-row w-full">
-  <div class="mt-10 px-8 text-[10px] w-1/5">
+  <div class="mt-10 px-8 text-[10px] w-1/3">
     <ReferentielNode
       bind:subset={filteredReferentiel}
       indexBase={1}
