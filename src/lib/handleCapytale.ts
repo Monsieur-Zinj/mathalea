@@ -82,6 +82,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   }
   await new Promise((resolve) => setTimeout(resolve, 500))
   if (studentAssignment != null) {
+    console.log('Réponses à charger', studentAssignment)
     for (const exercice of studentAssignment) {
       if (exercice == null) continue
       if (exercice != null && exercice.answers != null) {
@@ -128,6 +129,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     for (const exercice of studentAssignment) {
       // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
       const buttonScore = document.querySelector(`#buttonScoreEx${exercice.indice}`) as HTMLButtonElement
+      console.log('Bouton score', `#buttonScoreEx${exercice.indice}`, buttonScore)
       if (buttonScore !== null) {
         buttonScore.click()
       }
@@ -159,6 +161,7 @@ export function sendToCapytaleSaveStudentAssignment () {
       evaluation += resultExercice.numberOfPoints
     }
   }
+  console.log('Message envoyé à Capytale', { studentAssignment: results, evaluation: evaluation.toString() })
   rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation: evaluation.toString() })
 }
 
