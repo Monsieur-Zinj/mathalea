@@ -71,9 +71,11 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
               case 'calcul':
                 // Le format par défaut
                 saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
+                console.log(saisie)
                 // La réponse est transformée en chaine compatible avec engine.parse()
                 reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
                 saisie = saisie.replaceAll('²', '^2')
+                saisie = saisie.replaceAll('^{}', '')
                 saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
                 saisie = saisie.replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
                 if (!isNaN(reponse)) {
@@ -95,7 +97,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 }
                 break
               case 'formeDeveloppee':
-                saisie = champTexte.value.replaceAll(',', '.')
+                saisie = champTexte.value.replaceAll(',', '.').replaceAll('^{}', '').replaceAll('²', '^2')
                 reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
                 saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
                 if (!saisie.includes('times') && engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
