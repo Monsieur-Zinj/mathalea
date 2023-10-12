@@ -47,8 +47,8 @@ export default function PremierOuPas () {
         ? 'Justifier que les nombres suivants sont premiers ou pas.'
         : 'Justifier que le nombre suivant est premier ou pas.'
       : this.nbQuestions > 1
-        ? 'Indiquer si les nombres suivants sont premiers ou pas. Justifier s\'ils ne le sont pas.'
-        : 'Indiquer si le nombre suivant est premier ou pas. Justifier s\'il ne l\'est pas.'
+        ? 'Indiquer si les nombres suivants sont premiers ou pas.' + (this.interactif ? '' : ' Justifier s\'ils ne le sont pas.')
+        : 'Indiquer si le nombre suivant est premier ou pas.' + (this.interactif ? '' : ' Justifier s\'il ne l\'est pas.')
     let typesDeQuestions
     if (context.isHtml && this.level === 2) { // les boutons d'aide uniquement pour la version html
       this.boutonAide = modalPdf(this.numeroExercice, 'assets/pdf/FicheArithmetique-3A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')

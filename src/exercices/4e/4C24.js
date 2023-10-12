@@ -27,7 +27,7 @@ export default function SimplifierFractions () {
   this.nbQuestions = 5
 
   // this.besoinFormulaireNumerique = ['Nombre de facteurs communs', 3, '1, 2 ou 3']
-  this.besoinFormulaireTexte = ['Nombre de facteurs communs', '1, 2, 3 ou 4']
+  this.besoinFormulaireTexte = ['Nombre maximum de facteurs communs', '1, 2, 3 ou 4']
   // this.besoinFormulaire2Numerique = ['Facteurs premiers utilisés', 2, '1 : De 2 à 7\n2 : De 2 à 23']
   this.besoinFormulaire2Texte = ['Choix des facteurs premiers utilisés', 'Nombres séparés par des tirets.\nChoisir valeur entre 2 et 23.']
   this.sup = 2
@@ -50,9 +50,9 @@ export default function SimplifierFractions () {
       min: 2,
       max: 23,
       defaut: 11,
-      melange: 11,
+      melange: 24,
       nbQuestions: this.nbQuestions,
-      exclus: [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 23]
+      exclus: [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22]
     })
     const nbFacteursCommuns = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -151,5 +151,5 @@ export default function SimplifierFractions () {
 
     listeQuestionsToContenu(this)
   }
-  if (context.isAmc) this.besoinFormulaire3Numerique = ['Type de réponses AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
+  this.besoinFormulaire3Numerique = ['Type de réponses AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
 }
