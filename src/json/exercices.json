@@ -2191,7 +2191,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amc": false
+      "amcType": "AMCOpen",
+      "amc": true
     },
     "datePublication": "29/08/2022",
     "dateModification": "27/09/2023"
@@ -2273,7 +2274,8 @@
     "titre": "Problèmes avec des engrenages",
     "tags": {
       "interactif": false,
-      "amc": false
+      "amcType": "AMCOpen",
+      "amc": true
     },
     "datePublication": "05/10/2022"
   },
