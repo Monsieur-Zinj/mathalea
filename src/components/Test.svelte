@@ -13,7 +13,7 @@
   import FiltresBis from './sidebar/FiltresBis.svelte'
   import { selectedFilters } from './store'
   import { onDestroy } from 'svelte'
-  import SearchExerciceBis from './sidebar/SearchExerciceBis.svelte'
+  import SearchInput from './sidebar/SearchInput.svelte'
   import ReferentielNode from './sidebar/ReferentielNode.svelte'
   const baseReferentiel: JSONReferentielObject = {
     ...referentielAlea,
@@ -40,7 +40,7 @@
 
 <h1 class="text-4xl font-black text-coopmaths-struct mb-10">Tests</h1>
 <div class="p-4">
-  <SearchExerciceBis
+  <SearchInput
     origin={filteredReferentielItems}
     bind:results={searchResultReferentiel}
   />

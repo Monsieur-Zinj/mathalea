@@ -1,24 +1,44 @@
 <script lang="ts">
   import { tick } from 'svelte'
   import { stringToCriteria } from '../../lib/types/filters'
-  import { isExerciceItemInReferentiel, isTool, type ExerciceItemInReferentiel, type ResourceAndItsPath, type ToolItemInReferentiel } from '../../lib/types/referentiels'
+  import {
+    isExerciceItemInReferentiel,
+    isTool,
+    type ExerciceItemInReferentiel,
+    type ResourceAndItsPath,
+    type ToolItemInReferentiel
+  } from '../../lib/types/referentiels'
   import { exercicesParams, globalOptions, selectedFilters } from '../store'
-  import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
   import type { InterfaceParams } from '../../lib/types'
+  import { getUniqueStringBasedOnTimeStamp, debounce } from '../utils/time'
   export let origin: ResourceAndItsPath[]
-  export let results: ResourceAndItsPath[]
+  export let results: ResourceAndItsPath[] = []
   let searchField: HTMLInputElement
   let inputSearch: string = ''
-  $: {
-    if (inputSearch.replace(/^[\s"']/, '').length !== 0) {
-      results = [
-        ...stringToCriteria(
-          inputSearch,
-          $selectedFilters.types.CAN.isSelected
-        ).meetCriterion(origin)
-      ]
-    } else { results = [] }
+  function searchForInput () {
+    results = [
+      ...stringToCriteria(
+        inputSearch,
+        $selectedFilters.types.CAN.isSelected
+      ).meetCriterion(origin)
+    ]
   }
+  const fetchResults = debounce<typeof searchForInput>(searchForInput, 500)
+  $: {
+    inputSearch = inputSearch
+    // on attend que le champ de recherche ne soit pas vide
+    // ou que la chaîne saisie ne commence pas par une apostrophe ou un guillemet
+    if (inputSearch.replace(/^[\s"']/, '').length !== 0) {
+      fetchResults()
+    } else {
+      results = []
+    }
+  }
+  // ===================================================================================
+  //
+  //                                Gestion du clavier
+  //
+  // ===================================================================================
   let isInputFocused = false
   function onFocusInput () {
     isInputFocused = true
@@ -36,18 +56,21 @@
    * Si Ctrl+K afficher le champ de recherche avec focus
    */
   function onCtrklK () {
-    getSearchDisplayed()
+    getFocusOnSearchInput()
   }
   /**
    * Recherche si la chaîne de l'input correspond à une ID de la liste des résultats.
    * @returns {ExerciceItemInReferentiel|ToolItemInReferentiel|null} renvoie l'exercice trouvé ou `null`
    */
-  function matchOnResultsList (idString: string): ExerciceItemInReferentiel|ToolItemInReferentiel|null {
+  function matchOnResultsList (
+    idString: string
+  ): ExerciceItemInReferentiel | ToolItemInReferentiel | null {
     for (const result of results) {
-      if (isExerciceItemInReferentiel(result.resource) || isTool(result.resource)) {
+      if (
+        isExerciceItemInReferentiel(result.resource) ||
+        isTool(result.resource)
+      ) {
         if (idString === result.resource.id) {
-          console.log('match !')
-          console.log(result.resource)
           return result.resource
         }
       }
@@ -59,9 +82,7 @@
    */
   function onEnterDown () {
     const matchingResource = matchOnResultsList(inputSearch)
-    console.log('adding ahead : ' + matchingResource)
     if (matchingResource !== null) {
-      console.log('adding : ' + matchingResource.id)
       const newExercise: InterfaceParams = {
         uuid: matchingResource.uuid
       }
@@ -70,8 +91,6 @@
       }
       exercicesParams.update((list) => [...list, newExercise])
     }
-    console.log('exercicesParams')
-    console.log($exercicesParams)
   }
   /**
    *
@@ -118,18 +137,25 @@
         break
     }
   }
-  const getSearchDisplayed = async () => {
+  const getFocusOnSearchInput = async () => {
     await tick()
     searchField.focus()
   }
 </script>
 
+<!--
+  @component
+  Champ de texte pour recherche d'exercices
+  ### Paramètres
+  - **origin** (_ResourceAndItsPath[]_) : le référentiel à rechercher (déplier dans un tableau)
+  - **result** (_ResourceAndItsPath[]_) : la liste des entrées correspondant au texte dans le champ de recherche
+ -->
 <svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
 <div class="flex flex-col space-x-2 justify-start items-center">
   <div class="relative flex flex-col w-full">
     <input
       type="text"
-      id="searchInputField-{getUniqueStringBasedOnTimeStamp}"
+      id="searchInputField-{getUniqueStringBasedOnTimeStamp()}"
       class="w-full border border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
       placeholder="🔍 Thème, identifiant..."
       bind:value={inputSearch}
@@ -138,7 +164,8 @@
       on:blur={onBlurInput}
     />
     <div
-      class="absolute -bottom-4 {matchOnResultsList(inputSearch) !== null && isInputFocused
+      class="absolute -bottom-4 {matchOnResultsList(inputSearch) !== null &&
+      isInputFocused
         ? 'flex'
         : 'hidden'} items-center pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
     >
