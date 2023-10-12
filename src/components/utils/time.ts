@@ -50,6 +50,7 @@ export function getUniqueStringBasedOnTimeStamp (prefix: string = '') {
 /**
  * Permet de retarder l'appel d'une fonction. Utiliser pour les frappes au clavier par exemple
  * pour ne pas activer la recherche immédiatement après qu'un caractère ait été saisi.
+ * @see https://stackoverflow.com/a/72207078/6625987
  * @param callback fonction à appeler lorsque le délai est passé
  * @param delay délais (en millisecondes)
  * @param immediate flag pour court-circuiter le délai

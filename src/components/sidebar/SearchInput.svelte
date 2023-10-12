@@ -15,21 +15,24 @@
   export let results: ResourceAndItsPath[] = []
   let searchField: HTMLInputElement
   let inputSearch: string = ''
-  function searchForInput () {
+
+  function searchFor (input: string) {
     results = [
       ...stringToCriteria(
-        inputSearch,
+        input,
         $selectedFilters.types.CAN.isSelected
       ).meetCriterion(origin)
     ]
   }
-  const fetchResults = debounce<typeof searchForInput>(searchForInput, 500)
+  const fetchResults = debounce<typeof searchFor>(searchFor, 200)
   $: {
-    inputSearch = inputSearch
     // on attend que le champ de recherche ne soit pas vide
     // ou que la chaîne saisie ne commence pas par une apostrophe ou un guillemet
-    if (inputSearch.replace(/^[\s"']/, '').length !== 0) {
-      fetchResults()
+    if (
+      inputSearch.length !== 0 &&
+      inputSearch.replace(/^[\s"']/, '').length !== 0
+    ) {
+      fetchResults(inputSearch)
     } else {
       results = []
     }
