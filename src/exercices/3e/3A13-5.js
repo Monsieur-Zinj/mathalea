@@ -4,7 +4,7 @@ import Exercice from '../Exercice.js'
 import Operation from '../../modules/operations.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
@@ -44,11 +44,11 @@ export default function DivisionEuclienneEtAjout () {
       defaut: 20,
       nbQuestions: this.nbQuestions
     })
-
+    const signe = combinaisonListes(['+', '-'], this.nbQuestions)
     for (let i = 0, dividende, quotient, reste, diviseur, reponse, texteDivAMC, texteNbAMC, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''
-      const choixOperation = this.sup2 === 3 ? choice(['+', '-']) : this.sup2 === 1 ? '+' : '-'
+      const choixOperation = this.sup2 === 3 ? signe[i] : this.sup2 === 1 ? '+' : '-'
       diviseur = dizaineDiviseur[i] === 0 ? randint(5, 9) : dizaineDiviseur[i] * 10 + randint(1, 9)
       quotient = randint(26, 196, [30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, diviseur])
       reste = randint(3, diviseur - 1, [20, 30, 40, 50])
