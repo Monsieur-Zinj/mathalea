@@ -12074,11 +12074,12 @@
     "url": "can/4e/can4G10.js",
     "uuid": "5344c",
     "id": "can4G10",
-    "titre": "Un triangle à côtés entiers est-il rectangle ?",
+    "titre": "Déterminer si un triangle est rectangle",
     "tags": {
       "interactif": true,
-      "interactifType": "mathlive",
-      "amc": false
+      "interactifType": "qcm",
+      "amcType": "qcmMono",
+      "amc": true
     },
     "datePublication": "01/10/2023"
   },
