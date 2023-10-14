@@ -29,11 +29,11 @@ export const CLAVIER_COLLEGE = {
         label: '<span><i>x</i>&thinsp;²</span>', // Puissance 2
         insert: '$$#@^{2}$$'
       },
-      {
+      /* {
         class: 'tex small',
         label: '<span><i>x</i><sup>&thinsp;<i>3</i></sup></span>', // Puissance 3
         insert: '$$#@^{3}$$'
-      },
+      }, */
       {
         class: 'tex small',
         latex: 'x^{#0}', // Puissance n
@@ -56,13 +56,14 @@ export const CLAVIER_COLLEGE = {
       { class: 'separator w5' },
       { class: 'small', latex: '\\frac{#0}{#0}' },
       { label: '=', key: '=' },
-      { latex: 'f' },
+      // { latex: 'f' },
+      { label: '%', key: '%' },
       {
         class: 'small',
         latex: '\\widehat{#0}',
         insert: '$$\\widehat{#0}$$' /// Angle
-      },
-      { class: 'separator w10' }
+      }//,
+      // { class: 'separator w10' }
     ],
     [
       { class: 'tex', label: 'c' },
@@ -76,7 +77,7 @@ export const CLAVIER_COLLEGE = {
       { label: ';', key: ';' },
       { label: 'oui', key: 'oui' },
       { label: 'non', key: 'non' },
-      { label: '%', key: '%' },
+      // { label: '%', key: '%' },
       { label: '°', latex: '\\operatorname{°}' }
     ],
     [
@@ -108,8 +109,8 @@ export const CLAVIER_COLLEGE = {
         class: 'action font-glyph',
         label: '&#10006;',
         command: ['toggleVirtualKeyboard', 'toggleVirtualKeyboard']
-      },
-      { class: 'separator w10' }
+      }//,
+      // { class: 'separator w10' }
     ]
   ]
 }
