@@ -14,7 +14,7 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import { context } from '../../modules/context.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const dateDePublication = '3/12/2021'
@@ -167,6 +167,7 @@ export default function TrouverLaTransformations () {
           if (y > 0) {
             elements = definitElements(transfoAlea, dalle - 1, dalle, choice([true, false]))
             polys[dalle] = transfoPoly(polys[dalle - 1], elements)
+            if (y === 4) polys[dalle + 1] = vide2d()
           } else {
             elements = definitElements(transfoAlea, dalle - 6, dalle, choice([true, false]))
             polys[dalle] = transfoPoly(polys[dalle - 6], elements)
