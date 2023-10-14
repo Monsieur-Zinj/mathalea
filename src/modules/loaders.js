@@ -184,9 +184,13 @@ export async function loadMathLive () {
         raccourcis = { ...raccourcisEnsemble, ...raccourcis }
       }
       if (mf.classList.contains('alphanumeric')) {
-        // clavier.push(['alphabetic', CLAVIER_LYCEE]
         clavier.push('alphabetic')
       }
+      if (mf.classList.contains('clavierDeBase')) {
+        clavier.push(CLAVIER_COLLEGE)
+        raccourcis = { ...raccourcis }
+      }
+
       if (mf.className.includes('nite') || mf.className.includes('nité')) { // Gestion du clavier Unites
         const listeParamClavier = mf.classList
         let index = 0
