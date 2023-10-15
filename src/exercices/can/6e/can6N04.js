@@ -37,7 +37,7 @@ export default function AbscisseFractionnaire () {
     } while (b % a === 0)
     const c = new FractionEtendue(b, a)
     this.reponse = c
-    this.question = `Determiner l'abscisse du point $A$.<br>
+    this.question = `Déterminer l'abscisse du point $A$.<br>
     
     `
 
@@ -50,7 +50,7 @@ export default function AbscisseFractionnaire () {
       thickSecDist: 1 / a,
       thickSec: true,
       thickOffset: 0,
-      axeStyle: '|->',
+      axeStyle: '->',
       pointListe: [[b / a, '']],
       pointCouleur: 'blue',
       pointStyle: 'x',
