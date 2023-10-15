@@ -159,8 +159,13 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
       const cd = droite(objet.extremite1, objet.extremite2)
       cd.isVisible = false
       I = pointIntersectionDD(ab, cd)
+      if (typeof I === 'boolean') {
+        I = objet.extremite1.estSur(this) || objet.extremite2.estSur(this) ||
+        this.extremite1.estSur(segment(objet.extremite1, objet.extremite2)) ||
+        this.extremite2.estSur(segment(objet.extremite1, objet.extremite2))
+      }
     }
-    if (!I) return false
+    if (typeof I === 'boolean') return (I)
     else return I.estSur(objet) && I.estSur(this)
   }
 
