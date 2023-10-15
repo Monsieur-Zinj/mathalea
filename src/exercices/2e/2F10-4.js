@@ -66,7 +66,7 @@ export default function Determinerfonctionaffine () {
           texte = ` Déterminer l'expression algébrique de la fonction affine $f$ définie sur $\\mathbb R$, sachant que
                         $f(${a})=${b}$ et que $f(${c})=${d}$.`
           if (context.isDiaporama) {
-            texteCorr = `$f(x)=${rienSi1(m.texFraction)}x${m.texFraction * a - b === 0 ? '' : `${ecritureAlgebrique(b - m.texFraction * a)}`}$`
+            texteCorr = `$f(x)=${rienSi1(m.toNumber())}x${m.texFraction * a - b === 0 ? '' : `${ecritureAlgebrique(b - m.texFraction * a)}`}$`
           } else {
             texteCorr = `$f$ est une fonction affine, elle a donc une expression de la forme  $f(x)=ax+b$ avec $a$ et $b$ des nombres réels.
                         <br>`
@@ -77,15 +77,15 @@ export default function Determinerfonctionaffine () {
               texteCorr += `On a donc : $f(x)=${b}$`
             } else {
               texteCorr += 'On en déduit que la fonction $f$ s\'écrit sous la forme : '
-              texteCorr += `   $f(x)=${rienSi1(m.texFraction)} x +b.$<br>`
+              texteCorr += `   $f(x)=${rienSi1(m.toNumber())} x +b.$<br>`
               texteCorr += `${texteGras('Remarque : ')}On obtient $b$ en utilisant (au choix) une des deux données de l'énoncé, par exemple $f(${a})=${b}$.<br>`
-              texteCorr += `Comme $f(x)=${rienSi1(m.texFraction)}x +b$, alors $f(${a})=
+              texteCorr += `Comme $f(x)=${rienSi1(m.toNumber())}x +b$, alors $f(${a})=
               ${abs((b - d) / (a - c)) === 1 ? `${m.texFraction * a}+b` : `${m.texFraction}\\times${a}+b=${m.texFraction * a}+b`}$ . On en déduit :<br>`
               texteCorr += `$\\begin{aligned}f(${a})=${b}&\\iff ${m.texFraction * a}+b=${b}\\\\`
               texteCorr += `&\\iff b=${b - m.texFraction * a}\\\\`
               texteCorr += '\\end{aligned}$<br>'
 
-              texteCorr += `On en déduit $f(x)=${rienSi1(m.texFraction)}x${m.texFraction * a - b === 0 ? '' : `${ecritureAlgebrique(b - m.texFraction * a)}`}$.`
+              texteCorr += `On en déduit $f(x)=${rienSi1(m.toNumber())}x${m.texFraction * a - b === 0 ? '' : `${ecritureAlgebrique(b - m.texFraction * a)}`}$.`
             }
             reponse = [`${m.texFraction}x+${p}`]
             setReponse(this, i, reponse)
