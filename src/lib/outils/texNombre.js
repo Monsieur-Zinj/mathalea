@@ -205,8 +205,8 @@ export function scientifiqueToDecimal (mantisse, exp) {
  * @author Guillaume Valmont
  * @param {number|Decimal} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
- * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
- * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
+ * @param {boolean?} completerZeros=false si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
+ * @param {boolean?} aussiCompleterEntiers=false si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
 export function stringNombre (nb, precision, completerZeros = false, aussiCompleterEntiers = false) {
