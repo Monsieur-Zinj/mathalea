@@ -10,43 +10,43 @@ import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.j
 
 /**  Trace un axe gradué
  * @param {Object} parametres À saisir entre accolades
- * @param {number} [parametres.Unite = 10] Nombre de cm par unité
- * @param {number} [parametres.Min = 10] Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
- * @param {number} [parametres.Max = 10] Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
- * @param {number} [parametres.x = 0] Abscisse du point de départ du tracé
- * @param {number} [parametres.y = 0] Ordonnée du point de départ du tracé
- * @param {number} [parametres.axeEpaisseur = 2] Épaisseur de l'axe gradué
- * @param {string} [parametres.axeCouleur = 'black'] Couleur de l'axe gradué : du type 'blue' ou du type '#f15929'
- * @param {string} [parametres.axeStyle = '->'] Style final de l'axe gradué
- * @param {number} [parametres.axeHauteur = 4] Définit la "largeur" de l'axe, celle des graduations et du style final
- * @param {string} [parametres.axePosition = 'H'] Position de l'axe : 'H' pour horizontal, 'V' pour vertical
- * @param {number} [parametres.thickEpaisseur = 2] Épaisseur des graduations
- * @param {string} [parametres.thickCouleur = axeCouleur] Couleur des graduations : du type 'blue' ou du type '#f15929'
- * @param {number} [parametres.thickDistance = 1] Distance entre deux graduations principales
- * @param {number} [parametres.thickOffset = 0] Décalage de toutes les graduations sur l'axe (pour, par exemple, faire coïncider le début de l'axe avec une graduation)
- * @param {boolean} [parametres.thickSec = false] Affichage (ou pas) des graduations secondaires
- * @param {number} [parametres.thickSecDist = 0.1] Distance entre deux graduations secondaires
- * @param {boolean} [parametres.thickTer = false] Affichage (ou pas) des graduations secondaires
- * @param {number} [parametres.thickTerDist = 0.1] Distance entre deux graduations tertiaires, false sinon
- * @param {Array} [parametres.pointListe = []] Liste de points à mettre sur l'axe comme, par exemple, [[3.4,'A'],[3.8,'B']]. Les noms se placent au-dessus de l'axe.
- * @param {number} [parametres.labelPointTaille = 10] Taille (hauteur) de la police des points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
- * @param {number} [parametres.labelPointLargeur = 20] Largeur de la boîte où sont affichés les points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
- * @param {string} [parametres.pointCouleur = 'blue'] Couleur des points de la liste pointListe : du type 'blue' ou du type '#f15929'
- * @param {number} [parametres.pointTaille = 4] Taille en pixels des points de la liste  pointListe
- * @param {string} [parametres.pointStyle = '+'] Style des points de la liste pointListe
- * @param {number} [parametres.pointOpacite = 0.8] Opacité des points de la liste pointListe
- * @param {number} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe
- * @param {boolean} [parametres.labelsPrincipaux = true] Présence (ou non) des labels numériques principaux
- * @param {boolean} [parametres.labelsSecondaires = false] Présence (ou non) des labels numériques secondaires
- * @param {number} [parametres.step1 = 1] Pas des labels numériques principaux
- * @param {number} [parametres.step2 = 1] Pas des labels numériques secondaires
- * @param {number} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
- * @param {Array} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
- * @param {string} [parametres.Legende = ''] Légende de l'axe
- * @param {number} [parametres.LegendePosition = (Max - Min) * Unite + 1.5] Position de la légende
- * @property {number} Unite Nombre de cm par unité
- * @property {number} Min Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
- * @property {number} Max Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
+ * @param {number?} [parametres.Unite = 10] Nombre de cm par unité
+ * @param {number?} [parametres.Min = 10] Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
+ * @param {number?} [parametres.Max = 10] Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
+ * @param {number?} [parametres.x = 0] Abscisse du point de départ du tracé
+ * @param {number?} [parametres.y = 0] Ordonnée du point de départ du tracé
+ * @param {number?} [parametres.axeEpaisseur = 2] Épaisseur de l'axe gradué
+ * @param {string?} [parametres.axeCouleur = 'black'] Couleur de l'axe gradué : du type 'blue' ou du type '#f15929'
+ * @param {string?} [parametres.axeStyle = '->'] Style final de l'axe gradué
+ * @param {number?} [parametres.axeHauteur = 4] Définit la "largeur" de l'axe, celle des graduations et du style final
+ * @param {string?} [parametres.axePosition = 'H'] Position de l'axe : 'H' pour horizontal, 'V' pour vertical
+ * @param {number?} [parametres.thickEpaisseur = 2] Épaisseur des graduations
+ * @param {string?} [parametres.thickCouleur = axeCouleur] Couleur des graduations : du type 'blue' ou du type '#f15929'
+ * @param {number?} [parametres.thickDistance = 1] Distance entre deux graduations principales
+ * @param {number?} [parametres.thickOffset = 0] Décalage de toutes les graduations sur l'axe (pour, par exemple, faire coïncider le début de l'axe avec une graduation)
+ * @param {boolean?} [parametres.thickSec = false] Affichage (ou pas) des graduations secondaires
+ * @param {number?} [parametres.thickSecDist = 0.1] Distance entre deux graduations secondaires
+ * @param {boolean?} [parametres.thickTer = false] Affichage (ou pas) des graduations secondaires
+ * @param {number?} [parametres.thickTerDist = 0.1] Distance entre deux graduations tertiaires, false sinon
+ * @param {array?} [parametres.pointListe = []] Liste de points à mettre sur l'axe comme, par exemple, [[3.4,'A'],[3.8,'B']]. Les noms se placent au-dessus de l'axe.
+ * @param {number?} [parametres.labelPointTaille = 10] Taille (hauteur) de la police des points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
+ * @param {number?} [parametres.labelPointLargeur = 20] Largeur de la boîte où sont affichés les points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
+ * @param {string?} [parametres.pointCouleur = 'blue'] Couleur des points de la liste pointListe : du type 'blue' ou du type '#f15929'
+ * @param {number?} [parametres.pointTaille = 4] Taille en pixels des points de la liste  pointListe
+ * @param {string?} [parametres.pointStyle = '+'] Style des points de la liste pointListe
+ * @param {number?} [parametres.pointOpacite = 0.8] Opacité des points de la liste pointListe
+ * @param {number?} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe
+ * @param {boolean?} [parametres.labelsPrincipaux = true] Présence (ou non) des labels numériques principaux
+ * @param {boolean?} [parametres.labelsSecondaires = false] Présence (ou non) des labels numériques secondaires
+ * @param {number?} [parametres.step1 = 1] Pas des labels numériques principaux
+ * @param {number?} [parametres.step2 = 1] Pas des labels numériques secondaires
+ * @param {number?} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
+ * @param {array?} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
+ * @param {string?} [parametres.Legende = ''] Légende de l'axe
+ * @param {number?} [parametres.LegendePosition] Position de la légende
+ * @property {number?} Unite Nombre de cm par unité
+ * @property {number?} Min Valeur minimum labelisée sur l'axe (les graduations commencent un peu avant)
+ * @property {number?} Max Valeur maximum labelisée sur l'axe (les graduations finissent un peu après)
  * @author Jean-Claude Lhote
  * @return {array} Liste d'objets MathAlea2D
  */
@@ -239,11 +239,11 @@ export function DroiteGraduee ({
  * @param {string} [parametres.thickCouleur = axeCouleur] Couleur des graduations : du type 'blue' ou du type '#f15929'
  * @param {number} [parametres.thickDistance = 1] Distance entre deux graduations principales
  * @param {number} [parametres.thickOffset = 0] Décalage de toutes les graduations sur l'axe (pour, par exemple, faire coïncider le début de l'axe avec une graduation)
- * @param {boolean} [parametres.thickSec = false] Affichage (ou pas) des graduations secondaires
+ * @param {boolean?} [parametres.thickSec = false] Affichage (ou pas) des graduations secondaires
  * @param {number} [parametres.thickSecDist = 0.1] Distance entre deux graduations secondaires
- * @param {boolean} [parametres.thickTer = false] Affichage (ou pas) des graduations secondaires
+ * @param {boolean?} [parametres.thickTer = false] Affichage (ou pas) des graduations secondaires
  * @param {number} [parametres.thickTerDist = 0.1] Distance entre deux graduations tertiaires, false sinon
- * @param {Array} [parametres.pointListe = []] Liste de points à mettre sur l'axe comme, par exemple, [[3.4,'A'],[3.8,'B']]. Les noms se placent au-dessus de l'axe.
+ * @param {array?} [parametres.pointListe = []] Liste de points à mettre sur l'axe comme, par exemple, [[3.4,'A'],[3.8,'B']]. Les noms se placent au-dessus de l'axe.
  * @param {number} [parametres.labelPointTaille = 10] Taille (hauteur) de la police des points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
  * @param {number} [parametres.labelPointLargeur = 20] Largeur de la boîte où sont affichés les points (de la liste des points pointListe) utilisée de 5 = \small à 20=\huge...
  * @param {string} [parametres.pointCouleur = 'blue'] Couleur des points de la liste pointListe : du type 'blue' ou du type '#f15929'
@@ -251,14 +251,14 @@ export function DroiteGraduee ({
  * @param {string} [parametres.pointStyle = '+'] Style des points de la liste pointListe
  * @param {number} [parametres.pointOpacite = 0.8] Opacité des points de la liste pointListe
  * @param {number} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe
- * @param {boolean} [parametres.labelsPrincipaux = true] Présence (ou non) des labels numériques principaux
- * @param {boolean} [parametres.labelsSecondaires = false] Présence (ou non) des labels numériques secondaires
+ * @param {boolean?} [parametres.labelsPrincipaux = true] Présence (ou non) des labels numériques principaux
+ * @param {boolean?} [parametres.labelsSecondaires = false] Présence (ou non) des labels numériques secondaires
  * @param {number} [parametres.step1 = 1] Pas des labels numériques principaux
  * @param {number} [parametres.step2 = 1] Pas des labels numériques secondaires
  * @param {number} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
- * @param {Array} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
+ * @param {array?} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
  * @param {string} [parametres.Legende = ''] Légende de l'axe
- * @param {number} [parametres.LegendePosition = (Max - Min) * Unite + 1.5] Position de la légende
+ * @param {number} [parametres.LegendePosition] Position de la légende
  * @example droiteGraduee({
         x: 0,
         y: 3,
@@ -665,6 +665,7 @@ export function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'g
     }
     objets.push(s)
   }
+  this.bordures = [xmin, ymin, xmax, ymax]
   // this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${this.color}, opacite = ${this.opacite}, pas = ${step})`
   this.svg = function (coeff) {
     let code = ''
@@ -899,24 +900,26 @@ export function Seyes (xmin = 0, ymin = 0, xmax = 15, ymax = 15, opacite1 = 0.5,
  * @param {number} ymin
  * @param {number} xmax
  * @param {number} ymax
+ * @param {number?} opacite1=0.5
+ * @param {number?} opacite2=0.2
  * @author Rémi Angot
  */
-export function seyes (...args) {
-  return new Seyes(...args)
+export function seyes (xmin, ymin, xmax, ymax, opacite1 = 0.5, opacite2 = 0.2) {
+  return new Seyes(xmin, ymin, xmax, ymax, opacite1, opacite2)
 }
 
 /**
- * @param {number} xmin
- * @param {number} ymin
- * @param {number} xmax
- * @param {number} ymax
- * @param {number} xstep
- * @param {number} ystep
- * @param {string} type
- * @param {string} pointColor
- * @param {number} pointRayon
- * @param {number} opacite
- * @param {number} opaciteDeRemplissage
+ * @param {number?} xmin=-10
+ * @param {number?} ymin=10
+ * @param {number?} xmax=-10
+ * @param {number?} ymax=10
+ * @param {number?} xstep=1
+ * @param {number?} ystep=1
+ * @param {'quad'|'hexa'|'equi'?} type='quad'
+ * @param {string?} pointColor='black'
+ * @param {number?} pointRayon=0.05
+ * @param {number?} opacite=1
+ * @param {number?} opaciteDeRemplissage=1
  * @constructor
  * @author Jean-Claude Lhote
  */
@@ -1124,8 +1127,8 @@ export function Repere ({
    * @param {number}  options.xMax = 10,
    * @param {number}  options.yMin = -10,
    * @param {number}  options.yMax = 10,
-   * @param {boolean}  options.axeXisVisible = true,
-   * @param {boolean}  options.axeYisVisible = true,
+   * @param {boolean?}  options.axeXisVisible = true,
+   * @param {boolean?}  options.axeYisVisible = true,
    * @param {number}  options.axesEpaisseur = 2,
    * @param {string}  options.axesCouleur = 'black',
    * @param {string}  options.axeXStyle = '->',
@@ -1157,38 +1160,38 @@ export function Repere ({
    * @param {number}  options.xLegendePosition = [],
    * @param {string}  options.yLegende = '',
    * @param {number}  options.yLegendePosition = [],
-   * @param {boolean}  options.grille = true,
+   * @param {boolean?}  options.grille = true,
    * @param {number}  options.grilleDistance = false,
    * @param {string}  options.grilleCouleur = 'black',
    * @param {number}  options.grilleOpacite = 0.5,
    * @param {number}  options.grilleEpaisseur = 1,
-   * @param {boolean}  options.grilleSecondaire = false,
+   * @param {boolean?}  options.grilleSecondaire = false,
    * @param {number}  options.grilleSecondaireDistance = false,
    * @param {string}  options.grilleSecondaireCouleur = 'gray',
    * @param {number}  options.grilleSecondaireOpacite = 0.3,
    * @param {number}  options.grilleSecondaireEpaisseur = 1,
-   * @param {boolean}  options.grilleX = grille,
+   * @param {boolean?}  options.grilleX = grille,
    * @param {number[]}  options.grilleXListe = false,
    * @param {number}  options.grilleXDistance = grilleDistance,
    * @param {number}  options.grilleXMin = false,
    * @param {number}  options.grilleXMax = false,
    * @param {string}  options.grilleXCouleur = grilleCouleur,
    * @param {number}  options.grilleXOpacite = grilleOpacite,
-   * @param {boolean}  options.grilleY = grille,
+   * @param {boolean?}  options.grilleY = grille,
    * @param {number[]}  options.grilleYListe = false,
    * @param {number}  options.grilleYDistance = grilleDistance,
    * @param {number}  options.grilleYMin = false,
    * @param {number}  options.grilleYMax = false,
    * @param {string}  options.grilleYCouleur = grilleCouleur,
    * @param {number}  options.grilleYOpacite = grilleOpacite,
-   * @param {boolean}  options.grilleSecondaireX = grilleSecondaire,
+   * @param {boolean?}  options.grilleSecondaireX = grilleSecondaire,
    * @param {number[]}  options.grilleSecondaireXListe = false,
    * @param {number}  options.grilleSecondaireXDistance = grilleSecondaireDistance,
    * @param {number}  options.grilleSecondaireXMin = false,
    * @param {number}  options.grilleSecondaireXMax = false,
    * @param {string}  options.grilleSecondaireXCouleur = grilleSecondaireCouleur,
    * @param {number}  options.grilleSecondaireXOpacite = grilleSecondaireOpacite,
-   * @param {boolean}  options.grilleSecondaireY = grilleSecondaire,
+   * @param {boolean?}  options.grilleSecondaireY = grilleSecondaire,
    * @param {number[]}  options.grilleSecondaireYListe = false,
    * @param {number}  options.grilleSecondaireYDistance = grilleSecondaireDistance,
    * @param {number}  options.grilleSecondaireYMin = false,
@@ -1498,7 +1501,7 @@ export function Repere ({
           objets.push(l)
         }
       } else {
-        if (l.valeur >= yMin && l.valeur <= yMax) {
+        if (y.valeur >= yMin && y.valeur <= yMax) {
           l = latexParCoordonnees(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite, 'black', 20, 20, '', 8)
           l.isVisible = false
           objets.push(l)
