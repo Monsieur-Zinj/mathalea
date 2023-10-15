@@ -45,7 +45,7 @@
     bind:results={searchResultReferentiel}
   />
 </div>
-<ul class="my-10 mx-4 p-4 text-[10px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+<ul class="{searchResultReferentiel.length === 0 ? 'hidden' : 'flex flex-col'} my-10 mx-4 p-4 text-[10px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
   {#each searchResultReferentiel as item}
     <li>
       <ReferentielEnding ending={item.resource} nestedLevelCount={1} />

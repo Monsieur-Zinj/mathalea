@@ -11,20 +11,25 @@
   import { exercicesParams, globalOptions, selectedFilters } from '../store'
   import type { InterfaceParams } from '../../lib/types'
   import { getUniqueStringBasedOnTimeStamp, debounce } from '../utils/time'
+  import Button from '../forms/Button.svelte'
   export let origin: ResourceAndItsPath[]
   export let results: ResourceAndItsPath[] = []
   let searchField: HTMLInputElement
   let inputSearch: string = ''
 
-  function searchFor (input: string) {
-    results = [
-      ...stringToCriteria(
-        input,
-        $selectedFilters.types.CAN.isSelected
-      ).meetCriterion(origin)
-    ]
+  function updateResults (input: string): void {
+    if (input.length === 0) {
+      results = []
+    } else {
+      results = [
+        ...stringToCriteria(
+          input,
+          $selectedFilters.types.CAN.isSelected
+        ).meetCriterion(origin)
+      ]
+    }
   }
-  const fetchResults = debounce<typeof searchFor>(searchFor, 200)
+  const fetchResults = debounce<typeof updateResults>(updateResults, 500)
   $: {
     // on attend que le champ de recherche ne soit pas vide
     // ou que la chaîne saisie ne commence pas par une apostrophe ou un guillemet
@@ -36,6 +41,7 @@
     } else {
       results = []
     }
+    results = results
   }
   // ===================================================================================
   //
@@ -173,6 +179,17 @@
         : 'hidden'} items-center pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
     >
       Presser <span class="font-normal mx-1">Entrée</span> pour ajouter l'exercice
+    </div>
+    <div>
+      <Button
+        title=""
+        icon="bx-x"
+        classDeclaration="absolute right-2 top-1 text-2xl"
+        isDisabled={inputSearch.length === 0}
+        on:click={() => {
+          inputSearch = ''
+        }}
+      />
     </div>
   </div>
 </div>

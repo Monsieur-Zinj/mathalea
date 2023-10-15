@@ -56,7 +56,7 @@ export function getUniqueStringBasedOnTimeStamp (prefix: string = '') {
  * @param immediate flag pour court-circuiter le délai
  * @returns {void}
  */
-export function debounce<T extends (...args: unknown[])=> void> (callback: T, delay:number = 20, immediate: boolean = false) {
+export function debounce<T extends (...args: any[])=> void> (callback: T, delay:number = 20, immediate: boolean = false) {
   let timeout: ReturnType<typeof setTimeout> | null
 
   return function <U> (this: U, ...args: Parameters<typeof callback>) {
