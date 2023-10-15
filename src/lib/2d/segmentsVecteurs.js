@@ -47,19 +47,18 @@ export function Vecteur (arg1, arg2, nom = '') {
   }
   this.representant = function (A, color = 'black') {
     const B = point(A.x + this.x, A.y + this.y)
-    const s = segment(A, B, color, '|->')
-    return s
+    return segment(A, B, color, '|->')
   }
   this.representantNomme = function (A, nom, taille = 1, color = 'black') {
-    let s, angle, v
+    let s, v
     const B = point(A.x + this.x, A.y + this.y)
     const M = milieu(A, B)
     s = segment(A, B, color)
-    angle = s.angleAvecHorizontale
+    const angle = s.angleAvecHorizontale
     v = similitude(this, A, 90, 0.5 / this.norme())
     if (Math.abs(angle) > 90) {
       s = segment(B, A, color)
-      angle = s.angleAvecHorizontale
+      // angle = s.angleAvecHorizontale
       v = similitude(this, A, -90, 0.5 / this.norme())
     }
     const N = translation(M, v)
@@ -508,7 +507,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
 }
 
 /**
- * @param {...args} args Points ou coordonnées + couleur facultative en dernier
+ * @param {...any[]} args Points ou coordonnées + couleur facultative en dernier
  * @example segment(A,B,'blue') // Segment [AB] de couleur bleu
  * @example segment(x1,y1,x2,y2,'#f15929') // Segment dont les extrémités sont respectivement (x1,y1) et (x2,y2), de couleur orange (#f15929)
  * @author Rémi Angot
