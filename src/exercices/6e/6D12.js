@@ -273,13 +273,14 @@ export default function CalculsDeDureesOuHoraires () {
           setReponse(this, i, Hms.fromString(d), { formatInteractif: 'hms' })
           texteInteractif = 'Le trajet dure'
         } else if (typesDeQuestions[i] === 2) {
-          texte = `${prenomF()} monte dans le train à ${d1} pour un trajet qui doit durer ${d}. À quelle heure arrivera-t-elle ?`
+          const prenom = prenomF()
+          texte = `${prenom} monte dans le train à ${d1} pour un trajet qui doit durer ${d}. À quelle heure arrivera-t-elle ?`
           texteCorr = `${d1} + ${d} = ${h1 + h} h ${m1 + m} min`
           if (m1 + m > 59) texteCorr += ` = ${d2}`
           texteCorr += '<br>'
-          texteCorr += `${prenomF()} arrivera à ${texteEnCouleurEtGras(d2)}. `
+          texteCorr += `${prenom} arrivera à ${texteEnCouleurEtGras(d2)}. `
           setReponse(this, i, Hms.fromString(d2), { formatInteractif: 'hms' })
-          texteInteractif = `${prenomF()} arrivera à`
+          texteInteractif = `${prenom} arrivera à`
         } else if (typesDeQuestions[i] === 3) {
           texte = `Un train arrive en gare à ${d2} après un trajet de ${d}. À quelle heure le voyage a-t-il commencé ?`
           texteCorr = `$${h2 % 24}~\\text{h}~${m2}~\\text{min}`
