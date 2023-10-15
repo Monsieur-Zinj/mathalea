@@ -11,7 +11,7 @@ import { centrage, deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { texcolors } from '../../lib/format/style.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -29,9 +29,7 @@ export const dateDePublication = '3/12/2021'
 /**
  * A partir de la figure 0, l'idée est de trouver un chemin qui mène à la figure 28 par une série
  * de transformations entre deux figures strictement voisines.
- * Ref 4G12
  * @author : Jean-Claude Lhote (et modifié par Eric Elter)
- * publié le 03/12/2021
  */
 
 export const uuid = '4ffdb'
@@ -218,6 +216,7 @@ export default function SerieDeTransformations () {
             if (y > 0) {
               elements = definitElements(transfoAlea, dalle - 1, dalle, choice([true, false]))
               polys[dalle] = transfoPoly(dalle === 1 ? leurre0 : polys[dalle - 1], elements)
+              if (y === 4) polys[dalle + 1] = vide2d()
             } else {
               elements = definitElements(transfoAlea, dalle - 6, dalle, choice([true, false]))
               polys[dalle] = transfoPoly(dalle === 6 ? leurre0 : polys[dalle - 6], elements)
