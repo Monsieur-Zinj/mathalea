@@ -151,13 +151,12 @@ export default function ImagePtParTranslation () {
           const nomVecDepl = VecDepl.representantNomme(PtDepart, nomOR + nomEXT, 1, 'green') // Affiche le nom du vecteur déplacement
           const PositionPtCorr = tracePoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 'lightgray')
           const LabelsPtCorr = labelPoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 'lightgray')
-          objetsCorr.push(PositionPtCorr, LabelsPtCorr, Grille, VecDeplRep, VecDepl)
+          objetsCorr.push(PositionPtCorr, LabelsPtCorr, Grille, VecDeplRep)
           if (this.classe === 2) objetsCorr.push(nomVecDepl)
           objetsCorr.push(labelPoint(OrigVec, ExtrVec, 'green'))
           objetsCorr.push(VecDepl.representant(OrigVec, 'green'))
           objetsCorr.push(labelPoint(PtDepart, 'blue'), trPtDepart)
           const ptSol = translation(PtDepart, VecDepl, NomSOL)
-          // ptSol.positionLabel = 'below'
           ptSol.positionLabel = ptSol.y === 0 ? 'below' : ptSol.y === 4 ? 'above' : 'below left'
           const trPtSol = tracePoint(ptSol, '#f15929')
           trPtSol.epaisseur = 2
@@ -237,7 +236,7 @@ export default function ImagePtParTranslation () {
           const nomVecDepl = VecDepl.representantNomme(PtDepartSeg, nomOR + nomEXT, 1, 'green') // Affiche le nom du vecteur déplacement
           const PositionPtCorr = tracePoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 'lightgray')
           const LabelsPtCorr = labelPoint(A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, 'lightgray')
-          objetsCorr.push(PositionPtCorr, LabelsPtCorr, Grille, VecDeplRep, VecDepl, Seg, SegSOL)
+          objetsCorr.push(PositionPtCorr, LabelsPtCorr, Grille, VecDeplRep, Seg, SegSOL)
 
           // Affichage du vecteur natif
           // Cas pour les 4èmes et cas pour les 2ndes, affichage du vecteur ou pas
