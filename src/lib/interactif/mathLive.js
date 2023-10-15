@@ -71,7 +71,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
               case 'calcul':
                 // Le format par défaut
                 saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
-                console.log(saisie)
                 // La réponse est transformée en chaine compatible avec engine.parse()
                 reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
                 saisie = saisie.replaceAll('²', '^2')
@@ -147,7 +146,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   saisie = champTexte.value.replace(',', '.')
                   fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
                   saisieParsee = engine.parse(saisie, { canonical: true })
-                  console.log(saisieParsee.json, fReponse.json)
                   if (saisieParsee.json[0] === 'Rational') {
                     if (saisieParsee.canonical.isSame(fReponse.canonical) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
                   }

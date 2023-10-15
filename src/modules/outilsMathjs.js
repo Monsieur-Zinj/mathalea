@@ -36,7 +36,7 @@ function searchLastNode (node, op) {
  */
 export function assignVariables (expression, variables) {
   const node = math.parse(expression).transform(
-    function (node, path, parent) {
+    function (node/* path, parent */) { // variable inutilisées ???
       if (node.isSymbolNode && variables[node.name] !== undefined) {
         return math.parse(variables[node.name].toString())
       } else {
@@ -266,7 +266,7 @@ function transformNode (node, parent, oldNode, params = { suppr1: true, suppr0: 
 */
 function correctifNodeMathsteps (node) {
   node = node.transform(
-    function (node, path, parent) {
+    function (node /* path, parent */) { // variables inutilisées ???
       if (node.type === 'ConstantNode') {
         return math.parse(node.value.toString())
       }
@@ -439,8 +439,8 @@ export function aleaExpression (expression = '(a*x+b)*(c*x-d)', assignations = {
  * @param {Object} params // valueOf à true pour avoir les valeurs décimales, format à true pour appliquer texNombre2
  * // type à 'decimal' et valueOf à true pour obtenir des instances de Decimal()
  * @returns {Object}
- * @see {@link https://mathjs.org/docs/expressions/syntax.html|Mathjs}
- * @see {@link https://coopmaths.fr/documentation/tutorial-Outils_Mathjs.html|Mathjs}
+ * @see @link https://mathjs.org/docs/expressions/syntax.html|Mathjs
+ * @see @link https://coopmaths.fr/documentation/tutorial-Outils_Mathjs.html|Mathjs
  * @example
  * aleaVariable({a: true}, {valueOf: true}) --> {a: -3} // Génère un entier non nul entre -10 et 10
  * aleaVariable({a: true, b: true}, {valueOf: true}) --> {a: 5, b: -7}
@@ -535,7 +535,7 @@ export function aleaVariables (variables = { a: true, b: true, c: true, d: true 
 * Objet mathsteps : Permet de traverser toutes les étapes et sous-étapes
 */
 export function traverserEtapes (steps, changeType = [], result = []) {
-  steps.forEach(function (step, i) {
+  steps.forEach(function (step/* , i */) { // variable inutilisées ???
     if (changeType.length === 0) {
       if (step.substeps.length === 0) result.push(step)
       return traverserEtapes(step.substeps, changeType, result)

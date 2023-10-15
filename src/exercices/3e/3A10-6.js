@@ -235,7 +235,6 @@ export default function TrouverChiffre () {
               texteCorr += texteEnCouleurEtGras('pour que le nombre soit divisible par 3.<br>')
               ajoutPourTroisouNeuf = ajoutPourTroisouNeuf.filter((nb) => [0, 2, 4, 6, 8].includes(nb))
               reponse = ajoutPourTroisouNeuf.join(';')
-              console.log(reponse)
               texteCorr += ajoutPourTroisouNeuf.length === 2
                 ? `<br>${numAlpha(2)} Donc les chiffres qui conviennent sont les chiffres en commun à ${numAlpha(0, true)} et ${numAlpha(1, true)}, soit ${texteEnCouleurEtGras(ajoutPourTroisouNeuf[0])} et ${texteEnCouleurEtGras(ajoutPourTroisouNeuf[1])}`
                 : `<br>${numAlpha(2)} Donc le seul chiffre qui convient est le chiffre en commun à ${numAlpha(0, true)} et ${numAlpha(1, true)}, soit ${texteEnCouleurEtGras(ajoutPourTroisouNeuf[0])}`

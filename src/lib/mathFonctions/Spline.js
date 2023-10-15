@@ -131,7 +131,7 @@ export class Spline {
             }
           }
         } catch (e) {
-          console.log(e)
+          window.notify('Erreur dans Spline.solve()' + e.message, { valeur_de_y: y })
         }
       }
       return antecedents

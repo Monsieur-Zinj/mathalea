@@ -66,31 +66,39 @@ export function mathalea2d (
 ) {
   const ajouteCodeHtml = function (mainlevee, objets, divsLatex, xmin, ymax) {
     let codeSvg = ''
-    if (!Array.isArray(objets)) {
+    if (!Array.isArray(objets) && objets != null) {
       // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
       try {
         // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
-        if ((!mainlevee) || typeof (objets.svgml) === 'undefined') {
-          const code = objets.svg(pixelsParCm)
-          if (typeof code === 'string') {
-            codeSvg = '\t' + objets.svg(pixelsParCm) + '\n'
+        if ((!mainlevee) || typeof (objets?.svgml) === 'undefined') {
+          if (objets?.svg) {
+            const code = objets.svg(pixelsParCm)
+            if (typeof code === 'string') {
+              codeSvg = '\t' + objets.svg(pixelsParCm) + '\n'
+            } else {
+              const xSvg = (code.x - xmin) * pixelsParCm * zoom
+              const ySvg = -(code.y - ymax) * pixelsParCm * zoom
+              const part1 = code.divLatex.substring(0, 81)
+              const part2 = code.divLatex.substring(81)
+              const codeHtml = part1 + ` top: "${ySvg}px"; left: "${xSvg}px"; data-top="${ySvg}" data-left="${xSvg}"` + part2
+              divsLatex.push(codeHtml)
+            }
           } else {
-            const xSvg = (code.x - xmin) * pixelsParCm * zoom
-            const ySvg = -(code.y - ymax) * pixelsParCm * zoom
-            const part1 = code.divLatex.substring(0, 81)
-            const part2 = code.divLatex.substring(81)
-            const codeHtml = part1 + ` top: "${ySvg}px"; left: "${xSvg}px"; data-top="${ySvg}" data-left="${xSvg}"` + part2
-            divsLatex.push(codeHtml)
+            window.notify('Un problème avec ce mathalea2d, la listre des objets contient un truc louche', { objets: JSON.stringify(objets) })
           }
         } else {
-          codeSvg = '\t' + objets.svgml(pixelsParCm, amplitude) + '\n'
+          if (objets?.svgml) codeSvg = '\t' + objets.svgml(pixelsParCm, amplitude) + '\n'
         }
       } catch (error) {
-        console.log(error.message)
+        window.notify(error.message, { objet: JSON.stringify(objets) })
       }
     } else {
-      for (const objet of objets) {
-        codeSvg += ajouteCodeHtml(mainlevee, objet, divsLatex, xmin, ymax)
+      if (objets != null && Array.isArray(objets)) {
+        for (const objet of objets) {
+          codeSvg += ajouteCodeHtml(mainlevee, objet, divsLatex, xmin, ymax)
+        }
+      } else {
+        window.notify('Un problème avec ce mathalea2d, la listre des objets contient un truc louche', { objets: JSON.stringify(objets) })
       }
     }
     return codeSvg

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { randomInt } from 'mathjs'
 import { GVCartesian } from './coordinates.js'
-import { GVRectangle, GVTriangle, GVPolygon, GVVector, GVAngle, GVPoint, GVLine, GVSegment, GVGraphicObject, GVCircle, barycentre } from './elements.js'
+import { GVRectangle, GVTriangle, GVPolygon, GVVector, GVAngle, GVPoint, GVLine, GVSegment, GVCircle, barycentre } from './elements.js'
 import { getMathalea2DExport } from './getMathalea2DExport.js'
 import { circularPermutation, quotient } from './outils.js'
 import { aleaName } from '../outilsMathjs.js'
@@ -136,12 +136,12 @@ export class GVGraphicView {
   }
 
   getWidth (...liste /**  GVGraphicObject[] */) /** number */ {
-    const [xmin, ymin, xmax, ymax] = this.getDimensions(...liste)
+    const [xmin, , xmax] = this.getDimensions(...liste)
     return xmax - xmin
   }
 
   getHeight (...liste /**  GVGraphicObject[] */) /** number */ {
-    const [xmin, ymin, xmax, ymax] = this.getDimensions(...liste)
+    const [, ymin, , ymax] = this.getDimensions(...liste)
     return ymax - ymin
   }
 
@@ -151,7 +151,7 @@ export class GVGraphicView {
   }
 
   geBelowPoint (...liste /**  GVGraphicObject[] */) /** GVPoint */ {
-    const listePoints = this.getListObjectTypeSelect('Point', liste)
+  //   const listePoints = this.getListObjectTypeSelect('Point', liste) @Fixme à quoi ça sert ?
     return this.getListObjectTypeSelect('Point', liste).sort((a, b) => b.y - a.y)[0]
   }
 
@@ -698,14 +698,14 @@ export class GVGraphicView {
 
   /**
     * Add labels to the vertices of a polygon.
-    * @param args
+    * @param {GVPoint[]} args
     */
-  addLabelsPointsPolygon (...args /** GVPoint[] */) {
+  addLabelsPointsPolygon (...args) {
     const last = args.length - 1
     const vertices = [args[last]].concat(args).concat(args[0])
     for (let i = 1; i < args.length + 1; i++) {
-      vertices[i].showName()
       vertices[i].labelPoints = [vertices[i - 1], vertices[i], vertices[i + 1]]
+      vertices[i].showName(1.3)
     }
   }
 
@@ -763,9 +763,14 @@ export class GVGraphicView {
     return new GVPolygon(...points)
   }
 
-  addRectangle (A /** GVPoint | number */, B /** GVPoint | number */, C /** GVPoint */) {
+  /**
+   *
+   * @param {GVPoint} A
+   * @returns {GVRectangle}
+   */
+  addRectangle (A) {
     let rectangle/** GVRectangle */
-    if (A === undefined) {
+    if (A == null) {
       do {
         if (rectangle !== undefined) {
           this.geometric.pop()

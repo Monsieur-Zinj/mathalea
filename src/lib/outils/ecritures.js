@@ -191,9 +191,11 @@ export function ecritureParentheseSiNegatif (a) {
  */
 export function ecritureParentheseSiMoins (expr) {
   if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
+  else if (typeof expr === 'string') return expr // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
   else if (typeof expr === 'number' && expr < 0) return `(${stringNombre(expr, undefined)})`
   else if (expr instanceof FractionEtendue && expr.s === -1) return `(${expr.texFSD})`
   else {
+    // avant on passait ici quand c'était un string sans signe - devant... c'était une mauvaise idée !
     window.notify('ecritureParentheseSiMoins() n\'accepte pas ce type d\'argument.', { argument: expr })
     return expr
   }
