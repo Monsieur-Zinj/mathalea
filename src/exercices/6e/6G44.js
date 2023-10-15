@@ -62,7 +62,6 @@ export default function NombreDeFacesEtDAretes () {
     } else {
       typeDeQuestion = choix1.slice(0, this.nbQuestions)
     }
-    console.log(typeDeQuestion)
     typeDeQuestion = shuffle(typeDeQuestion)
     for (let j = 0, choix; j < this.nbQuestions;) {
       choix = typeDeQuestion[j]

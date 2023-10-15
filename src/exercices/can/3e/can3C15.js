@@ -42,7 +42,6 @@ export default function CalculPuissance10B () {
         reponse = arrondi(10 ** n1 + 10 ** n2 + 10 ** n3, 3)
         this.question = `Calculer $10^{${n1}}+10^{${n2}}+10^{${n3}}$.`
         this.correction = `$10^{${n1}}+10^{${n2}}+10^{${n3}}=${texNombre(10 ** n1)} +${texNombre(10 ** n2, 3)}+${texNombre(10 ** n3, 3)}=${texNombre(reponse, 3)}$`
-        console.log(reponse)
         break
 
       case 3:

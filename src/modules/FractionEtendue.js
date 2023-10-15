@@ -1283,7 +1283,6 @@ class FractionEtendue extends Fraction {
         }
         num -= this.den
       }
-      console.log(objets)
       if (num > 0) { // il reste une portion d'unité à faire après n unités.
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < this.den / diviseur; h++) {
