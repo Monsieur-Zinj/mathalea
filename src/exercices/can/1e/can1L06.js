@@ -55,8 +55,7 @@ export default function FormeCanonique () {
     =(${reduireAxPlusB(1, -alpha)})^2-${(-alpha) ** 2}${ecritureAlgebrique(c)}$.`
     this.correction += '<br>Soit : $f(x)='
     this.correction += `(x ${ecritureAlgebrique(-alpha)})^2${ecritureAlgebrique(beta)}$`
-
-    this.reponse = [`(x+${b / 2})^2+${beta}`, `${beta}+(x+${b / 2})^2`]
+    this.reponse = [`(x${ecritureAlgebrique(b / 2)})^2${ecritureAlgebrique(beta)}`, `${beta}+(x${ecritureAlgebrique(b / 2)})^2`]
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
