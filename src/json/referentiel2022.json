@@ -9988,6 +9988,18 @@
         },
         "datePublication": "16/05/2022"
       },
+      "4G10-3": {
+        "url": "4e/4G10-3.js",
+        "uuid": "6ddc5",
+        "id": "4G10-3",
+        "titre": "Déterminer graphiquement des images par des translations",
+        "tags": {
+          "interactif": true,
+          "interactifType": "mathLive",
+          "amc": false
+        },
+        "datePublication": "15/10/2023"
+      },
       "4G11": {
         "url": "4e/4G11.js",
         "uuid": "3bfb6",
@@ -12482,13 +12494,14 @@
         "url": "2e/2G23-1.js",
         "uuid": "d2b57",
         "id": "2G23-1",
-        "titre": "Déterminer graphiquement les images de points par des translations",
+        "titre": "Déterminer graphiquement des images par des translations",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
           "amc": false
         },
-        "datePublication": "13/07/2023"
+        "datePublication": "13/07/2023",
+        "dateModification": "15/10/2023"
       },
       "2G23-2": {
         "url": "2e/2G23-2.js",
