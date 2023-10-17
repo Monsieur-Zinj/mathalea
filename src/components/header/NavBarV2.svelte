@@ -91,7 +91,7 @@
       <Button
         title=""
         icon="bx-x"
-        classDeclaration="text-3xl {subtitleType === 'design' ? 'hidden' : ''}"
+        class="text-3xl {subtitleType === 'design' ? 'hidden' : ''}"
         on:click={() => {
           goToMathalea($globalOptions.v)
         }}

@@ -123,7 +123,7 @@
           <Button
             title=""
             icon="bx-trash"
-            classDeclaration="text-3xl"
+            class="text-3xl"
             on:click={() => {
               $exercicesParams.length = 0
             }}
@@ -135,7 +135,7 @@
           <Button
             title=""
             icon="bx-slideshow"
-            classDeclaration="text-3xl"
+            class="text-3xl"
             on:click={() => {
               globalOptions.update((params) => {
                 $callerComponent = 'tools'

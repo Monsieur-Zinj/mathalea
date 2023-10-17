@@ -302,7 +302,7 @@
           <Button
             title="Nouvel Énoncé"
             icon="bx-refresh"
-            classDeclaration="py-[2px] px-2 text-[0.7rem]"
+            class="py-[2px] px-2 text-[0.7rem]"
             inverted={true}
             on:click={() => {
               newData()
@@ -313,7 +313,7 @@
           <Button
             title={isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}
             icon={isCorrectionVisible ? 'bx-hide' : 'bx-show'}
-            classDeclaration="py-[2px] px-2 text-[0.7rem] w-36"
+            class="py-[2px] px-2 text-[0.7rem] w-36"
             inverted={true}
             on:click={switchCorrectionVisible}
           />
