@@ -11,6 +11,7 @@
   import { exercicesParams, globalOptions } from '../store'
   import type { InterfaceParams } from '../../lib/types'
   import { isLessThanAMonth } from '../../lib/types/dates'
+  import NoInteractivityIcon from '../icons/NoInteractivityIcon.svelte'
   // import { renderMathInElement } from 'mathlive'
 
   export let ending: JSONReferentielEnding
@@ -146,6 +147,16 @@
                 class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
                 >MAJ</span
               >
+            {/if}
+            {#if !ending.features.interactif?.isActive}
+              &nbsp;<span
+                class="tooltip tooltip-bottom tooltip-neutral"
+                data-tip="Pas d'interactivité"
+              >
+                <NoInteractivityIcon
+                  class="inline-flex h-3 w-3 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark fill-coopmaths-warn-dark dark:fill-coopmathsdark-warn-dark stroke-coopmaths-warn-dark dark:stroke-coopmathsdark-warn-dark"
+                />
+              </span>
             {/if}
           </div>
         {:else if isResourceHasPlace(ending)}
