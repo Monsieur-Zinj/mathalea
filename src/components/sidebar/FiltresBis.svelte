@@ -51,14 +51,14 @@
   }
 </script>
 
-<div class="flex-col px-4">
+<div class={`${$$props.class || ''} flex flex-col`}>
   <div
-    class="text-coopmaths-struct font-semibold text-sm border-b w-full border-coopmaths-struct"
+    class="text-coopmaths-struct font-semibold text-sm px-1 border-b w-full border-coopmaths-struct"
   >
     {FILTER_SECTIONS_TITLES[filterType]}
   </div>
   <div>
-    <ul>
+    <ul class={filterType === 'levels' ? 'levelsgrid' : 'normalgrid'}>
       {#each Object.entries($selectedFilters[filterType]) as [key, filter], i}
         <li class="flex-row justify-start items-center pr-4 pl-6">
           <input
@@ -83,3 +83,21 @@
     </ul>
   </div>
 </div>
+
+<style>
+  .levelsgrid {
+    display: grid;
+    grid-template:
+      'a b'
+      'c d'
+      'e f'
+      'g h'
+      'i j'
+      '. k';
+    grid-auto-flow: column;
+  }
+  .normalgrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+</style>

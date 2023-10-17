@@ -12,10 +12,12 @@
   import type { InterfaceParams } from '../../lib/types'
   import { getUniqueStringBasedOnTimeStamp, debounce } from '../utils/time'
   import Button from '../forms/Button.svelte'
+  import FiltresBis from './FiltresBis.svelte'
   export let origin: ResourceAndItsPath[]
   export let results: ResourceAndItsPath[] = []
   let searchField: HTMLInputElement
   let inputSearch: string = ''
+  let isFiltersVisible: boolean = false
 
   function updateResults (input: string): void {
     if (input.length === 0) {
@@ -160,7 +162,7 @@
   - **result** (_ResourceAndItsPath[]_) : la liste des entrées correspondant au texte dans le champ de recherche
  -->
 <svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
-<div class="flex flex-col space-x-2 justify-start items-center">
+<div class="flex flex-col justify-start items-center">
   <div class="relative flex flex-col w-full">
     <input
       type="text"
@@ -172,24 +174,39 @@
       on:focus={onFocusInput}
       on:blur={onBlurInput}
     />
+    <!-- Invite pour presser Entrée lors d'un match input = ID d'exo -->
     <div
-      class="absolute -bottom-4 {matchOnResultsList(inputSearch) !== null &&
+      class="absolute -bottom-6 {matchOnResultsList(inputSearch) !== null &&
       isInputFocused
         ? 'flex'
-        : 'hidden'} items-center pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
+        : 'hidden'} items-center pl-1 italic font-extralight text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
     >
       Presser <span class="font-normal mx-1">Entrée</span> pour ajouter l'exercice
     </div>
-    <div>
-      <Button
-        title=""
-        icon="bx-x"
-        classDeclaration="absolute right-2 top-1 text-2xl"
-        isDisabled={inputSearch.length === 0}
-        on:click={() => {
-          inputSearch = ''
-        }}
-      />
-    </div>
+    <!-- Bouton pour effacer l'input de recherche -->
+    <Button
+      title=""
+      icon="bx-x"
+      class="absolute right-2 top-1 text-2xl"
+      isDisabled={inputSearch.length === 0}
+      on:click={() => {
+        inputSearch = ''
+      }}
+    />
+    <!-- Bouton pour afficher les filtres -->
+    <button
+      type="button"
+      class="absolute right-2 -bottom-6 text-sm text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+      on:click={() => {
+        isFiltersVisible = !isFiltersVisible
+      }}
+    >
+    Filtres <i class="bx bx-filter-alt"/>
+  </button>
+  </div>
+  <div class="{isFiltersVisible ? 'hidden' : 'flex flex-col w-full pt-6'}">
+    <FiltresBis class="mt-6" filterType="levels" />
+    <FiltresBis class="mt-6" filterType="specs" />
+    <FiltresBis class="mt-6" filterType="types" />
   </div>
 </div>

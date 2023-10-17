@@ -10,7 +10,6 @@
   } from '../lib/types/referentiels'
   import referentielAlea from '../json/referentiel2022.json'
   import referentielStatic from '../json/referentielStatic.json'
-  import FiltresBis from './sidebar/FiltresBis.svelte'
   import { selectedFilters } from './store'
   import { onDestroy } from 'svelte'
   import SearchInput from './sidebar/SearchInput.svelte'
@@ -45,46 +44,38 @@
     bind:results={searchResultReferentiel}
   />
 </div>
-<ul class="{searchResultReferentiel.length === 0 ? 'hidden' : 'flex flex-col'} my-10 mx-4 p-4 text-[10px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark">
+<ul
+  class="{searchResultReferentiel.length === 0
+    ? 'hidden'
+    : 'flex flex-col'} my-10 mx-4 p-4 text-[10px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+>
   {#each searchResultReferentiel as item}
     <li>
       <ReferentielEnding ending={item.resource} nestedLevelCount={1} />
     </li>
   {/each}
 </ul>
-<div>
-  <FiltresBis filterType="levels" />
-</div>
-<div class="mt-10">
-  <FiltresBis filterType="specs" />
-</div>
-<div class="mt-10">
-  <FiltresBis filterType="types" />
-</div>
 
-<div class="flex flex-row w-full">
-  <div class="mt-10 px-8 text-[10px] w-1/3">
-    <ReferentielNode
-      bind:subset={filteredReferentiel}
-      indexBase={1}
-      nestedLevelCount={1}
-      levelTitle={'Exercices'}
-    />
-  </div>
-  <div class="mt-10 px-8 text-[10px] w-1/3">
-    <ReferentielNode
-      bind:subset={referentielOutil}
-      indexBase={1}
-      nestedLevelCount={1}
-      levelTitle={'Outils'}
-    />
-  </div>
-  <div class="mt-10 px-8 text-[10px] w-1/3">
-    <ReferentielNode
-      bind:subset={referentielHtml}
-      indexBase={1}
-      nestedLevelCount={1}
-      levelTitle={'Vos ressources'}
-    />
-  </div>
+<div class="flex flex-col w-full">
+  <ReferentielNode
+    bind:subset={filteredReferentiel}
+    indexBase={1}
+    nestedLevelCount={1}
+    levelTitle={'Exercices'}
+    class="w-full mt-10 px-4 text-[10px]"
+  />
+  <ReferentielNode
+    bind:subset={referentielOutil}
+    indexBase={1}
+    nestedLevelCount={1}
+    levelTitle={'Outils'}
+    class="w-full mt-10 px-4 text-[10px]"
+  />
+  <ReferentielNode
+    bind:subset={referentielHtml}
+    indexBase={1}
+    nestedLevelCount={1}
+    levelTitle={'Vos ressources'}
+    class="w-full mt-10 px-4 text-[10px]"
+  />
 </div>
