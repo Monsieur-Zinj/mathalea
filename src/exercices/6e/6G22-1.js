@@ -17,7 +17,7 @@ export const amcReady = true
 export const titre = 'Connaître le vocabulaire de base des angles'
 
 export const dateDePublication = '03/12/2022'
-export const dateDeModifImportante = '02/07/2023'
+export const dateDeModifImportante = '17/10/2023'
 
 /**
  * Connaissance du vocabulaire de base des angles : nom, sommet, côté
@@ -100,6 +100,7 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
         const nomDirectCorrect = '\\widehat{' + A.nom + B.nom + C.nom + '}'
         const nomIndirrectIncorrect = '\\widehat{' + B.nom + C.nom + A.nom + '}'
         let questionReponse
+
         switch (listeTypeQuestions[ee]) {
           case 'nom':
             questionReponse =
@@ -170,13 +171,13 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
             feedback: ''
           })
         }
-        if (!context.isAmc) {
-          this.autoCorrection[ee + i * listeTypeQuestions.length] = {
-            enonce: questionReponse.question,
-            options: { ordered: true },
-            propositions
-          }
+
+        this.autoCorrection[ee + i * listeTypeQuestions.length] = {
+          enonce: questionReponse.question,
+          options: { ordered: true },
+          propositions
         }
+
         const monQcm = propositionsQcm(this, ee + i * listeTypeQuestions.length)
         texteQuestion += '<br>'
         texteQuestion += questionReponse.question + '<br>'
