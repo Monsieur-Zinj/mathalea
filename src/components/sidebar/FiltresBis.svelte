@@ -1,7 +1,7 @@
 <script lang="ts">
   import { FILTER_SECTIONS_TITLES, type FilterType } from '../../lib/types'
   import type { Level } from '../../lib/types/referentiels'
-  import { selectedFilters } from '../store'
+  import { allFilters } from '../store'
   import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
   export let filterType: FilterType = 'levels'
   const timeTag: string = getUniqueStringBasedOnTimeStamp()
@@ -9,7 +9,7 @@
    * Gérer le cochage des filtres. On a juste à gérer les niveaux multiples
    * collège et lycée qui concernent plusieurs niveaux.
    * @remarks __Bizarrerie__ : Pour être sûr que la fonction callback de `subsribe` du store
-   * `selectedFilters` soit appelée, on ajoute 1 à la propriété `clicked`
+   * `allFilters` soit appelée, on ajoute 1 à la propriété `clicked`
    * @param selectedEntry
    */
   function handleFiltersChanges (selectedEntry: Level | string) {
@@ -17,36 +17,36 @@
       switch (selectedEntry) {
         case 'college':
         case 'lycee':
-          Object.values($selectedFilters.levels[selectedEntry].values).forEach(
+          Object.values($allFilters.levels[selectedEntry].values).forEach(
             (level) => {
               // on met tous les niveaux college/lycee à `true` ou `false`
-              if ($selectedFilters.levels[selectedEntry].isSelected) {
-                $selectedFilters.levels[level].isSelected = true
+              if ($allFilters.levels[selectedEntry].isSelected) {
+                $allFilters.levels[level].isSelected = true
               } else {
-                $selectedFilters.levels[level].isSelected = false
+                $allFilters.levels[level].isSelected = false
               }
             }
           )
-          $selectedFilters.levels[selectedEntry].clicked++
+          $allFilters.levels[selectedEntry].clicked++
           break
         default:
-          $selectedFilters.levels[selectedEntry].clicked++
+          $allFilters.levels[selectedEntry].clicked++
           break
       }
       // on décoche `college` si tous les niveaux de college ne sont pas cochés
-      $selectedFilters.levels.college.values.forEach((level) => {
-        if (!$selectedFilters.levels[level].isSelected) {
-          $selectedFilters.levels.college.isSelected = false
+      $allFilters.levels.college.values.forEach((level) => {
+        if (!$allFilters.levels[level].isSelected) {
+          $allFilters.levels.college.isSelected = false
         }
       })
       // on décoche `lycee` si tous les niveaux de lycee ne sont pas cochés
-      $selectedFilters.levels.lycee.values.forEach((level) => {
-        if (!$selectedFilters.levels[level].isSelected) {
-          $selectedFilters.levels.lycee.isSelected = false
+      $allFilters.levels.lycee.values.forEach((level) => {
+        if (!$allFilters.levels[level].isSelected) {
+          $allFilters.levels.lycee.isSelected = false
         }
       })
     } else {
-      $selectedFilters[filterType][selectedEntry].clicked++
+      $allFilters[filterType][selectedEntry].clicked++
     }
   }
 </script>
@@ -59,7 +59,7 @@
   </div>
   <div>
     <ul class={filterType === 'levels' ? 'levelsgrid' : 'normalgrid'}>
-      {#each Object.entries($selectedFilters[filterType]) as [key, filter], i}
+      {#each Object.entries($allFilters[filterType]) as [key, filter], i}
         <li class="flex-row justify-start items-center pr-4 pl-6">
           <input
             id="checkbox-{key}-{i}-{timeTag}"

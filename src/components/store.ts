@@ -6,7 +6,8 @@ import type {
   InterfaceParams,
   InterfaceResultExercice,
   bibliothequeExercise,
-  FilterType
+  FilterType,
+  FilterObject
 } from '../lib/types'
 import type { Features, Level } from '../lib/types/referentiels'
 
@@ -112,7 +113,7 @@ export const callerComponent = writable<CallerComponentType>('')
 export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
 
 // pour sauvegarder les sélections de filtres
-export const selectedFilters = writable<
+export const allFilters = writable<
   Record<FilterType, DisplayedFilter<string | Level>>
 >({
   levels: {
@@ -218,7 +219,7 @@ export const selectedFilters = writable<
  * @returns {Level[]} la liste des niveaux sélectionnés dans les filtres
  */
 export function getSelectedLevels (): Level[] {
-  const filters = get(selectedFilters)
+  const filters = get(allFilters)
   const selectedLevels: Level[] = []
   // on regarde les niveaux
   Object.entries(filters.levels).forEach(([filter, level]) => {
@@ -236,20 +237,51 @@ export function getSelectedLevels (): Level[] {
   })
   return selectedLevels
 }
+/**
+ * Retourne la liste des filtres sélectionnés sous la forme d'objet comprenant le type, la clé et le contenu
+ * @returns liste des filtres sélectionnés comme objects
+ */
+export function getSelectedFiltersObjects (): FilterObject<string | Level>[] {
+  const filters = get(allFilters)
+  const levels: FilterObject<string | Level>[] = []
+  // on regarde les niveaux
+  Object.entries(filters).forEach(([filterType, filterObject]) => {
+    Object.entries(filterObject).forEach(([key, obj]) => {
+      if (key !== 'college' && key !== 'lycee') {
+        if (obj.isSelected) {
+          levels.push({ type: filterType as FilterType, key, content: obj })
+        }
+      }
+    })
+  })
+  return levels
+}
 
 /**
  * Retourne la liste de toutes les fonctionnalités cochées (AMC, interactif)
  * @returns liste de toutes les fonctionnalités cochées
  */
 export function getSelectedFeatures (): (keyof Features)[] {
-  const filters = get(selectedFilters)
+  const filters = get(allFilters)
   const selectedFeatures: (keyof Features)[] = []
   Object.entries(filters.specs).forEach(([key, spec]) => {
     if (spec.isSelected) {
-      selectedFeatures.push(key as (keyof Features))
+      selectedFeatures.push(key as keyof Features)
     }
   })
   return selectedFeatures
+}
+
+/**
+ * Désélectionne les filtres lycée (ou collège) si une clé lycée (ou collège) est désélectionnée
+ * @param {string} key clé à inspecter
+ */
+export function handleUncheckingMutipleFilters (key: string) {
+  const filters = get(allFilters)
+  const clgKeys = [...filters.levels.college.values]
+  const lyceeKeys = [...filters.levels.lycee.values]
+  if (clgKeys.includes(key)) { filters.levels.college.isSelected = false }
+  if (lyceeKeys.includes(key)) { filters.levels.lycee.isSelected = false }
 }
 
 /**

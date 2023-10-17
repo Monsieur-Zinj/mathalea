@@ -1,23 +1,34 @@
 <script lang="ts">
-  import { tick } from 'svelte'
+  import { onDestroy, tick } from 'svelte'
   import { stringToCriteria } from '../../lib/types/filters'
   import {
     isExerciceItemInReferentiel,
     isTool,
     type ExerciceItemInReferentiel,
     type ResourceAndItsPath,
-    type ToolItemInReferentiel
+    type ToolItemInReferentiel,
+    type Level
   } from '../../lib/types/referentiels'
-  import { exercicesParams, globalOptions, selectedFilters } from '../store'
-  import type { InterfaceParams } from '../../lib/types'
+  import {
+    exercicesParams,
+    globalOptions,
+    allFilters,
+    getSelectedFiltersObjects,
+
+    handleUncheckingMutipleFilters
+
+  } from '../store'
+  import type { FilterObject, InterfaceParams } from '../../lib/types'
   import { getUniqueStringBasedOnTimeStamp, debounce } from '../utils/time'
   import Button from '../forms/Button.svelte'
   import FiltresBis from './FiltresBis.svelte'
+  import Chip from '../forms/Chip.svelte'
   export let origin: ResourceAndItsPath[]
   export let results: ResourceAndItsPath[] = []
   let searchField: HTMLInputElement
   let inputSearch: string = ''
   let isFiltersVisible: boolean = false
+  let selectedFilters: FilterObject<string | Level>[] = []
 
   function updateResults (input: string): void {
     if (input.length === 0) {
@@ -26,11 +37,18 @@
       results = [
         ...stringToCriteria(
           input,
-          $selectedFilters.types.CAN.isSelected
+          $allFilters.types.CAN.isSelected
         ).meetCriterion(origin)
       ]
     }
   }
+  // maj de selectedFilters chaque fois que le store `allFilters` change
+  const unsubscribeToFiltersStore = allFilters.subscribe(() => {
+    selectedFilters = [...getSelectedFiltersObjects()]
+  })
+  onDestroy(() => {
+    unsubscribeToFiltersStore()
+  })
   const fetchResults = debounce<typeof updateResults>(updateResults, 500)
   $: {
     // on attend que le champ de recherche ne soit pas vide
@@ -201,10 +219,29 @@
         isFiltersVisible = !isFiltersVisible
       }}
     >
-    Filtres <i class="bx bx-filter-alt"/>
-  </button>
+      Filtrer les exercices <i class="bx bx-filter-alt" />
+    </button>
   </div>
-  <div class="{isFiltersVisible ? 'flex flex-col w-full pt-6' : 'hidden'}">
+  <!-- Chips des filtres -->
+  <div
+    class={selectedFilters.length === 0
+      ? 'hidden'
+      : 'flex w-full flex-row flex-wrap justify-start text-sm mt-6'}
+  >
+    {#each selectedFilters as filter}
+      <Chip
+        text={filter.content.title}
+        textColor="canvas"
+        bgColor="struct"
+        isVisible={true}
+        on:action={() => {
+          $allFilters[filter.type][filter.key].isSelected = false
+          handleUncheckingMutipleFilters(filter.key)
+        }}
+      />
+    {/each}
+  </div>
+  <div class={isFiltersVisible ? 'flex flex-col w-full pt-6' : 'hidden'}>
     <FiltresBis class="mt-6" filterType="levels" />
     <FiltresBis class="mt-6" filterType="specs" />
     <FiltresBis class="mt-6" filterType="types" />

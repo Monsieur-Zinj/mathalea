@@ -167,13 +167,20 @@ export type NumericRange<
 export type ChipContentType = { ref: string; title: string; key: string }
 
 // type pour les filtres affichés
-export type DisplayedFilter<T> = Record<string, {
-  title: string,
-  values: T[],
-  isSelected: boolean,
+export type DisplayedFilterContent<T> = {
+  title: string
+  values: T[]
+  isSelected: boolean
   clicked: number
-}>
+}
+export type DisplayedFilter<T> = Record<string, DisplayedFilterContent<T>>
 export type FilterType = 'levels' | 'specs' | 'types'
+export type FilterObject<T> = {
+  type: FilterType,
+  key: string,
+  content: DisplayedFilterContent<T>
+}
+
 export type FilterSectionNameType = { [key in FilterType]: string }
 export const FILTER_SECTIONS_TITLES: FilterSectionNameType = {
   levels: 'Niveaux',

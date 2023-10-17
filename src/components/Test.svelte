@@ -10,7 +10,7 @@
   } from '../lib/types/referentiels'
   import referentielAlea from '../json/referentiel2022.json'
   import referentielStatic from '../json/referentielStatic.json'
-  import { selectedFilters } from './store'
+  import { allFilters } from './store'
   import { onDestroy } from 'svelte'
   import ReferentielNode from './sidebar/ReferentielNode.svelte'
   const baseReferentiel: JSONReferentielObject = {
@@ -25,8 +25,8 @@
   const all = getAllEndings(baseReferentiel)
   let filteredReferentielItems: ResourceAndItsPath[]
   let filteredReferentiel: JSONReferentielObject
-  // maj du référentiel chaque fois que le store `selectedFilters` change
-  const unsubscribeToFiltersStore = selectedFilters.subscribe(() => {
+  // maj du référentiel chaque fois que le store `allFilters` change
+  const unsubscribeToFiltersStore = allFilters.subscribe(() => {
     filteredReferentielItems = applyFilters(all)
     filteredReferentiel = buildReferentiel(filteredReferentielItems)
   })
