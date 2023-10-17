@@ -46,7 +46,7 @@ export default function TermeInconnuDeSomme () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let decimal
     let inconnue
-    if (parseInt(this.sup) === 1) {
+    if (this.sup === 1) {
       decimal = 1
     } else {
       decimal = 10
@@ -59,12 +59,13 @@ export default function TermeInconnuDeSomme () {
         a = arrondi(randint(4 * decimal, 20 * decimal) / decimal, 1)
         b = arrondi(randint(2 * decimal, 20 * decimal) / decimal, 1)
       }
-      if (this.interactif && !context.isAmc) inconnue = ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore')
-      else if (parseInt(this.sup3) === 1) {
+      if (this.interactif) inconnue = ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore')
+      else if (this.sup3 === 1) {
         inconnue = ' $\\ldots\\ldots$ '
       } else {
         inconnue = ` $${choice(['x', 'y', 'z', 'a', 't', 'n'])}$ `
       }
+
       switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `$${texNombre(a)} + $` + inconnue + `$ = ${texNombre(b)}$`
@@ -82,9 +83,10 @@ export default function TermeInconnuDeSomme () {
           break
 
         case 4:
-          texte = `$${texNombre(b)} = ${texNombre(a)} + $` + inconnue
           if (this.interactif && !context.isAmc) {
-            texte = `$ ${texNombre(b)} = ${texNombre(a)} + $${ajouteChampTexteMathLive(this, i, 'inline largeur15', { texte: '444' })}`
+            texte = `$ ${texNombre(b)} = ${texNombre(a)} + $${ajouteChampTexteMathLive(this, i, 'inline largeur15')}`
+          } else {
+            texte = `$${texNombre(b)} = ${texNombre(a)} + $` + inconnue
           }
           texteCorr = `$${texNombre(b)}=${texNombre(a)} + ${ecritureParentheseSiMoins(texNombre(b - a))}$`
           break
