@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { ReferentielForList } from '../../lib/types'
-  import SideMenuList from './SideMenuList.svelte'
-  export let referentiels: ReferentielForList[] = []
+  import type { ReferentielInMenu } from '../../lib/types/referentiels'
+  import ReferentielNode from './ReferentielNode.svelte'
+  export let referentiels: ReferentielInMenu[] = []
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
   export let isMenuCloseable: boolean = false
@@ -21,12 +21,21 @@
         ? 'flex'
         : 'hidden'} flex-col items-start pb-4 pt-2 md:pt-4 ml-0 md:mx-0"
     >
-      {#each referentiels as ref}
+      <!-- {#each referentiels as ref}
         <SideMenuList
           {ref}
           moreThanOne={referentiels.length > 1}
           isMenuDeployed={ref.type === 'exercices'}
           on:filters
+        />
+      {/each} -->
+      {#each referentiels as item, i}
+        <ReferentielNode
+          bind:subset={item.referentiel}
+          indexBase={i + 1}
+          levelTitle={item.title}
+          nestedLevelCount={1}
+          class="w-full mt-10 px-4 text-[10px]"
         />
       {/each}
     </div>

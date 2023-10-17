@@ -182,10 +182,15 @@ export interface JSONReferentielObject
     string,
     JSONReferentielEnding | JSONReferentielObject | string | string[] | Features
   > {}
-
+// Type correspondant à une branche déstructurée : chemin + terminaison (données de la ressource)
 export type ResourceAndItsPath = {
   resource: JSONReferentielEnding
   pathToResource: string[]
+}
+// Type pour passer un référentiel au menu
+export type ReferentielInMenu = {
+  title: string
+  referentiel: JSONReferentielObject
 }
 // ===========================================================================
 //

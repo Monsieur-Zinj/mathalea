@@ -126,7 +126,7 @@ export class AtLeastOneOfCriteria<T> implements Criterion<T> {
  * @returns {Criterion<ResourceAndItsPath>} un critère pour filtration
  * @example
  * ```ts
- * const all = getAllExercises(baseReferentiel)                // création de l'objet de recherche
+ * const all = getAllEndings(baseReferentiel)                // création de l'objet de recherche
   const amcSpec = featuresCriteria(['amc'])                   // création du filtre
   const filteredList = amcSpec.meetCriterion(all)             // utilisation du filtre
   const filteredReferentiel = buildReferentiel(filteredList)  // reconstitution du référentiel

@@ -48,22 +48,17 @@
     return code === ending.uuid
   }
   let selectedCount = 0 // pour compter le nb de fois où la ressource a été sélectionnée
-  let uuidList: string[] // pour stocker la liste des UUIDs sélectionnées
   // on compte réactivement le nombre d'occurences
   // de l'exercice dans la liste des sélectionnés
   $: {
-    uuidList = []
-    for (const exo of $exercicesParams) {
-      uuidList.push(exo.uuid)
-    }
-    uuidList = uuidList
-    selectedCount = uuidList.filter(compareCodes).length
+    selectedCount = $exercicesParams.map((item) => item.uuid).filter(compareCodes).length
     selectedCount = selectedCount
   }
   /**
    * Ajouter l'exercice courant à la liste
    */
   function addToList () {
+    console.log('before -> uuids: ' + $exercicesParams.map((item) => item.uuid))
     const newExercise = {
       uuid: ending.uuid,
       interactif: '0'
@@ -72,17 +67,25 @@
       newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
+    console.log('now -> uuids: ' + $exercicesParams.map((item) => item.uuid))
   }
   /**
    * Retirer l'exercice de la liste (si plusieurs occurences
    * la première est retirée)
    */
   function removeFromList () {
-    const matchingIndex = uuidList.findIndex(compareCodes)
+    console.log('uuids?' + $exercicesParams.map((item) => item.uuid))
+    const matchingIndex = $exercicesParams
+      .map((item) => item.uuid)
+      .findIndex(compareCodes)
     exercicesParams.update((list) => [
       ...list.slice(0, matchingIndex),
       ...list.slice(matchingIndex + 1)
     ])
+    console.log('removing: ' + ending.uuid)
+    console.log('matching index: ' + matchingIndex)
+    console.log('selectedCount=' + selectedCount)
+    console.log($exercicesParams)
   }
 
   /* --------------------------------------------------------------
@@ -112,90 +115,97 @@
   **nestedLevelCount** (_number_) : compteur du niveau d'imbrication (utilisé pour la mise en page)
  -->
 <div
-  class={`${$$props.class || ''} w-full flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark`}
+  class={`${
+    $$props.class || ''
+  } w-full flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark`}
   style="padding-left: {(nestedLevelCount * 2) / 4}rem"
 >
-  <button
+  <div
     class="w-full relative inline-flex text-start justify-start items-start hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
-    on:click={addToList}
   >
-    <div
+    <button
+      type="button"
+      on:click={addToList}
       class="ml-[3px] pl-2 pr-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest flex-1"
-      bind:this={nomDeExercice}
     >
-      {#if isExerciceItemInReferentiel(ending)}
-        <!-- Exercice MathALÉA -->
-        <div
-          class="text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
-        >
-          <span class="font-bold">{ending.id} - </span>{ending.titre}
-          {#if isLessThanAMonth(ending.datePublication)}
-            &nbsp;<span
-              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
-              >NEW</span
-            >
-          {/if}
-          {#if isLessThanAMonth(ending.dateModification)}
-            &nbsp;<span
-              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
-              >MAJ</span
-            >
-          {/if}
-        </div>
-      {:else if isResourceHasPlace(ending)}
-        <!-- Exercices d'annales -->
-        <span class="font-bold">
-          {ending.typeExercice.toUpperCase()}
-          {#if isResourceHasMonth(ending)}
-            {ending.mois}
-          {/if}
-          {ending.annee} - {ending.lieu} - {ending.numeroInitial}
-        </span>
-        <div>
-          {#each ending.tags as tag}
-            <span
-              class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 py-px leading-snug font-semibold mr-1"
-            >
-              {tag}
-            </span>
-          {/each}
-        </div>
-      {:else if isTool(ending)}
-        <!-- Outils -->
-        <div
-          class="text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
-        >
-          <span class="font-bold">{ending.id} - </span>{ending.titre}
-        </div>
-      {:else}
-        <!-- Exercice de la bibliothèque -->
-        <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-          <span class="font-bold">{ending.uuid}</span>
-        </div>
-      {/if}
-      {#if selectedCount >= 1}
-        <button
-          type="button"
-          class="absolute -left-4 -top-[0.15rem]"
-          on:mouseover={handleMouseOver}
-          on:focus={handleMouseOver}
-          on:mouseout={handleMouseOut}
-          on:blur={handleMouseOut}
-          on:click={removeFromList}
-          on:keydown={removeFromList}
-        >
-          <i
-            class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}"
-          />
-        </button>
-      {/if}
-      {#if selectedCount >= 2 && mouseIsOut}
-        <div
-          class="absolute -left-3 -top-0 text-[0.6rem] font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas-dark"
-        >
-          {selectedCount}
-        </div>
-      {/if}
-    </div>
-  </button>
+      <div bind:this={nomDeExercice} class="flex flex-row justify-start">
+        {#if isExerciceItemInReferentiel(ending)}
+          <!-- Exercice MathALÉA -->
+          <div
+            class="text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
+          >
+            <span class="font-bold">{ending.id} - </span>{ending.titre}
+            {#if isLessThanAMonth(ending.datePublication)}
+              &nbsp;<span
+                class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
+                >NEW</span
+              >
+            {/if}
+            {#if isLessThanAMonth(ending.dateModification)}
+              &nbsp;<span
+                class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
+                >MAJ</span
+              >
+            {/if}
+          </div>
+        {:else if isResourceHasPlace(ending)}
+          <!-- Exercices d'annales -->
+          <span class="font-bold">
+            {ending.typeExercice.toUpperCase()}
+            {#if isResourceHasMonth(ending)}
+              {ending.mois}
+            {/if}
+            {ending.annee} - {ending.lieu} - {ending.numeroInitial}
+          </span>
+          <div>
+            {#each ending.tags as tag}
+              <span
+                class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 py-px leading-snug font-semibold mr-1"
+              >
+                {tag}
+              </span>
+            {/each}
+          </div>
+        {:else if isTool(ending)}
+          <!-- Outils -->
+          <div
+            class="text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
+          >
+            <span class="font-bold">{ending.id} - </span>{ending.titre}
+          </div>
+        {:else}
+          <!-- Exercice de la bibliothèque -->
+          <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+            <span class="font-bold">{ending.uuid}</span>
+          </div>
+        {/if}
+      </div>
+    </button>
+
+    <!-- Bouton en début de ligne pour visualiser si l'exo est sélectionné,
+        combien de fois et pour éventuellement le retirer de la sélection -->
+    {#if selectedCount >= 1}
+      <button
+        type="button"
+        class="absolute -left-4 -top-[0.15rem]"
+        on:mouseover={handleMouseOver}
+        on:focus={handleMouseOver}
+        on:mouseout={handleMouseOut}
+        on:blur={handleMouseOut}
+        on:click={removeFromList}
+        on:keydown={removeFromList}
+      >
+        <i
+          class="text-coopmaths-action-light dark:text-coopmathsdark-action-light text-base bx {icon} {rotation}"
+        />
+      </button>
+    {/if}
+    {#if selectedCount >= 2 && mouseIsOut}
+      <div
+        class="absolute -left-3 -top-0 text-[0.6rem] font-bold text-coopmaths-canvas dark:text-coopmathsdark-canvas-dark"
+      >
+        {selectedCount}
+      </div>
+    {/if}
+  </div>
 </div>

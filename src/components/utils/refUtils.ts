@@ -49,7 +49,7 @@ export function getRecentExercices (
  * @param {JSONReferentielObject} refObj le référentiel à récupérer
  * @returns {ResourceAndItsPath[]} un tableau de tous les exercices (terminaisons) avec leur chemin
  */
-export function getAllExercises (
+export function getAllEndings (
   refObj: JSONReferentielObject
 ): ResourceAndItsPath[] {
   return findResourcesAndPaths(refObj, () => true)
@@ -244,7 +244,7 @@ export function updateReferentiel (
   levelsSelected: Level[] // les seuls niveaux acceptés sont ceux stocké dans codeList
 ): JSONReferentielObject {
   // on récupère tous les exercices du référentiel passé en paramètre
-  let filteredList: ResourceAndItsPath[] = getAllExercises(originalReferentiel)
+  let filteredList: ResourceAndItsPath[] = getAllEndings(originalReferentiel)
   // on commence par créer les critères de filtration pour les spécificités (AMC et/ou Interactif)
   const features: ('amc' | 'interactif')[] = []
   if (isAmcOnlySelected) {

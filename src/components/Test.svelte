@@ -1,6 +1,6 @@
 <script lang="ts">
   import {
-    getAllExercises,
+    getAllEndings,
     applyFilters,
     buildReferentiel
   } from '../components/utils/refUtils'
@@ -12,7 +12,6 @@
   import referentielStatic from '../json/referentielStatic.json'
   import { selectedFilters } from './store'
   import { onDestroy } from 'svelte'
-  import SearchInput from './sidebar/SearchInput.svelte'
   import ReferentielNode from './sidebar/ReferentielNode.svelte'
   const baseReferentiel: JSONReferentielObject = {
     ...referentielAlea,
@@ -21,9 +20,9 @@
   import referentielProfs from '../json/referentielProfs.json'
   let referentielOutil: JSONReferentielObject = { ...referentielProfs }
   import referentielRessources from '../json/referentielRessources.json'
-  import ReferentielEnding from './sidebar/ReferentielEnding.svelte'
+  import SearchBlock from './sidebar/SearchBlock.svelte'
   let referentielHtml: JSONReferentielObject = { ...referentielRessources }
-  const all = getAllExercises(baseReferentiel)
+  const all = getAllEndings(baseReferentiel)
   let filteredReferentielItems: ResourceAndItsPath[]
   let filteredReferentiel: JSONReferentielObject
   // maj du référentiel chaque fois que le store `selectedFilters` change
@@ -34,27 +33,10 @@
   onDestroy(() => {
     unsubscribeToFiltersStore()
   })
-  let searchResultReferentiel: ResourceAndItsPath[] = []
 </script>
 
 <h1 class="text-4xl font-black text-coopmaths-struct mb-10">Tests</h1>
-<div class="p-4">
-  <SearchInput
-    origin={filteredReferentielItems}
-    bind:results={searchResultReferentiel}
-  />
-</div>
-<ul
-  class="{searchResultReferentiel.length === 0
-    ? 'hidden'
-    : 'flex flex-col'} my-10 mx-4 p-4 text-[10px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
->
-  {#each searchResultReferentiel as item}
-    <li>
-      <ReferentielEnding ending={item.resource} nestedLevelCount={1} />
-    </li>
-  {/each}
-</ul>
+<SearchBlock bind:resourcesSet={filteredReferentielItems} />
 
 <div class="flex flex-col w-full">
   <ReferentielNode

@@ -204,7 +204,7 @@
     Filtres <i class="bx bx-filter-alt"/>
   </button>
   </div>
-  <div class="{isFiltersVisible ? 'hidden' : 'flex flex-col w-full pt-6'}">
+  <div class="{isFiltersVisible ? 'flex flex-col w-full pt-6' : 'hidden'}">
     <FiltresBis class="mt-6" filterType="levels" />
     <FiltresBis class="mt-6" filterType="specs" />
     <FiltresBis class="mt-6" filterType="types" />
