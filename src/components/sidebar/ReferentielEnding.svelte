@@ -112,8 +112,7 @@
   **nestedLevelCount** (_number_) : compteur du niveau d'imbrication (utilisé pour la mise en page)
  -->
 <div
-  class="w-full flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-  "
+  class={`${$$props.class || ''} w-full flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark`}
   style="padding-left: {(nestedLevelCount * 2) / 4}rem"
 >
   <button

@@ -32,6 +32,7 @@
     }
   }
 </script>
+
 <!--
   @component
   Composant destiné à afficher la liste des entrées d'un référentiel à un niveau N.
@@ -88,9 +89,7 @@
       <i
         class="text-xl text-coopmaths-action dark:text-coopmathsdark-action bg-transparent transition-transform duration-500 ease-in-out
         {nestedLevelCount === 1 ? 'flex' : 'hidden'}
-        {unfold
-          ? 'bx bxs-up-arrow'
-          : 'bx bxs-up-arrow rotate-[180deg]'}"
+        {unfold ? 'bx bxs-up-arrow' : 'bx bxs-up-arrow rotate-[180deg]'}"
       />
     </div>
   </button>
@@ -103,6 +102,7 @@
               <ReferentielEnding
                 ending={obj}
                 nestedLevelCount={nestedLevelCount + 1}
+                class={i === Object.entries(subset).length - 1 ? 'pb-6' : ''}
               />
             {:else}
               <svelte:self
