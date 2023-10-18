@@ -36,11 +36,11 @@
   /**
    * Gestion des référentiels
    */
-   import {
-     type JSONReferentielObject,
-     type ReferentielInMenu,
-     type AppTierceGroup
-   } from '../lib/types/referentiels'
+  import {
+    type JSONReferentielObject,
+    type ReferentielInMenu,
+    type AppTierceGroup
+  } from '../lib/types/referentiels'
   import referentielAlea from '../json/referentiel2022.json'
   import referentielStatic from '../json/referentielStatic.json'
   const baseReferentiel: JSONReferentielObject = {
@@ -173,7 +173,9 @@
   }
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
-    if (isInitialUrlHandled) { mathaleaUpdateUrlFromExercicesParams($exercicesParams) }
+    if (isInitialUrlHandled) {
+      mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    }
     if ($globalOptions.v === 'l') {
       // $isSideMenuVisible = false
       isNavBarVisible = false
@@ -303,7 +305,7 @@
 
 <svelte:window on:mouseup={stopResizing} />
 <div
-  class={$darkMode.isActive ? 'dark' : ''}
+  class="z-0 {$darkMode.isActive ? 'dark' : ''}"
   id="startComponent"
   on:mousemove={resizing}
   role="menu"
@@ -316,7 +318,7 @@
     {#if isNavBarVisible}
       <div
         id="headerStart"
-        class="sticky top-0 shrink-0 z-50 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden"
+        class="sticky top-0 shrink-0 z-0 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden"
       >
         <NavBarV2 subtitle="Conception de document" subtitleType="design" />
       </div>
@@ -324,15 +326,15 @@
 
     <!-- Affichage Partie Gauche : Menu + Contenu -->
     <div
-      class="flex-1 relative flex flex-col md:flex-row h-full bg-coopmaths-canvas"
+      class="z-40 flex-1 relative flex flex-col md:flex-row h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       <!-- Menu Choix Exos et Ressources -->
-      <div class="mt-6 sm:mt-0">
+      <div class="z-40 mt-6 sm:mt-0">
         <div
           id="choiceMenuWrapper"
           class="{$globalOptions.v !== 'l'
             ? 'sm:h-[calc(100vh-7rem)]'
-            : 'sm:h-screen'} sticky top-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+            : 'sm:h-screen'} sticky top-0 z-40 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >
           <SideMenuBis
             {referentiels}
@@ -348,7 +350,7 @@
         id="dragbar"
         class="hidden {isMenuOpen
           ? 'md:flex'
-          : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
+          : 'md:hidden'} w-[4px] z-0 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
         on:mousedown={startResizing.bind(this, 'moving')}
         role="menu"
         tabindex="0"
@@ -358,7 +360,7 @@
       <div
         class="w-full h-screen {$globalOptions.v !== 'l'
           ? 'sm:h-[calc(100vh-7rem)]'
-          : 'sm:h-screen'} sticky top-0 overflow-y-auto overscroll-contain px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+          : 'sm:h-screen'} z-40 sticky top-0 overflow-y-auto overscroll-contain px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
         <!-- Barre de boutons  -->
         <div
@@ -367,12 +369,25 @@
             : 0}"
           class="{$exercicesParams.length === 0
             ? 'hidden'
-            : 'relative z-50 flex flex-col justify-center items-center md:fixed  md:right-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'} {$globalOptions.v !==
-          'l'
-              ? 'md:top-28'
-              : 'md:top-0'}"
+            : 'relative z-50 flex flex-col justify-center items-center md:fixed  md:right-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
+            {$globalOptions.v !== 'l' ? 'md:top-28' : 'md:top-0'} transition-all duration-500 transform"
           id="barre-boutons"
         >
+          <!-- Commande d'ouverture/fermeture du menu -->
+          <div
+            class="absolute left-0 top-0 h-10 w-10 rounded-r-lg border-l border-coopmaths-canvas-dark dark:border-coopmathsdark-canvas-dark bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hidden min-[900px]:flex justify-center items-center"
+          >
+          <Button
+          title=""
+          icon="{isMenuOpen
+            ? 'bx-x'
+            : 'bx-right-arrow-alt'}"
+          class="absolute right-2 top-1 text-2xl"
+          on:click={() => {
+            isMenuOpen = !isMenuOpen
+          }}
+        />
+        </div>
           <ButtonsDeck barWidthPercentage={80}>
             <div
               slot="setup-buttons"
@@ -699,10 +714,10 @@
   @media (min-width: 768px) {
     #barre-boutons {
       width: calc(
-        96vw -
+        100% -
           (
-            var(--isMenuOpen) * var(--sidebarWidth) * 1px +
-              (1 - var(--isMenuOpen)) * 20px
+            var(--isMenuOpen) * var(--sidebarWidth) * 1px + (var(--isMenuOpen)) *
+              16px
           )
       );
     }

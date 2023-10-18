@@ -8,7 +8,6 @@
   export let referentiels: ReferentielInMenu[] = []
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
-  export let isMenuCloseable: boolean = false
   // le premier référentiel passé est celui des exercices !!!
   const baseReferentiel: JSONReferentielObject = referentiels[0].referentiel
   const all = getAllEndings(baseReferentiel)
@@ -31,7 +30,7 @@
 >
   <div
     style={isMenuOpen ? `width:${sidebarWidth}px;` : 'width: 2.5rem;'}
-    class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+    class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark transition-all duration-500"
   >
     <div
       class="{isMenuOpen
@@ -50,27 +49,6 @@
           />
         {/each}
       </div>
-    </div>
-    <div
-      class="z-40 absolute top-3 hidden md:inline-flex justify-center items-center rounded-r-sm h-10 w-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-      {isMenuOpen
-        ? '-translate-x-full -right-10'
-        : 'translate-x-10'}  transition-all duration-500 transform"
-    >
-      <button
-        type="button"
-        on:click={() => {
-          if (isMenuCloseable) {
-            isMenuOpen = !isMenuOpen
-          }
-        }}
-      >
-        <i
-          class="bx {isMenuOpen
-            ? 'bx-x'
-            : 'bx-right-arrow-alt'} scale-150 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
-        />
-      </button>
     </div>
   </div>
 </aside>
