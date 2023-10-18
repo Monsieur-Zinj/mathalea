@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Start from './Start.svelte'
+  // import Start from './Start.svelte'
   import Diaporama from './Diaporama.svelte'
   import Can from './Can.svelte'
   import Eleve from './Eleve.svelte'
@@ -16,6 +16,7 @@
   import OutilsProf from './OutilsProf.svelte'
   import Capytale from './Capytale.svelte'
   import Test from './Test.svelte'
+  import StartV3 from './StartV3.svelte'
 
   context.versionMathalea = 3
   if (customElements.get('alea-instrumenpoche') === undefined) {
@@ -80,6 +81,6 @@
   {:else if $globalOptions.recorder === 'capytale'}
     <Capytale />
   {:else}
-    <Start />
+    <StartV3 />
   {/if}
 </div>

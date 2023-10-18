@@ -9,6 +9,7 @@
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
   export let isMenuCloseable: boolean = false
+  // le premier référentiel passé est celui des exercices !!!
   const baseReferentiel: JSONReferentielObject = referentiels[0].referentiel
   const all = getAllEndings(baseReferentiel)
   let filteredReferentielItems: ResourceAndItsPath[]
@@ -38,14 +39,6 @@
         : 'hidden'} flex-col items-start pb-4 pt-2 md:pt-4 ml-0 md:mx-0"
     >
     <SearchBlock class="w-full flex flex-col justify-start" resourcesSet={filteredReferentielItems} />
-      <!-- {#each referentiels as ref}
-        <SideMenuList
-          {ref}
-          moreThanOne={referentiels.length > 1}
-          isMenuDeployed={ref.type === 'exercices'}
-          on:filters
-        />
-      {/each} -->
       <div class="mt-4 w-full">
         {#each referentiels as item, i}
           <ReferentielNode

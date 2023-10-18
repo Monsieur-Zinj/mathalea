@@ -24,7 +24,7 @@
   <ul
     class="{foundResources.length === 0
       ? 'hidden'
-      : 'flex flex-col justify-start w-full my-10 mx-0 p-4 text-[10px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'} "
+      : 'flex flex-col justify-start w-full mt-4 mx-0 p-4 text-[10px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'} "
   >
     {#each foundResources as item}
       <li>

@@ -56,7 +56,7 @@
   <button
     id={'titre-liste-' + indexBase}
     type="button"
-    class="w-full flex flex-row mr-4 text-start items-center justify-between font-bold cursor-pointer first-letter:first-linemarker
+    class="w-full flex flex-row text-start items-center justify-between font-bold cursor-pointer first-letter:first-linemarker
     {nestedLevelCount !== 1
       ? 'text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest'
       : 'text-coopmaths-struct dark:text-coopmathsdark-struct py-6'}
@@ -70,13 +70,13 @@
   >
     <div
       id={'titre-liste-' + indexBase + '-content'}
-      class=" {nestedLevelCount === 1 ? 'text-2xl pl-2' : 'text-base'}"
+      class=" {nestedLevelCount === 1 ? 'text-xl' : 'text-base'}"
     >
       <!-- on va chercher dans les fichiers JSON les significations des clés passées comme titre -->
       {codeToLevelTitle(levelTitle)}
       <span class="font-normal">{themeTitle(levelTitle)}</span>
     </div>
-    <div class="pr-4">
+    <div>
       <!-- Suivant que c'est le premier niveau (nestedLevelCount = 1) ou pas, on a un affichage différent :
       le premier niveau correspond au tritre du référentiel -->
       <i
@@ -87,7 +87,7 @@
           : 'bx bx-plus'}"
       />
       <i
-        class="text-xl text-coopmaths-action dark:text-coopmathsdark-action bg-transparent transition-transform duration-500 ease-in-out
+        class="text-sm text-coopmaths-action dark:text-coopmathsdark-action bg-transparent transition-transform duration-500 ease-in-out
         {nestedLevelCount === 1 ? 'flex' : 'hidden'}
         {unfold ? 'bx bxs-up-arrow' : 'bx bxs-up-arrow rotate-[180deg]'}"
       />

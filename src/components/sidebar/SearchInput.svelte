@@ -195,14 +195,14 @@
       class="absolute -bottom-6 {matchOnResultsList(inputSearch) !== null &&
       isInputFocused
         ? 'flex'
-        : 'hidden'} items-center pl-1 italic font-extralight text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
+        : 'hidden'} items-center pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
     >
       Presser <span class="font-normal mx-1">Entrée</span> pour ajouter l'exercice
     </div>
     <!-- Bouton pour effacer l'input de recherche -->
     <Button
       title=""
-      icon="bx-x"
+      icon="bxs-tag-x"
       class="absolute right-2 top-1 text-2xl"
       isDisabled={inputSearch.length === 0}
       on:click={() => {
