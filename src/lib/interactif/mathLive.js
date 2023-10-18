@@ -43,11 +43,10 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
           }
           let resultat = 'KO'
-          // let statut = 'OK'
           let feedbackSaisie
           let feedbackCorrection
           let ii = 0
-          while ((resultat === 'KO') && (ii < reponses.length)) {
+          while ((resultat !== 'OK') && (ii < reponses.length)) {
             reponse = reponses[ii]
             switch (formatInteractif) {
               case 'Num':
@@ -237,7 +236,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 // formatOK et formatKO sont deux variables globales,
                 // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
                 // eslint-disable-next-line no-var
-                let formatOK, formatKO
+                let formatOK; let formatKO
                 if (saisie.indexOf('^') !== -1) {
                   nombreSaisi = saisie.split('^')
                   mantisseSaisie = nombreSaisi[0]
@@ -280,10 +279,10 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                         formatKO = true
                       }
                     }
-                  }
-                  if (parseInt(expoReponse) > 0) {
+                  } else if (parseInt(expoReponse) > 0) {
                     if (nombreSaisi === `${mantisseReponse ** (expoReponse)}`) {
-                      formatKO = true
+                      if (expoReponse !== '1') formatKO = true
+                      else formatOK = true // Au cas où l'exposant soit 1
                     }
                   }
                   if (parseInt(expoReponse) === 0) {
@@ -294,8 +293,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 }
                 if (formatOK) {
                   resultat = 'OK'
-                }
-                if (formatKO) {
+                } else if (formatKO) {
                   resultat = 'essaieEncorePuissance'
                 }
               }
