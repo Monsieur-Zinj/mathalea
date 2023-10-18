@@ -22,7 +22,6 @@
   import LatexIcon from './icons/LatexIcon.svelte'
   import AmcIcon from './icons/AmcIcon.svelte'
   import MoodleIcon from './icons/MoodleIcon.svelte'
-  import ChipsList from './setup/ChipsList.svelte'
   import referentielRessources from '../json/referentielRessources.json'
   import { toMap } from './utils/toMap'
   import type { ReferentielForList } from '../lib/types'
@@ -340,7 +339,6 @@
             {referentiels}
             bind:isMenuOpen
             bind:sidebarWidth
-            isMenuCloseable={$exercicesParams.length !== 0}
           />
         </div>
       </div>
@@ -370,25 +368,26 @@
           class="{$exercicesParams.length === 0
             ? 'hidden'
             : 'relative z-50 flex flex-col justify-center items-center md:fixed  md:right-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
-            {$globalOptions.v !== 'l' ? 'md:top-28' : 'md:top-0'} transition-all duration-500 transform"
+            {$globalOptions.v !== 'l'
+              ? 'md:top-28'
+              : 'md:top-0'} transition-all duration-500 transform"
           id="barre-boutons"
         >
           <!-- Commande d'ouverture/fermeture du menu -->
           <div
             class="absolute left-0 top-0 h-10 w-10 rounded-r-lg border-l border-coopmaths-canvas-dark dark:border-coopmathsdark-canvas-dark bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hidden min-[900px]:flex justify-center items-center"
           >
-          <Button
-          title=""
-          icon="{isMenuOpen
-            ? 'bx-x'
-            : 'bx-right-arrow-alt'}"
-          class="absolute right-2 top-1 text-2xl"
-          on:click={() => {
-            isMenuOpen = !isMenuOpen
-          }}
-        />
-        </div>
-          <ButtonsDeck barWidthPercentage={80}>
+            <Button
+              title=""
+              icon={isMenuOpen ? 'bx-x' : 'bx-right-arrow-alt'}
+              class="absolute right-2 top-1 text-2xl"
+              on:click={() => {
+                isMenuOpen = !isMenuOpen
+              }}
+            />
+          </div>
+          <ButtonsDeck barWidthPercentage={80} {chipsListDisplayed}>
+            <!-- Bouton de réglages de la page -->
             <div
               slot="setup-buttons"
               class="flex flex-row justify-start items-center space-x-4"
@@ -496,6 +495,7 @@
                 </div>
               </button>
             </div>
+            <!-- Boutons d'export -->
             <div
               slot="export-buttons"
               class="flex flex-row justify-end items-center space-x-4"
@@ -590,26 +590,18 @@
               </button>
             </div>
           </ButtonsDeck>
-          <!-- Barre des chips -->
-          <div
-            class="{chipsListDisplayed
-              ? 'absolute top-20 sm:top-[3.25rem] right-8 flex flex-row justify-start items-center w-full p-6 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
-              : 'hidden'} "
-          >
-            <ChipsList />
-          </div>
         </div>
         <!-- Affichage des exercices -->
         {#if $exercicesParams.length !== 0}
           <div
             id="exercisesWrapper"
             class="flex flex-col justify-between h-full mt-0 sm:mt-28 {chipsListDisplayed
-              ? 'xl:mt-32'
+              ? 'xl:mt-41'
               : 'xl:mt-24'}"
             bind:this={divExercices}
           >
             <div class="flex-1">
-              <div class="flex flex-col h-full md:mt-9 lg:mt-0">
+              <div class="flex flex-col h-full md:mt-9 xl:mt-0">
                 {#each $exercicesParams as paramsExercice, i (paramsExercice)}
                   <div
                     id="exo{i}"

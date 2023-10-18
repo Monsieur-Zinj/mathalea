@@ -7,10 +7,6 @@
   import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
   import type { ChipContentType } from '../../lib/types'
 
-  // let idListForChips: string[] = []
-  // $: idListForChips = $exercicesParams.map((p) => {
-  //   ref: p.id ?? p.uuid
-  // })
   let listIdsForChips: ChipContentType[] = []
   $: {
     const lIFC: ChipContentType[] = []
@@ -34,7 +30,7 @@
     Sortable.create(document.getElementById('chips-list'), {
       animation: 150,
       // Erreur dans le linter : Parameter 'evt' implicitly has an 'any' type.
-      // Sortable étant en JavaScript on ne connait pas le type de `evt`.
+      // Sortable étant écrit en JavaScript on ne connait pas le type de `evt`.
       // @ts-ignore
       onEnd: (evt) => {
         exercicesParams.update((l) => {

@@ -64,6 +64,9 @@
       uuid: ending.uuid,
       interactif: '0'
     } as InterfaceParams
+    if (isExerciceItemInReferentiel(ending) || isTool(ending)) {
+      newExercise.id = ending.id
+    }
     if ($globalOptions.recorder === 'capytale') {
       newExercise.interactif = '1'
     }
@@ -180,7 +183,7 @@
         {:else if isTool(ending)}
           <!-- Outils -->
           <div
-            class="text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
+            class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
           >
             <span class="font-bold">{ending.id} - </span>{ending.titre}
           </div>
