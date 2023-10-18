@@ -14,9 +14,7 @@
     globalOptions,
     allFilters,
     getSelectedFiltersObjects,
-
     handleUncheckingMutipleFilters
-
   } from '../store'
   import type { FilterObject, InterfaceParams } from '../../lib/types'
   import { getUniqueStringBasedOnTimeStamp, debounce } from '../utils/time'
@@ -241,6 +239,7 @@
       />
     {/each}
   </div>
+  <!-- Filtres -->
   <div class={isFiltersVisible ? 'flex flex-col w-full pt-6' : 'hidden'}>
     <FiltresBis class="mt-6" filterType="levels" />
     <FiltresBis class="mt-6" filterType="specs" />

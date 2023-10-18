@@ -63,7 +63,7 @@
     {unfold && nestedLevelCount !== 1
       ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
       : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'}"
-    style="padding-left: {(nestedLevelCount * 2) / 4}rem"
+    style="padding-left: {(nestedLevelCount * 2) / 5}rem"
     on:click={() => {
       unfold = !unfold
     }}

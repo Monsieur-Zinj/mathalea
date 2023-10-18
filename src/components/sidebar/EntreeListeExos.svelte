@@ -158,7 +158,7 @@
               >MAJ</span
             >
           {/if}
-          {#if !tags.get('interactif')}
+          <!-- {#if tags && typeof tags !== 'string' && !tags.get('interactif')}
             &nbsp;<span
               class="tooltip tooltip-bottom tooltip-neutral"
               data-tip="Pas d'interactivité"
@@ -167,7 +167,7 @@
                 class="inline-flex h-3 w-3 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark fill-coopmaths-warn-dark dark:fill-coopmathsdark-warn-dark stroke-coopmaths-warn-dark dark:stroke-coopmathsdark-warn-dark"
               />
             </span>
-          {/if}
+          {/if} -->
         </div>
       {:else}
         <!-- Exercice de la bibliothèqye -->

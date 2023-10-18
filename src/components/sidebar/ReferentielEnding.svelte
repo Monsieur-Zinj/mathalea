@@ -118,8 +118,8 @@
 <div
   class={`${
     $$props.class || ''
-  } w-full flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark`}
-  style="padding-left: {(nestedLevelCount * 2) / 4}rem"
+  } w-full flex flex-row mr-4 text-start items-start text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark`}
+  style="padding-left: {(nestedLevelCount * 2) / 6}rem"
 >
   <div
     class="w-full relative inline-flex text-start justify-start items-start hover:bg-coopmaths-action-light dark:hover:bg-coopmathsdark-action-light dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest cursor-pointer"
@@ -133,7 +133,7 @@
         {#if isExerciceItemInReferentiel(ending)}
           <!-- Exercice MathALÉA -->
           <div
-            class="text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
+            class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
           >
             <span class="font-bold">{ending.id} - </span>{ending.titre}
             {#if isLessThanAMonth(ending.datePublication)}
@@ -168,7 +168,7 @@
             {/if}
             {ending.annee} - {ending.lieu} - {ending.numeroInitial}
           </span>
-          <div>
+          <div class="pl-2">
             {#each ending.tags as tag}
               <span
                 class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 py-px leading-snug font-semibold mr-1"
