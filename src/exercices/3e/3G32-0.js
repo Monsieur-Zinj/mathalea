@@ -1203,8 +1203,8 @@ export default function ProblemesTrigoLongueur () {
           C.nom = nomDesSommets[2]
           D.nom = nomDesSommets[3]
           E.nom = nomDesSommets[4]
-          const mirroir = choice([true, false])
-          if (mirroir) {
+          /* const mirroir = choice([true, false]) // EE : Je n'ai pas compris l'intérêt ici s'il n'y a pas de miroir sur la figure
+           if (mirroir) {
             B.x *= -1
             C.x *= -1
             D.x *= -1
@@ -1214,7 +1214,7 @@ export default function ProblemesTrigoLongueur () {
             C.positionLabel = 'below'
             D.positionLabel = 'below'
             E.positionLabel = 'above'
-          }
+          } */
           const sBC = segment(B, C)
 
           objetsEnonce = [p, sBC, codage1, codage2, labels]
