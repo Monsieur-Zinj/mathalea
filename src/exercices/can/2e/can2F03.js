@@ -29,7 +29,7 @@ export default function SigneFonctionAffine () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    let texte, texteCorr, monQcm, a, b, n, maFraction
+    let texte, texteCorr, a, b, n, maFraction, monQcm
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice(['a', 'b'])) { //, 'b'
         case 'a':
@@ -37,17 +37,17 @@ export default function SigneFonctionAffine () {
           n = randint(2, 7) * choice([-1, 1])
           b = n * a
           maFraction = fraction(-b, a)
-          texte = `$${reduireAxPlusB(a, b)}$ est strictement positif pour $x>${maFraction.texFractionSimplifiee}$ .<br>`
+          texte = `$${reduireAxPlusB(a, b)}$ est strictement positif pour $x>${maFraction.texFractionSimplifiee}$.`
           this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             propositions: [
               {
-                texte: 'V',
+                texte: 'Vrai',
                 statut: a > 0
               },
               {
-                texte: 'F',
+                texte: 'Faux',
                 statut: a < 0
               }
             ],
@@ -74,22 +74,21 @@ export default function SigneFonctionAffine () {
 
           break
         case 'b':
-
           a = randint(-5, 5, 0)
           n = randint(2, 7) * choice([-1, 1])
           b = n * a
           maFraction = fraction(-b, a)
-          texte = `$${reduireAxPlusB(a, b)}$ est strictement positif pour $x<${maFraction.texFractionSimplifiee}$ .<br>`
+          texte = `$${reduireAxPlusB(a, b)}$ est strictement positif pour $x<${maFraction.texFractionSimplifiee}$.`
           this.canEnonce = texte
           this.autoCorrection[i] = {
             enonce: texte,
             propositions: [
               {
-                texte: 'V',
+                texte: 'Vrai',
                 statut: a < 0
               },
               {
-                texte: 'F',
+                texte: 'Faux',
                 statut: a > 0
               }
             ],
