@@ -167,7 +167,7 @@
             <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isVisible ? 'bx-hide' : 'bx-show'}" />
           </button>
         {/if}
-        <button class="mx-2 tooltip tooltip-left tooltip-neutral" data-tip="Duppliquer l'exercice" type="button" on:click={duplicate}>
+        <button class="mx-2 tooltip tooltip-left tooltip-neutral" data-tip="Dupliquer l'exercice" type="button" on:click={duplicate}>
           <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-duplicate" />
         </button>
         {#if isDeletable}
