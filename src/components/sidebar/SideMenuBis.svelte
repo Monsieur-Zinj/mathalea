@@ -5,6 +5,7 @@
   import { applyFilters, buildReferentiel, getAllEndings } from '../utils/refUtils'
   import ReferentielNode from './ReferentielNode.svelte'
   import SearchBlock from './SearchBlock.svelte'
+  import SideMenuApps from './SideMenuApps.svelte'
   export let referentiels: ReferentielInMenu[] = []
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
@@ -48,6 +49,7 @@
             class="w-full px-4 text-[10px]"
           />
         {/each}
+        <SideMenuApps class="text-start p-6 w-full" />
       </div>
     </div>
   </div>
