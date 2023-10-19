@@ -5,19 +5,21 @@ import { grille } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPointEchelle } from '../../lib/2d/textes.js'
 import { homothetie, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { texcolors } from '../../lib/format/style.js'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { range } from '../../lib/outils/nombres.js'
 
 export const dateDePublication = '3/12/2021'
+export const dateDeModifImportante = '19/10/2023'
 export const titre = 'Trouver la transformation'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
@@ -30,11 +32,11 @@ export default function TrouverLaTransformations () {
   this.spacing = 1
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
-  this.pas_de_version_HMTL = false
+  this.spacing = 1.5
   const A = point(0, 0)
   let typeDeTransfos
   this.sup = 3
+  this.sup2 = 3
   const motifs = [
     polygone([point(1, 1), point(2, 1), point(2, 4), point(6, 4), point(6, 5), point(3, 5), point(3, 6), point(1, 6)]),
     polygone([point(1, 1), point(3, 1), point(3, 4), point(6, 4), point(6, 6), point(3, 6), point(3, 5), point(1, 5)]),
@@ -93,7 +95,7 @@ export default function TrouverLaTransformations () {
   }
 
   // type est le type de transformation (voir ci-dessus)
-  // depart est le N° de la figure de dépar, arrivee celui de la figure d'arrivée
+  // depart est le N° de la figure de départ, arrivee celui de la figure d'arrivée
   // leSens = true pour rotation de sens direct
   // num est un nombre pour définir la couleur de l'élément de départ et celui d'arrivée.
   // poly1 est le polygone de départ (utilisé pour réaliser l'animation)
@@ -143,131 +145,165 @@ export default function TrouverLaTransformations () {
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
+    this.listeQuestions = []
+    this.listeCorrections = []
     if (this.version === 1) {
       this.sup = 1
     } else if (this.version === 2) {
       this.sup = 2
     }
     this.sup = contraindreValeur(1, 3, this.sup, 3)
+
+    const listeSousQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 4,
+      defaut: 2,
+      shuffle: false,
+      nbQuestions: 1
+    })
+    const nbSousQuestions = listeSousQuestions[0]
+
     if (this.sup === 1) typeDeTransfos = ['symax', 'rot180']
     else if (this.sup === 2) typeDeTransfos = ['symax', 'trans', 'rot180']
     else typeDeTransfos = ['symax', 'trans', 'rot90', 'rot180']
-    this.listeQuestions = []
-    this.listeCorrections = []
-    const objetsEnonce = []
-    const objetsCorrection = []
-    const polys = []
-    const transfos = []
-    polys[0] = homothetie(choice(motifs), A, 0.4)
-    for (let x = 0; x < 5; x++) {
-      for (let y = 0, dalle, transfoAlea, elements; y < 5; y++) {
-        if (x + y > 0) {
-          dalle = x * 6 + y
-          transfoAlea = choice(typeDeTransfos)
-          if (y > 0) {
-            elements = definitElements(transfoAlea, dalle - 1, dalle, choice([true, false]))
-            polys[dalle] = transfoPoly(polys[dalle - 1], elements)
-            if (y === 4) polys[dalle + 1] = vide2d()
-          } else {
-            elements = definitElements(transfoAlea, dalle - 6, dalle, choice([true, false]))
-            polys[dalle] = transfoPoly(polys[dalle - 6], elements)
+
+    for (let i = 0, texte, texteCorr, trans; i < this.nbQuestions; i++) {
+      const objetsEnonce = []
+      const objetsCorrection = []
+      const polys = []
+      const transfos = []
+      polys[0] = homothetie(choice(motifs), A, 0.4)
+      for (let x = 0; x < 5; x++) {
+        for (let y = 0, dalle, transfoAlea, elements; y < 5; y++) {
+          if (x + y > 0) {
+            dalle = x * 6 + y
+            transfoAlea = choice(typeDeTransfos)
+            if (y > 0) {
+              elements = definitElements(transfoAlea, dalle - 1, dalle, choice([true, false]))
+              polys[dalle] = transfoPoly(polys[dalle - 1], elements)
+              if (y === 4) polys[dalle + 1] = vide2d()
+            } else {
+              elements = definitElements(transfoAlea, dalle - 6, dalle, choice([true, false]))
+              polys[dalle] = transfoPoly(polys[dalle - 6], elements)
+            }
           }
         }
       }
-    }
 
-    for (let i = 0, depart = [], arrivee = []; i < this.nbQuestions;) {
-      depart[i] = randint(0, 3) * 6 + randint(0, 3)
-      arrivee[i] = depart[i] + (choice([true, false]) ? 1 : 6)
-      transfos[i] = definitElements(choice(typeDeTransfos), depart[i], arrivee[i], choice([true, false]), 12, polys[depart[i]])
-      if (depart.indexOf(arrivee[i]) === -1 && arrivee.indexOf(depart[i]) === -1 && this.questionJamaisPosee(i, depart[i], arrivee[i])) {
-        polys[arrivee[i]] = transfoPoly(polys[depart[i]], transfos[i])
-        i++
+      const depart = []
+      const arrivee = []
+      depart[0] = randint(0, 3)
+      arrivee[0] = depart[0] + (choice([true, false]) ? 1 : 6)
+      transfos[0] = definitElements(choice(typeDeTransfos), depart[0], arrivee[0], choice([true, false]), 12, polys[depart[0]])
+      polys[arrivee[0]] = transfoPoly(polys[depart[0]], transfos[0])
+      let choixArrivee = []
+      for (let ee = 1; ee < 4; ee++) {
+        depart[ee] = choice([ee * 6, ee * 6 + 1, ee * 6 + 2, ee * 6 + 3])
+        choixArrivee = shuffle([1, 6])
+        arrivee[ee] = arrivee.includes(depart[ee] + choixArrivee[0]) ? depart[ee] + choixArrivee[1] : depart[ee] + choixArrivee[0]
+        transfos[ee] = definitElements(choice(typeDeTransfos), depart[ee], arrivee[ee], choice([true, false]), 12, polys[depart[ee]])
+        polys[arrivee[ee]] = transfoPoly(polys[depart[ee]], transfos[ee])
       }
-    }
 
-    for (let x = 0; x < 5; x++) {
-      for (let y = 0, numero; y < 5; y++) {
-        numero = texteParPointEchelle(Number(x * 6 + y).toString(), point(x * 3.2 + 1.6, y * 3.2 + 1.6), 'milieu', context.isHtml ? 'yellow' : 'black', 1.2, 'middle', true, 0.4)
-        numero.contour = context.isHtml
-        numero.couleurDeRemplissage = colorToLatexOrHTML('black')
-        numero.opacite = context.isHtml ? 0.5 : 1
-        numero.opaciteDeRemplissage = 1
-        maGrille.push(numero)
-        polys[x * 6 + y].opacite = 0.7
-        polys[x * 6 + y].color = colorToLatexOrHTML('blue')
-      }
-    }
-    objetsEnonce.push(...polys)
-    objetsCorrection.push(...polys)
-    objetsCorrection.push(...maGrille)
-    objetsEnonce.push(...maGrille)
-    for (let x = 0; x < 6; x++) {
-      for (let y = 0, label; y < 6; y++) {
-        label = texteParPointEchelle(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 'milieu', context.isHtml ? 'red' : 'black', 1.2, 'middle', true, 0.4)
-        label.contour = context.isHtml
-        label.couleurDeRemplissage = colorToLatexOrHTML('black')
-        label.opacite = context.isHtml ? 0.8 : 1
-        label.opaciteDeRemplissage = 1
-        objetsEnonce.push(label)
-        objetsCorrection.push(label)
-      }
-    }
-    for (let i = 0; i < this.nbQuestions; i++) {
-      objetsCorrection.push(transfos[i].animation)
-    }
-
-    const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
-    const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
-    for (let i = 0, texte, texteCorr, propositions, trans; i < this.nbQuestions; i++) {
-      propositions = []
-      // On va mettre dans les propositions toutes les transformations possibles pour passer de transfo|i].depart à transfo[i].arrivee
-      for (const transforme of typeDeTransfos) {
-        switch (transforme) {
-          case 'rot90':
-            trans = definitElements('rot90', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
-            propositions.push(
-                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens direct`
-            )
-            trans = definitElements('rot90', transfos[i].depart, transfos[i].arrivee, false, 12, polys[transfos[i].depart])
-            propositions.push(
-                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens indirect`
-            )
-            break
-          case 'trans':
-            //    trans = definitElements('trans', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
-            propositions.push(
-                            `la translation transformant ${noeuds[transfos[i].depart].nom} en ${noeuds[transfos[i].arrivee].nom}`
-            )
-            break
-          case 'rot180':
-            //    trans = definitElements('rot180', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
-            propositions.push(
-                            `la symétrie dont le centre est le milieu de [${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom}]`
-            )
-            break
-
-          case 'symax':
-            //    trans = definitElements('symax', transfos[i].depart, transfos[i].arrivee, true, 12, polys[transfos[i].depart])
-            propositions.push(
-                            `la symétrie d'axe (${noeuds[transfos[i].arrivee].nom}${(transfos[i].arrivee - transfos[i].depart === 6) ? noeuds[transfos[i].arrivee + 1].nom : noeuds[transfos[i].arrivee + 6].nom})`
-            )
-            break
+      for (let x = 0; x < 5; x++) {
+        for (let y = 0, numero; y < 5; y++) {
+          numero = texteParPointEchelle(Number(x * 6 + y).toString(), point(x * 3.2 + 1.6, y * 3.2 + 1.6), 'milieu', context.isHtml ? 'yellow' : 'black', 1.2, 'middle', true, 0.4)
+          numero.contour = context.isHtml
+          numero.couleurDeRemplissage = colorToLatexOrHTML('black')
+          numero.opacite = context.isHtml ? 0.5 : 1
+          numero.opaciteDeRemplissage = 1
+          maGrille.push(numero)
+          polys[x * 6 + y].opacite = 0.7
+          polys[x * 6 + y].color = colorToLatexOrHTML('blue')
         }
       }
-      texte = this.interactif
-        ? `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ? ` + choixDeroulant(this, i, 0, propositions, 'une réponse')
-        : `Quelle transformation permet de passer de la figure ${transfos[i].depart} à la figure ${transfos[i].arrivee} ?`
-      texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
-      texteCorr = transfos[i].texteCorr
-      texteCorr += '<br>' + mathalea2d(paramsCorrection, objetsCorrection)
-      setReponse(this, i, [transfos[i].texteInteractif], { formatInteractif: 'texte' })
+      objetsEnonce.push(...polys)
+      objetsCorrection.push(...polys)
+      objetsCorrection.push(...maGrille)
+      objetsEnonce.push(...maGrille)
+      for (let x = 0; x < 6; x++) {
+        for (let y = 0, label; y < 6; y++) {
+          label = texteParPointEchelle(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 'milieu', context.isHtml ? 'red' : 'black', 1.2, 'middle', true, 0.4)
+          label.contour = context.isHtml
+          label.couleurDeRemplissage = colorToLatexOrHTML('black')
+          label.opacite = context.isHtml ? 0.8 : 1
+          label.opaciteDeRemplissage = 1
+          objetsEnonce.push(label)
+          objetsCorrection.push(label)
+        }
+      }
+      for (let ee = 0; ee < 4; ee++) {
+        objetsCorrection.push(transfos[ee].animation)
+      }
+
+      const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
+      const paramsCorrection = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
+
+      texte = mathalea2d(paramsEnonce, objetsEnonce)
+      texteCorr = mathalea2d(paramsCorrection, objetsCorrection)
+
+      const textePossible = []
+      const texteCorrPossible = []
+      const reponsePossible = []
+      for (let k = 0; k < 4; k++) {
+        // On va mettre dans les propositions toutes les transformations possibles pour passer de transfo|k].depart à transfo[k].arrivee
+        const propositions = []
+        for (const transforme of typeDeTransfos) {
+          switch (transforme) {
+            case 'rot90':
+              trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
+              propositions.push(
+                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens direct`
+              )
+              trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, false, 12, polys[transfos[k].depart])
+              propositions.push(
+                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens indirect`
+              )
+              break
+            case 'trans':
+            //    trans = definitElements('trans', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
+              propositions.push(
+                            `la translation transformant ${noeuds[transfos[k].depart].nom} en ${noeuds[transfos[k].arrivee].nom}`
+              )
+              break
+            case 'rot180':
+            //    trans = definitElements('rot180', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
+              propositions.push(
+                            `la symétrie dont le centre est le milieu de [${noeuds[transfos[k].arrivee].nom}${(transfos[k].arrivee - transfos[k].depart === 6) ? noeuds[transfos[k].arrivee + 1].nom : noeuds[transfos[k].arrivee + 6].nom}]`
+              )
+              break
+
+            case 'symax':
+            //    trans = definitElements('symax', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
+              propositions.push(
+                            `la symétrie d'axe (${noeuds[transfos[k].arrivee].nom}${(transfos[k].arrivee - transfos[k].depart === 6) ? noeuds[transfos[k].arrivee + 1].nom : noeuds[transfos[k].arrivee + 6].nom})`
+              )
+              break
+          }
+        }
+
+        textePossible.push(this.interactif
+          ? `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ? ` + choixDeroulant(this, k, i, propositions, 'une réponse')
+          : `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ?`)
+        texteCorrPossible.push(transfos[k].texteCorr)
+        reponsePossible.push(transfos[k].texteInteractif)
+      }
+      const listeQuestionsPossibles = shuffle(range(3))
+      for (let ee = 0; ee < nbSousQuestions; ee++) {
+        texte += ee > 0 ? '<br>' : ''
+        texte += nbSousQuestions > 1 ? numAlpha(ee) : ''
+        texte += textePossible[listeQuestionsPossibles[ee]]
+        texteCorr += ee > 0 ? '<br>' : ''
+        texteCorr += nbSousQuestions > 1 ? numAlpha(ee) : ''
+        texteCorr += texteCorrPossible[listeQuestionsPossibles[ee]]
+        setReponse(this, i * nbSousQuestions + ee, reponsePossible[ee], { formatInteractif: 'texte' })
+      }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
-    // this.contenu = deuxColonnes(this.contenu, mathalea2d(paramsEnonce, objetsEnonce), 45)
-    // this.contenuCorrection = deuxColonnes(this.contenuCorrection, mathalea2d(paramsCorrection, objetsCorrection), 45)
   }
   this.besoinFormulaireNumerique = ['Types de transformations possibles', 3, '1 : Symétries axiales et centrales\n2 : Symétries et translations\n3 : Symétries, translations et quarts de tour']
+  this.besoinFormulaire2Texte = ['Nombre de transformations par grille', 'Choix entre 1 et 4']
 }
