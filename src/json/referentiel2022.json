@@ -4276,6 +4276,18 @@
           },
           "datePublication": "07/02/2022",
           "dateModification": "26/08/2023"
+        },
+        "can2N05": {
+          "url": "can/2e/can2N05.js",
+          "uuid": "",
+          "id": "can2N05",
+          "titre": "Reconnaître un nombre premier",
+          "tags": {
+            "interactif": true,
+            "interactifType": "qcm",
+            "amc": false
+          },
+          "datePublication": "16/10/2023"
         }
       },
       "can2P": {
@@ -4877,6 +4889,18 @@
             "amc": false
           },
           "datePublication": "07/10/2023"
+        },
+        "can1L13": {
+          "url": "can/1e/can1L13.js",
+          "uuid": "b53ea",
+          "id": "can1L13",
+          "titre": "Résoudre une inéquation du second degré (cas particuliers)",
+          "tags": {
+            "interactif": true,
+            "interactifType": "qcm",
+            "amc": false
+          },
+          "datePublication": "12/10/2023"
         }
       },
       "can1P": {
@@ -6304,7 +6328,7 @@
           "amc": true
         },
         "datePublication": "03/12/2022",
-        "dateModification": "02/07/2023"
+        "dateModification": "17/10/2023"
       },
       "6G22-2": {
         "url": "6e/6G22-2.js",
