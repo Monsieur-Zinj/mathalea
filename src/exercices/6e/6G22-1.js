@@ -171,23 +171,23 @@ export default class VocabulaireDeBaseDesAngles extends Exercice {
             feedback: ''
           })
         }
+        if (!context.isAmc) {
+          this.autoCorrection[ee + i * listeTypeQuestions.length] = {
+            enonce: questionReponse.question,
+            options: { ordered: true },
+            propositions
+          }
 
-        this.autoCorrection[ee + i * listeTypeQuestions.length] = {
-          enonce: questionReponse.question,
-          options: { ordered: true },
-          propositions
-        }
-
-        const monQcm = propositionsQcm(this, ee + i * listeTypeQuestions.length)
-        texteQuestion += '<br>'
-        texteQuestion += questionReponse.question + '<br>'
-        texteQuestion += monQcm.texte
-        texteCorrQuestion += questionReponse.question + '<br>'
-        texteCorrQuestion += monQcm.texteCorr
-        texteCorrQuestion += this.correctionDetaillee ? ('<br>' + questionReponse.explications + '<br><br>') : '<br>'
-        texte += texteQuestion
-        texteCorr += texteCorrQuestion
-        if (context.isAmc) {
+          const monQcm = propositionsQcm(this, ee + i * listeTypeQuestions.length)
+          texteQuestion += '<br>'
+          texteQuestion += questionReponse.question + '<br>'
+          texteQuestion += monQcm.texte
+          texteCorrQuestion += questionReponse.question + '<br>'
+          texteCorrQuestion += monQcm.texteCorr
+          texteCorrQuestion += this.correctionDetaillee ? ('<br>' + questionReponse.explications + '<br><br>') : '<br>'
+          texte += texteQuestion
+          texteCorr += texteCorrQuestion
+        } else {
           propositionsAMC[ee] = {
             type: 'qcmMult', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
             enonce: questionReponse.question,

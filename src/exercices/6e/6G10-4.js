@@ -10,12 +10,15 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
+export const amcReady = true
+export const amcType = 'AMCHybride'
 export const titre = 'Connaître le vocabulaire du cercle'
 
 export const dateDePublication = '19/08/2022'
@@ -63,6 +66,8 @@ export default function VocabulaireDuCercle () {
   this.besoinFormulaire2CaseACocher = ['QCM']
   this.sup2 = true
   this.correctionDetailleeDisponible = true
+  this.sup3 = 5
+  this.besoinFormulaire3Numerique = ['Nombre de sous-questions', 5]
 
   this.spacing = 1.5 // Interligne des questions
   this.spacingCorr = 1.5 // Interligne des réponses
@@ -71,7 +76,7 @@ export default function VocabulaireDuCercle () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
+    this.interactifType = this.sup2 ? 'AMCHybride' : 'mathLive'
 
     let sensDesQuestionsDisponibles
     switch (Number(this.sup)) {
@@ -85,13 +90,15 @@ export default function VocabulaireDuCercle () {
         sensDesQuestionsDisponibles = ['Un rayon est ...', '[AB] est ...']
         break
     }
-    const nbSousQuestions = 5
+    const nbSousQuestions = contraindreValeur(1, 5, this.sup3, 5)
     const sensDesQuestions = combinaisonListes(sensDesQuestionsDisponibles, this.nbQuestions * nbSousQuestions)
     const distanceMinEntrePoints = 2
     const distanceMinCorde = 3
     const distanceMaxCorde = 5.9
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
+      const propositionsAMC = []
+
       texte = ''
       texteCorr = ''
       const nomsDesPoints = choisitLettresDifferentes(6)
@@ -116,7 +123,8 @@ export default function VocabulaireDuCercle () {
       objetsEnonce.push(leCercle, labelPoint(O), tracePoint(O), OA, BC, DE, polygon[1])
       const params = { xmin: -4, ymin: -4, xmax: 4, ymax: 4, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-      texte += mathalea2d(params, objetsEnonce) + '<br>'
+      const figure = mathalea2d(params, objetsEnonce)
+      texte += figure + '<br>'
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += texte
 
@@ -126,7 +134,7 @@ export default function VocabulaireDuCercle () {
           nature: 'un rayon',
           commentaire: `${texteEnCouleurEtGras('Un')} rayon est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`,
           commentaireAlt: `${texteEnCouleurEtGras('Le')} rayon est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`,
-          sens: sensDesQuestions[i * nbSousQuestions + 0]
+          sens: sensDesQuestions[i * nbSousQuestions]
         },
         {
           nom: `[$${B.nom + C.nom}$]`,
@@ -157,7 +165,7 @@ export default function VocabulaireDuCercle () {
           sens: sensDesQuestions[i * nbSousQuestions + 4]
         }
       ]
-      questions = shuffle(questions)
+      questions = shuffle(questions).slice(0, nbSousQuestions)
       const propositionsUnRayonEst = []
       for (const question of questions) {
         const texteProposition = question.nom
@@ -203,8 +211,8 @@ export default function VocabulaireDuCercle () {
           texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}${question.nom === nomDiametre ? ' et aussi ' + texteEnCouleurEtGras('une corde') : ''}.<br>`
         }
         if (this.correctionDetaillee && question.commentaire !== '') texteCorr += question.commentaire + '<br>'
-        if (this.sup2) {
-          let propositions
+        if (this.sup2 || context.isAmc) {
+          let propositions = []
           if (question.sens === 'Un rayon est ...') {
             propositions = propositionsUnRayonEst
           }
@@ -221,12 +229,20 @@ export default function VocabulaireDuCercle () {
               feedback
             })
           }
-          this.autoCorrection[i * questions.length + j] = {
-            enonce,
-            options: { ordered: false },
-            propositions: propositionsEE
+          if (!context.isAmc) {
+            this.autoCorrection[i * questions.length + j] = {
+              enonce,
+              options: { ordered: false },
+              propositions: propositionsEE
+            }
+            texte += propositionsQcm(this, i * questions.length + j).texte + '<br>'
+          } else if (context.isAmc) {
+            propositionsAMC[j] = {
+              type: 'qcmMult', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+              enonce,
+              propositions: propositionsEE
+            }
           }
-          texte += propositionsQcm(this, i * questions.length + j).texte + '<br>'
         } else {
           let reponses
           if (question.sens === 'Un rayon est ...') {
@@ -270,11 +286,24 @@ export default function VocabulaireDuCercle () {
         if (this.correctionDetaillee) texteCorr += '<br>'
         j++
       }
+
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, nomsDesPoints, objetsEnonce)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Dans cet exercice, on n'utilise pas a, b, c et d mais A, B, C et D alors remplace-les !
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: figure + 'À partir de la figure ci-dessus, compléter les phrases suivantes.',
+            enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+            enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
+            melange: true, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+            options: { avecSymboleMult: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) des propositions : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
+            propositions: propositionsAMC
+          }
+        }
+
         i++
       }
       cpt++
