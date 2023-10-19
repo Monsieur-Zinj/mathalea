@@ -145,7 +145,6 @@ export default function PuissancesDunRelatif1 () {
       exp0 = randint(3, 5)
       exp1 = this.classe === 4 ? randint(2, exp0 - 1) : randint(2, 5, exp0)
       exp = [exp0, exp1] // on choisit deux exposants différents c'est mieux
-      console.log(exp)
       lettre = lettreDepuisChiffre(i + 1) // on utilise des lettres pour les calculs
 
       if (base < 0) {
