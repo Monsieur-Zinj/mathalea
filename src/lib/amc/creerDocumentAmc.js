@@ -518,9 +518,9 @@ export function exportQcmAmc (exercice, idExo) {
           switch (qrType) {
             case 'qcmMono': // qcmMono de Hybride
             case 'qcmMult': // qcmMult de Hybride la différence est juste le nom de l'environnement changé dynamiquement
-              /* if (elimineDoublons(propositions)) {
+              if (elimineDoublons(propositions)) {
                 console.log('doublons trouvés')
-              } */
+              }
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'

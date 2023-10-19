@@ -17,6 +17,8 @@ export const dateDeModifImportante = '4/10/2023'
 // Ajout de l'interactivité et suppression de (AB] par Rémi Angot
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 /**
  * Fonction générale pour la notion d'appartenance
  * @author Mickael Guironnet
@@ -51,6 +53,7 @@ export default class constructionElementaire extends Exercice {
     for (let i = 0, colonne1, colonne2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = []
       const objetsCorrection = []
+      const propositionsAMC = []
       const indLettre = randint(1, 15)
       const A = point(0, 0, lettreDepuisChiffre(indLettre), 'above left')
       const B = point(randint(10, 11), randint(-4, 4, [-1, 0, 1]), lettreDepuisChiffre(indLettre + 1), 'above right')
@@ -76,7 +79,7 @@ export default class constructionElementaire extends Exercice {
       objetsEnonce.push(g, carreaux)
       objetsCorrection.push(g, carreaux)
       const ppc = 20
-      colonne1 = (context.vue === 'diap' ? '<center>' : '') + mathalea2d(
+      const figure = mathalea2d(
         {
           xmin: Xmin,
           ymin: Ymin,
@@ -86,7 +89,8 @@ export default class constructionElementaire extends Exercice {
           scale: sc
         },
         objetsEnonce
-      ) + (context.vue === 'diap' ? '</center>' : '<br>')
+      )
+      colonne1 = (context.vue === 'diap' ? '<center>' : '') + figure + (context.vue === 'diap' ? '</center>' : '<br>')
 
       colonne2 = 'Compléter avec $\\in$ ou $\\notin$. <br>'
       let correction2 = colonne2
@@ -136,14 +140,31 @@ export default class constructionElementaire extends Exercice {
             `$${points[ind].nom}${sp(3)}$` + choixDeroulant(this, i * this.sup2 + k, 0, ['∈', '∉'], '...') + `$${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<span id="resultatCheckEx${numeroExercice}Q${i * this.sup2 + k}"></span><br>`
           setReponse(this, i * this.sup2 + k, sol === '\\notin' ? '∉' : '∈')
         } else {
-          colonne2 +=
-            numAlpha(questind) +
-            `$${points[ind].nom}${sp(3)}\\ldots\\ldots\\ldots${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<br>`
+          const enonce = `$${points[ind].nom}${sp(3)}\\ldots\\ldots\\ldots${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$`
+          colonne2 += numAlpha(questind) + enonce + '<br>'
+          if (context.isAmc) {
+            propositionsAMC[k] = {
+              type: 'qcmMult', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+              enonce,
+              options: { ordered: true },
+              propositions: [
+                {
+                  texte: '$\\notin$',
+                  statut: sol === '\\notin'
+                },
+                {
+                  texte: '$\\in$',
+                  statut: sol !== '\\notin'
+                }
+              ]
+            }
+          }
         }
         correction2 +=
           numAlpha(questind++) +
           `$${points[ind].nom} ${sol} ${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<br>`
       }
+
       const options = { eleId: numeroExercice + '_' + i, widthmincol1: '500px', widthmincol2: '300px' }
       const enonce = deuxColonnesResp(colonne1, colonne2, options)
       const optionsSol = { eleId: 's-' + numeroExercice + '_' + i, widthmincol1: '500px', widthmincol2: '300px' }
@@ -154,6 +175,18 @@ export default class constructionElementaire extends Exercice {
       // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + '<br>')
         this.listeCorrections.push(correction + '<br>')
+
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: figure + 'À partir de la figure ci-dessus, compléter les phrases suivantes par $\\notin$ ou $\\in$.',
+            enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+            enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
+            melange: true, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+            options: { avecSymboleMult: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) des propositions : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
+            propositions: propositionsAMC
+          }
+        }
+
         // listener
         const reportWindowSize = function () {
           const element = document.getElementById('cols-responsive1-' + options.eleId)
