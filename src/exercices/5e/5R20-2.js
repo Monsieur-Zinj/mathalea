@@ -1,8 +1,10 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { sp } from '../../lib/outils/outilString.js'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -50,9 +52,10 @@ export default function ExerciceAdditionsRelatifsATrou (max = 20) {
       const rang1 = randint(0, 1)
       const rang2 = 1 - rang1
       if (this.sup2) {
-        termes = [a, '\\ldots\\ldots\\ldots', a, ecritureAlgebrique(b)]
-        texte = '$ ' + termes[rang1] + ' + ' + termes[rang2] + ' = ' + (a + b) + ' $'
+        termes = [rang1 === 0 ? a : ecritureAlgebrique(a), (rang2 === 1 ? '+' : '') + '\\ldots\\ldots\\ldots', rang1 === 0 ? a : ecritureAlgebrique(a), rang2 === 1 ? '+' + miseEnEvidence(ecritureParentheseSiNegatif(b)) : miseEnEvidence(b)]
+        texte = '$ ' + termes[rang1] + termes[rang2] + ' = ' + (a + b) + ' $'
         texteCorr = '$ ' + termes[rang1 + 2] + termes[rang2 + 2] + ' = ' + (a + b) + ' $'
+        if (rang2 === 1 && b < 0) texteCorr += '<br>$ ' + termes[rang1 + 2] + sp(1) + miseEnEvidence(b) + ' = ' + (a + b) + ' $'
       } else {
         termes = [ecritureNombreRelatif(a), '\\ldots\\ldots\\ldots', ecritureNombreRelatifc(a), ecritureNombreRelatifc(b)]
         texte = '$ ' + termes[rang1] + ' + ' + termes[rang2] + ' = ' + ecritureNombreRelatif(a + b) + ' $'
