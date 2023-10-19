@@ -817,7 +817,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
             const f = x => a * x * exp(b * x)
             const fprime = x => (a + a * b * x) * exp(b * x)
-            const Cg = droiteParPointEtPente(point(0, 0.5), 0, '', 'red')
+            const Cg = droiteParPointEtPente(point(0, 5), 0, '', 'red')
             Cg.epaisseur = 2
             const s0 = antecedentParDichotomie(0, 7, fprime, 0, 0.01)
             const s1 = antecedentParDichotomie(0, s0 * 1.5, f, 0.5, 0.01)
@@ -893,7 +893,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             }, [courbe(f, {
               repere: r1,
               xMin: 0,
-              xMax: 9,
+              xMax: 10,
               color: 'blue',
               epaisseur: 2
             }),
@@ -938,12 +938,12 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
               `
 
             if (Math.round(s2 * 10) / 10 === 2 || Math.round(s2 * 10) / 10 === 3 || Math.round(s2 * 10) / 10 === 4 || Math.round(s2 * 10) / 10 === 5 || Math.round(s2 * 10) / 10 === 6) {
-              texteCorr += ` ${numAlpha(2)} L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.round(s2 * 10) / 10} \\text{ h }$ après la consommation de l'alcool,
+              texteCorr += ` ${numAlpha(2)} 11111L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.round(s2 * 10) / 10} \\text{ h }$ après la consommation de l'alcool,
             soit à $${Math.round(s2 * 10) / 10 + h} \\text{ h}$.<br><br>`
             } else {
               texteCorr += ` ${numAlpha(2)} $${texNombre(Math.round(s2 * 10) / 10, 1)}\\text{ h } =${Math.floor(s2)} \\text{ h } +${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\text{ h }$.<br>
             Or, $${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\text{ h }=${texNombre(Math.round(s2 * 10) / 10 - Math.floor(s2))}\\times 60 \\text{ min }=${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$.<br>
-            L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.floor(s2)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$ après la consommation de l'alcool,
+             L'automobiliste peut reprendre la route (sans être en infraction)  $${Math.floor(s2)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min }$ après la consommation de l'alcool,
             soit à $${Math.floor(s2 + h)} \\text{ h }$ et $${texNombre((Math.round(s2 * 10) / 10 - Math.floor(s2)) * 60)} \\text{ min}$.<br><br>`
             }
 
