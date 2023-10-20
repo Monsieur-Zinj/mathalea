@@ -4209,7 +4209,8 @@
       "interactifType": "listeDeroulante",
       "amc": false
     },
-    "datePublication": "3/12/2021"
+    "datePublication": "3/12/2021",
+    "dateModification": "19/10/2023"
   },
   "4G12-2": {
     "url": "4e/4G12-2.js",
@@ -6804,7 +6805,8 @@
     "titre": "Connaître le vocabulaire du cercle",
     "tags": {
       "interactif": true,
-      "amc": false
+      "amcType": "AMCHybride",
+      "amc": true
     },
     "datePublication": "19/08/2022"
   },
@@ -6828,7 +6830,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "listeDeroulante",
-      "amc": false
+      "amcType": "AMCHybride",
+      "amc": true
     },
     "datePublication": "05/10/2022",
     "dateModification": "4/10/2023"
@@ -11122,6 +11125,18 @@
     },
     "datePublication": "16/10/2023"
   },
+  "can2N06": {
+    "url": "can/2e/can2N06.js",
+    "uuid": "e57cb",
+    "id": "can2N06",
+    "titre": "Écrire un nombre décimal sous la forme $\\dfrac{a}{10^n}$",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "19/10/2023"
+  },
   "can2P01": {
     "url": "can/2e/can2P01.js",
     "uuid": "763d3",
@@ -12646,6 +12661,30 @@
       "amc": false
     },
     "datePublication": "04/10/2023"
+  },
+  "can5C27": {
+    "url": "can/5e/can5C27.js",
+    "uuid": "2745a",
+    "id": "can5C27",
+    "titre": "Trouver un  entier relatif (addition à trou)",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "19/10/2023"
+  },
+  "can5C28": {
+    "url": "can/5e/can5C28.js",
+    "uuid": "f9b48",
+    "id": "can5C28",
+    "titre": "Trouver un  entier relatif (addition à trou, écriture simplifiée)",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "19/10/2023"
   },
   "can5D01": {
     "url": "can/5e/can5D01.js",
