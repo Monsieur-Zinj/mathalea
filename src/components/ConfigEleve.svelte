@@ -160,8 +160,8 @@
             bind:valueSelected={currentLinkFormat}
             labelsValues={[
               { label: 'En clair', value: 'clear' },
-              { label: 'Raccourci', value: 'short' },
-              { label: 'Crypté', value: 'crypt' }
+              { label: 'Crypté', value: 'crypt' },
+              { label: 'Raccourci', value: 'short', isDisabled: true }
             ]}
             orientation="row"
           />
