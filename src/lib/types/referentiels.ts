@@ -57,26 +57,32 @@ export interface AppTierceGroup {
 }
 
 /**
+ * Tous les type de ressources disponibles dans un référentiel
+ */
+export type ExerciseType =
+  | 'alea'
+  | 'dnb'
+  | 'crpe'
+  | 'bac'
+  | 'simple'
+  | 'html'
+  | 'svelte'
+  | 'e3c'
+  | 'outil'
+  | 'tierce'
+  | 'static'
+
+/**
  * Description d'un objet de base dans un reerentiel de ressources
  * @interface BaseItemInReferentiel
  * @property {string} uuid : identifiant unique généré définitivement par le moteur à la création de l'exercice
  * @property {string[]} tags : listes de toutes les étiquettes marquant les sujets couverts par la ressource
- * @property {'alea' | 'dnb' | 'crpe' | 'bac' | 'simple' | 'html' | 'svelte'} typeExercice : catégorie de la ressource
+ * @property {ExerciseType} typeExercice : catégorie de la ressource
  */
 export interface BaseItemInReferentiel {
   uuid: string
   tags: string[]
-  typeExercice:
-    | 'alea'
-    | 'dnb'
-    | 'crpe'
-    | 'bac'
-    | 'simple'
-    | 'html'
-    | 'svelte'
-    | 'e3c'
-    | 'outil'
-    | 'tierce'
+  typeExercice: ExerciseType
 }
 
 /**
@@ -93,6 +99,7 @@ export interface StaticItemInreferentiel extends BaseItemInReferentiel {
   pngCor: string[]
   tex: string
   texCor: string
+  typeExercice: 'static' | 'dnb' | 'bac' | 'crpe'
 }
 
 /**
@@ -206,9 +213,7 @@ export const isJSONReferentielEnding = (
   obj: any
 ): obj is JSONReferentielEnding => obj.uuid !== undefined
 
-export const isTool = (
-  obj: any
-): obj is ToolItemInReferentiel =>
+export const isTool = (obj: any): obj is ToolItemInReferentiel =>
   obj.typeExercice === 'outil' || obj.typeExercice === 'html'
 
 export const isResourceHasPlace = (
@@ -221,3 +226,29 @@ export const isResourceHasMonth = (obj: any): obj is ExamItemInReferentiel =>
 
 export const isLevelType = (obj: any): obj is Level =>
   Object.keys(codeList).includes(obj)
+
+export const isFeatures = (obj: any): obj is Features => {
+  const keys = Object.keys(obj)
+  return keys.includes('interactif') || keys.includes('amc')
+}
+/**
+ * Inspecte le type d'un objet et détermine s'il c'est un tableau de chaînes non vide ou pas
+ * @see https://stackoverflow.com/a/50523378/6625987
+ * @param value objet à examiner
+ * @returns {boolean}
+ */
+export function isNonEmptyArrayOfStrings (value: unknown): value is string[] {
+  return (
+    Array.isArray(value) &&
+    value.length > 0 &&
+    value.every((item) => typeof item === 'string')
+  )
+}
+
+export const isRealJSONReferentielObject = (obj: any): boolean => {
+  if (typeof obj === 'string' || isNonEmptyArrayOfStrings(obj) || isFeatures(obj)) {
+    return false
+  } else {
+    return true
+  }
+}

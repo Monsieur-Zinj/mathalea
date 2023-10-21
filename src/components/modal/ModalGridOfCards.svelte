@@ -28,6 +28,14 @@
     </div>
     <slot name="buttons" />
     <!-- svelte-ignore a11y-autofocus -->
-    <button class="absolute top-3 right-3" autofocus on:click={() => dialog.close()}> <i class="bx bx-x text-2xl text-coopmaths-action hover:text-coopmaths-action-lightest" /></button>
+    <button
+      class="absolute top-3 right-3"
+      autofocus
+      on:click={() => dialog.close()}
+    >
+      <i
+        class="bx bx-x text-2xl text-coopmaths-action hover:text-coopmaths-action-lightest"
+      />
+    </button>
   </div>
 </dialog>

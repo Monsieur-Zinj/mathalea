@@ -50,6 +50,8 @@
   const referentielOutils: JSONReferentielObject = { ...referentielProfs }
   import SideMenuBis from './sidebar/SideMenuBis.svelte'
   const referentielHtml: JSONReferentielObject = { ...referentielRessources }
+  import referentielBibliotheque from '../json/referentielBibliotheque.json'
+  const biblio: JSONReferentielObject = { ...referentielBibliotheque }
   const referentiels: ReferentielInMenu[] = [
     {
       title: 'Exercices',
@@ -62,11 +64,12 @@
     {
       title: 'Vos ressources',
       referentiel: referentielHtml
+    },
+    {
+      title: 'Bibliothèque',
+      referentiel: biblio
     }
   ]
-  // for (const [key, value] of Object.entries(rawRessourcesReferentiel)) {
-  //   ressourcesReferentiel.content.push(value)
-  // }
   // Contexte pour le modal des apps tierces
   import ModalGridOfCards from './modal/ModalGridOfCards.svelte'
   let thirdAppsChoiceModal: ModalGridOfCards
@@ -99,7 +102,6 @@
     }
   })
   // Contexte pour la bibliothèque de statiques
-  import referentielBibliotheque from '../json/referentielBibliotheque.json'
   import BreadcrumbHeader from './sidebar/BreadcrumbHeader.svelte'
   import ImageCard from './ui/ImageCard.svelte'
   const bibliothequeReferentielArray = Array.from(
@@ -237,11 +239,11 @@
       for (const svg of svgDivs) {
         if (svg.hasAttribute('data-width') === false) {
           const originalWidth = svg.getAttribute('width')
-          svg.dataset.width = originalWidth
+          svg.dataset.width = originalWidth ?? undefined
         }
         if (svg.hasAttribute('data-height') === false) {
           const originalHeight = svg.getAttribute('height')
-          svg.dataset.height = originalHeight
+          svg.dataset.height = originalHeight ?? undefined
         }
         const w =
           Number(svg.getAttribute('data-width')) * Number($globalOptions.z)

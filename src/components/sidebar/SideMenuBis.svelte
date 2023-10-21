@@ -40,6 +40,7 @@
     >
     <SearchBlock class="w-full flex flex-col justify-start" resourcesSet={filteredReferentielItems} />
       <div class="mt-4 w-full">
+        <!-- Affichage de tous les référentiels -->
         {#each referentiels as item, i}
           <ReferentielNode
             bind:subset={item.referentiel}
@@ -47,8 +48,10 @@
             levelTitle={item.title}
             nestedLevelCount={1}
             class="w-full px-4 text-[10px]"
+            pathToThisNode={[]}
           />
         {/each}
+        <!-- Bouton spécial pour les applications tierces -->
         <SideMenuApps class="text-start p-6 w-full" />
       </div>
     </div>

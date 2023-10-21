@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { bibliothequeExercise } from "../../lib/types"
-  import StarIcon from "../icons/StarIcon.svelte"
-  import { exercicesParams } from "../store"
+  import type { bibliothequeExercise } from '../../lib/types'
+  import StarIcon from '../icons/StarIcon.svelte'
+  import { exercicesParams } from '../store'
 
   export let exercise: bibliothequeExercise = {
-    uuid: "theUuid",
-    presentation: " blabla",
-    png: "images/apps/appDefault.png",
-    pngCor: "images/apps/appDefault.png",
+    uuid: 'theUuid',
+    presentation: ' blabla',
+    png: 'images/apps/appDefault.png',
+    pngCor: 'images/apps/appDefault.png'
   }
   export let reversed: boolean = false
   export let selected: boolean = false
@@ -23,17 +23,17 @@
     listeCodes = listeCodes
   }
 
-  function addExerciseToList() {
+  function addExerciseToList () {
     exercicesParams.update((list) => [...list, { uuid: exercise.uuid }])
   }
   const isPresent = (code: string) => {
     return code === exercise.uuid
   }
-  function removeExerciseFromList() {
+  function removeExerciseFromList () {
     const matchingIndex = listeCodes.findIndex(isPresent)
     exercicesParams.update((list) => [...list.slice(0, matchingIndex), ...list.slice(matchingIndex + 1)])
   }
-  function handelSelection() {
+  function handelSelection () {
     selected = !selected
     if (selected) {
       addExerciseToList()

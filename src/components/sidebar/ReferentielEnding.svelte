@@ -16,8 +16,6 @@
 
   export let ending: JSONReferentielEnding
   export let nestedLevelCount: number
-  // export let useContext: 'search-result' | 'exploration' = 'exploration'
-  // const paddingTweak: number = ending.typeExercice === 'outil' || ending.typeExercice === 'html' || nestedLevelCount < 2 ? nestedLevelCount + 3 : nestedLevelCount
   let nomDeExercice: HTMLDivElement
   onMount(() => {
     if (nomDeExercice && nomDeExercice.innerHTML.includes('$')) {

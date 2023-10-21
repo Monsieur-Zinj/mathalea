@@ -2,6 +2,7 @@
   import { slide } from 'svelte/transition'
   import {
     isJSONReferentielEnding,
+    isRealJSONReferentielObject,
     type JSONReferentielObject
   } from '../../lib/types/referentiels'
   import { codeToLevelTitle } from '../utils/refUtils'
@@ -9,11 +10,13 @@
   import themesList from '../../json/levelsThemesList.json'
   const themes = toMap(themesList)
   import ReferentielEnding from './ReferentielEnding.svelte'
+  import StaticEnding from './StaticEnding.svelte'
   export let subset: JSONReferentielObject
   export let unfold: boolean = false
   export let nestedLevelCount: number
   export let indexBase: number
   export let levelTitle: string
+  export let pathToThisNode: string[]
 
   // const refFromSubset: JSONReferentielObject = buildReferentiel(subset)
 
@@ -29,6 +32,18 @@
       return [' : ', themes.get(themeCode).get('titre')].join('')
     } else {
       return ''
+    }
+  }
+
+  function isParentOfStaticEnding (obj: JSONReferentielObject): boolean {
+    const values = Object.values(obj)
+    if (values.length === 0) {
+      return false
+    } else {
+      return (
+        isJSONReferentielEnding(values[0]) &&
+        values[0].typeExercice === 'static'
+      )
     }
   }
 </script>
@@ -98,7 +113,9 @@
       <ul transition:slide={{ duration: 500 }}>
         {#each Object.entries(subset) as [key, obj], i}
           <li>
-            {#if isJSONReferentielEnding(obj)}
+            {#if isRealJSONReferentielObject(obj) && isParentOfStaticEnding(obj)}
+              <StaticEnding pathToThisNode={[...pathToThisNode, key]} />
+            {:else if isJSONReferentielEnding(obj)}
               <ReferentielEnding
                 ending={obj}
                 nestedLevelCount={nestedLevelCount + 1}
@@ -109,6 +126,7 @@
                 indexBase={`${indexBase}-${i.toString()}`}
                 levelTitle={key}
                 nestedLevelCount={nestedLevelCount + 1}
+                pathToThisNode={[...pathToThisNode, key]}
                 bind:subset={obj}
               />
             {/if}
