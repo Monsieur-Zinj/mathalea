@@ -101,7 +101,6 @@ export default function NotationPuissance () {
         apr = ')'
       }
       listeSignes[i] === '-' ? signeContraire = '' : signeContraire = '-'
-      console.log(listeSignes[i])
       if (listeSignesExposants[i] === 'négatif') {
         exposant = exposant * -1
       }
