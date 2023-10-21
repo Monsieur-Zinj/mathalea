@@ -20,6 +20,7 @@ export default function PremierOuPasDebut () {
   PremierOuPas.call(this)
   this.besoinFormulaireNumerique = false
   this.besoinFormulaire2CaseACocher = false
+  this.besoinFormulaire3CaseACocher = false
   this.sup3 = true
   this.level = 1
 }
