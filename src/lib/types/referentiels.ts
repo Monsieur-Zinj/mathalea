@@ -207,30 +207,55 @@ export type ReferentielInMenu = {
 export const isExerciceItemInReferentiel = (
   obj: any
 ): obj is ExerciceItemInReferentiel =>
-  obj.uuid !== undefined && obj.features !== undefined
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  Object.keys(obj).includes('uuid') &&
+  obj.uuid !== undefined &&
+  Object.keys(obj).includes('features') &&
+  obj.features !== undefined
 
 export const isJSONReferentielEnding = (
   obj: any
-): obj is JSONReferentielEnding => obj.uuid !== undefined
+): obj is JSONReferentielEnding =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  Object.keys(obj).includes('uuid') &&
+  obj.uuid !== undefined
 
 export const isTool = (obj: any): obj is ToolItemInReferentiel =>
-  obj.typeExercice === 'outil' || obj.typeExercice === 'html'
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  Object.keys(obj).includes('typeExercice') &&
+  (obj.typeExercice === 'outil' || obj.typeExercice === 'html')
 
 export const isResourceHasPlace = (
   obj: any
 ): obj is ExamItemInReferentiel | ExamWithoutTexItemInReferentiel =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  Object.keys(obj).includes('lieu') &&
   obj.lieu !== undefined
 
 export const isResourceHasMonth = (obj: any): obj is ExamItemInReferentiel =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  Object.keys(obj).includes('mois') &&
   obj.mois !== undefined
 
 export const isLevelType = (obj: any): obj is Level =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
   Object.keys(codeList).includes(obj)
 
 export const isFeatures = (obj: any): obj is Features => {
-  const keys = Object.keys(obj)
-  return keys.includes('interactif') || keys.includes('amc')
+  if (obj !== null && typeof obj !== 'undefined') {
+    return false
+  } else {
+    const keys = Object.keys(obj)
+    return keys.includes('interactif') || keys.includes('amc')
+  }
 }
+
 /**
  * Inspecte le type d'un objet et détermine s'il c'est un tableau de chaînes non vide ou pas
  * @see https://stackoverflow.com/a/50523378/6625987
@@ -246,9 +271,10 @@ export function isNonEmptyArrayOfStrings (value: unknown): value is string[] {
 }
 
 export const isRealJSONReferentielObject = (obj: any): boolean => {
-  if (typeof obj === 'string' || isNonEmptyArrayOfStrings(obj) || isFeatures(obj)) {
-    return false
-  } else {
-    return true
-  }
+  // if (typeof obj === 'string' || isNonEmptyArrayOfStrings(obj) || isFeatures(obj)) {
+  //   return false
+  // } else {
+  //   return true
+  // }
+  return isJSONReferentielEnding(Object.values(obj)[0])
 }
