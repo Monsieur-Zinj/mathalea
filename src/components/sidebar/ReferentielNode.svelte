@@ -114,12 +114,25 @@
         {#each Object.entries(subset) as [key, obj], i}
           <li>
             {#if isRealJSONReferentielObject(obj) && isParentOfStaticEnding(obj)}
-              <StaticEnding pathToThisNode={[...pathToThisNode, key]} />
+              <StaticEnding
+                pathToThisNode={[...pathToThisNode, key]}
+                referentielToDisplay={obj}
+                nestedLevelCount={nestedLevelCount + 1}
+                isEmpty={false}
+              />
             {:else if isJSONReferentielEnding(obj)}
               <ReferentielEnding
                 ending={obj}
                 nestedLevelCount={nestedLevelCount + 1}
                 class={i === Object.entries(subset).length - 1 ? 'pb-6' : ''}
+              />
+            {:else if Object.keys(obj).length === 0}
+              <!-- Terminaison vide est affichée comme un bouton désactivé -->
+              <StaticEnding
+                pathToThisNode={[...pathToThisNode, key]}
+                referentielToDisplay={obj}
+                nestedLevelCount={nestedLevelCount + 1}
+                isEmpty={true}
               />
             {:else}
               <svelte:self
