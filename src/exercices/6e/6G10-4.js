@@ -15,6 +15,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
+import { clone } from 'mathjs'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 export const amcReady = true
@@ -77,7 +78,7 @@ export default function VocabulaireDuCercle () {
     this.listeCorrections = []
     this.autoCorrection = []
     this.interactifType = this.sup2 ? 'AMCHybride' : 'mathLive'
-
+    const nbSousQuestionMax = 5 // Il y a 5 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
     let sensDesQuestionsDisponibles
     switch (Number(this.sup)) {
       case 1:
@@ -90,8 +91,8 @@ export default function VocabulaireDuCercle () {
         sensDesQuestionsDisponibles = ['Un rayon est ...', '[AB] est ...']
         break
     }
-    const nbSousQuestions = contraindreValeur(1, 5, this.sup3, 5)
-    const sensDesQuestions = combinaisonListes(sensDesQuestionsDisponibles, this.nbQuestions * nbSousQuestions)
+    const nbSousQuestions = contraindreValeur(1, 5, this.sup3, nbSousQuestionMax)
+    const sensDesQuestions = combinaisonListes(sensDesQuestionsDisponibles, this.nbQuestions * nbSousQuestionMax)
     const distanceMinEntrePoints = 2
     const distanceMinCorde = 3
     const distanceMaxCorde = 5.9
@@ -214,10 +215,12 @@ export default function VocabulaireDuCercle () {
         if (this.sup2 || context.isAmc) {
           let propositions = []
           if (question.sens === 'Un rayon est ...') {
-            propositions = propositionsUnRayonEst
+            // clone réalise la deep copy d'un array ou d'un objet... ce qui rend propositions indépendant des changements de propositionsUnRayonEst
+            propositions = clone(propositionsUnRayonEst)
           }
           if (question.sens === '[AB] est ...') {
-            propositions = propositionsABEst
+            // clone réalise la deep copy d'un array ou d'un objet... ce qui rend propositions indépendant des changements de propositionsABEst
+            propositions = clone(propositionsABEst)
           }
           for (let ee = 0; ee < propositions.length; ee++) {
             const statut = propositions[ee].texte === question.nom || propositions[ee].texte === question.nature || (question.nature === 'un diamètre' && propositions[ee].texte === 'une corde') || (question.nature === 'une corde' && propositions[ee].texte === nomDiametre)
