@@ -5,7 +5,7 @@
     ResourceAndItsPath,
     ReferentielInMenu
   } from '../../lib/types/referentiels'
-  import { allFilters } from '../store'
+  import { allFilters } from '../filtersStore'
   import {
     applyFilters,
     buildReferentiel,

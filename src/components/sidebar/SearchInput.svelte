@@ -11,11 +11,13 @@
   } from '../../lib/types/referentiels'
   import {
     exercicesParams,
-    globalOptions,
+    globalOptions
+  } from '../store'
+  import {
     allFilters,
     getSelectedFiltersObjects,
     handleUncheckingMutipleFilters
-  } from '../store'
+  } from '../filtersStore'
   import type { FilterObject, InterfaceParams } from '../../lib/types'
   import { getUniqueStringBasedOnTimeStamp, debounce } from '../utils/time'
   import Button from '../forms/Button.svelte'
