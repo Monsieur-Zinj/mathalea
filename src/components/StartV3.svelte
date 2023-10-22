@@ -7,9 +7,7 @@
     callerComponent,
     // bibliothequeSectionContent,
     bibliothequeDisplayedContent,
-
     isModalForStaticsVisible
-
   } from './store'
   import {
     mathaleaUpdateExercicesParamsFromUrl,
@@ -26,7 +24,7 @@
   import LatexIcon from './icons/LatexIcon.svelte'
   import AmcIcon from './icons/AmcIcon.svelte'
   import MoodleIcon from './icons/MoodleIcon.svelte'
-  import referentielRessources from '../json/referentielRessources.json'
+  import SideMenuBis from './sidebar/SideMenuBis.svelte'
   import handleCapytale from '../lib/handleCapytale'
 
   let divExercices: HTMLDivElement
@@ -39,43 +37,9 @@
    * Gestion des référentiels
    */
   import {
-    type JSONReferentielObject,
-    type ReferentielInMenu,
     type AppTierceGroup,
-
     isJSONReferentielEnding
-
   } from '../lib/types/referentiels'
-  import referentielAlea from '../json/referentiel2022.json'
-  import referentielStatic from '../json/referentielStatic.json'
-  const baseReferentiel: JSONReferentielObject = {
-    ...referentielAlea,
-    static: { ...referentielStatic }
-  }
-  import referentielProfs from '../json/referentielProfs.json'
-  const referentielOutils: JSONReferentielObject = { ...referentielProfs }
-  import SideMenuBis from './sidebar/SideMenuBis.svelte'
-  const referentielHtml: JSONReferentielObject = { ...referentielRessources }
-  import referentielBibliotheque from '../json/referentielBibliotheque.json'
-  const biblio: JSONReferentielObject = { ...referentielBibliotheque }
-  const referentiels: ReferentielInMenu[] = [
-    {
-      title: 'Exercices',
-      referentiel: baseReferentiel
-    },
-    {
-      title: 'Outils',
-      referentiel: referentielOutils
-    },
-    {
-      title: 'Vos ressources',
-      referentiel: referentielHtml
-    },
-    {
-      title: 'Bibliothèque',
-      referentiel: biblio
-    }
-  ]
   // Contexte pour le modal des apps tierces
   import ModalGridOfCards from './modal/ModalGridOfCards.svelte'
   let thirdAppsChoiceModal: ModalGridOfCards
@@ -334,11 +298,7 @@
             ? 'sm:h-[calc(100vh-7rem)]'
             : 'sm:h-screen'} sticky top-0 z-40 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >
-          <SideMenuBis
-            {referentiels}
-            bind:isMenuOpen
-            bind:sidebarWidth
-          />
+          <SideMenuBis bind:isMenuOpen bind:sidebarWidth />
         </div>
       </div>
 
@@ -682,18 +642,18 @@
     </div>
     <div slot="content">
       <div class="mx-2 pt-8">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {#if $bibliothequeDisplayedContent}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {#if $bibliothequeDisplayedContent}
             {#each Object.values($bibliothequeDisplayedContent) as exercise}
-            <CardForStatic
-              {exercise}
-              selected={bibliothequeUuidInExercisesList.includes(
-                exercise.uuid
-              )}
-            />
-          {/each}
-            {/if}
-          </div>
+              <CardForStatic
+                {exercise}
+                selected={bibliothequeUuidInExercisesList.includes(
+                  exercise.uuid
+                )}
+              />
+            {/each}
+          {/if}
+        </div>
       </div>
     </div>
   </ModalGridOfCards>

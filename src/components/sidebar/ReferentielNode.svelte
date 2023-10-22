@@ -34,7 +34,12 @@
       return ''
     }
   }
-
+  /**
+   * Teste si un objet de type `JSONReferentielObject` est parent
+   * d'une terminaison, c'est-à-dire d'un
+   * objet de type `JSONReferentielEnding`
+   * @param {JSONReferentielObject} obj objet à tester
+   */
   function isParentOfStaticEnding (obj: JSONReferentielObject): boolean {
     const values = Object.values(obj)
     if (values.length === 0) {
@@ -71,13 +76,15 @@
   <button
     id={'titre-liste-' + indexBase}
     type="button"
+    disabled={Object.keys(subset).length === 0}
     class="w-full flex flex-row text-start items-center justify-between font-bold cursor-pointer first-letter:first-linemarker
     {nestedLevelCount !== 1
       ? 'text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest'
       : 'text-coopmaths-struct dark:text-coopmathsdark-struct py-6'}
     {unfold && nestedLevelCount !== 1
       ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
-      : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'}"
+      : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'}
+    {Object.keys(subset).length === 0 ? 'opacity-10' : 'opacity-100'}"
     style="padding-left: {(nestedLevelCount * 2) / 5}rem"
     on:click={() => {
       unfold = !unfold

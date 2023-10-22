@@ -188,7 +188,7 @@ export function buildReferentiel (
  * @returns {JSONReferentielObject} un référentiel
  * @see https://tutorial.eyehunts.com/js/javascript-merge-objects-without-overwriting-example-code/
  */
-function mergeReferentielObjects (
+export function mergeReferentielObjects (
   ...objects: JSONReferentielObject[]
 ): JSONReferentielObject {
   const isObject = (obj: unknown) => obj && typeof obj === 'object'

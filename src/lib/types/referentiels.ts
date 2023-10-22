@@ -1,5 +1,6 @@
 import type { FrenchDateString } from './dates'
 import codeList from '../../json/codeToLevelList.json'
+import referentielsActivationList from '../../json/referentielsActivation.json'
 // ===========================================================================
 //
 //    Types des bouts de chaînes des référentiels (les données des exercices)
@@ -7,6 +8,7 @@ import codeList from '../../json/codeToLevelList.json'
 // ===========================================================================
 
 export type Level = keyof typeof codeList
+export type ActivationName = keyof typeof referentielsActivationList
 /**
  * Paramètres d'une fonctionnalité
  * @interface FeatureParams
@@ -197,6 +199,8 @@ export type ResourceAndItsPath = {
 // Type pour passer un référentiel au menu
 export type ReferentielInMenu = {
   title: string
+  name: ActivationName
+  searchable: boolean
   referentiel: JSONReferentielObject
 }
 // ===========================================================================

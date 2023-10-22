@@ -203,7 +203,7 @@ export const allFilters = writable<
   },
   types: {
     static: {
-      title: 'Exercices statiques',
+      title: 'Aléatoires seulement',
       values: ['static'],
       isSelected: false,
       clicked: 0

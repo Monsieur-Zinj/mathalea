@@ -1,24 +1,50 @@
 <script lang="ts">
   import { onDestroy } from 'svelte'
-  import type { JSONReferentielObject, ReferentielInMenu, ResourceAndItsPath } from '../../lib/types/referentiels'
+  import type {
+    JSONReferentielObject,
+    ResourceAndItsPath,
+    ReferentielInMenu
+  } from '../../lib/types/referentiels'
   import { allFilters } from '../store'
-  import { applyFilters, buildReferentiel, getAllEndings } from '../utils/refUtils'
+  import {
+    applyFilters,
+    buildReferentiel,
+    getAllEndings
+  } from '../utils/refUtils'
   import ReferentielNode from './ReferentielNode.svelte'
   import SearchBlock from './SearchBlock.svelte'
   import SideMenuApps from './SideMenuApps.svelte'
-  export let referentiels: ReferentielInMenu[] = []
+  import { referentiels, originalReferentiels, deepReferentielInMenuCopy } from '../referentielsStore'
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
-  // le premier référentiel passé est celui des exercices !!!
-  const baseReferentiel: JSONReferentielObject = referentiels[0].referentiel
-  const all = getAllEndings(baseReferentiel)
-  let filteredReferentielItems: ResourceAndItsPath[]
-  let filteredReferentiel: JSONReferentielObject
+  // const all = getAllEndings(baseReferentiel)
+  let filteredReferentielItems: ResourceAndItsPath[] = []
   // maj du référentiel chaque fois que le store `allFilters` change
   const unsubscribeToFiltersStore = allFilters.subscribe(() => {
-    filteredReferentielItems = applyFilters(all)
-    filteredReferentiel = buildReferentiel(filteredReferentielItems)
-    referentiels[0].referentiel = { ...filteredReferentiel }
+    const results: ReferentielInMenu[] = []
+    const copyOfOriginalReferentiel: ReferentielInMenu[] = deepReferentielInMenuCopy(originalReferentiels)
+    copyOfOriginalReferentiel.forEach((item) => {
+      if (item.searchable) {
+        const all = getAllEndings(item.referentiel)
+        const matchingItems: ResourceAndItsPath[] = applyFilters(all)
+        filteredReferentielItems = [
+          ...filteredReferentielItems,
+          ...matchingItems
+        ]
+        const filteredReferentiel: JSONReferentielObject =
+          buildReferentiel(matchingItems)
+        const updatedItem: ReferentielInMenu = {
+          title: item.title,
+          name: item.name,
+          searchable: item.searchable,
+          referentiel: item.referentiel = { ...filteredReferentiel }
+        }
+        results.push(updatedItem)
+      } else {
+        results.push({ ...item })
+      }
+    })
+    $referentiels = [...results]
   })
   onDestroy(() => {
     unsubscribeToFiltersStore()
@@ -38,10 +64,13 @@
         ? 'flex'
         : 'hidden'} flex-col items-start pb-4 pt-2 md:pt-4 ml-0 md:mx-0"
     >
-    <SearchBlock class="w-full flex flex-col justify-start" resourcesSet={filteredReferentielItems} />
+      <SearchBlock
+        class="w-full flex flex-col justify-start"
+        resourcesSet={filteredReferentielItems}
+      />
       <div class="mt-4 w-full">
         <!-- Affichage de tous les référentiels -->
-        {#each referentiels as item, i}
+        {#each $referentiels as item, i}
           <ReferentielNode
             bind:subset={item.referentiel}
             indexBase={i + 1}

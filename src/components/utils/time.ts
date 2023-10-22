@@ -80,3 +80,12 @@ export function debounce<T extends (...args: any[])=> void> (callback: T, delay:
     }
   }
 }
+
+/**
+ * Compte à rebours
+ * @param time {number} le temps à décompter en ms
+ * @returns promise
+ */
+export function delay (time: number) {
+  return new Promise(resolve => setTimeout(resolve, time))
+}
