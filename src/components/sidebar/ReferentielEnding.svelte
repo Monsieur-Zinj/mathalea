@@ -162,21 +162,23 @@
           </div>
         {:else if isResourceHasPlace(ending)}
           <!-- Exercices d'annales -->
-          <span class="font-bold">
-            {ending.typeExercice.toUpperCase()}
-            {#if isResourceHasMonth(ending)}
-              {ending.mois}
-            {/if}
-            {ending.annee} - {ending.lieu} - {ending.numeroInitial}
-          </span>
-          <div class="pl-2">
-            {#each ending.tags as tag}
-              <span
-                class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 py-px leading-snug font-semibold mr-1"
-              >
-                {tag}
-              </span>
-            {/each}
+          <div class="text-start">
+            <span class="font-bold">
+              {ending.typeExercice.toUpperCase()}
+              {#if isResourceHasMonth(ending)}
+                {ending.mois}
+              {/if}
+              {ending.annee} - {ending.lieu} - {ending.numeroInitial}
+            </span>
+            <div class="pl-2">
+              {#each ending.tags as tag}
+                <span
+                  class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 py-px leading-snug font-semibold mr-1"
+                >
+                  {tag}
+                </span>
+              {/each}
+            </div>
           </div>
         {:else if isTool(ending)}
           <!-- Outils -->
@@ -187,7 +189,7 @@
           </div>
         {:else}
           <!-- Exercice de la bibliothèque -->
-          <div class="text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          <div class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus">
             <span class="font-bold">{ending.uuid}</span>
           </div>
         {/if}

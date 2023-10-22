@@ -1,4 +1,6 @@
 <script>
+  import { isModalForStaticsVisible } from '../store'
+
   export let displayModal // boolean
   export const closeModal = () => {
     dialog.close()
@@ -31,7 +33,10 @@
     <button
       class="absolute top-3 right-3"
       autofocus
-      on:click={() => dialog.close()}
+      on:click={() => {
+        dialog.close()
+        $isModalForStaticsVisible = false
+      }}
     >
       <i
         class="bx bx-x text-2xl text-coopmaths-action hover:text-coopmaths-action-lightest"

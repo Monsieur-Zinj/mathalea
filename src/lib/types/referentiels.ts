@@ -86,6 +86,26 @@ export interface BaseItemInReferentiel {
 }
 
 /**
+ * Description d'une ressource d'un exercice CRPE dans un référentiel
+ * @interface crpeItemInreferentiel
+ * @extends BaseItemInReferentiel
+ * @property {string[]} png : liste des chemins vers les images des contenus de la ressource
+ * @property {string[]} pngCor : liste des chemins vers les images des correction des contenus de la ressource
+ * @property {string} tex: chemin vers le source LaTeX du contenu
+ * @property {string} texCor: chemin vers le source LaTeX de la correction du contenu
+ */
+export interface crpeItemInreferentiel extends BaseItemInReferentiel {
+  png: string[]
+  pngCor: string[]
+  tex?: string
+  texCor?: string
+  annee: string
+  lieu: string
+  numeroInitial: string
+  typeExercice: 'crpe'
+}
+
+/**
  * Description d'une ressource statique dans un référentiel
  * @interface StaticItemInreferentiel
  * @extends BaseItemInReferentiel
@@ -95,11 +115,11 @@ export interface BaseItemInReferentiel {
  * @property {string} texCor: chemin vers le source LaTeX de la correction du contenu
  */
 export interface StaticItemInreferentiel extends BaseItemInReferentiel {
-  png: string[]
-  pngCor: string[]
+  png: string
+  pngCor: string
   tex: string
   texCor: string
-  typeExercice: 'static' | 'dnb' | 'bac' | 'crpe'
+  typeExercice: 'static' | 'dnb' | 'bac' | 'e3c'
 }
 
 /**
@@ -116,26 +136,7 @@ export interface ExamItemInReferentiel extends StaticItemInreferentiel {
   annee: string
   lieu: string
   numeroInitial: string
-  typeExercice: 'dnb' | 'bac' | 'crpe'
-}
-
-/**
- * Description dans un référentiel d'une ressource venant d'examen dont on ne dispose pas des sources LaTeX
- * @interface ExamWithoutTexItemInReferentiel
- * @extends BaseItemInReferentiel
- * @property {string[]} png : liste des chemins vers les images des contenus de la ressource
- * @property {string[]} pngCor : liste des chemins vers les images des correction des contenus de la ressource
- * @property {string} annee : année de la publication de l'examen
- * @property {string} lieu : endroit où a été diffusé l'examen
- * @property {string} numeroInitial : numérode positionnement de l'exercice dans le sujet initial de l'examen
- */
-export interface ExamWithoutTexItemInReferentiel extends BaseItemInReferentiel {
-  png: string[]
-  pngCor: string[]
-  annee: string
-  lieu: string
-  numeroInitial: string
-  typeExercice: 'crpe' | 'e3c'
+  typeExercice: 'dnb' | 'bac'
 }
 
 /**
@@ -180,7 +181,6 @@ export type JSONReferentielEnding =
   // | BaseItemInReferentiel  <-- pas de terminaison aussi basique
   | StaticItemInreferentiel
   | ExamItemInReferentiel
-  | ExamWithoutTexItemInReferentiel
   | ExerciceItemInReferentiel
   | ToolItemInReferentiel
 // Type pour un référentiel complet
@@ -230,7 +230,7 @@ export const isTool = (obj: any): obj is ToolItemInReferentiel =>
 
 export const isResourceHasPlace = (
   obj: any
-): obj is ExamItemInReferentiel | ExamWithoutTexItemInReferentiel =>
+): obj is ExamItemInReferentiel | crpeItemInreferentiel =>
   obj !== null &&
   typeof obj !== 'undefined' &&
   Object.keys(obj).includes('lieu') &&
@@ -271,10 +271,16 @@ export function isNonEmptyArrayOfStrings (value: unknown): value is string[] {
 }
 
 export const isRealJSONReferentielObject = (obj: any): boolean => {
-  // if (typeof obj === 'string' || isNonEmptyArrayOfStrings(obj) || isFeatures(obj)) {
-  //   return false
-  // } else {
-  //   return true
-  // }
-  return isJSONReferentielEnding(Object.values(obj)[0])
+  if (typeof obj === 'string' || isNonEmptyArrayOfStrings(obj) || isFeatures(obj)) {
+    return false
+  } else {
+    return true
+  }
 }
+
+export const isStaticType = (obj: any): obj is StaticItemInreferentiel =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  Object.keys(obj).includes('png') &&
+  obj.png !== undefined &&
+  !isNonEmptyArrayOfStrings(obj.png)

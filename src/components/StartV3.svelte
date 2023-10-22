@@ -5,7 +5,11 @@
     darkMode,
     isSideMenuVisible,
     callerComponent,
-    bibliothequeSectionContent
+    // bibliothequeSectionContent,
+    bibliothequeDisplayedContent,
+
+    isModalForStaticsVisible
+
   } from './store'
   import {
     mathaleaUpdateExercicesParamsFromUrl,
@@ -23,14 +27,13 @@
   import AmcIcon from './icons/AmcIcon.svelte'
   import MoodleIcon from './icons/MoodleIcon.svelte'
   import referentielRessources from '../json/referentielRessources.json'
-  import { toMap } from './utils/toMap'
-  import type { ReferentielForList } from '../lib/types'
   import handleCapytale from '../lib/handleCapytale'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
   $: isMenuOpen = $isSideMenuVisible
+  $: isModalForStaticsOpen = $isModalForStaticsVisible
 
   /**
    * Gestion des référentiels
@@ -38,7 +41,10 @@
   import {
     type JSONReferentielObject,
     type ReferentielInMenu,
-    type AppTierceGroup
+    type AppTierceGroup,
+
+    isJSONReferentielEnding
+
   } from '../lib/types/referentiels'
   import referentielAlea from '../json/referentiel2022.json'
   import referentielStatic from '../json/referentielStatic.json'
@@ -103,18 +109,7 @@
   })
   // Contexte pour la bibliothèque de statiques
   import BreadcrumbHeader from './sidebar/BreadcrumbHeader.svelte'
-  import ImageCard from './ui/ImageCard.svelte'
-  const bibliothequeReferentielArray = Array.from(
-    toMap({ ...referentielBibliotheque }),
-    ([key, obj]) => ({ key, obj })
-  )
-  const bibliothequeReferentielForSideMenu: ReferentielForList = {
-    name: 'statiques',
-    title: 'Exercices non aléatoires',
-    content: [...bibliothequeReferentielArray],
-    type: 'bibliotheque',
-    activated: false
-  }
+  import CardForStatic from './ui/CardForStatic.svelte'
   let showBibliothequeChoiceDialog = false
   let bibliothequeChoiceModal: ModalGridOfCards
   let bibliothequeUuidInExercisesList: string[]
@@ -125,9 +120,11 @@
     for (const entry of $exercicesParams) {
       uuidList.push(entry.uuid)
     }
-    for (const exo of $bibliothequeSectionContent) {
-      if (uuidList.includes(exo.uuid)) {
-        bibliothequeUuidInExercisesList.push(exo.uuid)
+    if ($bibliothequeDisplayedContent) {
+      for (const item of Object.values($bibliothequeDisplayedContent)) {
+        if (isJSONReferentielEnding(item) && uuidList.includes(item.uuid)) {
+          bibliothequeUuidInExercisesList.push(item.uuid)
+        }
       }
     }
     bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
@@ -678,27 +675,25 @@
   </ModalGridOfCards>
   <ModalGridOfCards
     bind:this={bibliothequeChoiceModal}
-    bind:displayModal={showBibliothequeChoiceDialog}
+    bind:displayModal={isModalForStaticsOpen}
   >
     <div slot="header">
       <BreadcrumbHeader path={bibliothequePathToSection} />
     </div>
     <div slot="content">
       <div class="mx-2 pt-8">
-        {#if $bibliothequeSectionContent.length === 0}
-          <div>Pas d'exercices dans cette section</div>
-        {:else}
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {#each $bibliothequeSectionContent as exercise}
-              <ImageCard
-                {exercise}
-                selected={bibliothequeUuidInExercisesList.includes(
-                  exercise.uuid
-                )}
-              />
-            {/each}
+            {#if $bibliothequeDisplayedContent}
+            {#each Object.values($bibliothequeDisplayedContent) as exercise}
+            <CardForStatic
+              {exercise}
+              selected={bibliothequeUuidInExercisesList.includes(
+                exercise.uuid
+              )}
+            />
+          {/each}
+            {/if}
           </div>
-        {/if}
       </div>
     </div>
   </ModalGridOfCards>
