@@ -7,7 +7,7 @@ import referentielsActivationList from '../../json/referentielsActivation.json'
 //
 // ===========================================================================
 
-export type Level = keyof typeof codeList
+export type Level = keyof typeof codeList | 'alea'
 export type ActivationName = keyof typeof referentielsActivationList
 /**
  * Paramètres d'une fonctionnalité

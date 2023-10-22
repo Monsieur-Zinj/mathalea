@@ -17,10 +17,9 @@
   import { referentiels, originalReferentiels, deepReferentielInMenuCopy } from '../referentielsStore'
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
-  // const all = getAllEndings(baseReferentiel)
-  let filteredReferentielItems: ResourceAndItsPath[] = []
   // maj du référentiel chaque fois que le store `allFilters` change
   const unsubscribeToFiltersStore = allFilters.subscribe(() => {
+    let filteredReferentielItems: ResourceAndItsPath[] = []
     const results: ReferentielInMenu[] = []
     const copyOfOriginalReferentiel: ReferentielInMenu[] = deepReferentielInMenuCopy(originalReferentiels)
     copyOfOriginalReferentiel.forEach((item) => {
@@ -49,6 +48,16 @@
   onDestroy(() => {
     unsubscribeToFiltersStore()
   })
+
+  const buildHaystack = (refList: ReferentielInMenu[]): ResourceAndItsPath[] => {
+    let result: ResourceAndItsPath[] = []
+    for (const item of refList) {
+      if (item.searchable) {
+        result = [...result, ...getAllEndings(item.referentiel)]
+      }
+    }
+    return result
+  }
 </script>
 
 <aside
@@ -66,7 +75,7 @@
     >
       <SearchBlock
         class="w-full flex flex-col justify-start"
-        resourcesSet={filteredReferentielItems}
+        resourcesSet={buildHaystack($referentiels)}
       />
       <div class="mt-4 w-full">
         <!-- Affichage de tous les référentiels -->

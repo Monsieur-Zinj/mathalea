@@ -1,7 +1,6 @@
 import { get, writable } from 'svelte/store'
 import type { DisplayedFilter, FilterObject, FilterType } from '../lib/types'
 import type { Features, Level } from '../lib/types/referentiels'
-
 // pour sauvegarder les sélections de filtres
 export const allFilters = writable<
   Record<FilterType, DisplayedFilter<string | Level>>
@@ -89,8 +88,14 @@ export const allFilters = writable<
     }
   },
   types: {
-    static: {
+    alea: {
       title: 'Aléatoires seulement',
+      values: ['alea'],
+      isSelected: false,
+      clicked: 0
+    },
+    static: {
+      title: 'Statiques seulement',
       values: ['static'],
       isSelected: false,
       clicked: 0

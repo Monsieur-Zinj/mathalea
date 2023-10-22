@@ -6,7 +6,8 @@ import {
   type Level,
   isResourceHasPlace,
   isLevelType,
-  isTool
+  isTool,
+  isStaticType
 } from './referentiels'
 
 /**
@@ -211,6 +212,13 @@ export function levelCriterion (
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
       return items.filter((item) => {
+        // static est considéré comme un niveau particulier
+        if (level === 'alea') {
+          return !isStaticType(item.resource)
+        }
+        if (level === 'static') {
+          return isStaticType(item.resource)
+        }
         // CAN est considéré comme un niveau donc on court-circuite les tests
         if (level === 'CAN') {
           return item.pathToResource[0] === level
