@@ -2,8 +2,8 @@
   import { slide } from 'svelte/transition'
   import {
     isJSONReferentielEnding,
+    isParentOfStaticEnding,
     isRealJSONReferentielObject,
-    type JSONReferentielEnding,
     type JSONReferentielObject
   } from '../../lib/types/referentiels'
   import { codeToLevelTitle } from '../utils/refUtils'
@@ -33,23 +33,6 @@
       return [' : ', themes.get(themeCode).get('titre')].join('')
     } else {
       return ''
-    }
-  }
-  /**
-   * Teste si un objet de type `JSONReferentielObject` est parent
-   * d'une terminaison, c'est-à-dire d'un
-   * objet de type `JSONReferentielEnding`
-   * @param {JSONReferentielObject} obj objet à tester
-   */
-  function isParentOfStaticEnding (obj: JSONReferentielObject): obj is Record<string, JSONReferentielEnding> {
-    const values = Object.values(obj)
-    if (values.length === 0) {
-      return false
-    } else {
-      return (
-        isJSONReferentielEnding(values[0]) &&
-        values[0].typeExercice === 'static'
-      )
     }
   }
 </script>
