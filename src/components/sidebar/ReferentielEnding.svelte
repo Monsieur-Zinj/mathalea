@@ -57,7 +57,7 @@
    * Ajouter l'exercice courant à la liste
    */
   function addToList () {
-    console.log('before -> uuids: ' + $exercicesParams.map((item) => item.uuid))
+    // console.log('before -> uuids: ' + $exercicesParams.map((item) => item.uuid))
     const newExercise = {
       uuid: ending.uuid,
       interactif: '0'
@@ -69,7 +69,7 @@
       newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
-    console.log('now -> uuids: ' + $exercicesParams.map((item) => item.uuid))
+    // console.log('now -> uuids: ' + $exercicesParams.map((item) => item.uuid))
   }
   /**
    * Retirer l'exercice de la liste (si plusieurs occurences
