@@ -43,11 +43,10 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
           }
           let resultat = 'KO'
-          // let statut = 'OK'
           let feedbackSaisie
           let feedbackCorrection
           let ii = 0
-          while ((resultat === 'KO') && (ii < reponses.length)) {
+          while ((resultat !== 'OK') && (ii < reponses.length)) {
             reponse = reponses[ii]
             switch (formatInteractif) {
               case 'Num':
@@ -74,6 +73,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 // La réponse est transformée en chaine compatible avec engine.parse()
                 reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
                 saisie = saisie.replaceAll('²', '^2')
+                saisie = saisie.replaceAll('^{}', '')
                 saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
                 saisie = saisie.replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
                 if (!isNaN(reponse)) {
@@ -81,9 +81,9 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                     resultat = 'OK'
                   }
                 } else {
-                  const reponseCanonique = engine.parse(reponse)
-                  const saisieCanonique = engine.parse(saisie)
-                  if (reponseCanonique.isEqual(saisieCanonique)) { // engine.parse() retourne du canonical par défaut.
+                  const reponseNonCanonique = engine.parse(reponse, { canonical: false })
+                  const saisieNonCanonique = engine.parse(saisie, { canonical: false })
+                  if (reponseNonCanonique.isSame(saisieNonCanonique)) { // engine.parse() retourne du canonical par défaut.
                     resultat = 'OK'
                   }
                 }
@@ -95,7 +95,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 }
                 break
               case 'formeDeveloppee':
-                saisie = champTexte.value.replaceAll(',', '.')
+                saisie = champTexte.value.replaceAll(',', '.').replaceAll('^{}', '').replaceAll('²', '^2')
                 reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
                 saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
                 if (!saisie.includes('times') && engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
@@ -145,7 +145,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   saisie = champTexte.value.replace(',', '.')
                   fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
                   saisieParsee = engine.parse(saisie, { canonical: true })
-                  console.log(saisieParsee.json, fReponse.json)
                   if (saisieParsee.json[0] === 'Rational') {
                     if (saisieParsee.canonical.isSame(fReponse.canonical) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
                   }
@@ -232,12 +231,12 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 nombreSaisi = Number(saisie)
                 if (saisie !== '' && nombreSaisi >= exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi <= exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
                 break
-              case 'puissance' :
+              case 'puissance' : {
                 saisie = champTexte.value.replace(',', '.')
                 // formatOK et formatKO sont deux variables globales,
                 // sinon dans le cas où reponses est un tableau, la valeur n'est pas conservée d'un tour de boucle sur l'autre
                 // eslint-disable-next-line no-var
-                let formatOK, formatKO
+                let formatOK; let formatKO
                 if (saisie.indexOf('^') !== -1) {
                   nombreSaisi = saisie.split('^')
                   mantisseSaisie = nombreSaisi[0]
@@ -280,10 +279,10 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                         formatKO = true
                       }
                     }
-                  }
-                  if (parseInt(expoReponse) > 0) {
+                  } else if (parseInt(expoReponse) > 0) {
                     if (nombreSaisi === `${mantisseReponse ** (expoReponse)}`) {
-                      formatKO = true
+                      if (expoReponse !== '1') formatKO = true
+                      else formatOK = true // Au cas où l'exposant soit 1
                     }
                   }
                   if (parseInt(expoReponse) === 0) {
@@ -294,10 +293,10 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 }
                 if (formatOK) {
                   resultat = 'OK'
-                }
-                if (formatKO) {
+                } else if (formatKO) {
                   resultat = 'essaieEncorePuissance'
                 }
+              }
                 break
             }
             ii++

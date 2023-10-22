@@ -7,7 +7,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { personne } from '../../../lib/outils/Personne.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Lire une durée'
 export const dateDePublication = '4/11/2021'
@@ -90,7 +90,7 @@ export default function LireUneDuree () {
     (context.isHtml ? '</td></tr></table>' : '\\end{multicols}\n') +
           'Combien de temps cela a-t-il duré ?'
     this.reponse = `${h2 - h1}h ${m2 - m1}`
-    this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de $${calcul((m2 - m1) / 5)}$ graduations soit $${m2 - m1}$ minutes.<br>`
+    this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de $${calculANePlusJamaisUtiliser((m2 - m1) / 5)}$ graduations soit $${m2 - m1}$ minutes.<br>`
     this.correction += 'Ensuite on regarde si la petite aiguille a avancé d\'au moins une graduation.<br>'
     if (h2 === h1) {
       this.correction += `Ce n'est pas le cas, donc il s'est écoulé seulement $0$ h $${m2 - m1}$ minutes.`

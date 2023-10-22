@@ -2,12 +2,19 @@
   "groupe01": {
     "rubrique": "Applications d'Arnaud Durand",
     "liste": {
-      "app01": {
-        "title":"Permis Littéral",
+      "permisLitteralRed": {
+        "title":"Permis Littéral - Réduire",
         "presentation":
-          "L’idée de ce programme est de proposer une étape certificatrice et formatrice dans le processus d’apprentissage sur le calcul littéral en 5e notamment sur la réduction.",
-        "imgPath": "images/apps/app_permis_litteral.png",
-        "uuid": "permisLitteral"
+          "L’idée de ce programme est de proposer une étape certificatrice et formatrice dans le processus d’apprentissage sur le calcul littéral en 5e sur la réduction.",
+        "imgPath": "images/apps/app_permis_litteral_reduire.png",
+        "uuid": "permisLitteralReduire"
+      },
+      "permisLitteralDevFact": {
+        "title":"Permis Littéral - Développer et factoriser",
+        "presentation":
+          "L’idée de ce programme est de proposer une étape certificatrice et formatrice dans le processus d’apprentissage sur le calcul littéral à partir de la 5e sur la distributivité et la factorisation.",
+        "imgPath": "images/apps/app_permis_litteral_developper_reduire.png",
+        "uuid": "permisLitteralDevFact"
       },
       "app02": {
         "title":"Permis Équerre",
@@ -15,6 +22,13 @@
           "Exerciseur certifiant qui permet d’apprendre puis certifier l’usage de l’équerre.",
         "imgPath": "images/apps/app_permis_equerre.png",
         "uuid": "permisEquerre"
+      },
+      "app03": {
+        "title":"Priorités opératoires",
+        "presentation":
+          "L'élève doit choisir l'opération à effectuer en premier dans un calcul.",
+        "imgPath": "images/apps/app_priorites_operatoires.png",
+        "uuid": "prioritesOperatoires"
       }
     }
   },
@@ -32,6 +46,12 @@
         "presentation": "Calculs avec des nombres relatifs en temps limité.",
         "imgPath": "images/apps/app_challenge_relatifs.png",
         "uuid": "challengeRelatif"
+      },
+      "app03": {
+        "title": "Parcours tables",
+        "presentation": "Parcours personnalisé sur les tables de multiplications qui s'adapte aux erreurs pour reproposer les tables où l'élève fait des erreurs.",
+        "imgPath": "images/apps/app_challenge_tables.png",
+        "uuid": "parcoursTables"
       }
     }
   }

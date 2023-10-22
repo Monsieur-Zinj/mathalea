@@ -7,7 +7,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "16/12/2021",
+    "dateModification": "24/10/2021"
   },
   "1AN11": {
     "url": "1e/1AN11.js",
@@ -17,7 +19,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "16/12/2021",
+    "dateModification": "24/10/2021"
   },
   "1AN14-4": {
     "url": "1e/1AN14-4.js",
@@ -28,7 +32,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "22/01/2022"
   },
   "1AN14-5": {
     "url": "1e/1AN14-5.js",
@@ -39,7 +44,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "22/01/2022"
   },
   "1AN14-6": {
     "url": "1e/1AN14-6.js",
@@ -81,7 +87,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "26/10/2022"
   },
   "1E11-2": {
     "url": "1e/1E11-2.js",
@@ -155,7 +162,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "27/10/2022"
   },
   "1E13": {
     "url": "1e/1E13.js",
@@ -186,7 +194,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "30/10/2021"
   },
   "1E16": {
     "url": "1e/1E16.js",
@@ -206,7 +215,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "27/10/2022"
   },
   "1E18": {
     "url": "1e/1E18.js",
@@ -216,7 +226,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "28/10/2022"
   },
   "1F10": {
     "url": "1e/1F10.js",
@@ -237,7 +248,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "16/04/2022"
   },
   "1G11": {
     "url": "1e/1G11.js",
@@ -248,7 +260,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "20/04/2022"
   },
   "1G12": {
     "url": "1e/1G12.js",
@@ -259,7 +272,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "20/04/2022"
   },
   "1N10": {
     "url": "1e/1N10.js",
@@ -290,7 +304,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "30/11/2021"
   },
   "1N12-1": {
     "url": "1e/1N12-1.js",
@@ -301,7 +316,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "28/12/2022"
   },
   "1N13": {
     "url": "1e/1N13.js",
@@ -312,7 +328,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "28/12/2022"
   },
   "1P10": {
     "url": "1e/1P10.js",
@@ -322,7 +339,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021",
+    "dateModification": "24/10/2021"
   },
   "200A1-01": {
     "url": "2e/200A1-01.js",
@@ -333,7 +352,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "11/07/2023",
+    "dateModification": "11/07/2023"
   },
   "200F3-01": {
     "url": "2e/200F3-01.js",
@@ -344,7 +365,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "11/07/2023",
+    "dateModification": "11/07/2023"
   },
   "200F3-02": {
     "url": "2e/200F3-02.js",
@@ -355,7 +378,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "11/07/2023",
+    "dateModification": "11/07/2023"
   },
   "2F10-1": {
     "url": "2e/2F10-1.js",
@@ -379,7 +404,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "25/05/2023"
   },
   "2F10-3": {
     "url": "2e/2F10-3.js",
@@ -389,7 +415,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "08/05/2023"
   },
   "2F10-4": {
     "url": "2e/2F10-4.js",
@@ -400,7 +427,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "14/05/2023"
   },
   "2F10-5": {
     "url": "2e/2F10-5.js",
@@ -410,7 +438,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "06/07/2023"
   },
   "2F10-6": {
     "url": "2e/2F10-6.js",
@@ -420,7 +449,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "18/05/2023"
   },
   "2F10-7": {
     "url": "2e/2F10-7.js",
@@ -430,7 +460,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "01/10/2022"
   },
   "2F10-8": {
     "url": "2e/2F10-8.js",
@@ -441,7 +472,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "17/05/2023",
+    "dateModification": "21/05/2023"
   },
   "2F11-1": {
     "url": "2e/2F11-1.js",
@@ -453,7 +486,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "18/01/2022",
+    "dateModification": "24/10/2021"
   },
   "2F11-2": {
     "url": "2e/2F11-2.js",
@@ -463,7 +498,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "14/02/2023"
   },
   "2F12-1": {
     "url": "2e/2F12-1.js",
@@ -473,7 +509,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "07/01/2022"
   },
   "2F12-2": {
     "url": "2e/2F12-2.js",
@@ -483,7 +520,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "14/02/2023"
   },
   "2F20-1": {
     "url": "2e/2F20-1.js",
@@ -501,9 +539,12 @@
     "id": "2F20-2",
     "titre": "Calculer des coordonnées de points appartenant à une coube connaissant l'abscisse ou l'ordonnée",
     "tags": {
-      "interactif": false,
+      "interactif": true,
+      "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "24/09/2022",
+    "dateModification": "04/10/2023"
   },
   "2F21-1": {
     "url": "2e/2F21-1.js",
@@ -513,7 +554,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "14/02/2023"
   },
   "2F22-1": {
     "url": "2e/2F22-1.js",
@@ -524,7 +566,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "06/07/2023"
   },
   "2F22-3": {
     "url": "2e/2F22-3.js",
@@ -534,7 +577,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "06/07/2023"
   },
   "2F23-1": {
     "url": "2e/2F23-1.js",
@@ -544,7 +588,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "20/06/2023"
   },
   "2F25-1": {
     "url": "2e/2F25-1.js",
@@ -566,7 +611,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "dateModification": "19/06/2023"
   },
   "2F30-1": {
     "url": "2e/2F30-1.js",
@@ -576,7 +622,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "14/02/2023"
   },
   "2F31-1": {
     "url": "2e/2F31-1.js",
@@ -586,7 +633,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "07/01/2022"
   },
   "2F31-2": {
     "url": "2e/2F31-2.js",
@@ -596,7 +644,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "31/01/2022",
+    "dateModification": "12/07/2023"
   },
   "2F31-3": {
     "url": "2e/2F31-3.js",
@@ -607,7 +657,9 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021",
+    "dateModification": "17/05/2023"
   },
   "2F32-2": {
     "url": "2e/2F32-2.js",
@@ -619,7 +671,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "1/08/2021",
+    "dateModification": "5/08/2022"
   },
   "2F32-2B": {
     "url": "2e/2F32-2B.js",
@@ -630,7 +684,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "27/06/2023"
   },
   "2F32-3": {
     "url": "2e/2F32-3.js",
@@ -640,7 +695,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "20/12/2021"
   },
   "2G10-1": {
     "url": "2e/2G10-1.js",
@@ -751,7 +807,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "29/01/2023"
   },
   "2G22-1": {
     "url": "2e/2G22-1.js",
@@ -767,12 +824,14 @@
     "url": "2e/2G23-1.js",
     "uuid": "d2b57",
     "id": "2G23-1",
-    "titre": "Déterminer graphiquement les images de points par des translations",
+    "titre": "Déterminer graphiquement des images par des translations",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "13/07/2023",
+    "dateModification": "15/10/2023"
   },
   "2G23-2": {
     "url": "2e/2G23-2.js",
@@ -783,7 +842,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "09/07/2023"
   },
   "2G24-1": {
     "url": "2e/2G24-1.js",
@@ -794,7 +854,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "30/06/2023"
   },
   "2G24-2": {
     "url": "2e/2G24-2.js",
@@ -805,7 +866,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "21/05/2023"
   },
   "2G24-3": {
     "url": "2e/2G24-3.js",
@@ -816,7 +878,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "28/05/2023"
   },
   "2G24-4": {
     "url": "2e/2G24-4.js",
@@ -827,7 +890,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "28/05/2023",
+    "dateModification": "14/06/2023"
   },
   "2G24-5": {
     "url": "2e/2G24-5.js",
@@ -838,7 +903,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "12/06/2023"
   },
   "2G30-1": {
     "url": "2e/2G30-1.js",
@@ -861,7 +927,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "26/04/2023"
   },
   "2G30-3": {
     "url": "2e/2G30-3.js",
@@ -935,7 +1002,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "27/10/2021"
   },
   "2N10-2": {
     "url": "2e/2N10-2.js",
@@ -947,7 +1015,8 @@
       "interactifType": "custom",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "27/10/2021"
   },
   "2N10-3": {
     "url": "2e/2N10-3.js",
@@ -959,7 +1028,8 @@
       "interactifType": "custom",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "27/10/2021"
   },
   "2N11-1": {
     "url": "2e/2N11-1.js",
@@ -991,7 +1061,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "14/05/2023"
   },
   "2N12-2": {
     "url": "2e/2N12-2.js",
@@ -1002,7 +1073,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "05/09/2023"
   },
   "2N12-3": {
     "url": "2e/2N12-3.js",
@@ -1013,7 +1085,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "28/09/2022"
   },
   "2N13-1": {
     "url": "2e/2N13-1.js",
@@ -1024,7 +1097,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "dateModification": "27/10/2021"
   },
   "2N14-1": {
     "url": "2e/2N14-1.js",
@@ -1036,7 +1110,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "26/08/2023"
   },
   "2N15-1": {
     "url": "2e/2N15-1.js",
@@ -1067,7 +1142,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "28/10/2021"
   },
   "2N20-2": {
     "url": "2e/2N20-2.js",
@@ -1078,7 +1154,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "dateModification": "29/10/2021"
   },
   "2N20-3": {
     "url": "2e/2N20-3.js",
@@ -1088,7 +1165,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "29/10/2021"
   },
   "2N20-4": {
     "url": "2e/2N20-4.js",
@@ -1100,7 +1178,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "dateModification": "29/10/2021"
   },
   "2N20-5": {
     "url": "2e/2N20-5.js",
@@ -1111,7 +1190,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "2/11/2021"
   },
   "2N20-6": {
     "url": "2e/2N20-6.js",
@@ -1121,7 +1201,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "02/06/2023"
   },
   "2N20-7": {
     "url": "2e/2N20-7.js",
@@ -1131,7 +1212,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "14/11/2021"
   },
   "2N20-8": {
     "url": "2e/2N20-8.js",
@@ -1230,7 +1312,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "14/06/2022"
   },
   "2N31-1": {
     "url": "2e/2N31-1.js",
@@ -1254,7 +1337,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "14/09/2023"
   },
   "2N31-3": {
     "url": "2e/2N31-3.js",
@@ -1290,7 +1374,8 @@
       "interactifType": "mathLive",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "05/09/2023"
   },
   "2N31-6": {
     "url": "2e/2N31-6.js",
@@ -1302,7 +1387,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "08/09/2023"
   },
   "2N31-7": {
     "url": "2e/2N31-7.js",
@@ -1314,7 +1400,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "08/09/2023"
   },
   "2N31-8": {
     "url": "2e/2N31-8.js",
@@ -1325,7 +1412,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "05/02/2021",
+    "dateModification": "09/09/2023"
   },
   "2N31-9": {
     "url": "2e/2N31-9.js",
@@ -1337,7 +1426,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "12/09/2023"
   },
   "2N32-1": {
     "url": "2e/2N32-1.js",
@@ -1363,12 +1453,13 @@
     "url": "2e/2N32-3.js",
     "uuid": "d9495",
     "id": "2N32-3",
-    "titre": "Écrire le nombre proposé sous la forme $ a\\sqrt{b}$",
+    "titre": "Écrire le nombre proposé sous la forme $\\;a\\sqrt{b}$",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "26/04/2023"
   },
   "2N32-4": {
     "url": "2e/2N32-4.js",
@@ -1421,7 +1512,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "09/05/2023"
   },
   "2N40-1": {
     "url": "2e/2N40-1.js",
@@ -1558,7 +1650,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "26/04/2023"
   },
   "2N41-7": {
     "url": "2e/2N41-7.js",
@@ -1589,7 +1682,32 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "23/04/2023"
+  },
+  "2N42-1": {
+    "url": "2e/2N42-1.js",
+    "uuid": "ef686",
+    "id": "2N42-1",
+    "titre": "Exprimer une variable en fonction des autres",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "25/09/2023"
+  },
+  "2N42-2": {
+    "url": "2e/2N42-2.js",
+    "uuid": "96bac",
+    "id": "2N42-2",
+    "titre": "Exprimer une variable en fonction des autres à  partir de formules mathématiques",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "02/10/2023"
   },
   "2N42-3": {
     "url": "2e/2N42-3.js",
@@ -1599,7 +1717,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "26/06/2023"
   },
   "2N50-1": {
     "url": "2e/2N50-1.js",
@@ -1611,7 +1730,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "15/02/2022",
+    "dateModification": "05/06/2023"
   },
   "2N50-2": {
     "url": "2e/2N50-2.js",
@@ -1631,7 +1752,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "16/12/2021"
   },
   "2N50-4": {
     "url": "2e/2N50-4.js",
@@ -1641,7 +1763,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "16/12/2021"
   },
   "2N51-1": {
     "url": "2e/2N51-1.js",
@@ -1744,7 +1867,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "02/05/2023"
   },
   "2N60-1": {
     "url": "2e/2N60-1.js",
@@ -1754,7 +1878,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "14/02/2023"
   },
   "2N60-3": {
     "url": "2e/2N60-3.js",
@@ -1764,7 +1889,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "14/02/2023"
   },
   "2N60-4": {
     "url": "2e/2N60-4.js",
@@ -1786,7 +1912,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "22/05/2023"
   },
   "2N60-6": {
     "url": "2e/2N60-6.js",
@@ -1796,7 +1923,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "25/05/2023"
   },
   "2N61-2": {
     "url": "2e/2N61-2.js",
@@ -1807,7 +1935,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "03/04/2022"
   },
   "2N61-4": {
     "url": "2e/2N61-4.js",
@@ -1818,7 +1947,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "03/04/2022"
   },
   "2S10-1": {
     "url": "2e/2S10-1.js",
@@ -1828,7 +1958,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "21/04/2023"
   },
   "2S10-2": {
     "url": "2e/2S10-2.js",
@@ -1840,7 +1971,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "9/12/2021",
+    "dateModification": "28/04/2023"
   },
   "2S10-3": {
     "url": "2e/2S10-3.js",
@@ -1852,7 +1985,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "10/05/2023"
   },
   "2S11-1": {
     "url": "2e/2S11-1.js",
@@ -1874,7 +2008,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "06/01/2022"
   },
   "2S12-2": {
     "url": "2e/2S12-2.js",
@@ -1885,7 +2020,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "06/01/2022",
+    "dateModification": "04/05/2023"
   },
   "2S12-3": {
     "url": "2e/2S12-3.js",
@@ -1896,7 +2033,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "16/01/2022"
   },
   "2S20-1": {
     "url": "2e/2S20-1.js",
@@ -1973,7 +2111,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "28/12/2021",
+    "dateModification": "30/08/2022"
   },
   "3A10": {
     "url": "3e/3A10.js",
@@ -1984,6 +2124,19 @@
       "interactif": false,
       "amc": false
     }
+  },
+  "3A10-0": {
+    "url": "3e/3A10-0.js",
+    "uuid": "3e436",
+    "id": "3A10-0",
+    "titre": "Reconnaître les premiers nombres premiers",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm",
+      "amcType": "qcmMono",
+      "amc": true
+    },
+    "datePublication": "11/10/2023"
   },
   "3A10-1": {
     "url": "3e/3A10-1.js",
@@ -2039,9 +2192,11 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amcType": "AMCNum",
+      "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "29/08/2022",
+    "dateModification": "27/09/2023"
   },
   "3A10-6": {
     "url": "3e/3A10-6.js",
@@ -2051,9 +2206,9 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amcType": "AMCNum",
-      "amc": true
-    }
+      "amc": false
+    },
+    "datePublication": "29/08/2022"
   },
   "3A10-7": {
     "url": "3e/3A10-7.js",
@@ -2063,7 +2218,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "12/10/2022"
   },
   "3A11": {
     "url": "3e/3A11.js",
@@ -2085,7 +2241,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "28/09/2022",
+    "dateModification": "03/10/2023"
   },
   "3A11-1": {
     "url": "3e/3A11-1.js",
@@ -2107,7 +2265,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "01/04/2023"
   },
   "3A12-0": {
     "url": "3e/3A12-0.js",
@@ -2116,8 +2275,10 @@
     "titre": "Problèmes avec des engrenages",
     "tags": {
       "interactif": false,
-      "amc": false
-    }
+      "amcType": "AMCOpen",
+      "amc": true
+    },
+    "datePublication": "05/10/2022"
   },
   "3A12-1": {
     "url": "3e/3A12-1.js",
@@ -2141,7 +2302,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "14/09/2022"
   },
   "3A13-2": {
     "url": "3e/3A13-2.js",
@@ -2153,7 +2315,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "14/09/2022"
   },
   "3A13-3": {
     "url": "3e/3A13-3.js",
@@ -2165,7 +2328,8 @@
       "interactifType": "mathLive",
       "amcType": "qcmMult",
       "amc": true
-    }
+    },
+    "datePublication": "14/09/2022"
   },
   "3A13-4": {
     "url": "3e/3A13-4.js",
@@ -2177,7 +2341,21 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "14/09/2022"
+  },
+  "3A13-5": {
+    "url": "3e/3A13-5.js",
+    "uuid": "2ae9b",
+    "id": "3A13-5",
+    "titre": "Jouer avec la compréhension des multiples d'un nombre",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amcType": "AMCHybride",
+      "amc": true
+    },
+    "datePublication": "30/09/2023"
   },
   "3A14-0": {
     "url": "3e/3A14-0.js",
@@ -2199,19 +2377,34 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "05/09/2023"
   },
   "3C10-2": {
     "url": "3e/3C10-2.js",
     "uuid": "379cd",
     "id": "3C10-2",
-    "titre": "Donner l'écriture entière ou fractionnaire d'une puissance",
+    "titre": "Effectuer des calculs qu'avec des puissances",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "17/09/2023"
+  },
+  "3C10-3": {
+    "url": "3e/3C10-3.js",
+    "uuid": "31bd7",
+    "id": "3C10-3",
+    "titre": "Utiliser la notation puissance",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amcType": "AMCOpen",
+      "amc": true
+    },
+    "datePublication": "24/09/2023"
   },
   "3F1-act": {
     "url": "3e/3F1-act.js",
@@ -2269,7 +2462,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMult",
       "amc": true
-    }
+    },
+    "datePublication": "29/09/2022"
   },
   "3F12": {
     "url": "3e/3F12.js",
@@ -2326,7 +2520,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "23/09/2023"
   },
   "3F13-1": {
     "url": "3e/3F13-1.js",
@@ -2340,17 +2535,6 @@
       "amc": true
     }
   },
-  "3F13-2": {
-    "url": "3e/3F13-2.js",
-    "uuid": "be398",
-    "id": "3F13-2",
-    "titre": "Spécial escape game",
-    "tags": {
-      "interactif": true,
-      "interactifType": "mathLive",
-      "amc": false
-    }
-  },
   "3F20": {
     "url": "3e/3F20.js",
     "uuid": "aeb5a",
@@ -2361,7 +2545,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "13/04/2023"
   },
   "3F20-1": {
     "url": "3e/3F20-1.js",
@@ -2373,7 +2558,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "08/05/2023"
   },
   "3F20-2": {
     "url": "3e/3F20-2.js",
@@ -2385,7 +2571,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "21/05/2023"
   },
   "3F21": {
     "url": "3e/3F21.js",
@@ -2407,7 +2594,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpenNum✖︎2",
       "amc": true
-    }
+    },
+    "dateModification": "31/03/2023"
   },
   "3F21-2": {
     "url": "3e/3F21-2.js",
@@ -2430,7 +2618,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "28/05/2023"
   },
   "3G10-1": {
     "url": "3e/3G10-1.js",
@@ -2442,7 +2631,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "15/01/2023"
   },
   "3G10-2": {
     "url": "3e/3G10-2.js",
@@ -2454,7 +2644,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "15/01/2023"
   },
   "3G10-3": {
     "url": "3e/3G10-3.js",
@@ -2475,7 +2666,9 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "30/11/2020",
+    "dateModification": "31/01/2023"
   },
   "3G11-1": {
     "url": "3e/3G11-1.js",
@@ -2485,7 +2678,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "27/11/2022"
   },
   "3G12": {
     "url": "3e/3G12.js",
@@ -2497,7 +2691,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "16/12/2020",
+    "dateModification": "29/01/2023"
   },
   "3G12-1": {
     "url": "3e/3G12-1.js",
@@ -2509,7 +2705,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "15/01/2023"
   },
   "3G13": {
     "url": "3e/3G13.js",
@@ -2519,7 +2716,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "28/11/2021",
+    "dateModification": "29/01/2023"
   },
   "3G20": {
     "url": "3e/3G20.js",
@@ -2551,7 +2750,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "05/01/2023"
   },
   "3G21": {
     "url": "3e/3G21.js",
@@ -2563,7 +2763,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "03/04/2022"
   },
   "3G22": {
     "url": "3e/3G22.js",
@@ -2584,7 +2785,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021",
+    "dateModification": "02/04/2023"
   },
   "3G23": {
     "url": "3e/3G23.js",
@@ -2607,7 +2810,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "21/03/2022"
   },
   "3G30-1": {
     "url": "3e/3G30-1.js",
@@ -2631,7 +2835,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "11/04/2023"
   },
   "3G31-1": {
     "url": "3e/3G31-1.js",
@@ -2643,7 +2848,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "09/04/2023"
   },
   "3G32": {
     "url": "3e/3G32.js",
@@ -2667,7 +2873,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "05/03/2022"
   },
   "3G32-1": {
     "url": "3e/3G32-1.js",
@@ -2738,7 +2945,8 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "02/11/2022"
   },
   "3G41": {
     "url": "3e/3G41.js",
@@ -2749,7 +2957,9 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "06/10/2022",
+    "dateModification": "06/10/2022"
   },
   "3G41-1": {
     "url": "3e/3G41-1.js",
@@ -2760,7 +2970,8 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "07/11/2022"
   },
   "3G42": {
     "url": "3e/3G42.js",
@@ -2795,7 +3006,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "19/12/2022"
   },
   "3I1": {
     "url": "3e/3I1.js",
@@ -2827,7 +3039,8 @@
       "interactifType": "qcm",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "27/09/2022"
   },
   "3I12-1": {
     "url": "3e/3I12-1.js",
@@ -2838,7 +3051,9 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "20/09/2022",
+    "dateModification": "08/05/2023"
   },
   "3I12-2": {
     "url": "3e/3I12-2.js",
@@ -2849,7 +3064,9 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "20/09/2022",
+    "dateModification": "08/05/2023"
   },
   "3I12-3": {
     "url": "3e/3I12-3.js",
@@ -2860,7 +3077,9 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "22/09/2022",
+    "dateModification": "08/05/2023"
   },
   "3I12-4": {
     "url": "3e/3I12-4.js",
@@ -2871,7 +3090,9 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "23/09/2022",
+    "dateModification": "08/05/2023"
   },
   "3L10": {
     "url": "3e/3L10.js",
@@ -2895,7 +3116,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "26/12/2022"
   },
   "3L10-2": {
     "url": "3e/3L10-2.js",
@@ -2907,7 +3129,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "28/11/2022"
   },
   "3L11": {
     "url": "3e/3L11.js",
@@ -2931,7 +3154,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "26/02/2023"
   },
   "3L11-10": {
     "url": "3e/3L11-10.js",
@@ -2941,7 +3165,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "23/02/2023"
   },
   "3L11-2": {
     "url": "3e/3L11-2.js",
@@ -2953,7 +3178,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "20/02/2023"
   },
   "3L11-3": {
     "url": "3e/3L11-3.js",
@@ -3011,7 +3237,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "12/12/2021"
   },
   "3L11-8": {
     "url": "3e/3L11-8.js",
@@ -3022,7 +3249,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "3L11-9": {
     "url": "3e/3L11-9.js",
@@ -3030,9 +3258,12 @@
     "id": "3L11-9",
     "titre": "Résoudre une Rose multiplicative avec calcul littéral",
     "tags": {
-      "interactif": false,
+      "interactif": true,
+      "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "12/08/2022",
+    "dateModification": "01/10/2023"
   },
   "3L12": {
     "url": "3e/3L12.js",
@@ -3043,7 +3274,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "26/02/2023"
   },
   "3L12-1": {
     "url": "3e/3L12-1.js",
@@ -3055,7 +3287,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "26/02/2023"
   },
   "3L13": {
     "url": "3e/3L13.js",
@@ -3102,7 +3335,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "02/04/2023"
   },
   "3L13-3": {
     "url": "3e/3L13-3.js",
@@ -3114,7 +3348,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "15/02/2022",
+    "dateModification": "06/04/2023"
   },
   "3L13-4": {
     "url": "3e/3L13-4.js",
@@ -3124,7 +3360,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "04/03/2022"
   },
   "3L14": {
     "url": "3e/3L14.js",
@@ -3136,7 +3373,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "09/03/2023"
   },
   "3L15": {
     "url": "3e/3L15.js",
@@ -3147,7 +3385,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "21/06/2023"
   },
   "3L15-1": {
     "url": "3e/3L15-1.js",
@@ -3192,7 +3431,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "07/02/2021",
+    "dateModification": "10/04/2023"
   },
   "3S14": {
     "url": "3e/3S14.js",
@@ -3204,7 +3445,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "19/08/2023"
   },
   "3S15": {
     "url": "3e/3S15.js",
@@ -3215,7 +3457,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "31/08/2022"
   },
   "3S20": {
     "url": "3e/3S20.js",
@@ -3236,7 +3479,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "15/01/2022"
   },
   "4A10": {
     "url": "4e/4A10.js",
@@ -3258,7 +3502,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "12/10/2022"
   },
   "4A11-0": {
     "url": "4e/4A11-0.js",
@@ -3270,7 +3515,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "02/11/2021"
   },
   "4A11-1": {
     "url": "4e/4A11-1.js",
@@ -3304,7 +3550,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "10/10/2022"
   },
   "4C10": {
     "url": "4e/4C10.js",
@@ -3316,7 +3563,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "23/09/2022"
   },
   "4C10-0": {
     "url": "4e/4C10-0.js",
@@ -3352,7 +3600,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "26/08/2022"
   },
   "4C10-2": {
     "url": "4e/4C10-2.js",
@@ -3431,7 +3680,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "4C10-9": {
     "url": "4e/4C10-9.js",
@@ -3442,7 +3692,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "12/08/2022"
   },
   "4C11": {
     "url": "4e/4C11.js",
@@ -3487,7 +3738,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "24/11/2021"
   },
   "4C21": {
     "url": "4e/4C21.js",
@@ -3522,7 +3774,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "4C21-3": {
     "url": "4e/4C21-3.js",
@@ -3533,7 +3786,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "12/08/2022"
   },
   "4C22": {
     "url": "4e/4C22.js",
@@ -3545,7 +3799,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "09/04/2022"
   },
   "4C22-1": {
     "url": "4e/4C22-1.js",
@@ -3579,7 +3834,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "4C22-4": {
     "url": "4e/4C22-4.js",
@@ -3590,7 +3846,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "12/08/2022"
   },
   "4C23": {
     "url": "4e/4C23.js",
@@ -3601,7 +3858,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "15/09/2021",
+    "dateModification": "11/09/2023"
   },
   "4C23-1": {
     "url": "4e/4C23-1.js",
@@ -3625,7 +3884,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "17/03/2022",
+    "dateModification": "03/10/2023"
   },
   "4C25-0": {
     "url": "4e/4C25-0.js",
@@ -3647,7 +3908,8 @@
       "interactifType": "mathLive",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "dateModification": "24/09/2023"
   },
   "4C30-1": {
     "url": "4e/4C30-1.js",
@@ -3657,8 +3919,10 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amc": false
-    }
+      "amcType": "AMCHybride",
+      "amc": true
+    },
+    "dateModification": "05/09/2023"
   },
   "4C30-2": {
     "url": "4e/4C30-2.js",
@@ -3670,7 +3934,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "05/09/2023"
   },
   "4C30-3": {
     "url": "4e/4C30-3.js",
@@ -3692,8 +3957,10 @@
     "tags": {
       "interactif": true,
       "interactifType": "listeDeroulante",
-      "amc": false
-    }
+      "amcType": "AMCOpen",
+      "amc": true
+    },
+    "datePublication": "12/04/2022"
   },
   "4C32": {
     "url": "4e/4C32.js",
@@ -3716,7 +3983,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "18/01/2022",
+    "dateModification": "05/09/2023"
   },
   "4C32-1": {
     "url": "4e/4C32-1.js",
@@ -3728,7 +3997,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "dateModification": "08/09/2023"
   },
   "4C32-3": {
     "url": "4e/4C32-3.js",
@@ -3737,7 +4007,8 @@
     "titre": "Problèmes avec des puissances de 10 et des conversions",
     "tags": {
       "interactif": false,
-      "amc": false
+      "amcType": "AMCOpen",
+      "amc": true
     }
   },
   "4C32-4": {
@@ -3750,7 +4021,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "20/08/2022"
   },
   "4C33-0": {
     "url": "4e/4C33-0.js",
@@ -3762,7 +4034,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "21/11/2021",
+    "dateModification": "24/09/2023"
   },
   "4C33-1": {
     "url": "4e/4C33-1.js",
@@ -3774,7 +4048,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "14/09/2023"
   },
   "4C34": {
     "url": "4e/4C34.js",
@@ -3786,7 +4061,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpenNum",
       "amc": true
-    }
+    },
+    "datePublication": "23/01/2023",
+    "dateModification": "17/09/2023"
   },
   "4C35": {
     "url": "4e/4C35.js",
@@ -3797,7 +4074,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "14/06/2022"
   },
   "4C36": {
     "url": "4e/4C36.js",
@@ -3807,8 +4085,11 @@
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
-      "amc": false
-    }
+      "amcType": "qcmMono",
+      "amc": true
+    },
+    "datePublication": "23/05/2022",
+    "dateModification": "18/06/2022"
   },
   "4C37": {
     "url": "4e/4C37.js",
@@ -3820,7 +4101,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "30/06/2022"
   },
   "4F12": {
     "url": "4e/4F12.js",
@@ -3855,7 +4137,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "28/10/2021",
+    "dateModification": "28/12/2022"
   },
   "4G10-2": {
     "url": "4e/4G10-2.js",
@@ -3865,7 +4149,20 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "16/05/2022"
+  },
+  "4G10-3": {
+    "url": "4e/4G10-3.js",
+    "uuid": "6ddc5",
+    "id": "4G10-3",
+    "titre": "Déterminer graphiquement des images par des translations",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "15/10/2023"
   },
   "4G11": {
     "url": "4e/4G11.js",
@@ -3899,7 +4196,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "3/12/2021"
   },
   "4G12-1": {
     "url": "4e/4G12-1.js",
@@ -3910,7 +4208,9 @@
       "interactif": true,
       "interactifType": "listeDeroulante",
       "amc": false
-    }
+    },
+    "datePublication": "3/12/2021",
+    "dateModification": "19/10/2023"
   },
   "4G12-2": {
     "url": "4e/4G12-2.js",
@@ -3920,7 +4220,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "16/05/2022"
   },
   "4G15": {
     "url": "4e/4G15.js",
@@ -3953,7 +4254,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "28/12/2022"
   },
   "4G20-2": {
     "url": "4e/4G20-2.js",
@@ -3976,7 +4278,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "17/01/2023",
+    "dateModification": "5/8/2023"
   },
   "4G20-4": {
     "url": "4e/4G20-4.js",
@@ -4053,7 +4357,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "05/01/2023"
   },
   "4G31": {
     "url": "4e/4G31.js",
@@ -4119,7 +4424,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "18/06/2022"
   },
   "4G52": {
     "url": "4e/4G52.js",
@@ -4129,7 +4435,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "03/05/2023"
   },
   "4G53": {
     "url": "4e/4G53.js",
@@ -4193,7 +4500,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "08/03/2022"
   },
   "4L10-3": {
     "url": "4e/4L10-3.js",
@@ -4204,7 +4512,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "4L10-4": {
     "url": "4e/4L10-4.js",
@@ -4215,7 +4524,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "12/08/2022"
   },
   "4L11": {
     "url": "4e/4L11.js",
@@ -4237,7 +4547,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "21/02/2022",
+    "dateModification": ""
   },
   "4L13-0": {
     "url": "4e/4L13-0.js",
@@ -4269,7 +4581,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "04/04/2022",
+    "dateModification": "05/04/2023"
   },
   "4L14-0": {
     "url": "4e/4L14-0.js",
@@ -4320,7 +4634,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "04/04/2022"
   },
   "4L16": {
     "url": "4e/4L16.js",
@@ -4385,7 +4700,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "04/04/2022"
   },
   "4P16": {
     "url": "4e/4P16.js",
@@ -4396,7 +4712,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "23/05/2022"
   },
   "4S10": {
     "url": "4e/4S10.js",
@@ -4418,7 +4735,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "28/10/2021"
   },
   "4S20": {
     "url": "4e/4S20.js",
@@ -4428,7 +4746,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "03/04/2022"
   },
   "5A10": {
     "url": "5e/5A10.js",
@@ -4440,7 +4759,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "03/10/2023"
   },
   "5A11": {
     "url": "5e/5A11.js",
@@ -4461,7 +4781,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "05/10/2022"
   },
   "5A11-2": {
     "url": "5e/5A11-2.js",
@@ -4471,7 +4792,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "16/11/2021",
+    "dateModification": "05/10/2022"
   },
   "5A12-1": {
     "url": "5e/5A12-1.js",
@@ -4495,7 +4818,9 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "11/07/2022",
+    "dateModification": ""
   },
   "5A12-3": {
     "url": "5e/5A12-3.js",
@@ -4505,7 +4830,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "12/10/2022"
   },
   "5A13": {
     "url": "5e/5A13.js",
@@ -4528,7 +4854,8 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "21/09/2023"
   },
   "5C11-1": {
     "url": "5e/5C11-1.js",
@@ -4536,10 +4863,12 @@
     "id": "5C11-1",
     "titre": "Traduire une expression par une phrase",
     "tags": {
-      "interactif": false,
+      "interactif": true,
+      "interactifType": "listeDeroulante",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "21/09/2023"
   },
   "5C11-2": {
     "url": "5e/5C11-2.js",
@@ -4574,7 +4903,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "21/09/2023"
   },
   "5C12-2": {
     "url": "5e/5C12-2.js",
@@ -4584,7 +4914,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "26/11/2022"
   },
   "5C12-3": {
     "url": "5e/5C12-3.js",
@@ -4594,7 +4925,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "26/11/2022"
   },
   "5G10": {
     "url": "5e/5G10.js",
@@ -4616,7 +4948,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "14/11/2021"
   },
   "5G10-2": {
     "url": "5e/5G10-2.js",
@@ -4626,7 +4959,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "14/11/2021"
   },
   "5G11": {
     "url": "5e/5G11.js",
@@ -4647,8 +4981,10 @@
     "titre": "Construire le symétrique d'un point par symétrie centrale",
     "tags": {
       "interactif": false,
-      "amc": false
-    }
+      "amcType": "AMCOpen",
+      "amc": true
+    },
+    "dateModification": "14/11/2021"
   },
   "5G11-2": {
     "url": "5e/5G11-2.js",
@@ -4658,7 +4994,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "14/11/2021"
   },
   "5G11-3": {
     "url": "5e/5G11-3.js",
@@ -4680,7 +5017,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "28/10/2021",
+    "dateModification": "28/12/2022"
   },
   "5G11-5": {
     "url": "5e/5G11-5.js",
@@ -4692,7 +5031,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "28/10/2021",
+    "dateModification": "28/12/2022"
   },
   "5G11-6": {
     "url": "5e/5G11-6.js",
@@ -4704,7 +5045,8 @@
       "interactifType": "custom",
       "amcType": "AMCOpenNum",
       "amc": true
-    }
+    },
+    "datePublication": "18/12/2021"
   },
   "5G12": {
     "url": "5e/5G12.js",
@@ -4715,7 +5057,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "23/07/2023"
   },
   "5G12-1": {
     "url": "5e/5G12-1.js",
@@ -4739,7 +5082,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "4/12/2021"
   },
   "5G12-3": {
     "url": "5e/5G12-3.js",
@@ -4750,7 +5094,8 @@
       "interactif": true,
       "interactifType": "listeDeroulante",
       "amc": false
-    }
+    },
+    "datePublication": "4/12/2021"
   },
   "5G13": {
     "url": "5e/5G13.js",
@@ -4760,7 +5105,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "06/03/2023"
   },
   "5G20": {
     "url": "5e/5G20.js",
@@ -4790,7 +5136,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "25/07/2023"
   },
   "5G20-2": {
     "url": "5e/5G20-2.js",
@@ -4810,7 +5157,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "24/08/2023"
   },
   "5G22": {
     "url": "5e/5G22.js",
@@ -4830,7 +5178,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "05/08/2021",
+    "dateModification": "17/08/2023"
   },
   "5G24-1": {
     "url": "5e/5G24-1.js",
@@ -4860,7 +5210,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "17/08/2023"
   },
   "5G30-1": {
     "url": "5e/5G30-1.js",
@@ -4880,7 +5231,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "15/01/2022",
+    "dateModification": "18/08/2023"
   },
   "5G31": {
     "url": "5e/5G31.js",
@@ -4891,7 +5244,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "23/08/2023"
   },
   "5G31-1": {
     "url": "5e/5G31-1.js",
@@ -4901,7 +5255,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "24/08/2023"
   },
   "5G31-2": {
     "url": "5e/5G31-2.js",
@@ -4911,7 +5266,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "11/01/2023"
   },
   "5G40": {
     "url": "5e/5G40.js",
@@ -4921,7 +5277,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "08/05/2022"
   },
   "5G40-1": {
     "url": "5e/5G40-1.js",
@@ -4931,7 +5288,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "08/05/2022"
   },
   "5G40-2": {
     "url": "5e/5G40-2.js",
@@ -4941,7 +5299,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "05/04/2021",
+    "dateModification": "31/08/2023"
   },
   "5G41": {
     "url": "5e/5G41.js",
@@ -4951,7 +5311,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "03/02/2020",
+    "dateModification": "02/09/2023"
   },
   "5G42": {
     "url": "5e/5G42.js",
@@ -4972,7 +5334,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "26/04/2023"
   },
   "5G51": {
     "url": "5e/5G51.js",
@@ -5004,7 +5367,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMult",
       "amc": true
-    }
+    },
+    "dateModification": "11/05/2022"
   },
   "5L10-1": {
     "url": "5e/5L10-1.js",
@@ -5015,7 +5379,8 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "21/09/2023"
   },
   "5L10-2": {
     "url": "5e/5L10-2.js",
@@ -5027,7 +5392,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "dateModification": "15/10/2022"
   },
   "5L10-3": {
     "url": "5e/5L10-3.js",
@@ -5038,7 +5404,8 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "21/09/2023"
   },
   "5L10-4": {
     "url": "5e/5L10-4.js",
@@ -5079,7 +5446,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "22/02/2022"
   },
   "5L13": {
     "url": "5e/5L13.js",
@@ -5112,7 +5480,8 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "21/09/2023"
   },
   "5L14-2": {
     "url": "5e/5L14-2.js",
@@ -5135,7 +5504,8 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "21/09/2023"
   },
   "5L14-4": {
     "url": "5e/5L14-4.js",
@@ -5186,7 +5556,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "07/04/2022",
+    "dateModification": "18/06/2022"
   },
   "5M10": {
     "url": "5e/5M10.js",
@@ -5196,7 +5568,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "08/05/2022"
   },
   "5M20": {
     "url": "5e/5M20.js",
@@ -5218,7 +5591,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "16/03/2022",
+    "dateModification": "16/03/2022"
   },
   "5N11-1": {
     "url": "5e/5N11-1.js",
@@ -5250,7 +5625,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "17/03/2022"
   },
   "5N11-4": {
     "url": "5e/5N11-4.js",
@@ -5261,7 +5637,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "17/03/2022"
   },
   "5N110": {
     "url": "5e/5N110.js",
@@ -5330,7 +5707,9 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "23/05/2021",
+    "dateModification": "25/01/2023"
   },
   "5N20": {
     "url": "5e/5N20.js",
@@ -5363,7 +5742,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "12/05/2023"
   },
   "5P10": {
     "url": "5e/5P10.js",
@@ -5415,7 +5795,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "5P14": {
     "url": "5e/5P14.js",
@@ -5427,7 +5808,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "04/04/2022"
   },
   "5P14-1": {
     "url": "5e/5P14-1.js",
@@ -5439,7 +5821,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "04/04/2022"
   },
   "5P14-2": {
     "url": "5e/5P14-2.js",
@@ -5451,7 +5834,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "19/06/2022"
   },
   "5R10": {
     "url": "5e/5R10.js",
@@ -5473,7 +5857,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "26/11/2021"
   },
   "5R10-1": {
     "url": "5e/5R10-1.js",
@@ -5603,7 +5988,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "5R20-7": {
     "url": "5e/5R20-7.js",
@@ -5614,7 +6000,9 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "12/08/2022",
+    "dateModification": "26/09/2023"
   },
   "5R21": {
     "url": "5e/5R21.js",
@@ -5626,7 +6014,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "11/11/2021"
   },
   "5R22": {
     "url": "5e/5R22.js",
@@ -5680,7 +6069,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "20/03/2022",
+    "dateModification": "17/04/2022"
   },
   "5S13": {
     "url": "5e/5S13.js",
@@ -5692,7 +6083,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "28/02/2022"
   },
   "5S13-1": {
     "url": "5e/5S13-1.js",
@@ -5726,7 +6118,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "28/02/2022"
   },
   "5S20": {
     "url": "5e/5S20.js",
@@ -5766,7 +6159,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "03/04/2022"
   },
   "6C10": {
     "url": "6e/6C10.js",
@@ -5789,7 +6183,9 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "12/08/2022",
+    "dateModification": "26/09/2023"
   },
   "6C10-1": {
     "url": "6e/6C10-1.js",
@@ -5801,7 +6197,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "04/10/2023"
   },
   "6C10-2": {
     "url": "6e/6C10-2.js",
@@ -5847,7 +6244,8 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "05/10/2022"
   },
   "6C10-6": {
     "url": "6e/6C10-6.js",
@@ -5858,7 +6256,9 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "12/08/2022",
+    "dateModification": "26/09/2023"
   },
   "6C10-7a": {
     "url": "6e/6C10-7a.js",
@@ -5869,7 +6269,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "6C10-7b": {
     "url": "6e/6C10-7b.js",
@@ -5880,7 +6281,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "6C10-8": {
     "url": "6e/6C10-8.js",
@@ -5896,7 +6298,7 @@
     "url": "6e/6C11.js",
     "uuid": "2da81",
     "id": "6C11",
-    "titre": "Poser divisions euclidiennes",
+    "titre": "Effectuer des divisions euclidiennes",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -5926,7 +6328,9 @@
       "interactifType": "mathLive",
       "amcType": "qcmMult",
       "amc": true
-    }
+    },
+    "datePublication": "25/10/2021",
+    "dateModification": "07/05/2023"
   },
   "6C11-3": {
     "url": "6e/6C11-3.js",
@@ -5938,7 +6342,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "09/09/2022"
   },
   "6C12": {
     "url": "6e/6C12.js",
@@ -5950,7 +6355,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "02/11/2021"
   },
   "6C12-1": {
     "url": "6e/6C12-1.js",
@@ -5962,7 +6368,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "02/11/2021"
   },
   "6C12-3": {
     "url": "6e/6C12-3.js",
@@ -5974,7 +6381,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMult",
       "amc": true
-    }
+    },
+    "datePublication": "01/12/2021"
   },
   "6C12-4": {
     "url": "6e/6C12-4.js",
@@ -5986,7 +6394,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "01/03/2022"
   },
   "6C13": {
     "url": "6e/6C13.js",
@@ -5996,7 +6405,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "08/05/2023"
   },
   "6C13-1": {
     "url": "6e/6C13-1.js",
@@ -6008,6 +6418,19 @@
       "amc": false
     }
   },
+  "6C13-2": {
+    "url": "6e/6C13-2.js",
+    "uuid": "e6f62",
+    "id": "6C13-2",
+    "titre": "Traduire une expression par une phrase",
+    "tags": {
+      "interactif": true,
+      "interactifType": "listeDeroulante",
+      "amcType": "AMCOpen",
+      "amc": true
+    },
+    "datePublication": "08/10/2023"
+  },
   "6C20": {
     "url": "6e/6C20.js",
     "uuid": "01873",
@@ -6018,7 +6441,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "01/04/2023"
   },
   "6C21": {
     "url": "6e/6C21.js",
@@ -6042,7 +6466,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "10/07/2021"
   },
   "6C23": {
     "url": "6e/6C23.js",
@@ -6078,7 +6503,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "08/06/2022"
   },
   "6C30-1": {
     "url": "6e/6C30-1.js",
@@ -6090,7 +6516,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "12/12/2021"
   },
   "6C30-2": {
     "url": "6e/6C30-2.js",
@@ -6150,7 +6577,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "04/11/2021"
   },
   "6C30-7": {
     "url": "6e/6C30-7.js",
@@ -6162,7 +6590,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "04/11/2021"
   },
   "6C30-8": {
     "url": "6e/6C30-8.js",
@@ -6174,7 +6603,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "08/12/2021"
   },
   "6C30-9": {
     "url": "6e/6C30-9.js",
@@ -6184,7 +6614,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "20/12/2022"
   },
   "6C31": {
     "url": "6e/6C31.js",
@@ -6230,7 +6661,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "27/11/2022",
+    "dateModification": "14/05/2023"
   },
   "6C33": {
     "url": "6e/6C33.js",
@@ -6242,7 +6675,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "21/05/2023"
   },
   "6C34": {
     "url": "6e/6C34.js",
@@ -6265,7 +6699,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "24/04/2021",
+    "dateModification": "16/11/2021"
   },
   "6D10": {
     "url": "6e/6D10.js",
@@ -6310,7 +6746,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "09/10/2023"
   },
   "6D13": {
     "url": "6e/6D13.js",
@@ -6322,7 +6759,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "14/05/2022"
   },
   "6G10": {
     "url": "6e/6G10.js",
@@ -6341,10 +6779,12 @@
     "id": "6G10-1",
     "titre": "Donner description et notation de droites, segments et demi-droites",
     "tags": {
-      "interactif": false,
-      "amcType": "AMCOpen",
+      "interactif": true,
+      "interactifType": "qcm",
+      "amcType": "qcmMult",
       "amc": true
-    }
+    },
+    "dateModification": "07/10/2023"
   },
   "6G10-2": {
     "url": "6e/6G10-2.js",
@@ -6354,7 +6794,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "17/08/2023"
   },
   "6G10-3": {
     "url": "6e/6G10-3.js",
@@ -6374,8 +6815,10 @@
     "titre": "Connaître le vocabulaire du cercle",
     "tags": {
       "interactif": true,
-      "amc": false
-    }
+      "amcType": "AMCHybride",
+      "amc": true
+    },
+    "datePublication": "19/08/2022"
   },
   "6G10-5": {
     "url": "6e/6G10-5.js",
@@ -6386,7 +6829,8 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "05/10/2022"
   },
   "6G10-6": {
     "url": "6e/6G10-6.js",
@@ -6394,9 +6838,13 @@
     "id": "6G10-6",
     "titre": "Appartient ou n'appartient pas ?",
     "tags": {
-      "interactif": false,
-      "amc": false
-    }
+      "interactif": true,
+      "interactifType": "listeDeroulante",
+      "amcType": "AMCHybride",
+      "amc": true
+    },
+    "datePublication": "05/10/2022",
+    "dateModification": "4/10/2023"
   },
   "6G11": {
     "url": "6e/6G11.js",
@@ -6417,7 +6865,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "09/10/2022"
   },
   "6G12": {
     "url": "6e/6G12.js",
@@ -6449,7 +6898,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "10/09/2022"
   },
   "6G13-1": {
     "url": "6e/6G13-1.js",
@@ -6459,7 +6909,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "19/12/2022"
   },
   "6G14": {
     "url": "6e/6G14.js",
@@ -6500,8 +6951,10 @@
     "tags": {
       "interactif": true,
       "interactifType": "qcm",
-      "amc": false
-    }
+      "amcType": "AMCHybride",
+      "amc": true
+    },
+    "datePublication": "21/10/2022"
   },
   "6G21": {
     "url": "6e/6G21.js",
@@ -6531,7 +6984,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "17/12/2022"
   },
   "6G21-3": {
     "url": "6e/6G21-3.js",
@@ -6541,7 +6995,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "17/12/2022"
   },
   "6G21-4": {
     "url": "6e/6G21-4.js",
@@ -6551,7 +7006,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "19/12/2022"
   },
   "6G21-5": {
     "url": "6e/6G21-5.js",
@@ -6561,7 +7017,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "19/12/2022"
   },
   "6G22": {
     "url": "6e/6G22.js",
@@ -6572,7 +7029,8 @@
       "interactif": true,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "13/04/2022"
   },
   "6G22-1": {
     "url": "6e/6G22-1.js",
@@ -6584,7 +7042,9 @@
       "interactifType": "qcm",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "03/12/2022",
+    "dateModification": "17/10/2023"
   },
   "6G22-2": {
     "url": "6e/6G22-2.js",
@@ -6596,7 +7056,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "03/12/2022"
   },
   "6G23": {
     "url": "6e/6G23.js",
@@ -6639,7 +7100,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "04/03/2022"
   },
   "6G23-4": {
     "url": "6e/6G23-4.js",
@@ -6651,7 +7113,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "26/04/2022"
   },
   "6G23-5": {
     "url": "6e/6G23-5.js",
@@ -6663,7 +7126,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "03/05/2022",
+    "dateModification": "09/05/2023"
   },
   "6G24": {
     "url": "6e/6G24.js",
@@ -6686,7 +7151,8 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "14/11/2021"
   },
   "6G24-2": {
     "url": "6e/6G24-2.js",
@@ -6697,7 +7163,8 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "14/11/2021"
   },
   "6G24-3": {
     "url": "6e/6G24-3.js",
@@ -6719,7 +7186,8 @@
       "interactifType": "custom",
       "amcType": "AMCOpenNum",
       "amc": true
-    }
+    },
+    "datePublication": "18/12/2021"
   },
   "6G25": {
     "url": "6e/6G25.js",
@@ -6754,7 +7222,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "15/01/2023"
   },
   "6G25-3": {
     "url": "6e/6G25-3.js",
@@ -6765,7 +7234,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "14/12/2020"
   },
   "6G26": {
     "url": "6e/6G26.js",
@@ -6777,7 +7247,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "4/12/2021"
   },
   "6G32": {
     "url": "6e/6G32.js",
@@ -6787,7 +7258,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "25/01/2023"
   },
   "6G32-1": {
     "url": "6e/6G32-1.js",
@@ -6798,7 +7270,9 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "26/10/2020",
+    "dateModification": "23/04/2023"
   },
   "6G33": {
     "url": "6e/6G33.js",
@@ -6810,7 +7284,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "dateModification": "04/07/2023"
   },
   "6G41": {
     "url": "6e/6G41.js",
@@ -6833,7 +7308,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMult",
       "amc": true
-    }
+    },
+    "dateModification": "07/06/2023"
   },
   "6G42-1": {
     "url": "6e/6G42-1.js",
@@ -6844,7 +7320,8 @@
       "interactif": true,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "06/11/2022"
   },
   "6G43": {
     "url": "6e/6G43.js",
@@ -6868,7 +7345,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "7/11/2021"
   },
   "6G44-1": {
     "url": "6e/6G44-1.js",
@@ -6879,7 +7357,9 @@
       "interactif": true,
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "24/09/2022",
+    "dateModification": "08/05/2023"
   },
   "6G51-1": {
     "url": "6e/6G51-1.js",
@@ -6889,7 +7369,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "22/02/2023"
   },
   "6G51-2": {
     "url": "6e/6G51-2.js",
@@ -6899,7 +7380,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "27/02/2023"
   },
   "6G52": {
     "url": "6e/6G52.js",
@@ -6909,7 +7391,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "11/09/2022"
   },
   "6G52-2": {
     "url": "6e/6G52-2.js",
@@ -6920,7 +7403,8 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "21/09/2023"
   },
   "6G53": {
     "url": "6e/6G53.js",
@@ -6930,7 +7414,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "01/03/2023"
   },
   "6I10": {
     "url": "6e/6I10.js",
@@ -6952,7 +7437,8 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "05/02/2023"
   },
   "6I11": {
     "url": "6e/6I11.js",
@@ -6963,7 +7449,8 @@
       "interactif": true,
       "interactifType": "listeDeroulante",
       "amc": false
-    }
+    },
+    "dateModification": "14/05/2023"
   },
   "6I12": {
     "url": "6e/6I12.js",
@@ -6987,7 +7474,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "11/04/2023"
   },
   "6M10-1": {
     "url": "6e/6M10-1.js",
@@ -6998,7 +7486,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "09/04/2022"
   },
   "6M11": {
     "url": "6e/6M11.js",
@@ -7022,7 +7511,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "12/04/2023"
   },
   "6M11-2": {
     "url": "6e/6M11-2.js",
@@ -7034,7 +7524,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "25/07/2023"
   },
   "6M11-3": {
     "url": "6e/6M11-3.js",
@@ -7046,7 +7537,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "27/11/2022"
   },
   "6M12": {
     "url": "6e/6M12.js",
@@ -7070,7 +7562,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "12/04/2023"
   },
   "6M21": {
     "url": "6e/6M21.js",
@@ -7081,7 +7574,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "08/06/2022"
   },
   "6M22": {
     "url": "6e/6M22.js",
@@ -7093,7 +7587,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "11/04/2023"
   },
   "6M22-1": {
     "url": "6e/6M22-1.js",
@@ -7126,7 +7621,8 @@
       "interactif": true,
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "dateModification": "30/04/2023"
   },
   "6M25": {
     "url": "6e/6M25.js",
@@ -7170,7 +7666,8 @@
       "interactif": true,
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "dateModification": "31/05/2023"
   },
   "6M31-2": {
     "url": "6e/6M31-2.js",
@@ -7181,7 +7678,8 @@
       "interactif": true,
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "dateModification": "05/06/2023"
   },
   "6N10": {
     "url": "6e/6N10.js",
@@ -7193,7 +7691,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "19/09/2021",
+    "dateModification": "14/09/2022"
   },
   "6N10-0": {
     "url": "6e/6N10-0.js",
@@ -7216,7 +7716,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "09/09/2022"
   },
   "6N10-2": {
     "url": "6e/6N10-2.js",
@@ -7240,7 +7741,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "11/10/2023"
   },
   "6N10-4": {
     "url": "6e/6N10-4.js",
@@ -7262,7 +7764,9 @@
       "interactif": false,
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "9/12/2020",
+    "dateModification": "05/10/2022"
   },
   "6N10-6": {
     "url": "6e/6N10-6.js",
@@ -7274,7 +7778,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "20/01/2022"
   },
   "6N10-7": {
     "url": "6e/6N10-7.js",
@@ -7286,7 +7791,9 @@
       "interactifType": "custom",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "14/08/2022",
+    "dateModification": "09/10/2023"
   },
   "6N11": {
     "url": "6e/6N11.js",
@@ -7340,7 +7847,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "07/08/2022"
   },
   "6N12": {
     "url": "6e/6N12.js",
@@ -7352,7 +7860,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "09/08/2022"
   },
   "6N12-1": {
     "url": "6e/6N12-1.js",
@@ -7364,7 +7873,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "05/11/2021"
   },
   "6N13": {
     "url": "6e/6N13.js",
@@ -7387,7 +7897,8 @@
       "interactif": true,
       "interactifType": "listeDeroulante",
       "amc": false
-    }
+    },
+    "datePublication": "17/09/2022"
   },
   "6N14": {
     "url": "6e/6N14.js",
@@ -7398,7 +7909,8 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "07/03/2023"
   },
   "6N20": {
     "url": "6e/6N20.js",
@@ -7410,7 +7922,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "14/05/2023"
   },
   "6N20-1": {
     "url": "6e/6N20-1.js",
@@ -7422,7 +7935,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "14/05/2023"
   },
   "6N20-2": {
     "url": "6e/6N20-2.js",
@@ -7433,7 +7947,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "14/05/2023"
   },
   "6N21": {
     "url": "6e/6N21.js",
@@ -7457,7 +7972,8 @@
       "interactifType": "custom",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "11/05/2023"
   },
   "6N22": {
     "url": "6e/6N22.js",
@@ -7469,7 +7985,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "20/11/21",
+    "dateModification": "07/03/2023"
   },
   "6N22-1": {
     "url": "6e/6N22-1.js",
@@ -7527,7 +8045,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "25/09/2022"
   },
   "6N23-2": {
     "url": "6e/6N23-2.js",
@@ -7539,7 +8058,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "22/11/2022"
   },
   "6N23-3": {
     "url": "6e/6N23-3.js",
@@ -7551,7 +8071,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "22/11/2022"
   },
   "6N23-4": {
     "url": "6e/6N23-4.js",
@@ -7563,7 +8084,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "15/01/2022"
   },
   "6N23-5": {
     "url": "6e/6N23-5.js",
@@ -7587,7 +8109,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "18/11/2021"
   },
   "6N23-7": {
     "url": "6e/6N23-7.js",
@@ -7611,7 +8134,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "28/09/22"
   },
   "6N24": {
     "url": "6e/6N24.js",
@@ -7657,7 +8181,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "01/02/2022"
   },
   "6N30-2": {
     "url": "6e/6N30-2.js",
@@ -7724,7 +8249,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "dateModification": "29/10/2021"
   },
   "6N31-5": {
     "url": "6e/6N31-5.js",
@@ -7736,7 +8262,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "28/09/22"
   },
   "6N31-6": {
     "url": "6e/6N31-6.js",
@@ -7747,7 +8274,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "28/09/22"
   },
   "6N32": {
     "url": "6e/6N32.js",
@@ -7853,7 +8381,8 @@
       "interactif": false,
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "05/10/2022"
   },
   "6N43": {
     "url": "6e/6N43.js",
@@ -7889,7 +8418,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "dateModification": "07/03/2023"
   },
   "6N43-4": {
     "url": "6e/6N43-4.js",
@@ -7936,7 +8466,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "dateModification": "23/02/2022"
   },
   "6P11-2": {
     "url": "6e/6P11-2.js",
@@ -7947,7 +8478,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "30/04/2023"
   },
   "6P12": {
     "url": "6e/6P12.js",
@@ -7971,7 +8503,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "23/07/2021",
+    "dateModification": "16/04/2023"
   },
   "6P13-1": {
     "url": "6e/6P13-1.js",
@@ -7993,7 +8527,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "13/03/2022"
   },
   "6P15": {
     "url": "6e/6P15.js",
@@ -8005,7 +8540,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "18/03/2023"
   },
   "6S10": {
     "url": "6e/6S10.js",
@@ -8308,7 +8844,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "30/10/2021"
   },
   "ExC101": {
     "url": "Ex/ExC101.js",
@@ -8318,7 +8855,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021",
+    "dateModification": "24/10/2021"
   },
   "HPC100": {
     "url": "HP/HPC100.js",
@@ -8328,7 +8867,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "30/10/2021"
   },
   "HPC102": {
     "url": "HP/HPC102.js",
@@ -8349,7 +8889,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021",
+    "dateModification": "24/10/2021"
   },
   "HPC104": {
     "url": "HP/HPC104.js",
@@ -8359,7 +8901,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021",
+    "dateModification": "24/10/2021"
   },
   "P003": {
     "url": "profs/P003.js",
@@ -8489,7 +9033,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "14/03/2022"
   },
   "P016": {
     "url": "profs/P016.js",
@@ -8499,7 +9044,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "06/04/2022"
   },
   "P017": {
     "url": "profs/P017.js",
@@ -8579,7 +9125,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "31/10/2021"
   },
   "PEA13": {
     "url": "PE/PEA13.js",
@@ -8589,7 +9136,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "2/11/2021"
   },
   "PEG20": {
     "url": "PE/PEG20.js",
@@ -8599,7 +9147,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "29/10/2021"
   },
   "PEG21": {
     "url": "PE/PEG21.js",
@@ -8609,7 +9158,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "1/11/2021"
   },
   "PEG22": {
     "url": "PE/PEG22.js",
@@ -8619,7 +9169,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "1/11/2021"
   },
   "PEG23": {
     "url": "PE/PEG23.js",
@@ -8629,7 +9180,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "1/11/2021"
   },
   "PEG24": {
     "url": "PE/PEG24.js",
@@ -8638,6 +9190,18 @@
     "titre": "Réaliser le quotient de deux longueurs à la règle non graduée et au compas",
     "tags": {
       "interactif": false,
+      "amc": false
+    },
+    "datePublication": "1/11/2021"
+  },
+  "beta3F13-2": {
+    "url": "beta/beta3F13-2.js",
+    "uuid": "be398",
+    "id": "beta3F13-2",
+    "titre": "Spécial escape game",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
       "amc": false
     }
   },
@@ -8650,7 +9214,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "22/06/2023"
   },
   "betaPatronSolide": {
     "url": "beta/betaPatronSolide.js",
@@ -8661,7 +9226,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "16/04/2022"
   },
   "betaRepere": {
     "url": "beta/betaRepere.js",
@@ -8671,7 +9237,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "22/07/2023"
   },
   "betaSpline": {
     "url": "beta/betaModeleSpline.js",
@@ -8682,7 +9249,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "22/06/2023"
   },
   "betaTexNombre": {
     "url": "beta/betaTexNombre.js",
@@ -8693,7 +9261,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021",
+    "dateModification": "24/10/2021"
   },
   "bonneAnnee2023": {
     "url": "6e/bonneAnnee2023.js",
@@ -8703,7 +9273,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "02/01/2023"
   },
   "c3C10": {
     "url": "c3/c3C10.js",
@@ -8737,7 +9308,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "dateModification": "30/03/2023"
   },
   "c3C10-3": {
     "url": "c3/c3C10-3.js",
@@ -8749,7 +9321,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "12/12/2021"
   },
   "c3C10-4": {
     "url": "c3/c3C10-4.js",
@@ -8797,7 +9370,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "02/11/2021"
   },
   "c3C13-1": {
     "url": "c3/c3C13-1.js",
@@ -8809,7 +9383,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "02/11/2021"
   },
   "c3C23": {
     "url": "c3/c3C23.js",
@@ -8820,7 +9395,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "27/01/2022"
   },
   "c3C30": {
     "url": "c3/c3C30.js",
@@ -8876,7 +9452,8 @@
       "interactifType": "custom",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "14/08/2022"
   },
   "c3N11": {
     "url": "c3/c3N11.js",
@@ -8934,7 +9511,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "13/11/2020"
   },
   "can1F01": {
     "url": "can/1e/can1F01.js",
@@ -8945,7 +9523,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "1/11/2021"
   },
   "can1F02": {
     "url": "can/1e/can1F02.js",
@@ -8956,7 +9535,9 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "1/11/2021",
+    "dateModification": "10/06/2022"
   },
   "can1F03": {
     "url": "can/1e/can1F03.js",
@@ -8967,7 +9548,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "08/06/2022"
   },
   "can1F04": {
     "url": "can/1e/can1F04.js",
@@ -8978,18 +9560,21 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "09/06/2022"
   },
   "can1F05": {
     "url": "can/1e/can1F05.js",
     "uuid": "053d7",
     "id": "can1F05",
-    "titre": "Lire graphiquement les valeurs de $b$ et $c$ avec une parabole",
+    "titre": "Déterminer graphiquement la valeur de b avec une parabole",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "08/06/2022",
+    "dateModification": "11/10/2023"
   },
   "can1F06": {
     "url": "can/1e/can1F06.js",
@@ -9000,7 +9585,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "17/06/2022"
   },
   "can1F07": {
     "url": "can/1e/can1F07.js",
@@ -9011,7 +9597,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "15/06/2022"
   },
   "can1F08": {
     "url": "can/1e/can1F08.js",
@@ -9022,7 +9609,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "20/06/2022",
+    "dateModification": "14/02/2022"
   },
   "can1F09": {
     "url": "can/1e/can1F09.js",
@@ -9033,7 +9622,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "20/06/2022",
+    "dateModification": "14/02/2022"
   },
   "can1F10": {
     "url": "can/1e/can1F10.js",
@@ -9044,7 +9635,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "20/06/2022"
   },
   "can1F11": {
     "url": "can/1e/can1F11.js",
@@ -9055,7 +9647,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "21/06/2022"
   },
   "can1F12": {
     "url": "can/1e/can1F12.js",
@@ -9066,7 +9659,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "21/06/2022",
+    "dateModification": "14/02/2022"
   },
   "can1F13": {
     "url": "can/1e/can1F13.js",
@@ -9077,7 +9672,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "21/06/2022",
+    "dateModification": "14/02/2022"
   },
   "can1F14": {
     "url": "can/1e/can1F14.js",
@@ -9088,7 +9685,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "20/06/2022"
   },
   "can1F15": {
     "url": "can/1e/can1F15.js",
@@ -9099,7 +9697,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "21/06/2022",
+    "dateModification": "14/02/2022"
   },
   "can1F16": {
     "url": "can/1e/can1F16.js",
@@ -9110,7 +9710,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "22/06/2022",
+    "dateModification": "14/02/2022"
   },
   "can1F17": {
     "url": "can/1e/can1F17.js",
@@ -9121,7 +9723,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "24/06/2022",
+    "dateModification": "14/02/2022"
   },
   "can1F18": {
     "url": "can/1e/can1F18.js",
@@ -9132,7 +9736,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "24/06/2022",
+    "dateModification": "14/02/2022"
   },
   "can1F19": {
     "url": "can/1e/can1F19.js",
@@ -9143,7 +9749,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "24/06/2022",
+    "dateModification": "14/02/2022"
   },
   "can1F20": {
     "url": "can/1e/can1F20.js",
@@ -9154,7 +9762,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "17/09/2022"
   },
   "can1F21": {
     "url": "can/1e/can1F21.js",
@@ -9166,7 +9775,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "21/09/2022"
   },
   "can1F22": {
     "url": "can/1e/can1F22.js",
@@ -9177,7 +9787,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "24/09/2022"
   },
   "can1G01": {
     "url": "can/1e/can1G01.js",
@@ -9188,7 +9799,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "01/06/2022"
   },
   "can1G02": {
     "url": "can/1e/can1G02.js",
@@ -9199,7 +9811,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "01/06/2022"
   },
   "can1G03": {
     "url": "can/1e/can1G03.js",
@@ -9210,7 +9823,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "01/06/2022"
   },
   "can1G04": {
     "url": "can/1e/can1G04.js",
@@ -9221,7 +9835,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "26/06/2022"
   },
   "can1G05": {
     "url": "can/1e/can1G05.js",
@@ -9232,7 +9847,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "27/06/2022"
   },
   "can1G06": {
     "url": "can/1e/can1G06.js",
@@ -9243,7 +9859,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "27/06/2022"
   },
   "can1G07": {
     "url": "can/1e/can1G07.js",
@@ -9254,7 +9871,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "29/06/2022"
   },
   "can1G08": {
     "url": "can/1e/can1G08.js",
@@ -9265,7 +9883,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "08/07/2022"
   },
   "can1G09": {
     "url": "can/1e/can1G09.js",
@@ -9276,7 +9895,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "31/10/2022"
   },
   "can1G10": {
     "url": "can/1e/can1G10.js",
@@ -9287,7 +9907,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "31/10/2022"
   },
   "can1G11": {
     "url": "can/1e/can1G11.js",
@@ -9298,7 +9919,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "02/11/2022"
   },
   "can1L01": {
     "url": "can/1e/can1L01.js",
@@ -9310,7 +9932,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "26/10/2021"
   },
   "can1L02": {
     "url": "can/1e/can1L02.js",
@@ -9321,7 +9944,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "1/11/2021"
   },
   "can1L03": {
     "url": "can/1e/can1L03.js",
@@ -9332,7 +9956,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "01/06/2022"
   },
   "can1L04": {
     "url": "can/1e/can1L04.js",
@@ -9343,7 +9968,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/06/2022"
   },
   "can1L05": {
     "url": "can/1e/can1L05.js",
@@ -9354,7 +9980,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/06/2022"
   },
   "can1L06": {
     "url": "can/1e/can1L06.js",
@@ -9365,7 +9992,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "07/06/2022"
   },
   "can1L07": {
     "url": "can/1e/can1L07.js",
@@ -9376,7 +10004,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "11/06/2022"
   },
   "can1L08": {
     "url": "can/1e/can1L08.js",
@@ -9387,7 +10016,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "11/06/2022"
   },
   "can1L09": {
     "url": "can/1e/can1L09.js",
@@ -9398,7 +10028,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "19/06/2022"
   },
   "can1L10": {
     "url": "can/1e/can1L10.js",
@@ -9409,7 +10040,44 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "17/11/2022"
+  },
+  "can1L11": {
+    "url": "can/1e/can1L11.js",
+    "uuid": "131bd",
+    "id": "can1L11",
+    "titre": "Dresser le tableau de signes d’un polynôme du second degré",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm",
+      "amc": false
+    },
+    "datePublication": "07/10/2023"
+  },
+  "can1L12": {
+    "url": "can/1e/can1L12.js",
+    "uuid": "7c76a",
+    "id": "can1L12",
+    "titre": "Résoudre une inéquation du second degré (avec une forme factorisée)",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm",
+      "amc": false
+    },
+    "datePublication": "07/10/2023"
+  },
+  "can1L13": {
+    "url": "can/1e/can1L13.js",
+    "uuid": "b53ea",
+    "id": "can1L13",
+    "titre": "Résoudre une inéquation du second degré (cas particuliers)",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm",
+      "amc": false
+    },
+    "datePublication": "12/10/2023"
   },
   "can1P01": {
     "url": "can/1e/can1P01.js",
@@ -9421,7 +10089,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "21/07/2022"
   },
   "can1P02": {
     "url": "can/1e/can1P02.js",
@@ -9433,7 +10102,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "03/07/2022"
   },
   "can1P03": {
     "url": "can/1e/can1P03.js",
@@ -9445,7 +10115,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "04/07/2022"
   },
   "can1P04": {
     "url": "can/1e/can1P04.js",
@@ -9457,7 +10128,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "25/12/2021"
   },
   "can1P05": {
     "url": "can/1e/can1P05.js",
@@ -9469,7 +10141,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "05/07/2022"
   },
   "can1P06": {
     "url": "can/1e/can1P06.js",
@@ -9481,7 +10154,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "06/07/2022"
   },
   "can1P07": {
     "url": "can/1e/can1P07.js",
@@ -9493,7 +10167,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "06/07/2022"
   },
   "can1P08": {
     "url": "can/1e/can1P08.js",
@@ -9505,7 +10180,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "08/07/2022"
   },
   "can1S01": {
     "url": "can/1e/can1S01.js",
@@ -9516,7 +10192,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "14/02/2022",
+    "dateModification": "14/02/2022"
   },
   "can1S02": {
     "url": "can/1e/can1S02.js",
@@ -9527,7 +10205,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "14/02/2022",
+    "dateModification": "14/02/2022"
   },
   "can1S03": {
     "url": "can/1e/can1S03.js",
@@ -9538,7 +10218,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "15/02/2022",
+    "dateModification": "24/10/2021"
   },
   "can1S04": {
     "url": "can/1e/can1S04.js",
@@ -9549,7 +10231,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "16/02/2022"
   },
   "can1S05": {
     "url": "can/1e/can1S05.js",
@@ -9560,7 +10243,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "16/02/2022"
   },
   "can1S06": {
     "url": "can/1e/can1S06.js",
@@ -9571,7 +10255,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "17/02/2022",
+    "dateModification": "14/02/2022"
   },
   "can1S07": {
     "url": "can/1e/can1S07.js",
@@ -9582,7 +10268,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "18/02/2022",
+    "dateModification": "14/02/2022"
   },
   "can1S08": {
     "url": "can/1e/can1S08.js",
@@ -9593,7 +10281,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "18/02/2022",
+    "dateModification": "14/02/2022"
   },
   "can1S09": {
     "url": "can/1e/can1S09.js",
@@ -9604,7 +10294,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "18/02/2022"
   },
   "can1S10": {
     "url": "can/1e/can1S10.js",
@@ -9615,7 +10306,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "19/02/2022"
   },
   "can1S11": {
     "url": "can/1e/can1S11.js",
@@ -9626,7 +10318,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "21/02/2022",
+    "dateModification": "14/02/2022"
   },
   "can1a-2022": {
     "url": "can/1e/can1a-2022.js",
@@ -9637,7 +10331,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "09/07/2022",
+    "dateModification": "24/10/2021"
   },
   "can2C01": {
     "url": "can/2e/can2C01.js",
@@ -9750,7 +10446,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "09/12/2021"
   },
   "can2C11": {
     "url": "can/2e/can2C11.js",
@@ -9761,7 +10458,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "09/12/2021"
   },
   "can2C12": {
     "url": "can/2e/can2C12.js",
@@ -9773,7 +10471,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "19/12/2021"
   },
   "can2C13": {
     "url": "can/2e/can2C13.js",
@@ -9785,7 +10484,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "15/09/2022"
   },
   "can2C14": {
     "url": "can/2e/can2C14.js",
@@ -9796,7 +10496,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "19/09/2022"
   },
   "can2C15": {
     "url": "can/2e/can2C15.js",
@@ -9808,7 +10509,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "10/11/2022"
   },
   "can2C16": {
     "url": "can/2e/can2C16.js",
@@ -9819,7 +10521,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "16/11/2022"
   },
   "can2C17": {
     "url": "can/2e/can2C17.js",
@@ -9830,7 +10533,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "30/03/2023"
   },
   "can2F01": {
     "url": "can/2e/can2F01.js",
@@ -9874,7 +10578,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021"
   },
   "can2F05": {
     "url": "can/2e/can2F05.js",
@@ -9885,7 +10590,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "1/11/2021"
   },
   "can2F06": {
     "url": "can/2e/can2F06.js",
@@ -9896,7 +10602,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "15/12/2021"
   },
   "can2F07": {
     "url": "can/2e/can2F07.js",
@@ -9908,7 +10615,9 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "21/12/2021",
+    "dateModification": "24/10/2021"
   },
   "can2F08": {
     "url": "can/2e/can2F08.js",
@@ -9919,7 +10628,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "22/12/2021",
+    "dateModification": "24/10/2021"
   },
   "can2F09": {
     "url": "can/2e/can2F09.js",
@@ -9930,7 +10641,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "27/12/2021"
   },
   "can2F10": {
     "url": "can/2e/can2F10.js",
@@ -9941,7 +10653,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "27/12/2021"
   },
   "can2F11": {
     "url": "can/2e/can2F11.js",
@@ -9952,7 +10665,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "30/12/2021"
   },
   "can2F12": {
     "url": "can/2e/can2F12.js",
@@ -9963,7 +10677,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "03/01/2022"
   },
   "can2F13": {
     "url": "can/2e/can2F13.js",
@@ -9975,7 +10690,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "18/01/2022"
   },
   "can2F14": {
     "url": "can/2e/can2F14.js",
@@ -9986,7 +10702,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "27/09/2022"
   },
   "can2F15": {
     "url": "can/2e/can2F15.js",
@@ -9997,7 +10714,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "19/05/2023"
   },
   "can2G01": {
     "url": "can/2e/can2G01.js",
@@ -10064,7 +10782,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "30/09/2021"
   },
   "can2G07": {
     "url": "can/2e/can2G07.js",
@@ -10075,7 +10794,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "30/10/2021"
   },
   "can2G08": {
     "url": "can/2e/can2G08.js",
@@ -10086,7 +10806,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "30/10/2021"
   },
   "can2G09": {
     "url": "can/2e/can2G09.js",
@@ -10097,7 +10818,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "30/10/2021"
   },
   "can2G10": {
     "url": "can/2e/can2G10.js",
@@ -10108,7 +10830,9 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "30/10/2021",
+    "dateModification": "03/01/2022"
   },
   "can2G11": {
     "url": "can/2e/can2G11.js",
@@ -10119,7 +10843,9 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "30/10/2021",
+    "dateModification": "03/01/2022"
   },
   "can2G12": {
     "url": "can/2e/can2G12.js",
@@ -10130,7 +10856,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "30/10/2021"
   },
   "can2G13": {
     "url": "can/2e/can2G13.js",
@@ -10141,7 +10868,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "6/12/2021"
   },
   "can2G14": {
     "url": "can/2e/can2G14.js",
@@ -10152,7 +10880,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/03:2022"
   },
   "can2G15": {
     "url": "can/2e/can2G15.js",
@@ -10163,7 +10892,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/03:2022"
   },
   "can2G16": {
     "url": "can/2e/can2G16.js",
@@ -10175,7 +10905,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "22/06/2022"
   },
   "can2G17": {
     "url": "can/2e/can2G17.js",
@@ -10186,7 +10917,8 @@
       "interactif": true,
       "interactifType": "custom",
       "amc": false
-    }
+    },
+    "datePublication": "08/07/2022"
   },
   "can2G18": {
     "url": "can/2e/can2G18.js",
@@ -10197,7 +10929,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "29/06/2022",
+    "dateModification": "14/02/2022"
   },
   "can2G19": {
     "url": "can/2e/can2G19.js",
@@ -10208,7 +10942,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "10/11/2022"
   },
   "can2G20": {
     "url": "can/2e/can2G20.js",
@@ -10219,7 +10954,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "15/11/2022"
   },
   "can2G21": {
     "url": "can/2e/can2G21.js",
@@ -10230,7 +10966,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/01/2023"
   },
   "can2L01": {
     "url": "can/2e/can2L01.js",
@@ -10253,7 +10990,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/11/2022"
   },
   "can2L03": {
     "url": "can/2e/can2L03.js",
@@ -10286,7 +11024,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "21/05/2023"
   },
   "can2L06": {
     "url": "can/2e/can2L06.js",
@@ -10297,7 +11036,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021"
   },
   "can2L07": {
     "url": "can/2e/can2L07.js",
@@ -10308,7 +11048,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "21/10/2021"
   },
   "can2L08": {
     "url": "can/2e/can2L08.js",
@@ -10319,7 +11060,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/03/2022"
   },
   "can2L09": {
     "url": "can/2e/can2L09.js",
@@ -10330,7 +11072,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "08/12/2022"
   },
   "can2L10": {
     "url": "can/2e/can2L10.js",
@@ -10341,7 +11084,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/01/2023"
   },
   "can2L11": {
     "url": "can/2e/can2L11.js",
@@ -10352,7 +11096,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "12/01/2023"
   },
   "can2N01": {
     "url": "can/2e/can2N01.js",
@@ -10374,7 +11119,33 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "07/02/2022",
+    "dateModification": "26/08/2023"
+  },
+  "can2N05": {
+    "url": "can/2e/can2N05.js",
+    "uuid": "",
+    "id": "can2N05",
+    "titre": "Reconnaître un nombre premier",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm",
+      "amc": false
+    },
+    "datePublication": "16/10/2023"
+  },
+  "can2N06": {
+    "url": "can/2e/can2N06.js",
+    "uuid": "e57cb",
+    "id": "can2N06",
+    "titre": "Écrire un nombre décimal sous la forme $\\dfrac{a}{10^n}$",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "19/10/2023"
   },
   "can2P01": {
     "url": "can/2e/can2P01.js",
@@ -10408,7 +11179,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "05/04/2022",
+    "dateModification": "24/10/2021"
   },
   "can2a-2022": {
     "url": "can/2e/can2a-2022.js",
@@ -10419,7 +11192,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "13/07/2022",
+    "dateModification": "24/10/2021"
   },
   "can2a-2023": {
     "url": "can/2e/can2a-2023.js",
@@ -10430,7 +11205,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "03/04/2023",
+    "dateModification": "24/10/2021"
   },
   "can3C01": {
     "url": "can/3e/can3C01.js",
@@ -10502,7 +11279,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "08/12/2021"
   },
   "can3C07": {
     "url": "can/3e/can3C07.js",
@@ -10513,7 +11291,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "06/12/2021"
   },
   "can3C08": {
     "url": "can/3e/can3C08.js",
@@ -10582,7 +11361,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "09/05/2022"
   },
   "can3C14": {
     "url": "can/3e/can3C14.js",
@@ -10594,7 +11374,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "31/10/2022"
   },
   "can3C15": {
     "url": "can/3e/can3C15.js",
@@ -10605,7 +11386,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "20/11/2022"
   },
   "can3F01": {
     "url": "can/3e/can3F01.js",
@@ -10629,7 +11411,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "13/10/2022"
   },
   "can3F03": {
     "url": "can/3e/can3F03.js",
@@ -10641,7 +11424,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "13/10/2022"
   },
   "can3F04": {
     "url": "can/3e/can3F04.js",
@@ -10653,7 +11437,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "13/10/2022"
   },
   "can3F05": {
     "url": "can/3e/can3F05.js",
@@ -10665,7 +11450,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "13/10/2022"
   },
   "can3F06": {
     "url": "can/3e/can3F06.js",
@@ -10676,7 +11462,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021"
   },
   "can3F07": {
     "url": "can/3e/can3F07.js",
@@ -10687,7 +11474,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021"
   },
   "can3F08": {
     "url": "can/3e/can3F08.js",
@@ -10698,7 +11486,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021"
   },
   "can3F09": {
     "url": "can/3e/can3F09.js",
@@ -10709,7 +11498,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021"
   },
   "can3F10": {
     "url": "can/3e/can3F10.js",
@@ -10720,7 +11510,20 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "02/11/2022"
+  },
+  "can3F11": {
+    "url": "can/3e/can3F11.js",
+    "uuid": "d85c2",
+    "id": "can3F11",
+    "titre": "Utiliser le vocabulaire image/antécédent",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "02/10/2023"
   },
   "can3G01": {
     "url": "can/3e/can3G01.js",
@@ -10835,7 +11638,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021"
   },
   "can3L06": {
     "url": "can/3e/can3L06.js",
@@ -10846,7 +11650,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "08/12/2022"
   },
   "can3M01": {
     "url": "can/3e/can3M01.js",
@@ -10881,7 +11686,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021"
   },
   "can3S01": {
     "url": "can/3e/can3S01.js",
@@ -10959,7 +11765,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "30/03/2022",
+    "dateModification": "24/10/2021"
   },
   "can3a-2022": {
     "url": "can/3e/can3a-2022.js",
@@ -10970,7 +11778,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "19/04/2022",
+    "dateModification": "24/10/2021"
   },
   "can3a-2023": {
     "url": "can/3e/can3a-2023.js",
@@ -10981,7 +11791,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "03/04/2023",
+    "dateModification": "24/10/2021"
   },
   "can4C01": {
     "url": "can/4e/can4C01.js",
@@ -11005,7 +11817,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "05/12/2021"
   },
   "can4C03": {
     "url": "can/4e/can4C03.js",
@@ -11113,7 +11926,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "04/07/2022"
   },
   "can4C12": {
     "url": "can/4e/can4C12.js",
@@ -11125,7 +11939,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "13/09/2022"
   },
   "can4C13": {
     "url": "can/4e/can4C13.js",
@@ -11137,7 +11952,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "10/01/2023"
   },
   "can4C14": {
     "url": "can/4e/can4C14.js",
@@ -11149,7 +11965,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "12/01/2023"
   },
   "can4C15": {
     "url": "can/4e/can4C15.js",
@@ -11161,7 +11978,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "30/03/2023"
   },
   "can4C16": {
     "url": "can/4e/can4C16.js",
@@ -11173,7 +11991,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "07/09/2023"
   },
   "can4C17": {
     "url": "can/4e/can4C17.js",
@@ -11184,7 +12003,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": true
-    }
+    },
+    "datePublication": "07/09/2023"
   },
   "can4C18": {
     "url": "can/4e/can4C18.js",
@@ -11195,7 +12015,20 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": true
-    }
+    },
+    "datePublication": "09/09/2023"
+  },
+  "can4C19": {
+    "url": "can/4e/can4C19.js",
+    "uuid": "1ae99",
+    "id": "can4C19",
+    "titre": "Mutiplier des entiers relatifs",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "04/10/2023"
   },
   "can4G01": {
     "url": "can/4e/can4G01.js",
@@ -11287,6 +12120,31 @@
       "amc": false
     }
   },
+  "can4G09": {
+    "url": "can/4e/can4G09.js",
+    "uuid": "96bcd",
+    "id": "can4G09",
+    "titre": "Trouver la longueur d'un côté de triangle rectangle",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "01/10/2023"
+  },
+  "can4G10": {
+    "url": "can/4e/can4G10.js",
+    "uuid": "5344c",
+    "id": "can4G10",
+    "titre": "Déterminer si un triangle est rectangle",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm",
+      "amcType": "qcmMono",
+      "amc": true
+    },
+    "datePublication": "01/10/2023"
+  },
   "can4L01": {
     "url": "can/4e/can4L01.js",
     "uuid": "0641c",
@@ -11368,7 +12226,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "23/02/2022",
+    "dateModification": "24/10/2021"
   },
   "can4L08": {
     "url": "can/4e/can4L08.js",
@@ -11379,7 +12239,9 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "27/02/2022",
+    "dateModification": "24/10/2021"
   },
   "can4P01": {
     "url": "can/4e/can4P01.js",
@@ -11426,7 +12288,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/10/2021"
   },
   "can4P05": {
     "url": "can/4e/can4P05.js",
@@ -11437,7 +12300,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "23/01/2021",
+    "dateModification": "23/01/2021"
   },
   "can4a-2021": {
     "url": "can/4e/can4a-2021.js",
@@ -11448,7 +12313,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "30/03/2022",
+    "dateModification": "24/10/2021"
   },
   "can4a-2022": {
     "url": "can/4e/can4a-2022.js",
@@ -11459,7 +12326,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "01/05/2022",
+    "dateModification": "24/10/2021"
   },
   "can4a-2023": {
     "url": "can/4e/can4a-2023.js",
@@ -11470,7 +12339,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "03/04/2023",
+    "dateModification": "24/10/2021"
   },
   "can5A01": {
     "url": "can/5e/can5A01.js",
@@ -11683,7 +12554,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "31/03/2023"
   },
   "can5C18": {
     "url": "can/5e/can5C18.js",
@@ -11694,7 +12566,9 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "24/02/2022",
+    "dateModification": "24/10/2021"
   },
   "can5C19": {
     "url": "can/5e/can5C19.js",
@@ -11706,7 +12580,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "09/05/2022"
   },
   "can5C20": {
     "url": "can/5e/can5C20.js",
@@ -11718,7 +12593,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "09/05/2022"
   },
   "can5C21": {
     "url": "can/5e/can5C21.js",
@@ -11730,7 +12606,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "11/05/2022"
   },
   "can5C22": {
     "url": "can/5e/can5C22.js",
@@ -11742,7 +12619,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "31/10/2022"
   },
   "can5C23": {
     "url": "can/5e/can5C23.js",
@@ -11754,7 +12632,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "08/12/2022"
   },
   "can5C24": {
     "url": "can/5e/can5C24.js",
@@ -11766,7 +12645,56 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "30/03/2023"
+  },
+  "can5C25": {
+    "url": "can/5e/can5C25.js",
+    "uuid": "a7061",
+    "id": "can5C25",
+    "titre": "Additionner des entiers relatifs (avec parenthèses)",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "04/10/2023"
+  },
+  "can5C26": {
+    "url": "can/5e/can5C26.js",
+    "uuid": "8a835",
+    "id": "can5C26",
+    "titre": "Additionner des entiers relatifs (écriture simplifiée)",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "04/10/2023"
+  },
+  "can5C27": {
+    "url": "can/5e/can5C27.js",
+    "uuid": "2745a",
+    "id": "can5C27",
+    "titre": "Trouver un  entier relatif (addition à trou)",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "19/10/2023"
+  },
+  "can5C28": {
+    "url": "can/5e/can5C28.js",
+    "uuid": "f9b48",
+    "id": "can5C28",
+    "titre": "Trouver un  entier relatif (addition à trou, écriture simplifiée)",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "19/10/2023"
   },
   "can5D01": {
     "url": "can/5e/can5D01.js",
@@ -11778,7 +12706,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "08/02/2022"
   },
   "can5D02": {
     "url": "can/5e/can5D02.js",
@@ -11790,7 +12719,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "08/02/2022"
   },
   "can5D03": {
     "url": "can/5e/can5D03.js",
@@ -11802,7 +12732,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "08/02/2022"
   },
   "can5G01": {
     "url": "can/5e/can5G01.js",
@@ -11837,7 +12768,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "18/12/2021"
   },
   "can5L01": {
     "url": "can/5e/can5L01.js",
@@ -11872,7 +12804,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "15/12/2021"
   },
   "can5N03": {
     "url": "can/5e/can5N03.js",
@@ -11883,7 +12816,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "17/04/2023"
   },
   "can5P01": {
     "url": "can/5e/can5P01.js",
@@ -11907,7 +12841,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "17/02/2023"
   },
   "can5P03": {
     "url": "can/5e/can5P03.js",
@@ -11919,7 +12854,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "28/10/2021"
   },
   "can5P04": {
     "url": "can/5e/can5P04.js",
@@ -11942,7 +12878,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "18/12/2021"
   },
   "can5P06": {
     "url": "can/5e/can5P06.js",
@@ -11954,7 +12891,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "19/12/2021"
   },
   "can5P07": {
     "url": "can/5e/can5P07.js",
@@ -11966,7 +12904,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "19/07/2022"
   },
   "can5P08": {
     "url": "can/5e/can5P08.js",
@@ -11978,7 +12917,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "19/07/2022"
   },
   "can5P09": {
     "url": "can/5e/can5P09.js",
@@ -11990,7 +12930,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "13/11/2022"
   },
   "can5a-2020": {
     "url": "can/5e/can5a-2020.js",
@@ -12001,7 +12942,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/09/2022",
+    "dateModification": "24/10/2021"
   },
   "can5a-2021": {
     "url": "can/5e/can5a-2021.js",
@@ -12012,7 +12955,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "30/03/2022",
+    "dateModification": "24/10/2021"
   },
   "can5a-2022": {
     "url": "can/5e/can5a-2022.js",
@@ -12023,7 +12968,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "02/05/2022",
+    "dateModification": "24/10/2021"
   },
   "can5a-2023": {
     "url": "can/5e/can5a-2023.js",
@@ -12034,7 +12981,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "03/04/2023",
+    "dateModification": "24/10/2021"
   },
   "can5a-xxxx": {
     "url": "can/5e/can5a-xxxx.js",
@@ -12262,7 +13211,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "04/12/2021"
   },
   "can6C19": {
     "url": "can/6e/can6C19.js",
@@ -12334,7 +13284,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "19/02/2023"
   },
   "can6C25": {
     "url": "can/6e/can6C25.js",
@@ -12368,7 +13319,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "22/08/2022"
   },
   "can6C28": {
     "url": "can/6e/can6C28.js",
@@ -12391,7 +13343,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "1/11/2021"
   },
   "can6C30": {
     "url": "can/6e/can6C30.js",
@@ -12403,7 +13356,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "04/03/2022"
   },
   "can6C31": {
     "url": "can/6e/can6C31.js",
@@ -12415,7 +13369,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "09/05/2022"
   },
   "can6C32": {
     "url": "can/6e/can6C32.js",
@@ -12427,7 +13382,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "09/05/2022"
   },
   "can6C33": {
     "url": "can/6e/can6C33.js",
@@ -12439,7 +13395,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "09/05/2022"
   },
   "can6C34": {
     "url": "can/6e/can6C34.js",
@@ -12451,7 +13408,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "09/05/2022"
   },
   "can6C35": {
     "url": "can/6e/can6C35.js",
@@ -12463,7 +13421,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "27/07/2022"
   },
   "can6C36": {
     "url": "can/6e/can6C36.js",
@@ -12474,7 +13433,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "01/08/2022"
   },
   "can6C38": {
     "url": "can/6e/can6C38.js",
@@ -12486,7 +13446,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "can6C39": {
     "url": "can/6e/can6C39.js",
@@ -12498,7 +13459,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "10/08/2022"
   },
   "can6C40": {
     "url": "can/6e/can6C40.js",
@@ -12510,7 +13472,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "13/09/2022"
   },
   "can6C41": {
     "url": "can/6e/can6C41.js",
@@ -12521,7 +13484,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/11/2022"
   },
   "can6C42": {
     "url": "can/6e/can6C42.js",
@@ -12532,7 +13496,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/11/2022"
   },
   "can6C43": {
     "url": "can/6e/can6C43.js",
@@ -12544,7 +13509,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "04/11/2022"
   },
   "can6C44": {
     "url": "can/6e/can6C44.js",
@@ -12555,7 +13521,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "04/11/2022"
   },
   "can6C45": {
     "url": "can/6e/can6C45.js",
@@ -12567,7 +13534,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "09/02/2023"
   },
   "can6C46": {
     "url": "can/6e/can6C46.js",
@@ -12579,7 +13547,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "13/02/2023"
   },
   "can6D01": {
     "url": "can/6e/can6D01.js",
@@ -12675,7 +13644,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "2/11/2021"
   },
   "can6G05": {
     "url": "can/6e/can6G05.js",
@@ -12687,7 +13657,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "2/11/2021"
   },
   "can6G06": {
     "url": "can/6e/can6G06.js",
@@ -12711,7 +13682,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "18/12/2021"
   },
   "can6I01": {
     "url": "can/6e/can6I01.js",
@@ -12841,7 +13813,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "04/07/2022"
   },
   "can6M11": {
     "url": "can/6e/can6M11.js",
@@ -12853,7 +13826,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "04/07/2022"
   },
   "can6M12": {
     "url": "can/6e/can6M12.js",
@@ -12865,7 +13839,20 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "27/08/2022"
+  },
+  "can6M13": {
+    "url": "can/6e/can6M13.js",
+    "uuid": "59144",
+    "id": "can6M13",
+    "titre": "Manipuler les conversions",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": true
+    },
+    "datePublication": "11/10/2023"
   },
   "can6N01": {
     "url": "can/6e/can6N01.js",
@@ -12961,7 +13948,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "02/12/2021"
   },
   "can6N09": {
     "url": "can/6e/can6N09.js",
@@ -12985,7 +13973,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "15/12/2021"
   },
   "can6N11": {
     "url": "can/6e/can6N11.js",
@@ -12997,7 +13986,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "20/01/2022"
   },
   "can6N12": {
     "url": "can/6e/can6N12.js",
@@ -13009,7 +13999,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "20/01/2022"
   },
   "can6N13": {
     "url": "can/6e/can6N13.js",
@@ -13021,7 +14012,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "20/01/2022"
   },
   "can6N14": {
     "url": "can/6e/can6N14.js",
@@ -13032,7 +14024,8 @@
       "interactif": true,
       "interactifType": "qcm",
       "amc": false
-    }
+    },
+    "datePublication": "05/03/2022"
   },
   "can6N15": {
     "url": "can/6e/can6N15.js",
@@ -13044,7 +14037,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "14/08/2022"
   },
   "can6N16": {
     "url": "can/6e/can6N16.js",
@@ -13055,7 +14049,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "29/08/2022"
   },
   "can6N17": {
     "url": "can/6e/can6N17.js",
@@ -13066,7 +14061,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "29/08/2022"
   },
   "can6P01": {
     "url": "can/6e/can6P01.js",
@@ -13126,7 +14122,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "13/11/2021"
   },
   "can6P06": {
     "url": "can/6e/can6P06.js",
@@ -13138,7 +14135,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "15/11/2022"
   },
   "can6S01": {
     "url": "can/6e/can6S01.js",
@@ -13161,7 +14159,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "30/03/2022",
+    "dateModification": "24/10/2021"
   },
   "can6a-2021": {
     "url": "can/6e/can6a-2021.js",
@@ -13172,7 +14172,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "11/04/2022",
+    "dateModification": "24/10/2021"
   },
   "can6a-2022": {
     "url": "can/6e/can6a-2022.js",
@@ -13183,7 +14185,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "13/04/2022",
+    "dateModification": "24/10/2021"
   },
   "can6a-2023": {
     "url": "can/6e/can6a-2023.js",
@@ -13194,7 +14198,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "03/04/2023",
+    "dateModification": "24/10/2021"
   },
   "can6a-xxxx": {
     "url": "can/6e/can6a-xxxx.js",
@@ -13218,7 +14224,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "26/10/2021"
   },
   "canExC02": {
     "url": "can/Ex/canExC02.js",
@@ -13230,7 +14237,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "26/10/2021"
   },
   "canc3C01": {
     "url": "can/c3/canc3C01.js",
@@ -13278,7 +14286,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "16/11/2021"
   },
   "canc3C05": {
     "url": "can/c3/canc3C05.js",
@@ -13290,7 +14299,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "20/11/2021"
   },
   "canc3C06": {
     "url": "can/c3/canc3C06.js",
@@ -13302,7 +14312,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "20/11/2021"
   },
   "canc3C07": {
     "url": "can/c3/canc3C07.js",
@@ -13314,7 +14325,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "25/07/2022"
   },
   "canc3C08": {
     "url": "can/c3/canc3C08.js",
@@ -13326,7 +14338,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "24/07/2022"
   },
   "canc3C09": {
     "url": "can/c3/canc3C09.js",
@@ -13338,7 +14351,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "23/07/2022"
   },
   "canc3C10": {
     "url": "can/c3/canc3C10.js",
@@ -13350,7 +14364,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "23/07/2022"
   },
   "canc3C11": {
     "url": "can/c3/canc3C11.js",
@@ -13362,7 +14377,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "13/09/2022"
   },
   "canc3C12": {
     "url": "can/c3/canc3C12.js",
@@ -13374,7 +14390,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "17/11/2022"
   },
   "canc3C13": {
     "url": "can/c3/canc3C13.js",
@@ -13385,7 +14402,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "17/11/2022"
   },
   "canc3C14": {
     "url": "can/c3/canc3C14.js",
@@ -13397,7 +14415,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "24/01/2023"
   },
   "canc3C15": {
     "url": "can/c3/canc3C15.js",
@@ -13409,7 +14428,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "24/01/2023"
   },
   "canc3D01": {
     "url": "can/c3/canc3D01.js",
@@ -13421,7 +14441,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCHybride",
       "amc": true
-    }
+    },
+    "datePublication": "4/11/2021"
   },
   "canc3D02": {
     "url": "can/c3/canc3D02.js",
@@ -13432,7 +14453,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "4/11/2021"
   },
   "canc3D03": {
     "url": "can/c3/canc3D03.js",
@@ -13443,7 +14465,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "20/11/2021"
   },
   "canc3M01": {
     "url": "can/c3/canc3M01.js",
@@ -13455,7 +14478,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
-    }
+    },
+    "datePublication": "5/11/2021"
   },
   "canc3M02": {
     "url": "can/c3/canc3M02.js",
@@ -13467,7 +14491,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "25/08/2022"
   },
   "canc3M03": {
     "url": "can/c3/canc3M03.js",
@@ -13478,7 +14503,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "05/11/2022"
   },
   "canc3N01": {
     "url": "can/c3/canc3N01.js",
@@ -13538,7 +14564,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "16/11/2021"
   },
   "canc3N06": {
     "url": "can/c3/canc3N06.js",
@@ -13550,7 +14577,8 @@
       "interactifType": "qcm",
       "amcType": "qcmMono",
       "amc": true
-    }
+    },
+    "datePublication": "17/11/2022"
   },
   "canc3N07": {
     "url": "can/c3/canc3N07.js",
@@ -13561,7 +14589,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "25/01/2023"
   },
   "canc3a": {
     "url": "can/c3/canc3a.js",
@@ -13584,7 +14613,9 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "03/04/2023",
+    "dateModification": "24/10/2021"
   },
   "techno1E2": {
     "url": "techno1/techno1E2.js",
@@ -13595,7 +14626,8 @@
       "interactif": true,
       "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "datePublication": "19/06/2022"
   },
   "techno1P1": {
     "url": "techno1/techno1P1.js",
@@ -13607,7 +14639,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "19/06/2022"
   },
   "techno1P2": {
     "url": "techno1/techno1P2.js",
@@ -13619,7 +14652,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "datePublication": "19/06/2022"
   },
   "techno1P2-1": {
     "url": "techno1/techno1P2-1.js",
@@ -13641,7 +14675,9 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "25/06/2022",
+    "dateModification": ""
   },
   "techno1P3": {
     "url": "techno1/techno1P3.js",
@@ -13665,7 +14701,8 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "09/05/2023"
   },
   "techno1P5": {
     "url": "techno1/techno1P5.js",
@@ -13687,6 +14724,8 @@
     "tags": {
       "interactif": false,
       "amc": false
-    }
+    },
+    "datePublication": "26/06/2022",
+    "dateModification": "24/10/2021"
   }
 }

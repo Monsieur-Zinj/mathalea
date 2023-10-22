@@ -12,7 +12,7 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 export const titre = 'Construire des parallélogrammes avec dispositif d\'auto-correction'
@@ -59,7 +59,7 @@ export default function ConstructionsParallelogrammes () {
       const objetsCorrection = []
       // Préparation de la figure aléatoire et des objets 2d utiles
       const O = point(0, 0, noms[4])
-      const A = rotation(pointAdistance(O, calcul(randint(50, 70) / 10)), O, randint(0, 179) * choice([-1, 1]), noms[0])
+      const A = rotation(pointAdistance(O, calculANePlusJamaisUtiliser(randint(50, 70) / 10)), O, randint(0, 179) * choice([-1, 1]), noms[0])
       const C = rotation(A, O, 180, noms[2])
       const B = similitude(A, O, randint(40, 80) * choice([-1, 1]), randint(4, 7, 5) * choice([-1, 1]) / 5, noms[1])
       const D = rotation(B, O, 180, noms[3])

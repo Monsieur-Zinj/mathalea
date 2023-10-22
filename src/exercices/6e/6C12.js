@@ -79,7 +79,7 @@ export default class QuestionsPrix extends Exercice {
         TabPrixUnitaire[kk] = choice(Chiffres, TabPrixUnitaire)
         TabAutrePrix[kk] = choice(Chiffres, TabAutrePrix)
       }
-      // (QuestionsDisponibles.length === 1 & this.nbQuestions === 1) ? this.consigne = 'Répondre à la question suivante.' : this.consigne = 'Répondre aux questions suivantes.'
+      (QuestionsDisponibles.length === 1 & this.nbQuestions === 1) ? this.consigne = 'Répondre à la question suivante.' : this.consigne = 'Répondre aux questions suivantes.'
       let PrixUnitaire
       let AutrePrix
       let PrixReduction
@@ -225,7 +225,7 @@ export default class QuestionsPrix extends Exercice {
           texteCorr += correctionAMC
         }
         if (this.interactif && !context.isAmc) {
-          texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25') + '<br><br>'
+          texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25',{texteApres:' €'}) + '<br><br>'
           setReponse(this, 8 * i + kk, reponseAMC)
         }
         if (context.isAmc) {

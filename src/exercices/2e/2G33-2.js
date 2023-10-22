@@ -20,10 +20,10 @@ export default function PositionsDeDroites () {
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
+  this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
 
-  const typeQuestionsDisponibles = ['type1', 'type1', 'type2'] // On créé 2 types de questions
+  const typeQuestionsDisponibles = ['type1', 'type1', 'type2'] //, 'type1', 'type2' On créé 2 types de questions
   const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -33,12 +33,12 @@ export default function PositionsDeDroites () {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':
-          a1 = randint(-5, 5)
-          b1 = randint(-5, 5)
-          c1 = randint(-5, 5)
-          a2 = randint(-5, 5)
-          b2 = randint(-5, 5)
-          c2 = randint(-5, 5)
+          a1 = randint(-9, 9, 0)
+          b1 = randint(-9, 9, 0)
+          c1 = randint(-9, 9)
+          a2 = randint(-9, 9, 0)
+          b2 = randint(-9, 9, 0)
+          c2 = randint(-9, 9)
 
           texte = 'On donne : $(d) : '
           if (a1 !== 0) {
@@ -68,7 +68,7 @@ export default function PositionsDeDroites () {
             texte += '- y '
           }
           if (b2 !== 1 & b2 !== 0 & b2 !== -1) { // cas général
-            texte += `${ecritureAlgebrique(c2)} y `
+            texte += `${ecritureAlgebrique(b2)} y `
           }
           if (c2 !== 0) {
             texte += `${ecritureAlgebrique(c2)} `
@@ -80,11 +80,11 @@ export default function PositionsDeDroites () {
           texteCorr += '<br>admet un vecteur directeur de coordonnées :  '
           texteCorr += '$\\vec {u} \\begin{pmatrix}-b\\\\a\\end{pmatrix}$.'
           texteCorr += `<br>Comme on a d'après l'énoncé  : $a=${a1}$ , $b=${b1}$ , $c=${c1}$ ,`
-          texteCorr += '<br> on en déduit que : $\\vec {u} \\begin{pmatrix} '
+          texteCorr += 'on en déduit que : $\\vec {u} \\begin{pmatrix} '
           if (b1 === 0) { texteCorr += '0' } else { texteCorr += `-${ecritureParentheseSiNegatif(b1)}` }
           texteCorr += `\\\\${a1}\\end{pmatrix}$   est un vecteur directeur de $(d)$.`
           texteCorr += `<br>De même, appelons $\\vec {u'}$ le vecteur directeur de $(d')$. <br>Comme ici, on a : $a=${a2}$ , $b=${b2}$ , $c=${c2}$ ,`
-          texteCorr += '<br> on en déduit que : $\\vec {u\'} \\begin{pmatrix} '
+          texteCorr += 'on en déduit que : $\\vec {u\'} \\begin{pmatrix} '
           if (b2 === 0) { texteCorr += '0' } else { texteCorr += `-${ecritureParentheseSiNegatif(b2)}` }
           texteCorr += `\\\\${a2}\\end{pmatrix}$`
           texteCorr += '<br> Pour déterminer la position relative de $(d)$ et $(d\')$, on étudie la colinéarité des deux vecteurs directeurs. '
@@ -102,13 +102,13 @@ export default function PositionsDeDroites () {
           }
           break
         case 'type2':
-          a1 = randint(-5, 5)
-          b1 = randint(-5, 5)
+          a1 = randint(-9, 9, 0)
+          b1 = randint(-9, 5, 0)
           c1 = randint(-5, 5)
-          k = randint(-2, 2, 0)
+          k = randint(-9, 9, [0, 1])
           a2 = a1 * k
           b2 = b1 * k
-          c2 = randint(-5, 5)
+          c2 = randint(-7, 7)
 
           texte = 'On donne : $(d) : '
           if (a1 !== 0) {
@@ -138,7 +138,7 @@ export default function PositionsDeDroites () {
             texte += '- y '
           }
           if (b2 !== 1 & b2 !== 0 & b2 !== -1) { // cas général
-            texte += `${ecritureAlgebrique(c2)} y `
+            texte += `${ecritureAlgebrique(b2)} y `
           }
           if (c2 !== 0) {
             texte += `${ecritureAlgebrique(c2)} `
@@ -173,7 +173,7 @@ export default function PositionsDeDroites () {
           }
           break
       }
-      if (this.questionJamaisPosee(i, a1, b1, c1, k)) {
+      if (this.questionJamaisPosee(i, a1, b1, c1, b2, c2, a2)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

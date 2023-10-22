@@ -8,7 +8,7 @@ import { egal } from './outils.js'
  * @author Sébastien Lozano
  */
 
-export class Triangles {
+export class Triangle {
   /**
    * @param {number} l1 une des longueurs du triangle
    * @param {number} l2 une des longueurs du triangle

@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { tableauColonneLigne } from '../../../lib/format/miseEnPage.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une quatrième proportionnelle'
 export const interactifReady = true
@@ -26,17 +26,17 @@ export default function QuatriemeProportionnelle () {
     const a = randint(1, 6)
     const b = randint(4, 8, a) * 2
     const c = choice([2, 3, 4, 5])
-    this.reponse = calcul(b * c)
+    this.reponse = calculANePlusJamaisUtiliser(b * c)
     switch (randint(0, 3)) {
       case 0:
         this.question = `Complèter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableauColonneLigne([b, a], [' '], [calcul(a * c)])
+        this.question += tableauColonneLigne([b, a], [' '], [calculANePlusJamaisUtiliser(a * c)])
         this.question += `<br>
         
         `
-        this.correction = `La quatrième proportionnelle est donnée par  : $\\dfrac{${calcul(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calcul(b * c)}$`
+        this.correction = `La quatrième proportionnelle est donnée par  : $\\dfrac{${calculANePlusJamaisUtiliser(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calculANePlusJamaisUtiliser(b * c)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
     Pour passer de la première ligne du tableau à la deuxième, on multiplie par
      $${c}$ car $${a}\\times ${c}=${a * c}$.<br>
@@ -46,11 +46,11 @@ export default function QuatriemeProportionnelle () {
         this.question = `Complèter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableauColonneLigne([a, calcul(a * c)], [b], [' '])
+        this.question += tableauColonneLigne([a, calculANePlusJamaisUtiliser(a * c)], [b], [' '])
         this.question += `<br>
         
         `
-        this.correction = `La quatrième proportionnelle est donnée par : $\\dfrac{${calcul(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calcul(b * c)}$`
+        this.correction = `La quatrième proportionnelle est donnée par : $\\dfrac{${calculANePlusJamaisUtiliser(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calculANePlusJamaisUtiliser(b * c)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour passer de la première colonne du tableau à la deuxième, on multiplie par
          $${c}$ car $${a}\\times ${c}=${a * c}$.<br>
@@ -60,11 +60,11 @@ export default function QuatriemeProportionnelle () {
         this.question = `Complèter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableauColonneLigne([' ', calcul(a * c)], [b], [a])
+        this.question += tableauColonneLigne([' ', calculANePlusJamaisUtiliser(a * c)], [b], [a])
         this.question += `<br>
         
         `
-        this.correction = `La quatrième proportionnelle est donnée par : $\\dfrac{${calcul(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calcul(b * c)}$`
+        this.correction = `La quatrième proportionnelle est donnée par : $\\dfrac{${calculANePlusJamaisUtiliser(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calculANePlusJamaisUtiliser(b * c)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour passer de la deuxième ligne du tableau à la première, on multiplie par
          $${c}$ car $${a}\\times ${c}=${a * c}$.<br>
@@ -74,11 +74,11 @@ export default function QuatriemeProportionnelle () {
         this.question = `Complèter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableauColonneLigne([b, ' '], [a], [calcul(a * c)])
+        this.question += tableauColonneLigne([b, ' '], [a], [calculANePlusJamaisUtiliser(a * c)])
         this.question += `<br>
         
         `
-        this.correction = `La quatrième proportionnelle est donnée par : $\\dfrac{${calcul(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calcul(b * c)}$`
+        this.correction = `La quatrième proportionnelle est donnée par : $\\dfrac{${calculANePlusJamaisUtiliser(a * c)}\\times ${b}}{${a}}=\\dfrac{${a * b * c}}{${a}}=${calculANePlusJamaisUtiliser(b * c)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Pour passer de la première colonne du tableau à la deuxième, on multiplie par
          $${c}$ car $${a}\\times ${c}=${a * c}$.<br>

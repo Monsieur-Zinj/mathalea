@@ -635,7 +635,7 @@ export function tableauDeVariation ({
       const texte = latex.texte
       const xTexte = arrondi(latex.x * context.pixelsParCm, 1)
       const yTexte = arrondi(-latex.y * context.pixelsParCm, 1)
-      divsTexte.push(` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,0)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(texte)}</div>`)
+      divsTexte.push(` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(texte)}</div>`)
     }
     // Si l'on de définit pas rxmin, rymin, rxmax et rymax, ceux-ci sont fixés par défaut à -0.5 et +0.5, ce qui s'ajoute aux marges déjà prévues pour les segments de -0.2 et +0.2
     // voilà d'où vient le décallage de 0.7 enregistré sur la position des latex par rapport au cadre !
@@ -646,7 +646,7 @@ export function tableauDeVariation ({
       rxmax: 0.1,
       rymax: 0.05
     })), segments)
-    const codeHtml = `<div class="svgContainer" style="padding: 10px 0px;">
+    const codeHtml = `<div class="svgContainer">
       <div style="position: relative;">
         ${svgCode}
         ${divsTexte.join('\n')}
@@ -1089,10 +1089,10 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
     tabInit: [
       ligneDerivee
         ? [
-            ['x', 2, 10], ['f′(x)', 2, 10], ['f(x)', 3, 10]
+            ['x', 3, 10], ['f′(x)', 3, 10], ['f(x)', 3, 10]
           ]
         : [
-            ['x', 2, 10], ['f(x)', 3, 10]
+            ['x', 3, 10], ['f(x)', 3, 10]
           ],
       premiereLigne
     ],

@@ -51,7 +51,7 @@ export default class SommeSuiteGeometrique extends Exercice {
       }
     } else {
       this.question = `Soit $${u}$ la suite géométrique de premier terme $${u}_1 = ${premierTerme}$ et de raison $${texNombre(q)}$.`
-      this.question += `<br>Calculer $\\displaystyle S = ${u}_1 + ${u}_2 + ... + ${u}_{${n}} =\\sum_{k=0}^{${n}}${u}_k$`
+      this.question += `<br>Calculer $\\displaystyle S = ${u}_1 + ${u}_2 + ... + ${u}_{${n}} =\\sum_{k=1}^{${n}}${u}_k$`
       this.question += besoinDArrondi ? ' et donner un arrondi au millième près.' : '.'
       this.reponse = arrondi(premierTerme * (1 - q ** (n)) / (1 - q), 3)
       if (this.correctionDetaillee) {

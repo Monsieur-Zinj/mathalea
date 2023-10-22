@@ -45,6 +45,11 @@ export default function ResoudreEquationDegre2 () {
         x1 = randint(-5, 2, [0])
         x2 = randint(x1 + 1, 5, [0, -x1])
         k = randint(-4, 4, [0])
+        if (k < 0) {
+          const xTemp = x1
+          x1 = x2
+          x2 = xTemp
+        }
         a = k
         b = -k * x1 - k * x2
         c = k * x1 * x2
@@ -54,7 +59,7 @@ export default function ResoudreEquationDegre2 () {
         texteCorr += '<br>$\\Delta>0$ donc l\'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
         texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x1}$`
         texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}=${x2}$`
-        texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${x1} ; ${x2}\\right\\}$.`
+        texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${Math.min(x1, x2)} ; ${Math.max(x2, x1)}\\right\\}$.`
       }
       if (listeTypeDeQuestions[i] === 'solutionDouble') {
         // (dx+e)^2=d^2x^2+2dex+e^2
@@ -97,8 +102,13 @@ export default function ResoudreEquationDegre2 () {
         texteCorr += '<br>$\\Delta>0$ donc l\'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
         texteCorr += `<br>$x_1 =\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${texNombre((-b - Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`
         texteCorr += `<br>$x_2 =\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\approx ${texNombre((-b + Math.sqrt(b ** 2 - 4 * a * c)) / (2 * a), 2)}$`
-        texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}} ; \\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\right\\}$.`
+        if (a > 0) {
+          texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}} ; \\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\right\\}$.`
+        } else {
+          texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{\\dfrac{${-b}+\\sqrt{${b * b - 4 * a * c}}}{${2 * a}} ; \\dfrac{${-b}-\\sqrt{${b * b - 4 * a * c}}}{${2 * a}}\\right\\}$.`
+        }
       }
+
       if (listeTypeDeQuestions[i] === 'factorisationParx') {
         // x(ax+b)=ax^2+bx
         a = randint(-11, 11, [0, -1, 1])

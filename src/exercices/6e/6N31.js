@@ -3,7 +3,7 @@ import { texPrix } from '../../lib/format/style.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Comparer des nombres décimaux'
 export const amcReady = true
@@ -80,27 +80,27 @@ export default function ComparerDecimaux () {
           a = randint(1, 99)
           b = randint(11, 99)
           c = randint(11, 99)
-          x = calcul(a + b / 100)
-          y = calcul(a + c / 100)
+          x = calculANePlusJamaisUtiliser(a + b / 100)
+          y = calculANePlusJamaisUtiliser(a + c / 100)
           break
         case 3: // a,b  a,cc avec b>c
           a = randint(1, 99)
           b = randint(1, 8)
           c = randint(1, b * 10)
-          x = calcul(a + b / 10)
-          y = calcul(a + c / 100)
+          x = calculANePlusJamaisUtiliser(a + b / 10)
+          y = calculANePlusJamaisUtiliser(a + c / 100)
           break
         case 4: // 0,ab 0,ba
           a = randint(1, 9)
           b = randint(1, 9, a)
-          x = calcul((a * 10 + b) / 100)
-          y = calcul((b * 10 + a) / 100)
+          x = calculANePlusJamaisUtiliser((a * 10 + b) / 100)
+          y = calculANePlusJamaisUtiliser((b * 10 + a) / 100)
           break
         case 5: // 0,a0b 0,b0a
           a = randint(1, 9)
           b = randint(1, 9, a)
-          x = calcul((a * 100 + b) / 1000)
-          y = calcul((b * 100 + a) / 1000)
+          x = calculANePlusJamaisUtiliser((a * 100 + b) / 1000)
+          y = calculANePlusJamaisUtiliser((b * 100 + a) / 1000)
           break
         case 6: // a,b a,b0
           a = randint(11, 999)
@@ -108,22 +108,22 @@ export default function ComparerDecimaux () {
             // pas de nombre divisible par 10
             a = randint(11, 999)
           }
-          x = calcul(a / 10)
+          x = calculANePlusJamaisUtiliser(a / 10)
           y = x
           zeroInutile = true
           break
         case 7: // 0,0ab 0,0a0b
           a = randint(1, 9)
           b = randint(1, 9)
-          x = calcul(a / 100 + b / 1000)
-          y = calcul(a / 100 + b / 10000)
+          x = calculANePlusJamaisUtiliser(a / 100 + b / 1000)
+          y = calculANePlusJamaisUtiliser(a / 100 + b / 10000)
           break
         case 8: // a,bb  a,ccc avec b>c
           a = randint(11, 99)
           b = randint(11, 99)
           c = randint(100, b * 10)
-          x = calcul(a + b / 100)
-          y = calcul(a + c / 1000)
+          x = calculANePlusJamaisUtiliser(a + b / 100)
+          y = calculANePlusJamaisUtiliser(a + c / 1000)
           if (randint(1, 2) === 1) {
             [x, y] = [y, x]
           }
@@ -132,8 +132,8 @@ export default function ComparerDecimaux () {
           a = randint(11, 98)
           b = randint(11, 99)
           c = randint(b * 100, 10000)
-          x = calcul(a + 1 + b / 100)
-          y = calcul(a + c / 10000)
+          x = calculANePlusJamaisUtiliser(a + 1 + b / 100)
+          y = calculANePlusJamaisUtiliser(a + c / 10000)
           if (randint(1, 2) === 1) {
             [x, y] = [y, x]
           }

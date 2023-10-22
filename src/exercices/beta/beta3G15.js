@@ -5,7 +5,7 @@ import { homothetie, rotation, symetrieAxiale, translation2Points } from '../../
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, calcul, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Utiliser toutes les transformations'
 
@@ -42,11 +42,11 @@ export default function ConstructionsDeTransformes () {
       texteCorr = '' // Idem pour le texte de la correction.
 
       const A = point(0, 2, 'A', 'right')
-      const B = point(calcul(randint(20, 30) / 10), calcul(randint(60, 80) / 10), 'B', 'right')
+      const B = point(calculANePlusJamaisUtiliser(randint(20, 30) / 10), calculANePlusJamaisUtiliser(randint(60, 80) / 10), 'B', 'right')
       const d = droite(A, B)
       const tA = tracePointSurDroite(A, d)
       const tB = tracePointSurDroite(B, d)
-      const M = point(calcul(randint(20, 40) / 10) * (-1), 0, 'M')
+      const M = point(calculANePlusJamaisUtiliser(randint(20, 40) / 10) * (-1), 0, 'M')
       const O = point(randint(4, 7) * (-1), randint(2, 4), 'O')
       const M1 = symetrieAxiale(M, d, 'M1')
       const M2 = rotation(M, O, 180, 'M2')

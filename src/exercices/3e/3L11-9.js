@@ -1,12 +1,13 @@
 import { ExoRose } from '../6e/_Roses.js'
 export const titre = 'Résoudre une Rose multiplicative avec calcul littéral'
 export const dateDePublication = '12/08/2022'
-export const interactifReady = false
+export const dateDeModifImportante = '01/10/2023'
+export const interactifReady = true
+export const interactifType = 'custom'
 
 /**
- * Travailler la double distribu
+ * Travailler la double distributivité
  * @author Jean-Claude Lhote
- * Référence 3L11-9
  */
 
 export const uuid = '4963b'

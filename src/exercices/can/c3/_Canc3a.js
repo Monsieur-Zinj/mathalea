@@ -99,11 +99,6 @@ export default class ClasseCan2023 {
     }
     const k = randint(5, 8)
     const b = randint(2, 5) * k
-    let c = []
-    for (let n = 0; n < b; n++) {
-      c.push(true)
-    }
-    c = shuffle(c)
     const d = []
     for (let n = 0; n < b; n++) {
       d.push(plot(n % k, -Math.floor(n / k), { rayon: 0.2, couleur: 'black', couleurDeRemplissage: 'black' }))
@@ -164,7 +159,7 @@ export default class ClasseCan2023 {
     }
     // Variables pour l'affichage LaTeX
     let pas, valeurOrigine, valeurUnitex, gradLaTeX
-    let a, d, maListe
+    let a, d
     if (choice([true, false])) {
       a = randint(42, 52, [40, 45, 50]) * 2 // choix de la produit = écart entre deux graduations
       pas = 5
@@ -183,7 +178,6 @@ export default class ClasseCan2023 {
         thickOffset: 0,
         axeStyle: '->',
         pointListe: [[a, '?']],
-        labelListe: maListe,
         pointCouleur: 'blue',
         pointStyle: 'x',
         labelsPrincipaux: true
@@ -206,7 +200,6 @@ export default class ClasseCan2023 {
         thickOffset: 0,
         axeStyle: '->',
         pointListe: [[a, '?']],
-        labelListe: maListe,
         pointCouleur: 'blue',
         pointStyle: 'x',
         labelsPrincipaux: true
@@ -420,14 +413,13 @@ export default class ClasseCan2023 {
     let a = randint(0, 8)
     let b = randint(0, 4)
     let c = randint(0, 8)
-    let d = randint(0, 4)
+    const d = randint(0, 4)
     if (choice([true, false])) {
       chiffre = [['un', 1], ['deux', 2], ['trois', 3], ['cinq', 5], ['quatre', 4], ['six', 6], ['sept', 7], ['huit', 8], ['neuf', 9]]
       chiffre2 = [['vingt', 20], ['trente', 30], ['quarante', 40], ['cinquante', 50], ['soixante', 60]]
       a = randint(0, 8)
       b = randint(0, 4)
       c = randint(0, 8)
-      d = randint(0, 4)
       if (a === 0) {
         sortie.texte = `Écris en chiffres le nombre ${chiffre2[b][0]}-et-${chiffre[a][0]}-mille-${chiffre[c][0]}.`
         sortie.reponse = (chiffre2[b][1] + chiffre[a][1]) * 1000 + chiffre[c][1]
@@ -515,9 +507,7 @@ export default class ClasseCan2023 {
       canEnonce: '',
       canReponseACompleter: ''
     }
-    let a = randint(2, 5)
-    let b = randint(6, 9)
-    let c = new Decimal('0.1')
+    let a, b, c
     if (choice([true, false])) {
       a = randint(2, 5)
       b = randint(6, 9)
@@ -554,7 +544,7 @@ export default class ClasseCan2023 {
     const facteur = randint(2, 9)
     const table = randint(2, 9)
     const a = facteur * table
-    let unite
+    let unite = 1
     switch (table) {
       case 2:
       case 3:
@@ -576,8 +566,6 @@ export default class ClasseCan2023 {
       x: 0,
       y: 0,
       thickDistance: table,
-      thickSec: true,
-      thickSecDist: table,
       thickOffset: 0,
       axeStyle: '->',
       pointListe: [[a, '?']],
@@ -588,7 +576,7 @@ export default class ClasseCan2023 {
     })
     sortie.reponse = a
     sortie.canReponseACompleter = `\\Reperage[DemiDroite,Pasx=1,Unitex=0.4,ValeurUnitex=${table},AffichageAbs=2]{${facteur}/3*A,10/B}`
-    sortie.texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d({ xmin: -1, ymin: -1, xmax: d.Max, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d) + '\n' : `Complète \\\\ ${sortie.canReponseACompleter}`
+    sortie.texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d(Object.assign({ scale: 0.6, style: 'margin: auto' }, fixeBordures(d)), d) + '\n' : `Complète \\\\ ${sortie.canReponseACompleter}`
     // texte += context.isHtml ? '' : '\\\\\\smallskip'
     sortie.texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
     sortie.canEnonce = 'Complète.'
@@ -904,7 +892,7 @@ export default class ClasseCan2023 {
     sortie.diviseurDeLHeure = choice([2, 4]) // diviseur de l'heure
     if (sortie.diviseurDeLHeure === 4) {
       sortie.vitesse = choice([40, 80, 100])
-      sortie.nombreDeMinutes = choice([15, 45])
+      sortie.nombreDeMinutes = 15
     } else {
       sortie.vitesse = choice([30, 60, 90, 120])
       sortie.nombreDeMinutes = 30

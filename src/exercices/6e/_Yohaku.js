@@ -21,13 +21,26 @@ export const interactifReady = true
 export const interactifType = 'custom'
 const math = create(all)
 
+/**
+ * @class
+ * @property {'entiers'|'entiers relatifs'|'littéraux'|'fractions positives'|'fractions relatives'|'fractions dénominateurs multiples'|'fractions positives dénominateurs premiers'} type
+ * @property {number?} largeur
+ * @property {number?} hauteur
+ * @property {number?} taille
+ * @property {number?} Case
+ * @property {number[]|string[]|FractionEtendue[]?} cellules
+ * @property {'addition'|'multiplication'} operation = 'addition'
+ * @property {number} valeurMax = 50,
+ * @property {boolean} solution = false,
+ * @property {number[]|string[]|FractionEtendue[]} cellulesPreremplies = []
+ */
 export class Yohaku {
   constructor ({
     type = 'entiers',
     largeur = 2,
     hauteur = 2,
     taille = 3,
-    Case = null,
+    Case,
     cellules = [],
     resultats = [],
     operation = 'addition',
@@ -47,6 +60,7 @@ export class Yohaku {
     this.cellulesPreremplies = cellulesPreremplies
     // Si les cellules ne sont pas données, on en calcule le contenu aléatoirement.
     if (cellules === undefined || cellules.length === 0) {
+      cellules = []
       const den = randint(2, this.valeurMax)
       for (let i = 0; i < this.taille ** 2; i++) {
         switch (this.type) {
@@ -57,7 +71,7 @@ export class Yohaku {
             cellules.push(randint(-this.valeurMax, this.valeurMax, 0))
             break
           case 'littéraux' :
-            cellules.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`).printResult)
+            cellules.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, {}).printResult)
             break
           case 'fractions dénominateurs multiples':
             cellules.push(math.fraction(randint(1, this.valeurMax), den))
@@ -84,7 +98,7 @@ export class Yohaku {
             cellules.push(randint(-this.valeurMax, this.valeurMax, 0))
             break
           case 'littéraux' :
-            cellules.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`).printResult)
+            cellules.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, {}).printResult)
             break
           case 'fractions dénominateurs multiples':
             cellules.push(math.fraction(randint(1, this.valeurMax), cellules[i - 1].d))
@@ -125,8 +139,8 @@ export class Yohaku {
 
   // fonction utilisée par calculeResultats
   operate (valeurs) {
-    const valeursConverties = valeurs.map((val)=>{
-      if (typeof val === 'number' || val.s !== undefined ) return val
+    const valeursConverties = valeurs.map((val) => {
+      if (typeof val === 'number' || val.s !== undefined) return val
       else if (typeof val === 'string') return val.replaceAll(/\s/g, '')
       else return val.N().valueOf()
     })
@@ -143,7 +157,7 @@ export class Yohaku {
           }
         } else {
           initialValue = math.parse('0')
-          return valeursConverties.reduce((previous, current) => calculer(`${previous.toString()}+${current.toString()}`).printResult, initialValue).replaceAll(/\s/g,'')
+          return valeursConverties.reduce((previous, current) => calculer(`${previous.toString()}+${current.toString()}`, {}).printResult, initialValue).replaceAll(/\s/g, '')
         }
       case 'multiplication':
         if (this.type !== 'littéraux') {
@@ -156,7 +170,7 @@ export class Yohaku {
           }
         } else {
           initialValue = math.parse('1')
-          return valeursConverties.reduce((previous, current) => calculer(`(${previous.toString()})*(${current.toString()})`).printResult, initialValue).replaceAll(/\s/g,'')
+          return valeursConverties.reduce((previous, current) => calculer(`(${previous.toString()})*(${current.toString()})`, {}).printResult, initialValue).replaceAll(/\s/g, '')
         }
     }
   }
@@ -180,7 +194,7 @@ export class Yohaku {
         if (this.type !== 'littéraux') {
           resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'black', 20)
         } else {
-          resultats[i] = latexParCoordonnees(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'black', operateur === 'addition' ? 50 : 80)
+          resultats[i] = latexParCoordonnees(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'black', this.operation === 'addition' ? 50 : 80)
         }
       }
     }
@@ -191,13 +205,13 @@ export class Yohaku {
         if (this.type !== 'littéraux') {
           resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'black', 20)
         } else {
-          resultats[i] = latexParCoordonnees(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'black', operateur === 'addition' ? 50 : 80)
+          resultats[i] = latexParCoordonnees(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'black', this.operation === 'addition' ? 50 : 80)
         }
       }
     }
     if (this.Case !== null) {
       if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-        donnees.push(texteParPosition(stringNombre(this.cellules[this.Case]), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
+        donnees.push(texteParPosition(stringNombre(this.cellules[this.Case], 0), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
       } else {
         if (this.type !== 'littéraux') {
           donnees.push(latexParCoordonnees(this.cellules[this.Case].toLatex().replace('frac', 'dfrac'), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'black', 20))
@@ -209,7 +223,7 @@ export class Yohaku {
     if (this.solution) {
       for (let i = 0; i < this.cellules.length; i++) {
         if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-          if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellules[i]), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
+          if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellules[i], 0), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
         } else {
           if (this.type !== 'littéraux') {
             if (i !== this.Case) donnees.push(latexParCoordonnees(this.cellules[i].toLatex().replace('frac', 'dfrac'), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'black', 20))
@@ -250,14 +264,8 @@ export default function FabriqueAYohaku () {
       const donnees = []
       const taille = contraindreValeur(2, 5, this.sup3, 3)
       const valeurMax = contraindreValeur(taille ** 2 + 1, 999, this.sup, 30)
-      const operateur = parseInt(this.sup2) === 1 ? 'addition' : 'multiplication'
+      const operateur = this.sup2 === 1 ? 'addition' : 'multiplication'
       const Case = this.sup4 ? randint(0, taille ** 2 - 1) : null
-      /* for (let j = 0; j < taille; j++) {
-        for (let k = 0; k < taille; k++) {
-          donnees.push(randint(2, max, donnees))
-        }
-      }
-*/
       const cellulesPreremplies = []
       if (this.interactif) {
         for (let k = 0; k < taille ** 2; k++) {
@@ -278,8 +286,8 @@ export default function FabriqueAYohaku () {
       yohaku.calculeResultats()
       const mot = type === 'littéraux' ? ['expressions', 'contenues'] : ['nombres', 'contenus']
       this.introduction = operateur === 'addition'
-          ? `Les ${mot[0]} en bout de ligne ou de colonne sont les sommes des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
-          : `Les ${mot[0]} en bout de ligne ou de colonne sont les produits des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
+        ? `Les ${mot[0]} en bout de ligne ou de colonne sont les sommes des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
+        : `Les ${mot[0]} en bout de ligne ou de colonne sont les produits des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
       this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot[0]} qui conviennent (plusieurs solutions possibles).<br>`
       texte = yohaku.representation()
       for (let k = 0; k < yohaku.cellulesPreremplies.length; k++) {
@@ -293,7 +301,7 @@ export default function FabriqueAYohaku () {
       yohaku.solution = true
       texteCorr += yohaku.representation()
       this.yohaku[i] = yohaku
-      if (this.questionJamaisPosee(i, ...donnees)) {
+      if (this.questionJamaisPosee(i, ...yohaku.cellules)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -309,10 +317,11 @@ export default function FabriqueAYohaku () {
     const saisies = []
     for (let k = 0; k < taille ** 2; k++) {
       champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * taille ** 2 + k}`)
-      if (this.yohaku[i].type ==='littéraux'){ // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
-        saisies[k] = champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1').replaceAll(/\s/gm,'').replace('','0') ?? '0'
+      if (this.yohaku[i].type === 'littéraux') { // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
+        saisies[k] = engine.parse(champsTexte[k].value.replace(',', '.')).latex.replace('', '0') ?? '0'
+        console.log(saisies[k])
       } else {
-        saisies[k] = engine.parse(champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1').replace('','0') ?? '0')
+        saisies[k] = engine.parse(champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1').replace('', '0') ?? '0')
       }
     }
     let resultat
@@ -327,6 +336,18 @@ export default function FabriqueAYohaku () {
   }
   this.saisieCoherente = function (saisies, taille, question) {
     let resultatOK = true
+    const test = function (yohaku, i, valeurs, resultatOK) {
+      let resultVal = yohaku[question].operate(valeurs)
+      let resultatAttendu = yohaku[question].resultats[i]
+      if (resultatAttendu.includes('x')) {
+        resultVal = engine.parse(resultVal)
+        resultatAttendu = engine.parse(resultatAttendu)
+        resultatOK = resultatOK && resultVal.isSame(resultatAttendu)
+      } else {
+        resultatOK = resultatOK && math.equal(resultVal, resultatAttendu)
+      }
+      return resultatOK
+    }
     for (let i = 0; i < taille; i++) {
       const valeurs = []
       for (let j = 0; j < taille; j++) {
@@ -336,15 +357,7 @@ export default function FabriqueAYohaku () {
           valeurs.push(saisies[i + j * taille])
         }
       }
-      let resultVal = this.yohaku[question].operate(valeurs)
-      let resultatAttendu = this.yohaku[question].resultats[i]
-      if (resultatAttendu.includes('x')){
-        resultVal = engine.parse(resultVal)
-        resultatAttendu = engine.parse(resultatAttendu)
-        resultatOK = resultatOK && resultVal.isSame(resultatAttendu)
-      } else {
-        resultatOK = resultatOK && math.equal(resultVal, resultatAttendu)
-      }
+      resultatOK = test(this.yohaku, i, valeurs, resultatOK)
     }
     for (let i = taille; i < taille * 2; i++) {
       const valeurs = []
@@ -355,15 +368,7 @@ export default function FabriqueAYohaku () {
           valeurs.push(saisies[(i - taille) * taille + j])
         }
       }
-      let resultVal = this.yohaku[question].operate(valeurs)
-      let resultatAttendu = this.yohaku[question].resultats[i]
-      if (resultatAttendu.includes('x')){
-        resultVal = engine.parse(resultVal)
-        resultatAttendu = engine.parse(resultatAttendu)
-        resultatOK = resultatOK && resultVal.isSame(resultatAttendu)
-      } else {
-        resultatOK = resultatOK && math.equal(resultVal, resultatAttendu)
-      }
+      resultatOK = test(this.yohaku, i, valeurs, resultatOK)
     }
     return resultatOK
   }

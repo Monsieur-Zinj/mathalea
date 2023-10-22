@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { sommeDesChiffres } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, calcul, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -42,7 +42,7 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
       } else if (N === 10) {
         result = ', car son chiffre des unités est $0$.'
       } else {
-        result = `, car $${texNombre(a)} = ${N}\\times ${calcul(a / N)}$.`
+        result = `, car $${texNombre(a)} = ${N}\\times ${calculANePlusJamaisUtiliser(a / N)}$.`
       }
     }
     if (booleen === false) {

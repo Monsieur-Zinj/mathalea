@@ -19,7 +19,7 @@ export default class BetaRepere extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.sup = '-5;5;-1.5;1.5'
+    this.sup = '-5;5;-2;2'
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false
     this.besoinFormulaireTexte = ['xMin, xMax, yMin, yMax séparés par des ; ']
@@ -37,13 +37,12 @@ export default class BetaRepere extends Exercice {
       .setUniteX(3)
       .setUniteY(3)
       .setThickX({ xMin: -5, xMax: 5, dx: Math.PI / 4 })
-      .setThickY({ yMin: -1, yMax: 1, dy: 0.5 })
-      .setGrille({ grilleX: { dx: Math.PI / 4, xMin: -5, xMax: 5 }, grilleY: { dy: 0.5, yMin: -1, yMax: 1 } })
-      // .setGrilleSecondaire({ grilleX: { dx: 0.5, xMin: -8, xMax: 8 }, grilleY: { dy: 0.5, yMin: -5, yMax: 5 } })
+      .setThickY({ yMin: -1.5, yMax: 1.5, dy: 0.5 })
+      .setGrille({ grilleX: { dx: Math.PI / 4, xMin: -5, xMax: 5 }, grilleY: { dy: 1, yMin: -2, yMax: 2 } })
       .setLabelX({ dx: Math.PI / 4, xMin: -5, xMax: 5 })
-      .setLabelY({ dy: 1, yMin: -1, yMax: 1 })
+      .setLabelY({ dy: 1, yMin: -1.5, yMax: 1.5 })
       .buildTrigo(4)
-    const texteEnonce = mathalea2d(Object.assign({}, fixeBordures([repere])), repere)
+    const texteEnonce = mathalea2d(Object.assign({}, fixeBordures([repere.objets])), repere.objets)
     this.listeQuestions.push(texteEnonce)
     listeQuestionsToContenu(this)// On envoie l'exercice à la fonction de mise en page
   }

@@ -205,7 +205,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 3, 'milieu', 'black', 1.2, 'middle', false))
       objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 1, 'milieu', 'black', 1.2, 'middle', false))
     }
-    code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: longueuroperandes, ymax: 5, pixelsParCm: 20, scale: 0.8, style }, objets)
+    code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: (longueuroperandes + 1) * 0.6 + 0.5, ymax: 5, pixelsParCm: 20, scale: 0.8, style }, objets)
     return code
   }
 
@@ -320,7 +320,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
       objets.push(texteParPosition(',', 0.3 + 0.6 * (longueuroperandes - decalage), 1 + (context.vue === 'latex' ? -0.2 : 0), 'milieu', 'black', 1.2, 'middle', false))
     }
 
-    code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: longueuroperandes, ymax: (methodeParCompensation || !retenuesOn ? 5 : 6), pixelsParCm: 20, scale: 0.8, style }, objets)
+    code += mathalea2d({ xmin: -0.5, ymin: 0, xmax: (longueuroperandes + 1) * 0.6 + 0.5, ymax: (methodeParCompensation || !retenuesOn ? 5 : 6), pixelsParCm: 20, scale: 0.8, style }, objets)
     return code
   }
   const MultiplicationPosee3d = function (operande1, operande2, base) {
@@ -464,7 +464,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
     for (let j = 1; j < lop2 - lignesinutiles; j++) {
       objets.push(texteParPosition('+', 0, 5 + j - lop2 + lignesinutiles, 'milieu', 'black', 1.2, 'middle', false))
     }
-    const code = mathalea2d({ xmin: -0.5, ymin: 4 - lop2, xmax: longueurtotale + 2, ymax: 8, pixelsParCm: 20, scale: 0.8, style }, objets)
+    const code = mathalea2d({ xmin: -0.5, ymin: 4 - lop2, xmax: (longueurtotale + 1) * 0.6 + 0.5, ymax: 8, pixelsParCm: 20, scale: 0.8, style }, objets)
 
     return code
   }

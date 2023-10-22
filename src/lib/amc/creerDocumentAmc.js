@@ -518,10 +518,9 @@ export function exportQcmAmc (exercice, idExo) {
           switch (qrType) {
             case 'qcmMono': // qcmMono de Hybride
             case 'qcmMult': // qcmMult de Hybride la différence est juste le nom de l'environnement changé dynamiquement
-              /* if (elimineDoublons(propositions)) {
+              if (elimineDoublons(propositions)) {
                 console.log('doublons trouvés')
-              } */
-
+              }
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {
                   horizontalite = 'reponseshoriz'
@@ -535,8 +534,7 @@ export function exportQcmAmc (exercice, idExo) {
                   lastchoice = prop.options.lastChoice
                 }
               }
-
-              texQr += `${qr > 0 && (qrType === 'qcmMono' || (qrType === 'qcmMult' && !autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}`
+              texQr += `${qr > 0 && (qrType === 'qcmMono' || (qrType === 'qcmMult' && (typeof autoCorrection[j].options !== 'undefined') && !autoCorrection[j].options.avecSymboleMult)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}`
               texQr += ((typeof autoCorrection[j].options !== 'undefined') && (autoCorrection[j].options.numerotationEnonce)) ? '\n \\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''
               texQr += `\\begin{${qrType === 'qcmMono' ? 'question' : 'questionmult'}}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
               if (prop.enonce !== undefined) {
@@ -577,9 +575,15 @@ export function exportQcmAmc (exercice, idExo) {
                 if (rep.param.exposantPuissance === undefined) {
                   rep.param.exposantPuissance = 1000 // Nb volontairement grand pour faire comprendre à l'utilisateur AMC qu'il y a eu une erreur de programmation lors de la conception de l'exercice.
                 }
-                texQr += '\\begin{minipage}{\\textwidth}\n'
+                if (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion) {
+                  texQr += `\\begin{questionmultx}{Enonce-${ref}/${lettreDepuisChiffre(idExo + 1)}} \n `
+                  texQr += `${autoCorrection[j].enonce} \n` // Enonce de la question
+                  texQr += '\\end{questionmultx}'
+                }
+
+                // texQr += '\\begin{minipage}{\\textwidth}\n'
                 texQr += '\\begin{multicols}{2}\n'
-                texQr += `${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
+                texQr += `${((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
 
                 if (propositions !== undefined) {
                   texQr += `\\explain{${propositions[0].texte}}\n`
@@ -599,19 +603,20 @@ export function exportQcmAmc (exercice, idExo) {
                 }
                 texQr += '\n'
                 texQr += `Base\n \\AMCnumericChoices{${rep.param.basePuissance}}{digits=${digitsBase},decimals=0,sign=${rep.param.basePuissance < 0 ? 'true' : 'false'},approx=0,`
-                texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=${autoCorrection[j].reponse.param.scoreapprox || 0.667},scoreexact=1,Tpoint={,}}\n`
+                texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=${rep.param.scoreapprox || 0.667},scoreexact=1,Tpoint={,}}\n`
                 texQr += '\\end{questionmultx}\n'
                 texQr += '\\AMCquestionNumberfalse\\def\\AMCbeginQuestion#1#2{}'
                 texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 1}} \n `
                 texQr += '\\vspace{18pt}'
                 // texQr += `Exposant\n \\AMCnumericChoices{${rep.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=${rep.param.exposantPuissance < 0 ? 'true' : 'false'},approx=0,`
                 texQr += `Exposant\n \\AMCnumericChoices{${rep.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=true,approx=0,`
-                texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=${autoCorrection[j].reponse.param.scoreapprox || 0.667},scoreexact=1,Tpoint={,}}\n`
-                texQr += '\\end{questionmultx}\\end{multicols}\n\\end{minipage}\n\n'
+                texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=${rep.param.scoreapprox || 0.667},scoreexact=1,Tpoint={,}}\n`
+                texQr += '\\end{questionmultx}\\end{multicols}\n'
+                // texQr += '\\end{minipage}\n\n'
                 id += 2
               } else if (rep.valeur[0].num !== undefined) { // Hybride dont la réponse est une fraction (et non une puissance)
                 // Si une fraction a été passée à AMCNum, on met deux AMCNumericChoice
-                // Pour rappe! : rep = prop.propositions[0].reponse
+                // Pour rappel : rep = prop.propositions[0].reponse
                 valeurAMCNum = rep.valeur[0]
 
                 if (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion) {
@@ -853,7 +858,8 @@ export function creerDocumentAmc ({
   const texQuestions = [[]]
   const titreQuestion = []
   const melangeQuestion = []
-
+  const nombreExoAmc = exercices.filter(el => el.amcReady).length
+  if (nombreExoAmc === 0) return ''
   for (const exercice of exercices) {
     code = exportQcmAmc(exercice, idExo)
     idExo++
@@ -1177,7 +1183,7 @@ export function creerDocumentAmc ({
     if (!melangeQuestion[i]) {
       contenuCopie += `\\setgroupmode{${g}}{cyclic}\n\n`
     }
-    // contenuCopie += `\\melangegroupe{${g}}\n` Pour Eric, ne pas effacer
+    // contenuCopie += `\\melangegroupe{${g}}\n` // Pour Eric, ne pas effacer
     if (nbQuestions[i] > 0) {
       contenuCopie += `\\restituegroupe[${nbQuestions[i]}]{${g}}\n\n`
     } else {

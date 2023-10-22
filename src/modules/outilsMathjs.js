@@ -36,7 +36,7 @@ function searchLastNode (node, op) {
  */
 export function assignVariables (expression, variables) {
   const node = math.parse(expression).transform(
-    function (node, path, parent) {
+    function (node) {
       if (node.isSymbolNode && variables[node.name] !== undefined) {
         return math.parse(variables[node.name].toString())
       } else {
@@ -266,7 +266,7 @@ function transformNode (node, parent, oldNode, params = { suppr1: true, suppr0: 
 */
 function correctifNodeMathsteps (node) {
   node = node.transform(
-    function (node, path, parent) {
+    function (node) {
       if (node.type === 'ConstantNode') {
         return math.parse(node.value.toString())
       }
@@ -552,7 +552,7 @@ export function traverserEtapes (steps, changeType = [], result = []) {
 /**
  * @description Retourne toutes les étapes de calculs d'une expression numérique ou de développement-réduction d'une expression littérale
  * @param {string} expression // Une expression à calculer ou à développer
- * @param {Objet} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
+ * @param {object} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
 */
 export function calculer (expression, params) {
   params = Object.assign({ comment: false, comments: {}, substeps: false, mixed: false, name: undefined, suppr1: true }, params)

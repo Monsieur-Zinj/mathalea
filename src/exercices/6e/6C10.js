@@ -4,7 +4,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Operation from '../../modules/operations.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -119,7 +119,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
-          reponse = calcul(a + b)
+          reponse = a + b
           texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
           break
         case 2: // abc0 - efg
@@ -135,7 +135,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
-          reponse = calcul(x - y)
+          reponse = x - y
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
           break
         case 3: // 1abc - def
@@ -151,7 +151,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
-          reponse = calcul(x - y)
+          reponse = x - y
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
           break
         case 4: // abc * d0e tables de 2 à 5
@@ -166,7 +166,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
-          reponse = calcul(x * y)
+          reponse = x * y
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
           break
         case 5: // abc * de tables de 5 à 9
@@ -181,7 +181,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
-          reponse = calcul(x * y)
+          reponse = x * y
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
           break
       }

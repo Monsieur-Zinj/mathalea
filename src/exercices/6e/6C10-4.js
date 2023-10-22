@@ -24,7 +24,6 @@ export const uuid = 'ace0a'
 export const ref = '6C10-4'
 export default function ExerciceTablesAdditions (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = 'Calculer.'
   this.sup2 = '1'
   this.sup = max // Le paramètre accessible à l'utilisateur sera la valeur maximale
@@ -41,8 +40,8 @@ export default function ExerciceTablesAdditions (max = 20) {
       i < this.nbQuestions && cpt < 50;
     ) {
       this.autoCorrection[i] = {}
-      a = randint(2, parseInt(this.sup))
-      b = randint(2, parseInt(this.sup))
+      a = randint(2, this.sup)
+      b = randint(2, this.sup)
       let socket
       const choix = choice([false, true])
       if (context.isHtml && this.interactif) {
@@ -83,5 +82,5 @@ export default function ExerciceTablesAdditions (max = 20) {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-  this.besoinFormulaire2Texte = ['Type de questions (nombres séparés par des tirets)', '1: Calculer la somme\n2: Calculer un terme manquant\n3: Mélange']
+  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1: Calculer la somme\n2: Calculer un terme manquant\n3: Mélange']
 }

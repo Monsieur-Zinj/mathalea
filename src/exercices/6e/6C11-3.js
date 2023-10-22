@@ -6,6 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -45,6 +46,7 @@ export default function APartirDeDivisionsEuclidiennes () {
   this.spacingCorr = context.isHtml ? 2 : 1
   this.nbQuestions = 4
   this.listePackages = 'xlop'
+  this.classe = 6
 
   this.nouvelleVersion = function () {
     this.consigne = 'À partir '
@@ -103,13 +105,23 @@ export default function APartirDeDivisionsEuclidiennes () {
       a = b * q + r
       texte = `${Operation({ operande1: a, operande2: b, type: 'divisionE' })}<br>`
       if (r === 0) {
-        texteCorr = `$${texNombre(a)}\\div${b}=${texNombre(q)}$`
+        texteCorr = `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}`)}$`
         setReponse(this, i, [`${a}=${b}\\times${q}`, `${a}=${q}\\times${b}`,
-                    `${b}\\times${q}`, `${q}\\times${b}=${a}`])
+                    `${b}\\times${q}=${a}`, `${q}\\times${b}=${a}`,
+                    `${a}=${b}\\times ${q}+${0}`, `${a}=${q}\\times ${b}+${0}`,
+                    `${b}\\times ${q}+${0}=${a}`, `${q}\\times ${b}+${0}=${a}`,
+                    `${a}=(${b}\\times ${q})+${0}`, `${a}=(${q}\\times ${b})+${0}`,
+                    `(${b}\\times ${q})+${0}=${a}`, `(${q}\\times ${b})+${0}=${a}`,
+                    `${a}\\div${b}=${q}`, `${a}\\div${q}=${b}`,
+                    `${q}=${a}\\div${b}`, `${b}=${a}\\div${q}`])
       } else {
-        texteCorr = `$${texNombre(a)}=${b}\\times${texNombre(q)}+${r}$`
+        texteCorr = this.classe === 3
+          ? `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}+${r}`)}$`
+          : `$${miseEnEvidence(`${texNombre(a)}=(${b}\\times${texNombre(q)})+${r}`)}$`
         setReponse(this, i, [`${a}=${b}\\times ${q}+${r}`, `${a}=${q}\\times ${b}+${r}`,
-                    `${b}\\times ${q}+${r}=${a}`, `${q}\\times ${b}+${r}=${a}`])
+        `${b}\\times ${q}+${r}=${a}`, `${q}\\times ${b}+${r}=${a}`,
+        `${a}=(${b}\\times ${q})+${r}`, `${a}=(${q}\\times ${b})+${r}`,
+        `(${b}\\times ${q})+${r}=${a}`, `(${q}\\times ${b})+${r}=${a}`])
       }
       texte += ajouteChampTexteMathLive(this, i)
       // Pour AMC question AmcOpen

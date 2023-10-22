@@ -1,7 +1,6 @@
 <script lang="ts">
   import { globalOptions, resultsByExercice, exercicesParams } from '../store'
   import { afterUpdate, onMount, tick, onDestroy } from 'svelte'
-  import type TypeExercice from '../../exercices/ExerciceTs.js'
   import seedrandom from 'seedrandom'
   import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../lib/interactif/gestionInteractif'
   import { loadMathLive } from '../../modules/loaders'
@@ -10,8 +9,7 @@
   import Settings from './Settings.svelte'
   import { exercisesUuidRanking, uuidCount } from '../utils/counts'
   import uuidsRessources from '../../json/uuidsRessources.json'
-  import Exercice from "../../exercices/ExerciceTs.js";
-  import type {InterfaceResultExercice} from "../../lib/types";
+  import Exercice from '../../exercices/ExerciceTs.js'
   export let exercice: Exercice
   export let indiceExercice: number
   export let indiceLastExercice: number
@@ -75,26 +73,11 @@
     if ($globalOptions.v === 'tools') {
       headerExerciceProps.category = 'Outil'
     }
-    if ($globalOptions.v === 'eleve') {
-      headerExerciceProps.settingsReady = false
-      headerExerciceProps.isSortable = false
-      headerExerciceProps.isDeletable = false
-      headerExerciceProps.isHidable = false
-      if ($globalOptions.setInteractive === '1') {
-        setAllInteractif()
-      } else if ($globalOptions.setInteractive === '0') {
-        removeAllInteractif()
-      }
-      if (!$globalOptions.isSolutionAccessible) {
-        headerExerciceProps.correctionReady = false
-        headerExerciceProps.randomReady = false
-      }
-    } else {
-      headerExerciceProps.settingsReady = true
-      headerExerciceProps.isSortable = true
-      headerExerciceProps.isDeletable = true
-      headerExerciceProps.isHidable = true
-    }
+
+    headerExerciceProps.settingsReady = true
+    headerExerciceProps.isSortable = true
+    headerExerciceProps.isDeletable = true
+    headerExerciceProps.isHidable = true
     headerExerciceProps.isInteractif = isInteractif
     headerExerciceProps.correctionExists = exercice.listeCorrections.length > 0
     headerExerciceProps.title = title
@@ -112,8 +95,8 @@
 
   onDestroy(() => {
     // Détruit l'objet exercice pour libérer la mémoire
-    for (const prop of Object.keys(exercice)){
-        Reflect.deleteProperty(exercice, prop)
+    for (const prop of Object.keys(exercice)) {
+      Reflect.deleteProperty(exercice, prop)
     }
   })
 
@@ -135,7 +118,7 @@
           prepareExerciceCliqueFigure(exercice)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
-        if (window.localStorage != null && 
+        if (window.localStorage != null &&
           exercice.id !== undefined &&
           exercice.seed !== undefined &&
           window.localStorage.getItem(`${exercice.id}|${exercice.seed}`) != null &&
@@ -172,7 +155,7 @@
   })
 
   async function newData () {
-    if (exercice.hasOwnProperty('listeQuestions')) {
+    if ('listeQuestions' in exercice) {
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
       if (exercice !== undefined && typeof exercice?.applyNewSeed === 'function') exercice.applyNewSeed()
       if (buttonScore) initButtonScore()
@@ -258,10 +241,10 @@
     isCorrectionVisible = true
     isExerciceChecked = true
     resultsByExercice.update((l) => {
-      const index = exercice.numeroExercice ?? 0
-      const result = exerciceInteractif(exercice, divScore, buttonScore)
-      if (result  != null){
-        l[index] = <InterfaceResultExercice>result
+      const indice = exercice.numeroExercice ?? 0
+      const result = { ...exerciceInteractif(exercice, divScore, buttonScore), indice }
+      if (result != null) {
+        l[indice] = result
       }
       return l
     })
@@ -347,7 +330,7 @@
     }
   }
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
-  window.onresize = async (event) => {
+  window.onresize = async () => {
     await adjustMathalea2dFiguresWidth(true)
   }
 </script>
@@ -417,16 +400,18 @@
           </button>
         </div>
         <article class="lg:text-base relative" style="font-size: {($globalOptions.z || 1).toString()}rem; line-height: calc({$globalOptions.z || 1});">
-          {#if typeof exercice.consigne !== undefined && exercice.consigne.length !== 0}
+          {#if typeof exercice.consigne !== 'undefined' && exercice.consigne.length !== 0}
             <div>
               <p class=" mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html exercice.consigne}
               </p>
             </div>
-          {/if}
-          {#if exercice.introduction}
+            {/if}
+            {#if exercice.introduction}
             <div>
               <p class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html exercice.introduction}
               </p>
             </div>
@@ -440,6 +425,7 @@
               {#each exercice.listeQuestions as item, i (i)}
                 <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container w-full grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4">
                   <li id="exercice{indiceExercice}Q{i}" style="line-height: {exercice.spacing || 1}">
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html mathaleaFormatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
@@ -456,10 +442,12 @@
                           <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
                         </div>
                         <div class="">
+                          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                           {@html exercice.consigneCorrection}
                         </div>
                       </div>
                       <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
+                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                         {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
                       </div>
                       <!-- Avant le commit du 28/03/23, il y avait une mise en page plus complexe

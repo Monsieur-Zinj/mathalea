@@ -4,7 +4,7 @@ import { lampeMessage } from '../../lib/format/message.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -55,8 +55,8 @@ export default function AugmenterEtReduireDunPourcentage () {
         pa = randint(2, 9)
       }
       if (n === 2) {
-        pr = calcul((randint(40, 60) * 100 + randint(1, 9) * 10) / 100)
-        pa = calcul((randint(1, 9) * 10 + randint(1, 9)) / 10)
+        pr = calculANePlusJamaisUtiliser((randint(40, 60) * 100 + randint(1, 9) * 10) / 100)
+        pa = calculANePlusJamaisUtiliser((randint(1, 9) * 10 + randint(1, 9)) / 10)
       }
     }
 
@@ -70,8 +70,8 @@ export default function AugmenterEtReduireDunPourcentage () {
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'réduction':
           nombreDecimales(n)
-          mr = calcul(pr * billet / 100)
-          final1 = calcul(billet - mr)
+          mr = calculANePlusJamaisUtiliser(pr * billet / 100)
+          final1 = calculANePlusJamaisUtiliser(billet - mr)
           texte = `<br> Un billet d'avion coûte ${billet}€. ${prenom1} bénéficie d'une réduction de ${pr} %.<br>`
           texte += 'a) Le montant de la réduction est :'
           texte += ajouteChampTexteMathLive(this, i)
@@ -86,8 +86,8 @@ export default function AugmenterEtReduireDunPourcentage () {
           break
         case 'augmentation':
           nombreDecimales(n)
-          calcul(ma = pa * loyer / 100)
-          calcul(final2 = loyer + ma)
+          calculANePlusJamaisUtiliser(ma = pa * loyer / 100)
+          calculANePlusJamaisUtiliser(final2 = loyer + ma)
 
           texte = `<br> Le loyer de l'appartement de ${prenom2} coûte ${loyer}€. Au 1er janvier, il augmente de ${pa} %.<br>`
           texte += 'a) Le montant de l\'augmentation est :'

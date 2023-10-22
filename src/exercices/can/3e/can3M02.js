@@ -1,7 +1,7 @@
 import { shuffle } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texteExposant } from '../../../lib/outils/ecritures.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer un volume de pyramide'
 export const interactifReady = true
@@ -28,7 +28,7 @@ export default function CalculVolumePyramide () {
     const a = triplet[0]
     const b = triplet[1]
     const h = triplet[2]
-    this.reponse = calcul(a * b * h / 3)
+    this.reponse = calculANePlusJamaisUtiliser(a * b * h / 3)
     this.question = `Une pyramide a une hauteur de $${h}$ cm et pour base un rectangle de dimensions $${a}$ cm et $${b}$ cm.<br>
     
     Calculer son volume en cm${texteExposant(3)}.`

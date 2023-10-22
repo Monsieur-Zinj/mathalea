@@ -6,7 +6,7 @@ import { abs, signe } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -164,10 +164,10 @@ export default function ExerciceEquationASolutionEntiere () {
           if (!this.sup) {
             c = Math.abs(c)
             a = randint(2, 5) + c
-            reponse = Math.abs(randint(-9, 9, [0, -1, 1],calcul(-d/(c-a))))
+            reponse = Math.abs(randint(-9, 9, [0, -1, 1],calculANePlusJamaisUtiliser(-d/(c-a))))
           } else {
             a = randint(-5, 5, [-c, -c + 1, -c - 1, 0]) + c
-            reponse = randint(-9, 9, [0, -1, 1],calcul(-d/(c-a)))
+            reponse = randint(-9, 9, [0, -1, 1],calculANePlusJamaisUtiliser(-d/(c-a)))
           }
           b = (c - a) * reponse + d
           texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(

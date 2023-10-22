@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images'
 export const interactifReady = true
@@ -34,8 +34,8 @@ export default function ComparerAvecFctRef () {
       case 1 :
         N = randint(1, 2)
         if (N === 1) {
-          a = calcul(randint(1, 9) + randint(5, 9) / 10)
-          b = calcul(a + (randint(1, 9) / 10) * choice([1, -1]))
+          a = calculANePlusJamaisUtiliser(randint(1, 9) + randint(5, 9) / 10)
+          b = calculANePlusJamaisUtiliser(a + (randint(1, 9) / 10) * choice([1, -1]))
           if (this.interactif) {
             texte = 'Sélectionner l’affirmation correcte. '
             if (a < b) {
@@ -86,8 +86,8 @@ export default function ComparerAvecFctRef () {
           }
         }
         if (N === 2) {
-          a = calcul(((randint(1, 9) + randint(5, 9) / 10)) * (-1))
-          b = calcul(a + (randint(1, 9) / 10) * choice([1, -1]))
+          a = calculANePlusJamaisUtiliser(((randint(1, 9) + randint(5, 9) / 10)) * (-1))
+          b = calculANePlusJamaisUtiliser(a + (randint(1, 9) / 10) * choice([1, -1]))
           if (this.interactif) {
             texte = 'Sélectionner l’affirmation correcte. '
             if (a < b) {
@@ -141,8 +141,8 @@ export default function ComparerAvecFctRef () {
         this.canReponseACompleter = ''
         break
       case 2 :
-        a = calcul(randint(-10, 10) + (randint(-9, 9, 0) / 10) * choice([-1, 1]))
-        b = calcul((a + randint(1, 9) / 10) * choice([-1, 1]))
+        a = calculANePlusJamaisUtiliser(randint(-10, 10) + (randint(-9, 9, 0) / 10) * choice([-1, 1]))
+        b = calculANePlusJamaisUtiliser((a + randint(1, 9) / 10) * choice([-1, 1]))
         if (this.interactif) {
           texte = 'Sélectionner l’affirmation correcte. '
           if (a < b) {
@@ -193,8 +193,8 @@ export default function ComparerAvecFctRef () {
         this.canReponseACompleter = ''
         break
       case 3 :
-        a = calcul(randint(0, 10) + (randint(6, 9) / 10))
-        b = calcul((a + (randint(1, 5, 0) / 10) * choice([-1, 1])))
+        a = calculANePlusJamaisUtiliser(randint(0, 10) + (randint(6, 9) / 10))
+        b = calculANePlusJamaisUtiliser((a + (randint(1, 5, 0) / 10) * choice([-1, 1])))
         if (b === 1) { b = 2 }
         if (this.interactif) {
           texte = 'Sélectionner l’affirmation correcte. '

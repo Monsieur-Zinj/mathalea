@@ -66,11 +66,12 @@ export function mathalea2d (
 ) {
   const ajouteCodeHtml = function (mainlevee, objets, divsLatex, xmin, ymax) {
     let codeSvg = ''
-    if (!Array.isArray(objets)) {
+    if (!Array.isArray(objets) && objets != null) {
+      // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
       try {
         // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
-        if (objets.isVisible) {
-          if ((!mainlevee) || typeof (objets.svgml) === 'undefined') {
+        if ((!mainlevee) || typeof (objets?.svgml) === 'undefined') {
+          if (objets?.svg) {
             const code = objets.svg(pixelsParCm)
             if (typeof code === 'string') {
               codeSvg = '\t' + objets.svg(pixelsParCm) + '\n'
@@ -83,15 +84,21 @@ export function mathalea2d (
               divsLatex.push(codeHtml)
             }
           } else {
-            codeSvg = '\t' + objets.svgml(pixelsParCm, amplitude) + '\n'
+            window.notify('Un problème avec ce mathalea2d, la listre des objets contient un truc louche', { objets: JSON.stringify(objets) })
           }
+        } else {
+          if (objets?.svgml) codeSvg = '\t' + objets.svgml(pixelsParCm, amplitude) + '\n'
         }
       } catch (error) {
-        console.log(error.message)
+        window.notify(error.message, { objet: JSON.stringify(objets) })
       }
     } else {
-      for (const objet of objets) {
-        codeSvg += ajouteCodeHtml(mainlevee, objet, divsLatex, xmin, ymax)
+      if (objets != null && Array.isArray(objets)) {
+        for (const objet of objets) {
+          codeSvg += ajouteCodeHtml(mainlevee, objet, divsLatex, xmin, ymax)
+        }
+      } else {
+        window.notify('Un problème avec ce mathalea2d, la listre des objets contient un truc louche', { objets: JSON.stringify(objets) })
       }
     }
     return codeSvg
@@ -100,7 +107,7 @@ export function mathalea2d (
     let codeTikz = ''
     if (!Array.isArray(objets)) {
       try {
-        if (objets.isVisible) {
+        if (objets?.isVisible) {
           if (!mainlevee || typeof (objets.tikzml) === 'undefined') codeTikz = '\t' + objets.tikz(scale) + '\n'
           else codeTikz = '\t' + objets.tikzml(amplitude, scale) + '\n'
         }
@@ -120,20 +127,24 @@ export function mathalea2d (
   if (context.isHtml) {
     codeSvg = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
         }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
-        } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" ${style ? `style="${style}"` : ''}>\n`
+        } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
     codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
     codeSvg += '\n</svg>'
     codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
     //  pixelsParCm = 20;
     if (divsLatex.length > 0) {
-      return `<div class="svgContainer" style="padding: 0px 0px;">
-        <div style="position: relative;">
+      return `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
+        <div style="position: relative;${style}">
           ${codeSvg}
           ${divsLatex.join('\n')}
         </div>
       </div>`
     } else {
-      return codeSvg
+      return `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
+        <div style="position: relative;${style}">
+          ${codeSvg}
+        </div>
+      </div>`
     }
   } else { // le context est Latex
     // si scale existe autre que 1 il faut que le code reste comme avant
@@ -228,7 +239,7 @@ export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2
 
 /**
  * convertHexToRGB convertit une couleur en héxadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
- * @param {string} [Couleur='000000'] Code couleur HTML sans le #
+ * @param {string} [couleur='000000'] Code couleur HTML sans le #
  * @example convertHexToRGB('f15929')=[241,89,41]
  * @author Eric Elter
  * @return {number[]}
@@ -236,12 +247,11 @@ export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2
 // JSDOC Validee par EE Juin 2022
 function convertHexToRGB (couleur = '000000') {
   const hexDecoupe = couleur.match(/.{1,2}/g)
-  const hexToRGB = [
+  return [
     parseInt(hexDecoupe[0], 16),
     parseInt(hexDecoupe[1], 16),
     parseInt(hexDecoupe[2], 16)
   ]
-  return hexToRGB
 }
 
 /**
@@ -262,8 +272,11 @@ export function colorToLatexOrHTML (couleur) {
   const tabCouleur = []
   let rgb = []
   if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
-  else if (couleur === undefined || couleur === '') return ''
-  else if (couleur === 'none') return ['none', 'none']
+  // else if (couleur === undefined || couleur === '') return '' // EE : 01/10/2023 : Code commenté au profit de celui de dessus pour vérifier si une couleur nulle se ballade dans le projet.
+  else if (couleur === undefined || couleur === '') {
+    window.notify('Une couleur est undefined ou bien une chaine vide. Veuillez le signaler aux développeurs de MathALEA.', { couleur })
+    return ''
+  } else if (couleur === 'none') return ['none', 'none']
   else {
     tabCouleur[0] = couleur
     if (couleur[0] === '#') {
@@ -480,7 +493,7 @@ export function assombrirOuEclaircir (couleur, coefficient) {
  */
 // JSDOC Validee par EE Juin 2022
 export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
-  let code = ''
+  let code
   const fenetrexmin = fenetreMathalea2d[0]
   const fenetreymin = fenetreMathalea2d[3] * -(1)
   const fenetrexmax = fenetreMathalea2d[2]
@@ -601,7 +614,6 @@ export function fixeBordures (objets, {
     if (!Array.isArray(objets)) {
       if (objets.bordures == null || objets.bordures.filter((el) => isNaN(el)).length > 0) {
         window.notify(`Ìl y a un problème avec les bordures de ${objets.constructor.name}`)
-        bordures = false || bordures
       } else {
         xmin = Math.min(xmin, objets.bordures[0])
         xmax = Math.max(xmax, objets.bordures[2])

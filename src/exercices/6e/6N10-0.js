@@ -31,16 +31,14 @@ export default function ÉcrireNombresEntiers () {
   this.sup2 = 3
   this.nouvelleVersion = function () {
     let typeDeConsigne = []
-    if (parseInt(this.sup) === 1) {
+    if (this.sup === 1) {
       this.consigne = 'Écrire le nombre en lettres.'
       typeDeConsigne = combinaisonListes([1], this.nbQuestions)
-    }
-    if (parseInt(this.sup) === 2) {
+    } else if (this.sup === 2) {
       this.consigne = 'Écrire le nombre en chiffres.'
       typeDeConsigne = combinaisonListes([2], this.nbQuestions)
       if (this.interactif) this.consigne = 'Écrire le nombre en chiffres sans oublier les espaces.'
-    }
-    if (parseInt(this.sup) === 3) {
+    } else if (this.sup === 3) {
       this.consigne = 'Passer de l\'écriture en chiffres à celle en lettres et inversement.'
       typeDeConsigne = combinaisonListes([1, 2], this.nbQuestions)
     }
@@ -48,9 +46,9 @@ export default function ÉcrireNombresEntiers () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let typesDeQuestionsDisponibles
-    if (parseInt(this.sup2) === 1) typesDeQuestionsDisponibles = [1, 1, 1, 2, 2]
-    else if (parseInt(this.sup2) === 2) typesDeQuestionsDisponibles = [1, 2, 2, 2, 3]
-    else if (parseInt(this.sup2) === 3) typesDeQuestionsDisponibles = [2, 2, 3, 3, 4]
+    if (this.sup2 === 1) typesDeQuestionsDisponibles = [1, 1, 1, 2, 2]
+    else if (this.sup2 === 2) typesDeQuestionsDisponibles = [1, 2, 2, 2, 3]
+    else if (this.sup2 === 3) typesDeQuestionsDisponibles = [2, 2, 3, 3, 4]
     else typesDeQuestionsDisponibles = [2, 3, 3, 4, 4]
 
     const listeTypeDeQuestions = combinaisonListes(
@@ -78,7 +76,7 @@ export default function ÉcrireNombresEntiers () {
       }
       if (typeDeConsigne[i] === 1) {
         setReponse(this, i, nombreEnLettres(nombre))
-        if (context.vue !== 'diap') texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i)}`
+        if (context.vue !== 'diap') texte = `$${texNombre(nombre)} ${!this.interactif ? ' :  $' : '$ <br>' + ajouteChampTexteMathLive(this, i, 'alphanumeric')}`
         else texte = `$${texNombre(nombre)}$`
         if (context.vue !== 'diap') texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre)}`
         else texteCorr = `${nombreEnLettres(nombre)}`

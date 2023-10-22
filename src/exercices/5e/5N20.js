@@ -5,7 +5,7 @@ import { abs } from '../../lib/outils/nombres.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
@@ -148,7 +148,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (this.sup3) {
           s = pgcd(a * k + c, d)
           if (s !== 1) {
-            texteCorr += `$=${deprecatedTexFraction(calcul((a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + c) / s), calcul(d / s))}$`
+            texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((a * k + c) / s) + miseEnEvidence('\\times ' + s), calculANePlusJamaisUtiliser(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((a * k + c) / s), calculANePlusJamaisUtiliser(d / s))}$`
           }
         }
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
@@ -217,9 +217,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (this.sup3) {
           s = pgcd(Math.abs(a * k - c), d)
           if (abs(a * k - c) % d === 0) { // si la fraction peut-être un nombre entier
-            texteCorr += `$=${calcul((abs(a * k - c)) / d)}$`
+            texteCorr += `$=${calculANePlusJamaisUtiliser((abs(a * k - c)) / d)}$`
           } else if (s !== 1) {
-            texteCorr += `$=${deprecatedTexFraction(calcul((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((abs(a * k - c)) / s), calcul(d / s))}$`
+            texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((abs(a * k - c)) / s) + miseEnEvidence('\\times ' + s), calculANePlusJamaisUtiliser(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((abs(a * k - c)) / s), calculANePlusJamaisUtiliser(d / s))}$`
           }
         }
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {

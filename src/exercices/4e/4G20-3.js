@@ -41,7 +41,6 @@ export default class calculsDeCarre extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -57,7 +56,7 @@ export default class calculsDeCarre extends Exercice {
       case 3: // fractionnaire relatif
         typesDeQuestionsDisponibles = [3]
         break
-      case 4:
+      default:
         typesDeQuestionsDisponibles = [1, 2, 3]
         break
     }

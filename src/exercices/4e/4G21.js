@@ -3,7 +3,7 @@ import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Déterminer si un triangle est rectangle ou pas'
 export const amcReady = true
@@ -148,9 +148,9 @@ export default function ReciproquePythagore () {
       }
       if (a > 9 && choice([true, true, true, false])) {
         // le plus souvent on utilise des décimaux
-        a = calcul(a / 10)
-        b = calcul(b / 10)
-        c = calcul(c / 10)
+        a = calculANePlusJamaisUtiliser(a / 10)
+        b = calculANePlusJamaisUtiliser(b / 10)
+        c = calculANePlusJamaisUtiliser(c / 10)
       }
       ordreDesCotes = randint(1, 3)
       switch (ordreDesCotes) {
@@ -182,11 +182,11 @@ export default function ReciproquePythagore () {
       if (listeTypeDeQuestions[i] === 'rectangle') {
         if (!context.isAmc) this.autoCorrection[i].propositions[0].statut = true
         texteCorr += `<br>On constate que $${A + B}^2=${A + C}^2+${B + C
-          }^2$, l'égalité de Pythagore est vérifiée donc $${nomTriangle}$ est rectangle en $${C}$.`
+          }^2$, l'égalité de Pythagore est vérifiée.<br> D'après la réciproque du théorème de Pythagore, le triangle $${nomTriangle}$ est rectangle en $${C}$.`
       } else {
         if (!context.isAmc) this.autoCorrection[i].propositions[1].statut = true
         texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${B + C
-          }^2$, l'égalité de Pythagore n'est pas vérifiée donc $${nomTriangle}$ n'est pas rectangle.`
+          }^2$, l'égalité de Pythagore n'est pas vérifiée.<br> D'après la conséquence du théorème de Pythagore, le triangle  $${nomTriangle}$ n'est pas rectangle.`
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {

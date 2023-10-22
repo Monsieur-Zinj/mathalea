@@ -18,7 +18,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { min, round } from 'mathjs'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 // import { tableauColonneLigne } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { context } from '../../../modules/context.js'
@@ -95,8 +95,8 @@ export default function SujetCAN20214ieme () {
           break
 
         case 2:
-          a = calcul(randint(6, 12) * 4)
-          b = calcul(randint(6, 15) * 3)
+          a = calculANePlusJamaisUtiliser(randint(6, 12) * 4)
+          b = calculANePlusJamaisUtiliser(randint(6, 15) * 3)
           m = choice(['quart', 'tiers'])
 
           if (m === 'quart') {
@@ -129,7 +129,7 @@ export default function SujetCAN20214ieme () {
           reponse = a - b
           texte = `$${a} - ${b}=$ `
           texteCorr = `$${a}-${b}=${miseEnEvidence(a - b)}$`
-          reponse = calcul(a - b)
+          reponse = calculANePlusJamaisUtiliser(a - b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
@@ -141,11 +141,11 @@ export default function SujetCAN20214ieme () {
 
         case 4:
 
-          a = calcul(randint(3, 9) + randint(1, 4) / 10)
-          b = calcul(randint(1, 5) / 10 + randint(2, 9) / 100)
+          a = calculANePlusJamaisUtiliser(randint(3, 9) + randint(1, 4) / 10)
+          b = calculANePlusJamaisUtiliser(randint(1, 5) / 10 + randint(2, 9) / 100)
           texte = `$${texNombre(a)}+${texNombre(b)}=$ `
           texteCorr = `$${texNombre(a)}+${texNombre(b)}=${miseEnEvidence(texNombre(a + b))}$ `
-          reponse = calcul(a + b)
+          reponse = calculANePlusJamaisUtiliser(a + b)
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -176,8 +176,8 @@ export default function SujetCAN20214ieme () {
           break
 
         case 6:
-          a = calcul(randint(1, 9) * 10 + randint(1, 9) + 0.9 + randint(1, 9) / 100)
-          b = calcul(randint(1, 9) * 10 + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000)
+          a = calculANePlusJamaisUtiliser(randint(1, 9) * 10 + randint(1, 9) + 0.9 + randint(1, 9) / 100)
+          b = calculANePlusJamaisUtiliser(randint(1, 9) * 10 + randint(1, 9) / 10 + 0.09 + randint(1, 9) / 1000)
 
           if (choice([true, false])) {
             texte = `Quel nombre obtient-on si on ajoute un dixième à $${texNombre(a)}$ ?`
@@ -199,9 +199,9 @@ export default function SujetCAN20214ieme () {
           a = randint(1, 9)
           b = randint(1, 9, a)
 
-          k = calcul(a * 100 + b * 10)
+          k = calculANePlusJamaisUtiliser(a * 100 + b * 10)
           d = choice([0.1, 0.01, 0.001])
-          reponse = calcul(k * d)
+          reponse = calculANePlusJamaisUtiliser(k * d)
 
           if (d === 0.1) {
             texte = `$${k}\\times ${texNombre(d)}=$`
@@ -241,12 +241,12 @@ export default function SujetCAN20214ieme () {
           c = randint(2, 9)
 
           if (choice([true, false])) {
-            reponse = calcul(a * 10000 + b * 100 + c * 10)
+            reponse = calculANePlusJamaisUtiliser(a * 10000 + b * 100 + c * 10)
             texte = `$${texNombre(a)}\\times ${texNombre(10000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10=$`
             texteCorr = `$${texNombre(a)}\\times ${texNombre(10000)} + ${texNombre(b)}\\times 100 + ${texNombre(c)}\\times 10 =
      ${texNombre(a * 10000)} + ${texNombre(b * 100)} + ${texNombre(c * 10)}=${miseEnEvidence(texNombre(reponse))}$`
           } else {
-            reponse = calcul(c * 10000 + b * 1000 + a * 10)
+            reponse = calculANePlusJamaisUtiliser(c * 10000 + b * 1000 + a * 10)
             texte = `$ ${texNombre(c)}\\times ${texNombre(10000)}+ ${texNombre(b)}\\times ${texNombre(1000)} + ${texNombre(a)}\\times 10 =$`
             texteCorr = `$ ${texNombre(c)}\\times ${texNombre(10000)}+ ${texNombre(b)}\\times ${texNombre(1000)} + ${texNombre(a)}\\times 10  =
       ${texNombre(c * 10000)}+ ${texNombre(b * 1000)} + ${texNombre(a * 10)} =${miseEnEvidence(texNombre(reponse))}$`
@@ -262,7 +262,7 @@ export default function SujetCAN20214ieme () {
 
         case 9:
           a = randint(2, 6)
-          prix = calcul(2 + randint(1, 3) / 10 + 0.05)
+          prix = calculANePlusJamaisUtiliser(2 + randint(1, 3) / 10 + 0.05)
           k = randint(2, 4)
           reponse = arrondi(prix * k, 2)
           texte = `$${a}$ stylos identiques coûtent  $${texNombre(prix)}$ €. <br>
@@ -282,7 +282,7 @@ export default function SujetCAN20214ieme () {
         case 10:
 
           a = randint(11, 24, 20)
-          reponse = calcul(101 * a)
+          reponse = calculANePlusJamaisUtiliser(101 * a)
           texte = `$${a}\\times 101=$`
           texteCorr = `$${a}\\times 101 = ${texNombre(101 * a)}$<br>`
 
@@ -315,25 +315,25 @@ export default function SujetCAN20214ieme () {
           a = choice([2, 2, 2, 3, 3, 4, 5])
           if (a === 2) {
             b = randint(3, 6)
-            reponse = calcul(a ** b)
+            reponse = calculANePlusJamaisUtiliser(a ** b)
             texte = `Recopie la bonne réponse.<br>
           $${a}^{${b}}$ est égal à :<br>`
           }
           if (a === 3) {
             b = randint(2, 4)
-            reponse = calcul(a ** b)
+            reponse = calculANePlusJamaisUtiliser(a ** b)
             texte = `Recopie la bonne réponse.<br>
            $${a}^{${b}}$ est égal à :<br>`
           }
           if (a === 4) {
             b = randint(2, 3)
-            reponse = calcul(a ** b)
+            reponse = calculANePlusJamaisUtiliser(a ** b)
             texte = `Recopie la bonne réponse.<br>
              $${a}^{${b}}$ est égal à :<br>`
           }
           if (a === 5) {
             b = 2
-            reponse = calcul(a ** b)
+            reponse = calculANePlusJamaisUtiliser(a ** b)
             texte = `Recopie la bonne réponse.<br>
                $${a}^{${b}}$ est égal à :<br>`
           }
@@ -349,13 +349,13 @@ export default function SujetCAN20214ieme () {
 
         case 13:
           L = randint(8, 12)
-          a = calcul(L * randint(2, 7))
+          a = calculANePlusJamaisUtiliser(L * randint(2, 7))
           texte = `Un rectangle a une aire de $${a}$ m$^2$ et sa longueur mesure $${L}$ m.<br>
             Détermine sa largeur.`
           texteCorr = `L'aire d'un rectangle est obtenue  par le produit de sa longueur par sa largeur. <br>
           On obtient donc sa largeur
             en divisant l'aire par sa longueur : $\\ell=${a}\\div ${L}=${miseEnEvidence(a / L)}$. `
-          reponse = calcul(a / L)
+          reponse = calculANePlusJamaisUtiliser(a / L)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm'
@@ -402,13 +402,13 @@ export default function SujetCAN20214ieme () {
 
         case 15:
           a = choice([2, 3, 6]) // diviseur de l'heure
-          b = calcul(60 / a) // nombre de minutes de l'énoncé
+          b = calculANePlusJamaisUtiliser(60 / a) // nombre de minutes de l'énoncé
           c = choice([30, 60, 90, 120])
-          reponse = calcul(c / a)
+          reponse = calculANePlusJamaisUtiliser(c / a)
           texte = `Une voiture roule à $${c}$ km/h. Combien de kilomètres parcourt-elle en $${b}$ minutes ?`
-          texteCorr = `La voiture parcourt $${calcul(c / a)}$ km.<br>
+          texteCorr = `La voiture parcourt $${calculANePlusJamaisUtiliser(c / a)}$ km.<br>
          En $${b}$ minutes, elle parcourt $${a}$ fois moins de km qu'en $1$ heure, soit $\\dfrac{${c}}{${a}}=
-          ${miseEnEvidence(calcul(c / a))}$ km.`
+          ${miseEnEvidence(calculANePlusJamaisUtiliser(c / a))}$ km.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km'
@@ -420,7 +420,7 @@ export default function SujetCAN20214ieme () {
           a = randint(-19, -11)
           b = randint(3, 8)
           c = randint(4, 10)
-          reponse = calcul(a + b * c)
+          reponse = calculANePlusJamaisUtiliser(a + b * c)
           texte = `$${a}+${b}\\times ${c}= $`
           texteCorr = `La multiplication est prioritaire. On obtient : <br>
           $${a}+${b}\\times ${c}=${a}+${b * c}=${miseEnEvidence(a + b * c)}$. `
@@ -451,7 +451,7 @@ export default function SujetCAN20214ieme () {
           a = choice(obtenirListeFractionsIrreductibles())
           c = a.d
 
-          reponse = calcul(a * 2)
+          reponse = calculANePlusJamaisUtiliser(a * 2)
 
           if (choice([true, false])) {
             b = a.n
@@ -485,7 +485,7 @@ export default function SujetCAN20214ieme () {
           texteCorr = `$10^${a[0]}+10^${a[1]}+10^${a[2]}=
     ${texNombre(10 ** a[0])}+${texNombre(10 ** a[1])}+${texNombre(10 ** a[2])}
     =${miseEnEvidence(texNombre(10 ** a[0] + 10 ** a[1] + 10 ** a[2]))}$`
-          reponse = calcul(10 ** a[0] + 10 ** a[1] + 10 ** a[2])
+          reponse = calculANePlusJamaisUtiliser(10 ** a[0] + 10 ** a[1] + 10 ** a[2])
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
@@ -498,7 +498,7 @@ export default function SujetCAN20214ieme () {
         case 20:
           a = randint(1, 5) * 10
           p = randint(2, 9, 5) * 10
-          reponse = calcul(a * p / 100)
+          reponse = calculANePlusJamaisUtiliser(a * p / 100)
           texte = `$${p}\\,\\%$ de $${a}= $`
 
           texteCorr = `          Prendre $${p}\\,\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10\\,\\%$  de $${a}$.<br>
@@ -531,7 +531,7 @@ export default function SujetCAN20214ieme () {
             objets.push(
               texteParPosition(`${stringNombre(L)} cm`, milieu(C, D).x + 0.5, milieu(C, D).y)
               , segment(B, D), labelPoint(A, B, C, D))
-            reponse = calcul(L * L / 2)
+            reponse = calculANePlusJamaisUtiliser(L * L / 2)
             texte = `$ABCD$ est un carré. <br>
             Calcule l'aire du triangle $ABD$.<br>
             
@@ -568,7 +568,7 @@ export default function SujetCAN20214ieme () {
               texteParPosition(`${stringNombre(L)} cm`, milieu(C, D).x + 0.5, milieu(C, D).y),
               texteParPosition(`${stringNombre(l2)} cm`, milieu(B, C).x, milieu(B, C).y - 0.4),
               segment(B, D), labelPoint(A, B, C, D))
-            reponse = calcul(L * l2 / 2)
+            reponse = calculANePlusJamaisUtiliser(L * l2 / 2)
             texte = `$ABCD$ est un rectangle. <br>
             Calcule l'aire du triangle $ABD$.<br>
             
@@ -619,7 +619,7 @@ export default function SujetCAN20214ieme () {
           a = randint(-5, -2)
           b = randint(2, 4)
           truc = randint(-5, -2)
-          c = calcul(a * b * truc)
+          c = calculANePlusJamaisUtiliser(a * b * truc)
           texte = `Complète l'égalité : <br>
             $${a}\\times ${b}\\times \\ldots =${c}$ `
           reponse = truc
@@ -635,9 +635,9 @@ export default function SujetCAN20214ieme () {
 
         case 24:
           a = randint(1, 6) * 2
-          b = calcul(a + a / 2)
+          b = calculANePlusJamaisUtiliser(a + a / 2)
           c = randint(7, 12) * 2
-          reponse = calcul(c + c / 2)
+          reponse = calculANePlusJamaisUtiliser(c + c / 2)
 
           texte = 'Complète le tableau de proportionnalité :<br>'
           // texte += tableauColonneLigne([a, b], [c], [''])
@@ -666,8 +666,8 @@ export default function SujetCAN20214ieme () {
 
         case 25:
 
-          a = calcul(randint(1, 12) + randint(1, 9) / 10)
-          reponse = calcul(a * 1000)
+          a = calculANePlusJamaisUtiliser(randint(1, 12) + randint(1, 9) / 10)
+          reponse = calculANePlusJamaisUtiliser(a * 1000)
           texte = ` $${texNombre(a)}$ m$^3=$`
           texteCorr = `Comme $1$ m$^3$= $1000$ L, $${texNombre(a)}$ m$^3=${miseEnEvidence(a * 1000)}$ L.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -685,7 +685,7 @@ export default function SujetCAN20214ieme () {
           truc = randint(-8, -2)
           texte = `Calcule $${a}+${b}x$ pour $x=${truc}$. `
           texteCorr = `Pour $x=${truc}$, on obtient :  $${a}+${b}x=${a}+${b}\\times(${truc})=${miseEnEvidence(a + b * truc)}$.`
-          reponse = calcul(a + b * truc)
+          reponse = calculANePlusJamaisUtiliser(a + b * truc)
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -696,14 +696,14 @@ export default function SujetCAN20214ieme () {
 
         case 27:
           a = choice([2, 3, 4, 5, 6, 10]) // nombre de secondes pour remplir un litre
-          b = calcul(60 / a) // nombres de litres/min
+          b = calculANePlusJamaisUtiliser(60 / a) // nombres de litres/min
           c = randint(2, b - 1) % 10 // volume du seau à remplir
           while (c === 0) {
             a = choice([2, 3, 4, 5, 6, 10]) // nombre de secondes pour remplir un litre
-            b = calcul(60 / a) // nombres de litres/min
+            b = calculANePlusJamaisUtiliser(60 / a) // nombres de litres/min
             c = randint(2, b - 1) % 10 // volume du seau à remplir
           }
-          reponse = calcul(c * a)
+          reponse = calculANePlusJamaisUtiliser(c * a)
           texte = `Le débit d'eau d'un robinet est de $${b}$ L/min. <br>Combien de secondes faut-il pour remplir un seau de $${c}$ L ?`
           texteCorr = `
           On commence par déterminer le temps en seconde (puisque dans la question,
@@ -830,7 +830,7 @@ export default function SujetCAN20214ieme () {
           a = fraction(fraction1[0], fraction1[1])
           texte = `Donne l'écriture décimale de $${a.texFraction}$. <br>`
           texteCorr = `$\\dfrac{1}{5}=0,2$, ainsi  $${a.texFraction}=${fraction1[0]}\\times\\dfrac{1}{5}=${miseEnEvidence(texNombre(fraction1[0] / fraction1[1]))}$`
-          reponse = calcul(fraction1[0] / fraction1[1])
+          reponse = calculANePlusJamaisUtiliser(fraction1[0] / fraction1[1])
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
@@ -839,7 +839,7 @@ export default function SujetCAN20214ieme () {
           break
 
         case 30:
-          a = calcul(randint(2, 6) * 10)
+          a = calculANePlusJamaisUtiliser(randint(2, 6) * 10)
           n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson', 'sweat'])
           b = choice([5, 15])
           texte = `Le prix d'un ${n} est $${a}$ €. Il baisse de $${b}\\,\\%$ . <br>
@@ -865,7 +865,7 @@ export default function SujetCAN20214ieme () {
 
   `
           }
-          reponse = calcul(a - (b * a) / 100)
+          reponse = calculANePlusJamaisUtiliser(a - (b * a) / 100)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€'

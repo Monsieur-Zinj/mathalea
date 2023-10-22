@@ -6,6 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { cube } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 
 export const titre = 'Compter les cubes manquants ou pas'
 export const interactifReady = true
@@ -86,160 +87,88 @@ export default function DenombrerCubes () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    let objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection
     const longueur = 2 + parseInt(this.sup2) // longueur de l'empilement
     const largeur = longueur // largeur de l'empilement
     const hauteur = longueur // hauteur de l'empilement
 
     for (let q = 0, texte, texteCorr, cpt = 0; q < this.nbQuestions && cpt < 50;) {
-      objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
-      objetsCorrection = [] // Idem pour la correction
-
+      const objetsCorrection = [] // Idem pour la correction
+      const objetsEnonce = []
+      const objetsEnonce2 = []
       texte = 'Un empilement de cubes est représenté ci-dessous sous deux angles différents. <br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
       texteCorr = '' // Idem pour le texte de la correction.
 
-      let L, alpha, beta, cosa, cosb, sina, sinb
+      let cosa, cosb, sina, sinb
+      const L = empilementCubes(longueur, largeur, hauteur) // crée un empilement aléatoire
+      const alpha1 = 10 // choix de la projection
+      const beta1 = -40// choix de la projection
+      const alpha2 = 35// choix de la projection
+      const beta2 = -20 // choix de la projection
+      for (let i = 0; i < L.length; i++) {
+        objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha1, beta1, {}).c2d)
+      }
 
+      for (let i = 0; i < L.length; i++) {
+        objetsEnonce2.push(...cube(L[i][0], L[i][1], L[i][2], alpha2, beta2, {}).c2d)
+      }
+      for (let i = 0; i < L.length; i++) {
+        objetsCorrection.push(...cube(3 * L[i][0], L[i][1], L[i][2], alpha2, beta2, {}).c2d)
+      }
+      cosa = Math.cos(alpha1 * Math.PI / 180)
+      sina = Math.sin(alpha1 * Math.PI / 180)
+      cosb = Math.cos(beta1 * Math.PI / 180)
+      sinb = Math.sin(beta1 * Math.PI / 180)
+      const paramsEnonce = {
+        xmin: -sina * largeur - 0.5,
+        ymin: -0.5,
+        xmax: cosa * longueur + 0.5,
+        ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
+        pixelsParCm: 20,
+        scale: 0.6,
+        mainlevee: false,
+        style: 'display: inline'
+      }
+
+      cosa = Math.cos(alpha2 * Math.PI / 180)
+      sina = Math.sin(alpha2 * Math.PI / 180)
+      cosb = Math.cos(beta2 * Math.PI / 180)
+      sinb = Math.sin(beta2 * Math.PI / 180)
+      const paramsEnonce2 = {
+        xmin: -sina * largeur - 0.5,
+        ymin: -0.5,
+        xmax: cosa * longueur + 0.5,
+        ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
+        pixelsParCm: 20,
+        scale: 0.6,
+        mainlevee: false,
+        style: 'display: inline'
+      }
+      const paramsCorrection = {
+        xmin: -sina * largeur - 0.5,
+        ymin: -0.5,
+        xmax: cosa * longueur * 3 + 0.5,
+        ymax: -sina * sinb * longueur * 1.5 - cosa * sinb * largeur + cosb * hauteur * 1.5 + 0.5,
+        pixelsParCm: 20,
+        scale: 0.6,
+        mainlevee: false,
+        style: 'display: inline'
+      }
       // début de l'exercice
       switch (listeTypeDeQuestions[q]) {
         case 1:
           texte += 'Combien de petits cubes contient cet empilement de cubes ?' + ajouteChampTexteMathLive(this, q, 'largeur10 inline')
-          L = empilementCubes(longueur, largeur, hauteur) // crée un empilement aléatoire
-          // dessin 1
-          alpha = 30 // choix de la projection
-          beta = -25 // choix de la projection
-          objetsEnonce = []
-          for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
-          }
-          cosa = Math.cos(alpha * Math.PI / 180)
-          sina = Math.sin(alpha * Math.PI / 180)
-          cosb = Math.cos(beta * Math.PI / 180)
-          sinb = Math.sin(beta * Math.PI / 180)
-          paramsEnonce = {
-            xmin: -sina * largeur - 0.5,
-            ymin: -0.5,
-            xmax: cosa * longueur + 0.5,
-            ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
-            pixelsParCm: 20,
-            scale: 0.6,
-            mainlevee: false,
-            style: 'display: inline'
-          }
-          texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce) + ' '
-          // dessin 2
-          alpha = 15
-          beta = -30
-          objetsEnonce = []
-          for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
-          }
-          paramsEnonce = {
-            xmin: -sina * largeur - 0.5,
-            ymin: -0.5,
-            xmax: cosa * longueur + 0.5,
-            ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
-            pixelsParCm: 20,
-            scale: 0.6,
-            mainlevee: false,
-            style: 'display: inline'
-          }
-          texte += mathalea2d(paramsEnonce, objetsEnonce)
+          texte += '<br>' + deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce2, objetsEnonce2))
           // correction :
           texteCorr += "On peut représenter l'empilement par tranches : <br>"
-          alpha = 30
-          beta = -25
-          cosa = Math.cos(alpha * Math.PI / 180)
-          sina = Math.sin(alpha * Math.PI / 180)
-          cosb = Math.cos(beta * Math.PI / 180)
-          sinb = Math.sin(beta * Math.PI / 180)
-          paramsCorrection = {
-            xmin: -3 * sina * largeur - 0.5,
-            ymin: -0.5,
-            xmax: 3 * cosa * longueur + 0.5,
-            ymax: -sina * sinb * 3 * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
-            pixelsParCm: 20,
-            scale: 0.6,
-            mainlevee: false,
-            style: 'display: inline'
-          }
-          objetsCorrection = []
-          for (let i = 0; i < L.length; i++) {
-            objetsCorrection.push(...cube(3 * L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
-          }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
           texteCorr += `Il y a au total ${L.length} cubes.`
           setReponse(this, q, L.length)
           break
-
         case 2:
           texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube de côté ${longueur} ?` + ajouteChampTexteMathLive(this, q, 'largeur10 inline')
-          L = empilementCubes(longueur, largeur, hauteur)
-          // dessin 1
-          alpha = 30
-          beta = -25
-          objetsEnonce = []
-          for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
-          }
-          cosa = Math.cos(alpha * Math.PI / 180)
-          sina = Math.sin(alpha * Math.PI / 180)
-          cosb = Math.cos(beta * Math.PI / 180)
-          sinb = Math.sin(beta * Math.PI / 180)
-          paramsEnonce = {
-            xmin: -sina * largeur - 0.5,
-            ymin: -0.5,
-            xmax: cosa * longueur + 0.5,
-            ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
-            pixelsParCm: 20,
-            scale: 0.6,
-            mainlevee: false,
-            style: 'display: inline'
-          }
-          texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce) + ' '
-          // dessin 2
-          alpha = 15
-          beta = -30
-          objetsEnonce = []
-          for (let i = 0; i < L.length; i++) {
-            objetsEnonce.push(...cube(L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
-          }
-          cosa = Math.cos(alpha * Math.PI / 180)
-          sina = Math.sin(alpha * Math.PI / 180)
-          cosb = Math.cos(beta * Math.PI / 180)
-          sinb = Math.sin(beta * Math.PI / 180)
-          paramsEnonce = {
-            xmin: -sina * largeur - 0.5,
-            ymin: -0.5,
-            xmax: cosa * longueur + 0.5,
-            ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
-            pixelsParCm: 20,
-            scale: 0.6,
-            mainlevee: false,
-            style: 'display: inline'
-          }
-          texte += mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
+          texte += '<br>' + deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce, objetsEnonce2)) + '<br>'
           // correction :
           texteCorr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
-          alpha = 30
-          beta = -25
-          cosa = Math.cos(alpha * Math.PI / 180)
-          sina = Math.sin(alpha * Math.PI / 180)
-          cosb = Math.cos(beta * Math.PI / 180)
-          sinb = Math.sin(beta * Math.PI / 180)
-          paramsCorrection = {
-            xmin: -3 * sina * largeur - 0.5,
-            ymin: -0.5,
-            xmax: 3 * cosa * longueur + 0.5,
-            ymax: -sina * sinb * 3 * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
-            pixelsParCm: 20,
-            scale: 0.6,
-            mainlevee: false
-          }
-          objetsCorrection = []
-          for (let i = 0; i < L.length; i++) {
-            objetsCorrection.push(...cube(3 * L[i][0], L[i][1], L[i][2], alpha, beta, {}).c2d)
-          }
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
           texteCorr += `Il y a au total $${L.length}$ cubes. On en veut $${longueur}\\times ${largeur} \\times ${hauteur} = ${longueur * largeur * hauteur}$. <br>`
           texteCorr += `Il manque $${longueur * largeur * hauteur - L.length}$ cubes.`

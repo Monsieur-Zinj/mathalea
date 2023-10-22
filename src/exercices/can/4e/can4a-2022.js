@@ -14,7 +14,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { context } from '../../../modules/context.js'
 import { min, round } from 'mathjs'
-import { calcul, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
@@ -656,7 +656,7 @@ export default function SujetCAN2022quatrieme () {
           break
         case 21:
           a = choice([2, 3, 6]) // diviseur de l'heure
-          b = calcul(60 / a) // nombre de minutes de l'énoncé
+          b = calculANePlusJamaisUtiliser(60 / a) // nombre de minutes de l'énoncé
           c = choice([30, 60, 90, 120])
           reponse = c / a
           texte = `Un véhicule roule à $${c}$ km/h. Quelle distance parcourt-il en $${b}$ minutes ?`

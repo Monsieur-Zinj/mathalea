@@ -6,7 +6,7 @@ import { stringNombre } from '../outils/texNombre.js'
 import { angleOriente, codageAngle, codageAngleDroit } from './angles.js'
 import { arc } from './cercle.js'
 import { droite, mediatrice } from './droites.js'
-import { milieu, point, pointSurSegment, tracePointSurDroite } from './points.js'
+import { milieu, Point, point, pointSurSegment, tracePointSurDroite } from './points.js'
 import { longueur, Segment, segment, vecteur } from './segmentsVecteurs.js'
 import { latexParPoint, TexteParPoint, texteParPoint } from './textes.js'
 import { rotation, similitude, translation } from './transformations.js'
@@ -290,6 +290,7 @@ export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 
   } else {
     angle = 180 - s.angleAvecHorizontale
   }
+  this.bordures = [O.x - 0.5, O.y - 0.5, O.x + 0.5, O.y + 0.5] // C'est n'importe quoi, mais de toute façon, le segment a ses bordures, lui !
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
     return texteParPoint(longueurSeg, N, angle, this.color, 1, 'middle', false).svg(coeff)
@@ -331,7 +332,7 @@ export function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizont
   this.color = color
   this.extremite1 = A
   this.extremite2 = B
-  this.texte = texte
+  this.texte = String(texte)
   this.scale = 1
   this.mathOn = true
   this.distance = horizontal ? (d - 0.1 + (isNumeric(this.texte) ? nombreDeChiffresDe(this.texte) : this.texte.length) / 10) : d
@@ -340,7 +341,7 @@ export function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizont
   const s = segment(this.extremite1, this.extremite2)
   let angle
   const pos = pointSurSegment(O, M, this.distance)
-  const space = 0.2 * this.texte.length
+  const space = 0.2 * (this.texte.length ?? 2)
   this.bordures = [pos.x - space, pos.y - space, pos.x + space, pos.y + space]
   if (horizontal) {
     angle = 0
@@ -372,8 +373,8 @@ export function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizont
  * @return {object} LatexParCoordonnees si le premier caractère est '$', TexteParPoint sinon
  * @author Rémi Angot
  */
-export function texteSurSegment (...args) {
-  return new TexteSurSegment(...args)
+export function texteSurSegment (texte = '', A, B, color = 'black', d, horizontal) {
+  return new TexteSurSegment(texte, A, B, color, d, horizontal)
 }
 
 /**
@@ -495,6 +496,9 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
   this.ecart = ecart
   this.saillant = saillant
   this.epaisseur = arcEpaisseur
+  const M = pointSurSegment(this.sommet, this.depart, this.distance)
+  const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / context.pixelsParCm), this.sommet, mesureAngle / 2)
+  this.bordures = [Math.min(N.x, M.x) - 0.5, Math.min(N.y, M.y) - 0.5, Math.max(N.x, M.x) + 0.5, Math.max(N.y, M.y) + 0.5]
   this.svg = function (coeff) {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
     const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, mesureAngle / 2, '', 'center')
@@ -730,6 +734,28 @@ export function CodageSegments (mark = '||', color = 'black', ...args) {
   ObjetMathalea2D.call(this, {})
   const isEchelle = isNumber(args[args.length - 1])
   const echelle = isEchelle ? args[args.length - 1] : 1
+  const trouveExtrem = function (xmin, ymin, xmax, ymax, ...pointsOuSegment) {
+    if (pointsOuSegment.length === 0) return [xmin, ymin, xmax, ymax]
+    else {
+      const premierElement = pointsOuSegment.shift()
+      if (premierElement.constructor === Segment) {
+        xmin = Math.min(xmin, premierElement.x1, premierElement.x2)
+        xmax = Math.max(xmax, premierElement.x1, premierElement.x2)
+        ymin = Math.min(ymin, premierElement.y1, premierElement.y2)
+        ymax = Math.max(ymax, premierElement.y1, premierElement.y2)
+        return trouveExtrem(xmin, ymin, xmax, ymax, ...pointsOuSegment)
+      } else if (premierElement.constructor === Point) {
+        xmin = Math.min(xmin, premierElement.x)
+        xmax = Math.max(xmax, premierElement.x)
+        ymin = Math.min(ymin, premierElement.y)
+        ymax = Math.max(ymax, premierElement.y)
+        return trouveExtrem(xmin, ymin, xmax, ymax, ...pointsOuSegment)
+      } else {
+        return trouveExtrem(xmin, ymin, xmax, ymax, ...pointsOuSegment)
+      }
+    }
+  }
+  this.bordures = trouveExtrem(1000, 1000, -1000, -1000, ...args)
   this.svg = function (coeff) {
     let code = ''
     if (Array.isArray(args[0])) {

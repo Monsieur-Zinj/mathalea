@@ -8,7 +8,7 @@ import { fractionSimplifiee, texFractionSigne } from '../../lib/outils/deprecate
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, listeQuestionsToContenu, printlatex, xcas } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, printlatex, xcas } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Étude de fonctions de degré 3'
@@ -543,9 +543,9 @@ export default function VariationPolynomeDegre3 () {
       YMAXI = 10 ** (Math.ceil(Math.log10(d)))
     }
 
-    const pas = calcul(10 ** Math.ceil(Math.log10((Math.abs((YMAXI - YMINI) / 20)))) / 2)
+    const pas = calculANePlusJamaisUtiliser(10 ** Math.ceil(Math.log10((Math.abs((YMAXI - YMINI) / 20)))) / 2)
     scalex = Math.abs(10 / (XMAXI - XMINI))
-    scaley = calcul(20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI))))
+    scaley = calculANePlusJamaisUtiliser(20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI))))
 
     const monrepere = repere({
       xUnite: scalex,

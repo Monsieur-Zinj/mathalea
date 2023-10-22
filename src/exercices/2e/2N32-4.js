@@ -74,5 +74,5 @@ export default function SimplifierUneSommeDeRacinesCarrees () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnat la racine carrée unité\n2 : Sans indication']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : En donnant la racine carrée unité\n2 : Sans indication']
 }

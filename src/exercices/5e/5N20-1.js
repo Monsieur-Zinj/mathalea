@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -98,13 +98,13 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
               if (ordreDesFractions === 1) {
                 s = pgcd(a * k + n * c, d)
                 if (s !== 1) {
-                  texteCorr += `$=${deprecatedTexFraction(calcul((a * k + n * c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k + n * c) / s), calcul(d / s))}$`
+                  texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((a * k + n * c) / s) + miseEnEvidence('\\times ' + s), calculANePlusJamaisUtiliser(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((a * k + n * c) / s), calculANePlusJamaisUtiliser(d / s))}$`
                 }
                 setReponse(this, i, (new FractionEtendue(a * k + n * c, d)).simplifie(), { formatInteractif: 'fractionEgale' })
               } else {
                 s = pgcd(n * a * k + c, d)
                 if (s !== 1) {
-                  texteCorr += `$=${deprecatedTexFraction(calcul((n * a * k + c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((n * a * k + c) / s), calcul(d / s))}$`
+                  texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((n * a * k + c) / s) + miseEnEvidence('\\times ' + s), calculANePlusJamaisUtiliser(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((n * a * k + c) / s), calculANePlusJamaisUtiliser(d / s))}$`
                 }
                 setReponse(this, i, (new FractionEtendue(n * a * k + c, d)).simplifie(), { formatInteractif: 'fractionEgale' })
               }
@@ -146,13 +146,13 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
               if (ordreDesFractions === 1) {
                 s = pgcd(a * k - n * c, d)
                 if (s !== 1) {
-                  texteCorr += `$=${deprecatedTexFraction(calcul((a * k - n * c) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k - n * c) / s), calcul(d / s))}$`
+                  texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((a * k - n * c) / s) + miseEnEvidence('\\times ' + s), calculANePlusJamaisUtiliser(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((a * k - n * c) / s), calculANePlusJamaisUtiliser(d / s))}$`
                 }
                 setReponse(this, i, (new FractionEtendue(a * k - n * c, d)).simplifie(), { formatInteractif: 'fractionEgale' })
               } else {
                 s = pgcd(n * a * k - c, d)
                 if (s !== 1) {
-                  texteCorr += `$=${deprecatedTexFraction(calcul((c - n * a * k) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((c - n * a * k) / s), calcul(d / s))}$`
+                  texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((c - n * a * k) / s) + miseEnEvidence('\\times ' + s), calculANePlusJamaisUtiliser(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((c - n * a * k) / s), calculANePlusJamaisUtiliser(d / s))}$`
                 }
                 setReponse(this, i, (new FractionEtendue(n * a * k - c, d)).simplifie(), { formatInteractif: 'fractionEgale' })
               }
@@ -202,13 +202,13 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
             if (ordreDesFractions === 2) {
               s = pgcd(a * k - c * k - e, d)
               if (s !== 1) {
-                texteCorr += `$=${deprecatedTexFraction(calcul((a * k - c * k - e) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k - c * k - e) / s), calcul(d / s))}$`
+                texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((a * k - c * k - e) / s) + miseEnEvidence('\\times ' + s), calculANePlusJamaisUtiliser(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((a * k - c * k - e) / s), calculANePlusJamaisUtiliser(d / s))}$`
               }
               setReponse(this, i, (new FractionEtendue(a * k - c * k - e, d)).simplifie(), { formatInteractif: 'fractionEgale' })
             } else {
               s = pgcd(a * k - c - k * e, d)
               if (s !== 1) {
-                texteCorr += `$=${deprecatedTexFraction(calcul((a * k - c - k * e) / s) + miseEnEvidence('\\times ' + s), calcul(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a * k - c - k * e) / s), calcul(d / s))}$`
+                texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((a * k - c - k * e) / s) + miseEnEvidence('\\times ' + s), calculANePlusJamaisUtiliser(d / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((a * k - c - k * e) / s), calculANePlusJamaisUtiliser(d / s))}$`
               }
               setReponse(this, i, (new FractionEtendue(a * k - c - k * e, d)).simplifie(), { formatInteractif: 'fractionEgale' })
             }
@@ -233,7 +233,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
             if (this.sup3) {
               s = pgcd(a + n * b, b)
               if (s !== 1) {
-                texteCorr += `$=${deprecatedTexFraction(calcul((a + n * b) / s) + miseEnEvidence('\\times ' + s), calcul(b / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a + n * b) / s), calcul(b / s))}$`
+                texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((a + n * b) / s) + miseEnEvidence('\\times ' + s), calculANePlusJamaisUtiliser(b / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((a + n * b) / s), calculANePlusJamaisUtiliser(b / s))}$`
               }
               setReponse(this, i, (new FractionEtendue(a + n * b, b)).simplifie(), { formatInteractif: 'fractionEgale' })
             } else {
@@ -248,7 +248,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
             if (this.sup3) {
               s = pgcd(a - n * b, b)
               if (s !== 1) {
-                texteCorr += `$=${deprecatedTexFraction(calcul((a - n * b) / s) + miseEnEvidence('\\times ' + s), calcul(b / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calcul((a - n * b) / s), calcul(b / s))}$`
+                texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((a - n * b) / s) + miseEnEvidence('\\times ' + s), calculANePlusJamaisUtiliser(b / s) + miseEnEvidence('\\times ' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((a - n * b) / s), calculANePlusJamaisUtiliser(b / s))}$`
               }
               setReponse(this, i, (new FractionEtendue(a - n * b, b)).simplifie(), { formatInteractif: 'fractionEgale' })
             } else {
@@ -270,7 +270,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
           if (this.sup3) {
             s = pgcd(a * k - c + e * k, d)
             if (s !== 1) {
-              texteCorr += `$=${deprecatedTexFraction(calcul((a * k - c + e * k) / s) + miseEnEvidence('\\times' + s), calcul(d / s) + miseEnEvidence('\\times' + s))}=${texFractionReduite(calcul((a * k - c + e * k) / s), calcul(d / s))}$`
+              texteCorr += `$=${deprecatedTexFraction(calculANePlusJamaisUtiliser((a * k - c + e * k) / s) + miseEnEvidence('\\times' + s), calculANePlusJamaisUtiliser(d / s) + miseEnEvidence('\\times' + s))}=${texFractionReduite(calculANePlusJamaisUtiliser((a * k - c + e * k) / s), calculANePlusJamaisUtiliser(d / s))}$`
             }
             setReponse(this, i, (new FractionEtendue(a * k - c + e * k, d)).simplifie(), { formatInteractif: 'fractionEgale' })
           } else {

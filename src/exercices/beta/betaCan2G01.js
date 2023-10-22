@@ -3,7 +3,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -70,7 +70,7 @@ export default function PerimetreCarreRectangle () {
         this.interactifType = 'mathLive'
         question = `Le périmètre d'un carré est $${a}$ cm.<br>Quelle est la longueur du côté du carré ? `
         question += ajouteChampTexteMathLive(this, 0, 'largeur 10 inline', { texteApres: ' cm' })
-        reponse = calcul(a / 4)
+        reponse = calculANePlusJamaisUtiliser(a / 4)
         correction = `Le côté du carré est $${a}\\div 4=${reponse}$ cm.`
         setReponse(this, 0, reponse)
         break

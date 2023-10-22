@@ -10,7 +10,7 @@ import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, egal, calcul } from '../../../modules/outils.js'
+import { randint, egal, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -58,7 +58,7 @@ style: 'margin: auto'
 
     this.reponse = [`${texFractionReduite(a, d)}x${ecritureAlgebrique(b)}`]
     if (egal(a * 1000 / d, Math.round(a * 1000 / d))) {
-      this.reponse.push(`${calcul(a / d)}x${ecritureAlgebrique(b)}`)
+      this.reponse.push(`${calculANePlusJamaisUtiliser(a / d)}x${ecritureAlgebrique(b)}`)
     }
     this.correction = `<br> $f$ est de la forme
     $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale)

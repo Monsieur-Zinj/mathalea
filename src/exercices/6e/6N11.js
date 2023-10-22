@@ -5,10 +5,11 @@ import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { texteGras } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Lire l\'abscisse entière d\'un point (grands nombres)'
 export const interactifReady = true
@@ -26,7 +27,6 @@ export const uuid = 'acd4a'
 export const ref = '6N11'
 export default function LireAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = "Lire l'abscisse de chacun des points suivants."
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -38,17 +38,19 @@ export default function LireAbscisseEntiere2d () {
 
   this.nouvelleVersion = function () {
     // numeroExercice est 0 pour l'exercice 1
+    this.consigne = "Lire l'abscisse de chacun des points suivants."
+    if (this.interactif) this.consigne += texteGras(' Penser à mettre les espaces nécessaires.')
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (parseInt(this.sup) === 4) {
+    if (this.sup === 4) {
       typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {
       typesDeQuestions = combinaisonListes(
-        [parseInt(this.sup)],
+        [this.sup],
         this.nbQuestions
       )
     }
@@ -77,12 +79,12 @@ export default function LireAbscisseEntiere2d () {
           pas1 = 0.00001
           break
       }
-      x1 = calcul(randint(0, 27) / 10)
-      x2 = calcul(randint(33, 47) / 10)
-      x3 = calcul(randint(53, 67) / 10)
-      reponse1 = calcul(x1 / pas1 + abs0)
-      reponse2 = calcul(x2 / pas1 + abs0)
-      reponse3 = calcul(x3 / pas1 + abs0)
+      x1 = calculANePlusJamaisUtiliser(randint(0, 27) / 10)
+      x2 = calculANePlusJamaisUtiliser(randint(33, 47) / 10)
+      x3 = calculANePlusJamaisUtiliser(randint(53, 67) / 10)
+      reponse1 = calculANePlusJamaisUtiliser(x1 / pas1 + abs0)
+      reponse2 = calculANePlusJamaisUtiliser(x2 / pas1 + abs0)
+      reponse3 = calculANePlusJamaisUtiliser(x3 / pas1 + abs0)
       d[2 * i] = droiteGraduee({
         Unite: 4,
         Min: 0,
@@ -93,7 +95,7 @@ export default function LireAbscisseEntiere2d () {
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,
-        labelListe: [[0, context.isAmc ? `${texNombre(abs0, 0)}` : `${stringNombre(abs0)}`], [1, context.isAmc ? `${texNombre(calcul(abs0 + 1 / pas1), 0)}` : `${stringNombre(calcul(abs0 + 1 / pas1))}`]],
+        labelListe: [[0, context.isAmc ? `${texNombre(abs0, 0)}` : `${stringNombre(abs0)}`], [1, context.isAmc ? `${texNombre(calculANePlusJamaisUtiliser(abs0 + 1 / pas1), 0)}` : `${stringNombre(calculANePlusJamaisUtiliser(abs0 + 1 / pas1))}`]],
         pointListe: [[x1, l1], [x2, l2], [x3, l3]]
       })
       d[2 * i + 1] = droiteGraduee({
@@ -119,12 +121,12 @@ export default function LireAbscisseEntiere2d () {
       texteCorr = mathalea2d({ xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
 
       if (this.interactif && context.isHtml) {
-        setReponse(this, 3 * i, reponse1)
-        setReponse(this, 3 * i + 1, reponse2)
-        setReponse(this, 3 * i + 2, reponse3)
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur75', { texte: l1 })
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur75', { texte: l2 })
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur75', { texte: l3 })
+        setReponse(this, 3 * i, texNombre(reponse1, 0), { formatInteractif: 'texte' })
+        setReponse(this, 3 * i + 1, texNombre(reponse2, 0), { formatInteractif: 'texte' })
+        setReponse(this, 3 * i + 2, texNombre(reponse3, 0), { formatInteractif: 'texte' })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur50 college6eme', { texte: l1 })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur50 college6eme', { texte: l2 })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur50 college6eme', { texte: l3 })
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -185,7 +187,7 @@ export default function LireAbscisseEntiere2d () {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

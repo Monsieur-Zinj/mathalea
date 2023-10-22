@@ -11,8 +11,8 @@ import { centrage, deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { texcolors } from '../../lib/format/style.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
-import { calcul, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
+import { calculANePlusJamaisUtiliser, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mod } from 'mathjs'
@@ -29,9 +29,7 @@ export const dateDePublication = '3/12/2021'
 /**
  * A partir de la figure 0, l'idée est de trouver un chemin qui mène à la figure 28 par une série
  * de transformations entre deux figures strictement voisines.
- * Ref 4G12
  * @author : Jean-Claude Lhote (et modifié par Eric Elter)
- * publié le 03/12/2021
  */
 
 export const uuid = '4ffdb'
@@ -218,6 +216,7 @@ export default function SerieDeTransformations () {
             if (y > 0) {
               elements = definitElements(transfoAlea, dalle - 1, dalle, choice([true, false]))
               polys[dalle] = transfoPoly(dalle === 1 ? leurre0 : polys[dalle - 1], elements)
+              if (y === 4) polys[dalle + 1] = vide2d()
             } else {
               elements = definitElements(transfoAlea, dalle - 6, dalle, choice([true, false]))
               polys[dalle] = transfoPoly(dalle === 6 ? leurre0 : polys[dalle - 6], elements)
@@ -348,7 +347,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calcul(1.1 - chemin.length * 0.03125)
+          scale: calculANePlusJamaisUtiliser(1.1 - chemin.length * 0.03125)
         }
         paramsCorrection = {
           xmin: -0.5,
@@ -356,7 +355,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calcul(1 - chemin.length * 0.03125)
+          scale: calculANePlusJamaisUtiliser(1 - chemin.length * 0.03125)
         }
       } else { // à partir de la symétrie centrale, il peut y avoir 2 lignes par étapes, donc on rétrécit davantage la figure.
         paramsEnonce = {
@@ -365,7 +364,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calcul(1.2 - chemin.length * 0.05)
+          scale: calculANePlusJamaisUtiliser(1.2 - chemin.length * 0.05)
         }
         paramsCorrection = {
           xmin: -0.5,
@@ -373,7 +372,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calcul(1.1 - chemin.length * 0.05)
+          scale: calculANePlusJamaisUtiliser(1.1 - chemin.length * 0.05)
         }
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {
@@ -406,6 +405,7 @@ export default function SerieDeTransformations () {
         texte += '\n' + centrage(mathalea2d(paramsEnonce, objetsEnonce))
         texteCorr += '\n' + centrage(mathalea2d(paramsCorrection, objetsCorrection))
       }
+      texteCorr += this.interactif ? 'La réponse était donc : ' + texteEnCouleurEtGras(chemin.toString()) + '.' : ''
       if (context.isAmc) {
         this.autoCorrection = [
           {

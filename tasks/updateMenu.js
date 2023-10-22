@@ -91,6 +91,14 @@ async function readInfos (dirPath) {
           } else {
             infos.tags.amc = false
           }
+          const matchDate = data.match(/export const dateDePublication = '([^']*)'/)
+          if (matchDate) {
+            infos.datePublication = matchDate[1]
+          }
+          const matchDateModif = data.match(/export const dateDeModifImportante = '([^']*)'/)
+          if (matchDateModif) {
+            infos.dateModification = matchDateModif[1]
+          }
           if (infos.id !== undefined) {
             exercicesShuffled[infos.id] = infos
           }

@@ -2,9 +2,9 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { rangeMinMax } from '../../lib/outils/nombres.js'
+import { abs, rangeMinMax } from '../../lib/outils/nombres.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 export const titre = 'Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique'
 export const dateDeModifImportante = '08/09/2023'
@@ -22,6 +22,8 @@ export const ref = '4C32-1'
 export default function CalculsAvecPuissancesDeDix () {
   Exercice.call(this)
   this.sup = 1
+  this.sup2 = 3
+  this.sup3 = 3
   this.nbQuestions = 5
   this.classe = 4
 
@@ -41,25 +43,19 @@ export default function CalculsAvecPuissancesDeDix () {
       switch (this.sup - 1) {
         case 0:
           decalage = randint(-1, 1, 0)
+          decalage = this.sup2 === 1 ? abs(decalage) : this.sup2 === 2 ? -abs(decalage) : decalage
           mantisse = randint(1, 9)
-          exp = this.classe === 4
-            ? randint(decalage - 3, decalage + 3, [decalage, 0])
-            : choice(rangeMinMax(decalage - 4, decalage + 8), rangeMinMax(decalage - 2, decalage + 2))
           break
         case 1:
           decalage = randint(-2, 2, 0)
-          mantisse = calcul(randint(11, 99) / 10)
-          exp = this.classe === 4
-            ? randint(decalage - 3, decalage + 3, [decalage, 0])
-            : choice(rangeMinMax(decalage - 9, decalage + 9), rangeMinMax(decalage - 3, decalage + 3))
+          decalage = this.sup2 === 1 ? abs(decalage) : this.sup2 === 2 ? -abs(decalage) : decalage
+          mantisse = calculANePlusJamaisUtiliser(randint(11, 99) / 10)
           break
         case 2:
           decalage = randint(-3, 3, 0)
-          if (randint(0, 1) === 1) mantisse = calcul(randint(111, 999) / 100)
-          else mantisse = calcul((randint(1, 9) * 100 + randint(1, 9)) / 100)
-          exp = this.classe === 4
-            ? randint(decalage - 3, decalage + 3, [decalage, 0])
-            : choice(rangeMinMax(decalage - 10, decalage + 10), rangeMinMax(decalage - 4, decalage + 4))
+          decalage = this.sup2 === 1 ? abs(decalage) : this.sup2 === 2 ? -abs(decalage) : decalage
+          if (randint(0, 1) === 1) mantisse = calculANePlusJamaisUtiliser(randint(111, 999) / 100)
+          else mantisse = calculANePlusJamaisUtiliser((randint(1, 9) * 100 + randint(1, 9)) / 100)
           break
 /*        case 3:
           decalage = randint(-4, 4, 0)
@@ -68,7 +64,10 @@ export default function CalculsAvecPuissancesDeDix () {
           exp = randint(3, 7, abs(decalage)) * choice([-1, 1])
           break */
       }
-      mantisse1 = calcul(mantisse * 10 ** decalage)
+      exp = this.classe === 4
+          ? (this.sup3 === 1 ? randint(decalage + 1, decalage + 3, 0) : this.sup3 === 2 ? randint(decalage - 3, decalage -1, 0) : randint(decalage - 3, decalage + 3, [decalage, 0]))
+          : (this.sup3 === 1 ? randint(decalage + 3 + this.sup - 1, decalage + 8 + this.sup - 1, 0) : this.sup3 === 2 ? randint(decalage - 8 - (this.sup - 1), decalage - 2 - (this.sup - 1), [0, decalage]) : choice(rangeMinMax(decalage - 8 - (this.sup - 1), decalage + 8 + this.sup - 1), rangeMinMax(decalage - 2 - (this.sup - 1), decalage + 2 + this.sup - 1)))
+      mantisse1 = calculANePlusJamaisUtiliser(mantisse * 10 ** decalage)
       exp1 = exp - decalage
 
       decimalstring = `${texNombre(mantisse1)} \\times 10^{${exp1}}`
@@ -124,4 +123,6 @@ export default function CalculsAvecPuissancesDeDix () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile']
+  this.besoinFormulaire2Numerique = ['Nombre avant la puissance de 10', 3, '1 : Plus grand que 1\n2 : Plus petit que 1\n3 : Mélange']
+  this.besoinFormulaire3Numerique = ['Signe de la puissance de 10', 3, '1 : Positive\n2 : Négative\n3 : Mélange']
 }

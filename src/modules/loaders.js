@@ -8,8 +8,8 @@ import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
 import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
-import { globalOptions } from '../components/store'
-import { get } from 'svelte/store'
+// import { globalOptions } from '../components/store'
+// import { get } from 'svelte/store'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -153,7 +153,7 @@ export async function loadMathLive () {
     await import('mathlive')
     window.mathVirtualKeyboard.targetOrigin = '*'
     for (const mf of champs) {
-      let clavier, raccourcis
+      let clavier = []; let raccourcis = {}
       mf.mathVirtualKeyboardPolicy = 'manual'
       /*
       if (isInIframe && !isInCapytale) {
@@ -164,24 +164,34 @@ export async function loadMathLive () {
       mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
-        clavier = CLAVIER_HMS
-        raccourcis = raccourcisHMS
-      } else if (mf.classList.contains('lycee')) {
-        clavier = CLAVIER_LYCEE
-        raccourcis = raccourcisLycee
-      } else if (mf.classList.contains('college6eme')) {
-        clavier = CLAVIER_COLLEGE6EME
-        raccourcis = raccourcis6eme
-      } else if (mf.classList.contains('grecTrigo')) {
-        clavier = CLAVIER_GRECTRIGO
-        raccourcis = raccourcisTrigo
-      } else if (mf.classList.contains('ensemble')) {
-        clavier = CLAVIER_ENSEMBLE
-        raccourcis = raccourcisEnsemble
-      } else if (mf.classList.contains('alphanumeric')) {
-        clavier = 'alphabetic'
-        raccourcis = {}
-      } else if (mf.className.includes('nite') || mf.className.includes('nité')) { // Gestion du clavier Unites
+        clavier.push(CLAVIER_HMS)
+        raccourcis = { ...raccourcisHMS, ...raccourcis }
+      }
+      if (mf.classList.contains('lycee')) {
+        clavier.push(CLAVIER_LYCEE)
+        raccourcis = { ...raccourcisLycee, ...raccourcis }
+      }
+      if (mf.classList.contains('college6eme')) {
+        clavier.push(CLAVIER_COLLEGE6EME)
+        raccourcis = { ...raccourcis6eme, ...raccourcis }
+      }
+      if (mf.classList.contains('grecTrigo')) {
+        clavier.push(CLAVIER_GRECTRIGO)
+        raccourcis = { ...raccourcisTrigo, ...raccourcis }
+      }
+      if (mf.classList.contains('ensemble')) {
+        clavier.push(CLAVIER_ENSEMBLE)
+        raccourcis = { ...raccourcisEnsemble, ...raccourcis }
+      }
+      if (mf.classList.contains('alphanumeric')) {
+        clavier.push('alphabetic')
+      }
+      if (mf.classList.contains('clavierDeBase')) {
+        clavier.push(CLAVIER_COLLEGE)
+        raccourcis = { ...raccourcis }
+      }
+
+      if (mf.className.includes('nite') || mf.className.includes('nité')) { // Gestion du clavier Unites
         const listeParamClavier = mf.classList
         let index = 0
         while (!listeParamClavier[index].includes('nites') && !listeParamClavier[index].includes('nités')) {
@@ -192,12 +202,15 @@ export async function loadMathLive () {
         // vire le mot 'unités'
         contenuUnites.shift()
 
-        clavier = clavierUNITES(contenuUnites)
-        raccourcis = raccourcisUnites
-      } else {
+        clavier.push(...clavierUNITES(contenuUnites))
+        raccourcis = { ...raccourcisUnites, ...raccourcis }
+      }
+      if (clavier.length === 0) {
         //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' }) // EE : Laisser ce commentaire pour connaitre le nom du clavier par défaut
         clavier = CLAVIER_COLLEGE
-        raccourcis = raccourcisCollege
+        raccourcis = { ...raccourcisCollege, ...raccourcis }
+      } else if (clavier.length === 1) {
+        clavier = clavier[0]
       }
       mf.addEventListener('focusin', () => {
         window.mathVirtualKeyboard.layouts = clavier
@@ -216,7 +229,7 @@ export async function loadMathLive () {
             top: var(--keyboard-position);
             height: var(--_keyboard-height);
           }
-          
+
           div.ML__keyboard.is-visible .ML__keyboard--plate {
             position: static;
             transform: none;
@@ -265,7 +278,7 @@ export async function loadMathLive () {
           style += 'margin-left: 25px;'
         }
         style += ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
-        if (!mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
+        if (!mf.classList.contains('largeur01') && !mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
           style += ' width: 25%;'
         }
       } else {
@@ -273,17 +286,18 @@ export async function loadMathLive () {
       }
       if (mf.classList.contains('largeur10')) {
         style += ' width: 10%;'
-      }
-      if (mf.classList.contains('largeur25')) {
+      } else if (mf.classList.contains('largeur25')) {
         style += ' width: 25%;'
-      }
-      if (mf.classList.contains('largeur50')) {
+      } else if (mf.classList.contains('largeur50')) {
         style += ' width: 50%;'
-      }
-      if (mf.classList.contains('largeur75')) {
+      } else if (mf.classList.contains('largeur75')) {
         style += ' width: 75%;'
       }
-      style += ' min-width: 200px'
+      if (mf.classList.contains('largeur01')) {
+        style += ' min-width: 80px'
+      } else {
+        style += ' min-width: 200px'
+      }
       mf.setAttribute('style', style)
     }
   }

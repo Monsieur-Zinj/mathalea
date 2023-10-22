@@ -8,7 +8,6 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-// EE : TITRE : J'ai mis indiqué pour que ce titre convienne à AMC.
 export const titre = 'Indiquer si des nombres sont premiers ou pas'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -28,7 +27,6 @@ export const ref = '3A10-1'
 export default function PremierOuPas () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = 'Justifier que les nombres suivants sont premiers ou pas.'
   context.isHtml ? this.spacing = 1 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
@@ -38,16 +36,23 @@ export default function PremierOuPas () {
   this.nbQuestions = 5
   this.sup = 1
   this.sup2 = false // Par défaut on n'affiche pas la liste des nombres premiers
+  this.sup3 = false
+  this.level = 2
   // this.nbQuestionsModifiable = false (EE : bloquant pour AMC sinon)
   this.listePackages = 'bclogo'
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
   this.nouvelleVersion = function () {
+    this.consigne = this.level === 2
+      ? this.nbQuestions > 1
+        ? 'Justifier que les nombres suivants sont premiers ou pas.'
+        : 'Justifier que le nombre suivant est premier ou pas.'
+      : this.nbQuestions > 1
+        ? 'Indiquer si les nombres suivants sont premiers ou pas.' + (this.interactif ? '' : ' Justifier s\'ils ne le sont pas.')
+        : 'Indiquer si le nombre suivant est premier ou pas.' + (this.interactif ? '' : ' Justifier s\'il ne l\'est pas.')
     let typesDeQuestions
-    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      // this.boutonAide = '';
+    if (context.isHtml && this.level === 2) { // les boutons d'aide uniquement pour la version html
       this.boutonAide = modalPdf(this.numeroExercice, 'assets/pdf/FicheArithmetique-3A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')
       this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
-    } else { // sortie LaTeX
     }
 
     this.listeQuestions = [] // Liste de questions
@@ -58,7 +63,7 @@ export default function PremierOuPas () {
     this.contenuCorrection = '' // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles // = [1, 2, 3, 6, 7];
-    if (Number(this.sup) === 1) {
+    if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3, 8]
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3, 6, 7]
@@ -89,23 +94,23 @@ export default function PremierOuPas () {
       let evenSum // pour la somme des chiffres de rang impair
       let oddSum // pour la somme des chiffres de rang pair
       let bonneReponse
-      this.introduction = warnMessage('Penser aux critères de divisibilité.', 'nombres', 'Coup de pouce')
+      this.introduction = this.level === 2 ? warnMessage('Penser aux critères de divisibilité.', 'nombres', 'Coup de pouce') : ''
       if (this.sup2) {
         this.introduction += warnMessage(stringRappel, 'nombres', 'Coup de pouce')
       } else this.introduction += ''
       switch (typesDeQuestions) {
         case 1: // nombre pair
-          N = 2 * randint(51, 499)
+          N = this.level === 2 ? 2 * randint(51, 499) : 2 * randint(12, 49)
           texte = nombreAvecEspace(N)
           texteCorr = `Comme ${nombreAvecEspace(N)} est pair, il admet donc au moins trois diviseurs qui sont 1, 2 et lui-même, `
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier') + '.'
           bonneReponse = 'non'
           break
         case 2: // Multiple de 3
           sum = 0 // pour la valeur de la somme;
-          N = 3 * randint(34, 333) // on initialise avant la boucle car on a peut être de la chance
+          N = this.level === 2 ? 3 * randint(34, 333) : 3 * randint(11, 33) // on initialise avant la boucle car on a peut être de la chance
           while ((N % 2 === 0) || (N % 5 === 0)) {
-            N = 3 * randint(34, 333)
+            N = this.level === 2 ? 3 * randint(34, 333) : 3 * randint(11, 33)
           }
           texte = nombreAvecEspace(N)
           texteCorr = 'Comme ' + N.toString().charAt(0)
@@ -115,21 +120,21 @@ export default function PremierOuPas () {
             sum += Number(N.toString().charAt(k))
           }
           texteCorr += ` = ${sum} est un multiple de 3 donc ${nombreAvecEspace(N)} aussi, il admet donc au moins trois diviseurs qui sont 1, 3 et lui-même, `
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier') + '.'
           bonneReponse = 'non'
           break
         case 3: // Multiple de 5
-          N = 5 * randint(20, 200)
+          N = this.level === 2 ? 5 * randint(20, 200) : 5 * randint(3, 19)
           texte = nombreAvecEspace(N)
-          texteCorr = `Comme le dernier chiffre de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)}, alors ${nombreAvecEspace(N)} est divisible par 5, `
+          texteCorr = `Comme le chiffre des unités de ${nombreAvecEspace(N)} est un ${N.toString().charAt(N.toString().length - 1)}, alors ${nombreAvecEspace(N)} est divisible par 5, `
           texteCorr += 'il admet donc au moins trois diviseurs qui sont 1, 5 et lui-même, '
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier') + '.'
           bonneReponse = 'non'
           break
         case 4: // Multiple de 7
-          N = 7 * randint(15, 143)
+          N = this.level === 2 ? 7 * randint(15, 143) : 7 * randint(2, 14)
           while ((N % 2 === 0) || (N % 3 === 0) || (N % 5 === 0)) {
-            N = 7 * randint(15, 143)
+            N = this.level === 2 ? 7 * randint(15, 143) : 7 * randint(2, 14)
           }
           texte = nombreAvecEspace(N)
           Nlongueur = N.toString().length
@@ -148,7 +153,7 @@ export default function PremierOuPas () {
           }
           texteCorr += `Comme ${N1.toString().substring(0, N1longueur - 1)} + 5$\\times$${N1.toString().charAt(N1longueur - 1)} = ${sum1} est un multiple de 7 alors 7 divise ${N} aussi `
           texteCorr += 'qui admet donc au moins trois diviseurs : 1, 7 et lui-même, '
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier') + '.'
           bonneReponse = 'non'
           break
         case 5: // multiple de 11
@@ -209,7 +214,7 @@ export default function PremierOuPas () {
           }
           texteCorr += '<br>'
           texteCorr += ` cela signifie que ${nombreAvecEspace(N)} est divisible par 11, il admet donc au moins trois diviseurs qui sont 1, 11 et lui-même,`
-          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(nombreAvecEspace(N) + ' n\'est donc pas premier') + '.'
           bonneReponse = 'non'
           break
         case 6: // produit de deux nombres premiers inférieurs à 100
@@ -227,7 +232,7 @@ export default function PremierOuPas () {
           } else {
             texteCorr += `quatre diviseurs qui sont 1, ${prime1}, ${prime2} et lui-même ${N}=${nombreAvecEspace(prime1 * prime2)}, `
           }
-          texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier.')
+          texteCorr += texteEnCouleurEtGras(`${N} = ` + nombreAvecEspace(prime1 * prime2) + ' n\'est donc pas premier') + '.'
           bonneReponse = 'non'
           break
         case 7: // nombre premier inférieur à 529, si le nombre premier dépasse 100 on affiche le coup de pouce
@@ -259,7 +264,7 @@ export default function PremierOuPas () {
             texteCorr += ' et ' + tabPremiersATester[tabPremiersATester.length - 1]
             texteCorr += ', le reste n\'est jamais nul,'
           }
-          texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier') + '.'
 
           bonneReponse = 'oui'
           break
@@ -274,7 +279,8 @@ export default function PremierOuPas () {
             tabPremiersATester.push(prems[r])
             r++
           }
-          texteCorr = `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par `
+          texteCorr = this.level === 1 ? texteEnCouleurEtGras(nombreAvecEspace(N) + ' est un nombre premier') + ' car il fait partie de la liste des nombres premiers à connaître. Sinon, sans cette connaissance, il y a la méthode suivante.<br>' : ''
+          texteCorr += `En effectuant la division euclidienne de ${N} par tous les nombres premiers inférieurs à $\\sqrt{${N}}$, c'est-à-dire par `
           if (N === 2 || N === 3) {
             texteCorr += 'aucun nombre dans le cas présent, le reste n\'est jamais nul,'
           } else {
@@ -286,7 +292,7 @@ export default function PremierOuPas () {
             texteCorr += ' et ' + tabPremiersATester[tabPremiersATester.length - 1]
             texteCorr += ', le reste n\'est jamais nul,'
           }
-          texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier.')
+          texteCorr += ' ' + texteEnCouleurEtGras(nombreAvecEspace(N) + ' est donc un nombre premier') + '.'
           bonneReponse = 'oui'
           break
       }
@@ -318,6 +324,7 @@ export default function PremierOuPas () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans Calculatrice\n2 : Avec calculatrice']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Sans calculatrice\n2 : Avec calculatrice']
   this.besoinFormulaire2CaseACocher = ['Afficher la liste des nombres premiers inférieurs à 100']
+  this.besoinFormulaire3CaseACocher = ['Ne proposer que des nombres premiers inférieurs à 100']
 }

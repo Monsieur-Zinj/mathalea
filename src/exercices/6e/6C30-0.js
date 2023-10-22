@@ -1,7 +1,7 @@
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -57,7 +57,7 @@ export default function MultiplierDecimaux () {
       b = this.sup2 === 1 ? randint(2, 9) : 10 * randint(Math.pow(10, nbChiffresb - 2) + 1, Math.pow(10, nbChiffresb - 1) - 1) + randint(1, 9)
       b = b / Math.pow(10, parseInt(this.sup4))
       texte = `$${texNombre(a)}\\times${texNombre(b)}$`
-      reponse = calcul(a * b)
+      reponse = calculANePlusJamaisUtiliser(a * b)
       texteCorr = Operation({ operande1: a, operande2: b, type: 'multiplication', style: 'display: inline' })
       texteCorr += '$\\phantom{espace}$' + Operation({
         operande1: b,

@@ -42,7 +42,7 @@ export default function ProportiondeProportion () {
         La première sous-population est celle des plus de $${a}$ ans,
         qui représente $p_1=${b}\\,\\%$ de la population de référence. <br>
         Dans cette sous-population, on sait que la population de ceux qui ont plus de $${d}$ années d'ancienneté représente $p_2=${c}\\,\\%$.<br>
-        <br> D'après le cours, on calcule $p=p_1\\times p_2$, ce qui rerésente $${b}\\,\\%$ de $${c}\\,\\%$.<br>
+        <br> D'après le cours, on calcule $p=p_1\\times p_2$, ce qui représente $${b}\\,\\%$ de $${c}\\,\\%$.<br>
       <br>Ainsi,  $p=${texNombre(tauxb)}\\times ${texNombre(tauxc)}=${texNombre(tauxG, 4)}$.<br>
       Il y a donc $${texNombre(g, 2)}\\,\\%$ d'adhérents de plus de $${a}$ ans ayant plus de $${a}$ années d'ancienneté.`
         this.reponse = g
@@ -58,13 +58,13 @@ export default function ProportiondeProportion () {
         tauxG = new Decimal(b * c).div(10000)
 
         this.question = `Dans une association,  $${b}\\,\\%$ des adhérents ont plus de  $${a}$ ans. <br>
-       On dénombre également dans cette association  $${texNombre(g, 2)}\\,\\%$ d'adhérents ayant plus  de $${d}$ années d'ancienneté.<br>
-       Parmi les adhérents de plus de $${a}$ ans, quel est le pourcentage de ceux qui ont plus $${d}$ années d'ancienneté ?<br> `
+       On dénombre également dans cette association  $${texNombre(g, 2)}\\,\\%$ d'adhérents de  plus $${a}$ ans ayant plus de $${d}$ années d'ancienneté.<br>
+       Parmi les adhérents de plus de $${a}$ ans, quel est le pourcentage de ceux qui ont plus de $${d}$ années d'ancienneté ?<br> `
         this.correction = `La population de référence est celle des membres de l'association.<br>
         La première sous-population est celle des plus de $${a}$ ans,
         qui représente $p_1=${b}\\,\\%$ de la population de référence. <br>
         Dans cette sous-population, on note $p_2$ la proportion de ceux qui ont  plus de  $${d}$ années d'ancienneté.<br>
-        La proportion $P$ des adhérents qui ont plus de $${d}$ ans d'ancienneté est $P=${texNombre(g, 2)}\\,\\%$.<br>
+        La proportion $P$ des adhérents de  plus $${a}$ ans qui ont plus de $${d}$ ans d'ancienneté est $P=${texNombre(g, 2)}\\,\\%$.<br>
         <br> D'après le cours, on a $P=p_1\\times p_2$, ce qui donne  $${texNombre(tauxG, 4)}=${texNombre(tauxb, 2)}\\times p_2$<br>
         <br>Ainsi, $p_2=\\dfrac{${texNombre(tauxG, 4)}}{${texNombre(tauxb, 2)}}=${texNombre(tauxc, 4)}$.<br>
       Il y a donc $${texNombre(c, 2)}\\,\\%$ d'adhérents de plus de  $${d}$ ans d'ancienneté parmi les adhérents de plus de $${a}$ ans.`
@@ -98,7 +98,7 @@ export default function ProportiondeProportion () {
         tauxc = new Decimal(c).div(100)
         g = new Decimal(b * c).div(100)
         tauxG = new Decimal(b * c).div(10000)
-        this.question = `Dans un lycée,  $${b}\\,\\%$ des lycéens sont en classe de première et  $${texNombre(g, 2)}\\,\\%$ sont en filière technologique.<br>
+        this.question = `Dans un lycée,  $${b}\\,\\%$ des lycéens sont en classe de première et  $${texNombre(g, 2)}\\,\\%$ des lycéens sont en première technologique.<br>
               Quel est le pourcentage d'élèves en première technologique parmi les élèves de première ?<br>`
         this.correction = `La population de référence est celle des élèves du lycée.<br>
               La sous-population est celle des élèves de première et d'après l'énoncé, $p_1=${b}\\,\\%$.<br>

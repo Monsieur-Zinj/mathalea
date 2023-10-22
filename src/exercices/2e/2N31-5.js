@@ -21,4 +21,5 @@ export default function PuissancesDeDix2 () {
     3,
     '1 : Calculs de base\n2 : Calculs plus complexes\n3 : Mélange'
   ]
+  this.besoinFormulaire2Texte = false
 }

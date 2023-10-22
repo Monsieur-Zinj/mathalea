@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -54,7 +54,7 @@ export default function Quart () {
           texte = `$\\text{Le quart de }${a * 4 + b}$`
           texteCorr = `$\\text{Le quart de }${a * 4 + b
                     } \\text{ est } ${texNombre(a + b / 4)}$`
-          setReponse(this, i, calcul(a + b / 4))
+          setReponse(this, i, calculANePlusJamaisUtiliser(a + b / 4))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
         case 3: // Table de 400
@@ -82,7 +82,7 @@ export default function Quart () {
           texteCorr = `$\\text{Le quart de }${texNombre(
                         a * 4 + (b * 4) / 100
                     )} \\text{ est } ${texNombre(a + b / 100)}$`
-          setReponse(this, i, calcul(a + b / 100))
+          setReponse(this, i, calculANePlusJamaisUtiliser(a + b / 100))
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           break
       }

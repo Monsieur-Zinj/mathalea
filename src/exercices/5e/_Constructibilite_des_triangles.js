@@ -1,9 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import { Triangles } from '../../modules/Triangles.js'
+import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Constructibilité des triangles via les longueurs ou les angles'
 export const dateDeModifImportante = '24/08/2023'
@@ -78,7 +78,7 @@ export default function ConstructibiliteDesTriangles () {
       const aMax = 180
 
       // on crée un objet triangle
-      const triangle = new Triangles()
+      const triangle = new Triangle()
       // on crée un tableau pour le triangle courant
       const currentTriangle = []
 
@@ -104,7 +104,7 @@ export default function ConstructibiliteDesTriangles () {
           })
           texteCorr = `Supposons que l'on puisse construire un triangle ${triangle.getNom()} avec ces mesures.`
           texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
-          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calcul(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
+          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
           texteCorr += `<br> On constate que ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} > ${currentTriangle[2].longueur}.`
           texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1) + '.')}$`
           // texteCorr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texteEnCouleurEtGras('plusieurs tels triangles existent')}.`
@@ -114,7 +114,7 @@ export default function ConstructibiliteDesTriangles () {
           while (!triangle.isPlatTriangleLongueurs()) {
             l1 = randint(lMin, lMax)
             l2 = randint(lMin, lMax)
-            l3 = calcul(l1 + l2)
+            l3 = calculANePlusJamaisUtiliser(l1 + l2)
             triangle.l1 = l1
             triangle.l2 = l2
             triangle.l3 = l3
@@ -172,7 +172,7 @@ export default function ConstructibiliteDesTriangles () {
           })
           texteCorr = `Supposons que l'on puisse construire un triangle ${triangle.getNom()} avec ces mesures.`
           texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
-          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calcul(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
+          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
           texteCorr += `<br> On constate que ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} < ${currentTriangle[2].longueur}, les longueurs données ne permettent donc pas de satisfaire à l'inégalité triangulaire.`
           texteCorr += `<br> ${texteEnCouleurEtGras('On ne peut donc pas construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1) + '.')}$`
 
@@ -201,7 +201,7 @@ export default function ConstructibiliteDesTriangles () {
           texteCorr = `Supposons que l'on puisse construire un triangle ${triangle.getNom()} avec ces mesures.`
           texteCorr += `<br>Puisque le périmètre vaut $${triangle.getPerimetre()}$ cm alors la troisième longueur vaut ${triangle.getLongueurs()[2]} = $${triangle.getPerimetre()}$ cm - $${triangle.l1}$ cm - $${triangle.l2}$ cm = $${triangle.l3}$ cm.`
           texteCorr += `<br> Donc dans le triangle ${triangle.getNom()}, ${currentTriangle[2].cote}, qui mesure $${currentTriangle[2].valeur}$ cm, est le plus grand côté.`
-          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calcul(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
+          texteCorr += `<br> De plus ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} = $${currentTriangle[0].valeur}$ cm + $${currentTriangle[1].valeur}$ cm = $${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur)}$ cm.`
           texteCorr += `<br> On constate que ${currentTriangle[0].longueur} + ${currentTriangle[1].longueur} > ${currentTriangle[2].longueur}`
           texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
           // texteCorr += `<br><br>  Si on considère que le triangle nommé dans le sens des aiguilles d'une montre et celui nommé dans le sens inverse sont différents, ${texteEnCouleurEtGras('deux tels triangles existent')}.`;
@@ -213,7 +213,7 @@ export default function ConstructibiliteDesTriangles () {
           while (!triangle.isTrueTriangleAngles()) {
             a1 = randint(aMin, aMax, [0, 180])
             a2 = randint(aMin, aMax, [0, 180])
-            a3 = calcul(180 - a1 - a2)
+            a3 = calculANePlusJamaisUtiliser(180 - a1 - a2)
             triangle.a1 = a1
             triangle.a2 = a2
             triangle.a3 = a3
@@ -231,7 +231,7 @@ export default function ConstructibiliteDesTriangles () {
             return a.valeur - b.valeur
           })
           texteCorr = `Supposons que l'on puisse construire un triangle ${triangle.getNom()} avec ces mesures.`
-          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}\\degree + ${currentTriangle[1].valeur}\\degree + ${currentTriangle[2].valeur}\\degree = ${calcul(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
+          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}\\degree + ${currentTriangle[1].valeur}\\degree + ${currentTriangle[2].valeur}\\degree = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
           texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.'
           texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
           // texteCorr += `<br><br>  ${texteEnCouleurEtGras('Il existe une infinité de triangles avec ces mesures.')}`
@@ -241,7 +241,7 @@ export default function ConstructibiliteDesTriangles () {
           while (!triangle.isPlatTriangleAngles()) {
             a1 = randint(aMin, aMax)
             a2 = randint(aMin, aMax)
-            a3 = calcul(180 - a1 - a2)
+            a3 = calculANePlusJamaisUtiliser(180 - a1 - a2)
             triangle.a1 = a1
             triangle.a2 = a2
             triangle.a3 = a3
@@ -259,7 +259,7 @@ export default function ConstructibiliteDesTriangles () {
             return a.valeur - b.valeur
           })
           texteCorr = `Supposons que l'on puisse construire un triangle ${triangle.getNom()} avec ces mesures.`
-          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}\\degree + ${currentTriangle[1].valeur}\\degree + ${currentTriangle[2].valeur}\\degree = ${calcul(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
+          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}\\degree + ${currentTriangle[1].valeur}\\degree + ${currentTriangle[2].valeur}\\degree = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
           texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.'
           texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
           texteCorr += '<br> Deux des trois angles du triangle valent $0\\degree$, ' + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$` + texteEnCouleurEtGras(' est donc un triangle plat.')
@@ -294,7 +294,7 @@ export default function ConstructibiliteDesTriangles () {
             return a.valeur - b.valeur
           })
           texteCorr = `Supposons que l'on puisse construire un triangle ${triangle.getNom()} avec ces mesures.`
-          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}\\degree + ${currentTriangle[1].valeur}\\degree + ${currentTriangle[2].valeur}\\degree = ${calcul(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
+          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}\\degree + ${currentTriangle[1].valeur}\\degree + ${currentTriangle[2].valeur}\\degree = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
           texteCorr += '<br> Si le triangle était constructible, la somme des trois angles vaudrait $180\\degree$,'
           texteCorr += ' or ce n\'est pas le cas.'
           texteCorr += `<br> ${texteEnCouleurEtGras('On ne peut donc pas construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1) + '.')}$`
@@ -315,16 +315,16 @@ export default function ConstructibiliteDesTriangles () {
               texte += `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${texNombre(triangle.a1)}\\degree$ ; `
               switch (operation) {
                 case 'triple':
-                  a2 = calcul((180 - a1) / 4)
-                  a3 = calcul(3 * a2)
+                  a2 = calculANePlusJamaisUtiliser((180 - a1) / 4)
+                  a3 = calculANePlusJamaisUtiliser(3 * a2)
                   break
                 case 'quadruple':
-                  a2 = calcul((180 - a1) / 5)
-                  a3 = calcul(4 * a2)
+                  a2 = calculANePlusJamaisUtiliser((180 - a1) / 5)
+                  a3 = calculANePlusJamaisUtiliser(4 * a2)
                   break
                 case 'quart':
-                  a2 = calcul(4 * (180 - a1) / 5)
-                  a3 = calcul(a2 / 4)
+                  a2 = calculANePlusJamaisUtiliser(4 * (180 - a1) / 5)
+                  a3 = calculANePlusJamaisUtiliser(a2 / 4)
                   break
               }
               triangle.a2 = a2
@@ -343,16 +343,16 @@ export default function ConstructibiliteDesTriangles () {
               texte += `${triangle.getNom()} tel que ${triangle.getAngles()[1]} $= ${texNombre(triangle.a2)}\\degree$ ; `
               switch (operation) {
                 case 'triple':
-                  a1 = calcul((180 - a2) / 4)
-                  a3 = calcul(3 * a1)
+                  a1 = calculANePlusJamaisUtiliser((180 - a2) / 4)
+                  a3 = calculANePlusJamaisUtiliser(3 * a1)
                   break
                 case 'quadruple':
-                  a1 = calcul((180 - a2) / 5)
-                  a3 = calcul(4 * a1)
+                  a1 = calculANePlusJamaisUtiliser((180 - a2) / 5)
+                  a3 = calculANePlusJamaisUtiliser(4 * a1)
                   break
                 case 'quart':
-                  a1 = calcul(4 * (180 - a2) / 5)
-                  a3 = calcul(a1 / 4)
+                  a1 = calculANePlusJamaisUtiliser(4 * (180 - a2) / 5)
+                  a3 = calculANePlusJamaisUtiliser(a1 / 4)
                   break
               }
               triangle.a1 = a1

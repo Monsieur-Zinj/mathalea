@@ -19,6 +19,7 @@ const rpc = new RPC({
 // timer pour ne pas lancer hasChanged trop souvent
 let timerId: ReturnType<typeof setTimeout> | undefined
 let firstTime = true
+let currentMode: 'create' | 'assignment' | 'review' | 'view'
 
 /**
    * Fonction pour recevoir les paramètres des exercices depuis Capytale
@@ -27,6 +28,8 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // mode : create (le prof créé sa séance), assignment (l'élève voit sa copie), review (le prof voit la copie d'un élève), view (le prof voit la séance d'un collègue dans la bibliothèque et pourra la cloner)
   // workflow : current (la copie n'a pas encore été rendue), finished (la copie a été rendue), corrected (la copie a été anotée par l'enseignant)
   // On récupère les paramètres de l'activité
+  currentMode = mode
+  console.log('mode', currentMode)
   if (activity === null || activity === undefined) return
   const [newExercicesParams, newGlobalOptions] = [activity.exercicesParams, activity.globalOptions]
   // On met à jour les paramètres des exercices
@@ -80,9 +83,9 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       return l
     })
   }
-  // Attendre pour que les champs texte soient bien chargés
   await new Promise((resolve) => setTimeout(resolve, 500))
   if (studentAssignment != null) {
+    console.log('Réponses à charger', studentAssignment)
     for (const exercice of studentAssignment) {
       if (exercice == null) continue
       if (exercice != null && exercice.answers != null) {
@@ -107,24 +110,35 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
                 field.value = exercice.answers[answer]
               }
               */
+            } else {
+              // La réponse correspond à une case à cocher qui doit être cochée
+              const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
+              if (checkBox !== null && exercice.answers[answer] === '1') {
+                checkBox.checked = true
+              } else {
+              // La réponse correspond à une liste déroulante
+                const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
+                if (select !== null) {
+                  select.value = exercice.answers[answer]
+                }
+              }
             }
-            // La réponse correspond à une case à cocher qui doit être cochée
-            const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-            if (checkBox !== null && exercice.answers[answer] === '1') {
-              checkBox.checked = true
-            }
-            // La réponse correspond à une liste déroulante
-            const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-            if (select !== null) {
-              select.value = exercice.answers[answer]
-            }
-          }
-          // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
-          const buttonScore = document.querySelector(`#buttonScoreEx${exercice.indice}`) as HTMLButtonElement
-          if (buttonScore !== null) {
-            buttonScore.click()
           }
         }
+      }
+    }
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    // On attend 500 ms pour que les champs texte soient bien remplis
+    console.log('Maintenant que les réponses sont chargées, clic sur les boutons score', studentAssignment)
+    for (const exercice of studentAssignment) {
+      if (exercice == null) continue
+      // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
+      const buttonScore = document.querySelector(`#buttonScoreEx${exercice?.indice}`) as HTMLButtonElement
+      console.log('Clic sur le bouton score ', `#buttonScoreEx${exercice?.indice}`, buttonScore)
+      if (buttonScore !== null) {
+        buttonScore.click()
+      } else {
+        console.log(`Bouton score #buttonScoreEx${exercice.indice} non trouvé`)
       }
     }
   }
@@ -154,18 +168,20 @@ export function sendToCapytaleSaveStudentAssignment () {
       evaluation += resultExercice.numberOfPoints
     }
   }
-  rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation: evaluation.toString() })
+  if (currentMode === 'assignment') {
+    console.log('Message envoyé à Capytale', { studentAssignment: results, evaluation: evaluation.toString() })
+    rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation: evaluation.toString() })
+  }
 }
 
 function sendToCapytaleActivityParams () {
   const params = get(exercicesParams)
   const options = get(globalOptions)
   for (const param of params) {
-    if (param.alea !== undefined) {
+    if (param.alea !== undefined && get(globalOptions).isDataRandom) {
       param.alea = undefined
     }
   }
-  console.log(params, options)
   return { exercicesParams: params, globalOptions: options }
 }
 

@@ -23,7 +23,7 @@ export const uuid = '6b3e4'
 export const ref = '6D101'
 export default function HeuresDecimales () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Compléter les égalités suivantes.'
+  this.consigne = 'Écrire les durées suivantes en heures et minutes.'
   this.spacing = 2
   this.nbQuestions = 5
   this.nbColsCorr = 1

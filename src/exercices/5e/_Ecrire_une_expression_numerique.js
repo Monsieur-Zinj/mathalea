@@ -7,13 +7,15 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { context } from '../../modules/context.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { range } from '../../lib/outils/nombres.js'
 
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = ['mathLive', 'listeDeroulante']
 export const amcReady = true
-//export const amcType = 'AMCOpenNum'
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante='21/09/2023'
+export const dateDeModifImportante = '21/09/2023'
 /**
  * Fonction noyau pour 6 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
  * @author Jean-Claude Lhote
@@ -27,25 +29,26 @@ export default function EcrireUneExpressionNumerique (calculMental) {
   this.nbColsCorr = 1
   this.sup2 = false // si false alors utilisation de nombres entiers, si true alors utilisation de nombres à un chiffre après la virgule.
   this.sup3 = true // Si présence ou pas du signe "fois"
+  this.sup4 = 6
   this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
+  this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
 
   this.nouvelleVersion = function () {
+    this.interactifType = this.version > 2 ? 'mathLive' : 'listeDeroulante'
     this.autoCorrection = []
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    
-    this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
-  
-   const listeTypeDeQuestions = gestionnaireFormulaireTexte({
-        saisie: this.sup4,
-        min: 1,
-        max: 5,
-        melange: 6,
-        defaut: 6,
-        nbQuestions: this.nbQuestions
-      })
-   
+
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup4,
+      min: 1,
+      max: 5,
+      melange: 6,
+      defaut: 6,
+      nbQuestions: this.nbQuestions
+    })
+
     let expf
     let expn
     let expc
@@ -64,6 +67,10 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     } else {
       decimal = 1
     }
+    // pour 6C13-2
+    const sousCas = combinaisonListes(range(3), this.nbQuestions)
+    let nbSousCas = 0
+
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       nbOperations = listeTypeDeQuestions[i]
@@ -71,7 +78,8 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
       if (!this.litteral) {
-        resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental)
+        resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental, sousCas[nbSousCas])
+        if (nbOperations === 1) nbSousCas++
       } else {
         resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, calculMental)
       }
@@ -80,6 +88,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
       expn += expn[expn.length - 1] !== '$' ? '$' : ''
       expc = resultats[2]
       nbval = resultats[3]
+      const expNom = resultats[5]
       switch (this.version) {
         case 1:
           this.consigne = 'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul).'
@@ -90,7 +99,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           break
         case 2:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
-          this.consigne = 'Traduire le calcul par une phrase en français.'
+          this.consigne = this.interactif ? 'De quel type est chaque calcul ?' : 'Traduire le calcul par une phrase en français.'
           texte = `${expn}`
           expf = 'l' + expf.substring(1)
           texteCorr = `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
@@ -144,9 +153,8 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
           break
       }
-      if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
+      if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version, expf) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.version > 2) {
-
           /// vérifier qu'il n'y a plus d'OpenNUM
           if (!context.isAmc) {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })
@@ -184,9 +192,6 @@ export default function EcrireUneExpressionNumerique (calculMental) {
                 }
               ]
             }
-
-
-
           }
           setReponse(this, i, reponse)
         } else if (context.isAmc) { // AMCOpen pour 5C11, 5C11-1, 5L10-1, 5L10-3
@@ -198,10 +203,13 @@ export default function EcrireUneExpressionNumerique (calculMental) {
               texte: texteCorr,
               statut: this.version, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
               sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-              pointilles: this.version === 2  // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+              pointilles: this.version === 2 // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
             }
           ]
         }
+        } else if (this.version === 2) {
+          texte += sp(10) + choixDeroulant(this, i, 0, combinaisonListes(['somme', 'différence', 'produit', 'quotient'], 1), 'une réponse')
+          setReponse(this, i, expNom, { formatInteractif: 'texte' })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -45,6 +45,8 @@ export default function ReductionsPiegesClassiques () {
   this.spacing = 1
   this.nbQuestions = 10
   this.sup = true
+  this.listeAvecNumerotation = false
+
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

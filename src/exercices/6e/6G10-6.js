@@ -7,11 +7,18 @@ import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Appartient ou n\'appartient pas ?'
-export const dateDePublication = '05/10/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
+export const dateDePublication = '05/10/2022'
+export const dateDeModifImportante = '4/10/2023'
+// Ajout de l'interactivité et suppression de (AB] par Rémi Angot
+export const interactifReady = true
+export const interactifType = 'listeDeroulante'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 /**
  * Fonction générale pour la notion d'appartenance
  * @author Mickael Guironnet
@@ -23,13 +30,11 @@ export default class constructionElementaire extends Exercice {
 //
   constructor () {
     super()
-    this.titre = titre
     this.nbQuestions = 1
     this.nbCols = 1
     this.nbColsCorr = 1
     this.sup = 1
     this.sup2 = 4
-    this.calling = [0]
     this.besoinFormulaireNumerique = [
       'Type de cahier',
       3,
@@ -48,6 +53,7 @@ export default class constructionElementaire extends Exercice {
     for (let i = 0, colonne1, colonne2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = []
       const objetsCorrection = []
+      const propositionsAMC = []
       const indLettre = randint(1, 15)
       const A = point(0, 0, lettreDepuisChiffre(indLettre), 'above left')
       const B = point(randint(10, 11), randint(-4, 4, [-1, 0, 1]), lettreDepuisChiffre(indLettre + 1), 'above right')
@@ -67,19 +73,13 @@ export default class constructionElementaire extends Exercice {
       const Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y) + 1)
 
       let g, sc, carreaux
-      if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
-      else g = ''
-      if (parseInt(this.sup) === 2) {
-        sc = 0.8
-        carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
-      } else {
-        sc = 0.5
-        carreaux = ''
-      }
+      if (this.sup < 3) { g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) } else { g = vide2d() }
+      if (this.sup === 2) { carreaux = seyes(Xmin, Ymin, Xmax, Ymax); sc = 0.8 } else { carreaux = vide2d(); sc = 0.5 }
+
       objetsEnonce.push(g, carreaux)
       objetsCorrection.push(g, carreaux)
       const ppc = 20
-      colonne1 = (context.vue === 'diap' ? '<center>' : '') + mathalea2d(
+      const figure = mathalea2d(
         {
           xmin: Xmin,
           ymin: Ymin,
@@ -89,7 +89,8 @@ export default class constructionElementaire extends Exercice {
           scale: sc
         },
         objetsEnonce
-      ) + (context.vue === 'diap' ? '</center>' : '<br>')
+      )
+      colonne1 = (context.vue === 'diap' ? '<center>' : '') + figure + (context.vue === 'diap' ? '</center>' : '<br>')
 
       colonne2 = 'Compléter avec $\\in$ ou $\\notin$. <br>'
       let correction2 = colonne2
@@ -108,6 +109,7 @@ export default class constructionElementaire extends Exercice {
         typeOld.push(type)
         const tira = ind.toString() + ind1.toString() + ind2.toString() + type.toString()
         if (tirage.indexOf(tira) > -1) {
+          k--
           continue
         } else {
           tirage.push(tira)
@@ -127,45 +129,74 @@ export default class constructionElementaire extends Exercice {
             lettre = ['[', ')']
             if (ind <= 5 && ind >= ind1) { sol = '\\in' } else { sol = '\\notin' }
             break
-          case 3 : // demi-droite (]
-            lettre = ['(', ']']
-            if (ind <= 5 && ind <= ind2) { sol = '\\in' } else { sol = '\\notin' }
+          case 3 : // demi-droite [)
+            lettre = ['[', ')']
+            if (ind <= 5 && ind >= ind1) { sol = '\\in' } else { sol = '\\notin' }
             break
         }
-        colonne2 +=
-          numAlpha(questind) +
-          `$${points[ind].nom}${sp(3)}\\ldots\\ldots\\ldots${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<br>`
+        if (this.interactif) {
+          colonne2 +=
+            numAlpha(questind) +
+            `$${points[ind].nom}${sp(3)}$` + choixDeroulant(this, i * this.sup2 + k, 0, ['∈', '∉'], '...') + `$${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<span id="resultatCheckEx${numeroExercice}Q${i * this.sup2 + k}"></span><br>`
+          setReponse(this, i * this.sup2 + k, sol === '\\notin' ? '∉' : '∈')
+        } else {
+          const enonce = `$${points[ind].nom}${sp(3)}\\ldots\\ldots\\ldots${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$`
+          colonne2 += numAlpha(questind) + enonce + '<br>'
+          if (context.isAmc) {
+            propositionsAMC[k] = {
+              type: 'qcmMult', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
+              enonce,
+              options: { ordered: true },
+              propositions: [
+                {
+                  texte: '$\\notin$',
+                  statut: sol === '\\notin'
+                },
+                {
+                  texte: '$\\in$',
+                  statut: sol !== '\\notin'
+                }
+              ]
+            }
+          }
+        }
         correction2 +=
           numAlpha(questind++) +
           `$${points[ind].nom} ${sol} ${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<br>`
       }
+
       const options = { eleId: numeroExercice + '_' + i, widthmincol1: '500px', widthmincol2: '300px' }
       const enonce = deuxColonnesResp(colonne1, colonne2, options)
       const optionsSol = { eleId: 's-' + numeroExercice + '_' + i, widthmincol1: '500px', widthmincol2: '300px' }
       const correction = deuxColonnesResp(colonne1, correction2, optionsSol)
 
       /****************************************************/
-      if (this.listeQuestions.indexOf(enonce) === -1) {
+      if (this.questionJamaisPosee(i, enonce)) {
       // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(enonce + '<br>')
         this.listeCorrections.push(correction + '<br>')
 
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: figure + 'À partir de la figure ci-dessus, compléter les phrases suivantes par $\\notin$ ou $\\in$.',
+            enonceAvant: true, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
+            enonceCentre: true, // EE : ce champ est facultatif et permet (si true) de centrer le champ 'enonce' ci-dessus.
+            melange: true, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+            options: { avecSymboleMult: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) des propositions : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
+            propositions: propositionsAMC
+          }
+        }
+
         // listener
         const reportWindowSize = function () {
-          // console.log(options)
           const element = document.getElementById('cols-responsive1-' + options.eleId)
-          // const element2 = document.getElementById('cols-responsive2-' + options.eleId)
           const element3 = document.getElementById('cols-responsive1-s-' + options.eleId)
-          // const element4 = document.getElementById('cols-responsive2-s-' + options.eleId)
           if (element !== null &&
             element3 !== null &&
             element !== undefined &&
             element3 !== undefined &&
             element.clientWidth !== 0) {
-            // console.log(element.clientWidth + ': ' + element.offsetWidth)
-            // console.log(element2.clientWidth + ': ' + element2.offsetWidth)
             const qcms = element.querySelectorAll('.mathalea2d')
-            // console.log('mathalea2d :' + qcms.length + ':' + qcms[0].getAttribute('width'))
             const widthMathalea2d = parseInt(qcms[0].getAttribute('width'))
             let col1 = parseInt(options.widthmincol1.replaceAll('px', ''))
             const col2 = parseInt(options.widthmincol2.replaceAll('px', ''))
@@ -177,11 +208,9 @@ export default class constructionElementaire extends Exercice {
             if (diff > col2) {
               element.parentElement.style.gridTemplateColumns = 'repeat(2, 1fr)'
               element3.parentElement.style.gridTemplateColumns = 'repeat(2, 1fr)'
-              // console.log(element.parentElement.clientWidth + ':repeat(2, 1fr)')
             } else {
               element.parentElement.style.gridTemplateColumns = 'auto'
               element3.parentElement.style.gridTemplateColumns = 'auto'
-              // console.log(element.parentElement.clientWidth + ':auto')
             }
           }
         }

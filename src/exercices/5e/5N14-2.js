@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { compareFractions, deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
 
@@ -70,9 +70,9 @@ export default function ExerciceComparerQuatreFractions () {
       n3 *= positifOuNegatif[2]
       n4 *= positifOuNegatif[3]
       const tableauFractions = [[n1, d1, `$${deprecatedTexFraction(n1, d1)}$`, `$${deprecatedTexFraction(n1, d1)}$`]]
-      tableauFractions.push([n2, d2, `$${deprecatedTexFraction(n2, d2)} = ${deprecatedTexFraction(n2 + miseEnEvidence('\\times ' + calcul(d1 / d2)), d2 + miseEnEvidence('\\times ' + calcul(d1 / d2)))}=${deprecatedTexFraction(calcul(n2 * d1 / d2), d1)}$`, `$${deprecatedTexFraction(calcul(n2 * d1 / d2), d1)}$`])
-      tableauFractions.push([n3, d3, `$${deprecatedTexFraction(n3, d3)} = ${deprecatedTexFraction(n3 + miseEnEvidence('\\times ' + calcul(d1 / d3)), d3 + miseEnEvidence('\\times ' + calcul(d1 / d3)))}=${deprecatedTexFraction(calcul(n3 * d1 / d3), d1)}$`, `$${deprecatedTexFraction(calcul(n3 * d1 / d3), d1)}$`])
-      tableauFractions.push([n4, d4, `$${deprecatedTexFraction(n4, d4)} = ${deprecatedTexFraction(n4 + miseEnEvidence('\\times ' + calcul(d1 / d4)), d4 + miseEnEvidence('\\times ' + calcul(d1 / d4)))}=${deprecatedTexFraction(calcul(n4 * d1 / d4), d1)}$`, `$${deprecatedTexFraction(calcul(n4 * d1 / d4), d1)}$`])
+      tableauFractions.push([n2, d2, `$${deprecatedTexFraction(n2, d2)} = ${deprecatedTexFraction(n2 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d2)), d2 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d2)))}=${deprecatedTexFraction(calculANePlusJamaisUtiliser(n2 * d1 / d2), d1)}$`, `$${deprecatedTexFraction(calculANePlusJamaisUtiliser(n2 * d1 / d2), d1)}$`])
+      tableauFractions.push([n3, d3, `$${deprecatedTexFraction(n3, d3)} = ${deprecatedTexFraction(n3 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d3)), d3 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d3)))}=${deprecatedTexFraction(calculANePlusJamaisUtiliser(n3 * d1 / d3), d1)}$`, `$${deprecatedTexFraction(calculANePlusJamaisUtiliser(n3 * d1 / d3), d1)}$`])
+      tableauFractions.push([n4, d4, `$${deprecatedTexFraction(n4, d4)} = ${deprecatedTexFraction(n4 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d4)), d4 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d4)))}=${deprecatedTexFraction(calculANePlusJamaisUtiliser(n4 * d1 / d4), d1)}$`, `$${deprecatedTexFraction(calculANePlusJamaisUtiliser(n4 * d1 / d4), d1)}$`])
       tableauFractions.push([k, 1, `$${k} = ${deprecatedTexFraction(d1 * k, d1)}$`, `$${deprecatedTexFraction(k * d1, d1)}$`])
       tableauFractions.sort(compareFractions)
       const tableauFractionsEnonce = shuffle(tableauFractions)

@@ -6,16 +6,15 @@ import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilS
 import { personne, personnes } from '../../lib/outils/Personne.js'
 import { texNombre2 } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, ppcm, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ppcm, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Problèmes de ratio'
 
 export const uuid = '0a637'
-export const ref = '5P12-1' 
+export const ref = '5P12-1'
 // Ancien 5N15 avant septembre 2023
 export default function ProblemeDeRatio () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 4 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
@@ -113,7 +112,7 @@ export default function ProblemeDeRatio () {
             z = 0
           }
           total = ppcm(x + y + z, 20)
-          k = calcul(total / (x + y + z))
+          k = calculANePlusJamaisUtiliser(total / (x + y + z))
           quidam = personne({})
           article = quidam.pronom
 
@@ -238,36 +237,36 @@ export default function ProblemeDeRatio () {
           a = resolutions[index2 % 8][0]
           b = resolutions[index2 % 8][1]
           texte += `Un écran au format $${x}~:~${y}$ est-il adapté à une résolution de $${a}\\times ${b}$ ?<br>`
-          if (calcul(a / x) === calcul(b / y)) {
+          if (calculANePlusJamaisUtiliser(a / x) === calculANePlusJamaisUtiliser(b / y)) {
             texteCorr += `La résolution d'image $${a}\\times ${b}$ respecte effectivement le format $${x}~:~${y}$.<br>`
-            texteCorr += `En effet, $${deprecatedTexFraction(a, x)}=${deprecatedTexFraction(b, y)}=${texNombre2(calcul(a / x))}$`
+            texteCorr += `En effet, $${deprecatedTexFraction(a, x)}=${deprecatedTexFraction(b, y)}=${texNombre2(calculANePlusJamaisUtiliser(a / x))}$`
           } else {
             texteCorr += `La résolution d'image $${a}\\times ${b}$ ne respecte pas le format $${x}~:~${y}$.<br>`
             if (Number.isInteger(a / x)) {
-              texteCorr += `En effet, $${deprecatedTexFraction(a, x)}=${texNombre2(calcul(a / x))}$ et $${deprecatedTexFraction(b, y)}\\approx ${texNombre2(calcul(b / y))}$.<br>`
+              texteCorr += `En effet, $${deprecatedTexFraction(a, x)}=${texNombre2(calculANePlusJamaisUtiliser(a / x))}$ et $${deprecatedTexFraction(b, y)}\\approx ${texNombre2(calculANePlusJamaisUtiliser(b / y))}$.<br>`
 
-              k = calcul(a / x)
+              k = calculANePlusJamaisUtiliser(a / x)
               texte += 'Sinon, proposer une résolution qui conviendrait en gardant la largeur d\'image.'
               texteCorr += `On doit avoir : $${deprecatedTexFraction(a, x)}=${deprecatedTexFraction('h', y)}$<br>`
               texteCorr += `Donc $h=${deprecatedTexFraction(y + '\\times' + a, x)}=${k * y}$. La résolution $${a}\\times ${k * y}$ respecte le format $${x}~:~${y}$.`
             } else if (Number.isInteger(b / y)) {
-              texteCorr += `En effet, $${deprecatedTexFraction(a, x)}\\approx ${texNombre2(calcul(a / x))}$ et $${deprecatedTexFraction(b, y)}=${texNombre2(calcul(b / y))}$.<br>`
-              k = calcul(b / y)
+              texteCorr += `En effet, $${deprecatedTexFraction(a, x)}\\approx ${texNombre2(calculANePlusJamaisUtiliser(a / x))}$ et $${deprecatedTexFraction(b, y)}=${texNombre2(calculANePlusJamaisUtiliser(b / y))}$.<br>`
+              k = calculANePlusJamaisUtiliser(b / y)
               texte += 'Sinon, proposer une résolution qui conviendrait en gardant la hauteur d\'image.'
               texteCorr += `On doit avoir : $${deprecatedTexFraction(b, y)}=${deprecatedTexFraction('L', x)}$<br>`
               texteCorr += `Donc $L=${deprecatedTexFraction(x + '\\times' + b, y)}=${k * x}$. La résolution $${k * x}\\times ${b}$ respecte le format $${x}~:~${y}$.`
             } else {
-              texteCorr += `En effet, $${deprecatedTexFraction(a, x)}\\approx ${texNombre2(calcul(a / x))}$ et $${deprecatedTexFraction(b, y)}\\approx ${texNombre2(calcul(b / y))}$.<br>`
+              texteCorr += `En effet, $${deprecatedTexFraction(a, x)}\\approx ${texNombre2(calculANePlusJamaisUtiliser(a / x))}$ et $${deprecatedTexFraction(b, y)}\\approx ${texNombre2(calculANePlusJamaisUtiliser(b / y))}$.<br>`
               texte += 'Sinon proposer une résolution adaptée à ce ratio.'
               k = ppcm(x, y)
               if (k % 10 !== 0) {
                 if (k % 2 === 0) {
-                  c = calcul(k * 5)
+                  c = calculANePlusJamaisUtiliser(k * 5)
                 } else {
                   if (k % 5 === 0) {
-                    c = calcul(k * 2)
+                    c = calculANePlusJamaisUtiliser(k * 2)
                   } else {
-                    c = calcul(k * 10)
+                    c = calculANePlusJamaisUtiliser(k * 10)
                   }
                 }
               } else {
@@ -276,11 +275,11 @@ export default function ProblemeDeRatio () {
               while (c < 1024) {
                 c += k
               }
-              b = calcul(c * y / x)
+              b = calculANePlusJamaisUtiliser(c * y / x)
               a = c
               texteCorr += `Le nombre $${c}$ est un multiple de $${x}$ et de $${y}$.<br>`
               texteCorr += `Je choisis comme résolution $${c} \\times ${deprecatedTexFraction(c + '\\times ' + y, x)}$ soit $${c}\\times ${b}$.<br>`
-              texteCorr += `En effet $${deprecatedTexFraction(a, x)}=${deprecatedTexFraction(b, y)}=${calcul(b / y)}$ donc la résolution $${a}\\times ${b}$ respecte le format $${x}~:~${y}$.`
+              texteCorr += `En effet $${deprecatedTexFraction(a, x)}=${deprecatedTexFraction(b, y)}=${calculANePlusJamaisUtiliser(b / y)}$ donc la résolution $${a}\\times ${b}$ respecte le format $${x}~:~${y}$.`
             }
           }
 
@@ -302,6 +301,4 @@ export default function ProblemeDeRatio () {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   this.besoinFormulaireNumerique = ['Type de ratios', 3, ' 1 : x:y\n 2 : x:y:z\n 3 : Mélange']
-  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,` 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
 } // Fin de l'exercice.

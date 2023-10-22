@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Ajouter 10n + 9'
 export const interactifReady = true
@@ -24,7 +24,7 @@ export default function Ajoute10NPlus9 () {
     const a = randint(3, 9)
     const b = randint(2, 8)
     const c = randint(1, 5)
-    this.reponse = calcul(a * 10 + b + c * 10 + 9)
+    this.reponse = calculANePlusJamaisUtiliser(a * 10 + b + c * 10 + 9)
     this.question = `Calculer $${a * 10 + b} + ${c * 10 + 9}$.`
     // Si les exos can avaient toujours cette propriété this.question on pourrait faire un ajout automatique
     this.canEnonce = this.question

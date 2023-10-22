@@ -8,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Calculer périmètre et aire de portions de cercles/disques'
 
@@ -80,7 +80,7 @@ export default function Perimetre_aire_et_portions_de_disques () {
         // si on ne demande pas les aires
         texteCorr = `La première figure est un quart de disque, son périmètre est composé d'un quart de cercle de rayon ${r} cm et de 2 rayons qui ferment la figure.<br>`
         texteCorr += `$\\mathcal{P}_1=\\dfrac{1}{4}\\times2\\times${r}\\times\\pi+${r}+${r}=${texNombre(
-          calcul(r / 2, 1)
+          calculANePlusJamaisUtiliser(r / 2, 1)
         )}\\pi+${2 * r}\\approx${texNombre(
           arrondi(r * Math.PI / 2 + 2 * r, 1)
         )}$ cm<br>`
@@ -98,7 +98,7 @@ export default function Perimetre_aire_et_portions_de_disques () {
       if (this.sup === 2) {
         texteCorr = `La première figure est un quart de disque de rayon ${r} cm.<br>`
         texteCorr += `$\\mathcal{A}_1=\\dfrac{1}{4}\\times${r}\\times${r}\\times\\pi=${texNombre(
-          calcul((r * r) / 4)
+          calculANePlusJamaisUtiliser((r * r) / 4)
         )}\\pi\\approx${texNombre((r * r) / 4 * Math.PI, 1)}~\\text{cm}^2$<br>`
         texteCorr += `La deuxième figure est la moitié d'un disque de diamètre ${2 * r2
           } cm donc de ${r2} cm de rayon.<br>`

@@ -122,7 +122,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
         nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0])
         y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin - 1, bornes.yMax + 1, false, false), 1)
-      } while (y0 === 0 || y1 === 0)
+      } while (y0 === 0 || y1 === 0 || isNaN(y2))
 
       const solutions0 = theSpline.solve(y0)
       const solutions1 = theSpline.solve(y1)
@@ -232,39 +232,70 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
   }
 
   correctionInteractive = (i) => {
+    // 10/10/2023 le console.log() ci-dessous est à décommenter pour enquêter sur ce qui semble être un bug : deux passages dans cette fonction au lieu d'un !
+    // console.log(`passage dans this.correctionInteractive avec la valeur i = ${i}`)
     let resultat1, resultat2, resultat3
     for (let k = 0; k < 3; k++) {
       const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i * 3 + k}`)
       const reponseEleve = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * 3 + k}`)?.value
-      switch (k) {
-        case 0:
-          if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-            divFeedback.innerHTML = '😎'
-            resultat1 = 'OK'
-          } else {
+      if (this.autoCorrection[i * 3 + k] != null && this.autoCorrection[i * 3 + k].reponse != null && Array.isArray(this.autoCorrection[i * 3 + k].reponse.valeur)) {
+        switch (k) {
+          case 0:
+            if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+              divFeedback.innerHTML = '😎'
+              resultat1 = 'OK'
+            } else {
+              divFeedback.innerHTML = '☹️'
+              resultat1 = 'KO'
+            }
+            break
+          case 1:
+            if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur[0]) ||
+                (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+              divFeedback.innerHTML = '😎'
+              resultat2 = 'OK'
+            } else {
+              divFeedback.innerHTML = '☹️'
+              resultat2 = 'KO'
+            }
+            break
+          case 2:
+            // Si l'élève répond autre chose qu'un nombre, il faut blinder ici !
+            if (isNaN(Number(reponseEleve.replace(',', '.'))) || isNaN(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+              if (isNaN(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+                window.notify('La réponse ne sont pas des number', {
+                  reponse: this.autoCorrection[i * 3 + k].reponse.valeur[0]
+                })
+              }
+              divFeedback.innerHTML = '☹️'
+              resultat3 = 'KO'
+            } else {
+              if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+                divFeedback.innerHTML = '😎'
+                resultat3 = 'OK'
+              } else {
+                divFeedback.innerHTML = '☹️'
+                resultat3 = 'KO'
+              }
+            }
+            break
+        }
+      } else {
+        window.notify('Quelque chose de pas normal avec l\'autoCorrection : ', { nbQuestions: this.nbQuestions, index: i * 3 + k, autoCorrection: this.autoCorrection })
+        switch (k) {
+          case 0:
             divFeedback.innerHTML = '☹️'
             resultat1 = 'KO'
-          }
-          break
-        case 1:
-          if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur[0]) ||
-                        (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-            divFeedback.innerHTML = '😎'
-            resultat2 = 'OK'
-          } else {
+            break
+          case 1:
             divFeedback.innerHTML = '☹️'
             resultat2 = 'KO'
-          }
-          break
-        case 2:
-          if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-            divFeedback.innerHTML = '😎'
-            resultat3 = 'OK'
-          } else {
+            break
+          case 2:
             divFeedback.innerHTML = '☹️'
             resultat3 = 'KO'
-          }
-          break
+            break
+        }
       }
     }
     return [resultat1, resultat2, resultat3]

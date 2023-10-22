@@ -7,12 +7,11 @@ export const dateDePublication = '12/08/2022'
 /**
  * Travailler les sommes de fractions
  * @author Jean-Claude Lhote
- * Référence 4C10-9
  */
 
 export const uuid = '0576d'
 export const ref = '4C21-3'
-export default function RoseAdditive4F () { // c'est l'ExoRose zéro contenu dans _Roses.js
+export default function RoseAdditive4F2 () { // c'est l'ExoRose zéro contenu dans _Roses.js
   ExoRose.call(this) // Héritage de la classe Exercice()
   this.operation = 'addition'
   this.typeDonnees = 'fractions dénominateurs multiples'

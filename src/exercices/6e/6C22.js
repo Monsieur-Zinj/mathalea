@@ -5,7 +5,7 @@ import { sp } from '../../lib/outils/outilString.js'
 import { prenomF } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -45,12 +45,12 @@ export default function ProblemesDePlusEtDeMoins () {
       e = randint(10, 30)
     }
     if (n === 1) {
-      r = calcul((randint(40, 60) * 100 + randint(1, 9) * 10) / 100) // évite de retomber dans le cas n=0 par ex  4200/100
-      e = calcul((randint(10, 20) * 100 + randint(1, 9) * 10) / 100)
+      r = calculANePlusJamaisUtiliser((randint(40, 60) * 100 + randint(1, 9) * 10) / 100) // évite de retomber dans le cas n=0 par ex  4200/100
+      e = calculANePlusJamaisUtiliser((randint(10, 20) * 100 + randint(1, 9) * 10) / 100)
     }
     if (n === 2) {
-      r = calcul((randint(40, 60) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100)
-      e = calcul((randint(10, 20) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100)
+      r = calculANePlusJamaisUtiliser((randint(40, 60) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100)
+      e = calculANePlusJamaisUtiliser((randint(10, 20) * 100 + randint(1, 9) * 10 + randint(1, 9)) / 100)
     }
     return [r, e]
   }

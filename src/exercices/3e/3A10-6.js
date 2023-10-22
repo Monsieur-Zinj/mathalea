@@ -8,8 +8,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Trouver un chiffre pour qu\'un nombre soit divisible par un autre'
-// export const amcReady = true
-// export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -61,8 +59,8 @@ export default function TrouverChiffre () {
       max: 8,
       melange: 9,
       defaut: 9,
-      nbQuestions: this.nbQuestions,
-      shuffle: false
+      nbQuestions: Math.max(this.nbQuestions, 8),
+      shuffle: true
     })
 
     for (let i = 0, texte, texteCorr, cpt = 0, nb, positionX, a, tabChiffresX, nbAvecChiffreCache,
@@ -219,8 +217,7 @@ export default function TrouverChiffre () {
                 ajoutPourTroisouNeuf.push(3 + ajoutPourTroisouNeuf[ee - 1])
                 if (ajoutPourTroisouNeuf[ee] % 2 === 0) reponse.push(ajoutPourTroisouNeuf[ee])
               }
-              reponse = reponse.join(';')
-              texteCorr += `<br>${numAlpha(1)}Pour savoir si le nombre est divisible par 3, il suffit de savoir quel nombre à un chiffre il faut ajouter à `
+              texteCorr += `<br>${numAlpha(1)}Pour savoir si le nombre est divisible par 3, il suffit de savoir quel nombre à un chiffre, il faut ajouter à `
               texteCorr += (nombreDeChiffres[i] !== 2 ? sommeDesChiffres(a)[1] + '=' : '')
               texteCorr += sommePourTroisouNeuf
               texteCorr += ' pour obtenir un multiple de 3.<br>Or seuls '
@@ -236,10 +233,15 @@ export default function TrouverChiffre () {
               texteCorr += texteEnCouleurEtGras(ajoutPourTroisouNeuf[ajoutPourTroisouNeuf.length - 2]) + ' et '
               texteCorr += texteEnCouleurEtGras(ajoutPourTroisouNeuf[ajoutPourTroisouNeuf.length - 1]) + ' '
               texteCorr += texteEnCouleurEtGras('pour que le nombre soit divisible par 3.<br>')
-              texteCorr += `<br>${numAlpha(2)} Donc les chiffres qui conviennent sont les chiffres en commun à ${numAlpha(0, true)} et ${numAlpha(1, true)}, soit ${texteEnCouleurEtGras(reponse[0])}`
-              texteCorr += reponse.length === 2 ? ` et ${texteEnCouleurEtGras(reponse[1])}` : ''
+              ajoutPourTroisouNeuf = ajoutPourTroisouNeuf.filter((nb) => [0, 2, 4, 6, 8].includes(nb))
+              reponse = ajoutPourTroisouNeuf.join(';')
+              texteCorr += ajoutPourTroisouNeuf.length === 2
+                ? `<br>${numAlpha(2)} Donc les chiffres qui conviennent sont les chiffres en commun à ${numAlpha(0, true)} et ${numAlpha(1, true)}, soit ${texteEnCouleurEtGras(ajoutPourTroisouNeuf[0])} et ${texteEnCouleurEtGras(ajoutPourTroisouNeuf[1])}`
+                : `<br>${numAlpha(2)} Donc le seul chiffre qui convient est le chiffre en commun à ${numAlpha(0, true)} et ${numAlpha(1, true)}, soit ${texteEnCouleurEtGras(ajoutPourTroisouNeuf[0])}`
               texteCorr += '.<br>'
-              texteCorr += `${nbAvecChiffreCache.replace(symboleChiffreCache, reponse[0])} et ${nbAvecChiffreCache.replace(symboleChiffreCache, reponse[1])} sont divisibles par 2 et par 3.`
+              texteCorr += ajoutPourTroisouNeuf.length === 2
+                ? `${nbAvecChiffreCache.replace(symboleChiffreCache, ajoutPourTroisouNeuf[0])} et ${nbAvecChiffreCache.replace(symboleChiffreCache, ajoutPourTroisouNeuf[1])} sont divisibles par 2 et par 3.`
+                : `${nbAvecChiffreCache.replace(symboleChiffreCache, ajoutPourTroisouNeuf[0])} est divisible par 2 et par 3.`
               break
             default : // Le chiffre inconnu n'est pas le chiffre des unités
               if (a[nombreDeChiffres[i] - 2] % 2 === 0) { // Le chiffre des unités est pair
@@ -431,7 +433,7 @@ export default function TrouverChiffre () {
           break
       }
       setReponse(this, i, reponse, { formatInteractif: 'texte' })
-      texte += this.interactif ? ('<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25')) : ''
+      texte += this.interactif ? ('<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25 college6eme alphanumeric')) : ''
 
       if (this.questionJamaisPosee(i, nbAvecChiffreCache)) {
         // Si la question n'a jamais été posée, on en crée une autre

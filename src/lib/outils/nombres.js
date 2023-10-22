@@ -9,7 +9,7 @@ import { round } from 'mathjs'
 import { enleveElement } from './arrayOutils.js'
 
 export function signe (a) { // + ou -
-  let result = ''
+  let result
   if (a > 0) {
     result = '+'
   } else {
@@ -97,7 +97,7 @@ export function triePositifsNegatifs (liste) {
 /**
  * Renvoie le nombre de chiffres de la partie décimale
  * @param {number} nb : nombre décimal
- * @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
+ * @param {number | string} except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Rémi Angot
  */
 export function nombreDeChiffresDansLaPartieDecimale (nb, except = 'aucune') {
@@ -126,15 +126,15 @@ export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
     if (!isNaN(except)) sauf = (String(nombre).split('.')[0].split(String(except)).length - 1)
     return String(nombre).split('.')[0].length - sauf
   } else {
-    if (!isNaN(except)) sauf = (String(nombre).split(String(except)).length - 1)
+    // if (!isNaN(except)) sauf = (String(nombre).split(String(except)).length - 1) @fixme à quoi sert cette affectation inutile ?
     return String(nombre).length
   }
 }
 
 /**
  * Renvoie le nombre de chiffres d'un nombre décimal
- * @param nb : nombre décimal
- * @param except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
+ * @param {number} nb : nombre décimal
+ * @param {number | string} except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Jean-Claude Lhote
  */
 export function nombreDeChiffresDe (nb, except) {
@@ -160,8 +160,8 @@ export function ordreDeGrandeur (x, type) {
 
 /**
  * Retourne une liste des entiers de 0 à max sans appartenir à une liste donnée
- * @param {max}
- * @param {listeAEviter}
+ * @param {number} max
+ * @param {number[]} listeAEviter
  *
  * @example
  * // Renvoie [0,1,4,5,6,7,8,9,10]
@@ -181,10 +181,10 @@ export function range (max, listeAEviter = []) {
 
 /**
  * Retourne une liste entre 2 bornes sans appartenir à une liste donnée (par défaut des entiers, mais on peut changer le pas)
- * @param {min}
- * @param {max}
- * @param {listeAEviter}
- *
+ * @param {number} min
+ * @param {number} max
+ * @param {number[]} listeAEviter
+ * @param {number} step
  * @example
  * // Renvoie [6,7,10]
  * range(6,10,[8,9])
@@ -207,8 +207,8 @@ export function rangeMinMax (min, max, listeAEviter = [], step = 1) {
  * Créé un tableau avec toutes les valeurs de 1 à max sauf celle de la liste à éviter
  *
  *
- * @param {int} max
- * @param {liste} liste valeurs à éviter
+ * @param {number} max
+ * @param {number[]} listeAEviter valeurs à éviter
  * @author Rémi Angot
  */
 export function range1 (max, listeAEviter = []) {

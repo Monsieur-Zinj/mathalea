@@ -17,4 +17,5 @@ export default function NotationPuissanceEn2nde () {
   this.sup = 3
   this.sup3 = 3
   this.classe = 2
+  this.besoinFormulaire3Numerique = ['Exposant', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
 }

@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver le complément à 1*'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export default function ComplementAUn () {
   this.typeExercice = 'simple'
 
   this.nouvelleVersion = function () {
-    const a = calcul(randint(1, 9) / 10 + randint(1, 9) / 100)
+    const a = calculANePlusJamaisUtiliser(randint(1, 9) / 10 + randint(1, 9) / 100)
     this.question = `Calculer $1-${texNombre(a)}$.`
     this.correction = `$1-${texNombre(a)}=${texNombre(1 - a)}$`
     this.correction += texteEnCouleur(`
@@ -30,7 +30,7 @@ export default function ComplementAUn () {
     $1$ unité = $100$ centièmes.<br>
     On enlève $${texNombre(100 * a)}$ centièmes à $100$ centièmes, il en reste $${texNombre(100 * (1 - a))}$.<br>
     Ainsi, $1-${texNombre(a)}=${texNombre(1 - a)}$.  `)
-    this.reponse = calcul(1 - a)
+    this.reponse = calculANePlusJamaisUtiliser(1 - a)
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

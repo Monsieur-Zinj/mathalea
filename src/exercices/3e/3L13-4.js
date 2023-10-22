@@ -109,7 +109,7 @@ ${calculAire.texteCorr}
 Donc l'aire du rectangle $${ABCD}$ est ${environ} $${toTex(solutionDecimale)}~cm^2$.`
           break
         }
-        case 2: {
+        default: {
           const graphic = new GVGraphicView(0, 0, 7, 5)
           const ABCD = graphic.addRectangle()
           const [A, B, C, D] = ABCD.vertices

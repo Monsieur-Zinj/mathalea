@@ -30,7 +30,7 @@ export default function Resolutionavecformecanonique () {
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.spacingCorr = 3
+  this.spacingCorr = 1.5
   this.sup = 1
 
   this.nouvelleVersion = function () {
@@ -50,17 +50,17 @@ export default function Resolutionavecformecanonique () {
       texteCorr = `Factoriser, si cela est possible : $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}$.`
       texteCorr += '<br>On reconnaît un polynôme du second degré sous la forme $ax^2+bx+c$.'
       texteCorr += '<br>On cherche les éventuelles racine(s) du polynôme.'
-      texteCorr += '<br>On commence par calculer le discriminant : $\\Delta = b^2-4ac$'
-      texteCorr += `<br>$\\Delta = ${b}^2-4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${delta}$`
+      texteCorr += '<br>On commence par calculer le discriminant : $\\Delta = b^2-4ac$.'
+      texteCorr += `<br>$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4 \\times ${ecritureParentheseSiNegatif(a)} \\times ${ecritureParentheseSiNegatif(c)}=${delta}$`
 
       // test des solutions
       if (delta < 0) {
         texteCorr += '<br>Le discriminant étant négatif, d\'après le cours, le polynôme n\'admet aucune racine réelle.'
-        texteCorr += '<br>On en déduit que $S=\\emptyset$'
+        texteCorr += '<br>On en déduit que le polynôme n\'est pas factorisable.'
       } else if (delta > 0) { // Cas des deux solutions :
         texteCorr += '<br>Le discriminant étant positif, d\'après le cours, le polynôme admet deux racines réelles :'
         texteCorr += '<br>$x_1=\\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2=\\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
-        texteCorr += `<br>$x_1=\\dfrac{-${ecritureParentheseSiNegatif(b)}-\\sqrt{${delta}}}{2\\times${ecritureParentheseSiNegatif(a)}}$ et $x_2=\\dfrac{-${ecritureParentheseSiNegatif(b)}+\\sqrt{${delta}}}{2\\times${ecritureParentheseSiNegatif(a)}}$`
+        texteCorr += `<br>$x_1=\\dfrac{-${ecritureParentheseSiNegatif(b)}-\\sqrt{${delta}}}{2\\times${ecritureParentheseSiNegatif(a)}}$ et $x_2=\\dfrac{-${ecritureParentheseSiNegatif(b)}+\\sqrt{${delta}}}{2\\times${ecritureParentheseSiNegatif(a)}}$.`
         if (pgcd(Math.abs(b), Math.abs(2 * a)) === pgcd(extraireRacineCarree(delta)[0], Math.abs(2 * a))) {
           p = pgcd(Math.abs(b), Math.abs(2 * a))
         } else {
@@ -140,8 +140,8 @@ export default function Resolutionavecformecanonique () {
             }
           }
         }
-        texteCorr += `<br> Après simplification, on obtient : $x_1= ${stringX1}$ et  $x_2=${stringX2}$` // Solution
-        texteCorr += '<br> d\'après le cours, on sait que le polynôme se factorise alors sous la forme : $a(x-x_1)(x-x_2)$'
+        texteCorr += `<br> Après simplification, on obtient : $x_1= ${stringX1}$ et  $x_2=${stringX2}$.` // Solution
+        texteCorr += '<br> D\'après le cours, on sait que le polynôme se factorise alors sous la forme : $a(x-x_1)(x-x_2)$'
         if (!egal(Math.abs(2 * a) / p, 1)) { // présence de traits de fraction donc réécriture du produit nul
           texteCorr += `<br> Finalement, $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x${ecritureAlgebrique(c)}=${rienSi1(a)}\\left(x ${x1String}\\right)\\left(x ${x2String}\\right)$`
         } else { // cas de delta  = 0

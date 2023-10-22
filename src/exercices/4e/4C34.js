@@ -5,7 +5,7 @@ import { nombreDeChiffresDansLaPartieEntiere, range1 } from '../../lib/outils/no
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -79,11 +79,11 @@ export default function PrioritesEtRelatifsEtPuissances () {
   this.video = 'https://youtu.be/0G9xWLl-0zg' // Id YouTube ou url
   this.spacing = context.isHtml ? 3 : 1
   this.spacingCorr = context.isHtml ? 3 : 1
-  this.amcReady = amcReady
-  this.amcType = amcType
   this.listeAvecNumerotation = false
+  this.sup = false
 
   this.nouvelleVersion = function () {
+    if (this.sup) this.amcType = 'AMCNum'
     let reponse
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -115,7 +115,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${a * a} ${ecritureAlgebrique(b * c)}$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a * a + b * c)}$`
 
-          reponse = calcul(a * a + b * c)
+          reponse = calculANePlusJamaisUtiliser(a * a + b * c)
           break
 
         case 2: // a + b²*c
@@ -124,7 +124,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${a} + ${miseEnEvidence(ecritureParentheseSiNegatif(p * p) + '\\times' + ecritureParentheseSiNegatif(c), 'blue')}$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${a + ecritureAlgebrique(p * p * c)}$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a + p * p * c)}$`
-          reponse = calcul(a + p * p * c)
+          reponse = calculANePlusJamaisUtiliser(a + p * p * c)
           break
 
         case 3: // a²+b+c*d
@@ -133,7 +133,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${a * a} ${ecritureAlgebrique(b)} +  ${miseEnEvidence((ecritureParentheseSiNegatif(c) + '\\times' + ecritureParentheseSiNegatif(d)), 'blue')}$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${a * a + ecritureAlgebrique(b) + ecritureAlgebrique(c * d)}$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(a * a + b + c * d)}$`
-          reponse = calcul(a * a + b + c * d)
+          reponse = calculANePlusJamaisUtiliser(a * a + b + c * d)
           break
 
         case 4: // a²*(b+c)
@@ -142,7 +142,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${n * n} \\times ( ${miseEnEvidence(b + ecritureAlgebrique(c), 'blue')})$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${n * n} \\times ${ecritureParentheseSiNegatif(b + c)}$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(n * n * (b + c))}$`
-          reponse = calcul(n * n * (b + c))
+          reponse = calculANePlusJamaisUtiliser(n * n * (b + c))
           break
 
         case 5: // m*(n²+p*n)
@@ -152,7 +152,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${m}\\times ( ${miseEnEvidence((n * n + ecritureAlgebrique(p * n)), 'blue')})$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${m}\\times ${ecritureParentheseSiNegatif(n * n + p * n)}$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence(m * (n * n + p * n))}$`
-          reponse = calcul(m * (n * n + p * n))
+          reponse = calculANePlusJamaisUtiliser(m * (n * n + p * n))
           break
 
         case 6: // (a+b+n²)*d
@@ -161,7 +161,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=(${miseEnEvidence((a + ecritureAlgebrique(b) + ecritureAlgebrique(n * n)), 'blue')}) \\times ${ecritureParentheseSiNegatif(d)}$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${a + b + n * n} \\times ${ecritureParentheseSiNegatif(d)}$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence((a + b + n * n) * d)}$`
-          reponse = calcul((a + b + n * n) * d)
+          reponse = calculANePlusJamaisUtiliser((a + b + n * n) * d)
           break
 
         case 7: // n²*(a+b+c)
@@ -170,7 +170,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${n * n} \\times ( ${miseEnEvidence(a + ecritureAlgebrique(b) + ecritureAlgebrique(c), 'blue')})$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${n * n} \\times ${ecritureParentheseSiNegatif(a + b + c)}$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence((a + b + n * n) * d)}$`
-          reponse = calcul(n * n * (a + b + c))
+          reponse = calculANePlusJamaisUtiliser(n * n * (a + b + c))
           break
       }
       if (this.questionJamaisPosee(i, texte)) {
@@ -201,5 +201,5 @@ export default function PrioritesEtRelatifsEtPuissances () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
+  this.besoinFormulaireCaseACocher = ['AMC : Que la réponse numérique (pas de question ouverte)','false'] 
 }
-// python3 list-to-js.py pour faire apparaître l'exercice dans le menu

@@ -3,6 +3,7 @@ export const titre = 'Résoudre une Rose additive avec des relatifs'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const dateDePublication = '12/08/2022'
+export const dateDeModifImportante = '26/09/2023'
 
 /**
  * Travailler les tables de multiplication autrement

@@ -6,7 +6,7 @@ import { arrondi, troncature } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calcul } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
 export const ref = 'P006'
@@ -40,8 +40,8 @@ export default function NombreAPlacer () {
     x1 = arrondi(x1, 4)
     x2 = troncature(x1, 1)
     const x21 = troncature(x1, 2)
-    x3 = calcul(x2 + 0.1)
-    const x31 = calcul(x21 + 0.01)
+    x3 = calculANePlusJamaisUtiliser(x2 + 0.1)
+    const x31 = calculANePlusJamaisUtiliser(x21 + 0.01)
     const xmin = Math.floor(x2)
     const xmax = xmin + 1
     const thickOff = 0.0001

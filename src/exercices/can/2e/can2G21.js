@@ -63,7 +63,7 @@ export default function LectureCoordonnees () {
     this.question = `Donner les coordonnées du point.<br>
     `
     if (this.interactif) { this.question += 'Respecter les notations.<br>' }
-    this.question += mathalea2d({ xmin: -3, xmax: 3, ymin: -2, ymax: 2, scale: 1, pixelsParCm: 50 }, r, o, traceA)
+    this.question += mathalea2d({ xmin: -3, xmax: 3, ymin: -2, ymax: 2, scale: 1, pixelsParCm: 50, style: 'margin: auto' }, r, o, traceA)
     this.correction = 'L\'abscisse du point se lit sur l\'axe horizontal.<br>'
     if (k1 === 3) {
       if (arrondi(a, 1) === arrondi(a, 0)) { this.correction += ` On lit $${texNombre(a, 2)}$.<br>` } else {

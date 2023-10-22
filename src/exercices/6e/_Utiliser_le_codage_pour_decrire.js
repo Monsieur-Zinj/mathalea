@@ -169,7 +169,6 @@ export default function UtiliserLeCodagePourDecrire () {
     }
     listeQuestionsToContenu(this)
   }
-  console.log(this.classe)
   if (this.classe === 5) {
     this.besoinFormulaireTexte = [
       'Type de questions', [

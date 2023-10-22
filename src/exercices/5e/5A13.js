@@ -160,9 +160,12 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
           this.canEnonce = `Décomposer $${texNombre(n)}$ en produit de facteurs premiers. `
           this.correction = this.listeCorrections[0]
           this.canReponseACompleter = `$${texNombre(n)}=\\ldots$`
+          this.listeCanEnonces.push(this.canEnonce)
+          this.listeCanReponsesACompleter.push(this.canReponseACompleter)
         }
         i++
       }
+
       cpt++
     }
     listeQuestionsToContenu(this)

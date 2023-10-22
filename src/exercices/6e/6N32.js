@@ -1,7 +1,7 @@
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
@@ -68,13 +68,13 @@ export default function FractionsDunite () {
       frac = fraction(num, den)
       texte = `$${frac.texFraction}$ unité en prenant ${unit} carreaux (ou ${unit} cm) pour une unité.`
       if (this.sup2 < 3) g = grille(0, 0, 26, 2, 'gray', 0.7)
-      else g = ''
+      else g = vide2d()
       if (parseInt(this.sup2) === 2) {
         sc = 0.6
         carreaux = seyes(0, 0, 26, 2)
       } else {
         sc = 0.5
-        carreaux = ''
+        carreaux = vide2d()
       }
 
       texteCorr = mathalea2d({ xmin: 0, ymin: 0, xmax: 26, ymax: 2, pixelsParCm: 20, scale: sc }, frac.representation(1, 1, unit, 0, 'segment', 'blue', 0, 1), g, carreaux)

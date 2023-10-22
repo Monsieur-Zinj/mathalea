@@ -8,7 +8,7 @@ import { homothetie, rotation, similitude, translation } from '../../lib/2d/tran
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Nommer et coder des polygones'
@@ -193,11 +193,11 @@ export default function NommerEtCoderDesPolygones () {
         scale: sc
       }
       if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
-      else g = ''
+      else g = vide2d()
       if (parseInt(this.sup === 2)) {
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
       } else {
-        carreaux = ''
+        carreaux = vide2d()
       }
 
       pol.epaisseur = 2

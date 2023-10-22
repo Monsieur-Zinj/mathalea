@@ -9,7 +9,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -85,7 +85,7 @@ export default function DivisionFraction () {
           break
         case 3: // fraction : entier divisé par 6 quotient : xxx,5
           b = 6
-          q = calcul(
+          q = calculANePlusJamaisUtiliser(
             randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) + 0.5
           )
           a = q * 6
@@ -111,12 +111,12 @@ export default function DivisionFraction () {
           q = arrondi(a / b, 3)
           break
         case 8: // dénominateur = 9
-          a = calcul((randint(11, 19) * 9) + randint(1, 8))
+          a = calculANePlusJamaisUtiliser((randint(11, 19) * 9) + randint(1, 8))
           b = 9
           q = arrondi(a / b, 3)
           break
         case 9: // dénominateur = 3
-          a = calcul((randint(11, 99) * 3) + randint(1, 2))
+          a = calculANePlusJamaisUtiliser((randint(11, 99) * 3) + randint(1, 2))
           b = 3
           q = arrondi(a / b, 3)
       }
@@ -160,14 +160,15 @@ export default function DivisionFraction () {
     '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au centième près'
   ]
   this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
-  this.besoinFormulaire3Texte = ['Types de questions (nombres séparés par des tirets', `1: entier divisé par 4 (quotient exact)
-2: entier divisé par 8 (quotient exact)
-3: entier divisé par 6 (quotient exact)
-4: entier divisé par 2 (quotient exact)
-5: entier divisé par 5 (quotient exact)
-6: entier divisé par 10 (quotient exact)
-7: entier divisé par 7 (quotient approché)
-8: entier divisé par 9 (quotient approché)
-9: entier divisé par 3 (quotient approché)
-10: Mélange`]
+  this.besoinFormulaire3Texte = ['Types de questions', `Nombres séparés par des tirets
+1 : entier divisé par 4 (quotient exact)
+2 : entier divisé par 8 (quotient exact)
+3 : entier divisé par 6 (quotient exact)
+4 : entier divisé par 2 (quotient exact)
+5 : entier divisé par 5 (quotient exact)
+6 : entier divisé par 10 (quotient exact)
+7 : entier divisé par 7 (quotient approché)
+8 : entier divisé par 9 (quotient approché)
+9 : entier divisé par 3 (quotient approché)
+10 : Mélange`]
 }

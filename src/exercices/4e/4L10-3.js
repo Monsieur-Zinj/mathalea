@@ -7,12 +7,13 @@ export const interactifType = 'custom'
 export const uuid = '4c5da'
 export const ref = '4L10-3'
 export default function FabriqueAYohaku4L1 () {
-  FabriqueAYohaku.call(this)
+  FabriqueAYohaku.call(this, {})
   this.sup = 10
   this.sup2 = 1
   this.sup3 = 2
   this.sup4 = false
   this.type = 'littéraux'
+  this.yohaku = []
   this.besoinFormulaireNumerique = false
   this.besoinFormulaire2Numerique = false
   this.besoinFormulaire3Numerique = false

@@ -14,6 +14,7 @@ import { rotationAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 export const interactifReady = true
@@ -229,10 +230,10 @@ export default function PavageEtDemiTour2D () {
     texte = mathalea2d(fenetre, objets) // monpavage.fenetre est calibrée pour faire entrer le pavage dans une feuille A4
     texte += '<br>'
     for (let i = 0; i < this.nbQuestions; i++) {
-      texte += `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ ?`
+      texte += `Donner le numéro de l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$.`
       setReponse(this, i, couples[i][1])
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur72') + '<br>'
-      texteCorr += `L'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ est la figure ${couples[i][1]}<br>`
+      texteCorr += `L'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
       if (this.correctionDetaillee) {
         t = this.nbQuestions * 3
         G1 = monpavage.barycentres[couples[i][0] - 1]

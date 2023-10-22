@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Recomposer un entier'
 export const interactifReady = true
@@ -26,7 +26,7 @@ export default function RecomposerEntier () {
     const a = randint(2, 5)
     const b = randint(2, 9)
     const c = randint(2, 9)
-    this.reponse = calcul(a * 1000 + b * 10 + c * 100)
+    this.reponse = calculANePlusJamaisUtiliser(a * 1000 + b * 10 + c * 100)
     if (choice([true, false])) {
       this.question = `Calculer $${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100$.`
       this.correction = `$${texNombre(a)}\\times ${texNombre(1000)} + ${texNombre(b)}\\times 10 + ${texNombre(c)}\\times 100 =${texNombre(this.reponse)}$`

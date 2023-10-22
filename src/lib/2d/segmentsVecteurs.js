@@ -1,7 +1,7 @@
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { calcul, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../modules/outils.js'
 import { angleOriente } from './angles.js'
 import { Cercle } from './cercle.js'
 import { Droite, droite } from './droites.js'
@@ -47,19 +47,18 @@ export function Vecteur (arg1, arg2, nom = '') {
   }
   this.representant = function (A, color = 'black') {
     const B = point(A.x + this.x, A.y + this.y)
-    const s = segment(A, B, color, '|->')
-    return s
+    return segment(A, B, color, '|->')
   }
   this.representantNomme = function (A, nom, taille = 1, color = 'black') {
-    let s, angle, v
+    let s, v
     const B = point(A.x + this.x, A.y + this.y)
     const M = milieu(A, B)
     s = segment(A, B, color)
-    angle = s.angleAvecHorizontale
+    const angle = s.angleAvecHorizontale
     v = similitude(this, A, 90, 0.5 / this.norme())
     if (Math.abs(angle) > 90) {
       s = segment(B, A, color)
-      angle = s.angleAvecHorizontale
+      // angle = s.angleAvecHorizontale
       v = similitude(this, A, -90, 0.5 / this.norme())
     }
     const N = translation(M, v)
@@ -159,8 +158,13 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
       const cd = droite(objet.extremite1, objet.extremite2)
       cd.isVisible = false
       I = pointIntersectionDD(ab, cd)
+      if (typeof I === 'boolean') {
+        I = objet.extremite1.estSur(this) || objet.extremite2.estSur(this) ||
+        this.extremite1.estSur(segment(objet.extremite1, objet.extremite2)) ||
+        this.extremite2.estSur(segment(objet.extremite1, objet.extremite2))
+      }
     }
-    if (!I) return false
+    if (typeof I === 'boolean') return (I)
     else return I.estSur(objet) && I.estSur(this)
   }
 
@@ -503,7 +507,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
 }
 
 /**
- * @param {...args} args Points ou coordonnées + couleur facultative en dernier
+ * @param {...any[]} args Points ou coordonnées + couleur facultative en dernier
  * @example segment(A,B,'blue') // Segment [AB] de couleur bleu
  * @example segment(x1,y1,x2,y2,'#f15929') // Segment dont les extrémités sont respectivement (x1,y1) et (x2,y2), de couleur orange (#f15929)
  * @author Rémi Angot
@@ -570,7 +574,7 @@ export function longueur (A, B, arrondi) {
   if (arrondi === undefined) {
     return Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2)
   } else {
-    return calcul(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2), arrondi)
+    return calculANePlusJamaisUtiliser(Math.sqrt((B.x - A.x) ** 2 + (B.y - A.y) ** 2), arrondi)
   }
 }
 

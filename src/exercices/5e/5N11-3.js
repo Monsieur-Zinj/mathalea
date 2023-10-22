@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calcul, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -51,13 +51,13 @@ export default function FractionVersPourcentage () {
       } else {
         num = randint(1, den - 1)
       }
-      percenti = calcul(num * 100 / den)
+      percenti = calculANePlusJamaisUtiliser(num * 100 / den)
       if (this.sup === 1) {
         texte = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{\\phantom{XXXXXX}}{}=\\dfrac{}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
         if (den < 100) {
-          texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${calcul(100 / den)}}}{${den}{\\color{blue}\\times${calcul(100 / den)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
+          texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${calculANePlusJamaisUtiliser(100 / den)}}}{${den}{\\color{blue}\\times${calculANePlusJamaisUtiliser(100 / den)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {
-          texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${calcul(den / 100)}}}{${den}{\\color{blue}\\div${calcul(den / 100)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
+          texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${calculANePlusJamaisUtiliser(den / 100)}}}{${den}{\\color{blue}\\div${calculANePlusJamaisUtiliser(den / 100)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         }
       } else {
         texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`

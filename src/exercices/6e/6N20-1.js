@@ -37,8 +37,8 @@ export default function EncadrerFractionEntre2Entiers () {
   this.sup2 = '11'
   this.besoinFormulaireCaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
   this.besoinFormulaire2Texte = this.lycee
-    ? ['Dénominateurs à choisir (nombres séparés par des tirets', 'De 2 à 9\n10: mélange']
-    : ['Dénominateurs à choisir (nombres séparés par des tirets', '2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
+    ? ['Dénominateurs à choisir', 'Nombres séparés par des tirets\nDe 2 à 9\n10: mélange']
+    : ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
 
   this.nouvelleVersion = function () {
     this.correctionDetailleeDisponible = !this.lycee

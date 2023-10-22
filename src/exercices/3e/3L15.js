@@ -1,6 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'
@@ -60,6 +59,7 @@ export default function ExerciceEquations () {
     }
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, indiceQ = 0, fracReponse, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let increment
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'ax2+bx':
           a = this.sup2 ? randint(2, 9) : randint(-9, 9, [0, -1, 1]) // Le cas 1 (ou -1) est traité ensuite
@@ -71,7 +71,7 @@ export default function ExerciceEquations () {
           setReponse(this, fracReponse.signe === 1 ? indiceQ : indiceQ + 1, 0)
           texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus petite : ` })
           texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus grande : ` })
-          indiceQ += 2
+          increment = 2
           break
         case 'ax2+bxAvec1':
           if (this.sup2) {
@@ -98,7 +98,7 @@ export default function ExerciceEquations () {
           setReponse(this, fracReponse.signe === 1 ? indiceQ : indiceQ + 1, 0)
           texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus petite : ` })
           texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus grande : ` })
-          indiceQ += 2
+          increment = 2
           break
         case 'ax2-b2':
           a = randint(1, 10)
@@ -113,21 +113,22 @@ export default function ExerciceEquations () {
           texteCorr += `$${rienSi1(a)}x+${b} = 0 \\quad \\text{ou} \\quad ${rienSi1(a)}x-${b} = 0$ `
           texteCorr += '<br>'
           texteCorr += `$${rienSi1(a)}x = ${-b} \\quad \\text{ou} \\quad ${rienSi1(a)}x = ${b}$ `
+          fracReponse = new FractionEtendue(b, a)
           if (a !== 1) {
             texteCorr += '<br>'
             if (pgcd(a, b) === 1) {
-              texteCorr += `$x = ${deprecatedTexFraction(-b, a)} \\quad \\text{ou} \\quad x = ${deprecatedTexFraction(b, a)}$ `
+              texteCorr += `$x = ${fracReponse.oppose().texFSD} \\quad \\text{ou} \\quad x = ${fracReponse.texFSD}$ `
             } else {
-              texteCorr += `$x = ${deprecatedTexFraction(-b, a)}=${texFractionReduite(-b, a)} \\quad \\text{ou} \\quad x = ${deprecatedTexFraction(b, a)}=${texFractionReduite(b, a)}$ `
+              texteCorr += `$x = ${fracReponse.oppose().texFSD}=${fracReponse.simplifie().oppose().texFSD} \\quad \\text{ou} \\quad x = ${fracReponse.texFSD}=${fracReponse.simplifie().texFSD}$ `
             }
           }
-          texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(texFractionReduite(-b, a))}$ et $${miseEnEvidence(texFractionReduite(b, a))}$.`
-          fracReponse = new FractionEtendue(-b, a)
+          texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(fracReponse.simplifie().oppose().texFSD)}$ et $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
+          fracReponse = fracReponse.oppose()
           setReponse(this, fracReponse.signe === -1 ? indiceQ : indiceQ + 1, fracReponse, { formatInteractif: 'fractionEgale' })
           setReponse(this, fracReponse.signe !== -1 ? indiceQ : indiceQ + 1, new FractionEtendue(b, a), { formatInteractif: 'fractionEgale' })
           texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus petite : ` })
           texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus grande : ` })
-          indiceQ += 2
+          increment = 2
           break
         case 'ax2=b2':
           a = randint(1, 10)
@@ -144,27 +145,29 @@ export default function ExerciceEquations () {
           texteCorr += `$${rienSi1(a)}x+${b} = 0 \\quad \\text{ou} \\quad ${rienSi1(a)}x-${b} = 0$ `
           texteCorr += '<br>'
           texteCorr += `$${rienSi1(a)}x = ${-b} \\quad \\text{ou} \\quad ${rienSi1(a)}x = ${b}$ `
+          fracReponse = new FractionEtendue(-b, a)
           if (a !== 1) {
             texteCorr += '<br>'
             if (pgcd(a, b) === 1) {
-              texteCorr += `$x = ${deprecatedTexFraction(-b, a)} \\quad \\text{ou} \\quad x = ${deprecatedTexFraction(b, a)}$ `
+              texteCorr += `$x = ${fracReponse.texFSD} \\quad \\text{ou} \\quad x = ${fracReponse.oppose().texFSD}$ `
             } else {
-              texteCorr += `$x = ${deprecatedTexFraction(-b, a)}=${texFractionReduite(-b, a)} \\quad \\text{ou} \\quad x = ${deprecatedTexFraction(b, a)}=${texFractionReduite(b, a)}$ `
+              texteCorr += `$x = ${fracReponse.texFSD}=${fracReponse.simplifie().texFSD} \\quad \\text{ou} \\quad x = ${fracReponse.texFSD}=${fracReponse.oppose().simplifie().texFSD}$ `
             }
           }
-          texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(texFractionReduite(-b, a))}$ et $${miseEnEvidence(texFractionReduite(b, a))}$.`
+          texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$ et $${miseEnEvidence(fracReponse.simplifie().oppose().texFSD)}$.`
           fracReponse = new FractionEtendue(-b, a)
           setReponse(this, fracReponse.signe === -1 ? indiceQ : indiceQ + 1, fracReponse, { formatInteractif: 'fractionEgale' })
           setReponse(this, fracReponse.signe !== -1 ? indiceQ : indiceQ + 1, new FractionEtendue(b, a), { formatInteractif: 'fractionEgale' })
           texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus petite : ` })
           texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus grande : ` })
-          indiceQ += 2
+          increment = 2
           break
         case 'bcx2+a=bx(cx+d)':
           a = this.sup2 ? randint(1, 10) : randint(-10, 10, [0])
           b = this.sup2 ? randint(1, 10) : randint(-10, 10, [0])
           c = this.sup2 ? randint(1, 10) : randint(-10, 10, [0])
           d = this.sup2 ? randint(1, 10) : randint(-10, 10, [0])
+          fracReponse = new FractionEtendue(a, b * d)
           if (randint(1, 2) === 1) {
             texte = `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) $`
             texteCorr = `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) $`
@@ -172,10 +175,10 @@ export default function ExerciceEquations () {
             texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} = ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(d * b)}x $`
             texteCorr += '<br>'
             texteCorr += `$ ${a} = ${rienSi1(d * b)}x $`
-            if (d * b !== 1) texteCorr += `<br>$ ${deprecatedTexFraction(a, d * b)} = x $`
+            if (d * b !== 1) texteCorr += `<br>$ ${fracReponse.texFSD} = x $`
             if ((a < 0 && d * b < 0) || pgcd(a, d * b) !== 1) {
               texteCorr += '<br>'
-              texteCorr += ` $ ${texFractionReduite(a, d * b)} = x $`
+              texteCorr += ` $ ${fracReponse.simplifie().texFSD} = x $`
             }
           } else {
             texte = `$ ${rienSi1(b)}x(${rienSi1(c)}x ${ecritureAlgebrique(d)}) = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)} $`
@@ -184,43 +187,44 @@ export default function ExerciceEquations () {
             texteCorr += `$ ${rienSi1(b * c)}x^2 ${ecritureAlgebriqueSauf1(b * d)}x = ${rienSi1(b * c)}x^2 ${ecritureAlgebrique(a)}$`
             texteCorr += '<br>'
             texteCorr += `$ ${rienSi1(b * d)}x = ${a} $`
-            if (d * b !== 1) texteCorr += `<br>$ x = ${deprecatedTexFraction(a, d * b)}$`
+            if (d * b !== 1) texteCorr += `<br>$ x = ${fracReponse.texFSD}$`
             if ((a < 0 && b * d < 0) || pgcd(a, b * d) !== 1) {
               texteCorr += '<br>'
-              texteCorr += ` $ x = ${texFractionReduite(a, b * d)} $`
+              texteCorr += ` $ x = ${fracReponse.simplifie().texFSD} $`
             }
           }
-          texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(texFractionReduite(a, b * d))}$.`
-          fracReponse = new FractionEtendue(a, b * d)
+          texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
+
           setReponse(this, indiceQ, fracReponse, { formatInteractif: 'fractionEgale' })
           texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution : ` })
-          indiceQ += 1
+          increment = 1
           break
         case '(ax+b)2=0':
           a = this.sup2 ? randint(1, 5) : randint(-5, 5, [0])
           b = this.sup2 ? randint(1, 5) : randint(-5, 5, [0])
+          fracReponse = new FractionEtendue(-b, a)
           texte = `$ (${rienSi1(a)}x ${ecritureAlgebrique(b)})^2 = 0 $`
           texteCorr = `$ (${rienSi1(a)}x ${ecritureAlgebrique(b)})^2 = 0 $`
           texteCorr += '<br>'
           texteCorr += `$ ${rienSi1(a)}x ${ecritureAlgebrique(b)} = 0$`
           texteCorr += '<br>'
           texteCorr += `$ ${rienSi1(a)}x = ${-b} $`
-          if (a !== 1) texteCorr += `<br>$ x = ${deprecatedTexFraction(-b, a)}$`
+          if (a !== 1) texteCorr += `<br>$ x = ${fracReponse.texFSD}$`
           if ((-b < 0 && a < 0) || pgcd(a, b) !== 1) {
             texteCorr += '<br>'
-            texteCorr += ` $ x = ${texFractionReduite(-b, a)} $`
+            texteCorr += ` $ x = ${fracReponse.simplifie().texFSD} $`
           }
-          texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(texFractionReduite(-b, a))}$.`
-          fracReponse = new FractionEtendue(-b, a)
+          texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
           setReponse(this, indiceQ, fracReponse, { formatInteractif: 'fractionEgale' })
           texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution : ` })
-          indiceQ += 1
+          increment = 1
           break
         case '(ax+b)(cx+d)=acx2':
           a = this.sup2 ? randint(1, 5) : randint(-5, 5, [0])
           b = this.sup2 ? randint(1, 5) : randint(-5, 5, [0])
           c = this.sup2 ? randint(1, 5) : randint(-5, 5, [0])
           d = this.sup2 ? randint(1, 5) : randint(-5, 5, [0])
+          fracReponse = new FractionEtendue(-b * d, a * d + b * c)
           texte = `$ (${rienSi1(a)}x ${ecritureAlgebrique(b)})(${rienSi1(c)}x ${ecritureAlgebrique(d)}) = ${rienSi1(a * c)}x^2 $`
           texteCorr = `$ (${rienSi1(a)}x ${ecritureAlgebrique(b)})(${rienSi1(c)}x ${ecritureAlgebrique(d)}) = ${rienSi1(a * c)}x^2 $`
           texteCorr += '<br>'
@@ -232,16 +236,15 @@ export default function ExerciceEquations () {
           texteCorr += '<br>'
           texteCorr += `$ ${rienSi1(a * d + b * c)}x = ${-b * d}$ `
           texteCorr += '<br>'
-          texteCorr += `$ x = ${deprecatedTexFraction(-b * d, a * d + b * c)}$`
+          texteCorr += `$ x = ${fracReponse.texFSD}$`
           if ((-b * d < 0 && a * d + b * c < 0) || pgcd(-b * d, a * d + b * c) !== 1) {
             texteCorr += '<br>'
-            texteCorr += `$ x = ${texFractionReduite(-b * d, a * d + b * c)}$`
+            texteCorr += `$ x = ${fracReponse.simplifie().texFSD}$`
           }
-          texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(texFractionReduite(-b * d, a * d + b * c))}$.`
-          fracReponse = new FractionEtendue(-b * d, a * d + b * c)
+          texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
           setReponse(this, indiceQ, fracReponse, { formatInteractif: 'fractionEgale' })
           texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution : ` })
-          indiceQ += 1
+          increment = 1
           break
       }
 
@@ -249,6 +252,7 @@ export default function ExerciceEquations () {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        indiceQ += increment
         i++
       }
       cpt++
@@ -269,11 +273,12 @@ function ax2plusbx (a, b) {
   texteCorr += '<br>'
   texteCorr += `$ \\phantom{x = 0 \\text{ \\quad ou \\quad }} ${rienSi1(a)} x = ${-b} $ `
   texteCorr += '<br>'
-  texteCorr += `$ \\phantom{x = 0 \\text{ \\quad ou \\quad }}  x = ${deprecatedTexFraction(-b, a)} `
+  const frac = new FractionEtendue(-b, a)
+  texteCorr += `$ \\phantom{x = 0 \\text{ \\quad ou \\quad }}  x = ${frac.texFSD} `
   if ((b > 0 && a < 0) || pgcd(a, b) !== 1) {
-    texteCorr += ` = ${texFractionReduite(-b, a)} `
+    texteCorr += ` = ${frac.simplifie().texFSD} `
   }
   texteCorr += '$'
-  texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(0)}$ et $${miseEnEvidence(texFractionReduite(-b, a))}$.`
+  texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(0)}$ et $${miseEnEvidence(frac.simplifie().texFSD)}$.`
   return [texte, texteCorr]
 }

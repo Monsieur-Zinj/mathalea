@@ -3,7 +3,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Stabilisation des fréquences'
 
@@ -73,7 +73,7 @@ export default function StabilisationFrequence () {
             S1 += parseInt(tabEff[i])
           }
           for (let i = 0; i < nbFaces; i++) {
-            tabRes[i] = [i, calcul(tabEff[i] / S1)]
+            tabRes[i] = [i, calculANePlusJamaisUtiliser(tabEff[i] / S1)]
           }
           texteCorr += 'Le dé est équilibré, donc c\'est une situation d\'équiprobabilité. Chaque face du dé a une probabilité égale à '
           switch (nbFaces) {
@@ -114,7 +114,7 @@ export default function StabilisationFrequence () {
             S1 += parseInt(tabEff[i])
           }
           for (let i = 0; i < nbFaces; i++) {
-            tabRes[i] = [i, calcul(tabEff[i] / S1)]
+            tabRes[i] = [i, calculANePlusJamaisUtiliser(tabEff[i] / S1)]
           }
           texteCorr += 'Le dé est équilibré, donc c\'est une situation d\'équiprobabilité. Chaque face du dé a une probabilité égale à '
           switch (nbFaces) {
@@ -148,7 +148,7 @@ export default function StabilisationFrequence () {
           tabEff = [randint(2, 9), randint(2, 9), randint(2, 9), randint(2, 9)]
           S1 = tabEff.reduce((a, b) => a + b, 0)
           for (let i = 0; i < 4; i++) {
-            tabProba[i] = [tabcoul[i], calcul(tabEff[i] / S1)]
+            tabProba[i] = [tabcoul[i], calculANePlusJamaisUtiliser(tabEff[i] / S1)]
           }
 
           texte += 'Dans une urne opaque, il y a '
@@ -161,7 +161,7 @@ export default function StabilisationFrequence () {
           tabEffModif = tabEff.map(x => x * (1 + randint(-50, 50) / 1000)) // on modifie très légèrement le tirage max 5%
           S2 = tabEff.reduce((a, b) => a + b, 0)
           for (let i = 0; i < 4; i++) {
-            tabRes[i] = [tabcoul[i], calcul(tabEffModif[i] / S2)]
+            tabRes[i] = [tabcoul[i], calculANePlusJamaisUtiliser(tabEffModif[i] / S2)]
           }
           titreligne = 'Couleur des boules' // pour remplir le tableau
           tabtitrecolonne = tabcoul
@@ -199,7 +199,7 @@ export default function StabilisationFrequence () {
           tabEff = [randint(2, 9), randint(2, 9), randint(2, 9), randint(2, 9)]
           S1 = tabEff.reduce((a, b) => a + b, 0)
           for (let i = 0; i < 4; i++) {
-            tabProba[i] = [tabcoul[i], calcul(tabEff[i] / S1)]
+            tabProba[i] = [tabcoul[i], calculANePlusJamaisUtiliser(tabEff[i] / S1)]
           }
           texte += 'Dans une urne opaque, il y a '
           for (let i = 0; i < 3; i++) {
@@ -212,7 +212,7 @@ export default function StabilisationFrequence () {
           tabEffModif[face] = 1.75 * tabEff[face] // on augmente de 75% l'effectif d'une couleur
           S2 = tabEffModif.reduce((a, b) => a + b, 0)
           for (let i = 0; i < 4; i++) {
-            tabRes[i] = [tabcoul[i], calcul(tabEffModif[i] / S2)]
+            tabRes[i] = [tabcoul[i], calculANePlusJamaisUtiliser(tabEffModif[i] / S2)]
           }
           // CORRECTION :
           titreligne = 'Couleur des boules' // pour remplir le tableau

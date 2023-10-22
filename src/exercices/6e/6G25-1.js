@@ -1,4 +1,4 @@
-import { droite } from '../../lib/2d/droites.js'
+import { droite, droiteAvecNomLatex } from '../../lib/2d/droites.js'
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
@@ -356,6 +356,7 @@ export default function SymetrieAxialePavageTriangulaire () {
     let M
     let N
     const d = []
+    const dLatex = []
     const question = []
     let choix
     for (let i = 0; i < this.nbQuestions; i++) {
@@ -366,21 +367,21 @@ export default function SymetrieAxialePavageTriangulaire () {
         case 3: // axe parallèle à [BC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].tri.listePoints[0]
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].tri.listePoints[0]
-          d[i] = droite(M, N, `$(d_${i + 1})$`, couleurs[i])
-          d[i].epaisseur = 3
-          d[i].opacite = 0.6
           break
         case 1: // axe vertical
         case 4: // axe perpendiculaire à [BC]
         case 5: // axe perpendiculaire à [AC]
           M = triAngles[axes[listeTypesDeQuestions[i]][choix][0]].gra
           N = triAngles[axes[listeTypesDeQuestions[i]][choix][1]].gra
-          d[i] = droite(M, N, `$(d_${i + 1})$`, couleurs[i])
-          d[i].epaisseur = 3
-          d[i].opacite = 0.6
+          d[i] = droite(M, N, '', couleurs[i])
           break
       }
-      objetsEnonce.push(d[i])
+      d[i] = droite(M, N, '', couleurs[i])
+      dLatex[i] = droiteAvecNomLatex(d[i], `(d_${i + 1})`)
+      dLatex[i].epaisseur = 3
+      dLatex[i].opacite = 0.6
+
+      objetsEnonce.push(dLatex[i])
       // ici on choisit les figures et on crée les questions
       question[i] = choisitTriangle(listeTypesDeQuestions[i], choix)
       triAngles[question[i].antecedent].tri.couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
@@ -388,8 +389,8 @@ export default function SymetrieAxialePavageTriangulaire () {
     }
     this.introduction = mathalea2d(paramsEnonce, objetsEnonce)
     for (let i = 0; i < this.nbQuestions; i++) {
-      texte = `${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + d[i].nom + ' ?', couleurs[i])}`
-      texteCorr = `${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + d[i].nom + ' est la figure ' + question[i].image + '.', couleurs[i])}`
+      texte = `${texteEnCouleur("Quelle est l'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + `$${dLatex[i][1].texte}$` + ' ?', couleurs[i])}`
+      texteCorr = `${texteEnCouleur("L'image de la figure " + question[i].antecedent + " par la symétrie axiale d'axe " + `$${dLatex[i][1].texte}$` + ' est la figure ' + question[i].image + '.', couleurs[i])}`
       if (context.isAmc) {
         if (i === 0) {
           this.autoCorrection[0] = {

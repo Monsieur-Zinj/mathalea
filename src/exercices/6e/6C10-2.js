@@ -3,7 +3,7 @@ import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -34,7 +34,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
-    this.interactifType = parseInt(this.sup2) === 2 ? 'mathLive' : 'qcm'
+    this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -117,22 +117,22 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
           feedback: 'Correct !'
         },
         {
-          texte: `$${texNombre2(calcul(a * b / 10))}$`,
+          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b / 10))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calcul(a * b * 10))}$`,
+          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b * 10))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calcul(a * b / 100))}$`,
+          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b / 100))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calcul(a * b * 100))}$`,
+          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b * 100))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         }

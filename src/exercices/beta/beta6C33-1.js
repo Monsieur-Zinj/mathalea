@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 export const titre = 'Parenthèses manquantes'
 
 /**
@@ -31,11 +31,11 @@ export default function Priorites () {
       f = randint(1, 4)
       l = randint(1, 4)
       g = randint(2, 3)
-      k = calcul(f * e)
-      c = calcul(m * e)
-      a = calcul(n * c)
-      b = calcul(k * c)
-      d = calcul(c * e * l)
+      k = calculANePlusJamaisUtiliser(f * e)
+      c = calculANePlusJamaisUtiliser(m * e)
+      a = calculANePlusJamaisUtiliser(n * c)
+      b = calculANePlusJamaisUtiliser(k * c)
+      d = calculANePlusJamaisUtiliser(c * e * l)
       prevchoice = []
       texte = ''
       texteCorr = ''
@@ -44,32 +44,32 @@ export default function Priorites () {
         prevchoice.push(choice)
         switch (choice) {
           case 0:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + (d / e + f) * g)} $ <br> `
-            texteCorr += `$${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + (d / e + f) * g)} $<br>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser(a + b / c + (d / e + f) * g)} $ <br> `
+            texteCorr += `$${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser(a + b / c + (d / e + f) * g)} $<br>`
             break
           case 1:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b) / c + d / e + f * g)}  $<br>`
-            texteCorr += `$ (${a} + ${b}) \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b) / c + d / e + f * g)} $<br>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser((a + b) / c + d / e + f * g)}  $<br>`
+            texteCorr += `$ (${a} + ${b}) \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser((a + b) / c + d / e + f * g)} $<br>`
             break
           case 2:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b / c + d / e + f) * g)} $<br>`
-            texteCorr += `$ ( ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} ) \\times ${g} = ${calcul((a + b / c + d / e + f) * g)} $<br>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser((a + b / c + d / e + f) * g)} $<br>`
+            texteCorr += `$ ( ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} ) \\times ${g} = ${calculANePlusJamaisUtiliser((a + b / c + d / e + f) * g)} $<br>`
             break
           case 3:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul((a + b / c + d) / e + f * g)} $<br>`
-            texteCorr += `$ (${a} + ${b} \\div ${c} + ${d}) \\div ${e} + ${f} \\times ${g} = ${calcul((a + b / c + d) / e + f * g)} $<br>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser((a + b / c + d) / e + f * g)} $<br>`
+            texteCorr += `$ (${a} + ${b} \\div ${c} + ${d}) \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser((a + b / c + d) / e + f * g)} $<br>`
             break
           case 4:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(((a + b) / c + d / e + f) * g)} $<br>`
-            texteCorr += `$ ((${a} + ${b}) \\div ${c} + ${d} \\div ${e} + ${f}) \\times ${g} = ${calcul(((a + b) / c + d / e + f) * g)} $<br>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser(((a + b) / c + d / e + f) * g)} $<br>`
+            texteCorr += `$ ((${a} + ${b}) \\div ${c} + ${d} \\div ${e} + ${f}) \\times ${g} = ${calculANePlusJamaisUtiliser(((a + b) / c + d / e + f) * g)} $<br>`
             break
           case 5:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + (b / c + d) / e + f * g)} $<br>`
-            texteCorr += `$ ${a} + ( ${b} \\div ${c} + ${d} ) \\div ${e} + ${f} \\times ${g} = ${calcul(a + (b / c + d) / e + f * g)} $<br>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser(a + (b / c + d) / e + f * g)} $<br>`
+            texteCorr += `$ ${a} + ( ${b} \\div ${c} + ${d} ) \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser(a + (b / c + d) / e + f * g)} $<br>`
             break
           case 6:
-            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + d / e + f * g)} $ <br> `
-            texteCorr += `$${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calcul(a + b / c + d / e + f * g)} $<br>`
+            texte += `$ ${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser(a + b / c + d / e + f * g)} $ <br> `
+            texteCorr += `$${a} + ${b} \\div ${c} + ${d} \\div ${e} + ${f} \\times ${g} = ${calculANePlusJamaisUtiliser(a + b / c + d / e + f * g)} $<br>`
             break
         }
       }

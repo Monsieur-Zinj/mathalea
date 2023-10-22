@@ -47,8 +47,8 @@ export function nombreDecimal (expression, arrondir = false) {
  * @param {number} precision
  */
 export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul = 'black', precision) {
-  if (typeof nombre === 'string'){
-    window.notify(`texNombreCouleur appelé avec un string à la place d'un nombre`,{nombre})
+  if (typeof nombre === 'string') {
+    window.notify('texNombreCouleur appelé avec un string à la place d\'un nombre', { nombre })
   }
   if (nombre > 0) return miseEnEvidence(texNombre(nombre, precision), positif)
   else if (nombre < 0) return miseEnEvidence(texNombre(nombre, precision), negatif)
@@ -78,8 +78,8 @@ export function numberFormat (nb) {
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
 export function texNombre (nb, precision, completerZeros = false, aussiCompleterEntiers = false) {
-  if (typeof nb === 'string'){
-    window.notify(`texNombre appelé avec un string à la place d'un nombre`,{nombre: nb})
+  if (typeof nb === 'string') {
+    window.notify('texNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
   }
   const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')
@@ -90,8 +90,8 @@ export function texNombre (nb, precision, completerZeros = false, aussiCompleter
  * @author Rémi Angot
  */
 export function texNombre2 (nb) {
-  if (typeof nb === 'string'){
-    window.notify(`texNombre2 appelé avec un string à la place d'un nombre`,{nombre: nb})
+  if (typeof nb === 'string') {
+    window.notify('texNombre2 appelé avec un string à la place d\'un nombre', { nombre: nb })
   }
   let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
@@ -129,8 +129,8 @@ export function texNombre2 (nb) {
  * Rajout Octobre 2021 pour 6C14
  */
 export function texNombre3 (nb) {
-  if (typeof nb === 'string'){
-    window.notify(`texNombre3 appelé avec un string à la place d'un nombre`,{nombre:nb})
+  if (typeof nb === 'string') {
+    window.notify('texNombre3 appelé avec un string à la place d\'un nombre', { nombre: nb })
   }
   let nombre = math.format(nb, { notation: 'auto', lowerExp: -12, upperExp: 12, precision: 12 }).replace('.', ',')
   const rangVirgule = nombre.indexOf(',')
@@ -205,13 +205,13 @@ export function scientifiqueToDecimal (mantisse, exp) {
  * @author Guillaume Valmont
  * @param {number|Decimal} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
- * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
- * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
+ * @param {boolean?} completerZeros=false si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
+ * @param {boolean?} aussiCompleterEntiers=false si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
 export function stringNombre (nb, precision, completerZeros = false, aussiCompleterEntiers = false) {
-  if (typeof nb === 'string'){
-    window.notify(`stringNombre appelé avec un string à la place d'un nombre`,{nombre:nb})
+  if (typeof nb === 'string') {
+    window.notify('stringNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
   }
   return afficherNombre(nb, precision, 'stringNombre', completerZeros, aussiCompleterEntiers)
 }
@@ -348,11 +348,10 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
   // eh oui, il y a eu des appels à texNombre() avec des FractionEtendue... alors que c'est pas fait pour ça.
   if (!(nb instanceof Decimal) && typeof nb !== 'number') {
     if (nb instanceof FractionEtendue) {
-      window.notify('afficherNombre appelé avec une FractionEtendue, donc utilisation de sa valeurDecimale !', { Nombre: nb.texFSD })
-      nb = nb.valeurDecimale
+      nb = nb.toNumber()
     } else if (typeof nb === 'string') {
       const nbFormatAnglais = nb.replaceAll(',', '.') ?? ''
-      if (nb!== ''){
+      if (nb !== '') {
         nb = new Decimal(nbFormatAnglais)
       } else {
         window.notify(`TrouveLaPrecision : problème avec ce nombre : ${nb}`)

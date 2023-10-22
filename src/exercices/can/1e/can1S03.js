@@ -6,7 +6,7 @@ import { arcenciel } from '../../../lib/format/style.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { signe } from '../../../lib/outils/nombres.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite récurrente*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -93,7 +93,7 @@ export default function CalculTermeSuiteRec2 () {
         n1 = fraction1[0]
         d1 = fraction1[1]
         a = randint(1, 2) * choice([-1, 1])
-        u = calcul(a * d1 * d1)
+        u = calculANePlusJamaisUtiliser(a * d1 * d1)
         this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${deprecatedTexFraction(n1, d1)}u_n $.`
 
         if (!this.interactif) {

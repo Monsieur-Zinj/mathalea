@@ -286,7 +286,6 @@ export default function Solide6e () {
       }
 
       texte += mathalea2d(params, objetsEnonce)
-      // codesseg = typesDeQuestionsDisponibles === 1 ? vide2d : [codageSegments('||', 'green', [A, B, C, D, A, E, F, G, H, E]), codageSegments('||', 'green', B, F, C, G, D, H)]
       switch (listeDeProblemes[i]) {
         case 1 :
           switch (k) {

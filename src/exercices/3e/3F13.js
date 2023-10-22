@@ -13,7 +13,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Lire les antécédents d\'un nombre à partir d\'un graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModificationImportante = '23/09/2023'
+export const dateDeModifImportante = '23/09/2023'
 /**
  * Un graphique étant tracé, déterminer les antécédents de nombres donnés.
  * La fonction est un polynôme de degré 1, 2 ou 3 et les nombres des questions ne sont que des entiers.

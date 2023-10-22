@@ -3,7 +3,7 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -60,32 +60,32 @@ export default function PourcentageDunNombre () {
       texte = `$${p}~\\%~\\text{de }${n}$`
       switch (p) {
         case 50 :
-          texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2} = ${texNombre(calcul(n / 2))}$` // calcul de n/2 si p = 50%
+          texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${2} = ${texNombre(calculANePlusJamaisUtiliser(n / 2))}$` // calcul de n/2 si p = 50%
           break
         case 25 :
-          texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${4} = ${texNombre(calcul(n / 4))}$` // calcul de n/4 si p = 25%
+          texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${4} = ${texNombre(calculANePlusJamaisUtiliser(n / 4))}$` // calcul de n/4 si p = 25%
           break
         default :
-          texteCorr = `$${p}~\\%~\\text{de }${n}=${deprecatedTexFraction(p, 100)}\\times${n}=(${p}\\times${n})\\div100=${texNombre(p * n)}\\div100=${texNombre(calcul((p * n) / 100))}$`
+          texteCorr = `$${p}~\\%~\\text{de }${n}=${deprecatedTexFraction(p, 100)}\\times${n}=(${p}\\times${n})\\div100=${texNombre(p * n)}\\div100=${texNombre(calculANePlusJamaisUtiliser((p * n) / 100))}$`
           if (this.sup2) {
-            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${deprecatedTexFraction(p, 100)}\\times${n}=(${n}\\div100)\\times${p}=${texNombre(calcul(n / 100))}\\times${p}=${texNombre(calcul((p * n) / 100))}$`
-            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${deprecatedTexFraction(p, 100)}\\times${n}=${texNombre(calcul(p / 100))}\\times${n}=${texNombre(calcul((p * n) / 100))}$`
+            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${deprecatedTexFraction(p, 100)}\\times${n}=(${n}\\div100)\\times${p}=${texNombre(calculANePlusJamaisUtiliser(n / 100))}\\times${p}=${texNombre(calculANePlusJamaisUtiliser((p * n) / 100))}$`
+            texteCorr += `<br>$${p}~\\%~\\text{de }${n}=${deprecatedTexFraction(p, 100)}\\times${n}=${texNombre(calculANePlusJamaisUtiliser(p / 100))}\\times${n}=${texNombre(calculANePlusJamaisUtiliser((p * n) / 100))}$`
             if (p === 60) {
               texteCorr += `<br>$${p}~\\%~\\text{de }${n}$, c'est $50~\\%~\\text{de }${n}$
 plus $10 ~\\%~\\text{de }${n} $ soit la moitié de $ ${n} \\text{ plus } 10 ~\\%~\\text{de }${n} $ :
-$${p}~\\%~\\text{de }${n}=${n}\\div${2} + ${n}\\div${10} =  ${texNombre(calcul(n * 0.6))}$`
+$${p}~\\%~\\text{de }${n}=${n}\\div${2} + ${n}\\div${10} =  ${texNombre(calculANePlusJamaisUtiliser(n * 0.6))}$`
             } else if (p === 90) {
               texteCorr += `<br>$${p}~\\%~\\text{de }${n}$, c'est $${n}$
 moins $10 ~\\%~\\text{de }${n} $ :
-$${p}~\\%~\\text{de }${n}=${n} - ${n}\\div${10} =  ${texNombre(calcul(n * 0.9))}$`
+$${p}~\\%~\\text{de }${n}=${n} - ${n}\\div${10} =  ${texNombre(calculANePlusJamaisUtiliser(n * 0.9))}$`
             } else if (p > 10) {
-              texteCorr += `<br>$${p}~\\%~\\text{de }${n}$, c'est $ ${calcul(p / 10)} $ fois $ 10 ~\\%~\\text{de }${n} $ :
-$${p}~\\%~\\text{de }${n}= ${calcul(p / 10)} \\times ${n}\\div${10} =  ${texNombre(calcul((p * n) / 100))}$`
+              texteCorr += `<br>$${p}~\\%~\\text{de }${n}$, c'est $ ${calculANePlusJamaisUtiliser(p / 10)} $ fois $ 10 ~\\%~\\text{de }${n} $ :
+$${p}~\\%~\\text{de }${n}= ${calculANePlusJamaisUtiliser(p / 10)} \\times ${n}\\div${10} =  ${texNombre(calculANePlusJamaisUtiliser((p * n) / 100))}$`
             }
           }
       }
       if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
-      setReponse(this, i, calcul(n * p / 100))
+      setReponse(this, i, calculANePlusJamaisUtiliser(n * p / 100))
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte + '='
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

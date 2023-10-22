@@ -12,34 +12,35 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 
 export const dateDePublication = '21/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '12/09/2023'
+export const dateDeModifImportante = '24/09/2023'
 /**
  * Passer d'un produit à la notation puissance et inversement
  * @author Guillaume Valmont
- * Référence 4C33-0
  */
 export const uuid = '1d078'
 export const ref = '4C33-0'
 export default function NotationPuissance () {
   Exercice.call(this)
   this.nbQuestions = 4
-
   this.besoinFormulaireNumerique = ['Type de calcul', 3, '1 : Écrire sous forme de produit\n2 : Écrire sous forme de puissance\n3 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
   this.sup = 1
   this.besoinFormulaire2Numerique = ['Mantisse', 3, '1 : Positive\n2 : Négative\n3 : Mélange']
   this.sup2 = 3
-  this.besoinFormulaire3Numerique = ['Exposant', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
+  this.besoinFormulaire3Numerique = false
   this.sup3 = 1
-  this.classe = 3
+  this.besoinFormulaire4Numerique = ['Signe devant la mantisse', 3, '1 : Positif\n2 : Négatif\n3 : Mélange']
+  this.sup4 = 3
+  this.classe = 4
 
   this.nouvelleVersion = function () {
+    this.titre = titre  
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     let listeTypeDeQuestions
     switch (this.sup) {
       case 1:
-        this.consigne = 'Donner la signification des écritures suivantes.'
+        this.consigne = 'Donner la signification des écritures suivantes. Aucun calcul n\'est nécessaire.'
         listeTypeDeQuestions = ['produit']
         break
       case 2:
@@ -65,7 +66,7 @@ export default function NotationPuissance () {
         break
     }
     listeSignesExposants = combinaisonListes(listeSignesExposants, this.nbQuestions)
-    const listeSignes = combinaisonListes(['', '-'], this.nbQuestions)
+    const listeSignes = combinaisonListes(this.sup4 === 1 ? [''] : this.sup4 === 2 ? ['-'] :  ['', '-'], this.nbQuestions)
     let listeSignesMantisse = combinaisonListes(['', '-'], this.nbQuestions)
     switch (this.sup2) {
       case 1:
@@ -86,7 +87,7 @@ export default function NotationPuissance () {
       if (listeTypeDeQuestions[i] === 'puissance') {
         exposant = randint(2, 8)
       } else {
-        exposant = randint(this.classe === 3 ? 2 : 0, 5)
+        exposant = randint(this.classe > 2 ? 2 : 0, 5)
       }
       if (mantisse < 0) {
         pl = '('
@@ -164,6 +165,8 @@ export default function NotationPuissance () {
       texte += this.interactif ? ' $ = $' + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) : ''
 
       if (context.isAmc) {
+        if (this.sup !== 3) this.titre = this.consigne
+        this.autoCorrection[i].enonce = this.sup === 3 ? texte +' $=\\ldots$<br>' : ('Compléter : '+texte+' $=\\ldots$')
         this.autoCorrection[i].propositions = [{ statut: 1, sanscadre: true, texte: texteCorr }]
       }
       // Si la question n'mantisse jamais été posée, on l'enregistre

@@ -25,7 +25,6 @@ export default function ArrondirUneValeur () {
   this.titre = titre
 
   this.nbQuestions = 3
-  this.nbCols = 2 // Valeur différente de 3 car sinon en Latex, 3 colonnes, c'est trop
   this.nbColsCorr = 1
   this.version = 1
   this.interactifType = interactifType

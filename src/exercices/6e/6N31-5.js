@@ -4,7 +4,7 @@ import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calcul, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -78,9 +78,9 @@ export default function EncadrerUnDecimal () {
 
       switch (typesDeQuestions) {
         case 3: { // encadrement au centième
-          reponseMin = m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01)
+          reponseMin = m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01)
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
-          texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au centième.<br>`
+          texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au centième.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore') + '$'
           } else if (context.isAmc) {
@@ -89,8 +89,8 @@ export default function EncadrerUnDecimal () {
             texte += '$ \\ldots\\ldots\\ldots '
           }
           indexQ++
-          texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
-          reponseMax = m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + (ci + 1) * 0.01)
+          texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
+          reponseMax = m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + (ci + 1) * 0.01)
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
             texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore')
@@ -100,14 +100,14 @@ export default function EncadrerUnDecimal () {
             texte += ' \\ldots\\ldots\\ldots $'
           }
           indexQ++
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + 0 * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(ci))
-          texteCorr = `au centième: $ ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01)))} < ${nombreStr} <  ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + (ci + 1) * 0.01)))}$`
+          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + 0 * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(ci))
+          texteCorr = `au centième: $ ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01)))} < ${nombreStr} <  ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + (ci + 1) * 0.01)))}$`
           break
         }
         case 2: { // encadrement au dixième
-          reponseMin = m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1)
+          reponseMin = m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1)
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
-          texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au dixième.<br>`
+          texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au dixième.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore') + '$'
           } else if (context.isAmc) {
@@ -116,8 +116,8 @@ export default function EncadrerUnDecimal () {
             texte += '$ \\ldots\\ldots\\ldots '
           }
           indexQ++
-          texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
-          reponseMax = m * 1000 + c * 100 + d * 10 + u * 1 + calcul((di + 1) * 0.1)
+          texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
+          reponseMax = m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser((di + 1) * 0.1)
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
             texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore')
@@ -127,14 +127,14 @@ export default function EncadrerUnDecimal () {
             texte += '\\ldots\\ldots\\ldots $ '
           }
           indexQ++
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(0 * 0.1 + ci * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(di))
-          texteCorr = `au dixième: $ ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1)))} < ${nombreStr} <  ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul((di + 1) * 0.1)))}$`
+          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(0 * 0.1 + ci * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(di))
+          texteCorr = `au dixième: $ ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1)))} < ${nombreStr} <  ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser((di + 1) * 0.1)))}$`
           break
         }
         case 1: { // encadrement à l'unité
           reponseMin = m * 1000 + c * 100 + d * 10 + u * 1
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
-          texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))}$ à l'unité.<br>`
+          texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ à l'unité.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore') + '$'
           } else if (context.isAmc) {
@@ -143,7 +143,7 @@ export default function EncadrerUnDecimal () {
             texte += '$ \\ldots\\ldots\\ldots '
           }
           indexQ++
-          texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
+          texte += ` < ${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))} < `
           reponseMax = m * 1000 + c * 100 + d * 10 + (u + 1) * 1
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
@@ -154,7 +154,7 @@ export default function EncadrerUnDecimal () {
             texte += '\\ldots\\ldots\\ldots $ '
           }
           indexQ++
-          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 0 + calcul(di * 0.1 + ci * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(u))
+          const nombreStr = texNombre(m * 1000 + c * 100 + d * 10 + u * 0 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001)).replace('0', miseEnEvidence(u))
           texteCorr = `à l'unité: $ ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + u * 1))} < ${nombreStr} <  ${miseEnEvidence(texNombre(m * 1000 + c * 100 + d * 10 + (u + 1) * 1))}$`
           break
         }

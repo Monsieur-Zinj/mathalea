@@ -4,7 +4,7 @@ import { scratchblock } from '../../../modules/scratchblock.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
-import { calcul, listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
@@ -35,7 +35,7 @@ export default function RepetitionScratch () {
     let prog = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n \\blockinit{quand \\greenflag est cliqué}\n '
     prog += "\\blockpen{stylo en position d'écriture}\n"
     const b = choice([[120, 'triangle équilatéral'], [90, 'carré'], [72, 'pentagone régulier'], [60, 'hexagone régulier'], [45, 'octogone régulier'], [40, 'énéagone régulier'], [36, 'décagone régulier']])
-    const nbRep = calcul(360 / b[0])
+    const nbRep = calculANePlusJamaisUtiliser(360 / b[0])
     const angleRot = b[0]
     switch (randint(1, 3)) {
       case 1: // trouver l'angle de rotation
@@ -48,7 +48,7 @@ export default function RepetitionScratch () {
         prog += '\\end{scratch}'
         setReponse(this, 0, angleRot)
         this.listeQuestions[0] = `${scratchblock(prog)}<br>Quel nombre doit-on écrire à la place des pointillés pour tracer un ${b[1]} ?` + ajouteChampTexteMathLive(this, 0, 'largeur15 inline')
-        this.listeCorrections[0] = `Un ${b[1]} a des anlges de $${calcul(180 - angleRot)}\\degree$. Le lutin doit tourner de $180-${calcul(180 - angleRot)}=${angleRot}\\degree$ après avoir tracé un côté.<br>`
+        this.listeCorrections[0] = `Un ${b[1]} a des anlges de $${calculANePlusJamaisUtiliser(180 - angleRot)}\\degree$. Le lutin doit tourner de $180-${calculANePlusJamaisUtiliser(180 - angleRot)}=${angleRot}\\degree$ après avoir tracé un côté.<br>`
         this.listeCorrections[0] += texteEnCouleur(`Mentalement on divise $360$ par $${nbRep}$ : $\\dfrac{360}{${nbRep}}=${angleRot}$.`)
         break
       case 2: // trouver le nombre de répétition

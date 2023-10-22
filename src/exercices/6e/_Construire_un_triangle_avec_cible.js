@@ -20,7 +20,7 @@ import { creerNomDePolygone, lettreDepuisChiffre } from '../../lib/outils/outilS
 import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calcul } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
 
@@ -71,9 +71,9 @@ export default function ConstruireUnTriangleAvecCible () {
       switch (listeTypeDeQuestions[i]) {
         case 1: // triangle quelconque par ses trois longueurs
           lAC = randint(35, 45)
-          lBC = calcul(randint(35, 45, lAC) / 10)
-          lAB = calcul(randint(46, 60) / 10)
-          lAC = calcul(lAC / 10)
+          lBC = calculANePlusJamaisUtiliser(randint(35, 45, lAC) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
+          lAC = calculANePlusJamaisUtiliser(lAC / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
@@ -96,7 +96,7 @@ export default function ConstruireUnTriangleAvecCible () {
           break
         case 2: // triangle ABC rectangle en B dont on connaît AB et BC
           lBC = randint(70, 80) / 10
-          lAB = calcul(randint(46, 60) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           B.positionLabel = 'right'
           cB = cercle(B, lBC)
@@ -120,8 +120,8 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.triangleRectangle2Cotes(nom, lAB, lBC, true)
           break
         case 3: // triangle ABC isocèle en A
-          lBC = calcul(randint(35, 45) / 10)
-          lAB = calcul(randint(46, 60) / 10)
+          lBC = calculANePlusJamaisUtiliser(randint(35, 45) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
           lAC = lAB
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           B.positionLabel = 'right'
@@ -146,7 +146,7 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.segmentCodage(montriangle[0], montriangle[2], { codage: '\\\\' })
           break
         case 4: // triangle ABC recatangle isocèle en B
-          lAB = calcul(randint(46, 60) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
           lBC = lAB
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           B.positionLabel = 'right'
@@ -172,7 +172,7 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.segmentCodage(montriangle[1], montriangle[2], { codage: '\\\\' })
           break
         case 5: // triangle équilatéral
-          lAB = calcul(randint(46, 60) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
           lAC = lAB
           lBC = lAB
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
@@ -196,7 +196,7 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.triangleEquilateral(nom, lAB, true)
           break
         case 6: // triangle ABC dont on connaît AB et AC et l'angle BAC
-          lAB = calcul(randint(46, 60) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
           lAC = randint(40, 60) / 10
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1], 'right')
           C = similitude(B, A, randint(8, 24) * 5, lAC / lAB, sommets[2], 'above')
@@ -215,7 +215,7 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.triangle2longueurs1angle(nom, lAB, lAC, Math.round(angle(B, A, C)), true)
           break
         case 7: // triangle ABC dont on connait AB et les deux angles adjacents
-          lAB = calcul(randint(46, 60) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           B.positionLabel = 'right'
           dAB = droite(A, B)
@@ -239,7 +239,7 @@ export default function ConstruireUnTriangleAvecCible () {
           break
         case 8: // triangle ABC rectangle en B dont on connaît AB et l'hypoténuse AC
           lAC = randint(70, 80) / 10
-          lAB = calcul(randint(46, 60) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           B.positionLabel = 'right'
           cA = cercle(A, lAC)
@@ -262,7 +262,7 @@ export default function ConstruireUnTriangleAvecCible () {
           IEP.triangleRectangleCoteHypotenuse(nom, lAB, lAC, true)
           break
         case 9: // triangle ABC dont ont connais AB un angle adjacent et l'angle opposé
-          lAB = calcul(randint(46, 60) / 10)
+          lAB = calculANePlusJamaisUtiliser(randint(46, 60) / 10)
           B = pointAdistance(A, lAB, randint(-45, 45), sommets[1])
           B.positionLabel = 'right'
           dAB = droite(A, B)

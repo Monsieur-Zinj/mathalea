@@ -153,8 +153,8 @@ export function Point (arg1, arg2, arg3, positionLabel = 'above') {
  * Crée un objet Point ayant les propriétés suivantes :
  * @param {number} x abscisse
  * @param {number} y ordonnée
- * @param {string} A son nom qui apparaîtra
- * @param {string} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @param {string?} A son nom qui apparaîtra
+ * @param {string?} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
  * @return {Point}
  */
 export function point (x, y, A, positionLabel = 'above') {
@@ -561,7 +561,7 @@ export function pointSurDroite (d, x, nom, positionLabel = 'above') {
 export function pointIntersectionDD (d, f, nom = '', positionLabel = 'above') {
   let x, y
   if (egal(f.a * d.b - f.b * d.a, 0, 0.000001)) {
-    // Les droites sont parallèles, pas de point d'intersection
+    // Les droites sont parallèles ou confondues, pas de point d'intersection ou une infinité
     return false
   } else {
     y = (f.c * d.a - d.c * f.a) / (f.a * d.b - f.b * d.a)

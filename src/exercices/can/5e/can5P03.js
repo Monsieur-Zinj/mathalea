@@ -3,7 +3,7 @@ import { texPrix } from '../../../lib/format/style.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { context } from '../../../modules/context.js'
-import { calcul, randint } from '../../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -37,10 +37,10 @@ export default function PoucentageP2 () {
     switch (choice([1, 2, 3, 4, 5])) { //
       case 1:// proportionnalité avec fruits
         a = randint(0, 7) // index du fruit
-        b = calcul(fruits[a][1] + choice([-1, 1]))// prix au kg
+        b = calculANePlusJamaisUtiliser(fruits[a][1] + choice([-1, 1]))// prix au kg
         c = randint(2, 8) // nombre de kg première valeur
         d = randint(3, 6, c) // nombre de kg supplémentaires
-        this.reponse = calcul(d * b)
+        this.reponse = calculANePlusJamaisUtiliser(d * b)
         this.question = `$${c}$ kg de ${fruits[a][0]} coûtent $${texPrix(c * b)}$ €.<br>
         
         $${c + d}$ kg de ces mêmes ${fruits[a][0]} coûtent $${texPrix((c + d) * b)}$ €.<br>
@@ -56,7 +56,7 @@ export default function PoucentageP2 () {
         b = choice([10, 20, 30])
         c = choice([150, 250, 300, 350])
 
-        this.reponse = calcul((c / a) * b)
+        this.reponse = calculANePlusJamaisUtiliser((c / a) * b)
         this.question = `Le débit d’un robinet est de $${a}$ L en $${b}$ min.<br>
         
         Combien de temps (en minutes) faut-il pour remplir un réservoir de $${c}$ L ?`
@@ -71,7 +71,7 @@ export default function PoucentageP2 () {
         u = randint(2, 5)
         n = randint(3, 6)
         a = randint(2, 6)
-        this.reponse = calcul(n * u * a)
+        this.reponse = calculANePlusJamaisUtiliser(n * u * a)
         this.question = `$${a}$ ${plat[c]} coûtent $${u * a}$ €, combien coûtent $${n * a}$ ${plat[c]} ?`
         this.correction = `$${n * a}$ ${plat[c]} coûtent $${u}\\times ${n * a}$ €, soit $${this.reponse}$ €.`
         if (this.interactif) { this.optionsChampTexte = { texteApres: '€' } }
@@ -86,7 +86,7 @@ export default function PoucentageP2 () {
           c = a * n
           b = randint(2, 5, a) * n
           c = a * n
-          this.reponse = calcul(b / n)
+          this.reponse = calculANePlusJamaisUtiliser(b / n)
           this.question = 'Déterminer la valeur qui manque dans ce tableau de proportionnalité : <br>'
           this.question += context.isHtml ? '' : '\\renewcommand{\\arraystretch}{1}'
           this.question += `$\\begin{array}{|l|c|}
@@ -97,7 +97,7 @@ export default function PoucentageP2 () {
          \\hline
         \\end{array}$`
 
-          this.correction = `On passe de la première ligne à la deuxième en multipliant par $${n}$, ainsi, ?$=\\dfrac{${b}}{${n}}=${calcul(b / n)}$`
+          this.correction = `On passe de la première ligne à la deuxième en multipliant par $${n}$, ainsi, ?$=\\dfrac{${b}}{${n}}=${calculANePlusJamaisUtiliser(b / n)}$`
         } else {
           a = randint(1, 9)
           b = randint(1, 9, a)
@@ -105,7 +105,7 @@ export default function PoucentageP2 () {
           d = b * n
           c = a * n
 
-          this.reponse = calcul(a + b)
+          this.reponse = calculANePlusJamaisUtiliser(a + b)
           this.question = 'Déterminer la valeur qui manque dans ce tableau de proportionnalité : <br>'
           this.question += context.isHtml ? '' : '\\renewcommand{\\arraystretch}{1}'
           this.question += `$\\begin{array}{|l|c|c|}

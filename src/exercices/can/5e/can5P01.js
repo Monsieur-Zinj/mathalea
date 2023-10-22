@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
-import { randint, calcul } from '../../../modules/outils.js'
+import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer un prix après une évolution en pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +28,7 @@ export default function PoucentageE () {
     let a, b, n
     switch (choice(['a', 'b', 'c', 'd', 'e'])) { //
       case 'a':
-        a = calcul(randint(4, 13) * 5)
+        a = calculANePlusJamaisUtiliser(randint(4, 13) * 5)
         n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson', 'sweat'])
         b = choice([10, 20])
         this.question = `Le prix d'un ${n} est $${a}$ €.<br>
@@ -58,10 +58,10 @@ export default function PoucentageE () {
     
 `)
         }
-        this.reponse = calcul(a - (b * a) / 100)
+        this.reponse = calculANePlusJamaisUtiliser(a - (b * a) / 100)
         break
       case 'b':
-        a = calcul(randint(2, 6) * 10)
+        a = calculANePlusJamaisUtiliser(randint(2, 6) * 10)
         n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson', 'sweat'])
         b = choice([5, 15])
         this.question = `Le prix d'un ${n} est $${a}$ €.<br>
@@ -96,10 +96,10 @@ export default function PoucentageE () {
 `)
         }
 
-        this.reponse = calcul(a - (b * a) / 100)
+        this.reponse = calculANePlusJamaisUtiliser(a - (b * a) / 100)
         break
       case 'c':
-        a = calcul(randint(4, 13) * 5)
+        a = calculANePlusJamaisUtiliser(randint(4, 13) * 5)
         n = choice(['pull', 'pantalon', 'tee-shirt', 'vêtement', 'blouson'])
         b = choice([10, 20])
         this.question = `Le prix d'un ${n} est $${a}$ €.<br>
@@ -108,7 +108,7 @@ export default function PoucentageE () {
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
          Le nouveau prix est :  $ ${texNombre(a + (b * a) / 100)} $ €.`
-        this.reponse = calcul(a + (b * a) / 100)
+        this.reponse = calculANePlusJamaisUtiliser(a + (b * a) / 100)
         if (b === 10) {
           this.correction += texteEnCouleur(`
     <br> Mentalement : <br>
@@ -133,7 +133,7 @@ export default function PoucentageE () {
         }
         break
       case 'd':
-        a = calcul(randint(10, 20) * 1000)
+        a = calculANePlusJamaisUtiliser(randint(10, 20) * 1000)
         b = randint(1, 5)
         this.question = `Le prix d'une voiture est $${texNombre(a)}$ €.<br>
         Il augmente de $${b}${sp(1)}\\%$.<br>
@@ -141,7 +141,7 @@ export default function PoucentageE () {
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
          Le nouveau prix est :   $ ${texNombre(a + (b * a) / 100)} $ €.`
-        this.reponse = calcul(a + (b * a) / 100)
+        this.reponse = calculANePlusJamaisUtiliser(a + (b * a) / 100)
         if (b === 1) {
           this.correction += texteEnCouleur(`
         <br> Mentalement : <br>
@@ -180,7 +180,7 @@ export default function PoucentageE () {
 
         break
       case 'e':
-        a = calcul(randint(10, 20) * 1000)
+        a = calculANePlusJamaisUtiliser(randint(10, 20) * 1000)
         b = randint(1, 5)
         this.question = `Le prix d'une voiture est $${texNombre(a)}$ €.<br>
         Il baisse de $${b}${sp(1)}\\%$.<br>
@@ -188,7 +188,7 @@ export default function PoucentageE () {
         this.optionsChampTexte = { texteApres: '€' }
         this.correction = `
          Le nouveau prix est :   $ ${texNombre(a - (b * a) / 100)} €.$`
-        this.reponse = calcul(a - (b * a) / 100)
+        this.reponse = calculANePlusJamaisUtiliser(a - (b * a) / 100)
         if (b === 1) {
           this.correction += texteEnCouleur(`
         <br> Mentalement : <br>

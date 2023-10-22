@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
@@ -13,7 +13,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 export const dateDePublication = '17/03/2022'
-// export const dateDeModifImportante = '24/10/2021'
+export const dateDeModifImportante = '03/10/2023'
 
 /**
  * @author Guillaume Valmont (amendée par Eric Elter pour this.sup2 et une version 3e)
@@ -26,11 +26,13 @@ export default function SimplifierFractions () {
   this.consigne = 'Simplifier le plus possible les fractions suivantes.'
   this.nbQuestions = 5
 
-  this.besoinFormulaireNumerique = ['Nombre de facteurs communs', 3, '1, 2 ou 3']
-  this.besoinFormulaire2Numerique = ['Facteurs premiers utilisés', 2, '1 : De 2 à 7\n2 : De 2 à 23']
+  // this.besoinFormulaireNumerique = ['Nombre de facteurs communs', 3, '1, 2 ou 3']
+  this.besoinFormulaireTexte = ['Nombre maximum de facteurs communs', '1, 2, 3 ou 4']
+  // this.besoinFormulaire2Numerique = ['Facteurs premiers utilisés', 2, '1 : De 2 à 7\n2 : De 2 à 23']
+  this.besoinFormulaire2Texte = ['Choix des facteurs premiers utilisés', 'Nombres séparés par des tirets.\nChoisir valeur entre 2 et 23.']
   this.sup = 2
-  this.sup2 = 1
-  this.sup3 = 1
+  this.sup2 = '2-3-5-7'
+  this.sup3 = 2
   this.nbCols = 2
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
@@ -40,38 +42,60 @@ export default function SimplifierFractions () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    if (parseInt(this.nbQuestions) === 1) {
+    if (this.nbQuestions === 1) {
       this.consigne = 'Simplifier le plus possible la fraction suivante.'
     }
-
+    const listeFacteursPremiers = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 2,
+      max: 23,
+      defaut: 11,
+      melange: 24,
+      nbQuestions: this.nbQuestions,
+      exclus: [4, 6, 8, 9, 10, 12, 14, 15, 16, 18, 20, 21, 22]
+    })
+    const nbFacteursCommuns = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      max: 4,
+      defaut: 1,
+      nbQuestions: 1
+    })
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const facteurCommun1 = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19]) : choice([2, 3, 5])
+      /* let facteurCommun1 = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19]) : choice([2, 3, 5])
       let facteurCommun2 = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19]) : choice([2, 3, 5])
       let facteurCommun3 = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19]) : choice([2, 3, 5])
-      const facteurSurprise = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19, 23]) : choice([2, 3, 5, 7])
+      let facteurSurprise = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19, 23]) : choice([2, 3, 5, 7])
       let facteurNumerateur = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19, 23]) : choice([2, 3, 5, 7])
-      const facteurDenominateur = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19, 23]) : choice([2, 3, 5, 7])
+      let facteurDenominateur = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19, 23]) : choice([2, 3, 5, 7]) */
+      let facteurCommun1 = choice(listeFacteursPremiers)
+      let facteurCommun2 = choice(listeFacteursPremiers)
+      let facteurCommun3 = choice(listeFacteursPremiers)
+      const facteurSurprise = choice(listeFacteursPremiers)
+      const facteurDenominateur = choice(listeFacteursPremiers)
+      const facteurNumerateur = choice(listeFacteursPremiers)
       let numerateur, denominateur
-      if (this.sup < 3) facteurCommun3 = 1
-      if (this.sup < 2) facteurCommun2 = 1
+      if (nbFacteursCommuns[0] - 1 < 3) facteurCommun3 = 1
+      if (nbFacteursCommuns[0] - 1 < 2) facteurCommun2 = 1
+      if (nbFacteursCommuns[0] - 1 < 1) facteurCommun1 = 1
       numerateur = facteurNumerateur * facteurCommun1 * facteurCommun2 * facteurCommun3
       denominateur = facteurDenominateur * facteurCommun1 * facteurCommun2 * facteurCommun3
-      while (numerateur === denominateur) {
+      if (numerateur === denominateur) numerateur = numerateur * facteurCommun1
+      /* while (numerateur === denominateur) {
         facteurNumerateur = this.sup2 !== 1 ? choice([2, 3, 5, 11, 13, 17, 19, 23]) : choice([2, 3, 5, 7])
         numerateur = facteurNumerateur * facteurCommun1 * facteurCommun2 * facteurCommun3
-      }
+      } */
       const surprise = choice(['numerateur', 'denominateur', 'aucun'])
       switch (surprise) {
         case 'numerateur':
-          numerateur = numerateur * facteurSurprise
+          if (numerateur * facteurSurprise !== denominateur) numerateur = numerateur * facteurSurprise
           break
         case 'denominateur':
-          denominateur = denominateur * facteurSurprise
+          if (denominateur * facteurSurprise !== numerateur) denominateur = denominateur * facteurSurprise
           break
       }
       const f = new FractionEtendue(numerateur, denominateur)
       texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: ' =' })}`
-      texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true)}$`
+      texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true, '#f15929')}$`
       setReponse(this, i, f.simplifie(), { formatInteractif: 'fraction' })
       if (context.isAmc) {
         if (this.sup3 === 1) {
@@ -127,5 +151,5 @@ export default function SimplifierFractions () {
 
     listeQuestionsToContenu(this)
   }
-  if (context.isAmc) this.besoinFormulaire3Numerique = ['Type de réponses AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
+  this.besoinFormulaire3Numerique = ['Type de réponses AMC', 2, '1 : Question ouverte\n2 : Réponse numérique']
 }

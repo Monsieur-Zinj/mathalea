@@ -5,7 +5,7 @@ import { rotation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calcul, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, contraindreValeur } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
@@ -52,8 +52,8 @@ export default function TracerTriangle2Angles () {
     ) {
       if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
 
-      const c = calcul(randint(40, 70) / 10)
-      const b = calcul(randint(40, 80) / 10)
+      const c = calculANePlusJamaisUtiliser(randint(40, 70) / 10)
+      const b = calculANePlusJamaisUtiliser(randint(40, 80) / 10)
       let ang1
       if (this.sup3 === 3) {
         ang1 = randint(20, 140)
@@ -62,8 +62,8 @@ export default function TracerTriangle2Angles () {
       } else {
         ang1 = randint(90, 140)
       }
-      const a = calcul(Math.sqrt(c * c + b * b - 2 * c * b * Math.cos(ang1 * Math.PI / 180.0)))
-      const ang2 = calcul(180 * Math.acos((b * b - a * a - c * c) / (-2 * a * c)) / Math.PI, 0)
+      const a = calculANePlusJamaisUtiliser(Math.sqrt(c * c + b * b - 2 * c * b * Math.cos(ang1 * Math.PI / 180.0)))
+      const ang2 = calculANePlusJamaisUtiliser(180 * Math.acos((b * b - a * a - c * c) / (-2 * a * c)) / Math.PI, 0)
       let angle1, angle2
       if (randint(0, 1) === 0) {
         angle1 = ang1

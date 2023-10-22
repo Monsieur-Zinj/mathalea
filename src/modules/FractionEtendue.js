@@ -22,6 +22,7 @@ import {
 import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow, fraction as fractionMathjs } from 'mathjs'
 import { fraction } from './fractions.js'
 import { colorToLatexOrHTML } from './2dGeneralites.js'
+import Decimal from 'decimal.js'
 
 /**
  * La classe FractionEtendue est une extension de la classe Fraction de mathjs
@@ -42,15 +43,21 @@ class FractionEtendue extends Fraction {
       super(NaN)
     } else {
       if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
-        num = Number(args[0])
-        den = 1
+        if (args[0] instanceof Decimal) { // Decimal.toFraction() retourne '7, 4' pour 1.75... On récupère ainsi le numérateur et le dénominateur.
+          [num, den] = args[0].toFraction().split(',').map(el => Number(el))
+        } else {
+          num = Number(args[0]) // ça c'est pas terrible... et ça peut conduire à des fractions monumentales !
+          den = 1
+        }
       } else {
         num = Number(args[0])
         den = Number(args[1])
       }
       if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
-        num = Number(num)
-        den = Number(den)
+      //  num = Number(num) // Je ne vois pas bien à quoi ça sert ça ! ce sont déjà des numbers !
+      //  den = Number(den) // Je le vire le 27/09/2023 (J-C)
+
+        // Méthode codée par Eric Elter pour tenter de rendre rationnel un nombre qui ne l'est pas forcément.
         let maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
         if (maxDecimalesNumDen > 9) { // On peut estimer que num et/ou den ne sont pas décimaux. Essayons de les diviser car peut-être que leur quotient est mieux.
           const quotientNumDen = arrondi(num / den, 12)
@@ -86,7 +93,6 @@ class FractionEtendue extends Fraction {
                   iDen += (iDen % 5 === 3) ? 4 : 2
                   denTest = arrondi(den * iDen, 10)
                   inverseDenTest = arrondi(inverseDen * iDen, 10)
-                // while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 13 & iDen < testMAX) {
                 }
                 let iNum = 1
                 let numTest = num
@@ -98,30 +104,26 @@ class FractionEtendue extends Fraction {
                   numTest = arrondi(num * iNum, 10)
                   inverseNumTest = arrondi(inverseNum * iNum, 10)
                 }
-                // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
+                // console.log(`iNum : ${iNum},  numTest : ${numTest}, inverseNumTest : ${inverseNumTest})
                 if (nombreDeChiffresDansLaPartieDecimale(numTest) < 10) {
                   if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionEtendue(11 / 9, 17 / 13))
-                  // console.log('toto')
                     num = arrondi(numTest * iDen, 10)
                     den = arrondi(denTest * iNum, 10)
                   } else { // Ex. console.log(new FractionEtendue(11 / 9, 13 / 17))
-                  // console.log('titi')
                     num = arrondi(numTest * inverseDenTest, 10)
                     den = iDen * iNum
                   }
                 } else {
                   if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionEtendue(9 / 11, 17 / 13))
-                  // console.log('tata')
                     den = arrondi(denTest * inverseNumTest, 10)
                     num = iDen * iNum
                   } else { // Ex. console.log(new FractionEtendue(9 / 11, 13 / 17))
-                  // console.log('tutu')
                     den = arrondi(inverseNumTest * iDen, 10)
                     num = arrondi(inverseDenTest * iNum, 10)
                   }
                 }
                 maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
-              // console.log(num, ' ', den)
+              // console.log(`numérateur : ${num}, dénominateur : ${den}`)
               }
             }
           }
@@ -132,6 +134,7 @@ class FractionEtendue extends Fraction {
           super(num, den)
           this.num = num
           this.den = den
+          this.signe = num * den < 0 ? -1 : 1
         } catch (error) {
           window.notify(`transformation impossible en Fraction par Math.Fraction() de num = ${num} et den = ${den} ! `, { num, den })
           return new FractionEtendue(0)
@@ -436,21 +439,32 @@ class FractionEtendue extends Fraction {
       },
       set: () => { throw Error('\'estIrreductible\' est en lecture seule') }
     })
+  }
 
-    /**
+  /**
    * basé sur la méthode toLatex() de mathjs, on remplace \frac par \dfrac plus joli.
    * @returns {string} la chaine Latex pour écrire la fraction (signe devant)
    */
-  }
-
   toLatex () {
     const text = super.toLatex()
     return text.replace('\\frac', '\\dfrac')
   }
 
   /**
+   * retourne un flottant pour compatibilité de FractionEtendue() avec Number().
+   * @returns {number}
+   */
+  toNumber () {
+    return this.num / this.den
+  }
+
+  toString () {
+    return this.texFraction
+  }
+
+  /**
    *
-   * @param FractionEtendues[]
+   * @param {FractionEtendue[]} fractions
    * @returns {FractionEtendue}
    */
   sommeFractions (...fractions) { // retourne un résultat simplifié
@@ -577,16 +591,20 @@ class FractionEtendue extends Fraction {
   * @returns {FractionEtendue} f + FractionEtendue
   */
   sommeFraction (f2) {
-    if (this.den === f2.den) { // on ajoute 2 fractions de même dénominateur
-      return new FractionEtendue(this.num + f2.num, f2.den)
-    } else if ([this.den, f2.den].indexOf(lcm(this.den, f2.den)) !== -1) { // un dénominateur est multiple de l'autre
-      if (this.den === lcm(this.den, f2.den)) { // c'est this qui a le dénominateur commun.
-        return new FractionEtendue(this.num + f2.num * round(this.den / f2.den), this.den) // on transforme f2
-      } else { // c'est f2 qui a le dénominateur commun
-        return new FractionEtendue(f2.num + this.num * round(f2.den / this.den), f2.den) // on transforme this
+    if (f2 instanceof FractionEtendue) {
+      if (this.den === f2.den) { // on ajoute 2 fractions de même dénominateur
+        return new FractionEtendue(this.num + f2.num, f2.den)
+      } else if ([this.den, f2.den].indexOf(lcm(this.den, f2.den)) !== -1) { // un dénominateur est multiple de l'autre
+        if (this.den === lcm(this.den, f2.den)) { // c'est this qui a le dénominateur commun.
+          return new FractionEtendue(this.num + f2.num * round(this.den / f2.den), this.den) // on transforme f2
+        } else { // c'est f2 qui a le dénominateur commun
+          return new FractionEtendue(f2.num + this.num * round(f2.den / this.den), f2.den) // on transforme this
+        }
+      } else { // besoin d'établir le dénominateur commun.
+        return new FractionEtendue(this.num * round(lcm(this.den, f2.den) / this.den) + f2.num * round(lcm(this.den, f2.den) / f2.den), lcm(this.den, f2.den))
       }
-    } else { // besoin d'établir le dénominateur commun.
-      return new FractionEtendue(this.num * round(lcm(this.den, f2.den) / this.den) + f2.num * round(lcm(this.den, f2.den) / f2.den), lcm(this.den, f2.den))
+    } else {
+      window.notify(`FractionEtendue.sommeFraction(fractionAAjouter) a été appelée avec autre chose qu'une fraction étendue, alors que c'est obligatoire !\nVoilci l'argument passé : ${f2}`, { argument: f2 })
     }
   }
 
@@ -772,7 +790,7 @@ class FractionEtendue extends Fraction {
    * @param {boolean|string} factorisation
    * @return {string}
  */
-  texSimplificationAvecEtapes (factorisation = false) {
+  texSimplificationAvecEtapes (factorisation = false, couleurFinale = '') {
     if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
     else if (this.estIrreductible && this.num * this.den < 0) { // irréductible mais négatifs
       return `=${this.texFSD}`
@@ -838,7 +856,9 @@ class FractionEtendue extends Fraction {
         denominateur = denominateur.substring(0, denominateur.length - 6)
 
         result += `${signe}\\dfrac{${numerateur}}{${denominateur}}`
-        result += `=${signe}${new FractionEtendue(a, b).simplifie().texFraction}`
+        result += couleurFinale !== ''
+          ? `=${miseEnEvidence(`${signe}${new FractionEtendue(a, b).simplifie().texFraction}`, couleurFinale)}`
+          : `=${signe}${new FractionEtendue(a, b).simplifie().texFraction}`
         return result
       } else {
         const signe = this.sign === -1 ? '-' : ''
@@ -846,13 +866,18 @@ class FractionEtendue extends Fraction {
         const den = Math.abs(this.den)
         const pgcd = gcd(num, den)
         if (pgcd !== 1) {
-          let redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
-          if (Math.abs(den / pgcd) !== 1) redaction += `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
-          else redaction += `${signe}${Math.abs(num / pgcd)}`
-          return redaction
+          const redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
+          let redactionFinale
+          if (Math.abs(den / pgcd) !== 1) redactionFinale = `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+          else redactionFinale = `${signe}${Math.abs(num / pgcd)}`
+          if (couleurFinale !== '') redactionFinale = miseEnEvidence(redactionFinale, couleurFinale)
+          return (redaction + redactionFinale)
         } else {
-          if (!egal(Math.abs(den / pgcd), 1)) return `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
-          else return `=${signe}${Math.abs(num / pgcd)}`
+          let redactionFinale
+          if (!egal(Math.abs(den / pgcd), 1)) redactionFinale = `=${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
+          else redactionFinale = `=${signe}${Math.abs(num / pgcd)}`
+          if (couleurFinale !== '') redactionFinale = miseEnEvidence(redactionFinale, couleurFinale)
+          return redactionFinale
         }
       }
     }
@@ -1258,7 +1283,6 @@ class FractionEtendue extends Fraction {
         }
         num -= this.den
       }
-      console.log(objets)
       if (num > 0) { // il reste une portion d'unité à faire après n unités.
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < this.den / diviseur; h++) {
