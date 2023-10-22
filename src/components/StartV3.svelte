@@ -38,7 +38,9 @@
    */
   import {
     type AppTierceGroup,
-    isJSONReferentielEnding
+    isJSONReferentielEnding,
+    type StaticItemInreferentiel,
+    isStaticType
   } from '../lib/types/referentiels'
   // Contexte pour le modal des apps tierces
   import ModalGridOfCards from './modal/ModalGridOfCards.svelte'
@@ -102,6 +104,17 @@
       }
     }
   })
+  const buildBiblioToBeDisplayed = (): StaticItemInreferentiel[] => {
+    const results: StaticItemInreferentiel[] = []
+    if ($bibliothequeDisplayedContent) {
+      Object.values($bibliothequeDisplayedContent).forEach((item) => {
+        if (isStaticType(item)) {
+          results.push(item)
+        }
+      })
+    }
+    return results
+  }
 
   /**
    * Démarrage
@@ -643,8 +656,7 @@
     <div slot="content">
       <div class="mx-2 pt-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {#if $bibliothequeDisplayedContent}
-            {#each Object.values($bibliothequeDisplayedContent) as exercise}
+            {#each buildBiblioToBeDisplayed() as exercise}
               <CardForStatic
                 {exercise}
                 selected={bibliothequeUuidInExercisesList.includes(
@@ -652,7 +664,6 @@
                 )}
               />
             {/each}
-          {/if}
         </div>
       </div>
     </div>

@@ -1,14 +1,19 @@
 <script lang="ts">
-  import type { JSONReferentielObject } from '../../lib/types/referentiels'
+  import type { JSONReferentielEnding } from '../../lib/types/referentiels'
   import { bibliothequeDisplayedContent, bibliothequePathToSection, isModalForStaticsVisible } from '../store'
 
   export let pathToThisNode: string[] = []
   export let nestedLevelCount: number
-  export let referentielToDisplay: JSONReferentielObject
+  export let referentielToDisplay: Record<string, JSONReferentielEnding>
   export let isEmpty: boolean = false
+
+  /**
+   * Un clic sur cette entrée :
+   * 1. Met à jour dans le store le contenu de la bibliothèque à afficher,
+   * 2. Met le flag d'affichage à `true` dans le store
+   * 3. Met la liste des étapes du chemin jusqu'à cette terminaison à jour dans le store
+   */
   const handleClick = () => {
-    console.log(pathToThisNode)
-    console.log(referentielToDisplay)
     $bibliothequeDisplayedContent = { ...referentielToDisplay }
     $isModalForStaticsVisible = true
     $bibliothequePathToSection = [...pathToThisNode]

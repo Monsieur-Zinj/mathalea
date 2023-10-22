@@ -3,6 +3,7 @@
   import {
     isJSONReferentielEnding,
     isRealJSONReferentielObject,
+    type JSONReferentielEnding,
     type JSONReferentielObject
   } from '../../lib/types/referentiels'
   import { codeToLevelTitle } from '../utils/refUtils'
@@ -40,7 +41,7 @@
    * objet de type `JSONReferentielEnding`
    * @param {JSONReferentielObject} obj objet à tester
    */
-  function isParentOfStaticEnding (obj: JSONReferentielObject): boolean {
+  function isParentOfStaticEnding (obj: JSONReferentielObject): obj is Record<string, JSONReferentielEnding> {
     const values = Object.values(obj)
     if (values.length === 0) {
       return false

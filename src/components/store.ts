@@ -6,7 +6,7 @@ import type {
   InterfaceResultExercice,
   bibliothequeExercise
 } from '../lib/types'
-import { type JSONReferentielObject } from '../lib/types/referentiels'
+import { type JSONReferentielEnding } from '../lib/types/referentiels'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -108,7 +108,7 @@ export const callerComponent = writable<CallerComponentType>('')
 
 // pour sauvegarder l'objet correspondant à la rubrique choisie pour les exos statiques
 export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
-export const bibliothequeDisplayedContent = writable<JSONReferentielObject>()
+export const bibliothequeDisplayedContent = writable<Record<string, JSONReferentielEnding>>()
 export const bibliothequePathToSection = writable<string[]>([])
 export const isModalForStaticsVisible = writable<boolean>(false)
 
