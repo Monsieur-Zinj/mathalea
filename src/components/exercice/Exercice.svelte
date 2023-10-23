@@ -7,11 +7,12 @@
   import { globalOptions } from '../store'
   import type { InterfaceParams } from '../../lib/types'
   import uuidToUrl from '../../json/uuidsToUrl.json'
-  import ExerciceMathalea from './ExerciceMathalea.svelte'
+  // import ExerciceMathalea from './ExerciceMathalea.svelte'
   import ExerciceVueEleve from './ExerciceVueEleve.svelte'
   import ExerciceStatic from './ExerciceStatic.svelte'
   import type Exercice from '../../exercices/ExerciceTs'
   import ExerciceHtml from './ExerciceHtml.svelte'
+  import NewExerciceMathalea from './NewExerciceMathalea.svelte'
 
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
@@ -88,7 +89,7 @@
     {isCorrectionVisible}
   />
 {:else if typeExercice === 'mathaleaVueProf'}
-  <ExerciceMathalea
+  <NewExerciceMathalea
     {exercice}
     {indiceExercice}
     {indiceLastExercice}

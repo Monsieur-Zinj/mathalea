@@ -22,6 +22,7 @@
   export let isSortable: boolean = true
   export let isDeletable: boolean = true
   export let isHidable: boolean = true
+  export let titleExtra: string = ''
   let isVisible = true
   let isSettingsVisible = false
   const isContentVisible = true
@@ -66,7 +67,7 @@
   __Utilisation__ :
 
   ```tsx
-  const headerExerciceProps = {
+  const headerExerciceProps: HeaderProps = {
     title: exercice.titre,
     indiceExercice: 2,
     indiceLastExercice: 4,
@@ -109,7 +110,7 @@
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
       >
         {title}
-        <!-- <div class="italic ml-2 font-light text-coopmaths-warn-900">{titleExtra}</div> -->
+        <div class="italic ml-2 font-light text-coopmaths-warn-900">{titleExtra}</div>
       </div>
     </div>
     <div

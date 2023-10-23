@@ -29,7 +29,10 @@ class ressourceVideo {
     this.iframe.setAttribute('height', '315')
     this.iframe.setAttribute('title', 'YouTube video player')
     this.iframe.setAttribute('frameborder', '0')
-    this.iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share')
+    this.iframe.setAttribute(
+      'allow',
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+    )
     this.iframe.setAttribute('allowfullscreen', '')
     const updateVideoSize = () => {
       this.iframe.setAttribute('width', '100%')
@@ -40,7 +43,10 @@ class ressourceVideo {
     this.container.addEventListener('addedToDom', updateVideoSize)
 
     // constitution d'une ID pour mise en forme dans app.css
-    this.iframe.setAttribute('id', 'iframe-video' + getUniqueStringBasedOnTimeStamp('-'))
+    this.iframe.setAttribute(
+      'id',
+      'iframe-video' + getUniqueStringBasedOnTimeStamp('-')
+    )
     // /!\ pas de mise en formee ici !!!
     // this.iframe.classList.add('my-10')
     this.fieldUrl = createTextInput({ placeholder: 'URL', autoCorrect: false })
@@ -57,7 +63,14 @@ class ressourceVideo {
 - dai.ly
 - vimeo.com`
     this.iTooltip = createIButton({ tooltip, direction: 'bottom' })
-    this.container.append(this.fieldUrl, this.iTooltip, this.fieldText, this.teacherText, this.button,  this.iframe)
+    this.container.append(
+      this.fieldUrl,
+      this.iTooltip,
+      this.fieldText,
+      this.teacherText,
+      this.button,
+      this.iframe
+    )
     this.button.addEventListener('click', () => {
       // On transforme https://youtu.be/Jup128waBI8 en https://www.youtube.com/embed/Jup128waBI8
       this.updateVideoFromUrl()
@@ -65,7 +78,7 @@ class ressourceVideo {
       if (this.fieldText.value !== '') {
         this.sup2 = encodeURIComponent(this.fieldText.value)
       }
-      exercicesParams.update(l => {
+      exercicesParams.update((l) => {
         l[this.numeroExercice].sup = this.sup
         if (this.fieldText.value !== '') {
           l[this.numeroExercice].sup2 = encodeURIComponent(this.fieldText.value)
@@ -115,7 +128,8 @@ class ressourceVideo {
       this.iframe.src = url.toString()
     } else if (url.hostname === 'podeduc.apps.education.fr') {
       this.iframe.src = this.fieldUrl.value + '/?is_iframe=true'
-    } else if (this.fieldUrl.value.includes('/w/')) { // Gestion des url en provenance de peertube
+    } else if (this.fieldUrl.value.includes('/w/')) {
+      // Gestion des url en provenance de peertube
       this.iframe.src = this.fieldUrl.value.replace('/w/', '/videos/embed/')
     } else {
       this.iframe.src = this.fieldUrl.value
