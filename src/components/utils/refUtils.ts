@@ -164,10 +164,6 @@ export function retrieveResourceFromUuid (
     harvest,
     (resource: JSONReferentielEnding) => resource.uuid === targetUuid
   )
-  console.log('referentiel :')
-  console.log(referentiel)
-  console.log('harvest :')
-  console.log(harvest)
   switch (harvest.length) {
     case 0:
       return null
