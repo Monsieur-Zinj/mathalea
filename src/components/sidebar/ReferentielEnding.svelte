@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import {
     isExerciceItemInReferentiel,
     isResourceHasMonth,
@@ -16,7 +16,33 @@
 
   export let ending: JSONReferentielEnding
   export let nestedLevelCount: number
+
   let nomDeExercice: HTMLDivElement
+  let selectedCount: number
+  /* --------------------------------------------------------------
+    Gestions des exercices via la liste
+   --------------------------------------------------------------- */
+  /**
+   * Compare un code à UUID courante
+   * @param {string} code le code de l'UUID à comparer à l'UUID courante
+   * @returns {boolean} `true` si les deux chaînes sont égales
+   */
+  const compareCodes = (code: string): boolean => {
+    return code === ending.uuid
+  }
+  /**
+   * Compte le nombre de fois où la ressource a été sélectionnée
+   * @returns {number} nb d'occurences
+   */
+  const countOccurences = (): number => {
+    return $exercicesParams.map((item) => item.uuid).filter(compareCodes).length
+  }
+  // on compte réactivement le nombre d'occurences
+  // de l'exercice dans la liste des sélectionnés
+  const unsubscribeToExerciceParams = exercicesParams.subscribe(() => {
+    selectedCount = countOccurences()
+  })
+
   onMount(() => {
     if (nomDeExercice && nomDeExercice.innerHTML.includes('$')) {
       renderMathInElement(nomDeExercice, {
@@ -32,29 +58,11 @@
         strict: 'warn',
         trust: false
       })
-      // renderMathInElement(nomDeExercice)
+      selectedCount = countOccurences()
     }
   })
-  /* --------------------------------------------------------------
-    Gestions des exercices via la liste
-   --------------------------------------------------------------- */
-  /**
-   * Compare un code à UUID courante
-   * @param {string} code le code de l'UUID à comparer à l'UUID courante
-   * @returns {boolean} `true` si les deux chaînes sont égales
-   */
-  const compareCodes = (code: string): boolean => {
-    return code === ending.uuid
-  }
-  let selectedCount = 0 // pour compter le nb de fois où la ressource a été sélectionnée
-  // on compte réactivement le nombre d'occurences
-  // de l'exercice dans la liste des sélectionnés
-  $: {
-    selectedCount = $exercicesParams
-      .map((item) => item.uuid)
-      .filter(compareCodes).length
-    selectedCount = selectedCount
-  }
+  onDestroy(unsubscribeToExerciceParams)
+
   /**
    * Ajouter l'exercice courant à la liste
    */
