@@ -7,16 +7,18 @@
   import uuidsRessources from '../../json/uuidsRessources.json'
   import refProfs from '../../json/referentielProfs.json'
   import { toMap } from '../utils/toMap'
+  // paramètres obligatoires
   export let title: string | undefined
   export let id: string
+  export let indiceExercice: number
+  export let indiceLastExercice: number
+  export let interactifReady: boolean
+  // paramètres optionnels
   export let randomReady = true
   export let settingsReady = true
   export let correctionReady = true
   export let correctionExists = true
-  export let indiceExercice: number
-  export let indiceLastExercice: number
   export let isInteractif: boolean = false
-  export let interactifReady: boolean
   export let isSortable: boolean = true
   export let isDeletable: boolean = true
   export let isHidable: boolean = true

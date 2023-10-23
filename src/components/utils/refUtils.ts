@@ -24,6 +24,7 @@ import { getSelectedLevels, getSelectedFeatures } from '../filtersStore'
  * Récupérer la liste des exercices récents !
  * @param {JSONReferentielObject} refObj le référentiel à inspecter
  * @returns {JSONReferentielEnding[]} un tableau de tous les exercices ayant une date de modification/publication inférieure à un mois
+ * @author sylvain
  */
 export function getRecentExercices (
   refObj: JSONReferentielObject
@@ -48,6 +49,7 @@ export function getRecentExercices (
  * Récupérer la liste de TOUS exercices.
  * @param {JSONReferentielObject} refObj le référentiel à récupérer
  * @returns {ResourceAndItsPath[]} un tableau de tous les exercices (terminaisons) avec leur chemin
+ * @author sylvain
  */
 export function getAllEndings (
   refObj: JSONReferentielObject
@@ -61,6 +63,7 @@ export function getAllEndings (
  * #### Exemple de code
  * `levelCode` : "6e" --> Traduction: "Sixième"
  * @param {string} levelCode code du niveau
+ * @author sylvain
  */
 export function codeToLevelTitle (levelCode: string): string {
   const liste: { [key: string]: string } = codeList
@@ -80,6 +83,7 @@ export function codeToLevelTitle (levelCode: string): string {
  * @param {JSONReferentielObject} referentiel le référentiel à parcourir
  * @param {JSONReferentielEnding[]} harvest la liste stockant la récolte
  * @param {function(e: JSONReferentielEnding):boolean} goalReachedWith fonction de triage
+ * @author sylvain
  * @example
  * ```ts
  * fetchThrough(ref, results, (e: JSONReferentielEnding) => {
@@ -114,6 +118,7 @@ export function fetchThrough (
  * @param {(e: JSONReferentielEnding) => boolean} goalReachedWith la fonction de filtrage
  * @returns {ResourceAndItsPath[]} Une liste d'objets du type
  * `{resource: JSONReferentielEnding,  pathToResource: string[]}`
+ * @author sylvain
  */
 export function findResourcesAndPaths (
   referentiel: JSONReferentielObject,
@@ -141,9 +146,45 @@ export function findResourcesAndPaths (
 }
 
 /**
+ * Recherche une ressource dans un référentiel donné correspondant à une uuid
+ * passée en paramètre
+ * @param referentiel le référentiel dans lequel on cherche l'uuid
+ * @param targetUuid l'uuid à rechercher
+ * @returns la terminaison si une seule uuid matche, `null` si pas de match
+ * @throws erreur si l'uuid est retrouvée plus d'une fois
+ * @author sylvain
+ */
+export function retrieveResourceFromUuid (
+  referentiel: JSONReferentielObject,
+  targetUuid: string
+): JSONReferentielEnding | null {
+  const harvest: JSONReferentielEnding[] = []
+  fetchThrough(
+    referentiel,
+    harvest,
+    (resource: JSONReferentielEnding) => resource.uuid === targetUuid
+  )
+  console.log('referentiel :')
+  console.log(referentiel)
+  console.log('harvest :')
+  console.log(harvest)
+  switch (harvest.length) {
+    case 0:
+      return null
+    case 1:
+      return harvest[0]
+    default:
+      throw new Error(
+        `${targetUuid} est présente ${harvest.length} fois dans le référentiel !!!`
+      )
+  }
+}
+
+/**
  * À partir d'un objet de type `ResourceAndItsPath`, construit l'objet imbriqué correspondant
  * @param item Un objet constitué de la liste des nœuds et de la terminaison
  * @returns un objet aux entrées imbriquées correspondant à une branche + une terminaison
+ * @author sylvain
  */
 function pathToObject (item: ResourceAndItsPath): JSONReferentielObject {
   return item.pathToResource.reduceRight(
@@ -157,6 +198,7 @@ function pathToObject (item: ResourceAndItsPath): JSONReferentielObject {
  * la liste des objets imbriqués (branche+terminaison) correspondants
  * @param {ResourceAndItsPath[]} items la liste des objets à transformer
  * @returns {JSONReferentielObject[]} la liste des objets transformés
+ * @author sylvain
  */
 function pathsToObjectsArray (
   items: ResourceAndItsPath[]
@@ -173,6 +215,7 @@ function pathsToObjectsArray (
  * et d'une terminaison `{resource: JSONReferentielEnding,  pathToResource: string[]}`
  * @param {ResourceAndItsPath[]} refList la liste des entrées pour constituer le référentiel
  * @returns {JSONReferentielObject} un référentiel sous forme d'objet
+ * @author sylvain
  */
 export function buildReferentiel (
   refList: ResourceAndItsPath[]
@@ -187,6 +230,7 @@ export function buildReferentiel (
  * @param {JSONReferentielObject[]} objects les objets à fusionner
  * @returns {JSONReferentielObject} un référentiel
  * @see https://tutorial.eyehunts.com/js/javascript-merge-objects-without-overwriting-example-code/
+ * @author sylvain
  */
 export function mergeReferentielObjects (
   ...objects: JSONReferentielObject[]
@@ -214,6 +258,7 @@ export function mergeReferentielObjects (
  * et retourne la valeur d'activation `true`/`false` indiqué pour un nom de référentiel donné.
  * @param refName nom du référentiel (conformément au type `ReferentielNames` dans `src/lib/types.ts`)
  * @returns la valeur mentionnée dans `src/json/referentielsActivation.json` <br/> `false` si le nom du référentiel n'exoiste pas.
+ * @author sylvain
  */
 export function isReferentielActivated (refName: string): boolean {
   const referentielList = toMap({ ...referentielsActivation })
@@ -236,6 +281,7 @@ export function isReferentielActivated (refName: string): boolean {
  * @param {boolean} isInteractiveOnlySelected flag pour limiter le référentiel aux exercices interactifs
  * @param {Level[]} levelsSelected flag pour limiter le référentiel aux exercices de certains niveaux
  * @returns {JSONReferentielObject} le référentiel filtré
+ * @author sylvain
  */
 export function updateReferentiel (
   originalReferentiel: JSONReferentielObject,
@@ -288,11 +334,14 @@ export function updateReferentiel (
 }
 
 /**
-   * Applique les filtres sélectionnés dans le store à une liste d'élément
-   * de type `ResourceAndItsPath` et renvoie une liste du même type triée
-   * @param {ResourceAndItsPath[]} original liste originelle
-  */
-export function applyFilters (original: ResourceAndItsPath[]): ResourceAndItsPath[] {
+ * Applique les filtres sélectionnés dans le store à une liste d'élément
+ * de type `ResourceAndItsPath` et renvoie une liste du même type triée
+ * @param {ResourceAndItsPath[]} original liste originelle
+ * @author sylvain
+ */
+export function applyFilters (
+  original: ResourceAndItsPath[]
+): ResourceAndItsPath[] {
   // on récupère dans le store les niveaux et les fonctionnalités cochés
   const selectedLevels: Level[] = getSelectedLevels()
   const selectedSpecs: (keyof Features)[] = getSelectedFeatures()

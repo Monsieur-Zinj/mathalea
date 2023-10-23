@@ -1,88 +1,67 @@
 <script lang="ts">
   import HeaderExercice from './HeaderExercice.svelte'
+  import { globalOptions } from '../store'
+  import { retrieveResourceFromUuid } from '../utils/refUtils'
+  import { isResourceHasPlace, isStaticType, type JSONReferentielObject } from '../../lib/types/referentiels'
+  /**
+   * Gestion du référentiel pour la recherche de l'uuid
+  */
   import referentielStatic from '../../json/referentielStatic.json'
   import referentielBibliotheque from '../../json/referentielBibliotheque.json'
-  const allStaticReferentiels = { ...referentielBibliotheque, ...referentielStatic }
-  import { globalOptions, exercicesParams } from '../store'
-  import Exercice from '../../exercices/ExerciceTs.js'
-
+  import type { HeaderProps } from '../../lib/types/ui'
+  // on rassemble les deux référentiel statique
+  const allStaticReferentiels: JSONReferentielObject = {
+    ...referentielBibliotheque,
+    ...referentielStatic
+  }
+  // on supprime les entrées par thèmes qui entraîne des doublons
+  delete allStaticReferentiels['Brevet des collèges par thèmes - APMEP']
+  delete allStaticReferentiels['BAC par thèmes - APMEP']
+  delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
+  delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
+  delete allStaticReferentiels['E3C par thèmes - APMEP']
   export let uuid: string
   export let indiceExercice: number
   export let indiceLastExercice: number
-  interface ExoStatic extends Exercice {
-    png: string | string[]
-    pngCor: string | string[]
-    mois: string
-    annee: string
-    lieu: string
-    typeExercice: string
-    uuid: string
-    numeroInitial: string
-    title: string
-    id: string
-    isInteractif: boolean
-    interactifReady: boolean
-    settingsReady: boolean
-    randomReady: boolean
-    correctionReady: boolean
-  }
-  function getExerciceByUuid (
-    root: object,
-    targetUUID: string
-  ): ExoStatic | null {
-    if ('uuid' in root) {
-      if (root.uuid === targetUUID) {
-        return root
-      }
-    }
-    for (const child in root) {
-      if (child in root) {
-        if (typeof root[child] !== 'object') continue
-        const foundObject = getExerciceByUuid(root[child], targetUUID)
-        if (foundObject) {
-          return foundObject
+  const foundResource = retrieveResourceFromUuid(allStaticReferentiels, uuid)
+  const resourceToDisplay = isStaticType(foundResource)
+    ? { ...foundResource }
+    : null
+  const exercice =
+    resourceToDisplay === null
+      ? null
+      : {
+          png: typeof resourceToDisplay.png === 'string' ? [resourceToDisplay.png] : resourceToDisplay.png,
+          pngCor: typeof resourceToDisplay.pngCor === 'string' ? [resourceToDisplay.pngCor] : resourceToDisplay.pngCor
         }
-      }
-    }
-
-    return null
-  }
-
-  const exercice = getExerciceByUuid(allStaticReferentiels, uuid)
-
   let isCorrectionVisible = false
   let isContentVisible = true
   $: zoomFactor = $globalOptions.z
-  let headerExerciceProps: ExoStatic
-  if (exercice != null) {
-    if (typeof exercice.png === 'string') exercice.png = [exercice.png]
-    if (typeof exercice.pngCor === 'string') exercice.pngCor = [exercice.pngCor]
-    const id: string = $exercicesParams[indiceExercice]?.id
-      ? String(exercice.id).replace('.js', '')
-      : ''
+  let headerExerciceProps: HeaderProps
+  if (resourceToDisplay !== null) {
     headerExerciceProps = {
       title: '',
-      id,
+      id: '',
       isInteractif: false,
       settingsReady: false,
       interactifReady: false,
+      indiceExercice,
+      indiceLastExercice,
       randomReady: false,
-      correctionReady: $globalOptions.isSolutionAccessible
+      correctionReady: $globalOptions.isSolutionAccessible ? $globalOptions.isSolutionAccessible : false
     }
-    if (exercice.typeExercice !== undefined) {
-      headerExerciceProps.title = `${exercice.typeExercice.toUpperCase()} - ${
-        exercice.mois || ''
-      } ${exercice.annee} - ${exercice.lieu} - ${exercice.numeroInitial}`
+    if (isResourceHasPlace(resourceToDisplay)) {
+      headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} - ${
+        resourceToDisplay.mois || ''
+      } ${resourceToDisplay.annee} - ${resourceToDisplay.lieu} - ${resourceToDisplay.numeroInitial}`
     } else {
-      headerExerciceProps.title = exercice.uuid
+      headerExerciceProps.title = resourceToDisplay.uuid
     }
   }
 </script>
 
 <HeaderExercice
   {...headerExerciceProps}
-  {indiceExercice}
-  {indiceLastExercice}
   on:clickCorrection={(event) => {
     isCorrectionVisible = event.detail.isCorrectionVisible
   }}
