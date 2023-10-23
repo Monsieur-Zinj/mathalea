@@ -5,7 +5,6 @@
     darkMode,
     isSideMenuVisible,
     callerComponent,
-    // bibliothequeSectionContent,
     bibliothequeDisplayedContent,
     bibliothequePathToSection,
     isModalForStaticsVisible
@@ -32,7 +31,6 @@
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
   $: isMenuOpen = $isSideMenuVisible
-  $: isModalForStaticsOpen = $isModalForStaticsVisible
 
   /**
    * Gestion des référentiels
@@ -74,10 +72,11 @@
       }
     }
   })
-  // Contexte pour la bibliothèque de statiques
+  /**
+   * Gestion la bibliothèque de statiques
+  */
   import BreadcrumbHeader from './sidebar/BreadcrumbHeader.svelte'
   import CardForStatic from './ui/CardForStatic.svelte'
-  let showBibliothequeChoiceDialog = false
   let bibliothequeChoiceModal: ModalGridOfCards
   let bibliothequeUuidInExercisesList: string[]
   $: {
@@ -95,15 +94,6 @@
     }
     bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
   }
-  setContext('bibliothequeChoiceContext', {
-    toggleBibliothequeChoiceDialog: (path: string[]) => {
-      $bibliothequePathToSection = path
-      showBibliothequeChoiceDialog = !showBibliothequeChoiceDialog
-      if (showBibliothequeChoiceDialog === false) {
-        bibliothequeChoiceModal.closeModal()
-      }
-    }
-  })
   const buildBiblioToBeDisplayed = (): StaticItemInreferentiel[] => {
     const results: StaticItemInreferentiel[] = []
     if ($bibliothequeDisplayedContent) {
@@ -621,6 +611,7 @@
       </div>
     </div>
   </div>
+  <!-- Fenêtre de dialogue pour le choix des applications tierces -->
   <ModalGridOfCards
     bind:this={thirdAppsChoiceModal}
     bind:displayModal={showThirdAppsChoiceDialog}
@@ -646,9 +637,10 @@
       </div>
     </div>
   </ModalGridOfCards>
+  <!-- Fenêtre de dialogue pour le choix des exercices de la bibliothèque statique -->
   <ModalGridOfCards
     bind:this={bibliothequeChoiceModal}
-    bind:displayModal={isModalForStaticsOpen}
+    bind:displayModal={$isModalForStaticsVisible}
   >
     <div slot="header">
       <BreadcrumbHeader path={$bibliothequePathToSection} />
