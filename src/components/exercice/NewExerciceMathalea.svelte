@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice, exercicesParams } from '../store'
+  import { globalOptions, resultsByExercice, exercicesParams, changes } from '../store'
   import { afterUpdate, onMount, tick, onDestroy } from 'svelte'
   import seedrandom from 'seedrandom'
   import {
@@ -34,27 +34,19 @@
   let isInteractif = exercice.interactif
   const interactifReady = exercice.interactifReady
   let isExerciceChecked = false
-
-  let ranks: number[]
-  let counts
-  let titleExtra: string
-  let title: string = ''
   const id: string = $exercicesParams[indiceExercice]?.id
     ? exercice.id
       ? exercice.id.replace('.js', '')
       : ''
     : ''
-  $: {
-    ranks = exercisesUuidRanking($exercicesParams)
-    counts = uuidCount($exercicesParams)
-    titleExtra =
-      counts[$exercicesParams[indiceExercice]?.uuid] > 1
-        ? ' [' + ranks[indiceExercice] + ']'
-        : ''
-    title = $exercicesParams[indiceExercice]?.id
-      ? `${exercice.titre}${titleExtra}`
-      : exercice.titre
-    // title = $exercicesParams[indiceExercice].id ? `${exercice.id.replace(".js", "")} - ${exercice.titre}` : exercice.titre
+  const generateTitleAddendum = (): string => {
+    const ranks = exercisesUuidRanking($exercicesParams)
+    const counts = uuidCount($exercicesParams)
+    if ($exercicesParams[indiceExercice] && $exercicesParams[indiceExercice].uuid && counts[$exercicesParams[indiceExercice].uuid] > 1) {
+      return '|' + ranks[indiceExercice]
+    } else {
+      return ''
+    }
   }
   let headerProps: HeaderProps = {
     title: '',
@@ -64,26 +56,6 @@
     isInteractif,
     interactifReady
   }
-  // let headerExerciceProps: {
-  //   title?: string
-  //   id: string
-  //   titleExtra?: string
-  //   category?: string
-  //   isInteractif?: boolean
-  //   settingsReady?: boolean
-  //   isSortable?: boolean
-  //   isDeletable?: boolean
-  //   isHidable?: boolean
-  //   correctionReady?: boolean
-  //   correctionExists?: boolean
-  //   randomReady?: boolean
-  //   interactifReady?: boolean
-  // } = {
-  //   // title,
-  //   id,
-  //   isInteractif,
-  //   interactifReady
-  // }
 
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
@@ -109,8 +81,8 @@
     }
     headerProps.isInteractif = isInteractif
     headerProps.correctionExists = exercice.listeCorrections.length > 0
-    headerProps.title = title
-    headerProps.titleExtra = titleExtra
+    headerProps.title = exercice.titre + generateTitleAddendum()
+    headerProps.indiceExercice = indiceExercice
     headerProps = headerProps
   }
 
@@ -123,11 +95,18 @@
     numberOfAnswerFields = answerFields.length
   }
 
+  // on détecte les changements dans la liste des exercices
+  // afin de mettre à jour le titre
+  const unsubscribeToChangesStore = changes.subscribe(() => {
+    headerProps.title = exercice.titre + generateTitleAddendum()
+  })
+
   onDestroy(() => {
     // Détruit l'objet exercice pour libérer la mémoire
     for (const prop of Object.keys(exercice)) {
       Reflect.deleteProperty(exercice, prop)
     }
+    unsubscribeToChangesStore()
   })
 
   onMount(async () => {
@@ -195,7 +174,9 @@
       if (
         exercice !== undefined &&
         typeof exercice?.applyNewSeed === 'function'
-      ) { exercice.applyNewSeed() }
+      ) {
+        exercice.applyNewSeed()
+      }
       if (buttonScore) initButtonScore()
       if (
         window.localStorage !== undefined &&
@@ -271,7 +252,9 @@
       exercice.applyNewSeed()
     }
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === 'simple') { mathaleaHandleExerciceSimple(exercice, Boolean(isInteractif)) }
+    if (exercice.typeExercice === 'simple') {
+      mathaleaHandleExerciceSimple(exercice, Boolean(isInteractif))
+    }
     exercice.interactif = isInteractif
     if ($exercicesParams[indiceExercice] != null) {
       $exercicesParams[indiceExercice].alea = exercice.seed
@@ -283,7 +266,9 @@
     if (
       exercice.typeExercice !== 'simple' &&
       typeof exercice.nouvelleVersion === 'function'
-    ) { exercice.nouvelleVersion(indiceExercice) }
+    ) {
+      exercice.nouvelleVersion(indiceExercice)
+    }
     mathaleaUpdateUrlFromExercicesParams()
     await adjustMathalea2dFiguresWidth()
   }
@@ -401,6 +386,7 @@
   window.onresize = async () => {
     await adjustMathalea2dFiguresWidth(true)
   }
+
 </script>
 
 <div class="z-0 flex-1" bind:this={divExercice}>

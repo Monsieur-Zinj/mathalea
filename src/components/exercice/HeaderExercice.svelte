@@ -22,12 +22,26 @@
   export let isSortable: boolean = true
   export let isDeletable: boolean = true
   export let isHidable: boolean = true
-  export let titleExtra: string = ''
   let isVisible = true
   let isSettingsVisible = false
   const isContentVisible = true
   let isCorrectionVisible = false
-
+  // redéfinition du titre lorsqu'un exercice apparait plusieurs fois :
+  // si le titre contient le caractère | (ajouté lors de la création de l'exercice)
+  // on coupe le titre en deux et on distingue le titre de base de l'addendum
+  // afin de pouvoir décorer cet addendum
+  let titleAddendum: string
+  let titleBase: string
+  $: {
+    if (title?.includes('|')) {
+      const decompo = title.split('|')
+      titleBase = decompo[0]
+      titleAddendum = decompo[1]
+    } else {
+      titleBase = title || ''
+      titleAddendum = ''
+    }
+  }
   // Éttablissement de la catégorie
   const ressourcesUuids = Object.keys({ ...uuidsRessources })
   const profsUuids = Array.from(toMap({ ...refProfs }).values()).map((e) =>
@@ -106,11 +120,17 @@
         {/if}
       </div>
       <div
-        class="flex flex-row font-normal text-sm md:text-base xl:text-lg pl-0
+        class="flex flex-row font-normal items-center text-sm md:text-base xl:text-lg pl-0
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
       >
-        {title}
-        <div class="italic ml-2 font-light text-coopmaths-warn-900">{titleExtra}</div>
+        {#if titleAddendum}
+          {titleBase}<span
+            class="ml-2 rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm"
+            >{titleAddendum}</span
+          >
+        {:else}
+          {titleBase}
+        {/if}
       </div>
     </div>
     <div

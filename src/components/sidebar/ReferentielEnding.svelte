@@ -8,7 +8,7 @@
     type JSONReferentielEnding
   } from '../../lib/types/referentiels'
   import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-  import { exercicesParams, globalOptions } from '../store'
+  import { changes, exercicesParams, globalOptions } from '../store'
   import type { InterfaceParams } from '../../lib/types'
   import { isLessThanAMonth } from '../../lib/types/dates'
   import NoInteractivityIcon from '../icons/NoInteractivityIcon.svelte'
@@ -50,7 +50,9 @@
   // on compte réactivement le nombre d'occurences
   // de l'exercice dans la liste des sélectionnés
   $: {
-    selectedCount = $exercicesParams.map((item) => item.uuid).filter(compareCodes).length
+    selectedCount = $exercicesParams
+      .map((item) => item.uuid)
+      .filter(compareCodes).length
     selectedCount = selectedCount
   }
   /**
@@ -69,6 +71,7 @@
       newExercise.interactif = '1'
     }
     exercicesParams.update((list) => [...list, newExercise])
+    $changes++
     // console.log('now -> uuids: ' + $exercicesParams.map((item) => item.uuid))
   }
   /**
@@ -76,7 +79,7 @@
    * la première est retirée)
    */
   function removeFromList () {
-    console.log('uuids?' + $exercicesParams.map((item) => item.uuid))
+    // console.log('uuids?' + $exercicesParams.map((item) => item.uuid))
     const matchingIndex = $exercicesParams
       .map((item) => item.uuid)
       .findIndex(compareCodes)
@@ -84,10 +87,11 @@
       ...list.slice(0, matchingIndex),
       ...list.slice(matchingIndex + 1)
     ])
-    console.log('removing: ' + ending.uuid)
-    console.log('matching index: ' + matchingIndex)
-    console.log('selectedCount=' + selectedCount)
-    console.log($exercicesParams)
+    $changes++
+    // console.log('removing: ' + ending.uuid)
+    // console.log('matching index: ' + matchingIndex)
+    // console.log('selectedCount=' + selectedCount)
+    // console.log($exercicesParams)
   }
 
   /* --------------------------------------------------------------
@@ -189,7 +193,9 @@
           </div>
         {:else}
           <!-- Exercice de la bibliothèque -->
-          <div class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus">
+          <div
+            class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+          >
             <span class="font-bold">{ending.uuid}</span>
           </div>
         {/if}

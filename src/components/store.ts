@@ -24,6 +24,9 @@ export const isInIframe = writable<boolean>(false)
  */
 export const exercicesParams = writable<InterfaceParams[]>([])
 
+// tenir le compte des changements dans la liste : ajout/retrait -> +1
+export const changes = writable<number>(0)
+
 /**
  * * `v`: vue
  * * `z`: zoom
