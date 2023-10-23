@@ -1,6 +1,8 @@
 <script lang="ts">
   import HeaderExercice from './HeaderExercice.svelte'
   import referentielStatic from '../../json/referentielStatic.json'
+  import referentielBibliotheque from '../../json/referentielBibliotheque.json'
+  const allStaticReferentiels = { ...referentielBibliotheque, ...referentielStatic }
   import { globalOptions, exercicesParams } from '../store'
   import Exercice from '../../exercices/ExerciceTs.js'
 
@@ -46,7 +48,7 @@
     return null
   }
 
-  const exercice = getExerciceByUuid(referentielStatic, uuid)
+  const exercice = getExerciceByUuid(allStaticReferentiels, uuid)
 
   let isCorrectionVisible = false
   let isContentVisible = true
