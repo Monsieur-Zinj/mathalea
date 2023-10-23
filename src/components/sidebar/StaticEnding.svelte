@@ -21,7 +21,7 @@
 </script>
 
 <div
-  class="flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  class="flex flex-row mr-4 items-center text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas"
   style="padding-left: {(nestedLevelCount * 2) / 6}rem"
 >
   <button

@@ -7,6 +7,7 @@
     callerComponent,
     // bibliothequeSectionContent,
     bibliothequeDisplayedContent,
+    bibliothequePathToSection,
     isModalForStaticsVisible
   } from './store'
   import {
@@ -79,7 +80,6 @@
   let showBibliothequeChoiceDialog = false
   let bibliothequeChoiceModal: ModalGridOfCards
   let bibliothequeUuidInExercisesList: string[]
-  let bibliothequePathToSection: string[]
   $: {
     bibliothequeUuidInExercisesList = []
     const uuidList: string[] = []
@@ -97,7 +97,7 @@
   }
   setContext('bibliothequeChoiceContext', {
     toggleBibliothequeChoiceDialog: (path: string[]) => {
-      bibliothequePathToSection = path
+      $bibliothequePathToSection = path
       showBibliothequeChoiceDialog = !showBibliothequeChoiceDialog
       if (showBibliothequeChoiceDialog === false) {
         bibliothequeChoiceModal.closeModal()
@@ -651,7 +651,7 @@
     bind:displayModal={isModalForStaticsOpen}
   >
     <div slot="header">
-      <BreadcrumbHeader path={bibliothequePathToSection} />
+      <BreadcrumbHeader path={$bibliothequePathToSection} />
     </div>
     <div slot="content">
       <div class="mx-2 pt-8">
