@@ -74,9 +74,10 @@
   })
   /**
    * Gestion la bibliothèque de statiques
-  */
+   */
   import BreadcrumbHeader from './sidebar/BreadcrumbHeader.svelte'
   import CardForStatic from './ui/CardForStatic.svelte'
+  import { doesImageExist } from './utils/images'
   let bibliothequeChoiceModal: ModalGridOfCards
   let bibliothequeUuidInExercisesList: string[]
   $: {
@@ -648,14 +649,16 @@
     <div slot="content">
       <div class="mx-2 pt-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {#each buildBiblioToBeDisplayed() as exercise}
+          {#each buildBiblioToBeDisplayed() as exercise}
+            {#if doesImageExist(exercise.png)}
               <CardForStatic
                 {exercise}
                 selected={bibliothequeUuidInExercisesList.includes(
                   exercise.uuid
                 )}
               />
-            {/each}
+            {/if}
+          {/each}
         </div>
       </div>
     </div>
