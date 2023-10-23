@@ -3,7 +3,7 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, printlatex, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -31,6 +31,7 @@ export default function ReductionSiPossible () {
   this.tailleDiaporama = 3
   this.sup = false
   this.sup2 = false
+  this.sup3 = 9
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
@@ -39,47 +40,59 @@ export default function ReductionSiPossible () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typesDeQuestionsDisponibles = ['ax+bx', 'ax*b', 'b*ax', 'ax+b+cx+d', 'b+ax+d+cx', 'ax+b+x']
-    if (!this.sup) {
-      typesDeQuestionsDisponibles.push('ax+b')
-      if (!context.isAmc) typesDeQuestionsDisponibles.push('ax+bx2')
+    const exclus = []
+    if (this.sup) {
+      exclus.push(1)
+      exclus.push(3)
+    }
+    if (context.isAmc) {
+      exclus.push(3)
     }
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup3,
+      max: 7,
+      melange: 8,
+      defaut: 2,
+      exclus : exclus
+    })
+
+    // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, reponse, coeffa, constb, a, b, c, d, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(-11, 11, 0)
       b = randint(-11, 11, [0, a])
       c = randint(-11, 11, [0])
       d = randint(-11, 11, 0)
       switch (listeTypeDeQuestions[i]) {
-        case 'ax+b':
+        case 1 : // 'ax+b':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})`)}$`
           texteCorr = texte
-          reponse = printlatex(`${a}*x+(${b})`)
+          reponse = [printlatex(`${a}*x+(${b})`), printlatex(`${b}+(${a}*x)`)]
           coeffa = a
           constb = b
           break
-        case 'ax+bx':
+        case 2 : //'ax+bx':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x)`)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x)`)}=${printlatex(`${a + b}x`)}$`
           reponse = printlatex(`${a + b}x`)
           coeffa = a + b
           constb = 0
           break
-        case 'ax+bx2':
+        case 3 : //'ax+bx2':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b}*x^2)`)}$`
           texteCorr = texte
-          reponse = printlatex(`${a}*x+(${b}*x^2)`)
+          reponse = [printlatex(`${a}*x+(${b}*x^2)`), printlatex(`${b}*x^2+(${a}*x)`)]
           // celui-ci ne peut pas être choisi pour AMC
           break
-        case 'ax*b':
+        case 4 : // 'ax*b':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x`)}\\times ${ecritureParentheseSiNegatif(b)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x`)}\\times ${ecritureParentheseSiNegatif(b)}=${printlatex(`${a * b}*x`)}$`
           reponse = printlatex(`${a * b}*x`)
           coeffa = a * b
           constb = 0
           break
-        case 'b*ax':
+        case 5 : //'b*ax':
           a = randint(1, 11)
           texte = `$${lettreDepuisChiffre(i + 1)}=${b}\\times ${printlatex(`${a}*x`)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${b}\\times ${printlatex(`${a}*x`)}=${printlatex(`${b * a}*x`)}$`
@@ -87,7 +100,7 @@ export default function ReductionSiPossible () {
           coeffa = a * b
           constb = 0
           break
-        case 'ax+b+cx+d':
+        case 6 : // 'ax+b+cx+d':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+(${c})*x+(${d})`)}`
           if (b + d === 0) {
@@ -110,13 +123,13 @@ export default function ReductionSiPossible () {
               coeffa = 0
             } else {
               texteCorr += `=${printlatex(`${a + c}*x+(${b + d})`)}$`
-              reponse = printlatex(`${a + c}*x+(${b + d})`)
+              reponse = [printlatex(`${a + c}*x+(${b + d})`), printlatex(`${b + d}+(${a + c}*x)`)]
               coeffa = a + c
               constb = b + d
             }
           }
           break
-        case 'b+ax+d+cx':
+        case 7 :// 'b+ax+d+cx':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${b}+(${a})*x+(${d})+(${c})*x`)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${b}+(${a})*x+(${d})+(${c})*x`)}`
           if (b + d === 0) {
@@ -139,17 +152,17 @@ export default function ReductionSiPossible () {
               constb = b + d
             } else {
               texteCorr += `=${printlatex(`${a + c}*x+(${b + d})`)}$`
-              reponse = printlatex(`${a + c}*x+(${b + d})`)
+              reponse = [printlatex(`${a + c}*x+(${b + d})`),printlatex(`${b + d}+(${a + c}*x)`)]
               coeffa = a + c
               constb = b + d
             }
           }
           break
-        case 'ax+b+x':
+        case 8 : //'ax+b+x':
           a = randint(-11, 11, [0, -1])
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+x`)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*x+(${b})+x`)}=${printlatex(`${a + 1}*x+(${b})`)}$`
-          reponse = printlatex(`${a + 1}*x+(${b})`)
+          reponse = [printlatex(`${a + 1}*x+(${b})`),printlatex(`${b}+(${a + 1}*x)`)]
           coeffa = a + 1
           constb = b
           break
@@ -231,4 +244,17 @@ export default function ReductionSiPossible () {
 
   this.besoinFormulaireCaseACocher = ['On peut toujours réduire.']
   this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+  this.besoinFormulaire3Texte = [
+    'Type de questions', [
+      '1 : ax+b',
+      '2 : ax+bx',
+      '3 : ax+bx²',
+      '4 : ax*b',
+      '5 : b*ax',
+      '6 : ax+b+cx+d',
+      '7 : b+ax+d+cx',
+      '8 : ax+b+x',
+      '9 : Mélange'
+    ].join('\n')
+  ]
 }
