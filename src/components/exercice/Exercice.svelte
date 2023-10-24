@@ -12,7 +12,7 @@
   import ExerciceStatic from './ExerciceStatic.svelte'
   import type Exercice from '../../exercices/ExerciceTs'
   import ExerciceHtml from './ExerciceHtml.svelte'
-  import NewExerciceMathalea from './NewExerciceMathalea.svelte'
+  import ExerciceMathaleaVueProf from './ExerciceMathaleaVueProf.svelte'
 
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
@@ -89,7 +89,7 @@
     {isCorrectionVisible}
   />
 {:else if typeExercice === 'mathaleaVueProf'}
-  <NewExerciceMathalea
+  <ExerciceMathaleaVueProf
     {exercice}
     {indiceExercice}
     {indiceLastExercice}
