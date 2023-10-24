@@ -111,7 +111,8 @@ export const callerComponent = writable<CallerComponentType>('')
 
 // pour sauvegarder l'objet correspondant à la rubrique choisie pour les exos statiques
 export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
-export const bibliothequeDisplayedContent = writable<Record<string, JSONReferentielEnding>>()
+export const bibliothequeDisplayedContent =
+  writable<Record<string, JSONReferentielEnding>>()
 export const bibliothequePathToSection = writable<string[]>([])
 export const isModalForStaticsVisible = writable<boolean>(false)
 
@@ -259,10 +260,12 @@ export const presModeId: [
   'liste_exos',
   'un_exo_par_page',
   'liste_questions',
-  'une_question_par_page'
+  'une_question_par_page',
+  'cartes'
 ] = [
   'liste_exos',
   'un_exo_par_page',
   'liste_questions',
-  'une_question_par_page'
+  'une_question_par_page',
+  'cartes'
 ]

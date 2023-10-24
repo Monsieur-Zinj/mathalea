@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { exercicesParams, darkMode, globalOptions, updateGlobalOptionsInURL } from './store'
+  import { exercicesParams, darkMode, globalOptions } from './store'
   import { mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea.js'
   import Footer from './Footer.svelte'
   import NavBarV2 from './header/NavBarV2.svelte'
@@ -81,7 +81,7 @@
               class="w-1/2 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
               bind:value={$globalOptions.title}
             />
-            <div class="mt-1 text-coopmaths-corpus font-light italic text-xs {$globalOptions.title.length === 0 ? '' : 'invisible'}">Pas de bandeau si laissé vide.</div>
+            <div class="mt-1 text-coopmaths-corpus font-light italic text-xs {$globalOptions.title && $globalOptions.title.length === 0 ? '' : 'invisible'}">Pas de bandeau si laissé vide.</div>
           </div>
         </div>
         <div class="pb-2">
@@ -93,7 +93,8 @@
               { label: 'Tous les exercices sur une page', value: 'liste_exos' },
               { label: 'Une page par exercice', value: 'un_exo_par_page', isDisabled: $exercicesParams.length === 1 },
               { label: 'Toutes les questions sur une page', value: 'liste_questions' },
-              { label: 'Une page par question', value: 'une_question_par_page' }
+              { label: 'Une page par question', value: 'une_question_par_page' },
+              { label: 'Cartes', value: 'cartes' }
             ]}
           />
           <div class="pl-4 pt-2">

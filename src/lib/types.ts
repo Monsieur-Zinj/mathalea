@@ -18,6 +18,7 @@ export interface InterfaceGlobalOptions {
     | 'un_exo_par_page'
     | 'liste_questions'
     | 'une_question_par_page'
+    | 'cartes'
   setInteractive?: string
   isSolutionAccessible?: boolean
   isInteractiveFree?: boolean
@@ -176,8 +177,8 @@ export type DisplayedFilterContent<T> = {
 export type DisplayedFilter<T> = Record<string, DisplayedFilterContent<T>>
 export type FilterType = 'levels' | 'specs' | 'types'
 export type FilterObject<T> = {
-  type: FilterType,
-  key: string,
+  type: FilterType
+  key: string
   content: DisplayedFilterContent<T>
 }
 
