@@ -109,6 +109,7 @@
           <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactivité</div>
           <FormRadio
             title="Interactif"
+            isDisabled={$globalOptions.presMode === 'cartes'}
             bind:valueSelected={$globalOptions.setInteractive}
             labelsValues={[
               { label: 'Laisser tel quel', value: '2' },
@@ -118,14 +119,14 @@
           />
           <div class="pl-2 pt-2">
             <ButtonToggle
-              isDisabled={$globalOptions.setInteractive === '0'}
+              isDisabled={$globalOptions.setInteractive === '0' || $globalOptions.presMode === 'cartes'}
               titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
               bind:value={$globalOptions.isInteractiveFree}
             />
           </div>
           <div class="pl-2 pt-2">
             <ButtonToggle
-              isDisabled={$globalOptions.setInteractive === '0'}
+              isDisabled={$globalOptions.setInteractive === '0' || $globalOptions.presMode === 'cartes'}
               titles={['Les élèves peuvent répondre une seule fois', 'Les élèves peuvent répondre plusieurs fois']}
               bind:value={$globalOptions.oneShot}
             />
@@ -143,12 +144,12 @@
             Correction
           </div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle titles={['Accès aux corrections', 'Pas de corrections']} bind:value={$globalOptions.isSolutionAccessible} />
+            <ButtonToggle titles={['Accès aux corrections', 'Pas de corrections']} bind:value={$globalOptions.isSolutionAccessible} isDisabled={$globalOptions.presMode === 'cartes'}/>
           </div>
         </div>
       </div>
       <div class="pt-4 pb-8 px-4">
-        <Button on:click={handleEleveVueSetUp} title="Visualiser" />
+        <Button on:click={handleEleveVueSetUp} class="px-2 py-1 rounded-md" title="Visualiser" />
       </div>
       <div class="flex flex-row justify-start px-4 py-2">
         <h3 class="font-bold text-2xl text-coopmaths-struct dark:text-coopmathsdark-struct">Utilisation</h3>
