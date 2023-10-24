@@ -752,22 +752,22 @@
           {#each questions as question, k (question)}
             <FlipCard>
               <div slot="question">
-                <div class="flex flex-col my-2 py-2">
-                  <div class="text-coopmaths-corpus pl-2">
-                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html consignes[k]}
+                  <div class="p-2">
+                    <div class="text-coopmaths-corpus pl-2">
+                      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                      {@html consignes[k]}
+                    </div>
+                    <div class="text-coopmaths-corpus pl-2">
+                      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                      {@html question}
+                    </div>
                   </div>
-                  <div class="text-coopmaths-corpus pl-2">
-                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html question}
-                  </div>
-                </div>
               </div>
               <div slot="answer">
-                <div class="flex flex-col my-2 py-2">
-                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  {@html mathaleaFormatExercice(corrections[k])}
-                </div>
+                  <div class="p-2">
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                    {@html mathaleaFormatExercice(corrections[k])}
+                  </div>
               </div>
             </FlipCard>
           {/each}
