@@ -230,7 +230,11 @@ const config = {
       })
     }),
     flipclass
-  ]
+  ],
+  rules: {
+    // require() Require statement not part of import statement.
+    '@typescript-eslint/no-var-requires': 0
+  }
 }
 
 module.exports = config

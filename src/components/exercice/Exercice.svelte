@@ -7,8 +7,7 @@
   import { globalOptions } from '../store'
   import type { InterfaceParams } from '../../lib/types'
   import uuidToUrl from '../../json/uuidsToUrl.json'
-  // import ExerciceMathalea from './ExerciceMathalea.svelte'
-  import ExerciceVueEleve from './ExerciceVueEleve.svelte'
+  import ExerciceMathaleaVueEleve from './ExerciceMathaleaVueEleve.svelte'
   import ExerciceStatic from './ExerciceStatic.svelte'
   import type Exercice from '../../exercices/ExerciceTs'
   import ExerciceHtml from './ExerciceHtml.svelte'
@@ -82,7 +81,7 @@
     {indiceLastExercice}
   />
 {:else if typeExercice === 'mathaleaVueEleve'}
-  <ExerciceVueEleve
+  <ExerciceMathaleaVueEleve
     {exercice}
     {indiceExercice}
     {indiceLastExercice}

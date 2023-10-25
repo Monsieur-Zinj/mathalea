@@ -14,7 +14,7 @@
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams
   } from '../../lib/mathalea'
-  import HeaderExercice from './HeaderExercice.svelte'
+  import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
   import Settings from './Settings.svelte'
   import { exercisesUuidRanking, uuidCount } from '../utils/counts'
   import Exercice from '../../exercices/ExerciceTs.js'
@@ -390,7 +390,7 @@
 </script>
 
 <div class="z-0 flex-1" bind:this={divExercice}>
-  <HeaderExercice
+  <HeaderExerciceVueProf
     {...headerProps}
     on:clickVisible={(event) => {
       isVisible = event.detail.isVisible

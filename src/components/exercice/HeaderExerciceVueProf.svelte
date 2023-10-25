@@ -90,7 +90,7 @@
     settingsReady: true,
     correctionReady: true
   }
-  <HeaderExercice {...headerExerciceProps}/>
+  <HeaderExerciceVueProf {...headerExerciceProps}/>
   ```
  -->
 

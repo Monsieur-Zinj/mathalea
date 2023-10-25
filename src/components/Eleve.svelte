@@ -252,7 +252,7 @@
       $globalOptions.presMode === 'une_question_par_page' ||
       $globalOptions.presMode === 'cartes'
     ) {
-      // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
+      // Pour les autres mode de présentation, cela est géré par ExerciceMathaleaVueProf
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
       await tick()
       const body = document.querySelector<HTMLElement>('body')

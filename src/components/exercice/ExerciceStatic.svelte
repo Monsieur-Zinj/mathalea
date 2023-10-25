@@ -1,5 +1,5 @@
 <script lang="ts">
-  import HeaderExercice from './HeaderExercice.svelte'
+  import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
   import { globalOptions } from '../store'
   import { retrieveResourceFromUuid } from '../utils/refUtils'
   import { isResourceHasPlace, isStaticType, type JSONReferentielObject } from '../../lib/types/referentiels'
@@ -60,7 +60,7 @@
   }
 </script>
 
-<HeaderExercice
+<HeaderExerciceVueProf
   {...headerExerciceProps}
   on:clickCorrection={(event) => {
     isCorrectionVisible = event.detail.isCorrectionVisible
