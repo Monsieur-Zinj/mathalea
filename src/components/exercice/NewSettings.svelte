@@ -314,7 +314,7 @@
             class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             name="settings-formNum2"
             id="settings-formNum2-{exerciceIndex}"
-            bind:value={sup}
+            bind:value={sup2}
             on:change={newSettings}
           >
             {#each formNum2.champs as entree, i}
@@ -342,7 +342,7 @@
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           min="1"
           max={formNum2.champs}
-          bind:value={sup}
+          bind:value={sup2}
           on:change={newSettings}
         />
       </div>
@@ -428,7 +428,7 @@
             class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             name="settings-formNum3"
             id="settings-formNum3-{exerciceIndex}"
-            bind:value={sup}
+            bind:value={sup3}
             on:change={newSettings}
           >
             {#each formNum3.champs as entree, i}
@@ -456,7 +456,7 @@
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           min="1"
           max={formNum3.champs}
-          bind:value={sup}
+          bind:value={sup3}
           on:change={newSettings}
         />
       </div>
@@ -544,7 +544,7 @@
             class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             name="settings-formNum4"
             id="settings-formNum4-{exerciceIndex}"
-            bind:value={sup}
+            bind:value={sup4}
             on:change={newSettings}
           >
             {#each formNum4.champs as entree, i}
@@ -572,7 +572,7 @@
           class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           min="1"
           max={formNum4.champs}
-          bind:value={sup}
+          bind:value={sup4}
           on:change={newSettings}
         />
       </div>
