@@ -13,13 +13,13 @@ export interface InterfaceGlobalOptions {
   sound?: '0' | '1' | '2' | '3'
   es?: string
   title?: string
-  presMode?:
+  presMode:
     | 'liste_exos'
     | 'un_exo_par_page'
     | 'liste_questions'
     | 'une_question_par_page'
     | 'cartes'
-  setInteractive?: string
+  setInteractive: string
   isSolutionAccessible?: boolean
   isInteractiveFree?: boolean
   oneShot?: boolean

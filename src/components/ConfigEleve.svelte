@@ -11,13 +11,14 @@
   import ModalForQRCode from './modal/ModalForQRCode.svelte'
   import { copyLinkToClipboard, copyEmbeddedCodeToClipboard } from './utils/clipboard'
   import { buildUrlAddendumForEsParam } from './utils/urls'
+  import type { NumericRange } from '../lib/types'
 
   onMount(() => {
     // mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     handleSeed()
   })
 
-  const formatQRCodeIndex: number = 0
+  const formatQRCodeIndex: NumericRange<0, 2> = 0
   const QRCodeWidth = 100
 
   const availableLinkFormats = {
@@ -41,14 +42,14 @@
     }
   }
 
-  type LinkFormat = 'clear' | 'short' | 'crypt'
+  type LinkFormat = keyof typeof availableLinkFormats
   let currentLinkFormat: LinkFormat = 'clear'
 
   function handleEleveVueSetUp () {
     let url = document.URL + '&v=eleve'
     url += '&title=' + $globalOptions.title
     url += '&es=' + buildUrlAddendumForEsParam()
-    window.open(url, '_blank').focus()
+    window.open(url, '_blank')?.focus()
   }
 
   // Gestion de la graine
@@ -93,8 +94,8 @@
               { label: 'Tous les exercices sur une page', value: 'liste_exos' },
               { label: 'Une page par exercice', value: 'un_exo_par_page', isDisabled: $exercicesParams.length === 1 },
               { label: 'Toutes les questions sur une page', value: 'liste_questions' },
-              { label: 'Une page par question', value: 'une_question_par_page' },
-              { label: 'Cartes', value: 'cartes' }
+              { label: 'Une page par question', value: 'une_question_par_page' }
+              // { label: 'Cartes', value: 'cartes' }
             ]}
           />
           <div class="pl-4 pt-2">

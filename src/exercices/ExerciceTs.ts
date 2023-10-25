@@ -65,7 +65,7 @@ export default class Exercice {
   video: string
   interactif: boolean
   interactifObligatoire: boolean
-  interactifReady?: boolean
+  interactifReady: boolean
   interactifType?: string
   besoinFormulaireNumerique: boolean | any[]
   besoinFormulaireTexte: boolean | any[]
@@ -159,6 +159,7 @@ export default class Exercice {
     this.video = '' // Chaine de caractère pour un complément numérique (id Youtube, url, code iframe...).
     // Interactivité
     this.interactif = false // Exercice sans saisie utilisateur par défaut.
+    this.interactifReady = false // Exercice sans saisie utilisateur par défaut.
     this.interactifObligatoire = false // Certains exercices sont uniquement des QCM et n'ont pas de version non interactive.
     // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup ou dans le paramètre d'url ',s='
     this.besoinFormulaireNumerique = false // Sinon this.besoinFormulaireNumerique = [texte, max, tooltip facultatif]
