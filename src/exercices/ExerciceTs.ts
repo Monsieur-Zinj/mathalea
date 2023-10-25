@@ -63,9 +63,9 @@ export default class Exercice {
   correctionDetaillee: boolean
   correctionIsCachee: boolean
   video: string
-  interactif: boolean
+  interactif: boolean // l'exercice est affiché en mode interactif si `true`
   interactifObligatoire: boolean
-  interactifReady: boolean
+  interactifReady: boolean // flag pour indiquer si l'exercice est dispo en interactif ou pas
   interactifType?: string
   besoinFormulaireNumerique: boolean | any[]
   besoinFormulaireTexte: boolean | any[]

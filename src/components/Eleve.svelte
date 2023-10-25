@@ -18,7 +18,7 @@
   } from './store'
   import type TypeExercice from '../exercices/ExerciceTs.js'
   import Exercice from './exercice/Exercice.svelte'
-  import { onMount, tick } from 'svelte'
+  import { onDestroy, onMount, tick } from 'svelte'
   import seedrandom from 'seedrandom'
   import { loadMathLive } from '../modules/loaders'
   import Button from './forms/Button.svelte'
@@ -151,7 +151,7 @@
     }
   }
   $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
-
+  let resizeObserver: ResizeObserver
   onMount(async () => {
     // Si presMode est undefined cela signifie que l'on charge cet url
     // sinon en venant du modal il existerait
@@ -185,7 +185,7 @@
     exercices = exercices
     await tick()
     buildQuestions()
-    const resizeObserver = new ResizeObserver((x) => {
+    resizeObserver = new ResizeObserver((x) => {
       const url = new URL(window.location.href)
       const iframe = url.searchParams.get('iframe')
       window.parent.postMessage(
@@ -202,10 +202,10 @@
     if ($globalOptions.recorder === 'capytale') {
       $globalOptions.isInteractiveFree = false
     }
-    return () => {
-      /* onDestroy function */
-      resizeObserver.disconnect()
-    }
+  })
+
+  onDestroy(() => {
+    resizeObserver.disconnect()
   })
 
   async function buildQuestions () {
@@ -255,7 +255,10 @@
       // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
       await tick()
-      mathaleaRenderDiv(document.querySelector<HTMLElement>('body'))
+      const body = document.querySelector<HTMLElement>('body')
+      if (body) {
+        mathaleaRenderDiv(body)
+      }
       loadMathLive()
     }
     const section = document.querySelector('section') as HTMLElement
@@ -301,8 +304,10 @@
           indiceQuestionInExercice[i]
         ) === 'OK'
     } else if (type === 'custom') {
+      // si le typ est `custom` on est sûr que `correctionInteractive` existe
+      // d'où le ! après `correctionInteractive`
       resultsByQuestion[i] =
-        exercices[indiceExercice[i]].correctionInteractive(i) === 'OK'
+        exercices[indiceExercice[i]].correctionInteractive!(i) === 'OK'
     }
     isDisabledButton[i] = true
     isCorrectionVisible[i] = true

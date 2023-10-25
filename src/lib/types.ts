@@ -12,7 +12,7 @@ export interface InterfaceGlobalOptions {
   trans?: boolean
   sound?: '0' | '1' | '2' | '3'
   es?: string
-  title?: string
+  title: string
   presMode:
     | 'liste_exos'
     | 'un_exo_par_page'
