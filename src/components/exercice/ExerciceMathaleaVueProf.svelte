@@ -15,7 +15,7 @@
     mathaleaUpdateUrlFromExercicesParams
   } from '../../lib/mathalea'
   import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
-  import Settings from './Settings.svelte'
+  import Settings from './NewSettings.svelte'
   import { exercisesUuidRanking, uuidCount } from '../utils/counts'
   import Exercice from '../../exercices/ExerciceTs.js'
   import type { HeaderProps } from '../../lib/types/ui'
@@ -584,7 +584,7 @@
           : 'hidden lg:w-0'} flex flex-col duration-500"
       >
         {#if isSettingsVisible}
-          <Settings {exercice} on:settings={handleNewSettings} />
+          <Settings {exercice} exerciceIndex={indiceExercice} on:settings={handleNewSettings} />
         {/if}
       </div>
     </div>

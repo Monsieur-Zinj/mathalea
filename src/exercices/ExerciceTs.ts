@@ -67,18 +67,18 @@ export default class Exercice {
   interactifObligatoire: boolean
   interactifReady: boolean // flag pour indiquer si l'exercice est dispo en interactif ou pas
   interactifType?: string
-  besoinFormulaireNumerique: boolean | [string, number, string]
-  besoinFormulaireTexte: boolean | any[]
-  besoinFormulaireCaseACocher: boolean | any[]
-  besoinFormulaire2Numerique: boolean | any[]
-  besoinFormulaire2Texte: boolean | any[]
-  besoinFormulaire2CaseACocher: boolean | any[]
-  besoinFormulaire3Numerique: boolean | any[]
-  besoinFormulaire3Texte: boolean | any[]
-  besoinFormulaire3CaseACocher: boolean | any[]
-  besoinFormulaire4Numerique: boolean | any[]
-  besoinFormulaire4Texte: boolean | any[]
-  besoinFormulaire4CaseACocher: boolean | any[]
+  besoinFormulaireNumerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaireTexte: boolean | [string, string]
+  besoinFormulaireCaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire2Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire2Texte: boolean | [string, string]
+  besoinFormulaire2CaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire3Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire3Texte: boolean | [string, string]
+  besoinFormulaire3CaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire4Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire4Texte: boolean | [string, string]
+  besoinFormulaire4CaseACocher: boolean | [string] | [string, boolean]
   mg32Editable: boolean
   listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
   examen?: string // Pour les exercices statiques

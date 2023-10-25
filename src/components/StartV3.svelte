@@ -312,7 +312,9 @@
         class="hidden {isMenuOpen
           ? 'md:flex'
           : 'md:hidden'} w-[4px] z-0 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
-        on:mousedown={startResizing.bind(this, 'moving')}
+        on:mousedown={() => {
+          startResizing('moving')
+        }}
         role="menu"
         tabindex="0"
       />
