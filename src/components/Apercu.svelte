@@ -21,7 +21,7 @@
   let corrections: [string[], string[], string[], string[]] = [[], [], [], []]
   let consignes: string[] = []
   let durations: number[] = []
-  const nbOfVues = $globalOptions.nbVues
+  const nbOfVues = $globalOptions.nbVues ? $globalOptions.nbVues : 1
   let currentVue: 0 | 1 | 2 | 3 = nbOfVues > 1 ? 3 : 0
   let isCorrectionVisible = false
   let isQuestionsVisible = true
