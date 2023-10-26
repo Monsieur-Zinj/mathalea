@@ -8,7 +8,6 @@ import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
 import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
-import { globalOptions } from '../components/stores/generalStore.js'
 import { get } from 'svelte/store'
 
 /**
@@ -216,7 +215,7 @@ export async function loadMathLive () {
             top: var(--keyboard-position);
             height: var(--_keyboard-height);
           }
-          
+
           div.ML__keyboard.is-visible .ML__keyboard--plate {
             position: static;
             transform: none;
