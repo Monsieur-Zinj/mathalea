@@ -1,5 +1,5 @@
 import type { Activity, InterfaceResultExercice } from '../lib/types.js'
-import { exercicesParams, globalOptions, resultsByExercice } from '../components/store.js'
+import { exercicesParams, globalOptions, resultsByExercice } from '../components/stores/generalStore.js'
 import { mathaleaHandleComponentChange } from './mathalea.js'
 import { get } from 'svelte/store'
 import { RPC } from '@mixer/postmessage-rpc'

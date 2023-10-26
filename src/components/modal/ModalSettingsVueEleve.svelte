@@ -2,7 +2,7 @@
   import Button from '../forms/Button.svelte'
   import ButtonToggle from '../forms/ButtonToggle.svelte'
   import FormRadio from '../forms/FormRadio.svelte'
-  import { globalOptions } from '../store'
+  import { globalOptions } from '../stores/generalStore'
   import ModalActionWithDialog from '../modal/ModalActionWithDialog.svelte'
   import ModalForQRCode from '../modal/ModalForQRCode.svelte'
   import { copyLinkToClipboard, copyEmbeddedCodeToClipboard } from '../utils/clipboard'

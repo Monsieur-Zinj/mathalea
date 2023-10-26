@@ -10,7 +10,7 @@
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams
   } from '../lib/mathalea'
-  import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from './store'
+  import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from './stores/generalStore'
   import type Exercice from '../exercices/ExerciceTs.js'
   import seedrandom from 'seedrandom'
   import { context } from '../modules/context.js'
@@ -22,7 +22,7 @@
   import ModalForQRCode from './modal/ModalForQRCode.svelte'
   import FormRadio from './forms/FormRadio.svelte'
   import ButtonToggle from './forms/ButtonToggle.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
+  import NavBar from './header/NavBar.svelte'
   import type { InterfaceParams } from '../lib/types'
 
   const divQuestion: HTMLDivElement[] = []
@@ -776,7 +776,7 @@
           />
         </button>
       </div> -->
-      <NavBarV2 subtitle="Réglages du diaporama" subtitleType="export" />
+      <NavBar subtitle="Réglages du diaporama" subtitleType="export" />
       <div class="flex flex-row w-full justify-center items-start mx-20 mt-10">
         <!-- Multivue + Liens -->
         <div class="flex flex-col w-1/5 justify-start">

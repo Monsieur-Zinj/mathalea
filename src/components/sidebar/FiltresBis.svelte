@@ -1,7 +1,7 @@
 <script lang="ts">
   import { FILTER_SECTIONS_TITLES, type FilterType } from '../../lib/types'
   import type { Level } from '../../lib/types/referentiels'
-  import { allFilters } from '../filtersStore'
+  import { allFilters } from '../stores/filtersStore'
   import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
   export let filterType: FilterType = 'levels'
   const timeTag: string = getUniqueStringBasedOnTimeStamp()

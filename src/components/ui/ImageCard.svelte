@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { bibliothequeExercise } from '../../lib/types'
   import StarIcon from '../icons/StarIcon.svelte'
-  import { exercicesParams } from '../store'
+  import { exercicesParams } from '../stores/generalStore'
 
   export let exercise: bibliothequeExercise = {
     uuid: 'theUuid',

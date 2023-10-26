@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, bibliothequeSectionContent } from './store'
+  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, bibliothequeSectionContent } from './stores/generalStore'
   import SideMenu from './sidebar/SideMenu.svelte'
   import { mathaleaGenerateSeed, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea'
   import { flip } from 'svelte/animate'

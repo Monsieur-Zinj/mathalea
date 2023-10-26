@@ -5,8 +5,8 @@ import type {
   InterfaceParams,
   InterfaceResultExercice,
   bibliothequeExercise
-} from '../lib/types'
-import { type JSONReferentielEnding } from '../lib/types/referentiels'
+} from '../../lib/types'
+import { type JSONReferentielEnding } from '../../lib/types/referentiels'
 
 /**
  * Pour bloquer la mise à jour de l'url

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { exercicesParams } from '../store'
+  import { exercicesParams } from '../stores/generalStore'
   export let text: string = ''
   export let indice: number
 

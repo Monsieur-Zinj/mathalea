@@ -5,7 +5,7 @@
     ResourceAndItsPath,
     ReferentielInMenu
   } from '../../lib/types/referentiels'
-  import { allFilters } from '../filtersStore'
+  import { allFilters } from '../stores/filtersStore'
   import {
     applyFilters,
     buildReferentiel,
@@ -14,7 +14,7 @@
   import ReferentielNode from './ReferentielNode.svelte'
   import SearchBlock from './SearchBlock.svelte'
   import SideMenuApps from './SideMenuApps.svelte'
-  import { referentiels, originalReferentiels, deepReferentielInMenuCopy } from '../referentielsStore'
+  import { referentiels, originalReferentiels, deepReferentielInMenuCopy } from '../stores/referentielsStore'
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
   // maj du référentiel chaque fois que le store `allFilters` change

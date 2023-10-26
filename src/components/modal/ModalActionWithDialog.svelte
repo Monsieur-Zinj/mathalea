@@ -79,6 +79,7 @@
     class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
     id={dialogId + '-1'}
   >
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     <div class="container font-light">{@html message}</div>
   </dialog>
   <dialog

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { exercicesParams, globalOptions } from '../store'
+  import { exercicesParams, globalOptions } from '../stores/generalStore'
   import { isRecent } from '../utils/handleDate'
 
   import renderMathInElement from 'katex/dist/contrib/auto-render.js'

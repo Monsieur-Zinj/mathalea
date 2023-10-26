@@ -1,5 +1,5 @@
 <script>
-  import { isModalForStaticsVisible } from '../store'
+  import { isModalForStaticsVisible } from '../stores/generalStore'
 
   export let displayModal // boolean
   export const closeModal = () => {

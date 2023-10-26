@@ -1,15 +1,21 @@
 <script lang="ts">
   import { creerDocumentAmc } from '../lib/amc/creerDocumentAmc.js'
   import { context } from '../modules/context.js'
-  import { mathaleaGetExercicesFromParams, mathaleaHandleExerciceSimple, mathaleaUpdateExercicesParamsFromUrl, mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea.js'
+  import {
+    mathaleaGetExercicesFromParams,
+    mathaleaHandleExerciceSimple,
+    mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaGenerateSeed,
+    mathaleaUpdateUrlFromExercicesParams
+  } from '../lib/mathalea.js'
   import Footer from './Footer.svelte'
-  import { darkMode, exercicesParams } from './store'
+  import { darkMode, exercicesParams } from './stores/generalStore.js'
   import type TypeExercice from '../exercices/ExerciceTs.js'
   import FormRadio from './forms/FormRadio.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
+  import NavBar from './header/NavBar.svelte'
   import ModalActionWithDialog from './modal/ModalActionWithDialog.svelte'
   import { showDialogForLimitedTime } from './utils/dialogs.js'
-    import seedrandom from 'seedrandom'
+  import seedrandom from 'seedrandom'
   import Button from './forms/Button.svelte'
   import ModalMessageBeforeAction from './modal/ModalMessageBeforeAction.svelte'
   import { onMount } from 'svelte'
@@ -31,7 +37,6 @@
   }
 
   let nbQuestions: Array<NbQuestionsIndexees> = []
-  const nbQuestionsString = '1'
   let nbExemplaires = 1
   let textForOverleaf: HTMLInputElement
 
@@ -44,7 +49,7 @@
       context.isHtml = false
       context.isAmc = true
       seedrandom(exercice.seed, { global: true })
-      if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
+      if (exercice.typeExercice === 'simple') { mathaleaHandleExerciceSimple(exercice, false) }
       if (exercice.nouvelleVersion != null) exercice.nouvelleVersion()
       if (exercice.amcType == null) {
         // l'exercice n'est pas disponible AMC
@@ -59,7 +64,9 @@
         }
       }
     }
-    exercices = exercices.filter((exercice) => !exercicesARetirer.includes(exercice.uuid))
+    exercices = exercices.filter(
+      (exercice) => !exercicesARetirer.includes(exercice.uuid)
+    )
 
     refsExercicesARetirer = refsExercicesARetirer
     // afficher le modal pour les exercices non AMC ?
@@ -91,7 +98,7 @@
           context.isHtml = false
           context.isAmc = true
           seedrandom(exo.seed, { global: true })
-          if (exo.typeExercice === 'simple') mathaleaHandleExerciceSimple(exo, false)
+          if (exo.typeExercice === 'simple') { mathaleaHandleExerciceSimple(exo, false) }
           if (exo.nouvelleVersion != null) exo.nouvelleVersion()
         }
       }
@@ -156,7 +163,8 @@
    * Gérer le POST pour Overleaf
    */
   function handleOverLeaf () {
-    textForOverleaf.value = 'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(content)))
+    textForOverleaf.value =
+      'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(content)))
     overleafForm.submit()
     modal.style.display = 'none'
   }
@@ -164,13 +172,23 @@
   // =======================================================
 </script>
 
-<main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="AMC" subtitleType="export" />
+<main
+  class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive
+    ? 'dark'
+    : ''}"
+>
+  <NavBar subtitle="AMC" subtitleType="export" />
 
   <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10">
+    <div
+      class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10"
+    >
       <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Type d'entête</div>
+        <div
+          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Type d'entête
+        </div>
         <FormRadio
           bind:valueSelected={entete}
           labelsValues={[
@@ -182,7 +200,11 @@
         />
       </div>
       <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Format</div>
+        <div
+          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Format
+        </div>
         <FormRadio
           bind:valueSelected={format}
           labelsValues={[
@@ -193,9 +215,15 @@
         />
       </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10">
+    <div
+      class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10"
+    >
       <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Matière</div>
+        <div
+          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Matière
+        </div>
         <input
           bind:value={matiere}
           class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -203,7 +231,11 @@
         />
       </div>
       <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Titre</div>
+        <div
+          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Titre
+        </div>
         <input
           bind:value={titre}
           class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -211,10 +243,18 @@
         />
       </div>
       <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de questions par groupe</div>
+        <div
+          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Nombre de questions par groupe
+        </div>
         {#each exercices as exercice, i}
           <div>
-            {exercice.id}{exercice.sup ? `-S:${exercice.sup}` : ''}{exercice.sup2 ? `-S2:${exercice.sup2}` : ''}{exercice.sup3 ? `-S3:${exercice.sup3}` : ''}
+            {exercice.id}{exercice.sup
+              ? `-S:${exercice.sup}`
+              : ''}{exercice.sup2 ? `-S2:${exercice.sup2}` : ''}{exercice.sup3
+                ? `-S3:${exercice.sup3}`
+                : ''}
             <input
               type="text"
               class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -233,7 +273,9 @@
                 $exercicesParams[i].alea = exercice.seed
                 mathaleaUpdateUrlFromExercicesParams()
               }}
-              ><i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh" />
+              ><i
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh"
+              />
             </button>
             <!-- <button
                class="tooltip tooltip-left tooltip-neutral"
@@ -256,10 +298,16 @@
           </div>
         {/each}
         <div>
-          <ModalMessageBeforeAction buttonTitle="Continuer" icon="bxs-error" modalId="nonAmc-modal" on:action={handleNonAmcModal}>
+          <ModalMessageBeforeAction
+            buttonTitle="Continuer"
+            icon="bxs-error"
+            modalId="nonAmc-modal"
+            on:action={handleNonAmcModal}
+          >
             <span slot="header" />
             <div slot="content" class="text-justify">
-              Les exercices suivants n'ayant pas de version AMC, ils ont été retirés de la liste.
+              Les exercices suivants n'ayant pas de version AMC, ils ont été
+              retirés de la liste.
               <ul class="list-inside list-disc text-left text-base mt-1">
                 {#each refsExercicesARetirer as reference}
                   <li>{reference}</li>
@@ -270,7 +318,11 @@
         </div>
       </div>
       <div>
-        <div class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre d'exemplaires distincts</div>
+        <div
+          class="pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Nombre d'exemplaires distincts
+        </div>
         <input
           bind:value={nbExemplaires}
           class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
@@ -280,7 +332,9 @@
       </div>
     </div>
 
-    <div class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8">
+    <div
+      class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8"
+    >
       <ModalActionWithDialog
         dialogId="latexCopy"
         message="Le code LaTeX a été copié dans le presse-papier"
@@ -298,24 +352,59 @@
         title="Compiler sur OverLeaf"
       />
     </div>
-    <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
+    <pre
+      class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
       {content}
     </pre>
   </section>
   <!-- Message avant envoi sur Overleaf -->
-  <ModalMessageBeforeAction buttonTitle="Continuer" icon="bxs-error" modalId="overleaf-modal" on:action={handleOverLeaf}>
+  <ModalMessageBeforeAction
+    buttonTitle="Continuer"
+    icon="bxs-error"
+    modalId="overleaf-modal"
+    on:action={handleOverLeaf}
+  >
     <span slot="header">Attention !</span>
     <ul class="list-inside list-disc text-left text-base" slot="content">
       <li>Le fichier sortit d’Overleaf ne constitue qu’un aperçu.</li>
-      <li>Le fichier doit être compilé sous AMC impérativement pour que le fichier soit fonctionnel.</li>
+      <li>
+        Le fichier doit être compilé sous AMC impérativement pour que le fichier
+        soit fonctionnel.
+      </li>
     </ul>
   </ModalMessageBeforeAction>
   <!-- Formulaire pour Overleaf -->
-  <form action="https://www.overleaf.com/docs" id="overleaf-form" method="POST" target="_blank">
-    <input type="hidden" name="snip_uri[]" value="https://coopmaths.fr/alea/static/amc/automultiplechoice.sty" autocomplete="off" />
-    <input type="hidden" name="snip_name[]" value="automultiplechoice.sty" autocomplete="off" />
-    <input autocomplete="off" bind:this={textForOverleaf} name="snip_uri[]" type="hidden" value="" />
-    <input autocomplete="off" name="snip_name[]" type="hidden" value="coopmaths.tex" />
+  <form
+    action="https://www.overleaf.com/docs"
+    id="overleaf-form"
+    method="POST"
+    target="_blank"
+  >
+    <input
+      type="hidden"
+      name="snip_uri[]"
+      value="https://coopmaths.fr/alea/static/amc/automultiplechoice.sty"
+      autocomplete="off"
+    />
+    <input
+      type="hidden"
+      name="snip_name[]"
+      value="automultiplechoice.sty"
+      autocomplete="off"
+    />
+    <input
+      autocomplete="off"
+      bind:this={textForOverleaf}
+      name="snip_uri[]"
+      type="hidden"
+      value=""
+    />
+    <input
+      autocomplete="off"
+      name="snip_name[]"
+      type="hidden"
+      value="coopmaths.tex"
+    />
     <input autocomplete="off" name="engine" type="hidden" value="lualatex" />
   </form>
   <Footer />

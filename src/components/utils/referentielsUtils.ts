@@ -7,7 +7,7 @@ import { findPropPaths, findDuplicates } from './searching'
 import { toMap } from './toMap'
 import { isRecent } from './handleDate'
 import { get } from 'svelte/store'
-import { globalOptions } from '../store'
+import { globalOptions } from '../stores/generalStore'
 import referentielsActivation from '../../json/referentielsActivation.json'
 import type { JSONReferentielObject } from '../../lib/types/referentiels'
 // Réorganisation du référentiel

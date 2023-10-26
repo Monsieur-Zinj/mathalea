@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { exercicesParams } from '../store'
+  import { exercicesParams } from '../stores/generalStore'
   export let ressource: Map<'id' | 'url' | 'uuid' | 'titre', string>
 
   /* --------------------------------------------------------------

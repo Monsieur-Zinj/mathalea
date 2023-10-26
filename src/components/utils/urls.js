@@ -1,4 +1,4 @@
-import { globalOptions } from '../store'
+import { globalOptions } from '../stores/generalStore'
 import { get } from 'svelte/store'
 /**
    * Construit les éléments à ajouter à l'URL afin d'accéder à la vue élève

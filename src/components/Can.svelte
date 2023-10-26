@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalOptions, questionsOrder, selectedExercises, darkMode, exercicesParams } from './store'
+  import { globalOptions, questionsOrder, selectedExercises, darkMode, exercicesParams } from './stores/generalStore'
   import { onMount, tick } from 'svelte'
   import {
     mathaleaFormatExercice,

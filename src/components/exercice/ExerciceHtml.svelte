@@ -2,7 +2,7 @@
   import { onMount } from 'svelte'
   import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
   import type TypeExercice from '../../exercices/ExerciceTs.js'
-  import { globalOptions } from '../store'
+  import { globalOptions } from '../stores/generalStore'
   import HeaderExerciceVueEleve from './HeaderExerciceVueEleve.svelte'
   export let exercice: TypeExercice
   export let indiceExercice: number

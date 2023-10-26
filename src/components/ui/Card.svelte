@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { AppTierce } from '../../lib/referentiels'
   import StarIcon from '../icons/StarIcon.svelte'
-  import { exercicesParams } from '../store'
+  import { exercicesParams } from '../stores/generalStore'
 
   export let application: AppTierce = {
     title: 'Titre',

@@ -6,7 +6,7 @@ import Exercice from '../exercices/Exercice.js'
 import type TypeExercice from '../exercices/ExerciceTs.js'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/store.js'
+import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/stores/generalStore.js'
 import { get } from 'svelte/store'
 // @ts-ignore
 // @ts-ignore

@@ -4,7 +4,7 @@
     mathaleaLoadExerciceFromUuid
   } from '../../lib/mathalea'
   import { SvelteComponent, onMount } from 'svelte'
-  import { globalOptions } from '../store'
+  import { globalOptions } from '../stores/generalStore'
   import type { InterfaceParams } from '../../lib/types'
   import uuidToUrl from '../../json/uuidsToUrl.json'
   import ExerciceMathaleaVueEleve from './ExerciceMathaleaVueEleve.svelte'

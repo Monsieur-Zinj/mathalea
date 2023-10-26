@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../store'
+  import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../stores/generalStore'
   import { afterUpdate, onMount, tick } from 'svelte'
   import type TypeExercice from '../../exercices/ExerciceTs.js'
   import seedrandom from 'seedrandom'

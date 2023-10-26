@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher, tick } from 'svelte'
-  import { exercicesParams, globalOptions } from '../store'
+  import { exercicesParams, globalOptions } from '../stores/generalStore'
   import { sortArrayOfStringsWithHyphens } from '../utils/filters'
   import type { InterfaceReferentiel } from '../../lib/types'
   import EntreeRecherche from './EntreeRecherche.svelte'

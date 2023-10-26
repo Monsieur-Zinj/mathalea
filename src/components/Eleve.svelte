@@ -15,7 +15,7 @@
     resultsByExercice,
     isMenuNeededForExercises,
     isMenuNeededForQuestions
-  } from './store'
+  } from './stores/generalStore'
   import type TypeExercice from '../exercices/ExerciceTs.js'
   import Exercice from './exercice/Exercice.svelte'
   import { onDestroy, onMount, tick } from 'svelte'

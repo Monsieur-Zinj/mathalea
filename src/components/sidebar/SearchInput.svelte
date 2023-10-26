@@ -12,12 +12,12 @@
   import {
     exercicesParams,
     globalOptions
-  } from '../store'
+  } from '../stores/generalStore'
   import {
     allFilters,
     getSelectedFiltersObjects,
     handleUncheckingMutipleFilters
-  } from '../filtersStore'
+  } from '../stores/filtersStore'
   import type { FilterObject, InterfaceParams } from '../../lib/types'
   import { getUniqueStringBasedOnTimeStamp, debounce } from '../utils/time'
   import Button from '../forms/Button.svelte'

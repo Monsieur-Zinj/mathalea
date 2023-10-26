@@ -8,7 +8,7 @@
     type JSONReferentielEnding
   } from '../../lib/types/referentiels'
   import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-  import { changes, exercicesParams, globalOptions } from '../store'
+  import { changes, exercicesParams, globalOptions } from '../stores/generalStore'
   import type { InterfaceParams } from '../../lib/types'
   import { isLessThanAMonth } from '../../lib/types/dates'
   import NoInteractivityIcon from '../icons/NoInteractivityIcon.svelte'

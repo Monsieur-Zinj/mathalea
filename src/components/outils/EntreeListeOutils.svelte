@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { exercicesParams } from '../store'
+  import { exercicesParams } from '../stores/generalStore'
   import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 
   export let outil

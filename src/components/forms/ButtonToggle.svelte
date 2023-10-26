@@ -59,6 +59,7 @@
         ? 'text-opacity-10'
         : 'text-opacity-70'}"
   >
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html `${value ? titles[0] : titles[1]}`}
   </div>
 </div>

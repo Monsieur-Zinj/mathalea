@@ -1,13 +1,13 @@
 // Ce store est dédié au stockage des référentiels et des outils de leur évolution
-import referentielAlea from '../json/referentiel2022.json'
-import referentielExams from '../json/referentielStatic.json'
-import referentielProfs from '../json/referentielProfs.json'
-import referentielRessources from '../json/referentielRessources.json'
-import referentielBibliotheque from '../json/referentielBibliotheque.json'
+import referentielAlea from '../../json/referentiel2022.json'
+import referentielExams from '../../json/referentielStatic.json'
+import referentielProfs from '../../json/referentielProfs.json'
+import referentielRessources from '../../json/referentielRessources.json'
+import referentielBibliotheque from '../../json/referentielBibliotheque.json'
 import type {
   JSONReferentielObject,
   ReferentielInMenu
-} from '../lib/types/referentiels'
+} from '../../lib/types/referentiels'
 import { writable } from 'svelte/store'
 const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
 const examsReferentiel: JSONReferentielObject = { ...referentielExams }

@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store'
-import type { DisplayedFilter, FilterObject, FilterType } from '../lib/types'
-import type { Features, Level } from '../lib/types/referentiels'
+import type { DisplayedFilter, FilterObject, FilterType } from '../../lib/types'
+import type { Features, Level } from '../../lib/types/referentiels'
 // pour sauvegarder les sélections de filtres
 export const allFilters = writable<
   Record<FilterType, DisplayedFilter<string | Level>>

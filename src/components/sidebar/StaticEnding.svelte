@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { JSONReferentielEnding } from '../../lib/types/referentiels'
-  import { bibliothequeDisplayedContent, bibliothequePathToSection, isModalForStaticsVisible } from '../store'
+  import { bibliothequeDisplayedContent, bibliothequePathToSection, isModalForStaticsVisible } from '../stores/generalStore'
 
   export let pathToThisNode: string[] = []
   export let nestedLevelCount: number

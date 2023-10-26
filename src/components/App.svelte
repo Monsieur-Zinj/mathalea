@@ -5,7 +5,7 @@
   import Eleve from './Eleve.svelte'
   import ConfigEleve from './ConfigEleve.svelte'
   import Latex from './Latex.svelte'
-  import { freezeUrl, globalOptions, isInIframe } from './store'
+  import { freezeUrl, globalOptions, isInIframe } from './stores/generalStore'
   import { context } from '../modules/context.js'
   import {
     ElementButtonInstrumenpoche,
@@ -16,7 +16,7 @@
   import OutilsProf from './OutilsProf.svelte'
   import Capytale from './Capytale.svelte'
   import Test from './Test.svelte'
-  import StartV3 from './StartV3.svelte'
+  import Start from './Start.svelte'
 
   context.versionMathalea = 3
   if (customElements.get('alea-instrumenpoche') === undefined) {
@@ -81,6 +81,6 @@
   {:else if $globalOptions.recorder === 'capytale'}
     <Capytale />
   {:else}
-    <StartV3 />
+    <Start />
   {/if}
 </div>

@@ -1,8 +1,8 @@
 <script lang="ts">
   import Exercice from './exercice/Exercice.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
+  import NavBar from './header/NavBar.svelte'
   import Footer from './Footer.svelte'
-  import { exercicesParams, globalOptions, darkMode, isExportMenuVisible, isSettingsMenuVisible, isSideMenuVisible, selectedExercises, isInIframe, callerComponent } from './store'
+  import { exercicesParams, globalOptions, darkMode, callerComponent } from './stores/generalStore'
   import referentielOutils from '../json/referentielProfs.json'
   import { flip } from 'svelte/animate'
   import { onMount } from 'svelte'
@@ -12,8 +12,6 @@
   import ButtonsDeck from './outils/ButtonsDeck.svelte'
   import Button from './forms/Button.svelte'
   import ButtonSvg from './forms/ButtonSvg.svelte'
-  import MoodleIcon from './icons/MoodleIcon.svelte'
-  import AmcIcon from './icons/AmcIcon.svelte'
 
   let isMenuOpen: boolean = true
   let divExercices: HTMLDivElement
@@ -98,7 +96,7 @@
   <!-- <Header /> -->
   {#if isNavBarVisible}
     <div id="headerStart" class="shrink-0 z-40 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
-      <NavBarV2 subtitle="Outils pour la classe" subtitleType="design" />
+      <NavBar subtitle="Outils pour la classe" subtitleType="design" />
     </div>
   {/if}
   <div class="flex flex-col md:flex-row w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">

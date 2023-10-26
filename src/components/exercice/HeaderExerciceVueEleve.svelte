@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalOptions, isMenuNeededForExercises } from '../store'
+  import { globalOptions, isMenuNeededForExercises } from '../stores/generalStore'
   export let title: string
   export let indiceExercice: number
   export let showNumber = true

@@ -1,4 +1,4 @@
-import { exercicesParams, globalOptions } from '../../components/store'
+import { exercicesParams, globalOptions } from '../../components/stores/generalStore'
 import { get } from 'svelte/store'
 import { createButon, createIButton, createTextInput } from './_components'
 import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time'

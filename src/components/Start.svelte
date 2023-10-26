@@ -8,7 +8,7 @@
     bibliothequeDisplayedContent,
     bibliothequePathToSection,
     isModalForStaticsVisible
-  } from './store'
+  } from './stores/generalStore'
   import {
     mathaleaUpdateExercicesParamsFromUrl,
     mathaleaUpdateUrlFromExercicesParams
@@ -18,7 +18,7 @@
   import Exercice from './exercice/Exercice.svelte'
   import Button from './forms/Button.svelte'
   import ButtonsDeck from './outils/ButtonsDeck.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
+  import NavBar from './header/NavBar.svelte'
   import TwoStatesIcon from './icons/TwoStatesIcon.svelte'
   import Footer from './Footer.svelte'
   import LatexIcon from './icons/LatexIcon.svelte'
@@ -286,7 +286,7 @@
         id="headerStart"
         class="sticky top-0 shrink-0 z-0 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden"
       >
-        <NavBarV2 subtitle="Conception de document" subtitleType="design" />
+        <NavBar subtitle="Conception de document" subtitleType="design" />
       </div>
     {/if}
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import Sortable from 'sortablejs'
   import ChipExo from './ChipExo.svelte'
-  import { exercicesParams, moveExercice } from '../store'
+  import { exercicesParams, moveExercice } from '../stores/generalStore'
   import { onMount } from 'svelte'
   import { uuidCount, exercisesUuidRanking } from '../utils/counts'
   import { getUniqueStringBasedOnTimeStamp } from '../utils/time'

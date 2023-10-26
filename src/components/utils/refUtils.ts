@@ -18,7 +18,7 @@ import {
   AtLeastOneOfCriteria,
   MultiCriteria
 } from '../../lib/types/filters'
-import { getSelectedLevels, getSelectedFeatures } from '../filtersStore'
+import { getSelectedLevels, getSelectedFeatures } from '../stores/filtersStore'
 
 /**
  * Récupérer la liste des exercices récents !

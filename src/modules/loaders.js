@@ -8,7 +8,7 @@ import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
 import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
-import { globalOptions } from '../components/store'
+import { globalOptions } from '../components/stores/generalStore.js'
 import { get } from 'svelte/store'
 
 /**

@@ -2,7 +2,7 @@
   import { createEventDispatcher } from 'svelte'
   import BoutonMonter from './BoutonMonter.svelte'
   import BoutonDescendre from './BoutonDescendre.svelte'
-  import { globalOptions, exercicesParams } from '../store'
+  import { globalOptions, exercicesParams } from '../stores/generalStore'
   import InteractivityIcon from '../icons/TwoStatesIcon.svelte'
   import uuidsRessources from '../../json/uuidsRessources.json'
   import refProfs from '../../json/referentielProfs.json'

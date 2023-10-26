@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { exercicesParams, darkMode, globalOptions } from './store'
+  import { exercicesParams, darkMode, globalOptions } from './stores/generalStore'
   import { mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea.js'
   import Footer from './Footer.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
+  import NavBar from './header/NavBar.svelte'
   import Button from './forms/Button.svelte'
   import FormRadio from './forms/FormRadio.svelte'
   import { onMount } from 'svelte'
@@ -67,7 +67,7 @@
 </script>
 
 <main class="mb-auto flex flex-col justify-between h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="La page Élève" subtitleType="export" />
+  <NavBar subtitle="La page Élève" subtitleType="export" />
   <div class="h-full w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div class="h-full w-full md:w-2/3 lg:w-3/5 flex flex-col p-4 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas mx-auto">
       <div class="flex flex-col md:flex-row justify-start px-4 py-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">

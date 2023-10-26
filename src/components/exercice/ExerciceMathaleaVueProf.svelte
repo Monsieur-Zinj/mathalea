@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice, exercicesParams, changes } from '../store'
+  import { globalOptions, resultsByExercice, exercicesParams, changes } from '../stores/generalStore'
   import { afterUpdate, onMount, tick, onDestroy } from 'svelte'
   import seedrandom from 'seedrandom'
   import {

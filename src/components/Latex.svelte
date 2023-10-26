@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from './store'
+  import { exercicesParams, darkMode } from './stores/generalStore'
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea.js'
   import type TypeExercice from '../exercices/ExerciceTs.js'
   import Footer from './Footer.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
+  import NavBar from './header/NavBar.svelte'
   import Latex, { type Exo, type picFile, getExosContentList, getPicsNames, doesLatexNeedsPics, makeImageFilesUrls } from '../lib/Latex'
   import Button from './forms/Button.svelte'
   import FormRadio from './forms/FormRadio.svelte'
@@ -135,7 +135,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="LaTeX" subtitleType="export" />
+  <NavBar subtitle="LaTeX" subtitleType="export" />
 
   <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <h1 class="mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Paramétrage</h1>

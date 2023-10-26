@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { InterfaceParams } from 'src/lib/types'
-  import { exercicesParams, globalOptions } from '../store'
+  import { exercicesParams, globalOptions } from '../stores/generalStore'
   import { isRecent } from '../utils/handleDate'
   import NoInteractivityIcon from '../icons/NoInteractivityIcon.svelte'
 

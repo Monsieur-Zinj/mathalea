@@ -1,7 +1,7 @@
 <script lang='ts'>
   import type { StaticItemInreferentiel } from '../../lib/types/referentiels'
   import StarIcon from '../icons/StarIcon.svelte'
-  import { exercicesParams } from '../store'
+  import { exercicesParams } from '../stores/generalStore'
 
   export let exercise: StaticItemInreferentiel
   export let reversed: boolean = false

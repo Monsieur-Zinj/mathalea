@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { exercicesParams, bibliothequeSectionContent } from '../store'
+  import { exercicesParams, bibliothequeSectionContent } from '../stores/generalStore'
   import { toObject } from '../utils/toObj'
   import { getContext } from 'svelte'
   export let nestedLevelCount: number

@@ -1,6 +1,6 @@
 <script lang="ts">
   import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
-  import { globalOptions } from '../store'
+  import { globalOptions } from '../stores/generalStore'
   import { retrieveResourceFromUuid } from '../utils/refUtils'
   import { isResourceHasPlace, isStaticType, type JSONReferentielObject } from '../../lib/types/referentiels'
   /**
