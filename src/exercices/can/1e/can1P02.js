@@ -151,7 +151,7 @@ export default function LectureProbabilite () {
       }
       if (choix === 1 - pBC) {
         texteCorr += `$${texNombre(1 - pBC, 2)}$ est une probabilité conditionnelle, 
-        $${miseEnEvidence(`P_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(pBC, 2)}`)}$.`
+        $${miseEnEvidence(`P_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(1 - pBC, 2)}`)}$.`
         setReponse(this, i, [
                     `p_{\\overline{${nom1}}}({\\overline{${nom2}}})`, `P_{\\overline{${nom1}}}({\\overline{${nom2}}})`,
                     `p\\overline{_${nom1}}(\\overline{{${nom2}}})`, `P\\overline{_${nom1}}(\\overline{{${nom2}}})`,
