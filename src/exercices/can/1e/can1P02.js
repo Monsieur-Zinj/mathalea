@@ -2,6 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
@@ -44,8 +45,8 @@ export default function LectureProbabilite () {
     for (let i = 0, cpt = 0, pA, pB, pAC, pBC, omega, texte, texteCorr, choix, nom1, nom2, objets; i < this.nbQuestions && cpt < 50;) {
       objets = []
       // On choisit les probas de l'arbre
-      nom1 = choisitLettresDifferentes(1, 'D')[0]
-      nom2 = choisitLettresDifferentes(1, nom1 + 'D')[0]
+      nom1 = choisitLettresDifferentes(1, ['D', 'P'])[0]
+      nom2 = choisitLettresDifferentes(1, nom1 + ['D', 'P'])[0]
       pA = (new Decimal(randint(1, 9, 5))).div(10)
 
       pB = new Decimal(1 - pA)
@@ -120,31 +121,37 @@ export default function LectureProbabilite () {
         texte += `${sp(7)}$\\ldots\\ldots $`
       }
       texte += ` $= ${texNombre(choix, 2)}$`
-      texteCorr = `Les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre :<br>
-      $\\bullet$ $P(${nom1})=${texNombre(pA, 2)}$
-      $\\bullet$ $P(\\overline{${nom1}})=${texNombre(pB, 2)}$
-      $\\bullet$  $P_{${nom1}}(${nom2})=${texNombre(pAC, 2)}$
-      $\\bullet$ $P_{${nom1}}(\\overline{${nom2}})=${texNombre(1 - pAC, 2)}$
-      $\\bullet$ $P_{\\overline{${nom1}}}(${nom2})=${texNombre(pBC, 2)}$
-      $\\bullet$ $P_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(1 - pBC, 2)}$.
-      `
+      texteCorr = `Les probabilités conditionnelles se lisent sur la deuxième partie de l'arbre.<br>
+            `
 
       if (choix === pA) {
+        texteCorr += `$${texNombre(pA, 2)}$ n'est pas une probabilité conditionnelle, 
+        $${miseEnEvidence(`P(${nom1})=${texNombre(pA, 2)}`)}$.`
         setReponse(this, i, [`p(${nom1})`, `P(${nom1})`])
       }
       if (choix === pB) {
+        texteCorr += `$${texNombre(pA, 2)}$ n'est pas une probabilité conditionnelle, 
+        $${miseEnEvidence(`P(\\overline{${nom1}})=${texNombre(pB, 2)}`)}$.`
         setReponse(this, i, [`p(\\overline{${nom1}})`, `P(\\overline{${nom1}})`])
       }
       if (choix === pAC) {
+        texteCorr += `$${texNombre(pAC, 2)}$ est une probabilité conditionnelle, 
+        $${miseEnEvidence(`P_{${nom1}}(${nom2})=${texNombre(pAC, 2)}`)}$.`
         setReponse(this, i, [`p_${nom1}({${nom2}})`, `P_${nom1}({${nom2}})`]) // Testé et Correct
       }
       if (choix === 1 - pAC) {
+        texteCorr += `$${texNombre(1 - pAC, 2)}$ est une probabilité conditionnelle, 
+        $${miseEnEvidence(`P_{${nom1}}(\\overline{${nom2}})=${texNombre(1 - pAC, 2)}`)}$.`
         setReponse(this, i, [`p_${nom1}({\\overline{${nom2}}})`, `P_${nom1}({\\overline{${nom2}}})`, `p_${nom1}(\\overline{{${nom2}}})`, `P_${nom1}(\\overline{{${nom2}}})`]) // Testé et Correct
       }
       if (choix === pBC) {
+        texteCorr += `$${texNombre(pBC, 2)}$ est une probabilité conditionnelle, 
+        $${miseEnEvidence(`P_{\\overline{${nom1}}}(${nom2})=${texNombre(pBC, 2)}`)}$.`
         setReponse(this, i, [`p_{\\overline{${nom1}}}({${nom2}})`, `P_{\\overline{${nom1}}}({${nom2}})`, `p\\overline{_${nom1}}({${nom2}})`, `P\\overline{_${nom1}}({${nom2}})`]) // Testé et Correct
       }
       if (choix === 1 - pBC) {
+        texteCorr += `$${texNombre(1 - pBC, 2)}$ est une probabilité conditionnelle, 
+        $${miseEnEvidence(`P_{\\overline{${nom1}}}(\\overline{${nom2}})=${texNombre(pBC, 2)}`)}$.`
         setReponse(this, i, [
                     `p_{\\overline{${nom1}}}({\\overline{${nom2}}})`, `P_{\\overline{${nom1}}}({\\overline{${nom2}}})`,
                     `p\\overline{_${nom1}}(\\overline{{${nom2}}})`, `P\\overline{_${nom1}}(\\overline{{${nom2}}})`,
@@ -162,15 +169,16 @@ export default function LectureProbabilite () {
         style: 'inline',
         scale: 0.5
       }, ...objets)
-      this.canReponseACompleter = `Compléter avec la notation qui convient.<br><br>
-       $\\ldots= ${texNombre(choix, 2)}$`
+      this.canReponseACompleter = `Compléter avec la notation qui convient.<br>
+
+      $\\ldots= ${texNombre(choix, 2)}$`
       if (this.questionJamaisPosee(i, pA, pAC, pBC)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
         i++
       }
-      this.listeCanEnonces.push(this.canEnonce)
-      this.listeCanReponsesACompleter.push(this.canReponseACompleter)
       cpt++
     }
     listeQuestionsToContenu(this)
