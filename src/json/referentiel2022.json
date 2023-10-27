@@ -1009,6 +1009,19 @@
             "amc": true
           },
           "datePublication": "13/02/2023"
+        },
+        "can6C47": {
+          "url": "can/6e/can6C47.js",
+          "uuid": "792c3",
+          "id": "can6C47",
+          "titre": "Additionner astucieusement",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive",
+            "amcType": "AMCNum",
+            "amc": true
+          },
+          "datePublication": "25/10/2023"
         }
       },
       "can6D": {
@@ -3091,9 +3104,9 @@
           "tags": {
             "interactif": true,
             "interactifType": "mathLive",
-            "amcType": "AMCNum",
-            "amc": true
-          }
+            "amc": false
+          },
+          "dateModification": "26/10/2023"
         },
         "can3F02": {
           "url": "can/3e/can3F02.js",
@@ -3218,6 +3231,18 @@
             "amc": false
           },
           "datePublication": "02/10/2023"
+        },
+        "can3F12": {
+          "url": "can/3e/can3F12.js",
+          "uuid": "0e1c6",
+          "id": "can3F12",
+          "titre": "Lire des antécédents graphiquement",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive",
+            "amc": false
+          },
+          "datePublication": "26/10/2023"
         }
       },
       "can3G": {
@@ -3888,6 +3913,18 @@
             "amc": false
           },
           "datePublication": "19/05/2023"
+        },
+        "can2F16": {
+          "url": "can/2e/can2F16.js",
+          "uuid": "9d293",
+          "id": "can2F16",
+          "titre": "Résoudre une équation graphiquement",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive",
+            "amc": false
+          },
+          "datePublication": "27/10/2023"
         }
       },
       "can2G": {
@@ -4300,6 +4337,30 @@
           },
           "datePublication": "07/02/2022",
           "dateModification": "26/08/2023"
+        },
+        "can2N03": {
+          "url": "can/2e/can2N03.js",
+          "uuid": "e356a",
+          "id": "can2N03",
+          "titre": "Déterminer l'intersection de deux intervalles",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive",
+            "amc": false
+          },
+          "datePublication": "26/10/2023"
+        },
+        "can2N04": {
+          "url": "can/2e/can2N04.js",
+          "uuid": "bb947",
+          "id": "can2N04",
+          "titre": "Déterminer la réunion de deux intervalles",
+          "tags": {
+            "interactif": true,
+            "interactifType": "mathLive",
+            "amc": false
+          },
+          "datePublication": "26/10/2023"
         },
         "can2N05": {
           "url": "can/2e/can2N05.js",
@@ -9116,11 +9177,13 @@
         "url": "5e/5R12-1.ts",
         "uuid": "4dadb",
         "id": "5R12-1",
-        "titre": "Placer un point dans un repère",
+        "titre": "Placer des points dans un repère",
         "tags": {
-          "interactif": false,
+          "interactif": true,
+          "interactifType": "custom",
           "amc": false
-        }
+        },
+        "datePublication": "27/10/2023"
       },
       "5R12-2": {
         "url": "5e/5R12-2.js",
