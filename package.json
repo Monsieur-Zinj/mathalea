@@ -74,7 +74,8 @@
     "seedrandom": "^3.0.5",
     "simple-svelte-autocomplete": "^2.5.2",
     "sortablejs": "^1.15.0",
-    "ts-import": "5.0.0-beta.0"
+    "ts-import": "5.0.0-beta.0",
+    "xstate": "^4.38.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.39.0",

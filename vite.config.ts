@@ -8,6 +8,9 @@ export default defineConfig({
     target: ['es2020', 'edge88', 'firefox78', 'chrome87', 'safari14'],
     sourcemap: true
   },
+  define: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version)
+  },
   plugins: [
     svelte({
       compilerOptions: {
