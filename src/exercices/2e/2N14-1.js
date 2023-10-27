@@ -107,7 +107,7 @@ export default function EnsembleDeNombres () {
           } else {
             b = -b
             texte = `$\\dfrac{${texNombre(b * a)}}{${a}}\\in $`
-            texteCorr = `$\\dfrac{${texNombre(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier naturel. On a donc $\\dfrac{${texNombre(b * a)}}{${a}}\\in \\mathbb{Z}$.`
+            texteCorr = `$\\dfrac{${texNombre(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier relatif. On a donc $\\dfrac{${texNombre(b * a)}}{${a}}\\in \\mathbb{Z}$.`
             setReponse(this, i, '\\mathbb{Z}')
           }
           break
