@@ -1,26 +1,14 @@
-
-import Exercice from "../ExerciceTs.js"
-import Figure from 'apigeom/src/Figure'
+import Exercice from '../ExerciceTs'
+import Figure from 'apigeom'
 import Point from 'apigeom/src/elements/points/Point'
-import ui from 'apigeom/src/uiMachine.js'
+import { randint } from '../../modules/outils.js'
+import type TextByPosition from 'apigeom/src/elements/text/TextByPosition.js'
+import { context } from '../../modules/context'
 
-import { interpret } from 'xstate'
-
-export const titre = 'Placer un point dans un repère'
-export const dateDePublication = '24/09/2023'
+export const titre = 'Placer des points dans un repère'
+export const dateDePublication = '27/10/2023'
 export const interactifReady = true
 export const interactifType = 'custom'
-
-
-
-class SuperFigure extends Figure {
-  constructor ({ border = false, dx = 1, dy = 1, height = 400, isDynamic = true, pixelsPerUnit = 30, scale = 1, snapGrid = false, width = 400, xMin = -10, xScale = 1, yMin = -6, yScale = 1 }: { border?: boolean, dx?: number, dy?: number, height?: number, isDynamic?: boolean, pixelsPerUnit?: number, scale?: number, snapGrid?: boolean, width?: number, xMin?: number, xScale?: number, yMin?: number, yScale?: number } = {}) {
-    super({ border, dx, dy, height, isDynamic, pixelsPerUnit, scale, snapGrid, width, xMin, xScale, yMin, yScale })
-    console.log(this)
-    const machineWithContext = ui.withContext({ figure: this, temp: { elements: [], htmlElement: [], values: [] } })
-    this.ui = interpret(machineWithContext).start()
-  }
-}
 
 /**
  * Placer un point dans un repère
@@ -30,8 +18,13 @@ class SuperFigure extends Figure {
 export const uuid = '4dadb'
 export const ref = '5R12-1'
 
+type Coords = { x: number, y: number }
+
 class ReperagePointDuPlan extends Exercice {
   figure!: Figure
+  points: Coords[] = []
+  divButtons!: HTMLDivElement
+  exoCustomResultat = true // Cela permet de renvoyer un tableau de résultats
   constructor () {
     super()
     this.titre = titre
@@ -45,41 +38,98 @@ class ReperagePointDuPlan extends Exercice {
     this.sup = 1
     this.sup2 = true
     this.listeAvecNumerotation = false
+    this.exoCustomResultat = true
   }
+
   nouvelleVersion (numeroExercice: number): void {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.figure = new SuperFigure({ snapGrid: true, xMin: -6, yMin: -6 })
-    this.figure.create('Grid')
-    console.log(this.figure)
-    let texte, texteCorr
-    this.contenu = '' // Liste de questions
-    this.contenuCorrection = '' // Liste de questions corrigées
-    texte = 'Placer le point de coordonnées $(-4 ; 1).$'
-    texteCorr = ''
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
-    this.listeQuestions[0] += `<div class="mt-6" id="apiGeomEx${numeroExercice}F0"></div>`
-    this.listeCorrections[0] = ''
+    this.figure = new Figure({ snapGrid: true, xMin: -7, yMin: -7, width: 420, height: 450 })
+    this.figure.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
+    this.figure.options.labelAutomaticForPoints = true
+    let x1 = randint(-6, 1)
+    let x2 = randint(1, 6, x1)
+    let x3 = randint(-6, 6, [0, x1, x2])
+    let x4 = 0
+    let y1 = randint(-6, 1)
+    let y2 = randint(1, 6, y1)
+    let y3 = randint(-6, 6, [0, y1, y2])
+    let y4 = 0
+    // On mélange en évitant le couple (0,0)
+    while ([[x1, y1], [x2, y2], [x3, y3], [x4, y4]].some(e => e[0] === 0 && e[1] === 0)) {
+      [x1, x2, x3, x4] = [x1, x2, x3, x4].sort(() => Math.random() - 0.5)
+      ;[y1, y2, y3, y4] = [y1, y2, y3, y4].sort(() => Math.random() - 0.5)
+    }
+    this.points = [
+      { x: x1, y: y1 },
+      { x: x2, y: y2 },
+      { x: x3, y: y3 },
+      { x: x4, y: y4 }
+    ]
+    const figureCorr = new Figure({ snapGrid: true, xMin: -7, yMin: -7, width: 420, height: 420, isDynamic: false })
+    figureCorr.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
+    figureCorr.create('Point', { x: x1, y: y1, color: 'green', thickness: 3, label: 'A' })
+    figureCorr.create('Point', { x: x2, y: y2, color: 'green', thickness: 3, label: 'B' })
+    figureCorr.create('Point', { x: x3, y: y3, color: 'green', thickness: 3, label: 'C' })
+    figureCorr.create('Point', { x: x4, y: y4, color: 'green', thickness: 3, label: 'D' })
+    let enonce = 'Placer les points suivants : '
+    enonce += `$A(${x1}\\;;\\;${y1})$ ; $B(${x2}\\;;\\;${y2})$ ; $C(${x3}\\;;\\;${y3})$ et $D(${x4}\\;;\\;${y4})$.`
+    const emplacementPourFigure = `<div class="mt-6" id="apiGeomEx${numeroExercice}F0"></div>`
+    const texteCorr = figureCorr.getStaticHtml()
+    this.listeQuestions = [enonce + emplacementPourFigure]
+    this.listeCorrections = [texteCorr]
+
+    // Sortie LaTeX avec ProfCollege
+    if (!context.isHtml) {
+      this.listeQuestions = [enonce + `\n\n\\bigskip\n\\Reperage[Plan,AffichageNom,AffichageGrad]{%
+        -5/0/,0/-5/,5/0/,0/5/%
+        }`]
+      this.listeCorrections = [`\\Reperage[Plan,AffichageNom,AffichageGrad]{%
+        -5/0/,0/-5/,5/0/,0/5/,${x1}/${y1}/A,${x2}/${y2}/B,${x3}/${y3}/C,${x4}/${y4}/D%
+        }`]
+    }
+
     document.addEventListener('exercicesAffiches', () => {
       const container = document.querySelector(`#apiGeomEx${numeroExercice}F0`) as HTMLDivElement
       if (container === null) return
-      container.innerHTML = ''
-      const buttons = this.figure.addButtons('POINT REMOVE')
-      buttons.style.display = 'flex'
-      container.appendChild(buttons)
-      this.figure.setContainer(container)
+      if (this.figure.container == null) {
+        container.innerHTML = ''
+        this.divButtons = this.figure.addButtons('POINT DRAG')
+        this.divButtons.style.display = 'flex'
+        container.appendChild(this.divButtons)
+        this.figure.setContainer(container)
+        this.figure.isDynamic = !!this.interactif
+        this.divButtons.style.display = this.interactif ? 'flex' : 'none'
+        this.figure.divUserMessage.style.fontSize = '1em'
+        this.figure.divUserMessage.style.pointerEvents = 'none'
+        this.figure.divUserMessage.style.top = '-10px'
+      }
     })
   }
 
-  correctionInteractive = (i?: number) => {
-      const points = [...this.figure.elements.values()].filter(e => e.type.includes('Point')) as Point[]
-      const point = points[0]
-      if (point === undefined) return 'KO'
-      if (point.x === -4 && point.y === 1) return 'OK'
-      return 'KO'
+  correctionInteractive = () => {
+    const points = [...this.figure.elements.values()].filter(e => e.type === 'Point') as Point[]
+    const resultat = []
+    for (let i = 0; i < 4; i++) {
+      if (points[i] !== undefined && points[i].x === this.points[i].x && points[i].y === this.points[i].y) {
+        resultat.push('OK')
+      } else {
+        if (points[i] !== undefined) {
+          points[i].color = 'red'
+          points[i].thickness = 3
+          const textLabel = points[i].elementTextLabel as TextByPosition
+          textLabel.color = 'red'
+        }
+        const pointCorr = this.figure.create('Point', { x: this.points[i].x, y: this.points[i].y, color: 'green', thickness: 3, label: String.fromCharCode(65 + i) })
+        const pointCorrLabel = pointCorr.elementTextLabel as TextByPosition
+        pointCorrLabel.color = 'green'
+        resultat.push('KO')
+      }
     }
+    this.figure.isDynamic = false
+    this.divButtons.style.display = 'none'
+    this.figure.divUserMessage.style.display = 'none'
+
+    return resultat
+  }
 }
 
 export default ReperagePointDuPlan
