@@ -15,7 +15,7 @@ import seedrandom from 'seedrandom'
  * @returns {Array.} un nouveau tableau mélangé
  * @author sylvain
  */
-export function shuffle (unshuffledArray) {
+export const shuffle = <T>(unshuffledArray: T[]) => {
   const randomNumber = seedrandom()
   return unshuffledArray
     .map(value => ({ value, sortingKey: randomNumber() }))
@@ -32,7 +32,9 @@ export function shuffle (unshuffledArray) {
  * @returns {number[]} tableau d'index
  * @author sylvain
  */
-export function listOfRandomIndexes (originalArraySize, nbOfIndexes) {
+export function listOfRandomIndexes (originalArraySize: number, nbOfIndexes: number) {
   const indexes = shuffle([...Array(originalArraySize).keys()])
   return indexes.slice(0, nbOfIndexes)
 }
+
+export default shuffle

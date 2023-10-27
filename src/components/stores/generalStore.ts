@@ -57,7 +57,7 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
 })
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
-export const questionsOrder = writable({
+export const questionsOrder = writable<{isQuestionsShuffled: boolean, indexes: number[]}>({
   isQuestionsShuffled: false,
   indexes: []
 })

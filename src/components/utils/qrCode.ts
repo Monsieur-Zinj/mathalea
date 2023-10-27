@@ -19,8 +19,8 @@ export const allowedImageFormats = [
  * @author sylvain
  */
 export async function urlToQRCodeOnWithinImgTag (
-  imageId,
-  QRCodeWidth,
+  imageId: string,
+  QRCodeWidth: number,
   formatQRCodeIndex = 0,
   urlAddendum = '',
   shorten = false,
@@ -52,10 +52,14 @@ export async function urlToQRCodeOnWithinImgTag (
       light: '#fff'
     }
   }
-  QRCode.toDataURL(currentURL, options, (err, url) => {
+  QRCode.toDataURL(currentURL, options, (err: Error, url: string) => {
     if (err) throw err
     const img = document.getElementById(imageId)
-    img.src = url
+    if (img) {
+      img.setAttribute('src', url)
+    } else {
+      throw new Error(`Can't find image with this ID: ${imageId} in document...`)
+    }
   })
 }
 
@@ -66,7 +70,7 @@ export async function urlToQRCodeOnWithinImgTag (
  * @param formatQRCodeIndex code du format d'image (voir allowedImageFormats)
  * @author sylvain
  */
-export function downloadQRCodeImage (imageId, formatQRCodeIndex = 0) {
+export function downloadQRCodeImage (imageId: string, formatQRCodeIndex = 0) {
   // creating a timestamp for file name
   const date = new Date()
   const year = date.getFullYear()
@@ -74,23 +78,32 @@ export function downloadQRCodeImage (imageId, formatQRCodeIndex = 0) {
   const day = ('0' + date.getDate()).slice(-2)
   const timestamp = `${year}${month}${day}`
 
-  const imageSrc = document.getElementById(imageId).getAttribute('src')
-  fetch(imageSrc)
-    .then((resp) => resp.blob())
-    .then((blob) => {
-      const url = window.URL.createObjectURL(blob)
-      // creating virtual link for download
-      const downloadLink = document.createElement('a')
-      downloadLink.style.display = 'none'
-      downloadLink.href = url
-      downloadLink.download =
-        'qrcode_diapo_coopmaths_' +
-        timestamp +
-        '.' +
-        allowedImageFormats[formatQRCodeIndex].name
-      document.body.appendChild(downloadLink)
-      downloadLink.click()
-      window.URL.revokeObjectURL(url)
-    })
-    .catch(() => "Erreur avec le téléchargement de l'image du QR-Code")
+  const id = document.getElementById(imageId)
+  if (id) {
+    const imageSrc = id.getAttribute('src')
+    if (imageSrc) {
+      fetch(imageSrc)
+        .then((resp) => resp.blob())
+        .then((blob) => {
+          const url = window.URL.createObjectURL(blob)
+          // creating virtual link for download
+          const downloadLink = document.createElement('a')
+          downloadLink.style.display = 'none'
+          downloadLink.href = url
+          downloadLink.download =
+            'qrcode_diapo_coopmaths_' +
+            timestamp +
+            '.' +
+            allowedImageFormats[formatQRCodeIndex].name
+          document.body.appendChild(downloadLink)
+          downloadLink.click()
+          window.URL.revokeObjectURL(url)
+        })
+        .catch(() => "Erreur avec le téléchargement de l'image du QR-Code")
+    } else {
+      throw new Error(`Image with ID: ${imageId} has no attribute "src"`)
+    }
+  } else {
+    throw new Error(`Can't find image with this ID: ${imageId} in document...`)
+  }
 }

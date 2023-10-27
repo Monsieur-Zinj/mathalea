@@ -3,17 +3,17 @@
     urlToQRCodeOnWithinImgTag,
     downloadQRCodeImage,
     allowedImageFormats
-  } from '../utils/qr-code.js'
+  } from '../utils/qrCode'
   import { copyQRCodeImageToClipboard } from '../utils/clipboard'
   import FormRadio from '../forms/FormRadio.svelte'
-  import type { NumericRange } from '../../lib/types'
+  import type { NumberRange } from '../../lib/types'
 
   // type FormatCodeRange = Range<0, allowedImageFormats.length>
 
   export let imageId: string = 'QRImage'
   export let dialogId: string = 'dialogQR'
   export let width: number = 100
-  export let format: NumericRange<0, 2> = 0 // <-- 2 correspond à allowedImageFormats.length mais passer la variable ne fonctionne pas
+  export let format: NumberRange<0, 2> // <-- 2 correspond à allowedImageFormats.length mais passer la variable ne fonctionne pas
   export let tooltipMessage: string = 'My tooltip'
   export let buttonSize: string = 'text-2xl'
   export let buttonIcon: string = 'bx-qr'

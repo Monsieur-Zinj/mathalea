@@ -9,7 +9,7 @@
 export default class Exercice {
   titre: string
   id?: string
-  uuid?: string
+  uuid!: string
   sup: any
   sup2: any
   sup3: any
