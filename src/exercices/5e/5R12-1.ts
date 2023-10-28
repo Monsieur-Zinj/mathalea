@@ -46,6 +46,7 @@ class ReperagePointDuPlan extends Exercice {
     this.figure = new Figure({ snapGrid: true, xMin: -7, yMin: -7, width: 420, height: 450 })
     this.figure.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
     this.figure.options.labelAutomaticForPoints = true
+    this.figure.options.limitNumberOfElement.set('Point', 4)
     let x1 = randint(-6, 1)
     let x2 = randint(1, 6, x1)
     let x3 = randint(-6, 6, [0, x1, x2])
