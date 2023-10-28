@@ -104,12 +104,6 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
                 // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
                 field.setValue(exercice.answers[answer])
               }
-              /*
-              else if ('value' in field) {
-                // C'est un HTMLInputElement (créé avec ajouteChampTexte)
-                field.value = exercice.answers[answer]
-              }
-              */
             } else {
               // La réponse correspond à une case à cocher qui doit être cochée
               const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
@@ -122,6 +116,11 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
                   select.value = exercice.answers[answer]
                 }
               }
+            }
+            if (answer.includes('apigeom')) {
+              // La réponse correspond à une figure
+              const event = new CustomEvent(answer, { detail: exercice.answers[answer] })
+              document.dispatchEvent(event)
             }
           }
         }

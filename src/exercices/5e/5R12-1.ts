@@ -24,6 +24,7 @@ class ReperagePointDuPlan extends Exercice {
   figure!: Figure
   points: Coords[] = []
   divButtons!: HTMLDivElement
+  idApigeom!: string
   exoCustomResultat = true // Cela permet de renvoyer un tableau de résultats
   constructor () {
     super()
@@ -72,7 +73,8 @@ class ReperagePointDuPlan extends Exercice {
     figureCorr.create('Point', { x: x4, y: y4, color: 'green', thickness: 3, label: 'D' })
     let enonce = 'Placer les points suivants : '
     enonce += `$A(${x1}\\;;\\;${y1})$ ; $B(${x2}\\;;\\;${y2})$ ; $C(${x3}\\;;\\;${y3})$ et $D(${x4}\\;;\\;${y4})$.`
-    const emplacementPourFigure = `<div class="mt-6" id="apiGeomEx${numeroExercice}F0"></div>`
+    this.idApigeom = `apigeomEx${numeroExercice}F0`
+    const emplacementPourFigure = `<div class="mt-6" id="${this.idApigeom}"></div>`
     const texteCorr = figureCorr.getStaticHtml()
     this.listeQuestions = [enonce + emplacementPourFigure]
     this.listeCorrections = [texteCorr]
@@ -87,9 +89,16 @@ class ReperagePointDuPlan extends Exercice {
         }`]
     }
 
+    // Pour revoir la copie de l'élève dans Capytale
+    document.addEventListener(this.idApigeom, (event: Event) => {
+      const customEvent = event as CustomEvent
+      const json = customEvent.detail
+      this.figure.loadJson(JSON.parse(json))
+    })
+
     document.addEventListener('exercicesAffiches', () => {
       if (!context.isHtml) return
-      const container = document.querySelector(`#apiGeomEx${numeroExercice}F0`) as HTMLDivElement
+      const container = document.querySelector(`#${this.idApigeom}`) as HTMLDivElement
       if (container == null) return
       if (this.figure.container == null) {
         container.innerHTML = ''
@@ -108,6 +117,8 @@ class ReperagePointDuPlan extends Exercice {
 
   correctionInteractive = () => {
     const points = [...this.figure.elements.values()].filter(e => e.type === 'Point') as Point[]
+    this.answers = {}
+    this.answers[this.idApigeom] = this.figure.json
     const resultat = []
     for (let i = 0; i < 4; i++) {
       if (points[i] !== undefined && points[i].x === this.points[i].x && points[i].y === this.points[i].y) {

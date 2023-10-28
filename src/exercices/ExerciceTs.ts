@@ -87,7 +87,7 @@ export default class Exercice {
   content?: string // Pour les exercices statiques
   contentCorr?: string // Pour les exercices statiques
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
-  answers?: string[]
+  answers?: { [key: string]: string } // Réponses de l'élève
   isDone?: boolean
   html?: HTMLElement
   constructor () {
