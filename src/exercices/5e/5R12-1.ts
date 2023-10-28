@@ -102,7 +102,7 @@ class ReperagePointDuPlan extends Exercice {
       if (container == null) return
       if (this.figure.container == null) {
         container.innerHTML = ''
-        this.divButtons = this.figure.addButtons('POINT DRAG')
+        this.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
         this.divButtons.style.display = 'flex'
         container.appendChild(this.divButtons)
         this.figure.setContainer(container)
