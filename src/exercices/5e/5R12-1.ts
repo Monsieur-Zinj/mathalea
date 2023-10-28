@@ -1,6 +1,5 @@
 import Exercice from '../ExerciceTs'
 import Figure from 'apigeom'
-import Point from 'apigeom/src/elements/points/Point'
 import { randint } from '../../modules/outils.js'
 import type TextByPosition from 'apigeom/src/elements/text/TextByPosition.js'
 import { context } from '../../modules/context'
@@ -18,7 +17,7 @@ export const interactifType = 'custom'
 export const uuid = '4dadb'
 export const ref = '5R12-1'
 
-type Coords = { x: number, y: number }
+type Coords = { label: string, x: number, y: number }
 
 class ReperagePointDuPlan extends Exercice {
   figure!: Figure
@@ -43,15 +42,15 @@ class ReperagePointDuPlan extends Exercice {
   }
 
   nouvelleVersion (numeroExercice: number): void {
-    this.figure = new Figure({ snapGrid: true, xMin: -7, yMin: -7, width: 420, height: 450 })
-    this.figure.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
+    this.figure = new Figure({ snapGrid: true, xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
+    this.figure.create('Grid')
     this.figure.options.labelAutomaticForPoints = true
     this.figure.options.limitNumberOfElement.set('Point', 4)
-    let x1 = randint(-6, 1)
+    let x1 = randint(-6, -1)
     let x2 = randint(1, 6, x1)
     let x3 = randint(-6, 6, [0, x1, x2])
     let x4 = 0
-    let y1 = randint(-6, 1)
+    let y1 = randint(-6, -1)
     let y2 = randint(1, 6, y1)
     let y3 = randint(-6, 6, [0, y1, y2])
     let y4 = 0
@@ -61,21 +60,20 @@ class ReperagePointDuPlan extends Exercice {
       ;[y1, y2, y3, y4] = [y1, y2, y3, y4].sort(() => Math.random() - 0.5)
     }
     this.points = [
-      { x: x1, y: y1 },
-      { x: x2, y: y2 },
-      { x: x3, y: y3 },
-      { x: x4, y: y4 }
+      { label: 'A', x: x1, y: y1 },
+      { label: 'B', x: x2, y: y2 },
+      { label: 'C', x: x3, y: y3 },
+      { label: 'D', x: x4, y: y4 }
     ]
     const figureCorr = new Figure({ snapGrid: true, xMin: -7, yMin: -7, width: 420, height: 420, isDynamic: false })
     figureCorr.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
-    figureCorr.create('Point', { x: x1, y: y1, color: 'green', thickness: 3, label: 'A' })
-    figureCorr.create('Point', { x: x2, y: y2, color: 'green', thickness: 3, label: 'B' })
-    figureCorr.create('Point', { x: x3, y: y3, color: 'green', thickness: 3, label: 'C' })
-    figureCorr.create('Point', { x: x4, y: y4, color: 'green', thickness: 3, label: 'D' })
+    for (const coord of this.points) {
+      figureCorr.create('Point', { x: coord.x, y: coord.y, color: 'green', thickness: 3, label: coord.label })
+    }
     let enonce = 'Placer les points suivants : '
     enonce += `$A(${x1}\\;;\\;${y1})$ ; $B(${x2}\\;;\\;${y2})$ ; $C(${x3}\\;;\\;${y3})$ et $D(${x4}\\;;\\;${y4})$.`
     this.idApigeom = `apigeomEx${numeroExercice}F0`
-    const emplacementPourFigure = `<div class="mt-6" id="${this.idApigeom}"></div>`
+    const emplacementPourFigure = `<div class="m-6" id="${this.idApigeom}"></div><div class="m-6" id="feedback${this.idApigeom}"></div>`
     const texteCorr = figureCorr.getStaticHtml()
     this.listeQuestions = [enonce + emplacementPourFigure]
     this.listeCorrections = [texteCorr]
@@ -104,6 +102,7 @@ class ReperagePointDuPlan extends Exercice {
       if (this.figure.container == null) {
         container.innerHTML = ''
         this.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
+        this.divButtons.classList.add('mb-10')
         this.divButtons.style.display = 'flex'
         container.appendChild(this.divButtons)
         this.figure.setContainer(container)
@@ -111,27 +110,31 @@ class ReperagePointDuPlan extends Exercice {
         this.divButtons.style.display = this.interactif ? 'flex' : 'none'
         this.figure.divUserMessage.style.fontSize = '1em'
         this.figure.divUserMessage.style.pointerEvents = 'none'
-        this.figure.divUserMessage.style.top = '-10px'
+        this.figure.divUserMessage.style.top = '-50px'
       }
     })
   }
 
   correctionInteractive = () => {
-    const points = [...this.figure.elements.values()].filter(e => e.type === 'Point') as Point[]
     this.answers = {}
+    // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom] = this.figure.json
     const resultat = []
-    for (let i = 0; i < 4; i++) {
-      if (points[i] !== undefined && points[i].x === this.points[i].x && points[i].y === this.points[i].y) {
+    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
+    for (const coord of this.points) {
+      const { points, isValid, message } = this.figure.testCoords({ label: coord.label, x: coord.x, y: coord.y })
+      if (isValid) {
         resultat.push('OK')
       } else {
-        if (points[i] !== undefined) {
-          points[i].color = 'red'
-          points[i].thickness = 3
-          const textLabel = points[i].elementTextLabel as TextByPosition
+        divFeedback.innerHTML += message + '<br>'
+        if (points[0] !== undefined) {
+          const point = points[0]
+          point.color = 'red'
+          point.thickness = 3
+          const textLabel = point.elementTextLabel as TextByPosition
           textLabel.color = 'red'
         }
-        const pointCorr = this.figure.create('Point', { x: this.points[i].x, y: this.points[i].y, color: 'green', thickness: 3, label: String.fromCharCode(65 + i) })
+        const pointCorr = this.figure.create('Point', { x: coord.x, y: coord.y, color: 'green', thickness: 3, label: coord.label })
         const pointCorrLabel = pointCorr.elementTextLabel as TextByPosition
         pointCorrLabel.color = 'green'
         resultat.push('KO')
