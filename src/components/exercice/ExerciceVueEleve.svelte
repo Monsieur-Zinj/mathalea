@@ -14,7 +14,7 @@
   export let exercice: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
-  export let isCorrectionVisible: bollean = false
+  export let isCorrectionVisible: boolean = false
 
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
@@ -389,6 +389,7 @@
                   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                   {@html mathaleaFormatExercice(item)}
                 </li>
+              <div bind:this={divScore} />
                 {#if isCorrectionVisible}
                   <div
                     class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
@@ -426,7 +427,6 @@
       {#if isInteractif && !isCorrectionVisible}
         <button type="submit" on:click={verifExerciceVueEleve} bind:this={buttonScore}>Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}</button>
       {/if}
-      <div bind:this={divScore} />
     </div>
   </div>
 </div>

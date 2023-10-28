@@ -428,6 +428,7 @@
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html mathaleaFormatExercice(item)}
                   </li>
+                  <div bind:this={divScore} />
                   {#if isCorrectionVisible}
                     <div
                       class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
@@ -469,7 +470,6 @@
         {#if isInteractif && interactifReady && !isCorrectionVisible && isContentVisible}
           <button id="verif{indiceExercice}" type="submit" on:click={verifExercice} bind:this={buttonScore}>Vérifier {numberOfAnswerFields > 1 ? 'les réponses' : 'la réponse'}</button>
         {/if}
-        <div bind:this={divScore} />
       </div>
       <div class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark {isSettingsVisible ? 'visible lg:w-1/4' : 'hidden lg:w-0'} flex flex-col duration-500">
         {#if isSettingsVisible}
