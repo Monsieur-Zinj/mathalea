@@ -7,6 +7,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
   tailleExtensible = false
 } = {}) {
   if (context.isHtml && exercice.interactif) {
+    if (style === 'none') return ''
     if (style === '') {
       return `<label>${texte}</label><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else if (tailleExtensible) {

@@ -27,18 +27,13 @@ class ReperagePointDuPlan extends Exercice {
   exoCustomResultat = true // Cela permet de renvoyer un tableau de résultats
   constructor () {
     super()
-    this.titre = titre
-    this.consigne = ''
+    this.typeExercice = 'simple'
+    this.exoCustomResultat = true
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
-    this.nbCols = 1
-    this.nbColsCorr = 1
-    this.spacing = 1
-    this.spacingCorr = 1
-    this.sup = 1
-    this.sup2 = true
-    this.listeAvecNumerotation = false
-    this.exoCustomResultat = true
+    // Pour un exercice de type simple qui n'utilise pas le champ de réponse
+    this.reponse = ''
+    this.formatChampTexte = 'none'
   }
 
   nouvelleVersion (numeroExercice: number): void {
@@ -75,19 +70,18 @@ class ReperagePointDuPlan extends Exercice {
     this.idApigeom = `apigeomEx${numeroExercice}F0`
     const emplacementPourFigure = `<div class="m-6" id="${this.idApigeom}"></div><div class="m-6" id="feedback${this.idApigeom}"></div>`
     const texteCorr = figureCorr.getStaticHtml()
-    this.listeQuestions = [enonce + emplacementPourFigure]
-    this.listeCorrections = [texteCorr]
 
-    // Sortie LaTeX avec ProfCollege
-    if (!context.isHtml) {
-      this.listeQuestions = [enonce + `\n\n\\bigskip\n\\Reperage[Plan,AffichageNom,AffichageGrad]{%
+    if (context.isHtml) {
+      this.question = enonce + emplacementPourFigure
+      this.correction = texteCorr
+    } else {
+      this.question = enonce + `\n\n\\bigskip\n\\Reperage[Plan,AffichageNom,AffichageGrad]{%
         -5/0/,0/-5/,5/0/,0/5/%
-        }`]
-      this.listeCorrections = [`\\Reperage[Plan,AffichageNom,AffichageGrad]{%
+        }`
+      this.correction = `\\Reperage[Plan,AffichageNom,AffichageGrad]{%
         -5/0/,0/-5/,5/0/,0/5/,${x1}/${y1}/A,${x2}/${y2}/B,${x3}/${y3}/C,${x4}/${y4}/D%
-        }`]
+        }`
     }
-
     // Pour revoir la copie de l'élève dans Capytale
     document.addEventListener(this.idApigeom, (event: Event) => {
       const customEvent = event as CustomEvent
