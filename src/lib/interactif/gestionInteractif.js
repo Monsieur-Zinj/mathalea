@@ -85,23 +85,23 @@ function verifExerciceCustom (exercice /** Exercice */, divScore /** HTMLDivElem
   if (eltFeedback) eltFeedback.innerHTML = ''
   // On utilise la correction définie dans l'exercice
   if (exercice.exoCustomResultat) {
+    const correction = exercice.correctionInteractive()
     for (let i = 0; i < exercice.nbQuestions; i++) {
-      if (Array.isArray(exercice.correctionInteractive(i))) {
-        for (const result of exercice.correctionInteractive(i)) {
+      if (Array.isArray(correction)) {
+        for (const result of correction) {
           if (result === 'OK') nbBonnesReponses++
           else nbMauvaisesReponses++
         }
       } else {
-        exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+        correction === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
       }
     }
-    afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
   } else {
     for (let i = 0; i < exercice.nbQuestions; i++) {
       exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
     }
-    return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
   }
+  return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
 }
 
 export function prepareExerciceCliqueFigure (exercice /** Exercice */) {

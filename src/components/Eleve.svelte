@@ -142,7 +142,9 @@
     }
     exercices = exercices
     await tick()
-    buildQuestions()
+    if ($globalOptions.presMode === 'liste_questions' || $globalOptions.presMode === 'une_question_par_page') {
+      buildQuestions()
+    }
     const resizeObserver = new ResizeObserver(x => {
       const url = new URL(window.location.href)
       const iframe = url.searchParams.get('iframe')

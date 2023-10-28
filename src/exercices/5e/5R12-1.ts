@@ -88,8 +88,9 @@ class ReperagePointDuPlan extends Exercice {
     }
 
     document.addEventListener('exercicesAffiches', () => {
+      if (!context.isHtml) return
       const container = document.querySelector(`#apiGeomEx${numeroExercice}F0`) as HTMLDivElement
-      if (container === null) return
+      if (container == null) return
       if (this.figure.container == null) {
         container.innerHTML = ''
         this.divButtons = this.figure.addButtons('POINT DRAG')
@@ -127,7 +128,6 @@ class ReperagePointDuPlan extends Exercice {
     this.figure.isDynamic = false
     this.divButtons.style.display = 'none'
     this.figure.divUserMessage.style.display = 'none'
-
     return resultat
   }
 }
