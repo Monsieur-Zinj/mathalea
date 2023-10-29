@@ -159,7 +159,7 @@
   async function updateDisplay () {
     if (exercice.seed === undefined) exercice.seed = mathaleaGenerateSeed()
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, !!isInteractif)
+    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, !!isInteractif, indiceExercice)
     exercice.interactif = isInteractif
     $exercicesParams[indiceExercice].alea = exercice.seed
     $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'

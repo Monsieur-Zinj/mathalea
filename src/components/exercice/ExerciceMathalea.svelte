@@ -224,7 +224,7 @@
       exercice.applyNewSeed()
     }
     seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, Boolean(isInteractif))
+    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, Boolean(isInteractif), indiceExercice)
     exercice.interactif = isInteractif
     if ($exercicesParams[indiceExercice] != null) {
       $exercicesParams[indiceExercice].alea = exercice.seed
