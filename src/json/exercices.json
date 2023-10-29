@@ -9219,6 +9219,18 @@
     },
     "datePublication": "22/06/2023"
   },
+  "betaListeDeroulante": {
+    "url": "2e/betaListeDeroulante.js",
+    "uuid": "addd5",
+    "id": "betaListeDeroulante",
+    "titre": "Reconnaître une fonction d'après sa courbe",
+    "tags": {
+      "interactif": true,
+      "interactifType": "custom",
+      "amc": false
+    },
+    "datePublication": "22/06/2023"
+  },
   "betaPatronSolide": {
     "url": "beta/betaPatronSolide.js",
     "uuid": "865e9",
