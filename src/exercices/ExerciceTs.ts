@@ -14,7 +14,7 @@ export default class Exercice {
   sup2: any
   sup3: any
   sup4: any
-  correctionInteractive?: (i?: number) => string | string[]
+  correctionInteractive?: (i?: number) => string | string[] | Promise<string | string[]>
   duree?: number
   seed?: string
   numeroExercice?: number

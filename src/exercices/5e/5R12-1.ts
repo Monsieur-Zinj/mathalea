@@ -1,9 +1,9 @@
 import Exercice from '../ExerciceTs'
 import Figure from 'apigeom'
+import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils.js'
 import type TextByPosition from 'apigeom/src/elements/text/TextByPosition.js'
 import { context } from '../../modules/context'
-import figureApigeom from '../../lib/figureApigeom'
 
 export const titre = 'Placer des points dans un repère'
 export const dateDePublication = '27/10/2023'
