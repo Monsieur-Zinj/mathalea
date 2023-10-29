@@ -3,6 +3,7 @@ import Figure from 'apigeom'
 import { randint } from '../../modules/outils.js'
 import type TextByPosition from 'apigeom/src/elements/text/TextByPosition.js'
 import { context } from '../../modules/context'
+import figureApigeom from '../../lib/figureApigeom'
 
 export const titre = 'Placer des points dans un repère'
 export const dateDePublication = '27/10/2023'
@@ -17,18 +18,18 @@ export const interactifType = 'custom'
 export const uuid = '4dadb'
 export const ref = '5R12-1'
 
+// Type simplifié pour la sauvegarde de la réponse
 type Coords = { label: string, x: number, y: number }
 
 class ReperagePointDuPlan extends Exercice {
+  // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   points: Coords[] = []
-  divButtons!: HTMLDivElement
   idApigeom!: string
-  exoCustomResultat = true // Cela permet de renvoyer un tableau de résultats
   constructor () {
     super()
     this.typeExercice = 'simple'
-    this.exoCustomResultat = true
+    this.exoCustomResultat = true // Pour qu'une unique question puisse rapporter plusieurs points
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
@@ -37,10 +38,13 @@ class ReperagePointDuPlan extends Exercice {
   }
 
   nouvelleVersion (numeroExercice: number): void {
+    this.idApigeom = `apigeomEx${numeroExercice}F0`
     this.figure = new Figure({ snapGrid: true, xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
+    // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     this.figure.create('Grid')
-    this.figure.options.labelAutomaticForPoints = true
-    this.figure.options.limitNumberOfElement.set('Point', 4)
+    this.figure.options.labelAutomaticForPoints = true // Les points sont nommés par ordre alphabétique
+    this.figure.options.limitNumberOfElement.set('Point', 4) // On limite le nombre de points à 4
+
     let x1 = randint(-6, -1)
     let x2 = randint(1, 6, x1)
     let x3 = randint(-6, 6, [0, x1, x2])
@@ -67,8 +71,9 @@ class ReperagePointDuPlan extends Exercice {
     }
     let enonce = 'Placer les points suivants : '
     enonce += `$A(${x1}\\;;\\;${y1})$ ; $B(${x2}\\;;\\;${y2})$ ; $C(${x3}\\;;\\;${y3})$ et $D(${x4}\\;;\\;${y4})$.`
-    this.idApigeom = `apigeomEx${numeroExercice}F0`
-    const emplacementPourFigure = `<div class="m-6" id="${this.idApigeom}"></div><div class="m-6" id="feedback${this.idApigeom}"></div>`
+    this.figure.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
+    // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
+    const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
     const texteCorr = figureCorr.getStaticHtml()
 
     if (context.isHtml) {
@@ -82,41 +87,18 @@ class ReperagePointDuPlan extends Exercice {
         -5/0/,0/-5/,5/0/,0/5/,${x1}/${y1}/A,${x2}/${y2}/B,${x3}/${y3}/C,${x4}/${y4}/D%
         }`
     }
-    // Pour revoir la copie de l'élève dans Capytale
-    document.addEventListener(this.idApigeom, (event: Event) => {
-      const customEvent = event as CustomEvent
-      const json = customEvent.detail
-      this.figure.loadJson(JSON.parse(json))
-    })
-
-    document.addEventListener('exercicesAffiches', () => {
-      if (!context.isHtml) return
-      const container = document.querySelector(`#${this.idApigeom}`) as HTMLDivElement
-      if (container == null) return
-      if (this.figure.container == null) {
-        container.innerHTML = ''
-        this.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
-        this.divButtons.classList.add('mb-10')
-        this.divButtons.style.display = 'flex'
-        container.appendChild(this.divButtons)
-        this.figure.setContainer(container)
-        this.figure.isDynamic = !!this.interactif
-        this.divButtons.style.display = this.interactif ? 'flex' : 'none'
-        this.figure.divUserMessage.style.fontSize = '1em'
-        this.figure.divUserMessage.style.pointerEvents = 'none'
-        this.figure.divUserMessage.style.top = '-50px'
-      }
-    })
   }
 
   correctionInteractive = () => {
     this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom] = this.figure.json
-    const resultat = []
+    const resultat = [] // Tableau de 'OK' ou de'KO' pour le calcul du score
     const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
+    // Je rajoute as HTMLDivElement pour indiquer que je suis sûr que c'est un div et que ça ne peut pas être null
     for (const coord of this.points) {
       const { points, isValid, message } = this.figure.testCoords({ label: coord.label, x: coord.x, y: coord.y })
+      // Point par point, je vérifie que le label et les coordonnées correspondent
       if (isValid) {
         resultat.push('OK')
       } else {
@@ -126,6 +108,7 @@ class ReperagePointDuPlan extends Exercice {
           point.color = 'red'
           point.thickness = 3
           const textLabel = point.elementTextLabel as TextByPosition
+          // Là aussi je rajoute as TextByPosition car je suis sûr que ce point a un label
           textLabel.color = 'red'
         }
         const pointCorr = this.figure.create('Point', { x: coord.x, y: coord.y, color: 'green', thickness: 3, label: coord.label })
@@ -135,7 +118,7 @@ class ReperagePointDuPlan extends Exercice {
       }
     }
     this.figure.isDynamic = false
-    this.divButtons.style.display = 'none'
+    this.figure.divButtons.style.display = 'none'
     this.figure.divUserMessage.style.display = 'none'
     return resultat
   }

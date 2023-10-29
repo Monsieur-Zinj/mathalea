@@ -14,7 +14,7 @@ export default class Exercice {
   sup2: any
   sup3: any
   sup4: any
-  correctionInteractive?: (i?: number) => string
+  correctionInteractive?: (i?: number) => string | string[]
   duree?: number
   seed?: string
   numeroExercice?: number
@@ -35,7 +35,7 @@ export default class Exercice {
   canReponseACompleter?: string // Seulement pour les exercices de type simple
   formatChampTexte?: string // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
-  formatInteractif?: string
+  formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
   contenu?: string
   contenuCorrection?: string
   autoCorrection?: object[]
@@ -66,6 +66,7 @@ export default class Exercice {
   interactifObligatoire?: boolean
   interactifReady?: boolean
   interactifType?: string
+  exoCustomResultat?: boolean // Lorsqu'il est à true, correctionInteractive renvoie un tableau de string ce qui permet à une question de rapporter plusieurs points
   besoinFormulaireNumerique?: boolean | any[]
   besoinFormulaireTexte?: boolean | any[]
   besoinFormulaireCaseACocher?: boolean | any[]
@@ -199,7 +200,7 @@ export default class Exercice {
   }
 
   nouvelleVersion (numeroExercice?: number): void {
-
+    console.log(numeroExercice)
   }
 
   applyNewSeed () {
@@ -227,27 +228,26 @@ export default class Exercice {
   }
 }
 
-function generateSeed (paramsSeed) {
+function generateSeed ({ includeUpperCase = true, includeNumbers = true, length = 4, startsWithLowerCase = false }: { includeUpperCase?: boolean, includeNumbers?: boolean, length?: number, startsWithLowerCase?: boolean } = {}) {
   let a = 10
   const b = 'abcdefghijklmnopqrstuvwxyz'
   let c = ''
   let d = 0
   let e = '' + b
-  if (paramsSeed) {
-    if (paramsSeed.startsWithLowerCase) {
-      c = b[Math.floor(Math.random() * b.length)]
-      d = 1
-    }
-    if (paramsSeed.length) {
-      a = paramsSeed.length
-    }
-    if (paramsSeed.includeUpperCase) {
-      e += b.toUpperCase()
-    }
-    if (paramsSeed.includeNumbers) {
-      e += '1234567890'
-    }
+  if (startsWithLowerCase) {
+    c = b[Math.floor(Math.random() * b.length)]
+    d = 1
   }
+  if (length) {
+    a = length
+  }
+  if (includeUpperCase) {
+    e += b.toUpperCase()
+  }
+  if (includeNumbers) {
+    e += '1234567890'
+  }
+
   for (; d < a; d++) {
     c += e[Math.floor(Math.random() * e.length)]
   }
