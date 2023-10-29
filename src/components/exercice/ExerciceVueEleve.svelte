@@ -165,7 +165,7 @@
     $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
     $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
     exercice.numeroExercice = indiceExercice
-    if (exercice !== undefined && typeof exercice.nouvelleVersion === 'function') {
+    if (exercice !== undefined && exercice.typeExercice !== 'simple' && typeof exercice.nouvelleVersion === 'function') {
       exercice.nouvelleVersion(indiceExercice)
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
