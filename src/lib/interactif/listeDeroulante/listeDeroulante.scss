@@ -1,0 +1,128 @@
+span.listeDeroulante {
+  position: relative;
+  display: inline-flex;
+  background: #F0FFFF;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 15px;
+  border: solid 1px grey;
+
+
+  /* en scss on peut imbriquer les classes, tout ce qui suit ne s'applique qu'aux enfants d'un span.listeDeroulante */
+  span.currentChoice {
+    margin: 0;
+    padding: 2px 10px;
+    display: inline-block;
+    outline: none;
+
+    /* au focus on laisse le navigateur changer le border avec son comportement par défaut */
+  }
+
+
+
+  .trigger {
+    margin: 0;
+    font-weight: bold;
+    padding-right: 6px;
+    padding-left: 5px;
+    padding-top: 2px;
+    border-left: 1px solid grey;
+    outline: none;
+  }
+
+  span.currentChoice:hover, .trigger:hover {
+    border-color: CornflowerBlue;
+
+    .listeDeroulante {
+      border-color: CornflowerBlue
+    }
+
+  }
+
+  .ok {
+    color: #008A73;
+  }
+
+  .ko {
+    color: #D64700;
+  }
+
+  ul {
+    // la liste des choix
+    position: absolute;
+    left: 0; /* top ou bottom est fixé en js */
+    border-color: grey;
+    margin: 0;
+    padding: 0;
+    display: none;
+
+    li {
+      display: flex;
+      width: 100%;
+      list-style-type: none;
+      border: solid 1px grey;
+      cursor: pointer;
+      font-size: 100%;
+      color: black;
+      // text-align: left;
+      background: #F0FFFF;
+      margin: 0;
+      padding: 2px 5px;
+      box-shadow: 0 0 0 0;
+      white-space: nowrap;
+
+      math-field {
+        pointer-events: none;
+        display: inline-flex;
+        font-size: 20px;
+        width: auto;
+        padding: 0;
+        border-style: none;
+        background-color: transparent;
+      }
+
+      div {
+        left: 0;
+        position: absolute;
+      }
+    }
+
+    li.selected, li:hover {
+      border-color: black;
+      background-color: #D3D3D3;
+    }
+  }
+
+  ul.visible {
+    display: inline-block;
+  }
+}
+
+span.listeDeroulante:hover {
+  border-color: CornflowerBlue;
+
+  .trigger {
+    border-color: CornflowerBlue;
+  }
+}
+
+span.listeDeroulante.disabled {
+  cursor: auto;
+  border-color: grey;
+
+  .trigger {
+    color: lightgrey;
+  }
+
+  /* pour invalider le hover ci-dessus */
+  .trigger {
+    border-color: grey;
+  }
+
+  span.currentChoice {
+    border-color: grey;
+    pointer-events: none;
+  }
+}
