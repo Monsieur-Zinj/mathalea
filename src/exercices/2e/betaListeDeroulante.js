@@ -70,10 +70,10 @@ export default class BetaListeDeroulante extends Exercice {
     const divListe = document.createElement('div')
     this.listeDeroulante = ListeDeroulante.create(divListe, ['Propositions'].concat(choices), { choix0: false, sansFleche: true })
     texteEnonce += '<br>Sélectionner dans la liste déroulante l\'expression de la fonction $f$ dont la courbe est tracée ci-dessus.'
-    texteEnonce += `<br><span id="ListeDeroulanteExo${this.numeroExercice}Q0" class="listeDeroulante"></span><div id ="divDuSmiley${this.numeroExercice}Q0"></div>`
+    texteEnonce += `<br><liste-deroulante id="ListeDeroulanteExo${this.numeroExercice}Q0" class="listeDeroulante"></liste-deroulante><div id ="divDuSmiley${this.numeroExercice}Q0"></div>`
     const texteCorrection = `L'expression de la fonction $f$ est : $f(x)=${latex}$.`
     document.addEventListener('exercicesAffiches', () => {
-      const divListe = document.querySelector(`span#ListeDeroulanteExo${this.numeroExercice}Q0`)
+      const divListe = document.querySelector(`liste-deroulante#ListeDeroulanteExo${this.numeroExercice}Q0`)
       if (divListe.getElementsByClassName('listeDeroulante').length === 0) {
         divListe.appendChild(this.listeDeroulante.container)
         this.listeDeroulante.show()
