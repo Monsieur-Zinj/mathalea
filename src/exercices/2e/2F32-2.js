@@ -37,7 +37,7 @@ export default function LecturesGraphiques () {
   this.nbQuestions = 6
   this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
@@ -107,7 +107,7 @@ export default function LecturesGraphiques () {
           if (!context.isAmc) setReponse(this, i, minimum[1])
           reponses[i] = minimum[1]
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le minimum de $f$ est $${minimum[1]}$ et il est atteint en $x=${minimum[0]}$.`
+          texteCorr = `Le minimum de $f$ est $${minimum[1]}$ et il est atteint en $x=${minimum[0]}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(minimum[0] * 3, 0, minimum[0] * 3, minimum[1] * 2, 'blue')
             s[0].pointilles = 5
@@ -128,7 +128,7 @@ export default function LecturesGraphiques () {
           if (!context.isAmc) setReponse(this, i, maximum[1])
           reponses[i] = maximum[1]
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le maximum de $f$ est $${maximum[1]}$ et il est atteint en $x=${maximum[0]}$.`
+          texteCorr = `Le maximum de $f$ est $${maximum[1]}$ et il est atteint en $x=${maximum[0]}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(maximum[0] * 3, 0, maximum[0] * 3, maximum[1] * 2, 'blue')
             s[0].pointilles = 5
@@ -157,7 +157,7 @@ export default function LecturesGraphiques () {
           if (!context.isAmc) setReponse(this, i, y0)
           reponses[i] = y0
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `$f(${texNombre(x0, 1)})=${texNombre(y0, 1)}$.`
+          texteCorr = `$f(${texNombre(x0, 1)})=${texNombre(y0, 1)}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(0, y0 * 2, x0 * 3, y0 * 2, 'blue')
             s[0].pointilles = 5
@@ -189,7 +189,7 @@ export default function LecturesGraphiques () {
           if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
           reponses[i] = arrondi(x0, 1)
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le plus petit antécédent à $0,1$ près de $${texNombre(y0, 1)}$ est $${miseEnEvidence(texNombre(x0, 1))}$.`
+          texteCorr = `Le plus petit antécédent à $0,1$ près de $${texNombre(y0, 1)}$ est $${miseEnEvidence(texNombre(x0, 1))}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
             s[0].pointilles = 5
@@ -220,7 +220,7 @@ export default function LecturesGraphiques () {
           if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
           reponses[i] = arrondi(x0, 1)
           texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le plus grand antécédent de $${texNombre(y0, 1)}$ à $0,1$ près est $${miseEnEvidence(texNombre(x0, 1))}$.`
+          texteCorr = `Le plus grand antécédent de $${texNombre(y0, 1)}$ à $0,1$ près est $${miseEnEvidence(texNombre(x0, 1))}$.<br>`
           if (this.correctionDetaillee) {
             s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
             s[0].pointilles = 5
