@@ -4,6 +4,7 @@ import type { Spline } from './Spline'
 
 class PointOnSpline extends Point {
   spline: Spline
+  size?: number
   constructor (figure: Figure, { spline, x = 1, abscissa = false, ordinate = false, ...options }:
   { spline: Spline
     x?: number
@@ -20,7 +21,7 @@ class PointOnSpline extends Point {
     isFree?: boolean
     isVisible?: boolean
     id?: string }) {
-    super(figure, { x, y: spline.image(x), ...options })
+    super(figure, { x, y: Number(spline.fonction(x)), ...options })
     this.type = 'PointOnGraph'
     this.spline = spline
   }
@@ -31,16 +32,20 @@ class PointOnSpline extends Point {
 
   set x (x) {
     this._x = x
-    this._y = this.spline.image(x)
+    this._y = Number(this.spline.fonction(x))
     this.update()
   }
 
   get y (): number {
-    return this.spline.image(this.x)
+    return Number(this.spline.fonction(this.x))
   }
 
   moveTo (x: number): void {
-    this.x = x
+    if (Array.isArray(this.spline.x) && this.spline.n != null) {
+      if (x > this.spline.x[0] && x < this.spline.x[this.spline.n - 1]) {
+        this.x = x
+      }
+    }
     // y est en lecture seule
   }
 

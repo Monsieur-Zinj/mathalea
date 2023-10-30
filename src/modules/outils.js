@@ -157,7 +157,7 @@ export function entreDeux (a, b) {
  */
 export function egal (a, b, tolerance = epsilon) {
   tolerance = tolerance === 0 ? 1e-10 : tolerance
-  return (Math.abs(a - b) < tolerance)
+  return (Math.abs(a - b) <= tolerance)
 }
 
 /**
