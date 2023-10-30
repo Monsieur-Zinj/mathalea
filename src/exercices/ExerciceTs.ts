@@ -29,7 +29,7 @@ export default class Exercice {
   listeCanReponsesACompleter?: string[]
   listeCanEnonces?: string[]
   question?: string // Seulement pour les exercices de type simple
-  reponse?: string // Seulement pour les exercices de type simple
+  reponse?: string | number // Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
   canEnonce?: string // Seulement pour les exercices de type simple
   canReponseACompleter?: string // Seulement pour les exercices de type simple
@@ -190,6 +190,7 @@ export default class Exercice {
     // this.typeExercice = 'simple' // Pour les exercices plus simples destinés aux courses aux nombres
 
     this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+    this.answers = {}
 
     /**
    * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques

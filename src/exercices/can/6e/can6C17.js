@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer la fraction d’une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,8 +23,8 @@ export default function FractionSimpleDeQuantite () {
   this.optionsChampTexte = { texteApres: ' L' }
   this.nouvelleVersion = function () {
     const a = randint(2, 6)
-    this.reponse = calculANePlusJamaisUtiliser(randint(2, 9) * 10)
-    const b = calculANePlusJamaisUtiliser(this.reponse * a)
+    this.reponse = randint(2, 9) * 10
+    const b = this.reponse * a
     this.question = `Calculer $\\dfrac{1}{${a}} \\text{ de } ${b} \\text{ L}$.`
     this.correction = `$\\dfrac{1}{${a}}$ de $${b}$ L = $${this.reponse}$ L`
     this.correction += texteEnCouleur(`

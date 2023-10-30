@@ -39,7 +39,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         // Ici on va s'occuper de ce champTexte qui pose tant de problèmes
         champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
         if (champTexte != null) {
-          if (champTexte.value.length > 0) {
+          if (champTexte.value.length > 0 && typeof exercice.answers === 'object') {
             exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
           }
           let resultat = 'KO'
@@ -329,7 +329,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           return resultat
         }
       } catch (error) {
-        window.notify(`Erreur dans verif QuestionMathLive : ${error} <br> Avec les métadonnées : `, {
+        window.notify(`Erreur dans verif QuestionMathLive : ${error}\n Avec les métadonnées : `, {
           champTexteValue: champTexte?._slotValue ?? null,
           exercice: exercice.id,
           i,
