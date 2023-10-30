@@ -70,7 +70,7 @@ function afficheChoice (li: HTMLLIElement | HTMLSpanElement, choice: AllChoiceTy
  * Il faut passer par ListeDeroulante.create() et pas new ListeDeroulante(…)
  * @class
  */
-class ListeDeroulante {
+class ListeDeroulante extends HTMLElement {
   type: string = 'ld' // Je ne sais pas ce que signifie 'ld'... et je penser que le type doit être un tupple...
   disabled: boolean = false
   choices: AllChoicesType // La liste des choix
@@ -106,6 +106,7 @@ class ListeDeroulante {
         choix0?: boolean,
         decalage?: number,
     } = { decalage: 0, choix0: false }) {
+    super()
     if (arguments.length > 2) throw Error('nombre d’arguments invalides')
     if (!Array.isArray(choices)) throw Error('Il faut passer une liste de choix')
     /**
@@ -172,11 +173,28 @@ class ListeDeroulante {
     this._elts = []
   }
 
+  connectedCallback () {
+    this.show()
+  }
+
+  disconnectedCallback () {
+    this.hide()
+  }
+
+  adoptedCallback () {
+    this._replace()
+    this.show()
+  }
+
+  attributeChangedCallback (/* name: string, oldValue: string, newValue:string */) {
+    this.reset()
+  }
+
   /**
      * Crée les éléments dans le DOM (appelé par create) et ajoute les listeners
      * @private
      */
-  _init ({ centre, conteneur, sansFleche, select }:{centre?: boolean, conteneur?: HTMLSpanElement, sansFleche?: boolean, select?: number} = { centre: false, sansFleche: false, select: 0 }) {
+  _init ({ centre, conteneur, sansFleche, select }:{centre?: boolean, conteneur?: HTMLElement, sansFleche?: boolean, select?: number} = { centre: false, sansFleche: false, select: 0 }) {
     /**
          * Le span qui va contenir la liste (tous les éléments que l'on crée, enfant de conteneur)
          * @type {HTMLSpanElement}
@@ -294,8 +312,8 @@ class ListeDeroulante {
       const div = elt.querySelector('div')
       if (div) {
         const mf = div.parentElement?.querySelector('math-field')
-        const height = mf ? mf.clientHeight : 10
-        div.style.width = String(Math.max(this.width ?? 0, 50)) + 'px'
+        const height = mf ? mf.clientHeight : 25
+        div.style.width = String(this.width ?? 70) + 'px'
         div.style.height = String(Math.max(height, 25)) + 'px'
       }
     }
@@ -399,6 +417,14 @@ class ListeDeroulante {
       empty(this.spanSelected)
       const choix = this.choices[realIndex]
       afficheChoice(this.spanSelected, choix)
+      if (typeof choix === 'object' && 'latex' in choix) {
+        const mf = this.spanSelected.querySelector('math-field')
+        const div = this.spanSelected.querySelector('div')
+        if (mf && div) {
+          div.style.height = String(Math.max(mf.clientHeight, 25)) + 'px'
+          div.style.width = String(Math.max(mf.clientWidth, 70)) + 'px'
+        }
+      }
       this.reponse = String(typeof choix === 'string' ? choix : typeof choix === 'object' ? choix?.value : 'undefined')
       if (this.reponse === 'undefined') throw Error(`Un problème avec la valeur de ce choix : ${choix}`)
       this.changed = true
@@ -530,5 +556,6 @@ class ListeDeroulante {
     return ld
   }
 }
+customElements.define('liste-deroulante', ListeDeroulante)
 
 export default ListeDeroulante
