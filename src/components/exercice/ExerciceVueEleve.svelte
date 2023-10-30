@@ -389,7 +389,6 @@
                   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                   {@html mathaleaFormatExercice(item)}
                 </li>
-              <div bind:this={divScore} />
                 {#if isCorrectionVisible}
                   <div
                     class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
@@ -421,6 +420,7 @@
                 {/if}
               </div>
             {/each}
+            <div bind:this={divScore} />
           </ul>
         </div>
       </article>
