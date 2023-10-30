@@ -71,8 +71,8 @@ class ReperagePointDuPlan extends Exercice {
     }
     let enonce = 'Placer les points suivants : '
     enonce += `$A(${x1}\\;;\\;${y1})$ ; $B(${x2}\\;;\\;${y2})$ ; $C(${x3}\\;;\\;${y3})$ et $D(${x4}\\;;\\;${y4})$.`
-    this.figure.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
-    // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
+    // this.figure.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
+    this.figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
     const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
     const texteCorr = figureCorr.getStaticHtml()
 

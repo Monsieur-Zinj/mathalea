@@ -48,8 +48,7 @@ class ConstructionTriangle extends Exercice {
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
 
     const enonce = `Tracer le triangle $${this.triangle.label}$ tel que $${labelA}${labelB}=${c}$ ; $${labelB}${labelC}=${a}$ et $${labelC}${labelA}=${b}$.`
-    this.figure.divButtons = this.figure.addButtons('POINT POINT_ON POINT_INTERSECTION SEGMENT POLYGON CIRCLE_CENTER_POINT CIRCLE_RADIUS NAME_POINT DRAG HIDE REMOVE UNDO REDO SHAKE')
-    // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
+    this.figure.setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'POLYGON', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'NAME_POINT', 'DRAG', 'HIDE', 'REMOVE', 'UNDO', 'REDO', 'SHAKE'], position: 'top' })
     const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
     let texteCorr = `$${labelA}${labelB}=${c}$ donc $${labelB}$ est sur le cercle de centre $${labelA}$ et de rayon $${c}$.`
     texteCorr += `<br>$${labelB}${labelC}=${a}$ donc $${labelC}$ est sur le cercle de centre $${labelB}$ et de rayon $${a}$.`
