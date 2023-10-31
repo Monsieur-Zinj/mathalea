@@ -32,6 +32,7 @@ class ConstructionTriangle extends Exercice {
     this.nbQuestionsModifiable = false
     this.reponse = ''
     this.formatChampTexte = 'none'
+    this.exoCustomResultat = true
   }
 
   nouvelleVersion (numeroExercice: number): void {
@@ -66,28 +67,34 @@ class ConstructionTriangle extends Exercice {
     this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom] = this.figure.json
-    let resultat = true
+    let resultat = []
+    // 1 point par distance correcte + 2 points si tout est correct (on ne vérifie pas que le triangle est tracé)
     const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
     let feedback = ''
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [string, string, string]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
-    let { message, isValid } = await this.figure.testDistance({ label1: labelA, label2: labelB, value: c })
+    let { message, isValid } = await this.figure.testDistance({ label1: labelA, label2: labelB, distance: c })
     if (message) feedback += message + '<br>'
-    resultat = resultat && isValid
-    ;({ message, isValid } = await this.figure.testDistance({ label1: labelB, label2: labelC, value: a }))
+    resultat.push(isValid ? 'OK' : 'KO')
+    ;({ message, isValid } = await this.figure.testDistance({ label1: labelB, label2: labelC, distance: a }))
     if (message) feedback += message + '<br>'
-    resultat = resultat && isValid
-    ;({ message, isValid } = await this.figure.testDistance({ label1: labelC, label2: labelA, value: b }))
+    resultat.push(isValid ? 'OK' : 'KO')
+    ;({ message, isValid } = await this.figure.testDistance({ label1: labelC, label2: labelA, distance: b }))
     if (message) feedback += message + '<br>'
-    resultat = resultat && isValid
-    if (message.length === 0) feedback = 'Bravo !'
+    resultat.push(isValid ? 'OK' : 'KO')
+    if (resultat.every(r => r === 'OK')) {
+      feedback += '<br>Bravo !'
+      resultat = [...resultat, 'OK', 'OK']
+    } else {
+      resultat = [...resultat, 'KO', 'KO']
+    }
     divFeedback.innerHTML = feedback
     // Comme c'est asynchrone, il faut forcer le rendu LaTeX
     mathaleaRenderDiv(divFeedback)
     this.figure.isDynamic = false
     this.figure.divButtons.style.display = 'none'
     this.figure.divUserMessage.style.display = 'none'
-    return resultat ? 'OK' : 'KO'
+    return resultat
   }
 }
 
