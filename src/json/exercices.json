@@ -2465,6 +2465,18 @@
     },
     "datePublication": "29/09/2022"
   },
+  "3F10-4": {
+    "url": "3e/3F10-4.ts",
+    "uuid": "6c6b3",
+    "id": "3F10-4",
+    "titre": "Lire graphiquement l'image d'un nombre par une fonction",
+    "tags": {
+      "interactif": true,
+      "interactifType": "custom",
+      "amc": false
+    },
+    "datePublication": "29/10/2023"
+  },
   "3F12": {
     "url": "3e/3F12.js",
     "uuid": "02116",
@@ -7503,6 +7515,17 @@
       "amc": true
     }
   },
+  "6M11-0": {
+    "url": "6e/6M11-0.js",
+    "uuid": "fbaff",
+    "id": "6M11-0",
+    "titre": "Décomposer une figure complexe en figures simples",
+    "tags": {
+      "interactif": false,
+      "amc": false
+    },
+    "datePublication": "28/10/2023"
+  },
   "6M11-1": {
     "url": "6e/6M11-1.js",
     "uuid": "d1513",
@@ -7527,7 +7550,7 @@
       "amcType": "AMCHybride",
       "amc": true
     },
-    "dateModification": "25/07/2023"
+    "dateModification": "28/10/2023"
   },
   "6M11-3": {
     "url": "6e/6M11-3.js",
