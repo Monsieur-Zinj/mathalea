@@ -94,15 +94,16 @@ class ReperagePointDuPlan extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom] = this.figure.json
     const resultat = [] // Tableau de 'OK' ou de'KO' pour le calcul du score
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
-    // Je rajoute as HTMLDivElement pour indiquer que je suis sûr que c'est un div et que ça ne peut pas être null
+    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`)
     for (const coord of this.points) {
       const { points, isValid, message } = this.figure.testCoords({ label: coord.label, x: coord.x, y: coord.y })
       // Point par point, je vérifie que le label et les coordonnées correspondent
       if (isValid) {
         resultat.push('OK')
       } else {
-        divFeedback.innerHTML += message + '<br>'
+        if (divFeedback != null) {
+          divFeedback.innerHTML += message + '<br>'
+        }
         if (points[0] !== undefined) {
           const point = points[0]
           point.color = 'red'
