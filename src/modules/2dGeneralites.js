@@ -84,7 +84,7 @@ export function mathalea2d (
               divsLatex.push(codeHtml)
             }
           } else {
-            window.notify('Un problème avec ce mathalea2d, la listre des objets contient un truc louche', { objets: JSON.stringify(objets) })
+            window.notify('Un problème avec ce mathalea2d, la liste des objets contient un truc louche', { objets: JSON.stringify(objets) })
           }
         } else {
           if (objets?.svgml) codeSvg = '\t' + objets.svgml(pixelsParCm, amplitude) + '\n'
@@ -98,7 +98,7 @@ export function mathalea2d (
           codeSvg += ajouteCodeHtml(mainlevee, objet, divsLatex, xmin, ymax)
         }
       } else {
-        window.notify('Un problème avec ce mathalea2d, la listre des objets contient un truc louche', { objets: JSON.stringify(objets) })
+        window.notify('Un problème avec ce mathalea2d, la liste des objets contient un truc louche', { objets: JSON.stringify(objets) })
       }
     }
     return codeSvg
