@@ -18,7 +18,10 @@ export default function figureApigeom ({ exercice, idApigeom, figure }: { exerci
     figure.loadJson(JSON.parse(json))
   })
 
+  let alreadydone = false
   document.addEventListener('exercicesAffiches', () => {
+    if (alreadydone) return
+    alreadydone = true
     if (!context.isHtml) return
     const container = document.querySelector(`#${idApigeom}`) as HTMLDivElement
     if (container == null) return
