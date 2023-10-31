@@ -481,7 +481,7 @@ export function texteParPositionEchelle (texte, x, y, orientation = 'milieu', co
  */
 export function texteParPosition (texte, x, y, orientation = 'milieu', color = 'black', scale = 1, ancrageDeRotation = 'middle', mathOn = false, opacite) {
   if (texte[0] === '$') {
-    return latexParCoordonnees(texte.substring(1, texte.length - 1), x, y)
+    return latexParCoordonnees(texte.substring(1, texte.length - 1), x, y, color, 50, 20, 'white', 8 * scale)
   } else {
     return new TexteParPoint(texte, point(x, y), orientation, color, scale, ancrageDeRotation, mathOn, opacite)
   }
