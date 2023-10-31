@@ -118,7 +118,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const L2 = triplet[1] * (1 + partieDecimale1)
           const hyp = triplet[2] * (1 + partieDecimale1)
           const L1 = randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10
-          const zoom = randint(10, 14) / (L1 + L2)
+          const zoom = randint(7, 9) / (L1 + L2)
           const A = point(0, 0, 'A')
           const B = point(0, l1 * zoom, 'B')
           const C = point(L1 * zoom, l1 * zoom, 'C')
@@ -171,7 +171,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const c1 = triplet[0] * (adjust)
           const c2 = triplet[1] * (adjust)
           const c = triplet[2] * (adjust)
-          const zoom = randint(8, 12) / c
+          const zoom = randint(5, 8) / c
           // const h = c1 * c2 / c
           const M = point(0, 0, 'M')
           const N = point(0, c * zoom, 'N')
@@ -237,7 +237,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           // const com1 = calcul(triplet1[0] * (1 + partieDecimale1))
           const c2 = triplet2[1] * (adjust)
           const h2 = triplet2[2] * (adjust)
-          const zoom = randint(8, 12) / (c1 + c2)
+          const zoom = randint(5, 8) / (c1 + c2)
           const h = com1
           const c = c1 + c2
           const M = point(0, 0, 'M')
@@ -298,7 +298,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           let L2 = randint(3, L1 - 1)
           L1 = L1 * (1 + partieDecimale1)
           L2 = L2 * (1 + partieDecimale1)
-          const zoom = randint(10, 14) / (L1 + L2 / 2)
+          const zoom = randint(7, 9) / (L1 + L2 / 2)
           const A = point(0, 0, 'A')
           const B = point(0, L2 * zoom, 'B')
           const C = point(L1 * zoom, L2 * zoom, 'C')
@@ -368,7 +368,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           let L2 = randint(3, L1 - 1)
           L1 = L1 * (1 + partieDecimale1)
           L2 = L2 * (1 + partieDecimale1)
-          const zoom = randint(12, 16) / (L1 + L2)
+          const zoom = randint(5, 7) / (L1 + L2)
           const A = point(0, 0, 'A')
           const B = point(0, L2 * zoom, 'B')
           const C = point(L1 * zoom, L2 * zoom, 'C')
@@ -444,7 +444,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const L2 = triplet[1] * (adjust)
           const hyp = triplet[2] * (adjust)
           const L1 = randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10
-          const zoom = randint(14, 16) / (L1 + L2)
+          const zoom = randint(5, 7) / (L1 + L2)
           const A = point(0, 0, 'A')
           const B = point(0, l1 * zoom, 'B')
           const C = point(L1 * zoom, l1 * zoom, 'C')
