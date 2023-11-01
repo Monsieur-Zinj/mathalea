@@ -67,15 +67,15 @@ export default class BetaListeDeroulante extends Exercice {
     const objetsEnonce = [...repere1.objets, courbe1]
     let texteEnonce = mathalea2d(Object.assign({}, fixeBordures(repere1.objets)), objetsEnonce)
     texteEnonce += `<br>Voici la représentation graphique ${this.sup === 1 ? '' : 'de la dérivée '} d'une fonction $f$.`
-    const divListe = document.createElement('div')
-    this.listeDeroulante = ListeDeroulante.create(divListe, ['Propositions'].concat(choices), { choix0: false, sansFleche: true })
+    const spanListe = document.createElement('span')
+    this.listeDeroulante = ListeDeroulante.create(spanListe, ['Propositions'].concat(choices), { choix0: false, sansFleche: false })
     texteEnonce += '<br>Sélectionner dans la liste déroulante l\'expression de la fonction $f$ dont la courbe est tracée ci-dessus.'
-    texteEnonce += `<br><liste-deroulante id="ListeDeroulanteExo${this.numeroExercice}Q0" class="listeDeroulante"></liste-deroulante><div id ="divDuSmiley${this.numeroExercice}Q0"></div>`
+    texteEnonce += `<br><span id="ListeDeroulanteExo${this.numeroExercice}Q0"></span><div id ="divDuSmiley${this.numeroExercice}Q0"></div>`
     const texteCorrection = `L'expression de la fonction $f$ est : $f(x)=${latex}$.`
     document.addEventListener('exercicesAffiches', () => {
-      const divListe = document.querySelector(`liste-deroulante#ListeDeroulanteExo${this.numeroExercice}Q0`)
-      if (divListe.getElementsByClassName('listeDeroulante').length === 0) {
-        divListe.appendChild(this.listeDeroulante.container)
+      const span = document.querySelector(`span#ListeDeroulanteExo${this.numeroExercice}Q0`)
+      if (span.getElementsByClassName('listeDeroulante').length === 0) {
+        span.appendChild(this.listeDeroulante.container)
         this.listeDeroulante.show()
         const divFeedback = document.createElement('div')
         divFeedback.id = `divDuSmiley${this.numeroExercice}Q0`
