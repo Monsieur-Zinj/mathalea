@@ -203,6 +203,7 @@ export type ReferentielInMenu = {
   searchable: boolean
   referentiel: JSONReferentielObject
 }
+
 // ===========================================================================
 //
 //     Fonctions pour vérifier les types

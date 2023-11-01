@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onDestroy } from 'svelte'
-  import type {
-    JSONReferentielObject,
-    ResourceAndItsPath,
-    ReferentielInMenu
+  import {
+    type JSONReferentielObject,
+    type ResourceAndItsPath,
+    type ReferentielInMenu
   } from '../../lib/types/referentiels'
   import { allFilters } from '../stores/filtersStore'
   import {
@@ -20,6 +20,7 @@
     deepReferentielInMenuCopy
   } from '../stores/referentielsStore'
   import { sortArrayOfResourcesBasedOnProp } from '../utils/sorting'
+  import codeToLevelList from '../../json/codeToLevelList.json'
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
   // maj du référentiel chaque fois que le store `allFilters` change
@@ -47,10 +48,17 @@
         }
         let filteredReferentiel: JSONReferentielObject =
           buildReferentiel(matchingItems)
-        // on met les nouveautés en premier dans la liste
-        if (item.name === 'aleatoires' && Object.keys(filteredReferentiel).includes('Nouveautés')) {
-          const keysToBeFirst = { Nouveautés: null }
-          filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
+        // on ordonne les entrées dans la liste (suivant l'ordre de codeToLevelList.json)
+        if (item.name === 'aleatoires') {
+          for (const key of Object.keys(codeToLevelList).reverse()) {
+            if (Object.keys(filteredReferentiel).includes(key)) {
+              const keyToBeFirst = { [key]: null }
+              filteredReferentiel = Object.assign(
+                keyToBeFirst,
+                filteredReferentiel
+              )
+            }
+          }
         }
         const updatedItem: ReferentielInMenu = {
           title: item.title,
