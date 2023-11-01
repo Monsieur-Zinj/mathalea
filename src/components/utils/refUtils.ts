@@ -23,7 +23,7 @@ import { getSelectedLevels, getSelectedFeatures } from '../stores/filtersStore'
 /**
  * Récupérer la liste des exercices récents !
  * @param {JSONReferentielObject} refObj le référentiel à inspecter
- * @returns {JSONReferentielEnding[]} un tableau de tous les exercices ayant une date de modification/publication inférieure à un mois
+ * @returns {ResourceAndItsPath[]} un tableau de tous les exercices ayant une date de modification/publication inférieure à un mois
  * @author sylvain
  */
 export function getRecentExercices (

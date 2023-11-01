@@ -6,21 +6,29 @@ import referentielRessources from '../../json/referentielRessources.json'
 import referentielBibliotheque from '../../json/referentielBibliotheque.json'
 import type {
   JSONReferentielObject,
-  ReferentielInMenu
+  ReferentielInMenu,
+  ResourceAndItsPath
 } from '../../lib/types/referentiels'
 import { writable } from 'svelte/store'
+import { getRecentExercices } from '../utils/refUtils'
 const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
 const examsReferentiel: JSONReferentielObject = { ...referentielExams }
 const referentielOutils: JSONReferentielObject = { ...referentielProfs }
 const referentielHtml: JSONReferentielObject = { ...referentielRessources }
 const biblioReferentiel: JSONReferentielObject = { ...referentielBibliotheque }
+const newExercises: ResourceAndItsPath[] = getRecentExercices(baseReferentiel)
+const newExercisesReferentiel: JSONReferentielObject = {}
+for (const item of newExercises) {
+  newExercisesReferentiel[item.pathToResource[item.pathToResource.length - 1]] = { ...item.resource }
+}
+const aleaReferentiel: JSONReferentielObject = { Nouveautés: { ...newExercisesReferentiel }, ...baseReferentiel }
 // référentiel original
 export const originalReferentiels: ReferentielInMenu[] = [
   {
     title: 'Exercices aléatoires',
     name: 'aleatoires',
     searchable: true,
-    referentiel: baseReferentiel
+    referentiel: aleaReferentiel
   },
   {
     title: 'Annales examens',

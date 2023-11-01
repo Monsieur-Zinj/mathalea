@@ -45,8 +45,13 @@
             ...sortArrayOfResourcesBasedOnProp(matchingItems, 'id')
           ]
         }
-        const filteredReferentiel: JSONReferentielObject =
+        let filteredReferentiel: JSONReferentielObject =
           buildReferentiel(matchingItems)
+        // on met les nouveautés en premier dans la liste
+        if (item.name === 'aleatoires' && Object.keys(filteredReferentiel).includes('Nouveautés')) {
+          const keysToBeFirst = { Nouveautés: null }
+          filteredReferentiel = Object.assign(keysToBeFirst, filteredReferentiel)
+        }
         const updatedItem: ReferentielInMenu = {
           title: item.title,
           name: item.name,
@@ -55,9 +60,7 @@
         }
         results.push(updatedItem)
       } else {
-        // /!\ TODO : ordonner le référentiel (item.referentiel)
-        console.log('référentiel non filtré: ')
-        console.log(item.referentiel)
+        // /!\ TODO : doit-ordonner les référentiels non cherchable ? (item.referentiel)
         results.push({ ...item })
       }
     })
