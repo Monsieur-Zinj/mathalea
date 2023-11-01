@@ -7,6 +7,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -36,10 +37,6 @@ export const ref = '5L14-2'
 export default function ExerciceSubstituer (difficulte = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = difficulte
-  this.titre = titre
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Calculer.'
   this.spacing = 1
   this.consigneModifiable = false
@@ -76,58 +73,58 @@ export default function ExerciceSubstituer (difficulte = 1) {
       switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}x=${k}\\times  ${x}=${k * x}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}x=${k}\\times  ${x}=${miseEnEvidence(`${k * x}`)}$`
           reponse = k * x
           break
         case 2:
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}x-y$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}x-y=${k}\\times  ${x}-${y}=${k * x - y}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}x-y=${k}\\times  ${x}-${y}=${miseEnEvidence(`${k * x - y}`)}$`
           reponse = k * x - y
           break
         case 3:
           texte = `$${lettreDepuisChiffre(i + 1)}=xy$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=xy=${x}\\times  ${y}=${x * y}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=xy=${x}\\times  ${y}=${miseEnEvidence(`${x * y}`)}$`
           reponse = x * y
           break
         case 4:
           texte = `$${lettreDepuisChiffre(i + 1)}=x+y$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=x+y=${x}+${y}=${x + y}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=x+y=${x}+${y}=${miseEnEvidence(`${x + y}`)}$`
           reponse = x + y
           break
         case 5:
           texte = `$${lettreDepuisChiffre(i + 1)}=xy+z$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=xy+z=${x}\\times  ${y}+${z}=${x * y + z}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=xy+z=${x}\\times  ${y}+${z}=${miseEnEvidence(`${x * y + z}`)}$`
           reponse = x * y + z
           break
         case 6:
           texte = `$${lettreDepuisChiffre(i + 1)}=x(y+z)$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=x(y+z)=${x}\\times (${y}+${z})=${x * (y + z)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=x(y+z)=${x}\\times (${y}+${z})=${miseEnEvidence(`${x * (y + z)}`)}$`
           reponse = x * (y + z)
           break
         case 7:
           texte = `$${lettreDepuisChiffre(i + 1)}=x^2+${ecritureParentheseSiNegatif(k)}y$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=x^2+${ecritureParentheseSiNegatif(k)}y=${x}^2+${ecritureParentheseSiNegatif(k)}\\times  ${y}=${x * x}+${ecritureParentheseSiNegatif(k)}\\times  ${y}=${x * x + k * y}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=x^2+${ecritureParentheseSiNegatif(k)}y=${x}^2+${ecritureParentheseSiNegatif(k)}\\times  ${y}=${x * x}+${ecritureParentheseSiNegatif(k)}\\times  ${y}=${miseEnEvidence(`${x * x + k * y}`)}$`
           reponse = x * x + k * y
           break
         case 8:
           texte = `$${lettreDepuisChiffre(i + 1)}=x^2+y^2$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=x^2+y^2=${x}^2+${y}^2=${x * x}+${y * y}=${x * x + y * y}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=x^2+y^2=${x}^2+${y}^2=${x * x}+${y * y}=${miseEnEvidence(`${x * x + y * y}`)}$`
           reponse = x * x + y * y
           break
         case 9:
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}x^2+y^2$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}x^2+y^2=${k}\\times  ${x}^2+${y}^2=${k}\\times  ${x * x}+${y * y}=${k * x * x + y * y}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}x^2+y^2=${k}\\times  ${x}^2+${y}^2=${k}\\times  ${x * x}+${y * y}=${miseEnEvidence(`${k * x * x + y * y}`)}$`
           reponse = k * x * x + y * y
           break
         case 10:
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}x^2+${ecritureParentheseSiNegatif(k2)}x+${ecritureParentheseSiNegatif(k3)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}x^2+${ecritureParentheseSiNegatif(k2)}x+${ecritureParentheseSiNegatif(k3)}=${k}\\times  ${x}^2+${ecritureParentheseSiNegatif(k2)}\\times  ${ecritureParentheseSiNegatif(x)}+${ecritureParentheseSiNegatif(k3)}=${k}\\times  ${x * x}+${ecritureParentheseSiNegatif(k2)}\\times  ${x}+${ecritureParentheseSiNegatif(k3)}=${k * x * x + k2 * x + k3}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}x^2+${ecritureParentheseSiNegatif(k2)}x+${ecritureParentheseSiNegatif(k3)}=${k}\\times  ${x}^2+${ecritureParentheseSiNegatif(k2)}\\times  ${ecritureParentheseSiNegatif(x)}+${ecritureParentheseSiNegatif(k3)}=${k}\\times  ${x * x}+${ecritureParentheseSiNegatif(k2)}\\times  ${x}+${ecritureParentheseSiNegatif(k3)}=${miseEnEvidence(`${k * x * x + k2 * x + k3}`)}$`
           reponse = k * x * x + k2 * x + k3
           break
       }
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', {
-          texte: '$~=$'
+        texte += ajouteChampTexteMathLive(this, i, 'largeur15', {
+          texte: '$~=~$'
         })
       }
       setReponse(this, i, reponse, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
@@ -154,7 +151,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
               }
             }
             */
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
 
