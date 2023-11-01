@@ -29,7 +29,7 @@ export default function SimplificationsRacinesCarrees () {
     $\\sqrt{${a}}=\\sqrt{${reduction[0]}^2\\times ${reduction[1]}} =
     \\sqrt{${reduction[0]}^2}\\times \\sqrt{${reduction[1]}}
     =${reduction[0]}\\sqrt{${reduction[1]}}$.<br>`
-    this.reponse = [`${reduction[0]}\\sqrt{${reduction[1]}}`]
+    this.reponse = [`${reduction[0]}\\sqrt{${reduction[1]}}`, `${reduction[0]}\\times\\sqrt{${reduction[1]}}`]
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }
