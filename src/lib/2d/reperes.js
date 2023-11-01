@@ -42,6 +42,8 @@ import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.j
  * @param {number?} [parametres.step2 = 1] Pas des labels numériques secondaires
  * @param {number?} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
  * @param {array?} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
+ * @param {string?} [parametres.labelColor = 'black'] Couleur des labels de la liste labelListe : du type 'blue' ou du type '#f15929'
+ * @param {number?} [parametres.labelScale = 1] Echelle des labels
  * @param {string?} [parametres.Legende = ''] Légende de l'axe
  * @param {number?} [parametres.LegendePosition] Position de la légende
  * @property {number?} Unite Nombre de cm par unité
@@ -84,6 +86,8 @@ export function DroiteGraduee ({
   step2 = 1,
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
   labelListe = [],
+  labelColor = 'black',
+  labelScale = 1,
   Legende = '',
   LegendePosition = (Max - Min) * Unite + 1.5
 } = {}) {
@@ -167,7 +171,7 @@ export function DroiteGraduee ({
   let t
   if (labelListe.length !== 0) {
     for (const p of labelListe) {
-      t = texteParPosition(p[1], x - labelDistance * absord[1] + (p[0] - Min) * absord[0] * Unite, y - labelDistance * absord[0] + (p[0] - Min) * absord[1] * Unite)
+      t = texteParPosition(p[1], x - labelDistance * absord[1] + (p[0] - Min) * absord[0] * Unite, y - labelDistance * absord[0] + (p[0] - Min) * absord[1] * Unite, 'milieu', labelColor, labelScale)
       objets.push(t)
     }
   }
@@ -257,6 +261,8 @@ export function DroiteGraduee ({
  * @param {number} [parametres.step2 = 1] Pas des labels numériques secondaires
  * @param {number} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
  * @param {array?} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe.
+ * @param {string?} [parametres.labelColor = 'black'] Couleur des labels de la liste labelListe : du type 'blue' ou du type '#f15929'
+ * @param {number?} [parametres.labelScale = 1] Echelle des labels
  * @param {string} [parametres.Legende = ''] Légende de l'axe
  * @param {number} [parametres.LegendePosition] Position de la légende
  * @example droiteGraduee({
@@ -315,6 +321,8 @@ export function droiteGraduee ({
   step2 = 1,
   labelDistance = (axeHauteur + 10) / context.pixelsParCm,
   labelListe = [],
+  labelColor = 'black',
+  labelScale = 1,
   Legende = '',
   LegendePosition = (Max - Min) * Unite + 1.5
 } = {}) {
@@ -351,6 +359,8 @@ export function droiteGraduee ({
     step2,
     labelDistance,
     labelListe,
+    labelColor,
+    labelScale,
     Legende,
     LegendePosition
   })

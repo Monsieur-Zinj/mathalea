@@ -6,7 +6,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Écrire une racine carrée sous la forme $\\;a\\sqrt{b}$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '26/04/2023' // Ajout de l'interactivité par Rémi Angot
+export const dateDeModifImportante = '01/11/2023' // Correction de l'interactivité par Rémi Angot (mathLive renvoie sqrt3 au lieu de sqrt{3})
 
 /**
  * 2N32-3, ex 2N11

@@ -814,7 +814,7 @@ export function CodageSegments (mark = '||', color = 'black', ...args) {
         code += '\n'
       }
     } else {
-      for (let i = 0; i < isEchelle ? args.length - 1 : args.length; i += 2) {
+      for (let i = 0; i < (isEchelle ? args.length - 1 : args.length); i += 2) {
         code += codageSegment(args[i], args[i + 1], mark, color, echelle).tikz()
         code += '\n'
       }

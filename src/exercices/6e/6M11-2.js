@@ -11,7 +11,7 @@ import { sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texTexte } from '../../lib/format/texTexte.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -114,11 +114,11 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const triplet = choice(tripletsPythagoriciens)
           const adjust = (triplet[2] > 50 ? 0.1 : randint(2, 3) / 10)
           const partieDecimale1 = adjust - 1
-          const l1 = calculANePlusJamaisUtiliser(triplet[0] * (1 + partieDecimale1))
-          const L2 = calculANePlusJamaisUtiliser(triplet[1] * (1 + partieDecimale1))
-          const hyp = calculANePlusJamaisUtiliser(triplet[2] * (1 + partieDecimale1))
-          const L1 = calculANePlusJamaisUtiliser(randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10)
-          const zoom = (this.sup4 === 4 ? randint(5, 7) : randint(10, 14)) / (L1 + L2)
+          const l1 = triplet[0] * (1 + partieDecimale1)
+          const L2 = triplet[1] * (1 + partieDecimale1)
+          const hyp = triplet[2] * (1 + partieDecimale1)
+          const L1 = randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10
+          const zoom = randint(7, 9) / (L1 + L2)
           const A = point(0, 0, 'A')
           const B = point(0, l1 * zoom, 'B')
           const C = point(L1 * zoom, l1 * zoom, 'C')
@@ -168,10 +168,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
         case 2 : { // 'rectangle_moins_triangle': {
           const triplet = choice(tripletsPythagoriciens)
           const adjust = (triplet[2] > 50 ? 0.1 : randint(2, 3) / 10)
-          const c1 = calculANePlusJamaisUtiliser(triplet[0] * (adjust))
-          const c2 = calculANePlusJamaisUtiliser(triplet[1] * (adjust))
-          const c = calculANePlusJamaisUtiliser(triplet[2] * (adjust))
-          const zoom = (this.sup4 === 4 ? randint(4, 6) : randint(8, 12)) / c
+          const c1 = triplet[0] * (adjust)
+          const c2 = triplet[1] * (adjust)
+          const c = triplet[2] * (adjust)
+          const zoom = randint(5, 8) / c
           // const h = c1 * c2 / c
           const M = point(0, 0, 'M')
           const N = point(0, c * zoom, 'N')
@@ -231,13 +231,13 @@ export default function PerimetreOuAireDeFiguresComposees () {
           ]
           const [triplet1, triplet2] = choice(deuxtripletsPythagoriciens)
           const adjust = (triplet1[1] + triplet2[1] > 50 ? 0.1 : randint(3, 4) / 10)
-          const com1 = calculANePlusJamaisUtiliser(triplet1[0] * (adjust))
-          const c1 = calculANePlusJamaisUtiliser(triplet1[1] * (adjust))
-          const h1 = calculANePlusJamaisUtiliser(triplet1[2] * (adjust))
+          const com1 = triplet1[0] * (adjust)
+          const c1 = triplet1[1] * (adjust)
+          const h1 = triplet1[2] * (adjust)
           // const com1 = calcul(triplet1[0] * (1 + partieDecimale1))
-          const c2 = calculANePlusJamaisUtiliser(triplet2[1] * (adjust))
-          const h2 = calculANePlusJamaisUtiliser(triplet2[2] * (adjust))
-          const zoom = (this.sup4 === 4 ? randint(4, 6) : randint(8, 12)) / (c1 + c2)
+          const c2 = triplet2[1] * (adjust)
+          const h2 = triplet2[2] * (adjust)
+          const zoom = randint(5, 8) / (c1 + c2)
           const h = com1
           const c = c1 + c2
           const M = point(0, 0, 'M')
@@ -292,13 +292,13 @@ export default function PerimetreOuAireDeFiguresComposees () {
           aire = [arrondi(c ** 2 - (c * h) / 2, 2), arrondi(c ** 2 - (c * h) / 2, 2)]
           break
         }
-        case 4 : { // 'rectangle_demi_disque': {
-          const partieDecimale1 = calculANePlusJamaisUtiliser(randint(1, 9) / 10)
+        case 4 : { // 'rectangle_demi_cercle': {
+          const partieDecimale1 = randint(1, 9) / 10
           let L1 = randint(4, 8)
           let L2 = randint(3, L1 - 1)
-          L1 = calculANePlusJamaisUtiliser(L1 * (1 + partieDecimale1))
-          L2 = calculANePlusJamaisUtiliser(L2 * (1 + partieDecimale1))
-          const zoom = (this.sup4 === 4 ? randint(5, 7) : randint(10, 14)) / (L1 + L2 / 2)
+          L1 = L1 * (1 + partieDecimale1)
+          L2 = L2 * (1 + partieDecimale1)
+          const zoom = randint(7, 9) / (L1 + L2 / 2)
           const A = point(0, 0, 'A')
           const B = point(0, L2 * zoom, 'B')
           const C = point(L1 * zoom, L2 * zoom, 'C')
@@ -362,13 +362,13 @@ export default function PerimetreOuAireDeFiguresComposees () {
             troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, 0), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2 + 1, 0)]
           break
         }
-        case 5 : { // 'rectangle_disque': {
-          const partieDecimale1 = calculANePlusJamaisUtiliser(randint(1, 9, [1, 3, 5, 7, 9]) / 10)
+        case 5 : { // 'rectangle_cercle': {
+          const partieDecimale1 = randint(1, 9, [1, 3, 5, 7, 9]) / 10
           let L1 = randint(4, 8)
           let L2 = randint(3, L1 - 1)
-          L1 = calculANePlusJamaisUtiliser(L1 * (1 + partieDecimale1))
-          L2 = calculANePlusJamaisUtiliser(L2 * (1 + partieDecimale1))
-          const zoom = (this.sup4 === 4 ? randint(6, 8) : randint(12, 16)) / (L1 + L2)
+          L1 = L1 * (1 + partieDecimale1)
+          L2 = L2 * (1 + partieDecimale1)
+          const zoom = randint(5, 7) / (L1 + L2)
           const A = point(0, 0, 'A')
           const B = point(0, L2 * zoom, 'B')
           const C = point(L1 * zoom, L2 * zoom, 'C')
@@ -440,11 +440,11 @@ export default function PerimetreOuAireDeFiguresComposees () {
         case 6 : { // 'rectangle_triangle_demi_disque': {
           const triplet = choice(tripletsPythagoriciens)
           const adjust = (triplet[2] > 50 ? randint(1, 3) / 10 : randint(6, 8) / 10)
-          const l1 = calculANePlusJamaisUtiliser(triplet[0] * (adjust))
-          const L2 = calculANePlusJamaisUtiliser(triplet[1] * (adjust))
-          const hyp = calculANePlusJamaisUtiliser(triplet[2] * (adjust))
-          const L1 = calculANePlusJamaisUtiliser(randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10)
-          const zoom = (this.sup4 === 4 ? randint(7, 8) : randint(14, 16)) / (L1 + L2)
+          const l1 = triplet[0] * (adjust)
+          const L2 = triplet[1] * (adjust)
+          const hyp = triplet[2] * (adjust)
+          const L1 = randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10
+          const zoom = randint(5, 7) / (L1 + L2)
           const A = point(0, 0, 'A')
           const B = point(0, l1 * zoom, 'B')
           const C = point(L1 * zoom, l1 * zoom, 'C')

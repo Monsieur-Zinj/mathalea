@@ -1,5 +1,5 @@
 import { droite } from '../../lib/2d/droites.js'
-import { point } from '../../lib/2d/points.js'
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
@@ -65,15 +65,16 @@ export default function NotationSegmentDroiteDemiDroite () {
       const [dAB, dABCorr] = creerDroiteDemiSegment(A, B, listeDesTypesDeQuestions[3 * i])
       const [dAC, dACCorr] = creerDroiteDemiSegment(A, C, listeDesTypesDeQuestions[3 * i + 1])
       const [dBC, dBCCorr] = creerDroiteDemiSegment(B, C, listeDesTypesDeQuestions[3 * i + 2])
+      context.pixelsParCm = 40
       const labels = labelPoint(A, B, C)
 
       texte = `Placer 3 points $${p[0]}$, $${p[1]}$ et $${p[2]}$ non alignés puis tracer... <br><br>`
       figure = mathalea2d(
-        { xmin: -1, ymin: -1, xmax: 3, ymax: 2.5, pixelsParCm: 40, scale: 1 },
+        { xmin: -1, ymin: -1, xmax: 3, ymax: 2.5, pixelsParCm: 40, scale: 1, zoom: 1.5 },
         dAB,
         dBC,
         dAC,
-        labels
+        labels, tracePoint(A, B, C)
       )
       enonceAMC = figure + texte
       texte += figure

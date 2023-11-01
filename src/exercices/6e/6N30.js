@@ -1,6 +1,6 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -15,11 +15,11 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
+export const dateDeModifImportante = '31/10/2023'
 
 /**
  * Lire l'abscisse décimale d'un point
  * @author Jean-Claude Lhote et Rémi Angot
- * référence 6N30
  */
 export const uuid = 'c1888'
 export const ref = '6N30'
@@ -44,11 +44,11 @@ export default function LireAbscisseDecimale () {
     this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (parseInt(this.sup) === 4) {
+    if (this.sup === 4) {
       typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {
       typesDeQuestions = combinaisonListes(
-        [parseInt(this.sup)],
+        [this.sup],
         this.nbQuestions
       )
     }
@@ -80,12 +80,13 @@ export default function LireAbscisseDecimale () {
           pas2 = 10
           break
       }
-      x1 = randint(0, 2)
+      x1 = randint(0, 1)
       x2 = randint(3, 4)
-      x3 = randint(5, 6)
+      // x3 = randint(5, 6)
+      x3 = 6
       x11 = randint(1, 9)
       x22 = randint(1, 9)
-      x33 = randint(1, 3)
+      x33 = randint(1, 9)
       xA = calculANePlusJamaisUtiliser(x1 + x11 / pas2)
       xB = calculANePlusJamaisUtiliser(x2 + x22 / pas2)
       xC = calculANePlusJamaisUtiliser(x3 + x33 / pas2)
@@ -101,7 +102,7 @@ export default function LireAbscisseDecimale () {
         labelsPrincipaux: false,
         thickSec: true,
         thickSecDist: 1 / pas2,
-        labelListe: [[thick1, `${stringNombre(abs0 + thick1 / pas1, Math.log10(pas1))}`], [thick2, `${stringNombre(abs0 + thick2 / pas1, Math.log10(pas1))}`]],
+        labelListe: [[thick1, `${stringNombre(abs0 + thick1 / pas1, 1 + Math.log10(pas1))}`], [thick2, `${stringNombre(abs0 + thick2 / pas1, 1 + Math.log10(pas1))}`]],
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
       })
       d[2 * i + 1] = droiteGraduee({
@@ -115,25 +116,28 @@ export default function LireAbscisseDecimale () {
         thickSec: true,
         thickSecDist: 1 / pas2,
         labelListe: [
-          [0, `${stringNombre(abs0)}`],
-          [xA, stringNombre(xA / pas1 + abs0, Math.log10(pas1))],
-          [xB, stringNombre(xB / pas1 + abs0, Math.log10(pas1))],
-          [xC, stringNombre(xC / pas1 + abs0, Math.log10(pas1))]
+          // [0, `${stringNombre(abs0)}`],
+          [xA, stringNombre(xA / pas1 + abs0, 1 + Math.log10(pas1))],
+          [xB, stringNombre(xB / pas1 + abs0, 1 + Math.log10(pas1))],
+          [xC, stringNombre(xC / pas1 + abs0, 1 + Math.log10(pas1))]
         ],
+        labelColor: '#f15929',
+        labelDistance: 1.4,
+        labelScale: 1.2,
         pointListe: [[xA, l1], [xB, l2], [xC, l3]]
 
       })
 
       texte = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i])
-      texteCorr = mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1])
+      texteCorr = mathalea2d({ xmin: -2, ymin: -2, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 }, d[2 * i], d[2 * i + 1])
 
       if (this.interactif && context.isHtml) {
-        setReponse(this, 3 * i, arrondi(xA / pas1 + abs0, Math.log10(pas1)))
-        setReponse(this, 3 * i + 1, arrondi(xB / pas1 + abs0, Math.log10(pas1)))
-        setReponse(this, 3 * i + 2, arrondi(xC / pas1 + abs0, Math.log10(pas1)))
-        texte += `<br><br>$${l1}$` + ajouteChampTexteMathLive(this, 3 * i)
-        texte += `$${l2}$` + ajouteChampTexteMathLive(this, 3 * i + 1)
-        texte += `$${l3}$` + ajouteChampTexteMathLive(this, 3 * i + 2)
+        setReponse(this, 3 * i, arrondi(xA / pas1 + abs0, 1 + Math.log10(pas1)))
+        setReponse(this, 3 * i + 1, arrondi(xB / pas1 + abs0, 1 + Math.log10(pas1)))
+        setReponse(this, 3 * i + 2, arrondi(xC / pas1 + abs0, 1 + Math.log10(pas1)))
+        texte += `<br><br>$${l1}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i)
+        texte += sp(6) + `$${l2}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i + 1)
+        texte += sp(6) + `$${l3}$` + sp(1) + ajouteChampTexteMathLive(this, 3 * i + 2)
       } else {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = texte
@@ -141,7 +145,7 @@ export default function LireAbscisseDecimale () {
           this.autoCorrection[i].propositions[0].statut = 1
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -154,6 +158,6 @@ export default function LireAbscisseDecimale () {
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',
     4,
-    '1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange'
+    '1 : Une seule décimale\n2 : Deux décimales \n3 : Trois décimales\n4 : Mélange'
   ]
 }

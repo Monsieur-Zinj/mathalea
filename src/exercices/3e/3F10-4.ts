@@ -117,7 +117,7 @@ class LireImageParApiGeom extends Exercice {
       setReponse(this, i, this.Y[i], { formatInteractif: 'calcul' })
       this.listeCorrections[0] += `${numAlpha(i)} $f(${texNombre(this.X[i], 1)})=${texNombre(this.Y[i], 1)}$<br>`
     }
-    this.figure.divButtons = this.figure.addButtons('DRAG')
+    this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
     const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })

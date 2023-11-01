@@ -13,7 +13,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -37,6 +37,7 @@ export default function Thales2D () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
+  this.sup2 = 1 // correction Triangles imbriqués / correction droites sécantes
   this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
 
   this.correctionDetailleeDisponible = true
@@ -49,6 +50,7 @@ export default function Thales2D () {
     this.autoCorrection = []
     if (this.level === 4) {
       this.sup = 1
+      this.sup2 = 1
     }
     const premiereQuestionPapillon = randint(0, 1) // Pour alterner les configurations et savoir par laquelle on commence
     let reponse, reponse2
@@ -74,7 +76,7 @@ export default function Thales2D () {
       ABC.id = `M2D_${numeroExercice}_${i}_1`
       const C = ABC.listePoints[2]
       C.nom = nomC
-      let k = calculANePlusJamaisUtiliser(randint(3, 8, 5) / 10)
+      let k = randint(3, 8, 5) / 10
       if (parseInt(this.sup) === 2) {
         k *= -1
         this.vspace = -0.5 // Monter un peu l'énoncé pour gagner de la place dans la sortie PDF
@@ -87,25 +89,42 @@ export default function Thales2D () {
       const N = homothetie(B, C, k)
       const MNC = polygone(M, N, C)
       MNC.id = `M2D_${numeroExercice}_${i}_2`
-      const m = pointSurSegment(M, N, -0.5)
-      const n = pointSurSegment(N, M, -0.5)
-      const marqueNomM = texteParPoint(nomM, m, 'milieu', 'black', 1, 'middle', true)
-      const marqueNomN = texteParPoint(nomN, n, 'milieu', 'black', 1, 'middle', true)
+
+      let posM
+      if (k > 0) {
+        if (angleOriente(M, C, N) > 0){
+          posM = similitude(C, M, 90, 1 / longueur(C, M) * 0.5)
+        } else {
+          posM = similitude(C, M, -90, 1 / longueur(C, M) * 0.5)
+        }
+      }else{
+        posM = pointSurSegment(M, N, -0.5)
+      }
+      const marqueNomM = texteParPoint(nomM, posM, 'milieu', 'black', 1, 'middle', true)
+
+      let posN
+      if (k > 0) {
+        if (angleOriente(M, C, N) > 0){
+          posN = similitude(C, N, -90, 1 / longueur(C, N) * 0.5)
+        } else {
+          posN = similitude(C, N, 90, 1 / longueur(C, N) * 0.5)
+        }
+      }else{
+        posN = pointSurSegment(N, M, -0.5)
+      }
+      const marqueNomN = texteParPoint(nomN, posN, 'milieu', 'black', 1, 'middle', true)
+
       const a = pointSurSegment(A, B, -0.5)
       const b = pointSurSegment(B, A, -0.5)
       const marqueNomA = texteParPoint(nomA, a, 'milieu', 'black', 1, 'middle', true)
       const marqueNomB = texteParPoint(nomB, b, 'milieu', 'black', 1, 'middle', true)
-      let c
+      let posC
       if (k < 0) {
-        if (angle(A, C, N) < angle(N, C, A)) {
-          c = similitude(A, C, -angleOriente(A, C, N) / 2, 1 / longueur(A, C))
-        } else {
-          c = similitude(A, C, -angleOriente(N, C, A) / 2, 1 / longueur(A, C) * 0.5)
-        }
+        posC = similitude(A, C, -angleOriente(N, C, A) / 2, 1 / longueur(A, C) * 0.5)
       } else {
-        c = similitude(A, C, -180 + angleOriente(A, C, B) / 2, 1 / longueur(A, C) * 0.5)
+        posC = similitude(A, C, -180 + angleOriente(A, C, B) / 2, 1 / longueur(A, C) * 0.5)
       }
-      const marqueNomC = texteParPoint(nomC, c, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomC = texteParPoint(nomC, posC, 'milieu', 'black', 1, 'middle', true)
 
       texte = `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombre(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombre(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
       if (!this.interactif) {
@@ -119,7 +138,6 @@ export default function Thales2D () {
         ymax: Math.max(A.y, B.y, C.y, M.y, N.y) + 0.8,
         scale: 0.5
       },
-
       ABC, MNC, marqueNomA, marqueNomB, marqueNomC, marqueNomM, marqueNomN
       )
 
@@ -148,14 +166,16 @@ export default function Thales2D () {
         `,
                 'Mettre en couleur les 2 triangles')
 
-      if (k > 0) {
+      if (k > 0 && this.sup2 === 1) {
         texteCorr = `Dans le triangle $${nomA + nomB + nomC}$ :
        <br> $\\leadsto$ $${nomM}\\in${'[' + nomC + nomA + ']'}$,
        <br> $\\leadsto$ $${nomN}\\in${'[' + nomC + nomB + ']'}$,
        <br> $\\leadsto$  $(${nomA + nomB})//(${nomM + nomN})$,
-       <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
+       <br> donc d'après le théorème de Thalès, `
+        texteCorr += this.correctionDetaillee ?   `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.` : 'on a:'
       } else {
-        texteCorr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$ <br> donc d'après le théorème de Thalès, les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.`
+        texteCorr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$ <br> donc d'après le théorème de Thalès, `
+        texteCorr += this.correctionDetaillee ?   `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.` : 'on a:'
       }
       texteCorr += '<br><br>'
       if (context.isHtml) {
@@ -249,4 +269,8 @@ export default function Thales2D () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Configuration', 3, '1 : Triangles imbriqués\n2 : Papillon\n3 : Mélange']
+
+  if (this.level === 3) {
+    this.besoinFormulaire2Numerique = ['Correction', 2, '1 : Triangles imbriqués\n2 : Droites sécantes']
+  }
 }
