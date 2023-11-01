@@ -380,6 +380,7 @@
   "src/exercices/profs/P020.js",
   "src/exercices/profs/P021.js",
   "src/exercices/ressources/iframe.ts",
+  "src/exercices/ressources/sandboxCE.ts",
   "src/exercices/ressources/video.ts",
   "src/exercices/ressources/xcas.ts",
   "src/exercices/techno1/techno1P2-2.js",

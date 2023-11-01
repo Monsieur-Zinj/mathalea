@@ -1254,6 +1254,7 @@
   "de353": "profs/P020.js",
   "4c7ca": "profs/P021.js",
   "iframe": "ressources/iframe.ts",
+  "sandboxCE": "ressources/sandboxCE.ts",
   "video": "ressources/video.ts",
   "xcas": "ressources/xcas.ts",
   "e38d8": "techno1/techno1E2.js",
