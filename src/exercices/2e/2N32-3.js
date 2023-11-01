@@ -29,18 +29,19 @@ export default function ExtraireUnCarreParfaitDUneRacineCarree () {
     this.listeCorrections = []
     let a, b, c, d, texte, texteCorr, reponse
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let enonce = ''
       a = randint(2, 11)
       b = a * a
       c = randint(2, 7, [4])
       d = c * b
       if (this.sup === 1) {
-        texte = `Écrire $\\sqrt{${d}}$ sous la forme $a\\sqrt{${c}}$ où $a$ est un entier.`
+        enonce = `Écrire $\\sqrt{${d}}$ sous la forme $a\\sqrt{${c}}$ où $a$ est un entier.`
       }
       texteCorr = `On cherche le plus grand carré parfait diviseur de ${d}, c'est ${b}.<br>`
       texteCorr += `On a donc la décomposition : $${d}=${c}\\times${b}=${c}\\times${a}^{2}$,<br>`
       texteCorr += `qui permet d'écrire que : $\\sqrt{${d}}=\\sqrt{${a}^{2}\\times${c}}=\\color{red} {${a}\\times\\sqrt{${c}}}$`
       if (this.sup === 2) {
-        texte = `$\\sqrt{${d}}$`
+        enonce = `$\\sqrt{${d}}$`
       }
       texteCorr = `On cherche le plus grand carré parfait diviseur de ${d}, c'est ${b}.<br>`
       texteCorr += `On a donc la décomposition : $${d}=${c}\\times${b}=${c}\\times${a}^{2}$,<br>`
@@ -48,7 +49,9 @@ export default function ExtraireUnCarreParfaitDUneRacineCarree () {
       reponse = [`${a}\\times\\sqrt{${c}}`, `${a}\\sqrt{${c}}`, `\\sqrt{${c}}\\times${a}`, `${a}\\times\\sqrt${c}`, `${a}\\sqrt${c}`, `\\sqrt${c}\\times${a}`]
       // Pb MathLive 01/11/23 : ligne 48, supprimer 3 dernières réponses
       setReponse(this, i, reponse, { formatInteractif: 'texte' })
-      texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: `<br><br>$\\sqrt{${d}}=$` })
+      if (this.interactif) {
+        texte = ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: enonce.replace('}$', '}=$') })
+      } else texte = enonce
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
