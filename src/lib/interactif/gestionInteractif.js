@@ -71,7 +71,7 @@ function verifExerciceListeDeroulante (exercice /** Exercice */, divScore /** HT
   return afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
 }
 
-async function verifExerciceCustom (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
+function verifExerciceCustom (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
   let nbBonnesReponses = 0
   let nbMauvaisesReponses = 0
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
@@ -85,7 +85,7 @@ async function verifExerciceCustom (exercice /** Exercice */, divScore /** HTMLD
   if (eltFeedback) eltFeedback.innerHTML = ''
   // On utilise la correction définie dans l'exercice
   if (exercice.exoCustomResultat) {
-    const correction = await exercice.correctionInteractive()
+    const correction = exercice.correctionInteractive()
     for (let i = 0; i < exercice.nbQuestions; i++) {
       if (Array.isArray(correction)) {
         for (const result of correction) {
@@ -98,7 +98,7 @@ async function verifExerciceCustom (exercice /** Exercice */, divScore /** HTMLD
     }
   } else {
     for (let i = 0; i < exercice.nbQuestions; i++) {
-      await exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
+      exercice.correctionInteractive(i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
     }
   }
   return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)

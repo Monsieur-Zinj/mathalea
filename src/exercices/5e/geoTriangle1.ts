@@ -63,7 +63,7 @@ class ConstructionTriangle extends Exercice {
     }
   }
 
-  correctionInteractive = async () => {
+  correctionInteractive = () => {
     this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom] = this.figure.json
@@ -73,13 +73,13 @@ class ConstructionTriangle extends Exercice {
     let feedback = ''
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [string, string, string]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
-    let { message, isValid } = await this.figure.testDistance({ label1: labelA, label2: labelB, distance: c })
+    let { message, isValid } = this.figure.testDistance({ label1: labelA, label2: labelB, distance: c })
     if (message) feedback += message + '<br>'
     resultat.push(isValid ? 'OK' : 'KO')
-    ;({ message, isValid } = await this.figure.testDistance({ label1: labelB, label2: labelC, distance: a }))
+    ;({ message, isValid } = this.figure.testDistance({ label1: labelB, label2: labelC, distance: a }))
     if (message) feedback += message + '<br>'
     resultat.push(isValid ? 'OK' : 'KO')
-    ;({ message, isValid } = await this.figure.testDistance({ label1: labelC, label2: labelA, distance: b }))
+    ;({ message, isValid } = this.figure.testDistance({ label1: labelC, label2: labelA, distance: b }))
     if (message) feedback += message + '<br>'
     resultat.push(isValid ? 'OK' : 'KO')
     if (resultat.every(r => r === 'OK')) {
@@ -94,6 +94,7 @@ class ConstructionTriangle extends Exercice {
     this.figure.isDynamic = false
     this.figure.divButtons.style.display = 'none'
     this.figure.divUserMessage.style.display = 'none'
+    this.figure.buttons.get('SHAKE')?.click()
     return resultat
   }
 }
