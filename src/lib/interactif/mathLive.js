@@ -81,9 +81,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                     resultat = 'OK'
                   }
                 } else {
-                  const reponseNonCanonique = engine.parse(reponse, { canonical: false })
-                  const saisieNonCanonique = engine.parse(saisie, { canonical: false })
-                  if (reponseNonCanonique.isSame(saisieNonCanonique)) { // engine.parse() retourne du canonical par défaut.
+                  if (engine.parse(reponse).isSame(engine.parse(saisie))) { // engine.parse() retourne du canonical par défaut.
                     resultat = 'OK'
                   }
                 }
