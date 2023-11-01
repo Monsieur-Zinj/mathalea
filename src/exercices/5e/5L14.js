@@ -4,6 +4,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Calculer la valeur d\'une expression littérale'
 export const interactifReady = true
@@ -29,9 +30,6 @@ export const uuid = '17e39'
 export const ref = '5L14'
 export default function CalculerLaValeurDUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = ''
   this.nbQuestions = 5
   this.nbCols = 1
@@ -60,34 +58,34 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           a = randint(2, 10)
           x = randint(2, 10, a)
           b = randint(1, 10, [a, x])
-          texte = `Calculer $${a}x+${b}$ pour $x=${x}$.`
+          texte = `Calculer $${a}x+${b}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x+${b}=${a}\\times ${x}+${b}=${a * x}+${b}=${a * x + b}$`
+          texteCorr += `$${a}x+${b}=${a}\\times ${x}+${b}=${a * x}+${b}=${miseEnEvidence(`${a * x + b}`)}$`
           setReponse(this, i, a * x + b)
           break
         case 2: // a(x+b)
           a = randint(2, 10)
           x = randint(2, 10, a)
           b = randint(1, 10, [a, x])
-          texte = `Calculer $${a}(x+${b})$ pour $x=${x}$.`
+          texte = `Calculer $${a}(x+${b})$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}(x+${b})=${a}\\times (${x}+${b})=${a}\\times ${x + b}=${a * (x + b)}$`
+          texteCorr += `$${a}(x+${b})=${a}\\times (${x}+${b})=${a}\\times ${x + b}=${miseEnEvidence(`${a * (x + b)}`)}$`
           setReponse(this, i, a * (x + b))
           break
         case 3: // x^2+y^2
           x = randint(2, 10)
           y = randint(2, 10)
-          texte = `Calculer $x^2+y^2$ pour $x=${x}$ et $y=${y}$.`
+          texte = `Calculer $x^2+y^2$ pour $x=${x}$ et $y=${y}$`
           texteCorr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-          texteCorr += `$x^2+y^2=${x}^2+${y}^2=${x ** 2}+${y ** 2}=${x ** 2 + y ** 2}$`
+          texteCorr += `$x^2+y^2=${x}^2+${y}^2=${x ** 2}+${y ** 2}=${miseEnEvidence(`${x ** 2 + y ** 2}`)}$`
           setReponse(this, i, x ** 2 + y ** 2)
           break
         case 4: // x^2-y^2
           x = randint(2, 10)
           y = randint(1, x - 1)
-          texte = `Calculer $x^2-y^2$ pour $x=${x}$ et $y=${y}$.`
+          texte = `Calculer $x^2-y^2$ pour $x=${x}$ et $y=${y}$`
           texteCorr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-          texteCorr += `$x^2-y^2=${x}^2-${y}^2=${x ** 2}-${y ** 2}=${x ** 2 - y ** 2}$`
+          texteCorr += `$x^2-y^2=${x}^2-${y}^2=${x ** 2}-${y ** 2}=${miseEnEvidence(`${x ** 2 - y ** 2}`)}$`
           setReponse(this, i, x ** 2 - y ** 2)
           break
         case 5: // ax^2+b(x-1)+cy^3
@@ -96,9 +94,9 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           c = randint(2, 6)
           x = randint(3, 6)
           y = choice([1, 2, 3, 5, 10])
-          texte = `Calculer $${a}x^2+${b}(x-1)+${c}y^3$ pour $x=${x}$ et $y=${y}$.`
+          texte = `Calculer $${a}x^2+${b}(x-1)+${c}y^3$ pour $x=${x}$ et $y=${y}$`
           texteCorr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-          texteCorr += `$${a}x^2+${b}(x-1)+${c}y^3=${a}\\times ${x}^2+${b}(${x}-1)+${c}\\times ${y}^3=${a}\\times ${x ** 2}+${b}\\times ${x - 1}+${c}\\times ${y ** 3}=${a * x ** 2 + b * (x - 1) + c * y ** 3}$.`
+          texteCorr += `$${a}x^2+${b}(x-1)+${c}y^3=${a}\\times ${x}^2+${b}(${x}-1)+${c}\\times ${y}^3=${a}\\times ${x ** 2}+${b}\\times ${x - 1}+${c}\\times ${y ** 3}=${miseEnEvidence(`${a * x ** 2 + b * (x - 1) + c * y ** 3}`)}$`
           setReponse(this, i, a * x ** 2 + b * (x - 1) + c * y ** 3)
           break
         case 6: // ax^2+bx+c
@@ -106,9 +104,9 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           b = randint(2, 6)
           c = randint(2, 6)
           x = randint(3, 6)
-          texte = `Calculer $${a}x^2+${b}x+${c}$ pour $x=${x}$.`
+          texte = `Calculer $${a}x^2+${b}x+${c}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x^2+${b}x+${c}=${a}\\times ${x}^2+${b}\\times ${x}+${c}=${a}\\times ${x ** 2}+${b * x}+${c}=${a * x ** 2 + b * x + c}$`
+          texteCorr += `$${a}x^2+${b}x+${c}=${a}\\times ${x}^2+${b}\\times ${x}+${c}=${a}\\times ${x ** 2}+${b * x}+${c}=${miseEnEvidence(`${a * x ** 2 + b * x  + c}`)}$`
           setReponse(this, i, a * x ** 2 + b * x + c)
           break
         case 7: // ax^2+bx-c
@@ -116,9 +114,9 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           b = randint(2, 6)
           c = randint(2, 6)
           x = randint(3, 6)
-          texte = `Calculer $${a}x^2+${b}x-${c}$ pour $x=${x}$.`
+          texte = `Calculer $${a}x^2+${b}x-${c}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x^2+${b}x-${c}=${a}\\times ${x}^2+${b}\\times ${x}-${c}=${a}\\times ${x ** 2}+${b * x}-${c}=${a * x ** 2 + b * x - c}$`
+          texteCorr += `$${a}x^2+${b}x-${c}=${a}\\times ${x}^2+${b}\\times ${x}-${c}=${a}\\times ${x ** 2}+${b * x}-${c}=${miseEnEvidence(`${a * x ** 2 + b * x  - c}`)}$`
           setReponse(this, i, a * x ** 2 + b * x - c)
           break
         case 8: // ax^2-bx+c
@@ -126,9 +124,9 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           b = randint(2, a)
           c = randint(2, 6)
           x = randint(3, 6)
-          texte = `Calculer $${a}x^2-${b}x+${c}$ pour $x=${x}$.`
+          texte = `Calculer $${a}x^2-${b}x+${c}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x^2-${b}x+${c}=${a}\\times ${x}^2-${b}\\times ${x}+${c}=${a}\\times ${x ** 2}-${b * x}+${c}=${a * x ** 2 - b * x + c}$`
+          texteCorr += `$${a}x^2-${b}x+${c}=${a}\\times ${x}^2-${b}\\times ${x}+${c}=${a}\\times ${x ** 2}-${b * x}+${c}=${miseEnEvidence(`${a * x ** 2 - b * x  + c}`)}$`
           setReponse(this, i, a * x ** 2 - b * x + c)
           break
 
@@ -136,9 +134,9 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           a = randint(2, 10)
           x = randint(2, 10)
           y = randint(2, 10, x)
-          texte = `Calculer $${a}xy+x+y$ pour $x=${x}$ et $y=${y}$.`
+          texte = `Calculer $${a}xy+x+y$ pour $x=${x}$ et $y=${y}$`
           texteCorr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-          texteCorr += `$${a}xy+x+y=${a}\\times ${x}\\times ${y}+${x}+${y}=${a * x * y}+${x}+${y}=${a * x * y + x + y}$`
+          texteCorr += `$${a}xy+x+y=${a}\\times ${x}\\times ${y}+${x}+${y}=${a * x * y}+${x}+${y}=${miseEnEvidence(`${a * x * y + x + y}`)}$`
           setReponse(this, i, a * x * y + x + y)
           break
         case 10: // (ax+b)(cy-d)
@@ -148,15 +146,15 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           y = randint(2, 10, x)
           c = randint(2, 10)
           d = randint(1, Math.min(10, c * y))
-          texte = `Calculer $(${a}x+${b})(${c}y-${d})$ pour $x=${x}$ et $y=${y}$.`
+          texte = `Calculer $(${a}x+${b})(${c}y-${d})$ pour $x=${x}$ et $y=${y}$`
           texteCorr = `Pour $x=${x}$ et $y=${y}$ : <br>`
-          texteCorr += `$(${a}x+${b})(${c}y-${d})=(${a}\\times ${x}+${b})(${c}\\times ${y}-${d})=${a * x + b}\\times ${c * y - d}=${(a * x + b) * (c * y - d)}$`
+          texteCorr += `$(${a}x+${b})(${c}y-${d})=(${a}\\times ${x}+${b})(${c}\\times ${y}-${d})=${a * x + b}\\times ${c * y - d}=${miseEnEvidence(`${(a * x + b) * (c * y - d)}`)}$`
           setReponse(this, i, (a * x + b) * (c * y - d))
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += this.interactif ? (' : '+ ajouteChampTexteMathLive(this, i)) : '.'
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -165,5 +163,4 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireCaseACocher = true;
 }
