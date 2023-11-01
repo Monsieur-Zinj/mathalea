@@ -14,32 +14,50 @@
   import ReferentielNode from './ReferentielNode.svelte'
   import SearchBlock from './SearchBlock.svelte'
   import SideMenuApps from './SideMenuApps.svelte'
-  import { referentiels, originalReferentiels, deepReferentielInMenuCopy } from '../stores/referentielsStore'
+  import {
+    referentiels,
+    originalReferentiels,
+    deepReferentielInMenuCopy
+  } from '../stores/referentielsStore'
+  import { sortArrayOfResourcesBasedOnProp } from '../utils/sorting'
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
   // maj du référentiel chaque fois que le store `allFilters` change
   const unsubscribeToFiltersStore = allFilters.subscribe(() => {
     let filteredReferentielItems: ResourceAndItsPath[] = []
     const results: ReferentielInMenu[] = []
-    const copyOfOriginalReferentiel: ReferentielInMenu[] = deepReferentielInMenuCopy(originalReferentiels)
+    const copyOfOriginalReferentiel: ReferentielInMenu[] =
+      deepReferentielInMenuCopy(originalReferentiels)
     copyOfOriginalReferentiel.forEach((item) => {
       if (item.searchable) {
         const all = getAllEndings(item.referentiel)
-        const matchingItems: ResourceAndItsPath[] = applyFilters(all)
+        let matchingItems: ResourceAndItsPath[] = applyFilters(all)
         filteredReferentielItems = [
           ...filteredReferentielItems,
           ...matchingItems
         ]
+        // tri des exercices par ID ('4-C10' < '4-C10-1' <'4-C10-10')
+        if (item.name === 'aleatoires') {
+          filteredReferentielItems = [
+            ...sortArrayOfResourcesBasedOnProp(filteredReferentielItems, 'id')
+          ]
+          matchingItems = [
+            ...sortArrayOfResourcesBasedOnProp(matchingItems, 'id')
+          ]
+        }
         const filteredReferentiel: JSONReferentielObject =
           buildReferentiel(matchingItems)
         const updatedItem: ReferentielInMenu = {
           title: item.title,
           name: item.name,
           searchable: item.searchable,
-          referentiel: item.referentiel = { ...filteredReferentiel }
+          referentiel: (item.referentiel = { ...filteredReferentiel })
         }
         results.push(updatedItem)
       } else {
+        // /!\ TODO : ordonner le référentiel (item.referentiel)
+        console.log('référentiel non filtré: ')
+        console.log(item.referentiel)
         results.push({ ...item })
       }
     })
@@ -49,7 +67,9 @@
     unsubscribeToFiltersStore()
   })
 
-  const buildHaystack = (refList: ReferentielInMenu[]): ResourceAndItsPath[] => {
+  const buildHaystack = (
+    refList: ReferentielInMenu[]
+  ): ResourceAndItsPath[] => {
     let result: ResourceAndItsPath[] = []
     for (const item of refList) {
       if (item.searchable) {

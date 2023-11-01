@@ -1,7 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher, tick } from 'svelte'
   import { exercicesParams, globalOptions } from '../stores/generalStore'
-  import { sortArrayOfStringsWithHyphens } from '../utils/filters'
+  import { sortArrayOfStringsWithHyphens } from '../utils/sorting'
   import type { InterfaceReferentiel } from '../../lib/types'
   import EntreeRecherche from './EntreeRecherche.svelte'
   import Button from '../forms/Button.svelte'

@@ -2,7 +2,7 @@
   import { slide } from 'svelte/transition'
   import EntreeListeExos from './EntreeListeExos.svelte'
   import { toMap } from '../utils/toMap'
-  import { sortArrayOfStringsWithHyphens } from '../utils/filters'
+  import { sortArrayOfStringsWithHyphens } from '../utils/sorting'
 
   export let expanded: boolean = false
   export let levelTitle: string

@@ -17,7 +17,7 @@ const biblioReferentiel: JSONReferentielObject = { ...referentielBibliotheque }
 // référentiel original
 export const originalReferentiels: ReferentielInMenu[] = [
   {
-    title: 'Exercices',
+    title: 'Exercices aléatoires',
     name: 'aleatoires',
     searchable: true,
     referentiel: baseReferentiel
