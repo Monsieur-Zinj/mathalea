@@ -4,6 +4,7 @@ import { range1 } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 export const amcReady = true
 export const amcType = 'qcmMult'
 export const interactifReady = true
@@ -28,16 +29,10 @@ export const uuid = '3c1f7'
 export const ref = '5L10'
 export default function ÉcrireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcReady = amcReady
-  this.amcType = amcType
-
   this.besoinFormulaireCaseACocher = ['Inclure l\'inverse d\'un nombre']
   this.sup = true
 
@@ -60,7 +55,7 @@ export default function ÉcrireUneExpressionLitterale () {
       switch (listeTypeDeQuestions[i]) {
         case 1: // 2x
           texte = `Exprimer le double de $${x}$ en fonction de $${x}$.`
-          texteCorr = `Le double de $${x}$ se note : $2${x}$.`
+          texteCorr = `Le double de $${x}$ peut se noter : $${miseEnEvidence(`2${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$2\\times ${x}$`,
@@ -96,7 +91,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 2: // 3x
           texte = `Exprimer le triple de $${x}$  en fonction de $${x}$.`
-          texteCorr = `Le triple de $${x}$  se note : $3${x}$.`
+          texteCorr = `Le triple de $${x}$  peut se noter : $${miseEnEvidence(`3${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$3\\times ${x}$`,
@@ -132,7 +127,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 3: // x/2
           texte = `Exprimer la moitié de $${x}$ en fonction de $${x}$.`
-          texteCorr = `La moitié de $${x}$  se note :  $${deprecatedTexFraction(x, 2)}=${x}\\div 2=0,5${x}$.`
+          texteCorr = `La moitié de $${x}$  peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(x, 2)}`)}$ ou $${miseEnEvidence(`${x}\\div 2`)}$ ou $${miseEnEvidence(`0,5${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}\\div 2$`,
@@ -168,7 +163,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 4: // x/4
           texte = `Exprimer le quart de $${x}$  en fonction de $${x}$.`
-          texteCorr = `Le quart de $${x}$  se note :  $${deprecatedTexFraction(x, 4)}=${x}\\div 4=0,25${x}$.`
+          texteCorr = `Le quart de $${x}$  peut se noter :  $${miseEnEvidence(`${deprecatedTexFraction(x, 4)}`)}$ ou $${miseEnEvidence(`${x}\\div 4`)}$ ou $${miseEnEvidence(`0,25${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}\\div 4$`,
@@ -204,7 +199,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 5: // x+1
           texte = `$${x}$ étant un nombre entier, exprimer l'entier suivant en fonction de $${x}$.`
-          texteCorr = `Le successeur de $${x}$ se note :  $${x}+1$.`
+          texteCorr = `Le successeur de $${x}$ peut se noter : $${miseEnEvidence(`${x}+1`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$1+${x}$`,
@@ -240,7 +235,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 6: // x-1
           texte = `$${x}$ étant un nombre entier, exprimer l'entier précédent en fonction de $${x}$.`
-          texteCorr = `Le prédecesseur de $${x}$  se note :  $${x}-1$.`
+          texteCorr = `Le prédecesseur de $${x}$  peut se noter :  $${miseEnEvidence(`${x}-1`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}-1$`,
@@ -276,7 +271,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 7: // x^2
           texte = `Exprimer le carré de $${x}$  en fonction de $${x}$.`
-          texteCorr = `Le carré de $${x}$  se note : $${x}^2$.`
+          texteCorr = `Le carré de $${x}$  peut se noter : $${miseEnEvidence(`${x}^2`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}${x}$`,
@@ -312,7 +307,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 8: // x^3
           texte = `Exprimer le cube de $${x}$  en fonction de $${x}$.`
-          texteCorr = `Le cube de $${x}$  se note : $${x}^3$.`
+          texteCorr = `Le cube de $${x}$  peut se noter : $${miseEnEvidence(`${x}^3`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}${x}${x}$`,
@@ -348,7 +343,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 9: // -x
           texte = `Exprimer l'opposé de $${x}$  en fonction de $${x}$.`
-          texteCorr = `L'opposé de $${x}$  se note : $-${x}$.`
+          texteCorr = `L'opposé de $${x}$  peut se noter : $${miseEnEvidence(`-${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$-${x}$`,
@@ -384,7 +379,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 10: // 1/x
           texte = `Exprimer l'inverse de $${x}$  en fonction de $${x}$.`
-          texteCorr = `L'inverse de $${x}$ se note : $${deprecatedTexFraction(1, x)}$.`
+          texteCorr = `L'inverse de $${x}$ peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(1, x)}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$\\dfrac{1}{${x}}$`,
@@ -420,7 +415,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 11: // x+k
           texte = `Exprimer la somme de $${x}$ et ${k} en fonction de $${x}$.`
-          texteCorr = `La somme de $${x}$ et ${k} se note : $${x}+${k}$.`
+          texteCorr = `La somme de $${x}$ et ${k} peut se noter : $${miseEnEvidence(`${x}+${k}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${k}+${x}$`,
@@ -456,7 +451,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 12: // kx
           texte = `Exprimer le produit de $${x}$  par ${k} en fonction de $${x}$.`
-          texteCorr = `Le produit de $${x}$ par ${k} se note : $${k}${x}$.`
+          texteCorr = `Le produit de $${x}$ par ${k} peut se noter : $${miseEnEvidence(`${k}${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${k}${x}$`,
@@ -492,7 +487,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 13: // x/k
           texte = `Exprimer le quotient de $${x}$ par ${k} en fonction de $${x}$.`
-          texteCorr = `Le quotient de $${x}$ par ${k} se note : $${deprecatedTexFraction(x, k)}$.`
+          texteCorr = `Le quotient de $${x}$ par ${k} peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(x, k)}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}\\div ${k}$`,
@@ -528,7 +523,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 14: // k/x
           texte = `Exprimer le quotient de ${k} par $${x}$ en fonction de $${x}$.`
-          texteCorr = `Le quotient de ${k} par $${x}$ se note : $${deprecatedTexFraction(k, x)}$.`
+          texteCorr = `Le quotient de ${k} par $${x}$ peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(k,x)}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${k}\\div ${x}$`,
@@ -563,8 +558,8 @@ export default function ÉcrireUneExpressionLitterale () {
           ]
           break
         case 15: // xy
-          texte = `Comment se note le produit de $${x}$ par $${y}$ ?`
-          texteCorr = `Le produit de $${x}$ par $${y}$ se note $${x}${y}$.`
+          texte = `Comment peut se noter le produit de $${x}$ par $${y}$ ?`
+          texteCorr = `Le produit de $${x}$ par $${y}$ peut se noter $${miseEnEvidence(`${x}${y}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${y}${x}$`,
@@ -600,7 +595,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 16: // pair
           texte = 'Écrire une expression littérale qui permet de représenter un nombre pair.'
-          texteCorr = 'Un nombre pair peut s\'écrire sous la forme $2n$ avec $n$ un entier naturel.'
+          texteCorr = `Un nombre pair peut s\'écrire sous la forme $${miseEnEvidence(`2n`)}$ avec $n$ un entier naturel.`
           this.autoCorrection[i].propositions = [
             {
               texte: '$2n$',
@@ -636,7 +631,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 17: // impair
           texte = 'Écrire une expression littérale qui permet de représenter un nombre impair.'
-          texteCorr = 'Un nombre impair peut s\'écrire sous la forme $2n+1$ avec $n$ un entier naturel.'
+          texteCorr = `Un nombre impair peut s\'écrire sous la forme $${miseEnEvidence(`2n+1`)}$ avec $n$ un entier naturel.`
           this.autoCorrection[i].propositions = [
             {
               texte: '$2n+1$',
@@ -672,7 +667,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 18: // multiple de k
           texte = `Écrire une expression littérale qui permet de représenter un multiple de ${k}.`
-          texteCorr = `Un multiple de ${k} peut s'écrire sous la forme $${k}n$ avec $n$ un entier naturel.`
+          texteCorr = `Un multiple de ${k} peut s'écrire sous la forme $${miseEnEvidence(`${k}n`)}$ avec $n$ un entier naturel.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${k}n$`,
@@ -708,7 +703,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
       }
       this.autoCorrection[i].enonce = `${texte}\n`
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
           texte += propositionsQcm(this, i).texte
         }
@@ -720,5 +715,4 @@ export default function ÉcrireUneExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireCaseACocher = ["Uniquement la lettre $n$."]
 }
