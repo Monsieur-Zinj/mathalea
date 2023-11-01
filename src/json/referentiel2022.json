@@ -7583,7 +7583,8 @@
           "interactifType": "mathLive",
           "amcType": "AMCOpen",
           "amc": true
-        }
+        },
+        "dateModification": "31/10/2023"
       },
       "6N30-1": {
         "url": "6e/6N30-1.js",
@@ -13290,13 +13291,13 @@
         "url": "2e/2N32-3.js",
         "uuid": "d9495",
         "id": "2N32-3",
-        "titre": "Écrire le nombre proposé sous la forme $\\;a\\sqrt{b}$",
+        "titre": "Écrire une racine carrée sous la forme $\\;a\\sqrt{b}$",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
           "amc": false
         },
-        "dateModification": "26/04/2023"
+        "dateModification": "01/11/2023"
       },
       "2N32-4": {
         "url": "2e/2N32-4.js",
