@@ -6,7 +6,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Écrire le nombre proposé sous la forme $\\;a\\sqrt{b}$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '26/04/2023' // Ajout de l'interactivité par Rémi Angot
+export const dateDeModifImportante = '01/11/2023' // Correction de l'interactivité par Rémi Angot (mathLive renvoie sqrt3 au lieu de sqrt{3})
 
 /**
  * 2N32-3, ex 2N11
@@ -45,7 +45,7 @@ export default function ExtraireUnCarreParfaitDUneRacineCarree () {
       texteCorr = `On cherche le plus grand carré parfait diviseur de ${d}, c'est ${b}.
                             On a donc la décomposition : $${d}=${c} \\times ${b}=${c} \\times ${a}^{2}$ qui permet d'écrire que
                             $\\sqrt{${d}}=\\sqrt{${a}^{2} \\times ${c} }=${a}\\times \\sqrt{${c}}$`
-      setReponse(this, i, [`${a}\\times\\sqrt{${c}}`, `${a}\\sqrt{${c}}`, `\\sqrt{${c}}\\times${a}`], { formatInteractif: 'texte' })
+      setReponse(this, i, [`${a}\\times\\sqrt{${c}}`, `${a}\\sqrt{${c}}`, `\\sqrt{${c}}\\times${a}`, `${a}\\times\\sqrt${c}`, `${a}\\sqrt${c}`, `\\sqrt${c}\\times${a}`], { formatInteractif: 'texte' })
       texte += ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
