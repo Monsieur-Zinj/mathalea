@@ -10,7 +10,7 @@
  *
  * // renvoie par exemple : "iL0v3"
  *
- * @Source https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
+ * @see https://www.equinode.com/blog/article/generer-une-chaine-de-caracteres-aleatoire-avec-javascript
  */
 export function strRandom (o) {
   let a = 10

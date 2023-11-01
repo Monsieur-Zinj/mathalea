@@ -154,7 +154,7 @@ window.addEventListener('load', function () {
           %%%%%%%%%%%% DRAG & DEPLACE %%%%%%%%%%%%%
           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-          @SOURCE https://css-tricks.com/creating-a-panning-effect-for-svg/
+          @see https://css-tricks.com/creating-a-panning-effect-for-svg/
           */
 
         // We select the SVG into the page

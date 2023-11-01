@@ -149,7 +149,7 @@ class Latex {
       if (typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion()
     }
     for (const exercice of this.exercices) {
-      content += `\n% @Source : ${getUrlFromExercice(exercice)}`
+      content += `\n% @see : ${getUrlFromExercice(exercice)}`
       if (exercice.typeExercice === 'statique') {
         if (exercice.content === '') {
           content += '% Cet exercice n\'est pas disponible au format LaTeX'

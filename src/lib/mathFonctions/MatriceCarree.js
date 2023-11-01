@@ -38,7 +38,7 @@ export class MatriceCarree {
     /**
      * Méthode : Calcule le déterminant de la matrice carrée
      * @author Jean-Claude Lhote
-     * @result {FractionEtendue}
+     * @return {FractionEtendue}
      */
     this.determinant = function () {
       const n = this.dim // taille de la matrice = nxn
@@ -149,10 +149,10 @@ export class MatriceCarree {
       }
       return matriceCarree(resultat)
     }
-    
+
     /**
      * Méthode : Calcule le produit d'une matrice nxn par un vecteur 1xn (matrice colonne): retourne un vecteur 1xn.
-     * @result {FractionEtendue[]| boolean}
+     * @return {FractionEtendue[]| boolean}
      */
     this.multiplieVecteur = function (V) { // Vecteur est un simple array pour l'instant
       const n = this.dim

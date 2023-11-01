@@ -45,7 +45,8 @@
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "transpile": "tsc > journal.log",
     "lint": "eslint src/exercices/**/* --ext .js,.ts --fix",
-    "lintSvelte": "eslint src/components/**/* --ext .js,.ts,.svelte --fix"
+    "lintSvelte": "eslint src/components/**/* --ext .js,.ts,.svelte --fix",
+    "docs": "jsdoc -d docs --configure jsdocConf.json"
   },
   "dependencies": {
     "@bugsnag/js": "^7.21.0",
@@ -58,9 +59,11 @@
     "copy-image-clipboard": "^2.1.2",
     "daisyui": "^3.9.4",
     "decimal.js": "^10.4.3",
+    "docdash": "^2.0.2",
     "earcut": "^2.2.4",
     "file-saver": "^2.0.5",
     "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
+    "jsdoc": "^4.0.2",
     "jszip": "^3.10.1",
     "jszip-utils": "^0.1.0",
     "katex": "^0.16.9",

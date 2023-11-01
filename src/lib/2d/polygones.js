@@ -556,7 +556,7 @@ export class BoiteBuilder {
 
   /**
      * l'objet ou l'array d'objet pour la fonction mathalea2d()
-     * @returns {(Polygone|Vide2d|LatexParCoordonnees|TexteParPoint)[]|Polygone}
+     * @return {[Polygone|Vide2d,LatexParCoordonnees|TexteParPoint)]|Polygone}
      */
   render () {
     return this.text ? [this.forme, this.text] : this.forme
@@ -568,7 +568,7 @@ export class BoiteBuilder {
      * @param {string} colorBackground
      * @param {number} opacity
      * @param {number} backgroudOpacity
-     * @returns {BoiteBuilder}
+     * @return {BoiteBuilder}
      */
   addColor ({ color, colorBackground, opacity, backgroudOpacity }) {
     this.forme.color = colorToLatexOrHTML(color ?? 'black')
@@ -584,7 +584,7 @@ export class BoiteBuilder {
      * @param {string} color
      * @param {number} opacity
      * @param {number} size (facteur d'agrandissement ou de réduction 1 par défaut)
-     * @returns {BoiteBuilder}
+     * @return {BoiteBuilder}
      */
   addTextIn ({ textIn, color, opacity, size }) {
     if (typeof textIn !== 'string') {

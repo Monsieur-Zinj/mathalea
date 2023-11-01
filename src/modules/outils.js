@@ -251,7 +251,7 @@ export function carreParfait (x) {
  * Renvoie 0 ou 1 ou 4 ou 6 ou 8 ou 9
  * randint(0,9, '2357') // même résultat avec randint(0,9, ['2','3','5','7']) ou randint(0,9, [2,3,5,7])
  * @author Rémi Angot
- * @Source https://gist.github.com/pc035860/6546661
+ * @see https://gist.github.com/pc035860/6546661
  */
 export function randint (min, max, listeAEviter = []) {
   // Source : https://gist.github.com/pc035860/6546661
@@ -309,7 +309,7 @@ export function checkSum (...args) {
 /**
  * Polyfill Object.fromEntries
  *
- * @Source : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
+ * @see : https://gitlab.com/moongoal/js-polyfill-object.fromentries/
  */
 if (!Object.fromEntries) {
   Object.defineProperty(Object, 'fromEntries', {
