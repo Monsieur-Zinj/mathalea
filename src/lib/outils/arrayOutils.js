@@ -204,7 +204,7 @@ export function enleveDoublonNum (arr, tolerance = epsilon) {
  *
  * @Example
  * tableau_melange = shuffle (tableau_origine)
- * @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ * @see https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  */
 export function shuffle (array) {
   let currentIndex = array.length
@@ -242,7 +242,7 @@ export function shuffleJusqua (array, indice) {
  *
  * @Example
  * motMelange = shuffleLettres (mot)
- * @Source https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+ * @see https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  */
 export function shuffleLettres (txt) {
   const array = txt.split('')
@@ -253,7 +253,7 @@ export function shuffleLettres (txt) {
  * Mélange les items de deux tableaux de la même manière
  *
  *
- * @Source https://stackoverflow.com/questions/18194745/shuffle-multiple-javascript-arrays-in-the-same-way
+ * @see https://stackoverflow.com/questions/18194745/shuffle-multiple-javascript-arrays-in-the-same-way
  */
 export function shuffle2tableaux (obj1, obj2) {
   let index = obj1.length

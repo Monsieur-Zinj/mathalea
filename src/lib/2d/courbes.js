@@ -93,7 +93,7 @@ export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOr
   this.textAbs = textAbs
   this.textOrd = textOrd
   this.color = color
-  this.bordures = [x-0.5,y<0 ? y-0.5 : -0.7,x+0.5, y>0 ? y+0.5 : 0]
+  this.bordures = [x - 0.5, y < 0 ? y - 0.5 : -0.7, x + 0.5, y > 0 ? y + 0.5 : 0]
 
   this.svg = function (coeff) {
     const x0 = this.x / this.xscale
@@ -594,7 +594,7 @@ export function courbeSpline (f, {
 }
 
 /**
- * @SOURCE : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
+ * @see : https://gist.github.com/ericelliott/80905b159e1f3b28634ce0a690682957
  * @private
  */
 // y1: start value

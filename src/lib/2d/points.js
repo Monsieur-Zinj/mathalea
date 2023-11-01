@@ -694,7 +694,7 @@ export function pointIntersectionLC (d, C, nom = '', n = 1) {
  * M = pointIntersectionCC(c1,c2,'M',2) // M est le point d'intersection le plus bas des cercles c1 et c2
  * La fonction ne renvoie rien si les cercles n'ont pas de points d'intersection
  * @author Rémi Angot
- * @Source https://stackoverflow.com/questions/12219802/a-javascript-function-that-returns-the-x-y-points-of-intersection-between-two-ci
+ * @see https://stackoverflow.com/questions/12219802/a-javascript-function-that-returns-the-x-y-points-of-intersection-between-two-ci
  */
 export function pointIntersectionCC (c1, c2, nom = '', n = 1) {
   const O1 = c1.centre

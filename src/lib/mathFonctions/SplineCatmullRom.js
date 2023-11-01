@@ -38,7 +38,7 @@ import { Trace } from './Spline.js'
  * @property {Polynome[]} polys liste des polynomes correspondants à chaque intervalle
  * @property {Function[]} fonctions liste des fonctions correspondantes à chaque polynome
  * @method  {(number)=>number[]} solve(y) retourne les antécédents de y
- * @methode {number=>number} image(x) retourne l'image de x par la fonction
+ * @method {number=>number} image(x) retourne l'image de x par la fonction
  * @author Jean-Claude Lhote
  */
 class SplineCatmullRom {
@@ -233,7 +233,7 @@ class SplineCatmullRom {
  * @property {Polynome[]} polys liste des polynomes correspondants à chaque intervalle
  * @property {Function[]} fonctions liste des fonctions correspondantes à chaque polynome
  * @method  {(number)=>number[]} solve(y) retourne les antécédents de y
- * @methode {number=>number} image(x) retourne l'image de x par la fonction
+ * @method {number=>number} image(x) retourne l'image de x par la fonction
  * @author Jean-Claude Lhote
  *
  * @param {number[]} tabY liste des valeurs de y au niveau des noeuds (sa longueur détermine le nombre d'intervalles
