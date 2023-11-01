@@ -11,7 +11,9 @@ export const amcType = 'AMCOpen'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Déterminer le plus petit ensemble de nombres dans lequel un nombre appartient'
-export const dateDeModifImportante = '26/08/2023'
+export const dateDeModifImportante = '01/11/2023'
+// Modification la 1/11/23 par Rémi Angot
+// computeEngine a un problème avec l'ensemble N qui n'est pas isSame avec lui même donc je suis passé par un format texte
 
 /**
  * 2N14-1, ex 2N20
@@ -66,7 +68,7 @@ export default function EnsembleDeNombres () {
 
           texte = `$${a} \\in $`
           texteCorr = `$${a}$ est un entier naturel. On a donc $${a}\\in \\mathbb{N}$.`
-          setReponse(this, i, '\\mathbb{N}')
+          setReponse(this, i, '\\mathbb{N}', { formatInteractif: 'texte' })
           break
         case 2:
 
@@ -94,7 +96,7 @@ export default function EnsembleDeNombres () {
 
           texte = `$\\sqrt{${texNombre(a * a)}}\\in $`
           texteCorr = `$\\sqrt{${a * a}}=${a}$  est un entier naturel. On a donc $\\sqrt{${texNombre(a * a)}}\\in \\mathbb{N}$.`
-          setReponse(this, i, '\\mathbb{N}')
+          setReponse(this, i, '\\mathbb{N}', { formatInteractif: 'texte' })
           break
         case 5:
 
@@ -103,7 +105,7 @@ export default function EnsembleDeNombres () {
           if (choice([true, false])) {
             texte = `$\\dfrac{${texNombre(b * a)}}{${a}}\\in $`
             texteCorr = `$\\dfrac{${texNombre(b * a)}}{${a}}=\\dfrac{${b}\\times ${a}}{${a}}=${b}$  est un entier naturel. On a donc $\\dfrac{${texNombre(b * a)}}{${a}}\\in \\mathbb{N}$.`
-            setReponse(this, i, '\\mathbb{N}')
+            setReponse(this, i, '\\mathbb{N}', { formatInteractif: 'texte' })
           } else {
             b = -b
             texte = `$\\dfrac{${texNombre(b * a)}}{${a}}\\in $`
