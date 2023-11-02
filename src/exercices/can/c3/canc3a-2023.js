@@ -484,7 +484,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = ajouterDeuxDecimaux.texteCorr
           setReponse(this, index, ajouterDeuxDecimaux.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 nospacebefore', { texte: `${sp(2)} $=$` })
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 nospacebefore', { texteAvant: `${sp(2)} $=$` })
           }
           nbChamps = 1
           this.listeCanEnonces.push(ajouterDeuxDecimaux.canEnonce)

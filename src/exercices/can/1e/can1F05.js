@@ -74,7 +74,7 @@ export default function LectureGraphiqueParabolebEtc () {
       }, r, o, traceA, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
 
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline nospacebefore', { texte: '$b=$' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline nospacebefore', { texteAvant: '$b=$' })
 
         setReponse(this, i, -2 * a * alpha)
       }

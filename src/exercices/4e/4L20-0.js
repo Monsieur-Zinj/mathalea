@@ -164,10 +164,10 @@ export default function ExerciceEquationASolutionEntiere () {
           if (!this.sup) {
             c = Math.abs(c)
             a = randint(2, 5) + c
-            reponse = Math.abs(randint(-9, 9, [0, -1, 1],calculANePlusJamaisUtiliser(-d/(c-a))))
+            reponse = Math.abs(randint(-9, 9, [0, -1, 1], calculANePlusJamaisUtiliser(-d / (c - a))))
           } else {
             a = randint(-5, 5, [-c, -c + 1, -c - 1, 0]) + c
-            reponse = randint(-9, 9, [0, -1, 1],calculANePlusJamaisUtiliser(-d/(c-a)))
+            reponse = randint(-9, 9, [0, -1, 1], calculANePlusJamaisUtiliser(-d / (c - a)))
           }
           b = (c - a) * reponse + d
           texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(
@@ -221,7 +221,7 @@ export default function ExerciceEquationASolutionEntiere () {
           texteCorr += `<br> La solution est $${reponse}$.`
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: sp(10) + '<br>La solution est $x=$' })
+      texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: sp(10) + '<br>La solution est $x=$' })
       this.sup ? setReponse(this, i, reponse, { signe: true }) : setReponse(this, i, reponse, { signe: false })
       if (this.questionJamaisPosee(i, a, b, c)) {
         // Si la question n'a jamais été posée, on en créé une autre

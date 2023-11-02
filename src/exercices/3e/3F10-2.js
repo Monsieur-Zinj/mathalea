@@ -261,7 +261,7 @@ export default function CalculsImagesFonctions () {
       }
       if (this.interactif) {
         if (tagImage) {
-          texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: `$f(${ant})=$` })
+          texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: `$f(${ant})=$` })
         } else {
           texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur25 inline', {
             texte: '$f($',

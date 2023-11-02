@@ -3,16 +3,16 @@ import { sp } from '../outils/outilString.js'
 
 export function ajouteChampTexteMathLive (exercice, i, style = '', {
   texteApres = '',
-  texte = '',
+  texteAvant = '',
   tailleExtensible = false
 } = {}) {
   if (context.isHtml && exercice.interactif) {
     if (style === 'none') return ''
     if (style === '') {
-      return `<label>${texte}</label><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+      return `<label>${texteAvant}</label><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else if (tailleExtensible) {
-      return `<label>${sp()}${texte}${sp()}</label><table style="text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; top: 27px; left: 0px;padding:0px 0px 5px;margin:0px"><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    } else return `<label>${texte}</label><math-field virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+      return `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; top: 27px; left: 0px;padding:0px 0px 5px;margin:0px"><math-field virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    } else return `<label>${texteAvant}</label><math-field virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
   } else {
     return ''
   }
@@ -26,12 +26,12 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
  * Si les deux champs sont à saisir, on utilise deux réponses de formatInteractif 'calcul'.
  */
 export function ajouteChampFractionMathLive (exercice, i, numerateur = false, denominateur = 100, style = '', {
-  texte = '',
+  texteAvant = '',
   texteApres = ''
 } = {}) {
   let code = ''
   if (context.isHtml && exercice.interactif) {
-    code += `<label>${texte}</label>
+    code += `<label>${texteAvant}</label>
              <table style="border-collapse:collapse;text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;"><tr>
              <td style="${!numerateur ? style : ''} ;padding:0px 0px 5px;margin:0px;border-bottom:1px solid #000;">`
     if (!numerateur) {

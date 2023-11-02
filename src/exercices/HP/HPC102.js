@@ -288,7 +288,7 @@ export default function CalculsLoiNormale () {
       // texte = texte.replaceAll('frac', 'dfrac')
       texteCorr = texteCorr.replaceAll('frac', 'dfrac')
       if (this.interactif) {
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx $` })
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx $` })
       }
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)

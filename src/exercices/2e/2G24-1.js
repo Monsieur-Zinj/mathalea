@@ -148,8 +148,8 @@ export default function Calculercoordonneesvecteurs () {
         texteCorr += `On peux vérifier graphiquement ci-dessous les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.<br>`
         texteCorr += mathalea2d(Object.assign({ zoom: 2 }, fixeBordures(objets)), objets) // On trace le graphique
       }
-      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: `<br><br>Composante sur $x$ de $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$ :` })
-      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: `<br><br>Composante sur $y$ de $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$ :` })
+      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteAvant: `<br><br>Composante sur $x$ de $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$ :` })
+      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteAvant: `<br><br>Composante sur $y$ de $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$ :` })
       setReponse(this, 2 * i, xAB, { formatInteractif: 'fractionEgale' })
       setReponse(this, 2 * i + 1, yAB, { formatInteractif: 'fractionEgale' })
       if (this.questionJamaisPosee(i, xAB, yAB)) { // Si la question n'a jamais été posée, on en créé une autre

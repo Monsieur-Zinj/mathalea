@@ -819,7 +819,7 @@ export default function ExerciceInequationQuotient () {
         correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
       }
       if (this.interactif && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: '<br>S = ' })
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: '<br>S = ' })
         setReponse(this, i, correctionInteractif, { formatInteractif: 'texte' })
       }
       if (this.questionJamaisPosee(i, a, b, c, e, d)) {

@@ -115,7 +115,7 @@ export default function ExerciceEquation1 () {
         }
         texte = `$${a}x${ecritureAlgebrique(b)}=${c}$`
         texteCorr = texte + '<br>'
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           if (b > 0) {
             texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -151,7 +151,7 @@ export default function ExerciceEquation1 () {
         }
         texte = `$x${ecritureAlgebrique(b)}=${c}$`
         texteCorr = texte + '<br>'
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           if (b > 0) {
             texteCorr += `On soustrait $${b}$ aux deux membres.<br>`
@@ -178,7 +178,7 @@ export default function ExerciceEquation1 () {
         }
         texte = `$${a}x=${b}$`
         texteCorr = texte + '<br>'
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           texteCorr += `On divise les deux membres par $${a}$.<br>`
         }
@@ -216,7 +216,7 @@ export default function ExerciceEquation1 () {
                     c
                 )}x${ecritureAlgebrique(d)}$`
         texteCorr = texte + '<br>'
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '<br>$ x = $ ' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: '<br>$ x = $ ' })
         if (this.correctionDetaillee) {
           if (c > 0) {
             texteCorr += `On soustrait $${rienSi1(

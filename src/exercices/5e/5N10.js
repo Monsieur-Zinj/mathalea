@@ -80,7 +80,7 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
       if (listeDesSensDemandes[i] === 'DecimaleAFractionnaire') {
         texte = `Écrire $${texNombre(ecritureDecimale, 3)}$ sous la forme d'une fraction.`
         if (this.interactif) {
-          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `$${texNombre(ecritureDecimale, 3)} = $` })
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: `$${texNombre(ecritureDecimale, 3)} = $` })
         }
         if (listeTypeFractions[i] === 'fractionsNonDecimales') {
           let multiple
@@ -94,7 +94,7 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
       } else if (listeDesSensDemandes[i] === 'FractionnaireADecimale') {
         texte = `Donner l'écriture décimale de $\\cfrac{${numerateur}}{${denominateur}}$.`
         if (this.interactif) {
-          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `$\\cfrac{${numerateur}}{${denominateur}} = $` })
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: `$\\cfrac{${numerateur}}{${denominateur}} = $` })
         }
         texteCorr = `$\\cfrac{${numerateur}}{${denominateur}} = ${texNombre(ecritureDecimale, 3)}$`
         setReponse(this, i, arrondi(ecritureDecimale, 3))

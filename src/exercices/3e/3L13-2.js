@@ -281,7 +281,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situat
           correctionInteractif = enonces[3].correctionInteractif[0].replace('{', '').replace('}', '')
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: `<br> ${inc} = ` })
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: `<br> ${inc} = ` })
       reponse = new FractionEtendue(correctionInteractif)
       if (context.isAmc) setReponse(this, i, reponse)
       else setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })

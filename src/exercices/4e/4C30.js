@@ -36,7 +36,7 @@ export default function PuissancesDeDix () {
   this.sup2 = 4
   this.besoinFormulaireNumerique = false // Voir 2N31-5 pour voir besoinFormulaireNumerique à true
   this.besoinFormulaire2Texte = ['Type de calculs', 'Nombres séparés par des tirets\n1 : Produit de puissances\n2 : Quotient de puissances\n3 : Puissance de puissances\n4 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
-  
+
   this.nouvelleVersion = function (numeroExercice) {
     this.correctionDetailleeDisponible = this.sup !== 2
     let typesDeQuestions
@@ -61,19 +61,19 @@ export default function PuissancesDeDix () {
     } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] // calculs deuxième série
     }
-    const listeTypeDeQuestions = this.besoinFormulaireNumerique 
-    ? combinaisonListes(
-      typesDeQuestionsDisponibles,
-      this.nbQuestions
-    )
-    : gestionnaireFormulaireTexte({
-      nbQuestions: this.nbQuestions,
-      saisie: this.sup2,
-      max: 3,
-      melange: 4,
-      defaut: 4
-    })
-    
+    const listeTypeDeQuestions = this.besoinFormulaireNumerique
+      ? combinaisonListes(
+        typesDeQuestionsDisponibles,
+        this.nbQuestions
+      )
+      : gestionnaireFormulaireTexte({
+        nbQuestions: this.nbQuestions,
+        saisie: this.sup2,
+        max: 3,
+        melange: 4,
+        defaut: 4
+      })
+
     // pour pouvoir adapter les couleurs en cas de besoin
     const coul0 = 'red'
     const coul1 = 'blue'
@@ -382,7 +382,7 @@ export default function PuissancesDeDix () {
       }
       if (this.interactif && !context.isAmc) {
         setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
-        texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline nospacebefore', { texte: `${sp(2)}$=$${sp(2)}` })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline nospacebefore', { texteAvant: `${sp(2)}$=$${sp(2)}` })
       }
       if (context.isAmc) {
         // setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: 10, exposantPuissance: exposantInteractif })

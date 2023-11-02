@@ -79,7 +79,7 @@ export default function PremierEscapeGameMathalea () {
     const absc = []
     const ord = []
     let car
-    texte += ajouteChampTexteMathLive(this, 0, 'alphanumeric', { texte: 'Taper le mot de passe en majuscules : ' })
+    texte += ajouteChampTexteMathLive(this, 0, 'alphanumeric', { texteAvant: 'Taper le mot de passe en majuscules : ' })
     texteCorr += `Le mot de passe comporte ${2 + 2 * type} lettres.`
     setReponse(this, 0, mdp, { formatInteractif: 'texte' })
     for (let x = 0; x < type * 2 + 2; x++) {

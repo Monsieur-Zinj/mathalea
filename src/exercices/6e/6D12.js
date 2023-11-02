@@ -318,7 +318,7 @@ export default function CalculsDeDureesOuHoraires () {
       }
       if (this.interactif) {
         texte += '<br><br>'
-        texte += ajouteChampTexteMathLive(this, i, 'clavierHms inline', { texte: texteInteractif + ' : ' })
+        texte += ajouteChampTexteMathLive(this, i, 'clavierHms inline', { texteAvant: texteInteractif + ' : ' })
       }
 
       if (this.questionJamaisPosee(i, texte)) {

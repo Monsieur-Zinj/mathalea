@@ -70,7 +70,7 @@ export default function EcritureDecimalePuissance () {
           break
       }
 
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texte: sp(2) + '$=$' + sp(2) })
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texteAvant: sp(2) + '$=$' + sp(2) })
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, n)) {
         // Si la question n'a jamais été posée, on en crée une autre

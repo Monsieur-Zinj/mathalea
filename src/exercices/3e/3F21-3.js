@@ -119,7 +119,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
       correction2 += `Le coefficient directeur de $${nomFonction}$ est donc $${texNombre(a)}$.`
       indice++
       question3 = numAlpha(indice) + `En déduire l'expression algébrique de $${nomFonction}$.`
-      question3 += ajouteChampTexteMathLive(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, 'largeur15 inline nospacebefore', { texte: `$${sp(10)}${nomFonction} : x \\mapsto $` })
+      question3 += ajouteChampTexteMathLive(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, 'largeur15 inline nospacebefore', { texteAvant: `$${sp(10)}${nomFonction} : x \\mapsto $` })
       correction3 = numAlpha(indice) + `$${nomFonction}$ étant une fonction ${vocabulaire}, on a $${nomFonction} : x \\mapsto $` +
                 ((vocabulaire === 'affine')
                   ? '$ax + b$ avec $a$ son coefficient directeur (ou pente) et $b$ son ordonnée à l\'origine.'

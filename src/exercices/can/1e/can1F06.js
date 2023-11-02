@@ -119,9 +119,9 @@ export default function LectureGraphiqueParaboleaEtb () {
               }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a=$' })
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a=$' })
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$b=$' })
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$b=$' })
             setReponse(this, 2 * i, a)
             setReponse(this, 2 * i + 1, b)
           }
@@ -213,9 +213,9 @@ export default function LectureGraphiqueParaboleaEtb () {
               }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a=$' })
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a=$' })
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$b=$' })
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$b=$' })
             setReponse(this, 2 * i, a)
             setReponse(this, 2 * i + 1, b)
           }

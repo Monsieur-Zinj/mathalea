@@ -101,8 +101,8 @@ export default function TranslationEtCoordonnes () {
         texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, déterminer les coordonnées du point $A'$, image du point $A\\left(${xA}\\,;\\,${yA}\\right)$ par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
 
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse $x$ du point $A\'$ :' })
-          texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée $y$ du point $A\'$ :' })
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteAvant: '<br><br>Abscisse $x$ du point $A\'$ :' })
+          texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteAvant: '<br><br>Ordonnée $y$ du point $A\'$ :' })
         }
       } else if (parseInt(this.sup) === 2) {
         AbsRep = xA
@@ -110,8 +110,8 @@ export default function TranslationEtCoordonnes () {
         texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, déterminer les coordonnées du point $A$, dont l'image par la translation de vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ est le point $A'\\left(${xB}\\,;\\,${yB}\\right)$.<br>`
 
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse $x$ du point $A$ :' })
-          texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée $y$ du point $A$ :' })
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteAvant: '<br><br>Abscisse $x$ du point $A$ :' })
+          texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteAvant: '<br><br>Ordonnée $y$ du point $A$ :' })
         }
       }
       texteCorr = ''
@@ -178,8 +178,8 @@ export default function TranslationEtCoordonnes () {
       if (this.correctionDetaillee) {
         texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objets)), objets) // On trace le graphique
       }
-      // texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Abscisse du point :' })
-      // texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Ordonnée du point :' })
+      // texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', {texteAvant: '<br><br>Abscisse du point :' })
+      // texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', {texteAvant: '<br><br>Ordonnée du point :' })
       // setReponse(this, 2 * i, AbsRep)
       // setReponse(this, 2 * i + 1, OrdRep)
       if (this.questionJamaisPosee(i, xA, yA, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
