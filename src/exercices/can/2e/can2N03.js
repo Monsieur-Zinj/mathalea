@@ -18,7 +18,7 @@ export default function IntersectionIntervalles () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.spacing = 3
+  this.spacing = 1
   this.formatChampTexte = 'largeur15 inline lycee'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
