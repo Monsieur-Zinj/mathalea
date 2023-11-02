@@ -92,7 +92,7 @@ export default function DivisionsEuclidiennesEgalite () {
         texte: 'Quotient : ',
         texteApres: sp(5)
       })
-      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: ' Reste : ' })
+      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: ' Reste : ' })
       setReponse(this, 2 * i, q)
       setReponse(this, 2 * i + 1, r)
       if (context.isAmc) {

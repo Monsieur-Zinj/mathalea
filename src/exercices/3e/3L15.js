@@ -69,8 +69,8 @@ export default function ExerciceEquations () {
           fracReponse = new FractionEtendue(-b, a)
           setReponse(this, fracReponse.signe === -1 ? indiceQ : indiceQ + 1, fracReponse, { formatInteractif: 'fractionEgale' })
           setReponse(this, fracReponse.signe === 1 ? indiceQ : indiceQ + 1, 0)
-          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus petite : ` })
-          texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus grande : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution la plus petite : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution la plus grande : ` })
           increment = 2
           break
         case 'ax2+bxAvec1':
@@ -96,8 +96,8 @@ export default function ExerciceEquations () {
           fracReponse = new FractionEtendue(-b, a)
           setReponse(this, fracReponse.signe === -1 ? indiceQ : indiceQ + 1, fracReponse, { formatInteractif: 'fractionEgale' })
           setReponse(this, fracReponse.signe === 1 ? indiceQ : indiceQ + 1, 0)
-          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus petite : ` })
-          texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus grande : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution la plus petite : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution la plus grande : ` })
           increment = 2
           break
         case 'ax2-b2':
@@ -126,8 +126,8 @@ export default function ExerciceEquations () {
           fracReponse = fracReponse.oppose()
           setReponse(this, fracReponse.signe === -1 ? indiceQ : indiceQ + 1, fracReponse, { formatInteractif: 'fractionEgale' })
           setReponse(this, fracReponse.signe !== -1 ? indiceQ : indiceQ + 1, new FractionEtendue(b, a), { formatInteractif: 'fractionEgale' })
-          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus petite : ` })
-          texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus grande : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution la plus petite : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution la plus grande : ` })
           increment = 2
           break
         case 'ax2=b2':
@@ -158,8 +158,8 @@ export default function ExerciceEquations () {
           fracReponse = new FractionEtendue(-b, a)
           setReponse(this, fracReponse.signe === -1 ? indiceQ : indiceQ + 1, fracReponse, { formatInteractif: 'fractionEgale' })
           setReponse(this, fracReponse.signe !== -1 ? indiceQ : indiceQ + 1, new FractionEtendue(b, a), { formatInteractif: 'fractionEgale' })
-          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus petite : ` })
-          texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texte: `<br>${sp(5)} Solution la plus grande : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution la plus petite : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ + 1, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution la plus grande : ` })
           increment = 2
           break
         case 'bcx2+a=bx(cx+d)':
@@ -196,7 +196,7 @@ export default function ExerciceEquations () {
           texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
 
           setReponse(this, indiceQ, fracReponse, { formatInteractif: 'fractionEgale' })
-          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution : ` })
           increment = 1
           break
         case '(ax+b)2=0':
@@ -216,7 +216,7 @@ export default function ExerciceEquations () {
           }
           texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
           setReponse(this, indiceQ, fracReponse, { formatInteractif: 'fractionEgale' })
-          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution : ` })
           increment = 1
           break
         case '(ax+b)(cx+d)=acx2':
@@ -243,7 +243,7 @@ export default function ExerciceEquations () {
           }
           texteCorr += `<br>La solution de l'équation est : $${miseEnEvidence(fracReponse.simplifie().texFSD)}$.`
           setReponse(this, indiceQ, fracReponse, { formatInteractif: 'fractionEgale' })
-          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texte: `<br>${sp(5)} Solution : ` })
+          texte += ajouteChampTexteMathLive(this, indiceQ, 'largeur15 inline', { texteAvant: `<br>${sp(5)} Solution : ` })
           increment = 1
           break
       }

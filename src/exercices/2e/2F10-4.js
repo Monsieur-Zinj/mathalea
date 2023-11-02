@@ -90,7 +90,7 @@ export default function Determinerfonctionaffine () {
             reponse = [`${m.texFraction}x+${p}`]
             setReponse(this, i, reponse)
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: '$f(x)=$' })
+              texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: '$f(x)=$' })
             }
           }
           break
@@ -161,7 +161,7 @@ export default function Determinerfonctionaffine () {
                             `${arrondi((b - d) / (a - c), 3)}x+${pfraction.texFraction}`]
             setReponse(this, i, reponse)
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: '$f(x)=$' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texteAvant: '$f(x)=$' })
             }
           }
           break
@@ -224,7 +224,7 @@ export default function Determinerfonctionaffine () {
                             `${arrondi((b - d) / (a - c), 3)}x+${pfraction.texFraction}`]
             setReponse(this, i, reponse)
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: '$f(x)=$' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texteAvant: '$f(x)=$' })
             }
           }
           break

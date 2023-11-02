@@ -204,7 +204,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction.)'
 
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texte: '=' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texteAvant: '=' })
       }
       reponse = fraction(num, den).simplifie()
       setReponse(this, i, reponse, {

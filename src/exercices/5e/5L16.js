@@ -312,9 +312,9 @@ export default function SimplifierEcritureLitterale () {
       reponse = reponse.replace(/\s/g, '') // En retirant les espaces
       reponse = reponse.replace(/\\timesx/g, '\\times x') // Et en les remettant entre les times et les x
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i)
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$ ' })
       }
-      setReponse(this, i, reponse, { formatInteractif: 'ignorerCasse' })
+      setReponse(this, i, reponse, { formatInteractif: 'calcul' })
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

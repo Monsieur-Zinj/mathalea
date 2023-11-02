@@ -500,7 +500,7 @@ export default function ModelisationProblemes () {
         setReponse(this, i, correctionSansSchema, { formatInteractif: 'texte' })
         texteCorr += "L'opération qui peut résoudre le problème est : "
         texteCorr += texteEnCouleurEtGras(correctionSansSchemaLatex)
-        colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: sp(5) + '<br>Opération :' })
+        colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteAvant: sp(5) + '<br>Opération :' })
       } else if (this.sup3 === 2) {
         texteCorr += 'Cet énoncé peut être associé avec le schéma ci-dessous.<br>' + schemas[brouilleLesCartes[i]]
       } else {
@@ -509,7 +509,7 @@ export default function ModelisationProblemes () {
         if (this.correctionDetaillee) {
           texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
         }
-        colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: sp(5) + '<br>Schéma :' })
+        colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteAvant: sp(5) + '<br>Schéma :' })
       }
       this.listeQuestions.push(colonne1)
       this.listeCorrections.push(texteCorr)

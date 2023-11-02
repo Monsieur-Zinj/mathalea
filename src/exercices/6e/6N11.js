@@ -124,9 +124,9 @@ export default function LireAbscisseEntiere2d () {
         setReponse(this, 3 * i, texNombre(reponse1, 0), { formatInteractif: 'texte' })
         setReponse(this, 3 * i + 1, texNombre(reponse2, 0), { formatInteractif: 'texte' })
         setReponse(this, 3 * i + 2, texNombre(reponse3, 0), { formatInteractif: 'texte' })
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur50 college6eme', { texte: l1 })
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur50 college6eme', { texte: l2 })
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur50 college6eme', { texte: l3 })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur50 college6eme', { texteAvant: l1 })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur50 college6eme', { texteAvant: l2 })
+        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur50 college6eme', { texteAvant: l3 })
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,

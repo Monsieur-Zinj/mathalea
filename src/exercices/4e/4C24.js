@@ -94,7 +94,7 @@ export default function SimplifierFractions () {
           break
       }
       const f = new FractionEtendue(numerateur, denominateur)
-      texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, 'inline largeur25', { texte: ' =' })}`
+      texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: ' =' })}`
       texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true, '#f15929')}$`
       setReponse(this, i, f.simplifie(), { formatInteractif: 'fraction' })
       if (context.isAmc) {

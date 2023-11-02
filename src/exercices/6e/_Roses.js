@@ -331,10 +331,10 @@ export function ExoRose () {
       texte += mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets)), objets)
       if (this.interactif) {
         if (this.type.substring(0, 3) === 'can') {
-          texte += ajouteChampTexteMathLive(this, i, 'nospacebefor', { texte: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`, tailleExtensible: true })
+          texte += ajouteChampTexteMathLive(this, i, 'nospacebefor', { texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`, tailleExtensible: true })
         } else {
           for (let k = 0; k < this.nombreDeValeurs; k++) {
-            texte += ajouteChampTexteMathLive(this, i * this.nombreDeValeurs + k, 'nospacebefor', { texte: `${lettreMinusculeDepuisChiffre(k + 1)}=`, tailleExtensible: true })
+            texte += ajouteChampTexteMathLive(this, i * this.nombreDeValeurs + k, 'nospacebefor', { texteAvant: `${lettreMinusculeDepuisChiffre(k + 1)}=`, tailleExtensible: true })
             texte += sp(6)
           }
         }

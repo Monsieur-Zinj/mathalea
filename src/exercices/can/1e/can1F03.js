@@ -53,9 +53,9 @@ export default function LectureGraphiqueParabole () {
         `
           } else {
             texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
             setReponse(this, 2 * i, '>', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '<', { formatInteractif: 'texte' })
           }
@@ -104,9 +104,9 @@ export default function LectureGraphiqueParabole () {
             texte += `Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>
             
             `
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
             setReponse(this, 2 * i, '>', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '>', { formatInteractif: 'texte' })
           }
@@ -154,9 +154,9 @@ export default function LectureGraphiqueParabole () {
    `
           } else {
             texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
             setReponse(this, 2 * i, '>', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '=', { formatInteractif: 'texte' })
           }
@@ -204,9 +204,9 @@ export default function LectureGraphiqueParabole () {
    `
           } else {
             texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
             setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '=', { formatInteractif: 'texte' })
           }
@@ -255,9 +255,9 @@ export default function LectureGraphiqueParabole () {
    `
           } else {
             texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
             setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '>', { formatInteractif: 'texte' })
           }
@@ -306,9 +306,9 @@ export default function LectureGraphiqueParabole () {
    `
           } else {
             texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texte: '$a$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texte: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
             setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '<', { formatInteractif: 'texte' })
           }

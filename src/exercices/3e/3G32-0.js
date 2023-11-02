@@ -171,7 +171,7 @@ export default function ProblemesTrigoLongueur () {
             enonceAMC = `<br>${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$ en fonction de $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}$ et de $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                                     `${AB}\\times tan(${alfaInteractif})`,
                                     `${BA}\\times tan(${alfaInteractif})`,
@@ -203,7 +203,7 @@ export default function ProblemesTrigoLongueur () {
             enonceAMC = `${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}$ en fonction de $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}$ et de $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}=$` })
               setReponse(this, i + ii, [
                                     `${AB}\\times tan(${baitaInteractif})`,
                                     `${BA}\\times tan(${baitaInteractif})`,
@@ -235,7 +235,7 @@ export default function ProblemesTrigoLongueur () {
           enonceAMC = `${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}$ en fonction de $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}$, de $${alfa}$ et de $${baita}$.`
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}=$` })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}=$` })
             setReponse(this, i + ii, [ // La liste n'est pas exhaustive et ne remplace, hélas, pas du calcul formel.
                                 `${AB}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
                                 `${BA}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
@@ -282,7 +282,7 @@ export default function ProblemesTrigoLongueur () {
           enonceAMC = `${numAlpha(j)}Calculer la largeur de la rivière au mètre près sachant que $${alfa}=${alpha}\\degree$ et $${baita}=${beta}\\degree$.`
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]', { texte: `$${sp(25)}$` })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]', { texteAvant: `$${sp(25)}$` })
             setReponse(this, i + ii, new Grandeur(taille, 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
@@ -683,7 +683,7 @@ export default function ProblemesTrigoLongueur () {
             enonceAMC += `<br>${numAlpha(j)}Exprimer $h$ en fonction de $${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}$ et $${baita}$ puis en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$ et $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}h=$` })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
               AB = lettreDepuisChiffre(numS) + lettreDepuisChiffre(numC)
               BA = lettreDepuisChiffre(numC) + lettreDepuisChiffre(numS)
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
@@ -697,7 +697,7 @@ export default function ProblemesTrigoLongueur () {
                                     `tan(${baitaInteractif})${BA}`],
               { formatInteractif: 'texte' })
               ii++
-              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}h=$` })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
               AB = lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)
               BA = lettreDepuisChiffre(numC) + lettreDepuisChiffre(numB)
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
@@ -730,7 +730,7 @@ export default function ProblemesTrigoLongueur () {
             enonceAMC = `${numAlpha(j)}En déduire $${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}$ en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}$, $${alfa}$ et $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}=$` })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}=$` })
               AB = lettreDepuisChiffre(numS) + lettreDepuisChiffre(numB)
               BA = lettreDepuisChiffre(numB) + lettreDepuisChiffre(numS)
               setReponse(this, i + ii, [ // Aucune exhaustivité hélas
@@ -767,7 +767,7 @@ export default function ProblemesTrigoLongueur () {
             enonceAMC = `${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}$ en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}$, $${alfa}$ et $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}=$` })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}=$` })
               setReponse(this, i + ii, [ // Aucune exhaustivité hélas
                                     `\\frac{${AB}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
                                     `\\frac{${BA}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
@@ -950,7 +950,7 @@ export default function ProblemesTrigoLongueur () {
             enonceAMC = `${numAlpha(j)}Exprimer la mesure de l'angle $\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}$ en fonction de $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}\\widehat{CAS}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}\\widehat{CAS}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                                     `90-${baitaInteractif}`],
               { formatInteractif: 'texte' })
@@ -973,7 +973,7 @@ export default function ProblemesTrigoLongueur () {
             enonceAMC = `${numAlpha(j + 1)}Exprimer la mesure de l'angle $\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}$ en fonction de $${alfa}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                                     `90-${alfaInteractif}`],
               { formatInteractif: 'texte' })
@@ -1020,7 +1020,7 @@ export default function ProblemesTrigoLongueur () {
           }
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}CA=$` })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}CA=$` })
             setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                                 `\\frac{CH}{sin(${baitaInteractif}-${alfaInteractif})}`,
                                 `\\frac{HC}{sin(${baitaInteractif}-${alfaInteractif})}`],
@@ -1049,7 +1049,7 @@ export default function ProblemesTrigoLongueur () {
           }
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}=$` })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
                                 `${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${alfaInteractif})`,
                                 `sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}`,
@@ -1081,7 +1081,7 @@ export default function ProblemesTrigoLongueur () {
           texte += '<br>' + enonceAMC
           enonceAMC += this.sup ? '<br>' : ''
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}h=$` })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhaustivité hélas
                                 `${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})`,
                                 `sin(${baitaInteractif})\\times ${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numC)}`,
@@ -1089,7 +1089,7 @@ export default function ProblemesTrigoLongueur () {
                                 `sin(${baitaInteractif})\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}`],
             { formatInteractif: 'texte' })
             ii++
-            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}h=$` })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
                                 `\\frac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
                                 `\\frac{${lettreDepuisChiffre(numH)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
@@ -1097,7 +1097,7 @@ export default function ProblemesTrigoLongueur () {
                                 `\\frac{sin(${baitaInteractif}\\times ${lettreDepuisChiffre(numH)}${lettreDepuisChiffre(numC)} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`],
             { formatInteractif: 'texte' })
             ii++
-            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texte: `$${sp(20)}h=$` })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
                                 `\\frac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
                                 `\\frac{sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,

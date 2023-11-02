@@ -83,7 +83,7 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
       const monAngle = listeTypeQuestions[i][1]
 
       texte = `$\\${listeTypeQuestions[i][0]}\\left(${monAngle.radians}\\right)$`
-      texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texte: ' = ' })
+      texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteAvant: ' = ' })
       texteCorr = `$\\${listeTypeQuestions[i][0]}\\left(${monAngle.radians}\\right)`
       let valeurFonction = ''
       // listeTypeQuestions[i][0] contient 'cos' ou 'sin', donc ça permet d'atteindre la propriété souhaitée dans l'objet Angle.

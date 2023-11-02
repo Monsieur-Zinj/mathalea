@@ -157,7 +157,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
         if (this.version > 2) {
           /// vérifier qu'il n'y a plus d'OpenNUM
           if (!context.isAmc) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texte: ' Résultat : ' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' Résultat : ' })
           } else {
             texte += '<br>Détailler les calculs dans le cadre et coder le résultat ci-dessous.'
             this.autoCorrection[i] = {

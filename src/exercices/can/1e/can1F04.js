@@ -56,7 +56,7 @@ export default function LectureGraphiqueParaboleB () {
         `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
 
             setReponse(this, i, '>', { formatInteractif: 'texte' })
           }
@@ -110,7 +110,7 @@ export default function LectureGraphiqueParaboleB () {
       `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
 
             setReponse(this, i, '<', { formatInteractif: 'texte' })
           }
@@ -163,7 +163,7 @@ export default function LectureGraphiqueParaboleB () {
       `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
 
             setReponse(this, i, '<', { formatInteractif: 'texte' })
           }
@@ -218,7 +218,7 @@ export default function LectureGraphiqueParaboleB () {
       `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
             setReponse(this, i, '>', { formatInteractif: 'texte' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
@@ -269,7 +269,7 @@ export default function LectureGraphiqueParaboleB () {
     `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
             setReponse(this, i, '=', { formatInteractif: 'texte' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
@@ -317,7 +317,7 @@ export default function LectureGraphiqueParaboleB () {
     `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texte: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
             setReponse(this, i, '=', { formatInteractif: 'texte' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$

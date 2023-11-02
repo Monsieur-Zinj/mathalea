@@ -156,8 +156,8 @@ export default function Calculercoordonneesproduitvecteurs () {
         }
           break
       }
-      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texte: '<br><br>Composante sur $x$ de $\\overrightarrow{w}$ :' })
-      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texte: '<br><br>Composante sur $y$ de $\\overrightarrow{w}$ :' })
+      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteAvant: '<br><br>Composante sur $x$ de $\\overrightarrow{w}$ :' })
+      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteAvant: '<br><br>Composante sur $y$ de $\\overrightarrow{w}$ :' })
       setReponse(this, 2 * i, wx, { formatInteractif: 'fractionEgale' })
       setReponse(this, 2 * i + 1, wy, { formatInteractif: 'fractionEgale' })
       if (this.questionJamaisPosee(i, wx, wy)) { // Si la question n'a jamais été posée, on en créé une autre
