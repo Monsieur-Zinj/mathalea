@@ -1,8 +1,11 @@
 import {
   isExerciceItemInReferentiel,
   isStaticType,
-  type ResourceAndItsPath
+  type ResourceAndItsPath,
+  isExamItemInReferentiel,
+  resourceHasMonth
 } from '../../lib/types/referentiels'
+import { monthes } from './handleDate'
 
 /**
  * Un type pour décomposer les chaînes de caractères
@@ -123,6 +126,16 @@ export const sortArrayOfStringsWithHyphens = (
   })
 }
 
+/**
+ * Trie une liste de ressources sur la base d'une proppriété (uuid ou id).
+ * L'ordre tient compte des tirets : par exemple, `4-C10`, viendra avant `4-C10-1`
+ * qui viendra lui-même avant `4-C10-10`
+ * @param data la liste à trier
+ * @param key la propriété sur laquelle va s'opérer le tri
+ * @param order l'ordre du tri (ascendant ou descendant)
+ * @returns la liste triée
+ * @see https://stackoverflow.com/a/47051217
+ */
 export const sortArrayOfResourcesBasedOnProp = (
   data: ResourceAndItsPath[],
   key: 'uuid' | 'id',
@@ -153,5 +166,53 @@ export const sortArrayOfResourcesBasedOnProp = (
   mapped.sort(customSortingForResources[order] || customSortingForResources.asc)
   return mapped.map(function (el) {
     return data[el.index]
+  })
+}
+
+/**
+ * Trie une liste de ressources suivant l'année et éventuellement le mois
+ * @param data liste de ressources
+ * @param order ordre de tri (ascendant ou descendant)
+ * @returns la liste triée
+ */
+export const sortArrayOfResourcesBasedOnYearAndMonth = (
+  data: ResourceAndItsPath[],
+  order: 'asc' | 'desc' = 'asc'
+): ResourceAndItsPath[] => {
+  if (data.length === 0) {
+    return data
+  }
+  return data.sort((a, b) => {
+    // seuls les ressources de type examens ont des propriétés `annee` et des fois `mois`
+    if (isExamItemInReferentiel(a.resource) && isExamItemInReferentiel(b.resource)) {
+      const resourceAYear = parseInt(a.resource.annee)
+      const resourceBYear = parseInt(b.resource.annee)
+      if (resourceAYear !== resourceBYear) {
+        switch (order) {
+          case 'asc':
+            return resourceAYear - resourceBYear
+          case 'desc':
+            return resourceBYear - resourceAYear
+          default:
+            return 0
+        }
+      }
+      if (resourceHasMonth(a.resource) && resourceHasMonth(b.resource)) {
+        const resourceAMonth = monthes.indexOf(a.resource.mois!)
+        const resourceBMonth = monthes.indexOf(b.resource.mois!)
+        switch (order) {
+          case 'asc':
+            return resourceAMonth - resourceBMonth
+          case 'desc':
+            return resourceBMonth - resourceAMonth
+          default:
+            return 0
+        }
+      } else {
+        return 0
+      }
+    } else {
+      return 0
+    }
   })
 }

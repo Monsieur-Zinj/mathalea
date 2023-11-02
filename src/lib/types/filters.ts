@@ -4,7 +4,7 @@ import {
   isExerciceItemInReferentiel,
   type ResourceAndItsPath,
   type Level,
-  isResourceHasPlace,
+  resourceHasPlace,
   isLevelType,
   isTool,
   isStaticType
@@ -296,7 +296,7 @@ export function subjectCriterion (
         }
         // on recherche un lieu
         let placeMatch = false
-        if (isResourceHasPlace(item.resource)) {
+        if (resourceHasPlace(item.resource)) {
           // si le sujet est un lieu et que la ressource a `lieu` dans ses propriété, on compare
           placeMatch = item.resource.lieu
             .toLowerCase()

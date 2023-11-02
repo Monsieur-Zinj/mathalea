@@ -2,12 +2,13 @@
   import { onDestroy, onMount } from 'svelte'
   import {
     isExerciceItemInReferentiel,
-    isResourceHasMonth,
-    isResourceHasPlace,
+    resourceHasMonth,
+    resourceHasPlace,
     isTool,
     type JSONReferentielEnding
   } from '../../lib/types/referentiels'
   import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   import { changes, exercicesParams, globalOptions } from '../stores/generalStore'
   import type { InterfaceParams } from '../../lib/types'
   import { isLessThanAMonth } from '../../lib/types/dates'
@@ -149,9 +150,8 @@
             class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
           >
             <span class="font-bold">{ending.id} - </span>{ending.titre}
-            {#if isLessThanAMonth(ending.datePublication)}
-              &nbsp;<span
-                class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
+            {#if resourceHasMonth(ending)}
+            <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
                 >NEW</span
               >
             {/if}
@@ -172,12 +172,12 @@
               </span>
             {/if}
           </div>
-        {:else if isResourceHasPlace(ending)}
+        {:else if resourceHasPlace(ending)}
           <!-- Exercices d'annales -->
           <div class="text-start">
             <span class="font-bold">
               {ending.typeExercice.toUpperCase()}
-              {#if isResourceHasMonth(ending)}
+              {#if resourceHasMonth(ending)}
                 {ending.mois}
               {/if}
               {ending.annee} - {ending.lieu} - {ending.numeroInitial}

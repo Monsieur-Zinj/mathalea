@@ -219,6 +219,16 @@ export const isExerciceItemInReferentiel = (
   Object.keys(obj).includes('features') &&
   obj.features !== undefined
 
+export const isExamItemInReferentiel = (
+  obj: any
+): obj is ExamItemInReferentiel =>
+  obj !== null &&
+    typeof obj !== 'undefined' &&
+    Object.keys(obj).includes('uuid') &&
+    obj.uuid !== undefined &&
+    Object.keys(obj).includes('annee') &&
+    obj.annee !== undefined
+
 export const isJSONReferentielEnding = (
   obj: any
 ): obj is JSONReferentielEnding =>
@@ -233,7 +243,7 @@ export const isTool = (obj: any): obj is ToolItemInReferentiel =>
   Object.keys(obj).includes('typeExercice') &&
   (obj.typeExercice === 'outil' || obj.typeExercice === 'html')
 
-export const isResourceHasPlace = (
+export const resourceHasPlace = (
   obj: any
 ): obj is ExamItemInReferentiel | crpeItemInreferentiel =>
   obj !== null &&
@@ -241,7 +251,7 @@ export const isResourceHasPlace = (
   Object.keys(obj).includes('lieu') &&
   obj.lieu !== undefined
 
-export const isResourceHasMonth = (obj: any): obj is ExamItemInReferentiel =>
+export const resourceHasMonth = (obj: any): obj is ExamItemInReferentiel =>
   obj !== null &&
   typeof obj !== 'undefined' &&
   Object.keys(obj).includes('mois') &&

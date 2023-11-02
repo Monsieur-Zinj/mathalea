@@ -2,7 +2,7 @@
   import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
   import { globalOptions } from '../stores/generalStore'
   import { retrieveResourceFromUuid } from '../utils/refUtils'
-  import { isResourceHasPlace, isStaticType, type JSONReferentielObject } from '../../lib/types/referentiels'
+  import { resourceHasPlace, isStaticType, type JSONReferentielObject } from '../../lib/types/referentiels'
   /**
    * Gestion du référentiel pour la recherche de l'uuid
   */
@@ -50,7 +50,7 @@
       randomReady: false,
       correctionReady: $globalOptions.isSolutionAccessible ? $globalOptions.isSolutionAccessible : false
     }
-    if (isResourceHasPlace(resourceToDisplay)) {
+    if (resourceHasPlace(resourceToDisplay)) {
       headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} - ${
         resourceToDisplay.mois || ''
       } ${resourceToDisplay.annee} - ${resourceToDisplay.lieu} - ${resourceToDisplay.numeroInitial}`

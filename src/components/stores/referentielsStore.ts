@@ -10,18 +10,54 @@ import type {
   ResourceAndItsPath
 } from '../../lib/types/referentiels'
 import { writable } from 'svelte/store'
-import { getRecentExercices } from '../utils/refUtils'
+import {
+  buildReferentiel,
+  getAllEndings,
+  getRecentExercices
+} from '../utils/refUtils'
+import {
+  sortArrayOfResourcesBasedOnProp,
+  sortArrayOfResourcesBasedOnYearAndMonth
+} from '../utils/sorting'
 const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
 const examsReferentiel: JSONReferentielObject = { ...referentielExams }
 const referentielOutils: JSONReferentielObject = { ...referentielProfs }
 const referentielHtml: JSONReferentielObject = { ...referentielRessources }
 const biblioReferentiel: JSONReferentielObject = { ...referentielBibliotheque }
+// on ajoute les nouveautés
 const newExercises: ResourceAndItsPath[] = getRecentExercices(baseReferentiel)
 const newExercisesReferentiel: JSONReferentielObject = {}
 for (const item of newExercises) {
-  newExercisesReferentiel[item.pathToResource[item.pathToResource.length - 1]] = { ...item.resource }
+  newExercisesReferentiel[item.pathToResource[item.pathToResource.length - 1]] =
+    { ...item.resource }
 }
-const aleaReferentiel: JSONReferentielObject = { Nouveautés: { ...newExercisesReferentiel }, ...baseReferentiel }
+const baseAndNewsReferentiel: JSONReferentielObject = {
+  Nouveautés: { ...newExercisesReferentiel },
+  ...baseReferentiel
+}
+// on trie les examens dans l'ordre inverse des années/mois
+let examens = getAllEndings(examsReferentiel)
+examens = [...sortArrayOfResourcesBasedOnYearAndMonth(examens, 'desc')]
+const orderedExamsReferentiel = buildReferentiel(examens)
+// console.log(orderedExamsReferentiel)
+// const test: JSONReferentielObject = {}
+// Object.entries(orderedExamsReferentiel).forEach(([key, value]) => {
+//   if (key.includes('année')) {
+//     test[key] = {}
+//     const decreasingYears = Object.keys(value)
+//       .map((stringYear) => parseInt(stringYear))
+//       .sort((a, b) => a - b)
+//       .map((numberYear) => numberYear.toString())
+//     for (const year of decreasingYears) {
+//       Object.assign(test[key], { [year]: 'caca' })
+//     }
+//     console.log(test)
+//   }
+// })
+// on trie les exercice aléatoires par ID ('4-C10' < '4-C10-1' <'4-C10-10')
+let exercices = getAllEndings(baseAndNewsReferentiel)
+exercices = [...sortArrayOfResourcesBasedOnProp(exercices, 'id')]
+const aleaReferentiel = buildReferentiel(exercices)
 // référentiel original
 export const originalReferentiels: ReferentielInMenu[] = [
   {
@@ -34,7 +70,7 @@ export const originalReferentiels: ReferentielInMenu[] = [
     title: 'Annales examens',
     name: 'examens',
     searchable: true,
-    referentiel: examsReferentiel
+    referentiel: orderedExamsReferentiel
   },
   {
     title: 'Outils',
@@ -61,7 +97,9 @@ export const originalReferentiels: ReferentielInMenu[] = [
  * @param {ReferentielInMenu[]} originals liste de référentiels
  * @returns {ReferentielInMenu[]} liste des copies des référentiels
  */
-export const deepReferentielInMenuCopy = (originals: ReferentielInMenu[]): ReferentielInMenu[] => {
+export const deepReferentielInMenuCopy = (
+  originals: ReferentielInMenu[]
+): ReferentielInMenu[] => {
   const copy: ReferentielInMenu[] = []
   for (const item of originals) {
     const ref: ReferentielInMenu = {
@@ -75,4 +113,6 @@ export const deepReferentielInMenuCopy = (originals: ReferentielInMenu[]): Refer
   return copy
 }
 // référentiel mutable utilisé par les composants
-export const referentiels = writable<ReferentielInMenu[]>(deepReferentielInMenuCopy(originalReferentiels))
+export const referentiels = writable<ReferentielInMenu[]>(
+  deepReferentielInMenuCopy(originalReferentiels)
+)

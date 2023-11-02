@@ -19,7 +19,6 @@
     originalReferentiels,
     deepReferentielInMenuCopy
   } from '../stores/referentielsStore'
-  import { sortArrayOfResourcesBasedOnProp } from '../utils/sorting'
   import codeToLevelList from '../../json/codeToLevelList.json'
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
@@ -32,20 +31,11 @@
     copyOfOriginalReferentiel.forEach((item) => {
       if (item.searchable) {
         const all = getAllEndings(item.referentiel)
-        let matchingItems: ResourceAndItsPath[] = applyFilters(all)
+        const matchingItems: ResourceAndItsPath[] = applyFilters(all)
         filteredReferentielItems = [
           ...filteredReferentielItems,
           ...matchingItems
         ]
-        // tri des exercices par ID ('4-C10' < '4-C10-1' <'4-C10-10')
-        if (item.name === 'aleatoires') {
-          filteredReferentielItems = [
-            ...sortArrayOfResourcesBasedOnProp(filteredReferentielItems, 'id')
-          ]
-          matchingItems = [
-            ...sortArrayOfResourcesBasedOnProp(matchingItems, 'id')
-          ]
-        }
         let filteredReferentiel: JSONReferentielObject =
           buildReferentiel(matchingItems)
         // on ordonne les entrées dans la liste (suivant l'ordre de codeToLevelList.json)
