@@ -19,28 +19,28 @@ import {
   quotientier,
   egal
 } from './outils.js'
-import { Fraction, equal, largerEq, subtract, add, abs, multiply, gcd, larger, smaller, round, lcm, max, min, pow, fraction as fractionMathjs } from 'mathjs'
+import { abs, multiply, gcd, round, lcm, max, min, pow, fraction as FractionMathjs } from 'mathjs'
 import { fraction } from './fractions.js'
 import { colorToLatexOrHTML } from './2dGeneralites.js'
 import Decimal from 'decimal.js'
 
 /**
- * La classe FractionEtendue est une extension de la classe Fraction de mathjs
+ * La classe FractionEtendue est une extension de la classe  FractionMathjs  de mathjs
  * @author Jean-Claude Lhote
  * Merci à Daniel Caillibaud pour son aide.
  * Pour créer une instance de la classe FractionEtendue on peut utiliser la fonction fraction() qui se trouve dans le fichier modules/fractions.js
- * Ou utiliser la syntaxe f = new FractionEtendue () qui crée une fraction nulle.
- * On peut utiliser tous les arguments utilisables par Fraction :
- * f = new FractionEtendue ('0.(3)') // crée la fraction $\frac{1}{3}$
- * f = fraction(12,15) // crée la fraction $\frac{12}{15}$ (Remarque : new FractionEtendue(12,15) crée $\frac{4}{5}$)
- * f = fraction(0.4) // crée la fraction $\frac{2}{5}$
+ * Ou utiliser la syntaxe f = new FractionEtendue () qui crée une  FractionMathjs  nulle.
+ * On peut utiliser tous les arguments utilisables par  FractionMathjs  :
+ * f = new FractionEtendue ('0.(3)') // crée la  FractionMathjs  $\frac{1}{3}$
+ * f = fraction(12,15) // crée la  FractionMathjs  $\frac{12}{15}$ (Remarque : new FractionEtendue(12,15) crée $\frac{4}{5}$)
+ * f = fraction(0.4) // crée la  FractionMathjs  $\frac{2}{5}$
  */
-class FractionEtendue extends Fraction {
+class FractionEtendue extends FractionMathjs {
   constructor (...args) {
     let num, den
     if (args.length > 2) {
       window.notify('FractionEtendue : nombre d\'arguments incorrect', { args })
-      super(NaN)
+      super()
     } else {
       if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
         if (args[0] instanceof Decimal) { // Decimal.toFraction() retourne '7, 4' pour 1.75... On récupère ainsi le numérateur et le dénominateur.
@@ -134,9 +134,9 @@ class FractionEtendue extends Fraction {
           super(num, den)
           this.num = num
           this.den = den
-          this.signe = num * den < 0 ? -1 : 1
+          this.signe = num * den < 0 ? -1 : num * den > 0 ? 1 : 0
         } catch (error) {
-          window.notify(`transformation impossible en Fraction par Math.Fraction() de num = ${num} et den = ${den} ! `, { num, den })
+          window.notify(`transformation impossible en  FractionMathjs  par Math.Fraction() de num = ${num} et den = ${den} ! `, { num, den })
           return new FractionEtendue(0)
         }
       } else {
@@ -177,7 +177,7 @@ class FractionEtendue extends Fraction {
     })
 
     /**
-        * Valeur de la fraction × 100
+        * Valeur de la  FractionMathjs  × 100
         * @property pourcentage
         * @type {number}
         */
@@ -185,21 +185,22 @@ class FractionEtendue extends Fraction {
     Object.defineProperty(this, 'pourcentage', {
       enumerable: true,
       get: () => {
-        if (!pourcentage) pourcentage = arrondi(this.s * this.n * 100 / this.d, 2)
+        if (!pourcentage) pourcentage = arrondi(this.num * 100 / this.den, 2)
         return pourcentage
       },
       set: () => { throw Error('\'pourcentage\' est en lecture seule') }
     })
 
     /**
-     * le signe de la fraction : -1 pour négatif , 0 ou 1 pour positif
+     * le signe de la  FractionMathjs  : -1 pour négatif , 0 ou 1 pour positif
+     * Au cas où quelqu'un oublie le e de this.signe
      * @type {number}
      */
     let sign
     Object.defineProperty(this, 'sign', {
       enumerable: true,
       get: () => {
-        if (!sign) sign = this.s
+        if (!sign) sign = this.signe
         return sign
       },
       set: () => { throw Error('\'sign\' est en lecture seule') }
@@ -209,7 +210,7 @@ class FractionEtendue extends Fraction {
     Object.defineProperty(this, 'signeString', {
       enumerable: true,
       get: () => {
-        if (!signeString) signeString = this.s === -1 ? '-' : '+'
+        if (!signeString) signeString = this.signe === -1 ? '-' : this.signe === 1 ? '+' : ''
         return signeString
       },
       set: () => { throw Error('\'signeString\' est en lecture seule') }
@@ -224,7 +225,7 @@ class FractionEtendue extends Fraction {
     Object.defineProperty(this, 'texFraction', {
       enumerable: true,
       get: () => {
-        if (!texFraction) texFraction = this.den === 1 ? `${texNombre(this.num)}` : `\\dfrac{${texNombre(this.num)}}{${texNombre(this.den)}}`
+        if (!texFraction) texFraction = this.den === 1 ? `${texNombre(this.num, 0)}` : `\\dfrac{${texNombre(this.num, 0)}}{${texNombre(this.den, 0)}}`
         return texFraction
       },
       set: () => { throw Error('\'texFraction\' est en lecture seule') }
@@ -254,7 +255,7 @@ class FractionEtendue extends Fraction {
     Object.defineProperty(this, 'texFSD', {
       enumerable: true,
       get: () => {
-        if (!texFSD) texFSD = this.s === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num))) : `-\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num))) : `\\dfrac{${texNombre(Math.abs(this.num))}}{${texNombre(Math.abs(this.den))}}`
+        if (!texFSD) texFSD = this.signe === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num), 0)) : `-\\dfrac{${texNombre(Math.abs(this.num), 0)}}{${texNombre(Math.abs(this.den), 0)}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num), 0)) : `\\dfrac{${texNombre(Math.abs(this.num), 0)}}{${texNombre(Math.abs(this.den), 0)}}`
         return texFSD
       },
       set: () => { throw Error('\'texFSD\' est en lecture seule') }
@@ -270,7 +271,7 @@ class FractionEtendue extends Fraction {
     Object.defineProperty(this, 'texFractionSignee', {
       enumerable: true,
       get: () => {
-        if (!texFractionSignee) texFractionSignee = this.s === -1 ? this.texFSD : '+' + this.texFSD
+        if (!texFractionSignee) texFractionSignee = this.signe === -1 ? this.texFSD : '+' + this.texFSD
         return texFractionSignee
       },
       set: () => { throw Error('\'texFractionSignee\' est en lecture seule') }
@@ -321,27 +322,27 @@ class FractionEtendue extends Fraction {
     Object.defineProperty(this, 'texFSP', {
       enumerable: true,
       get: () => {
-        if (!texFSP) texFSP = this.s > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+        if (!texFSP) texFSP = this.signe > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
         return texFSP
       },
       set: () => { throw Error('\'texFSP\' est en lecture seule') }
     })
 
     /**
- * retourne la fraction mis entre parenthèses notamment pour l'exponentiation.
+ * retourne la  FractionMathjs  mis entre parenthèses notamment pour l'exponentiation.
  */
     let texParentheses
     Object.defineProperty(this, 'texParentheses', {
       enumerable: true,
       get: () => {
-        if (!texParentheses) texParentheses = this.den === 1 && this.s === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+        if (!texParentheses) texParentheses = this.den === 1 && this.signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
         return texParentheses
       },
       set: () => { throw Error('\'texParentheses\' est en lecture seule') }
     })
 
     /**
-     * le code LaTeX de la fraction simplifiée
+     * le code LaTeX de la  FractionMathjs  simplifiée
      * @property texFractionSimplifiee
      * @type {string}
      */
@@ -365,7 +366,7 @@ class FractionEtendue extends Fraction {
     Object.defineProperty(this, 'ecritureAlgebrique', {
       enumerable: true,
       get: () => {
-        if (!ecritureAlgebrique) ecritureAlgebrique = this.s === 1 ? '+' + this.texFSD : this.texFSD
+        if (!ecritureAlgebrique) ecritureAlgebrique = this.signe === 1 ? '+' + this.texFSD : this.texFSD
         return ecritureAlgebrique
       },
       set: () => { throw Error('\'ecritureAlgebrique\' est en lecture seule') }
@@ -380,14 +381,14 @@ class FractionEtendue extends Fraction {
     Object.defineProperty(this, 'ecritureParentheseSiNegatif', {
       enumerable: true,
       get: () => {
-        if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.s === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+        if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
         return ecritureParentheseSiNegatif
       },
       set: () => { throw Error('\'ecritureParentheseSiNegatif\' est en lecture seule') }
     })
 
     /**
-     * Valeur décimale de la fraction (arrondie à la sixième décimale)
+     * Valeur décimale de la  FractionMathjs  (arrondie à la sixième décimale)
      * @property valeurDecimale
      * @type {number}
      */
@@ -395,27 +396,27 @@ class FractionEtendue extends Fraction {
     Object.defineProperty(this, 'valeurDecimale', {
       enumerable: true,
       get: () => {
-        if (!valeurDecimale) valeurDecimale = arrondi(this.n * this.s / this.d, 6)
+        if (!valeurDecimale) valeurDecimale = arrondi(this.num / this.den, 6)
         return valeurDecimale
       },
       set: () => { throw Error('\'valeurDecimale\' est en lecture seule') }
     })
 
     /**
-     * true si la fraction est un entier false sinon
+     * true si la  FractionMathjs  est un entier false sinon
      */
     let estEntiere
     Object.defineProperty(this, 'estEntiere', {
       enumerable: true,
       get: () => {
-        if (!estEntiere) estEntiere = this.d === 1
+        if (!estEntiere) estEntiere = this.denIrred === 1
         return estEntiere
       },
       set: () => { throw Error('\'estEntiere\' est en lecture seule') }
     })
 
     /**
- * @returns true si la FractionEtendue est le carré d'une FractionEtendue
+ * @return true si la FractionEtendue est le carré d'une FractionEtendue
  */
     let estParfaite
     Object.defineProperty(this, 'estParfaite', {
@@ -428,7 +429,7 @@ class FractionEtendue extends Fraction {
     })
 
     /**
- * @returns true si la FractionEtendue est irréductible
+ * @return true si la FractionEtendue est irréductible
  */
     let estIrreductible
     Object.defineProperty(this, 'estIrreductible', {
@@ -443,7 +444,7 @@ class FractionEtendue extends Fraction {
 
   /**
    * basé sur la méthode toLatex() de mathjs, on remplace \frac par \dfrac plus joli.
-   * @returns {string} la chaine Latex pour écrire la fraction (signe devant)
+   * @return {string} la chaine Latex pour écrire la  FractionMathjs  (signe devant)
    */
   toLatex () {
     const text = super.toLatex()
@@ -452,7 +453,7 @@ class FractionEtendue extends Fraction {
 
   /**
    * retourne un flottant pour compatibilité de FractionEtendue() avec Number().
-   * @returns {number}
+   * @return {number}
    */
   toNumber () {
     return this.num / this.den
@@ -465,40 +466,36 @@ class FractionEtendue extends Fraction {
   /**
    *
    * @param {FractionEtendue[]} fractions
-   * @returns {FractionEtendue}
+   * @return {FractionEtendue}
    */
-  sommeFractions (...fractions) { // retourne un résultat simplifié
-    let s = fraction(this.s * this.n, this.d)
+  sommeFractions (fractions) { // retourne un résultat simplifié
+    let s = new FractionEtendue(this.num, this.den)
     for (const f of fractions) {
-      s = fraction(add(s, f))
+      s = s.sommeFraction(f).simplifie()
     }
     return s.simplifie()
   }
 
   /**
- * @returns {FractionEtendue} la FractionEtendue irreductible
+ * @return {FractionEtendue} la FractionEtendue irreductible
  */
-  simplifie () { return new FractionEtendue(abs(this.num) * this.s / gcd(abs(this.num), abs(this.den)), abs(this.den) / gcd(abs(this.num), abs(this.den))) }
+  simplifie () {
+    return new FractionEtendue(abs(this.num) * this.signe / gcd(abs(this.num), abs(this.den)), abs(this.den) / gcd(abs(this.num), abs(this.den)))
+  }
 
   /**
  * Convertit la FractionEtendue en Fraction
- * @returns {FractionEtendue} un objet Fraction (mathjs)
+ * @return {FractionEtendue} un objet  FractionMathjs  (mathjs)
  */
-  toFraction () { return new Fraction(this.n * this.s, this.d) }
-
+  valeurAbsolue () { return new FractionEtendue(abs(this.num), abs(this.den)) }
   /**
- * Convertit la FractionEtendue en Fraction
- * @returns {FractionEtendue} un objet Fraction (mathjs)
- */
-  valeurAbsolue () { return new FractionEtendue(abs(this.n), abs(this.d)) }
-  /**
- * @returns {FractionEtendue} opposé de la FractionEtendue
+ * @return {FractionEtendue} opposé de la FractionEtendue
  */
   oppose () { return new FractionEtendue(-1 * this.num, this.den) }
   /**
- * On pourra utiliser k = 0.5 pour simplifier par 2 la fraction par exemple.
+ * On pourra utiliser k = 0.5 pour simplifier par 2 la  FractionMathjs  par exemple.
  * @param {number} k
- * @returns {FractionEtendue} La FractionEtendue dont le numérateur et le dénominateur ont été multipliés par k.
+ * @return {FractionEtendue} La FractionEtendue dont le numérateur et le dénominateur ont été multipliés par k.
  */
   reduire (k) {
     const num = multiply(this.num, k)
@@ -507,88 +504,114 @@ class FractionEtendue extends Fraction {
   }
 
   /**
- * @param {FractionEtendue | Fraction | number} f2
- * @returns true si la FractionEtendue est égale à la fraction passée en argument.
+ * @param {FractionEtendue |  FractionMathjs  | number} f2
+ * @return true si la FractionEtendue est égale à la  FractionMathjs  passée en argument.
  */
-  isEqual (f2) { return equal(this, f2) }
+  isEqual (f2) {
+    if (f2 instanceof FractionEtendue) {
+      return f2.differenceFraction(this).simplifie().num === 0
+    } else {
+      const f2bis = new FractionEtendue(f2)
+      return f2bis.differenceFraction(this).simplifie().num === 0
+    }
+  }
+
   /**
- * @param {FractionEtendue | Fraction | number} f
- * @returns la FractionEtendue - f résultat simplifié
+ * @param {FractionEtendue |  FractionMathjs  | number} f
+ * @return {FractionEtendue} la FractionEtendue - f résultat simplifié
  */
   differenceFraction (f) {
-    const dif = fractionMathjs(subtract(this, fractionMathjs(f)))
-    return new FractionEtendue(dif.s * dif.n, dif.d)
+    if (!(f instanceof FractionEtendue)) {
+      f = new FractionEtendue(f)
+    }
+    return new FractionEtendue(this.num * f.den - f.num * this.den, f.den * this.den).simplifie()
   }
 
   /**
  * @param {number} n
- * @returns {FractionEtendue}La FractionEtendue multipliée par n (numérateur n fois plus grand)
+ * @return {FractionEtendue}La FractionEtendue multipliée par n (numérateur n fois plus grand)
  */
   multiplieEntier (n) { return new FractionEtendue(this.num * n, this.den) }
 
   /**
   * @param {number} n
-  * @returns {FractionEtendue} La FractionEtendue divisée par n (denominateur n fois plus grand)
+  * @return {FractionEtendue} La FractionEtendue divisée par n (denominateur n fois plus grand)
   */
   entierDivise (n) { return new FractionEtendue(this.num, n * this.den) }
   /**
   *
   * @param {number} n
-  * @returns {FractionEtendue} n + la FractionEtendue
+  * @return {FractionEtendue} n + la FractionEtendue
   */
   ajouteEntier (n) { return new FractionEtendue(this.num + n * this.den, this.den) }
 
   /**
   * @param {number} n
-  * @returns {FractionEtendue} n - la FractionEtendue
+  * @return {FractionEtendue} n - la FractionEtendue
   */
   entierMoinsFraction (n) { return new FractionEtendue(n * this.den - this.num, this.den) }
 
   /**
   *
-  * @param {FractionEtendue | Fraction | nombre} f2
-  * @returns {boolean} true si FractionEtendue >= f
+  * @param {FractionEtendue |  FractionMathjs  | nombre} f2
+  * @return {boolean} true si FractionEtendue >= f
   */
-  superieurLarge (f2) { return largerEq(this, f2) }
+  superieurLarge (f2) {
+    if (!(f2 instanceof FractionEtendue)) {
+      f2 = new FractionEtendue(f2)
+    }
+    return this.num * f2.den >= f2.num * this.den
+  }
 
   /**
     * fonctions de comparaison avec une autre fraction.
-    * @param {FractionEtendue | Fraction | nombre} f2
+    * @param {FractionEtendue |  FractionMathjs  | nombre} f2
     * @return {boolean} true si
     */
   superieurstrict (f2) {
-    return (larger(this, f2))
+    if (!(f2 instanceof FractionEtendue)) {
+      f2 = new FractionEtendue(f2)
+    }
+    return this.num * f2.den > f2.num * this.den
   }
 
   /**
-    * Retourne true si la fraction courante est strictement inférieure à f2
-    * @param {FractionEtendue | Fraction | nombre} f2
+    * Retourne true si la  FractionMathjs  courante est strictement inférieure à f2
+    * @param {FractionEtendue |  FractionMathjs  | nombre} f2
     * @return {boolean}
     */
   inferieurstrict (f2) {
-    return (smaller(this, f2))
+    if (!(f2 instanceof FractionEtendue)) {
+      f2 = new FractionEtendue(f2)
+    }
+    return this.num * f2.den < f2.num * this.den
   }
 
   /**
-    * Retourne true si la fraction courante est inférieure ou égale à f2
-    * @param {FractionEtendue | Fraction | nombre} f2
+    * Retourne true si la  FractionMathjs  courante est inférieure ou égale à f2
+    * @param {FractionEtendue |  FractionMathjs  | nombre} f2
     * @return {boolean}
     */
   inferieurlarge (f2) {
-    return (this.n / this.d) < (f2.n / f2.d)
+    if (!(f2 instanceof FractionEtendue)) {
+      f2 = new FractionEtendue(f2)
+    }
+    return this.num * f2.den <= f2.num * this.den
   }
 
   /**
   *
   * @param {FractionEtendue} f2
-  * @returns {boolean} true si f2 = f et  f2 est plus réduite que f
+  * @return {boolean} true si f2 = f et  f2 est plus réduite que f
   */
-  estUneSimplification (f2) { return (equal(this, f2) && abs(this.num) < abs(f2.num)) }
+  estUneSimplification (f2) {
+    return (this.isEqual(f2) && abs(this.num) < abs(f2.num))
+  }
 
   /**
   *
-  * @param {FractionEtendue | Fraction | nombre} f2
-  * @returns {FractionEtendue} f + FractionEtendue
+  * @param {FractionEtendue |  FractionMathjs  | nombre} f2
+  * @return {FractionEtendue} f + FractionEtendue
   */
   sommeFraction (f2) {
     if (f2 instanceof FractionEtendue) {
@@ -604,54 +627,40 @@ class FractionEtendue extends Fraction {
         return new FractionEtendue(this.num * round(lcm(this.den, f2.den) / this.den) + f2.num * round(lcm(this.den, f2.den) / f2.den), lcm(this.den, f2.den))
       }
     } else {
-      window.notify(`FractionEtendue.sommeFraction(fractionAAjouter) a été appelée avec autre chose qu'une fraction étendue, alors que c'est obligatoire !\nVoilci l'argument passé : ${f2}`, { argument: f2 })
+      window.notify(`FractionEtendue.sommeFraction(fractionAAjouter) a été appelée avec autre chose qu'une  FractionMathjs  étendue, alors que c'est obligatoire !\nVoilci l'argument passé : ${f2}`, { argument: f2 })
     }
   }
 
   /**
-  * @param {FractionEtendue | Fraction | nombre} f2
-  * @returns {FractionEtendue} f * FractionEtendue  // retourne un non résultat simplifié
+  * @param {FractionEtendue |  FractionMathjs  | nombre} f2
+  * @return {FractionEtendue} f * FractionEtendue  // retourne un non résultat simplifié
   */
   produitFraction (f2) {
-    if (f2 instanceof FractionEtendue) {
-      if (this.s * f2.s === 1) {
-        return new FractionEtendue(Math.abs(this.num * f2.num), Math.abs(this.den * f2.den))
-      } else {
-        return new FractionEtendue(-Math.abs(this.num * f2.num), Math.abs(this.den * f2.den))
-      }
-    } else if (f2 instanceof Fraction) {
-      if (this.s * f2.s) {
-        return new FractionEtendue(Math.abs(this.num * f2.d), Math.abs(this.den * f2.d))
-      } else {
-        return new FractionEtendue(-Math.abs(this.num * f2.d), Math.abs(this.den * f2.d))
-      }
-    } else if (typeof f2 === 'number') {
-      if (this.s * f2 >= 0) {
-        return new FractionEtendue(Math.abs(this.num * f2), Math.abs(this.den))
-      } else {
-        return new FractionEtendue(-Math.abs(this.num * f2), Math.abs(this.den))
-      }
+    if (!(f2 instanceof FractionEtendue)) {
+      f2 = new FractionEtendue(f2)
+    }
+    if (this.signe * f2.signe === 1) {
+      return new FractionEtendue(Math.abs(this.num * f2.num), Math.abs(this.den * f2.den))
     } else {
-      window.notify('FractionEtendue.produitFraction() a reçu un argument bizarre', { f2 })
-      return null
+      return new FractionEtendue(-Math.abs(this.num * f2.num), Math.abs(this.den * f2.den))
     }
   }
 
   /**
-  * @param  {...any} fractions
-  * @returns {FractionEtendue} produit de FractionEtendue par toutes les fractions passées en argument.
+  * @param  {Array<FractionEtendue>} fractions
+  * @return {FractionEtendue} produit de FractionEtendue par toutes les fractions passées en argument.
   */
-  produitFractions (...fractions) { // retourne un résultat simplifié
-    let s = fraction(this.s * this.n, this.d)
+  produitFractions (fractions) { // retourne un résultat simplifié
+    let s = new FractionEtendue(this.num, this.den)
     for (const f of fractions) {
-      s = fraction(multiply(s, f))
+      s = s.produitFraction(f)
     }
     return s.simplifie()
   }
 
   /**
-    * @param {FractionEtendue} f2 la fraction qui multiplie.
-    *  @param {string} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
+    * @param {FractionEtendue} f2 la  FractionMathjs  qui multiplie.
+    *  @param {'none'|true|false} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
   texProduitFraction (f2, simplification = 'none') {
@@ -676,14 +685,14 @@ class FractionEtendue extends Fraction {
   }
 
   /**
-  * @param {FractionEtendue} f2 la fraction qui multiplie.
+  * @param {FractionEtendue} f2 la  FractionMathjs  qui multiplie.
   * @param {string} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
   *  @param {string} symbole '/' pour la forme fractionnaire de la division, ':' ou autre chose pour l'obèle
   * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
   */
   texDiviseFraction (f2, simplification = 'none', symbole = '/') {
-    const space = '\\phantom{\\dfrac{(_(^(}{(_(^(}}' // Utilisé pour mettre de l'espace dans une fraction de fraction
-    const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une fraction de fraction lorsque le numérateur ou le dénominateur est entier
+    const space = '\\phantom{\\dfrac{(_(^(}{(_(^(}}' // Utilisé pour mettre de l'espace dans une  FractionMathjs  de fraction
+    const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une  FractionMathjs  de  FractionMathjs  lorsque le numérateur ou le dénominateur est entier
     if (this.estEntiere) {
       if (f2.inverse().estEntiere && f2.num === 1) {
         if (symbole === '/') {
@@ -744,10 +753,10 @@ class FractionEtendue extends Fraction {
   }
 
   /**
-  * @returns {FractionEtendue|number} inverse de la fraction
+  * @return {FractionEtendue|number} inverse de la fraction
   */
   inverse () {
-    if (this.n !== 0) {
+    if (this.num !== 0) {
       return new FractionEtendue(this.den, this.num)
     } else {
       window.notify('FractionEtendue.inverse() : division par zéro', { fraction: this })
@@ -773,7 +782,7 @@ class FractionEtendue extends Fraction {
     * @return {FractionEtendue} n divisé par fraction
     */
   diviseEntier (n) {
-    return new FractionEtendue(n * this.d, this.n)
+    return new FractionEtendue(n * this.den, this.num).simplifie()
   }
 
   /**
@@ -786,8 +795,9 @@ class FractionEtendue extends Fraction {
   }
 
   /**
- * Si la fraction est réductible, retourne une suite d'égalités permettant d'obtenir la fraction irréductible
-   * @param {boolean|string} factorisation
+ * Si la  FractionMathjs  est réductible, retourne une suite d'égalités permettant d'obtenir la  FractionMathjs  irréductible
+   * @param {true|false|'none'} factorisation
+   * @param {string} couleurFinale
    * @return {string}
  */
   texSimplificationAvecEtapes (factorisation = false, couleurFinale = '') {
@@ -884,17 +894,17 @@ class FractionEtendue extends Fraction {
   }
 
   /**
-  * @returns {FractionEtendue|NaN} NaN si la FractionEtendue n'est pas un nombre décimal sinon retourne une FractionEtendue avec la bonne puissance de 10 au dénominateur
+  * @return {FractionEtendue|number} NaN si la FractionEtendue n'est pas un nombre décimal sinon retourne une FractionEtendue avec la bonne puissance de 10 au dénominateur
   */
   fractionDecimale () {
-    const den = this.simplifie().d
-    const num = this.simplifie().n
-    const signe = this.simplifie().s
+    const den = Math.abs(this.simplifie().den)
+    const num = Math.abs(this.simplifie().num)
+    const signe = this.simplifie().signe
     const liste = obtenirListeFacteursPremiers(den)
     let n2 = 0; let n5 = 0
     for (const n of liste) {
       if (n === 2) { n2++ } else if (n === 5) { n5++ } else {
-        window.notify('FractionEtendue.valeurDecimale : Fraction non décimale', { fraction: this })
+        window.notify('FractionEtendue.valeurDecimale :  FractionMathjs  non décimale', { fraction: this })
         return NaN
       }
     }
@@ -910,17 +920,17 @@ class FractionEtendue extends Fraction {
   /**
     * Retourne la chaine latex contenant la racine carrée de la fraction
     * @param {boolean} detaillee Si detaillee est true, une étape de calcul se place avant le résultat.
-    * @return {string}
+    * @return {string|false}
     */
   texRacineCarree (detaillee = false) {
     if (this.estParfaite) {
       return this.racineCarree().texFraction
     }
-    if (this.s === -1) return false
+    if (this.signe === -1) return false
     let factoDen = extraireRacineCarree(Math.abs(this.den))
     let factoNum
     let etape
-    if (this.d !== 1) {
+    if (!this.estEntiere) {
       etape = detaillee ? `\\sqrt{\\dfrac{${this.num}}{${this.den}}}=` : ''
     } else {
       factoNum = extraireRacineCarree(Math.abs(this.num))
@@ -931,7 +941,7 @@ class FractionEtendue extends Fraction {
       }
     }
     if (factoDen[1] !== 1) {
-      if (this.d !== 1) {
+      if (!this.estEntiere) {
         etape += detaillee ? `\\sqrt{\\dfrac{${Math.abs(this.num)}\\times ${factoDen[1]}}{${Math.abs(this.den)}\\times ${factoDen[1]}}}=` : ''
         etape += detaillee ? `\\sqrt{\\dfrac{${Math.abs(this.num * factoDen[1])}}{${Math.abs(this.den * factoDen[1])}}}=` : ''
       }
@@ -945,7 +955,7 @@ class FractionEtendue extends Fraction {
 
     if (detaillee) {
       if (k.valeurDecimale !== 1) {
-        if (k.d === 1) {
+        if (k.denIrred === 1) {
           etape += detaillee ? `\\sqrt{${factoNum[0]}^2\\times${factoNum[1]}}=` : ''
           etape += detaillee ? `${factoNum[0]}${factoNum[1] !== 1 ? '\\sqrt{' + factoNum[1] + '}' : '}'}` : ''
         } else {
@@ -966,9 +976,9 @@ class FractionEtendue extends Fraction {
     if (arrondi(factoNum[1] / factoDen[1], 6) === 1) {
       return etape + k.texFraction
     } else {
-      if (k.n === 1 && k.d !== 1) {
-        if (r.d === 1) {
-          return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.n}}}{${k.d}}`)
+      if (k.numIrred === 1 && k.denIrred !== 1) {
+        if (r.denIrred === 1) {
+          return (k.valeurDecimale === 1 ? etape : etape + `\\dfrac{\\sqrt{${r.numIrred}}}{${k.denIrred}}`)
         } else {
           return (k.valeurDecimale === 1 ? etape : etape + k.texFraction) + `\\sqrt{${r.toLatex()}}`
         }
@@ -979,7 +989,7 @@ class FractionEtendue extends Fraction {
   }
 
   /**
-    * Retourne la racine carrée de la fraction si c'est une fraction et false sinon
+    * Retourne la racine carrée de la  FractionMathjs  si c'est une  FractionMathjs  et false sinon
     * @return {FractionEtendue|boolean}
     */
   racineCarree () {
@@ -987,7 +997,7 @@ class FractionEtendue extends Fraction {
     const factoDen = extraireRacineCarree(Math.abs(this.den))
     const k = fraction(factoNum[0], factoDen[0]).simplifie()
     const r = fraction(factoNum[1], factoDen[1]).simplifie()
-    if (r.valeurDecimale !== 1 || this.s === -1) {
+    if (r.valeurDecimale !== 1 || this.signe === -1) {
       return false
     } else {
       return k
@@ -1006,7 +1016,7 @@ class FractionEtendue extends Fraction {
   * @param {number} unite1 Nombre marquant le point unité du segment
   * @param {number} scale échelle
   * @param {string} label ce qu'il faut écrire sous le segment ... x ?
-  * @returns {object[]} objets mathalea2d
+  * @return {object[]} objets mathalea2d
   */
   representationIrred (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') {
     let num, k, dep, s, a, O, C
@@ -1038,7 +1048,7 @@ class FractionEtendue extends Fraction {
         }
         num -= this.denIrred
       }
-      if (this.n % this.d !== 0) {
+      if (Math.abs(this.numIrred) % Math.abs(this.denIrred) !== 0) {
         O = point(x + k * 2 * (rayon + 0.5), y)
         C = cercle(O, rayon)
         objets.push(C)
@@ -1159,7 +1169,7 @@ class FractionEtendue extends Fraction {
   * @param {number} unite1 Nombre marquant le point unité du segment
   * @param {number} scale échelle
   * @param {string} label ce qu'il faut écrire sous le segment ... x ?
-  * @returns objets mathalea2d
+  * @return {object[]}objets mathalea2d
   */
   representation (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') {
     const objets = []
@@ -1246,11 +1256,11 @@ class FractionEtendue extends Fraction {
       objets.push(unegraduation(x, y))
       if (typeof (unite0) === 'number' && typeof (unite1) === 'number') {
         for (k = 0; k <= n + 1; k++) {
-          objets.push(texteParPosition(unite0 + k * (unite1 - unite0), x + rayon * k, y - 0.6, 'milieu', 'black', scale))
+          objets.push(texteParPosition(String(unite0 + k * (unite1 - unite0)), x + rayon * k, y - 0.6, 'milieu', 'black', scale))
         }
       } else {
-        if (unite0 !== '') { objets.push(texteParPosition(unite0, x, y - 0.6, 'milieu', 'black', scale)) }
-        if (unite1 !== '') { objets.push(texteParPosition(unite1, x + rayon, y - 0.6, 'milieu', 'black', scale)) }
+        if (String(unite0) !== '') { objets.push(texteParPosition(String(unite0), x, y - 0.6, 'milieu', 'black', scale)) }
+        if (String(unite1) !== '') { objets.push(texteParPosition(String(unite1), x + rayon, y - 0.6, 'milieu', 'black', scale)) }
         if (label !== '') { objets.push(texteParPosition(label, x + rayon * this.num / this.den, y - 0.6, 'milieu', 'black', scale)) }
       }
     } else { // Type barre
@@ -1313,7 +1323,7 @@ class FractionEtendue extends Fraction {
  * @param {number} d1 dénominateur de la 1e fraction
  * @param {number} n2 numérateur de la 2e fraction
  * @param {number} d2 dénominateur de la 2e fraction
- * @returns array avec la liste des couples de fractions égales et simplifiées sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
+ * @return array avec la liste des couples de fractions égales et simplifiées sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
  */
   static texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees (n1, d1, n2, d2) {
     return this.texArrayReponsesCoupleDeFractions(n1, d1, n2, d2, true)
@@ -1325,7 +1335,7 @@ class FractionEtendue extends Fraction {
  * @author Guillaume Valmont
  * @param {number} n numérateur
  * @param {number} d dénominateur
- * @returns array avec la liste des fractions égales et simplifiées sous la forme '\\frac{n}{d}'
+ * @return array avec la liste des fractions égales et simplifiées sous la forme '\\frac{n}{d}'
  */
   static texArrayReponsesFractionsEgalesEtSimplifiees (n, d) {
     const fractionsSimplifiees = this.listerFractionsSimplifiees(n, d)
@@ -1348,7 +1358,7 @@ class FractionEtendue extends Fraction {
  * @param {number} n2 numérateur 1
  * @param {number} d2 dénominateur 1
  * @param {boolean} egalesEtSimplifiees true si on veut inclure l'ensemble des fractions égales et simplifiées
- * @returns array avec la liste des couples de fractions sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
+ * @return array avec la liste des couples de fractions sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
  */
   static texArrayReponsesCoupleDeFractions (n1, d1, n2, d2, egalesEtSimplifiees = false) {
     let listeFraction1, listeFraction2
@@ -1369,11 +1379,11 @@ class FractionEtendue extends Fraction {
   }
 
   /**
- * Fonction destinée à lister l'ensemble des possibilités d'écriture d'une même fraction pour être comparées dans un setReponse
+ * Fonction destinée à lister l'ensemble des possibilités d'écriture d'une même  FractionMathjs  pour être comparées dans un setReponse
  * @author Guillaume Valmont
  * @param {number} numerateur
  * @param {number} denominateur
- * @returns array avec l'ensemble des possibilités d'écriture d'une même fraction au format LateX
+ * @return array avec l'ensemble des possibilités d'écriture d'une même  FractionMathjs  au format LateX
  */
   static texArrayReponsesFraction (numerateur, denominateur) {
     const n = Math.abs(numerateur)
@@ -1397,7 +1407,7 @@ class FractionEtendue extends Fraction {
  * @author Guillaume Valmont
  * @param {number} n
  * @param {number} d
- * @returns array de couples [numerateur, denominateur] de l'ensemble des fractions égales et simplifiées
+ * @return array de couples [numerateur, denominateur] de l'ensemble des fractions égales et simplifiées
  */
   static listerFractionsSimplifiees (n, d) {
     if (pgcd(n, d) === 1) {

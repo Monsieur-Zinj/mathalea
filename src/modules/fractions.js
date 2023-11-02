@@ -8,7 +8,7 @@ import ListeFraction from './ListeFraction.js'
 
 /**
  * Retourne une liste de fractions irréducibles
- * @return {Fraction[]}
+ * @return {FractionEtendue[]}
  */
 export function obtenirListeFractionsIrreductibles () { // sous forme de fractions
   return [
@@ -47,7 +47,7 @@ export function obtenirListeFractionsIrreductibles () { // sous forme de fractio
 
 /**
  * Retourne une liste de fractions irréducibles simples (1/2, 1/3, 2/3, 1/5 … 4/5, 1/7 … 6/7)
- * @return {Fraction[]}
+ * @return {FractionEtendue[]}
  */
 export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de fractions
   return [
@@ -75,7 +75,7 @@ export function listeFractions (...fractions) {
  * Construit et Retourne un objet FractionEtendue(a, b)
  * @param {number} a
  * @param {number} b
- * @return {Fraction}
+ * @return {FractionEtendue|number}
  */
 export function fraction (a, b) {
   if (b === undefined) { // pas d'argument b
