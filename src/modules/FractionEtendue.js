@@ -19,7 +19,7 @@ import {
   quotientier,
   egal
 } from './outils.js'
-import { abs, multiply, gcd, round, lcm, max, min, pow, fraction as FractionMathjs } from 'mathjs'
+import { abs, multiply, gcd, round, lcm, max, min, pow, Fraction } from 'mathjs'
 import { fraction } from './fractions.js'
 import { colorToLatexOrHTML } from './2dGeneralites.js'
 import Decimal from 'decimal.js'
@@ -35,12 +35,12 @@ import Decimal from 'decimal.js'
  * f = fraction(12,15) // crée la  FractionMathjs  $\frac{12}{15}$ (Remarque : new FractionEtendue(12,15) crée $\frac{4}{5}$)
  * f = fraction(0.4) // crée la  FractionMathjs  $\frac{2}{5}$
  */
-class FractionEtendue extends FractionMathjs {
+class FractionEtendue extends Fraction {
   constructor (...args) {
+    super()
     let num, den
-    if (args.length > 2) {
+    if (args.length > 2 || args.length < 1) {
       window.notify('FractionEtendue : nombre d\'arguments incorrect', { args })
-      super()
     } else {
       if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
         if (args[0] instanceof Decimal) { // Decimal.toFraction() retourne '7, 4' pour 1.75... On récupère ainsi le numérateur et le dénominateur.
@@ -61,14 +61,12 @@ class FractionEtendue extends FractionMathjs {
         let maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
         if (maxDecimalesNumDen > 9) { // On peut estimer que num et/ou den ne sont pas décimaux. Essayons de les diviser car peut-être que leur quotient est mieux.
           const quotientNumDen = arrondi(num / den, 12)
-          // console.log(quotientNumDen)
           if (nombreDeChiffresDansLaPartieDecimale(quotientNumDen) < 9) { // On peut estimer que le quotient aboutit à un décimal. Ex. dans fraction(7/3,14/3)
             num = quotientNumDen
             den = 1
             maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
           } else { // On peut estimer que le quotient n'aboutit pas à un décimal. Essayons par l'inverse du quotient.
             const quotientDenNum = arrondi(den / num, 12)
-            // console.log(quotientDenNum)
             if (nombreDeChiffresDansLaPartieDecimale(quotientDenNum) < 9) { // On peut estimer que l'inverse du quotient aboutit à un décimal. Ex. dans fraction(7/3,7/9)
               den = quotientDenNum
               num = 1
@@ -80,7 +78,6 @@ class FractionEtendue extends FractionMathjs {
               if (maxDecimalesNumDen < 13) { // Ex. dans fraction(1/3,1/7)
                 den = inverseNum
                 num = inverseDen
-              // console.log(inverseNum, ' ', inverseDen)
               } else { // Méthode plus bourrin
                 const testMAX = 2000 // Voir explications ci-dessous
                 // Ici, JCL, cela veut dire qu'on traite toutes les fractions de fractions où chaque numérateur ou dénominateur est inférieur à 1000.
@@ -88,7 +85,6 @@ class FractionEtendue extends FractionMathjs {
                 let iDen = 1
                 let denTest = den
                 let inverseDenTest = inverseDen
-                // console.log(denTest, ' ', inverseDenTest)
                 while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 9 && iDen < testMAX) {
                   iDen += (iDen % 5 === 3) ? 4 : 2
                   denTest = arrondi(den * iDen, 10)
@@ -97,33 +93,29 @@ class FractionEtendue extends FractionMathjs {
                 let iNum = 1
                 let numTest = num
                 let inverseNumTest = inverseNum
-                // console.log(numTest, ' ', inverseNumTest)
-                // console.log(iNum, ' ', numTest, ' ', inverseNumTest)
                 while (min(nombreDeChiffresDansLaPartieDecimale(numTest), nombreDeChiffresDansLaPartieDecimale(inverseNumTest)) > 9 && iNum < testMAX) {
                   iNum += (iNum % 5 === 3) ? 4 : 2
                   numTest = arrondi(num * iNum, 10)
                   inverseNumTest = arrondi(inverseNum * iNum, 10)
                 }
-                // console.log(`iNum : ${iNum},  numTest : ${numTest}, inverseNumTest : ${inverseNumTest})
                 if (nombreDeChiffresDansLaPartieDecimale(numTest) < 10) {
-                  if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionEtendue(11 / 9, 17 / 13))
+                  if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) {
                     num = arrondi(numTest * iDen, 10)
                     den = arrondi(denTest * iNum, 10)
-                  } else { // Ex. console.log(new FractionEtendue(11 / 9, 13 / 17))
+                  } else {
                     num = arrondi(numTest * inverseDenTest, 10)
                     den = iDen * iNum
                   }
                 } else {
-                  if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) { // Ex. console.log(new FractionEtendue(9 / 11, 17 / 13))
+                  if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) {
                     den = arrondi(denTest * inverseNumTest, 10)
                     num = iDen * iNum
-                  } else { // Ex. console.log(new FractionEtendue(9 / 11, 13 / 17))
+                  } else {
                     den = arrondi(inverseNumTest * iDen, 10)
                     num = arrondi(inverseDenTest * iNum, 10)
                   }
                 }
                 maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
-              // console.log(`numérateur : ${num}, dénominateur : ${den}`)
               }
             }
           }
@@ -131,7 +123,6 @@ class FractionEtendue extends FractionMathjs {
         den = round(den * pow(10, maxDecimalesNumDen))
         num = round(num * pow(10, maxDecimalesNumDen))
         try {
-          super(num, den)
           this.num = num
           this.den = den
           this.signe = num * den < 0 ? -1 : num * den > 0 ? 1 : 0
@@ -140,7 +131,7 @@ class FractionEtendue extends FractionMathjs {
           return new FractionEtendue(0)
         }
       } else {
-        super(NaN)
+        return NaN
       }
     }
     this.type = 'FractionEtendue'
@@ -440,6 +431,11 @@ class FractionEtendue extends FractionMathjs {
       },
       set: () => { throw Error('\'estIrreductible\' est en lecture seule') }
     })
+    const pgcd = gcd(this.num, this.den)
+    this.n = Math.abs(this.num / pgcd)
+    this.d = Math.abs(this.den / pgcd)
+    const prodNumDen = this.num * this.den
+    this.s = prodNumDen < 0 ? -1 : 1
   }
 
   /**
@@ -504,7 +500,7 @@ class FractionEtendue extends FractionMathjs {
   }
 
   /**
- * @param {FractionEtendue |  FractionMathjs  | number} f2
+ * @param {FractionEtendue  | number} f2
  * @return true si la FractionEtendue est égale à la  FractionMathjs  passée en argument.
  */
   isEqual (f2) {
@@ -517,7 +513,7 @@ class FractionEtendue extends FractionMathjs {
   }
 
   /**
- * @param {FractionEtendue |  FractionMathjs  | number} f
+ * @param {FractionEtendue  | number} f
  * @return {FractionEtendue} la FractionEtendue - f résultat simplifié
  */
   differenceFraction (f) {
@@ -531,7 +527,9 @@ class FractionEtendue extends FractionMathjs {
  * @param {number} n
  * @return {FractionEtendue}La FractionEtendue multipliée par n (numérateur n fois plus grand)
  */
-  multiplieEntier (n) { return new FractionEtendue(this.num * n, this.den) }
+  multiplieEntier (n) {
+    return new FractionEtendue(this.num * n, this.den)
+  }
 
   /**
   * @param {number} n
@@ -553,7 +551,7 @@ class FractionEtendue extends FractionMathjs {
 
   /**
   *
-  * @param {FractionEtendue |  FractionMathjs  | nombre} f2
+  * @param {FractionEtendue   | nombre} f2
   * @return {boolean} true si FractionEtendue >= f
   */
   superieurLarge (f2) {
@@ -565,7 +563,7 @@ class FractionEtendue extends FractionMathjs {
 
   /**
     * fonctions de comparaison avec une autre fraction.
-    * @param {FractionEtendue |  FractionMathjs  | nombre} f2
+    * @param {FractionEtendue   | nombre} f2
     * @return {boolean} true si
     */
   superieurstrict (f2) {
@@ -577,7 +575,7 @@ class FractionEtendue extends FractionMathjs {
 
   /**
     * Retourne true si la  FractionMathjs  courante est strictement inférieure à f2
-    * @param {FractionEtendue |  FractionMathjs  | nombre} f2
+    * @param {FractionEtendue   | nombre} f2
     * @return {boolean}
     */
   inferieurstrict (f2) {
@@ -589,7 +587,7 @@ class FractionEtendue extends FractionMathjs {
 
   /**
     * Retourne true si la  FractionMathjs  courante est inférieure ou égale à f2
-    * @param {FractionEtendue |  FractionMathjs  | nombre} f2
+    * @param {FractionEtendue   | nombre} f2
     * @return {boolean}
     */
   inferieurlarge (f2) {
@@ -610,7 +608,7 @@ class FractionEtendue extends FractionMathjs {
 
   /**
   *
-  * @param {FractionEtendue |  FractionMathjs  | nombre} f2
+  * @param {FractionEtendue   | nombre} f2
   * @return {FractionEtendue} f + FractionEtendue
   */
   sommeFraction (f2) {
@@ -632,7 +630,7 @@ class FractionEtendue extends FractionMathjs {
   }
 
   /**
-  * @param {FractionEtendue |  FractionMathjs  | nombre} f2
+  * @param {FractionEtendue   | nombre} f2
   * @return {FractionEtendue} f * FractionEtendue  // retourne un non résultat simplifié
   */
   produitFraction (f2) {

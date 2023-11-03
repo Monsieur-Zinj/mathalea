@@ -6,12 +6,14 @@ import figureApigeom from '../../lib/figureApigeom'
 import { Spline } from '../../lib/mathFonctions/Spline'
 import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
 import { numAlpha } from '../../lib/outils/outilString'
+import { Tableau } from '../../lib/2d/tableau'
+import type FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
@@ -81,7 +83,7 @@ class LireImageParApiGeom extends Exercice {
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     let mesPoints
     if (spline.pointsOfSpline && Array.isArray(spline.pointsOfSpline)) {
-      mesPoints = spline.pointsOfSpline.map(el => this.figure.create('Point', { x: el.x, y: Number(el.y), isVisible: false }))
+      mesPoints = spline.pointsOfSpline.map(el => this.figure.create('Point', { x: el.x, y: el.y, isVisible: false }))
     }
     if (mesPoints !== undefined) {
       this.figure.create('Polyline', { points: mesPoints })
@@ -98,7 +100,7 @@ class LireImageParApiGeom extends Exercice {
       textY.dynamicText.maximumFractionDigits = 1
     }
 
-    let enonce = 'Par lecture graphique sur la courbe de la fonction $f$ tracée ci dessus, quelle est l\'image de <br>'
+    let enonce = 'Par lecture graphique sur la courbe de la fonction $f$ tracée ci-dessus, quelle est l\'image de :<br>'
     const { yMax, yMin } = spline.trouveMaxes()
     for (let i = 0; i < this.nbImages; i++) {
       do {
@@ -113,10 +115,21 @@ class LireImageParApiGeom extends Exercice {
     }
     for (let i = 0; i < this.nbImages; i++) {
       enonce += `${numAlpha(i)} $${texNombre(this.X[i], 1)}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: '  ' }) + '<br>'
-      this.Y[i] = Math.round(10 * Number(spline.fonction(this.X[i]))) / 10
+      const image = spline.fonction(this.X[i]) as FractionEtendue
+      this.Y[i] = Math.round(10 * Number(image) / 10)
       setReponse(this, i, this.Y[i], { formatInteractif: 'calcul' })
       this.listeCorrections[0] += `${numAlpha(i)} $f(${texNombre(this.X[i], 1)})=${texNombre(this.Y[i], 1)}$<br>`
     }
+    const ligne1 = [{ texte: 'x', gras: true, color: 'black', latex: true }].concat(this.X.map(el => Object.assign({}, { texte: texNombre(el, 1), gras: false, color: 'black', latex: true })))
+    const ligne2 = [{ texte: 'f(x)', gras: true, color: 'black', latex: true }].concat(this.Y.map(el => Object.assign({}, { texte: texNombre(el, 1), gras: false, color: 'black', latex: true })))
+    const nbColonnes = this.nbImages
+    const tableauValeur = new Tableau({
+      nbColonnes,
+      ligne1,
+      ligne2
+    })
+    const { xmin, ymin, xmax, ymax } = fixeBordures([tableauValeur])
+    this.listeCorrections[0] += mathalea2d({ xmin, ymin, xmax, ymax }, tableauValeur)
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
@@ -142,7 +155,7 @@ class LireImageParApiGeom extends Exercice {
     if (context.isHtml) {
       this.listeQuestions = [emplacementPourFigure + enonce]
     } else {
-      this.listeQuestions = [mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3, optionsTikz: [] }, [repere, spline.courbe({ repere, step: 0.05 })]) + enonce]
+      this.listeQuestions = [mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) + enonce]
     }
   }
 

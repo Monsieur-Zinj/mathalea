@@ -3,6 +3,7 @@ import { fraction } from '../../modules/fractions.js'
 import { randint } from '../../modules/outils.js'
 import { ecritureAlgebrique } from '../outils/ecritures.js'
 import { matriceCarree } from './MatriceCarree.js'
+import Decimal from 'decimal.js'
 
 /**
  * retourne une FractionEtendue à partir de son écriture en latex (ne prend pas en compte des écritures complexes comme
@@ -109,15 +110,15 @@ export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
   }
   const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
   if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(determinant)) {
-    windows.notify(`Les coefficients trouvés sont des entiers avant division par le déterminant,
+    window.notify(`Les coefficients trouvés sont des entiers avant division par le déterminant,
      cela ne devrait pas arriver puisque multiplieVecteur() produit des FractionEtendue.
-      Le déterminant est : ${determinant} et les numérateurs ${a} et ${b}`,{determinant, a, b})
+      Le déterminant est : ${determinant} et les numérateurs ${a} et ${b}`, { determinant, a, b })
     const fa = determinant.inverse.multiplieEntier(a)
     const fb = determinant.inverse.multiplieEntier(b)
     return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
   } else {
-    const fa = a.diviseFraction( determinant)
-    const fb = b.diviseFraction( determinant)
+    const fa = a.diviseFraction(determinant)
+    const fb = b.diviseFraction(determinant)
     return [
       [fa.numIrred, fa.denIrred],
       [fb.numIrred, fb.denIrred]
@@ -144,18 +145,18 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
     const fa = determinant.inverse.multiplieEntier(a)
     const fb = determinant.inverse.multiplieEntier(b)
     const fc = determinant.inverse.multiplieEntier(c)
-    windows.notify(`Les coefficients trouvés sont des entiers avant division par le déterminant,
+    window.notify(`Les coefficients trouvés sont des entiers avant division par le déterminant,
      cela ne devrait pas arriver puisque multiplieVecteur() produit des FractionEtendue.
-      Le déterminant est : ${determinant} et les numérateurs ${a}, ${b} et ${c}`,{determinant, a, b, c})
+      Le déterminant est : ${determinant} et les numérateurs ${a}, ${b} et ${c}`, { determinant, a, b, c })
     return [
       [fa.numIrred, fa.denIrred],
       [fb.numIrred, fb.denIrred],
       [fc.numIrred, fc.denIrred]
     ]
   } else {
-    const fa = a.diviseFraction( determinant)
-    const fb = b.diviseFraction( determinant)
-    const fc = c.diviseFraction( determinant)
+    const fa = a.diviseFraction(determinant)
+    const fb = b.diviseFraction(determinant)
+    const fc = c.diviseFraction(determinant)
     return [
       [fa.numIrred, fa.denIrred],
       [fb.numIrred, fb.denIrred],
@@ -166,6 +167,13 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
 
 export function rationnalise (x) {
   if (x instanceof FractionEtendue) return x
-  const f = fraction(x.toFixed(2))
-  return new FractionEtendue(f.s * f.n, f.d)
+  if (typeof x === 'number' || x instanceof Decimal) {
+    if (Number.isInteger(x)) {
+      return new FractionEtendue(Number(x), 1)
+    }
+    const f = fraction(x.toFixed(2))
+    return f
+  }
+  // c'est pas un number, c'est pas une FractionEtendue... ça doit être une Fraction de mathjs
+  return new FractionEtendue(x.n * x.s, x.d)
 }

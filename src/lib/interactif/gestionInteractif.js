@@ -85,8 +85,8 @@ function verifExerciceCustom (exercice /** Exercice */, divScore /** HTMLDivElem
   if (eltFeedback) eltFeedback.innerHTML = ''
   // On utilise la correction définie dans l'exercice
   if (exercice.exoCustomResultat) {
-    const correction = exercice.correctionInteractive()
     for (let i = 0; i < exercice.nbQuestions; i++) {
+      const correction = exercice.correctionInteractive(i)
       if (Array.isArray(correction)) {
         for (const result of correction) {
           if (result === 'OK') nbBonnesReponses++

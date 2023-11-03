@@ -46,6 +46,19 @@ export function ObjetMathalea2D ({ classe = true } = {}) {
  * sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
  * de cette manière d'autres options Tikz pourront aussi être ajoutées
  * si il n'y a qu'une optionsTikz on peut passer un string
+ * @param {object} options
+ *  @param {number} [options.xmin = 0]
+ *  @param {number} [options.ymin = 0]
+ *  @param {number} [options.xmax = 15]
+ *  @param {number} [options.ymax = 6]
+ *  @param {number?} [options.pixelsParCm]
+ *  @param {number?} [options.scale = 1]
+ *  @param {number?} [options.zoom = 1]
+ *  @param {string[]?} [options.optionsTikz]
+ *  @param {boolean?} [options.mainlevee]
+ *  @param {number?} [options.amplitude]
+ *  @param {string?} [options.style = '']
+ *  @param {string?} [options.id = '']
  */
 export function mathalea2d (
   {
@@ -601,7 +614,7 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
  * Les objets affichables doivent avoir un attribut this.bordures = [xmin, ymin, xmax, ymax] 4 nombres dans cet ordre.
  * Si this.bordures n'est pas défini ou n'est pas un tableau de 4 éléments, l'objet est ignoré
  * Si aucun objet passé en argument n'a de "bordures" alors la fonction retourne une zone inaffichable et un message d'erreur est créé
- * @return {object} {xmin, ymin, xmax, ymax}
+ * @return {{xmin: number, ymin:number, xmax:number, ymax:number}}
  */
 export function fixeBordures (objets, {
   rxmin = undefined,
@@ -610,6 +623,16 @@ export function fixeBordures (objets, {
   rymax = undefined,
   rzoom = 1
 } = {}) {
+  /**
+   *
+   * @param{number} xmin
+   * @param{number} ymin
+   * @param{number} xmax
+   * @param{number} ymax
+   * @param objets
+   * @param bordures
+   * @returns {[number,number,number,number,boolean]}
+   */
   const majBordures = function (xmin, ymin, xmax, ymax, objets, bordures) {
     if (!Array.isArray(objets)) {
       if (objets.bordures == null || objets.bordures.filter((el) => isNaN(el)).length > 0) {
