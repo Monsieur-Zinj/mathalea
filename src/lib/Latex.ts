@@ -256,6 +256,7 @@ class Latex {
       result += '\n\\usepackage{qrcode}'
       result += '\n\\usepackage[luatex]{hyperref}'
       result += '\n\\usepackage{tkz-tab}'
+      result += '\n\\usepackage{tabularx}'
       result += '\n\\usepackage{mathrsfs}'
       result += '\n\\usepackage[margin=1cm]{geometry}'
       result += '\n\\pagestyle{empty}'
