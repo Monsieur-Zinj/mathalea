@@ -1,6 +1,9 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import Exercice from '../../Exercice.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { randint } from '../../../modules/outils.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
+import { sp } from '../../../lib/outils/outilString.js'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 export const titre = 'Trouver un  entier relatif (addition à trou, écriture simplifiée)'
@@ -27,20 +30,17 @@ export default function AdditionRelatifATrou2 () {
     const k = choice([[-1, -1], [-1, 1], [1, -1]]) // Les deux nombres relatifs ne peuvent pas être tous les deux positifs
     a = a * k[0]
     b = b * k[1]
-    const termes = [a, '\\ldots', a, b]
     const rang1 = randint(0, 1)
     const rang2 = 1 - rang1
+    const termes = [rang1 === 0 ? a : ecritureAlgebrique(a), (rang2 === 1 ? '+' : '') + '\\ldots', rang1 === 0 ? a : ecritureAlgebrique(a), rang2 === 1 ? '+' + miseEnEvidence(ecritureParentheseSiNegatif(b)) : miseEnEvidence(b)]
+
     this.question = 'Quel nombre doit-on écrire pour que l\'égalité soit correcte ? <br>'
-    if (termes[rang2] < 0) {
-      this.question += '$ ' + termes[rang1] + '  ' + termes[rang2] + ' = ' + (a + b) + ' $'
-      this.canEnonce = 'Compléter.'
-      this.canReponseACompleter = '$ ' + termes[rang1] + '  ' + termes[rang2] + ' = ' + (a + b) + ' $'
-    } else {
-      this.question += '$ ' + termes[rang1] + ' + ' + termes[rang2] + ' = ' + (a + b) + ' $'
-      this.canEnonce = 'Compléter.'
-      this.canReponseACompleter = '$ ' + termes[rang1] + ' + ' + termes[rang2] + ' = ' + (a + b) + ' $'
-    }
-    this.correction = `$ ${termes[rang1 + 2]}  ${termes[rang2 + 2] > 0 ? '+' : ''}  ${termes[rang2 + 2]}= ${(a + b)}$`
+
+    this.question += '$ ' + termes[rang1] + '  ' + termes[rang2] + ' = ' + (a + b) + ' $'
+    this.canEnonce = 'Compléter.'
+    this.canReponseACompleter = '$ ' + termes[rang1] + '  ' + termes[rang2] + ' = ' + (a + b) + ' $'
+    this.correction = '$ ' + termes[rang1 + 2] + termes[rang2 + 2] + ' = ' + (a + b) + ' $'
+    if (rang2 === 1 && b < 0) this.correction += '<br>$ ' + termes[rang1 + 2] + sp(1) + miseEnEvidence(b) + ' = ' + (a + b) + ' $'
     this.reponse = b
   }
 }
