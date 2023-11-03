@@ -188,7 +188,7 @@ export class Spline {
 
   nombreAntecedentsMaximum (yMin, yMax, yentier = true, entiers = true) {
     let nbMax = 0
-    for (let k = yMin; k < yMax; k += yentier ? 1 : 0.1) {
+    for (let k = yMin; k < yMax; k += (yentier ? 1 : 0.1)) {
       if (entiers) {
         nbMax = Math.max(nbMax, this.nombreAntecedentsEntiers(k))
       } else {
@@ -238,10 +238,10 @@ export class Spline {
      */
   trouveMaxes () {
     if (Array.isArray(this.noeuds) && this.noeuds.length > 0) {
-      const xMin = Math.floor(Math.min(...this.noeuds.map(el => el.x)))
-      const yMin = Math.floor(Math.min(...this.noeuds.map(el => el.y)))
-      const xMax = Math.ceil(Math.max(...this.noeuds.map(el => el.x)))
-      const yMax = Math.ceil(Math.max(...this.noeuds.map(el => el.y)))
+      const xMin = Math.ceil(Math.min(...this.noeuds.map(el => el.x)))
+      const yMin = Math.ceil(Math.min(...this.noeuds.map(el => el.y)))
+      const xMax = Math.floor(Math.max(...this.noeuds.map(el => el.x)))
+      const yMax = Math.floor(Math.max(...this.noeuds.map(el => el.y)))
       return { xMin, xMax, yMin, yMax }
     }
   }
