@@ -455,8 +455,20 @@ class FractionEtendue extends Fraction {
     return this.num / this.den
   }
 
+  /**
+   *
+   * @returns {string}
+   */
   toString () {
     return this.texFraction
+  }
+
+  /**
+   * Pour la conversion automatique en number
+   * @returns {number}
+   */
+  valueOf () {
+    return this.toNumber()
   }
 
   /**

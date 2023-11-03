@@ -31,7 +31,7 @@ export class Polynome {
         if (typeof el === 'number') {
           return new FractionEtendue(el)
         } else if (Array.isArray(el)) {
-          return el[1] ? (new FractionEtendue(choice([-1, 1]) * randint(1, number(el[0])))).simplifie() : (new FractionEtendue(randint(1, number(el[0]))).simplifie())
+          return el[1] ? (new FractionEtendue(choice([-1, 1]) * randint(1, Number(el[0])))).simplifie() : (new FractionEtendue(randint(1, Number(el[0]))).simplifie())
         } else if (el instanceof FractionEtendue) {
           return el
         } else if (el instanceof Decimal) {

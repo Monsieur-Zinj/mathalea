@@ -122,7 +122,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
         nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0])
         y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin - 1, bornes.yMax + 1, false, false), 1)
-      } while (y0 === 0 || y1 === 0 || isNaN(y2))
+      } while (isNaN(y0) || isNaN(y1) || isNaN(y2) || y0 === 0 || y2 === 0)
 
       const solutions0 = theSpline.solve(y0)
       const solutions1 = theSpline.solve(y1)
