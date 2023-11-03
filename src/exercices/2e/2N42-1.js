@@ -213,7 +213,7 @@ $\\begin{aligned}
           }
 
           if (choix === 7) { // a=(b+c)/d on cherche  c
-            intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
+            intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + `  $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}}$.<br>
   Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$.`
             reponse = [`${nomV[2]}=${nomV[3]}\\times ${nomV[0]}-${nomV[1]}`, `${nomV[3]}\\times ${nomV[0]}-${nomV[1]}=${nomV[2]}`]
@@ -369,7 +369,7 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
           }
 
           if (choix === 3) { // a=(b+c)/(d-e) on cherche  d
-            intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (avec $${nomV[3]}-${nomV[4]}$ et $${nomV[0]}}$ non nuls) vérifiant l'égalité suivante :`
+            intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (avec $${nomV[3]}-${nomV[4]}$ et $${nomV[0]}$ non nuls) vérifiant l'égalité suivante :`
             texte = `${intro}` + ` $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}-${nomV[4]}}$.<br>
  Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[4]}$.`
             reponse = [`${nomV[3]}=\\dfrac{${nomV[1]}+${nomV[2]}+${nomV[0]}${nomV[4]}}{${nomV[0]}}`,
