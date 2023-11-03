@@ -35,6 +35,18 @@
       return ''
     }
   }
+
+  /**
+   * Ordonne les entrées d'un sous-menu à l'envers lorsque son titre contient le mot `année`
+   * afin de commencer par l'année la plus récente
+   */
+  function prepareSubset () {
+    if (pathToThisNode.length !== 0 && pathToThisNode[pathToThisNode.length - 1].includes('année')) {
+      return Object.entries(subset).reverse()
+    } else {
+      return Object.entries(subset)
+    }
+  }
 </script>
 
 <!--
@@ -68,7 +80,9 @@
     {unfold && nestedLevelCount !== 1
       ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
       : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'}
-    {Object.keys(subset).length === 0 ? 'opacity-10' : 'opacity-100 cursor-pointer'}"
+    {Object.keys(subset).length === 0
+      ? 'opacity-10'
+      : 'opacity-100 cursor-pointer'}"
     style="padding-left: {(nestedLevelCount * 2) / 5}rem"
     on:click={() => {
       unfold = !unfold
@@ -102,7 +116,7 @@
   <div>
     {#if unfold}
       <ul transition:slide={{ duration: 500 }}>
-        {#each Object.entries(subset) as [key, obj], i}
+        {#each prepareSubset() as [key, obj], i}
           <li>
             {#if isRealJSONReferentielObject(obj) && isParentOfStaticEnding(obj)}
               <StaticEnding
@@ -115,7 +129,7 @@
               <ReferentielEnding
                 ending={obj}
                 nestedLevelCount={nestedLevelCount + 1}
-                class={i === Object.entries(subset).length - 1 ? 'pb-6' : ''}
+                class={i === prepareSubset().length - 1 ? 'pb-6' : ''}
               />
             {:else if Object.keys(obj).length === 0}
               <!-- Terminaison vide est affichée comme un bouton désactivé -->
