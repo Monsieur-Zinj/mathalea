@@ -39,21 +39,6 @@ const baseAndNewsReferentiel: JSONReferentielObject = {
 let examens = getAllEndings(examsReferentiel)
 examens = [...sortArrayOfResourcesBasedOnYearAndMonth(examens, 'desc')]
 const orderedExamsReferentiel = buildReferentiel(examens)
-// console.log(orderedExamsReferentiel)
-// const test: JSONReferentielObject = {}
-// Object.entries(orderedExamsReferentiel).forEach(([key, value]) => {
-//   if (key.includes('année')) {
-//     test[key] = {}
-//     const decreasingYears = Object.keys(value)
-//       .map((stringYear) => parseInt(stringYear))
-//       .sort((a, b) => a - b)
-//       .map((numberYear) => numberYear.toString())
-//     for (const year of decreasingYears) {
-//       Object.assign(test[key], { [year]: 'caca' })
-//     }
-//     console.log(test)
-//   }
-// })
 // on trie les exercice aléatoires par ID ('4-C10' < '4-C10-1' <'4-C10-10')
 let exercices = getAllEndings(baseAndNewsReferentiel)
 exercices = [...sortArrayOfResourcesBasedOnProp(exercices, 'id')]

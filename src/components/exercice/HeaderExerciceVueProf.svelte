@@ -23,7 +23,7 @@
   export let isDeletable: boolean = true
   export let isHidable: boolean = true
   let isVisible = true
-  let isSettingsVisible = false
+  export let isSettingsVisible = true
   const isContentVisible = true
   let isCorrectionVisible = false
   // redéfinition du titre lorsqu'un exercice apparait plusieurs fois :
@@ -189,27 +189,11 @@
           data-tip="Nouvel énoncé"
           type="button"
           on:click={newData}
-          ><i
+        >
+          <i
             class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-refresh {randomReady
               ? ''
               : 'hidden'}"
-          /></button
-        >
-        <button
-          class="mx-2 tooltip tooltip-left tooltip-neutral {settingsReady
-            ? ''
-            : 'hidden'} "
-          data-tip="Changer les paramètres de l'exercice"
-          type="button"
-          on:click={() => {
-            isSettingsVisible = !isSettingsVisible
-            dispatch('clickSettings', { isSettingsVisible })
-          }}
-        >
-          <i
-            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {isSettingsVisible
-              ? 'bxs-cog'
-              : 'bx-cog'}"
           />
         </button>
         {#if isHidable}
@@ -241,6 +225,21 @@
             />
           </button>
         {/if}
+        <button
+          class="mx-2 tooltip tooltip-left tooltip-neutral {settingsReady
+            ? ''
+            : 'hidden'} "
+          data-tip="Changer les paramètres de l'exercice"
+          type="button"
+          on:click={() => {
+            isSettingsVisible = !isSettingsVisible
+            dispatch('clickSettings', { isSettingsVisible })
+          }}
+        >
+          <i
+            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-slider"
+          />
+        </button>
       </div>
       <div
         class="flex flex-row justify-start items-center space-x-4 md:space-x-1"

@@ -4,6 +4,7 @@ export interface BasicHeaderProps {
   indiceExercice: number
   indiceLastExercice: number
   interactifReady: boolean
+  isSettingsVisible: boolean
 }
 
 export type HeaderProps = BasicHeaderProps &

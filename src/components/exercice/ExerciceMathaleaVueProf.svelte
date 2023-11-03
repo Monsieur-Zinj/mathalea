@@ -1,5 +1,10 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice, exercicesParams, changes } from '../stores/generalStore'
+  import {
+    globalOptions,
+    resultsByExercice,
+    exercicesParams,
+    changes
+  } from '../stores/generalStore'
   import { afterUpdate, onMount, tick, onDestroy } from 'svelte'
   import seedrandom from 'seedrandom'
   import {
@@ -30,7 +35,7 @@
   let columnsCount = $exercicesParams[indiceExercice].cols || 1
   let isVisible = true
   let isContentVisible = true
-  let isSettingsVisible = false
+  let isSettingsVisible = true
   let isInteractif = exercice.interactif
   const interactifReady = exercice.interactifReady
   let isExerciceChecked = false
@@ -42,7 +47,11 @@
   const generateTitleAddendum = (): string => {
     const ranks = exercisesUuidRanking($exercicesParams)
     const counts = uuidCount($exercicesParams)
-    if ($exercicesParams[indiceExercice] && $exercicesParams[indiceExercice].uuid && counts[$exercicesParams[indiceExercice].uuid] > 1) {
+    if (
+      $exercicesParams[indiceExercice] &&
+      $exercicesParams[indiceExercice].uuid &&
+      counts[$exercicesParams[indiceExercice].uuid] > 1
+    ) {
       return '|' + ranks[indiceExercice]
     } else {
       return ''
@@ -54,7 +63,8 @@
     indiceExercice,
     indiceLastExercice,
     isInteractif,
-    interactifReady
+    interactifReady,
+    isSettingsVisible
   }
 
   $: {
@@ -83,6 +93,7 @@
     headerProps.correctionExists = exercice.listeCorrections.length > 0
     headerProps.title = exercice.titre + generateTitleAddendum()
     headerProps.indiceExercice = indiceExercice
+    headerProps.isSettingsVisible = isSettingsVisible
     headerProps = headerProps
   }
 
@@ -386,7 +397,6 @@
   window.onresize = async () => {
     await adjustMathalea2dFiguresWidth(true)
   }
-
 </script>
 
 <div class="z-0 flex-1" bind:this={divExercice}>
@@ -578,15 +588,12 @@
         {/if}
         <div bind:this={divScore} />
       </div>
-      <div
-        class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark {isSettingsVisible
-          ? 'visible lg:w-1/4'
-          : 'hidden lg:w-0'} flex flex-col duration-500"
-      >
-        {#if isSettingsVisible}
-          <Settings {exercice} exerciceIndex={indiceExercice} on:settings={handleNewSettings} />
-        {/if}
-      </div>
+      <Settings
+        {exercice}
+        bind:isVisible={isSettingsVisible}
+        exerciceIndex={indiceExercice}
+        on:settings={handleNewSettings}
+      />
     </div>
   {/if}
 </div>
