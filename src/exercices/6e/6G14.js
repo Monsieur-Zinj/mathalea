@@ -404,7 +404,7 @@ export function labelOnLine (droite, nom, options = {}) {
       ordNom = context.fenetreMathalea2d[1] + 1 // l'ordonnée du label est ymin +1
       anchor = 'right'
       usedPosition = 'below'
-      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'none', options.taille, { anchor })
+      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
       positions.push({ label: leNom, position: usedPosition, anch: anchor })
     } else if (egal(droite.a, 0, 0.05)) { // by+c=0 y=-c/b est l'équation de la droite
       // droite quasi horizontale
@@ -412,7 +412,7 @@ export function labelOnLine (droite, nom, options = {}) {
       ordNom = -droite.c / droite.b + hauteur * 0.5 / context.pixelsParCm
       anchor = 'above'
       usedPosition = 'left'
-      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'none', options.taille, { anchor })
+      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
       positions.push({ label: leNom, position: usedPosition, anch: anchor })
     } else { // a et b sont différents de 0 ax+by+c=0 est l'équation
       // y=(-a.x-c)/b est l'equation cartésienne et x=(-by-c)/a
@@ -429,7 +429,7 @@ export function labelOnLine (droite, nom, options = {}) {
         if (ordNom < context.fenetreMathalea2d[1] + 1 || ordNom > context.fenetreMathalea2d[3] - 1) {
           if (debug) console.log('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
         } else {
-          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'none', options.taille, { anchor })
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
         }
         // à gauche : soit en dessous ou en dessous
@@ -440,7 +440,7 @@ export function labelOnLine (droite, nom, options = {}) {
         if (ordNom < context.fenetreMathalea2d[1] + 1 || ordNom > context.fenetreMathalea2d[3] - 1) {
           if (debug) console.log('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
         } else {
-          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'none', options.taille, { anchor })
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
         }
       }
@@ -453,7 +453,7 @@ export function labelOnLine (droite, nom, options = {}) {
         if (ordNom < context.fenetreMathalea2d[1] + 1 || ordNom > context.fenetreMathalea2d[3] - 1) {
           if (debug) console.log('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
         } else {
-          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'none', options.taille, { anchor })
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
         }
       }
@@ -466,7 +466,7 @@ export function labelOnLine (droite, nom, options = {}) {
         if (absNom < context.fenetreMathalea2d[0] + 1 || absNom > context.fenetreMathalea2d[2] - 1) {
           if (debug) console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
-          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'none', options.taille, { anchor })
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
         }
         // en bas de l'autre côté
@@ -477,7 +477,7 @@ export function labelOnLine (droite, nom, options = {}) {
         if (absNom < context.fenetreMathalea2d[0] + 1 || absNom > context.fenetreMathalea2d[2] - 1) {
           if (debug) console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
-          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'none', options.taille, { anchor })
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
         }
       }
@@ -490,7 +490,7 @@ export function labelOnLine (droite, nom, options = {}) {
         if (absNom < context.fenetreMathalea2d[0] + 1 || absNom > context.fenetreMathalea2d[2] - 1) {
           if (debug) console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
-          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'none', options.taille, { anchor })
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
         }
         // au haut de l'autre côté
@@ -501,7 +501,7 @@ export function labelOnLine (droite, nom, options = {}) {
         if (absNom < context.fenetreMathalea2d[0] + 1 || absNom > context.fenetreMathalea2d[2] - 1) {
           if (debug) console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
-          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'none', options.taille, { anchor })
+          leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
         }
       }
@@ -521,7 +521,7 @@ export function labelOnLine (droite, nom, options = {}) {
       ordNom = pointSurDroite(droite, absNom).y
       anchor = (droite.pente > 0 ? 'left' : 'right')
       usedPosition = 'middle'
-      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'none', options.taille, { anchor })
+      leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
       positions.push({ label: leNom, position: usedPosition, anch: anchor })
     }
 

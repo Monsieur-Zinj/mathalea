@@ -187,7 +187,7 @@ export function range (max, listeAEviter = []) {
  * @param {number} step
  * @example
  * // Renvoie [6,7,10]
- * range(6,10,[8,9])
+ * rangeMinMax(6,10,[8,9])
  *
  * @author Rémi Angot
  */
