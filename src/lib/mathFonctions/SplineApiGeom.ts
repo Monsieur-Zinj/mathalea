@@ -5,6 +5,8 @@ import type { Spline } from './Spline'
 class PointOnSpline extends Point {
   spline: Spline
   size?: number
+  abscissa: boolean
+  ordinate: boolean
   constructor (figure: Figure, { spline, x = 1, abscissa = false, ordinate = false, ...options }:
   { spline: Spline
     x?: number
@@ -21,9 +23,12 @@ class PointOnSpline extends Point {
     isFree?: boolean
     isVisible?: boolean
     id?: string }) {
-    super(figure, { x, y: Number(spline.fonction(x)), ...options })
+    super(figure, { x, y: spline.fonction(x), ...options })
     this.type = 'PointOnGraph'
     this.spline = spline
+    // @fixme c'est juste pour qu'eslint cesse de râler mais ces propriétés ne servent pas !
+    this.abscissa = abscissa
+    this.ordinate = ordinate
   }
 
   get x (): number {
@@ -32,12 +37,12 @@ class PointOnSpline extends Point {
 
   set x (x) {
     this._x = x
-    this._y = Number(this.spline.fonction(x))
+    this._y = this.spline.fonction(x)
     this.update()
   }
 
   get y (): number {
-    return Number(this.spline.fonction(this.x))
+    return this.spline.fonction(this.x)
   }
 
   moveTo (x: number): void {

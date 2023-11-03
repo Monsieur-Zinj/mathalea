@@ -11,6 +11,7 @@ import { signesFonction, variationsFonction } from './etudeFonction.js'
 import { MatriceCarree } from './MatriceCarree.js'
 import { rationnalise } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
+import Decimal from 'decimal.js'
 
 /**
  * Les noeuds sont des objets : {x,y, nombreDerive} attention à les donner dans l'ordre des x croissants
@@ -364,9 +365,16 @@ export class Spline {
   /**
      * Retourne l'image de x par la fonction
      * @param {number} x
-     * @returns {number|*}
+     * @returns {number}
      */
   #image (x) {
+    if (typeof x !== 'number') {
+      if (x instanceof FractionEtendue) {
+        x = x.valeurDecimale
+      } else if (x instanceof Decimal) {
+        x = x.toNumber()
+      }
+    }
     let trouveK = false
     let k = 0
     for (let i = 0; i < this.n - 1; i++) {
@@ -384,7 +392,7 @@ export class Spline {
       })
       return NaN
     } else {
-      return this.fonctions[k](rationnalise(x))
+      return this.fonctions[k](rationnalise(x)).toNumber()
     }
   }
 
@@ -427,7 +435,7 @@ export class Spline {
      */
   courbe ({
     repere,
-    step = new FractionEtendue(1, 10),
+    step = 0.1,
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = false,
@@ -502,7 +510,7 @@ export class Trace extends ObjetMathalea2D {
      */
   constructor (spline, {
     repere,
-    step = new FractionEtendue(1, 10),
+    step = 0.1,
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = true,

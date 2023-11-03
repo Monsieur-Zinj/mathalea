@@ -217,7 +217,8 @@ export function Courbe (f, {
   }
   for (let x = xMin; inferieurouegal(x, xMax); x += pas
   ) {
-    if (isFinite(f(x))) {
+    const y = Number(f(x))
+    if (isFinite(y)) {
       if (f(x) < yMax + 1 && f(x) > yMin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
       } else {

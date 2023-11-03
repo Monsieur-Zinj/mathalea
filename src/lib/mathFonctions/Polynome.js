@@ -3,6 +3,7 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 import { randint } from '../../modules/outils.js'
 import { choice } from '../outils/arrayOutils.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../outils/ecritures.js'
+import Decimal from 'decimal.js'
 
 /**
  * Avertissement ! pour l'instant la classe ne gère pas les coefficients fractionnaires !
@@ -29,14 +30,15 @@ export class Polynome {
       this.monomes = coeffs.map(function (el) {
         if (typeof el === 'number') {
           return new FractionEtendue(el)
-        } else if (Array.isArray(el)){
+        } else if (Array.isArray(el)) {
           return el[1] ? (new FractionEtendue(choice([-1, 1]) * randint(1, number(el[0])))).simplifie() : (new FractionEtendue(randint(1, number(el[0]))).simplifie())
-        } else if (el instanceof FractionEtendue){
+        } else if (el instanceof FractionEtendue) {
           return el
-        } else if (el instanceof Decimal){
+        } else if (el instanceof Decimal) {
           return new FractionEtendue(el)
         } else {
-          window.notify(`Dans Polynome, l'un des coefficient n'est pas d'un type attendu.`, {coeff: el})
+          window.notify('Dans Polynome, l\'un des coefficient n\'est pas d\'un type attendu.', { coeff: el })
+          return NaN
         }
       })
     } else {
@@ -60,14 +62,14 @@ export class Polynome {
       }
       let val = new FractionEtendue(0)
       for (let i = 0; i < monomes.length; i++) {
-        val = val.sommeFraction(monomes[i].multiplieEntier(x.puissanceFraction(i))).simplifie()
+        val = val.sommeFraction(monomes[i].produitFraction(x.puissanceFraction(i))).simplifie()
       }
       return val.simplifie()
     }
   }
-  
+
   isMon () { return this.monomes.filter(el => el.valeurDecimale !== 0).length === 1 }
-  
+
   /**
    * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
    * @returns {string} expression mathématique compatible avec Algebrite
@@ -106,7 +108,7 @@ export class Polynome {
     }
     return res
   }
-  
+
   /**
    * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
    * @returns {string} expression mathématique
@@ -144,7 +146,7 @@ export class Polynome {
     }
     return res
   }
-  
+
   /**
    * Polynome type conversion to String
    * @returns le résultat de toMathExpr()
@@ -152,7 +154,7 @@ export class Polynome {
   toString () {
     return this.toLatex()
   }
-  
+
   /**
    * Ajoute un Polynome ou une constante
    * @param {Polynome|number|Fraction} p
@@ -178,7 +180,7 @@ export class Polynome {
       window.notify('Polynome.add(arg) : l\'argument n\'est ni un nombre, ni un polynome', { p })
     }
   }
-  
+
   /**
    *
    * @param {Polynome|number|Fraction} q Polynome, nombre ou fraction
@@ -204,7 +206,7 @@ export class Polynome {
     }
     return new Polynome({ coeffs })
   }
-  
+
   /**
    * Retourne la dérivée
    * @returns {Polynome} dérivée de this
@@ -214,7 +216,7 @@ export class Polynome {
     coeffDerivee.shift()
     return new Polynome({ coeffs: coeffDerivee })
   }
-  
+
   /**
    * Appelle toMathExpr
    * @param {Array} coeffs coefficients du polynôme par ordre de degré croissant
@@ -225,7 +227,7 @@ export class Polynome {
     const p = new Polynome({ coeffs })
     return p.toLatex(alg)
   }
-  
+
   /**
    * Pour calculer l'image d'un nombre
    * @param x

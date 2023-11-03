@@ -1,4 +1,4 @@
-import { angle, angleOriente } from '../../lib/2d/angles.js'
+import { angleOriente } from '../../lib/2d/angles.js'
 import { point, pointAdistance, pointSurSegment } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
@@ -92,24 +92,24 @@ export default function Thales2D () {
 
       let posM
       if (k > 0) {
-        if (angleOriente(M, C, N) > 0){
+        if (angleOriente(M, C, N) > 0) {
           posM = similitude(C, M, 90, 1 / longueur(C, M) * 0.5)
         } else {
           posM = similitude(C, M, -90, 1 / longueur(C, M) * 0.5)
         }
-      }else{
+      } else {
         posM = pointSurSegment(M, N, -0.5)
       }
       const marqueNomM = texteParPoint(nomM, posM, 'milieu', 'black', 1, 'middle', true)
 
       let posN
       if (k > 0) {
-        if (angleOriente(M, C, N) > 0){
+        if (angleOriente(M, C, N) > 0) {
           posN = similitude(C, N, -90, 1 / longueur(C, N) * 0.5)
         } else {
           posN = similitude(C, N, 90, 1 / longueur(C, N) * 0.5)
         }
-      }else{
+      } else {
         posN = pointSurSegment(N, M, -0.5)
       }
       const marqueNomN = texteParPoint(nomN, posN, 'milieu', 'black', 1, 'middle', true)
@@ -172,10 +172,10 @@ export default function Thales2D () {
        <br> $\\leadsto$ $${nomN}\\in${'[' + nomC + nomB + ']'}$,
        <br> $\\leadsto$  $(${nomA + nomB})//(${nomM + nomN})$,
        <br> donc d'après le théorème de Thalès, `
-        texteCorr += this.correctionDetaillee ?   `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.` : 'on a:'
+        texteCorr += this.correctionDetaillee ? `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.` : 'on a:'
       } else {
         texteCorr = `Les droites $(${nomA + nomM})$ et $(${nomB + nomN})$ sont sécantes en $${nomC}$ et $(${nomA + nomB})//(${nomM + nomN})$ <br> donc d'après le théorème de Thalès, `
-        texteCorr += this.correctionDetaillee ?   `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.` : 'on a:'
+        texteCorr += this.correctionDetaillee ? `les triangles $${nomA + nomB + nomC}$ et $${nomM + nomN + nomC}$ ont des longueurs proportionnelles.` : 'on a:'
       }
       texteCorr += '<br><br>'
       if (context.isHtml) {
@@ -222,7 +222,7 @@ export default function Thales2D () {
       if (this.interactif && context.isHtml) {
         texte += '<br><br><em>Il faut saisir une unité.</em>'
         texte += `<br><br>$${nomM + nomN} = $`
-        setReponse(this, i * 2, new Grandeur(calculANePlusJamaisUtiliser(Math.abs(k) * ab), 'cm'), { formatInteractif: 'unites' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
+        setReponse(this, i * 2, new Grandeur(Math.abs(k) * ab, 'cm'), { formatInteractif: 'unites' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
         texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs] inline largeur25')
         texte += `<br>$${nomC + nomB} = $`
         texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs] inline largeur25')

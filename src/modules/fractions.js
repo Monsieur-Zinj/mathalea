@@ -84,9 +84,11 @@ export function fraction (a, b) {
       return NaN
     } else {
       if (typeof a === 'number') {
-        return new FractionEtendue(a)
+        const frac = new FractionEtendue(a)
+        return frac
       } else if (!isNaN(a)) {
-        return new FractionEtendue(Number(a))
+        const frac = new FractionEtendue(Number(a))
+        return frac
       }
       window.notify('fraction de fractions.js : l\'argument est de type inconvenant ', { a })
       return NaN
