@@ -1,11 +1,84 @@
 <script lang="ts">
-  import type { ReferentielForList } from '../../lib/types'
-  import SideMenuList from './SideMenuList.svelte'
-  export let referentiels: ReferentielForList[] = []
+  import { onDestroy } from 'svelte'
+  import {
+    type JSONReferentielObject,
+    type ResourceAndItsPath,
+    type ReferentielInMenu
+  } from '../../lib/types/referentiels'
+  import { allFilters } from '../stores/filtersStore'
+  import {
+    applyFilters,
+    buildReferentiel,
+    getAllEndings
+  } from '../utils/refUtils'
+  import ReferentielNode from './ReferentielNode.svelte'
+  import SearchBlock from './SearchBlock.svelte'
+  import SideMenuApps from './SideMenuApps.svelte'
+  import {
+    referentiels,
+    originalReferentiels,
+    deepReferentielInMenuCopy
+  } from '../stores/referentielsStore'
+  import codeToLevelList from '../../json/codeToLevelList.json'
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
-  export let isMenuCloseable: boolean = false
-  // let isMenuDeployed: boolean = true
+  // maj du référentiel chaque fois que le store `allFilters` change
+  const unsubscribeToFiltersStore = allFilters.subscribe(() => {
+    let filteredReferentielItems: ResourceAndItsPath[] = []
+    const results: ReferentielInMenu[] = []
+    const copyOfOriginalReferentiel: ReferentielInMenu[] =
+      deepReferentielInMenuCopy(originalReferentiels)
+    copyOfOriginalReferentiel.forEach((item) => {
+      if (item.searchable) {
+        const all = getAllEndings(item.referentiel)
+        const matchingItems: ResourceAndItsPath[] = applyFilters(all)
+        filteredReferentielItems = [
+          ...filteredReferentielItems,
+          ...matchingItems
+        ]
+        let filteredReferentiel: JSONReferentielObject =
+          buildReferentiel(matchingItems)
+        // on ordonne les entrées dans la liste (suivant l'ordre de codeToLevelList.json)
+        if (item.name === 'aleatoires') {
+          for (const key of Object.keys(codeToLevelList).reverse()) {
+            if (Object.keys(filteredReferentiel).includes(key)) {
+              const keyToBeFirst = { [key]: null }
+              filteredReferentiel = Object.assign(
+                keyToBeFirst,
+                filteredReferentiel
+              )
+            }
+          }
+        }
+        const updatedItem: ReferentielInMenu = {
+          title: item.title,
+          name: item.name,
+          searchable: item.searchable,
+          referentiel: (item.referentiel = { ...filteredReferentiel })
+        }
+        results.push(updatedItem)
+      } else {
+        // /!\ TODO : doit-ordonner les référentiels non cherchable ? (item.referentiel)
+        results.push({ ...item })
+      }
+    })
+    $referentiels = [...results]
+  })
+  onDestroy(() => {
+    unsubscribeToFiltersStore()
+  })
+
+  const buildHaystack = (
+    refList: ReferentielInMenu[]
+  ): ResourceAndItsPath[] => {
+    let result: ResourceAndItsPath[] = []
+    for (const item of refList) {
+      if (item.searchable) {
+        result = [...result, ...getAllEndings(item.referentiel)]
+      }
+    }
+    return result
+  }
 </script>
 
 <aside
@@ -14,42 +87,32 @@
 >
   <div
     style={isMenuOpen ? `width:${sidebarWidth}px;` : 'width: 2.5rem;'}
-    class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+    class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark transition-all duration-500"
   >
     <div
       class="{isMenuOpen
         ? 'flex'
         : 'hidden'} flex-col items-start pb-4 pt-2 md:pt-4 ml-0 md:mx-0"
     >
-      {#each referentiels as ref}
-        <SideMenuList
-          {ref}
-          moreThanOne={referentiels.length > 1}
-          isMenuDeployed={ref.type === 'exercices'}
-          on:filters
-        />
-      {/each}
-    </div>
-    <div
-      class="z-40 absolute top-3 hidden md:inline-flex justify-center items-center rounded-r-sm h-10 w-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-      {isMenuOpen
-        ? '-translate-x-full -right-10'
-        : 'translate-x-10'}  transition-all duration-500 transform"
-    >
-      <button
-        type="button"
-        on:click={() => {
-          if (isMenuCloseable) {
-            isMenuOpen = !isMenuOpen
-          }
-        }}
-      >
-        <i
-          class="bx {isMenuOpen
-            ? 'bx-x'
-            : 'bx-right-arrow-alt'} scale-150 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
-        />
-      </button>
+      <SearchBlock
+        class="w-full flex flex-col justify-start"
+        resourcesSet={buildHaystack($referentiels)}
+      />
+      <div class="mt-4 w-full">
+        <!-- Affichage de tous les référentiels -->
+        {#each $referentiels as item, i}
+          <ReferentielNode
+            bind:subset={item.referentiel}
+            indexBase={i + 1}
+            levelTitle={item.title}
+            nestedLevelCount={1}
+            class="w-full px-4 text-[10px]"
+            pathToThisNode={[]}
+          />
+        {/each}
+        <!-- Bouton spécial pour les applications tierces -->
+        <SideMenuApps class="text-start p-6 w-full" />
+      </div>
     </div>
   </div>
 </aside>
