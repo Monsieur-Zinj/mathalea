@@ -3,6 +3,7 @@ import type Figure from 'apigeom'
 import { context } from '../modules/context'
 
 export default function figureApigeom ({ exercice, idApigeom, figure }: { exercice: Exercice, idApigeom: string, figure: Figure}) {
+  if (!context.isHtml) return ''
   // Styles par défaut
   figure.isDynamic = !!exercice.interactif
   figure.divButtons.style.display = exercice.interactif ? 'grid' : 'none'
