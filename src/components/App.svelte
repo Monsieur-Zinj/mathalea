@@ -1,7 +1,7 @@
 <script lang="ts">
   // import Start from './Start.svelte'
   import Diaporama from './Diaporama.svelte'
-  import Apercu from './NewApercu.svelte'
+  import Apercu from './Apercu.svelte'
   import Eleve from './Eleve.svelte'
   import ConfigEleve from './ConfigEleve.svelte'
   import Latex from './Latex.svelte'
@@ -14,7 +14,7 @@
   import Amc from './Amc.svelte'
   import Moodle from './Moodle.svelte'
   import OutilsProf from './OutilsProf.svelte'
-  import Capytale from './NewCapytale.svelte'
+  import Capytale from './Capytale.svelte'
   import Test from './Test.svelte'
   import Start from './Start.svelte'
 

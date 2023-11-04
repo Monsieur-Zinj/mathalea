@@ -17,14 +17,14 @@
   import { onMount, setContext } from 'svelte'
   import Exercice from './exercice/Exercice.svelte'
   import Button from './forms/Button.svelte'
-  import ButtonsDeck from './outils/ButtonsDeck.svelte'
+  import ButtonsDeck from './ui/ButtonsDeck.svelte'
   import NavBar from './header/NavBar.svelte'
   import TwoStatesIcon from './icons/TwoStatesIcon.svelte'
   import Footer from './Footer.svelte'
   import LatexIcon from './icons/LatexIcon.svelte'
   import AmcIcon from './icons/AmcIcon.svelte'
   import MoodleIcon from './icons/MoodleIcon.svelte'
-  import SideMenuBis from './sidebar/SideMenuBis.svelte'
+  import SideMenu from './sidebar/SideMenu.svelte'
   import handleCapytale from '../lib/handleCapytale'
 
   let divExercices: HTMLDivElement
@@ -302,7 +302,7 @@
             ? 'sm:h-[calc(100vh-7rem)]'
             : 'sm:h-screen'} sticky top-0 z-40 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >
-          <SideMenuBis bind:isMenuOpen bind:sidebarWidth />
+          <SideMenu bind:isMenuOpen bind:sidebarWidth />
         </div>
       </div>
 

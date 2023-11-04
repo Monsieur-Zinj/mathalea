@@ -16,9 +16,9 @@
   import { onMount, setContext } from 'svelte'
   import Exercice from './exercice/Exercice.svelte'
   import Button from './forms/Button.svelte'
-  import ButtonsDeck from './outils/ButtonsDeck.svelte'
+  import ButtonsDeck from './ui/ButtonsDeck.svelte'
   import Footer from './Footer.svelte'
-  import SideMenuBis from './sidebar/SideMenuBis.svelte'
+  import SideMenu from './sidebar/SideMenu.svelte'
   import handleCapytale from '../lib/handleCapytale'
   import ModalSettingsCapytale from './modal/ModalSettingsCapytale.svelte'
   import InputText from './forms/InputText.svelte'
@@ -396,7 +396,7 @@
             ? 'sm:h-[calc(100vh-7rem)]'
             : 'sm:h-screen'} sticky top-0 z-40 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >
-          <SideMenuBis bind:isMenuOpen bind:sidebarWidth />
+          <SideMenu bind:isMenuOpen bind:sidebarWidth />
         </div>
       </div>
 
