@@ -34,7 +34,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
   this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
 
   this.nouvelleVersion = function () {
-    this.interactifType = this.version > 2 ? 'mathLive' : 'listeDeroulante'
+    this.interactifType = this.version !== 2 ? 'mathLive' : 'listeDeroulante'
     this.autoCorrection = []
     let reponse
     this.listeQuestions = [] // Liste de questions
@@ -96,6 +96,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           expn = expn.split(' ou ') // Pour traiter le cas du 'ou'.
           texteCorr = `${expf} s'écrit : $${miseEnEvidence(expn[0].substring(1, expn[0].length - 1))}$`
           texteCorr += expn.length > 1 ? ` ou $${miseEnEvidence(expn[1].substring(1, expn[1].length - 1))}$.` : '.'
+          reponse = expn[0].slice(1, expn[0].length - 1)
           break
         case 2:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
@@ -210,6 +211,9 @@ export default function EcrireUneExpressionNumerique (calculMental) {
         } else if (this.version === 2) {
           texte += sp(10) + choixDeroulant(this, i, 0, combinaisonListes(['somme', 'différence', 'produit', 'quotient'], 1), 'une réponse')
           setReponse(this, i, expNom, { formatInteractif: 'texte' })
+        } else {
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' Résultat : ' })
+          setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppeeParEE' })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
