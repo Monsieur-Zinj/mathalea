@@ -189,7 +189,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                                     }
                                      */
                   if (!saisie.includes('frac')) {
-                    if (parseInt(saisie) === reponse.n && reponse.d === 1) resultat = 'OK'
+                    if (parseInt(saisie) === reponse.n * reponse.s && reponse.d === 1) resultat = 'OK'
                   } else {
                     saisieParsee = engine.parse(saisie, { canonical: false })
                     fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
