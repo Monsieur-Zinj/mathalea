@@ -89,8 +89,6 @@
     } else {
       // la liste entrees a deux ou trois éléments
       const premier = entrees.shift()
-      console.log('après shift')
-      console.log(entrees)
       const titre: string = (premier as string) ?? '' // le titre du paramètre est le 1er elt
       let champs: string[] | number
       if (entrees.length > 1) {
