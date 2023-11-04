@@ -212,7 +212,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
           texte += sp(10) + choixDeroulant(this, i, 0, combinaisonListes(['somme', 'différence', 'produit', 'quotient'], 1), 'une réponse')
           setReponse(this, i, expNom, { formatInteractif: 'texte' })
         } else {
-          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' Résultat : ' })
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Résultat : ' })
           setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppeeParEE' })
         }
         this.listeQuestions.push(texte)
