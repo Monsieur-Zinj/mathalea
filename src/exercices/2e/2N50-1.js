@@ -32,11 +32,11 @@ export const dateDeModifImportante = '05/06/2023'
  * Ajout du choix des types de problèmes par Guillaume Valmont le 06/04/2023
  * Ajout d'un paramètre permettant d'avoir uniquement des nombres entiers dans l'énoncé par Guillaume-Valmont le 06/04/2023
  * Date de publication 15/02/2022
- * * cloner par Gilles Mora pour le ref seconde le 05/06/23
+ * * cloner par Gilles Mora pour le ref seconde le 05/06/23.
  */
 export const uuid = '622b9'
 export const ref = '2N50-1'
-export default class ProblemesEnEquation extends Exercice {
+export default class ProblemesAvecEquations extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
