@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { AppTierce } from '../../lib/referentiels'
+  import type { AppTierce } from '../../lib/types/referentiels'
   import StarIcon from '../icons/StarIcon.svelte'
   import { exercicesParams } from '../stores/generalStore'
 

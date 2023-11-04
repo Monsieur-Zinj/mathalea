@@ -135,7 +135,7 @@
               <!-- Terminaison vide est affichée comme un bouton désactivé -->
               <StaticEnding
                 pathToThisNode={[...pathToThisNode, key]}
-                referentielToDisplay={obj}
+                referentielToDisplay={{}}
                 nestedLevelCount={nestedLevelCount + 1}
                 isEmpty={true}
               />

@@ -21,7 +21,7 @@
   import type { FilterObject, InterfaceParams } from '../../lib/types'
   import { getUniqueStringBasedOnTimeStamp, debounce } from '../utils/time'
   import Button from '../forms/Button.svelte'
-  import FiltresBis from './FiltresBis.svelte'
+  import Filtres from './Filtres.svelte'
   import Chip from '../forms/Chip.svelte'
   export let origin: ResourceAndItsPath[]
   export let results: ResourceAndItsPath[] = []
@@ -243,8 +243,8 @@
   </div>
   <!-- Filtres -->
   <div class={isFiltersVisible ? 'flex flex-col w-full pt-6' : 'hidden'}>
-    <FiltresBis class="mt-6" filterType="levels" />
-    <FiltresBis class="mt-6" filterType="specs" />
-    <FiltresBis class="mt-6" filterType="types" />
+    <Filtres class="mt-6" filterType="levels" />
+    <Filtres class="mt-6" filterType="specs" />
+    <Filtres class="mt-6" filterType="types" />
   </div>
 </div>

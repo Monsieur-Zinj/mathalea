@@ -44,6 +44,7 @@
       id: '',
       isInteractif: false,
       settingsReady: false,
+      isSettingsVisible: false,
       interactifReady: false,
       indiceExercice,
       indiceLastExercice,
