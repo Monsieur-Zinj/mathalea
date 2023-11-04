@@ -100,6 +100,14 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   resultat = 'OK'
                 }
                 break
+              case 'formeDeveloppeeParEE':
+                saisie = champTexte.value.replaceAll(',', '.').replaceAll('^{}', '').replaceAll('²', '^2')
+                reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
+                saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+                if (engine.box(['CanonicalOrder', engine.parse(reponse).canonical]).isSame(engine.box(['CanonicalOrder', engine.parse(saisie).canonical]))) {
+                  resultat = 'OK'
+                }
+                break
               case 'nombreDecimal':
                 saisie = champTexte.value.replace(',', '.')
                 // La réponse est ici arrondie en fonction de reponse.param.decimals

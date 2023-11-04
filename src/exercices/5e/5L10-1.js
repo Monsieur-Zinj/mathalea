@@ -3,7 +3,8 @@ export const titre = 'Traduire une phrase par une expression'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDeModifImportante = '21/09/2023'
-
+export const interactifReady = true
+export const interactifType = 'mathLive'
 /**
  * @author Jean-Claude Lhote
  */
