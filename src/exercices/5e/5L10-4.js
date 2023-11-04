@@ -1,6 +1,6 @@
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
-import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -8,11 +8,11 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 export const titre = 'Produire une formule à partir d\'un tableau'
 
 /**
  * * Traduire la dépendance entre deux grandeurs par un tableau de valeurs et produire une formule.
- * * 5L10-4
  * @author Sébastien Lozano
  */
 
@@ -21,58 +21,31 @@ export const ref = '5L10-4'
 
 // une fonction pour moduler l'affichage d'une étape dans la correction
 function etapeCorrective (str, sup) {
-  let sortie
-  if (sup === 1) {
-    sortie = ''
-  }
-  if (sup === 2) {
-    sortie = str
-  }
-  return sortie
+  return sup === 1 ? '' : str
 }
 
 export default function TableauxEtFonction () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.debug = false
   this.sup = 1
-  if (this.debug) {
-    this.nbQuestions = 1
-  } else {
-    this.nbQuestions = 1
-  }
+  this.nbQuestions = 1
 
-  this.titre = titre
   this.consigne = ''
 
   this.nbCols = 1
   this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1
 
-  let typesDeQuestionsDisponibles
-
   this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [0]
-    } else {
-      // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      typesDeQuestionsDisponibles = [0]
-    }
-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const L1 = randint(3, 7)
       const L2 = L1 + 1
       const L3 = L2 * 2
       const L4 = L2 * 3
-      this.sup = parseInt(this.sup)
 
       const coteInconnu = choice(['L'])
       let coteInconnuCorr
@@ -97,9 +70,8 @@ export default function TableauxEtFonction () {
         unitepetitL = unites[1]
         coteInconnuCorr = coteInconnu
         coteInconnuCorrNum = '2' + coteInconnu
-        txtCorr = 'Les unités sont les mêmes il n\'est donc pas nécessaire de convertir.'
-      }
-      if (this.sup === 2) { // unités différentes
+        txtCorr = 'Les unités sont les mêmes, donc il n\'est pas nécessaire de convertir.'
+      } else { // unités différentes
         unites = choice([['cm', 'm'], ['m', 'cm']])
         if (unites[0] === 'cm') {
           grandL = [`${L1}`, `${L2}`, `${L3}`, `${L4}`]
@@ -110,7 +82,6 @@ export default function TableauxEtFonction () {
           unitepetitL = unites[0]
           coteInconnuCorr = coteInconnu
           coteInconnuCorrNum = '2' + coteInconnu
-          txtCorr = 'Les unités sont différentes, pour plus de confort, nous pouvons les convertir dans la même unité, ici en cm.'
         }
         if (unites[0] === 'm') {
           grandL = [`${L1}\\times 100`, `${L2}\\times 100`, `${L3}\\times 100`, `${L4}\\times 100`]
@@ -121,9 +92,8 @@ export default function TableauxEtFonction () {
           unitepetitL = unites[1]
           coteInconnuCorr = coteInconnu + '\\times 100'
           coteInconnuCorrNum = '200' + coteInconnu
-
-          txtCorr = 'Les unités sont différentes, pour plus de confort, nous pouvons les convertir dans la même unité, ici en cm.'
         }
+        txtCorr = 'Les unités sont différentes. Donc, pour plus de confort, nous pouvons les convertir dans la même unité, ici en cm.'
       }
 
       // on prépare la fenetre mathalea2d
@@ -152,38 +122,38 @@ export default function TableauxEtFonction () {
           tableau: tableauColonneLigne([`\\text{Longueur $${coteInconnu}$ du côté (en ${unites[0]})}`, `\\phantom{000}${L1}\\phantom{000}`, `\\phantom{000}${L2}\\phantom{000}`, `\\phantom{000}${L3}\\phantom{000}`, `\\phantom{000}${L4}\\phantom{000}`], [`\\text{Périmètre du rectangle (en $${unites[1]}$)}`],
             ['', '', '', '']
           ),
-          calculL1: `$\\text{Pour } ${L1} \\text{ ${unites[0]} : } 2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{red}{${L1}\\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{red}{${texNombre(grandLNum[0])} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0] + 2 * grandLNum[0])} \\text{ ${unitegrandL}}$.`,
-          calculL2: `$\\text{Pour } ${L2} \\text{ ${unites[0]} : } 2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{red}{${L2}\\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{red}{${texNombre(grandLNum[1])} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0] + 2 * grandLNum[1])} \\text{ ${unitegrandL}}$.`,
-          calculL3: `$\\text{Pour } ${L3} \\text{ ${unites[0]} : } 2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{red}{${L3}\\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{red}{${texNombre(grandLNum[2])} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0] + 2 * grandLNum[2])} \\text{ ${unitegrandL}}$.`,
-          calculL4: `$\\text{Pour } ${L4} \\text{ ${unites[0]} : } 2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{red}{${L4}\\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{red}{${texNombre(grandLNum[3])} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0] + 2 * grandLNum[3])} \\text{ ${unitegrandL}}$.`,
+          calculL1: `$\\text{Pour } ${L1} \\text{ ${unites[0]} : } 2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{green}{${L1}\\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{green}{${texNombre(grandLNum[0])} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0] + 2 * grandLNum[0])} \\text{ ${unitegrandL}}$.`,
+          calculL2: `$\\text{Pour } ${L2} \\text{ ${unites[0]} : } 2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{green}{${L2}\\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{green}{${texNombre(grandLNum[1])} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0] + 2 * grandLNum[1])} \\text{ ${unitegrandL}}$.`,
+          calculL3: `$\\text{Pour } ${L3} \\text{ ${unites[0]} : } 2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{green}{${L3}\\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{green}{${texNombre(grandLNum[2])} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0] + 2 * grandLNum[2])} \\text{ ${unitegrandL}}$.`,
+          calculL4: `$\\text{Pour } ${L4} \\text{ ${unites[0]} : } 2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{green}{${L4}\\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{green}{${texNombre(grandLNum[3])} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0] + 2 * grandLNum[3])} \\text{ ${unitegrandL}}$.`,
           tableau_corr: tableauColonneLigne([`\\text{Longueur $${coteInconnuCorr}$ du côté (en ${unitegrandL})}`, `\\phantom{0}${grandL[0]}\\phantom{0}`, `\\phantom{0}${grandL[1]}\\phantom{0}`, `\\phantom{0}${grandL[2]}\\phantom{0}`, `\\phantom{0}${grandL[3]}\\phantom{0}`],
             [`\\text{Périmètre du rectangle (en ${unitepetitL})}`],
             [
-`${texNombre(2 * petitLNum[0] + 2 * grandLNum[0])} \\text{ ${unitegrandL}}`,
-`${texNombre(2 * petitLNum[0] + 2 * grandLNum[1])} \\text{ ${unitegrandL}}`,
-`${texNombre(2 * petitLNum[0] + 2 * grandLNum[2])} \\text{ ${unitegrandL}}`,
-`${texNombre(2 * petitLNum[0] + 2 * grandLNum[3])} \\text{ ${unitegrandL}}`
+`${miseEnEvidence(texNombre(2 * petitLNum[0] + 2 * grandLNum[0]))}`,
+`${miseEnEvidence(texNombre(2 * petitLNum[0] + 2 * grandLNum[1]))}`,
+`${miseEnEvidence(texNombre(2 * petitLNum[0] + 2 * grandLNum[2]))}`,
+`${miseEnEvidence(texNombre(2 * petitLNum[0] + 2 * grandLNum[3]))}`
             ]
           ),
           tableau_corr_p1: tableauColonneLigne([`\\text{Longueur $${coteInconnuCorr}$ du côté (en $${unitegrandL}$)}`, `\\phantom{000}${grandL[0]}\\phantom{000}`, `\\phantom{000}${grandL[1]}\\phantom{000}`], //, `\\phantom{000}${grandL[2]}\\phantom{000}`,`\\phantom{000}${grandL[3]}\\phantom{000}`],
             [`\\text{Périmètre du rectangle (en ${unitepetitL})}`],
             [
-              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{red}{${L1} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{red}{${texNombre(grandLNum[0])} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[0])} \\; \\text{${unitegrandL}}}`,
-              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{red}{${L2} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{red}{${texNombre(grandLNum[1])} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[1])} \\; \\text{${unitegrandL}}}`,
-              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{red}{${L3} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{red}{${grandLNum[2]} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[2])} \\; \\text{${unitegrandL}}}`,
-              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{red}{${L4} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{red}{${grandLNum[3]} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[3])} \\; \\text{${unitegrandL}}}`,`2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{red}{${L4} \\; \\text{${unites[0]}}} \\color{black}{ = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{red}{${grandLNum[3]} \\; \\text{${unitegrandL}} = \\color{black}{${texNombre(2*petitLNum[0]+2*grandLNum[3])} \\; \\text{${unitegrandL}}}}`,
+              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{green}{${L1} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{green}{${texNombre(grandLNum[0])} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[0])} \\; \\text{${unitegrandL}}}`,
+              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{green}{${L2} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{green}{${texNombre(grandLNum[1])} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[1])} \\; \\text{${unitegrandL}}}`,
+              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{green}{${L3} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{green}{${grandLNum[2]} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[2])} \\; \\text{${unitegrandL}}}`,
+              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{green}{${L4} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{green}{${grandLNum[3]} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[3])} \\; \\text{${unitegrandL}}}`,`2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{green}{${L4} \\; \\text{${unites[0]}}} \\color{black}{ = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{green}{${grandLNum[3]} \\; \\text{${unitegrandL}} = \\color{black}{${texNombre(2*petitLNum[0]+2*grandLNum[3])} \\; \\text{${unitegrandL}}}}`,
             ]
           ),
           tableau_corr_p2: tableauColonneLigne([`\\text{Longueur $${coteInconnuCorr}$ du côté (en $${unitegrandL}$)}`, `\\phantom{000}${grandL[2]}\\phantom{000}`, `\\phantom{000}${grandL[3]}\\phantom{000}`], //, `\\phantom{000}${grandL[2]}\\phantom{000}`,`\\phantom{000}${grandL[3]}\\phantom{000}`],
             [`\\text{Périmètre du rectangle (en $${unitepetitL}$)}`],
             [
-              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{red}{${L1} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{red}{${grandLNum[0]} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[0])} \\; \\text{${unitegrandL}}}`,
-              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{red}{${L2} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{red}{${grandLNum[1]} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[1])} \\; \\text{${unitegrandL}}}`,
-              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{red}{${L3} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{red}{${texNombre(grandLNum[2])} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[2])} \\; \\text{${unitegrandL}}}`,
-              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{red}{${L4} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{red}{${texNombre(grandLNum[3])} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[3])} \\; \\text{${unitegrandL}}}`,
+              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{green}{${L1} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{green}{${grandLNum[0]} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[0])} \\; \\text{${unitegrandL}}}`,
+              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{green}{${L2} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{green}{${grandLNum[1]} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[1])} \\; \\text{${unitegrandL}}}`,
+              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{green}{${L3} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{green}{${texNombre(grandLNum[2])} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[2])} \\; \\text{${unitegrandL}}}`,
+              // `2\\times \\color{blue}{${coteConnu} \\; \\text{${unites[1]}}} \\color{black}{+2\\times} \\color{green}{${L4} \\; \\text{${unites[0]}}} ${etapeCorrective(`\\color{black}{\\; = 2\\times} \\color{blue}{${petitLNum[0]} \\; \\text{${unitepetitL}}} \\color{black}{+2\\times} \\color{green}{${texNombre(grandLNum[3])} \\; \\text{${unitegrandL}}}`,this.sup)} \\color{black}{ \\;= ${texNombre(2*petitLNum[0]+2*grandLNum[3])} \\; \\text{${unitegrandL}}}`,
             ]
           ),
-          secondeQ: `2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{red}{${coteInconnu} \\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{red}{${coteInconnuCorr} \\text{ ${unitegrandL}}}}`, this.sup)} = ${texNombre(2 * petitLNum[0])} + ${coteInconnuCorrNum} \\text{ exprimé en ${unitegrandL}.}`,
+          secondeQ: `2\\times {\\color{blue}{${coteConnu} \\text{ ${unites[1]}}}} +2\\times {\\color{green}{${coteInconnu} \\text{ ${unites[0]}}}} ${etapeCorrective(`=2\\times {\\color{blue}{${petitLNum[0]} \\text{ ${unitepetitL}}}} +2\\times {\\color{green}{${coteInconnuCorr} \\text{ ${unitegrandL}}}}`, this.sup)} = ${miseEnEvidence(`${texNombre(2 * petitLNum[0])} + ${coteInconnuCorrNum}`)} \\text{ exprimé en ${unitegrandL}.}`,
           intro: txtCorr,
           fig: figure
         }
@@ -196,10 +166,10 @@ export default function TableauxEtFonction () {
       for (let k = 0; k < situations.length; k++) {
         enonces.push({
           enonce: `
-On considère le rectangle ci-dessous dont l'un des côtés mesure $${situations[k].coteConnu}$ $${unites[1]}$ et l'autre mesure $${situations[k].coteInconnu}$ $${unites[0]}$.<br>
+On considère un rectangle comme ci-dessous dont l'un des côtés mesure $${situations[k].coteConnu}$ $${unites[1]}$ et l'autre mesure $${situations[k].coteInconnu}$ $${unites[0]}$.<br>
 ${situations[k].fig}<br>
-${numAlpha(indexSousQuestion++)} Compléter le tableau suivant :<br><br>
-${situations[k].tableau}<br><br>
+${numAlpha(indexSousQuestion++)} Compléter le tableau suivant :<br>
+${situations[k].tableau}<br>
 ${numAlpha(indexSousQuestion++)} Quelle formule permet de calculer le périmètre de ce rectangle en fonction de $${situations[k].coteInconnu}$ ?
 `,
           question: '',
@@ -221,22 +191,10 @@ $${situations[k].secondeQ}$
         })
       }
 
-      // autant de case que d'elements dans le tableau des situations
-      switch (listeTypeDeQuestions[i]) {
-        case 0:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
-      }
+      texte = `${enonces[0].enonce}`
+      texteCorr = `${enonces[0].correction}`
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -246,5 +204,4 @@ $${situations[k].secondeQ}$
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Les mêmes unités\n2 : Unités différentes']
-  // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
 }
