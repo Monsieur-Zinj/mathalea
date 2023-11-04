@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ChipsList from '../setup/ChipsList.svelte'
+  import ChipsList from './ChipsList.svelte'
 
   export let setupButtonsList = [
     { bxName: 'bx-zoom-in' },
