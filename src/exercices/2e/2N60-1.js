@@ -42,7 +42,7 @@ export default function ModeliseInequations () {
     this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
-      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3']// 'typeE1', 'typeE2',
+      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3']//
     } else if (this.sup === 2) {
       typeDeQuestionsDisponibles = ['typeE4', 'typeE5', 'typeE6']//
     } else if (this.sup === 3) {
@@ -59,7 +59,7 @@ export default function ModeliseInequations () {
           { const a = randint(20, 30) //
             const b = randint(a + 5, 50) //
             const c = new Decimal(randint(20, 35)).div(100)
-            const d = new Decimal(randint(15, Decimal.round(c - 1))).div(100)
+            const d = new Decimal(randint(14, 19)).div(100)
             texte = `  Une société de location de véhicules particulièrs propose deux tarifs :<br>
               $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c, 2)}$ € par km parcouru ;<br>
               $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d, 2)}$ € par km parcouru ;<br>
