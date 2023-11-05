@@ -55,7 +55,7 @@ class ConstructionTriangle extends Exercice {
     texteCorr += `<br>$${labelC}${labelA}=${b}$ donc $${labelC}$ est sur le cercle de centre $${labelA}$ et de rayon $${b}$.`
     this.question = enonce + emplacementPourFigure
     const figureCorrection = createAnimationConstructionTriangle(this.triangle)
-    const emplacementPourFigureCorrection = figureApigeom({ exercice: this, idApigeom: `apigeomEx${numeroExercice}F1`, figure: figureCorrection })
+    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${numeroExercice}Correction`, figure: figureCorrection })
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
@@ -135,9 +135,6 @@ function createAnimationConstructionTriangle (triangle: Triangle): Figure {
   cA2.hide()
   cB.hide()
   figure.saveState()
-  figure.restart()
-  figure.divButtons.style.display = 'grid'
-  figure.buttons.get('PLAY')?.click()
   return figure
 }
 

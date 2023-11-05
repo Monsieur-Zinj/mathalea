@@ -2,11 +2,11 @@ import type Exercice from 'src/exercices/ExerciceTs'
 import type Figure from 'apigeom'
 import { context } from '../modules/context'
 
-export default function figureApigeom ({ exercice, idApigeom, figure }: { exercice: Exercice, idApigeom: string, figure: Figure}) {
+export default function figureApigeom ({ exercice, idApigeom, figure, animation = false }: { exercice: Exercice, idApigeom: string, figure: Figure, animation?: boolean}) {
   if (!context.isHtml) return ''
   // Styles par défaut
   figure.isDynamic = !!exercice.interactif
-  figure.divButtons.style.display = exercice.interactif ? 'grid' : 'none'
+  figure.divButtons.style.display = (exercice.interactif || animation) ? 'grid' : 'none'
   figure.divUserMessage.style.fontSize = '1em'
   figure.divUserMessage.style.pointerEvents = 'none'
   figure.divUserMessage.style.removeProperty('color')
@@ -25,6 +25,13 @@ export default function figureApigeom ({ exercice, idApigeom, figure }: { exerci
     if (container == null) return
     container.innerHTML = ''
     figure.setContainer(container)
+    if (animation) {
+      figure.restart()
+      setTimeout(() => {
+        figure.buttons.get('PLAY')?.click()
+        console.log('play')
+      }, 3000)
+    }
   })
 
   return `<div class="m-6" id="${idApigeom}"></div><div class="m-6 text-coopmaths-struct" id="feedback${idApigeom}"></div>`
