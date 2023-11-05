@@ -1,6 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { texteExposant } from '../../lib/outils/ecritures.js'
-import { texteGras } from '../../lib/format/style.js'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
@@ -12,19 +11,21 @@ import Decimal from 'decimal.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { sp } from '../../lib/outils/outilString.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-export const titre = 'Volume d\'une boule'
+export const titre = 'Déterminer le volume d\'une boule'
+export const dateDePublication = '09/02/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '05/11/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Calculer le volume d'une boule
  * @author Erwan DUPLESSY (AMC par EE)
- * 3G42
- * date : 2021/02/09
  */
 
 export const uuid = '8c803'
@@ -36,7 +37,6 @@ export default function VolumeBoule () {
   this.interactifType = interactifType
   this.amcReady = amcReady
   this.amcType = amcType
-  // this.consigne = 'On arrondira les résultats à ' + nombreDecimal(0.1) + ` ${choixUnites}` + texteExposant(3) + '. <br>'
   this.video = 'YQF7CBY-uEk'
   this.nbQuestions = 3 // Ici le nombre de questions
   this.sup = '1-2-4'
@@ -68,7 +68,7 @@ export default function VolumeBoule () {
           texte += 'Calculer le volume' + (context.isAmc ? `, en ${choixUnites}` + texteExposant(3) + ',' : '') + ` d'une boule de rayon ${r} ${choixUnites}. Arrondir au dixième. `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${r} \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr += texteGras('Le volume de la boule est donc environ : ' + stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3) + '. <br>')
+          texteCorr += 'Le volume de la boule est donc environ : ' + texteEnCouleurEtGras(stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
           break
 
         case 2:
@@ -76,9 +76,9 @@ export default function VolumeBoule () {
           reponse = new Decimal(d).pow(3).mul(Decimal.acos(-1)).mul(4).div(3).toDP(1)
           texte += 'Calculer le volume' + (context.isAmc ? `, en ${choixUnites}` + texteExposant(3) + ',' : '') + ` d'une boule de diamètre ${2 * d} ${choixUnites}. Arrondir au dixième. `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
-          texteCorr += `Le rayon de la boule est la moitié de son diamètre soit : ${d} ${choixUnites}. <br>`
+          texteCorr += `Le rayon de la boule est la moitié de son diamètre, soit : ${d} ${choixUnites}. <br>`
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${d} \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr += texteGras('Le volume de la boule est donc environ : ' + stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3) + '. <br>')
+          texteCorr += 'Le volume de la boule est donc environ : ' + texteEnCouleurEtGras(stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
           break
 
         case 3:
@@ -92,9 +92,9 @@ export default function VolumeBoule () {
           texteCorr += `Et, comme $r$ est positif : $r=\\sqrt{\\dfrac{${A}}{4\\pi}}$. <br>`
           rayon = new Decimal(A).div(Decimal.acos(-1).mul(4)).sqrt()
           reponse = Decimal.acos(-1).mul(4 * rayon ** 3).div(3).toDP(1)
-          texteCorr += 'On obtient donc une valeur approchée de $r$ : $r \\approx ' + texNombre(rayon, 2) + '$. <br>'
+          texteCorr += 'On obtient donc une valeur approchée de $r$ : $r \\approx ' + texNombre(rayon, 2) + `$ ${choixUnites}. <br>`
           texteCorr += 'On a donc : $V \\approx \\dfrac{4}{3} \\times \\pi \\times (' + texNombre(rayon, 2) + ` \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr += texteGras('Le volume de la boule est donc environ : ' + stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3) + '. <br>')
+          texteCorr += 'Le volume de la boule est donc environ : ' + texteEnCouleurEtGras(stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
           break
 
         case 4:
@@ -121,15 +121,15 @@ export default function VolumeBoule () {
           texteCorr += 'Méthode : on calcule le volume du cylindre auquel on va retrancher le volume de la boule. <br>'
           texteCorr += 'Le volume du cylindre est : $V_c = \\pi r^2 h$ ; et celui de la boule est : $V_b = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `Le rayon du cylindre est la moitié de son diamètre, soit ${rayon} ${choixUnites}, et sa hauteur est ${2 * rayon} ${choixUnites}. <br>`
-          texteCorr += `Le rayon de la boule est la moitié de son diamètre soit : ${rayon} ${choixUnites}. <br>`
+          texteCorr += `Le rayon de la boule est la moitié de son diamètre, soit : ${rayon} ${choixUnites}. <br>`
           texteCorr += `Ici, le volume du cylindre est donc : $V_c = \\pi \\times (${rayon} \\text{ ${choixUnites}})^2 \\times (${2 * rayon}\\text{ ${choixUnites}})$. <br>`
           texteCorr += `Le volume de la boule est : $V_b = \\dfrac{4}{3} \\times \\pi \\times (${rayon} \\text{ ${choixUnites}})^3$. <br>`
           texteCorr += `Le volume cherché est donc donné par : $\\pi \\times (${rayon} \\text{ ${choixUnites}})^2 \\times (${2 * rayon}\\text{ ${choixUnites}}) - \\dfrac{4}{3} \\times \\pi \\times (${rayon} \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr += texteGras('Le volume cherché est environ : ' + stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3) + '. <br>')
+          texteCorr += 'Le volume cherché est environ : ' + texteEnCouleurEtGras(stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
           break
       }
       setReponse(this, i, new Grandeur(reponse.toNumber(), `${choixUnites}^3`), { formatInteractif: 'unites' })
-      texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
+      texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à préciser l\'unité dans le volume-réponse : ' })
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -158,6 +158,5 @@ export default function VolumeBoule () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  // this.besoinFormulaireNumerique = ['Type de questions', 5, '1 : À partir du rayon\n2 : À partir du rayon ou du diamètre\n3 : À partir du rayon, du diamètre ou de l\'aire\n4 : À partir du rayon, du diamètre, de l\'aire ou en résolvant un problème\n5 : Mélange']
   this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : À partir du rayon\n2 : À partir du diamètre\n3 : À partir de l\'aire\n4 : En résolvant un problème\n5 : Mélange']
 } // Fin de l'exercice.
