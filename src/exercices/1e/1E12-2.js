@@ -8,6 +8,8 @@ export const titre = 'Étude complète de paraboles'
 export const interactifReady = false
 
 export const dateDePublication = '27/10/2022'
+export const dateDeModifImportante = '5/11/2023'
+// Réparation de trinome.js
 
 /**
  * Sommet, forme canonique et points d'intersection avec l'axe des abscisses

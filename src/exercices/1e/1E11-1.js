@@ -13,7 +13,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeModifImportante = '26/10/2022' // Utilisation de la classe Trinome par Rémi Angot
+export const dateDeModifImportante = '5/11/2023'
+// Réparation de trinome.js
 export const uuid = '731f0'
 export const ref = '1E11-1'
 

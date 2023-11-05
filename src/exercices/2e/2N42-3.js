@@ -11,6 +11,8 @@ export const titre = 'Utiliser les différentes formes d\'un polynôme du second
 export const interactifReady = false
 
 export const dateDePublication = '26/06/2023'
+export const dateDeModifImportante = '5/11/2023'
+// Réparation de trinome.js
 
 /**
  * Forme développée, factorisée ou canonique pour résoudre équations et inéquations

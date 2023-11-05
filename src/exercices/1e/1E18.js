@@ -11,6 +11,8 @@ export const titre = 'Équations et inéquations du second degré'
 export const interactifReady = false
 
 export const dateDePublication = '28/10/2022'
+export const dateDeModifImportante = '5/11/2023'
+// Réparation de trinome.js
 
 /**
  * Bilan sur les différentes formes d'équations et d'inéquations

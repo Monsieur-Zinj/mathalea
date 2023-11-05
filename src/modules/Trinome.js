@@ -259,7 +259,7 @@ class Trinome {
     if (this.discriminant.s === -1) return false
     const deltaNum = this.discriminant.num
     const deltaDen = this.discriminant.den
-    let racineDeDelta = new FractionEtendue()
+    let racineDeDelta = new FractionEtendue(1)
     if (Math.abs((Math.sqrt(deltaNum) - Math.round(Math.sqrt(deltaNum)))) < 0.000001 &&
      Math.abs(Math.sqrt(deltaDen) - Math.round(Math.sqrt(deltaDen))) < 0.000001) {
       racineDeDelta = new FractionEtendue(Math.sqrt(deltaNum), Math.sqrt(deltaDen))
@@ -278,7 +278,7 @@ class Trinome {
     if (this.discriminant.s === -1) return false
     const deltaNum = this.discriminant.num
     const deltaDen = this.discriminant.den
-    let racineDeDelta = new FractionEtendue()
+    let racineDeDelta
     if (Math.abs((Math.sqrt(deltaNum) - Math.round(Math.sqrt(deltaNum)))) < 0.000001 &&
      Math.abs(Math.sqrt(deltaDen) - Math.round(Math.sqrt(deltaDen))) < 0.000001) {
       racineDeDelta = new FractionEtendue(Math.sqrt(deltaNum), Math.sqrt(deltaDen))

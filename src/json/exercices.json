@@ -88,7 +88,7 @@
       "amcType": "AMCNum",
       "amc": true
     },
-    "dateModification": "26/10/2022"
+    "dateModification": "5/11/2023"
   },
   "1E11-2": {
     "url": "1e/1E11-2.js",
@@ -163,7 +163,8 @@
       "interactif": false,
       "amc": false
     },
-    "datePublication": "27/10/2022"
+    "datePublication": "27/10/2022",
+    "dateModification": "5/11/2023"
   },
   "1E13": {
     "url": "1e/1E13.js",
@@ -216,7 +217,8 @@
       "interactif": false,
       "amc": false
     },
-    "datePublication": "27/10/2022"
+    "datePublication": "27/10/2022",
+    "dateModification": "5/11/2023"
   },
   "1E18": {
     "url": "1e/1E18.js",
@@ -227,7 +229,8 @@
       "interactif": false,
       "amc": false
     },
-    "datePublication": "28/10/2022"
+    "datePublication": "28/10/2022",
+    "dateModification": "5/11/2023"
   },
   "1F10": {
     "url": "1e/1F10.js",
@@ -589,7 +592,8 @@
       "interactif": false,
       "amc": false
     },
-    "datePublication": "20/06/2023"
+    "datePublication": "20/06/2023",
+    "dateModification": "5/11/2023"
   },
   "2F25-1": {
     "url": "2e/2F25-1.js",
@@ -1718,7 +1722,8 @@
       "interactif": false,
       "amc": false
     },
-    "datePublication": "26/06/2023"
+    "datePublication": "26/06/2023",
+    "dateModification": "5/11/2023"
   },
   "2N50-1": {
     "url": "2e/2N50-1.js",
@@ -5388,11 +5393,12 @@
     "id": "5L10-1",
     "titre": "Traduire une phrase par une expression",
     "tags": {
-      "interactif": false,
+      "interactif": true,
+      "interactifType": "mathLive",
       "amcType": "AMCOpen",
       "amc": true
     },
-    "dateModification": "21/09/2023"
+    "dateModification": "04/11/2023"
   },
   "5L10-2": {
     "url": "5e/5L10-2.js",
@@ -5435,9 +5441,11 @@
     "id": "5L12",
     "titre": "Réduire une expression littérale",
     "tags": {
-      "interactif": false,
+      "interactif": true,
+      "interactifType": "mathLive",
       "amc": false
-    }
+    },
+    "dateModification": "04/11/2023"
   },
   "5L12-1": {
     "url": "5e/5L12-1.js",
