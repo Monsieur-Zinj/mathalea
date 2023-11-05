@@ -29,7 +29,6 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
       figure.restart()
       setTimeout(() => {
         figure.buttons.get('PLAY')?.click()
-        console.log('play')
       }, 3000)
     }
   })

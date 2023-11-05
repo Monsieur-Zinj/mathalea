@@ -53,9 +53,9 @@ class ConstructionTriangle extends Exercice {
     let texteCorr = `$${labelA}${labelB}=${c}$ donc $${labelB}$ est sur le cercle de centre $${labelA}$ et de rayon $${c}$.`
     texteCorr += `<br>$${labelB}${labelC}=${a}$ donc $${labelC}$ est sur le cercle de centre $${labelB}$ et de rayon $${a}$.`
     texteCorr += `<br>$${labelC}${labelA}=${b}$ donc $${labelC}$ est sur le cercle de centre $${labelA}$ et de rayon $${b}$.`
-    this.question = enonce + emplacementPourFigure
     const figureCorrection = createAnimationConstructionTriangle(this.triangle)
     const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${numeroExercice}Correction`, figure: figureCorrection })
+    this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
@@ -105,7 +105,7 @@ function createAnimationConstructionTriangle (triangle: Triangle): Figure {
   const [labelA, labelB, labelC] = label.split('') as [string, string, string]
   const figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
   figure.setToolbar({ position: 'top', tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'] })
-  const description = figure.create('TextByPosition', { anchor: 'bottomLeft', text: `$${labelA}${labelB}=${c}$ donc $${labelB}$ est sur le cercle de centre $${labelA}$ et de rayon ${c}`, x: 10, y: 15 })
+  const description = figure.create('TextByPosition', { anchor: 'bottomLeft', backgroundColor: 'white', text: `$${labelA}${labelB}=${c}$ donc $${labelB}$ est sur le cercle de centre $${labelA}$ et de rayon ${c}`, x: 10, y: 15 })
   figure.saveState()
   const A = figure.create('Point', { label: labelA, x: 5, y: 7 })
   const cA1 = figure.create('Circle', { center: A, radius: c })
