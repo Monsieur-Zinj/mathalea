@@ -106,7 +106,7 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           x = randint(3, 6)
           texte = `Calculer $${a}x^2+${b}x+${c}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x^2+${b}x+${c}=${a}\\times ${x}^2+${b}\\times ${x}+${c}=${a}\\times ${x ** 2}+${b * x}+${c}=${miseEnEvidence(`${a * x ** 2 + b * x  + c}`)}$`
+          texteCorr += `$${a}x^2+${b}x+${c}=${a}\\times ${x}^2+${b}\\times ${x}+${c}=${a}\\times ${x ** 2}+${b * x}+${c}=${miseEnEvidence(`${a * x ** 2 + b * x + c}`)}$`
           setReponse(this, i, a * x ** 2 + b * x + c)
           break
         case 7: // ax^2+bx-c
@@ -116,7 +116,7 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           x = randint(3, 6)
           texte = `Calculer $${a}x^2+${b}x-${c}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x^2+${b}x-${c}=${a}\\times ${x}^2+${b}\\times ${x}-${c}=${a}\\times ${x ** 2}+${b * x}-${c}=${miseEnEvidence(`${a * x ** 2 + b * x  - c}`)}$`
+          texteCorr += `$${a}x^2+${b}x-${c}=${a}\\times ${x}^2+${b}\\times ${x}-${c}=${a}\\times ${x ** 2}+${b * x}-${c}=${miseEnEvidence(`${a * x ** 2 + b * x - c}`)}$`
           setReponse(this, i, a * x ** 2 + b * x - c)
           break
         case 8: // ax^2-bx+c
@@ -126,7 +126,7 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           x = randint(3, 6)
           texte = `Calculer $${a}x^2-${b}x+${c}$ pour $x=${x}$`
           texteCorr = `Pour $x=${x}$ : <br>`
-          texteCorr += `$${a}x^2-${b}x+${c}=${a}\\times ${x}^2-${b}\\times ${x}+${c}=${a}\\times ${x ** 2}-${b * x}+${c}=${miseEnEvidence(`${a * x ** 2 - b * x  + c}`)}$`
+          texteCorr += `$${a}x^2-${b}x+${c}=${a}\\times ${x}^2-${b}\\times ${x}+${c}=${a}\\times ${x ** 2}-${b * x}+${c}=${miseEnEvidence(`${a * x ** 2 - b * x + c}`)}$`
           setReponse(this, i, a * x ** 2 - b * x + c)
           break
 
@@ -152,7 +152,7 @@ export default function CalculerLaValeurDUneExpressionLitterale () {
           setReponse(this, i, (a * x + b) * (c * y - d))
           break
       }
-      texte += this.interactif ? (' : '+ ajouteChampTexteMathLive(this, i)) : '.'
+      texte += this.interactif ? (' : ' + ajouteChampTexteMathLive(this, i)) : '.'
 
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
