@@ -52,7 +52,9 @@ const seed = {
 function formatUrl (urlFieldRaw, view, seed) {
   let url = cleanseUrl(urlFieldRaw)
   if (isTemplateScreen(url)) url = 'https://coopmaths.fr/alea/?uuid=0e6bd'
-  if (!isValidUrl(url)) return ''
+  if (isV2(url)) url = convertV2toV3(url)
+  if (!isV3BaseDomain(url)) url = makeV3BaseDomain(url)
+  if (!includesId(url)) return ''
   url = replaceParam(url, '&i=', '0')
   url = replaceParam(url, '&alea=', seed)
   url = replaceParam(url, '&v=', view)
@@ -69,24 +71,53 @@ function cleanseUrl (urlFieldRaw) {
   return urlField.replace(/&amp;/g, '&')
 }
 
+function isTemplateScreen (url) {
+  return url === '(url)'
+}
+
+function isV2 (url) {
+  return url.startsWith('https://coopmaths.fr/mathalea.html?')
+}
+
+function convertV2toV3 (url) {
+  url = url.replaceAll('mathalea.html', 'alea/')
+  url = url.replaceAll('?ex=dnb', '?uuid=dnb')
+  url = url.replaceAll('&ex=dnb', '&uuid=dnb')
+  url = url.replaceAll('?ex=', '?id=')
+  url = url.replaceAll('&ex=', '&id=')
+  url = url.replaceAll(',i=', '&i=')
+  url = url.replaceAll(',n=', '&n=')
+  url = url.replaceAll(',v=', '&v=')
+  url = url.replaceAll(',s=', '&s=')
+  url = url.replaceAll(',s2=', '&s2=')
+  url = url.replaceAll(',s3=', '&s3=')
+  url = url.replaceAll(',s4=', '&s4=')
+  url = url.replaceAll(',cd=', '&cd=')
+  url = url.replaceAll('&serie=', '&alea=')
+  return url
+}
+
+function isV3BaseDomain (url) {
+  return url.startsWith('https://coopmaths.fr/alea/?')
+}
+
+function makeV3BaseDomain (url) {
+  return 'https://coopmaths.fr/alea/?' + url.split('?')[1]
+}
+
+function includesId (url) {
+  if (url.includes('id=')) return true
+  return false
+}
+
 function replaceParam (url, paramPattern, newValue) {
   if (url.includes(paramPattern)) {
     const beforePattern = url.split(paramPattern)[0]
     const afterPattern = url.slice(beforePattern.length + paramPattern.length)
     const otherParams = afterPattern.split('&')
     otherParams.shift()
-    return beforePattern + paramPattern + newValue + otherParams.join('')
+    return beforePattern + paramPattern + newValue + '&' + otherParams.join('&')
   } else {
     return url + paramPattern + newValue
   }
-}
-
-function isValidUrl (url) {
-  if (url.startsWith('https://coopmaths.fr/alea') && url.includes('uuid=')) return true
-  if (url.startsWith('https://topmaths.fr') && url.includes('uuid=')) return true
-  return false
-}
-
-function isTemplateScreen (url) {
-  return url === '(url)'
 }
