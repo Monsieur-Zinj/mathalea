@@ -1,7 +1,6 @@
 import Exercice from '../ExerciceTs'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
-import { context } from '../../modules/context'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { randint } from '../../modules/outils'
 import { mathaleaRenderDiv } from '../../lib/mathalea'
@@ -54,13 +53,10 @@ class ConstructionTriangle extends Exercice {
     let texteCorr = `$${labelA}${labelB}=${c}$ donc $${labelB}$ est sur le cercle de centre $${labelA}$ et de rayon $${c}$.`
     texteCorr += `<br>$${labelB}${labelC}=${a}$ donc $${labelC}$ est sur le cercle de centre $${labelB}$ et de rayon $${a}$.`
     texteCorr += `<br>$${labelC}${labelA}=${b}$ donc $${labelC}$ est sur le cercle de centre $${labelA}$ et de rayon $${b}$.`
-    if (context.isHtml) {
-      this.question = enonce + emplacementPourFigure
-      this.correction = texteCorr
-    } else {
-      this.question = enonce
-      this.correction = ''
-    }
+    this.question = enonce + emplacementPourFigure
+    const figureCorrection = createAnimationConstructionTriangle(this.triangle)
+    const emplacementPourFigureCorrection = figureApigeom({ exercice: this, idApigeom: `apigeomEx${numeroExercice}F1`, figure: figureCorrection })
+    this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
   correctionInteractive = () => {
@@ -102,6 +98,47 @@ class ConstructionTriangle extends Exercice {
 function isTriangle (triangle: Triangle): boolean {
   const { a, b, c } = triangle
   return a + b > c && a + c > b && b + c > a
+}
+
+function createAnimationConstructionTriangle (triangle: Triangle): Figure {
+  const { label, a, b, c } = triangle
+  const [labelA, labelB, labelC] = label.split('') as [string, string, string]
+  const figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
+  figure.setToolbar({ position: 'top', tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'] })
+  const description = figure.create('TextByPosition', { anchor: 'bottomLeft', text: `$${labelA}${labelB}=${c}$ donc $${labelB}$ est sur le cercle de centre $${labelA}$ et de rayon ${c}`, x: 10, y: 15 })
+  figure.saveState()
+  const A = figure.create('Point', { label: labelA, x: 5, y: 7 })
+  const cA1 = figure.create('Circle', { center: A, radius: c })
+  const B = figure.create('PointOnCircle', { angleWithHorizontal: 0, circle: cA1, label: labelB })
+  description.text = 'Il faut bien utiliser le bouton « Point sur » et pas « Point libre ».'
+  figure.saveState()
+  figure.create('Segment', { point1: A, point2: B })
+  figure.saveState()
+  description.text = `On peut cacher le cercle de centre $${labelA}$ et de rayon ${c}.`
+  cA1.hide()
+  figure.saveState()
+  description.text = `$${labelA}${labelC}=${b}$ donc $${labelC}$ est sur le cercle de centre $${labelA}$ et de rayon ${b}.`
+  const cA2 = figure.create('Circle', { center: A, radius: b })
+  figure.saveState()
+  description.text = `$${labelB}${labelC}=${a}$ donc $${labelC}$ est aussi sur le cercle de centre $${labelB}$ et de rayon ${a}.`
+  const cB = figure.create('Circle', { center: B, radius: a })
+  figure.saveState()
+  description.text = `On place le point $${labelC}$ à une intersection des deux cercles.`
+  figure.saveState()
+  const C = figure.create('PointIntersectionCC', { circle1: cA2, circle2: cB })
+  C.label = labelC
+  description.text = 'Il faut bien utiliser le bouton « Point à l\'intersection » et pas « Point libre ».'
+  figure.saveState()
+  figure.create('Polygon', { points: [A, B, C] })
+  figure.saveState()
+  description.text = 'On peut cacher les cercles.'
+  cA2.hide()
+  cB.hide()
+  figure.saveState()
+  figure.restart()
+  figure.divButtons.style.display = 'grid'
+  figure.buttons.get('PLAY')?.click()
+  return figure
 }
 
 export default ConstructionTriangle
