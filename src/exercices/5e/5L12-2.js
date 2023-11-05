@@ -1,16 +1,16 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import {
   calculANePlusJamaisUtiliser,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  printlatex,
   randint
 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Réduire une expression littérale (somme et produit)'
 export const interactifReady = true
@@ -18,7 +18,7 @@ export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '22/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
+export const dateDeModifImportante = '05/11/2023'
 /**
  * Réduire une expression
  *
@@ -39,9 +39,6 @@ export const uuid = 'a8ad0'
 export const ref = '5L12-2'
 export default function ReduireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.consigne = 'Réduire les expressions suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1
@@ -93,53 +90,54 @@ export default function ReduireUneExpressionLitterale () {
       switch (listeTypeDeQuestions[i]) {
         case 1: // ax+bx+c
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x+${texNombre(c)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x+${texNombre(c)}=${texNombre(calculANePlusJamaisUtiliser(a + b))}x+${texNombre(c)}$`
-          reponse = printlatex(`${texNombre(calculANePlusJamaisUtiliser(a + b))}x+${texNombre(c)}`)
+          reponse = `${texNombre(calculANePlusJamaisUtiliser(a + b))}x+${texNombre(c)}`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x+${texNombre(c)}`
           break
         case 2: // ax+b+x+c
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}+x+${texNombre(c)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}+x+${texNombre(c)}=${texNombre(calculANePlusJamaisUtiliser(a + 1))}x+${texNombre(calculANePlusJamaisUtiliser(b + c))}$`
-          reponse = printlatex(`${texNombre(calculANePlusJamaisUtiliser(a + 1))}x+${texNombre(calculANePlusJamaisUtiliser(b + c))}`)
+          reponse = `${texNombre(calculANePlusJamaisUtiliser(a + 1))}x+${texNombre(calculANePlusJamaisUtiliser(b + c))}`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}+x+${texNombre(c)}`
           break
         case 3: // ax^2+bx+c+dx^2+x
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x^2+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}x^2+x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x^2+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}x^2+x=${texNombre(calculANePlusJamaisUtiliser(a + d))}x^2+${texNombre(calculANePlusJamaisUtiliser(b + 1))}x+${texNombre(c)}$`
-          reponse = printlatex(`${texNombre(calculANePlusJamaisUtiliser(a + d))}x^2+${texNombre(calculANePlusJamaisUtiliser(b + 1))}x+${texNombre(c)}`)
+          reponse = `${texNombre(calculANePlusJamaisUtiliser(a + d))}x^2+${texNombre(calculANePlusJamaisUtiliser(b + 1))}x+${texNombre(c)}`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x^2+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}x^2+x`
           break
         case 4: // a+x+b+c+dx
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x=${texNombre(1 + d)}x+${texNombre(a + b + c)}$`
-          reponse = printlatex(`${texNombre(1 + d)}x+${texNombre(a + b + c)}`)
+          reponse = `${texNombre(1 + d)}x+${texNombre(a + b + c)}`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x`
           break
         case 5: // ax+y+bx+c+dy
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y=${texNombre(a + b)}x+${texNombre(1 + d)}y+${texNombre(c)}$`
-          reponse = printlatex(`${texNombre(a + b)}x+${texNombre(1 + d)}y+${texNombre(c)}`)
+          reponse = `${texNombre(a + b)}x+${texNombre(1 + d)}y+${texNombre(c)}`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y`
           break
         case 6: // ax . bx
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}x=${texNombre(calculANePlusJamaisUtiliser(a * b))}x^2$`
-          reponse = printlatex(`${texNombre(calculANePlusJamaisUtiliser(a * b))}x^2`)
+          reponse = `${texNombre(calculANePlusJamaisUtiliser(a * b))}x^2`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}x`
           break
         case 7: // ax+c
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(c)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(c)}=${texNombre(a)}x+${texNombre(c)}$`
-          reponse = printlatex(`${texNombre(a)}x+${texNombre(c)}`)
+          reponse = `${texNombre(a)}x+${texNombre(c)}`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(c)}`
           break
         case 8: // ax . b
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}=${texNombre(calculANePlusJamaisUtiliser(a * b))}x$`
-          reponse = printlatex(`${texNombre(calculANePlusJamaisUtiliser(a * b))}x`)
+          reponse = `${texNombre(calculANePlusJamaisUtiliser(a * b))}x`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x\\times${texNombre(b)}`
           break
         case 9: // ax+bx
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x=${texNombre(a + b)}x$`
-          reponse = printlatex(`${texNombre(calculANePlusJamaisUtiliser(a + b))}x`)
+          reponse = `${texNombre(calculANePlusJamaisUtiliser(a + b))}x`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x`
           break
       }
-      setReponse(this, i, reponse, { formatInteractif: 'calcul' })
-      texte += ajouteChampTexteMathLive(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      texteCorr += `=${miseEnEvidence(reponse)}$`
+      setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppeeParEE' })
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: sp() + '= ' })
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
