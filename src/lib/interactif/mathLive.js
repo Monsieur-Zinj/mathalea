@@ -101,12 +101,21 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 }
                 break
               case 'formeDeveloppeeParEE':
+
                 saisie = champTexte.value.replaceAll(',', '.').replaceAll('^{}', '').replaceAll('²', '^2')
                 reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
                 saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-                if (engine.box(['CanonicalOrder', engine.parse(reponse).canonical]).isSame(engine.box(['CanonicalOrder', engine.parse(saisie).canonical]))) {
+
+                /* const regleSuppressionInvisibleOperator = engine.rules([
+                    [
+                      ['Add', '_x', '_x'],
+                      ['Multiply', '_x', '_x']
+                    ]
+                  ]) */
+                if (engine.box(['CanonicalOrder', engine.parse(saisie)]).isSame(engine.box(['CanonicalOrder', engine.parse(reponse)]))) {
                   resultat = 'OK'
                 }
+
                 break
               case 'nombreDecimal':
                 saisie = champTexte.value.replace(',', '.')
