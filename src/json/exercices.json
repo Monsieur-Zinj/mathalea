@@ -137,7 +137,7 @@
     "uuid": "731f0",
     "id": "1E11-1",
     "titre": "Calculer le discriminant d'un polynôme du second degré",
-    "dateModification": "26/10/2022",
+    "dateModification": "5/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -265,6 +265,7 @@
     "id": "1E12-2",
     "titre": "Étude complète de paraboles",
     "datePublication": "27/10/2022",
+    "dateModification": "5/11/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -357,6 +358,7 @@
     "id": "1E17",
     "titre": "Utiliser les différentes formes d'un polynôme du second degré",
     "datePublication": "27/10/2022",
+    "dateModification": "5/11/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -376,6 +378,7 @@
     "id": "1E18",
     "titre": "Équations et inéquations du second degré",
     "datePublication": "28/10/2022",
+    "dateModification": "5/11/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -890,10 +893,11 @@
     "id": "2F20-2",
     "titre": "Calculer des coordonnées de points appartenant à une coube connaissant l'abscisse ou l'ordonnée",
     "datePublication": "24/09/2022",
+    "dateModification": "04/10/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": false,
@@ -966,6 +970,7 @@
     "id": "2F23-1",
     "titre": "Utiliser les différentes formes d'un polynôme du second degré",
     "datePublication": "20/06/2023",
+    "dateModification": "5/11/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -1247,6 +1252,7 @@
     "uuid": "65bed",
     "id": "2G11-5",
     "titre": "Calculs de volumes",
+    "dateModification": "05/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -1373,8 +1379,9 @@
     "tags": [],
     "uuid": "d2b57",
     "id": "2G23-1",
-    "titre": "Déterminer graphiquement les images de points par des translations",
+    "titre": "Déterminer graphiquement des images par des translations",
     "datePublication": "13/07/2023",
+    "dateModification": "15/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -1822,7 +1829,7 @@
     "uuid": "25fb4",
     "id": "2N14-1",
     "titre": "Déterminer le plus petit ensemble de nombres dans lequel un nombre appartient",
-    "dateModification": "26/08/2023",
+    "dateModification": "01/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -2377,8 +2384,8 @@
     "tags": [],
     "uuid": "d9495",
     "id": "2N32-3",
-    "titre": "Écrire le nombre proposé sous la forme $ a\\sqrt{b}$",
-    "dateModification": "26/04/2023",
+    "titre": "Écrire une racine carrée sous la forme $\\;a\\sqrt{b}$",
+    "dateModification": "01/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -2760,7 +2767,26 @@
     "uuid": "ef686",
     "id": "2N42-1",
     "titre": "Exprimer une variable en fonction des autres",
-    "dateModification": "21/09/2023",
+    "datePublication": "25/09/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "2N42-2": {
+    "url": "2e/2N42-2.js",
+    "tags": [],
+    "uuid": "96bac",
+    "id": "2N42-2",
+    "titre": "Exprimer une variable en fonction des autres à  partir de formules mathématiques",
+    "datePublication": "02/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -2780,6 +2806,7 @@
     "id": "2N42-3",
     "titre": "Utiliser les différentes formes d'un polynôme du second degré",
     "datePublication": "26/06/2023",
+    "dateModification": "5/11/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -3461,6 +3488,25 @@
     },
     "typeExercice": "alea"
   },
+  "3A10-0": {
+    "url": "3e/3A10-0.js",
+    "tags": [],
+    "uuid": "3e436",
+    "id": "3A10-0",
+    "titre": "Reconnaître les premiers nombres premiers",
+    "datePublication": "11/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'qcm'"
+      },
+      "amc": {
+        "isActive": true,
+        "type": "qcmMono"
+      }
+    },
+    "typeExercice": "alea"
+  },
   "3A10-1": {
     "url": "3e/3A10-1.js",
     "tags": [],
@@ -3540,6 +3586,7 @@
     "id": "3A10-5",
     "titre": "Recourir à une décomposition en facteurs premiers dans des cas simples",
     "datePublication": "29/08/2022",
+    "dateModification": "27/09/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -3547,7 +3594,7 @@
       },
       "amc": {
         "isActive": true,
-        "type": "AMCNum"
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -3565,8 +3612,8 @@
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": true,
-        "type": "AMCNum"
+        "isActive": false,
+        "type": ""
       }
     },
     "typeExercice": "alea"
@@ -3615,6 +3662,7 @@
     "id": "3A11-0",
     "titre": "Simplifier des fractions à l'aide des nombres premiers",
     "datePublication": "28/09/2022",
+    "dateModification": "03/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -3677,8 +3725,8 @@
         "type": ""
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -3773,6 +3821,25 @@
       "amc": {
         "isActive": true,
         "type": "AMCOpen"
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "3A13-5": {
+    "url": "3e/3A13-5.js",
+    "tags": [],
+    "uuid": "2ae9b",
+    "id": "3A13-5",
+    "titre": "Jouer avec la compréhension des multiples d'un nombre",
+    "datePublication": "30/09/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -3943,6 +4010,25 @@
     },
     "typeExercice": "alea"
   },
+  "3F10-4": {
+    "url": "3e/3F10-4.ts",
+    "tags": [],
+    "uuid": "6c6b3",
+    "id": "3F10-4",
+    "titre": "Lire graphiquement l'image d'un nombre par une fonction",
+    "datePublication": "29/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "3F12": {
     "url": "3e/3F12.js",
     "tags": [],
@@ -4021,6 +4107,7 @@
     "uuid": "8117d",
     "id": "3F13",
     "titre": "Lire les antécédents d'un nombre à partir d'un graphique",
+    "dateModification": "23/09/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -4047,24 +4134,6 @@
       "amc": {
         "isActive": true,
         "type": "AMCHybride"
-      }
-    },
-    "typeExercice": "alea"
-  },
-  "3F13-2": {
-    "url": "3e/3F13-2.js",
-    "tags": [],
-    "uuid": "be398",
-    "id": "3F13-2",
-    "titre": "Spécial escape game",
-    "features": {
-      "interactif": {
-        "isActive": true,
-        "type": "'mathLive'"
-      },
-      "amc": {
-        "isActive": false,
-        "type": ""
       }
     },
     "typeExercice": "alea"
@@ -4749,7 +4818,9 @@
     "tags": [],
     "uuid": "8c803",
     "id": "3G42",
-    "titre": "Volume d'une boule",
+    "titre": "Déterminer le volume d'une boule",
+    "datePublication": "09/02/2021",
+    "dateModification": "05/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -4768,6 +4839,7 @@
     "uuid": "acb80",
     "id": "3G43",
     "titre": "Calculs de volumes",
+    "dateModification": "05/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -5182,10 +5254,11 @@
     "id": "3L11-9",
     "titre": "Résoudre une Rose multiplicative avec calcul littéral",
     "datePublication": "12/08/2022",
+    "dateModification": "01/10/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'custom'"
       },
       "amc": {
         "isActive": false,
@@ -6147,7 +6220,7 @@
     "id": "4C24",
     "titre": "Simplifier des fractions à l'aide des nombres premiers",
     "datePublication": "17/03/2022",
-    "dateModification": "24/10/2021",
+    "dateModification": "03/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -6558,6 +6631,25 @@
     },
     "typeExercice": "alea"
   },
+  "4G10-3": {
+    "url": "4e/4G10-3.js",
+    "tags": [],
+    "uuid": "6ddc5",
+    "id": "4G10-3",
+    "titre": "Déterminer graphiquement des images par des translations",
+    "datePublication": "15/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "4G11": {
     "url": "4e/4G11.js",
     "tags": [],
@@ -6620,6 +6712,7 @@
     "id": "4G12-1",
     "titre": "Trouver la transformation",
     "datePublication": "3/12/2021",
+    "dateModification": "19/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -7005,6 +7098,7 @@
     "uuid": "b6cbe",
     "id": "4G53",
     "titre": "Calculs de volumes",
+    "dateModification": "05/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -7521,7 +7615,7 @@
     "uuid": "4828d",
     "id": "5A10",
     "titre": "Écrire la liste de tous les diviseurs d'un entier",
-    "dateModification": "28/10/2021",
+    "dateModification": "03/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -7672,6 +7766,7 @@
     "uuid": "9d15d",
     "id": "5C11",
     "titre": "Traduire une phrase par une expression",
+    "dateModification": "21/09/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -7690,10 +7785,11 @@
     "uuid": "baa4b",
     "id": "5C11-1",
     "titre": "Traduire une expression par une phrase",
+    "dateModification": "21/09/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'listeDeroulante'"
       },
       "amc": {
         "isActive": true,
@@ -7744,6 +7840,7 @@
     "uuid": "cd0d8",
     "id": "5C12-1",
     "titre": "Traduire une phrase par une expression et la calculer",
+    "dateModification": "21/09/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -7881,8 +7978,8 @@
         "type": ""
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -8533,10 +8630,11 @@
     "uuid": "fefa0",
     "id": "5L10-1",
     "titre": "Traduire une phrase par une expression",
+    "dateModification": "04/11/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": true,
@@ -8570,6 +8668,7 @@
     "uuid": "458ae",
     "id": "5L10-3",
     "titre": "Traduire une expression par une phrase",
+    "dateModification": "21/09/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -8606,10 +8705,11 @@
     "uuid": "85d2d",
     "id": "5L12",
     "titre": "Réduire une expression littérale",
+    "dateModification": "04/11/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": false,
@@ -8624,10 +8724,11 @@
     "uuid": "46234",
     "id": "5L12-1",
     "titre": "Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence",
+    "dateModification": "04/11/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": false,
@@ -8643,6 +8744,7 @@
     "id": "5L12-2",
     "titre": "Réduire une expression littérale (somme et produit)",
     "datePublication": "22/02/2022",
+    "dateModification": "05/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -8697,6 +8799,7 @@
     "uuid": "1abc6",
     "id": "5L14-1",
     "titre": "Calculer une expression littérale pour les valeurs données en détaillant les calculs",
+    "dateModification": "21/09/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -8733,6 +8836,7 @@
     "uuid": "2c600",
     "id": "5L14-3",
     "titre": "Traduire une phrase par une expression et la calculer",
+    "dateModification": "21/09/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -8862,6 +8966,7 @@
     "uuid": "e26ca",
     "id": "5M20",
     "titre": "Calculs de volumes",
+    "dateModification": "05/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -9390,6 +9495,25 @@
     },
     "typeExercice": "alea"
   },
+  "5R12-1": {
+    "url": "5e/5R12-1.ts",
+    "tags": [],
+    "uuid": "4dadb",
+    "id": "5R12-1",
+    "titre": "Placer des points dans un repère",
+    "datePublication": "27/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'custom'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "5R12-2": {
     "url": "5e/5R12-2.js",
     "tags": [],
@@ -9524,6 +9648,7 @@
     "id": "5R20-7",
     "titre": "Résoudre une Rose additive avec des relatifs",
     "datePublication": "12/08/2022",
+    "dateModification": "26/09/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -9819,6 +9944,7 @@
     "id": "6C10-0",
     "titre": "Résoudre une Rose additive",
     "datePublication": "12/08/2022",
+    "dateModification": "26/09/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -9837,6 +9963,7 @@
     "uuid": "0e6bd",
     "id": "6C10-1",
     "titre": "Réviser les tables de multiplication",
+    "dateModification": "04/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -9929,6 +10056,7 @@
     "id": "6C10-6",
     "titre": "Résoudre une Rose multiplicative",
     "datePublication": "12/08/2022",
+    "dateModification": "26/09/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -10002,7 +10130,7 @@
     "tags": [],
     "uuid": "2da81",
     "id": "6C11",
-    "titre": "Poser divisions euclidiennes",
+    "titre": "Effectuer des divisions euclidiennes",
     "features": {
       "interactif": {
         "isActive": true,
@@ -10181,6 +10309,25 @@
       "amc": {
         "isActive": false,
         "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "6C13-2": {
+    "url": "6e/6C13-2.js",
+    "tags": [],
+    "uuid": "e6f62",
+    "id": "6C13-2",
+    "titre": "Traduire une expression par une phrase",
+    "datePublication": "08/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'listeDeroulante'"
+      },
+      "amc": {
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -10654,7 +10801,7 @@
     "uuid": "e960d",
     "id": "6D12",
     "titre": "Calculer des durées ou déterminer un horaire",
-    "dateModification": "02/01/2022",
+    "dateModification": "09/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -10710,6 +10857,7 @@
     "uuid": "d81c6",
     "id": "6G10-1",
     "titre": "Donner description et notation de droites, segments et demi-droites",
+    "dateModification": "07/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -10772,8 +10920,8 @@
         "type": "['qcm', 'mathLive']"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -10804,14 +10952,15 @@
     "id": "6G10-6",
     "titre": "Appartient ou n'appartient pas ?",
     "datePublication": "05/10/2022",
+    "dateModification": "4/10/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'listeDeroulante'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -10994,8 +11143,8 @@
         "type": "'qcm'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -11138,7 +11287,7 @@
     "id": "6G22-1",
     "titre": "Connaître le vocabulaire de base des angles",
     "datePublication": "03/12/2022",
-    "dateModification": "02/07/2023",
+    "dateModification": "17/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -11864,6 +12013,25 @@
     },
     "typeExercice": "alea"
   },
+  "6M11-0": {
+    "url": "6e/6M11-0.js",
+    "tags": [],
+    "uuid": "fbaff",
+    "id": "6M11-0",
+    "titre": "Décomposer une figure complexe en figures simples",
+    "datePublication": "28/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": false,
+        "type": ""
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "6M11-1": {
     "url": "6e/6M11-1.js",
     "tags": [],
@@ -11889,7 +12057,7 @@
     "uuid": "5999f",
     "id": "6M11-2",
     "titre": "Calculer périmètre et aire de figures composées",
-    "dateModification": "25/07/2023",
+    "dateModification": "28/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -12075,6 +12243,7 @@
     "uuid": "04b0d",
     "id": "6M30",
     "titre": "Calculer le volume de solides donnés",
+    "dateModification": "05/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -12224,7 +12393,7 @@
     "uuid": "34579",
     "id": "6N10-3",
     "titre": "Décomposer un nombre entier (nombre de ..., chiffres des ...)",
-    "dateModification": "02/10/2022",
+    "dateModification": "11/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -12301,6 +12470,7 @@
     "id": "6N10-7",
     "titre": "Recomposer un décimal ou un entier",
     "datePublication": "14/08/2022",
+    "dateModification": "09/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -12876,6 +13046,7 @@
     "uuid": "c1888",
     "id": "6N30",
     "titre": "Lire l'abscisse décimale d'un point",
+    "dateModification": "31/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -14537,6 +14708,24 @@
     },
     "typeExercice": "alea"
   },
+  "beta3F13-2": {
+    "url": "beta/beta3F13-2.js",
+    "tags": [],
+    "uuid": "be398",
+    "id": "beta3F13-2",
+    "titre": "Spécial escape game",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "betaFonction": {
     "url": "beta/betaEtudeFonction.js",
     "tags": [],
@@ -14548,6 +14737,25 @@
       "interactif": {
         "isActive": true,
         "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "betaListeDeroulante": {
+    "url": "2e/betaListeDeroulante.js",
+    "tags": [],
+    "uuid": "addd5",
+    "id": "betaListeDeroulante",
+    "titre": "Reconnaître une fonction d'après sa courbe",
+    "datePublication": "22/06/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'custom'"
       },
       "amc": {
         "isActive": false,
@@ -15101,8 +15309,9 @@
     "tags": [],
     "uuid": "053d7",
     "id": "can1F05",
-    "titre": "Lire graphiquement les valeurs de $b$ et $c$ avec une parabole",
+    "titre": "Déterminer graphiquement la valeur de b avec une parabole",
     "datePublication": "08/06/2022",
+    "dateModification": "11/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -15838,6 +16047,63 @@
       "interactif": {
         "isActive": true,
         "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can1L11": {
+    "url": "can/1e/can1L11.js",
+    "tags": [],
+    "uuid": "131bd",
+    "id": "can1L11",
+    "titre": "Dresser le tableau de signes d’un polynôme du second degré",
+    "datePublication": "07/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'qcm'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can1L12": {
+    "url": "can/1e/can1L12.js",
+    "tags": [],
+    "uuid": "7c76a",
+    "id": "can1L12",
+    "titre": "Résoudre une inéquation du second degré (avec une forme factorisée)",
+    "datePublication": "07/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'qcm'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can1L13": {
+    "url": "can/1e/can1L13.js",
+    "tags": [],
+    "uuid": "b53ea",
+    "id": "can1L13",
+    "titre": "Résoudre une inéquation du second degré (cas particuliers)",
+    "datePublication": "12/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'qcm'"
       },
       "amc": {
         "isActive": false,
@@ -16832,6 +17098,25 @@
     },
     "typeExercice": "alea"
   },
+  "can2F16": {
+    "url": "can/2e/can2F16.js",
+    "tags": [],
+    "uuid": "9d293",
+    "id": "can2F16",
+    "titre": "Résoudre une équation graphiquement",
+    "datePublication": "27/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "can2G01": {
     "url": "can/2e/can2G01.js",
     "tags": [],
@@ -17473,6 +17758,82 @@
     },
     "typeExercice": "alea"
   },
+  "can2N03": {
+    "url": "can/2e/can2N03.js",
+    "tags": [],
+    "uuid": "e356a",
+    "id": "can2N03",
+    "titre": "Déterminer l'intersection de deux intervalles",
+    "datePublication": "26/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can2N04": {
+    "url": "can/2e/can2N04.js",
+    "tags": [],
+    "uuid": "bb947",
+    "id": "can2N04",
+    "titre": "Déterminer la réunion de deux intervalles",
+    "datePublication": "26/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can2N05": {
+    "url": "can/2e/can2N05.js",
+    "tags": [],
+    "uuid": "",
+    "id": "can2N05",
+    "titre": "Reconnaître un nombre premier",
+    "datePublication": "16/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'qcm'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can2N06": {
+    "url": "can/2e/can2N06.js",
+    "tags": [],
+    "uuid": "e57cb",
+    "id": "can2N06",
+    "titre": "Écrire un nombre décimal sous la forme $\\dfrac{a}{10^n}$",
+    "datePublication": "19/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "can2P01": {
     "url": "can/2e/can2P01.js",
     "tags": [],
@@ -17850,14 +18211,15 @@
     "uuid": "966a6",
     "id": "can3F01",
     "titre": "Lire une image graphiquement",
+    "dateModification": "26/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": true,
-        "type": "AMCNum"
+        "isActive": false,
+        "type": ""
       }
     },
     "typeExercice": "alea"
@@ -18021,6 +18383,44 @@
     "id": "can3F10",
     "titre": "Déterminer une ordonnée/abscisse avec une fonction linéaire",
     "datePublication": "02/11/2022",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can3F11": {
+    "url": "can/3e/can3F11.js",
+    "tags": [],
+    "uuid": "d85c2",
+    "id": "can3F11",
+    "titre": "Utiliser le vocabulaire image/antécédent",
+    "datePublication": "02/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can3F12": {
+    "url": "can/3e/can3F12.js",
+    "tags": [],
+    "uuid": "0e1c6",
+    "id": "can3F12",
+    "titre": "Lire des antécédents graphiquement",
+    "datePublication": "26/10/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -18789,6 +19189,25 @@
     },
     "typeExercice": "alea"
   },
+  "can4C19": {
+    "url": "can/4e/can4C19.js",
+    "tags": [],
+    "uuid": "1ae99",
+    "id": "can4C19",
+    "titre": "Mutiplier des entiers relatifs",
+    "datePublication": "04/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "can4G01": {
     "url": "can/4e/can4G01.js",
     "tags": [],
@@ -18929,6 +19348,44 @@
       "amc": {
         "isActive": false,
         "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can4G09": {
+    "url": "can/4e/can4G09.js",
+    "tags": [],
+    "uuid": "96bcd",
+    "id": "can4G09",
+    "titre": "Trouver la longueur d'un côté de triangle rectangle",
+    "datePublication": "01/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can4G10": {
+    "url": "can/4e/can4G10.js",
+    "tags": [],
+    "uuid": "5344c",
+    "id": "can4G10",
+    "titre": "Déterminer si un triangle est rectangle",
+    "datePublication": "01/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'qcm'"
+      },
+      "amc": {
+        "isActive": true,
+        "type": "qcmMono"
       }
     },
     "typeExercice": "alea"
@@ -19689,6 +20146,82 @@
       "amc": {
         "isActive": true,
         "type": "AMCNum"
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can5C25": {
+    "url": "can/5e/can5C25.js",
+    "tags": [],
+    "uuid": "a7061",
+    "id": "can5C25",
+    "titre": "Additionner des entiers relatifs (avec parenthèses)",
+    "datePublication": "04/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can5C26": {
+    "url": "can/5e/can5C26.js",
+    "tags": [],
+    "uuid": "8a835",
+    "id": "can5C26",
+    "titre": "Additionner des entiers relatifs (écriture simplifiée)",
+    "datePublication": "04/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can5C27": {
+    "url": "can/5e/can5C27.js",
+    "tags": [],
+    "uuid": "2745a",
+    "id": "can5C27",
+    "titre": "Trouver un  entier relatif (addition à trou)",
+    "datePublication": "19/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can5C28": {
+    "url": "can/5e/can5C28.js",
+    "tags": [],
+    "uuid": "f9b48",
+    "id": "can5C28",
+    "titre": "Trouver un  entier relatif (addition à trou, écriture simplifiée)",
+    "datePublication": "19/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
       }
     },
     "typeExercice": "alea"
@@ -20976,6 +21509,25 @@
     },
     "typeExercice": "alea"
   },
+  "can6C47": {
+    "url": "can/6e/can6C47.js",
+    "tags": [],
+    "uuid": "792c3",
+    "id": "can6C47",
+    "titre": "Additionner astucieusement",
+    "datePublication": "25/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": true,
+        "type": "AMCNum"
+      }
+    },
+    "typeExercice": "alea"
+  },
   "can6D01": {
     "url": "can/6e/can6D01.js",
     "tags": [],
@@ -21410,6 +21962,25 @@
       "amc": {
         "isActive": true,
         "type": "AMCNum"
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can6M13": {
+    "url": "can/6e/can6M13.js",
+    "tags": [],
+    "uuid": "59144",
+    "id": "can6M13",
+    "titre": "Manipuler les conversions",
+    "datePublication": "11/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
       }
     },
     "typeExercice": "alea"
