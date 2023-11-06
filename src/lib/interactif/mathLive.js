@@ -376,7 +376,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             }
             if (feedbackSaisie) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedbackSaisie}</span>`
             if (feedbackCorrection && writeResult) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedbackCorrection}</span>`
-            return resultat
+            return { isOk: resultat, feedback: '', score: { nbBonnesReponses: resultat === 'OK' ? 1 : 0, nbReponses: 1 } }
           }
         }
       } catch (error) {
