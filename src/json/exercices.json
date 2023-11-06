@@ -2478,7 +2478,7 @@
     "titre": "Lire graphiquement l'image d'un nombre par une fonction",
     "tags": {
       "interactif": true,
-      "interactifType": "custom",
+      "interactifType": "mathLive",
       "amc": false
     },
     "datePublication": "29/10/2023"
