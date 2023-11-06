@@ -34,6 +34,13 @@
           "presentation": "Calculs avec des nombres relatifs en temps limité.",
           "imgPath": "images/apps/app_challenge_relatifs.png",
           "uuid": "challengeRelatif"
+        },
+        {
+          "title": "Parcours tables",
+          "typeExercice" : "tierce",
+          "presentation": "Parcours personnalisé sur les tables de multiplications qui s'adapte aux erreurs pour reproposer les tables où l'élève fait des erreurs.",
+          "imgPath": "images/apps/app_challenge_tables.png",
+          "uuid": "parcoursTables"
         }
     ]
     }
