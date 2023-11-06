@@ -9,7 +9,6 @@ import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
-import { tableauColonneLigne } from '../../../lib/format/miseEnPage.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
@@ -23,6 +22,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
 
 export const titre = 'CAN 5e sujet 2022'
 export const interactifReady = true

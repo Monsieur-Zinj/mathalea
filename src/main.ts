@@ -12,11 +12,8 @@ if (typeof (BigInt) === 'undefined') {
   window.BigInt = bigInt
 }
 
-const a = BigInt(0)
-// console.log(a)
-
 const app = new App({
-  target: document.getElementById('appMathalea')
+  target: document.getElementById('appMathalea') as HTMLElement
 })
 
 export default app
@@ -33,14 +30,13 @@ if (document.location.hostname === 'coopmaths.fr') {
 }
 
 // @todo regarder pourquoi window.Bugsnag n'est pas défini et donc les signalements sont balancés dans la console alors qu'on est en ligne !
-// @ts-ignore
-window.notify = function notify (error, metadatas) {
+export function notify (error: string|Error, metadatas: object) {
   if (typeof error === 'string') {
     // @ts-ignore
     if (error.includes(tropDeChiffres) && !window.Bugsnag) {
       console.error(error + '\nIl y a un risque d\'erreur d\'approximation (la limite est de 15 chiffres significatifs)\nnb : ' + metadatas.nb + '\nprecision (= nombre de décimales demandé) : ' + metadatas.precision)
     }
-    error = Error(error)
+    error = Error(error).message
   }
   // @ts-ignore
   if (window.Bugsnag) {
@@ -51,3 +47,5 @@ window.notify = function notify (error, metadatas) {
     if (metadatas) console.info('avec les metadatas', metadatas)
   }
 }
+// @ts-ignore
+window.notify = notify

@@ -1,10 +1,10 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Déterminer un angle dans un triangle et sa nature'
 export const dateDePublication = '11/01/2023'

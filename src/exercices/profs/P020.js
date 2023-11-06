@@ -1,7 +1,7 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
-import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import Exercice from '../Exercice.js'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 export const titre = 'Encodeur de texte'
 export const ref = 'P020'
 export const uuid = 'de353'

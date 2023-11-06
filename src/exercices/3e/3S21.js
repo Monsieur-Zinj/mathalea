@@ -1,5 +1,4 @@
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
-import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
@@ -11,6 +10,7 @@ import { Arbre } from '../../modules/arbres.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '15/01/2022'

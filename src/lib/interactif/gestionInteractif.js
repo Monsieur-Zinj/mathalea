@@ -30,11 +30,8 @@ function verifExerciceMathLive (exercice /** Exercice */, divScore /** HTMLDivEl
   let resultat
   for (const i in exercice.autoCorrection) {
     resultat = verifQuestionMathLive(exercice, i)
-    if (resultat === 'OK') {
-      nbBonnesReponses++
-    } else {
-      nbMauvaisesReponses++ // Il reste à gérer le 2e essai
-    }
+    nbBonnesReponses += resultat.score.nbBonnesReponses
+    nbMauvaisesReponses += resultat.score.nbReponses - resultat.score.nbBonnesReponses // Il reste à gérer le 2e essai
   }
   if (!besoinDe2eEssai) {
     return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, divButton)
@@ -233,26 +230,36 @@ export function setReponse (exercice, i, valeurs, {
   let reponses = []
   const url = new URL(window.location.href)
   if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${i + 1} : `, valeurs)
-
-  if (Array.isArray(valeurs)) {
-    reponses = valeurs // reponses contient donc directement le tableau valeurs
-    // si valeur est un tableau ou prend le signe de la première valeur
-    if (valeurs[0].num === undefined) {
-      signe = valeurs[0] < 0 ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
-    } else {
-      signe = valeurs[0].signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
-    }
+  if (formatInteractif === 'tableauMathlive') {
+    reponses = valeurs
   } else {
-    reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
-    if (valeurs.num === undefined) {
-      signe = valeurs < 0 ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
+    if (Array.isArray(valeurs)) {
+      reponses = [...valeurs] // reponses contient donc directement le tableau valeurs
+      // si valeur est un tableau ou prend le signe de la première valeur
+      if (valeurs[0].num === undefined) {
+        signe = valeurs[0] < 0 ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
+      } else {
+        signe = valeurs[0].signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+      }
     } else {
-      signe = valeurs.signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+      reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
+      if (valeurs.num === undefined) {
+        signe = valeurs < 0 ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
+      } else {
+        signe = valeurs.signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+      }
     }
   }
+
   let laReponseDemandee
 
   switch (formatInteractif) {
+    case 'tableauMathlive':
+      console.log(reponses)
+      //   if (reponses.filter((cellule) => Object.keys(cellule)[0].match(/L\dC\d/).length === 0).length !== 0) {
+      //    window.notify('setReponse : type "tableauMathlive" les objets proposés n\'ont pas tous une clé de la forme L$C$', { reponses })
+      //  }
+      break
     case 'Num':
       if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "Num" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })

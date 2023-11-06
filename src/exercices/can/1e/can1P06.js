@@ -1,5 +1,4 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { tableauColonneLigne } from '../../../lib/format/miseEnPage.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
@@ -9,6 +8,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
 
 export const titre = 'Déterminer une probabilté dans un tableau de probabilités'
 export const dateDePublication = '06/07/2022'

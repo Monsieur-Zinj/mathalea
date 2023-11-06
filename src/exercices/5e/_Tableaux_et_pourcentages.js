@@ -1,11 +1,11 @@
 import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { texPrix } from '../../lib/format/style.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 // une fonction pour les textes de correction
 /**
