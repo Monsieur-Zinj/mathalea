@@ -1,0 +1,57 @@
+{
+  "Triangle": {
+    "geoTriangle1": {
+      "url": "geodyn/geoTriangle1.ts",
+      "tags": [],
+      "uuid": "e514f",
+      "id": "geoTriangle1",
+      "titre": "Tracer un triangle à partir de longueurs des 3 côtés",
+      "features": {
+        "interactif": {
+          "isActive": true,
+          "type": "'mathLive'"
+        },
+        "amc": {
+          "isActive": false
+        }
+      },
+      "typeExercice": "alea"
+    }
+  },
+  "Rectangle": {
+    "geoRectangle1": {
+      "url": "geodyn/geoRectangle1.ts",
+      "tags": [],
+      "uuid": "95526",
+      "id": "geoRectangle1",
+      "titre": "Tracer un rectangle",
+      "features": {
+        "interactif": {
+          "isActive": true,
+          "type": "'mathLive'"
+        },
+        "amc": {
+          "isActive": false
+        }
+      },
+      "typeExercice": "alea"
+    },
+    "geoRectangle2": {
+      "url": "geodyn/geoRectangle2.ts",
+      "tags": [],
+      "uuid": "1d6ca",
+      "id": "geoRectangle2",
+      "titre": "Tracer un rectangle de dimensions données",
+      "features": {
+        "interactif": {
+          "isActive": true,
+          "type": "'mathLive'"
+        },
+        "amc": {
+          "isActive": false
+        }
+      },
+      "typeExercice": "alea"
+    }
+  }
+}

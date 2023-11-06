@@ -3,6 +3,7 @@
   "aleatoires" : "true",
   "statiques" : "false",
   "ressources" : "true",
+  "geometrieDynamique": "true",
   "bibliotheque" : "true",
   "apps" : "true",
   "examens": "true"

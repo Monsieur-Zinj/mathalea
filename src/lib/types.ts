@@ -101,6 +101,7 @@ export type ReferentielNames =
   | 'bibliotheque'
   | 'apps'
   | 'examens'
+  | 'geometrieDynamique'
 export type ReferentielForList = {
   name: ReferentielNames
   title: string

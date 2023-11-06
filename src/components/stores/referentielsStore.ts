@@ -4,6 +4,7 @@ import referentielExams from '../../json/referentielStatic.json'
 import referentielProfs from '../../json/referentielProfs.json'
 import referentielRessources from '../../json/referentielRessources.json'
 import referentielBibliotheque from '../../json/referentielBibliotheque.json'
+import referentielGeometrieDynamique from '../../json/referentielGeometrieDynamique.json'
 import type {
   JSONReferentielObject,
   ReferentielInMenu,
@@ -24,6 +25,7 @@ const examsReferentiel: JSONReferentielObject = { ...referentielExams }
 const referentielOutils: JSONReferentielObject = { ...referentielProfs }
 const referentielHtml: JSONReferentielObject = { ...referentielRessources }
 const biblioReferentiel: JSONReferentielObject = { ...referentielBibliotheque }
+const baseGeometrieDynamiqueReferentiel: JSONReferentielObject = { ...referentielGeometrieDynamique }
 // on ajoute les nouveautés
 const newExercises: ResourceAndItsPath[] = getRecentExercices(baseReferentiel)
 const newExercisesReferentiel: JSONReferentielObject = {}
@@ -43,6 +45,8 @@ const orderedExamsReferentiel = buildReferentiel(examens)
 let exercices = getAllEndings(baseAndNewsReferentiel)
 exercices = [...sortArrayOfResourcesBasedOnProp(exercices, 'id')]
 const aleaReferentiel = buildReferentiel(exercices)
+const exercicesGeometrieDynamique = getAllEndings(baseGeometrieDynamiqueReferentiel)
+const geometrieDynamiqueReferentiel = buildReferentiel(exercicesGeometrieDynamique)
 // référentiel original
 export const originalReferentiels: ReferentielInMenu[] = [
   {
@@ -56,6 +60,12 @@ export const originalReferentiels: ReferentielInMenu[] = [
     name: 'examens',
     searchable: true,
     referentiel: orderedExamsReferentiel
+  },
+  {
+    title: 'Géométrie dynamique',
+    name: 'geometrieDynamique',
+    searchable: false,
+    referentiel: geometrieDynamiqueReferentiel
   },
   {
     title: 'Outils',
