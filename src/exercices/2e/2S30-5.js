@@ -1,5 +1,4 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
-import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -10,6 +9,7 @@ import { Arbre, texProba } from '../../modules/arbres.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '28/12/2021'

@@ -3,7 +3,6 @@ import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/ou
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { warnMessage } from '../../lib/format/message.js'
-import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -12,6 +11,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Résoudre une équation résolvante pour le théorème de Thalès'
 

@@ -1,8 +1,10 @@
 import { fixeBordures } from '../../modules/2dGeneralites.js'
-import { milieu, point } from './points.js'
+import { milieu, point, Point } from './points.js'
 import { polygone, polyline } from './polygones.js'
 import { segment } from './segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPosition } from './textes.js'
+import { context } from '../../modules/context.js'
+import { stringNombre, texNombre } from '../outils/texNombre.js'
 
 /**
  * fonction utilisée par la classe Tableau pour créer une flèche
@@ -10,13 +12,18 @@ import { latexParCoordonnees, texteParPosition } from './textes.js'
  * Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur
  * @param {Point} D
  * @param {Point} A
- * @param {object} {texte: string, gras: boolean = false, math:boolean= true, latex: boolean=false, color:string='black'}
+ * @param {object} texte {texte: string, gras: boolean = false, math:boolean= true, latex: boolean=false, color:string='black'}
+ * @param {string} [texte.texte]
+ * @param {boolean?} [texte.gras]
+ * @param {boolean?} [texte.math]
+ * @param {boolean?} [texte.latex]
+ * @param {string?} [texte.color]
  * @param {number} h
  * @returns {array} (Polyline|Segment|TexteParPoint)[]
  * @author Rémi Angot
  */
 function flecheH (D, A, texte, h = 1) {
-  const D1 = point(D.x, D.y + h)
+  const D1 = new Point(D.x, D.y + h)
   const A1 = point(A.x, A.y + h)
   const fleche = polyline(D, D1, A1)
   const eFleche = segment(A1, A)
@@ -43,8 +50,14 @@ function flecheH (D, A, texte, h = 1) {
  * Pour l'objet texte : si texte.latex est true, alors les autres paramètres sont ignorés et tout le formatage doit être contenu dans texte
  * Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur* @param {Point} D
  * @param {Point} A
- * @param {object} {texte: string, gras: boolean, math: boolean, color: string, latex: boolean}
+ * @param {Point} D
+ * @param {object} texte {texte: string, gras: boolean = false, math:boolean= true, latex: boolean=false, color:string='black'}
+ * @param {string} [texte.texte]
+ * @param {boolean} [texte.gras]
+ * @param {boolean} [texte.math]
+ * @param {boolean} [texte.latex]
  * @param {number} h
+ * @param {string} [texte.color]* @param {number} h
  * @param {boolean} flip Pour pouvoir faire des flèches à gauche et pas à droite
  * @returns {array} (Polyline|Segment|TexteParPoint)[]
  * @author Rémi Angot
@@ -73,35 +86,36 @@ function flecheV (D, A, texte, h = 1, flip = false) {
   return objets
 }
 
-/**
- * Réalise un tableau typique des exercices de proportionnalité avec d'éventuelles flèches
- * @param { number } largeurTitre
- * @param { number } largeur
- * @param { number } hauteur
- * @param { number } nbColonnes
- * @param { Point } origine
- * Pour les objets de ligne1 et ligne2 (appelés texte ci-après): si texte.latex est true, alors les autres paramètres sont ignorés et tout le formatage doit être contenu dans texte
- * Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur
- * @param { object[] } ligne1 contient des objets avec {texte: string, gras: boolean= false; color: string = 'black', latex: boolean}
- * @param { object[] } ligne2 contient des objets avec {texte: string, gras: boolean= false; color: string = 'black', latex: boolean}
- * @param { [number, number, string] } flecheHaut
- * @param { [number, number, string] } flecheBas
- * @param { string | boolean } flecheDroite
- * @param { string } flecheDroiteSens
- * @param { string | boolean } flecheGauche
- * @param { string } flecheGaucheSens
- * @constructor
- * @author Rémi Angot
- */
 export class Tableau {
+  /**
+   * Réalise un tableau typique des exercices de proportionnalité avec d'éventuelles flèches
+   * @param  {object} tab
+   * @param { number } [tab.largeurTitre]
+   * @param { number? } [tab.largeur]
+   * @param { number? } [tab.hauteur]
+   * @param { number? } [tab.nbColonnes]
+   * @param { Point? } [tab.origine]
+   * Pour les objets de ligne1 et ligne2 (appelés texte ci-après): si texte.latex est true, alors les autres paramètres sont ignorés et tout le formatage doit être contenu dans texte
+   * Si texte.latex est false, alors c'est texteParPosition qui est utilisé avec possibilité de mise en gras, en caractères spéciaux, en couleur
+   * @param { {texte: string, latex?: boolean, gras?: boolean, color?: string}[] } tab.ligne1 contient des objets avec {texte: string, gras: boolean= false; color: string = 'black', latex: boolean}
+   * @param { {texte: string, latex?: boolean, gras?: boolean, color?: string}[] } tab.ligne2 contient des objets avec {texte: string, gras: boolean= false; color: string = 'black', latex: boolean}
+   * @param { [number, number, string][]? } [tab.flecheHaut]
+   * @param { [number, number, string][]? } [tab.flecheBas]
+   * @param { string | boolean? } [tab.flecheDroite]
+   * @param { string? } [tab.flecheDroiteSens]
+   * @param { string | boolean? } [tab.flecheGauche]
+   * @param { string? } [tab.flecheGaucheSens]
+   * @constructor
+   * @author Rémi Angot
+   */
   constructor ({
     largeurTitre = 7,
     largeur = 3,
     hauteur = 2,
     nbColonnes = 3,
     origine = point(0, 0),
-    ligne1 = [], // des strings contenant du latex sans les $ $
-    ligne2 = [], // des strings contenant du latex sans les $ $
+    ligne1, // des strings contenant du latex sans les $ $
+    ligne2, // des strings contenant du latex sans les $ $
     flecheHaut = [], // [[1, 2, '\\times 6,4', 3], [2, 3, '\\div 6']]
     flecheBas = [],
     flecheDroite = false, // à remplacer par un string
@@ -111,7 +125,7 @@ export class Tableau {
   }) {
     // ObjetMathalea2D.call(this, {}) rectification due aux latexParCoordonnees() qui ne sont plus des ObjetsMathalea2d comme les autres
     // Jean-Claude Lhote 15/08/2023
-    if (ligne1 && ligne2) {
+    if (ligne1 && ligne2 && Array.isArray(ligne1) && Array.isArray(ligne2)) {
       nbColonnes = Math.max(ligne1.length, ligne2.length, nbColonnes)
     }
     const A = origine
@@ -255,4 +269,131 @@ export class Tableau {
 }
 export function tableau (...args) {
   return new Tableau(...args)
+}
+
+/**
+ * Crée un tableau avec un nombre de lignes et de colonnes déterminées
+ * par la longueur des tableaux des entetes passés en paramètre
+ * Les contenus sont en mode maths par défaut, il faut donc penser à remplir les tableaux
+ * en utilisant éventuellement la commande \\text{}
+ *
+ * @example
+ * tableauColonneLigne(['coin','A','B'],['1','2'],['A1','B1','A2','B2']) affiche le tableau ci-dessous
+ * ------------------
+ * | coin | A  | B  |
+ * ------------------
+ * |  1   | A1 | B1 |
+ * ------------------
+ * |  2   | A2 | B2 |
+ * ------------------
+ *
+ * @example
+ * tableauColonneLigne(['coin','A','B','C'],['1','2'],['A1','B1','C1','A2','B2','C2']) affiche le tableau ci-dessous
+ * -----------------------
+ * | coin | A  | B  | C  |
+ * -----------------------
+ * |  1   | A1 | B1 | C1 |
+ * -----------------------
+ * |  2   | A2 | B2 | C2 |
+ * -----------------------
+ *
+ * @example
+ * tableauColonneLigne(['coin','A','B'],['1','2','3'],['A1','B1','A2','B2','A3','B3']) affiche le tableau ci-dessous
+ * ------------------
+ * | coin | A  | B  |
+ * ------------------
+ * |  1   | A1 | B1 |
+ * ------------------
+ * |  2   | A2 | B2 |
+ * ------------------
+ * |  3   | A3 | B3 |
+ * ------------------
+ *
+ * @example
+ * tableauColonneLigne(['coin','A','B','C'],['1','2','3'],['A1','B1','C1','A2','B2','C2','A3','B3','C3']) affiche le tableau ci-dessous
+ * -----------------------
+ * | coin | A  | B  | C  |
+ * -----------------------
+ * |  1   | A1 | B1 | C1 |
+ * -----------------------
+ * |  2   | A2 | B2 | C2 |
+ * -----------------------
+ * |  3   | A3 | B3 | C3 |
+ * -----------------------
+ *
+ * @param {array} tabEntetesColonnes contient les entetes des colonnes
+ * @param {array} tabEntetesLignes contient les entetes des lignes
+ * @param {array} tabLignes contient les elements de chaque ligne
+ * @param {boolean} arraystretch
+ * @param {boolean} math
+ * @return {string}
+ * @author Sébastien Lozano
+ *
+ */
+export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch, math = true) {
+  // on définit le nombre de colonnes
+  const C = tabEntetesColonnes.length
+  // on définit le nombre de lignes
+  const L = tabEntetesLignes.length
+  // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
+  let tableauCL = ''
+  if (!arraystretch) {
+    if (context.isHtml) {
+      arraystretch = 2.5
+    } else {
+      arraystretch = 1
+    }
+  }
+  if (context.isHtml) {
+    tableauCL += `$\\def\\arraystretch{${arraystretch}}\\begin{array}{|`
+  } else {
+    tableauCL += `$\\renewcommand{\\arraystretch}{${arraystretch}}\n`
+    tableauCL += '\\begin{array}{|'
+  }
+  // on construit la 1ere ligne avec toutes les colonnes
+  for (let k = 0; k < C; k++) {
+    tableauCL += 'c|'
+  }
+  tableauCL += '}\n'
+
+  tableauCL += '\\hline\n'
+  if (typeof tabEntetesColonnes[0] === 'number') {
+    tableauCL += math ? texNombre(tabEntetesColonnes[0]) + '' : `\\text{${stringNombre(tabEntetesColonnes[0])}} `
+  } else {
+    tableauCL += math ? tabEntetesColonnes[0] : `\\text{${tabEntetesColonnes[0]}}`
+  }
+  for (let k = 1; k < C; k++) {
+    if (typeof tabEntetesColonnes[k] === 'number') {
+      tableauCL += ` & ${math ? texNombre(tabEntetesColonnes[k]) : '\\text{' + stringNombre(tabEntetesColonnes[k]) + '}'}`
+    } else {
+      tableauCL += ` & ${math ? tabEntetesColonnes[k] : '\\text{' + tabEntetesColonnes[k] + '}'}`
+    }
+  }
+  tableauCL += '\\\\\n'
+  tableauCL += '\\hline\n'
+  // on construit toutes les lignes
+  for (let k = 0; k < L; k++) {
+    if (typeof tabEntetesLignes[k] === 'number') {
+      tableauCL += math ? texNombre(tabEntetesLignes[k]) : `\\text{${stringNombre(tabEntetesLignes[k]) + ''}}`
+    } else {
+      tableauCL += math ? tabEntetesLignes[k] : `\\text{${tabEntetesLignes[k] + ''}}`
+    }
+    for (let m = 1; m < C; m++) {
+      if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
+        tableauCL += ` & ${math ? texNombre(tabLignes[(C - 1) * k + m - 1]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m - 1]) + '}'}`
+      } else {
+        tableauCL += ` & ${math ? tabLignes[(C - 1) * k + m - 1] : '\\text{' + tabLignes[(C - 1) * k + m - 1] + '}'}`
+      }
+    }
+    tableauCL += '\\\\\n'
+    tableauCL += '\\hline\n'
+  }
+  tableauCL += '\\end{array}\n'
+  if (context.isHtml) {
+    tableauCL += '$'
+  } else {
+    tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
+  }
+
+  return tableauCL
 }

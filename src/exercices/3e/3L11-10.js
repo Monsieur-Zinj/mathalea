@@ -1,9 +1,9 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { egal, randint, printlatex, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'
 
@@ -96,33 +96,33 @@ export default function TableDoubleDistributivite () {
           break
       }
       texte += context.isHtml ? '<br>' : '\\par\\medskip'
-      if (typesDeQuestions===1) {
-        texte += tableauColonneLigne(['\\times', `x`, `${b}`], [`x`, `${d}`], [`\\phantom{${termesRectangles[0]}x}`, `\\phantom{${termesRectangles[1]}}`, `\\phantom{${termesRectangles[2]}x}`, `\\phantom{${termesRectangles[3]}}`])
-      } 
-      if (typesDeQuestions===2) {
+      if (typesDeQuestions === 1) {
+        texte += tableauColonneLigne(['\\times', 'x', `${b}`], ['x', `${d}`], [`\\phantom{${termesRectangles[0]}x}`, `\\phantom{${termesRectangles[1]}}`, `\\phantom{${termesRectangles[2]}x}`, `\\phantom{${termesRectangles[3]}}`])
+      }
+      if (typesDeQuestions === 2) {
         texte += tableauColonneLigne(['\\times', `${a}x`, `${b}`], [`${c}x`, `${d}`], [`\\phantom{${termesRectangles[0]}x}`, `\\phantom{${termesRectangles[1]}}`, `\\phantom{${termesRectangles[2]}x}`, `\\phantom{${termesRectangles[3]}}`])
       }
-      if (typesDeQuestions===3) {
+      if (typesDeQuestions === 3) {
         texte += tableauColonneLigne(['\\times', `${a}x`, `${-b}`], [`${c}x`, `${d}`], [`\\phantom{${termesRectangles[0]}x}`, `\\phantom{${termesRectangles[1]}}`, `\\phantom{${termesRectangles[2]}x}`, `\\phantom{${termesRectangles[3]}}`])
       }
-      if (typesDeQuestions===4) {
+      if (typesDeQuestions === 4) {
         texte += tableauColonneLigne(['\\times', `${a}x`, `${-b}`], [`${c}x`, `${-d}`], [`\\phantom{${termesRectangles[0]}x}`, `\\phantom{${termesRectangles[1]}}`, `\\phantom{${termesRectangles[2]}x}`, `\\phantom{${termesRectangles[3]}}`])
-      }      
+      }
       texte += context.isHtml ? '<br> Développement : ' : '\\par\\medskip Développement : '
       texte += context.isHtml ? '<br> Développement réduit : ' : '\\par\\medskip Développement réduit: '
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip'
-      if (typesDeQuestions===1) {
-        texteCorr += tableauColonneLigne(['\\times', `x`, `${b}`], [`x`, `${d}`], [`${termesRectangles[0] === 1 ? '' : termesRectangles[0]}x^2`, `${termesRectangles[2]}x`, `${termesRectangles[1]}x`, `${termesRectangles[3]}`])
+      if (typesDeQuestions === 1) {
+        texteCorr += tableauColonneLigne(['\\times', 'x', `${b}`], ['x', `${d}`], [`${termesRectangles[0] === 1 ? '' : termesRectangles[0]}x^2`, `${termesRectangles[2]}x`, `${termesRectangles[1]}x`, `${termesRectangles[3]}`])
       }
-      if (typesDeQuestions===2) {
+      if (typesDeQuestions === 2) {
         texteCorr += tableauColonneLigne(['\\times', `${a}x`, `${b}`], [`${c}x`, `${d}`], [`${termesRectangles[0] === 1 ? '' : termesRectangles[0]}x^2`, `${termesRectangles[2]}x`, `${termesRectangles[1]}x`, `${termesRectangles[3]}`])
-      }      
-      if (typesDeQuestions===3) {
+      }
+      if (typesDeQuestions === 3) {
         texteCorr += tableauColonneLigne(['\\times', `${a}x`, `${-b}`], [`${c}x`, `${d}`], [`${termesRectangles[0] === 1 ? '' : termesRectangles[0]}x^2`, `${termesRectangles[2]}x`, `${termesRectangles[1]}x`, `${termesRectangles[3]}`])
-      }      
-      if (typesDeQuestions===4) {
+      }
+      if (typesDeQuestions === 4) {
         texteCorr += tableauColonneLigne(['\\times', `${a}x`, `${-b}`], [`${c}x`, `${-d}`], [`${termesRectangles[0] === 1 ? '' : termesRectangles[0]}x^2`, `${termesRectangles[2]}x`, `${termesRectangles[1]}x`, `${termesRectangles[3]}`])
-      }      
+      }
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '
       texteCorr += `Développement : $${lettreDepuisChiffre(i + 1)} = ${developpements.eclate}$`
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '

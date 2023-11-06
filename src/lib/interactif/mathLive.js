@@ -30,123 +30,156 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         expoReponse
       let reponses
       let champTexte
-      if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
-        reponses = [exercice.autoCorrection[i].reponse.valeur]
+      if (formatInteractif !== 'tableauMathlive') {
+        if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
+          reponses = [exercice.autoCorrection[i].reponse.valeur]
+        } else {
+          reponses = [...exercice.autoCorrection[i].reponse.valeur]
+        }
       } else {
         reponses = exercice.autoCorrection[i].reponse.valeur
       }
       try {
-        // Ici on va s'occuper de ce champTexte qui pose tant de problèmes
-        champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
-        if (champTexte != null) {
-          if (champTexte.value.length > 0 && typeof exercice.answers === 'object') {
-            exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
+        // Je traîte le cas des tableaux à part : une question pour de multiples inputs mathlive !
+        // on pourra faire d'autres formats interactifs sur le même modèle
+        if (formatInteractif === 'tableauMathlive') {
+          let resultat
+          let nbBonnesReponses = 0
+          const nbReponses = Object.entries(reponses).length
+          const table = document.querySelector(`table#tabMathliveEx${exercice.numeroExercice}Q${i}`)
+          if (table == null) {
+            window.notify('verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom', { selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` })
+            return { isOk: 'KO', feedback: 'Un problème avec cette configuration', score: { nbBonnesReponses: 0, nbReponses: 1 } }
           }
-          let resultat = 'KO'
-          let feedbackSaisie
-          let feedbackCorrection
-          let ii = 0
-          while ((resultat !== 'OK') && (ii < reponses.length)) {
-            reponse = reponses[ii]
-            switch (formatInteractif) {
-              case 'Num':
-                num = parseInt(champTexte.value.replace(',', '.'))
-                if (isNaN(num) || num === undefined) num = 9999
-                den = reponse.den
-                fSaisie = new FractionEtendue(num, den)
-                if (fSaisie.isEqual(reponse)) {
-                  resultat = 'OK'
-                }
-                break
-              case 'Den':
-                den = parseInt(champTexte.value.replace(',', '.'))
-                if (isNaN(den) || den === undefined) den = 9999
-                num = reponse.num
-                fSaisie = new FractionEtendue(num, den)
-                if (fSaisie.isEqual(reponse)) {
-                  resultat = 'OK'
-                }
-                break
-              case 'calcul':
-                // Le format par défaut
-                saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
-                // La réponse est transformée en chaine compatible avec engine.parse()
-                reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
-                saisie = saisie.replaceAll('²', '^2')
-                saisie = saisie.replaceAll('^{}', '')
-                saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-                saisie = saisie.replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-                if (!isNaN(reponse)) {
-                  if (saisie !== '' && Number(saisie) === Number(reponse)) {
+          const cellules = Object.entries(reponses)
+          for (let k = 0; k < cellules.length; k++) {
+            const [key, value] = cellules[k]
+            const inputs = Array.from(table.querySelectorAll('math-field'))
+            const input = inputs.find((el) => el.id === key)
+            const saisieParsed = engine.parse(String(input.value.replace(',', '.')))
+            const reponseParsed = engine.parse(String(value))
+            const divDuSmiley = table.querySelector(`div#divDuSmiley${key}`)
+            if (saisieParsed.isEqual(reponseParsed)) {
+              divDuSmiley.innerHTML = '😎'
+              nbBonnesReponses++
+            } else {
+              divDuSmiley.innerHTML = '☹️'
+            }
+            if (input.value.length > 0 && typeof exercice.answers === 'object') {
+              exercice.answers[`Ex${exercice.numeroExercice}Q${i}Cellule${key}`] = input.value
+            }
+          }
+          return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }
+        } else { // ici, il n'y a qu'un seul input une seule réponse
+          // Ici on va s'occuper de ce champTexte qui pose tant de problèmes
+          champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
+          if (champTexte != null) {
+            if (champTexte.value.length > 0 && typeof exercice.answers === 'object') {
+              exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
+            }
+            let resultat = 'KO'
+            let feedbackSaisie
+            let feedbackCorrection
+            let ii = 0
+            while ((resultat !== 'OK') && (ii < reponses.length)) {
+              reponse = reponses[ii]
+              switch (formatInteractif) {
+                case 'Num':
+                  num = parseInt(champTexte.value.replace(',', '.'))
+                  if (isNaN(num) || num === undefined) num = 9999
+                  den = reponse.den
+                  fSaisie = new FractionEtendue(num, den)
+                  if (fSaisie.isEqual(reponse)) {
                     resultat = 'OK'
                   }
-                } else {
-                  if (engine.parse(reponse).isSame(engine.parse(saisie))) { // engine.parse() retourne du canonical par défaut.
+                  break
+                case 'Den':
+                  den = parseInt(champTexte.value.replace(',', '.'))
+                  if (isNaN(den) || den === undefined) den = 9999
+                  num = reponse.num
+                  fSaisie = new FractionEtendue(num, den)
+                  if (fSaisie.isEqual(reponse)) {
                     resultat = 'OK'
                   }
-                }
-                break
-              case 'hms':
-                saisie = Hms.fromString(champTexte.value)
-                if (saisie.isTheSame(reponse)) {
-                  resultat = 'OK'
-                }
-                break
-              case 'formeDeveloppee':
-                saisie = champTexte.value.replaceAll(',', '.').replaceAll('^{}', '').replaceAll('²', '^2')
-                reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
-                saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-                if (!saisie.includes('times') && engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
-                  resultat = 'OK'
-                }
-                break
-              case 'formeDeveloppeeParEE':
-
-                saisie = champTexte.value.replaceAll(',', '.').replaceAll('^{}', '').replaceAll('²', '^2')
-                reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
-                saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-
-                /* const regleSuppressionInvisibleOperator = engine.rules([
-                    [
-                      ['Add', '_x', '_x'],
-                      ['Multiply', '_x', '_x']
-                    ]
-                  ]) */
-                if (engine.box(['CanonicalOrder', engine.parse(saisie)]).isSame(engine.box(['CanonicalOrder', engine.parse(reponse)]))) {
-                  resultat = 'OK'
-                }
-
-                break
-              case 'nombreDecimal':
-                saisie = champTexte.value.replace(',', '.')
-                // La réponse est ici arrondie en fonction de reponse.param.decimals
-                reponse = Number(reponse.toString().replaceAll(',', '.')).toFixed(exercice.autoCorrection[i].reponse.param.decimals)
-                saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-                if (engine.parse(reponse).isSame(engine.parse(saisie))) {
-                  resultat = 'OK'
-                }
-                break
-              case 'ecritureScientifique': // Le résultat, pour être considéré correct, devra être saisi en notation scientifique
-                saisie = champTexte.value.replace(',', '.')
-                if (typeof reponse === 'string') {
-                  reponse = reponse.replace(',', '.').replace('{.}', '.')
-                }
-                if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
-                  saisie = saisie.split('\\times')
-                  if (number(saisie[0]) >= 1 && number(saisie[0]) < 10) {
+                  break
+                case 'calcul':
+                  // Le format par défaut
+                  saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
+                  // La réponse est transformée en chaine compatible avec engine.parse()
+                  reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
+                  saisie = saisie.replaceAll('²', '^2')
+                  saisie = saisie.replaceAll('^{}', '')
+                  saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+                  saisie = saisie.replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+                  if (!isNaN(reponse)) {
+                    if (saisie !== '' && Number(saisie) === Number(reponse)) {
+                      resultat = 'OK'
+                    }
+                  } else {
+                    if (engine.parse(reponse).isSame(engine.parse(saisie))) { // engine.parse() retourne du canonical par défaut.
+                      resultat = 'OK'
+                    }
+                  }
+                  break
+                case 'hms':
+                  saisie = Hms.fromString(champTexte.value)
+                  if (saisie.isTheSame(reponse)) {
                     resultat = 'OK'
                   }
-                }
-                break
-              case 'texte':
-                saisie = champTexte.value
-                // console.log({ saisie, reponse}) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
-                if (saisie === reponse) {
-                  resultat = 'OK'
-                } else if (saisie.replaceAll('\\,', '') === reponse.replaceAll('\\,', '')) {
-                  feedbackCorrection = 'Attention aux espaces !'
-                }
-                break
+                  break
+                case 'formeDeveloppee':
+                  saisie = champTexte.value.replaceAll(',', '.').replaceAll('^{}', '').replaceAll('²', '^2')
+                  reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
+                  saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+                  if (!saisie.includes('times') && engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
+                    resultat = 'OK'
+                  }
+                  break
+                  case 'formeDeveloppeeParEE':
+
+                      saisie = champTexte.value.replaceAll(',', '.').replaceAll('^{}', '').replaceAll('²', '^2')
+                      reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
+                      saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+
+                      /* const regleSuppressionInvisibleOperator = engine.rules([
+                          [
+                            ['Add', '_x', '_x'],
+                            ['Multiply', '_x', '_x']
+                          ]
+                        ]) */
+                      if (engine.box(['CanonicalOrder', engine.parse(saisie)]).isSame(engine.box(['CanonicalOrder', engine.parse(reponse)]))) {
+                          resultat = 'OK'
+                      }
+                case 'nombreDecimal':
+                  saisie = champTexte.value.replace(',', '.')
+                  // La réponse est ici arrondie en fonction de reponse.param.decimals
+                  reponse = Number(reponse.toString().replaceAll(',', '.')).toFixed(exercice.autoCorrection[i].reponse.param.decimals)
+                  saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+                  if (engine.parse(reponse).isSame(engine.parse(saisie))) {
+                    resultat = 'OK'
+                  }
+                  break
+                case 'ecritureScientifique': // Le résultat, pour être considéré correct, devra être saisi en notation scientifique
+                  saisie = champTexte.value.replace(',', '.')
+                  if (typeof reponse === 'string') {
+                    reponse = reponse.replace(',', '.').replace('{.}', '.')
+                  }
+                  if (engine.parse(reponse).canonical.isSame(engine.parse(saisie).canonical)) {
+                    saisie = saisie.split('\\times')
+                    if (number(saisie[0]) >= 1 && number(saisie[0]) < 10) {
+                      resultat = 'OK'
+                    }
+                  }
+                  break
+                case 'texte':
+                  saisie = champTexte.value
+                  // console.log({ saisie, reponse}) // EE : NE PAS SUPPRIMER CAR UTILE POUR LE DEBUGGAGE
+                  if (saisie === reponse) {
+                    resultat = 'OK'
+                  } else if (saisie.replaceAll('\\,', '') === reponse.replaceAll('\\,', '')) {
+                    feedbackCorrection = 'Attention aux espaces !'
+                  }
+                  break
 
               case 'ignorerCasse':
                 saisie = champTexte.value
