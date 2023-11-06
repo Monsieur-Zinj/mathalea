@@ -7,6 +7,7 @@
   import uuidsRessources from '../../json/uuidsRessources.json'
   import refProfs from '../../json/referentielProfs.json'
   import { toMap } from '../utils/toMap'
+  import { mathaleaGenerateSeed } from '../../lib/mathalea'
   // paramètres obligatoires
   export let title: string | undefined
   export let id: string
@@ -71,6 +72,15 @@
       ...l.slice(0, indiceExercice),
       ...l.slice(indiceExercice + 1)
     ])
+  }
+
+  function duplicate () {
+    console.log($exercicesParams)
+    exercicesParams.update((l) => {
+      const newExercice = { ...l[indiceExercice] }
+      newExercice.alea = mathaleaGenerateSeed()
+      return [...l.slice(0, indiceExercice + 1), newExercice, ...l.slice(indiceExercice + 1)]
+    })
   }
 </script>
 
@@ -213,6 +223,9 @@
             />
           </button>
         {/if}
+        <button class="mx-2 tooltip tooltip-left tooltip-neutral" data-tip="Dupliquer l'exercice" type="button" on:click={duplicate}>
+          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-duplicate" />
+        </button>
         {#if isDeletable}
           <button
             class="mx-2 tooltip tooltip-left tooltip-neutral"
