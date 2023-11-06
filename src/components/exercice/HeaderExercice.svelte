@@ -59,7 +59,6 @@
       newExercice.alea = mathaleaGenerateSeed()
       return [...l.slice(0, indiceExercice + 1), newExercice, ...l.slice(indiceExercice + 1)]
     })
-    console.log($exercicesParams)
   }
 </script>
 
