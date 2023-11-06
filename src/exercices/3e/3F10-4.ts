@@ -97,7 +97,7 @@ class LireImageParApiGeom extends Exercice {
       textY.dynamicText.maximumFractionDigits = 1
     }
 
-    let enonce = 'Par lecture graphique sur la courbe de la fonction $f$ tracée ci-dessus, complète le tableau de valeur ci-dessous :<br>'
+    let enonce = 'Par lecture graphique sur la courbe de la fonction $f$ tracée ci-dessus, compléter le tableau de valeur ci-dessous :<br>'
     for (let i = 0; i < this.nbImages; i++) {
       do {
         if (spline.x && spline.n) {
