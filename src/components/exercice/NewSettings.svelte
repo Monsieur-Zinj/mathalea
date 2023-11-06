@@ -164,21 +164,6 @@
         />
       </div>
     {/if}
-    <div>
-      <span
-        class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
-      >
-        Durée d'une question pour le diaporama :
-      </span>
-      <input
-        type="number"
-        id="settings-duree-{exercice.uuid}"
-        min="1"
-        bind:value={duration}
-        on:change={newSettings}
-        class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-      />
-    </div>
     {#if exercice.besoinFormulaireCaseACocher}
       <div class="container">
         <label
