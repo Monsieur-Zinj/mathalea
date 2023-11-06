@@ -20,7 +20,6 @@ export const ref = '5L12-1'
 export default function ReduireDinstinctionSommeProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 2
-  this.consigne = ''
   this.nbCols = 1
   this.nbColsCorr = 1
   let typesDeQuestionsDisponibles
@@ -31,7 +30,7 @@ export default function ReduireDinstinctionSommeProduit () {
     typesDeQuestionsDisponibles = [choice([0, 2]), choice([1, 3])]
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    // const listeTypeDeQuestions = combinaisonListesSansChangerOrdre([2], this.nbQuestions)
+    // const listeTypeDeQuestions = combinaisonListesSansChangerOrdre([0], this.nbQuestions)
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const variables = ['x', 'y', 'z', 't']
@@ -83,9 +82,9 @@ export default function ReduireDinstinctionSommeProduit () {
 
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Somme : ' : '<br>Produit : ' })
-        setReponse(this, 2 * i, listeTypeDeQuestions[i] > 1 ? reponseSomme[0] : reponseProduit[0], { formatInteractif: 'formeDeveloppeeParEE' })
+        setReponse(this, 2 * i, listeTypeDeQuestions[i] > 1 ? reponseSomme : reponseProduit, { formatInteractif: 'formeDeveloppeeParEE' })
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Produit : ' : '<br>Somme : ' })
-        setReponse(this, 2 * i + 1, listeTypeDeQuestions[i] > 1 ? reponseProduit[0] : reponseSomme[0], { formatInteractif: 'formeDeveloppeeParEE' })
+        setReponse(this, 2 * i + 1, listeTypeDeQuestions[i] > 1 ? reponseProduit : reponseSomme, { formatInteractif: 'formeDeveloppeeParEE' })
       }
       texteCorr = listeTypeDeQuestions[i] > 1 ? enonces[listeTypeDeQuestions[i]].correction_somme : enonces[listeTypeDeQuestions[i]].correction_produit
       texteCorr += listeTypeDeQuestions[i] > 1 ? correctionSommeFinale : correctionProduitFinal
