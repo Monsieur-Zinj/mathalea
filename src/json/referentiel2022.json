@@ -7051,7 +7051,8 @@
           "interactif": true,
           "amcType": "AMCHybride",
           "amc": true
-        }
+        },
+        "dateModification": "05/11/2023"
       },
       "6M30-0": {
         "url": "6e/6M30-0.js",
@@ -8705,9 +8706,11 @@
         "id": "5L12-1",
         "titre": "Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence",
         "tags": {
-          "interactif": false,
+          "interactif": true,
+          "interactifType": "mathLive",
           "amc": false
-        }
+        },
+        "dateModification": "04/11/2023"
       },
       "5L12-2": {
         "url": "5e/5L12-2.js",
@@ -8719,7 +8722,8 @@
           "interactifType": "mathLive",
           "amc": false
         },
-        "datePublication": "22/02/2022"
+        "datePublication": "22/02/2022",
+        "dateModification": "05/11/2023"
       },
       "5L13": {
         "url": "5e/5L13.js",
@@ -8856,7 +8860,8 @@
           "interactif": true,
           "amcType": "AMCHybride",
           "amc": true
-        }
+        },
+        "dateModification": "05/11/2023"
       }
     },
     "5N1": {
@@ -10441,7 +10446,8 @@
           "interactif": true,
           "amcType": "AMCHybride",
           "amc": true
-        }
+        },
+        "dateModification": "05/11/2023"
       }
     },
     "4I1": {
@@ -11647,13 +11653,15 @@
         "url": "3e/3G42.js",
         "uuid": "8c803",
         "id": "3G42",
-        "titre": "Volume d'une boule",
+        "titre": "Déterminer le volume d'une boule",
         "tags": {
           "interactif": true,
           "interactifType": "mathLive",
           "amcType": "AMCNum",
           "amc": true
-        }
+        },
+        "datePublication": "09/02/2021",
+        "dateModification": "05/11/2023"
       },
       "3G43": {
         "url": "3e/3G43.js",
@@ -11664,7 +11672,8 @@
           "interactif": true,
           "amcType": "AMCHybride",
           "amc": true
-        }
+        },
+        "dateModification": "05/11/2023"
       },
       "3G44": {
         "url": "3e/3G44.js",
@@ -12589,7 +12598,8 @@
           "interactif": true,
           "amcType": "AMCHybride",
           "amc": true
-        }
+        },
+        "dateModification": "05/11/2023"
       },
       "2G12-1": {
         "url": "2e/2G12-1.js",
