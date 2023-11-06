@@ -183,7 +183,7 @@
 <div class="flex flex-col justify-start items-center">
   <div class="relative flex flex-col w-full">
     <input
-      type="text"
+      type="search"
       id="searchInputField-{getUniqueStringBasedOnTimeStamp()}"
       class="w-full border border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
       placeholder="🔍 Thème, identifiant..."
@@ -191,6 +191,10 @@
       bind:this={searchField}
       on:focus={onFocusInput}
       on:blur={onBlurInput}
+      autocomplete="off"
+      autocorrect="off"
+      name=”notASearchField”
+
     />
     <!-- Invite pour presser Entrée lors d'un match input = ID d'exo -->
     <div
