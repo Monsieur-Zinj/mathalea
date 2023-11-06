@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 import { spawn } from 'child_process'
 // import refToUuid from '../src/json/refToUuid.json' assert { type: 'json' }
 import { readFileSync } from 'fs'
-const jsonString = readFileSync('src/json/refToUuid.json', { encoding: 'utf8' })
+const jsonString = readFileSync('../json/refToUuid.json', { encoding: 'utf8' })
 const refToUuid = JSON.parse(jsonString)
 
 // let serverProcess
@@ -19,7 +19,7 @@ const ids = Object.keys(refToUuid)
 function TestAllPages (ids) {
   for (const id of ids) {
     const uuid = refToUuid[id]
-    test(`Exercice avec correction et 10 actualisations ${id}`, async ( {page} ) => {
+    test(`Exercice avec correction et 10 actualisations ${id}`, async ({ page }) => {
       const messages: string[] = []
       await page.goto(`http://localhost:5173/alea/?uuid=${uuid}`)
       // Listen for all console events and handle errors
@@ -36,7 +36,7 @@ function TestAllPages (ids) {
       const buttonNewData = page.locator('i.bx-check-circle').first()
       await buttonNewData.click()
       // Paramètres
-        const  buttonParam = page.locator('i.bx-cog').first()
+      const buttonParam = page.locator('i.bx-cog').first()
       await buttonParam.click()
       // Actualier
       const buttonRefresh = page.locator('i.bx-refresh').nth(1)

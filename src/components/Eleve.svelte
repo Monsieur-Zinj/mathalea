@@ -8,10 +8,17 @@
     mathaleaUpdateExercicesParamsFromUrl,
     mathaleaUpdateUrlFromExercicesParams
   } from '../lib/mathalea'
-  import { exercicesParams, darkMode, globalOptions, resultsByExercice, isMenuNeededForExercises, isMenuNeededForQuestions } from './store'
+  import {
+    exercicesParams,
+    darkMode,
+    globalOptions,
+    resultsByExercice,
+    isMenuNeededForExercises,
+    isMenuNeededForQuestions
+  } from './stores/generalStore'
   import type TypeExercice from '../exercices/ExerciceTs.js'
   import Exercice from './exercice/Exercice.svelte'
-  import { onMount, tick } from 'svelte'
+  import { onDestroy, onMount, tick } from 'svelte'
   import seedrandom from 'seedrandom'
   import { loadMathLive } from '../modules/loaders'
   import Button from './forms/Button.svelte'
@@ -24,6 +31,7 @@
   import BtnZoom from './ui/btnZoom.svelte'
   import { getCanvasFont, getTextWidth, remToPixels } from './utils/measures'
   import Footer2 from './Footer2.svelte'
+  import FlipCard from './ui/FlipCard.svelte'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -64,15 +72,31 @@
     const navigationHeaderElt = document.getElementById('navigationHeaderID')
     const exerciseTitleElt = document.getElementById('exerciseTitleID0')
     // soit l'élément existe et on récupère sa vraie largeur, soit on calcule une valeur approchée
-    const roomForQuestionsTitles = navigationHeaderElt ? navigationHeaderElt.offsetWidth : ((dim - 2 * remToPixels(1)) * 11) / 12
-    const roomForOne = roomForQuestionsTitles / nbOfExercises - 2 * remToPixels(1.5)
-    if (roomForOne >= getTextWidth('Exercice 10', getCanvasFont(exerciseTitleElt ?? document.body))) {
+    const roomForQuestionsTitles = navigationHeaderElt
+      ? navigationHeaderElt.offsetWidth
+      : ((dim - 2 * remToPixels(1)) * 11) / 12
+    const roomForOne =
+      roomForQuestionsTitles / nbOfExercises - 2 * remToPixels(1.5)
+    if (
+      roomForOne >=
+      getTextWidth(
+        'Exercice 10',
+        getCanvasFont(exerciseTitleElt ?? document.body)
+      )
+    ) {
       $isMenuNeededForExercises = false
       return 'Exercice'
-    } else if (roomForOne >= getTextWidth('Ex 10', getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
+    } else if (
+      roomForOne >=
+      getTextWidth('Ex 10', getCanvasFont(exerciseTitleElt ?? document.body)) +
+        20
+    ) {
       $isMenuNeededForExercises = false
       return 'Ex'
-    } else if (roomForOne >= getTextWidth('10', getCanvasFont(exerciseTitleElt ?? document.body)) + 20) {
+    } else if (
+      roomForOne >=
+      getTextWidth('10', getCanvasFont(exerciseTitleElt ?? document.body)) + 20
+    ) {
       $isMenuNeededForExercises = false
       return ''
     } else {
@@ -94,15 +118,31 @@
     const navigationHeaderElt = document.getElementById('navigationHeaderID')
     const questionTitleElt = document.getElementById('questionTitleID0')
     // soit l'élément existe et on récupère sa vraie largeur, soit on calcule une valeur approchée
-    const roomForQuestionsTitles = navigationHeaderElt ? navigationHeaderElt.offsetWidth : ((dim - 2 * remToPixels(1)) * 11) / 12
-    const roomForOne = roomForQuestionsTitles / nbOfQuestions - 2 * remToPixels(0.5)
-    if (roomForOne >= getTextWidth('Question 10', getCanvasFont(questionTitleElt ?? document.body))) {
+    const roomForQuestionsTitles = navigationHeaderElt
+      ? navigationHeaderElt.offsetWidth
+      : ((dim - 2 * remToPixels(1)) * 11) / 12
+    const roomForOne =
+      roomForQuestionsTitles / nbOfQuestions - 2 * remToPixels(0.5)
+    if (
+      roomForOne >=
+      getTextWidth(
+        'Question 10',
+        getCanvasFont(questionTitleElt ?? document.body)
+      )
+    ) {
       $isMenuNeededForQuestions = false
       return 'Question'
-    } else if (roomForOne >= getTextWidth('Q 10', getCanvasFont(questionTitleElt ?? document.body)) + 20) {
+    } else if (
+      roomForOne >=
+      getTextWidth('Q 10', getCanvasFont(questionTitleElt ?? document.body)) +
+        20
+    ) {
       $isMenuNeededForQuestions = false
       return 'Q'
-    } else if (roomForOne >= getTextWidth('10', getCanvasFont(questionTitleElt ?? document.body)) + 20) {
+    } else if (
+      roomForOne >=
+      getTextWidth('10', getCanvasFont(questionTitleElt ?? document.body)) + 20
+    ) {
       $isMenuNeededForQuestions = false
       return ''
     } else {
@@ -111,7 +151,7 @@
     }
   }
   $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
-
+  let resizeObserver: ResizeObserver
   onMount(async () => {
     // Si presMode est undefined cela signifie que l'on charge cet url
     // sinon en venant du modal il existerait
@@ -132,7 +172,9 @@
       }
     }
     for (const paramsExercice of $exercicesParams) {
-      const exercice: TypeExercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+      const exercice: TypeExercice = await mathaleaLoadExerciceFromUuid(
+        paramsExercice.uuid
+      )
       if (typeof exercice === 'undefined') return
       mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
       if ($globalOptions.setInteractive === '1' && exercice?.interactifReady) {
@@ -148,17 +190,24 @@
     const resizeObserver = new ResizeObserver(x => {
       const url = new URL(window.location.href)
       const iframe = url.searchParams.get('iframe')
-      window.parent.postMessage({ hauteurExercice: x[0].contentRect.height, action: 'mathalea:resize', iframe }, '*')
+      window.parent.postMessage(
+        {
+          hauteurExercice: x[0].contentRect.height,
+          action: 'mathalea:resize',
+          iframe
+        },
+        '*'
+      )
       // ou x[0].contentRect.height ou x[0].contentBoxSize[0].blockSize ou x[0].borderBoxSize[0].inlineSize ou x[0].target.scrollHeight
     })
     if (eleveSection != null) resizeObserver.observe(eleveSection)
     if ($globalOptions.recorder === 'capytale') {
       $globalOptions.isInteractiveFree = false
     }
-    return () => {
-      /* onDestroy function */
-      resizeObserver.disconnect()
-    }
+  })
+
+  onDestroy(() => {
+    resizeObserver.disconnect()
   })
 
   async function buildQuestions () {
@@ -191,39 +240,76 @@
       }
       questions = [...questions, ...exercice.listeQuestions]
       corrections = [...corrections, ...exercice.listeCorrections]
-      consignesCorrections = [...consignesCorrections, ...cumulConsignesCorrections]
+      consignesCorrections = [
+        ...consignesCorrections,
+        ...cumulConsignesCorrections
+      ]
       questions = questions.map(mathaleaFormatExercice)
       corrections = corrections.map(mathaleaFormatExercice)
       consignesCorrections = consignesCorrections.map(mathaleaFormatExercice)
       consignes = consignes.map(mathaleaFormatExercice)
     }
-    if ($globalOptions.presMode === 'liste_questions' || $globalOptions.presMode === 'une_question_par_page') {
-      // Pour les autres mode de présentation, cela est géré par ExerciceMathalea
+    if (
+      $globalOptions.presMode === 'liste_questions' ||
+      $globalOptions.presMode === 'une_question_par_page' ||
+      $globalOptions.presMode === 'cartes'
+    ) {
+      // Pour les autres mode de présentation, cela est géré par ExerciceMathaleaVueProf
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
       await tick()
-      mathaleaRenderDiv(document.querySelector<HTMLElement>('body'))
+      const body = document.querySelector<HTMLElement>('body')
+      if (body) {
+        mathaleaRenderDiv(body)
+      }
       loadMathLive()
     }
     const section = document.querySelector('section') as HTMLElement
     const hauteurExercice = section.scrollHeight
     const url = new URL(window.location.href)
     const iframe = url.searchParams.get('iframe')
-    window.parent.postMessage({ hauteurExercice, exercicesParams: $exercicesParams, action: 'mathalea:init', iframe }, '*')
+    window.parent.postMessage(
+      {
+        hauteurExercice,
+        exercicesParams: $exercicesParams,
+        action: 'mathalea:init',
+        iframe
+      },
+      '*'
+    )
   }
 
   async function checkQuestion (i: number) {
     // ToFix exercices custom avec pointsCliquable
     const type = exercices[indiceExercice[i]].interactifType
     if (type === 'mathLive') {
-      resultsByQuestion[i] = verifQuestionMathLive(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+      resultsByQuestion[i] =
+        verifQuestionMathLive(
+          exercices[indiceExercice[i]],
+          indiceQuestionInExercice[i]
+        ) === 'OK'
     } else if (type === 'qcm') {
-      resultsByQuestion[i] = verifQuestionQcm(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+      resultsByQuestion[i] =
+        verifQuestionQcm(
+          exercices[indiceExercice[i]],
+          indiceQuestionInExercice[i]
+        ) === 'OK'
     } else if (type === 'listeDeroulante') {
-      resultsByQuestion[i] = verifQuestionListeDeroulante(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+      resultsByQuestion[i] =
+        verifQuestionListeDeroulante(
+          exercices[indiceExercice[i]],
+          indiceQuestionInExercice[i]
+        ) === 'OK'
     } else if (type === 'cliqueFigure') {
-      resultsByQuestion[i] = verifQuestionCliqueFigure(exercices[indiceExercice[i]], indiceQuestionInExercice[i]) === 'OK'
+      resultsByQuestion[i] =
+        verifQuestionCliqueFigure(
+          exercices[indiceExercice[i]],
+          indiceQuestionInExercice[i]
+        ) === 'OK'
     } else if (type === 'custom') {
-      resultsByQuestion[i] = exercices[indiceExercice[i]].correctionInteractive(i) === 'OK'
+      // si le typ est `custom` on est sûr que `correctionInteractive` existe
+      // d'où le ! après `correctionInteractive`
+      resultsByQuestion[i] =
+        exercices[indiceExercice[i]].correctionInteractive!(i) === 'OK'
     }
     isDisabledButton[i] = true
     isCorrectionVisible[i] = true
@@ -241,34 +327,57 @@
 
   function handleIndexChange (exoNum: number) {
     currentIndex = exoNum
-    if (exercices[exoNum] && exercices[exoNum].interactifType === 'cliqueFigure' && exercices[exoNum].interactif) {
+    if (
+      exercices[exoNum] &&
+      exercices[exoNum].interactifType === 'cliqueFigure' &&
+      exercices[exoNum].interactif
+    ) {
       prepareExerciceCliqueFigure(exercices[exoNum])
     }
   }
 </script>
 
 <svelte:window bind:innerWidth={currentWindowWidth} />
-<section bind:this={eleveSection} class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive ? 'dark' : ''}">
+<section
+  bind:this={eleveSection}
+  class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive
+    ? 'dark'
+    : ''}"
+>
   <div
-    class="fixed z-20 h-16 bottom-4 right-2 {((typeof $globalOptions.title === 'string' && $globalOptions.title.length === 0) && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')) ||
+    class="fixed z-20 h-16 bottom-4 right-2 {(typeof $globalOptions.title ===
+      'string' &&
+      $globalOptions.title.length === 0 &&
+      ($globalOptions.presMode === 'liste_exos' ||
+        $globalOptions.presMode === 'liste_questions')) ||
     ($globalOptions.title != null && $globalOptions.title.length > 0)
       ? 'lg:top-8'
       : 'lg:top-20'}  lg:right-6"
   >
-    <div class="flex flex-col-reverse lg:flex-row space-y-reverse space-y-4 lg:space-y-0 lg:space-x-4 scale-75 lg:scale-100">
-      <BtnZoom size="bx-sm md:bx-md" isBorderTransparent={(typeof $globalOptions.title === 'string' && $globalOptions.title.length > 0)} />
+    <div
+      class="flex flex-col-reverse lg:flex-row space-y-reverse space-y-4 lg:space-y-0 lg:space-x-4 scale-75 lg:scale-100"
+    >
+      <BtnZoom
+        size="bx-sm md:bx-md"
+        isBorderTransparent={typeof $globalOptions.title === 'string' &&
+          $globalOptions.title.length > 0}
+      />
     </div>
   </div>
   <div class="mb-auto">
     <div
-      class="{(typeof $globalOptions.title === 'string' && $globalOptions.title.length === 0) && ($globalOptions.presMode === 'liste_exos' || $globalOptions.presMode === 'liste_questions')
+      class="{typeof $globalOptions.title === 'string' &&
+      $globalOptions.title.length === 0 &&
+      ($globalOptions.presMode === 'liste_exos' ||
+        $globalOptions.presMode === 'liste_questions')
         ? 'hidden'
         : 'h-[10%]'}  w-full flex flex-col justify-center items-center"
     >
       <!-- titre de la feuille -->
       {#if typeof $globalOptions.title === 'string' && $globalOptions.title.length > 0}
         <div
-          class="w-full p-8 text-center text-4xl font-light {$globalOptions.recorder === 'capytale'
+          class="w-full p-8 text-center text-4xl font-light {$globalOptions.recorder ===
+          'capytale'
             ? 'bg-black'
             : 'bg-coopmaths-struct'} dark:bg-coopmathsdark-struct text-coopmaths-canvas dark:text-coopmathsdark-canvas"
         >
@@ -278,8 +387,14 @@
       <!-- barre de navigation -->
       <div
         id="navigationHeaderID"
-        class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode === 'un_exo_par_page' ? exercices.length : questions.length}
-          {($globalOptions.presMode === 'un_exo_par_page' && !$isMenuNeededForExercises) || ($globalOptions.presMode === 'une_question_par_page' && !$isMenuNeededForQuestions)
+        class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode ===
+        'un_exo_par_page'
+          ? exercices.length
+          : questions.length}
+          {($globalOptions.presMode === 'un_exo_par_page' &&
+          !$isMenuNeededForExercises) ||
+        ($globalOptions.presMode === 'une_question_par_page' &&
+          !$isMenuNeededForQuestions)
             ? 'border-b-2 border-coopmaths-struct'
             : 'border-b-0'}
               bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
@@ -294,19 +409,28 @@
                 disabled={currentIndex === i}
                 on:click={() => handleIndexChange(i)}
               >
-                <div id="exerciseTitleID{i}" class="pt-2 pb-4 px-6 text-xl font-light">
+                <div
+                  id="exerciseTitleID{i}"
+                  class="pt-2 pb-4 px-6 text-xl font-light"
+                >
                   {exerciseTitle}
                   {i + 1}
                   {#if $resultsByExercice[i] !== undefined}
                     <div
-                    style="--nbPoints:{$resultsByExercice[i].numberOfPoints}; --nbQuestions:{$resultsByExercice[i].numberOfQuestions};"
+                      style="--nbPoints:{$resultsByExercice[i]
+                        .numberOfPoints}; --nbQuestions:{$resultsByExercice[i]
+                          .numberOfQuestions};"
                       class="absolute bottom-0 left-0 right-0 mx-auto text-xs font-bold progressbar dark:progressbardark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                     >
-                      {$resultsByExercice[i].numberOfPoints + '/' + $resultsByExercice[i].numberOfQuestions}
+                      {$resultsByExercice[i].numberOfPoints +
+                        '/' +
+                        $resultsByExercice[i].numberOfQuestions}
                     </div>
                   {/if}
                 </div>
-                <span class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300" />
+                <span
+                  class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
+                />
                 <span
                   class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
                 />
@@ -324,7 +448,10 @@
                 disabled={currentIndex === i}
                 on:click={() => handleIndexChange(i)}
               >
-                <div id="questionTitleID{i}" class="py-2 px-2 text-xl font-light">
+                <div
+                  id="questionTitleID{i}"
+                  class="py-2 px-2 text-xl font-light"
+                >
                   {questionTitle}
                   {i + 1}
                   <div
@@ -336,7 +463,9 @@
                       {resultsByQuestion[i] === false ? '' : 'invisible'}"
                   />
                 </div>
-                <span class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300" />
+                <span
+                  class="absolute -bottom-1 left-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
+                />
                 <span
                   class="absolute -bottom-1 right-1/2 w-0 h-1 bg-coopmaths-struct group-hover:w-1/2 group-hover:transition-all duration-300 ease-out group-hover:ease-in group-hover:duration-300"
                 />
@@ -359,11 +488,18 @@
                 disabled={currentIndex === i}
                 on:click={() => handleIndexChange(i)}
               >
-                <div id="exerciseTitleID2{i}" class="flex flex-row items-center justify-center py-3 px-2 text-2xl font-bold">
+                <div
+                  id="exerciseTitleID2{i}"
+                  class="flex flex-row items-center justify-center py-3 px-2 text-2xl font-bold"
+                >
                   Exercice {i + 1}
                   {#if $resultsByExercice[i] !== undefined}
-                    <div class="ml-4 text-sm font-bold text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark">
-                      {$resultsByExercice[i].numberOfPoints + '/' + $resultsByExercice[i].numberOfQuestions}
+                    <div
+                      class="ml-4 text-sm font-bold text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark"
+                    >
+                      {$resultsByExercice[i].numberOfPoints +
+                        '/' +
+                        $resultsByExercice[i].numberOfQuestions}
                     </div>
                   {:else}
                     <div class="ml-4 text-sm font-bold invisible">8/8</div>
@@ -372,31 +508,69 @@
               </button>
             </div>
             <div class={currentIndex === i ? '' : 'hidden'}>
-              <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
+              <Exercice
+                {paramsExercice}
+                indiceExercice={i}
+                indiceLastExercice={$exercicesParams.length}
+                isCorrectionVisible={isCorrectionVisible[i]}
+              />
             </div>
           </div>
         {/each}
       {:else if $globalOptions.presMode === 'liste_exos'}
-        <div id="exercises-list" class="p-4 columns-1 {$globalOptions.twoColumns ? 'md:columns-2' : ''}">
+        <div
+          id="exercises-list"
+          class="p-4 columns-1 {$globalOptions.twoColumns
+            ? 'md:columns-2'
+            : ''}"
+        >
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
             <div class="break-inside-avoid-column">
-              <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={isCorrectionVisible[i]} />
+              <Exercice
+                {paramsExercice}
+                indiceExercice={i}
+                indiceLastExercice={$exercicesParams.length}
+                isCorrectionVisible={isCorrectionVisible[i]}
+              />
             </div>
           {/each}
         </div>
       {:else if $globalOptions.presMode === 'liste_questions'}
-        <div class="columns-1 {$globalOptions.title.length === 0 ? 'mt-6' : ''} {$globalOptions.twoColumns ? 'md:columns-2' : ''}">
+        <div
+          class="columns-1 {$globalOptions.title.length === 0
+            ? 'mt-6'
+            : ''} {$globalOptions.twoColumns ? 'md:columns-2' : ''}"
+        >
           {#each questions as question, k (question)}
-            <div class="pb-4 flex flex-col items-start justify-start relative break-inside-avoid-column" id={`exercice${indiceExercice[k]}Q${k}`}>
+            <div
+              class="pb-4 flex flex-col items-start justify-start relative break-inside-avoid-column"
+              id={`exercice${indiceExercice[k]}Q${k}`}
+            >
               <div class="flex flex-row justify-start items-center">
-                <div class="text-coopmaths-struct font-bold text-md">Question {k + 1}</div>
+                <div class="text-coopmaths-struct font-bold text-md">
+                  Question {k + 1}
+                </div>
                 {#if exercices[indiceExercice[k]].interactif}
-                  <Button title="Vérifier" classDeclaration="p-1 font-bold rounded-xl text-xs ml-2" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
+                  <Button
+                    title="Vérifier"
+                    classDeclaration="p-1 font-bold rounded-xl text-xs ml-2"
+                    on:click={() => checkQuestion(k)}
+                    isDisabled={isDisabledButton[k]}
+                  />
                 {:else if $globalOptions.isSolutionAccessible}
-                  <ButtonToggle titles={['Voir la correction', 'Masquer la correction']} classAddenda="ml-4" on:click={() => switchCorrectionVisible(k)} />
+                  <ButtonToggle
+                    titles={['Voir la correction', 'Masquer la correction']}
+                    classAddenda="ml-4"
+                    on:click={() => switchCorrectionVisible(k)}
+                  />
                 {/if}
               </div>
-              <div class="container grid grid-cols-1 {$globalOptions.twoColumns ? '' : 'lg:grid-cols-2'} gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
+              <div
+                class="container grid grid-cols-1 {$globalOptions.twoColumns
+                  ? ''
+                  : 'lg:grid-cols-2'} gap-4 lg:gap-10"
+                style="font-size: {($globalOptions.z || 1).toString()}rem"
+              >
                 <div class="flex flex-col my-2 py-2">
                   <div class="text-coopmaths-corpus pl-2 pb-2">
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -415,9 +589,13 @@
                     bind:this={divsCorrection[k]}
                   >
                     {#if consignesCorrections[k].length !== 0}
-                      <div class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3">
+                      <div
+                        class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3"
+                      >
                         <div class="container absolute top-4 -left-4">
-                          <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+                          <i
+                            class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark"
+                          />
                         </div>
                         <div class="">
                           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -426,7 +604,10 @@
                       </div>
                     {/if}
 
-                    <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
+                    <div
+                      class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto"
+                      style="break-inside:avoid"
+                    >
                       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                       {@html mathaleaFormatExercice(corrections[k])}
                     </div>
@@ -436,7 +617,9 @@
                     >
                       Correction
                     </div>
-                    <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
+                    <div
+                      class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
+                    />
                   </div>
                 {/if}
               </div>
@@ -454,18 +637,48 @@
                 disabled={currentIndex === k}
                 on:click={() => handleIndexChange(k)}
               >
-                <div id="questionTitleID2{k}" class="flex flex-row items-center justify-center py-3 px-2 text-xl font-bold">
+                <div
+                  id="questionTitleID2{k}"
+                  class="flex flex-row items-center justify-center py-3 px-2 text-xl font-bold"
+                >
                   Question {k + 1}
-                  <div class="relative ml-2 h-2 w-2 rounded-full {currentIndex === k ? 'bg-coopmaths-canvas-darkest' : 'bg-coopmaths-canvas-dark'} group-hover:bg-coopmaths-canvas-darkest">
-                    <div class="absolute h-2 w-2 rounded-full bg-coopmaths-warn {resultsByQuestion[k] === true ? '' : 'hidden'}" />
-                    <div class="absolute h-2 w-2 rounded-full bg-red-600 {resultsByQuestion[k] === false ? '' : 'hidden'}" />
+                  <div
+                    class="relative ml-2 h-2 w-2 rounded-full {currentIndex ===
+                    k
+                      ? 'bg-coopmaths-canvas-darkest'
+                      : 'bg-coopmaths-canvas-dark'} group-hover:bg-coopmaths-canvas-darkest"
+                  >
+                    <div
+                      class="absolute h-2 w-2 rounded-full bg-coopmaths-warn {resultsByQuestion[
+                        k
+                      ] === true
+                        ? ''
+                        : 'hidden'}"
+                    />
+                    <div
+                      class="absolute h-2 w-2 rounded-full bg-red-600 {resultsByQuestion[
+                        k
+                      ] === false
+                        ? ''
+                        : 'hidden'}"
+                    />
                   </div>
                 </div>
               </button>
             </div>
-            <div class={currentIndex === k ? '' : 'hidden'} id={`exercice${indiceExercice[k]}Q${k}`}>
-              <div class="pb-4 flex flex-col items-start justify-start relative {isMenuNeededForQuestions ? 'lg:mt-2' : ''}">
-                <div class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10" style="font-size: {($globalOptions.z || 1).toString()}rem">
+            <div
+              class={currentIndex === k ? '' : 'hidden'}
+              id={`exercice${indiceExercice[k]}Q${k}`}
+            >
+              <div
+                class="pb-4 flex flex-col items-start justify-start relative {isMenuNeededForQuestions
+                  ? 'lg:mt-2'
+                  : ''}"
+              >
+                <div
+                  class="container grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-10"
+                  style="font-size: {($globalOptions.z || 1).toString()}rem"
+                >
                   <div class="flex flex-col my-2 py-2">
                     <div class="text-coopmaths-corpus pl-2">
                       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -486,9 +699,13 @@
                       bind:this={divsCorrection[k]}
                     >
                       {#if consignesCorrections[k].length !== 0}
-                        <div class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3">
+                        <div
+                          class="container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3"
+                        >
                           <div class="container absolute top-4 -left-4">
-                            <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+                            <i
+                              class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark"
+                            />
                           </div>
                           <div class="">
                             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -496,7 +713,10 @@
                           </div>
                         </div>
                       {/if}
-                      <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto" style="break-inside:avoid">
+                      <div
+                        class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto"
+                        style="break-inside:avoid"
+                      >
                         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                         {@html mathaleaFormatExercice(corrections[k])}
                       </div>
@@ -506,23 +726,59 @@
                       >
                         Correction
                       </div>
-                      <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
+                      <div
+                        class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
+                      />
                     </div>
                   {/if}
                 </div>
                 {#if exercices[indiceExercice[k]].interactif}
                   <div class="pb-4 mt-10">
-                    <Button title="Vérifier" on:click={() => checkQuestion(k)} isDisabled={isDisabledButton[k]} />
+                    <Button
+                      title="Vérifier"
+                      on:click={() => checkQuestion(k)}
+                      isDisabled={isDisabledButton[k]}
+                    />
                   </div>
                 {:else if $globalOptions.isSolutionAccessible}
                   <div class={$isMenuNeededForExercises ? 'ml-4' : ''}>
-                    <ButtonToggle titles={['Voir la correction', 'Masquer la correction']} on:click={() => switchCorrectionVisible(k)} />
+                    <ButtonToggle
+                      titles={['Voir la correction', 'Masquer la correction']}
+                      on:click={() => switchCorrectionVisible(k)}
+                    />
                   </div>
                 {/if}
               </div>
             </div>
           </div>
         {/each}
+      {:else if $globalOptions.presMode === 'cartes'}
+        <div
+          class="grid grid-flow-row gri-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-auto gap-6"
+        >
+          {#each questions as question, k (question)}
+            <FlipCard>
+              <div slot="question">
+                  <div class="p-2">
+                    <div class="text-coopmaths-corpus pl-2">
+                      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                      {@html consignes[k]}
+                    </div>
+                    <div class="text-coopmaths-corpus pl-2">
+                      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                      {@html question}
+                    </div>
+                  </div>
+              </div>
+              <div slot="answer">
+                  <div class="p-2">
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                    {@html mathaleaFormatExercice(corrections[k])}
+                  </div>
+              </div>
+            </FlipCard>
+          {/each}
+        </div>
       {/if}
     </div>
   </div>
@@ -530,12 +786,25 @@
     <Footer2 />
   </div>
 </section>
+
 <style>
   /* sur une idée de Mathieu Degrange */
-  .progressbar{
-    background: linear-gradient(90deg,  #6ebc1f 0%, #6ebc1f calc(100% / var(--nbQuestions) * var(--nbPoints)), #d43d0e calc(100% / var(--nbQuestions) * var(--nbPoints)), #d43d0e 100%);
+  .progressbar {
+    background: linear-gradient(
+      90deg,
+      #6ebc1f 0%,
+      #6ebc1f calc(100% / var(--nbQuestions) * var(--nbPoints)),
+      #d43d0e calc(100% / var(--nbQuestions) * var(--nbPoints)),
+      #d43d0e 100%
+    );
   }
-  .progressbardark{
-    background: linear-gradient(90deg,  #ff94d1 0%, #ff94d1 calc(100% / var(--nbQuestions) * var(--nbPoints)), #ff9523 calc(100% / var(--nbQuestions) * var(--nbPoints)), #ff9523 100%);
+  .progressbardark {
+    background: linear-gradient(
+      90deg,
+      #ff94d1 0%,
+      #ff94d1 calc(100% / var(--nbQuestions) * var(--nbPoints)),
+      #ff9523 calc(100% / var(--nbQuestions) * var(--nbPoints)),
+      #ff9523 100%
+    );
   }
 </style>

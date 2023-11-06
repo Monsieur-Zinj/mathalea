@@ -1,22 +1,29 @@
 <script lang="ts">
-  import Start from './Start.svelte'
+  // import Start from './Start.svelte'
   import Diaporama from './Diaporama.svelte'
-  import Can from './Can.svelte'
+  import Apercu from './Apercu.svelte'
   import Eleve from './Eleve.svelte'
   import ConfigEleve from './ConfigEleve.svelte'
   import Latex from './Latex.svelte'
-  import { freezeUrl, globalOptions, isInIframe } from './store'
+  import { freezeUrl, globalOptions, isInIframe } from './stores/generalStore'
   import { context } from '../modules/context.js'
-  import { ElementButtonInstrumenpoche, ElementInstrumenpoche } from '../modules/ElementInstrumenpoche.js'
+  import {
+    ElementButtonInstrumenpoche,
+    ElementInstrumenpoche
+  } from '../modules/ElementInstrumenpoche.js'
   import Amc from './Amc.svelte'
   import Moodle from './Moodle.svelte'
-  import OutilsProf from './OutilsProf.svelte'
   import Capytale from './Capytale.svelte'
+  import Test from './Test.svelte'
+  import Start from './Start.svelte'
 
   context.versionMathalea = 3
   if (customElements.get('alea-instrumenpoche') === undefined) {
     customElements.define('alea-instrumenpoche', ElementInstrumenpoche)
-    customElements.define('alea-buttoninstrumenpoche', ElementButtonInstrumenpoche)
+    customElements.define(
+      'alea-buttoninstrumenpoche',
+      ElementButtonInstrumenpoche
+    )
   }
 
   // Gestion des recorders (Moodle, Capytale, etc. )
@@ -55,7 +62,8 @@
   {#if $globalOptions.v === 'diaporama'}
     <Diaporama />
   {:else if $globalOptions.v === 'can'}
-    <Can />
+    <Apercu
+ />
   {:else if $globalOptions.v === 'eleve'}
     <Eleve />
   {:else if $globalOptions.v === 'latex'}
@@ -66,8 +74,10 @@
     <Amc />
   {:else if $globalOptions.v === 'moodle'}
     <Moodle />
-  {:else if $globalOptions.v === 'tools'}
-    <OutilsProf />
+  <!-- {:else if $globalOptions.v === 'tools'}
+    <OutilsProf /> -->
+  {:else if $globalOptions.v === 'test'}
+    <Test />
   {:else if $globalOptions.recorder === 'capytale'}
     <Capytale />
   {:else}

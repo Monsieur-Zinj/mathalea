@@ -6,6 +6,35 @@
   export let idLabel: string = getUniqueStringBasedOnTimeStamp('btn-')
 </script>
 
+<!--
+  @component
+  Bouton permettant d'inclure une icone déclarée en SVG dans un composant spécifique (icone LaTeX par défaut)
+
+  ### Paramètres
+
+  * `isDisabled` : flag permettant de désactiver le bouton
+  * `classDeclaration` : éléments de style ([Tailwind](https://tailwindcss.com/docs/installation))
+  * `idLabel` : ID du bouton (`btn-` additionné d'un nombre unique par défaut)
+
+  ### Exemple
+
+  ```tsx
+  <ButtonSvg
+    on:click={() => {
+      $callerComponent = "tools"
+      globalOptions.update((params) => {
+        params.v = "moodle"
+        return params
+      })
+    }}
+  >
+    <div slot="svelte-icon">
+      <MoodleIcon class="w-8 h-8 fill-current hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+    </div>
+  </ButtonSvg>
+  ```
+ -->
+
 <button type="button" on:click disabled={isDisabled} id={idLabel}>
   <slot name="svelte-icon">
     <LatexIcon class={classDeclaration} />

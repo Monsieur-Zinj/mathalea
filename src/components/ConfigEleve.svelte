@@ -1,8 +1,8 @@
 <script lang="ts">
-  import { exercicesParams, darkMode, globalOptions, updateGlobalOptionsInURL } from './store'
+  import { exercicesParams, darkMode, globalOptions } from './stores/generalStore'
   import { mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea.js'
   import Footer from './Footer.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
+  import NavBar from './header/NavBar.svelte'
   import Button from './forms/Button.svelte'
   import FormRadio from './forms/FormRadio.svelte'
   import { onMount } from 'svelte'
@@ -11,13 +11,14 @@
   import ModalForQRCode from './modal/ModalForQRCode.svelte'
   import { copyLinkToClipboard, copyEmbeddedCodeToClipboard } from './utils/clipboard'
   import { buildUrlAddendumForEsParam } from './utils/urls'
+  import type { NumericRange } from '../lib/types'
 
   onMount(() => {
     // mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     handleSeed()
   })
 
-  const formatQRCodeIndex: number = 0
+  const formatQRCodeIndex: NumericRange<0, 2> = 0
   const QRCodeWidth = 100
 
   const availableLinkFormats = {
@@ -41,14 +42,14 @@
     }
   }
 
-  type LinkFormat = 'clear' | 'short' | 'crypt'
+  type LinkFormat = keyof typeof availableLinkFormats
   let currentLinkFormat: LinkFormat = 'clear'
 
   function handleEleveVueSetUp () {
     let url = document.URL + '&v=eleve'
     url += '&title=' + $globalOptions.title
     url += '&es=' + buildUrlAddendumForEsParam()
-    window.open(url, '_blank').focus()
+    window.open(url, '_blank')?.focus()
   }
 
   // Gestion de la graine
@@ -66,7 +67,7 @@
 </script>
 
 <main class="mb-auto flex flex-col justify-between h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="La page Élève" subtitleType="export" />
+  <NavBar subtitle="La page Élève" subtitleType="export" />
   <div class="h-full w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div class="h-full w-full md:w-2/3 lg:w-3/5 flex flex-col p-4 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas mx-auto">
       <div class="flex flex-col md:flex-row justify-start px-4 py-2 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
@@ -81,7 +82,7 @@
               class="w-1/2 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
               bind:value={$globalOptions.title}
             />
-            <div class="mt-1 text-coopmaths-corpus font-light italic text-xs {$globalOptions.title.length === 0 ? '' : 'invisible'}">Pas de bandeau si laissé vide.</div>
+            <div class="mt-1 text-coopmaths-corpus font-light italic text-xs {$globalOptions.title && $globalOptions.title.length === 0 ? '' : 'invisible'}">Pas de bandeau si laissé vide.</div>
           </div>
         </div>
         <div class="pb-2">
@@ -94,6 +95,7 @@
               { label: 'Une page par exercice', value: 'un_exo_par_page', isDisabled: $exercicesParams.length === 1 },
               { label: 'Toutes les questions sur une page', value: 'liste_questions' },
               { label: 'Une page par question', value: 'une_question_par_page' }
+              // { label: 'Cartes', value: 'cartes' }
             ]}
           />
           <div class="pl-4 pt-2">
@@ -108,6 +110,7 @@
           <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactivité</div>
           <FormRadio
             title="Interactif"
+            isDisabled={$globalOptions.presMode === 'cartes'}
             bind:valueSelected={$globalOptions.setInteractive}
             labelsValues={[
               { label: 'Laisser tel quel', value: '2' },
@@ -117,14 +120,14 @@
           />
           <div class="pl-2 pt-2">
             <ButtonToggle
-              isDisabled={$globalOptions.setInteractive === '0'}
+              isDisabled={$globalOptions.setInteractive === '0' || $globalOptions.presMode === 'cartes'}
               titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
               bind:value={$globalOptions.isInteractiveFree}
             />
           </div>
           <div class="pl-2 pt-2">
             <ButtonToggle
-              isDisabled={$globalOptions.setInteractive === '0'}
+              isDisabled={$globalOptions.setInteractive === '0' || $globalOptions.presMode === 'cartes'}
               titles={['Les élèves peuvent répondre une seule fois', 'Les élèves peuvent répondre plusieurs fois']}
               bind:value={$globalOptions.oneShot}
             />
@@ -142,12 +145,12 @@
             Correction
           </div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle titles={['Accès aux corrections', 'Pas de corrections']} bind:value={$globalOptions.isSolutionAccessible} />
+            <ButtonToggle titles={['Accès aux corrections', 'Pas de corrections']} bind:value={$globalOptions.isSolutionAccessible} isDisabled={$globalOptions.presMode === 'cartes'}/>
           </div>
         </div>
       </div>
       <div class="pt-4 pb-8 px-4">
-        <Button on:click={handleEleveVueSetUp} title="Visualiser" />
+        <Button on:click={handleEleveVueSetUp} class="px-2 py-1 rounded-md" title="Visualiser" />
       </div>
       <div class="flex flex-row justify-start px-4 py-2">
         <h3 class="font-bold text-2xl text-coopmaths-struct dark:text-coopmathsdark-struct">Utilisation</h3>

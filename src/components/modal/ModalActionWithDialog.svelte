@@ -21,13 +21,13 @@
     @component
     Bouton pour lancer une action et afficher un message informatif dans un modal
 
-    __Action__ :
+    ### Action
 
-    Déclanchée lors du clic sur le bouton et appelée par `on:display={monAction}`
+    `display` : déclanchée lors du clic sur le bouton et appelée par `on:display={monAction}`
 
     ⚠ La fonction `monAction` est responsable de l'affichage du modal... ⚠
 
-    __Paramètres__ :
+    ### Paramètres
 
     * `message` : message à afficher
     * `dialogId` : ID de la dialog box
@@ -38,7 +38,7 @@
     * `classForButton` : pour ajouter des éléments de positionnement du bouton
     * `title` : titre pour un bouton (remplace l'icone)
 
-    __Exemple__ :
+    ### Exemple
 
     ```tsx
     <ModalActionWithDialog
@@ -67,16 +67,25 @@
     {#if title.length === 0}
       <i class="relative bx {buttonIcon} {buttonSize}" />
       {#if buttonSecondIcon.length !== 0}
-        <i class="absolute -bottom-1 bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn dark:text-coopmathsdark-warn" />
+        <i
+          class="absolute -bottom-1 bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn dark:text-coopmathsdark-warn"
+        />
       {/if}
     {:else}
       {title}
     {/if}
   </button>
-  <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + '-1'}>
+  <dialog
+    class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
+    id={dialogId + '-1'}
+  >
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     <div class="container font-light">{@html message}</div>
   </dialog>
-  <dialog class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg" id={dialogId + '-2'}>
+  <dialog
+    class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
+    id={dialogId + '-2'}
+  >
     {messageError}
   </dialog>
 </div>

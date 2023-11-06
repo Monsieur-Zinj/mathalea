@@ -1,13 +1,15 @@
 <script lang="ts">
   import { mathaleaUpdateUrlFromExercicesParams } from '../../lib/mathalea'
-  import { exercicesParams, globalOptions } from '../store'
+  import { exercicesParams, globalOptions } from '../stores/generalStore'
   import { resizeTags } from '../utils/measures'
 
   export let size: 'xs' | 'sm' | 'md' | 'lg' | 'bx-sm md:bx-md' = 'sm'
   export let isBorderTransparent: boolean = false
 
   const urlParams = new URLSearchParams(window.location.search)
-  let zoom = parseInt(urlParams.get('z')) || 1
+  const z = urlParams.get('z')
+  let zoom: number
+  if (z) { parseInt(z) } else { zoom = 1 }
   function zoomMinus () {
     // zoom -= 0.1
     zoom = Number.parseFloat((zoom - 0.1).toFixed(1))

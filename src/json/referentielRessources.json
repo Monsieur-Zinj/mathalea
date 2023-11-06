@@ -3,6 +3,7 @@
       "id": "video",
       "uuid": "video",
       "titre": "Vidéo",
+      "typeExercice" : "html",
       "url": "ressources/video.ts",
       "tags": {}
     },
@@ -10,6 +11,7 @@
       "id": "iframe",
       "uuid": "iframe",
       "titre": "Iframe",
+      "typeExercice" : "html",
       "url": "ressources/iframe.ts",
       "tags": {}
     },
@@ -17,6 +19,7 @@
       "id": "xcas",
       "uuid": "xcas",
       "titre": "XCas",
+      "typeExercice" : "html",
       "url": "ressources/xcas.ts",
       "tags": {}
     }

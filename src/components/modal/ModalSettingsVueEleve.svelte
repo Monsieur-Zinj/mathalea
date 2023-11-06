@@ -2,13 +2,14 @@
   import Button from '../forms/Button.svelte'
   import ButtonToggle from '../forms/ButtonToggle.svelte'
   import FormRadio from '../forms/FormRadio.svelte'
-  import { globalOptions } from '../store'
+  import { globalOptions } from '../stores/generalStore'
   import ModalActionWithDialog from '../modal/ModalActionWithDialog.svelte'
   import ModalForQRCode from '../modal/ModalForQRCode.svelte'
   import { copyLinkToClipboard, copyEmbeddedCodeToClipboard } from '../utils/clipboard'
-  import { buildUrlAddendumForEsParam, getShortenedCurrentUrl } from '../utils/urls'
+  import { buildUrlAddendumForEsParam } from '../utils/urls'
+  import type { NumericRange } from '../../lib/types'
 
-  const formatQRCodeIndex: number = 0
+  const formatQRCodeIndex: NumericRange<0, 2> = 0
   const QRCodeWidth = 100
 
   const availableLinkFormats = {
@@ -39,9 +40,10 @@
     let url = document.URL + '&v=eleve'
     url += '&title=' + $globalOptions.title
     url += '&es=' + buildUrlAddendumForEsParam()
-    window.open(url, '_blank').focus()
+    window.open(url, '_blank')?.focus()
   }
-
+  $: presentationMode = $globalOptions.presMode ?? 'liste_exos'
+  $: interactive = $globalOptions.setInteractive ?? '2'
 </script>
 
 <input type="checkbox" id="modal-settings-eleve" class="modal-toggle" />
@@ -71,7 +73,7 @@
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Présentation</div>
         <FormRadio
           title="présentation"
-          bind:valueSelected={$globalOptions.presMode}
+          bind:valueSelected={presentationMode}
           labelsValues={[
             { label: 'Une page unique', value: 'liste_exos' },
             { label: 'Une page par exercice', value: 'un_exos_par_page' },
@@ -84,7 +86,7 @@
         <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactivité</div>
         <FormRadio
           title="Interactif"
-          bind:valueSelected={$globalOptions.setInteractive}
+          bind:valueSelected={interactive}
           labelsValues={[
             { label: 'Laisser tel quel', value: '2' },
             { label: 'Tout interactif', value: '1' },

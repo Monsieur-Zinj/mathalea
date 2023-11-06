@@ -1,5 +1,5 @@
 import { get } from 'svelte/store'
-import { globalOptions, resultsByExercice, exercicesParams } from '../../components/store'
+import { globalOptions, resultsByExercice, exercicesParams } from '../../components/stores/generalStore'
 import { sendToCapytaleSaveStudentAssignment } from '../../lib/handleCapytale'
 
 const titre = 'Application externe'

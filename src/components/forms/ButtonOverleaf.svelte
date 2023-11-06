@@ -1,6 +1,12 @@
 <script lang="ts">
-  import type Latex from 'src/lib/Latex'
-  import { buildImagesUrlsList, doesLatexNeedsPics, getExosContentList, getPicsNames, type LatexFileInfos } from '../../lib/Latex'
+  import type Latex from '../../lib/Latex'
+  import {
+    buildImagesUrlsList,
+    doesLatexNeedsPics,
+    getExosContentList,
+    getPicsNames,
+    type LatexFileInfos
+  } from '../../lib/Latex'
 
   export let latex: Latex
   export let latexFileInfos: LatexFileInfos
@@ -15,26 +21,73 @@
    * -- encodage du contenu du code LaTeX de la feuille d'exercices
    */
   async function copyDocumentToOverleaf () {
-    const contents = latex.getContents(latexFileInfos.style, latexFileInfos.nbVersions)
+    const contents = latex.getContents(
+      latexFileInfos.style,
+      latexFileInfos.nbVersions
+    )
     const picsWanted = doesLatexNeedsPics(contents)
     const exosContentList = getExosContentList(latex.exercices)
     const picsNames = getPicsNames(exosContentList)
-    imagesUrls = picsWanted ? buildImagesUrlsList(exosContentList, picsNames) : []
-    // console.log(imagesUrls)
+    imagesUrls = picsWanted
+      ? buildImagesUrlsList(exosContentList, picsNames)
+      : []
 
     const text = await latex.getFile(latexFileInfos)
-    textForOverleafInput.value = 'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(text)))
+    textForOverleafInput.value =
+      'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(text)))
   }
 </script>
 
-<div class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center">
+<!--
+  @component
+  Bouton déclenchant l'exportation vers OverLeaf
+
+  ### Paramètres
+
+  * `latex` : code latex du document
+  * `latexFileInfos` : objet contenant les éléments de mise en forme du fichier
+  * `disabled` : flag permettant de désactiver le bouton
+
+  ### Exemple
+  ```tsx
+  <ButtonOverleaf
+    {latex}
+    latexFileInfos={{ title, reference, subtitle, style, nbVersions }}
+    disabled={false}
+  />
+  ```
+ -->
+
+<div
+  class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center"
+>
   <form method="POST" action="https://www.overleaf.com/docs" target="_blank">
     {#each imagesUrls as imageUrl}
-      <input type="hidden" name="snip_uri[]" value={imageUrl} autocomplete="off" />
-      <input type="hidden" name="snip_name[]" value={imageUrl.split('/')[imageUrl.split('/').length - 1]} autocomplete="off" />
+      <input
+        type="hidden"
+        name="snip_uri[]"
+        value={imageUrl}
+        autocomplete="off"
+      />
+      <input
+        type="hidden"
+        name="snip_name[]"
+        value={imageUrl.split('/')[imageUrl.split('/').length - 1]}
+        autocomplete="off"
+      />
     {/each}
-    <input type="hidden" name="snip_uri[]" bind:this={textForOverleafInput} autocomplete="off" />
-    <input type="hidden" name="snip_name[]" value="coopmath.tex" autocomplete="off" />
+    <input
+      type="hidden"
+      name="snip_uri[]"
+      bind:this={textForOverleafInput}
+      autocomplete="off"
+    />
+    <input
+      type="hidden"
+      name="snip_name[]"
+      value="coopmath.tex"
+      autocomplete="off"
+    />
     <input type="hidden" name="engine" value="lualatex" autocomplete="off" />
     <button
       id="btn_overleaf"

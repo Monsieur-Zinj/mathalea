@@ -1,4 +1,4 @@
-import { globalOptions } from '../store'
+import { globalOptions } from '../stores/generalStore'
 import { get } from 'svelte/store'
 /**
    * Construit les éléments à ajouter à l'URL afin d'accéder à la vue élève
@@ -12,7 +12,8 @@ export function buildUrlAddendumForEsParam (needForFullURL = true) {
     ['liste_exos', 0],
     ['un_exo_par_page', 1],
     ['liste_questions', 2],
-    ['une_question_par_page', 3]
+    ['une_question_par_page', 3],
+    ['cartes', 4]
   ])
   let addendum = needForFullURL ? '&v=eleve&title=' + options.title : ''
   // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from './store'
+  import { exercicesParams, darkMode } from './stores/generalStore'
   import Footer from './Footer.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
+  import NavBar from './header/NavBar.svelte'
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../lib/mathalea.js'
   import type TypeExercice from '../exercices/ExerciceTs.js'
 
@@ -65,7 +65,7 @@
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="Moodle" subtitleType="export" />
+  <NavBar subtitle="Moodle" subtitleType="export" />
 
   <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Comment l'utiliser ?</h1>
