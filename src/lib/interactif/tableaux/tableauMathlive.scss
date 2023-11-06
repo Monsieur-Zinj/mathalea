@@ -1,0 +1,36 @@
+table.tableauMathlive {
+  border-collapse: collapse;
+  text-align: center;
+  border: 3px solid #333333;
+
+  tbody {
+    tr {
+      border: 1px solid #333333;
+      padding: 2px 5px 2px 5px;
+      text-align: center;
+
+      td {
+        border: 1px solid #333333;
+        padding: 2px 5px 2px 5px;
+        text-align: center;
+
+        math-field {
+          min-width: 60px;
+          margin-top: 2px;
+          padding: 2px;
+          border: transparent;
+        }
+      }
+
+    }
+
+    th {
+      border: 1px solid #333333;
+      background-color: #41628f;
+      padding: 2px 5px 2px 5px;
+      text-align: center;
+    }
+
+  }
+
+}

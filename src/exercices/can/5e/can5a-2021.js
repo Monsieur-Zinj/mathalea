@@ -7,7 +7,6 @@ import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
-import { tableauColonneLigne } from '../../../lib/format/miseEnPage.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
@@ -19,6 +18,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, printlatex, randi
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
 
 export const titre = 'CAN 5e sujet 2021'
 export const interactifReady = true

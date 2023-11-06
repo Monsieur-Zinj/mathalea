@@ -270,7 +270,7 @@ export async function loadMathLive () {
       */
 
       let style = 'font-size: 20px;'
-
+      if (mf.classList.contains('tableauMathlive')) continue
       if (mf.classList.contains('inline')) {
         if (mf.classList.contains('nospacebefore')) {
           style += 'margin-left:5px;'

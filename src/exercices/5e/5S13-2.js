@@ -1,7 +1,6 @@
 import { diagrammeBarres } from '../../lib/2d/diagrammes.js'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
-import { tableauColonneLigne } from '../../lib/format/miseEnPage.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -13,6 +12,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Calculs de fréquences'
 export const interactifReady = true

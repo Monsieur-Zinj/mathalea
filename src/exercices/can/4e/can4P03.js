@@ -1,8 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
-import { tableauColonneLigne } from '../../../lib/format/miseEnPage.js'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
+import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
 export const titre = 'Calculer une quatrième proportionnelle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
