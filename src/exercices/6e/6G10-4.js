@@ -77,7 +77,11 @@ export default function VocabulaireDuCercle () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    this.interactifType = this.sup2 ? 'AMCHybride' : 'mathLive'
+    if (context.isAmc) {
+      this.interactifType = this.sup2 ? 'AMCHybride' : 'mathLive'
+    } else {
+      this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
+    }
     const nbSousQuestionMax = 5 // Il y a 5 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
     let sensDesQuestionsDisponibles
     switch (Number(this.sup)) {
