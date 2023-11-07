@@ -137,18 +137,26 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   }
                   break
                 case 'formeDeveloppeeParEE':
-                  saisie = champTexte.value.replaceAll(',', '.').replaceAll('^{}', '').replaceAll('²', '^2')
-                  reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
-                  saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+                  {
+                    saisie = champTexte.value.replaceAll(',', '.').replaceAll('^{}', '').replaceAll('²', '^2')
+                    reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
+                    saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
 
-                  /* const regleSuppressionInvisibleOperator = engine.rules([
-                            [
-                              ['Add', '_x', '_x'],
-                              ['Multiply', '_x', '_x']
-                            ]
-                          ]) */
-                  if (engine.box(['CanonicalOrder', engine.parse(saisie)]).isSame(engine.box(['CanonicalOrder', engine.parse(reponse)]))) {
-                    resultat = 'OK'
+                    const regleSuppressionInvisibleOperator = engine.rules([
+                      [
+                        ['InvisibleOperator', '_x', '_y'],
+                        ['Multiply', '_x', '_y']
+                      ]
+                    ])
+                    // EE : Pour mes tests.
+                    // console.log('Result :', engine.box(['InvisibleOperator', 7, 'd'], { canonical: false }).replace(regleSuppressionInvisibleOperator).canonical.json)
+                    let saisieNonCanonique = engine.box(['CanonicalOrder', engine.parse(saisie, { canonical: false })])
+                    saisieNonCanonique = saisieNonCanonique.replace(regleSuppressionInvisibleOperator) ?? saisieNonCanonique
+                    let reponseNonCanonique = engine.box(['CanonicalOrder', engine.parse(reponse, { canonical: false })])
+                    reponseNonCanonique = reponseNonCanonique.replace(regleSuppressionInvisibleOperator) ?? reponseNonCanonique
+                    if (saisieNonCanonique.isSame(reponseNonCanonique)) {
+                      resultat = 'OK'
+                    }
                   }
                   break
                 case 'nombreDecimal':
