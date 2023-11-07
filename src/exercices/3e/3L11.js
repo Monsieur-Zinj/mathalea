@@ -1,5 +1,10 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { ecritureAlgebrique, ecritureParentheseSiMoins, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import {
+  ecritureAlgebrique,
+  ecritureParentheseSiMoins,
+  ecritureParentheseSiNegatif,
+  reduireAxPlusB, reduirePolynomeDegre3
+} from '../../lib/outils/ecritures.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
@@ -64,8 +69,8 @@ export default function ExerciceDevelopper () {
     if (this.nbQuestions > 1 && !context.isDiaporama) this.consigne += ' les expressions suivantes'
     this.consigne += '.'
 
-    let lettre = ['x', 'y', 'z', 't', 'a', 'b', 'c']
-    if (this.interactif || this.sup4) lettre = ['x']
+    let lettre = this.interactif ? ['x', 'y', 'z', 'a', 'b', 'c'] : ['x', 'y', 'z', 't', 'a', 'b', 'c']
+    if (this.sup4) lettre = ['x']
 
     let typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k', 'kx(ax+b)', '(ax+b)×kx', 'k(ax+b)+c', 'c+k(ax+b)']
     if (this.sup3 === 1) typesDeQuestionsDisponibles = ['k(ax+b)']
@@ -93,7 +98,7 @@ export default function ExerciceDevelopper () {
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
           $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
-          reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
+          reponse = `${reduireAxPlusB(k * a, k * b, inconnue)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
           reponse1 = 0
           reponse2 = k * a
@@ -103,7 +108,7 @@ export default function ExerciceDevelopper () {
           texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$<br>
           $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
-          reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}`
+          reponse = `${reduireAxPlusB(k * a, k * b, inconnue)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
           reponse1 = 0
           reponse2 = k * a
@@ -113,7 +118,7 @@ export default function ExerciceDevelopper () {
           texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiMoins(k + inconnue)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiMoins(k + inconnue)}$<br>
           $${lettreDepuisChiffre(i + 1)}=${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiMoins(k + inconnue)}\\times${ecritureParentheseSiNegatif(b)}$`
-          reponse = `${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`
+          reponse = `${reduirePolynomeDegre3(0, k * a, k * b, 0, inconnue)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
           reponse1 = k * a
           reponse2 = k * b
@@ -123,7 +128,7 @@ export default function ExerciceDevelopper () {
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}${inconnue}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}${inconnue}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
           $${lettreDepuisChiffre(i + 1)}=${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)} + ${ecritureParentheseSiMoins(k + inconnue)}\\times ${ecritureParentheseSiNegatif(b)}$`
-          reponse = `${k * a}${inconnue}^2${ecritureAlgebrique(k * b)}${inconnue}`
+          reponse = `${reduirePolynomeDegre3(0, k * a, k * b, 0, inconnue)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
           reponse1 = k * a
           reponse2 = k * b
@@ -131,10 +136,11 @@ export default function ExerciceDevelopper () {
           break
         case 'k(ax+b)+c':
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})${ecritureAlgebrique(c)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})${ecritureAlgebrique(c)}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}$`
-          reponse = `${k * a}${inconnue}${ecritureAlgebrique(k * b)}${ecritureAlgebrique(c)} = ${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`
-          texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}(${reduireAxPlusB(a, b, inconnue)})${ecritureAlgebrique(c)}$<br>
+          $${lettreDepuisChiffre(i + 1)}=${k}\\times${ecritureParentheseSiMoins(reduireAxPlusB(a, 0, inconnue))}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}$`
+
+          reponse = `${reduireAxPlusB(k * a, k * b + c, inconnue)}`
+          texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(k * a, k * b, inconnue)}${ecritureAlgebrique(c)}=${reponse}$.`
           if (this.sup2 === 1) {
             reponse = [`${k * a}${inconnue}${ecritureAlgebrique(k * b)}${ecritureAlgebrique(c)}`, `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`]
           }
@@ -146,8 +152,8 @@ export default function ExerciceDevelopper () {
           texte = `$${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
           $${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
-          reponse = `${c}${ecritureAlgebrique(k * a)}${inconnue}${ecritureAlgebrique(k * b)} = ${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`
-          texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
+          reponse = `${reduireAxPlusB(k * a, k * b + c, inconnue)}`
+          texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k * a)}${inconnue}${ecritureAlgebrique(k * b)}=${reponse}$.`
           if (this.sup2 === 1) {
             reponse = [`${k * a}${inconnue}${ecritureAlgebrique(k * b)}${ecritureAlgebrique(c)}`, `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`]
           }
@@ -183,7 +189,7 @@ export default function ExerciceDevelopper () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: 'valeur de $a$ dans $ax^2+bx+c$',
+                  texte: `valeur de $a$ dans $a${inconnue}^2+b${inconnue}+c$`,
                   valeur: reponse1,
                   param: {
                     digits: 2,
@@ -200,7 +206,7 @@ export default function ExerciceDevelopper () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: 'valeur de $b$ dans $ax^2+bx+c$',
+                  texte: `valeur de $b$ dans $a${inconnue}^2+b${inconnue}+c$`,
                   valeur: reponse2,
                   param: {
                     digits: 2,
@@ -217,7 +223,7 @@ export default function ExerciceDevelopper () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: 'valeur de $c$ dans $ax^2+bx+c$',
+                  texte: `valeur de $c$ dans $a${inconnue}^2+b${inconnue}+c$`,
                   valeur: reponse3,
                   param: {
                     digits: 2,
