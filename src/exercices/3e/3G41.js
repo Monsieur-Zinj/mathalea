@@ -34,6 +34,16 @@ export default function VuesEmpilementCubes () {
     this.autoCorrection = []
     let objetsEnonce, objetsCorrection
 
+    const dimensionsTab = gestionnaireFormulaireTexte({
+      max: 999,
+      defaut: 1,
+      nbQuestions: 1,
+      saisie: this.sup,
+      shuffle: false
+    })
+    let dimensions = dimensionsTab[0]
+    if (((dimensions > 1) && (dimensions < 100)) || (dimensions > 999)) dimensions = 1
+
     // Fonction made in Erwan DUPLESSY
     function empilementCubes (long, larg, hmax) {
       const tabHauteurs = new Array(larg)
@@ -67,21 +77,6 @@ export default function VuesEmpilementCubes () {
     }
 
     for (let q = 0, vuePossible, alpha, beta, consigneAMC, texteAMC, texte, texteCorr, cpt = 0; q < this.nbQuestions && cpt < 50;) {
-      /*
-      if (!this.sup2) { // Si aucune liste n'est saisie
-        listeVuesPossibles = range1(6)
-      } else {
-        if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-          listeVuesPossibles[0] = contraindreValeur(1, 7, this.sup2, 7)
-        } else {
-          listeVuesPossibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-          for (let i = 0; i < listeVuesPossibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-            listeVuesPossibles[i] = contraindreValeur(1, 7, parseInt(listeVuesPossibles[i]), 7) // parseInt en fait un tableau d'entiers
-          }
-        }
-      }
-      */
-
       let listeVuesPossibles = gestionnaireFormulaireTexte({
         max: 7,
         defaut: 7,
@@ -114,9 +109,9 @@ export default function VuesEmpilementCubes () {
       const colorD = context.isAmc ? choice(['white', 'gray', 'darkgray']) : choice(['red', 'blue', 'green', 'gray'])
       const colorT = context.isAmc ? choice(['white', 'gray', 'darkgray'], [colorD]) : choice(['white', 'yellow'])
       const colorG = context.isAmc ? choice(['white', 'gray', 'darkgray'], [colorD, colorT]) : choice(['red', 'blue', 'green', 'gray'], [colorD])
-      const longueur = Math.floor((this.sup % 100) / 10) < 2 ? randint(2, 6) : Math.floor((this.sup % 100) / 10)
-      const largeur = Math.floor(this.sup / 100) < 2 ? randint(2, 6) : Math.floor(this.sup / 100)
-      const hauteur = this.sup % 10 < 2 ? randint(2, 6) : this.sup % 10
+      const longueur = Math.floor((dimensions % 100) / 10) < 2 ? randint(2, 6) : Math.floor((dimensions % 100) / 10)
+      const largeur = Math.floor(dimensions / 100) < 2 ? randint(2, 6) : Math.floor(dimensions / 100)
+      const hauteur = dimensions % 10 < 2 ? randint(2, 6) : dimensions % 10
 
       texte += 'Voici un solide composé par un empilement de cubes, présenté de deux façons différentes. <br>'
 
@@ -174,8 +169,7 @@ export default function VuesEmpilementCubes () {
           )
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on la stocke dans la liste des questions
+      if (this.questionJamaisPosee(q, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         q++
@@ -185,7 +179,7 @@ export default function VuesEmpilementCubes () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 
-  this.besoinFormulaireNumerique = ['Longueur, largeur et hauteur sous la forme abc : a étant la longueur du solide ; b sa la largeur et c sa hauteur. Choisir 0 ou 1 si on souhaite laisser le hasard faire.', 999]
+  this.besoinFormulaireTexte = ['Longueur, largeur et hauteur sous la forme abc', 'a étant la longueur du solide (a>1)\nb étant la largeur du solide (b>1)\nc étant sa hauteur du solide (c>1)\n Choisir 0 ou 1 si on souhaite laisser le hasard faire.']
   this.besoinFormulaire2Texte = ['Vues possibles dans les questions ', 'Nombres séparés par des tirets\n1 : Gauche\n2 : Droite\n3 : Dessus\n4 : Dessous \n5 : Face\n6 : Dos\n7 : 3 faces non parallèles']
   // 'De 1 à 6\nSi le nombre de vues demandé est supérieur au nombre de vues possible, alors des vues autres que celles choisies sont proposées.'
   this.besoinFormulaire3Numerique = ['Nombre de vues demandé', 6]
