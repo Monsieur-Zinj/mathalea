@@ -396,6 +396,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           formatInteractif,
           spanReponseLigne
         })
+        return { isOk: 'KO', feedback: 'erreur dans le programme', score: { nbBonnesReponses: 0, nbReponses: 1 } }
       }
     }
   }
