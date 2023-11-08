@@ -18,6 +18,7 @@
     deepReferentielInMenuCopy
   } from '../stores/referentielsStore'
   import codeToLevelList from '../../json/codeToLevelList.json'
+  import { onMount } from 'svelte'
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
   /**
@@ -79,6 +80,7 @@
     }
     return result
   }
+  onMount(() => { updateRef() })
 </script>
 
 <aside

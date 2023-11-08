@@ -96,11 +96,7 @@
       ...list.slice(0, matchingIndex),
       ...list.slice(matchingIndex + 1)
     ])
-    $changes++
-    // console.log('removing: ' + ending.uuid)
-    // console.log('matching index: ' + matchingIndex)
-    // console.log('selectedCount=' + selectedCount)
-    // console.log($exercicesParams)
+    $changes--
   }
 
   /* --------------------------------------------------------------
@@ -150,16 +146,19 @@
             class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
           >
             <span class="font-bold">{ending.id} - </span>{ending.titre}
-            {#if resourceHasMonth(ending)}
-            <span class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
-                >NEW</span
+            {#if isLessThanAMonth(ending.datePublication)}
+              &nbsp;<span
+                class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
               >
+                NEW
+              </span>
             {/if}
             {#if isLessThanAMonth(ending.dateModification)}
               &nbsp;<span
                 class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-struct-light dark:bg-coopmathsdark-struct-light text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
-                >MAJ</span
               >
+                MAJ
+              </span>
             {/if}
             {#if !ending.features.interactif?.isActive}
               &nbsp;<span

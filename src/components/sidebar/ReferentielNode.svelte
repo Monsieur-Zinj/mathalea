@@ -82,7 +82,7 @@
     class="w-full flex flex-row text-start items-center justify-between font-bold first-letter:first-linemarker
     {nestedLevelCount !== 1
       ? 'text-coopmaths-action dark:text-coopmathsdark-action hover:bg-coopmaths-canvas-darkest dark:hover:bg-coopmathsdark-canvas-darkest'
-      : 'text-coopmaths-struct dark:text-coopmathsdark-struct py-6'}
+      : 'text-coopmaths-struct dark:text-coopmathsdark-struct py-2'}
     {unfold && nestedLevelCount !== 1
       ? 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest'
       : 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'}
