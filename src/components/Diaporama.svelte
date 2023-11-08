@@ -1151,7 +1151,7 @@
                   min="1"
                   on:change={handleChangeDurationGlobal}
                   bind:value={durationGlobal}
-                  class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-2 border-transparent focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
+                  class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border {isSameDurationForAll ? '' : 'border-transparent'} border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
                   disabled={!isSameDurationForAll || isManualModeActive}
                 />
               </label>
@@ -1186,13 +1186,17 @@
                     scope="col"
                     class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
                   >
-                    <div>Durées par question (s)</div>
+                    <div class={isManualModeActive ? 'opacity-20' : ''}>Durées par question (s)</div>
                     <div
-                      class="text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs"
+                      class=" text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs"
                     >
+                    {#if !isManualModeActive}
                       Durée diapo :<span class="font-light ml-1"
                         >{stringDureeTotale}</span
                       >
+                      {:else}
+                      <span class="font-light ml-1"> </span>
+                      {/if}
                     </div>
                   </th>
                   <th
