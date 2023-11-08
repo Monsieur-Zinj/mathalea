@@ -152,6 +152,7 @@ export async function loadMathLive () {
   if (champs.length > 0) {
     await import('mathlive')
     window.mathVirtualKeyboard.targetOrigin = '*'
+    window.mathVirtualKeyboard.alphabeticLayout = 'azerty'
     for (const mf of champs) {
       let clavier = []; let raccourcis = {}
       mf.mathVirtualKeyboardPolicy = 'manual'
@@ -185,6 +186,12 @@ export async function loadMathLive () {
       }
       if (mf.classList.contains('alphanumeric')) {
         clavier.push('alphabetic')
+      }
+      if (mf.classList.contains('alphanumericAvecEspace')) {
+        clavier.push('alphabetic')
+        mf.mathModeSpace = '\\:' // Permet d'accepter la saisie d'espaces
+        mf.defaultMode = 'text' // Permet d'avoir toujours du texte (peu importe ce qui est saisi)
+        // mf.smartMode = true // Permet d'avoir du texte quand il reconnait qu'il y en a : Commande dangereuse car à la fin, on obtient du mode text mélangé à du mode math
       }
       if (mf.classList.contains('clavierDeBase')) {
         clavier.push(CLAVIER_COLLEGE)
