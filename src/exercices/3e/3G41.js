@@ -7,7 +7,7 @@ import { cube } from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
 export const titre = "Dessiner différentes vues d'un empilement de cubes"
 export const dateDePublication = '06/10/2022'
-export const dateDeModifImportante = '06/10/2022' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '08/11/2023' // Retour du formulaire numérique en supprimant le tooltip
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -185,7 +185,7 @@ export default function VuesEmpilementCubes () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 
-  this.besoinFormulaireNumerique = ['Longueur, largeur et hauteur', 999, 'Le nombre choisi doit être sous la forme abc :\na : la longueur du solide\nb : la largeur du solide\nc : la hauteur du solide\nChoisir 0 ou 1 si on souhaite laisser le hasard faire.']
+  this.besoinFormulaireNumerique = ['Longueur, largeur et hauteur sous la forme abc : a étant la longueur du solide ; b sa la largeur et c sa hauteur. Choisir 0 ou 1 si on souhaite laisser le hasard faire.', 999]
   this.besoinFormulaire2Texte = ['Vues possibles dans les questions ', 'Nombres séparés par des tirets\n1 : Gauche\n2 : Droite\n3 : Dessus\n4 : Dessous \n5 : Face\n6 : Dos\n7 : 3 faces non parallèles']
   // 'De 1 à 6\nSi le nombre de vues demandé est supérieur au nombre de vues possible, alors des vues autres que celles choisies sont proposées.'
   this.besoinFormulaire3Numerique = ['Nombre de vues demandé', 6]
