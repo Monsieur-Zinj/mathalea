@@ -5,7 +5,9 @@ import referentielProfs from '../../json/referentielProfs.json'
 import referentielRessources from '../../json/referentielRessources.json'
 import referentielBibliotheque from '../../json/referentielBibliotheque.json'
 import referentielGeometrieDynamique from '../../json/referentielGeometrieDynamique.json'
+import referentielsActivation from '../../json/referentielsActivation.json'
 import type {
+  ActivationName,
   JSONReferentielObject,
   ReferentielInMenu,
   ResourceAndItsPath
@@ -20,6 +22,7 @@ import {
   sortArrayOfResourcesBasedOnProp,
   sortArrayOfResourcesBasedOnYearAndMonth
 } from '../utils/sorting'
+const activations: Record<ActivationName, boolean> = { ...referentielsActivation }
 const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
 const examsReferentiel: JSONReferentielObject = { ...referentielExams }
 const referentielOutils: JSONReferentielObject = { ...referentielProfs }
@@ -85,7 +88,7 @@ export const originalReferentiels: ReferentielInMenu[] = [
     searchable: false,
     referentiel: biblioReferentiel
   }
-]
+].filter((elt) => { return activations[elt.name] === true })
 /**
  * Fabrique une liste de _vraies_ copies d'objets représentant les référentiels dans le menu.
  * Ces objet sont passés en paramètres sous la forme d'un tableau.
