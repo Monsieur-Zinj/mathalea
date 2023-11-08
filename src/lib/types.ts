@@ -6,7 +6,7 @@ export interface InterfaceGlobalOptions {
   v?: string
   z?: string
   durationGlobal?: number
-  nbVues?: number
+  nbVues?: 1 | 2 | 3 | 4
   shuffle?: boolean
   choice?: number
   trans?: boolean
@@ -18,7 +18,7 @@ export interface InterfaceGlobalOptions {
     | 'un_exo_par_page'
     | 'liste_questions'
     | 'une_question_par_page'
-    | 'cartes'
+    // | 'cartes'
   setInteractive: string
   isSolutionAccessible?: boolean
   isInteractiveFree?: boolean

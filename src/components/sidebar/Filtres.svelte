@@ -84,16 +84,3 @@
     </ul>
   </div>
 </div>
-
-<style>
-  .levelsgrid {
-    columns: 150px;
-    column-gap: 1rem;
-  }
-  .normalgrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 1rem;
-    line-height: 0.8;
-  }
-</style>

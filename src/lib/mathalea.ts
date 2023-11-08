@@ -445,7 +445,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
  * ne définissent qu'une seule question.
  * Avec cette fonction, on permet la création de plusieurs questions.
  */
-export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteractif: boolean, numeroExercice: number) {
+export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteractif: boolean, numeroExercice?: number) {
   if (numeroExercice !== undefined) exercice.numeroExercice = numeroExercice
   exercice.autoCorrection = []
   exercice.interactif = isInteractif

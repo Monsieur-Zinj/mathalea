@@ -29,7 +29,7 @@
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   let durations: number[] = []
   const nbOfVues = $globalOptions.nbVues ? $globalOptions.nbVues : 1
-  let currentVue: 0 | 1 | 2 | 3 = nbOfVues > 1 ? 3 : 0
+  let currentVue: 0 | 1 | 2 | 3 = 0
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement
@@ -108,6 +108,8 @@
     }
     await tick()
     if (divExercice) mathaleaRenderDiv(divExercice)
+    console.log('questions :')
+    console.log(questions)
   }
 
   async function switchCorrectionVisible (
@@ -356,7 +358,7 @@
             <div
               class="list-inside list-decimal mt-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:text-coopmathsdark-struct marker:font-bold"
             >
-            {#each [...questions[currentVue].keys()] as i}
+              {#each [...questions[currentVue].keys()] as i}
                 <div>
                   <div
                     class="flex flex-row my-4"
@@ -365,8 +367,9 @@
                     <div class="flex flex-col justify-start items-center pr-2">
                       <span
                         class="inline-flex text-center text-coopmaths-struct dark:text-coopmathsdark-struct font-black"
-                        >{i + 1}.</span
                       >
+                        {i + 1}.
+                      </span>
                     </div>
                     <div
                       class="flex flex-col justify-start items-start max-w-full"
@@ -422,7 +425,7 @@
                       <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" />
                     </button> -->
                   </div>
-                  {#each [...questions[currentVue].keys()] as i}
+                  {#each [...questions[currentVueId].keys()] as i}
                     <div class="pl-6">
                       <div
                         class="flex flex-row items-start my-4"
@@ -435,8 +438,9 @@
                         >
                           <span
                             class="inline-flex text-center text-coopmaths-struct dark:text-coopmathsdark-struct font-black"
-                            >{i + 1}.</span
                           >
+                            {i + 1}.
+                          </span>
                         </div>
                         <div
                           class="flex flex-col justify-start items-start max-w-full"

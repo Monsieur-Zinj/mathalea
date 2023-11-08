@@ -260,12 +260,12 @@ export const presModeId: [
   'liste_exos',
   'un_exo_par_page',
   'liste_questions',
-  'une_question_par_page',
-  'cartes'
+  'une_question_par_page'
+  // 'cartes'
 ] = [
   'liste_exos',
   'un_exo_par_page',
   'liste_questions',
-  'une_question_par_page',
-  'cartes'
+  'une_question_par_page'
+  // 'cartes'
 ]

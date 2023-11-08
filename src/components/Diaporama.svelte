@@ -190,17 +190,17 @@
       l.nbVues = nbOfVues
       return l
     })
-    exercicesParams.update(() => newParams)
-    mathaleaUpdateUrlFromExercicesParams(newParams)
-    stringDureeTotale = formattedTimeStamp(getTotalDuration())
-    if (divTableDurationsQuestions) {
-      mathaleaRenderDiv(divTableDurationsQuestions)
-    }
     // préparation des indexes si l'ordre aléatoire est demandé
     if ($questionsOrder.isQuestionsShuffled) {
       $questionsOrder.indexes = shuffle([...Array(questions[0].length).keys()])
     } else {
       $questionsOrder.indexes = [...Array(questions[0].length).keys()]
+    }
+    exercicesParams.update(() => newParams)
+    mathaleaUpdateUrlFromExercicesParams(newParams)
+    stringDureeTotale = formattedTimeStamp(getTotalDuration())
+    if (divTableDurationsQuestions) {
+      mathaleaRenderDiv(divTableDurationsQuestions)
     }
   }
 
@@ -428,7 +428,7 @@
   }
 
   $: {
-    nbOfVues = parseInt(stringNbOfVues)
+    nbOfVues = parseInt(stringNbOfVues) as 1 | 2 | 3 | 4
     if (divTableDurationsQuestions) {
       mathaleaRenderDiv(divTableDurationsQuestions)
     }
@@ -451,7 +451,7 @@
         }
         if (
           steps[currentQuestion - 5] &&
-        !isInViewport(steps[currentQuestion - 5])
+          !isInViewport(steps[currentQuestion - 5])
         ) {
           steps[currentQuestion - 5].scrollIntoView()
         }
@@ -543,15 +543,12 @@
             const finalHeight = svgDivs[k].clientHeight
             const widthCoef = finalWidth / startingWidth
             const heightCoef = finalHeight / startingHeight
-            const svgContainerDivs = diapocellDiv.getElementsByClassName(
-              'svgContainer'
-            )
+            const svgContainerDivs =
+              diapocellDiv.getElementsByClassName('svgContainer')
             for (const container of svgContainerDivs) {
               container.classList.add('flex')
               container.classList.add('justify-center')
-              const divLatexDivs = container.getElementsByClassName(
-                'divLatex'
-              )
+              const divLatexDivs = container.getElementsByClassName('divLatex')
               for (let i = 0; i < divLatexDivs.length; i++) {
                 const divLatex = divLatexDivs[i] as HTMLDivElement
                 const originalTop = parseFloat(
@@ -576,9 +573,8 @@
         const elementsKaTeX = clone.getElementsByClassName('katex')
         let nbOfCharInKaTeX = 0
         while (elementsKaTeX.length > 0) {
-          const katexHtmlElement = elementsKaTeX[0].getElementsByClassName(
-            'katex-html'
-          )
+          const katexHtmlElement =
+            elementsKaTeX[0].getElementsByClassName('katex-html')
           for (let k = 0; k < katexHtmlElement.length; k++) {
             const katexElt = katexHtmlElement[k] as HTMLDivElement
             nbOfCharInKaTeX += katexElt.innerText.length
@@ -781,11 +777,13 @@
    * Gestion du bouton demandant de changer l'ordre des questions
    */
   function handleRandomQuestionOrder () {
-    // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled  <- inutile avec ButtonToggle
+    // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled // <- inutile avec ButtonToggle
     globalOptions.update((l) => {
       l.shuffle = $questionsOrder.isQuestionsShuffled
       return l
     })
+    // console.log('avant ordre change :')
+    // console.log($questionsOrder.indexes)
     updateExercices()
   }
 
@@ -900,8 +898,11 @@
                   <button
                     type="button"
                     class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    on:click={() =>
-                      mathaleaHandleComponentChange('diaporama', 'can')}
+                    on:click={() => {
+                      // console.log('indexes des questions :')
+                      // console.log($questionsOrder.indexes)
+                      mathaleaHandleComponentChange('diaporama', 'can')
+                    }}
                   >
                     <i class="bx text-2xl bx-detail" />
                   </button>
