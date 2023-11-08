@@ -779,12 +779,16 @@
   function handleRandomQuestionOrder () {
     // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled // <- inutile avec ButtonToggle
     globalOptions.update((l) => {
+      console.log('bouton touché, ordre ?')
+      console.log($questionsOrder.isQuestionsShuffled)
       l.shuffle = $questionsOrder.isQuestionsShuffled
       return l
     })
-    // console.log('avant ordre change :')
-    // console.log($questionsOrder.indexes)
+    console.log('avant ordre change :')
+    console.log($questionsOrder.indexes)
     updateExercices()
+    console.log('après ordre change :')
+    console.log($questionsOrder.indexes)
   }
 
   /**
@@ -1029,10 +1033,8 @@
           </div>
           <div class="pb-6">
             <div
-              class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct {exercices.length ===
-              1
-                ? 'text-opacity-20'
-                : 'text-opacity-100'}"
+              class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct
+              {exercices.length === 1 ? 'text-opacity-20' : 'text-opacity-100'}"
             >
               Choix aléatoire
             </div>
@@ -1151,7 +1153,9 @@
                   min="1"
                   on:change={handleChangeDurationGlobal}
                   bind:value={durationGlobal}
-                  class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border {isSameDurationForAll ? '' : 'border-transparent'} border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
+                  class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border {isSameDurationForAll
+                    ? ''
+                    : 'border-transparent'} border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
                   disabled={!isSameDurationForAll || isManualModeActive}
                 />
               </label>
@@ -1186,16 +1190,18 @@
                     scope="col"
                     class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
                   >
-                    <div class={isManualModeActive ? 'opacity-20' : ''}>Durées par question (s)</div>
+                    <div class={isManualModeActive ? 'opacity-20' : ''}>
+                      Durées par question (s)
+                    </div>
                     <div
                       class=" text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs"
                     >
-                    {#if !isManualModeActive}
-                      Durée diapo :<span class="font-light ml-1"
-                        >{stringDureeTotale}</span
-                      >
+                      {#if !isManualModeActive}
+                        Durée diapo :<span class="font-light ml-1"
+                          >{stringDureeTotale}</span
+                        >
                       {:else}
-                      <span class="font-light ml-1"> </span>
+                        <span class="font-light ml-1" />
                       {/if}
                     </div>
                   </th>
