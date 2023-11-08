@@ -19,6 +19,7 @@
     <SearchInput
       origin={resourcesSet}
       bind:results={foundResources}
+      on:filters-change
     />
   </div>
   <ul

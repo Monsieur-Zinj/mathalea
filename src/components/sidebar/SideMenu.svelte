@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { onDestroy } from 'svelte'
+  // import { onDestroy } from 'svelte'
   import {
     type JSONReferentielObject,
     type ResourceAndItsPath,
     type ReferentielInMenu
   } from '../../lib/types/referentiels'
-  import { allFilters } from '../stores/filtersStore'
+  // import { allFilters } from '../stores/filtersStore'
   import {
     applyFilters,
     buildReferentiel,
@@ -23,7 +23,8 @@
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
   // maj du référentiel chaque fois que le store `allFilters` change
-  const unsubscribeToFiltersStore = allFilters.subscribe(() => {
+  // const unsubscribeToFiltersStore = allFilters.subscribe(
+  const updateRef = () => {
     let filteredReferentielItems: ResourceAndItsPath[] = []
     const results: ReferentielInMenu[] = []
     const copyOfOriginalReferentiel: ReferentielInMenu[] =
@@ -63,10 +64,11 @@
       }
     })
     $referentiels = [...results]
-  })
-  onDestroy(() => {
-    unsubscribeToFiltersStore()
-  })
+  }
+  // )
+  // onDestroy(() => {
+  //   unsubscribeToFiltersStore()
+  // })
 
   const buildHaystack = (
     refList: ReferentielInMenu[]
@@ -97,6 +99,7 @@
       <SearchBlock
         class="w-full flex flex-col justify-start"
         resourcesSet={buildHaystack($referentiels)}
+        on:filters-change={updateRef}
       />
       <div class="mt-4 w-full">
         <!-- Affichage de tous les référentiels -->

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy, tick } from 'svelte'
+  import { createEventDispatcher, onDestroy, tick } from 'svelte'
   import { stringToCriteria } from '../../lib/types/filters'
   import {
     isExerciceItemInReferentiel,
@@ -29,6 +29,7 @@
   let inputSearch: string = ''
   let isFiltersVisible: boolean = false
   let selectedFilters: FilterObject<string | Level>[] = []
+  const dispatch = createEventDispatcher()
 
   function updateResults (input: string): void {
     if (input.length === 0) {
@@ -241,14 +242,15 @@
         on:action={() => {
           $allFilters[filter.type][filter.key].isSelected = false
           handleUncheckingMutipleFilters(filter.key)
+          dispatch('filters-change')
         }}
       />
     {/each}
   </div>
   <!-- Filtres -->
   <div class={isFiltersVisible ? 'flex flex-col w-full mt-4' : 'hidden'}>
-    <Filtres class="mt-2" filterType="levels" />
-    <Filtres class="mt-2" filterType="specs" />
-    <Filtres class="mt-2" filterType="types" />
+    <Filtres class="mt-2" filterType="levels" on:filters-change/>
+    <Filtres class="mt-2" filterType="specs" on:filters-change/>
+    <Filtres class="mt-2" filterType="types" on:filters-change/>
   </div>
 </div>

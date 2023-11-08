@@ -1,11 +1,12 @@
 <script lang="ts">
+  import { createEventDispatcher } from 'svelte'
   import { FILTER_SECTIONS_TITLES, type FilterType } from '../../lib/types'
   import type { Level } from '../../lib/types/referentiels'
   import { allFilters } from '../stores/filtersStore'
   import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
   export let filterType: FilterType = 'levels'
   const timeTag: string = getUniqueStringBasedOnTimeStamp()
-
+  const dispatch = createEventDispatcher()
   /**
    * Gérer le cochage des filtres. On a juste à gérer les niveaux multiples
    * collège et lycée qui concernent plusieurs niveaux.
@@ -71,6 +72,7 @@
             bind:checked={filter.isSelected}
             on:change={() => {
               handleFiltersChanges(key)
+              dispatch('filters-change')
             }}
           />
           <label

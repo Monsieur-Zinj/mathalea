@@ -4,8 +4,6 @@
     isJSONReferentielEnding,
     isParentOfStaticEnding,
     isRealJSONReferentielObject,
-    type Features,
-    type JSONReferentielEnding,
     type JSONReferentielObject
   } from '../../lib/types/referentiels'
   import { codeToLevelTitle } from '../utils/refUtils'
@@ -14,16 +12,14 @@
   const themes = toMap(themesList)
   import ReferentielEnding from './ReferentielEnding.svelte'
   import StaticEnding from './StaticEnding.svelte'
-  import { allFilters } from '../stores/filtersStore'
-  import { onDestroy, onMount } from 'svelte'
+  import { onMount } from 'svelte'
   export let subset: JSONReferentielObject
   export let unfold: boolean = false
   export let nestedLevelCount: number
   export let indexBase: number
   export let levelTitle: string
   export let pathToThisNode: string[]
-  let items: [string, string | JSONReferentielObject | string[] | JSONReferentielEnding | Features][] = prepareSubset()
-  // const refFromSubset: JSONReferentielObject = buildReferentiel(subset)
+  $: items = prepareSubset(subset)
 
   /**
    * Recherche dans la liste des thèmes si le thème est référencé
@@ -44,20 +40,14 @@
    * Ordonne les entrées d'un sous-menu à l'envers lorsque son titre contient le mot `année`
    * afin de commencer par l'année la plus récente
    */
-  function prepareSubset () {
+  function prepareSubset (s: JSONReferentielObject) {
     if (pathToThisNode.length !== 0 && pathToThisNode[pathToThisNode.length - 1].includes('année')) {
-      return Object.entries(subset).reverse()
+      return Object.entries(s).reverse()
     } else {
-      return Object.entries(subset)
+      return Object.entries(s)
     }
   }
-  const unsubscribeToFiltersStore = allFilters.subscribe(() => {
-    items = prepareSubset()
-    items = items
-  })
-  onDestroy(() => {
-    unsubscribeToFiltersStore()
-  })
+
   onMount(() => {
     if (nestedLevelCount === 1 && levelTitle === 'Exercices aléatoires') {
       unfold = true
