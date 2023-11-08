@@ -5,6 +5,7 @@
   import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
   export let filterType: FilterType = 'levels'
   const timeTag: string = getUniqueStringBasedOnTimeStamp()
+
   /**
    * Gérer le cochage des filtres. On a juste à gérer les niveaux multiples
    * collège et lycée qui concernent plusieurs niveaux.

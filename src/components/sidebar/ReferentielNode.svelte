@@ -4,6 +4,8 @@
     isJSONReferentielEnding,
     isParentOfStaticEnding,
     isRealJSONReferentielObject,
+    type Features,
+    type JSONReferentielEnding,
     type JSONReferentielObject
   } from '../../lib/types/referentiels'
   import { codeToLevelTitle } from '../utils/refUtils'
@@ -12,13 +14,15 @@
   const themes = toMap(themesList)
   import ReferentielEnding from './ReferentielEnding.svelte'
   import StaticEnding from './StaticEnding.svelte'
+  import { allFilters } from '../stores/filtersStore'
+  import { onDestroy, onMount } from 'svelte'
   export let subset: JSONReferentielObject
   export let unfold: boolean = false
   export let nestedLevelCount: number
   export let indexBase: number
   export let levelTitle: string
   export let pathToThisNode: string[]
-
+  let items: [string, string | JSONReferentielObject | string[] | JSONReferentielEnding | Features][] = prepareSubset()
   // const refFromSubset: JSONReferentielObject = buildReferentiel(subset)
 
   /**
@@ -47,6 +51,19 @@
       return Object.entries(subset)
     }
   }
+
+  const unsubscribeToFiltersStore = allFilters.subscribe(() => {
+    items = prepareSubset()
+    items = items
+  })
+  onDestroy(() => {
+    unsubscribeToFiltersStore()
+  })
+  onMount(() => {
+    if (nestedLevelCount === 1 && levelTitle === 'Exercices aléatoires') {
+      unfold = true
+    }
+  })
 </script>
 
 <!--
@@ -116,7 +133,7 @@
   <div>
     {#if unfold}
       <ul transition:slide={{ duration: 500 }}>
-        {#each prepareSubset() as [key, obj], i}
+        {#each items as [key, obj], i}
           <li>
             {#if isRealJSONReferentielObject(obj) && isParentOfStaticEnding(obj)}
               <StaticEnding
@@ -129,7 +146,7 @@
               <ReferentielEnding
                 ending={obj}
                 nestedLevelCount={nestedLevelCount + 1}
-                class={i === prepareSubset().length - 1 ? 'pb-6' : ''}
+                class={i === items.length - 1 ? 'pb-6' : ''}
               />
             {:else if Object.keys(obj).length === 0}
               <!-- Terminaison vide est affichée comme un bouton désactivé -->
