@@ -78,12 +78,12 @@ export default function ReduireUneExpressionLitterale () {
         case 4: // a+x+b+c+dx
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x=$`
-          reponse = `${texNombre(1 + d)}x+${texNombre(a + b + c)}$`
+          reponse = `${texNombre(1 + d)}x+${texNombre(a + b + c)}`
           break
         case 5: // ax+y+bx+c+dy
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y=$`
-          reponse = `${texNombre(a + b)}x+${texNombre(1 + d)}y+${texNombre(c)}$`
+          reponse = `${texNombre(a + b)}x+${texNombre(1 + d)}y+${texNombre(c)}`
           break
         case 6: // ax+b-cx
           if (c > a) {
@@ -93,7 +93,7 @@ export default function ReduireUneExpressionLitterale () {
           }
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}-${texNombre(c)}x$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}-${texNombre(c)}x=$`
-          reponse = `${texNombre(a - c)}x+${texNombre(b)}$`
+          reponse = `${rienSi1(a - c)}x+${texNombre(b)}`
           break
         case 7: // ax-cx
           if (c > a) {
@@ -103,7 +103,7 @@ export default function ReduireUneExpressionLitterale () {
           }
           texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x-${texNombre(c)}x$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x-${texNombre(c)}x=$`
-          reponse = `${rienSi1(a - c)}x$`
+          reponse = `${rienSi1(a - c)}x`
           break
       }
       texteCorr += `$${sp()}${miseEnEvidence(reponse)}$`
