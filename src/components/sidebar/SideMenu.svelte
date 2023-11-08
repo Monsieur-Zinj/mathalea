@@ -1,11 +1,9 @@
 <script lang="ts">
-  // import { onDestroy } from 'svelte'
   import {
     type JSONReferentielObject,
     type ResourceAndItsPath,
     type ReferentielInMenu
   } from '../../lib/types/referentiels'
-  // import { allFilters } from '../stores/filtersStore'
   import {
     applyFilters,
     buildReferentiel,
@@ -22,8 +20,12 @@
   import codeToLevelList from '../../json/codeToLevelList.json'
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
-  // maj du référentiel chaque fois que le store `allFilters` change
-  // const unsubscribeToFiltersStore = allFilters.subscribe(
+  /**
+   * Mise à jour des référentiels en tenant compte des filtres
+   * La fonction est appelée lorsqu'est détecté l'événement `filters-change`
+   * diffusé par le composant `Filtres` (et remonté à travers tous les composants parents
+   * jusqu'à SideMenu) ou le composant `Chip` de la liste des puces de filtres
+   */
   const updateRef = () => {
     let filteredReferentielItems: ResourceAndItsPath[] = []
     const results: ReferentielInMenu[] = []
@@ -65,10 +67,6 @@
     })
     $referentiels = [...results]
   }
-  // )
-  // onDestroy(() => {
-  //   unsubscribeToFiltersStore()
-  // })
 
   const buildHaystack = (
     refList: ReferentielInMenu[]
