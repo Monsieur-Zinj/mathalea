@@ -51,7 +51,6 @@
       return Object.entries(subset)
     }
   }
-
   const unsubscribeToFiltersStore = allFilters.subscribe(() => {
     items = prepareSubset()
     items = items

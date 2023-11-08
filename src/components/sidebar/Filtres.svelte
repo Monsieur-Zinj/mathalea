@@ -59,9 +59,9 @@
     {FILTER_SECTIONS_TITLES[filterType]}
   </div>
   <div>
-    <ul class={filterType === 'levels' ? 'levelsgrid' : 'normalgrid'}>
+    <ul class="w-full columns-[150px] gap-4 mt-2">
       {#each Object.entries($allFilters[filterType]) as [key, filter], i}
-        <li class="flex-row justify-start items-center pr-4 pl-6">
+        <li class="flex-row justify-start items-center pr-4 pl-6 py-0 my-0 line-clamp-1 leading-none">
           <input
             id="checkbox-{key}-{i}-{timeTag}"
             aria-describedby="checkbox-{key}-{i}-{timeTag}"
@@ -87,18 +87,13 @@
 
 <style>
   .levelsgrid {
-    display: grid;
-    grid-template:
-      'a b'
-      'c d'
-      'e f'
-      'g h'
-      'i j'
-      '. k';
-    grid-auto-flow: column;
+    columns: 150px;
+    column-gap: 1rem;
   }
   .normalgrid {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1rem;
+    line-height: 0.8;
   }
 </style>
