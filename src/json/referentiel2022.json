@@ -6199,7 +6199,8 @@
           "amcType": "AMCHybride",
           "amc": true
         },
-        "datePublication": "19/08/2022"
+        "datePublication": "19/08/2022",
+        "dateModification": "07/11/2023"
       },
       "6G10-5": {
         "url": "6e/6G10-5.js",
@@ -12380,7 +12381,7 @@
           "amc": false
         },
         "datePublication": "24/09/2022",
-        "dateModification": "04/10/2023"
+        "dateModification": "07/11/2023"
       },
       "2F21-1": {
         "url": "2e/2F21-1.js",
