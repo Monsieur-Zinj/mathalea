@@ -59,14 +59,14 @@
     {FILTER_SECTIONS_TITLES[filterType]}
   </div>
   <div>
-    <ul class="w-full columns-[150px] gap-4 mt-2">
+    <ul class="w-full columns-[175px] gap-4 mt-2">
       {#each Object.entries($allFilters[filterType]) as [key, filter], i}
         <li class="flex-row justify-start items-center pr-4 pl-6 py-0 my-0 line-clamp-1 leading-none">
           <input
             id="checkbox-{key}-{i}-{timeTag}"
             aria-describedby="checkbox-{key}-{i}-{timeTag}"
             type="checkbox"
-            class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action rounded"
+            class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-0 rounded"
             value={key}
             bind:checked={filter.isSelected}
             on:change={() => {

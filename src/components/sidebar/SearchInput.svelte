@@ -230,7 +230,7 @@
   <div
     class={selectedFilters.length === 0
       ? 'hidden'
-      : 'flex w-full flex-row flex-wrap justify-start text-sm mt-6'}
+      : 'flex w-full flex-row flex-wrap justify-start text-sm mt-6 leading-tight'}
   >
     {#each selectedFilters as filter}
       <Chip
@@ -246,9 +246,9 @@
     {/each}
   </div>
   <!-- Filtres -->
-  <div class={isFiltersVisible ? 'flex flex-col w-full pt-6' : 'hidden'}>
-    <Filtres class="mt-6" filterType="levels" />
-    <Filtres class="mt-6" filterType="specs" />
-    <Filtres class="mt-6" filterType="types" />
+  <div class={isFiltersVisible ? 'flex flex-col w-full mt-4' : 'hidden'}>
+    <Filtres class="mt-2" filterType="levels" />
+    <Filtres class="mt-2" filterType="specs" />
+    <Filtres class="mt-2" filterType="types" />
   </div>
 </div>
