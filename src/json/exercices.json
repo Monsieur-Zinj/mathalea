@@ -10392,6 +10392,19 @@
     "datePublication": "09/07/2022",
     "dateModification": "24/10/2021"
   },
+  "can2024": {
+    "url": "beta/betaCAN2024.js",
+    "uuid": "8ff87",
+    "id": "can2024",
+    "titre": "CAN Spéciale année 2024",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "20/12/2023",
+    "dateModification": "24/10/2021"
+  },
   "can2C01": {
     "url": "can/2e/can2C01.js",
     "uuid": "1f399",
