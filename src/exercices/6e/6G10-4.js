@@ -277,14 +277,14 @@ export default function VocabulaireDuCercle () {
                 reponses = ajouterAlternatives(segmentAlternatif, reponses)
                 break
             }
-            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore clavierDeBase alphanumericAvecEspace')
-            setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texte' })
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore college6eme alphanumericAvecEspace')
+            setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texteAvecEspace' })
           }
           if (question.sens === '[AB] est ...') {
             reponses = [question.nature]
-            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore clavierDeBase alphanumericAvecEspace')
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore college6eme alphanumericAvecEspace')
             //  setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
-            setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texte' })
+            setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texteAvecEspace' })
           }
         }
         texte += '<br>'
