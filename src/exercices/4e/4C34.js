@@ -169,7 +169,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}                =${miseEnEvidence(ecritureParentheseSiNegatif(n) + '^2', 'blue')} \\times ( ${a} ${ecritureAlgebrique(b)} ${ecritureAlgebrique(c)})$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${n * n} \\times ( ${miseEnEvidence(a + ecritureAlgebrique(b) + ecritureAlgebrique(c), 'blue')})$`
           texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)}=${n * n} \\times ${ecritureParentheseSiNegatif(a + b + c)}$`
-          texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence((a + b + n * n) * d)}$`
+          texteCorr += '<br>' + `$${lettreDepuisChiffre(i + 1)} = ${miseEnEvidence((a + b + c) * n * n)}$`
           reponse = calculANePlusJamaisUtiliser(n * n * (a + b + c))
           break
       }

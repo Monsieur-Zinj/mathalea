@@ -241,15 +241,16 @@ export function egalOuApprox (a, precision) {
  * @author Jean-Claude Lhote
  * @param {number} a
  * @param {number} b
+ * @param {string} inconnue 'x' par défaut, mais on peut préciser autre chose.
  */
-export function reduireAxPlusB (a, b) {
+export function reduireAxPlusB (a, b, inconnue = 'x') {
   if (!(a instanceof Decimal)) a = new Decimal(a)
   if (!(b instanceof Decimal)) b = new Decimal(b)
   let result = ''
   if (!a.isZero()) {
-    if (a.eq(1)) result = 'x'
-    else if (a.eq(-1)) result = '-x'
-    else result = `${stringNombre(a)}x`
+    if (a.eq(1)) result = inconnue
+    else if (a.eq(-1)) result = '-' + inconnue
+    else result = `${stringNombre(a)}${inconnue}`
   }
   if (!b.isZero()) {
     if (!a.isZero()) result += `${ecritureAlgebrique(b)}`

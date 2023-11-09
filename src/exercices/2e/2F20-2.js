@@ -22,12 +22,10 @@ export const titre = 'Calculer des coordonnées de points appartenant à une cou
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '24/09/2022'
-export const dateDeModifImportante = '04/10/2023'
+export const dateDeModifImportante = '07/11/2023'
 /**
 * Répondre à des questions sur les fonctions.
-* 24/ 09/2022 Interactif 04/10/2023
 * @author Gilles Mora
-* 3F10-1
 */
 
 export const uuid = 'ec059'
@@ -42,7 +40,6 @@ export default function CalculPointSurCourbe () {
   this.nbQuestionsModifiable = true
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
@@ -64,13 +61,14 @@ export default function CalculPointSurCourbe () {
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let sousChoix
-    if (parseInt(this.sup2) === 1) {
+    if (this.sup2 === 1) {
       sousChoix = combinaisonListes([0], this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
-    } else if (parseInt(this.sup2) === 2) {
+    } else if (this.sup2 === 2) {
       sousChoix = combinaisonListes([1], this.nbQuestions)
     } else {
       sousChoix = combinaisonListes([0, 1], this.nbQuestions)
     }
+
     const nomF = [
       ['f'], ['g'], ['h'], ['u'],
       ['v'], ['w']
@@ -213,7 +211,7 @@ export default function CalculPointSurCourbe () {
 
           break
         case 'polynôme':
-          switch (sousChoix[1]) { // ax^2+bx+c
+          switch (sousChoix[i]) { // ax^2+bx+c
             case 0:
               if (choice([true, false])) {
                 a = randint(-10, 10, 0)
@@ -259,7 +257,7 @@ ${texteCentre(`$${nom}(x)=${reduirePolynomeDegre3(0, a, 0, c)}$`)}
 On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
 Existe-t-il des points de $\\mathscr{C}$ d'ordonnée $${ord}$ ? <br>
 Si oui, quelles sont les abscisses possibles de ces points ?<br>
-Écrire les valeurs dans l'ordre croissant séparées par un point-virgule ou "Aucun" si il n'y en a pas.`
+Écrire les valeurs dans l'ordre croissant séparées par un point-virgule ou "Aucun" s'il n'y en a pas.`
                 }
 
                 correction = ` Si un point de $\\mathscr{C}$ a pour ordonnée $${ord}$, son abscisse est un antécédent de $${ord}$.<br> `
@@ -468,7 +466,8 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
       }
 
       texte = enonce
-      texte += ' ' + ajouteChampTexteMathLive(this, i)
+      texte += ' ' + ajouteChampTexteMathLive(this, i, 'inline largeur01 clavierDeBase alphanumeric')
+      // texte += ' ' + ajouteChampTexteMathLive(this, i)
       texteCorr = correction
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {

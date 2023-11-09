@@ -33,7 +33,7 @@ export default function ReduireDinstinctionSommeProduit () {
     // const listeTypeDeQuestions = combinaisonListesSansChangerOrdre([0], this.nbQuestions)
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const variables = ['x', 'y', 'z', 't']
+      const variables = ['x', 'y', 'z', 'a', 'b', 'c']
       const enonces = []
       const n = randint(1, 6)
       const p = randint(1, 6)

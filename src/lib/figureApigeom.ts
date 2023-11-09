@@ -26,6 +26,7 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
     container.innerHTML = ''
     figure.setContainer(container)
     if (animation) {
+      figure.divUserMessage.innerHTML = ''
       figure.restart()
       setTimeout(() => {
         figure.buttons.get('PLAY')?.click()

@@ -23,6 +23,7 @@ export const amcType = 'AMCHybride'
 export const titre = 'Connaître le vocabulaire du cercle'
 
 export const dateDePublication = '19/08/2022'
+export const dateDeModifImportante = '07/11/2023'
 
 /**
  * Exercice testant les connaissances des élèves sur le vocabulaire du cercle dans les deux sens (Un rayon est ... et [AB] est ...)
@@ -59,7 +60,6 @@ function segmentAlternatif (reponses) {
 
 export default function VocabulaireDuCercle () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 1
 
   this.besoinFormulaireNumerique = ['Sens des questions', 3, '1 : Un rayon est...\n2 : [AB] est ...\n3 : Mélange']
@@ -74,13 +74,14 @@ export default function VocabulaireDuCercle () {
   this.spacingCorr = 1.5 // Interligne des réponses
 
   this.nouvelleVersion = function () {
+    this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    this.interactifType = this.sup2 ? 'AMCHybride' : 'mathLive'
+    this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
     const nbSousQuestionMax = 5 // Il y a 5 types de sous-questions pour l'instant... si ça venait à changer, mettre à jour ce paramètre
     let sensDesQuestionsDisponibles
-    switch (Number(this.sup)) {
+    switch (this.sup) {
       case 1:
         sensDesQuestionsDisponibles = ['Un rayon est ...']
         break
@@ -133,29 +134,29 @@ export default function VocabulaireDuCercle () {
         {
           nom: `[$${O.nom + A.nom}$]`,
           nature: 'un rayon',
-          commentaire: `${texteEnCouleurEtGras('Un')} rayon est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Le')} rayon est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`,
+          commentaire: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
           sens: sensDesQuestions[i * nbSousQuestions]
         },
         {
           nom: `[$${B.nom + C.nom}$]`,
           nature: 'un diamètre',
-          commentaire: `${texteEnCouleurEtGras('Un')} diamètre est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Le')} diamètre est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`,
+          commentaire: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.<br>Un diamètre est une corde qui passe par le centre du cercle.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
           sens: sensDesQuestions[i * nbSousQuestions + 1]
         },
         {
           nom: `$${O.nom + A.nom}$`,
           nature: 'le rayon',
-          commentaire: `${texteEnCouleurEtGras('Le')} rayon est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Un')} rayon est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`,
+          commentaire: `${texteEnCouleurEtGras('Le', 'blue')} rayon est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} rayon est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
           sens: sensDesQuestions[i * nbSousQuestions + 2]
         },
         {
           nom: `$${B.nom + C.nom}$`,
           nature: 'le diamètre',
-          commentaire: `${texteEnCouleurEtGras('Le')} diamètre est une ${texteEnCouleurEtGras('longueur')}, il se note donc sans crochet.`,
-          commentaireAlt: `${texteEnCouleurEtGras('Un')} diamètre est un ${texteEnCouleurEtGras('segment')}, il se note donc avec des crochets.`,
+          commentaire: `${texteEnCouleurEtGras('Le', 'blue')} diamètre est une ${texteEnCouleurEtGras('longueur', 'blue')}, il se note donc sans crochet.`,
+          commentaireAlt: `${texteEnCouleurEtGras('Un', 'blue')} diamètre est un ${texteEnCouleurEtGras('segment', 'blue')}, il se note donc avec des crochets.`,
           sens: sensDesQuestions[i * nbSousQuestions + 3]
         },
         {
@@ -201,13 +202,13 @@ export default function VocabulaireDuCercle () {
         texte += numAlpha(j)
         texteCorr += numAlpha(j)
         if (question.sens === 'Un rayon est ...') {
-          enonce = `${premiereLettreEnMajuscule(question.nature)} est ${this.interactifType === 'mathLive' ? '' : '...'}`
+          enonce = `${premiereLettreEnMajuscule(question.nature)} est ...`
           texte += enonce
           texteCorr += `${premiereLettreEnMajuscule(question.nature)} est ${texteEnCouleurEtGras(question.nom)}.<br>`
           if (question.nature === 'une corde') texteCorr += `${texteEnCouleurEtGras(nomDiametre)} étant un diamètre, c'est aussi une corde.<br>`
         }
         if (question.sens === '[AB] est ...') {
-          enonce = `${question.nom} est ${this.interactifType === 'mathLive' ? '' : '...'}`
+          enonce = `${question.nom} est ...`
           texte += enonce
           texteCorr += `${premiereLettreEnMajuscule(question.nom)} est ${texteEnCouleurEtGras(question.nature)}${question.nom === nomDiametre ? ' et aussi ' + texteEnCouleurEtGras('une corde') : ''}.<br>`
         }
@@ -256,14 +257,14 @@ export default function VocabulaireDuCercle () {
                 reponses = ajouterAlternatives(longueurAlternative, reponses)
                 break
               case 'le diamètre':
-                reponses.push(longueurAlternative(reponses[0]))
+                reponses.push(longueurAlternative(reponses))
                 break
               case 'un rayon':
                 reponses.push('[' + O.nom + B.nom + ']', '[' + O.nom + C.nom + ']', '[' + O.nom + D.nom + ']', '[' + O.nom + E.nom + ']')
                 reponses = ajouterAlternatives(segmentAlternatif, reponses)
                 break
               case 'un diamètre':
-                reponses.push(segmentAlternatif(reponses[0]))
+                reponses.push(segmentAlternatif(reponses))
                 break
               case 'une corde':
                 for (const point1 of [A, B, C, D, E]) {
@@ -276,13 +277,14 @@ export default function VocabulaireDuCercle () {
                 reponses = ajouterAlternatives(segmentAlternatif, reponses)
                 break
             }
-            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore')
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore clavierDeBase alphanumericAvecEspace')
             setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texte' })
           }
           if (question.sens === '[AB] est ...') {
             reponses = [question.nature]
-            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore alphanumeric')
-            setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur25 nospacebefore clavierDeBase alphanumericAvecEspace')
+            //  setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
+            setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texte' })
           }
         }
         texte += '<br>'
