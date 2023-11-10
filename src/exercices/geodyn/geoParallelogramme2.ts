@@ -58,23 +58,18 @@ class ConstructionRectangle extends Exercice {
     let feedback = ''
     // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le triangle est tracé)
     const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
-    const { isValid, message } = this.figure.testAngle({ angle: 90, label1: 'A', label2: 'B', label3: 'C' })
+    const { isValid, message } = this.figure.testSameDistance({ label1: 'AB', label2: 'CD' })
     resultat.push(isValid ? 'OK' : 'KO')
     if (message !== '') { feedback += message + '<br>' }
-    const { isValid: isValid2, message: message2 } = this.figure.testAngle({ angle: 90, label1: 'B', label2: 'C', label3: 'D' })
+    const { isValid: isValid2, message: message2 } = this.figure.testSameDistance({ label1: 'BC', label2: 'AD' })
     resultat.push(isValid2 ? 'OK' : 'KO')
     if (message2 !== '') { feedback += message2 + '<br>' }
-    const { isValid: isValid3, message: message3 } = this.figure.testAngle({ angle: 90, label1: 'C', label2: 'D', label3: 'A' })
-    resultat.push(isValid3 ? 'OK' : 'KO')
-    if (message3 !== '') { feedback += message3 + '<br>' }
-    const { isValid: isValid4, message: message4 } = this.figure.testAngle({ angle: 90, label1: 'D', label2: 'A', label3: 'B' })
-    resultat.push(isValid4 ? 'OK' : 'KO')
-    if (message4 !== '') { feedback += message4 + '<br>' }
-    if (isValid && isValid2 && isValid3 && isValid4) {
-      resultat.push('OK')
-      feedback += 'Bravo !'
+    if (isValid && isValid2) {
+      resultat.push('OK', 'OK', 'OK')
+      feedback += 'Le quadrilatère $ABCD$ a ses côtés opposés deux à deux de même longueur donc s\'il est non croisé, c\'est bien un parallélogramme.'
+      feedback += '<br>Bravo !'
     } else {
-      resultat.push('KO')
+      resultat.push('KO', 'KO', 'KO')
     }
     divFeedback.innerHTML = feedback
     this.figure.isDynamic = false
@@ -90,33 +85,26 @@ export default ConstructionRectangle
 function createAnimationConstructionRectangle () : Figure {
   const figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
   figure.setToolbar({ position: 'top', tools: ['RESTART', 'PLAY_SKIP_BACK', 'PLAY', 'PLAY_SKIP_FORWARD', 'PAUSE'] })
-  const description = figure.create('TextByPosition', { anchor: 'bottomLeft', backgroundColor: 'white', text: 'On peut commencer par tracer le côté $[AB]$.', x: 10, y: 15 })
-  const A = figure.create('Point', { x: 3, y: 3, label: 'A' })
-  const B = figure.create('Point', { x: 12, y: 4, label: 'B' })
-  const sAB = figure.create('Segment', { point1: A, point2: B })
+  const description = figure.create('TextByPosition', { anchor: 'bottomLeft', backgroundColor: 'white', text: 'Si un quarilatère non croisé a ses côtés opoosés deux à deux de même longueur alors c\'est un parallélogramme.', x: 10, y: 15 })
+  const A = figure.create('Point', { x: 8, y: 11, label: 'A' })
+  const B = figure.create('Point', { x: 18, y: 12, label: 'B' })
+  const C = figure.create('Point', { x: 20, y: 9, label: 'C' })
+  figure.create('Segment', { point1: A, point2: B })
+  figure.create('Segment', { point1: B, point2: C })
   figure.saveState()
-  description.text = 'On trace la droite perpendiculaire à $(AB)$ passant par $B$.'
-  const dBC = figure.create('LinePerpendicular', { line: sAB, point: B })
+  description.text = 'Il faut placer le point $D$ tel que $AB = CD$ et $BC = AD$.'
+  description.text += '<br>Donc $D$ est sur le cercle de centre $C$ et de rayon $AB$ et sur le cercle de centre $A$ et de rayon $BC$.'
+  const lAB = figure.create('Distance', { point1: A, point2: B })
+  const c1 = figure.create('CircleCenterDynamicRadius', { center: C, radius: lAB })
+  const lBC = figure.create('Distance', { point1: B, point2: C })
+  const c2 = figure.create('CircleCenterDynamicRadius', { center: A, radius: lBC })
   figure.saveState()
-  description.text = 'On place un point $C$ sur cette droite en utilisant le bouton « Point sur » et non « Point libre ».'
-  const C = figure.create('PointOnLine', { line: dBC, k: -0.5, shape: 'x', label: 'C' })
+  description.text = 'On place le point $D$ à l\'intersection des deux cercles.'
+  const D = figure.create('PointIntersectionCC', { circle1: c1, circle2: c2, label: 'D', n: 2 })
   figure.saveState()
-  description.text = 'On trace la droite perpendiculaire à $(BC)$ passant par $C$.'
-  const dCD = figure.create('LinePerpendicular', { line: dBC, point: C })
-  figure.saveState()
-  description.text = 'On trace la perpendiculaire à la droite $(AB)$ passant par $A$.'
-  const dAD = figure.create('LinePerpendicular', { line: sAB, point: A })
-  figure.saveState()
-  description.text = 'On place un point $D$ à l\'intersection de ces deux dernières droites en utilisant le bouton « Point à l\'intersection » et non « Point libre ».'
-  const D = figure.create('PointIntersectionLL', { line1: dAD, line2: dCD, label: 'D' })
-  figure.saveState()
-  description.text = 'On peut cacher le segment et les droites.'
-  sAB.hide()
-  dBC.hide()
-  dCD.hide()
-  dAD.hide()
-  figure.saveState()
-  description.text = 'On peut trace le quadrilatère $ABCD$. Comme il a 3 angles droits, c\'est obligatoirement un rectangle.'
+  description.text = 'On peut cacher les cercles et tracer le parallélogrammz.'
+  c1.hide()
+  c2.hide()
   figure.create('Polygon', { points: [A, B, C, D] })
   figure.saveState()
   return figure
