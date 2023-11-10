@@ -53,5 +53,43 @@
       },
       "typeExercice": "alea"
     }
+  },
+  "Carré": {
+    "geoRectangle1": {
+      "url": "geodyn/geoCarre1.ts",
+      "tags": [],
+      "uuid": "e7bad",
+      "id": "geoCarre1",
+      "titre": "Tracer un carré",
+      "features": {
+        "interactif": {
+          "isActive": true,
+          "type": "'mathLive'"
+        },
+        "amc": {
+          "isActive": false
+        }
+      },
+      "typeExercice": "alea"
+    }
+  },
+  "Parallélogramme": {
+    "geoRectangle1": {
+      "url": "geodyn/geoParallélogramme2.ts",
+      "tags": [],
+      "uuid": "784a7",
+      "id": "geoParallélogramme2",
+      "titre": "Tracer un parallélogramme (sans le bouton « parallèle »)",
+      "features": {
+        "interactif": {
+          "isActive": true,
+          "type": "'mathLive'"
+        },
+        "amc": {
+          "isActive": false
+        }
+      },
+      "typeExercice": "alea"
+    }
   }
 }
