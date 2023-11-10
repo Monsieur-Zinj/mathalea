@@ -10,9 +10,9 @@ export const interactifType = 'custom'
 /**
  * Tracer un rectangle
  * @author Rémi Angot
- * Références geoParallelogramme2
+ * Références geoParallelogramme1
  */
-export const uuid = '784a7'
+export const uuid = '4d4a8'
 
 class ConstructionParallelogramme extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
@@ -39,11 +39,9 @@ class ConstructionParallelogramme extends Exercice {
     this.figure.create('Segment', { point1: B, point2: C })
 
     const enonce = 'Placer le point $D$ tel que $ABCD$ soit un parallélogramme.'
-    this.figure.setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'POLYGON', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'NAME_POINT', 'DRAG', 'HIDE', 'REMOVE', 'UNDO', 'REDO', 'SHAKE'], position: 'top' })
+    this.figure.setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'LINE_PERPENDICULAR', 'LINE_PARALLEL', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'NAME_POINT', 'DRAG', 'HIDE', 'REMOVE', 'UNDO', 'REDO', 'SHAKE'], position: 'top' })
     const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
-    let texteCorr = 'Un rectangle est un quadrilatère qui a 4 angles droits.'
-    texteCorr += '<br>On peut tracer un rectangle de différentes façons.'
-    texteCorr += '<br>Dans cette animation, on va tracer un quadrilatère avec 3 angles droits mais on n\'aurait pu aussi ne faire qu\'un angle droit et tracer des côtés opposés parallèles.'
+    const texteCorr = 'Un parallélogramme est un quadrilatère non croisé qui a ses côtés opposés parallèles deux à deux.'
     const figureCorrection = createAnimationConstructionRectangle()
     const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${numeroExercice}Correction`, figure: figureCorrection })
     this.question = enonce + emplacementPourFigure
@@ -58,15 +56,15 @@ class ConstructionParallelogramme extends Exercice {
     let feedback = ''
     // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le triangle est tracé)
     const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
-    const { isValid, message } = this.figure.testSameDistance({ label1: 'AB', label2: 'CD' })
+    const { isValid, message } = this.figure.testParallel({ label1: 'AB', label2: 'CD' })
     resultat.push(isValid ? 'OK' : 'KO')
     if (message !== '') { feedback += message + '<br>' }
-    const { isValid: isValid2, message: message2 } = this.figure.testSameDistance({ label1: 'BC', label2: 'AD' })
+    const { isValid: isValid2, message: message2 } = this.figure.testParallel({ label1: 'BC', label2: 'AD' })
     resultat.push(isValid2 ? 'OK' : 'KO')
     if (message2 !== '') { feedback += message2 + '<br>' }
     if (isValid && isValid2) {
       resultat.push('OK', 'OK', 'OK')
-      feedback += 'Le quadrilatère $ABCD$ a ses côtés opposés deux à deux de même longueur donc s\'il est non croisé, c\'est bien un parallélogramme.'
+      feedback += 'Le quadrilatère $ABCD$ a ses côtés opposés parallèles deux à deux donc, s\'il est non croisé, c\'est bien un parallélogramme.'
       feedback += '<br>Bravo !'
     } else {
       resultat.push('KO', 'KO', 'KO')
@@ -89,22 +87,21 @@ function createAnimationConstructionRectangle () : Figure {
   const A = figure.create('Point', { x: 8, y: 11, label: 'A' })
   const B = figure.create('Point', { x: 18, y: 12, label: 'B' })
   const C = figure.create('Point', { x: 20, y: 9, label: 'C' })
-  figure.create('Segment', { point1: A, point2: B })
-  figure.create('Segment', { point1: B, point2: C })
+  const sAB = figure.create('Segment', { point1: A, point2: B })
+  const sBC = figure.create('Segment', { point1: B, point2: C })
   figure.saveState()
-  description.text = 'Il faut placer le point $D$ tel que $AB = CD$ et $BC = AD$.'
-  description.text += '<br>Donc $D$ est sur le cercle de centre $C$ et de rayon $AB$ et sur le cercle de centre $A$ et de rayon $BC$.'
-  const lAB = figure.create('Distance', { point1: A, point2: B })
-  const c1 = figure.create('CircleCenterDynamicRadius', { center: C, radius: lAB })
-  const lBC = figure.create('Distance', { point1: B, point2: C })
-  const c2 = figure.create('CircleCenterDynamicRadius', { center: A, radius: lBC })
+  description.text = 'On trace la droite parallèle à $(AB)$ passant par C.'
+  const dCD = figure.create('LineParallel', { point: C, line: sAB })
   figure.saveState()
-  description.text = 'On place le point $D$ à l\'intersection des deux cercles.'
-  const D = figure.create('PointIntersectionCC', { circle1: c1, circle2: c2, label: 'D', n: 2 })
+  description.text = 'On trace la droite parallèle à $(BC)$ passant par A.'
+  const dAD = figure.create('LineParallel', { point: A, line: sBC })
   figure.saveState()
-  description.text = 'On peut cacher les cercles et tracer le parallélogrammz.'
-  c1.hide()
-  c2.hide()
+  description.text = 'On place le point $D$ à l\'intersection des deux droites en utilisant bien le bouton « Point intersection » et pas le bouton « Point libre ».'
+  const D = figure.create('PointIntersectionLL', { line1: dCD, line2: dAD, label: 'D' })
+  figure.saveState()
+  description.text = 'On peut cacher les droites et tracer le parallélogramme.'
+  dCD.hide()
+  dAD.hide()
   figure.create('Polygon', { points: [A, B, C, D] })
   figure.saveState()
   return figure
