@@ -9,7 +9,6 @@
 export default class Exercice {
   titre: string
   id?: string
-  idApigeom?: string
   uuid!: string
   sup: any
   sup2: any
