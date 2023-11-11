@@ -30,8 +30,8 @@ class ConstructionParallelogramme extends Exercice {
     this.exoCustomResultat = true
   }
 
-  nouvelleVersion (numeroExercice: number): void {
-    this.idApigeom = `apigeomEx${numeroExercice}F0`
+  nouvelleVersion (): void {
+    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
     this.figure.options.labelAutomaticForPoints = true
     const A = this.figure.create('Point', { x: 8, y: 11, label: 'A' })
@@ -45,7 +45,7 @@ class ConstructionParallelogramme extends Exercice {
     const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
     const texteCorr = 'Un parallélogramme est un quadrilatère non croisé qui a ses côtés opposés parallèles deux à deux.'
     const figureCorrection = createAnimationConstructionRectangle()
-    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${numeroExercice}Correction`, figure: figureCorrection })
+    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
     this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
