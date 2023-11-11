@@ -1394,11 +1394,11 @@
           {/each}
         </div>
         <dialog
-          class=" bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas text-[150px] font-extralight min-w-full min-h-full"
+          class="absolute top-0 left-0 h-full w-full bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas text-[150px] font-extralight min-w-full min-h-full"
           id="transition"
         >
           <div
-            class="flex flex-row w-full min-h-full justify-center items-center"
+            class="flex w-full min-h-full h-full justify-center items-center"
           >
             <div
               class="radial-progress"
