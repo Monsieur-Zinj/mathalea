@@ -556,6 +556,15 @@ export function latexParPoint (texte, A, color = 'black', largeur = 20, hauteur 
  */
 export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, colorBackground = '', tailleCaracteres) {
   ObjetMathalea2D.call(this, {})
+  if (typeof texte !== 'string') throw Error(`Vous n'avez pas passer un string à latexParCoordonnees() : ${texte}`)
+  // texte doit être de type texte maintenant, sinon, tu revois ton code !
+  if (texte === '') return vide2d(x, y) // ton texte est vide ? ben y a rien à afficher !
+  if (texte[0] === '$' && texte[texte.length - 1] === '$') {
+    // tu as mis des $ $ pour délimiter ton texte.
+    // Or c'est prévu d'en ajouter parce que c'est l'idée qu'on se fait de latexParCoordonnees()
+    // Si c'est pas pour du latex en mode math, on aurait utilisé texteParPosition-) !
+    texte = texte.substring(1, texte.length - 2)// donc on les enlève, pour ne pas avoir des $$ !
+  }
   this.x = x
   this.y = y
   this.largeur = largeur * Math.log10(2 * tailleCaracteres)
@@ -580,7 +589,7 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
     if (this.colorBackground !== '') {
       divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\colorbox{' + colorToLatexOrHTML(this.colorBackground)[0] + '}{ ' + taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
     } else {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\color{' + this.color[0] + '}' + taille + ' ' + this.texte)}</div>`
+      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\color{' + this.color[0] + '}' + taille + ' $' + this.texte + '$')}</div>`
     }
     /* const thisX = this.x
     const thisY = this.y

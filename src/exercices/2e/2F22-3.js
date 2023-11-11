@@ -6,6 +6,7 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 
@@ -77,26 +78,21 @@ let deltaY
 // }
 
 function aleatoiriseCourbe (choix) {
+  coeffX = choice([-1, 1]) // symétries ou pas
+  coeffY = choice([-1, 1])
+  deltaX = randint(-2, +2) // translations
   switch (choix) {
     case 1:
-      coeffX = choice([-1, 1]) // symétries ou pas
-      coeffY = choice([-1, 1])
-      deltaX = randint(-2, +2) // translations
       deltaY = 0// randint(-2, +2)
-      return { coeffX, coeffY, deltaX, deltaY }
+      break
     case 2:
-      coeffX = choice([-1, 1]) // symétries ou pas
-      coeffY = choice([-1, 1])
-      deltaX = randint(-2, +2) // translations
       deltaY = randint(-2, +2)
-      return { coeffX, coeffY, deltaX, deltaY }
-    case 3:
-      coeffX = choice([-1, 1]) // symétries ou pas
-      coeffY = choice([-1, 1])
-      deltaX = randint(-2, +2) // translations
+      break
+    default:
       deltaY = choice([randint(-2, +2), 0])
-      return { coeffX, coeffY, deltaX, deltaY }
+      break
   }
+  return { coeffX, coeffY, deltaX, deltaY }
 }
 
 /**
@@ -160,6 +156,7 @@ export default class BetaModeleSpline extends Exercice {
       const courbe1 = maSpline.courbe({
         repere: repere1,
         epaisseur: 1.5,
+        step: 0.2,
         ajouteNoeuds: true,
         optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
         color: 'blue'
@@ -180,7 +177,7 @@ export default class BetaModeleSpline extends Exercice {
       texteCorrection += `Tableau de signes de $f(x)$ sur $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$ :<br>
           `
       // on stocke le tableau de signes dans une variable
-      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.1 })
+      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: Number(typeDeQuestions[i]) === 1 ? 1 : new FractionEtendue(1, 2), tolerance: Number(typeDeQuestions[i]) === 1 ? 0.1 : 0.001 })
 
       texteCorrection += tableau
 
