@@ -893,7 +893,7 @@
     "id": "2F20-2",
     "titre": "Calculer des coordonnées de points appartenant à une coube connaissant l'abscisse ou l'ordonnée",
     "datePublication": "24/09/2022",
-    "dateModification": "04/10/2023",
+    "dateModification": "07/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -4781,7 +4781,7 @@
     "id": "3G41",
     "titre": "Dessiner différentes vues d'un empilement de cubes",
     "datePublication": "06/10/2022",
-    "dateModification": "06/10/2022",
+    "dateModification": "08/11/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -10914,6 +10914,7 @@
     "id": "6G10-4",
     "titre": "Connaître le vocabulaire du cercle",
     "datePublication": "19/08/2022",
+    "dateModification": "07/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -16487,6 +16488,26 @@
     "id": "can1a-2022",
     "titre": "CAN première sujet 2022",
     "datePublication": "09/07/2022",
+    "dateModification": "24/10/2021",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can2024": {
+    "url": "beta/betaCAN2024.js",
+    "tags": [],
+    "uuid": "8ff87",
+    "id": "can2024",
+    "titre": "CAN Spéciale année 2024",
+    "datePublication": "20/12/2023",
     "dateModification": "24/10/2021",
     "features": {
       "interactif": {
@@ -23127,6 +23148,120 @@
     },
     "typeExercice": "alea"
   },
+  "carre1": {
+    "url": "geodyn/geoCarre1.ts",
+    "tags": [],
+    "uuid": "e7bad",
+    "id": "carre1",
+    "titre": "Tracer un carré",
+    "datePublication": "10/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'custom'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "carre2": {
+    "url": "geodyn/geoCarre2.ts",
+    "tags": [],
+    "uuid": "01607",
+    "id": "carre2",
+    "titre": "Tracer un carré de dimension donnée",
+    "datePublication": "10/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'custom'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "parallelogramme1": {
+    "url": "geodyn/geoParallelogramme1.ts",
+    "tags": [],
+    "uuid": "4d4a8",
+    "id": "parallelogramme1",
+    "titre": "Tracer un parallélogramme",
+    "datePublication": "9/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'custom'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "parallelogramme2": {
+    "url": "geodyn/geoParallelogramme2.ts",
+    "tags": [],
+    "uuid": "784a7",
+    "id": "parallelogramme2",
+    "titre": "Tracer un parallélogramme",
+    "datePublication": "9/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'custom'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "rectangle1": {
+    "url": "geodyn/geoRectangle1.ts",
+    "tags": [],
+    "uuid": "95526",
+    "id": "rectangle1",
+    "titre": "Tracer un rectangle",
+    "datePublication": "4/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'custom'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "rectangle2": {
+    "url": "geodyn/geoRectangle2.ts",
+    "tags": [],
+    "uuid": "1d6ca",
+    "id": "rectangle2",
+    "titre": "Tracer un rectangle de dimensions données",
+    "datePublication": "4/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'custom'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "techno1E2": {
     "url": "techno1/techno1E2.js",
     "tags": [],
@@ -23289,6 +23424,25 @@
       "interactif": {
         "isActive": false,
         "type": ""
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "triangle1": {
+    "url": "geodyn/geoTriangle1.ts",
+    "tags": [],
+    "uuid": "e514f",
+    "id": "triangle1",
+    "titre": "Tracer un triangle à partir de longueurs des 3 côtés",
+    "datePublication": "29/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'custom'"
       },
       "amc": {
         "isActive": false,

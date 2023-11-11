@@ -66,6 +66,8 @@ class LireImageParApiGeom extends Exercice {
 
   nouvelleVersion (numeroExercice: number): void {
     // on va chercher une spline aléatoire
+    this.listeCorrections = []
+    this.listeQuestions = []
     const noeuds = noeudsSplineAleatoire(12, false)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
@@ -74,7 +76,7 @@ class LireImageParApiGeom extends Exercice {
     this.figure.create('Grid')
     this.figure.options.limitNumberOfElement.set('Point', 1)
     this.listeQuestions = []
-    this.listeCorrections[0] = ''
+    this.listeCorrections = ['']
     this.autoCorrection = []
 
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378

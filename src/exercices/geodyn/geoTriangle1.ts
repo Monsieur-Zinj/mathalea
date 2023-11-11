@@ -15,6 +15,8 @@ export const interactifType = 'custom'
  * @author Rémi Angot
  * Références geoTriangle-1
  */
+
+export const ref = 'triangle1'
 export const uuid = 'e514f'
 
 type Triangle = { label: string, a: number, b: number, c: number }

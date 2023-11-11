@@ -43,11 +43,10 @@ export default function CalculDeVolumes () {
 
   this.sup4 = 3
   let thissup4Max
-  let piApprox = false
 
   this.nouvelleVersion = function () {
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
-    piApprox = false
+    let piApprox = false
     if (this.sup === 3) {
       this.sup = 1
       piApprox = true // calcul en prenant Pi environ 3
@@ -114,7 +113,7 @@ export default function CalculDeVolumes () {
           } else {
             texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
           }
-          resultat = Math.round(volume)
+          resultat = volume.round()
           if (!c.eq(6)) resultat2 = c.pow(2).mul(6).round()
           else resultat2 = c.mul(24).round()
           if (!c.eq(2)) resultat3 = c.mul(4).round()
@@ -179,9 +178,10 @@ export default function CalculDeVolumes () {
               volume = r.pow(2).mul(h).mul(Decimal.acos(-1))
               texte += `, arrondi au $${listeUnites[j][1]}$ près, ` // Il faut toujours arrondir à cause de la présence de Pi
             }
-            const diametre = randint(0, 1)
+            let diametre = choice([true, false])
+
+            diametre = true
             if (diametre) {
-              // diamètre
               texte += `d'un cylindre de $${2 * r}${listeUnites[j][0]}$ de diamètre et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
             } else {
               texte += `d'un cylindre de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h, 0)}${listeUnites[j][0]}$ de hauteur.`
@@ -369,7 +369,7 @@ export default function CalculDeVolumes () {
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
-        setReponse(this, i, new Grandeur(Math.round(volume), listeUnites[j][2]), { formatInteractif: 'unites' })
+        setReponse(this, i, new Grandeur(volume.round, listeUnites[j][2]), { formatInteractif: 'unites' })
         texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à indiquer l\'unité au volume-réponse : ' })
       }
       if (context.isAmc) {
@@ -433,9 +433,9 @@ export default function CalculDeVolumes () {
                   statut: '',
                   reponse: {
                     texte: '',
-                    valeur: [Math.round(volume)],
+                    valeur: [volume.round()],
                     param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(Math.round(volume)) + randint(0, 2),
+                      digits: nombreDeChiffresDansLaPartieEntiere(volume.round()) + randint(0, 2),
                       decimals: 0,
                       signe: false,
                       approx: 0

@@ -23,8 +23,16 @@ export const CLAVIER_COLLEGE6EME = {
       { label: '6', key: '6' },
       { latex: '\\times' },
       { class: 'separator w10' },
-      { label: 'oui', key: 'oui' },
-      { label: 'non', key: 'non' },
+      {
+        class: 'small',
+        latex: '[',
+        insert: '$[$' /// Crochets
+      },
+      {
+        class: 'small',
+        latex: ']',
+        insert: '$]$' /// Crochets
+      },
       { label: ';', key: ';' },
       { class: 'separator w10' }
     ],
@@ -35,11 +43,13 @@ export const CLAVIER_COLLEGE6EME = {
       { label: '3', key: '3' },
       { latex: '-' },
       { class: 'separator w15' },
-      {
+      { label: 'oui', key: 'oui' },
+      { label: 'non', key: 'non' },
+      /* {
         class: 'w20',
         label: 'espace', // Espace
         insert: '\\,'
-      },
+      }, */
       { class: 'separator w15' }
     ],
     [

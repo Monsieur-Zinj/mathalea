@@ -5,12 +5,11 @@ import { barycentre, nommePolygone } from '../../lib/2d/polygones.js'
 import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation, translation } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/outils/embellissements.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Justifier que deux triangles sont égaux'
 
 /**
@@ -27,18 +26,24 @@ export default function TrianglesEgaux () {
   this.nbQuestions = 4
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
+  this.sup = 6 // Niveau de difficulté
   this.video = '' // Id YouTube ou url
   this.spacing = 2
+  this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)', '1 : CCC\n2 : CAC\n3 : ACA\n4 : AAA\n5 : CC\n6 : mélange']
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['CCC', 'CAC', 'ACA', 'AAA', 'CC']
-
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    const listeTypeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      max: 5,
+      melange: 6,
+      defaut: 6,
+      nbQuestions: this.nbQuestions,
+      listeOfCase: ['CCC', 'CAC', 'ACA', 'AAA', 'CC']
+    })
     let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
@@ -147,5 +152,4 @@ export default function TrianglesEgaux () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }

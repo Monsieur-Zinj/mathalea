@@ -142,7 +142,7 @@ export default function CalculTermeSuiteExp () {
         b = fraction1[0]
         k = fraction1[1]
 
-        this.question = `Soit $(u_n)$ une suite définie $ par : <br>
+        this.question = `Soit $(u_n)$ une suite définie  par : <br>
         
         `
 

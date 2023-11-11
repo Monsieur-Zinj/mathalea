@@ -535,7 +535,7 @@ export function aleaVariables (variables = { a: true, b: true, c: true, d: true 
 * Objet mathsteps : Permet de traverser toutes les étapes et sous-étapes
 */
 export function traverserEtapes (steps, changeType = [], result = []) {
-  steps.forEach(function (step, i) {
+  steps.forEach(function (step) {
     if (changeType.length === 0) {
       if (step.substeps.length === 0) result.push(step)
       return traverserEtapes(step.substeps, changeType, result)

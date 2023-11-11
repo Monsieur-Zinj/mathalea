@@ -46,7 +46,8 @@ export default class nomExercice extends Exercice {
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) { // On ajuste la difficulté selon le paramètre.
       listeTypeDeQuestionsDisponibles = ['type1']
-    } else if (this.sup === 2) {
+    } else { // ne jamais laisser de cas où rien n'est assigné car si quelqu'un modifie le this.sup dans l'url, on se retrouve avec une erreur
+      // Si c'est pas 1, c'est 2 !
       listeTypeDeQuestionsDisponibles = ['type2']
     }
     const listeTypeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
