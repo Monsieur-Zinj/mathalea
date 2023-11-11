@@ -94,10 +94,10 @@
     <div
       class="{isMenuOpen
         ? 'flex'
-        : 'hidden'} flex-col items-start pb-4 pt-2 md:pt-4 ml-0 md:mx-0"
+        : 'hidden'} flex-col items-start pb-4 pt-0 md:pt-4 ml-0 md:mx-0"
     >
       <SearchBlock
-        class="w-full flex flex-col justify-start"
+        class="w-full flex flex-col justify-start pt-0 sm:"
         resourcesSet={buildHaystack($referentiels)}
         on:filters-change={updateRef}
       />

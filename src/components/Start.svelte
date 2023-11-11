@@ -292,10 +292,21 @@
 
     <!-- Affichage Partie Gauche : Menu + Contenu -->
     <div
-      class="z-40 flex-1 relative flex flex-col md:flex-row h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      class="z-40 flex-1 relative flex flex-col md:flex-row h-full p-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
+    <!-- bouton pour menu en mode smartphone -->
+    <div class="md:hidden flex flex-row justify-start pt-2">
+      <button
+        type="button"
+        class="h-8 w-8 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex items-center justify-center {$isSideMenuVisible ? 'rounded-tr-lg' : 'rounded-r-lg'}"
+        on:click={() => {
+          $isSideMenuVisible = !$isSideMenuVisible
+        }}>
+        <i class="bx bx-menu text-xl text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"></i>
+      </button>
+    </div>
       <!-- Menu Choix Exos et Ressources -->
-      <div class="z-40 mt-6 sm:mt-0">
+      <div class="z-40 mt-0">
         <div
           id="choiceMenuWrapper"
           class="{$globalOptions.v !== 'l'
