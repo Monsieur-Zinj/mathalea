@@ -385,8 +385,8 @@
                       {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
                         <div
                           class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus {isQuestionsVisible
-                            ? 'my-4'
-                            : ''} py-2 pl-6 max-w-full"
+                            ? 'my-8'
+                            : 'mt-6'} py-2 pl-6 max-w-full"
                         >
                           <div
                             class="container overflow-x-auto overflow-y-hidden"
@@ -458,8 +458,8 @@
                           {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
                             <div
                               class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus {isQuestionsVisible
-                                ? 'my-4'
-                                : ''} p-2 max-w-full"
+                                ? 'my-8'
+                                : 'mt-6'} p-2 max-w-full"
                             >
                               <div
                                 class="container overflow-x-auto overflow-y-hidden"
