@@ -778,12 +778,13 @@
    */
   function handleRandomQuestionOrder () {
     // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled // <- inutile avec ButtonToggle
-    globalOptions.update((l) => {
-      console.log('bouton touché, ordre ?')
-      console.log($questionsOrder.isQuestionsShuffled)
-      l.shuffle = $questionsOrder.isQuestionsShuffled
-      return l
-    })
+    // globalOptions.update((l) => {
+    //   console.log('bouton touché, ordre ?')
+    //   console.log($questionsOrder.isQuestionsShuffled)
+    //   l.shuffle = $questionsOrder.isQuestionsShuffled
+    //   return l
+    // })
+    $globalOptions.shuffle = $questionsOrder.isQuestionsShuffled
     console.log('avant ordre change :')
     console.log($questionsOrder.indexes)
     updateExercices()
@@ -992,14 +993,14 @@
                   'Carton entre questions',
                   'Pas de carton entre questions'
                 ]}
-                on:click={handleTransitionsMode}
+                on:toggle={handleTransitionsMode}
               />
             </div>
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle
                 bind:value={$transitionsBetweenQuestions.isNoisy}
                 titles={['Son entre questions', 'Pas de son entre questions']}
-                on:click={handleTransitionSound}
+                on:toggle={handleTransitionSound}
               />
             </div>
             <FormRadio
@@ -1027,7 +1028,7 @@
                   'Questions dans le désordre',
                   "Questions dans l'ordre"
                 ]}
-                on:click={handleRandomQuestionOrder}
+                on:toggle={handleRandomQuestionOrder}
               />
             </div>
           </div>

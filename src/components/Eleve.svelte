@@ -561,7 +561,7 @@
                   <ButtonToggle
                     titles={['Voir la correction', 'Masquer la correction']}
                     classAddenda="ml-4"
-                    on:click={() => switchCorrectionVisible(k)}
+                    on:toggle={() => switchCorrectionVisible(k)}
                   />
                 {/if}
               </div>
@@ -744,7 +744,7 @@
                   <div class={$isMenuNeededForExercises ? 'ml-4' : ''}>
                     <ButtonToggle
                       titles={['Voir la correction', 'Masquer la correction']}
-                      on:click={() => switchCorrectionVisible(k)}
+                      on:toggle={() => switchCorrectionVisible(k)}
                     />
                   </div>
                 {/if}

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte"
+
   export let titles: string[] = ['', '']
   export let value: boolean = true
   export let isDisabled: boolean = false
@@ -6,8 +8,11 @@
   export let textSize: string = 'sm'
   export let buttonSize: string = 'sm'
 
+  const dispatch = createEventDispatcher()
+
   function toggle () {
     value = !value
+    dispatch('toggle')
   }
 </script>
 
@@ -44,12 +49,7 @@
         ? 'bx-toggle-right'
         : 'bx-toggle-left'}
         {isDisabled ? 'text-opacity-10' : ''}"
-      on:click
-      on:keydown
-      on:change
-      role="button"
       aria-describedby="{value ? titles[0] : titles[1]}"
-      tabindex="0"
     />
   </button>
   <div
