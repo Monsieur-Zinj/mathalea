@@ -12,6 +12,8 @@ export const interactifType = 'custom'
  * @author Rémi Angot
  * Références geoRectangle1
  */
+
+export const ref = 'rectangle1'
 export const uuid = '95526'
 
 class ConstructionRectangle extends Exercice {

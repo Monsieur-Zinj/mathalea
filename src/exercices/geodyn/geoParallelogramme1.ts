@@ -12,6 +12,8 @@ export const interactifType = 'custom'
  * @author Rémi Angot
  * Références geoParallelogramme1
  */
+
+export const ref = 'parallelogramme1'
 export const uuid = '4d4a8'
 
 class ConstructionParallelogramme extends Exercice {

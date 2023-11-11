@@ -13,6 +13,8 @@ export const interactifType = 'custom'
  * @author Rémi Angot
  * Références geoCarre2
  */
+
+export const ref = 'carre2'
 export const uuid = '01607'
 
 class ConstructionCarre2 extends Exercice {
