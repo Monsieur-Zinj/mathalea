@@ -150,7 +150,7 @@
         }
       }
       mathaleaRenderDiv(divExercice)
-      if(exercice.idApigeom !== undefined && exercice.idApigeom.length !== 0) {
+      if(!exercice.nbQuestionsModifiable && !exercice.besoinFormulaireCaseACocher && !exercice.besoinFormulaireNumerique && !exercice.besoinFormulaireTexte) {
         isSettingsVisible = false
       }
     }
