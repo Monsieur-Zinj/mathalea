@@ -111,7 +111,7 @@ function createAnimationConstructionRectangle () : Figure {
   dCD.hide()
   dAD.hide()
   figure.saveState()
-  description.text = 'On peut trace le quadrilatère $ABCD$. Comme il a 3 angles droits, c\'est obligatoirement un rectangle.'
+  description.text = 'On peut tracer le quadrilatère $ABCD$. Comme il a 3 angles droits, c\'est obligatoirement un rectangle.'
   figure.create('Polygon', { points: [A, B, C, D] })
   figure.saveState()
   return figure
