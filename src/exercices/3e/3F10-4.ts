@@ -12,6 +12,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { Tableau } from '../../lib/2d/tableau'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { AddTabPropMathlive, type Icell } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
+import type Point from 'apigeom/src/elements/points/Point'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
@@ -70,6 +71,8 @@ class LireImageParApiGeom extends Exercice {
     this.listeQuestions = []
     const noeuds = noeudsSplineAleatoire(12, false)
     const spline = new Spline(noeuds)
+    const { yMin, yMax } = spline.amplitude()
+    console.log(`yMin: ${yMin} et yMax: ${yMax}`)
     this.nbImages = this.sup
     this.idApigeom = `apigeomEx${numeroExercice}F0`
     this.figure = new Figure({ xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
@@ -80,12 +83,13 @@ class LireImageParApiGeom extends Exercice {
     this.autoCorrection = []
 
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
-    let mesPoints
-    if (spline.pointsOfSpline && Array.isArray(spline.pointsOfSpline)) {
-      mesPoints = spline.pointsOfSpline.map(el => this.figure.create('Point', { x: el.x, y: el.y, isVisible: false }))
+    const mesPoints = spline.pointsOfSpline(100)
+    let mesPointsApiGeom: Point[] = []
+    if (mesPoints && Array.isArray(mesPoints)) {
+      mesPointsApiGeom = mesPoints.map(el => this.figure.create('Point', { x: el.x, y: el.y, isVisible: false }))
     }
-    if (mesPoints !== undefined) {
-      this.figure.create('Polyline', { points: mesPoints })
+    if (mesPointsApiGeom !== undefined) {
+      this.figure.create('Polyline', { points: mesPointsApiGeom })
     }
     if (context.isHtml) {
       const pointMobile = new PointOnSpline(this.figure, { spline, x: 1, abscissa: true, ordinate: true, isVisible: true, shape: 'x', color: 'blue', size: 3, thickness: 3 })
