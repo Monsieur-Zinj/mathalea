@@ -223,11 +223,11 @@ export const isExamItemInReferentiel = (
   obj: any
 ): obj is ExamItemInReferentiel =>
   obj !== null &&
-    typeof obj !== 'undefined' &&
-    Object.keys(obj).includes('uuid') &&
-    obj.uuid !== undefined &&
-    Object.keys(obj).includes('annee') &&
-    obj.annee !== undefined
+  typeof obj !== 'undefined' &&
+  Object.keys(obj).includes('uuid') &&
+  obj.uuid !== undefined &&
+  Object.keys(obj).includes('annee') &&
+  obj.annee !== undefined
 
 export const isJSONReferentielEnding = (
   obj: any
@@ -277,7 +277,7 @@ export const isFeatures = (obj: any): obj is Features => {
  * @param value objet à examiner
  * @returns {boolean}
  */
-export function isNonEmptyArrayOfStrings (value: unknown): value is string[] {
+export function isNonEmptyArrayOfStrings(value: unknown): value is string[] {
   return (
     Array.isArray(value) &&
     value.length > 0 &&
@@ -286,7 +286,11 @@ export function isNonEmptyArrayOfStrings (value: unknown): value is string[] {
 }
 
 export const isRealJSONReferentielObject = (obj: any): boolean => {
-  if (typeof obj === 'string' || isNonEmptyArrayOfStrings(obj) || isFeatures(obj)) {
+  if (
+    typeof obj === 'string' ||
+    isNonEmptyArrayOfStrings(obj) ||
+    isFeatures(obj)
+  ) {
     return false
   } else {
     return true
@@ -301,19 +305,41 @@ export const isStaticType = (obj: any): obj is StaticItemInreferentiel =>
   !isNonEmptyArrayOfStrings(obj.png)
 
 /**
-   * Teste si un objet de type `JSONReferentielObject` est parent
-   * d'une terminaison, c'est-à-dire d'un
-   * objet de type `JSONReferentielEnding`
-   * @param {JSONReferentielObject} obj objet à tester
-   */
-export function isParentOfStaticEnding (obj: any): obj is Record<string, JSONReferentielEnding> {
+ * Teste si un objet de type `JSONReferentielObject` est parent
+ * d'une terminaison, c'est-à-dire d'un
+ * objet de type `JSONReferentielEnding`
+ * @param {JSONReferentielObject} obj objet à tester
+ */
+export function isParentOfStaticEnding(
+  obj: any
+): obj is Record<string, JSONReferentielEnding> {
   const values = Object.values(obj)
   if (values.length === 0) {
     return false
   } else {
     return (
-      isJSONReferentielEnding(values[0]) &&
-        values[0].typeExercice === 'static'
+      isJSONReferentielEnding(values[0]) && values[0].typeExercice === 'static'
     )
+  }
+}
+
+/**
+ * Détecte si la terminaison d'un référentiel est un exercice de géométrie dynamique ou pas.
+ * On teste la présence de la chaine `geodyn` en début d'url (si elle existe)
+ * @param obj {JSONReferentielEnding} terminaison à tester
+ * @returns `true` si la terminaison référence un exercice de géométrie dynamique
+ */
+export const isGeoDynamic = (obj: JSONReferentielEnding): boolean => {
+  const geoDynRegExp = /^geodyn/
+  if (
+    obj !== null &&
+    typeof obj !== 'undefined' &&
+    Object.keys(obj).includes('url') &&
+    obj.url !== undefined &&
+    obj.url.match(geoDynRegExp) !== null
+  ) {
+    return true
+  } else {
+    return false
   }
 }

@@ -5,7 +5,10 @@
     resourceHasMonth,
     resourceHasPlace,
     isTool,
-    type JSONReferentielEnding
+    type JSONReferentielEnding,
+
+    isGeoDynamic
+
   } from '../../lib/types/referentiels'
   import renderMathInElement from 'katex/dist/contrib/auto-render.js'
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
@@ -71,7 +74,7 @@
     // console.log('before -> uuids: ' + $exercicesParams.map((item) => item.uuid))
     const newExercise = {
       uuid: ending.uuid,
-      interactif: '0'
+      interactif: isGeoDynamic(ending) ? '1' : '0'
     } as InterfaceParams
     if (isExerciceItemInReferentiel(ending) || isTool(ending)) {
       newExercise.id = ending.id

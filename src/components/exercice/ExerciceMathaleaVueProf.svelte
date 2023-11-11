@@ -150,6 +150,9 @@
         }
       }
       mathaleaRenderDiv(divExercice)
+      if(exercice.idApigeom !== undefined && exercice.idApigeom.length !== 0) {
+        isSettingsVisible = false
+      }
     }
     // affectation du zoom pour les figures scratch
     const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
