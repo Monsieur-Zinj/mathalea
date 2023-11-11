@@ -1,7 +1,7 @@
 import './styleSandbox.scss'
 import { CLAVIER_LYCEE, raccourcisLycee } from '../../lib/interactif/claviers/lycee'
 
-import { MathfieldElement } from 'mathlive'
+import { MathfieldElement, type Expression } from 'mathlive'
 import { ComputeEngine, type BoxedExpression } from '@cortex-js/compute-engine'
 
 export type FOrmatValue = 'litteral' | 'numerique' | 'fonction' | 'liste' | 'fraction'
@@ -286,8 +286,8 @@ class ComputeEngineSandbox {
             </th>
         </tr>
         <tr>
-            <th>
-                <label>Type de comparaison :
+            <td>
+             <label>Type de comparaison :
                     <select id="format">
                         <option>littéral</option>
                         <option>numérique</option>
@@ -296,7 +296,14 @@ class ComputeEngineSandbox {
                         <option>fonction</option>
                     </select>
                 </label>
-            </th>
+</td>
+<td>    </td>
+     <td>séparateur décimal
+     <form id="sep">
+     <input type="radio" name="sep" value="virgule" checked><label>virgule</label></input>
+     <input type="radio" name="sep" value="point"><label>point</label></input>
+</form>
+</td>          
         </tr>
         </thead>
         <tbody>
@@ -366,6 +373,7 @@ class ComputeEngineSandbox {
         </div>
     </div>
 `
+    const inputSep = this.container.querySelector<HTMLFormElement>('#sep')
     const formSaisieCanonical = this.container.querySelector<HTMLFormElement>('#canonicalSaisie')
     const formReponseCanonical = this.container.querySelector<HTMLFormElement>('#canonicalReponse')
     const optionsSaisie = this.container.querySelector<HTMLTableCellElement>('#optionsSaisie')
@@ -539,6 +547,43 @@ class ComputeEngineSandbox {
         updateOptions(formatSelector.value)
       }
       )
+    }
+
+    if (inputSep) {
+      const jsonChange = ({ from, to, json }: {from: string, to: string, json: Expression|string}) => {
+        if (Array.isArray(json)) {
+          for (const element of json) {
+            jsonChange({ from, to, json: element })
+          }
+        } else if (typeof json === 'string') {
+          json.replaceAll(from, to)
+        }
+      }
+      inputSep.addEventListener('change', () => {
+        const buttons = Array.from(inputSep.querySelectorAll('input'))
+        const saisieExp = saisie.expression
+        const reponseExp = reponse.expression
+        if (Array.isArray(buttons) && buttons.length > 0) {
+          const button = buttons.find((el) => el?.checked)
+          if (button) {
+            const separator = button.value
+            console.log(inputSep.value)
+            if (separator === 'virgule') {
+              MathfieldElement.decimalSeparator = ','
+              jsonChange({ from: '.', to: ',', json: saisieExp })
+              jsonChange({ from: '.', to: ',', json: reponseExp })
+              saisie.expression = saisieExp
+              reponse.expression = reponseExp
+            } else {
+              MathfieldElement.decimalSeparator = '.'
+              jsonChange({ from: ',', to: '.', json: saisieExp })
+              jsonChange({ from: ',', to: '.', json: reponseExp })
+              saisie.expression = saisieExp
+              reponse.expression = reponseExp
+            }
+          }
+        }
+      })
     }
 
     if (formSaisieCanonical) { // radios forme canonique saisie
