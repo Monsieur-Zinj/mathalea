@@ -41,7 +41,7 @@
   let isExerciceChecked = false
   const id: string = $exercicesParams[indiceExercice]?.id
     ? exercice.id
-      ? exercice.id.replace('.js', '')
+      ? exercice.id.replace('.js', '').replace('.ts', '')
       : ''
     : ''
   const generateTitleAddendum = (): string => {
@@ -150,7 +150,7 @@
         }
       }
       mathaleaRenderDiv(divExercice)
-      if(!exercice.nbQuestionsModifiable && !exercice.besoinFormulaireCaseACocher && !exercice.besoinFormulaireNumerique && !exercice.besoinFormulaireTexte) {
+      if (!exercice.nbQuestionsModifiable && !exercice.besoinFormulaireCaseACocher && !exercice.besoinFormulaireNumerique && !exercice.besoinFormulaireTexte) {
         isSettingsVisible = false
       }
     }

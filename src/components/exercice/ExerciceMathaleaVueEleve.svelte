@@ -22,7 +22,7 @@
   let columnsCount = $exercicesParams[indiceExercice].cols || 1
   let isInteractif = exercice.interactif && exercice?.interactifReady
 
-  const title = exercice.id ? `${exercice.id.replace('.js', '')} - ${exercice.titre}` : exercice.titre
+  const title = exercice.id ? `${exercice.id.replace('.js', '').replace('.ts', '')} - ${exercice.titre}` : exercice.titre
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event('exercicesAffiches', {
     bubbles: true
