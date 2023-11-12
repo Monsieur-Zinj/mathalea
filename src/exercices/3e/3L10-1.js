@@ -33,7 +33,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
-    this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'
+    this.consigne = this.nbQuestions > 1 ? 'Supprimer les parenthèses et réduire les expressions suivantes.' : 'Supprimer les parenthèses et réduire l\'expression suivante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
