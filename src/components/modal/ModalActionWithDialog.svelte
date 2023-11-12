@@ -62,7 +62,7 @@
     id="modalaction-button"
     class="{classForButton} {title.length === 0
       ? 'text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest'
-      : 'text-coopmaths-canvas  dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest p-2 rounded-xl'}"
+      : 'text-coopmaths-canvas  dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest'}"
     on:click={fireMessage}
   >
     {#if title.length === 0}
@@ -77,14 +77,14 @@
     {/if}
   </button>
   <dialog
-    class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
+    class="rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
     id={dialogId + '-1'}
   >
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     <div class="container font-light">{@html message}</div>
   </dialog>
   <dialog
-    class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
+    class="rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
     id={dialogId + '-2'}
   >
     {messageError}

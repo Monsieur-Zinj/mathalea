@@ -334,10 +334,11 @@ export const isGeoDynamic = (obj: JSONReferentielEnding): boolean => {
   if (
     obj !== null &&
     typeof obj !== 'undefined' &&
-    Object.keys(obj).includes('url')&&
-    obj.url !== undefined &&
-    typeof obj.url === 'string' &&
-    obj.url.match(geoDynRegExp) !== null
+    Object.keys(obj).includes('url') &&
+    // À ce stade, on est sûr que l'objet ne peu tpas être de type StaticItemInreferentiel car il a la propriété `url`
+    (obj as Exclude<JSONReferentielEnding,StaticItemInreferentiel>).url !== undefined &&
+    typeof (obj as Exclude<JSONReferentielEnding,StaticItemInreferentiel>).url === 'string' &&
+    (obj as Exclude<JSONReferentielEnding,StaticItemInreferentiel>).url.match(geoDynRegExp) !== null
   ) {
     return true
   } else {
