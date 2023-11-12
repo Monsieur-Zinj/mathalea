@@ -2,9 +2,10 @@ import { choice, combinaisonListesSansChangerOrdre, compteOccurences, shuffle } 
 import { ecritureAlgebrique, rienSi1, reduirePolynomeDegre3, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import { arrondi, range1, abs, range, rangeMinMax } from '../../lib/outils/nombres.js'
 import { codageSegments } from '../../lib/2d/codages.js'
+import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { milieu, point } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition, labelPoint } from '../../lib/2d/textes.js'
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -42,7 +43,7 @@ export default function CourseAuxNombres2024 () {
 
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(57), this.nbQuestions)
+      questions = combinaisonListesSansChangerOrdre(range1(70), this.nbQuestions)
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -109,16 +110,16 @@ export default function CourseAuxNombres2024 () {
       rangeMinMax(1, 7) // etc... Ici, ce ne sont que des exemples mis au hasard pour pouvoir tester
     ]
 
-    for (let i = 0; i < 57; i++) { // A supprimer... C'est pour faire des tests...
+    for (let i = 0; i < 72; i++) { // A supprimer... C'est pour faire des tests...
       listeCAN[i] = range(7)
     }
     // const typeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48]// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42
     const typeQuestionsDisponibles = []
 
-    for (let i = 0; i < 57; i++) { // Ici, selon le niveau attendu, on ne sélectionne que les questions qu'il faut
+    for (let i = 70; i < 72; i++) { // Ici, selon le niveau attendu, on ne sélectionne que les questions qu'il faut
       if (compteOccurences(listeCAN[i], niveauAttendu) === 1) typeQuestionsDisponibles.push(i + 1)
     }
-    for (let i = 0, index = 0, reponse, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 60;) {
+    for (let i = 0, index = 0, reponse, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 71;) {
       // Boucle principale où i+1 correspond au numéro de la question
       // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal !! à utiliser entre $  $
       // calcul(expression) permet d'éviter les erreurs de javascript avec les approximations décimales
@@ -717,7 +718,7 @@ export default function CourseAuxNombres2024 () {
               s1, s2, s3)
             texte = 'Quel est  le périmètre de ce triangle ? <br>' +
              mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 3, scale: 0.7, style: 'margin: auto' }, objets) +
-            'La figure n\'est pas à l\'échelle.'
+            '<br>La figure n\'est pas à l\'échelle.'
             reponse = 2 * a + b
             texteCorr = `Le triangle est isocèle.<br>
             Son périmètre est : $2\\times ${texNombre(a)}$ cm $+${texNombre(b)}$ cm $=${miseEnEvidence(texNombre(2 * a + b))}$ cm.`
@@ -729,7 +730,7 @@ export default function CourseAuxNombres2024 () {
               s1, s2, s3)
             texte = `Le périmètre de ce triangle est  $${texNombre(2 * a + b)}$ cm, quelle est la longueur manquante ?<br>
                 ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 6, ymax: 2.5, scale: 0.7, style: 'margin: auto' }, objets) +
-                'La figure n\'est pas à l\'échelle.'
+                '<br>La figure n\'est pas à l\'échelle.'
             reponse = a
             texteCorr = `Le triangle est isocèle, il possède donc deux longueurs égales.<br>
                 Puisque le périmètre est  $${texNombre(2 * a + b)}$ cm, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${2 * a + b}-${b}=${2 * a}$ cm.<br>
@@ -1259,8 +1260,7 @@ export default function CourseAuxNombres2024 () {
           const choix = choice([Diviseurs, NonDiviseurs])
           const correctionOui = `$${choix}$ ${texteEnCouleurEtGras('est  un diviseur')} de $${texNombre(2024, 0)}$ car `
           texte = `$${choix}$ est-il un diviseur de $${texNombre(2024, 0)}$ ? <br>
-              On pourra s'aider de la décomposition  en produits de facteurs premiers :  $${texNombre(2024, 0)}=2^3\\times 11 \\times 23$.<br>
-              `
+              On pourra s'aider de la décomposition  en produits de facteurs premiers :  $${texNombre(2024, 0)}=2^3\\times 11 \\times 23$. `
           if (choix === 13 || choix === 17 || choix === 19 || choix === 7) {
             texteCorr = `$${choix}$ est un nombre premier, il n'apparaît pas dans la décomposition, donc $${choix}$ ${texteEnCouleurEtGras('n\'est pas un diviseur')} de $${texNombre(2024, 0)}$.`
           }
@@ -1446,6 +1446,421 @@ export default function CourseAuxNombres2024 () {
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
         }
+          break
+
+        case 58: {
+          const d = randint(3, 6)
+          const u = randint(1, 9)
+          const a = d * 10 + u
+          const listeResultat = [2024 * a, 2024 * a + 1, 2024 * a - 1]
+          const Resultat = shuffle(listeResultat)
+          texte = `Recopier le résultat du calcul $${texNombre(2024)}\\times ${a}$ parmi les trois propositions suivantes : <br>
+            $${texNombre(Resultat[0])}$${sp(2)} ; ${sp(2)} $${texNombre(Resultat[1])}$ ${sp(2)} ; ${sp(2)}$${texNombre(Resultat[2])}$  `
+          texteCorr = `Le chiffre des unités de ce produit est donné par le chiffre des unités de $4\\times ${u}$, soit $${4 * u % 10}$.<br>
+            Ainsi,  $${texNombre(2024)}\\times ${a}=${miseEnEvidence(`${texNombre(2024 * a)}`)}$.
+                 `
+          reponse = `${2024 * a}`
+
+          setReponse(this, index, reponse)
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+          }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
+        }
+          break
+
+        case 59: {
+          const P = prenomF()
+          const a = randint(11, 19) * 100
+          texte = `${P} a acheté un scooter électrique coûtant $${texNombre(2024)}$ €. 
+            Elle règle $${texNombre(a)}$ € à la livraison du scooter puis règlera la moitié du montant restant le mois suivant. <br>
+            Quelle somme lui restera-t-il à payer ensuite pour le dernier versement ?  `
+          texteCorr = `Après le premier versement de $${texNombre(a)}$, ${P} doit encore payer $${texNombre(2024 - a)}$ €. <br>
+            La moitié de $${texNombre(2024 - a)}$ € est $${texNombre((2024 - a) / 2, 0)}$ €. <br>
+              Ainsi, son dernier versement sera de $${miseEnEvidence(`${texNombre((2024 - a) / 2, 0)}`)}$ €.
+                   `
+          reponse = `${(2024 - a) / 2}`
+
+          setReponse(this, index, reponse)
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteApres: '€' })
+          }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('$\\ldots$ €')
+        }
+          break
+
+        case 60:
+          if (choice([true, false])) {
+            texte = `$\\cos(${texNombre(2024)}\\pi)=$ `
+            texteCorr = `$\\cos(${texNombre(2024)}\\pi)=\\cos(0)=${miseEnEvidence(1)}$`
+            reponse = '1'
+            setReponse(this, index, reponse)
+            this.listeCanEnonces.push('Compléter.')
+            this.listeCanReponsesACompleter.push(`$\\cos(${texNombre(2024)}\\pi)=\\ldots$`)
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            } else { texte += '$\\ldots$' }
+          } else {
+            texte = `$\\sin(${texNombre(2024)}\\pi)=$ `
+            texteCorr = `$\\sin(${texNombre(2024)}\\pi)=\\sin(0)=${miseEnEvidence(0)}$`
+            reponse = '0'
+            setReponse(this, index, reponse)
+            this.listeCanEnonces.push('Compléter.')
+            this.listeCanReponsesACompleter.push(`$\\sin(${texNombre(2024)}\\pi)=\\ldots$`)
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            } else { texte += '$\\ldots$' }
+          }
+
+          break
+
+        case 61:
+          texte = `En utilisant l'égalité $\\dfrac{${texNombre(2022)}}{3}=674$, compléter : `
+          if (choice([true, false])) {
+            texte += `$\\cos \\dfrac{${texNombre(2024)}\\pi}{3}=$ `
+            texteCorr = `$\\cos \\dfrac{${texNombre(2024)}\\pi}{3}=\\cos\\dfrac{${texNombre(2022)}\\pi+2\\pi}{3}=\\cos\\left(674\\pi+\\dfrac{2\\pi}{3}\\right)=
+              \\cos\\dfrac{2\\pi}{3}=${miseEnEvidence('-\\dfrac{1}{2}')}$`
+            reponse = ['-\\dfrac{1}{2}', '\\dfrac{-1}{2}', '-0,5']
+            setReponse(this, index, reponse)
+            this.listeCanEnonces.push('Compléter.')
+            this.listeCanReponsesACompleter.push(`$\\cos \\dfrac{${texNombre(2024)}\\pi}{3}=\\ldots$`)
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            } else { texte += '$\\ldots$' }
+          } else {
+            texte += `$\\sin \\dfrac{${texNombre(2024)}\\pi}{3}=$ `
+            texteCorr = `$\\sin \\dfrac{${texNombre(2024)}\\pi}{3}=\\sin\\dfrac{${texNombre(2022)}\\pi+2\\pi}{3}=\\sin\\left(674\\pi+\\dfrac{2\\pi}{3}\\right)=
+                \\sin\\dfrac{2\\pi}{3}=${miseEnEvidence('\\dfrac{\\sqrt{3}}{2}')}$`
+            reponse = '\\dfrac{\\sqrt{3}}{2}'
+            setReponse(this, index, reponse)
+            this.listeCanEnonces.push('Compléter.')
+            this.listeCanReponsesACompleter.push(`$\\cos \\dfrac{${texNombre(2024)}\\pi}{3}=\\ldots$`)
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            } else { texte += '$\\ldots$' }
+          }
+
+          break
+
+        case 62:
+          {
+            const choix = randint(1, 3)
+            const a = randint(2000, 2023)
+            if (choix === 1) {
+              texte = `Simplifier l'écriture de $\\dfrac{${texNombre(2024)}}{\\sqrt{${texNombre(2024)}}}$. `
+              texteCorr = `$\\dfrac{${texNombre(2024)}}{\\sqrt{${texNombre(2024)}}}=\\dfrac{\\sqrt{${texNombre(2024)}}\\times \\sqrt{${texNombre(2024)}}}{\\sqrt{${texNombre(2024)}}}=${miseEnEvidence(`\\sqrt{${texNombre(2024)}}`)}$`
+              reponse = '\\sqrt{2024}'
+              setReponse(this, index, reponse)
+            }
+            if (choix === 2) {
+              texte = `Simplifier l'écriture de $\\sqrt{${texNombre(2024)}}\\times \\sqrt{${texNombre(2024)}}$. `
+              texteCorr = `$\\sqrt{${texNombre(2024)}}\\times {\\sqrt{${texNombre(2024)}}}=${miseEnEvidence(`${texNombre(2024)}`)}$`
+              reponse = '2024'
+              setReponse(this, index, reponse)
+            }
+            if (choix === 3) {
+              texte = `Simplifier l'écriture de $${texNombre(2024)}\\times \\dfrac{${texNombre(a)}}{${texNombre(2024)}}$. `
+              texteCorr = `$${texNombre(2024)}\\times \\dfrac{${texNombre(a)}}{${texNombre(2024)}}=\\dfrac{${texNombre(2024)}\\times ${texNombre(a)}}{${texNombre(2024)}}=${miseEnEvidence(`${a}`)}$`
+              reponse = a
+              setReponse(this, index, reponse)
+            }
+            this.listeCanEnonces.push(texte)
+            this.listeCanReponsesACompleter.push('')
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            }
+          }
+
+          break
+
+        case 63:
+
+          if (!this.interactif) {
+            texte = `Compléter :<br>
+              $${texNombre(2024)}$ min  $=\\ldots$ h $\\ldots$ min<br>
+              On pourra utiliser le résultat suivant : $\\dfrac{${texNombre(2024)}}{60}\\approx 33,7$.`
+          } else {
+            texte = `Compléter (en heures/minutes) :<br>
+                $${texNombre(2024)}$ min  $=$`
+            reponse = new Hms({ hour: 33, minute: 44 })
+            setReponse(this, index, reponse, { formatInteractif: 'hms' })
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 clavierHms inline')
+            texte += `<br>On pourra utiliser le résultat suivant : $\\dfrac{${texNombre(2024)}}{60}\\approx 33,73$.`
+          }
+          texteCorr = ` Le résultat indique qu'il y a 33 heures pleines dans $${texNombre(2024)}$ min. <br>
+              Or, $33\\times 60=${texNombre(1980)}$. <br>
+              Ainsi, $${texNombre(2024)}$ min  $=${miseEnEvidence('33')}$ h $${miseEnEvidence('44')}$ min.`
+          this.listeCanEnonces.push('Compléter.')
+          this.listeCanReponsesACompleter.push('$20,4$ h  $=\\ldots$ h $\\ldots$ min')
+
+          break
+
+        case 64: {
+          const a = randint(1, 3) * choice([-1, 1])
+          const b = randint(1, 3) * choice([-1, 1])
+          const inconnue = choice(['x', 'y', 'z', 't', 'u'])
+          reponse = a * 2024 + b
+          texte = `Calculer $${reduireAxPlusB(a, b, inconnue)}$ pour $${inconnue}=${texNombre(2024)}$. 
+             `
+          if (a === 1 || a === -1) {
+            texteCorr = `Lorsque $${inconnue}=${texNombre(2024)}$, on a $${reduireAxPlusB(a, b, inconnue)}=${a * 2024}${ecritureAlgebrique(b)}=${miseEnEvidence(`${reponse}`)}$.`
+          } else { texteCorr = `Lorsque $${inconnue}=${texNombre(2024)}$, on a $${reduireAxPlusB(a, b, inconnue)}=${a}\\times 2024${ecritureAlgebrique(b)}=${miseEnEvidence(reponse)}$.` }
+
+          setReponse(this, index, reponse)
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
+        }
+          break
+
+        case 65: {
+          const a = randint(-5, 5, 0)
+          const fraction = new FractionEtendue(1 + 2 * a, 2024)
+          reponse = fraction
+          texte = `Calculer sous la forme d'une fraction : <br>
+          ${a > 0 ? `$\\dfrac{1}{${texNombre(2024)}} +\\dfrac{${a}}{${texNombre(1012)}}$` : `$\\dfrac{1}{${texNombre(2024)}} -\\dfrac{${-a}}{${texNombre(1012)}}$`}.
+               `
+
+          texteCorr = ` $${a > 0 ? `\\dfrac{1}{${texNombre(2024)}} +\\dfrac{${a}}{${texNombre(1012)}}` : `\\dfrac{1}{${texNombre(2024)}} -\\dfrac{${-a}}{${texNombre(1012)}}`}
+            =${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{2024}`)}$.`
+
+          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
+        }
+          break
+
+        case 66: {
+          const choix = randint(1, 3)
+          if (choix === 1) {
+            reponse = -1
+            texte = `Calculer  : $(-1)^{${texNombre(2023)}}+(-1)^{${texNombre(2024)}}+(-1)^{${texNombre(2025)}}$.
+                 `
+            texteCorr = ` Si $n$ est pair, $(-1)^n=1$ et si $n$ est impair, $(-1)^n=-1$. <br>
+              Ainsi, $(-1)^{${texNombre(2023)}}+(-1)^{${texNombre(2024)}}+(-1)^{${texNombre(2025)}}=-1+1-1=${miseEnEvidence(-1)}$.`
+          }
+          if (choix === 2) {
+            reponse = -1
+            texte = `Calculer  : $\\dfrac{(-1)^{${texNombre(2023)}}}{(-1)^{${texNombre(2024)}}}$.
+                   `
+            texteCorr = ` Si $n$ est pair, $(-1)^n=1$ et si $n$ est impair, $(-1)^n=-1$. <br>
+                Ainsi, $\\dfrac{(-1)^{${texNombre(2023)}}}{(-1)^{${texNombre(2024)}}}=\\dfrac{-1}{1}=${miseEnEvidence(-1)}$.`
+          }
+          if (choix === 3) {
+            reponse = -1
+            texte = `Calculer  : $(-1)^{${texNombre(2023)}}\\times(-1)^{${texNombre(2024)}}$.
+                       `
+            texteCorr = ` Si $n$ est pair, $(-1)^n=1$ et si $n$ est impair, $(-1)^n=-1$. <br>
+                    Ainsi, $(-1)^{${texNombre(2023)}}\\times(-1)^{${texNombre(2024)}}=-1\\times 1=${miseEnEvidence(-1)}$.`
+          }
+          setReponse(this, index, reponse)
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
+        }
+          break
+
+        case 67: {
+          const objets = []
+          const a = 506
+          const A = point(0, 0, 'A', 'below')
+          const B = point(6, 0, 'B', 'below')
+          const C = point(6, 6, 'C', 'below')
+          const D = point(0, 6, 'D', 'below')
+          const s1 = segment(A, B)
+          const s2 = segment(B, C)
+          const s3 = segment(C, D)
+          const s4 = segment(A, D)
+          if (choice([true, false])) {
+            objets.push(codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
+              codageSegments('||', 'blue', C, D), codageSegments('||', 'blue', A, D),
+              texteParPosition(`${a} cm`, 7.5, milieu(B, C).y + 0.5),
+              codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A), s1, s2, s3, s4)
+            texte = 'Quel est le périmètre de ce carré ? <br>' + mathalea2d({ xmin: -0.5, ymin: -1.2, xmax: 8.5, ymax: 7, scale: 0.4, style: 'margin: auto' }, objets)
+            reponse = 4 * a
+            texteCorr = `Il s'agit d'un carré. <br>
+          Son périmètre est donc
+         $4$ fois la longueur de son côté, soit $4\\times ${texNombre(a)}=${miseEnEvidence(`${texNombre(4 * a)}`)}$ cm.`
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: ' cm' })
+            }
+          } else {
+            objets.push(codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
+              codageSegments('||', 'blue', C, D), codageSegments('||', 'blue', A, D),
+              texteParPosition('?', 7, milieu(B, C).y + 0.5),
+              codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A), s1, s2, s3, s4)
+            texte = `Le périmètre  de ce carré est $${texNombre(4 * a)}$ cm.<br>
+              Quelle est la longueur de son côté ? <br>
+              
+              ` + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 8, ymax: 7, scale: 0.4, style: 'margin: auto' }, objets)
+            reponse = a
+            texteCorr = `Il s'agit d'un carré. <br>
+              Son côté est  donc le quart de son périmètre, soit $${texNombre(4 * a)}\\div 4=${miseEnEvidence(`${texNombre(a)}`)}$ cm.`
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'cm' })
+            }
+          }
+          setReponse(this, index, reponse)
+
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('$\\ldots$ cm')
+        }
+          break
+
+        case 68:
+          {
+            const nom = creerNomDePolygone(5, ['QD'])
+            const a = 2024
+            const A = point(0, 0, nom[0], 'below')
+            const B = point(6, 0, nom[1], 'below')
+            const C = point(5, 4, nom[2], 'above')
+            const D = point(2.5, 2, nom[3], 'above')
+            const E = point(3, 0, nom[4], 'below')
+            const objets = []
+            objets.push(segment(A, B), segment(D, E), segment(A, C), segment(B, C),
+              codageSegments('||', 'blue', A, D, D, C), labelPoint(A, B, C, D, E))
+            if (choice([true, false])) {
+              texte = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et
+      $${nom[3]}${nom[4]}=${texNombre(a)}$.<br>
+      Calculer $${nom[1]}${nom[2]}$.<br> `
+              texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 5, scale: 0.7, pixelsParCm: 18, mainlevee: false, style: 'margin: auto' }, objets)
+              texteCorr = ` Les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$ sont 2 fois plus grandes que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
+      Le triangle $${nom[0]}${nom[1]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
+      Ainsi : $${nom[1]}${nom[2]}=2\\times ${nom[3]}${nom[4]}=2\\times ${texNombre(a)}=${miseEnEvidence(`${texNombre(2 * a)}`)}$.
+  `
+              reponse = 2 * a
+            } else {
+              texte = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et
+       $${nom[1]}${nom[2]}=${texNombre(a)}$. <br>
+         Calculer $${nom[3]}${nom[4]}$.<br>`
+              texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 5, scale: 0.7, pixelsParCm: 18, mainlevee: false, style: 'margin: auto' }, objets)
+              texteCorr = ` Les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont 2 fois plus petites que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
+      Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est une réduction du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
+            Ainsi : $${nom[3]}${nom[4]}= ${nom[1]}${nom[2]} \\div 2 = ${texNombre(a)}\\div 2 =${miseEnEvidence(`${texNombre(a / 2, 0)}`)}$.
+     `
+              reponse = a / 2
+            }
+            setReponse(this, index, reponse)
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            }
+            this.listeCanEnonces.push(texte)
+            this.listeCanReponsesACompleter.push(`$${nom[1]}${nom[2]}=\\ldots$`)
+          }
+          break
+
+        case 69: {
+          const nom = creerNomDePolygone(3, ['QD'])
+          const a = randint(1, 6)
+          const A = point(0, 0, nom[0], 'below')
+          const B = point(6, 0, nom[1], 'below')
+          const C = point(6, 2, nom[2], 'above')
+
+          const objets = []
+
+          if (choice([true, false])) {
+            objets.push(segment(A, B), segment(A, C), segment(B, C), labelPoint(A, B, C), codageAngleDroit(A, B, C),
+              texteParPosition('$\\sqrt{2024}$', 2.6, 2), texteParPosition(`$${a}$`, 6.8, 1))
+            texte = `
+      Calculer $${nom[0]}${nom[1]}$.<br> `
+            texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 3, scale: 0.7, pixelsParCm: 18, mainlevee: false, style: 'margin: auto' }, objets)
+            texteCorr = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
+              On obtient :<br>
+              $\\begin{aligned}
+                ${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2+${nom[0]}${nom[1]}^2\\\\
+                ${nom[0]}${nom[1]}^2&=${nom[0]}${nom[2]}^2-${nom[1]}${nom[2]}^2\\\\
+                ${nom[0]}${nom[1]}^2&=(\\sqrt{${texNombre(2024)}})^2-${a}^2\\\\
+                ${nom[0]}${nom[1]}^2&=${texNombre(2024)}-${a * a}\\\\
+                ${nom[0]}${nom[1]}^2&=${texNombre(2024 - a * a)}\\\\
+                ${nom[0]}${nom[1]}&= ${miseEnEvidence(`\\sqrt{${texNombre(2024 - a * a)}}`)}\\\\
+                \\end{aligned}$ `
+            reponse = `\\sqrt{${2024 - a * a}}`
+            this.listeCanEnonces.push(texte)
+            this.listeCanReponsesACompleter.push(`$${nom[0]}${nom[1]}=\\ldots$`)
+          } else {
+            objets.push(segment(A, B), segment(A, C), segment(B, C), labelPoint(A, B, C), codageAngleDroit(A, B, C),
+              texteParPosition('$\\sqrt{2024}$', 2.6, -1), texteParPosition(`$${a}$`, 6.8, 1))
+            texte = `
+            Calculer $${nom[0]}${nom[2]}$.<br> `
+            texte += mathalea2d({ xmin: -1, ymin: -2, xmax: 8, ymax: 3, scale: 0.7, pixelsParCm: 18, mainlevee: false, style: 'margin: auto' }, objets)
+            texteCorr = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
+                    On obtient :<br>
+                    $\\begin{aligned}
+                      ${nom[0]}${nom[2]}^2&=${nom[1]}${nom[2]}^2+${nom[0]}${nom[1]}^2\\\\
+                      ${nom[0]}${nom[2]}^2&=(\\sqrt{${texNombre(2024)}})^2+${a}^2\\\\
+                      ${nom[0]}${nom[2]}^2&=${texNombre(2024)}+${a * a}\\\\
+                      ${nom[0]}${nom[2]}^2&=${texNombre(2024 + a * a)}\\\\
+                      ${nom[0]}${nom[2]}&= ${miseEnEvidence(`\\sqrt{${texNombre(2024 + a * a)}}`)}\\\\
+                      \\end{aligned}$ `
+            reponse = `\\sqrt{${2024 + a * a}}`
+            this.listeCanEnonces.push(texte)
+            this.listeCanReponsesACompleter.push(`$${nom[0]}${nom[2]}=\\ldots$`)
+          }
+          setReponse(this, index, reponse)
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          }
+        }
+          break
+
+        case 70: 
+          reponse = 4220
+          texte = 'Quel est le plus grand nombre de quatre chiffres que l\'on peut écrire en utilisant les quatre chiffres : $2$, $0$, $2$ et $4$ ?'
+          texteCorr = ` Le plus grand nombre est $${miseEnEvidence(`${texNombre(4220)}`)}$.`
+
+          setReponse(this, index, reponse)
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
+        
+          break
+
+        case 71:
+
+          reponse = 'MMXXIV'
+          texte = `Comment s'écrit $${texNombre(2024)}$ en chiffres romains ? `
+
+          texteCorr = `$${texNombre(2024)}=${miseEnEvidence('MMXXIV')}$`
+
+          setReponse(this, index, reponse)
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
+
+          break
+
+        case 72:
+
+          reponse = ['oui', 'OUI', 'Oui']
+          texte = `$${texNombre(2024)}$ est il un multiple de la somme de ses chiffres ? `
+
+          texteCorr = `La somme des chiffres de $${texNombre(2024)}$  est $8$. <br>
+            On a $${texNombre(2024)}\\div 2=${texNombre(1012)}$, <br>
+            $${texNombre(1012)}\\div 2=${texNombre(506)}$,<br>
+             $${texNombre(506)}\\div 2=${texNombre(253)}$.<br>
+            Donc  $${texNombre(2024)}$  ${texteEnCouleurEtGras('est un multiple ')} de $8$.`
+
+          setReponse(this, index, reponse)
+          if (this.interactif) {
+            texte += '<br>Répondre par oui ou non. <br>'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          }
+          this.listeCanEnonces.push(texte)
+          this.listeCanReponsesACompleter.push('')
+
           break
       }
       // texte += '<br>Réponse attendue : ' + reponse // Pour avoir les réponses quand on débuggue.
