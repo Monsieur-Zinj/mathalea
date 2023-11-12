@@ -46,6 +46,8 @@
     questionsOrder.update(() => {
       const paramsQuestionsOrder = url.searchParams.get('questionsOrder')
       if (paramsQuestionsOrder) {
+        console.log('get questionsOrder from URL !')
+        console.log(paramsQuestionsOrder)
         return JSON.parse(paramsQuestionsOrder)
       }
     })

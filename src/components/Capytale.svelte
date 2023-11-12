@@ -617,7 +617,7 @@
             <ButtonToggle
               titles={['différentes', 'identiques']}
               bind:value={$globalOptions.isDataRandom}
-              on:click={() => {
+              on:toggle={() => {
                 console.log($globalOptions)
               }}
             />

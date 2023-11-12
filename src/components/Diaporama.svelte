@@ -778,12 +778,13 @@
    */
   function handleRandomQuestionOrder () {
     // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled // <- inutile avec ButtonToggle
-    globalOptions.update((l) => {
-      console.log('bouton touché, ordre ?')
-      console.log($questionsOrder.isQuestionsShuffled)
-      l.shuffle = $questionsOrder.isQuestionsShuffled
-      return l
-    })
+    // globalOptions.update((l) => {
+    //   console.log('bouton touché, ordre ?')
+    //   console.log($questionsOrder.isQuestionsShuffled)
+    //   l.shuffle = $questionsOrder.isQuestionsShuffled
+    //   return l
+    // })
+    $globalOptions.shuffle = $questionsOrder.isQuestionsShuffled
     console.log('avant ordre change :')
     console.log($questionsOrder.indexes)
     updateExercices()
@@ -992,14 +993,14 @@
                   'Carton entre questions',
                   'Pas de carton entre questions'
                 ]}
-                on:click={handleTransitionsMode}
+                on:toggle={handleTransitionsMode}
               />
             </div>
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle
                 bind:value={$transitionsBetweenQuestions.isNoisy}
                 titles={['Son entre questions', 'Pas de son entre questions']}
-                on:click={handleTransitionSound}
+                on:toggle={handleTransitionSound}
               />
             </div>
             <FormRadio
@@ -1027,7 +1028,7 @@
                   'Questions dans le désordre',
                   "Questions dans l'ordre"
                 ]}
-                on:click={handleRandomQuestionOrder}
+                on:toggle={handleRandomQuestionOrder}
               />
             </div>
           </div>
@@ -1393,11 +1394,11 @@
           {/each}
         </div>
         <dialog
-          class=" bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas text-[150px] font-extralight min-w-full min-h-full"
+          class="absolute top-0 left-0 h-full w-full bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas text-[150px] font-extralight min-w-full min-h-full"
           id="transition"
         >
           <div
-            class="flex flex-row w-full min-h-full justify-center items-center"
+            class="flex w-full min-h-full h-full justify-center items-center"
           >
             <div
               class="radial-progress"
