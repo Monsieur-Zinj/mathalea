@@ -83,7 +83,17 @@ export function tableauDeVariation ({
       return text
     }
     const sortieTexte = function (texte, x, y) {
-      return { texte, x, y }
+      if (typeof texte !== 'string') {
+        window.notify(`Dans TableauDeVariation(), sortieTexte() a reçu un drôle de texte : ${texte}, du coup je renvoie ''`)
+        return { texte: '', x, y }
+      }
+      if (texte[0] === '$' && texte[texte.length - 1] === '$') { // on suprime les $ superflus, parce qu'il n'en faut pas !
+        texte = texte.substring(1, texte.length - 2)
+      }
+      if (texte.length > 0) {
+        return { texte, x, y }
+      }
+      return { texte: '', x, y }
     }
     // On crée une ligne horizontale et les séparations verticales de base
     segments.push(segment(0, 0, longueurTotale, 0))
@@ -663,34 +673,54 @@ export function tableauDeVariation ({
     const tabinit0 = tabInit[0]
     const tabinit1 = tabInit[1]
     let type
+
     for (let i = 0; i < tabinit0.length; i++) {
-      if (typeof tabinit0[i][0] === 'string' && tabinit0[i][0].includes(',')) {
-        tabinit0[i][0] = `{${tabinit0[i][0]}}`
+      let exp = tabinit0[i][0]
+      const taille = String(tabinit0[i][1])
+      if (typeof exp === 'string' && exp[0] === '$' && exp[exp.length - 1] === '$') {
+        exp = exp.substring(1, exp.length - 1)
       }
-      codeLatex += ` ${tabinit0[i][0]} / ${tabinit0[i][1]},`
+      if (typeof exp === 'string' && exp.includes(',')) {
+        exp = `\\numprint{${exp}}`
+      }
+      if (typeof exp === 'string') codeLatex += ` $${exp}$ / ${taille},`
+      else codeLatex += ` $${String(exp)}$ / ${taille},`
     }
-    codeLatex = codeLatex.substring(0, codeLatex.length - 1)
+    codeLatex = codeLatex.substring(0, codeLatex.length - 1) // pour enlever la virgule du dernier élément ajouté.
     codeLatex += '}{'
     for (let i = 0; i < tabinit1.length / 2; i++) {
-      if (typeof tabinit1[i * 2] === 'string' && tabinit1[i * 2].includes(',')) {
-        tabinit1[i * 2] = `{${tabinit1[i * 2]}}`
+      let exp = tabinit1[i * 2]
+      if (typeof exp === 'string' && exp[0] === '$' && exp[exp.length - 1] === '$') {
+        exp = exp.substring(1, exp.length - 1)
       }
-      codeLatex += ` ${tabinit1[i * 2]},`
+      if (typeof exp === 'string' && exp.includes(',')) {
+        exp = `\\numprint{${exp}}`
+      }
+      codeLatex += ` $${exp}$,`
     }
-    codeLatex = codeLatex.substring(0, codeLatex.length - 1)
+    codeLatex = codeLatex.substring(0, codeLatex.length - 1) // on retire la virgule du dernier élément ajouté
     codeLatex += '}' + '\n\t'
     for (let i = 0; i < tabLines.length; i++) {
       type = tabLines[i][0]
       if (type === 'Val' || type === 'Ima') {
         codeLatex += `\\tkzTab${type}`
-        for (let j = 1; j < tabLines[i].length - 1; j++) {
+        for (let j = 1; j < tabLines[i].length - 1; j++) { // pas de $ ici non plus, car il y a des paramètres qui sont autre chose que des expressions
+          // les expressions à mettre sur les flèches ou au bout de celles-ci doivent avoir leur $ $
           if (typeof tabLines[i][j] === 'string' && tabLines[i][j].includes(',')) {
             tabLines[i][j] = `{${tabLines[i][j]}}`
           }
           codeLatex += `{${tabLines[i][j]}},`
         }
         codeLatex += '\n\t'
-      } else if (type === 'Var' || type === 'Line') {
+      } else if (type === 'Var') { // pas de $ ajoutés ici car il y a des commandes... les expressions doivent avoir leur propres $ $
+        codeLatex += `\\tkzTab${type}{ `
+        for (let j = 2; j < tabLines[i].length; j += 2) {
+          const exp = tabLines[i][j]
+          codeLatex += ` ${exp},`
+        }
+        codeLatex = codeLatex.substring(0, codeLatex.length - 1)
+        codeLatex += '}' + '\n\t'
+      } else { // si c'est pas tabVal, tabIma ou tabVar, c'est un tabLine et ça ne contient que des codes !
         codeLatex += `\\tkzTab${type}{ `
         for (let j = 2; j < tabLines[i].length; j += 2) {
           if (tabLines[i][j].indexOf(',') !== -1) {
