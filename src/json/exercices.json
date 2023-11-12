@@ -10332,6 +10332,18 @@
     },
     "typeExercice": "alea"
   },
+  "6C13-3": {
+    "url": "6e/6C13-3.ts",
+    "uuid": "2be1d",
+    "id": "6C13-3",
+    "titre": "Retrouver le nombre de départ",
+    "tags": {
+      "interactif": true,
+      "interactifType": "mathLive",
+      "amc": false
+    },
+    "datePublication": "11/11/2023"
+  },
   "6C20": {
     "url": "6e/6C20.js",
     "tags": [],

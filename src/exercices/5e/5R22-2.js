@@ -2,6 +2,10 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, ecritureNombreRelatif } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const titre = 'Simplifier l\'écriture d\'une somme de 2 relatifs et calculer'
 
@@ -39,11 +43,13 @@ export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
       if (s === 1) {
         texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' =$'
         texteCorr = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' = ' + a + ecritureAlgebrique(s * b) + ' = ' + (a + b) + ' $'
+        setReponse(this, i, a + b)
       } else {
         texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' =$'
         texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + a + ecritureAlgebrique(s * b) + ' = ' + (a - b) + ' $'
+        setReponse(this, i, a - b)
       }
-
+      if (this.interactif) texte += ' ' + ajouteChampTexteMathLive(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -33,14 +33,14 @@ export default function NotationPuissance () {
   this.classe = 4
 
   this.nouvelleVersion = function () {
-    this.titre = titre  
+    this.titre = titre
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     let listeTypeDeQuestions
     switch (this.sup) {
       case 1:
-        this.consigne = 'Donner la signification des écritures suivantes. Aucun calcul n\'est nécessaire.'
+        this.consigne = 'Écrire l\'expression avec des $\\times$ et sans utiliser la notation puissance. Aucun calcul n\'est nécessaire.'
         listeTypeDeQuestions = ['produit']
         break
       case 2:
@@ -66,7 +66,7 @@ export default function NotationPuissance () {
         break
     }
     listeSignesExposants = combinaisonListes(listeSignesExposants, this.nbQuestions)
-    const listeSignes = combinaisonListes(this.sup4 === 1 ? [''] : this.sup4 === 2 ? ['-'] :  ['', '-'], this.nbQuestions)
+    const listeSignes = combinaisonListes(this.sup4 === 1 ? [''] : this.sup4 === 2 ? ['-'] : ['', '-'], this.nbQuestions)
     let listeSignesMantisse = combinaisonListes(['', '-'], this.nbQuestions)
     switch (this.sup2) {
       case 1:
@@ -123,7 +123,7 @@ export default function NotationPuissance () {
       switch (listeTypeDeQuestions[i]) {
         case 'produit':
           if (this.sup === 3) {
-            texte = `Donner la signification de $${puissance}$.`
+            texte = `Écrire $${puissance}$ avec des $\\times$ et sans utiliser la notation puissance`
           } else {
             texte = `$${puissance}$`
           }
@@ -150,23 +150,27 @@ export default function NotationPuissance () {
           }
           break
         case 'puissance':
-          this.sup === 3 ? texte = 'Simplifier l\'écriture en utilisant la notation puissance : ' : texte = ''
+        {
+          let enonce, correction
           if (exposant < 0) {
-            texte += `$${listeSignes[i]} \\dfrac{1}{${produit}}$` + (this.sup === 3 ? '.' : '')
-            texteCorr = `$${listeSignes[i]} \\dfrac{1}{${produit}} = ${puissance}$`
+            enonce = `$${listeSignes[i]} \\dfrac{1}{${produit}}$`
+            correction = `$${listeSignes[i]} \\dfrac{1}{${produit}} = ${puissance}$`
           } else {
-            texte += `$${listeSignes[i]} ${produit}$` + (this.sup === 3 ? '.' : '')
-            texteCorr = `$${listeSignes[i]} ${produit} = ${puissance}$`
+            enonce = `$${listeSignes[i]} ${produit}$`
+            correction = `$${listeSignes[i]} ${produit} = ${puissance}$`
           }
+          this.sup === 3 ? texte = `Simplifier ${enonce} en utilisant la notation puissance` : texte = ''
+          texteCorr = correction
           setReponse(this, i, puissances, { formatInteractif: 'ignorerCasse' })
           break
+        }
       }
 
-      texte += this.interactif ? ' $ = $' + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) : ''
+      texte += this.interactif ? ' : ' + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) : '.'
 
       if (context.isAmc) {
         if (this.sup !== 3) this.titre = this.consigne
-        this.autoCorrection[i].enonce = this.sup === 3 ? texte +' $=\\ldots$<br>' : ('Compléter : '+texte+' $=\\ldots$')
+        this.autoCorrection[i].enonce = this.sup === 3 ? texte + ' $=\\ldots$<br>' : ('Compléter : ' + texte + ' $=\\ldots$')
         this.autoCorrection[i].propositions = [{ statut: 1, sanscadre: true, texte: texteCorr }]
       }
       // Si la question n'mantisse jamais été posée, on l'enregistre

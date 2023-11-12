@@ -103,23 +103,11 @@ export default function ReconnaitreFonctionAffine () {
           while (pgcd(a, b) !== 1) {
             a = randint(-5, 5, 0)
           }
-          if (a === -1) {
-            this.question = `Soit $f(x)=\\dfrac{-x}{${b}}${ecritureAlgebrique(c)}$.<br>
-
-        La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>   Les valeurs de $a$ et de $b$ sont  :<br>  $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + sp(2) : '$\\ldots$'} ${sp(3)} et${sp(3)} $b=$
-          ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') + sp(2) : '$\\ldots$'} `
-            this.canEnonce = `Soit $f(x)=\\dfrac{-x}{${b}}${ecritureAlgebrique(c)}$.<br>
-            
-            La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.`
-          } else {
-            texte = `Soit $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}${ecritureAlgebrique(c)}$.<br>
-
+          texte = `Soit $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}${ecritureAlgebrique(c)}$.<br>
             La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.<br>Les valeurs de $a$ et de $b$ sont  :<br>   $a=$ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + sp(2) : '$\\ldots$'} ${sp(3)} et${sp(3)} $b=$
          ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') + sp(2) : '$\\ldots$'} `
-            this.canEnonce = `Soit $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}${ecritureAlgebrique(c)}$.<br>
-          
+          this.canEnonce = `Soit $f(x)=\\dfrac{${rienSi1(a)}x}{${b}}${ecritureAlgebrique(c)}$.<br>    
          La fonction $f$ est une fonction affine de la forme $f(x)=ax+b$.`
-          }
           setReponse(this, 2 * i, new FractionEtendue(a, b), { formatInteractif: 'fractionEgale' })
           setReponse(this, 2 * i + 1, c)
           texteCorr = `On identifie les valeurs de $a$ et de $b$ : la valeur de $a$ est le coefficient devant $x$ (attention, $\\dfrac{ax}{b}=\\dfrac{a}{b}x$) et la valeur de $b$ est la constante.<br>
