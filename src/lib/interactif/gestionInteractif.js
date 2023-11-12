@@ -255,7 +255,6 @@ export function setReponse (exercice, i, valeurs, {
 
   switch (formatInteractif) {
     case 'tableauMathlive':
-      console.log(reponses)
       //   if (reponses.filter((cellule) => Object.keys(cellule)[0].match(/L\dC\d/).length === 0).length !== 0) {
       //    window.notify('setReponse : type "tableauMathlive" les objets proposés n\'ont pas tous une clé de la forme L$C$', { reponses })
       //  }
