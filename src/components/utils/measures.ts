@@ -75,7 +75,7 @@ export const deviceType = () => {
  * @param {HTMLOrSVGElement[]} tags Liste des divs à inspecter et changer
  * @param {number} factor facteur d'agrandissement par rapport à la taille initiale
  */
-export const resizeTags = (tags: HTMLOrSVGElement[], factor:number = 1) => {
+export const resizeTags = (tags: Element[], factor:number = 1) => {
   let widthUnit, heightUnit: string
   for (const tag of tags) {
     const widthAttributeExists: boolean = tag.hasAttribute('width')

@@ -31,11 +31,11 @@
     const scratchDivs = document.getElementsByClassName('scratchblocks')
     for (const scratchDiv of scratchDivs) {
       const svgDivs = scratchDiv.getElementsByTagName('svg')
-      resizeTags(svgDivs, $globalOptions.z)
+      resizeTags([...svgDivs], parseInt($globalOptions.z ?? "1"))
     }
     // QCM
     const checkboxes = document.querySelectorAll('[id^=checkEx')
-    resizeTags(checkboxes, $globalOptions.z)
+    resizeTags([...checkboxes], parseInt($globalOptions.z ?? "1"))
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 </script>
