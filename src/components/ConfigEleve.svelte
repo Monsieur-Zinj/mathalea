@@ -79,6 +79,7 @@
           <div class="pl-4 flex flex-col">
             <input
               type="text"
+              id="config-eleve-titre-input"
               class="w-1/2 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0"
               bind:value={$globalOptions.title}
             />
@@ -100,6 +101,7 @@
           />
           <div class="pl-4 pt-2">
             <ButtonToggle
+              id="config-eleve-nb-colonnes-toggle"
               isDisabled={$globalOptions.presMode === 'un_exo_par_page' || $globalOptions.presMode === 'une_question_par_page'}
               titles={['Texte sur deux colonnes', 'Texte sur une colonne']}
               bind:value={$globalOptions.twoColumns}
@@ -110,7 +112,6 @@
           <div class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Interactivité</div>
           <FormRadio
             title="Interactif"
-            isDisabled={$globalOptions.presMode === 'cartes'}
             bind:valueSelected={$globalOptions.setInteractive}
             labelsValues={[
               { label: 'Laisser tel quel', value: '2' },
@@ -120,14 +121,16 @@
           />
           <div class="pl-2 pt-2">
             <ButtonToggle
-              isDisabled={$globalOptions.setInteractive === '0' || $globalOptions.presMode === 'cartes'}
+              id="config-eleve-interactif-permis-toggle"
+              isDisabled={$globalOptions.setInteractive === '0'}
               titles={["Les élèves peuvent modifier l'interactivité", "Les élèves ne peuvent pas modifier l'interactivité"]}
               bind:value={$globalOptions.isInteractiveFree}
             />
           </div>
           <div class="pl-2 pt-2">
             <ButtonToggle
-              isDisabled={$globalOptions.setInteractive === '0' || $globalOptions.presMode === 'cartes'}
+              id="config-eleve-refaire-toggle"
+              isDisabled={$globalOptions.setInteractive === '0'}
               titles={['Les élèves peuvent répondre une seule fois', 'Les élèves peuvent répondre plusieurs fois']}
               bind:value={$globalOptions.oneShot}
             />
@@ -145,7 +148,7 @@
             Correction
           </div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle titles={['Accès aux corrections', 'Pas de corrections']} bind:value={$globalOptions.isSolutionAccessible} isDisabled={$globalOptions.presMode === 'cartes'}/>
+            <ButtonToggle id={"config-eleve-acces-corrections-toggle"} titles={['Accès aux corrections', 'Pas de corrections']} bind:value={$globalOptions.isSolutionAccessible}/>
           </div>
         </div>
       </div>

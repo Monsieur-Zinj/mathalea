@@ -59,6 +59,7 @@
 <div class="tooltip tooltip-bottom tooltip-neutral" data-tip={tooltipMessage}>
   <button
     type="button"
+    id="modalaction-button"
     class="{classForButton} {title.length === 0
       ? 'text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest'
       : 'text-coopmaths-canvas  dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest p-2 rounded-xl'}"
