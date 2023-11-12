@@ -589,7 +589,7 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
     if (this.colorBackground !== '') {
       divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\colorbox{' + colorToLatexOrHTML(this.colorBackground)[0] + '}{ ' + taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
     } else {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\color{' + this.color[0] + '}' + taille + ' $' + this.texte + '$')}</div>`
+      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\color{' + this.color[0] + '}' + taille + ' ' + this.texte + '')}</div>`
     }
     /* const thisX = this.x
     const thisY = this.y
