@@ -46,9 +46,16 @@
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
   }
 
+  function updateLatex(){
+  $: {
+    contents = latex.getContents(style, nbVersions)
+  }
+  }
+
   onMount(() => {
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     downloadPicsModal = document.getElementById('downloadPicsModal') as HTMLElement
+    document.addEventListener('updateAsyncEx',updateLatex)
   })
 
   /* ============================================================================
