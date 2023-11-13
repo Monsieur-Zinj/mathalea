@@ -14,7 +14,8 @@ export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
-export const titre = 'Substitution'
+export const titre = 'Substituer par des nombres'
+export const dateDeModifImportante = '13/11/2023'
 
 /**
  * x, y, z étant 3 entiers compris entre 2 et 9, calculer :
@@ -124,7 +125,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
       }
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur15', {
-          texte: '$~=~$'
+          texteAvant: '$~=~$'
         })
       }
       setReponse(this, i, reponse, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
