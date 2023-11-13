@@ -195,7 +195,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   saisie = saisie.replaceAll('\\:', ' ') // Suppression des espaces LaTeX (présents quand on met des crochets pour les segments)
                   saisie = saisie.replaceAll('\\left\\lbrack ', '[').replaceAll('\\right\\rbrack ', ']') // Suppression des crochets LaTeX (pour les segments)
                   while (saisie.includes('  ')) saisie = saisie.replace('  ', ' ') // Pour enlever tous les doubles espaces
-                  saisie = saisie.replaceAll('\\text{', '').replaceAll('}', '').replaceAll('\\:').replaceAll('$', '') // Supprimer le \text{....} mis par MathLive
+                  saisie = saisie.replaceAll('\\text{', '').replaceAll('}', '').replaceAll('$', '') // Supprimer le \text{....} mis par MathLive
                   if (saisie[0] === ' ') saisie = saisie.substring(1, saisie.length) // Supprimer l'eventuel espace en début de ligne
                   if (saisie[saisie.length - 1] === ' ') saisie = saisie.substring(0, saisie.length - 1) // Supprimer l'éventuel espace en fin de ligne
                   if ((saisie === reponse)) {
