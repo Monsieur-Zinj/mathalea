@@ -8812,6 +8812,25 @@
           }
         },
         "typeExercice": "alea"
+      },
+      "6C13-3": {
+        "url": "6e/6C13-3.ts",
+        "tags": [],
+        "uuid": "2be1d",
+        "id": "6C13-3",
+        "titre": "Retrouver le nombre de départ",
+        "datePublication": "11/11/2023",
+        "features": {
+          "interactif": {
+            "isActive": true,
+            "type": "'mathLive'"
+          },
+          "amc": {
+            "isActive": false,
+            "type": ""
+          }
+        },
+        "typeExercice": "alea"
       }
     },
     "6C2": {
@@ -14332,8 +14351,8 @@
         "titre": "Simplifier l'écriture d'une somme de 2 relatifs et calculer",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
