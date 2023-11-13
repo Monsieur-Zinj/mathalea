@@ -21,6 +21,34 @@ export function exerciceInteractif (exercice /** Exercice */, divScore /** HTMLD
   if (exercice.interactifType === 'custom') return verifExerciceCustom(exercice, divScore, buttonScore)
   //  if (exercice.interactifType === undefined) exerciceNonInteractif(exercice)
   // Il faudra gérer ces exercices non interactifs qui pourraient apparaitre dans une évaluation
+  if (exercice.interactifType === 'qcm_mathLive') return verifExerciceQcmMathLive(exercice, divScore, buttonScore)
+}
+
+function verifExerciceQcmMathLive (exercice /** Exercice */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
+  // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
+  let nbQuestionsValidees = 0
+  let nbQuestionsNonValidees = 0
+  exercice.answers = {}
+  for (let i = 0; i < exercice.autoCorrection.length; i++) {
+
+    if (exercice?.autoCorrection[i]?.propositions === undefined) {
+      // mathlive
+      const resultat = verifQuestionMathLive(exercice, i)
+      nbQuestionsValidees += resultat.score.nbBonnesReponses
+      nbQuestionsNonValidees += resultat.score.nbReponses - resultat.score.nbBonnesReponses
+    } else {
+      // qcm 
+      const resultat = verifQuestionQcm(exercice, i)
+      resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
+    }
+
+    
+  }
+  const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
+  uichecks.forEach(function (uicheck) {
+    uicheck.classList.add('read-only')
+  })
+  return afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
 }
 
 function verifExerciceMathLive (exercice /** Exercice */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
@@ -255,6 +283,7 @@ export function setReponse (exercice, i, valeurs, {
 
   switch (formatInteractif) {
     case 'tableauMathlive':
+      console.log(reponses)
       //   if (reponses.filter((cellule) => Object.keys(cellule)[0].match(/L\dC\d/).length === 0).length !== 0) {
       //    window.notify('setReponse : type "tableauMathlive" les objets proposés n\'ont pas tous une clé de la forme L$C$', { reponses })
       //  }

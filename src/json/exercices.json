@@ -14359,6 +14359,17 @@
       "amc": true
     }
   },
+  "can6eAll": {
+    "url": "can/6e/can6CXX.js",
+    "uuid": "315b6",
+    "id": "can6eAll",
+    "titre": "Course aux nombres 6e",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm_mathLive",
+      "amc": false
+    }
+  },
   "canExC01": {
     "url": "can/Ex/canExC01.js",
     "uuid": "71292",
