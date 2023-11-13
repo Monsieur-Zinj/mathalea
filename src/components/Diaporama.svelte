@@ -121,7 +121,7 @@
     }
   })
 
-  async function updateExercices () {
+  async function updateExercices() {
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
@@ -204,7 +204,7 @@
     }
   }
 
-  function handleShortcut (e: KeyboardEvent) {
+  function handleShortcut(e: KeyboardEvent) {
     if (e.key === 'ArrowLeft') {
       e.preventDefault()
       prevQuestion()
@@ -225,7 +225,7 @@
   //
   // ================================================================================
 
-  async function goToQuestion (i: number) {
+  async function goToQuestion(i: number) {
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
     if (i === -1 || i === questions[0].length) pause()
     await tick()
@@ -253,7 +253,7 @@
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
 
-  function prevQuestion () {
+  function prevQuestion() {
     if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
       if (isQuestionVisible) {
         if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
@@ -267,7 +267,7 @@
     }
   }
 
-  function nextQuestion () {
+  function nextQuestion() {
     if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
       if (isQuestionVisible && !isCorrectionVisible) {
         switchPause()
@@ -290,7 +290,7 @@
   /**
    * Pour le bouton de retour de la page de fin
    */
-  function returnToStart () {
+  function returnToStart() {
     durationGlobal = 0
     pause()
     goToQuestion(0)
@@ -300,7 +300,7 @@
    * Gestion du clic sur l'étape dans la progression
    * @param {number} index index de l'étape
    */
-  function clickOnStep (index: number) {
+  function clickOnStep(index: number) {
     goToQuestion(index)
   }
 
@@ -312,7 +312,7 @@
   //
   // ================================================================================
 
-  function timer (timeQuestion = 5, reset = true) {
+  function timer(timeQuestion = 5, reset = true) {
     // timeQuestion est le temps de la question exprimé en secondes
     if (timeQuestion === 0) {
       pause()
@@ -331,13 +331,13 @@
     }
   }
 
-  function switchPause () {
+  function switchPause() {
     if (!isPause) {
       pause()
     } else timer(durationGlobal ?? durations[currentQuestion] ?? 10, false)
   }
 
-  function pause () {
+  function pause() {
     clearInterval(myInterval)
     isPause = true
   }
@@ -346,7 +346,7 @@
   /**
    * Gère la récupération de la valeur du curseur de temps
    */
-  function handleTimerChange () {
+  function handleTimerChange() {
     durationGlobal = 0
     pause()
     if (cursorTimeValue === 0) {
@@ -360,7 +360,7 @@
     goToQuestion(currentQuestion)
   }
 
-  function handleChangeDurationGlobal () {
+  function handleChangeDurationGlobal() {
     globalOptions.update((l) => {
       l.durationGlobal = durationGlobal
       return l
@@ -368,7 +368,7 @@
     updateExercices()
   }
 
-  function handleCheckSameDurationForAll () {
+  function handleCheckSameDurationForAll() {
     globalOptions.update((l) => {
       l.durationGlobal = undefined
       return l
@@ -386,7 +386,7 @@
    * Calcule la durée totale du diaporama
    * (durée par question x nombre de questions)
    */
-  function getTotalDuration () {
+  function getTotalDuration() {
     let sum = 0
     for (const [i, exercice] of exercices.entries()) {
       if ($selectedExercises.isActive) {
@@ -423,7 +423,7 @@
     return sum
   }
 
-  function handleCheckManualMode () {
+  function handleCheckManualMode() {
     isManualModeActive = !isManualModeActive
   }
 
@@ -478,7 +478,7 @@
    * </ul>
    * @author sylvain
    */
-  async function setSize () {
+  async function setSize() {
     for (let i = 0; i < nbOfVues; i++) {
       if (typeof divQuestion[i] !== 'undefined') {
         mathaleaRenderDiv(divQuestion[i], -1)
@@ -651,7 +651,7 @@
     }
   }
 
-  function zoomPlus () {
+  function zoomPlus() {
     // userZoom += 0.25
     if (userZoom < 1) {
       userZoom += 0.05
@@ -662,7 +662,7 @@
     setSize()
   }
 
-  function zoomMoins () {
+  function zoomMoins() {
     // if (userZoom > 1) userZoom -= 0.25
     // else if (userZoom > 0.2) userZoom -= 0.1
     if (userZoom > 0.1) {
@@ -687,7 +687,7 @@
   //
   // ================================================================================
 
-  async function switchCorrectionMode () {
+  async function switchCorrectionMode() {
     // isCorrectionVisible = !isCorrectionVisible
     if (isQuestionVisible && !isCorrectionVisible) {
       isCorrectionVisible = !isCorrectionVisible
@@ -705,7 +705,7 @@
     setSize()
   }
 
-  async function switchQuestionToCorrection () {
+  async function switchQuestionToCorrection() {
     if (isCorrectionVisible) {
       isCorrectionVisible = false
       isQuestionVisible = true
@@ -735,7 +735,7 @@
   /**
    * Gestion de la sélection du choix des exercices dans la liste
    */
-  function handleSampleChecked () {
+  function handleSampleChecked() {
     $selectedExercises.count = exercices.length - 1
     $selectedExercises.isActive = !$selectedExercises.isActive
     if (!$selectedExercises.isActive) {
@@ -759,7 +759,7 @@
    * sera batie la liste des exercices à utiliser
    * 2/ on met à jours les paramètres dans les options et l'URL
    */
-  function handleSampleSizeChange () {
+  function handleSampleSizeChange() {
     if ($selectedExercises.count) {
       $selectedExercises.indexes = [
         ...listOfRandomIndexes(exercices.length, $selectedExercises.count)
@@ -776,7 +776,7 @@
   /**
    * Gestion du bouton demandant de changer l'ordre des questions
    */
-  function handleRandomQuestionOrder () {
+  function handleRandomQuestionOrder() {
     // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled // <- inutile avec ButtonToggle
     // globalOptions.update((l) => {
     //   console.log('bouton touché, ordre ?')
@@ -796,7 +796,7 @@
    * Gérer le choix de cartons entre les questions
    * @author sylvain
    */
-  function handleTransitionsMode () {
+  function handleTransitionsMode() {
     // $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive  <- inutile avec ButtonToggle
     globalOptions.update((l) => {
       l.trans = $transitionsBetweenQuestions.isActive
@@ -809,7 +809,7 @@
    * Gérer le choix de sons entre les questions
    * @author sylvain
    */
-  function handleTransitionSound () {
+  function handleTransitionSound() {
     if ($transitionsBetweenQuestions.isNoisy) {
       if (typeof $transitionsBetweenQuestions.tune === 'undefined') {
         $transitionsBetweenQuestions.tune = '0'
@@ -832,7 +832,7 @@
    * Met à jour le numéro du son dans l'URL
    * @author sylvain
    */
-  function handleTuneChange () {
+  function handleTuneChange() {
     globalOptions.update((l) => {
       l.sound = $transitionsBetweenQuestions.tune
       return l
@@ -840,7 +840,7 @@
     updateExercices()
   }
 
-  function switchFullScreen () {
+  function switchFullScreen() {
     isFullScreen = !isFullScreen
     if (isFullScreen) {
       const app = document.querySelector('#diaporama')
@@ -850,13 +850,13 @@
     }
   }
 
-  function handleQuit () {
+  function handleQuit() {
     mathaleaHandleComponentChange('diaporama', '')
     // $selectedExercises.isActive = false
     updateExercices()
   }
 
-  function isInViewport (element: HTMLElement): boolean {
+  function isInViewport(element: HTMLElement): boolean {
     const rect = element.getBoundingClientRect()
     return (
       rect.top >= 0 &&
@@ -902,6 +902,7 @@
                 >
                   <button
                     type="button"
+                    id="diaporama-apercu"
                     class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                     on:click={() => {
                       // console.log('indexes des questions :')
@@ -920,6 +921,7 @@
               Plein écran
               <div class="flex flex-row px-4 justify-start">
                 <button
+                  id="diaporama-plein-ecran"
                   type="button"
                   on:click={switchFullScreen}
                   class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
@@ -955,6 +957,7 @@
             </div>
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle
+                id="diaporama-transition-toggle"
                 bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive}
                 titles={[
                   'Question <em>puis</em> correction',
@@ -988,6 +991,7 @@
             </div>
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle
+                id="diaporama-transition-correction-toggle"
                 bind:value={$transitionsBetweenQuestions.isActive}
                 titles={[
                   'Carton entre questions',
@@ -998,6 +1002,7 @@
             </div>
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle
+                id="diaporama-transition-sons-toggle"
                 bind:value={$transitionsBetweenQuestions.isNoisy}
                 titles={['Son entre questions', 'Pas de son entre questions']}
                 on:toggle={handleTransitionSound}
@@ -1023,6 +1028,7 @@
             </div>
             <div class="flex flex-row justify-start items-center px-4">
               <ButtonToggle
+                id="diaporama-ordre-questions-toggle"
                 bind:value={$questionsOrder.isQuestionsShuffled}
                 titles={[
                   'Questions dans le désordre',
@@ -1065,6 +1071,7 @@
             <div class="pl-8">
               <input
                 type="number"
+                id="diaporama-nb-exos-dans-liste-input"
                 min="1"
                 max={exercices.length}
                 bind:value={$selectedExercises.count}
@@ -1116,22 +1123,22 @@
             </div>
             <div class="flex items-center">
               <input
-                id="checkbox-2"
-                aria-describedby="checkbox-2"
+                id="diaporama-defilement-manuel-checkbox"
+                aria-describedby="diaporama-defilement-manuel-checkbox"
                 type="checkbox"
                 checked={isManualModeActive}
                 class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
                 on:change={handleCheckManualMode}
               />
               <label
-                for="checkbox-2"
+                for="diaporama-defilement-manuel-checkbox"
                 class="ml-3 mr-4 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus"
               >
                 Défilement manuel
               </label>
               <input
-                id="checkbox-1"
-                aria-describedby="checkbox-1"
+                id="diaporama-meme-duree-checkbox"
+                aria-describedby="diaporama-meme-duree-checkbox"
                 type="checkbox"
                 class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action
                 {exercices.length === 1 || isManualModeActive
@@ -1142,7 +1149,7 @@
                 disabled={exercices.length === 1 || isManualModeActive}
               />
               <label
-                for="checkbox-1"
+                for="diaporama-meme-duree-checkbox"
                 class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus
                 {exercices.length === 1 || isManualModeActive
                   ? 'text-opacity-30 dark:text-opacity-30'
@@ -1151,6 +1158,7 @@
                 Même durée pour toutes les questions
                 <input
                   type="number"
+                  id="diaporama-meme-duree-input"
                   min="1"
                   on:change={handleChangeDurationGlobal}
                   bind:value={durationGlobal}
@@ -1241,6 +1249,7 @@
                         <span class="flex justify-center">
                           <input
                             type="number"
+                            id="diaporama-exo-duration-{i}"
                             min="1"
                             on:change={updateExercices}
                             bind:value={exercice.duration}
@@ -1254,6 +1263,7 @@
                         <span class="flex justify-center">
                           <input
                             type="number"
+                            id="diaporama-exo-nb-questions-{i}"
                             min="1"
                             bind:value={exercice.nbQuestions}
                             on:change={updateExercices}
@@ -1270,6 +1280,7 @@
             <div class="flex flex-row items-center justify-end w-full my-4">
               <button
                 type="button"
+                id="diaporama-play-button"
                 class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest font-extrabold text-coopmaths-canvas dark:text-coopmathsdark-canvas text-3xl py-4 rounded-lg"
                 on:click={() => {
                   goToQuestion(0)

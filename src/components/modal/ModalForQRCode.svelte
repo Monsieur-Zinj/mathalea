@@ -156,6 +156,7 @@
       </div>
       <input
         type="number"
+        id="modalqrcode-taille-input"
         min="80"
         max="300"
         bind:value={width}
@@ -183,6 +184,7 @@
         >
           <button
             type="button"
+            id="modalqrcode-copy-button"
             class="mx-6 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
             on:click={() => copyQRCodeImageToClipboard(imageId, dialogId)}
           >
@@ -195,6 +197,7 @@
         >
           <button
             type="button"
+            id="modalqrcode-download-button"
             class="mx-6 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
             on:click={() => downloadQRCodeImage(imageId, format)}
           >

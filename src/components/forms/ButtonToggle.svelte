@@ -1,5 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from "svelte"
+  import { getUniqueStringBasedOnTimeStamp } from "../utils/time"
 
   export let titles: string[] = ['', '']
   export let value: boolean = true
@@ -7,6 +8,7 @@
   export let classAddenda: string = ''
   export let textSize: string = 'sm'
   export let buttonSize: string = 'sm'
+  export let id:string = 'toggle-' + getUniqueStringBasedOnTimeStamp()
 
   const dispatch = createEventDispatcher()
 
@@ -40,6 +42,7 @@
 <div class="flex flex-row justify-start items-center {classAddenda}">
   <button
     type="button"
+    {id}
     class="flex justify-center items-center"
     on:click={toggle}
     disabled={isDisabled}

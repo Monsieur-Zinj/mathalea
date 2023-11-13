@@ -51,7 +51,7 @@ const aleaReferentiel = buildReferentiel(exercices)
 const exercicesGeometrieDynamique = getAllEndings(baseGeometrieDynamiqueReferentiel)
 const geometrieDynamiqueReferentiel = buildReferentiel(exercicesGeometrieDynamique)
 // référentiel original
-export const originalReferentiels: ReferentielInMenu[] = [
+const allReferentielsInMenus: ReferentielInMenu[] = [
   {
     title: 'Exercices aléatoires',
     name: 'aleatoires',
@@ -88,7 +88,15 @@ export const originalReferentiels: ReferentielInMenu[] = [
     searchable: false,
     referentiel: biblioReferentiel
   }
-].filter((elt) => { return activations[elt.name] === true })
+]
+const activatedReferentielsInMenu: ReferentielInMenu[] = []
+for (const ref of allReferentielsInMenus) {
+  if (activations[ref.name]) {
+    activatedReferentielsInMenu.push(ref)
+  }
+}
+
+export const originalReferentiels = [...activatedReferentielsInMenu]
 /**
  * Fabrique une liste de _vraies_ copies d'objets représentant les référentiels dans le menu.
  * Ces objet sont passés en paramètres sous la forme d'un tableau.

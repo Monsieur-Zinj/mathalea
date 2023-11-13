@@ -29,6 +29,7 @@
   let titre = ''
   const nbQuestionsModif: number[] = []
   const exercicesARetirer: string[] = []
+  let refsExercicesARetirer: string[]
   $: refsExercicesARetirer = []
 
   type NbQuestionsIndexees = {
@@ -40,7 +41,7 @@
   let nbExemplaires = 1
   let textForOverleaf: HTMLInputElement
 
-  async function initExercices () {
+  async function initExercices() {
     exercicesARetirer.length = 0
     await mathaleaUpdateExercicesParamsFromUrl()
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
@@ -49,7 +50,9 @@
       context.isHtml = false
       context.isAmc = true
       seedrandom(exercice.seed, { global: true })
-      if (exercice.typeExercice === 'simple') { mathaleaHandleExerciceSimple(exercice, false) }
+      if (exercice.typeExercice === 'simple') {
+        mathaleaHandleExerciceSimple(exercice, false)
+      }
       if (exercice.nouvelleVersion != null) exercice.nouvelleVersion()
       if (exercice.amcType == null) {
         // l'exercice n'est pas disponible AMC
@@ -58,7 +61,9 @@
           refsExercicesARetirer.push(exercice.id)
         } else {
           // console.log(Object.entries(exercice))
-          const proprietes = Object.entries(exercice).map(([prop, val]) => val)
+          const proprietes: string[] = Object.entries(exercice).map(
+            ([prop, val]) => val
+          )
           proprietes.shift()
           refsExercicesARetirer.push(proprietes.join(' '))
         }
@@ -84,9 +89,16 @@
     // Si les copies sont préremplies, c'est un seul exemplaire pour ne pas avoir plusieurs sujets avec le même nom
     if (entete === 'AMCassociation') nbExemplaires = 1
     // On récupère les nombres de questions par groupe indexé sur l'index d'exercice dans exercices
-    nbQuestions = nbQuestionsModif.map((elt, i) => {
-      if (elt !== null) return { indexExercice: i, nombre: elt }
-    })
+    // la ligne suivante lève une erreur
+    // nbQuestions = nbQuestionsModif.map((elt, i) => {
+    //   if (elt !== null) return { indexExercice: i, nombre: elt }
+    // })
+    // on la remplace par une boucle classique
+    nbQuestions.length = 0
+    for (let i = 0; i < nbQuestionsModif.length; i++) {
+      nbQuestions.push({ indexExercice: i, nombre: nbQuestionsModif[i] })
+    }
+    nbQuestions = nbQuestions
     // on blinde le nbExemplaires qui ne peut être 0 ou undefined
     if (nbExemplaires == null) nbExemplaires = 1
     for (let i = 0; i < exercices.length; i++) {
@@ -98,7 +110,9 @@
           context.isHtml = false
           context.isAmc = true
           seedrandom(exo.seed, { global: true })
-          if (exo.typeExercice === 'simple') { mathaleaHandleExerciceSimple(exo, false) }
+          if (exo.typeExercice === 'simple') {
+            mathaleaHandleExerciceSimple(exo, false)
+          }
           if (exo.nouvelleVersion != null) exo.nouvelleVersion()
         }
       }
@@ -119,7 +133,7 @@
    * @param {string} dialogId id attaché au composant
    * @author sylvain
    */
-  async function copyLaTeXCodeToClipBoard (dialogId: string) {
+  async function copyLaTeXCodeToClipBoard(dialogId: string) {
     navigator.clipboard.writeText(content).then(
       () => {
         showDialogForLimitedTime(dialogId + '-1', 1000)
@@ -141,9 +155,9 @@
   let nonAmcModal: HTMLElement
   // $: isNonAmcModal Visible = false
   onMount(async () => {
-    modal = document.getElementById('overleaf-modal')
+    modal = document.getElementById('overleaf-modal') as HTMLElement
     overleafForm = document.getElementById('overleaf-form') as HTMLFormElement
-    nonAmcModal = document.getElementById('nonAmc-modal')
+    nonAmcModal = document.getElementById('nonAmc-modal') as HTMLElement
   })
   // click en dehors du modal le fait disparaître
   window.onclick = function (event) {
@@ -155,14 +169,14 @@
     }
   }
 
-  function handleNonAmcModal () {
+  function handleNonAmcModal() {
     nonAmcModal.style.display = 'none'
   }
 
   /**
    * Gérer le POST pour Overleaf
    */
-  function handleOverLeaf () {
+  function handleOverLeaf() {
     textForOverleaf.value =
       'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(content)))
     overleafForm.submit()
@@ -226,6 +240,7 @@
         </div>
         <input
           bind:value={matiere}
+          id="amc-export-matiere-input"
           class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           type="text"
         />
@@ -238,6 +253,7 @@
         </div>
         <input
           bind:value={titre}
+          id="amc-export-titre-input"
           class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           type="text"
         />
@@ -253,18 +269,20 @@
             {exercice.id}{exercice.sup
               ? `-S:${exercice.sup}`
               : ''}{exercice.sup2 ? `-S2:${exercice.sup2}` : ''}{exercice.sup3
-                ? `-S3:${exercice.sup3}`
-                : ''}
+              ? `-S3:${exercice.sup3}`
+              : ''}
             <input
               type="text"
+              id="amc-export-nb-questions-gr{i}-input"
               class="ml-4 md:ml-0 border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
               placeholder={exercice.nbQuestions.toString()}
               bind:value={nbQuestionsModif[i]}
             />
-            <span>{exercice.amcReady ? exercice.amcType : 'not amcReady'}</span>
+            <span>{exercice.amcType ? exercice.amcType : 'not amcReady'}</span>
             <button
               class="mx-2 tooltip tooltip-left"
               data-tip="Nouvel énoncé"
+              id="amc-export-new-enonce-button"
               type="button"
               on:click={() => {
                 exercice.seed = mathaleaGenerateSeed()
@@ -299,8 +317,9 @@
         {/each}
         <div>
           <ModalMessageBeforeAction
-            buttonTitle="Continuer"
+            modalButtonTitle="Continuer"
             icon="bxs-error"
+            classForButton="px-2 py-1 rounded-md"
             modalId="nonAmc-modal"
             on:action={handleNonAmcModal}
           >
@@ -337,6 +356,7 @@
     >
       <ModalActionWithDialog
         dialogId="latexCopy"
+        classForButton="px-2 py-1 rounded-md"
         message="Le code LaTeX a été copié dans le presse-papier"
         messageError="Impossible de copier le code dans le presse-papier !"
         on:display={() => {
@@ -345,6 +365,7 @@
         title="Copier le code LaTeX"
       />
       <Button
+        class="px-2 py-1 rounded-md"
         idLabel="open-btn"
         on:click={() => {
           modal.style.display = 'block'
@@ -359,7 +380,8 @@
   </section>
   <!-- Message avant envoi sur Overleaf -->
   <ModalMessageBeforeAction
-    buttonTitle="Continuer"
+    modalButtonTitle="Continuer"
+    classForButton="px-2 py-1 rounded-md"
     icon="bxs-error"
     modalId="overleaf-modal"
     on:action={handleOverLeaf}

@@ -32,7 +32,7 @@ export interface InterfaceGlobalOptions {
   isDataRandom?: boolean
 }
 
-export interface InterfaceParams {
+export interface InterfaceParams extends Partial<Record<string, string| number>> {
   uuid: string
   id?: string
   alea?: string
@@ -65,7 +65,7 @@ export interface InterfaceResultExercice {
   uuid?: string
   title?: string
   alea?: string
-  answers?: string[]
+  answers?: { [key: string]: string }
   indice?: number
   state?: 'done'
   type?: 'mathalea' | 'static' | 'app'

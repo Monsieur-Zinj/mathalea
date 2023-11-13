@@ -6,11 +6,12 @@
   export let modalButtonId: string = 'ok-btn'
   export let modalButtonTitle: string = 'OK'
   export let icon: string = 'bx-error'
+  export let classForButton: string = ''
 
   // Au clic sur le bouton, on diffuse _action_
   const dispatch = createEventDispatcher()
 
-  function triggerAction () {
+  function triggerAction() {
     dispatch('action', {
       msg: 'Action triggered !'
     })
@@ -98,6 +99,7 @@
       </div>
       <div class="items-center px-4 py-3">
         <Button
+          class={classForButton}
           title={modalButtonTitle}
           idLabel={modalButtonId}
           on:click={triggerAction}
