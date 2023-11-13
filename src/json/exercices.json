@@ -2478,7 +2478,7 @@
     "titre": "Lire graphiquement l'image d'un nombre par une fonction",
     "tags": {
       "interactif": true,
-      "interactifType": "mathLive",
+      "interactifType": "custom",
       "amc": false
     },
     "datePublication": "29/10/2023"
@@ -3028,7 +3028,8 @@
       "amcType": "AMCHybride",
       "amc": true
     },
-    "datePublication": "19/12/2022"
+    "datePublication": "19/12/2022",
+    "dateModification": "13/11/2023"
   },
   "3I1": {
     "url": "3e/3I1.js",
@@ -3184,7 +3185,8 @@
     "id": "3L11-10",
     "titre": "Table de double distributivité",
     "tags": {
-      "interactif": false,
+      "interactif": true,
+      "interactifType": "custom",
       "amc": false
     },
     "datePublication": "23/02/2023"
@@ -5516,13 +5518,14 @@
     "url": "5e/5L14-2.js",
     "uuid": "8865d",
     "id": "5L14-2",
-    "titre": "Substitution",
+    "titre": "Substituer par des nombres",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
+    },
+    "dateModification": "13/11/2023"
   },
   "5L14-3": {
     "url": "5e/5L14-3.js",
@@ -5587,7 +5590,7 @@
       "amc": false
     },
     "datePublication": "07/04/2022",
-    "dateModification": "18/06/2022"
+    "dateModification": "13/11/2023"
   },
   "5M10": {
     "url": "5e/5M10.js",
@@ -6049,6 +6052,18 @@
     },
     "dateModification": "11/11/2021"
   },
+  "5R21-1": {
+    "url": "5e/5R21-1.ts",
+    "uuid": "f2db1",
+    "id": "5R21-1",
+    "titre": "Transformer une soustraction en addition puis calculer",
+    "tags": {
+      "interactif": true,
+      "interactifType": "custom",
+      "amc": false
+    },
+    "datePublication": "13/11/2023"
+  },
   "5R22": {
     "url": "5e/5R22.js",
     "uuid": "f6ea7",
@@ -6382,7 +6397,7 @@
     "url": "6e/6C12.js",
     "uuid": "28d56",
     "id": "6C12",
-    "titre": "Résoudre des problèmes de prix",
+    "titre": "Résoudre des problèmes de prix avec des objets",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
@@ -6395,7 +6410,7 @@
     "url": "6e/6C12-1.js",
     "uuid": "4e2b2",
     "id": "6C12-1",
-    "titre": "Résoudre des problèmes de masses",
+    "titre": "Résoudre des problèmes de prix avec des aliments",
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
