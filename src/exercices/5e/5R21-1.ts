@@ -1,0 +1,113 @@
+import { randint } from '../../modules/outils'
+import Exercice from '../ExerciceTs'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
+import type { MathfieldElement } from 'mathlive'
+import { ComputeEngine } from '@cortex-js/compute-engine'
+
+export const titre = 'Transformer une soustraction en addition puis calculer'
+export const dateDePublication = '13/11/2023'
+export const interactifReady = true
+export const interactifType = 'custom'
+
+/**
+ * Transformer une soustraction en addition puis calculer
+ * @author Rémi Angot
+ * Références 5R21-1
+ */
+export const uuid = 'f2db1'
+export const ref = '5R21-1'
+
+type TypeQuestionsDisponibles = '+-' | '--' | '-+'
+const ce = new ComputeEngine()
+
+class SoustractionRelatifs extends Exercice {
+  listeA: number[] = []
+  listeB: number[] = []
+  typeQuestionsDisponibles = ['+-', '--', '-+'] as TypeQuestionsDisponibles[]
+  constructor () {
+    super()
+    this.nbQuestions = 5
+  }
+
+  nouvelleVersion (): void {
+    this.listeQuestions = []
+    this.listeCorrections = []
+    this.autoCorrection = []
+
+    const listeTypeQuestions = combinaisonListes(this.typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
+      let a = randint(2, 10)
+      let b = randint(2, 10)
+      switch (listeTypeQuestions[i]) {
+        case '+-':
+          b *= -1
+          break
+        case '--':
+          a *= -1
+          b *= -1
+          break
+        case '-+':
+          a *= -1
+          break
+      }
+      this.listeA[i] = a
+      this.listeB[i] = b
+      texte = `$${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)}$`
+      texteCorr = `$${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = ${ecritureNombreRelatif(a)} + ${ecritureNombreRelatif(-b)} = ${ecritureNombreRelatif(a - b)}$`
+
+      if (this.interactif) {
+        texte = `<math-field readonly style="font-size:2em" id="mathFieldEx${this.numeroExercice}Q${i}">
+        ${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = (\\placeholder[place1]{}) + (\\placeholder[place2]{}) = \\placeholder[place3]{}
+      </math-field><span class="ml-2" id="feedbackEx${this.numeroExercice}Q${i}"></span>`
+      }
+
+      if (this.questionJamaisPosee(i, a, b, listeTypeQuestions[i])) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
+  }
+
+  correctionInteractive = (i?: number) => {
+    if (i === undefined) return ''
+    let result: 'OK' | 'KO' = 'KO'
+    const mf = document.querySelector(`#mathFieldEx${this.numeroExercice}Q${i}`) as MathfieldElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
+    const a = this.listeA[i]
+    const b = this.listeB[i]
+    const test1 = ce.parse(mf.getPromptValue('place1')).isSame(ce.parse(`${a}`))
+    const test2 = ce.parse(mf.getPromptValue('place2')).isSame(ce.parse(`${-b}`))
+    const test3 = ce.parse(mf.getPromptValue('place3')).isSame(ce.parse(`(${a - b})`)) || ce.parse(mf.getPromptValue('place3')).isSame(ce.parse(`${a - b}`))
+    if (test1 && test2 && test3) {
+      result = 'OK'
+      divFeedback.innerHTML = '😎'
+    } else {
+      divFeedback.innerHTML = '☹️'
+    }
+    if (!test1) {
+      mf.setPromptState('place1', 'incorrect', true)
+      console.log('place1', mf.getPromptValue('place1'))
+    } else {
+      mf.setPromptState('place1', 'correct', true)
+    }
+    if (!test2) {
+      mf.setPromptState('place2', 'incorrect', true)
+      console.log('place2', mf.getPromptValue('place2'))
+    } else {
+      mf.setPromptState('place2', 'correct', true)
+    }
+    if (!test3) {
+      console.log('place3', mf.getPromptValue('place3'))
+    } else {
+      mf.setPromptState('place3', 'correct', true)
+    }
+    return result
+  }
+}
+
+export default SoustractionRelatifs
