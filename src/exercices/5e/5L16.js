@@ -3,18 +3,17 @@ import Exercice from '../Exercice.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Simplifier l\'écriture d\'une expression littérale'
 
 export const dateDePublication = '07/04/2022'
-export const dateDeModifImportante = '18/06/2022'
+export const dateDeModifImportante = '13/11/2023'
 
 /**
- * Description didactique de l'exercice
  * @author Guillaume Valmont
- * Référence 5L16
  * Ajout du paramètre de procédure inverse par Guillaume Valmont le 18/06/2022
  */
 export const uuid = 'e2e64'
@@ -301,20 +300,25 @@ export default function SimplifierEcritureLitterale () {
       }
       if (this.sup2) {
         texte = `$${resultat}$`
-        texteCorr = `$${resultat} = ${donnee}$`
         reponse = donnee
+        texteCorr = `$${resultat} = `
       } else {
         texte = `$${donnee}$`
-        texteCorr = `$${donnee} = ${resultat}$`
         reponse = resultat
+        texteCorr = `$${donnee} = `
       }
+      texteCorr += `${miseEnEvidence(reponse)}$`
       // On formate la réponse de façon à ce qu'elle corresponde exactement à celle attendue par MathLive
       reponse = reponse.replace(/\s/g, '') // En retirant les espaces
       reponse = reponse.replace(/\\timesx/g, '\\times x') // Et en les remettant entre les times et les x
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$ ' })
       }
-      setReponse(this, i, reponse, { formatInteractif: 'calcul' })
+      if (this.sup2) {
+        setReponse(this, i, reponse, { formatInteractif: 'calcul' })
+      } else {
+        setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppeeParEE' })
+      }
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
