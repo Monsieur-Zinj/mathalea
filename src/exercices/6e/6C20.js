@@ -65,7 +65,7 @@ export default function AdditionnerSoustrairesDecimaux () {
       listeTypeDeQuestions = combinaisonListes([5, 6, 7, 8], this.nbQuestions)
     } else if (this.sup === 2) {
       listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
-    } else {
+    } else if (this.sup === 3) {
       for (let i = 0; i < this.nbQuestions; i++) {
         this.autoCorrection[i] = {}
         if (i + 1 <= this.nbQuestions / 2) {
@@ -73,6 +73,16 @@ export default function AdditionnerSoustrairesDecimaux () {
           listeTypeDeQuestions.push(typesAdditions[i])
         } else {
           listeTypeDeQuestions.push(typesSoustractions[i])
+        }
+      }
+    } else {
+      for (let i = 0; i < this.nbQuestions; i++) {
+        this.autoCorrection[i] = {}
+        if (i % 2 === 0) {
+          // première moitié sont des additions mais si c'est impair on prendra plus de soustractions
+          listeTypeDeQuestions.push(typesAdditions[Math.round(i / 2)])
+        } else {
+          listeTypeDeQuestions.push(typesSoustractions[Math.round(i / 2)])
         }
       }
     }
@@ -310,7 +320,7 @@ export default function AdditionnerSoustrairesDecimaux () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Additions de décimaux\n2 : Soustractions de décimaux\n3 : Mélange']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Additions de décimaux\n2 : Soustractions de décimaux\n3 : Mélange (additions en premier)\n4: Mélange (additions et soustractions en alternance)']
   this.besoinFormulaire2Numerique = [
     'Type de cahier',
     3,
