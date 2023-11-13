@@ -154,7 +154,7 @@ export class Tableau {
         }
       }
       if (ligne2[i + 1]) {
-        if (ligne2[i + 1].latex) { // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
+        if (ligne2[i + 1].latex) {
           objets.push(latexParCoordonnees(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, 'black', largeur * 8, 20, '', 10))
         } else {
           const color = ligne2[i + 1].color ?? 'black'

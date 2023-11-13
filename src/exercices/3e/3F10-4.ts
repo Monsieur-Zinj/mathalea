@@ -1,6 +1,6 @@
 import Exercice from '../ExerciceTs'
 import Figure from 'apigeom'
-import { randint } from '../../modules/outils.js'
+import { egal, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'
 import { Spline } from '../../lib/mathFonctions/Spline'
@@ -8,16 +8,16 @@ import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { Tableau } from '../../lib/2d/tableau'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { AddTabPropMathlive, type Icell } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
+import { MathfieldElement } from 'mathlive'
 import type Point from 'apigeom/src/elements/points/Point'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'custom'
 
 /**
  * Lire une image sur une Spline
@@ -71,8 +71,6 @@ class LireImageParApiGeom extends Exercice {
     this.listeQuestions = []
     const noeuds = noeudsSplineAleatoire(12, false)
     const spline = new Spline(noeuds)
-    const { yMin, yMax } = spline.amplitude()
-    console.log(`yMin: ${yMin} et yMax: ${yMax}`)
     this.nbImages = this.sup
     this.idApigeom = `apigeomEx${numeroExercice}F0`
     this.figure = new Figure({ xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
@@ -104,6 +102,8 @@ class LireImageParApiGeom extends Exercice {
     }
 
     let enonce = 'Par lecture graphique sur la courbe de la fonction $f$ tracée ci-dessus, compléter le tableau de valeur ci-dessous :<br>'
+    this.X = []
+    this.Y = []
     for (let i = 0; i < this.nbImages; i++) {
       do {
         if (spline.x && spline.n) {
@@ -113,17 +113,14 @@ class LireImageParApiGeom extends Exercice {
         }
         // je sais que i n'est pas modifié, mais la condition sur this.x[i] l'est et c'est ça qui compte !
         // eslint-disable-next-line no-unmodified-loop-condition
-      } while (!(this.X[i] < -1 || this.X[i] > 1) || this.X[i] in this.X.slice(0, i - 1))
+      } while (this.X.slice(0, i).indexOf(this.X[i]) !== -1 || !(this.X[i] < -1 || this.X[i] > 1))
     }
-    const valeurs = []
     for (let i = 0; i < this.nbImages; i++) {
     //  enonce += `${numAlpha(i)} $${texNombre(this.X[i], 1)}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: '  ' }) + '<br>'
       const image = spline.fonction(this.X[i]) as FractionEtendue
       this.Y[i] = Math.round(10 * Number(image)) / 10
-      valeurs.push([`L2C${i + 2}`, this.Y[i]])
     }
 
-    setReponse(this, 0, Object.fromEntries(valeurs), { formatInteractif: 'tableauMathlive' })
     const ligne1: Icell[] = [{ texte: 'x', gras: true, color: 'black', latex: true }].concat(this.X.map(el => Object.assign({}, { texte: texNombre(el, 1), gras: false, color: 'black', latex: true })))
     const ligne2:Icell[] = [{ texte: 'f(x)', gras: true, color: 'black', latex: true }].concat(this.Y.map(el => Object.assign({}, { texte: texNombre(el, 1), gras: false, color: 'black', latex: true })))
     const ligne2bis: Icell[] = [{ texte: 'f(x)', gras: true, color: 'black', latex: true }].concat(this.Y.map(() => Object.assign({}, { texte: '', gras: false, color: 'black', latex: true })))
@@ -175,13 +172,39 @@ class LireImageParApiGeom extends Exercice {
       })
       .buildStandard()
     if (context.isHtml) {
-      this.listeCorrections[0] = mathalea2d({ xmin, ymin, xmax, ymax, scale: 0.6 }, tableauValeur)
+      this.listeCorrections[0] = 'Les images sont tolérées à $0{,}1$ près :' + mathalea2d({ xmin, ymin, xmax, ymax, scale: 0.6 }, tableauValeur)
       this.listeQuestions = [emplacementPourFigure + enonce]
     } else {
-      this.listeCorrections[0] = mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) + '\\\\' +
-     mathalea2d({ xmin, ymin, xmax, ymax, scale: 0.6 }, tableauValeur)
+      this.listeCorrections[0] = mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) +
+        '\\\\' +
+        'Les images sont tolérées à $0{,}1$ près :' +
+        '\\\\' +
+        mathalea2d({ xmin, ymin, xmax, ymax, scale: 0.6 }, tableauValeur)
       this.listeQuestions = [mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) + enonce]
     }
+  }
+
+  correctionInteractive = () => {
+    const tableId = `tabMathliveEx${this.numeroExercice}Q${0}`
+    const tableau = document.querySelector(`table#${tableId}`)
+    if (tableau == null) throw Error('La correction de 3F10-4 n\'a pas trouvé le tableau interactif.')
+    const result: string[] = []
+    for (let k = 0; k < this.nbImages; k++) {
+      const answer: MathfieldElement = tableau.querySelector(`math-field#L1C${k + 1}`) as MathfieldElement
+      if (answer == null) throw Error(`Il n'y a pas de math-field d'id L1C${k + 1} dans ce tableau !`)
+      const valeur = Number(answer.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1'))
+      const divFeedback = tableau.querySelector(`div#divDuSmileyL1C${k + 1}`)
+      if (divFeedback) {
+        if (egal(valeur, this.Y[k], 0.1)) {
+          divFeedback.innerHTML = divFeedback.innerHTML += '😎'
+          result.push('OK')
+        } else {
+          divFeedback.innerHTML += '☹️'
+          result.push('KO')
+        }
+      }
+    }
+    return result
   }
 }
 
