@@ -4094,7 +4094,8 @@
     "tags": {
       "interactif": true,
       "interactifType": "mathLive",
-      "amc": false
+      "amcType": "AMCNum",
+      "amc": true
     },
     "datePublication": "14/06/2022"
   },
@@ -6066,7 +6067,8 @@
     "id": "5R22-2",
     "titre": "Simplifier l'écriture d'une somme de 2 relatifs et calculer",
     "tags": {
-      "interactif": false,
+      "interactif": true,
+      "interactifType": "mathLive",
       "amc": false
     }
   },
