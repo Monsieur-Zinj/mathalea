@@ -36,7 +36,8 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDePublication = '19/12/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '19/12/2022'
+export const dateDeModifImportante = '13/11/2023'
 
 /**
  * Calcul de longueurs avec Pythagore dans la géométrie dans l'espace
@@ -468,7 +469,6 @@ export default function CalculPythagoreEspace () {
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
           h = arrondi(h, 1)
-          r2 = arrondi(r2, 1)
           sph = sphere3d(A, r, 'green', 'blue', 12, 'lightgray', 0, 'black', true)
           objetsEnonce = sph.c2d
           objetsEnonce.push(segmentATrouver, tracePoint(B, D, A), labelPoint(A, D, B), new CodageAngleDroit3D(A, D, B, 'black', 1))
@@ -492,7 +492,7 @@ export default function CalculPythagoreEspace () {
             style: 'block'
           }), objetsEnonce)
           reponse = arrondi(Math.sqrt(r ** 2 - h ** 2), 1)
-          texteCorr += '<br>' + RedactionPythagore(D.label, A.label, B.label, 2, reponse, r2, r, listeUnites[j])[0]
+          texteCorr += '<br>' + RedactionPythagore(D.label, B.label, A.label, 2, reponse, h, r, listeUnites[j])[0]
           break
       }
       setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
