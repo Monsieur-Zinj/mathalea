@@ -59,7 +59,7 @@ class SoustractionRelatifs extends Exercice {
       texteCorr = `$${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = ${ecritureNombreRelatif(a)} + ${ecritureNombreRelatif(-b)} = ${ecritureNombreRelatif(a - b)}$`
 
       if (this.interactif) {
-        texte = `<math-field readonly style="font-size:2em" id="mathFieldEx${this.numeroExercice}Q${i}">
+        texte = `<math-field readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
         ${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = (\\placeholder[place1]{}) + (\\placeholder[place2]{}) = \\placeholder[place3]{}
       </math-field><span class="ml-2" id="feedbackEx${this.numeroExercice}Q${i}"></span>`
       }
@@ -75,8 +75,10 @@ class SoustractionRelatifs extends Exercice {
 
   correctionInteractive = (i?: number) => {
     if (i === undefined) return ''
+    if (this.answers === undefined) this.answers = {}
     let result: 'OK' | 'KO' = 'KO'
-    const mf = document.querySelector(`#mathFieldEx${this.numeroExercice}Q${i}`) as MathfieldElement
+    const mf = document.querySelector(`#champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
+    this.answers[`champTexteEx${this.numeroExercice}Q${i}`] = mf.getValue()
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     const a = this.listeA[i]
     const b = this.listeB[i]
@@ -102,7 +104,7 @@ class SoustractionRelatifs extends Exercice {
       mf.setPromptState('place2', 'correct', true)
     }
     if (!test3) {
-      console.log('place3', mf.getPromptValue('place3'))
+      mf.setPromptState('place3', 'correct', true)
     } else {
       mf.setPromptState('place3', 'correct', true)
     }
