@@ -78,7 +78,7 @@ class SoustractionRelatifs extends Exercice {
     if (this.answers === undefined) this.answers = {}
     let result: 'OK' | 'KO' = 'KO'
     const mf = document.querySelector(`#champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
-    this.answers[`champTexteEx${this.numeroExercice}Q${i}`] = mf.getValue()
+    this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     const a = this.listeA[i]
     const b = this.listeB[i]
@@ -93,13 +93,11 @@ class SoustractionRelatifs extends Exercice {
     }
     if (!test1) {
       mf.setPromptState('place1', 'incorrect', true)
-      console.log('place1', mf.getPromptValue('place1'))
     } else {
       mf.setPromptState('place1', 'correct', true)
     }
     if (!test2) {
       mf.setPromptState('place2', 'incorrect', true)
-      console.log('place2', mf.getPromptValue('place2'))
     } else {
       mf.setPromptState('place2', 'correct', true)
     }
