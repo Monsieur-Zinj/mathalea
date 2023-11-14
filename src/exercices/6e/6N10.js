@@ -33,7 +33,7 @@ export default function EcrirePetitsNombresEntiers () {
 
   this.besoinFormulaireTexte = ['Type de nombres', 'Nombres séparés par des tirets\n2 : À deux chiffres\n3 : À trois chiffres\n4 : À quatre chiffres\n5 : À cinq chiffres\n6 : À six chiffres\n7 : À neuf chiffres\n8 : À douze chiffres']
   this.sup = 4 // Valeur du paramètre par défaut
-  this.besoinFormulaire2Texte = ['Demande particulière', 'Nombres séparés par des tirets\n0 : Aucune demande particulière.\n1 : Au moins un nombre se termine par 80.\n2 : Au moins un nombre contient entre 81 et 99.\n3 : Au moins un nombre se termine par un multiple de 100.\n4 : Au moins un nombre commence par mille.\n5 : Au moins un nombre ne possède ni centaines ou ni centaines de mille.']
+  this.besoinFormulaire2Texte = ['Demande particulière', 'Nombres séparés par des tirets\n0 : Aucune demande particulière.\n1 : Les nombres se terminent par 80.\n2 : Les nombres contiennent un nombre entre 81 et 99.\n3 : Les nombres se terminent par un multiple de 100.\n4 : Les nombres commencent par mille.\n5 : Les nombres ne possèdent ni centaines ou ni centaines de mille.']
   this.sup2 = 0 // Valeur du paramètre par défaut
   this.besoinFormulaire3Numerique = ['Type de questions', 3, '1 : Écrire en lettres un nombre donné en chiffres\n2 : Écrire en chiffres un nombre donné en lettres\n3 : Passer d\'une écriture à l\'autre']
   this.sup3 = 1 // Valeur du paramètre par défaut
@@ -71,8 +71,8 @@ export default function EcrirePetitsNombresEntiers () {
     const OptionsDisponibles = gestionnaireFormulaireTexte({
       min: 0,
       max: 5,
-      defaut: randint(0, 5),
-      nbQuestions: 999,
+      defaut: 0,
+      nbQuestions: this.nbQuestions,
       saisie: this.sup2,
       shuffle: false
     })
@@ -84,6 +84,7 @@ export default function EcrirePetitsNombresEntiers () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let NombreAEcrire // Comme la valeur sera modifiée, on la déclare avec let
+      console.log(listeOptions[i])
       switch (listeOptions[i]) {
         case 0 :
           if (listeQuestions[i] < 7) {
@@ -170,8 +171,9 @@ export default function EcrirePetitsNombresEntiers () {
           }
           break
         case 3 : // Se termine par 100
+
           if (listeQuestions[i] < 7) {
-            NombreAEcrire = 100 * Math.trunc(10 * randint(1 + Math.pow(10, Math.max(listeQuestions[i] - 4, -1)), Math.pow(10, Math.max(listeQuestions[i] - 3, 0)) - 1) + randint(2, 8)) // Ne pas mettre 9 à la place de 8, sinon on pourrait obtenir 10 pour des nombres à 3 chiffres
+            NombreAEcrire = 100 * Math.trunc(10 * randint(1 + Math.round(Math.pow(10, Math.max(listeQuestions[i] - 4, -1))), Math.pow(10, Math.max(listeQuestions[i] - 3, 0)) - 1) + randint(2, 8)) // Ne pas mettre 9 à la place de 8, sinon on pourrait obtenir 10 pour des nombres à 3 chiffres
           } else if (listeQuestions[i] === 7) {
             NombreAEcrire = 100 * (randint(Math.pow(10, 5), Math.pow(10, 6)) * 10 + randint(2, 9))
           } else {
