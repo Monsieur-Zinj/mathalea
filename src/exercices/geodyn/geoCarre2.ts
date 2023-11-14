@@ -13,6 +13,8 @@ export const interactifType = 'custom'
  * @author Rémi Angot
  * Références geoCarre2
  */
+
+export const ref = 'carre2'
 export const uuid = '01607'
 
 class ConstructionCarre2 extends Exercice {
@@ -30,8 +32,8 @@ class ConstructionCarre2 extends Exercice {
     this.exoCustomResultat = true
   }
 
-  nouvelleVersion (numeroExercice: number): void {
-    this.idApigeom = `apigeomEx${numeroExercice}F0`
+  nouvelleVersion (): void {
+    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
     this.figure.options.labelAutomaticForPoints = true
     this.cote = randint(3, 10)
@@ -43,7 +45,7 @@ class ConstructionCarre2 extends Exercice {
     texteCorr += '<br>On peut tracer un carré de différentes façons.'
     texteCorr += '<br>Dans cette animation, on va tracer un quadrilatère avec 3 angles droits et deux côtés consécutifs de même longueur mais on n\'aurait pu aussi ne faire qu\'un angle droit et tracer des côtés opposés parallèles.'
     const figureCorrection = createAnimationConstructionCarre(this.cote)
-    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${numeroExercice}Correction`, figure: figureCorrection })
+    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
     this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }

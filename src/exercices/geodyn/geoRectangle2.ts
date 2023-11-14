@@ -13,6 +13,8 @@ export const interactifType = 'custom'
  * @author Rémi Angot
  * Références geoRectangle2
  */
+
+export const ref = 'rectangle2'
 export const uuid = '1d6ca'
 
 class ConstructionRectangleDimensions extends Exercice {
@@ -31,8 +33,8 @@ class ConstructionRectangleDimensions extends Exercice {
     this.exoCustomResultat = true
   }
 
-  nouvelleVersion (numeroExercice: number): void {
-    this.idApigeom = `apigeomEx${numeroExercice}F0`
+  nouvelleVersion (): void {
+    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: -7, yMin: -7, width: 800, height: 500, border: true })
     this.figure.options.labelAutomaticForPoints = true
     this.L = randint(4, 10)
@@ -45,7 +47,7 @@ class ConstructionRectangleDimensions extends Exercice {
     texteCorr += '<br>Dans cette animation, on va tracer un quadrilatère avec 3 angles droits mais on n\'aurait pu aussi ne faire qu\'un angle droit et tracer des côtés opposés parallèles.'
     texteCorr += '<br>Pour faire un segment de longueur donnée, il faut obligatoirement un tracer un cercle de centre un point et de rayon la longueur du segment.'
     const figureCorrection = createAnimationConstructionRectangle(this.L, this.l)
-    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${numeroExercice}Correction`, figure: figureCorrection })
+    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
     this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }

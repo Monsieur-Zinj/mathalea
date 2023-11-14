@@ -1,13 +1,20 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte"
+  import { getUniqueStringBasedOnTimeStamp } from "../utils/time"
+
   export let titles: string[] = ['', '']
   export let value: boolean = true
   export let isDisabled: boolean = false
   export let classAddenda: string = ''
   export let textSize: string = 'sm'
   export let buttonSize: string = 'sm'
+  export let id:string = 'toggle-' + getUniqueStringBasedOnTimeStamp()
+
+  const dispatch = createEventDispatcher()
 
   function toggle () {
     value = !value
+    dispatch('toggle')
   }
 </script>
 
@@ -33,18 +40,29 @@
   ```
  -->
 <div class="flex flex-row justify-start items-center {classAddenda}">
-  <button type="button" class="flex justify-center items-center" on:click={toggle} disabled={isDisabled}>
+  <button
+    type="button"
+    {id}
+    class="flex justify-center items-center"
+    on:click={toggle}
+    disabled={isDisabled}
+  >
     <i
       class=" text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-{buttonSize} translate-y-[0.15rem] {value
         ? 'bx-toggle-right'
         : 'bx-toggle-left'}
         {isDisabled ? 'text-opacity-10' : ''}"
-      on:click
-      on:keydown
-      on:change
+      aria-describedby="{value ? titles[0] : titles[1]}"
     />
   </button>
-  <div class="{textSize === 'xs' ? 'pl-1' : 'pl-2'} inline-block text-{textSize} font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled ? 'text-opacity-10' : 'text-opacity-70'}">
+  <div
+    class="{textSize === 'xs'
+      ? 'pl-1'
+      : 'pl-2'} inline-block text-{textSize} font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled
+        ? 'text-opacity-10'
+        : 'text-opacity-70'}"
+  >
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html `${value ? titles[0] : titles[1]}`}
   </div>
 </div>

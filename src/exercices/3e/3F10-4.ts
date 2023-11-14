@@ -91,7 +91,7 @@ class LireImageParApiGeom extends Exercice {
       this.figure.create('Polyline', { points: mesPointsApiGeom })
     }
     if (context.isHtml) {
-      const pointMobile = new PointOnSpline(this.figure, { spline, x: 1, abscissa: true, ordinate: true, isVisible: true, shape: 'x', color: 'blue', size: 3, thickness: 3 })
+      const pointMobile = new PointOnSpline(this.figure, { spline, x: 1, dx: 0.1, abscissa: true, ordinate: true, isVisible: true, shape: 'x', color: 'blue', size: 3, thickness: 3 })
       pointMobile.draw()
       pointMobile.label = 'M'
       pointMobile.createSegmentToAxeX()

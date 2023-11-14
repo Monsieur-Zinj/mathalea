@@ -188,5 +188,11 @@
     "PE": {
       "PEA1": {},
       "PEG2": {}
+    },
+    "Géométrie dynamique": {
+        "triangle": {},
+        "rectangle": {},
+        "carre": {},
+        "parallelogramme": {}
     }
   }

@@ -10,6 +10,9 @@
  * Ce script s'appuie sur emptyRef2022.json qui contient les niveaux et les catégories
  * Les titres des niveaux, thèmes et sous-thèmes sont gérés dans src/levelsThemesList.json
  *
+ * Pour ajouter un nouveau chapitre, il faut donc l'écrire dans emptyRef2022.json puis éventuellement
+ * mettre à jour src/levelsThemesList.json ou src/codeToLevelList.json
+ *
  * ToDo : arrêter l'utilisation de referentielRessources.json
  *
  * Remarque : nouveau fonctionnement au 13 aout 2023 en remplacement de makJson.js
@@ -39,6 +42,7 @@ async function readInfos (dirPath) {
           const data = await fs.readFile(filePath, 'utf8')
           const matchUuid = data.match(/export const uuid = '(.*)'/)
           infos.url = filePath.replace('src/exercices/', '')
+          infos.tags = []
           if (matchUuid) {
             if (uuidMap.has(matchUuid[1])) {
               console.error('\x1b[31m%s\x1b[0m', `uuid ${matchUuid[1]} en doublon  dans ${filePath} et ${uuidMap.get(matchUuid[1])}`)
@@ -69,28 +73,6 @@ async function readInfos (dirPath) {
           } else {
             console.error('\x1b[31m%s\x1b[0m', `titre non trouvé dans ${filePath}`)
           }
-          infos.tags = {}
-          const matchInteractif = data.match(/export const interactifReady = (.*)/)
-          if (matchInteractif && matchInteractif[1] === 'true') {
-            infos.tags.interactif = true
-          } else {
-            infos.tags.interactif = false
-            exercicesNonInteractifs.push(filePath)
-          }
-          const matchInteractifType = data.match(/export const interactifType = '(.*)'/)
-          if (matchInteractifType) {
-            infos.tags.interactifType = matchInteractifType[1]
-          }
-          const matchAmcType = data.match(/export const amcType = '(.*)'/)
-          if (matchAmcType) {
-            infos.tags.amcType = matchAmcType[1]
-          }
-          const matchAmc = data.match(/export const amcReady = (.*)/)
-          if (matchAmc && matchAmc[1] === 'true') {
-            infos.tags.amc = true
-          } else {
-            infos.tags.amc = false
-          }
           const matchDate = data.match(/export const dateDePublication = '([^']*)'/)
           if (matchDate) {
             infos.datePublication = matchDate[1]
@@ -99,6 +81,34 @@ async function readInfos (dirPath) {
           if (matchDateModif) {
             infos.dateModification = matchDateModif[1]
           }
+          infos.features = {}
+          const matchInteractif = data.match(/export const interactifReady = (.*)/)
+          const matchInteractifType = data.match(/export const interactifType = (.*)/)
+          if (matchInteractif && matchInteractif[1] === 'true') {
+            infos.features.interactif = {
+              isActive: true,
+              type: matchInteractifType[1] || ''
+            }
+          } else {
+            infos.features.interactif = {
+              isActive: false,
+              type: ''
+            }
+            exercicesNonInteractifs.push(filePath)
+          }
+          const matchAmcType = data.match(/export const amcType = '(.*)'/)
+          if (matchAmcType) {
+            infos.features.amc = {
+              isActive: true,
+              type: matchAmcType[1] || ''
+            }
+          } else {
+            infos.features.amc = {
+              isActive: false,
+              type: ''
+            }
+          }
+          infos.typeExercice = 'alea'
           if (infos.id !== undefined) {
             exercicesShuffled[infos.id] = infos
           }
@@ -195,10 +205,12 @@ readInfos(exercicesDir, uuidMap)
         }
       }
     }
+    fs.writeFile('src/json/referentielGeometrieDynamique.json', JSON.stringify(referentiel2022['Géométrie dynamique'], null, 2))
+    delete referentiel2022['Géométrie dynamique']
     fs.writeFile('src/json/referentiel2022.json', JSON.stringify(referentiel2022, null, 2).replaceAll('"c3"', '"CM1/CM2"'))
   })
   .then(() => {
-    console.log('uuidsToUrl et referentiel2022 ont été mis à jour')
+    console.log('uuidsToUrl, referentiel2022 et referentielGeometrieDynamique ont été mis à jour')
   })
   .catch((err) => {
     console.error(err)

@@ -2,7 +2,7 @@ import Exercice from '../ExerciceTs'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 
-export const titre = 'Tracer un parallélogramme'
+export const titre = 'Tracer un parallélogramme (sans tracer de parallèles)'
 export const dateDePublication = '9/11/2023'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -12,6 +12,8 @@ export const interactifType = 'custom'
  * @author Rémi Angot
  * Références geoParallelogramme2
  */
+
+export const ref = 'parallelogramme2'
 export const uuid = '784a7'
 
 class ConstructionParallelogramme extends Exercice {
@@ -28,8 +30,8 @@ class ConstructionParallelogramme extends Exercice {
     this.exoCustomResultat = true
   }
 
-  nouvelleVersion (numeroExercice: number): void {
-    this.idApigeom = `apigeomEx${numeroExercice}F0`
+  nouvelleVersion (): void {
+    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
     this.figure.options.labelAutomaticForPoints = true
     const A = this.figure.create('Point', { x: 8, y: 11, label: 'A' })
@@ -45,7 +47,7 @@ class ConstructionParallelogramme extends Exercice {
     texteCorr += '<br>On peut tracer un rectangle de différentes façons.'
     texteCorr += '<br>Dans cette animation, on va tracer un quadrilatère avec 3 angles droits mais on n\'aurait pu aussi ne faire qu\'un angle droit et tracer des côtés opposés parallèles.'
     const figureCorrection = createAnimationConstructionRectangle()
-    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${numeroExercice}Correction`, figure: figureCorrection })
+    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
     this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }

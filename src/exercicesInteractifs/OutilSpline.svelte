@@ -1,13 +1,13 @@
 <script>
-  import HeaderExercice from '../components/exercice/HeaderExercice.svelte'
+  import HeaderExerciceVueProf from '../components/exercice/HeaderExerciceVueProf.svelte'
   import { repere } from '../lib/2d/reperes.js'
   import { spline, trieNoeuds } from '../lib/mathFonctions/Spline.js'
   import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
-  
+
   export const titre = 'Interpolation par splines (avec formulaire)'
   export const ref = 'P022'
   export const uuid = 'spline'
-  
+
   export let indiceExercice
   export let indiceLastExercice
   const headerExerciceProps = {
@@ -24,9 +24,9 @@
     { x: 1, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
     { x: 3, y: 4, deriveeGauche: 1, deriveeDroit: 1, isVisible: true }
   ]
-  
+
   let contenu = ''
-  
+
   function refreshCourb () {
     if (trieNoeuds(noeuds)) {
       const f = spline(noeuds)
@@ -37,14 +37,14 @@
       contenu = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
     }
   }
-  
+
   function removeNoeud () {
     if (noeuds.length < 4) return
     noeuds.pop()
     noeuds = noeuds
     refreshCourb()
   }
-  
+
   function addNoeud () {
     noeuds.push({
       x: noeuds.at(-1).x + 1,
@@ -56,13 +56,13 @@
     noeuds = noeuds
     refreshCourb()
   }
-  
+
   function copy () {
     noeuds = noeuds
     navigator.clipboard.writeText(JSON.stringify(noeuds))
     alert('Noeuds copiés dans le presse-papier')
   }
-  
+
   async function paste () {
     const jsonNoeuds = (await navigator.clipboard.readText()).replaceAll('x', '"x"')
       .replaceAll('y', '"y"')
@@ -76,11 +76,11 @@
       console.error(e.message)
     }
   }
-  
+
   refreshCourb()
 </script>
 
-<HeaderExercice
+<HeaderExerciceVueProf
   {indiceExercice}
   {indiceLastExercice}
   id="spline"
@@ -90,6 +90,7 @@
 <section>
   <div class="grid grid-cols-2 gap-4">
     <div>
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html contenu}
     </div>
     <div class="my-10 grid grid-cols-5 gap-4 text-center">

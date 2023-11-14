@@ -1,55 +1,51 @@
 <script lang="ts">
-  import { exercicesParams, globalOptions, darkMode, isSideMenuVisible, callerComponent, bibliothequeSectionContent } from './store'
-  import SideMenu from './sidebar/SideMenu.svelte'
-  import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea'
+  import {
+    exercicesParams,
+    globalOptions,
+    darkMode,
+    isSideMenuVisible,
+    callerComponent,
+    bibliothequeDisplayedContent,
+    bibliothequePathToSection,
+    isModalForStaticsVisible
+  } from './stores/generalStore'
+  import {
+    mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaUpdateUrlFromExercicesParams
+  } from '../lib/mathalea'
   import { flip } from 'svelte/animate'
   import { onMount, setContext } from 'svelte'
-  import { updateReferentiel } from './utils/referentielsUtils'
   import Exercice from './exercice/Exercice.svelte'
   import Button from './forms/Button.svelte'
-  import ButtonsDeck from './outils/ButtonsDeck.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
-  import InteractivityIcon from './icons/TwoStatesIcon.svelte'
-  import FullScreenIcon from './icons/TwoStatesIcon.svelte'
+  import ButtonsDeck from './ui/ButtonsDeck.svelte'
+  import NavBar from './header/NavBar.svelte'
+  import TwoStatesIcon from './icons/TwoStatesIcon.svelte'
   import Footer from './Footer.svelte'
   import LatexIcon from './icons/LatexIcon.svelte'
   import AmcIcon from './icons/AmcIcon.svelte'
   import MoodleIcon from './icons/MoodleIcon.svelte'
-  import ChipsList from './setup/ChipsList.svelte'
-  import referentielRessources from '../json/referentielRessources.json'
-  import { toMap } from './utils/toMap'
-  import { toObject } from './utils/toObj'
-  import type { ReferentielForList } from '../lib/types'
+  import SideMenu from './sidebar/SideMenu.svelte'
   import handleCapytale from '../lib/handleCapytale'
 
+  let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
-  let divExercices: HTMLDivElement
   $: isMenuOpen = $isSideMenuVisible
 
   /**
    * Gestion des référentiels
    */
-  // Construction pour affichage dans SideMenu du tableau des entrées du référentiel d'exos aléatoires
-  const itemsSelected: string[] = []
-  let arrayReferentielFiltre = updateReferentiel(false, false, itemsSelected)
-  // sideMenuListReferentiel.content = [...arrayReferentielFiltre]
-  $: exercisesReferentielForSideMenu = { name: 'aleatoires', title: 'Exercices aléatoires', content: [...arrayReferentielFiltre], type: 'exercices', activated: true }
-  // Construction pour affichage dans SIdeMenu du tableau des entrées du référentiel
-  // let arrayReferentiel: ReferentielForList = { title: "Choix des outils", content: [], type: "outils" }
-  // for (const [key, value] of Object.entries(referentielOutils)) {
-  //   arrayReferentiel.content.push(value)
-  // }
-  const ressourcesReferentielArray = Array.from(toMap({ ...referentielRessources }), ([key, obj]) => ({ key, obj }))
-  const ressourcesReferentielForSideMenu: ReferentielForList = { name: 'ressources', title: 'Vos ressources', content: [...ressourcesReferentielArray], type: 'ressources', activated: true }
-  // for (const [key, value] of Object.entries(rawRessourcesReferentiel)) {
-  //   ressourcesReferentiel.content.push(value)
-  // }
+  import {
+    type AppTierceGroup,
+    isJSONReferentielEnding,
+    type StaticItemInreferentiel,
+    isStaticType
+  } from '../lib/types/referentiels'
   // Contexte pour le modal des apps tierces
   import ModalGridOfCards from './modal/ModalGridOfCards.svelte'
   let thirdAppsChoiceModal: ModalGridOfCards
-  import referentielAppsTierce from '../json/referentielAppsTierce.json'
-  const appsTierceReferentielArray = Array.from(toMap({ ...referentielAppsTierce }), ([key, obj]) => ({ key, obj }))
+  import appsTierce from '../json/referentielAppsTierceV2.json'
+  const appsTierceReferentielArray: AppTierceGroup[] = Object.values(appsTierce)
   import Card from './ui/Card.svelte'
   let showThirdAppsChoiceDialog = false
   let appsTierceInExercisesList: string[]
@@ -60,13 +56,10 @@
       uuidList.push(entry.uuid)
     }
     for (const group of appsTierceReferentielArray) {
-      // console.log(typeof group)
-      for (const app of group.obj.get('liste').entries()) {
-        const appObj = toObject(app[1])
-        if (uuidList.includes(appObj.uuid)) {
-          appsTierceInExercisesList.push(appObj.uuid)
+      for (const app of group.liste) {
+        if (uuidList.includes(app.uuid)) {
+          appsTierceInExercisesList.push(app.uuid)
         }
-        // console.log(appsTierceInExercisesList)
       }
     }
     appsTierceInExercisesList = appsTierceInExercisesList
@@ -79,50 +72,40 @@
       }
     }
   })
-  // Contexte pour la bibliothèque de statiques
-  import referentielBibliotheque from '../json/referentielBibliotheque.json'
+  /**
+   * Gestion la bibliothèque de statiques
+   */
   import BreadcrumbHeader from './sidebar/BreadcrumbHeader.svelte'
-  import ImageCard from './ui/ImageCard.svelte'
-  const bibliothequeReferentielArray = Array.from(toMap({ ...referentielBibliotheque }), ([key, obj]) => ({ key, obj }))
-  const bibliothequeReferentielForSideMenu: ReferentielForList = {
-    name: 'statiques',
-    title: 'Exercices non aléatoires',
-    content: [...bibliothequeReferentielArray],
-    type: 'bibliotheque',
-    activated: false
-  }
-  let showBibliothequeChoiceDialog = false
+  import CardForStatic from './ui/CardForStatic.svelte'
+  import { doesImageExist } from './utils/images'
   let bibliothequeChoiceModal: ModalGridOfCards
   let bibliothequeUuidInExercisesList: string[]
-  let bibliothequePathToSection: string[]
   $: {
     bibliothequeUuidInExercisesList = []
     const uuidList: string[] = []
     for (const entry of $exercicesParams) {
       uuidList.push(entry.uuid)
     }
-    for (const exo of $bibliothequeSectionContent) {
-      if (uuidList.includes(exo.uuid)) {
-        bibliothequeUuidInExercisesList.push(exo.uuid)
+    if ($bibliothequeDisplayedContent) {
+      for (const item of Object.values($bibliothequeDisplayedContent)) {
+        if (isJSONReferentielEnding(item) && uuidList.includes(item.uuid)) {
+          bibliothequeUuidInExercisesList.push(item.uuid)
+        }
       }
     }
     bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
   }
-  setContext('bibliothequeChoiceContext', {
-    toggleBibliothequeChoiceDialog: (path) => {
-      bibliothequePathToSection = path
-      showBibliothequeChoiceDialog = !showBibliothequeChoiceDialog
-      if (showBibliothequeChoiceDialog === false) {
-        bibliothequeChoiceModal.closeModal()
-      }
+  const buildBiblioToBeDisplayed = (): StaticItemInreferentiel[] => {
+    const results: StaticItemInreferentiel[] = []
+    if ($bibliothequeDisplayedContent) {
+      Object.values($bibliothequeDisplayedContent).forEach((item) => {
+        if (isStaticType(item)) {
+          results.push(item)
+        }
+      })
     }
-  })
-  // Construction du référentiel pour les entrées examens pour SideMenu
-  import referentielStatic from '../json/referentielStatic.json'
-  const staticReferentielArray = Array.from(toMap({ ...referentielStatic }), ([key, obj]) => ({ key, obj }))
-  const staticReferentielForSideMenu: ReferentielForList = { name: 'examens', title: "Annales d'examens", content: [...staticReferentielArray], type: 'examens', activated: true }
-  // Construction du référentiel fictif pour les apps tierces pour SideMenu
-  const appTierceReferentielForSideMenu: ReferentielForList = { name: 'apps', title: 'Applications', content: [], type: 'apps', activated: true }
+    return results
+  }
 
   /**
    * Démarrage
@@ -141,9 +124,24 @@
   })
   addEventListener('popstate', urlToDisplay)
 
+  /**
+   * Gestion de l'URL
+   */
+  // Récupération des informations de l'URL
+  let isInitialUrlHandled = false
+  function urlToDisplay () {
+    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
+    globalOptions.update(() => {
+      return urlOptions
+    })
+    isInitialUrlHandled = true
+    zoom = Number(urlOptions.z)
+  }
   // Mise à jour de l'URL dès que l'on change exercicesParams (sauf pour l'URL d'arrivée sur la page)
   $: {
-    if (isInitialUrlHandled) mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    if (isInitialUrlHandled) {
+      mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    }
     if ($globalOptions.v === 'l') {
       // $isSideMenuVisible = false
       isNavBarVisible = false
@@ -162,13 +160,13 @@
   /**
    * Gestion du redimentionnement de la largeur du menu des choix
    */
-  let expanding: HTMLElement | null = null
+  let expanding: string | null = null
   let sidebarWidth = 400
   function stopResizing () {
     expanding = null
   }
 
-  function startResizing (type: HTMLElement, event: MouseEvent) {
+  function startResizing (type: string) {
     expanding = type
   }
 
@@ -176,21 +174,6 @@
     if (!expanding) return
     event.preventDefault()
     sidebarWidth = event.pageX
-  }
-
-  /**
-   * Gestion des filtres
-   */
-  let isInteractiveOnlySelected: boolean = false
-  let isAmcOnlySelected: boolean = false
-  function updateFilters (filters) {
-    let itemsAccepted = [...filters.levels]
-    if (filters.types.includes('static')) {
-      itemsAccepted = [...itemsAccepted, 'static']
-    }
-    isAmcOnlySelected = filters.types.includes('amc')
-    isInteractiveOnlySelected = filters.types.includes('interactif')
-    arrayReferentielFiltre = updateReferentiel(isAmcOnlySelected, isInteractiveOnlySelected, itemsAccepted)
   }
 
   /**
@@ -221,14 +204,16 @@
       for (const svg of svgDivs) {
         if (svg.hasAttribute('data-width') === false) {
           const originalWidth = svg.getAttribute('width')
-          svg.dataset.width = originalWidth
+          svg.dataset.width = originalWidth ?? undefined
         }
         if (svg.hasAttribute('data-height') === false) {
           const originalHeight = svg.getAttribute('height')
-          svg.dataset.height = originalHeight
+          svg.dataset.height = originalHeight ?? undefined
         }
-        const w = Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
-        const h = Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
+        const w =
+          Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
+        const h =
+          Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
         svg.setAttribute('width', w.toString())
         svg.setAttribute('height', h.toString())
       }
@@ -244,16 +229,6 @@
       bubbles: true
     })
     document.dispatchEvent(newDataForAll)
-  }
-  // Récupération des informations de l'URL
-  let isInitialUrlHandled = false
-  function urlToDisplay () {
-    const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
-    globalOptions.update(() => {
-      return urlOptions
-    })
-    isInitialUrlHandled = true
-    zoom = Number(urlOptions.z)
   }
 
   /**
@@ -292,40 +267,53 @@
       return params
     })
   }
-
-  // Entrées dans le sideMenu à gauche
-  const referentiels = $globalOptions.interfaceBeta
-    ? [exercisesReferentielForSideMenu, staticReferentielForSideMenu, appTierceReferentielForSideMenu, ressourcesReferentielForSideMenu]
-    : [exercisesReferentielForSideMenu, staticReferentielForSideMenu, appTierceReferentielForSideMenu, ressourcesReferentielForSideMenu]
 </script>
 
 <svelte:window on:mouseup={stopResizing} />
-<div class={$darkMode.isActive ? 'dark' : ''} id="startComponent" on:mousemove={resizing} role="menu" tabindex="0">
-  <div class="flex flex-col scrollbar-hide w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+<div
+  class="z-0 {$darkMode.isActive ? 'dark' : ''}"
+  id="startComponent"
+  on:mousemove={resizing}
+  role="menu"
+  tabindex="0"
+>
+  <div
+    class="flex flex-col scrollbar-hide w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  >
     <!-- Entête -->
     {#if isNavBarVisible}
-      <div id="headerStart" class="sticky top-0 shrink-0 z-50 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden">
-        <NavBarV2 subtitle="Conception de document" subtitleType="design" />
+      <div
+        id="headerStart"
+        class="sticky top-0 shrink-0 z-0 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden"
+      >
+        <NavBar subtitle="Conception de document" subtitleType="design" />
       </div>
     {/if}
 
     <!-- Affichage Partie Gauche : Menu + Contenu -->
-    <div class="flex-1 relative flex flex-col md:flex-row h-full bg-coopmaths-canvas">
+    <div
+      class="z-40 flex-1 relative flex flex-col md:flex-row h-full p-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+    <!-- bouton pour menu en mode smartphone -->
+    <div class="md:hidden flex flex-row justify-start pt-2">
+      <button
+        type="button"
+        class="h-8 w-8 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex items-center justify-center {$isSideMenuVisible ? 'rounded-tr-lg' : 'rounded-r-lg'}"
+        on:click={() => {
+          $isSideMenuVisible = !$isSideMenuVisible
+        }}>
+        <i class="bx bx-menu text-xl text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"></i>
+      </button>
+    </div>
       <!-- Menu Choix Exos et Ressources -->
-      <div class="mt-6 sm:mt-0">
+      <div class="z-40 mt-0">
         <div
           id="choiceMenuWrapper"
-          class="{$globalOptions.v !== 'l' ? 'sm:h-[calc(100vh-7rem)]' : 'sm:h-screen'} sticky top-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+          class="{$globalOptions.v !== 'l'
+            ? 'sm:h-[calc(100vh-7rem)]'
+            : 'sm:h-screen'} sticky top-0 z-40 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >
-          <SideMenu
-            bind:isMenuOpen
-            isMenuCloseable={$exercicesParams.length !== 0}
-            bind:sidebarWidth
-            referentiels={[exercisesReferentielForSideMenu, bibliothequeReferentielForSideMenu, staticReferentielForSideMenu, appTierceReferentielForSideMenu, ressourcesReferentielForSideMenu]}
-            on:filters={(e) => {
-              updateFilters(e.detail)
-            }}
-          />
+          <SideMenu bind:isMenuOpen bind:sidebarWidth />
         </div>
       </div>
 
@@ -334,8 +322,10 @@
         id="dragbar"
         class="hidden {isMenuOpen
           ? 'md:flex'
-          : 'md:hidden'} w-[4px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
-        on:mousedown={startResizing.bind(this, 'moving')}
+          : 'md:hidden'} w-[4px] z-0 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
+        on:mousedown={() => {
+          startResizing('moving')
+        }}
         role="menu"
         tabindex="0"
       />
@@ -344,62 +334,120 @@
       <div
         class="w-full h-screen {$globalOptions.v !== 'l'
           ? 'sm:h-[calc(100vh-7rem)]'
-          : 'sm:h-screen'} sticky top-0 overflow-y-auto overscroll-contain px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+          : 'sm:h-screen'} z-40 sticky top-0 overflow-y-auto overscroll-contain px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
         <!-- Barre de boutons  -->
         <div
-          style="--sidebarWidth:{sidebarWidth}; --isMenuOpen:{isMenuOpen ? 1 : 0}"
+          style="--sidebarWidth:{sidebarWidth}; --isMenuOpen:{isMenuOpen
+            ? 1
+            : 0}"
           class="{$exercicesParams.length === 0
             ? 'hidden'
-            : 'relative z-50 flex flex-col justify-center items-center md:fixed  md:right-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'} {$globalOptions.v !== 'l' ? 'md:top-28' : 'md:top-0'}"
+            : 'relative z-50 flex flex-col justify-center items-center md:fixed  md:right-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
+            {$globalOptions.v !== 'l'
+              ? 'md:top-28'
+              : 'md:top-0'} transition-all duration-500 transform"
           id="barre-boutons"
         >
-          <ButtonsDeck barWidthPercentage={80}>
-            <div slot="setup-buttons" class="flex flex-row justify-start items-center space-x-4">
-              <div class="tooltip tooltip-bottom" data-tip="Réduire la taille du texte">
-                <Button title="" icon="bx-zoom-out" classDeclaration="flex items-center text-3xl" on:click={zoomMinus} />
+          <!-- Commande d'ouverture/fermeture du menu -->
+          <div
+            class="absolute left-0 top-0 h-10 w-10 rounded-r-lg border-l border-coopmaths-canvas-dark dark:border-coopmathsdark-canvas-dark bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hidden min-[900px]:flex justify-center items-center"
+          >
+            <Button
+              title=""
+              icon={isMenuOpen ? 'bx-x' : 'bx-right-arrow-alt'}
+              class="absolute right-2 top-1 text-2xl"
+              on:click={() => {
+                isMenuOpen = !isMenuOpen
+              }}
+            />
+          </div>
+          <ButtonsDeck barWidthPercentage={80} {chipsListDisplayed}>
+            <!-- Bouton de réglages de la page -->
+            <div
+              slot="setup-buttons"
+              class="flex flex-row justify-start items-center space-x-4"
+            >
+              <div
+                class="tooltip tooltip-bottom"
+                data-tip="Réduire la taille du texte"
+              >
+                <Button
+                  title=""
+                  icon="bx-zoom-out"
+                  class="flex items-center text-3xl"
+                  on:click={zoomMinus}
+                />
               </div>
-              <div class="tooltip tooltip-bottom" data-tip="Augmenter la taille du texte">
-                <Button title="" icon="bx-zoom-in" classDeclaration="flex items-center text-3xl" on:click={zoomPlus} />
+              <div
+                class="tooltip tooltip-bottom"
+                data-tip="Augmenter la taille du texte"
+              >
+                <Button
+                  title=""
+                  icon="bx-zoom-in"
+                  class="flex items-center text-3xl"
+                  on:click={zoomPlus}
+                />
               </div>
               <button
                 type="button"
                 on:click={() => {
-                  setAllInteractifClicked ? removeAllInteractif() : setAllInteractif()
+                  setAllInteractifClicked
+                    ? removeAllInteractif()
+                    : setAllInteractif()
                   // handleMenuVisibility("settings")
                 }}
                 class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip={setAllInteractifClicked ? "Supprimer l'interactivité" : 'Tous les exercices en interactif'}
+                data-tip={setAllInteractifClicked
+                  ? "Supprimer l'interactivité"
+                  : 'Tous les exercices en interactif'}
               >
                 <div class="px-2">
-                  <InteractivityIcon isOnStateActive={setAllInteractifClicked} size={7} />
+                  <TwoStatesIcon
+                    isOnStateActive={setAllInteractifClicked}
+                    size={7}
+                  />
                 </div>
               </button>
               <div class="tooltip tooltip-bottom" data-tip="Réorganisation">
                 <Button
                   title=""
                   icon="bx-transfer"
-                  classDeclaration="flex items-center text-3xl rotate-90"
+                  class="flex items-center text-3xl rotate-90"
                   on:click={() => {
                     chipsListDisplayed = !chipsListDisplayed
                   }}
                 />
               </div>
-              <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés"><Button title="" icon="bx-refresh" classDeclaration="flex items-center text-3xl" on:click={newDataForAll} /></div>
-              <div class="tooltip tooltip-bottom" data-tip="Supprimer tous les exercices">
+              <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés">
+                <Button
+                  title=""
+                  icon="bx-refresh"
+                  class="flex items-center text-3xl"
+                  on:click={newDataForAll}
+                />
+              </div>
+              <div
+                class="tooltip tooltip-bottom"
+                data-tip="Supprimer tous les exercices"
+              >
                 <Button
                   title=""
                   icon="bx-trash"
-                  classDeclaration="text-3xl"
+                  class="text-3xl"
                   on:click={() => {
                     $exercicesParams.length = 0
+                    isMenuOpen = true
                   }}
                 />
               </div>
               <button
                 type="button"
                 class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip={$globalOptions.v !== 'l' ? 'Plein écran' : 'Quitter le plein écran'}
+                data-tip={$globalOptions.v !== 'l'
+                  ? 'Plein écran'
+                  : 'Quitter le plein écran'}
                 on:click={() => {
                   // handleMenuVisibility("settings")
                   if ($globalOptions.v === 'l') {
@@ -410,7 +458,7 @@
                 }}
               >
                 <div class="px-2">
-                  <FullScreenIcon isOnStateActive={$globalOptions.v !== 'l'}>
+                  <TwoStatesIcon isOnStateActive={$globalOptions.v !== 'l'}>
                     <i
                       slot="icon_to_switch_on"
                       class="bx bx-exit-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
@@ -419,16 +467,20 @@
                       slot="icon_to_switch_off"
                       class="bx bx-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                     />
-                  </FullScreenIcon>
+                  </TwoStatesIcon>
                 </div>
               </button>
             </div>
-            <div slot="export-buttons" class="flex flex-row justify-end items-center space-x-4">
+            <!-- Boutons d'export -->
+            <div
+              slot="export-buttons"
+              class="flex flex-row justify-end items-center space-x-4"
+            >
               <div class="tooltip tooltip-bottom" data-tip="Diaporama">
                 <Button
                   title=""
                   icon="bx-slideshow"
-                  classDeclaration="flex items-center text-3xl"
+                  class="flex items-center text-3xl"
                   on:click={() => {
                     $callerComponent = ''
                     // handleMenuVisibility("export")
@@ -452,7 +504,9 @@
                   })
                 }}
               >
-                <div class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest">
+                <div
+                  class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                >
                   <i class="bx text-3xl bx-link" />
                   <div class="absolute -bottom-1 -right-1">
                     <i class="scale-75 bx bx-xs bxs-graduation" />
@@ -472,7 +526,9 @@
                   })
                 }}
               >
-                <LatexIcon class="w-7 h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest" />
+                <LatexIcon
+                  class="w-7 h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
+                />
               </button>
               <button
                 type="button"
@@ -487,7 +543,9 @@
                   })
                 }}
               >
-                <AmcIcon class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                <AmcIcon
+                  class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                />
               </button>
               <button
                 type="button"
@@ -502,27 +560,34 @@
                   })
                 }}
               >
-                <MoodleIcon class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest" />
+                <MoodleIcon
+                  class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                />
               </button>
             </div>
           </ButtonsDeck>
-          <!-- Barre des chips -->
-          <div
-            class="{chipsListDisplayed
-              ? 'absolute top-20 sm:top-[3.25rem] right-8 flex flex-row justify-start items-center w-full p-6 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
-              : 'hidden'} "
-          >
-            <ChipsList />
-          </div>
         </div>
         <!-- Affichage des exercices -->
         {#if $exercicesParams.length !== 0}
-          <div id="exercisesWrapper" class="flex flex-col justify-between h-full mt-0 sm:mt-28 {chipsListDisplayed ? 'xl:mt-32' : 'xl:mt-24'}" bind:this={divExercices}>
+          <div
+            id="exercisesWrapper"
+            class="flex flex-col justify-between h-full mt-0 sm:mt-28 {chipsListDisplayed
+              ? 'xl:mt-41'
+              : 'xl:mt-24'}"
+            bind:this={divExercices}
+          >
             <div class="flex-1">
-              <div class="flex flex-col h-full md:mt-9 lg:mt-0">
+              <div class="flex flex-col h-full md:mt-9 xl:mt-0">
                 {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-                  <div id="exo{i}" animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}>
-                    <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} />
+                  <div
+                    id="exo{i}"
+                    animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
+                  >
+                    <Exercice
+                      {paramsExercice}
+                      indiceExercice={i}
+                      indiceLastExercice={$exercicesParams.length}
+                    />
                   </div>
                 {/each}
                 <!-- Pied de page -->
@@ -532,13 +597,23 @@
           </div>
         {:else}
           <div class="relative flex-1 h-full">
-            <div class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40">
-              <div class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center">
+            <div
+              class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40"
+            >
+              <div
+                class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center"
+              >
                 <div class="mt-[10px]">
-                  <div class="hidden md:inline-flex"><i class="bx bx-chevron-left text-[50px]" /></div>
-                  <div class="inline-flex md:hidden"><i class="bx bx-chevron-up text-[50px]" /></div>
+                  <div class="hidden md:inline-flex">
+                    <i class="bx bx-chevron-left text-[50px]" />
+                  </div>
+                  <div class="inline-flex md:hidden">
+                    <i class="bx bx-chevron-up text-[50px]" />
+                  </div>
                 </div>
-                <div class="font-extralight text-[50px]">Sélectionner les exercices</div>
+                <div class="font-extralight text-[50px]">
+                  Sélectionner les exercices
+                </div>
               </div>
               <!-- Pied de page -->
               <div class="absolute bottom-0 left-1/2 -translate-x-1/2">
@@ -550,16 +625,25 @@
       </div>
     </div>
   </div>
-  <ModalGridOfCards bind:this={thirdAppsChoiceModal} bind:displayModal={showThirdAppsChoiceDialog}>
+  <!-- Fenêtre de dialogue pour le choix des applications tierces -->
+  <ModalGridOfCards
+    bind:this={thirdAppsChoiceModal}
+    bind:displayModal={showThirdAppsChoiceDialog}
+  >
     <div slot="header">Applications</div>
     <div slot="content">
       <div class="p2">
         {#each appsTierceReferentielArray as group}
           <div class="mx-2 pt-8">
-            <div class="font-bold text-2xl text-coopmaths-struct py-4">{group.obj.get('rubrique')}</div>
+            <div class="font-bold text-2xl text-coopmaths-struct py-4">
+              {group.rubrique}
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {#each group.obj.get('liste').entries() as app, index}
-                <Card application={toObject(app[1])} selected={appsTierceInExercisesList.includes(toObject(app[1]).uuid)} />
+              {#each group.liste as app}
+                <Card
+                  application={app}
+                  selected={appsTierceInExercisesList.includes(app.uuid)}
+                />
               {/each}
             </div>
           </div>
@@ -567,21 +651,28 @@
       </div>
     </div>
   </ModalGridOfCards>
-  <ModalGridOfCards bind:this={bibliothequeChoiceModal} bind:displayModal={showBibliothequeChoiceDialog}>
+  <!-- Fenêtre de dialogue pour le choix des exercices de la bibliothèque statique -->
+  <ModalGridOfCards
+    bind:this={bibliothequeChoiceModal}
+    bind:displayModal={$isModalForStaticsVisible}
+  >
     <div slot="header">
-      <BreadcrumbHeader path={bibliothequePathToSection} />
+      <BreadcrumbHeader path={$bibliothequePathToSection} />
     </div>
     <div slot="content">
       <div class="mx-2 pt-8">
-        {#if $bibliothequeSectionContent.length === 0}
-          <div>Pas d'exercices dans cette section</div>
-        {:else}
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {#each $bibliothequeSectionContent as exercise, i}
-              <ImageCard {exercise} selected={bibliothequeUuidInExercisesList.includes(exercise.uuid)} />
-            {/each}
-          </div>
-        {/if}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {#each buildBiblioToBeDisplayed() as exercise}
+            {#if doesImageExist(exercise.png)}
+              <CardForStatic
+                {exercise}
+                selected={bibliothequeUuidInExercisesList.includes(
+                  exercise.uuid
+                )}
+              />
+            {/if}
+          {/each}
+        </div>
       </div>
     </div>
   </ModalGridOfCards>
@@ -590,7 +681,13 @@
 <style>
   @media (min-width: 768px) {
     #barre-boutons {
-      width: calc(96vw - (var(--isMenuOpen) * var(--sidebarWidth) * 1px + (1 - var(--isMenuOpen)) * 20px));
+      width: calc(
+        100% -
+          (
+            var(--isMenuOpen) * var(--sidebarWidth) * 1px + (var(--isMenuOpen)) *
+              16px
+          )
+      );
     }
   }
   @media (max-width: 768px) {

@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from './store'
+  import { exercicesParams, darkMode } from './stores/generalStore'
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea.js'
   import type TypeExercice from '../exercices/ExerciceTs.js'
   import Footer from './Footer.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
+  import NavBar from './header/NavBar.svelte'
   import Latex, { type Exo, type picFile, getExosContentList, getPicsNames, doesLatexNeedsPics, makeImageFilesUrls } from '../lib/Latex'
   import Button from './forms/Button.svelte'
   import FormRadio from './forms/FormRadio.svelte'
@@ -142,7 +142,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="LaTeX" subtitleType="export" />
+  <NavBar subtitle="LaTeX" subtitleType="export" />
 
   <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <h1 class="mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Paramétrage</h1>
@@ -169,6 +169,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
         <h2 class="ml-0 text-xl md:text-2xl font-bold md:mr-10 mb-2 lg:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Éléments de titres</h2>
         <input
           type="text"
+          id="export-latex-titre-input"
           class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
           placeholder={style === 'Can' ? 'Course aux nombres' : 'Titre'}
           bind:value={title}
@@ -176,6 +177,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
         />
         <input
           type="text"
+          id="export-latex-reference-input"
           class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
           placeholder={style === 'Coopmaths' ? 'Référence' : 'Haut de page gauche'}
           bind:value={reference}
@@ -183,6 +185,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
         />
         <input
           type="text"
+          id="export-latex-soustitre-input"
           class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
           placeholder={style === 'Coopmaths' ? 'Sous-titre / Chapitre' : 'Pied de page droit'}
           bind:value={subtitle}
@@ -193,6 +196,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
         <h2 class="text-xl md:text-2xl font-bold md:mr-10 mb-2 md:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de versions des exercices</h2>
         <input
           type="number"
+          id="export-latex-nb-versions-input"
           class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           name="numberOfVersions"
           maxlength="2"
@@ -206,7 +210,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
     <ButtonOverleaf {latex} latexFileInfos={{ title, reference, subtitle, style, nbVersions }} disabled={false} />
     <div
-      class="flex flex-col md:flex-row justify-start space-x-0 space-y-2 mt-6 md:space-x-4 md:space-y-0"
+      class="flex flex-col md:flex-row md:pl-4 justify-start space-x-0 space-y-2 mt-6 md:space-x-4 md:space-y-0"
     >
       <ModalActionWithDialog
         on:display={() => {
@@ -216,19 +220,23 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
         messageError="Impossible de copier le code LaTeX dans le presse-papier"
         tooltipMessage="Code LaTeX dans presse-papier"
         dialogId="copyPasteModal"
+        classForButton="px-2 py-1 rounded-md"
         title="Copier le code LaTeX des exercices"
       />
       <Button
+        class="px-2 py-1 rounded-md"
         title="Copier le code LaTeX complet (avec préambule)"
         on:click={copyDocument}
       />
       <Button
+        class="px-2 py-1 rounded-md"
         idLabel="downloadPicsButton"
         on:click={handleDownloadPicsModalDisplay}
         title="Télécharger uniquement les figures"
         isDisabled={!picsWanted}
       />
       <Button
+        class="px-2 py-1 rounded-md"
         idLabel="downloadFullArchive"
         on:click={() => {
           const filesInfo = { title, reference, subtitle, style, nbVersions }
@@ -263,7 +271,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
       </div>
     </ModalMessageBeforeAction>
 
-    <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg">
+    <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg p-6">
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html messageForCopyPasteModal}
       {#if style === 'ProfMaquette'}
@@ -274,7 +282,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
     </dialog>
 
     <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
-    <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">
+    <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto text-xs">
       {contents.content}
       {#if style !== 'ProfMaquette' && style !== 'ProfMaquetteQrcode'}
       %%%%%%%%%%%%%%%%%%%%%%

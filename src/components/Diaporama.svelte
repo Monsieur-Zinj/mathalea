@@ -10,11 +10,17 @@
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams
   } from '../lib/mathalea'
-  import { exercicesParams, globalOptions, questionsOrder, selectedExercises, transitionsBetweenQuestions, darkMode } from './store'
+  import {
+    exercicesParams,
+    globalOptions,
+    questionsOrder,
+    selectedExercises,
+    transitionsBetweenQuestions,
+    darkMode
+  } from './stores/generalStore'
   import type Exercice from '../exercices/ExerciceTs.js'
   import seedrandom from 'seedrandom'
   import { context } from '../modules/context.js'
-  import { shuffle, listOfRandomIndexes } from './utils/shuffle'
   import ModalActionWithDialog from './modal/ModalActionWithDialog.svelte'
   import { showDialogForLimitedTime } from './utils/dialogs'
   import { copyLinkToClipboard } from './utils/clipboard'
@@ -22,8 +28,9 @@
   import ModalForQRCode from './modal/ModalForQRCode.svelte'
   import FormRadio from './forms/FormRadio.svelte'
   import ButtonToggle from './forms/ButtonToggle.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
-  import type { InterfaceParams } from 'src/lib/types'
+  import NavBar from './header/NavBar.svelte'
+  import type { InterfaceParams, NumberRange } from '../lib/types'
+  import { shuffle, listOfRandomIndexes } from './utils/shuffle'
 
   const divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -60,7 +67,7 @@
   if ($transitionsBetweenQuestions.tune !== undefined) {
     $transitionsBetweenQuestions.isNoisy = true
   }
-  const formatQRCodeIndex: number = 0
+  const formatQRCodeIndex: NumberRange<0, 2> = 0
   const QRCodeWidth = 100
   let stringDureeTotale = '0'
   // variables pour les transitions entre questions
@@ -91,7 +98,9 @@
     context.vue = 'diap'
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
-      const exercice: Exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+      const exercice: Exercice = await mathaleaLoadExerciceFromUuid(
+        paramsExercice.uuid
+      )
       if (exercice === undefined) return
       mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
       exercice.duration = paramsExercice.duration ?? 10
@@ -101,11 +110,15 @@
     if (!$selectedExercises.isActive) {
       $selectedExercises.indexes = [...Array(exercices.length).keys()]
     } else {
-      $selectedExercises.indexes = [...listOfRandomIndexes(exercices.length, $selectedExercises.count)]
+      $selectedExercises.indexes = [
+        ...listOfRandomIndexes(exercices.length, $selectedExercises.count!)
+      ]
     }
     updateExercices()
     await tick()
-    if (divTableDurationsQuestions) mathaleaRenderDiv(divTableDurationsQuestions)
+    if (divTableDurationsQuestions) {
+      mathaleaRenderDiv(divTableDurationsQuestions)
+    }
   })
 
   async function updateExercices () {
@@ -121,11 +134,17 @@
       corrections[idVue] = []
       for (const [k, exercice] of exercices.entries()) {
         if (idVue > 0) {
-          if (exercice.seed != null) exercice.seed = exercice.seed.substring(0, 4) + idVue
+          if (exercice.seed != null) {
+            exercice.seed = exercice.seed.substring(0, 4) + idVue
+          }
         } else {
-          if (exercice.seed != null) exercice.seed = exercice.seed.substring(0, 4)
+          if (exercice.seed != null) {
+            exercice.seed = exercice.seed.substring(0, 4)
+          }
         }
-        if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
+        if (exercice.typeExercice === 'simple') {
+          mathaleaHandleExerciceSimple(exercice, false)
+        }
         seedrandom(exercice.seed, { global: true })
         exercice.nouvelleVersion?.()
         let consigne: string = ''
@@ -139,7 +158,10 @@
             consignes[idVue].push(consigne) // même consigne pour toutes les questions
           }
           questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
-          corrections[idVue] = [...corrections[idVue], ...exercice.listeCorrections]
+          corrections[idVue] = [
+            ...corrections[idVue],
+            ...exercice.listeCorrections
+          ]
           consignes[idVue] = consignes[idVue].map(mathaleaFormatExercice)
           questions[idVue] = questions[idVue].map(mathaleaFormatExercice)
           corrections[idVue] = corrections[idVue].map(mathaleaFormatExercice)
@@ -147,15 +169,15 @@
       }
     }
     const newParams: InterfaceParams[] = []
-    for (const [_, exercice] of exercices.entries()) {
+    for (const exercice of exercices.values()) {
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
-        durations.push(exercice.duration)
+        durations.push(exercice.duration || 10)
       }
       newParams.push({
         uuid: exercice.uuid,
         id: exercice.id,
-        alea: exercice.seed.substring(0, 4),
+        alea: exercice.seed?.substring(0, 4),
         nbQuestions: exercice.nbQuestions,
         duration: exercice.duration,
         sup: mathaleaHandleSup(exercice.sup),
@@ -168,15 +190,17 @@
       l.nbVues = nbOfVues
       return l
     })
-    exercicesParams.update(() => newParams)
-    mathaleaUpdateUrlFromExercicesParams(newParams)
-    stringDureeTotale = formattedTimeStamp(getTotalDuration())
-    if (divTableDurationsQuestions) mathaleaRenderDiv(divTableDurationsQuestions)
     // préparation des indexes si l'ordre aléatoire est demandé
     if ($questionsOrder.isQuestionsShuffled) {
       $questionsOrder.indexes = shuffle([...Array(questions[0].length).keys()])
     } else {
       $questionsOrder.indexes = [...Array(questions[0].length).keys()]
+    }
+    exercicesParams.update(() => newParams)
+    mathaleaUpdateUrlFromExercicesParams(newParams)
+    stringDureeTotale = formattedTimeStamp(getTotalDuration())
+    if (divTableDurationsQuestions) {
+      mathaleaRenderDiv(divTableDurationsQuestions)
     }
   }
 
@@ -252,10 +276,14 @@
       } else {
         switchQuestionToCorrection()
         switchPause()
-        if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
+        if (currentQuestion < questions[0].length) {
+          goToQuestion(currentQuestion + 1)
+        }
       }
     } else {
-      if (currentQuestion < questions[0].length) goToQuestion(currentQuestion + 1)
+      if (currentQuestion < questions[0].length) {
+        goToQuestion(currentQuestion + 1)
+      }
     }
   }
 
@@ -342,11 +370,10 @@
 
   function handleCheckSameDurationForAll () {
     globalOptions.update((l) => {
-      l.durationGlobal = null
+      l.durationGlobal = undefined
       return l
     })
     handleChangeDurationGlobal()
-    // updateExercices()  <-- inutile puisque handleCHangeDUrationGlobal() appelle déjà cette fonction
   }
 
   $: messageDuree = setPhraseDuree(cursorTimeValue)
@@ -364,10 +391,16 @@
     for (const [i, exercice] of exercices.entries()) {
       if ($selectedExercises.isActive) {
         if ($selectedExercises.indexes.includes(i)) {
-          sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
+          sum +=
+            (isSameDurationForAll
+              ? durationGlobal ?? 10
+              : exercice.duration ?? 10) * exercice.nbQuestions
         }
       } else {
-        sum += (isSameDurationForAll ? durationGlobal : exercice.duration) * exercice.nbQuestions
+        sum +=
+          (isSameDurationForAll
+            ? durationGlobal ?? 10
+            : exercice.duration ?? 10) * exercice.nbQuestions
       }
     }
     return sum
@@ -395,22 +428,34 @@
   }
 
   $: {
-    nbOfVues = parseInt(stringNbOfVues)
-    if (divTableDurationsQuestions) mathaleaRenderDiv(divTableDurationsQuestions)
+    nbOfVues = parseInt(stringNbOfVues) as 1 | 2 | 3 | 4
+    if (divTableDurationsQuestions) {
+      mathaleaRenderDiv(divTableDurationsQuestions)
+    }
     if (durationGlobal) previousDurationGlobal = durationGlobal
-    if (isSameDurationForAll && previousDurationGlobal) durationGlobal = previousDurationGlobal
+    if (isSameDurationForAll && previousDurationGlobal) {
+      durationGlobal = previousDurationGlobal
+    }
 
-    if (isSameDurationForAll && durationGlobal === null) {
+    if (isSameDurationForAll && typeof durationGlobal === 'undefined') {
       durationGlobal = 10
     } else if (!isSameDurationForAll) {
-      durationGlobal = null
+      durationGlobal = undefined
     }
-    let steps: NodeListOf<HTMLLIElement>
-    if (stepsUl) steps = stepsUl.querySelectorAll('li')
-    if (steps) {
-      if (steps[currentQuestion]) steps[currentQuestion].scrollIntoView()
-      if (steps[currentQuestion + 5]) steps[currentQuestion + 5].scrollIntoView()
-      if (steps[currentQuestion - 5] && !isInViewport(steps[currentQuestion - 5])) steps[currentQuestion - 5].scrollIntoView()
+    if (stepsUl) {
+      const steps = stepsUl.querySelectorAll('li')
+      if (typeof steps !== 'undefined') {
+        if (steps[currentQuestion]) steps[currentQuestion].scrollIntoView()
+        if (steps[currentQuestion + 5]) {
+          steps[currentQuestion + 5].scrollIntoView()
+        }
+        if (
+          steps[currentQuestion - 5] &&
+          !isInViewport(steps[currentQuestion - 5])
+        ) {
+          steps[currentQuestion - 5].scrollIntoView()
+        }
+      }
     }
   }
   // =========================== Fin gestion du temps ===============================
@@ -434,16 +479,28 @@
    * @author sylvain
    */
   async function setSize () {
-    let startSize = 0
     for (let i = 0; i < nbOfVues; i++) {
       if (typeof divQuestion[i] !== 'undefined') {
         mathaleaRenderDiv(divQuestion[i], -1)
-        const diapocellDiv = document.getElementById('diapocell' + i) as HTMLDivElement
-        const textcellDiv = document.getElementById('textcell' + i) as HTMLDivElement
-        const consigneDiv = document.getElementById('consigne' + i) as HTMLDivElement
-        const questionDiv = document.getElementById('question' + i) as HTMLDivElement
-        const correctionDiv = document.getElementById('correction' + i) as HTMLDivElement
-        const svgDivs = diapocellDiv != null ? diapocellDiv.getElementsByClassName('mathalea2d') : null
+        const diapocellDiv = document.getElementById(
+          'diapocell' + i
+        ) as HTMLDivElement
+        const textcellDiv = document.getElementById(
+          'textcell' + i
+        ) as HTMLDivElement
+        const consigneDiv = document.getElementById(
+          'consigne' + i
+        ) as HTMLDivElement
+        const questionDiv = document.getElementById(
+          'question' + i
+        ) as HTMLDivElement
+        const correctionDiv = document.getElementById(
+          'correction' + i
+        ) as HTMLDivElement
+        const svgDivs =
+          diapocellDiv != null
+            ? diapocellDiv.getElementsByClassName('mathalea2d')
+            : null
         const textcellWidth = textcellDiv.clientWidth
         const textcellHeight = textcellDiv.clientHeight
         let finalSVGHeight = 0
@@ -459,31 +516,52 @@
             const rw = optimalSVGWidth / startingWidth
             const rh = optimalSVGHeigth / startingHeight
             if (startingHeight * rw < optimalSVGHeigth) {
-              svgDivs[k].setAttribute('width', (optimalSVGWidth * currentZoom).toString())
-              svgDivs[k].setAttribute('height', (svgDivs[k].clientHeight * rw * currentZoom).toString())
+              svgDivs[k].setAttribute(
+                'width',
+                (optimalSVGWidth * currentZoom).toString()
+              )
+              svgDivs[k].setAttribute(
+                'height',
+                (svgDivs[k].clientHeight * rw * currentZoom).toString()
+              )
             } else {
-              svgDivs[k].setAttribute('height', (optimalSVGHeigth * currentZoom).toString())
-              svgDivs[k].setAttribute('width', (svgDivs[k].clientWidth * rh * currentZoom).toString())
+              svgDivs[k].setAttribute(
+                'height',
+                (optimalSVGHeigth * currentZoom).toString()
+              )
+              svgDivs[k].setAttribute(
+                'width',
+                (svgDivs[k].clientWidth * rh * currentZoom).toString()
+              )
             }
             svgDivs[k].removeAttribute('style')
-            if (finalSVGHeight < parseInt(svgDivs[k].getAttribute('height'))) {
-              finalSVGHeight = parseInt(svgDivs[k].getAttribute('height'))
+            const h = svgDivs[k].getAttribute('height')
+            if (h && finalSVGHeight < parseInt(h)) {
+              finalSVGHeight = parseInt(h)
             }
             const finalWidth = svgDivs[k].clientWidth
             const finalHeight = svgDivs[k].clientHeight
             const widthCoef = finalWidth / startingWidth
             const heightCoef = finalHeight / startingHeight
-            const svgContainerDivs = diapocellDiv.getElementsByClassName('svgContainer') as HTMLCollectionOf<HTMLDivElement>
+            const svgContainerDivs =
+              diapocellDiv.getElementsByClassName('svgContainer')
             for (const container of svgContainerDivs) {
               container.classList.add('flex')
               container.classList.add('justify-center')
-              const divLatexDivs = container.getElementsByClassName('divLatex') as HTMLCollectionOf<HTMLDivElement>
-              for (const divLatex of divLatexDivs) {
-                const originalTop = parseFloat(divLatex.style.top.replace('px', ''))
-                const originalLeft = parseFloat(divLatex.style.left.replace('px', ''))
+              const divLatexDivs = container.getElementsByClassName('divLatex')
+              for (let i = 0; i < divLatexDivs.length; i++) {
+                const divLatex = divLatexDivs[i] as HTMLDivElement
+                const originalTop = parseFloat(
+                  divLatex.style.top.replace('px', '')
+                )
+                const originalLeft = parseFloat(
+                  divLatex.style.left.replace('px', '')
+                )
                 // console.log("(top: "+originalTop+ "; left: "+originalLeft+")")
-                divLatex.style.top = (originalTop * heightCoef).toString() + 'px'
-                divLatex.style.left = (originalLeft * widthCoef).toString() + 'px'
+                divLatex.style.top =
+                  (originalTop * heightCoef).toString() + 'px'
+                divLatex.style.left =
+                  (originalLeft * widthCoef).toString() + 'px'
               }
             }
           }
@@ -491,28 +569,30 @@
         // Donner la bonne taille au texte
         // let nbOfCharactersInTextDiv = textcell_div.innerText.length
         // on retire les balises KaTeX (car trop bavardes) pour le décompte des caractères
-        const clone = textcellDiv.cloneNode(true)
+        const clone = textcellDiv.cloneNode(true) as HTMLDivElement
         const elementsKaTeX = clone.getElementsByClassName('katex')
         let nbOfCharInKaTeX = 0
         while (elementsKaTeX.length > 0) {
-          const katexHtmlElement = elementsKaTeX[0].getElementsByClassName('katex-html')
-          let kw = 0
+          const katexHtmlElement =
+            elementsKaTeX[0].getElementsByClassName('katex-html')
           for (let k = 0; k < katexHtmlElement.length; k++) {
-            nbOfCharInKaTeX += katexHtmlElement[k].innerText.length
-            kw += katexHtmlElement[k].clientWidth
+            const katexElt = katexHtmlElement[k] as HTMLDivElement
+            nbOfCharInKaTeX += katexElt.innerText.length
           }
-          elementsKaTeX[0].parentNode.removeChild(elementsKaTeX[0])
+          elementsKaTeX[0].parentNode?.removeChild(elementsKaTeX[0])
         }
         const elementsSVG = clone.getElementsByClassName('mathalea2d')
         while (elementsSVG.length > 0) {
-          elementsSVG[0].parentNode.removeChild(elementsSVG[0])
+          elementsSVG[0].parentNode?.removeChild(elementsSVG[0])
         }
         let nbOfCharactersInTextDiv = clone.innerText.length + nbOfCharInKaTeX
         if (finalSVGHeight !== 0) {
           nbOfCharactersInTextDiv -= 100
         }
         // let size = nbOfVues > 1 ? 100 : 300
-        let size = (300 - Math.floor(nbOfCharactersInTextDiv / 50) * 30) * (1 - finalSVGHeight / textcellHeight)
+        let size =
+          (300 - Math.floor(nbOfCharactersInTextDiv / 50) * 30) *
+          (1 - finalSVGHeight / textcellHeight)
         if (nbOfVues === 2) {
           size = size * 0.7
         } else {
@@ -520,8 +600,12 @@
             size = size / 3
           }
         }
-        startSize = size
-        let consigneHeight, correctionHeight, questionHeight, questionWidth, consigneWidth, correctionWidth: number
+        let consigneHeight,
+          correctionHeight,
+          questionHeight,
+          questionWidth,
+          consigneWidth,
+          correctionWidth: number
         do {
           size = size - 2
           if (questionDiv !== null) {
@@ -548,7 +632,12 @@
             correctionHeight = 0
             correctionWidth = 0
           }
-        } while (questionWidth > textcellWidth || consigneWidth > textcellWidth || correctionWidth > textcellWidth || questionHeight + consigneHeight + correctionHeight > textcellHeight)
+        } while (
+          questionWidth > textcellWidth ||
+          consigneWidth > textcellWidth ||
+          correctionWidth > textcellWidth ||
+          questionHeight + consigneHeight + correctionHeight > textcellHeight
+        )
         if (questionDiv !== null) {
           questionDiv.style.fontSize = currentZoom * size + 'px'
         }
@@ -586,7 +675,7 @@
   }
 
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
-  window.onresize = (event) => {
+  window.onresize = () => {
     setSize()
   }
 
@@ -622,7 +711,8 @@
       isQuestionVisible = true
     } else {
       isCorrectionVisible = true
-      isQuestionVisible = !!$transitionsBetweenQuestions.questThenQuestAndSolDisplay
+      isQuestionVisible =
+        !!$transitionsBetweenQuestions.questThenQuestAndSolDisplay
     }
     await tick()
     setSize()
@@ -670,7 +760,11 @@
    * 2/ on met à jours les paramètres dans les options et l'URL
    */
   function handleSampleSizeChange () {
-    $selectedExercises.indexes = [...listOfRandomIndexes(exercices.length, $selectedExercises.count)]
+    if ($selectedExercises.count) {
+      $selectedExercises.indexes = [
+        ...listOfRandomIndexes(exercices.length, $selectedExercises.count)
+      ]
+    }
     globalOptions.update((l) => {
       l.choice = $selectedExercises.count
       return l
@@ -683,12 +777,19 @@
    * Gestion du bouton demandant de changer l'ordre des questions
    */
   function handleRandomQuestionOrder () {
-    // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled  <- inutile avec ButtonToggle
-    globalOptions.update((l) => {
-      l.shuffle = $questionsOrder.isQuestionsShuffled
-      return l
-    })
+    // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled // <- inutile avec ButtonToggle
+    // globalOptions.update((l) => {
+    //   console.log('bouton touché, ordre ?')
+    //   console.log($questionsOrder.isQuestionsShuffled)
+    //   l.shuffle = $questionsOrder.isQuestionsShuffled
+    //   return l
+    // })
+    $globalOptions.shuffle = $questionsOrder.isQuestionsShuffled
+    console.log('avant ordre change :')
+    console.log($questionsOrder.indexes)
     updateExercices()
+    console.log('après ordre change :')
+    console.log($questionsOrder.indexes)
   }
 
   /**
@@ -718,7 +819,7 @@
         return l
       })
     } else {
-      $transitionsBetweenQuestions.tune = undefined
+      // $transitionsBetweenQuestions.tune = undefined
       globalOptions.update((l) => {
         l.sound = undefined
         return l
@@ -743,7 +844,7 @@
     isFullScreen = !isFullScreen
     if (isFullScreen) {
       const app = document.querySelector('#diaporama')
-      app.requestFullscreen()
+      app?.requestFullscreen()
     } else {
       document.exitFullscreen()
     }
@@ -757,7 +858,13 @@
 
   function isInViewport (element: HTMLElement): boolean {
     const rect = element.getBoundingClientRect()
-    return rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      rect.bottom <=
+        (window.innerHeight || document.documentElement.clientHeight) &&
+      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    )
   }
 </script>
 
@@ -765,7 +872,10 @@
 <!-- Page d'accueil du diapo -->
 <div id="diaporama" class={$darkMode.isActive ? 'dark' : ''}>
   {#if currentQuestion === -1}
-    <div id="start" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus">
+    <div
+      id="start"
+      class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus"
+    >
       <!-- <div class="flex flex-row justify-between p-6">
         <div class="text-4xl text-coopmaths-struct font-bold">Réglages du Diaporama</div>
         <button type="button">
@@ -776,49 +886,90 @@
           />
         </button>
       </div> -->
-      <NavBarV2 subtitle="Réglages du diaporama" subtitleType="export" />
+      <NavBar subtitle="Réglages du diaporama" subtitleType="export" />
       <div class="flex flex-row w-full justify-center items-start mx-20 mt-10">
         <!-- Multivue + Liens -->
         <div class="flex flex-col w-1/5 justify-start">
           <div class="flex flex-row justify-start items-center pb-6">
-            <div class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+            <div
+              class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct"
+            >
               Aperçu
               <div class="flex flex-row px-4 justify-start">
-                <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="Aperçu des questions/réponses">
+                <div
+                  class="tooltip tooltip-bottom tooltip-neutral"
+                  data-tip="Aperçu des questions/réponses"
+                >
                   <button
                     type="button"
+                    id="diaporama-apercu"
                     class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    on:click={() => mathaleaHandleComponentChange('diaporama', 'can')}
+                    on:click={() => {
+                      // console.log('indexes des questions :')
+                      // console.log($questionsOrder.indexes)
+                      mathaleaHandleComponentChange('diaporama', 'can')
+                    }}
                   >
                     <i class="bx text-2xl bx-detail" />
                   </button>
                 </div>
               </div>
             </div>
-            <div class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+            <div
+              class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct"
+            >
               Plein écran
               <div class="flex flex-row px-4 justify-start">
                 <button
+                  id="diaporama-plein-ecran"
                   type="button"
                   on:click={switchFullScreen}
                   class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                 >
-                  <i class="bx text-2xl {isFullScreen ? 'bx-exit-fullscreen' : 'bx-fullscreen'}" />
+                  <i
+                    class="bx text-2xl {isFullScreen
+                      ? 'bx-exit-fullscreen'
+                      : 'bx-fullscreen'}"
+                  />
                 </button>
               </div>
             </div>
           </div>
-          <div class="flex text-lg font-bold mb-2 text-coopmaths-struct dark:text-coopmathsdark-struct">Multivue</div>
+          <div
+            class="flex text-lg font-bold mb-2 text-coopmaths-struct dark:text-coopmathsdark-struct"
+          >
+            Multivue
+          </div>
           <div class="flex px-4 pb-8">
-            <FormRadio bind:valueSelected={stringNbOfVues} on:newvalue={updateExercices} title="multivue" labelsValues={labelsForMultivue} />
+            <FormRadio
+              bind:valueSelected={stringNbOfVues}
+              on:newvalue={updateExercices}
+              title="multivue"
+              labelsValues={labelsForMultivue}
+            />
           </div>
 
           <div class="pb-8">
-            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Transitions</div>
-            <div class="flex flex-row justify-start items-center px-4">
-              <ButtonToggle bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive} titles={['Question <em>puis</em> correction', 'Question / Question+Correction / Correction']} />
+            <div
+              class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct"
+            >
+              Transitions
             </div>
-            <div class="{$transitionsBetweenQuestions.isQuestThenSolModeActive ? 'flex' : 'hidden'} flex-row justify-start items-center pr-4 pl-6">
+            <div class="flex flex-row justify-start items-center px-4">
+              <ButtonToggle
+                id="diaporama-transition-toggle"
+                bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive}
+                titles={[
+                  'Question <em>puis</em> correction',
+                  'Question / Question+Correction / Correction'
+                ]}
+              />
+            </div>
+            <div
+              class="{$transitionsBetweenQuestions.isQuestThenSolModeActive
+                ? 'flex'
+                : 'hidden'} flex-row justify-start items-center pr-4 pl-6"
+            >
               <input
                 id="checkbox-choice-8"
                 aria-describedby="checkbox-choice"
@@ -839,10 +990,23 @@
               </label>
             </div>
             <div class="flex flex-row justify-start items-center px-4">
-              <ButtonToggle bind:value={$transitionsBetweenQuestions.isActive} titles={['Carton entre questions', 'Pas de carton entre questions']} on:click={handleTransitionsMode} />
+              <ButtonToggle
+                id="diaporama-transition-correction-toggle"
+                bind:value={$transitionsBetweenQuestions.isActive}
+                titles={[
+                  'Carton entre questions',
+                  'Pas de carton entre questions'
+                ]}
+                on:toggle={handleTransitionsMode}
+              />
             </div>
             <div class="flex flex-row justify-start items-center px-4">
-              <ButtonToggle bind:value={$transitionsBetweenQuestions.isNoisy} titles={['Son entre questions', 'Pas de son entre questions']} on:click={handleTransitionSound} />
+              <ButtonToggle
+                id="diaporama-transition-sons-toggle"
+                bind:value={$transitionsBetweenQuestions.isNoisy}
+                titles={['Son entre questions', 'Pas de son entre questions']}
+                on:toggle={handleTransitionSound}
+              />
             </div>
             <FormRadio
               title="son"
@@ -857,19 +1021,37 @@
             />
           </div>
           <div class="pb-6">
-            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">Ordre</div>
+            <div
+              class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct"
+            >
+              Ordre
+            </div>
             <div class="flex flex-row justify-start items-center px-4">
-              <ButtonToggle bind:value={$questionsOrder.isQuestionsShuffled} titles={['Questions dans le désordre', "Questions dans l'ordre"]} on:click={handleRandomQuestionOrder} />
+              <ButtonToggle
+                id="diaporama-ordre-questions-toggle"
+                bind:value={$questionsOrder.isQuestionsShuffled}
+                titles={[
+                  'Questions dans le désordre',
+                  "Questions dans l'ordre"
+                ]}
+                on:toggle={handleRandomQuestionOrder}
+              />
             </div>
           </div>
           <div class="pb-6">
-            <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct {exercices.length === 1 ? 'text-opacity-20' : 'text-opacity-100'}">Choix aléatoire</div>
+            <div
+              class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct
+              {exercices.length === 1 ? 'text-opacity-20' : 'text-opacity-100'}"
+            >
+              Choix aléatoire
+            </div>
             <div class="flex flex-row justify-start items-center px-4">
               <input
                 id="checkbox-choice-6"
                 aria-describedby="checkbox-choice"
                 type="checkbox"
-                class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {exercices.length === 1
+                class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {exercices.length ===
+                1
                   ? 'border-opacity-10'
                   : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
                 checked={$selectedExercises.isActive}
@@ -878,7 +1060,8 @@
               />
               <label
                 for="checkbox-choice-6"
-                class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length === 1
+                class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length ===
+                1
                   ? 'text-opacity-10 dark:text-opacity-10'
                   : 'text-opacity-70 dark:text-opacity-70'}"
               >
@@ -888,6 +1071,7 @@
             <div class="pl-8">
               <input
                 type="number"
+                id="diaporama-nb-exos-dans-liste-input"
                 min="1"
                 max={exercices.length}
                 bind:value={$selectedExercises.count}
@@ -895,12 +1079,18 @@
                 class="ml-3 w-14 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-canavs-darkest focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-0"
                 disabled={!$selectedExercises.isActive}
               />
-              <span class="text-coopmaths-corpus dark:text-coopmathsdark-corpus {$selectedExercises.isActive ? 'text-opacity-100 dark:text-opacity-100' : 'text-opacity-0 dark:text-opacity-0'}">
+              <span
+                class="text-coopmaths-corpus dark:text-coopmathsdark-corpus {$selectedExercises.isActive
+                  ? 'text-opacity-100 dark:text-opacity-100'
+                  : 'text-opacity-0 dark:text-opacity-0'}"
+              >
                 parmi {exercices.length}</span
               >
             </div>
           </div>
-          <div class="flex text-lg font-bold pb-2 text-coopmaths-struct dark:text-coopmathsdark-struct">
+          <div
+            class="flex text-lg font-bold pb-2 text-coopmaths-struct dark:text-coopmathsdark-struct"
+          >
             Liens
             <div class="flex flex-row px-4 -mt-2 justify-start">
               <ModalActionWithDialog
@@ -910,27 +1100,45 @@
                 tooltipMessage="Lien du Diaporama"
                 classForButton="mr-4 my-2"
               />
-              <ModalForQRCode classForButton="mr-4 my-2" dialogId="QRCodeModal-1" imageId="QRCodeCanvas-1" tooltipMessage="QR-code du diaporama" width={QRCodeWidth} format={formatQRCodeIndex} />
+              <ModalForQRCode
+                classForButton="mr-4 my-2"
+                dialogId="QRCodeModal-1"
+                imageId="QRCodeCanvas-1"
+                tooltipMessage="QR-code du diaporama"
+                width={QRCodeWidth}
+                format={formatQRCodeIndex}
+              />
             </div>
           </div>
         </div>
         <!-- Tableau réglages -->
         <div class="flex flex-col w-4/6 justify-start">
-          <div class="flex flex-col lg:flex-row px-4 pb-4 w-full justify-start lg:justify-between lg:items-center">
-            <div class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">Durées et nombres de questions</div>
+          <div
+            class="flex flex-col lg:flex-row px-4 pb-4 w-full justify-start lg:justify-between lg:items-center"
+          >
+            <div
+              class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct"
+            >
+              Durées et nombres de questions
+            </div>
             <div class="flex items-center">
               <input
-                id="checkbox-2"
-                aria-describedby="checkbox-2"
+                id="diaporama-defilement-manuel-checkbox"
+                aria-describedby="diaporama-defilement-manuel-checkbox"
                 type="checkbox"
                 checked={isManualModeActive}
                 class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
                 on:change={handleCheckManualMode}
               />
-              <label for="checkbox-2" class="ml-3 mr-4 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus"> Défilement manuel </label>
+              <label
+                for="diaporama-defilement-manuel-checkbox"
+                class="ml-3 mr-4 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+              >
+                Défilement manuel
+              </label>
               <input
-                id="checkbox-1"
-                aria-describedby="checkbox-1"
+                id="diaporama-meme-duree-checkbox"
+                aria-describedby="diaporama-meme-duree-checkbox"
                 type="checkbox"
                 class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action
                 {exercices.length === 1 || isManualModeActive
@@ -941,47 +1149,99 @@
                 disabled={exercices.length === 1 || isManualModeActive}
               />
               <label
-                for="checkbox-1"
+                for="diaporama-meme-duree-checkbox"
                 class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus
-                {exercices.length === 1 || isManualModeActive ? 'text-opacity-30 dark:text-opacity-30' : 'text-opacity-100 dark:text-opacity-100'} "
+                {exercices.length === 1 || isManualModeActive
+                  ? 'text-opacity-30 dark:text-opacity-30'
+                  : 'text-opacity-100 dark:text-opacity-100'} "
               >
                 Même durée pour toutes les questions
                 <input
                   type="number"
+                  id="diaporama-meme-duree-input"
                   min="1"
                   on:change={handleChangeDurationGlobal}
                   bind:value={durationGlobal}
-                  class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-2 border-transparent focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
+                  class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border {isSameDurationForAll
+                    ? ''
+                    : 'border-transparent'} border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
                   disabled={!isSameDurationForAll || isManualModeActive}
                 />
               </label>
             </div>
           </div>
 
-          <div class="flex flex-col min-w-full h-[100vh] px-4 align-middle" bind:this={divTableDurationsQuestions}>
-            <div class="table-wrp block shadow ring-1 ring-coopmaths-struct dark:ring-coopmathsdark-struct ring-opacity-10 dark:ring-opacity-20 md:rounded-lg">
-              <table class="table-fixed min-w-full divide-y divide-coopmaths-struct dark:divide-coopmathsdark-struct divide-opacity-10 dark:divide-opacity-20">
-                <thead class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark sticky top-0">
-                  <th scope="col" class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct sm:pl">
-                    Exercices<span class="pl-2 font-extralight text-opacity-60 {$selectedExercises.isActive ? '' : 'invisible'}">({$selectedExercises.count} parmi {exercices.length})</span>
+          <div
+            class="flex flex-col min-w-full h-[100vh] px-4 align-middle"
+            bind:this={divTableDurationsQuestions}
+          >
+            <div
+              class="table-wrp block shadow ring-1 ring-coopmaths-struct dark:ring-coopmathsdark-struct ring-opacity-10 dark:ring-opacity-20 md:rounded-lg"
+            >
+              <table
+                class="table-fixed min-w-full divide-y divide-coopmaths-struct dark:divide-coopmathsdark-struct divide-opacity-10 dark:divide-opacity-20"
+              >
+                <thead
+                  class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark sticky top-0"
+                >
+                  <th
+                    scope="col"
+                    class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct sm:pl"
+                  >
+                    Exercices<span
+                      class="pl-2 font-extralight text-opacity-60 {$selectedExercises.isActive
+                        ? ''
+                        : 'invisible'}"
+                      >({$selectedExercises.count} parmi {exercices.length})</span
+                    >
                   </th>
-                  <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">
-                    <div>Durées par question (s)</div>
-                    <div class="text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs">
-                      Durée diapo :<span class="font-light ml-1">{stringDureeTotale}</span>
+                  <th
+                    scope="col"
+                    class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
+                  >
+                    <div class={isManualModeActive ? 'opacity-20' : ''}>
+                      Durées par question (s)
+                    </div>
+                    <div
+                      class=" text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs"
+                    >
+                      {#if !isManualModeActive}
+                        Durée diapo :<span class="font-light ml-1"
+                          >{stringDureeTotale}</span
+                        >
+                      {:else}
+                        <span class="font-light ml-1" />
+                      {/if}
                     </div>
                   </th>
-                  <th scope="col" class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct">
+                  <th
+                    scope="col"
+                    class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
+                  >
                     <div>Nombres de questions</div>
-                    <div class="text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs">Total :<span class="font-light ml-1">{getTotalNbOfQuestions()}</span></div>
+                    <div
+                      class="text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs"
+                    >
+                      Total :<span class="font-light ml-1"
+                        >{getTotalNbOfQuestions()}</span
+                      >
+                    </div>
                   </th>
                 </thead>
                 <tbody class="overflow-y-auto" id="exercisesList">
                   {#each exercices as exercice, i}
                     <tr>
-                      <td class="whitespace-normal px-3 py-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
-                        <span class="{$selectedExercises.isActive && $selectedExercises.indexes.includes(i) ? '' : 'invisible'} pr-2"
-                          ><i class="bx text-xs bxs-circle text-coopmaths-warn-lightest dark:text-coopmathsdark-warn-lightest" /></span
+                      <td
+                        class="whitespace-normal px-3 py-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                      >
+                        <span
+                          class="{$selectedExercises.isActive &&
+                          $selectedExercises.indexes.includes(i)
+                            ? ''
+                            : 'invisible'} pr-2"
+                          ><i
+                            class="bx text-xs bxs-circle text-coopmaths-warn-lightest dark:text-coopmathsdark-warn-lightest"
+                          /></span
                         >
                         {exercice.id} - {exercice.titre}
                       </td>
@@ -989,11 +1249,13 @@
                         <span class="flex justify-center">
                           <input
                             type="number"
+                            id="diaporama-exo-duration-{i}"
                             min="1"
                             on:change={updateExercices}
                             bind:value={exercice.duration}
                             class="ml-3 w-16 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 disabled:opacity-30"
-                            disabled={isSameDurationForAll || isManualModeActive}
+                            disabled={isSameDurationForAll ||
+                              isManualModeActive}
                           />
                         </span>
                       </td>
@@ -1001,6 +1263,7 @@
                         <span class="flex justify-center">
                           <input
                             type="number"
+                            id="diaporama-exo-nb-questions-{i}"
                             min="1"
                             bind:value={exercice.nbQuestions}
                             on:change={updateExercices}
@@ -1017,6 +1280,7 @@
             <div class="flex flex-row items-center justify-end w-full my-4">
               <button
                 type="button"
+                id="diaporama-play-button"
                 class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest font-extrabold text-coopmaths-canvas dark:text-coopmathsdark-canvas text-3xl py-4 rounded-lg"
                 on:click={() => {
                   goToQuestion(0)
@@ -1041,29 +1305,59 @@
   {/if}
   <!-- Diaporama lui-même -->
   {#if currentQuestion > -1 && currentQuestion < questions[0].length}
-    <div id="diap" class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" data-theme="daisytheme">
+    <div
+      id="diap"
+      class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      data-theme="daisytheme"
+    >
       <!-- Steps -->
-      <header class="flex flex-col h-[10%] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1">
-        <div class:invisible={isManualModeActive} class="flex flex-row h-10 border border-coopmaths-warn dark:border-coopmathsdark-warn">
-          <div id="diapoProgressBar" class="bg-coopmaths-warn dark:bg-coopmathsdark-warn" style="width: {ratioTime}%; transition: width {currentDuration / 100}s linear" />
+      <header
+        class="flex flex-col h-[10%] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1"
+      >
+        <div
+          class:invisible={isManualModeActive}
+          class="flex flex-row h-10 border border-coopmaths-warn dark:border-coopmathsdark-warn"
+        >
+          <div
+            id="diapoProgressBar"
+            class="bg-coopmaths-warn dark:bg-coopmathsdark-warn"
+            style="width: {ratioTime}%; transition: width {currentDuration /
+              100}s linear"
+          />
         </div>
         <div class="flex flex-row h-full mt-6 w-full justify-center">
           <ul class="steps w-11/12" bind:this={stepsUl}>
-            {#each questions[0] as _, i}
-              <span on:click={() => clickOnStep(i)} on:keydown={() => clickOnStep(i)}>
-                <li class="step step-neutral dark:step-info {currentQuestion >= i ? 'step-primary' : ''} cursor-pointer" />
+            {#each [...questions[0].keys()] as i}
+              <span
+                on:click={() => clickOnStep(i)}
+                on:keydown={() => clickOnStep(i)}
+                role="button"
+                tabindex="0"
+              >
+                <li
+                  class="step step-neutral dark:step-info {currentQuestion >= i
+                    ? 'step-primary'
+                    : ''} cursor-pointer"
+                />
               </span>
             {/each}
           </ul>
         </div>
       </header>
       <!-- Question -->
-      <main class="bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus min-h-[80%] p-4">
-        <div class="{nbOfVues > 1 ? 'grid grid-cols-2 gap-4 auto-rows-fr' : 'grid grid-cols-1'} place-content-stretch justify-items-center w-full h-full">
-          {#each Array(nbOfVues) as _, i}
+      <main
+        class="bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus min-h-[80%] p-4"
+      >
+        <div
+          class="{nbOfVues > 1
+            ? 'grid grid-cols-2 gap-4 auto-rows-fr'
+            : 'grid grid-cols-1'} place-content-stretch justify-items-center w-full h-full"
+        >
+          {#each [...Array(nbOfVues).keys()] as i}
             <div
               id="diapocell{i}"
-              class="relative min-h-[100%] max-h-[100%] flex flex-col justify-center justify-self-stretch place-items-stretch p-2 {nbOfVues > 1
+              class="relative min-h-[100%] max-h-[100%] flex flex-col justify-center justify-self-stretch place-items-stretch p-2 {nbOfVues >
+              1
                 ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
                 : ''} text-center"
             >
@@ -1074,33 +1368,63 @@
                   {i + 1}
                 </div>
               {/if}
-              <div id="textcell{i}" bind:this={divQuestion[i]} class="flex flex-col justify-center px-4 w-full min-h-[100%] max-h-[100%]">
+              <div
+                id="textcell{i}"
+                bind:this={divQuestion[i]}
+                class="flex flex-col justify-center px-4 w-full min-h-[100%] max-h-[100%]"
+              >
                 {#if isQuestionVisible}
-                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  <div class="font-light" id="consigne{i}">{@html consignes[i][$questionsOrder.indexes[currentQuestion]]}</div>
+                  <div class="font-light" id="consigne{i}">
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                    {@html consignes[i][
+                      $questionsOrder.indexes[currentQuestion]
+                    ]}
+                  </div>
                   <div class="py-4" id="question{i}">
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html questions[i][$questionsOrder.indexes[currentQuestion]]}
+                    {@html questions[i][
+                      $questionsOrder.indexes[currentQuestion]
+                    ]}
                   </div>
-                  {/if}
-                  {#if isCorrectionVisible}
-                  <div id="correction{i}" class=" {isCorrectionVisible ? 'bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10' : ''}">
+                {/if}
+                {#if isCorrectionVisible}
+                  <div
+                    id="correction{i}"
+                    class=" {isCorrectionVisible
+                      ? 'bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10'
+                      : ''}"
+                  >
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html corrections[i][$questionsOrder.indexes[currentQuestion]]}
+                    {@html corrections[i][
+                      $questionsOrder.indexes[currentQuestion]
+                    ]}
                   </div>
                 {/if}
               </div>
             </div>
           {/each}
         </div>
-        <dialog class=" bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas text-[150px] font-extralight min-w-full min-h-full" id="transition">
-          <div class="flex flex-row w-full min-h-full justify-center items-center">
-            <div class="radial-progress" style="--value:{((currentQuestion + 1) / questions[0].length) * 100}; --size:500px; --thickness: 20px;">{currentQuestion + 1} / {questions[0].length}</div>
+        <dialog
+          class="absolute top-0 left-0 h-full w-full bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas text-[150px] font-extralight min-w-full min-h-full"
+          id="transition"
+        >
+          <div
+            class="flex w-full min-h-full h-full justify-center items-center"
+          >
+            <div
+              class="radial-progress"
+              style="--value:{((currentQuestion + 1) / questions[0].length) *
+                100}; --size:500px; --thickness: 20px;"
+            >
+              {currentQuestion + 1} / {questions[0].length}
+            </div>
           </div>
         </dialog>
       </main>
       <!-- Boutons de réglages -->
-      <footer class="w-full h-[10%] py-1 sticky bottom-0 opacity-100 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+      <footer
+        class="w-full h-[10%] py-1 sticky bottom-0 opacity-100 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      >
         <div class="flex flex-row justify-between w-full">
           <!-- boutons réglagles zoom -->
           <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
@@ -1112,10 +1436,14 @@
               />
             </button>
             <button type="button" on:click={zoomPlus}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-plus" />
+              <i
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-plus"
+              />
             </button>
             <button type="button" on:click={zoomMoins}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-minus" />
+              <i
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-minus"
+              />
             </button>
           </div>
           <!-- boutons contrôle défilement -->
@@ -1142,7 +1470,9 @@
               />
             </button>
             <button type="button" on:click={nextQuestion}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-next" />
+              <i
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-next"
+              />
             </button>
           </div>
           <!-- boutons timers correction quitter -->
@@ -1152,19 +1482,37 @@
                 class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-stopwatch"
                 on:click={pause}
                 on:keydown={pause}
+                role="button"
+                tabindex="0"
               >
-                <div class="absolute -bottom-[10px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths-struct dark:text-coopmathsdark-struct">
+                <div
+                  class="absolute -bottom-[10px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths-struct dark:text-coopmathsdark-struct"
+                >
                   {displayCurrentDuration()}
                 </div>
               </i>
             </label>
-            <input type="checkbox" id="timerSettings" class="modal-toggle bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" />
+            <input
+              type="checkbox"
+              id="timerSettings"
+              class="modal-toggle bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+            />
             <div class="modal modal-bottom sm:modal-middle">
               <div class="modal-box">
-                <h3 class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">Temps par question</h3>
-                <p class="py-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus">Régler la durée de projection en secondes</p>
+                <h3
+                  class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct"
+                >
+                  Temps par question
+                </h3>
+                <p
+                  class="py-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                >
+                  Régler la durée de projection en secondes
+                </p>
                 <div class="flew-row space-x-2">
-                  <div class="flex flex-row justify-start items-center space-x-2">
+                  <div
+                    class="flex flex-row justify-start items-center space-x-2"
+                  >
                     <input
                       class="w-1/4 h-2 bg-transparent text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer"
                       type="range"
@@ -1175,25 +1523,45 @@
                       bind:value={cursorTimeValue}
                       on:change={handleTimerChange}
                     />
-                    <label class="w-3/4 text-sm text-coopmaths-corpus" for="duration">{messageDuree}</label>
+                    <label
+                      class="w-3/4 text-sm text-coopmaths-corpus"
+                      for="duration">{messageDuree}</label
+                    >
                   </div>
                 </div>
                 <div class="modal-action">
-                  <label for="timerSettings" class="btn btn-neutral" on:click={switchPause} on:keydown={switchPause}>Fermer</label>
+                  <label
+                    for="timerSettings"
+                    class="btn btn-neutral"
+                    on:click={switchPause}
+                    on:keydown={switchPause}
+                  >
+                    Fermer
+                  </label>
                 </div>
               </div>
             </div>
-            <div class={$transitionsBetweenQuestions.isQuestThenSolModeActive ? 'hidden' : 'block'}>
+            <div
+              class={$transitionsBetweenQuestions.isQuestThenSolModeActive
+                ? 'hidden'
+                : 'block'}
+            >
               <button type="button" on:click={switchCorrectionMode}>
                 <i
                   class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show"
                 >
-                  <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">{displayCurrentCorrectionMode()}</div>
+                  <div
+                    class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans"
+                  >
+                    {displayCurrentCorrectionMode()}
+                  </div>
                 </i>
               </button>
             </div>
             <button type="button" on:click={handleQuit} on:keydown={handleQuit}>
-              <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-power-off" />
+              <i
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-power-off"
+              />
             </button>
           </div>
         </div>
@@ -1207,9 +1575,16 @@
       class="flex flex-col h-screen scrollbar-hide justify-center text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       data-theme="daisytheme"
     >
-      <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">Fin !</div>
+      <div
+        class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10"
+      >
+        Fin !
+      </div>
       <div class="flex flex-row items-center justify-center w-full mx-10 my-4">
-        <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="Début du diaporama">
+        <div
+          class="tooltip tooltip-bottom tooltip-neutral"
+          data-tip="Début du diaporama"
+        >
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
@@ -1219,7 +1594,10 @@
             <i class="bx text-[100px] bx-arrow-back" />
           </button>
         </div>
-        <div class="tooltip tooltip-bottom tooltip-neutral" data-tip="Questions + Réponses">
+        <div
+          class="tooltip tooltip-bottom tooltip-neutral"
+          data-tip="Questions + Réponses"
+        >
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
@@ -1244,7 +1622,10 @@
           buttonSize="text-[100px]"
           classForButton="mx-12 my-2"
         />
-        <div class="tooltip tooltip-bottom tooltip-neutral text-bg-coopmaths-canvas" data-tip="Sortir du diaporama">
+        <div
+          class="tooltip tooltip-bottom tooltip-neutral text-bg-coopmaths-canvas"
+          data-tip="Sortir du diaporama"
+        >
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"

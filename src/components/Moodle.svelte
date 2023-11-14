@@ -1,28 +1,38 @@
 <script lang="ts">
-  import { exercicesParams, darkMode } from './store'
+  import { exercicesParams, darkMode } from './stores/generalStore'
   import Footer from './Footer.svelte'
-  import NavBarV2 from './header/NavBarV2.svelte'
+  import NavBar from './header/NavBar.svelte'
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../lib/mathalea.js'
   import type TypeExercice from '../exercices/ExerciceTs.js'
 
   const copyCode = async () => {
-    try {
-      const text = document.querySelector('pre').innerText
-      await navigator.clipboard.writeText(text)
-    } catch (err) {
-      console.error('Accès au presse-papier impossible: ', err)
+    const preElt = document.querySelector('pre')
+    if (preElt) {
+      try {
+        const text = preElt.innerText
+        await navigator.clipboard.writeText(text)
+      } catch (err) {
+        console.error('Accès au presse-papier impossible: ', err)
+      }
+    } else {
+      throw new Error("Can't find `pre` selector in document")
     }
   }
 
   function downloadCode () {
-    const text = document.querySelector('pre').innerText
-    const element = document.createElement('a')
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
-    element.setAttribute('download', 'mathalea-gift.txt')
-    element.style.display = 'none'
-    document.body.appendChild(element)
-    element.click()
-    document.body.removeChild(element)
+    const preElt = document.querySelector('pre')
+    if (preElt) {
+      const text = preElt.innerText
+      const element = document.createElement('a')
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
+      element.setAttribute('download', 'mathalea-gift.txt')
+      element.style.display = 'none'
+      document.body.appendChild(element)
+      element.click()
+      document.body.removeChild(element)
+    } else {
+      throw new Error("Can't find `pre` selector in document")
+    }
   }
 
   let content = ''
@@ -65,7 +75,7 @@
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBarV2 subtitle="Moodle" subtitleType="export" />
+  <NavBar subtitle="Moodle" subtitleType="export" />
 
   <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Comment l'utiliser ?</h1>

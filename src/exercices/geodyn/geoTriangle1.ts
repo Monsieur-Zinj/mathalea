@@ -15,6 +15,8 @@ export const interactifType = 'custom'
  * @author Rémi Angot
  * Références geoTriangle-1
  */
+
+export const ref = 'triangle1'
 export const uuid = 'e514f'
 
 type Triangle = { label: string, a: number, b: number, c: number }
@@ -34,8 +36,8 @@ class ConstructionTriangle extends Exercice {
     this.exoCustomResultat = true
   }
 
-  nouvelleVersion (numeroExercice: number): void {
-    this.idApigeom = `apigeomEx${numeroExercice}F0`
+  nouvelleVersion (): void {
+    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: -7, yMin: -7, width: 800, height: 500, border: true })
     this.triangle.label = creerNomDePolygone(3)
     while (!isTriangle(this.triangle)) {
@@ -54,7 +56,7 @@ class ConstructionTriangle extends Exercice {
     texteCorr += `<br>$${labelB}${labelC}=${a}$ donc $${labelC}$ est sur le cercle de centre $${labelB}$ et de rayon $${a}$.`
     texteCorr += `<br>$${labelC}${labelA}=${b}$ donc $${labelC}$ est sur le cercle de centre $${labelA}$ et de rayon $${b}$.`
     const figureCorrection = createAnimationConstructionTriangle(this.triangle)
-    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${numeroExercice}Correction`, figure: figureCorrection })
+    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
     this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }

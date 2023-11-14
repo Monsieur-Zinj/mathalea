@@ -1,15 +1,47 @@
 <script lang="ts">
-  export let title: string = "Title"
-  export let placeholder: string = "Your text here"
+  export let title: string = 'Title'
+  export let placeholder: string = 'Your text here'
   export let showTitle: boolean = true
-  export let value: string = ""
+  export let value: string = ''
   export let isDisabled: boolean = false
-  export let inputID: string = "input-text"
-  export let classAddenda: string = ""
+  export let inputID: string = 'input-text'
+  export let classAddenda: string = ''
 </script>
 
+<!--
+  @component
+  Champ de saisie de texte
+
+  ### Paramètres
+
+  * `title` : titre du champ de texte (situé au dessus du champ de saisie)
+  * `placeholder` : texte de'invite pour le champ
+  * `showTitle` : flag permettant de décider de l'affichage du titre au dessus du champ ou pas
+  * `value` : valeur du champ
+  * `isDisabled` : flag permettant de désactiver le champ
+  * `inputID` : ID du champ
+  * `classAddenda` : éléments de style à ajouter à ceux déjà présents ( voir [Tailwindd CSS](https://tailwindcss.com/docs/installation))
+
+  ### Exemple
+
+  ```tsx
+  <InputText
+    title="Importer les exercices d'une feuille élève"
+    placeholder="Lien"
+    bind:value={urlFeuilleEleve}
+    classAddenda="w-50"
+  />
+  ```
+
+ -->
+
 <div>
-  <label class="{showTitle ? 'block' : 'hidden'} font-light text-xs text-coopmaths-struct dark:text-coopmathsdark-struct pr-4" for={inputID}>
+  <label
+    class="{showTitle
+      ? 'block'
+      : 'hidden'} font-light text-xs text-coopmaths-struct dark:text-coopmathsdark-struct pr-4"
+    for={inputID}
+  >
     {title}
   </label>
   <input

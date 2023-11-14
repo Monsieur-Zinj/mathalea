@@ -9,12 +9,13 @@
 export default class Exercice {
   titre: string
   id?: string
-  uuid?: string
+  uuid!: string
   sup: any
   sup2: any
   sup3: any
   sup4: any
   correctionInteractive?: (i?: number) => string | string[] | Promise<string | string[]>
+  exoCustomResultat?: boolean // Lorsqu'il est à true, correctionInteractive renvoie un tableau de string ce qui permet à une question de rapporter plusieurs points
   duree?: number
   seed?: string
   numeroExercice?: number
@@ -38,49 +39,48 @@ export default class Exercice {
   formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
   contenu?: string
   contenuCorrection?: string
-  autoCorrection?: object[]
+  autoCorrection: object[]
   amcType?: string
   tableauSolutionsDuQcm?: object[]
-  spacing?: number
-  spacingCorr?: number
-  pasDeVersionLatex?: boolean
-  listePackages?: string[]
-  consigneModifiable?: boolean
-  nbQuestionsModifiable?: boolean
-  nbCols?: number // Nombre de colonnes pour la sortie LaTeX
-  nbColsCorr?: number
-  nbColsModifiable?: boolean
-  nbColsCorrModifiable?: boolean
-  spacingModifiable?: boolean
-  spacingCorrModifiable?: boolean
+  spacing: number
+  spacingCorr: number
+  pasDeVersionLatex: boolean
+  listePackages: string[]
+  consigneModifiable: boolean
+  nbQuestionsModifiable: boolean
+  nbCols: number // Nombre de colonnes pour la sortie LaTeX
+  nbColsCorr: number
+  nbColsModifiable: boolean
+  nbColsCorrModifiable: boolean
+  spacingModifiable: boolean
+  spacingCorrModifiable: boolean
   listeAvecNumerotation?: boolean
-  beamer?: boolean
-  tailleDiaporama?: number
+  beamer: boolean
+  tailleDiaporama: number
   nbQuestions: number
-  pointsParQuestions?: number
-  correctionDetailleeDisponible?: boolean
-  correctionDetaillee?: boolean
-  correctionIsCachee?: boolean
-  video?: string
-  interactif?: boolean
-  interactifObligatoire?: boolean
-  interactifReady?: boolean
+  pointsParQuestions: number
+  correctionDetailleeDisponible: boolean
+  correctionDetaillee: boolean
+  correctionIsCachee: boolean
+  video: string
+  interactif: boolean // l'exercice est affiché en mode interactif si `true`
+  interactifObligatoire: boolean
+  interactifReady: boolean // flag pour indiquer si l'exercice est dispo en interactif ou pas
   interactifType?: string
-  exoCustomResultat?: boolean // Lorsqu'il est à true, correctionInteractive renvoie un tableau de string ce qui permet à une question de rapporter plusieurs points
-  besoinFormulaireNumerique?: boolean | any[]
-  besoinFormulaireTexte?: boolean | any[]
-  besoinFormulaireCaseACocher?: boolean | any[]
-  besoinFormulaire2Numerique?: boolean | any[]
-  besoinFormulaire2Texte?: boolean | any[]
-  besoinFormulaire2CaseACocher?: boolean | any[]
-  besoinFormulaire3Numerique?: boolean | any[]
-  besoinFormulaire3Texte?: boolean | any[]
-  besoinFormulaire3CaseACocher?: boolean | any[]
-  besoinFormulaire4Numerique?: boolean | any[]
-  besoinFormulaire4Texte?: boolean | any[]
-  besoinFormulaire4CaseACocher?: boolean | any[]
-  mg32Editable?: boolean
-  listeArguments?: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+  besoinFormulaireNumerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaireTexte: boolean | [string, string]
+  besoinFormulaireCaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire2Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire2Texte: boolean | [string, string]
+  besoinFormulaire2CaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire3Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire3Texte: boolean | [string, string]
+  besoinFormulaire3CaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire4Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire4Texte: boolean | [string, string]
+  besoinFormulaire4CaseACocher: boolean | [string] | [string, boolean]
+  mg32Editable: boolean
+  listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
   examen?: string // Pour les exercices statiques
   mois?: string // Pour les exercices statiques
   annee?: string // Pour les exercices statiques
@@ -158,6 +158,7 @@ export default class Exercice {
     this.video = '' // Chaine de caractère pour un complément numérique (id Youtube, url, code iframe...).
     // Interactivité
     this.interactif = false // Exercice sans saisie utilisateur par défaut.
+    this.interactifReady = false // Exercice sans saisie utilisateur par défaut.
     this.interactifObligatoire = false // Certains exercices sont uniquement des QCM et n'ont pas de version non interactive.
     // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup ou dans le paramètre d'url ',s='
     this.besoinFormulaireNumerique = false // Sinon this.besoinFormulaireNumerique = [texte, max, tooltip facultatif]

@@ -6,7 +6,7 @@ import Exercice from '../exercices/Exercice.js'
 import type TypeExercice from '../exercices/ExerciceTs.js'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/store.js'
+import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/stores/generalStore.js'
 import { get } from 'svelte/store'
 // @ts-ignore
 // @ts-ignore
@@ -445,7 +445,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
  * ne définissent qu'une seule question.
  * Avec cette fonction, on permet la création de plusieurs questions.
  */
-export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteractif: boolean, numeroExercice: number) {
+export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteractif: boolean, numeroExercice?: number) {
   if (numeroExercice !== undefined) exercice.numeroExercice = numeroExercice
   exercice.autoCorrection = []
   exercice.interactif = isInteractif

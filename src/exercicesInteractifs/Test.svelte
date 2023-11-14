@@ -1,5 +1,5 @@
 <script>
-  import HeaderExercice from '../components/exercice/HeaderExercice.svelte'
+  import HeaderExerciceVueProf from '../components/exercice/HeaderExerciceVueProf.svelte'
   export let indiceExercice
   export let indiceLastExercice
   const headerExerciceProps = {
@@ -14,7 +14,7 @@
   const a = new Date().getSeconds()
 </script>
 
-<HeaderExercice
+<HeaderExerciceVueProf
   {indiceExercice}
   {indiceLastExercice}
   id="spline"

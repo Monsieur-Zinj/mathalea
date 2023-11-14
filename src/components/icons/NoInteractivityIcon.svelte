@@ -1,10 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.467 8.467" class={$$props.class}>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 8.467 8.467"
+  class={$$props.class}
+>
   <defs>
-    <marker id="a" markerHeight="2" markerWidth="2" orient="auto-start-reverse" preserveAspectRatio="xMidYMid" refX="0" refY="0" style="overflow:visible" viewBox="0 0 5.324 6.155">
-      <path d="m5.77 0-8.65 5V-5Z" style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt" transform="scale(.5)" />
+    <marker
+      id="a"
+      markerHeight="2"
+      markerWidth="2"
+      orient="auto-start-reverse"
+      preserveAspectRatio="xMidYMid"
+      refX="0"
+      refY="0"
+      style="overflow:visible"
+      viewBox="0 0 5.324 6.155"
+    >
+      <path
+        d="m5.77 0-8.65 5V-5Z"
+        style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+        transform="scale(.5)"
+      />
     </marker>
-    <marker id="b" markerHeight="2" markerWidth="2" orient="auto-start-reverse" preserveAspectRatio="xMidYMid" refX="0" refY="0" style="overflow:visible" viewBox="0 0 5.324 6.155">
-      <path d="m5.77 0-8.65 5V-5Z" style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt" transform="scale(.5)" />
+    <marker
+      id="b"
+      markerHeight="2"
+      markerWidth="2"
+      orient="auto-start-reverse"
+      preserveAspectRatio="xMidYMid"
+      refX="0"
+      refY="0"
+      style="overflow:visible"
+      viewBox="0 0 5.324 6.155"
+    >
+      <path
+        d="m5.77 0-8.65 5V-5Z"
+        style="fill:context-stroke;fill-rule:evenodd;stroke:context-stroke;stroke-width:1pt"
+        transform="scale(.5)"
+      />
     </marker>
   </defs>
   <g transform="matrix(.87062 0 0 .87062 .723 1.111)">
@@ -23,7 +55,16 @@
     d="M.773.536.536.752v.432h4.029V.752L4.327.536Zm1.948.141h1.421a.118.118 0 0 1 .12.12.118.118 0 0 1-.12.12H2.721a.118.118 0 0 1-.12-.12.118.118 0 0 1 .12-.12ZM1.019.68a.118.118 0 0 1 .009 0 .118.118 0 0 1 .118.118.118.118 0 0 1-.118.118.118.118 0 0 1-.119-.118.118.118 0 0 1 .11-.118Zm.313 0a.118.118 0 0 1 .009 0 .118.118 0 0 1 .118.118.118.118 0 0 1-.118.118.118.118 0 0 1-.119-.118.118.118 0 0 1 .11-.118Zm.313 0a.118.118 0 0 1 .01 0 .118.118 0 0 1 .118.118.118.118 0 0 1-.119.118.118.118 0 0 1-.118-.118.118.118 0 0 1 .11-.118z"
     style="stroke:none;stroke-width:.226291px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
   />
-  <path d="M7.062 3.945V1.536h-1.21" style="fill:none;stroke-width:.747516;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#a)" />
-  <path d="M1.589 4.668v2.41h1.208" style="fill:none;stroke-width:.747516;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#b)" />
-  <path d="m.53.53 7.407 7.407" style="fill:none;stroke-width:.79375;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1" />
+  <path
+    d="M7.062 3.945V1.536h-1.21"
+    style="fill:none;stroke-width:.747516;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#a)"
+  />
+  <path
+    d="M1.589 4.668v2.41h1.208"
+    style="fill:none;stroke-width:.747516;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#b)"
+  />
+  <path
+    d="m.53.53 7.407 7.407"
+    style="fill:none;stroke-width:.79375;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+  />
 </svg>

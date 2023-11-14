@@ -1,4 +1,4 @@
-import { exercicesParams, globalOptions } from '../../components/store'
+import { exercicesParams, globalOptions } from '../../components/stores/generalStore'
 import { get } from 'svelte/store'
 import { createButon, createTextInput } from './_components'
 

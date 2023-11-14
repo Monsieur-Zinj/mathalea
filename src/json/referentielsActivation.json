@@ -1,9 +1,10 @@
 {
-  "outils" : "true",
-  "aleatoires" : "true",
-  "statiques" : "false",
-  "ressources" : "true",
-  "bibliotheque" : "true",
-  "apps" : "true",
-  "examens": "true"
+  "outils" : false,
+  "aleatoires" : true,
+  "statiques" : false,
+  "ressources" : true,
+  "geometrieDynamique": true,
+  "bibliotheque" : false,
+  "apps" : true,
+  "examens": true
 }
