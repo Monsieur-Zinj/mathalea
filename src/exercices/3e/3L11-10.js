@@ -34,6 +34,7 @@ export default function TableDoubleDistributivite () {
   this.exoCustomResultat = true
 
   this.nouvelleVersion = function () {
+    this.answers = {}
     this.consigne = this.nbQuestions > 1 ? 'Dans chaque cas, compléter les tables de multiplication, écrire le développement obtenu et le réduire.' : 'Compléter la table de multiplication, écrire le développement obtenu et le réduire.'
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -197,6 +198,7 @@ export default function TableDoubleDistributivite () {
         if (answer == null) throw Error(`Il n'y a pas de math-field d'id L${j}C${k} dans ce tableau !`)
         const valeur = answer.expression
         const divFeedback = tableau.querySelector(`div#divDuSmileyL${j}C${k}`)
+        if (valeur) this.answers[`math-field#L${j}C${k}`] = String(valeur)
         if (divFeedback) {
           if (valeur.isEqual(ce.parse(this.autoCorrection[i].reponse[`L${j}C${k}`]))) {
             divFeedback.innerHTML = divFeedback.innerHTML += '😎'
@@ -213,6 +215,8 @@ export default function TableDoubleDistributivite () {
     const mfDevReduit = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i + 1}`)
     if (!mfDevEclate || !mfDevReduit) throw Error('3L11-10 : il manque un mathfield pour la correction de l\'exo')
     const spanReponseLigne1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i}`)
+    this.answers[`Ex${this.numeroExercice}Q${2 * i}`] = mfDevEclate.value
+    this.answers[`Ex${this.numeroExercice}Q${2 * i + 1}`] = mfDevReduit.value
     if (ce.parse(developpements.eclate, { canonical: true }).isEqual(ce.parse(mfDevEclate.value, { canonical: true }))) {
       if (spanReponseLigne1) {
         spanReponseLigne1.innerHTML = spanReponseLigne1.innerHTML += '😎'
