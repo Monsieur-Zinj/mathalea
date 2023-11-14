@@ -4020,7 +4020,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'mathLive'"
+        "type": "'custom'"
       },
       "amc": {
         "isActive": false,
@@ -4859,6 +4859,7 @@
     "id": "3G44",
     "titre": "Déterminer des longueurs dans la géométrie dans l'espace",
     "datePublication": "19/12/2022",
+    "dateModification": "13/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -5108,8 +5109,8 @@
     "datePublication": "23/02/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'custom'"
       },
       "amc": {
         "isActive": false,
@@ -6511,8 +6512,8 @@
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCNum"
       }
     },
     "typeExercice": "alea"
@@ -8817,7 +8818,8 @@
     "tags": [],
     "uuid": "8865d",
     "id": "5L14-2",
-    "titre": "Substitution",
+    "titre": "Substituer par des nombres",
+    "dateModification": "13/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -8928,7 +8930,7 @@
     "id": "5L16",
     "titre": "Simplifier l'écriture d'une expression littérale",
     "datePublication": "07/04/2022",
-    "dateModification": "18/06/2022",
+    "dateModification": "13/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -9680,6 +9682,25 @@
     },
     "typeExercice": "alea"
   },
+  "5R21-1": {
+    "url": "5e/5R21-1.ts",
+    "tags": [],
+    "uuid": "f2db1",
+    "id": "5R21-1",
+    "titre": "Transformer une soustraction en addition puis calculer",
+    "datePublication": "13/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'custom'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "5R22": {
     "url": "5e/5R22.js",
     "tags": [],
@@ -10205,7 +10226,7 @@
     "tags": [],
     "uuid": "28d56",
     "id": "6C12",
-    "titre": "Résoudre des problèmes de prix",
+    "titre": "Résoudre des problèmes de prix avec des objets",
     "datePublication": "02/11/2021",
     "features": {
       "interactif": {
@@ -10224,7 +10245,7 @@
     "tags": [],
     "uuid": "4e2b2",
     "id": "6C12-1",
-    "titre": "Résoudre des problèmes de masses",
+    "titre": "Résoudre des problèmes de prix avec des aliments",
     "datePublication": "02/11/2021",
     "features": {
       "interactif": {
@@ -22562,6 +22583,24 @@
       "amc": {
         "isActive": true,
         "type": "AMCNum"
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can6eAll": {
+    "url": "can/6e/can6CXX.js",
+    "tags": [],
+    "uuid": "315b6",
+    "id": "can6eAll",
+    "titre": "Course aux nombres 6e",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'qcm_mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
       }
     },
     "typeExercice": "alea"
