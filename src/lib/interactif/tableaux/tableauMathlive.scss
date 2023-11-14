@@ -26,9 +26,10 @@ table.tableauMathlive {
 
     th {
       border: 1px solid #333333;
-      background-color: #41628f;
+      background-color: rgba(33, 109, 154, 0.5);
       padding: 2px 5px 2px 5px;
       text-align: center;
+      min-width: 75px;
     }
 
   }

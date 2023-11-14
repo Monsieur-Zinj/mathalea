@@ -5,12 +5,15 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Puissances : écriture décimale ou fractionnaire'
 
 export const dateDePublication = '14/06/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 /**
  * @author Rémi Angot
@@ -28,6 +31,7 @@ export default function PuissanceDecimaleOuFractionnaire () {
   this.video = ''
   this.sup = false
   this.besoinFormulaireCaseACocher = ['Avec des nombres négatifs']
+  this.besoinFormulaire2CaseACocher = ['Avec que des exposants positifs (incontournable pour AMC)']
 
   this.nouvelleVersion = () => {
     this.listeQuestions = []
@@ -35,7 +39,11 @@ export default function PuissanceDecimaleOuFractionnaire () {
     this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['puissancePos', 'puissanceNeg', 'negPuissancePaire', 'negPuissanceImpaire', 'negParenthesePuissancePaire', 'negParenthesePuissanceImpaire', 'puissance0', 'puissance1', 'negParenthesePuissancePaireNeg', 'negParenthesePuissanceImpaireNeg'] // On créé 3 types de questions
-    const typesDeQuestions = (this.sup) ? typeQuestionsDisponibles : ['puissance0', 'puissance1', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg']
+    const typesDeQuestions = this.sup2 || context.isAmc // Ici on ne prends que les exposants positifs pour ne pas influencer par le format de réponse AMC
+      ? ['puissance0', 'puissance1', 'puissancePos', 'puissancePos', 'puissancePos', 'puissancePos']
+      : this.sup
+        ? typeQuestionsDisponibles
+        : ['puissance0', 'puissance1', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg', 'puissancePos', 'puissanceNeg']
     const listeTypeQuestions = combinaisonListes(typesDeQuestions, this.nbQuestions)
     let texte/** string */, texteCorr
     /** string */
@@ -123,7 +131,9 @@ export default function PuissanceDecimaleOuFractionnaire () {
           texte = 'Cas non traité'
           texteCorr = 'Cas non traité'
       }
-      setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+      if (!context.isAmc) setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+      else setReponse(this, i, Number(reponse), { formatInteractif: 'calcul' })
+
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, a, n, listeTypeQuestions[i])) {
         this.listeQuestions.push(texte)
