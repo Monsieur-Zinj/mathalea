@@ -3,15 +3,17 @@ import type Figure from 'apigeom/src/Figure'
 import type { Spline } from './Spline'
 
 class PointOnSpline extends Point {
+  dx?: number
   spline: Spline
   size?: number
   abscissa: boolean
   ordinate: boolean
-  constructor (figure: Figure, { spline, x = 1, abscissa = false, ordinate = false, ...options }:
+  constructor (figure: Figure, { spline, x = 1, dx, abscissa = false, ordinate = false, ...options }:
   { spline: Spline
     x?: number
     abscissa?: boolean
     ordinate?: boolean
+    dx?: number
     shape?: 'x' | 'o' | '' | '|'
     size?: number
     label?: string
@@ -26,6 +28,7 @@ class PointOnSpline extends Point {
     super(figure, { x, y: spline.fonction(x), ...options })
     this.type = 'PointOnGraph'
     this.spline = spline
+    this.dx = dx
     // @fixme c'est juste pour qu'eslint cesse de râler mais ces propriétés ne servent pas !
     this.abscissa = abscissa
     this.ordinate = ordinate
@@ -36,7 +39,11 @@ class PointOnSpline extends Point {
   }
 
   set x (x) {
-    this._x = x
+    if (this.dx !== undefined) {
+      this._x = Math.round(x / this.dx) * this.dx
+    } else {
+      this._x = x
+    }
     this._y = this.spline.fonction(x)
     this.update()
   }
