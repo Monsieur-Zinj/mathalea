@@ -34,16 +34,16 @@ export interface ItabDbleEntry {
   headingLines: Icell[]
 }
 
-function appendCell (line: HTMLElement, icell: Icell, indexCol:number, indexLine:number, tag:'th'|'td', classes:string) {
+function appendCell ({ line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ }: {line: HTMLElement, icell: Icell, indexCol:number, indexLine:number, tag:'th'|'td', classes:string, NoEx: number, NoQ: number}) {
   const cell = document.createElement(tag)
   let element: HTMLElement
   if (icell.texte === '') {
     element = document.createElement('math-field')
     cell.appendChild(element)
     const classString = `"tableauMathlive ${classes}"`
-    element.outerHTML = `<math-field id="L${indexLine}C${indexCol}" class=${classString} virtual-keyboard-mode=manual></math-field>`
+    element.outerHTML = `<math-field id="Ex${NoEx}Q${NoQ}L${indexLine}C${indexCol}" class=${classString} virtual-keyboard-mode=manual></math-field>`
     const divDuSmiley = document.createElement('div')
-    divDuSmiley.id = `divDuSmileyL${indexLine}C${indexCol}`
+    divDuSmiley.id = `divDuSmileyEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
     cell.appendChild(divDuSmiley)
   } else {
     if (icell.latex) {
@@ -52,11 +52,11 @@ function appendCell (line: HTMLElement, icell: Icell, indexCol:number, indexLine
     // element.innerHTML = `<math-field read-only style="display:inline-block" id="L${indexLine}C${i + 1}">${icell.texte}</math-field>`
       element = document.createElement('span')
       cell.appendChild(element)
-      element.outerHTML = `<span id="L${indexLine}C${indexCol}">$${icell.texte}$</span>`
+      element.outerHTML = `<span id="spanEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}">$${icell.texte}$</span>`
     } else {
       element = document.createElement('span')
       cell.appendChild(element)
-      element.outerHTML = `<span id="L${indexLine}C${indexCol}">${icell.texte}</span>`
+      element.outerHTML = `<span id="spanEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}">${icell.texte}</span>`
     }
   }
 
@@ -70,9 +70,9 @@ function appendCell (line: HTMLElement, icell: Icell, indexCol:number, indexLine
  * @param {'td'|'th'} tag le tag (td pour des cellules à l'intérieur th pour des cellules d'entête)
  * @param {string} classes une liste de className dans un string séparés par des espaces
  */
-const fillLine = function (line: HTMLElement, content: Icell[], index: number, tag: 'td'|'th', classes: string): void {
+const fillLine = function ({ line, content, index, tag, classes, NoEx, NoQ }:{line: HTMLElement, content: Icell[], index: number, tag: 'td'|'th', classes: string, NoEx: number, NoQ: number}): void {
   for (let i = 0; i < content.length; i++) {
-    appendCell(line, content[i], i, index, tag, classes)
+    appendCell({ line, icell: content[i], indexCol: i, indexLine: index, tag, classes, NoEx, NoQ })
   }
 }
 
@@ -111,25 +111,27 @@ export class AddTabPropMathlive {
       notify('ajouteTableauMathlive : vérifiez vos paramètres !', { ligne1: tableau.ligne1, ligne2: tableau.ligne2, nbColonnes: tableau.nbColonnes })
     }
     // ça, c'est pour ne pas modifier les lignes du tableau passé en argument
+    const NoEx = exercice.numeroExercice ?? 0
+    const NoQ = question
     const ligne1 = [...tableau.ligne1]
     const ligne2 = [...tableau.ligne2]
     const tableauMathlive: AddTabPropMathlive = new AddTabPropMathlive(exercice, question, tableau, classes)
     const table = document.createElement('table')
     table.className = 'tableauMathlive'
-    table.id = `tabMathliveEx${exercice.numeroExercice}Q${question}`
+    table.id = `tabMathliveEx${NoEx}Q${question}`
     const firstLine = document.createElement('tr')
     const entete1 = ligne1.shift()
-    if (entete1) appendCell(firstLine, entete1, 0, 0, 'th', classes)
+    if (entete1) appendCell({ line: firstLine, icell: entete1, indexCol: 0, indexLine: 0, tag: 'th', classes, NoEx, NoQ })
     for (let i = 0; i < ligne1.length; i++) {
-      appendCell(firstLine, ligne1[i], i + 1, 0, 'td', classes)
+      appendCell({ line: firstLine, icell: ligne1[i], indexCol: i + 1, indexLine: 0, tag: 'td', classes, NoEx, NoQ })
     }
     table.appendChild(firstLine)
     // tableau de proportionnalité conforme à ceux définis dans src/lib/2d/tableau.js
     const secondLine = document.createElement('tr')
     const entete2 = ligne2.shift()
-    if (entete2) appendCell(secondLine, entete2, 0, 1, 'th', classes)
+    if (entete2) appendCell({ line: secondLine, icell: entete2, indexCol: 0, indexLine: 1, tag: 'th', classes, NoEx, NoQ })
     for (let i = 0; i < ligne2.length; i++) {
-      appendCell(secondLine, ligne2[i], i + 1, 1, 'td', classes)
+      appendCell({ line: secondLine, icell: ligne2[i], indexCol: i + 1, indexLine: 1, tag: 'td', classes, NoEx, NoQ })
     }
     table.appendChild(secondLine)
     // pour l'instant je retourne l'objet complet avec le HTML de la table dans sa propriété output,
@@ -186,19 +188,21 @@ export class AddTabDbleEntryMathlive {
     }
     const tableauMathlive: AddTabDbleEntryMathlive = new AddTabDbleEntryMathlive(exercice, question, tableau, classes)
     const table = document.createElement('table')
+    const NoEx = exercice.numeroExercice ?? 0
+    const NoQ = question
     table.className = 'tableauMathlive'
     table.id = `tabMathliveEx${exercice.numeroExercice}Q${question}`
     const firstLine = document.createElement('tr')
     table.appendChild(firstLine)
     if (tableau.headingCols != null) {
-      fillLine(firstLine, tableau.headingCols, 0, 'th', classes)
+      fillLine({ line: firstLine, content: tableau.headingCols, index: 0, tag: 'th', classes, NoEx, NoQ })
     }
     // lignes suivantes
     for (let j = 0; j < tableau.raws.length; j++) {
       const newLine = document.createElement('tr')
       table.appendChild(newLine)
       if (tableau.headingLines != null) {
-        appendCell(newLine, tableau.headingLines[j], 0, tableau.headingCols != null ? 1 + j : j, 'th', classes)
+        appendCell({ line: newLine, icell: tableau.headingLines[j], indexCol: 0, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'th', classes, NoEx, NoQ })
         /*
         const head = document.createElement('th')
         head.textContent = `$${tableau.headingLines[j]}$`
@@ -208,7 +212,7 @@ export class AddTabDbleEntryMathlive {
       const raw = tableau.raws[j]
       if (Array.isArray(raw) && raw.length > 0) {
         for (let i = 0; i < raw.length; i++) {
-          appendCell(newLine, raw[i], tableau.headingLines != null ? i + 1 : i, tableau.headingCols != null ? 1 + j : j, 'td', classes)
+          appendCell({ line: newLine, icell: raw[i], indexCol: tableau.headingLines != null ? i + 1 : i, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'td', classes, NoEx, NoQ })
         }
       }
     }

@@ -55,10 +55,10 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           for (let k = 0; k < cellules.length; k++) {
             const [key, value] = cellules[k]
             const inputs = Array.from(table.querySelectorAll('math-field'))
-            const input = inputs.find((el) => el.id === key)
+            const input = inputs.find((el) => el.id === `Ex${exercice.numeroExercice}Q${i}${key}`)
             const saisieParsed = engine.parse(String(input.value.replace(',', '.')))
             const reponseParsed = engine.parse(String(value))
-            const divDuSmiley = table.querySelector(`div#divDuSmiley${key}`)
+            const divDuSmiley = table.querySelector(`div#divDuSmileyEx${exercice.numeroExercice}Q${i}${key}`)
             if (saisieParsed.isEqual(reponseParsed)) {
               divDuSmiley.innerHTML = '😎'
               nbBonnesReponses++
@@ -67,7 +67,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
               divDuSmiley.innerHTML = '☹️'
             }
             if (input.value.length > 0 && typeof exercice.answers === 'object') {
-              exercice.answers[`Ex${exercice.numeroExercice}Q${i}Cellule${key}`] = input.value
+              exercice.answers[`Ex${exercice.numeroExercice}Q${i}${key}`] = input.value
             }
           }
           return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }

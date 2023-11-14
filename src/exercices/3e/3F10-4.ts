@@ -82,7 +82,7 @@ class LireImageParApiGeom extends Exercice {
     this.autoCorrection = []
 
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
-    const mesPoints = spline.pointsOfSpline(100)
+    const mesPoints = spline.pointsOfSpline(126)
     let mesPointsApiGeom: Point[] = []
     if (mesPoints && Array.isArray(mesPoints)) {
       mesPointsApiGeom = mesPoints.map(el => this.figure.create('Point', { x: el.x, y: el.y, isVisible: false }))
@@ -98,7 +98,7 @@ class LireImageParApiGeom extends Exercice {
       pointMobile.createSegmentToAxeY()
       const textX = this.figure.create('DynamicX', { point: pointMobile })
       const textY = this.figure.create('DynamicY', { point: pointMobile })
-      textX.dynamicText.maximumFractionDigits = 1
+      textX.dynamicText.maximumFractionDigits = 2
       textY.dynamicText.maximumFractionDigits = 1
     }
 
@@ -115,6 +115,23 @@ class LireImageParApiGeom extends Exercice {
         // je sais que i n'est pas modifié, mais la condition sur this.x[i] l'est et c'est ça qui compte !
         // eslint-disable-next-line no-unmodified-loop-condition
       } while (this.X.slice(0, i).indexOf(this.X[i]) !== -1 || !(this.X[i] < -1 || this.X[i] > 1))
+    }
+    // on ordonne les X dans l'ordre croissant
+    let index = 0
+    while (index < this.nbImages) {
+      let j = index + 1
+      while (j < this.nbImages) {
+        if (this.X[index] > this.X[j]) {
+          const x = this.X[index]
+          const y = this.Y[index]
+          this.X[index] = this.X[j]
+          this.Y[index] = this.Y[j]
+          this.X[j] = x
+          this.Y[j] = y
+        }
+        j++
+      }
+      index++
     }
     for (let i = 0; i < this.nbImages; i++) {
     //  enonce += `${numAlpha(i)} $${texNombre(this.X[i], 1)}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: '  ' }) + '<br>'
@@ -192,11 +209,11 @@ class LireImageParApiGeom extends Exercice {
     if (tableau == null) throw Error('La correction de 3F10-4 n\'a pas trouvé le tableau interactif.')
     const result: string[] = []
     for (let k = 0; k < this.nbImages; k++) {
-      const answer: MathfieldElement = tableau.querySelector(`math-field#L1C${k + 1}`) as MathfieldElement
-      if (answer == null) throw Error(`Il n'y a pas de math-field d'id L1C${k + 1} dans ce tableau !`)
+      const answer: MathfieldElement = tableau.querySelector(`math-field#Ex${this.numeroExercice}Q0L1C${k + 1}`) as MathfieldElement
+      if (answer == null) throw Error(`Il n'y a pas de math-field d'id Ex${this.numeroExercice}QOL1C${k + 1} dans ce tableau !`)
       const valeur = Number(answer.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1'))
       if (valeur) this.answers[`math-field#L1C${k + 1}`] = String(valeur)
-      const divFeedback = tableau.querySelector(`div#divDuSmileyL1C${k + 1}`)
+      const divFeedback = tableau.querySelector(`div#divDuSmileyEx${this.numeroExercice}Q0L1C${k + 1}`)
       if (divFeedback) {
         if (egal(valeur, this.Y[k], 0.1)) {
           divFeedback.innerHTML = divFeedback.innerHTML += '😎'

@@ -58,7 +58,7 @@ export default function TableDoubleDistributivite () {
       c = randint(2, 9, [a])
       d = randint(2, 9, [b])
       let L1C1, L1C2, L2C1, L2C2
-
+      this.autoCorrection[i] = {}
       switch (typesDeQuestions) {
         case 1: // (x+b)(x+d)
           b = randint(2, 10)
@@ -194,11 +194,11 @@ export default function TableDoubleDistributivite () {
     const result = []
     for (const k of [1, 2]) {
       for (const j of [1, 2]) {
-        const answer = tableau.querySelector(`math-field#L${j}C${k}`)
-        if (answer == null) throw Error(`Il n'y a pas de math-field d'id L${j}C${k} dans ce tableau !`)
+        const answer = tableau.querySelector(`math-field#Ex${this.numeroExercice}Q${i}L${j}C${k}`)
+        if (answer == null) throw Error(`Il n'y a pas de math-field d'id "Ex${this.numeroExercice}Q${i}L${j}C${k}" dans ce tableau !`)
         const valeur = answer.expression
-        const divFeedback = tableau.querySelector(`div#divDuSmileyL${j}C${k}`)
-        if (valeur) this.answers[`math-field#L${j}C${k}`] = String(valeur)
+        const divFeedback = tableau.querySelector(`div#divDuSmileyEx${this.numeroExercice}Q${i}L${j}C${k}`)
+        if (valeur) this.answers[`math-field#Ex${this.numeroExercice}Q${i}L${j}C${k}`] = String(valeur)
         if (divFeedback) {
           if (valeur.isEqual(ce.parse(this.autoCorrection[i].reponse[`L${j}C${k}`]))) {
             divFeedback.innerHTML = divFeedback.innerHTML += '😎'
