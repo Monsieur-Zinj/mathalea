@@ -7,27 +7,29 @@
 
   const copyCode = async () => {
     const preElt = document.querySelector('pre')
-   if (preElt) { try {
-      const text = preElt.innerText
-      await navigator.clipboard.writeText(text)
-    } catch (err) {
-      console.error('Accès au presse-papier impossible: ', err)
-    }} else {
+    if (preElt) {
+      try {
+        const text = preElt.innerText
+        await navigator.clipboard.writeText(text)
+      } catch (err) {
+        console.error('Accès au presse-papier impossible: ', err)
+      }
+    } else {
       throw new Error("Can't find `pre` selector in document")
     }
   }
 
   function downloadCode () {
     const preElt = document.querySelector('pre')
-    if (preElt){
-    const text = preElt.innerText
-    const element = document.createElement('a')
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
-    element.setAttribute('download', 'mathalea-gift.txt')
-    element.style.display = 'none'
-    document.body.appendChild(element)
-    element.click()
-    document.body.removeChild(element)
+    if (preElt) {
+      const text = preElt.innerText
+      const element = document.createElement('a')
+      element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
+      element.setAttribute('download', 'mathalea-gift.txt')
+      element.style.display = 'none'
+      document.body.appendChild(element)
+      element.click()
+      document.body.removeChild(element)
     } else {
       throw new Error("Can't find `pre` selector in document")
     }

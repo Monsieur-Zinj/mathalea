@@ -6,7 +6,7 @@ import { get } from 'svelte/store'
    * @returns {string} chaîne à ajouter
    * @author sylvain
    */
-export function buildUrlAddendumForEsParam (needForFullURL = true) {
+export function buildUrlAddendumForEsParam (needForFullURL = true, mode = '') {
   const options = get(globalOptions)
   const presentationMode = new Map([
     ['liste_exos', 0],
@@ -17,7 +17,7 @@ export function buildUrlAddendumForEsParam (needForFullURL = true) {
   ])
   let addendum = needForFullURL ? '&v=eleve&title=' + options.title : ''
   // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns
-  addendum += '&es=' + presentationMode.get(options.presMode)
+  addendum += '&es=' + presentationMode.get(mode.length !== 0 ? mode : options.presMode)
   addendum += options.setInteractive
   addendum += options.isSolutionAccessible ? '1' : '0'
   addendum += options.isInteractiveFree ? '1' : '0'
