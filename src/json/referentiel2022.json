@@ -659,14 +659,21 @@
         },
         "can6a-Aléa": {
           "url": "can/6e/can6a-alea.js",
+          "tags": [],
           "uuid": "315b6",
           "id": "can6a-Aléa",
           "titre": "Course aux nombres 6e",
-          "tags": {
-            "interactif": true,
-            "interactifType": "qcm_mathLive",
-            "amc": false
-          }
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'qcm_mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
         },
         "can6a-xxxx": {
           "url": "can/6e/can6a-xxxx.js",
@@ -8281,6 +8288,7 @@
         "uuid": "85618",
         "id": "c3N10",
         "titre": "Écrire un nombre en chiffres ou en lettres",
+        "dateModification": "14/11/2023",
         "features": {
           "interactif": {
             "isActive": false,
