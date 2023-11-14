@@ -397,7 +397,7 @@
             ? 'sm:h-[calc(100vh-7rem)]'
             : 'sm:h-screen'} sticky top-0 z-40 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >
-          <SideMenu bind:isMenuOpen bind:sidebarWidth />
+          <SideMenu bind:isMenuOpen bind:sidebarWidth excludedReferentiels={['outils']} />
         </div>
       </div>
 

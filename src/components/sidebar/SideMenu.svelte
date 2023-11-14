@@ -2,7 +2,10 @@
   import {
     type JSONReferentielObject,
     type ResourceAndItsPath,
-    type ReferentielInMenu
+    type ReferentielInMenu,
+
+    type ActivationName
+
   } from '../../lib/types/referentiels'
   import {
     applyFilters,
@@ -21,6 +24,7 @@
   import { onMount } from 'svelte'
   export let isMenuOpen: boolean = true
   export let sidebarWidth: number = 300
+  export let excludedReferentiels: ActivationName[] = []
   /**
    * Mise à jour des référentiels en tenant compte des filtres
    * La fonction est appelée lorsqu'est détecté l'événement `filters-change`
@@ -31,7 +35,13 @@
     let filteredReferentielItems: ResourceAndItsPath[] = []
     const results: ReferentielInMenu[] = []
     const copyOfOriginalReferentiel: ReferentielInMenu[] =
-      deepReferentielInMenuCopy(originalReferentiels)
+      deepReferentielInMenuCopy(originalReferentiels).filter((e) => {
+        if (excludedReferentiels.includes(e.name)) {
+          return false
+        } else {
+          return true
+        }
+      })
     copyOfOriginalReferentiel.forEach((item) => {
       if (item.searchable) {
         const all = getAllEndings(item.referentiel)
