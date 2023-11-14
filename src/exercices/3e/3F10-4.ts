@@ -63,6 +63,7 @@ class LireImageParApiGeom extends Exercice {
     this.X = []
     this.Y = []
     this.exoCustomResultat = true
+    this.answers = {}
   }
 
   nouvelleVersion (numeroExercice: number): void {
@@ -185,6 +186,7 @@ class LireImageParApiGeom extends Exercice {
   }
 
   correctionInteractive = () => {
+    this.answers = {}
     const tableId = `tabMathliveEx${this.numeroExercice}Q${0}`
     const tableau = document.querySelector(`table#${tableId}`)
     if (tableau == null) throw Error('La correction de 3F10-4 n\'a pas trouvé le tableau interactif.')
@@ -193,6 +195,7 @@ class LireImageParApiGeom extends Exercice {
       const answer: MathfieldElement = tableau.querySelector(`math-field#L1C${k + 1}`) as MathfieldElement
       if (answer == null) throw Error(`Il n'y a pas de math-field d'id L1C${k + 1} dans ce tableau !`)
       const valeur = Number(answer.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1'))
+      if (valeur) this.answers[`math-field#L1C${k + 1}`] = String(valeur)
       const divFeedback = tableau.querySelector(`div#divDuSmileyL1C${k + 1}`)
       if (divFeedback) {
         if (egal(valeur, this.Y[k], 0.1)) {
