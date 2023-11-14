@@ -150,6 +150,14 @@
     if ($globalOptions.recorder === 'capytale') {
       handleCapytale()
     }
+    globalOptions.update((params) => {
+      params.presMode = 'un_exo_par_page'
+      params.isDataRandom = true
+      if ($globalOptions.v === 'eleve') {
+        params.isInteractiveFree = false
+      }
+      return params
+    })
     // Réglage du vecteur de translation pour le dé au loading
     const root = document.documentElement
     root.style.setProperty('--vect', 'calc((100vw / 10) * 0.5)')
