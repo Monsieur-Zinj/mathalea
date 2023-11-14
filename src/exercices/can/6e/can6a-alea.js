@@ -16,7 +16,7 @@ export const amcReady = false
  * ATTENTION : exercice avec chargement dynamique des questions.
  */
 export const uuid = '315b6'
-export const ref = 'can6eAll'
+export const ref = 'can6a-Aléa'
 export default function can6eAll() {
   Exercice.call(this)
   this.nbQuestions = 4

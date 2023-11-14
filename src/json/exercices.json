@@ -14362,6 +14362,17 @@
     "datePublication": "03/04/2023",
     "dateModification": "24/10/2021"
   },
+  "can6a-Aléa": {
+    "url": "can/6e/can6a-alea.js",
+    "uuid": "315b6",
+    "id": "can6a-Aléa",
+    "titre": "Course aux nombres 6e",
+    "tags": {
+      "interactif": true,
+      "interactifType": "qcm_mathLive",
+      "amc": false
+    }
+  },
   "can6a-xxxx": {
     "url": "can/6e/can6a-xxxx.js",
     "uuid": "3a526",
@@ -14372,17 +14383,6 @@
       "interactifType": "mathLive",
       "amcType": "AMCNum",
       "amc": true
-    }
-  },
-  "can6eAll": {
-    "url": "can/6e/can6CXX.js",
-    "uuid": "315b6",
-    "id": "can6eAll",
-    "titre": "Course aux nombres 6e",
-    "tags": {
-      "interactif": true,
-      "interactifType": "qcm_mathLive",
-      "amc": false
     }
   },
   "canExC01": {
