@@ -47,7 +47,7 @@
 
   const dispatch = createEventDispatcher()
 
-  function newSettings() {
+  function newSettings () {
     dispatch('settings', {
       nbQuestions,
       duration,
@@ -70,7 +70,7 @@
    * <code>besoinFormulaireNumérique</code>
    * @author sylvain chambon
    */
-  function parseFormNumerique(
+  function parseFormNumerique (
     entreesFormulaire:
       | [titre: string, max: number, tooltip: string]
       | [titre: string, max: number]
@@ -659,6 +659,7 @@
           ? 'block'
           : 'hidden'} pt-4 font-light text-justify text-coopmaths-corpus-light text-sm"
       >
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html exercice.comment}
       </div>
     </div>

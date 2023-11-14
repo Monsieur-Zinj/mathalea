@@ -121,7 +121,7 @@
     }
   })
 
-  async function updateExercices() {
+  async function updateExercices () {
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
@@ -204,7 +204,7 @@
     }
   }
 
-  function handleShortcut(e: KeyboardEvent) {
+  function handleShortcut (e: KeyboardEvent) {
     if (e.key === 'ArrowLeft') {
       e.preventDefault()
       prevQuestion()
@@ -225,7 +225,7 @@
   //
   // ================================================================================
 
-  async function goToQuestion(i: number) {
+  async function goToQuestion (i: number) {
     if (i >= -1 && i <= questions[0].length) currentQuestion = i
     if (i === -1 || i === questions[0].length) pause()
     await tick()
@@ -253,7 +253,7 @@
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
 
-  function prevQuestion() {
+  function prevQuestion () {
     if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
       if (isQuestionVisible) {
         if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
@@ -267,7 +267,7 @@
     }
   }
 
-  function nextQuestion() {
+  function nextQuestion () {
     if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
       if (isQuestionVisible && !isCorrectionVisible) {
         switchPause()
@@ -290,7 +290,7 @@
   /**
    * Pour le bouton de retour de la page de fin
    */
-  function returnToStart() {
+  function returnToStart () {
     durationGlobal = 0
     pause()
     goToQuestion(0)
@@ -300,7 +300,7 @@
    * Gestion du clic sur l'étape dans la progression
    * @param {number} index index de l'étape
    */
-  function clickOnStep(index: number) {
+  function clickOnStep (index: number) {
     goToQuestion(index)
   }
 
@@ -312,7 +312,7 @@
   //
   // ================================================================================
 
-  function timer(timeQuestion = 5, reset = true) {
+  function timer (timeQuestion = 5, reset = true) {
     // timeQuestion est le temps de la question exprimé en secondes
     if (timeQuestion === 0) {
       pause()
@@ -331,13 +331,13 @@
     }
   }
 
-  function switchPause() {
+  function switchPause () {
     if (!isPause) {
       pause()
     } else timer(durationGlobal ?? durations[currentQuestion] ?? 10, false)
   }
 
-  function pause() {
+  function pause () {
     clearInterval(myInterval)
     isPause = true
   }
@@ -346,7 +346,7 @@
   /**
    * Gère la récupération de la valeur du curseur de temps
    */
-  function handleTimerChange() {
+  function handleTimerChange () {
     durationGlobal = 0
     pause()
     if (cursorTimeValue === 0) {
@@ -360,7 +360,7 @@
     goToQuestion(currentQuestion)
   }
 
-  function handleChangeDurationGlobal() {
+  function handleChangeDurationGlobal () {
     globalOptions.update((l) => {
       l.durationGlobal = durationGlobal
       return l
@@ -368,7 +368,7 @@
     updateExercices()
   }
 
-  function handleCheckSameDurationForAll() {
+  function handleCheckSameDurationForAll () {
     globalOptions.update((l) => {
       l.durationGlobal = undefined
       return l
@@ -386,7 +386,7 @@
    * Calcule la durée totale du diaporama
    * (durée par question x nombre de questions)
    */
-  function getTotalDuration() {
+  function getTotalDuration () {
     let sum = 0
     for (const [i, exercice] of exercices.entries()) {
       if ($selectedExercises.isActive) {
@@ -423,7 +423,7 @@
     return sum
   }
 
-  function handleCheckManualMode() {
+  function handleCheckManualMode () {
     isManualModeActive = !isManualModeActive
   }
 
@@ -478,7 +478,7 @@
    * </ul>
    * @author sylvain
    */
-  async function setSize() {
+  async function setSize () {
     for (let i = 0; i < nbOfVues; i++) {
       if (typeof divQuestion[i] !== 'undefined') {
         mathaleaRenderDiv(divQuestion[i], -1)
@@ -651,7 +651,7 @@
     }
   }
 
-  function zoomPlus() {
+  function zoomPlus () {
     // userZoom += 0.25
     if (userZoom < 1) {
       userZoom += 0.05
@@ -662,7 +662,7 @@
     setSize()
   }
 
-  function zoomMoins() {
+  function zoomMoins () {
     // if (userZoom > 1) userZoom -= 0.25
     // else if (userZoom > 0.2) userZoom -= 0.1
     if (userZoom > 0.1) {
@@ -687,7 +687,7 @@
   //
   // ================================================================================
 
-  async function switchCorrectionMode() {
+  async function switchCorrectionMode () {
     // isCorrectionVisible = !isCorrectionVisible
     if (isQuestionVisible && !isCorrectionVisible) {
       isCorrectionVisible = !isCorrectionVisible
@@ -705,7 +705,7 @@
     setSize()
   }
 
-  async function switchQuestionToCorrection() {
+  async function switchQuestionToCorrection () {
     if (isCorrectionVisible) {
       isCorrectionVisible = false
       isQuestionVisible = true
@@ -735,7 +735,7 @@
   /**
    * Gestion de la sélection du choix des exercices dans la liste
    */
-  function handleSampleChecked() {
+  function handleSampleChecked () {
     $selectedExercises.count = exercices.length - 1
     $selectedExercises.isActive = !$selectedExercises.isActive
     if (!$selectedExercises.isActive) {
@@ -759,7 +759,7 @@
    * sera batie la liste des exercices à utiliser
    * 2/ on met à jours les paramètres dans les options et l'URL
    */
-  function handleSampleSizeChange() {
+  function handleSampleSizeChange () {
     if ($selectedExercises.count) {
       $selectedExercises.indexes = [
         ...listOfRandomIndexes(exercices.length, $selectedExercises.count)
@@ -776,7 +776,7 @@
   /**
    * Gestion du bouton demandant de changer l'ordre des questions
    */
-  function handleRandomQuestionOrder() {
+  function handleRandomQuestionOrder () {
     // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled // <- inutile avec ButtonToggle
     // globalOptions.update((l) => {
     //   console.log('bouton touché, ordre ?')
@@ -796,7 +796,7 @@
    * Gérer le choix de cartons entre les questions
    * @author sylvain
    */
-  function handleTransitionsMode() {
+  function handleTransitionsMode () {
     // $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive  <- inutile avec ButtonToggle
     globalOptions.update((l) => {
       l.trans = $transitionsBetweenQuestions.isActive
@@ -809,7 +809,7 @@
    * Gérer le choix de sons entre les questions
    * @author sylvain
    */
-  function handleTransitionSound() {
+  function handleTransitionSound () {
     if ($transitionsBetweenQuestions.isNoisy) {
       if (typeof $transitionsBetweenQuestions.tune === 'undefined') {
         $transitionsBetweenQuestions.tune = '0'
@@ -832,7 +832,7 @@
    * Met à jour le numéro du son dans l'URL
    * @author sylvain
    */
-  function handleTuneChange() {
+  function handleTuneChange () {
     globalOptions.update((l) => {
       l.sound = $transitionsBetweenQuestions.tune
       return l
@@ -840,7 +840,7 @@
     updateExercices()
   }
 
-  function switchFullScreen() {
+  function switchFullScreen () {
     isFullScreen = !isFullScreen
     if (isFullScreen) {
       const app = document.querySelector('#diaporama')
@@ -850,13 +850,13 @@
     }
   }
 
-  function handleQuit() {
+  function handleQuit () {
     mathaleaHandleComponentChange('diaporama', '')
     // $selectedExercises.isActive = false
     updateExercices()
   }
 
-  function isInViewport(element: HTMLElement): boolean {
+  function isInViewport (element: HTMLElement): boolean {
     const rect = element.getBoundingClientRect()
     return (
       rect.top >= 0 &&

@@ -41,7 +41,7 @@
   let nbExemplaires = 1
   let textForOverleaf: HTMLInputElement
 
-  async function initExercices() {
+  async function initExercices () {
     exercicesARetirer.length = 0
     await mathaleaUpdateExercicesParamsFromUrl()
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
@@ -61,9 +61,7 @@
           refsExercicesARetirer.push(exercice.id)
         } else {
           // console.log(Object.entries(exercice))
-          const proprietes: string[] = Object.entries(exercice).map(
-            ([prop, val]) => val
-          )
+          const proprietes: string[] = Object.values(exercice)
           proprietes.shift()
           refsExercicesARetirer.push(proprietes.join(' '))
         }
@@ -133,7 +131,7 @@
    * @param {string} dialogId id attaché au composant
    * @author sylvain
    */
-  async function copyLaTeXCodeToClipBoard(dialogId: string) {
+  async function copyLaTeXCodeToClipBoard (dialogId: string) {
     navigator.clipboard.writeText(content).then(
       () => {
         showDialogForLimitedTime(dialogId + '-1', 1000)
@@ -161,22 +159,22 @@
   })
   // click en dehors du modal le fait disparaître
   window.onclick = function (event) {
-    if (event.target == modal) {
+    if (event.target === modal) {
       modal.style.display = 'none'
     }
-    if (event.target == nonAmcModal) {
+    if (event.target === nonAmcModal) {
       nonAmcModal.style.display = 'none'
     }
   }
 
-  function handleNonAmcModal() {
+  function handleNonAmcModal () {
     nonAmcModal.style.display = 'none'
   }
 
   /**
    * Gérer le POST pour Overleaf
    */
-  function handleOverLeaf() {
+  function handleOverLeaf () {
     textForOverleaf.value =
       'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(content)))
     overleafForm.submit()
@@ -269,8 +267,8 @@
             {exercice.id}{exercice.sup
               ? `-S:${exercice.sup}`
               : ''}{exercice.sup2 ? `-S2:${exercice.sup2}` : ''}{exercice.sup3
-              ? `-S3:${exercice.sup3}`
-              : ''}
+                ? `-S3:${exercice.sup3}`
+                : ''}
             <input
               type="text"
               id="amc-export-nb-questions-gr{i}-input"

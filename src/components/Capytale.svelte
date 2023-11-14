@@ -132,9 +132,10 @@
     }
     url.searchParams.append('v', 'eleve')
     url.searchParams.append('title', $globalOptions.title ?? '')
+    const presMode = $exercicesParams.length === 1 ? 'liste_exos' : 'un_exo_par_page'
     url.searchParams.append(
       'es',
-      buildUrlAddendumForEsParam(false).replace('&es=', '')
+      buildUrlAddendumForEsParam(false, presMode).replace('&es=', '')
     )
     window.open(url, '_blank')?.focus()
   }
