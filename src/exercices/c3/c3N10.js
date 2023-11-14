@@ -1,6 +1,8 @@
 import ÉcrireNombresEntiers from '../6e/6N10.js'
 export const titre = 'Écrire un nombre en chiffres ou en lettres'
 
+export const dateDeModifImportante = '14/11/2023'
+
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, milliers, millions, milliards
