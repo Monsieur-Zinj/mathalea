@@ -43,7 +43,7 @@ export default function CourseAuxNombres2024 () {
 
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(70), this.nbQuestions)
+      questions = combinaisonListesSansChangerOrdre(range1(75), this.nbQuestions)
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -110,16 +110,16 @@ export default function CourseAuxNombres2024 () {
       rangeMinMax(1, 7) // etc... Ici, ce ne sont que des exemples mis au hasard pour pouvoir tester
     ]
 
-    for (let i = 0; i < 72; i++) { // A supprimer... C'est pour faire des tests...
+    for (let i = 0; i < 75; i++) { // A supprimer... C'est pour faire des tests...
       listeCAN[i] = range(7)
     }
     // const typeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48]// 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42
     const typeQuestionsDisponibles = []
 
-    for (let i = 70; i < 72; i++) { // Ici, selon le niveau attendu, on ne sélectionne que les questions qu'il faut
+    for (let i = 0; i < 75; i++) { // Ici, selon le niveau attendu, on ne sélectionne que les questions qu'il faut
       if (compteOccurences(listeCAN[i], niveauAttendu) === 1) typeQuestionsDisponibles.push(i + 1)
     }
-    for (let i = 0, index = 0, reponse, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 71;) {
+    for (let i = 0, index = 0, reponse, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 76;) {
       // Boucle principale où i+1 correspond au numéro de la question
       // texNombre(n) permet d'écrire un nombre avec le bon séparateur décimal !! à utiliser entre $  $
       // calcul(expression) permet d'éviter les erreurs de javascript avec les approximations décimales
@@ -1812,7 +1812,7 @@ export default function CourseAuxNombres2024 () {
         }
           break
 
-        case 70: 
+        case 70:
           reponse = 4220
           texte = 'Quel est le plus grand nombre de quatre chiffres que l\'on peut écrire en utilisant les quatre chiffres : $2$, $0$, $2$ et $4$ ?'
           texteCorr = ` Le plus grand nombre est $${miseEnEvidence(`${texNombre(4220)}`)}$.`
@@ -1823,7 +1823,7 @@ export default function CourseAuxNombres2024 () {
           }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
-        
+
           break
 
         case 71:
@@ -1861,6 +1861,57 @@ export default function CourseAuxNombres2024 () {
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
 
+          break
+
+        case 73:
+          reponse = 'x'
+          texte = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2024)})=${texNombre(2024)}$.<br>
+          Compléter : $f(x)=$ `
+          texteCorr = `Une fonction linéaire est une fonction de la forme $f(x)=ax$.<br>
+          Comme $f(${texNombre(2024)})=${texNombre(2024)}$, on a $${texNombre(2024)}=a\\times ${texNombre(2024)}$, soit $a=1$.<br>
+          On obtient donc : $f(x)=${miseEnEvidence('x')}$.`
+          setReponse(this, index, reponse)
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+          } else { texte += '$\\ldots$' }
+          this.listeCanEnonces.push(`Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2024)})=${texNombre(2024)}$.<br>
+          Compléter.`)
+          this.listeCanReponsesACompleter.push('$f(x)=\\ldots$')
+          break
+        case 74:
+          reponse = ['-x+2024', '2024-x']
+          texte = `Soit $f$ la fonction affine vérifiant $f(${texNombre(2024)})=0$ et $f(0)=${texNombre(2024)}$.<br>
+            Compléter : $f(x)=$ `
+          texteCorr = `Une fonction affine est une fonction de la forme $f(x)=mx+p$.<br>
+            Comme $f(0)=${texNombre(2024)}$, on a $p=${texNombre(2024)}$. Ainsi, $f(x)=mx+${texNombre(2024)}$.<br>
+            De plus, $f(${texNombre(2024)})=0$, donc $m\\times ${texNombre(2024)}+${texNombre(2024)}=0$, soit $m=-1$.<br>
+            On obtient donc : $f(x)=${miseEnEvidence('-x+2024')}$.`
+          setReponse(this, index, reponse)
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+          } else { texte += '$\\ldots$' }
+          this.listeCanEnonces.push(`Soit $f$ la fonction affine vérifiant $f(${texNombre(2024)})=0$ et $f(0)=${texNombre(2024)}$.<br>
+            Compléter.`)
+          this.listeCanReponsesACompleter.push('$f(x)=\\ldots$')
+          break
+
+        case 75:
+          {
+            const b = randint(2, 10) * 100 + 24
+            reponse = (2024 - b) / 100
+            texte = `Je pense à un nombre. Je le multiplie par $100$, puis j'ajoute au résultat $${b}$ et j'obtiens $${texNombre(2024)}$. <br>
+          Quel est ce nombre ?`
+
+            texteCorr = `Pour obtenir $${texNombre(2024)}$, on a ajouté $${texNombre(2024 - b)}$ à $${b}$ et le nombre qui, multiplié par $100$ donne $${texNombre(2024 - b)}$ est $${texNombre(reponse)}$.<br>
+            Le nombre choisi au départ est donc $${miseEnEvidence(`${reponse}`)}$.`
+
+            setReponse(this, index, reponse)
+            if (this.interactif) {
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            }
+            this.listeCanEnonces.push(texte)
+            this.listeCanReponsesACompleter.push('')
+          }
           break
       }
       // texte += '<br>Réponse attendue : ' + reponse // Pour avoir les réponses quand on débuggue.
