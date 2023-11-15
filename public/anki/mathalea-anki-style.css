@@ -1,6 +1,6 @@
 /*
   Author: Guillaume Valmont
-  Date : November 5, 2023
+  Date : November 15, 2023
   Licence: CC-BY-SA 4.0
   https://forge.aeif.fr/anki-templates/mathalea
 */
@@ -13,12 +13,16 @@
   background-color: white;
  }
 
-iframe {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-}
+ iframe {
+   position: absolute;
+   top: 0;
+   left: 0;
+ }
+ iframe.desktop {
+   width: 100vw;
+   height: 100vh;
+ }
+ iframe.web {
+   width: 75vw;
+   height: 68vh;
+ }
