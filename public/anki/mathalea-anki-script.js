@@ -19,10 +19,11 @@ function versoIframeUpdate (urlFieldRaw) {
 }
 
 function iframeUpdate (iframeId, url) {
+  const isDesktop = navigator.userAgent.toLowerCase().includes('qt')
   if (url === '') {
     document.getElementById(iframeId).innerHTML = 'Il y a un problème avec l\'url, vérifier que le champ "url" de la carte contient bien un lien vers un exercice de MathALÉA.<br><a href="https://coopmaths.fr/alea">https://coopmaths.fr/alea</a>'
   } else {
-    document.getElementById(iframeId).innerHTML = `<iframe id="${iframeId}" src="${url}" allowfullscreen frameborder="0"></iframe>`
+    document.getElementById(iframeId).innerHTML = `<iframe id="${iframeId}" class="${isDesktop ? 'desktop' : 'web'}" src="${url}" allowfullscreen frameborder="0"></iframe>`
   }
 }
 
