@@ -11,7 +11,7 @@ import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
-export const titre = 'Effectuer des calculs qu\'avec des puissances'
+export const titre = 'Effectuer des calculs avec des puissances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
