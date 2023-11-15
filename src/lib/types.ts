@@ -18,6 +18,8 @@ export interface InterfaceGlobalOptions {
     | 'un_exo_par_page'
     | 'liste_questions'
     | 'une_question_par_page'
+    | 'recto'
+    | 'verso'
     // | 'cartes'
   setInteractive: string
   isSolutionAccessible?: boolean

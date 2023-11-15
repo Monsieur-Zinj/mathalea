@@ -303,7 +303,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let recorder: 'capytale' | 'moodle' | 'labomep' | 'anki'
   let done: '1'
   let choice, sound, es
-  let presMode: 'liste_exos' | 'un_exo_par_page' | 'liste_questions' | 'une_question_par_page' = 'liste_exos'
+  let presMode: 'liste_exos' | 'un_exo_par_page' | 'liste_questions' | 'une_question_par_page' | 'recto' | 'verso' = 'liste_exos'
   let setInteractive = '2'
   let isSolutionAccessible = true
   let isInteractiveFree = true

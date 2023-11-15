@@ -305,11 +305,13 @@
 </script>
 
 <div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this={divExercice}>
-  <HeaderExerciceVueEleve {...headerExerciceProps} {indiceExercice} showNumber={indiceLastExercice > 1} />
+  {#if $globalOptions.presMode !== 'recto' && $globalOptions.presMode !== 'verso'}
+    <HeaderExerciceVueEleve {...headerExerciceProps} {indiceExercice} showNumber={indiceLastExercice > 1} />
+  {/if}
 
   <div class="flex flex-col-reverse lg:flex-row">
     <div class="flex flex-col justify-start items-start" id="exercice{indiceExercice}">
-      <div class="flex flex-row justify-start items-center {indiceLastExercice > 1 && $globalOptions.presMode !== 'un_exo_par_page' ? 'ml-2 lg:ml-6' : 'ml-2'} mb-2 lg:mb-6">
+      <div class="flex flex-row justify-start items-center {indiceLastExercice > 1 && $globalOptions.presMode !== 'un_exo_par_page' ? 'ml-2 lg:ml-6' : 'ml-2'} mb-2 lg:mb-6 {$globalOptions.presMode === 'recto' || $globalOptions.presMode === 'verso' ? 'hidden' : 'flex'}">
         <div class={!$globalOptions.oneShot && $globalOptions.done !== '1' ? 'flex' : 'hidden'}>
           <Button
             title="Nouvel Énoncé"
