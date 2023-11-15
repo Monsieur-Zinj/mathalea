@@ -178,3 +178,5 @@ export function handleUncheckingMutipleFilters (key: string) {
   if (clgKeys.includes(key)) { filters.levels.college.isSelected = false }
   if (lyceeKeys.includes(key)) { filters.levels.lycee.isSelected = false }
 }
+
+export const filtersHaveChanged = writable<boolean>(false)
