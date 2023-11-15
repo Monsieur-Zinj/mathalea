@@ -20,7 +20,7 @@
     mathaleaUpdateUrlFromExercicesParams
   } from '../../lib/mathalea'
   import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
-  import Settings from './NewSettings.svelte'
+  import Settings from './Settings.svelte'
   import { exercisesUuidRanking, uuidCount } from '../utils/counts'
   import Exercice from '../../exercices/ExerciceTs.js'
   import type { HeaderProps } from '../../lib/types/ui'
@@ -120,7 +120,7 @@
     unsubscribeToChangesStore()
   })
 
-  async function forceUpdate(){
+  async function forceUpdate () {
     if (exercice == null) return
     exercice.numeroExercice = indiceExercice
     await adjustMathalea2dFiguresWidth()
@@ -130,7 +130,7 @@
     document.addEventListener('newDataForAll', newData)
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
-    document.addEventListener('updateAsyncEx',forceUpdate)
+    document.addEventListener('updateAsyncEx', forceUpdate)
     await updateDisplay()
     await tick()
     await countMathField()
