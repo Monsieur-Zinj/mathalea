@@ -50,7 +50,7 @@ export default function ExerciceEquation1Tiret2 () {
     if (this.interactif) {
       this.introduction = lampeMessage({
         titre: '',
-        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${deprecatedTexFraction(1, 3)})$ plutôt qu'une valeur aprrochée (comme 0,3333).`,
+        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${deprecatedTexFraction(1, 3)})$ plutôt qu'une valeur approchée (comme 0,3333).`,
         couleur: 'nombres'
       })
     }
