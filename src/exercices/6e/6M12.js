@@ -4,13 +4,14 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = 'true'
 export const amcType = 'AMCNum'
-/** */
-// Référence 6M12
+/**
+ *
+ */
+
 export const uuid = '3cb1d'
 export const ref = '6M12'
 export default function Reglages6M12 () {
   ExerciceConversionsLongueurs.call(this)
-  this.titre = titre
   this.sup = 3
   this.nbQuestions = 8
 }
