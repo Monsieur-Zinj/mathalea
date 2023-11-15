@@ -14,6 +14,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = 'true'
 export const amcType = 'AMCNum'
+export const titre = 'Convertir des longueurs'
 
 /**
  * Conversions de longueur en utilisant le préfixe pour déterminer la multiplication ou division à faire.
@@ -30,7 +31,6 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = false // avec le tableau
-  this.titre = 'Conversions de longueurs'
   this.consigne = 'Compléter : '
   this.spacing = 2
 
@@ -61,13 +61,9 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       texte,
       texteCorr,
       cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let typesDeQuestions
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      if (this.sup < 5) {
-        typesDeQuestions = this.sup
-      } else {
-        typesDeQuestions = randint(1, 4)
-      }
+
+      const typesDeQuestions = this.sup
       // k = randint(0,2); // Choix du préfixe
       k = listek[i] // Plutôt que de prendre un préfix au hasard, on alterne entre 10,100 et 1000
       if (typesDeQuestions === 1) {
@@ -241,7 +237,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       this.contenu = deuxColonnesResp(this.contenu, buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true), options)
     }
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Mélange']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, ' 1 : De dam, hm, km vers m\n 2 : De dm, cm, mm vers m\n 3 : Conversions en mètres\n4 : Au hasard']
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
   this.besoinFormulaire3CaseACocher = ['Avec tableau']
 }
