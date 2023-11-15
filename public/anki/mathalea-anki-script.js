@@ -49,7 +49,9 @@ const seed = {
   }
 }
 
-function formatUrl (urlFieldRaw, view, seed) {
+function formatUrl (urlFieldRaw, presMode, seed) {
+  const RECTO_PRES_MODE = '400000'
+  const VERSO_PRES_MODE = '500000'
   let url = cleanseUrl(urlFieldRaw)
   if (isTemplateScreen(url)) url = 'https://coopmaths.fr/alea/?uuid=0e6bd'
   if (isV2(url)) url = convertV2toV3(url)
@@ -57,7 +59,8 @@ function formatUrl (urlFieldRaw, view, seed) {
   if (!includesId(url)) return ''
   url = replaceParam(url, '&i=', '0')
   url = replaceParam(url, '&alea=', seed)
-  url = replaceParam(url, '&v=', view)
+  url = replaceParam(url, '&v=', 'eleve')
+  url = replaceParam(url, '&es=', presMode === 'recto' ? RECTO_PRES_MODE : VERSO_PRES_MODE)
   return url
 }
 

@@ -535,6 +535,14 @@
             </div>
           {/each}
         </div>
+      {:else if $globalOptions.presMode === 'recto' || $globalOptions.presMode === 'verso'}
+        <div id="exercises-list" class="p-4 columns-1 {$globalOptions.twoColumns ? 'md:columns-2' : ''}">
+          {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+            <div class="break-inside-avoid-column">
+              <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={$globalOptions.presMode === 'verso'} />
+            </div>
+          {/each}
+        </div>
       {:else if $globalOptions.presMode === 'liste_questions'}
         <div
           class="columns-1 {$globalOptions.title.length === 0
