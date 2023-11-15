@@ -38,7 +38,6 @@ export const ref = '5L14-2'
 export default function ExerciceSubstituer (difficulte = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = difficulte
-  this.consigne = 'Calculer.'
   this.spacing = 1
   this.consigneModifiable = false
 
@@ -127,31 +126,9 @@ export default function ExerciceSubstituer (difficulte = 1) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur15', {
           texteAvant: '$~=~$'
         })
-      }
+      } else if (context.isAmc) texte = 'Calculer ' + texte + ` pour $x=${x}$, $y=${y}$ et $z=${z}$.`
       setReponse(this, i, reponse, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
-      /* this.autoCorrection[i] = {
-              enonce: texte + '\\\\' + this.consigne,
-              propositions: [
-                {
-                  texte: texteCorr,
-                  statut: 'emplacement à louer',
-                  feedback: ''
-                }
-              ],
-              reponse: {
-                texte: 'résultat',
-                valeur: [reponse],
-                param: {
-                  digits: 3,
-                  decimals: 0,
-                  signe: false,
-                  exposantNbChiffres: 0,
-                  exposantSigne: false,
-                  approx: 0
-                }
-              }
-            }
-            */
+
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
