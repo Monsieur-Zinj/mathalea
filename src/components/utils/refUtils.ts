@@ -336,8 +336,9 @@ export function updateReferentiel (
  * @author sylvain
  */
 export function applyFilters (
-  original: ResourceAndItsPath[]
+  collection: ResourceAndItsPath[]
 ): ResourceAndItsPath[] {
+  const original = [...collection]
   // on récupère dans le store les niveaux et les fonctionnalités cochés
   const selectedLevels: Level[] = getSelectedLevels()
   const selectedSpecs: (keyof Features)[] = getSelectedFeatures()
@@ -385,7 +386,7 @@ export function applyFilters (
     } else {
       if (specsCriteria !== undefined) {
         // on a que des fonctionnalités cocées
-        specsCriteria.meetCriterion(original)
+        return specsCriteria.meetCriterion(original)
       }
     }
     return original

@@ -164,8 +164,12 @@ export function featuresCriteria (
             item.resource.features.interactif &&
             item.resource.features.interactif.isActive
           ) {
+            // console.log('found interactive :')
+            // console.log(item.resource)
             return true
           } else {
+            // console.log('found non interactive :')
+            // console.log(item.resource)
             return false
           }
         } else {

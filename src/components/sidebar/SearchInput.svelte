@@ -9,14 +9,12 @@
     type ToolItemInReferentiel,
     type Level
   } from '../../lib/types/referentiels'
-  import {
-    exercicesParams,
-    globalOptions
-  } from '../stores/generalStore'
+  import { exercicesParams, globalOptions } from '../stores/generalStore'
   import {
     allFilters,
     getSelectedFiltersObjects,
-    handleUncheckingMutipleFilters
+    handleUncheckingMutipleFilters,
+    filtersHaveChanged
   } from '../stores/filtersStore'
   import type { FilterObject, InterfaceParams } from '../../lib/types'
   import { getUniqueStringBasedOnTimeStamp, debounce } from '../utils/time'
@@ -31,6 +29,11 @@
   let selectedFilters: FilterObject<string | Level>[] = []
   const dispatch = createEventDispatcher()
 
+  // ===================================================================================
+  //
+  //                                Gestion de la recherche
+  //
+  // ===================================================================================
   function updateResults (input: string): void {
     if (input.length === 0) {
       results = []
@@ -42,6 +45,18 @@
         ).meetCriterion(origin)
       ]
     }
+    // retirer les doublons de la liste des résultats
+    const uniques: ResourceAndItsPath[] = []
+    const treatedUuids: string[] = []
+    for (const elt of results) {
+      if (!treatedUuids.includes(elt.resource.uuid)) {
+        treatedUuids.push(elt.resource.uuid)
+        uniques.push(elt)
+      }
+    }
+    results = [...uniques]
+    // console.log('results')
+    // console.log(results)
   }
   // maj de selectedFilters chaque fois que le store `allFilters` change
   const unsubscribeToFiltersStore = allFilters.subscribe(() => {
@@ -51,6 +66,7 @@
     unsubscribeToFiltersStore()
   })
   const fetchResults = debounce<typeof updateResults>(updateResults, 500)
+  let lastInput: string = ''
   $: {
     // on attend que le champ de recherche ne soit pas vide
     // ou que la chaîne saisie ne commence pas par une apostrophe ou un guillemet
@@ -58,8 +74,17 @@
       inputSearch.length !== 0 &&
       inputSearch.replace(/^[\s"']/, '').length !== 0
     ) {
-      fetchResults(inputSearch)
+      if (inputSearch !== lastInput) {
+        // console.log('last: ' + lastInput + ' / current: ' + inputSearch + ' -> je remplis !')
+        lastInput = inputSearch
+        fetchResults(inputSearch)
+      }
+      if ($filtersHaveChanged) {
+        $filtersHaveChanged = false
+        fetchResults(inputSearch)
+      }
     } else {
+      // console.log('last: ' + lastInput + ' / current: ' + inputSearch + ' -> je vide !')
       results = []
     }
     results = results
@@ -194,8 +219,7 @@
       on:blur={onBlurInput}
       autocomplete="off"
       autocorrect="off"
-      name=”notASearchField”
-
+      name="”notASearchField”"
     />
     <!-- Invite pour presser Entrée lors d'un match input = ID d'exo -->
     <div
@@ -243,14 +267,27 @@
           $allFilters[filter.type][filter.key].isSelected = false
           handleUncheckingMutipleFilters(filter.key)
           dispatch('filters-change')
+          $filtersHaveChanged = true
         }}
       />
     {/each}
   </div>
   <!-- Filtres -->
   <div class={isFiltersVisible ? 'flex flex-col w-full mt-4' : 'hidden'}>
-    <Filtres class="mt-2" filterType="levels" on:filters-change/>
-    <Filtres class="mt-2" filterType="specs" on:filters-change/>
-    <Filtres class="mt-2" filterType="types" on:filters-change/>
+    <Filtres
+      class="mt-2"
+      filterType="levels"
+      on:filters-change
+    />
+    <Filtres
+      class="mt-2"
+      filterType="specs"
+      on:filters-change
+    />
+    <Filtres
+      class="mt-2"
+      filterType="types"
+      on:filters-change
+    />
   </div>
 </div>
