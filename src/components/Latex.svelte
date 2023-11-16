@@ -242,7 +242,7 @@ async function copyLaTeXCodeToClipBoard (dialogId: string) {
           const filesInfo = { title, reference, subtitle, style, nbVersions }
           downloadTexWithImagesZip('coopmaths', latex, filesInfo)
         }}
-        title="Téléchager l'archive complète"
+        title="Télécharger l'archive complète"
       />
     </div>
     <ModalMessageBeforeAction
