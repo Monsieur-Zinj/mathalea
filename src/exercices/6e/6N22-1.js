@@ -217,7 +217,7 @@ export default function RapportsSurUnSegment () {
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
+  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }
 function singPlur (nombre, singulier, pluriel) {
   if (nombre > 1) {

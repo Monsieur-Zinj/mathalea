@@ -14,5 +14,5 @@ export default function TesterSiUnNombreEstSolutionDUneEquationDeg2 () {
   TesterSiUnNombreEstSolutionDUneEquation.call(this)
   this.exo = '4L14-2'
   this.titre = titre
-  // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
+  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }
