@@ -116,6 +116,8 @@ export default function SignesTabGSpline () {
       color: 'blue'
     })
     const objetsEnonce = [repere1, courbe1]
+
+    if (choixInteractif === tableau) { this.reponse = ['Oui', 'OUI', 'oui'] } else { this.reponse = ['Non', 'NON', 'non'] }
     this.question = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' +
       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
     if (this.interactif) {
@@ -124,7 +126,7 @@ export default function SignesTabGSpline () {
       this.question += '<br>Le tableau de signes de la fonction $f$ est : <br>'
       this.question += choixInteractif
       this.question += '<br>Répondre par "Oui" ou "Non"<br>'
-      if (choixInteractif === tableau) { this.reponse = ['Oui', 'OUI', 'oui'] } else { this.reponse = ['Non', 'NON', 'non'] }
+    
     }
     this.correction = `L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>`
     this.correction += `Voici le tableau de signes de $f(x)$ sur son ensemble de définition :<br>
