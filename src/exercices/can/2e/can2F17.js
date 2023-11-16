@@ -116,8 +116,6 @@ export default function SignesTabGSpline () {
       color: 'blue'
     })
     const objetsEnonce = [repere1, courbe1]
-
-    this.reponse = 2
     this.question = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' +
       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
     if (this.interactif) {
