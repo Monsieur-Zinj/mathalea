@@ -71,7 +71,7 @@ export default function EncadrerTableau () {
           espcl: 3, // taille en cm entre deux antécédents
           deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
           lgt: 3, // taille de la première colonne en cm
-          scale: 0.4
+          scale: 0.35
         })
       question1 += tableauDeVariation({
         tabInit: [
@@ -88,7 +88,7 @@ export default function EncadrerTableau () {
         espcl: 3, // taille en cm entre deux antécédents
         deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 3, // taille de la première colonne en cm
-        scale: 0.4
+        scale: 0.35
       })
       if (choice([true, false])) {
         question1 += `  <br>
