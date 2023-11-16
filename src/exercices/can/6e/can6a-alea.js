@@ -185,7 +185,7 @@ export default function can6eAll() {
 
       let promises = []
       for (let q = 0; q< numeros.length; q++){
-        promises.push(loadQuest (exercice, './can6'+ numeros[q] + '.js', q))
+        promises.push(loadQuest (exercice, `../../../exercices/can/6e/can6${numeros[q]}.js`, q))
       }
 
       await Promise.all(promises)
