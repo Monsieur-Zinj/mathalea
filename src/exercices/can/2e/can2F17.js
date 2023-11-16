@@ -125,7 +125,7 @@ export default function SignesTabGSpline () {
       this.question += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
       this.question += '<br>Le tableau de signes de la fonction $f$ est : <br>'
       this.question += choixInteractif
-      this.question += '<br>Répondre par "Oui" ou "Non"<br>'
+      this.question += '<br>Répondre par "Oui" ou "Non" <br>'
     
     }
     this.correction = `L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>`
