@@ -144,7 +144,6 @@ export function exportQcmAmc (exercice, idExo) {
             autoCorrection[j].reponse.param.exposantPuissance = 1000 // Nb volontairement grand pour faire comprendre à l'utilisateur AMC qu'il y a eu une erreur de programmation lors de la conception de l'exercice.
           }
           texQr += `\\element{${ref}}{\n`
-          texQr += '\\begin{minipage}{\\textwidth}\n'
           texQr += '\\begin{multicols}{2}\n'
           texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
           texQr += `${autoCorrection[j].enonce} \n \\vspace{0.25cm} \n`
@@ -174,7 +173,7 @@ export function exportQcmAmc (exercice, idExo) {
           // texQr += `Exposant\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=${autoCorrection[j].reponse.param.exposantPuissance < 0 ? 'true' : 'false'},approx=0,`
           texQr += `Exposant\n \\AMCnumericChoices{${autoCorrection[j].reponse.param.exposantPuissance}}{digits=${digitsExposant},decimals=0,sign=true,approx=0,`
           texQr += `borderwidth=0pt,backgroundcol=lightgray,scoreapprox=${autoCorrection[j].reponse.param.scoreapprox || 0.667},scoreexact=1,Tpoint={,}}\n`
-          texQr += '\\end{questionmultx}\n\\end{multicols}\n\\end{minipage}\n}\n\n'
+          texQr += '\\end{questionmultx}\n\\end{multicols}\n}\n\n'
           id += 2
         } else if (valeurAMCNum.num !== undefined) { // Si une fraction a été passée à AMCNum, on met un seul AMCNumericChoice particulier
           texQr += `\\element{${ref}}{\n`
