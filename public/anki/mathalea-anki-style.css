@@ -13,16 +13,17 @@
   background-color: white;
  }
 
- iframe {
-   position: absolute;
-   top: 0;
-   left: 0;
- }
- iframe.desktop {
-   width: 100vw;
-   height: 100vh;
- }
- iframe.web {
-   width: 75vw;
-   height: 68vh;
- }
+iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+iframe.desktop {
+  width: 100vw;
+  height: 100vh;
+}
+iframe.web {
+  max-width: 1140px;
+  width: 100vw;
+  height: 68vh;
+}
