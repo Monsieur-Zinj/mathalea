@@ -24,7 +24,7 @@ export default function ReduireAvecFraction () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    switch (choice([1, 2, 3, 4])) {
+    switch (choice([1, 2, 3, 4])) { //, 2, 3, 4
       case 1 :
         { const a = randint(1, 9)
           const couplend = choice([[1, 3], [2, 3], [4, 3], [5, 3], [3, 4], [2, 5], [3, 5], [4, 5], [5, 6], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [3, 8], [5, 8], [7, 8], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [3, 10], [7, 10], [9, 10]]) // n et m sont premiers entre eux
@@ -37,7 +37,7 @@ export default function ReduireAvecFraction () {
             this.question = ` Réduire l'expression : $${rienSi1(a)}x+\\dfrac{${n}}{${d}}x$.`
             this.correction = `$${rienSi1(a)}x+\\dfrac{${n}}{${d}}x=\\dfrac{${a}\\times${d}}{${d}}x+\\dfrac{${n}}{${d}}x=\\dfrac{${a * d}}{${d}}x+\\dfrac{${n}}{${d}}x=\\dfrac{${a * d}+${n}}{${d}}x=\\dfrac{${n + a * d}}{${d}}x$`
           }
-          this.reponse = [`\\dfrac{${n + a * d}}{${d}}x`, `${arrondi((n + a * d) / d, 2)}x`]
+          this.reponse = [`\\dfrac{${n + a * d}}{${d}}x`, `${arrondi((n + a * d) / d, 2)}x`, `${n + a * d}x\\div${d} `]
         }
         break
       case 2 :
@@ -52,7 +52,7 @@ export default function ReduireAvecFraction () {
           } else {
             this.question = ` Réduire l'expression : $${rienSi1(a)}x-\\dfrac{${n}}{${d}}x$.`
             this.correction = `$${rienSi1(a)}x-\\dfrac{${n}}{${d}}x=\\dfrac{${a}\\times ${d}}{${d}}x-\\dfrac{${n}}{${d}}x=\\dfrac{${a * d}}{${d}}x-\\dfrac{${n}}{${d}}x=\\dfrac{${a * d}-${n}}{${d}}x=\\dfrac{${a * d - n}}{${d}}x$`
-            this.reponse = [`\\dfrac{${a * d - n}}{${d}}x`, `${arrondi((a * d - n) / d, 2)}x`]
+            this.reponse = [`\\dfrac{${a * d - n}}{${d}}x`, `${arrondi((a * d - n) / d, 2)}x`, `${a * d - n}x\\div${d}`]
           }
         }
         break
@@ -67,7 +67,7 @@ export default function ReduireAvecFraction () {
           } else {
             this.question = ` Réduire l'expression : $${rienSi1(a)}x+\\dfrac{x}{${d}}$.`
             this.correction = ` $${rienSi1(a)}x+\\dfrac{x}{${d}}=\\dfrac{${rienSi1(a)}x\\times ${d}}{${d}}+\\dfrac{x}{${d}}=\\dfrac{${a * d}x}{${d}}+\\dfrac{x}{${d}}=\\dfrac{${a * d}x+x}{${d}}=\\dfrac{${1 + a * d}x}{${d}}=\\dfrac{${1 + a * d}}{${d}}x$`
-            this.reponse = [`\\dfrac{${1 + a * d}}{${d}}x`, `${arrondi((1 + a * d) / d, 2)}x`]
+            this.reponse = [`\\dfrac{${1 + a * d}}{${d}}x`, `${arrondi((1 + a * d) / d, 2)}x`, `${1 + a * d}x\\div${d}`]
           }
         }
         break
@@ -82,7 +82,7 @@ export default function ReduireAvecFraction () {
           } else {
             this.question = ` Réduire l'expression : $${rienSi1(a)}x-\\dfrac{x}{${d}}$.`
             this.correction = ` $${rienSi1(a)}x-\\dfrac{x}{${d}}=\\dfrac{${rienSi1(a)}x\\times ${d}}{${d}}-\\dfrac{x}{${d}}=\\dfrac{${a * d}x}{${d}}-\\dfrac{x}{${d}}=\\dfrac{${a * d}x-x}{${d}}=\\dfrac{${a * d - 1}x}{${d}}=\\dfrac{${a * d - 1}}{${d}}x$`
-            this.reponse = [`\\dfrac{${a * d - 1}}{${d}}x`, `${arrondi((a * d - 1) / d, 2)}x`]
+            this.reponse = [`\\dfrac{${a * d - 1}}{${d}}x`, `${arrondi((a * d - 1) / d, 2)}x`, `${a * d - 1}x\\div${d}`]
           }
         }
         break
