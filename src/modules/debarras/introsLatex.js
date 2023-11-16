@@ -252,7 +252,7 @@ ${preambulePersonnalise(listePackages)}
     \\checkmark \\textit{L'épreuve comporte \\total{#1} questions.}
 
     \\smallskip
-    \\checkmark \\textit{L'usage de la calculatrice et du brouillon sont interdits.}
+    \\checkmark \\textit{L'usage de la calculatrice et du brouillon est interdit.}
 
     \\smallskip
     \\checkmark \\textit{Il n'est pas permis d'écrire des calculs intermédiaires.}
