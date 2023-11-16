@@ -4,6 +4,8 @@ import { combinaisonListesSansChangerOrdre, enleveElementBis } from '../../../li
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Exercice from '../../Exercice.js'
+import refToUuid from '../../../json/refToUuid.json'
+import { mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
 export const titre = 'Course aux nombres 6e'
 export const interactifReady = true
 export const interactifType = 'qcm_mathLive'
@@ -22,7 +24,7 @@ export default function can6eAll() {
   this.nbQuestions = 4
   this.sup = 'All'
   this.lastCallback = ''
-  this.debug = false
+  this.debug = true
 
   this.log = function (str){
     if (this.debug) console.log(str)
@@ -185,7 +187,7 @@ export default function can6eAll() {
 
       let promises = []
       for (let q = 0; q< numeros.length; q++){
-        promises.push(loadQuest (exercice, `../../../exercices/can/6e/can6${numeros[q]}.js`, q))
+        promises.push(loadQuest (exercice, `can6${numeros[q]}`, q))
       }
 
       await Promise.all(promises)
@@ -198,9 +200,10 @@ export default function can6eAll() {
     }
 
     async function loadQuest (exercice, fileScript, i){
-
-      const quest =  import(fileScript).then(exports => {
-        const q2 = new exports.default()
+      const uuid = refToUuid[fileScript]
+      const quest = mathaleaLoadExerciceFromUuid(uuid).then(exports => {
+      // const quest =  import(fileScript).then(exports => {
+        const q2 = exports // new exports.default()
         exercice.interactif ? q2.interactif = true : q2.interactif = false
         q2.numeroExercice = exercice.numeroExercice
         q2.nouvelleVersion()
