@@ -10711,7 +10711,8 @@
         "tags": [],
         "uuid": "f9a02",
         "id": "6M22-1",
-        "titre": "Calculer périmètre et aire de disques",
+        "titre": "Calculer périmètre et/ou aire de disques",
+        "dateModification": "15/11/2023",
         "features": {
           "interactif": {
             "isActive": true,
@@ -15269,7 +15270,7 @@
         "tags": [],
         "uuid": "f5dcf",
         "id": "4C30",
-        "titre": "Effectuer des calculs qu'avec des puissances de 10",
+        "titre": "Effectuer des calculs avec des puissances de 10 uniquement",
         "dateModification": "24/09/2023",
         "features": {
           "interactif": {
@@ -15477,7 +15478,7 @@
         "tags": [],
         "uuid": "bae57",
         "id": "4C33-1",
-        "titre": "Effectuer des calculs qu'avec des puissances",
+        "titre": "Effectuer des calculs avec des puissances",
         "dateModification": "14/09/2023",
         "features": {
           "interactif": {
@@ -17068,7 +17069,7 @@
         "tags": [],
         "uuid": "379cd",
         "id": "3C10-2",
-        "titre": "Effectuer des calculs qu'avec des puissances",
+        "titre": "Effectuer des calculs avec des puissances",
         "datePublication": "17/09/2023",
         "features": {
           "interactif": {
@@ -20449,7 +20450,7 @@
         "tags": [],
         "uuid": "1e42b",
         "id": "2N31-2",
-        "titre": "Effectuer des calculs qu'avec des puissances",
+        "titre": "Effectuer des calculs avec des puissances",
         "dateModification": "14/09/2023",
         "features": {
           "interactif": {
@@ -20601,10 +20602,11 @@
         "uuid": "55cc0",
         "id": "2N32-1",
         "titre": "Existence d'une racine carrée",
+        "dateModification": "15/11/2023",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
@@ -21246,7 +21248,7 @@
         "tags": [],
         "uuid": "3b3d9",
         "id": "2N51-5",
-        "titre": "Équations du premier degré (utilisant la distributivité)",
+        "titre": "Résoudre une équation du premier degré (utilisant la distributivité)",
         "features": {
           "interactif": {
             "isActive": true,
