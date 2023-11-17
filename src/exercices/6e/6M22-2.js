@@ -3,12 +3,12 @@ import { arc } from '../../lib/2d/cercle.js'
 import { afficheLongueurSegment, codageSegments } from '../../lib/2d/codages.js'
 import { point, pointAdistance } from '../../lib/2d/points.js'
 import { rotation } from '../../lib/2d/transformations.js'
-import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Calculer périmètre et aire de portions de cercles/disques'
 
@@ -60,6 +60,24 @@ export default function Perimetre_aire_et_portions_de_disques () {
     if (this.sup === 2) {
       this.consigne = "Calculer l'aire de chacune des figures suivantes."
     }
+    texteCorr = ''
+
+    if (this.sup !== 2) {
+      // si on ne demande pas les aires
+      texteCorr += `La première figure est un quart de disque, son périmètre est composé d'un quart de cercle de rayon ${r} cm et de 2 rayons qui ferment la figure.<br>`
+      texteCorr += `$\\mathcal{P}_1=(\\dfrac{1}{4}\\times2\\times${r}\\times\\pi)+${r}+${r}=
+      ${miseEnEvidence(`${texNombre(r / 2, 1)}\\pi+${2 * r}`)}\\text{ cm}
+      \\approx
+      ${miseEnEvidence(`${texNombre(r * Math.PI / 2 + 2 * r, 1)}`)}\\text{ cm}$<br>`
+    }
+
+    if (this.sup !== 1) {
+      texteCorr += `La première figure est un quart de disque de rayon ${r} cm.<br>`
+      texteCorr += `$\\mathcal{A}_1=\\dfrac{1}{4}\\times${r}\\times${r}\\times\\pi=
+        ${miseEnEvidence(`${texNombre(r * r / 4, 2)}\\pi`)}\\text{ cm}^2
+        \\approx
+        ${miseEnEvidence(`${texNombre(r * r / 4 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
+    }
 
     if (figure === 1) {
       params = { xmin: 4, ymin: -1, xmax: 20, ymax: 15, pixelsParCm: 20, scale: 0.75, mainlevee: false }
@@ -75,64 +93,40 @@ export default function Perimetre_aire_et_portions_de_disques () {
       objetsEnonce.push(quartDeDisque, demiDisque, troisQuartDeDisque,
         codageSegments('//', 'blue', A1, C1, C1, B1), codageSegments('O', 'green', A3, C3, C3, B3),
         afficheLongueurSegment(A1, C1), afficheLongueurSegment(A2, B2), afficheLongueurSegment(A3, C3))
-
-      if (this.sup === 1) {
+      if (this.sup !== 2) {
         // si on ne demande pas les aires
-        texteCorr = `La première figure est un quart de disque, son périmètre est composé d'un quart de cercle de rayon ${r} cm et de 2 rayons qui ferment la figure.<br>`
-        texteCorr += `$\\mathcal{P}_1=\\dfrac{1}{4}\\times2\\times${r}\\times\\pi+${r}+${r}=${texNombre(
-          calculANePlusJamaisUtiliser(r / 2, 1)
-        )}\\pi+${2 * r}\\approx${texNombre(
-          arrondi(r * Math.PI / 2 + 2 * r, 1)
-        )}$ cm<br>`
         texteCorr += `La deuxième figure est un demi-disque, son périmètre est composé d'un demi-cercle de diamètre ${2 * r2
           } cm et d'un diamètre qui ferme la figure.<br>`
         texteCorr += `$\\mathcal{P}_2=\\dfrac{1}{2}\\times${2 * r2
-          }\\times\\pi+${2 * r2}=${r2}\\pi+${2 * r2}\\approx${texNombre(
-            arrondi(r2 * Math.PI + 2 * r2, 1)
-          )}$ cm<br>`
-        texteCorr += `La troisième figure est trois quarts d'un disque, son périmètre est composé de trois quarts d'un cercle de rayon ${r3} cm et 2 rayons qui ferment la figure.<br>`
-        texteCorr += `$\\mathcal{P}_3=\\dfrac{3}{4}\\times2\\times${r3}\\times\\pi+${r3}+${r3}=${texNombre((6 * r3) / 4, 1)}\\pi+${2 * r3}
-        \\approx${texNombre((6 * r3) * Math.PI / 4 + 2 * r3, 1)}$ cm<br>`
+          }\\times\\pi+${2 * r2}=
+          ${miseEnEvidence(`${r2}\\pi+${2 * r2}`)}\\text{ cm}
+          \\approx
+          ${miseEnEvidence(`${texNombre(r2 * Math.PI + 2 * r2, 1)}`)}\\text{ cm}$<br>`
       }
 
-      if (this.sup === 2) {
-        texteCorr = `La première figure est un quart de disque de rayon ${r} cm.<br>`
-        texteCorr += `$\\mathcal{A}_1=\\dfrac{1}{4}\\times${r}\\times${r}\\times\\pi=${texNombre(
-          calculANePlusJamaisUtiliser((r * r) / 4)
-        )}\\pi\\approx${texNombre((r * r) / 4 * Math.PI, 1)}~\\text{cm}^2$<br>`
+      if (this.sup !== 1) {
         texteCorr += `La deuxième figure est la moitié d'un disque de diamètre ${2 * r2
-          } cm donc de ${r2} cm de rayon.<br>`
-        texteCorr += `$\\mathcal{A}_2=\\dfrac{1}{2}\\times${r2}\\times${r2}\\times\\pi=${texNombre((r2 * r2) / 2, 1)}\\pi
-        \\approx${texNombre(r2 * r2 * Math.PI / 2, 1)}~\\text{cm}^2$<br>`
-        texteCorr += `La troisième figure est trois quarts d'un disque de rayon ${r3} cm.<br>`
-        texteCorr += `$\\mathcal{A}_3=\\dfrac{3}{4}\\times${r3}\\times${r3}\\times\\pi=${texNombre(3 * r3 * r3 / 4, 2)}\\pi
-        \\approx${texNombre(3 * r3 * r3 * Math.PI / 4, 1)}~\\text{cm}^2$`
+            } cm donc de ${r2} cm de rayon.<br>`
+        texteCorr += `$\\mathcal{A}_2=\\dfrac{1}{2}\\times${r2}\\times${r2}\\times\\pi=
+          ${miseEnEvidence(`${texNombre(r2 * r2 / 2, 2)}\\pi`)}\\text{ cm}^2
+          \\approx
+          ${miseEnEvidence(`${texNombre(r2 * r2 / 2 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
       }
 
-      if (this.sup === 3) {
-        texteCorr = `La première figure est un quart de disque, son périmètre est composé d'un quart de cercle de rayon ${r} cm et de 2 rayons qui ferment la figure.<br>`
-        texteCorr += `$\\mathcal{P}_1=\\dfrac{1}{4}\\times2\\times${r}\\times\\pi+${r}+${r}=${texNombre(r / 2, 1)}\\pi+${2 * r}
-        \\approx${texNombre(r * Math.PI / 2 + 2 * r, 1)}$ cm<br>`
-        texteCorr += `La deuxième figure est un demi-disque, son périmètre est composé d'un demi-cercle de diamètre ${2 * r2
-          } cm et d'un diamètre qui ferme la figure.<br>`
-        texteCorr += `$\\mathcal{P}_2=\\dfrac{1}{2}\\times${2 * r2
-          }\\times\\pi+${2 * r2}=${r2}\\pi+${2 * r2}
-          \\approx${texNombre(r2 * Math.PI + 2 * r2, 1)}$ cm<br>`
+      if (this.sup !== 2) {
         texteCorr += `La troisième figure est trois quarts d'un disque, son périmètre est composé de trois quarts d'un cercle de rayon ${r3} cm et 2 rayons qui ferment la figure.<br>`
         texteCorr += `$\\mathcal{P}_3=\\dfrac{3}{4}\\times2\\times${r3}\\times\\pi+${r3}+${r3}=
-        ${texNombre(6 * r3 / 4, 2)}\\pi+${2 * r3}
-        \\approx${texNombre(6 * r3 * Math.PI / 4 + 2 * r3, 1)}$ cm<br>`
-        texteCorr += `La première figure est un quart de disque de rayon ${r} cm.<br>`
-        texteCorr += `$\\mathcal{A}_1=\\dfrac{1}{4}\\times${r}\\times${r}\\times\\pi=
-        ${texNombre(r * r / 4, 2)}\\pi
-        \\approx${texNombre(r * r * Math.PI / 4, 1)}~\\text{cm}^2$<br>`
-        texteCorr += `La deuxième figure est la moitié d'un disque de diamètre ${2 * r2
-          } cm donc de ${r2} cm de rayon.<br>`
-        texteCorr += `$\\mathcal{A}_2=\\dfrac{1}{2}\\times${r2}\\times${r2}\\times\\pi=${texNombre(r2 * r2 / 2, 1)}\\pi
-        \\approx${texNombre(r2 * r2 * Math.PI / 2, 1)}~\\text{cm}^2$<br>`
+        ${miseEnEvidence(`${texNombre((6 * r3) / 4, 2)}\\pi+${2 * r3}`)}\\text{ cm}
+        \\approx
+        ${miseEnEvidence(`${texNombre(((6 * r3) / 4) * Math.PI + 2 * r3, 1)}`)}\\text{ cm}$<br>`
+      }
+
+      if (this.sup !== 1) {
         texteCorr += `La troisième figure est trois quarts d'un disque de rayon ${r3} cm.<br>`
-        texteCorr += `$\\mathcal{A}_3=\\dfrac{3}{4}\\times${r3}\\times${r3}\\times\\pi=${texNombre(3 * r3 * r3 / 4, 2)}\\pi
-        \\approx${texNombre(3 * r3 * r3 * Math.PI / 4, 1)}~\\text{cm}^2$`
+        texteCorr += `$\\mathcal{A}_3=\\dfrac{3}{4}\\times${r3}\\times${r3}\\times\\pi=
+        ${miseEnEvidence(`${texNombre(3 * r3 * r3 / 4, 2)}\\pi`)}\\text{ cm}^2
+        \\approx
+        ${miseEnEvidence(`${texNombre(3 * r3 * r3 / 4 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
       }
     } else {
       params = { xmin: 4, ymin: -1, xmax: 20, ymax: 15, pixelsParCm: 20, scale: 0.75, mainlevee: false }
@@ -148,55 +142,40 @@ export default function Perimetre_aire_et_portions_de_disques () {
       objetsEnonce.push(quartDeDisque, demiDisque, troisQuartDeDisque,
         codageSegments('//', 'blue', A1, C1, C1, B1), codageSegments('O', 'green', A2, C2, C2, B2),
         afficheLongueurSegment(A1, C1), afficheLongueurSegment(B3, A3), afficheLongueurSegment(A2, C2))
-      texteCorr = `La première figure est un quart de cercle de rayon ${r} cm auquel il faut ajouter les 2 rayons qui ferment la figure.<br>`
 
-      if (this.sup === 1) {
-        texteCorr = `La première figure est un quart de disque, son périmètre est composé d'un quart de cercle de rayon ${r} cm et de 2 rayons qui ferment la figure.<br>`
-        texteCorr += `$\\mathcal{P}_1=\\dfrac{1}{4}\\times2\\times${r}\\times\\pi+${r}+${r}=${r !== 2 ? texNombre(r / 2, 1) : ''}\\pi+${2 * r}
-        \\approx${texNombre(r * Math.PI / 2 + 2 * r, 1)}$ cm<br>`
+      if (this.sup !== 2) {
         texteCorr += `La deuxième figure est trois quarts d'un disque, son périmètre est composé de trois quarts d'un cercle de rayon ${r2} cm et 2 rayons qui ferment la figure.<br>`
-        texteCorr += `$\\mathcal{P}_2=\\dfrac{3}{4}\\times2\\times${r2}\\times\\pi+${r2}+${r2}=${texNombre(6 * r2 / 4, 2)}\\pi+${2 * r2}
-        \\approx${texNombre(6 * r2 * Math.PI / 4 + 2 * r2, 1)}$ cm<br>`
-        texteCorr += `La troisième figure est un demi-disque, son périmètre est composé d'un demi-cercle de diamètre ${2 * r3
-          } cm et d'un diamètre qui ferme la figure.<br>`
-        texteCorr += `$\\mathcal{P}_3=\\dfrac{1}{2}\\times${2 * r3
-          }\\times\\pi+${2 * r3}=${r3}\\pi+${2 * r3}\\approx${texNombre(r3 * Math.PI + 2 * r3, 1)}$ cm<br>`
+        texteCorr += `$\\mathcal{P}_2=\\dfrac{3}{4}\\times2\\times${r2}\\times\\pi+${r2}+${r2}=
+        ${miseEnEvidence(`${texNombre((6 * r2) / 4, 2)}\\pi+${2 * r2}`)}\\text{ cm}
+        \\approx
+        ${miseEnEvidence(`${texNombre(((6 * r2) / 4) * Math.PI + 2 * r2, 1)}`)}\\text{ cm}$<br>`
       }
 
-      if (this.sup === 2) {
-        texteCorr = `La première figure est un quart de disque de rayon ${r} cm.<br>`
-        texteCorr += `$\\mathcal{A}_1=\\dfrac{1}{4}\\times${r}\\times${r}\\times\\pi=${r !== 2 ? texNombre(r * r / 4, 2) : ''}\\pi
-        \\approx${texNombre(r * r * Math.PI / 4, 1)}~\\text{cm}^2$<br>`
-        texteCorr += `La deuxième figure est trois quarts d'un disque rayon ${r2} cm.<br>`
-        texteCorr += `$\\mathcal{A}_2=\\dfrac{3}{4}\\times${r2}\\times${r2}\\times\\pi=${texNombre(3 * r2 * r2 / 4, 2)}\\pi
-        \\approx${texNombre(3 * r2 * r2 * Math.PI / 4, 1)}~\\text{cm}^2$<br>`
-        texteCorr += `La troisième figure est un demi-cercle de diamètre ${2 * r3
-          } cm donc de rayon ${r3} cm.<br>`
-        texteCorr += `$\\mathcal{A}_3=\\dfrac{1}{2}\\times${r3}\\times${r3}\\times\\pi=${texNombre(r3 * r3 / 2, 1)}\\pi
-        \\approx${texNombre(r3 * r3 * Math.PI / 2, 1)}~\\text{cm}^2$<br>`
+      if (this.sup !== 1) {
+        texteCorr += `La deuxième figure est trois quarts d'un disque de rayon ${r2} cm.<br>`
+        texteCorr += `$\\mathcal{A}_2=\\dfrac{3}{4}\\times${r2}\\times${r2}\\times\\pi=
+        ${miseEnEvidence(`${texNombre(3 * r2 * r2 / 4, 2)}\\pi`)}\\text{ cm}^2
+        \\approx
+        ${miseEnEvidence(`${texNombre(3 * r2 * r2 / 4 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
       }
 
-      if (this.sup === 3) {
-        texteCorr = `La première figure est un quart de disque, son périmètre est composé d'un quart de cercle de rayon ${r} cm et de 2 rayons qui ferment la figure.<br>`
-        texteCorr += `$\\mathcal{P}_1=\\dfrac{1}{4}\\times2\\times${r}\\times\\pi+${r}+${r}=${r !== 2 ? texNombre(r / 2, 1) : ''}\\pi+${2 * r}
-        \\approx${texNombre(r * Math.PI / 2 + 2 * r, 1)}$ cm<br>`
-        texteCorr += `La deuxième figure est trois quarts d'un disque, son périmètre est composé de trois quarts d'un cercle de rayon ${r2} cm et 2 rayons qui ferment la figure.<br>`
-        texteCorr += `$\\mathcal{P}_2=\\dfrac{3}{4}\\times2\\times${r2}\\times\\pi+${r2}+${r2}=${texNombre(6 * r2 / 4, 2)}\\pi+${2 * r2}
-        \\approx${texNombre(6 * r2 * Math.PI / 4 + 2 * r2, 1)}$ cm<br>`
+      if (this.sup !== 2) {
         texteCorr += `La troisième figure est un demi-disque, son périmètre est composé d'un demi-cercle de diamètre ${2 * r3
-          } cm et d'un diamètre qui ferme la figure.<br>`
+        } cm et d'un diamètre qui ferme la figure.<br>`
         texteCorr += `$\\mathcal{P}_3=\\dfrac{1}{2}\\times${2 * r3
-          }\\times\\pi+${2 * r3}=${r3}\\pi+${2 * r3}\\approx${texNombre(r3 * Math.PI + 2 * r3, 1)}$ cm<br>`
-        texteCorr += `La première figure est un quart de disque de rayon ${r} cm.<br>`
-        texteCorr += `$\\mathcal{A}_1=\\dfrac{1}{4}\\times${r}\\times${r}\\times\\pi=${r !== 2 ? texNombre(r * r / 4, 2) : ''}\\pi
-        \\approx${texNombre(r * r * Math.PI / 4, 1)}~\\text{cm}^2$<br>`
-        texteCorr += `La deuxième figure est trois quarts d'un disque rayon ${r2} cm.<br>`
-        texteCorr += `$\\mathcal{A}_2=\\dfrac{3}{4}\\times${r2}\\times${r2}\\times\\pi=${texNombre(3 * r2 * r2 / 4, 2)}\\pi
-        \\approx${texNombre(3 * r2 * r2 * Math.PI / 4, 1)}~\\text{cm}^2$<br>`
-        texteCorr += `La troisième figure est un demi-cercle de diamètre ${2 * r3
-          } cm donc de rayon ${r3} cm.<br>`
-        texteCorr += `$\\mathcal{A}_3=\\dfrac{1}{2}\\times${r3}\\times${r3}\\times\\pi=${texNombre(r3 * r3 / 2, 1)}\\pi
-        \\approx${texNombre(r3 * r3 * Math.PI / 2, 1)}~\\text{cm}^2$<br>`
+        }\\times\\pi+${2 * r3}=
+        ${miseEnEvidence(`${r3}\\pi+${2 * r3}`)}\\text{ cm}
+        \\approx
+        ${miseEnEvidence(`${texNombre(r3 * Math.PI + 2 * r3, 1)}`)}\\text{ cm}$<br>`
+      }
+
+      if (this.sup !== 1) {
+        texteCorr += `La troisième figure est la moitié d'un disque de diamètre ${2 * r3
+        } cm donc de ${r3} cm de rayon.<br>`
+        texteCorr += `$\\mathcal{A}_3=\\dfrac{1}{2}\\times${r3}\\times${r3}\\times\\pi=
+      ${miseEnEvidence(`${texNombre(r3 * r3 / 2, 2)}\\pi`)}\\text{ cm}^2
+      \\approx
+      ${miseEnEvidence(`${texNombre(r3 * r3 / 2 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
       }
     }
     this.listeQuestions.push(mathalea2d(params, objetsEnonce))
