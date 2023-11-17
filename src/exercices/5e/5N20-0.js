@@ -325,5 +325,5 @@ ${texteEnCouleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.de
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
+  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }
