@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures.js'
-import { lampeMessage } from '../../lib/format/message.js'
+// import { lampeMessage } from '../../lib/format/message.js'
 import { abs, signe } from '../../lib/outils/nombres.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
@@ -47,13 +47,13 @@ export default function ExerciceEquation1Tiret2 () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    if (this.interactif) {
-      this.introduction = lampeMessage({
-        titre: '',
-        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${deprecatedTexFraction(1, 3)})$ plutôt qu'une valeur approchée (comme 0,3333).`,
-        couleur: 'nombres'
-      })
-    }
+    // if (this.interactif) { // Selon Rémi : "Ces rappels relèvent plus d’un choix de prof et ne me semblent pas pertinents dans des énoncés"
+    //  this.introduction = lampeMessage({
+    //    titre: '',
+    //    texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${deprecatedTexFraction(1, 3)})$ plutôt qu'une valeur approchée (comme 0,3333).`,
+    //    couleur: 'nombres'
+    //  })
+    // }
     let listeTypeDeQuestions = ['ax+b=cx+d', 'k(ax+b)=cx+d', 'k-(ax+b)=cx+d']
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     for (let i = 0, a, b, c, d, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
