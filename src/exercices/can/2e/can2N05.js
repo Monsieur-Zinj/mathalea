@@ -12,14 +12,14 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '16/10/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '05/11/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
  * Référence
  */
-export const uuid = ''
+export const uuid = 'c52a3'
 export const ref = 'can2N05'
 const listePremiers = premiersEntreBornes(1, 100)
 const listeNonPremiers = [1, 21, 27, 33, 39, 42, 45, 49, 51, 54, 55, 57, 63, 69, 75, 77, 81, 87, 91, 93, 95, 99]
