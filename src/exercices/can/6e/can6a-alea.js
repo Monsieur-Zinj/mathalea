@@ -4,7 +4,7 @@ import { combinaisonListesSansChangerOrdre, enleveElementBis } from '../../../li
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Exercice from '../../Exercice.js'
-import refToUuid from '../../../json/refToUuid.json'
+import uuidToUrl from '../../../json/uuidsToUrl.json'
 import { mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
 export const titre = 'Course aux nombres 6e'
 export const interactifReady = true
@@ -24,7 +24,7 @@ export default function can6eAll() {
   this.nbQuestions = 4
   this.sup = 'All'
   this.lastCallback = ''
-  this.debug = true
+  this.debug = false
 
   this.log = function (str){
     if (this.debug) console.log(str)
@@ -199,8 +199,21 @@ export default function can6eAll() {
       exercice.log('dispatched all Questions chargées')
     }
 
+    function findUuid(fileScript){
+      const uuids = Object.entries(uuidToUrl)
+      const found = uuids.find((element) => {        
+        const [filename, , ] = element[1].replaceAll('\\', '/').split('/').reverse()
+        if (filename.split('.')[0] === fileScript){
+          return true
+        }
+        return false
+      })
+      return found[0]
+    }
+
     async function loadQuest (exercice, fileScript, i){
-      const uuid = refToUuid[fileScript]
+      // const uuid = refToUuid[fileScript]
+      const uuid =findUuid(fileScript)
       const quest = mathaleaLoadExerciceFromUuid(uuid).then(exports => {
       // const quest =  import(fileScript).then(exports => {
         const q2 = exports // new exports.default()
@@ -235,7 +248,7 @@ export default function can6eAll() {
         exercice.log('Question chargée' + i)
       }).catch(function(err) {
         exercice.log(err)
-        exercice.listeQuestions[i] = 'Erreur de chargement' + fileScript
+        exercice.listeQuestions[i] = 'Erreur de chargement:' + fileScript
      })
 
      exercice.log('Calling Question chargée' + i)
@@ -264,8 +277,8 @@ export default function can6eAll() {
       'N1 à N17 : can de 6N01 à 6N17',
       'C : mélange calcul',
       'G : mélange géométrie',
-      'M : Mélange mesure',
-      'N : Mélange numération',
+      'M : mélange mesure',
+      'N : mélange numération',
     ].join('\n')
   ]
 }
