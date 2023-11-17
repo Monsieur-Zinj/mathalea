@@ -107,7 +107,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
 
       if (!div && typesDeQuestions < 4) {
         // Si il faut multiplier pour convertir
-        resultat = calculANePlusJamaisUtiliser(a * prefixeMulti[k][1]).toString() // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = calculANePlusJamaisUtiliser(a * prefixeMulti[k][1])// Utilise Algebrite pour avoir le résultat exact même avec des décimaux
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
         texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
@@ -117,7 +117,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
                     ' =  ' +
                     texNombre(a) +
                     '\\times' +
-                    texNombre(prefixeMulti[k][1]) +
+                    texTexte(prefixeMulti[k][1]) +
                     texTexte(unite) +
                     ' = ' +
                     texNombre(resultat) +
@@ -130,7 +130,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite)
         }
       } else if (div && typesDeQuestions < 4) {
-        resultat = calculANePlusJamaisUtiliser(a / prefixeDiv[k][1]).toString() // Attention aux notations scientifiques pour 10e-8
+        resultat = calculANePlusJamaisUtiliser(a / prefixeDiv[k][1])// Attention aux notations scientifiques pour 10e-8
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
         texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
@@ -140,7 +140,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
                     ' =  ' +
                     texNombre(a) +
                     '\\div' +
-                    texNombre(prefixeDiv[k][1]) +
+                    texTexte(prefixeDiv[k][1]) +
                     texTexte(unite) +
                     ' = ' +
                     texNombre(resultat) +
@@ -209,7 +209,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         }
       }
 
-      if (reponses.indexOf(resultat) === -1) {
+      if (this.questionJamaisPosee(i, resultat)) {
         reponses[i] = resultat
         setReponse(this, i, resultat.toString().replace('.', ','))
         // Si la question n'a jamais été posée, on en crée une autre
