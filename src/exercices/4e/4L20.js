@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures.js'
-import { lampeMessage } from '../../lib/format/message.js'
+// import { lampeMessage } from '../../lib/format/message.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -49,13 +49,13 @@ export default function ExerciceEquation1 () {
     this.consigne = this.nbQuestions === 1
       ? 'Résoudre l\'équation suivante.'
       : 'Résoudre les équations suivantes.'
-    if (this.interactif) {
-      this.introduction = lampeMessage({
-        titre: 'Calculatrice autorisée.',
-        texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> Pour une solution comme 0,333... seule une fraction (par ex : $${deprecatedTexFraction(1, 3)})$ est correcte`,
-        couleur: 'nombres'
-      })
-    } else this.introduction = ''
+    // if (this.interactif) { // Selon Rémi : "Ces rappels relèvent plus d’un choix de prof et ne me semblent pas pertinents dans des énoncés"
+    //  this.introduction = lampeMessage({
+    //    titre: 'Calculatrice autorisée.',
+    //    texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${deprecatedTexFraction(1, 3)})$ plutôt qu'une valeur approchée (comme 0,3333).`,
+    //    couleur: 'nombres'
+    //  })
+    // } else this.introduction = ''
     let listeTypeDeQuestions
     switch (this.sup2.toString()) {
       case '1':
