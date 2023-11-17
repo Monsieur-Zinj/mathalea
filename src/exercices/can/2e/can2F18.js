@@ -6,19 +6,19 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import Exercice from '../../Exercice.js'
-export const dateDePublication = '27/10/2023'
+export const dateDePublication = '16/11/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Résoudre une équation graphiquement'
+export const titre = 'Déterminer un extremum graphiquement'
 
 /*!
  * @author Gilles MORA
   *
- * Référence can2F16
+ * Référence can2F18
 */
-export const uuid = '9d293'
-export const ref = 'can2F16'
-export default function EquationsGSpline () {
+export const uuid = '5a908'
+export const ref = 'can2F18'
+export default function MaxMinG () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
@@ -37,14 +37,14 @@ export default function EquationsGSpline () {
     ]
     const noeuds2 = [{ x: -4, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 1, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-      { x: -2, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+      { x: -2, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -1, y: 1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
       { x: 0, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
       { x: 2, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 3, y: 0, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
       { x: 4, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: 5, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
-      { x: 6, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
+      { x: 6, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
     ]
     const noeuds3 = [{ x: -4, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: -2, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
@@ -99,25 +99,18 @@ export default function EquationsGSpline () {
       color: 'blue'
     })
     const objetsEnonce = [repere1, courbe1]
-    const nbAntecedentsEntiersMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin, bornes.yMax, true, true)
-
-    const nombreAntecedentCherches1 = choice([randint(1, nbAntecedentsEntiersMaximum), randint(0, nbAntecedentsEntiersMaximum), randint(1, nbAntecedentsEntiersMaximum)])
-    const y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
-
-    const solutions1 = theSpline.solve(y1)
-    const reponse1 = solutions1.length === 0 ? '\\emptyset' : `${solutions1.join(';')}`
-    this.reponse = reponse1
+    const solsMax = theSpline.solve(Math.max(...nuage.map(el => el.y)))
+    const solsMin = theSpline.solve(Math.min(...nuage.map(el => el.y)))
+    const choix = choice([true, false])
+    this.reponse = choix ? Math.max(...nuage.map(el => el.y)) : Math.min(...nuage.map(el => el.y))
     this.question = `On donne la représentation graphique d'une fonction $f$. <br>
-    Résoudre l'équation  $f(x)=${y1}$.<br>` +
+    Déterminer le ${choix ? 'maximum' : 'minimum'} de $f$ sur son ensemble de définition.<br>` +
        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
-    if (this.interactif) {
-      this.question += '<br>Écrire les solutions rangées dans l\'ordre croissant séparées par des points-virgules (saisir $\\emptyset$ s\'il n\'y en a pas).<br>'
-      this.question += 'Solution(s) : '
-    }
-
-    this.correction = `Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite  d'équation $y = ${y1}$ (parallèle à l'axe des abscisses).`}<br>
-    On en déduit : ${solutions1.length === 0 ? `$S=${miseEnEvidence('\\emptyset')}$.` : `$S=\\{${miseEnEvidence(solutions1.join('\\,;\\,'))}\\}$.`}<br>`
-    this.canEnonce = this.question// 'Compléter'
-    this.canReponseACompleter = ''
+    this.correction = `Sur l'intervalle $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$, le point le plus ${choix ? 'haut' : 'bas'} de la courbe a pour coordonnées ${choix ? `$(${solsMax[0]}\\,;\\,${Math.max(...nuage.map(el => el.y))})$` : `$(${solsMin[0]}\\,;\\,${Math.min(...nuage.map(el => el.y))})$`}.<br>
+    On en déduit que le ${choix ? 'maximum' : 'minimum'} de $f$ est ${choix ? `$${miseEnEvidence(`${Math.max(...nuage.map(el => el.y))}`)}$` : `$${miseEnEvidence(`${Math.min(...nuage.map(el => el.y))}`)}$`} . Il est atteint en 
+    ${choix ? `$x=${solsMax[0]}$` : `$x=${solsMin[0]}$`}.`
+    this.canEnonce = 'On donne la représentation graphique d\'une fonction $f$. <br>' +
+       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+    this.canReponseACompleter = `Le ${choix ? 'maximum' : 'minimum'} de $f$ sur son ensemble de définition est : $\\ldots$.<br>`
   }
 }
