@@ -6,7 +6,7 @@ import { choice } from './arrayOutils.js'
  * Met en couleur et en gras
  *
  * Met en couleur et gras un texte. JCL dit : "S'utilise entre $ car utilise des commandes qui fonctionnent en math inline"
- * @param {string} texte à mettre en couleur
+ * @param {string|number} texte à mettre en couleur
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
