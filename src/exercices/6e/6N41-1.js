@@ -49,6 +49,7 @@ export default function ExerciceLabyrintheFractionsEgales () {
     this.listeCorrections = []
     this.listeQuestions = []
     this.autoCorrection = []
+    this.sup = Math.max(2, this.sup)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const mesfractions = []
       const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
@@ -63,7 +64,8 @@ export default function ExerciceLabyrintheFractionsEgales () {
       while (pgcd(num, table) !== 1) {
         num = randint(2, 2 * table - 1)
       }
-      const maximum = parseInt(this.sup)
+
+      const maximum = this.sup
       texte = `Trouver la sortie en ne passant que par les cases contenant des fractions égales à $${texFractionReduite(num, table)}$.`
       texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
@@ -113,8 +115,8 @@ export default function ExerciceLabyrintheFractionsEgales () {
           ]
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
-      // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, texte)) {
+        // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -123,7 +125,7 @@ export default function ExerciceLabyrintheFractionsEgales () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Facteur maximum']
+  this.besoinFormulaireNumerique = ['Facteur maximum', 20]
   this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, '1 : Escargot\n2 : Tortue\n3 : Lièvre\n4 : Antilope\n5 : Guépard\n6 : Au hasard']
   this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
   this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
