@@ -662,7 +662,7 @@
           "tags": [],
           "uuid": "315b6",
           "id": "can6a-Aléa",
-          "titre": "Course aux nombres 6e",
+          "titre": "Choix aléatoires des questions",
           "features": {
             "interactif": {
               "isActive": true,
@@ -675,11 +675,11 @@
           },
           "typeExercice": "alea"
         },
-        "can6a-xxxx": {
-          "url": "can/6e/can6a-xxxx.js",
+        "can6a-CoopMaths": {
+          "url": "can/6e/can6a-CoopMaths.js",
           "tags": [],
           "uuid": "3a526",
-          "id": "can6a-xxxx",
+          "id": "can6a-CoopMaths",
           "titre": "Course aux nombres fin de 6e",
           "features": {
             "interactif": {

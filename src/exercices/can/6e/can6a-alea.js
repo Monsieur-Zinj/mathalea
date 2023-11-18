@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import Exercice from '../../Exercice.js'
 import uuidToUrl from '../../../json/uuidsToUrl.json'
 import { mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
-export const titre = 'Course aux nombres 6e'
+export const titre = 'Choix aléatoires des questions'
 export const interactifReady = true
 export const interactifType = 'qcm_mathLive'
 export const amcReady = false
