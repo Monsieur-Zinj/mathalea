@@ -11294,16 +11294,16 @@
         "typeExercice": "alea"
       },
       "6N20-2": {
-        "url": "6e/6N20-2.js",
+        "url": "6e/6N20-2.ts",
         "tags": [],
         "uuid": "ab44e",
         "id": "6N20-2",
         "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
-        "dateModification": "14/05/2023",
+        "dateModification": "18/11/2023",
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'mathLive'"
+            "type": "'custom'"
           },
           "amc": {
             "isActive": false,

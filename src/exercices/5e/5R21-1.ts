@@ -102,7 +102,7 @@ class SoustractionRelatifs extends Exercice {
       mf.setPromptState('place2', 'correct', true)
     }
     if (!test3) {
-      mf.setPromptState('place3', 'correct', true)
+      mf.setPromptState('place3', 'incorrect', true)
     } else {
       mf.setPromptState('place3', 'correct', true)
     }
