@@ -2973,7 +2973,7 @@
     "tags": [],
     "uuid": "d02da",
     "id": "2N51-4",
-    "titre": "Équations du premier degré",
+    "titre": "Résoudre une équation du premier degré",
     "features": {
       "interactif": {
         "isActive": true,
@@ -8714,8 +8714,8 @@
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -8918,8 +8918,8 @@
         "type": ""
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -17181,6 +17181,25 @@
     },
     "typeExercice": "alea"
   },
+  "can2F18": {
+    "url": "can/2e/can2F18.js",
+    "tags": [],
+    "uuid": "5a908",
+    "id": "can2F18",
+    "titre": "Déterminer un extremum graphiquement",
+    "datePublication": "16/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "can2G01": {
     "url": "can/2e/can2G01.js",
     "tags": [],
@@ -17863,10 +17882,10 @@
   "can2N05": {
     "url": "can/2e/can2N05.js",
     "tags": [],
-    "uuid": "",
+    "uuid": "c52a3",
     "id": "can2N05",
     "titre": "Reconnaître un nombre premier",
-    "datePublication": "16/10/2023",
+    "datePublication": "05/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -22352,6 +22371,25 @@
     "id": "can6N17",
     "titre": "Lire une abscisse (décimale) sur une droite graduée*",
     "datePublication": "29/08/2022",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can6N18": {
+    "url": "can/2e/can6N18.js",
+    "tags": [],
+    "uuid": "b9582",
+    "id": "can6N18",
+    "titre": "Encadrer à la dizaine, centaine",
+    "datePublication": "16/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
