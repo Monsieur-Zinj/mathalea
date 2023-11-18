@@ -71,13 +71,13 @@ class ConstructionTriangle extends Exercice {
     let feedback = ''
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [string, string, string]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
-    let { message, isValid } = this.figure.testDistance({ label1: labelA, label2: labelB, distance: c })
+    let { message, isValid } = this.figure.checkDistance({ label1: labelA, label2: labelB, distance: c })
     if (message) feedback += message + '<br>'
     resultat.push(isValid ? 'OK' : 'KO')
-    ;({ message, isValid } = this.figure.testDistance({ label1: labelB, label2: labelC, distance: a }))
+    ;({ message, isValid } = this.figure.checkDistance({ label1: labelB, label2: labelC, distance: a }))
     if (message) feedback += message + '<br>'
     resultat.push(isValid ? 'OK' : 'KO')
-    ;({ message, isValid } = this.figure.testDistance({ label1: labelC, label2: labelA, distance: b }))
+    ;({ message, isValid } = this.figure.checkDistance({ label1: labelC, label2: labelA, distance: b }))
     if (message) feedback += message + '<br>'
     resultat.push(isValid ? 'OK' : 'KO')
     if (resultat.every(r => r === 'OK')) {
