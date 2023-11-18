@@ -1528,6 +1528,15 @@ export function Repere ({
     objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
   }
   this.objets = objets
+
+  this.addObjet = function (objet) {
+    if (!(objet instanceof ObjetMathalea2D)) return
+    this.objets = [...this.objets, objet]
+  }
+
+  this.trace = function () {
+    return this.objets
+  }
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''

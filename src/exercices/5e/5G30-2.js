@@ -553,14 +553,14 @@ export default function ExercicesAnglesAIC () {
             anglesA.Ax,
             anglesB.As,
             anglesB.Ax,
-            labelPoint(anglesA.S),
-            labelPoint(anglesA.T),
-            labelPoint(anglesA.X),
-            labelPoint(anglesB.S),
-            labelPoint(anglesB.T),
-            labelPoint(anglesB.OX),
-            labelPoint(anglesA.A),
-            labelPoint(anglesB.A)
+            labelPoint('$' + anglesA.S + '$'),
+            labelPoint('$' + anglesA.T + '$'),
+            labelPoint('$' + anglesA.X + '$'),
+            labelPoint('$' + anglesB.S + '$'),
+            labelPoint('$' + anglesB.T + '$'),
+            labelPoint('$' + anglesB.OX + '$'),
+            labelPoint('$' + anglesA.A + '$'),
+            labelPoint('$' + anglesB.A + '$')
           )
           const paramsEnonce = fixeBordures([
             ...Object.keys(anglesA).map(key => { return anglesA[key] }),
