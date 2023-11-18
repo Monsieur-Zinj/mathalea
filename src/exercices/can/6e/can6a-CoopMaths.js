@@ -25,7 +25,7 @@ export const amcType = 'AMCNum'
  * Référence can Predef6-3
  */
 export const uuid = '3a526'
-export const ref = 'can6a-xxxx'
+export const ref = 'can6a-CoopMaths'
 export default function CourseAuxNombres6e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 30
