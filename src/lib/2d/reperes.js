@@ -1336,8 +1336,8 @@ export function Repere ({
         grilleYDistance = yThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleYListe = rangeMinMax(0, grilleYMax, [0], grilleYDistance).concat(
-        rangeMinMax(0, -grilleYMin, [0], grilleYDistance).map(el => -el)
+      grilleYListe = rangeMinMax(0, grilleYMax, [0], grilleYDistance / yUnite).concat(
+        rangeMinMax(0, -grilleYMin, [0], grilleYDistance / yUnite).map(el => -el)
       )
     }
     for (const y of grilleYListe) {
@@ -1367,8 +1367,8 @@ export function Repere ({
         grilleXDistance = xThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleXListe = rangeMinMax(0, grilleXMax, [0], grilleXDistance).concat(
-        rangeMinMax(0, -grilleXMin, [0], grilleXDistance).map(el => -el)
+      grilleXListe = rangeMinMax(0, grilleXMax, [0], grilleXDistance / xUnite).concat(
+        rangeMinMax(0, -grilleXMin, [0], grilleXDistance / xUnite).map(el => -el)
       )
     }
     for (const x of grilleXListe) {
@@ -1447,11 +1447,12 @@ export function Repere ({
   }
   // LES THICKS
   if (axeXisVisible) {
-    if (xThickListe.length === 0) {
+    if ((typeof xThickListe === 'boolean' && xThickListe) || (Array.isArray(xThickListe) && xThickListe.length === 0)) {
       xThickListe = rangeMinMax(0, xThickMax, [0], xThickDistance).concat(
         rangeMinMax(0, -xThickMin, [0], xThickDistance).map(el => -el)
       )
-    }
+    } else if (typeof xThickListe === 'boolean') xThickListe = []
+
     for (const x of xThickListe) {
       const thick = segment(x * xUnite, ordonneeAxe * yUnite - thickHauteur, x * xUnite, ordonneeAxe * yUnite + thickHauteur, thickCouleur)
       thick.isVisible = false
@@ -1460,11 +1461,11 @@ export function Repere ({
     }
   }
   if (axeYisVisible) {
-    if (yThickListe.length === 0) {
+    if ((typeof yThickListe === 'boolean' && yThickListe) || (Array.isArray(yThickListe) && yThickListe.length === 0)) {
       yThickListe = rangeMinMax(0, yThickMax, [0], yThickDistance).concat(
         rangeMinMax(0, -yThickMin, [0], yThickDistance).map(el => -el)
       )
-    }
+    } else if (typeof yThickListe === 'boolean') yThickListe = []
     for (const y of yThickListe) {
       const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite, thickCouleur)
       thick.isVisible = false
@@ -1474,11 +1475,11 @@ export function Repere ({
   }
   // LES LABELS
   if (axeXisVisible) {
-    if (xLabelListe.length === 0) {
+    if ((typeof xLabelListe === 'boolean' && xLabelListe) || (Array.isArray(xLabelListe) && xLabelListe.length === 0)) {
       xLabelListe = rangeMinMax(0, xLabelMax, [0], xLabelDistance).concat(
         rangeMinMax(0, -xLabelMin, [0], xLabelDistance).map(el => -el)
       )
-    }
+    } else if (typeof xLabelListe === 'boolean') xLabelListe = []
     for (const x of xLabelListe) {
       let l
       if (typeof x === 'number') {
@@ -1497,11 +1498,11 @@ export function Repere ({
     }
   }
   if (axeYisVisible) {
-    if (yLabelListe.length === 0) {
+    if ((typeof yLabelListe === 'boolean' && yLabelListe) || (Array.isArray(yLabelListe) && yLabelListe.length === 0)) {
       yLabelListe = rangeMinMax(0, yLabelMax, [0], yLabelDistance).concat(
         rangeMinMax(0, -yLabelMin, [0], yLabelDistance).map(el => -el)
       )
-    }
+    } else if (typeof yLabelListe === 'boolean') yLabelListe = []
     for (const y of yLabelListe) {
       let l
       if (typeof y === 'number') {
