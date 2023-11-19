@@ -162,26 +162,10 @@ class DistributiviteNumerique extends Exercice {
     } else {
       divFeedback.innerHTML = '☹️'
     }
-    if (!test1) {
-      mf.setPromptState('place1', 'incorrect', true)
-    } else {
-      mf.setPromptState('place1', 'correct', true)
-    }
-    if (!test2) {
-      mf.setPromptState('place2', 'incorrect', true)
-    } else {
-      mf.setPromptState('place2', 'correct', true)
-    }
-    if (!test3) {
-      mf.setPromptState('place3', 'incorrect', true)
-    } else {
-      mf.setPromptState('place3', 'correct', true)
-    }
-    if (!test4) {
-      mf.setPromptState('place4', 'incorrect', true)
-    } else {
-      mf.setPromptState('place4', 'correct', true)
-    }
+    mf.setPromptState('place1', test1 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('place2', test2 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('place3', test3 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('place4', test4 ? 'correct' : 'incorrect', true)
     return result
   }
 }
