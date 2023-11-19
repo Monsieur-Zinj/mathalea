@@ -12548,16 +12548,17 @@
         "typeExercice": "alea"
       },
       "5C12-3": {
-        "url": "5e/5C12-3.js",
+        "url": "5e/5C12-3.ts",
         "tags": [],
         "uuid": "9103e",
         "id": "5C12-3",
         "titre": "Utiliser la distributivité pour du calcul mental",
         "datePublication": "26/11/2022",
+        "dateModification": "18/11/2023",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'custom'"
           },
           "amc": {
             "isActive": false,
