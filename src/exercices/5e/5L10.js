@@ -217,12 +217,12 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$${x}+${x}$`,
               statut: false,
-              feedback: "Le double est rarement le suivant. En fait, ça n'arrive que pour 1"
+              feedback: "Le double est rarement le suivant. En fait, ça n'arrive que pour 1."
             },
             {
               texte: `$2${x}$`,
               statut: false,
-              feedback: "Le double est rarement le suivant. En fait, ça n'arrive que pour 1"
+              feedback: "Le double est rarement le suivant. En fait, ça n'arrive que pour 1."
             },
             {
               texte: `$${x}-1$`,
@@ -258,7 +258,7 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$${x}-${x}$`,
               statut: false,
-              feedback: 'Cela fait zéro, il me semble... donc ça ne fonctionne que pour 1'
+              feedback: 'Cela fait zéro, il me semble... donc ça ne fonctionne que pour 1.'
             },
             {
               texte: `$-1${x}$`,
@@ -315,12 +315,12 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$${x}${x}${x}$`,
               statut: true,
-              feedback: 'Correct, mais non simplifié'
+              feedback: 'Correct, mais non simplifié.'
             },
             {
               texte: `$${x}\\times ${x}\\times ${x}$`,
               statut: true,
-              feedback: 'Correct, mais non simplifié'
+              feedback: 'Correct, mais non simplifié.'
             },
             {
               texte: `$${x}^3$`,
@@ -351,12 +351,12 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$-${x}$`,
               statut: true,
-              feedback: 'Correct, mais non simplifié'
+              feedback: 'Correct !'
             },
             {
               texte: `$-1\\times ${x}$`,
               statut: true,
-              feedback: 'Correct, mais non simplifié'
+              feedback: 'Correct, mais non simplifié.'
             },
             {
               texte: `$${x}-1$`,
@@ -505,7 +505,7 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$${k}\\div ${x}$`,
               statut: false,
-              feedback: "C'est l'inverse"
+              feedback: "C'est l'inverse."
             },
             {
               texte: `$${x}\\times ${k}$`,
@@ -541,7 +541,7 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$${x}\\div ${k}$`,
               statut: false,
-              feedback: "C'est l'inverse"
+              feedback: "C'est l'inverse."
             },
             {
               texte: `$${k}\\times ${x}$`,

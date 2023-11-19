@@ -11,6 +11,7 @@ import {
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Réduire une expression littérale (somme et produit)'
 export const interactifReady = true
@@ -19,6 +20,8 @@ export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '22/02/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '05/11/2023'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 /**
  * Réduire une expression
  *
@@ -33,13 +36,11 @@ export const dateDeModifImportante = '05/11/2023'
  *    '8 : ax.b',
  *    '9 : ax+bx'
  * @author Mickael Guironnet - Rémi Angot
- * 5L12
  */
 export const uuid = 'a8ad0'
 export const ref = '5L12-2'
 export default function ReduireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Réduire les expressions suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -48,24 +49,11 @@ export default function ReduireUneExpressionLitterale () {
   this.sup3 = '6-7-8-9' // Type de question
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions === 1 ? 'Réduire l\'expression suivante.' : 'Réduire les expressions suivantes.'
+    this.consigne += ', si c\'est possible.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    /*
-        let listeDesProblemes = []
-        if (!this.sup3 || parseInt(this.sup3) === 0) { // Si aucune liste n'est saisie ou mélange demandé
-          listeDesProblemes = range1(9)
-        } else {
-          if (typeof (this.sup3) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-            listeDesProblemes[0] = contraindreValeur(0, 9, this.sup3, 1)
-          } else {
-            listeDesProblemes = this.sup3.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-            for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-              listeDesProblemes[i] = contraindreValeur(0, 9, parseInt(listeDesProblemes[i]), 1) // parseInt en fait un tableau d'entiers
-            }
-          }
-        }
-      */
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       max: 9,
@@ -140,6 +128,19 @@ export default function ReduireUneExpressionLitterale () {
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: 'Réduire l\'expression ' + texte + '. Si ce n\'est pas possible, recopier juste l\'expression.<br>',
+            propositions: [
+              {
+                texte: texteCorr,
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+              }
+            ]
+          }
+        }
         i++
       }
       cpt++
@@ -159,7 +160,7 @@ export default function ReduireUneExpressionLitterale () {
       '7 : ax+c',
       '8 : ax × b',
       '9 : ax+bx',
-      '10 : Mélange des types de questions'
+      '10 : Mélange'
     ].join('\n')
   ]
 }
