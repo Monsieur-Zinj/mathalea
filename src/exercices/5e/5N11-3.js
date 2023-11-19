@@ -5,14 +5,16 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ComputeEngine } from '@cortex-js/compute-engine'
 
 export const titre = 'Écrire une fraction sur 100 puis sous la forme d\'un pourcentage'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = ['mathLive', 'custom']
 export const amcType = 'AMCNum'
 export const amcReady = true
 
-export const dateDeModifImportante = '17/03/2022'
+export const dateDeModifImportante = '19/11/2023' // Fill in the blank
+const ce = new ComputeEngine()
 
 /**
  * Une fraction étant donnée, il faut l'écrire avec 100 au dénominateur puis donner son écriture sous forme de pourcentage.
@@ -53,13 +55,20 @@ export default function FractionVersPourcentage () {
       }
       percenti = calculANePlusJamaisUtiliser(num * 100 / den)
       if (this.sup === 1) {
-        texte = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{\\phantom{XXXXXX}}{}=\\dfrac{}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
+        this.interactifType = 'custom'
+        texte = `<math-field readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
+        \\dfrac{${num}}{${texNombre(den)}}~=~\\dfrac{\\placeholder[num1]{}}{\\placeholder[den1]{}} 
+        ~=~\\dfrac{\\placeholder[num2]{}}{100} 
+        ~=~\\placeholder[percent]{}\\%
+      </math-field><span class="ml-2" id="feedbackEx${this.numeroExercice}Q${i}"></span>`
+
         if (den < 100) {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${calculANePlusJamaisUtiliser(100 / den)}}}{${den}{\\color{blue}\\times${calculANePlusJamaisUtiliser(100 / den)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${calculANePlusJamaisUtiliser(den / 100)}}}{${den}{\\color{blue}\\div${calculANePlusJamaisUtiliser(den / 100)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         }
       } else {
+        this.interactifType = 'mathLive'
         texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
         texteCorr = `$\\dfrac{${percenti}}{100}=${percenti}~\\%$`
       }
@@ -73,5 +82,33 @@ export default function FractionVersPourcentage () {
       cpt++
     }
     listeQuestionsToContenu(this)
+  }
+
+  this.correctionInteractive = function (i) {
+    const reponseAttendue = this.autoCorrection[i].reponse.valeur[0].toString()
+    if (this.answers === undefined) this.answers = {}
+    let result
+    const mf = document.querySelector(`#champTexteEx${this.numeroExercice}Q${i}`)
+    this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
+    const num1 = mf.getPromptValue('num1')
+    const num2 = mf.getPromptValue('num2')
+    const den1 = mf.getPromptValue('den1')
+    const percent = mf.getPromptValue('percent')
+    const test1 = ce.parse(`\\frac{${num1}}{${den1}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{${100}}`))
+    const test2 = ce.parse(num2).isSame(ce.parse(reponseAttendue))
+    const test3 = ce.parse(percent).isSame(ce.parse(reponseAttendue))
+    if (test1 && test2 && test3) {
+      divFeedback.innerHTML = '😎'
+      result = 'OK'
+    } else {
+      divFeedback.innerHTML = '☹️'
+      result = 'KO'
+    }
+    mf.setPromptState('num1', test1 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('den1', test1 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('num2', test2 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('percent', test3 ? 'correct' : 'incorrect', true)
+    return result
   }
 }
