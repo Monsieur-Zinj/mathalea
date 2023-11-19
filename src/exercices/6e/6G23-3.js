@@ -142,6 +142,7 @@ export default function TracerTriangle2Angles () {
   this.besoinFormulaireCaseACocher = ["Longueurs données qu'à la fin de l'animation"]
   this.besoinFormulaire3Texte = [
     'Type de questions', [
+      'Nombres séparés par des tirets',
       '1 : deux angles aigus',
       '2 : un angle obtus et un angle aigu',
       '3 : Mélange'

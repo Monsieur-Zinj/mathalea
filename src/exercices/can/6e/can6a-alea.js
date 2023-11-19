@@ -19,23 +19,22 @@ export const amcReady = false
  */
 export const uuid = '315b6'
 export const ref = 'can6a-Aléa'
-export default function can6eAll() {
+export default function can6eAll () {
   Exercice.call(this)
   this.nbQuestions = 4
   this.sup = 'All'
   this.lastCallback = ''
   this.debug = false
 
-  this.log = function (str){
+  this.log = function (str) {
     if (this.debug) console.log(str)
   }
 
   this.nouvelleVersion = function () {
-
     this.questionJamaisPosee(0, this.seed, this.sup, this.sup2, this.sup3, this.interactif, this.nbQuestions)
-    if (this.lastCallback === this.listeArguments[0]){
+    if (this.lastCallback === this.listeArguments[0]) {
       // identique
-      // pas de recalcul à faire 
+      // pas de recalcul à faire
       this.log('pas de recalcul')
       return
     }
@@ -45,15 +44,15 @@ export default function can6eAll() {
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     this.autoCorrection = []
-      
-    if (this.sup === null || this.sup == ''){
+
+    if (this.sup === null || this.sup === '') {
       this.sup = 'All'
     } else {
       this.sup = this.sup.toString()
     }
 
     this.log(this.sup)
-    const qCal = this.sup.replaceAll('C','')
+    const qCal = this.sup.replaceAll('C', '')
     let questionsDisponiblesCalc = enleveElementBis(gestionnaireFormulaireTexte({
       saisie: qCal,
       min: 0,
@@ -63,10 +62,10 @@ export default function can6eAll() {
       nbQuestions: 999,
       shuffle: false,
       exclus: [37, 0]
-    }),0)
-    this.log('pass1:'+questionsDisponiblesCalc)
+    }), 0)
+    this.log('pass1:' + questionsDisponiblesCalc)
 
-    if (questionsDisponiblesCalc.length===0 && (this.sup.includes('C') || this.sup.includes('All'))) {
+    if (questionsDisponiblesCalc.length === 0 && (this.sup.includes('C') || this.sup.includes('All'))) {
       // pas de question du type C1
       questionsDisponiblesCalc = gestionnaireFormulaireTexte({
         saisie: 48,
@@ -78,10 +77,10 @@ export default function can6eAll() {
         shuffle: true,
         exclus: [37]
       })
-      this.log('pass2:'+questionsDisponiblesCalc)
+      this.log('pass2:' + questionsDisponiblesCalc)
     }
 
-    const qGeo = this.sup.replaceAll('G','')
+    const qGeo = this.sup.replaceAll('G', '')
     let questionsDisponiblesGeo = enleveElementBis(gestionnaireFormulaireTexte({
       saisie: qGeo,
       min: 0,
@@ -90,9 +89,9 @@ export default function can6eAll() {
       melange: 8,
       nbQuestions: 999,
       shuffle: false
-    }),0)
-    this.log('pass1:'+questionsDisponiblesGeo)
-    if (questionsDisponiblesGeo.length===0 && (this.sup.includes('G') || this.sup.includes('All'))) {
+    }), 0)
+    this.log('pass1:' + questionsDisponiblesGeo)
+    if (questionsDisponiblesGeo.length === 0 && (this.sup.includes('G') || this.sup.includes('All'))) {
       // pas de question du type G2
       questionsDisponiblesGeo = gestionnaireFormulaireTexte({
         saisie: 8,
@@ -106,7 +105,7 @@ export default function can6eAll() {
       this.log('pass2:' + questionsDisponiblesGeo)
     }
 
-    const qNum = this.sup.replaceAll('N','')
+    const qNum = this.sup.replaceAll('N', '')
     let questionsDisponiblesNum = enleveElementBis(gestionnaireFormulaireTexte({
       saisie: qNum,
       min: 0,
@@ -115,9 +114,9 @@ export default function can6eAll() {
       melange: 18,
       nbQuestions: 999,
       shuffle: false
-    }),0)
-    this.log('pass1:'+questionsDisponiblesNum)
-    if (questionsDisponiblesNum.length===0 && (this.sup.includes('N') || this.sup.includes('All'))) {
+    }), 0)
+    this.log('pass1:' + questionsDisponiblesNum)
+    if (questionsDisponiblesNum.length === 0 && (this.sup.includes('N') || this.sup.includes('All'))) {
       // pas de question du type N2
       questionsDisponiblesNum = gestionnaireFormulaireTexte({
         saisie: 18,
@@ -131,7 +130,7 @@ export default function can6eAll() {
       this.log('pass2:' + questionsDisponiblesNum)
     }
 
-    const qMes = this.sup.replaceAll('M','')
+    const qMes = this.sup.replaceAll('M', '')
     let questionsDisponiblesMes = enleveElementBis(gestionnaireFormulaireTexte({
       saisie: qMes,
       min: 0,
@@ -140,9 +139,9 @@ export default function can6eAll() {
       melange: 14,
       nbQuestions: 999,
       shuffle: false
-    }),0)
-    this.log('pass1:'+questionsDisponiblesMes)
-    if (questionsDisponiblesMes.length===0 && (this.sup.includes('M') || this.sup.includes('All'))) {
+    }), 0)
+    this.log('pass1:' + questionsDisponiblesMes)
+    if (questionsDisponiblesMes.length === 0 && (this.sup.includes('M') || this.sup.includes('All'))) {
       // pas de question du type N2
       questionsDisponiblesMes = gestionnaireFormulaireTexte({
         saisie: 14,
@@ -156,38 +155,37 @@ export default function can6eAll() {
       this.log('pass2:' + questionsDisponiblesMes)
     }
 
-    function combineTheme(){
-      let output =[]      
+    function combineTheme () {
+      const output = []
       let countA = 0
-      for (let k=0; k<arguments.length; k++) {
-        countA = Math.max(arguments[k].length,countA)
+      for (let k = 0; k < arguments.length; k++) {
+        countA = Math.max(arguments[k].length, countA)
       }
-      for (let p=0; p<countA; p++){
-        for (let h=0;h<arguments.length;h++){
-          let a = arguments[h].shift()
+      for (let p = 0; p < countA; p++) {
+        for (let h = 0; h < arguments.length; h++) {
+          const a = arguments[h].shift()
           if (a) output.push(a)
         }
       }
       return output
     }
 
-    if (questionsDisponiblesCalc.length===0 && questionsDisponiblesGeo.length===0 && questionsDisponiblesNum.length===0 && questionsDisponiblesMes.length===0) {
+    if (questionsDisponiblesCalc.length === 0 && questionsDisponiblesGeo.length === 0 && questionsDisponiblesNum.length === 0 && questionsDisponiblesMes.length === 0) {
       // pas de question du type C2-G4
       questionsDisponiblesCalc[0] = '1'
       questionsDisponiblesGeo[0] = '1'
       questionsDisponiblesNum[0] = '1'
       questionsDisponiblesMes[0] = '1'
     }
-    const comQuestions = combineTheme(Array.from(questionsDisponiblesCalc, (x) => 'C' + String(x).padStart(2,0)),Array.from(questionsDisponiblesGeo, (x) => 'G' + String(x).padStart(2,0)),Array.from(questionsDisponiblesNum, (x) => 'N' + String(x).padStart(2,0)),Array.from(questionsDisponiblesMes, (x) => 'M' + String(x).padStart(2,0)))
+    const comQuestions = combineTheme(Array.from(questionsDisponiblesCalc, (x) => 'C' + String(x).padStart(2, 0)), Array.from(questionsDisponiblesGeo, (x) => 'G' + String(x).padStart(2, 0)), Array.from(questionsDisponiblesNum, (x) => 'N' + String(x).padStart(2, 0)), Array.from(questionsDisponiblesMes, (x) => 'M' + String(x).padStart(2, 0)))
 
-    const questionsDisponibles = combinaisonListesSansChangerOrdre(comQuestions,this.nbQuestions).slice(0,this.nbQuestions)
+    const questionsDisponibles = combinaisonListesSansChangerOrdre(comQuestions, this.nbQuestions).slice(0, this.nbQuestions)
     this.log(questionsDisponibles)
-    
-    async function loadAllQuests(exercice, numeros){
 
-      let promises = []
-      for (let q = 0; q< numeros.length; q++){
-        promises.push(loadQuest (exercice, `can6${numeros[q]}`, q))
+    async function loadAllQuests (exercice, numeros) {
+      const promises = []
+      for (let q = 0; q < numeros.length; q++) {
+        promises.push(loadQuest(exercice, `can6${numeros[q]}`, q))
       }
 
       await Promise.all(promises)
@@ -199,11 +197,11 @@ export default function can6eAll() {
       exercice.log('dispatched all Questions chargées')
     }
 
-    function findUuid(fileScript){
+    function findUuid (fileScript) {
       const uuids = Object.entries(uuidToUrl)
-      const found = uuids.find((element) => {        
-        const [filename, , ] = element[1].replaceAll('\\', '/').split('/').reverse()
-        if (filename.split('.')[0] === fileScript){
+      const found = uuids.find((element) => {
+        const [filename, ,] = element[1].replaceAll('\\', '/').split('/').reverse()
+        if (filename.split('.')[0] === fileScript) {
           return true
         }
         return false
@@ -211,9 +209,9 @@ export default function can6eAll() {
       return found[0]
     }
 
-    async function loadQuest (exercice, fileScript, i){
+    async function loadQuest (exercice, fileScript, i) {
       // const uuid = refToUuid[fileScript]
-      const uuid =findUuid(fileScript)
+      const uuid = findUuid(fileScript)
       const quest = mathaleaLoadExerciceFromUuid(uuid).then(exports => {
       // const quest =  import(fileScript).then(exports => {
         const q2 = exports // new exports.default()
@@ -221,7 +219,7 @@ export default function can6eAll() {
         q2.numeroExercice = exercice.numeroExercice
         q2.nouvelleVersion()
         const k = i
-        if (q2.listeQuestions.length === 0){
+        if (q2.listeQuestions.length === 0) {
           exercice.listeCorrections[k] = (q2.correction)
           exercice.listeCanEnonces[k] = (q2.canEnonce)
           exercice.listeCanReponsesACompleter[k] = (q2.canReponseACompleter)
@@ -235,28 +233,27 @@ export default function can6eAll() {
           exercice.autoCorrection[k] = q2.autoCorrection[0]
           if (q2?.autoCorrection[0]?.propositions === undefined) {
             // mathlive
-            // update les références HTML                 
-            exercice.listeQuestions[k] = exercice.listeQuestions[k].replaceAll(`champTexteEx${exercice.numeroExercice}Q${0}`,`champTexteEx${exercice.numeroExercice}Q${k}`)
-            exercice.listeQuestions[k] = exercice.listeQuestions[k].replaceAll(`resultatCheckEx${exercice.numeroExercice}Q${0}`,`resultatCheckEx${exercice.numeroExercice}Q${k}`)
-          } else{
-            // qcm 
-            const monQcm = propositionsQcm (exercice, k) // update les références HTML
+            // update les références HTML
+            exercice.listeQuestions[k] = exercice.listeQuestions[k].replaceAll(`champTexteEx${exercice.numeroExercice}Q${0}`, `champTexteEx${exercice.numeroExercice}Q${k}`)
+            exercice.listeQuestions[k] = exercice.listeQuestions[k].replaceAll(`resultatCheckEx${exercice.numeroExercice}Q${0}`, `resultatCheckEx${exercice.numeroExercice}Q${k}`)
+          } else {
+            // qcm
+            const monQcm = propositionsQcm(exercice, k) // update les références HTML
             exercice.listeCanReponsesACompleter[k] = monQcm.texte
-            exercice.listeQuestions[k] =  exercice.autoCorrection[k].enonce + monQcm.texte
-          }                  
+            exercice.listeQuestions[k] = exercice.autoCorrection[k].enonce + monQcm.texte
+          }
         }
         exercice.log('Question chargée' + i)
-      }).catch(function(err) {
+      }).catch(function (err) {
         exercice.log(err)
         exercice.listeQuestions[i] = 'Erreur de chargement:' + fileScript
-     })
+      })
 
-     exercice.log('Calling Question chargée' + i)
+      exercice.log('Calling Question chargée' + i)
       return quest
-    } 
+    }
 
-
-    loadAllQuests(this,questionsDisponibles)
+    loadAllQuests(this, questionsDisponibles)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       this.listeCorrections[i] = ''
       this.listeCanEnonces[i] = ''
@@ -278,7 +275,7 @@ export default function can6eAll() {
       'C : mélange calcul',
       'G : mélange géométrie',
       'M : mélange mesure',
-      'N : mélange numération',
+      'N : mélange numération'
     ].join('\n')
   ]
 }
