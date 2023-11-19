@@ -13,8 +13,7 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
 
-export const titre =
-  "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
+export const titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
 export const interactifType = 'custom'
 export const dateDeModifImportante = '18/11/2023' // passage de l'interactif en fill in the blank

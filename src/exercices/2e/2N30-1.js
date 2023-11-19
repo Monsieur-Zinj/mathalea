@@ -1,4 +1,4 @@
-import ExerciceFractionsDifferentesEcritures from '../6e/6N20-2.js'
+import ExerciceFractionsDifferentesEcritures from '../6e/6N20-2'
 
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l\'écriture décimale'
 export const interactifReady = true
