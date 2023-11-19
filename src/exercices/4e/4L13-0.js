@@ -33,9 +33,6 @@ export default function MettreEnEquationSansResoudre () {
 
   this.nbCols = 1
   this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
-  // context.isHtml? this.spacing = 3 : this.spacing = 2;
-  // context.isHtml? this.spacingCorr = 3 : this.spacingCorr = 2;
 
   let typesDeQuestionsDisponibles
 
@@ -52,7 +49,9 @@ export default function MettreEnEquationSansResoudre () {
     typesDeQuestionsDisponibles = [1]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    // let listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
+
+    const variables = ['t', 'u', 'v', 'w', 'y', 'z']
+    const unites = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour dire le nom du polygone
@@ -100,10 +99,8 @@ export default function MettreEnEquationSansResoudre () {
       // on choisit le nombre de côtés su polygone
       const n = randint(3, 8)
       // on choisit un nom pour la variable
-      const variables = ['t', 'u', 'v', 'w', 'y', 'z']
       const inc = variables[randint(0, variables.length - 1)]
       // on choisit une unité
-      const unites = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
       const unite = unites[randint(0, unites.length - 1)]
       // on prépare le polygone
       const po = polygoneRegulierParCentreEtRayon(point(0, 0), 4, n)
