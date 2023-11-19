@@ -300,7 +300,7 @@ export default function SimplifierEcritureLitterale () {
       }
       if (this.sup2) {
         texte = `$${resultat}$`
-        reponse = donnee
+        reponse = rangerFacteurs(donnee)
         texteCorr = `$${resultat} = `
       } else {
         texte = `$${donnee}$`
@@ -315,7 +315,7 @@ export default function SimplifierEcritureLitterale () {
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$ ' })
       }
       if (this.sup2) {
-        setReponse(this, i, reponse, { formatInteractif: 'calcul' })
+        setReponse(this, i, reponse, { formatInteractif: 'texte' })
       } else {
         setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppeeParEE' })
       }
@@ -328,4 +328,24 @@ export default function SimplifierEcritureLitterale () {
     }
     listeQuestionsToContenu(this)
   }
+}
+
+function rangerFacteurs (expressionLaTeX) {
+  const facteurs = expressionLaTeX.split(' \\times ')
+  const nombresConstants = []
+  const variables = []
+  for (const facteur of facteurs) {
+    if (isNaN(facteur)) {
+      variables.push(facteur)
+    } else {
+      nombresConstants.push(facteur)
+    }
+  }
+  const facteursOrdonnes = []
+  if (nombresConstants.length > 0) {
+    const produitNombresConstants = nombresConstants.reduce((accumulator, currentValue) => accumulator * currentValue, 1)
+    facteursOrdonnes.push(produitNombresConstants)
+  }
+  facteursOrdonnes.push(...variables)
+  return facteursOrdonnes.join(' \\times ')
 }
