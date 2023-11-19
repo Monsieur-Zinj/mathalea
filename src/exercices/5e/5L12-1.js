@@ -34,9 +34,9 @@ export default function ReduireDinstinctionSommeProduit () {
     typesDeQuestionsDisponibles = this.sup === 3 ? [choice([0, 2]), choice([1, 3])] : this.sup === 2 ? [choice([1, 3])] : [choice([0, 2])]
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
+    const variables = ['x', 'y', 'z', 'a', 'b', 'c']
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const variables = ['x', 'y', 'z', 'a', 'b', 'c']
       const enonces = []
       const n = randint(1, 6)
       const p = randint(1, 6)
