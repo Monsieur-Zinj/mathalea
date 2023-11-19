@@ -218,6 +218,7 @@ export default function ListeDesDiviseurs5e () {
   this.besoinFormulaire2Texte = ['Nombre maximum de diviseurs des entiers', 'Nombres séparés par des tirets']
   this.besoinFormulaire4Texte = [
     'Type de questions', [
+      'Nombres séparés par des tirets',
       '1 : Avec aide (tableau)',
       '2 : Sans Aide (tableau)',
       '3 : Mélange'

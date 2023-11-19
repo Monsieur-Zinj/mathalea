@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
@@ -94,7 +94,7 @@ export default function DevelopperIdentitesRemarquables2 () {
     // } // Tous les cas possibles sauf fractions
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let k=0; k< listeTypeDeQuestions.length; k++){
+    for (let k = 0; k < listeTypeDeQuestions.length; k++) {
       if (listeTypeDeQuestions[k] === 1) {
         // (a+b)²
         if (this.sup === 1) {
@@ -129,12 +129,10 @@ export default function DevelopperIdentitesRemarquables2 () {
           listeTypeDeQuestions[k] = choice([3, 6])
         } // Tous les cas possibles sauf fractions
       }
-     
     }
 
-   
     for (let i = 0, texte, texteCorr, reponse, cpt = 0, a, b, typesDeQuestions, fraction = [], ds, ns; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]      
+      typesDeQuestions = listeTypeDeQuestions[i]
       b = randint(2, 9)
       a = randint(1, 9, [b])
       fraction = choice(listeFractions)
@@ -161,7 +159,7 @@ export default function DevelopperIdentitesRemarquables2 () {
           texteCorr += `$(x-${a})^2=x^2-2 \\times ${a} \\times x+${a}^2=x^2-${2 * a}x+${a * a}$`
           reponse = `x^2-${2 * a}x+${a * a}`
           break
-        case 3:          
+        case 3:
           texte = `$(x-${a})(x+${a})$` // (x-a)(x+a)
           if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
@@ -174,7 +172,7 @@ export default function DevelopperIdentitesRemarquables2 () {
           if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
-          texteCorr += `$(${b}x+${a})^2=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2+${2 * b * a}x+${a * a}$`          
+          texteCorr += `$(${b}x+${a})^2=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2+${2 * b * a}x+${a * a}$`
           reponse = `${b * b}x^2+${2 * b * a}x+${a * a}`
           break
         case 5:
@@ -182,28 +180,28 @@ export default function DevelopperIdentitesRemarquables2 () {
           if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
-          texteCorr += `$(${b}x-${a})^2=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2-${2 * b * a}x+${a * a}$`          
+          texteCorr += `$(${b}x-${a})^2=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=${b * b}x^2-${2 * b * a}x+${a * a}$`
           reponse = `${b * b}x^2-${2 * b * a}x+${a * a}`
           break
         case 6:
           texte = `$(${b}x-${a})(${b}x+${a})$` // (bx-a)(bx+a) b>1
           if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)(a-b)=a^2-b^2$, <br> avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
-          } 
+          }
           texteCorr += `$(${b}x-${a})(${b}x+${a})=(${b}x)^2-${a}^2=${b * b}x^2-${a * a}$`
           reponse = `${b * b}x^2-${a * a}`
           break
         case 7:
           texte = `$\\left(${new FractionEtendue(ns, ds).texFraction}x+${a}\\right)^2$` // (kx+a)² k rationnel
-          if (this.correctionDetaillee){
+          if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a+b)^2=a^2+2ab+b^2$, <br> avec $\\color{red} a = ${new FractionEtendue(ns, ds).simplifie().texFraction}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
-          } 
+          }
           texteCorr += `$\\left(${new FractionEtendue(ns, ds).texFraction}x+${a}\\right)^2=\\left(${new FractionEtendue(ns, ds).texFraction}x\\right)^2+2 \\times ${new FractionEtendue(ns, ds).texFraction}x \\times ${a} + ${a}^2=${new FractionEtendue(ns * ns, ds * ds).texFraction}x^2+${new FractionEtendue(ns * 2 * a, ds)}x+${a * a}$`
           reponse = `${new FractionEtendue(ns * ns, ds * ds).texFraction}x^2+${new FractionEtendue(ns * 2 * a, ds).texFraction}x+${a * a}`
           break
         case 8:
           texte = `$\\left(${new FractionEtendue(ns, ds).texFraction}x-${a}\\right)^2$` // (kx-a)² k rationnel
-          if (this.correctionDetaillee){
+          if (this.correctionDetaillee) {
             texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, <br> avec $\\color{red} a = ${new FractionEtendue(ns, ds).texFraction}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br>`
           }
           texteCorr += `$\\left(${new FractionEtendue(ns, ds).texFraction}x-${a}\\right)^2=\\left(${new FractionEtendue(ns, ds).texFraction}x\\right)^2-2 \\times ${new FractionEtendue(ns, ds).texFraction}x \\times ${a} + ${a}^2=${new FractionEtendue(ns * ns, ds * ds).texFraction}x^2-${new FractionEtendue(ns * 2 * a, ds).simplifie().texFraction}x+${a * a}$`
@@ -235,6 +233,7 @@ export default function DevelopperIdentitesRemarquables2 () {
 
   this.besoinFormulaire2Texte = [
     'Type de questions', [
+      'Nombres séparés par des tirets',
       '1 : (a+b)²',
       '2 : (a-b)²',
       '3 : (a+b)(a-b)',
