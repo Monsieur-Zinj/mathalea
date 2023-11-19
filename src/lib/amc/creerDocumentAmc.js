@@ -779,6 +779,17 @@ export function exportQcmAmc (exercice, idExo) {
               }
               break
             case 'AMCOpen': // AMCOpen de Hybride
+            // Rajout EE 19/11/2023 : Si on veut que le multicols commence avant cette question
+              if (typeof propositions[0].multicolsBegin !== 'undefined' && propositions[0].multicolsBegin) {
+                texQr += '\\setlength{\\columnseprule}{'
+                if (autoCorrection[j].options !== undefined && autoCorrection[j].options.barreseparation !== undefined && autoCorrection[j].options.barreseparation) {
+                  texQr += '0.5'
+                } else {
+                  texQr += '0'
+                }
+                texQr += '0pt}\\begin{multicols}{2}\n'
+                // texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+              }
               if (propositions[0].numQuestionVisible === undefined) {
                 texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n`
               } else if (propositions[0].numQuestionVisible) {
@@ -805,6 +816,12 @@ export function exportQcmAmc (exercice, idExo) {
 
               texQr += '\n' // le statut contiendra le nombre de lignes pour ce type
               texQr += '\t\\end{question}\n'
+              // Rajout EE 19/11/2023 : Si on veut que le multicols finisse eprès cette question
+              if (typeof propositions[0].multicolsEnd !== 'undefined') {
+                if (propositions[0].multicolsEnd) {
+                  texQr += '\\end{multicols}\n'
+                }
+              }
               id++
               break
           }

@@ -8,7 +8,6 @@ import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
 import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
-import { get } from 'svelte/store'
 
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
@@ -305,6 +304,11 @@ export async function loadMathLive () {
         style += ' min-width: 200px'
       }
       mf.setAttribute('style', style)
+      if (mf.classList.contains('fillInTheBlanks')) {
+        mf.style.border = 'none'
+        mf.style.boxShadow = 'none'
+        mf.style.fontSize = '1em'
+      }
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
