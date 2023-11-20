@@ -16,9 +16,5 @@
   "PE": "CRPE",
   "CM": "Calcul mental",
   "MG": "",
-  "static": "Annales d'examens et de concours",
-  "triangle": "Triangle",
-  "carre": "Carré",
-  "rectangle": "Rectangle",
-  "parallelogramme": "Parallélogramme"
+  "static": "Annales d'examens et de concours"
 }
