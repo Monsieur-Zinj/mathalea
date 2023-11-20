@@ -88,23 +88,40 @@ export default function PerimetreAireDisques (pa = 3) {
       reponseA2 = this.sup === 1 ? 0 : arrondi(Math.trunc(r * r * Math.PI * 10) / 10)
       reponseA2bis = this.sup === 1 ? 0 : arrondi(reponseA2 + 0.1)
 
-      if (context.isAmc) {
-        this.consigne += '<br>Donner la valeur exacte et une valeur approchée au dixième près des unités ci-dessus.'
-      } else {
-        switch (this.sup3) {
-          case 1 :
-            this.consigne += '<br> On donnera une valeur approchée au dixième près des unités ci-dessus.'
-            break
-          case 2 :
-            this.consigne += '<br> On donnera la valeur exacte.'
-            break
-          case 3 :
-            this.consigne += '<br> On donnera la valeur exacte ou une valeur approchée au dixième près des unités ci-dessus.'
-            break
-          case 4 :
-            this.consigne += '<br> On donnera la valeur exacte puis une valeur approchée au dixième près des unités ci-dessus.'
-            break
-        }
+      switch (this.sup3) {
+        case 1 :
+          this.consigne += '<br> On donnera une valeur approchée au dixième près '
+          if (this.sup === 1) {
+            this.consigne += 'de $\\text{cm}$.'
+          } else if (this.sup === 2) {
+            this.consigne += 'de $\\text{cm}^2$.'
+          } else {
+            this.consigne += 'des unités respectives ci-dessus.'
+          }
+          break
+        case 2 :
+          this.consigne += '<br> On donnera la valeur exacte.'
+          break
+        case 3 :
+          this.consigne += '<br> On donnera la valeur exacte ou une valeur approchée au dixième près '
+          if (this.sup === 1) {
+            this.consigne += 'de $\\text{cm}$.'
+          } else if (this.sup === 2) {
+            this.consigne += 'de $\\text{cm}^2$.'
+          } else {
+            this.consigne += 'des unités respectives ci-dessus.'
+          }
+          break
+        case 4 :
+          this.consigne += '<br> On donnera la valeur exacte puis une valeur approchée au dixième près '
+          if (this.sup === 1) {
+            this.consigne += 'de $\\text{cm}$.'
+          } else if (this.sup === 2) {
+            this.consigne += 'de $\\text{cm}^2$.'
+          } else {
+            this.consigne += 'des unités respectives ci-dessus.'
+          }
+          break
       }
 
       texteCorr = this.sup === 2
@@ -141,10 +158,8 @@ export default function PerimetreAireDisques (pa = 3) {
             }
           } else {
             this.autoCorrection[i] = {
-              enonce: 'Calculer le périmètre du cercle suivant :<br>' + texte,
-              enonceAvantUneFois: true,
-              enonceAGauche: [0.3, 0.7],
-              options: { multicols: true },
+              enonce: '',
+              options: { multicolsAll: true, barreseparation: true },
               propositions: [
                 {
                   type: 'AMCNum',
@@ -152,7 +167,7 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Périmètre en cm (valeur exacte en nombre de $\\pi$)',
+                        texte: 'Calculer le périmètre du cercle suivant :<br>' + texte + '<br>Périmètre en cm (valeur exacte en nombre de $\\pi$)',
                         valeur: [reponseL1],
                         param: {
                           digits: this.sup2 ? 2 : 3,
@@ -196,10 +211,8 @@ export default function PerimetreAireDisques (pa = 3) {
             }
           } else {
             this.autoCorrection[i] = {
-              enonce: "Calculer l'aire du cercle suivant :<br>" + texte,
-              enonceAvantUneFois: true,
-              enonceAGauche: [0.3, 0.7],
-              options: { multicols: true },
+              enonce: '',
+              options: { multicolsAll: true, barreseparation: true },
               propositions: [
                 {
                   type: 'AMCNum',
@@ -208,7 +221,7 @@ export default function PerimetreAireDisques (pa = 3) {
                       texte: texteCorr,
                       reponse: {
                         valeur: [reponseA1],
-                        texte: 'Aire en cm\\up{2} (valeur exacte en nombre de $\\pi$)\\\\',
+                        texte: "Calculer l'aire du disque suivant :<br>" + texte + '<br>Aire en cm\\up{2} (valeur exacte en nombre de $\\pi$)\\\\',
                         param: {
                           digits: this.sup2 ? 2 : 3,
                           signe: false,
@@ -259,9 +272,8 @@ export default function PerimetreAireDisques (pa = 3) {
             }
           } else {
             this.autoCorrection[i] = {
-              enonce: "Calculer le périmètre et l'aire du cercle suivant :<br>" + texte,
-              enonceAGauche: [0.3, 0.7],
-              options: { multicols: true },
+              enonce: '',
+              options: { multicolsAll: true, barreseparation: true },
               propositions: [
                 {
                   type: 'AMCNum',
@@ -269,7 +281,7 @@ export default function PerimetreAireDisques (pa = 3) {
                     {
                       texte: texteCorr,
                       reponse: {
-                        texte: 'Périmètre en cm (valeur exacte en nombre de $\\pi$)',
+                        texte: "Calculer le périmètre et l'aire du disque suivant :<br>" + texte + '<br>Périmètre en cm (valeur exacte en nombre de $\\pi$)',
                         valeur: [reponseL1],
                         param: {
                           digits: this.sup2 ? 2 : 3,

@@ -387,13 +387,14 @@ export default function ExercicePerimetresEtAires () {
         } else {
           this.autoCorrection[i] = {
             enonce: texte,
-            options: { multicols: true, barreseparation: true, numerotationEnonce: true },
+            options: { barreseparation: true, numerotationEnonce: true },
             propositions: [
               {
                 type: 'AMCNum',
                 propositions: [{
                   texte: texteCorr,
                   statut: '',
+                  multicolsBegin: true,
                   reponse: {
                     texte: 'Périmètre en cm :',
                     valeur: resultat1[0],
@@ -413,6 +414,7 @@ export default function ExercicePerimetresEtAires () {
                 propositions: [{
                   texte: '',
                   statut: '',
+                  multicolsEnd: true,
                   reponse: {
                     texte: 'Aire en cm$^2$ :',
                     valeur: resultat2[0],
