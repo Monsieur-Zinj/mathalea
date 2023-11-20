@@ -5,7 +5,7 @@ import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-export const titre = 'Utiliser la distance entre deux points dans un repère orthonormé'
+export const titre = 'Calculer et utiliser la distance entre deux points dans un repère.'
 
 /**
  * 2G12-1
@@ -32,6 +32,9 @@ export default function Distance () {
     }
     if (this.sup === 2) {
       typesDeQuestionsDisponibles = [2, 3, 4, 5]
+    }
+    if (this.sup === 3) {
+      typesDeQuestionsDisponibles = [1, 1, 2, 3, 4, 5]
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, ux, uy, xA, yA, xB, yB, xC, yC, AB, XAB, YAB, XAC, YAC, AC, XBC, YBC, BC, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -221,5 +224,5 @@ export default function Distance () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Application directe 2 : Application indirecte']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Application directe\n2 :  Application indirecte \n3 : Mélange']
 }
