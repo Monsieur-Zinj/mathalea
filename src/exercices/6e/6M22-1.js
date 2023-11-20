@@ -21,7 +21,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '15/11/2023'
+export const dateDeModifImportante = '20/11/2023'
 
 /**
  * 4 cercles sont tracés, 2 dont on connaît le rayon et 2 dont on connaît le diamètre.
@@ -43,6 +43,7 @@ export default function PerimetreAireDisques (pa = 3) {
   this.sup = pa // 1 : périmètre, 2 : aire, 3 : périmètres et aires
   this.sup2 = true // rayon ou périmètre entier
   this.sup3 = 4
+  this.sup4 = 3
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 4
@@ -59,7 +60,7 @@ export default function PerimetreAireDisques (pa = 3) {
       C = cercle(A, r)
       M = pointAdistance(A, r)
       B = rotation(M, A, 180)
-      if (i % 2 === 0) {
+      if ((this.sup4 === 3 && i % 2 === 0) || this.sup4 === 1) {
         S = segment(A, M)
       } else {
         S = segment(M, B)
@@ -361,6 +362,7 @@ export default function PerimetreAireDisques (pa = 3) {
   }
 
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Périmètres et aires']
-  this.besoinFormulaire3Numerique = ['Valeur approchée et/ou exacte', 4, '1 : Que la valeur approchée\n2 : Que la valeur exacte\n3 : Une valeur approchée ou la valeur exacte\n4 : Une valeur approchée et la valeur exacte']
   this.besoinFormulaire2CaseACocher = ['Rayon et diamètre entiers', true]
+  this.besoinFormulaire3Numerique = ['Valeur approchée et/ou exacte', 4, '1 : Que la valeur approchée\n2 : Que la valeur exacte\n3 : Une valeur approchée ou la valeur exacte\n4 : Une valeur approchée et la valeur exacte']
+  this.besoinFormulaire4Numerique = ['Rayon ou diamètre', 3, '1 : Que des rayons\n2 : Que des diamètres\n3 : Mélange']
 }
