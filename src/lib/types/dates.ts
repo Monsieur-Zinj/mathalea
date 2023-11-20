@@ -9,7 +9,14 @@ type zeroToNine = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
 /**
  * Years
  */
+export const YEARS = [...Array(199).keys()].map(x => (x + 1900).toString())
+export const MONTHS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 type YYYY = `19${zeroToNine}${zeroToNine}` | `20${zeroToNine}${zeroToNine}`
+export const isYYYYType = (obj: any): obj is YYYY =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  typeof obj === 'string' &&
+  YEARS.includes(obj)
 /**
  * Months
  */
