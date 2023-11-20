@@ -7888,8 +7888,8 @@
         "type": "'custom'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -8614,7 +8614,7 @@
     "uuid": "3c1f7",
     "id": "5L10",
     "titre": "Écrire une expression littérale",
-    "dateModification": "11/05/2022",
+    "dateModification": "19/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -8727,15 +8727,15 @@
     "uuid": "46234",
     "id": "5L12-1",
     "titre": "Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence",
-    "dateModification": "04/11/2023",
+    "dateModification": "19/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -8754,8 +8754,8 @@
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -8772,8 +8772,8 @@
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -8913,10 +8913,11 @@
     "uuid": "d88d6",
     "id": "5L15",
     "titre": "Tester une égalité",
+    "dateModification": "18/11/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": true,
@@ -9045,11 +9046,11 @@
     "uuid": "0e58f",
     "id": "5N11-3",
     "titre": "Écrire une fraction sur 100 puis sous la forme d'un pourcentage",
-    "dateModification": "17/03/2022",
+    "dateModification": "19/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'mathLive'"
+        "type": "['mathLive', 'custom']"
       },
       "amc": {
         "isActive": true,
