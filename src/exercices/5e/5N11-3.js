@@ -55,13 +55,16 @@ export default function FractionVersPourcentage () {
       }
       percenti = calculANePlusJamaisUtiliser(num * 100 / den)
       if (this.sup === 1) {
-        this.interactifType = 'custom'
-        texte = `<math-field readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
-        \\dfrac{${num}}{${texNombre(den)}}~=~\\dfrac{\\placeholder[num1]{}}{\\placeholder[den1]{}} 
-        ~=~\\dfrac{\\placeholder[num2]{}}{100} 
-        ~=~\\placeholder[percent]{}\\%
-      </math-field><span class="ml-2" id="feedbackEx${this.numeroExercice}Q${i}"></span>`
-
+        if (this.interactif) {
+          this.interactifType = 'custom'
+          texte = `<math-field readonly class="fillInTheBlanks" style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
+          \\dfrac{${num}}{${texNombre(den)}}~=~\\dfrac{\\placeholder[num1]{}}{\\placeholder[den1]{}} 
+          ~=~\\dfrac{\\placeholder[num2]{}}{100} 
+          ~=~\\placeholder[percent]{}\\%
+        </math-field><span class="ml-2" id="feedbackEx${this.numeroExercice}Q${i}"></span>`
+        } else {
+          texte = `$\\dfrac{${num}}{${texNombre(den)}}~=~\\dfrac{\\phantom{\\ldots\\ldots}}{\\phantom{\\ldots\\ldots}} ~=~\\dfrac{\\phantom{\\ldots\\ldots}}{100} ~=~\\phantom{\\ldots\\ldots}\\%$`
+        }
         if (den < 100) {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${calculANePlusJamaisUtiliser(100 / den)}}}{${den}{\\color{blue}\\times${calculANePlusJamaisUtiliser(100 / den)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {

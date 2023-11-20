@@ -179,7 +179,7 @@ class ExerciceFractionsDifferentesEcritures extends Exercice {
       this.reponsesAttendues[i] = { n, num: c, den: b, ecritureDecimale: ed }
 
       if (this.interactif) {
-        texte = `<math-field readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
+        texte = `<math-field class="fillInTheBlanks" readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
         ${frac.texFraction} =~\\placeholder[n]{} + \\dfrac{\\placeholder[num]{}}{\\placeholder[den]{}} =~\\placeholder[ecritureDecimale]{}
       </math-field><span class="ml-2" id="feedbackEx${this.numeroExercice}Q${i}"></span>`
       }
