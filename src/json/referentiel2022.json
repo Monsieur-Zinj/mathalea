@@ -17823,6 +17823,25 @@
         },
         "typeExercice": "alea"
       },
+      "3G30-2": {
+        "url": "3e/3G30-2.ts",
+        "tags": [],
+        "uuid": "f13e3",
+        "id": "3G30-2",
+        "titre": "Résoudre une équation trigonométrique",
+        "datePublication": "20/11/2023",
+        "features": {
+          "interactif": {
+            "isActive": true,
+            "type": "'mathLive'"
+          },
+          "amc": {
+            "isActive": false,
+            "type": ""
+          }
+        },
+        "typeExercice": "alea"
+      },
       "3G31": {
         "url": "3e/3G31.js",
         "tags": [],
