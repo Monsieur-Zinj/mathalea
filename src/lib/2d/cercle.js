@@ -299,7 +299,12 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
   if (typeof (angle) !== 'number') {
     angle = angleOriente(M, Omega, angle)
   }
-  const med = rotation(M, Omega, angle / 2)
+  const medX = []
+  const medY = []
+  for (let ee = 1; ee < 9; ee++) {
+    medX.push(rotation(M, Omega, ee * angle / 10).x)
+    medY.push(rotation(M, Omega, ee * angle / 10).y)
+  }
   const l = longueur(Omega, M)
   let large = 0
   let sweep = 0
@@ -318,7 +323,7 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
     sweep = 1 - (angle > 0)
   }
   const N = rotation(M, Omega, angleSVG)
-  this.bordures = [Math.min(M.x, N.x, med.x) - 0.1, Math.min(M.y, N.y, med.y) - 0.1, Math.max(M.x, N.x, med.x) + 0.1, Math.max(M.y, N.y, med.y) + 0.1]
+  this.bordures = [Math.min(M.x, N.x, ...medX) - 0.1, Math.min(M.y, N.y, ...medY) - 0.1, Math.max(M.x, N.x, ...medX) + 0.1, Math.max(M.y, N.y, ...medY) + 0.1]
   if (rayon) {
     this.svg = function (coeff) {
       this.style = ''

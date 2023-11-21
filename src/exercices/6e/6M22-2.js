@@ -5,12 +5,20 @@ import { point, pointAdistance } from '../../lib/2d/points.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { arrondi } from '../../lib/outils/nombres.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
-export const titre = 'Calculer périmètre et aire de portions de cercles/disques'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
+export const titre = 'Calculer périmètre et aire de portions de disques'
+export const dateDeModifImportante = '20/11/2023'
 
 /**
  * 3 figures sont données, 1 quart de disque, un demi-disque et un 3-quarts de disque
@@ -19,169 +27,251 @@ export const titre = 'Calculer périmètre et aire de portions de cercles/disque
  * * 3 : Calculer les périmètres et aires
  * Pas de version LaTeX
  * @author Rémi Angot
- * Rééférence 6M22-2
  */
 export const uuid = 'ff386'
 export const ref = '6M22-2'
 export default function Perimetre_aire_et_portions_de_disques () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne =
-    "Calculer le périmètre et l'aire de chacune des figures suivantes"
   this.sup = 3 // 1 : périmètre, 2 : aire, 3 : périmètres et aires
+  this.sup2 = 4
   this.spacing = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  // eslint-disable-next-line no-undef
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  this.nbQuestions = 1
-  this.nbQuestionsModifiable = false
+  this.nbQuestions = 3
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeCorrections = [] // Liste de questions corrigées
     this.listeQuestions = []
     this.autoCorrection = []
-    const objetsEnonce = []
-    let params
-    const C1 = point(5, 10)
-    const C2 = point(15, 10)
-    const C3 = point(10, 5)
-    let A1, B1, A2, B2, A3, B3
-    let quartDeDisque, demiDisque, troisQuartDeDisque
-    const r = randint(2, 5)
-    const r2 = randint(2, 5, r)
-    const r3 = randint(2, 5, [r, r2])
-    const figure = randint(1, 2)
-    let texteCorr
+    const listeTypeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      max: 3,
+      melange: 4,
+      defaut: 4,
+      nbQuestions: this.nbQuestions
+    })
     if (this.sup === 1) {
-      this.consigne = 'Calculer le périmètre de chacune des figures suivantes.'
-    }
-    if (this.sup === 2) {
-      this.consigne = "Calculer l'aire de chacune des figures suivantes."
-    }
-    texteCorr = ''
-
-    if (this.sup !== 2) {
-      // si on ne demande pas les aires
-      texteCorr += `La première figure est un quart de disque, son périmètre est composé d'un quart de cercle de rayon ${r} cm et de 2 rayons qui ferment la figure.<br>`
-      texteCorr += `$\\mathcal{P}_1=(\\dfrac{1}{4}\\times2\\times${r}\\times\\pi)+${r}+${r}=
-      ${miseEnEvidence(`${texNombre(r / 2, 1)}\\pi+${2 * r}`)}\\text{ cm}
-      \\approx
-      ${miseEnEvidence(`${texNombre(r * Math.PI / 2 + 2 * r, 1)}`)}\\text{ cm}$<br>`
-    }
-
-    if (this.sup !== 1) {
-      texteCorr += `La première figure est un quart de disque de rayon ${r} cm.<br>`
-      texteCorr += `$\\mathcal{A}_1=\\dfrac{1}{4}\\times${r}\\times${r}\\times\\pi=
-        ${miseEnEvidence(`${texNombre(r * r / 4, 2)}\\pi`)}\\text{ cm}^2
-        \\approx
-        ${miseEnEvidence(`${texNombre(r * r / 4 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
-    }
-
-    if (figure === 1) {
-      params = { xmin: 4, ymin: -1, xmax: 20, ymax: 15, pixelsParCm: 20, scale: 0.75, mainlevee: false }
-      A1 = pointAdistance(C1, r, 0)
-      A2 = pointAdistance(C2, r2, 0)
-      A3 = pointAdistance(C3, r3, 0)
-      B1 = rotation(A1, C1, 90)
-      B2 = rotation(A2, C2, 180)
-      B3 = rotation(A3, C3, 270)
-      quartDeDisque = arc(A1, C1, 90, true, 'white', 'black', 0.2)
-      demiDisque = arc(A2, C2, 180, true, 'white', 'black', 0.2)
-      troisQuartDeDisque = arc(A3, C3, 270, true, 'white', 'black', 0.2)
-      objetsEnonce.push(quartDeDisque, demiDisque, troisQuartDeDisque,
-        codageSegments('//', 'blue', A1, C1, C1, B1), codageSegments('O', 'green', A3, C3, C3, B3),
-        afficheLongueurSegment(A1, C1), afficheLongueurSegment(A2, B2), afficheLongueurSegment(A3, C3))
-      if (this.sup !== 2) {
-        // si on ne demande pas les aires
-        texteCorr += `La deuxième figure est un demi-disque, son périmètre est composé d'un demi-cercle de diamètre ${2 * r2
-          } cm et d'un diamètre qui ferme la figure.<br>`
-        texteCorr += `$\\mathcal{P}_2=\\dfrac{1}{2}\\times${2 * r2
-          }\\times\\pi+${2 * r2}=
-          ${miseEnEvidence(`${r2}\\pi+${2 * r2}`)}\\text{ cm}
-          \\approx
-          ${miseEnEvidence(`${texNombre(r2 * Math.PI + 2 * r2, 1)}`)}\\text{ cm}$<br>`
-      }
-
-      if (this.sup !== 1) {
-        texteCorr += `La deuxième figure est la moitié d'un disque de diamètre ${2 * r2
-            } cm donc de ${r2} cm de rayon.<br>`
-        texteCorr += `$\\mathcal{A}_2=\\dfrac{1}{2}\\times${r2}\\times${r2}\\times\\pi=
-          ${miseEnEvidence(`${texNombre(r2 * r2 / 2, 2)}\\pi`)}\\text{ cm}^2
-          \\approx
-          ${miseEnEvidence(`${texNombre(r2 * r2 / 2 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
-      }
-
-      if (this.sup !== 2) {
-        texteCorr += `La troisième figure est trois quarts d'un disque, son périmètre est composé de trois quarts d'un cercle de rayon ${r3} cm et 2 rayons qui ferment la figure.<br>`
-        texteCorr += `$\\mathcal{P}_3=\\dfrac{3}{4}\\times2\\times${r3}\\times\\pi+${r3}+${r3}=
-        ${miseEnEvidence(`${texNombre((6 * r3) / 4, 2)}\\pi+${2 * r3}`)}\\text{ cm}
-        \\approx
-        ${miseEnEvidence(`${texNombre(((6 * r3) / 4) * Math.PI + 2 * r3, 1)}`)}\\text{ cm}$<br>`
-      }
-
-      if (this.sup !== 1) {
-        texteCorr += `La troisième figure est trois quarts d'un disque de rayon ${r3} cm.<br>`
-        texteCorr += `$\\mathcal{A}_3=\\dfrac{3}{4}\\times${r3}\\times${r3}\\times\\pi=
-        ${miseEnEvidence(`${texNombre(3 * r3 * r3 / 4, 2)}\\pi`)}\\text{ cm}^2
-        \\approx
-        ${miseEnEvidence(`${texNombre(3 * r3 * r3 / 4 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
-      }
+      this.consigne = 'Calculer le périmètre de'
+    } else if (this.sup === 2) {
+      this.consigne = "Calculer l'aire de"
     } else {
-      params = { xmin: 4, ymin: -1, xmax: 20, ymax: 15, pixelsParCm: 20, scale: 0.75, mainlevee: false }
-      A1 = pointAdistance(C1, r, 0)
-      A2 = pointAdistance(C2, r2, 180)
-      A3 = pointAdistance(C3, r3, 0)
-      B1 = rotation(A1, C1, 90)
-      B2 = rotation(A2, C2, 270)
-      B3 = rotation(A3, C3, 180)
-      quartDeDisque = arc(A1, C1, 90, true, 'white', 'black', 0.2)
-      demiDisque = arc(A3, C3, -180, true, 'white', 'black', 0.2)
-      troisQuartDeDisque = arc(A2, C2, 270, true, 'white', 'black', 0.2)
-      objetsEnonce.push(quartDeDisque, demiDisque, troisQuartDeDisque,
-        codageSegments('//', 'blue', A1, C1, C1, B1), codageSegments('O', 'green', A2, C2, C2, B2),
-        afficheLongueurSegment(A1, C1), afficheLongueurSegment(B3, A3), afficheLongueurSegment(A2, C2))
-
-      if (this.sup !== 2) {
-        texteCorr += `La deuxième figure est trois quarts d'un disque, son périmètre est composé de trois quarts d'un cercle de rayon ${r2} cm et 2 rayons qui ferment la figure.<br>`
-        texteCorr += `$\\mathcal{P}_2=\\dfrac{3}{4}\\times2\\times${r2}\\times\\pi+${r2}+${r2}=
-        ${miseEnEvidence(`${texNombre((6 * r2) / 4, 2)}\\pi+${2 * r2}`)}\\text{ cm}
-        \\approx
-        ${miseEnEvidence(`${texNombre(((6 * r2) / 4) * Math.PI + 2 * r2, 1)}`)}\\text{ cm}$<br>`
-      }
-
-      if (this.sup !== 1) {
-        texteCorr += `La deuxième figure est trois quarts d'un disque de rayon ${r2} cm.<br>`
-        texteCorr += `$\\mathcal{A}_2=\\dfrac{3}{4}\\times${r2}\\times${r2}\\times\\pi=
-        ${miseEnEvidence(`${texNombre(3 * r2 * r2 / 4, 2)}\\pi`)}\\text{ cm}^2
-        \\approx
-        ${miseEnEvidence(`${texNombre(3 * r2 * r2 / 4 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
-      }
-
-      if (this.sup !== 2) {
-        texteCorr += `La troisième figure est un demi-disque, son périmètre est composé d'un demi-cercle de diamètre ${2 * r3
-        } cm et d'un diamètre qui ferme la figure.<br>`
-        texteCorr += `$\\mathcal{P}_3=\\dfrac{1}{2}\\times${2 * r3
-        }\\times\\pi+${2 * r3}=
-        ${miseEnEvidence(`${r3}\\pi+${2 * r3}`)}\\text{ cm}
-        \\approx
-        ${miseEnEvidence(`${texNombre(r3 * Math.PI + 2 * r3, 1)}`)}\\text{ cm}$<br>`
-      }
-
-      if (this.sup !== 1) {
-        texteCorr += `La troisième figure est la moitié d'un disque de diamètre ${2 * r3
-        } cm donc de ${r3} cm de rayon.<br>`
-        texteCorr += `$\\mathcal{A}_3=\\dfrac{1}{2}\\times${r3}\\times${r3}\\times\\pi=
-      ${miseEnEvidence(`${texNombre(r3 * r3 / 2, 2)}\\pi`)}\\text{ cm}^2
-      \\approx
-      ${miseEnEvidence(`${texNombre(r3 * r3 / 2 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
-      }
+      this.consigne =
+      "Calculer le périmètre et l'aire de"
     }
-    this.listeQuestions.push(mathalea2d(params, objetsEnonce))
-    this.listeCorrections.push(texteCorr)
+    this.consigne += this.nbQuestions === 1 ? ' la figure suivante.' : ' chacune des figures suivantes.'
+
+    for (let i = 0, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
+      texte = ''
+      texteCorr = ''
+      const objetsEnonce = []
+      const C = point(0, 0)
+      const r = randint(2, 10)
+
+      const A = pointAdistance(C, r, 0)
+      const B1 = rotation(A, C, 90)
+      const B2 = rotation(A, C, 180)
+      const B3 = rotation(A, C, 270)
+      const quartDeDisque = arc(A, C, 90, true, 'white', 'black', 0.2)
+      const demiDisque = arc(A, C, 180, true, 'white', 'black', 0.2)
+      const troisQuartDeDisque = arc(A, C, 270, true, 'white', 'black', 0.2)
+      let reponseL1, reponseA1, reponseL1bis, reponseA1bis
+      switch (listeTypeQuestions[i]) {
+        case 1 :
+          if (this.sup !== 2) {
+            // si on ne demande pas les aires
+            texteCorr = `La figure est un quart de disque, son périmètre est composé d'un quart de cercle de rayon ${r} cm et de 2 rayons qui ferment la figure.<br>`
+            texteCorr += `$\\mathcal{P}_1=(\\dfrac{1}{4}\\times2\\times${r}\\times\\pi)+${r}+${r}=
+    ${miseEnEvidence(`${texNombre(r / 2, 1)}\\pi+${2 * r}`)}\\text{ cm}
+    \\approx
+    ${miseEnEvidence(`${texNombre(r * Math.PI / 2 + 2 * r, 1)}`)}\\text{ cm}$<br>`
+            reponseL1 = this.sup === 2 ? 0 : arrondi(Math.trunc((r * Math.PI / 2 + 2 * r) * 10) / 10)
+            reponseL1bis = this.sup === 2 ? 0 : arrondi(reponseL1 + 0.1)
+          }
+
+          if (this.sup !== 1) {
+            texteCorr += `La figure est un quart de disque de rayon ${r} cm.<br>`
+            texteCorr += `$\\mathcal{A}_1=\\dfrac{1}{4}\\times${r}\\times${r}\\times\\pi=
+      ${miseEnEvidence(`${texNombre(r * r / 4, 2)}\\pi`)}\\text{ cm}^2
+      \\approx
+      ${miseEnEvidence(`${texNombre(r * r / 4 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
+            reponseA1 = this.sup === 1 ? 0 : arrondi(Math.trunc(r * r / 4 * Math.PI * 10) / 10)
+            reponseA1bis = this.sup === 1 ? 0 : arrondi(reponseA1 + 0.1)
+          }
+          objetsEnonce.push(quartDeDisque,
+            codageSegments('//', context.isHtml ? 'blue' : 'black', A, C, C, B1),
+            afficheLongueurSegment(A, C))
+          break
+        case 2 :
+          if (this.sup !== 2) {
+            // si on ne demande pas les aires
+            texteCorr = `La figure est un demi-disque, son périmètre est composé d'un demi-cercle de diamètre ${2 * r
+                } cm et d'un diamètre qui ferme la figure.<br>`
+            texteCorr += `$\\mathcal{P}_2=\\dfrac{1}{2}\\times${2 * r
+                }\\times\\pi+${2 * r}=
+                ${miseEnEvidence(`${r}\\pi+${2 * r}`)}\\text{ cm}
+                \\approx
+                ${miseEnEvidence(`${texNombre(r * Math.PI + 2 * r, 1)}`)}\\text{ cm}$<br>`
+            reponseL1 = this.sup === 2 ? 0 : arrondi(Math.trunc((r * Math.PI + 2 * r) * 10) / 10)
+            reponseL1bis = this.sup === 2 ? 0 : arrondi(reponseL1 + 0.1)
+          }
+
+          if (this.sup !== 1) {
+            texteCorr += `La figure est la moitié d'un disque de diamètre ${2 * r
+                  } cm donc de ${r} cm de rayon.<br>`
+            texteCorr += `$\\mathcal{A}_2=\\dfrac{1}{2}\\times${r}\\times${r}\\times\\pi=
+                ${miseEnEvidence(`${texNombre(r * r / 2, 2)}\\pi`)}\\text{ cm}^2
+                \\approx
+                ${miseEnEvidence(`${texNombre(r * r / 2 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
+            reponseA1 = this.sup === 1 ? 0 : arrondi(Math.trunc(r * r / 2 * Math.PI * 10) / 10)
+            reponseA1bis = this.sup === 1 ? 0 : arrondi(reponseA1 + 0.1)
+          }
+          objetsEnonce.push(demiDisque, afficheLongueurSegment(A, B2))
+          break
+        case 3 :
+          if (this.sup !== 2) {
+            texteCorr = `La figure est trois quarts d'un disque, son périmètre est composé de trois quarts d'un cercle de rayon ${r} cm et 2 rayons qui ferment la figure.<br>`
+            texteCorr += `$\\mathcal{P}_3=\\dfrac{3}{4}\\times2\\times${r}\\times\\pi+${r}+${r}=
+            ${miseEnEvidence(`${texNombre(6 * r / 4, 2)}\\pi+${2 * r}`)}\\text{ cm}
+            \\approx
+            ${miseEnEvidence(`${texNombre((6 * r / 4) * Math.PI + 2 * r, 1)}`)}\\text{ cm}$<br>`
+            reponseL1 = this.sup === 2 ? 0 : arrondi(Math.trunc(((6 * r / 4) * Math.PI + 2 * r) * 10) / 10)
+            reponseL1bis = this.sup === 2 ? 0 : arrondi(reponseL1 + 0.1)
+          }
+
+          if (this.sup !== 1) {
+            texteCorr += `La figure est trois quarts d'un disque de rayon ${r} cm.<br>`
+            texteCorr += `$\\mathcal{A}_3=\\dfrac{3}{4}\\times${r}\\times${r}\\times\\pi=
+            ${miseEnEvidence(`${texNombre(3 * r * r / 4, 2)}\\pi`)}\\text{ cm}^2
+            \\approx
+            ${miseEnEvidence(`${texNombre(3 * r * r / 4 * Math.PI, 1)}`)}\\text{ cm}^2$<br>`
+            reponseA1 = this.sup === 1 ? 0 : arrondi(Math.trunc(3 * r * r / 4 * Math.PI * 10) / 10)
+            reponseA1bis = this.sup === 1 ? 0 : arrondi(reponseA1 + 0.1)
+          }
+          objetsEnonce.push(troisQuartDeDisque, codageSegments('O', context.isHtml ? 'green' : 'black', A, C, C, B3), afficheLongueurSegment(A, C))
+          break
+      }
+      if (this.sup !== 2) {
+        setReponse(this, this.sup === 3 ? 2 * i : i, [reponseL1, reponseL1bis])
+        texte = (this.sup === 3 ? '<br>' : '') + 'Valeur approchée au dixième de $\\text{cm}$ du périmètre : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i : i, 'largeur10 inline nospacebefore nospacebefore', { texteApres: ' $\\text{cm}$' })
+      }
+      if (this.sup !== 1) {
+        setReponse(this, this.sup === 3 ? 2 * i + 1 : i, [reponseA1, reponseA1bis])
+        texte += (this.sup === 3 ? '<br>' : '') + 'Valeur approchée au dixième de $\\text{cm}^2$ de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i + 1 : i, 'largeur10 inline nospacebefore nospacebefore', { texteApres: ' $\\text{cm}^2$' })
+      }
+      if (this.questionJamaisPosee(i, r)) { // Si la question n'a jamais été posée, on en créé une autre
+        const figure = mathalea2d(Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objetsEnonce)), objetsEnonce)
+        this.listeQuestions.push(figure + texte)
+        this.listeCorrections.push(texteCorr)
+
+        if (context.isAmc) {
+          if (this.sup === 1) {
+            this.autoCorrection[i] = {
+              enonce: '',
+              propositions: [
+                {
+                  type: 'AMCNum',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      reponse: {
+                        texte: 'Calculer le périmètre de la figure suivante.<br>' + figure + '<br>Périmètre en $\\text{cm}$ (valeur approchée à 0,1 près)',
+                        valeur: [reponseL1],
+                        alignement: 'center',
+                        param: {
+                          digits: 1,
+                          signe: false,
+                          decimals: 1,
+                          aussiCorrect: reponseL1bis
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          } else if (this.sup === 2) {
+            this.autoCorrection[i] = {
+              enonce: '',
+              propositions: [
+                {
+                  type: 'AMCNum',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      reponse: {
+                        texte: 'Calculer l\'aire de la figure suivante.<br>' + figure + '<br>Aire en $\\text{cm}^2$ (valeur approchée à 0,1 près)',
+                        valeur: [reponseA1],
+                        alignement: 'center',
+                        param: {
+                          digits: 1,
+                          signe: false,
+                          decimals: 1,
+                          aussiCorrect: reponseA1bis
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          } else {
+            this.autoCorrection[i] = {
+              enonce: 'Calculer le périmètre de la figure suivante.<br>' + figure,
+              enonceAvant: false,
+              enonceApresNumQuestion: true,
+              options: { barreseparation: true },
+              propositions: [
+                {
+                  type: 'AMCNum',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      multicolsBegin: true,
+                      reponse: {
+                        texte: 'Périmètre en $\\text{cm}$ (valeur approchée à 0,1 près)',
+                        valeur: [reponseL1],
+                        alignement: 'center',
+                        param: {
+                          digits: 1,
+                          signe: false,
+                          decimals: 1,
+                          aussiCorrect: reponseL1bis
+                        }
+                      }
+                    }
+                  ]
+                },
+                {
+                  type: 'AMCNum',
+                  propositions: [
+                    {
+                      texte: texteCorr,
+                      multicolsEnd: true,
+                      reponse: {
+                        texte: 'Aire en $\\text{cm}^2$ (valeur approchée à 0,1 près)',
+                        valeur: [reponseA1],
+                        alignement: 'center',
+                        param: {
+                          digits: 1,
+                          signe: false,
+                          decimals: 1,
+                          aussiCorrect: reponseA1bis
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        }
+
+        i++
+      }
+      cpt++
+    }
     listeQuestionsToContenu(this)
   }
 
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Périmètres\n2 : Aires\n3 : Les deux']
+  this.besoinFormulaire2Texte = ['Type de figures', '1 : Quart de disque\n2 : Demi-disque\n3 : Trois quarts de disque\n4 : Mélange']
 }

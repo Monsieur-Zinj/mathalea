@@ -8,7 +8,8 @@ import {
   isExerciceItemInReferentiel,
   isJSONReferentielEnding
 } from '../../lib/types/referentiels'
-import codeList from '../../json/codeToLevelList.json'
+import codeListForLevels from '../../json/codeToLevelList.json'
+import codeListForThemes from '../../json/codeToThemeList.json'
 import referentielsActivation from '../../json/referentielsActivation.json'
 import { toMap } from './toMap'
 import {
@@ -66,10 +67,14 @@ export function getAllEndings (
  * @author sylvain
  */
 export function codeToLevelTitle (levelCode: string): string {
-  const liste: { [key: string]: string } = codeList
-  if (liste[levelCode]) {
-    // une traduction du code est trouvée dans la liste
-    return liste[levelCode]
+  const listeNiveaux: { [key: string]: string } = codeListForLevels
+  const listeThemes: { [key: string]: string } = codeListForThemes
+  if (listeNiveaux[levelCode]) {
+    // une traduction du code est trouvée dans la liste des niveaux
+    return listeNiveaux[levelCode]
+  } else if (listeThemes[levelCode]) {
+    // une traduction du code est trouvée dans la liste des niveaux
+    return listeThemes[levelCode]
   } else {
     // pas d'entrée trouvée : on retourne le code
     return levelCode

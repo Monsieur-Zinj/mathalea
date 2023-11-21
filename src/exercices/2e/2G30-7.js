@@ -2,7 +2,7 @@ import { droite } from '../../lib/2d/droites.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import { abs } from '../../lib/outils/nombres.js'
@@ -15,7 +15,7 @@ import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
-export const titre = "Lecture graphique des coefficients d'une équation réduite "
+export const titre = 'Déterminer une équation réduite à partir de sa représentation graphique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -25,18 +25,18 @@ export const amcType = 'AMCHybride'
 
  */
 export const uuid = '41e6f'
-export const ref = '2G35-7'
+export const ref = '2G30-7'
 export default function Lecturegraphiquedeaetb () {
   Exercice.call(this)
 
   this.nbQuestions = 3// On complète le nb de questions
-  this.nbCols = 2
-  this.nbColsCorr = 2
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.tailleDiaporama = 3
   this.video = ''
   this.spacing = 1
   this.spacingCorr = 1
-  this.spacingCorr = 3
+  this.spacingCorr = 1
   this.sup = 1
 
   this.nouvelleVersion = function () {
@@ -49,7 +49,7 @@ export default function Lecturegraphiquedeaetb () {
 
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, a, b, r, f, c, d, s1, s2, t, l, texte, texteCorr, cpt = 0;
+    for (let i = 0, a, b, r, f, c, d, s1, s2, t, l, o, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       if (this.sup === 1) {
         a = randint(-4, 4) // coefficient directeur
@@ -57,10 +57,28 @@ export default function Lecturegraphiquedeaetb () {
         if (a === 0 && b === 0) {
           a = 1
         }// On évite la situation de double nullité
-        r = repere()// On définit le repère
+        r = repere({
+          xMin: -8,
+          xMax: 8,
+          yMin: -8,
+          yMax: 8,
+          yLabelEcart: 0.8,
+          yLabelDistance: 2,
+          xLabelDistance: 2,
+          grilleX: false,
+          grilleY: false,
+          grilleSecondaire: true,
+          grilleSecondaireYDistance: 1,
+          grilleSecondaireXDistance: 1,
+          grilleSecondaireYMin: -8,
+          grilleSecondaireYMax: 8,
+          grilleSecondaireXMin: -8,
+          grilleSecondaireXMax: 8
+        })
         c = droite(a, -1, b) // On définit l'objet qui tracera la courbe dans le repère
         c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2
+        o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
         texte = 'À partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br><br>'
         texte += mathalea2d({
           xmin: -8,
@@ -68,7 +86,7 @@ export default function Lecturegraphiquedeaetb () {
           xmax: 8,
           ymax: 8,
           scale: 0.5
-        }, r, f, c)// On trace le graphique
+        }, r, f, c, o)// On trace le graphique
         if (a === 0) {
           texteCorr = 'On observe que la droite est horizontale. '
           texteCorr += `<br>La droite est l'ensemble des points ayant comme ordonnée : $${b}$ `
@@ -89,7 +107,7 @@ export default function Lecturegraphiquedeaetb () {
         if (b + a < -5 || b + a > 5) {
           s1 = segment(-2, b - 2 * a, -1, b - 2 * a, 'blue')
           s2 = segment(-1, b - 2 * a, -1, b - a, 'blue')
-
+          o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
           s1.epaisseur = 4
           s2.epaisseur = 4
           const A = point(0, b, 'A')
@@ -102,12 +120,12 @@ export default function Lecturegraphiquedeaetb () {
               xmax: 8,
               ymax: 8,
               scale: 0.5
-            }, r, s1, s2, t, l, c)
+            }, r, s1, s2, t, l, c, o)
           }
         } else {
           s1 = segment(0, b, 1, b, 'blue')
           s2 = segment(1, b, 1, b + a, 'blue')
-
+          o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
           s1.epaisseur = 4
           s2.epaisseur = 4
           const A = point(0, b, 'A')
@@ -120,7 +138,7 @@ export default function Lecturegraphiquedeaetb () {
               xmax: 8,
               ymax: 8,
               scale: 0.5
-            }, r, s1, s2, t, l, c)
+            }, r, s1, s2, t, l, c, o)
           }
         }
         // On trace le graphique
@@ -174,11 +192,28 @@ export default function Lecturegraphiquedeaetb () {
           d = 3
         }// On évite la situation de double nullité
 
-        r = repere()// On définit le repère
+        r = repere({
+          xMin: -6,
+          xMax: 6,
+          yMin: -6,
+          yMax: 6,
+          yLabelEcart: 0.8,
+          yLabelDistance: 2,
+          xLabelDistance: 2,
+          grilleX: false,
+          grilleY: false,
+          grilleSecondaire: true,
+          grilleSecondaireYDistance: 1,
+          grilleSecondaireXDistance: 1,
+          grilleSecondaireYMin: -6,
+          grilleSecondaireYMax: 6,
+          grilleSecondaireXMin: -6,
+          grilleSecondaireXMax: 6
+        })
         c = droite(a / d, -1, b) // On définit l'objet qui tracera la courbe dans le repère
         c.color = colorToLatexOrHTML('red')
         c.epaisseur = 2// On définit l'objet qui tracera la courbe dans le repère
-
+        o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
         texte = 'À partir de la représentation graphique de la droite ci-dessous, donner par lecture graphique son équation réduite.<br><br>'
         texte += mathalea2d({
           xmin: -6,
@@ -186,7 +221,7 @@ export default function Lecturegraphiquedeaetb () {
           xmax: 6,
           ymax: 6,
           scale: 0.5
-        }, r, c)// On trace le graphique
+        }, r, c, o)// On trace le graphique
         if (a === 0) {
           texteCorr = 'On observe que la droite est horizontale. '
           texteCorr += `<br>La droite est l'ensemble des points ayant comme ordonnée : $${b}$ `
@@ -246,11 +281,11 @@ export default function Lecturegraphiquedeaetb () {
           if (a !== 0) {
             texteCorr += mathalea2d({
               xmin: -6,
-              ymin: -10,
+              ymin: -6,
               xmax: 6,
-              ymax: 10,
+              ymax: 6,
               scale: 0.5
-            }, r, s1, s2, t, l, c)
+            }, r, s1, s2, t, l, c, o)
           }// On trace le graphique
           setReponse(this, i, 'y=' + reduireAxPlusB(new Decimal(a).div(d), b))
           if (context.isAmc) {
@@ -307,5 +342,5 @@ export default function Lecturegraphiquedeaetb () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières.\n2 : Valeurs fractionnaires.']
+  this.besoinFormulaireNumerique = ['Types de question ', 2, '1 : Valeurs entières\n2 : Valeurs fractionnaires']
 }
