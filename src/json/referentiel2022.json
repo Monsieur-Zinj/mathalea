@@ -19813,6 +19813,25 @@
           }
         },
         "typeExercice": "alea"
+      },
+      "2G24-6": {
+        "url": "2e/2G24-6.ts",
+        "tags": [],
+        "uuid": "6b705",
+        "id": "2G24-6",
+        "titre": "Calculer les coordonnées du 4e sommet d'un parallélogramme",
+        "datePublication": "11/11/2023",
+        "features": {
+          "interactif": {
+            "isActive": true,
+            "type": "'mathLive'"
+          },
+          "amc": {
+            "isActive": false,
+            "type": ""
+          }
+        },
+        "typeExercice": "alea"
       }
     },
     "2G3": {
