@@ -88,7 +88,7 @@ class EquationTrigo extends Exercice {
             texte += `Calculer la longueur $${nomA}${nomC}$ (au dixième près).`
           }
           texteCorr = `$\\${cosSinTan}\\left( ${angle} \\degree \\right) = \\dfrac{${nomA}${nomC}}{${stringNombre(lAB, 1)}}$<br>
-          $${nomA}${nomC} = \\${cosSinTan}\\left( ${angle} \\degree \\right) \\times ${stringNombre(lAB, 1)}$<br>
+          $${nomA}${nomC} = ${stringNombre(lAB, 1)} \\times \\${cosSinTan}\\left( ${angle} \\degree \\right) $<br>
           $${nomA}${nomC} \\approx ${stringNombre(reponse, 1)}$`
           break
         case 'angle':
