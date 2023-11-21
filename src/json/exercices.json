@@ -1270,7 +1270,7 @@
     "tags": [],
     "uuid": "c5480",
     "id": "2G12-1",
-    "titre": "Utiliser la distance entre deux points dans un repère orthonormé",
+    "titre": "Calculer et utiliser la distance entre deux points dans un repère.",
     "features": {
       "interactif": {
         "isActive": false,
@@ -1600,6 +1600,24 @@
     },
     "typeExercice": "alea"
   },
+  "2G30-7": {
+    "url": "2e/2G30-7.js",
+    "tags": [],
+    "uuid": "41e6f",
+    "id": "2G30-7",
+    "titre": "Déterminer une équation réduite à partir de sa représentation graphique",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": true,
+        "type": "AMCHybride"
+      }
+    },
+    "typeExercice": "alea"
+  },
   "2G33-1": {
     "url": "2e/2G33-1.js",
     "tags": [],
@@ -1632,24 +1650,6 @@
       "amc": {
         "isActive": false,
         "type": ""
-      }
-    },
-    "typeExercice": "alea"
-  },
-  "2G35-7": {
-    "url": "2e/2G35-7.js",
-    "tags": [],
-    "uuid": "41e6f",
-    "id": "2G35-7",
-    "titre": "Lecture graphique des coefficients d'une équation réduite ",
-    "features": {
-      "interactif": {
-        "isActive": true,
-        "type": "'mathLive'"
-      },
-      "amc": {
-        "isActive": true,
-        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -12233,7 +12233,7 @@
     "uuid": "f9a02",
     "id": "6M22-1",
     "titre": "Calculer périmètre et/ou aire de disques",
-    "dateModification": "15/11/2023",
+    "dateModification": "20/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -12251,15 +12251,16 @@
     "tags": [],
     "uuid": "ff386",
     "id": "6M22-2",
-    "titre": "Calculer périmètre et aire de portions de cercles/disques",
+    "titre": "Calculer périmètre et aire de portions de disques",
+    "dateModification": "20/11/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
