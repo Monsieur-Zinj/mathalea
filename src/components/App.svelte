@@ -40,7 +40,7 @@
   $: {
     context.isDiaporama = $globalOptions.v === 'diaporama'
     if ($globalOptions.v === 'latex') {
-      context.isHtml = false
+      context.isHtml = false      
     } else {
       context.isHtml = true
     }
@@ -53,6 +53,10 @@
     } else {
       context.isAmc = false
     }
+    context.vue = ''
+    if ($globalOptions.v === 'diaporama') context.vue = 'diap' // for compatibility
+    if ($globalOptions.v === 'latex')  context.vue = 'latex' // for compatibility
+    if ($globalOptions.v === 'can')  context.vue = 'can' // for compatibility
     // lorsque l'éditeur sera intégré à la v3, il faudra mettre à true cette propriété pour l'editeur
     context.isInEditor = false
   }
