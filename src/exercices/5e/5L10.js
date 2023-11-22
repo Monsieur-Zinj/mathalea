@@ -41,7 +41,7 @@ export default function ÉcrireUneExpressionLitterale () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
-      max: 19,
+      max: 18,
       defaut: 19,
       melange: 19,
       nbQuestions: this.nbQuestions,
