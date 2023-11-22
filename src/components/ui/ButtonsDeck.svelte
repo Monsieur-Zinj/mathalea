@@ -50,17 +50,10 @@
   } flex flex-col w-full md:flex-row justify-start items-start sm:justify-center sm:items-center`}
 >
   <div
-    class="relative w-full z-40 flex flex-col xl:flex-row px-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    class="w-full flex flex-col xl:flex-row px-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
-    <!-- Barre des chips -->
-    <div
-      class="{chipsListDisplayed
-        ? 'absolute bottom-0 left-1/2 transform translate-y-full -translate-x-1/2 flex flex-row justify-start items-center w-full p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
-        : 'hidden'} "
-    >
-      <ChipsList />
-    </div>
-    <div id="setupButtonsBar">
+
+    <div id="setupButtonsBar" class="flex">
       <slot name="setup-buttons">
         {#each setupButtonsList as button}
           <i
@@ -85,5 +78,14 @@
         </slot>
       </div>
     {/if}
+    <!-- Barre des chips -->
+    <div
+    id="exoChipsList"
+      class="{chipsListDisplayed
+        ? 'flex flex-row justify-start items-center w-full p-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
+        : 'hidden'} "
+    >
+      <ChipsList />
+    </div>
   </div>
 </div>
