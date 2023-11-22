@@ -5,19 +5,17 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$'
 
 /**
- * 2N11-2, ex 2N25
  * @author Stéphane Guyon
  */
 export const uuid = 'dc2a5'
 export const ref = '2N11-2'
 export default function UnionEtIntersectionIntervallesDeR () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  // this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -56,32 +54,27 @@ export default function UnionEtIntersectionIntervallesDeR () {
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 6) {
+          } else {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
@@ -92,31 +85,27 @@ export default function UnionEtIntersectionIntervallesDeR () {
           int2 = intervalle(C, D, 'blue', 0)
 
           texte = 'Donner si possible, une écriture simplifiée de '
+          texte += 'tupe ' + typesDeQuestions
           if (test === 1) {
             texte += `$I=[${a};${b}]\\cap[${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             texte += `$I=]${a};${b}]\\cap[${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $]${a};${b}]$ et dans $[${c};${d}]$.`
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             texte += `$I=[${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $]${c};${d}]$.`
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             texte += `$I=[${a};${b}]\\cap[${c};${d}[$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cap[${c};${d}[$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
-          }
-          if (test === 6) {
+          } else {
             texte += `$I=]${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
           }
-          texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+          texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
           texteCorr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
                     $I=\\emptyset$`
           break
@@ -140,32 +129,27 @@ export default function UnionEtIntersectionIntervallesDeR () {
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 6) {
+          } else {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
@@ -177,47 +161,37 @@ export default function UnionEtIntersectionIntervallesDeR () {
           texte = 'Donner si possible, une écriture simplifiée de '
           if (test === 1) {
             texte += `$I=[${a};${b}]\\cup[${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$ ou bien $[${c};${d}]$, ou dans les deux.`
-          }
-          if (test === 2) {
+            texteCorr = `<br>On cherche les réels qui sont dans $[${a};${b}]$ ou bien $[${c};${d}]$, ou dans les deux.`
+          } else if (test === 2) {
             texte += `$I=]${a};${b}]\\cup[${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $]${a};${b}]$ ou bien  $[${c};${d}]$ , ou dans les deux.`
-          }
-          if (test === 3) {
+            texteCorr = `<br>On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $[${c};${d}]$ , ou dans les deux.`
+          } else if (test === 3) {
             texte += `$I=[${a};${b}]\\cup]${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$ou bien  $]${c};${d}]$, ou dans les deux.`
-          }
-          if (test === 4) {
+            texteCorr = `<br>On cherche les réels qui sont dans $[${a};${b}]$ou bien  $]${c};${d}]$, ou dans les deux.`
+          } else if (test === 4) {
             texte += `$I=[${a};${b}]\\cup[${c};${d}[$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $[${a};${b}]$ ou bien  $[${c};${d}[$, ou dans les deux.`
-          }
-          if (test === 5) {
+            texteCorr = `<br>On cherche les réels qui sont dans  $[${a};${b}]$ ou bien  $[${c};${d}[$, ou dans les deux.`
+          } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cup[${c};${d}[$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $[${a};${b}[$ ou bien  $[${c};${d}[$, ou dans les deux.`
-          }
-          if (test === 6) {
+            texteCorr = `<br>On cherche les réels qui sont dans  $[${a};${b}[$ ou bien  $[${c};${d}[$, ou dans les deux.`
+          } else {
             texte += `$I=]${a};${b}]\\cup]${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $]${a};${b}]$ ou bien  $]${c};${d}[$, ou dans les deux.`
+            texteCorr = `<br>On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $]${c};${d}[$, ou dans les deux.`
           }
-          texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+          texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
           texteCorr += `<br>Les deux ensembles sont disjoints, ils n'ont aucun élément en commun.<br>
                     On ne peut pas simplifier l'écriture de $I$ qui s'écrit donc `
           if (test === 1) {
             texteCorr += `$I=[${a};${b}]\\cup[${c};${d}]$`
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             texteCorr += `$I=]${a};${b}]\\cup[${c};${d}]$`
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             texteCorr += `$I=[${a};${b}]\\cup]${c};${d}]$`
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             texteCorr += `$I=[${a};${b}]\\cup[${c};${d}[$`
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             texteCorr += `$I=[${a};${b}[\\cup[${c};${d}[$`
-          }
-          if (test === 6) {
+          } else {
             texteCorr += `$I=]${a};${b}]\\cup]${c};${d}]$`
           }
           break
@@ -241,32 +215,27 @@ export default function UnionEtIntersectionIntervallesDeR () {
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 6) {
+          } else {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
@@ -281,32 +250,27 @@ export default function UnionEtIntersectionIntervallesDeR () {
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += `$I=[${c};${b}]$`
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             texte += `$I=]${a};${b}]\\cap[${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $]${a};${b}]$ et dans $[${c};${d}]$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += `$I=[${c};${b}]$`
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             texte += `$I=[${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $]${c};${d}]$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += `$I=]${c};${b}]$`
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cap]${c};${d}[$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += `$I=]${c};${b}[$`
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cap[${c};${d}[$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += `$I=[${c};${b}[$`
-          }
-          if (test === 6) {
+          } else {
             texte += `$I=]${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
@@ -334,32 +298,27 @@ export default function UnionEtIntersectionIntervallesDeR () {
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 6) {
+          } else {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
@@ -371,43 +330,38 @@ export default function UnionEtIntersectionIntervallesDeR () {
           texte = 'Donner si possible, une écriture simplifiée de '
           if (test === 1) {
             texte += `$I=[${a};${b}]\\cup[${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$ ou bien $[${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans $[${a};${b}]$ ou bien $[${c};${d}]$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
 
             texteCorr += `$I=[${a};${d}]$`
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             texte += `$I=]${a};${b}]\\cup[${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $]${a};${b}]$ ou bien  $[${c};${d}]$ , ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $[${c};${d}]$ , ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
 
             texteCorr += `$I=]${a};${d}]$`
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             texte += `$I=[${a};${b}]\\cup]${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$ou bien  $]${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans $[${a};${b}]$ou bien  $]${c};${d}]$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
 
             texteCorr += `$I=[${a};${d}]$`
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cup]${c};${d}[$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $[${a};${b}[$ ou bien  $]${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans  $[${a};${b}[$ ou bien  $]${c};${d}[$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
 
             texteCorr += `$I=[${a};${d}[$`
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cup[${c};${d}[$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $[${a};${b}[$ ou bien  $[${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans  $[${a};${b}[$ ou bien  $[${c};${d}[$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
 
             texteCorr += `$I=[${a};${d}[$`
-          }
-          if (test === 6) {
+          } else {
             texte += `$I=]${a};${b}]\\cup]${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $]${a};${b}]$ ou bien  $]${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $]${c};${d}[$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
 
             texteCorr += `$I=]${a};${d}]$`
           }
@@ -434,32 +388,27 @@ export default function UnionEtIntersectionIntervallesDeR () {
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 6) {
+          } else {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
@@ -473,37 +422,32 @@ export default function UnionEtIntersectionIntervallesDeR () {
           if (test === 1) {
             texte += `$I=[${a};${b}] \\cap [${c};${d}].$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
             texteCorr += `On observe que $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${c};${d}].$`
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             texte += `$I=]${a};${b}]\\cap[${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $]${a};${b}]$ et dans $[${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
             texteCorr += `On observe que $[${c};${d}]\\subset ]${a};${b}]$ donc $I=[${c};${d}].$`
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             texte += `$I=[${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $]${c};${d}]$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
             texteCorr += `On observe que $]${c};${d}]\\subset [${a};${b}]$ donc $I=]${c};${d}].$`
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cap]${c};${d}[$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
             texteCorr += `On observe que $]${c};${d}[\\subset [${a};${b}[$ donc $I=]${c};${d}[.$`
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cap[${c};${d}[$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}[$ et dans $[${c};${d}[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
             texteCorr += `On observe que $[${c};${d}[\\subset [${a};${b}[$ donc $I=[${c};${d}[.$`
-          }
-          if (test === 6) {
+          } else {
             texte += `$I=]${a};${b}]\\cap]${c};${d}]$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}[$.`
-            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
+            texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge.<br>'
             texteCorr += `On observe que $]${c};${d}]\\subset ]${a};${b}]$ donc $I=]${c};${d}].$`
           }
 
@@ -529,32 +473,27 @@ export default function UnionEtIntersectionIntervallesDeR () {
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             c1 = crochetD(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetD(D, 'blue')
-          }
-          if (test === 6) {
+          } else {
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
@@ -567,45 +506,40 @@ export default function UnionEtIntersectionIntervallesDeR () {
 
           if (test === 1) {
             texte += `$I=[${a};${b}]\\cup[${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$ ou bien $[${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans $[${a};${b}]$ ou bien $[${c};${d}]$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
 
-            texteCorr += `On $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}].$`
-          }
-          if (test === 2) {
+            texteCorr += `On a $[${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}]$`
+          } else if (test === 2) {
             texte += `$I=]${a};${b}]\\cup[${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $]${a};${b}]$ ou bien  $[${c};${d}]$ , ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $[${c};${d}]$ , ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
 
-            texteCorr += `On $[${c};${d}]\\subset ]${a};${b}]$ donc $I=]${a};${b}].$`
-          }
-          if (test === 3) {
+            texteCorr += `On a $[${c};${d}]\\subset ]${a};${b}]$ donc $I=]${a};${b}]$`
+          } else if (test === 3) {
             texte += `$I=[${a};${b}]\\cup]${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans $[${a};${b}]$ou bien  $]${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans $[${a};${b}]$ou bien  $]${c};${d}]$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
 
-            texteCorr += `On $]${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}].$`
-          }
-          if (test === 4) {
+            texteCorr += `On a $]${c};${d}]\\subset [${a};${b}]$ donc $I=[${a};${b}]$`
+          } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cup]${c};${d}[$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $[${a};${b}[$ ou bien  $]${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans  $[${a};${b}[$ ou bien  $]${c};${d}[$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
 
-            texteCorr += `On $]${c};${d}[\\subset [${a};${b}[$ donc $I=[${a};${b}[].$`
-          }
-          if (test === 5) {
+            texteCorr += `On a $]${c};${d}[\\subset [${a};${b}[$ donc $I=[${a};${b}[$`
+          } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cup[${c};${d}[$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $[${a};${b}[$ ou bien  $[${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans  $[${a};${b}[$ ou bien  $[${c};${d}[$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
 
-            texteCorr += `On $[${c};${d}]\\subset [${a};${b}[$ donc $I=[${a};${b}[.$`
-          }
-          if (test === 6) {
+            texteCorr += `On a $[${c};${d}]\\subset [${a};${b}[$ donc $I=[${a};${b}[$`
+          } else {
             texte += `$I=]${a};${b}]\\cup]${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans  $]${a};${b}]$ ou bien  $]${c};${d}[$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans  $]${a};${b}]$ ou bien  $]${c};${d}[$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
 
-            texteCorr += `On $]${c};${d}]\\subset ]${a};${b}]$ donc $I=]${a};${b}].$`
+            texteCorr += `On a $]${c};${d}]\\subset ]${a};${b}]$ donc $I=]${a};${b}]$`
           }
 
           break
@@ -626,50 +560,39 @@ export default function UnionEtIntersectionIntervallesDeR () {
           if (test === 1) {
             A = point(0, 0)
             D = point(10, 0, d)
-            // c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             A = point(0, 0)
             D = point(10, 0, d)
-            // c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             A = point(0, 0)
             D = point(10, 0, d)
-            // c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             A = point(0, 0, a)
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetG(C, 'blue')
-            // c4 = crochetD(D, 'blue')
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             A = point(0, 0, a)
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
-            // c4 = crochetD(D, 'blue')
-          }
-          if (test === 6) {
+          } else {
             A = point(0, 0, a)
             D = point(15, 0)
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
-            // c4 = crochetD(D, 'blue')
           }
           int = intervalle(X1, X2, 'black', 0)
           int1 = intervalle(A, B, 'red', 0)
@@ -682,34 +605,29 @@ export default function UnionEtIntersectionIntervallesDeR () {
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc aucun réel n\'appartient aux deux ensembles.<br>'
             texteCorr += '$I=\\emptyset$'
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             texte += `$I=]-\\infty;${b}] \\cap [${c};${d}].$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $]-\\infty;${b}]$ et dans $[${c};${d}]$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc aucun réel n\'appartient aux deux ensembles.<br>'
             texteCorr += '$I=\\emptyset$'
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             texte += `$I=]-\\infty;${b}]\\cap]${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont à la fois dans $[$I=]-\\infty;${b}]$ et dans $]${c};${d}]$.`
+            texteCorr = `<br>On cherche les réels qui sont à la fois dans $]-\\infty;${b}]$ et dans $]${c};${d}]$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc aucun réel n\'appartient aux deux ensembles.<br>'
             texteCorr += '$I=\\emptyset$'
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cap]${c};+\\infty[$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}[$ et dans $]${c};+\\infty[$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += '$I=\\emptyset$'
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cap[${c};+\\infty[$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $[${a};${b}[$ et dans $[${c};+\\infty[$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
             texteCorr += '$I=\\emptyset$'
-          }
-          if (test === 6) {
+          } else {
             texte += `$I=]${a};${b}]\\cap]${c};+\\infty[$`
             texteCorr = `<br>On cherche les réels qui sont à la fois dans $]${a};${b}]$ et dans $]${c};+\\infty[$.`
             texteCorr += '<br>On regarde la partie de l\'intervalle qui est coloriée à la fois en bleu et en rouge :<br>'
@@ -737,40 +655,35 @@ export default function UnionEtIntersectionIntervallesDeR () {
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 2) {
+          } else if (test === 2) {
             A = point(0, 0)
             D = point(10, 0, d)
             // c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 3) {
+          } else if (test === 3) {
             A = point(0, 0)
             D = point(10, 0, d)
             // c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
-          }
-          if (test === 4) {
+          } else if (test === 4) {
             A = point(0, 0, a)
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetG(C, 'blue')
             // c4 = crochetD(D, 'blue')
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             A = point(0, 0, a)
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
             // c4 = crochetD(D, 'blue')
-          }
-          if (test === 6) {
+          } else {
             A = point(0, 0, a)
             D = point(15, 0)
             c1 = crochetG(A, 'red')
@@ -784,41 +697,35 @@ export default function UnionEtIntersectionIntervallesDeR () {
           texte = 'Donner si possible, une écriture simplifiée de '
           if (test === 1) {
             texte += `$I=]-\\infty;${b}] \\cup [${c};${d}].$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
-            texteCorr += `$I=]-\\infty;${b}] \\cup [${c};${d}].$`
-          }
-          if (test === 2) {
+            texteCorr += `$I=]-\\infty;${b}] \\cup [${c};${d}]$`
+          } else if (test === 2) {
             texte += `$I=]-\\infty;${b}] \\cup [${c};${d}].$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
-            texteCorr += `$I=]-\\infty;${b}] \\cup [${c};${d}].$`
-          }
-
-          if (test === 3) {
+            texteCorr += `$I=]-\\infty;${b}] \\cup [${c};${d}]$`
+          } else if (test === 3) {
             texte += `$I=]-\\infty;${b}]\\cup]${c};${d}]$`
-            texteCorr = `<br>On cherche les réels qui sont ou bien dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = `<br>On cherche les réels qui sont dans $]-\\infty;${b}]$ ou bien dans $[${c};${d}]$, ou dans les deux.`
+            texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
-            texteCorr += `$I=]-\\infty;${b}] \\cup [${c};${d}].$`
-          }
-          if (test === 4) {
+            texteCorr += `$I=]-\\infty;${b}] \\cup [${c};${d}]$`
+          } else if (test === 4) {
             texte += `$I=[${a};${b}[\\cup]${c};+\\infty[$`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
             texteCorr += `$I=[${a};${b}[\\cup]${c};+\\infty[$`
-          }
-          if (test === 5) {
+          } else if (test === 5) {
             texte += `$I=[${a};${b}[\\cup[${c};+\\infty[$`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
             texteCorr += `$I=[${a};${b}[\\cup[${c};+\\infty[$`
-          }
-          if (test === 6) {
+          } else {
             texte += `$I=]${a};${b}]\\cup]${c};+\\infty[$`
-            texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+            texteCorr = '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge.<br>'
             texteCorr += 'On observe que les deux intervalles sont disjoints donc <br>'
             texteCorr += `$I=[${a};${b}]\\cup]${c};+\\infty[$`
           }
@@ -876,11 +783,17 @@ export default function UnionEtIntersectionIntervallesDeR () {
           int2 = intervalle(C, D, 'blue', 0.1)
           texte = `Donner si possible, une écriture simplifiée de $I=]${a};${b}[ \\cup ]${c};${d}[.$`
 
-          texteCorr = `<br>On cherche les réels qui sont ou bien dans $]${a};${b}[$, ou bien dans $]${c};${d}[$.`
-          texteCorr += '<br>On donc regarde la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
+          texteCorr = `<br>On cherche les réels qui sont dans $]${a};${b}[$, ou bien dans $]${c};${d}[$.`
+          texteCorr += '<br>On regarde donc la partie de l\'intervalle qui est coloriée, soit en bleu, soit en rouge, soit en bleu et rouge :<br>'
           texteCorr += `$I=]${a};${d}[$`
           break
       }
+
+      let aRemplacer = texteCorr.split('=')[1]
+      aRemplacer = aRemplacer.replace('$', '')
+      texteCorr = texteCorr.split('=')[0] + '=$'
+      texteCorr += `$${miseEnEvidence(aRemplacer)}$.`
+
       texteCorr += mathalea2d({
         xmin: -2,
         ymin: -2,
