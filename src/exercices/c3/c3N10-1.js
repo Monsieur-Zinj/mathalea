@@ -133,7 +133,7 @@ export default function RecomposerEntierC3 () {
             nombreStr += randint(1, 9, nombreStr).toString()
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000,3)},...$).<br>`
+          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
           texte += `$${texNombre(nombre, 0)}=`
           texteCorr = `$${texNombre(nombre, 0)}=`
           this.premierChamp[i] = indexChamp
@@ -167,7 +167,7 @@ export default function RecomposerEntierC3 () {
             nombreStr += randint(1, 9, nombreStr).toString()
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000,3)},...$).<br>`
+          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
           texte += `$${texNombre(nombre, 0)}=`
           texteCorr = `$${texNombre(nombre, 0)}=`
           this.premierChamp[i] = indexChamp
@@ -278,7 +278,7 @@ export default function RecomposerEntierC3 () {
             nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000,3)},...$).<br>`
+          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
           texte += `$${texNombre(nombre, 0)}=`
           texteCorr = `$${texNombre(nombre, 0)}=`
           this.premierChamp[i] = indexChamp
@@ -314,7 +314,7 @@ export default function RecomposerEntierC3 () {
             nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000,3)},...$).<br>`
+          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
           texte += `$${texNombre(nombre, 0)}=`
           texteCorr = `$${texNombre(nombre, 0)}=`
           this.premierChamp[i] = indexChamp
@@ -505,7 +505,7 @@ export default function RecomposerEntierC3 () {
           nombreStr = remplaceParZero(nombreStr, place)
           nombreStr = remplaceParZero(nombreStr, place + 1)
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000,3)},...$).<br>`
+          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
           texte += `$${texNombre(nombre, 0)}=`
           texteCorr = `$${texNombre(nombre, 0)}=`
           this.premierChamp[i] = indexChamp
@@ -542,7 +542,7 @@ export default function RecomposerEntierC3 () {
           nombreStr = remplaceParZero(nombreStr, place)
           nombreStr = remplaceParZero(nombreStr, place + 1)
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000,3)},...$).<br>`
+          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
           texte += `$${texNombre(nombre, 0)}=`
           texteCorr = `$${texNombre(nombre, 0)}=`
           this.premierChamp[i] = indexChamp
@@ -605,8 +605,8 @@ export default function RecomposerEntierC3 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre de chiffres minimum des nombres à décomposer']
-  this.besoinFormulaire2Numerique = ['Nombre de chiffres maximum des nombres à décomposer']
+  this.besoinFormulaireNumerique = ['Nombre de chiffres minimum des nombres à décomposer', 6]
+  this.besoinFormulaire2Numerique = ['Nombre de chiffres maximum des nombres à décomposer', 7]
   this.besoinFormulaire3Texte = ['Types de question séparés par des tirets', '1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n10 : Trouver le nombre en désordre sans zéro avec groupement\n11 : Trouver le nombre en ordre avec zéros possibles avec groupement\n12 : Trouver le nombre en désordre avec zéros possibles\n13 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n14 : Puissances de dix en désordre deux zéros consécutifs avec groupement\n15 : Mélange']
   this.correctionInteractive = (i) => {
     const champsTexte = []
