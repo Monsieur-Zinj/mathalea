@@ -1,21 +1,26 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
-import { axes, grille } from '../../lib/2d/reperes.js'
+import Decimal from 'decimal.js'
+import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
-import { abs } from '../../lib/outils/nombres.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
+
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-
-export const titre = 'Déterminer les coordonnées du milieu d\'un segment dans un repère'
-
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const titre = 'Calculer et utiliser les coordonnées du milieu d\'un segment dans un repère'
+export const dateDeModifImportante = '20/11/2023'
 /**
  * 2G12-2
- * @author Stéphane Guyon
+ * @author Stéphane Guyon modif Gilles (interactif + bricoles)
  */
 export const uuid = '4b25a'
 export const ref = '2G12-2'
@@ -24,14 +29,16 @@ export default function Milieu () {
   this.titre = titre
   this.sup = parseInt(this.sup)
   this.nbQuestions = 2
-  this.nbCols = 2
-  this.nbColsCorr = 2
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.sup = 1 //
-
+  this.correctionDetaillee = false
+  this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+
     let typesDeQuestionsDisponibles = [1, 2]; let typesDeQuestions
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
@@ -39,117 +46,106 @@ export default function Milieu () {
     if (this.sup === 2) {
       typesDeQuestionsDisponibles = [2]
     }
+    if (this.sup === 3) {
+      typesDeQuestionsDisponibles = [1, 2]
+    }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, g, s, xA, yA, xB, yB, xI0, xI1, yI0, yI1, xI, yI, A, B, T, L, M, I, J, O, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, g, s, xA, yA, xB, yB, nom, o, objets, xM, yM, A, B, T, L, M, I, J, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
+      objets = []
+      xA = randint(-8, 8, 0)
+      xB = randint(-8, 8, xA)
+      yA = randint(-8, 8, 0)
+      yB = randint(-8, 8)
+      g = repere({
+        xUnite: 1,
+        yUnite: 1,
+        xMin: Math.min(-2, xA - 1, xB - 1),
+        yMin: Math.min(-2, yA - 1, yB - 1),
+        xMax: Math.max(xA + 1, xB + 1, 2),
+        yMax: Math.max(yA + 1, yB + 1, 2),
+        thickHauteur: 0.1,
+        yLabelEcart: 0.7,
+        xLabelEcart: 0.5,
+        axeXStyle: '->',
+        axeYStyle: '->',
+        yLabelDistance: 2,
+        xLabelDistance: 2
+      })
+      A = point(xA, yA, 'A')
+      B = point(xB, yB, 'B')
+      M = point((xA + xB) / 2, (yA + yB) / 2, 'M')
+      nom = creerNomDePolygone(3, ['OIJDXYMAB'])
+      A.nom = nom[0]
+      B.nom = nom[1]
+      M.nom = nom[2]
+
+      I = texteParPosition('I', 1, -0.5, 'milieu', 'black', 1)
+      J = texteParPosition('J', -0.5, 1, 'milieu', 'black', 1)
+      o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      s = segment(A, B, 'blue')
+
+      s.epaisseur = 2
+      // s3 = codageSegments('X', 'red', s1, s2)
+      T = tracePoint(A, B, M) // Repère les points avec une croix
+      L = labelPoint(A, B, M)
       switch (typesDeQuestions) {
         case 1:// cas simple du milieu
-          xA = 0
-          xB = 0
-          yA = 0
-          yB = 0
-          while (abs(xB - xA) < 3) {
-            xA = randint(0, 8) * choice([-1, 1])
-            xB = randint(0, 8) * choice([-1, 1])
-          }
-          while (abs(yB - yA) < 3) {
-            yA = randint(0, 8) * choice([-1, 1])
-            yB = randint(0, 8) * choice([-1, 1])
-          }
-
-          xI0 = fractionSimplifiee(xA + xB, 2)[0]
-          xI1 = fractionSimplifiee(xA + xB, 2)[1]
-          yI0 = fractionSimplifiee(yA + yB, 2)[0]
-          yI1 = fractionSimplifiee(yA + yB, 2)[1]
-
-          g = grille(-9, -9, 9, 9)
-          A = point(xA, yA, 'A')
-          B = point(xB, yB, 'B')
-          M = point((xA + xB) / 2, (yA + yB) / 2, 'M')
-          I = point(1, 0, 'I')
-          J = point(0, 1, 'J')
-          O = point(0, 0, 'O')
-          a = axes(-9, -9, 9, 9)
-          s = segment(A, B, 'blue')
-
-          s.epaisseur = 2
-          // s3 = codageSegments('X', 'red', s1, s2)
-          T = tracePoint(A, B, M, I, J, O) // Repère les points avec une croix
-          L = labelPoint(A, B, M, I, J, O)
+          xM = new FractionEtendue(xA + xB, 2)
+          yM = new FractionEtendue(yA + yB, 2)// .simplifie()
+          objets.push(g, T, L, s, o, I, J)
+          setReponse(this, 2 * i, xM, { formatInteractif: 'fractionEgale' })
+          setReponse(this, 2 * i + 1, yM, { formatInteractif: 'fractionEgale' })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
-          texte += ` $A\\left(${xA};${yA}\\right)$ et $B\\left(${xB};${yB}\\right)$`
-          texte += '<br>Déterminer les coordonnées du point $M$ milieu du segment $[AB]$ '
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
+          texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$. `
+          if (this.interactif) {
+            texte += `<br>$${M.nom}\\Bigg($` + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore')
+            texte += ';' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore')
+            texte += '$\\Bigg)$'
+          }
 
-          texteCorr = mathalea2d({
-            xmin: -9,
-            ymin: -9,
-            xmax: 9,
-            ymax: 9
-          }, a, g, T, L, s)
-
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
-          texteCorr += '<br> alors les coordonnées du point $M$ milieu de $[AB]$ sont '
-          texteCorr += '$M\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_M=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xB)}}{2} \\\\ y_M=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yB)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_M=\\dfrac{${texNombre(xA + xB)}}{2}\\\\y_M=\\dfrac{${texNombre(yA + yB)}}{2}\\end{cases}$`
-          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(${xI0};${yI0}\\right)$` }
+          if (this.correctionDetaillee) {
+            texteCorr = '<br>On sait d\'après le cours, que si $A(x_A\\,;\\,y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
+            texteCorr += '<br> alors les coordonnées du point $M$ milieu de $[AB]$ sont '
+            texteCorr += `$M\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>
+            On peut représenter la situation avec les données de l'énoncé: <br>`
+            texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures(objets)), objets)
+          } else { texteCorr = 'On applique les formules avec les données de l\'énoncé  : <br>' }
+          texteCorr += `$\\begin{cases}x_${M.nom}=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xB)}}{2}=\\dfrac{${texNombre(xA + xB)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.5em]y_${M.nom}=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yB)}}{2}=\\dfrac{${texNombre(yA + yB)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
+          texteCorr += `  <br>Ainsi : $ ${M.nom}\\left(${xM.simplifie().texFSD}\\,;\\,${yM.simplifie().texFSD}\\right)$<br> `
 
           break
         case 2: // cas où on connaît A et I, on cherche B
+          xM = new Decimal(xA + xB).div(2)
+          yM = new Decimal(yA + yB).div(2)
 
-          xA = randint(0, 4) * choice([-1, 1])
-          yA = randint(0, 4) * choice([-1, 1])
-          xI = randint(0, 4) * choice([-1, 1])
-          yI = randint(0, 4) * choice([-1, 1])
-          while (abs(xI - xA) < 2 || abs(xI - xA) > 5) { // on choisit A et I ni trop près, ni trop loin
-            xI = randint(0, 4) * choice([-1, 1])
-            xA = randint(0, 4) * choice([-1, 1])
-          }
-          while (abs(yI - yA) < 2 || abs(yI - yA) > 5) { // on choisit A et I ni trop près, ni trop loin
-            yA = randint(0, 4) * choice([-1, 1])
-            yI = randint(0, 4) * choice([-1, 1])
-          }
-
-          // xI0 = fractionSimplifiee(xA + xB, 2)[0]
-          // xI1 = fractionSimplifiee(xA + xB, 2)[1]
-          // yI0 = fractionSimplifiee(yA + yB, 2)[0]
-          // yI1 = fractionSimplifiee(yA + yB, 2)[1]
-          g = grille(-9, -9, 9, 9)
-          A = point(xA, yA, 'A', 'red')
-          B = point(2 * xI - xA, 2 * yI - yA, 'B', 'red')
-          M = point(xI, yI, 'M')
-          O = point(0, 0, 'O')
-          I = point(1, 0, 'I')
-          J = point(0, 1, 'J')
-          a = axes(-9, -9, 9, 9)
-          s = segment(A, B, 'blue')
-          s.epaisseur = 2
-          T = tracePoint(A, B, M, O, I, J) // Repère les points avec une croix
-          L = labelPoint(A, B, M, O, I, J)
+          objets.push(g, T, L, s, o, I, J)
+          setReponse(this, 2 * i, new Decimal(xM).mul(2).sub(xA), { formatInteractif: 'calcul' })
+          setReponse(this, 2 * i + 1, new Decimal(yM).mul(2).sub(yA), { formatInteractif: 'calcul' })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
-          texte += ` $A\\left(${xA};${yA}\\right)$ et $M\\left(${xI};${yI}\\right)$`
-          texte += '<br>Déterminer les coordonnées du point $B$ tel que $M$ soit le milieu du segment $[AB]$ '
+          texte += `  $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${M.nom}\\left(${texNombre(xM, 1)}\\,;\\,${texNombre(yM, 1)}\\right)$`
+          texte += `<br>Déterminer les coordonnées du point $${B.nom}$ tel que $${M.nom}$ soit le milieu du segment $[${A.nom}${B.nom}]$. `
+          if (this.interactif) {
+            texte += `<br>$${B.nom}\\Bigg($` + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore')
+            texte += ';' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore')
+            texte += '$\\Bigg)$'
+          }
 
-          texteCorr = mathalea2d({
-            xmin: -9,
-            ymin: -9,
-            xmax: 9,
-            ymax: 9
-          }, g, a, s, T, L)
+          if (this.correctionDetaillee) {
+            texteCorr = '<br>On sait d\'après le cours, que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère orthonormé,'
+            texteCorr += '<br> alors les coordonnées du point $M$ milieu de $[AB]$ sont '
+            texteCorr += `$M\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>
+          On peut représenter la situation avec les données de l'énoncé : <br>`
+            texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures(objets)), objets)
+          } else { texteCorr = 'On applique les formules avec les données de l\'énoncé  : <br>' }
+          texteCorr += `$\\begin{cases}${texNombre(xM, 1)}=\\dfrac{${xA}+x_${B.nom}}{2} \\\\[0.5em] ${texNombre(yM, 1)}=\\dfrac{${yA}+y_${B.nom}}{2}\\end{cases}$`
+          texteCorr += `$\\iff \\begin{cases}${xA}+x_${B.nom}=2\\times ${ecritureParentheseSiNegatif(xM, 1)}  \\\\[0.5em] ${yA}+y_${B.nom}=2\\times ${ecritureParentheseSiNegatif(yM)}\\end{cases}$`
+          texteCorr += `$\\iff \\begin{cases}x_${B.nom}=${texNombre(2 * xM, 0)} ${ecritureAlgebrique(-xA)} \\\\[0.5em] y_${B.nom}=${texNombre(2 * yM, 0)}${ecritureAlgebrique(-yA)}\\end{cases}$`
+          texteCorr += `<br>On en déduit :  $\\begin{cases}x_${B.nom}={${texNombre(2 * xM - xA)}}\\\\[0.5em]y_${B.nom}=${texNombre(2 * yM - yA)}\\end{cases}$`
+          texteCorr += `<br>Ainsi : $${B.nom}\\left( ${texNombre(2 * xM - xA)}\\,;\\,${texNombre(2 * yM - yA)}\\right)$`
 
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
-          texteCorr += ' <br>alors les coordonnées du point $M$ milieu de $[AB]$ sont '
-          texteCorr += '$M\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}${xI}=\\dfrac{${xA}+x_B}{2} \\\\ ${yI}=\\dfrac{${yA}+y_B}{2}\\end{cases}$`
-          texteCorr += `$\\iff \\begin{cases}x_B=2\\times ${xI} -${ecritureParentheseSiNegatif(xA)} \\\\ y_B=2\\times ${yI}-${ecritureParentheseSiNegatif(yA)}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_B={${texNombre(2 * xI - xA)}}\\\\y_B=${texNombre(2 * yI - yA)}\\end{cases}$`
-          texteCorr += `<br>Au final : $B\\left( ${texNombre(2 * xI - xA)};${texNombre(2 * yI - yA)}\\right)$`
           break
       }
       if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
@@ -161,5 +157,5 @@ export default function Milieu () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Application directe \n2 : Application indirecte.']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Application directe \n2 : Application indirecte\n3 : Mélange ']
 }
