@@ -92,7 +92,7 @@
 </script>
 
 <aside
-  class="flex w-full md:h-full flex-col items-start pb-4 pt-0 md:pt-4 ml-0 md:mx-0 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+  class="flex w-full md:h-full md:min-h-full flex-col items-start pb-4 pt-0 md:pt-4 ml-0 md:mx-0 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
 >
       <SearchBlock
         class="w-full flex flex-col justify-start pt-0 sm:"

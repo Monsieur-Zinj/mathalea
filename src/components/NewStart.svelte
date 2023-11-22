@@ -16,7 +16,7 @@
   import handleCapytale from '../lib/handleCapytale'
   import NavBar from './header/NavBar.svelte'
   import SideMenu from './sidebar/SideMenu.svelte'
-  import { Collapse, Ripple, initTE } from 'tw-elements'
+  import { Sidenav, Collapse, Ripple, initTE } from 'tw-elements'
   import { flip } from 'svelte/animate'
   import Card from './ui/Card.svelte'
   import Exercice from './exercice/Exercice.svelte'
@@ -47,7 +47,7 @@
   // À la construction du component ou à la navigation dans l'historique du navigateur
   // on met à jour l'url headerStart
   onMount(() => {
-    initTE({ Collapse, Ripple })
+    initTE({ Sidenav, Collapse, Ripple })
     // On analyse l'url pour mettre à jour l'affichage
     urlToDisplay()
     if ($globalOptions.recorder === 'capytale') {
@@ -229,13 +229,13 @@
   /**
    * Gestion des données
    */
-   function newDataForAll () {
-     // console.log($globalOptions, $exercicesParams)
-     const newDataForAll = new window.Event('newDataForAll', {
-       bubbles: true
-     })
-     document.dispatchEvent(newDataForAll)
-   }
+  function newDataForAll () {
+    // console.log($globalOptions, $exercicesParams)
+    const newDataForAll = new window.Event('newDataForAll', {
+      bubbles: true
+    })
+    document.dispatchEvent(newDataForAll)
+  }
 
   /**
    * Gestion de l'interactivité
@@ -275,9 +275,9 @@
   }
 </script>
 
-<div class={$darkMode.isActive ? 'dark' : ''} id="startComponent">
+<div class="{$darkMode.isActive ? 'dark' : ''} relative" id="startComponent">
   <div
-    class="flex flex-col scrollbar-hide w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    class="md:sticky md:top-0 md:z-50 flex flex-col scrollbar-hide w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
     <!-- Entête -->
     {#if isNavBarVisible}
@@ -288,6 +288,233 @@
         <NavBar subtitle="Conception de document" subtitleType="design" />
       </div>
     {/if}
+    <!-- Barre de boutons non-smartphone  -->
+    <div class="hidden md:flex">
+      <div
+        class={$exercicesParams.length === 0
+          ? 'hidden'
+          : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
+        id="barre-boutons"
+      >
+        <div
+          class="hidden md:flex justify-center items-center absolute left-0 bottom-0 h-10 w-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+        >
+          <button
+            data-te-sidenav-toggle-ref
+            data-te-target="#choiceSideMenuWrapper"
+            aria-controls="#choiceSideMenuWrapper"
+            aria-haspopup="true"
+          >
+            <i
+              class="bx bx-right-arrow-alt text-2xl text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+            />
+          </button>
+        </div>
+        <ButtonsDeck class="md:pl-10" {chipsListDisplayed}>
+          <!-- Bouton de réglages de la page -->
+          <div
+            slot="setup-buttons"
+            class="flex flex-row justify-start items-center space-x-4"
+          >
+            <div
+              class="tooltip tooltip-bottom"
+              data-tip="Réduire la taille du texte"
+            >
+              <Button
+                title=""
+                icon="bx-zoom-out"
+                class="flex items-center text-3xl"
+                on:click={zoomMinus}
+              />
+            </div>
+            <div
+              class="tooltip tooltip-bottom"
+              data-tip="Augmenter la taille du texte"
+            >
+              <Button
+                title=""
+                icon="bx-zoom-in"
+                class="flex items-center text-3xl"
+                on:click={zoomPlus}
+              />
+            </div>
+            <button
+              type="button"
+              on:click={() => {
+                setAllInteractifClicked
+                  ? removeAllInteractif()
+                  : setAllInteractif()
+                // handleMenuVisibility("settings")
+              }}
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip={setAllInteractifClicked
+                ? "Supprimer l'interactivité"
+                : 'Tous les exercices en interactif'}
+            >
+              <div class="px-2">
+                <TwoStatesIcon
+                  isOnStateActive={setAllInteractifClicked}
+                  size={7}
+                />
+              </div>
+            </button>
+            <div class="tooltip tooltip-bottom" data-tip="Réorganisation">
+              <Button
+                title=""
+                icon="bx-transfer"
+                class="flex items-center text-3xl rotate-90"
+                on:click={() => {
+                  chipsListDisplayed = !chipsListDisplayed
+                }}
+              />
+            </div>
+            <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés">
+              <Button
+                title=""
+                icon="bx-refresh"
+                class="flex items-center text-3xl"
+                on:click={newDataForAll}
+              />
+            </div>
+            <div
+              class="tooltip tooltip-bottom"
+              data-tip="Supprimer tous les exercices"
+            >
+              <Button
+                title=""
+                icon="bx-trash"
+                class="text-3xl"
+                on:click={() => {
+                  $exercicesParams.length = 0
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip={$globalOptions.v !== 'l'
+                ? 'Plein écran'
+                : 'Quitter le plein écran'}
+              on:click={() => {
+                // handleMenuVisibility("settings")
+                if ($globalOptions.v === 'l') {
+                  quitFullScreen()
+                } else {
+                  fullScreen()
+                }
+              }}
+            >
+              <div class="px-2">
+                <TwoStatesIcon isOnStateActive={$globalOptions.v !== 'l'}>
+                  <i
+                    slot="icon_to_switch_on"
+                    class="bx bx-exit-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                  />
+                  <i
+                    slot="icon_to_switch_off"
+                    class="bx bx-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                  />
+                </TwoStatesIcon>
+              </div>
+            </button>
+          </div>
+          <!-- Boutons d'export -->
+          <div
+            slot="export-buttons"
+            class="flex flex-row justify-end items-center space-x-4"
+          >
+            <div class="tooltip tooltip-bottom" data-tip="Diaporama">
+              <Button
+                title=""
+                icon="bx-slideshow"
+                class="flex items-center text-3xl"
+                on:click={() => {
+                  $callerComponent = ''
+                  // handleMenuVisibility("export")
+                  globalOptions.update((params) => {
+                    params.v = 'diaporama'
+                    return params
+                  })
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip="Lien pour les élèves"
+              on:click={() => {
+                $callerComponent = ''
+                // handleMenuVisibility("export")
+                globalOptions.update((params) => {
+                  params.v = 'confeleve'
+                  return params
+                })
+              }}
+            >
+              <div
+                class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              >
+                <i class="bx text-3xl bx-link" />
+                <div class="absolute -bottom-1 -right-1">
+                  <i class="scale-75 bx bx-xs bxs-graduation" />
+                </div>
+              </div>
+            </button>
+            <button
+              type="button"
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip="LaTeX"
+              on:click={() => {
+                // handleMenuVisibility("export")
+                $callerComponent = ''
+                globalOptions.update((params) => {
+                  params.v = 'latex'
+                  return params
+                })
+              }}
+            >
+              <LatexIcon
+                class="w-7 h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
+              />
+            </button>
+            <button
+              type="button"
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip="AMC"
+              on:click={() => {
+                // handleMenuVisibility("export")
+                $callerComponent = ''
+                globalOptions.update((params) => {
+                  params.v = 'amc'
+                  return params
+                })
+              }}
+            >
+              <AmcIcon
+                class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              />
+            </button>
+            <button
+              type="button"
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip="Moodle"
+              on:click={() => {
+                // handleMenuVisibility("export")
+                $callerComponent = ''
+                globalOptions.update((params) => {
+                  params.v = 'moodle'
+                  return params
+                })
+              }}
+            >
+              <MoodleIcon
+                class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              />
+            </button>
+          </div>
+        </ButtonsDeck>
+      </div>
+    </div>
   </div>
   <!-- Mennu choix en mode smartphone -->
   <div
@@ -319,221 +546,241 @@
       <SideMenu />
     </div>
   </div>
-          <!-- Barre de boutons  -->
-          <div
-          class="{$exercicesParams.length === 0
-            ? 'hidden'
-            : 'w-full flex flex-col justify-center items-center md:fixed  md:right-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}"
-          id="barre-boutons"
+  <!-- Barre de boutons smartphone  -->
+  <div class="md:hidden">
+    <div
+      class={$exercicesParams.length === 0
+        ? 'hidden'
+        : 'w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
+      id="barre-boutons"
+    >
+      <ButtonsDeck class="md:pl-10" {chipsListDisplayed}>
+        <!-- Bouton de réglages de la page -->
+        <div
+          slot="setup-buttons"
+          class="flex flex-row justify-start items-center space-x-4"
         >
-
-          <ButtonsDeck {chipsListDisplayed}>
-            <!-- Bouton de réglages de la page -->
-            <div
-              slot="setup-buttons"
-              class="flex flex-row justify-start items-center space-x-4"
-            >
-              <div
-                class="tooltip tooltip-bottom"
-                data-tip="Réduire la taille du texte"
-              >
-                <Button
-                  title=""
-                  icon="bx-zoom-out"
-                  class="flex items-center text-3xl"
-                  on:click={zoomMinus}
-                />
-              </div>
-              <div
-                class="tooltip tooltip-bottom"
-                data-tip="Augmenter la taille du texte"
-              >
-                <Button
-                  title=""
-                  icon="bx-zoom-in"
-                  class="flex items-center text-3xl"
-                  on:click={zoomPlus}
-                />
-              </div>
-              <button
-                type="button"
-                on:click={() => {
-                  setAllInteractifClicked
-                    ? removeAllInteractif()
-                    : setAllInteractif()
-                  // handleMenuVisibility("settings")
-                }}
-                class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip={setAllInteractifClicked
-                  ? "Supprimer l'interactivité"
-                  : 'Tous les exercices en interactif'}
-              >
-                <div class="px-2">
-                  <TwoStatesIcon
-                    isOnStateActive={setAllInteractifClicked}
-                    size={7}
-                  />
-                </div>
-              </button>
-              <div class="tooltip tooltip-bottom" data-tip="Réorganisation">
-                <Button
-                  title=""
-                  icon="bx-transfer"
-                  class="flex items-center text-3xl rotate-90"
-                  on:click={() => {
-                    chipsListDisplayed = !chipsListDisplayed
-                  }}
-                />
-              </div>
-              <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés">
-                <Button
-                  title=""
-                  icon="bx-refresh"
-                  class="flex items-center text-3xl"
-                  on:click={newDataForAll}
-                />
-              </div>
-              <div
-                class="tooltip tooltip-bottom"
-                data-tip="Supprimer tous les exercices"
-              >
-                <Button
-                  title=""
-                  icon="bx-trash"
-                  class="text-3xl"
-                  on:click={() => {
-                    $exercicesParams.length = 0
-                  }}
-                />
-              </div>
-              <button
-                type="button"
-                class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip={$globalOptions.v !== 'l'
-                  ? 'Plein écran'
-                  : 'Quitter le plein écran'}
-                on:click={() => {
-                  // handleMenuVisibility("settings")
-                  if ($globalOptions.v === 'l') {
-                    quitFullScreen()
-                  } else {
-                    fullScreen()
-                  }
-                }}
-              >
-                <div class="px-2">
-                  <TwoStatesIcon isOnStateActive={$globalOptions.v !== 'l'}>
-                    <i
-                      slot="icon_to_switch_on"
-                      class="bx bx-exit-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    />
-                    <i
-                      slot="icon_to_switch_off"
-                      class="bx bx-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                    />
-                  </TwoStatesIcon>
-                </div>
-              </button>
+          <div
+            class="tooltip tooltip-bottom"
+            data-tip="Réduire la taille du texte"
+          >
+            <Button
+              title=""
+              icon="bx-zoom-out"
+              class="flex items-center text-3xl"
+              on:click={zoomMinus}
+            />
+          </div>
+          <div
+            class="tooltip tooltip-bottom"
+            data-tip="Augmenter la taille du texte"
+          >
+            <Button
+              title=""
+              icon="bx-zoom-in"
+              class="flex items-center text-3xl"
+              on:click={zoomPlus}
+            />
+          </div>
+          <button
+            type="button"
+            on:click={() => {
+              setAllInteractifClicked
+                ? removeAllInteractif()
+                : setAllInteractif()
+              // handleMenuVisibility("settings")
+            }}
+            class="tooltip tooltip-bottom tooltip-neutral"
+            data-tip={setAllInteractifClicked
+              ? "Supprimer l'interactivité"
+              : 'Tous les exercices en interactif'}
+          >
+            <div class="px-2">
+              <TwoStatesIcon
+                isOnStateActive={setAllInteractifClicked}
+                size={7}
+              />
             </div>
-            <!-- Boutons d'export -->
-            <div
-              slot="export-buttons"
-              class="flex flex-row justify-end items-center space-x-4"
-            >
-              <div class="tooltip tooltip-bottom" data-tip="Diaporama">
-                <Button
-                  title=""
-                  icon="bx-slideshow"
-                  class="flex items-center text-3xl"
-                  on:click={() => {
-                    $callerComponent = ''
-                    // handleMenuVisibility("export")
-                    globalOptions.update((params) => {
-                      params.v = 'diaporama'
-                      return params
-                    })
-                  }}
+          </button>
+          <div class="tooltip tooltip-bottom" data-tip="Réorganisation">
+            <Button
+              title=""
+              icon="bx-transfer"
+              class="flex items-center text-3xl rotate-90"
+              on:click={() => {
+                chipsListDisplayed = !chipsListDisplayed
+              }}
+            />
+          </div>
+          <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés">
+            <Button
+              title=""
+              icon="bx-refresh"
+              class="flex items-center text-3xl"
+              on:click={newDataForAll}
+            />
+          </div>
+          <div
+            class="tooltip tooltip-bottom"
+            data-tip="Supprimer tous les exercices"
+          >
+            <Button
+              title=""
+              icon="bx-trash"
+              class="text-3xl"
+              on:click={() => {
+                $exercicesParams.length = 0
+              }}
+            />
+          </div>
+          <button
+            type="button"
+            class="tooltip tooltip-bottom tooltip-neutral"
+            data-tip={$globalOptions.v !== 'l'
+              ? 'Plein écran'
+              : 'Quitter le plein écran'}
+            on:click={() => {
+              // handleMenuVisibility("settings")
+              if ($globalOptions.v === 'l') {
+                quitFullScreen()
+              } else {
+                fullScreen()
+              }
+            }}
+          >
+            <div class="px-2">
+              <TwoStatesIcon isOnStateActive={$globalOptions.v !== 'l'}>
+                <i
+                  slot="icon_to_switch_on"
+                  class="bx bx-exit-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                 />
-              </div>
-              <button
-                type="button"
-                class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip="Lien pour les élèves"
-                on:click={() => {
-                  $callerComponent = ''
-                  // handleMenuVisibility("export")
-                  globalOptions.update((params) => {
-                    params.v = 'confeleve'
-                    return params
-                  })
-                }}
-              >
-                <div
-                  class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                >
-                  <i class="bx text-3xl bx-link" />
-                  <div class="absolute -bottom-1 -right-1">
-                    <i class="scale-75 bx bx-xs bxs-graduation" />
-                  </div>
-                </div>
-              </button>
-              <button
-                type="button"
-                class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip="LaTeX"
-                on:click={() => {
-                  // handleMenuVisibility("export")
-                  $callerComponent = ''
-                  globalOptions.update((params) => {
-                    params.v = 'latex'
-                    return params
-                  })
-                }}
-              >
-                <LatexIcon
-                  class="w-7 h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
+                <i
+                  slot="icon_to_switch_off"
+                  class="bx bx-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                 />
-              </button>
-              <button
-                type="button"
-                class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip="AMC"
-                on:click={() => {
-                  // handleMenuVisibility("export")
-                  $callerComponent = ''
-                  globalOptions.update((params) => {
-                    params.v = 'amc'
-                    return params
-                  })
-                }}
-              >
-                <AmcIcon
-                  class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                />
-              </button>
-              <button
-                type="button"
-                class="tooltip tooltip-bottom tooltip-neutral"
-                data-tip="Moodle"
-                on:click={() => {
-                  // handleMenuVisibility("export")
-                  $callerComponent = ''
-                  globalOptions.update((params) => {
-                    params.v = 'moodle'
-                    return params
-                  })
-                }}
-              >
-                <MoodleIcon
-                  class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                />
-              </button>
+              </TwoStatesIcon>
             </div>
-          </ButtonsDeck>
+          </button>
         </div>
+        <!-- Boutons d'export -->
+        <div
+          slot="export-buttons"
+          class="flex flex-row justify-end items-center space-x-4"
+        >
+          <div class="tooltip tooltip-bottom" data-tip="Diaporama">
+            <Button
+              title=""
+              icon="bx-slideshow"
+              class="flex items-center text-3xl"
+              on:click={() => {
+                $callerComponent = ''
+                // handleMenuVisibility("export")
+                globalOptions.update((params) => {
+                  params.v = 'diaporama'
+                  return params
+                })
+              }}
+            />
+          </div>
+          <button
+            type="button"
+            class="tooltip tooltip-bottom tooltip-neutral"
+            data-tip="Lien pour les élèves"
+            on:click={() => {
+              $callerComponent = ''
+              // handleMenuVisibility("export")
+              globalOptions.update((params) => {
+                params.v = 'confeleve'
+                return params
+              })
+            }}
+          >
+            <div
+              class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+            >
+              <i class="bx text-3xl bx-link" />
+              <div class="absolute -bottom-1 -right-1">
+                <i class="scale-75 bx bx-xs bxs-graduation" />
+              </div>
+            </div>
+          </button>
+          <button
+            type="button"
+            class="tooltip tooltip-bottom tooltip-neutral"
+            data-tip="LaTeX"
+            on:click={() => {
+              // handleMenuVisibility("export")
+              $callerComponent = ''
+              globalOptions.update((params) => {
+                params.v = 'latex'
+                return params
+              })
+            }}
+          >
+            <LatexIcon
+              class="w-7 h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
+            />
+          </button>
+          <button
+            type="button"
+            class="tooltip tooltip-bottom tooltip-neutral"
+            data-tip="AMC"
+            on:click={() => {
+              // handleMenuVisibility("export")
+              $callerComponent = ''
+              globalOptions.update((params) => {
+                params.v = 'amc'
+                return params
+              })
+            }}
+          >
+            <AmcIcon
+              class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+            />
+          </button>
+          <button
+            type="button"
+            class="tooltip tooltip-bottom tooltip-neutral"
+            data-tip="Moodle"
+            on:click={() => {
+              // handleMenuVisibility("export")
+              $callerComponent = ''
+              globalOptions.update((params) => {
+                params.v = 'moodle'
+                return params
+              })
+            }}
+          >
+            <MoodleIcon
+              class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+            />
+          </button>
+        </div>
+      </ButtonsDeck>
+    </div>
+  </div>
+
+  <!-- Menu choix en mode non-smartphone -->
+  <div
+    id="choiceSideMenuWrapper"
+    class="fixed left-0 z-[1035] h-full w-96 -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    data-te-sidenav-init
+    data-te-sidenav-hidden="false"
+    data-te-sidenav-content="#exercisesPart"
+    data-te-sidenav-position="fixed"
+    data-te-sidenav-mode="side"
+  >
+    <div
+      data-te-sidenav-menu-ref
+      class="h-full w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      <SideMenu />
+    </div>
+  </div>
   <!-- Affichage exercices -->
   <div
-    class="w-full overflow-y-auto overscroll-contain px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    id="exercisesPart"
+    class="w-full overflow-y-auto overscroll-contain px-6 !pl-96 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
     {#if $exercicesParams.length !== 0}
       <div
@@ -590,7 +837,7 @@
     class="!fixed bottom-5 right-5 hidden rounded-full bg-transparent p-3 text-xl font-medium uppercase leading-tight text-coopmaths-action shadow-md transition duration-150 ease-in-out hover:text-coopmaths-action-lightest hover:shadow-lg focus:text-coopmaths-action-lightest focus:shadow-lg focus:outline-none focus:ring-0 active:text-coopmaths-action-lightest active:shadow-lg"
     id="btn-back-to-top"
   >
-    <i class="bx bx-chevrons-up"></i>
+    <i class="bx bx-chevrons-up" />
   </button>
 </div>
 

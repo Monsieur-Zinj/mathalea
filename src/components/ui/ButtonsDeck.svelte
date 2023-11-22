@@ -50,7 +50,7 @@
   } flex flex-col w-full md:flex-row justify-start items-start sm:justify-center sm:items-center`}
 >
   <div
-    class="w-full flex flex-col xl:flex-row px-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    class="w-full flex flex-col xl:flex-row pr-4 xl:!pl-96 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
 
     <div id="setupButtonsBar" class="flex">
@@ -68,7 +68,7 @@
       </div>
     {/if}
     {#if $$slots['export-buttons']}
-      <div id="exportButtonsBar">
+      <div id="exportButtonsBar" class="xl:pr-6">
         <slot name="export-buttons">
           {#each exportButtonsList as button}
             <i
