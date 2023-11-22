@@ -593,6 +593,7 @@
         let size =
           (300 - Math.floor(nbOfCharactersInTextDiv / 50) * 30) *
           (1 - finalSVGHeight / textcellHeight)
+        if (size < 10) size = 10 //MGu: Protection obligatoire car sinon la taille peut être négative
         if (nbOfVues === 2) {
           size = size * 0.7
         } else {
@@ -611,7 +612,7 @@
           if (questionDiv !== null) {
             questionDiv.style.fontSize = size + 'px'
             questionHeight = questionDiv.clientHeight
-            questionWidth = questionDiv.clientWidth
+            questionWidth = questionDiv.scrollWidth> questionDiv.clientWidth ? questionDiv.scrollWidth : questionDiv.clientWidth
           } else {
             questionHeight = 0
             questionWidth = 0
@@ -632,11 +633,19 @@
             correctionHeight = 0
             correctionWidth = 0
           }
+          // console.log('size:'+size)
+          // console.log('questionWidth:'+questionWidth)
+          // console.log('consigneWidth:'+consigneWidth)
+          // console.log('textcellWidth:'+textcellWidth)
+          // console.log('questionHeight + consigneHeight + correctionHeight:'+ (questionHeight + consigneHeight + correctionHeight))
+          // console.log('textcellHeight:'+textcellHeight)
         } while (
+          size > 6 /*pour éviter la boucle infinie*/ && (
           questionWidth > textcellWidth ||
           consigneWidth > textcellWidth ||
           correctionWidth > textcellWidth ||
           questionHeight + consigneHeight + correctionHeight > textcellHeight
+          )
         )
         if (questionDiv !== null) {
           questionDiv.style.fontSize = currentZoom * size + 'px'
