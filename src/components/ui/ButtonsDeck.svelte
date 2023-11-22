@@ -12,7 +12,6 @@
     { bxName: 'bx-slideshow' },
     { bxName: 'bxs-graduation' }
   ]
-  export let barWidthPercentage: number = 70
   export let chipsListDisplayed: boolean = false
 </script>
 
@@ -46,10 +45,9 @@
  -->
 
 <div
-  style={`width: ${barWidthPercentage}% ;`}
   class={`${
     $$props.class || ''
-  } flex flex-col md:flex-row justify-start items-start sm:justify-center sm:items-center`}
+  } flex flex-col w-full md:flex-row justify-start items-start sm:justify-center sm:items-center`}
 >
   <div
     class="relative w-full z-40 flex flex-col xl:flex-row px-4 py-2 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"

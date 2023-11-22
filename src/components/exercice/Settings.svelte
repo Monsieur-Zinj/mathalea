@@ -138,7 +138,7 @@
     </button>
   </div>
   <div
-    class="text-xl lg:text-base ml-2 lg:ml-4 space-y-4 p-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+    class="text-lg lg:text-base ml-2 lg:ml-4 space-y-4 p-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
   >
     <h3 class="text-coopmaths-struct dark:text-coopmathsdark-struct font-bold">
       Paramètres
@@ -149,7 +149,7 @@
     {#if exercice.nbQuestionsModifiable}
       <div>
         <span
-          class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
         >
           Nombre de questions :
         </span>
@@ -167,7 +167,7 @@
     {#if exercice.besoinFormulaireCaseACocher}
       <div class="container">
         <label
-          class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           for="settings-check1-{exercice.uuid}"
         >
           {#if typeof exercice.besoinFormulaireCaseACocher !== 'boolean'}
@@ -189,7 +189,7 @@
         <div class="flex flex-col">
           <form id="settings-form-formNum1-{exerciceIndex}" action="">
             <label
-              class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+              class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum1-{exerciceIndex}">{formNum1.titre} :</label
             >
             <select
@@ -213,7 +213,7 @@
         <div>
           <!-- Pas de tooltips -->
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formNum1-{exerciceIndex}"
             >{formNum1.titre} :
           </label>
@@ -238,7 +238,7 @@
       >
         {#if typeof exercice.besoinFormulaireTexte !== 'boolean'}
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText1-{exerciceIndex}"
           >
             {exercice.besoinFormulaireTexte[0]} :
@@ -284,7 +284,7 @@
     {#if exercice.besoinFormulaire2CaseACocher}
       <div class="container">
         <label
-          class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           for="settings-check2-{exerciceIndex}"
         >
           {#if typeof exercice.besoinFormulaire2CaseACocher !== 'boolean'}
@@ -306,7 +306,7 @@
         <div class="flex flex-col">
           <form id="settings-form-formNum2-{exerciceIndex}" action="">
             <label
-              class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+              class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum2-{exerciceIndex}">{formNum2.titre} :</label
             >
             <select
@@ -330,7 +330,7 @@
         <div>
           <!-- Pas de tooltips -->
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formNum2-{exerciceIndex}"
             >{formNum2.titre} :
           </label>
@@ -355,7 +355,7 @@
       >
         {#if typeof exercice.besoinFormulaire2Texte !== 'boolean'}
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText2-{exerciceIndex}"
           >
             {exercice.besoinFormulaire2Texte[0]} :
@@ -398,7 +398,7 @@
     {#if exercice.besoinFormulaire3CaseACocher}
       <div class="container">
         <label
-          class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           for="settings-check3-{exerciceIndex}"
         >
           {#if typeof exercice.besoinFormulaire3CaseACocher !== 'boolean'}
@@ -420,7 +420,7 @@
         <div class="flex flex-col">
           <form id="settings-form-formNum3-{exerciceIndex}" action="">
             <label
-              class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+              class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum3-{exerciceIndex}">{formNum3.titre} :</label
             >
             <select
@@ -444,7 +444,7 @@
         <div>
           <!-- Pas de tooltips -->
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formNum3-{exerciceIndex}"
             >{formNum3.titre} :
           </label>
@@ -469,7 +469,7 @@
       >
         {#if typeof exercice.besoinFormulaire3Texte !== 'boolean'}
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText3-{exerciceIndex}"
           >
             {exercice.besoinFormulaire3Texte[0]} :
@@ -514,7 +514,7 @@
     {#if exercice.besoinFormulaire4CaseACocher}
       <div class="container">
         <label
-          class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           for="settings-check4-{exerciceIndex}"
         >
           {#if typeof exercice.besoinFormulaire4CaseACocher !== 'boolean'}
@@ -536,7 +536,7 @@
         <div class="flex flex-col">
           <form id="settings-form-formNum4-{exerciceIndex}" action="">
             <label
-              class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+              class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum4-{exerciceIndex}">{formNum4.titre} :</label
             >
             <select
@@ -560,7 +560,7 @@
         <div>
           <!-- Pas de tooltips -->
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formNum4-{exerciceIndex}"
             >{formNum4.titre} :
           </label>
@@ -586,7 +586,7 @@
       >
         {#if typeof exercice.besoinFormulaire4Texte !== 'boolean'}
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText4-{exerciceIndex}"
           >
             {exercice.besoinFormulaire4Texte[0]} :
@@ -633,7 +633,7 @@
       <div class="container">
         <label for="settings-correction-detaillee-{exerciceIndex}">
           <span
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           >
             Correction détaillée :
           </span>
@@ -653,7 +653,7 @@
       on:submit|preventDefault={newSettings}
     >
       <label
-        class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+        class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
         for="settings-formAlea-{exerciceIndex}"
       >
         Série :
