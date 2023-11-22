@@ -276,7 +276,7 @@
   }
 </script>
 
-<div class="{$darkMode.isActive ? 'dark' : ''} relative" id="startComponent">
+<div class="{$darkMode.isActive ? 'dark' : ''} relative w-screen" id="startComponent">
   <div
     class="md:sticky md:top-0 md:z-50 flex flex-col scrollbar-hide w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
