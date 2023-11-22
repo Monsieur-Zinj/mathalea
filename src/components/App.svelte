@@ -15,7 +15,7 @@
   import Moodle from './Moodle.svelte'
   import Capytale from './Capytale.svelte'
   import Test from './Test.svelte'
-  import Start from './Start.svelte'
+  import Start from './NewStart.svelte'
 
   context.versionMathalea = 3
   if (customElements.get('alea-instrumenpoche') === undefined) {
@@ -40,7 +40,7 @@
   $: {
     context.isDiaporama = $globalOptions.v === 'diaporama'
     if ($globalOptions.v === 'latex') {
-      context.isHtml = false      
+      context.isHtml = false
     } else {
       context.isHtml = true
     }
@@ -55,8 +55,8 @@
     }
     context.vue = ''
     if ($globalOptions.v === 'diaporama') context.vue = 'diap' // for compatibility
-    if ($globalOptions.v === 'latex')  context.vue = 'latex' // for compatibility
-    if ($globalOptions.v === 'can')  context.vue = 'can' // for compatibility
+    if ($globalOptions.v === 'latex') context.vue = 'latex' // for compatibility
+    if ($globalOptions.v === 'can') context.vue = 'can' // for compatibility
     // lorsque l'éditeur sera intégré à la v3, il faudra mettre à true cette propriété pour l'editeur
     context.isInEditor = false
   }

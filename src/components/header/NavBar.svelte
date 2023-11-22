@@ -48,7 +48,7 @@
           on:keydown={() => goToMathalea($globalOptions.v)}
           role="link"
           tabindex="0"
-          class=" relative inline-flex text-5xl md:text-6xl font-logo9 tracking-tighter font-black
+          class=" relative inline-flex text-3xl md:text-6xl font-logo9 tracking-tighter font-black
           {subtitleType === 'design'
             ? 'text-coopmaths-struct dark:text-coopmathsdark-struct'
             : 'text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer '}"

@@ -22,7 +22,7 @@
   ```
  -->
 <div
-  class="flex flex-row items-center space-x-4 pt-6 md:pt-0 md:inline-flex text-xl md:text-3xl xl:text-5xl font-logo9 tracking-tighter"
+  class="flex flex-row items-center space-x-4 pt-6 md:pt-0 md:inline-flex text-lg md:text-3xl xl:text-5xl font-logo9 tracking-tighter"
 >
   <div
     class="pl-0 md:pl-10 font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
