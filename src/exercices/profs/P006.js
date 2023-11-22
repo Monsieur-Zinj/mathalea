@@ -23,7 +23,7 @@ export default function NombreAPlacer () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.sup = 1
-  this.sup2 = 2.573
+  this.sup2 = 2573
   this.sup3 = false
   this.titre = titre
 
@@ -36,7 +36,7 @@ export default function NombreAPlacer () {
     let x3 = 0
     const objets = []
     objets.length = 0
-    x1 = parseFloat(this.sup2)
+    x1 = this.sup2 / 1000
     x1 = arrondi(x1, 4)
     x2 = troncature(x1, 1)
     const x21 = troncature(x1, 2)
@@ -151,6 +151,6 @@ export default function NombreAPlacer () {
     this.listeQuestions[0] = this.contenu
   }
   this.besoinFormulaireNumerique = ['Nombre de zoom', 3, '1 : sans zoom\n2 : zoom des centièmes\n3 : zoom des millièmes']
-  this.besoinFormulaire2Numerique = ['Saisir le nombre décimal ']
+  this.besoinFormulaire2Numerique = ['Saisir le nombre du millièmes du nombre décimal ', 99999]
   this.besoinFormulaire3CaseACocher = ['Afficher les abscisses']
 }
