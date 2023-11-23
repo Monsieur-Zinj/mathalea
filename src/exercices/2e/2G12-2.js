@@ -110,10 +110,11 @@ export default function Milieu () {
             texteCorr = '<br>On sait d\'après le cours, que si $A(x_A\\,;\\,y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
             texteCorr += '<br> alors les coordonnées du point $M$ milieu de $[AB]$ sont '
             texteCorr += `$M\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>
-            On peut représenter la situation avec les données de l'énoncé: <br>`
+            On peut représenter la situation avec les données de l'énoncé : <br>`
             texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures(objets)), objets)
-          } else { texteCorr = 'On applique les formules avec les données de l\'énoncé  : <br>' }
-          texteCorr += `$\\begin{cases}x_${M.nom}=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xB)}}{2}=\\dfrac{${texNombre(xA + xB)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.5em]y_${M.nom}=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yB)}}{2}=\\dfrac{${texNombre(yA + yB)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
+          } else { texteCorr = '' }
+          texteCorr += 'On applique les formules avec les données de l\'énoncé  : <br><br>'
+          texteCorr += `$\\begin{cases}x_${M.nom}=\\dfrac{x_${A.nom}+x_${B.nom}}{2}=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xB)}}{2}=\\dfrac{${texNombre(xA + xB)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.5em]y_${M.nom}=\\dfrac{y_${A.nom}+y_${B.nom}}{2}=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yB)}}{2}=\\dfrac{${texNombre(yA + yB)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
           texteCorr += `  <br>Ainsi : $ ${M.nom}\\left(${xM.simplifie().texFSD}\\,;\\,${yM.simplifie().texFSD}\\right)$<br> `
 
           break
@@ -139,8 +140,11 @@ export default function Milieu () {
             texteCorr += `$M\\left(\\dfrac{x_A+x_B}{2};\\dfrac{y_A+y_B}{2}\\right)$ <br>
           On peut représenter la situation avec les données de l'énoncé : <br>`
             texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures(objets)), objets)
-          } else { texteCorr = 'On applique les formules avec les données de l\'énoncé  : <br>' }
-          texteCorr += `$\\begin{cases}${texNombre(xM, 1)}=\\dfrac{${xA}+x_${B.nom}}{2} \\\\[0.5em] ${texNombre(yM, 1)}=\\dfrac{${yA}+y_${B.nom}}{2}\\end{cases}$`
+          } else { texteCorr = '' }
+          texteCorr += `$${M.nom}$ est le  milieu du segment $[${A.nom}${B.nom}]$.<br>`
+          texteCorr += 'On applique les formules avec les données de l\'énoncé  : <br><br>'
+          texteCorr += `$\\begin{cases}x_${M.nom}=\\dfrac{x_${A.nom}+x_${B.nom}}{2}\\\\[0.5em]y_${M.nom}=\\dfrac{y_${A.nom}+y_${B.nom}}{2}\\end{cases}$ `
+          texteCorr += `$\\iff\\begin{cases}${texNombre(xM, 1)}=\\dfrac{${xA}+x_${B.nom}}{2}\\\\[0.5em]${texNombre(yM, 1)}=\\dfrac{${yA}+y_${B.nom}}{2}\\end{cases}$`
           texteCorr += `$\\iff \\begin{cases}${xA}+x_${B.nom}=2\\times ${ecritureParentheseSiNegatif(xM, 1)}  \\\\[0.5em] ${yA}+y_${B.nom}=2\\times ${ecritureParentheseSiNegatif(yM)}\\end{cases}$`
           texteCorr += `$\\iff \\begin{cases}x_${B.nom}=${texNombre(2 * xM, 0)} ${ecritureAlgebrique(-xA)} \\\\[0.5em] y_${B.nom}=${texNombre(2 * yM, 0)}${ecritureAlgebrique(-yA)}\\end{cases}$`
           texteCorr += `<br>On en déduit :  $\\begin{cases}x_${B.nom}={${texNombre(2 * xM - xA)}}\\\\[0.5em]y_${B.nom}=${texNombre(2 * yM - yA)}\\end{cases}$`
