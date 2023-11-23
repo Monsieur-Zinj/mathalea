@@ -439,7 +439,7 @@ export default function SujetCAN2023Cinquieme () {
           e = randint(1, 9)
           d = new Decimal(a + b * 0.1 + c * 0.01 + e * 0.001)
           if (choice([true, false])) {
-            texte = `Quel est l'arrondi au dixième de $${texNombre(d)}$ ?`
+            texte = `Quel est l'arrondi au dixième de $${texNombre(d, 3)}$ ?`
             if (c > 4) {
               texteCorr = `Pour arrondir au dixième, on regarde le chiffre des centièmes : $${c}$.<br>
              Comme $${c}\\geqslant 5$, alors l'arrondi au dixième de $${texNombre(d)}$ est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
@@ -450,7 +450,7 @@ export default function SujetCAN2023Cinquieme () {
               reponse = arrondi(d, 1)
             }
           } else {
-            texte = `Quel est l'arrondi au centième de $${texNombre(d)}$ ?`
+            texte = `Quel est l'arrondi au centième de $${texNombre(d, 3)}$ ?`
             if (e > 4) {
               texteCorr = `Pour arrondir au centième, on regarde le chiffre des millièmes : $${e}$.<br>
              Comme $${e}\\geqslant 5$, alors l'arrondi au centième de $${texNombre(d)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
