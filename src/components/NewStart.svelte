@@ -770,7 +770,7 @@
   <!-- Menu choix en mode non-smartphone -->
   <div
     id="choiceSideMenuWrapper"
-    class="fixed left-0 z-[1035] h-full w-[400px] -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+    class="hidden md:block md:fixed md:left-0 md:z-[1035] md:h-full md:w-[400px] md:-translate-x-full md:data-[te-sidenav-hidden='false']:translate-x-0 md:overflow-y-auto md:overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
     {isNavBarVisible ? 'xl:top-[170px] md:top-[210px] xl:h-[calc(100%-170px)] md:h-[calc(100%-210px)]' : 'xl:top-[50px] md:top-[100px] xl:h-[calc(100%-50px)] md:h-[calc(100%-100px)]'}"
     data-te-sidenav-init
     data-te-sidenav-width="400"
@@ -789,7 +789,7 @@
   <!-- Affichage exercices -->
   <div
     id="exercisesPart"
-    class="w-full overflow-y-auto overscroll-contain px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    class="w-full md:overflow-y-auto md:overscroll-contain px-6 md:!pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
     {#if $exercicesParams.length !== 0}
       <div
