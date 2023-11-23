@@ -52,7 +52,7 @@
     numberOfAnswerFields = answerFields.length
   }
 
-  async function forceUpdate(){
+  async function forceUpdate () {
     if (exercice == null) return
     exercice.numeroExercice = indiceExercice
     await adjustMathalea2dFiguresWidth()
@@ -62,7 +62,7 @@
     document.addEventListener('newDataForAll', newData)
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
-    document.addEventListener('updateAsyncEx',forceUpdate)
+    document.addEventListener('updateAsyncEx', forceUpdate)
     updateDisplay()
     setTimeout(() => {
       if ($globalOptions.done === '1' && $globalOptions.recorder !== 'capytale') {
