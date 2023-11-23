@@ -1288,11 +1288,12 @@
     "tags": [],
     "uuid": "4b25a",
     "id": "2G12-2",
-    "titre": "Déterminer les coordonnées du milieu d'un segment dans un repère",
+    "titre": "Calculer et utiliser les coordonnées du milieu d'un segment dans un repère",
+    "dateModification": "20/11/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": false,
