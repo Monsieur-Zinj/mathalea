@@ -10,7 +10,7 @@ import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outil
 import { texNombre } from '../../lib/outils/texNombre.js'
 
 import Exercice from '../Exercice.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -95,15 +95,12 @@ export default function Milieu () {
           xM = new FractionEtendue(xA + xB, 2)
           yM = new FractionEtendue(yA + yB, 2)// .simplifie()
           objets.push(g, T, L, s, o, I, J)
-          setReponse(this, 2 * i, xM, { formatInteractif: 'fractionEgale' })
-          setReponse(this, 2 * i + 1, yM, { formatInteractif: 'fractionEgale' })
+          setReponse(this, i, { x: xM.valeurDecimale, y: yM.valeurDecimale }, { formatInteractif: 'fillInTheBlank' })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
           texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$. `
           if (this.interactif) {
-            texte += `<br>$${M.nom}\\Bigg($` + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore')
-            texte += ';' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore')
-            texte += '$\\Bigg)$'
+            texte += '<br>' + remplisLesBlancs(this, i, `${M.nom}\\Bigg(%{x};%{y}\\Bigg)`)
           }
 
           if (this.correctionDetaillee) {
@@ -123,15 +120,12 @@ export default function Milieu () {
           yM = new Decimal(yA + yB).div(2)
 
           objets.push(g, T, L, s, o, I, J)
-          setReponse(this, 2 * i, new Decimal(xM).mul(2).sub(xA), { formatInteractif: 'calcul' })
-          setReponse(this, 2 * i + 1, new Decimal(yM).mul(2).sub(yA), { formatInteractif: 'calcul' })
+          setReponse(this, i, { x: new Decimal(xM).mul(2).sub(xA), y: new Decimal(yM).mul(2).sub(yA) }, { formatInteractif: 'fillInTheBlank' })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += `  $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${M.nom}\\left(${texNombre(xM, 1)}\\,;\\,${texNombre(yM, 1)}\\right)$`
           texte += `<br>Déterminer les coordonnées du point $${B.nom}$ tel que $${M.nom}$ soit le milieu du segment $[${A.nom}${B.nom}]$. `
           if (this.interactif) {
-            texte += `<br>$${B.nom}\\Bigg($` + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore')
-            texte += ';' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore')
-            texte += '$\\Bigg)$'
+            texte += '<br>' + remplisLesBlancs(this, i, `${M.nom}\\Bigg(%{x};%{y}\\Bigg)`)
           }
 
           if (this.correctionDetaillee) {
