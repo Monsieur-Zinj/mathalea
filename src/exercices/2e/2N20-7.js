@@ -1,5 +1,5 @@
 import ppcmEngrenages from '../3e/3A12.js'
-export const titre = 'Engrenages'
+export const titre = 'Utiliser des multiples appliqués aux engrenages'
 export const dateDeModifImportante = '14/11/2021'
 
 /**
