@@ -55,3 +55,24 @@ export function ajouteChampFractionMathLive (exercice, i, numerateur = false, de
     return ''
   }
 }
+
+export function remplisLesBlancs (exercice, question, content, classes) {
+  let mfeValue = ''
+  while (content) {
+    const chunks = /^(.*?)%\{([^}]+)}(.*)$/.exec(content)
+    if (chunks) {
+      const [, start, n, end] = chunks
+      const name = n
+      if (name == null) throw Error(`Définition de ${name} manquante`)
+      mfeValue += start
+      mfeValue += `\\placeholder[${name}]{}`
+      content = end ?? ''
+    } else {
+      mfeValue += content
+      content = ''
+    }
+  }
+  const resultat = `<math-field readonly style="font-size:2em" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}<span class=${classes} id="feedbackEx${exercice.numeroExercice}Q${question}"></span>`
+  console.log(resultat)
+  return resultat
+}

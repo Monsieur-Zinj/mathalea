@@ -30,7 +30,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         expoReponse
       let reponses
       let champTexte
-      if (formatInteractif !== 'tableauMathlive') {
+      if (formatInteractif !== 'tableauMathlive' && formatInteractif !== 'fillInTheBlank') {
         if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
           reponses = [exercice.autoCorrection[i].reponse.valeur]
         } else {
@@ -69,6 +69,44 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             if (input.value.length > 0 && typeof exercice.answers === 'object') {
               exercice.answers[`Ex${exercice.numeroExercice}Q${i}${key}`] = input.value
             }
+          }
+          return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }
+        } else if (formatInteractif === 'fillInTheBlank') {
+          // Le format fillInTheBlank requiert une "reponse" avec le format objet.
+          // cet objet contient des propriétés (autant que de blancs, et ont le même nom que les blancs créés avec la fonction remplisLesBlanc())
+          // chaque propriété a une valeur : c'est la valeur attendue.
+          // Pour l'instant, cette valeur est comparée sous sa forme canonique à la forme canonique de la saisie élève avec isEqual() donc garantissant un true pour des valeurs numériques égales
+          // Il faudra réfléchir à une façon de choisir la fonction de comparaison...
+          // La reponse peut contenir aussi une propriété callback facultative.
+          // c'est une fonction qui sera utilisée à la place de la procédure normale de traitement
+          // en fait c'est la fonction de correctionInteractive qui se trouvait avant dans l'exo et qui permet, par exemple, de pondérer les points.
+          const mfe = document.querySelector(`math-field#champTexteEx${exercice.numeroExercice}Q${i}`)
+          if (mfe == null) {
+            window.notify('verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom', { selecteur: `math-field#champTexteEx${exercice.numeroExercice}Q${i}` })
+            return { isOk: 'KO', feedback: 'Un problème avec cette configuration', score: { nbBonnesReponses: 0, nbReponses: 1 } }
+          }
+          const variables = Object.entries(reponses).filter(([key]) => key !== 'callback')
+          if (reponses.callback != null && typeof reponses.callback === 'function') {
+            return reponses.callback(variables)
+          }
+          let resultat = 'OK'
+          let nbBonnesReponses = 0
+          const nbReponses = variables.length
+          for (let k = 0; k < nbReponses; k++) {
+            const [key, value] = variables[k]
+            const saisie = mfe.getPromptValue(key)
+            const saisieParsed = engine.parse(String(saisie.replace(',', '.')))
+            const reponseParsed = engine.parse(String(value))
+            if (saisieParsed.isEqual(reponseParsed)) {
+              nbBonnesReponses++
+              mfe.setPromptState(key, 'correct', true)
+            } else {
+              resultat = 'KO'
+              mfe.setPromptState(key, 'incorrect', true)
+            }
+          }
+          if (mfe.getValue().length > 0 && typeof exercice.answers === 'object') {
+            exercice.answers[`champTexteEx${exercice.numeroExercice}Q${i}`] = mfe.getValue()
           }
           return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }
         } else { // ici, il n'y a qu'un seul input une seule réponse
