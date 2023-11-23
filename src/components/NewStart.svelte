@@ -42,6 +42,23 @@
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
   let sidenavOpen: boolean = false
+  let sidenavHeight: string =
+    'xl:top-[170px] md:top-[210px] xl:h-[calc(100%-170px)] md:h-[calc(100%-210px)]'
+
+  $: {
+    if (isNavBarVisible) {
+      if ($exercicesParams.length !== 0) {
+        sidenavHeight =
+          'xl:top-[170px] md:top-[210px] xl:h-[calc(100%-170px)] md:h-[calc(100%-210px)]'
+      } else {
+        sidenavHeight =
+          'xl:top-[120px] md:top-[120px] xl:h-[calc(100%-120px)] md:h-[calc(100%-120px)]'
+      }
+    } else {
+      sidenavHeight =
+        'xl:top-[50px] md:top-[100px] xl:h-[calc(100%-50px)] md:h-[calc(100%-100px)]'
+    }
+  }
   /**
    * Démarrage
    */
@@ -771,7 +788,7 @@
   <div
     id="choiceSideMenuWrapper"
     class="hidden md:block md:fixed md:left-0 md:z-[1035] md:h-full md:w-[400px] md:-translate-x-full md:data-[te-sidenav-hidden='false']:translate-x-0 md:overflow-y-auto md:overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
-    {isNavBarVisible ? 'xl:top-[170px] md:top-[210px] xl:h-[calc(100%-170px)] md:h-[calc(100%-210px)]' : 'xl:top-[50px] md:top-[100px] xl:h-[calc(100%-50px)] md:h-[calc(100%-100px)]'}"
+    {sidenavHeight}"
     data-te-sidenav-init
     data-te-sidenav-width="400"
     data-te-sidenav-hidden="false"
