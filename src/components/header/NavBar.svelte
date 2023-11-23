@@ -35,7 +35,7 @@
   ```
  -->
 
-<nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+<nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas md:h-[120px]">
   <!-- container -->
   <div
     class="flex flex-row justify-between items-start w-full mx-auto md:space-x-6"

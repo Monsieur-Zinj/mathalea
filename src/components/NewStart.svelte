@@ -276,7 +276,7 @@
   }
 </script>
 
-<div class="{$darkMode.isActive ? 'dark' : ''} relative w-screen" id="startComponent">
+<div class="{$darkMode.isActive ? 'dark' : ''} relative w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="startComponent">
   <div
     class="md:sticky md:top-0 md:z-50 flex flex-col scrollbar-hide w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
@@ -290,7 +290,7 @@
       </div>
     {/if}
     <!-- Barre de boutons non-smartphone  -->
-    <div class="hidden md:flex">
+    <div class="hidden md:flex xl:h-[50px] md:h-[100px]">
       <div
         class={$exercicesParams.length === 0
           ? 'hidden'
@@ -770,8 +770,10 @@
   <!-- Menu choix en mode non-smartphone -->
   <div
     id="choiceSideMenuWrapper"
-    class="fixed left-0 z-[1035] h-full w-96 -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    class="fixed left-0 z-[1035] h-full w-[400px] -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+    {isNavBarVisible ? 'xl:top-[170px] md:top-[210px] xl:h-[calc(100%-170px)] md:h-[calc(100%-210px)]' : 'xl:top-[50px] md:top-[100px] xl:h-[calc(100%-50px)] md:h-[calc(100%-100px)]'}"
     data-te-sidenav-init
+    data-te-sidenav-width="400"
     data-te-sidenav-hidden="false"
     data-te-sidenav-content="#exercisesPart"
     data-te-sidenav-position="fixed"
@@ -779,7 +781,7 @@
   >
     <div
       data-te-sidenav-menu-ref
-      class="h-full w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      class="w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       <SideMenu />
     </div>
@@ -787,7 +789,7 @@
   <!-- Affichage exercices -->
   <div
     id="exercisesPart"
-    class="w-full overflow-y-auto overscroll-contain px-6 !pl-96 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    class="w-full overflow-y-auto overscroll-contain px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
     {#if $exercicesParams.length !== 0}
       <div
