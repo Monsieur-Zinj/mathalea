@@ -1,5 +1,5 @@
 import TableauCriteresDeDivisibilite from '../6e/6N43-2.js'
-export const titre = 'Critères de divisibilité (plusieurs possibles)'
+export const titre = 'Utiliser les critères de divisibilité (plusieurs possibles)'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const dateDeModifImportante = '29/10/2021'
