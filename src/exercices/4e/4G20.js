@@ -132,7 +132,7 @@ export default function Pythagore2D () {
           redaction = RedactionPythagore(A.nom, C.nom, B.nom, 2, reponse, longueurAB, longueurBC)
         }
         texteCorr = redaction[0]
-        texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[longueurs]')) : ''
+        texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[longueurs]', { texteApres: '<em class="ml-2">(Une unité de longueur est attendue.)</em>' })) : ''
         context.isAmc
           ? setReponse(this, i, reponse)
           : setReponse(this, i, new Grandeur(reponse, 'cm'), {
@@ -193,7 +193,7 @@ export default function Pythagore2D () {
           texte += this.interactif ? '' : `$${sp(2)}\\ldots$`
         }
         setReponse(this, i, reponse)
-        texte += ajouteChampTexteMathLive(this, i, 'inline clavierDeBase alphanumeric')
+        texte += ajouteChampTexteMathLive(this, i, 'inline clavierDeBase alphanumeric', { texteApres: '<em class="ml-2">(Une unité de longueur est attendue.)</em>' })
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
