@@ -2,7 +2,7 @@
   import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
   import { globalOptions } from '../stores/generalStore'
   import { retrieveResourceFromUuid } from '../utils/refUtils'
-  import { resourceHasPlace, isStaticType, type JSONReferentielObject } from '../../lib/types/referentiels'
+  import { resourceHasPlace, isStaticType, type JSONReferentielObject, isCrpeType } from '../../lib/types/referentiels'
   /**
    * Gestion du référentiel pour la recherche de l'uuid
   */
@@ -24,7 +24,7 @@
   export let indiceExercice: number
   export let indiceLastExercice: number
   const foundResource = retrieveResourceFromUuid(allStaticReferentiels, uuid)
-  const resourceToDisplay = isStaticType(foundResource)
+  const resourceToDisplay = isStaticType(foundResource) || isCrpeType(foundResource)
     ? { ...foundResource }
     : null
   const exercice =
