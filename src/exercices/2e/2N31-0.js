@@ -1,5 +1,5 @@
 import PuissanceDunNombre from '../4e/4C35.js'
-export const titre = 'Puissances : écriture décimale ou fractionnaire'
+export const titre = 'Transformer une écriture de puissance en écriture décimale ou fractionnaire'
 export const dateDePublication = '14/06/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
