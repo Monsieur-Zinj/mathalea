@@ -304,6 +304,12 @@ export const isStaticType = (obj: any): obj is StaticItemInreferentiel =>
   obj.png !== undefined &&
   !isNonEmptyArrayOfStrings(obj.png)
 
+export const isCrpeType = (obj: any): obj is crpeItemInreferentiel =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  Object.keys(obj).includes('typeExercice') &&
+  obj.typeExercice !== undefined &&
+  obj.typeExercice === 'crpe'
 /**
  * Teste si un objet de type `JSONReferentielObject` est parent
  * d'une terminaison, c'est-à-dire d'un
