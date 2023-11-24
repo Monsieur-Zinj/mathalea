@@ -1,5 +1,5 @@
 import PrioritesEtRelatifsEtPuissances from '../4e/4C34.js'
-export const titre = 'Calculs utilisant les priorités opératoires et les puissances'
+export const titre = 'Calculer en utilisant les priorités opératoires et les puissances'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
