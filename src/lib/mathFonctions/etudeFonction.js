@@ -971,13 +971,13 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
  * @param {string} [options.nomVariable] // ce qui est écrit dans l'entête de la première ligne 'x' par défaut
  * @returns {string} [options.nomFonction] // ce  qui est écrit dans l'entête de la deuxième ligne 'f(x)' par défaut
  */
-export function tableauSignesFonction (fonction, xMin, xMax, { substituts, step, tolerance, nomVariable, nomFonction } = {
-  substituts: null,
-  step: fraction(1, 1000),
-  tolerance: 0.005,
-  nomVariable: 'x',
-  nomFonction: 'f(x)'
-}) {
+export function tableauSignesFonction (fonction, xMin, xMax, {
+  substituts = [],
+  step = fraction(1, 1000),
+  tolerance = 0.005,
+  nomVariable = 'x',
+  nomFonction = 'f(x)'
+} = {}) {
   const signes = signesFonction(fonction, xMin, xMax, step, tolerance)
   const premiereLigne = []
   for (let i = 0; i < signes.length; i++) {
@@ -1039,22 +1039,14 @@ export function tableauSignesFonction (fonction, xMin, xMax, { substituts, step,
  * @returns {string}
  */
 export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
-  substituts,
-  step,
-  tolerance,
-  ligneDerivee,
-  nomVariable,
-  nomFonction,
-  nomDerivee
-} = {
-  step: fraction(1, 1000),
-  tolerance: 0.005,
-  ligneDerivee: false,
-  substituts: [],
-  nomVariable: 'x',
-  nomFonction: 'f(x)',
-  nomDerivee: 'f′(x)'
-}) {
+  substituts = [],
+  step = fraction(1, 1000),
+  tolerance = 0.005,
+  ligneDerivee = false,
+  nomVariable = 'x',
+  nomFonction = 'f(x)',
+  nomDerivee = 'f′(x)'
+} = {}) {
   const signes = signesFonction(derivee, xMin, xMax, step, tolerance).filter((signe) => signe.xG !== signe.xD)
   const premiereLigne = []
   const initalValue = []

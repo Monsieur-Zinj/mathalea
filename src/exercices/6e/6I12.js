@@ -73,9 +73,9 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       ['tournerG', 'avancer', 'tournerD', 'avancer', 'tournerG', 'avancer', 'tournerG', 'avancer', 'tournerD', 'avancer']
     ]
     let erreursDeDeplacement = [0, 1, 0]
-    erreursDeDeplacement = combinaisonListesSansChangerOrdre(erreursDeDeplacement, parseInt(this.sup))
+    erreursDeDeplacement = combinaisonListesSansChangerOrdre(erreursDeDeplacement, this.sup)
     const choix = randint(0, 11) // On va choisir une des 12 sequences
-    const commandes = combinaisonListesSansChangerOrdre(sequences[choix], parseInt(this.sup)) // on crée la succession de commandes en répétant la séquence choisie si le nombre d'instructions demandées dépasse la longueur de la séquence
+    const commandes = combinaisonListesSansChangerOrdre(sequences[choix], this.sup) // on crée la succession de commandes en répétant la séquence choisie si le nombre d'instructions demandées dépasse la longueur de la séquence
     const val = []
     const lutins = []
 
@@ -100,7 +100,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       baisseCrayon(lutins[i])
       orienter(angleScratchTo2d(angleDepart), lutins[i])// l'angle 2d est l'angle trigonométrique... Scratch est décallé de 90°, il faut donc convertir pour utiliser Orienter()
     }
-    for (let i = 0; i < parseInt(this.sup); i++) { // On va parcourir la listes des commandes de déplacement mais certains lutins font des erreurs
+    for (let i = 0; i < this.sup; i++) { // On va parcourir la listes des commandes de déplacement mais certains lutins font des erreurs
       switch (commandes[i]) {
         case 'avancer':
           val[i] = randint(1, 4) * 5 // La longueur du déplacement est 10, 20, 30 ou 40
@@ -275,7 +275,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       }
     })
   }
-  this.besoinFormulaireNumerique = ["Nombre d'instructions"] // gestion des paramètres supplémentaires
+  this.besoinFormulaireNumerique = ["Nombre d'instructions (limité à 20)", 20] // gestion des paramètres supplémentaires
 
   // Pour pouvoir récupérer this dans la correction interactive
   // Pour distinguer les deux types de codage de recuperation des résultats

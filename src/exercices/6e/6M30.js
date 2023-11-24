@@ -365,7 +365,10 @@ export default function CalculDeVolumes () {
         statut: false
       }
       ]
-      this.autoCorrection[i].options = {}
+      resultat = resultat.toNumber()
+      resultat2 = resultat2.toNumber()
+      resultat3 = resultat3.toNumber()
+      resultat4 = resultat4.toNumber()
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
@@ -433,9 +436,9 @@ export default function CalculDeVolumes () {
                   statut: '',
                   reponse: {
                     texte: '',
-                    valeur: [volume.round()],
+                    valeur: [resultat],
                     param: {
-                      digits: nombreDeChiffresDansLaPartieEntiere(volume.round()) + randint(0, 2),
+                      digits: nombreDeChiffresDansLaPartieEntiere(resultat) + randint(0, 2),
                       decimals: 0,
                       signe: false,
                       approx: 0
@@ -447,7 +450,7 @@ export default function CalculDeVolumes () {
           }
         }
       }
-      if (this.questionJamaisPosee(i, resultat.toString(), resultat2.toString(), resultat3.toString(), resultat4.toString())) {
+      if (this.questionJamaisPosee(i, resultat, resultat2, resultat3, resultat4)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -1,5 +1,5 @@
 import PremierOuPas from '../3e/3A10-1.js'
-export const titre = 'Primalité ou pas'
+export const titre = 'Justifier qu\'un nombre est premier ou pas'
 export const dateDeModifImportante = '29/10/2021'
 export const interactifReady = true
 export const interactifType = 'qcm'

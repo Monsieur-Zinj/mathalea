@@ -111,7 +111,7 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
     }
       break
     case 10: {//homothetie rapport inverse d'entier
-      const matriceHomothetie2 = matriceCarree([[new FractionEtendue((1, k)), 0, 0], [0, new FractionEtendue(1, k), 0], [0, 0, 1]])
+      const matriceHomothetie2 = matriceCarree([[new FractionEtendue(1, k), 0, 0], [0, new FractionEtendue(1, k), 0], [0, 0, 1]])
       matrice = matriceHomothetie2.multiplieMatriceCarree(matriceChangementDeRepereInv)
     }
       break

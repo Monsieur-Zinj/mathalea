@@ -30,19 +30,16 @@ function verifExerciceQcmMathLive (exercice /** Exercice */, divScore /** HTMLDi
   let nbQuestionsNonValidees = 0
   exercice.answers = {}
   for (let i = 0; i < exercice.autoCorrection.length; i++) {
-
     if (exercice?.autoCorrection[i]?.propositions === undefined) {
       // mathlive
       const resultat = verifQuestionMathLive(exercice, i)
       nbQuestionsValidees += resultat.score.nbBonnesReponses
       nbQuestionsNonValidees += resultat.score.nbReponses - resultat.score.nbBonnesReponses
     } else {
-      // qcm 
+      // qcm
       const resultat = verifQuestionQcm(exercice, i)
       resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
     }
-
-    
   }
   const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
   uichecks.forEach(function (uicheck) {
@@ -258,8 +255,13 @@ export function setReponse (exercice, i, valeurs, {
   let reponses = []
   const url = new URL(window.location.href)
   if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${i + 1} : `, valeurs)
-  if (formatInteractif === 'tableauMathlive') {
-    reponses = valeurs
+  if (typeof valeurs === 'object' && (formatInteractif === 'tableauMathlive' || formatInteractif === 'fillInTheBlank')) {
+    console.log(`valeurs est de type object et c'est ${JSON.stringify(valeurs)}`)
+    if (formatInteractif === 'tableauMathlive') {
+      reponses = valeurs
+    } else if (formatInteractif === 'fillInTheBlank') {
+      reponses = valeurs
+    }
   } else {
     if (Array.isArray(valeurs)) {
       reponses = [...valeurs] // reponses contient donc directement le tableau valeurs
@@ -287,6 +289,9 @@ export function setReponse (exercice, i, valeurs, {
       //   if (reponses.filter((cellule) => Object.keys(cellule)[0].match(/L\dC\d/).length === 0).length !== 0) {
       //    window.notify('setReponse : type "tableauMathlive" les objets proposés n\'ont pas tous une clé de la forme L$C$', { reponses })
       //  }
+      break
+    case 'fillInTheBlank':
+      console.log(reponses)
       break
     case 'Num':
       if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "Num" une fraction est attendue !', { reponses })
@@ -330,10 +335,10 @@ export function setReponse (exercice, i, valeurs, {
       if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fractionPlusSimple" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
       break
-    case 'fractionEgale':
-      if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fractionEgale" une fraction est attendue !', { reponses })
-      else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
-      break
+    // case 'fractionEgale':
+    //   if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fractionEgale" une fraction est attendue !', { reponses })
+    //   else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
+    //   break
     case 'fraction':
       if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fraction" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })

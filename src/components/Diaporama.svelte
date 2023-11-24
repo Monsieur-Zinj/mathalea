@@ -877,6 +877,16 @@
   }
 </script>
 
+<svelte:head>
+<style>
+  svg.mathalea2d {
+    display: inline-flex;
+  }
+</style>
+</svelte:head>
+
+
+
 <svelte:window on:keyup={handleShortcut} />
 <!-- Page d'accueil du diapo -->
 <div id="diaporama" class={$darkMode.isActive ? 'dark' : ''}>
