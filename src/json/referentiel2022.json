@@ -3253,6 +3253,25 @@
             }
           },
           "typeExercice": "alea"
+        },
+        "can5L02": {
+          "url": "can/5e/can5L02.js",
+          "tags": [],
+          "uuid": "b7307",
+          "id": "can5L02",
+          "titre": "Écrire une expression littérale",
+          "datePublication": "23/11/2023",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'qcm'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
         }
       },
       "can5N": {
@@ -12559,7 +12578,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'custom'"
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": true,
@@ -19574,10 +19593,11 @@
         "uuid": "c5480",
         "id": "2G12-1",
         "titre": "Calculer et utiliser la distance entre deux points dans un repère.",
+        "dateModification": "23/11/2023",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
@@ -20233,7 +20253,7 @@
         "tags": [],
         "uuid": "d5a6d",
         "id": "2N20-2",
-        "titre": "Critères de divisibilité (plusieurs possibles)",
+        "titre": "Utiliser les critères de divisibilité (plusieurs possibles)",
         "dateModification": "29/10/2021",
         "features": {
           "interactif": {
@@ -20252,7 +20272,7 @@
         "tags": [],
         "uuid": "098db",
         "id": "2N20-3",
-        "titre": "Division Euclidienne - Diviseurs - Multiples",
+        "titre": "Comprendre le vocabulaire : division euclidienne, diviseurs, multiples",
         "dateModification": "29/10/2021",
         "features": {
           "interactif": {
@@ -20271,7 +20291,7 @@
         "tags": [],
         "uuid": "c04cc",
         "id": "2N20-4",
-        "titre": "Primalité ou pas",
+        "titre": "Justifier qu'un nombre est premier ou pas",
         "dateModification": "29/10/2021",
         "features": {
           "interactif": {
@@ -20328,7 +20348,7 @@
         "tags": [],
         "uuid": "c3c84",
         "id": "2N20-7",
-        "titre": "Engrenages",
+        "titre": "Utiliser des multiples appliqués aux engrenages",
         "dateModification": "14/11/2021",
         "features": {
           "interactif": {
