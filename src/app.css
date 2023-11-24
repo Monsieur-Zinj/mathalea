@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Cache le menu toggle de MathLive */
+math-field::part(menu-toggle) {
+  display: none;
+}
+
 @media print {
   body {
     font-size: 10pt!important;
