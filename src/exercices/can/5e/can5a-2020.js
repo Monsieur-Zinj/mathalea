@@ -453,8 +453,8 @@ export default function SujetCAN20205ieme () {
           r = repere({
             grilleX: false,
             grilleY: true,
-            xThickListe: [],
-            xLabelListe: [],
+            xThickListe: false,
+            xLabelListe: false,
             yUnite: 0.02,
             yThickDistance: 50,
             yMax: 460,
