@@ -300,7 +300,7 @@
     : ''} relative flex w-screen h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   id="startComponent"
 >
-  <div class="flex-1 flex flex-col md:overflow-hidden">
+  <div class="flex-1 flex flex-col w-full md:overflow-hidden">
     <header
       class="md:sticky md:top-0 md:z-50 flex flex-col scrollbar-hide w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
@@ -802,7 +802,7 @@
       {#if $exercicesParams.length !== 0}
         <div
           id="exercisesWrapper"
-          class="flex flex-col w-full h-full justify-between h-full"
+          class="flex flex-col w-full justify-between"
           bind:this={divExercices}
         >
           <div class="flex flex-col w-full md:mt-9 xl:mt-0">
@@ -822,12 +822,12 @@
           <Footer />
         </div>
       {:else}
-        <div class="relative flex-1 h-full">
+        <div class="flex-1">
           <div
             class="flex flex-col justify-between text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40"
           >
             <div
-              class="animate-pulse flex flex-col h-full md:flex-row justify-start space-x-6 items-center"
+              class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center"
             >
               <div class="mt-[10px]">
                 <div class="hidden md:inline-flex">
