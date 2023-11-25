@@ -1,9 +1,8 @@
 import type { Activity, InterfaceResultExercice } from '../lib/types.js'
 import { exercicesParams, globalOptions, resultsByExercice } from '../components/stores/generalStore.js'
-import { mathaleaHandleComponentChange } from './mathalea.js'
+import { mathaleaHandleComponentChange, mathaleaWriteStudentPreviousAnswers } from './mathalea.js'
 import { get } from 'svelte/store'
 import { RPC } from '@mixer/postmessage-rpc'
-import type { MathfieldElement } from 'mathlive'
 
 interface ActivityParams { mode: 'create' | 'assignment' | 'review' | 'view', activity: Activity, workflow: 'current' | 'finished' | 'corrected', studentAssignment: InterfaceResultExercice[] }
 
@@ -45,9 +44,9 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // On charge l'aléa qui a pu être modifié par l'élève
   if (studentAssignment !== null && studentAssignment !== undefined) {
     for (const exercice of studentAssignment) {
-      if (exercice !== null && exercice.alea !== undefined && exercice.indice !== undefined) {
+      if (exercice != null && exercice.alea != null && exercice.indice != null) {
         exercicesParams.update((l) => {
-          l[exercice.indice].alea = exercice.alea
+          l[exercice.indice as number].alea = exercice.alea
           return l
         })
       }
@@ -96,33 +95,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
             window.postMessage(message, '*')
           }
         } else {
-          for (const answer in exercice.answers) {
-            // La réponse correspond à un champs texte
-            const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
-            if (field !== null) {
-              if ('setValue' in field) {
-                // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
-                field.setValue(exercice.answers[answer])
-              }
-            } else {
-              // La réponse correspond à une case à cocher qui doit être cochée
-              const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-              if (checkBox !== null && exercice.answers[answer] === '1') {
-                checkBox.checked = true
-              } else {
-              // La réponse correspond à une liste déroulante
-                const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-                if (select !== null) {
-                  select.value = exercice.answers[answer]
-                }
-              }
-            }
-            if (answer.includes('apigeom')) {
-              // La réponse correspond à une figure
-              const event = new CustomEvent(answer, { detail: exercice.answers[answer] })
-              document.dispatchEvent(event)
-            }
-          }
+          mathaleaWriteStudentPreviousAnswers(exercice.answers)
         }
       }
     }
