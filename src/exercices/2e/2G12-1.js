@@ -7,6 +7,7 @@ import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { point } from '../../lib/2d/points.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -38,14 +39,16 @@ export default function Distance () {
       typesDeQuestionsDisponibles = [1]
     }
     if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]//, 3, 4, 5
+      typesDeQuestionsDisponibles = [2, 3, 4, 5]//, 3, 4, 5
     }
     if (this.sup === 3) {
       typesDeQuestionsDisponibles = [1, 1, 2, 3, 4, 5]
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, ux, uy, xA, yA, xB, yB, xC, yC, AB, XAB, YAB, XAC, YAC, AC, XBC, YBC, BC, nom, A, B, C, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, ux, uy, xA, yA, xB, yB, xC, yC, AB, XAB, YAB, XAC, YAC, AC, XBC, YBC, BC, nom, A, B, C, CorrD, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
+
+      CorrD = '<br>On sait d\'après le cours, que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère orthonormé, alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>'
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
@@ -70,18 +73,17 @@ export default function Distance () {
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$. <br>`
 
           if (this.interactif) {
-            texte += 'Calculer la distance $AB$. <br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `${A.nom}${B.nom}=$` })
+            texte += 'Calculer la distance $AB$. <br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${A.nom}${B.nom}=$` })
           } else { texte += `Calculer la distance $${A.nom}${B.nom}$.` }
           if (this.correctionDetaillee) {
-            texteCorr = 'On sait d\'après le cours, que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère orthonormé,'
-            texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}.$<br><br>'
+            texteCorr = `${CorrD}`
           } else { texteCorr = '' }
-          texteCorr += 'On applique la formule aux données de l\'énoncé :<br><br>'
+          texteCorr += '<br>On applique la formule aux données de l\'énoncé :<br><br>'
           texteCorr += `$\\phantom{On applique la formule  : } ${A.nom}${B.nom}=\\sqrt{\\left(x_${B.nom}-x_${A.nom}\\right)^{2}+\\left(y_${B.nom}-y_${A.nom}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{On applique la formule  : }${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{On applique la formule :        } ${A.nom}${B.nom}=\\sqrt{${XAB}+${YAB}}$<br>`
-          texteCorr += `$\\phantom{On applique la formule  :        } ${A.nom}${B.nom}=\\sqrt{${texNombre(XAB + YAB)}}$<br>`
-          if (extraireRacineCarree(AB)[0] !== 1) { texteCorr += `$\\phantom{On applique la formule  :     } ${A.nom}${B.nom}=${texRacineCarree(AB)}$<br>` }
+          texteCorr += `$\\phantom{On applique la formule  :        } ${A.nom}${B.nom}=${miseEnEvidence(`\\sqrt{${texNombre(XAB + YAB)}}`)}$<br>`
+          if (extraireRacineCarree(AB)[0] !== 1) { texteCorr += `$\\phantom{On applique la formule  :     } ${A.nom}${B.nom}=${miseEnEvidence(texRacineCarree(AB))}$<br>` }
 
           break
         case 2:
@@ -118,8 +120,7 @@ export default function Distance () {
           texteCorr = `Le point $${C.nom}$ appartient au cercle de centre $${A.nom}$ passant par $${B.nom}$ si et seulement si $${A.nom}${B.nom}=${A.nom}${C.nom}$.`
           texteCorr += '<br>On calcule séparément ces deux distances.<br>'
           if (this.correctionDetaillee) {
-            texteCorr += '<br>On sait d\'après le cours, que si $A(x_A\\;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère orthonormé,'
-            texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>'
+            texteCorr += `${CorrD}`
           }
           texteCorr += `<br>$\\phantom{on applique la relation         } ${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{on applique la relation        } ${A.nom}${B.nom}=\\sqrt{${XAB}+${YAB}}$<br>`
@@ -166,8 +167,7 @@ export default function Distance () {
           texteCorr = `Le point $${C.nom}$ appartient au cercle de centre $${A.nom}$ passant par $${B.nom}$ si et seulement si $${A.nom}${B.nom}=${A.nom}${C.nom}$.`
           texteCorr += '<br>On calcule séparément ces deux distances.<br>'
           if (this.correctionDetaillee) {
-            texteCorr += '<br>On sait d\'après le cours, que si $A(x_A\\;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère orthonormé,'
-            texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>'
+            texteCorr += `${CorrD}`
           }
           texteCorr += `<br>$\\phantom{on applique la relation         } ${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{on applique la relation        } ${A.nom}${B.nom}=\\sqrt{${XAB}+${YAB}}$<br>`
@@ -217,8 +217,7 @@ export default function Distance () {
           texteCorr = `Le point $${C.nom}$ appartient à la médiatrice du segment $${A.nom}${B.nom}$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$.`
           texteCorr += '<br>On calcule séparément ces deux distances.<br>'
           if (this.correctionDetaillee) {
-            texteCorr += '<br>On sait d\'après le cours, que si $A(x_A\\;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère orthonormé,'
-            texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>'
+            texteCorr += `${CorrD}`
           }
           texteCorr += `<br>$\\phantom{On applique la relation } ${C.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xC)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yC)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{on applique la relation         } ${C.nom}${B.nom}=\\sqrt{${XBC}+${YBC}}$<br>`
@@ -269,8 +268,7 @@ export default function Distance () {
           texteCorr = `Le point $${C.nom}$ appartient à la médiatrice du segment $${A.nom}${B.nom}$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$.`
           texteCorr += '<br>On calcule séparément ces deux distances.<br>'
           if (this.correctionDetaillee) {
-            texteCorr += '<br>On sait d\'après le cours, que si $A(x_A\\;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère orthonormé,'
-            texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>'
+            texteCorr += `${CorrD}`
           }
           texteCorr += `<br>$\\phantom{On applique la relation } ${C.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xC)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yC)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{on applique la relation         } ${C.nom}${B.nom}=\\sqrt{${XBC}+${YBC}}$<br>`
