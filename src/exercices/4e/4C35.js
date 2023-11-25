@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 
-export const titre = 'Puissances : écriture décimale ou fractionnaire'
+export const titre = 'Transformer une écriture de puissance en écriture décimale ou fractionnaire'
 
 export const dateDePublication = '14/06/2022'
 export const interactifReady = true
