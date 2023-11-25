@@ -186,7 +186,7 @@ export default function ReciproquePythagore () {
       } else {
         if (!context.isAmc) this.autoCorrection[i].propositions[1].statut = true
         texteCorr += `<br>On constate que $${A + B}^2\\not=${A + C}^2+${B + C
-          }^2$, l'égalité de Pythagore n'est pas vérifiée.<br> D'après la conséquence du théorème de Pythagore, le triangle  $${nomTriangle}$ n'est pas rectangle.`
+          }^2$, l'égalité de Pythagore n'est pas vérifiée.<br> D'après le théorème de Pythagore, le triangle  $${nomTriangle}$ n'est pas rectangle.`
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
