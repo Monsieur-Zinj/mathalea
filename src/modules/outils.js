@@ -95,6 +95,8 @@ export function gestionnaireFormulaireTexte ({
   enleveDoublons = false,
   exclus
 } = {}) {
+
+  nbQuestions = Math.min(nbQuestions,100) // Faut pas déconner, un jour quelqu'un a fait péter la fonction en demandant une liste de 10000 questions !
   if (exclus) {
     exclus = exclus.filter((element) => element >= min && element <= max)
   }

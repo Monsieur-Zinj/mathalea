@@ -238,6 +238,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
     for (let k = 0; k < 3; k++) {
       const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i * 3 + k}`)
       const reponseEleve = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * 3 + k}`)?.value
+      if (reponseEleve != null){
       if (this.autoCorrection[i * 3 + k] != null && this.autoCorrection[i * 3 + k].reponse != null && Array.isArray(this.autoCorrection[i * 3 + k].reponse.valeur)) {
         switch (k) {
           case 0:
@@ -280,6 +281,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
             }
             break
         }
+      }
       } else {
         window.notify('Quelque chose de pas normal avec l\'autoCorrection : ', { nbQuestions: this.nbQuestions, index: i * 3 + k, autoCorrection: this.autoCorrection })
         switch (k) {

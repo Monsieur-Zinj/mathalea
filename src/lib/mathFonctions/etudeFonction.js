@@ -79,6 +79,9 @@ export function tableauDeVariation ({
          * @returns {string}
          */
     const latexContent = function (text) {
+      if (text == null || typeof text !== 'string') {
+       return false // c'est sortieTexte() qui va faire le signalement.
+      }
       if (text[0] === '$') text = text.substring(1, text.length - 1)
       return text
     }

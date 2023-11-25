@@ -6,7 +6,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import {mathalea2d, vide2d} from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
@@ -79,23 +79,11 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
       melange: 6,
       saisie: this.sup
     })
-    /*
-        if (Number(this.sup) === 6) {
-          if (Number(this.nbQuestions) === 3) {
-            listeTypeDeQuestions = [1, 2, 5]
-          }
-          if (Number(this.nbQuestions) === 4) {
-            listeTypeDeQuestions = [1, 2, 4, 5]
-          }
-          if (Number(this.nbQuestions) === 5) {
-            listeTypeDeQuestions = [1, 2, 3, 4, 5]
-          }
-        }
-    */
+
     let grilletxt
     if (this.sup2 < 3) {
-      const g = (this.sup2 < 3 ? grille(0, 0, 5, 8, 'gray', 0.7) : '')
-      const carreaux = (this.sup2 === 2 ? seyes(0, 0, 5, 8) : '')
+      const g = (this.sup2 < 3 ? grille(0, 0, 5, 8, 'gray', 0.7) : vide2d())
+      const carreaux = (this.sup2 === 2 ? seyes(0, 0, 5, 8) : vide2d())
       const sc = (this.sup2 === 2 ? 0.8 : 0.5)
       const params = { xmin: 0, ymin: 0, xmax: 5, ymax: 8, pixelsParCm: 20, scale: sc }
       grilletxt = '<br>' + mathalea2d(params, g, carreaux)
