@@ -231,8 +231,8 @@ export default function CalculsImagesFonctions () {
               if (n !== x) m = n - x
               else m = n ** 2 - x
               enonce = `Soit $f$ la fonction qui à $x$ associe $\\dfrac{x}{x${ecritureAlgebrique(m)}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${x}}{${x + m}}=${texNombre(x / n)}$`
-              reponses[i] = new Decimal(x).div(n)
+              correction = `$f(x)=\\dfrac{x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${x}}{${x + m}}=${texNombre(x / (x + m))}$`
+              reponses[i] = new Decimal(x).div(x + m)
               break
             case 1:
               if (n !== x) m = n - x

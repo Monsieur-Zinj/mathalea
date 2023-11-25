@@ -148,7 +148,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
                   saisie = saisie.replaceAll('²', '^2')
                   saisie = saisie.replaceAll('^{}', '')
-                  console.log(saisie)
                   saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
                   saisie = saisie.replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
                   saisie = saisie.replace(/\\lparen(\+?-?\d+)\\rparen/, '$1') // Pour les nombres négatifs, supprime les parenthèses
