@@ -15,7 +15,7 @@
   import Moodle from './Moodle.svelte'
   import Capytale from './Capytale.svelte'
   import Test from './Test.svelte'
-  import Start from './NewStart.svelte'
+  import Start from './Start.svelte'
 
   context.versionMathalea = 3
   if (customElements.get('alea-instrumenpoche') === undefined) {

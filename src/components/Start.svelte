@@ -1,118 +1,72 @@
 <script lang="ts">
+  import { onMount, setContext } from 'svelte'
   import {
-    exercicesParams,
-    globalOptions,
-    darkMode,
-    isSideMenuVisible,
-    callerComponent,
     bibliothequeDisplayedContent,
     bibliothequePathToSection,
+    callerComponent,
+    darkMode,
+    exercicesParams,
+    globalOptions,
     isModalForStaticsVisible
   } from './stores/generalStore'
   import {
     mathaleaUpdateExercicesParamsFromUrl,
     mathaleaUpdateUrlFromExercicesParams
   } from '../lib/mathalea'
-  import { flip } from 'svelte/animate'
-  import { onMount, setContext } from 'svelte'
-  import Exercice from './exercice/Exercice.svelte'
-  import Button from './forms/Button.svelte'
-  import ButtonsDeck from './ui/ButtonsDeck.svelte'
-  import NavBar from './header/NavBar.svelte'
-  import TwoStatesIcon from './icons/TwoStatesIcon.svelte'
-  import Footer from './Footer.svelte'
-  import LatexIcon from './icons/LatexIcon.svelte'
-  import AmcIcon from './icons/AmcIcon.svelte'
-  import MoodleIcon from './icons/MoodleIcon.svelte'
-  import SideMenu from './sidebar/SideMenu.svelte'
   import handleCapytale from '../lib/handleCapytale'
-
-  let divExercices: HTMLDivElement
-  let isNavBarVisible: boolean = true
-  let chipsListDisplayed: boolean = false
-  $: isMenuOpen = $isSideMenuVisible
-
-  /**
-   * Gestion des référentiels
-   */
+  import NavBar from './header/NavBar.svelte'
+  import SideMenu from './sidebar/SideMenu.svelte'
+  import { Sidenav, Collapse, Ripple, initTE } from 'tw-elements'
+  import { flip } from 'svelte/animate'
+  import Card from './ui/Card.svelte'
+  import Exercice from './exercice/Exercice.svelte'
   import {
     type AppTierceGroup,
     isJSONReferentielEnding,
     type StaticItemInreferentiel,
     isStaticType
   } from '../lib/types/referentiels'
-  // Contexte pour le modal des apps tierces
   import ModalGridOfCards from './modal/ModalGridOfCards.svelte'
-  let thirdAppsChoiceModal: ModalGridOfCards
   import appsTierce from '../json/referentielAppsTierceV2.json'
-  const appsTierceReferentielArray: AppTierceGroup[] = Object.values(appsTierce)
-  import Card from './ui/Card.svelte'
-  let showThirdAppsChoiceDialog = false
-  let appsTierceInExercisesList: string[]
-  $: {
-    appsTierceInExercisesList = []
-    const uuidList: string[] = []
-    for (const entry of $exercicesParams) {
-      uuidList.push(entry.uuid)
-    }
-    for (const group of appsTierceReferentielArray) {
-      for (const app of group.liste) {
-        if (uuidList.includes(app.uuid)) {
-          appsTierceInExercisesList.push(app.uuid)
-        }
-      }
-    }
-    appsTierceInExercisesList = appsTierceInExercisesList
-  }
-  setContext('thirdAppsChoiceContext', {
-    toggleThirdAppsChoiceDialog: () => {
-      showThirdAppsChoiceDialog = !showThirdAppsChoiceDialog
-      if (showThirdAppsChoiceDialog === false) {
-        thirdAppsChoiceModal.closeModal()
-      }
-    }
-  })
-  /**
-   * Gestion la bibliothèque de statiques
-   */
   import BreadcrumbHeader from './sidebar/BreadcrumbHeader.svelte'
   import CardForStatic from './ui/CardForStatic.svelte'
   import { doesImageExist } from './utils/images'
-  let bibliothequeChoiceModal: ModalGridOfCards
-  let bibliothequeUuidInExercisesList: string[]
-  $: {
-    bibliothequeUuidInExercisesList = []
-    const uuidList: string[] = []
-    for (const entry of $exercicesParams) {
-      uuidList.push(entry.uuid)
-    }
-    if ($bibliothequeDisplayedContent) {
-      for (const item of Object.values($bibliothequeDisplayedContent)) {
-        if (isJSONReferentielEnding(item) && uuidList.includes(item.uuid)) {
-          bibliothequeUuidInExercisesList.push(item.uuid)
-        }
-      }
-    }
-    bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
-  }
-  const buildBiblioToBeDisplayed = (): StaticItemInreferentiel[] => {
-    const results: StaticItemInreferentiel[] = []
-    if ($bibliothequeDisplayedContent) {
-      Object.values($bibliothequeDisplayedContent).forEach((item) => {
-        if (isStaticType(item)) {
-          results.push(item)
-        }
-      })
-    }
-    return results
-  }
+  import Button from './forms/Button.svelte'
+  import ButtonsDeck from './ui/ButtonsDeck.svelte'
+  import TwoStatesIcon from './icons/TwoStatesIcon.svelte'
+  import LatexIcon from './icons/LatexIcon.svelte'
+  import AmcIcon from './icons/AmcIcon.svelte'
+  import MoodleIcon from './icons/MoodleIcon.svelte'
+  import Footer from './Footer.svelte'
 
+  let divExercices: HTMLDivElement
+  let isNavBarVisible: boolean = true
+  let chipsListDisplayed: boolean = false
+  let sidenavOpen: boolean = false
+  let sidenavHeight: string =
+    'xl:top-[170px] md:top-[210px] xl:h-[calc(100%-170px)] md:h-[calc(100%-210px)]'
+
+  $: {
+    if (isNavBarVisible) {
+      if ($exercicesParams.length !== 0) {
+        sidenavHeight =
+          'xl:top-[170px] md:top-[210px] xl:h-[calc(100%-170px)] md:h-[calc(100%-210px)]'
+      } else {
+        sidenavHeight =
+          'xl:top-[120px] md:top-[120px] xl:h-[calc(100%-120px)] md:h-[calc(100%-120px)]'
+      }
+    } else {
+      sidenavHeight =
+        'xl:top-[50px] md:top-[100px] xl:h-[calc(100%-50px)] md:h-[calc(100%-100px)]'
+    }
+  }
   /**
    * Démarrage
    */
   // À la construction du component ou à la navigation dans l'historique du navigateur
   // on met à jour l'url headerStart
   onMount(() => {
+    initTE({ Sidenav, Collapse, Ripple })
     // On analyse l'url pour mettre à jour l'affichage
     urlToDisplay()
     if ($globalOptions.recorder === 'capytale') {
@@ -121,8 +75,35 @@
     // Réglage du vecteur de translation pour le dé au loading
     const root = document.documentElement
     root.style.setProperty('--vect', 'calc((100vw / 10) * 0.5)')
+
+    // Get the button
+    const backToTopButton = document.getElementById('btn-back-to-top')
+
+    // When the user scrolls down 500px from the top of the document, show the button
+
+    const scrollFunction = () => {
+      if (backToTopButton) {
+        if (
+          document.body.scrollTop > 500 ||
+          document.documentElement.scrollTop > 500
+        ) {
+          backToTopButton.classList.remove('hidden')
+        } else {
+          backToTopButton.classList.add('hidden')
+        }
+      }
+    }
+    const backToTop = () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    if (backToTopButton) {
+      backToTopButton.addEventListener('click', backToTop)
+    }
+
+    window.addEventListener('scroll', scrollFunction)
   })
-  addEventListener('popstate', urlToDisplay)
 
   /**
    * Gestion de l'URL
@@ -155,25 +136,6 @@
       // $isSideMenuVisible = true
       isNavBarVisible = true
     }
-  }
-
-  /**
-   * Gestion du redimentionnement de la largeur du menu des choix
-   */
-  let expanding: string | null = null
-  let sidebarWidth = 400
-  function stopResizing () {
-    expanding = null
-  }
-
-  function startResizing (type: string) {
-    expanding = type
-  }
-
-  function resizing (event: MouseEvent) {
-    if (!expanding) return
-    event.preventDefault()
-    sidebarWidth = event.pageX
   }
 
   /**
@@ -220,6 +182,69 @@
     }
   }
 
+  /**
+   * Gestion des référentiels
+   */
+  // Contexte pour le modal des apps tierces
+  let thirdAppsChoiceModal: ModalGridOfCards
+  const appsTierceReferentielArray: AppTierceGroup[] = Object.values(appsTierce)
+  let showThirdAppsChoiceDialog = false
+  let appsTierceInExercisesList: string[]
+  $: {
+    appsTierceInExercisesList = []
+    const uuidList: string[] = []
+    for (const entry of $exercicesParams) {
+      uuidList.push(entry.uuid)
+    }
+    for (const group of appsTierceReferentielArray) {
+      for (const app of group.liste) {
+        if (uuidList.includes(app.uuid)) {
+          appsTierceInExercisesList.push(app.uuid)
+        }
+      }
+    }
+    appsTierceInExercisesList = appsTierceInExercisesList
+  }
+  setContext('thirdAppsChoiceContext', {
+    toggleThirdAppsChoiceDialog: () => {
+      showThirdAppsChoiceDialog = !showThirdAppsChoiceDialog
+      if (showThirdAppsChoiceDialog === false) {
+        thirdAppsChoiceModal.closeModal()
+      }
+    }
+  })
+
+  /**
+   * Gestion la bibliothèque de statiques
+   */
+  let bibliothequeChoiceModal: ModalGridOfCards
+  let bibliothequeUuidInExercisesList: string[]
+  $: {
+    bibliothequeUuidInExercisesList = []
+    const uuidList: string[] = []
+    for (const entry of $exercicesParams) {
+      uuidList.push(entry.uuid)
+    }
+    if ($bibliothequeDisplayedContent) {
+      for (const item of Object.values($bibliothequeDisplayedContent)) {
+        if (isJSONReferentielEnding(item) && uuidList.includes(item.uuid)) {
+          bibliothequeUuidInExercisesList.push(item.uuid)
+        }
+      }
+    }
+    bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
+  }
+  const buildBiblioToBeDisplayed = (): StaticItemInreferentiel[] => {
+    const results: StaticItemInreferentiel[] = []
+    if ($bibliothequeDisplayedContent) {
+      Object.values($bibliothequeDisplayedContent).forEach((item) => {
+        if (isStaticType(item)) {
+          results.push(item)
+        }
+      })
+    }
+    return results
+  }
   /**
    * Gestion des données
    */
@@ -269,100 +294,58 @@
   }
 </script>
 
-<svelte:window on:mouseup={stopResizing} />
 <div
-  class="z-0 {$darkMode.isActive ? 'dark' : ''}"
+  class="{$darkMode.isActive
+    ? 'dark'
+    : ''} relative flex w-screen h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   id="startComponent"
-  on:mousemove={resizing}
-  role="menu"
-  tabindex="0"
 >
-  <div
-    class="flex flex-col scrollbar-hide w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-  >
-    <!-- Entête -->
-    {#if isNavBarVisible}
-      <div
-        id="headerStart"
-        class="sticky top-0 shrink-0 z-0 h-28 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden"
-      >
-        <NavBar subtitle="Conception de document" subtitleType="design" />
-      </div>
-    {/if}
-
-    <!-- Affichage Partie Gauche : Menu + Contenu -->
-    <div
-      class="z-40 flex-1 relative flex flex-col md:flex-row h-full p-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  <div class="flex-1 flex flex-col md:overflow-hidden">
+    <header
+      class="md:sticky md:top-0 md:z-50 flex flex-col scrollbar-hide w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
-    <!-- bouton pour menu en mode smartphone -->
-    <div class="md:hidden flex flex-row justify-start pt-2">
-      <button
-        type="button"
-        class="h-8 w-8 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex items-center justify-center {$isSideMenuVisible ? 'rounded-tr-lg' : 'rounded-r-lg'}"
-        on:click={() => {
-          $isSideMenuVisible = !$isSideMenuVisible
-        }}>
-        <i class="bx bx-menu text-xl text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"></i>
-      </button>
-    </div>
-      <!-- Menu Choix Exos et Ressources -->
-      <div class="z-40 mt-0">
+      <!-- Entête -->
+      {#if isNavBarVisible}
         <div
-          id="choiceMenuWrapper"
-          class="{$globalOptions.v !== 'l'
-            ? 'sm:h-[calc(100vh-7rem)]'
-            : 'sm:h-screen'} sticky top-0 z-40 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+          id="headerStart"
+          class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden"
         >
-          <SideMenu bind:isMenuOpen bind:sidebarWidth />
+          <NavBar subtitle="Conception de document" subtitleType="design" />
         </div>
-      </div>
-
-      <!-- Dragbar -->
+      {/if}
+      <!-- Barre de boutons en mode non-smartphone  -->
       <div
-        id="dragbar"
-        class="hidden {isMenuOpen
-          ? 'md:flex'
-          : 'md:hidden'} w-[4px] z-0 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
-        on:mousedown={() => {
-          startResizing('moving')
-        }}
-        role="menu"
-        tabindex="0"
-      />
-
-      <!-- Affichage Partie Droite -->
-      <div
-        class="w-full h-screen {$globalOptions.v !== 'l'
-          ? 'sm:h-[calc(100vh-7rem)]'
-          : 'sm:h-screen'} z-40 sticky top-0 overflow-y-auto overscroll-contain px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+        class="hidden md:flex {$exercicesParams.length !== 0
+          ? 'xl:h-[50px] md:h-[100px]'
+          : 'h-0'}"
       >
-        <!-- Barre de boutons  -->
         <div
-          style="--sidebarWidth:{sidebarWidth}; --isMenuOpen:{isMenuOpen
-            ? 1
-            : 0}"
-          class="{$exercicesParams.length === 0
+          class={$exercicesParams.length === 0
             ? 'hidden'
-            : 'relative z-50 flex flex-col justify-center items-center md:fixed  md:right-0 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
-            {$globalOptions.v !== 'l'
-              ? 'md:top-28'
-              : 'md:top-0'} transition-all duration-500 transform"
+            : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
           id="barre-boutons"
         >
-          <!-- Commande d'ouverture/fermeture du menu -->
           <div
-            class="absolute left-0 top-0 h-10 w-10 rounded-r-lg border-l border-coopmaths-canvas-dark dark:border-coopmathsdark-canvas-dark bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hidden min-[900px]:flex justify-center items-center"
+            class="hidden md:flex justify-center items-center absolute left-0 bottom-0 h-10 w-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
           >
-            <Button
-              title=""
-              icon={isMenuOpen ? 'bx-x' : 'bx-right-arrow-alt'}
-              class="absolute right-2 top-1 text-2xl"
+            <button
+              type="button"
+              data-te-sidenav-toggle-ref
+              data-te-target="#choiceSideMenuWrapper"
+              aria-controls="#choiceSideMenuWrapper"
+              aria-haspopup="true"
               on:click={() => {
-                isMenuOpen = !isMenuOpen
+                sidenavOpen = !sidenavOpen
               }}
-            />
+            >
+              <i
+                class="bx {sidenavOpen
+                  ? 'bx-right-arrow-alt'
+                  : 'bx-x'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+              />
+            </button>
           </div>
-          <ButtonsDeck barWidthPercentage={80} {chipsListDisplayed}>
+          <ButtonsDeck class="md:pl-10" {chipsListDisplayed}>
             <!-- Bouton de réglages de la page -->
             <div
               slot="setup-buttons"
@@ -438,7 +421,6 @@
                   class="text-3xl"
                   on:click={() => {
                     $exercicesParams.length = 0
-                    isMenuOpen = true
                   }}
                 />
               </div>
@@ -567,39 +549,361 @@
             </div>
           </ButtonsDeck>
         </div>
-        <!-- Affichage des exercices -->
+      </div>
+    </header>
+    <!-- Mennu choix en mode smartphone -->
+    <div
+      class="md:hidden w-full flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+    >
+      <button
+        type="button"
+        class="group w-full flex flex-row justify-between items-center p-4"
+        data-te-collapse-init
+        data-te-target="#choiceMenuWrapper"
+        aria-expanded="true"
+        aria-controls="choiceMenuWrapper"
+      >
+        <div
+          class="text-lg font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+        >
+          Choix des exercices
+        </div>
+        <i
+          class="bx bxs-up-arrow rotate-0 group-[[data-te-collapse-collapsed]]:rotate-180 text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+        />
+      </button>
+      <div
+        id="choiceMenuWrapper"
+        class="!visible w-full overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+        data-te-collapse-item
+        data-te-collapse-show
+      >
+        <SideMenu />
+      </div>
+    </div>
+    <!-- Barre de boutons en mode smartphone -->
+    <div class="md:hidden">
+      <div
+        class={$exercicesParams.length === 0
+          ? 'hidden'
+          : 'w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
+        id="barre-boutons"
+      >
+        <ButtonsDeck class="md:pl-10" {chipsListDisplayed}>
+          <!-- Bouton de réglages de la page -->
+          <div
+            slot="setup-buttons"
+            class="flex flex-row justify-start items-center space-x-4"
+          >
+            <div
+              class="tooltip tooltip-bottom"
+              data-tip="Réduire la taille du texte"
+            >
+              <Button
+                title=""
+                icon="bx-zoom-out"
+                class="flex items-center text-3xl"
+                on:click={zoomMinus}
+              />
+            </div>
+            <div
+              class="tooltip tooltip-bottom"
+              data-tip="Augmenter la taille du texte"
+            >
+              <Button
+                title=""
+                icon="bx-zoom-in"
+                class="flex items-center text-3xl"
+                on:click={zoomPlus}
+              />
+            </div>
+            <button
+              type="button"
+              on:click={() => {
+                setAllInteractifClicked
+                  ? removeAllInteractif()
+                  : setAllInteractif()
+                // handleMenuVisibility("settings")
+              }}
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip={setAllInteractifClicked
+                ? "Supprimer l'interactivité"
+                : 'Tous les exercices en interactif'}
+            >
+              <div class="px-2">
+                <TwoStatesIcon
+                  isOnStateActive={setAllInteractifClicked}
+                  size={7}
+                />
+              </div>
+            </button>
+            <div class="tooltip tooltip-bottom" data-tip="Réorganisation">
+              <Button
+                title=""
+                icon="bx-transfer"
+                class="flex items-center text-3xl rotate-90"
+                on:click={() => {
+                  chipsListDisplayed = !chipsListDisplayed
+                }}
+              />
+            </div>
+            <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés">
+              <Button
+                title=""
+                icon="bx-refresh"
+                class="flex items-center text-3xl"
+                on:click={newDataForAll}
+              />
+            </div>
+            <div
+              class="tooltip tooltip-bottom"
+              data-tip="Supprimer tous les exercices"
+            >
+              <Button
+                title=""
+                icon="bx-trash"
+                class="text-3xl"
+                on:click={() => {
+                  $exercicesParams.length = 0
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip={$globalOptions.v !== 'l'
+                ? 'Plein écran'
+                : 'Quitter le plein écran'}
+              on:click={() => {
+                // handleMenuVisibility("settings")
+                if ($globalOptions.v === 'l') {
+                  quitFullScreen()
+                } else {
+                  fullScreen()
+                }
+              }}
+            >
+              <div class="px-2">
+                <TwoStatesIcon isOnStateActive={$globalOptions.v !== 'l'}>
+                  <i
+                    slot="icon_to_switch_on"
+                    class="bx bx-exit-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                  />
+                  <i
+                    slot="icon_to_switch_off"
+                    class="bx bx-fullscreen text-3xl hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+                  />
+                </TwoStatesIcon>
+              </div>
+            </button>
+          </div>
+          <!-- Boutons d'export -->
+          <div
+            slot="export-buttons"
+            class="flex flex-row justify-end items-center space-x-4"
+          >
+            <div class="tooltip tooltip-bottom" data-tip="Diaporama">
+              <Button
+                title=""
+                icon="bx-slideshow"
+                class="flex items-center text-3xl"
+                on:click={() => {
+                  $callerComponent = ''
+                  // handleMenuVisibility("export")
+                  globalOptions.update((params) => {
+                    params.v = 'diaporama'
+                    return params
+                  })
+                }}
+              />
+            </div>
+            <button
+              type="button"
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip="Lien pour les élèves"
+              on:click={() => {
+                $callerComponent = ''
+                // handleMenuVisibility("export")
+                globalOptions.update((params) => {
+                  params.v = 'confeleve'
+                  return params
+                })
+              }}
+            >
+              <div
+                class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              >
+                <i class="bx text-3xl bx-link" />
+                <div class="absolute -bottom-1 -right-1">
+                  <i class="scale-75 bx bx-xs bxs-graduation" />
+                </div>
+              </div>
+            </button>
+            <button
+              type="button"
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip="LaTeX"
+              on:click={() => {
+                // handleMenuVisibility("export")
+                $callerComponent = ''
+                globalOptions.update((params) => {
+                  params.v = 'latex'
+                  return params
+                })
+              }}
+            >
+              <LatexIcon
+                class="w-7 h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
+              />
+            </button>
+            <button
+              type="button"
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip="AMC"
+              on:click={() => {
+                // handleMenuVisibility("export")
+                $callerComponent = ''
+                globalOptions.update((params) => {
+                  params.v = 'amc'
+                  return params
+                })
+              }}
+            >
+              <AmcIcon
+                class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              />
+            </button>
+            <button
+              type="button"
+              class="tooltip tooltip-bottom tooltip-neutral"
+              data-tip="Moodle"
+              on:click={() => {
+                // handleMenuVisibility("export")
+                $callerComponent = ''
+                globalOptions.update((params) => {
+                  params.v = 'moodle'
+                  return params
+                })
+              }}
+            >
+              <MoodleIcon
+                class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+              />
+            </button>
+          </div>
+        </ButtonsDeck>
+      </div>
+    </div>
+    <!-- Affichage exercices en mode smartphone -->
+    <div
+      id="exercisesPart"
+      class="flex md:hidden w-full h-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      {#if $exercicesParams.length !== 0}
+        <div
+          id="exercisesWrapper"
+          class="flex flex-col w-full justify-between h-full"
+          bind:this={divExercices}
+        >
+          <div class="flex flex-col w-full h-full md:mt-9 xl:mt-0">
+            {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+              <div
+                id="exo{i}"
+                animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
+              >
+                <Exercice
+                  {paramsExercice}
+                  indiceExercice={i}
+                  indiceLastExercice={$exercicesParams.length}
+                />
+              </div>
+            {/each}
+          </div>
+          <Footer />
+        </div>
+      {:else}
+        <div class="relative flex-1 h-full">
+          <div
+            class="flex flex-col justify-between text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40"
+          >
+            <div
+              class="animate-pulse flex flex-col h-full md:flex-row justify-start space-x-6 items-center"
+            >
+              <div class="mt-[10px]">
+                <div class="hidden md:inline-flex">
+                  <i class="bx bx-chevron-left text-[50px]" />
+                </div>
+                <div class="inline-flex md:hidden">
+                  <i class="bx bx-chevron-up text-[50px]" />
+                </div>
+              </div>
+              <div class="font-extralight text-[50px]">
+                Sélectionner les exercices
+              </div>
+            </div>
+            <div class="absolute bottom-0 translate-x-1/2">
+              <Footer />
+            </div>
+          </div>
+        </div>
+      {/if}
+    </div>
+    <!-- Menu choix + Exos en mode non-smartphone -->
+    <div
+      class="relative hidden md:flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      <nav
+        id="choiceSideMenuWrapper"
+        class="absolute left-0 top-0 w-[400px] h-full z-[1035] -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+        data-te-sidenav-init
+        data-te-sidenav-width="400"
+        data-te-sidenav-hidden="false"
+        data-te-sidenav-content="#exercisesPart"
+        data-te-sidenav-position="absolute"
+        data-te-sidenav-mode="side"
+      >
+        <div
+          data-te-sidenav-menu-ref
+          class="w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+        >
+          <SideMenu />
+        </div>
+      </nav>
+      <!-- Affichage exercices -->
+      <main
+        id="exercisesPart"
+        class="absolute right-0 top-0 flex flex-col w-full h-full px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas overflow-x-hidden overflow-y-auto"
+      >
         {#if $exercicesParams.length !== 0}
           <div
             id="exercisesWrapper"
-            class="flex flex-col justify-between h-full mt-0 sm:mt-28 {chipsListDisplayed
-              ? 'xl:mt-41'
-              : 'xl:mt-24'}"
+            class="flex flex-col h-full justify-between pl-4"
             bind:this={divExercices}
           >
-            <div class="flex-1">
-              <div class="flex flex-col h-full md:mt-9 xl:mt-0">
-                {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-                  <div
-                    id="exo{i}"
-                    animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
-                  >
-                    <Exercice
-                      {paramsExercice}
-                      indiceExercice={i}
-                      indiceLastExercice={$exercicesParams.length}
-                    />
-                  </div>
-                {/each}
-                <!-- Pied de page -->
-              </div>
+            <div class="flex flex-col md:mt-9 xl:mt-0">
+              {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+                <div
+                  id="exo{i}"
+                  animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
+                >
+                  <Exercice
+                    {paramsExercice}
+                    indiceExercice={i}
+                    indiceLastExercice={$exercicesParams.length}
+                  />
+                </div>
+              {/each}
             </div>
-            <Footer />
+            <div class="flex items-center justify-center">
+              <Footer />
+            </div>
           </div>
         {:else}
           <div class="relative flex-1 h-full">
             <div
-              class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40"
+              class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6"
             >
+            <div class="bg-coopmaths-canvas"><span class="text-coopmaths-canvas">&nbsp;</span></div>
               <div
                 class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center"
               >
@@ -615,84 +919,92 @@
                   Sélectionner les exercices
                 </div>
               </div>
-              <!-- Pied de page -->
-              <div class="absolute bottom-0 left-1/2 -translate-x-1/2">
+              <div class="flex items-center justify-center">
                 <Footer />
               </div>
             </div>
           </div>
         {/if}
-      </div>
+      </main>
     </div>
   </div>
-  <!-- Fenêtre de dialogue pour le choix des applications tierces -->
-  <ModalGridOfCards
-    bind:this={thirdAppsChoiceModal}
-    bind:displayModal={showThirdAppsChoiceDialog}
+  <!-- Back to top button -->
+  <button
+    type="button"
+    data-te-ripple-init
+    data-te-ripple-color="light"
+    class="!fixed bottom-5 right-5 hidden rounded-full bg-transparent p-3 text-xl font-medium uppercase leading-tight text-coopmaths-action shadow-md transition duration-150 ease-in-out hover:text-coopmaths-action-lightest hover:shadow-lg focus:text-coopmaths-action-lightest focus:shadow-lg focus:outline-none focus:ring-0 active:text-coopmaths-action-lightest active:shadow-lg"
+    id="btn-back-to-top"
   >
-    <div slot="header">Applications</div>
-    <div slot="content">
-      <div class="p2">
-        {#each appsTierceReferentielArray as group}
-          <div class="mx-2 pt-8">
-            <div class="font-bold text-2xl text-coopmaths-struct py-4">
-              {group.rubrique}
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-              {#each group.liste as app}
-                <Card
-                  application={app}
-                  selected={appsTierceInExercisesList.includes(app.uuid)}
-                />
-              {/each}
-            </div>
+    <i class="bx bx-chevrons-up" />
+  </button>
+</div>
+
+<!-- Fenêtre de dialogue pour le choix des applications tierces -->
+<ModalGridOfCards
+  bind:this={thirdAppsChoiceModal}
+  bind:displayModal={showThirdAppsChoiceDialog}
+>
+  <div slot="header">Applications</div>
+  <div slot="content">
+    <div class="p2">
+      {#each appsTierceReferentielArray as group}
+        <div class="mx-2 pt-8">
+          <div class="font-bold text-2xl text-coopmaths-struct py-4">
+            {group.rubrique}
           </div>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {#each group.liste as app}
+              <Card
+                application={app}
+                selected={appsTierceInExercisesList.includes(app.uuid)}
+              />
+            {/each}
+          </div>
+        </div>
+      {/each}
+    </div>
+  </div>
+</ModalGridOfCards>
+<!-- Fenêtre de dialogue pour le choix des exercices de la bibliothèque statique -->
+<ModalGridOfCards
+  bind:this={bibliothequeChoiceModal}
+  bind:displayModal={$isModalForStaticsVisible}
+>
+  <div slot="header">
+    <BreadcrumbHeader path={$bibliothequePathToSection} />
+  </div>
+  <div slot="content">
+    <div class="mx-2 pt-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {#each buildBiblioToBeDisplayed() as exercise}
+          {#if doesImageExist(exercise.png)}
+            <CardForStatic
+              {exercise}
+              selected={bibliothequeUuidInExercisesList.includes(exercise.uuid)}
+            />
+          {/if}
         {/each}
       </div>
     </div>
-  </ModalGridOfCards>
-  <!-- Fenêtre de dialogue pour le choix des exercices de la bibliothèque statique -->
-  <ModalGridOfCards
-    bind:this={bibliothequeChoiceModal}
-    bind:displayModal={$isModalForStaticsVisible}
-  >
-    <div slot="header">
-      <BreadcrumbHeader path={$bibliothequePathToSection} />
-    </div>
-    <div slot="content">
-      <div class="mx-2 pt-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {#each buildBiblioToBeDisplayed() as exercise}
-            {#if doesImageExist(exercise.png)}
-              <CardForStatic
-                {exercise}
-                selected={bibliothequeUuidInExercisesList.includes(
-                  exercise.uuid
-                )}
-              />
-            {/if}
-          {/each}
-        </div>
-      </div>
-    </div>
-  </ModalGridOfCards>
-</div>
+  </div>
+</ModalGridOfCards>
 
 <style>
-  @media (min-width: 768px) {
-    #barre-boutons {
-      width: calc(
-        100% -
-          (
-            var(--isMenuOpen) * var(--sidebarWidth) * 1px + (var(--isMenuOpen)) *
-              16px
-          )
-      );
-    }
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
   }
-  @media (max-width: 768px) {
-    #barre-boutons {
-      width: 100vw;
-    }
+  ::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #dddddd;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: inset 7px 10px 12px #f0f0f0;
   }
 </style>
