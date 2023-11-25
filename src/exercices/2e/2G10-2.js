@@ -1,5 +1,5 @@
 import demonstrationsParallelogrammes from '../5e/5G42.js'
-export const titre = 'Natures de parallélogrammes'
+export const titre = 'Déterminer la nature de parallélogrammes'
 
 /**
  * Clone de 5G42 pour les 2nde

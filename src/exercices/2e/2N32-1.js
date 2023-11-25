@@ -4,7 +4,7 @@ import { texteGras } from '../../lib/format/style.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-export const titre = 'Existence d\'une racine carrée'
+export const titre = 'Justifier l\'existence d\'une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '15/11/2023'

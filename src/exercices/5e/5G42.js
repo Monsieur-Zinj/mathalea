@@ -10,7 +10,7 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-export const titre = 'Nature de parallélogrammes'
+export const titre = 'Déterminer la nature de parallélogrammes'
 
 /**
  * Description didactique de l'exercice
