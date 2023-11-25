@@ -308,9 +308,11 @@ export function examCriterion (
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
       return items.filter((item: ResourceAndItsPath) => {
+        console.log('examToMatch.toLowerCase()')
+        console.log(examToMatch.toLowerCase())
         return (
-          EXAMS.includes(examToMatch) &&
-          item.resource.uuid.startsWith(examToMatch)
+          EXAMS.includes(examToMatch.toLowerCase()) &&
+          item.resource.uuid.startsWith(examToMatch.toLowerCase())
         )
       })
     }
@@ -454,7 +456,7 @@ export function buildCriteriaFromString (
         })
         continue
       }
-      if (EXAMS.includes(realWord)) {
+      if (EXAMS.includes(realWord.toLowerCase())) {
         // console.log('found exam')
         criteria.push({ connector, filter: examCriterion(realWord) })
         continue
