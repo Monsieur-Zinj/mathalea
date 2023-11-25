@@ -138,7 +138,7 @@
     </button>
   </div>
   <div
-    class="text-xl lg:text-base ml-2 lg:ml-4 space-y-4 p-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+    class="text-lg lg:text-base ml-2 lg:ml-4 space-y-4 p-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
   >
     <h3 class="text-coopmaths-struct dark:text-coopmathsdark-struct font-bold">
       Paramètres
@@ -149,7 +149,7 @@
     {#if exercice.nbQuestionsModifiable}
       <div>
         <span
-          class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
         >
           Nombre de questions :
         </span>
@@ -160,14 +160,14 @@
           bind:value={nbQuestions}
           on:change={newSettings}
           on:input={newSettings}
-          class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+          class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
         />
       </div>
     {/if}
     {#if exercice.besoinFormulaireCaseACocher}
       <div class="container">
         <label
-          class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           for="settings-check1-{exercice.uuid}"
         >
           {#if typeof exercice.besoinFormulaireCaseACocher !== 'boolean'}
@@ -189,11 +189,11 @@
         <div class="flex flex-col">
           <form id="settings-form-formNum1-{exerciceIndex}" action="">
             <label
-              class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+              class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum1-{exerciceIndex}">{formNum1.titre} :</label
             >
             <select
-              class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+              class="flex flex-auto w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
               name="formNum1"
               id="settings-formNum1-{exerciceIndex}"
               bind:value={sup}
@@ -213,7 +213,7 @@
         <div>
           <!-- Pas de tooltips -->
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formNum1-{exerciceIndex}"
             >{formNum1.titre} :
           </label>
@@ -221,7 +221,7 @@
             name="formNum1"
             id="settings-formNum1-{exerciceIndex}"
             type="number"
-            class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             min="1"
             max={formNum1.champs}
             bind:value={sup}
@@ -238,7 +238,7 @@
       >
         {#if typeof exercice.besoinFormulaireTexte !== 'boolean'}
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText1-{exerciceIndex}"
           >
             {exercice.besoinFormulaireTexte[0]} :
@@ -248,7 +248,7 @@
             data-tip={exercice.besoinFormulaireTexte[1]}
           >
             <input
-              class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
               name="settings-formText1"
               id="settings-formText1-{exerciceIndex}"
               type="text"
@@ -284,7 +284,7 @@
     {#if exercice.besoinFormulaire2CaseACocher}
       <div class="container">
         <label
-          class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           for="settings-check2-{exerciceIndex}"
         >
           {#if typeof exercice.besoinFormulaire2CaseACocher !== 'boolean'}
@@ -295,7 +295,7 @@
           name="settings-check2"
           id="settings-check2-{exerciceIndex}"
           type="checkbox"
-          class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
+          class="ml-2  bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked={sup2}
           on:change={newSettings}
         />
@@ -306,11 +306,11 @@
         <div class="flex flex-col">
           <form id="settings-form-formNum2-{exerciceIndex}" action="">
             <label
-              class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+              class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum2-{exerciceIndex}">{formNum2.titre} :</label
             >
             <select
-              class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+              class="flex flex-auto w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
               name="settings-formNum2"
               id="settings-formNum2-{exerciceIndex}"
               bind:value={sup2}
@@ -330,7 +330,7 @@
         <div>
           <!-- Pas de tooltips -->
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formNum2-{exerciceIndex}"
             >{formNum2.titre} :
           </label>
@@ -338,7 +338,7 @@
             name="settings-formNum2"
             type="number"
             id="settings-formNum2-{exerciceIndex}"
-            class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             min="1"
             max={formNum2.champs}
             bind:value={sup2}
@@ -355,7 +355,7 @@
       >
         {#if typeof exercice.besoinFormulaire2Texte !== 'boolean'}
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText2-{exerciceIndex}"
           >
             {exercice.besoinFormulaire2Texte[0]} :
@@ -365,7 +365,7 @@
             data-tip={exercice.besoinFormulaire2Texte[1]}
           >
             <input
-              class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
               name="settings-formText2"
               id="settings-formText2-{exerciceIndex}"
               type="text"
@@ -398,7 +398,7 @@
     {#if exercice.besoinFormulaire3CaseACocher}
       <div class="container">
         <label
-          class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           for="settings-check3-{exerciceIndex}"
         >
           {#if typeof exercice.besoinFormulaire3CaseACocher !== 'boolean'}
@@ -420,11 +420,11 @@
         <div class="flex flex-col">
           <form id="settings-form-formNum3-{exerciceIndex}" action="">
             <label
-              class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+              class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum3-{exerciceIndex}">{formNum3.titre} :</label
             >
             <select
-              class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+              class="flex flex-auto w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
               name="settings-formNum3"
               id="settings-formNum3-{exerciceIndex}"
               bind:value={sup3}
@@ -444,7 +444,7 @@
         <div>
           <!-- Pas de tooltips -->
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formNum3-{exerciceIndex}"
             >{formNum3.titre} :
           </label>
@@ -452,7 +452,7 @@
             name="settings-formNum3"
             id="settings-formNum3-{exerciceIndex}"
             type="number"
-            class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             min="1"
             max={formNum3.champs}
             bind:value={sup3}
@@ -469,7 +469,7 @@
       >
         {#if typeof exercice.besoinFormulaire3Texte !== 'boolean'}
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText3-{exerciceIndex}"
           >
             {exercice.besoinFormulaire3Texte[0]} :
@@ -479,7 +479,7 @@
             data-tip={exercice.besoinFormulaire3Texte[1]}
           >
             <input
-              class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
               name="settings-formText3"
               id="settings-formText3-{exerciceIndex}"
               type="text"
@@ -514,7 +514,7 @@
     {#if exercice.besoinFormulaire4CaseACocher}
       <div class="container">
         <label
-          class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+          class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           for="settings-check4-{exerciceIndex}"
         >
           {#if typeof exercice.besoinFormulaire4CaseACocher !== 'boolean'}
@@ -536,11 +536,11 @@
         <div class="flex flex-col">
           <form id="settings-form-formNum4-{exerciceIndex}" action="">
             <label
-              class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+              class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
               for="settings-formNum4-{exerciceIndex}">{formNum4.titre} :</label
             >
             <select
-              class="flex flex-auto w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+              class="flex flex-auto w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
               name="settings-formNum4"
               id="settings-formNum4-{exerciceIndex}"
               bind:value={sup4}
@@ -560,7 +560,7 @@
         <div>
           <!-- Pas de tooltips -->
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formNum4-{exerciceIndex}"
             >{formNum4.titre} :
           </label>
@@ -568,7 +568,7 @@
             name="settings-formNum4"
             id="settings-formNum4-{exerciceIndex}"
             type="number"
-            class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+            class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
             min="1"
             max={formNum4.champs}
             bind:value={sup4}
@@ -586,7 +586,7 @@
       >
         {#if typeof exercice.besoinFormulaire4Texte !== 'boolean'}
           <label
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
             for="settings-formText4-{exerciceIndex}"
           >
             {exercice.besoinFormulaire4Texte[0]} :
@@ -596,7 +596,7 @@
             data-tip={exercice.besoinFormulaire4Texte[1]}
           >
             <input
-              class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+              class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
               name="settings-formText4"
               id="settings-formText4-{exerciceIndex}"
               type="text"
@@ -633,7 +633,7 @@
       <div class="container">
         <label for="settings-correction-detaillee-{exerciceIndex}">
           <span
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+            class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
           >
             Correction détaillée :
           </span>
@@ -653,13 +653,13 @@
       on:submit|preventDefault={newSettings}
     >
       <label
-        class="text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+        class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
         for="settings-formAlea-{exerciceIndex}"
       >
         Série :
       </label>
       <input
-        class="w-full border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+        class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
         name="settings-formAlea"
         id="settings-formAlea-{exerciceIndex}"
         type="text"
