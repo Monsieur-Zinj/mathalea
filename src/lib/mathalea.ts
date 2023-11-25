@@ -225,7 +225,7 @@ export function mathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
   const params = get(globalOptions)
   zoom = zoom ?? Number(params.z)
 
-  if (zoom !== -1) {
+  if (zoom !== -1 && div != null) {
     const qcms = div.querySelectorAll<HTMLElement>('.monQcm')
     for (const qcm of qcms) {
       qcm.style.fontSize = `${zoom}px`
@@ -237,8 +237,10 @@ export function mathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
     const figures = div.querySelectorAll<SVGElement>('.mathalea2d')
     for (const figureElement of figures) {
       const figure = figureElement
-      if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute('width')
-      if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute('height')
+      const width = figure.getAttribute('width')
+      const height = figure.getAttribute('height')
+      if (!figure.dataset.widthInitiale && width != null) figure.dataset.widthInitiale = width
+      if (!figure.dataset.heightInitiale && height != null) figure.dataset.heightInitiale = height
       figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
       figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
     }
