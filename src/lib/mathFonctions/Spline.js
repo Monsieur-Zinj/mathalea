@@ -24,11 +24,10 @@ export class Spline {
      */
   constructor (noeuds) {
     this.polys = []
-    if (noeuds.length < 2) { // on ne peut pas interpoler une courbe avec moins de 2 noeuds
+
+    if (noeuds == null || !Array.isArray(noeuds) || noeuds.length < 2) { // on ne peut pas interpoler une courbe avec moins de 2 noeuds
       window.notify('Spline : nombre de noeuds insuffisant', { noeuds })
-      if (noeuds == null || noeuds.length < 2) {
-        noeuds = [{ x: -3, y: -5, deriveeGauche: 0, deriveeDroit: 2, isVisible: false }, { x: 3, y: 0, deriveeGauche: -2, deriveeDroit: -2, isVisible: false }]
-      }
+      noeuds = [{ x: -3, y: -5, deriveeGauche: 0, deriveeDroit: 2, isVisible: false }, { x: 3, y: 0, deriveeGauche: -2, deriveeDroit: -2, isVisible: false }]
     }
     if (!trieNoeuds(noeuds)) {
       window.notify('Il y a un problème avec ces noeuds (peut-être un doublon ?) ', { noeuds })
@@ -426,6 +425,17 @@ export class Spline {
       const index = intervalles.findIndex((intervalle) => x >= intervalle.xG && x <= intervalle.xD)
       return this.derivees[index].image(rationnalise(x))
     }
+  }
+
+  /** retourne une spline construite avec les valeurs dérivées aux noeuds de la spline.
+   * Il faut impérativement que cette fonction soit continue donc les nombre dérivés à gauche et à droite en chacun des noeuds doivent être égaux !
+   */
+  get splineDerivee () {
+    const noeudsDerivee/** Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}> */ = []
+    for (const noeud of this.noeuds) {
+      noeudsDerivee.push({ x: noeud.x, y: noeud.deriveeGauche, deriveeGauche: 0, deriveeDroit: 0, isVisible: noeud.isVisible })
+    }
+    return new Spline(noeudsDerivee)
   }
 
   /**
