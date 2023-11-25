@@ -1,357 +1,155 @@
-import { antecedentInterpole, graphiqueInterpole, imageInterpolee } from '../../lib/2d/courbes.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
-import { combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
-import { arrondi, numTrie } from '../../lib/outils/nombres.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { inferieurouegal, listeQuestionsToContenu, randint, superieurouegal } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { context } from '../../modules/context.js'
+import { spline } from '../../lib/mathFonctions/Spline.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const amcReady = true
-export const amcType = 'AMCHybride'
-export const dateDePublication = '1/08/2021'
-export const dateDeModifImportante = '5/08/2022'
+
+export const dateDePublication = '27/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const uuid = '7761e' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
+export const ref = '2F32-2'// @todo à modifier aussi
+// une liste de nœuds pour définir une fonction Spline
+const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+  { x: -3, y: 1, deriveeGauche: 2, deriveeDroit: 2, isVisible: false },
+  { x: -2, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+  { x: -1, y: 1, deriveeGauche: -2, deriveeDroit: -2, isVisible: false },
+  { x: 0, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+  { x: 2, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+  { x: 3, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+  { x: 4, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
+]
+// une autre liste de nœuds...
+const noeuds2 = [{ x: -5, y: 3, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+  { x: -3, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+  { x: -1, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+  { x: 2, y: 2, deriveeGauche: -0.5, deriveeDroit: -0.5, isVisible: true }
+]
+const noeuds3 = [{ x: -5, y: 0, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
+  { x: -4, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+  { x: -2, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+  { x: 0, y: 0, deriveeGauche: -0.5, deriveeDroit: -0.5, isVisible: true }
+]
+const noeuds4 = [{ x: -5, y: 0, deriveeGauche: -2, deriveeDroit: -2, isVisible: true },
+  { x: -4, y: -3, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+  { x: -2, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: false },
+  { x: 0, y: 0, deriveeGauche: -0.5, deriveeDroit: -0.5, isVisible: true }
+]
+// une liste des listes
+const mesFonctions = [noeuds1, noeuds2, noeuds3, noeuds4]//, noeuds1, noeuds2, noeuds3, noeuds4
 
 /**
- * Description didactique de l'exercice
- * @author Jean-Claude Lhote
- * Référence 2F32-2
+ * trouve les extrema mais ne fonctionne que si les extrema se trouvent en des noeuds.
+ * @param {{x: number, y:number,deriveeGauche:number,deriveeDroit:number, isVisible:boolean}[]} nuage les noeuds
+ * @returns {{yMin: number, yMax: number, xMax: number, xMin: number}}
  */
-export const uuid = '573f2'
-export const ref = '2F32-2'
-export default function LecturesGraphiques () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = true
-  this.nbQuestions = 6
-  this.nbQuestionsModifiable = false
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 1 // Niveau de difficulté
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+function trouveMaxes (nuage) {
+  const xMin = Math.floor(Math.min(...nuage.map(el => el.x)) - 1)
+  const yMin = Math.floor(Math.min(...nuage.map(el => el.y)) - 1)
+  const xMax = Math.ceil(Math.max(...nuage.map(el => el.x)) + 1)
+  const yMax = Math.ceil(Math.max(...nuage.map(el => el.y)) + 1)
+  return { xMin, xMax, yMin, yMax }
+}
 
-  this.nouvelleVersion = function () {
+/**
+ * choisit les caractèristique de la transformation de la courbe
+ * @returns {{coeffX: -1|1, deltaX: int, deltaY: int, coeffY: -1|1}}
+ */
+function aleatoiriseCourbe () {
+  const coeffX = choice([-1, 1]) // symétries ou pas
+  const coeffY = choice([-1, 1])
+  const deltaX = randint(-2, +2) // translations
+  const deltaY = randint(-2, +2)
+  return { coeffX, coeffY, deltaX, deltaY }
+}
+
+/**
+ * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
+ * @author Gilles Mora (grâce au travail de Jean-Claude Lhote)
+ * Référence (2F32-2)
+ */
+export default class BetaModeleSpline extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.sup = '4'
+    this.nbQuestions = 1 // Nombre de questions par défaut
+  }
+
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    for (let i = 0; i < this.nbQuestions; i++) {
+      const { coeffX, coeffY, deltaX, deltaY } = aleatoiriseCourbe()
+      // la liste des noeuds de notre fonction
+      const nuage = choice(mesFonctions).map((noeud) => Object({
+        x: (noeud.x + deltaX) * coeffX,
+        y: (noeud.y + deltaY) * coeffY,
+        deriveeGauche: noeud.deriveeGauche * coeffX * coeffY,
+        deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
+        isVisible: noeud.isVisible
+      }))
+      const maSpline = spline(nuage)
+      const { xMin, xMax, yMin, yMax } = trouveMaxes(nuage)
+      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      // le repère dans lequel sera tracé la courbe (il est important que xMin et yMin soient entiers d'où les arrondis lors de leur définition plus haut
+      const repere1 = repere({
+        xMin: xMin - 1,
+        xMax: xMax + 1,
+        yMin: yMin - 1,
+        yMax: yMax + 1,
+        grilleX: false,
+        grilleY: false,
+        grilleSecondaire: true,
+        grilleSecondaireYDistance: 1,
+        grilleSecondaireXDistance: 1,
+        grilleSecondaireYMin: yMin - 1,
+        grilleSecondaireYMax: yMax + 1,
+        grilleSecondaireXMin: xMin - 1,
+        grilleSecondaireXMax: xMax + 1
+      })
+      const courbe1 = maSpline.courbe({
+        repere: repere1,
+        epaisseur: 1.5,
+        ajouteNoeuds: true,
+        optionsNoeuds: { color: 'blue', taille: 1, style: '.', epaisseur: 2 },
+        color: 'blue'
+      })
+      const objetsEnonce = [repere1, courbe1]
+      let texteEnonce = `On donne la courbe représentative d'une fonction $f$ définie sur l'intervalle $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$. <br>`
+      texteEnonce += `
+      Déterminer les extremums de la fonction et préciser en quelles valeurs ils sont atteints.<br>`
+      texteEnonce += mathalea2d(Object.assign({ scale: 0.7 }, fixeBordures(objetsEnonce)), objetsEnonce, o)
+      if (this.interactif) {
+        texteEnonce += '<br>Le maximum de $f$ est : ' + ajouteChampTexteMathLive(this, 4 * i, 'inline largeur10 nospacebefore')
+        texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 1, 'inline largeur10 nospacebefore')
+        texteEnonce += '<br>Le minimum de $f$ est : ' + ajouteChampTexteMathLive(this, 4 * i + 2, 'inline largeur10 nospacebefore')
+        texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 3, 'inline largeur10 nospacebefore')
+      }
+      // on ajoute les tracés pour repérer les antécédents et on en profite pour rendre les autres noeuds invisibles
+      const solsMax = maSpline.solve(Math.max(...nuage.map(el => el.y)))
+      const solsMin = maSpline.solve(Math.min(...nuage.map(el => el.y)))
+      const solutionMax = solsMax.length === 1 ? solsMax[0] : 'On a un problème'
+      const solutionMin = solsMin.length === 1 ? solsMin[0] : 'On a un problème'
+      setReponse(this, 4 * i, Math.max(...nuage.map(el => el.y)))
+      setReponse(this, 4 * i + 1, solutionMax)
+      setReponse(this, 4 * i + 2, Math.min(...nuage.map(el => el.y)))
+      setReponse(this, 4 * i + 3, solutionMin)
 
-    const typeFonctionsDisponibles = ['minimum', 'maximum', 'image', 'plusPetitAntécédent', 'plusGrandAntécédent', 'nombreAntécédents'] // On créé 3 types de questions
-    const listeTypeQuestions = combinaisonListes(typeFonctionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    let mini = 4
-    let maxi = -4
-    let antecedentTrouve
-    let enonceAMC = ''
-    const reponses = []
-    const origine = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1, 'middle', true)
-    let antecedents = []
-    let s = []
-    const r = repere({
-      xMin: -4,
-      yMin: -4,
-      xMax: 4,
-      yMax: 4,
-      yUnite: 2,
-      xUnite: 3,
-      grilleSecondaire: true,
-      grilleSecondaireYDistance: 0.1,
-      grilleSecondaireXDistance: 0.1,
-      grilleSecondaireXMin: -4,
-      grilleSecondaireXMax: 4,
-      grilleSecondaireYMin: -4,
-      grilleSecondaireYMax: 4
-    })
-    const noeuds = []
-    for (let x = -4, y = -5; x < 5; x += 2) {
-      y = randint(-4, 4, y)
-      noeuds.push([x, y])
-      mini = Math.min(y, mini)
-      maxi = Math.max(y, maxi)
+      const texteCorrection = `Le point le plus haut de la courbe a pour coordonnées $(${solutionMax}\\,;\\,${Math.max(...nuage.map(el => el.y))})$.<br>
+      On en déduit que le maximum de $f$ est $${Math.max(...nuage.map(el => el.y))}$. Il est atteint en $x=${solutionMax}$.<br>
+      Le point le plus bas de la courbe a pour coordonnées $(${solutionMin}\\,;\\,${Math.min(...nuage.map(el => el.y))})$.<br>
+      On en déduit que le minimum de $f$ est $${Math.min(...nuage.map(el => el.y))}$. Il est atteint en $x=${solutionMin}$.`
+      this.listeQuestions.push(texteEnonce)
+      this.listeCorrections.push(texteCorrection)
     }
-    const minimum = [-15, 5]
-    const maximum = [-15, -5]
-    for (let i = 0; i < noeuds.length; i++) {
-      if (minimum[1] > noeuds[i][1]) {
-        minimum[0] = noeuds[i][0]
-        minimum[1] = noeuds[i][1]
-      }
-      if (maximum[1] < noeuds[i][1]) {
-        maximum[0] = noeuds[i][0]
-        maximum[1] = noeuds[i][1]
-      }
-    }
-    const graph = graphiqueInterpole(noeuds, { repere: r, step: 0.1 })
-    this.introduction = 'Voici la représentation graphique de la fonction $f$ définie sur $[-4;4]$.<br>' + mathalea2d({
-      xmin: -13.5,
-      ymin: -9,
-      xmax: 13.5,
-      ymax: 9,
-      scale: 0.5
-    }, r, graph, origine) + '<br>'
-
-    for (let i = 0, x0, y0, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'minimum':
-          texte = 'Lire graphiquement le minimum de la fonction $f$ sur l\'intervalle $[-4;4]$.<br>'
-          if (!context.isAmc) setReponse(this, i, minimum[1])
-          reponses[i] = minimum[1]
-          texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le minimum de $f$ est $${minimum[1]}$ et il est atteint en $x=${minimum[0]}$.<br>`
-          if (this.correctionDetaillee) {
-            s[0] = segment(minimum[0] * 3, 0, minimum[0] * 3, minimum[1] * 2, 'blue')
-            s[0].pointilles = 5
-            s[1] = segment(minimum[0] * 3, minimum[1] * 2, 0, minimum[1] * 2, 'red')
-            s[1].pointilles = 5
-            s[2] = tracePoint(point(minimum[0] * 3, minimum[1] * 2), 'red')
-            texteCorr += mathalea2d({
-              xmin: -13.5,
-              ymin: -9,
-              xmax: 13.5,
-              ymax: 9,
-              scale: 0.5
-            }, r, graph, s, origine)
-          }
-          break
-        case 'maximum':
-          texte = 'Lire graphiquement le maximum de la fonction $f$ sur l\'intervalle $[-4;4]$.<br>'
-          if (!context.isAmc) setReponse(this, i, maximum[1])
-          reponses[i] = maximum[1]
-          texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le maximum de $f$ est $${maximum[1]}$ et il est atteint en $x=${maximum[0]}$.<br>`
-          if (this.correctionDetaillee) {
-            s[0] = segment(maximum[0] * 3, 0, maximum[0] * 3, maximum[1] * 2, 'blue')
-            s[0].pointilles = 5
-            s[1] = segment(maximum[0] * 3, maximum[1] * 2, 0, maximum[1] * 2, 'red')
-            s[1].pointilles = 5
-            s[2] = tracePoint(point(maximum[0] * 3, maximum[1] * 2), 'red')
-            texteCorr += mathalea2d({
-              xmin: -13.5,
-              ymin: -9,
-              xmax: 13.5,
-              ymax: 9,
-              scale: 0.5
-            }, r, graph, s, origine)
-          }
-          break
-
-        case 'image':
-          s = []
-          x0 = randint(-4, 4)
-          k = 0
-          while (x0 > noeuds[k + 1][0]) {
-            k++
-          }
-          y0 = arrondi(imageInterpolee([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], x0), 1)
-          texte = `Lire graphiquement l'image de $${texNombre(x0, 1)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
-          if (!context.isAmc) setReponse(this, i, y0)
-          reponses[i] = y0
-          texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `$f(${texNombre(x0, 1)})=${texNombre(y0, 1)}$.<br>`
-          if (this.correctionDetaillee) {
-            s[0] = segment(0, y0 * 2, x0 * 3, y0 * 2, 'blue')
-            s[0].pointilles = 5
-            s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0, 'red')
-            s[1].pointilles = 5
-            s[2] = tracePoint(point(x0 * 3, y0 * 2), 'red')
-            texteCorr += mathalea2d({
-              xmin: -13.5,
-              ymin: -9,
-              xmax: 13.5,
-              ymax: 9,
-              scale: 0.5
-            }, r, graph, s, origine)
-          }
-          break
-        case 'plusPetitAntécédent':
-          s = []
-          antecedentTrouve = false
-          while (!antecedentTrouve) {
-            y0 = randint(mini * 10 + 2, maxi * 10 - 2) / 10
-            k = 0
-            while (k < noeuds.length && (y0 > Math.max(noeuds[k][1], noeuds[k + 1][1]) || y0 < Math.min(noeuds[k][1], noeuds[k + 1][1]))) {
-              k++
-            }
-            if (k < noeuds.length) antecedentTrouve = true
-          }
-          x0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
-          texte = `Lire graphiquement le plus petit antécédent de $${texNombre(y0, 1)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
-          if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
-          reponses[i] = arrondi(x0, 1)
-          texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le plus petit antécédent à $0,1$ près de $${texNombre(y0, 1)}$ est $${miseEnEvidence(texNombre(x0, 1))}$.<br>`
-          if (this.correctionDetaillee) {
-            s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
-            s[0].pointilles = 5
-            s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0, 'red')
-            s[1].pointilles = 5
-            texteCorr += mathalea2d({
-              xmin: -13.5,
-              ymin: -9,
-              xmax: 13.5,
-              ymax: 9,
-              scale: 0.5
-            }, r, graph, s, origine)
-          }
-          break
-        case 'plusGrandAntécédent':
-          s = []
-          antecedentTrouve = false
-          while (!antecedentTrouve) {
-            y0 = randint(mini * 10 + 2, maxi * 10 - 2) / 10
-            k = noeuds.length - 1
-            while (k > 0 && (y0 > Math.max(noeuds[k - 1][1], noeuds[k][1]) || y0 < Math.min(noeuds[k - 1][1], noeuds[k][1]))) {
-              k--
-            }
-            if (k > 0) antecedentTrouve = true
-          }
-          x0 = antecedentInterpole([[noeuds[k - 1][0], noeuds[k - 1][1]], [noeuds[k][0], noeuds[k][1]]], y0)
-          texte = `Lire graphiquement le plus grand antécédent de $${texNombre(y0, 1)}$ par la fonction $f$.<br>Donner la réponse à 0,1 près.<br>`
-          if (!context.isAmc) setReponse(this, i, arrondi(x0, 1))
-          reponses[i] = arrondi(x0, 1)
-          texte += ajouteChampTexteMathLive(this, i)
-          texteCorr = `Le plus grand antécédent de $${texNombre(y0, 1)}$ à $0,1$ près est $${miseEnEvidence(texNombre(x0, 1))}$.<br>`
-          if (this.correctionDetaillee) {
-            s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
-            s[0].pointilles = 5
-            s[1] = segment(x0 * 3, y0 * 2, x0 * 3, 0, 'red')
-            s[1].pointilles = 5
-            texteCorr += mathalea2d({
-              xmin: -13.5,
-              ymin: -9,
-              xmax: 13.5,
-              ymax: 9,
-              scale: 0.5
-            }, r, graph, s, origine)
-          }
-          break
-        case 'nombreAntécédents':
-          antecedents = []
-          s = []
-          antecedentTrouve = 0
-          y0 = randint(mini * 10 + 2, maxi * 10 - 2) / 10
-          k = 0
-          while (k < noeuds.length - 1) {
-            if (inferieurouegal(y0, Math.max(noeuds[k][1], noeuds[k + 1][1])) && superieurouegal(y0, Math.min(noeuds[k][1], noeuds[k + 1][1]))) {
-              // il y a un antécédent sur l'intervalle [ymini,ymaxi]
-              x0 = antecedentInterpole([[noeuds[k][0], noeuds[k][1]], [noeuds[k + 1][0], noeuds[k + 1][1]]], y0)
-              antecedents.push(x0)
-            }
-            k++
-          }
-          antecedents = numTrie(enleveDoublonNum(antecedents, 0.1))
-          antecedentTrouve = antecedents.length
-          texte = `Lire graphiquement le nombre d'antécédents de $${texNombre(y0, 1)}$ par la fonction $f$.<br>`
-          texte += ajouteChampTexteMathLive(this, i)
-          switch (antecedentTrouve) {
-            case 0:
-              texteCorr = `$${texNombre(y0, 1)}$ ${texteEnCouleurEtGras("ne possède pas d'antécédent")} sur $[-4;4]$.<br>`
-              break
-            case 1 :
-              texteCorr = `$${texNombre(y0, 1)}$ ${texteEnCouleurEtGras('possède un unique antécédent')} sur $[-4;4]$.<br>`
-              texteCorr = `L'antécédent de $${texNombre(y0, 1)}$ est aux environs de $${texNombre(antecedents[0], 1)}$.<br>`
-              break
-            default :
-              texteCorr = `$${texNombre(y0, 1)}$ possède $${miseEnEvidence(antecedentTrouve)}$ antécédents sur $[-4;4]$.<br>`
-              texteCorr += `Les antécédents de $${texNombre(y0, 1)}$ sont aux environs des nombres suivants : `
-              for (let l = 0; l < antecedentTrouve - 1; l++) {
-                texteCorr += `$${texNombre(antecedents[l], 1)}$ ; `
-              }
-              texteCorr += `$${texNombre(antecedents[antecedentTrouve - 1], 1)}$.<br>`
-              break
-          }
-          if (!context.isAmc) setReponse(this, i, antecedentTrouve)
-          reponses[i] = antecedentTrouve
-          if (this.correctionDetaillee) {
-            s[0] = segment(-15, y0 * 2, 15, y0 * 2, 'blue')
-            s[0].pointilles = 5
-            for (let l = 0; l < antecedentTrouve; l++) {
-              s[l * 2 + 1] = tracePoint(point(antecedents[l] * 3, y0 * 2), 'red')
-              s[l * 2 + 1].epaisseur = 2
-              s[l * 2 + 2] = segment(antecedents[l] * 3, 0, antecedents[l] * 3, y0 * 2, 'red')
-              s[l * 2 + 2].pointilles = 5
-            }
-            texteCorr += mathalea2d({
-              xmin: -13.5,
-              ymin: -9,
-              xmax: 13.5,
-              ymax: 9,
-              scale: 0.5
-            }, r, graph, s, origine)
-          }
-          break
-      }
-      graph.epaisseur = 2
-      if (this.questionJamaisPosee(i, listeTypeQuestions[i], x0, y0, k)) {
-        // Si la question n'a jamais été posée, on en crée une autre
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        i++
-      }
-      cpt++
-    }
-
-    if (context.isAmc) {
-      enonceAMC = this.introduction
-      for (let i = 0; i < this.nbQuestions; i++) {
-        enonceAMC += `${i + 1}) ${this.listeQuestions[i]}<br>`
-      }
-      this.autoCorrection[0] = {
-        enonce: enonceAMC,
-        propositions: []
-      }
-      for (let i = 0; i < this.nbQuestions; i++) {
-        if (listeTypeQuestions[i] === 'nombreAntécédents') {
-          this.autoCorrection[0].propositions[i] =
-                        {
-                          type: 'AMCNum',
-                          propositions: [{
-                            texte: this.listeCorrections[i],
-                            statut: '',
-                            reponse: {
-                              texte: '',
-                              valeur: [reponses[i]],
-                              param: {
-                                digits: 1,
-                                decimals: 0,
-                                signe: false,
-                                approx: 0
-                              }
-                            }
-                          }]
-                        }
-        } else {
-          this.autoCorrection[0].propositions[i] =
-                        {
-                          type: 'AMCNum',
-                          propositions: [{
-                            texte: this.listeCorrections[i],
-                            statut: '',
-                            reponse: {
-                              texte: '',
-                              valeur: [reponses[i]],
-                              param: {
-                                digits: 2,
-                                decimals: 1,
-                                signe: true,
-                                approx: 0
-                              }
-                            }
-                          }]
-                        }
-        }
-      }
-    } else listeQuestionsToContenu(this)
+    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }
