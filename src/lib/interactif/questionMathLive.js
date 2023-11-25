@@ -72,7 +72,7 @@ export function remplisLesBlancs (exercice, question, content, classes) {
       content = ''
     }
   }
-  const resultat = `<math-field readonly style="font-size:2em" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}<span class=${classes} id="feedbackEx${exercice.numeroExercice}Q${question}"></span>`
+  const resultat = `<math-field readonly style="font-size:2em" class="fillInTheBlanks" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}<span class=${classes} id="feedbackEx${exercice.numeroExercice}Q${question}"></span>`
   console.log(resultat)
   return resultat
 }
