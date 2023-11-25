@@ -5,15 +5,16 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../ExerciceTs'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context.js'
+import { ComputeEngine } from '@cortex-js/compute-engine'
+import type { MathfieldElement } from 'mathlive'
 
 export const titre = 'Utiliser la distributivité pour du calcul mental'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-
+const ce = new ComputeEngine()
 export const dateDePublication = '26/11/2022'
 export const dateDeModifImportante = '18/11/2023'
 // Modif EE : Passage en interactif donc passage en TS
@@ -26,9 +27,16 @@ export const uuid = '9103e'
 export const ref = '5C12-3'
 
 class DistributiviteNumerique extends Exercice {
+  rep1: number[] = []
+  rep2: number[] = []
+  rep3: number[] = []
+  rep4: number[] = []
+  rep5: number[] = []
   typeQuestion: (1 | 2)[] = []
+  exoCustomResultat: boolean
   constructor () {
     super()
+    this.exoCustomResultat = true
     this.nbQuestions = 4 // Ici le nombre de questions
     this.sup = 3
     this.besoinFormulaireNumerique = ['Type des questions', 3, '1 : Sous forme développée\n2 : Sous forme factorisée\n3 : Mélange']
@@ -97,6 +105,7 @@ class DistributiviteNumerique extends Exercice {
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b, 0)} + ${k}\\times ${c}$`
           correctionTableau = avecLesPriorites(i, k, b, c, 'developpee', 1)
           cinqChamps = false
+          this.typeQuestion[i] = 2
           break
         }
         case 2: { // Calcul mental soustraction  developpée initialement
@@ -107,6 +116,7 @@ class DistributiviteNumerique extends Exercice {
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b, 0)} - ${k}\\times ${c}$`
           correctionTableau = avecLesPriorites(i, k, b, c, 'developpee', -1)
           cinqChamps = false
+          this.typeQuestion[i] = 2
           break
         }
         case 3: { // Calcul mental addition factorisée initialement
@@ -117,6 +127,7 @@ class DistributiviteNumerique extends Exercice {
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b + 2 * c, 0)}$`
           correctionTableau = avecLesPriorites(i, k, b + c, c, 'factorisee', 1)
           cinqChamps = true
+          this.typeQuestion[i] = 1
           break
         }
         case 4: { // Calcul mental soustraction factorisée initialement
@@ -127,26 +138,16 @@ class DistributiviteNumerique extends Exercice {
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}\\times ${texNombre(b - 2 * c, 0)}$`
           correctionTableau = avecLesPriorites(i, k, b - c, c, 'factorisee', -1)
           cinqChamps = true
+          this.typeQuestion[i] = 1
           break
         }
       }
       texteCorr += correctionTableau[0]
-      if (cinqChamps) {
-        setReponse(this, i, {
-          place1: correctionTableau[1],
-          place2: correctionTableau[2],
-          place3: correctionTableau[3],
-          place4: correctionTableau[4],
-          place5: correctionTableau[5]
-        }, { formatInteractif: 'fillInTheBlank' })
-      } else {
-        setReponse(this, i, {
-          place1: correctionTableau[1],
-          place2: correctionTableau[2],
-          place3: correctionTableau[3],
-          place4: correctionTableau[4]
-        }, { formatInteractif: 'fillInTheBlank' })
-      }
+      this.rep1[i] = correctionTableau[1]
+      this.rep2[i] = correctionTableau[2]
+      this.rep3[i] = correctionTableau[3]
+      this.rep4[i] = correctionTableau[4]
+      this.rep5[i] = correctionTableau[5]
       if (this.interactif) {
         if (cinqChamps) {
           const code = sp(2) + remplisLesBlancs(this, i, `= ${texNombre(k, 0)} \\times %{place1} ${listeTypeDeQuestions[i] % 2 === 1 ? '+' : '-'} ${texNombre(k, 0)} \\times %{place2} = %{place3} ${listeTypeDeQuestions[i] % 2 === 1 ? '+' : '-'} %{place4} = %{place5}`, 'ml-2')
@@ -202,6 +203,53 @@ class DistributiviteNumerique extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+  }
+
+  correctionInteractive = (i?: number) => {
+    if (i === undefined) return ''
+    if (this.answers === undefined) this.answers = {}
+    const result: ('OK' | 'KO')[] = []
+    const mf = document.querySelector(`#champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
+    this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
+    const test1 = ce.parse(mf.getPromptValue('place1')).isSame(ce.parse(`${this.rep1[i]}`))
+    const test2 = ce.parse(mf.getPromptValue('place2')).isSame(ce.parse(`${this.rep2[i]}`))
+    const test3 = ce.parse(mf.getPromptValue('place3')).isSame(ce.parse(`${this.rep3[i]}`))
+    const test4 = ce.parse(mf.getPromptValue('place4')).isSame(ce.parse(`${this.rep4[i]}`))
+    mf.setPromptState('place1', test1 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('place2', test2 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('place3', test3 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('place4', test4 ? 'correct' : 'incorrect', true)
+    if (this.typeQuestion[i] === 1) {
+      const test5 = ce.parse(mf.getPromptValue('place5')).isSame(ce.parse(`${this.rep5[i]}`))
+      mf.setPromptState('place5', test5 ? 'correct' : 'incorrect', true)
+      if (test1 && test2 && test3 && test4) {
+        result.push('OK')
+        divFeedback.innerHTML = '😎'
+      } else {
+        result.push('KO')
+        divFeedback.innerHTML = '☹️'
+      }
+      if (test5) {
+        result.push('OK')
+      } else {
+        result.push('KO')
+      }
+    } else {
+      if (test1 && test2 && test3) {
+        result.push('OK')
+        divFeedback.innerHTML = '😎'
+      } else {
+        result.push('KO')
+        divFeedback.innerHTML = '☹️'
+      }
+      if (test4) {
+        result.push('OK')
+      } else {
+        result.push('KO')
+      }
+    }
+    return result
   }
 }
 
