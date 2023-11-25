@@ -13,7 +13,7 @@ export const titre = 'Déterminer le tableau de signes d\'une fonction graphique
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '18/11/2023' // interactivité
+export const dateDeModifImportante = '25/11/2023' // interactivité
 export const uuid = 'a7860' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = '2F22-3'// @todo à modifier aussi
 // une liste de nœuds pour définir une fonction Spline
