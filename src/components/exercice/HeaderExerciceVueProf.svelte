@@ -130,6 +130,7 @@
         {/if}
       </div>
       <div
+        id="exotitle-{indiceExercice}"
         class="flex flex-row font-normal items-center text-sm md:text-base xl:text-lg pl-0
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
       >
