@@ -171,7 +171,7 @@ export default function EvolutionsSuccesives () {
           }
           metier = choice(['d\'employés', 'de commerciaux', 'de stagiaires', 'de jeunes diplomés'])
           texte = `Le nombre ${metier} d'une entreprise a ${nom} de $${t}\\,\\%$.<br>Quelle évolution permettrait de retrouver le nombre de départ ?`
-          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à $0,1\\,\\%$ près.'
+          texte += '<br>On donnera le taux d\'évolution en pourcentage, éventuellement arrondi à $0,01\\,\\%$ près.'
           texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteApres: '%' })
           texteCorr = 'Pour déterminer le taux d\'évolution réciproque, on commence par calculer le coefficient multiplicateur associé :'
           if (taux > 0) {
@@ -182,7 +182,7 @@ export default function EvolutionsSuccesives () {
           }
           texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : $\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 3)} ${texNombre(CMr, 4)}$.`
           if (CMr - CMra !== 0) {
-            texteCorr += texteEnCouleur('<br>Remarque : Il faut arrondir les valeurs à $10^{-3}$ pour avoir un arrondi en pourcentage à $10^{-1}$.')
+            texteCorr += texteEnCouleur('<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.')
           }
           if (CMr > 1) {
             texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 + ${texNombre(pr, 4)} = 1 + \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
@@ -197,7 +197,7 @@ export default function EvolutionsSuccesives () {
           }
           break
       }
-      setReponse(this, i, taux)
+      setReponse(this, i, tauxr)
       if (this.questionJamaisPosee(i, taux)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
