@@ -3,10 +3,10 @@ import { texteEnCouleur } from '../../lib/outils/embellissements.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-export const titre = 'Résoudre des équations carrées'
+export const titre = 'Résoudre des équations carrées de type $~x^² = a$'
 
 /**
- * Résoudre des équations produit-nul
+ * Résoudre des équations de type x² = a
 * @author Stéphane Guyon
 * 2N52-2, ex 2L11-1
 */

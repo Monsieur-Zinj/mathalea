@@ -1,6 +1,6 @@
 import CalculDeVolumes from '../6e/6M30.js'
 
-export const titre = 'Calculs de volumes'
+export const titre = 'Calculer des volumes'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
