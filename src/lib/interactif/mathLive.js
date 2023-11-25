@@ -49,7 +49,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           const table = document.querySelector(`table#tabMathliveEx${exercice.numeroExercice}Q${i}`)
           if (table == null) {
             window.notify('verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom', { selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` })
-            return { isOk: 'KO', feedback: 'Un problème avec cette configuration', score: { nbBonnesReponses: 0, nbReponses: 1 } }
+            return { resultat: 'KO', feedback: 'Un problème avec cette configuration', score: { nbBonnesReponses: 0, nbReponses: 1 } }
           }
           const cellules = Object.entries(reponses)
           for (let k = 0; k < cellules.length; k++) {
@@ -436,7 +436,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             }
             if (feedbackSaisie) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedbackSaisie}</span>`
             if (feedbackCorrection && writeResult) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedbackCorrection}</span>`
-            return { isOk: resultat, feedback: '', score: { nbBonnesReponses: resultat === 'OK' ? 1 : 0, nbReponses: 1 } }
+            return { resultat: resultat, feedback: '', score: { nbBonnesReponses: resultat === 'OK' ? 1 : 0, nbReponses: 1 } }
           }
         }
       } catch (error) {
@@ -448,7 +448,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           formatInteractif,
           spanReponseLigne
         })
-        return { isOk: 'KO', feedback: 'erreur dans le programme', score: { nbBonnesReponses: 0, nbReponses: 1 } }
+        return { resultat: 'KO', feedback: 'erreur dans le programme', score: { nbBonnesReponses: 0, nbReponses: 1 } }
       }
     }
   }
