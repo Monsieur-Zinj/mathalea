@@ -537,9 +537,8 @@
     <!-- ====================================================================================
                      SMARTPHONE
     ========================================================================================= -->
-    <div class="md:hidden flex flex-col h-full justify-between">
+    <div class="md:hidden flex flex-col h-full">
       <!-- Menu choix en mode smartphone -->
-      <div class="flex flex-col">
         <div
           class="md:hidden w-full flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
         >
@@ -784,12 +783,12 @@
         </div>
         <!-- Affichage exercices en mode smartphone -->
         <div
-          id="exercisesPart"
+          id="exercisesPartSmartPhone"
           class="flex md:hidden w-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >
           {#if $exercicesParams.length !== 0}
             <div
-              id="exercisesWrapper"
+              id="exercisesWrapperSmartPhone"
               class="flex flex-col w-full justify-between"
               bind:this={divExercices}
             >
@@ -832,8 +831,6 @@
             </div>
           {/if}
         </div>
-      </div>
-      <Footer />
     </div>
     <!-- ====================================================================================
                      MODE NORMAL
@@ -862,7 +859,7 @@
       <!-- Affichage exercices -->
       <main
         id="exercisesPart"
-        class="absolute right-0 top-0 flex flex-col w-full h-full px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas overflow-x-hidden overflow-y-auto"
+        class="absolute right-0 top-0 hidden md:flex flex-col w-full h-full px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas overflow-x-hidden overflow-y-auto"
       >
         {#if $exercicesParams.length !== 0}
           <div
