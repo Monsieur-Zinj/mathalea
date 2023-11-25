@@ -802,10 +802,10 @@
       {#if $exercicesParams.length !== 0}
         <div
           id="exercisesWrapper"
-          class="flex flex-col w-full justify-between h-full"
+          class="flex flex-col w-full h-full justify-between h-full"
           bind:this={divExercices}
         >
-          <div class="flex flex-col w-full h-full md:mt-9 xl:mt-0">
+          <div class="flex flex-col w-full md:mt-9 xl:mt-0">
             {#each $exercicesParams as paramsExercice, i (paramsExercice)}
               <div
                 id="exo{i}"
@@ -894,7 +894,7 @@
                 </div>
               {/each}
             </div>
-            <div class="flex items-center justify-center">
+            <div class="hidden md:flex items-center justify-center">
               <Footer />
             </div>
           </div>
