@@ -537,7 +537,7 @@
     <!-- ====================================================================================
                      SMARTPHONE
     ========================================================================================= -->
-    <div class="md:hidden flex flex-col h-full justify-between">
+    <div class="md:hidden flex flex-col h-full justify-between bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
       <!-- Menu choix en mode smartphone -->
         <div>
           <div
