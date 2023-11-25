@@ -43,6 +43,8 @@
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
   let sidenavOpen: boolean = false
+  let innerWidth = 0
+  $: mdBreakpointDetection = innerWidth < 768
   /**
    * Démarrage
    */
@@ -276,7 +278,7 @@
     })
   }
 </script>
-
+<svelte:window bind:innerWidth />
 <div
   class="{$darkMode.isActive
     ? 'dark'
@@ -534,6 +536,7 @@
         </div>
       </div>
     </header>
+    {#if mdBreakpointDetection}
     <!-- ====================================================================================
                      SMARTPHONE
     ========================================================================================= -->
@@ -835,6 +838,7 @@
         </div>
         <Footer />
     </div>
+    {:else}
     <!-- ====================================================================================
                      MODE NORMAL
     ========================================================================================= -->
@@ -917,6 +921,7 @@
         {/if}
       </main>
     </div>
+    {/if}
   </div>
   <!-- Back to top button -->
   <button

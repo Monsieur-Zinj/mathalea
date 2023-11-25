@@ -178,7 +178,7 @@
           name="settings-check1-{exercice.uuid}"
           type="checkbox"
           id="settings-check1-{exercice.uuid}"
-          class="ml-2 text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
+          class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
           bind:checked={sup}
           on:change={newSettings}
         />
