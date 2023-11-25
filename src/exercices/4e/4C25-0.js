@@ -6,10 +6,10 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction, listeFractions } from '../../modules/fractions.js'
 
-export const titre = 'Problèmes additifs et de comparaison sur les rationnels'
+export const titre = 'Résoudre des problèmes additifs et de comparaison sur les fractions'
 
 /**
- * Problèmes additifs et de comparaion sur les rationnels
+ * Résoudre des problèmes additifs et de comparaison sur les fractions
  * 4C25-0
  * @author Sébastien Lozano
  */
