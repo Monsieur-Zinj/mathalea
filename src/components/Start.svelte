@@ -278,6 +278,7 @@
     })
   }
 </script>
+
 <svelte:window bind:innerWidth />
 <div
   class="{$darkMode.isActive
@@ -321,6 +322,10 @@
               aria-haspopup="true"
               on:click={() => {
                 sidenavOpen = !sidenavOpen
+                const instance = Sidenav.getOrCreateInstance(
+                  document.getElementById('choiceSideMenuWrapper')
+                )
+                instance.toggle()
               }}
             >
               <i
@@ -537,11 +542,13 @@
       </div>
     </header>
     {#if mdBreakpointDetection}
-    <!-- ====================================================================================
+      <!-- ====================================================================================
                      SMARTPHONE
     ========================================================================================= -->
-    <div class="md:hidden flex flex-col h-full justify-between bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-      <!-- Menu choix en mode smartphone -->
+      <div
+        class="md:hidden flex flex-col h-full justify-between bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      >
+        <!-- Menu choix en mode smartphone -->
         <div>
           <div
             class="md:hidden w-full flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
@@ -638,7 +645,10 @@
                       }}
                     />
                   </div>
-                  <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés">
+                  <div
+                    class="tooltip tooltip-bottom"
+                    data-tip="Nouveaux énoncés"
+                  >
                     <Button
                       title=""
                       icon="bx-refresh"
@@ -837,90 +847,92 @@
           </div>
         </div>
         <Footer />
-    </div>
+      </div>
     {:else}
-    <!-- ====================================================================================
+      <!-- ====================================================================================
                      MODE NORMAL
     ========================================================================================= -->
-    <!-- Menu choix + Exos en mode non-smartphone -->
-    <div
-      class="relative hidden md:flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-    >
-      <nav
-        id="choiceSideMenuWrapper"
-        class="absolute left-0 top-0 w-[400px] h-full z-[1035] -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
-        data-te-sidenav-init
-        data-te-sidenav-width="400"
-        data-te-sidenav-hidden="false"
-        data-te-sidenav-content="#exercisesPart"
-        data-te-sidenav-position="absolute"
-        data-te-sidenav-mode="side"
+      <!-- Menu choix + Exos en mode non-smartphone -->
+      <div
+        class="relative hidden md:flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
-        <div
-          data-te-sidenav-menu-ref
-          class="w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+        <nav
+          id="choiceSideMenuWrapper"
+          class="absolute left-0 top-0 w-[400px] h-full z-[1035] -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+          data-te-sidenav-init
+          data-te-sidenav-width="400"
+          data-te-sidenav-hidden="false"
+          data-te-sidenav-content="#exercisesPart"
+          data-te-sidenav-position="absolute"
+          data-te-sidenav-mode="side"
         >
-          <SideMenu />
-        </div>
-      </nav>
-      <!-- Affichage exercices -->
-      <main
-        id="exercisesPart"
-        class="absolute right-0 top-0 hidden md:flex flex-col w-full h-full px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas overflow-x-hidden overflow-y-auto"
-      >
-        {#if $exercicesParams.length !== 0}
           <div
-            id="exercisesWrapper"
-            class="flex flex-col h-full justify-between pl-4"
-            bind:this={divExercices}
+            data-te-sidenav-menu-ref
+            class="w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
           >
-            <div class="flex flex-col md:mt-9 xl:mt-0">
-              {#each $exercicesParams as paramsExercice, i (paramsExercice)}
-                <div
-                  id="exo{i}"
-                  animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
-                >
-                  <Exercice
-                    {paramsExercice}
-                    indiceExercice={i}
-                    indiceLastExercice={$exercicesParams.length}
-                  />
-                </div>
-              {/each}
-            </div>
-            <div class="hidden md:flex items-center justify-center">
-              <Footer />
-            </div>
+            <SideMenu />
           </div>
-        {:else}
-          <div class="relative flex-1 h-full">
+        </nav>
+        <!-- Affichage exercices -->
+        <main
+          id="exercisesPart"
+          class="absolute right-0 top-0 hidden md:flex flex-col w-full h-full px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas overflow-x-hidden overflow-y-auto"
+        >
+          {#if $exercicesParams.length !== 0}
             <div
-              class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6"
+              id="exercisesWrapper"
+              class="flex flex-col h-full justify-between pl-4"
+              bind:this={divExercices}
             >
-            <div class="bg-coopmaths-canvas"><span class="text-coopmaths-canvas">&nbsp;</span></div>
-              <div
-                class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center"
-              >
-                <div class="mt-[10px]">
-                  <div class="hidden md:inline-flex">
-                    <i class="bx bx-chevron-left text-[50px]" />
+              <div class="flex flex-col md:mt-9 xl:mt-0">
+                {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+                  <div
+                    id="exo{i}"
+                    animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
+                  >
+                    <Exercice
+                      {paramsExercice}
+                      indiceExercice={i}
+                      indiceLastExercice={$exercicesParams.length}
+                    />
                   </div>
-                  <div class="inline-flex md:hidden">
-                    <i class="bx bx-chevron-up text-[50px]" />
-                  </div>
-                </div>
-                <div class="font-extralight text-[50px]">
-                  Sélectionner les exercices
-                </div>
+                {/each}
               </div>
-              <div class="flex items-center justify-center">
+              <div class="hidden md:flex items-center justify-center">
                 <Footer />
               </div>
             </div>
-          </div>
-        {/if}
-      </main>
-    </div>
+          {:else}
+            <div class="relative flex-1 h-full">
+              <div
+                class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6"
+              >
+                <div class="bg-coopmaths-canvas">
+                  <span class="text-coopmaths-canvas">&nbsp;</span>
+                </div>
+                <div
+                  class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center"
+                >
+                  <div class="mt-[10px]">
+                    <div class="hidden md:inline-flex">
+                      <i class="bx bx-chevron-left text-[50px]" />
+                    </div>
+                    <div class="inline-flex md:hidden">
+                      <i class="bx bx-chevron-up text-[50px]" />
+                    </div>
+                  </div>
+                  <div class="font-extralight text-[50px]">
+                    Sélectionner les exercices
+                  </div>
+                </div>
+                <div class="flex items-center justify-center">
+                  <Footer />
+                </div>
+              </div>
+            </div>
+          {/if}
+        </main>
+      </div>
     {/if}
   </div>
   <!-- Back to top button -->
