@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiMoins,
@@ -7,7 +7,7 @@ import {
 } from '../../lib/outils/ecritures.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -40,13 +40,13 @@ export const amcReady = true
  * @author Rémi Angot et Mickael Guironnet (AMC par Eric Elter)
  * 4L10 et 3L11
  */
-export const uuid = '77a62'
-// export const ref = '3L11'
+export const uuid = 'db2e0'
+export const ref = '3L11'
 export default function ExerciceDevelopper () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 3 // difficulté
   this.sup2 = 1 // consigne
-  this.sup3 = 8 // forme de développement
+  this.sup3 = 7 // forme de développement
   this.sup4 = false
   this.titre = titre
   this.interactifType = interactifType
@@ -61,9 +61,6 @@ export default function ExerciceDevelopper () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.sup = parseInt(this.sup) // difficulté
-    this.sup2 = parseInt(this.sup2) // consigne
-    this.sup3 = parseInt(this.sup3) // forme de développement
 
     this.consigne = this.sup2 === 1 ? 'Développer' : 'Développer et réduire'
     if (this.nbQuestions > 1 && !context.isDiaporama) this.consigne += ' les expressions suivantes'
@@ -72,18 +69,16 @@ export default function ExerciceDevelopper () {
     let lettre = this.interactif ? ['x', 'y', 'z', 'a', 'b', 'c'] : ['x', 'y', 'z', 't', 'a', 'b', 'c']
     if (this.sup4) lettre = ['x']
 
-    let typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k', 'kx(ax+b)', '(ax+b)×kx', 'k(ax+b)+c', 'c+k(ax+b)']
-    if (this.sup3 === 1) typesDeQuestionsDisponibles = ['k(ax+b)']
-    if (this.sup3 === 2) typesDeQuestionsDisponibles = ['(ax+b)×k']
-    if (this.sup3 === 3) typesDeQuestionsDisponibles = ['kx(ax+b)']
-    if (this.sup3 === 4) typesDeQuestionsDisponibles = ['(ax+b)×kx']
-    if (this.sup3 === 5) typesDeQuestionsDisponibles = ['k(ax+b)+c']
-    if (this.sup3 === 6) typesDeQuestionsDisponibles = ['c+k(ax+b)']
-    if (this.sup3 === 7) typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k']
-    if (this.sup3 === 8) typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k', 'kx(ax+b)', '(ax+b)×kx']
-    if (this.sup3 === 9) typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k', 'kx(ax+b)', '(ax+b)×kx', 'k(ax+b)+c', 'c+k(ax+b)']
-
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k', 'kx(ax+b)', '(ax+b)×kx', 'k(ax+b)+c', 'c+k(ax+b)']
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      min: 1,
+      max: 6,
+      defaut: 7,
+      listeOfCase: typesDeQuestionsDisponibles,
+      nbQuestions: this.nbQuestions,
+      melange: 7
+    })
 
     for (let i = 0, texte, texteCorr, reponse, reponse1, reponse2, reponse3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typesDeQuestions = listeTypeDeQuestions[i]
@@ -248,8 +243,8 @@ export default function ExerciceDevelopper () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Multiplication par un entier positif, tous les termes sont positifs\n2 : Multiplication par un facteur positif\n3 : Multiplication par un facteur relatif']
-  this.besoinFormulaire2Numerique = ['Consigne', 2, '1 : Développer \n2 : Développer et réduire']
-  this.besoinFormulaire3Numerique = ['Forme de développement', 9, '1 : k(ax+b)\n2 : (ax+b)×k\n3 : kx(ax+b)\n4 : (ax+b)×kx\n5 : k(ax+b)+c\n6 : c+k(ax+b)\n7 : Mélange (1 et 2)\n8 : Mélange (1, 2, 3 et 4)\n9 : Mélange (tous les cas)']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Multiplication par un entier positif, tous les termes sont positifs\n2 : Multiplication par un facteur positif\n3 : Multiplication par un facteur relatif\n']
+  this.besoinFormulaire2Numerique = ['Consigne', 2, '1 : Développer, \n2 : Développer et réduire']
+  this.besoinFormulaire3Texte = ['Forme de développement de 1 à 7 séparés par des tirets', '1: k(ax+b)\n2: (ax+b)×k\n3: kx(ax+b)\n4: (ax+b)×kx\n5: k(ax+b)+c\n6: c+k(ax+b)\n7: Mélange']
   this.besoinFormulaire4CaseACocher = ['$x$ est la seule lettre utilisée']
 }
