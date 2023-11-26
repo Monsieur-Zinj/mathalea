@@ -19,7 +19,6 @@ export const dateDePublication = '11/01/2023'
 * * Triangle isocèle rectangle.
 * * Triangle équilatéral
 * @author Sébastien LOZANO
-* Référence 5G31-2
 */
 
 export const uuid = 'c2f77'
@@ -27,7 +26,6 @@ export const ref = '5G31-2'
 export default class anglesTrianglesTableau extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.sup = 1
     this.nbQuestions = 1
     context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
@@ -171,7 +169,6 @@ export default class anglesTrianglesTableau extends Exercice {
   }
 
   nouvelleVersion () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -187,7 +184,7 @@ export default class anglesTrianglesTableau extends Exercice {
       case 3: // isocele - equilatéral
         typesDeQuestionsDisponibles = [3, 4, 5]
         break
-      case 4:
+      default:
         typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
         break
     }
