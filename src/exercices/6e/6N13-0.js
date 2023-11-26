@@ -80,13 +80,13 @@ export default class sensDesPrefixes extends Exercice {
         case 'OnPartDuPrefixe':
           texte = `${prefixe} : $\\dotfill$`
           texteCorr = `${prefixe} : $${calcul}$`
-          if (this.interactif) texte += choixDeroulant(this, i, 0, choixDeroulantCalculs, 'une réponse')
+          if (this.interactif) texte = `${prefixe} : ` + choixDeroulant(this, i, 0, choixDeroulantCalculs, 'une réponse')
           setReponse(this, i, calcul.replace('\\div', '÷').replace('\\times', '✕').replaceAll('~', ' '))
           break
         case 'OnPartDuCalcul':
           texte = `$${calcul}$ : $\\dotfill$`
           texteCorr = `$${calcul}$ : ${prefixe}`
-          if (this.interactif) texte += choixDeroulant(this, i, 0, shuffle(choixDeroulantprefixes), 'une réponse')
+          if (this.interactif) texte = `$${calcul}$ : ` + choixDeroulant(this, i, 0, shuffle(choixDeroulantprefixes), 'une réponse')
           setReponse(this, i, prefixe)
           break
       }

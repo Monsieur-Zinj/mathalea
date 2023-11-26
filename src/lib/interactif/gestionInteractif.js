@@ -82,9 +82,10 @@ function verifExerciceQcm (exercice /** Exercice */, divScore /** HTMLDivElement
 function verifExerciceListeDeroulante (exercice /** Exercice */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
   let nbQuestionsValidees = 0
   let nbQuestionsNonValidees = 0
-  const uiselects = document.querySelectorAll(`.ui.dropdown.ex${exercice.numeroExercice}`)
-  uiselects.forEach(function (uiselect) {
-    uiselect.classList.add('disabled')
+  const selects = document.querySelectorAll(`select[id^="ex${exercice.numeroExercice}"]`)
+  console.log(selects)
+  selects.forEach(function (select) {
+    select.disabled = true
   })
   for (let i = 0; i < exercice.autoCorrection.length; i++) {
     const resultat = verifQuestionListeDeroulante(exercice, i)
