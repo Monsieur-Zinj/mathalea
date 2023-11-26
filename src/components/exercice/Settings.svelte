@@ -157,6 +157,7 @@
           type="number"
           id="settings-nb-questions-{exercice.uuid}"
           min="1"
+          max="100"
           bind:value={nbQuestions}
           on:change={newSettings}
           on:input={newSettings}
