@@ -7212,6 +7212,25 @@
             }
           },
           "typeExercice": "alea"
+        },
+        "can1F23": {
+          "url": "can/1e/can1F23.js",
+          "tags": [],
+          "uuid": "ad915",
+          "id": "can1F23",
+          "titre": "Dresser le tableau de signes d'une fonction dérivée à partir d'un graphique",
+          "datePublication": "18/11/2023",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
         }
       },
       "can1G": {
@@ -12253,7 +12272,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'mathLive'"
+            "type": "'qcm'"
           },
           "amc": {
             "isActive": true,
@@ -12578,7 +12597,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'mathLive'"
+            "type": "'custom'"
           },
           "amc": {
             "isActive": true,
@@ -13241,7 +13260,7 @@
         "tags": [],
         "uuid": "8812e",
         "id": "5G42",
-        "titre": "Nature de parallélogrammes",
+        "titre": "Déterminer la nature de parallélogrammes",
         "features": {
           "interactif": {
             "isActive": false,
@@ -15310,7 +15329,7 @@
         "tags": [],
         "uuid": "9db08",
         "id": "4C25-0",
-        "titre": "Problèmes additifs et de comparaison sur les rationnels",
+        "titre": "Résoudre des problèmes additifs et de comparaison sur les fractions",
         "features": {
           "interactif": {
             "isActive": false,
@@ -15577,7 +15596,7 @@
         "tags": [],
         "uuid": "125bd",
         "id": "4C35",
-        "titre": "Puissances : écriture décimale ou fractionnaire",
+        "titre": "Transformer une écriture de puissance en écriture décimale ou fractionnaire",
         "datePublication": "14/06/2022",
         "features": {
           "interactif": {
@@ -18112,7 +18131,7 @@
         "tags": [],
         "uuid": "acb80",
         "id": "3G43",
-        "titre": "Calculs de volumes",
+        "titre": "Calculer des volumes",
         "dateModification": "05/11/2023",
         "features": {
           "interactif": {
@@ -19224,6 +19243,26 @@
         },
         "typeExercice": "alea"
       },
+      "2F20-3": {
+        "url": "2e/2F20-3.js",
+        "tags": [],
+        "uuid": "573f2",
+        "id": "2F20-3",
+        "titre": "Déterminer graphiquement les extremums",
+        "datePublication": "1/08/2021",
+        "dateModification": "5/08/2022",
+        "features": {
+          "interactif": {
+            "isActive": true,
+            "type": "'mathLive'"
+          },
+          "amc": {
+            "isActive": true,
+            "type": "AMCHybride"
+          }
+        },
+        "typeExercice": "alea"
+      },
       "2F21-1": {
         "url": "2e/2F21-1.js",
         "tags": [],
@@ -19421,28 +19460,8 @@
       "2F32-2": {
         "url": "2e/2F32-2.js",
         "tags": [],
-        "uuid": "573f2",
-        "id": "2F32-2",
-        "titre": "Déterminer graphiquement les extremums",
-        "datePublication": "1/08/2021",
-        "dateModification": "5/08/2022",
-        "features": {
-          "interactif": {
-            "isActive": true,
-            "type": "'mathLive'"
-          },
-          "amc": {
-            "isActive": true,
-            "type": "AMCHybride"
-          }
-        },
-        "typeExercice": "alea"
-      },
-      "2F32-2B": {
-        "url": "2e/2F32-2B.js",
-        "tags": [],
         "uuid": "7761e",
-        "id": "2F32-2B",
+        "id": "2F32-2",
         "titre": "Déterminer graphiquement les extremums",
         "datePublication": "27/06/2023",
         "features": {
@@ -19501,7 +19520,7 @@
         "tags": [],
         "uuid": "86a65",
         "id": "2G10-2",
-        "titre": "Natures de parallélogrammes",
+        "titre": "Déterminer la nature de parallélogrammes",
         "features": {
           "interactif": {
             "isActive": false,
@@ -19573,7 +19592,7 @@
         "tags": [],
         "uuid": "65bed",
         "id": "2G11-5",
-        "titre": "Calculs de volumes",
+        "titre": "Calculer des volumes",
         "dateModification": "05/11/2023",
         "features": {
           "interactif": {
@@ -20383,7 +20402,7 @@
     },
     "2N3": {
       "2N30-1": {
-        "url": "2e/2N30-1.js",
+        "url": "2e/2N30-1.ts",
         "tags": [],
         "uuid": "45726",
         "id": "2N30-1",
@@ -20391,7 +20410,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'mathLive'"
+            "type": "'custom'"
           },
           "amc": {
             "isActive": false,
@@ -20423,7 +20442,7 @@
         "tags": [],
         "uuid": "29919",
         "id": "2N30-3",
-        "titre": "Multiplier des fractions",
+        "titre": "Multiplier ou/et diviser des fractions",
         "features": {
           "interactif": {
             "isActive": true,
@@ -20477,7 +20496,7 @@
         "tags": [],
         "uuid": "c1561",
         "id": "2N30-6",
-        "titre": "Fractions irréductibles",
+        "titre": "Rendre irréductible une fraction",
         "features": {
           "interactif": {
             "isActive": false,
@@ -20495,7 +20514,7 @@
         "tags": [],
         "uuid": "d0fdc",
         "id": "2N30-7",
-        "titre": "Problèmes additifs et de comparaison sur les fractions",
+        "titre": "Résoudre des problèmes additifs et de comparaison sur les fractions",
         "features": {
           "interactif": {
             "isActive": false,
@@ -20513,7 +20532,7 @@
         "tags": [],
         "uuid": "53fbb",
         "id": "2N31-0",
-        "titre": "Puissances : écriture décimale ou fractionnaire",
+        "titre": "Transformer une écriture de puissance en écriture décimale ou fractionnaire",
         "datePublication": "14/06/2022",
         "features": {
           "interactif": {
@@ -20532,7 +20551,7 @@
         "tags": [],
         "uuid": "c9404",
         "id": "2N31-1",
-        "titre": "Notation scientifique",
+        "titre": "Associer un nombre décimal à sa notation scientifique",
         "features": {
           "interactif": {
             "isActive": true,
@@ -20587,7 +20606,7 @@
         "tags": [],
         "uuid": "6fda8",
         "id": "2N31-4",
-        "titre": "Calculs utilisant les priorités opératoires et les puissances",
+        "titre": "Calculer en utilisant les priorités opératoires et les puissances",
         "features": {
           "interactif": {
             "isActive": true,
@@ -20701,7 +20720,7 @@
         "tags": [],
         "uuid": "55cc0",
         "id": "2N32-1",
-        "titre": "Existence d'une racine carrée",
+        "titre": "Justifier l'existence d'une racine carrée",
         "dateModification": "15/11/2023",
         "features": {
           "interactif": {
@@ -21384,7 +21403,7 @@
         "tags": [],
         "uuid": "bb6d5",
         "id": "2N52-2",
-        "titre": "Résoudre des équations carrées",
+        "titre": "Résoudre des équations carrées de type $~x^² = a$",
         "features": {
           "interactif": {
             "isActive": false,
@@ -21479,7 +21498,7 @@
         "tags": [],
         "uuid": "bc1e4",
         "id": "2N60-4",
-        "titre": "Inéquation du premier degré",
+        "titre": "Résoudre une inéquation du premier degré",
         "features": {
           "interactif": {
             "isActive": false,
