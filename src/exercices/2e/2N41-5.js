@@ -6,15 +6,14 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
-export const titre = 'Développer (a-b)²'
+export const titre = 'Développer $(a-b)^2$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
  * Développer (a-b)²
  * @author Matthieu Devillers
- * matthieu.devillers@ac-rennes.fr
- * 2N41-5, ex 2L12-3
  */
 export const uuid = '5a4ad'
 export const ref = '2N41-5'
@@ -36,7 +35,6 @@ export default function DevelopperIdentitesRemarquables4 () {
   this.nbQuestions = 4
   this.sup = 5
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeFractions = [
@@ -85,7 +83,7 @@ export default function DevelopperIdentitesRemarquables4 () {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
     } // mélange des questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0, a, b, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, texteCorr2, reponse, cpt = 0, a, b, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 12)
       b = randint(2, 12)
@@ -93,13 +91,14 @@ export default function DevelopperIdentitesRemarquables4 () {
       ns = fraction[0]
       ds = fraction[1]
       texteCorr = ''
+      texteCorr2 = ''
       switch (typesDeQuestions) {
         case 1:
           texte = `$\\left(x-${a}\\right)^2$` // (x-a)^2
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{red} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{red}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2=\\color{red}x\\color{black}^2-2 \\times \\color{red}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = x^2-${2 * a}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{blue} a = x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{blue}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2=\\color{blue}x\\color{black}^2-2 \\times \\color{blue}x \\color{black}\\times \\color{green}${a} \\color{black}+ \\color{green}${a}\\color{black}^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = x^2-${2 * a}x+${a * a}$`
           } else {
             texteCorr += `$\\left(x+${a} \\right)^2=x^2-${2 * a}x+${a * a}$`
           }
@@ -108,9 +107,9 @@ export default function DevelopperIdentitesRemarquables4 () {
         case 2:
           texte = `$\\left(${b}x-${a}\\right)^2$` // b>1
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{red} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{red}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${b}x\\color{black}\\right)^2 - 2 \\times \\color{red}${b}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2-${2 * b * a}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{blue} a = ${b}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{blue}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{blue}${b}x\\color{black}\\right)^2 - 2 \\times \\color{blue}${b}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2-${2 * b * a}x+${a * a}$`
           } else {
             texteCorr += `$\\left(${b}x+${a}\\right)^2 = ${b * b}x^2-${2 * b * a}x+${a * a}$`
           }
@@ -121,12 +120,12 @@ export default function DevelopperIdentitesRemarquables4 () {
           texte = `$\\left(${b}x+${a}\\right)^2$` // b>1
           if (this.correctionDetaillee) {
             texteCorr += `On remarque que : $\\left(${b}x+${a}\\right)^2 = \\left(${a}-${-b}x\\right)^2$ <br>`
-            texteCorr += `Et on développe l'expression en utilisant l'identité remarquable $\\left(a-b\\right)^2=a^2-2ab+b^2$, avec $\\color{red} a = ${a}\\color{black}$ et $\\color{green} b = ${-b}x \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{green}${b}x\\color{black}+\\color{red}${a}\\color{black}\\right)^2 = \\left(\\color{red}${a}\\color{black}-\\color{green}${-b}x\\color{black}\\right)^2 $ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = \\color{red}${a}\\color{black}^2 - 2 \\times \\color{red}${a}\\color{black} \\times \\color{green}${-b}x \\color{black} + \\left(\\color{green} ${-b}x\\color{black}\\right)^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${a * a} -${2 * (-b) * a}x+${b * b}x^2$ <br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2-${2 * (-b) * a}x+${a * a}$ <br>`
-            texteCorr += `<br> Autre méthode possible : développer en utilisant $\\left(a+b\\right)^2$ avec $a = ${b}x$ et $ b = ${a} $. <br>`
+            texteCorr += `Et on développe l'expression en utilisant l'identité remarquable $\\left(a-b\\right)^2=a^2-2ab+b^2$, avec $\\color{blue} a = ${a}\\color{black}$ et $\\color{green} b = ${-b}x \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{green}${b}x\\color{black}+\\color{blue}${a}\\color{black}\\right)^2 = \\left(\\color{blue}${a}\\color{black}-\\color{green}${-b}x\\color{black}\\right)^2 $ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = \\color{blue}${a}\\color{black}^2 - 2 \\times \\color{blue}${a}\\color{black} \\times \\color{green}${-b}x \\color{black} + \\left(\\color{green} ${-b}x\\color{black}\\right)^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${a * a} -${2 * (-b) * a}x+${b * b}x^2$ <br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${b}x\\color{black}+\\color{green}${a}\\color{black}\\right)^2} = ${b * b}x^2-${2 * (-b) * a}x+${a * a}$`
+            texteCorr2 += `<br><br> Autre méthode possible : développer en utilisant $\\left(a+b\\right)^2$ avec $a = ${b}x$ et $ b = ${a} $. <br>`
           } else {
             texteCorr = texte + `$= ${b * b}x^2-${2 * (-b) * a}x+${a * a}$`
           }
@@ -136,19 +135,33 @@ export default function DevelopperIdentitesRemarquables4 () {
         case 4:
           texte = `$\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)^2$`
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{red} a = ${deprecatedTexFraction(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black}\\right)^2 - 2 \\times \\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
-            texteCorr += `$\\phantom{\\left(\\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{blue} a = ${deprecatedTexFraction(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{blue}${deprecatedTexFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{blue}${deprecatedTexFraction(ns, ds)}x\\color{black}\\right)^2 - 2 \\times \\color{blue}${deprecatedTexFraction(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${deprecatedTexFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$`
             if (pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1) {
-              texteCorr += `<br><br>$\\phantom{\\left(\\color{red}${deprecatedTexFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2-${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
+              texteCorr += `<br><br>$\\phantom{\\left(\\color{blue}${deprecatedTexFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2-${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
             }
           } else {
             texteCorr = texte + `$= ${texFractionReduite(ns * ns, ds * ds)}x^2-${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
           }
-          reponse = [`${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$`, `${texFractionReduite(ns * ns, ds * ds)}x^2-${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`]
+          reponse = [`${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$`, `${texFractionReduite(ns * ns, ds * ds)}x^2-${texFractionReduite(2 * ns * a, ds)}x+${a * a}`]
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
+
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
+      texteCorr += texteCorr2
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: ' $=$ ' })
       setReponse(this, i, reponse)
       if (this.questionJamaisPosee(i, a, b, ns, ds, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
