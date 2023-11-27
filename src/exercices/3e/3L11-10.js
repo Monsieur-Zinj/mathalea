@@ -22,7 +22,6 @@ export const uuid = 'c8403'
 export const ref = '3L11-10'
 export default function TableDoubleDistributivite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
@@ -36,7 +35,6 @@ export default function TableDoubleDistributivite () {
   this.nouvelleVersion = function () {
     this.answers = {}
     this.consigne = this.nbQuestions > 1 ? 'Dans chaque cas, compléter les tables de multiplication, écrire le développement obtenu et le réduire.' : 'Compléter la table de multiplication, écrire le développement obtenu et le réduire.'
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -44,8 +42,7 @@ export default function TableDoubleDistributivite () {
     let typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 2) {
       typesDeQuestionsDisponibles = [3, 4]
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
     }
 
@@ -146,7 +143,7 @@ export default function TableDoubleDistributivite () {
       }
       if (this.interactif) {
         const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(entetesCol, entetesLgn, ['', '', '', ''])
-        const tabMathlive = AddTabDbleEntryMathlive.create(this, i, tableauVide, 'college6eme nospacebefore')
+        const tabMathlive = AddTabDbleEntryMathlive.create(this, i, tableauVide, 'nospacebefore')
         texte += tabMathlive.output
         setReponse(this, i, { L1C1, L1C2, L2C1, L2C2 }, { formatInteractif: 'tableauMathlive' })
       } else {
