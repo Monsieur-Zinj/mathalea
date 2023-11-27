@@ -21049,7 +21049,7 @@
         "tags": [],
         "uuid": "5a4ad",
         "id": "2N41-5",
-        "titre": "Développer (a-b)²",
+        "titre": "Développer $(a-b)^2$",
         "features": {
           "interactif": {
             "isActive": true,
