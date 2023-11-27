@@ -959,7 +959,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2014/tex/dnb_2014_03_caledonie_2.tex',
     urlcor: 'static/dnb/2014/tex/dnb_2014_03_caledonie_2_cor.tex',
-    tags: ['Pythagore', 'Périmètres']
+    tags: ['Pythagore', 'Aires et périmètres']
   },
   dnb_2014_03_caledonie_3: {
     annee: '2014',
@@ -7483,7 +7483,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_1.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Arithmétique', 'Probabilités', 'Calcul littéral', 'Volumes', 'Agrandissement-réduction']
   },
   dnb_2023_05_ameriquenord_2: {
     annee: '2023',
@@ -7495,7 +7495,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_2.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Pythagore', 'Thalès', 'Trigonométrie', 'Aires et périmètres', 'Proportionnalité']
   },
   dnb_2023_05_ameriquenord_3: {
     annee: '2023',
@@ -7507,7 +7507,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_3.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Statistiques']
   },
   dnb_2023_05_ameriquenord_4: {
     annee: '2023',
@@ -7519,7 +7519,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_4.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Algorithmique-programmation']
   },
   dnb_2023_05_ameriquenord_5: {
     annee: '2023',
@@ -7531,7 +7531,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_5.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_05_ameriquenord_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Aires et périmètres', 'Vitesses', 'Proportionnalité']
   },
   dnb_2023_06_asie_1: {
     annee: '2023',
@@ -7543,7 +7543,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_asie_1.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_asie_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Pythagore', 'Thalès', 'Proportionnalité', 'Aires et périmètres']
   },
   dnb_2023_06_asie_2: {
     annee: '2023',
@@ -7555,7 +7555,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_asie_2.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_asie_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Probabilités', 'Pourcentages', 'Transformations', 'Fonctions', 'Puissances', 'Trigonométrie']
   },
   dnb_2023_06_asie_3: {
     annee: '2023',
@@ -7567,7 +7567,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_asie_3.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_asie_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations', 'Tableur']
   },
   dnb_2023_06_asie_4: {
     annee: '2023',
@@ -7579,7 +7579,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_asie_4.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_asie_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Algorithmique-programmation']
   },
   dnb_2023_06_asie_5: {
     annee: '2023',
@@ -7591,7 +7591,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_asie_5.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_asie_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Recherche d\'informations', 'Statistiques', 'Pourcentages', 'Volumes']
   },
   dnb_2023_06_etrangers_1: {
     annee: '2023',
@@ -7603,7 +7603,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_etrangers_1.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_etrangers_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Algorithmique-programmation', 'Calculs numériques', 'Puissances', 'Statistiques']
   },
   dnb_2023_06_etrangers_2: {
     annee: '2023',
@@ -7615,7 +7615,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_etrangers_2.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_etrangers_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Trigonométrie', 'Pythagore', 'Thalès', 'Volumes', 'Recherche d\'informations']
   },
   dnb_2023_06_etrangers_3: {
     annee: '2023',
@@ -7627,7 +7627,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_etrangers_3.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_etrangers_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Programme de calculs', 'Tableur', 'Calcul littéral', 'Équations']
   },
   dnb_2023_06_etrangers_4: {
     annee: '2023',
@@ -7639,7 +7639,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_etrangers_4.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_etrangers_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités', 'Arithmétique']
   },
   dnb_2023_06_etrangers_5: {
     annee: '2023',
@@ -7651,7 +7651,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_etrangers_5.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_etrangers_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Fonctions', 'Lecture graphique', 'Proportionnalité']
   },
   dnb_2023_06_metropole_1: {
     annee: '2023',
@@ -7663,7 +7663,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_metropole_1.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_metropole_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Statistiques']
   },
   dnb_2023_06_metropole_2: {
     annee: '2023',
@@ -7675,7 +7675,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_metropole_2.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_metropole_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Aires et périmètres', 'Pythagore', 'Thalès']
   },
   dnb_2023_06_metropole_3: {
     annee: '2023',
@@ -7687,7 +7687,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_metropole_3.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_metropole_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Pourcentages', 'Probabilités', 'Transformations', 'Volumes']
   },
   dnb_2023_06_metropole_4: {
     annee: '2023',
@@ -7699,7 +7699,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_metropole_4.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_metropole_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Recherche d\'informations', 'Trigonométrie', 'Algorithmique-programmation']
   },
   dnb_2023_06_metropole_5: {
     annee: '2023',
@@ -7711,7 +7711,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_metropole_5.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_metropole_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Équations']
   },
   dnb_2023_06_polynesie_1: {
     annee: '2023',
@@ -7723,7 +7723,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_polynesie_1.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_polynesie_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Fonctions', 'Tableur', 'Calcul littéral']
   },
   dnb_2023_06_polynesie_2: {
     annee: '2023',
@@ -7735,7 +7735,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_polynesie_2.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_polynesie_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Recherche d\'informations', 'Pythagore', 'Pourcentages', 'Trigonométrie', 'Thalès']
   },
   dnb_2023_06_polynesie_3: {
     annee: '2023',
@@ -7747,7 +7747,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_polynesie_3.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_polynesie_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Probabilités']
   },
   dnb_2023_06_polynesie_4: {
     annee: '2023',
@@ -7759,7 +7759,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_polynesie_4.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_polynesie_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Algorithmique-programmation', 'Calcul littéral', 'Programme de calculs', 'Équations']
   },
   dnb_2023_06_polynesie_5: {
     annee: '2023',
@@ -7771,7 +7771,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_06_polynesie_5.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_06_polynesie_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Aires et périmètres', 'Vitesse', 'Arithmétique']
   },
   dnb_2023_09_metropole_1: {
     annee: '2023',
@@ -7783,7 +7783,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_09_metropole_1.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_09_metropole_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Arithmétique', 'Agrandissement-réduction', 'Équations', 'Probabilités', 'Transformations']
   },
   dnb_2023_09_metropole_2: {
     annee: '2023',
@@ -7795,7 +7795,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_09_metropole_2.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_09_metropole_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Algorithmique-programmation']
   },
   dnb_2023_09_metropole_3: {
     annee: '2023',
@@ -7807,7 +7807,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_09_metropole_3.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_09_metropole_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Fonctions', 'Équations', 'Statistiques']
   },
   dnb_2023_09_metropole_4: {
     annee: '2023',
@@ -7819,7 +7819,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_09_metropole_4.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_09_metropole_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Recherche d\'informations', 'Pourcentages', 'Proportionnalité']
   },
   dnb_2023_09_metropole_5: {
     annee: '2023',
@@ -7831,7 +7831,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_09_metropole_5.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_09_metropole_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Pythagore', 'Thalès', 'Trigonometrie', 'Aires et périmètres']
   },
   dnb_2023_09_polynesie_1: {
     annee: '2023',
@@ -7843,7 +7843,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_09_polynesie_1.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_09_polynesie_1_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['QCM', 'Pourcentages', 'Thalès', 'Probabilités']
   },
   dnb_2023_09_polynesie_2: {
     annee: '2023',
@@ -7855,7 +7855,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_09_polynesie_2.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_09_polynesie_2_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Fonctions', 'Tableur']
   },
   dnb_2023_09_polynesie_3: {
     annee: '2023',
@@ -7867,7 +7867,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_09_polynesie_3.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_09_polynesie_3_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Algorithmique-programmation']
   },
   dnb_2023_09_polynesie_4: {
     annee: '2023',
@@ -7879,7 +7879,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_09_polynesie_4.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_09_polynesie_4_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Trigonométrie', 'Pythagore', 'Volumes']
   },
   dnb_2023_09_polynesie_5: {
     annee: '2023',
@@ -7891,7 +7891,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_09_polynesie_5.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_09_polynesie_5_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['Coordonnées terrestres', 'Durées', 'Statistiques', 'Vitesse']
   },
 
 }

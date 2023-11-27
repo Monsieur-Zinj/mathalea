@@ -662,7 +662,7 @@
     "tags": [],
     "uuid": "93f13",
     "id": "2F10-2",
-    "titre": "Donner l'expression d'une fonction affine graphiquement",
+    "titre": "Donner graphiquement l'expression d'une fonction affine",
     "dateModification": "25/05/2023",
     "features": {
       "interactif": {
@@ -1008,7 +1008,7 @@
     "tags": [],
     "uuid": "6e82d",
     "id": "2F25-1",
-    "titre": "Propriétés graphiques de la parité d'une fonction",
+    "titre": "Étudier graphiquement la parité d'une fonction",
     "features": {
       "interactif": {
         "isActive": false,
@@ -1026,7 +1026,7 @@
     "tags": [],
     "uuid": "1e362",
     "id": "2F25-2",
-    "titre": "Étudier la parité d'une fonction",
+    "titre": "Étudier la parité d'une fonction par le calcul",
     "dateModification": "19/06/2023",
     "features": {
       "interactif": {
@@ -1326,7 +1326,7 @@
     "tags": [],
     "uuid": "d633a",
     "id": "2G12-4",
-    "titre": "Déterminer la nature d'un polygone",
+    "titre": "Déterminer la nature d'un polygone avec les coordonnées",
     "features": {
       "interactif": {
         "isActive": false,
@@ -1344,7 +1344,7 @@
     "tags": [],
     "uuid": "2b8bf",
     "id": "2G21-1",
-    "titre": "Construire les images de points par une translation",
+    "titre": "Construire un point à partir d'une égalité vectorielle",
     "dateModification": "29/01/2023",
     "features": {
       "interactif": {
@@ -1644,7 +1644,7 @@
     "tags": [],
     "uuid": "b1777",
     "id": "2G33-1",
-    "titre": "Alignement de 3 points",
+    "titre": "Déterminer si trois points sont alignés",
     "features": {
       "interactif": {
         "isActive": false,
@@ -3311,7 +3311,7 @@
     "tags": [],
     "uuid": "12444",
     "id": "2S11-2",
-    "titre": "Variations en pourcentage",
+    "titre": "Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale",
     "datePublication": "06/01/2022",
     "features": {
       "interactif": {
@@ -3457,27 +3457,9 @@
   "2S30-4": {
     "url": "2e/2S30-4.js",
     "tags": [],
-    "uuid": "e1938",
+    "uuid": "cee5d",
     "id": "2S30-4",
     "titre": "Calculer des probabilités dans une expérience aléatoire à deux épreuves",
-    "features": {
-      "interactif": {
-        "isActive": false,
-        "type": ""
-      },
-      "amc": {
-        "isActive": false,
-        "type": ""
-      }
-    },
-    "typeExercice": "alea"
-  },
-  "2S30-5": {
-    "url": "2e/2S30-5.js",
-    "tags": [],
-    "uuid": "cee5d",
-    "id": "2S30-5",
-    "titre": "Expérience aléatoire à deux épreuves",
     "datePublication": "28/12/2021",
     "dateModification": "30/08/2022",
     "features": {
@@ -3488,6 +3470,24 @@
       "amc": {
         "isActive": true,
         "type": "AMCNum"
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "2S30-5": {
+    "url": "2e/2S30-5.js",
+    "tags": [],
+    "uuid": "e1938",
+    "id": "2S30-5",
+    "titre": "Résoudre un problème basé sur une expérience aléatoire à deux épreuves",
+    "features": {
+      "interactif": {
+        "isActive": false,
+        "type": ""
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
       }
     },
     "typeExercice": "alea"
@@ -5105,9 +5105,9 @@
     "typeExercice": "alea"
   },
   "3L11": {
-    "url": "3e/3L11.js",
+    "url": "3e/3L11new.js",
     "tags": [],
-    "uuid": "77a62",
+    "uuid": "db2e0",
     "id": "3L11",
     "titre": "Utiliser la simple distributivité",
     "features": {

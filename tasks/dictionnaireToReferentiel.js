@@ -25,7 +25,7 @@ for (const ex in dictionnaireDNB) {
 }
 
 const tagsDNB = [...setTagsDNB].sort((a, b) => { return a.localeCompare(b) })
-for (const annee of ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
+for (const annee of ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
   referentiel.DNB[annee] = {}
   for (const ex in dictionnaireDNB) {
     if (dictionnaireDNB[ex].annee === annee) {
