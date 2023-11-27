@@ -1,12 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures.js'
-import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { contraindreValeur, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Supprimer les parenthèses puis réduire l\'expression'
 export const interactifReady = true
@@ -24,7 +24,6 @@ export const uuid = '603a8'
 export const ref = '3L10'
 export default function OpposeExpression () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.spacing = context.isHtml ? 3 : 2
   this.spacing = context.isHtml ? 3 : 2
   this.nbQuestions = 6
@@ -36,20 +35,16 @@ export default function OpposeExpression () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    let listeTypeDeQuestions = []
     const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z']
-    if (!this.sup || (typeof (this.sup) === 'number' && this.sup === 0) || this.sup === '0') { // Si aucune liste n'est saisie
-      listeTypeDeQuestions = rangeMinMax(1, 10)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        listeTypeDeQuestions[0] = contraindreValeur(1, 10, this.sup, 1)
-      } else {
-        listeTypeDeQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeTypeDeQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeTypeDeQuestions[i] = contraindreValeur(1, 10, parseInt(listeTypeDeQuestions[i]), 2) // parseInt en fait un tableau d'entiers
-        }
-      }
-    }
+
+    let listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      max: 10,
+      defaut: 2,
+      melange: 11,
+      nbQuestions: this.nbQuestions
+    })
+
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     for (let i = 0, texte, texteCorr, a, b, c, d, e, f, choixLettre, reponse, reponse1, reponse2, reponse3, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       a = randint(-9, 9, 0)
@@ -153,7 +148,18 @@ export default function OpposeExpression () {
       texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduirePolynomeDegre3(0, reponse1, reponse2, reponse3, choixLettre)}$`
       reponse = `${reduirePolynomeDegre3(0, reponse1, reponse2, reponse3, choixLettre)}`
 
-      // texte += '<br>' + listeTypeDeQuestions[i]
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
       if (!context.isAmc && this.interactif) {
         setReponse(this, i, reponse)
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
@@ -236,7 +242,6 @@ export default function OpposeExpression () {
   }
   this.besoinFormulaireTexte = ['Types de questions',
         `Nombres séparés par des tirets
-0 : Mélange
 1 : '-(ax+b)'
 2 : '(ax+b)'
 3 : '-(ax2+bx+c)'
@@ -246,6 +251,7 @@ export default function OpposeExpression () {
 7 : '(ax+b)-(cx2+dx+e)'
 8 : '-(ax+b)+(cx2+dx+e)'
 9 : '(ax2+bx+c)-(dx2+ex+f)'
-10 : '-(ax2+bx+c)+(dx2+ex+f)'`
+10 : '-(ax2+bx+c)+(dx2+ex+f)'
+11 : Mélange`
   ]
 }
