@@ -8,7 +8,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
-export const titre = 'Variations en pourcentage'
+export const titre = 'Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/01/2022'

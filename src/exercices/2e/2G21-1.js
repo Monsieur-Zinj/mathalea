@@ -9,7 +9,7 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { translationAnimee } from '../../modules/2dAnimation.js'
-export const titre = 'Construire les images de points par une translation'
+export const titre = 'Construire un point à partir d\'une égalité vectorielle'
 export const dateDeModifImportante = '29/01/2023' //  Par EE
 
 /**

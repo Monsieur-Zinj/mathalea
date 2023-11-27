@@ -4,9 +4,9 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-export const titre = 'Alignement de 3 points'
+export const titre = 'Déterminer si trois points sont alignés'
 /**
- * Description didactique de l'exercice Démontrer alignement de 3 points avec coefficient directeur
+ * Déterminer si trois points sont alignés avec les coefficients directeurs
  * @author Stéphane Guyon
  * Référence 2G33-1
 */
