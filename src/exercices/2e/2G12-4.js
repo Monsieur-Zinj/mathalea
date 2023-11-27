@@ -9,7 +9,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-export const titre = 'Déterminer la nature d\'un polygone'
+export const titre = 'Déterminer la nature d\'un polygone avec les coordonnées'
 
 /**
  * 2G12

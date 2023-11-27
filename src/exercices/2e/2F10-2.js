@@ -16,7 +16,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
-export const titre = 'Donner l\'expression d\'une fonction affine graphiquement'
+export const titre = 'Donner graphiquement l\'expression d\'une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
