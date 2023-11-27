@@ -5,6 +5,7 @@ import { egal, listeQuestionsToContenuSansNumero, printlatex, randint } from '..
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
@@ -114,9 +115,21 @@ export default function DoubleDistributivite () {
           texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
         })
       }
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
       if (!context.isAmc && this.interactif) {
         setReponse(this, i, reponse)
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$' })
       } else {
         this.autoCorrection[i] = {
           enonce: '',
