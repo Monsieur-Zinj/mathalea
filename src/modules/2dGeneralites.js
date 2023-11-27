@@ -93,7 +93,7 @@ export function mathalea2d (
               const ySvg = -(code.y - ymax) * pixelsParCm * zoom
               const part1 = code.divLatex.substring(0, 81)
               const part2 = code.divLatex.substring(81)
-              const codeHtml = part1 + ` top: "${ySvg}px"; left: "${xSvg}px"; data-top="${ySvg}" data-left="${xSvg}"` + part2
+              const codeHtml = part1 + ` top: ${ySvg}px; left: ${xSvg}px;" data-top=${ySvg} data-left=${xSvg}` + part2
               divsLatex.push(codeHtml)
             }
           } else {
