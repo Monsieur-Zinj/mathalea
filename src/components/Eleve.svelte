@@ -561,7 +561,7 @@
                 {#if exercices[indiceExercice[k]].interactif}
                   <Button
                     title="Vérifier"
-                    classDeclaration="p-1 font-bold rounded-xl text-xs ml-2"
+                    class="p-1 font-bold rounded-lg text-xs ml-2"
                     on:click={() => checkQuestion(k)}
                     isDisabled={isDisabledButton[k]}
                   />

@@ -91,13 +91,15 @@
     </p>
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
 
-    <button
-      type="submit"
-      on:click={downloadCode}
-      class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
-    >
-      <i class="bx bx-download mr-2" />Télécharger le fichier gift
-    </button>
+    <div class="flex flex-row w-full justify-center md:justify-start items-center">
+      <button
+        type="submit"
+        on:click={downloadCode}
+        class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+      >
+        <i class="bx bx-download mr-2" />Télécharger le fichier gift
+      </button>
+    </div>
     <!-- <button
         on:click={copyCode}
         class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
