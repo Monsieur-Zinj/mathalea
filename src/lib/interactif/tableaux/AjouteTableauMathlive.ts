@@ -41,7 +41,7 @@ function appendCell ({ line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ
     element = document.createElement('math-field')
     cell.appendChild(element)
     const classString = `"tableauMathlive ${classes}"`
-    element.outerHTML = `<math-field id="Ex${NoEx}Q${NoQ}L${indexLine}C${indexCol}" class=${classString} virtual-keyboard-mode=manual></math-field>`
+    element.outerHTML = `<math-field id="champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}" class=${classString} virtual-keyboard-mode=manual></math-field>`
     const divDuSmiley = document.createElement('div')
     divDuSmiley.id = `divDuSmileyEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
     cell.appendChild(divDuSmiley)
