@@ -48,7 +48,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_polynesie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Vitesses",
           "Durées",
@@ -120,7 +120,7 @@
           "QCM",
           "Agrandissement-réduction",
           "Vitesses",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances"
         ]
       },
@@ -894,7 +894,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_04_pondichery_2_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Aires et périmètres",
           "Fonctions",
           "Probabilités",
@@ -1070,7 +1070,7 @@
         "tags": [
           "Prise d'initiatives",
           "Aires et périmètres",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité"
         ]
       },
@@ -1377,7 +1377,7 @@
           "QCM",
           "Aires et périmètres",
           "Calcul littéral",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fractions",
           "Thalès"
         ]
@@ -1564,7 +1564,7 @@
           "Arithmétique",
           "Transformations",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes",
           "Trigonométrie",
           "Aires et périmètres"
@@ -1688,7 +1688,7 @@
         "urlcor": "static/dnb/2023/tex/dnb_2023_06_polynesie_5_cor.tex",
         "tags": [
           "Aires et périmètres",
-          "Vitesse",
+          "Vitesses",
           "Arithmétique"
         ]
       },
@@ -1706,7 +1706,7 @@
         "tags": [
           "Pythagore",
           "Thalès",
-          "Trigonometrie",
+          "Trigonométrie",
           "Aires et périmètres"
         ]
       }
@@ -2395,7 +2395,7 @@
         "url": "static/dnb/2022/tex/dnb_2022_06_asie_4.tex",
         "urlcor": "static/dnb/2022/tex/dnb_2022_06_asie_4_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Algorithmique-programmation",
           "Pourcentages"
         ]
@@ -2476,7 +2476,8 @@
         "url": "static/dnb/2023/tex/dnb_2023_05_ameriquenord_4.tex",
         "urlcor": "static/dnb/2023/tex/dnb_2023_05_ameriquenord_4_cor.tex",
         "tags": [
-          "Algorithmique-programmation"
+          "Algorithmique-programmation",
+          "Géométrie plane"
         ]
       },
       "dnb_2023_06_asie_4": {
@@ -2508,7 +2509,7 @@
         "tags": [
           "QCM",
           "Algorithmique-programmation",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques"
         ]
@@ -2593,7 +2594,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_04_pondichery_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Géométrie dans l'espace",
           "Thalès"
@@ -2628,7 +2629,7 @@
         "tags": [
           "Vrai-faux",
           "Arithmétique",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral"
         ]
       },
@@ -2660,7 +2661,6 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_ameriquesud_3_cor.tex",
         "tags": [
           "Arithmétique",
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -2709,7 +2709,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_06_ameriquenord_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Équations"
         ]
@@ -2763,7 +2763,7 @@
         "tags": [
           "Vrai-faux",
           "Arithmétique",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_04_pondichery_2": {
@@ -2829,9 +2829,8 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_12_ameriquesud_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -2864,7 +2863,7 @@
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_asie_6_cor.tex",
         "tags": [
           "Arithmétique",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -2945,7 +2944,7 @@
         "tags": [
           "Arithmétique",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pythagore",
           "Vrai-faux"
         ]
@@ -3369,7 +3368,7 @@
           "Arithmétique",
           "Transformations",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes",
           "Trigonométrie",
           "Aires et périmètres"
@@ -3442,7 +3441,7 @@
           "QCM",
           "Équations",
           "Arithmétique",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2021_11_ameriquesud_1": {
@@ -3531,7 +3530,7 @@
         "urlcor": "static/dnb/2022/tex/dnb_2022_06_polynesie_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Thalès",
           "Arithmétique",
           "Ratio"
@@ -3640,7 +3639,7 @@
         "urlcor": "static/dnb/2023/tex/dnb_2023_06_polynesie_5_cor.tex",
         "tags": [
           "Aires et périmètres",
-          "Vitesse",
+          "Vitesses",
           "Arithmétique"
         ]
       },
@@ -3729,7 +3728,7 @@
         "tags": [
           "Vrai-faux",
           "Arithmétique",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral"
         ]
       },
@@ -3800,7 +3799,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_metropole_7_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages",
           "Calcul littéral"
         ]
@@ -3818,7 +3817,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_polynesie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Vitesses",
           "Durées",
@@ -3908,7 +3907,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral",
           "Statistiques",
           "Hors programme"
@@ -3926,7 +3925,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_2.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_2_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral",
           "Équations"
         ]
@@ -3943,7 +3942,7 @@
         "url": "static/dnb/2014/tex/dnb_2014_03_caledonie_4.tex",
         "urlcor": "static/dnb/2014/tex/dnb_2014_03_caledonie_4_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral"
         ]
       },
@@ -3960,7 +3959,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_04_pondichery_2_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Aires et périmètres",
           "Fonctions",
           "Probabilités",
@@ -4173,7 +4172,7 @@
           "QCM",
           "Puissances",
           "Calcul littéral",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_etrangers_4": {
@@ -4458,7 +4457,7 @@
           "QCM",
           "Aires et périmètres",
           "Calcul littéral",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fractions",
           "Thalès"
         ]
@@ -4691,7 +4690,7 @@
         "tags": [
           "Programme de calculs",
           "Calcul littéral",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_asie_1": {
@@ -5306,7 +5305,7 @@
         ]
       }
     },
-    "Calculs numériques": {
+    "Calcul numérique": {
       "dnb_2013_04_pondichery_1": {
         "uuid": "dnb_2013_04_pondichery_1",
         "annee": "2013",
@@ -5320,7 +5319,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_04_pondichery_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Géométrie dans l'espace",
           "Thalès"
@@ -5340,7 +5339,7 @@
         "tags": [
           "Vrai-faux",
           "Arithmétique",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral"
         ]
       },
@@ -5356,7 +5355,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_06_etrangers_7.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_etrangers_7_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Recherche d'informations"
         ]
       },
@@ -5373,7 +5372,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_metropole_7_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages",
           "Calcul littéral"
         ]
@@ -5391,7 +5390,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_polynesie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Vitesses",
           "Durées",
@@ -5411,7 +5410,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_09_metropole_4.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_09_metropole_4_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -5427,7 +5426,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_09_polynesie_2.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_09_polynesie_2_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes"
         ]
       },
@@ -5444,7 +5443,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral",
           "Statistiques",
           "Hors programme"
@@ -5462,7 +5461,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_2.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_2_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral",
           "Équations"
         ]
@@ -5481,7 +5480,7 @@
         "tags": [
           "QCM",
           "Puissances",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2013_12_caledonie_8": {
@@ -5496,7 +5495,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_12_caledonie_8.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_12_caledonie_8_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions"
         ]
       },
@@ -5514,7 +5513,7 @@
         "tags": [
           "QCM",
           "Thalès",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Lecture graphique"
         ]
@@ -5531,7 +5530,7 @@
         "url": "static/dnb/2014/tex/dnb_2014_03_caledonie_4.tex",
         "urlcor": "static/dnb/2014/tex/dnb_2014_03_caledonie_4_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral"
         ]
       },
@@ -5548,7 +5547,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_04_pondichery_2_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Aires et périmètres",
           "Fonctions",
           "Probabilités",
@@ -5568,7 +5567,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_06_ameriquenord_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Équations"
         ]
@@ -5585,7 +5584,7 @@
         "url": "static/dnb/2014/tex/dnb_2014_06_asie_1.tex",
         "urlcor": "static/dnb/2014/tex/dnb_2014_06_asie_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances"
         ]
       },
@@ -5604,7 +5603,7 @@
           "QCM",
           "Agrandissement-réduction",
           "Vitesses",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances"
         ]
       },
@@ -5622,7 +5621,7 @@
         "tags": [
           "Vrai-faux",
           "Arithmétique",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2014_09_polynesie_1": {
@@ -5637,7 +5636,7 @@
         "url": "static/dnb/2014/tex/dnb_2014_09_polynesie_1.tex",
         "urlcor": "static/dnb/2014/tex/dnb_2014_09_polynesie_1_cor.tex",
         "tags": [
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2014_11_ameriquesud_1": {
@@ -5653,7 +5652,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_11_ameriquesud_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Vitesses"
         ]
       },
@@ -5670,7 +5669,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -5687,7 +5686,7 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_04_pondichery_3_cor.tex",
         "tags": [
           "Prise d'initiatives",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -5706,7 +5705,7 @@
           "QCM",
           "Puissances",
           "Calcul littéral",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_etrangers_maroc_2": {
@@ -5724,7 +5723,7 @@
           "QCM",
           "Équations",
           "Puissances",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_metropole_5": {
@@ -5741,7 +5740,7 @@
         "tags": [
           "Prise d'initiatives",
           "Aires et périmètres",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité"
         ]
       },
@@ -5758,7 +5757,7 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_06_metropole_7_cor.tex",
         "tags": [
           "Trigonométrie",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_09_polynesie_3": {
@@ -5774,7 +5773,7 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_09_polynesie_3_cor.tex",
         "tags": [
           "Fonctions",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_09_polynesie_7": {
@@ -5792,7 +5791,7 @@
           "Proportionnalité",
           "Grandeurs composées",
           "Tableur",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_12_ameriquesud_1": {
@@ -5808,9 +5807,8 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_12_ameriquesud_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -5826,7 +5824,7 @@
         "url": "static/dnb/2016/tex/dnb_2016_06_ameriquenord_1.tex",
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_ameriquenord_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Équations",
           "Pourcentages",
           "Pythagore"
@@ -5845,7 +5843,7 @@
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_asie_6_cor.tex",
         "tags": [
           "Arithmétique",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -5861,7 +5859,7 @@
         "url": "static/dnb/2016/tex/dnb_2016_06_etrangers_1.tex",
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_etrangers_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Trigonométrie",
           "QCM"
@@ -5879,7 +5877,7 @@
         "url": "static/dnb/2017/tex/dnb_2017_05_pondichery_5.tex",
         "urlcor": "static/dnb/2017/tex/dnb_2017_05_pondichery_5_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Volumes"
         ]
@@ -5898,7 +5896,7 @@
         "tags": [
           "Tableur",
           "Statistiques",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2017_11_ameriquesud_4": {
@@ -5915,7 +5913,7 @@
         "tags": [
           "Arithmétique",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pythagore",
           "Vrai-faux"
         ]
@@ -5932,7 +5930,7 @@
         "url": "static/dnb/2017/tex/dnb_2017_11_ameriquesud_7.tex",
         "urlcor": "static/dnb/2017/tex/dnb_2017_11_ameriquesud_7_cor.tex",
         "tags": [
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2017_12_caledonie_1": {
@@ -5950,7 +5948,7 @@
           "QCM",
           "Aires et périmètres",
           "Calcul littéral",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fractions",
           "Thalès"
         ]
@@ -5968,7 +5966,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_3_cor.tex",
         "tags": [
           "Tableur",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité"
         ]
       },
@@ -5985,7 +5983,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_6_cor.tex",
         "tags": [
           "Fonctions",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_ameriquenord_7": {
@@ -6000,7 +5998,7 @@
         "url": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_7.tex",
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_7_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Grandeurs composées",
           "Volumes"
         ]
@@ -6018,7 +6016,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_metropole_1_cor.tex",
         "tags": [
           "Probabilités",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_metropole_5": {
@@ -6035,7 +6033,7 @@
         "tags": [
           "Programme de calculs",
           "Calcul littéral",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_asie_6": {
@@ -6051,7 +6049,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_asie_6_cor.tex",
         "tags": [
           "Proportionnalité",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_etrangers_7": {
@@ -6067,7 +6065,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_etrangers_7_cor.tex",
         "tags": [
           "Prise d'initiatives",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes"
         ]
       },
@@ -6085,7 +6083,7 @@
         "tags": [
           "Statistiques",
           "Tableur",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_11_ameriquesud_5": {
@@ -6100,7 +6098,7 @@
         "url": "static/dnb/2019/tex/dnb_2019_11_ameriquesud_5.tex",
         "urlcor": "static/dnb/2019/tex/dnb_2019_11_ameriquesud_5_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Prise d'initiatives"
         ]
       },
@@ -6117,7 +6115,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_12_caledonie_6_cor.tex",
         "tags": [
           "Grandeurs composées",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Équations",
           "Lecture graphique"
@@ -6136,7 +6134,7 @@
         "urlcor": "static/dnb/2020/tex/dnb_2020_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques",
           "Probabilités",
@@ -6158,7 +6156,7 @@
           "Arithmétique",
           "Transformations",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes",
           "Trigonométrie",
           "Aires et périmètres"
@@ -6179,7 +6177,7 @@
           "QCM",
           "Équations",
           "Arithmétique",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2022_06_asie_4": {
@@ -6194,7 +6192,7 @@
         "url": "static/dnb/2022/tex/dnb_2022_06_asie_4.tex",
         "urlcor": "static/dnb/2022/tex/dnb_2022_06_asie_4_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Algorithmique-programmation",
           "Pourcentages"
         ]
@@ -6212,7 +6210,7 @@
         "urlcor": "static/dnb/2022/tex/dnb_2022_06_polynesie_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Thalès",
           "Arithmétique",
           "Ratio"
@@ -6232,7 +6230,7 @@
         "tags": [
           "QCM",
           "Algorithmique-programmation",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques"
         ]
@@ -6271,7 +6269,7 @@
           "Coordonnées terrestres",
           "Durées",
           "Statistiques",
-          "Vitesse"
+          "Vitesses"
         ]
       }
     },
@@ -6308,7 +6306,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_polynesie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Vitesses",
           "Durées",
@@ -6714,7 +6712,7 @@
           "Coordonnées terrestres",
           "Durées",
           "Statistiques",
-          "Vitesse"
+          "Vitesses"
         ]
       }
     },
@@ -6802,7 +6800,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_2.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_2_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral",
           "Équations"
         ]
@@ -6851,7 +6849,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_06_ameriquenord_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Équations"
         ]
@@ -7080,7 +7078,7 @@
           "QCM",
           "Équations",
           "Puissances",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_etrangers_maroc_6": {
@@ -7252,7 +7250,7 @@
         "url": "static/dnb/2016/tex/dnb_2016_06_ameriquenord_1.tex",
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_ameriquenord_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Équations",
           "Pourcentages",
           "Pythagore"
@@ -7810,7 +7808,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_12_caledonie_6_cor.tex",
         "tags": [
           "Grandeurs composées",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Équations",
           "Lecture graphique"
@@ -7934,7 +7932,7 @@
           "QCM",
           "Équations",
           "Arithmétique",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2022_06_polynesie_3": {
@@ -8311,7 +8309,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_12_caledonie_8.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_12_caledonie_8_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions"
         ]
       },
@@ -8329,7 +8327,7 @@
         "tags": [
           "QCM",
           "Thalès",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Lecture graphique"
         ]
@@ -8347,7 +8345,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_04_pondichery_2_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Aires et périmètres",
           "Fonctions",
           "Probabilités",
@@ -8702,7 +8700,7 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_09_polynesie_3_cor.tex",
         "tags": [
           "Fonctions",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_12_ameriquesud_2": {
@@ -8828,7 +8826,7 @@
         "url": "static/dnb/2016/tex/dnb_2016_06_etrangers_1.tex",
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_etrangers_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Trigonométrie",
           "QCM"
@@ -9299,7 +9297,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_6_cor.tex",
         "tags": [
           "Fonctions",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_metropole_6": {
@@ -9440,7 +9438,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_12_caledonie_6_cor.tex",
         "tags": [
           "Grandeurs composées",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Équations",
           "Lecture graphique"
@@ -10015,7 +10013,7 @@
         "tags": [
           "Arithmétique",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pythagore",
           "Vrai-faux"
         ]
@@ -10035,7 +10033,7 @@
           "QCM",
           "Aires et périmètres",
           "Calcul littéral",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fractions",
           "Thalès"
         ]
@@ -10248,7 +10246,7 @@
           "Arithmétique",
           "Transformations",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes",
           "Trigonométrie",
           "Aires et périmètres"
@@ -10308,7 +10306,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_04_pondichery_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Géométrie dans l'espace",
           "Thalès"
@@ -10446,7 +10444,7 @@
         "urlcor": "static/dnb/2020/tex/dnb_2020_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques",
           "Probabilités",
@@ -11036,6 +11034,22 @@
           "Pythagore",
           "Géométrie plane"
         ]
+      },
+      "dnb_2023_05_ameriquenord_4": {
+        "uuid": "dnb_2023_05_ameriquenord_4",
+        "annee": "2023",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "numeroInitial": "4",
+        "png": "static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_4.png",
+        "pngcor": "static/dnb/2023/tex/png/dnb_2023_05_ameriquenord_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_05_ameriquenord_4.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_05_ameriquenord_4_cor.tex",
+        "tags": [
+          "Algorithmique-programmation",
+          "Géométrie plane"
+        ]
       }
     },
     "Grandeurs composées": {
@@ -11122,7 +11136,7 @@
           "Proportionnalité",
           "Grandeurs composées",
           "Tableur",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2016_04_pondichery_1": {
@@ -11462,7 +11476,7 @@
         "url": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_7.tex",
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_7_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Grandeurs composées",
           "Volumes"
         ]
@@ -11616,7 +11630,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_12_caledonie_6_cor.tex",
         "tags": [
           "Grandeurs composées",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Équations",
           "Lecture graphique"
@@ -11706,7 +11720,6 @@
         "url": "static/dnb/2013/tex/dnb_2013_06_ameriquenord_2.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_ameriquenord_2_cor.tex",
         "tags": [
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -11723,7 +11736,6 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_ameriquesud_3_cor.tex",
         "tags": [
           "Arithmétique",
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -11740,7 +11752,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral",
           "Statistiques",
           "Hors programme"
@@ -11792,7 +11804,6 @@
         "url": "static/dnb/2015/tex/dnb_2015_09_polynesie_4.tex",
         "urlcor": "static/dnb/2015/tex/dnb_2015_09_polynesie_4_cor.tex",
         "tags": [
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -11809,9 +11820,8 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_12_ameriquesud_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -11827,7 +11837,6 @@
         "url": "static/dnb/2015/tex/dnb_2015_12_caledonie_7.tex",
         "urlcor": "static/dnb/2015/tex/dnb_2015_12_caledonie_7_cor.tex",
         "tags": [
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -11953,7 +11962,7 @@
         "tags": [
           "QCM",
           "Thalès",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Lecture graphique"
         ]
@@ -12071,7 +12080,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_12_caledonie_6_cor.tex",
         "tags": [
           "Grandeurs composées",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Équations",
           "Lecture graphique"
@@ -12309,7 +12318,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_metropole_7_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages",
           "Calcul littéral"
         ]
@@ -12341,7 +12350,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_09_metropole_4.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_09_metropole_4_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -12496,7 +12505,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -12513,7 +12522,7 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_04_pondichery_3_cor.tex",
         "tags": [
           "Prise d'initiatives",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -12702,7 +12711,7 @@
         "url": "static/dnb/2016/tex/dnb_2016_06_ameriquenord_1.tex",
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_ameriquenord_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Équations",
           "Pourcentages",
           "Pythagore"
@@ -12752,7 +12761,7 @@
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_asie_6_cor.tex",
         "tags": [
           "Arithmétique",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -13374,7 +13383,7 @@
         "url": "static/dnb/2022/tex/dnb_2022_06_asie_4.tex",
         "urlcor": "static/dnb/2022/tex/dnb_2022_06_asie_4_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Algorithmique-programmation",
           "Pourcentages"
         ]
@@ -13763,7 +13772,7 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_04_pondichery_3_cor.tex",
         "tags": [
           "Prise d'initiatives",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -13814,7 +13823,7 @@
         "tags": [
           "Prise d'initiatives",
           "Aires et périmètres",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité"
         ]
       },
@@ -14049,7 +14058,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_etrangers_7_cor.tex",
         "tags": [
           "Prise d'initiatives",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes"
         ]
       },
@@ -14100,7 +14109,7 @@
         "url": "static/dnb/2019/tex/dnb_2019_11_ameriquesud_5.tex",
         "urlcor": "static/dnb/2019/tex/dnb_2019_11_ameriquesud_5_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Prise d'initiatives"
         ]
       },
@@ -14367,7 +14376,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_04_pondichery_2_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Aires et périmètres",
           "Fonctions",
           "Probabilités",
@@ -15167,7 +15176,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_metropole_1_cor.tex",
         "tags": [
           "Probabilités",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_etrangers_4": {
@@ -15344,7 +15353,7 @@
         "urlcor": "static/dnb/2020/tex/dnb_2020_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques",
           "Probabilités",
@@ -16131,7 +16140,7 @@
         "tags": [
           "Programme de calculs",
           "Calcul littéral",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_asie_1": {
@@ -16623,7 +16632,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_polynesie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Vitesses",
           "Durées",
@@ -16948,7 +16957,7 @@
         "tags": [
           "Prise d'initiatives",
           "Aires et périmètres",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité"
         ]
       },
@@ -17052,7 +17061,7 @@
           "Proportionnalité",
           "Grandeurs composées",
           "Tableur",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_12_ameriquesud_5": {
@@ -17289,7 +17298,7 @@
         "url": "static/dnb/2017/tex/dnb_2017_05_pondichery_5.tex",
         "urlcor": "static/dnb/2017/tex/dnb_2017_05_pondichery_5_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Volumes"
         ]
@@ -17718,7 +17727,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_3_cor.tex",
         "tags": [
           "Tableur",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité"
         ]
       },
@@ -17752,7 +17761,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_asie_6_cor.tex",
         "tags": [
           "Proportionnalité",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_07_metropole_2": {
@@ -18019,7 +18028,7 @@
         "tags": [
           "QCM",
           "Puissances",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2014_06_asie_1": {
@@ -18034,7 +18043,7 @@
         "url": "static/dnb/2014/tex/dnb_2014_06_asie_1.tex",
         "urlcor": "static/dnb/2014/tex/dnb_2014_06_asie_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances"
         ]
       },
@@ -18053,7 +18062,7 @@
           "QCM",
           "Agrandissement-réduction",
           "Vitesses",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances"
         ]
       },
@@ -18091,7 +18100,7 @@
           "QCM",
           "Puissances",
           "Calcul littéral",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_etrangers_maroc_2": {
@@ -18109,7 +18118,7 @@
           "QCM",
           "Équations",
           "Puissances",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_metropole_4": {
@@ -18331,7 +18340,7 @@
         "urlcor": "static/dnb/2020/tex/dnb_2020_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques",
           "Probabilités",
@@ -18432,7 +18441,7 @@
         "tags": [
           "QCM",
           "Algorithmique-programmation",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques"
         ]
@@ -19040,7 +19049,7 @@
         "url": "static/dnb/2016/tex/dnb_2016_06_ameriquenord_1.tex",
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_ameriquenord_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Équations",
           "Pourcentages",
           "Pythagore"
@@ -19317,7 +19326,7 @@
         "tags": [
           "Arithmétique",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pythagore",
           "Vrai-faux"
         ]
@@ -20089,7 +20098,7 @@
         "tags": [
           "Pythagore",
           "Thalès",
-          "Trigonometrie",
+          "Trigonométrie",
           "Aires et périmètres"
         ]
       },
@@ -20162,7 +20171,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_polynesie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Vitesses",
           "Durées",
@@ -20183,7 +20192,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral",
           "Statistiques",
           "Hors programme"
@@ -20203,7 +20212,7 @@
         "tags": [
           "QCM",
           "Puissances",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2014_03_caledonie_1": {
@@ -20220,7 +20229,7 @@
         "tags": [
           "QCM",
           "Thalès",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Lecture graphique"
         ]
@@ -20254,7 +20263,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_04_pondichery_2_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Aires et périmètres",
           "Fonctions",
           "Probabilités",
@@ -20274,7 +20283,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_06_ameriquenord_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Équations"
         ]
@@ -20294,7 +20303,7 @@
           "QCM",
           "Agrandissement-réduction",
           "Vitesses",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances"
         ]
       },
@@ -20311,7 +20320,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_11_ameriquesud_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Vitesses"
         ]
       },
@@ -20328,7 +20337,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -20386,7 +20395,7 @@
           "QCM",
           "Puissances",
           "Calcul littéral",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_etrangers_maroc_2": {
@@ -20404,7 +20413,7 @@
           "QCM",
           "Équations",
           "Puissances",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_12_ameriquesud_1": {
@@ -20420,9 +20429,8 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_12_ameriquesud_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -20474,7 +20482,7 @@
         "url": "static/dnb/2016/tex/dnb_2016_06_etrangers_1.tex",
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_etrangers_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Trigonométrie",
           "QCM"
@@ -20549,7 +20557,7 @@
           "QCM",
           "Aires et périmètres",
           "Calcul littéral",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fractions",
           "Thalès"
         ]
@@ -20793,7 +20801,7 @@
         "urlcor": "static/dnb/2020/tex/dnb_2020_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques",
           "Probabilités",
@@ -20872,7 +20880,7 @@
           "QCM",
           "Équations",
           "Arithmétique",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2022_06_ameriquenord_2": {
@@ -20988,7 +20996,7 @@
         "tags": [
           "QCM",
           "Algorithmique-programmation",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques"
         ]
@@ -21121,7 +21129,7 @@
         "urlcor": "static/dnb/2022/tex/dnb_2022_06_polynesie_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Thalès",
           "Arithmétique",
           "Ratio"
@@ -21141,7 +21149,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_06_etrangers_7.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_etrangers_7_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Recherche d'informations"
         ]
       },
@@ -21704,7 +21712,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral",
           "Statistiques",
           "Hors programme"
@@ -22101,7 +22109,7 @@
         "tags": [
           "Tableur",
           "Statistiques",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2017_11_ameriquesud_5": {
@@ -22382,7 +22390,7 @@
         "tags": [
           "Statistiques",
           "Tableur",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_11_ameriquesud_1": {
@@ -22474,7 +22482,7 @@
         "urlcor": "static/dnb/2020/tex/dnb_2020_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques",
           "Probabilités",
@@ -22714,7 +22722,7 @@
         "tags": [
           "QCM",
           "Algorithmique-programmation",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques"
         ]
@@ -22766,95 +22774,11 @@
           "Coordonnées terrestres",
           "Durées",
           "Statistiques",
-          "Vitesse"
+          "Vitesses"
         ]
       }
     },
     "Système d'équations": {
-      "dnb_2013_06_ameriquenord_2": {
-        "uuid": "dnb_2013_06_ameriquenord_2",
-        "annee": "2013",
-        "lieu": "Amérique du Nord",
-        "mois": "Juin",
-        "numeroInitial": "2",
-        "png": "static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_2.png",
-        "pngCor": "static/dnb/2013/tex/png/dnb_2013_06_ameriquenord_2_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2013/tex/dnb_2013_06_ameriquenord_2.tex",
-        "urlcor": "static/dnb/2013/tex/dnb_2013_06_ameriquenord_2_cor.tex",
-        "tags": [
-          "Système d'équations",
-          "Hors programme"
-        ]
-      },
-      "dnb_2013_11_ameriquesud_3": {
-        "uuid": "dnb_2013_11_ameriquesud_3",
-        "annee": "2013",
-        "lieu": "Amérique du sud",
-        "mois": "Novembre",
-        "numeroInitial": "3",
-        "png": "static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_3.png",
-        "pngCor": "static/dnb/2013/tex/png/dnb_2013_11_ameriquesud_3_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2013/tex/dnb_2013_11_ameriquesud_3.tex",
-        "urlcor": "static/dnb/2013/tex/dnb_2013_11_ameriquesud_3_cor.tex",
-        "tags": [
-          "Arithmétique",
-          "Système d'équations",
-          "Hors programme"
-        ]
-      },
-      "dnb_2015_09_polynesie_4": {
-        "uuid": "dnb_2015_09_polynesie_4",
-        "annee": "2015",
-        "lieu": "Polynésie",
-        "mois": "Septembre",
-        "numeroInitial": "4",
-        "png": "static/dnb/2015/tex/png/dnb_2015_09_polynesie_4.png",
-        "pngCor": "static/dnb/2015/tex/png/dnb_2015_09_polynesie_4_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2015/tex/dnb_2015_09_polynesie_4.tex",
-        "urlcor": "static/dnb/2015/tex/dnb_2015_09_polynesie_4_cor.tex",
-        "tags": [
-          "Système d'équations",
-          "Hors programme"
-        ]
-      },
-      "dnb_2015_12_ameriquesud_1": {
-        "uuid": "dnb_2015_12_ameriquesud_1",
-        "annee": "2015",
-        "lieu": "Amérique du sud",
-        "mois": "Décembre",
-        "numeroInitial": "1",
-        "png": "static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_1.png",
-        "pngCor": "static/dnb/2015/tex/png/dnb_2015_12_ameriquesud_1_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2015/tex/dnb_2015_12_ameriquesud_1.tex",
-        "urlcor": "static/dnb/2015/tex/dnb_2015_12_ameriquesud_1_cor.tex",
-        "tags": [
-          "QCM",
-          "Calculs numériques",
-          "Arithmétique",
-          "Système d'équations",
-          "Hors programme"
-        ]
-      },
-      "dnb_2015_12_caledonie_7": {
-        "uuid": "dnb_2015_12_caledonie_7",
-        "annee": "2015",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Décembre",
-        "numeroInitial": "7",
-        "png": "static/dnb/2015/tex/png/dnb_2015_12_caledonie_7.png",
-        "pngCor": "static/dnb/2015/tex/png/dnb_2015_12_caledonie_7_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2015/tex/dnb_2015_12_caledonie_7.tex",
-        "urlcor": "static/dnb/2015/tex/dnb_2015_12_caledonie_7_cor.tex",
-        "tags": [
-          "Système d'équations",
-          "Hors programme"
-        ]
-      },
       "dnb_2015_03_caledonie_4": {
         "uuid": "dnb_2015_03_caledonie_4",
         "annee": "2015",
@@ -23293,7 +23217,7 @@
           "Proportionnalité",
           "Grandeurs composées",
           "Tableur",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_12_ameriquesud_2": {
@@ -23498,7 +23422,7 @@
         "tags": [
           "Tableur",
           "Statistiques",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2017_12_caledonie_3": {
@@ -23651,7 +23575,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_3_cor.tex",
         "tags": [
           "Tableur",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité"
         ]
       },
@@ -23758,7 +23682,7 @@
         "tags": [
           "Statistiques",
           "Tableur",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_11_ameriquesud_2": {
@@ -24054,7 +23978,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_04_pondichery_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Géométrie dans l'espace",
           "Thalès"
@@ -24189,7 +24113,7 @@
         "tags": [
           "QCM",
           "Thalès",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Lecture graphique"
         ]
@@ -24606,7 +24530,7 @@
           "QCM",
           "Aires et périmètres",
           "Calcul littéral",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fractions",
           "Thalès"
         ]
@@ -25079,7 +25003,7 @@
         "urlcor": "static/dnb/2022/tex/dnb_2022_06_polynesie_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Thalès",
           "Arithmétique",
           "Ratio"
@@ -25244,7 +25168,7 @@
         "tags": [
           "Pythagore",
           "Thalès",
-          "Trigonometrie",
+          "Trigonométrie",
           "Aires et périmètres"
         ]
       },
@@ -25552,7 +25476,7 @@
           "Arithmétique",
           "Transformations",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes",
           "Trigonométrie",
           "Aires et périmètres"
@@ -25762,26 +25686,6 @@
           "Équations",
           "Probabilités",
           "Transformations"
-        ]
-      }
-    },
-    "Trigonometrie": {
-      "dnb_2023_09_metropole_5": {
-        "uuid": "dnb_2023_09_metropole_5",
-        "annee": "2023",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "numeroInitial": "5",
-        "png": "static/dnb/2023/tex/png/dnb_2023_09_metropole_5.png",
-        "pngCor": "static/dnb/2023/tex/png/dnb_2023_09_metropole_5_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2023/tex/dnb_2023_09_metropole_5.tex",
-        "urlcor": "static/dnb/2023/tex/dnb_2023_09_metropole_5_cor.tex",
-        "tags": [
-          "Pythagore",
-          "Thalès",
-          "Trigonometrie",
-          "Aires et périmètres"
         ]
       }
     },
@@ -26082,7 +25986,7 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_06_metropole_7_cor.tex",
         "tags": [
           "Trigonométrie",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_polynesie_3": {
@@ -26234,7 +26138,7 @@
         "url": "static/dnb/2016/tex/dnb_2016_06_etrangers_1.tex",
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_etrangers_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Trigonométrie",
           "QCM"
@@ -26746,7 +26650,7 @@
           "Arithmétique",
           "Transformations",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes",
           "Trigonométrie",
           "Aires et périmètres"
@@ -26990,6 +26894,24 @@
           "Thalès"
         ]
       },
+      "dnb_2023_09_metropole_5": {
+        "uuid": "dnb_2023_09_metropole_5",
+        "annee": "2023",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_09_metropole_5.png",
+        "pngcor": "static/dnb/2023/tex/png/dnb_2023_09_metropole_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_09_metropole_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_09_metropole_5_cor.tex",
+        "tags": [
+          "Pythagore",
+          "Thalès",
+          "Trigonométrie",
+          "Aires et périmètres"
+        ]
+      },
       "dnb_2023_09_polynesie_4": {
         "uuid": "dnb_2023_09_polynesie_4",
         "annee": "2023",
@@ -27005,43 +26927,6 @@
           "Trigonométrie",
           "Pythagore",
           "Volumes"
-        ]
-      }
-    },
-    "Vitesse": {
-      "dnb_2023_06_polynesie_5": {
-        "uuid": "dnb_2023_06_polynesie_5",
-        "annee": "2023",
-        "lieu": "Polynésie",
-        "mois": "Juin",
-        "numeroInitial": "5",
-        "png": "static/dnb/2023/tex/png/dnb_2023_06_polynesie_5.png",
-        "pngCor": "static/dnb/2023/tex/png/dnb_2023_06_polynesie_5_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2023/tex/dnb_2023_06_polynesie_5.tex",
-        "urlcor": "static/dnb/2023/tex/dnb_2023_06_polynesie_5_cor.tex",
-        "tags": [
-          "Aires et périmètres",
-          "Vitesse",
-          "Arithmétique"
-        ]
-      },
-      "dnb_2023_09_polynesie_5": {
-        "uuid": "dnb_2023_09_polynesie_5",
-        "annee": "2023",
-        "lieu": "Polynésie",
-        "mois": "Septembre",
-        "numeroInitial": "5",
-        "png": "static/dnb/2023/tex/png/dnb_2023_09_polynesie_5.png",
-        "pngCor": "static/dnb/2023/tex/png/dnb_2023_09_polynesie_5_cor.png",
-        "typeExercice": "dnb",
-        "url": "static/dnb/2023/tex/dnb_2023_09_polynesie_5.tex",
-        "urlcor": "static/dnb/2023/tex/dnb_2023_09_polynesie_5_cor.tex",
-        "tags": [
-          "Coordonnées terrestres",
-          "Durées",
-          "Statistiques",
-          "Vitesse"
         ]
       }
     },
@@ -27078,7 +26963,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_polynesie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Vitesses",
           "Durées",
@@ -27189,7 +27074,7 @@
           "QCM",
           "Agrandissement-réduction",
           "Vitesses",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances"
         ]
       },
@@ -27222,7 +27107,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_11_ameriquesud_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Vitesses"
         ]
       },
@@ -27811,6 +27696,41 @@
           "Vitesses",
           "Proportionnalité"
         ]
+      },
+      "dnb_2023_06_polynesie_5": {
+        "uuid": "dnb_2023_06_polynesie_5",
+        "annee": "2023",
+        "lieu": "Polynésie",
+        "mois": "Juin",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_06_polynesie_5.png",
+        "pngcor": "static/dnb/2023/tex/png/dnb_2023_06_polynesie_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_06_polynesie_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_06_polynesie_5_cor.tex",
+        "tags": [
+          "Aires et périmètres",
+          "Vitesses",
+          "Arithmétique"
+        ]
+      },
+      "dnb_2023_09_polynesie_5": {
+        "uuid": "dnb_2023_09_polynesie_5",
+        "annee": "2023",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_09_polynesie_5.png",
+        "pngcor": "static/dnb/2023/tex/png/dnb_2023_09_polynesie_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_09_polynesie_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_09_polynesie_5_cor.tex",
+        "tags": [
+          "Coordonnées terrestres",
+          "Durées",
+          "Statistiques",
+          "Vitesses"
+        ]
       }
     },
     "Volumes": {
@@ -27962,7 +27882,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_09_polynesie_2.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_09_polynesie_2_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes"
         ]
       },
@@ -28429,7 +28349,7 @@
         "url": "static/dnb/2017/tex/dnb_2017_05_pondichery_5.tex",
         "urlcor": "static/dnb/2017/tex/dnb_2017_05_pondichery_5_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Volumes"
         ]
@@ -28676,7 +28596,7 @@
         "url": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_7.tex",
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_7_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Grandeurs composées",
           "Volumes"
         ]
@@ -28727,7 +28647,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_etrangers_7_cor.tex",
         "tags": [
           "Prise d'initiatives",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes"
         ]
       },
@@ -28885,7 +28805,7 @@
           "Arithmétique",
           "Transformations",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes",
           "Trigonométrie",
           "Aires et périmètres"
@@ -29210,7 +29130,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_04_pondichery_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Géométrie dans l'espace",
           "Thalès"
@@ -29230,7 +29150,7 @@
         "tags": [
           "Vrai-faux",
           "Arithmétique",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral"
         ]
       },
@@ -29247,7 +29167,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_metropole_7_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages",
           "Calcul littéral"
         ]
@@ -29335,7 +29255,7 @@
         "tags": [
           "Vrai-faux",
           "Arithmétique",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2014_09_metropole_2": {
@@ -29444,7 +29364,7 @@
         "tags": [
           "Arithmétique",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pythagore",
           "Vrai-faux"
         ]
@@ -29645,7 +29565,7 @@
         "urlcor": "static/dnb/2022/tex/dnb_2022_06_polynesie_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Thalès",
           "Arithmétique",
           "Ratio"
@@ -29668,7 +29588,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_04_pondichery_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Géométrie dans l'espace",
           "Thalès"
@@ -29791,7 +29711,6 @@
         "url": "static/dnb/2013/tex/dnb_2013_06_ameriquenord_2.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_ameriquenord_2_cor.tex",
         "tags": [
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -29920,7 +29839,7 @@
         "tags": [
           "Vrai-faux",
           "Arithmétique",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral"
         ]
       },
@@ -30133,7 +30052,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_06_etrangers_7.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_etrangers_7_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Recherche d'informations"
         ]
       },
@@ -30246,7 +30165,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_metropole_7_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages",
           "Calcul littéral"
         ]
@@ -30264,7 +30183,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_06_polynesie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Vitesses",
           "Durées",
@@ -30442,7 +30361,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_09_metropole_4.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_09_metropole_4_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -30541,7 +30460,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_09_polynesie_2.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_09_polynesie_2_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes"
         ]
       },
@@ -30660,7 +30579,6 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_ameriquesud_3_cor.tex",
         "tags": [
           "Arithmétique",
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -30727,7 +30645,7 @@
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral",
           "Statistiques",
           "Hors programme"
@@ -30745,7 +30663,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_2.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_11_amdusudsecours_2_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral",
           "Équations"
         ]
@@ -30828,7 +30746,7 @@
         "tags": [
           "QCM",
           "Puissances",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2013_12_caledonie_2": {
@@ -30936,7 +30854,7 @@
         "url": "static/dnb/2013/tex/dnb_2013_12_caledonie_8.tex",
         "urlcor": "static/dnb/2013/tex/dnb_2013_12_caledonie_8_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions"
         ]
       }
@@ -30956,7 +30874,7 @@
         "tags": [
           "QCM",
           "Thalès",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Lecture graphique"
         ]
@@ -31006,7 +30924,7 @@
         "url": "static/dnb/2014/tex/dnb_2014_03_caledonie_4.tex",
         "urlcor": "static/dnb/2014/tex/dnb_2014_03_caledonie_4_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Calcul littéral"
         ]
       },
@@ -31101,7 +31019,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_04_pondichery_2_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Aires et périmètres",
           "Fonctions",
           "Probabilités",
@@ -31188,7 +31106,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_06_ameriquenord_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
           "Équations"
         ]
@@ -31333,7 +31251,7 @@
         "url": "static/dnb/2014/tex/dnb_2014_06_asie_1.tex",
         "urlcor": "static/dnb/2014/tex/dnb_2014_06_asie_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances"
         ]
       },
@@ -31625,7 +31543,7 @@
           "QCM",
           "Agrandissement-réduction",
           "Vitesses",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances"
         ]
       },
@@ -31723,7 +31641,7 @@
         "tags": [
           "Vrai-faux",
           "Arithmétique",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2014_06_polynesie_5": {
@@ -31904,7 +31822,7 @@
         "url": "static/dnb/2014/tex/dnb_2014_09_polynesie_1.tex",
         "urlcor": "static/dnb/2014/tex/dnb_2014_09_polynesie_1_cor.tex",
         "tags": [
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2014_09_polynesie_2": {
@@ -32037,7 +31955,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_11_ameriquesud_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Vitesses"
         ]
       },
@@ -32150,7 +32068,7 @@
         "urlcor": "static/dnb/2014/tex/dnb_2014_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -32315,7 +32233,7 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_04_pondichery_3_cor.tex",
         "tags": [
           "Prise d'initiatives",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -32497,7 +32415,7 @@
           "QCM",
           "Puissances",
           "Calcul littéral",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_asie_2": {
@@ -32724,7 +32642,7 @@
           "QCM",
           "Équations",
           "Puissances",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_etrangers_maroc_3": {
@@ -32893,7 +32811,7 @@
         "tags": [
           "Prise d'initiatives",
           "Aires et périmètres",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité"
         ]
       },
@@ -32927,7 +32845,7 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_06_metropole_7_cor.tex",
         "tags": [
           "Trigonométrie",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_06_polynesie_1": {
@@ -33212,7 +33130,7 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_09_polynesie_3_cor.tex",
         "tags": [
           "Fonctions",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_09_polynesie_4": {
@@ -33227,7 +33145,6 @@
         "url": "static/dnb/2015/tex/dnb_2015_09_polynesie_4.tex",
         "urlcor": "static/dnb/2015/tex/dnb_2015_09_polynesie_4_cor.tex",
         "tags": [
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -33279,7 +33196,7 @@
           "Proportionnalité",
           "Grandeurs composées",
           "Tableur",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_12_ameriquesud_1": {
@@ -33295,9 +33212,8 @@
         "urlcor": "static/dnb/2015/tex/dnb_2015_12_ameriquesud_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Arithmétique",
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -33525,7 +33441,6 @@
         "url": "static/dnb/2015/tex/dnb_2015_12_caledonie_7.tex",
         "urlcor": "static/dnb/2015/tex/dnb_2015_12_caledonie_7_cor.tex",
         "tags": [
-          "Système d'équations",
           "Hors programme"
         ]
       },
@@ -33574,7 +33489,7 @@
           "QCM",
           "Équations",
           "Arithmétique",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2015_03_caledonie_2": {
@@ -33853,7 +33768,7 @@
         "url": "static/dnb/2016/tex/dnb_2016_06_ameriquenord_1.tex",
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_ameriquenord_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Équations",
           "Pourcentages",
           "Pythagore"
@@ -34166,7 +34081,7 @@
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_asie_6_cor.tex",
         "tags": [
           "Arithmétique",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pourcentages"
         ]
       },
@@ -34199,7 +34114,7 @@
         "url": "static/dnb/2016/tex/dnb_2016_06_etrangers_1.tex",
         "urlcor": "static/dnb/2016/tex/dnb_2016_06_etrangers_1_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Trigonométrie",
           "QCM"
@@ -34767,7 +34682,7 @@
         "url": "static/dnb/2017/tex/dnb_2017_05_pondichery_5.tex",
         "urlcor": "static/dnb/2017/tex/dnb_2017_05_pondichery_5_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité",
           "Volumes"
         ]
@@ -35476,7 +35391,7 @@
         "tags": [
           "Tableur",
           "Statistiques",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2017_09_polynesie_2": {
@@ -35622,7 +35537,7 @@
         "tags": [
           "Arithmétique",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Pythagore",
           "Vrai-faux"
         ]
@@ -35671,7 +35586,7 @@
         "url": "static/dnb/2017/tex/dnb_2017_11_ameriquesud_7.tex",
         "urlcor": "static/dnb/2017/tex/dnb_2017_11_ameriquesud_7_cor.tex",
         "tags": [
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2017_12_caledonie_1": {
@@ -35689,7 +35604,7 @@
           "QCM",
           "Aires et périmètres",
           "Calcul littéral",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fractions",
           "Thalès"
         ]
@@ -37266,7 +37181,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_3_cor.tex",
         "tags": [
           "Tableur",
-          "Calculs numériques",
+          "Calcul numérique",
           "Proportionnalité"
         ]
       },
@@ -37313,7 +37228,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_6_cor.tex",
         "tags": [
           "Fonctions",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_ameriquenord_7": {
@@ -37328,7 +37243,7 @@
         "url": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_7.tex",
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_ameriquenord_7_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Grandeurs composées",
           "Volumes"
         ]
@@ -37362,7 +37277,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_metropole_1_cor.tex",
         "tags": [
           "Probabilités",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_metropole_2": {
@@ -37428,7 +37343,7 @@
         "tags": [
           "Programme de calculs",
           "Calcul littéral",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_metropole_6": {
@@ -37540,7 +37455,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_asie_6_cor.tex",
         "tags": [
           "Proportionnalité",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_06_asie_7": {
@@ -37674,7 +37589,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_06_etrangers_7_cor.tex",
         "tags": [
           "Prise d'initiatives",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes"
         ]
       },
@@ -38142,7 +38057,7 @@
         "tags": [
           "Statistiques",
           "Tableur",
-          "Calculs numériques"
+          "Calcul numérique"
         ]
       },
       "dnb_2019_09_polynesie_4": {
@@ -38297,7 +38212,7 @@
         "url": "static/dnb/2019/tex/dnb_2019_11_ameriquesud_5.tex",
         "urlcor": "static/dnb/2019/tex/dnb_2019_11_ameriquesud_5_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Prise d'initiatives"
         ]
       },
@@ -38410,7 +38325,7 @@
         "urlcor": "static/dnb/2019/tex/dnb_2019_12_caledonie_6_cor.tex",
         "tags": [
           "Grandeurs composées",
-          "Calculs numériques",
+          "Calcul numérique",
           "Fonctions",
           "Équations",
           "Lecture graphique"
@@ -38721,7 +38636,7 @@
         "urlcor": "static/dnb/2020/tex/dnb_2020_12_caledonie_1_cor.tex",
         "tags": [
           "QCM",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques",
           "Probabilités",
@@ -38945,7 +38860,7 @@
           "Arithmétique",
           "Transformations",
           "Fractions",
-          "Calculs numériques",
+          "Calcul numérique",
           "Volumes",
           "Trigonométrie",
           "Aires et périmètres"
@@ -39520,7 +39435,7 @@
         "url": "static/dnb/2022/tex/dnb_2022_06_asie_4.tex",
         "urlcor": "static/dnb/2022/tex/dnb_2022_06_asie_4_cor.tex",
         "tags": [
-          "Calculs numériques",
+          "Calcul numérique",
           "Algorithmique-programmation",
           "Pourcentages"
         ]
@@ -39640,7 +39555,7 @@
         "urlcor": "static/dnb/2022/tex/dnb_2022_06_polynesie_1_cor.tex",
         "tags": [
           "Vrai-faux",
-          "Calculs numériques",
+          "Calcul numérique",
           "Thalès",
           "Arithmétique",
           "Ratio"
@@ -40042,7 +39957,8 @@
         "url": "static/dnb/2023/tex/dnb_2023_05_ameriquenord_4.tex",
         "urlcor": "static/dnb/2023/tex/dnb_2023_05_ameriquenord_4_cor.tex",
         "tags": [
-          "Algorithmique-programmation"
+          "Algorithmique-programmation",
+          "Géométrie plane"
         ]
       },
       "dnb_2023_05_ameriquenord_5": {
@@ -40166,7 +40082,7 @@
         "tags": [
           "QCM",
           "Algorithmique-programmation",
-          "Calculs numériques",
+          "Calcul numérique",
           "Puissances",
           "Statistiques"
         ]
@@ -40410,7 +40326,7 @@
         "urlcor": "static/dnb/2023/tex/dnb_2023_06_polynesie_5_cor.tex",
         "tags": [
           "Aires et périmètres",
-          "Vitesse",
+          "Vitesses",
           "Arithmétique"
         ]
       },
@@ -40497,7 +40413,7 @@
         "tags": [
           "Pythagore",
           "Thalès",
-          "Trigonometrie",
+          "Trigonométrie",
           "Aires et périmètres"
         ]
       },
@@ -40584,7 +40500,7 @@
           "Coordonnées terrestres",
           "Durées",
           "Statistiques",
-          "Vitesse"
+          "Vitesses"
         ]
       }
     },
