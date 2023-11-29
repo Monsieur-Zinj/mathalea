@@ -11,19 +11,23 @@
   @component
   Bouton
 
-  __Paramètres__ :
+  ### Paramètres
 
   * `title` :  titre du bouton (si vide, une icône de Boxicons est affiché à la place, à reseingner dans `icon`)
   * `isDisabled`: booléen servant à désactiver le bouton
-  * `classDeclaration`: chaîne contrôlant le style du bouton (hormis les propriétés _text_ et _bg_)
   * `icon` : nom de l'icône de [Boxicons](https://boxicons.com/?query=)
   * `idLabel` : id pour le bouton (si non renseigné, une ID est construite sur la base d'un time stamp)
 
-  __Exemple__:
+  ### Remarques
+  Les éléments de style sont à ajouter normalement au composant par un `class`. Ces éléments viendront s'ajouter
+  à ceux déjà présents concernant la couleur du texte. ILs doivent être au format [Tailwind](https://tailwindcss.com/docs/installation).
+
+  ### Exemple
 
     ```tsx
   <Button
       title="Titre"
+      class="p-1 font-bold rounded-lg text-xs ml-2"
       on:click={maFonction}
       isDisabled={maVariable === 0}
   />
