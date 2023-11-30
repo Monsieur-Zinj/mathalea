@@ -1,10 +1,9 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { deuxColonnesResp } from '../../lib/format/miseEnPage.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 import { texTexte } from '../../lib/format/texTexte.js'
@@ -26,15 +25,15 @@ export const titre = 'Convertir des longueurs'
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
  * @author Rémi Angot
  */
-export default function ExerciceConversionsLongueurs(niveau = 1) {
+export default function ExerciceConversionsLongueurs (niveau = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = false // avec le tableau
-  this.consigne = 'Compléter : '
   this.spacing = 2
-
-  this.nouvelleVersion = function (numeroExercice) {
+  
+  this.nouvelleVersion = function () {
+    this.consigne = context.isDiaporama ? 'Convertir' : 'Compléter : '
     const reponses = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -106,9 +105,8 @@ export default function ExerciceConversionsLongueurs(niveau = 1) {
       }
 
       if (!div && typesDeQuestions < 4) {
-
         // Si il faut multiplier pour convertir
-        resultat = calculANePlusJamaisUtiliser(a * prefixeMulti[k][1])// Utilise Algebrite pour avoir le résultat exact même avec des décimaux
+        resultat = arrondi(a * prefixeMulti[k][1], 12)
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
         texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
@@ -131,7 +129,7 @@ export default function ExerciceConversionsLongueurs(niveau = 1) {
           texteCorr += '<br>' + buildTab(a, prefixeMulti[k][0] + 'm', resultat, unite)
         }
       } else if (div && typesDeQuestions < 4) {
-        resultat = calculANePlusJamaisUtiliser(a / prefixeDiv[k][1])// Attention aux notations scientifiques pour 10e-8
+        resultat = arrondi(a / prefixeDiv[k][1], 12)
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
         texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '&nbsp;&nbsp;&nbsp; ' + unite })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
@@ -217,7 +215,7 @@ export default function ExerciceConversionsLongueurs(niveau = 1) {
         if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfills', '\\text{ en }')
         } else if (context.isHtml) {
-          texte = texte.replace('\\dotfills','................................')
+          texte = texte.replace('\\dotfills', '................................')
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -254,7 +252,7 @@ export default function ExerciceConversionsLongueurs(niveau = 1) {
  * getDigitFromNumber(1302.56,0.1) retourne '5'
  * getDigitFromNumber(1302.56,0.001) retourne ''
  */
-export function getDigitFromNumber(nb, pos) {
+export function getDigitFromNumber (nb, pos) {
   const n = new Decimal(nb)
   const po = new Decimal(pos)
   const exp = Decimal.ln(po).div(Decimal.ln(10))
@@ -273,7 +271,7 @@ export function getDigitFromNumber(nb, pos) {
   return res
 }
 /**
- * @param {*} a Nombre de départ 
+ * @param {*} a Nombre de départ
  * @param {*} uniteA Unité de départ (ex : 'km',...)
  * @param {*} r Nombre converti
  * @param {*} uniteR
@@ -281,7 +279,7 @@ export function getDigitFromNumber(nb, pos) {
  * @param {*} force Ajoute deux colonnes avant km et deuux après mm (par défaut : false)
  * @returns Un tableau de conversion de longueur en latex.
  */
-function buildTab(a, uniteA, r, uniteR, ligne = 2, force = false) {
+function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false) {
   const tabRep = function (nbre, uniteNbre) {
     const res = ['', '', '', '', '', '', '', '', '', '', '']
     switch (uniteNbre.replaceAll(' ', '')) {
