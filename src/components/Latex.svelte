@@ -1,4 +1,8 @@
 <script lang="ts">
+import {
+  Carousel,
+  initTE
+} from 'tw-elements'
   import { exercicesParams, darkMode } from './stores/generalStore'
   import {
     mathaleaGetExercicesFromParams,
@@ -37,12 +41,12 @@
     | 'ProfMaquette'
     | 'ProfMaquetteQrcode'
     | 'Can' = 'Coopmaths'
-  const imgStyleUrls = {
-    Coopmaths: 'images/exports/export-coopmaths.png',
-    Classique: 'images/exports/export-classique.png',
-    ProfMaquette: 'images/exports/export-profmaquette.png',
-    ProfMaquetteQrcode: 'images/exports/export-profmaquette-qrcode.png',
-    Can: 'images/exports/export-can.png'
+  const imgStylePartialUrls = {
+    Coopmaths: 'images/exports/export-coopmaths',
+    Classique: 'images/exports/export-classique',
+    ProfMaquette: 'images/exports/export-profmaquette',
+    ProfMaquetteQrcode: 'images/exports/export-profmaquette-qrcode',
+    Can: 'images/exports/export-can'
   }
   let dialogLua: HTMLDialogElement
   let exercices: TypeExercice[]
@@ -76,6 +80,7 @@
   }
 
   onMount(() => {
+    initTE({ Carousel })
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     downloadPicsModal = document.getElementById(
       'downloadPicsModal'
@@ -128,7 +133,10 @@
         contents = await latex.getContents(style, nbVersions)
       } catch (error) {
         console.error('Erreur lors de la création du code LaTeX :', error)
-        contents = { content: '% Erreur à signaler', contentCorr: '% Erreur à signaler' }
+        contents = {
+          content: '% Erreur à signaler',
+          contentCorr: '% Erreur à signaler'
+        }
       }
     })()
   }
@@ -202,8 +210,15 @@
     <div
       class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
     >
-      <SimpleCard icon={''} title={'Mise en page'}>
-        <div class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 gap-4">
+      <div
+        class="flex flex-col w-full md:flex-row justify-between rounded-lg bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-coopmathsdark-canvas-dark"
+      >
+        <div class="flex flex-col py-4 pl-16 w-2/3">
+          <h5
+            class="mb-2 text-3xl font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Mise en page
+          </h5>
           <FormRadio
             title="Style"
             bgColor="bg-coopmaths-canvas-dark"
@@ -224,15 +239,45 @@
               }
             ]}
           />
-          <div class="flex justify-center items-center w-full">
-            <img
-              src={imgStyleUrls[style]}
-              alt="{style} image"
-              class="object-none object-top rounded-t-lg h-[200px] w-[200px]"
-            />
-          </div>
         </div>
-      </SimpleCard>
+        <!-- Carousel de vignette pour les aperçus -->
+        <div class="flex justify-center w-full md:w-1/3">
+          <div
+            id="carouselExampleSlidesOnly"
+            class="relative w-2/3 md:w-full"
+            data-te-carousel-init
+            data-te-ride="carousel"
+          >
+            <div
+              class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
+            >
+              <!-- first item -->
+              <div
+                class="relative float-left -mr-[100%] w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
+                data-te-carousel-item
+                data-te-carousel-active
+              >
+                <img
+                  src={`${imgStylePartialUrls[style]}-thumb1.png`}
+                  alt="{style} image-1"
+                  class="block h-auto w-full rounded-r-lg"
+                />
+              </div>
+              <!-- second item -->
+              <div
+                class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
+                data-te-carousel-item
+              >
+                <img
+                  src={`${imgStylePartialUrls[style]}-thumb2.png`}
+                  alt="{style} image-2"
+                  class="block h-auto w-full rounded-r-lg"
+                />
+              </div>
+            </div>
+          </div>
+                </div>
+        </div>
 
       <SimpleCard icon={''} title={'Éléments de titres'}>
         <div class="flex flex-col w-full justify-start items-start space-y-2">
