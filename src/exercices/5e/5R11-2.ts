@@ -5,13 +5,11 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../ExerciceTs'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, egal } from '../../modules/outils.js'
-import { pointCliquable } from '../../modules/2dinteractif.js'
-export const interactifReady = false
-// remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
+export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -25,29 +23,23 @@ export const titre = 'Placer un point d\'abscisse un nombre relatif'
 */
 export const uuid = '6d576'
 export const ref = '5R11-2'
-export default function PlacerPointsSurAxeRelatifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 5
-  this.nbQuestionsModifiable = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.sup = 1
 
-  this.listePackages = 'tkz-euclide'
-  // fonction qui retourne l'abscisse du point pour mathalea2d en fonction de l'abscisse de l'exercice
-  const changeCoord = function (x, abs0, pas1) {
-    return (abs0 + (x - abs0) * 3 * pas1)
+class PlacerPointsSurAxeRelatifs extends Exercice {
+  constructor () {
+    super()
+    this.consigne = ''
+    this.nbQuestions = 5
+    this.nbQuestionsModifiable = true
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.spacing = 1
+    this.spacingCorr = 1
+    this.sup = 1
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
+    this.listePackages = ['tkz-euclide']
   }
-  // fonction qui retourne l'abscisse décimal de l'exercice en fonction de celui du point mathalea2d pointé.
-  // const changeCoordBack = function (xF, abs0, pas1) {
-  //   return ((xF - abs0) / 3 / pas1 + abs0)
-  // }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (this.interactif) this.consigne = 'Placer les points sur la droite graduée, puis vérifier la réponse.'
     let typesDeQuestions
     const pointsSolutions = []
@@ -83,7 +75,7 @@ export default function PlacerPointsSurAxeRelatifs () {
           pas2 = 10
           break
 
-        case 3: // Placer des décimaux relatifs sur un axe (3 décimales)
+        default: // Placer des décimaux relatifs sur un axe (3 décimales)
           abs0 = randint(-10, -2) / 100
           pas1 = 100
           pas2 = 10
@@ -121,19 +113,7 @@ export default function PlacerPointsSurAxeRelatifs () {
         labelsPrincipaux: true,
         thickDistance: 1 / pas1
       }))
-      if (this.interactif && !context.isAmc) {
-        for (let indicePoint = 0, monPoint, dist; indicePoint < 70; indicePoint++) {
-          dist = abs0 + indicePoint / pas1 / pas2
-          monPoint = pointCliquable(changeCoord(dist, abs0, pas1), 0, { size: 5, width: 2, color: 'blue', radius: 0.15 })
-          monPoint.etat = false
-          objets.push(monPoint)
-          if (egal(dist, abs1) || egal(dist, abs2) || egal(dist, abs3)) {
-            pointsSolutions[i].push(monPoint)
-          } else {
-            pointsNonSolutions[i].push(monPoint)
-          }
-        }
-      }
+      if (this.interactif && !context.isAmc) {}
       const axeGradue = droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
@@ -149,6 +129,7 @@ export default function PlacerPointsSurAxeRelatifs () {
       const t1 = tracePoint(A, 'blue')
       const t2 = tracePoint(B, 'blue')
       const t3 = tracePoint(C, 'blue')
+      // @ts-expect-error
       const noms = labelPoint(A, B, C)
       t1.taille = 5
       t1.epaisseur = 2
@@ -157,12 +138,12 @@ export default function PlacerPointsSurAxeRelatifs () {
       t3.taille = 5
       t3.epaisseur = 2
 
-      texte = `Placer les points : $${l1}(${texNombre(abs1)}), ${l2}(${texNombre(abs2)}), ${l3}(${texNombre(abs3)})$.<br>`
+      texte = `Placer les points : $${l1}(${texNombre(abs1, 5)}), ${l2}(${texNombre(abs2, 5)}), ${l3}(${texNombre(abs3, 5)})$.<br>`
       texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
       if (this.interactif && !context.isAmc) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
-
+      // @ts-expect-error
       objets.push(labelPoint(A, B, C), tracePoint(A, B, C))
       texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, axeGradue, t1, t2, t3, noms)
       if (context.isAmc) {
@@ -175,35 +156,18 @@ export default function PlacerPointsSurAxeRelatifs () {
       this.listeCorrections.push(texteCorr)
     }
 
-    // Pour distinguer les deux types de codage de recuperation des résultats
     this.exoCustomResultat = true
-    // Gestion de la correction
-    this.correctionInteractive = (i) => {
-      let resultat
-      let aucunMauvaisPointsCliques = true
-      for (const monPoint of pointsNonSolutions[i]) {
-        if (monPoint.etat) aucunMauvaisPointsCliques = false
-        monPoint.stopCliquable()
-      }
-      for (const monPoint of pointsSolutions[i]) {
-        if (!monPoint.etat) aucunMauvaisPointsCliques = false
-        monPoint.stopCliquable()
-      }
-      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-      for (let j = 0; j < pointsSolutions[i].length; j++) {
-        pointsSolutions[i][j].stopCliquable()
-      }
-
-      if (aucunMauvaisPointsCliques && pointsSolutions[i][0].etat && pointsSolutions[i][1].etat && pointsSolutions[i][2].etat) {
-        divFeedback.innerHTML = '😎'
-        resultat = 'OK'
-      } else {
-        divFeedback.innerHTML = '☹️'
-        resultat = 'KO'
-      }
-      return resultat
+    this.correctionInteractive = (i: number) => {
+      let result = 'KO'
+      return result
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
+}
+
+export default PlacerPointsSurAxeRelatifs
+
+// fonction qui retourne l'abscisse du point pour mathalea2d en fonction de l'abscisse de l'exercice
+function changeCoord (x: number, abs0: number, pas1: number) {
+  return (abs0 + (x - abs0) * 3 * pas1)
 }

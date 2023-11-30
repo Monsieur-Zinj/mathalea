@@ -1309,6 +1309,7 @@
     "uuid": "31760",
     "id": "2G12-3",
     "titre": "Démontrer qu'un quadrilatère est ou non un parallélogramme",
+    "dateModification": "29/11/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -9505,15 +9506,15 @@
     "typeExercice": "alea"
   },
   "5R11-2": {
-    "url": "5e/5R11-2.js",
+    "url": "5e/5R11-2.ts",
     "tags": [],
     "uuid": "6d576",
     "id": "5R11-2",
     "titre": "Placer un point d'abscisse un nombre relatif",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'custom'"
       },
       "amc": {
         "isActive": true,
@@ -15241,6 +15242,25 @@
     },
     "typeExercice": "alea"
   },
+  "c3N12": {
+    "url": "c3/c3N12.js",
+    "tags": [],
+    "uuid": "d29d8",
+    "id": "c3N12",
+    "titre": "Somme de deux entiers",
+    "datePublication": "30/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "c3N20": {
     "url": "c3/c3N20.js",
     "tags": [],
@@ -17322,6 +17342,7 @@
     "uuid": "8bc88",
     "id": "can2G04",
     "titre": "Calculer les coordonnées du milieu",
+    "dateModification": "29/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -17647,6 +17668,25 @@
     "id": "can2G21",
     "titre": "Lire les coordonnées d'un point dans un repère",
     "datePublication": "04/01/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can2G22": {
+    "url": "can/2e/can2G22.js",
+    "tags": [],
+    "uuid": "9ff07",
+    "id": "can2G22",
+    "titre": "Trouver les coordonnées d'un point avec un milieu",
+    "datePublication": "29/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
