@@ -21,7 +21,7 @@
    * -- encodage du contenu du code LaTeX de la feuille d'exercices
    */
   async function copyDocumentToOverleaf () {
-    const contents = latex.getContents(
+    const contents = await latex.getContents(
       latexFileInfos.style,
       latexFileInfos.nbVersions
     )

@@ -66,13 +66,13 @@
       }
     }
     latex.addExercices(exercices)
-    contents = latex.getContents(style, nbVersions)
+    contents = await latex.getContents(style, nbVersions)
     picsWanted = doesLatexNeedsPics(contents)
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
   }
 
-  function updateLatex () {
-    contents = latex.getContents(style, nbVersions)
+  async function updateLatex () {
+    contents = await latex.getContents(style, nbVersions)
   }
 
   onMount(() => {
@@ -123,7 +123,14 @@
   initExercices()
 
   $: {
-    contents = latex.getContents(style, nbVersions)
+    (async () => {
+      try {
+        contents = await latex.getContents(style, nbVersions)
+      } catch (error) {
+        console.error('Erreur lors de la création du code LaTeX :', error)
+        contents = { content: '% Erreur à signaler', contentCorr: '% Erreur à signaler' }
+      }
+    })()
   }
 
   const copyDocument = async () => {

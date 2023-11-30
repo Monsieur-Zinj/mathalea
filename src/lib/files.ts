@@ -35,7 +35,7 @@ export function downloadZip (filesUrls: string[], zipFileName: string) {
 export async function downloadTexWithImagesZip (zipFileName: string, latex: Latex, latexFileInfos: LatexFileInfos) {
   const zip = new JSZip()
   const text = await latex.getFile(latexFileInfos)
-  const contents = latex.getContents(latexFileInfos.style, latexFileInfos.nbVersions)
+  const contents = await latex.getContents(latexFileInfos.style, latexFileInfos.nbVersions)
   const withImages = doesLatexNeedsPics(contents)
   const exosContentList = getExosContentList(latex.exercices)
   const picsNames = getPicsNames(exosContentList)
