@@ -38,7 +38,6 @@ export const amcReady = true
  * *
  * * Refactoring 21/12/2012
  * @author Rémi Angot et Mickael Guironnet (AMC par Eric Elter)
- * 4L10 et 3L11
  */
 export const uuid = 'db2e0'
 export const ref = '3L11'
@@ -48,9 +47,6 @@ export default function ExerciceDevelopper () {
   this.sup2 = 1 // consigne
   this.sup3 = 7 // forme de développement
   this.sup4 = false
-  this.titre = titre
-  this.interactifType = interactifType
-  this.interactifReady = interactifReady
   this.nbQuestions = 6
   this.spacing = 2
   this.spacingCorr = 2
@@ -243,8 +239,8 @@ export default function ExerciceDevelopper () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Multiplication par un entier positif, tous les termes sont positifs\n2 : Multiplication par un facteur positif\n3 : Multiplication par un facteur relatif\n']
-  this.besoinFormulaire2Numerique = ['Consigne', 2, '1 : Développer, \n2 : Développer et réduire']
-  this.besoinFormulaire3Texte = ['Forme de développement de 1 à 7 séparés par des tirets', '1: k(ax+b)\n2: (ax+b)×k\n3: kx(ax+b)\n4: (ax+b)×kx\n5: k(ax+b)+c\n6: c+k(ax+b)\n7: Mélange']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Multiplication par un entier positif, tous les termes sont positifs\n2 : Multiplication par un facteur positif\n3 : Multiplication par un facteur relatif']
+  this.besoinFormulaire2Numerique = ['Consigne', 2, '1 : Développer \n2 : Développer et réduire']
+  this.besoinFormulaire3Texte = ['Forme de développement', 'Nombres séparés par des tirets\n1: k(ax+b)\n2: (ax+b)×k\n3: kx(ax+b)\n4: (ax+b)×kx\n5: k(ax+b)+c\n6: c+k(ax+b)\n7: Mélange']
   this.besoinFormulaire4CaseACocher = ['$x$ est la seule lettre utilisée']
 }
