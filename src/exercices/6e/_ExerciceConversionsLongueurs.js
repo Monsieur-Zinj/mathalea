@@ -31,21 +31,21 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = false // avec le tableau
   this.spacing = 2
-  
+
   this.nouvelleVersion = function () {
     this.consigne = context.isDiaporama ? 'Convertir' : 'Compléter : '
     const reponses = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const prefixeMulti = [
-      [' da', 10],
-      [' h', 100],
-      [' k', 1000]
+      ['da', 10],
+      ['h', 100],
+      ['k', 1000]
     ]
     const prefixeDiv = [
-      [' d', 10],
-      [' c', 100],
-      [' m', 1000]
+      ['d', 10],
+      ['c', 100],
+      ['m', 1000]
     ]
     const unite = 'm'
     const listeUnite = ['mm', 'cm', 'dm', 'm', 'dam', 'hm', 'km']
@@ -63,7 +63,6 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
 
       const typesDeQuestions = this.sup
-      // k = randint(0,2); // Choix du préfixe
       k = listek[i] // Plutôt que de prendre un préfix au hasard, on alterne entre 10,100 et 1000
       if (typesDeQuestions === 1) {
         // niveau 1
@@ -116,8 +115,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           ' =  ' +
           texNombre(a) +
           '\\times' +
-          texTexte(prefixeMulti[k][1]) +
-          texTexte(unite) +
+          prefixeMulti[k][1] + texTexte(unite) +
           ' = ' +
           texNombre(resultat) +
           texTexte(unite) +
@@ -213,7 +211,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         setReponse(this, i, resultat.toString().replace('.', ','))
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
-          texte = texte.replace('= \\dotfills', '\\text{ en }')
+          texte = texte.replace('= \\dotfills', '~\\text{en}')
         } else if (context.isHtml) {
           texte = texte.replace('\\dotfills', '................................')
         }
