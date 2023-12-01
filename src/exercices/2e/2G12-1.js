@@ -318,7 +318,7 @@ export default function Distance () {
 
           if (this.correctionDetaillee) {
             texteCorr = deuxColonnes(colonne1, colonne2)
-            texteCorr += `<br> Cela signifie que $${C.nom}$ est un point de la médiatrice de $${A.nom}${B.nom}$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$. <br>
+            texteCorr += `<br> Cela signifie que $${C.nom}$ est un point de la médiatrice de $[${A.nom}${B.nom}]$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$. <br>
             Ainsi, le point $${C.nom}$ appartient à la médiatrice du segment $[${A.nom}${B.nom}]$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$.<br>
             `
             texteCorr += `${CorrD}`
