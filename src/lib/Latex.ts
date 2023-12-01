@@ -271,6 +271,13 @@ class Latex {
         result += '\n\\usepackage{pst-node,pst-all}'
         result += '\n\\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}'
       }
+      const [latexCmds, latexPackages] = this.getContentLatex()
+      for (const pack of latexPackages){
+        result += '\n\\usepackage{' + pack + '}'
+      }
+      for (const cmd of latexCmds){
+        result += '\n' + cmd
+      }
       result += '\n\\begin{document}'
       result += content
     } else {
@@ -284,7 +291,32 @@ class Latex {
     }
     return result
   }
+
+  getContentLatex(){
+    const packLatex  : string[] =[]
+    for (const exo of this.exercices) {
+      if (typeof exo.listePackages === "string")  {
+        packLatex.push(exo.listePackages)
+      }else{
+        packLatex.push(...exo.listePackages)
+      }
+    }
+    const packageFiltered : string[] = packLatex.filter((value, index, array) => array.indexOf(value) === index)
+
+    //let latexCmd = packageFiltered.filter((value, index, array) => value.startsWith('cmd'))
+    //let latexPackages = packageFiltered.filter((value, index, array) => value.startsWith('cmd'))
+
+    const [latexCmds, latexPackages] =   packageFiltered.reduce((result: [string[],string[]], element : string) => {
+      result[element.startsWith('cmd') ? 0 : 1].push(element); 
+      return result;
+    },
+    [[], []]) 
+
+    return [latexCmds, latexPackages]
+  }
 }
+
+
 
 function writeIntroduction (introduction = ''): string {
   let content = ''
