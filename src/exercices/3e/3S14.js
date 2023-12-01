@@ -106,7 +106,7 @@ export default function CalculerCaracteristiques () {
               repMoyenne = arrondi(somme / nombreTirages, 1)
               setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               reponsesAMC[questind] = repMoyenne
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(tirages, somme, nombreTirages, 'lancers')
+              texteCorr +=  numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(tirages, somme, nombreTirages, 'lancers')
             } else if (typeQuestions[k] === 2) {
               // médiane
               texteAMC[questind] = numAlpha(questind) + 'Calculer la médiane des lancers.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -128,7 +128,7 @@ export default function CalculerCaracteristiques () {
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
               }
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2D(nombreTirages, medianeCorr, scoresMedians, tirages)
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2D(nombreTirages, medianeCorr, scoresMedians, tirages)
             } else {
               // étendue
               texteAMC[questind] = numAlpha(questind) + 'Calculer l\'étendue des lancers.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -137,7 +137,7 @@ export default function CalculerCaracteristiques () {
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
               setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'lancer')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'lancer')
             }
           }
           break
@@ -165,7 +165,7 @@ export default function CalculerCaracteristiques () {
               repMoyenne = arrondi(somme / nombreNotes, 1)
               setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               reponsesAMC[questind] = repMoyenne
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(notes, somme, nombreNotes)
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(notes, somme, nombreNotes)
             } else if (typeQuestions[k] === 2) {
               // médiane
               texteAMC[questind] = numAlpha(questind) + 'Calculer la médiane de ces notes.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -188,7 +188,7 @@ export default function CalculerCaracteristiques () {
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
               }
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeNotes(notes, medianeCorr, mediane)
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMedianeNotes(notes, medianeCorr, mediane)
             } else {
               // étendue
               texteAMC[questind] = numAlpha(questind) + 'Calculer l\'étendue de ces notes.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -198,7 +198,7 @@ export default function CalculerCaracteristiques () {
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
               setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max)
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max)
             }
           }
           break
@@ -233,7 +233,7 @@ export default function CalculerCaracteristiques () {
               repMoyenne = arrondi(somme / temperatures.length, 1)
               setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               reponsesAMC[questind] = repMoyenne
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
             } else if (typeQuestions[k] === 2) {
               // médiane
               texteAMC[questind] = numAlpha(questind) + 'Calculer la médiane des températures.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -256,7 +256,7 @@ export default function CalculerCaracteristiques () {
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
               }
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTemperatures(temperatures, medianeCorr, mediane)
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMedianeTemperatures(temperatures, medianeCorr, mediane)
             } else {
               // étendue
               texteAMC[questind] = numAlpha(questind) + 'Calculer l\'étendue des températures.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -266,7 +266,7 @@ export default function CalculerCaracteristiques () {
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
               setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'température')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'température')
             }
           }
           break
@@ -322,7 +322,7 @@ export default function CalculerCaracteristiques () {
               repMoyenne = arrondi(somme / effectif, 1)
               setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               reponsesAMC[questind] = repMoyenne
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(salaires, somme, effectif, 'salaires')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(salaires, somme, effectif, 'salaires')
             } else if (typeQuestions[k] === 2) {
               // médiane
               texteAMC[questind] = numAlpha(questind) + 'Calculer le salaire médian.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -346,7 +346,7 @@ export default function CalculerCaracteristiques () {
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
               }
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, salaires, ['\\hspace{0.3cm}Ouvrier\\hspace{0.3cm}', 'Ouvrier qualifié', '\\hspace{0.5cm}Cadre\\hspace{0.5cm}', 'Cadre supérieur', 'Dirigeant'])
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, salaires, ['\\hspace{0.3cm}Ouvrier\\hspace{0.3cm}', 'Ouvrier qualifié', '\\hspace{0.5cm}Cadre\\hspace{0.5cm}', 'Cadre supérieur', 'Dirigeant'])
             } else {
               // étendue
               texteAMC[questind] = numAlpha(questind) + 'Calculer l\'étendue des salaires.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -356,7 +356,7 @@ export default function CalculerCaracteristiques () {
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
               setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'salaire')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'salaire')
             }
           }
           break
@@ -391,7 +391,7 @@ export default function CalculerCaracteristiques () {
               repMoyenne = arrondi(somme / effectif, 1)
               setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               reponsesAMC[questind] = repMoyenne
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
             } else if (typeQuestions[k] === 2) {
               // médiane
               texteAMC[questind] = numAlpha(questind) + 'Calculer la médiane de ces pointures.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -415,7 +415,7 @@ export default function CalculerCaracteristiques () {
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
               }
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, pointures, [], 'pointure')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, pointures, [], 'pointure')
             } else {
               // étendue
               texteAMC[questind] = numAlpha(questind) + 'Calculer l\'étendue de ces pointures.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -425,7 +425,7 @@ export default function CalculerCaracteristiques () {
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
               setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'pointure')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'pointure')
             }
           }
           break
@@ -460,7 +460,7 @@ export default function CalculerCaracteristiques () {
               repMoyenne = arrondi(somme / effectif, 1)
               setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               reponsesAMC[questind] = repMoyenne
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(notes, somme, effectif, 'notes')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(notes, somme, effectif, 'notes')
             } else if (typeQuestions[k] === 2) {
               // médiane
               texteAMC[questind] = numAlpha(questind) + 'Calculer la médiane de ces notes.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -484,7 +484,7 @@ export default function CalculerCaracteristiques () {
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
               }
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, notes, [], 'note')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMedianeTirages2DSalaires(effectif, medianeCorr, scoresMedians, notes, [], 'note')
             } else {
               // étendue
               texteAMC[questind] = numAlpha(questind) + 'Calculer l\'étendue de ces notes.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'
@@ -494,7 +494,7 @@ export default function CalculerCaracteristiques () {
               repEtendue = max - min
               reponsesAMC[questind] = repEtendue
               setReponse(this, i * nbReponse + questind, repEtendue, { formatInteractif: 'calcul' })
-              texteCorr += '<br>' + numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'note')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrEtendueNotes(min, max, 'note')
             }
           }
           break
