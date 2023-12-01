@@ -159,6 +159,8 @@ export async function loadMathLive () {
         mf.mathVirtualKeyboardPolicy = 'sandboxed'
       }
       */
+      // Suppression du menu secondaire
+      mf.menuItems = []
       mf.virtualKeyboardTargetOrigin = '*'
       mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
