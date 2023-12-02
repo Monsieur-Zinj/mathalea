@@ -239,10 +239,10 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
           case 3 : // Triangle rectangle
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
-              texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2.toFixed(1))}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
+              texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2,1)}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
 
-              texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}+${b}${sp()}\\text{cm}+${texNombre(c2.toFixed(1))}${sp()}\\text{cm}=${texNombre(pIJK)}${sp()}\\text{cm}$<br>`
+              texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}+${b}${sp()}\\text{cm}+${texNombre(c2,1)}${sp()}\\text{cm}=${texNombre(pIJK)}${sp()}\\text{cm}$<br>`
               setReponse(this, incrementation * i + nbPuces, new Grandeur(pIJK, 'cm'), { formatInteractif: 'unites' })
               if (context.isAmc) {
                 this.autoCorrection[i].propositions.push({
@@ -268,7 +268,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
             }
             if (this.sup2 !== 1) {
               texteAMC = numAlpha(nbPuces) + 'Calculer l\'aire, en cm$^2$, '
-              texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2.toFixed(1))}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
+              texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2,1)}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
               texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}\\times${b}${sp()}\\text{cm}\\div2=${texNombre(calculANePlusJamaisUtiliser((a * b) / 2))}${sp()}\\text{cm}^2$<br>`
