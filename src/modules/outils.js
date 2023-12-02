@@ -95,8 +95,7 @@ export function gestionnaireFormulaireTexte ({
   enleveDoublons = false,
   exclus
 } = {}) {
-
-  nbQuestions = Math.min(nbQuestions,100) // Faut pas déconner, un jour quelqu'un a fait péter la fonction en demandant une liste de 10000 questions !
+  nbQuestions = Math.min(nbQuestions, 100) // Faut pas déconner, un jour quelqu'un a fait péter la fonction en demandant une liste de 10000 questions !
   if (exclus) {
     exclus = exclus.filter((element) => element >= min && element <= max)
   }
@@ -285,8 +284,13 @@ export function randint (min, max, listeAEviter = []) {
     listeAEviter = []
   }
   if (listeAEviter.length > 0) {
-    while (listeAEviter.includes(min + rand)) {
+    let cpt = 0
+    while (listeAEviter.includes(min + rand) && cpt < 50) { // On met une condition de fin car si toutes les valeurs sont dans la liste à éviter, ce serait une boucle infinie
       rand = Math.floor(Math.random() * (range + 1))
+      cpt++
+    }
+    if (cpt === 50) {
+      window.notify(`Randint n'a pas pu trouver de valeur en dehors de la liste à éviter, c'est donc cette valeur qui a été choisie : ${min + rand}`)
     }
   }
   return min + rand
