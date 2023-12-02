@@ -95,7 +95,7 @@ export default function Milieu () {
           xM = new FractionEtendue(xA + xB, 2)
           yM = new FractionEtendue(yA + yB, 2)// .simplifie()
           objets.push(g, T, L, s, o, I, J)
-          setReponse(this, i, { x: xM.valeurDecimale, y: yM.valeurDecimale }, { formatInteractif: 'fillInTheBlank' })
+          setReponse(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], x: { value: xM.valeurDecimale }, y: { value: yM.valeurDecimale } }, { formatInteractif: 'fillInTheBlank' })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
           texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$. `
@@ -120,7 +120,7 @@ export default function Milieu () {
           yM = new Decimal(yA + yB).div(2)
 
           objets.push(g, T, L, s, o, I, J)
-          setReponse(this, i, { x: new Decimal(xM).mul(2).sub(xA), y: new Decimal(yM).mul(2).sub(yA) }, { formatInteractif: 'fillInTheBlank' })
+          setReponse(this, i, { bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1], x: { value: new Decimal(xM).mul(2).sub(xA) }, y: { value: new Decimal(yM).mul(2).sub(yA) } }, { formatInteractif: 'fillInTheBlank' })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += `  $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${M.nom}\\left(${texNombre(xM, 1)}\\,;\\,${texNombre(yM, 1)}\\right)$`
           texte += `<br>Déterminer les coordonnées du point $${B.nom}$ tel que $${M.nom}$ soit le milieu du segment $[${A.nom}${B.nom}]$. `

@@ -5,8 +5,32 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 import Hms from '../../modules/Hms'
 import { texteExposant } from '../outils/ecritures.js'
 
+const engine = new ComputeEngine()
+/**
+ * Un exemple de fonction de comparaison (celle-ci correspond à 'calcul'
+ * retourne true si a === b au sens isSame (canonical) de compute-engine
+ * @param {string} a
+ * @param {string} b
+ * @returns {boolean}
+ */
+export const calculCompare = (a, b) => engine.parse(a).isSame(engine.parse(b))
+
+/**
+ * Fonction qui nettoie la saisie de ce qu'il ne devrait pas y avoir.
+ * @param {string} saisie normalement une string, mais pour parer aux undefined on cast en string à l'entrée.
+ * @returns {string}
+ */
+function cleanInput (saisie) {
+  return String(saisie).replace(',', '.')
+    .replaceAll('²', '^2')
+    .replaceAll('^{}', '')
+    .replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+    .replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+    .replace(/\\lparen(\+?-?\d+)\\rparen/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+    .replace(/\\lparen(\+?\+?\d+)\\rparen/, '$1') // Pour les nombres positifs, supprime les parenthèses
+}
+
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
-  const engine = new ComputeEngine()
   let saisieParsee, num, den, fSaisie, fReponse
   if (exercice.autoCorrection[i].reponse == null) {
     window.notify('verifQuestionMathlive appelé sur une question sans réponse', {
@@ -43,9 +67,14 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         // Je traîte le cas des tableaux à part : une question pour de multiples inputs mathlive !
         // on pourra faire d'autres formats interactifs sur le même modèle
         if (formatInteractif === 'tableauMathlive') {
+          const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme')
+          if (reponses.callback != null && typeof reponses.callback === 'function') {
+            return reponses.callback(variables, reponses.bareme)
+          }
+          // Il n'y a pas de callback 'custom' donc on utilise la procédure standard
+          const points = []
           let resultat = 'OK'
-          let nbBonnesReponses = 0
-          const nbReponses = Object.entries(reponses).length
+          let nbBonnesReponses, nbReponses
           const table = document.querySelector(`table#tabMathliveEx${exercice.numeroExercice}Q${i}`)
           if (table == null) {
             window.notify('verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom', { selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` })
@@ -53,22 +82,29 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           }
           const cellules = Object.entries(reponses)
           for (let k = 0; k < cellules.length; k++) {
-            const [key, value] = cellules[k]
+            const [key, reponse] = cellules[k]
+            const compareFunction = reponse.compare ?? calculCompare
+
             const inputs = Array.from(table.querySelectorAll('math-field'))
             const input = inputs.find((el) => el.id === `Ex${exercice.numeroExercice}Q${i}${key}`)
-            const saisieParsed = engine.parse(String(input.value.replace(',', '.')))
-            const reponseParsed = engine.parse(String(value))
             const divDuSmiley = table.querySelector(`div#divDuSmileyEx${exercice.numeroExercice}Q${i}${key}`)
-            if (saisieParsed.isEqual(reponseParsed)) {
+            if (compareFunction(cleanInput(input.value), cleanInput(reponse.value))) {
+              points.push(1)
               divDuSmiley.innerHTML = '😎'
-              nbBonnesReponses++
             } else {
+              points.push(0)
               resultat = 'KO'
               divDuSmiley.innerHTML = '☹️'
             }
             if (input.value.length > 0 && typeof exercice.answers === 'object') {
               exercice.answers[`Ex${exercice.numeroExercice}Q${i}${key}`] = input.value
             }
+          }
+          if (typeof reponses.bareme === 'function') {
+            [nbBonnesReponses, nbReponses] = reponses.bareme(points)
+          } else {
+            nbReponses = points.length
+            nbBonnesReponses = points.filter(el => el === 1).length
           }
           return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }
         } else if (formatInteractif === 'fillInTheBlank') {
@@ -85,25 +121,32 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             window.notify('verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom', { selecteur: `math-field#champTexteEx${exercice.numeroExercice}Q${i}` })
             return { isOk: 'KO', feedback: 'Un problème avec cette configuration', score: { nbBonnesReponses: 0, nbReponses: 1 } }
           }
-          const variables = Object.entries(reponses).filter(([key]) => key !== 'callback')
+          const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme')
           if (reponses.callback != null && typeof reponses.callback === 'function') {
-            return reponses.callback(variables)
+            return reponses.callback(variables, reponses.bareme)
           }
+          // Il n'y a pas de callback 'custom' donc on utilise la procédure standard
           let resultat = 'OK'
-          let nbBonnesReponses = 0
-          const nbReponses = variables.length
-          for (let k = 0; k < nbReponses; k++) {
-            const [key, value] = variables[k]
+          let nbBonnesReponses, nbReponses
+          const points = []
+          for (let k = 0; k < variables.length; k++) {
+            const [key, reponse] = variables[k]
             const saisie = mfe.getPromptValue(key)
-            const saisieParsed = engine.parse(String(saisie.replace(',', '.')))
-            const reponseParsed = engine.parse(String(value))
-            if (saisieParsed.isEqual(reponseParsed)) {
-              nbBonnesReponses++
+            const compareFunction = reponse.compare ?? calculCompare
+            if (compareFunction(cleanInput(saisie), cleanInput(reponse.value))) {
+              points.push(1)
               mfe.setPromptState(key, 'correct', true)
             } else {
+              points.push(0)
               resultat = 'KO'
               mfe.setPromptState(key, 'incorrect', true)
             }
+          }
+          if (typeof reponses.bareme === 'function') {
+            [nbBonnesReponses, nbReponses] = reponses.bareme(points)
+          } else {
+            nbReponses = points.length
+            nbBonnesReponses = points.filter(el => el === 1).length
           }
           if (mfe.getValue().length > 0 && typeof exercice.answers === 'object') {
             exercice.answers[`champTexteEx${exercice.numeroExercice}Q${i}`] = mfe.getValue()
@@ -436,7 +479,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             }
             if (feedbackSaisie) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedbackSaisie}</span>`
             if (feedbackCorrection && writeResult) spanReponseLigne.innerHTML += `<span style="margin-left: 10px">${feedbackCorrection}</span>`
-            return { resultat: resultat, feedback: '', score: { nbBonnesReponses: resultat === 'OK' ? 1 : 0, nbReponses: 1 } }
+            return { resultat, feedback: '', score: { nbBonnesReponses: resultat === 'OK' ? 1 : 0, nbReponses: 1 } }
           }
         }
       } catch (error) {

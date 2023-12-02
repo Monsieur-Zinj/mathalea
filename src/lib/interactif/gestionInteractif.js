@@ -257,7 +257,6 @@ export function setReponse (exercice, i, valeurs, {
   const url = new URL(window.location.href)
   if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${i + 1} : `, valeurs)
   if (typeof valeurs === 'object' && (formatInteractif === 'tableauMathlive' || formatInteractif === 'fillInTheBlank')) {
-    console.log(`valeurs est de type object et c'est ${JSON.stringify(valeurs)}`)
     if (formatInteractif === 'tableauMathlive') {
       reponses = valeurs
     } else if (formatInteractif === 'fillInTheBlank') {
@@ -286,13 +285,11 @@ export function setReponse (exercice, i, valeurs, {
 
   switch (formatInteractif) {
     case 'tableauMathlive':
-      console.log(reponses)
       //   if (reponses.filter((cellule) => Object.keys(cellule)[0].match(/L\dC\d/).length === 0).length !== 0) {
       //    window.notify('setReponse : type "tableauMathlive" les objets proposés n\'ont pas tous une clé de la forme L$C$', { reponses })
       //  }
       break
     case 'fillInTheBlank':
-      console.log(reponses)
       break
     case 'Num':
       if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "Num" une fraction est attendue !', { reponses })
