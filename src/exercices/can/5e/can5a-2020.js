@@ -514,7 +514,7 @@ export default function SujetCAN20205ieme () {
             Il y a donc $${reponse}$ $\\%$ de chiots marron.`
           }
           if (a === 50) {
-            b = randint(15, 65, [20, 25, 30, 40, 50])
+            b = randint(15, 50, [20, 25, 30, 40, 50])
             reponse = 2 * b
             texteCorr = `Sur $${a}$ chiots, $${b}$ sont de couleurs marron, donc sur $${a}\\times 2=100$ chiots, $2\\times ${b}$ soit $${2 * b}$ sont de couleur marron.<br>
             Il y a donc $${reponse}$ $\\%$ de chiots marron.`
