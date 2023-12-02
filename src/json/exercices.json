@@ -1309,6 +1309,7 @@
     "uuid": "31760",
     "id": "2G12-3",
     "titre": "Démontrer qu'un quadrilatère est ou non un parallélogramme",
+    "dateModification": "30/11/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -4042,7 +4043,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'custom'"
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": false,
@@ -12560,7 +12561,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'custom'"
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": true,
@@ -17322,6 +17323,7 @@
     "uuid": "8bc88",
     "id": "can2G04",
     "titre": "Calculer les coordonnées du milieu",
+    "dateModification": "29/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -17647,6 +17649,25 @@
     "id": "can2G21",
     "titre": "Lire les coordonnées d'un point dans un repère",
     "datePublication": "04/01/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "can2G22": {
+    "url": "can/2e/can2G22.js",
+    "tags": [],
+    "uuid": "9ff07",
+    "id": "can2G22",
+    "titre": "Trouver les coordonnées d'un point avec un milieu",
+    "datePublication": "29/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
