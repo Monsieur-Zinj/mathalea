@@ -47,7 +47,8 @@ export interface InterfaceParams extends Partial<Record<string, string| number>>
   nbQuestions?: number
   duration?: number
   cols?: number
-  type?: 'mathalea' | 'static' | 'app'
+  type?: 'mathalea' | 'static' | 'app',
+  bestScore?: number
 }
 
 export interface InterfaceReferentiel {
@@ -71,6 +72,7 @@ export interface InterfaceResultExercice {
   indice?: number
   state?: 'done'
   type?: 'mathalea' | 'static' | 'app'
+  bestScore?: number
 }
 
 // Pour Capytale

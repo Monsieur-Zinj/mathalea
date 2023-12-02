@@ -1,5 +1,5 @@
 import type { Activity, InterfaceResultExercice } from '../lib/types.js'
-import { exercicesParams, globalOptions, resultsByExercice } from '../components/stores/generalStore.js'
+import { capytaleMode, exercicesParams, globalOptions, resultsByExercice } from '../components/stores/generalStore.js'
 import { mathaleaHandleComponentChange, mathaleaWriteStudentPreviousAnswers } from './mathalea.js'
 import { get } from 'svelte/store'
 import { RPC } from '@mixer/postmessage-rpc'
@@ -28,6 +28,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // workflow : current (la copie n'a pas encore été rendue), finished (la copie a été rendue), corrected (la copie a été anotée par l'enseignant)
   // On récupère les paramètres de l'activité
   currentMode = mode
+  capytaleMode.set(mode)
   if (activity === null || activity === undefined) return
   const [newExercicesParams, newGlobalOptions] = [activity.exercicesParams, activity.globalOptions]
   // On met à jour les paramètres des exercices
@@ -46,6 +47,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       if (exercice != null && exercice.alea != null && exercice.indice != null) {
         exercicesParams.update((l) => {
           l[exercice.indice as number].alea = exercice.alea
+          l[exercice.indice as number].bestScore = exercice.bestScore
           return l
         })
       }

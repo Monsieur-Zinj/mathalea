@@ -18,6 +18,7 @@
 
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
+  let divCapytaleMessageProf: HTMLDivElement
   let buttonScore: HTMLButtonElement
   let columnsCount = $exercicesParams[indiceExercice].cols || 1
   let isInteractif = exercice.interactif && exercice?.interactifReady
@@ -183,7 +184,13 @@
     exercice.isDone = true
     if ($globalOptions.isSolutionAccessible) isCorrectionVisible = true
     if (exercice.numeroExercice != null) {
+      const previousBestScore = $exercicesParams[exercice.numeroExercice].bestScore ?? 0
       const { numberOfPoints, numberOfQuestions } = exerciceInteractif(exercice, divScore, buttonScore)
+      const bestScore = Math.max(numberOfPoints, previousBestScore)
+      exercicesParams.update(l => {
+        l[exercice.numeroExercice as number].bestScore = bestScore
+        return l
+      })
       resultsByExercice.update((l) => {
         l[exercice.numeroExercice as number] = {
           uuid: exercice.uuid,
@@ -193,21 +200,24 @@
           alea: exercice.seed,
           answers: exercice.answers,
           numberOfPoints,
-          numberOfQuestions
+          numberOfQuestions,
+          bestScore
         }
         return l
       })
-    }
-    if ($globalOptions.recorder === 'moodle') {
-      const url = new URL(window.location.href)
-      const iframe = url.searchParams.get('iframe')
-      window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: 'mathalea:score', iframe }, '*')
-    } else if ($globalOptions.recorder === 'capytale') {
-      if (buttonScore.dataset.capytaleLoadAnswers === '1') {
-        console.log('Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau')
-        return
+
+      if ($globalOptions.recorder === 'moodle') {
+        const url = new URL(window.location.href)
+        const iframe = url.searchParams.get('iframe')
+        window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: 'mathalea:score', iframe }, '*')
+      } else if ($globalOptions.recorder === 'capytale') {
+        divCapytaleMessageProf.innerHTML = `Meilleur score : ${bestScore}`
+        if (buttonScore.dataset.capytaleLoadAnswers === '1') {
+          console.log('Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau')
+          return
+        }
+        sendToCapytaleSaveStudentAssignment()
       }
-      sendToCapytaleSaveStudentAssignment()
     }
   }
 
@@ -309,6 +319,9 @@
 </script>
 
 <div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this={divExercice}>
+  {#if $globalOptions.recorder === 'capytale'}
+    <div class="text-coopmaths-struct text-xl m-2 font-black" bind:this={divCapytaleMessageProf}></div>
+  {/if}
   {#if $globalOptions.presMode !== 'recto' && $globalOptions.presMode !== 'verso'}
     <HeaderExerciceVueEleve {...headerExerciceProps} {indiceExercice} showNumber={indiceLastExercice > 1} />
   {/if}
