@@ -28,7 +28,6 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // workflow : current (la copie n'a pas encore été rendue), finished (la copie a été rendue), corrected (la copie a été anotée par l'enseignant)
   // On récupère les paramètres de l'activité
   currentMode = mode
-  console.log('mode', currentMode)
   if (activity === null || activity === undefined) return
   const [newExercicesParams, newGlobalOptions] = [activity.exercicesParams, activity.globalOptions]
   // On met à jour les paramètres des exercices
@@ -52,9 +51,8 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       }
     }
   }
-  if (mode === 'create') {
-    // Enseignant qui crée et paramètre sa séance
-  } else {
+  if (mode !== 'create') {
+    // Vue élève
     mathaleaHandleComponentChange('', 'eleve')
     globalOptions.update((l) => {
       l.v = 'eleve'
@@ -62,11 +60,6 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     })
   }
   if (mode === 'assignment') {
-    // Élève sur sa copie
-    globalOptions.update((l) => {
-      l.v = 'eleve'
-      return l
-    })
     // Si la copie a déjà été rendue, on ne peut plus modifier les réponses
     if (workflow !== 'current') {
       globalOptions.update((l) => {
@@ -78,7 +71,6 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     // Mettre le done à true pour que l'on ne puisse plus modifier les réponses
     globalOptions.update((l) => {
       l.done = '1'
-      l.v = 'eleve'
       return l
     })
   }
@@ -108,6 +100,9 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       const buttonScore = document.querySelector(`#buttonScoreEx${exercice?.indice}`) as HTMLButtonElement
       console.log('Clic sur le bouton score ', `#buttonScoreEx${exercice?.indice}`, buttonScore)
       if (buttonScore !== null) {
+        // On note dans le bouton que ce sont les réponses sauvegardées et pas de nouvelles réponses de l'élève
+        // Cela évite, en cas de problème de chargement, d'effacer les réponses de l'élève
+        buttonScore.dataset.capytaleLoadAnswers = '1'
         buttonScore.click()
       } else {
         console.log(`Bouton score #buttonScoreEx${exercice.indice} non trouvé`)

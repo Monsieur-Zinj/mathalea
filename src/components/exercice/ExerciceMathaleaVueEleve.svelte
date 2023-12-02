@@ -203,6 +203,10 @@
       const iframe = url.searchParams.get('iframe')
       window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: 'mathalea:score', iframe }, '*')
     } else if ($globalOptions.recorder === 'capytale') {
+      if (buttonScore.dataset.capytaleLoadAnswers === '1') {
+        console.log('Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau')
+        return
+      }
       sendToCapytaleSaveStudentAssignment()
     }
   }

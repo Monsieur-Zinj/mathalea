@@ -13,6 +13,7 @@ import Grandeur from '../../modules/Grandeur.js'
  * @returns {{numberOfPoints: number, numberOfQuestions: number}}
  */
 export function exerciceInteractif (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
+  exercice.answers = {}
   if (exercice.interactifType === 'mathLive') return verifExerciceMathLive(exercice, divScore, buttonScore)
   if (exercice.interactifType === 'qcm') return verifExerciceQcm(exercice, divScore, buttonScore)
   if (exercice.interactifType === 'listeDeroulante') return verifExerciceListeDeroulante(exercice, divScore, buttonScore)
