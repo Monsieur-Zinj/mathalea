@@ -13,6 +13,7 @@ import {
 } from '../../lib/2d/points.js'
 import { polygone, polygoneRegulier } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
@@ -137,14 +138,14 @@ export default function ExercicePerimetresEtAires () {
             const xmax = Math.max(A.x, B.x, C.x, D.x) + 2
             const ymin = Math.min(A.y, B.y, C.y, D.y) - 2
             const ymax = Math.max(A.y, B.y, C.y, D.y) + 2
-            // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
+            // paramètres de la fenêtre Mathalea2d pour l'énoncé normal            
             const params = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.8 }
             // On ajoute au texte de la correction, la figure de la correction
             // const traces = tracePoint(A, B, C, D)
             const labels = labelPoint(A, B, C, D)
             figure.epaisseur = 2
             const objets = []
-            objets.push(labels, codageAngleDroit(A, B, C, 'blue', 0.8, 1, 0.5, 'blue', 0.5), codageAngleDroit(A, D, C, 'blue', 0.8, 1, 0.5, 'blue', 0.5), codageAngleDroit(D, C, B, 'blue', 0.8, 1, 0.5, 'blue', 0.5), codageAngleDroit(B, A, D, 'blue', 0.8, 1, 0.5, 'blue', 0.5), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A), figure)
+            objets.push(labels, codageAngleDroit(A, B, C, 'blue', 0.5, 1, 0.5, 'blue', 0.5), codageAngleDroit(A, D, C, 'blue', 0.5, 1, 0.5, 'blue', 0.5), codageAngleDroit(D, C, B, 'blue', 0.5, 1, 0.5, 'blue', 0.5), codageAngleDroit(B, A, D, 'blue', 0.5, 1, 0.5, 'blue', 0.5), codageSegments('//', 'blue', [A, B, C, D]), afficheLongueurSegment(B, A,'black', 0.7), figure)
             texte += '<br>' + mathalea2d(params, objets)
           } else {
             if (choice([true, false])) {
@@ -188,7 +189,7 @@ export default function ExercicePerimetresEtAires () {
             const labels = labelPoint(A, B, C, D)
             figure.epaisseur = 2
             const objets = []
-            objets.push(labels, codageAngleDroit(A, B, C, 'blue', 0.8, 1, 0.5, 'blue', 0.5), codageAngleDroit(A, D, C, 'blue', 0.8, 1, 0.5, 'blue', 0.5), codageAngleDroit(D, C, B, 'blue', 0.8, 1, 0.5, 'blue', 0.5), codageAngleDroit(B, A, D, 'blue', 0.8, 1, 0.5, 'blue', 0.5), codageSegments('//', 'blue', [A, B]), codageSegments('//', 'blue', [C, D]), codageSegments('/', 'red', [B, C]), codageSegments('/', 'red', [D, A]), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), figure)
+            objets.push(labels, codageAngleDroit(A, B, C, 'blue', 0.5, 1, 0.5, 'blue', 0.5), codageAngleDroit(A, D, C, 'blue', 0.5, 1, 0.5, 'blue', 0.5), codageAngleDroit(D, C, B, 'blue', 0.5, 1, 0.5, 'blue', 0.5), codageAngleDroit(B, A, D, 'blue', 0.5, 1, 0.5, 'blue', 0.5), codageSegments('//', 'blue', [A, B]), codageSegments('//', 'blue', [C, D]), codageSegments('/', 'red', [B, C]), codageSegments('/', 'red', [D, A]), afficheLongueurSegment(B, A, 'black', 0.7), afficheLongueurSegment(C, B, 'black', 0.7), figure)
             texte += '<br>' + mathalea2d(params, objets)
           } else {
             if (choice([true, false])) {

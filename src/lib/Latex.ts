@@ -276,7 +276,7 @@ class Latex {
         result += '\n\\usepackage{' + pack + '}'
       }
       for (const cmd of latexCmds){
-        result += '\n' + cmd
+        result += '\n' + cmd.replace('cmd','')
       }
       result += '\n\\begin{document}'
       result += content
