@@ -88,10 +88,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
       saisie: this.sup
     })
 
-    const texteSurSeg = function (A, B, texte) {
-      const segT = texteSurSegment(texte, A, B, 'black', 0.5)
+    const texteSurSeg = function (A, B, texte, d = 0.7) {
+      const segT = texteSurSegment(texte, A, B, 'black', d)
       segT.mathOn = false
-      segT.scale = 1
+      segT.scale = 1.1
       return segT
     }
 
@@ -142,14 +142,16 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
-          }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objetsEnonce)
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
+          }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.5)], { rxmin: -1.2, rymin: -1.2 })), ...objetsEnonce)
 
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objetsCorrection)
             texteCorr += `<br>
             On peut découper cette figure en un rectangle de ${stringNombre(L1)} cm par ${stringNombre(l1)} cm
@@ -186,7 +188,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           decoupages.push(NO)
           codagesSansDecoupage.push(codageAngleDroit(N, S, O), codageAngleDroit(O, P, M), codageAngleDroit(P, M, N), codageSegment(M, N, '//', 'black'), codageSegment(M, P, '//', 'black'), codageSegment(O, P, '//', 'black'))
           codagesDecoupage.push(codageAngleDroit(M, N, O), codageAngleDroit(N, O, P))
-          labelsSansDecoupage.push(texteSurSeg(P, M, stringNombre(c) + ' cm'), texteSurSeg(S, N, stringNombre(c1) + ' cm'), texteSurSeg(O, S, stringNombre(c2) + ' cm'))
+          labelsSansDecoupage.push(texteSurSeg(P, M, stringNombre(c) + ' cm'), texteSurSeg(S, N, stringNombre(c1) + ' cm', -0.7), texteSurSeg(O, S, stringNombre(c2) + ' cm'))
           labelsAvecDecoupage.push(...labelsSansDecoupage)
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage, ...labelsSansDecoupage)
@@ -197,14 +199,16 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsEnonce)
 
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsCorrection)
             texteCorr += `<br>
             La figure est un carré de côté ${stringNombre(c)} cm auquel il faut enlever un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(c1)} cm et ${stringNombre(c2)} cm.<br>`
@@ -237,7 +241,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           // const com1 = calcul(triplet1[0] * (1 + partieDecimale1))
           const c2 = triplet2[1] * (adjust)
           const h2 = triplet2[2] * (adjust)
-          const zoom = randint(5, 8) / (c1 + c2)
+          const zoom = randint(8, 12) / (c1 + c2)
           const h = com1
           const c = c1 + c2
           const M = point(0, 0, 'M')
@@ -262,7 +266,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           codagesDecoupage.push(codageAngleDroit(M, N, O), codageAngleDroit(N, O, P), codageAngleDroit(N, H, S), codageAngleDroit(S, H, O, 'blue'), codageSegment(M, N, '//', 'black'), codageSegment(M, P, '//', 'black'), codageSegment(O, P, '//', 'black'))
           const codagesDecoupages2 = [codageAngleDroit(M, T, S), codageAngleDroit(N, T, S), codageAngleDroit(P, U, S), codageAngleDroit(O, U, S), codageSegment(M, T, '//', 'black'), codageSegment(P, U, '//', 'black'), codageSegment(T, N, '/', 'black'), codageSegment(U, O, '/', 'black'), codageSegment(M, P, '///', 'black'), codageSegment(T, U, '///', 'black')]
           labelsSansDecoupage.push()
-          labelsAvecDecoupage.push(texteSurSeg(P, M, stringNombre(c) + ' cm'), texteSurSeg(S, N, stringNombre(h1) + ' cm'), texteSurSeg(O, S, stringNombre(h2) + ' cm'), texteSurSeg(H, S, stringNombre(com1) + ' cm'))
+          labelsAvecDecoupage.push(texteSurSeg(P, M, stringNombre(c) + ' cm'), texteSurSeg(S, N, stringNombre(h1) + ' cm'), texteSurSeg(O, S, stringNombre(h2) + ' cm'), texteSurSeg(H, S, stringNombre(com1) + ' cm', (H.x-N.x > O.x-H.x ? -0.7 : 0.7)))
           objetsCorrection.push(...contourFigure, ...decoupages2, ...codagesSansDecoupage, ...codagesDecoupages2)
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage, ...labelsSansDecoupage)
@@ -272,14 +276,16 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsEnonce)
 
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsCorrection)
             texteCorr += `<br>
             La figure est composée d'un rectangle et deux triangles rectangles.<br>`
@@ -292,13 +298,12 @@ export default function PerimetreOuAireDeFiguresComposees () {
           aire = [arrondi(c ** 2 - (c * h) / 2, 2), arrondi(c ** 2 - (c * h) / 2, 2)]
           break
         }
-        case 4 : { // 'rectangle_demi_cercle': {
-          const partieDecimale1 = randint(1, 9) / 10
+        case 4 : { // 'rectangle_demi_cercle': {          
           let L1 = randint(4, 8)
           let L2 = randint(3, L1 - 1)
-          L1 = L1 * (1 + partieDecimale1)
-          L2 = L2 * (1 + partieDecimale1)
-          const zoom = randint(10, 14) / (L1 + L2 / 2)
+          L1 = L1 + (randint(1, 9) / 10)
+          L2 = L2 + (randint(1, 9) / 10)
+          const zoom = randint(6, 8) / (L2)
           const A = point(0, 0, 'A')
           const B = point(0, L2 * zoom, 'B')
           const C = point(L1 * zoom, L2 * zoom, 'C')
@@ -326,16 +331,18 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], {
-            rxmin: -1,
+            rxmin: -1.2,
             rymin: -1
           })), ...objetsEnonce)
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], {
               rxmin: -1,
               rymin: -1
@@ -362,13 +369,12 @@ export default function PerimetreOuAireDeFiguresComposees () {
             troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, 0), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2 + 1, 0)]
           break
         }
-        case 5 : { // 'rectangle_cercle': {
-          const partieDecimale1 = randint(1, 9, [1, 3, 5, 7, 9]) / 10
-          let L1 = randint(4, 8)
-          let L2 = randint(3, L1 - 1)
-          L1 = L1 * (1 + partieDecimale1)
-          L2 = L2 * (1 + partieDecimale1)
-          const zoom = randint(12, 16) / (L1 + L2)
+        case 5 : { // 'rectangle_cercle': {          
+          let L1 = randint(5, 8)
+          let L2 = randint(L1 - 2, L1 - 1)
+          L1 = L1 + randint(1, 9, [1, 3, 5, 7, 9]) / 10
+          L2 = L2 + randint(1, 9, [1, 3, 5, 7, 9]) / 10
+          const zoom = randint(6, 8) / (L2)
           const A = point(0, 0, 'A')
           const B = point(0, L2 * zoom, 'B')
           const C = point(L1 * zoom, L2 * zoom, 'C')
@@ -401,7 +407,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)], {
             rxmin: -1,
             rymin: -1
@@ -410,7 +417,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)], {
               rxmin: -1,
               rymin: -1
@@ -439,12 +447,12 @@ export default function PerimetreOuAireDeFiguresComposees () {
         }
         case 6 : { // 'rectangle_triangle_demi_disque': {
           const triplet = choice(tripletsPythagoriciens)
-          const adjust = (triplet[2] > 50 ? randint(1, 3) / 10 : randint(6, 8) / 10)
+          const adjust = (triplet[2] > 50 ? randint(2, 4,[3]) / 10 :  triplet[2] > 10 ? randint(6, 8,[7]) / 10 : randint(10, 12,[11]) / 10)
           const l1 = triplet[0] * (adjust)
           const L2 = triplet[1] * (adjust)
           const hyp = triplet[2] * (adjust)
           const L1 = randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10
-          const zoom = randint(12, 16) / (L1 + L2)
+          const zoom = randint(14, 18) / (L1 + L2)
           const A = point(0, 0, 'A')
           const B = point(0, l1 * zoom, 'B')
           const C = point(L1 * zoom, l1 * zoom, 'C')
@@ -462,7 +470,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const CE = segment(C, E)
           CE.pointilles = 5
           decoupages.push(FR, AB, CE)
-          labelsAvecDecoupage.push(texteSurSeg(F, R, stringNombre(l1 / 2) + ' cm'), texteSurSeg(D, E, stringNombre(hyp) + ' cm'), texteSurSeg(E, C, stringNombre(l1) + ' cm'), texteSurSeg(E, A, stringNombre(L1) + ' cm'), texteSurSeg(C, D, stringNombre(L2) + ' cm'))
+          labelsAvecDecoupage.push(texteSurSeg(F, B, stringNombre(l1 / 2) + ' cm',-0.8), texteSurSeg(D, E, stringNombre(hyp) + ' cm'), texteSurSeg(E, C, stringNombre(l1) + ' cm'), texteSurSeg(E, A, stringNombre(L1) + ' cm'), texteSurSeg(C, D, stringNombre(L2) + ' cm'))
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage)
             objetsCorrection.push(...contourFigure, ...decoupages, ...codagesSansDecoupage, ...codagesDecoupage)
@@ -472,8 +480,9 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
-          }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.2)], {
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
+          }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.6)], {
             rxmin: -1,
             rymin: -1
           })), ...objetsEnonce)
@@ -481,7 +490,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.2)], {
               rxmin: -1,
               rymin: -1
