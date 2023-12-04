@@ -56,7 +56,7 @@ export function ajouteChampFractionMathLive (exercice, i, numerateur = false, de
   }
 }
 
-export function remplisLesBlancs (exercice, question, content, classes) {
+export function remplisLesBlancs (exercice, question, content, classes, blanc = '\\ldots') {
   let mfeValue = ''
   while (content) {
     const chunks = /^(.*?)%\{([^}]+)}(.*?)$/.exec(content)
@@ -68,7 +68,7 @@ export function remplisLesBlancs (exercice, question, content, classes) {
       if (exercice.interactif) {
         mfeValue += `\\placeholder[${name}]{}`
       } else {
-        mfeValue += '\\ldots'
+        mfeValue += blanc
       }
       content = end ?? ''
     } else {

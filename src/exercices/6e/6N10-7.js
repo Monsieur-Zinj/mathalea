@@ -86,7 +86,7 @@ export default function RecomposerEntierC3 () {
       texteCorr = ''
       let nombreStr = ''
       let nombre
-
+      let blanc = '\\ldots'
       this.morceaux[i] = []
       this.exposantMorceaux[i] = []
       nombreDeChiffresMin = contraindreValeur(nombreDeChiffresDec[i] + 3, 6, this.sup, 5)
@@ -142,7 +142,7 @@ export default function RecomposerEntierC3 () {
           nombre = new Decimal(nombreStr)
           texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les nombres (à un seul chiffre) qui conviennent.<br>`
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=$`
-          texteCorr += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
+          texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           morcelleNombre(i, nombreStr, false, this.morceaux, this.exposantMorceaux)
           for (let k = 0; k < this.morceaux[i].length; k++) {
             completeLesMantisses(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])
@@ -154,7 +154,7 @@ export default function RecomposerEntierC3 () {
           nombre = new Decimal(nombreStr)
           texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les nombres (à un seul chiffre) qui conviennent.<br>`
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=$`
-          texteCorr += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
+          texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           morcelleNombre(i, nombreStr, true, this.morceaux, this.exposantMorceaux)
           for (let k = 0; k < this.morceaux[i].length; k++) {
             completeLesMantisses(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])
@@ -173,6 +173,7 @@ export default function RecomposerEntierC3 () {
             completeLesPuissances(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])
             texteCorr += `(${this.morceaux[i][k]}\\times ${miseEnEvidence(texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i]))})+`
           }
+          blanc = '\\ldots\\ldots\\ldots'
           break
         case 4: // décomposer en complétant les puissances de 10 avec désordre et sans zéros
           nombreStr = trouveEntierAlea(true)
@@ -186,6 +187,7 @@ export default function RecomposerEntierC3 () {
             completeLesPuissances(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])
             texteCorr += `(${this.morceaux[i][k]}\\times ${miseEnEvidence(texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i]))})+`
           }
+          blanc = '\\ldots\\ldots\\ldots'
           break
         case 5: // décomposition chiffre par chiffre en ordre avec zéros possibles
           nombreStr = trouveEntierAlea(false)
@@ -208,17 +210,11 @@ export default function RecomposerEntierC3 () {
           nombre = new Decimal(nombreStr)
           texte += `Décomposer le nombre $${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}$ en complétant avec les nombres (à un seul chiffre) qui conviennent.<br>`
           texte += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=$`
-          texteCorr += `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
+          texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           morcelleNombre(i, nombreStr, true, this.morceaux, this.exposantMorceaux)
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.morceaux[i][k] !== '0') {
-              if (this.interactif) {
-                completeLesMantisses(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])
-              } else {
-                texte += `(\\ldots \\times ${texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i])})+`
-              }
-            }
-            if (this.morceaux[i][k] !== '0') {
+              completeLesMantisses(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])
               texteCorr += `(${miseEnEvidence(this.morceaux[i][k])}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i])})+`
             }
           }
@@ -232,19 +228,12 @@ export default function RecomposerEntierC3 () {
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           morcelleNombre(i, nombreStr, false, this.morceaux, this.exposantMorceaux)
           for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.interactif) {
-              if (this.morceaux[i][k] !== '0') {
-                completeLesPuissances(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])
-              }
-            } else {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots\\ldots\\ldots\\ldots)+`
-              }
-            }
             if (this.morceaux[i][k] !== '0') {
+              completeLesPuissances(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])
               texteCorr += `(${this.morceaux[i][k]}\\times ${miseEnEvidence(texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i]))})+`
             }
           }
+          blanc = '\\ldots\\ldots\\ldots'
           break
         case 8: // décomposer en complétant les puissances de 10 avec désordre et avec zéros possibles
           nombreStr = trouveEntierAlea(false)
@@ -255,19 +244,12 @@ export default function RecomposerEntierC3 () {
           texteCorr = `$${texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i])}=`
           morcelleNombre(i, nombreStr, true, this.morceaux, this.exposantMorceaux)
           for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.interactif) {
-              if (this.morceaux[i][k] !== '0') {
-                completeLesPuissances(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])
-              }
-            } else {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots\\ldots\\ldots\\ldots)+`
-              }
-            }
             if (this.morceaux[i][k] !== '0') {
+              completeLesPuissances(k, i, this.morceaux, this.exposantMorceaux, nombreDeChiffresDec[i])
               texteCorr += `(${this.morceaux[i][k]}\\times ${miseEnEvidence(texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i]))})+`
             }
           }
+          blanc = '\\ldots\\ldots\\ldots'
           break
 
         case 9: // trouver le nombre sans groupement  en ordre sans zéros
@@ -285,7 +267,7 @@ export default function RecomposerEntierC3 () {
           ee = this.morceaux[i].length - 1
           texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
           texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
-          texteCorr += `$=${miseEnEvidence(texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i]))}$`
+          texteCorr += `$=${miseEnEvidence(texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i]))} `
           trouveLeNombre(nombre, nombreDeChiffresDec[i])
           break
         case 10: // trouver le nombre avec groupement en ordre sans zéros
@@ -316,7 +298,7 @@ export default function RecomposerEntierC3 () {
           texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
           texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
           trouveLeNombre(nombre, nombreDeChiffresDec[i])
-          texteCorr += `$=${miseEnEvidence(texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i]))}$`
+          texteCorr += `$=${miseEnEvidence(texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i]))} `
           break
         case 11: // trouver le nombre avec groupement en ordre avec zéros
           nombreStr = trouveEntierAlea(false)
@@ -346,7 +328,7 @@ export default function RecomposerEntierC3 () {
           texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
           texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
           trouveLeNombre(nombre, nombreDeChiffresDec[i])
-          texteCorr += `$=${miseEnEvidence(texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i]))}$`
+          texteCorr += `$=${miseEnEvidence(texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i]))} `
           break
 
         case 12: // décomposer chiffre par chiffre avec désordre avec zéros avec les noms des classes
@@ -380,6 +362,7 @@ export default function RecomposerEntierC3 () {
             }
           }
         }
+          blanc = '\\ldots\\ldots\\ldots'
           break
         case 14: { // décomposer avec les puissances de 10 avec groupement et désordre et présence de deux zéros consécutifs
           nombreStr = trouveEntierAlea(true)
@@ -412,10 +395,11 @@ export default function RecomposerEntierC3 () {
             }
           }
         }
+          blanc = '\\ldots\\ldots\\ldots'
           break
       }
       // if (this.interactif) {
-      texte += remplisLesBlancs(this, i, formule.substring(0, formule.length - 1), 'inline college6eme largeur01 nospacebefore')
+      texte += remplisLesBlancs(this, i, formule.substring(0, formule.length - 1), 'inline college6eme largeur01 nospacebefore', blanc)
       // bareme est une fonction qui retourne [nbBonnesReponses, nbReponses]
       setReponse(this, i, Object.assign({ bareme: (listePoints) => [Math.floor(somme(listePoints) / listePoints.length), 1] }, Object.fromEntries(listeReponses)), { formatInteractif: 'fillInTheBlank' })
       //   }
