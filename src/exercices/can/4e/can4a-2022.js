@@ -528,7 +528,7 @@ export default function SujetCAN2022quatrieme () {
             }
           } else {
             a = randint(3, 6)
-            reponse = '$0$'
+            reponse = 0
             for (indice = 1; indice < a; indice++) {
               reponse = reponse * indice
             }
@@ -643,7 +643,7 @@ export default function SujetCAN2022quatrieme () {
           texte = `Calcule : <br>
              $${a}+\\dfrac{${k * b}}{${b - c}+${c}}=$`
 
-          texteCorr = `$${a}+\\dfrac{${k * b}}{${b - c}+${c}}=${a}=${a}+\\dfrac{${k * b}}{${b}}${a}=${a}+${k}=${a + k}$`
+          texteCorr = `$${a}+\\dfrac{${k * b}}{${b - c}+${c}}=${a}+\\dfrac{${k * b}}{${b}}=${a}+${k}=${a + k}$`
 
           reponse = a + k
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -806,9 +806,9 @@ export default function SujetCAN2022quatrieme () {
           B = point(2, 3, 'B', 'above')
 
           xmin = -1
-          ymin = -0.5
+          ymin = -1
           xmax = 3.5
-          ymax = 3.5
+          ymax = 4
           pol = polygoneAvecNom(A, B, C)
           objets = []
           choix = choice(['a', 'b', 'c'])
