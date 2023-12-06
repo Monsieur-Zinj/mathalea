@@ -50,7 +50,7 @@
   } flex flex-col w-full md:flex-row justify-start items-start sm:justify-center sm:items-center`}
 >
   <div
-    class="w-full flex flex-col xl:flex-row md:pr-4 xl:!pl-96 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    class="w-full flex flex-col xl:flex-row md:pr-4 xl:!pl-96 justify-between items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas  md:space-y-0 space-y-4"
   >
 
     <div id="setupButtonsBar" class="flex">
