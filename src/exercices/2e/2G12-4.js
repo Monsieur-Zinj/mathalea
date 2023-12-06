@@ -13,7 +13,7 @@ import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer la nature d\'un polygone avec les coordonnées'
-
+export const dateDeModifImportante = '30/11/2023'
 /**
  * 2G12
  * @author Stéphane Guyon + Gilles Mora
