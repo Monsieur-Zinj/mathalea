@@ -13,6 +13,9 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
   if (eltFeedback) eltFeedback.innerHTML = ''
   let resultat
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  if (spanReponseLigne == null) {
+    window.notify('l\'exercice ayant appelé verifQuestionListeDeroulante() n\'a pas correctement défini le span pour le smiley', { exercice: JSON.stringify(exercice) })
+  }
   const optionsChoisies = document.querySelectorAll(`[id^=ex${exercice.numeroExercice}Q${i}]`)
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
@@ -36,21 +39,21 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
     if (Array.isArray(reponse)) {
       if (reponse.join('-') === saisie) {
         resultat = 'OK'
-        spanReponseLigne.innerHTML = '😎'
+        if (spanReponseLigne) spanReponseLigne.innerHTML = '😎'
       }
     } else {
       // Pour les exercices classiques, on compare directement
       if (reponse === saisie) {
         resultat = 'OK'
-        spanReponseLigne.innerHTML = '😎'
+        if (spanReponseLigne) spanReponseLigne.innerHTML = '😎'
       }
     }
   }
   if (resultat !== 'OK') {
-    spanReponseLigne.innerHTML = '☹️'
+    if (spanReponseLigne) spanReponseLigne.innerHTML = '☹️'
     resultat = 'KO'
   }
-  spanReponseLigne.style.fontSize = 'large'
+  if (spanReponseLigne) spanReponseLigne.style.fontSize = 'large'
   return resultat
 }
 
