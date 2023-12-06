@@ -8,7 +8,6 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Exercice from '../Exercice.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { fraction } from '../../modules/fractions.js'
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -201,7 +200,7 @@ export default class BetaModeleSpline extends Exercice {
       }
       texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' +
         mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, fixeBordures([repere1])), objetsEnonce, o)
-      if (this.interactif) {
+      if (this.interactif || this.can) {
         texteEnonce = 'Voici la représentation graphique d\'une fonction $f$ :<br>'
         texteEnonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, fixeBordures([repere1])), objetsEnonce, o)
         texteEnonce += '<br>Le tableau de signes de la fonction $f$ est : <br>'
