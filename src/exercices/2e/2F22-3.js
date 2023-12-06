@@ -8,6 +8,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Exercice from '../Exercice.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { fraction } from '../../modules/fractions.js'
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -95,7 +96,7 @@ function aleatoiriseCourbe (choix) {
   }
   return { coeffX, coeffY, deltaX, deltaY }
 }
-
+/* Mauvaise idée ici de mélanger des splines bricolées et des tableaux de signes
 function fauxNoeuds (noeuds) { // on donne des noeuds corrects
   const newNoeuds = [] // ceux qu'on va renvoyer
   const zeros = []
@@ -118,6 +119,8 @@ function fauxNoeuds (noeuds) { // on donne des noeuds corrects
   }
   return newNoeuds
 }
+ */
+
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
  * @author Gilles Mora (Jean-Claude Lhote pour la programmation)
@@ -159,18 +162,13 @@ export default class BetaModeleSpline extends Exercice {
         deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
         isVisible: noeud.isVisible
       }))
-      const nuage2 = fauxNoeuds(nuage)
       const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
       const maSpline = spline(nuage)
       const fonctionD = x => maSpline.derivee(x)
-      const fausseSpline = spline(nuage2)
-      const choixInteractif = randint(0, 2)
-      console.log(`On va choisir le tableau ${choixInteractif === 0 ? 'de la spline' : choixInteractif === 1 ? 'de la dérivée' : 'de la spline mais avec la fausse courbe'}`)
+      const choixInteractif = randint(0, 1)
       const { xMin, xMax } = maSpline.trouveMaxes()
       this.spline = maSpline
-      const bornes = choixInteractif === 0 || choixInteractif === 1
-        ? maSpline.trouveMaxes()
-        : fausseSpline.trouveMaxes()
+      const bornes = maSpline.trouveMaxes()
       const repere1 = repere({
         xMin: bornes.xMin - 1,
         xMax: bornes.xMax + 1,
@@ -182,40 +180,32 @@ export default class BetaModeleSpline extends Exercice {
         grilleSecondaireYDistance: 1,
         grilleSecondaireXDistance: 1
       })
-      const courbe1 = choixInteractif === 0 || choixInteractif === 1
-        ? maSpline.courbe({
-          repere: repere1,
-          epaisseur: 1.5,
-          step: 0.2,
-          ajouteNoeuds: true,
-          optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
-          color: 'blue'
-        })
-        : fausseSpline.courbe({
-          repere: repere1,
-          epaisseur: 1.5,
-          step: 0.2,
-          ajouteNoeuds: true,
-          optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
-          color: 'blue'
-        })
+      const courbe1 = maSpline.courbe({
+        repere: repere1,
+        epaisseur: 1.5,
+        step: 0.2,
+        ajouteNoeuds: true,
+        optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
+        color: 'blue'
+      })
       const objetsEnonce = [repere1, courbe1]
       let texteEnonce
-      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 0.5, tolerance: 0.01 })
-      const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 0.5, tolerance: 0.01 })
-      const tableauC = tableauSignesFonction(fausseSpline.fonction, xMin, xMax, { step: 0.5, tolerance: 0.01 })
+      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.01 })
+      const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.01 })
 
-      const tableauChoisi = [tableau, tableauB, tableauC][choixInteractif]
+      const tableauChoisi = [tableau, tableauB][choixInteractif]
       if (choixInteractif === 0) {
         setReponse(this, i, ['Oui', 'OUI', 'oui'])
-      } else { setReponse(this, i, ['Non', 'NON', 'non']) }
+      } else {
+        setReponse(this, i, ['Non', 'NON', 'non'])
+      }
       texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' +
         mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, fixeBordures([repere1])), objetsEnonce, o)
       if (this.interactif) {
         texteEnonce = 'Voici la représentation graphique d\'une fonction $f$ :<br>'
         texteEnonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, fixeBordures([repere1])), objetsEnonce, o)
         texteEnonce += '<br>Le tableau de signes de la fonction $f$ est : <br>'
-        texteEnonce += choixInteractif
+        texteEnonce += tableauChoisi
         texteEnonce += '<br>Répondre par "Oui" ou "Non" '
         texteEnonce += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
       }

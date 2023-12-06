@@ -964,10 +964,10 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
  * @param fonction
  * @param {number|FractionEtendue} xMin
  * @param {number|FractionEtendue} xMax
- * @param {boolean} latex // mettre true si des substituts latex sont utilisés
- * @param {{antVal:number, antTex:string, imgVal:number, imgTex:string}[]} substituts valeur à remplacer dans le tableau (valeur au centième)
- * @param {number|FractionEtendue} step // pas de balayage pour trouver les solutions de f(x)=0
- * @param {number|FractionEtendue} tolerance // écart maximum à zéro pour assimiler f(x) à zéro
+ * @param {object} options
+ * @param {{antVal:number, antTex:string, imgVal:number, imgTex:string}[]} [options.substituts] valeur à remplacer dans le tableau (valeur au centième)
+ * @param {number|FractionEtendue} [options.step] // pas de balayage pour trouver les solutions de f(x)=0
+ * @param {number|FractionEtendue} [options.tolerance] // écart maximum à zéro pour assimiler f(x) à zéro
  * @returns {string}
  */
 export function tableauSignesFonction (fonction, xMin, xMax, { substituts, step, tolerance } = {
