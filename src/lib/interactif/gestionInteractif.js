@@ -342,7 +342,7 @@ export function setReponse (exercice, i, valeurs, {
       if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fraction" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
       break
-    case 'longueur': // Pour les exercices où l'on attend une mesure avec une unité au choix
+    case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
       if (!(reponses[0] instanceof Grandeur)) window.notify('setReponse : type "longueur" la réponse n\'est pas une instance de Grandeur !', { reponses })
       break
     case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
