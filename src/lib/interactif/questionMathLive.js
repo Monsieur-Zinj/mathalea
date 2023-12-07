@@ -56,22 +56,29 @@ export function ajouteChampFractionMathLive (exercice, i, numerateur = false, de
   }
 }
 
-export function remplisLesBlancs (exercice, question, content, classes) {
+export function remplisLesBlancs (exercice, question, content, classes, blanc = '\\ldots') {
   let mfeValue = ''
   while (content) {
-    const chunks = /^(.*?)%\{([^}]+)}(.*)$/.exec(content)
+    const chunks = /^(.*?)%\{([^}]+)}(.*?)$/.exec(content)
     if (chunks) {
       const [, start, n, end] = chunks
       const name = n
       if (name == null) throw Error(`Définition de ${name} manquante`)
       mfeValue += start
-      mfeValue += `\\placeholder[${name}]{}`
+      if (exercice.interactif) {
+        mfeValue += `\\placeholder[${name}]{}`
+      } else {
+        mfeValue += blanc
+      }
       content = end ?? ''
     } else {
       mfeValue += content
       content = ''
     }
   }
-  const resultat = `<math-field readonly style="font-size:2em" class="fillInTheBlanks" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}<span class=${classes} id="feedbackEx${exercice.numeroExercice}Q${question}"></span>`
-  return resultat
+  if (exercice.interactif) {
+    return `<math-field readonly style="font-size:2em" class="fillInTheBlanks" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}<span class=${classes} id="feedbackEx${exercice.numeroExercice}Q${question}"></span>`
+  } else {
+    return `$${mfeValue}$`
+  }
 }

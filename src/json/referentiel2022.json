@@ -5978,6 +5978,25 @@
           },
           "typeExercice": "alea"
         },
+        "can2F17": {
+          "url": "can/2e/can2F17.js",
+          "tags": [],
+          "uuid": "659da",
+          "id": "can2F17",
+          "titre": "Dresser un tableau de signes à partir d'un graphique",
+          "datePublication": "16/11/2023",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
+        },
         "can2F18": {
           "url": "can/2e/can2F18.js",
           "tags": [],
@@ -8430,25 +8449,6 @@
           "amc": {
             "isActive": true,
             "type": "AMCHybride"
-          }
-        },
-        "typeExercice": "alea"
-      },
-      "c3N12": {
-        "url": "c3/c3N12.js",
-        "tags": [],
-        "uuid": "d29d8",
-        "id": "c3N12",
-        "titre": "Somme de deux entiers",
-        "datePublication": "30/11/2023",
-        "features": {
-          "interactif": {
-            "isActive": true,
-            "type": "'mathLive'"
-          },
-          "amc": {
-            "isActive": false,
-            "type": ""
           }
         },
         "typeExercice": "alea"
@@ -11137,7 +11137,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'custom'"
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": true,
@@ -14548,7 +14548,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'mathLive'"
+            "type": "'qcm'"
           },
           "amc": {
             "isActive": true,
@@ -15369,6 +15369,24 @@
         "uuid": "9db08",
         "id": "4C25-0",
         "titre": "Résoudre des problèmes additifs et de comparaison sur les fractions",
+        "features": {
+          "interactif": {
+            "isActive": false,
+            "type": ""
+          },
+          "amc": {
+            "isActive": false,
+            "type": ""
+          }
+        },
+        "typeExercice": "alea"
+      },
+      "4C25-1": {
+        "url": "4e/4C25-1.js",
+        "tags": [],
+        "uuid": "7ba8b",
+        "id": "4C25-1",
+        "titre": "Résoudre des problèmes additifs et multiplicatifs utilisant des fractions",
         "features": {
           "interactif": {
             "isActive": false,
@@ -17323,7 +17341,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'custom'"
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
@@ -19347,10 +19365,11 @@
         "id": "2F22-3",
         "titre": "Déterminer le tableau de signes d'une fonction graphiquement",
         "datePublication": "06/07/2023",
+        "dateModification": "25/11/2023",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
@@ -19670,7 +19689,7 @@
         "uuid": "4b25a",
         "id": "2G12-2",
         "titre": "Calculer et utiliser les coordonnées du milieu d'un segment dans un repère",
-        "dateModification": "20/11/2023",
+        "dateModification": "04/12/2023",
         "features": {
           "interactif": {
             "isActive": true,
@@ -19689,7 +19708,7 @@
         "uuid": "31760",
         "id": "2G12-3",
         "titre": "Démontrer qu'un quadrilatère est ou non un parallélogramme",
-        "dateModification": "29/11/2023",
+        "dateModification": "30/11/2023",
         "features": {
           "interactif": {
             "isActive": false,
@@ -19708,10 +19727,30 @@
         "uuid": "d633a",
         "id": "2G12-4",
         "titre": "Déterminer la nature d'un polygone avec les coordonnées",
+        "dateModification": "30/11/2023",
         "features": {
           "interactif": {
             "isActive": false,
             "type": ""
+          },
+          "amc": {
+            "isActive": false,
+            "type": ""
+          }
+        },
+        "typeExercice": "alea"
+      },
+      "2G12-5": {
+        "url": "2e/2G12-5.js",
+        "tags": [],
+        "uuid": "b77cc",
+        "id": "2G12-5",
+        "titre": "Calculer les coordonnées du 4e sommet d'un parallélogramme",
+        "datePublication": "06/12/2023",
+        "features": {
+          "interactif": {
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,

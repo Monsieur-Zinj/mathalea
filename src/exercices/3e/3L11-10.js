@@ -194,11 +194,10 @@ export default function TableDoubleDistributivite () {
       for (const j of [1, 2]) {
         const answer = tableau.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}L${j}C${k}`)
         if (answer == null) throw Error(`Il n'y a pas de math-field d'id "champTexteEx${this.numeroExercice}Q${i}L${j}C${k}" dans ce tableau !`)
-        const valeur = answer.expression
         const divFeedback = tableau.querySelector(`div#divDuSmileyEx${this.numeroExercice}Q${i}L${j}C${k}`)
-        if (valeur) this.answers[`Ex${this.numeroExercice}Q${i}L${j}C${k}`] = String(valeur)
+        if (answer.value != null) this.answers[`Ex${this.numeroExercice}Q${i}L${j}C${k}`] = answer.value
         if (divFeedback) {
-          if (valeur.isEqual(ce.parse(this.autoCorrection[i].reponse[`L${j}C${k}`]))) {
+          if (ce.parse(answer.value).isSame(ce.parse(this.autoCorrection[i].reponse[`L${j}C${k}`]))) {
             divFeedback.innerHTML = divFeedback.innerHTML += '😎'
             answer.classList.add('correct')
             points++
@@ -224,7 +223,7 @@ export default function TableDoubleDistributivite () {
     const spanReponseLigne1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i}`)
     this.answers[`Ex${this.numeroExercice}Q${2 * i}`] = mfDevEclate.value
     this.answers[`Ex${this.numeroExercice}Q${2 * i + 1}`] = mfDevReduit.value
-    if (ce.parse(developpements.eclate, { canonical: 'Order' }).isSame(ce.parse(mfDevEclate.value, { canonical: 'Order' }))) {
+    if (ce.parse(developpements.eclate).simplify().isSame(ce.parse(mfDevEclate.value).simplify())) {
       if (spanReponseLigne1) {
         spanReponseLigne1.innerHTML = spanReponseLigne1.innerHTML += '😎'
         result.push('OK')

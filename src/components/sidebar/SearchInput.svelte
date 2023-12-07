@@ -42,7 +42,7 @@
       results = [
         ...stringToCriterion(
           input,
-          $allFilters.types.CAN.isSelected
+          true
         ).meetCriterion(origin)
       ]
     }

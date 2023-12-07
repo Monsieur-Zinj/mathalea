@@ -13,11 +13,12 @@ import type FractionEtendue from '../../modules/FractionEtendue'
 import { AddTabPropMathlive, type Icell } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { MathfieldElement } from 'mathlive'
 import type Point from 'apigeom/src/elements/points/Point'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
 export const interactifReady = true
-export const interactifType = 'custom'
+export const interactifType = 'mathLive'
 
 /**
  * Lire une image sur une Spline
@@ -192,6 +193,11 @@ class LireImageParApiGeom extends Exercice {
     if (context.isHtml) {
       this.listeCorrections[0] = 'Les images sont tolérées à $0{,}1$ près :' + mathalea2d({ xmin, ymin, xmax, ymax, scale: 0.6 }, tableauValeur)
       this.listeQuestions = [emplacementPourFigure + enonce]
+      const reponses = []
+      for (let i = 0; i < nbColonnes; i++) {
+        reponses.push([`L1C${i + 1}`, { value: this.Y[i] }])
+      }
+      setReponse(this, 0, Object.fromEntries(reponses), { formatInteractif: 'tableauMathlive' })
     } else {
       this.listeCorrections[0] = mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) +
         '\\\\' +

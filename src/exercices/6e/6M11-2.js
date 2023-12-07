@@ -88,10 +88,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
       saisie: this.sup
     })
 
-    const texteSurSeg = function (A, B, texte) {
-      const segT = texteSurSegment(texte, A, B, 'black', 0.5)
+    const texteSurSeg = function (A, B, texte, d = 0.7) {
+      const segT = texteSurSegment(texte, A, B, 'black', d)
       segT.mathOn = false
-      segT.scale = 1
+      segT.scale = 1.1
       return segT
     }
 
@@ -131,8 +131,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const CE = segment(C, E)
           CE.pointilles = 5
           decoupages.push(CE)
-          labelsSansDecoupage.push(texteSurSeg(D, E, stringNombre(hyp) + ' cm'), texteSurSeg(A, B, stringNombre(l1) + ' cm'), texteSurSeg(E, A, stringNombre(L1) + ' cm'), texteSurSeg(B, D, stringNombre(L1 + L2) + ' cm'))
-          labelsAvecDecoupage.push(texteSurSeg(D, E, stringNombre(hyp) + ' cm'), texteSurSeg(A, B, stringNombre(l1) + ' cm'), texteSurSeg(E, A, stringNombre(L1) + ' cm'), texteSurSeg(C, D, stringNombre(L2) + ' cm'))
+          labelsSansDecoupage.push(texteSurSeg(D, E, stringNombre(hyp, 1) + ' cm'), texteSurSeg(A, B, stringNombre(l1, 1) + ' cm'), texteSurSeg(E, A, stringNombre(L1, 1) + ' cm'), texteSurSeg(B, D, stringNombre(L1 + L2, 1) + ' cm'))
+          labelsAvecDecoupage.push(texteSurSeg(D, E, stringNombre(hyp, 1) + ' cm'), texteSurSeg(A, B, stringNombre(l1, 1) + ' cm'), texteSurSeg(E, A, stringNombre(L1, 1) + ' cm'), texteSurSeg(C, D, stringNombre(L2, 1) + ' cm'))
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage, ...labelsSansDecoupage)
             objetsCorrection.push(...contourFigure, ...decoupages, ...codagesSansDecoupage, ...codagesDecoupage, ...labelsAvecDecoupage)
@@ -142,24 +142,26 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
-          }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objetsEnonce)
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
+          }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.5)], { rxmin: -1.2, rymin: -1.2 })), ...objetsEnonce)
 
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([A, B, C, D, E, point(C.x, C.y + 0.2)], { rxmin: -1, rymin: -1 })), ...objetsCorrection)
             texteCorr += `<br>
-            On peut découper cette figure en un rectangle de ${stringNombre(L1)} cm par ${stringNombre(l1)} cm
-            et un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2)} cm
-            et ${stringNombre(l1)} cm.<br>`
+            On peut découper cette figure en un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(l1, 1)} cm
+            et un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2, 1)} cm
+            et ${stringNombre(l1, 1)} cm.<br>`
           } else {
-            texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(l1)} cm`
-            texteCorr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2)} cm et ${stringNombre(l1)} cm.<br>`
-            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(L1 + L2)}+${texNombre(hyp)}+${texNombre(L1)}+${texNombre(l1)}=${texNombre(L1 + L2 + hyp + L1 + l1)}${sp()}${texTexte('cm')}$<br>` : ''
-            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(L1)}\\times${texNombre(l1)})+(${texNombre(L2)}\\times${texNombre(l1)}\\div2)=${texNombre(L1 * l1)}+${texNombre((L2 * l1) / 2)}=${texNombre(L1 * l1 + (L2 * l1) / 2)}${sp()}${texTexte('cm')}^2$` : ''
+            texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(l1, 1)} cm`
+            texteCorr += ` et d'un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2, 1)} cm et ${stringNombre(l1, 1)} cm.<br>`
+            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(L1 + L2, 1)}+${texNombre(hyp, 1)}+${texNombre(L1, 1)}+${texNombre(l1, 1)}=${texNombre(L1 + L2 + hyp + L1 + l1, 1)}${sp()}${texTexte('cm')}$<br>` : ''
+            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(L1, 1)}\\times${texNombre(l1, 1)})+(${texNombre(L2, 1)}\\times${texNombre(l1, 1)}\\div2)=${texNombre(L1 * l1, 2)}+${texNombre((L2 * l1) / 2, 2)}=${texNombre(L1 * l1 + (L2 * l1) / 2, 2)}${sp()}${texTexte('cm')}^2$` : ''
           }
           perimetre = [arrondi(L1 + L2 + hyp + L1 + l1, 1), arrondi(L1 + L2 + hyp + L1 + l1, 1)] // Volontairement doublés pour être synchrone avec les cercles
           aire = [arrondi(L1 * l1 + (L2 * l1) / 2, 2), arrondi(L1 * l1 + (L2 * l1) / 2, 2)]
@@ -186,7 +188,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           decoupages.push(NO)
           codagesSansDecoupage.push(codageAngleDroit(N, S, O), codageAngleDroit(O, P, M), codageAngleDroit(P, M, N), codageSegment(M, N, '//', 'black'), codageSegment(M, P, '//', 'black'), codageSegment(O, P, '//', 'black'))
           codagesDecoupage.push(codageAngleDroit(M, N, O), codageAngleDroit(N, O, P))
-          labelsSansDecoupage.push(texteSurSeg(P, M, stringNombre(c) + ' cm'), texteSurSeg(S, N, stringNombre(c1) + ' cm'), texteSurSeg(O, S, stringNombre(c2) + ' cm'))
+          labelsSansDecoupage.push(texteSurSeg(P, M, stringNombre(c, 1) + ' cm'), texteSurSeg(S, N, stringNombre(c1, 1) + ' cm', -0.7), texteSurSeg(O, S, stringNombre(c2, 1) + ' cm'))
           labelsAvecDecoupage.push(...labelsSansDecoupage)
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage, ...labelsSansDecoupage)
@@ -197,21 +199,23 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsEnonce)
 
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsCorrection)
             texteCorr += `<br>
-            La figure est un carré de côté ${stringNombre(c)} cm auquel il faut enlever un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(c1)} cm et ${stringNombre(c2)} cm.<br>`
+            La figure est un carré de côté ${stringNombre(c, 1)} cm auquel il faut enlever un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(c1, 1)} cm et ${stringNombre(c2, 1)} cm.<br>`
           } else {
-            texteCorr = `La figure est un carré de côté ${stringNombre(c)} cm auquel il faut enlever un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(c1)} cm et ${stringNombre(c2)} cm.<br>`
-            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(c)}+${texNombre(c)}+${texNombre(c)}+${texNombre(c1)}+${texNombre(c2)}=${texNombre(3 * c + c1 + c2)}${sp()}${texTexte('cm')}$<br>` : ''
-            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(c)}\\times${texNombre(c)})-(${texNombre(c1)}\\times${texNombre(c2)}\\div2)=${texNombre(c ** 2 - (c1 * c2) / 2)}${sp()}${texTexte('cm')}^2$<br>` : ''
+            texteCorr = `La figure est un carré de côté ${stringNombre(c, 1)} cm auquel il faut enlever un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(c1, 1)} cm et ${stringNombre(c2, 1)} cm.<br>`
+            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(c, 1)}+${texNombre(c, 1)}+${texNombre(c, 1)}+${texNombre(c1, 1)}+${texNombre(c2, 1)}=${texNombre(3 * c + c1 + c2, 1)}${sp()}${texTexte('cm')}$<br>` : ''
+            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(c, 1)}\\times${texNombre(c, 1)})-(${texNombre(c1, 1)}\\times${texNombre(c2, 1)}\\div2)=${texNombre(c ** 2 - (c1 * c2) / 2, 2)}${sp()}${texTexte('cm')}^2$<br>` : ''
           }
           perimetre = [arrondi(3 * c + c1 + c2, 1), arrondi(3 * c + c1 + c2, 1)]
           aire = [arrondi(c ** 2 - (c1 * c2) / 2, 2), arrondi(c ** 2 - (c1 * c2) / 2, 2)]
@@ -237,7 +241,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           // const com1 = calcul(triplet1[0] * (1 + partieDecimale1))
           const c2 = triplet2[1] * (adjust)
           const h2 = triplet2[2] * (adjust)
-          const zoom = randint(5, 8) / (c1 + c2)
+          const zoom = randint(8, 12) / (c1 + c2)
           const h = com1
           const c = c1 + c2
           const M = point(0, 0, 'M')
@@ -262,7 +266,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           codagesDecoupage.push(codageAngleDroit(M, N, O), codageAngleDroit(N, O, P), codageAngleDroit(N, H, S), codageAngleDroit(S, H, O, 'blue'), codageSegment(M, N, '//', 'black'), codageSegment(M, P, '//', 'black'), codageSegment(O, P, '//', 'black'))
           const codagesDecoupages2 = [codageAngleDroit(M, T, S), codageAngleDroit(N, T, S), codageAngleDroit(P, U, S), codageAngleDroit(O, U, S), codageSegment(M, T, '//', 'black'), codageSegment(P, U, '//', 'black'), codageSegment(T, N, '/', 'black'), codageSegment(U, O, '/', 'black'), codageSegment(M, P, '///', 'black'), codageSegment(T, U, '///', 'black')]
           labelsSansDecoupage.push()
-          labelsAvecDecoupage.push(texteSurSeg(P, M, stringNombre(c) + ' cm'), texteSurSeg(S, N, stringNombre(h1) + ' cm'), texteSurSeg(O, S, stringNombre(h2) + ' cm'), texteSurSeg(H, S, stringNombre(com1) + ' cm'))
+          labelsAvecDecoupage.push(texteSurSeg(P, M, stringNombre(c, 1) + ' cm'), texteSurSeg(S, N, stringNombre(h1, 1) + ' cm'), texteSurSeg(O, S, stringNombre(h2, 1) + ' cm'), texteSurSeg(H, S, stringNombre(com1, 1) + ' cm', (H.x - N.x > O.x - H.x ? -0.7 : 0.7)))
           objetsCorrection.push(...contourFigure, ...decoupages2, ...codagesSansDecoupage, ...codagesDecoupages2)
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage, ...labelsSansDecoupage)
@@ -272,33 +276,34 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsEnonce)
 
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([M, N, S, O, P, point(N.x, N.y + 0.5)], { rxmin: -1, rymin: -1 })), ...objetsCorrection)
             texteCorr += `<br>
             La figure est composée d'un rectangle et deux triangles rectangles.<br>`
           } else {
-            texteCorr = `La figure est un carré de côté ${stringNombre(c)} cm auquel il faut enlever un triangle de ${stringNombre(c)} cm de base et ${stringNombre(h)} cm de hauteur.<br>`
-            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(c)}+${texNombre(c)}+${texNombre(c)}+${texNombre(c1)}+${texNombre(c2)}=${texNombre(3 * c + c1 + c2)}${sp()}${texTexte('cm')}$<br>` : ''
-            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(c)}\\times${texNombre(c)})-(${texNombre(c)}\\times${h}\\div2)=${texNombre(c * c)}-${texNombre((c * h) / 2)}=${texNombre(c ** 2 - (c * h) / 2)}${sp()}${texTexte('cm')}^2$<br>` : ''
+            texteCorr = `La figure est un carré de côté ${stringNombre(c, 1)} cm auquel il faut enlever un triangle de ${stringNombre(c, 1)} cm de base et ${stringNombre(h, 1)} cm de hauteur.<br>`
+            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(c, 1)}+${texNombre(c, 1)}+${texNombre(c, 1)}+${texNombre(c1, 1)}+${texNombre(c2, 1)}=${texNombre(3 * c + c1 + c2, 1)}${sp()}${texTexte('cm')}$<br>` : ''
+            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(c, 1)}\\times${texNombre(c, 1)})-(${texNombre(c, 1)}\\times${h}\\div2)=${texNombre(c * c, 2)}-${texNombre((c * h) / 2, 2)}=${texNombre(c ** 2 - (c * h) / 2, 2)}${sp()}${texTexte('cm')}^2$<br>` : ''
           }
           perimetre = [arrondi(3 * c + c1 + c2, 1), arrondi(3 * c + c1 + c2, 1)]
           aire = [arrondi(c ** 2 - (c * h) / 2, 2), arrondi(c ** 2 - (c * h) / 2, 2)]
           break
         }
         case 4 : { // 'rectangle_demi_cercle': {
-          const partieDecimale1 = randint(1, 9) / 10
           let L1 = randint(4, 8)
           let L2 = randint(3, L1 - 1)
-          L1 = L1 * (1 + partieDecimale1)
-          L2 = L2 * (1 + partieDecimale1)
-          const zoom = randint(10, 14) / (L1 + L2 / 2)
+          L1 = L1 + (randint(1, 9) / 10)
+          L2 = L2 + (randint(1, 9) / 10)
+          const zoom = randint(6, 8) / (L2)
           const A = point(0, 0, 'A')
           const B = point(0, L2 * zoom, 'B')
           const C = point(L1 * zoom, L2 * zoom, 'C')
@@ -315,8 +320,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const ER = segment(E, R)
           ER.pointilles = 5
           decoupages.push(CD, ER)
-          labelsSansDecoupage.push(texteSurSeg(A, B, stringNombre(L2) + ' cm'), texteSurSeg(A, D, stringNombre(L1) + ' cm'))
-          labelsAvecDecoupage.push(texteSurSeg(A, B, stringNombre(L2) + ' cm'), texteSurSeg(A, D, stringNombre(L1) + ' cm'), texteSurSeg(E, R, stringNombre(L2 / 2) + ' cm'))
+          labelsSansDecoupage.push(texteSurSeg(A, B, stringNombre(L2, 1) + ' cm'), texteSurSeg(A, D, stringNombre(L1, 1) + ' cm'))
+          labelsAvecDecoupage.push(texteSurSeg(A, B, stringNombre(L2, 1) + ' cm'), texteSurSeg(A, D, stringNombre(L1, 1) + ' cm'), texteSurSeg(E, R, stringNombre(L2 / 2, 1) + ' cm'))
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage, ...labelsSansDecoupage)
             objetsCorrection.push(...contourFigure, ...decoupages, ...codagesSansDecoupage, ...codagesDecoupage, ...labelsAvecDecoupage)
@@ -326,30 +331,32 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], {
-            rxmin: -1,
+            rxmin: -1.2,
             rymin: -1
           })), ...objetsEnonce)
           if (this.sup4 === 4) {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([A, B, C, D, E, demicercle, point(C.x, C.y + 0.2)], {
               rxmin: -1,
               rymin: -1
             })), ...objetsCorrection)
             texteCorr += `<br>
-            La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(L2)} cm
-            et d'un demi disque de rayon ${stringNombre(L2 / 2)} cm.<br>`
+            La figure est composée d'un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(L2, 1)} cm
+            et d'un demi disque de rayon ${stringNombre(L2 / 2, 1)} cm.<br>`
           } else {
-            texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(L2)} cm`
-            texteCorr += ` et d'un demi disque de rayon ${stringNombre(L2 / 2)} cm.<br>`
-            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(L1)}+${texNombre(L2)}+${texNombre(L1)}+(${texNombre(L2)}\\times \\pi \\div 2) \\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * Math.PI / 2, 3), 3)}${sp()}${texTexte('cm')}$<br>` : ''
-            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times\\pi \\div 2) \\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, 3), 3)}${sp()}${texTexte('cm')}^2$<br>` : ''
-            texteCorr += this.sup4 !== 2 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * Math.PI / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}$.<br>` : ''
-            texteCorr += this.sup4 !== 1 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}^2$.<br>` : ''
+            texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(L2, 1)} cm`
+            texteCorr += ` et d'un demi disque de rayon ${stringNombre(L2 / 2, 1)} cm.<br>`
+            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(L1, 1)}+${texNombre(L2, 1)}+${texNombre(L1, 1)}+(${texNombre(L2, 1)}\\times \\pi \\div 2) \\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * Math.PI / 2, 3), 3)}${sp()}${texTexte('cm')}$<br>` : ''
+            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(L1, 1)}\\times${texNombre(L2, 1)})+(${texNombre(L2 / 2, 1)}\\times${texNombre(L2 / 2, 1)}\\times\\pi \\div 2) \\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, 3), 3)}${sp()}${texTexte('cm')}^2$<br>` : ''
+            texteCorr += this.sup4 !== 2 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * Math.PI / 2, this.sup3 - 1), 1)}${sp()}${texTexte('cm')}$.<br>` : ''
+            texteCorr += this.sup4 !== 1 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, this.sup3 - 1), 2)}${sp()}${texTexte('cm')}^2$.<br>` : ''
             /* texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors :<br> $\\mathcal{P}\\approx ${texNombre(L1)}+${texNombre(L2)}+${texNombre(L2)}+(${texNombre(L2)}\\times 3,14 \\div 2) \\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * 3.14 / 2, 3), 3)}${sp()}${texTexte('cm')}$.<br>`
                       texteCorr += this.sup4 !==1 ? `$\\mathcal{A}\\approx (${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times 3,14 \\div 2) \\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14 / 2, 3), 3)}${sp()}${texTexte('cm')}^2$`
                       texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L2 + L1 + L2 * 3.14 / 2, 1))}${sp()}${texTexte('cm')}$`
@@ -363,12 +370,11 @@ export default function PerimetreOuAireDeFiguresComposees () {
           break
         }
         case 5 : { // 'rectangle_cercle': {
-          const partieDecimale1 = randint(1, 9, [1, 3, 5, 7, 9]) / 10
-          let L1 = randint(4, 8)
-          let L2 = randint(3, L1 - 1)
-          L1 = L1 * (1 + partieDecimale1)
-          L2 = L2 * (1 + partieDecimale1)
-          const zoom = randint(12, 16) / (L1 + L2)
+          let L1 = randint(5, 8)
+          let L2 = randint(L1 - 2, L1 - 1)
+          L1 = L1 + randint(1, 9, [1, 3, 5, 7, 9]) / 10
+          L2 = L2 + randint(1, 9, [1, 3, 5, 7, 9]) / 10
+          const zoom = randint(6, 8) / (L2)
           const A = point(0, 0, 'A')
           const B = point(0, L2 * zoom, 'B')
           const C = point(L1 * zoom, L2 * zoom, 'C')
@@ -391,7 +397,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const FS = segment(F, S)
           FS.pointilles = 5
           decoupages.push(CD, AB, ER, FS)
-          labelsAvecDecoupage.push(texteSurSeg(E, R, stringNombre(L2 / 2) + ' cm'), texteSurSeg(A, D, stringNombre(L1) + ' cm'))
+          labelsAvecDecoupage.push(texteSurSeg(E, R, stringNombre(L2 / 2, 1) + ' cm'), texteSurSeg(A, D, stringNombre(L1, 1) + ' cm'))
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage, ...labelsSansDecoupage)
             objetsCorrection.push(...contourFigure, ...decoupages, ...codagesSansDecoupage, ...codagesDecoupage)
@@ -401,7 +407,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
           }, fixeBordures([A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)], {
             rxmin: -1,
             rymin: -1
@@ -410,7 +417,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([A, B, C, D, E, demicercle, demicercle2, point(C.x, C.y + 0.2)], {
               rxmin: -1,
               rymin: -1
@@ -419,12 +427,12 @@ export default function PerimetreOuAireDeFiguresComposees () {
             La figure est composée d'un rectangle
             et de deux demi-disques.<br>`
           } else {
-            texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(L2)} cm`
-            texteCorr += ` et de deux demi-disques de rayon ${stringNombre(L2 / 2)} cm.<br>`
-            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(L1)}+${texNombre(L1)}+(${texNombre(L2)}\\times \\pi) \\approx ${texNombre(L1 + L1 + L2 * Math.PI, 3)}${sp()}${texTexte('cm')}$<br>` : ''
-            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times\\pi)\\approx ${texNombre(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, 3)}${sp()}${texTexte('cm')}^2$<br>` : ''
-            texteCorr += this.sup4 !== 2 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L1 + L2 * Math.PI, this.sup3 - 1))}${sp()}${texTexte('cm')}$.<br>` : ''
-            texteCorr += this.sup4 !== 1 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1))}${sp()}${texTexte('cm')}^2$.<br>` : ''
+            texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(L2, 1)} cm`
+            texteCorr += ` et de deux demi-disques de rayon ${stringNombre(L2 / 2, 1)} cm.<br>`
+            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(L1, 1)}+${texNombre(L1, 1)}+(${texNombre(L2, 1)}\\times \\pi) \\approx ${texNombre(L1 + L1 + L2 * Math.PI, 3)}${sp()}${texTexte('cm')}$<br>` : ''
+            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(L1, 1)}\\times${texNombre(L2, 1)})+(${texNombre(L2 / 2, 1)}\\times${texNombre(L2 / 2, 1)}\\times\\pi)\\approx ${texNombre(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, 3)}${sp()}${texTexte('cm')}^2$<br>` : ''
+            texteCorr += this.sup4 !== 2 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L1 + L2 * Math.PI, this.sup3 - 1), 1)}${sp()}${texTexte('cm')}$.<br>` : ''
+            texteCorr += this.sup4 !== 1 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1), 1)}${sp()}${texTexte('cm')}^2$.<br>` : ''
             /* texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors : <br> $\\mathcal{P}\\approx ${texNombre(L1)}+${texNombre(L1)}+(${texNombre(L2)}\\times 3,14) \\approx ${texNombre(L1 + L1 + L2 * 3.14, 3)}${sp()}${texTexte('cm')}$<br>`
                     texteCorr += this.sup4 !==1 ? `$\\mathcal{A}\\approx (${texNombre(L1)}\\times${texNombre(L2)})+(${texNombre(L2 / 2)}\\times${texNombre(L2 / 2)}\\times 3,14)\\approx ${texNombre(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14, 3)}${sp()}${texTexte('cm')}^2$`
                     texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L1 + L2 * 3.14, 1))}${sp()}${texTexte('cm')}$.`
@@ -439,12 +447,12 @@ export default function PerimetreOuAireDeFiguresComposees () {
         }
         case 6 : { // 'rectangle_triangle_demi_disque': {
           const triplet = choice(tripletsPythagoriciens)
-          const adjust = (triplet[2] > 50 ? randint(1, 3) / 10 : randint(6, 8) / 10)
+          const adjust = (triplet[2] > 50 ? randint(2, 4, [3]) / 10 : triplet[2] > 10 ? randint(6, 8, [7]) / 10 : randint(10, 12, [11]) / 10)
           const l1 = triplet[0] * (adjust)
           const L2 = triplet[1] * (adjust)
           const hyp = triplet[2] * (adjust)
           const L1 = randint(Math.ceil(l1) + 1, Math.ceil(l1) + 4) + randint(1, 9) / 10
-          const zoom = randint(12, 16) / (L1 + L2)
+          const zoom = randint(14, 18) / (L1 + L2)
           const A = point(0, 0, 'A')
           const B = point(0, l1 * zoom, 'B')
           const C = point(L1 * zoom, l1 * zoom, 'C')
@@ -462,7 +470,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const CE = segment(C, E)
           CE.pointilles = 5
           decoupages.push(FR, AB, CE)
-          labelsAvecDecoupage.push(texteSurSeg(F, R, stringNombre(l1 / 2) + ' cm'), texteSurSeg(D, E, stringNombre(hyp) + ' cm'), texteSurSeg(E, C, stringNombre(l1) + ' cm'), texteSurSeg(E, A, stringNombre(L1) + ' cm'), texteSurSeg(C, D, stringNombre(L2) + ' cm'))
+          labelsAvecDecoupage.push(texteSurSeg(F, B, stringNombre(l1 / 2, 1) + ' cm', -0.8), texteSurSeg(D, E, stringNombre(hyp, 1) + ' cm'), texteSurSeg(E, C, stringNombre(l1, 1) + ' cm'), texteSurSeg(E, A, stringNombre(L1, 1) + ' cm'), texteSurSeg(C, D, stringNombre(L2, 1) + ' cm'))
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage)
             objetsCorrection.push(...contourFigure, ...decoupages, ...codagesSansDecoupage, ...codagesDecoupage)
@@ -472,8 +480,9 @@ export default function PerimetreOuAireDeFiguresComposees () {
           texte = mathalea2d(Object.assign({
             scale: 0.7,
             pixelsParCm: 20,
-            zoom: 1
-          }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.2)], {
+            zoom: 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
+          }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.6)], {
             rxmin: -1,
             rymin: -1
           })), ...objetsEnonce)
@@ -481,7 +490,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
             texteCorr = mathalea2d(Object.assign({
               scale: 0.7,
               pixelsParCm: 20,
-              zoom: 1
+              zoom: 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, fixeBordures([demicercle, A, B, C, D, E, point(C.x, C.y + 0.2)], {
               rxmin: -1,
               rymin: -1
@@ -489,13 +499,13 @@ export default function PerimetreOuAireDeFiguresComposees () {
             texteCorr += `<br>
             La figure est composée d'un rectangle, d'un triangle rectangle et d'un demi-disque.<br>`
           } else {
-            texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1)} cm par ${stringNombre(l1)} cm, `
-            texteCorr += `d'un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2)} cm et ${stringNombre(l1)} cm `
-            texteCorr += `et d'un demi-disque de rayon ${stringNombre(l1 / 2)}${sp()}cm.<br>`
-            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(L1)}+${texNombre(L1 + L2)}+(${texNombre(l1)}\\times \\pi \\div 2)+${texNombre(hyp)}\\approx${texNombre(troncature(L1 + L1 + hyp + L2 + l1 * Math.PI / 2, 3))}${sp()}${texTexte('cm')}$<br>` : ''
-            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(L1)}\\times${texNombre(l1)})+(${texNombre(L2)}\\times${texNombre(l1)} \\div 2) + (\\pi \\times${texNombre(l1)} \\div 2)\\approx${texNombre(troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2, 3))}${sp()}${texTexte('cm')}^2$<br>` : ''
-            texteCorr += this.sup4 !== 2 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}$.<br>` : ''
-            texteCorr += this.sup4 !== 1 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * l1 + (l1 / 2) * (l1 / 2) * Math.PI / 2 + L2 * l1 / 2, this.sup3 - 1))}${sp()}${texTexte('cm')}^2$.<br>` : ''
+            texteCorr = `La figure est composée d'un rectangle de ${stringNombre(L1, 1)} cm par ${stringNombre(l1, 1)} cm, `
+            texteCorr += `d'un triangle rectangle dont les côtés de l'angle droit mesurent respectivement ${stringNombre(L2, 1)} cm et ${stringNombre(l1, 1)} cm `
+            texteCorr += `et d'un demi-disque de rayon ${stringNombre(l1 / 2, 1)}${sp()}cm.<br>`
+            texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(L1, 1)}+${texNombre(L1 + L2, 1)}+(${texNombre(l1, 1)}\\times \\pi \\div 2)+${texNombre(hyp, 1)}\\approx${texNombre(troncature(L1 + L1 + hyp + L2 + l1 * Math.PI / 2, 3), 1)}${sp()}${texTexte('cm')}$<br>` : ''
+            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(L1, 1)}\\times${texNombre(l1, 1)})+(${texNombre(L2, 1)}\\times${texNombre(l1, 1)} \\div 2) + (\\pi \\times${texNombre(l1, 1)} \\div 2)\\approx${texNombre(troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2, 3), 2)}${sp()}${texTexte('cm')}^2$<br>` : ''
+            texteCorr += this.sup4 !== 2 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm' : 'au dixième de cm'} est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2, this.sup3 - 1), 1)}${sp()}${texTexte('cm')}$.<br>` : ''
+            texteCorr += this.sup4 !== 1 ? `Une valeur approchée ${this.sup3 === 1 ? 'au cm$^2$' : 'au dixième de cm$^2$'} est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * l1 + (l1 / 2) * (l1 / 2) * Math.PI / 2 + L2 * l1 / 2, this.sup3 - 1), 2)}${sp()}${texTexte('cm')}^2$.<br>` : ''
             /* texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors :<br> $\\mathcal{P}\\approx ${texNombre(L1)}+${texNombre(L1 + L2)}+(${texNombre(l1)}\\times 3,14 \\div 2)+${texNombre(hyp)}\\approx${texNombre(troncature(L1 + L1 + hyp + L2 + l1 * 3.14 / 2, 3))}${sp()}${texTexte('cm')}$.<br>`
                     texteCorr += this.sup4 !==1 ? `$\\mathcal{A}\\approx (${texNombre(L1)}\\times${texNombre(l1)})+(${texNombre(L2)}\\times${texNombre(l1)} \\div 2) + (3,14 \\times${texNombre(l1)} \\div 2)\\approx${texNombre(troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * 3.14 / 2, 3))}${sp()}${texTexte('cm')}^2$`
                     texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{P}\\approx ${texNombre(troncature(L1 + L1 + L2 + hyp + l1 * 3.14 / 2, 1))}${sp()}${texTexte('cm')}$.`

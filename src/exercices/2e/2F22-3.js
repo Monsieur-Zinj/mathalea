@@ -6,15 +6,17 @@ import { choice } from '../../lib/outils/arrayOutils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
-
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
-
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '25/11/2023' // interactivité
 export const uuid = 'a7860' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = '2F22-3'// @todo à modifier aussi
 // une liste de nœuds pour définir une fonction Spline
-const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
+const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true },
   { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
   { x: -2, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -22,7 +24,7 @@ const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: t
   { x: 2, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: 3, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
-  { x: 5, y: 1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true }
+  { x: 5, y: 1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true }
 ]
 // une autre liste de nœuds...
 const noeuds2 = [{ x: -6, y: -2, deriveeGauche: 2, deriveeDroit: 2, isVisible: true },
@@ -56,7 +58,6 @@ const noeuds4 = [{ x: -6, y: 3, deriveeGauche: 1, deriveeDroit: 1, isVisible: tr
   { x: 2, y: 0, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 3, y: -3, deriveeGauche: -2, deriveeDroit: -2, isVisible: true }
 ]
-
 // une liste des listes
 const mesFonctions = [noeuds1, noeuds2, noeuds3, noeuds4]//, , noeuds2noeuds1, noeuds2,
 
@@ -94,6 +95,30 @@ function aleatoiriseCourbe (choix) {
   }
   return { coeffX, coeffY, deltaX, deltaY }
 }
+/* Mauvaise idée ici de mélanger des splines bricolées et des tableaux de signes
+function fauxNoeuds (noeuds) { // on donne des noeuds corrects
+  const newNoeuds = [] // ceux qu'on va renvoyer
+  const zeros = []
+  // On commence par recenser les zéros
+  for (let i = 0; i < noeuds.length; i++) {
+    if (noeuds[i].y === 0) {
+      zeros.push(i)
+    }
+  }
+  // On choisit notre faussaire
+  const leFauxNoeud = choice(zeros)
+  // on crée la liste trafiquée en substituant le faussaire au bon noeud
+  for (let i = 0; i < noeuds.length; i++) {
+    if (i !== leFauxNoeud) {
+      newNoeuds.push(noeuds[i])
+    } else {
+      const avant = noeuds[i]
+      newNoeuds.push({ x: avant.x + choice([-1, 1]) * 0.5, y: 0, deriveeGauche: avant.deriveeGauche, deriveeDroit: avant.deriveeDroit, isVisible: avant.isVisible })
+    }
+  }
+  return newNoeuds
+}
+ */
 
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
@@ -128,6 +153,7 @@ export default class BetaModeleSpline extends Exercice {
     for (let i = 0; i < this.nbQuestions; i++) {
       const { coeffX, coeffY, deltaX, deltaY } = aleatoiriseCourbe(Number(typeDeQuestions[i]))
       // la liste des noeuds de notre fonction
+
       const nuage = choice(mesFonctions).map((noeud) => Object({
         x: (noeud.x + deltaX) * coeffX,
         y: (noeud.y + deltaY) * coeffY,
@@ -137,21 +163,21 @@ export default class BetaModeleSpline extends Exercice {
       }))
       const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
       const maSpline = spline(nuage)
-      const { xMin, xMax, yMin, yMax } = maSpline.trouveMaxes()
+      const fonctionD = x => maSpline.derivee(x)
+      const choixInteractif = randint(0, 1)
+      const { xMin, xMax } = maSpline.trouveMaxes()
+      this.spline = maSpline
+      const bornes = maSpline.trouveMaxes()
       const repere1 = repere({
-        xMin: xMin - 1,
-        xMax: xMax + 1,
-        yMin: yMin - 1,
-        yMax: yMax + 1,
+        xMin: bornes.xMin - 1,
+        xMax: bornes.xMax + 1,
+        yMin: bornes.yMin - 1,
+        yMax: bornes.yMax + 1,
         grilleX: false,
         grilleY: false,
         grilleSecondaire: true,
         grilleSecondaireYDistance: 1,
-        grilleSecondaireXDistance: 1,
-        grilleSecondaireYMin: yMin - 1,
-        grilleSecondaireYMax: yMax + 1,
-        grilleSecondaireXMin: xMin - 1,
-        grilleSecondaireXMax: xMax + 1
+        grilleSecondaireXDistance: 1
       })
       const courbe1 = maSpline.courbe({
         repere: repere1,
@@ -162,27 +188,40 @@ export default class BetaModeleSpline extends Exercice {
         color: 'blue'
       })
       const objetsEnonce = [repere1, courbe1]
-      let texteEnonce = 'Voici la courbe représentative d\'une fonction $f$, sur son ensemble de définition.<br>'
-      texteEnonce += mathalea2d(Object.assign({ scale: 0.7 }, fixeBordures(objetsEnonce)), objetsEnonce, o)
-      texteEnonce += '<br>Dresser le tableau de signes de $f(x)$ sur son ensemble de définition.'
-      // const objetsCorrection = [repere1]
-      // on ajoute les tracés pour repérer les antécédents et on en profite pour rendre les autres noeuds invisibles
+      let texteEnonce
+      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.01 })
+      const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.01 })
 
+      const tableauChoisi = [tableau, tableauB][choixInteractif]
+      if (choixInteractif === 0) {
+        setReponse(this, i, ['Oui', 'OUI', 'oui'])
+      } else {
+        setReponse(this, i, ['Non', 'NON', 'non'])
+      }
+      texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' +
+        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, fixeBordures([repere1])), objetsEnonce, o)
+      if (this.interactif || this.can) {
+        texteEnonce = 'Voici la représentation graphique d\'une fonction $f$ :<br>'
+        texteEnonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, fixeBordures([repere1])), objetsEnonce, o)
+        texteEnonce += '<br>Le tableau de signes de la fonction $f$ est : <br>'
+        texteEnonce += tableauChoisi
+        texteEnonce += '<br>Répondre par "Oui" ou "Non" '
+        texteEnonce += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      }
       let texteCorrection
-      texteCorrection = `<br>L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>`
+      texteCorrection = `L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>`
       if (this.correctionDetaillee) {
         texteCorrection += `Les images $f(x)$ sont positives lorsque la courbe est au-dessus de l'axe des abscisses et elles sont négatives lorque la courbe est en dessous de l'axe des abscisses.<br><br>
           `
       }
       texteCorrection += `Tableau de signes de $f(x)$ sur $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$ :<br>
           `
-      // on stocke le tableau de signes dans une variable
-      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: Number(typeDeQuestions[i]) === 1 ? 1 : new FractionEtendue(1, 2), tolerance: Number(typeDeQuestions[i]) === 1 ? 0.1 : 0.001 })
-
-      texteCorrection += tableau
+      texteCorrection += tableauChoisi
 
       this.listeQuestions.push(texteEnonce)
       this.listeCorrections.push(texteCorrection)
+      this.canEnonce = texteEnonce// 'Compléter'
+      this.canReponseACompleter = ''
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }

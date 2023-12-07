@@ -254,11 +254,11 @@ export default function TrouverLaTransformations () {
             case 'rot90':
               trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
               propositions.push(
-                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens direct`
+                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`
               )
               trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, false, 12, polys[transfos[k].depart])
               propositions.push(
-                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens indirect`
+                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`
               )
               break
             case 'trans':

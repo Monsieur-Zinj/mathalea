@@ -1,515 +1,401 @@
-import { point } from '../../lib/2d/points.js'
+import { point, tracePoint } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { axes, repere } from '../../lib/2d/reperes.js'
+import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import { repere } from '../../lib/2d/reperes.js'
+import { texteGras } from '../../lib/format/style.js'
+import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
-import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texteParPosition } from '../../lib/2d/textes.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer la nature d\'un polygone avec les coordonnées'
-
+export const dateDeModifImportante = '30/11/2023'
 /**
  * 2G12
- * @author Stéphane Guyon
+ * @author Stéphane Guyon + Gilles Mora
  */
 export const uuid = 'd633a'
 export const ref = '2G12-4'
 export default function NaturePolygone () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.nbQuestions = 2
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  // this.sup = 1 ; //
+  this.nbQuestions = 1
+  this.nbCols = 1
+  this.nbColsCorr = 1
+  this.sup = 3
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const typesDeQuestionsDisponibles = [1]; let typesDeQuestions
+
     let objets
     let A, B, C, D, P, XMIN, XMAX, YMIN, YMAX
 
+    let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
+    if (this.sup === 1) {
+      typesDeQuestionsDisponibles = [1, 2]
+    }
+    if (this.sup === 2) {
+      typesDeQuestionsDisponibles = [3, 4, 5]
+    }
+    if (this.sup === 3) {
+      typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
+    }
+
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, facteur, radical, ux, uy, xA, yA, xB, yB, xC, yC, xD, yD, abCarre, acCarre, xAbCarre, yAbCarre, xAcCarre, yAcCarre, xBcCarre, yBcCarre, BC, xAdCarre, yAdCarre, AD, xI0, xI1, yI0, yI1, xJ0, xJ1, yJ0, yJ1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, s1, s2, s3, s4, nom, I, J, o, T, ux, uy, xA, yA, xB, yB, xC, yC, xD, yD, abCarre, acCarre, bcCarre, xAbCarre, yAbCarre, xAcCarre, yAcCarre, xBcCarre, yBcCarre, xAdCarre, yAdCarre, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objets = []
       typesDeQuestions = listeTypeDeQuestions[i]
-      switch (typesDeQuestions) {
-        // Cas par cas, on définit le type de nombres que l'on souhaite
-        // Combien de chiffres ? Quelles valeurs ?
-
-        case 1: // Triangle isocèle ou équilatéral
-
-          xA = randint(0, 5) * choice([-1, 1])
-          yA = randint(0, 5) * choice([-1, 1])
-          ux = randint(1, 5) * choice([-1, 1])
+      if (typesDeQuestions === 1) {
+        xA = randint(0, 6) * choice([-1, 1])
+        yA = randint(0, 6) * choice([-1, 1])
+        ux = randint(1, 5) * choice([-1, 1])
+        uy = randint(1, 5) * choice([-1, 1])
+        while (ux === uy || ux === -uy) { // ajout d'une condition pour éviter des points alignés (Jean-claude Lhote)
           uy = randint(1, 5) * choice([-1, 1])
-          while (ux === uy || ux === -uy) { // ajout d'une condition pour éviter des points alignés (Jean-claude Lhote)
-            uy = randint(1, 5) * choice([-1, 1])
-          }// empêcher ux=uy pour éviter B=C
-          xB = xA + ux
-
-          yB = yA + uy
-
-          xC = xA + uy
-          yC = yA + ux
-          xD = 0 // pour ne pas bloquer le recadrage du repère
-          yD = 0
-          xAbCarre = (xB - xA) * (xB - xA)
-          yAbCarre = (yB - yA) * (yB - yA)
-          abCarre = xAbCarre + yAbCarre
-          xAcCarre = (xC - xA) * (xC - xA)
-          yAcCarre = (yC - yA) * (yC - yA)
-          xBcCarre = (xC - xB) * (xC - xB)
-          yBcCarre = (yC - yB) * (yC - yB)
-          acCarre = xAcCarre + yAcCarre
-          texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
-          texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right)$ et $C\\left(${xC};${yC}\\right)$`
-          texte += '<br>Déterminer la nature du triangle $ABC$ '
-
-          texteCorr = 'A partir du repère, on a envie de prouver que$ABC$ est un triangle isocèle en $A$.'
-          texteCorr += '<br> On calcule donc séparément les distances $AB$ et $AC$ '
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
-          texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>'
-          texteCorr += `On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${xAbCarre}+${yAbCarre}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(xAbCarre + yAbCarre)}}$<br>`
-          facteur = extraireRacineCarree(abCarre)[0]
-          radical = extraireRacineCarree(abCarre)[1]
-          if (radical !== 1) {
-            if (facteur !== 1) {
-              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}\\sqrt{${radical}}$<br>`
-            }
-          } else {
-            texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}$<br>`
-          }
-
-          texteCorr += `De même : $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${xAcCarre}+${yAcCarre}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`
-          facteur = extraireRacineCarree(acCarre)[0]
-          radical = extraireRacineCarree(acCarre)[1]
-          if (radical !== 1) {
-            if (facteur !== 1) {
-              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}\\sqrt{${radical}}$<br>`
-            }
-          } else {
-            texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}$<br>`
-          }
-          texteCorr += 'On observe que $AC=AB$ donc le triangle $ABC$ est isocèle.'
-          texteCorr += '<br>On calcule $BC$ pour vérifier s\'il est ou non  équilatéral.'
-          texteCorr += `<br>On obtient : $BC=\\sqrt{${xBcCarre}+${yBcCarre}}=\\sqrt{${texNombre(xBcCarre + yBcCarre)}}$<br>`
-          if (xBcCarre + yBcCarre === xAbCarre + yAbCarre) { texteCorr += 'Le triangle $ABC$ est équilatéral.' } else { texteCorr += 'Le triangle $ABC$ est simplement isocèle, il n\'est pas équilatéral.' }
-          A = point(xA, yA, 'A')
-          B = point(xB, yB, 'B')
-          C = point(xC, yC, 'C')
-          P = polygoneAvecNom(A, B, C)
-          objets.push(P[0], P[1])
-          break
-        case 2: // ABC isocèle triangle rectangle
-
-          xA = randint(0, 5) * choice([-1, 1])
-          yA = randint(0, 5) * choice([-1, 1])
-          ux = randint(1, 5) * choice([-1, 1])
-          uy = randint(1, 5) * choice([-1, 1])
-          xB = xA + ux
-          yB = yA + uy
-          xC = xA - uy
-          yC = yA + ux
-          xAbCarre = (xB - xA) * (xB - xA)
-          yAbCarre = (yB - yA) * (yB - yA)
-          abCarre = xAbCarre + yAbCarre
-          xAcCarre = (xC - xA) * (xC - xA)
-          yAcCarre = (yC - yA) * (yC - yA)
-          xBcCarre = (xC - xB) * (xC - xB)
-          yBcCarre = (yC - yB) * (yC - yB)
-          acCarre = xAcCarre + yAcCarre
-          texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
-          texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right)$ et $C\\left(${xC};${yC}\\right)$`
-          texte += '<br>Déterminer la nature du triangle $ABC$ '
-
-          texteCorr = 'A partir du repère, on a envie de prouver que$ABC$ est un triangle rectangle en $A$.'
-          texteCorr += '<br> Pour vérifier que le triangle est rectabgle, on va utiliser la réciproque du théorème de Pythagore.'
-          texteCorr += '<br> On calcule donc séparément les distances $AB^{2}$ ; $AC^{2}$ et $BC^{2}$ pour vérifier si $BC^{2}=AB^{2}+AC^{2}$ .'
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
-          texteCorr += ' alors on a : $AB^{2}=\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}$<br>'
-          texteCorr += `On applique la relation à l'énoncé : $AB^{2}=\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB^{2}=${xAbCarre}+${yAbCarre}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB^{2}=${texNombre(xAbCarre + yAbCarre)}$<br>`
-          texteCorr += `De même $AC^{2} = \\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}$<br>`
-          texteCorr += `$\\phantom{De meme :       } acCarre^{2}=${xAcCarre}+${yAcCarre}$<br>`
-          texteCorr += `$\\phantom{De meme :       } acCarre^{2}=${texNombre(xAcCarre + yAcCarre)}$<br>`
-          texteCorr += `$BC^{2}=\\left(${xB}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}$<br>`
-          texteCorr += `$\\phantom{De meme :       } BC^{2}=${xBcCarre}+${yBcCarre}$<br>`
-          texteCorr += `$\\phantom{De meme :       } BC^{2}=${texNombre(xBcCarre + yBcCarre)}$<br>`
-          texteCorr += `On observe que $AC^{2}+AB^{2}=${texNombre(xAcCarre + yAcCarre + xAbCarre + yAbCarre)} ~~et~~ BC^{2}={${texNombre(xBcCarre + yBcCarre)}}$.`
-          texteCorr += '<br>On en déduit que $BC^{2}=AC^{2}+AB^{2}$.'
-          texteCorr += '<br>D\'après la réciproque du théorème de Pythagore,  le triangle ABC est rectangle en A.'
-          if (xAbCarre + yAbCarre === xAcCarre + yAcCarre) { texteCorr += '<br>On observe en plus que AB=AC. <br> Le triangle ABC est donc isocèle rectangle en A.' }
-          A = point(xA, yA, 'A')
-          B = point(xB, yB, 'B')
-          C = point(xC, yC, 'C')
-          P = polygoneAvecNom(A, B, C)
-          objets.push(P[0], P[1])
-          break
-        case 3: // Dq ABDC losange
-          xA = randint(0, 9) * choice([-1, 1])
-          yA = randint(0, 9) * choice([-1, 1])
-          ux = randint(1, 5)
-          uy = randint(1, 5, ux) * choice([-1, 1])
-          ux *= choice([-1, 1])
-          xB = xA + ux
-          yB = yA + uy
-          xC = xB - uy
-          yC = yB - ux
-          xD = xC - ux
-          yD = yC - uy
-          xI0 = fractionSimplifiee(xA + xC, 2)[0]
-          xI1 = fractionSimplifiee(xA + xC, 2)[1]
-          yI0 = fractionSimplifiee(yA + yC, 2)[0]
-          yI1 = fractionSimplifiee(yA + yC, 2)[1]
-          xJ0 = fractionSimplifiee(xB + xD, 2)[0]
-          xJ1 = fractionSimplifiee(xB + xD, 2)[1]
-          yJ0 = fractionSimplifiee(yB + yD, 2)[0]
-          yJ1 = fractionSimplifiee(yB + yD, 2)[1]
-          xAbCarre = (xB - xA) * (xB - xA)
-          yAbCarre = (yB - yA) * (yB - yA)
-          //     AB = XAB + YAB
-          xAdCarre = (xD - xA) * (xD - xA)
-          yAdCarre = (yD - yA) * (yD - yA)
-          xAdCarre = xAdCarre + yAdCarre
-          xAcCarre = (xC - xA) * (xC - xA)
-          yAcCarre = (yC - yA) * (yC - yA)
-          //     AC = XAC + YAC
-          a = axes(-9, -9, 9, 9, 0.2, 1)
-
-          texte = 'Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>'
-          texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right).$`
-          texte += ` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
-          texte += '<br>Démontrer que $ABCD$ est un losange.'
-
-          texteCorr = '<br>Pour prouver que $ABCD$ est un losange, il y a deux stratégies :<br>'
-          texteCorr += '$~~~~~~~~$<B>1.</B> On calcule les quatre longueurs du quadrilatère et on prouve leur égalité.<br>'
-          texteCorr += '$\\phantom{~~~~~~~~}$Un quadrilatère qui possède quatre côtés de même longueur est un losange.<br>'
-          texteCorr += '$~~~~~~~~$<B>2. </B> On prouve que $ABDC$ est un parallélogramme, puis il sufit de prouver qu\'il possède deux côtés consécutifs de même longueur.<br>'
-          texteCorr += '$\\phantom{~~~~~~~~}$ Un parallélogramme qui possède deux côtés consécutifs de même longueur est un losange'
-          texteCorr += '<br>Les deux démonstrations se valent. <br>On choisit ici la <B>démonstration n°2</B>, plus variée, mais la n°1 est valable.<br>'
-          texteCorr += '<B>Démonstration :</B><br>'
-          texteCorr += 'On veut prouver que $ABCD$ est un parallélogramme :'
-          texteCorr += '<br>On sait que ABCD est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.'
-          texteCorr += '<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère, pour prouver qu\'elles sont identiques. :'
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $C(x_C;y_C)$ sont deux points d\'un repère ,'
-          texteCorr += '<br> alors les coordonnées du point $I$ milieu de $[AC]$ sont '
-          texteCorr += '$I\\left(\\dfrac{x_A+x_C}{2};\\dfrac{y_A+y_C}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xC)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yC)}}{2}\\end{cases}$`
-          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
-          texteCorr += '<br> Les coordonnées du point $J$ milieu de $[BC]$ sont '
-          texteCorr += '$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_J=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${texNombre(xB + xD)}}{2}\\\\y_J=\\dfrac{${texNombre(yB + yD)}}{2}\\end{cases}$`
-          if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
-          if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
-          if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
-          texteCorr += '<br>On observe que $I$ et $J$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
-          texteCorr += '<br>$ABCD$ est donc un parallélogramme.'
-          texteCorr += '<br>On calcule maintenant deux cotés consécutifs : $AB$ et $AD$ par exemple.'
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère orthonormé,'
-          texteCorr += ' alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}.$<br>'
-          texteCorr += `On applique la relation à l'énoncé : $AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${xAbCarre}+${yAbCarre}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AB=\\sqrt{${texNombre(xAbCarre + yAbCarre)}}$<br>`
-
-          facteur = extraireRacineCarree(abCarre)[0]
-          radical = extraireRacineCarree(abCarre)[1]
-
-          if (radical !== 1) {
-            if (facteur !== 1) {
-              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}\\sqrt{${radical}}$<br>`
-            }
-          } else {
-            texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AB=${facteur}$<br>`
-          }
-
-          texteCorr += `On procède de même pour $AD$:<br> $AD=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${xAdCarre}+${yAdCarre}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AC=\\sqrt{${texNombre(xAdCarre + yAdCarre)}}$<br>`
-          facteur = extraireRacineCarree(AD)[0]
-          radical = extraireRacineCarree(AD)[1]
-          if (radical !== 1) {
-            if (facteur !== 1) {
-              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=${facteur}\\sqrt{${radical}}$<br>`
-            }
-          } else {
-            texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=\\sqrt{${radical}}$<br>`
-          }
-          texteCorr += '<br>On observe que $AB=AD$, $ABDC$ est donc bien un losange.'
-          A = point(xA, yA, 'A')
-          B = point(xB, yB, 'B')
-          C = point(xC, yC, 'C')
-          D = point(xD, yD, 'D')
-          P = polygoneAvecNom(A, B, C, D)
-          objets.push(P[0], P[1])
-
-          break
-        case 4://  Dq rectangle
-          xA = randint(0, 6) * choice([-1, 1])
-          yA = randint(0, 6) * choice([-1, 1])
-          ux = randint(1, 3) * choice([-1, 1])
-          uy = randint(1, 3) * choice([-1, 1])
-          a = randint(2, 4)
-          xB = xA + ux * a
-          yB = yA + uy * a
-          xC = xA - uy
-          yC = yA + ux
-          xD = xC + ux * a
-          yD = yC + uy * a
-
-          xI0 = fractionSimplifiee(xA + xD, 2)[0]
-          xI1 = fractionSimplifiee(xA + xD, 2)[1]
-          yI0 = fractionSimplifiee(yA + yD, 2)[0]
-          yI1 = fractionSimplifiee(yA + yD, 2)[1]
-          xJ0 = fractionSimplifiee(xB + xC, 2)[0]
-          xJ1 = fractionSimplifiee(xB + xC, 2)[1]
-          yJ0 = fractionSimplifiee(yB + yC, 2)[0]
-          yJ1 = fractionSimplifiee(yB + yC, 2)[1]
-          xAbCarre = (xB - xA) * (xB - xA)
-          yAbCarre = (yB - yA) * (yB - yA)
-          //    AB = XAB + YAB
-          xAcCarre = (xC - xA) * (xC - xA)
-          yAcCarre = (yC - yA) * (yC - yA)
-          //    AC = XAC + YAC
-          xAdCarre = (xD - xA) * (xD - xA)
-          yAdCarre = (yD - yA) * (yD - yA)
-          AD = xAdCarre + yAdCarre
-          xBcCarre = (xB - xC) * (xB - xC)
-          yBcCarre = (yB - yC) * (yB - yC)
-          BC = xBcCarre + yBcCarre
-          a = axes(-9, -9, 9, 9, 0.2, 1)
-
-          texte = 'Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>'
-          texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right).$`
-          texte += ` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
-          texte += '<br>Démontrer que $ABDC$ est un rectangle.'
-
-          texteCorr = '<br>Pour prouver que $ABDC$ est un rectangle, il y a pluieurs stratégies :<br>'
-          texteCorr += '$~~~~~~~~$<B>1.</B> On prouve avec la réciproque du théorème de Pythagore que $ABDC$ possède un angle droit,<br>'
-          texteCorr += '$puis on prouve qu\'il a ses côtés opposés de même longueur.<br>'
-          texteCorr += '$~~~~~~~~$<B>2. </B> On prouve que $ABDC$ est un parallélogramme, puis il sufit de prouver que ses diagonales sont de même longueur.<br>'
-          texteCorr += '$\\phantom{~~~~~~~~}$ Un parallélogramme qui a ses diagonales de même longueur est un rectangle.'
-          texteCorr += '<br>Plusiurs démonstrations se valent. On choisit ici la <B>démonstration n°2</B>, mais d\'autres idées sont valables.<br>'
-          texteCorr += '<B>Démonstration :</B><br>'
-          texteCorr += 'On veut prouver que $ABDC$ est un parallélogramme :'
-          texteCorr += '<br>On sait que $ABDC$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.'
-          texteCorr += '<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère, pour prouver qu\'elles sont identiques. :'
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère ,'
-          texteCorr += '<br> alors les coordonnées du point $I$ milieu de $[AD]$ sont '
-          texteCorr += '$I\\left(\\dfrac{x_A+x_D}{2};\\dfrac{y_A+y_D}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation a l\'enonce : '
-          texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xD)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yD)}}{2}\\end{cases}$`
-          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
-          texteCorr += '<br> Les coordonnées du point $J$ milieu de $[BC]$ sont '
-          texteCorr += '$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_J=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${texNombre(xB + xC)}}{2}\\\\y_J=\\dfrac{${texNombre(yB + yC)}}{2}\\end{cases}$`
-          if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
-          if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
-          if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
-          texteCorr += '<br>On observe que $I$ et $J$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
-          texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
-          texteCorr += '<br>On calcule maintenant les diagonales de $ABDC$ : $AD$ et $BC$ par exemple.'
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère orthonormé,'
-          texteCorr += ' alors on a : $AD=\\sqrt{\\left(x_D-x_A\\right)^{2}+\\left(y_D-y_A\\right)^{2}}.$<br>'
-          texteCorr += `On applique la relation à l'énoncé : $AD=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${xAdCarre}+${yAdCarre}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${texNombre(xAdCarre + yAdCarre)}}$<br>`
-          facteur = extraireRacineCarree(AD)[0]
-          radical = extraireRacineCarree(AD)[1]
-          if (radical !== 1) {
-            if (facteur !== 1) {
-              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=${facteur}\\sqrt{${radical}}$<br>`
-            }
-          } else {
-            texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=\\sqrt{${radical}}$<br>`
-          }
-
-          texteCorr += `On procède de même pour $BC$: $BC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${xBcCarre}+${yBcCarre}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${texNombre(xBcCarre + yBcCarre)}}$<br>`
-          facteur = extraireRacineCarree(BC)[0]
-          radical = extraireRacineCarree(BC)[1]
-          if (radical !== 1) {
-            if (facteur !== 1) {
-              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=${facteur}\\sqrt{${radical}}$<br>`
-            }
-          } else {
-            texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=${facteur}$<br>`
-          }
-          texteCorr += '<br>On observe que $BC=AD$, $ABDC$ est donc bien un rectangle.'
-          A = point(xA, yA, 'A')
-          B = point(xB, yB, 'B')
-          C = point(xC, yC, 'C')
-          D = point(xD, yD, 'D')
-          P = polygoneAvecNom(A, B, D, C)
-          objets.push(P[0], P[1])
-
-          break
-        case 5:// carré
-          xA = randint(0, 9) * choice([-1, 1])
-          yA = randint(0, 9) * choice([-1, 1])
-          ux = randint(1, 9) * choice([-1, 1])
-          uy = randint(1, 9) * choice([-1, 1])
-          xB = xA + ux
-          yB = yA + uy
-          xC = xA - uy
-          yC = yA + ux
-          xD = xC + ux
-          yD = yC + uy
-
-          xI0 = fractionSimplifiee(xA + xD, 2)[0]
-          xI1 = fractionSimplifiee(xA + xD, 2)[1]
-          yI0 = fractionSimplifiee(yA + yD, 2)[0]
-          yI1 = fractionSimplifiee(yA + yD, 2)[1]
-          xJ0 = fractionSimplifiee(xB + xC, 2)[0]
-          xJ1 = fractionSimplifiee(xB + xC, 2)[1]
-          yJ0 = fractionSimplifiee(yB + yC, 2)[0]
-          yJ1 = fractionSimplifiee(yB + yC, 2)[1]
-          xAbCarre = (xB - xA) * (xB - xA)
-          yAbCarre = (yB - yA) * (yB - yA)
-          //     AB = XAB + YAB
-          xAcCarre = (xC - xA) * (xC - xA)
-          yAcCarre = (yC - yA) * (yC - yA)
-          //      AC = XAC + YAC
-          xAdCarre = (xD - xA) * (xD - xA)
-          yAdCarre = (yD - yA) * (yD - yA)
-          AD = xAdCarre + yAdCarre
-          xBcCarre = (xB - xC) * (xB - xC)
-          yBcCarre = (yB - yC) * (yB - yC)
-          BC = xBcCarre + yBcCarre
-          a = axes(-9, -9, 9, 9, 0.2, 1)
-
-          texte = 'Dans un repère orthonormé (O,I,J), on donne les 4 points suivants :<br>'
-          texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right).$`
-          texte += ` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
-          texte += '<br>Démontrer que $ABDC$ est un carré.'
-
-          texteCorr = '<br>Pour prouver que $ABDC$ est un carré, il y a pluieurs stratégies :<br>'
-          texteCorr += 'Dans cette correction, on propose de procéder par étapes :<br>'
-          texteCorr += 'On va prouver d\'abord que $ABDC$ est un parallélogramme en utilisant les milieux des diagonales.<br>'
-          texteCorr += 'puis on prouvera qu\'il est un rectangle en comparant ses diagonales.<br>'
-          texteCorr += '<br>Enfin, en vérifiant qu\'il a deux côtés consécutifs de même longueur, on aura prouvé qu\'il est un carré. '
-
-          texteCorr += '<br><B>Démonstration :</B><br>'
-          texteCorr += '<B>1. On prouve que $ABDC$ est un parallélogramme :</B>'
-          texteCorr += '<br>On sait que $ABDC$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.'
-          texteCorr += '<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère, pour prouver qu\'elles sont identiques. :'
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère ,'
-          texteCorr += '<br> alors les coordonnées du point $I$ milieu de $[AD]$ sont '
-          texteCorr += '$I\\left(\\dfrac{x_A+x_D}{2};\\dfrac{y_A+y_D}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_I=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_I=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_I=\\dfrac{${texNombre(xA + xD)}}{2}\\\\y_I=\\dfrac{${texNombre(yA + yD)}}{2}\\end{cases}$`
-          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ I\\left(${xI0};${yI0}\\right)$` }
-          texteCorr += '<br> Les coordonnées du point $J$ milieu de $[BC]$ sont '
-          texteCorr += '$J\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_J=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_J=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_J=\\dfrac{${texNombre(xB + xC)}}{2}\\\\y_J=\\dfrac{${texNombre(yB + yC)}}{2}\\end{cases}$`
-          if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
-          if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
-          if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ J\\left(${xJ0};${yJ0}\\right)$` }
-          texteCorr += '<br>On observe que $I$ et $J$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
-          texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
-          texteCorr += '<br><B>2. On prouve que $ABDC$ est un rectangle :</B>'
-          texteCorr += '<br>On calcule maintenant les diagonales de $ABDC$ : $AD$ et $BC$.'
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère orthonormé,'
-          texteCorr += ' alors on a : $AD=\\sqrt{\\left(x_D-x_A\\right)^{2}+\\left(y_D-y_A\\right)^{2}}.$<br>'
-          texteCorr += `On applique la relation à l'énoncé : $AD=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${xAdCarre}+${yAdCarre}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } AD=\\sqrt{${texNombre(xAdCarre + yAdCarre)}}$<br>`
-          facteur = extraireRacineCarree(AD)[0]
-          radical = extraireRacineCarree(AD)[1]
-          if (radical !== 1) {
-            if (facteur !== 1) {
-              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=${facteur}\\sqrt{${radical}}$<br>`
-            }
-          } else {
-            texteCorr += `$\\phantom{On applique la relation a l'enonce :   } AD=${facteur}$<br>`
-          }
-          texteCorr += `On procède de même pour $BC$: $BC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{On applique la relation a l'enonce :        } BC=\\sqrt{${xBcCarre}+${yBcCarre}}$<br>`
-          facteur = extraireRacineCarree(BC)[0]
-          radical = extraireRacineCarree(BC)[1]
-          if (radical !== 1) {
-            if (facteur !== 1) {
-              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=${facteur}\\sqrt{${radical}}$<br>`
-            } else {
-              texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=\\sqrt{${radical}}$<br>`
-            }
-          } else {
-            texteCorr += `$\\phantom{On applique la relation a l'enonce :   } BC=${facteur}$<br>`
-          }
-          texteCorr += '<br>On observe que $BC=AD$, $ABDC$ est donc bien un rectangle.'
-          texteCorr += '<br><B>3. On prouve que $ABDC$ est un carré :</B>'
-          texteCorr += '<br>On calcule maintenant deux côtés consécutilfs de $ABDC$ : $AB$ et $AC$ par exemple.'
-          texteCorr += ` <br>$AB=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$AB =\\sqrt{${xAbCarre}+${yAbCarre}}$<br>`
-          texteCorr += `$AB =\\sqrt{${texNombre(xAbCarre + yAbCarre)}}$<br>`
-          facteur = extraireRacineCarree(abCarre)[0]
-          radical = extraireRacineCarree(abCarre)[1]
-          if (radical !== 1) {
-            if (facteur !== 1) {
-              texteCorr += `$AB=${facteur}\\sqrt{${radical}}$<br>`
-            }
-          } else {
-            texteCorr += `$AB=${facteur}$<br>`
-          }
-          texteCorr += `De même : $AC=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${xAcCarre}+${yAcCarre}}$<br>`
-          texteCorr += `$\\phantom{De meme :       } AC=\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`
-          facteur = extraireRacineCarree(acCarre)[0]
-          radical = extraireRacineCarree(acCarre)[1]
-          if (radical !== 1) {
-            if (facteur !== 1) {
-              texteCorr += `$\\phantom{De meme :       } AC=${facteur}\\sqrt{${radical}}$<br>`
-            }
-          } else {
-            texteCorr += `$\\phantom{De meme :  } AC=${facteur}$<br>`
-          }
-          texteCorr += 'On observe que $AC=AB$ donc $ABDC$ est bien un carré.'
-          A = point(xA, yA, 'A')
-          B = point(xB, yB, 'B')
-          C = point(xC, yC, 'C')
-          D = point(xD, yD, 'D')
-          P = polygoneAvecNom(A, B, D, C)
-          objets.push(P[0], P[1])
-
-          break
+        }// empêcher ux=uy pour éviter B=C
+        xB = xA + ux
+        yB = yA + uy
+        xC = xA + uy
+        yC = yA + ux
+        xD = 0 // pour ne pas bloquer le recadrage du repère
+        yD = 0
+        nom = creerNomDePolygone(3, ['OIJ'])
       }
-
+      if (typesDeQuestions === 2) {
+        xA = randint(0, 5) * choice([-1, 1])
+        yA = randint(0, 5) * choice([-1, 1])
+        ux = randint(1, 5) * choice([-1, 1])
+        uy = randint(1, 5) * choice([-1, 1])
+        xB = xA + ux
+        yB = yA + uy
+        xC = xA - uy
+        yC = yA + ux
+        xD = 0 // pour ne pas bloquer le recadrage du repère
+        yD = 0
+        nom = creerNomDePolygone(3, ['OIJ'])
+      }
+      if (typesDeQuestions === 3) {
+        xA = randint(0, 5) * choice([-1, 1])
+        yA = randint(0, 5) * choice([-1, 1])
+        ux = randint(1, 5)
+        uy = randint(1, 5, ux) * choice([-1, 1])
+        ux *= choice([-1, 1])
+        xB = xA + ux
+        yB = yA + uy
+        xC = xB - uy
+        yC = yB - ux
+        xD = xC - ux
+        yD = yC - uy
+        nom = creerNomDePolygone(4, ['OIJMK'])
+      }
+      if (typesDeQuestions === 4) {
+        xA = randint(0, 5) * choice([-1, 1])
+        yA = randint(0, 5) * choice([-1, 1])
+        ux = randint(1, 5) * choice([-1, 1])
+        uy = randint(1, 5) * choice([-1, 1])
+        a = 2
+        xB = xA + ux * a
+        yB = yA + uy * a
+        xC = xA - uy
+        yC = yA + ux
+        xD = xC + ux * a
+        yD = yC + uy * a
+        nom = creerNomDePolygone(4, ['OIJMK'])
+      }
+      if (typesDeQuestions === 5) {
+        xA = randint(0, 5) * choice([-1, 1])
+        yA = randint(0, 5) * choice([-1, 1])
+        ux = randint(1, 5) * choice([-1, 1])
+        uy = randint(1, 5) * choice([-1, 1])
+        xB = xA + ux
+        yB = yA + uy
+        xC = xA - uy
+        yC = yA + ux
+        xD = xC + ux
+        yD = yC + uy
+        nom = creerNomDePolygone(4, ['OIJMK'])
+      }
+      xAbCarre = (xB - xA) * (xB - xA)
+      yAbCarre = (yB - yA) * (yB - yA)
+      abCarre = xAbCarre + yAbCarre
+      xAcCarre = (xC - xA) * (xC - xA)
+      yAcCarre = (yC - yA) * (yC - yA)
+      xBcCarre = (xC - xB) * (xC - xB)
+      yBcCarre = (yC - yB) * (yC - yB)
+      xAbCarre = (xB - xA) * (xB - xA)
+      yAbCarre = (yB - yA) * (yB - yA)
+      xAdCarre = (xD - xA) * (xD - xA)
+      yAdCarre = (yD - yA) * (yD - yA)
+      abCarre = xAbCarre + yAbCarre
+      xBcCarre = (xC - xB) * (xC - xB)
+      xAcCarre = (xC - xA) * (xC - xA)
+      yAcCarre = (yC - yA) * (yC - yA)
+      xBcCarre = (xC - xB) * (xC - xB)
+      yBcCarre = (yC - yB) * (yC - yB)
+      acCarre = xAcCarre + yAcCarre
+      bcCarre = xBcCarre + yBcCarre
+      A = point(xA, yA, 'A')
+      B = point(xB, yB, 'B')
+      C = point(xC, yC, 'C')
+      D = point(xD, yD, 'D')
+      A.nom = nom[0]
+      B.nom = nom[1]
+      C.nom = nom[2]
+      D.nom = nom[3]
       XMIN = Math.min(xA, xB, xC, xD, -1) - 1
       YMIN = Math.min(yA, yB, yC, yD, -1) - 1
       XMAX = Math.max(xA, xB, xC, xD, 1) + 1
       YMAX = Math.max(yA, yB, yC, yD, 1) + 1
-      objets.push(repere({ xMin: XMIN, yMin: YMIN, xMax: XMAX, yMax: YMAX }))
-      texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+      I = texteParPosition('I', 1, -0.5, 'milieu', 'black', 1)
+      J = texteParPosition('J', -0.5, 1, 'milieu', 'black', 1)
+      o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+
+      switch (typesDeQuestions) {
+        case 1: // Triangle isocèle ou équilatéral
+          s1 = segment(A, B, 'blue')
+          s2 = segment(A, C, 'blue')
+          s3 = segment(B, C, 'blue')
+          s1.epaisseur = 2
+          s2.epaisseur = 2
+          s3.epaisseur = 2
+          T = tracePoint(A, B, C) // Repère les points avec une croix
+          P = polygoneAvecNom(A, B, C)
+          objets.push(P[1])
+          objets.push(repere({
+            xMin: XMIN,
+            yMin: YMIN,
+            xMax: XMAX,
+            yMax: YMAX,
+            yLabelEcart: 0.6,
+            xLabelEcart: 0.6,
+            yLabelDistance: 2,
+            xLabelDistance: 2
+          }), I, J, o, T, s1, s2, s3)
+          texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ et $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$`
+          texte += `<br>Déterminer la nature du triangle $${A.nom}${B.nom}${C.nom}$.`
+          texteCorr = 'On commence par réaliser un graphique permettant de visualiser la situation.<br>'
+          texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+          texteCorr += `<br> On calcule séparément les distances $${A.nom}${B.nom}$, $${A.nom}${C.nom}$ et $${B.nom}${C.nom}$.<br><br>`
+          texteCorr += `$\\bullet$  $${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAbCarre}+${yAbCarre}}
+          =\\sqrt{${texNombre(xAbCarre + yAbCarre)}}${extraireRacineCarree(abCarre)[0] === 1 ? '' : `=${texRacineCarree(abCarre)}`}$<br>`
+          texteCorr += `$\\bullet$  $${A.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAcCarre}+${yAcCarre}}
+          =\\sqrt{${texNombre(xAcCarre + yAcCarre)}}${extraireRacineCarree(acCarre)[0] === 1 ? '' : `=${texRacineCarree(acCarre)}`}$<br>`
+          texteCorr += `$\\bullet$  $${B.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}=\\sqrt{${xBcCarre}+${yBcCarre}}
+          =\\sqrt{${texNombre(xBcCarre + yBcCarre)}}${extraireRacineCarree(bcCarre)[0] === 1 ? '' : `=${texRacineCarree(bcCarre)}`}$<br>`
+          if (xBcCarre + yBcCarre === xAbCarre + yAbCarre) { texteCorr += `<br>On observe que $${A.nom}${B.nom}=${A.nom}${C.nom}=${B.nom}${C.nom}$ donc le triangle $${A.nom}${B.nom}${C.nom}$ est équilatéral.` } else { texteCorr += `<br>On observe que $${A.nom}${B.nom}=${A.nom}${C.nom}$ et que $${B.nom}${C.nom} \\ne ${A.nom}${B.nom}$ donc le triangle $${A.nom}${B.nom}${C.nom}$ est isocèle (il n'est pas équilatéral).` }
+          break
+        case 2: // ABC isocèle triangle rectangle
+          s1 = segment(A, B, 'blue')
+          s2 = segment(A, C, 'blue')
+          s3 = segment(B, C, 'blue')
+          s1.epaisseur = 2
+          s2.epaisseur = 2
+          s3.epaisseur = 2
+          T = tracePoint(A, B, C) // Repère les points avec une croix
+          P = polygoneAvecNom(A, B, C)
+          objets.push(P[1])
+          objets.push(repere({
+            xMin: XMIN,
+            yMin: YMIN,
+            xMax: XMAX,
+            yMax: YMAX,
+            yLabelEcart: 0.6,
+            xLabelEcart: 0.6,
+            yLabelDistance: 2,
+            xLabelDistance: 2
+          }), I, J, o, T, s1, s2, s3)
+          texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ et $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$`
+          texte += `<br>Déterminer la nature du triangle $${A.nom}${B.nom}${C.nom}$.`
+
+          texteCorr = 'On peut réaliser un graphique permettant de visualiser la situation.<br>'
+          texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+          texteCorr += `<br> On calcule séparément les distances $${A.nom}${B.nom}$, $${A.nom}${C.nom}$ et $${B.nom}${C.nom}$.<br><br>`
+          texteCorr += `$\\bullet$  $${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAbCarre}+${yAbCarre}}
+          =\\sqrt{${texNombre(xAbCarre + yAbCarre)}}$<br>`
+          texteCorr += `$\\bullet$  $${A.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAcCarre}+${yAcCarre}}
+          =\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`
+          texteCorr += `$\\bullet$  $${B.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}=\\sqrt{${xBcCarre}+${yBcCarre}}
+          =\\sqrt{${texNombre(xBcCarre + yBcCarre)}}$<br>`
+          texteCorr += `<br>D'une part : $${B.nom}${C.nom}^{2} = ${texNombre(xBcCarre + yBcCarre)}$<br>`
+          texteCorr += `D'autre part : $${A.nom}${B.nom}^{2}+${A.nom}${C.nom}^{2}=${texNombre(xAcCarre + yAcCarre)}+${texNombre(xAbCarre + yAbCarre)}=${texNombre(xBcCarre + yBcCarre)}$`
+          texteCorr += `<br><br>On en déduit que $${B.nom}${C.nom}^{2}=${A.nom}${C.nom}^{2}+${A.nom}${B.nom}^{2}$.`
+          texteCorr += `<br><br>D'après la réciproque du théorème de Pythagore,  le triangle $${A.nom}${B.nom}${C.nom}$ est rectangle en $${A.nom}$.`
+          if (xAbCarre + yAbCarre === xAcCarre + yAcCarre) { texteCorr += `<br>On observe en plus que $${A.nom}${B.nom}=${A.nom}${C.nom}$. <br> Le triangle $${A.nom}${B.nom}${C.nom}$ est donc isocèle rectangle en $${A.nom}$.` }
+          break
+        case 3: // Dq ABDC losange
+          T = tracePoint(A, B, C, D) // Repère les points avec une croix
+          P = polygoneAvecNom(A, B, C, D)
+          objets.push(P[1])
+          s4 = segment(D, A, 'blue')
+
+          s1 = segment(A, B, 'blue')
+          s2 = segment(B, C, 'blue')
+          s3 = segment(D, C, 'blue')
+          s4 = segment(D, A, 'blue')
+          s1.epaisseur = 2
+          s2.epaisseur = 2
+          s3.epaisseur = 2
+          s4.epaisseur = 2
+          objets.push(repere({
+            xMin: XMIN,
+            yMin: YMIN,
+            xMax: XMAX,
+            yMax: YMAX,
+            yLabelEcart: 0.6,
+            xLabelEcart: 0.6,
+            yLabelDistance: 2,
+            xLabelDistance: 2
+          }), I, J, o, T, s1, s2, s3, s4)
+          texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$  et $${D.nom}\\left(${xD}\\,;\\,${yD}\\right)$.`
+          texte += `<br>Démontrer que $${A.nom}${B.nom}${C.nom}${D.nom}$ est un losange.`
+          texteCorr = 'On peut réaliser un graphique permettant de visualiser la situation.<br>'
+          texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+          texteCorr += `<br>Il y a plusieurs méthodes  pour prouver  que le quadrilatère $${A.nom}${B.nom}${C.nom}${D.nom}$ est un losange.<br>
+          Dans ce qui suit, nous démontrons que $${A.nom}${B.nom}${C.nom}${D.nom}$ est un parallélogramme avec deux côtés consécutifs de même longueur.<br>`
+          texteCorr += `<br>On commence par prouver  que $${A.nom}${B.nom}${C.nom}${D.nom}$ est un parallélogramme.<br>`
+          texteCorr += `<br>On sait que $${A.nom}${B.nom}${C.nom}${D.nom}$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.`
+          texteCorr += `<br><br>$\\bullet$ On note $M$ le milieu de $[${A.nom}${C.nom}]$ :<br>
+         $\\begin{cases}x_M=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xC)}}{2}=\\dfrac{${texNombre(xA + xC)}}{2}=${texNombre((xA + xC) / 2, 1)} \\\\[0.8em] y_M=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yC)}}{2}=\\dfrac{${texNombre(yA + yC)}}{2}=${texNombre((yA + yC) / 2, 1)}\\end{cases}$`
+          texteCorr += `<br><br>On en déduit :  $M(${texNombre((xA + xC) / 2, 1)}\\,;\\,${texNombre((yA + yC) / 2, 1)})$.`
+          texteCorr += `<br><br>$\\bullet$ On note $K$ le milieu de $[${B.nom}${D.nom}]$ :<br>
+         $\\begin{cases}x_K=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xD)}}{2}=\\dfrac{${texNombre(xB + xD)}}{2}=${texNombre((xB + xD) / 2, 1)} \\\\[0.8em] y_K=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yD)}}{2}=\\dfrac{${texNombre(yB + yD)}}{2}=${texNombre((yB + yD) / 2, 1)}\\end{cases}$`
+          texteCorr += `<br><br>On en déduit :  $K(${texNombre((xB + xD) / 2, 1)}\\,;\\,${texNombre((yB + yD) / 2, 1)})$.`
+          texteCorr += '<br><br>On observe que $M$ et $K$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
+          texteCorr += `<br>$${A.nom}${B.nom}${C.nom}${D.nom}$ est donc un parallélogramme.`
+          texteCorr += `<br><br>On calcule maintenant les longueurs de deux cotés consécutifs : $[${A.nom}${B.nom}]$ et $[${A.nom}${D.nom}]$ par exemple.`
+          texteCorr += `<br>$\\bullet$  $${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAbCarre}+${yAbCarre}}
+          =\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`
+
+          texteCorr += `$\\bullet$  $${A.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAcCarre}+${yAcCarre}}
+          =\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`
+          texteCorr += `<br>On observe que $${A.nom}${C.nom}=${A.nom}${D.nom}$, donc $${A.nom}${B.nom}${C.nom}${D.nom}$ est un parallélogramme avec deux consécutifs de même longueur, c'est donc un losange.`
+
+          texteCorr += `<br><br>${texteGras('Remarque :')} Pour montrer que  $${A.nom}${B.nom}${C.nom}${D.nom}$ est un losange on pouvait aussi montrer que le quadrilatère $${A.nom}${B.nom}${C.nom}${D.nom}$ a quatre côtés de même longueur.`
+          break
+        case 4://  Dq rectangle
+          T = tracePoint(A, B, C, D) // Repère les points avec une croix
+          P = polygoneAvecNom(A, B, C, D)
+          objets.push(P[1])
+          s4 = segment(D, A, 'blue')
+          s1 = segment(A, B, 'blue')
+          s2 = segment(A, C, 'blue')
+          s3 = segment(D, C, 'blue')
+          s4 = segment(D, B, 'blue')
+          s1.epaisseur = 2
+          s2.epaisseur = 2
+          s3.epaisseur = 2
+          s4.epaisseur = 2
+          objets.push(repere({
+            xMin: XMIN,
+            yMin: YMIN,
+            xMax: XMAX,
+            yMax: YMAX,
+            yLabelEcart: 0.6,
+            xLabelEcart: 0.6,
+            yLabelDistance: 2,
+            xLabelDistance: 2
+          }), I, J, o, T, s1, s2, s3, s4)
+
+          texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$  et $${D.nom}\\left(${xD}\\,;\\,${yD}\\right)$.`
+          texte += `<br>Démontrer que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un rectangle.`
+          texteCorr = 'On peut réaliser un graphique permettant de visualiser la situation.<br>'
+          texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+          texteCorr += `<br>Il y a plusieurs méthodes  pour prouver  que le quadrilatère $${A.nom}${C.nom}${D.nom}${B.nom}$ est un rectangle.<br>
+          Dans ce qui suit, nous démontrons que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme avec des diagonales de même longueur.<br>`
+          texteCorr += `<br>On commence par prouver  que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme.<br>`
+          texteCorr += `<br>On sait que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.`
+          texteCorr += `<br><br>$\\bullet$ On note $M$ le milieu de $[${A.nom}${D.nom}]$ :<br>
+         $\\begin{cases}x_M=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2}=\\dfrac{${texNombre(xA + xD)}}{2}=${texNombre((xA + xD) / 2, 1)} \\\\[0.8em] y_M=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}=\\dfrac{${texNombre(yA + yD)}}{2}=${texNombre((yA + yD) / 2, 1)}\\end{cases}$`
+          texteCorr += `<br><br>On en déduit :  $M(${texNombre((xA + xD) / 2, 1)}\\,;\\,${texNombre((yA + yD) / 2, 1)})$.`
+          texteCorr += `<br><br>$\\bullet$ On note $K$ le milieu de $[${B.nom}${C.nom}]$ :<br>
+         $\\begin{cases}x_K=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2}=\\dfrac{${texNombre(xB + xC)}}{2}=${texNombre((xB + xC) / 2, 1)} \\\\[0.8em] y_K=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}=\\dfrac{${texNombre(yB + yC)}}{2}=${texNombre((yB + yC) / 2, 1)}\\end{cases}$`
+          texteCorr += `<br><br>On en déduit :  $K(${texNombre((xB + xC) / 2, 1)}\\,;\\,${texNombre((yB + yC) / 2, 1)})$.`
+          texteCorr += '<br><br>On observe que $M$ et $K$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
+          texteCorr += `<br>$${A.nom}${C.nom}${D.nom}${B.nom}$ est donc un parallélogramme.`
+          texteCorr += `<br><br>On calcule maintenant les longueurs des deux diagonales : $[${A.nom}${D.nom}]$ et $[${B.nom}${C.nom}]$ par exemple.`
+          texteCorr += `<br>$\\bullet$  $${A.nom}${D.nom}=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAdCarre}+${yAdCarre}}
+          =\\sqrt{${texNombre(xAdCarre + yAdCarre)}}$<br>`
+
+          texteCorr += `$\\bullet$  $${B.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}=\\sqrt{${xBcCarre}+${yBcCarre}}
+          =\\sqrt{${texNombre(xBcCarre + yBcCarre)}}$<br>`
+          texteCorr += `<br>On observe que $${B.nom}${C.nom}=${A.nom}${D.nom}$, donc $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme avec des diagonales  de même longueur, c'est donc un rectangle.`
+
+          texteCorr += `<br><br>${texteGras('Remarque :')} Pour montrer que  $${A.nom}${C.nom}${D.nom}${B.nom}$ est un rectangle on pouvait aussi montrer que le parallélogramme $${A.nom}${C.nom}${D.nom}${B.nom}$ a un angle droit (en utilisant la réciproque du théorème de Pythagore).`
+          break
+
+        case 5:// carré
+
+          T = tracePoint(A, B, C, D) // Repère les points avec une croix
+          P = polygoneAvecNom(A, B, C, D)
+          objets.push(P[1])
+          s4 = segment(D, A, 'blue')
+          s1 = segment(A, B, 'blue')
+          s2 = segment(A, C, 'blue')
+          s3 = segment(D, C, 'blue')
+          s4 = segment(D, B, 'blue')
+          s1.epaisseur = 2
+          s2.epaisseur = 2
+          s3.epaisseur = 2
+          s4.epaisseur = 2
+          objets.push(repere({
+            xMin: XMIN,
+            yMin: YMIN,
+            xMax: XMAX,
+            yMax: YMAX,
+            yLabelEcart: 0.6,
+            xLabelEcart: 0.6,
+            yLabelDistance: 2,
+            xLabelDistance: 2
+          }), I, J, o, T, s1, s2, s3, s4)
+
+          texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$  et $${D.nom}\\left(${xD}\\,;\\,${yD}\\right)$.`
+          texte += `<br>Démontrer que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un carré.`
+          texteCorr = 'On peut réaliser un graphique permettant de visualiser la situation.<br>'
+          texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
+          texteCorr += `<br>Il y a plusieurs méthodes  pour prouver  que le quadrilatère $${A.nom}${C.nom}${D.nom}${B.nom}$ est un carré.<br>
+          Dans ce qui suit, nous démontrons que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme avec des diagonales de même longueur et deux côtés consécutifs de même longueur.<br>`
+
+          texteCorr += `<br>On commence par prouver  que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme.<br>`
+          texteCorr += `<br>On sait que $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.`
+          texteCorr += `<br><br>$\\bullet$ On note $M$ le milieu de $[${A.nom}${D.nom}]$ :<br>
+         $\\begin{cases}x_M=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2}=\\dfrac{${texNombre(xA + xD)}}{2}=${texNombre((xA + xD) / 2, 1)} \\\\[0.8em] y_M=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}=\\dfrac{${texNombre(yA + yD)}}{2}=${texNombre((yA + yD) / 2, 1)}\\end{cases}$`
+          texteCorr += `<br><br>On en déduit :  $M(${texNombre((xA + xD) / 2, 1)}\\,;\\,${texNombre((yA + yD) / 2, 1)})$.`
+          texteCorr += `<br><br>$\\bullet$ On note $K$ le milieu de $[${B.nom}${C.nom}]$ :<br>
+         $\\begin{cases}x_K=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2}=\\dfrac{${texNombre(xB + xC)}}{2}=${texNombre((xB + xC) / 2, 1)} \\\\[0.8em] y_K=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}=\\dfrac{${texNombre(yB + yC)}}{2}=${texNombre((yB + yC) / 2, 1)}\\end{cases}$`
+          texteCorr += `<br><br>On en déduit :  $K(${texNombre((xB + xC) / 2, 1)}\\,;\\,${texNombre((yB + yC) / 2, 1)})$.`
+          texteCorr += '<br><br>On observe que $M$ et $K$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
+          texteCorr += `<br>$${A.nom}${C.nom}${D.nom}${B.nom}$ est donc un parallélogramme.`
+          texteCorr += `<br><br>On calcule maintenant les longueurs des deux diagonales : $[${A.nom}${D.nom}]$ et $[${B.nom}${C.nom}]$ par exemple.`
+          texteCorr += `<br>$\\bullet$  $${A.nom}${D.nom}=\\sqrt{\\left(${xD}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yD}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAdCarre}+${yAdCarre}}
+          =\\sqrt{${texNombre(xAdCarre + yAdCarre)}}$<br>`
+
+          texteCorr += `$\\bullet$  $${B.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xB)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yB)}\\right)^{2}}=\\sqrt{${xBcCarre}+${yBcCarre}}
+          =\\sqrt{${texNombre(xBcCarre + yBcCarre)}}$<br>`
+          texteCorr += `<br>On observe que $${B.nom}${C.nom}=${A.nom}${D.nom}$, donc $${A.nom}${C.nom}${D.nom}${B.nom}$ est un parallélogramme avec des diagonales  de même longueur, c'est donc un rectangle.`
+
+          texteCorr += `<br><br>On calcule enfin les longueurs de deux côtés consécutifs : $[${A.nom}${B.nom}]$ et $[${A.nom}${C.nom}]$ par exemple.`
+          texteCorr += `<br>$\\bullet$  $${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAbCarre}+${yAbCarre}}
+          =\\sqrt{${texNombre(xAbCarre + yAbCarre)}}$<br>`
+
+          texteCorr += `$\\bullet$  $${A.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAcCarre}+${yAcCarre}}
+          =\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`
+          texteCorr += `<br>On observe que $${C.nom}${C.nom}=${A.nom}${B.nom}$, donc $${A.nom}${C.nom}${D.nom}${B.nom}$ est un rectangle  avec deux côtés consécutifs de même longueur, c'est donc un carré.`
+
+          texteCorr += `<br><br>${texteGras('Remarque :')} Pour montrer que  $${A.nom}${C.nom}${D.nom}${B.nom}$ est un carré, il y a d'autres méthodes. <br>
+          Par exemple, on montre que c'est d'abord un losange en calculant les quatre longueurs des côtés puis on montre que le losange a un angle droit (en utilisant la réciproque du théorème de Pythagore).`
+
+          break
+      }
+
       if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -519,4 +405,5 @@ export default function NaturePolygone () {
     }
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaireNumerique = ['Situations', 3, '1 : Triangles \n2 : Quadrilétères\n3 : Mélange ']
 }

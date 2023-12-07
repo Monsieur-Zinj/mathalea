@@ -215,7 +215,7 @@ export function featuresCriteria (
  */
 export function levelCriterion (
   level: Level,
-  considerCAN: boolean = false
+  considerCAN: boolean = true
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
@@ -346,7 +346,7 @@ export function yearCriterion (
  */
 export function subjectCriterion (
   subject: string,
-  isCanIncluded: boolean = false
+  isCanIncluded: boolean = true
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
@@ -388,7 +388,7 @@ export function subjectCriterion (
  */
 export function buildCriteriaFromString (
   input: string,
-  isCanIncluded: boolean = false
+  isCanIncluded: boolean = true
 ): Array<{ connector: 'ET' | 'OU'; filter: Criterion<ResourceAndItsPath> }> {
   const criteria: Array<{
     connector: 'ET' | 'OU'
@@ -492,7 +492,7 @@ export function buildCriteriaFromString (
  */
 export function stringToCriterion (
   input: string,
-  isCanIncluded: boolean = false
+  isCanIncluded: boolean = true
 ): Criterion<ResourceAndItsPath> {
   if (input.length === 0) {
     // la chaîne explorée ne doit pas être vide

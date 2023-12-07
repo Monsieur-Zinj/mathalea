@@ -68,7 +68,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
       let tableau = []
       let xmin
       let xmax
-      if (parseInt(this.sup) === 1) {
+      if (this.sup === 1) {
         if (this.niveau === 'CM') {
           xmin = 0
           thickOff = 0
@@ -114,16 +114,16 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
         const texte1 = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.`
         texte = texte1 + ajouteChampTexteMathLive(this, i * 4, 'largeur10 inline nospacebefore', {
-          texte: `${sp(10)} $${noms[0]}($`,
+          texteAvant: `${sp(10)} $${noms[0]}($`,
           texteApres: `$${sp(1)})$`
         })
         texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
-          texte: `${sp(10)} $${noms[1]}($`,
+          texteAvant: `${sp(10)} $${noms[1]}($`,
           texteApres: `$${sp(2)}+$`
         }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: `$${sp(1)})$` })
         let texte3 = `Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.`
         texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', {
-          texte: `${sp(10)} $${noms[2]}($`,
+          texteAvant: `${sp(10)} $${noms[2]}($`,
           texteApres: `$${sp(1)})$`
         })
         texte3 = `${numAlpha(1)} ` + texte3
@@ -143,10 +143,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: texteCorr,
+                  texteAvant: texteCorr,
                   statut: '',
                   reponse: {
-                    texte: texte1,
+                    texteAvant: texte1,
                     valeur: x1,
                     param: {
                       digits: nombreDeChiffresDe(x1),
@@ -160,10 +160,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: '',
+                  texteAvant: '',
                   statut: '',
                   reponse: {
-                    texte: texte3,
+                    texteAvant: texte3,
                     valeur: new FractionEtendue(10 * x3, 10),
                     param: {
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(x3) + 1,
@@ -177,10 +177,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: '',
+                  texteAvant: '',
                   statut: '',
                   reponse: {
-                    texte: `${numAlpha(2)} Donner la partie entière de l'abscisse de $${noms[1]}$.`,
+                    texteAvant: `${numAlpha(2)} Donner la partie entière de l'abscisse de $${noms[1]}$.`,
                     valeur: Math.floor(x2),
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(Math.floor(x2)) + 1,
@@ -194,10 +194,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: '',
+                  texteAvant: '',
                   statut: '',
                   reponse: {
-                    texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
+                    texteAvant: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
                     valeur: new FractionEtendue(calculANePlusJamaisUtiliser(10 * (x2 - Math.floor(x2))), 10),
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(calculANePlusJamaisUtiliser(10 * (x2 - Math.floor(x2)))),
@@ -213,7 +213,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
             ]
           }
         }
-      } else if (parseInt(this.sup) === 2) {
+      } else if (this.sup === 2) {
         if (this.niveau === 'CM') {
           xmin = 0
           thickOff = 0
@@ -259,16 +259,16 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
         const texte1 = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.`
         texte = texte1 + ajouteChampTexteMathLive(this, i * 4, 'largeur10 inline nospacebefore', {
-          texte: `${sp(10)} $${noms[0]}($`,
-          texteApres: '$${sp(1))$'
+          texteAvant: `${sp(10)} $${noms[0]}($`,
+          texteApres: `$${sp(1)})$`
         })
         texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
-          texte: `${sp(10)} $${noms[1]}($`,
+          texteAvant: `${sp(10)} $${noms[1]}($`,
           texteApres: `$${sp(2)}+$`
         }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: `$${sp(1)})$` })
         let texte3 = `Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.`
         texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', {
-          texte: `${sp(10)} $${noms[2]}($`,
+          texteAvant: `${sp(10)} $${noms[2]}($`,
           texteApres: `$${sp(1)})$`
         })
         texte3 = `${numAlpha(1)} ` + texte3
@@ -288,10 +288,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: texteCorr,
+                  texteAvant: texteCorr,
                   statut: '',
                   reponse: {
-                    texte: texte1,
+                    texteAvant: texte1,
                     valeur: x1,
                     param: {
                       digits: nombreDeChiffresDe(x1),
@@ -305,10 +305,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: '',
+                  texteAvant: '',
                   statut: '',
                   reponse: {
-                    texte: texte3,
+                    texteAvant: texte3,
                     valeur: new FractionEtendue(100 * x3, 100),
                     param: {
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(100 * x3) + 1,
@@ -322,10 +322,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: '',
+                  texteAvant: '',
                   statut: '',
                   reponse: {
-                    texte: `${numAlpha(2)} Donner la partie entière de l'abscisse de $${noms[1]}$.`,
+                    texteAvant: `${numAlpha(2)} Donner la partie entière de l'abscisse de $${noms[1]}$.`,
                     valeur: Math.floor(x2),
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(Math.floor(x2)) + 1,
@@ -339,10 +339,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: '',
+                  texteAvant: '',
                   statut: '',
                   reponse: {
-                    texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
+                    texteAvant: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
                     valeur: new FractionEtendue(calculANePlusJamaisUtiliser(100 * (x2 - Math.floor(x2))), 100),
                     param: {
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(calculANePlusJamaisUtiliser(100 * (x2 - Math.floor(x2)))),
@@ -357,7 +357,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
             ]
           }
         }
-      } else if (parseInt(this.sup) === 3) {
+      } else if (this.sup === 3) {
         if (this.niveau === 'CM') {
           xmin = 0
           thickOff = 0
@@ -408,16 +408,16 @@ export default function LireAbscisseDecimaleTroisFormes () {
 
         const texte1 = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.`
         texte = texte1 + ajouteChampTexteMathLive(this, i * 4, 'largeur10 inline nospacebefore', {
-          texte: `${sp(10)} $${noms[0]}($`,
+          texteAvant: `${sp(10)} $${noms[0]}($`,
           texteApres: `$${sp(1)})$`
         })
         texte += `<br>${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
-          texte: ` ${noms[1]}(`,
+          texteAvant: ` ${noms[1]}(`,
           texteApres: `$${sp(2)}+$`
         }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: ')' })
         let texte3 = `Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.`
         texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur10 inline nospacebefore', {
-          texte: `${sp(10)} $${noms[2]}($`,
+          texteAvant: `${sp(10)} $${noms[2]}($`,
           texteApres: `$${sp(1)})$`
         })
         texte3 = `${numAlpha(1)} ` + texte3
@@ -437,10 +437,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: texteCorr,
+                  texteAvant: texteCorr,
                   statut: '',
                   reponse: {
-                    texte: texte1,
+                    texteAvant: texte1,
                     valeur: x1,
                     param: {
                       digits: nombreDeChiffresDe(x1),
@@ -454,10 +454,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: '',
+                  texteAvant: '',
                   statut: '',
                   reponse: {
-                    texte: texte3,
+                    texteAvant: texte3,
                     valeur: new FractionEtendue(1000 * x3, 1000),
                     param: {
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(1000 * x3) + 1,
@@ -471,10 +471,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: '',
+                  texteAvant: '',
                   statut: '',
                   reponse: {
-                    texte: `${numAlpha(2)} Donner la partie entière de l'abscisse de $${noms[1]}$.`,
+                    texteAvant: `${numAlpha(2)} Donner la partie entière de l'abscisse de $${noms[1]}$.`,
                     valeur: Math.floor(x2),
                     param: {
                       digits: nombreDeChiffresDansLaPartieEntiere(Math.floor(x2)) + 1,
@@ -488,10 +488,10 @@ export default function LireAbscisseDecimaleTroisFormes () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: '',
+                  texteAvant: '',
                   statut: '',
                   reponse: {
-                    texte: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
+                    texteAvant: `${numAlpha(3)} Donner la partie décimale de l'abscisse de $${noms[1]}$.`,
                     valeur: new FractionEtendue(calculANePlusJamaisUtiliser(1000 * (x2 - Math.floor(x2))), 1000),
                     param: {
                       digitsNum: nombreDeChiffresDansLaPartieEntiere(calculANePlusJamaisUtiliser(1000 * (x2 - Math.floor(x2)))),
