@@ -3,7 +3,7 @@ import { texteParPosition } from '../../lib/2d/textes.js'
 import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { spline } from '../../lib/mathFonctions/Spline.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -12,7 +12,7 @@ export const titre = 'Déterminer le tableau de signes d\'une fonction graphique
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '25/11/2023' // interactivité
+export const dateDeModifImportante = '07/12/2023' // interactivité
 export const uuid = 'a7860' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = '2F22-3'// @todo à modifier aussi
 // une liste de nœuds pour définir une fonction Spline
@@ -165,7 +165,7 @@ export default class BetaModeleSpline extends Exercice {
       const maSpline = spline(nuage)
       const fonctionD = x => maSpline.derivee(x)
       const choixInteractif = randint(0, 1)
-      const { xMin, xMax } = maSpline.trouveMaxes()
+      const { xMin, xMax, yMin, yMax } = maSpline.trouveMaxes()
       this.spline = maSpline
       const bornes = maSpline.trouveMaxes()
       const repere1 = repere({
@@ -199,10 +199,10 @@ export default class BetaModeleSpline extends Exercice {
         setReponse(this, i, ['Non', 'NON', 'non'])
       }
       texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' +
-        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, fixeBordures([repere1])), objetsEnonce, o)
-      if (this.interactif || this.can) {
+        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+      if (this.interactif) { // || this.can
         texteEnonce = 'Voici la représentation graphique d\'une fonction $f$ :<br>'
-        texteEnonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, fixeBordures([repere1])), objetsEnonce, o)
+        texteEnonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
         texteEnonce += '<br>Le tableau de signes de la fonction $f$ est : <br>'
         texteEnonce += tableauChoisi
         texteEnonce += '<br>Répondre par "Oui" ou "Non" '
@@ -216,7 +216,7 @@ export default class BetaModeleSpline extends Exercice {
       }
       texteCorrection += `Tableau de signes de $f(x)$ sur $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$ :<br>
           `
-      texteCorrection += tableauChoisi
+      texteCorrection += tableau
 
       this.listeQuestions.push(texteEnonce)
       this.listeCorrections.push(texteCorrection)
