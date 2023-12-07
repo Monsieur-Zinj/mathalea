@@ -15361,6 +15361,24 @@
           }
         },
         "typeExercice": "alea"
+      },
+      "4C25-1": {
+        "url": "4e/4C25-1.js",
+        "tags": [],
+        "uuid": "7ba8b",
+        "id": "4C25-1",
+        "titre": "Résoudre des problèmes additifs et multiplicatifs utilisant des fractions",
+        "features": {
+          "interactif": {
+            "isActive": false,
+            "type": ""
+          },
+          "amc": {
+            "isActive": false,
+            "type": ""
+          }
+        },
+        "typeExercice": "alea"
       }
     },
     "4C3": {
@@ -19689,10 +19707,30 @@
         "uuid": "d633a",
         "id": "2G12-4",
         "titre": "Déterminer la nature d'un polygone avec les coordonnées",
+        "dateModification": "30/11/2023",
         "features": {
           "interactif": {
             "isActive": false,
             "type": ""
+          },
+          "amc": {
+            "isActive": false,
+            "type": ""
+          }
+        },
+        "typeExercice": "alea"
+      },
+      "2G12-5": {
+        "url": "2e/2G12-5.js",
+        "tags": [],
+        "uuid": "b77cc",
+        "id": "2G12-5",
+        "titre": "Calculer les coordonnées du 4e sommet d'un parallélogramme",
+        "datePublication": "06/12/2023",
+        "features": {
+          "interactif": {
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,

@@ -1,4 +1,4 @@
-import { choice, shuffle, enleveElementBis } from '../../lib/outils/arrayOutils.js'
+import { shuffle, enleveElementBis } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
@@ -30,7 +30,6 @@ export default function ProblemesAdditifsFractionsBis () {
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 1.15)
 
   this.nouvelleVersion = function () {
-
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
@@ -39,7 +38,7 @@ export default function ProblemesAdditifsFractionsBis () {
       shuffle: false,
       defaut: 1,
       nbQuestions: this.nbQuestions
-    }) 
+    })
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -51,36 +50,33 @@ export default function ProblemesAdditifsFractionsBis () {
       [64, 8, 32, 16, 4],
       [54, 9, 6, 27, 18]
     ]
-    let denomsAmisToSelect = shuffle(Array.from({length: denomsAmis.length}, (_, i) => i))
-    
+    let denomsAmisToSelect = shuffle(Array.from({ length: denomsAmis.length }, (_, i) => i))
+
     let listefrac, listefrac2, denominateurCommun, fracMemeDenom, fracMemeDenomRangees, fracRangees
     // le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 4 fractions
     let pb4f = []; let pb3f = []
     // les numérateurs et dénominateurs des fractions
     let n1, n2, n3, n4, d1, d2, d3, d4, F1, F2, F3, F4
-  
+
     for (let i = 0, texte, texteCorr, cpt = 0;
-      i < this.nbQuestions && cpt < 50;  ) {
-
-
+      i < this.nbQuestions && cpt < 50;) {
       // on choisit un tableau de dénominateurs qui va bien
-      if (denomsAmisToSelect.length === 0) denomsAmisToSelect = shuffle(Array.from({length: denomsAmis.length}, (_, i) => i))      
+      if (denomsAmisToSelect.length === 0) denomsAmisToSelect = shuffle(Array.from({ length: denomsAmis.length }, (_, i) => i))
 
-      if (listeTypeDeQuestions[i] < 3 ) {
-
+      if (listeTypeDeQuestions[i] < 3) {
         //= =====================================================
         //= ================AVEC 3 FRACTIONS========
         //= =====================================================
-        
+
         // le tableau d'objets contenant tout le necesssaire, fractions, énoncé, question ... pour les problème avec 3 fractions
         pb3f = []
-        
+
         const denomsCool3 = denomsAmis[denomsAmisToSelect.pop()]
         F1 = fraction(1, 2)
         F2 = fraction(1, 2)
         F3 = fraction(1, 2)
-        let  b = 0
-        while ( b<50 && (
+        let b = 0
+        while (b < 50 && (
           F1.num === F2.num ||
                   F1.num === F3.num ||
                   F2.num === F3.num ||
@@ -91,22 +87,22 @@ export default function ProblemesAdditifsFractionsBis () {
         ) {
           // pour éviter la boucle infinie
           b++
-          
+
           // sélectionne 2 dénominateurs différents et trie par ordre croissant
-          [d1, d2] = shuffle(denomsCool3).slice(0,3).sort(function(a, b){return a-b})
-                                  
-          n1 = randint(Math.ceil(d1/4), Math.floor(d1/2)) // fraction comprise entre 1 quart et 1 demi
-          n2 = randint(Math.ceil(d2/4), Math.floor(d2/2)) // fraction comprise entre 1 quart et 1 demi
+          [d1, d2] = shuffle(denomsCool3).slice(0, 3).sort(function (a, b) { return a - b })
+
+          n1 = randint(Math.ceil(d1 / 4), Math.floor(d1 / 2)) // fraction comprise entre 1 quart et 1 demi
+          n2 = randint(Math.ceil(d2 / 4), Math.floor(d2 / 2)) // fraction comprise entre 1 quart et 1 demi
 
           n3 = d1 * d2 - n1 * d2 - n2 * d1 // la somme des trois vaut 1 !
           d3 = d1 * d2
           F1 = fraction(n1, d1).simplifie()
           F2 = fraction(n2, d2).simplifie()
-          F3 = fraction(n3, d3).simplifie()    
+          F3 = fraction(n3, d3).simplifie()
         }
         // on mélange
         [F1, F2] = shuffle([F1, F2])
-        
+
         //= =====================================================
         //= ======== indice 0 le triathlon des neiges  ==========
         //= =====================================================
@@ -119,7 +115,7 @@ export default function ProblemesAdditifsFractionsBis () {
         })
 
         // les 3 prénomns doivent être distincts
-        const [p1, p2, p3] = prenomF(3)    
+        const [p1, p2, p3] = prenomF(3)
 
         //= =====================================================
         //= ==========indice 1 Miss Math===========
@@ -212,7 +208,7 @@ export default function ProblemesAdditifsFractionsBis () {
         pb3f[0].correction += `$${fracMemeDenom[2].texFraction}$ à ${pb3f[0].fractions[5]}.`
 
         // let fracRangees,fracMemeDenomRangees;
-        if (F1.isEqual(F2) && F1.isEqual(F3) ) {
+        if (F1.isEqual(F2) && F1.isEqual(F3)) {
           pb3f[0].correction += `<br> ${texteEnCouleurEtGras(
                       `Les trois fractions sont équivalentes, ${pb3f[0].prenoms[0]} parcours donc la même distance dans les trois disciplines.`
                   )}`
@@ -239,7 +235,7 @@ export default function ProblemesAdditifsFractionsBis () {
         pb3f[1].correction += `${pb3f[1].fractions[3]} $${fracMemeDenom[1].texFraction}$ et `
         pb3f[1].correction += `${pb3f[1].fractions[5]} $${fracMemeDenom[2].texFraction}$.`
 
-        if ( F1.isEqual(F2) && F1.isEqual(F3) ) {
+        if (F1.isEqual(F2) && F1.isEqual(F3)) {
           pb3f[1].correction += `<br> ${texteEnCouleurEtGras(
                       'Les trois fractions sont équivalentes, les trois candidates ont donc remporté le même nombre de suffrages.'
                   )}`
@@ -253,14 +249,12 @@ export default function ProblemesAdditifsFractionsBis () {
                       pb3f[1].fractions.indexOf(fracRangees[2]) + 1]} qui a été élue.`
                   )}`
         }
-      
       } else {
-
         //= =====================================================
         //= ======= AVEC 4 FRACTIONS=======
         //= =====================================================
         pb4f = []
-        const denomsCool4 =  denomsAmis[denomsAmisToSelect.pop()]
+        const denomsCool4 = denomsAmis[denomsAmisToSelect.pop()]
 
         F1 = fraction(1, 3)
         F2 = fraction(1, 3)
@@ -284,29 +278,29 @@ export default function ProblemesAdditifsFractionsBis () {
         ) {
           // pour éviter la boucle infinie
           b++
-          
-          // sélectionne 3 dénominateurs différents et trie par ordre croissant
-          [d1, d2, d3] = shuffle(denomsCool4).slice(0,3).sort(function(a, b){return a-b})            
 
-          n1 = d1 === 2 ? 1 : randint(Math.ceil(d1/6),  Math.floor(d1/3)) // fraction entre 1/6 et 1/3
-          n2 = randint(Math.ceil(d2/6), Math.floor(d2/3)) // fraction entre 1/6 et 1/3        
-          n3 = randint(Math.ceil(d3/6), Math.floor(d3/3)) // fraction entre 1/6 et 1/3        
-          
+          // sélectionne 3 dénominateurs différents et trie par ordre croissant
+          [d1, d2, d3] = shuffle(denomsCool4).slice(0, 3).sort(function (a, b) { return a - b })
+
+          n1 = d1 === 2 ? 1 : randint(Math.ceil(d1 / 6), Math.floor(d1 / 3)) // fraction entre 1/6 et 1/3
+          n2 = randint(Math.ceil(d2 / 6), Math.floor(d2 / 3)) // fraction entre 1/6 et 1/3
+          n3 = randint(Math.ceil(d3 / 6), Math.floor(d3 / 3)) // fraction entre 1/6 et 1/3
+
           n4 = d1 * d2 * d3 - n1 * d2 * d3 - n2 * d1 * d3 - n3 * d1 * d2 // la somme des quatre vaut 1 !
           d4 = d1 * d2 * d3
-          
+
           F1 = fraction(n1, d1).simplifie()
           F2 = fraction(n2, d2).simplifie()
           F3 = fraction(n3, d3).simplifie()
           F4 = fraction(n4, d4).simplifie()
-          //console.log('b:' + b)        
-          //console.log('f1:'+ F1.texFraction)
-          //console.log('f2:'+ F2.texFraction)
-          //console.log('f3:'+ F3.texFraction)
-          //console.log('f4:'+ F4.texFraction)
+          // console.log('b:' + b)
+          // console.log('f1:'+ F1.texFraction)
+          // console.log('f2:'+ F2.texFraction)
+          // console.log('f3:'+ F3.texFraction)
+          // console.log('f4:'+ F4.texFraction)
         }
         // on mélange
-        [F1,F2,F3] = shuffle([F1,F2,F3])
+        [F1, F2, F3] = shuffle([F1, F2, F3])
 
         //= =====================================================
         //= ========== indice 0 le mandala===========
