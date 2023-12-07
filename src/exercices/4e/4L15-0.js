@@ -56,10 +56,10 @@ export default function TrouverErreurResolEqDeg1 () {
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
+    const variables = ['x', 't', 'u', 'v', 'w', 'y', 'z']
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on choisit un nom pour l'inconnue
-      const variables = ['x', 't', 'u', 'v', 'w', 'y', 'z']
       const inc = variables[randint(0, variables.length - 1)]
 
       // on choisit les paramètres
@@ -386,5 +386,5 @@ export default function TrouverErreurResolEqDeg1 () {
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des équations du second degré"];
+  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }

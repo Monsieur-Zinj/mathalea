@@ -958,7 +958,7 @@ export function PapierPointe ({
             rayon: pointRayon,
             couleur: pointColor,
             opacite,
-            couleurDeRemplissage: '',
+            couleurDeRemplissage: 'None',
             opaciteDeRemplissage
           }))
           this.listeCoords.push([x, y])
@@ -978,21 +978,21 @@ export function PapierPointe ({
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: '',
+              couleurDeRemplissage: 'None',
               opaciteDeRemplissage
             }))
             plots.push(plot(x + xstep1, y + ystep1 / 2, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: '',
+              couleurDeRemplissage: 'None',
               opaciteDeRemplissage
             }))
             plots.push(plot(x + xstep1, y + ystep1 * 1.5, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: '',
+              couleurDeRemplissage: 'None',
               opaciteDeRemplissage
             }))
             this.listeCoords.push([x, y], [x + xstep1, y + ystep1 / 2], [x + xstep1, y + ystep1 * 1.5])
@@ -1001,7 +1001,7 @@ export function PapierPointe ({
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: '',
+              couleurDeRemplissage: 'None',
               opaciteDeRemplissage
             }))
             this.listeCoords.push([x, y + ystep1 / 2])
@@ -1023,28 +1023,28 @@ export function PapierPointe ({
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: '',
+              couleurDeRemplissage: 'None',
               opaciteDeRemplissage
             }))
             plots.push(plot(x, y + ystep1, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: '',
+              couleurDeRemplissage: 'None',
               opaciteDeRemplissage
             }))
             plots.push(plot(x + xstep1, y + ystep1 / 2, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: '',
+              couleurDeRemplissage: 'None',
               opaciteDeRemplissage
             }))
             plots.push(plot(x + xstep1, y + ystep1 * 1.5, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: '',
+              couleurDeRemplissage: 'None',
               opaciteDeRemplissage
             }))
             this.listeCoords.push([x, y], [x, y + ystep1], [x + xstep1, y + ystep1 / 2], [x + xstep1, y + ystep1 * 1.5])
@@ -1053,14 +1053,14 @@ export function PapierPointe ({
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: '',
+              couleurDeRemplissage: 'None',
               opaciteDeRemplissage
             }))
             plots.push(plot(x, y + ystep1 / 2, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: '',
+              couleurDeRemplissage: 'None',
               opaciteDeRemplissage
             }))
             this.listeCoords.push([x + xstep1, y + ystep1], [x, y + ystep1 / 2])
@@ -1336,8 +1336,8 @@ export function Repere ({
         grilleYDistance = yThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleYListe = rangeMinMax(0, grilleYMax, [0], grilleYDistance).concat(
-        rangeMinMax(0, -grilleYMin, [0], grilleYDistance).map(el => -el)
+      grilleYListe = rangeMinMax(0, grilleYMax, [0], grilleYDistance / yUnite).concat(
+        rangeMinMax(0, -grilleYMin, [0], grilleYDistance / yUnite).map(el => -el)
       )
     }
     for (const y of grilleYListe) {
@@ -1367,8 +1367,8 @@ export function Repere ({
         grilleXDistance = xThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleXListe = rangeMinMax(0, grilleXMax, [0], grilleXDistance).concat(
-        rangeMinMax(0, -grilleXMin, [0], grilleXDistance).map(el => -el)
+      grilleXListe = rangeMinMax(0, grilleXMax, [0], grilleXDistance / xUnite).concat(
+        rangeMinMax(0, -grilleXMin, [0], grilleXDistance / xUnite).map(el => -el)
       )
     }
     for (const x of grilleXListe) {
@@ -1447,11 +1447,12 @@ export function Repere ({
   }
   // LES THICKS
   if (axeXisVisible) {
-    if (xThickListe.length === 0) {
+    if ((typeof xThickListe === 'boolean' && xThickListe) || (Array.isArray(xThickListe) && xThickListe.length === 0)) {
       xThickListe = rangeMinMax(0, xThickMax, [0], xThickDistance).concat(
         rangeMinMax(0, -xThickMin, [0], xThickDistance).map(el => -el)
       )
-    }
+    } else if (typeof xThickListe === 'boolean') xThickListe = []
+
     for (const x of xThickListe) {
       const thick = segment(x * xUnite, ordonneeAxe * yUnite - thickHauteur, x * xUnite, ordonneeAxe * yUnite + thickHauteur, thickCouleur)
       thick.isVisible = false
@@ -1460,11 +1461,11 @@ export function Repere ({
     }
   }
   if (axeYisVisible) {
-    if (yThickListe.length === 0) {
+    if ((typeof yThickListe === 'boolean' && yThickListe) || (Array.isArray(yThickListe) && yThickListe.length === 0)) {
       yThickListe = rangeMinMax(0, yThickMax, [0], yThickDistance).concat(
         rangeMinMax(0, -yThickMin, [0], yThickDistance).map(el => -el)
       )
-    }
+    } else if (typeof yThickListe === 'boolean') yThickListe = []
     for (const y of yThickListe) {
       const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite, thickCouleur)
       thick.isVisible = false
@@ -1474,16 +1475,16 @@ export function Repere ({
   }
   // LES LABELS
   if (axeXisVisible) {
-    if (xLabelListe.length === 0) {
+    if ((typeof xLabelListe === 'boolean' && xLabelListe) || (Array.isArray(xLabelListe) && xLabelListe.length === 0)) {
       xLabelListe = rangeMinMax(0, xLabelMax, [0], xLabelDistance).concat(
         rangeMinMax(0, -xLabelMin, [0], xLabelDistance).map(el => -el)
       )
-    }
+    } else if (typeof xLabelListe === 'boolean') xLabelListe = []
     for (const x of xLabelListe) {
       let l
       if (typeof x === 'number') {
         if (x >= xMin && x <= xMax) {
-          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', true)
+          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', false)
           l.isVisible = false
           objets.push(l)
         }
@@ -1497,16 +1498,16 @@ export function Repere ({
     }
   }
   if (axeYisVisible) {
-    if (yLabelListe.length === 0) {
+    if ((typeof yLabelListe === 'boolean' && yLabelListe) || (Array.isArray(yLabelListe) && yLabelListe.length === 0)) {
       yLabelListe = rangeMinMax(0, yLabelMax, [0], yLabelDistance).concat(
         rangeMinMax(0, -yLabelMin, [0], yLabelDistance).map(el => -el)
       )
-    }
+    } else if (typeof yLabelListe === 'boolean') yLabelListe = []
     for (const y of yLabelListe) {
       let l
       if (typeof y === 'number') {
         if (y >= yMin && y <= yMax) {
-          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', true)
+          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', false)
           l.isVisible = false
           objets.push(l)
         }
@@ -1527,6 +1528,15 @@ export function Repere ({
     objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
   }
   this.objets = objets
+
+  this.addObjet = function (objet) {
+    if (!(objet instanceof ObjetMathalea2D)) return
+    this.objets = [...this.objets, objet]
+  }
+
+  this.trace = function () {
+    return this.objets
+  }
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''

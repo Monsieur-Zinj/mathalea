@@ -129,7 +129,8 @@ export class Spline {
               if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
                 arr = 0
               } else {
-                if (abs(valeur.arg()) < 0.01 || (abs(valeur.arg() - acos(-1)) < 0.01)) { // si l'argument est proche de 0 ou de Pi
+                const argument = valeur.arg()
+                if (abs(argument) < 0.01 || abs((abs(argument) - acos(-1))) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
                   arr = round(valeur.re, 3) // on prend la partie réelle
                 } else {
                   arr = null // c'est une vraie racine complexe, du coup, on prend null

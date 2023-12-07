@@ -1,5 +1,5 @@
 import NotationScientifique from '../4e/4C32.js'
-export const titre = 'Notation scientifique'
+export const titre = 'Associer un nombre décimal à sa notation scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

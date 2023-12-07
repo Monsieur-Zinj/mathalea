@@ -244,8 +244,8 @@ export default function ConstruireUnDiagramme () {
         r = repere({
           grilleX: false,
           grilleY: 'pointilles',
-          xThickListe: [],
-          xLabelListe: [],
+          xThickListe: false,
+          xLabelListe: false,
           yUnite: 0.1 / coef,
           yThickDistance: 10 * coef,
           yMax: Math.max.apply(null, lstNombresAnimaux) + 20 * coef,
@@ -281,8 +281,8 @@ export default function ConstruireUnDiagramme () {
         r = repere({
           grilleX: false,
           grilleY: 'pointilles',
-          xThickListe: [],
-          xLabelListe: [],
+          xThickListe: false,
+          xLabelListe: false,
           yUnite: 0.1 / coef,
           yThickDistance: 10 * coef,
           yMax: Math.max.apply(null, lstNombresAnimaux) + 20 * coef,

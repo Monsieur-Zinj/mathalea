@@ -9,10 +9,10 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-export const titre = 'Inéquation du premier degré'
+export const titre = 'Résoudre une inéquation du premier degré'
 
 /**
- * Inéquation du premier degré
+ * Inéquations du premier degré
  * * Type 1 : x+a≤b ou ax≤b
  * * Type 2 : ax+b≤c
  * * Type 3 : ax+b≤cx+d

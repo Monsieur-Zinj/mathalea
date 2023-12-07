@@ -1,22 +1,25 @@
 import { codageSegments } from '../../lib/2d/codages.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
-import { axes, grille } from '../../lib/2d/reperes.js'
+import { polygoneAvecNom } from '../../lib/2d/polygones.js'
+import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import FractionEtendue from '../../modules/FractionEtendue.js'
+import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { abs } from '../../lib/outils/nombres.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texteGras } from '../../lib/format/style.js'
+import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-
 export const titre = 'Démontrer qu\'un quadrilatère est ou non un parallélogramme'
+export const dateDeModifImportante = '30/11/2023'
 
 /**
  * 2G12-3
- * @author Stéphane Guyon
+ * @author Stéphane Guyon a tout fait, Gilles Mora a juste repris quelques bricoles
  */
 export const uuid = '31760'
 export const ref = '2G12-3'
@@ -24,11 +27,12 @@ export default function Parallélogramme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
   this.sup = parseInt(this.sup)
-  this.nbQuestions = 2
-  this.nbCols = 2
-  this.nbColsCorr = 2
+  this.nbQuestions = 1
+  this.nbCols = 1
+  this.nbColsCorr = 1
   this.sup = 1 //
-
+  this.correctionDetaillee = false
+  this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -36,54 +40,60 @@ export default function Parallélogramme () {
     const typesDeQuestionsDisponibles = [1, 2]; let typesDeQuestions
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, ux, uy, g, test, s1, s2, s3, s4, s5, s6, xA, yA, xB, yB, xC, yC, xD, yD, xI0, xI1, yI0, yI1, xJ0, xJ1, yJ0, yJ1, A, B, C, D, T, L, M, N, I, J, O, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, ux, uy, XMIN, XMAX, YMIN, YMAX, test, objets, nom, J, o, s1, s2, s3, s4, s5, s6, AB2, AC2, BC2, DB2, DC2, xA, yA, xB, yB, xC, yC, xD, yD, xM, yM, xN, yN, A, B, C, D, P, T, L, M, I, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
+      objets = []
       switch (typesDeQuestions) {
       // Cas par cas, on définit le type de nombres que l'on souhaite
       // Combien de chiffres ? Quelles valeurs ?
         case 1: // Dq ABDC parallélogramme
-          xA = randint(0, 4) * choice([-1, 1])
-          yA = randint(0, 4) * choice([-1, 1])
-          xC = randint(0, 4) * choice([-1, 1])
-          yC = randint(0, 4) * choice([-1, 1])
-          while (abs(xC - xA) < 4) {
-            xA = randint(0, 4) * choice([-1, 1])
-            xC = randint(0, 4) * choice([-1, 1])
-          }
-          while (abs(yC - yA) < 4) {
-            yA = randint(0, 4) * choice([-1, 1])
-            yC = randint(0, 4) * choice([-1, 1])
-          }
+          xA = randint(0, 5) * choice([-1, 1])
+          yA = randint(0, 5) * choice([-1, 1])
+          xC = randint(0, 5, xA) * choice([-1, 1])
+          yC = randint(0, 5) * choice([-1, 1])
           uy = randint(3, 5) * choice([-1, 1])
           ux = randint(3, 5) * choice([-1, 1])
-
-          if (abs(yC - yA) / (xC - xA) === abs((uy) / (ux))) {
-            uy = uy + 2
-          }
           yB = yA + uy
           xB = xA + ux
           xD = xC + ux
           yD = yC + uy
+          AB2 = (xA - xB) ** 2 + (yA - yB) ** 2
+          AC2 = (xC - xA) ** 2 + (yC - yA) ** 2
+          BC2 = (xC - xB) ** 2 + (yC - yB) ** 2
+          DB2 = (xB - xD) ** 2 + (yB - yD) ** 2
+          DC2 = (xC - xD) ** 2 + (yC - yD) ** 2
+          //
+          while ((xD - xA) ** 2 + (yD - yA) ** 2 < 8 || (xC - xB) ** 2 + (yC - yB) ** 2 < 8 || abs(xA - xB) < 3 || abs(xA - xC) < 3 ||
+          yC === (yB - yA) / (xB - xA) * xC + yA - (yB - yA) / (xB - xA) * xA || Math.acos((BC2 - AB2 - AC2) / (-2 * (Math.sqrt(AB2)) * (Math.sqrt(AC2)))) < 0.4 ||
+          Math.acos((BC2 - AB2 - AC2) / (-2 * (Math.sqrt(AB2)) * (Math.sqrt(AC2)))) > 2.6) {
+            xA = randint(0, 5) * choice([-1, 1])
+            yA = randint(0, 5) * choice([-1, 1])
+            xC = randint(0, 5, xA) * choice([-1, 1])
+            yC = randint(0, 5) * choice([-1, 1])
+            uy = randint(3, 5) * choice([-1, 1])
+            ux = randint(3, 5) * choice([-1, 1])
+            yB = yA + uy
+            xB = xA + ux
+            xD = xC + ux
+            yD = yC + uy
+            AB2 = (xA - xB) ** 2 + (yA - yB) ** 2
+            AC2 = (xC - xA) ** 2 + (yC - yA) ** 2
+            BC2 = (xC - xB) ** 2 + (yC - yB) ** 2
+            DB2 = (xB - xD) ** 2 + (yB - yD) ** 2
+            DC2 = (xC - xD) ** 2 + (yC - yD) ** 2
+          }
 
-          xI0 = fractionSimplifiee(xA + xD, 2)[0]
-          xI1 = fractionSimplifiee(xA + xD, 2)[1]
-          yI0 = fractionSimplifiee(yA + yD, 2)[0]
-          yI1 = fractionSimplifiee(yA + yD, 2)[1]
-          xJ0 = fractionSimplifiee(xB + xC, 2)[0]
-          xJ1 = fractionSimplifiee(xB + xC, 2)[1]
-          yJ0 = fractionSimplifiee(yB + yC, 2)[0]
-          yJ1 = fractionSimplifiee(yB + yC, 2)[1]
-          g = grille(-9, -9, 9, 9)
+          xM = new FractionEtendue(xA + xD, 2)
+          yM = new FractionEtendue(yA + yD, 2)
+          xN = new FractionEtendue(xB + xC, 2)
+          yN = new FractionEtendue(yB + yC, 2)
           A = point(xA, yA, 'A', 'red')
           B = point(xB, yB, 'B', 'red')
           C = point(xC, yC, 'C', 'red')
           D = point(xD, yD, 'D', 'red')
           I = point(1, 0, 'I')
           J = point(0, 1, 'J')
-          O = point(0, 0, 'O')
           M = point((xA + xD) / 2, (yA + yD) / 2, 'M')
-
-          a = axes(-9, -9, 9, 9)
           s1 = segment(A, B, 'blue')
           s2 = segment(D, B, 'blue')
           s3 = segment(C, D, 'blue')
@@ -96,66 +106,81 @@ export default function Parallélogramme () {
           s4.epaisseur = 2
           s5.epaisseur = 2
           s6.epaisseur = 2
+          nom = creerNomDePolygone(4, ['OIJM'])
+          A.nom = nom[0]
+          B.nom = nom[1]
+          C.nom = nom[2]
+          D.nom = nom[3]
           codageSegments('X', 'red', s5, s6) // Code les segments s5 et s6
-          T = tracePoint(A, B, C, D, M, I, J, O) // Repère les points avec une croix
-          L = labelPoint(A, B, C, D, M, I, J, O)
-
+          T = tracePoint(A, B, C, D, M) // Repère les points avec une croix
+          L = labelPoint(M)
+          P = polygoneAvecNom(A, B, D, C)
+          objets.push(P[1])
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les 4 points suivants :<br>'
-          texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right).$`
-          texte += ` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
-          texte += '<br>Déterminer si le quadrilatère $ABDC$ est un parallélogramme.'
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ ; `
+          texte += ` $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ ; $${D.nom}\\left(${xD}\\,;\\,${yD}\\right).$<br>
+       `
+          texte += `Déterminer si le quadrilatère $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme. Justifier.`
+          I = texteParPosition('I', 1, -0.5, 'milieu', 'black', 1)
+          J = texteParPosition('J', -0.5, 1, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          objets.push(s1, s2, s3, s4, s5, s6, T, L, I, J, o)
+          XMIN = Math.min(xA, xB, xC, xD, -1) - 1
+          YMIN = Math.min(yA, yB, yC, yD, -1) - 1
+          XMAX = Math.max(xA, xB, xC, xD, 1) + 1
+          YMAX = Math.max(yA, yB, yC, yD, 1) + 1
+          objets.push(repere({
+            xMin: XMIN,
+            yMin: YMIN,
+            xMax: XMAX,
+            yMax: YMAX,
+            yLabelEcart: 0.6,
+            xLabelEcart: 0.6,
+            yLabelDistance: 2,
+            xLabelDistance: 2
+          }))
 
-          texteCorr = mathalea2d({
-            xmin: -9,
-            ymin: -9,
-            xmax: 9,
-            ymax: 9
-          }, T, L, g, a, s1, s2, s3, s4, s5, s6)
+          if (this.correctionDetaillee) {
+            texteCorr = 'On peut représenter la situation avec les données de l\'énoncé : <br>'
+            texteCorr += mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX, pixelsParCm: 25, scale: 0.6 }, objets)
+            texteCorr += `<br>Pour savoir si $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme, on peut utiliser l'un des deux résultats suivants :  <br>
+             $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu (c'est-à-dire si $[${A.nom}${D.nom}]$ et $[${B.nom}${C.nom}]$ ont le même milieu). <br>
+             $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses côtés opposés sont deux à deux de même longueur.<br>`
+          } else { texteCorr = '' }
+          texteCorr += `<br> ${texteGras('En utilisant les milieux :')} : <br> `
+          texteCorr += `<br> $\\bullet$ Soit $M$ le milieu de $[${A.nom}${D.nom}]$ : <br> `
+          texteCorr += `$\\begin{cases}x_M=\\dfrac{x_${A.nom}+x_${D.nom}}{2}= \\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2}=\\dfrac{${texNombre(xA + xD)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.8em] y_M=\\dfrac{y_${A.nom}+y_${D.nom}}{2}= \\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}=\\dfrac{${texNombre(yA + yD)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
+          texteCorr += `  <br><br>Ainsi : $ M\\left(${xM.simplifie().texFSD}\\,;\\,${yM.simplifie().texFSD}\\right)$`
+          texteCorr += `<br><br> $\\bullet$ Soit $N$ le milieu de $[${B.nom}${C.nom}]$ : <br> `
+          texteCorr += `$\\begin{cases}x_N=\\dfrac{x_${B.nom}+x_${C.nom}}{2}= \\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2}=\\dfrac{${texNombre(xB + xC)}}{2}${xN.texSimplificationAvecEtapes()}\\\\[0.8em] y_N=\\dfrac{y_${B.nom}+y_${C.nom}}{2}= \\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}=\\dfrac{${texNombre(yB + yC)}}{2}${yN.texSimplificationAvecEtapes()}\\end{cases}$`
 
-          texteCorr += '<br>On sait que $ABDC$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.'
-          texteCorr += '<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère.'
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère ,'
-          texteCorr += '<br> alors les coordonnées du point $M$ milieu de $[AD]$ sont '
-          texteCorr += '$M\\left(\\dfrac{x_A+x_D}{2};\\dfrac{y_A+y_D}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_M=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_M=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_M=\\dfrac{${texNombre(xA + xD)}}{2}\\\\y_M=\\dfrac{${texNombre(yA + yD)}}{2}\\end{cases}$`
-          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}};\\right)$` }
-          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(${xI0};${yI0}\\right)$` }
-          texteCorr += '<br> Les coordonnées du point $N$ milieu de $[BC]$ sont '
-          texteCorr += '$N\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_N=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_N=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_N=\\dfrac{${texNombre(xB + xC)}}{2}\\\\y_N=\\dfrac{${texNombre(yB + yC)}}{2}\\end{cases}$`
-          if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ N\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}};\\right)$` }
-          if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ N\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ N\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
-          if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ N\\left(${xJ0};${yJ0}\\right)$` }
-          texteCorr += '<br>On observe que $M$ et $N$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
+          texteCorr += `  <br><br>Ainsi : $ N\\left(${xN.simplifie().texFSD}\\,;\\,${yN.simplifie().texFSD}\\right)$`
+          texteCorr += '<br><br>On observe que $M$ et $N$ ont les mêmes coordonnées, donc les deux diagonales du quadrilatère se coupent en leur milieu.'
           texteCorr += '<br>$ABDC$ est donc un parallélogramme.'
+
+          texteCorr += `<br><br> ${texteGras('En utilisant les longueurs :')}  <br> `
+          texteCorr += `<br>$${A.nom}${B.nom}=\\sqrt{(x_{${B.nom}}-x_${A.nom})^2+(y_{${B.nom}}-y_${A.nom})^2}=\\sqrt{(${xB}-${ecritureParentheseSiNegatif(xA)})^2+(${yB}-${ecritureParentheseSiNegatif(yA)})^2}=\\sqrt{${ecritureParentheseSiNegatif(xB - xA)}^2+${ecritureParentheseSiNegatif(yB - yA)}^2}=\\sqrt{${AB2}}${AB2 === 1 || AB2 === 4 || AB2 === 9 || AB2 === 16 || AB2 === 25 || AB2 === 36 || AB2 === 49 || AB2 === 64 || AB2 === 81 ? `=${texRacineCarree(AB2)}` : ''}$<br>`
+
+          texteCorr += `<br>$${C.nom}${D.nom}=\\sqrt{(x_{${D.nom}}-x_${C.nom})^2+(y_{${D.nom}}-y_${C.nom})^2}=\\sqrt{(${xD}-${ecritureParentheseSiNegatif(xC)})^2+(${yD}-${ecritureParentheseSiNegatif(yC)})^2}=\\sqrt{${ecritureParentheseSiNegatif(xD - xC)}^2+${ecritureParentheseSiNegatif(yD - yC)}^2}=\\sqrt{${DC2}}${DC2 === 1 || DC2 === 4 || DC2 === 9 || DC2 === 16 || DC2 === 25 || DC2 === 36 || DC2 === 49 || DC2 === 64 || DC2 === 81 ? `=${texRacineCarree(DC2)}` : ''}$<br>`
+
+          texteCorr += `<br>$${B.nom}${D.nom}=\\sqrt{(x_{${D.nom}}-x_${B.nom})^2+(y_{${D.nom}}-y_${B.nom})^2}=\\sqrt{(${xD}-${ecritureParentheseSiNegatif(xB)})^2+(${yD}-${ecritureParentheseSiNegatif(yB)})^2}=\\sqrt{${ecritureParentheseSiNegatif(xD - xB)}^2+${ecritureParentheseSiNegatif(yD - yB)}^2}=\\sqrt{${DB2}}${DB2 === 1 || DB2 === 4 || DB2 === 9 || DB2 === 16 || DB2 === 25 || DB2 === 36 || DB2 === 49 || DB2 === 64 || DB2 === 81 ? `=${texRacineCarree(DB2)}` : ''}$<br>`
+          texteCorr += `<br>$${A.nom}${C.nom}=\\sqrt{(x_{${C.nom}}-x_${A.nom})^2+(y_{${C.nom}}-y_${A.nom})^2}=\\sqrt{(${xC}-${ecritureParentheseSiNegatif(xA)})^2+(${yC}-${ecritureParentheseSiNegatif(yA)})^2}=\\sqrt{${ecritureParentheseSiNegatif(xC - xA)}^2+${ecritureParentheseSiNegatif(yC - yA)}^2}=\\sqrt{${AC2}}${AC2 === 1 || AC2 === 4 || AC2 === 9 || AC2 === 16 || AC2 === 25 || AC2 === 36 || AC2 === 49 || AC2 === 64 || AC2 === 81 ? `=${texRacineCarree(AC2)}` : ''}$<br>`
+
+          texteCorr += `  <br>On observe que : $${A.nom}${B.nom}=${C.nom}${D.nom}$ et $${B.nom}${D.nom}=${A.nom}${C.nom}$.<br>
+           `
+          texteCorr += `Les côtés opposés du quadrilatère $${A.nom}${B.nom}${D.nom}${C.nom}$ sont deux à deux de même longueur, donc $${A.nom}${B.nom}${D.nom}${C.nom}$ est donc un parallélogramme.`
+
           break
         case 2: // Dq ABDC pas un parallélogramme
-          xA = randint(0, 4) * choice([-1, 1])
-          yA = randint(0, 4) * choice([-1, 1])
-          xC = randint(0, 4) * choice([-1, 1])
+          xA = randint(0, 5) * choice([-1, 1])
+          yA = randint(0, 5) * choice([-1, 1])
+          xC = randint(0, 5) * choice([-1, 1])
           yC = randint(0, 4) * choice([-1, 1])
-
-          while (abs(xC - xA) < 3) {
-            xA = randint(0, 4) * choice([-1, 1])
-            xC = randint(0, 4) * choice([-1, 1])
-          }
-          while (abs(yC - yA) < 3) {
-            yA = randint(0, 4) * choice([-1, 1])
-            yC = randint(0, 4) * choice([-1, 1])
-          }
           ux = randint(2, 4) * choice([-1, 1])
           uy = randint(2, 4) * choice([-1, 1])
           xB = xA + ux
           yB = yA + uy
           test = choice([-1, 1])
-
           if (test === -1) {
             xD = xC + ux + randint(1, 2) * choice([-1, 1])
             yD = yC + uy
@@ -164,25 +189,51 @@ export default function Parallélogramme () {
             xD = xC + ux
             yD = yC + uy + randint(1, 2) * choice([-1, 1])
           }
-          xI0 = fractionSimplifiee(xA + xD, 2)[0]
-          xI1 = fractionSimplifiee(xA + xD, 2)[1]
-          yI0 = fractionSimplifiee(yA + yD, 2)[0]
-          yI1 = fractionSimplifiee(yA + yD, 2)[1]
-          xJ0 = fractionSimplifiee(xB + xC, 2)[0]
-          xJ1 = fractionSimplifiee(xB + xC, 2)[1]
-          yJ0 = fractionSimplifiee(yB + yC, 2)[0]
-          yJ1 = fractionSimplifiee(yB + yC, 2)[1]
-          g = grille(-9, -9, 9, 9)
+
+          AB2 = (xA - xB) ** 2 + (yA - yB) ** 2
+          AC2 = (xC - xA) ** 2 + (yC - yA) ** 2
+          BC2 = (xC - xB) ** 2 + (yC - yB) ** 2
+          DB2 = (xB - xD) ** 2 + (yB - yD) ** 2
+          DC2 = (xC - xD) ** 2 + (yC - yD) ** 2
+
+          while ((xD - xA) ** 2 + (yD - yA) ** 2 < 8 || (xC - xB) ** 2 + (yC - yB) ** 2 < 8 || abs(xA - xB) < 3 || abs(xA - xC) < 3 ||
+          yC === (yB - yA) / (xB - xA) * xC + yA - (yB - yA) / (xB - xA) * xA || Math.acos((BC2 - AB2 - AC2) / (-2 * (Math.sqrt(AB2)) * (Math.sqrt(AC2)))) < 0.4 ||
+          Math.acos((BC2 - AB2 - AC2) / (-2 * (Math.sqrt(AB2)) * (Math.sqrt(AC2)))) > 2.6) {
+            xA = randint(0, 5) * choice([-1, 1])
+            yA = randint(0, 5) * choice([-1, 1])
+            xC = randint(0, 5) * choice([-1, 1])
+            yC = randint(0, 5) * choice([-1, 1])
+            ux = randint(2, 4) * choice([-1, 1])
+            uy = randint(2, 4) * choice([-1, 1])
+            xB = xA + ux
+            yB = yA + uy
+            test = choice([-1, 1])
+            if (test === -1) {
+              xD = xC + ux + randint(1, 2) * choice([-1, 1])
+              yD = yC + uy
+            }
+            if (test === 1) {
+              xD = xC + ux
+              yD = yC + uy + randint(1, 2) * choice([-1, 1])
+            }
+            AB2 = (xA - xB) ** 2 + (yA - yB) ** 2
+            AC2 = (xC - xA) ** 2 + (yC - yA) ** 2
+            BC2 = (xC - xB) ** 2 + (yC - yB) ** 2
+            DB2 = (xB - xD) ** 2 + (yB - yD) ** 2
+            DC2 = (xC - xD) ** 2 + (yC - yD) ** 2
+          }
+
+          xM = new FractionEtendue(xA + xD, 2)
+          yM = new FractionEtendue(yA + yD, 2)
+          xN = new FractionEtendue(xB + xC, 2)
+          yN = new FractionEtendue(yB + yC, 2)
           A = point(xA, yA, 'A', 'blue')
           B = point(xB, yB, 'B', 'blue')
           C = point(xC, yC, 'C', 'blue')
           D = point(xD, yD, 'D', 'blue')
           I = point(1, 0, 'I')
           J = point(0, 1, 'J')
-          O = point(0, 0, 'O')
           M = point((xA + xD) / 2, (yA + yD) / 2, 'M', 'red')
-          N = point((xB + xC) / 2, (yB + yC) / 2, 'N', 'red')
-          a = axes(-9, -9, 9, 9)
           s1 = segment(A, B, 'blue')
           s2 = segment(D, B, 'blue')
           s3 = segment(C, D, 'blue')
@@ -197,45 +248,70 @@ export default function Parallélogramme () {
           s5.epaisseur = 2
           s6.epaisseur = 2
           // codageSegments('X', 'red', s1, s2, s3, s4, s5, s6) // Code les segments s5 et s6
-
-          T = tracePoint(A, B, C, D, I, J, M, N, O) // Repère les points avec une croix
-          L = labelPoint(A, B, C, D, I, J, M, N, O)
-
+          nom = creerNomDePolygone(4, ['OIJM'])
+          A.nom = nom[0]
+          B.nom = nom[1]
+          C.nom = nom[2]
+          D.nom = nom[3]
+          codageSegments('X', 'red', s5, s6) // Code les segments s5 et s6
+          T = tracePoint(A, B, C, D) // Repère les points avec une croix
+          P = polygoneAvecNom(A, B, D, C)
+          objets.push(P[1])
+          I = texteParPosition('I', 1, -0.5, 'milieu', 'black', 1)
+          J = texteParPosition('J', -0.5, 1, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          objets.push(s1, s2, s3, s4, s5, s6, T, I, J, o)
+          XMIN = Math.min(xA, xB, xC, xD, -1) - 1
+          YMIN = Math.min(yA, yB, yC, yD, -1) - 1
+          XMAX = Math.max(xA, xB, xC, xD, 1) + 1
+          YMAX = Math.max(yA, yB, yC, yD, 1) + 1
+          objets.push(repere({
+            xMin: XMIN,
+            yMin: YMIN,
+            xMax: XMAX,
+            yMax: YMAX,
+            yLabelEcart: 0.6,
+            xLabelEcart: 0.6,
+            yLabelDistance: 2,
+            xLabelDistance: 2
+          }))
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les 4 points suivants :<br>'
-          texte += ` $A\\left(${xA};${yA}\\right)$ ; $B\\left(${xB};${yB}\\right).$`
-          texte += ` $C\\left(${xC};${yC}\\right)$ ; $D\\left(${xD};${yD}\\right).$`
-          texte += '<br>Déterminer si le quadrilatère $ABDC$ est un parallélogramme.'
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$, `
+          texte += ` $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ ; $${D.nom}\\left(${xD}\\,;\\,${yD}\\right).$<br>
+       `
+          texte += `Déterminer si le quadrilatère $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme. Justifier.`
 
-          texteCorr = mathalea2d({
-            xmin: -9,
-            ymin: -9,
-            xmax: 9,
-            ymax: 9
-          }, T, L, g, a, s1, s2, s3, s4, s5, s6)
+          if (this.correctionDetaillee) {
+            texteCorr = 'On peut représenter la situation avec les données de l\'énoncé : <br>'
+            texteCorr += mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX, pixelsParCm: 25, scale: 0.6 }, objets)
+            texteCorr += `<br>Pour savoir si $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme, on peut utiliser l'un des deux résultats suivants :  <br>
+             $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu (c'est-à-dire si $[${A.nom}${D.nom}]$ et $[${B.nom}${C.nom}]$ ont le même milieu). <br>
+             $\\bullet$ $${A.nom}${B.nom}${D.nom}${C.nom}$ est un parallélogramme si et seulement si ses côtés opposés sont deux à deux de même longueur.<br>`
+          } else { texteCorr = '' }
+          texteCorr += `<br> ${texteGras('En utilisant les milieux :')} : <br> `
+          texteCorr += `<br> $\\bullet$ Soit $M$ le milieu de $[${A.nom}${D.nom}]$ : <br> `
+          texteCorr += `$\\begin{cases}x_M=\\dfrac{x_${A.nom}+x_${D.nom}}{2}= \\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2}=\\dfrac{${texNombre(xA + xD)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.8em] y_M=\\dfrac{y_${A.nom}+y_${D.nom}}{2}= \\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}=\\dfrac{${texNombre(yA + yD)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
 
-          texteCorr += '<br>On sait que $ABDC$ est un parallélogramme si et seulement si ses diagonales se coupent en leur milieu.'
-          texteCorr += '<br>On cherche donc les coordonnées du milieu de chacune des deux diagonales du quadrilatère.'
-          texteCorr += '<br>On sait d\'après le cours, que si $A(x_A;y_A)$ et $D(x_D;y_D)$ sont deux points d\'un repère,'
-          texteCorr += '<br> alors les coordonnées du point $M$ milieu de $[AD]$ sont '
-          texteCorr += '$M\\left(\\dfrac{x_A+x_D}{2};\\dfrac{y_A+y_D}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_M=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xD)}}{2} \\\\ y_M=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yD)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_M=\\dfrac{${texNombre(xA + xD)}}{2}\\\\y_M=\\dfrac{${texNombre(yA + yD)}}{2}\\end{cases}$`
-          if (xI1 !== 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(\\dfrac{${xI0}}{${xI1}};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 === 1 && yI1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(${xI0};\\dfrac{${yI0}}{${yI1}}\\right)$` }
-          if (xI1 !== 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(\\dfrac{${xI0}}{${xI1}};${yI0}\\right)$` }
-          if (xI1 === 1 && yI1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ M\\left(${xI0};${yI0}\\right)$` }
-          texteCorr += '<br> Les coordonnées du point $N$ milieu de $[BC]$ sont '
-          texteCorr += '$N\\left(\\dfrac{x_B+x_C}{2};\\dfrac{y_B+y_C}{2}\\right)$ <br>'
-          texteCorr += 'On applique la relation à l\'énoncé : '
-          texteCorr += `$\\begin{cases}x_N=\\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2} \\\\ y_N=\\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}\\end{cases}$`
-          texteCorr += `<br>On en déduit :  $\\begin{cases}x_N=\\dfrac{${texNombre(xB + xC)}}{2}\\\\y_N=\\dfrac{${texNombre(yB + yC)}}{2}\\end{cases}$`
-          if (xJ1 !== 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ N\\left(\\dfrac{${xJ0}}{${xJ1}};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 === 1 && yJ1 !== 1) { texteCorr += `  <br>Ce qui donne au final : $ N\\left(${xJ0};\\dfrac{${yJ0}}{${yJ1}}\\right)$` }
-          if (xJ1 !== 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ N\\left(\\dfrac{${xJ0}}{${xJ1}};${yJ0}\\right)$` }
-          if (xJ1 === 1 && yJ1 === 1) { texteCorr += `  <br>Ce qui donne au final : $ N\\left(${xJ0};${yJ0}\\right)$` }
-          texteCorr += '<br>On observe que $M$ et $N$ n\'ont pas les mêmes coordonnées, donc les deux diagonales du quadrilatère ne se coupent pas en leur milieu.'
-          texteCorr += '<br>$ABDC$ n\'est donc pas un parallélogramme.'
+          texteCorr += `  <br><br>Ainsi : $ M\\left(${xM.simplifie().texFSD}\\,;\\,${yM.simplifie().texFSD}\\right)$`
+          texteCorr += `<br><br>$\\bullet$ Soit $N$ le milieu de $[${B.nom}${C.nom}]$ : <br> `
+          texteCorr += `$\\begin{cases}x_N=\\dfrac{x_${B.nom}+x_${C.nom}}{2}= \\dfrac{${xB}+${ecritureParentheseSiNegatif(xC)}}{2}=\\dfrac{${texNombre(xB + xC)}}{2}${xN.texSimplificationAvecEtapes()}\\\\[0.8em] y_N=\\dfrac{y_${B.nom}+y_${C.nom}}{2}= \\dfrac{${yB}+${ecritureParentheseSiNegatif(yC)}}{2}=\\dfrac{${texNombre(yB + yC)}}{2}${yN.texSimplificationAvecEtapes()}\\end{cases}$`
+
+          texteCorr += `  <br><br>Ainsi : $ N\\left(${xN.simplifie().texFSD}\\,;\\,${yN.simplifie().texFSD}\\right)$`
+          texteCorr += '<br><br>On observe que $M$ et $N$ n\'ont pas les mêmes coordonnées, donc les deux diagonales du quadrilatère ne se coupent pas en leur milieu.'
+          texteCorr += `<br>$${A.nom}${B.nom}${D.nom}${C.nom}$ n'est pas un parallélogramme.`
+
+          texteCorr += `<br><br> ${texteGras('En utilisant les longueurs :')}  <br> `
+          texteCorr += `<br>$${A.nom}${B.nom}=\\sqrt{(x_{${B.nom}}-x_${A.nom})^2+(y_{${B.nom}}-y_${A.nom})^2}=\\sqrt{(${xB}-${ecritureParentheseSiNegatif(xA)})^2+(${yB}-${ecritureParentheseSiNegatif(yA)})^2}=\\sqrt{${ecritureParentheseSiNegatif(xB - xA)}^2+${ecritureParentheseSiNegatif(yB - yA)}^2}=\\sqrt{${AB2}}${AB2 === 1 || AB2 === 4 || AB2 === 9 || AB2 === 16 || AB2 === 25 || AB2 === 36 || AB2 === 49 || AB2 === 64 || AB2 === 81 ? `=${texRacineCarree(AB2)}` : ''}$<br>`
+
+          texteCorr += `<br>$${C.nom}${D.nom}=\\sqrt{(x_{${D.nom}}-x_${C.nom})^2+(y_{${D.nom}}-y_${C.nom})^2}=\\sqrt{(${xD}-${ecritureParentheseSiNegatif(xC)})^2+(${yD}-${ecritureParentheseSiNegatif(yC)})^2}=\\sqrt{${ecritureParentheseSiNegatif(xD - xC)}^2+${ecritureParentheseSiNegatif(yD - yC)}^2}=\\sqrt{${DC2}}${DC2 === 1 || DC2 === 4 || DC2 === 9 || DC2 === 16 || DC2 === 25 || DC2 === 36 || DC2 === 49 || DC2 === 64 || DC2 === 81 ? `=${texRacineCarree(DC2)}` : ''}$<br>`
+          if (AB2 === DC2) {
+            texteCorr += `<br>$${B.nom}${D.nom}=\\sqrt{(x_{${D.nom}}-x_${B.nom})^2+(y_{${D.nom}}-y_${B.nom})^2}=\\sqrt{(${xD}-${ecritureParentheseSiNegatif(xB)})^2+(${yD}-${ecritureParentheseSiNegatif(yB)})^2}=\\sqrt{${ecritureParentheseSiNegatif(xD - xB)}^2+${ecritureParentheseSiNegatif(yD - yB)}^2}=\\sqrt{${DB2}}${DB2 === 1 || DB2 === 4 || DB2 === 9 || DB2 === 16 || DB2 === 25 || DB2 === 36 || DB2 === 49 || DB2 === 64 || DB2 === 81 ? `=${texRacineCarree(DB2)}` : ''}$<br>`
+            texteCorr += `<br>$${A.nom}${C.nom}=\\sqrt{(x_{${C.nom}}-x_${A.nom})^2+(y_{${C.nom}}-y_${A.nom})^2}=\\sqrt{(${xC}-${ecritureParentheseSiNegatif(xA)})^2+(${yC}-${ecritureParentheseSiNegatif(yA)})^2}=\\sqrt{${ecritureParentheseSiNegatif(xC - xA)}^2+${ecritureParentheseSiNegatif(yC - yA)}^2}=\\sqrt{${AC2}}${AC2 === 1 || AC2 === 4 || AC2 === 9 || AC2 === 16 || AC2 === 25 || AC2 === 36 || AC2 === 49 || AC2 === 64 || AC2 === 81 ? `=${texRacineCarree(AC2)}` : ''}$<br>`
+          }
+
+          texteCorr += `  <br>On observe que les côtés opposés de $${A.nom}${B.nom}${D.nom}${C.nom}$ ne sont pas  deux à deux de même longueur.<br>
+           `
+          texteCorr += `$${A.nom}${B.nom}${D.nom}${C.nom}$ n'est donc pas un parallélogramme.`
           break
       }
       if (this.questionJamaisPosee(i, xA, yA, xB, yB, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre

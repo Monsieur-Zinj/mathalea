@@ -10,10 +10,10 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { abs } from 'mathjs'
 
-export const titre = 'Propriétés graphiques de la parité d\'une fonction'
+export const titre = 'Étudier graphiquement la parité d\'une fonction'
 
 /**
- * Reconnaître parité fonction
+ * Reconnaître la parité d'une fonction
 * @author Stéphane Guyon
 * 2F20
 */

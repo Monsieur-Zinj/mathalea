@@ -6,10 +6,13 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { rienSi1 } from '../../lib/outils/ecritures.js'
 import { sp } from '../../lib/outils/outilString.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '04/11/2023'
+export const amcReady = true
+export const amcType = 'AMCOpen'
+export const dateDeModifImportante = '19/11/2023'
 
 /**
  * Distinction entre la réduction d'un produit et la réduction d'une somme, on garde les même coeffs
@@ -23,22 +26,20 @@ export default function ReduireDinstinctionSommeProduit () {
   this.nbCols = 1
   this.nbColsCorr = 1
   let typesDeQuestionsDisponibles
+  this.sup = 3
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    typesDeQuestionsDisponibles = [choice([0, 2]), choice([1, 3])]
+    typesDeQuestionsDisponibles = this.sup === 3 ? [choice([0, 2]), choice([1, 3])] : this.sup === 2 ? [choice([1, 3])] : [choice([0, 2])]
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-    // const listeTypeDeQuestions = combinaisonListesSansChangerOrdre([0], this.nbQuestions)
+    const variables = ['x', 'y', 'z', 'a', 'b', 'c']
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const variables = ['x', 'y', 'z', 'a', 'b', 'c']
       const enonces = []
       const n = randint(1, 6)
       const p = randint(1, 6)
-      // n = 1
-      // p = 1
       const inc = variables[randint(0, variables.length - 1)]
 
       //= ==== 0 le produit puis la somme
@@ -95,10 +96,24 @@ export default function ReduireDinstinctionSommeProduit () {
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: texte + '<br>',
+            propositions: [
+              {
+                texte: texteCorr,
+                statut: 2, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+              }
+            ]
+          }
+        }
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Avec des mots\n2 : Avec des signes\n3 : Mélange']
 }

@@ -21,7 +21,6 @@ export const titre = 'Calculer images (et antécédents) de fonctions'
  * Répondre à des questions sur les fonctions.
  * Aout 2021
  * @author Jean-Claude Lhote
- * 3F10-1
  */
 export const uuid = 'ba520'
 export const ref = '3F10-2'
@@ -232,8 +231,8 @@ export default function CalculsImagesFonctions () {
               if (n !== x) m = n - x
               else m = n ** 2 - x
               enonce = `Soit $f$ la fonction qui à $x$ associe $\\dfrac{x}{x${ecritureAlgebrique(m)}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${x}}{${x + m}}=${texNombre(x / n)}$`
-              reponses[i] = new Decimal(x).div(n)
+              correction = `$f(x)=\\dfrac{x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${x}}{${x + m}}=${texNombre(x / (x + m))}$`
+              reponses[i] = new Decimal(x).div(x + m)
               break
             case 1:
               if (n !== x) m = n - x
@@ -253,8 +252,8 @@ export default function CalculsImagesFonctions () {
               if (n !== x) m = n - x
               else m = n ** 2 - x
               enonce = `Soit $f: x \\longmapsto \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
-              correction = `$f(x)= \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$ donc ici on a : $f(${x})= \\dfrac{${x}${ecritureAlgebrique(-m)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(-2 * m)}\\times ${ecritureParentheseSiNegatif(x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}=${texNombre(1 / n)}$`
-              reponses[i] = new Decimal(1).div(n)
+              correction = `$f(x)= \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$ donc ici on a : $f(${x})= \\dfrac{${x}${ecritureAlgebrique(-m)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(-2 * m)}\\times ${ecritureParentheseSiNegatif(x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}=\\dfrac{${-1}}{${x + m}}=${texNombre(-1 / (x + m), 2)}$`
+              reponses[i] = new Decimal(-1).div(x + m)
               break
           }
           break
@@ -271,6 +270,7 @@ export default function CalculsImagesFonctions () {
       } else {
         texte = enonce
       }
+
       if (tagImage) {
         texteCorr = correction + '<br>' + `$f(${ant})=${miseEnEvidence(texNombre(reponses[i], 5))}$`
       } else {

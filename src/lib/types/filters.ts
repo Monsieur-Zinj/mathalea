@@ -1,5 +1,6 @@
 // inspiration : https://blog.susomejias.dev/blog/design-pattern-criteria
 
+import { MONTHS, YEARS } from './dates'
 import {
   isExerciceItemInReferentiel,
   type ResourceAndItsPath,
@@ -7,7 +8,10 @@ import {
   resourceHasPlace,
   isLevelType,
   isTool,
-  isStaticType
+  isStaticType,
+  EXAMS,
+  isExamItemInReferentiel,
+  resourceHasMonth
 } from './referentiels'
 
 /**
@@ -211,7 +215,7 @@ export function featuresCriteria (
  */
 export function levelCriterion (
   level: Level,
-  considerCAN: boolean = false
+  considerCAN: boolean = true
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
@@ -256,7 +260,24 @@ export function tagCriterion (
           item.resource.tags &&
           item.resource.tags
             .map((t) => t.toLowerCase())
-            .includes(selectedTag.toLowerCase())
+            .find((t) => t.includes(selectedTag.toLowerCase()))
+      )
+    }
+  }
+  return criterion
+}
+
+export function monthCriterion (
+  monthToMatch: string
+): Criterion<ResourceAndItsPath> {
+  const criterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]) {
+      return items.filter(
+        (item: ResourceAndItsPath) =>
+          MONTHS.find((t) => t.includes(monthToMatch.toLowerCase())) &&
+          resourceHasMonth(item.resource) &&
+          item.resource.mois &&
+          item.resource.mois.toLowerCase().includes(monthToMatch.toLowerCase())
       )
     }
   }
@@ -281,6 +302,41 @@ export function idCriterion (idToMatch: string): Criterion<ResourceAndItsPath> {
   return criterion
 }
 
+export function examCriterion (
+  examToMatch: string
+): Criterion<ResourceAndItsPath> {
+  const criterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]) {
+      return items.filter((item: ResourceAndItsPath) => {
+        console.log('examToMatch.toLowerCase()')
+        console.log(examToMatch.toLowerCase())
+        return (
+          EXAMS.includes(examToMatch.toLowerCase()) &&
+          item.resource.uuid.startsWith(examToMatch.toLowerCase())
+        )
+      })
+    }
+  }
+  return criterion
+}
+
+export function yearCriterion (
+  yearToMatch: string
+): Criterion<ResourceAndItsPath> {
+  const criterion: Criterion<ResourceAndItsPath> = {
+    meetCriterion (items: ResourceAndItsPath[]) {
+      return items.filter((item: ResourceAndItsPath) => {
+        return (
+          YEARS.includes(yearToMatch) &&
+          isExamItemInReferentiel(item.resource) &&
+          item.resource.annee === yearToMatch
+        )
+      })
+    }
+  }
+  return criterion
+}
+
 /**
  * Construit un critère de filtration sur un sujet (chaîne de caractères).
  * La recherche s'effectue sur le titre (s'il y en a) ou sur le lieu (s'il y en a)
@@ -290,7 +346,7 @@ export function idCriterion (idToMatch: string): Criterion<ResourceAndItsPath> {
  */
 export function subjectCriterion (
   subject: string,
-  isCanIncluded: boolean = false
+  isCanIncluded: boolean = true
 ): Criterion<ResourceAndItsPath> {
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
@@ -324,25 +380,46 @@ export function subjectCriterion (
   }
   return criterion
 }
-
 /**
- * Construit un critère de filtration basé sur une chaine de caractère.
- * On distingue les niveaux et les sujets.
- * @param {string} input chaîne de caractère recherchée
- * @param {boolean} [isCanIncluded=false] flag pour savoir si la recherche doit inclure les exercices CAN ou pas
- * @returns un critère unique si un seul mot est recherché ou un critère multiple basé sur le OU
+ * Construit une liste de critères en les taguant ET ou OU
+ * @param input chaîne de caractères pour l'inout
+ * @param isCanIncluded flag pour l'inclusion des CAN
+ * @returns liste d'objets du type {connector: 'ET'|'OU', filter: Criterion<ResourceAndItsPath>}
  */
-export function stringToCriteria (
+export function buildCriteriaFromString (
   input: string,
-  isCanIncluded: boolean = false
-): Criterion<ResourceAndItsPath> {
+  isCanIncluded: boolean = true
+): Array<{ connector: 'ET' | 'OU'; filter: Criterion<ResourceAndItsPath> }> {
+  const criteria: Array<{
+    connector: 'ET' | 'OU'
+    filter: Criterion<ResourceAndItsPath>
+  }> = []
   // on construit le tableau des mots recherchés en retirant les espaces superflus
   // mais en préservant les chaînes entre guillemets ou apostrophes
   // pour l'idée, voir : https://stackoverflow.com/a/16261693/6625987
   const re = /(?:[^\s"']+|['"][^'"]*["'])+/g
   // on enlève les espace aux bornes et on partage la chaîne sur un ou plusieurs espace entre les mots (ainsi pas de chaine vide dans le tableau)
   const regExpResult = input.trim().match(re)
-  const words = regExpResult === null ? [] : [...regExpResult]
+  const wordsTemp = regExpResult === null ? [] : [...regExpResult]
+  const words: string[] = []
+  // on traite les OU en détectant les caractères | dans les chaînes
+  for (const w of wordsTemp) {
+    if (w.includes('+')) {
+      // do somthing
+      const list = w.split('+')
+      const premier = list.shift()
+      if (premier) {
+        words.push(premier)
+      }
+      for (const w of list) {
+        words.push('+' + w)
+      }
+    } else {
+      words.push(w)
+    }
+  }
+  // console.log('words')
+  // console.log(words)
   if (words.length === 0 || (words.length === 1 && words[0].length === 0)) {
     // la chaîne explorée ne doit pas être vide
     throw new Error('Search input should not be empty when building Criteria')
@@ -355,135 +432,131 @@ export function stringToCriteria (
     // (une chaîne peut être : "labyrinthe de multiples", "l'heure", 'informations inutiles')
     words.forEach((word, index, theArray) => {
       let w = word
-      if (/^['||"]/.test(word)) {
+      if (/^['"]/.test(word)) {
         // la chaîne contient un guillemet ou apostrophe au début
         w = w.slice(1) // on retire le premier caractère
       }
-      if (/['||"]$/.test(word)) {
+      if (/['"]$/.test(word)) {
         // la chaîne contient un guillemet ou apostrophe à la fin
         w = w.slice(0, -1) // on retire le dernier caractère
       }
       theArray[index] = w
     })
-    if (words.length === 1) {
-      // un seul mot dans le champ de recherche
-      if (isLevelType(words[0])) {
-        return levelCriterion(words[0], isCanIncluded)
-      } else {
-        return new AtLeastOneOfCriteria([
-          subjectCriterion(words[0], isCanIncluded),
-          tagCriterion(words[0]),
-          idCriterion(words[0])
+    // console.log('words (avant boucle)')
+    // console.log(words)
+    for (const word of words) {
+      const connector = word.startsWith('+') ? 'OU' : 'ET'
+      const realWord = word.replace('+', '')
+      // console.log('realWord: ' + realWord)
+      if (isLevelType(realWord)) {
+        // console.log('found level')
+        criteria.push({
+          connector,
+          filter: levelCriterion(realWord, isCanIncluded)
+        })
+        continue
+      }
+      if (EXAMS.includes(realWord.toLowerCase())) {
+        // console.log('found exam')
+        criteria.push({ connector, filter: examCriterion(realWord) })
+        continue
+      }
+      if (YEARS.includes(realWord)) {
+        // console.log('found year')
+        criteria.push({ connector, filter: yearCriterion(realWord) })
+        continue
+      }
+      // le mot n'est ni un niveau, ni un examen
+      // console.log('found subject')
+      criteria.push({
+        connector,
+        filter: new AtLeastOneOfCriteria([
+          subjectCriterion(realWord, isCanIncluded),
+          tagCriterion(realWord),
+          idCriterion(realWord),
+          monthCriterion(realWord)
         ])
-      }
-    } else {
-      // plusieurs mots dans le champs de recherche : on construit un critère multiple
-      // basé sur le OU entre tous les critères (niveau + sujets)
-      const levelsCriteria: Criterion<ResourceAndItsPath>[] = []
-      const subjectsCriteria: Criterion<ResourceAndItsPath>[] = []
-      const tagsCriteria: Criterion<ResourceAndItsPath>[] = []
-      const idsCriteria: Criterion<ResourceAndItsPath>[] = []
-      const subjectsAsString: string[] = [] // pour garder trace des sujets comme mots
-      for (const word of words) {
-        // on sépare les mots suivants qu'ils représentent un niveau ou pas (par exemple '4e' est un niveau)
-        // et on crée des critères en conséquences
-        if (isLevelType(word)) {
-          levelsCriteria.push(levelCriterion(word, isCanIncluded))
-        } else {
-          subjectsAsString.push(word)
-          subjectsCriteria.push(
-            subjectCriterion(word.replace('+', ''), isCanIncluded)
-          )
-          tagsCriteria.push(tagCriterion(word.replace('+', '')))
-          idsCriteria.push(tagCriterion(word.replace('+', '')))
-        }
-      }
-      // on a que des critères de niveaux (deux ou plus ici), on en renvoie l'union
-      if (subjectsCriteria.length === 0) {
-        if (levelsCriteria.length === 1) {
-          return levelsCriteria[0]
-        } else {
-          return new AtLeastOneOfCriteria([
-            levelsCriteria[0],
-            levelsCriteria[1],
-            ...levelsCriteria.slice(2)
-          ])
-        }
-      }
-      // on a au moins un critères de sujet donc on traite tous les critères de sujets/tags
-      const parsedSubjectsCriteria: Criterion<ResourceAndItsPath> =
-        parseStringCriteria(subjectsAsString, subjectsCriteria)
-      const parsedTagsCriteria: Criterion<ResourceAndItsPath> =
-        parseStringCriteria(subjectsAsString, tagsCriteria)
-      const parsedIDsCriteria: Criterion<ResourceAndItsPath> =
-        parseStringCriteria(subjectsAsString, idsCriteria)
-      // on a que des critères de sujets/tags (deux ou plus ici), on renvoie leur traitement
-      if (levelsCriteria.length === 0) {
-        return new AtLeastOneOfCriteria([
-          parsedSubjectsCriteria,
-          parsedTagsCriteria,
-          parsedIDsCriteria
-        ])
-      }
-      // dans ce qui suit, on a soit au moins un niveau ET un sujet et peut-être autre chose
-      // pour chaque niveaux, on construit le critère de recherche niveau ET sujets/tags traités
-      const levelsAndSubjectsCriteria: Criterion<ResourceAndItsPath>[] = []
-      for (const criterion of levelsCriteria) {
-        levelsAndSubjectsCriteria.push(
-          new MultiCriteria<ResourceAndItsPath>()
-            .addCriterion(criterion)
-            .addCriterion(
-              new AtLeastOneOfCriteria([
-                parsedSubjectsCriteria,
-                parsedTagsCriteria,
-                parsedIDsCriteria
-              ])
-            )
-        )
-      }
-      // on construit et renvoie l'union de tous les critères niveau+sujets/tags
-      if (levelsAndSubjectsCriteria.length === 1) {
-        return levelsAndSubjectsCriteria[0]
-      } else {
-        return levelsAndSubjectsCriteria.slice(1).reduce((prev, current) => {
-          return new OrCriteria(prev, current)
-        }, levelsAndSubjectsCriteria[0])
-      }
+      })
     }
   }
+  return criteria
 }
 
 /**
- * Construit un critère correspondant à un tableau de critères de sujet.
- * @remark Si le sujet est précédé d'un `+`, on fait une intersection des critères, sinon, on fait une union
- * @param subjects sujets comme mot
- * @param subjectsCriteria sujets comme critère
+ * Construit un critère unique basé sur la chaîne passée en paramètres.
+ * Les mots précédés d'un signe `+` sont traités comme des critères ET
+ * et les autres comme des critères OU.
+ * @param input Chaîne de caractères utilisée pour la fabrication des critères
+ * @param isCanIncluded flag pour inclure les CAN
  * @returns un critère unique
  */
-function parseStringCriteria (
-  subjects: string[],
-  criteria: Criterion<ResourceAndItsPath>[]
+export function stringToCriterion (
+  input: string,
+  isCanIncluded: boolean = true
 ): Criterion<ResourceAndItsPath> {
-  let parsedSubjects: Criterion<ResourceAndItsPath>
-  if (criteria.length === 0) {
-    throw new Error('No criterion passed')
-  }
-  if (criteria.length !== subjects.length) {
-    throw new Error('Number of criterions and number of subjects are different')
-  }
-  if (criteria.length === 1) {
-    parsedSubjects = criteria[0]
+  if (input.length === 0) {
+    // la chaîne explorée ne doit pas être vide
+    throw new Error('Search input should not be empty when building Criteria')
   } else {
-    // on a plus d'un sujet, on fait l'union
-    parsedSubjects = criteria.slice(1).reduce((prev, current, i) => {
-      if (subjects[i + 1].slice(0, 1) === '+') {
-        return new MultiCriteria<ResourceAndItsPath>()
-          .addCriterion(prev)
-          .addCriterion(current)
-      } else {
-        return new OrCriteria(prev, current)
-      }
-    }, criteria[0])
+    const criteria = buildCriteriaFromString(input, isCanIncluded)
+    if (criteria.length === 1) {
+      // on a un seul critère : peut importe ET/OU
+      return criteria[0].filter
+    } else {
+      // on a au moins deux critères : on va inspecter la liste des critères :
+      // on va isoler les critères avec un connecteur ET
+      // et on va regrouper les critères avec un connecteur OU
+      // en un seul critère en en faisant l'union. Ainsi,
+      // on aura une seule liste de critères dont il faudra faire l'intersection
+      const justAndCriteria: Criterion<ResourceAndItsPath>[] = []
+      const orAssociations: Criterion<ResourceAndItsPath>[][] = []
+      let orListTransit: Criterion<ResourceAndItsPath>[] = []
+      // dans un premier temps, on regroupe les OU dans des listes
+      // et on isole les ET
+      criteria.forEach((item, i) => {
+        if (i === 0) {
+          // c'est le premier terme, on l'ajoute d'office
+          orListTransit.push(item.filter)
+        } else {
+          if (item.connector === 'OU') {
+            // l'élément courant a un connecteur OU
+            // on remplit la liste des OU
+            orListTransit.push(item.filter)
+          } else {
+            // l'élément courant a un connecteur ET
+            // on remplit la liste des associations
+            orAssociations.push(orListTransit)
+            // on purge la liste des OU
+            orListTransit = []
+            // on y met l'élément courant
+            orListTransit.push(item.filter)
+          }
+        }
+      })
+      // on ajoute la dernière liste de transit
+      orAssociations.push(orListTransit)
+      // on traite les listes : s'il y a un seul élément,
+      // on l'ajoute directement sinon on en fait l'union
+      orAssociations.forEach((list) => {
+        if (list.length === 1) {
+          // il y a un seul éléments: il a forcément un critère ET on l'ajoute directement
+          justAndCriteria.push(list[0])
+        } else {
+          // il y a plusieurs références, on doit en faire l'union
+          const [first, second, ...others] = [...list]
+          const orCriteriaUnion = new AtLeastOneOfCriteria<ResourceAndItsPath>([
+            first,
+            second,
+            ...others
+          ])
+          justAndCriteria.push(orCriteriaUnion)
+        }
+      })
+      // à ce stade, il n'y a plus de connecteurs OU
+      // on fait l'intersection de tous les critères
+      const c = new MultiCriteria<ResourceAndItsPath>()
+      justAndCriteria.forEach((item) => c.addCriterion(item))
+      return c
+    }
   }
-  return parsedSubjects
 }

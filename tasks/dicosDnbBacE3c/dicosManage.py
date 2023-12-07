@@ -102,11 +102,11 @@ def newEntry(file:str,dicoType:str)->list:
     lieu: '{locationName(filename.split('_')[3])}',
     mois: '{monthName(filename[9:11])}',
     numeroInitial: '{numeroInitial}',
-    png: '/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
-    pngcor: '/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
+    png: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
+    pngcor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
     typeExercice: '{dicoType}',
-    url: '/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
-    urlcor: '/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
+    url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
+    urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
     tags: ['...tagsToChange']
   }},\n'''    
     
@@ -225,19 +225,20 @@ def main():
     # On nettoie le terminal
     os.system("clear")
 
+    # EE : Ne fonctionne pas. Je l'enlève. On verra plus tard
     # On génère la documentation
-    print("=============================================================================")
-    print("  Création de la documentation en cours ...  ")    
-    print(" ")    
-    os.system('sh ./src/js/modules/dicosDnbBacE3c/generateDoc.sh')
-    print("=============================================================================")
-    print("  Synchronisation/Génération du dictionnaire en cours ...  ")    
-    print(" ")    
+    # print("=============================================================================")
+    # print("  Création de la documentation en cours ...  ")    
+    # print(" ")    
+    # os.system('sh ./src/js/modules/dicosDnbBacE3c/generateDoc.sh')
+    # print("=============================================================================")
+    # print("  Synchronisation/Génération du dictionnaire en cours ...  ")    
+    # print(" ")    
 
     # On choisit le type de dico à synchroniser/générer
     choiceDico = ''
     while choiceDico not in ['1','2','3']:
-        choiceDico = input("""Quels dictionnaire faut-il synchronier/générer ?
+        choiceDico = input("""Quels dictionnaire faut-il synchroniser/générer ?
         ---> 1 : DNB
         ---> 2 : BAC
         ---> 3 : E3C
@@ -248,13 +249,16 @@ Taper 1, 2 ou 3 pour lancer le script --> """)
     dicoType = ''
 
     if (choiceDico == '1'):
-        dicoPath = './src/js/modules/dictionnaireDNB.js'
+        # dicoPath = './src/js/modules/dictionnaireDNB.js'
+        dicoPath = '../../src/json/dictionnaireDNB.js'
         dicoType = 'dnb'
     elif (choiceDico == '2'):
-        dicoPath = './src/js/modules/dictionnaireBAC.js'
+        # dicoPath = './src/js/modules/dictionnaireBAC.js'
+        dicoPath = '../../src/json/dictionnaireBAC.js'
         dicoType = 'bac'
     elif (choiceDico == '3'):
-        dicoPath = './src/js/modules/dictionnaireE3C.js'
+        # dicoPath = './src/js/modules/dictionnaireE3C.js'
+        dicoPath = '../../src/json/dictionnaireE3C.js'
         dicoType = 'e3c'
 
     manageDico(dicoPath,dicoType)
@@ -262,10 +266,12 @@ Taper 1, 2 ou 3 pour lancer le script --> """)
     if __name__ == "__main__":
         restart = ''
         while restart not in ['o','n']:
+            print(" ")
             print("=============================================================================")
-            print("  Syncroniser/Générer un autre dictionnaire ? ")    
-            print(" ")           
-            restart = input("Taper o ou n pour relancer le script --> ")
+            print("                   Remplissage Dictionnaire Achevé")
+            print("=============================================================================")
+            print(" ")
+            restart=input(" Voulez-vous synchroniser/générer un autre dictionnaire ? (o pour Oui / n pour Non) ")    
             if restart == 'o':
                 main()  
 

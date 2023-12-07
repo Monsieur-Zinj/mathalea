@@ -518,13 +518,13 @@
               class="{exercice.listeQuestions.length === 1 ||
               !exercice.listeAvecNumerotation
                 ? 'list-none'
-                : 'list-decimal'} w-full list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
+                : 'list-decimal'} w-full list-inside mb-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
               {#each exercice.listeQuestions as item, i (i)}
                 <div
                   style="break-inside:avoid"
                   id="consigne{indiceExercice}-{i}"
-                  class="container w-full grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4"
+                  class="container w-full grid grid-cols-1 auto-cols-min gap-1 lg:gap-4 mb-2 lg:mb-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
                 >
                   <li
                     id="exercice{indiceExercice}Q{i}"

@@ -662,7 +662,7 @@
     "tags": [],
     "uuid": "93f13",
     "id": "2F10-2",
-    "titre": "Donner l'expression d'une fonction affine graphiquement",
+    "titre": "Donner graphiquement l'expression d'une fonction affine",
     "dateModification": "25/05/2023",
     "features": {
       "interactif": {
@@ -906,6 +906,26 @@
     },
     "typeExercice": "alea"
   },
+  "2F20-3": {
+    "url": "2e/2F20-3.js",
+    "tags": [],
+    "uuid": "573f2",
+    "id": "2F20-3",
+    "titre": "Déterminer graphiquement les extremums",
+    "datePublication": "1/08/2021",
+    "dateModification": "5/08/2022",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": true,
+        "type": "AMCHybride"
+      }
+    },
+    "typeExercice": "alea"
+  },
   "2F21-1": {
     "url": "2e/2F21-1.js",
     "tags": [],
@@ -988,7 +1008,7 @@
     "tags": [],
     "uuid": "6e82d",
     "id": "2F25-1",
-    "titre": "Propriétés graphiques de la parité d'une fonction",
+    "titre": "Étudier graphiquement la parité d'une fonction",
     "features": {
       "interactif": {
         "isActive": false,
@@ -1006,7 +1026,7 @@
     "tags": [],
     "uuid": "1e362",
     "id": "2F25-2",
-    "titre": "Étudier la parité d'une fonction",
+    "titre": "Étudier la parité d'une fonction par le calcul",
     "dateModification": "19/06/2023",
     "features": {
       "interactif": {
@@ -1101,28 +1121,8 @@
   "2F32-2": {
     "url": "2e/2F32-2.js",
     "tags": [],
-    "uuid": "573f2",
-    "id": "2F32-2",
-    "titre": "Déterminer graphiquement les extremums",
-    "datePublication": "1/08/2021",
-    "dateModification": "5/08/2022",
-    "features": {
-      "interactif": {
-        "isActive": true,
-        "type": "'mathLive'"
-      },
-      "amc": {
-        "isActive": true,
-        "type": "AMCHybride"
-      }
-    },
-    "typeExercice": "alea"
-  },
-  "2F32-2B": {
-    "url": "2e/2F32-2B.js",
-    "tags": [],
     "uuid": "7761e",
-    "id": "2F32-2B",
+    "id": "2F32-2",
     "titre": "Déterminer graphiquement les extremums",
     "datePublication": "27/06/2023",
     "features": {
@@ -1179,7 +1179,7 @@
     "tags": [],
     "uuid": "86a65",
     "id": "2G10-2",
-    "titre": "Natures de parallélogrammes",
+    "titre": "Déterminer la nature de parallélogrammes",
     "features": {
       "interactif": {
         "isActive": false,
@@ -1251,7 +1251,7 @@
     "tags": [],
     "uuid": "65bed",
     "id": "2G11-5",
-    "titre": "Calculs de volumes",
+    "titre": "Calculer des volumes",
     "dateModification": "05/11/2023",
     "features": {
       "interactif": {
@@ -1270,11 +1270,12 @@
     "tags": [],
     "uuid": "c5480",
     "id": "2G12-1",
-    "titre": "Utiliser la distance entre deux points dans un repère orthonormé",
+    "titre": "Calculer et utiliser la distance entre deux points dans un repère.",
+    "dateModification": "23/11/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": false,
@@ -1288,11 +1289,12 @@
     "tags": [],
     "uuid": "4b25a",
     "id": "2G12-2",
-    "titre": "Déterminer les coordonnées du milieu d'un segment dans un repère",
+    "titre": "Calculer et utiliser les coordonnées du milieu d'un segment dans un repère",
+    "dateModification": "04/12/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": false,
@@ -1307,6 +1309,7 @@
     "uuid": "31760",
     "id": "2G12-3",
     "titre": "Démontrer qu'un quadrilatère est ou non un parallélogramme",
+    "dateModification": "30/11/2023",
     "features": {
       "interactif": {
         "isActive": false,
@@ -1324,11 +1327,31 @@
     "tags": [],
     "uuid": "d633a",
     "id": "2G12-4",
-    "titre": "Déterminer la nature d'un polygone",
+    "titre": "Déterminer la nature d'un polygone avec les coordonnées",
+    "dateModification": "30/11/2023",
     "features": {
       "interactif": {
         "isActive": false,
         "type": ""
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "2G12-5": {
+    "url": "2e/2G12-5.js",
+    "tags": [],
+    "uuid": "b77cc",
+    "id": "2G12-5",
+    "titre": "Calculer les coordonnées du 4e sommet d'un parallélogramme",
+    "datePublication": "06/12/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": false,
@@ -1342,7 +1365,7 @@
     "tags": [],
     "uuid": "2b8bf",
     "id": "2G21-1",
-    "titre": "Construire les images de points par une translation",
+    "titre": "Construire un point à partir d'une égalité vectorielle",
     "dateModification": "29/01/2023",
     "features": {
       "interactif": {
@@ -1509,6 +1532,25 @@
     },
     "typeExercice": "alea"
   },
+  "2G24-6": {
+    "url": "2e/2G24-6.ts",
+    "tags": [],
+    "uuid": "6b705",
+    "id": "2G24-6",
+    "titre": "Calculer les coordonnées du 4e sommet d'un parallélogramme",
+    "datePublication": "11/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "2G30-1": {
     "url": "2e/2G30-1.js",
     "tags": [],
@@ -1600,12 +1642,30 @@
     },
     "typeExercice": "alea"
   },
+  "2G30-7": {
+    "url": "2e/2G30-7.js",
+    "tags": [],
+    "uuid": "41e6f",
+    "id": "2G30-7",
+    "titre": "Déterminer une équation réduite à partir de sa représentation graphique",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": true,
+        "type": "AMCHybride"
+      }
+    },
+    "typeExercice": "alea"
+  },
   "2G33-1": {
     "url": "2e/2G33-1.js",
     "tags": [],
     "uuid": "b1777",
     "id": "2G33-1",
-    "titre": "Alignement de 3 points",
+    "titre": "Déterminer si trois points sont alignés",
     "features": {
       "interactif": {
         "isActive": false,
@@ -1632,24 +1692,6 @@
       "amc": {
         "isActive": false,
         "type": ""
-      }
-    },
-    "typeExercice": "alea"
-  },
-  "2G35-7": {
-    "url": "2e/2G35-7.js",
-    "tags": [],
-    "uuid": "41e6f",
-    "id": "2G35-7",
-    "titre": "Lecture graphique des coefficients d'une équation réduite ",
-    "features": {
-      "interactif": {
-        "isActive": true,
-        "type": "'mathLive'"
-      },
-      "amc": {
-        "isActive": true,
-        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -1902,7 +1944,7 @@
     "tags": [],
     "uuid": "d5a6d",
     "id": "2N20-2",
-    "titre": "Critères de divisibilité (plusieurs possibles)",
+    "titre": "Utiliser les critères de divisibilité (plusieurs possibles)",
     "dateModification": "29/10/2021",
     "features": {
       "interactif": {
@@ -1921,7 +1963,7 @@
     "tags": [],
     "uuid": "098db",
     "id": "2N20-3",
-    "titre": "Division Euclidienne - Diviseurs - Multiples",
+    "titre": "Comprendre le vocabulaire : division euclidienne, diviseurs, multiples",
     "dateModification": "29/10/2021",
     "features": {
       "interactif": {
@@ -1940,7 +1982,7 @@
     "tags": [],
     "uuid": "c04cc",
     "id": "2N20-4",
-    "titre": "Primalité ou pas",
+    "titre": "Justifier qu'un nombre est premier ou pas",
     "dateModification": "29/10/2021",
     "features": {
       "interactif": {
@@ -1997,7 +2039,7 @@
     "tags": [],
     "uuid": "c3c84",
     "id": "2N20-7",
-    "titre": "Engrenages",
+    "titre": "Utiliser des multiples appliqués aux engrenages",
     "dateModification": "14/11/2021",
     "features": {
       "interactif": {
@@ -2030,7 +2072,7 @@
     "typeExercice": "alea"
   },
   "2N30-1": {
-    "url": "2e/2N30-1.js",
+    "url": "2e/2N30-1.ts",
     "tags": [],
     "uuid": "45726",
     "id": "2N30-1",
@@ -2038,7 +2080,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'mathLive'"
+        "type": "'custom'"
       },
       "amc": {
         "isActive": false,
@@ -2070,7 +2112,7 @@
     "tags": [],
     "uuid": "29919",
     "id": "2N30-3",
-    "titre": "Multiplier des fractions",
+    "titre": "Multiplier ou/et diviser des fractions",
     "features": {
       "interactif": {
         "isActive": true,
@@ -2124,7 +2166,7 @@
     "tags": [],
     "uuid": "c1561",
     "id": "2N30-6",
-    "titre": "Fractions irréductibles",
+    "titre": "Rendre irréductible une fraction",
     "features": {
       "interactif": {
         "isActive": false,
@@ -2142,7 +2184,7 @@
     "tags": [],
     "uuid": "d0fdc",
     "id": "2N30-7",
-    "titre": "Problèmes additifs et de comparaison sur les fractions",
+    "titre": "Résoudre des problèmes additifs et de comparaison sur les fractions",
     "features": {
       "interactif": {
         "isActive": false,
@@ -2160,7 +2202,7 @@
     "tags": [],
     "uuid": "53fbb",
     "id": "2N31-0",
-    "titre": "Puissances : écriture décimale ou fractionnaire",
+    "titre": "Transformer une écriture de puissance en écriture décimale ou fractionnaire",
     "datePublication": "14/06/2022",
     "features": {
       "interactif": {
@@ -2179,7 +2221,7 @@
     "tags": [],
     "uuid": "c9404",
     "id": "2N31-1",
-    "titre": "Notation scientifique",
+    "titre": "Associer un nombre décimal à sa notation scientifique",
     "features": {
       "interactif": {
         "isActive": true,
@@ -2234,7 +2276,7 @@
     "tags": [],
     "uuid": "6fda8",
     "id": "2N31-4",
-    "titre": "Calculs utilisant les priorités opératoires et les puissances",
+    "titre": "Calculer en utilisant les priorités opératoires et les puissances",
     "features": {
       "interactif": {
         "isActive": true,
@@ -2348,7 +2390,7 @@
     "tags": [],
     "uuid": "55cc0",
     "id": "2N32-1",
-    "titre": "Existence d'une racine carrée",
+    "titre": "Justifier l'existence d'une racine carrée",
     "dateModification": "15/11/2023",
     "features": {
       "interactif": {
@@ -2675,7 +2717,7 @@
     "tags": [],
     "uuid": "5a4ad",
     "id": "2N41-5",
-    "titre": "Développer (a-b)²",
+    "titre": "Développer $(a-b)^2$",
     "features": {
       "interactif": {
         "isActive": true,
@@ -2973,7 +3015,7 @@
     "tags": [],
     "uuid": "d02da",
     "id": "2N51-4",
-    "titre": "Équations du premier degré",
+    "titre": "Résoudre une équation du premier degré",
     "features": {
       "interactif": {
         "isActive": true,
@@ -3027,7 +3069,7 @@
     "tags": [],
     "uuid": "bb6d5",
     "id": "2N52-2",
-    "titre": "Résoudre des équations carrées",
+    "titre": "Résoudre des équations carrées de type $~x^² = a$",
     "features": {
       "interactif": {
         "isActive": false,
@@ -3120,7 +3162,7 @@
     "tags": [],
     "uuid": "bc1e4",
     "id": "2N60-4",
-    "titre": "Inéquation du premier degré",
+    "titre": "Résoudre une inéquation du premier degré",
     "features": {
       "interactif": {
         "isActive": false,
@@ -3290,7 +3332,7 @@
     "tags": [],
     "uuid": "12444",
     "id": "2S11-2",
-    "titre": "Variations en pourcentage",
+    "titre": "Calculer une évolution en pourcentages, une valeur finale ou une valeur initiale",
     "datePublication": "06/01/2022",
     "features": {
       "interactif": {
@@ -3436,27 +3478,9 @@
   "2S30-4": {
     "url": "2e/2S30-4.js",
     "tags": [],
-    "uuid": "e1938",
+    "uuid": "cee5d",
     "id": "2S30-4",
     "titre": "Calculer des probabilités dans une expérience aléatoire à deux épreuves",
-    "features": {
-      "interactif": {
-        "isActive": false,
-        "type": ""
-      },
-      "amc": {
-        "isActive": false,
-        "type": ""
-      }
-    },
-    "typeExercice": "alea"
-  },
-  "2S30-5": {
-    "url": "2e/2S30-5.js",
-    "tags": [],
-    "uuid": "cee5d",
-    "id": "2S30-5",
-    "titre": "Expérience aléatoire à deux épreuves",
     "datePublication": "28/12/2021",
     "dateModification": "30/08/2022",
     "features": {
@@ -3467,6 +3491,24 @@
       "amc": {
         "isActive": true,
         "type": "AMCNum"
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "2S30-5": {
+    "url": "2e/2S30-5.js",
+    "tags": [],
+    "uuid": "e1938",
+    "id": "2S30-5",
+    "titre": "Résoudre un problème basé sur une expérience aléatoire à deux épreuves",
+    "features": {
+      "interactif": {
+        "isActive": false,
+        "type": ""
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
       }
     },
     "typeExercice": "alea"
@@ -4021,7 +4063,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'custom'"
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": false,
@@ -4591,6 +4633,25 @@
     },
     "typeExercice": "alea"
   },
+  "3G30-2": {
+    "url": "3e/3G30-2.ts",
+    "tags": [],
+    "uuid": "f13e3",
+    "id": "3G30-2",
+    "titre": "Résoudre une équation trigonométrique",
+    "datePublication": "20/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "3G31": {
     "url": "3e/3G31.js",
     "tags": [],
@@ -4839,7 +4900,7 @@
     "tags": [],
     "uuid": "acb80",
     "id": "3G43",
-    "titre": "Calculs de volumes",
+    "titre": "Calculer des volumes",
     "dateModification": "05/11/2023",
     "features": {
       "interactif": {
@@ -5065,9 +5126,9 @@
     "typeExercice": "alea"
   },
   "3L11": {
-    "url": "3e/3L11.js",
+    "url": "3e/3L11new.js",
     "tags": [],
-    "uuid": "77a62",
+    "uuid": "db2e0",
     "id": "3L11",
     "titre": "Utiliser la simple distributivité",
     "features": {
@@ -6240,7 +6301,25 @@
     "tags": [],
     "uuid": "9db08",
     "id": "4C25-0",
-    "titre": "Problèmes additifs et de comparaison sur les rationnels",
+    "titre": "Résoudre des problèmes additifs et de comparaison sur les fractions",
+    "features": {
+      "interactif": {
+        "isActive": false,
+        "type": ""
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "4C25-1": {
+    "url": "4e/4C25-1.js",
+    "tags": [],
+    "uuid": "7ba8b",
+    "id": "4C25-1",
+    "titre": "Résoudre des problèmes additifs et multiplicatifs utilisant des fractions",
     "features": {
       "interactif": {
         "isActive": false,
@@ -6505,7 +6584,7 @@
     "tags": [],
     "uuid": "125bd",
     "id": "4C35",
-    "titre": "Puissances : écriture décimale ou fractionnaire",
+    "titre": "Transformer une écriture de puissance en écriture décimale ou fractionnaire",
     "datePublication": "14/06/2022",
     "features": {
       "interactif": {
@@ -7875,20 +7954,21 @@
     "typeExercice": "alea"
   },
   "5C12-3": {
-    "url": "5e/5C12-3.js",
+    "url": "5e/5C12-3.ts",
     "tags": [],
     "uuid": "9103e",
     "id": "5C12-3",
     "titre": "Utiliser la distributivité pour du calcul mental",
     "datePublication": "26/11/2022",
+    "dateModification": "18/11/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'custom'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -8539,7 +8619,7 @@
     "tags": [],
     "uuid": "8812e",
     "id": "5G42",
-    "titre": "Nature de parallélogrammes",
+    "titre": "Déterminer la nature de parallélogrammes",
     "features": {
       "interactif": {
         "isActive": false,
@@ -8613,7 +8693,7 @@
     "uuid": "3c1f7",
     "id": "5L10",
     "titre": "Écrire une expression littérale",
-    "dateModification": "11/05/2022",
+    "dateModification": "19/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -8714,8 +8794,8 @@
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -8726,15 +8806,15 @@
     "uuid": "46234",
     "id": "5L12-1",
     "titre": "Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence",
-    "dateModification": "04/11/2023",
+    "dateModification": "19/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -8753,8 +8833,8 @@
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -8771,8 +8851,8 @@
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCOpen"
       }
     },
     "typeExercice": "alea"
@@ -8912,14 +8992,15 @@
     "uuid": "d88d6",
     "id": "5L15",
     "titre": "Tester une égalité",
+    "dateModification": "18/11/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -9044,11 +9125,11 @@
     "uuid": "0e58f",
     "id": "5N11-3",
     "titre": "Écrire une fraction sur 100 puis sous la forme d'un pourcentage",
-    "dateModification": "17/03/2022",
+    "dateModification": "19/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'mathLive'"
+        "type": "['mathLive', 'custom']"
       },
       "amc": {
         "isActive": true,
@@ -9765,7 +9846,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'mathLive'"
+        "type": "'qcm'"
       },
       "amc": {
         "isActive": true,
@@ -12212,7 +12293,7 @@
     "uuid": "f9a02",
     "id": "6M22-1",
     "titre": "Calculer périmètre et/ou aire de disques",
-    "dateModification": "15/11/2023",
+    "dateModification": "20/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -12230,15 +12311,16 @@
     "tags": [],
     "uuid": "ff386",
     "id": "6M22-2",
-    "titre": "Calculer périmètre et aire de portions de cercles/disques",
+    "titre": "Calculer périmètre et aire de portions de disques",
+    "dateModification": "20/11/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -12517,7 +12599,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'custom'"
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": true,
@@ -12750,16 +12832,16 @@
     "typeExercice": "alea"
   },
   "6N20-2": {
-    "url": "6e/6N20-2.js",
+    "url": "6e/6N20-2.ts",
     "tags": [],
     "uuid": "ab44e",
     "id": "6N20-2",
     "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
-    "dateModification": "14/05/2023",
+    "dateModification": "18/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'mathLive'"
+        "type": "'custom'"
       },
       "amc": {
         "isActive": false,
@@ -13681,7 +13763,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'mathLive'"
+        "type": "'qcm'"
       },
       "amc": {
         "isActive": true,
@@ -15700,6 +15782,25 @@
     },
     "typeExercice": "alea"
   },
+  "can1F23": {
+    "url": "can/1e/can1F23.js",
+    "tags": [],
+    "uuid": "ad915",
+    "id": "can1F23",
+    "titre": "Dresser le tableau de signes d'une fonction dérivée à partir d'un graphique",
+    "datePublication": "18/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "can1G01": {
     "url": "can/1e/can1G01.js",
     "tags": [],
@@ -17181,6 +17282,25 @@
     },
     "typeExercice": "alea"
   },
+  "can2F18": {
+    "url": "can/2e/can2F18.js",
+    "tags": [],
+    "uuid": "5a908",
+    "id": "can2F18",
+    "titre": "Déterminer un extremum graphiquement",
+    "datePublication": "16/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "can2G01": {
     "url": "can/2e/can2G01.js",
     "tags": [],
@@ -17241,6 +17361,7 @@
     "uuid": "8bc88",
     "id": "can2G04",
     "titre": "Calculer les coordonnées du milieu",
+    "dateModification": "29/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -17578,6 +17699,25 @@
     },
     "typeExercice": "alea"
   },
+  "can2G22": {
+    "url": "can/2e/can2G22.js",
+    "tags": [],
+    "uuid": "9ff07",
+    "id": "can2G22",
+    "titre": "Trouver les coordonnées d'un point avec un milieu",
+    "datePublication": "29/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "can2L01": {
     "url": "can/2e/can2L01.js",
     "tags": [],
@@ -17863,10 +18003,10 @@
   "can2N05": {
     "url": "can/2e/can2N05.js",
     "tags": [],
-    "uuid": "",
+    "uuid": "c52a3",
     "id": "can2N05",
     "titre": "Reconnaître un nombre premier",
-    "datePublication": "16/10/2023",
+    "datePublication": "05/11/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -20420,6 +20560,25 @@
     },
     "typeExercice": "alea"
   },
+  "can5L02": {
+    "url": "can/5e/can5L02.js",
+    "tags": [],
+    "uuid": "b7307",
+    "id": "can5L02",
+    "titre": "Écrire une expression littérale",
+    "datePublication": "23/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'qcm'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "can5N01": {
     "url": "can/5e/can5N01.js",
     "tags": [],
@@ -22364,6 +22523,25 @@
     },
     "typeExercice": "alea"
   },
+  "can6N18": {
+    "url": "can/2e/can6N18.js",
+    "tags": [],
+    "uuid": "b9582",
+    "id": "can6N18",
+    "titre": "Encadrer à la dizaine, centaine",
+    "datePublication": "16/11/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "can6P01": {
     "url": "can/6e/can6P01.js",
     "tags": [],
@@ -22577,7 +22755,7 @@
     "tags": [],
     "uuid": "315b6",
     "id": "can6a-Aléa",
-    "titre": "Course aux nombres 6e",
+    "titre": "Choix aléatoires des questions",
     "features": {
       "interactif": {
         "isActive": true,
@@ -22590,11 +22768,11 @@
     },
     "typeExercice": "alea"
   },
-  "can6a-xxxx": {
-    "url": "can/6e/can6a-xxxx.js",
+  "can6a-CoopMaths": {
+    "url": "can/6e/can6a-CoopMaths.js",
     "tags": [],
     "uuid": "3a526",
-    "id": "can6a-xxxx",
+    "id": "can6a-CoopMaths",
     "titre": "Course aux nombres fin de 6e",
     "features": {
       "interactif": {

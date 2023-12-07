@@ -96,12 +96,20 @@ class ressourceVideo {
       this.iTooltip.remove()
     }
     if (this.sup !== undefined) {
-      this.iframe.src = decodeURIComponent(this.sup)
-      this.fieldUrl.value = decodeURIComponent(this.sup)
+      try {
+        this.iframe.src = decodeURIComponent(this.sup)
+        this.fieldUrl.value = decodeURIComponent(this.sup)
+      } catch (e) {
+        console.error('Invalid URI: ', this.sup)
+      }
       this.updateVideoFromUrl()
     }
     if (this.sup2 !== undefined) {
-      this.teacherText.textContent = decodeURIComponent(this.sup2)
+      try {
+        this.teacherText.textContent = decodeURIComponent(this.sup2)
+      } catch (e) {
+        console.error('Invalid URI: ', this.sup2)
+      }
     }
     return this.container
   }

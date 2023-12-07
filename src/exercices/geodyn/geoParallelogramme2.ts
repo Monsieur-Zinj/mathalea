@@ -60,10 +60,10 @@ class ConstructionParallelogramme extends Exercice {
     let feedback = ''
     // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le triangle est tracé)
     const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
-    const { isValid, message } = this.figure.testSameDistance({ label1: 'AB', label2: 'CD' })
+    const { isValid, message } = this.figure.checkSameDistance({ label1: 'AB', label2: 'CD' })
     resultat.push(isValid ? 'OK' : 'KO')
     if (message !== '') { feedback += message + '<br>' }
-    const { isValid: isValid2, message: message2 } = this.figure.testSameDistance({ label1: 'BC', label2: 'AD' })
+    const { isValid: isValid2, message: message2 } = this.figure.checkSameDistance({ label1: 'BC', label2: 'AD' })
     resultat.push(isValid2 ? 'OK' : 'KO')
     if (message2 !== '') { feedback += message2 + '<br>' }
     if (isValid && isValid2) {

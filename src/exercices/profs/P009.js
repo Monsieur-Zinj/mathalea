@@ -174,8 +174,8 @@ export default function SimulateurAleatoire () {
           const r = repere({
             grilleX: false,
             grilleY: 'pointilles',
-            xThickListe: [],
-            xLabelListe: [],
+            xThickListe: false,
+            xLabelListe: false,
             yUnite: 1 / coef,
             yThickDistance: 1 * coef,
             yMax: 40,
@@ -213,8 +213,8 @@ export default function SimulateurAleatoire () {
           const r = repere({
             grilleX: false,
             grilleY: 'pointilles',
-            xThickListe: [],
-            xLabelListe: [],
+            xThickListe: false,
+            xLabelListe: false,
             yUnite: 1 / coef,
             yThickDistance: 1 * coef,
             yMax: 55,

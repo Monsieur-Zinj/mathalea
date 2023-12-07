@@ -3,7 +3,7 @@ export const titre = 'Lire un diagramme en barres'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'qcm'
 
 /**
  * Lire un diagramme en barres

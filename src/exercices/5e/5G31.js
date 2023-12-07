@@ -54,6 +54,7 @@ export default function ExerciceAnglesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = '1-2-3-4-5'
   this.sup2 = false
+  this.sup3 = true
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1.5
   context.isHtml ? this.spacing = 2 : this.spacing = 2
   this.nbQuestions = 5
@@ -80,7 +81,7 @@ export default function ExerciceAnglesTriangles () {
       melange: 13,
       defaut: 13,
       nbQuestions: this.nbQuestions,
-      shuffle: false
+      shuffle: !this.sup3
     })
     let lettre1, lettre2, lettre3, s1, s2, s3, angle1, angle2
     let indiceSetReponse = 0
@@ -563,4 +564,5 @@ export default function ExerciceAnglesTriangles () {
     ].join('\n')
   ]
   this.besoinFormulaire2CaseACocher = ['Ajouter un schéma aux questions']
+  this.besoinFormulaire3CaseACocher = ['Dans l\'ordre des situations différentes']
 }

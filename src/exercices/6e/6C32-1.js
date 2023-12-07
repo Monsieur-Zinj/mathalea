@@ -37,23 +37,6 @@ export default function ExerciceProblemesComplexes () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    /*
-        let listeDesProblemes = []
-        if (!this.sup || (typeof (this.sup) === 'number' && this.sup === 0) || this.sup === '0') { // Si aucune liste n'est saisie
-          listeDesProblemes = rangeMinMax(1, 10)
-        } else {
-          if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-            listeDesProblemes[0] = contraindreValeur(1, 10, this.sup, 1)
-          } else {
-            listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-            for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-              listeDesProblemes[i] = contraindreValeur(1, 10, parseInt(listeDesProblemes[i]), 2) // parseInt en fait un tableau d'entiers
-            }
-          }
-        }
-        listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
-        */
-
     const listeDesProblemes = gestionnaireFormulaireTexte({
       max: 10,
       defaut: 11,

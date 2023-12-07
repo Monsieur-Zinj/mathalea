@@ -9,7 +9,6 @@ export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '11/04/2023'
 
 /** */
-// Référence 6M22
 export const uuid = 'ac571'
 export const ref = '6M22'
 export default function Reglages6M22 () {

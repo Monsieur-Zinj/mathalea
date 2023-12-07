@@ -6,7 +6,7 @@ import referentielsActivationList from '../../json/referentielsActivation.json'
 //    Types des bouts de chaînes des référentiels (les données des exercices)
 //
 // ===========================================================================
-
+export const EXAMS = ['dnb', 'bac', 'crpe', 'e3c']
 export type Level = keyof typeof codeList | 'alea'
 export type ActivationName = keyof typeof referentielsActivationList
 /**
@@ -277,7 +277,7 @@ export const isFeatures = (obj: any): obj is Features => {
  * @param value objet à examiner
  * @returns {boolean}
  */
-export function isNonEmptyArrayOfStrings(value: unknown): value is string[] {
+export function isNonEmptyArrayOfStrings (value: unknown): value is string[] {
   return (
     Array.isArray(value) &&
     value.length > 0 &&
@@ -304,13 +304,19 @@ export const isStaticType = (obj: any): obj is StaticItemInreferentiel =>
   obj.png !== undefined &&
   !isNonEmptyArrayOfStrings(obj.png)
 
+export const isCrpeType = (obj: any): obj is crpeItemInreferentiel =>
+  obj !== null &&
+  typeof obj !== 'undefined' &&
+  Object.keys(obj).includes('typeExercice') &&
+  obj.typeExercice !== undefined &&
+  obj.typeExercice === 'crpe'
 /**
  * Teste si un objet de type `JSONReferentielObject` est parent
  * d'une terminaison, c'est-à-dire d'un
  * objet de type `JSONReferentielEnding`
  * @param {JSONReferentielObject} obj objet à tester
  */
-export function isParentOfStaticEnding(
+export function isParentOfStaticEnding (
   obj: any
 ): obj is Record<string, JSONReferentielEnding> {
   const values = Object.values(obj)
@@ -336,9 +342,9 @@ export const isGeoDynamic = (obj: JSONReferentielEnding): boolean => {
     typeof obj !== 'undefined' &&
     Object.keys(obj).includes('url') &&
     // À ce stade, on est sûr que l'objet ne peu tpas être de type StaticItemInreferentiel car il a la propriété `url`
-    (obj as Exclude<JSONReferentielEnding,StaticItemInreferentiel>).url !== undefined &&
-    typeof (obj as Exclude<JSONReferentielEnding,StaticItemInreferentiel>).url === 'string' &&
-    (obj as Exclude<JSONReferentielEnding,StaticItemInreferentiel>).url.match(geoDynRegExp) !== null
+    (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url !== undefined &&
+    typeof (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url === 'string' &&
+    (obj as Exclude<JSONReferentielEnding, StaticItemInreferentiel>).url.match(geoDynRegExp) !== null
   ) {
     return true
   } else {

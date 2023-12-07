@@ -3,7 +3,6 @@
     exercicesParams,
     globalOptions,
     darkMode,
-    isSideMenuVisible,
     bibliothequeDisplayedContent,
     bibliothequePathToSection,
     isModalForStaticsVisible
@@ -25,26 +24,35 @@
   import NavBarIframe from './header/NavBarIframe.svelte'
   import FormRadio from './forms/FormRadio.svelte'
   import ButtonToggle from './forms/ButtonToggle.svelte'
+  import { Sidenav, Collapse, initTE } from 'tw-elements'
 
-  let divExercices: HTMLDivElement
-  let isNavBarVisible: boolean = true
-  $: isMenuOpen = $isSideMenuVisible
-
-  /**
-   * Gestion des référentiels
-   */
   import {
     type AppTierceGroup,
     isJSONReferentielEnding,
     type StaticItemInreferentiel,
     isStaticType
   } from '../lib/types/referentiels'
-  // Contexte pour le modal des apps tierces
   import ModalGridOfCards from './modal/ModalGridOfCards.svelte'
-  let thirdAppsChoiceModal: ModalGridOfCards
   import appsTierce from '../json/referentielAppsTierceV2.json'
-  const appsTierceReferentielArray: AppTierceGroup[] = Object.values(appsTierce)
   import Card from './ui/Card.svelte'
+  import BreadcrumbHeader from './sidebar/BreadcrumbHeader.svelte'
+  import CardForStatic from './ui/CardForStatic.svelte'
+  import { doesImageExist } from './utils/images'
+  import { buildUrlAddendumForEsParam } from './utils/urls'
+  import ButtonWithTooltip from './forms/ButtonWithTooltip.svelte'
+
+  let divExercices: HTMLDivElement
+  let isNavBarVisible: boolean = true
+  let sidenavOpen: boolean = false
+  let innerWidth = 0
+  $: mdBreakpointDetection = innerWidth < 768
+
+  /**
+   * Gestion des référentiels
+   */
+  // Contexte pour le modal des apps tierces
+  let thirdAppsChoiceModal: ModalGridOfCards
+  const appsTierceReferentielArray: AppTierceGroup[] = Object.values(appsTierce)
   let showThirdAppsChoiceDialog = false
   let appsTierceInExercisesList: string[]
   $: {
@@ -73,10 +81,6 @@
   /**
    * Gestion la bibliothèque de statiques
    */
-  import BreadcrumbHeader from './sidebar/BreadcrumbHeader.svelte'
-  import CardForStatic from './ui/CardForStatic.svelte'
-  import { doesImageExist } from './utils/images'
-  import { buildUrlAddendumForEsParam } from './utils/urls'
   let bibliothequeChoiceModal: ModalGridOfCards
   let bibliothequeUuidInExercisesList: string[]
   $: {
@@ -114,13 +118,17 @@
     modal.closeModal()
   }
   // Gestion de la graine
-  function handleEleveVueSetUp () {
+  function buildUrlAndOpenItInNewTab (status: 'eleve' | 'usual') {
     const url = new URL('https://coopmaths.fr/alea/')
     for (const ex of $exercicesParams) {
       url.searchParams.append('uuid', ex.uuid)
       if (ex.id !== undefined) url.searchParams.append('id', ex.id)
-      if (ex.nbQuestions !== undefined) { url.searchParams.append('n', ex.nbQuestions.toString()) }
-      if (ex.duration !== undefined) { url.searchParams.append('d', ex.duration.toString()) }
+      if (ex.nbQuestions !== undefined) {
+        url.searchParams.append('n', ex.nbQuestions.toString())
+      }
+      if (ex.duration !== undefined) {
+        url.searchParams.append('d', ex.duration.toString())
+      }
       if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
       if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
       if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
@@ -128,11 +136,20 @@
       if (ex.alea !== undefined) url.searchParams.append('alea', ex.alea)
       if (ex.interactif === '1') url.searchParams.append('i', '1')
       if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
-      if (ex.cols !== undefined) { url.searchParams.append('cols', ex.cols.toString()) }
+      if (ex.cols !== undefined) {
+        url.searchParams.append('cols', ex.cols.toString())
+      }
     }
-    url.searchParams.append('v', 'eleve')
+    switch (status) {
+      case 'eleve':
+        url.searchParams.append('v', 'eleve')
+        break
+      default:
+        break
+    }
     url.searchParams.append('title', $globalOptions.title ?? '')
-    const presMode = $exercicesParams.length === 1 ? 'liste_exos' : 'un_exo_par_page'
+    const presMode =
+      $exercicesParams.length === 1 ? 'liste_exos' : 'un_exo_par_page'
     url.searchParams.append(
       'es',
       buildUrlAddendumForEsParam(false, presMode).replace('&es=', '')
@@ -145,6 +162,7 @@
   // À la construction du component ou à la navigation dans l'historique du navigateur
   // on met à jour l'url headerStart
   onMount(() => {
+    initTE({ Sidenav, Collapse })
     // On analyse l'url pour mettre à jour l'affichage
     urlToDisplay()
     if ($globalOptions.recorder === 'capytale') {
@@ -195,25 +213,6 @@
       // $isSideMenuVisible = true
       isNavBarVisible = true
     }
-  }
-
-  /**
-   * Gestion du redimentionnement de la largeur du menu des choix
-   */
-  let expanding: string | null = null
-  let sidebarWidth = 400
-  function stopResizing () {
-    expanding = null
-  }
-
-  function startResizing (type: string) {
-    expanding = type
-  }
-
-  function resizing (event: MouseEvent) {
-    if (!expanding) return
-    event.preventDefault()
-    sidebarWidth = event.pageX
   }
 
   /**
@@ -272,196 +271,304 @@
   }
 </script>
 
-<svelte:window on:mouseup={stopResizing} />
+<svelte:window bind:innerWidth />
 <div
-  class="z-0 {$darkMode.isActive ? 'dark' : ''}"
+  class="z-0 {$darkMode.isActive
+    ? 'dark'
+    : ''} relative flex w-screen h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   id="startComponent"
-  on:mousemove={resizing}
-  role="menu"
-  tabindex="0"
 >
   <div
-    class="flex flex-col scrollbar-hide w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    class="flex-1 flex flex-col scrollbar-hide w-full md:overflow-hidden bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
   >
-    <!-- Entête -->
-    {#if isNavBarVisible}
-      <div id="headerCapytale" class="bg-coopmaths-canvas">
-        <NavBarIframe>
-          <div slot="buttons" class="w-full">
-            <ButtonsDeck>
-              <div
-                slot="setup-buttons"
-                class="flex flex-row justify-center items-center space-x-4"
-              >
-                <div
-                  class="tooltip tooltip-bottom"
-                  data-tip="Réduire la taille du texte"
-                >
-                  <Button
-                    title=""
-                    icon="bx-zoom-out"
-                    class="flex items-center text-3xl"
-                    on:click={zoomOut}
-                  />
-                </div>
-                <div
-                  class="tooltip tooltip-bottom"
-                  data-tip="Augmenter la taille du texte"
-                >
-                  <Button
-                    title=""
-                    icon="bx-zoom-in"
-                    class="flex items-center text-3xl"
-                    on:click={zoomIn}
-                  />
-                </div>
-                <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés">
-                  <Button
-                    title=""
-                    icon="bx-refresh"
-                    class="flex items-center text-3xl"
-                    on:click={newDataForAll}
-                  />
-                </div>
-                <div
-                  class="tooltip tooltip-bottom"
-                  data-tip="Supprimer tous les exercices"
-                >
-                  <Button
-                    title=""
-                    icon="bx-trash"
-                    class="text-3xl"
-                    on:click={() => {
-                      $exercicesParams.length = 0
-                    }}
-                  />
-                </div>
-              </div>
-              <div slot="input" class="flex flex-row items-center space-x-4">
-                <InputText
-                  title="Importer les exercices d'une feuille élève"
-                  placeholder="Lien"
-                  bind:value={urlFeuilleEleve}
-                  classAddenda="w-50"
-                />
-                <Button
-                  class="text-sm py-1 px-2 rounded-md h-7"
-                  title="Ajouter"
-                  icon=""
-                  isDisabled={urlFeuilleEleve.length === 0}
-                  on:click={() => {
-                    // exemple URL vue élève
-                    // http://localhost:5173/alea/?uuid=01873&id=6C20&uuid=99522&id=6C22&uuid=64422&id=6C23&v=confeleve&v=eleve&title=&es=11101
-                    let url = urlFeuilleEleve.replace('&v=confeleve', '')
-                    url = url.replace('&v=eleve', '&recorder=capytale')
-                    const options = mathaleaUpdateExercicesParamsFromUrl(url)
-                    if (options !== null) {
-                      globalOptions.update(() => {
-                        return options
-                      })
-                    } else {
-                      alert('URL non valide !')
-                    }
-                    // console.log("Après chargement :")
-                    // console.log($globalOptions)
-                    urlFeuilleEleve = ''
-                  }}
-                />
-              </div>
-              <div
-                slot="export-buttons"
-                class="flex flex-row justify-center items-center space-x-4"
-              >
-                <div
-                  class="tooltip tooltip-bottom"
-                  data-tip="Régler l'affichage du mode élève"
-                >
-                  <Button
-                    title=""
-                    icon="bx-cog"
-                    class="text-3xl"
-                    isDisabled={$exercicesParams.length === 0}
-                    on:click={() => {
-                      showSettingsDialog = true
-                    }}
-                  />
-                </div>
-              </div>
-            </ButtonsDeck>
-          </div>
-        </NavBarIframe>
-      </div>
-    {/if}
-
-    <!-- Affichage Partie Gauche : Menu + Contenu -->
-    <div
-      class="z-40 flex-1 relative flex flex-col md:flex-row h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    <header
+      class="md:sticky md:top-0 md:z-50 flex flex-col scrollbar-hide w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
-      <!-- Menu Choix Exos et Ressources -->
-      <div class="z-40 mt-6 sm:mt-0">
+      <!-- Entête -->
+      {#if isNavBarVisible}
         <div
-          id="choiceMenuWrapper"
-          class="{$globalOptions.v !== 'l'
-            ? 'sm:h-[calc(100vh-7rem)]'
-            : 'sm:h-screen'} sticky top-0 z-40 overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+          id="headerCapytale"
+          class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden"
         >
-          <SideMenu bind:isMenuOpen bind:sidebarWidth excludedReferentiels={['outils']} />
+          <NavBarIframe>
+            <div slot="buttons" class="w-full">
+              <ButtonsDeck class="mt-4 md:mt-0">
+                <div
+                  slot="setup-buttons"
+                  class="flex flex-row justify-center items-center space-x-4"
+                >
+                  <div
+                    class="tooltip tooltip-bottom"
+                    data-tip="Réduire la taille du texte"
+                  >
+                    <Button
+                      title=""
+                      icon="bx-zoom-out"
+                      class="flex items-center text-3xl"
+                      on:click={zoomOut}
+                    />
+                  </div>
+                  <div
+                    class="tooltip tooltip-bottom"
+                    data-tip="Augmenter la taille du texte"
+                  >
+                    <Button
+                      title=""
+                      icon="bx-zoom-in"
+                      class="flex items-center text-3xl"
+                      on:click={zoomIn}
+                    />
+                  </div>
+                  <div
+                    class="tooltip tooltip-bottom"
+                    data-tip="Nouveaux énoncés"
+                  >
+                    <Button
+                      title=""
+                      icon="bx-refresh"
+                      class="flex items-center text-3xl"
+                      on:click={newDataForAll}
+                    />
+                  </div>
+                  <div
+                    class="tooltip tooltip-bottom"
+                    data-tip="Supprimer tous les exercices"
+                  >
+                    <Button
+                      title=""
+                      icon="bx-trash"
+                      class="text-3xl"
+                      on:click={() => {
+                        $exercicesParams.length = 0
+                      }}
+                    />
+                  </div>
+                </div>
+                <div slot="input" class="flex flex-row items-center space-x-4">
+                  <InputText
+                    title="Importer les exercices d'une feuille élève"
+                    placeholder="Lien"
+                    bind:value={urlFeuilleEleve}
+                    classAddenda="w-50"
+                  />
+                  <Button
+                    class="text-sm py-1 px-2 rounded-md h-7"
+                    title="Ajouter"
+                    icon=""
+                    isDisabled={urlFeuilleEleve.length === 0}
+                    on:click={() => {
+                      // exemple URL vue élève
+                      // http://localhost:5173/alea/?uuid=01873&id=6C20&uuid=99522&id=6C22&uuid=64422&id=6C23&v=confeleve&v=eleve&title=&es=11101
+                      let url = urlFeuilleEleve.replace('&v=confeleve', '')
+                      url = url.replace('&v=eleve', '&recorder=capytale')
+                      const options = mathaleaUpdateExercicesParamsFromUrl(url)
+                      if (options !== null) {
+                        globalOptions.update(() => {
+                          return options
+                        })
+                      } else {
+                        alert('URL non valide !')
+                      }
+                      // console.log("Après chargement :")
+                      // console.log($globalOptions)
+                      urlFeuilleEleve = ''
+                    }}
+                  />
+                </div>
+                <div
+                  slot="export-buttons"
+                  class="flex flex-row justify-center items-center space-x-4"
+                >
+                  <div
+                    class="tooltip tooltip-bottom"
+                    data-tip="Régler l'affichage du mode élève"
+                  >
+                    <Button
+                      title=""
+                      icon="bx-cog"
+                      class="text-3xl"
+                      isDisabled={$exercicesParams.length === 0}
+                      on:click={() => {
+                        showSettingsDialog = true
+                      }}
+                    />
+                  </div>
+                  <div>
+                    <ButtonWithTooltip
+                      tooltipTitle="Rejoindre MathALÉA"
+                      tooltipPlacement="auto"
+                      class="text-3xl"
+                      isDisabled={$exercicesParams.length === 0}
+                      on:click={() => {
+                        buildUrlAndOpenItInNewTab('usual')
+                      }}
+                      title=""
+                      icon="bx-log-out bx-rotate-180"
+                    />
+                  </div>
+                </div>
+              </ButtonsDeck>
+            </div>
+          </NavBarIframe>
         </div>
-      </div>
-
-      <!-- Dragbar -->
+      {/if}
+    </header>
+    {#if mdBreakpointDetection}
+      <!-- ====================================================================================
+                     SMARTPHONE
+    ========================================================================================= -->
       <div
-        id="dragbar"
-        class="hidden {isMenuOpen
-          ? 'md:flex'
-          : 'md:hidden'} w-[4px] z-0 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-action dark:hover:bg-coopmathsdark-action hover:cursor-col-resize overflow-y-auto"
-        on:mousedown={() => {
-          startResizing('moving')
-        }}
-        role="menu"
-        tabindex="0"
-      />
-
-      <!-- Affichage Partie Droite -->
-      <div
-        class="w-full h-screen {$globalOptions.v !== 'l'
-          ? 'sm:h-[calc(100vh-7rem)]'
-          : 'sm:h-screen'} z-40 sticky top-0 overflow-y-auto overscroll-contain px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+        class="md:hidden flex flex-col h-full justify-between bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
-        <!-- Barre de boutons  -->
+        <!-- Menu choix en mode smartphone -->
+        <div>
+          <div
+            class="md:hidden w-full flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+          >
+            <button
+              type="button"
+              class="group w-full flex flex-row justify-between items-center p-4"
+              data-te-collapse-init
+              data-te-target="#choiceMenuWrapper"
+              aria-expanded="true"
+              aria-controls="choiceMenuWrapper"
+            >
+              <div
+                class="text-lg font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+              >
+                Choix des exercices
+              </div>
+              <i
+                class="bx bxs-up-arrow rotate-0 group-[[data-te-collapse-collapsed]]:rotate-180 text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+              />
+            </button>
+            <div
+              id="choiceMenuWrapper"
+              class="!visible w-full overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+              data-te-collapse-item
+              data-te-collapse-show
+            >
+              <SideMenu />
+            </div>
+          </div>
+          <!-- Affichage exercices en mode smartphone -->
+          <div
+            id="exercisesPartSmartPhone"
+            class="flex md:hidden w-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+          >
+            {#if $exercicesParams.length !== 0}
+              <div
+                id="exercisesWrapperSmartPhone"
+                class="flex flex-col w-full justify-between"
+                bind:this={divExercices}
+              >
+                <div class="flex flex-col w-full md:mt-9 xl:mt-0">
+                  {#each $exercicesParams as paramsExercice, i (paramsExercice)}
+                    <div
+                      id="exo{i}"
+                      animate:flip={{ duration: (d) => 30 * Math.sqrt(d) }}
+                    >
+                      <Exercice
+                        {paramsExercice}
+                        indiceExercice={i}
+                        indiceLastExercice={$exercicesParams.length}
+                      />
+                    </div>
+                  {/each}
+                </div>
+              </div>{:else}
+              <div class="flex-1">
+                <div
+                  class="flex flex-col justify-between text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40"
+                >
+                  <div
+                    class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center"
+                  >
+                    <div class="mt-[10px]">
+                      <div class="hidden md:inline-flex">
+                        <i class="bx bx-chevron-left text-[50px]" />
+                      </div>
+                      <div class="inline-flex md:hidden">
+                        <i class="bx bx-chevron-up text-[50px]" />
+                      </div>
+                    </div>
+                    <div class="font-extralight text-[50px]">
+                      Sélectionner les exercices
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {/if}
+          </div>
+        </div>
+        <Footer />
+      </div>
+    {:else}
+      <!-- ====================================================================================
+                     MODE NORMAL
+    ========================================================================================= -->
+      <!-- Menu choix + Exos en mode non-smartphone -->
+      <div
+        class="relative hidden md:flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      >
+        <!-- bouton fermeture menu -->
         <div
-          style="--sidebarWidth:{sidebarWidth}; --isMenuOpen:{isMenuOpen
-            ? 1
-            : 0}"
           class="{$exercicesParams.length === 0
             ? 'hidden'
-            : 'relative z-50 flex flex-col justify-center items-center md:fixed  md:right-0 bg-coopmaths-warn-500 dark:bg-coopmathsdark-canvas'}
-             transition-all duration-500 transform"
-          id="barre-boutons"
+            : 'flex'} z-50 justify-center items-center absolute left-0 top-0 {!sidenavOpen
+              ? 'translate-x-[400px]'
+              : ' translate-x-0'} transition-transform ease-in-out h-10 w-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark rounded-r-md"
         >
-          <!-- Commande d'ouverture/fermeture du menu -->
-          <div
-            class="absolute left-0 top-0 h-10 w-10 rounded-r-lg border-l border-coopmaths-canvas-dark dark:border-coopmathsdark-canvas-dark bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hidden min-[900px]:flex justify-center items-center"
+          <button
+            type="button"
+            data-te-sidenav-toggle-ref
+            data-te-target="#choiceSideMenuWrapper"
+            aria-controls="#choiceSideMenuWrapper"
+            aria-haspopup="true"
+            on:click={() => {
+              sidenavOpen = !sidenavOpen
+              const instance = Sidenav.getOrCreateInstance(
+                document.getElementById('choiceSideMenuWrapper')
+              )
+              instance.toggle()
+            }}
           >
-            <Button
-              title=""
-              icon={isMenuOpen ? 'bx-x' : 'bx-right-arrow-alt'}
-              class="absolute right-2 top-1 text-2xl"
-              on:click={() => {
-                isMenuOpen = !isMenuOpen
-              }}
+            <i
+              class="bx {sidenavOpen
+                ? 'bx-right-arrow-alt'
+                : 'bx-x'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
             />
-          </div>
+          </button>
         </div>
-        <!-- Affichage des exercices -->
-        {#if $exercicesParams.length !== 0}
+        <nav
+          id="choiceSideMenuWrapper"
+          class="absolute left-0 top-0 w-[400px] h-full z-[1035] -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+          data-te-sidenav-init
+          data-te-sidenav-width="400"
+          data-te-sidenav-hidden="false"
+          data-te-sidenav-content="#exercisesPart"
+          data-te-sidenav-position="absolute"
+          data-te-sidenav-mode="side"
+        >
           <div
-            id="exercisesWrapper"
-            class="flex flex-col justify-between h-full"
-            bind:this={divExercices}
+            data-te-sidenav-menu-ref
+            class="w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
           >
-            <div class="flex-1">
-              <div class="flex flex-col h-full md:mt-9 xl:mt-5">
+            <SideMenu />
+          </div>
+        </nav>
+        <!-- Affichage exercices -->
+        <main
+          id="exercisesPart"
+          class="absolute right-0 top-0 hidden md:flex flex-col w-full h-full pt-6 px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas overflow-x-hidden overflow-y-auto"
+        >
+          {#if $exercicesParams.length !== 0}
+            <div
+              id="exercisesWrapper"
+              class="flex flex-col h-full justify-between pl-4 relative"
+              bind:this={divExercices}
+            >
+              <div class="flex flex-col md:mt-9 xl:mt-0">
                 {#each $exercicesParams as paramsExercice, i (paramsExercice)}
                   <div
                     id="exo{i}"
@@ -474,40 +581,43 @@
                     />
                   </div>
                 {/each}
-                <!-- Pied de page -->
               </div>
-            </div>
-            <Footer />
-          </div>
-        {:else}
-          <div class="relative flex-1 h-full">
-            <div
-              class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6 md:py-40"
-            >
-              <div
-                class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center"
-              >
-                <div class="mt-[10px]">
-                  <div class="hidden md:inline-flex">
-                    <i class="bx bx-chevron-left text-[50px]" />
-                  </div>
-                  <div class="inline-flex md:hidden">
-                    <i class="bx bx-chevron-up text-[50px]" />
-                  </div>
-                </div>
-                <div class="font-extralight text-[50px]">
-                  Sélectionner les exercices
-                </div>
-              </div>
-              <!-- Pied de page -->
-              <div class="absolute bottom-0 left-1/2 -translate-x-1/2">
+              <div class="hidden md:flex items-center justify-center">
                 <Footer />
               </div>
             </div>
-          </div>
-        {/if}
+          {:else}
+            <div class="relative flex-1 h-full">
+              <div
+                class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6"
+              >
+                <div class="bg-coopmaths-canvas">
+                  <span class="text-coopmaths-canvas">&nbsp;</span>
+                </div>
+                <div
+                  class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center"
+                >
+                  <div class="mt-[10px]">
+                    <div class="hidden md:inline-flex">
+                      <i class="bx bx-chevron-left text-[50px]" />
+                    </div>
+                    <div class="inline-flex md:hidden">
+                      <i class="bx bx-chevron-up text-[50px]" />
+                    </div>
+                  </div>
+                  <div class="font-extralight text-[50px]">
+                    Sélectionner les exercices
+                  </div>
+                </div>
+                <div class="flex items-center justify-center">
+                  <Footer />
+                </div>
+              </div>
+            </div>
+          {/if}
+        </main>
       </div>
-    </div>
+    {/if}
   </div>
   <!-- Fenêtre de dialogue pour le choix des applications tierces -->
   <ModalGridOfCards
@@ -650,10 +760,20 @@
 
     <div slot="buttons" class="flex flex-row justify-end space-x-4 w-full">
       <div class="pt-4 pb-8 px-4">
-        <Button class="text-sm py-1 px-2 rounded-md h-7" on:click={validateSettings} title="Valider" />
+        <Button
+          class="text-sm py-1 px-2 rounded-md h-7"
+          on:click={validateSettings}
+          title="Valider"
+        />
       </div>
       <div class="pt-4 pb-8 px-4">
-        <Button class="text-sm py-1 px-2 rounded-md h-7" on:click={handleEleveVueSetUp} title="Aperçu" />
+        <Button
+          class="text-sm py-1 px-2 rounded-md h-7"
+          on:click={() => {
+            buildUrlAndOpenItInNewTab('eleve')
+          }}
+          title="Aperçu"
+        />
       </div>
     </div>
   </ModalSettingsCapytale>

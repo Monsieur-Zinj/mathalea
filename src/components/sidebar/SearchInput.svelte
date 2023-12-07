@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { createEventDispatcher, onDestroy, tick } from 'svelte'
-  import { stringToCriteria } from '../../lib/types/filters'
+  import { createEventDispatcher, onDestroy, onMount, tick } from 'svelte'
+  import { stringToCriterion } from '../../lib/types/filters'
   import {
     isExerciceItemInReferentiel,
     isTool,
@@ -18,7 +18,7 @@
   } from '../stores/filtersStore'
   import type { FilterObject, InterfaceParams } from '../../lib/types'
   import { getUniqueStringBasedOnTimeStamp, debounce } from '../utils/time'
-  import Button from '../forms/Button.svelte'
+  // import Button from '../forms/Button.svelte'
   import Filtres from './Filtres.svelte'
   import Chip from '../forms/Chip.svelte'
   export let origin: ResourceAndItsPath[]
@@ -28,6 +28,7 @@
   let isFiltersVisible: boolean = false
   let selectedFilters: FilterObject<string | Level>[] = []
   const dispatch = createEventDispatcher()
+  const timeStamp = getUniqueStringBasedOnTimeStamp()
 
   // ===================================================================================
   //
@@ -39,9 +40,9 @@
       results = []
     } else {
       results = [
-        ...stringToCriteria(
+        ...stringToCriterion(
           input,
-          $allFilters.types.CAN.isSelected
+          true
         ).meetCriterion(origin)
       ]
     }
@@ -196,6 +197,114 @@
     await tick()
     searchField.focus()
   }
+  /**
+   * Permet d'afficher séquentiellement une liste de chaînes de caractères
+   * dans un champ de recherche à la place du placeholder
+   * @see https://stackoverflow.com/a/57903237/6625987
+   * @param selectorTarget
+   * @param textList
+   * @param placeholder
+   * @param i
+   * @param textListI
+   * @param delayMs
+   */
+  function typeWriter (
+    selectorTarget: string,
+    textList: string[],
+    placeholder = false,
+    i = 0,
+    textListI = 0,
+    delayMs = 100
+  ) {
+    if ($exercicesParams.length === 0) {
+      if (!i) {
+        if (placeholder) {
+          const inputDiv = document.querySelector(
+            selectorTarget
+          ) as HTMLInputElement
+          if (inputDiv) {
+            inputDiv.placeholder = ''
+          }
+        } else {
+          const inputDiv = document.querySelector(
+            selectorTarget
+          ) as HTMLInputElement
+          if (inputDiv) {
+            inputDiv.innerHTML = ''
+          }
+        }
+      }
+      const txt = textList[textListI]
+      if (i < txt.length) {
+        if (placeholder) {
+          const inputDiv = document.querySelector(
+            selectorTarget
+          ) as HTMLInputElement
+          if (inputDiv) {
+            inputDiv.placeholder += txt.charAt(i)
+          }
+        } else {
+          const inputDiv = document.querySelector(
+            selectorTarget
+          ) as HTMLInputElement
+          if (inputDiv) {
+            inputDiv.innerHTML += txt.charAt(i)
+          }
+        }
+        i++
+        setTimeout(
+          typeWriter,
+          delayMs,
+          selectorTarget,
+          textList,
+          placeholder,
+          i,
+          textListI
+        )
+      } else {
+        textListI++
+        if (typeof textList[textListI] === 'undefined') {
+          setTimeout(
+            typeWriter,
+            delayMs * 7,
+            selectorTarget,
+            textList,
+            placeholder
+          )
+        } else {
+          i = 0
+          setTimeout(
+            typeWriter,
+            delayMs * 7,
+            selectorTarget,
+            textList,
+            placeholder,
+            i,
+            textListI
+          )
+        }
+      }
+    } else {
+      const inputDiv = document.querySelector(
+        selectorTarget
+      ) as HTMLInputElement
+      if (inputDiv) {
+        inputDiv.placeholder = '🔍 Thème, identifiant...'
+      }
+    }
+  }
+
+  const inputSearchSamples = [
+    'pythagore',
+    '3e proba',
+    'dnb+3e stat',
+    'bac asie python',
+    'crpe 2016+2015 aires'
+  ]
+
+  onMount(() => {
+    typeWriter(`#searchInputField-${timeStamp}`, inputSearchSamples, true)
+  })
 </script>
 
 <!--
@@ -210,8 +319,8 @@
   <div class="relative flex flex-col w-full">
     <input
       type="search"
-      id="searchInputField-{getUniqueStringBasedOnTimeStamp()}"
-      class="w-full border border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm"
+      id="searchInputField-{timeStamp}"
+      class="w-full border border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm placeholder-coopmaths-corpus-lightest dark:placeholder-coopmathsdark-corpus-lightest placeholder:italic placeholder-opacity-50"
       placeholder="🔍 Thème, identifiant..."
       bind:value={inputSearch}
       bind:this={searchField}
@@ -231,7 +340,7 @@
       Presser <span class="font-normal mx-1">Entrée</span> pour ajouter l'exercice
     </div>
     <!-- Bouton pour effacer l'input de recherche -->
-    <Button
+    <!-- <Button
       title=""
       icon="bxs-tag-x"
       class="absolute right-2 top-1 text-2xl"
@@ -239,7 +348,7 @@
       on:click={() => {
         inputSearch = ''
       }}
-    />
+    /> -->
     <!-- Bouton pour afficher les filtres -->
     <button
       type="button"
@@ -274,20 +383,8 @@
   </div>
   <!-- Filtres -->
   <div class={isFiltersVisible ? 'flex flex-col w-full mt-4' : 'hidden'}>
-    <Filtres
-      class="mt-2"
-      filterType="levels"
-      on:filters-change
-    />
-    <Filtres
-      class="mt-2"
-      filterType="specs"
-      on:filters-change
-    />
-    <Filtres
-      class="mt-2"
-      filterType="types"
-      on:filters-change
-    />
+    <Filtres class="mt-2" filterType="levels" on:filters-change />
+    <Filtres class="mt-2" filterType="specs" on:filters-change />
+    <Filtres class="mt-2" filterType="types" on:filters-change />
   </div>
 </div>

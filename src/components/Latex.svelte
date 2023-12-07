@@ -1,25 +1,53 @@
 <script lang="ts">
+import {
+  Carousel,
+  initTE
+} from 'tw-elements'
   import { exercicesParams, darkMode } from './stores/generalStore'
-  import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea.js'
+  import {
+    mathaleaGetExercicesFromParams,
+    mathaleaRenderDiv,
+    mathaleaUpdateExercicesParamsFromUrl,
+    mathaleaUpdateUrlFromExercicesParams
+  } from '../lib/mathalea.js'
   import type TypeExercice from '../exercices/ExerciceTs.js'
   import Footer from './Footer.svelte'
   import NavBar from './header/NavBar.svelte'
-  import Latex, { type Exo, type picFile, getExosContentList, getPicsNames, doesLatexNeedsPics, makeImageFilesUrls } from '../lib/Latex'
+  import Latex, {
+    type Exo,
+    type picFile,
+    getExosContentList,
+    getPicsNames,
+    doesLatexNeedsPics,
+    makeImageFilesUrls
+  } from '../lib/Latex'
   import Button from './forms/Button.svelte'
   import FormRadio from './forms/FormRadio.svelte'
-  import { onMount } from 'svelte'
-  import { deviceType } from './utils/measures'
+  import { afterUpdate, onMount } from 'svelte'
   import ModalMessageBeforeAction from './modal/ModalMessageBeforeAction.svelte'
   import ModalActionWithDialog from './modal/ModalActionWithDialog.svelte'
   import { showDialogForLimitedTime } from './utils/dialogs.js'
   import { downloadTexWithImagesZip, downloadZip } from '../lib/files'
   import ButtonOverleaf from './forms/ButtonOverleaf.svelte'
+  import SimpleCard from './ui/SimpleCard.svelte'
 
   let nbVersions = 1
   let title = ''
   let reference = ''
   let subtitle = ''
-  let style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can' = 'Coopmaths'
+  let style:
+    | 'Coopmaths'
+    | 'Classique'
+    | 'ProfMaquette'
+    | 'ProfMaquetteQrcode'
+    | 'Can' = 'Coopmaths'
+  const imgStylePartialUrls = {
+    Coopmaths: 'images/exports/export-coopmaths',
+    Classique: 'images/exports/export-classique',
+    ProfMaquette: 'images/exports/export-profmaquette',
+    ProfMaquetteQrcode: 'images/exports/export-profmaquette-qrcode',
+    Can: 'images/exports/export-can'
+  }
   let dialogLua: HTMLDialogElement
   let exercices: TypeExercice[]
   let contents = { content: '', contentCorr: '' }
@@ -29,6 +57,7 @@
   let messageForCopyPasteModal: string
   let picsNames: picFile[][] = []
   let exosContentList: Exo[] = []
+  let divText: HTMLDivElement
   const latex = new Latex()
 
   async function initExercices () {
@@ -41,21 +70,27 @@
       }
     }
     latex.addExercices(exercices)
-    contents = latex.getContents(style, nbVersions)
+    contents = await latex.getContents(style, nbVersions)
     picsWanted = doesLatexNeedsPics(contents)
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
   }
 
-  function updateLatex(){
-  $: {
-    contents = latex.getContents(style, nbVersions)
-  }
+  async function updateLatex () {
+    contents = await latex.getContents(style, nbVersions)
   }
 
   onMount(() => {
+    initTE({ Carousel })
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    downloadPicsModal = document.getElementById('downloadPicsModal') as HTMLElement
-    document.addEventListener('updateAsyncEx',updateLatex)
+    downloadPicsModal = document.getElementById(
+      'downloadPicsModal'
+    ) as HTMLElement
+    document.addEventListener('updateAsyncEx', updateLatex)
+    mathaleaRenderDiv(divText)
+  })
+
+  afterUpdate(() => {
+    mathaleaRenderDiv(divText)
   })
 
   /* ============================================================================
@@ -93,12 +128,28 @@
   initExercices()
 
   $: {
-    contents = latex.getContents(style, nbVersions)
+    (async () => {
+      try {
+        contents = await latex.getContents(style, nbVersions)
+      } catch (error) {
+        console.error('Erreur lors de la création du code LaTeX :', error)
+        contents = {
+          content: '% Erreur à signaler',
+          contentCorr: '% Erreur à signaler'
+        }
+      }
+    })()
   }
 
   const copyDocument = async () => {
     try {
-      const text = await latex.getFile({ title, reference, subtitle, style, nbVersions })
+      const text = await latex.getFile({
+        title,
+        reference,
+        subtitle,
+        style,
+        nbVersions
+      })
       await navigator.clipboard.writeText(text)
       dialogLua.showModal()
       setTimeout(() => {
@@ -109,183 +160,333 @@
     }
   }
 
-/**
- * Construction d'un message contextualisé indiquant le besoin de télécharger les images si besoin
- */
-export function buildMessageForCopyPaste (picsWanted: boolean) {
-  if (picsWanted) {
-    return `<p>Le code LaTeX a été copié dans le presse-papier.</p>
+  /**
+   * Construction d'un message contextualisé indiquant le besoin de télécharger les images si besoin
+   */
+  export function buildMessageForCopyPaste (picsWanted: boolean) {
+    if (picsWanted) {
+      return `<p>Le code LaTeX a été copié dans le presse-papier.</p>
       <p class="font-bold text-coopmaths-warn-darkest">Ne pas oublier de télécharger les figures !</p>`
-  } else {
-    return 'Le code LaTeX a été copié dans le presse-papier.'
-  }
-}
-
-/**
- * Copier le code LaTeX dans le presse-papier
- * @param {string} dialogId id attaché au composant
- * @author sylvain
- */
-async function copyLaTeXCodeToClipBoard (dialogId: string) {
-  const pre = document.querySelector('pre') as HTMLPreElement
-  const text = pre.innerText
-  navigator.clipboard.writeText(text).then(
-    () => {
-      showDialogForLimitedTime(dialogId + '-1', 2000)
-    },
-    (err) => {
-      console.error('Async: Could not copy text: ', err)
-      showDialogForLimitedTime(dialogId + '-2', 1000)
+    } else {
+      return 'Le code LaTeX a été copié dans le presse-papier.'
     }
-  )
-}
+  }
+
+  /**
+   * Copier le code LaTeX dans le presse-papier
+   * @param {string} dialogId id attaché au composant
+   * @author sylvain
+   */
+  async function copyLaTeXCodeToClipBoard (dialogId: string) {
+    const pre = document.querySelector('pre') as HTMLPreElement
+    const text = pre.innerText
+    navigator.clipboard.writeText(text).then(
+      () => {
+        showDialogForLimitedTime(dialogId + '-1', 2000)
+      },
+      (err) => {
+        console.error('Async: Could not copy text: ', err)
+        showDialogForLimitedTime(dialogId + '-2', 1000)
+      }
+    )
+  }
 </script>
 
-<main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
+<main
+  class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive
+    ? 'dark'
+    : ''}"
+>
   <NavBar subtitle="LaTeX" subtitleType="export" />
 
-  <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <h1 class="mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Paramétrage</h1>
-    <div class="w-full flex flex-col space-x-5">
-      <div class="flex flex-col mb-2 md:mb-8 md:flex-row justify-start items-start">
-        <h2 class="text-xl ml-4 md:text-2xl font-bold md:mr-10 mb-2 md:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Mise en page</h2>
-        <div class="pb-4 md:pb-0 md:pt-1">
+  <section
+    class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  >
+    <h1
+      class="mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
+    >
+      Paramétrage
+    </h1>
+    <div
+      class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+    >
+      <div
+        class="flex flex-col w-full md:flex-row justify-between rounded-lg bg-coopmaths-canvas-dark shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-coopmathsdark-canvas-dark"
+      >
+        <div class="flex flex-col py-4 pl-16 w-2/3">
+          <h5
+            class="mb-2 text-3xl font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Mise en page
+          </h5>
           <FormRadio
             title="Style"
-            orientation={deviceType() === 'mobile' ? 'col' : 'row'}
+            bgColor="bg-coopmaths-canvas-dark"
+            orientation={'col'}
             bind:valueSelected={style}
             labelsValues={[
               { label: 'Coopmaths', value: 'Coopmaths' },
               { label: 'Classique', value: 'Classique' },
               { label: 'ProfMaquette', value: 'ProfMaquette' },
-              { label: 'ProfMaquette avec QrCode', value: 'ProfMaquetteQrcode' },
-              { label: 'Course aux nombres', value: 'Can', isDisabled: isExerciceStaticInTheList }
+              {
+                label: 'ProfMaquette avec QrCode',
+                value: 'ProfMaquetteQrcode'
+              },
+              {
+                label: 'Course aux nombres',
+                value: 'Can',
+                isDisabled: isExerciceStaticInTheList
+              }
             ]}
           />
         </div>
-      </div>
+        <!-- Carousel de vignette pour les aperçus -->
+        <div class="flex justify-center w-full md:w-1/3">
+          <div
+            id="carouselExampleSlidesOnly"
+            class="relative w-2/3 md:w-full"
+            data-te-carousel-init
+            data-te-ride="carousel"
+          >
+            <div
+              class="relative w-full overflow-hidden after:clear-both after:block after:content-['']"
+            >
+              <!-- first item -->
+              <div
+                class="relative float-left -mr-[100%] w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
+                data-te-carousel-item
+                data-te-carousel-active
+              >
+                <img
+                  src={`${imgStylePartialUrls[style]}-thumb1.png`}
+                  alt="{style} image-1"
+                  class="block h-auto w-full rounded-r-lg"
+                />
+              </div>
+              <!-- second item -->
+              <div
+                class="relative float-left -mr-[100%] hidden w-full transition-transform duration-[300ms] ease-in-out motion-reduce:transition-none"
+                data-te-carousel-item
+              >
+                <img
+                  src={`${imgStylePartialUrls[style]}-thumb2.png`}
+                  alt="{style} image-2"
+                  class="block h-auto w-full rounded-r-lg"
+                />
+              </div>
+            </div>
+          </div>
+                </div>
+        </div>
 
-      <div class="flex flex-col lg:flex-row space-x-0 lg:space-x-4 space-y-3 lg:space-y-0">
-        <h2 class="ml-0 text-xl md:text-2xl font-bold md:mr-10 mb-2 lg:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Éléments de titres</h2>
-        <input
-          type="text"
-          id="export-latex-titre-input"
-          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-          placeholder={style === 'Can' ? 'Course aux nombres' : 'Titre'}
-          bind:value={title}
-          disabled={style === 'Can'}
-        />
-        <input
-          type="text"
-          id="export-latex-reference-input"
-          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-          placeholder={style === 'Coopmaths' ? 'Référence' : 'Haut de page gauche'}
-          bind:value={reference}
-          disabled={style === 'Can'}
-        />
-        <input
-          type="text"
-          id="export-latex-soustitre-input"
-          class="border-1 disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-          placeholder={style === 'Coopmaths' ? 'Sous-titre / Chapitre' : 'Pied de page droit'}
-          bind:value={subtitle}
-          disabled={style === 'Can'}
-        />
-      </div>
-      <div class="flex flex-col md:flex-row mt-6">
-        <h2 class="text-xl md:text-2xl font-bold md:mr-10 mb-2 md:mb-0 text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Nombre de versions des exercices</h2>
+      <SimpleCard icon={''} title={'Éléments de titres'}>
+        <div class="flex flex-col w-full justify-start items-start space-y-2">
+          <input
+            type="text"
+            id="export-latex-titre-input"
+            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
+            placeholder={style === 'Can' ? 'Course aux nombres' : 'Titre'}
+            bind:value={title}
+            disabled={style === 'Can'}
+          />
+          <input
+            type="text"
+            id="export-latex-reference-input"
+            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
+            placeholder={style === 'Coopmaths'
+              ? 'Référence'
+              : 'Haut de page gauche'}
+            bind:value={reference}
+            disabled={style === 'Can'}
+          />
+          <input
+            type="text"
+            id="export-latex-soustitre-input"
+            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
+            placeholder={style === 'Coopmaths'
+              ? 'Sous-titre / Chapitre'
+              : 'Pied de page droit'}
+            bind:value={subtitle}
+            disabled={style === 'Can'}
+          />
+        </div>
+      </SimpleCard>
+      <SimpleCard icon={''} title={'Nombre de versions des exercices'}>
         <input
           type="number"
           id="export-latex-nb-versions-input"
-          class="border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           name="numberOfVersions"
           maxlength="2"
           min="1"
           max="20"
           bind:value={nbVersions}
         />
-      </div>
+      </SimpleCard>
     </div>
 
-    <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
-    <ButtonOverleaf {latex} latexFileInfos={{ title, reference, subtitle, style, nbVersions }} disabled={false} />
-    <div
-      class="flex flex-col md:flex-row md:pl-4 justify-start space-x-0 space-y-2 mt-6 md:space-x-4 md:space-y-0"
-    >
-      <ModalActionWithDialog
-        on:display={() => {
-          copyLaTeXCodeToClipBoard('copyPasteModal')
-        }}
-        message={messageForCopyPasteModal}
-        messageError="Impossible de copier le code LaTeX dans le presse-papier"
-        tooltipMessage="Code LaTeX dans presse-papier"
-        dialogId="copyPasteModal"
-        classForButton="px-2 py-1 rounded-md"
-        title="Copier le code LaTeX des exercices"
-      />
-      <Button
-        class="px-2 py-1 rounded-md"
-        title="Copier le code LaTeX complet (avec préambule)"
-        on:click={copyDocument}
-      />
-      <Button
-        class="px-2 py-1 rounded-md"
-        idLabel="downloadPicsButton"
-        on:click={handleDownloadPicsModalDisplay}
-        title="Télécharger uniquement les figures"
-        isDisabled={!picsWanted}
-      />
-      <Button
-        class="px-2 py-1 rounded-md"
-        idLabel="downloadFullArchive"
-        on:click={() => {
-          const filesInfo = { title, reference, subtitle, style, nbVersions }
-          downloadTexWithImagesZip('coopmaths', latex, filesInfo)
-        }}
-        title="Télécharger l'archive complète"
-      />
-    </div>
-    <ModalMessageBeforeAction
-      modalId="downloadPicsModal"
-      modalButtonId="downloadPicsModalButton"
-      modalButtonTitle="Télécharger les figures"
-      icon="bxs-file-png"
-      on:action={handleActionFromDownloadPicsModal}
-    >
-      <span slot="header">Figures</span>
-      <div slot="content" class="flex flex-col justify-start items-start">
-        Voici ce dont vous aurez besoin :
-        {#each exosContentList as exo, i (exo)}
-          <ul class="flex flex-col justify-start items-start list-disc pl-6">
-            <!-- <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li> -->
-            {#if picsNames[i].length !== 0}
-              <li>Exercice {i + 1} (<span class="text-italic">{exo.title}</span>) :</li>
-              <ul class="flex flex-col justify-start items-start list-none pl-4">
-                {#each picsNames[i] as img}
-                  <li class="font-mono text-sm">{img.name}</li>
-                {/each}
+    <div bind:this={divText}>
+      <h1
+        class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
+      >
+        Exportation
+      </h1>
+      <div class="pl-4">
+        <div
+          class="text-coopmaths-struct-light dark:text-coopmathsdark-struct-light md:text-2xl font-bold pb-2"
+        >
+          Que faire du code $\LaTeX$ ?
+        </div>
+        <div
+          class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+        >
+          <SimpleCard title={'Obtenir un PDF'}>
+            <div>
+              Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. Je
+              vais être rediriger vers le site OverLeaf pour compiler le code en
+              ligne.
+            </div>
+            <div slot="button1">
+              <ButtonOverleaf
+                class="flex w-full flex-col justify-center"
+                {latex}
+                latexFileInfos={{
+                  title,
+                  reference,
+                  subtitle,
+                  style,
+                  nbVersions
+                }}
+                disabled={false}
+              />
+            </div>
+          </SimpleCard>
+          <SimpleCard title={'Copier le code'} icon={'bx-copy-alt'}>
+            <div>
+              Je souhaite copier le code $\LaTeX$ pour le coller dans un autre
+              logiciel.
+            </div>
+            <div slot="button1">
+              <ModalActionWithDialog
+                on:display={() => {
+                  copyLaTeXCodeToClipBoard('copyPasteModal')
+                }}
+                message={messageForCopyPasteModal}
+                messageError="Impossible de copier le code LaTeX dans le presse-papier"
+                tooltipMessage="Code LaTeX dans presse-papier"
+                dialogId="copyPasteModal"
+                classForButton="px-2 py-1 rounded-md"
+                title="Code seul"
+              />
+            </div>
+            <div slot="button2">
+              <Button
+                class="px-2 py-1 rounded-md"
+                title="Code + préambule"
+                on:click={copyDocument}
+              />
+            </div>
+          </SimpleCard>
+          <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
+            <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
+            <div slot="button1">
+              <Button
+                class="px-2 py-1 rounded-md"
+                idLabel="downloadFullArchive"
+                on:click={() => {
+                  const filesInfo = {
+                    title,
+                    reference,
+                    subtitle,
+                    style,
+                    nbVersions
+                  }
+                  downloadTexWithImagesZip('coopmaths', latex, filesInfo)
+                }}
+                title="Archive complète"
+              />
+            </div>
+            <div slot="button2">
+              <Button
+                class="inline-block px-2 py-1 rounded-md"
+                idLabel="downloadPicsButton"
+                on:click={handleDownloadPicsModalDisplay}
+                title="Uniquement les figures"
+                isDisabled={!picsWanted}
+              />
+            </div>
+          </SimpleCard>
+        </div>
+        <ModalMessageBeforeAction
+          modalId="downloadPicsModal"
+          modalButtonId="downloadPicsModalButton"
+          modalButtonTitle="Télécharger les figures"
+          icon="bxs-file-png"
+          on:action={handleActionFromDownloadPicsModal}
+        >
+          <span slot="header">Figures</span>
+          <div class="flex flex-col justify-start items-start">
+            Voici ce dont vous aurez besoin :
+            {#each exosContentList as exo, i (exo)}
+              <ul
+                class="flex flex-col justify-start items-start list-disc pl-6"
+              >
+                <!-- <li class={picsNames[i].length > 0 ? "container" : "hidden"}>Exercice {i + 1} (<span class="text-italic">{exo.groups.title}</span>) :</li> -->
+                {#if picsNames[i].length !== 0}
+                  <li>
+                    Exercice {i + 1} (<span class="text-italic"
+                      >{exo.title}</span
+                    >) :
+                  </li>
+                  <ul
+                    class="flex flex-col justify-start items-start list-none pl-4"
+                  >
+                    {#each picsNames[i] as img}
+                      <li class="font-mono text-sm">{img.name}</li>
+                    {/each}
+                  </ul>
+                {/if}
               </ul>
-            {/if}
-          </ul>
-        {/each}
+            {/each}
+          </div>
+        </ModalMessageBeforeAction>
       </div>
-    </ModalMessageBeforeAction>
+    </div>
 
-    <dialog bind:this={dialogLua} class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg p-6">
+    <dialog
+      bind:this={dialogLua}
+      class="rounded-xl bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light font-light shadow-lg p-6"
+    >
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html messageForCopyPasteModal}
       {#if style === 'ProfMaquette'}
-      <p class="mt-4">Il faut mettre à jour votre distribution LaTeX pour avoir la dernière version du package <em class="text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest font-bold">ProfMaquette</em>.</p>
+        <p class="mt-4">
+          Il faut mettre à jour votre distribution LaTeX pour avoir la dernière
+          version du package <em
+            class="text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest font-bold"
+            >ProfMaquette</em
+          >.
+        </p>
       {:else}
-      <p class="mt-4">Il faudra utiliser <em class="text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest font-bold">LuaLaTeX</em> pour compiler le document.</p>
+        <p class="mt-4">
+          Il faudra utiliser <em
+            class="text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest font-bold"
+            >LuaLaTeX</em
+          > pour compiler le document.
+        </p>
       {/if}
     </dialog>
 
-    <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
-    <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto text-xs">
+    <h1
+      class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold"
+    >
+      Code
+    </h1>
+    <pre
+      class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto text-xs">
       {contents.content}
       {#if style !== 'ProfMaquette' && style !== 'ProfMaquetteQrcode'}
-      %%%%%%%%%%%%%%%%%%%%%%
+        %%%%%%%%%%%%%%%%%%%%%%
       %%%   CORRECTION   %%%
       %%%%%%%%%%%%%%%%%%%%%%
 

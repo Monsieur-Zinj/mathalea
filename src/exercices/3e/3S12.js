@@ -98,8 +98,8 @@ export default function CalculEffectifFrequence () {
       const r = repere({
         grilleX: false,
         grilleY: 'pointilles',
-        xThickListe: [],
-        xLabelListe: [],
+        xThickListe: false,
+        xLabelListe: false,
         yUnite: 1 / coef,
         yThickDistance: 1 * coef,
         yMax: 11,

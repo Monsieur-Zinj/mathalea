@@ -1,9 +1,8 @@
 import type { Activity, InterfaceResultExercice } from '../lib/types.js'
-import { exercicesParams, globalOptions, resultsByExercice } from '../components/stores/generalStore.js'
-import { mathaleaHandleComponentChange } from './mathalea.js'
+import { capytaleMode, exercicesParams, globalOptions, resultsByExercice } from '../components/stores/generalStore.js'
+import { mathaleaHandleComponentChange, mathaleaWriteStudentPreviousAnswers } from './mathalea.js'
 import { get } from 'svelte/store'
 import { RPC } from '@mixer/postmessage-rpc'
-import type { MathfieldElement } from 'mathlive'
 
 interface ActivityParams { mode: 'create' | 'assignment' | 'review' | 'view', activity: Activity, workflow: 'current' | 'finished' | 'corrected', studentAssignment: InterfaceResultExercice[] }
 
@@ -29,7 +28,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // workflow : current (la copie n'a pas encore été rendue), finished (la copie a été rendue), corrected (la copie a été anotée par l'enseignant)
   // On récupère les paramètres de l'activité
   currentMode = mode
-  console.log('mode', currentMode)
+  capytaleMode.set(mode)
   if (activity === null || activity === undefined) return
   const [newExercicesParams, newGlobalOptions] = [activity.exercicesParams, activity.globalOptions]
   // On met à jour les paramètres des exercices
@@ -45,17 +44,17 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // On charge l'aléa qui a pu être modifié par l'élève
   if (studentAssignment !== null && studentAssignment !== undefined) {
     for (const exercice of studentAssignment) {
-      if (exercice !== null && exercice.alea !== undefined && exercice.indice !== undefined) {
+      if (exercice != null && exercice.alea != null && exercice.indice != null) {
         exercicesParams.update((l) => {
-          l[exercice.indice].alea = exercice.alea
+          l[exercice.indice as number].alea = exercice.alea
+          l[exercice.indice as number].bestScore = exercice.bestScore
           return l
         })
       }
     }
   }
-  if (mode === 'create') {
-    // Enseignant qui crée et paramètre sa séance
-  } else {
+  if (mode !== 'create') {
+    // Vue élève
     mathaleaHandleComponentChange('', 'eleve')
     globalOptions.update((l) => {
       l.v = 'eleve'
@@ -63,11 +62,6 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     })
   }
   if (mode === 'assignment') {
-    // Élève sur sa copie
-    globalOptions.update((l) => {
-      l.v = 'eleve'
-      return l
-    })
     // Si la copie a déjà été rendue, on ne peut plus modifier les réponses
     if (workflow !== 'current') {
       globalOptions.update((l) => {
@@ -79,7 +73,6 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     // Mettre le done à true pour que l'on ne puisse plus modifier les réponses
     globalOptions.update((l) => {
       l.done = '1'
-      l.v = 'eleve'
       return l
     })
   }
@@ -96,33 +89,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
             window.postMessage(message, '*')
           }
         } else {
-          for (const answer in exercice.answers) {
-            // La réponse correspond à un champs texte
-            const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
-            if (field !== null) {
-              if ('setValue' in field) {
-                // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
-                field.setValue(exercice.answers[answer])
-              }
-            } else {
-              // La réponse correspond à une case à cocher qui doit être cochée
-              const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-              if (checkBox !== null && exercice.answers[answer] === '1') {
-                checkBox.checked = true
-              } else {
-              // La réponse correspond à une liste déroulante
-                const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-                if (select !== null) {
-                  select.value = exercice.answers[answer]
-                }
-              }
-            }
-            if (answer.includes('apigeom')) {
-              // La réponse correspond à une figure
-              const event = new CustomEvent(answer, { detail: exercice.answers[answer] })
-              document.dispatchEvent(event)
-            }
-          }
+          mathaleaWriteStudentPreviousAnswers(exercice.answers)
         }
       }
     }
@@ -135,6 +102,9 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
       const buttonScore = document.querySelector(`#buttonScoreEx${exercice?.indice}`) as HTMLButtonElement
       console.log('Clic sur le bouton score ', `#buttonScoreEx${exercice?.indice}`, buttonScore)
       if (buttonScore !== null) {
+        // On note dans le bouton que ce sont les réponses sauvegardées et pas de nouvelles réponses de l'élève
+        // Cela évite, en cas de problème de chargement, d'effacer les réponses de l'élève
+        buttonScore.dataset.capytaleLoadAnswers = '1'
         buttonScore.click()
       } else {
         console.log(`Bouton score #buttonScoreEx${exercice.indice} non trouvé`)

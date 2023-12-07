@@ -61,21 +61,21 @@ export default function ProblemesGrandeursComposees () {
       ['carbonate de sodium', 'd\'eau', 300]
     ] // soluté, masse maximale en gramme pour saturer 1 L de solvant
     const materiaux = [
-      ['palladium', 12000],
-      ['acier', 7800],
-      ['fonte', 7100],
-      ['aluminium', 2700],
-      ['argent', 10500],
-      ['bronze', 8800],
-      ['cuivre', 8960],
-      ['fer', 7860],
-      ['lithium', 530],
-      ['mercure', 13545],
-      ['nickel', 8900],
-      ['or', 19300],
-      ['platine', 21450],
-      ['titane', 4500],
-      ['zinc', 7150]
+      ['palladium', 12000, 'du ', 'de '],
+      ['acier', 7800, 'de l\'', 'd\''],
+      ['fonte', 7100, 'de la', 'de '],
+      ['aluminium', 2700, 'de l\'', 'd\''],
+      ['argent', 10500, 'de l\'', 'd\''],
+      ['bronze', 8800, 'du ', 'de '],
+      ['cuivre', 8960, 'du ', 'de '],
+      ['fer', 7860, 'du ', 'de '],
+      ['lithium', 530, 'du ', 'de '],
+      ['mercure', 13545, 'du ', 'de '],
+      ['nickel', 8900, 'du ', 'de '],
+      ['or', 19300, 'de l\'', 'd\''],
+      ['platine', 21450, 'du ', 'de '],
+      ['titane', 4500, 'du ', 'de '],
+      ['zinc', 7150, 'du ', 'de ']
     ]
     const villes = [
       ['Nice', 342637, 71.9],
@@ -1007,7 +1007,7 @@ export default function ProblemesGrandeursComposees () {
               'Définition : Masse volumique (grandeur physique)',
               'La masse volumique d\'un élément est le quotient de la masse de cet élément par le volume qu\'il occupe.<br>L\'unité de la masse volumique dépend de la nature de l\'élément et peut s\'exprimer en kg/m$^3$ pour les solides ou en g/L pour les gaz, par exemple.'
             ) +
-            ` du ${materiaux[index1][0]} est de $${texNombre(
+            ` ${materiaux[index1][2]}${materiaux[index1][0]} est de $${texNombre(
               materiaux[index1][1]
             )}\\text{ kg/m}^3$.<br>`
           texte += `Quelle est la masse d'une pièce de ce métal de $${texNombre(
@@ -1015,12 +1015,12 @@ export default function ProblemesGrandeursComposees () {
           )}\\text{ cm}^3$ ?<br>`
           texte +=
             numAlpha(1) +
-            ` Quel est le volume d'une pièce de ${materiaux[index2][0]} ayant une masse de `
-          texte += `$${texNombre(masse2)}\\text{ kg}$ (la masse volumique du ${materiaux[index2][0]
+            ` Quel est le volume d'une pièce ${materiaux[index2][3]}${materiaux[index2][0]} ayant une masse de `
+          texte += `$${texNombre(masse2)}\\text{ kg}$ (la masse volumique ${materiaux[index2][2]}${materiaux[index2][0]
             } est de $${texNombre(materiaux[index2][1])}\\text{ kg/m}^3$) ?<br>`
           texteCorr =
             numAlpha(0) +
-            ` La masse de cette pièce de ${materiaux[index1][0]
+            ` La masse de cette pièce ${materiaux[index2][3]}${materiaux[index1][0]
             } est de :<br>$${texNombre(
               materiaux[index1][1]
             , 0)}\\text{ kg/m}^3\\times ${texNombre(
@@ -1032,7 +1032,7 @@ export default function ProblemesGrandeursComposees () {
             , 6)}\\text{ m}^3=${texNombre(masse, 6)}\\text{ kg}${egalOuApprox(masse * 1000, 0)}${texNombre(masse * 1000, 0)}$ g.<br>`
           texteCorr +=
             numAlpha(1) +
-            ` Le volume de cette pièce de ${materiaux[index2][0]
+            ` Le volume de cette pièce ${materiaux[index2][3]}${materiaux[index2][0]
             } est de :<br>$${texNombre(masse2, 0)}\\text{ kg}\\div ${texNombre(
               materiaux[index2][1]
            , 0)}\\text{ kg/m}^3${egalOuApprox(v2, 6)}${texNombre(

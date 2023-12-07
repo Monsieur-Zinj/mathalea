@@ -41,7 +41,7 @@ export const amcReady = true
  * 4L10 et 3L11
  */
 export const uuid = '77a62'
-export const ref = '3L11'
+// export const ref = '3L11'
 export default function ExerciceDevelopper () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 3 // difficulté
@@ -248,8 +248,8 @@ export default function ExerciceDevelopper () {
     }
     listeQuestionsToContenuSansNumero(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Multiplication par un entier positif, tous les termes sont positifs\n2 : Multiplication par un facteur positif\n3 : Multiplication par un facteur relatif\n']
-  this.besoinFormulaire2Numerique = ['Consigne', 2, '1 : Développer, \n2 : Développer et réduire']
-  this.besoinFormulaire3Numerique = ['Forme de développement', 9, '1 : k(ax+b)\n2 : (ax+b)×k\n3 : kx(ax+b)\n4 : (ax+b)×kx\n5 : k(ax+b)+c\n6 : c+k(ax+b)\n7 : Mélange(1 et 2)\n8 : Mélange (1, 2, 3 et 4)\n9 :Mélange (tous les cas)']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Multiplication par un entier positif, tous les termes sont positifs\n2 : Multiplication par un facteur positif\n3 : Multiplication par un facteur relatif']
+  this.besoinFormulaire2Numerique = ['Consigne', 2, '1 : Développer \n2 : Développer et réduire']
+  this.besoinFormulaire3Numerique = ['Forme de développement', 9, '1 : k(ax+b)\n2 : (ax+b)×k\n3 : kx(ax+b)\n4 : (ax+b)×kx\n5 : k(ax+b)+c\n6 : c+k(ax+b)\n7 : Mélange (1 et 2)\n8 : Mélange (1, 2, 3 et 4)\n9 : Mélange (tous les cas)']
   this.besoinFormulaire4CaseACocher = ['$x$ est la seule lettre utilisée']
 }

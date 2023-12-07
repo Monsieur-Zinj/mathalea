@@ -43,6 +43,7 @@ export default function ExerciceConversionsAires () {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.nbQuestions = 1
+  this.listePackages = ['arydshln','cmd\\dashlinedash=1pt','cmd\\newcommand\\dotfills[1][3cm]{\\makebox[#1]{\\dotfill}}'] // pour les lignes en pointillés
 
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
@@ -343,19 +344,18 @@ export default function ExerciceConversionsAires () {
             '\\dotfills',
             '................................................'
           )
-        }
-        if (this.sup4 && i === this.nbQuestions - 1) {
-          texte += '<br><br>' + buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true, true, hectare)
-        }
-
+        }        
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
       }
       cpt++
-    }
-    if (context.vue === 'latex') this.listePackages = ['arydshln'] // pour les lignes en pointillés
+    }    
     listeQuestionsToContenu(this)
+    this.introduction = ''
+    if (this.sup4) {
+      this.introduction = buildTab(0, '', 0, '', Math.min(10, this.nbQuestions), true, true, hectare) + '<br>'
+    }
   }
   this.besoinFormulaireNumerique = [
     'Niveau de difficulté',

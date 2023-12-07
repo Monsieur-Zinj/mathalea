@@ -22,7 +22,6 @@ export const uuid = 'c8403'
 export const ref = '3L11-10'
 export default function TableDoubleDistributivite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
@@ -36,7 +35,6 @@ export default function TableDoubleDistributivite () {
   this.nouvelleVersion = function () {
     this.answers = {}
     this.consigne = this.nbQuestions > 1 ? 'Dans chaque cas, compléter les tables de multiplication, écrire le développement obtenu et le réduire.' : 'Compléter la table de multiplication, écrire le développement obtenu et le réduire.'
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -44,8 +42,7 @@ export default function TableDoubleDistributivite () {
     let typesDeQuestionsDisponibles = [1, 2]
     if (this.sup === 2) {
       typesDeQuestionsDisponibles = [3, 4]
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
     }
 
@@ -146,7 +143,7 @@ export default function TableDoubleDistributivite () {
       }
       if (this.interactif) {
         const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(entetesCol, entetesLgn, ['', '', '', ''])
-        const tabMathlive = AddTabDbleEntryMathlive.create(this, i, tableauVide, 'college6eme nospacebefore')
+        const tabMathlive = AddTabDbleEntryMathlive.create(this, i, tableauVide, 'nospacebefore')
         texte += tabMathlive.output
         setReponse(this, i, { L1C1, L1C2, L2C1, L2C2 }, { formatInteractif: 'tableauMathlive' })
       } else {
@@ -192,23 +189,32 @@ export default function TableDoubleDistributivite () {
     const tableau = document.querySelector(`table#${tableId}`)
     if (tableau == null) throw Error('La correction de 3L11-10 n\'a pas trouvé le tableau interactif.')
     const result = []
+    let points = 0
     for (const k of [1, 2]) {
       for (const j of [1, 2]) {
-        const answer = tableau.querySelector(`math-field#Ex${this.numeroExercice}Q${i}L${j}C${k}`)
-        if (answer == null) throw Error(`Il n'y a pas de math-field d'id "Ex${this.numeroExercice}Q${i}L${j}C${k}" dans ce tableau !`)
-        const valeur = answer.expression
+        const answer = tableau.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}L${j}C${k}`)
+        if (answer == null) throw Error(`Il n'y a pas de math-field d'id "champTexteEx${this.numeroExercice}Q${i}L${j}C${k}" dans ce tableau !`)
         const divFeedback = tableau.querySelector(`div#divDuSmileyEx${this.numeroExercice}Q${i}L${j}C${k}`)
-        if (valeur) this.answers[`math-field#Ex${this.numeroExercice}Q${i}L${j}C${k}`] = String(valeur)
+        if (answer.value != null) this.answers[`Ex${this.numeroExercice}Q${i}L${j}C${k}`] = answer.value
         if (divFeedback) {
-          if (valeur.isEqual(ce.parse(this.autoCorrection[i].reponse[`L${j}C${k}`]))) {
+          if (ce.parse(answer.value).isSame(ce.parse(this.autoCorrection[i].reponse[`L${j}C${k}`]))) {
             divFeedback.innerHTML = divFeedback.innerHTML += '😎'
-            result.push('OK')
+            answer.classList.add('correct')
+            points++
+          //  result.push('OK')
           } else {
             divFeedback.innerHTML += '☹️'
-            result.push('KO')
+            answer.classList.add('incorrect')
+            //    result.push('KO')
           }
         }
       }
+    }
+    // un point seulement si tout est juste
+    if (points === 4) {
+      result.push('OK')
+    } else {
+      result.push('KO')
     }
     const developpements = this.autoCorrection[i].reponse.developpements
     const mfDevEclate = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i}`)
@@ -217,7 +223,7 @@ export default function TableDoubleDistributivite () {
     const spanReponseLigne1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i}`)
     this.answers[`Ex${this.numeroExercice}Q${2 * i}`] = mfDevEclate.value
     this.answers[`Ex${this.numeroExercice}Q${2 * i + 1}`] = mfDevReduit.value
-    if (ce.parse(developpements.eclate, { canonical: true }).isEqual(ce.parse(mfDevEclate.value, { canonical: true }))) {
+    if (ce.parse(developpements.eclate).simplify().isSame(ce.parse(mfDevEclate.value).simplify())) {
       if (spanReponseLigne1) {
         spanReponseLigne1.innerHTML = spanReponseLigne1.innerHTML += '😎'
         result.push('OK')

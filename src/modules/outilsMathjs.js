@@ -344,7 +344,7 @@ export function toTex (node, params = { suppr1: true, suppr0: true, supprPlusMoi
     )
   } while (node.toString() !== nodeClone.toString())
 
-  let nodeTex = node.toTex({ implicit: 'hide', parenthesis: 'keep', notation: 'fixed' }).replaceAll('\\cdot', '\\times').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
+  let nodeTex = node.toTex({ implicit: 'hide', parenthesis: 'keep', notation: 'fixed' }).replaceAll('\\cdot', '\\times ').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
 
   nodeTex = nodeTex.replace(/\s*?\+\s*?-\s*?/g, ' - ')
   // Mathjs ajoute de manière non contrôlée des \mathrm pour certaines ConstantNode

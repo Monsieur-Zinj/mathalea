@@ -159,14 +159,15 @@ export default function NotationPuissance () {
             enonce = `$${listeSignes[i]} ${produit}$`
             correction = `$${listeSignes[i]} ${produit} = ${puissance}$`
           }
-          this.sup === 3 ? texte = `Simplifier ${enonce} en utilisant la notation puissance` : texte = ''
+          this.sup === 3 ? texte = `Simplifier ${enonce} en utilisant la notation puissance` : texte = enonce
           texteCorr = correction
           setReponse(this, i, puissances, { formatInteractif: 'ignorerCasse' })
           break
         }
       }
 
-      texte += this.interactif ? ' : ' + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) : '.'
+      texte += this.interactif ? ' = ' + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) : ''
+      if (this.sup == 3) texte += '.'
 
       if (context.isAmc) {
         if (this.sup !== 3) this.titre = this.consigne

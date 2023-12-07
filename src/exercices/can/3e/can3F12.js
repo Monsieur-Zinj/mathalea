@@ -93,10 +93,13 @@ export default function AntecedentSpline () {
     const nbAntecedentsEntiersMaximum = theSpline.nombreAntecedentsMaximum(bornes.yMin, bornes.yMax, true, true)
 
     const nombreAntecedentCherches1 = choice([randint(1, nbAntecedentsEntiersMaximum), randint(0, nbAntecedentsEntiersMaximum), randint(1, nbAntecedentsEntiersMaximum)])
-    const y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
-
+    let y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
+    if (y1 == null) {
+      window.notify('Dans can3F12, Spline.trouveYPourNAntecedent fait encore des siennes je choisis une valeur intermédiaire')
+      y1 = Math.round((bornes.yMin + bornes.yMax) / 2)
+    }
     const solutions1 = theSpline.solve(y1)
-    const reponse1 = solutions1.length === 0 ? 'aucun' : `${solutions1.join(';')}`
+    const reponse1 = (!solutions1 || solutions1.length === 0) ? 'aucun' : `${solutions1.join(';')}`
     this.reponse = reponse1
     this.question = `Déterminer les antécédents éventuels de $${y1}$ par la fonction $f$.<br>` +
        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
@@ -107,7 +110,7 @@ export default function AntecedentSpline () {
 
     this.correction = `Déterminer les antécédents de $${y1}$ revient à déterminer les nombres qui ont pour image $${y1}$.<br>
     On part de $${y1}$ sur l'axe des ordonnées et on lit les antécédents (éventuels) sur l'axe des abscisses.<br>`
-    if (solutions1.length === 0) { this.correction += `Il n'y en a pas. <br> $${miseEnEvidence(y1)}$ ${texteEnCouleurEtGras('n\'a pas d\'antécédent par $\\boldsymbol{f}$')}.` } else { this.correction += `On en trouve $${solutions1.length}$ : $${miseEnEvidence(solutions1.join('\\,;\\,'))}$.` }
+    if (!solutions1 || solutions1.length === 0) { this.correction += `Il n'y en a pas. <br> $${miseEnEvidence(y1)}$ ${texteEnCouleurEtGras('n\'a pas d\'antécédent par $\\boldsymbol{f}$')}.` } else { this.correction += `On en trouve $${solutions1.length}$ : $${miseEnEvidence(solutions1.join('\\,;\\,'))}$.` }
 
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''

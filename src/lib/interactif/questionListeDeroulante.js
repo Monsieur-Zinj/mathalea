@@ -1,7 +1,5 @@
-import { gestionCan } from './gestionCan.js'
 import { addElement, get, setStyles } from '../html/dom.js'
 import { context } from '../../modules/context.js'
-import { afficheScore } from './gestionInteractif.js'
 
 export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** number */) {
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
@@ -15,6 +13,9 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
   if (eltFeedback) eltFeedback.innerHTML = ''
   let resultat
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  if (spanReponseLigne == null) {
+    window.notify('l\'exercice ayant appelé verifQuestionListeDeroulante() n\'a pas correctement défini le span pour le smiley', { exercice: JSON.stringify(exercice) })
+  }
   const optionsChoisies = document.querySelectorAll(`[id^=ex${exercice.numeroExercice}Q${i}]`)
   let reponses = []
   if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
@@ -38,57 +39,22 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
     if (Array.isArray(reponse)) {
       if (reponse.join('-') === saisie) {
         resultat = 'OK'
-        spanReponseLigne.innerHTML = '😎'
+        if (spanReponseLigne) spanReponseLigne.innerHTML = '😎'
       }
     } else {
       // Pour les exercices classiques, on compare directement
       if (reponse === saisie) {
         resultat = 'OK'
-        spanReponseLigne.innerHTML = '😎'
+        if (spanReponseLigne) spanReponseLigne.innerHTML = '😎'
       }
     }
   }
   if (resultat !== 'OK') {
-    spanReponseLigne.innerHTML = '☹️'
+    if (spanReponseLigne) spanReponseLigne.innerHTML = '☹️'
     resultat = 'KO'
   }
-  spanReponseLigne.style.fontSize = 'large'
+  if (spanReponseLigne) spanReponseLigne.style.fontSize = 'large'
   return resultat
-}
-
-/**
- * Lorsque l'évènement 'exercicesAffiches' est lancé par mathalea.js
- * on vérifie la présence du bouton de validation d'id btnValidationEx{i} créé par listeQuestionsToContenu
- * et on y ajoute un listenner pour vérifier les réponses cochées
- * @param {object} exercice
- */
-export function exerciceListeDeroulante (exercice) {
-  document.addEventListener('exercicesAffiches', () => {
-    // Couleur pour surligner les label avec une opacité de 50%
-    if (context.vue === 'can') {
-      gestionCan(exercice)
-    }
-    const button = document.querySelector(`#btnValidationEx${exercice.numeroExercice}-${exercice.id}`)
-    if (button) {
-      if (!button.hasMathaleaListener) {
-        button.addEventListener('click', () => {
-          let nbQuestionsValidees = 0
-          let nbQuestionsNonValidees = 0
-          const uiselects = document.querySelectorAll(`.ui.dropdown.ex${exercice.numeroExercice}`)
-          uiselects.forEach(function (uiselect) {
-            uiselect.classList.add('disabled')
-          })
-          button.classList.add('disabled')
-          for (let i = 0; i < exercice.nbQuestions; i++) {
-            const resultat = verifQuestionListeDeroulante(exercice, i)
-            resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
-          }
-          afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees)
-        })
-        button.hasMathaleaListener = true
-      }
-    }
-  })
 }
 
 /**
@@ -105,7 +71,7 @@ export function choixDeroulant (exercice, i, c = 0, choix, type = 'nombre', styl
   if (!exercice.interactif || !context.isHtml) return ''
   if (style) style = `style="${style}"`
 
-  let result = `<select class="ui fluid mx-2 dropdown ex${exercice.numeroExercice}" id="ex${exercice.numeroExercice}Q${i}S${c}" ${style} data-choix="${c}">
+  let result = `<select class="mx-2" id="ex${exercice.numeroExercice}Q${i}S${c}" ${style} data-choix="${c}">
       <option> Choisir ${type === 'nombre' ? 'un nombre' : type} </option>`
 
   for (const a of choix) {

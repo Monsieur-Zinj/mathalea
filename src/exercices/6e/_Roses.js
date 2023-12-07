@@ -351,7 +351,7 @@ export function ExoRose () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des facteurs', 30]
-  this.besoinFormulaire2Numerique = ['Nombre de facteur entre 3 et 9 (limité à 5 pour les valeurs fractionnaires ou littérales)']
+  this.besoinFormulaire2Numerique = ['Nombre de facteur entre 3 et 9 (limité à 5 pour les valeurs fractionnaires ou littérales)', 9]
   this.besoinFormulaire3Numerique = ['Type de questions', 4, '1 : Calculer les produits\n2 : Calculer les facteurs\n3 : Course aux nombres 1\n4 : Course aux nombres 2']
 
   this.correctionInteractive = i => {

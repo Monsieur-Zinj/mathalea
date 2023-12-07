@@ -57,12 +57,12 @@ export default function OperationsPosees () {
         this.contenu = Operation({ operande1: a, operande2: b, type: 'divisionE', precision: 0 })
         break
       case 5: // division
-        this.contenu = Operation({ operande1: a, operande2: b, type: 'division', precision: parseInt(this.sup3) })
+        this.contenu = Operation({ operande1: a, operande2: b, type: 'division', precision: this.sup3 })
         break
     }
     this.listeQuestions[0] = this.contenu
   }
   this.besoinFormulaireNumerique = ['Opération', 5, '1 : Addition\n2 : Soustraction\n3 : Multiplication\n4 : Division euclidienne\n5 : Division décimale']
   this.besoinFormulaire2Texte = ['Deux nombres séparés par un tiret(séparateur décimal = le point)']
-  this.besoinFormulaire3Numerique = ['Nombre de chiffres après la virgule pour le quotient']
+  this.besoinFormulaire3Numerique = ['Nombre de chiffres après la virgule pour le quotient (5 maximum)', 5]
 }

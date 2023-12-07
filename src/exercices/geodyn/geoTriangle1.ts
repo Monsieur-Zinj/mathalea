@@ -24,7 +24,7 @@ type Triangle = { label: string, a: number, b: number, c: number }
 class ConstructionTriangle extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
-  triangle: Triangle = { label: 'ABC', a: 3, b: 4, c: 50 }
+  triangle!: Triangle
   idApigeom!: string
   constructor () {
     super()
@@ -39,6 +39,7 @@ class ConstructionTriangle extends Exercice {
   nouvelleVersion (): void {
     this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: -7, yMin: -7, width: 800, height: 500, border: true })
+    this.triangle = { label: 'ABC', a: 3, b: 4, c: 50 }
     this.triangle.label = creerNomDePolygone(3)
     while (!isTriangle(this.triangle)) {
       this.triangle.a = randint(3, 10)
@@ -71,13 +72,13 @@ class ConstructionTriangle extends Exercice {
     let feedback = ''
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [string, string, string]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]
-    let { message, isValid } = this.figure.testDistance({ label1: labelA, label2: labelB, distance: c })
+    let { message, isValid } = this.figure.checkDistance({ label1: labelA, label2: labelB, distance: c })
     if (message) feedback += message + '<br>'
     resultat.push(isValid ? 'OK' : 'KO')
-    ;({ message, isValid } = this.figure.testDistance({ label1: labelB, label2: labelC, distance: a }))
+    ;({ message, isValid } = this.figure.checkDistance({ label1: labelB, label2: labelC, distance: a }))
     if (message) feedback += message + '<br>'
     resultat.push(isValid ? 'OK' : 'KO')
-    ;({ message, isValid } = this.figure.testDistance({ label1: labelC, label2: labelA, distance: b }))
+    ;({ message, isValid } = this.figure.checkDistance({ label1: labelC, label2: labelA, distance: b }))
     if (message) feedback += message + '<br>'
     resultat.push(isValid ? 'OK' : 'KO')
     if (resultat.every(r => r === 'OK')) {

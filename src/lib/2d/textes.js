@@ -222,7 +222,7 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
   ObjetMathalea2D.call(this, {})
   this.color = colorToLatexOrHTML(color)
   this.contour = false
-  this.taille = 10 * scale
+  this.taille = 14 * scale
   this.opacite = opacite
   this.couleurDeRemplissage = this.color
   this.opaciteDeRemplissage = this.opacite
@@ -237,7 +237,7 @@ export function TexteParPoint (texte, A, orientation = 'milieu', color = 'black'
       A.positionLabel = 'above'
     }
     this.svg = function (coeff) {
-      const latex = latexParPoint(texte.substring(1, texte.length - 1), A, this.color, texte.length * 8, 12, '', 6).svg(coeff)
+      const latex = latexParPoint(texte.substring(1, texte.length - 1), A, this.color, texte.length * 8, 12, '', 8).svg(coeff)
       return latex
     }
     this.tikz = function () {
@@ -584,6 +584,7 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
   else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
   else if (this.tailleCaracteres < 10) taille = '\\small'
   else taille = '\\normalsize'
+  taille = ''
   this.svg = function () {
     let divLatex
     if (this.colorBackground !== '') {

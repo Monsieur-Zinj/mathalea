@@ -8,10 +8,13 @@ import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 export const dateDeModifImportante = '04/11/2023'
 
 /**
@@ -43,10 +46,14 @@ export default function ReduireUneExpressionLitterale () {
 
     const typesDeQuestionsDisponibles = range1(7)
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const variables = ['x', 'y', 'z', 'a', 'b', 'c']
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a, b, c, d
       this.sup = Math.max(this.sup, 2)
+      const choixLettre = randint(0, variables.length - 1)
+      const inc = variables[choixLettre]
+      const inc2 = variables[randint(0, variables.length - 1, choixLettre)]
       if (this.sup2) {
         a = calculANePlusJamaisUtiliser(randint(2, this.sup) + randint(1, 9) / 10)
         b = choice([calculANePlusJamaisUtiliser(randint(2, 9) + randint(1, 9) / 10), calculANePlusJamaisUtiliser(randint(2, 9) + randint(1, 9) / 10 + randint(1, 9) / 100)])
@@ -61,29 +68,29 @@ export default function ReduireUneExpressionLitterale () {
       let reponse = ''
       switch (listeTypeDeQuestions[i]) {
         case 1: // ax+bx+c
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x+${texNombre(c)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}x+${texNombre(c)}=$`
-          reponse = `${texNombre(calculANePlusJamaisUtiliser(a + b))}x+${texNombre(c)}`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}+${texNombre(b)}${inc}+${texNombre(c)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}+${texNombre(b)}${inc}+${texNombre(c)}=`
+          reponse = `${texNombre(calculANePlusJamaisUtiliser(a + b))}${inc}+${texNombre(c)}`
           break
         case 2: // ax+b+x+c
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}+x+${texNombre(c)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}+x+${texNombre(c)}=$`
-          reponse = `${texNombre(calculANePlusJamaisUtiliser(a + 1))}x+${texNombre(calculANePlusJamaisUtiliser(b + c))}`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}+${texNombre(b)}+${inc}+${texNombre(c)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}+${texNombre(b)}+${inc}+${texNombre(c)}=`
+          reponse = `${texNombre(calculANePlusJamaisUtiliser(a + 1))}${inc}+${texNombre(calculANePlusJamaisUtiliser(b + c))}`
           break
         case 3: // ax^2+bx+c+dx^2+x
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x^2+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}x^2+x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x^2+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}x^2+x=$`
-          reponse = `${texNombre(calculANePlusJamaisUtiliser(a + d))}x^2+${texNombre(calculANePlusJamaisUtiliser(b + 1))}x+${texNombre(c)}`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}^2+${texNombre(b)}${inc}+${texNombre(c)}+${texNombre(d)}${inc}^2+${inc}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}^2+${texNombre(b)}${inc}+${texNombre(c)}+${texNombre(d)}${inc}^2+${inc}=`
+          reponse = `${texNombre(calculANePlusJamaisUtiliser(a + d))}${inc}^2+${texNombre(calculANePlusJamaisUtiliser(b + 1))}${inc}+${texNombre(c)}`
           break
         case 4: // a+x+b+c+dx
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+x+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}x=$`
-          reponse = `${texNombre(1 + d)}x+${texNombre(a + b + c)}`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+${inc}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}${inc}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}+${inc}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}${inc}=`
+          reponse = `${texNombre(1 + d)}${inc}+${texNombre(a + b + c)}`
           break
         case 5: // ax+y+bx+c+dy
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+y+${texNombre(b)}x+${texNombre(c)}+${texNombre(d)}y=$`
-          reponse = `${texNombre(a + b)}x+${texNombre(1 + d)}y+${texNombre(c)}`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}+${inc2}+${texNombre(b)}${inc}+${texNombre(c)}+${texNombre(d)}${inc2}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}+${inc2}+${texNombre(b)}${inc}+${texNombre(c)}+${texNombre(d)}${inc2}=`
+          reponse = `${texNombre(a + b)}${inc}+${texNombre(1 + d)}${inc2}+${texNombre(c)}`
           break
         case 6: // ax+b-cx
           if (c > a) {
@@ -91,9 +98,9 @@ export default function ReduireUneExpressionLitterale () {
           } else if (c === a) {
             a++
           }
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}-${texNombre(c)}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x+${texNombre(b)}-${texNombre(c)}x=$`
-          reponse = `${rienSi1(a - c)}x+${texNombre(b)}`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}+${texNombre(b)}-${texNombre(c)}${inc}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}+${texNombre(b)}-${texNombre(c)}${inc}=`
+          reponse = `${rienSi1(a - c)}${inc}+${texNombre(b)}`
           break
         case 7: // ax-cx
           if (c > a) {
@@ -101,17 +108,30 @@ export default function ReduireUneExpressionLitterale () {
           } else if (c === a) {
             a++
           }
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x-${texNombre(c)}x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}x-${texNombre(c)}x=$`
-          reponse = `${rienSi1(a - c)}x`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}-${texNombre(c)}${inc}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a)}${inc}-${texNombre(c)}${inc}=`
+          reponse = `${rienSi1(a - c)}${inc}`
           break
       }
-      texteCorr += `$${sp()}${miseEnEvidence(reponse)}$`
+      texteCorr += `${sp()}${miseEnEvidence(reponse)}$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${sp()} = $` })
       setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppeeParEE' })
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: 'Réduire l\'expression ' + texte + '.',
+            propositions: [
+              {
+                texte: texteCorr,
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                pointilles: false // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+              }
+            ]
+          }
+        }
         i++
       }
       cpt++

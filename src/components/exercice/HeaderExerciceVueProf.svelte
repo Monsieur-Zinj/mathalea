@@ -8,6 +8,7 @@
   import refProfs from '../../json/referentielProfs.json'
   import { toMap } from '../utils/toMap'
   import { mathaleaGenerateSeed } from '../../lib/mathalea'
+
   // paramètres obligatoires
   export let title: string | undefined
   export let id: string
@@ -75,11 +76,15 @@
   }
 
   function duplicate () {
-    console.log($exercicesParams)
+    // console.log($exercicesParams)
     exercicesParams.update((l) => {
       const newExercice = { ...l[indiceExercice] }
       newExercice.alea = mathaleaGenerateSeed()
-      return [...l.slice(0, indiceExercice + 1), newExercice, ...l.slice(indiceExercice + 1)]
+      return [
+        ...l.slice(0, indiceExercice + 1),
+        newExercice,
+        ...l.slice(indiceExercice + 1)
+      ]
     })
   }
 </script>
@@ -130,14 +135,16 @@
         {/if}
       </div>
       <div
-        class="flex flex-row font-normal items-center text-sm md:text-base xl:text-lg pl-0
+        id="exotitle-{indiceExercice}"
+        class="flex flex-row justify-start whitespace-pre text-start font-normal items-center text-sm md:text-base xl:text-lg pl-0
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
       >
         {#if titleAddendum}
           {titleBase}<span
             class="ml-2 rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm"
-            >{titleAddendum}</span
           >
+            {titleAddendum}
+          </span>
         {:else}
           {titleBase}
         {/if}
@@ -223,8 +230,15 @@
             />
           </button>
         {/if}
-        <button class="mx-2 tooltip tooltip-left tooltip-neutral" data-tip="Dupliquer l'exercice" type="button" on:click={duplicate}>
-          <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-duplicate" />
+        <button
+          class="mx-2 tooltip tooltip-left tooltip-neutral"
+          data-tip="Dupliquer l'exercice"
+          type="button"
+          on:click={duplicate}
+        >
+          <i
+            class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-duplicate"
+          />
         </button>
         {#if isDeletable}
           <button
@@ -265,6 +279,3 @@
     </div>
   </h1>
 </div>
-
-<style>
-</style>

@@ -21,7 +21,7 @@
    * -- encodage du contenu du code LaTeX de la feuille d'exercices
    */
   async function copyDocumentToOverleaf () {
-    const contents = latex.getContents(
+    const contents = await latex.getContents(
       latexFileInfos.style,
       latexFileInfos.nbVersions
     )
@@ -58,10 +58,7 @@
   ```
  -->
 
-<div
-  class="flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center"
->
-  <form method="POST" action="https://www.overleaf.com/docs" target="_blank">
+  <form class={`${$$props.class || 'flex flex-col md:flex-row mx-4 pb-4 md:pb-8 md:space-x-4 space-y-3 justify-center md:justify-start items-center'}`} method="POST" action="https://www.overleaf.com/docs" target="_blank">
     {#each imagesUrls as imageUrl}
       <input
         type="hidden"
@@ -98,7 +95,6 @@
         ? 'px-2 py-1 rounded-md text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action-lightest  dark:bg-coopmathsdark-action-lightest '
         : 'px-2 py-1 rounded-md text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest'}
     >
-      Compiler en PDF sur Overleaf.com
+      Aller sur Overleaf
     </button>
   </form>
-</div>

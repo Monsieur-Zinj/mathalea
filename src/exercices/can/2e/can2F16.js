@@ -4,7 +4,7 @@ import { spline } from '../../../lib/mathFonctions/Spline.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
 import Exercice from '../../Exercice.js'
 export const dateDePublication = '27/10/2023'
 export const interactifReady = true
@@ -117,7 +117,7 @@ export default function EquationsGSpline () {
 
     this.correction = `Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite  d'équation $y = ${y1}$ (parallèle à l'axe des abscisses).`}<br>
     On en déduit : ${solutions1.length === 0 ? `$S=${miseEnEvidence('\\emptyset')}$.` : `$S=\\{${miseEnEvidence(solutions1.join('\\,;\\,'))}\\}$.`}<br>`
-       this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }
 }

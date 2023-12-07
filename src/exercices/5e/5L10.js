@@ -1,8 +1,7 @@
-import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { range1 } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 export const amcReady = true
@@ -12,7 +11,7 @@ export const interactifType = 'qcm'
 
 export const titre = 'Écrire une expression littérale'
 
-export const dateDeModifImportante = '11/05/2022'
+export const dateDeModifImportante = '19/11/2023'
 
 /**
 * Écrire une expression littérale à partir d'une phrase :
@@ -23,34 +22,38 @@ export const dateDeModifImportante = '11/05/2022'
 * * Nombre pair, nombre impair, multiple d'un nombre donné
 * @author Rémi Angot
 * Ajout de la possibilité de ne pas poser de question sur l'inverse d'un nombre par Guillaume Valmont le 11/05/2022
-* 5L10
+* Ajout de la possibilité de choisir séparément chaque cas par Eric Elter le 19/11/2023
 */
 export const uuid = '3c1f7'
 export const ref = '5L10'
 export default function ÉcrireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
   this.besoinFormulaireCaseACocher = ['Inclure l\'inverse d\'un nombre']
   this.sup = true
+  this.sup2 = 19
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    let typeDeQuestionsDisponibles = range1(17)
-    if (!this.sup) typeDeQuestionsDisponibles = range1(17, [10])
-    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      max: 18,
+      defaut: 19,
+      melange: 19,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup2,
+      exclus: this.sup ? [] : [10] // Pour le choix qui existait précédemment de pouvoir supprimer l'inverse de la liste
+    })
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       const lettresDisponibles = ['x', 'y', 'z', 't', 'a', 'b', 'c', 'n', 'm']
       const x = choice(lettresDisponibles)
-      enleveElement(lettresDisponibles, x)
-      const y = choice(lettresDisponibles)
+      const y = choice(lettresDisponibles, x)
       const k = randint(2, 10)
       switch (listeTypeDeQuestions[i]) {
         case 1: // 2x
@@ -214,12 +217,12 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$${x}+${x}$`,
               statut: false,
-              feedback: "Le double est rarement le suivant. En fait, ça n'arrive que pour 1"
+              feedback: "Le double est rarement le suivant. En fait, ça n'arrive que pour 1."
             },
             {
               texte: `$2${x}$`,
               statut: false,
-              feedback: "Le double est rarement le suivant. En fait, ça n'arrive que pour 1"
+              feedback: "Le double est rarement le suivant. En fait, ça n'arrive que pour 1."
             },
             {
               texte: `$${x}-1$`,
@@ -255,7 +258,7 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$${x}-${x}$`,
               statut: false,
-              feedback: 'Cela fait zéro, il me semble... donc ça ne fonctionne que pour 1'
+              feedback: 'Cela fait zéro, il me semble... donc ça ne fonctionne que pour 1.'
             },
             {
               texte: `$-1${x}$`,
@@ -312,12 +315,12 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$${x}${x}${x}$`,
               statut: true,
-              feedback: 'Correct, mais non simplifié'
+              feedback: 'Correct, mais non simplifié.'
             },
             {
               texte: `$${x}\\times ${x}\\times ${x}$`,
               statut: true,
-              feedback: 'Correct, mais non simplifié'
+              feedback: 'Correct, mais non simplifié.'
             },
             {
               texte: `$${x}^3$`,
@@ -348,12 +351,12 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$-${x}$`,
               statut: true,
-              feedback: 'Correct, mais non simplifié'
+              feedback: 'Correct !'
             },
             {
               texte: `$-1\\times ${x}$`,
               statut: true,
-              feedback: 'Correct, mais non simplifié'
+              feedback: 'Correct, mais non simplifié.'
             },
             {
               texte: `$${x}-1$`,
@@ -485,7 +488,7 @@ export default function ÉcrireUneExpressionLitterale () {
             }
           ]
           break
-        case 13: // x/k
+        case 15: // x/k
           texte = `Exprimer le quotient de $${x}$ par ${k} en fonction de $${x}$.`
           texteCorr = `Le quotient de $${x}$ par ${k} peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(x, k)}`)}$.`
           this.autoCorrection[i].propositions = [
@@ -502,7 +505,7 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$${k}\\div ${x}$`,
               statut: false,
-              feedback: "C'est l'inverse"
+              feedback: "C'est l'inverse."
             },
             {
               texte: `$${x}\\times ${k}$`,
@@ -523,7 +526,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 14: // k/x
           texte = `Exprimer le quotient de ${k} par $${x}$ en fonction de $${x}$.`
-          texteCorr = `Le quotient de ${k} par $${x}$ peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(k,x)}`)}$.`
+          texteCorr = `Le quotient de ${k} par $${x}$ peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(k, x)}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${k}\\div ${x}$`,
@@ -538,7 +541,7 @@ export default function ÉcrireUneExpressionLitterale () {
             {
               texte: `$${x}\\div ${k}$`,
               statut: false,
-              feedback: "C'est l'inverse"
+              feedback: "C'est l'inverse."
             },
             {
               texte: `$${k}\\times ${x}$`,
@@ -557,7 +560,7 @@ export default function ÉcrireUneExpressionLitterale () {
             }
           ]
           break
-        case 15: // xy
+        case 13: // xy
           texte = `Comment peut se noter le produit de $${x}$ par $${y}$ ?`
           texteCorr = `Le produit de $${x}$ par $${y}$ peut se noter $${miseEnEvidence(`${x}${y}`)}$.`
           this.autoCorrection[i].propositions = [
@@ -595,7 +598,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 16: // pair
           texte = 'Écrire une expression littérale qui permet de représenter un nombre pair.'
-          texteCorr = `Un nombre pair peut s\'écrire sous la forme $${miseEnEvidence(`2n`)}$ avec $n$ un entier naturel.`
+          texteCorr = `Un nombre pair peut s'écrire sous la forme $${miseEnEvidence('2n')}$ avec $n$ un entier naturel.`
           this.autoCorrection[i].propositions = [
             {
               texte: '$2n$',
@@ -631,7 +634,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 17: // impair
           texte = 'Écrire une expression littérale qui permet de représenter un nombre impair.'
-          texteCorr = `Un nombre impair peut s\'écrire sous la forme $${miseEnEvidence(`2n+1`)}$ avec $n$ un entier naturel.`
+          texteCorr = `Un nombre impair peut s'écrire sous la forme $${miseEnEvidence('2n+1')}$ avec $n$ un entier naturel.`
           this.autoCorrection[i].propositions = [
             {
               texte: '$2n+1$',
@@ -715,4 +718,27 @@ export default function ÉcrireUneExpressionLitterale () {
     }
     listeQuestionsToContenu(this)
   }
+  this.besoinFormulaire2Texte = ['Type de questions', [
+    'Nombres séparés par des tirets',
+    ' 1 : Double',
+    ' 2 : Triple',
+    ' 3 : Moitié',
+    ' 4 : Quart',
+    ' 5 : Entier suivant',
+    ' 6 : Entier précédent',
+    ' 7 : Carré',
+    ' 8 : Cube',
+    ' 9 : Opposé',
+    '10 : Inverse',
+    '11 : Somme de deux nombres',
+    '12 : Produit de deux nombres V1',
+    '13 : Produit de deux nombres V2',
+    '14 : Quotient de deux nombres V1',
+    '15 : Quotient de deux nombres V2',
+    '16 : Nombre pair',
+    '17 : Nombre impair',
+    '18 : Multiple',
+    '19 : Mélange'
+  ].join('\n')
+  ]
 }

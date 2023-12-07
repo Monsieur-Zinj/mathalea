@@ -2,6 +2,7 @@ import preambule from '../lib/latex/preambule.tex?raw'
 import TypeExercice from '../exercices/ExerciceTs.js'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
+import { printPrettier } from 'prettier-plugin-latex/standalone.js'
 
 export interface Exo {
   content?: string
@@ -182,7 +183,7 @@ class Latex {
     return content
   }
 
-  getContents (style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can', nbVersions: number = 1, title: string = '', subtitle: string = '', reference: string = ''): { content: string; contentCorr: string } {
+  async getContents (style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can', nbVersions: number = 1, title: string = '', subtitle: string = '', reference: string = ''): Promise<{ content: string; contentCorr: string }> {
     const contents = { content: '', contentCorr: '' }
     if (style === 'ProfMaquette') {
       for (let i = 1; i < nbVersions + 1; i++) {
@@ -221,10 +222,12 @@ class Latex {
         contents.contentCorr += contentVersion.contentCorr
       }
     }
+    contents.content = await printPrettier(contents.content)
+    contents.contentCorr = await printPrettier(contents.contentCorr)
     return contents
   }
 
-  getFile ({
+  async getFile ({
     title,
     reference,
     subtitle,
@@ -237,7 +240,7 @@ class Latex {
     style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
     nbVersions: number
   }) {
-    const contents = this.getContents(style, nbVersions, title, subtitle, reference)
+    const contents = await this.getContents(style, nbVersions, title, subtitle, reference)
     const content = contents.content
     const contentCorr = contents.contentCorr
     let result = ''
@@ -268,6 +271,13 @@ class Latex {
         result += '\n\\usepackage{pst-node,pst-all}'
         result += '\n\\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}'
       }
+      const [latexCmds, latexPackages] = this.getContentLatex()
+      for (const pack of latexPackages){
+        result += '\n\\usepackage{' + pack + '}'
+      }
+      for (const cmd of latexCmds){
+        result += '\n' + cmd.replace('cmd','')
+      }
       result += '\n\\begin{document}'
       result += content
     } else {
@@ -281,7 +291,32 @@ class Latex {
     }
     return result
   }
+
+  getContentLatex(){
+    const packLatex  : string[] =[]
+    for (const exo of this.exercices) {
+      if (typeof exo.listePackages === "string")  {
+        packLatex.push(exo.listePackages)
+      }else{
+        packLatex.push(...exo.listePackages)
+      }
+    }
+    const packageFiltered : string[] = packLatex.filter((value, index, array) => array.indexOf(value) === index)
+
+    //let latexCmd = packageFiltered.filter((value, index, array) => value.startsWith('cmd'))
+    //let latexPackages = packageFiltered.filter((value, index, array) => value.startsWith('cmd'))
+
+    const [latexCmds, latexPackages] =   packageFiltered.reduce((result: [string[],string[]], element : string) => {
+      result[element.startsWith('cmd') ? 0 : 1].push(element); 
+      return result;
+    },
+    [[], []]) 
+
+    return [latexCmds, latexPackages]
+  }
 }
+
+
 
 function writeIntroduction (introduction = ''): string {
   let content = ''

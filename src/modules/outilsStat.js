@@ -551,7 +551,7 @@ function texteTirages2D (nombreDes, nombreTirages, nombreFaces, tirages, aveclam
       titre: 'Vocabulaire',
       texte: `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.`,
       couleur: 'nombres'
-    }) + '<br>'
+    }) 
     : ''
   texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>'
   texte += desTabEffCumul(tirages, false) + '<br>'

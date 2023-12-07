@@ -94,6 +94,8 @@ export const transitionsBetweenQuestions =
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
 
+export const capytaleMode = writable<'none'|'create' | 'assignment' | 'review' | 'view'>('none')
+
 // sauvegarde des résultats des exercices
 export const resultsByExercice = writable<InterfaceResultExercice[]>([])
 

@@ -79,6 +79,9 @@ export function tableauDeVariation ({
          * @returns {string}
          */
     const latexContent = function (text) {
+      if (text == null || typeof text !== 'string') {
+       return false // c'est sortieTexte() qui va faire le signalement.
+      }
       if (text[0] === '$') text = text.substring(1, text.length - 1)
       return text
     }
@@ -968,13 +971,16 @@ export function chercheMinMaxFonction ([a, b, c, d]) {
  * @param {{antVal:number, antTex:string, imgVal:number, imgTex:string}[]} [options.substituts] valeur à remplacer dans le tableau (valeur au centième)
  * @param {number|FractionEtendue} [options.step] // pas de balayage pour trouver les solutions de f(x)=0
  * @param {number|FractionEtendue} [options.tolerance] // écart maximum à zéro pour assimiler f(x) à zéro
- * @returns {string}
+ * @param {string} [options.nomVariable] // ce qui est écrit dans l'entête de la première ligne 'x' par défaut
+ * @returns {string} [options.nomFonction] // ce  qui est écrit dans l'entête de la deuxième ligne 'f(x)' par défaut
  */
-export function tableauSignesFonction (fonction, xMin, xMax, { substituts, step, tolerance } = {
-  substituts: null,
-  step: fraction(1, 1000),
-  tolerance: 0.005
-}) {
+export function tableauSignesFonction (fonction, xMin, xMax, {
+  substituts = [],
+  step = fraction(1, 1000),
+  tolerance = 0.005,
+  nomVariable = 'x',
+  nomFonction = 'f(x)'
+} = {}) {
   const signes = signesFonction(fonction, xMin, xMax, step, tolerance)
   const premiereLigne = []
   for (let i = 0; i < signes.length; i++) {
@@ -1007,7 +1013,7 @@ export function tableauSignesFonction (fonction, xMin, xMax, { substituts, step,
   return tableauDeVariation({
     tabInit: [
       [
-        ['x', 2, 10], ['f(x)', 2, 10]
+        [nomVariable, 2, 10], [nomFonction, 2, 10]
       ],
       premiereLigne
     ],
@@ -1025,24 +1031,25 @@ export function tableauSignesFonction (fonction, xMin, xMax, { substituts, step,
  * @param {function} derivee
  * @param {number|FractionEtendue} xMin
  * @param {number|FractionEtendue} xMax
- * @param {boolean} latex // mettre true si des substituts latex sont utilisés
- * @param {{antVal: number, antTex: string, imgVal: number, imgTex: string}[]} substituts
- * @param {number|FractionEtendue} step // pas de balayage pour trouver les solutions de f'(x)=0
- * @param {number|FractionEtendue} tolerance la valeur en dessous de laquelle les images sont considérées comme des zéros
- * @param {boolean} ligneDerivee Mettre à true pour faire apparaître la ligne de f'
+ * @param {object} options
+ * @param {{antVal: number, antTex: string, imgVal: number, imgTex: string}[]} [options.substituts]
+ * @param {number|FractionEtendue} [options.step] // pas de balayage pour trouver les solutions de f'(x)=0
+ * @param {number|FractionEtendue} [options.tolerance]tolerance la valeur en dessous de laquelle les images sont considérées comme des zéros
+ * @param {boolean} [options.ligneDerivee] Mettre à true pour faire apparaître la ligne de f'
+ * @param {string} [options.nomVariable] 'x' par défaut
+ * @param {string} [options.nomFonction] 'f(x)' par défaut
+ * @param {string} [options.nomDerivee] 'f′(x)' par défaut
  * @returns {string}
  */
 export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
-  substituts,
-  step,
-  tolerance,
-  ligneDerivee
-} = {
-  step: fraction(1, 1000),
-  tolerance: 0.005,
-  ligneDerivee: false,
-  substituts: []
-}) {
+  substituts = [],
+  step = fraction(1, 1000),
+  tolerance = 0.005,
+  ligneDerivee = false,
+  nomVariable = 'x',
+  nomFonction = 'f(x)',
+  nomDerivee = 'f′(x)'
+} = {}) {
   const signes = signesFonction(derivee, xMin, xMax, step, tolerance).filter((signe) => signe.xG !== signe.xD)
   const premiereLigne = []
   const initalValue = []
@@ -1119,10 +1126,10 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
     tabInit: [
       ligneDerivee
         ? [
-            ['x', 3, 10], ['f′(x)', 3, 10], ['f(x)', 3, 10]
+            [nomVariable, 3, 10], [nomDerivee, 3, 10], [nomFonction, 3, 10]
           ]
         : [
-            ['x', 3, 10], ['f(x)', 3, 10]
+            [nomVariable, 3, 10], [nomFonction, 3, 10]
           ],
       premiereLigne
     ],

@@ -58,19 +58,19 @@ class ConstructionCarre2 extends Exercice {
     let feedback = ''
     // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le triangle est tracé)
     const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
-    const { isValid, message } = this.figure.testAngle({ angle: 90, label1: 'A', label2: 'B', label3: 'C' })
+    const { isValid, message } = this.figure.checkAngle({ angle: 90, label1: 'A', label2: 'B', label3: 'C' })
     resultat.push(isValid ? 'OK' : 'KO')
     if (message !== '') { feedback += message + '<br>' }
-    const { isValid: isValid2, message: message2 } = this.figure.testAngle({ angle: 90, label1: 'B', label2: 'C', label3: 'D' })
+    const { isValid: isValid2, message: message2 } = this.figure.checkAngle({ angle: 90, label1: 'B', label2: 'C', label3: 'D' })
     resultat.push(isValid2 ? 'OK' : 'KO')
     if (message2 !== '') { feedback += message2 + '<br>' }
-    const { isValid: isValid3, message: message3 } = this.figure.testAngle({ angle: 90, label1: 'C', label2: 'D', label3: 'A' })
+    const { isValid: isValid3, message: message3 } = this.figure.checkAngle({ angle: 90, label1: 'C', label2: 'D', label3: 'A' })
     resultat.push(isValid3 ? 'OK' : 'KO')
     if (message3 !== '') { feedback += message3 + '<br>' }
-    const { isValid: isValid4, message: message4 } = this.figure.testDistance({ distance: this.cote, label1: 'A', label2: 'B' })
+    const { isValid: isValid4, message: message4 } = this.figure.checkDistance({ distance: this.cote, label1: 'A', label2: 'B' })
     resultat.push(isValid4 ? 'OK' : 'KO')
     if (message4 !== '') { feedback += message4 + '<br>' }
-    const { isValid: isValid5, message: message5 } = this.figure.testDistance({ distance: this.cote, label1: 'B', label2: 'C' })
+    const { isValid: isValid5, message: message5 } = this.figure.checkDistance({ distance: this.cote, label1: 'B', label2: 'C' })
     resultat.push(isValid5 ? 'OK' : 'KO')
     if (message5 !== '') { feedback += message5 + '<br>' }
     if (isValid && isValid2 && isValid3 && isValid4 && isValid5) {

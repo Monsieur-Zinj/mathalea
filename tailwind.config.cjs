@@ -18,7 +18,8 @@ const flipclass = plugin(function ({ addUtilities }) {
 })
 const config = {
   darkMode: 'class',
-  content: ['./src/**/*.{html,js,svelte,ts}'],
+  content: ['./src/**/*.{html,js,svelte,ts}',
+    './node_modules/tw-elements/dist/js/**/*.js'],
   safelist: [
     {
       pattern: /grid-cols-./,
@@ -209,6 +210,7 @@ const config = {
     ]
   },
   plugins: [
+    require('tw-elements/dist/plugin.cjs'),
     require('daisyui'),
     // Pour les tooltips
     require('@tailwindcss/forms'),

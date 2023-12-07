@@ -22,6 +22,7 @@ import { decrypt, isCrypted } from '../components/utils/urls.js'
 import type { InterfaceGlobalOptions, InterfaceParams } from './types.js'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
 import { setReponse } from './interactif/gestionInteractif'
+import type { MathfieldElement } from 'mathlive'
 
 function getExerciceByUuid (root: object, targetUUID: string): object | null {
   if ('uuid' in root) {
@@ -224,7 +225,7 @@ export function mathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
   const params = get(globalOptions)
   zoom = zoom ?? Number(params.z)
 
-  if (zoom !== -1) {
+  if (zoom !== -1 && div != null) {
     const qcms = div.querySelectorAll<HTMLElement>('.monQcm')
     for (const qcm of qcms) {
       qcm.style.fontSize = `${zoom}px`
@@ -236,8 +237,10 @@ export function mathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
     const figures = div.querySelectorAll<SVGElement>('.mathalea2d')
     for (const figureElement of figures) {
       const figure = figureElement
-      if (!figure.dataset.widthInitiale) figure.dataset.widthInitiale = figure.getAttribute('width')
-      if (!figure.dataset.heightInitiale) figure.dataset.heightInitiale = figure.getAttribute('height')
+      const width = figure.getAttribute('width')
+      const height = figure.getAttribute('height')
+      if (!figure.dataset.widthInitiale && width != null) figure.dataset.widthInitiale = width
+      if (!figure.dataset.heightInitiale && height != null) figure.dataset.heightInitiale = height
       figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
       figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
     }
@@ -531,6 +534,36 @@ export function mathaleaHandleComponentChange (oldComponent: string, newComponen
     l.v = newComponent
     return l
   })
+}
+
+export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: string }) {
+  for (const answer in answers) {
+    // La réponse correspond à un champs texte
+    const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
+    if (field !== null) {
+      if ('setValue' in field) {
+        // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
+        field.setValue(answers[answer])
+      }
+    } else {
+      // La réponse correspond à une case à cocher qui doit être cochée
+      const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
+      if (checkBox !== null && answers[answer] === '1') {
+        checkBox.checked = true
+      } else {
+      // La réponse correspond à une liste déroulante
+        const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
+        if (select !== null) {
+          select.value = answers[answer]
+        }
+      }
+    }
+    if (answer.includes('apigeom')) {
+      // La réponse correspond à une figure
+      const event = new CustomEvent(answer, { detail: answers[answer] })
+      document.dispatchEvent(event)
+    }
+  }
 }
 
 /**

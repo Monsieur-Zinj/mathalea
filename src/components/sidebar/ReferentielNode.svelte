@@ -7,6 +7,7 @@
     type JSONReferentielObject
   } from '../../lib/types/referentiels'
   import { codeToLevelTitle } from '../utils/refUtils'
+  import codeToLevelList from '../../json/codeToLevelList.json'
   import { toMap } from '../utils/toMap'
   import themesList from '../../json/levelsThemesList.json'
   const themes = toMap(themesList)
@@ -20,6 +21,7 @@
   export let levelTitle: string
   export let pathToThisNode: string[]
   $: items = prepareSubset(subset)
+  const levels = Object.keys(codeToLevelList)
 
   /**
    * Recherche dans la liste des thèmes si le thème est référencé
@@ -41,8 +43,26 @@
    * afin de commencer par l'année la plus récente
    */
   function prepareSubset (s: JSONReferentielObject) {
-    if (pathToThisNode.length !== 0 && pathToThisNode[pathToThisNode.length - 1].includes('année')) {
-      return Object.entries(s).reverse()
+    if (pathToThisNode.length !== 0) {
+      // classement entrées CAN
+      if (pathToThisNode[pathToThisNode.length - 1].includes('CAN')) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
+          return levels.indexOf(keyA) - levels.indexOf(keyB)
+        })
+      }
+      // classement des entrées par années décroissantes
+      if (pathToThisNode[pathToThisNode.length - 1].includes('année')) {
+        return Object.entries(s).reverse()
+      }
+      // classement des thèmes dans l'ordre alphabétique
+      if (pathToThisNode[pathToThisNode.length - 1].includes('thèmes')) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
+          return keyA.localeCompare(keyB, 'fr')
+        })
+      }
+      return Object.entries(s)
     } else {
       return Object.entries(s)
     }

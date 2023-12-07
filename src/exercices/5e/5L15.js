@@ -3,8 +3,18 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 
 export const titre = 'Tester une égalité'
+export const dateDeModifImportante = '18/11/2023'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
 * Tester une égalité pour 2 valeurs données (une vraie et une fausse)
@@ -14,19 +24,17 @@ export const titre = 'Tester une égalité'
 * * ax+b=(a+1)x-c
 * * a-2x=b+2x
 * @author Rémi Angot
-* 5L15
 */
 export const uuid = 'd88d6'
 export const ref = '5L15'
 export default function TesterUneEgalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = false
+  this.sup3 = 2
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -35,11 +43,10 @@ export default function TesterUneEgalite () {
 
     let typesDeQuestionsDisponibles // = range1(5)
 
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    if (this.sup2 === false) { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] } else { typesDeQuestionsDisponibles = [6, 7, 3] }
+    if (!this.sup2) { typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] } else { typesDeQuestionsDisponibles = [6, 7, 3] }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, expression, rep1, rep2, rep3, rep4, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let a, b, c, d, x1, x2, x3
       switch (listeTypeDeQuestions[i]) {
         case 1: // 3x-a=2x+b   x=a+b
@@ -54,14 +61,17 @@ export default function TesterUneEgalite () {
             x2 = a + b
             x1 = randint(-10, 10, [0, x2])
           }
-
-          texte = `Tester l'égalité $${sp(2)}3x-${ecritureParentheseSiNegatif(a)}=2x+${ecritureParentheseSiNegatif(b)}${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$.`
+          expression = `$${sp(2)}3x-${ecritureParentheseSiNegatif(a)}=2x+${ecritureParentheseSiNegatif(b)}${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$3x-${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a)}=${3 * x1 - a}$ <br> $2x+${ecritureParentheseSiNegatif(b)}=2\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)}=${2 * x1 + b}$<br>`
-          texteCorr += `$${3 * x1 - a}\\not=${2 * x1 + b}$ donc l'égalité n'est pas vraie.<br><br>`
+          texteCorr += `D'une part, $3x-${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(3 * x1 - a)}$. <br>D'autre part,  $2x+${ecritureParentheseSiNegatif(b)}=2\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(2 * x1 + b)}$.<br>`
+          texteCorr += `$${3 * x1 - a}\\not=${2 * x1 + b}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.<br><br>`
           texteCorr += `Pour $x=${ecritureParentheseSiNegatif(x2)}$ : <br>`
-          texteCorr += `$3x-${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a)}=${3 * x2 - a}$ <br> $2x+${ecritureParentheseSiNegatif(b)}=2\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)}=${2 * x2 + b}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.'
+          texteCorr += `D'une part, $3x-${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(3 * x2 - a)}$. <br>D'autre part,  $2x+${ecritureParentheseSiNegatif(b)}=2\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(2 * x2 + b)}$.<br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.`
+          rep1 = 3 * x1 - a
+          rep2 = 2 * x1 + b
+          rep3 = 3 * x2 - a
+          rep4 = 3 * x2 - a
           break
         case 2: // 3x+a=5x-b   x=(a+b)/2 donc a et b impairs pour une solution entière
           if (this.sup === 1) {
@@ -75,14 +85,17 @@ export default function TesterUneEgalite () {
             x1 = parseInt(calculANePlusJamaisUtiliser((a + b) / 2))
             x2 = randint(-9, 9, [0, x1])
           }
-
-          texte = `Tester l'égalité $${sp(2)}3x+${ecritureParentheseSiNegatif(a)}=5x-${ecritureParentheseSiNegatif(b)}${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$.`
+          expression = `$${sp(2)}3x+${ecritureParentheseSiNegatif(a)}=5x-${ecritureParentheseSiNegatif(b)}${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$3x+${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(a)}=${3 * x1 + a}$ <br> $5x-${ecritureParentheseSiNegatif(b)}=5\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b)}=${5 * x1 - b}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
+          texteCorr += `D'une part, $3x+${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(3 * x1 + a)}$. <br>D'autre part, $5x-${ecritureParentheseSiNegatif(b)}=5\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(5 * x1 - b)}$.<br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
-          texteCorr += `$3x+${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(a)}=${3 * x2 + a}$ <br> $5x-${ecritureParentheseSiNegatif(b)}=5\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(b)}=${5 * x2 - b}$<br>`
-          texteCorr += `$${3 * x2 + a}\\not=${5 * x2 - b}$ donc l'égalité n'est pas vraie.`
+          texteCorr += `D'une part, $3x+${ecritureParentheseSiNegatif(a)}=3\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(3 * x2 + a)}$. <br>D'autre part, $5x-${ecritureParentheseSiNegatif(b)}=5\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(5 * x2 - b)}$.<br>`
+          texteCorr += `$${3 * x2 + a}\\not=${5 * x2 - b}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.`
+          rep1 = 3 * x1 + a
+          rep2 = 5 * x1 - b
+          rep3 = 3 * x2 + a
+          rep4 = 5 * x2 - b
           break
         case 3: // 10(x-a)=4(2x+b) x=(10a+4b)/2
           if (this.sup === 1) {
@@ -96,14 +109,17 @@ export default function TesterUneEgalite () {
             x2 = parseInt(calculANePlusJamaisUtiliser((10 * a + 4 * b) / 2))
             x1 = randint(-9, 9, [0, x2])
           }
-
-          texte = `Tester l'égalité $${sp(2)}10(x-${ecritureParentheseSiNegatif(a)})=4(2x+${ecritureParentheseSiNegatif(b)})${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$.`
+          expression = `$${sp(2)}10(x-${ecritureParentheseSiNegatif(a)})=4(2x+${ecritureParentheseSiNegatif(b)})${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$10(x-${ecritureParentheseSiNegatif(a)})=10\\times (${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a)})=10\\times ${x1 - a}=${10 * (x1 - a)}$ <br> $4(2x+${ecritureParentheseSiNegatif(b)})=4\\times (2\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x1 + b}=${4 * (2 * x1 + b)}$<br>`
-          texteCorr += `$${10 * (x1 - a)}\\not=${4 * (2 * x1 + b)}$ donc l'égalité n'est pas vraie.<br><br>`
+          texteCorr += `D'une part, $10(x-${ecritureParentheseSiNegatif(a)})=10\\times (${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a)})=10\\times ${x1 - a}=${miseEnEvidence(10 * (x1 - a))}$. <br>D'autre part, $4(2x+${ecritureParentheseSiNegatif(b)})=4\\times (2\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x1 + b}=${miseEnEvidence(4 * (2 * x1 + b))}$.<br>`
+          texteCorr += `$${10 * (x1 - a)}\\not=${4 * (2 * x1 + b)}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
-          texteCorr += `$10(x-${ecritureParentheseSiNegatif(a)})=10\\times (${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a)})=10\\times ${x2 - a}=${10 * (x2 - a)}$ <br> $4(2x+${ecritureParentheseSiNegatif(b)})=4\\times (2\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x2 + b}=${4 * (2 * x2 + b)}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.'
+          texteCorr += `D'une part, $10(x-${ecritureParentheseSiNegatif(a)})=10\\times (${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a)})=10\\times ${x2 - a}=${miseEnEvidence(10 * (x2 - a))}$. <br>D'autre part, $4(2x+${ecritureParentheseSiNegatif(b)})=4\\times (2\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)})=4\\times ${2 * x2 + b}=${miseEnEvidence(4 * (2 * x2 + b))}$.<br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.`
+          rep1 = 10 * (x1 - a)
+          rep2 = 4 * (2 * x1 + b)
+          rep3 = 10 * (x2 - a)
+          rep4 = 4 * (2 * x2 + b)
           break
         case 4: // ax+b=(a+1)x-c x=b+c
           if (this.sup === 1) {
@@ -119,14 +135,17 @@ export default function TesterUneEgalite () {
             x1 = b + c
             x2 = randint(2, 10, x1) * randint(-1, 1, 0)
           }
-
-          texte = `Tester l'égalité $${sp(2)}${ecritureParentheseSiNegatif(a)}x+${ecritureParentheseSiNegatif(b)}=${a + 1}x-${ecritureParentheseSiNegatif(c)}${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$.`
+          expression = `$${sp(2)}${ecritureParentheseSiNegatif(a)}x+${ecritureParentheseSiNegatif(b)}=${a + 1}x-${ecritureParentheseSiNegatif(c)}${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$${a}x+${ecritureParentheseSiNegatif(b)}=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)}=${a * x1 + b}$ <br> $${a + 1}x-${ecritureParentheseSiNegatif(c)}=${a + 1}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(c)}=${(a + 1) * x1 - c}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
+          texteCorr += `D'une part, $${a}x+${ecritureParentheseSiNegatif(b)}=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(x1)}+${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(a * x1 + b)}$. <br>D'autre part, $${a + 1}x-${ecritureParentheseSiNegatif(c)}=${a + 1}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(c)}=${miseEnEvidence((a + 1) * x1 - c)}$.<br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
-          texteCorr += `$${a}x+${ecritureParentheseSiNegatif(b)}=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)}=${a * x2 + b}$ <br> $${a + 1}x-${ecritureParentheseSiNegatif(c)}=${a + 1}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(c)}=${(a + 1) * x2 - c}$<br>`
-          texteCorr += `$${a * x2 + b}\\not=${(a + 1) * x2 - c}$ donc l'égalité n'est pas vraie.`
+          texteCorr += `D'une part, $${a}x+${ecritureParentheseSiNegatif(b)}=${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(x2)}+${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(a * x2 + b)}$. <br>D'autre part, $${a + 1}x-${ecritureParentheseSiNegatif(c)}=${a + 1}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(c)}=${miseEnEvidence((a + 1) * x2 - c)}$.<br>`
+          texteCorr += `$${a * x2 + b}\\not=${(a + 1) * x2 - c}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.`
+          rep1 = a * x1 + b
+          rep2 = (a + 1) * x1 - c
+          rep3 = a * x2 + b
+          rep4 = (a + 1) * x2 - c
           break
         case 5: // a-2x=b+2x x=(a-b)/4
           if (this.sup === 1) {
@@ -140,14 +159,17 @@ export default function TesterUneEgalite () {
             a = b + 4 * x1
             x2 = randint(1, 11, x1)
           }
-
-          texte = `Tester l'égalité $${sp(2)}${a}-2x=${b}+2x${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$`
+          expression = `$${sp(2)}${a}-2x=${b}+2x${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$${a}-2x=${a}-2\\times ${ecritureParentheseSiNegatif(x1)}=${a - 2 * x1}$ <br> $${b}+2x=${b}+2\\times ${ecritureParentheseSiNegatif(x1)}=${b + 2 * x1}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
+          texteCorr += `D'une part, $${a}-2x=${a}-2\\times ${ecritureParentheseSiNegatif(x1)}=${miseEnEvidence(a - 2 * x1)}$. <br>D'autre part, $${b}+2x=${b}+2\\times ${ecritureParentheseSiNegatif(x1)}=${miseEnEvidence(b + 2 * x1)}$.<br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
-          texteCorr += `$${a}-2x=${a}-2\\times ${ecritureParentheseSiNegatif(x2)}=${a - 2 * x2}$ <br> $${b}+2x=${b}+2\\times ${ecritureParentheseSiNegatif(x2)}=${b + 2 * x2}$<br>`
-          texteCorr += `$${a - 2 * x2}\\not=${b + 2 * x2}$ donc l'égalité n'est pas vraie.`
+          texteCorr += `D'une part, $${a}-2x=${a}-2\\times ${ecritureParentheseSiNegatif(x2)}=${miseEnEvidence(a - 2 * x2)}$. <br>D'autre part, $${b}+2x=${b}+2\\times ${ecritureParentheseSiNegatif(x2)}=${miseEnEvidence(b + 2 * x2)}$.<br>`
+          texteCorr += `$${a - 2 * x2}\\not=${b + 2 * x2}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.`
+          rep1 = a - 2 * x1
+          rep2 = b + 2 * x1
+          rep3 = a - 2 * x2
+          rep4 = b + 2 * x2
           break
         case 6: // ax-ab=x²-bx (a-x)(x-b)=0 solutions a et b.
           if (this.sup === 1) {
@@ -163,16 +185,21 @@ export default function TesterUneEgalite () {
             x3 = b
             x2 = randint(-9, 9, [x1, x3])
           }
-          texte = `Tester l'égalité $${sp(2)}${a}x-${ecritureParentheseSiNegatif(a * b)}=x^2-${ecritureParentheseSiNegatif(b)}x${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$ , pour $${sp(1)}x=${x2}${sp(1)}$ puis pour $${sp(1)}x=${x3}$.`
+          expression = `$${sp(2)}${a}x-${ecritureParentheseSiNegatif(a * b)}=x^2-${ecritureParentheseSiNegatif(b)}x${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a * b)}=${a * x1 - a * b}$ <br> $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x1)}=${x1 * x1}-${ecritureParentheseSiNegatif(b * x1)}=${x1 * x1 - b * x1}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
+          texteCorr += `D'une part, $${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(a * b)}=${miseEnEvidence(a * x1 - a * b)}$. <br>D'autre part, $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x1)}=${x1 * x1}-${ecritureParentheseSiNegatif(b * x1)}=${miseEnEvidence(x1 * x1 - b * x1)}$.<br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
-          texteCorr += `$${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a * b)}=${a * x2 - a * b}$ <br> $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x2)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x2)}=${x2 * x2}-${ecritureParentheseSiNegatif(b * x2)}=${x2 * x2 - b * x2}$<br>`
-          texteCorr += `$${a * x2 - a * b}\\not=${x2 * x2 - b * x2}$ donc l'égalité n'est pas vraie.<br><br>`
-          texteCorr += `Pour $x=${x3}$ : <br>`
-          texteCorr += `$${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x3)}-${ecritureParentheseSiNegatif(a * b)}=${a * x3 - a * b}$ <br> $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x3)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x3)}=${x3 * x3}-${ecritureParentheseSiNegatif(b * x3)}=${x3 * x3 - b * x3}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
+          texteCorr += `D'une part, $${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(a * b)}=${miseEnEvidence(a * x2 - a * b)}$. <br>D'autre part, $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x2)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x2)}=${x2 * x2}-${ecritureParentheseSiNegatif(b * x2)}=${miseEnEvidence(x2 * x2 - b * x2)}$.<br>`
+          texteCorr += `$${a * x2 - a * b}\\not=${x2 * x2 - b * x2}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.<br><br>`
+          rep1 = a * x1 - a * b
+          rep2 = x1 * x1 - b * x1
+          rep3 = a * x2 - a * b
+          rep4 = x2 * x2 - b * x2
+          /*  texteCorr += `Pour $x=${x3}$ : <br>`
+          texteCorr += `$${a}x-${ecritureParentheseSiNegatif(a * b)}=${a}\\times ${ecritureParentheseSiNegatif(x3)}-${ecritureParentheseSiNegatif(a * b)}=${a * x3 - a * b}$. <br>D'autre part, $x^2-${b}\\times  x=${ecritureParentheseSiNegatif(x3)}^2-${ecritureParentheseSiNegatif(b)}\\times ${ecritureParentheseSiNegatif(x3)}=${x3 * x3}-${ecritureParentheseSiNegatif(b * x3)}=${x3 * x3 - b * x3}$<br>`
+          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>'
+          */
           break
         case 7: // adx-bd=acx²-bcx  --- (ax-b)(d-cx)=0 solutions b/a et d/c.
           if (this.sup === 1) {
@@ -192,20 +219,191 @@ export default function TesterUneEgalite () {
             b = a * x2
             d = c * x3
           }
-          texte = `Tester l'égalité $${sp(2)}${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x${sp(1)}$ pour $${sp(1)}x=${x1}${sp(1)}$, pour $${sp(1)}x=${x2}${sp(1)}$ puis pour $${sp(1)}x=${x3}$.`
+          expression = `$${sp(2)}${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x${sp(1)}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x1 - d * b}$ <br> $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x1)}=${a * c * x1 * x1}-${ecritureParentheseSiNegatif(b * c * x1)}=${a * c * x1 * x1 - b * c * x1}$<br>`
-          texteCorr += `$${a * d * x1 - d * b}\\not=${a * c * x1 * x1 - b * c * x1}$ donc l'égalité n'est pas vraie.<br><br>`
+          texteCorr += `D'une part, $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x1)}-${ecritureParentheseSiNegatif(b * d)}=${miseEnEvidence(a * d * x1 - d * b)}$. <br>D'autre part, $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x1)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x1)}=${a * c * x1 * x1}-${ecritureParentheseSiNegatif(b * c * x1)}=${miseEnEvidence(a * c * x1 * x1 - b * c * x1)}$.<br>`
+          texteCorr += `$${a * d * x1 - d * b}\\not=${a * c * x1 * x1 - b * c * x1}$ donc ${texteEnCouleurEtGras('l\'égalité n\'est pas vraie')}.<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
-          texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x2 - d * b}$ <br> $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x2)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x2)}=${a * c * x2 * x2}-${ecritureParentheseSiNegatif(b * c * x2)}=${a * c * x2 * x2 - b * c * x2}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
+          texteCorr += `D'une part, $${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x2)}-${ecritureParentheseSiNegatif(b * d)}=${miseEnEvidence(a * d * x2 - d * b)}$. <br>D'autre part, $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x2)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x2)}=${a * c * x2 * x2}-${ecritureParentheseSiNegatif(b * c * x2)}=${miseEnEvidence(a * c * x2 * x2 - b * c * x2)}$.<br>`
+          texteCorr += `On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>`
+          rep1 = a * d * x1 - d * b
+          rep2 = a * c * x1 * x1 - b * c * x1
+          rep3 = a * d * x2 - d * b
+          rep4 = a * c * x2 * x2 - b * c * x2
+          /*
           texteCorr += `Pour $x=${x3}$ : <br>`
-          texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x3)}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x3 - d * b}$ <br> $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x3)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x3)}=${a * c * x3 * x3}-${ecritureParentheseSiNegatif(b * c * x3)}=${a * c * x3 * x3 - b * c * x3}$<br>`
-          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br><br>'
+          texteCorr += `$${a * d}x-${ecritureParentheseSiNegatif(b * d)}=${a * d}\\times ${ecritureParentheseSiNegatif(x3)}-${ecritureParentheseSiNegatif(b * d)}=${a * d * x3 - d * b}$. <br>D'autre part, $${a * c}x^2-${ecritureParentheseSiNegatif(b * c)}x=${a * c}\\times ${ecritureParentheseSiNegatif(x3)}^2-${ecritureParentheseSiNegatif(b * c)}\\times ${ecritureParentheseSiNegatif(x3)}=${a * c * x3 * x3}-${ecritureParentheseSiNegatif(b * c * x3)}=${a * c * x3 * x3 - b * c * x3}$<br>`
+          texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc ${texteEnCouleurEtGras('l\'égalité est vraie')}.<br><br>'
+          */
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      texte = `Tester l'égalité ${expression} pour $${sp(1)}x=${x1}${sp(1)}$ puis pour $${sp(1)}x=${x2}$.`
+      if (this.interactif && !context.isAmc) {
+        setReponse(this, 6 * i, rep1)
+        setReponse(this, 6 * i + 1, rep2)
+        setReponse(this, 6 * i + 2, rep1 === rep2 ? ['Oui', 'oui', 'OUI'] : ['Non', 'non', 'NON'], { formatInteractif: 'texte' })
+        setReponse(this, 6 * i + 3, rep3)
+        setReponse(this, 6 * i + 4, rep4)
+        setReponse(this, 6 * i + 5, rep3 === rep4 ? ['Oui', 'oui', 'OUI'] : ['Non', 'non', 'NON'], { formatInteractif: 'texte' })
+        texte += `<br> ${sp(10)}Pour $x=${x1}$, d'une part, ${sp(5)} ${expression.split('=')[0]}$ = ` + ajouteChampTexteMathLive(this, 6 * i, 'inline nospacebefore largeur01')
+        texte += `<br> ${sp(10)}Pour $x=${x1}$, d'autre part, ${sp(6)} $${expression.split('=')[1]} = ` + ajouteChampTexteMathLive(this, 6 * i + 1, 'inline nospacebefore largeur01')
+        texte += `<br> Conclure : l'égalité ${expression} est-elle vérifiée pour $${sp(1)}x=${x1}${sp(1)}$ ? (Oui/Non) ` + ajouteChampTexteMathLive(this, 6 * i + 2, 'inline largeur01 alphanumeric')
+        texte += `<br><br> ${sp(10)}Pour $x=${x2}$, d'une part, ${sp(5)} ${expression.split('=')[0]}$ = ` + ajouteChampTexteMathLive(this, 6 * i + 3, 'inline nospacebefore largeur01')
+        texte += `<br> ${sp(10)}Pour $x=${x2}$, d'autre part, ${sp(6)} $${expression.split('=')[1]} = ` + ajouteChampTexteMathLive(this, 6 * i + 4, 'inline nospacebefore largeur01')
+        texte += `<br> Conclure : l'égalité ${expression} est-elle vérifiée pour $${sp(1)}x=${x2}${sp(1)}$ ? (Oui/Non)  ` + ajouteChampTexteMathLive(this, 6 * i + 5, 'inline largeur01 alphanumeric')
+      }
+
+      if (context.isAmc) {
+        if (this.sup3 === 1) {
+          this.autoCorrection[i] =
+        {
+          enonce: '',
+          enonceAvant: false,
+          enonceAvantUneFois: true,
+          options: { numerotationEnonce: true },
+          propositions: [(
+            {
+              type: 'AMCOpen',
+              propositions: [
+                {
+                  texte: ' ',
+                  numQuestionVisible: false,
+                  statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                  feedback: '',
+                  enonce: `Tester l'égalité ${expression} pour $${sp(1)}x=${x1}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                }
+              ]
+            }
+          ),
+          (
+            {
+              type: 'AMCOpen',
+              propositions: [
+                {
+                  texte: ' ',
+                  numQuestionVisible: false,
+                  statut: 3, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                  feedback: '',
+                  enonce: `Tester l'égalité ${expression} pour pour $${sp(1)}x=${x2}$.`, // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                  sanscadre: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                }
+              ]
+            }
+          )
+          ]
+        }
+        } else {
+          this.autoCorrection.push({
+            enonce: texte,
+            enonceAvant: false,
+            enonceApresNumQuestion: true,
+            options: { barreseparation: false },
+            propositions: [
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  multicolsBegin: true,
+                  reponse: {
+                    texte: `Pour $x=${x1}$, que vaut ${expression.split('=')[0]}$ ?`,
+                    valeur: rep1,
+                    param: {
+                      digits: Math.max(nombreDeChiffresDansLaPartieEntiere(rep1, rep2)),
+                      decimals: 0,
+                      signe: true,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  multicolsEnd: true,
+                  reponse: {
+                    texte: `Pour $x=${x1}$, que vaut $${expression.split('=')[1]} ?`,
+                    valeur: rep2,
+                    param: {
+                      digits: Math.max(nombreDeChiffresDansLaPartieEntiere(rep1, rep2)),
+                      decimals: 0,
+                      signe: true,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'qcmMono',
+                enonce: `Conclusion : l'égalité ${expression} est-elle vérifiée pour $x=${x1}$ ?`,
+                propositions: [
+                  {
+                    texte: 'Oui',
+                    statut: rep1 === rep2
+                  },
+                  {
+                    texte: 'Non',
+                    statut: rep1 !== rep2
+                  }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  multicolsBegin: true,
+                  reponse: {
+                    texte: `Pour $x=${x2}$, que vaut ${expression.split('=')[0]}$ ?`,
+                    valeur: rep3,
+                    param: {
+                      digits: Math.max(nombreDeChiffresDansLaPartieEntiere(rep3, rep4)),
+                      decimals: 0,
+                      signe: true,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  multicolsEnd: true,
+                  reponse: {
+                    texte: `Pour $x=${x2}$, que vaut $${expression.split('=')[1]} ?`,
+                    valeur: rep4,
+                    param: {
+                      digits: Math.max(nombreDeChiffresDansLaPartieEntiere(rep3, rep4)),
+                      decimals: 0,
+                      signe: true,
+                      approx: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'qcmMono',
+                enonce: `Conclusion : l'égalité ${expression} est-elle vérifiée pour $x=${x2}$ ?`,
+                propositions: [
+                  {
+                    texte: 'Oui',
+                    statut: rep3 === rep4
+                  },
+                  {
+                    texte: 'Non',
+                    statut: rep3 !== rep4
+                  }]
+              }]
+          }
+          )
+        }
+      }
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -215,5 +413,6 @@ export default function TesterUneEgalite () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Entiers naturels\n2 : Entiers relatifs']
-  this.besoinFormulaire2CaseACocher = ['Avec des équations du second degré']
+  this.besoinFormulaire2CaseACocher = ['Avec des expressions du second degré']
+  this.besoinFormulaire3Numerique = ['Type d\'exercices AMC', 2, '1 : Question ouverte\n2 : Réponses numériques']
 }

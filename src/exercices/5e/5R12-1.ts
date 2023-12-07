@@ -96,7 +96,7 @@ class ReperagePointDuPlan extends Exercice {
     const resultat = [] // Tableau de 'OK' ou de'KO' pour le calcul du score
     const divFeedback = document.querySelector(`#feedback${this.idApigeom}`)
     for (const coord of this.points) {
-      const { points, isValid, message } = this.figure.testCoords({ label: coord.label, x: coord.x, y: coord.y })
+      const { points, isValid, message } = this.figure.checkCoords({ label: coord.label, x: coord.x, y: coord.y })
       // Point par point, je vérifie que le label et les coordonnées correspondent
       if (isValid) {
         resultat.push('OK')

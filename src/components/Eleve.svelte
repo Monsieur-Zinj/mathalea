@@ -187,7 +187,7 @@
     if ($globalOptions.presMode === 'liste_questions' || $globalOptions.presMode === 'une_question_par_page') {
       buildQuestions()
     }
-    const resizeObserver = new ResizeObserver(x => {
+    resizeObserver = new ResizeObserver(x => {
       const url = new URL(window.location.href)
       const iframe = url.searchParams.get('iframe')
       window.parent.postMessage(
@@ -250,8 +250,8 @@
       consignes = consignes.map(mathaleaFormatExercice)
     }
     if (
-      $globalOptions.presMode === 'liste_questions'
-      || $globalOptions.presMode === 'une_question_par_page'
+      $globalOptions.presMode === 'liste_questions' ||
+      $globalOptions.presMode === 'une_question_par_page'
       // || $globalOptions.presMode === 'cartes'
     ) {
       // Pour les autres mode de présentation, cela est géré par ExerciceMathaleaVueProf
@@ -286,7 +286,7 @@
         verifQuestionMathLive(
           exercices[indiceExercice[i]],
           indiceQuestionInExercice[i]
-        ) === 'OK'
+        )?.resultat === 'OK'
     } else if (type === 'qcm') {
       resultsByQuestion[i] =
         verifQuestionQcm(
@@ -561,7 +561,7 @@
                 {#if exercices[indiceExercice[k]].interactif}
                   <Button
                     title="Vérifier"
-                    classDeclaration="p-1 font-bold rounded-xl text-xs ml-2"
+                    class="p-1 font-bold rounded-lg text-xs ml-2"
                     on:click={() => checkQuestion(k)}
                     isDisabled={isDisabledButton[k]}
                   />

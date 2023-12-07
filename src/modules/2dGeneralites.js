@@ -93,7 +93,7 @@ export function mathalea2d (
               const ySvg = -(code.y - ymax) * pixelsParCm * zoom
               const part1 = code.divLatex.substring(0, 81)
               const part2 = code.divLatex.substring(81)
-              const codeHtml = part1 + ` top: "${ySvg}px"; left: "${xSvg}px"; data-top="${ySvg}" data-left="${xSvg}"` + part2
+              const codeHtml = part1 + ` top: ${ySvg}px; left: ${xSvg}px;" data-top=${ySvg} data-left=${xSvg}` + part2
               divsLatex.push(codeHtml)
             }
           } else {
@@ -633,35 +633,40 @@ export function fixeBordures (objets, {
    * @param bordures
    * @returns {[number,number,number,number,boolean]}
    */
-  const majBordures = function (xmin, ymin, xmax, ymax, objets, bordures) {
+  const majBordures = function (xmin, ymin, xmax, ymax, objets, borduresTrouvees) {
     if (!Array.isArray(objets)) {
-      if (objets.bordures == null || objets.bordures.filter((el) => isNaN(el)).length > 0) {
-        window.notify(`Ìl y a un problème avec les bordures de ${objets.constructor.name}`)
+      const bordures = objets.bordures ?? null
+      if (bordures == null) {
+        window.notify(`Ìl y a un problème avec les bordures de ${objets.constructor.name}... elles ne sont pas définies !`)
+      } else if (!Array.isArray(bordures)) {
+        window.notify(`Les bordures de ${objets.constructor.name} ne sont pas un array : ${JSON.stringify(bordures)}`)
+      } else if (bordures.filter((el) => isNaN(el)).length > 0) {
+        window.notify(`Les bordures de ${objets.constructor.name} sont bien un array mais contiennent autre chose que des nombres : ${bordures}`)
       } else {
         xmin = Math.min(xmin, objets.bordures[0])
         xmax = Math.max(xmax, objets.bordures[2])
         ymin = Math.min(ymin, objets.bordures[1])
         ymax = Math.max(ymax, objets.bordures[3])
-        bordures = true
+        borduresTrouvees = true
       }
     } else {
       for (const objet of objets) {
-        [xmin, ymin, xmax, ymax, bordures] = majBordures(xmin, ymin, xmax, ymax, objet, bordures)
+        [xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(xmin, ymin, xmax, ymax, objet, borduresTrouvees)
       }
     }
-    return [xmin, ymin, xmax, ymax, bordures]
+    return [xmin, ymin, xmax, ymax, borduresTrouvees]
   }
   let xmin = 1000
   let ymin = 1000
   let xmax = -1000
   let ymax = -1000
-  let bordures = false
+  let borduresTrouvees = false
   rxmin = rxmin !== undefined ? rxmin : -0.5
   rymin = rymin !== undefined ? rymin : -0.5
   rxmax = rxmax !== undefined ? rxmax : 0.5
   rymax = rymax !== undefined ? rymax : 0.5;
-  [xmin, ymin, xmax, ymax, bordures] = majBordures(xmin, ymin, xmax, ymax, objets, bordures)
-  if (!bordures) window.notify('fixeBordures : aucun objet ne définit de bordures valides', { ...objets })
+  [xmin, ymin, xmax, ymax, borduresTrouvees] = majBordures(xmin, ymin, xmax, ymax, objets, borduresTrouvees)
+  if (!borduresTrouvees) window.notify('fixeBordures : aucun objet ne définit de bordures valides', { ...objets })
   return {
     xmin: xmin + rxmin * rzoom,
     xmax: xmax + rxmax * rzoom,

@@ -22,8 +22,6 @@
   } from '../stores/referentielsStore'
   import codeToLevelList from '../../json/codeToLevelList.json'
   import { onMount } from 'svelte'
-  export let isMenuOpen: boolean = true
-  export let sidebarWidth: number = 300
   export let excludedReferentiels: ActivationName[] = []
   /**
    * Mise à jour des référentiels en tenant compte des filtres
@@ -94,18 +92,8 @@
 </script>
 
 <aside
-  class="flex md:h-full z-40 relative transition-all duration-500 transform bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark
-  {isMenuOpen ? '-translate-x-0  pr-4 overflow-y-auto' : '-translate-x-full'}"
+  class="flex w-full md:h-full md:min-h-full flex-col items-start pb-4 pt-0 md:pt-4 ml-0 md:mx-0 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
 >
-  <div
-    style={isMenuOpen ? `width:${sidebarWidth}px;` : 'width: 2.5rem;'}
-    class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark transition-all duration-500"
-  >
-    <div
-      class="{isMenuOpen
-        ? 'flex'
-        : 'hidden'} flex-col items-start pb-4 pt-0 md:pt-4 ml-0 md:mx-0"
-    >
       <SearchBlock
         class="w-full flex flex-col justify-start pt-0 sm:"
         resourcesSet={buildHaystack($referentiels)}
@@ -126,6 +114,4 @@
         <!-- Bouton spécial pour les applications tierces -->
         <SideMenuApps class="text-start p-6 w-full" />
       </div>
-    </div>
-  </div>
 </aside>

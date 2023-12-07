@@ -20,19 +20,19 @@ export default class RepereBuilder {
   private yThickMin: number = -10
   private xUnite: number = 1
   private yUnite: number = 1
-  private grilleX: boolean = true
+  private grilleX: boolean|string = true
   private grilleXDistance: number = 1
   private grilleXMin: number = -10
   private grilleXMax: number = 10
-  private grilleY: boolean = true
+  private grilleY: boolean|string = true
   private grilleYDistance: number = 1
   private grilleYMin: number = -10
   private grilleYMax: number = 10
-  private grilleSecondaireX: boolean = false
+  private grilleSecondaireX: boolean|string = false
   private grilleSecondaireXDistance: number = 1
   private grilleSecondaireXMin: number = -10
   private grilleSecondaireXMax: number = 10
-  private grilleSecondaireY: boolean = false
+  private grilleSecondaireY: boolean|string = false
   private grilleSecondaireYDistance: number = 1
   private grilleSecondaireYMin: number = -10
   private grilleSecondaireYMax: number = 10
@@ -207,18 +207,18 @@ export default class RepereBuilder {
 
   /**
      * méthode pour paramétrer la grille principale
-     * @param {{dx: number, xMin: number, xMax: number}} grilleX
-     * @param {{dy: number, yMin: number, yMax: number}} grilleY
+     * @param {{dx: number, xMin: number, xMax: number, style: string}} grilleX
+     * @param {{dy: number, yMin: number, yMax: number, style: string}} grilleY
      */
-  setGrille ({ grilleX, grilleY }: { grilleX: { dx: number, xMin: number, xMax: number }, grilleY: { dy: number, yMin: number, yMax: number } }) {
+  setGrille ({ grilleX, grilleY }: { grilleX: { dx: number, xMin?: number, xMax?: number, style?: string }, grilleY: { dy: number, yMin?: number, yMax?: number, style?: string} }) {
     if (grilleX) {
-      this.grilleX = true
+      this.grilleX = grilleX.style ? grilleX.style : true
       this.grilleXDistance = grilleX.dx ?? 1
       this.grilleXMin = grilleX.xMin ?? this.xMin
       this.grilleXMax = grilleX.xMax ?? this.xMax
     } else this.grilleX = false
     if (grilleY) {
-      this.grilleY = true
+      this.grilleY = grilleY.style ? grilleY.style : true
       this.grilleYDistance = grilleY.dy ?? 1
       this.grilleYMin = grilleY.yMin ?? this.yMin
       this.grilleYMax = grilleY.yMax ?? this.yMax
@@ -231,15 +231,15 @@ export default class RepereBuilder {
      * @param {{dx: number, xMin: number, xMax: number}} grilleX
      * @param {{dy: number, yMin: number, yMax: number}} grilleY
      */
-  setGrilleSecondaire ({ grilleX, grilleY }: { grilleX: { dx: number, xMin: number, xMax: number }, grilleY: { dy: number, yMin: number, yMax: number } }) {
+  setGrilleSecondaire ({ grilleX, grilleY }: { grilleX: { dx: number, xMin?: number, xMax?: number, style?: string }, grilleY: { dy: number, yMin?: number, yMax?: number, style?: string } }) {
     if (grilleX) {
-      this.grilleSecondaireX = true
+      this.grilleSecondaireX = grilleX.style ? grilleX.style : true
       this.grilleSecondaireXDistance = grilleX.dx ?? 1
       this.grilleSecondaireXMin = grilleX.xMin ?? this.xMin
       this.grilleSecondaireXMax = grilleX.xMax ?? this.xMax
     } else this.grilleSecondaireX = false
     if (grilleY) {
-      this.grilleSecondaireY = true
+      this.grilleSecondaireY = grilleY.style ? grilleY.style : true
       this.grilleSecondaireYDistance = grilleY.dy ?? 1
       this.grilleSecondaireYMin = grilleY.yMin ?? this.yMin
       this.grilleSecondaireYMax = grilleY.yMax ?? this.yMax
@@ -253,9 +253,9 @@ export default class RepereBuilder {
      * @param {number} xMin le premier
      * @param {number} xMax le dernier
      */
-  setLabelX ({ dx, xMin, xMax }: { xMax: number, xMin: number, dx: number }) {
-    this.xLabelMin = xMin
-    this.xLabelMax = xMax
+  setLabelX ({ dx, xMin, xMax }: { xMax?: number, xMin?: number, dx: number }) {
+    this.xLabelMin = xMin ?? this.xMin
+    this.xLabelMax = xMax ?? this.xMax
     this.xLabelDistance = dx
     return this
   }
@@ -266,9 +266,9 @@ export default class RepereBuilder {
      * @param {number} yMin le premier
      * @param {number} yMax le dernier
      */
-  setLabelY ({ dy, yMin, yMax }: { yMax: number, yMin: number, dy: number }) {
-    this.yLabelMin = yMin
-    this.yLabelMax = yMax
+  setLabelY ({ dy, yMin, yMax }: { yMax?: number, yMin?: number, dy: number }) {
+    this.yLabelMin = yMin ?? this.yMin
+    this.yLabelMax = yMax ?? this.yMax
     this.yLabelDistance = dy
     return this
   }
@@ -289,9 +289,5 @@ export default class RepereBuilder {
   setLabelsY (labels: LAbel[]) {
     this.yLabelListe = labels
     return this
-  }
-
-  trace () {
-    return this.build().objets
   }
 }

@@ -1,5 +1,5 @@
 import * as pkg from '@cortex-js/compute-engine'
-import { all, create } from 'mathjs'
+import { all, create, Fraction } from 'mathjs'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.js'
@@ -12,7 +12,7 @@ import { context } from '../../modules/context.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
-
+import FractionEtendue from '../../modules/FractionEtendue.js'
 const { ComputeEngine } = pkg
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
@@ -140,9 +140,12 @@ export class Yohaku {
   // fonction utilisée par calculeResultats
   operate (valeurs) {
     const valeursConverties = valeurs.map((val) => {
-      if (typeof val === 'number' || val.s !== undefined) return val
-      else if (typeof val === 'string') return val.replaceAll(/\s/g, '')
-      else return val.N().valueOf()
+      if (!isNaN(val) || typeof val === 'number' || val instanceof FractionEtendue || val instanceof Fraction) return Number(val)
+      if (typeof val === 'string') {
+        if (val.includes('\\frac')) return new FractionEtendue(...engine.parse(val).numericValue)
+        return `${val.replaceAll(/\s/g, '')}`
+      }
+      return val.valueOf()
     })
     let initialValue
     switch (this.operation) {
@@ -318,10 +321,10 @@ export default function FabriqueAYohaku () {
     for (let k = 0; k < taille ** 2; k++) {
       champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * taille ** 2 + k}`)
       if (this.yohaku[i].type === 'littéraux') { // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
-        saisies[k] = engine.parse(champsTexte[k].value.replace(',', '.')).latex.replace('', '0') ?? '0'
+        saisies[k] = champsTexte[k].value.replace(',', '.') ?? '0'
         console.log(saisies[k])
       } else {
-        saisies[k] = engine.parse(champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1').replace('', '0') ?? '0')
+        saisies[k] = champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1') ?? '0'
       }
     }
     let resultat
@@ -339,12 +342,12 @@ export default function FabriqueAYohaku () {
     const test = function (yohaku, i, valeurs, resultatOK) {
       let resultVal = yohaku[question].operate(valeurs)
       let resultatAttendu = yohaku[question].resultats[i]
-      if (resultatAttendu.includes('x')) {
+      if (typeof resultatAttendu === 'string' && resultatAttendu.includes('x')) {
         resultVal = engine.parse(resultVal)
         resultatAttendu = engine.parse(resultatAttendu)
         resultatOK = resultatOK && resultVal.isSame(resultatAttendu)
       } else {
-        resultatOK = resultatOK && math.equal(resultVal, resultatAttendu)
+        resultatOK = resultatOK && math.equal(Number(resultVal), Number(resultatAttendu))
       }
       return resultatOK
     }
