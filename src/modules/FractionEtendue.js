@@ -208,26 +208,19 @@ class FractionEtendue extends Fraction {
     })
 
     /**
-     * num/den
+     * num/den mais sans traitement des signes des numérateur et dénominateur
      * @property texFraction
      * @type {string}
      */
-    let texFraction // num/den mais sans traitement des signes des numérateur et dénominateur
-    Object.defineProperty(this, 'texFraction', {
-      enumerable: true,
-      get: () => {
-        if (!texFraction) texFraction = this.den === 1 ? `${texNombre(this.num, 0)}` : `\\dfrac{${texNombre(this.num, 0)}}{${texNombre(this.den, 0)}}`
-        return texFraction
-      },
-      set: () => { throw Error('\'texFraction\' est en lecture seule') }
-    })
+
+    this.texFraction = this.den === 1 ? `${texNombre(this.num, 0)}` : `\\dfrac{${texNombre(this.num, 0)}}{${texNombre(this.den, 0)}}`
 
     /**
-     * num/den
+     * num/den avec mise en évidence des signes - s'il y en a au numérateur et au dénominateur
      * @property texFractionSR
      * @type {string}
      */
-    let texFractionSR // num/den mais sans traitement des signes des numérateur et dénominateur
+    let texFractionSR
     Object.defineProperty(this, 'texFractionSR', {
       enumerable: true,
       get: () => {

@@ -12,6 +12,10 @@ import {
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
+interface Window {
+  notify: (arg0: string, arg1: object)=>void
+}
+let window: Window
 
 export const titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
@@ -72,6 +76,7 @@ class ExerciceFractionsDifferentesEcritures extends Exercice {
     let fractions1: [number, number, string][] = []
     let aleaMax: number
     if (!this.sup) {
+      aleaMax = 10
       fractions = [
         [1, 2, ',5'],
         [1, 4, ',25'],
@@ -151,11 +156,16 @@ class ExerciceFractionsDifferentesEcritures extends Exercice {
         a = n * b + c
         ed = n + fraction[2]
       } else {
-        c = fractions[i][0]
-        b = fractions[i][1]
-        n = randint(1, aleaMax)
-        a = n * b + c
-        ed = n.toString() + fractions[i][2]
+        if (fractions[i] != null) {
+          c = fractions[i][0]
+          b = fractions[i][1]
+          n = randint(1, aleaMax)
+          a = n * b + c
+          ed = n.toString() + fractions[i][2]
+        } else {
+          window.notify(`6N20-2 n'a pas trouvé assez de fractions dans ${fractions} y a rien à l'indice ${i}`, { listeFraction1: JSON.stringify(fractions1), listeFraction2: JSON.stringify(fractions), nbQuestions: this.nbQuestions, paramSup: this.sup, paramSup2: this.sup2 })
+          n = 42 // ça c'est pour dire que n est pas undefined à typescript.
+        }
       }
       const frac = new FractionEtendue(a, b)
       const partieFrac = new FractionEtendue(c, b)
