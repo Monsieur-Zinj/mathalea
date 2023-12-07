@@ -12,10 +12,6 @@ import {
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
-interface Window {
-  notify: (arg0: string, arg1: object)=>void
-}
-let window: Window
 
 export const titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
@@ -163,6 +159,9 @@ class ExerciceFractionsDifferentesEcritures extends Exercice {
           a = n * b + c
           ed = n.toString() + fractions[i][2]
         } else {
+          // Problème à régler pour ts. mais window.notify() existe bien au chargement en ce qui nous concerne.
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           window.notify(`6N20-2 n'a pas trouvé assez de fractions dans ${fractions} y a rien à l'indice ${i}`, { listeFraction1: JSON.stringify(fractions1), listeFraction2: JSON.stringify(fractions), nbQuestions: this.nbQuestions, paramSup: this.sup, paramSup2: this.sup2 })
           n = 42 // ça c'est pour dire que n est pas undefined à typescript.
         }

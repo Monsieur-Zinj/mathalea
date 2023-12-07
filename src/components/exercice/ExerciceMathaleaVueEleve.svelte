@@ -80,8 +80,15 @@
         for (const answer in objAnswers) {
           // La réponse correspond à un champs texte
           const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement
-          if (field !== null) {
-            field.setValue(objAnswers[answer])
+          if (field != null) {
+            if (typeof field.setValue === 'function') field.setValue(objAnswers[answer])
+            else {
+              // Problème à régler pour ts. mais window.notify() existe bien au chargement en ce qui nous concerne.
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-expect-error
+              window.notify('Il y a un problème avec l\'input de cet exercice, il ne semble pas être un MathfieldElement, en tout cas ne possède pas de méthode setValue()', { exercice: JSON.stringify(exercice) })
+              field.value = objAnswers[answer]
+            }
           }
           // La réponse correspond à une case à cocher qui doit être cochée
           const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
