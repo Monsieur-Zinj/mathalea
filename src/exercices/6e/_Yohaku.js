@@ -247,6 +247,7 @@ export class Yohaku {
 
 export const uuid = '3a377'
 export const ref = 'Yohaku'
+
 export default function FabriqueAYohaku () {
   Exercice.call(this)
   this.nbQuestions = 3
@@ -321,7 +322,8 @@ export default function FabriqueAYohaku () {
     const saisies = []
     for (let k = 0; k < taille ** 2; k++) {
       champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * taille ** 2 + k}`)
-      if (this.yohaku[i].type === 'littéraux') { // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
+      // Je blinde
+      if (this.type === 'littéraux') { // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
         saisies[k] = champsTexte[k].value.replace(',', '.') ?? '0'
         console.log(saisies[k])
       } else {
