@@ -179,6 +179,7 @@ export class Yohaku {
   }
 
   representation () {
+    // à refaire intégralement avec les tableaux mathlive et tableauColonneLigne.
     const lignes = []
     const colonnes = []
     const resultats = []

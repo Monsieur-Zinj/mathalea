@@ -6,7 +6,7 @@ import { texteParPosition } from '../lib/2d/textes.js'
 import { rotation, translation } from '../lib/2d/transformations.js'
 import { miseEnEvidence } from '../lib/outils/embellissements.js'
 import { extraireRacineCarree } from '../lib/outils/calculs.js'
-import { ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale } from '../lib/outils/nombres.js'
 import {
   decompositionFacteursPremiers,
@@ -17,7 +17,7 @@ import {
 import { stringNombre, texNombre } from '../lib/outils/texNombre.js'
 import {
   quotientier,
-  egal
+  egal, ppcm
 } from './outils.js'
 import { abs, multiply, gcd, round, lcm, max, min, pow, Fraction } from 'mathjs'
 import { fraction } from './fractions.js'
@@ -334,7 +334,7 @@ class FractionEtendue extends Fraction {
     Object.defineProperty(this, 'texFractionSimplifiee', {
       enumerable: true,
       get: () => {
-        if (!texFractionSimplifiee) texFractionSimplifiee = new FractionEtendue(this.numIrred, this.denIrred).texFSD
+        if (!texFractionSimplifiee) texFractionSimplifiee = this.simplifie().texFSD
         return texFractionSimplifiee
       },
       set: () => { throw Error('\'texFractionSimplifiee\' est en lecture seule') }
@@ -631,6 +631,60 @@ class FractionEtendue extends Fraction {
       }
     } else {
       window.notify(`FractionEtendue.sommeFraction(fractionAAjouter) a été appelée avec autre chose qu'une  FractionMathjs  étendue, alors que c'est obligatoire !\nVoilci l'argument passé : ${f2}`, { argument: f2 })
+    }
+  }
+
+  /**
+   * Effectue la somme de this et de f2 et retourne la string latex du calcul avec simplification si simplify est true (true par défaut)
+   * @param {FractionEtendue} f2Arg
+   * @param {boolean} simplify
+   * @returns {string}
+   */
+  texSommeFraction (f2Arg, simplify = true) {
+    if (f2Arg instanceof FractionEtendue) {
+      // on crée une fraction indépendante pour ne pas modifier f2 (c'est un objet et si on le bricole, il sera modifié pour le code appelant.
+      const f2 = new FractionEtendue(f2Arg.num, f2Arg.den)
+      if (f2.den < 0) { // il arrive qu'un dénominateur soit négatif, alors on change le signe du numérateur et du dénominateur
+        f2.den = -f2.den
+        f2.num = -f2.num
+      }
+      // on fait de même avec this
+      const f1 = new FractionEtendue(this.num, this.den)
+      if (this.den < 0) {
+        f1.den = -f1.den
+        f1.num = -f1.num
+      }
+      let calcul = `${f1.texFraction}+${f2.texFraction}=`
+      const commonDenominator = ppcm(f1.den, f2.den)
+      const coeffMultiplicatorA = commonDenominator / f1.den
+      const coeffMultiplicatorB = commonDenominator / f2.den
+      if (coeffMultiplicatorA !== 1 || coeffMultiplicatorB !== 1) {
+        if (coeffMultiplicatorA !== 1) { // on modifie la fraction1
+          calcul += `\\dfrac{${f1.num}\\times ${coeffMultiplicatorA}}{${f1.den}\\times ${coeffMultiplicatorA}}+`
+          calcul += coeffMultiplicatorB === 1 ? `${f2.texFraction}=` : `\\dfrac{${String(f2.num)}\\times ${String(coeffMultiplicatorB)}}{${String(f2.den)}\\times ${String(coeffMultiplicatorB)}}=`
+        } else { // si c'est pas la 1 c'est forcément la 2
+          calcul += `${f1.texFraction}+\\dfrac{${String(f2.num)}\\times ${String(coeffMultiplicatorB)}}{${String(f2.den)}\\times ${String(coeffMultiplicatorB)}}=`
+        }
+        // on a écrit les multiplication des numérateur et des dénominateurs par les coeff respectifs
+        // on écrit le résultat
+        if (coeffMultiplicatorA !== 1) { // on modifie la fraction1
+          calcul += `\\dfrac{${String(f1.num * coeffMultiplicatorA)}}{${String(f1.den * coeffMultiplicatorA)}}+`
+          calcul += coeffMultiplicatorB === 1 ? `${f2.texFraction}=` : `\\dfrac{${String(f2.num * coeffMultiplicatorB)}}{${String(f2.den * coeffMultiplicatorB)}}=`
+        } else { // sinon, il y a forcément modification de la fraction2
+          calcul += `${f1.texFraction}+\\dfrac{${String(f2.num * coeffMultiplicatorB)}}{${String(f2.den * coeffMultiplicatorB)}}=`
+        }
+      }
+      // les fractions ont le même dénominateur, on les ajoute
+      calcul += `\\dfrac{${String(f1.num * coeffMultiplicatorA)}${ecritureAlgebrique(f2.num * coeffMultiplicatorB)}}{${String(commonDenominator)}}=`
+      calcul += `\\dfrac{${String(f1.num * coeffMultiplicatorA + f2.num * coeffMultiplicatorB)}}{${String(commonDenominator)}}`
+      if (!simplify) return calcul
+      const fResult = new FractionEtendue(f1.num * coeffMultiplicatorA + f2.num * coeffMultiplicatorB, commonDenominator)
+      if (fResult.estIrreductible) return calcul
+      calcul += `=${fResult.texFractionSimplifiee}`
+      return calcul
+    } else {
+      window.notify('texSommeFraction : pour l\'instant on n\'ajoute que une fractionEtendue et rien d\'autre')
+      return ''
     }
   }
 
