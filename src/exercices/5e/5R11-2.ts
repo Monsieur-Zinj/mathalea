@@ -8,7 +8,10 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../ExerciceTs'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, egal } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import figureApigeom from '../../lib/figureApigeom.js'
+import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine.js'
+import Figure from 'apigeom'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const amcReady = true
@@ -24,7 +27,11 @@ export const titre = 'Placer un point d\'abscisse un nombre relatif'
 export const uuid = '6d576'
 export const ref = '5R11-2'
 
+type goodAnswer = { label: string, value: number }[]
+
 class PlacerPointsSurAxeRelatifs extends Exercice {
+  goodAnswers: goodAnswer[] = []
+  figures: Figure[] = []
   constructor () {
     super()
     this.consigne = ''
@@ -42,10 +49,8 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
   nouvelleVersion () {
     if (this.interactif) this.consigne = 'Placer les points sur la droite graduée, puis vérifier la réponse.'
     let typesDeQuestions
-    const pointsSolutions = []
     let objets = []
     let objetsCorr = []
-    const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -55,8 +60,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
 
     this.contenu = this.consigne
     for (let i = 0, abs0, abs1, abs2, abs3, l1, l2, l3, x1, x2, x3, x11, x22, x33, A, B, C, pas1, pas2, texte, texteCorr; i < this.nbQuestions; i++) {
-      pointsNonSolutions[i] = []
-      pointsSolutions[i] = []
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
@@ -81,7 +84,9 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
           pas2 = 10
           break
       }
-      x1 = randint(0, 2); x2 = randint(3, 4); x3 = randint(5, 6)
+      x1 = randint(0, 2)
+      x2 = randint(3, 4)
+      x3 = randint(5, 6)
       x11 = randint(1, 9); x22 = randint(1, 9); x33 = randint(1, 3)
       abs1 = arrondi(abs0 + x1 / pas1 + x11 / pas1 / pas2, typesDeQuestions[i]) // le type de questions est égal au nombre de décimales.
       abs2 = arrondi(abs0 + x2 / pas1 + x22 / pas1 / pas2, typesDeQuestions[i])
@@ -90,6 +95,11 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       A = point(changeCoord(abs1, abs0, pas1), 0, l1, 'above')
       B = point(changeCoord(abs2, abs0, pas1), 0, l2, 'above')
       C = point(changeCoord(abs3, abs0, pas1), 0, l3, 'above')
+      this.goodAnswers[i] = [
+        { label: l1, value: arrondi(abs1, 4) },
+        { label: l2, value: arrondi(abs2, 4) },
+        { label: l3, value: arrondi(abs3, 4) }
+      ]
       objets.push(droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
@@ -113,7 +123,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
         labelsPrincipaux: true,
         thickDistance: 1 / pas1
       }))
-      if (this.interactif && !context.isAmc) {}
       const axeGradue = droiteGraduee({
         Unite: 3 * pas1,
         Min: abs0,
@@ -129,7 +138,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       const t1 = tracePoint(A, 'blue')
       const t2 = tracePoint(B, 'blue')
       const t3 = tracePoint(C, 'blue')
-      // @ts-expect-error
+      // @ts-expect-error Problème de typage de labelPoint
       const noms = labelPoint(A, B, C)
       t1.taille = 5
       t1.epaisseur = 2
@@ -138,12 +147,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       t3.taille = 5
       t3.epaisseur = 2
 
-      texte = `Placer les points : $${l1}(${texNombre(abs1, 5)}), ${l2}(${texNombre(abs2, 5)}), ${l3}(${texNombre(abs3, 5)})$.<br>`
-      texte += mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
-      if (this.interactif && !context.isAmc) {
-        texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
-      }
-      // @ts-expect-error
+      // @ts-expect-error Problème de typage de labelPoint
       objets.push(labelPoint(A, B, C), tracePoint(A, B, C))
       texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, axeGradue, t1, t2, t3, noms)
       if (context.isAmc) {
@@ -152,16 +156,74 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
           propositions: [{ texte: texteCorr, statut: 0, feedback: '' }]
         }
       }
+
+      if (this.interactif && !context.isAmc) {
+        texte = `Placer les points : $${l1}(${texNombre(abs1, 5)}), ${l2}(${texNombre(abs2, 5)}), ${l3}(${texNombre(abs3, 5)})$.<br>`
+        const figure = apigeomGraduatedLine({ xMin: abs0, xMax: abs0 + 7 })
+        figure.options.labelAutomaticBeginsWith = l1
+        this.figures[i] = figure
+        texte += figureApigeom({ exercice: this, idApigeom: `ex${this.numeroExercice}Q${i}`, figure })
+
+        const figureCorr = apigeomGraduatedLine({ xMin: abs0, xMax: abs0 + 7 })
+        figureCorr.isDynamic = false
+
+        figureCorr.create('Point', { x: abs1, y: 0, label: l1 })
+        figureCorr.create('Point', { x: abs2, y: 0, label: l2 })
+        figureCorr.create('Point', { x: abs3, y: 0, label: l3 })
+        if (context.isHtml) {
+          texteCorr = figureCorr.getStaticHtml()
+        } else {
+          texteCorr = latexGraduatedLine({ xMin: abs0, xMax: abs0 + 7 })
+        }
+      } else {
+        texte = `Placer les points : $${l1}(${texNombre(abs1, 5)}), ${l2}(${texNombre(abs2, 5)}), ${l3}(${texNombre(abs3, 5)})$.<br>`
+      }
+
+      if (!context.isHtml) {
+        texte += latexGraduatedLine({ xMin: abs0, xMax: abs0 + 7, scale: 2 })
+        const points = [
+          { x: abs1, label: l1 },
+          { x: abs2, label: l2 },
+          { x: abs3, label: l3 }
+        ]
+        texteCorr = latexGraduatedLine({ xMin: abs0, xMax: abs0 + 7, points, scale: 2 })
+      }
+
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
 
     this.exoCustomResultat = true
-    this.correctionInteractive = (i: number) => {
-      let result = 'KO'
-      return result
-    }
     listeQuestionsToContenu(this)
+  }
+
+  correctionInteractive = (i: number) => {
+    const result: ('OK'|'KO')[] = []
+    const figure = this.figures[i]
+    const goodAnswer = this.goodAnswers[i]
+    const divFeedback = document.querySelector(`#feedback${`ex${this.numeroExercice}Q${i}`}`)
+    for (let j = 0; j < goodAnswer.length; j++) {
+      const label = goodAnswer[j].label
+      const x = goodAnswer[j].value
+      const { isValid, message, points } = figure.checkCoords({ checkOnlyAbscissa: true, label, x, y: 0 })
+      if (isValid) {
+        result.push('OK')
+        points[0].color = 'green'
+        points[0].colorLabel = 'green'
+      } else {
+        result.push('KO')
+        if (points[0] !== undefined) {
+          points[0].color = 'red'
+          points[0].colorLabel = 'red'
+        }
+      }
+      if (divFeedback != null) {
+        const p = document.createElement('p')
+        p.innerText = message
+        divFeedback.appendChild(p)
+      }
+    }
+    return result
   }
 }
 
@@ -170,4 +232,60 @@ export default PlacerPointsSurAxeRelatifs
 // fonction qui retourne l'abscisse du point pour mathalea2d en fonction de l'abscisse de l'exercice
 function changeCoord (x: number, abs0: number, pas1: number) {
   return (abs0 + (x - abs0) * 3 * pas1)
+}
+
+function apigeomGraduatedLine ({ xMin, xMax, step = 1, stepBis = 0.1, scale = 1 }: {
+  xMin: number,
+  xMax: number,
+  step?: number,
+  stepBis?: number,
+  scale?: number
+}): Figure {
+  const width = 900
+  const height = 80
+  const figure = new Figure({ xMin: xMin - 1, yMin: -1.5, width, height, scale, dy: 10, dx: 0.1, xScale: 3, snapGrid: true })
+  figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
+
+  const d = new GraduatedLine(figure, { min: xMin, max: xMax, step, stepBis })
+  d.draw()
+  return figure
+}
+
+type Point = { x: number, label: string }
+
+function latexGraduatedLine ({ xMin, xMax, step = 1, stepBis = 0.1, scale = 1, points = [] }: {
+  xMin: number,
+  xMax: number,
+  step?: number,
+  stepBis?: number,
+  scale?: number,
+  points?: Point[]
+}): string {
+  let result = `
+  \\begin{tikzpicture}[xscale=${scale}]
+     \\tkzInit[xmin=${xMin}, xmax=${xMax}, xstep=${step}]
+     \\tkzDrawX[label={}, tickup=3pt, tickdn=3pt]
+  `
+  if (stepBis !== undefined) {
+    result += `
+    \\foreach \\i in {${xMin},${xMin + stepBis},...,${xMax}} {
+         \\tkzHTick[mark=|,mark size=2pt]{\\i}
+    }
+    `
+  }
+  const start = arrondi(Math.ceil(xMin / step) * step)
+  const end = arrondi(Math.floor(xMax / step) * step)
+  for (let i = start; i <= end;) {
+    result += '\n ' + `\\tkzText[below=0.2](${i},0){$${texNombre(i, 5)}$}`
+    i = arrondi(i + step)
+  }
+  for (const point of points) {
+    result += `
+       \\tkzDefPoint(${point.x},0){${point.label}}
+       \\tkzLabelPoints[above = 0.2](${point.label})
+       \\tkzDrawPoints[shape = cross out, size = 4 pt](${point.label})
+  `
+  }
+  result += '\\end{tikzpicture}'
+  return result
 }
