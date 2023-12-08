@@ -33,7 +33,7 @@ class ConstructionRectangle extends Exercice {
   nouvelleVersion (): void {
     this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
-    this.figure.options.labelAutomaticForPoints = true
+    this.figure.options.labelAutomaticBeginsWith = 'A'
 
     const enonce = 'Tracer un rectangle $ABCD$.'
     this.figure.setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'LINE_PERPENDICULAR', 'LINE_PARALLEL', 'POLYGON', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'NAME_POINT', 'DRAG', 'HIDE', 'REMOVE', 'UNDO', 'REDO', 'SHAKE'], position: 'top' })

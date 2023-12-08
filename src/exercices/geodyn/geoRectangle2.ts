@@ -36,7 +36,7 @@ class ConstructionRectangleDimensions extends Exercice {
   nouvelleVersion (): void {
     this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: -7, yMin: -7, width: 800, height: 500, border: true })
-    this.figure.options.labelAutomaticForPoints = true
+    this.figure.options.labelAutomaticBeginsWith = 'A'
     this.L = randint(4, 10)
     this.l = randint(2, this.L - 1)
     const enonce = `Tracer un rectangle $ABCD$ tel que $AB=${this.L}$ et $BC=${this.l}$.`

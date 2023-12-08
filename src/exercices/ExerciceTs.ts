@@ -14,7 +14,7 @@ export default class Exercice {
   sup2: any
   sup3: any
   sup4: any
-  correctionInteractive?: (i?: number) => string | string[] | Promise<string | string[]>
+  correctionInteractive?: (i: number) => string | string[] | Promise<string | string[]>
   exoCustomResultat?: boolean // Lorsqu'il est à true, correctionInteractive renvoie un tableau de string ce qui permet à une question de rapporter plusieurs points
   duree?: number
   seed?: string

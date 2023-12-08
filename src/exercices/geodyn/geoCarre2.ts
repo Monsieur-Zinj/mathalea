@@ -35,7 +35,7 @@ class ConstructionCarre2 extends Exercice {
   nouvelleVersion (): void {
     this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
-    this.figure.options.labelAutomaticForPoints = true
+    this.figure.options.labelAutomaticBeginsWith = 'A'
     this.cote = randint(3, 10)
 
     const enonce = `Tracer un carré $ABCD$ de côté ${this.cote}.`

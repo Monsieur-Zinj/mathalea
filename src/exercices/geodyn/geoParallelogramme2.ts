@@ -33,7 +33,7 @@ class ConstructionParallelogramme extends Exercice {
   nouvelleVersion (): void {
     this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
-    this.figure.options.labelAutomaticForPoints = true
+    this.figure.options.labelAutomaticBeginsWith = 'A'
     const A = this.figure.create('Point', { x: 8, y: 11, label: 'A' })
     const B = this.figure.create('Point', { x: 18, y: 12, label: 'B' })
     const C = this.figure.create('Point', { x: 20, y: 9, label: 'C' })
