@@ -5978,6 +5978,25 @@
           },
           "typeExercice": "alea"
         },
+        "can2F17": {
+          "url": "can/2e/can2F17.js",
+          "tags": [],
+          "uuid": "659da",
+          "id": "can2F17",
+          "titre": "Dresser un tableau de signes à partir d'un graphique",
+          "datePublication": "07/12/2023",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
+        },
         "can2F18": {
           "url": "can/2e/can2F18.js",
           "tags": [],
@@ -18399,9 +18418,9 @@
         "typeExercice": "alea"
       },
       "3L11": {
-        "url": "3e/3L11new.js",
+        "url": "3e/3L11.js",
         "tags": [],
-        "uuid": "db2e0",
+        "uuid": "77a62",
         "id": "3L11",
         "titre": "Utiliser la simple distributivité",
         "features": {
@@ -19346,10 +19365,11 @@
         "id": "2F22-3",
         "titre": "Déterminer le tableau de signes d'une fonction graphiquement",
         "datePublication": "06/07/2023",
+        "dateModification": "07/12/2023",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
