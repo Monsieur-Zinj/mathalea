@@ -1,18 +1,16 @@
 import * as pkg from '@cortex-js/compute-engine'
 import { all, create, Fraction } from 'mathjs'
-import { point, tracePoint } from '../../lib/2d/points.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import { stringNombre } from '../../lib/outils/texNombre.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau.js'
+import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { fraction } from '../../modules/fractions.js'
 const { ComputeEngine } = pkg
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
@@ -74,17 +72,17 @@ export class Yohaku {
             cellules.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, {}).printResult)
             break
           case 'fractions dénominateurs multiples':
-            cellules.push(math.fraction(randint(1, this.valeurMax), den))
+            cellules.push(fraction(randint(1, this.valeurMax), den))
             break
           case 'fractions positives dénominateurs premiers':
-            cellules.push(math.fraction(randint(1, this.valeurMax), choice([2, 3, 5, 7])))
+            cellules.push(fraction(randint(1, this.valeurMax), choice([2, 3, 5, 7])))
             break
 
           case 'fractions positives' :
-            cellules.push(math.fraction(randint(1, this.valeurMax), randint(2, this.valeurMax)))
+            cellules.push(fraction(randint(1, this.valeurMax), randint(2, this.valeurMax)))
             break
           case 'fractions relatives' :
-            cellules.push(math.fraction(randint(-this.valeurMax, this.valeurMax, 0), randint(2, this.valeurMax)))
+            cellules.push(fraction(randint(-this.valeurMax, this.valeurMax, 0), randint(2, this.valeurMax)))
             break
         }
       }
@@ -101,16 +99,17 @@ export class Yohaku {
             cellules.push(calculer(`${randint(1, this.valeurMax)}x + ${randint(1, this.valeurMax)}`, {}).printResult)
             break
           case 'fractions dénominateurs multiples':
-            cellules.push(math.fraction(randint(1, this.valeurMax), cellules[i - 1].d))
+            console.log(cellules[i - 1])
+            cellules.push(fraction(randint(1, this.valeurMax), cellules[i - 1].d))
             break
           case 'fractions positives dénominateurs premiers':
-            cellules.push(math.fraction(randint(1, this.valeurMax), choice([2, 3, 5, 7])))
+            cellules.push(fraction(randint(1, this.valeurMax), choice([2, 3, 5, 7])))
             break
           case 'fractions positives' :
-            cellules.push(math.fraction(randint(1, this.valeurMax), randint(2, this.valeurMax)))
+            cellules.push(fraction(randint(1, this.valeurMax), randint(2, this.valeurMax)))
             break
           case 'fractions relatives' :
-            cellules.push(math.fraction(randint(-this.valeurMax, this.valeurMax, 0), randint(2, this.valeurMax)))
+            cellules.push(fraction(randint(-this.valeurMax, this.valeurMax, 0), randint(2, this.valeurMax)))
             break
         }
       }
@@ -140,9 +139,15 @@ export class Yohaku {
   // fonction utilisée par calculeResultats
   operate (valeurs) {
     const valeursConverties = valeurs.map((val) => {
-      if (!isNaN(val) || typeof val === 'number' || val instanceof FractionEtendue || val instanceof Fraction) return Number(val)
+      if (!isNaN(val) && typeof val === 'number' && this.type.includes('entier')) return Number(val)
+      if (val instanceof FractionEtendue) return val
+      if (val instanceof Fraction) return fraction(val.s * val.n, val.d)
       if (typeof val === 'string') {
-        if (val.includes('\\frac')) return new FractionEtendue(...engine.parse(val).numericValue)
+        if (val.includes('\\frac')) {
+          const fracVal = engine.parse(val.replace('dfrac', 'frac')).numericValue
+          if (Array.isArray(fracVal)) return fraction(...fracVal)
+          return fraction(fracVal, 1)
+        }
         return `${val.replaceAll(/\s/g, '')}`
       }
       return val.valueOf()
@@ -152,11 +157,11 @@ export class Yohaku {
       case 'addition':
         if (this.type !== 'littéraux') {
           if (this.type.substring(0, 4) === 'frac') {
-            initialValue = math.fraction('0')
-            return valeursConverties.reduce((previous, current) => math.fraction(math.add(previous, current)), initialValue)
+            initialValue = new FractionEtendue(0, 1)
+            return valeursConverties.reduce((previous, current) => previous.sommeFraction(current), initialValue).texFraction
           } else {
             initialValue = math.number(0)
-            return valeursConverties.reduce((previous, current) => math.add(previous, current), initialValue)
+            return valeursConverties.reduce((previous, current) => math.add(previous, current), initialValue).toString()
           }
         } else {
           initialValue = math.parse('0')
@@ -165,11 +170,11 @@ export class Yohaku {
       case 'multiplication':
         if (this.type !== 'littéraux') {
           if (this.type.substring(0, 4) === 'frac') {
-            initialValue = math.fraction('1')
-            return valeursConverties.reduce((previous, current) => math.fraction(math.multiply(previous, current)), initialValue)
+            initialValue = new FractionEtendue(1, 1)
+            return valeursConverties.reduce((previous, current) => previous.produitFraction(current).simplifie(), initialValue).texFraction
           } else {
             initialValue = math.number(1)
-            return valeursConverties.reduce((previous, current) => math.multiply(previous, current), initialValue)
+            return valeursConverties.reduce((previous, current) => math.multiply(previous, current), initialValue).toString()
           }
         } else {
           initialValue = math.parse('1')
@@ -178,70 +183,42 @@ export class Yohaku {
     }
   }
 
-  representation () {
-    // à refaire intégralement avec les tableaux mathlive et tableauColonneLigne.
-    const lignes = []
-    const colonnes = []
-    const resultats = []
-    const donnees = []
-    const operateur = tracePoint(point((this.taille + 0.5) * this.largeur, -(this.taille + 0.5) * this.hauteur))
-    operateur.style = this.operation === 'addition' ? '+' : 'x'
-    operateur.taille = 4
-    for (let i = 0; i <= this.taille; i++) {
-      lignes[i] = segment(0, -i * this.hauteur, (this.taille + 1) * this.largeur, -i * this.hauteur, 'black')
-      colonnes[i] = segment(i * this.largeur, 0, i * this.largeur, -(this.taille + 1) * this.hauteur, 'black')
-    }
+  /**
+   * Retourne le tableau
+   * @param {boolean} isInteractif
+   * @returns {string}
+   */
+  representation ({ numeroExercice, question, classes = '' }) {
+    const tabEnteteColonnes = [this.operation === 'addition' ? '+' : '\\times']
     for (let i = 0; i < this.taille; i++) {
-      if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-        resultats[i] = texteParPosition(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'milieu', 'black', 1, 'middle', true)
-      } else {
-        if (this.type !== 'littéraux') {
-          resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'black', 20)
-        } else {
-          resultats[i] = latexParCoordonnees(this.resultats[i], (i + 0.5) * this.largeur, -(0.5 + this.taille) * this.hauteur, 'black', this.operation === 'addition' ? 50 : 80)
-        }
-      }
+      tabEnteteColonnes.push(this.resultats[i] instanceof FractionEtendue ? this.resultats[i].texFraction : this.resultats[i])
     }
+    const tabEnteteLignes = []
     for (let i = this.taille; i < 2 * this.taille; i++) {
-      if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-        resultats[i] = texteParPosition(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'milieu', 'black', 1, 'middle', true)
-      } else {
-        if (this.type !== 'littéraux') {
-          resultats[i] = latexParCoordonnees(this.resultats[i].toLatex().replace('frac', 'dfrac'), (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'black', 20)
-        } else {
-          resultats[i] = latexParCoordonnees(this.resultats[i], (this.taille + 0.5) * this.largeur, (this.taille - 0.5 - i) * this.hauteur, 'black', this.operation === 'addition' ? 50 : 80)
-        }
-      }
+      tabEnteteLignes.push(this.resultats[i] instanceof FractionEtendue ? this.resultats[i].texFraction : this.resultats[i])
     }
-    if (this.Case !== null) {
-      if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-        donnees.push(texteParPosition(stringNombre(this.cellules[this.Case], 0), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
+    const tabLignes = []
+    for (let i = 0; i < this.taille ** 2; i++) {
+      if (this.solution) {
+        tabLignes.push(this.cellules[i] instanceof FractionEtendue ? this.cellules[i].texFraction : this.cellules[i])
       } else {
-        if (this.type !== 'littéraux') {
-          donnees.push(latexParCoordonnees(this.cellules[this.Case].toLatex().replace('frac', 'dfrac'), (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'black', 20))
+        if (this.Case == null) {
+          tabLignes.push('')
         } else {
-          donnees.push(latexParCoordonnees(this.cellules[this.Case], (this.Case % this.taille + 0.5) * this.largeur, -(Math.floor(this.Case / this.taille) + 0.5) * this.hauteur, 'black', 50))
-        }
-      }
-    }
-    if (this.solution) {
-      for (let i = 0; i < this.cellules.length; i++) {
-        if (this.type !== 'littéraux' && this.type.substring(0, 4) !== 'frac') {
-          if (i !== this.Case) donnees.push(texteParPosition(stringNombre(this.cellules[i], 0), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
-        } else {
-          if (this.type !== 'littéraux') {
-            if (i !== this.Case) donnees.push(latexParCoordonnees(this.cellules[i].toLatex().replace('frac', 'dfrac'), (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'black', 20))
+          if (i === this.Case) {
+            tabLignes.push(this.cellules[i] instanceof FractionEtendue ? this.cellules[i].texFraction : this.cellules[i])
           } else {
-            if (i !== this.Case) donnees.push(latexParCoordonnees(this.cellules[i], (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'black', 50))
+            tabLignes.push('')
           }
         }
       }
-    } else if (this.cellulesPreremplies.length !== 0) {
-      for (let i = 0; i < this.cellulesPreremplies.length; i++) {
-        if (i !== this.Case) donnees.push(texteParPosition(this.cellulesPreremplies[i], (i % this.taille + 0.5) * this.largeur, -(Math.floor(i / this.taille) + 0.5) * this.hauteur, 'milieu', 'black', 1, 'middle', true))
-      }
     }
-    return mathalea2d(Object.assign({}, fixeBordures([...lignes, ...colonnes, ...resultats, ...donnees, operateur])), operateur, ...lignes, ...colonnes, ...resultats, ...donnees)
+    if (context.isHtml) {
+      const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes)
+      return tab.output
+    } else {
+      return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true)
+    }
   }
 }
 
@@ -294,17 +271,18 @@ export default function FabriqueAYohaku () {
         ? `Les ${mot[0]} en bout de ligne ou de colonne sont les sommes des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
         : `Les ${mot[0]} en bout de ligne ou de colonne sont les produits des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
       this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot[0]} qui conviennent (plusieurs solutions possibles).<br>`
-      texte = yohaku.representation()
-      for (let k = 0; k < yohaku.cellulesPreremplies.length; k++) {
-        texte += ajouteChampTexteMathLive(this, i * taille ** 2 + k, 'largeur10 inline nospacebefore', {
-          texte: `${lettreMinusculeDepuisChiffre(k + 1)}=`,
-          tailleExtensible: true
-        })
-        texte += sp(4)
-      }
-      texteCorr = 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br>'
+      texte = yohaku.representation({ numeroExercice: this.numeroExercice, question: i })
+      texteCorr = 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br><br>'
       yohaku.solution = true
-      texteCorr += yohaku.representation()
+      texteCorr += yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: false })
+      const arrayReponses = []
+      for (let l = 0; l < taille; l++) {
+        for (let c = 0; c < taille; c++) {
+          arrayReponses.push([`L${l + 1}C${c + 1}`, yohaku.cellules[l * taille + c]])
+        }
+      }
+      const reponses = Object.fromEntries(arrayReponses)
+      setReponse(this, i, reponses, { formatInteractif: 'tableauMathlive' })
       this.yohaku[i] = yohaku
       if (this.questionJamaisPosee(i, ...yohaku.cellules)) {
         this.listeQuestions.push(texte)
@@ -317,25 +295,49 @@ export default function FabriqueAYohaku () {
   }
   this.correctionInteractive = i => {
     const taille = parseInt(this.sup3)
-    const champsTexte = []
-    const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${(i + 1) * taille * taille - 1}`)
+    let cell
+    const divFeedbacks = []
     const saisies = []
-    for (let k = 0; k < taille ** 2; k++) {
-      champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * taille ** 2 + k}`)
-      // Je blinde
-      if (this.type === 'littéraux') { // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
-        saisies[k] = champsTexte[k].value.replace(',', '.') ?? '0'
-        console.log(saisies[k])
-      } else {
-        saisies[k] = champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1') ?? '0'
+    for (let l = 0; l < taille; l++) {
+      divFeedbacks[l] = []
+      for (let c = 0; c < taille; c++) {
+        cell = document.getElementById(`champTexteEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`)
+        if (cell != null) {
+          divFeedbacks[l][c] = document.querySelector(`#divDuSmileyEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`)
+          if (this.yohaku[i].type === 'littéraux') { // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
+            saisies[l * taille + c] = cell.value.replace(',', '.') ?? '0'
+          } else {
+            saisies[l * taille + c] = cell.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1') ?? '0'
+            // on peut taper des entiers dans les Yohaku fraction, mais ils doivent être modifiés en fraction pour le calcul
+            if (!isNaN(saisies[l * taille + c]) && this.yohaku[i].type.includes('frac')) {
+              saisies[l * taille + c] = `\\frac{${saisies[l * taille + c]}}{1}`
+            }
+          }
+        } else if (cell == null && l * taille + c !== this.yohaku[i].Case) {
+          window.notify(`Pas de cellule L${l + 1}C${c + 1} dans le document`)
+        } else {
+          saisies[l * taille + c] = this.yohaku[i].cellules[this.yohaku[i].Case]
+        }
       }
     }
     let resultat
     if (this.saisieCoherente(saisies, taille, i)) {
-      divFeedback.innerHTML = '😎'
+      for (let l = 0; l < taille; l++) {
+        for (let c = 0; c < taille; c++) {
+          if (divFeedbacks[l][c] != null) {
+            divFeedbacks[l][c].innerHTML = '😎'
+          }
+        }
+      }
       resultat = 'OK'
     } else {
-      divFeedback.innerHTML = '☹️'
+      for (let l = 0; l < taille; l++) {
+        for (let c = 0; c < taille; c++) {
+          if (divFeedbacks[l][c] != null) {
+            divFeedbacks[l][c].innerHTML = '☹️'
+          }
+        }
+      }
       resultat = 'KO'
     }
     return resultat
@@ -345,10 +347,15 @@ export default function FabriqueAYohaku () {
     const test = function (yohaku, i, valeurs, resultatOK) {
       let resultVal = yohaku[question].operate(valeurs)
       let resultatAttendu = yohaku[question].resultats[i]
-      if (typeof resultatAttendu === 'string' && resultatAttendu.includes('x')) {
-        resultVal = engine.parse(resultVal)
-        resultatAttendu = engine.parse(resultatAttendu)
-        resultatOK = resultatOK && resultVal.isSame(resultatAttendu)
+      console.log(`resultVal: ${resultVal} resultatAttendu : ${resultatAttendu}`)
+      if (typeof resultatAttendu === 'string') {
+        resultVal = engine.parse(resultVal.replace('dfrac', 'frac'))
+        resultatAttendu = engine.parse(resultatAttendu.replace('dfrac', 'frac'))
+        if (yohaku.type === 'littéraux') {
+          resultatOK = resultatOK && resultVal.isSame(resultatAttendu)
+        } else {
+          resultatOK = resultatOK && resultVal.isEqual(resultatAttendu)
+        }
       } else {
         resultatOK = resultatOK && math.equal(Number(resultVal), Number(resultatAttendu))
       }

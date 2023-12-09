@@ -145,7 +145,7 @@ class LireImageParApiGeom extends Exercice {
     const ligne2bis: Icell[] = [{ texte: 'f(x)', gras: true, color: 'black', latex: true }].concat(this.Y.map(() => Object.assign({}, { texte: '', gras: false, color: 'black', latex: true })))
     const nbColonnes = this.nbImages
     if (this.interactif) {
-      const tabMathlive = AddTabPropMathlive.create(this, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'college6eme nospacebefore')
+      const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'college6eme nospacebefore')
       enonce += '<br>' + tabMathlive.output
     } else {
       const tableauVide = new Tableau({

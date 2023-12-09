@@ -143,7 +143,7 @@ export default function TableDoubleDistributivite () {
       }
       if (this.interactif) {
         const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(entetesCol, entetesLgn, ['', '', '', ''])
-        const tabMathlive = AddTabDbleEntryMathlive.create(this, i, tableauVide, 'nospacebefore')
+        const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, i, tableauVide, 'nospacebefore')
         texte += tabMathlive.output
         setReponse(this, i, { L1C1, L1C2, L2C1, L2C2 }, { formatInteractif: 'tableauMathlive' })
       } else {

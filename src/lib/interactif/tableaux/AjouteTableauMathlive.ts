@@ -1,6 +1,5 @@
 import { notify } from '../../../main'
 import './tableauMathlive.scss'
-import type Exercice from '../../../exercices/ExerciceTs'
 
 export interface Icell {
 texte: string
@@ -92,7 +91,7 @@ export class AddTabPropMathlive {
   flecheGaucheSens: FlecheSens
   classes?: string
 
-  private constructor (exercice: Exercice, question: number, tableau: Itableau, classes: string) {
+  private constructor (numeroExercice: number, question: number, tableau: Itableau, classes: string) {
     this.nbColonnes = tableau.nbColonnes ?? 1
     this.flecheHaut = tableau.flecheHaut ?? []
     this.flecheBas = tableau.flecheBas ?? []
@@ -100,22 +99,22 @@ export class AddTabPropMathlive {
     this.flecheDroiteSens = tableau.flecheDroiteSens ?? 'bas'
     this.flecheGauche = tableau.flecheGauche ?? false
     this.flecheGaucheSens = tableau.flecheGaucheSens ?? 'haut'
-    this.numeroExercice = exercice.numeroExercice ?? 0
+    this.numeroExercice = numeroExercice ?? 0
     this.numeroQuestion = question
     this.id = `tabMLEx${this.numeroExercice}Q${this.numeroQuestion}`
     this.classes = classes
   }
 
-  static create (exercice: Exercice, question: number, tableau: Itableau, classes: string) {
+  static create (numeroExercice: number, question: number, tableau: Itableau, classes: string) {
     if (!Array.isArray(tableau.ligne1) || !Array.isArray(tableau.ligne1)) {
       notify('ajouteTableauMathlive : vérifiez vos paramètres !', { ligne1: tableau.ligne1, ligne2: tableau.ligne2, nbColonnes: tableau.nbColonnes })
     }
     // ça, c'est pour ne pas modifier les lignes du tableau passé en argument
-    const NoEx = exercice.numeroExercice ?? 0
+    const NoEx = numeroExercice ?? 0
     const NoQ = question
     const ligne1 = [...tableau.ligne1]
     const ligne2 = [...tableau.ligne2]
-    const tableauMathlive: AddTabPropMathlive = new AddTabPropMathlive(exercice, question, tableau, classes)
+    const tableauMathlive: AddTabPropMathlive = new AddTabPropMathlive(numeroExercice, question, tableau, classes)
     const table = document.createElement('table')
     table.className = 'tableauMathlive'
     table.id = `tabMathliveEx${NoEx}Q${question}`
@@ -134,9 +133,10 @@ export class AddTabPropMathlive {
       appendCell({ line: secondLine, icell: ligne2[i], indexCol: i + 1, indexLine: 1, tag: 'td', classes, NoEx, NoQ })
     }
     table.appendChild(secondLine)
+    const spanCheckOuterHTML = `<span id="resultatCheckEx${numeroExercice}Q${question}"></span>`
     // pour l'instant je retourne l'objet complet avec le HTML de la table dans sa propriété output,
     // mais il sera peut-être possible de ne retourner que le HTML comme pour ajouteChampTexteMathlive...
-    tableauMathlive.output = table.outerHTML
+    tableauMathlive.output = table.outerHTML + spanCheckOuterHTML
     return tableauMathlive
   }
 
@@ -171,27 +171,32 @@ export class AddTabDbleEntryMathlive {
   headingCols: Icell[]
   headingLines: Icell[]
   classes: string
-  private constructor (exercice: Exercice, question: number, tableau: ItabDbleEntry, classes: string) {
+  private constructor (numeroExercice: number, question: number, tableau: ItabDbleEntry, classes: string) {
+    if (numeroExercice == null) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      window.notify('AddTabDbleEntryMathlive a besoin absolument d\'un numero d\'exercice')
+    }
     this.headingCols = tableau.headingCols
     this.headingLines = tableau.headingLines
-    this.numeroExercice = exercice.numeroExercice ?? 0
+    this.numeroExercice = numeroExercice ?? 0
     this.numeroQuestion = question
     this.id = `tabMLEx${this.numeroExercice}Q${this.numeroQuestion}`
     this.raws = tableau.raws
     this.classes = classes
   }
 
-  static create (exercice: Exercice, question: number, tableau: ItabDbleEntry, classes: string) {
+  static create (numeroExercice: number, question: number, tableau: ItabDbleEntry, classes: string) {
     // tableau doit contenir headingCols et headingLines, qui peuvent être vides, mais doivent être fournis.
     if (!Array.isArray(tableau.headingCols) || !Array.isArray(tableau.headingLines)) {
       notify('ajouteTableauMathlive : vérifiez vos paramètres !', { headingCols: tableau.headingCols, headingLines: tableau.headingLines })
     }
-    const tableauMathlive: AddTabDbleEntryMathlive = new AddTabDbleEntryMathlive(exercice, question, tableau, classes)
+    const tableauMathlive: AddTabDbleEntryMathlive = new AddTabDbleEntryMathlive(numeroExercice, question, tableau, classes)
     const table = document.createElement('table')
-    const NoEx = exercice.numeroExercice ?? 0
+    const NoEx = numeroExercice ?? 0
     const NoQ = question
     table.className = 'tableauMathlive'
-    table.id = `tabMathliveEx${exercice.numeroExercice}Q${question}`
+    table.id = `tabMathliveEx${numeroExercice}Q${question}`
     const firstLine = document.createElement('tr')
     table.appendChild(firstLine)
     if (tableau.headingCols != null) {
@@ -216,9 +221,10 @@ export class AddTabDbleEntryMathlive {
         }
       }
     }
+    const spanCheckOuterHTML = `<span id="resultatCheckEx${numeroExercice}Q${question}"></span>`
     // pour l'instant je retourne l'objet complet avec le HTML de la table dans sa propriété output,
     // mais il sera peut-être possible de ne retourner que le HTML comme pour ajouteChampTexteMathlive...
-    tableauMathlive.output = table.outerHTML
+    tableauMathlive.output = table.outerHTML + spanCheckOuterHTML
     return tableauMathlive
   }
 
