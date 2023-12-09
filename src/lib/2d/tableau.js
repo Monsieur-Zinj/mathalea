@@ -324,7 +324,7 @@ export function tableau (...args) {
  * @param {array} tabEntetesColonnes contient les entetes des colonnes
  * @param {array} tabEntetesLignes contient les entetes des lignes
  * @param {array} tabLignes contient les elements de chaque ligne
- * @param {boolean} arraystretch
+ * @param {number} arraystretch
  * @param {boolean} math
  * @return {string}
  * @author Sébastien Lozano
@@ -337,7 +337,7 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
   const L = tabEntetesLignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
   let tableauCL = ''
-  if (!arraystretch) {
+  if (arraystretch === undefined || typeof arraystretch === 'boolean') {
     if (context.isHtml) {
       arraystretch = 2.5
     } else {

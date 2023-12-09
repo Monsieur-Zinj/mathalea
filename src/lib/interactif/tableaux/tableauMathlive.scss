@@ -7,13 +7,14 @@ table.tableauMathlive {
     tr {
       border: 1px solid #333333;
       padding: 2px 5px 2px 5px;
+      margin: 3px;
       text-align: center;
 
       td {
         border: 1px solid #333333;
         padding: 2px 5px 2px 5px;
+        margin: 3px;
         text-align: center;
-
         math-field {
           min-width: 60px;
           margin-top: 2px;
@@ -30,6 +31,7 @@ table.tableauMathlive {
       padding: 2px 5px 2px 5px;
       text-align: center;
       min-width: 75px;
+      margin: 3px;
     }
 
   }
