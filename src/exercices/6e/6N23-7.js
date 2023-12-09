@@ -1,9 +1,9 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -47,7 +47,7 @@ export default function RecompositionDecimale () {
 
       texte = 'Voici un cube représentant une unité, une plaque représentant $\\dfrac{1}{10}$, une barre représentant $\\dfrac{1}{100}$ et un petit cube représentant $\\dfrac{1}{1000}$.<br>'
       objets.push(...cubeUnite.c2d, ...plaque3d(9, 0, 0, 0.5, 10, 10).c2d, ...barre3d(9, 0, 3, 0.5, 10).c2d, ...cube3d(12, 0, 5, 0.5).c2d)
-      texte += mathalea2d({ scale: 0.5, xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 9 }, objets)
+      texte += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
       texteCorr = ''
       texte += '<br>Quel est le nombre décimal représenté par cet ensemble de solides ?<br>'
       objets = []
@@ -73,13 +73,7 @@ export default function RecompositionDecimale () {
         }
       }
       xDecal += m * 0.8
-      texte += mathalea2d({
-        scale: 0.5,
-        xmin: -0.5,
-        ymin: -0.5,
-        xmax: xDecal,
-        ymax: Math.max(e * 9, d + 2.5, Math.ceil(c * 0.75), Math.ceil(m / 10))
-      }, objets)
+      texte += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
       if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, 'largeur25')
 
       if (this.correctionDetaillee) {
@@ -104,9 +98,9 @@ export default function RecompositionDecimale () {
         texteCorr += `$\\dfrac{${c}}{100}$ et `
         texteCorr += `$\\dfrac{${m}}{1000}$.<br>Le nombre décimal représenté ci-dessus est le nombre $${texNombre(e + d / 10 + c / 100 + m / 1000)}$.`
       }
-      if (reponses.indexOf(calculANePlusJamaisUtiliser(e + d / 10 + c / 100 + m / 1000)) === -1) {
+      if (reponses.indexOf(e + d / 10 + c / 100 + m / 1000) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
-        reponses[q] = calculANePlusJamaisUtiliser(e + d / 10 + c / 100 + m / 1000)
+        reponses[q] = e + d / 10 + c / 100 + m / 1000
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         setReponse(this, q, reponses[q], { digits: 4, decimals: 3 })
