@@ -1652,7 +1652,7 @@ class Cube3d {
     const H = translation3d(D, vy)
     H.c2d.nom = nom[7]
     pointsFace = [E.c2d, F.c2d, G.c2d, H.c2d]
-    const faceArr = this.affichageNom ? polygoneAvecNom(...pointsFace) : vide2d
+    const faceArr = this.affichageNom ? polygoneAvecNom(...pointsFace) : vide2d()
 
     const faceDr = polygone([B.c2d, F.c2d, G.c2d, C.c2d], color)
     let faceVisibleHautOuBas, areteCachee3, areteCachee2, areteCachee1
@@ -1678,9 +1678,9 @@ class Cube3d {
       faceAV.couleurDeRemplissage = colorToLatexOrHTML(colorAV)
       faceVisibleHautOuBas.couleurDeRemplissage = colorToLatexOrHTML(colorHautouBas)
       faceDr.couleurDeRemplissage = colorToLatexOrHTML(colorDr)
-      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d, faceDr, faceVisibleHautOuBas]
+      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d(), faceDr, faceVisibleHautOuBas]
     } else {
-      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d, faceDr, faceVisibleHautOuBas, faceArr.length === 2 ? faceArr[1] : vide2d, areteCachee1, areteCachee2, areteCachee3]
+      this.c2d = [faceAV.length === 2 ? faceAV[0] : faceAV, faceAV.length === 2 ? faceAV[1] : vide2d(), faceDr, faceVisibleHautOuBas, faceArr.length === 2 ? faceArr[1] : vide2d(), areteCachee1, areteCachee2, areteCachee3]
     }
   }
 }
