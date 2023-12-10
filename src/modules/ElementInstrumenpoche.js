@@ -31,6 +31,7 @@ export class ElementButtonInstrumenpoche extends HTMLElement {
       if (divIep.style.display === 'none') {
         divIep.style.display = 'block'
         button.innerText = 'Cacher l\'animation'
+        loadIep(divIep, xml)
       } else {
         divIep.style.display = 'none'
         button.innerText = 'Montrer l\'animation'
@@ -38,17 +39,15 @@ export class ElementButtonInstrumenpoche extends HTMLElement {
     }
     this.appendChild(button)
     this.appendChild(divIep)
-    loadIep(divIep, xml)
   }
 }
 
 async function loadIep (container, xml, options = {}) {
   try {
-    const iepApp = await iepLoadPromise(container, xml, options)
+    await iepLoadPromise(container, xml, options)
     // la figure est chargée et l'animation lancée, si l'on veut rester en pause au début
     // (en attendant une option autostart)
     // le premier doc (le seul pour le moment)
-    const doc = iepApp.docs[0]
   } catch (error) {
     // gérer l'erreur pour prévenir l'utilisateur du pb
   }
