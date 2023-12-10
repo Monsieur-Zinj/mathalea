@@ -59,8 +59,8 @@ export default function EgaliteDAngles () {
         const BD = droiteParPointEtParallele(B, AE, '', '#f15929')
         // BD.epaisseur = 2
         const D = pointIntersectionDD(BD, CE, noms[3], 'above right')
-        const m1 = codageAngle(E, A, C, 1, '', 'black', 2, 1, context.isAmc ? '' : 'black', 0.1, true)
-        const m2 = codageAngle(A, C, E, 1, '', 'black', 2, 1, context.isAmc ? '' : 'black', 0.1, true)
+        const m1 = codageAngle(E, A, C, 1, '', 'black', 2, 1, context.isAmc ? 'none' : 'black', 0.1, true)
+        const m2 = codageAngle(A, C, E, 1, '', 'black', 2, 1, context.isAmc ? 'none' : 'black', 0.1, true)
         const l1 = labelPoint(A, B, C, D, E)
         const c1 = codageAngle(D, B, A, 1, '', 'blue', 2, 1, 'blue')
         const c2 = codageAngle(B, D, E, 1, '', '#f15929', 2, 1, '#f15929')
@@ -86,7 +86,7 @@ export default function EgaliteDAngles () {
         correction += `${numAlpha(2)} Dans un triangle, la somme des angles vaut $180\\degree$ donc $\\widehat{${noms[1]}${noms[3]}${noms[2]}}=180\\degree-\\widehat{${noms[3]}${noms[1]}${noms[2]}}-\\widehat{${noms[1]}${noms[2]}${noms[3]}}=180\\degree-${a}\\degree-${c}\\degree=${miseEnEvidence(180 - a - c)}\\degree$.<br>`
         correction += `${numAlpha(3)} Les angles $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ sont adjacents supplémentaires, donc $\\widehat{${noms[1]}${noms[3]}${noms[4]}}$ mesure $180\\degree-${180 - a - c}\\degree=${miseEnEvidence(a + c, gras)}\\degree$.<br>`
         correction += `${numAlpha(4)} Comme les droites $(${noms[0]}${noms[4]})$ et $(${noms[1]}${noms[3]})$ sont parallèles, les angles correspondants $\\widehat{${noms[1]}${noms[3]}${noms[2]}}$ et $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ sont égaux, donc $\\widehat{${noms[3]}${noms[4]}${noms[0]}}$ mesure $${miseEnEvidence(180 - a - c, gras)}\\degree$.<br>`
-        correction += context.isAmc ? '' : `${numAlpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${miseEnEvidence(180 - a, 'blue')}\\degree+${miseEnEvidence(a + c, 'blue')}\\degree+${miseEnEvidence(180 - a - c, 'blue')}\\degree=${miseEnEvidence(360)}\\degree$.<br>`
+        correction += context.isAmc ? 'none' : `${numAlpha(5)} La somme des angles du quadrilatère vaut donc : $${a}\\degree+${miseEnEvidence(180 - a, 'blue')}\\degree+${miseEnEvidence(a + c, 'blue')}\\degree+${miseEnEvidence(180 - a - c, 'blue')}\\degree=${miseEnEvidence(360)}\\degree$.<br>`
         correction += '$\\phantom{f/}$ La conjecture est bien vérifiée.'
         const reponsesAMC = [a, 180 - a, 180 - a - c, a + c, 180 - a - c]
         const params = { xmin: Math.min(A.x - 8, C.x - 8, E.x - 8), ymin: Math.min(A.y - 1, E.y - 1, C.y - 1), xmax: Math.max(E.x + 2, A.x + 2, C.x + 2), ymax: Math.max(C.y + 2, A.y + 2, E.y + 2), scale: 0.7 }
