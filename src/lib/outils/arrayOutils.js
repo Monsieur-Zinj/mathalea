@@ -173,7 +173,11 @@ export function choice (liste, listeAEviter = []) {
     enleveElement(listebis, listeAEviter[i])
   }
   const index = Math.floor(Math.random() * listebis.length)
-  return listebis[index]
+  if (listebis[index] != null) return listebis[index]
+  else {
+    window.notify('choice a éliminé toutes les possibilités, il ne reste rien à choisir ! ', { liste, listeAEviter })
+    return undefined
+  }
 }
 
 /**

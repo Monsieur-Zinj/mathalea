@@ -765,6 +765,10 @@ export function antecedentInterpole (tableau, image) {
 }
 
 export function antecedentParDichotomie (xmin, xmax, f, y, precision = 0.01) {
+  // On arrondit à 1E-6 parce que sinon, on passe à côté de valeur qui devraient être nulle mais le sont pas à 1E-15 !
+  const ymax = Number(Math.max(f(xmax), f(xmin)).toFixed(6))
+  const ymin = Number(Math.min(f(xmax), f(xmin)).toFixed(6))
+  if (y > ymax || y < ymin) return false // y n'est pas entre les deux extrêmes, la méthode ne fonctionne pas.
   let xmoy, ymoy
   if (xmin > xmax) {
     xmoy = xmin

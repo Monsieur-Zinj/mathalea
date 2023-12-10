@@ -99,7 +99,12 @@ export function expTrinome (a, b, c) {
 
 /**
  * Fonction qui retourne les coefficients a et b de f(x)=ax²+bx+c à partir des données de x1,x2,f(x1),f(x2) et c.
- *
+ *@param {number} x1
+ *@param {number} x2
+ * @param {number} y1
+ * @param {number} y1
+ * @param {number} c
+ * @return {[[number,number],[number,number]]}
  * @author Jean-Claude Lhote
  */
 export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
