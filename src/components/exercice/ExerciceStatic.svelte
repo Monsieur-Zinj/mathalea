@@ -52,9 +52,23 @@
       correctionReady: $globalOptions.isSolutionAccessible ? $globalOptions.isSolutionAccessible : false
     }
     if (resourceHasPlace(resourceToDisplay)) {
-      headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} - ${
+      let numSujet = ''
+      if (resourceToDisplay.jour !== undefined) {
+        switch (resourceToDisplay.jour) {
+          case 'J1':
+            numSujet = ' [sujet 1]'
+            break
+          case 'J2':
+            numSujet = ' [sujet 2]'
+            break
+          default:
+            numSujet = ''
+            break
+        }
+      }
+      headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} ${
         resourceToDisplay.mois || ''
-      } ${resourceToDisplay.annee} - ${resourceToDisplay.lieu} - ${resourceToDisplay.numeroInitial}`
+      } ${resourceToDisplay.annee} ${resourceToDisplay.lieu}${numSujet} - ${resourceToDisplay.numeroInitial}`
     } else {
       headerExerciceProps.title = resourceToDisplay.uuid
     }

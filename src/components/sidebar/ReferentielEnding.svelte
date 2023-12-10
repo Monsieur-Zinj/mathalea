@@ -182,7 +182,10 @@
               {#if resourceHasMonth(ending)}
                 {ending.mois}
               {/if}
-              {ending.annee} - {ending.lieu} - {ending.numeroInitial}
+              {ending.annee} {ending.lieu}
+              {#if resourceHasMonth(ending) && ending.jour !== undefined}
+                [{ending.jour === 'J1' ? 'sujet 1' : 'sujet 2'}]
+              {/if} - {ending.numeroInitial}
             </span>
             <div class="pl-2">
               {#each ending.tags as tag}

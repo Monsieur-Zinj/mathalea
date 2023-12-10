@@ -138,6 +138,7 @@ export interface ExamItemInReferentiel extends StaticItemInreferentiel {
   annee: string
   lieu: string
   numeroInitial: string
+  jour?: 'J1' | 'J2'
   typeExercice: 'dnb' | 'bac'
 }
 
