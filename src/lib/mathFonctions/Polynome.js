@@ -1,4 +1,4 @@
-import { equal, largerEq, max, number } from 'mathjs'
+import { equal, largerEq, max } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { randint } from '../../modules/outils.js'
 import { choice } from '../outils/arrayOutils.js'

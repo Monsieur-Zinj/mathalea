@@ -1,7 +1,7 @@
 import { abs, derivative, parse, simplify } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { Polynome } from '../../lib/mathFonctions/Polynome.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import { signe } from '../../lib/outils/nombres.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
@@ -12,12 +12,13 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 const math = { simplify, parse, derivative }
 export const titre = 'Dérivée d\'un produit'
 export const dateDePublication = '22/01/2022'
+export const dateDeModifImportante = '10/12/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
  * Calculer la dérivée d'un produit
- * @author Jean-Léon Henry
+ * @author Jean-Léon Henry modifié par Rémi Angot (choix des fonctions + parenthèses)
  * Référence 1AN14-4
  */
 
@@ -37,12 +38,13 @@ export default function DeriveeProduit () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = 'Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l\'expression de sa fonction dérivée.'
-  this.nbQuestions = 5
+  this.nbQuestions = 3
   // Sortie LaTeX
   this.nbCols = 2 // Nombre de colonnes
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction
-  this.sup = 1
-  this.sup2 = false
+  this.sup = true
+  this.sup2 = true
+  this.sup3 = false
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
   // const reglesDeSimplifications = math.simplify.rules.slice()
   // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
@@ -51,20 +53,28 @@ export default function DeriveeProduit () {
   // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
 
   this.nouvelleVersion = function () {
-    this.sup = Number(this.sup)
-    this.sup2 = Boolean(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés
-    const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
-    if (this.sup === 2) {
-      listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
-      if (this.sup2) {
-        listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
-      }
+    // const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
+    // if (this.sup === 2) {
+    //   listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
+    //   if (this.sup2) {
+    //     listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
+    //   }
+    const listeTypeDeQuestionsDisponibles = ['monome2/poly1']
+    if (this.sup) {
+      listeTypeDeQuestionsDisponibles.push('inv/poly1')
     }
+    if (this.sup2) {
+      listeTypeDeQuestionsDisponibles.push(choice(['racine/poly', 'racine/poly2centre', 'monome2/racine']))
+    }
+    if (this.sup3) {
+      listeTypeDeQuestionsDisponibles.push(choice(['exp/poly', 'exp/poly2centre']))
+    }
+
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, terme1, terme2, expression, askFacto, askFormule, askQuotient, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On commence par générer des fonctions qui pourrait servir
@@ -92,7 +102,7 @@ export default function DeriveeProduit () {
       const typef1 = listeTypeFonctions[f1]
       const typef2 = listeTypeFonctions[f2]
       // On gère les parenthèses autour des fonctions spéciales
-      const noPar = type => ['racine', 'exp', 'monome2', 'inv'].includes(type)
+      const noPar = type => ['racine', 'exp', 'inv'].includes(type)
       const parenth = (expr, type) => (noPar(type) ? expr : `(${expr})`)
       // On crée les expressions des fonctions : les polynômes dans dictFonctions ne sont pas des chaînes
       const exprf1 = ['poly', 'mono'].includes(typef1.substring(0, 4)) ? dictFonctions[typef1].toMathExpr() : dictFonctions[typef1]
@@ -100,7 +110,7 @@ export default function DeriveeProduit () {
       terme1 = parenth(exprf1, typef1)
       terme2 = parenth(exprf2, typef2)
       // Expression finale de la fonction
-      expression = terme1 + '*' + terme2
+      expression = `${terme1}*${terme2}`
       // Ensemble de dérivation
       ensembleDerivation = listeTypeFonctions.includes('racine') ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
       ensembleDerivation = listeTypeFonctions.includes('inv') ? '\\mathbb{R}^*' : ensembleDerivation
@@ -144,7 +154,7 @@ export default function DeriveeProduit () {
           const a = poly1.monomes[1]
           const polExpand = mon2.multiply(poly1)
           // Début correction
-          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times(${exprf2})${mon2.toMathExpr(true)}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
+          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times(${exprf2})+(${mon2.toMathExpr()})\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${mon2.derivee().multiply(poly1)}${mon2.multiply(a).toMathExpr(true)}.\\]`
           texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${polExpand.derivee()}.\\]`
           // Remarque sur la méthode alternative
@@ -157,7 +167,7 @@ export default function DeriveeProduit () {
           const mon2 = dictFonctions[typef1]
           const m = mon2.monomes[2] // coeff du monome2
           texteCorr += 'On applique la  formule rappellée plus haut : '
-          texteCorr += `\\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times\\sqrt{x}${mon2.toMathExpr(true)}\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
+          texteCorr += `\\[${namef}'(x)=\\underbrace{(${mon2.derivee()})}_{u'(x)}\\times\\sqrt{x}+(${mon2.toMathExpr()})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
           texteCorr += 'On peut réduire un peu l\'expression : '
           texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
           if (m % 2 !== 0) {
@@ -201,7 +211,7 @@ export default function DeriveeProduit () {
           else intermediaire = `\\underbrace{(${derivee})}_{u'(x)}\\times e^x+(${poly})\\times\\underbrace{e^x}_{v'(x)}`
           texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
           // 2ème étape : Factorisation
-          const interm2 = `(${poly}${derivee.toLatex(true)})`
+          const interm2 = `(${poly.add(derivee).toLatex()})`
           const termeGauche = expGauche ? 'e^x' : interm2
           const termeDroite = expGauche ? interm2 : 'e^x'
           texteCorr += 'Comme demandé, on factorise l\'expression par $e^x$ : '
@@ -239,6 +249,7 @@ export default function DeriveeProduit () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Affine*inverse, affine*ax^2\n2 : Niveau 1 et polynômes, racine']
-  this.besoinFormulaire2CaseACocher = ['Inclure l\'exponentielle dans le niveau 2']
+  this.besoinFormulaireCaseACocher = ['Avec la fonction inverse']
+  this.besoinFormulaire2CaseACocher = ['Avec la fonction racine']
+  this.besoinFormulaire3CaseACocher = ['Avec la fonction exponentielle']
 }
