@@ -11,7 +11,7 @@
   // Au clic sur le bouton, on diffuse _action_
   const dispatch = createEventDispatcher()
 
-  function triggerAction() {
+  function triggerAction () {
     dispatch('action', {
       msg: 'Action triggered !'
     })

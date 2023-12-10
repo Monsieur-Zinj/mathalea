@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte"
-  import { getUniqueStringBasedOnTimeStamp } from "../utils/time"
+  import { createEventDispatcher } from 'svelte'
+  import { getUniqueStringBasedOnTimeStamp } from '../utils/time'
 
   export let titles: string[] = ['', '']
   export let value: boolean = true
