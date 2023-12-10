@@ -16,15 +16,14 @@ export const amcType = 'AMCOpen'
 
 /**
  * Utiliser la simple ou la double distributivité et réduire l'expression
- *
  * @author Rémi Angot
- * 3L11-4
  * Ajout du paramétrage : Guillaume Valmont 13/08/2021
  */
 export const uuid = '5f5a6'
 export const ref = '3L11-4'
 export default function FactoriserParNombreOux () {
   Exercice.call(this) // Héritage de la classe Exercice()
+  this.sup = 4
   this.nbQuestions = 8
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -39,7 +38,6 @@ export default function FactoriserParNombreOux () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1 :
