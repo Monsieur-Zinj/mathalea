@@ -21,8 +21,6 @@ export const dateDePublication = '26/10/2020'
 export const dateDeModifImportante = '23/04/2023' // EE : Rajout du paramètre du nombre de symétriques
 
 /**
- * Ref 6G32-1
- * Publié le 26/10/2020
  * @author Jean-Claude Lhote
  * Relecture : Novembre 2021 par EE
  */
@@ -96,7 +94,6 @@ export default function SymetrieAxialeConservation1 () {
             }
             coords.push([x, y]) // on stocke les 12 points
           }
-          this.autoCorrection = []
           for (let j = 0; j < 12; j++) coords.push([coords[j][1], coords[j][0]]) // on stocke les 12 images
           break
         case 4: d = droite(1, 1, 0)
@@ -229,7 +226,6 @@ export default function SymetrieAxialeConservation1 () {
         this.autoCorrection[i].enonce = 'Pour chaque question ci-dessous, placer sur cette figure, l\'objet mathématique cité puis tracer son symétrique. Répondre ensuite à la question.<br>' + enonceAMC + '<br>'
         this.autoCorrection[i].enonceAvant = false
         this.autoCorrection[i].enonceAvantUneFois = true
-        //       propositions: []
       }
 
       texte += enonceAMC

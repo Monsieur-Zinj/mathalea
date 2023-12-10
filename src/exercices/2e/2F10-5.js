@@ -24,10 +24,8 @@ export const uuid = '03b71'
 export const ref = '2F10-5'
 export default function Signefonctionaffine () {
   Exercice.call(this)
-  this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1 // On complète le nb de questions
-  this.nbQuestionsModifiable = true
   this.nbCols = 1
   this.nbColsCorr = 1
   this.video = ''
