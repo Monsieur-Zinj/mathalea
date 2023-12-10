@@ -19,6 +19,8 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Déterminer la valeur d\'un angle en utilisant la somme des angles dans un triangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 export const dateDeModifImportante = '23/08/2023'
 /* Modif du 23/08 par EE :
 Passage en interactif
@@ -495,21 +497,25 @@ export default function ExerciceAnglesTriangles () {
       }
       // Le code ci-dessous permet de changer de l'ordre des angles dans les questions interactives
       // Cela ne permet pas à un petit malin de noter les réponses et de refaire la question en les remettant à la même place
+      setReponse(this, indiceSetReponse, reponseInteractive[choixAngle[0]])
+      if (reponseInteractive.length > 1) {
+        setReponse(this, indiceSetReponse + 1, reponseInteractive[choixAngle[1]])
+        if (reponseInteractive.length > 2) setReponse(this, indiceSetReponse + 2, reponseInteractive[choixAngle[2]])
+      }
       if (this.interactif) {
-        setReponse(this, i + indiceSetReponse, reponseInteractive[choixAngle[0]])
-        texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse, 'inline nospacebefore largeur15', {
+        texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse, 'inline nospacebefore largeur15', {
           texte: `$\\widehat{${nomAngles[choixAngle[0]]}} = $`,
           texteApres: '$\\degree$'
         })
         if (reponseInteractive.length > 1) {
-          setReponse(this, i + indiceSetReponse + 1, reponseInteractive[choixAngle[1]])
-          texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse + 1, 'inline nospacebefore largeur15', {
+          setReponse(this, indiceSetReponse + 1, reponseInteractive[choixAngle[1]])
+          texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 1, 'inline nospacebefore largeur15', {
             texte: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`,
             texteApres: '$\\degree$'
           })
           if (reponseInteractive.length > 2) {
-            setReponse(this, i + indiceSetReponse + 2, reponseInteractive[choixAngle[2]])
-            texte += '<br>' + ajouteChampTexteMathLive(this, i + indiceSetReponse + 2, 'inline nospacebefore largeur15', {
+            setReponse(this, indiceSetReponse + 2, reponseInteractive[choixAngle[2]])
+            texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 2, 'inline nospacebefore largeur15', {
               texte: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`,
               texteApres: '$\\degree$'
             })
