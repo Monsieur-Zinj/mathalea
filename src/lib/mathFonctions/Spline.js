@@ -239,6 +239,31 @@ export class Spline {
   }
 
   /**
+   * une méthode pour ajouter deux splines... et retourner une nouvelle spline !
+   * Attention ! il faut que les deux splines aient exactement le même nombre de noeuds, et que les abscisses de ces noeuds soient les mêmes !
+   * @param {Spline} s
+   * @param {boolean} opposite
+   */
+  add (s, opposite) {
+    if (this.n !== s.n) {
+      throw Error('Veuillez vous assurer de donner deux splines compatibles')
+    }
+    if (this.x.filter(el => s.x.includes(el)).length !== this.n) {
+      throw Error('Veuillez vous assurer de donner deux splines compatibles')
+    }
+    const noeuds = []
+    for (let i = 0; i < this.n; i++) {
+      const x = this.x[i]
+      const y = this.y[i] + (opposite ? -1 : 1) * s.y[i]
+      const deriveeGauche = this.noeuds[i].deriveeGauche + (opposite ? -1 : 1) * s.noeuds[i].deriveeGauche
+      const deriveeDroit = this.noeuds[i].deriveeDroit + (opposite ? -1 : 1) * s.noeuds[i].deriveeDroit
+      const isVisible = this.noeuds[i].isVisible && s.noeuds[i].isVisible
+      noeuds.push({ x, y, deriveeGauche, deriveeDroit, isVisible })
+    }
+    return new Spline(noeuds)
+  }
+
+  /**
      * retourne les solutions de f(x) = y sur son domaine de définition
      * @param {number} y
      * @returns {number[]}
@@ -289,6 +314,7 @@ export class Spline {
 
   /**
      * retourne un array décrivant les variations de la Spline sur son domaine de déf
+     * à améliorer... la fonction variationsFonctions ne travaille pas proprement. on peut faire beaucoup mieux avec Spline
      * @returns {*[]|null}
      */
   variations (step) {
@@ -297,6 +323,7 @@ export class Spline {
 
   /**
      * retourne les signes pris par la Spline sur son domaine de déf
+     * à améliorer... la fonction signesFonctions ne travaille pas proprement. on peut faire beaucoup mieux avec Spline
      * @returns {T[]}
      */
   signes (step) {
