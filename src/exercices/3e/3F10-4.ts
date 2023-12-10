@@ -3,7 +3,7 @@ import Figure from 'apigeom'
 import { egal, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'
-import { Spline } from '../../lib/mathFonctions/Spline'
+import { Spline, noeudsSplineAleatoire } from '../../lib/mathFonctions/Spline'
 import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
@@ -27,24 +27,7 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '6c6b3'
 export const ref = '3F10-4'
-const noeudsSplineAleatoire = function (n: number, noeudsVisibles: boolean): Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}> {
-  const noeuds = []
-  const isVisible = noeudsVisibles
-  const xMin = -Math.round(n / 2)
-  let y = randint(-5, 5)
-  let deriveeDroit = Math.cos(Math.random() * Math.PI) * randint(1, 2)
-  for (let x = xMin; x < -xMin + 1; x += 2) {
-    const y0 = y
-    noeuds.push({ x, y, deriveeGauche: deriveeDroit, deriveeDroit, isVisible })
-    do {
-      y = y + Math.cos(Math.random() * Math.PI) * randint(1, 2)
-    } while (y > 5 || y < -5)
-    do {
-      deriveeDroit = Math.cos(Math.random() * Math.PI) * randint(1, 2)
-    } while (deriveeDroit * (y - y0) < 0)
-  }
-  return noeuds
-}
+
 class LireImageParApiGeom extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
@@ -71,7 +54,7 @@ class LireImageParApiGeom extends Exercice {
     // on va chercher une spline aléatoire
     this.listeCorrections = []
     this.listeQuestions = []
-    const noeuds = noeudsSplineAleatoire(12, false)
+    const noeuds = noeudsSplineAleatoire(12, false, -6, 2)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
     this.idApigeom = `apigeomEx${numeroExercice}F0`

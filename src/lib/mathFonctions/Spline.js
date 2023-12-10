@@ -2,7 +2,7 @@ import { abs, acos, polynomialRoot, round } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { egal } from '../../modules/outils.js'
+import { egal, randint } from '../../modules/outils.js'
 import { Courbe } from '../2d/courbes.js'
 import { point, tracePoint } from '../2d/points.js'
 import { Segment } from '../2d/segmentsVecteurs.js'
@@ -12,7 +12,138 @@ import { MatriceCarree } from './MatriceCarree.js'
 import { rationnalise } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 import Decimal from 'decimal.js'
+import { rangeMinMax } from '../outils/nombres.js'
 
+/**
+ * Une fonction pour créer une Spline aléatoire
+ * @param {number} n
+ * @param {boolean} noeudsVisibles
+ * @param {number} xMin
+ * @param {number} step
+ * @returns {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>}
+ */
+export function noeudsSplineAleatoire (n, noeudsVisibles, xMin = -n / 2, y0 = 0, step = 2) {
+  const noeuds = []
+  const isVisible = noeudsVisibles
+
+  let y = y0
+  let deriveeDroit = Math.cos(Math.random() * Math.PI) * randint(1, 2)
+  for (let x = xMin; x < -xMin + 1; x += step) {
+    const y0 = y
+    noeuds.push({ x, y, deriveeGauche: deriveeDroit, deriveeDroit, isVisible })
+    do {
+      y = y + choice([-1, 1]) * randint(1, 2)
+    } while (y > 5 || y < -5)
+    do {
+      deriveeDroit = Math.cos(Math.random() * Math.PI) * randint(1, 2)
+    } while (deriveeDroit * (y - y0) < 0)
+  }
+  return noeuds
+}
+
+/**
+ * Une fonction pour créer un nuage de noeuds différents d'un nuage passé en argument avec certaines options
+ * @param {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>} noeudsF
+ * @param {objet} options
+ * @param {boolean} [options.symetrieH]
+ * @param {boolean} [options.symetrieV]
+ * @param {number} [options.echangeNoeuds]
+ * @param {number} [options.decalVertical]
+ * @param {number} [options.decalHorizontal]
+ * @return {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>}
+ */
+export function modifieNoeuds (noeudsF, options) {
+  const noeudsG = noeudsF.map(el => Object.assign({}, { x: el.x, y: el.y, deriveeGauche: el.deriveeGauche, deriveeDroit: el.deriveeDroit, isVisible: el.isVisible }))
+  const nbNoeuds = noeudsF.length
+  if (options.symetrieH) {
+    for (let i = nbNoeuds; i > 0; i--) {
+      noeudsG[nbNoeuds - i] = {
+        x: noeudsF[nbNoeuds - i].x,
+        y: noeudsF[i - 1].y,
+        deriveeGauche: noeudsF[i - 1].deriveeDroit,
+        deriveeDroit: noeudsF[i - 1].deriveeGauche,
+        isVisible: noeudsF[i - 1].isVisible
+      }
+    }
+  }
+  if (options.symetrieV) {
+    for (let i = 0; i < nbNoeuds; i++) {
+      noeudsG[i] = {
+        x: noeudsG[i].x,
+        y: -noeudsG[i].y,
+        deriveeGauche: -noeudsG[i].deriveeGauche,
+        deriveeDroit: -noeudsG[i].deriveeDroit,
+        isVisible: noeudsG[i].isVisible
+      }
+    }
+  }
+  if (options.echangeNoeuds) {
+    const indices = rangeMinMax(0, nbNoeuds - 1)
+    // le nombre de modifications doit être pair car on va échanger 2 par 2 et il doit y en avoir moins que nbNoeuds.
+    const nbModifs = options.echangeNoeuds ?? 2 * Math.round(randint(2, nbNoeuds) / 2)
+    const indiceDepartArrivee = []
+    for (let i = 0, cpt = 0; i < nbModifs / 2 && cpt < 50;) {
+      const choix1 = choice(indices, indiceDepartArrivee)
+      const choix2 = choice(indices, indiceDepartArrivee)
+      if (choix1 != null && choix2 != null) {
+        indiceDepartArrivee.push(choix1, choix2)
+        i++
+      }
+      cpt++
+    }
+    for (let i = 0; i < indiceDepartArrivee.length; i += 2) { // on va de 2 en 2 car les indices impairs sont les indices d'arrivée
+      const depart = indiceDepartArrivee[i]
+      const arrivee = indiceDepartArrivee[i + 1]
+      // on n'échange que si l'indice du noeud concerné est avant celui d'arrivée
+      const noeudInter = {
+        x: noeudsG[arrivee].x,
+        y: noeudsG[depart].y,
+        deriveeGauche: noeudsG[depart].deriveeGauche,
+        deriveeDroit: noeudsG[depart].deriveeDroit,
+        isVisible: noeudsG[depart].isVisible
+      }
+      noeudsG[depart] = {
+        x: noeudsG[depart].x,
+        y: noeudsG[arrivee].y,
+        deriveeGauche: noeudsG[arrivee].deriveeGauche,
+        deriveeDroit: noeudsG[arrivee].deriveeDroit,
+        isVisible: noeudsG[arrivee].isVisible
+      }
+      noeudsG[arrivee] = {
+        x: noeudInter.x,
+        y: noeudInter.y,
+        deriveeGauche: noeudInter.deriveeGauche,
+        deriveeDroit: noeudInter.deriveeDroit,
+        isVisible: noeudInter.isVisible
+      }
+    }
+  }
+  if (options.decalVertical) {
+    const offset = Number.isInteger(options.decalVertical) ? options.decalVertical : randint(-2, 2, 0)
+    for (let i = 0; i < noeudsG.length; i++) {
+      noeudsG[i] = {
+        x: noeudsG[i].x,
+        y: noeudsG[i].y + offset,
+        deriveeGauche: noeudsG[i].deriveeGauche,
+        deriveeDroit: noeudsG[i].deriveeDroit,
+        isVisible: noeudsG[i].isVisible
+      }
+    }
+  }
+  if (options.decalHorizontal) {
+    const offset = Number.isInteger(options.decalVertical) ? options.decalVertical : randint(-2, 2, 0)
+    for (let i = 0; i < noeudsG.length; i++) {
+      noeudsG[i] = {
+        x: noeudsG[i].x + offset,
+        y: noeudsG[i].y,
+        deriveeGauche: noeudsG[i].deriveeGauche,
+        deriveeDroit: noeudsG[i].deriveeDroit,
+        isVisible: noeudsG[i].isVisible
+      }
+    }
+  }
+  return noeudsG
+}
 /**
  * Les noeuds sont des objets : {x,y, nombreDerive} attention à les donner dans l'ordre des x croissants
  * @author Jean-Claude Lhote
@@ -86,9 +217,12 @@ export class Spline {
   pointsOfSpline (nbPoints) {
     const points = []
     const stepPoints = (this.x[this.x.length - 1] - this.x[0]) / nbPoints // on fait 50 points ça devrait suffir...
-    for (let x = this.x[0]; x < this.x[this.x.length - 1]; x += stepPoints) {
+    let x = this.x[0]
+    do {
       points.push({ x, y: this.#image(x) })
-    }
+      x += stepPoints
+    } while (x <= this.x[this.x.length - 1])
+    points.push({ x: this.x[this.x.length - 1], y: this.#image(this.x[this.x.length - 1]) })
     return points
   }
 

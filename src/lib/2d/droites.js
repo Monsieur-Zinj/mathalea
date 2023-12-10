@@ -80,6 +80,7 @@ export function droiteAvecNomLatex (d, nom) { // nom est un latexParCoordonnees
  * @property {Vecteur} normal Vecteur normal de la droite
  * @property {Vecteur} directeur Vecteur directeur de la droite
  * @property {number} angleAvecHorizontale Valeur de l'angle orienté entre la droite et l'horizontale
+ * @property {number} epaisseur
  * @author Jean-Claude Lhote
  * @class
  */
@@ -408,6 +409,7 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
 }
 
 /**  Trace une droite définie par 2 points OU BIEN par les coefficients de son équation
+ * @property {number} epaisseur
  * @param {Point | number} arg1 Premier point de la droite OU BIEN coefficient a de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
  * @param {Point | number} arg2 Deuxième point de la droite OU BIEN coefficient b de l'équation de la droite ax+by+c=0 avec (a,b)!=(0,0)
  * @param {string | number} arg3 Nom affiché de la droite OU BIEN coefficient c de l'équation de la droite ax+by+c=0

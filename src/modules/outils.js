@@ -73,15 +73,15 @@ export function contraindreValeur (min, max, valeur, defaut) {
 /**
  * @param {Object} params - Les paramètres de la fonction
  * @param {string|number} params.saisie - Ce qui vient du formulaireTexte donc une série de nombres séparés par des tirets ou un seul nombre (normalement en string) ou rien
- * @param {number} [params.min=1]
+ * @param {number?} [params.min=1]
  * @param {number} params.max - Obligatoirement >min
  * @param {number} params.defaut - Obligatoirement compris entre min et max inclus ou alors égal à melange
- * @param {string[] | number[] | undefined} [params.listeOfCase] - La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste. La première valeur de listeOfCase correspond à la saisie numérique min et listeOfCase doit contenir max-min+1 valeurs
+ * @param {string[] | number[]} [params.listeOfCase] - La liste des valeurs à mettre dans la liste en sortie. Si aucune liste n'est fournie, ce sont les nombres qui seront dans la liste. La première valeur de listeOfCase correspond à la saisie numérique min et listeOfCase doit contenir max-min+1 valeurs
  * @param {boolean} [params.shuffle=true] - Si true, on brasse la liste en sortie sinon on garde l'ordre
  * @param {number} params.nbQuestions - Obligatoire : c'est la taille de la liste en sortie. Si 999, alors le nbQuestions correspond à la longueur de saisie.
- * @param {number | undefined} params.melange - La valeur utilisée pour l'option mélange
+ * @param {number} params.melange - La valeur utilisée pour l'option mélange
  * @param {boolean} [params.enleveDoublons=false] - Si true, la liste en sortie ne peut pas contenir deux fois la même valeur
- * @param {number[]} params.exclus - Liste de valeurs à exclure entre min et max
+ * @param {number[]} [params.exclus] - Liste de valeurs à exclure entre min et max
  */
 export function gestionnaireFormulaireTexte ({
   saisie,
