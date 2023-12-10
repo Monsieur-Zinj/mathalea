@@ -22,10 +22,17 @@ export default function VocabulaireDesTriangles () {
   this.consigne = 'Donner la nature des triangles en justifiant.'
   this.sup = 1
   this.sup2 = false
-  this.titre = titre
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.nbQuestionsModifiable = false
+  if (this.classe === 6) {
+    if (this.sup === 1) {
+      this.nbQuestions = 4
+    } else {
+      this.nbQuestions = 5
+    }
+  } else if (this.classe === 5) {
+    this.nbQuestions = 5
+  }
   this.classe = 5
 
   this.listePackages = 'bclogo'
@@ -33,16 +40,6 @@ export default function VocabulaireDesTriangles () {
   let typeDeQuestionsDisponibles
 
   this.nouvelleVersion = function (numeroExercice) {
-    if (this.classe === 6) {
-      if (this.sup === 1) {
-        this.nbQuestions = 4
-      } else {
-        this.nbQuestions = 5
-      }
-    } else if (this.classe === 5) {
-      this.nbQuestions = 5
-    }
-
     let texteIntro = ''
     // eslint-disable-next-line no-undef
     if (context.isHtml) {
@@ -126,7 +123,6 @@ export default function VocabulaireDesTriangles () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
     for (let i = 0, texte, texteCorr, l1, l2, l3, a1, a2, a3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on fixe longueur min et max en cm
       const longueurMin = 2
