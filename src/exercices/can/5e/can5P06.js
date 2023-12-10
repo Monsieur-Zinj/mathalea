@@ -35,9 +35,8 @@ export default function ÉcrirePourcentage () {
       case 'a':
         a = calculANePlusJamaisUtiliser(randint(10, 99) / 100)
         this.question = `Compléter : $${texNombre(a)}=$`
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }
-        else{this.question += `${sp(1)} $\\ldots${sp(1)}\\%$` }
-        this.correction = `$${texNombre(a)}=\\dfrac{${texNombre(a * 100)}}{100}=${texNombre(a * 100)} ${sp()}\\%$`  
+        if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } } else { this.question += `${sp(1)} $\\ldots${sp(1)}\\%$` }
+        this.correction = `$${texNombre(a)}=\\dfrac{${texNombre(a * 100)}}{100}=${texNombre(a * 100)} ${sp()}\\%$`
         this.reponse = a * 100
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${texNombre(a)}=.... ${sp()}\\%$`
@@ -47,9 +46,8 @@ export default function ÉcrirePourcentage () {
         b = calculANePlusJamaisUtiliser(randint(0, 9) / 1000)
         if (a === 0 && b === 0) { b = 1 }
         this.question = `Compléter : $${texNombre(a + b)}=$`
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }
-        else{this.question +=`${sp(1)} $\\ldots${sp(1)}\\%$` }
-        this.correction = `$${texNombre(a + b)}=\\dfrac{${texNombre((a + b) * 100)}}{100}=${texNombre((a + b) * 100)} ${sp()}\\%$` 
+        if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } } else { this.question += `${sp(1)} $\\ldots${sp(1)}\\%$` }
+        this.correction = `$${texNombre(a + b)}=\\dfrac{${texNombre((a + b) * 100)}}{100}=${texNombre((a + b) * 100)} ${sp()}\\%$`
         this.reponse = (a + b) * 100
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${texNombre(a + b)}=.... ${sp()}\\%$`
@@ -60,10 +58,9 @@ export default function ÉcrirePourcentage () {
         d = fraction[1]
 
         this.question = `Compléter : $${deprecatedTexFraction(texNombre(n), d)}=$`
-        if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } }
-        else{this.question += `${sp(1)} $\\ldots${sp(1)}\\%$` }
+        if (this.interactif) { this.optionsChampTexte = { texteApres: ' $\\%$' } } else { this.question += `${sp(1)} $\\ldots${sp(1)}\\%$` }
         this.correction = `$${deprecatedTexFraction(n, d)}=\\dfrac{${texNombre(n)}\\times ${texNombre(100 / d)}}{${texNombre(d)}\\times ${texNombre(100 / d)}}=
-        \\dfrac{${texNombre((n * 100) / d)}}{100}=${texNombre((n * 100) / d)} ${sp()}\\%$` 
+        \\dfrac{${texNombre((n * 100) / d)}}{100}=${texNombre((n * 100) / d)} ${sp()}\\%$`
         this.reponse = (n * 100) / d
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${deprecatedTexFraction(texNombre(n), d)}=.... ${sp()}\\%$`

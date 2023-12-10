@@ -29,8 +29,8 @@ export default function ProbaEvenementContraire () {
     const fraction = choice(listeFractions)
     const n = fraction[0]
     const d = fraction[1]
-    const nSurD = new FractionEtendue(n,d)
-    const dMoinsNSurD = new FractionEtendue(d-n,d)
+    const nSurD = new FractionEtendue(n, d)
+    const dMoinsNSurD = new FractionEtendue(d - n, d)
     this.question = `La probabilité d'un événement $A$ est $${nSurD.texFraction}$. <br>
 
 Quelle est la probabilité de son événement contraire ?

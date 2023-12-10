@@ -80,7 +80,7 @@ export default function ProblemesPuissancesDe10EtConversions () {
           break
       }
       if (context.isAmc) {
-        this.autoCorrection[i] = { enonce : texte + '<br>Indiquer votre raisonnement, vos calculs et votre réponse ci-dessous.', propositions : [{ statut: 3, sanscadre: false, texte: texteCorr }]}
+        this.autoCorrection[i] = { enonce: texte + '<br>Indiquer votre raisonnement, vos calculs et votre réponse ci-dessous.', propositions: [{ statut: 3, sanscadre: false, texte: texteCorr }] }
       }
 
       if (this.questionJamaisPosee(i, texte)) {

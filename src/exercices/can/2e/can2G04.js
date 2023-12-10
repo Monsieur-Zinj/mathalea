@@ -30,9 +30,9 @@ export default function CalculCoordonneesMilieu () {
     switch (choice(['a', 'b'])) {
       case 'a':
         a = randint(-10, 10)
-        b = randint(-10, 10,0)
+        b = randint(-10, 10, 0)
         c = randint(-10, 10)
-        d = randint(-10, 10,0)
+        d = randint(-10, 10, 0)
         this.question = `Dans un repère du plan, on donne $${nom[0]}(${a}\\,;\\,${c})$ et $${nom[1]}(${b}\\,;\\,${d})$.<br>
         Déterminer les coordonnées du milieu de $[${nom[0] + nom[1]}]$ sous forme décimale.`
         this.optionsChampTexte = { texteApres: '' }

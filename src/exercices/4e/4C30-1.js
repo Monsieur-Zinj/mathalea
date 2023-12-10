@@ -120,8 +120,8 @@ export default function PuissancesEncadrement () {
         texte = this.interactif
           ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
           : consigneAMC
-          exposantInf=entPos[listeTypeDeQuestions[i] - 1].exposantInf
-          exposantSup=entPos[listeTypeDeQuestions[i] - 1].exposantSup
+        exposantInf = entPos[listeTypeDeQuestions[i] - 1].exposantInf
+        exposantSup = entPos[listeTypeDeQuestions[i] - 1].exposantSup
         setReponse(this, 2 * i, entPos[listeTypeDeQuestions[i] - 1].puissance_inf, { formatInteractif: 'puissance' })
         setReponse(this, 2 * i + 1, entPos[listeTypeDeQuestions[i] - 1].puissance_sup, { formatInteractif: 'puissance' })
         texteCorr = `$${miseEnEvidence(entPos[listeTypeDeQuestions[i] - 1].puissance_inf)} \\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val} \\leqslant ${miseEnEvidence(entPos[listeTypeDeQuestions[i] - 1].puissance_sup)}$`
@@ -129,10 +129,10 @@ export default function PuissancesEncadrement () {
       } else if (listeTypeDeQuestions[i] < 11) { // nombre décimal positif
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-        ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
           : consigneAMC
-          exposantInf=decPos[listeTypeDeQuestions[i] - 7].exposantInf
-          exposantSup=decPos[listeTypeDeQuestions[i] - 7].exposantSup
+        exposantInf = decPos[listeTypeDeQuestions[i] - 7].exposantInf
+        exposantSup = decPos[listeTypeDeQuestions[i] - 7].exposantSup
         setReponse(this, 2 * i, decPos[listeTypeDeQuestions[i] - 7].puissance_inf, { formatInteractif: 'puissance' })
         setReponse(this, 2 * i + 1, decPos[listeTypeDeQuestions[i] - 7].puissance_sup, { formatInteractif: 'puissance' })
         texteCorr = `$${miseEnEvidence(decPos[listeTypeDeQuestions[i] - 7].puissance_inf)} \\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val} \\leqslant ${miseEnEvidence(decPos[listeTypeDeQuestions[i] - 7].puissance_sup)}$`
@@ -140,10 +140,10 @@ export default function PuissancesEncadrement () {
       } else { // nombre décimal positif inferieur à 1
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-        ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
           : consigneAMC
-          exposantInf=decPosInfUn[listeTypeDeQuestions[i] - 11].exposantInf
-          exposantSup=decPosInfUn[listeTypeDeQuestions[i] - 11].exposantSup
+        exposantInf = decPosInfUn[listeTypeDeQuestions[i] - 11].exposantInf
+        exposantSup = decPosInfUn[listeTypeDeQuestions[i] - 11].exposantSup
         setReponse(this, 2 * i, decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf, { formatInteractif: 'puissance' })
         setReponse(this, 2 * i + 1, decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup, { formatInteractif: 'puissance' })
         texteCorr = `$${miseEnEvidence(decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_inf)} \\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val} \\leqslant ${miseEnEvidence(decPosInfUn[listeTypeDeQuestions[i] - 11].puissance_sup)}$`
@@ -154,16 +154,16 @@ export default function PuissancesEncadrement () {
           enonce: 'Encadrer le nombre suivant par deux puissances de 10 d\'exposants consécutifs : ' + consigneAMC,
           enonceAvant: false,
           enonceApresNumQuestion: true,
-         options: { barreseparation: true},
+          options: { barreseparation: true },
           propositions: [
             {
               type: 'AMCNum',
               propositions: [{
                 texte: '',
                 statut: '',
-                multicolsBegin : true,
+                multicolsBegin: true,
                 reponse: {
-                  texte:  'Exposant de la puissance de 10 de gauche',
+                  texte: 'Exposant de la puissance de 10 de gauche',
                   valeur: exposantInf,
                   param: {
                     signe: true,
@@ -177,9 +177,9 @@ export default function PuissancesEncadrement () {
               propositions: [{
                 texte: '',
                 statut: '',
-                multicolsEnd : true,
+                multicolsEnd: true,
                 reponse: {
-                  texte:  'Exposant de la puissance de 10 de droite',
+                  texte: 'Exposant de la puissance de 10 de droite',
                   valeur: exposantSup,
                   param: {
                     signe: true,

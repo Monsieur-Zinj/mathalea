@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-import FractionEtendue from "../../../modules/FractionEtendue.js";
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Simplifier des fractions ou des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'

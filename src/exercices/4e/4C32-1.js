@@ -65,8 +65,8 @@ export default function CalculsAvecPuissancesDeDix () {
           break */
       }
       exp = this.classe === 4
-          ? (this.sup3 === 1 ? randint(decalage + 1, decalage + 3, 0) : this.sup3 === 2 ? randint(decalage - 3, decalage -1, 0) : randint(decalage - 3, decalage + 3, [decalage, 0]))
-          : (this.sup3 === 1 ? randint(decalage + 3 + this.sup - 1, decalage + 8 + this.sup - 1, 0) : this.sup3 === 2 ? randint(decalage - 8 - (this.sup - 1), decalage - 2 - (this.sup - 1), [0, decalage]) : choice(rangeMinMax(decalage - 8 - (this.sup - 1), decalage + 8 + this.sup - 1), rangeMinMax(decalage - 2 - (this.sup - 1), decalage + 2 + this.sup - 1)))
+        ? (this.sup3 === 1 ? randint(decalage + 1, decalage + 3, 0) : this.sup3 === 2 ? randint(decalage - 3, decalage - 1, 0) : randint(decalage - 3, decalage + 3, [decalage, 0]))
+        : (this.sup3 === 1 ? randint(decalage + 3 + this.sup - 1, decalage + 8 + this.sup - 1, 0) : this.sup3 === 2 ? randint(decalage - 8 - (this.sup - 1), decalage - 2 - (this.sup - 1), [0, decalage]) : choice(rangeMinMax(decalage - 8 - (this.sup - 1), decalage + 8 + this.sup - 1), rangeMinMax(decalage - 2 - (this.sup - 1), decalage + 2 + this.sup - 1)))
       mantisse1 = calculANePlusJamaisUtiliser(mantisse * 10 ** decalage)
       exp1 = exp - decalage
 

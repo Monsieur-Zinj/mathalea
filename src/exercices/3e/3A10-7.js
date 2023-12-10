@@ -63,11 +63,11 @@ export default function ExerciceLabyrinthePremiers3e () {
       texte = 'Trouver la sortie en ne passant que par les cases contenant un nombre premier.<br>'
       texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
-      
+
       const bonnesReponses = combinaisonListes(nbPremiers, nbC * nbL)
-      let mauvaisesReponses = Array.from({length: nbMax - 1}, (_, i) => i + 2).filter((number) => !nbPremiers.includes(number))
+      let mauvaisesReponses = Array.from({ length: nbMax - 1 }, (_, i) => i + 2).filter((number) => !nbPremiers.includes(number))
       // MGu bug car randint n'arrive pas forcément à trouver une valeur, car seulement 50 essaies
-      // let mauvaisesReponses = []      
+      // let mauvaisesReponses = []
       // for (let i = 0; i <= nbMax - nbPremiers.length - 2; i++) {
       //  mauvaisesReponses.push(randint(2, nbMax, nbPremiers.concat(mauvaisesReponses)))
       // }

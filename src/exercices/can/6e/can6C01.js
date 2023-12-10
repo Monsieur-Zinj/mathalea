@@ -31,7 +31,7 @@ export default function OrdreDeGrandeur () {
       const nombre = a * 100 + b * 10 + c
       const d = randint(5, 9)
       const resultat = nombre * d
-      let texte = `$${texNombre(nombre,0)}\\times ${d}$<br>
+      let texte = `$${texNombre(nombre, 0)}\\times ${d}$<br>
     Choisir la bonne réponse sans effectuer précisément le calcul.`
       // Ajout avant l'ajout des propositions de réponse
       // ça serait mieux en uniformisant avec this.question pour tous les exos can
@@ -40,15 +40,15 @@ export default function OrdreDeGrandeur () {
         enonce: texte,
         propositions: [
           {
-            texte: `$${texNombre(resultat,0)}$`,
+            texte: `$${texNombre(resultat, 0)}$`,
             statut: true
           },
           {
-            texte: `$${texNombre(d * 1000 + nombre,0)}$`,
+            texte: `$${texNombre(d * 1000 + nombre, 0)}$`,
             statut: false
           },
           {
-            texte: `$${texNombre((a * 1000 + b * 100 + c) * d,0)}$`,
+            texte: `$${texNombre((a * 1000 + b * 100 + c) * d, 0)}$`,
             statut: false
           }
         ]
@@ -57,19 +57,19 @@ export default function OrdreDeGrandeur () {
       if (!context.isAmc) {
         texte += monQcm.texte
       }
-      let texteCorr = `$${texNombre(nombre,0)} \\times ${d} = ${texNombre(resultat,0)}$<br>
+      let texteCorr = `$${texNombre(nombre, 0)} \\times ${d} = ${texNombre(resultat, 0)}$<br>
         `
       if (nombre > a * 100 + 50) {
         texteCorr += texteEnCouleur(`
     Mentalement : <br>
-On remplace le premier facteur $${texNombre(nombre,0)}$ par $${(a + 1) * 100}$, on calcule
-$${(a + 1) * 100}\\times ${d}=${texNombre(((a + 1) * 100) * d,0)}$ et on sélectionne le résultat qui s'en rapproche le plus.
+On remplace le premier facteur $${texNombre(nombre, 0)}$ par $${(a + 1) * 100}$, on calcule
+$${(a + 1) * 100}\\times ${d}=${texNombre(((a + 1) * 100) * d, 0)}$ et on sélectionne le résultat qui s'en rapproche le plus.
     `)
       } else {
         texteCorr += texteEnCouleur(`
     Mentalement : <br>
-    On remplace le premier facteur $${texNombre(nombre,0)}$ par $${a * 100}$, on calcule
-    $${a * 100}\\times ${d}=${texNombre(a * 100 * d,0)}$ et on sélectionne le résultat qui s'en rapproche le plus.
+    On remplace le premier facteur $${texNombre(nombre, 0)}$ par $${a * 100}$, on calcule
+    $${a * 100}\\times ${d}=${texNombre(a * 100 * d, 0)}$ et on sélectionne le résultat qui s'en rapproche le plus.
            `)
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

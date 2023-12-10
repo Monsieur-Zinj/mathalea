@@ -28,7 +28,7 @@ export default function QuotientEntierQuiVaBienParFraction () {
     const c = choice([2, 3, 4, 5, 6])
     const b = a.n * c
     this.question = `Calculer $${b}\\div ${a.texFraction}$.`
-    this.reponse = new FractionEtendue(b*a.d, a.n)
+    this.reponse = new FractionEtendue(b * a.d, a.n)
     if (a.n === 1) {
       this.correction = `Diviser par un nombre revient à multiplier par son inverse. <br>
     Ici, on divise par $${a.texFraction}$, donc cela revient à multiplier par son inverse : $${a.inverse().texFraction}$.<br>

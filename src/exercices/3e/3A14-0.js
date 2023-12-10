@@ -11,7 +11,7 @@ import { texteGras } from '../../lib/format/style.js'
 import { texNombre, stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint} from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { mathalea2d, fixeBordures, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { pyramide3d, pave3d, point3d, polygone3d } from '../../modules/3d.js'
 
@@ -49,7 +49,7 @@ export default function DesChocolatsDansDesBoites () {
     const nbTruffes = nbTruffesCafe + nbTruffesCoco
     let texte = 'Pour fêter les 25 ans de sa boutique, un chocolatier souhaite offrir aux premiers clients de la journée une boîte contenant des truffes au chocolat.<br><br>'
     texte += `${texteGras('1.')} Il a confectionné $${nbTruffes}$ truffes: $${nbTruffesCafe}$ truffes parfumées au café et $${nbTruffesCoco}$ truffes enrobées de noix de coco. Il souhaite fabriquer ces boîtes de sorte que :`
-    
+
     if (context.isHtml) {
       texte += createList({
         items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
@@ -58,7 +58,7 @@ export default function DesChocolatsDansDesBoites () {
         style: 'fleches',
         classOptions: 'style="color: red; backgroundColor: red"'
       }).outerHTML
-    }else{
+    } else {
       texte += createList({
         items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
           'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte;',
@@ -134,12 +134,12 @@ export default function DesChocolatsDansDesBoites () {
     const textB4 = texteParPosition(`et de hauteur ${stringNombre(hauteurPave, 1)} cm`, 3 * largeurCadre / 4, hauteurCadre / 3 - 4, 'milieu', 'black', 1.5)
     const objets = [cadrePrincipal, ligne1, ligne2, text1, text2, pyramide.c2d, pave.c2d, textA1, textA2, textA3, textB1, textB2, textB3, textB4]
     texte += `${texteGras('2.')} Le chocolatier souhaite fabriquer des boîtes contenant $${nbTruffesParBoite}$ truffes. Pour cela, il a le choix entre deux types de boites qui peuvent contenir les $${nbTruffesParBoite}$ truffes, et dont les caractéristiques sont données ci-dessous:`
-    texte += '<br>' + mathalea2d(Object.assign({scale: 0.5 }, fixeBordures(objets)), objets)
+    texte += '<br>' + mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     texte += `Dans cette question, chacune des $${nbTruffesParBoite}$ truffes est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm.<br>`
     texte += 'À l\'intérieur d\'une boîte, pour que les truffes ne s\'abîment pas pendant le transport, le volume occupé par les truffes doit être supérieur au volume non occupé par les truffes.<br>'
     texte += 'Quel(s) type(s) de boîte le chocolatier doit-il choisir pour que cette condition soit respectée?'
     this.listeQuestions[0] = texte
-    let texteCorr = mathalea2d(Object.assign({scale: 0.5 }, fixeBordures(objets)), objets)
+    let texteCorr = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     texteCorr += `${texteGras('1.')} Il a confectionné $${nbTruffes}$ truffes: $${nbTruffesCafe}$ truffes parfumées au café et $${nbTruffesCoco}$ truffes enrobées de noix de coco. Il souhaite fabriquer ces boîtes de sorte que :`
     // @todo remplacer cet appel par une nouvelle fonction permettant de faire des listes à puces selon le contexte.
     if (context.isHtml) {
@@ -150,7 +150,7 @@ export default function DesChocolatsDansDesBoites () {
         style: 'fleches',
         classOptions: 'style="backGroundColor: red";'
       }).outerHTML
-    }else{
+    } else {
       texteCorr += createList({
         items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
           'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte;',
@@ -171,7 +171,6 @@ export default function DesChocolatsDansDesBoites () {
       texteCorr += `Dans les décompositions en facteurs premiers de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$, on retrouve $${decompositionFacteursPremiers(nbBoites)}$, donc leur plus grand diviseur commun est $${decompositionFacteursPremiers(nbBoites)}=${nbBoites}$.<br>`
       texteCorr += `${numAlpha(2)} Le nombre maximal de boites qu'il pourra réaliser est donc $${nbBoites}$.<br>`
       texteCorr += `${numAlpha(3)} Il y aura donc $\\dfrac{${nbTruffesCafe}}{${nbBoites}}=${nbTruffesCafeParBoite}$ truffes au café par boite et $\\dfrac{${nbTruffesCoco}}{${nbBoites}}=${nbTruffesCocoParBoite}$ truffes à la noix de coco par boite.<br><br>`
-
     }
     texteCorr += `${texteGras('2.')} Dans cette question, chacune des $${nbTruffesParBoite}$ truffes est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm.<br>`
     texteCorr += 'À l\'intérieur d\'une boîte, pour que les truffes ne s\'abîment pas pendant le transport, le volume occupé par les truffes doit être supérieur au volume non occupé par les truffes.<br>'

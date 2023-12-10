@@ -79,7 +79,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
       for (let j = 0; j < 3; j++) choixTransformation.push(choice(listeTypeDeQuestions[typesDeQuestionsDisponibles[j]]))
       for (let j = 0; j < 3; j++) {
         if (choixTransformation[j] === 10) {
-          k[j] = choice([2, 4, 5, -2, -4, -5], k)  // rapport d'homothétie entre -1 et 1
+          k[j] = choice([2, 4, 5, -2, -4, -5], k) // rapport d'homothétie entre -1 et 1
         } else {
           k[j] = choice([1.5, 2, 3, 2.5, -1, -2, -3, -2.5, -1.5], k) // rapport d'homothétie > 1 ou <=-1
         }
@@ -95,14 +95,14 @@ export default function TransformationsDuPlanEtCoordonnees () {
       let compteur = 0
       while (trouve === false) {
         xA = randint(-7, 7, 0) // Point A
-        yA = randint(-7, 7, -1)        
-        if (xA==xO && yA==yO) xA = randint(-7, 7, [0, xO])
+        yA = randint(-7, 7, -1)
+        if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
         punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
         compteur = 0
         while ((punto[0][0] < -9 || punto[0][0] > 9 || punto[0][1] < -9 || punto[0][1] > 9) && compteur < 20) { // on teste si A est dans la fenêtre sinon on en choisit un autre
           xA = randint(-7, 7, [0]) // Point A
           yA = randint(-7, 7, -1)
-          if (xA==xO && yA==yO) xA = randint(-7, 7, [0, xO])      
+          if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
           punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
           compteur++
         }
@@ -116,7 +116,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
 
         xB = randint(-7, 7, [xA, 0]) // Point B
         yB = randint(-7, 7, -1)
-        if (xB==xO && yB==yO) xB = randint(-7, 7, [0, xO, xA])       
+        if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
         if (choixTransformation[1] > 4) {
           punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
         } else {
@@ -126,7 +126,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
         while ((punto[1][0] < -9 || punto[1][0] > 9 || punto[1][1] < -9 || punto[1][1] > 9) && compteur < 20) { // on teste si on est dans les clous, sinon on choisit un autre punto B
           xB = randint(-7, 7, [0, xA]) // Point B
           yB = randint(-7, 7, -1)
-          if (xB==xO && yB==yO) xB = randint(-7, 7, [0, xO, xA]) 
+          if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
           if (choixTransformation[1] > 4) {
             punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
           } else {
@@ -145,7 +145,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
 
         xC = randint(-7, 7, 0) // Point C
         yC = randint(-7, 7, [yA, yB, -1])
-        if (xC==xO && yC==yO) xC = randint(-7, 7, [0, xO, xA, xB])
+        if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
         if (choixTransformation[2] > 4) {
           punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2])
         } else {
@@ -155,7 +155,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
         while ((punto[2][0] < -9 || punto[2][0] > 9 || punto[2][1] < -9 || punto[2][1] > 9) && compteur < 20) { // on vérifie que C est dans le repère sinon on change le punto C.
           xC = randint(-7, 7, [0, xA, xB]) // Point C
           yC = randint(-7, 7, [yA, yB, -1])
-          if (xC==xO && yC==yO) xC = randint(-7, 7, [0, xO, xA, xB]) 
+          if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
           if (choixTransformation[2] > 4) {
             punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2])
           } else {

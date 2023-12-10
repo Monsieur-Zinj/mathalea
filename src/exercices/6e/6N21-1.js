@@ -114,7 +114,7 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
           }
         }
       }
-      texte += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ', scale: 0.6}, mesObjets)
+      texte += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:30px ', scale: 0.6 }, mesObjets)
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
@@ -163,8 +163,8 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
       } else {
         texteCorr = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${deprecatedTexFraction(num2, den2)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${deprecatedTexFraction(num3, den3)}\\right)$`
         texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:5px ', scale: 1 }, d, traceA, traceB, traceC, labels)
-      }      
-                      
+      }
+
       if (!isArrayInArray(fractionsUtilisees, [num1, den1])) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -173,8 +173,8 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
 
         if (context.isAmc) {
           this.autoCorrection[i] = {
-              enonce: texte + '\n',
-              propositions: [{ texte: texteCorr, statut: 5, sanscadre: true, pointilles: true, feedback: '' }]
+            enonce: texte + '\n',
+            propositions: [{ texte: texteCorr, statut: 5, sanscadre: true, pointilles: true, feedback: '' }]
           }
         }
 

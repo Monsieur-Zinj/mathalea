@@ -73,9 +73,9 @@ export default function EcritureDecimalePuissanceDe10 () {
             : `$10^{${-n}}${sp()}=${sp()}\\dots$`
           setReponse(this, i, Decimal.pow(10, -n))
           if (context.isHtml) {
-            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${miseEnEvidence(texNombre(Decimal.pow(10,-n), n))}$`
+            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${miseEnEvidence(texNombre(Decimal.pow(10, -n), n))}$`
           } else {
-            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${miseEnEvidence(texNombre(Decimal.pow(10,-n), n))}$`
+            texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${miseEnEvidence(texNombre(Decimal.pow(10, -n), n))}$`
           }
           break
       }

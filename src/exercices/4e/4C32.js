@@ -46,7 +46,7 @@ export default function NotationScientifique () {
     else typesDeQuestionsDisponibles = [2, 2, 3, 3, 3]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0,texteAMC, texte, texteCorr, mantisse, exp, decimalstring, scientifiquestring, cpt = 0;
+    for (let i = 0, texteAMC, texte, texteCorr, mantisse, exp, decimalstring, scientifiquestring, cpt = 0;
       i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 0:
@@ -95,20 +95,20 @@ export default function NotationScientifique () {
         } else {
           reponse = `${stringNombre(mantisse, 8)}\\times 10^${exp}`
         }
-        texteAMC=`$${decimalstring}$`
+        texteAMC = `$${decimalstring}$`
         texteCorr = `$${decimalstring} = ${miseEnEvidence(scientifiquestring)}$`
-       } else {
+      } else {
         reponse = mantisse.mul(Decimal.pow(10, exp))
         texteCorr = `$${scientifiquestring} = ${miseEnEvidence(decimalstring)}$`
-        texteAMC=`$${scientifiquestring}$`
-       }
-       texte = texteAMC+`$${sp()}=$`
-        if (this.interactif) {
+        texteAMC = `$${scientifiquestring}$`
+      }
+      texte = texteAMC + `$${sp()}=$`
+      if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore')
       } else {
         texte += `$${sp()}\\dots$`
       }
-    
+
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -129,7 +129,7 @@ export default function NotationScientifique () {
           })
         }
         if (context.isAmc) {
-          texteAMC+='.'
+          texteAMC += '.'
           this.autoCorrection[i].reponse.valeur = [mantisse.mul(Decimal.pow(10, exp)).toString()]
           if (parseInt(this.sup) === 1) {
             this.amcType = 'AMCNum'

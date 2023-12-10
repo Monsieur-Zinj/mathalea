@@ -106,7 +106,7 @@ export default function CalculerCaracteristiques () {
               repMoyenne = arrondi(somme / nombreTirages, 1)
               setReponse(this, i * nbReponse + questind, repMoyenne, { formatInteractif: 'calcul' })
               reponsesAMC[questind] = repMoyenne
-              texteCorr +=  numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(tirages, somme, nombreTirages, 'lancers')
+              texteCorr += numAlpha(questind++) + OutilsStats.texteCorrMoyenneNotes(tirages, somme, nombreTirages, 'lancers')
             } else if (typeQuestions[k] === 2) {
               // médiane
               texteAMC[questind] = numAlpha(questind) + 'Calculer la médiane des lancers.' + ajouteChampTexteMathLive(this, i * nbReponse + questind, 'largeur15 inline') + '<br>'

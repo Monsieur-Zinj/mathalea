@@ -40,7 +40,7 @@ export default class nomExercice extends Exercice {
     this.autoCorrection = []
 
     const problemesNaturels = [
-     /* {
+      /* {
         intitule: 'la distance entre la Terre et la Lune',
         puissanceDe10: 5,
         unite: 'km'
@@ -49,7 +49,7 @@ export default class nomExercice extends Exercice {
         intitule: 'le rayon de la Terre',
         puissanceDe10: 3,
         unite: 'km'
-      },*/
+      }, */
       {
         intitule: 'la hauteur d\'un immeuble',
         puissanceDe10: 2,

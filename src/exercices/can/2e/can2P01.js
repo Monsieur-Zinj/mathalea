@@ -1,6 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
-import { fraction } from '../../../modules/fractions.js'
+import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'

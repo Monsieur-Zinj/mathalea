@@ -158,7 +158,7 @@ export default function ReperagePaveDroit () {
       t = tracePoint(pointAplacer, 'red')
       t.epaisseur = 2
       t.taille = 6
-      objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t,labelPoint(pointAplacer)].concat(objetsAtracer)
+      objetsAtracerCorr = [s1.c2d, s2.c2d, s3.c2d, t, labelPoint(pointAplacer)].concat(objetsAtracer)
       if (listeTypesDeQuestions[i] === 'placer') {
         texte = `Placer le point $${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${pointCoord[0]};${pointCoord[1]};${pointCoord[2]})$.`
         texteCorr = mathalea2d({
@@ -172,12 +172,12 @@ export default function ReperagePaveDroit () {
         texteCorr += `<br>$${lettreDepuisChiffre(i + 12)}$ de coordonnées $(${miseEnEvidence(pointCoord[0], 'blue')};${miseEnEvidence(pointCoord[1], 'green')};${miseEnEvidence(pointCoord[2], 'red')})$.<br>`
       } else {
         texte = `Donner les coordonnées du point $${lettreDepuisChiffre(i + 12)}$`
-        objetsAtracer.push( tracePoint(pointAplacer, 'blue'), labelPoint(pointAplacer))
+        objetsAtracer.push(tracePoint(pointAplacer, 'blue'), labelPoint(pointAplacer))
         texteCorr = mathalea2d({
           xmin: -1,
           xmax: 1 + largeur + profondeur * Math.cos(radians(context.anglePerspective)),
           ymin: -1,
-          ymax:  1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
+          ymax: 1 + hauteur + profondeur * context.coeffPerspective * degSin(context.anglePerspective),
           scale: 0.6,
           style: 'display: block; margin-top:20px;'
         }, objetsAtracerCorr)

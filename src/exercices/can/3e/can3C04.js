@@ -1,8 +1,8 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import {  obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions.js'
+import { obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-import FractionEtendue from "../../../modules/FractionEtendue.js";
+import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Calculer une somme entre fraction et entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,7 +28,7 @@ export default function SommeEntierEtFractionIrred () {
     const a = randint(1, 4)
     const b = maFraction[0]
     const c = maFraction[1]
-    const bSurC = new FractionEtendue(b,c)
+    const bSurC = new FractionEtendue(b, c)
     const d = new FractionEtendue(a * c + b, c).simplifie()
     this.reponse = d
     this.question = `Calculer sous la forme d'une fraction irréductible :  $${a}+${bSurC.texFraction}$.`

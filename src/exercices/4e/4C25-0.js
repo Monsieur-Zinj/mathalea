@@ -520,23 +520,23 @@ export default function ProblemesAdditifsFractionsBis () {
       switch (listeTypeDeQuestions[i]) {
         case 1: // Triathlon des neiges --> VTT, ski de fond, course
           texte = `${pb3f[0].enonce} <br> ${pb3f[0].question}`
-          texteCorr = `${pb3f[0].correction}`          
+          texteCorr = `${pb3f[0].correction}`
           break
         case 2: // Miss Math --> Noémie, Samia, Alexia
-          texte = `${pb3f[1].enonce} <br> ${pb3f[1].question}`         
-          texteCorr = `${pb3f[1].correction}`          
+          texte = `${pb3f[1].enonce} <br> ${pb3f[1].question}`
+          texteCorr = `${pb3f[1].correction}`
           break
         case 3: // Mandala --> carmin, ocre jaune, turquoise, pourpre
           texte = `${pb4f[0].enonce} <br> ${pb4f[0].question}`
-          texteCorr = `${pb4f[0].correction}`          
+          texteCorr = `${pb4f[0].correction}`
           break
         case 4: // Jardin --> légumes, plantes aromatiques, semis, fraisiers
           texte = `${pb4f[1].enonce} <br> ${pb4f[1].question}`
-          texteCorr = `${pb4f[1].correction}`          
+          texteCorr = `${pb4f[1].correction}`
           break
         case 5: // Stade --> pays organisatuers, supporters, sponsors, vente libre
           texte = `${pb4f[2].enonce} <br> ${pb4f[2].question}`
-          texteCorr = `${pb4f[2].correction}`          
+          texteCorr = `${pb4f[2].correction}`
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -549,5 +549,5 @@ export default function ProblemesAdditifsFractionsBis () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de problèmes (séparé par un trait d\'union',"1: triathlon (3 fractions)\n2 : élection (3 fractions)\n3 : mandala (4 fractions)\n4 : jardin (4 fractions)\n5 : stade(4 fractions)\n6 : mélange"];
+  this.besoinFormulaireTexte = ['Type de problèmes (séparé par un trait d\'union', '1: triathlon (3 fractions)\n2 : élection (3 fractions)\n3 : mandala (4 fractions)\n4 : jardin (4 fractions)\n5 : stade(4 fractions)\n6 : mélange']
 }

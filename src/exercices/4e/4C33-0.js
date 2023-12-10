@@ -167,7 +167,7 @@ export default function NotationPuissance () {
       }
 
       texte += this.interactif ? ' = ' + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) : ''
-      if (this.sup == 3) texte += '.'
+      if (this.sup === 3) texte += '.'
 
       if (context.isAmc) {
         if (this.sup !== 3) this.titre = this.consigne

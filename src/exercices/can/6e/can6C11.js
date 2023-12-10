@@ -37,8 +37,8 @@ export default function DoubleOuTripleDecimal () {
       <br> Mentalement : <br>
   On décompose $${texNombre(c, 1)}$ en $${e}+${texNombre(d, 1)}$. <br>
   On calcule le triple de $${e}$, soit $3\\times ${e}= ${3 * e}$
-  puis le triple de $${texNombre(d, 1)}$, soit $3\\times ${texNombre(d, 1)}=${texNombre(d.mul(3),1)}$.<br>
-  On en fait la somme : $${3 * e}+${texNombre(d.mul(3),1)}$, ce qui donne le résultat $${texNombre(this.reponse, 1)}$.
+  puis le triple de $${texNombre(d, 1)}$, soit $3\\times ${texNombre(d, 1)}=${texNombre(d.mul(3), 1)}$.<br>
+  On en fait la somme : $${3 * e}+${texNombre(d.mul(3), 1)}$, ce qui donne le résultat $${texNombre(this.reponse, 1)}$.
       `)
     } else {
       this.reponse = c.mul(2)

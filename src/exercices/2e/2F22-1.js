@@ -238,50 +238,50 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
     for (let k = 0; k < 3; k++) {
       const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i * 3 + k}`)
       const reponseEleve = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * 3 + k}`)?.value
-      if (reponseEleve != null){
-      if (this.autoCorrection[i * 3 + k] != null && this.autoCorrection[i * 3 + k].reponse != null && Array.isArray(this.autoCorrection[i * 3 + k].reponse.valeur)) {
-        switch (k) {
-          case 0:
-            if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-              divFeedback.innerHTML = '😎'
-              resultat1 = 'OK'
-            } else {
-              divFeedback.innerHTML = '☹️'
-              resultat1 = 'KO'
-            }
-            break
-          case 1:
-            if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur[0]) ||
-                (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-              divFeedback.innerHTML = '😎'
-              resultat2 = 'OK'
-            } else {
-              divFeedback.innerHTML = '☹️'
-              resultat2 = 'KO'
-            }
-            break
-          case 2:
-            // Si l'élève répond autre chose qu'un nombre, il faut blinder ici !
-            if (isNaN(Number(reponseEleve.replace(',', '.'))) || isNaN(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-              if (isNaN(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-                window.notify('La réponse ne sont pas des number', {
-                  reponse: this.autoCorrection[i * 3 + k].reponse.valeur[0]
-                })
-              }
-              divFeedback.innerHTML = '☹️'
-              resultat3 = 'KO'
-            } else {
-              if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+      if (reponseEleve != null) {
+        if (this.autoCorrection[i * 3 + k] != null && this.autoCorrection[i * 3 + k].reponse != null && Array.isArray(this.autoCorrection[i * 3 + k].reponse.valeur)) {
+          switch (k) {
+            case 0:
+              if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
                 divFeedback.innerHTML = '😎'
-                resultat3 = 'OK'
+                resultat1 = 'OK'
               } else {
                 divFeedback.innerHTML = '☹️'
-                resultat3 = 'KO'
+                resultat1 = 'KO'
               }
-            }
-            break
+              break
+            case 1:
+              if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur[0]) ||
+                (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+                divFeedback.innerHTML = '😎'
+                resultat2 = 'OK'
+              } else {
+                divFeedback.innerHTML = '☹️'
+                resultat2 = 'KO'
+              }
+              break
+            case 2:
+            // Si l'élève répond autre chose qu'un nombre, il faut blinder ici !
+              if (isNaN(Number(reponseEleve.replace(',', '.'))) || isNaN(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+                if (isNaN(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+                  window.notify('La réponse ne sont pas des number', {
+                    reponse: this.autoCorrection[i * 3 + k].reponse.valeur[0]
+                  })
+                }
+                divFeedback.innerHTML = '☹️'
+                resultat3 = 'KO'
+              } else {
+                if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+                  divFeedback.innerHTML = '😎'
+                  resultat3 = 'OK'
+                } else {
+                  divFeedback.innerHTML = '☹️'
+                  resultat3 = 'KO'
+                }
+              }
+              break
+          }
         }
-      }
       } else {
         window.notify('Quelque chose de pas normal avec l\'autoCorrection : ', { nbQuestions: this.nbQuestions, index: i * 3 + k, autoCorrection: this.autoCorrection })
         switch (k) {
