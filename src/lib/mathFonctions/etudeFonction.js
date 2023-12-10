@@ -80,7 +80,7 @@ export function tableauDeVariation ({
          */
     const latexContent = function (text) {
       if (text == null || typeof text !== 'string') {
-       return false // c'est sortieTexte() qui va faire le signalement.
+        return false // c'est sortieTexte() qui va faire le signalement.
       }
       if (text[0] === '$') text = text.substring(1, text.length - 1)
       return text
@@ -740,6 +740,17 @@ export function tableauDeVariation ({
   }
 }
 
+/**
+ * Une fonction pour trouver les solutions de f(x)=y.
+ * @param fonction
+ * @param y
+ * @param xMin
+ * @param xMax
+ * @param tolerance
+ */
+export function solve (fonction, y, xMin, xMax, tolerance) {
+
+}
 /**
  * renvoie les solutions (intervalles) de f(x) < y (ou f(x)<=y ou f(x)>y ou f(x)>=y)
  * @param {function} fonction une fonction x=>f(x)

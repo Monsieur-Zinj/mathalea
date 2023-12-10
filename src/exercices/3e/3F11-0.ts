@@ -17,6 +17,8 @@ import { droite } from '../../lib/2d/droites'
 import { inferieurSuperieur } from '../../lib/mathFonctions/etudeFonction'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
@@ -32,6 +34,19 @@ export const uuid = '28997'
 
 type TypesDeFonction = 'constante'|'affine'|'poly2'|'poly3'|'spline'
 const typesDeFonction:TypesDeFonction[] = ['constante', 'affine', 'poly2', 'poly3', 'spline']
+function compareEnsembles (e1:string, e2:string) {
+  const elements1 = e1.split(';')
+  const elements2 = e2.split(';')
+  if (elements1.length !== elements2.length) return false
+  let ok = true
+  for (let i = 0; i < elements1.length; i++) {
+    if (Math.abs(Number(elements1[i].replace(',', '.')) - Number(elements2[i].replace(',', '.'))) > 0.1) {
+      ok = false
+      break
+    }
+  }
+  return ok
+}
 
 function choisisFonction (type: TypesDeFonction, noeudsPassants: {x:number, y:number}[]): {func: (x:number)=>number, expr: string|Spline} {
   let { x: x1, y: y1 } = noeudsPassants[0]
@@ -144,7 +159,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     // on s'occupe de la fonction 1 et du point mobile dessus on trace tout ça.
     const fonction1 = choisisFonction(typeFonctions[0], noeudsPassant)
     if (typeof fonction1.expr === 'string') {
-      courbeF = this.figure.create('Graph', { expression: fonction1.expr, color: 'blue', thickness: 2 })
+      courbeF = this.figure.create('Graph', { expression: fonction1.expr, color: 'blue', thickness: 1, fillOpacity: 0.5 })
       M = this.figure.create('PointOnGraph', { graph: courbeF })
       // M.draw()
       M.label = 'M'
@@ -167,11 +182,11 @@ class resolutionEquationInequationGraphique extends Exercice {
           // shape: coordEntieres(el.x, el.y) ? 'o' : 'x'
         }))
         if (mesPointsApiGeomF !== undefined) {
-          this.figure.create('Polyline', { points: mesPointsApiGeomF, color: 'blue', thickness: 2 })
+          this.figure.create('Polyline', { points: mesPointsApiGeomF, color: 'blue', thickness: 1, fillOpacity: 0.5 })
         }
       }
-      M = new PointOnSpline(this.figure, { spline: courbeF, x: 1, dx: 0.1, abscissa: true, ordinate: true, isVisible: true, shape: 'x', color: 'blue', size: 3, thickness: 3 })
-      // M.draw()
+      M = new PointOnSpline(this.figure, { spline: courbeF, x: 1, dx: 0.1, abscissa: true, ordinate: true, isVisible: true, shape: 'x', color: 'blue', size: 3, thickness: 1 })
+      M.draw()
       M.label = 'M'
       M.createSegmentToAxeX()
       M.createSegmentToAxeY()
@@ -212,7 +227,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     // Fonction 2 Ok On trace sa courbe
     let courbeG
     if (typeof fonction2.expr === 'string') {
-      courbeG = this.figure.create('Graph', { expression: fonction2.expr, color: 'red', thickness: 2 })
+      courbeG = this.figure.create('Graph', { expression: fonction2.expr, color: 'red', thickness: 1, fillOpacity: 0.5 })
     } else {
       courbeG = fonction2.expr as Spline
       const mesPointsG = courbeG.pointsOfSpline(96)
@@ -226,7 +241,7 @@ class resolutionEquationInequationGraphique extends Exercice {
           // shape: coordEntieres(el.x, el.y) ? 'o' : 'x'
         }))
         if (mesPointsApiGeomG !== undefined) {
-          this.figure.create('Polyline', { points: mesPointsApiGeomG, color: 'red', thickness: 2 })
+          this.figure.create('Polyline', { points: mesPointsApiGeomG, color: 'red', thickness: 1, fillOpacity: 0.5 })
         }
       }
     }
@@ -235,20 +250,42 @@ class resolutionEquationInequationGraphique extends Exercice {
 
     let enonce = ''
     let numero = 1
-    const diff = (x:number) => fonction1.func(x) - fonction2.func(x)
+    let diff
+    let diffSpline
+    let soluces
     const inferieur = choice([true, false])
-    if (this.sup === 1 || this.sup === 3) {
-      enonce = `${numero}. Résoudre graphiquement $f(x)${miseEnEvidence('=', 'black')}g(x)$.<br>`
-      numero++
-      const soluces: Set<string> = new Set()
-      for (let x0 = -5.2; x0 < 5.3; x0 += 0.2) {
-        const sol = antecedentParDichotomie(x0, x0 + 0.199, diff, 0, 0.05)
-        if (!sol) continue
-        if (typeof sol === 'number') {
-          soluces.add(texNombre(sol, 1))
+    if (typeFonctions[0] === 'spline' && typeFonctions[1] === 'spline') {
+      const func1 = fonction1.expr as Spline
+      const func2 = fonction2.expr as Spline
+      diffSpline = func1.add(func2, true)
+      if (this.sup === 1 || this.sup === 3) {
+        soluces = new Set(diffSpline.solve(0))
+        enonce += '$\\{' + Array.from(soluces).sort((a:number, b:number) => a - b).map(el => texNombre(el, 1)).join(' ; ') + '\\}$<br>'
+        diff = diffSpline.fonction
+      }
+    } else {
+      diff = (x:number) => fonction1.func(x) - fonction2.func(x)
+
+      if (this.sup === 1 || this.sup === 3) {
+        enonce = `${numero}. Résoudre graphiquement $f(x)${miseEnEvidence('=', 'black')}g(x)$.<br>`
+        numero++
+        soluces = new Set()
+        for (let x0 = -5.2; x0 < 5.3; x0 += 0.2) {
+          const sol = antecedentParDichotomie(x0, x0 + 0.199, diff, 0, 0.05)
+          if (!sol) continue
+          if (typeof sol === 'number') {
+            soluces.add(texNombre(sol, 1))
+          }
         }
       }
       enonce += '$\\{' + Array.from(soluces).join(' ; ') + '\\}$<br>'
+    }
+
+    if (soluces != null) {
+      if (this.sup === 1 || this.sup === 3) {
+        enonce += remplisLesBlancs(this, 0, '\\{%{soluces}\\}', 'inline college6e', '.......') + '<br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
+        setReponse(this, 0, { soluces: { value: Array.from(soluces).join(' ; '), compare: compareEnsembles } }, { formatInteractif: 'fillInTheBlank' })
+      }
     }
 
     if (this.sup === 2 || this.sup === 3) {
