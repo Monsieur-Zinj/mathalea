@@ -8448,14 +8448,16 @@
     "uuid": "d12db",
     "id": "5G30-1",
     "titre": "Déterminer des angles en utilisant les cas d'égalité",
+    "datePublication": "14/11/2020",
+    "dateModification": "10/12/2023",
     "features": {
       "interactif": {
         "isActive": false,
         "type": ""
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -8474,8 +8476,8 @@
         "type": ""
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -8493,8 +8495,8 @@
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCNum"
       }
     },
     "typeExercice": "alea"
