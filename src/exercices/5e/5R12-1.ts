@@ -42,7 +42,7 @@ class ReperagePointDuPlan extends Exercice {
     this.figure = new Figure({ snapGrid: true, xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     this.figure.create('Grid')
-    this.figure.options.labelAutomaticForPoints = true // Les points sont nommés par ordre alphabétique
+    this.figure.options.labelAutomaticBeginsWith = 'A' // Les points sont nommés par ordre alphabétique
     this.figure.options.limitNumberOfElement.set('Point', 4) // On limite le nombre de points à 4
 
     let x1 = randint(-6, -1)

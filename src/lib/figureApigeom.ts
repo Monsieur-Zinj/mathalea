@@ -1,4 +1,4 @@
-import type Exercice from 'src/exercices/ExerciceTs'
+import type Exercice from '../exercices/ExerciceTs'
 import type Figure from 'apigeom'
 import { context } from '../modules/context'
 

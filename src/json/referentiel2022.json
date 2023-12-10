@@ -14242,15 +14242,16 @@
         "typeExercice": "alea"
       },
       "5R11-2": {
-        "url": "5e/5R11-2.js",
+        "url": "5e/5R11-2.ts",
         "tags": [],
         "uuid": "6d576",
         "id": "5R11-2",
         "titre": "Placer un point d'abscisse un nombre relatif",
+        "dateModification": "8/12/2023",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'custom'"
           },
           "amc": {
             "isActive": true,

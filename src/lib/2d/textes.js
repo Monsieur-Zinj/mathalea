@@ -120,7 +120,7 @@ export function labelLatexPoint ({
 }
 
 /**  Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
- * @param  {...Point[]} points Points mis à la suite
+ * @param  {Point[]} points Points mis à la suite
  * @param {string} [color = 'black'] Couleur des points : du type 'blue' ou du type '#f15929'
  * @property {string} color Couleur des points. À associer obligatoirement à colorToLatexOrHTML().
  * @property {number} taille Taille de la boite contenant le nom des points
