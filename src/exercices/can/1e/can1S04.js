@@ -215,7 +215,7 @@ export default function NatureSuiteRec () {
             }
             texte += propositionsQcm(this, i).texte
           } else {
-            texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} = ${s}_n ${ecritureAlgebrique(a)}$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} = ${s}_n ${ecritureAlgebrique(a)}$.<br>
           
             Quelle est la nature de cette suite ? <br>
             
@@ -279,13 +279,13 @@ export default function NatureSuiteRec () {
             }
           } else {
             if (b < 0) {
-              texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =- \\dfrac{${s}_{n}}{${a}}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =- \\dfrac{${s}_{n}}{${a}}$.<br>
               
               Quelle est la nature de cette suite ? <br>
               
               Donner sa raison.`
             } else {
-              texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} = \\dfrac{${s}_{n}}{${a}}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} = \\dfrac{${s}_{n}}{${a}}$.<br>
             
               Quelle est la nature de cette suite ? <br>
               
@@ -329,7 +329,7 @@ export default function NatureSuiteRec () {
             }
             texte += propositionsQcm(this, i).texte
           } else {
-            texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombre(a)}${s}_n $.<br>
+            texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombre(a)}${s}_n $.<br>
           
             Quelle est la nature de cette suite ? <br>
             
@@ -399,13 +399,13 @@ export default function NatureSuiteRec () {
             }
           } else {
             if (b < 0) {
-              texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
               
               Quelle est la nature de cette suite ? <br>
               
               Donner sa raison.`
             } else {
-              texte = `Soit $(${s}_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
              
               Quelle est la nature de cette suite ?<br>
               
