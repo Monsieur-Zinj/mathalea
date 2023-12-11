@@ -18,21 +18,18 @@ export const interactifType = 'mathLive'
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
  * @author Rémi Angot
  * @author Jean-claude Lhote (Mode QCM et alternance numérateur / dénominateur)
- * 5N13-2 et 6N41
  */
 export const uuid = '06633'
 export const ref = '6N41'
 export default function EgalitesEntreFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 11 // Correspond au facteur commun
-  this.sup2 = 2 // alternace numérateur ou dénominateur imposé.
+  this.sup2 = 2 // alternance numérateur ou dénominateur imposé.
   this.consigne = 'Compléter les égalités.'
   this.spacing = 2
   this.spacingCorr = 2
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
-    this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -108,7 +105,6 @@ export default function EgalitesEntreFractions () {
             texteCorr = `$${deprecatedTexFraction(a, b)} = ${deprecatedTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${deprecatedTexFraction(c, d)}$`
             if (context.isAmc) {
               this.autoCorrection[i] = {}
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `$${deprecatedTexFraction(c, d)}$`,
@@ -144,7 +140,6 @@ export default function EgalitesEntreFractions () {
             texteCorr = `$${deprecatedTexFraction(a, b)} = ${deprecatedTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${deprecatedTexFraction(c, d)}$`
             if (context.isAmc) {
               this.autoCorrection[i] = {}
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `$${deprecatedTexFraction(c, d)}$`,
@@ -179,7 +174,7 @@ export default function EgalitesEntreFractions () {
           d = randint(2, 9)
         }
         c = a * d
-        if (parseInt(this.sup2) === 3) {
+        if (this.sup2 === 3) {
           choix = i % 2
         } else {
           choix = this.sup2 % 2
@@ -199,7 +194,6 @@ export default function EgalitesEntreFractions () {
             texteCorr = `$${a} = \\dfrac{${a}}{1} =${deprecatedTexFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${deprecatedTexFraction(c, d)}$`
             if (context.isAmc) {
               this.autoCorrection[i] = {}
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `$${deprecatedTexFraction(c, d)}$`,
@@ -238,7 +232,6 @@ export default function EgalitesEntreFractions () {
             texteCorr = `$${a} = \\dfrac{${a}}{1} =${deprecatedTexFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${deprecatedTexFraction(c, d)}$`
             if (context.isAmc) {
               this.autoCorrection[i] = {}
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `$${deprecatedTexFraction(c, d)}$`,
@@ -264,6 +257,9 @@ export default function EgalitesEntreFractions () {
             }
             break
         }
+      }
+      if (context.isAmc) {
+        this.autoCorrection[i].enonce = `Parmi les fractions suivantes, laquelle est égale à ${texte.split('=')[0]}$ ?`
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
