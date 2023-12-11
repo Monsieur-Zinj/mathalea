@@ -720,7 +720,7 @@ export function exportQcmAmc (exercice, idExo) {
                     texQr += '0'
                   }
                   texQr += 'pt}\\begin{multicols}{2}\n'
-                  texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+                  if (qr > 0) texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
                 } else if ((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) texQr += '\n\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
 
                 texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
@@ -788,7 +788,7 @@ export function exportQcmAmc (exercice, idExo) {
                   texQr += '0'
                 }
                 texQr += '0pt}\\begin{multicols}{2}\n'
-                // texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+                if (qr > 0) texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
               }
               if (propositions[0].numQuestionVisible === undefined) {
                 texQr += `\t${qr > 0 ? '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse' : ''}\\begin{question}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n`
