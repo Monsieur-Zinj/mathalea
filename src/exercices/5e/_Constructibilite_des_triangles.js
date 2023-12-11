@@ -1,36 +1,34 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { context } from '../../modules/context.js'
 
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 export const titre = 'Constructibilité des triangles via les longueurs ou les angles'
-export const dateDeModifImportante = '24/08/2023'
+export const dateDeModifImportante = '10/12/2023'
 
 /**
  * Constructibilité des triangles
- * Préciser ici les numéros des exos
  * 5G2 exercice parent il faudra supprimmer la version beta5G2 de la liste des choix du fichier mathalea_exercices.js
  * 5G21-1
  * 5G31-1
  * Dans ces exercices je me servais de this.beta pour faire passer l'exo de beta.html à context.html
  * this.beta pouvait prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug
- * Mise à jour le 2021-01-25
  * @author Sébastien Lozano
  */
 export default function ConstructibiliteDesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1
+  this.sup2 = false
   this.nbQuestions = 3
   this.beta = ''
-  if (this.exo === this.beta + '5G21-1') { // via longueurs
-    this.consigne = 'Justifier si les longueurs données permettent de construire le triangle.'
-    // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
-  } else { // via angles
-    this.consigne = 'Justifier si les angles donnés permettent de construire le triangle.'
-    // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
-  }
 
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -40,30 +38,51 @@ export default function ConstructibiliteDesTriangles () {
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
+    let consigneAMC
+    if (this.exo === this.beta + '5G21-1') { // via longueurs
+      consigneAMC = !this.interactif || context.isAmc
+        ? 'Justifier si les longueurs données permettent de construire le triangle'
+        : 'Indiquer si, avec les informations fournies, le triangle est constructible'
+        // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
+    } else { // via angles
+      consigneAMC = !this.interactif || context.isAmc
+        ? 'Justifier si les angles donnés permettent de construire le triangle'
+        : 'Indiquer si, avec les informations fournies, le triangle est constructible'
+        // this.consigne += '<br>Dire si tous les élèves qui doivent construire ce triangle auront la même figure.'
+    }
+    this.consigne = consigneAMC + '.'
     if (this.exo === this.beta + '5G21-1') { // via longueurs
       if (this.sup === 1) {
         typesDeQuestionsDisponibles = [1, 2, 3]
-      } else if (this.sup === 2) {
+      } else if (this.sup === 3) {
         const a = randint(1, 3)
         if (this.nbQuestions === 1) typesDeQuestionsDisponibles = [4]
         else if (this.nbQuestions === 2) typesDeQuestionsDisponibles = [4, a]
         else if (this.nbQuestions === 3) typesDeQuestionsDisponibles = [4, a, a % 3 + 1]
         else typesDeQuestionsDisponibles = [4, 1, 2, 3]
+      } else {
+        typesDeQuestionsDisponibles = [4]
       }
     } else if (this.exo === this.beta + '5G31-1') { // via angles
       if (this.sup === 1) {
         typesDeQuestionsDisponibles = [5, 6, 7]
-      } else if (this.sup === 2) {
+      } else if (this.sup === 3) {
         const a = randint(5, 7)
         if (this.nbQuestions === 1) typesDeQuestionsDisponibles = [8]
         else if (this.nbQuestions === 2) typesDeQuestionsDisponibles = [8, a]
         else if (this.nbQuestions === 3) typesDeQuestionsDisponibles = [8, a, (a - 4) % 3 + 5]
         else typesDeQuestionsDisponibles = [8, 5, 6, 7]
+      } else {
+        typesDeQuestionsDisponibles = [8]
       }
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
     }
 
+    if (!this.sup2) {
+      enleveElement(typesDeQuestionsDisponibles, 2)
+      enleveElement(typesDeQuestionsDisponibles, 6)
+    }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     this.listeQuestions = [] // Liste de questions
@@ -374,8 +393,69 @@ export default function ConstructibiliteDesTriangles () {
         }
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+        const propositionsDuQcm = [
+          {
+            texte: `Le triangle ${triangle.getNom()} est constructible`,
+            statut: !(listeTypeDeQuestions[i] === 2 || listeTypeDeQuestions[i] === 7),
+            feedback: (this.exo === this.beta + '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
+          },
+          {
+            texte: `Le triangle ${triangle.getNom()} n'est pas constructible`,
+            statut: (listeTypeDeQuestions[i] === 2 || listeTypeDeQuestions[i] === 7),
+            feedback: (this.exo === this.beta + '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
+          },
+          {
+            texte: `On ne peut pas savoir si le triangle ${triangle.getNom()} est constructible ou pas`,
+            statut: false,
+            feedback: (this.exo === this.beta + '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
+          }
+        ]
+
+        if (this.interactif) {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            propositions: propositionsDuQcm,
+            options: {
+              ordered: false, // (si les réponses doivent rester dans l'ordre ci-dessus, false s'il faut les mélanger),
+              lastChoice: 2 // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
+            }
+          }
+        }
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: consigneAMC + ' :<br>' + texte,
+            options: { numerotationEnonce: true }, // facultatif.
+            propositions: [
+              {
+                type: 'AMCOpen',
+                propositions: [
+                  {
+                    texte: '',
+                    numQuestionVisible: false,
+                    statut: 2, // (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    feedback: ''
+                    //   enonce: ' Justifier la réponse.' // EE : ce champ est facultatif et fonctionnel qu'en mode hybride (en mode normal, il n'y a pas d'intérêt)
+                  }
+                ]
+              },
+              {
+                type: 'qcmMono',
+                enonce: 'Suite à votre justification, noircir la case adéquate parmi les suivantes :',
+                propositions: propositionsDuQcm,
+                options: {
+                  ordered: false, // (si les réponses doivent rester dans l'ordre ci-dessus, false s'il faut les mélanger),
+                  lastChoice: 2 // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
+                }
+              }
+            ]
+          }
+        }
+        if (this.interactif) {
+          texte += propositionsQcm(this, i).texte
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+
         i++
       }
       cpt++
@@ -383,8 +463,9 @@ export default function ConstructibiliteDesTriangles () {
     listeQuestionsToContenu(this)
   }
   if (this.exo === this.beta + '5G21-1') {
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 longueurs\n2 : 2 longueurs et le périmètre']
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 longueurs\n2 : 2 longueurs et le périmètre\n3 : Mélange']
   } else {
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème']
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : 3 angles\n2 : 2 angles et le 3ème en fonction du 1er ou du 2ème\n3 : Mélange']
   }
+  this.besoinFormulaire2CaseACocher = ['Accepter triangle plat']
 }
