@@ -1,7 +1,12 @@
 import ConstructibiliteDesTriangles from './_Constructibilite_des_triangles.js'
 
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'AMCHybride'
+
 export const titre = 'Justifier la construction des triangles via les longueurs'
-export const dateDeModifImportante = '24/08/2023'
+export const dateDeModifImportante = '10/12/2023'
 
 /**
  * Justifier la construction des triangles via les longueurs'
