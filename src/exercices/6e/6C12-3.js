@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { jourAuHasard, nomDuMois } from '../../lib/outils/dateEtHoraires.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'

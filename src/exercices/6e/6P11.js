@@ -1,4 +1,4 @@
-import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texteExposant } from '../../lib/outils/ecritures.js'
 import {
   arrondi,

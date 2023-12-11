@@ -3,7 +3,7 @@ import { milieu, point } from '../../../lib/2d/points.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import {
   deprecatedTexFraction,
   simplificationDeFractionAvecEtapes,

@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { labyrinthe } from '../../modules/Labyrinthe.js'

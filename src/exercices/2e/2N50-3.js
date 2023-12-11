@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'

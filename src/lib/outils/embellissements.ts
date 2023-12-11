@@ -10,7 +10,7 @@ import { choice } from './arrayOutils.js'
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function miseEnEvidence (texte, couleur = '#f15929') {
+export function miseEnEvidence (texte: string, couleur: string = '#f15929') {
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `{\\color{${couleur}}\\boldsymbol{${texte}}}`
@@ -30,7 +30,7 @@ export function miseEnEvidence (texte, couleur = '#f15929') {
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Guillaume Valmont d'après MiseEnEvidence() de Rémi Angot
  */
-export function miseEnCouleur (texte, couleur = '#f15929') {
+export function miseEnCouleur (texte: string, couleur: string = '#f15929') {
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `{\\color{${couleur}} ${texte}}`
@@ -49,7 +49,7 @@ export function miseEnCouleur (texte, couleur = '#f15929') {
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function texteEnCouleur (texte, couleur = '#f15929') {
+export function texteEnCouleur (texte: string, couleur = '#f15929') {
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `<span style="color:${couleur};">${texte}</span>`
@@ -68,7 +68,7 @@ export function texteEnCouleur (texte, couleur = '#f15929') {
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function texteEnCouleurEtGras (texte, couleur = '#f15929') {
+export function texteEnCouleurEtGras (texte: string, couleur = '#f15929') {
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `<span style="color:${couleur};font-weight: bold;">${texte}</span>`
@@ -112,14 +112,14 @@ export function couleurTab (choixCouleur = 999) {
   return (choixCouleur === 999 || choixCouleur >= panelCouleurs.length || !isInteger(choixCouleur)) ? choice(panelCouleurs) : panelCouleurs[choixCouleur]
 }
 
-export function arcenciel (i, fondblanc = true) {
+export function arcenciel (i: number, fondblanc = true) {
   let couleurs
   if (fondblanc) couleurs = ['violet', 'purple', 'blue', 'green', 'lime', '#f15929', 'red']
   else couleurs = ['violet', 'indigo', 'blue', 'green', 'yellow', '#f15929', 'red']
   return couleurs[i % 7]
 }
 
-export function texcolors (i, fondblanc = true) {
+export function texcolors (i: number, fondblanc = true) {
   const couleurs = ['black', 'blue', 'GreenYellow', 'brown', 'LightSlateBlue', 'cyan', 'darkgray', 'HotPink', 'LightSteelBlue', 'Chocolate', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'DarkOrange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
   if (fondblanc && i % couleurs.length >= couleurs.length - 2) i += 2
   return couleurs[i % couleurs.length]
@@ -130,10 +130,25 @@ export function texcolors (i, fondblanc = true) {
  * @param {string} texte à mettre en gras
  * @author Rémi Angot
  */
-export function texteGras (texte) {
+export function texteGras (texte: string) {
   if (context.isHtml) {
     return `<b>${texte}</b>`
   } else {
     return `\\textbf{${texte}}`
   }
+}
+
+export function blocCode (texte: string) {
+  if (context.isHtml) {
+    return `<pre style="background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-family: Courier New, monospace; white-space: pre-wrap;">
+    ${texte}</pre>`
+  }
+  return `\\begin{verbatim}\n${texte}\n\\end{verbatim}`
+}
+
+export function texteCode (texte: string) {
+  if (context.isHtml) {
+    return `<span style="background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; font-family: Courier New, monospace; white-space: pre-wrap;">${texte}</span>`
+  }
+  return `\\verb|${texte}|`
 }

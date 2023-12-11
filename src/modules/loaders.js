@@ -289,7 +289,7 @@ export async function loadMathLive () {
           style += ' width: 25%;'
         }
       } else {
-        style += ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 8px; box-shadow: 0 0 8px rgba(0, 0, 0, .2);'
+        style += ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 4px;'
       }
       if (mf.classList.contains('largeur10')) {
         style += ' width: 10%;'
@@ -311,6 +311,8 @@ export async function loadMathLive () {
         mf.style.boxShadow = 'none'
         mf.style.fontSize = '1em'
       }
+      mf.style.fontSize = '1em'
+      mf.classList.add('ml-1')
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive

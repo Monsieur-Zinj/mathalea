@@ -4,7 +4,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true

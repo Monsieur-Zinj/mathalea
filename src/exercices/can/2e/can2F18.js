@@ -4,7 +4,7 @@ import { spline } from '../../../lib/mathFonctions/Spline.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 export const dateDePublication = '16/11/2023'
 export const interactifReady = true

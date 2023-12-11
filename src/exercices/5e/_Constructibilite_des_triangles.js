@@ -1,5 +1,5 @@
 import { combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'

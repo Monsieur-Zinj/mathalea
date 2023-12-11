@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '.
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 
 export const titre = 'Tester une égalité'

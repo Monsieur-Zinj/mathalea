@@ -1,4 +1,4 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Multiplier un nombre pair par 5'

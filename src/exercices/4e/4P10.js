@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { produitsEnCroix, quatriemeProportionnelle } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox, texteExposant } from '../../lib/outils/ecritures.js'

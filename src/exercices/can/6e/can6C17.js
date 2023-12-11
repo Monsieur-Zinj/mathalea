@@ -1,4 +1,4 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer la fraction d’une quantité'

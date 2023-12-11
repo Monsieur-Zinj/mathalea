@@ -1,4 +1,4 @@
-import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Connaître les tables de multiplication (phrases)'

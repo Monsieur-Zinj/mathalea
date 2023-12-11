@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'

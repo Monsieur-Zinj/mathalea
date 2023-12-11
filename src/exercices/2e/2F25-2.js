@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,

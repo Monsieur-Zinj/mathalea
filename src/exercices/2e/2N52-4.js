@@ -1,5 +1,5 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'

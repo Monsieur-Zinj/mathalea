@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
-import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Déterminer l\'intersection de deux intervalles'
 export const interactifReady = true
 export const interactifType = 'mathLive'

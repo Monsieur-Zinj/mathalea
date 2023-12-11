@@ -9,7 +9,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Effectuer des calculs avec des puissances'
 export const interactifReady = true

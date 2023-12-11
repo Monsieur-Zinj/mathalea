@@ -1,5 +1,5 @@
 import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texPrix, texteGras } from '../../lib/format/style.js'

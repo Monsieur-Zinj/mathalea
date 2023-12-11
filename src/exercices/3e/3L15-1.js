@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js' // eslint-disable-next-line camelcase
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

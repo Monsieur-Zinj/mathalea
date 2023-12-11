@@ -11,7 +11,7 @@ import Decimal from 'decimal.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString.js'
 
 export const interactifReady = true

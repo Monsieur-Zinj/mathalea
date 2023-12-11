@@ -1,5 +1,5 @@
 import { combinaisonListes, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

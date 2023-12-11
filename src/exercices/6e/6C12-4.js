@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { jourAuHasard, minToHeuresMinutes, minToHoraire, minToHour, nomDuMois } from '../../lib/outils/dateEtHoraires.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'

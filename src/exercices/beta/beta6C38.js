@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texPrix } from '../../lib/format/style.js'

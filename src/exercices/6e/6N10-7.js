@@ -8,7 +8,7 @@ import Decimal from 'decimal.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { calculCompare } from '../../lib/interactif/mathLive.js'
 
 export const titre = 'Recomposer un décimal ou un entier'

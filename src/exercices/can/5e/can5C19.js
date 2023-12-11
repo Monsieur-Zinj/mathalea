@@ -1,4 +1,4 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { randint } from '../../../modules/outils.js'

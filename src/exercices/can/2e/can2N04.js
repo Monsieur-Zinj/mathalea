@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import Exercice from '../../Exercice.js'
-import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer la réunion de deux intervalles'
 export const interactifReady = true

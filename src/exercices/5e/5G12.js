@@ -14,7 +14,7 @@ import { rotationAnimee } from '../../modules/2dAnimation.js'
 import { pavage } from '../../modules/Pavage.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Trouver l\'image d\'une figure par symétrie centrale dans un pavage'
 export const interactifReady = true

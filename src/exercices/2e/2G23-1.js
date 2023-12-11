@@ -9,7 +9,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modu
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { translation } from '../../lib/2d/transformations.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

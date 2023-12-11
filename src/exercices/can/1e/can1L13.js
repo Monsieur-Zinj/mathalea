@@ -2,7 +2,7 @@ import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 
 export const titre = 'Résoudre une inéquation du second degré (cas particuliers)'

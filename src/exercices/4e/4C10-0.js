@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureNombreRelatif } from '../../lib/outils/ecritures.js'
 import { Relatif } from '../../modules/Relatif.js'
 import Exercice from '../Exercice.js'

@@ -1,4 +1,4 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString.js'
 import { prenomM } from '../../../lib/outils/Personne.js'
 import { randint } from '../../../modules/outils.js'

@@ -12,7 +12,7 @@ import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { pickRandom } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
-import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
 export const titre = 'Effectuer des liens entre angles et parallélisme'
 export const dateDeModifImportante = '18/08/2023'
 export const amcReady = true

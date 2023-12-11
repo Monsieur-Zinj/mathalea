@@ -7,7 +7,7 @@ import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer des durées ou déterminer un horaire'
 export const interactifReady = true

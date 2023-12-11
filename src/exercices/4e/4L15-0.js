@@ -1,5 +1,5 @@
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { sp } from '../../lib/outils/outilString.js'

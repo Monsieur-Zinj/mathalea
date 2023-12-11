@@ -2,7 +2,7 @@
 import { point } from '../../lib/2d/points.js'
 import { texteParPositionEchelle } from '../../lib/2d/textes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { modalPdf, modalUrl } from '../../lib/outils/modales.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

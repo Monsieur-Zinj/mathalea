@@ -1,4 +1,4 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import {
   deprecatedTexFraction,
   simplificationDeFractionAvecEtapes,

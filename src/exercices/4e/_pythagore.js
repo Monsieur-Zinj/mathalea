@@ -1,4 +1,4 @@
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 

@@ -9,7 +9,7 @@ import { rotation } from '../../../lib/2d/transformations.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { texteSurSegment } from '../../../lib/2d/codages.js'
 import { sp } from '../../../lib/outils/outilString.js'
-import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements'
 export const titre = 'Déterminer si un triangle est rectangle'
 export const interactifReady = true
 export const interactifType = 'qcm'

@@ -1,4 +1,4 @@
-import { miseEnEvidence } from './embellissements.js'
+import { miseEnEvidence } from './embellissements'
 import { ecritureParentheseSiNegatif } from './ecritures.js'
 import { pgcd } from './primalite.js'
 import { texNombre } from './texNombre.js'

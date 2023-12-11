@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere, rangeMinMax } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import Exercice from '../../Exercice.js'

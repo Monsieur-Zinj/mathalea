@@ -5,7 +5,7 @@ import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Recourir à une décomposition en facteurs premiers dans des cas simples'

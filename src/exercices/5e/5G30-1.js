@@ -4,7 +4,7 @@ import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'

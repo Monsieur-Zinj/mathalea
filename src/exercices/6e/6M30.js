@@ -11,7 +11,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import Grandeur from '../../modules/Grandeur.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer le volume de solides donnés'
 export const amcReady = true

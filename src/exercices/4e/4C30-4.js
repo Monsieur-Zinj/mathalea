@@ -4,7 +4,7 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Associer puissances de 10 et préfixes'

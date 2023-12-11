@@ -1,5 +1,5 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines.js'
 import Exercice from '../Exercice.js'

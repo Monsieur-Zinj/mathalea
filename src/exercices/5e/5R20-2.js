@@ -3,7 +3,7 @@ import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc, ecri
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString.js'
 export const amcReady = true
 export const amcType = 'qcmMono'

@@ -6,7 +6,7 @@ import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, texEnumerateSansNumero } from '../../modules/outils.js'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const dateDeModifImportante = '25/07/2023'
 export const titre = 'Utiliser le vocabulaire des triangles'
 

@@ -4,7 +4,7 @@ import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import {
   deprecatedTexFraction,
   simplificationDeFractionAvecEtapes,

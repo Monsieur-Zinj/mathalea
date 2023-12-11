@@ -1,4 +1,4 @@
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { objet } from '../6e/6C35.js'
 import Exercice from '../Exercice.js'

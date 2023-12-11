@@ -1,7 +1,7 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
-import { texteEnCouleurEtGras, texteGras } from '../../../lib/outils/embellissements.js'
+import { texteEnCouleurEtGras, texteGras } from '../../../lib/outils/embellissements'
 import { listeDesDiviseurs, premiersEntreBornes } from '../../../lib/outils/primalite.js'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 

@@ -11,7 +11,7 @@ import { labelPoint } from '../../lib/2d/textes.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { aireTriangle } from '../../lib/2d/triangle.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../lib/outils/embellissements.js'
+import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { texteGras } from '../../lib/format/style.js'
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
