@@ -3,6 +3,7 @@ import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { blocCode, miseEnEvidence, texteCode } from '../../../lib/outils/embellissements'
+import { context } from '../../../modules/context'
 
 export const titre = 'CAN Seconde entraînement 2024'
 export const interactifReady = true
@@ -31,6 +32,7 @@ export default class nomExercice extends Exercice {
     for (let i = 0; i < questions.length; i++) {
       const { texte, texteCorr, solution } = questions[i]()
       this.listeQuestions[i] = texte + ajouteChampTexteMathLive(this, i)
+      if (context.isHtml) this.listeQuestions[i] += '<br><br><br>'
       this.listeCorrections[i] = texteCorr
       setReponse(this, i, solution)
     }
