@@ -5128,9 +5128,9 @@
     "typeExercice": "alea"
   },
   "3L11": {
-    "url": "3e/3L11.js",
+    "url": "3e/3L11new.js",
     "tags": [],
-    "uuid": "77a62",
+    "uuid": "db2e0",
     "id": "3L11",
     "titre": "Utiliser la simple distributivité",
     "features": {
@@ -8337,15 +8337,15 @@
     "uuid": "f789c",
     "id": "5G21-1",
     "titre": "Justifier la construction des triangles via les longueurs",
-    "dateModification": "24/08/2023",
+    "dateModification": "10/12/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'qcm'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
@@ -8508,15 +8508,15 @@
     "uuid": "bcbe1",
     "id": "5G31-1",
     "titre": "Justifier la construction des triangles via les angles",
-    "dateModification": "24/08/2023",
+    "dateModification": "10/12/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'qcm'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCHybride"
       }
     },
     "typeExercice": "alea"
