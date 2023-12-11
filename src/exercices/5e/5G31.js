@@ -20,7 +20,7 @@ export const titre = 'Déterminer la valeur d\'un angle en utilisant la somme de
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCNum'
+export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '23/08/2023'
 /* Modif du 23/08 par EE :
 Passage en interactif
@@ -497,10 +497,15 @@ export default function ExerciceAnglesTriangles () {
       }
       // Le code ci-dessous permet de changer de l'ordre des angles dans les questions interactives
       // Cela ne permet pas à un petit malin de noter les réponses et de refaire la question en les remettant à la même place
+      const reponsesAMC = [reponseInteractive[choixAngle[0]]]
       setReponse(this, indiceSetReponse, reponseInteractive[choixAngle[0]])
       if (reponseInteractive.length > 1) {
+        reponsesAMC.push(reponseInteractive[choixAngle[1]])
         setReponse(this, indiceSetReponse + 1, reponseInteractive[choixAngle[1]])
-        if (reponseInteractive.length > 2) setReponse(this, indiceSetReponse + 2, reponseInteractive[choixAngle[2]])
+        if (reponseInteractive.length > 2) {
+          reponsesAMC.push(reponseInteractive[choixAngle[2]])
+          setReponse(this, indiceSetReponse + 2, reponseInteractive[choixAngle[2]])
+        }
       }
       if (this.interactif) {
         texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse, 'inline nospacebefore largeur15', {
@@ -508,13 +513,11 @@ export default function ExerciceAnglesTriangles () {
           texteApres: '$\\degree$'
         })
         if (reponseInteractive.length > 1) {
-          setReponse(this, indiceSetReponse + 1, reponseInteractive[choixAngle[1]])
           texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 1, 'inline nospacebefore largeur15', {
             texte: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`,
             texteApres: '$\\degree$'
           })
           if (reponseInteractive.length > 2) {
-            setReponse(this, indiceSetReponse + 2, reponseInteractive[choixAngle[2]])
             texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 2, 'inline nospacebefore largeur15', {
               texte: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`,
               texteApres: '$\\degree$'
@@ -540,6 +543,82 @@ export default function ExerciceAnglesTriangles () {
       }
       texteCorrFinal += texteCorr
       texteCorrFinal += '<br>' + mathalea2d(Object.assign(fixeBordures(objetsCorrection)), objetsCorrection)
+
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: '',
+          enonceAvant: false,
+          // options: { multicols: true, barreseparation: true },
+          // options: { barreseparation: true, numerotationEnonce: true },
+          options: { barreseparation: true },
+          propositions: [
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                // numQuestionVisible: false,
+                statut: '',
+                reponse: {
+                  texte: texte + `<br><br>Valeur de $\\widehat{${nomAngles[choixAngle[0]]}}$`,
+                  valeur: reponsesAMC[0],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          ]
+        }
+        if (reponseInteractive.length > 1) {
+          this.autoCorrection[i].propositions[0].propositions[0].multicolsBegin = true
+          this.autoCorrection[i].propositions.push(
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                multicolsEnd: true,
+                statut: '',
+                reponse: {
+                  texte: `Valeur de $\\widehat{${nomAngles[choixAngle[1]]}}$`,
+                  valeur: reponsesAMC[1],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          )
+        }
+        if (reponseInteractive.length > 2) {
+          this.autoCorrection[i].propositions[1].propositions[0].multicolsEnd = false
+          this.autoCorrection[i].propositions.push(
+            {
+              type: 'AMCNum',
+              propositions: [{
+                texte: '',
+                multicolsEnd: true,
+                statut: '',
+                reponse: {
+                  texte: `Valeur de $\\widehat{${nomAngles[choixAngle[2]]}}$`,
+                  valeur: reponsesAMC[2],
+                  param: {
+                    digits: 2,
+                    decimals: 0,
+                    signe: false,
+                    approx: 0
+                  }
+                }
+              }]
+            }
+          )
+        }
+      }
 
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
