@@ -1,10 +1,10 @@
-import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
-import { milieu, point } from '../../lib/2d/points.js'
+import { angleOriente, codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
+import { milieu, point, pointIntersectionDD, tracePoint } from '../../lib/2d/points.js'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParPoint } from '../../lib/2d/textes.js'
-import { homothetie, rotation } from '../../lib/2d/transformations.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { homothetie, rotation, similitude } from '../../lib/2d/transformations.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
@@ -15,6 +15,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { droite } from '../../lib/2d/droites.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,6 +42,7 @@ export default function CalculDAngle () {
   this.sup = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
+  this.debug = false
   if (context.isHtml) {
     this.spacing = 2
     this.spacingCorr = 3
@@ -53,9 +55,8 @@ export default function CalculDAngle () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    let listChoixRapportTrigo = []
     for (let i = 0; i < this.nbQuestions; i++) {
-      // let mEp = (this.sup && !context.isHtml) ? '<br>' : ''
-      const mEp = ''
       const nom = creerNomDePolygone(3, 'QD')
       let texte = ''
       let texteCorr = ''
@@ -66,42 +67,35 @@ export default function CalculDAngle () {
       if (this.level === 4) {
         choixRapportTrigo = choice(['Acos'])
       } else {
-        choixRapportTrigo = choice(['Acos', 'Asin', 'Atan'])
+        if (listChoixRapportTrigo.length === 0) listChoixRapportTrigo = ['Acos', 'Asin', 'Atan']
+        listChoixRapportTrigo = shuffle(listChoixRapportTrigo)
+        choixRapportTrigo = listChoixRapportTrigo.pop()
       }
-      angleABC = randint(35, 55)
-      /*
-            if (!context.isHtml && this.sup) {
-                 texte += '\\begin{minipage}{.6\\linewidth}\n'
-            }
-            */
+
       switch (choixRapportTrigo) {
         case 'Acos': // AB=BCxcos(B)
           bc = arrondi(randint(100, 150) / 10, 1)
           ab = arrondi(randint(40, (bc - 2) * 10) / 10, 1)
           angleABC = Math.round(Math.acos(ab / bc) * 180 / Math.PI)
           ac = bc * Math.sin(Math.acos(ab / bc))
-          texte += `Le triangle $${nom}$ rectangle en $${nom[0]}$ est tel que ${mEp} $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm.<br>`
+          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm.<br>`
           break
         case 'Asin':
           bc = randint(100, 150) / 10
           ac = randint(40, (bc - 2) * 10) / 10
           angleABC = Math.round(Math.asin(ac / bc) * 180 / Math.PI)
           ab = bc * Math.cos(Math.asin(ac / bc))
-          texte += `Le triangle $${nom}$ rectangle en $${nom[0]}$ est tel que ${mEp} $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
+          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[1] + nom[2]}=${texNombre2(bc)}$ cm et $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
           break
         case 'Atan':
           ab = randint(40, 100) / 10
           ac = randint(40, 100) / 10
           angleABC = Math.round(Math.atan(ac / ab) * 180 / Math.PI)
           bc = ab / Math.cos(Math.atan(ac / ab))
-          texte += `Le triangle $${nom}$ rectangle en $${nom[0]}$ est tel que ${mEp} $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
+          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ est tel que $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
           break
       }
-      /*
-            if (!context.isHtml && this.sup) {
-              texte += '\n\\end{minipage}\n'
-            }
-            */
+
       const ratioerreur = randint(80, 120, 100) / 100
       const a = point(0, 0)
       const b = point(ab * ratioerreur, 0)
@@ -132,70 +126,99 @@ export default function CalculDAngle () {
       const codageDeAngle = codageAngle(A, B, C, 2)
       const codageDeAngleB = codageAngle(A, Bb, Cb, 2)
 
-      const M1 = milieu(A, B)
-      const M2 = milieu(A, C)
-      const M3 = milieu(B, C)
+      const mAB = milieu(A, B)
+      const mAC = milieu(A, C)
+      const mBC = milieu(B, C)
       const G = barycentre(p2)
-      const M1b = milieu(A, Bb)
-      const M2b = milieu(A, Cb)
-      const M3b = milieu(Bb, Cb)
+      const mABb = milieu(A, Bb)
+      const mACb = milieu(A, Cb)
+      const mBbCb = milieu(Bb, Cb)
       const Gb = barycentre(p4)
-      const m3 = homothetie(M3, G, 1 + 1.5 / longueur(G, M3))
-      const m1 = homothetie(M1, M3, 1 + 1.5 / longueur(M3, M1))
-      const m2 = homothetie(M2, M3, 1 + 1.5 / longueur(M3, M2))
-      let m4
-      m1.positionLabel = 'center'
-      m2.positionLabel = 'center'
-      m3.positionLabel = 'center'
-      const m3b = homothetie(M3b, Gb, 1 + 1.5 / longueur(Gb, M3b))
-      const m1b = homothetie(M1b, M3b, 1 + 1.5 / longueur(M3b, M1b))
-      const m2b = homothetie(M2b, M3b, 1 + 1.5 / longueur(M3b, M2b))
-      let m4b
-      m1b.positionLabel = 'center'
-      m2b.positionLabel = 'center'
-      m3b.positionLabel = 'center'
+      const pLabelBC = homothetie(mBC, G, 1 + 1.5 / longueur(G, mBC))
+      pLabelBC.positionLabel = 'center'
 
-      let t1, t2, t3, t1b, t2b, t3b
+      const pixelsParCm = 20
+      const demirectWitdh = 30
+      const demirectHeight = 6
+      intersectionSegmentRectangle(B, C, pLabelBC, demirectWitdh, demirectHeight, pixelsParCm)
+
+      const pLabelAB = homothetie(mAB, mBC, 1 + 1.5 / longueur(mBC, mAB))
+      pLabelAB.positionLabel = 'center'
+      intersectionSegmentRectangle(A, B, pLabelAB, demirectWitdh, demirectHeight, pixelsParCm)
+      const pLabelAC = homothetie(mAC, mBC, 1 + 1.5 / longueur(mBC, mAC))
+      pLabelAC.positionLabel = 'center'
+      intersectionSegmentRectangle(A, C, pLabelAC, demirectWitdh, demirectHeight, pixelsParCm)
+
+      const m3b = homothetie(mBbCb, Gb, 1 + 1.5 / longueur(Gb, mBbCb))
+      m3b.positionLabel = 'center'
+      intersectionSegmentRectangle(Cb, Bb, m3b, demirectWitdh, demirectHeight, pixelsParCm)
+
+      const m1b = homothetie(mABb, mBbCb, 1 + 1.5 / longueur(mBbCb, mABb))
+      m1b.positionLabel = 'center'
+      intersectionSegmentRectangle(A, Bb, m1b, demirectWitdh, demirectHeight, pixelsParCm)
+
+      const m2b = homothetie(mACb, mBbCb, 1 + 1.5 / longueur(mBbCb, mACb))
+      m2b.positionLabel = 'center'
+      intersectionSegmentRectangle(A, Cb, m2b, demirectWitdh, demirectHeight, pixelsParCm)
+
+      let m4b, pLabelAngle
+      let texteAngle, texteAB, texteBC, t1b, t2b, t3b
       switch (choixRapportTrigo) {
         case 'Acos': // AB=BCxcos(B)
-          t3 = latexParPoint(`${texNombre2(bc)} \\text{ cm}`, m3, 'black', 120, 12, '')
-          t2 = latexParPoint(`${texNombre2(ab)} \\text{ cm}`, m1, 'black', 120, 12, '')
-          m4 = homothetie(G, B, 2.7 / longueur(B, G))
-          m4.positionLabel = 'center'
-          t1 = latexParPoint('?', m4, 'black', 50, 12, '')
+          texteBC = latexParPoint(`${texNombre2(bc)} \\text{ cm}`, pLabelBC, 'black', 120, 12, '')
+          texteAB = latexParPoint(`${texNombre2(ab)} \\text{ cm}`, pLabelAB, 'black', 120, 12, '')
+          pLabelAngle = similitude(A, B, angleOriente(A, B, C) / 2, 2.7 / longueur(B, A))
+          pLabelAngle.positionLabel = 'center'
+          texteAngle = latexParPoint('?', pLabelAngle, 'black', 50, 12, '')
           t3b = latexParPoint(`${texNombre2(bc)} \\text{ cm}`, m3b, 'black', 120, 12, '')
           t2b = latexParPoint(`${texNombre2(ab)} \\text{ cm}`, m1b, 'black', 120, 12, '')
-          m4b = homothetie(Gb, Bb, 2.7 / longueur(Bb, Gb))
+          m4b = similitude(A, Bb, angleOriente(A, Bb, Cb) / 2, 2.7 / longueur(Bb, A))
           m4b.positionLabel = 'center'
           t1b = latexParPoint('?', m4b, 'black', 50, 12, '')
           break
         case 'Asin':
-          t3 = latexParPoint(`${texNombre2(bc)} \\text{ cm}`, m3, 'black', 120, 12, '')
-          t2 = latexParPoint(`${texNombre2(ac)} \\text{ cm}`, m2, 'black', 120, 12, '')
-          m4 = homothetie(G, B, 2.7 / longueur(B, G))
-          m4.positionLabel = 'center'
-          t1 = latexParPoint('?', m4, 'black', 100, 12, '')
+          texteBC = latexParPoint(`${texNombre2(bc)} \\text{ cm}`, pLabelBC, 'black', 120, 12, '')
+          texteAB = latexParPoint(`${texNombre2(ac)} \\text{ cm}`, pLabelAC, 'black', 120, 12, '')
+          pLabelAngle = similitude(A, B, angleOriente(A, B, C) / 2, 2.7 / longueur(B, A))
+          pLabelAngle.positionLabel = 'center'
+          texteAngle = latexParPoint('?', pLabelAngle, 'black', 100, 12, '')
           t3b = latexParPoint(`${texNombre2(bc)} \\text{ cm}`, m3b, 'black', 120, 12, '')
           t2b = latexParPoint(`${texNombre2(ac)} \\text{ cm}`, m2b, 'black', 120, 12, '')
-          m4b = homothetie(Gb, Bb, 2.7 / longueur(Bb, Gb))
+          m4b = similitude(A, Bb, angleOriente(A, Bb, Cb) / 2, 2.7 / longueur(Bb, A))
           m4b.positionLabel = 'center'
           t1b = latexParPoint('?', m4b, 'black', 100, 12, '')
           break
         case 'Atan':
-          t1 = latexParPoint(`${texNombre2(ab)} \\text{ cm}`, m1, 'black', 120, 12, '')
-          t2 = latexParPoint(`${texNombre2(ac)} \\text{ cm}`, m2, 'black', 120, 12, '')
-          m4 = homothetie(G, B, 2.7 / longueur(B, G))
-          m4.positionLabel = 'center'
-          t3 = latexParPoint('?', m4, 'black', 100, 12, '')
+          texteAngle = latexParPoint(`${texNombre2(ab)} \\text{ cm}`, pLabelAB, 'black', 120, 12, '')
+          texteAB = latexParPoint(`${texNombre2(ac)} \\text{ cm}`, pLabelAC, 'black', 120, 12, '')
+          pLabelAngle = similitude(A, B, angleOriente(A, B, C) / 2, 2.7 / longueur(B, A))
+          pLabelAngle.positionLabel = 'center'
+          texteBC = latexParPoint('?', pLabelAngle, 'black', 100, 12, '')
           t1b = latexParPoint(`${texNombre2(ab)} \\text{ cm}`, m1b, 'black', 120, 12, '')
           t2b = latexParPoint(`${texNombre2(ac)} \\text{ cm}`, m2b, 'black', 120, 12, '')
-          m4b = homothetie(Gb, Bb, 2.7 / longueur(Bb, Gb))
-          m4b.positionLabel = ''
+          m4b = similitude(A, Bb, angleOriente(A, Bb, Cb) / 2, 2.7 / longueur(Bb, A))
+          m4b.positionLabel = 'center'
           t3b = latexParPoint('?', m4b, 'black', 100, 12, '')
           break
       }
 
-      objetsEnonce.push(p2, codage, nomme, t1, t2, t3, codageDeAngle)
+      objetsEnonce.push(p2, codage, nomme, texteAngle, texteAB, texteBC, codageDeAngle)
+      if (this.debug) {
+        objetsEnonce.push(tracePoint(pLabelAB, pLabelAC, pLabelBC),
+          segment(point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm), point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y - demirectHeight / pixelsParCm)),
+          segment(point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y - demirectHeight / pixelsParCm), point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm)),
+          segment(point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm), point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y + demirectHeight / pixelsParCm)),
+          segment(point(pLabelBC.x - demirectWitdh / pixelsParCm, pLabelBC.y - demirectHeight / pixelsParCm), point(pLabelBC.x + demirectWitdh / pixelsParCm, pLabelBC.y - demirectHeight / pixelsParCm)),
+          segment(point(pLabelAC.x - demirectWitdh / pixelsParCm, pLabelAC.y + demirectHeight / pixelsParCm), point(pLabelAC.x - demirectWitdh / pixelsParCm, pLabelAC.y - demirectHeight / pixelsParCm)),
+          segment(point(pLabelAC.x + demirectWitdh / pixelsParCm, pLabelAC.y - demirectHeight / pixelsParCm), point(pLabelAC.x + demirectWitdh / pixelsParCm, pLabelAC.y + demirectHeight / pixelsParCm)),
+          segment(point(pLabelAC.x - demirectWitdh / pixelsParCm, pLabelAC.y + demirectHeight / pixelsParCm), point(pLabelAC.x + demirectWitdh / pixelsParCm, pLabelAC.y + demirectHeight / pixelsParCm)),
+          segment(point(pLabelAC.x - demirectWitdh / pixelsParCm, pLabelAC.y - demirectHeight / pixelsParCm), point(pLabelAC.x + demirectWitdh / pixelsParCm, pLabelAC.y - demirectHeight / pixelsParCm)),
+          segment(point(pLabelAB.x - demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm), point(pLabelAB.x - demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm)),
+          segment(point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm), point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm)),
+          segment(point(pLabelAB.x - demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm), point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y + demirectHeight / pixelsParCm)),
+          segment(point(pLabelAB.x - demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm), point(pLabelAB.x + demirectWitdh / pixelsParCm, pLabelAB.y - demirectHeight / pixelsParCm)))
+      }
+
       objetsCorrection.push(p4, codageb, nommeb, t1b, t2b, t3b, hypo, codageDeAngleB)
 
       const paramsEnonce = {
@@ -203,8 +226,8 @@ export default function CalculDAngle () {
         ymin: Math.min(A.y, B.y, C.y) - 4,
         xmax: Math.max(A.x, B.x, C.x) + 3,
         ymax: Math.max(A.y, B.y, C.y) + 2,
-        pixelsParCm: 17,
-        scale: 0.37,
+        pixelsParCm: 20,
+        scale: 0.4,
         mainlevee: true,
         amplitude: 0.4
       }
@@ -310,6 +333,51 @@ export default function CalculDAngle () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-
   this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
+
+  /**
+   * Détermine si le rectangle est en intersection avec le segment
+   * Décale de 5 pixels dans le sens
+   * @param {*} A extremité du segment
+   * @param {C} B extremité du segment
+   * @param {*} centre centre du rectangle || variable mis à jour (décaléé droite ou à gauche)
+   * @param {*} demirectWitdh demi longueur du rectangle
+   * @param {*} demirectHeight demi largeur du rectangle
+   * @param {*} pixelsParCm nombre de pixels par unité de mesure
+   * @returns retourne les points d'intersection (les quatre premiers sont les points d'intersection, les quatre suivants sont des booleans si 'intersection ou pas)
+   */
+  function intersectionSegmentRectangle (A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration = 4) {
+    const pgauche = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm), point(centre.x - demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm)))
+    const pdroite = pointIntersectionDD(droite(A, B), droite(point(centre.x + demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm)))
+    const phaut = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y + demirectHeight / pixelsParCm)))
+    const pbas = pointIntersectionDD(droite(A, B), droite(point(centre.x - demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm), point(centre.x + demirectWitdh / pixelsParCm, centre.y - demirectHeight / pixelsParCm)))
+    const bgauche = pgauche.y >= centre.y - demirectHeight / pixelsParCm && pgauche.y <= centre.y + demirectHeight / pixelsParCm
+    const bdroite = pdroite.y >= centre.y - demirectHeight / pixelsParCm && pdroite.y <= centre.y + demirectHeight / pixelsParCm
+    const bhaut = phaut.x >= centre.x - demirectWitdh / pixelsParCm && phaut.x <= centre.x + demirectWitdh / pixelsParCm
+    const bbas = pbas.x >= centre.x - demirectWitdh / pixelsParCm && pbas.x <= centre.x + demirectWitdh / pixelsParCm
+    const debug = false
+    if (debug) {
+      console.log('iteration :' + iteration)
+      console.log('gauche :' + pgauche.y + ': [' + (centre.y - demirectHeight / pixelsParCm) + ':' + (centre.y + demirectHeight / pixelsParCm) + ']')
+      console.log('droite :' + pdroite.y + ': [' + (centre.y - demirectHeight / pixelsParCm) + ':' + (centre.y + demirectHeight / pixelsParCm) + ']')
+      console.log('haut :' + phaut.x + ': [' + (centre.x - demirectWitdh / pixelsParCm) + ':' + (centre.x + demirectWitdh / pixelsParCm) + ']')
+      console.log('bas : ' + pbas.x + ': [' + (centre.x - demirectWitdh / pixelsParCm) + ':' + (centre.x + demirectWitdh / pixelsParCm) + ']')
+      console.log('[bgauche, bdroite, bhaut, bbas]=' + bgauche + ', ' + bdroite + ', ' + bhaut + ', ' + bbas)
+    }
+
+    if (bgauche) {
+      centre.x = centre.x + 5 / pixelsParCm
+      if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
+    } else if (bdroite) {
+      centre.x = centre.x - 5 / pixelsParCm
+      if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
+    } else if ((bbas || bhaut) && centre.x > pbas.x) {
+      centre.x = centre.x + 5 / pixelsParCm
+      if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
+    } else if ((bbas || bhaut) && centre.x < pbas.x) {
+      centre.x = centre.x - 5 / pixelsParCm
+      if (iteration > 0) intersectionSegmentRectangle(A, B, centre, demirectWitdh, demirectHeight, pixelsParCm, iteration - 1)
+    }
+    return { pgauche, pdroite, phaut, pbas, bgauche, bdroite, bhaut, bbas }
+  }
 }
