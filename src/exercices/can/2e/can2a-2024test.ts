@@ -2,7 +2,6 @@ import Exercice from '../../ExerciceTs'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
-import { sp } from '../../../lib/outils/outilString'
 
 export const titre = 'CAN Seconde entraînement 2024'
 export const interactifReady = true
