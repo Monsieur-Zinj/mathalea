@@ -1,40 +1,40 @@
-import Exercice from '../ExerciceTs'
-import { arrondi } from '../../lib/outils/nombres.js'
-import { context } from '../../modules/context.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
-
+import Exercice from '../ExerciceTs'
+import { context } from '../../modules/context.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import type Figure from 'apigeom/src/Figure.js'
+import { apigeomGraduatedLine } from '../../lib/apigeom/apigeomGraduatedLine.js'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import figureApigeom from '../../lib/figureApigeom.js'
-import Figure from 'apigeom'
-import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import { apigeomGraduatedLine } from '../../lib/apigeom/apigeomGraduatedLine'
 
+export const titre = 'Placer un point d\'abscisse décimale'
 export const interactifReady = true
+// remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
 export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
-
-export const titre = 'Placer un point d\'abscisse un nombre relatif'
-export const dateDeModifImportante = '8/12/2023'
-
 /**
-* Placer un point d'abscisse un nombre relatif
-* @author Jean-Claude Lhote et Rémi Angot
-* Référence 5R11-2
-*/
-export const uuid = '6d576'
-export const ref = '5R11-2'
+ * Placer un point d'abscisse décimale
+ * @author Jean-Claude Lhote et Rémi Angot
+ * référence : 6N30-2
+ * Relecture : Janvier 2022 par EE
+ */
+
+export const dateDeModifImportante = '12/12/2023'
+export const uuid = 'e528e'
+export const ref = '6N30-2'
 
 type goodAnswer = { label: string, x: number }[]
 
-class PlacerPointsSurAxeRelatifs extends Exercice {
+class PlacerPointsSurAxe extends Exercice {
   goodAnswers: goodAnswer[] = []
   figures: Figure[] = []
   constructor () {
     super()
-    this.consigne = ''
+    this.consigne = 'Placer trois points sur un axe gradué.'
     this.nbQuestions = 5
     this.nbQuestionsModifiable = true
     this.nbCols = 1
@@ -42,43 +42,60 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
     this.spacing = 1
     this.spacingCorr = 1
     this.sup = 1
-    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
-    this.listePackages = ['tkz-base']
+    this.exoCustomResultat = true
+    this.besoinFormulaireNumerique = [
+      'Niveau de difficulté',
+      4,
+      '1 : Un chiffre après la virgule\n2 : Deux chiffres après la virgule \n3 : Trois chiffres après la virgule\n4 : Mélange'
+    ]
   }
 
   nouvelleVersion () {
-    if (this.interactif) this.consigne = 'Placer les points sur la droite graduée, puis vérifier la réponse.'
+    this.sup = parseInt(this.sup)
+    // numeroExercice est 0 pour l'exercice 1
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    this.contenu = ''
-    this.contenuCorrection = ''
-    if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else { typesDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions) }
+    this.contenu = '' // Liste de questions
+    this.contenuCorrection = '' // Liste de questions corrigées
+    if (this.sup > 3) {
+      typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
+    } else {
+      typesDeQuestions = combinaisonListes(
+        [this.sup],
+        this.nbQuestions
+      )
+    }
 
     this.contenu = this.consigne
-    for (let i = 0; i < this.nbQuestions; i++) {
-      let abs0, step, stepBis : number
-      let texte = ''
-      let texteCorr = ''
+    for (
+      let i = 0;
+      i < this.nbQuestions;
+      i++
+    ) {
       const label1 = lettreDepuisChiffre(i * 3 + 1)
       const label2 = lettreDepuisChiffre(i * 3 + 2)
       const label3 = lettreDepuisChiffre(i * 3 + 3)
+      let abs0
+      let step, stepBis: number
+      let texte = ''
+      let texteCorr = ''
       switch (typesDeQuestions[i]) {
-        case 1: // 1 décimale
-          abs0 = randint(-7, -3)
+        case 1: // Placer un point sur un axe (1 décimale)
+          abs0 = this.sup > 4 ? randint(-5, 5) : randint(0, 9)
           step = 1
           stepBis = 10
           break
 
-        case 2: // 2 décimales
-          abs0 = randint(-4, -2) / 10
+        case 2: // Placer un point sur un axe (2 décimales)
+          abs0 = this.sup > 4 ? arrondi(randint(-50, 50) / 10) : arrondi(randint(0, 90) / 10)
           step = 10
           stepBis = 10
           break
 
-        default: // 3 décimales
-          abs0 = randint(-10, -2) / 100
+        default: // Placer un point sur un axe (3 décimales)
+          abs0 = this.sup > 4 ? arrondi(randint(-500, 500) / 100, 4) : arrondi(randint(0, 990) / 100, 4)
           step = 100
           stepBis = 10
           break
@@ -89,9 +106,18 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       const x11 = randint(1, 9)
       const x22 = randint(1, 9)
       const x33 = randint(1, 3)
-      const abs1 = arrondi(abs0 + x1 / step + x11 / step / stepBis, typesDeQuestions[i]) // le type de questions est égal au nombre de décimales.
-      const abs2 = arrondi(abs0 + x2 / step + x22 / step / stepBis, typesDeQuestions[i])
-      const abs3 = arrondi(abs0 + x3 / step + x33 / step / stepBis, typesDeQuestions[i])
+      const abs1 = arrondi(
+        abs0 + x1 / step + x11 / step / stepBis,
+        typesDeQuestions[i]
+      ) // le type de questions est égal au nombre de décimales.
+      const abs2 = arrondi(
+        abs0 + x2 / step + x22 / step / stepBis,
+        typesDeQuestions[i]
+      )
+      const abs3 = arrondi(
+        abs0 + x3 / step + x33 / step / stepBis,
+        typesDeQuestions[i]
+      )
 
       this.goodAnswers[i] = [
         { label: label1, x: arrondi(abs1, 4) },
@@ -134,8 +160,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
-
-    this.exoCustomResultat = true
     listeQuestionsToContenu(this)
   }
 
@@ -186,4 +210,4 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
   }
 }
 
-export default PlacerPointsSurAxeRelatifs
+export default PlacerPointsSurAxe
