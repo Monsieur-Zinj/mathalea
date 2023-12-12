@@ -33,7 +33,11 @@ export default class nomExercice extends Exercice {
       const { texte, texteCorr, solution } = questions[i](this)
       this.listeQuestions[i] = texte + ajouteChampTexteMathLive(this, i)
       if (context.isHtml) this.listeQuestions[i] += '<br><br><br>'
-      this.listeCorrections[i] = texteCorr
+      if (context.isHtml) {
+        this.listeCorrections[i] = texteCorr.replaceAll('aligned}[t]', 'aligned}')
+      } else {
+        this.listeCorrections[i] = texteCorr
+      }
       setReponse(this, i, solution)
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
