@@ -13173,7 +13173,7 @@
           },
           "amc": {
             "isActive": true,
-            "type": "AMCNum"
+            "type": "AMCHybride"
           }
         },
         "typeExercice": "alea"
