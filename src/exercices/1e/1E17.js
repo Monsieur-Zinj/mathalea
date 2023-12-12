@@ -70,10 +70,14 @@ export default class EtudeTrinome extends Exercice {
     let corr3c = 'Ici, on va utiliser la forme canonique.'
     corr3c += `<br><br>$f(x) < ${p.beta.simplifie().texFraction} \\iff ${p.texFormeCanonique}  < ${p.beta.simplifie().texFraction}$`
     corr3c += `<br><br>$\\phantom{f(x) < ${p.beta.simplifie().texFraction}} \\iff ${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2  < 0$`
-    corr3c += `<br><br>Pour tous les nombres $x$, $${p.a.simplifie().texFraction} ${p.a.s === 1 ? '>0' : '<0'}$ et $\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2 \\geq 0$`
-    corr3c += ` donc $${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2 ${p.a.s === 1 ? '>0' : '<0'}$.`
-    if (p.a.s === 1) corr3c += '<br><br>$S=\\emptyset$'
-    else corr3c += '<br><br>$S=\\R$'
+    if (p.a.s === 1) {
+      corr3c += ` donc $${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2 ${p.a.s === 1 ? '>0' : '<0'}$.`
+      corr3c += '<br><br>$S=\\emptyset$'
+    } else {
+      const nonSolution = p.alpha.simplifie().texFractionSignee
+      corr3c += ` or $${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppose().simplifie().texFractionSignee} \\right)^2$ est toujours ${p.a.s === 1 ? 'positif' : 'négatif'} et ne s'annule que pour $x=${nonSolution}$.`
+      corr3c += `<br><br>$S=\\R \\smallsetminus \\{${nonSolution}\\}$`
+    }
     const [sousQuestions, sousCorrections] = [[q3a, q3b, q3c], [corr3a, corr3b, corr3c]]
     shuffle2tableaux(sousQuestions, sousCorrections)
     for (let i = 0; i < 3; i++) {
