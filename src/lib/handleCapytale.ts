@@ -129,7 +129,7 @@ export async function sendToCapytaleMathaleaHasChanged () {
   }
 }
 
-export function sendToCapytaleSaveStudentAssignment () {
+export function sendToCapytaleSaveStudentAssignment ({ indiceExercice }: { indiceExercice: number}) {
   const results = get(resultsByExercice)
   let evaluation = 0
   for (const resultExercice of results) {
@@ -138,8 +138,17 @@ export function sendToCapytaleSaveStudentAssignment () {
     }
   }
   if (currentMode === 'assignment') {
-    console.log('Message envoyé à Capytale', { studentAssignment: results, evaluation: evaluation.toString() })
-    rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation: evaluation.toString() })
+    // exerciceGraded est l'indice du dernier exercice évalué
+    // L'information est envoyée à Capytale pour qu'ils sachent quel exercice ajouter en base de données
+    console.log('Message envoyé à Capytale', { studentAssignment: results, evaluation: evaluation.toString(), exerciceGraded: indiceExercice })
+    const promiseSaveStudentAssignment = rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation: evaluation.toString(), exerciceGraded: indiceExercice })
+    promiseSaveStudentAssignment.then(() => {
+      console.log('Sauvegarde effectuée')
+      // Afficher sauvegarde réussie
+    }).catch(() => {
+      console.error('Problème avec la sauvegarde')
+      // Indiquer à l'élève qu'il y a un soucis réseau
+    })
   }
 }
 

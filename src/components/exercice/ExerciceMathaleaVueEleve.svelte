@@ -223,7 +223,7 @@
           console.log('Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau')
           return
         }
-        sendToCapytaleSaveStudentAssignment()
+        sendToCapytaleSaveStudentAssignment({ indiceExercice })
       }
     }
   }
