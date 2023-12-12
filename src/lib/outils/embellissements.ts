@@ -143,12 +143,17 @@ export function blocCode (texte: string) {
     return `<pre style="background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-family: Courier New, monospace; white-space: pre-wrap;">
     ${texte}</pre>`
   }
-  return `\\begin{verbatim}\n${texte}\n\\end{verbatim}`
+  return `\\fbox{
+    \\parbox{0.5\\linewidth}{
+    \\setlength{\\parskip}{.5cm}
+    \\texttt{${texte}
+    }
+    }\\newline`
 }
 
 export function texteCode (texte: string) {
   if (context.isHtml) {
     return `<span style="background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; font-family: Courier New, monospace; white-space: pre-wrap;">${texte}</span>`
   }
-  return `\\verb|${texte}|`
+  return `\\colorbox{lightgray}{\\texttt{${texte}}}`
 }
