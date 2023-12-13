@@ -1,4 +1,4 @@
-import PlacerPointsAbscissesFractionnaires from '../6e/6N21.js'
+import PlacerPointsAbscissesFractionnaires from '../6e/6N21'
 export const titre = 'Utiliser les abscisses fractionnaires'
 export const interactifReady = true
 export const interactifType = 'custom'

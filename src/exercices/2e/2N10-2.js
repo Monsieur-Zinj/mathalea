@@ -1,4 +1,4 @@
-import PlacerPointsSurAxe from '../6e/6N30-2.js'
+import PlacerPointsSurAxe from '../6e/6N30-2'
 export const titre = 'Placer un point d\'abscisse décimale'
 export const interactifReady = true
 export const interactifType = 'custom'
