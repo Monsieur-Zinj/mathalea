@@ -23,7 +23,10 @@ export const amcType = 'AMCHybride'
  * * Type 1 : x+a=b ou ax=b
  * * Type 2 : ax+b=c
  * * Type 3 : ax+b=cx+d
- * * Tous les types
+ * * Types 1, 2 ou 3
+ * * Type 4 : x/a = b
+ * * Type 5 : ax/b = c
+ * * Types 1 à 5
  * @author Rémi Angot
  * 4L20 et 3L13
  */
@@ -67,7 +70,7 @@ export default function ExerciceEquation1 () {
       case '3':
         listeTypeDeQuestions = ['ax+b=cx+d']
         break
-      default:
+      case '4':
         listeTypeDeQuestions = [
           'ax+b=0',
           'ax+b=c',
@@ -76,6 +79,22 @@ export default function ExerciceEquation1 () {
           'ax+b=cx+d'
         ]
         break
+      case '5':
+        listeTypeDeQuestions = ['x/a=b']
+        break
+      case '6':
+        listeTypeDeQuestions = ['ax/b=c']
+        break
+      case '7':
+        listeTypeDeQuestions = [
+          'ax+b=0',
+          'ax+b=c',
+          'ax=b',
+          'x+b=c',
+          'ax+b=cx+d',
+          'x/a=b',
+          'ax/b=c'
+        ]
     }
     listeTypeDeQuestions = combinaisonListes(
       listeTypeDeQuestions,
@@ -271,6 +290,56 @@ export default function ExerciceEquation1 () {
         reponse = fraction(d - b, a - c).simplifie()
         setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       }
+      if (listeTypeDeQuestions[i] === 'x/a=b') {
+        do {
+          a = randint(2, 13)
+          b = randint(1, 13)
+        } while (b % a === 0)
+        if (this.sup) {
+          a *= choice([-1, 1])
+          b *= choice([-1, 1])
+        }
+        texte = `$\\dfrac{x}{${a}}=${b}$`
+        texteCorr = texte + '<br>'
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: '<br>$ x = $ ' })
+        if (this.correctionDetaillee) {
+          texteCorr += `On multiplie les deux membres par $${a}$.<br>`
+        }
+        texteCorr += `$\\dfrac{x}{${a}}${miseEnEvidence(
+                    '\\times' + ecritureParentheseSiNegatif(a)
+                )}=${b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(a))}$`
+        texteCorr += `<br>$x=${b * a}$`
+        texteCorr += `<br> La solution est $${miseEnEvidence(b * a)}$.`
+        reponse = a * b
+        setReponse(this, i, reponse)
+      }
+      if (listeTypeDeQuestions[i] === 'ax/b=c') {
+        do {
+          a = randint(2, 5)
+          b = randint(5, 9)
+          c = randint(2, 5)
+        } while (pgcd(a, b) !== 1)
+        if (this.sup) {
+          a *= choice([-1, 1])
+          c *= choice([-1, 1])
+        }
+        texte = `$\\dfrac{${a}x}{${b}}=${c}$`
+        texteCorr = texte + '<br>'
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: '<br>$ x = $ ' })
+        if (this.correctionDetaillee) {
+          texteCorr += `On multiplie les deux membres par $\\dfrac{${a < 0 ? -b : b}}{${Math.abs(a)}}$.<br>`
+        }
+        texteCorr += `$\\dfrac{${a}x}{${b}}${miseEnEvidence(
+                    '\\times' + `\\dfrac{${a < 0 ? -b : b}}{${Math.abs(a)}}`
+                )}=${c + miseEnEvidence('\\times' + `\\dfrac{${a < 0 ? -b : b}}{${Math.abs(a)}}`)}$`
+        texteCorr += `<br>$x=\\dfrac{${c * b * (a < 0 ? -1 : 1)}}{${Math.abs(a)}}$`
+        if (pgcd(c * b, a) !== 1) {
+          texteCorr += `<br>$x=${fraction(c * b, a).simplifie()}$`
+        }
+        texteCorr += `<br> La solution est $${miseEnEvidence(fraction(c * b, a).simplifie())}$.`
+        reponse = fraction(c * b, a).simplifie()
+        setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
+      }
 
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en créé une autre
@@ -307,6 +376,6 @@ export default function ExerciceEquation1 () {
   this.besoinFormulaire2Numerique = [
     "Type d'équations",
     4,
-    '1 : ax=b ou x+a=b ou x-a=b\n2 : ax+b=c\n3 : ax+b=cx+d\n4 : Les 2 types précédents'
+    '1 : ax=b ou x+a=b ou x-a=b\n2 : ax+b=c\n3 : ax+b=cx+d\n4 : Les 3 types précédents\n5 : x/a=b\n6: ax/b=c\n7: Tous les types'
   ]
 }
