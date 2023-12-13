@@ -8853,6 +8853,25 @@
         },
         "typeExercice": "alea"
       },
+      "6C12-2": {
+        "url": "6e/6C12-2.js",
+        "tags": [],
+        "uuid": "88021",
+        "id": "6C12-2",
+        "titre": "Résoudre des problèmes utilisant la division Euclidienne",
+        "datePublication": "11/12/2023",
+        "features": {
+          "interactif": {
+            "isActive": false,
+            "type": ""
+          },
+          "amc": {
+            "isActive": false,
+            "type": ""
+          }
+        },
+        "typeExercice": "alea"
+      },
       "6C12-3": {
         "url": "6e/6C12-3.js",
         "tags": [],

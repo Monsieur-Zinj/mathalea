@@ -222,9 +222,9 @@ export default function CalculDAngle () {
       objetsCorrection.push(p4, codageb, nommeb, t1b, t2b, t3b, hypo, codageDeAngleB)
 
       const paramsEnonce = {
-        xmin: Math.min(A.x, B.x, C.x) - 4,
-        ymin: Math.min(A.y, B.y, C.y) - 4,
-        xmax: Math.max(A.x, B.x, C.x) + 3,
+        xmin: Math.min(A.x, B.x, C.x) - 2,
+        ymin: Math.min(A.y, B.y, C.y) - 2,
+        xmax: Math.max(A.x, B.x, C.x) + 2,
         ymax: Math.max(A.y, B.y, C.y) + 2,
         pixelsParCm: 20,
         scale: 0.4,

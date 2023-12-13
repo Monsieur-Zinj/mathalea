@@ -157,13 +157,13 @@ export default function CalculDeLongueur () {
       const hypo = segment(C, B, 'blue')
       hypo.epaisseur = 2
       const codageDeAngle = codageAngle(A, B, C, 2)
-      const M1 = milieu(A, B)
-      const M2 = milieu(A, C)
-      const M3 = milieu(B, C)
+      const mAB = milieu(A, B)
+      const mAC = milieu(A, C)
+      const mBC = milieu(B, C)
       const G = barycentre(p2)
-      const m3 = homothetie(M3, G, 1 + 1.5 / longueur(G, M3), 'm3', 'center')
-      const m1 = homothetie(M1, M3, 1 + 1.5 / longueur(M3, M1), 'm1', 'center')
-      const m2 = homothetie(M2, M3, 1 + 1.5 / longueur(M3, M2), 'm2', 'center')
+      const m3 = homothetie(mBC, G, 1 + 1.5 / longueur(G, mBC), 'm3', 'center')
+      const m1 = homothetie(mAB, mBC, 1 + 1.5 / longueur(mBC, mAB), 'm1', 'center')
+      const m2 = homothetie(mAC, mBC, 1 + 1.5 / longueur(mBC, mAC), 'm2', 'center')
       let m4
       let t1, t2, t3
       let nomLongueur // la longueur à déterminer
@@ -211,8 +211,8 @@ export default function CalculDeLongueur () {
       objetsCorrection.push(p2, codage, nomme, t1, t2, t3, hypo, codageDeAngle)
 
       const paramsEnonce = {
-        xmin: Math.min(A.x, B.x, C.x) - 4,
-        ymin: Math.min(A.y, B.y, C.y) - 4,
+        xmin: Math.min(A.x, B.x, C.x) - 2,
+        ymin: Math.min(A.y, B.y, C.y) - 2,
         xmax: Math.max(A.x, B.x, C.x) + 2,
         ymax: Math.max(A.y, B.y, C.y) + 2,
         pixelsParCm: 20,
