@@ -383,9 +383,9 @@ export default function LireUneAbscisseAvecZoom () {
         d1 = droiteGraduee({
           x: 0,
           y: 6,
-          Min: xmin,
+          Min: xmin - 0.002,
           axePosition: 'H',
-          Max: xmax,
+          Max: xmax + 0.002,
           thickSec: true,
           thickTer: true,
           Unite: 30,
@@ -457,9 +457,9 @@ export default function LireUneAbscisseAvecZoom () {
         d1Corr = droiteGraduee({
           x: 0,
           y: 6,
-          Min: xmin,
+          Min: xmin - 0.002,
           axePosition: 'H',
-          Max: xmax,
+          Max: xmax + 0.002,
           thickSec: true,
           thickTer: true,
           Unite: 30,
@@ -564,30 +564,30 @@ export default function LireUneAbscisseAvecZoom () {
       texte = `Donner l'abscisse de ${noms[1]} sous `
       texte += context.isAmc ? 'deux ' : 'trois '
       texte += 'formes : en écriture décimale'
-      texte += context.isAmc ? '' : ', comme somme d\'un nombre entier et d\'une fraction décimale,'
+      texte += context.isAmc ? '' : ', comme somme d\'un nombre entier et d\'une fraction décimale inférieure à 1,'
       texte += ' et sous forme d\'une seule fraction décimale.<br>'
       texte += mathalea2d(fenetre, objets)
       if (this.interactif) {
-        setReponse(this, 0, reponse1)
-        setReponse(this, 1, reponse2A)
-        setReponse(this, 2, reponse2B, { formatInteractif: 'fraction' })
-        setReponse(this, 3, reponse3, { formatInteractif: 'fraction' })
-        texte += ajouteChampTexteMathLive(this, i * 4, 'largeur25 inline nospacebefore', {
-          tailleExtensible: true,
-          texte: `Abscisse de ${noms[1]} en écriture décimale : `
+        setReponse(this, 4 * i, reponse1)
+        setReponse(this, 4 * i + 1, reponse2A)
+        setReponse(this, 4 * i + 2, reponse2B, { formatInteractif: 'fraction' })
+        setReponse(this, 4 * i + 3, reponse3, { formatInteractif: 'fraction' })
+        texte += ajouteChampTexteMathLive(this, i * 4, 'largeur01 inline nospacebefore', {
+          // tailleExtensible: true,
+          texteAvant: `Abscisse de ${noms[1]} en écriture décimale : `
         })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur25 inline nospacebefore', {
-          tailleExtensible: true,
-          texte: `Abscisse de ${noms[1]} comme somme d'un nombre entier et d'une fraction décimale : `
-        }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur25 inline nospacebefore', {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur01 inline nospacebefore', {
+          // tailleExtensible: true,
+          texteAvant: `Abscisse de ${noms[1]} comme somme d'un nombre entier et d'une fraction décimale inférieure à 1 : `
+        }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur01 inline nospacebefore', {
           formatInteractif: 'fraction',
-          tailleExtensible: true,
-          texte: '+'
+          // tailleExtensible: true,
+          texteAvant: '+'
         })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur25 inline nospacebefore', {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur01 inline nospacebefore', {
           formatInteractif: 'fraction',
-          tailleExtensible: true,
-          texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : `
+          // tailleExtensible: true,
+          texteAvant: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : `
         })
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
