@@ -11415,10 +11415,11 @@
         "uuid": "2ba53",
         "id": "6N21",
         "titre": "Utiliser les abscisses fractionnaires",
+        "dateModification": "12/12/2023",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'custom'"
           },
           "amc": {
             "isActive": true,
@@ -11657,6 +11658,7 @@
         "uuid": "63f03",
         "id": "6N23-7",
         "titre": "Recomposer un nombre décimal représenté par des fractions du cube unité",
+        "dateModification": "13/12/2023",
         "features": {
           "interactif": {
             "isActive": true,
@@ -20842,10 +20844,11 @@
         "uuid": "99b29",
         "id": "2N32-2",
         "titre": "Connaître les propriétés calculatoires des racines carrées",
+        "dateModification": "13/12/2023",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'qcm'"
           },
           "amc": {
             "isActive": false,
