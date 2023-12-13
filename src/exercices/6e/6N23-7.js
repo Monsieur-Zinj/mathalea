@@ -15,6 +15,8 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
+export const dateDeModifImportante = '13/12/2023'
+
 export const uuid = '63f03'
 export const ref = '6N23-7'
 export default function RecompositionDecimale () {
@@ -37,19 +39,19 @@ export default function RecompositionDecimale () {
     context.coeffPerspective = 0.5
     const cubeUnite = paveLPH3d(0, 0, 0, 0.6, 10, 10, 10, 'black')
     const reponses = []
-    for (let q = 0, cpt = 0, e, d, c, m, objets, texte, texteCorr, xDecal; q < this.nbQuestions && cpt < 50;) {
+    this.consigne = 'Voici un cube représentant une unité, une plaque représentant $\\dfrac{1}{10}$, une barre représentant $\\dfrac{1}{100}$ et un petit cube représentant $\\dfrac{1}{1000}$.<br>'
+    let objets = []
+    objets.push(...cubeUnite.c2d, ...plaque3d(9, 0, 0, 0.5, 10, 10).c2d, ...barre3d(9, 0, 3, 0.5, 10).c2d, ...cube3d(12, 0, 5, 0.5).c2d)
+    this.consigne += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    for (let q = 0, cpt = 0, e, d, c, m, texte, texteCorr, xDecal; q < this.nbQuestions && cpt < 50;) {
       e = choice([0, 1])
       d = choice([0, randint(0, 5), randint(0, 7)])
       c = choice([0, randint(0, 5), randint(5, 9)])
       m = randint(0, 9)
-      objets = []
       xDecal = 0
 
-      texte = 'Voici un cube représentant une unité, une plaque représentant $\\dfrac{1}{10}$, une barre représentant $\\dfrac{1}{100}$ et un petit cube représentant $\\dfrac{1}{1000}$.<br>'
-      objets.push(...cubeUnite.c2d, ...plaque3d(9, 0, 0, 0.5, 10, 10).c2d, ...barre3d(9, 0, 3, 0.5, 10).c2d, ...cube3d(12, 0, 5, 0.5).c2d)
-      texte += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
       texteCorr = ''
-      texte += '<br>Quel est le nombre décimal représenté par cet ensemble de solides ?<br>'
+      texte = 'Quel est le nombre décimal représenté par cet ensemble de solides ?<br>'
       objets = []
       if (e === 1) {
         objets.push(...cubeUnite.c2d)
