@@ -117,7 +117,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           texteAvant: `${sp(10)} $${noms[0]}($`,
           texteApres: `$${sp(1)})$`
         })
-        texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
+        texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
           texteAvant: `${sp(10)} $${noms[1]}($`,
           texteApres: `$${sp(2)}+$`
         }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: `$${sp(1)})$` })
@@ -262,7 +262,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           texteAvant: `${sp(10)} $${noms[0]}($`,
           texteApres: `$${sp(1)})$`
         })
-        texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
+        texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un entier et d'une fraction décimale inférieure à 1.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
           texteAvant: `${sp(10)} $${noms[1]}($`,
           texteApres: `$${sp(2)}+$`
         }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: `$${sp(1)})$` })
@@ -411,7 +411,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           texteAvant: `${sp(10)} $${noms[0]}($`,
           texteApres: `$${sp(1)})$`
         })
-        texte += `<br>${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
+        texte += `<br>${numAlpha(1)} Donner l'abscisse de ${noms[1]} comme la somme d'un entier et d'une fraction décimale inférieure à 1.` + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur10 inline nospacebefore', {
           texteAvant: ` ${noms[1]}(`,
           texteApres: `$${sp(2)}+$`
         }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur10 inline nospacebefore', { texteApres: ')' })

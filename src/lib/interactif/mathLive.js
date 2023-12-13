@@ -14,6 +14,8 @@ const engine = new ComputeEngine()
  * @returns {boolean}
  */
 export const calculCompare = (a, b) => engine.parse(a).isSame(engine.parse(b))
+export const numberCompare = (a, b) => engine.parse(a).isEqual(engine.parse(b))
+export const fractionCompare = (a, b) => engine.parse(a).isSame(engine.parse(b))
 
 /**
  * Fonction qui nettoie la saisie de ce qu'il ne devrait pas y avoir.
@@ -21,13 +23,15 @@ export const calculCompare = (a, b) => engine.parse(a).isSame(engine.parse(b))
  * @returns {string}
  */
 function cleanInput (saisie) {
-  return String(saisie).replace(',', '.')
+  return String(saisie).replaceAll('\\,', '')
+    .replace(',', '.')
     .replaceAll('²', '^2')
     .replaceAll('^{}', '')
     .replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
     .replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
     .replace(/\\lparen(\+?-?\d+)\\rparen/, '$1') // Pour les nombres négatifs, supprime les parenthèses
     .replace(/\\lparen(\+?\+?\d+)\\rparen/, '$1') // Pour les nombres positifs, supprime les parenthèses
+    .replaceAll('\\dfrac', '\\frac')
 }
 
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
