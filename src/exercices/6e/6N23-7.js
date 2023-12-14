@@ -8,6 +8,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 
 export const titre = 'Recomposer un nombre décimal représenté par des fractions du cube unité'
 export const interactifReady = true
@@ -100,9 +101,10 @@ export default function RecompositionDecimale () {
         texteCorr += `$\\dfrac{${c}}{100}$ et `
         texteCorr += `$\\dfrac{${m}}{1000}$.<br>Le nombre décimal représenté ci-dessus est le nombre $${texNombre(e + d / 10 + c / 100 + m / 1000)}$.`
       }
-      if (reponses.indexOf(e + d / 10 + c / 100 + m / 1000) === -1) {
+      // if (reponses.indexOf(e + d / 10 + c / 100 + m / 1000) === -1) {
+      if (this.questionJamaisPosee(q, e, d, c, m)) {
         // Si la question n'a jamais été posée, on en crée une autre
-        reponses[q] = e + d / 10 + c / 100 + m / 1000
+        reponses[q] = arrondi(e + d / 10 + c / 100 + m / 1000, 3)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         setReponse(this, q, reponses[q], { digits: 4, decimals: 3 })
