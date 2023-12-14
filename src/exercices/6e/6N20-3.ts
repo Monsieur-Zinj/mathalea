@@ -21,7 +21,7 @@ export const dateDePublication = '14/12/2023'
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Compléter avec deux nombres entiers consécutifs'
+    this.consigne = 'Compléter avec deux nombres entiers consécutifs.'
     this.nbQuestions = 4
   }
 
