@@ -8,7 +8,7 @@ import {
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer une équation cartésienne de droite à partir de deux points'
-// totoche
+
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon

@@ -234,7 +234,7 @@ export default function CalculerCoeffPropo () {
               {
                 type: 'AMCNum',
                 propositions: [{
-                  texte: 'toto',
+                  texte: '',
                   statut: '',
                   reponse: { // coefficient
                     texte: 'valeur du coefficient',
