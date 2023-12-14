@@ -59,13 +59,13 @@ export default class nomExercice extends Exercice {
       const texte = remplisLesBlancs(this, i, `%{champ1}~~\\lt~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~\\lt~~%{champ2}`, 'inline college fillInTheBlank')
       const a = Math.floor(num / den)
       const b = a + 1
+      texteCorr = ` $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}}\\quad$ `
+      texteCorr += ` donc $\\quad${a}\\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt ${b}$.<br><br>`
       if (a === 0) {
-        texteCorr = `On sait que $\\dfrac{${texNombre(den, 1)}}{${texNombre(den, 1)}} = ${b}$ et `
+        texteCorr += `Remarque : on sait que $0 = \\dfrac{0}{${texNombre(den, 1)}}\\quad$ et $\\quad\\dfrac{${texNombre(den, 1)}}{${texNombre(den, 1)}} = ${b}$.`
       } else {
-        texteCorr = `Il faut ${texteEgaliteUnite} pour faire une unité donc $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} = ${a}$ et `
+        texteCorr += `Remarque : il faut ${texteEgaliteUnite} pour faire une unité donc $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} = ${a}$ et $\\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}} = ${b}$.`
       }
-      texteCorr += ` $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}}$ `
-      texteCorr += ` donc finalement $${a}\\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt ${b}$.`
       setReponse(this, i, {
         bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
         champ1: { value: String(a), compare: compareNumbers },
