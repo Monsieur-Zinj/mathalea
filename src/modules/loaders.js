@@ -148,6 +148,7 @@ export function loadScratchblocks () {
 export async function loadMathLive () {
   const champs = document.getElementsByTagName('math-field')
   if (champs.length > 0) {
+    handleKeyboardMathalea()
     await import('mathlive')
     window.mathVirtualKeyboard.targetOrigin = '*'
     window.mathVirtualKeyboard.alphabeticLayout = 'azerty'
@@ -324,5 +325,65 @@ export async function loadMathLive () {
     }, '*')
     const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
     document.dispatchEvent(domExerciceInteractifReady)
+  }
+}
+
+let keyboardMathaleaAlreadyHandled = false
+function handleKeyboardMathalea () {
+  if (keyboardMathaleaAlreadyHandled) return
+  keyboardMathaleaAlreadyHandled = true
+  const keyboardButtons = document.querySelectorAll('button.keyboardMathalea')
+  for (const keyboard of keyboardButtons) {
+    keyboard.addEventListener('click', (event) => {
+      console.log(event.target.id)
+      const mf = document.querySelector(`#${event.target.id}`)
+      console.log(mf)
+      const keyboardDiv = document.createElement('div')
+      keyboardDiv.style.position = 'fixed'
+      keyboardDiv.style.bottom = '0'
+      keyboardDiv.style.width = '100%'
+      keyboardDiv.style.height = '30vh'
+      keyboardDiv.style.zIndex = '1000'
+      keyboardDiv.style.backgroundColor = '#f0f0f0'
+
+      // Créer le bouton de fermeture
+      const closeButton = document.createElement('button')
+      closeButton.textContent = 'Fermer'
+      closeButton.style.position = 'absolute'
+      closeButton.style.right = '10px'
+      closeButton.style.top = '10px'
+      closeButton.addEventListener('click', () => {
+        document.body.removeChild(keyboardDiv)
+      })
+      keyboardDiv.style.display = 'grid'
+      keyboardDiv.style.gridTemplateColumns = 'repeat(4, 1fr)'
+      keyboardDiv.style.gap = '10px'
+      keyboardDiv.appendChild(closeButton)
+
+      // Créer les boutons numériques
+      const keys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/']
+      for (const key of keys) {
+        const numberButton = document.createElement('button')
+        numberButton.textContent = key
+        numberButton.style.padding = '10px'
+        numberButton.style.margin = '5px'
+        numberButton.style.border = '1px solid #ccc'
+        numberButton.style.borderRadius = '5px'
+        numberButton.style.backgroundColor = '#f0f0f0'
+        numberButton.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.15)'
+        keyboardDiv.appendChild(numberButton)
+        numberButton.addEventListener('click', () => {
+          switch (key) {
+            case '/':
+              mf.executeCommand(['insert', '\\frac{#@}{#1}'])
+              break
+            default:
+              mf.executeCommand(['insert', key])
+              break
+          }
+        })
+      }
+      document.body.appendChild(keyboardDiv)
+    })
   }
 }
