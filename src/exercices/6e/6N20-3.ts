@@ -68,6 +68,13 @@ export default class nomExercice extends Exercice {
       }
       setReponse(this, i, {
         bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
+        feedback: (saisies: {champ1: string, champ2: string}) => {
+          const rep1 = Number(saisies.champ1)
+          const rep2 = Number(saisies.champ2)
+          if (rep1 < num / den && rep2 > num / den && rep2 - rep1 !== 1) {
+            return ('L\'inégalité est vraie mais les deux nombres ne sont pas des entiers consécutifs.')
+          }
+        },
         champ1: { value: String(a), compare: compareNumbers },
         champ2: { value: String(b), compare: compareNumbers }
       }, { formatInteractif: 'fillInTheBlank' })
@@ -82,4 +89,5 @@ export default class nomExercice extends Exercice {
   }
 }
 
+// Utiliser compareNumbers permet de disqualifier une bonne réponse donnée en écriture fractionnaire
 const compareNumbers = (n1: string, n2: string) => Number(n1) === Number(n2)

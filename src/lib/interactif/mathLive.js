@@ -126,7 +126,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             window.notify('verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom', { selecteur: `math-field#champTexteEx${exercice.numeroExercice}Q${i}` })
             return { isOk: 'KO', feedback: 'Un problème avec cette configuration', score: { nbBonnesReponses: 0, nbReponses: 1 } }
           }
-          const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme')
+          const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme' && key !== 'feedback')
           if (reponses.callback != null && typeof reponses.callback === 'function') {
             return reponses.callback(variables, reponses.bareme)
           }
@@ -134,9 +134,11 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           let resultat = 'OK'
           let nbBonnesReponses, nbReponses
           const points = []
+          const saisies = {}
           for (let k = 0; k < variables.length; k++) {
             const [key, reponse] = variables[k]
             const saisie = mfe.getPromptValue(key)
+            saisies[key] = cleanInput(saisie)
             const compareFunction = reponse.compare ?? calculCompare
             if (compareFunction(cleanInput(saisie), cleanInput(reponse.value))) {
               points.push(1)
@@ -145,6 +147,14 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
               points.push(0)
               resultat = 'KO'
               mfe.setPromptState(key, 'incorrect', true)
+            }
+          }
+          if (typeof reponses.feedback === 'function') {
+            const feedback = reponses.feedback(saisies)
+            const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${i}`)
+            if (feedback != null && spanFeedback != null) {
+              spanFeedback.innerHTML = '💡 ' + feedback
+              spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
             }
           }
           if (typeof reponses.bareme === 'function') {
