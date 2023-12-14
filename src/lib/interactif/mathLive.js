@@ -156,6 +156,9 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           if (mfe.getValue().length > 0 && typeof exercice.answers === 'object') {
             exercice.answers[`champTexteEx${exercice.numeroExercice}Q${i}`] = mfe.getValue()
           }
+          if (spanReponseLigne != null) {
+            spanReponseLigne.innerHTML = nbBonnesReponses === nbReponses ? '😎' : '☹️'
+          }
           return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }
         }
         // ici, il n'y a qu'un seul input une seule réponse
