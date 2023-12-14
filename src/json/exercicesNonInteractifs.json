@@ -317,6 +317,7 @@
   "src/exercices/beta/betaExoSimpleMatthieu.js",
   "src/exercices/beta/betaModele10_simple_question-reponse.js",
   "src/exercices/beta/betaModele11_parametrable.js",
+  "src/exercices/beta/betaModele20_exercice_classique.ts",
   "src/exercices/beta/betaModele20_plusieurs_types_de_questions.js",
   "src/exercices/beta/betaModele21_parametrables.js",
   "src/exercices/beta/betaModele22_avec_une_serie_de_valeurs.js",

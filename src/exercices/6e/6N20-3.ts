@@ -1,0 +1,85 @@
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import Exercice from '../ExerciceTs.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+
+export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
+export const uuid = '3bdcd'
+export const ref = '6N20-3'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDePublication = '14/12/2023'
+// export const dateDeModifImportante = '24/10/2021'
+
+/**
+ * Description didactique de l'exercice
+ * @author Rémi Angot
+*/
+
+export default class nomExercice extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Compléter avec deux nombres entiers consécutifs'
+    this.nbQuestions = 4
+  }
+
+  nouvelleVersion () {
+    this.listeQuestions = []
+    this.listeCorrections = []
+    this.autoCorrection = []
+
+    type TypeQuestionsDisponibles = 'dixieme'|'centieme'|'millieme'
+    const typeQuestionsDisponibles = ['dixieme', 'centieme', 'millieme'] as const
+
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let den = 1
+      let num = 1
+      let texteEgaliteUnite: string
+      let texteCorr = ''
+      switch (listeTypeQuestions[i]) {
+        case 'dixieme':
+          den = 10
+          texteEgaliteUnite = 'dix dixièmes'
+          break
+        case 'centieme':
+          den = 100
+          texteEgaliteUnite = 'cent centièmes'
+          break
+        case 'millieme':
+          den = 1000
+          texteEgaliteUnite = 'mille millièmes'
+          break
+      }
+      do {
+        num = randint(0, den * 10)
+      } while (num % den === 0)
+      const texte = remplisLesBlancs(this, i, `%{champ1}~~\\lt~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~\\lt~~%{champ2}`, 'inline college fillInTheBlank')
+      const a = Math.floor(num / den)
+      const b = a + 1
+      if (a === 0) {
+        texteCorr = `On sait que $\\dfrac{${texNombre(den, 1)}}{${texNombre(den, 1)}} = ${b}$ et `
+      } else {
+        texteCorr = `Il faut ${texteEgaliteUnite} pour faire une unité donc $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} = ${a}$ et `
+      }
+      texteCorr += ` $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}}$ `
+      texteCorr += ` donc finalement $${a}\\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt ${b}$.`
+      setReponse(this, i, {
+        bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
+        champ1: { value: String(a), compare: compareNumbers },
+        champ2: { value: String(b), compare: compareNumbers }
+      }, { formatInteractif: 'fillInTheBlank' })
+      if (this.questionJamaisPosee(i, num, den)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this)
+  }
+}
+
+const compareNumbers = (n1: string, n2: string) => Number(n1) === Number(n2)

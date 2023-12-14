@@ -277,7 +277,7 @@ export function shuffle2tableaux (obj1, obj2) {
 
 /**
  * Concatène liste à elle-même en changeant l'ordre à chaque cycle
- * @param {Array} liste - Un tableau
+ * @param {Array | ReadonlyArray} liste - Un tableau
  * @param {number} tailleMinimale - La taille minimale du tableau de sortie
  * @returns {Array} Un tableau du même type que liste
  *

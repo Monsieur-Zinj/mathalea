@@ -12875,6 +12875,26 @@
     },
     "typeExercice": "alea"
   },
+  "6N20-3": {
+    "url": "6e/6N20-3.ts",
+    "tags": [],
+    "uuid": "3bdcd",
+    "id": "6N20-3",
+    "titre": "Encadrer une fraction décimale entre deux nombres entiers",
+    "datePublication": "14/12/2023",
+    "dateModification": "24/10/2021",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "6N21": {
     "url": "6e/6N21.ts",
     "tags": [],
