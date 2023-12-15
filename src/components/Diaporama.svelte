@@ -593,7 +593,7 @@
         let size =
           (300 - Math.floor(nbOfCharactersInTextDiv / 50) * 30) *
           (1 - finalSVGHeight / textcellHeight)
-        if (size < 10) size = 10 //MGu: Protection obligatoire car sinon la taille peut être négative
+        if (size < 10) size = 10 // MGu: Protection obligatoire car sinon la taille peut être négative
         if (nbOfVues === 2) {
           size = size * 0.7
         } else {
@@ -612,7 +612,7 @@
           if (questionDiv !== null) {
             questionDiv.style.fontSize = size + 'px'
             questionHeight = questionDiv.clientHeight
-            questionWidth = questionDiv.scrollWidth> questionDiv.clientWidth ? questionDiv.scrollWidth : questionDiv.clientWidth
+            questionWidth = questionDiv.scrollWidth > questionDiv.clientWidth ? questionDiv.scrollWidth : questionDiv.clientWidth
           } else {
             questionHeight = 0
             questionWidth = 0
@@ -640,8 +640,8 @@
           // console.log('questionHeight + consigneHeight + correctionHeight:'+ (questionHeight + consigneHeight + correctionHeight))
           // console.log('textcellHeight:'+textcellHeight)
         } while (
-          size > 6 /*pour éviter la boucle infinie*/ && (
-          questionWidth > textcellWidth ||
+          size > 6 /* pour éviter la boucle infinie */ && (
+            questionWidth > textcellWidth ||
           consigneWidth > textcellWidth ||
           correctionWidth > textcellWidth ||
           questionHeight + consigneHeight + correctionHeight > textcellHeight
@@ -885,8 +885,6 @@
 </style>
 </svelte:head>
 
-
-
 <svelte:window on:keyup={handleShortcut} />
 <!-- Page d'accueil du diapo -->
 <div id="diaporama" class={$darkMode.isActive ? 'dark' : ''}>
@@ -1095,7 +1093,7 @@
                 max={exercices.length}
                 bind:value={$selectedExercises.count}
                 on:change={handleSampleSizeChange}
-                class="ml-3 w-14 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-canavs-darkest focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-0"
+                class="ml-3 w-14 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-canvas-darkest focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-0"
                 disabled={!$selectedExercises.isActive}
               />
               <span

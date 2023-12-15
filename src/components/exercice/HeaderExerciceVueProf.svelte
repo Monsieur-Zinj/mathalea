@@ -141,7 +141,7 @@
       >
         {#if titleAddendum}
           {titleBase}<span
-            class="ml-2 rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm"
+            class="ml-2 flex justify-center items-center rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm"
           >
             {titleAddendum}
           </span>
