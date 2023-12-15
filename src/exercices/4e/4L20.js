@@ -52,13 +52,6 @@ export default function ExerciceEquation1 () {
     this.consigne = this.nbQuestions === 1
       ? 'Résoudre l\'équation suivante.'
       : 'Résoudre les équations suivantes.'
-    // if (this.interactif) { // Selon Rémi : "Ces rappels relèvent plus d’un choix de prof et ne me semblent pas pertinents dans des énoncés"
-    //  this.introduction = lampeMessage({
-    //    titre: 'Calculatrice autorisée.',
-    //    texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${deprecatedTexFraction(1, 3)})$ plutôt qu'une valeur approchée (comme 0,3333).`,
-    //    couleur: 'nombres'
-    //  })
-    // } else this.introduction = ''
     let listeTypeDeQuestions
     switch (this.sup2.toString()) {
       case '1':
@@ -101,7 +94,6 @@ export default function ExerciceEquation1 () {
       this.nbQuestions
     )
     for (let i = 0, a, b, c, d, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(2, 13)
       b = randint(1, 13)
       c = randint(1, 13)
@@ -119,6 +111,8 @@ export default function ExerciceEquation1 () {
         }
         do {
           a = randint(2, 13)
+          b = randint(1, 13)
+          c = randint(1, 13)
         } while (Math.abs(c - b) % a === 0)
         if (this.sup) {
           a *= choice([-1, 1])
@@ -341,7 +335,7 @@ export default function ExerciceEquation1 () {
         setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       }
 
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, a, b, c, listeTypeDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte) // replace(/1x/g,'x')); //remplace 1x par x
         this.listeCorrections.push(texteCorr) // .replace(/1x/g,'x')); //remplace 1x par x
@@ -375,7 +369,7 @@ export default function ExerciceEquation1 () {
   this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
   this.besoinFormulaire2Numerique = [
     "Type d'équations",
-    4,
+    7,
     '1 : ax=b ou x+a=b ou x-a=b\n2 : ax+b=c\n3 : ax+b=cx+d\n4 : Les 3 types précédents\n5 : x/a=b\n6: ax/b=c\n7: Tous les types'
   ]
 }
