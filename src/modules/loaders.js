@@ -8,7 +8,7 @@ import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
 import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
-
+import { keyboard } from '../components/stores/generalStore'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -225,58 +225,6 @@ export async function loadMathLive () {
       })
       mf.inlineShortcuts = raccourcis
 
-      // Evite les problèmes de positionnement du clavier mathématique dans les iframes
-      /*
-      if (isInIframe) {
-        if (!document.getElementById('fixKeyboardPositionInIframe')) {
-          const style = document.createElement('style')
-          style.setAttribute('id', 'fixKeyboardPositionInIframe')
-          style.innerHTML = `
-          div.ML__keyboard.is-visible {
-            position: absolute;
-            top: var(--keyboard-position);
-            height: var(--_keyboard-height);
-          }
-
-          div.ML__keyboard.is-visible .ML__keyboard--plate {
-            position: static;
-            transform: none;
-          }`
-          document.head.appendChild(style)
-        }
-        const events = ['focus', 'input']
-        events.forEach(e => {
-          mf.addEventListener(e, () => {
-            setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
-              // Alternative à jQuery Offset : https://youmightnotneedjquery.com/#offset
-              const box = mf.getBoundingClientRect()
-              const docElem = document.documentElement
-              const offset = {
-                top: box.top + window.scrollY - docElem.clientTop, // pageYOffset remplacé par scrollY
-                left: box.left + window.scrollX - docElem.clientLeft // pageXOffset remplacé par scrollX
-              }
-              // Autre Alternative à jQuery Offset : https://usefulangle.com/post/179/jquery-offset-vanilla-javascript
-              // const rect = mf.getBoundingClientRect();
-              // const offset = {
-              //   top: rect.top + window.scrollY,
-              //   left: rect.left + window.scrollX,
-              // }
-              // Alternative à jQuery outerHeight : https://youmightnotneedjquery.com/#outer_height
-              const position = offset.top + mf.offsetHeight + 'px'
-              document.body.style.setProperty('--keyboard-position', position)
-            })
-          })
-        })
-      }
-
-      if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
-        // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
-        mf.setOptions({
-          virtualKeyboardMode: 'onfocus'
-        })
-      }
-      */
-
       let style = 'font-size: 20px;'
       if (mf.classList.contains('tableauMathlive')) continue
       if (mf.classList.contains('inline')) {
@@ -314,6 +262,11 @@ export async function loadMathLive () {
       }
       mf.style.fontSize = '1em'
       mf.classList.add('ml-1')
+      mf.addEventListener('focus', () => {
+        keyboard.update((value) => {
+          return { isVisible: value.isVisible, idMathField: mf.id }
+        })
+      })
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
@@ -333,57 +286,16 @@ function handleKeyboardMathalea () {
   if (keyboardMathaleaAlreadyHandled) return
   keyboardMathaleaAlreadyHandled = true
   const keyboardButtons = document.querySelectorAll('button.keyboardMathalea')
-  for (const keyboard of keyboardButtons) {
-    keyboard.addEventListener('click', (event) => {
-      console.log(event.target.id)
-      const mf = document.querySelector(`#${event.target.id}`)
-      console.log(mf)
-      const keyboardDiv = document.createElement('div')
-      keyboardDiv.style.position = 'fixed'
-      keyboardDiv.style.bottom = '0'
-      keyboardDiv.style.width = '100%'
-      keyboardDiv.style.height = '30vh'
-      keyboardDiv.style.zIndex = '1000'
-      keyboardDiv.style.backgroundColor = '#f0f0f0'
-
-      // Créer le bouton de fermeture
-      const closeButton = document.createElement('button')
-      closeButton.textContent = 'Fermer'
-      closeButton.style.position = 'absolute'
-      closeButton.style.right = '10px'
-      closeButton.style.top = '10px'
-      closeButton.addEventListener('click', () => {
-        document.body.removeChild(keyboardDiv)
+  for (const button of keyboardButtons) {
+    button.addEventListener('click', (event) => {
+      keyboard.update((value) => {
+        if (value.idMathField === event.target.id) {
+          return { isVisible: false, idMathField: '' }
+        }
+        const mf = document.querySelector('#' + event.target.id)
+        if (mf != null) mf.focus()
+        return { isVisible: true, idMathField: event.target.id }
       })
-      keyboardDiv.style.display = 'grid'
-      keyboardDiv.style.gridTemplateColumns = 'repeat(4, 1fr)'
-      keyboardDiv.style.gap = '10px'
-      keyboardDiv.appendChild(closeButton)
-
-      // Créer les boutons numériques
-      const keys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '/']
-      for (const key of keys) {
-        const numberButton = document.createElement('button')
-        numberButton.textContent = key
-        numberButton.style.padding = '10px'
-        numberButton.style.margin = '5px'
-        numberButton.style.border = '1px solid #ccc'
-        numberButton.style.borderRadius = '5px'
-        numberButton.style.backgroundColor = '#f0f0f0'
-        numberButton.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.15)'
-        keyboardDiv.appendChild(numberButton)
-        numberButton.addEventListener('click', () => {
-          switch (key) {
-            case '/':
-              mf.executeCommand(['insert', '\\frac{#@}{#1}'])
-              break
-            default:
-              mf.executeCommand(['insert', key])
-              break
-          }
-        })
-      }
-      document.body.appendChild(keyboardDiv)
     })
   }
 }

@@ -273,7 +273,7 @@ export default function SommeFractionsDecimales () {
           //   texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
         //  texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
         } else {
-          texte += remplisLesBlancs(this, i, 'toto = %{resultat}', 'inline college6', '\\ldots\\ldots')
+          texte += remplisLesBlancs(this, i, '= %{resultat}', 'inline college6', '\\ldots\\ldots')
           // texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
         }
       }

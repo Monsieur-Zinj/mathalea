@@ -38,6 +38,7 @@
   import AmcIcon from './icons/AmcIcon.svelte'
   import MoodleIcon from './icons/MoodleIcon.svelte'
   import Footer from './Footer.svelte'
+  import Keyboard from './Keyboard.svelte';
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
@@ -878,6 +879,7 @@
           id="exercisesPart"
           class="absolute right-0 top-0 hidden md:flex flex-col w-full h-full px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas overflow-x-hidden overflow-y-auto"
         >
+        <Keyboard/>
           {#if $exercicesParams.length !== 0}
             <div
               id="exercisesWrapper"

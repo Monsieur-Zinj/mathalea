@@ -32,6 +32,7 @@
   import { getCanvasFont, getTextWidth, remToPixels } from './utils/measures'
   import Footer2 from './Footer2.svelte'
   import FlipCard from './ui/FlipCard.svelte'
+  import Keyboard from './Keyboard.svelte'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -794,6 +795,7 @@
     <Footer2 />
   </div>
 </section>
+<Keyboard/>
 
 <style>
   /* sur une idée de Mathieu Degrange */

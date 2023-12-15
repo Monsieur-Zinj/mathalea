@@ -8,6 +8,10 @@ math-field::part(menu-toggle) {
   display: none;
 }
 
+math-field::part(virtual-keyboard-toggle) {
+  display: none;
+}
+
 @media print {
   body {
     font-size: 10pt!important;
