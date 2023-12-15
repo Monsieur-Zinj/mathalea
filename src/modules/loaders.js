@@ -310,6 +310,7 @@ export async function loadMathLive () {
         mf.style.border = 'none'
         mf.style.boxShadow = 'none'
         mf.style.fontSize = '1em'
+        mf.classList.remove('invisible')
       }
       mf.style.fontSize = '1em'
       mf.classList.add('ml-1')
