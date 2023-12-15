@@ -1,14 +1,6 @@
-import {
-  choice,
-  enleveElement,
-  shuffle
-} from '../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../ExerciceTs'
-import {
-  gestionnaireFormulaireTexte,
-  listeQuestionsToContenu,
-  randint
-} from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
@@ -28,12 +20,12 @@ export const ref = '6N20-2'
 
 const ce = new ComputeEngine()
 
-class ExerciceFractionsDifferentesEcritures extends Exercice {
+export default class ExerciceFractionsDifferentesEcritures extends Exercice {
   reponsesAttendues: {
-    n: number;
-    num: number;
+    entier: number;
+    numPartieDecimale: number;
     den: number;
-    ecritureDecimale: number;
+    ecritureDecimale: string;
   }[] = []
 
   constructor () {
@@ -68,7 +60,7 @@ class ExerciceFractionsDifferentesEcritures extends Exercice {
       nbQuestions: this.nbQuestions,
       exclus: [3, 6, 7, 9]
     })
-    let fractions = []
+    let fractions : [number, number, string][] = []
     let fractions1: [number, number, string][] = []
     let aleaMax: number
     if (!this.sup) {
@@ -111,94 +103,74 @@ class ExerciceFractionsDifferentesEcritures extends Exercice {
           [4, 5, ',8']
         ])
       ) // liste_fractions pour les 6 premières questions
+      shuffle(fractions1) // on mélange les fractions
     } else {
-      const denominateursDifferents = new Set(listeDenominateurs)
-      const nbDenominateursDifferents = denominateursDifferents.size
+      const nbDenominateursDifferents : number = new Set(listeDenominateurs).size
       aleaMax = Math.ceil(this.nbQuestions / nbDenominateursDifferents)
-      for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200;) {
-        const b = listeDenominateurs[i]
-        const num = randint(1, b - 1)
-        let partieDecimale = ((num * 1000) / b).toString() // avec les 8e on a 3 chiffres, avec les 4 2...
+      const fractionsUsed: { [id: number]: number [] } = {}
+      for (let i = 0; i < this.nbQuestions; i++) {
+        const b : number = listeDenominateurs[i]
+        if (!fractionsUsed[b]) fractionsUsed[b] = shuffle(Array.from({ length: b - 1 }, (_, i) => i + 1)) // tous les numérateurs possibles...
+        const num : number = fractionsUsed[b].pop() ?? 1 // choisi un numérateur au hasard
+        let partieDecimale : string = ((num * 1000) / b).toString() // avec les 8e on a 3 chiffres, avec les 4 2...
         partieDecimale = ',' + (partieDecimale.match(/[1-9]+/g)?.[0] ?? '')
-        if (
-          fractions.filter((element) => element[0] === num && element[1] === b)
-            .length === 0
-        ) {
-          // la fraction n'a pas encore été construite
-          fractions.push([num, b, partieDecimale])
-          i++
-        } else {
-          cpt++
-        }
+        fractions.push([num, b, partieDecimale])
       }
       shuffle(fractions)
     }
-    for (
-      let i = 0, cpt = 0, fraction, a, ed, b, c, n, texte, texteCorr;
-      i < this.nbQuestions && cpt < 100;
-
-    ) {
+    for (let i = 0, cpt = 0, fraction, num : number, ecriDec : string, den : number, numPartieFrac : number, entier : number, texte : string, texteCorr : string; i < this.nbQuestions && cpt < 100; cpt++) {
       if (!this.sup) {
+        // version Rémi
         if (i < 6) {
-          fraction = choice(fractions1)
-          enleveElement(fractions1, fraction)
+          fraction = fractions1.pop()
         } else {
           fraction = choice(fractions)
         }
-        //
-        c = fraction[0]
-        b = fraction[1]
-        n = randint(1, 4)
-        a = n * b + c
-        ed = n + fraction[2]
+        numPartieFrac = fraction[0]
+        den = fraction[1]
+        entier = randint(1, 4)
+        num = entier * den + numPartieFrac
+        ecriDec = entier.toString() + fraction[2]
       } else {
-        if (fractions[i] != null) {
-          c = fractions[i][0]
-          b = fractions[i][1]
-          n = randint(1, aleaMax)
-          a = n * b + c
-          ed = n.toString() + fractions[i][2]
-        } else {
-          // Problème à régler pour ts. mais window.notify() existe bien au chargement en ce qui nous concerne.
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-          window.notify(`6N20-2 n'a pas trouvé assez de fractions dans ${fractions} y a rien à l'indice ${i}`, { listeFraction1: JSON.stringify(fractions1), listeFraction2: JSON.stringify(fractions), nbQuestions: this.nbQuestions, paramSup: this.sup, paramSup2: this.sup2 })
-          n = 42 // ça c'est pour dire que n est pas undefined à typescript.
-        }
+        // Version Jean-Luc configurable
+        numPartieFrac = fractions[i][0]
+        den = fractions[i][1]
+        entier = randint(1, aleaMax)
+        num = entier * den + numPartieFrac
+        ecriDec = entier.toString() + fractions[i][2]
       }
-      const frac = new FractionEtendue(a, b)
-      const partieFrac = new FractionEtendue(c, b)
-      // enleveElement(fractions, fraction) // Il n'y aura pas 2 fois la même partie décimale
+      const frac = new FractionEtendue(num, den)
+      const partieFrac = new FractionEtendue(numPartieFrac, den)
+
       texte =
         '$ ' +
         frac.texFraction +
-        ' = \\phantom{0000} + ' +
-        '\\dfrac{\\phantom{00000000}}{}' +
+        ' = \\phantom{00}\\text{........}\\phantom{00} + ' +
+        '\\dfrac{\\phantom{00}\\text{........}\\phantom{00}}{\\phantom{00}\\text{........}\\phantom{00}}' +
         ' =  $'
       texteCorr =
         '$ ' +
         frac.texFraction +
         ' = ' +
-        n +
+        entier +
         '+' +
         partieFrac.texFraction +
         ' = ' +
-        ed +
+        ecriDec +
         ' $'
-      this.reponsesAttendues[i] = { n, num: c, den: b, ecritureDecimale: ed }
+      this.reponsesAttendues[i] = { entier, numPartieDecimale: numPartieFrac, den, ecritureDecimale: ecriDec }
 
       if (this.interactif) {
-        texte = `<math-field class="fillInTheBlanks" readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
+        texte = `<math-field class="fillInTheBlanks invisible" readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
         ${frac.texFraction} =~\\placeholder[n]{} + \\dfrac{\\placeholder[num]{}}{\\placeholder[den]{}} =~\\placeholder[ecritureDecimale]{}
       </math-field><span class="ml-2" id="feedbackEx${this.numeroExercice}Q${i}"></span>`
       }
-      if (this.questionJamaisPosee(i, a, b)) {
+      if (this.questionJamaisPosee(i, num, den)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
       }
-      cpt++
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question.
   }
@@ -207,20 +179,20 @@ class ExerciceFractionsDifferentesEcritures extends Exercice {
     if (i === undefined) return ''
     if (this.answers === undefined) this.answers = {}
     const result: ('OK' | 'KO')[] = []
-    const { n, num, den, ecritureDecimale } = this.reponsesAttendues[i]
     const mf = document.querySelector(
       `#champTexteEx${this.numeroExercice}Q${i}`
     ) as MathfieldElement
+    if (mf === null) return ''
+    const { entier, numPartieDecimale, den, ecritureDecimale } = this.reponsesAttendues[i]
     this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${i}`
     ) as HTMLDivElement
-    const test1 = ce.parse(mf.getPromptValue('n')).isSame(ce.parse(`${n}`))
-    const numSaisi = mf.getPromptValue('num')
-    const denSaisi = mf.getPromptValue('den')
-    const test2 = ce
-      .parse(`\\dfrac{${numSaisi}}{${denSaisi}}`)
-      .isSame(ce.parse(`\\dfrac{${num}}{${den}}`))
+    const nSaisi = Number(mf.getPromptValue('n').replaceAll(',', '.'))
+    const test1 = nSaisi === entier
+    const numSaisi = Number(mf.getPromptValue('num').replaceAll(',', '.'))
+    const denSaisi = Number(mf.getPromptValue('den').replaceAll(',', '.'))
+    const test2 = (denSaisi !== 0) && Number.isInteger(denSaisi) && Number.isInteger(numSaisi) && new FractionEtendue(numPartieDecimale, den).isEqual(new FractionEtendue(numSaisi, denSaisi))
     const test3 = ce
       .parse(mf.getPromptValue('ecritureDecimale'))
       .isSame(ce.parse(`${ecritureDecimale}`))
@@ -253,5 +225,3 @@ class ExerciceFractionsDifferentesEcritures extends Exercice {
     return result
   }
 }
-
-export default ExerciceFractionsDifferentesEcritures
