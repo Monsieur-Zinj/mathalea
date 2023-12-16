@@ -164,7 +164,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             nbBonnesReponses = points.filter(el => el === 1).length
           }
           if (mfe.getValue().length > 0 && typeof exercice.answers === 'object') {
-            exercice.answers[`champTexteEx${exercice.numeroExercice}Q${i}`] = mfe.getValue()
+            exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.getValue()
           }
           if (spanReponseLigne != null) {
             spanReponseLigne.innerHTML = nbBonnesReponses === nbReponses ? '😎' : '☹️'
