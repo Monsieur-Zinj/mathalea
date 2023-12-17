@@ -1,8 +1,8 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
@@ -53,27 +53,19 @@ export default function FractionVersPourcentage () {
       } else {
         num = randint(1, den - 1)
       }
-      percenti = calculANePlusJamaisUtiliser(num * 100 / den)
+      percenti = Math.round(num * 100 / den)
       if (this.sup === 1) {
-        if (this.interactif) {
-          this.interactifType = 'custom'
-          texte = `<math-field readonly class="fillInTheBlanks" style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
-          \\dfrac{${num}}{${texNombre(den)}}~=~\\dfrac{\\placeholder[num1]{}}{\\placeholder[den1]{}} 
-          ~=~\\dfrac{\\placeholder[num2]{}}{100} 
-          ~=~\\placeholder[percent]{}\\%
-        </math-field><span class="ml-2" id="feedbackEx${this.numeroExercice}Q${i}"></span>`
-        } else {
-          texte = `$\\dfrac{${num}}{${texNombre(den)}}~=~\\dfrac{\\phantom{\\ldots\\ldots}}{\\phantom{\\ldots\\ldots}} ~=~\\dfrac{\\phantom{\\ldots\\ldots}}{100} ~=~\\phantom{\\ldots\\ldots}\\%$`
-        }
+        this.interactifType = 'custom'
+        texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{num1}}{%{den1}}=\\dfrac{%{num2}}{100}=%{percent}\\%`, 'college6e', '\\ldots')
         if (den < 100) {
-          texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${calculANePlusJamaisUtiliser(100 / den)}}}{${den}{\\color{blue}\\times${calculANePlusJamaisUtiliser(100 / den)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
+          texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${100 / den}}}{${den}{\\color{blue}\\times${100 / den}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {
-          texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${calculANePlusJamaisUtiliser(den / 100)}}}{${den}{\\color{blue}\\div${calculANePlusJamaisUtiliser(den / 100)}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
+          texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${den / 100}}}{${den}{\\color{blue}\\div${den / 100}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         }
       } else {
         this.interactifType = 'mathLive'
         texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
-        texteCorr = `$\\dfrac{${percenti}}{100}=${percenti}~\\%$`
+        texteCorr = `$\\dfrac{${texNombre(percenti, 0)}}{100}=${texNombre(percenti, 0)}~\\%$`
       }
       setReponse(this, i, percenti, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -90,28 +82,32 @@ export default function FractionVersPourcentage () {
   this.correctionInteractive = function (i) {
     const reponseAttendue = this.autoCorrection[i].reponse.valeur[0].toString()
     if (this.answers === undefined) this.answers = {}
-    let result
+    let result = 'KO'
     const mf = document.querySelector(`#champTexteEx${this.numeroExercice}Q${i}`)
-    this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
-    const num1 = mf.getPromptValue('num1')
-    const num2 = mf.getPromptValue('num2')
-    const den1 = mf.getPromptValue('den1')
-    const percent = mf.getPromptValue('percent')
-    const test1 = ce.parse(`\\frac{${num1}}{${den1}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{${100}}`))
-    const test2 = ce.parse(num2).isSame(ce.parse(reponseAttendue))
-    const test3 = ce.parse(percent).isSame(ce.parse(reponseAttendue))
-    if (test1 && test2 && test3) {
-      divFeedback.innerHTML = '😎'
-      result = 'OK'
+    if (mf == null) {
+      window.notify(`La correction de 5N11-3 n'a pas trouvé de mathfield d'id champTexteEx${this.numeroExercice}Q${i}`)
     } else {
-      divFeedback.innerHTML = '☹️'
-      result = 'KO'
+      this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
+      const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
+      const num1 = mf.getPromptValue('num1')
+      const num2 = mf.getPromptValue('num2')
+      const den1 = mf.getPromptValue('den1')
+      const percent = mf.getPromptValue('percent')
+      const test1 = ce.parse(`\\frac{${num1.replace(',', '.')}}{${den1}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{${100}}`))
+      const test2 = ce.parse(num2).isSame(ce.parse(reponseAttendue))
+      const test3 = ce.parse(percent).isSame(ce.parse(reponseAttendue))
+      if (test1 && test2 && test3) {
+        divFeedback.innerHTML = '😎'
+        result = 'OK'
+      } else {
+        divFeedback.innerHTML = '☹️'
+        result = 'KO'
+      }
+      mf.setPromptState('num1', test1 ? 'correct' : 'incorrect', true)
+      mf.setPromptState('den1', test1 ? 'correct' : 'incorrect', true)
+      mf.setPromptState('num2', test2 ? 'correct' : 'incorrect', true)
+      mf.setPromptState('percent', test3 ? 'correct' : 'incorrect', true)
     }
-    mf.setPromptState('num1', test1 ? 'correct' : 'incorrect', true)
-    mf.setPromptState('den1', test1 ? 'correct' : 'incorrect', true)
-    mf.setPromptState('num2', test2 ? 'correct' : 'incorrect', true)
-    mf.setPromptState('percent', test3 ? 'correct' : 'incorrect', true)
     return result
   }
 }
