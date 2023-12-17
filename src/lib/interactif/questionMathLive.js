@@ -77,7 +77,7 @@ export function remplisLesBlancs (exercice, question, content, classes, blanc = 
     }
   }
   if (exercice.interactif) {
-    return `<math-field readonly style="font-size:2em" class="fillInTheBlanks" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><div id="feedbackEx${exercice.numeroExercice}Q${question}"></div>`
+    return `<math-field readonly style="font-size:2em" class="fillInTheBlanks" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span><div id="feedbackEx${exercice.numeroExercice}Q${question}"></div>`
   } else {
     return `$${mfeValue}$`
   }

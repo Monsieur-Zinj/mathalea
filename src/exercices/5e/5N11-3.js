@@ -89,7 +89,7 @@ export default function FractionVersPourcentage () {
       window.notify(`La correction de 5N11-3 n'a pas trouvé de mathfield d'id champTexteEx${this.numeroExercice}Q${i}`)
     } else {
       this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
-      const spanFeedback = document.querySelector(`span#feedbackEx${this.numeroExercice}Q${i}`)
+      const spanFeedback = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q${i}`)
       const num1 = mf.getPromptValue('num1')
       const num2 = mf.getPromptValue('num2')
       const den1 = mf.getPromptValue('den1')
