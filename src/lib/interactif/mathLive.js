@@ -91,14 +91,14 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
 
             const inputs = Array.from(table.querySelectorAll('math-field'))
             const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`)
-            const divDuSmiley = table.querySelector(`div#divDuSmileyEx${exercice.numeroExercice}Q${i}${key}`)
+            const spanFedback = table.querySelector(`span#feedbackEx${exercice.numeroExercice}Q${i}${key}`)
             if (compareFunction(cleanInput(input.value), cleanInput(reponse.value))) {
               points.push(1)
-              divDuSmiley.innerHTML = '😎'
+              spanFedback.innerHTML = '😎'
             } else {
               points.push(0)
               resultat = 'KO'
-              divDuSmiley.innerHTML = '☹️'
+              spanFedback.innerHTML = '☹️'
             }
             if (input.value.length > 0 && typeof exercice.answers === 'object') {
               exercice.answers[`Ex${exercice.numeroExercice}Q${i}${key}`] = input.value

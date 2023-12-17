@@ -143,16 +143,15 @@ export default function TableDoubleDistributivite () {
       }
       if (this.interactif) {
         const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(entetesCol, entetesLgn, ['', '', '', ''])
-        const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, i, tableauVide, 'nospacebefore')
+        const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, 3 * i, tableauVide, 'nospacebefore')
         texte += tabMathlive.output
-        setReponse(this, i, { L1C1, L1C2, L2C1, L2C2 }, { formatInteractif: 'tableauMathlive' })
       } else {
         texte += tableauColonneLigne(entetesCol, entetesLgn, contenu)
       }
       texte += context.isHtml ? '<br> Développement : ' : '\\par\\medskip Développement : '
-      texte += ajouteChampTexteMathLive(this, 2 * i, 'inline', { tailleExtensible: true })
+      texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline', { tailleExtensible: true })
       texte += context.isHtml ? '<br> Développement réduit : ' : '\\par\\medskip Développement réduit: '
-      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline', { tailleExtensible: true })
+      texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline', { tailleExtensible: true })
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip'
       if (typesDeQuestions === 1) {
         texteCorr += tableauColonneLigne(['\\times', 'x', `${b}`], ['x', `${d}`], [`${termesRectangles[0] === 1 ? '' : termesRectangles[0]}x^2`, `${termesRectangles[2]}x`, `${termesRectangles[1]}x`, `${termesRectangles[3]}`])
@@ -171,7 +170,10 @@ export default function TableDoubleDistributivite () {
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '
       texteCorr += `Développement réduit : $${lettreDepuisChiffre(i + 1)} = ${developpements.reduit}$`
       // texteCorr += context.isHtml ? '<br>' : '\\par\\bigskip'
-      this.autoCorrection[i].reponse = { L1C1, L1C2, L2C1, L2C2, developpements }
+      this.autoCorrection[3 * i] = { L1C1, L1C2, L2C1, L2C2 }
+      setReponse(this, 3 * i + 1, developpements.eclate)
+      setReponse(this, 3 * i + 2, developpements.reduit)
+
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
@@ -185,25 +187,25 @@ export default function TableDoubleDistributivite () {
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
 
   this.correctionInteractive = (i) => {
-    const tableId = `tabMathliveEx${this.numeroExercice}Q${i}`
+    const tableId = `tabMathliveEx${this.numeroExercice}Q${3 * i}`
     const tableau = document.querySelector(`table#${tableId}`)
     if (tableau == null) throw Error('La correction de 3L11-10 n\'a pas trouvé le tableau interactif.')
     const result = []
     let points = 0
     for (const k of [1, 2]) {
       for (const j of [1, 2]) {
-        const answer = tableau.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}L${j}C${k}`)
-        if (answer == null) throw Error(`Il n'y a pas de math-field d'id "champTexteEx${this.numeroExercice}Q${i}L${j}C${k}" dans ce tableau !`)
-        const divFeedback = tableau.querySelector(`div#divDuSmileyEx${this.numeroExercice}Q${i}L${j}C${k}`)
-        if (answer.value != null) this.answers[`Ex${this.numeroExercice}Q${i}L${j}C${k}`] = answer.value
-        if (divFeedback) {
-          if (ce.parse(answer.value).isSame(ce.parse(this.autoCorrection[i].reponse[`L${j}C${k}`]))) {
-            divFeedback.innerHTML = divFeedback.innerHTML += '😎'
+        const answer = tableau.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${3 * i}L${j}C${k}`)
+        if (answer == null) throw Error(`Il n'y a pas de math-field d'id "champTexteEx${this.numeroExercice}Q${3 * i}L${j}C${k}" dans ce tableau !`)
+        const spanFeedback = tableau.querySelector(`span#feedbackEx${this.numeroExercice}Q${3 * i}L${j}C${k}`)
+        if (answer.value != null) this.answers[`Ex${this.numeroExercice}Q${3 * i}L${j}C${k}`] = answer.value
+        if (spanFeedback) {
+          if (ce.parse(answer.value).simplify().isSame(ce.parse(this.autoCorrection[3 * i][`L${j}C${k}`]))) {
+            spanFeedback.innerHTML = spanFeedback.innerHTML += '😎'
             answer.classList.add('correct')
             points++
           //  result.push('OK')
           } else {
-            divFeedback.innerHTML += '☹️'
+            spanFeedback.innerHTML += '☹️'
             answer.classList.add('incorrect')
             //    result.push('KO')
           }
@@ -216,27 +218,40 @@ export default function TableDoubleDistributivite () {
     } else {
       result.push('KO')
     }
-    const developpements = this.autoCorrection[i].reponse.developpements
-    const mfDevEclate = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i}`)
-    const mfDevReduit = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i + 1}`)
+    const developpementEclate = this.autoCorrection[3 * i + 1].reponse.valeur[0]
+    const developpementReduit = this.autoCorrection[3 * i + 2].reponse.valeur[0]
+    const mfDevEclate = document.getElementById(`champTexteEx${this.numeroExercice}Q${3 * i + 1}`)
+    const mfDevReduit = document.getElementById(`champTexteEx${this.numeroExercice}Q${3 * i + 2}`)
     if (!mfDevEclate || !mfDevReduit) throw Error('3L11-10 : il manque un mathfield pour la correction de l\'exo')
-    const spanReponseLigne1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i}`)
+    const spanReponseLigne1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${3 * i + 1}`)
     this.answers[`Ex${this.numeroExercice}Q${2 * i}`] = mfDevEclate.value
     this.answers[`Ex${this.numeroExercice}Q${2 * i + 1}`] = mfDevReduit.value
-    if (ce.parse(developpements.eclate).simplify().isSame(ce.parse(mfDevEclate.value).simplify())) {
-      if (spanReponseLigne1) {
-        spanReponseLigne1.innerHTML = spanReponseLigne1.innerHTML += '😎'
-        result.push('OK')
+    console.log(developpementEclate)
+    if (mfDevEclate.value !== '') {
+      if (ce.parse(developpementEclate).simplify().isSame(ce.parse(mfDevEclate.value).simplify())) {
+        if (spanReponseLigne1) {
+          spanReponseLigne1.innerHTML = spanReponseLigne1.innerHTML += '😎'
+          result.push('OK')
+        }
+      } else {
+        spanReponseLigne1.innerHTML += '☹️'
+        result.push('KO')
       }
     } else {
       spanReponseLigne1.innerHTML += '☹️'
       result.push('KO')
     }
-    const spanReponseLigne2 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`)
-    if (ce.parse(developpements.reduit, { canonical: true }).isSame(mfDevReduit.expression.canonical)) {
-      if (spanReponseLigne1) {
-        spanReponseLigne2.innerHTML = spanReponseLigne2.innerHTML += '😎'
-        result.push('OK')
+
+    const spanReponseLigne2 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${3 * i + 2}`)
+    if (mfDevReduit.value !== '') {
+      if (ce.parse(developpementReduit, { canonical: true }).isSame(mfDevReduit.expression.canonical)) {
+        if (spanReponseLigne1) {
+          spanReponseLigne2.innerHTML = spanReponseLigne2.innerHTML += '😎'
+          result.push('OK')
+        }
+      } else {
+        spanReponseLigne2.innerHTML += '☹️'
+        result.push('KO')
       }
     } else {
       spanReponseLigne2.innerHTML += '☹️'
