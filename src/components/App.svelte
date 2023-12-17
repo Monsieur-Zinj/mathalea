@@ -62,7 +62,7 @@
   }
 </script>
 
-<div class="subpixel-antialiased">
+<div class="subpixel-antialiased" id="appComponent">
   {#if $globalOptions.v === 'diaporama'}
     <Diaporama />
   {:else if $globalOptions.v === 'can'}
