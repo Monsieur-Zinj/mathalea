@@ -1,5 +1,5 @@
-import { notify } from '../../../main'
 import './tableauMathlive.scss'
+import { notify } from '../../../bugsnag'
 
 export interface Icell {
 texte: string
@@ -38,9 +38,13 @@ function appendCell ({ line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ
   let element: HTMLElement
   if (icell.texte === '') {
     element = document.createElement('math-field')
+    element.classList.add('tableauMathlive')
+    for (const classe of classes.split(' ')) {
+      if (classe !== '') element.classList.add(classe)
+    }
+    element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
+    element.setAttribute('virtual-keyboard-mode', 'manual')
     cell.appendChild(element)
-    const classString = `"tableauMathlive ${classes}"`
-    element.outerHTML = `<math-field id="champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}" class=${classString} virtual-keyboard-mode=manual></math-field>`
     const divDuSmiley = document.createElement('div')
     divDuSmiley.id = `divDuSmileyEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
     cell.appendChild(divDuSmiley)
