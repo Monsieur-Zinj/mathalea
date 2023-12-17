@@ -26,7 +26,7 @@ export const uuid = '0e58f'
 export const ref = '5N11-3'
 export default function FractionVersPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Compléter :'
+  this.consigne = 'Compléter.'
   this.nbQuestions = 6
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -38,6 +38,7 @@ export default function FractionVersPourcentage () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    this.introduction = this.interactif ? 'Le premier calcul est facultatif : il sera corrigé, mais ne sera pas pris en compte dans le barême.' : ''
 
     const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200]
     const listeTypeDeQuestions = combinaisonListes(typeDeDenominateurs, this.nbQuestions)
@@ -56,7 +57,7 @@ export default function FractionVersPourcentage () {
       percenti = Math.round(num * 100 / den)
       if (this.sup === 1) {
         this.interactifType = 'custom'
-        texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{num1}}{%{den1}}=\\dfrac{%{num2}}{100}=%{percent}\\%`, 'college6e', '\\ldots')
+        texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{num1}}{%{den1}}=\\dfrac{%{num2}}{100}=%{percent}\\%`, 'college6e', '\\ldots\\ldots')
         if (den < 100) {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${100 / den}}}{${den}{\\color{blue}\\times${100 / den}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {
@@ -88,21 +89,53 @@ export default function FractionVersPourcentage () {
       window.notify(`La correction de 5N11-3 n'a pas trouvé de mathfield d'id champTexteEx${this.numeroExercice}Q${i}`)
     } else {
       this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
-      const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
+      const spanFeedback = document.querySelector(`span#feedbackEx${this.numeroExercice}Q${i}`)
       const num1 = mf.getPromptValue('num1')
       const num2 = mf.getPromptValue('num2')
       const den1 = mf.getPromptValue('den1')
       const percent = mf.getPromptValue('percent')
       const test1 = ce.parse(`\\frac{${num1.replace(',', '.')}}{${den1}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{${100}}`))
+      const test1Bis = ce.parse(den1).isEqual(ce.parse('100'))
+      const test1Ter = den1 === '' || num1 === ''
       const test2 = ce.parse(num2).isSame(ce.parse(reponseAttendue))
       const test3 = ce.parse(percent).isSame(ce.parse(reponseAttendue))
-      if (test1 && test2 && test3) {
-        divFeedback.innerHTML = '😎'
+      let smiley; let feedback = ''
+      if (test2 && test3) {
+        smiley = '😎'
         result = 'OK'
-      } else {
-        divFeedback.innerHTML = '☹️'
+        if (test1) { // On a bon, mais regardons le premier calcul facultatif ici il est correct
+          if (!test1Bis) { // pas égal à 100 au dénominateur
+            feedback += 'Le premier calcul est correct mais le dénominateur ne vaut pas $100$'
+          }
+          // sinon, il n'y a rien a dire.
+        } else { // le premier calcul est faux, il faut le dire
+          if (test1Ter) {
+            feedback += 'Le premier calcul est incomplet'
+          } else {
+            feedback += 'Le premier calcul est incorrect'
+          }
+        }
+      } else { // ici le résultat est faux (ou la fraction sur 100)
+        smiley = '☹️'
         result = 'KO'
+        if (test1Ter) {
+          feedback += 'Le premier calcul est incomplet'
+        } else {
+          if (test1) { // On regarde le premier calcul ici il est juste
+            if (!test1Bis) { // pas égal à 100 au dénominateur
+              feedback += 'Le premier calcul est correct mais le dénominateur ne vaut pas $100$'
+            } else {
+              feedback += 'Le premier calcul est correct'
+            }
+          }// ici, le premier calcul est faux donc tout est faux, y a rien a dire
+        }
+        feedback += ',mais la suite est fausse.'
       }
+      const divDuFeedback = document.createElement('div')
+      divDuFeedback.classList.add('ml-2', 'py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
+      spanFeedback.innerHTML = smiley
+      divDuFeedback.innerHTML = feedback
+      spanFeedback.after(divDuFeedback)
       mf.setPromptState('num1', test1 ? 'correct' : 'incorrect', true)
       mf.setPromptState('den1', test1 ? 'correct' : 'incorrect', true)
       mf.setPromptState('num2', test2 ? 'correct' : 'incorrect', true)
