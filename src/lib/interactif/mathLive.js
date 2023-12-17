@@ -90,7 +90,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             const compareFunction = reponse.compare ?? calculCompare
 
             const inputs = Array.from(table.querySelectorAll('math-field'))
-            const input = inputs.find((el) => el.id === `Ex${exercice.numeroExercice}Q${i}${key}`)
+            const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`)
             const divDuSmiley = table.querySelector(`div#divDuSmileyEx${exercice.numeroExercice}Q${i}${key}`)
             if (compareFunction(cleanInput(input.value), cleanInput(reponse.value))) {
               points.push(1)

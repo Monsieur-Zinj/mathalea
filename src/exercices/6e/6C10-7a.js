@@ -3,9 +3,14 @@ export const titre = 'Résoudre un Yohaku additif niveau 1'
 export const dateDePublication = '10/08/2022'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const dateDeModificationImportante = '16/12/2023'
 
 export const uuid = '26bb9'
 export const ref = '6C10-7a'
+/**
+ * @author Jean-Claude Lhote
+ * @constructor
+ */
 export default function FabriqueAYohaku6A () {
   FabriqueAYohaku.call(this)
   this.sup = 10

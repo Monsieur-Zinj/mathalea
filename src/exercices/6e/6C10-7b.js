@@ -1,10 +1,16 @@
 import FabriqueAYohaku from './_Yohaku.js'
 export const titre = 'Résoudre un Yohaku multiplicatif niveau 1'
 export const dateDePublication = '10/08/2022'
+export const dateDeModificationImportante = '16/12/2023'
+
 export const interactifReady = true
 export const interactifType = 'custom'
 export const uuid = '08680'
 export const ref = '6C10-7b'
+/**
+ * @author Jean-Claude Lhote
+ * @constructor
+ */
 export default function FabriqueAYohaku6B () {
   FabriqueAYohaku.call(this)
   this.sup = 10
