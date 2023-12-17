@@ -1,11 +1,11 @@
 import { randint } from '../../modules/outils'
-import { calculer } from '../../modules/outilsMathjs'
 import { fraction } from '../../modules/fractions'
 import { choice } from './arrayOutils'
 import { context } from '../../modules/context'
 import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMathlive'
 import { tableauColonneLigne } from '../2d/tableau'
 import { ComputeEngine } from '@cortex-js/compute-engine'
+import { reduireAxPlusB } from './ecritures'
 
 const engine = new ComputeEngine()
 
@@ -67,7 +67,7 @@ export class Yohaku {
             this.cellules.push(String(randint(-valeurMax, valeurMax, 0)))
             break
           case 'littéraux' :
-            this.cellules.push(calculer(`${randint(1, valeurMax)}x + ${randint(1, valeurMax)}`, {}).printResult)
+            this.cellules.push(reduireAxPlusB(randint(1, valeurMax), randint(1, valeurMax), 'x'))
             break
           case 'fractions dénominateurs multiples':
             this.cellules.push(fraction(randint(1, valeurMax), den).texFraction.replace('dfrac', 'frac'))
@@ -96,7 +96,7 @@ export class Yohaku {
               this.cellules.push(String(randint(-valeurMax, valeurMax, 0)))
               break
             case 'littéraux' :
-              this.cellules.push(calculer(`${randint(1, valeurMax)}x + ${randint(1, valeurMax)}`, {}).printResult)
+              this.cellules.push(reduireAxPlusB(randint(1, valeurMax), randint(1, valeurMax), 'x'))
               break
             case 'fractions dénominateurs multiples':{
               const cellulePrecedente = engine.parse(this.cellules[i - 1])
@@ -176,7 +176,7 @@ export class Yohaku {
         tabLignes.push(cellule)
       } else {
         if (this.Case == null) {
-          if (this.cellulesPreremplies[i] !== '') {
+          if (this.cellulesPreremplies[i] != null) {
             tabLignes.push(this.cellulesPreremplies[i])
           } else {
             tabLignes.push('')
@@ -186,7 +186,7 @@ export class Yohaku {
             const cellule = this.cellules[i]
             tabLignes.push(cellule)
           } else {
-            if (this.cellulesPreremplies[i] !== '') {
+            if (this.cellulesPreremplies[i] != null) {
               tabLignes.push(this.cellulesPreremplies[i])
             } else {
               tabLignes.push('')
