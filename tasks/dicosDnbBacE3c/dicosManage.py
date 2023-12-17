@@ -92,6 +92,7 @@ def newEntry(file:str,dicoType:str)->list:
     # Pour les lignes à ajouter
     newLines = ''
     # On traite les fichiers tex qui ne sont pas les fichiers de correction 
+    print('Prise en compte de',filename)
     if filename[-4:] != '_cor' and  extension == ".tex" :
         if 'mathalea' in filename:
             numeroInitial = filename.split('_')[6]
@@ -104,7 +105,7 @@ def newEntry(file:str,dicoType:str)->list:
                 sujet='J2'
             newLines = f'''  {filename}: {{
     annee: '{filename[4:8]}',
-    lieu: '{locationName(filename.split('_')[3])}',
+    lieu: '{locationName(filename.split('_')[4])}',
     mois: '{monthName(filename[9:11])}',
     jour: '{sujet}',
     numeroInitial: '{numeroInitial}',
@@ -113,7 +114,7 @@ def newEntry(file:str,dicoType:str)->list:
     typeExercice: '{dicoType}',
     url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
     urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['']
   }},\n'''
         else: # Cette partie concerne le DNB et le bac avant 2022
             newLines = f'''  {filename}: {{
@@ -126,7 +127,7 @@ def newEntry(file:str,dicoType:str)->list:
     typeExercice: '{dicoType}',
     url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
     urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['']
   }},\n'''    
     
     return [newLines,filename]

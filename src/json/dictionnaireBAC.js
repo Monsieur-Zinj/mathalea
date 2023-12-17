@@ -784,9 +784,24 @@ export const dictionnaireBAC = {
     tags: ['Suites']
   },
 
+  
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
   bac_2022_05_sujet1_ameriquenord_1: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Amérique du Nord',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
@@ -799,7 +814,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_ameriquenord_2: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Amérique du Nord',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
@@ -812,7 +827,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_ameriquenord_3: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Amérique du Nord',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
@@ -825,7 +840,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_ameriquenord_4: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Amérique du Nord',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
@@ -838,7 +853,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_asie_1: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Asie',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
@@ -851,7 +866,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_asie_2: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Asie',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
@@ -864,7 +879,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_asie_3: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Asie',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
@@ -877,7 +892,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_asie_4: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Asie',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
@@ -890,7 +905,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_etrangers_1: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Centres étrangers',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
@@ -903,7 +918,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_etrangers_2: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Centres étrangers',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
@@ -916,7 +931,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_etrangers_3: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Centres étrangers',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
@@ -929,7 +944,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_etrangers_4: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Centres étrangers',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
@@ -942,7 +957,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_madagascar_1: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'madagascar',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
@@ -955,7 +970,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_madagascar_2: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'madagascar',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
@@ -968,7 +983,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_madagascar_3: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'madagascar',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
@@ -981,7 +996,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_madagascar_4: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'madagascar',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
@@ -994,7 +1009,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_metropole_1: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Métropole',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
@@ -1007,7 +1022,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_metropole_2: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Métropole',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
@@ -1020,7 +1035,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_metropole_3: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Métropole',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
@@ -1033,7 +1048,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_metropole_4: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Métropole',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
@@ -1046,7 +1061,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_polynesie_1: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Polynésie',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
@@ -1059,7 +1074,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_polynesie_2: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Polynésie',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
@@ -1072,7 +1087,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_polynesie_3: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Polynésie',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
@@ -1085,7 +1100,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_polynesie_4: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Polynésie',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
@@ -1098,7 +1113,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_ameriquenord_1: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Amérique du Nord',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
@@ -1111,7 +1126,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_ameriquenord_2: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Amérique du Nord',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
@@ -1124,7 +1139,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_ameriquenord_3: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Amérique du Nord',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
@@ -1137,7 +1152,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_ameriquenord_4: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Amérique du Nord',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
@@ -1150,7 +1165,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_asie_1: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Asie',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
@@ -1163,7 +1178,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_asie_2: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Asie',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
@@ -1176,7 +1191,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_asie_3: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Asie',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
@@ -1189,7 +1204,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_asie_4: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Asie',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
@@ -1202,7 +1217,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_etrangers_1: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Centres étrangers',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
@@ -1215,7 +1230,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_etrangers_2: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Centres étrangers',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
@@ -1228,7 +1243,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_etrangers_3: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Centres étrangers',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
@@ -1241,7 +1256,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_etrangers_4: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Centres étrangers',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
@@ -1254,7 +1269,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_madagascar_1: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'madagascar',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
@@ -1267,7 +1282,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_madagascar_2: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'madagascar',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
@@ -1280,7 +1295,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_madagascar_3: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'madagascar',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
@@ -1293,7 +1308,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_madagascar_4: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'madagascar',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
@@ -1306,7 +1321,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_metropole_1: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Métropole',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
@@ -1319,7 +1334,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_metropole_2: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Métropole',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
@@ -1332,7 +1347,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_metropole_3: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Métropole',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
@@ -1345,7 +1360,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_metropole_4: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Métropole',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
@@ -1358,7 +1373,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_polynesie_1: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Polynésie',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
@@ -1371,7 +1386,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_polynesie_2: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Polynésie',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
@@ -1384,7 +1399,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_polynesie_3: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Polynésie',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
@@ -1397,7 +1412,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_polynesie_4: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Polynésie',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
@@ -1410,7 +1425,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_ameriquesud_1: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Amérique du sud',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
@@ -1423,7 +1438,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_ameriquesud_2: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Amérique du sud',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
@@ -1436,7 +1451,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_ameriquesud_3: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Amérique du sud',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
@@ -1449,7 +1464,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_ameriquesud_4: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Amérique du sud',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
@@ -1462,7 +1477,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_metropole_1: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Métropole',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
@@ -1475,7 +1490,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_metropole_2: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Métropole',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
@@ -1488,7 +1503,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_metropole_3: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Métropole',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
@@ -1501,7 +1516,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_metropole_4: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Métropole',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
@@ -1514,7 +1529,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_polynesie_1: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Polynésie',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '1',
@@ -1527,7 +1542,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_polynesie_2: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Polynésie',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '2',
@@ -1540,7 +1555,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_polynesie_3: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Polynésie',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '3',
@@ -1553,7 +1568,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet1_polynesie_4: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Polynésie',
     mois: 'Septembre',
     jour: 'J1',
     numeroInitial: '4',
@@ -1566,7 +1581,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet2_ameriquesud_1: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Amérique du sud',
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '1',
@@ -1579,7 +1594,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet2_ameriquesud_2: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Amérique du sud',
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '2',
@@ -1592,7 +1607,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet2_ameriquesud_3: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Amérique du sud',
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '3',
@@ -1605,7 +1620,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet2_ameriquesud_4: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Amérique du sud',
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '4',
@@ -1618,7 +1633,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet2_metropole_1: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Métropole',
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '1',
@@ -1631,7 +1646,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet2_metropole_2: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Métropole',
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '2',
@@ -1644,7 +1659,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet2_metropole_3: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Métropole',
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '3',
@@ -1657,7 +1672,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_09_sujet2_metropole_4: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Métropole',
     mois: 'Septembre',
     jour: 'J2',
     numeroInitial: '4',
@@ -1670,7 +1685,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_10_sujet1_caledonie_1: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Nouvelle Calédonie',
     mois: 'Octobre',
     jour: 'J1',
     numeroInitial: '1',
@@ -1683,7 +1698,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_10_sujet1_caledonie_2: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Nouvelle Calédonie',
     mois: 'Octobre',
     jour: 'J1',
     numeroInitial: '2',
@@ -1696,7 +1711,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_10_sujet1_caledonie_3: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Nouvelle Calédonie',
     mois: 'Octobre',
     jour: 'J1',
     numeroInitial: '3',
@@ -1709,7 +1724,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_10_sujet1_caledonie_4: {
     annee: '2022',
-    lieu: 'sujet1',
+    lieu: 'Nouvelle Calédonie',
     mois: 'Octobre',
     jour: 'J1',
     numeroInitial: '4',
@@ -1722,7 +1737,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_10_sujet2_caledonie_1: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Nouvelle Calédonie',
     mois: 'Octobre',
     jour: 'J2',
     numeroInitial: '1',
@@ -1735,7 +1750,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_10_sujet2_caledonie_2: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Nouvelle Calédonie',
     mois: 'Octobre',
     jour: 'J2',
     numeroInitial: '2',
@@ -1748,7 +1763,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_10_sujet2_caledonie_3: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Nouvelle Calédonie',
     mois: 'Octobre',
     jour: 'J2',
     numeroInitial: '3',
@@ -1761,7 +1776,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_10_sujet2_caledonie_4: {
     annee: '2022',
-    lieu: 'sujet2',
+    lieu: 'Nouvelle Calédonie',
     mois: 'Octobre',
     jour: 'J2',
     numeroInitial: '4',
@@ -1772,5 +1787,7 @@ export const dictionnaireBAC = {
     urlcor: 'static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4_cor.tex',
     tags: ['']
   },
+
+
 
 }
