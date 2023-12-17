@@ -80,14 +80,14 @@ export default function FabriqueAYohaku () {
   this.correctionInteractive = (i) => {
     const taille = parseInt(this.sup3)
     let cell
-    const divFeedbacks = []
+    const spanFeedback = []
     const saisies = []
     for (let l = 0; l < taille; l++) {
-      divFeedbacks[l] = []
+      spanFeedback[l] = []
       for (let c = 0; c < taille; c++) {
         cell = document.getElementById(`champTexteEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`)
         if (cell != null) {
-          divFeedbacks[l][c] = document.querySelector(`#divDuSmileyEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`)
+          spanFeedback[l][c] = document.querySelector(`span#feedbackEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`)
           if (this.yohaku[i].type === 'littéraux') { // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
             saisies[l * taille + c] = cell.value.replace(',', '.') ?? '0'
           } else {
@@ -108,8 +108,8 @@ export default function FabriqueAYohaku () {
     if (this.saisieCoherente(saisies, taille, i)) {
       for (let l = 0; l < taille; l++) {
         for (let c = 0; c < taille; c++) {
-          if (divFeedbacks[l][c] != null) {
-            divFeedbacks[l][c].innerHTML = '😎'
+          if (spanFeedback[l][c] != null) {
+            spanFeedback[l][c].innerHTML = '😎'
           }
         }
       }
@@ -117,8 +117,8 @@ export default function FabriqueAYohaku () {
     } else {
       for (let l = 0; l < taille; l++) {
         for (let c = 0; c < taille; c++) {
-          if (divFeedbacks[l][c] != null) {
-            divFeedbacks[l][c].innerHTML = '☹️'
+          if (spanFeedback[l][c] != null) {
+            spanFeedback[l][c].innerHTML = '☹️'
           }
         }
       }

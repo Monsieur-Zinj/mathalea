@@ -45,9 +45,9 @@ function appendCell ({ line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ
     element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
     element.setAttribute('virtual-keyboard-mode', 'manual')
     cell.appendChild(element)
-    const divDuSmiley = document.createElement('div')
-    divDuSmiley.id = `divDuSmileyEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
-    cell.appendChild(divDuSmiley)
+    const spanFeedback = document.createElement('span')
+    spanFeedback.id = `feedbackEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
+    cell.appendChild(spanFeedback)
   } else {
     if (icell.latex) {
     // J'aimerais pouvoir utiliser mathlive mais ça semble poser des soucis, je remplace par katex...
@@ -225,7 +225,7 @@ export class AddTabDbleEntryMathlive {
         }
       }
     }
-    const spanCheckOuterHTML = `<span id="resultatCheckEx${numeroExercice}Q${question}"></span>`
+    const spanCheckOuterHTML = `<span id="feedbackEx${numeroExercice}Q${question}"></span>`
     // pour l'instant je retourne l'objet complet avec le HTML de la table dans sa propriété output,
     // mais il sera peut-être possible de ne retourner que le HTML comme pour ajouteChampTexteMathlive...
     tableauMathlive.output = table.outerHTML + spanCheckOuterHTML
