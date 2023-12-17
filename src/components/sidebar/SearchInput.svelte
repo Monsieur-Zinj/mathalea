@@ -161,7 +161,7 @@
         break
       case 'k':
         isKDown = true
-        event.preventDefault()
+        // event.preventDefault()
         break
       case 'Enter':
         if (isInputFocused) {
