@@ -7,11 +7,6 @@
 
 function clickKeycap (event: MouseEvent) {
   if (event.target instanceof HTMLButtonElement) {
-    const button = event.target
-    button.classList.toggle('bg-coopmaths-action-light')
-    setTimeout(() => {
-      button.classList.toggle('bg-coopmaths-action-light')
-    }, 200)
     const idMathField = $keyboard.idMathField
     const mf = document.querySelector('#' + idMathField) as MathfieldElement
     console.log({ mf, idMathField, command: `${data.command}`, insert: `${data.insert}` })
@@ -36,8 +31,8 @@ function clickKeycap (event: MouseEvent) {
 </script>
 
 <button bind:this={button}
-  class="bg-coopmaths-canvas-dark text-coopmaths-corpus py-2 px-4 text-center"
+  class="w-full h-full flex justify-center items-center text-coopmaths-corpus-light active:text-coopmaths-canvas bg-coopmaths-canvas-darkest active:bg-coopmaths-action border border-coopmaths-action py-2 px-4 text-center rounded-md"
   on:click={clickKeycap}>
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  {@html data.key}
+  <div>{@html data.key}</div>
 </button>
