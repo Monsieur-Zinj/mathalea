@@ -93,6 +93,7 @@
     headerProps.correctionExists = exercice.listeCorrections.length > 0
     headerProps.title = exercice.titre + generateTitleAddendum()
     headerProps.indiceExercice = indiceExercice
+    headerProps.indiceLastExercice = $exercicesParams.length
     headerProps.isSettingsVisible = isSettingsVisible
     headerProps = headerProps
   }

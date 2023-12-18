@@ -18,6 +18,7 @@
   import SideMenu from './sidebar/SideMenu.svelte'
   import { Sidenav, Collapse, Ripple, initTE } from 'tw-elements'
   import { flip } from 'svelte/animate'
+  import { fly, blur } from 'svelte/transition'
   import Card from './ui/Card.svelte'
   import Exercice from './exercice/Exercice.svelte'
   import {
@@ -38,6 +39,7 @@
   import AmcIcon from './icons/AmcIcon.svelte'
   import MoodleIcon from './icons/MoodleIcon.svelte'
   import Footer from './Footer.svelte'
+  import ChipsList from './ui/ChipsList.svelte'
   import Keyboard from './keyboard/KeyboardV2.svelte'
 
   let divExercices: HTMLDivElement
@@ -948,6 +950,16 @@
   >
     <i class="bx bx-chevrons-up" />
   </button>
+  <!-- Barre des chips -->
+  {#if chipsListDisplayed}
+    <div
+    in:fly={{ y: -1000 }} out:blur
+      id="exoChipsList"
+      class="z-[1090] fixed top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-2/3 flex flex-row justify-start items-center p-8 rounded-md shadow-2xl bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p"
+    >
+      <ChipsList bind:chipsListDisplayed={chipsListDisplayed}/>
+    </div>
+  {/if}
 </div>
 
 <!-- Fenêtre de dialogue pour le choix des applications tierces -->

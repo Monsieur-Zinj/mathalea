@@ -92,22 +92,42 @@ def newEntry(file:str,dicoType:str)->list:
     # Pour les lignes à ajouter
     newLines = ''
     # On traite les fichiers tex qui ne sont pas les fichiers de correction 
+    print('Prise en compte de',filename)
     if filename[-4:] != '_cor' and  extension == ".tex" :
         if 'mathalea' in filename:
-            numeroInitial = filename.split('_')[5]
+            numeroInitial = filename.split('_')[6]
         else:
-            numeroInitial = filename.split('_')[4]
-        newLines = f'''  {filename}: {{
+            numeroInitial = filename.split('_')[5]
+        if (('sujet1' in filename) or ('sujet2' in filename)):
+            if ('sujet1' in filename):
+                sujet='J1'
+            else: 
+                sujet='J2'
+            newLines = f'''  {filename}: {{
+    annee: '{filename[4:8]}',
+    lieu: '{locationName(filename.split('_')[4])}',
+    mois: '{monthName(filename[9:11])}',
+    jour: '{sujet}',
+    numeroInitial: '{numeroInitial}',
+    png: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
+    pngCor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
+    typeExercice: '{dicoType}',
+    url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
+    urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
+    tags: ['']
+  }},\n'''
+        else: # Cette partie concerne le DNB et le bac avant 2022
+            newLines = f'''  {filename}: {{
     annee: '{filename[4:8]}',
     lieu: '{locationName(filename.split('_')[3])}',
     mois: '{monthName(filename[9:11])}',
     numeroInitial: '{numeroInitial}',
     png: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
-    pngcor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
+    pngCor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
     typeExercice: '{dicoType}',
     url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
     urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
-    tags: ['...tagsToChange']
+    tags: ['']
   }},\n'''    
     
     return [newLines,filename]
@@ -238,7 +258,7 @@ def main():
     # On choisit le type de dico à synchroniser/générer
     choiceDico = ''
     while choiceDico not in ['1','2','3']:
-        choiceDico = input("""Quels dictionnaire faut-il synchroniser/générer ?
+        choiceDico = input("""Quel dictionnaire faut-il synchroniser/générer ?
         ---> 1 : DNB
         ---> 2 : BAC
         ---> 3 : E3C

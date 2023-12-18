@@ -97,7 +97,7 @@ export default function SujetCAN2023Quatrieme () {
           f = randint(1, 9, [a, b, c, d, e])
           n = new Decimal(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
           m = choice(['centaines', 'dizaines', 'dixièmes', 'centièmes', 'millièmes'])
-          texte = `Dans $${texNombre(n)}$ le chiffre des ${m} est : `
+          texte = `Dans $${texNombre(n, 3)}$ le chiffre des ${m} est : `
           switch (m) {
             case 'centaines':
               reponse = a

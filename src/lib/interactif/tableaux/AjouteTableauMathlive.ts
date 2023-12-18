@@ -1,5 +1,5 @@
-import { notify } from '../../../main'
 import './tableauMathlive.scss'
+import { notify } from '../../../bugsnag'
 
 export interface Icell {
 texte: string
@@ -38,12 +38,16 @@ function appendCell ({ line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ
   let element: HTMLElement
   if (icell.texte === '') {
     element = document.createElement('math-field')
+    element.classList.add('tableauMathlive')
+    for (const classe of classes.split(' ')) {
+      if (classe !== '') element.classList.add(classe)
+    }
+    element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
+    element.setAttribute('virtual-keyboard-mode', 'manual')
     cell.appendChild(element)
-    const classString = `"tableauMathlive ${classes}"`
-    element.outerHTML = `<math-field id="champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}" class=${classString} virtual-keyboard-mode=manual></math-field>`
-    const divDuSmiley = document.createElement('div')
-    divDuSmiley.id = `divDuSmileyEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
-    cell.appendChild(divDuSmiley)
+    const spanFeedback = document.createElement('span')
+    spanFeedback.id = `feedbackEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
+    cell.appendChild(spanFeedback)
   } else {
     if (icell.latex) {
     // J'aimerais pouvoir utiliser mathlive mais ça semble poser des soucis, je remplace par katex...
@@ -221,7 +225,7 @@ export class AddTabDbleEntryMathlive {
         }
       }
     }
-    const spanCheckOuterHTML = `<span id="resultatCheckEx${numeroExercice}Q${question}"></span>`
+    const spanCheckOuterHTML = `<span id="feedbackEx${numeroExercice}Q${question}"></span>`
     // pour l'instant je retourne l'objet complet avec le HTML de la table dans sa propriété output,
     // mais il sera peut-être possible de ne retourner que le HTML comme pour ajouteChampTexteMathlive...
     tableauMathlive.output = table.outerHTML + spanCheckOuterHTML

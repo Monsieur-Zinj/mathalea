@@ -75,7 +75,7 @@ export function listeFractions (...fractions) {
  * Construit et Retourne un objet FractionEtendue(a, b)
  * @param {number} a
  * @param {number} b
- * @return {FractionEtendue|number}
+ * @return {FractionEtendue}
  */
 export function fraction (a, b) {
   if (b === undefined) { // pas d'argument b

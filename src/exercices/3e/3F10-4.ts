@@ -202,13 +202,13 @@ class LireImageParApiGeom extends Exercice {
       if (answer == null) throw Error(`Il n'y a pas de math-field d'id champTexteEx${this.numeroExercice}QOL1C${k + 1} dans ce tableau !`)
       const valeur = Number(answer.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1'))
       if (valeur) this.answers[`Ex${this.numeroExercice}Q0L1C${k + 1}`] = String(valeur)
-      const divFeedback = tableau.querySelector(`div#divDuSmileyEx${this.numeroExercice}Q0L1C${k + 1}`)
-      if (divFeedback) {
+      const spanFeedback = tableau.querySelector(`span#feedbackEx${this.numeroExercice}Q0L1C${k + 1}`)
+      if (spanFeedback) {
         if (egal(valeur, this.Y[k], 0.1)) {
-          divFeedback.innerHTML = divFeedback.innerHTML += '😎'
+          spanFeedback.innerHTML = spanFeedback.innerHTML += '😎'
           result.push('OK')
         } else {
-          divFeedback.innerHTML += '☹️'
+          spanFeedback.innerHTML += '☹️'
           result.push('KO')
         }
       }

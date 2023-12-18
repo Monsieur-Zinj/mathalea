@@ -53,7 +53,7 @@ for (const ex in dictionnaireBAC) {
   })
 }
 
-for (const annee of ['2021']) {
+for (const annee of ['2021', '2022', '2023', '2024', '2025', '2026']) {
   referentiel.BAC[annee] = {}
   for (const ex in dictionnaireBAC) {
     if (dictionnaireBAC[ex].annee === annee) {

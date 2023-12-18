@@ -1,11 +1,17 @@
 import FabriqueAYohaku from '../6e/_Yohaku.js'
 export const titre = 'Résoudre un Yohaku additif fractions niveau 1'
 export const dateDePublication = '10/08/2022'
+export const dateDeModificationImportante = '16/12/2023'
+
 export const interactifReady = true
 export const interactifType = 'custom'
 
 export const uuid = '1a61d'
 export const ref = '4C21-2'
+/**
+ * @author Jean-Claude Lhote
+ * @constructor
+ */
 export default function FabriqueAYohaku4CF2 () {
   FabriqueAYohaku.call(this)
   this.sup = 10
