@@ -904,7 +904,6 @@
               <div class="hidden md:flex items-center justify-center">
                 <Footer />
               </div>
-              <Keyboard/>
 
             </div>
           {:else}
@@ -960,6 +959,8 @@
       <ChipsList bind:chipsListDisplayed={chipsListDisplayed}/>
     </div>
   {/if}
+  <Keyboard/>
+
 </div>
 
 <!-- Fenêtre de dialogue pour le choix des applications tierces -->

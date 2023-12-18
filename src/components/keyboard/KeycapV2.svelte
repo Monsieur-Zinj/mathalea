@@ -31,7 +31,7 @@ function clickKeycap (event: MouseEvent) {
 </script>
 
 <button bind:this={button}
-  class="w-full h-full flex justify-center items-center text-coopmaths-corpus-light active:text-coopmaths-canvas bg-coopmaths-canvas-darkest active:bg-coopmaths-action border border-coopmaths-action py-2 px-4 text-center rounded-md"
+  class="min-w-[20px]  md:min-w-[30px] lg:min-w-[40px] xl:min-w-[80px] h-full flex justify-center items-center text-xs md:text-base text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas dark:active:text-coopmathsdark-canvas bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest active:bg-coopmaths-action dark:active:bg-coopmathsdark-action border border-coopmaths-action dark:border-coopmathsdark-action py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md"
   on:click={clickKeycap}>
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   <div>{@html data.key}</div>

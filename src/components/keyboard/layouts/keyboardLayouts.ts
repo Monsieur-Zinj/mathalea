@@ -91,15 +91,15 @@ export const usual: KeyboardLayout = {
   right: {
     row0: [
       {
-        key: '⬅',
+        key: '<i class="bx bx-arrow-back bx-xs"/>',
         command: ['performWithFeedback', 'moveToPreviousChar']
       },
       {
-        key: '➡︎',
+        key: '<i class="bx bx-arrow-back bx-rotate-180 bx-xs"/>',
         command: ['performWithFeedback', 'moveToNextChar']
       },
       {
-        key: '❌',
+        key: '<i class="bx bx-window-close bx-xs"/>',
         command: 'closeKeyboard'
       }
     ],
