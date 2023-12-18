@@ -19,9 +19,7 @@ keyboard.subscribe(async (value) => {
     Cela fonctionne avec Eleve.svelte mais pas Start.svelte
 -->
 <div class='h-[30vh]'>
-
-</div>
-<div bind:this={divKeyboard} class="bg-black p-4 grid md:grid-cols-3 gap-6 w-full h-[30vh] fixed bottom-0 left-0 right-0 z-[9999]">
+  <div bind:this={divKeyboard} class="bg-black p-4 grid md:grid-cols-3 gap-6 w-full h-[30vh] fixed bottom-0 left-0 right-0 z-[9999]">
     <div class="grid grid-cols-3 gap-2 h-full">
         <Keycap>x</Keycap>
         <Keycap>y</Keycap>
@@ -63,4 +61,6 @@ keyboard.subscribe(async (value) => {
         <Keycap command={'closeKeyboard'}>❌</Keycap>
     </div>
 </div>
+</div>
+
 {/if}

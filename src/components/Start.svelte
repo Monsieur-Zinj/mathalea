@@ -38,7 +38,7 @@
   import AmcIcon from './icons/AmcIcon.svelte'
   import MoodleIcon from './icons/MoodleIcon.svelte'
   import Footer from './Footer.svelte'
-  import Keyboard from './keyboard/Keyboard.svelte';
+  import Keyboard from './keyboard/KeyboardV2.svelte'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
