@@ -293,7 +293,7 @@ import {
             type="text"
             id="export-latex-reference-input"
             class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder={style === 'Coopmaths'
+            placeholder={style === 'Coopmaths' || style === 'ProfMaquetteQrcode' || style === 'ProfMaquette'
               ? 'Référence'
               : 'Haut de page gauche'}
             bind:value={reference}
@@ -303,7 +303,7 @@ import {
             type="text"
             id="export-latex-soustitre-input"
             class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder={style === 'Coopmaths'
+            placeholder={style === 'Coopmaths' || style === 'ProfMaquetteQrcode' || style === 'ProfMaquette'
               ? 'Sous-titre / Chapitre'
               : 'Pied de page droit'}
             bind:value={subtitle}

@@ -5129,9 +5129,9 @@
     "typeExercice": "alea"
   },
   "3L11": {
-    "url": "3e/3L11new.js",
+    "url": "3e/3L11.js",
     "tags": [],
-    "uuid": "db2e0",
+    "uuid": "77a62",
     "id": "3L11",
     "titre": "Utiliser la simple distributivité",
     "features": {
@@ -21652,7 +21652,7 @@
     "tags": [],
     "uuid": "892f2",
     "id": "can6C39",
-    "titre": "Trouver une valeur dans un Yohaku (multiplicatif)",
+    "titre": "Trouver une valeur dans un Yohaku (additif)",
     "datePublication": "10/08/2022",
     "features": {
       "interactif": {
