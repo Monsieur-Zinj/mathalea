@@ -54,14 +54,14 @@ export default function ProblemesEvenementsRecurrents () {
       min: 1,
       max: valMaxParametre - 1,
       melange: valMaxParametre,
+      nbQuestions: this.nbQuestions,
       defaut: 1
     })
     const listeDesSaveurs = ['guirlande', 'voiture', 'fusée', 'restau-ciné', 'engrenages']
-    let saveurs = []
+    const saveurs = []
     for (const probleme of listeDesProblemes) {
       saveurs.push(listeDesSaveurs[probleme - 1])
     }
-    saveurs = combinaisonListes(saveurs, this.nbQuestions)
     for (let i = 0, texte, texteCorr, indicesFacteursCommuns, indicesFacteursA, indicesFacteursB, Commun, A, B, decompositionCommun, decompositionA, decompositionB, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       indicesFacteursCommuns = []
       switch (this.sup) {
