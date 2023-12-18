@@ -15,7 +15,7 @@ function clickKeycap (event: MouseEvent) {
     }, 200)
     const idMathField = $keyboard.idMathField
     const mf = document.querySelector('#' + idMathField) as MathfieldElement
-    console.log({mf, idMathField, command, insert })
+    console.log({ mf, idMathField, command, insert })
     if (mf != null) {
       mf.focus()
       if (command === 'closeKeyboard') {
