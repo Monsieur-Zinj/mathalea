@@ -7894,4 +7894,137 @@ export const dictionnaireDNB = {
     tags: ['Coordonnées terrestres', 'Durées', 'Statistiques', 'Vitesses']
   },
 
+  dnb_2023_10_amsud_1: {
+    annee: '2023',
+    lieu: 'amsud',
+    mois: 'Octobre',
+    numeroInitial: '1',
+    png: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_1.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_1_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_10_amsud_1.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_1_cor.tex',
+    tags: ['']
+  },
+  dnb_2023_10_amsud_2: {
+    annee: '2023',
+    lieu: 'amsud',
+    mois: 'Octobre',
+    numeroInitial: '2',
+    png: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_2.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_2_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_10_amsud_2.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_2_cor.tex',
+    tags: ['']
+  },
+  dnb_2023_10_amsud_3: {
+    annee: '2023',
+    lieu: 'amsud',
+    mois: 'Octobre',
+    numeroInitial: '3',
+    png: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_3.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_3_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_10_amsud_3.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_3_cor.tex',
+    tags: ['']
+  },
+  dnb_2023_10_amsud_4: {
+    annee: '2023',
+    lieu: 'amsud',
+    mois: 'Octobre',
+    numeroInitial: '4',
+    png: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_4.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_4_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_10_amsud_4.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_4_cor.tex',
+    tags: ['']
+  },
+  dnb_2023_10_amsud_5: {
+    annee: '2023',
+    lieu: 'amsud',
+    mois: 'Octobre',
+    numeroInitial: '5',
+    png: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_5.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_10_amsud_5_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_10_amsud_5.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_5_cor.tex',
+    tags: ['']
+  },
+  dnb_2023_12_caledonie_1: {
+    annee: '2023',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '1',
+    png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_1.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_1_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_1.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_1_cor.tex',
+    tags: ['']
+  },
+  dnb_2023_12_caledonie_2: {
+    annee: '2023',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '2',
+    png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_2.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_2_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_2.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_2_cor.tex',
+    tags: ['']
+  },
+  dnb_2023_12_caledonie_3: {
+    annee: '2023',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '3',
+    png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_3.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_3_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_3.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_3_cor.tex',
+    tags: ['']
+  },
+  dnb_2023_12_caledonie_4: {
+    annee: '2023',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '4',
+    png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_4.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_4_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_4.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_4_cor.tex',
+    tags: ['']
+  },
+  dnb_2023_12_caledonie_5: {
+    annee: '2023',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '5',
+    png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_5.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_5_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_5.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_5_cor.tex',
+    tags: ['']
+  },
+  dnb_2023_12_caledonie_6: {
+    annee: '2023',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '6',
+    png: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_6.png',
+    pngCor: 'static/dnb/2023/tex/png/dnb_2023_12_caledonie_6_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_6.tex',
+    urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_6_cor.tex',
+    tags: ['']
+  },
+
 }
