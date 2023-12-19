@@ -92,13 +92,13 @@ def newEntry(file:str,dicoType:str)->list:
     # Pour les lignes à ajouter
     newLines = ''
     # On traite les fichiers tex qui ne sont pas les fichiers de correction 
-    print('Prise en compte de',filename)
     if filename[-4:] != '_cor' and  extension == ".tex" :
-        if 'mathalea' in filename:
+        if 'mathalea' in filename: # EE : Pas encore trouvé à quel occasion cela l'était
             numeroInitial = filename.split('_')[6]
-        else:
-            numeroInitial = filename.split('_')[5]
+        else: # EE : Ici, on considère que c'est le DNB
+            numeroInitial = filename.split('_')[4]
         if (('sujet1' in filename) or ('sujet2' in filename)):
+            numeroInitial = filename.split('_')[5] # EE : Ici, on considère que c'est le BAC
             if ('sujet1' in filename):
                 sujet='J1'
             else: 
@@ -184,14 +184,18 @@ def insertNewEntries(pathName:str,dicoPath:str,dicoType:str):
 
     # On ouvre le dico en ajout
     content = open(dicoPath, 'a')
+    print()
     # On ajoute les nouvelles entrées
     for (dirpath, dirnames, filenames) in os.walk(pathName):
         # Parcourt tout le répertoire
         for file in sorted(filenames):
             new = newEntry(file,dicoType)
             # On ajoute l'entrée s'il elle n'existe pas déjà
-            if (new[1] not in currentEntries):              
-                content.writelines(new[0])    
+            if (new[0]!='') :
+                if (new[1] not in currentEntries):
+                    if (new[1][-3:]!='cor') : # Pour éviter d'afficher ici les corrections. Seuls les sujets nous intéressent.
+                        print('Prise en compte de',new[1])
+                    content.writelines(new[0])    
     # On referme la dernière accolade
     lastAcc = '''
 }\n'''
