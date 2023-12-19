@@ -33,6 +33,10 @@ function clickKeycap (event: MouseEvent) {
 <button bind:this={button}
   class="min-w-[20px]  md:min-w-[30px] lg:min-w-[40px] xl:min-w-[80px] h-full flex justify-center items-center text-xs md:text-base text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas dark:active:text-coopmathsdark-canvas bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest active:bg-coopmaths-action dark:active:bg-coopmathsdark-action border border-coopmaths-action dark:border-coopmathsdark-action py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md"
   on:click={clickKeycap}>
-  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-  <div>{@html data.key}</div>
+  <div id="key-{data.key}" class="relative">
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    {@html data.key}
+    <div class="absolute bg-blue-500 bg-opacity-10 top-0 bottom-0 left-0 right-0">
+    </div>
+  </div>
 </button>
