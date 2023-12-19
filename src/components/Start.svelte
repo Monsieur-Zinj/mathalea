@@ -40,7 +40,7 @@
   import MoodleIcon from './icons/MoodleIcon.svelte'
   import Footer from './Footer.svelte'
   import ChipsList from './ui/ChipsList.svelte'
-  import Keyboard from './keyboard/KeyboardV2.svelte'
+  import Keyboard from './keyboard/KeyboardV3.svelte'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true

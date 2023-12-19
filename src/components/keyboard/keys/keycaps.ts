@@ -1,6 +1,4 @@
-import type { KeyCap } from '../layouts/keyboardTypes'
-
-export const keys: Record<string, KeyCap> = {
+export const keys = {
   // ================== numbers
   0: { key: '0' },
   1: { key: '1' },
@@ -123,5 +121,22 @@ export const keys: Record<string, KeyCap> = {
   // ================== hours, minutes, secondes
   HOUR: { key: 'h' },
   MIN: { key: 'min' },
-  SEC: { key: 's' }
+  SEC: { key: 's' },
+  // ================== special keys
+  BACK: {
+    key: '<i class="bx bx-arrow-back bx-xs"/>',
+    command: ['performWithFeedback', 'moveToPreviousChar']
+  },
+  FWD: {
+    key: '<i class="bx bx-arrow-back bx-rotate-180 bx-xs"/>',
+    command: ['performWithFeedback', 'moveToNextChar']
+  },
+  CLOSE: {
+    key: '<i class="bx bx-window-close bx-xs"/>',
+    command: 'closeKeyboard'
+  },
+  DEL: {
+    key: '&#x232b;',
+    command: ['performWithFeedback', 'deleteBackward']
+  }
 }
