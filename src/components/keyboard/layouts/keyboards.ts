@@ -1,4 +1,4 @@
-import type { BlockLayout, CustomKeyboard, KeysList } from '../types/KBContent'
+import type { BlockLayout, CustomKeyboard, KeysList } from '../types/keyboardContent'
 
 const specialKeys: KeysList = ['BACK', 'FWD', 'DEL', 'CLOSE']
 const numericCapsForNumPad: KeysList = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ',', 'FRAC']
@@ -29,6 +29,6 @@ export const specialKeysInLine: BlockLayout = {
   }
 }
 
-// Keyboard declaration
+// Keyboards declarations
 export const numeric: CustomKeyboard = [numericBlock]
 export const numeric2: CustomKeyboard = [numericInLine]

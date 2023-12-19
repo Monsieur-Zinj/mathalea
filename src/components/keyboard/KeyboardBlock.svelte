@@ -1,13 +1,13 @@
 <script lang="ts">
-  import type { BlockContent } from './layouts/keyboardTypes'
-  import Key from './KeycapV2.svelte'
-  export let block: BlockContent
+  import Key from './Keycap.svelte'
+  import { keys } from './layouts/keycaps'
+  import type { BlockLayout } from './types/keyboardContent'
+  export let block: BlockLayout
+  export let isSpecial: boolean = false
 </script>
 
-<div class={$$props.class || ''}>
-  {#each Object.values(block).reverse() as row}
-    {#each row as data}
-      <Key {data} />
-    {/each}
+<div class="grid grid-cols-{block.layout.numOfCols} gap-1 md:gap-2 h-full">
+  {#each Object.values(block.content) as key}
+      <Key data={keys[key]} {isSpecial} />
   {/each}
 </div>

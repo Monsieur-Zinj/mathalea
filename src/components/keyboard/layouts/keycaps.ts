@@ -124,15 +124,15 @@ export const keys = {
   SEC: { key: 's' },
   // ================== special keys
   BACK: {
-    key: '<i class="bx bx-arrow-back bx-xs"/>',
+    key: '<i class="bx bx-arrow-back bx-xs md:bx-sm"/>',
     command: ['performWithFeedback', 'moveToPreviousChar']
   },
   FWD: {
-    key: '<i class="bx bx-arrow-back bx-rotate-180 bx-xs"/>',
+    key: '<i class="bx bx-arrow-back bx-rotate-180 bx-xs md:bx-sm"/>',
     command: ['performWithFeedback', 'moveToNextChar']
   },
   CLOSE: {
-    key: '<i class="bx bx-window-close bx-xs"/>',
+    key: '<i class="bx bx-x bx-xs md:bx-sm"/>',
     command: 'closeKeyboard'
   },
   DEL: {

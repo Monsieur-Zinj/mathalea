@@ -7,7 +7,8 @@
     darkMode,
     exercicesParams,
     globalOptions,
-    isModalForStaticsVisible
+    isModalForStaticsVisible,
+    keyboard
   } from './stores/generalStore'
   import {
     mathaleaUpdateExercicesParamsFromUrl,
@@ -40,7 +41,7 @@
   import MoodleIcon from './icons/MoodleIcon.svelte'
   import Footer from './Footer.svelte'
   import ChipsList from './ui/ChipsList.svelte'
-  import Keyboard from './keyboard/KeyboardV3.svelte'
+  import Keyboard from './keyboard/Keyboard.svelte'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
@@ -414,6 +415,7 @@
                   class="text-3xl"
                   on:click={() => {
                     $exercicesParams.length = 0
+                    $keyboard.isVisible = false
                   }}
                 />
               </div>
