@@ -784,20 +784,6 @@ export const dictionnaireBAC = {
     tags: ['Suites']
   },
 
-  
-  },
-
-
-
-
-
-
-
-
-
-
-
-
 
   bac_2022_05_sujet1_ameriquenord_1: {
     annee: '2022',
