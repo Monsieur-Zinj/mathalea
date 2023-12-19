@@ -1,8 +1,11 @@
 import type { BlockLayout, CustomKeyboard, KeysList } from '../types/keyboardContent'
 
+// Keycaps lists
 const specialKeys: KeysList = ['BACK', 'FWD', 'DEL', 'CLOSE']
 const numericCapsForNumPad: KeysList = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ',', 'FRAC']
 const numericCapsInLine: KeysList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, ',', 'FRAC']
+
+// Blocks of keycaps
 const numericBlock: BlockLayout = {
   content: numericCapsForNumPad,
   layout: { numOfCols: 3, numOfRows: 4 }

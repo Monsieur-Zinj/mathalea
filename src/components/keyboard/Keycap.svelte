@@ -25,6 +25,7 @@
             return value
           })
         } else if (data.command && data.command[0] !== '') {
+          // @ts-expect-error : command doit être compatible avec MathLive
           mf.executeCommand(data.command)
         } else {
           console.log(data.insert)
