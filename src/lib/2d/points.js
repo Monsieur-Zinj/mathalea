@@ -294,7 +294,7 @@ export function TracePoint (...points) {
           c.isVisible = false
           c.epaisseur = this.epaisseur
           c.opacite = this.opacite
-          c.couleurDeRemplissage = this.color
+          c.couleurDeRemplissage = this.color[0]
           c.opaciteDeRemplissage = this.opacite / 2
           objetssvg.push(c)
         } else if (this.style === '#') {
@@ -402,7 +402,7 @@ export function TracePoint (...points) {
           s1 = plot(A.x, A.y, {
             couleur: this.color[0],
             rayon: this.epaisseur * 0.05,
-            couleurDeRemplissage: this.color[0] // je mets la couleur html, car elle va être parsée par colorToLatexOrHtml à nouveau
+            couleurDeRemplissage: this.color[1] // je mets la couleur html, car elle va être parsée par colorToLatexOrHtml à nouveau
           })
           objetstikz.push(s1)
         }
