@@ -284,12 +284,15 @@ function convertHexToRGB (couleur = '000000') {
 export function colorToLatexOrHTML (couleur) {
   const tabCouleur = []
   let rgb = []
-  if (Array.isArray(couleur)) return couleur // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
-  // else if (couleur === undefined || couleur === '') return '' // EE : 01/10/2023 : Code commenté au profit de celui de dessus pour vérifier si une couleur nulle se ballade dans le projet.
-  else if (couleur === undefined || couleur === '') {
+  if (Array.isArray(couleur)) {
+    if (couleur[1] === 'none') couleur[1] = '' // pas de 'none' comme couleur en latex !
+    return couleur
+    // Si jamais une fonction rappelle une couleur qui aurait déjà été transformée par cette même fonction
+    // else if (couleur === undefined || couleur === '') return '' // EE : 01/10/2023 : Code commenté au profit de celui de dessus pour vérifier si une couleur nulle se ballade dans le projet.
+  } else if (couleur === undefined || couleur === '') {
     window.notify('Une couleur est undefined ou bien une chaine vide. Veuillez le signaler aux développeurs de MathALEA.', { couleur })
     return ''
-  } else if (couleur === 'none') return ['none', 'none']
+  } else if (couleur === 'none') return ['none', ''] // 'none' n'est pas une couleur valide en latex ! Modifié par Jean-Claude Lhote le 19:&é:éàé"
   else {
     tabCouleur[0] = couleur
     if (couleur[0] === '#') {

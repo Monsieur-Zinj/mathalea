@@ -958,7 +958,7 @@ export function PapierPointe ({
             rayon: pointRayon,
             couleur: pointColor,
             opacite,
-            couleurDeRemplissage: 'None',
+            couleurDeRemplissage: 'black',
             opaciteDeRemplissage
           }))
           this.listeCoords.push([x, y])
@@ -978,21 +978,21 @@ export function PapierPointe ({
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: 'None',
+              couleurDeRemplissage: context.isHtml ? 'none' : '',
               opaciteDeRemplissage
             }))
             plots.push(plot(x + xstep1, y + ystep1 / 2, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: 'None',
+              couleurDeRemplissage: context.isHtml ? 'none' : '',
               opaciteDeRemplissage
             }))
             plots.push(plot(x + xstep1, y + ystep1 * 1.5, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: 'None',
+              couleurDeRemplissage: context.isHtml ? 'none' : '',
               opaciteDeRemplissage
             }))
             this.listeCoords.push([x, y], [x + xstep1, y + ystep1 / 2], [x + xstep1, y + ystep1 * 1.5])
@@ -1001,7 +1001,7 @@ export function PapierPointe ({
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: 'None',
+              couleurDeRemplissage: context.isHtml ? 'none' : '',
               opaciteDeRemplissage
             }))
             this.listeCoords.push([x, y + ystep1 / 2])
@@ -1023,28 +1023,28 @@ export function PapierPointe ({
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: 'None',
+              couleurDeRemplissage: context.isHtml ? 'none' : '',
               opaciteDeRemplissage
             }))
             plots.push(plot(x, y + ystep1, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: 'None',
+              couleurDeRemplissage: context.isHtml ? 'none' : '',
               opaciteDeRemplissage
             }))
             plots.push(plot(x + xstep1, y + ystep1 / 2, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: 'None',
+              couleurDeRemplissage: context.isHtml ? 'none' : '',
               opaciteDeRemplissage
             }))
             plots.push(plot(x + xstep1, y + ystep1 * 1.5, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: 'None',
+              couleurDeRemplissage: context.isHtml ? 'none' : '',
               opaciteDeRemplissage
             }))
             this.listeCoords.push([x, y], [x, y + ystep1], [x + xstep1, y + ystep1 / 2], [x + xstep1, y + ystep1 * 1.5])
@@ -1053,14 +1053,14 @@ export function PapierPointe ({
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: 'None',
+              couleurDeRemplissage: context.isHtml ? 'none' : '',
               opaciteDeRemplissage
             }))
             plots.push(plot(x, y + ystep1 / 2, {
               rayon: pointRayon,
               couleur: pointColor,
               opacite,
-              couleurDeRemplissage: 'None',
+              couleurDeRemplissage: context.isHtml ? 'none' : '',
               opaciteDeRemplissage
             }))
             this.listeCoords.push([x + xstep1, y + ystep1], [x, y + ystep1 / 2])
