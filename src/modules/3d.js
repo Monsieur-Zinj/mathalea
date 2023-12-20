@@ -7,7 +7,7 @@ import { labelPoint } from '../lib/2d/textes.js'
 import { translation } from '../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires.js'
 import { arrondi } from '../lib/outils/nombres.js'
-import { assombrirOuEclaircir, colorToLatexOrHTML, vide2d } from './2dGeneralites.js'
+import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, vide2d } from './2dGeneralites.js'
 import { context } from './context.js'
 
 const math = { matrix, multiply, norm, cross, dot }
@@ -2208,6 +2208,8 @@ export class CodageAngleDroit3D extends ObjetMathalea2D {
     const M2 = point3d(x, y, z)
     const M1M2 = arete3d(M1, M2, color)
     const M2M3 = arete3d(M2, M3, color)
+    const bordures = fixeBordures([M1M2.c2d, M2M3.c2d])
+    this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
     this.svg = function (coeff) {
       return M1M2.c2d.svg(coeff) + M2M3.c2d.svg(coeff)
     }
