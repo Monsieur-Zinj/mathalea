@@ -154,7 +154,7 @@ export default function DeriveeProduit () {
           const a = poly1.monomes[1]
           const polExpand = mon2.multiply(poly1)
           // Début correction
-          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times(${exprf2})+(${mon2.toMathExpr()})\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
+          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{(${mon2.derivee()})}_{u'(x)}\\times(${exprf2})+(${mon2.toMathExpr()})\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
           texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${mon2.derivee().multiply(poly1)}${mon2.multiply(a).toMathExpr(true)}.\\]`
           texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${polExpand.derivee()}.\\]`
           // Remarque sur la méthode alternative
