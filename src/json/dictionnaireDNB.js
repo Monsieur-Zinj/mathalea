@@ -7904,7 +7904,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_10_amsud_1.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_1_cor.tex',
-    tags: ['']
+    tags: ['Pythagore', 'Trigonométrie', 'Géométrie plane', 'Agrandissement-réduction', 'Aires et périmètres']
   },
   dnb_2023_10_amsud_2: {
     annee: '2023',
@@ -7916,7 +7916,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_10_amsud_2.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_2_cor.tex',
-    tags: ['']
+    tags: ['Aires et périmètres', 'Calcul littéral', 'Fonctions', 'Tableur', 'Lecture graphique']
   },
   dnb_2023_10_amsud_3: {
     annee: '2023',
@@ -7928,7 +7928,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_10_amsud_3.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_3_cor.tex',
-    tags: ['']
+    tags: ['Vrai-faux', 'Proportionnalité', 'Arithmétique', 'Calcul littéral']
   },
   dnb_2023_10_amsud_4: {
     annee: '2023',
@@ -7940,7 +7940,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_10_amsud_4.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_4_cor.tex',
-    tags: ['']
+    tags: ['Volumes', 'Grandeurs composées', 'Proportionnalité']
   },
   dnb_2023_10_amsud_5: {
     annee: '2023',
@@ -7952,7 +7952,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_10_amsud_5.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_5_cor.tex',
-    tags: ['']
+    tags: ['Probabilités', 'Algorithmique-Programmation']
   },
   dnb_2023_12_caledonie_1: {
     annee: '2023',
@@ -7964,7 +7964,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_1.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_1_cor.tex',
-    tags: ['']
+    tags: ['QCM', 'Probabilités', 'Puissances', 'Calcul numérique', 'Transformations', 'Statistiques']
   },
   dnb_2023_12_caledonie_2: {
     annee: '2023',
@@ -7976,7 +7976,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_2.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_2_cor.tex',
-    tags: ['']
+    tags: ['Arithmétique']
   },
   dnb_2023_12_caledonie_3: {
     annee: '2023',
@@ -7988,7 +7988,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_3.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_3_cor.tex',
-    tags: ['']
+    tags: ['Trigonométrie', 'Aires et périmètres', 'Pythagore', 'Volumes', 'Grandeurs composées']
   },
   dnb_2023_12_caledonie_4: {
     annee: '2023',
@@ -8000,7 +8000,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_4.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_4_cor.tex',
-    tags: ['']
+    tags: ['Géométrie plane', 'Thalès', 'Vitesses', 'Durées']
   },
   dnb_2023_12_caledonie_5: {
     annee: '2023',
@@ -8012,7 +8012,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_5.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_5_cor.tex',
-    tags: ['']
+    tags: ['Fonctions', 'Tableur', 'Calcul littéral', 'Équations']
   },
   dnb_2023_12_caledonie_6: {
     annee: '2023',
@@ -8024,7 +8024,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_6.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_6_cor.tex',
-    tags: ['']
+    tags: ['Géométrie plane', 'Algorithmique-Programmation']
   },
 
 }
