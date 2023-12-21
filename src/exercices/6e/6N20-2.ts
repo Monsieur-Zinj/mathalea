@@ -1,4 +1,4 @@
-import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
+import { shuffle } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../ExerciceTs'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -34,13 +34,9 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
       "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1 puis donner l'écriture décimale."
     this.spacing = 2
     this.spacingCorr = 2
-    this.sup = false
-    this.sup2 = '11'
-    this.besoinFormulaireCaseACocher = [
-      'Exercice à la carte (à paramétrer dans le formulaire suivant)',
-      false
-    ]
-    this.besoinFormulaire2Texte = [
+    this.sup = '2-4-4-5-5-5-8-8-10-10-10-10'
+
+    this.besoinFormulaireTexte = [
       'Dénominateurs à choisir',
       'Nombres séparés par des tirets\n2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange'
     ]
@@ -60,85 +56,25 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
       nbQuestions: this.nbQuestions,
       exclus: [3, 6, 7, 9]
     })
-    let fractions : [number, number, string][] = []
-    let fractions1: [number, number, string][] = []
-    let aleaMax: number
-    if (!this.sup) {
-      aleaMax = 10
-      fractions = [
-        [1, 2, ',5'],
-        [1, 4, ',25'],
-        [3, 4, ',75'],
-        [1, 5, ',2'],
-        [2, 5, ',4'],
-        [3, 5, ',6'],
-        [4, 5, ',8'],
-        [1, 8, ',125'],
-        [3, 8, ',375'],
-        [1, 10, ',1'],
-        [3, 10, ',3'],
-        [7, 10, ',7'],
-        [9, 10, ',9']
-      ] // Fractions irréductibles avec une écriture décimale exacte
-      fractions1 = [
-        [1, 2, ',5'],
-        [1, 4, ',25'],
-        [3, 4, ',75'],
-        [1, 8, ',125']
-      ]
-      fractions1.push(
-        choice([
-          [1, 10, ',1'],
-          [2, 10, ',2'],
-          [3, 10, ',3'],
-          [7, 10, ',7'],
-          [9, 10, ',9']
-        ])
-      )
-      fractions1.push(
-        choice([
-          [1, 5, ',2'],
-          [2, 5, ',4'],
-          [3, 5, ',6'],
-          [4, 5, ',8']
-        ])
-      ) // liste_fractions pour les 6 premières questions
-      shuffle(fractions1) // on mélange les fractions
-    } else {
-      const nbDenominateursDifferents : number = new Set(listeDenominateurs).size
-      aleaMax = Math.ceil(this.nbQuestions / nbDenominateursDifferents)
-      const fractionsUsed: { [id: number]: number [] } = {}
-      for (let i = 0; i < this.nbQuestions; i++) {
-        const b : number = listeDenominateurs[i]
-        if (!fractionsUsed[b]) fractionsUsed[b] = shuffle(Array.from({ length: b - 1 }, (_, i) => i + 1)) // tous les numérateurs possibles...
-        const num : number = fractionsUsed[b].pop() ?? 1 // choisi un numérateur au hasard
-        let partieDecimale : string = ((num * 1000) / b).toString() // avec les 8e on a 3 chiffres, avec les 4 2...
-        partieDecimale = ',' + (partieDecimale.match(/[1-9]+/g)?.[0] ?? '')
-        fractions.push([num, b, partieDecimale])
-      }
-      shuffle(fractions)
+    const fractions : [number, number, string][] = []
+    const nbDenominateursDifferents : number = new Set(listeDenominateurs).size
+    const aleaMax = Math.ceil(this.nbQuestions / nbDenominateursDifferents)
+    const fractionsUsed: { [id: number]: number [] } = {}
+    for (let i = 0; i < this.nbQuestions; i++) {
+      const b: number = listeDenominateurs[i]
+      if (!fractionsUsed[b]) fractionsUsed[b] = shuffle(Array.from({ length: b - 1 }, (_, i) => i + 1)) // tous les numérateurs possibles...
+      const num: number = fractionsUsed[b].pop() ?? 1 // choisi un numérateur au hasard
+      let partieDecimale: string = ((num * 1000) / b).toString() // avec les 8e on a 3 chiffres, avec les 4 2...
+      partieDecimale = ',' + (partieDecimale.match(/[1-9]+/g)?.[0] ?? '')
+      fractions.push([num, b, partieDecimale])
     }
-    for (let i = 0, cpt = 0, fraction, num : number, ecriDec : string, den : number, numPartieFrac : number, entier : number, texte : string, texteCorr : string; i < this.nbQuestions && cpt < 100; cpt++) {
-      if (!this.sup) {
-        // version Rémi
-        if (i < 6) {
-          fraction = fractions1.pop()
-        } else {
-          fraction = choice(fractions)
-        }
-        numPartieFrac = fraction[0]
-        den = fraction[1]
-        entier = randint(1, 4)
-        num = entier * den + numPartieFrac
-        ecriDec = entier.toString() + fraction[2]
-      } else {
-        // Version Jean-Luc configurable
-        numPartieFrac = fractions[i][0]
-        den = fractions[i][1]
-        entier = randint(1, aleaMax)
-        num = entier * den + numPartieFrac
-        ecriDec = entier.toString() + fractions[i][2]
-      }
+    shuffle(fractions)
+    for (let i = 0, cpt = 0, num : number, ecriDec : string, den : number, numPartieFrac : number, entier : number, texte : string, texteCorr : string; i < this.nbQuestions && cpt < 100; cpt++) {
+      numPartieFrac = fractions[i][0]
+      den = fractions[i][1]
+      entier = randint(1, aleaMax)
+      num = entier * den + numPartieFrac
+      ecriDec = entier.toString() + fractions[i][2]
       const frac = new FractionEtendue(num, den)
       const partieFrac = new FractionEtendue(numPartieFrac, den)
 
