@@ -36,7 +36,7 @@ export const uuid = '1acf7'
 export const ref = '6N23-1'
 export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = "Compléter l'égalité puis donner l'écriture décimale, si non déjà indiquée."
+  this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l’écriture décimale.'
   this.spacing = 2
   this.spacingCorr = 2
   this.nbCols = 2
