@@ -5,6 +5,7 @@ import { fraction } from '../../modules/fractions.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { pgcd } from '../../lib/outils/primalite.js'
 
 export const titre = 'Factoriser avec les identités remarquables'
 export const interactifReady = true
@@ -34,6 +35,7 @@ export default function FactoriserIdentitesRemarquables2 () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    this.autoCorrection = []
     const listeFractions = [[1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5],
       [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8], [5, 8], [7, 8],
       [1, 9], [2, 9], [4, 9], [5, 9], [7, 9], [8, 9], [1, 10], [3, 10], [7, 10], [9, 10]]
@@ -51,11 +53,13 @@ export default function FactoriserIdentitesRemarquables2 () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
-      a = randint(1, 9)
-      b = randint(2, 9)
-      const fractionChoisie = choice(listeFractions)
-      ns = fractionChoisie[0]
-      ds = fractionChoisie[1]
+      do {
+        a = randint(1, 9)
+        b = randint(2, 9)
+        const fractionChoisie = choice(listeFractions)
+        ns = fractionChoisie[0]
+        ds = fractionChoisie[1]
+      } while (pgcd(ns, a) !== 1 || pgcd(a, b) !== 1) // On évite ainsi les doubles factorisations qui posent problème
       const fra = fraction(ns, ds)
       const fraC = fra.produitFraction(fra)
       const fraD = fra.multiplieEntier(2 * a)
@@ -95,29 +99,35 @@ export default function FactoriserIdentitesRemarquables2 () {
 
           texte = `$${fraC.texFraction}x^2+${fraD.texFraction}x+${a * a}$` // (kx+a)² k rationnel
           texteCorr = `$${fraC.texFraction}x^2+${fraD.texFraction}x+${a * a}=\\left(${fra.texFraction}x\\right)^2+2 \\times ${fra.texFraction}x \\times ${a} + ${a}^2=\\left(${fra.texFraction}x+${a}\\right)^2$`
-          reponseAttendue = `\\left(${fra.texFraction}x+${a}\\right)^2`
+          reponseAttendue = `(${fra.texFraction}x+${a})^2`
           break
         case 8:
           texte = `$${fraC.texFraction}x^2-${fraD.texFraction}x+${a * a}$` // (kx-a)² k rationnel
           texteCorr = `$${fraC.texFraction}x^2-${fraD.texFraction}x+${a * a}=\\left(${fra.texFraction}x\\right)^2-2 \\times ${fra.texFraction}x \\times ${a} + ${a}^2=\\left(${fra.texFraction}x-${a}\\right)^2$`
-          reponseAttendue = `\\left(${fra.texFraction}x-${a}\\right)^2$`
+          reponseAttendue = `(${fra.texFraction}x-${a})^2`
           break
         case 9:
           //  (bx-a)(bx+a) avec a entier et b rationnel simple
           texte = `$${fraC.texFraction}x^2-${a * a}$` // b>1`
           texteCorr = `$${fraC.texFraction}x^2-${a * a}=\\left(${fra.texFraction}x\\right)^2-${a}^2=\\left(${fra.texFraction}x-${a}\\right)\\left(${fra.texFraction}x+${a}\\right)$`
-          reponseAttendue = `\\left(${fra.texFraction}x-${a}\\right)\\left(${fra.texFraction}x+${a}\\right)`
+          reponseAttendue = `(${fra.texFraction}x-${a})(${fra.texFraction}x+${a})`
+          console.log(`réponse attendue = ${reponseAttendue}`)
           break
       }
       reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
       texte += remplisLesBlancs(this, i, '=%{expr}', 'inline15 college6e ml-2', '\\ldots\\ldots')
       const compareReponseSaisie = (a, b) => {
-        const aCleaned = a.replaceAll('²', '^2').replaceAll(',', '.')
+        const aCleaned = a.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+        const bCleaned = b.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
         const saisieParsed = engine.parse(aCleaned, { canonical: true })
-        const reponseParsed = engine.parse(b, { canonical: true })
+        const reponseParsed = engine.parse(bCleaned, { canonical: true })
         const saisieDev = engine.box(['Expand', saisieParsed]).evaluate().simplify().canonical
         const reponseDev = engine.box(['Expand', reponseParsed]).evaluate().simplify().canonical
-        return saisieDev.isSame(reponseDev) && ['Multiply', 'Square', 'Power'].includes(saisieParsed.head)
+        console.log(`saisieParsed.head = ${saisieParsed.head}`)
+        console.log(`saisieParsed = ${saisieParsed} et saisieDev = ${saisieDev}`)
+        console.log(`reponseParsed = ${reponseParsed} et reponseDev = ${reponseDev}`)
+        console.log('comparaison saisieDev.isEqual(reponseDev) : $ {saisieDev.isEqual(reponseDev)}')
+        return saisieDev.isEqual(reponseDev) && ['Multiply', 'Square', 'Power'].includes(saisieParsed.head)
       }
       setReponse(this, i, { expr: { value: reponseAttendue, compare: compareReponseSaisie } }, { formatInteractif: 'fillInTheBlank' })
       if (this.listeQuestions.indexOf(texte) === -1) {
