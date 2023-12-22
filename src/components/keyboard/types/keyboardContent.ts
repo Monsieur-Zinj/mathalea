@@ -1,9 +1,29 @@
+import { specialKeys, numeric } from '../layouts/keyboardBlocks'
 import { keys } from '../layouts/keycaps'
-import type { KeyboardLayout } from './keyboardLayouts'
 export type Keys = keyof typeof keys
 export type KeysList = Keys[]
-export type BlockLayout = {
-  content: Keys[],
-  layout: KeyboardLayout
+
+export interface CompleteKeysList {
+  inline: KeysList
+  block: KeysList
 }
-export type CustomKeyboard = BlockLayout[]
+
+export interface KeyboardBlock {
+  keycaps: CompleteKeysList,
+  cols: number
+}
+
+export class Keyboard {
+  blocks: KeyboardBlock[] = [specialKeys]
+
+  constructor (kb: KeyboardBlock = numeric) {
+    this.blocks.push(kb)
+  }
+
+  add = (kb: KeyboardBlock):Keyboard => {
+    this.blocks.push(kb)
+    return this
+  }
+
+  length = ():number => this.blocks.length
+}
