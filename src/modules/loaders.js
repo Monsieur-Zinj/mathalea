@@ -290,12 +290,12 @@ function handleKeyboardMathalea () {
   for (const button of keyboardButtons) {
     button.addEventListener('click', (event) => {
       keyboard.update((value) => {
-        if (value.idMathField === event.target.id) {
+        if (value.idMathField === event.currentTarget.id) {
           return { isVisible: false, idMathField: '' }
         }
-        const mf = document.querySelector('#' + event.target.id)
+        const mf = document.querySelector('#' + event.currentTarget.id)
         if (mf != null) mf.focus()
-        return { isVisible: true, idMathField: event.target.id }
+        return { isVisible: true, idMathField: event.currentTarget.id }
       })
     })
   }
