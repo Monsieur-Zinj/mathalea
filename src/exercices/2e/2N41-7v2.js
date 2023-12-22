@@ -1,9 +1,14 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { fraction } from '../../modules/fractions.js'
+import { ComputeEngine } from '@cortex-js/compute-engine'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Factoriser avec les identités remarquables'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Factoriser en utilisant les 3 identités remarquables
@@ -22,6 +27,8 @@ export default function FactoriserIdentitesRemarquables2 () {
   this.spacingCorr = 1
   this.nbQuestions = 5
   this.sup = 1
+
+  const engine = new ComputeEngine()
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -42,53 +49,77 @@ export default function FactoriserIdentitesRemarquables2 () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, cpt = 0, a, b, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0, a, b, ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 9)
       b = randint(2, 9)
-      fraction = choice(listeFractions)
-      ns = fraction[0]
-      ds = fraction[1]
+      const fractionChoisie = choice(listeFractions)
+      ns = fractionChoisie[0]
+      ds = fractionChoisie[1]
+      const fra = fraction(ns, ds)
+      const fraC = fra.produitFraction(fra)
+      const fraD = fra.multiplieEntier(2 * a)
+      let reponseAttendue
       switch (typesDeQuestions) {
         case 1:
           texte = `$x^2+${2 * a}x+${a * a}$` // (x+a)²
           texteCorr = `$x^2+${2 * a}x+${a * a}=x^2+2 \\times ${a} \\times x+${a}^2=(x+${a})^2$`
+          reponseAttendue = `(x+${a})^2`
           break
         case 2:
           texte = `$x^2-${2 * a}x+${a * a}$` // (x-a)²
           texteCorr = `$x^2-${2 * a}x+${a * a}=x^2-2 \\times ${a} \\times x+${a}^2=(x-${a})^2$`
+          reponseAttendue = `(x-${a})^2`
           break
         case 3:
           texte = `$x^2-${a * a}$` // (x-a)(x+a)
           texteCorr = `$x^2-${a * a}=x^2-${a}^2=(x-${a})(x+${a})$`
+          reponseAttendue = `(x-${a})(x+${a})`
           break
         case 4:
           texte = `$${b * b}x^2+${2 * b * a}x+${a * a}$` // (bx+a)²  b>1
           texteCorr = `$${b * b}x^2+${2 * b * a}x+${a * a}=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=(${b}x+${a})^2$`
+          reponseAttendue = `(${b}x+${a})^2`
           break
         case 5:
           texte = `$${b * b}x^2-${2 * b * a}x+${a * a}$` // (bx-a)² b>1
           texteCorr = `$${b * b}x^2-${2 * b * a}x+${a * a}=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=(${b}x-${a})^2$`
+          reponseAttendue = `(${b}x-${a})^2`
           break
         case 6:
           texte = `$${b * b}x^2-${a * a}$` // (bx-a)(bx+a) b>1
           texteCorr = `$${b * b}x^2-${a * a}=(${b}x)^2-${a}^2=(${b}x-${a})(${b}x+${a})$`
+          reponseAttendue = `(${b}x-${a})(${b}x+${a})`
           break
         case 7:
 
-          texte = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2+${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$` // (kx+a)² k rationnel
-          texteCorr = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2+${deprecatedTexFraction(ns * 2 * a, ds)}x+${a * a}=\\left(${deprecatedTexFraction(ns, ds)}x\\right)^2+2 \\times ${deprecatedTexFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)^2$`
+          texte = `$${fraC.texFraction}x^2+${fraD.texFraction}x+${a * a}$` // (kx+a)² k rationnel
+          texteCorr = `$${fraC.texFraction}x^2+${fraD.texFraction}x+${a * a}=\\left(${fra.texFraction}x\\right)^2+2 \\times ${fra.texFraction}x \\times ${a} + ${a}^2=\\left(${fra.texFraction}x+${a}\\right)^2$`
+          reponseAttendue = `\\left(${fra.texFraction}x+${a}\\right)^2`
           break
         case 8:
-          texte = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$` // (kx-a)² k rationnel
-          texteCorr = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${deprecatedTexFraction(ns * 2 * a, ds)}x+${a * a}=\\left(${deprecatedTexFraction(ns, ds)}x\\right)^2-2 \\times ${deprecatedTexFraction(ns, ds)}x \\times ${a} + ${a}^2=\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)^2$`
+          texte = `$${fraC.texFraction}x^2-${fraD.texFraction}x+${a * a}$` // (kx-a)² k rationnel
+          texteCorr = `$${fraC.texFraction}x^2-${fraD.texFraction}x+${a * a}=\\left(${fra.texFraction}x\\right)^2-2 \\times ${fra.texFraction}x \\times ${a} + ${a}^2=\\left(${fra.texFraction}x-${a}\\right)^2$`
+          reponseAttendue = `\\left(${fra.texFraction}x-${a}\\right)^2$`
           break
         case 9:
           //  (bx-a)(bx+a) avec a entier et b rationnel simple
-          texte = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${a * a}$` // b>1
-          texteCorr = `$${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${a * a}=\\left(${deprecatedTexFraction(ns, ds)}x\\right)^2-${a}^2=\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}x+${a}\\right)$`
+          texte = `$${fraC.texFraction}x^2-${a * a}$` // b>1`
+          texteCorr = `$${fraC.texFraction}x^2-${a * a}=\\left(${fra.texFraction}x\\right)^2-${a}^2=\\left(${fra.texFraction}x-${a}\\right)\\left(${fra.texFraction}x+${a}\\right)$`
+          reponseAttendue = `\\left(${fra.texFraction}x-${a}\\right)\\left(${fra.texFraction}x+${a}\\right)`
           break
       }
+      reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
+      texte += remplisLesBlancs(this, i, '=%{expr}', 'inline15 college6e ml-2', '\\ldots\\ldots')
+      const compareReponseSaisie = (a, b) => {
+        const aCleaned = a.replaceAll('²', '^2').replaceAll(',', '.')
+        const saisieParsed = engine.parse(aCleaned, { canonical: true })
+        const reponseParsed = engine.parse(b, { canonical: true })
+        const saisieDev = engine.box(['Expand', saisieParsed]).evaluate().simplify().canonical
+        const reponseDev = engine.box(['Expand', reponseParsed]).evaluate().simplify().canonical
+        return saisieDev.isSame(reponseDev) && ['Multiply', 'Square', 'Power'].includes(saisieParsed.head)
+      }
+      setReponse(this, i, { expr: { value: reponseAttendue, compare: compareReponseSaisie } }, { formatInteractif: 'fillInTheBlank' })
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

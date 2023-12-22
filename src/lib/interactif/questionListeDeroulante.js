@@ -1,6 +1,12 @@
 import { addElement, get, setStyles } from '../html/dom.js'
 import { context } from '../../modules/context.js'
 
+/**
+ * Vérifie la réponse à une question à liste déroulante
+ * @param {object} exercice l'exercice appelant pour pouvoir atteindre ses propriétés.
+ * @param {number} i le numéro de la question
+ * @returns {string} 'OK' si la réponse est correcte, 'KO' sinon
+*/
 export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** number */) {
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
   let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)

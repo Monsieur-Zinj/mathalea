@@ -1,12 +1,12 @@
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampFractionMathLive, ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 
 export const titre = 'Donner différentes écritures de nombres décimaux'
 export const amcReady = true
@@ -14,8 +14,11 @@ export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDeModifImportante = '25/09/2022'
-// Mickael Guironnet a ajouté un type et le paramétrage
+export const dateDeModifImportante = '21/12/2023'
+
+function texFraction (numerateur, denominateur) {
+  return `\\dfrac{${numerateur}}{${denominateur}}`
+}
 
 /**
  * Compléter des égalités sur les nombres décimaux
@@ -33,7 +36,7 @@ export const uuid = '1acf7'
 export const ref = '6N23-1'
 export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = "Compléter l'égalité puis donner l'écriture décimale, si non déjà indiquée."
+  this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l’écriture décimale.'
   this.spacing = 2
   this.spacingCorr = 2
   this.nbCols = 2
@@ -45,24 +48,6 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let typesDeQuestions
-    /*
-        const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
-        let listeTypeDeQuestions = []
-        if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
-          listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-          if (this.nbQuestions === 3) listeTypeDeQuestions = combinaisonListes([choice([1, 2, 6]), 3, choice([4, 5])], this.nbQuestions)
-        } else {
-          const quests = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-          for (let i = 0; i < quests.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-            const choixtp = parseInt(quests[i])
-            if (choixtp >= 1 && choixtp <= 7) {
-              listeTypeDeQuestions.push(choixtp)
-            }
-          }
-          if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = typesDeQuestionsDisponibles }
-          listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
-        }
-        */
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 7,
       defaut: 8,
@@ -71,7 +56,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
       saisie: this.sup
     })
 
-    for (let i = 0, indexQ = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       typesDeQuestions = listeTypeDeQuestions[i]
       const u = (typesDeQuestions >= 4 && typesDeQuestions <= 5) ? randint(2, 19) : randint(2, 9) // chiffre des unités
       const d = (typesDeQuestions >= 4 && typesDeQuestions <= 5) ? 0 : randint(1, 9) // chiffre des dixièmes
@@ -85,33 +70,32 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
       let ecritureDecimale
       switch (typesDeQuestions) {
         case 1: // n/100 = .... + .../10 + .../100=...
-          ecritureDecimale = texNombre(calculANePlusJamaisUtiliser(u + d / 10 + c / 100))
-          texteCorr = `$${deprecatedTexFraction(n, '100')}=${u}+${deprecatedTexFraction(
+          ecritureDecimale = texNombre(arrondi(u + d / 10 + c / 100, 2))
+          texteCorr = `$${fraction(n, '100').texFraction}=${u}+${texFraction(
                         d,
                         '10'
-                    )}+${deprecatedTexFraction(c, '100')}=${ecritureDecimale}$`
+                    )}+${texFraction(c, '100')}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            texte = `$${deprecatedTexFraction(n, '100')}=$` + ajouteChampTexteMathLive(this, indexQ, 'largeur10 inline nospacebefore')
-            setReponse(this, indexQ, u, { formatInteractif: 'calcul' })
-            indexQ++
-            texte += '$+$' + ajouteChampFractionMathLive(this, indexQ, false, 10)
-            setReponse(this, indexQ, fraction(d, 10), { formatInteractif: 'Num' })
-            indexQ++
-            texte += '$+$' + ajouteChampFractionMathLive(this, indexQ, false, 100)
-            setReponse(this, indexQ, fraction(c, 100), { formatInteractif: 'Num' })
-            indexQ++
-            texte += '$=$' + ajouteChampTexteMathLive(this, indexQ, 'largeur10 inline nospacebefore')
-            setReponse(this, indexQ, calculANePlusJamaisUtiliser(u + d / 10 + c / 100), { formatInteractif: 'calcul' })
-            indexQ++
+            const content = `${fraction(n, '100')}~=~ %{unite} + \\dfrac{%{dixieme}}{10} + \\dfrac{%{centieme}}{100}~=~%{ecritureDecimale}`
+            texte = remplisLesBlancs(this, i, content)
+            setReponse(this, i, {
+              bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
+              unite: { value: u },
+              dixieme: { value: d },
+              centieme: { value: c },
+              ecritureDecimale: { value: arrondi(u + d / 10 + c / 100, 2) }
+            },
+            { formatInteractif: 'fillInTheBlank' }
+            )
           } else {
-            texte = `$${deprecatedTexFraction(n, '100')}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${deprecatedTexFraction(
+            texte = `$${texFraction(n, '100')}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(
                             context.isAmc ? 'b' : '\\ldots\\ldots',
                             10
-                        )}+${deprecatedTexFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 100)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
-            texteCorr = `$${deprecatedTexFraction(n, '100')}=${u}+${deprecatedTexFraction(
+                        )}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 100)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
+            texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(
                             d,
                             '10'
-                        )}+${deprecatedTexFraction(c, '100')}=${ecritureDecimale}$`
+                        )}+${texFraction(c, '100')}=${ecritureDecimale}$`
             this.autoCorrection[i] = {
               enonceAvant: false,
               options: { multicols: true },
@@ -174,7 +158,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: '',
                       reponse: {
                         texte: 'd',
-                        valeur: calculANePlusJamaisUtiliser(u + d / 10 + c / 100),
+                        valeur: arrondi(u + d / 10 + c / 100, 2),
                         param: {
                           signe: false,
                           digits: 5,
@@ -189,30 +173,28 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           }
           break
         case 2: // n/100 = ... + .../100 + .../10
-          ecritureDecimale = texNombre(calculANePlusJamaisUtiliser(u + d / 10 + c / 100))
-          texteCorr = `$${deprecatedTexFraction(n, '100')}=${u}+${deprecatedTexFraction(
+          ecritureDecimale = texNombre(arrondi(u + d / 10 + c / 100, 2))
+          texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(
                         c,
                         100
-                    )}+${deprecatedTexFraction(d, 10)}=${ecritureDecimale}$`
+                    )}+${texFraction(d, 10)}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            texte = `$${deprecatedTexFraction(n, '100')}=$`
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur10 inline nospacebefore')
-            setReponse(this, indexQ, u, { formatInteractif: 'calcul' })
-            indexQ++
-            texte += '$+$' + ajouteChampFractionMathLive(this, indexQ, false, 100)
-            setReponse(this, indexQ, fraction(c, 100), { formatInteractif: 'Num' })
-            indexQ++
-            texte += '$+$' + ajouteChampFractionMathLive(this, indexQ, false, 10)
-            setReponse(this, indexQ, fraction(d, 10), { formatInteractif: 'Num' })
-            indexQ++
-            texte += '$=$' + ajouteChampTexteMathLive(this, indexQ, 'largeur10 inline nospacebefore')
-            setReponse(this, indexQ, calculANePlusJamaisUtiliser(u + d / 10 + c / 100), { formatInteractif: 'calcul' })
-            indexQ++
+            const content = `${fraction(n, '100')}~=~ %{unite} + \\dfrac{%{centieme}}{100} + \\dfrac{%{dixieme}}{10}~=~%{ecritureDecimale}`
+            texte = remplisLesBlancs(this, i, content)
+            setReponse(this, i, {
+              bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
+              unite: { value: u },
+              dixieme: { value: d },
+              centieme: { value: c },
+              ecritureDecimale: { value: arrondi(u + d / 10 + c / 100, 2) }
+            },
+            { formatInteractif: 'fillInTheBlank' }
+            )
           } else {
-            texte = `$${deprecatedTexFraction(n, '100')}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${deprecatedTexFraction(
+            texte = `$${texFraction(n, '100')}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(
                             context.isAmc ? 'b' : '\\ldots\\ldots',
                             100
-                        )}+${deprecatedTexFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 10)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
+                        )}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 10)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
               enonceAvant: false,
@@ -275,7 +257,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: '',
                       reponse: {
                         texte: 'd',
-                        valeur: calculANePlusJamaisUtiliser(u + d / 10 + c / 100),
+                        valeur: arrondi(u + d / 10 + c / 100, 2),
                         param: {
                           signe: false,
                           digits: 5,
@@ -291,25 +273,27 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
 
           break
         case 3: // .../... = u + d/10 + c/100=...
-          ecritureDecimale = texNombre(calculANePlusJamaisUtiliser(u + d / 10 + c / 100))
-          texteCorr = `$${deprecatedTexFraction(n, '100')}=${u}+${deprecatedTexFraction(
+          ecritureDecimale = texNombre(arrondi(u + d / 10 + c / 100, 2))
+          texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(
                         d,
                         '10'
-                    )}+${deprecatedTexFraction(c, '100')}=${ecritureDecimale}$`
+                    )}+${texFraction(c, '100')}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            texte = ajouteChampFractionMathLive(this, indexQ, false, false)
-            setReponse(this, indexQ, u * 100 + d * 10 + c, { formatInteractif: 'calcul' })
-            setReponse(this, indexQ + 1, 100, { formatInteractif: 'calcul' })
-            indexQ += 2
-            texte += `$=${u}+${deprecatedTexFraction(d, '10')}+${deprecatedTexFraction(c, '100')}=$`
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur10 inline nospacebefore')
-            setReponse(this, indexQ, calculANePlusJamaisUtiliser(u + d / 10 + c / 100), { formatInteractif: 'calcul' })
-            indexQ++
+            const content = `\\dfrac{%{num}}{%{den}}~=~ ${u} + \\dfrac{${d}}{10} + \\dfrac{${c}}{100}~=~%{ecritureDecimale}`
+            texte = remplisLesBlancs(this, i, content)
+            setReponse(this, i, {
+              bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+              num: { value: n },
+              den: { value: 100 },
+              ecritureDecimale: { value: arrondi(u + d / 10 + c / 100, 2) }
+            },
+            { formatInteractif: 'fillInTheBlank' }
+            )
           } else {
-            texte = `$${deprecatedTexFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}=${u}+${deprecatedTexFraction(
+            texte = `$${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(
                             d,
                             '10'
-                        )}+${deprecatedTexFraction(c, '100')}=${context.isAmc ? 'b' : '\\ldots\\ldots'}$`
+                        )}+${texFraction(c, '100')}=${context.isAmc ? 'b' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
               enonceAvant: false,
@@ -338,7 +322,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: '',
                       reponse: {
                         texte: 'b',
-                        valeur: calculANePlusJamaisUtiliser(u + d / 10 + c / 100),
+                        valeur: arrondi(u + d / 10 + c / 100, 2),
                         param: {
                           signe: false,
                           digits: 5,
@@ -353,14 +337,21 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           }
           break
         case 4: // u = .../10
-          texteCorr = `$${u}=${deprecatedTexFraction(10 * u, '10')}$`
+          texteCorr = `$${u}=${texFraction(10 * u, '10')}$`
           if (this.interactif && !context.isAmc) {
-            texte = `$${u}=$`
-            texte += ajouteChampFractionMathLive(this, indexQ, false, 10)
-            setReponse(this, indexQ, fraction(10 * u, 10), { formatInteractif: 'Num' })
-            indexQ++
+            const content = `${u}~=~\\dfrac{%{dixieme}}{10}`
+            texte = remplisLesBlancs(this, i, content)
+            setReponse(this, i, {
+              bareme: (listePoints) => [listePoints[0] * 2, 2],
+              dixieme: { value: u * 10 }
+            },
+            { formatInteractif: 'fillInTheBlank' }
+            )
+            // texte = `$${u}=$`
+            // texte += ajouteChampFractionMathLive(this, indexQ, false, 10)
+            // setReponse(this, indexQ, fraction(10 * u, 10), { formatInteractif: 'Num' })
           } else {
-            texte = `$${u}=${deprecatedTexFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '10')}$`
+            texte = `$${u}=${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '10')}$`
             this.autoCorrection[i] = {
               enonceAvant: false,
               propositions: [
@@ -371,7 +362,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: texteCorr,
                       reponse: {
                         texte: texte + '<br>a',
-                        valeur: calculANePlusJamaisUtiliser(10 * u),
+                        valeur: arrondi(10 * u, 2),
                         param: {
                           signe: false,
                           digits: 3,
@@ -387,14 +378,18 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
 
           break
         case 5: // u = .../100
-          texteCorr = `$${u}=${deprecatedTexFraction(100 * u, '100')}$`
+          texteCorr = `$${u}=${texFraction(100 * u, '100')}$`
           if (this.interactif && !context.isAmc) {
-            texte = `$${u}=$`
-            texte += ajouteChampFractionMathLive(this, indexQ, false, 100)
-            setReponse(this, indexQ, fraction(100 * u, 100), { formatInteractif: 'Num' })
-            indexQ++
+            const content = `${u}~=~\\dfrac{%{centieme}}{100}`
+            texte = remplisLesBlancs(this, i, content)
+            setReponse(this, i, {
+              bareme: (listePoints) => [listePoints[0] * 2, 2],
+              centieme: { value: u * 100 }
+            },
+            { formatInteractif: 'fillInTheBlank' }
+            )
           } else {
-            texte = `$${u}=${deprecatedTexFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}$`
+            texte = `$${u}=${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}$`
             this.autoCorrection[i] = {
               enonceAvant: false,
               propositions: [
@@ -405,7 +400,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: texteCorr,
                       reponse: {
                         texte: texte + '<br>a',
-                        valeur: calculANePlusJamaisUtiliser(100 * u),
+                        valeur: arrondi(100 * u, 2),
                         param: {
                           signe: false,
                           digits: 3,
@@ -420,24 +415,22 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           }
           break
         case 6: // n/10 = ... + .../10 + .../100 = ...
-          ecritureDecimale = texNombre(calculANePlusJamaisUtiliser(n / 10))
-          texteCorr = `$${deprecatedTexFraction(n, 10)}=${u * 10 + d}+${deprecatedTexFraction(c, 10)}+${deprecatedTexFraction(0, 100)}=${ecritureDecimale}$`
+          ecritureDecimale = texNombre(arrondi(n / 10, 1))
+          texteCorr = `$${texFraction(n, 10)}=${u * 10 + d}+${texFraction(c, 10)}+${texFraction(0, 100)}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            texte = `$${deprecatedTexFraction(n, 10)}=$`
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur10 inline nospacebefore')
-            setReponse(this, indexQ, u * 10 + d, { formatInteractif: 'calcul' })
-            indexQ++
-            texte += '$+$' + ajouteChampFractionMathLive(this, indexQ, false, 10)
-            setReponse(this, indexQ, fraction(c, 10), { formatInteractif: 'Num' })
-            indexQ++
-            texte += '$+$' + ajouteChampFractionMathLive(this, indexQ, false, 100)
-            setReponse(this, indexQ, fraction(0, 100), { formatInteractif: 'Num' })
-            indexQ++
-            texte += '$=$' + ajouteChampTexteMathLive(this, indexQ, 'largeur10 inline nospacebefore')
-            setReponse(this, indexQ, calculANePlusJamaisUtiliser(n / 10), { formatInteractif: 'calcul' })
-            indexQ++
+            const content = `\\dfrac{${n}}{10}~=~ %{unite} + \\dfrac{%{dixieme}}{10} + \\dfrac{%{centieme}}{100}~=~%{ecritureDecimale}`
+            texte = remplisLesBlancs(this, i, content)
+            setReponse(this, i, {
+              bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
+              unite: { value: u * 10 + d },
+              dixieme: { value: c },
+              centieme: { value: 0 },
+              ecritureDecimale: { value: arrondi(u * 10 + d + c / 10, 2) }
+            },
+            { formatInteractif: 'fillInTheBlank' }
+            )
           } else {
-            texte = `$${deprecatedTexFraction(n, 10)}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${deprecatedTexFraction(context.isAmc ? 'b' : '\\ldots\\ldots', 10)}+${deprecatedTexFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 100)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
+            texte = `$${texFraction(n, 10)}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(context.isAmc ? 'b' : '\\ldots\\ldots', 10)}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 100)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
               enonceAvant: false,
@@ -449,7 +442,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: texteCorr,
                       reponse: {
                         texte: texte + '<br>a',
-                        valeur: calculANePlusJamaisUtiliser(u * 10 + d),
+                        valeur: arrondi(u * 10 + d, 2),
                         param: {
                           signe: false,
                           digits: 3,
@@ -501,7 +494,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: '',
                       reponse: {
                         texte: 'd',
-                        valeur: calculANePlusJamaisUtiliser(n / 10),
+                        valeur: arrondi(n / 10, 1),
                         param: {
                           signe: false,
                           digits: 5,
@@ -516,18 +509,20 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           }
           break
         case 7: // .../100 = u + d/10 =...
-          ecritureDecimale = texNombre(calculANePlusJamaisUtiliser(u + d / 10))
-          texteCorr = `$${deprecatedTexFraction(n, '100')}=${u}+${deprecatedTexFraction(d, '10')}=${ecritureDecimale}$`
+          ecritureDecimale = texNombre(arrondi(u + d / 10, 1))
+          texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(d, '10')}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            texte = ajouteChampFractionMathLive(this, indexQ, false, 100)
-            setReponse(this, indexQ, u * 100 + d * 10 + c, { formatInteractif: 'calcul' })
-            indexQ++
-            texte += `$=${u}+${deprecatedTexFraction(d, '10')}=$`
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur10 inline nospacebefore')
-            setReponse(this, indexQ, calculANePlusJamaisUtiliser(u + d / 10 + c / 100), { formatInteractif: 'calcul' })
-            indexQ++
+            const content = `\\dfrac{%{num}}{100}~=~ ${u} + \\dfrac{${d}}{10}~=~%{ecritureDecimale}`
+            texte = remplisLesBlancs(this, i, content)
+            setReponse(this, i, {
+              bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
+              num: { value: n },
+              ecritureDecimale: { value: arrondi(u + d / 10, 1) }
+            },
+            { formatInteractif: 'fillInTheBlank' }
+            )
           } else {
-            texte = `$${deprecatedTexFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}=${u}+${deprecatedTexFraction(d, '10')}=${context.isAmc ? 'b' : '\\ldots\\ldots'}$`
+            texte = `$${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(d, '10')}=${context.isAmc ? 'b' : '\\ldots\\ldots'}$`
             this.autoCorrection[i] = {
               options: { multicols: true },
               enonceAvant: false,
@@ -556,7 +551,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                       texte: '',
                       reponse: {
                         texte: 'b',
-                        valeur: calculANePlusJamaisUtiliser(u + d / 10 + c / 100),
+                        valeur: arrondi(u + d / 10 + c / 100, 2),
                         param: {
                           signe: false,
                           digits: 5,

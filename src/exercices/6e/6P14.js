@@ -17,6 +17,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { max, min } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { aleaVariables } from '../../modules/outilsMathjs.js'
 
 export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
 export const interactifReady = true
@@ -308,7 +309,8 @@ export default function AgrandirReduireFigure () {
           break
         case 3:
           absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
-          absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
+          absD = Object.values(aleaVariables({ absD: true, test: `absD>0 and absD<${absB + absC} and ${absB}<absD+${absC} and ${absC}<absD+${absB}` }, { valueOf: true }))[0]
+          // absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
           reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
           reponse1 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absC, 1)
           reponse2 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absD, 1)
@@ -469,8 +471,10 @@ export default function AgrandirReduireFigure () {
           }, objets)
           break
         case 4:
+
           absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
-          absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
+          absD = Object.values(aleaVariables({ absD: true, test: `absD>0 and absD<${absB + absC} and ${absB}<absD+${absC} and ${absC}<absD+${absB}` }, { valueOf: true }))[0]
+          // absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
           reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
           reponse1 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absC, 1)
           reponse2 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absD, 1)

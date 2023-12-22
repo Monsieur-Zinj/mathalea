@@ -640,6 +640,25 @@
           "Probabilités",
           "Transformations"
         ]
+      },
+      "dnb_2023_10_amsud_1": {
+        "uuid": "dnb_2023_10_amsud_1",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_1_cor.tex",
+        "tags": [
+          "Pythagore",
+          "Trigonométrie",
+          "Géométrie plane",
+          "Agrandissement-réduction",
+          "Aires et périmètres"
+        ]
       }
     },
     "Aires et périmètres": {
@@ -1709,6 +1728,63 @@
           "Trigonométrie",
           "Aires et périmètres"
         ]
+      },
+      "dnb_2023_10_amsud_1": {
+        "uuid": "dnb_2023_10_amsud_1",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_1_cor.tex",
+        "tags": [
+          "Pythagore",
+          "Trigonométrie",
+          "Géométrie plane",
+          "Agrandissement-réduction",
+          "Aires et périmètres"
+        ]
+      },
+      "dnb_2023_10_amsud_2": {
+        "uuid": "dnb_2023_10_amsud_2",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "2",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_2.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_2_cor.tex",
+        "tags": [
+          "Aires et périmètres",
+          "Calcul littéral",
+          "Fonctions",
+          "Tableur",
+          "Lecture graphique"
+        ]
+      },
+      "dnb_2023_12_caledonie_3": {
+        "uuid": "dnb_2023_12_caledonie_3",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_3_cor.tex",
+        "tags": [
+          "Trigonométrie",
+          "Aires et périmètres",
+          "Pythagore",
+          "Volumes",
+          "Grandeurs composées"
+        ]
       }
     },
     "Algorithmique-programmation": {
@@ -2577,6 +2653,40 @@
         "urlcor": "static/dnb/2023/tex/dnb_2023_09_polynesie_3_cor.tex",
         "tags": [
           "Algorithmique-programmation"
+        ]
+      }
+    },
+    "Algorithmique-Programmation": {
+      "dnb_2023_10_amsud_5": {
+        "uuid": "dnb_2023_10_amsud_5",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_5.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_5_cor.tex",
+        "tags": [
+          "Probabilités",
+          "Algorithmique-Programmation"
+        ]
+      },
+      "dnb_2023_12_caledonie_6": {
+        "uuid": "dnb_2023_12_caledonie_6",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "6",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_6.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_6_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_6.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_6_cor.tex",
+        "tags": [
+          "Géométrie plane",
+          "Algorithmique-Programmation"
         ]
       }
     },
@@ -3661,6 +3771,39 @@
           "Équations",
           "Probabilités",
           "Transformations"
+        ]
+      },
+      "dnb_2023_10_amsud_3": {
+        "uuid": "dnb_2023_10_amsud_3",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_3_cor.tex",
+        "tags": [
+          "Vrai-faux",
+          "Proportionnalité",
+          "Arithmétique",
+          "Calcul littéral"
+        ]
+      },
+      "dnb_2023_12_caledonie_2": {
+        "uuid": "dnb_2023_12_caledonie_2",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "2",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_2.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_2_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_2.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_2_cor.tex",
+        "tags": [
+          "Arithmétique"
         ]
       }
     },
@@ -5303,6 +5446,61 @@
           "Fonctions",
           "Tableur"
         ]
+      },
+      "dnb_2023_10_amsud_2": {
+        "uuid": "dnb_2023_10_amsud_2",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "2",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_2.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_2_cor.tex",
+        "tags": [
+          "Aires et périmètres",
+          "Calcul littéral",
+          "Fonctions",
+          "Tableur",
+          "Lecture graphique"
+        ]
+      },
+      "dnb_2023_10_amsud_3": {
+        "uuid": "dnb_2023_10_amsud_3",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_3_cor.tex",
+        "tags": [
+          "Vrai-faux",
+          "Proportionnalité",
+          "Arithmétique",
+          "Calcul littéral"
+        ]
+      },
+      "dnb_2023_12_caledonie_5": {
+        "uuid": "dnb_2023_12_caledonie_5",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_5.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_5_cor.tex",
+        "tags": [
+          "Fonctions",
+          "Tableur",
+          "Calcul littéral",
+          "Équations"
+        ]
       }
     },
     "Calcul numérique": {
@@ -6234,6 +6432,26 @@
           "Puissances",
           "Statistiques"
         ]
+      },
+      "dnb_2023_12_caledonie_1": {
+        "uuid": "dnb_2023_12_caledonie_1",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Probabilités",
+          "Puissances",
+          "Calcul numérique",
+          "Transformations",
+          "Statistiques"
+        ]
       }
     },
     "Coordonnées terrestres": {
@@ -6713,6 +6931,24 @@
           "Durées",
           "Statistiques",
           "Vitesses"
+        ]
+      },
+      "dnb_2023_12_caledonie_4": {
+        "uuid": "dnb_2023_12_caledonie_4",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "4",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_4.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_4.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_4_cor.tex",
+        "tags": [
+          "Géométrie plane",
+          "Thalès",
+          "Vitesses",
+          "Durées"
         ]
       }
     },
@@ -8132,6 +8368,24 @@
           "Fonctions",
           "Équations",
           "Statistiques"
+        ]
+      },
+      "dnb_2023_12_caledonie_5": {
+        "uuid": "dnb_2023_12_caledonie_5",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_5.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_5_cor.tex",
+        "tags": [
+          "Fonctions",
+          "Tableur",
+          "Calcul littéral",
+          "Équations"
         ]
       }
     },
@@ -9838,6 +10092,43 @@
           "Fonctions",
           "Tableur"
         ]
+      },
+      "dnb_2023_10_amsud_2": {
+        "uuid": "dnb_2023_10_amsud_2",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "2",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_2.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_2_cor.tex",
+        "tags": [
+          "Aires et périmètres",
+          "Calcul littéral",
+          "Fonctions",
+          "Tableur",
+          "Lecture graphique"
+        ]
+      },
+      "dnb_2023_12_caledonie_5": {
+        "uuid": "dnb_2023_12_caledonie_5",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_5.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_5_cor.tex",
+        "tags": [
+          "Fonctions",
+          "Tableur",
+          "Calcul littéral",
+          "Équations"
+        ]
       }
     },
     "Fractions": {
@@ -11050,6 +11341,59 @@
           "Algorithmique-programmation",
           "Géométrie plane"
         ]
+      },
+      "dnb_2023_10_amsud_1": {
+        "uuid": "dnb_2023_10_amsud_1",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_1_cor.tex",
+        "tags": [
+          "Pythagore",
+          "Trigonométrie",
+          "Géométrie plane",
+          "Agrandissement-réduction",
+          "Aires et périmètres"
+        ]
+      },
+      "dnb_2023_12_caledonie_4": {
+        "uuid": "dnb_2023_12_caledonie_4",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "4",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_4.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_4.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_4_cor.tex",
+        "tags": [
+          "Géométrie plane",
+          "Thalès",
+          "Vitesses",
+          "Durées"
+        ]
+      },
+      "dnb_2023_12_caledonie_6": {
+        "uuid": "dnb_2023_12_caledonie_6",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "6",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_6.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_6_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_6.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_6_cor.tex",
+        "tags": [
+          "Géométrie plane",
+          "Algorithmique-Programmation"
+        ]
       }
     },
     "Grandeurs composées": {
@@ -11705,6 +12049,42 @@
           "Vitesses",
           "Grandeurs composées"
         ]
+      },
+      "dnb_2023_10_amsud_4": {
+        "uuid": "dnb_2023_10_amsud_4",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "4",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_4.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_4.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_4_cor.tex",
+        "tags": [
+          "Volumes",
+          "Grandeurs composées",
+          "Proportionnalité"
+        ]
+      },
+      "dnb_2023_12_caledonie_3": {
+        "uuid": "dnb_2023_12_caledonie_3",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_3_cor.tex",
+        "tags": [
+          "Trigonométrie",
+          "Aires et périmètres",
+          "Pythagore",
+          "Volumes",
+          "Grandeurs composées"
+        ]
       }
     },
     "Hors programme": {
@@ -12219,6 +12599,25 @@
           "Fonctions",
           "Lecture graphique",
           "Proportionnalité"
+        ]
+      },
+      "dnb_2023_10_amsud_2": {
+        "uuid": "dnb_2023_10_amsud_2",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "2",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_2.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_2_cor.tex",
+        "tags": [
+          "Aires et périmètres",
+          "Calcul littéral",
+          "Fonctions",
+          "Tableur",
+          "Lecture graphique"
         ]
       }
     },
@@ -15716,6 +16115,42 @@
           "Thalès",
           "Probabilités"
         ]
+      },
+      "dnb_2023_10_amsud_5": {
+        "uuid": "dnb_2023_10_amsud_5",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_5.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_5_cor.tex",
+        "tags": [
+          "Probabilités",
+          "Algorithmique-Programmation"
+        ]
+      },
+      "dnb_2023_12_caledonie_1": {
+        "uuid": "dnb_2023_12_caledonie_1",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Probabilités",
+          "Puissances",
+          "Calcul numérique",
+          "Transformations",
+          "Statistiques"
+        ]
       }
     },
     "Programme de calculs": {
@@ -17992,6 +18427,41 @@
           "Pourcentages",
           "Proportionnalité"
         ]
+      },
+      "dnb_2023_10_amsud_3": {
+        "uuid": "dnb_2023_10_amsud_3",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_3_cor.tex",
+        "tags": [
+          "Vrai-faux",
+          "Proportionnalité",
+          "Arithmétique",
+          "Calcul littéral"
+        ]
+      },
+      "dnb_2023_10_amsud_4": {
+        "uuid": "dnb_2023_10_amsud_4",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "4",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_4.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_4.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_4_cor.tex",
+        "tags": [
+          "Volumes",
+          "Grandeurs composées",
+          "Proportionnalité"
+        ]
       }
     },
     "Puissances": {
@@ -18443,6 +18913,26 @@
           "Algorithmique-programmation",
           "Calcul numérique",
           "Puissances",
+          "Statistiques"
+        ]
+      },
+      "dnb_2023_12_caledonie_1": {
+        "uuid": "dnb_2023_12_caledonie_1",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Probabilités",
+          "Puissances",
+          "Calcul numérique",
+          "Transformations",
           "Statistiques"
         ]
       }
@@ -20118,6 +20608,44 @@
           "Pythagore",
           "Volumes"
         ]
+      },
+      "dnb_2023_10_amsud_1": {
+        "uuid": "dnb_2023_10_amsud_1",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_1_cor.tex",
+        "tags": [
+          "Pythagore",
+          "Trigonométrie",
+          "Géométrie plane",
+          "Agrandissement-réduction",
+          "Aires et périmètres"
+        ]
+      },
+      "dnb_2023_12_caledonie_3": {
+        "uuid": "dnb_2023_12_caledonie_3",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_3_cor.tex",
+        "tags": [
+          "Trigonométrie",
+          "Aires et périmètres",
+          "Pythagore",
+          "Volumes",
+          "Grandeurs composées"
+        ]
       }
     },
     "QCM": {
@@ -21074,6 +21602,26 @@
           "Pourcentages",
           "Thalès",
           "Probabilités"
+        ]
+      },
+      "dnb_2023_12_caledonie_1": {
+        "uuid": "dnb_2023_12_caledonie_1",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Probabilités",
+          "Puissances",
+          "Calcul numérique",
+          "Transformations",
+          "Statistiques"
         ]
       }
     },
@@ -22776,6 +23324,26 @@
           "Statistiques",
           "Vitesses"
         ]
+      },
+      "dnb_2023_12_caledonie_1": {
+        "uuid": "dnb_2023_12_caledonie_1",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Probabilités",
+          "Puissances",
+          "Calcul numérique",
+          "Transformations",
+          "Statistiques"
+        ]
       }
     },
     "Système d'équations": {
@@ -23961,6 +24529,43 @@
           "Calcul littéral",
           "Fonctions",
           "Tableur"
+        ]
+      },
+      "dnb_2023_10_amsud_2": {
+        "uuid": "dnb_2023_10_amsud_2",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "2",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_2.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_2_cor.tex",
+        "tags": [
+          "Aires et périmètres",
+          "Calcul littéral",
+          "Fonctions",
+          "Tableur",
+          "Lecture graphique"
+        ]
+      },
+      "dnb_2023_12_caledonie_5": {
+        "uuid": "dnb_2023_12_caledonie_5",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_5.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_5_cor.tex",
+        "tags": [
+          "Fonctions",
+          "Tableur",
+          "Calcul littéral",
+          "Équations"
         ]
       }
     },
@@ -25189,6 +25794,24 @@
           "Thalès",
           "Probabilités"
         ]
+      },
+      "dnb_2023_12_caledonie_4": {
+        "uuid": "dnb_2023_12_caledonie_4",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "4",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_4.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_4.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_4_cor.tex",
+        "tags": [
+          "Géométrie plane",
+          "Thalès",
+          "Vitesses",
+          "Durées"
+        ]
       }
     },
     "Transformations": {
@@ -25686,6 +26309,26 @@
           "Équations",
           "Probabilités",
           "Transformations"
+        ]
+      },
+      "dnb_2023_12_caledonie_1": {
+        "uuid": "dnb_2023_12_caledonie_1",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Probabilités",
+          "Puissances",
+          "Calcul numérique",
+          "Transformations",
+          "Statistiques"
         ]
       }
     },
@@ -26928,6 +27571,44 @@
           "Pythagore",
           "Volumes"
         ]
+      },
+      "dnb_2023_10_amsud_1": {
+        "uuid": "dnb_2023_10_amsud_1",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_1_cor.tex",
+        "tags": [
+          "Pythagore",
+          "Trigonométrie",
+          "Géométrie plane",
+          "Agrandissement-réduction",
+          "Aires et périmètres"
+        ]
+      },
+      "dnb_2023_12_caledonie_3": {
+        "uuid": "dnb_2023_12_caledonie_3",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_3_cor.tex",
+        "tags": [
+          "Trigonométrie",
+          "Aires et périmètres",
+          "Pythagore",
+          "Volumes",
+          "Grandeurs composées"
+        ]
       }
     },
     "Vitesses": {
@@ -27730,6 +28411,24 @@
           "Durées",
           "Statistiques",
           "Vitesses"
+        ]
+      },
+      "dnb_2023_12_caledonie_4": {
+        "uuid": "dnb_2023_12_caledonie_4",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "4",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_4.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_4.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_4_cor.tex",
+        "tags": [
+          "Géométrie plane",
+          "Thalès",
+          "Vitesses",
+          "Durées"
         ]
       }
     },
@@ -29114,6 +29813,42 @@
           "Pythagore",
           "Volumes"
         ]
+      },
+      "dnb_2023_10_amsud_4": {
+        "uuid": "dnb_2023_10_amsud_4",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "4",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_4.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_4.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_4_cor.tex",
+        "tags": [
+          "Volumes",
+          "Grandeurs composées",
+          "Proportionnalité"
+        ]
+      },
+      "dnb_2023_12_caledonie_3": {
+        "uuid": "dnb_2023_12_caledonie_3",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_3_cor.tex",
+        "tags": [
+          "Trigonométrie",
+          "Aires et périmètres",
+          "Pythagore",
+          "Volumes",
+          "Grandeurs composées"
+        ]
       }
     },
     "Vrai-faux": {
@@ -29569,6 +30304,24 @@
           "Thalès",
           "Arithmétique",
           "Ratio"
+        ]
+      },
+      "dnb_2023_10_amsud_3": {
+        "uuid": "dnb_2023_10_amsud_3",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_3_cor.tex",
+        "tags": [
+          "Vrai-faux",
+          "Proportionnalité",
+          "Arithmétique",
+          "Calcul littéral"
         ]
       }
     }
@@ -40502,6 +41255,201 @@
           "Statistiques",
           "Vitesses"
         ]
+      },
+      "dnb_2023_10_amsud_1": {
+        "uuid": "dnb_2023_10_amsud_1",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_1_cor.tex",
+        "tags": [
+          "Pythagore",
+          "Trigonométrie",
+          "Géométrie plane",
+          "Agrandissement-réduction",
+          "Aires et périmètres"
+        ]
+      },
+      "dnb_2023_10_amsud_2": {
+        "uuid": "dnb_2023_10_amsud_2",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "2",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_2_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_2.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_2_cor.tex",
+        "tags": [
+          "Aires et périmètres",
+          "Calcul littéral",
+          "Fonctions",
+          "Tableur",
+          "Lecture graphique"
+        ]
+      },
+      "dnb_2023_10_amsud_3": {
+        "uuid": "dnb_2023_10_amsud_3",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_3_cor.tex",
+        "tags": [
+          "Vrai-faux",
+          "Proportionnalité",
+          "Arithmétique",
+          "Calcul littéral"
+        ]
+      },
+      "dnb_2023_10_amsud_4": {
+        "uuid": "dnb_2023_10_amsud_4",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "4",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_4.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_4.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_4_cor.tex",
+        "tags": [
+          "Volumes",
+          "Grandeurs composées",
+          "Proportionnalité"
+        ]
+      },
+      "dnb_2023_10_amsud_5": {
+        "uuid": "dnb_2023_10_amsud_5",
+        "annee": "2023",
+        "lieu": "amsud",
+        "mois": "Octobre",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_10_amsud_5.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_10_amsud_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_10_amsud_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_5_cor.tex",
+        "tags": [
+          "Probabilités",
+          "Algorithmique-Programmation"
+        ]
+      },
+      "dnb_2023_12_caledonie_1": {
+        "uuid": "dnb_2023_12_caledonie_1",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "1",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_1_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_1.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Probabilités",
+          "Puissances",
+          "Calcul numérique",
+          "Transformations",
+          "Statistiques"
+        ]
+      },
+      "dnb_2023_12_caledonie_2": {
+        "uuid": "dnb_2023_12_caledonie_2",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "2",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_2.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_2_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_2.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_2_cor.tex",
+        "tags": [
+          "Arithmétique"
+        ]
+      },
+      "dnb_2023_12_caledonie_3": {
+        "uuid": "dnb_2023_12_caledonie_3",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "3",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_3_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_3.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_3_cor.tex",
+        "tags": [
+          "Trigonométrie",
+          "Aires et périmètres",
+          "Pythagore",
+          "Volumes",
+          "Grandeurs composées"
+        ]
+      },
+      "dnb_2023_12_caledonie_4": {
+        "uuid": "dnb_2023_12_caledonie_4",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "4",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_4.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_4_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_4.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_4_cor.tex",
+        "tags": [
+          "Géométrie plane",
+          "Thalès",
+          "Vitesses",
+          "Durées"
+        ]
+      },
+      "dnb_2023_12_caledonie_5": {
+        "uuid": "dnb_2023_12_caledonie_5",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "5",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_5.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_5_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_5.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_5_cor.tex",
+        "tags": [
+          "Fonctions",
+          "Tableur",
+          "Calcul littéral",
+          "Équations"
+        ]
+      },
+      "dnb_2023_12_caledonie_6": {
+        "uuid": "dnb_2023_12_caledonie_6",
+        "annee": "2023",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Décembre",
+        "numeroInitial": "6",
+        "png": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_6.png",
+        "pngCor": "static/dnb/2023/tex/png/dnb_2023_12_caledonie_6_cor.png",
+        "typeExercice": "dnb",
+        "url": "static/dnb/2023/tex/dnb_2023_12_caledonie_6.tex",
+        "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_6_cor.tex",
+        "tags": [
+          "Géométrie plane",
+          "Algorithmique-Programmation"
+        ]
       }
     },
     "2024": {},
@@ -40509,202 +41457,10 @@
   },
   "BAC par thèmes - APMEP": {
     "": {
-      "bac_2022_05_sujet1_ameriquenord_1": {
-        "uuid": "bac_2022_05_sujet1_ameriquenord_1",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_ameriquenord_2": {
-        "uuid": "bac_2022_05_sujet1_ameriquenord_2",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_ameriquenord_3": {
-        "uuid": "bac_2022_05_sujet1_ameriquenord_3",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_ameriquenord_4": {
-        "uuid": "bac_2022_05_sujet1_ameriquenord_4",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_asie_1": {
-        "uuid": "bac_2022_05_sujet1_asie_1",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_asie_2": {
-        "uuid": "bac_2022_05_sujet1_asie_2",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_asie_3": {
-        "uuid": "bac_2022_05_sujet1_asie_3",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_asie_4": {
-        "uuid": "bac_2022_05_sujet1_asie_4",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_etrangers_1": {
-        "uuid": "bac_2022_05_sujet1_etrangers_1",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_etrangers_2": {
-        "uuid": "bac_2022_05_sujet1_etrangers_2",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_etrangers_3": {
-        "uuid": "bac_2022_05_sujet1_etrangers_3",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_etrangers_4": {
-        "uuid": "bac_2022_05_sujet1_etrangers_4",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
       "bac_2022_05_sujet1_madagascar_1": {
         "uuid": "bac_2022_05_sujet1_madagascar_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "1",
@@ -40720,7 +41476,7 @@
       "bac_2022_05_sujet1_madagascar_2": {
         "uuid": "bac_2022_05_sujet1_madagascar_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "2",
@@ -40736,7 +41492,7 @@
       "bac_2022_05_sujet1_madagascar_3": {
         "uuid": "bac_2022_05_sujet1_madagascar_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "3",
@@ -40752,7 +41508,7 @@
       "bac_2022_05_sujet1_madagascar_4": {
         "uuid": "bac_2022_05_sujet1_madagascar_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "4",
@@ -40765,106 +41521,10 @@
           ""
         ]
       },
-      "bac_2022_05_sujet1_metropole_1": {
-        "uuid": "bac_2022_05_sujet1_metropole_1",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_metropole_2": {
-        "uuid": "bac_2022_05_sujet1_metropole_2",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_metropole_3": {
-        "uuid": "bac_2022_05_sujet1_metropole_3",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_metropole_4": {
-        "uuid": "bac_2022_05_sujet1_metropole_4",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_polynesie_1": {
-        "uuid": "bac_2022_05_sujet1_polynesie_1",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_polynesie_2": {
-        "uuid": "bac_2022_05_sujet1_polynesie_2",
-        "annee": "2022",
-        "lieu": "sujet1",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
       "bac_2022_05_sujet1_polynesie_3": {
         "uuid": "bac_2022_05_sujet1_polynesie_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "3",
@@ -40880,7 +41540,7 @@
       "bac_2022_05_sujet1_polynesie_4": {
         "uuid": "bac_2022_05_sujet1_polynesie_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "4",
@@ -40896,7 +41556,7 @@
       "bac_2022_05_sujet2_ameriquenord_1": {
         "uuid": "bac_2022_05_sujet2_ameriquenord_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -40912,7 +41572,7 @@
       "bac_2022_05_sujet2_ameriquenord_2": {
         "uuid": "bac_2022_05_sujet2_ameriquenord_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -40928,7 +41588,7 @@
       "bac_2022_05_sujet2_ameriquenord_3": {
         "uuid": "bac_2022_05_sujet2_ameriquenord_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -40944,7 +41604,7 @@
       "bac_2022_05_sujet2_ameriquenord_4": {
         "uuid": "bac_2022_05_sujet2_ameriquenord_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -40960,7 +41620,7 @@
       "bac_2022_05_sujet2_asie_1": {
         "uuid": "bac_2022_05_sujet2_asie_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -40976,7 +41636,7 @@
       "bac_2022_05_sujet2_asie_2": {
         "uuid": "bac_2022_05_sujet2_asie_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -40992,7 +41652,7 @@
       "bac_2022_05_sujet2_asie_3": {
         "uuid": "bac_2022_05_sujet2_asie_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -41008,7 +41668,7 @@
       "bac_2022_05_sujet2_asie_4": {
         "uuid": "bac_2022_05_sujet2_asie_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -41024,7 +41684,7 @@
       "bac_2022_05_sujet2_etrangers_1": {
         "uuid": "bac_2022_05_sujet2_etrangers_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -41040,7 +41700,7 @@
       "bac_2022_05_sujet2_etrangers_2": {
         "uuid": "bac_2022_05_sujet2_etrangers_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -41056,7 +41716,7 @@
       "bac_2022_05_sujet2_etrangers_3": {
         "uuid": "bac_2022_05_sujet2_etrangers_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -41072,7 +41732,7 @@
       "bac_2022_05_sujet2_etrangers_4": {
         "uuid": "bac_2022_05_sujet2_etrangers_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -41088,7 +41748,7 @@
       "bac_2022_05_sujet2_madagascar_1": {
         "uuid": "bac_2022_05_sujet2_madagascar_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -41104,7 +41764,7 @@
       "bac_2022_05_sujet2_madagascar_2": {
         "uuid": "bac_2022_05_sujet2_madagascar_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -41120,7 +41780,7 @@
       "bac_2022_05_sujet2_madagascar_3": {
         "uuid": "bac_2022_05_sujet2_madagascar_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -41136,7 +41796,7 @@
       "bac_2022_05_sujet2_madagascar_4": {
         "uuid": "bac_2022_05_sujet2_madagascar_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -41152,7 +41812,7 @@
       "bac_2022_05_sujet2_metropole_1": {
         "uuid": "bac_2022_05_sujet2_metropole_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -41168,7 +41828,7 @@
       "bac_2022_05_sujet2_metropole_2": {
         "uuid": "bac_2022_05_sujet2_metropole_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -41184,7 +41844,7 @@
       "bac_2022_05_sujet2_metropole_3": {
         "uuid": "bac_2022_05_sujet2_metropole_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -41200,7 +41860,7 @@
       "bac_2022_05_sujet2_metropole_4": {
         "uuid": "bac_2022_05_sujet2_metropole_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -41216,7 +41876,7 @@
       "bac_2022_05_sujet2_polynesie_1": {
         "uuid": "bac_2022_05_sujet2_polynesie_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -41232,7 +41892,7 @@
       "bac_2022_05_sujet2_polynesie_2": {
         "uuid": "bac_2022_05_sujet2_polynesie_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -41248,7 +41908,7 @@
       "bac_2022_05_sujet2_polynesie_3": {
         "uuid": "bac_2022_05_sujet2_polynesie_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -41264,7 +41924,7 @@
       "bac_2022_05_sujet2_polynesie_4": {
         "uuid": "bac_2022_05_sujet2_polynesie_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -41280,7 +41940,7 @@
       "bac_2022_09_sujet1_ameriquesud_1": {
         "uuid": "bac_2022_09_sujet1_ameriquesud_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "1",
@@ -41296,7 +41956,7 @@
       "bac_2022_09_sujet1_ameriquesud_2": {
         "uuid": "bac_2022_09_sujet1_ameriquesud_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "2",
@@ -41312,7 +41972,7 @@
       "bac_2022_09_sujet1_ameriquesud_3": {
         "uuid": "bac_2022_09_sujet1_ameriquesud_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "3",
@@ -41328,7 +41988,7 @@
       "bac_2022_09_sujet1_ameriquesud_4": {
         "uuid": "bac_2022_09_sujet1_ameriquesud_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "4",
@@ -41344,7 +42004,7 @@
       "bac_2022_09_sujet1_metropole_1": {
         "uuid": "bac_2022_09_sujet1_metropole_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "1",
@@ -41360,7 +42020,7 @@
       "bac_2022_09_sujet1_metropole_2": {
         "uuid": "bac_2022_09_sujet1_metropole_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "2",
@@ -41376,7 +42036,7 @@
       "bac_2022_09_sujet1_metropole_3": {
         "uuid": "bac_2022_09_sujet1_metropole_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "3",
@@ -41392,7 +42052,7 @@
       "bac_2022_09_sujet1_metropole_4": {
         "uuid": "bac_2022_09_sujet1_metropole_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "4",
@@ -41408,7 +42068,7 @@
       "bac_2022_09_sujet1_polynesie_1": {
         "uuid": "bac_2022_09_sujet1_polynesie_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "1",
@@ -41424,7 +42084,7 @@
       "bac_2022_09_sujet1_polynesie_2": {
         "uuid": "bac_2022_09_sujet1_polynesie_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "2",
@@ -41440,7 +42100,7 @@
       "bac_2022_09_sujet1_polynesie_3": {
         "uuid": "bac_2022_09_sujet1_polynesie_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "3",
@@ -41456,7 +42116,7 @@
       "bac_2022_09_sujet1_polynesie_4": {
         "uuid": "bac_2022_09_sujet1_polynesie_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "4",
@@ -41472,7 +42132,7 @@
       "bac_2022_09_sujet2_ameriquesud_1": {
         "uuid": "bac_2022_09_sujet2_ameriquesud_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "1",
@@ -41488,7 +42148,7 @@
       "bac_2022_09_sujet2_ameriquesud_2": {
         "uuid": "bac_2022_09_sujet2_ameriquesud_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "2",
@@ -41504,7 +42164,7 @@
       "bac_2022_09_sujet2_ameriquesud_3": {
         "uuid": "bac_2022_09_sujet2_ameriquesud_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "3",
@@ -41520,7 +42180,7 @@
       "bac_2022_09_sujet2_ameriquesud_4": {
         "uuid": "bac_2022_09_sujet2_ameriquesud_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "4",
@@ -41536,7 +42196,7 @@
       "bac_2022_09_sujet2_metropole_1": {
         "uuid": "bac_2022_09_sujet2_metropole_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "1",
@@ -41552,7 +42212,7 @@
       "bac_2022_09_sujet2_metropole_2": {
         "uuid": "bac_2022_09_sujet2_metropole_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "2",
@@ -41568,7 +42228,7 @@
       "bac_2022_09_sujet2_metropole_3": {
         "uuid": "bac_2022_09_sujet2_metropole_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "3",
@@ -41584,7 +42244,7 @@
       "bac_2022_09_sujet2_metropole_4": {
         "uuid": "bac_2022_09_sujet2_metropole_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "4",
@@ -41600,7 +42260,7 @@
       "bac_2022_10_sujet1_caledonie_1": {
         "uuid": "bac_2022_10_sujet1_caledonie_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J1",
         "numeroInitial": "1",
@@ -41616,7 +42276,7 @@
       "bac_2022_10_sujet1_caledonie_2": {
         "uuid": "bac_2022_10_sujet1_caledonie_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J1",
         "numeroInitial": "2",
@@ -41632,7 +42292,7 @@
       "bac_2022_10_sujet1_caledonie_3": {
         "uuid": "bac_2022_10_sujet1_caledonie_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J1",
         "numeroInitial": "3",
@@ -41648,7 +42308,7 @@
       "bac_2022_10_sujet1_caledonie_4": {
         "uuid": "bac_2022_10_sujet1_caledonie_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J1",
         "numeroInitial": "4",
@@ -41664,7 +42324,7 @@
       "bac_2022_10_sujet2_caledonie_1": {
         "uuid": "bac_2022_10_sujet2_caledonie_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J2",
         "numeroInitial": "1",
@@ -41680,7 +42340,7 @@
       "bac_2022_10_sujet2_caledonie_2": {
         "uuid": "bac_2022_10_sujet2_caledonie_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J2",
         "numeroInitial": "2",
@@ -41696,7 +42356,7 @@
       "bac_2022_10_sujet2_caledonie_3": {
         "uuid": "bac_2022_10_sujet2_caledonie_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J2",
         "numeroInitial": "3",
@@ -41712,7 +42372,7 @@
       "bac_2022_10_sujet2_caledonie_4": {
         "uuid": "bac_2022_10_sujet2_caledonie_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J2",
         "numeroInitial": "4",
@@ -41723,6 +42383,31 @@
         "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4_cor.tex",
         "tags": [
           ""
+        ]
+      }
+    },
+    "Asymptotes": {
+      "bac_2022_05_sujet1_metropole_4": {
+        "uuid": "bac_2022_05_sujet1_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Primitives",
+          "Convexité",
+          "Exponentielles",
+          "Logarithme",
+          "Limites",
+          "Asymptotes",
+          "Fonctions"
         ]
       }
     },
@@ -41910,6 +42595,105 @@
           "QCM",
           "Exponentielle",
           "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet1_ameriquenord_4": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_4",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Convexité",
+          "Vrai/Faux"
+        ]
+      },
+      "bac_2022_05_sujet1_asie_4": {
+        "uuid": "bac_2022_05_sujet1_asie_4",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_4_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet1_etrangers_3": {
+        "uuid": "bac_2022_05_sujet1_etrangers_3",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3_cor.tex",
+        "tags": [
+          "Convexité",
+          "Suites",
+          "QCM"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_4": {
+        "uuid": "bac_2022_05_sujet1_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Primitives",
+          "Convexité",
+          "Exponentielles",
+          "Logarithme",
+          "Limites",
+          "Asymptotes",
+          "Fonctions"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_1": {
+        "uuid": "bac_2022_05_sujet1_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
+        "tags": [
+          "Fonctions",
+          "QCM",
+          "Logarithme",
+          "Primitives",
+          "Suites",
+          "Limites",
+          "Convexité",
+          "Python"
         ]
       }
     },
@@ -42280,6 +43064,70 @@
           "QCM",
           "Espace"
         ]
+      },
+      "bac_2022_05_sujet1_ameriquenord_3": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_3",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_3_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_05_sujet1_asie_3": {
+        "uuid": "bac_2022_05_sujet1_asie_3",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_3_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_05_sujet1_etrangers_2": {
+        "uuid": "bac_2022_05_sujet1_etrangers_2",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_2_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_2": {
+        "uuid": "bac_2022_05_sujet1_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_2_cor.tex",
+        "tags": [
+          "Espace"
+        ]
       }
     },
     "Exponentielle": {
@@ -42579,6 +43427,201 @@
           "Exponentielle",
           "TVI"
         ]
+      },
+      "bac_2022_05_sujet1_ameriquenord_4": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_4",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Convexité",
+          "Vrai/Faux"
+        ]
+      },
+      "bac_2022_05_sujet1_asie_2": {
+        "uuid": "bac_2022_05_sujet1_asie_2",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
+        "tags": [
+          "suites",
+          "Python",
+          "Exponentielle",
+          "Logarithme"
+        ]
+      },
+      "bac_2022_05_sujet1_etrangers_4": {
+        "uuid": "bac_2022_05_sujet1_etrangers_4",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Suites",
+          "Python",
+          "TVI"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_1": {
+        "uuid": "bac_2022_05_sujet1_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_1_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Suites",
+          "TVI"
+        ]
+      }
+    },
+    "Exponentielles": {
+      "bac_2022_05_sujet1_metropole_4": {
+        "uuid": "bac_2022_05_sujet1_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Primitives",
+          "Convexité",
+          "Exponentielles",
+          "Logarithme",
+          "Limites",
+          "Asymptotes",
+          "Fonctions"
+        ]
+      }
+    },
+    "Fonctions": {
+      "bac_2022_05_sujet1_metropole_4": {
+        "uuid": "bac_2022_05_sujet1_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Primitives",
+          "Convexité",
+          "Exponentielles",
+          "Logarithme",
+          "Limites",
+          "Asymptotes",
+          "Fonctions"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_1": {
+        "uuid": "bac_2022_05_sujet1_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
+        "tags": [
+          "Fonctions",
+          "QCM",
+          "Logarithme",
+          "Primitives",
+          "Suites",
+          "Limites",
+          "Convexité",
+          "Python"
+        ]
+      }
+    },
+    "Limites": {
+      "bac_2022_05_sujet1_metropole_4": {
+        "uuid": "bac_2022_05_sujet1_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Primitives",
+          "Convexité",
+          "Exponentielles",
+          "Logarithme",
+          "Limites",
+          "Asymptotes",
+          "Fonctions"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_1": {
+        "uuid": "bac_2022_05_sujet1_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
+        "tags": [
+          "Fonctions",
+          "QCM",
+          "Logarithme",
+          "Primitives",
+          "Suites",
+          "Limites",
+          "Convexité",
+          "Python"
+        ]
       }
     },
     "Logarithme": {
@@ -42756,6 +43799,106 @@
         "urlcor": "static/bac/2021/tex/bac_2021_09_metropole_5_cor.tex",
         "tags": [
           "Logarithme"
+        ]
+      },
+      "bac_2022_05_sujet1_ameriquenord_2": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_2",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_2_cor.tex",
+        "tags": [
+          "Suites",
+          "Python",
+          "Logarithme"
+        ]
+      },
+      "bac_2022_05_sujet1_asie_2": {
+        "uuid": "bac_2022_05_sujet1_asie_2",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
+        "tags": [
+          "suites",
+          "Python",
+          "Exponentielle",
+          "Logarithme"
+        ]
+      },
+      "bac_2022_05_sujet1_asie_4": {
+        "uuid": "bac_2022_05_sujet1_asie_4",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_4_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_4": {
+        "uuid": "bac_2022_05_sujet1_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Primitives",
+          "Convexité",
+          "Exponentielles",
+          "Logarithme",
+          "Limites",
+          "Asymptotes",
+          "Fonctions"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_1": {
+        "uuid": "bac_2022_05_sujet1_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
+        "tags": [
+          "Fonctions",
+          "QCM",
+          "Logarithme",
+          "Primitives",
+          "Suites",
+          "Limites",
+          "Convexité",
+          "Python"
         ]
       }
     },
@@ -42940,6 +44083,92 @@
           "Probabilités conditionnelles",
           "Loi binomiale"
         ]
+      },
+      "bac_2022_05_sujet1_ameriquenord_1": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_1",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex",
+        "tags": [
+          "Probabilités Conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet1_asie_1": {
+        "uuid": "bac_2022_05_sujet1_asie_1",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet1_etrangers_1": {
+        "uuid": "bac_2022_05_sujet1_etrangers_1",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_3": {
+        "uuid": "bac_2022_05_sujet1_metropole_3",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_3_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_2": {
+        "uuid": "bac_2022_05_sujet1_polynesie_2",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_2_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
       }
     },
     "Primitives": {
@@ -42957,6 +44186,52 @@
         "tags": [
           "Logarithme",
           "Primitives"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_4": {
+        "uuid": "bac_2022_05_sujet1_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Primitives",
+          "Convexité",
+          "Exponentielles",
+          "Logarithme",
+          "Limites",
+          "Asymptotes",
+          "Fonctions"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_1": {
+        "uuid": "bac_2022_05_sujet1_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
+        "tags": [
+          "Fonctions",
+          "QCM",
+          "Logarithme",
+          "Primitives",
+          "Suites",
+          "Limites",
+          "Convexité",
+          "Python"
         ]
       }
     },
@@ -43123,6 +44398,94 @@
           "Probabilités conditionnelles",
           "Loi binomiale"
         ]
+      },
+      "bac_2022_05_sujet1_asie_1": {
+        "uuid": "bac_2022_05_sujet1_asie_1",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet1_etrangers_1": {
+        "uuid": "bac_2022_05_sujet1_etrangers_1",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_3": {
+        "uuid": "bac_2022_05_sujet1_metropole_3",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_3_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_2": {
+        "uuid": "bac_2022_05_sujet1_polynesie_2",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_2_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      }
+    },
+    "Probabilités Conditionnelles": {
+      "bac_2022_05_sujet1_ameriquenord_1": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_1",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex",
+        "tags": [
+          "Probabilités Conditionnelles",
+          "Loi binomiale"
+        ]
       }
     },
     "Python": {
@@ -43272,6 +44635,103 @@
         "urlcor": "static/bac/2021/tex/bac_2021_09_metropole_2_cor.tex",
         "tags": [
           "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet1_ameriquenord_2": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_2",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_2_cor.tex",
+        "tags": [
+          "Suites",
+          "Python",
+          "Logarithme"
+        ]
+      },
+      "bac_2022_05_sujet1_asie_2": {
+        "uuid": "bac_2022_05_sujet1_asie_2",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
+        "tags": [
+          "suites",
+          "Python",
+          "Exponentielle",
+          "Logarithme"
+        ]
+      },
+      "bac_2022_05_sujet1_etrangers_4": {
+        "uuid": "bac_2022_05_sujet1_etrangers_4",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Suites",
+          "Python",
+          "TVI"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_3": {
+        "uuid": "bac_2022_05_sujet1_metropole_3",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_3_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_1": {
+        "uuid": "bac_2022_05_sujet1_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
+        "tags": [
+          "Fonctions",
+          "QCM",
+          "Logarithme",
+          "Primitives",
+          "Suites",
+          "Limites",
+          "Convexité",
           "Python"
         ]
       }
@@ -43444,6 +44904,91 @@
         "tags": [
           "QCM",
           "Espace"
+        ]
+      },
+      "bac_2022_05_sujet1_etrangers_3": {
+        "uuid": "bac_2022_05_sujet1_etrangers_3",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3_cor.tex",
+        "tags": [
+          "Convexité",
+          "Suites",
+          "QCM"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_4": {
+        "uuid": "bac_2022_05_sujet1_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Primitives",
+          "Convexité",
+          "Exponentielles",
+          "Logarithme",
+          "Limites",
+          "Asymptotes",
+          "Fonctions"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_1": {
+        "uuid": "bac_2022_05_sujet1_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
+        "tags": [
+          "Fonctions",
+          "QCM",
+          "Logarithme",
+          "Primitives",
+          "Suites",
+          "Limites",
+          "Convexité",
+          "Python"
+        ]
+      }
+    },
+    "suites": {
+      "bac_2022_05_sujet1_asie_2": {
+        "uuid": "bac_2022_05_sujet1_asie_2",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
+        "tags": [
+          "suites",
+          "Python",
+          "Exponentielle",
+          "Logarithme"
         ]
       }
     },
@@ -43705,6 +45250,102 @@
         "tags": [
           "Suites"
         ]
+      },
+      "bac_2022_05_sujet1_ameriquenord_2": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_2",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_2_cor.tex",
+        "tags": [
+          "Suites",
+          "Python",
+          "Logarithme"
+        ]
+      },
+      "bac_2022_05_sujet1_etrangers_3": {
+        "uuid": "bac_2022_05_sujet1_etrangers_3",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3_cor.tex",
+        "tags": [
+          "Convexité",
+          "Suites",
+          "QCM"
+        ]
+      },
+      "bac_2022_05_sujet1_etrangers_4": {
+        "uuid": "bac_2022_05_sujet1_etrangers_4",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Suites",
+          "Python",
+          "TVI"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_1": {
+        "uuid": "bac_2022_05_sujet1_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_1_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Suites",
+          "TVI"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_1": {
+        "uuid": "bac_2022_05_sujet1_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
+        "tags": [
+          "Fonctions",
+          "QCM",
+          "Logarithme",
+          "Primitives",
+          "Suites",
+          "Limites",
+          "Convexité",
+          "Python"
+        ]
       }
     },
     "Tableur": {
@@ -43807,6 +45448,43 @@
           "Exponentielle",
           "TVI"
         ]
+      },
+      "bac_2022_05_sujet1_etrangers_4": {
+        "uuid": "bac_2022_05_sujet1_etrangers_4",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Suites",
+          "Python",
+          "TVI"
+        ]
+      },
+      "bac_2022_05_sujet1_metropole_1": {
+        "uuid": "bac_2022_05_sujet1_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_1_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Suites",
+          "TVI"
+        ]
       }
     },
     "Variable aléatoire": {
@@ -43894,6 +45572,24 @@
           "Vrai/Faux",
           "Exponentielle",
           "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet1_ameriquenord_4": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_4",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Convexité",
+          "Vrai/Faux"
         ]
       }
     }
@@ -44946,7 +46642,7 @@
       "bac_2022_05_sujet1_ameriquenord_1": {
         "uuid": "bac_2022_05_sujet1_ameriquenord_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "1",
@@ -44956,13 +46652,14 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités Conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_05_sujet1_ameriquenord_2": {
         "uuid": "bac_2022_05_sujet1_ameriquenord_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "2",
@@ -44972,13 +46669,15 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_2_cor.tex",
         "tags": [
-          ""
+          "Suites",
+          "Python",
+          "Logarithme"
         ]
       },
       "bac_2022_05_sujet1_ameriquenord_3": {
         "uuid": "bac_2022_05_sujet1_ameriquenord_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "3",
@@ -44988,13 +46687,13 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_3_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet1_ameriquenord_4": {
         "uuid": "bac_2022_05_sujet1_ameriquenord_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "4",
@@ -45004,13 +46703,15 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_4_cor.tex",
         "tags": [
-          ""
+          "Exponentielle",
+          "Convexité",
+          "Vrai/Faux"
         ]
       },
       "bac_2022_05_sujet1_asie_1": {
         "uuid": "bac_2022_05_sujet1_asie_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "1",
@@ -45020,13 +46721,14 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_05_sujet1_asie_2": {
         "uuid": "bac_2022_05_sujet1_asie_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "2",
@@ -45036,13 +46738,16 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
         "tags": [
-          ""
+          "suites",
+          "Python",
+          "Exponentielle",
+          "Logarithme"
         ]
       },
       "bac_2022_05_sujet1_asie_3": {
         "uuid": "bac_2022_05_sujet1_asie_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "3",
@@ -45052,13 +46757,13 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_3_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet1_asie_4": {
         "uuid": "bac_2022_05_sujet1_asie_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "4",
@@ -45068,13 +46773,14 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_4_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "Convexité"
         ]
       },
       "bac_2022_05_sujet1_etrangers_1": {
         "uuid": "bac_2022_05_sujet1_etrangers_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "1",
@@ -45084,13 +46790,14 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_05_sujet1_etrangers_2": {
         "uuid": "bac_2022_05_sujet1_etrangers_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "2",
@@ -45100,13 +46807,13 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_2_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet1_etrangers_3": {
         "uuid": "bac_2022_05_sujet1_etrangers_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "3",
@@ -45116,13 +46823,15 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3_cor.tex",
         "tags": [
-          ""
+          "Convexité",
+          "Suites",
+          "QCM"
         ]
       },
       "bac_2022_05_sujet1_etrangers_4": {
         "uuid": "bac_2022_05_sujet1_etrangers_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "4",
@@ -45132,13 +46841,16 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
         "tags": [
-          ""
+          "Exponentielle",
+          "Suites",
+          "Python",
+          "TVI"
         ]
       },
       "bac_2022_05_sujet1_madagascar_1": {
         "uuid": "bac_2022_05_sujet1_madagascar_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "1",
@@ -45154,7 +46866,7 @@
       "bac_2022_05_sujet1_madagascar_2": {
         "uuid": "bac_2022_05_sujet1_madagascar_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "2",
@@ -45170,7 +46882,7 @@
       "bac_2022_05_sujet1_madagascar_3": {
         "uuid": "bac_2022_05_sujet1_madagascar_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "3",
@@ -45186,7 +46898,7 @@
       "bac_2022_05_sujet1_madagascar_4": {
         "uuid": "bac_2022_05_sujet1_madagascar_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "4",
@@ -45202,7 +46914,7 @@
       "bac_2022_05_sujet1_metropole_1": {
         "uuid": "bac_2022_05_sujet1_metropole_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "1",
@@ -45212,13 +46924,15 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_1_cor.tex",
         "tags": [
-          ""
+          "Exponentielle",
+          "Suites",
+          "TVI"
         ]
       },
       "bac_2022_05_sujet1_metropole_2": {
         "uuid": "bac_2022_05_sujet1_metropole_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "2",
@@ -45228,13 +46942,13 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_2_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet1_metropole_3": {
         "uuid": "bac_2022_05_sujet1_metropole_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "3",
@@ -45244,13 +46958,15 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_3_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Python"
         ]
       },
       "bac_2022_05_sujet1_metropole_4": {
         "uuid": "bac_2022_05_sujet1_metropole_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "4",
@@ -45260,13 +46976,20 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
         "tags": [
-          ""
+          "QCM",
+          "Primitives",
+          "Convexité",
+          "Exponentielles",
+          "Logarithme",
+          "Limites",
+          "Asymptotes",
+          "Fonctions"
         ]
       },
       "bac_2022_05_sujet1_polynesie_1": {
         "uuid": "bac_2022_05_sujet1_polynesie_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "1",
@@ -45276,13 +46999,20 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
         "tags": [
-          ""
+          "Fonctions",
+          "QCM",
+          "Logarithme",
+          "Primitives",
+          "Suites",
+          "Limites",
+          "Convexité",
+          "Python"
         ]
       },
       "bac_2022_05_sujet1_polynesie_2": {
         "uuid": "bac_2022_05_sujet1_polynesie_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "2",
@@ -45292,13 +47022,14 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_2_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_05_sujet1_polynesie_3": {
         "uuid": "bac_2022_05_sujet1_polynesie_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "3",
@@ -45314,7 +47045,7 @@
       "bac_2022_05_sujet1_polynesie_4": {
         "uuid": "bac_2022_05_sujet1_polynesie_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J1",
         "numeroInitial": "4",
@@ -45330,7 +47061,7 @@
       "bac_2022_05_sujet2_ameriquenord_1": {
         "uuid": "bac_2022_05_sujet2_ameriquenord_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -45346,7 +47077,7 @@
       "bac_2022_05_sujet2_ameriquenord_2": {
         "uuid": "bac_2022_05_sujet2_ameriquenord_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -45362,7 +47093,7 @@
       "bac_2022_05_sujet2_ameriquenord_3": {
         "uuid": "bac_2022_05_sujet2_ameriquenord_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -45378,7 +47109,7 @@
       "bac_2022_05_sujet2_ameriquenord_4": {
         "uuid": "bac_2022_05_sujet2_ameriquenord_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -45394,7 +47125,7 @@
       "bac_2022_05_sujet2_asie_1": {
         "uuid": "bac_2022_05_sujet2_asie_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -45410,7 +47141,7 @@
       "bac_2022_05_sujet2_asie_2": {
         "uuid": "bac_2022_05_sujet2_asie_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -45426,7 +47157,7 @@
       "bac_2022_05_sujet2_asie_3": {
         "uuid": "bac_2022_05_sujet2_asie_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -45442,7 +47173,7 @@
       "bac_2022_05_sujet2_asie_4": {
         "uuid": "bac_2022_05_sujet2_asie_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Asie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -45458,7 +47189,7 @@
       "bac_2022_05_sujet2_etrangers_1": {
         "uuid": "bac_2022_05_sujet2_etrangers_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -45474,7 +47205,7 @@
       "bac_2022_05_sujet2_etrangers_2": {
         "uuid": "bac_2022_05_sujet2_etrangers_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -45490,7 +47221,7 @@
       "bac_2022_05_sujet2_etrangers_3": {
         "uuid": "bac_2022_05_sujet2_etrangers_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -45506,7 +47237,7 @@
       "bac_2022_05_sujet2_etrangers_4": {
         "uuid": "bac_2022_05_sujet2_etrangers_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -45522,7 +47253,7 @@
       "bac_2022_05_sujet2_madagascar_1": {
         "uuid": "bac_2022_05_sujet2_madagascar_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -45538,7 +47269,7 @@
       "bac_2022_05_sujet2_madagascar_2": {
         "uuid": "bac_2022_05_sujet2_madagascar_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -45554,7 +47285,7 @@
       "bac_2022_05_sujet2_madagascar_3": {
         "uuid": "bac_2022_05_sujet2_madagascar_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -45570,7 +47301,7 @@
       "bac_2022_05_sujet2_madagascar_4": {
         "uuid": "bac_2022_05_sujet2_madagascar_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -45586,7 +47317,7 @@
       "bac_2022_05_sujet2_metropole_1": {
         "uuid": "bac_2022_05_sujet2_metropole_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -45602,7 +47333,7 @@
       "bac_2022_05_sujet2_metropole_2": {
         "uuid": "bac_2022_05_sujet2_metropole_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -45618,7 +47349,7 @@
       "bac_2022_05_sujet2_metropole_3": {
         "uuid": "bac_2022_05_sujet2_metropole_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -45634,7 +47365,7 @@
       "bac_2022_05_sujet2_metropole_4": {
         "uuid": "bac_2022_05_sujet2_metropole_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -45650,7 +47381,7 @@
       "bac_2022_05_sujet2_polynesie_1": {
         "uuid": "bac_2022_05_sujet2_polynesie_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "1",
@@ -45666,7 +47397,7 @@
       "bac_2022_05_sujet2_polynesie_2": {
         "uuid": "bac_2022_05_sujet2_polynesie_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "2",
@@ -45682,7 +47413,7 @@
       "bac_2022_05_sujet2_polynesie_3": {
         "uuid": "bac_2022_05_sujet2_polynesie_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "3",
@@ -45698,7 +47429,7 @@
       "bac_2022_05_sujet2_polynesie_4": {
         "uuid": "bac_2022_05_sujet2_polynesie_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Polynésie",
         "mois": "Mai",
         "jour": "J2",
         "numeroInitial": "4",
@@ -45714,7 +47445,7 @@
       "bac_2022_09_sujet1_ameriquesud_1": {
         "uuid": "bac_2022_09_sujet1_ameriquesud_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "1",
@@ -45730,7 +47461,7 @@
       "bac_2022_09_sujet1_ameriquesud_2": {
         "uuid": "bac_2022_09_sujet1_ameriquesud_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "2",
@@ -45746,7 +47477,7 @@
       "bac_2022_09_sujet1_ameriquesud_3": {
         "uuid": "bac_2022_09_sujet1_ameriquesud_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "3",
@@ -45762,7 +47493,7 @@
       "bac_2022_09_sujet1_ameriquesud_4": {
         "uuid": "bac_2022_09_sujet1_ameriquesud_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "4",
@@ -45778,7 +47509,7 @@
       "bac_2022_09_sujet1_metropole_1": {
         "uuid": "bac_2022_09_sujet1_metropole_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "1",
@@ -45794,7 +47525,7 @@
       "bac_2022_09_sujet1_metropole_2": {
         "uuid": "bac_2022_09_sujet1_metropole_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "2",
@@ -45810,7 +47541,7 @@
       "bac_2022_09_sujet1_metropole_3": {
         "uuid": "bac_2022_09_sujet1_metropole_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "3",
@@ -45826,7 +47557,7 @@
       "bac_2022_09_sujet1_metropole_4": {
         "uuid": "bac_2022_09_sujet1_metropole_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "4",
@@ -45842,7 +47573,7 @@
       "bac_2022_09_sujet1_polynesie_1": {
         "uuid": "bac_2022_09_sujet1_polynesie_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "1",
@@ -45858,7 +47589,7 @@
       "bac_2022_09_sujet1_polynesie_2": {
         "uuid": "bac_2022_09_sujet1_polynesie_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "2",
@@ -45874,7 +47605,7 @@
       "bac_2022_09_sujet1_polynesie_3": {
         "uuid": "bac_2022_09_sujet1_polynesie_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "3",
@@ -45890,7 +47621,7 @@
       "bac_2022_09_sujet1_polynesie_4": {
         "uuid": "bac_2022_09_sujet1_polynesie_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Polynésie",
         "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "4",
@@ -45906,7 +47637,7 @@
       "bac_2022_09_sujet2_ameriquesud_1": {
         "uuid": "bac_2022_09_sujet2_ameriquesud_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "1",
@@ -45922,7 +47653,7 @@
       "bac_2022_09_sujet2_ameriquesud_2": {
         "uuid": "bac_2022_09_sujet2_ameriquesud_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "2",
@@ -45938,7 +47669,7 @@
       "bac_2022_09_sujet2_ameriquesud_3": {
         "uuid": "bac_2022_09_sujet2_ameriquesud_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "3",
@@ -45954,7 +47685,7 @@
       "bac_2022_09_sujet2_ameriquesud_4": {
         "uuid": "bac_2022_09_sujet2_ameriquesud_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Amérique du sud",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "4",
@@ -45970,7 +47701,7 @@
       "bac_2022_09_sujet2_metropole_1": {
         "uuid": "bac_2022_09_sujet2_metropole_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "1",
@@ -45986,7 +47717,7 @@
       "bac_2022_09_sujet2_metropole_2": {
         "uuid": "bac_2022_09_sujet2_metropole_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "2",
@@ -46002,7 +47733,7 @@
       "bac_2022_09_sujet2_metropole_3": {
         "uuid": "bac_2022_09_sujet2_metropole_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "3",
@@ -46018,7 +47749,7 @@
       "bac_2022_09_sujet2_metropole_4": {
         "uuid": "bac_2022_09_sujet2_metropole_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Métropole",
         "mois": "Septembre",
         "jour": "J2",
         "numeroInitial": "4",
@@ -46034,7 +47765,7 @@
       "bac_2022_10_sujet1_caledonie_1": {
         "uuid": "bac_2022_10_sujet1_caledonie_1",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J1",
         "numeroInitial": "1",
@@ -46050,7 +47781,7 @@
       "bac_2022_10_sujet1_caledonie_2": {
         "uuid": "bac_2022_10_sujet1_caledonie_2",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J1",
         "numeroInitial": "2",
@@ -46066,7 +47797,7 @@
       "bac_2022_10_sujet1_caledonie_3": {
         "uuid": "bac_2022_10_sujet1_caledonie_3",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J1",
         "numeroInitial": "3",
@@ -46082,7 +47813,7 @@
       "bac_2022_10_sujet1_caledonie_4": {
         "uuid": "bac_2022_10_sujet1_caledonie_4",
         "annee": "2022",
-        "lieu": "sujet1",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J1",
         "numeroInitial": "4",
@@ -46098,7 +47829,7 @@
       "bac_2022_10_sujet2_caledonie_1": {
         "uuid": "bac_2022_10_sujet2_caledonie_1",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J2",
         "numeroInitial": "1",
@@ -46114,7 +47845,7 @@
       "bac_2022_10_sujet2_caledonie_2": {
         "uuid": "bac_2022_10_sujet2_caledonie_2",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J2",
         "numeroInitial": "2",
@@ -46130,7 +47861,7 @@
       "bac_2022_10_sujet2_caledonie_3": {
         "uuid": "bac_2022_10_sujet2_caledonie_3",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J2",
         "numeroInitial": "3",
@@ -46146,7 +47877,7 @@
       "bac_2022_10_sujet2_caledonie_4": {
         "uuid": "bac_2022_10_sujet2_caledonie_4",
         "annee": "2022",
-        "lieu": "sujet2",
+        "lieu": "Nouvelle Calédonie",
         "mois": "Octobre",
         "jour": "J2",
         "numeroInitial": "4",

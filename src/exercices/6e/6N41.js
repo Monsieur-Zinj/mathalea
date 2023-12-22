@@ -4,8 +4,7 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fraction as fractionEtendue } from '../../modules/fractions.js'
-import { ajouteChampFractionMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Compléter les égalités entre fractions simples'
@@ -13,6 +12,7 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDeModifImportante = '20/12/2023'
 
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
@@ -97,8 +97,16 @@ export default function EgalitesEntreFractions () {
           case 0 :
             texte = `$${deprecatedTexFraction(a, b)} = ${deprecatedTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionEtendue(c, d), { formatInteractif: 'Num' })
-              texte += ajouteChampFractionMathLive(this, i, false, d)
+              const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{%{num2}}{${d}}$`
+              texte = remplisLesBlancs(this, i, content)
+              setReponse(this, i, {
+                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                num1: { value: `${a}\\times ${k}` },
+                den1: { value: `${b}\\times ${k}` },
+                num2: { value: c }
+              },
+              { formatInteractif: 'fillInTheBlank' }
+              )
             } else {
               texte += `$${deprecatedTexFraction('\\phantom{0000}', d)}$`
             }
@@ -132,8 +140,16 @@ export default function EgalitesEntreFractions () {
           case 1 :
             texte = `$${deprecatedTexFraction(a, b)} = ${deprecatedTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionEtendue(c, d), { formatInteractif: 'Den' })
-              texte += ajouteChampFractionMathLive(this, i, c, false)
+              const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{${c}}{%{den2}}$`
+              texte = remplisLesBlancs(this, i, content)
+              setReponse(this, i, {
+                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                num1: { value: `${a}\\times ${k}` },
+                den1: { value: `${b}\\times ${k}` },
+                den2: { value: d }
+              },
+              { formatInteractif: 'fillInTheBlank' }
+              )
             } else {
               texte += `$${deprecatedTexFraction(c, '\\phantom{0000}')}$`
             }
@@ -180,13 +196,20 @@ export default function EgalitesEntreFractions () {
           choix = this.sup2 % 2
         }
         switch (choix) {
-          case 0 :
-            texte = `$${a} = ${deprecatedTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+          case 0 : // Recherche du numérateur
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionEtendue(c, d), { formatInteractif: 'Num' })
-              texte += ajouteChampFractionMathLive(this, i, false, d)
+              const content = `${a} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{%{num2}}{${d}}$`
+              texte = remplisLesBlancs(this, i, content)
+              setReponse(this, i, {
+                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                num1: { value: a },
+                den1: { value: 1 },
+                num2: { value: a * d }
+              },
+              { formatInteractif: 'fillInTheBlank' }
+              )
             } else {
-              texte += `$${deprecatedTexFraction('\\phantom{0000}', d)}$`
+              texte = `$${a} = ${deprecatedTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${deprecatedTexFraction('\\phantom{0000}', d)}$`
             }
             if (this.interactif && this.interactifType !== 'mathLive') {
               texte = `$${a} = \\ldots$`
@@ -221,8 +244,16 @@ export default function EgalitesEntreFractions () {
           case 1 :
             texte = `$${a} = ${deprecatedTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              setReponse(this, i, fractionEtendue(c, d), { formatInteractif: 'Den' })
-              texte += ajouteChampFractionMathLive(this, i, c, false)
+              const content = `${a} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{%{${c}}}{%{den2}}$`
+              texte = remplisLesBlancs(this, i, content)
+              setReponse(this, i, {
+                bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
+                num1: { value: a },
+                den1: { value: 1 },
+                den2: { value: d }
+              },
+              { formatInteractif: 'fillInTheBlank' }
+              )
             } else {
               texte += `$${deprecatedTexFraction(c, '\\phantom{0000}')}$`
             }
