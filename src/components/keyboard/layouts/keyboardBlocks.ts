@@ -13,8 +13,16 @@ const numericCaps: CompleteKeysList = {
   block: [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ',', 'FRAC']
 }
 const variableCaps: CompleteKeysList = {
-  inline: ['a', 'x', 'b', 'y', 'c', 'z'],
-  block: ['a', 'b', 'c', 'x', 'y', 'z']
+  inline: ['a', 'b', 'c', 'x', 'y', 'z'],
+  block: ['a', 'x', 'b', 'y', 'c', 'z']
+}
+const basicOperationCaps: CompleteKeysList = {
+  inline: ['ADD', 'SUB', 'MULT', 'DIV', '(', ')'],
+  block: ['ADD', 'SUB', 'MULT', 'DIV', '(', ')']
+}
+const fullOperationCaps: CompleteKeysList = {
+  inline: ['ADD', 'SUB', 'MULT', 'DIV', '(', ')', 'SQRT', 'SQ', 'POW'],
+  block: ['ADD', 'SUB', 'SQRT', 'MULT', 'DIV', 'SQ', '(', ')', 'POW']
 }
 
 export const specialKeys: KeyboardBlock = {
@@ -29,4 +37,14 @@ export const numeric: KeyboardBlock = {
 export const variables: KeyboardBlock = {
   keycaps: variableCaps,
   cols: 2
+}
+
+export const basicOperations: KeyboardBlock = {
+  keycaps: basicOperationCaps,
+  cols: 2
+}
+
+export const fullOperations: KeyboardBlock = {
+  keycaps: fullOperationCaps,
+  cols: 3
 }

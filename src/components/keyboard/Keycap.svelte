@@ -38,7 +38,7 @@
 
 <button
   bind:this={button}
-  class="w-[40px] h-full flex justify-center items-center text-xs md:text-xl text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas dark:active:text-coopmathsdark-canvas  active:bg-coopmaths-action dark:active:bg-coopmathsdark-action {isSpecial ? 'bg-coopmaths-struct-lightest dark:bg-coopmathsdark-struct-lightest' : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-light'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono font-light"
+  class="w-[30px] md:w-[40px] h-full flex justify-center items-center text-xs md:text-xl text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas dark:active:text-coopmathsdark-canvas  active:bg-coopmaths-action dark:active:bg-coopmathsdark-action {isSpecial ? 'bg-coopmaths-struct-lightest dark:bg-coopmathsdark-struct-lightest' : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-light'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono"
   on:click={clickKeycap}
 >
   <div id="key-{data.key}" class="relative">
