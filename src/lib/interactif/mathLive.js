@@ -421,7 +421,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   }
                   // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
                   // si la mantisse attendue est négative on nettoie la chaine des parenthèses
-                  if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && expoReponse % 2 === 1) {
+                  if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && parseInt(expoReponse) % 2 === 1) {
                     if ((saisie === `${mantisseReponse.replace(/[()]/g, '')}^{${expoReponse}}`) || (saisie === `${mantisseReponse.replace(/[()]/g, '')}^${expoReponse}`)) {
                       formatKO = true
                     }
@@ -446,13 +446,13 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                       formatKO = true
                     }
                     // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
-                    if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && ((-expoReponse) % 2 === 1)) {
-                      if ((nombreSaisi === `-\\frac{1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{-1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`) || (nombreSaisi === `\\frac{1}{-${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (-expoReponse)}}`)) {
+                    if (parseInt(mantisseReponse.replace(/[()]/g, '')) < 0 && ((parseInt(-expoReponse)) % 2 === 1)) {
+                      if ((nombreSaisi === `-\\frac{1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (parseInt(-expoReponse))}}`) || (nombreSaisi === `\\frac{-1}{${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (parseInt(-expoReponse))}}`) || (nombreSaisi === `\\frac{1}{-${((-1) * parseInt(mantisseReponse.replace(/[()]/g, ''))) ** (parseInt(-expoReponse))}}`)) {
                         formatKO = true
                       }
                     }
                   } else if (parseInt(expoReponse) > 0) {
-                    if (nombreSaisi === `${mantisseReponse ** (expoReponse)}`) {
+                    if (nombreSaisi === `${mantisseReponse ** (parseInt(expoReponse))}`) {
                       if (expoReponse !== '1') formatKO = true
                       else formatOK = true // Au cas où l'exposant soit 1
                     }
