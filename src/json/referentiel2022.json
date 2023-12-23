@@ -11565,7 +11565,7 @@
         "uuid": "1acf7",
         "id": "6N23-1",
         "titre": "Donner différentes écritures de nombres décimaux",
-        "dateModification": "25/09/2022",
+        "dateModification": "21/12/2023",
         "features": {
           "interactif": {
             "isActive": true,
@@ -12068,6 +12068,7 @@
         "uuid": "06633",
         "id": "6N41",
         "titre": "Compléter les égalités entre fractions simples",
+        "dateModification": "20/12/2023",
         "features": {
           "interactif": {
             "isActive": true,
@@ -21232,8 +21233,8 @@
         "titre": "Factoriser avec les identités remarquables",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
