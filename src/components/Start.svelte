@@ -961,7 +961,7 @@
       <ChipsList bind:chipsListDisplayed={chipsListDisplayed}/>
     </div>
   {/if}
-  <Keyboard/>
+  <Keyboard {innerWidth}/>
 
 </div>
 

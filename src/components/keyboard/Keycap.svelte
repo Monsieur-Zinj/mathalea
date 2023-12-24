@@ -2,10 +2,12 @@
   import type { MathfieldElement } from 'mathlive'
   import { keyboard } from '../stores/generalStore'
   import type { KeyCap } from './types/keycap'
+  import { KEYCAP_WIDTH } from './layouts/keycaps'
+  export let innerWidth: number
   export let data: KeyCap
   export let isSpecial: boolean = false
   let button: HTMLButtonElement
-
+  $: keycapwidth = innerWidth <= 768 ? KEYCAP_WIDTH.sm : KEYCAP_WIDTH.md
   function clickKeycap (event: MouseEvent) {
     if (event.currentTarget instanceof HTMLButtonElement) {
       const idMathField = $keyboard.idMathField
@@ -38,7 +40,8 @@
 
 <button
   bind:this={button}
-  class="w-[30px] md:w-[40px] h-full flex justify-center items-center text-xs md:text-xl text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas dark:active:text-coopmathsdark-canvas  active:bg-coopmaths-action dark:active:bg-coopmathsdark-action {isSpecial ? 'bg-coopmaths-struct-lightest dark:bg-coopmathsdark-struct-lightest' : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-light'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono"
+  class="customwidth h-full flex justify-center items-center text-xs md:text-xl text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas dark:active:text-coopmathsdark-canvas  active:bg-coopmaths-action dark:active:bg-coopmathsdark-action {isSpecial ? 'bg-coopmaths-struct-lightest dark:bg-coopmathsdark-struct-lightest' : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-light'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono"
+  style="--keycapwidth:{keycapwidth}"
   on:click={clickKeycap}
 >
   <div id="key-{data.key}" class="relative">
@@ -46,3 +49,8 @@
     <span>{@html data.key}</span>
   </div>
 </button>
+<style>
+  .customwidth {
+    width: calc( var(--keycapwidth) * 1px );
+  }
+</style>

@@ -25,5 +25,12 @@ export class Keyboard {
     return this
   }
 
-  length = ():number => this.blocks.length
+  length = (): number => this.blocks.length
+  numberOfKeys = ():number => {
+    let count = 0
+    for (const block of this.blocks) {
+      count += block.keycaps.inline.length
+    }
+    return count
+  }
 }

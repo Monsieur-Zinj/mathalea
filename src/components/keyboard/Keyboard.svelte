@@ -7,6 +7,8 @@
   import { Keyboard } from './types/keyboardContent'
   import { fullOperations, numeric, variables } from './layouts/keyboardBlocks'
 
+  export let innerWidth: number
+
   const myKeyboard = new Keyboard(fullOperations).add(numeric).add(variables)
   // const specialKeys: KeyboardBlock = myKeyboard.blocks[0]
   let divKeyboard: HTMLDivElement
@@ -28,11 +30,11 @@
   >
     {#if !reduced}
       {#each [...myKeyboard.blocks].reverse() as block}
-        <KeyboardBlock {block} isInLine={false} />
+        <KeyboardBlock {block} isInLine={false} {innerWidth}/>
       {/each}
     {:else}
     {#each [...myKeyboard.blocks].reverse() as block}
-        <KeyboardBlock {block} isInLine={true} />
+        <KeyboardBlock {block} isInLine={true} {innerWidth}/>
       {/each}
     {/if}
     <button
