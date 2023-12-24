@@ -20,17 +20,37 @@ export class Keyboard {
     this.blocks.push(kb)
   }
 
+  /**
+   * Ajoute un bloc de touche au clavier
+   * @param kb {KeyboardBlock} bloc de touches à ajouter
+   * @returns le clavier lui-même (on peut donc chaîner cette fonction)
+   */
   add = (kb: KeyboardBlock):Keyboard => {
     this.blocks.push(kb)
     return this
   }
 
-  length = (): number => this.blocks.length
-  numberOfKeys = ():number => {
-    let count = 0
+  /**
+   * Retrouve le nombre de blocs dans le clavier
+   * @returns nombre de blocs dans le clavier
+   */
+  numberOfBlocks = (): number => this.blocks.length
+
+  /**
+   * Construit un tableau dont les éléments sont le nombre de touche par bloc
+   * @returns nombre de touches par bloc (liste de nombres)
+   */
+  numberOfKeysPerBlock = (): number[] => {
+    const result: number[] = []
     for (const block of this.blocks) {
-      count += block.keycaps.inline.length
+      result.push(block.keycaps.inline.length)
     }
-    return count
+    return result
   }
+
+  /**
+   * Calcule le nombre total de touches dans le clavier
+   * @returns nombre total de touches
+   */
+  numberOfKeys = ():number => this.numberOfKeysPerBlock().reduce((prev, current) => prev + current)
 }

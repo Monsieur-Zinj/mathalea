@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tick } from 'svelte'
+  import { onMount, tick } from 'svelte'
   import { keyboard } from '../stores/generalStore'
   import { mathaleaRenderDiv } from '../../lib/mathalea'
   import KeyboardBlock from './KeyboardBlock.svelte'
@@ -20,6 +20,12 @@
     await tick()
     mathaleaRenderDiv(divKeyboard)
   })
+  onMount(() => {
+    console.log('nb block: ' + myKeyboard.numberOfBlocks())
+    console.log('nb keys: ' + myKeyboard.numberOfKeys())
+    console.log('nb keys/block: ' + myKeyboard.numberOfKeysPerBlock())
+    console.log('nb keys(reduce): ' + myKeyboard.numberOfKeysPerBlock().reduce((prev, current) => prev + current))
+  })
 </script>
 
 {#if isVisible}
@@ -30,11 +36,11 @@
   >
     {#if !reduced}
       {#each [...myKeyboard.blocks].reverse() as block}
-        <KeyboardBlock {block} isInLine={false} {innerWidth}/>
+        <KeyboardBlock {block} isInLine={false} {innerWidth} />
       {/each}
     {:else}
-    {#each [...myKeyboard.blocks].reverse() as block}
-        <KeyboardBlock {block} isInLine={true} {innerWidth}/>
+      {#each [...myKeyboard.blocks].reverse() as block}
+        <KeyboardBlock {block} isInLine={true} {innerWidth} />
       {/each}
     {/if}
     <button
