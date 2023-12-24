@@ -2,14 +2,12 @@
   import { onMount, tick } from 'svelte'
   import { keyboard } from '../stores/generalStore'
   import { mathaleaRenderDiv } from '../../lib/mathalea'
-  import KeyboardBlock from './KeyboardBlock.svelte'
   import { fly } from 'svelte/transition'
   import { Keyboard } from './types/keyboardContent'
   import { fullOperations, numeric, variables } from './layouts/keyboardBlocks'
-  import { GAP_BETWEEN_BLOCKS } from './layouts/keycaps'
+  import KeyboardPage from './KeyboardPage.svelte'
 
   export let innerWidth: number
-  $: blockgapsize = innerWidth <= 768 ? GAP_BETWEEN_BLOCKS.sm : GAP_BETWEEN_BLOCKS.md
 
   const myKeyboard = new Keyboard(fullOperations).add(numeric).add(variables)
   // const specialKeys: KeyboardBlock = myKeyboard.blocks[0]
@@ -34,17 +32,12 @@
   <div
     transition:fly={{ y: '100%', opacity: 1 }}
     bind:this={divKeyboard}
-    class="bg-coopmaths-struct dark:bg-coopmathsdark-struct p-4 flex flex-row blockgap items-start justify-center w-full fixed bottom-0 left-0 right-0 z-[9999]"
-    style="--blockgapsize:{blockgapsize}"
+    class="bg-coopmaths-struct dark:bg-coopmathsdark-struct p-4 w-full fixed bottom-0 left-0 right-0 z-[9999]"
   >
     {#if !reduced}
-      {#each [...myKeyboard.blocks].reverse() as block}
-        <KeyboardBlock {block} isInLine={false} {innerWidth} />
-      {/each}
+      <KeyboardPage blocks={[...myKeyboard.blocks].reverse()} isInLine={false} {innerWidth}/>
     {:else}
-      {#each [...myKeyboard.blocks].reverse() as block}
-        <KeyboardBlock {block} isInLine={true} {innerWidth} />
-      {/each}
+      <KeyboardPage blocks={[...myKeyboard.blocks].reverse()} isInLine={true} {innerWidth}/>
     {/if}
     <button
       type="button"
@@ -59,8 +52,3 @@
     </button>
   </div>
 {/if}
-<style>
-  .blockgap {
-    column-gap: calc( var(--blockgapsize) * 1px);
-  }
-</style>
