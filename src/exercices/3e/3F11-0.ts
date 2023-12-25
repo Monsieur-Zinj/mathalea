@@ -2,13 +2,12 @@ import Exercice from '../ExerciceTs'
 
 import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'
-import { Spline, noeudsSplineAleatoire, modifieNoeuds } from '../../lib/mathFonctions/Spline'
+import { Spline, noeudsSplineAleatoire } from '../../lib/mathFonctions/Spline'
 import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom'
 import type Point from 'apigeom/src/elements/points/Point'
 import { randint } from '../../modules/outils'
-import { cherchePolynomeDegre3aExtremaFixes } from '../../modules/debarras/cherchePolynomeDegre3aExtremaFixes'
 import Figure from 'apigeom'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { courbe } from '../../lib/2d/courbes'
@@ -20,7 +19,10 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { polynomialRoot } from 'mathjs'
-
+import { interpolationDeLagrange } from '../../lib/mathFonctions/outilsMaths'
+// à remplacer par l'instance présente dans le fichier comparaisonFonctions.ts quand il sera en ligne/
+import { ComputeEngine } from '@cortex-js/compute-engine'
+const engine = new ComputeEngine()
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
 export const interactifReady = true
@@ -34,7 +36,6 @@ export const interactifType = 'mathLive'
 export const uuid = '28997'
 
 type TypesDeFonction = 'constante'|'affine'|'poly2'|'poly3'|'spline'
-const typesDeFonction:TypesDeFonction[] = ['constante', 'affine', 'poly2', 'poly3', 'spline']
 function compareEnsembles (e1:string, e2:string) {
   const cleanUp = (s:string) => s.replace('{,}', '.').replace(',', '.')
   const elements1 = cleanUp(e1).split(';')
@@ -51,76 +52,74 @@ function compareEnsembles (e1:string, e2:string) {
 }
 
 function choisisFonction (type: TypesDeFonction, noeudsPassants: {x:number, y:number}[]): {func: (x:number)=>number, expr: string|Spline, poly?: Polynome} {
-  let { x: x1, y: y1 } = noeudsPassants[0]
-  let { x: x2, y: y2 } = noeudsPassants[1]
-
-  switch (type) {
-    case 'constante':
-      return {
-        func: () => y1,
-        expr: `${y1}`,
-        poly: new Polynome({ rand: false, deg: 3, coeffs: [y1, 0, 0, 0] })
-      }
-
-    case 'affine':{
-      if (x1 - x2 === 0) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        window.notify('Un problème avec le choix de noeuds passants : droite verticale ???')
-      }
-      let a = (y1 - y2) / (x1 - x2)
-      let b = y1 - a * x1
-      while (Math.abs(a) > 2) {
-        y2 = (y1 + y2) / 2
-        a = (y1 - y2) / (x1 - x2)
-        b = y1 - a * x1
-      }
-      noeudsPassants[1].y = y2 // On modifie noeudsPassants pour la prochaine fonction
-      return {
-        func: (x:number) => a * x + b,
-        expr: `${a}*x+${b}`,
-        poly: new Polynome({ rand: false, deg: 3, coeffs: [b, a, 0, 0] })
-      }
-    }
-    case 'poly2': {
-      if (x1 === 0) x1 = randint(-4, -1)
-      if (x2 === 0) x2 = randint(1, 4)
-      if (x1 === x2) x2 = randint(-4, 4, x2)
-      if (y1 / x1 === y2 / x2) y2 = randint(-3, 3, y2)
-      const a = (y2 / x2 - y1 / x1) / (x2 - x1)
-      const b = (x2 * y1 / x1 - x1 * y2 / x2) / (x2 - x1)
-      const func:(x:number)=>number = (x:number) => x * ((x - x1) * y2 / x2 - (x - x2) * y1 / x1) / (x2 - x1)
-      const expr: string = `x*((x-${x1})*${y2}/${x2}-(x-${x2})*${y1}/${x1})/(${x2}-${x1})`
-      return { func, expr, poly: new Polynome({ rand: false, deg: 3, coeffs: [0, b, a, 0] }) }
-    }
-    case 'poly3': {
-      let y1bis = y1
-      let y2bis = y2
-      while ((y1bis - y2bis) ** 2 < 16) {
-        y1bis = Math.max(Math.min(y1bis, y2bis) - 1, -5)
-        y2bis = Math.min(Math.max(y1bis, y2bis) + 1, 5)
-      }
-      noeudsPassants = [{ x: x1, y: y1bis }, { x: x2, y: y2bis }]
-      const [a, b, c, d] = cherchePolynomeDegre3aExtremaFixes(x1, x2, y1bis, y2bis)
-      return {
-        func: (x: number) => a.valueOf() * x ** 3 + b.valueOf() * x ** 2 + c.valueOf() * x + d.valueOf(),
-        expr: `${a.valueOf()}*x^3+${b.valueOf()}*x^2+${c.valueOf()}*x+${d.valueOf()}`,
-        poly: new Polynome({ rand: false, deg: 3, coeffs: [d, c, b, a] })
-      }
-    }
-    case 'spline':{
-      const noeudsF = noeudsSplineAleatoire(8, true, -6, randint(-4, 4), 2)
-      for (const noeudPassant of noeudsPassants) {
-        for (let i = 0; i < noeudsF.length; i++) {
-          if (noeudPassant.x === noeudsF[i].x) {
-            noeudsF[i].y = noeudPassant.y
-            break
-          }
+  if (type === 'spline') {
+    const noeudsF = noeudsSplineAleatoire(8, true, -6, randint(-4, 4), 2)
+    for (const noeudPassant of noeudsPassants) {
+      for (let i = 0; i < noeudsF.length; i++) {
+        if (noeudPassant.x === noeudsF[i].x) {
+          noeudsF[i].y = noeudPassant.y
+          break
         }
       }
-      const splineF = new Spline(noeudsF)
-      return { func: splineF.fonction, expr: splineF }
     }
+    const splineF = new Spline(noeudsF)
+    return { func: splineF.fonction, expr: splineF }
+  } else {
+    let noeudsFonction
+    switch (type) {
+      case 'affine':
+        if (noeudsPassants[0].x - noeudsPassants[1].x === 0) {
+          throw Error('Un problème avec le choix de noeuds passants : droite verticale ???')
+        }
+        if (noeudsPassants.length < 2) {
+          throw Error('Un problème pas deux points pour une affine')
+        }
+        noeudsFonction = noeudsPassants.slice(0, 2)
+        break
+      case 'poly2':
+        // Pour un polynome de degré 2, il faut trois points sinon, c'est une droite
+        if (noeudsPassants.length < 3) {
+          throw Error('Un problème pas 3 noeuds pour un poly2')
+        }
+        noeudsFonction = noeudsPassants.slice(0, 3)
+        break
+      case 'poly3':
+        // Pour un polynome de degré 3, il faut quatre points sinon, c'est un poly2
+        if (noeudsPassants.length < 4) {
+          throw Error('Un problème pas 4 noeuds pour un poly3')
+        }
+        noeudsFonction = noeudsPassants.slice(0, 4)
+        break
+      case 'constante':
+      default:
+        if (noeudsPassants.length < 1) {
+          throw Error('Un problème il faut au moins un noeud !')
+        }
+        return {
+          func: () => noeudsPassants[0].y,
+          expr: `${noeudsPassants[0].y}`,
+          poly: new Polynome({ rand: false, deg: 3, coeffs: [noeudsPassants[0].y, 0, 0, 0] })
+        }
+    }
+    if (noeudsFonction == null) {
+      // si on arrive là, c'est qu'on a un truc inconnu
+      throw Error('type de fonction inconnu')
+    }
+    const poly = interpolationDeLagrange(noeudsFonction)
+    if (poly.deg < 3) {
+      const monomes = poly.monomes
+      for (let i = monomes.length - 1; i < 4; i++) {
+        monomes.push(0)
+      }
+      poly.monomes = [...monomes]
+      poly.deg = 3
+    }
+    const polyLatex = poly.toLatex().replaceAll(/\s/g, '').replaceAll(',', '.')
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    const func:(x:number)=>number = engine.parse(polyLatex).compile('javascript')
+    const expr: string = poly.toMathExpr()
+    return { func, expr, poly }
   }
 }
 
@@ -136,12 +135,11 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.formatChampTexte = 'largeur15 inline'
     this.exoCustomResultat = true
     this.answers = {}
-    this.sup2 = 2
-    this.sup3 = 3
+    this.sup2 = 5
     this.sup = 1
     this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Résoudre une équation\n2 : Résoudre une inéquation\n3: Résoudre une équation et une inéquation']
-    this.besoinFormulaire2Numerique = ['Choix de la première fonction', 6, '1 : Constante\n2 :Affine\n3 : Polynome de degré 2\n4 : Polynome de degré 3\n5 : Spline aléatoire\n6 : Au hasard']
-    this.besoinFormulaire3Numerique = ['Choix de la deuxième fonction', 6, '1 : Constante\n2 :Affine\n3 : Polynome de degré 2\n4 : Polynome de degré 3\n5 : Spline aléatoire\n6 : Au hasard']
+    this.besoinFormulaire2Numerique = ['Choix des deux fonctions', 13,
+      '1 : Constante-affine\nConstante-degré2\nConstante-degré3\nConstante-spline\nAffine-affine\nAffine-degré2\nAffine-degré3\nAffine-spline\nDegré2-degré2\nDegré2-degré3\nDegré2-spline\nDegré3-degré3\nDegré3-spline']
   }
 
   nouvelleVersion (numeroExercice: number): void {
@@ -152,28 +150,92 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = ['']
     this.autoCorrection = []
-    const typeFonctions = [
-      typesDeFonction[(this.sup2 === 6 ? randint(1, 5) : this.sup2) - 1],
-      typesDeFonction[(this.sup3 === 6 ? randint(1, 5) : this.sup3) - 1]
-    ]
-    let noeudsPassant: {x:number, y:number}[]
-    do {
-      noeudsPassant = []
-      const x = []
-      const y = []
-      for (let i = 0; i < 2; i++) {
-        const xi: number = randint(-2, 2, x) * 2
-        x.push(xi)
-        const yi: number = randint(-4, 4, y)
-        y.push(yi)
-        noeudsPassant.push({ x: xi, y: yi })
-      }
-    } while ((noeudsPassant[0].x - noeudsPassant[1].x) ** 2 < 16) // Il faut au moins 4 d'écart entre les deux noeuds passants
+
+    const x0 = randint(-5, -3)
+    const x1 = randint(-2, 0)
+    const y0 = randint(-3, 3)
+    const y1 = randint(-3, 0, y0)
+    const x2 = randint(1, 3, [x0, x1])
+    const y2 = randint(0, 3, [y0, y1])
+    const x3 = randint(4, 5, [x0, x1, x2])
+    const y3 = randint(-1, 3, [y0, y1, y2])
+    const noeudsPassant = [{ x: x0, y: y0 }, { x: x1, y: y1 }, { x: x2, y: y2 }, { x: x3, y: y3 }].sort((el1, el2) => el1.x - el2.x)
+    let f1Type: TypesDeFonction
+    let f2Type: TypesDeFonction
+    switch (this.sup2) { // On choisit les fonctions demandées
+      case 1 : // constante et affine
+        f1Type = 'constante'
+        f2Type = 'affine'
+        break
+      case 2 : // constante et degré2
+        f1Type = 'constante'
+        f2Type = 'poly2'
+        break
+      case 3 : // constante et degré3
+        f1Type = 'constante'
+        f2Type = 'poly3'
+        break
+      case 4 : // constante et spline
+        f1Type = 'constante'
+        f2Type = 'spline'
+        break
+      case 6 : // affine et degré2
+        f1Type = 'poly2'
+        f2Type = 'affine'
+        break
+      case 7 : // affine et degré3
+        f1Type = 'poly3'
+        f2Type = 'affine'
+        break
+      case 8 : // affine et spline
+        f1Type = 'spline'
+        f2Type = 'affine'
+        break
+      case 9 : // degré2 et degré2
+        f1Type = 'poly2'
+        f2Type = 'poly2'
+        break
+      case 10 : // degré2 et degré3
+        f1Type = 'poly2'
+        f2Type = 'poly3'
+        break
+      case 11 : // degré2 et spline
+        f1Type = 'poly2'
+        f2Type = 'spline'
+        break
+      case 12 : // degré3 et degré3
+        f1Type = 'poly3'
+        f2Type = 'poly3'
+        break
+      case 13 : // degré3 et spline
+        f1Type = 'poly3'
+        f2Type = 'spline'
+        break
+      default: // affine et affine (c'est le this.sup par défaut)
+        f1Type = 'affine'
+        f2Type = 'affine'
+        break
+    }
+    let fonctions
+    if (f1Type !== f2Type) {
+      fonctions = [choisisFonction(f1Type, noeudsPassant), choisisFonction(f2Type, noeudsPassant)]
+    } else { // on a un problème par ce que les noeuds passants étant identiques, les deux fonctions seront identiques !
+      const ordonnees = noeudsPassant.map(el => el.y)
+      let newY: number
+      do {
+        newY = randint(-5, 5, ordonnees)
+      } while (newY * noeudsPassant[1].y > 0)
+      const newNoeudsPassants = []
+      newNoeudsPassants.push(noeudsPassant[0])
+      newNoeudsPassants.push({ x: noeudsPassant[1].x, y: newY })
+      newNoeudsPassants.push(...noeudsPassant.slice(2, 4))
+      fonctions = [choisisFonction(f1Type, noeudsPassant), choisisFonction(f2Type, newNoeudsPassants)]
+    }
+    const [fonction1, fonction2] = shuffle(fonctions)
     let courbeF
     let M
 
     // on s'occupe de la fonction 1 et du point mobile dessus on trace tout ça.
-    const fonction1 = choisisFonction(typeFonctions[0], noeudsPassant)
     if (typeof fonction1.expr === 'string') {
       courbeF = this.figure.create('Graph', { expression: fonction1.expr, color: 'blue', thickness: 1, fillOpacity: 0.5 })
       M = this.figure.create('PointOnGraph', { graph: courbeF })
@@ -211,38 +273,6 @@ class resolutionEquationInequationGraphique extends Exercice {
       textX.dynamicText.maximumFractionDigits = 2
       textY.dynamicText.maximumFractionDigits = 1
     }
-    // fonction 1 Ok, maintenant la fonction 2
-    let fonction2: {func: (x:number)=>number, expr: string|Spline, poly?: Polynome}
-    // Si c'est le même type, il ne faut pas retomber sur la même fonction, donc on change l'un des noeuds passant au moins
-    if (typeFonctions[0] === typeFonctions[1]) {
-      if (typeFonctions[1] === 'constante') {
-        noeudsPassant[0].y = randint(-5, 5, noeudsPassant[0].y)
-        fonction2 = choisisFonction('constante', noeudsPassant)
-      } else if (typeFonctions[1] === 'affine') { // Pour les droites
-        noeudsPassant[1].y = -noeudsPassant[1].y
-        fonction2 = choisisFonction('affine', noeudsPassant)
-      } else if (typeFonctions[1] === 'poly2') {
-        const poly1 = fonction1.poly
-        if (poly1 == null) throw Error('ça n\'arrive jamais mais sinon typescript croit que fonction2 peut ne pas être assignée')
-        fonction2 = { func: (x: number) => -fonction1.func(x), expr: `-${fonction1.expr}`, poly: poly1.multiply(-1) }
-      } else if (typeFonctions[1] === 'poly3') { // Pour les polynomes
-        const yInter = Math.min(6, Math.max(noeudsPassant[1].y + randint(-2, 2), -6))
-        noeudsPassant[1].y = noeudsPassant[0].y
-        noeudsPassant[0].y = yInter
-        const xInter = Math.min(6, Math.min(noeudsPassant[1].x + randint(-1, 1), -6))
-        noeudsPassant[1].x = noeudsPassant[0].x
-        noeudsPassant[0].x = xInter
-        fonction2 = choisisFonction('poly3', noeudsPassant)
-      } else { // Pour les splines, on modifie l'ensemble des noeuds de la fonction1 avec une symétrie horizontale et un échange de 2 noeuds
-        const spline2 = fonction1.expr as Spline
-        if (spline2.noeuds == null) throw Error('Pas de noeuds dans une spline ??? ça n\'arrive jamais !')
-        const spline2Bis = new Spline(modifieNoeuds(spline2.noeuds, { symetrieH: true, echangeNoeuds: 2 }))
-        fonction2 = { func: spline2Bis.fonction, expr: spline2Bis }
-      }
-    } else {
-      fonction2 = choisisFonction(typeFonctions[1], noeudsPassant)
-    }
-    // Fonction 2 Ok On trace sa courbe
     let courbeG
     if (typeof fonction2.expr === 'string') {
       courbeG = this.figure.create('Graph', { expression: fonction2.expr, color: 'red', thickness: 1, fillOpacity: 0.5 })
@@ -272,7 +302,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     let diffSpline
     let soluces
     const inferieur = choice([true, false])
-    if (typeFonctions[0] === 'spline' && typeFonctions[1] === 'spline') {
+    if (fonction1.type === 'spline' && fonction2.type === 'spline') {
       const func1 = fonction1.expr as Spline
       const func2 = fonction2.expr as Spline
       diffSpline = func1.add(func2, true)
@@ -281,12 +311,12 @@ class resolutionEquationInequationGraphique extends Exercice {
         enonce += '$\\{' + Array.from(soluces).sort((a:number, b:number) => a - b).map(el => texNombre(el, 1)).join(' ; ') + '\\}$<br>'
         //  diff = diffSpline.fonction
       }
-    } else if (typeFonctions[0] === 'spline' || typeFonctions[1] === 'spline') {
+    } else if (fonction1.type === 'spline' || fonction2.type === 'spline') {
       // On a déjà éliminé le cas des 2 Splines ici on traite le cas une Spline et un polynome.
       let spline: Spline
       let poly: Polynome
       const sols: number[] = []
-      if (typeFonctions[0] === 'spline') {
+      if (fonction1.type === 'spline') {
         spline = fonction1.expr as Spline
         poly = fonction2.poly as Polynome
       } else {
@@ -332,7 +362,6 @@ class resolutionEquationInequationGraphique extends Exercice {
         soluces = new Set(soluces)
       }
     }
-
     if (soluces != null) {
       if (this.sup === 1 || this.sup === 3) {
         enonce += remplisLesBlancs(this, 0, '\\{%{soluces}\\}', 'inline college6e', '.......') + '<br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
@@ -378,7 +407,7 @@ class resolutionEquationInequationGraphique extends Exercice {
         })
         .buildStandard()
       let courbe1, courbe2
-      if (typeFonctions[0] === 'constante' || typeFonctions[0] === 'affine') {
+      if (fonction1.type === 'constante' || fonction1.type === 'affine') {
         const M = point(-6, fonction1.func(-6), '')
         const N = point(6, fonction1.func(6), '')
         courbe1 = droite(M, N)
@@ -389,7 +418,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       courbe1.epaisseur = 2
-      if (typeFonctions[2] === 'constante' || typeFonctions[2] === 'affine') {
+      if (fonction2.type === 'constante' || fonction2.type === 'affine') {
         const M = point(-6, fonction2.func(-6), '')
         const N = point(6, fonction2.func(6), '')
         courbe2 = droite(M, N)

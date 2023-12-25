@@ -85,18 +85,18 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
         if (listeTypeFractions[i] === 'fractionsNonDecimales') {
           let multiple
           denominateur === 4 ? multiple = 100 : multiple = 10
-          texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\cfrac{${ecritureDecimale * multiple}}{${multiple}}$  ou $${texNombre(ecritureDecimale, 3)} = \\cfrac{${numerateur}}{${denominateur}}$`
+          texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\dfrac{${ecritureDecimale * multiple}}{${multiple}}$  ou $${texNombre(ecritureDecimale, 3)} = \\dfrac{${numerateur}}{${denominateur}}$`
           setReponse(this, i, [new FractionEtendue(ecritureDecimale * multiple, multiple), new FractionEtendue(numerateur, denominateur)], { formatInteractif: 'fraction' })
         } else {
-          texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\cfrac{${numerateur}}{${denominateur}}$`
+          texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\dfrac{${numerateur}}{${denominateur}}$`
           setReponse(this, i, new FractionEtendue(numerateur, denominateur), { formatInteractif: 'fraction' })
         }
       } else if (listeDesSensDemandes[i] === 'FractionnaireADecimale') {
-        texte = `Donner l'écriture décimale de $\\cfrac{${numerateur}}{${denominateur}}$.`
+        texte = `Donner l'écriture décimale de $\\dfrac{${numerateur}}{${denominateur}}$.`
         if (this.interactif) {
-          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: `$\\cfrac{${numerateur}}{${denominateur}} = $` })
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: `$\\dfrac{${numerateur}}{${denominateur}} = $` })
         }
-        texteCorr = `$\\cfrac{${numerateur}}{${denominateur}} = ${texNombre(ecritureDecimale, 3)}$`
+        texteCorr = `$\\dfrac{${numerateur}}{${denominateur}} = ${texNombre(ecritureDecimale, 3)}$`
         setReponse(this, i, arrondi(ecritureDecimale, 3))
       }
 

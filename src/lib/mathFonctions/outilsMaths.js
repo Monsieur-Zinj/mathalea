@@ -4,6 +4,7 @@ import { randint } from '../../modules/outils.js'
 import { ecritureAlgebrique } from '../outils/ecritures.js'
 import { matriceCarree } from './MatriceCarree.js'
 import Decimal from 'decimal.js'
+import { Polynome } from './Polynome.js'
 
 /**
  * retourne une FractionEtendue à partir de son écriture en latex (ne prend pas en compte des écritures complexes comme
@@ -95,6 +96,39 @@ export function expTrinome (a, b, c) {
     expr += `+${c}`
   }
   return expr
+}
+
+/**
+ * Une fonction qui retourrne le polynome de Lagrange passant par une liste de points
+ * @param {{x:number,y:number}[]} listePoints
+ */
+export function interpolationDeLagrange (listePoints) {
+  // tout d'abord vérifier qu'il n'y a pas de doublons en x !
+  const listeOrdonnee = listePoints.sort((el1, el2) => el1.x - el2.x)
+  const setPoints = []
+  for (let i = 1; i < listeOrdonnee.length; i++) {
+    // si deux points qui se suivent dans la liste ordonnée ont des abscisses différentes, alors on peut stocker le plus petit
+    if (listeOrdonnee[i - 1].x !== listeOrdonnee[i].x) setPoints.push(listeOrdonnee[i - 1])
+  }
+  // comme on n'a pas stocké le dernier, on le fait
+  setPoints.push(listeOrdonnee[listeOrdonnee.length - 1])
+  if (setPoints.length < 2) throw Error('Pour une interpolation de Lagrange, il faut au moins deux points d\'abscisses différentes')
+  const n = setPoints.length - 1
+  // On initialise à zéro
+  let result = new Polynome({ coeffs: [0] })
+  for (let j = 0; j <= n; j++) {
+    // pour un produit on initialise à 1
+    let prod = new Polynome({ coeffs: [1] })
+    for (let i = 0; i <= n; i++) {
+      if (j !== i) {
+        const den = setPoints[j].x - setPoints[i].x
+        prod = prod.multiply(new Polynome({ coeffs: [-setPoints[i].x / den, 1 / den] }))
+      }
+    }
+    prod = prod.multiply(setPoints[j].y)
+    result = result.add(prod)
+  }
+  return result
 }
 
 /**

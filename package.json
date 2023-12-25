@@ -46,7 +46,10 @@
     "transpile": "tsc > journal.log",
     "lint": "eslint src/exercices/**/* --ext .js,.ts --fix",
     "lintSvelte": "eslint src/components/**/* --ext .js,.ts,.svelte --fix",
-    "docs": "jsdoc -d docs --configure jsdocConf.json"
+    "docs": "jsdoc -d docs --configure jsdocConf.json",
+    "test:e2e:all": "vitest --config tests/e2e/vitest.config.all.js --run",
+    "test:e2e:interactivity": "vitest --config tests/e2e/vitest.config.interactivity.js --run",
+    "test:e2e:console_errors": "vitest --config tests/e2e/vitest.config.console_errors.js --run"
   },
   "dependencies": {
     "@bugsnag/js": "^7.22.2",
@@ -72,6 +75,8 @@
     "mathjs": "^12.2.1",
     "mathlive": "^0.98.4",
     "mathsteps": "github:mathalea/mathsteps#update-mathjs",
+    "node-fetch": "^3.3.2",
+    "playwright": "^1.40.1",
     "qrcode": "^1.5.3",
     "scratchblocks": "^3.6.4",
     "seedrandom": "^3.0.5",
@@ -79,10 +84,11 @@
     "sortablejs": "^1.15.1",
     "ts-import": "5.0.0-beta.0",
     "tw-elements": "^1.1.0",
+    "vite-plugin-dynamic-import": "^1.5.0",
+    "vitest": "^1.1.0",
     "xstate": "^4.38.3"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.1",
     "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "@tailwindcss/forms": "^0.5.7",
     "@tsconfig/svelte": "^5.0.2",
