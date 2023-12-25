@@ -20,21 +20,19 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Hms from '../../modules/Hms.js'
 import { prenomF } from '../../lib/outils/Personne.js'
 import { context } from '../../modules/context.js'
-// import { resoudre } from '../../modules/outilsMathjs.js'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '8ff87'
 export const ref = ''
-// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '20/12/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '20/12/2023'
+
 export default function CourseAuxNombres2024 () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
   this.sup = 'x'
   this.nbQuestions = 30
   this.nouvelleVersion = function () {
@@ -61,8 +59,8 @@ export default function CourseAuxNombres2024 () {
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
 */
-    let niveauAttendu = this.sup
-    if (isNaN(niveauAttendu) || (niveauAttendu > 8)) {
+    let niveauAttendu = !this.sup ? 8 : this.sup
+    if (isNaN(niveauAttendu) || (niveauAttendu > 7)) {
       niveauAttendu = choice(range(7)) // Niveau au Hasard
     }
 
@@ -578,7 +576,7 @@ export default function CourseAuxNombres2024 () {
         }
           break
         case 18:{
-          let d, abs0, abs1, abs2, x1
+          let d, abs0, abs1, abs2, x1, nbIntervalles
           if (choice([true, false])) {
             abs0 = 2000
             abs1 = new Decimal(abs0).add(24)
@@ -597,8 +595,7 @@ export default function CourseAuxNombres2024 () {
               labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(abs1)}`], [2, `${stringNombre(abs2)}`]],
               pointListe: [[x1, '']]
             })
-            texteCorr = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $4$ intervalles.<br>
-               Une graduation correspond donc à $6$ unités. Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(reponse))}$.`
+            nbIntervalles = 4
           } else {
             abs0 = 2000
             abs1 = new Decimal(abs0).add(24)
@@ -617,10 +614,11 @@ export default function CourseAuxNombres2024 () {
               labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(abs1)}`], [2, `${stringNombre(abs2)}`]],
               pointListe: [[x1, '']]
             })
-            texteCorr = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $3$ intervalles.<br>
-                     Une graduation correspond donc à $8$ unités. Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(reponse))}$.`
+            nbIntervalles = 3
           }
           reponse = new Decimal(x1).mul(24).add(abs0)
+          texteCorr = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $${nbIntervalles}$ intervalles.<br>
+                     Une graduation correspond donc à $8$ unités. Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(reponse))}$.`
           setReponse(this, index, reponse)
           texte = 'Déterminer l\'abscisse du point $A$ ci-dessous'
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' :' })
@@ -2522,8 +2520,7 @@ export default function CourseAuxNombres2024 () {
       if (this.questionJamaisPosee(i, texte)) {
         // A supprimer lors de la mise en production
         // Pour savoir de quelle question il s'agit
-        // texte += ' <--- Question n°' + typeQuestionsDisponibles[listeIndex[i]]
-        texte += ' <--- Question n°' + typeQuestionsDisponibles[i]
+        // texte += ' <--- Question n°' + typeQuestionsDisponibles[i]
         // texte += '<br>Réponse attendue : ' + reponse // Pour avoir les réponses quand on débuggue.
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
