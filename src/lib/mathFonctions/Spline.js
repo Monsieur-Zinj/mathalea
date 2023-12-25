@@ -558,7 +558,7 @@ export class Spline {
       })
       return NaN
     } else {
-      return this.fonctions[k](rationnalise(x)).toNumber()
+      return this.fonctions[k](x)
     }
   }
 
