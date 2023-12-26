@@ -3,7 +3,7 @@ import { verifQuestionMathLive } from './mathLive.js'
 import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import Grandeur from '../../modules/Grandeur.js'
+import Grandeur from '../../modules/Grandeur'
 
 /**
  *

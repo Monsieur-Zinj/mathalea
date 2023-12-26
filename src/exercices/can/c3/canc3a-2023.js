@@ -7,7 +7,7 @@ import { context } from '../../../modules/context.js'
 import Hms from '../../../modules/Hms.js'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 
-import Grandeur from '../../../modules/Grandeur.js'
+import Grandeur from '../../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import ClasseCan2023 from './_Canc3a.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'

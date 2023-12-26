@@ -5,7 +5,13 @@
  * @author Jean-Claude Lhote et Sébastien Lozano
 */
 class Grandeur {
-  constructor (mesure, unite) {
+  mesure: number
+  unite: string
+  puissanceUnite: number
+  uniteDeReference: string
+  prefixe: string
+  puissancePrefixe: number
+  constructor (mesure: number, unite: string) {
     this.mesure = mesure
     this.unite = unite
     const uniteParsee = parseUnite(unite)
@@ -16,43 +22,29 @@ class Grandeur {
   }
 
   /**
-   * La conversion se fait entre dérivées de la même unité
-   * @param {string} unite2 (cm, cm^2...)
-   * @returns {Longueur}
-   */
-  convertirEnAncien (unite2) {
-    const unite2Parsee = parseUnite(unite2)
-    if (unite2Parsee.puissanceUnite === this.puissanceUnite && unite2Parsee.uniteDeReference === this.uniteDeReference) {
-      return new Grandeur(this.mesure * 10 ** ((this.puissancePrefixe - unite2Parsee.puissancePrefixe) * this.puissanceUnite), unite2)
-    } else {
-      // console.log('Conversion impossible')
-    }
-  }
-
-  /**
-   * La conversion se fait entre dérivées de la même unité
-   * et entre dérivées de m³ et des dérivées de L
-   * et entre dérivées de m² et des ares ou hectares
-   * @param {string} uniteConversion (cm, cm^2...)
-   * @returns {Longueur}
-   * @author Modifiée par Eric Elter
-   */
-  convertirEn (uniteConversion) {
+     * La conversion se fait entre dérivées de la même unité
+     * et entre dérivées de m³ et des dérivées de L
+     * et entre dérivées de m² et des ares ou hectares
+     * @param {string} uniteConversion (cm, cm^2...)
+     * @returns {Longueur}
+     * @author Modifiée par Eric Elter
+     */
+  convertirEn (uniteConversion: string) {
     const uniteConversionParsee = parseUnite(uniteConversion) // Unité de conversion (issue de la saisie)
     if (uniteConversionParsee.puissanceUnite === this.puissanceUnite && uniteConversionParsee.uniteDeReference === this.uniteDeReference) { // Mêmes unités
       return new Grandeur(this.mesure * 10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe) * this.puissanceUnite), uniteConversion)
-    } else if (uniteConversionParsee.uniteDeReference === 'm^3' & this.uniteDeReference === 'L') { // On met tout en litres.
+    } else if (uniteConversionParsee.uniteDeReference === 'm^3' && this.uniteDeReference === 'L') { // On met tout en litres.
       return new Grandeur(this.mesure * 10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe - 3) * this.puissanceUnite), 'L')
-    } else if (uniteConversionParsee.uniteDeReference === 'L' & this.uniteDeReference === 'm^3') { // On met tout en m³.
+    } else if (uniteConversionParsee.uniteDeReference === 'L' && this.uniteDeReference === 'm^3') { // On met tout en m³.
       return new Grandeur(this.mesure * 10 ** (this.puissancePrefixe * this.puissanceUnite + 3), 'm^3')
-    } else if (uniteConversionParsee.uniteDeReference === 'm^2' & this.uniteDeReference === 'a') { // On met tout en m².
+    } else if (uniteConversionParsee.uniteDeReference === 'm^2' && this.uniteDeReference === 'a') { // On met tout en m².
       return new Grandeur(this.mesure * 10 ** (this.puissancePrefixe + 2), 'm^2')
-    } else if (uniteConversionParsee.uniteDeReference === 'a' & this.uniteDeReference === 'm^2') { // On met tout en a.
+    } else if (uniteConversionParsee.uniteDeReference === 'a' && this.uniteDeReference === 'm^2') { // On met tout en a.
       return new Grandeur(this.mesure * 10 ** (this.puissancePrefixe * this.puissanceUnite - 2), 'a')
-    }
+    } else return this
   }
 
-  estEgal (unite2) {
+  estEgal (unite2: Grandeur) {
     const u1 = this.convertirEn(this.uniteDeReference)
     const u2 = unite2.convertirEn(this.uniteDeReference)
     if (u1 && u2) {
@@ -62,22 +54,29 @@ class Grandeur {
     }
   }
 
-  estUneApproximation (unite2, precision) {
+  /**
+   * La précision est donnée dans l'unité de référence
+   */
+  estUneApproximation (unite2: Grandeur, precision: number) {
     const u1 = this.convertirEn(this.uniteDeReference)
     const u2 = unite2.convertirEn(this.uniteDeReference)
-    if (u1 && u2) {
-      if (Math.abs(u1.mesure - u2.mesure) <= precision + precision / 10) return true
+    if (u1 !== undefined && u2 !== undefined) {
+      return (Math.abs(u1.mesure - u2.mesure) <= precision)
     } else {
       return false
     }
   }
 
+  toString () {
+    return `${String(this.mesure).replace('.', ',')} ${this.unite}`
+  }
+
   /**
-   * Crée une grandeur à partir d'un texte '1 cm', '2 m^2', '3~\\text{L}'...
-   * @param {sting} text
-   * @returns Grandeur
-   */
-  static fromString (text) {
+     * Crée une grandeur à partir d'un texte '1 cm', '2 m^2', '3~\\text{L}'...
+     * @param {sting} text
+     * @returns Grandeur
+     */
+  static fromString (text: string) {
     text = text.replace(',', '.')
     text = text.replace(' ', '')
     text = text.replace(/\\text{([^}]+)}/g, '$1')
@@ -91,14 +90,15 @@ class Grandeur {
 
 export default Grandeur
 
-function parseUnite (unite) {
-  let puissanceUnite, avantPuissanceUnite
+function parseUnite (unite: string) {
+  let puissanceUnite: number
+  let avantPuissanceUnite: string
   if (unite === '°') {
     puissanceUnite = 1
     avantPuissanceUnite = '°'
   }
   if (unite.indexOf('^') > 0) { // m² ou m³ et ses dérivées
-    puissanceUnite = unite.split('^')[1]
+    puissanceUnite = Number(unite.split('^')[1])
     avantPuissanceUnite = unite.split('^')[0]
   } else if (unite.indexOf('ha') === 0) { // hectares
     puissanceUnite = 1
@@ -119,8 +119,8 @@ function parseUnite (unite) {
   return { prefixe, uniteDeReference, puissanceUnite, puissancePrefixe }
 }
 
-function prefixeToPuissance (prefixe, unite) {
-  let puissancePrefixe
+function prefixeToPuissance (prefixe: string, unite: string) {
+  let puissancePrefixe: number
   switch (prefixe) {
     case 'm':
       puissancePrefixe = -3
@@ -144,10 +144,10 @@ function prefixeToPuissance (prefixe, unite) {
       puissancePrefixe = 3
       break
     case 'q': // quintal
-      puissancePrefixe = unite === 'q' ? 5 : false
+      puissancePrefixe = unite === 'q' ? 5 : NaN
       break
     case 't': // tonne
-      puissancePrefixe = unite === 't' ? 6 : false
+      puissancePrefixe = unite === 't' ? 6 : NaN
       break
     case 'M':
       puissancePrefixe = 6
@@ -165,7 +165,7 @@ function prefixeToPuissance (prefixe, unite) {
       puissancePrefixe = -9
       break
     default:
-      puissancePrefixe = false
+      puissancePrefixe = NaN
   }
   return puissancePrefixe
 }

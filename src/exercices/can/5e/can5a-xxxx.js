@@ -9,7 +9,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import Grandeur from '../../../modules/Grandeur.js'
+import Grandeur from '../../../modules/Grandeur'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Course aux nombres début de 5e'

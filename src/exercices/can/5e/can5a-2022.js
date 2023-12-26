@@ -16,7 +16,7 @@ import Exercice from '../../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { max, min, round } from 'mathjs'
-import Grandeur from '../../../modules/Grandeur.js'
+import Grandeur from '../../../modules/Grandeur'
 import { paveLPH3d } from '../../../modules/3d.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 

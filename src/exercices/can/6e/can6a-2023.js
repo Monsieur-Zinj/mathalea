@@ -18,7 +18,7 @@ import { context } from '../../../modules/context.js'
 import Hms from '../../../modules/Hms.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
-import Grandeur from '../../../modules/Grandeur.js'
+import Grandeur from '../../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
