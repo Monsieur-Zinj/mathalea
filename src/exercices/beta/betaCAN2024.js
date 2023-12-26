@@ -200,7 +200,7 @@ export default function CourseAuxNombres2024 () {
 
     // Pour test, si on ne veut que les question 73, 72 et 43 soient les premières questions, les mettre dans le tableau ci-dessous.
     // const typeQuestionsDisponibles = [73,72,43] autrement rien []
-    const typeQuestionsDisponibles = []
+    const typeQuestionsDisponibles = [67, 67, 67, 67]
 
     /// ///// Cette partie ci-dessous est destinée à afficher le tableau de répartition des différents niveaux de difficulté
     /// ///// Cette partie sera à commenter lors de la mise en production
@@ -1840,7 +1840,8 @@ export default function CourseAuxNombres2024 () {
           let choix = choice([true, false])
           choix = true
           if (choix) { // Pour enlever le second choix, trop difficile en CAN
-            objets.push(latexParCoordonnees(`${texNombre(new Decimal(a), 3)} \\text{ cm}`, 7.8, milieu(B, C).y + 0.5),
+            objets.push(
+              latexParCoordonnees(`${texNombre(new Decimal(a), 3)} \\text{ cm}`, 7.8, milieu(B, C).y + 0.5, 'black', 0, 0, '', 8),
               codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
               codageSegments('||', 'blue', C, D), codageSegments('||', 'blue', A, D),
               codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A), s1, s2, s3, s4)
