@@ -4,6 +4,8 @@ import { afterEach, beforeEach, describe, it } from 'vitest'
 import { getDefaultPage } from './browser.js'
 import { logError } from './log.js'
 import type { Locator, Page } from 'playwright'
+import type { Question } from './types.js'
+import { clean } from './text.js'
 
 /**
  * Wrapper des test effectués par vitest
@@ -12,7 +14,6 @@ import type { Locator, Page } from 'playwright'
  * @param metaUrl il faut passer import.meta.url depuis le fichier appelant pour savoir lequel c'est (et l'indiquer dans le log)
  */
 export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string) {
-  if (test.length < 1) throw Error('la fonction de test doit avoir un argument (un objet Page)')
   const filename = fileURLToPath(metaUrl)
   const testsSuiteDescription = '' // Ajoute une description intermédiaire dans le stdout si besoin
   describe(testsSuiteDescription, async () => {
@@ -52,8 +53,7 @@ export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string
             throw error
           }
           if (!result) {
-            const msg = `test ${filename} KO avec ${browserName}`
-            throw Error(msg)
+            throw Error(`test ${filename} KO avec ${browserName}`)
           }
         })
       }
@@ -62,69 +62,80 @@ export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string
 }
 
 export async function getQuestions (page: Page, urlExercice: string) {
-  const messages = []
+  const questionSelector = 'div#exo0 div.mb-5 div.container>li'
+
   await page.goto(urlExercice)
-  // Listen for all console events and handle errors
-  page.on('console', (msg) => {
-    if (!msg.text().includes('[vite]')) {
-      messages.push(msg.text())
-    }
-  })
-  // On cherche les questions
-  await page.waitForSelector('div.mb-5>ul>div#consigne0-0')
-  const questions = await page.locator('div#exo0 div.mb-5 div.container>li').all()
-  const isCorrect = []
-  const nbQuestions = questions.length
-  // on aléatoirise le fait de répondre juste ou pas
-  for (let i = 0; i < nbQuestions; i++) {
-    isCorrect.push(Math.random() < 0.5)
+  await page.waitForSelector(questionSelector)
+  const locators = await page.locator(questionSelector).all()
+
+  const questions: Question[] = []
+  for (const locator of locators) {
+    questions.push({
+      id: await getQuestionId(locator),
+      innerText: await getInnerText(locator),
+      isCorrect: Math.random() < 0.5,
+      locator
+    })
   }
-  return { nbQuestions, questions, isCorrect }
+  return questions
 }
 
-export async function getInnerText (question: Locator) {
-  // on récupère l'id de la question pour le champMathLive
+async function getQuestionId (question: Locator) {
   const id = await question.getAttribute('id')
   if (id == null || id.match(/exercice/) == null) throw Error(`Il y a un problème avec la question ${id}`) // précaution si il y a des <li> parasites à l'intérieur des questions
   const questionIdMatchArray = id.match(/\dQ\d+/)
-  const questionId = questionIdMatchArray === null ? '' : questionIdMatchArray[0]
-  // on lit la question on récupère les données nécessaire pour fabriquer la réponse
+  if (questionIdMatchArray === null) {
+    throw Error(`L'id de la question ${id} n'a pas été trouvé`)
+  } else {
+    const questionId = questionIdMatchArray[0]
+    return questionId
+  }
+}
+
+async function getInnerText (question: Locator) {
   const innerTextRaw = (await question.innerText())
-  const innerText = innerTextRaw.replace('−', '-').replaceAll('$', '').replaceAll('\\times', '×').replaceAll('{,}', ',').replaceAll(/\s/g, '').replaceAll('\\,', '')
-  return { innerText, questionId }
+  const innerText = clean(innerTextRaw, [])
+  return innerText
 }
 
 export async function inputAnswer (page: Page, questionId: string, answer: string | number | undefined) {
-  if (answer === undefined) throw Error(`On n'a pas pu trouver la réponse à la question ${questionId}`)
-  const selector = `#champTexteEx${questionId}`
-  await page.waitForSelector(selector) // Des fois il est tellement pressé qu'il zappe la première question
-  const champTexteMathlive = page.locator(selector)
-  await champTexteMathlive.type(answer.toString())
+  const champTexteSelector = `#champTexteEx${questionId}`
+
+  if (answer === undefined) throw Error(`La réponse à la question ${questionId} est undefined`)
+
+  await page.waitForSelector(champTexteSelector) // Les champs MathLive mettent un peu plus de temps à se charger que le reste
+  const champTexteMathlive = page.locator(champTexteSelector)
+  await champTexteMathlive.pressSequentially(answer.toString()) // On a besoin de pressSequentially au lieu de fill pour que le clavier MathLive réagisse (et transforme les / en fraction par exemple)
 }
 
-export async function checkFeedback (page: Page, isCorrect: boolean[]) {
-  const boutonVerifier = page.locator('button#verif0')
-  await boutonVerifier.click()
+export async function checkFeedback (page: Page, questions: Question[]) {
+  await checkButtonClick(page)
+  await addFeedbacks(page, questions)
 
-  const feedback = page.locator('div[style="color: rgb(241, 89, 41); font-weight: bold; font-size: x-large; display: inline;"]')
-  const [correctFeedback, totalFeedback] = (await feedback.innerText()).split('/').map(el => Number(el))
-  const totalInput = isCorrect.length
-  let correctInput = 0
-  for (let k = 0; k < totalInput; k++) {
-    correctInput += (isCorrect[k] ? 1 : 0)
+  for (const question of questions) {
+    const numeroQuestion = Number(question.id.split('Q')[1]) + 1
+    if (question.feedback === 'OK' && question.isCorrect === false) throw Error(`On s'attendait à avoir une mauvaise réponse à la question ${numeroQuestion}`)
+    if (question.feedback === 'KO' && question.isCorrect === true) throw Error(`On s'attendait à avoir une bonne réponse à la question ${numeroQuestion}`)
   }
-  if (correctFeedback !== correctInput) {
-    throw Error(`On attendait ${correctInput} réponses correctes et on en a eu ${correctFeedback}
-Les questions correctes devaient être les questions ${getTrueIndices(isCorrect).toString()}`)
-  }
-  if (totalFeedback !== totalInput) throw Error(`On a compté ${totalFeedback} feedbacks pour ${totalInput} questions`)
 }
 
-function getTrueIndices (arr: boolean[]): number[] {
-  return arr.reduce((indices: number[], value, index) => {
-    if (value) {
-      indices.push(index + 1)
-    }
-    return indices
-  }, [])
+async function checkButtonClick (page: Page) {
+  const checkButtonSelector = 'button#verif0'
+  const checkButton = page.locator(checkButtonSelector)
+  await checkButton.click()
+}
+
+async function addFeedbacks (page: Page, questions: Question[]) {
+  for (const question of questions) {
+    question.feedback = await getFeedback(page, question.id)
+  }
+}
+
+async function getFeedback (page: Page, id: string) {
+  const feedbackSelector = `#resultatCheckEx${id}`
+  await page.waitForSelector(feedbackSelector)
+  const feedback = await page.locator(feedbackSelector).innerText()
+  if (feedback === '☹️') return 'KO'
+  if (feedback === '😎') return 'OK'
+  throw Error('Un feedback autre que ☹️ et 😎 a été trouvé')
 }
