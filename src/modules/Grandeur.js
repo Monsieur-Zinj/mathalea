@@ -83,7 +83,7 @@ class Grandeur {
     text = text.replace(/\\text{([^}]+)}/g, '$1')
     text = text.replace('~', '')
     const mesure = parseFloat(text)
-    const unite = text.replace(mesure, '')
+    const unite = text.replace(String(mesure), '')
     const grandeur = new Grandeur(mesure, unite)
     return grandeur
   }
