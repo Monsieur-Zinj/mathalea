@@ -1,6 +1,6 @@
 /* globals UI */
 import Algebrite from 'algebrite'
-import { evaluate, round } from 'mathjs'
+import { round } from 'mathjs'
 import {
   combinaisonListes,
   combinaisonListesSansChangerOrdre,
