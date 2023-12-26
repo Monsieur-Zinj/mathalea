@@ -17,7 +17,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import Decimal from 'decimal.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import Hms from '../../modules/Hms.js'
+import Hms from '../../modules/Hms'
 import { prenomF } from '../../lib/outils/Personne.js'
 import { context } from '../../modules/context.js'
 export const titre = 'CAN Spéciale année 2024'

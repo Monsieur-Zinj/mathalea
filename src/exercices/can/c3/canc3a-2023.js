@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context.js'
-import Hms from '../../../modules/Hms.js'
+import Hms from '../../../modules/Hms'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 
 import Grandeur from '../../../modules/Grandeur'

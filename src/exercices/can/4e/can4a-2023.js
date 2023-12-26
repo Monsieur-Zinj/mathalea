@@ -21,7 +21,7 @@ import { min, round } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils.js'
 
-import Hms from '../../../modules/Hms.js'
+import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
