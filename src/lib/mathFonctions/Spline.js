@@ -35,7 +35,7 @@ export function noeudsSplineAleatoire (n, noeudsVisibles, xMin = -n / 2, y0 = 0,
       y = y + choice([-1, 1]) * randint(1, 2)
     } while (y > 5 || y < -5)
     do {
-      deriveeDroit = Math.cos(Math.random() * Math.PI) * randint(1, 2)
+      deriveeDroit = Math.cos(Math.random() * Math.PI) * randint(0, 2)
     } while (deriveeDroit * (y - y0) < 0)
   }
   return noeuds
