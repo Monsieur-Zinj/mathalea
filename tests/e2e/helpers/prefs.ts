@@ -3,6 +3,48 @@
  * Initialisé d'après l'environnement au premier import de ce module
  * @module prefs
  */
+import type { Browser, BrowserContextOptions, LaunchOptions } from 'playwright'
+
+type Flags = {
+  [key: string]: boolean;
+  continueOnError: boolean;
+  debug: boolean;
+  devtools: boolean;
+  headless: boolean;
+  ignoreHttpsErrors: boolean;
+  quiet: boolean;
+  relax: boolean;
+  timeoutLocked: boolean;
+  usage: boolean;
+  verbose: boolean;
+}
+
+type Ints = {
+  [key: string]: number;
+  timeout: number,
+  slow: number,
+  skip: number,
+  limit: number
+}
+
+type OtherPrefs = {
+  baseUrl?: string
+  browserInstance: null | Browser // l'objet Browser courant, null s'il n'y en a pas d'instancié
+  browserOptions: LaunchOptions
+  contextOptions: BrowserContextOptions
+  browserName?: string // Le browser à utiliser
+  browsers?: string[] // La liste des browsers qu'on va tester
+  continueOnError?: boolean // pour continuer en cas d'erreur, par défaut a la même valeur que headless
+  debug: boolean
+  headless: boolean
+  nokeep: boolean
+  quiet: boolean
+  timeout?: number
+  uuid?: string // L'éventuel exo imposée au lancement
+  verbose: boolean
+}
+
+type Prefs = Flags & Ints & OtherPrefs
 
 /**
  * Browsers utilisables avec playwright
@@ -12,26 +54,18 @@ const knownBrowsers = ['chromium', 'firefox', 'webkit']
 
 /**
  * Un singleton pour conserver les préférences globales (un store maison)
- * @typedef Prefs
- * @property {string} baseUrl
- * @property {Browser} browserInstance l'objet Browser courant, null s'il n'y en a pas d'instancié
- * @property {string} browserName Le browser à utiliser
- * @property {string[]} browsers La liste des browsers qu'on va tester
- * @property {boolean} [continueOnError] pour continuer en cas d'erreur, par défaut a la même valeur que headless
- * @property {boolean} [debug=false]
- * @property {boolean} [headless=false]
- * @property {boolean} [nokeep=false]
- * @property {boolean} [quiet=false]
- * @property {string} [uuid=undefined] L'éventuel exo imposée au lancement
- * @property {boolean} [verbose=false]
- * @property {number} timeout
 */
 /**
  * Nos préférences initialisées par le lancement (options et environnement)
  * Contient aussi l'instance courante de Browser (pour éviter de déclarer un 2e singleton uniquement pour ça)
  * @type {Prefs}
  */
-const prefs = {
+const prefs: OtherPrefs = {
+  debug: false,
+  headless: false,
+  nokeep: false,
+  quiet: false,
+  verbose: false,
   // options facultatives passées via la config
   browserOptions: {},
   contextOptions: {},
@@ -42,12 +76,12 @@ const prefs = {
 // instance à tester par défaut
 let baseUrl = 'https://coopmaths.fr/alea/'
 // une string facultative
-let uuid
+let uuid: string
 // browser par défaut
 let browsers = ['chromium']
 
 // un objet pour stocker les booléens (pour la propriété dynamique)
-const flags = {
+const flags: Flags = {
   continueOnError: false,
   debug: true,
   devtools: false,
@@ -60,18 +94,25 @@ const flags = {
   verbose: true
 }
 // un objet pour les entiers
-const ints = {
+const ints: Ints = {
   timeout: 60000,
   slow: 0,
   skip: 0,
   limit: 0
 }
 
-const intRestrictions = {
+type IntRestrictions = {
+  [key: string]: { min?: number, max?: number };
+  timeout: {
+    min: number
+    max?: number
+  }
+}
+const intRestrictions: IntRestrictions = {
   timeout: { min: 100 }
 }
 
-function boolSetter (prop, value) {
+function boolSetter (prop: string, value: unknown) {
   if (typeof value !== 'boolean') {
     switch (value) {
       case 'off':
@@ -89,18 +130,18 @@ function boolSetter (prop, value) {
         break
 
       default:
-        throw Error(`${prop} est un boolean`)
+        throw Error(`${prop} doit être un boolean alors qu'il vaut ${value}`)
     }
   }
-  flags[prop] = value
+  flags[prop] = Boolean(value)
 }
 
-function intSetter (prop, value) {
+function intSetter (prop: string, value: number) {
   if (typeof value !== 'number') {
     value = Number(value)
   }
   if (!Number.isInteger(value) || value < 0) {
-    throw Error(`valeur ${value} invalide pour ${prop} (pas un entier positif)`)
+    throw Error(`valeur invalide pour ${prop} (${value} n'est pas un entier positif)`)
   }
   if (intRestrictions[prop]) {
     const { min, max } = intRestrictions[prop]
@@ -183,9 +224,9 @@ for (const [k, value] of env) {
   let p = k.toLowerCase().replace(/_/g, '')
   if (camelCaseProps[p]) p = camelCaseProps[p]
   // une propriété qui n'existe pas mais que l'on accepte via l'environnement
-  if (p === 'browser') prefs.browsers = [value]
+  if (p === 'browser') prefs.browsers = [value ?? '']
   // sinon on affecte si ça nous concerne
   else if (prefsProps.includes(p)) prefs[p] = value
 }
 
-export default prefs
+export default prefs as Prefs

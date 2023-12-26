@@ -1,21 +1,42 @@
+import type { Browser, BrowserContextOptions, ConsoleMessage, JSHandle, LaunchOptions, Page as PlaywrightPage, Request, Response } from 'playwright'
 import fetch from 'node-fetch'
 /**
  * Regroupe les méthodes qui manipulent le browser playwright
  * @module browser
  */
 import playwright from 'playwright'
-
 import prefs from './prefs'
 import { log, logError, logIfVerbose } from './log'
 import { dropLatex, getMqChunks, normalize } from './text'
 
+type RequestListener = (request: playwright.Request) => void
+type AccessLogger = (requestUrl: string) => void
+type Page = PlaywrightPage & {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  warnings: JSHandle<any>[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  errors: JSHandle<any>[]
+  nbLoads: number
+  failures: {
+    method: string
+    url: string
+    text: string
+  }[]
+  requestListener: RequestListener
+  accessLogger: AccessLogger
+}
+declare global {
+  interface Window {
+    isPlaywright?: boolean;
+  }
+}
 // fonctions privées
 /**
  * À passer en listener avec page.on('response', logResponse) ou page.removeListener('response', logResponse)
  * En mode debug ça affiche aussi le contenu des réponses json
  * @param {Protocol.Response} res La réponse {@link https://playwright.dev/docs/api/class-response}
  */
-function responseListener (res) {
+function responseListener (res: Response) {
   const req = res.request()
   log(`${req.method()} ${req.url()} ${res.status()} ${res.statusText()} => ${res.ok() ? 'ok' : 'KO'}`)
   if (prefs.debug) {
@@ -35,26 +56,31 @@ function responseListener (res) {
  * @param {Page} page
  * @return {Promise<void>}
  */
-export async function dump (page) {
-  const html = await page.$eval('body', (body) => body.parentNode.innerHTML)
+export async function dump (page: Page) {
+  const html = await page.$eval('body', (body) => {
+    if (body.parentNode !== null) {
+      return (body.parentNode as HTMLElement).innerHTML
+    }
+  })
   console.info('La page contient : \n', html)
 }
 
+type FlushPageOptions = {
+  maxLoads?: number // Passer un nb de load pour lequel on garde l'objet page courant (si son nbLoads >= maxLoads on le close & recrée)
+  processFailureAsError?: boolean // Passer true pour créer une erreur par load failure (le tableau failures sera alors toujours vide)
+}
 /**
  * Analyse errors & warning d'une page retournée par getPage, la ferme, en rouvre une autre et retourne le tout
- * @param {Page} page
- * @param {Browser} browser
- * @param {Object} [options]
- * @param {number} [options.maxLoads=0] Passer un nb de load pour lequel on garde l'objet page courant (si son nbLoads >= maxLoads on le close & recrée)
- * @param {boolean} [options.processFailureAsError=false] Passer true pour créer une erreur par load failure (le tableau failures sera alors toujours vide)
  * @return {Promise<{warnings: string[], errors: string[], failures: string[], page: Page}>}
  */
-export async function flushPage (page, browser, { maxLoads = 0, processFailureAsError = false } = {}) {
+export async function flushPage (page: Page, browser: Browser, { maxLoads = 0, processFailureAsError = false }: FlushPageOptions = {}) {
   // on regarde d'abord le contenu de errors & warnings
   const result = {
-    errors: [],
-    warnings: []
+    warnings: [] as string[],
+    errors: [] as string[]
   }
+  let failures: string[] = []
+  let newPage: Page
   // délicat de faire du forEach avec de l'async dedans, on utilise reduce pour faire du séquentiel
   // cf https://advancedweb.hu/how-to-use-async-functions-with-array-foreach-in-javascript/
   await Object.keys(result).reduce(async (dummy, type) => {
@@ -79,21 +105,26 @@ export async function flushPage (page, browser, { maxLoads = 0, processFailureAs
   // on a fini de parser errors & warning en async, on passe aux failures (sync)
   if (processFailureAsError) {
     page.failures.forEach(({ method, url, text }) => result.errors.push(`Failed request: ${method} ${url} ${text}`))
-    result.failures = []
+    failures = []
   } else {
-    result.failures = page.failures.map(({ method, url, text }) => `${method} ${url} ${text}`)
+    failures = page.failures.map(({ method, url, text }) => `${method} ${url} ${text}`)
   }
   // et on regarde s'il faut reset la page
   if (page.nbLoads && page.nbLoads >= maxLoads) {
     // ferme la page et en rouvre une autre
     const { requestListener, accessLogger } = page
     await page.close()
-    result.page = await getPage(browser, { requestListener, accessLogger })
+    newPage = await getPage(browser, { requestListener, accessLogger })
   } else {
     resetPage(page)
-    result.page = page
+    newPage = page
   }
-  return result
+  return {
+    warnings: result.warnings,
+    errors: result.errors,
+    failures,
+    page: newPage
+  }
 }
 
 /**
@@ -103,7 +134,7 @@ export async function flushPage (page, browser, { maxLoads = 0, processFailureAs
  * @param {boolean} [fullHtml=false] Passer true pour récupérer le innerHTML plutôt que le innerText
  * @return {Promise<string>}
  */
-export async function getContent (page, selector, fullHtml = false) {
+export async function getContent (page: Page, selector: string, fullHtml = false) {
   // avec un selector qui match plusieurs éléments dont le premier est invisible, faut pas faire de waitForSelector sinon il attend que le 1er devienne visible)
   const elts = await page.$$(selector)
   if (!elts.length) await page.waitForSelector(selector)
@@ -120,31 +151,37 @@ export async function getContent (page, selector, fullHtml = false) {
  * @param {boolean} [doDropLatex=false] passer true pour virer aussi le LaTeX
  * @return {Promise<void>}
  */
-export async function getContentNormalized (page, selector, doDropLatex) {
-  let text = await getContent(page, selector)
-  if (doDropLatex) text = dropLatex(text)
+export async function getContentNormalized (page: Page, selector: string, doDropLatex: boolean) {
+  let text = await getContent(page, selector) ?? ''
+  if (doDropLatex && text !== '') text = dropLatex(text)
   return normalize(text)
 }
 
+type getDefaultPageOptions = {
+  browserName?: string
+  logResponse?: boolean // passer true pour logguer toutes les réponses
+  reject?: (error: Error) => void // Une fonction à appeler en cas de console.error dans le navigateur (ignoré si prefs.relax), ou si le navigateur crash (mais ce sera probablement à cause d'un pb de RAM et ce script sera peut-être dégagé aussi sans préavis)
+}
 /**
  * Retourne une nouvelle page sur le browser courant
- * @param {Object} [options]
- * @param {string} [options.browserName]
- * @param {boolean} [options.logResponse=false] passer true pour logguer toutes les réponses
- * @param {function} [options.reject] Une fonction à appeler en cas de console.error dans le navigateur (ignoré si prefs.relax), ou si le navigateur crash
- * (mais ce sera probablement à cause d'un pb de RAM et ce script sera peut-être dégagé aussi sans préavis)
- * @return {Promise<Page>}
  */
-export async function getDefaultPage ({ browserName, logResponse, reject } = {}) {
+export async function getDefaultPage ({ browserName, logResponse, reject }: getDefaultPageOptions = {}) {
   let browser = prefs.browserInstance
   if (!browser || browserName) {
-    if (!browserName) browserName = prefs.browsers[0]
+    if (!browserName) {
+      if (prefs.browsers === undefined || prefs.browsers[0] === undefined) {
+        throw new Error('Il n\'y a aucun browser dans la liste des prefs')
+      } else {
+        browserName = prefs.browsers[0]
+      }
+    }
     browser = await initCurrentBrowser(browserName)
   }
+  if (browser === null) throw new Error('Il n\'y a pas de browser de chargé')
   const [context] = browser.contexts()
   const page = await context.newPage()
   // on ajoute le listeners sur les messages pour récupérer les console.error
-  const consoleListener = (message) => {
+  const consoleListener = (message: ConsoleMessage) => {
     // Cf https://playwright.dev/docs/api/class-consolemessage
     const type = message.type()
     const args = message.args()
@@ -152,7 +189,7 @@ export async function getDefaultPage ({ browserName, logResponse, reject } = {})
       if (!args.length) return logError('console.error du navigateur appelé sans argument')
       logError('[Browser error]', ...args)
       if (!prefs.relax) {
-        const error = Error(`Erreur dans la console du navigateur => ABANDON\nSur ${page.url()} on a eu\n${args.join('\n')}`)
+        const error = new Error(`Erreur dans la console du navigateur => ABANDON\nSur ${page.url()} on a eu\n${args.join('\n')}`)
         if (typeof reject === 'function') reject(error)
 
         // on throw dans qq ms pour laisser le temps aux fcts async du logger d'écrire en console
@@ -166,15 +203,24 @@ export async function getDefaultPage ({ browserName, logResponse, reject } = {})
       log(`[Browser ${type}]`, ...args)
     }
   }
+  const errorListener = (error: Error) => {
+    logError(error)
+  }
+  const pageListener = (page: PlaywrightPage) => {
+    logError(page)
+  }
   // https://playwright.dev/docs/api/class-page#page-event-console
   page.on('console', consoleListener)
   // https://playwright.dev/docs/api/class-page#page-event-page-error
-  page.on('pageerror', reject ?? consoleListener)
+  page.on('pageerror', reject ?? errorListener)
   // https://playwright.dev/docs/api/class-page#page-event-crash
-  page.on('crash', reject ?? consoleListener)
+  page.on('crash', pageListener)
 
   // on ajoute toujours un listener sur les requests failed
-  const requestfailedListener = (request) => log(`request failure on ${request.method()} ${request.url()} ${request.failure().errorText}`)
+  const requestfailedListener = (request: Request) => {
+    const requestFailure = request.failure()
+    log(`request failure on ${request.method()} ${request.url()} ${requestFailure === null ? '' : requestFailure.errorText}`)
+  }
   // https://playwright.dev/docs/api/class-page#pageonrequestfailed
   page.on('requestfailed', requestfailedListener)
 
@@ -186,13 +232,10 @@ export async function getDefaultPage ({ browserName, logResponse, reject } = {})
 
 /**
  * Retourne les strings LaTeX (sans les $) contenues dans un sélecteur (tableau vide si y'en avait pas)
- * @param {Page} page
- * @param {string} selector
- * @return {Promise<string[]>}
  */
-export async function getLatexChunks (page, selector) {
+export async function getLatexChunks (page: Page, selector: string) {
   const text = await getContent(page, selector)
-  return getMqChunks(text)
+  return getMqChunks(text ?? '')
 }
 
 /**
@@ -202,10 +245,10 @@ export async function getLatexChunks (page, selector) {
  * @param accessLogger
  * @return {Promise<Page>}
  */
-export async function getPage (browser, { requestListener, accessLogger } = {}) {
+export async function getPage (browser: Browser, { requestListener, accessLogger }: {requestListener?: RequestListener, accessLogger?: AccessLogger} = {}) {
   // une valeur par défaut suivant les prefs
   const [context] = browser.contexts()
-  const page = await context.newPage()
+  const page = await context.newPage() as Page
   // on lui ajoute ces tableaux
   // chaque élément sera un tableau de JsHandle, cf message.args()
   // (on ne sérialise pas dans le listener avant d'ajouter au tableau pour garder le listener sync)
@@ -218,23 +261,24 @@ export async function getPage (browser, { requestListener, accessLogger } = {}) 
   page.on('domcontentloaded', () => { page.nbLoads++ })
   // on ajoute le listeners sur les messages pour récupérer les console.error
   // https://playwright.dev/docs/api/class-page#pageonconsole
-  page.on('console', (message) => {
+  page.on('console', (message: ConsoleMessage) => {
     // Cf https://playwright.dev/docs/api/class-consolemessage
     switch (message.type()) {
       case 'error':
-        page.errors.push(message.args())
+        page.errors.push(...message.args())
         break
       case 'warning':
-        page.warnings.push(message.args())
+        page.warnings.push(...message.args())
         break
     }
   })
   // https://playwright.dev/docs/api/class-page#pageonrequestfailed
   page.on('requestfailed', (request) => {
+    const requestFailure = request.failure()
     page.failures.push({
       method: request.method(),
       url: request.url(),
-      text: request.failure().errorText
+      text: requestFailure === null ? '' : requestFailure.errorText
     })
   })
   if (requestListener) {
@@ -249,30 +293,21 @@ export async function getPage (browser, { requestListener, accessLogger } = {}) 
 }
 
 /**
- * Retourne les résultats déjà envoyés pour ce graphe
- * @param {Page} page
- * @param {boolean} [doReset=false] Passer true pour remettre à 0 les résultats (mis en global dans la page)
- * @return {Promise<Resultat[]>}
- */
-export async function getResultats (page, doReset = false) {
-  const resultats = await page.evaluate(() => window.j3pResultats)
-  if (doReset) await page.evaluate(() => { window.j3pResultats = [] })
-  return resultats
-}
-
-/**
  * Réinitialise l'instance courante du browser
- * @param {string} browserName
  * @param {Object} [browserOptions] Les options à passer au lancement du browser ({@link https://playwright.dev/docs/api/class-browsertype?_highlight=launch#browsertypelaunchoptions})
  * @param {Object} [contextOptions] options de contexte éventuel {@link https://playwright.dev/docs/api/class-browser#browsernewcontextoptions}
  * @return {Promise<Protocol.Browser>}
  */
-export async function initCurrentBrowser (browserName, browserOptions = {}, contextOptions = {}) {
+export async function initCurrentBrowser (browserName: string, browserOptions: LaunchOptions = {}, contextOptions: BrowserContextOptions = {}) {
   logIfVerbose(`init browser ${browserName}`)
   const options = { ...browserOptions } // faut cloner pour que nos affectations ne modifient pas l'objet d'origine
   if (prefs.browserInstance) await prefs.browserInstance.close()
   prefs.browserInstance = null
-  if (!prefs.browsers.includes(browserName)) throw Error(`browser ${browserName} invalide (pas dans la liste des browsers autorisés : ${prefs.browsers.join(' ou ')}`)
+  if (prefs.browsers === undefined) {
+    throw Error('prefs.browsers est undefined')
+  } else {
+    if (!prefs.browsers.includes(browserName)) throw Error(`browser ${browserName} invalide (pas dans la liste des browsers autorisés : ${prefs.browsers.join(' ou ')}`)
+  }
   const pwBrowser = playwright[browserName]
   options.headless = prefs.headless
   // on ajoute les devtools pour chromium, sauf si on nous demande de pas le faire (ou headless car ça n'aurait pas vraiment d'intérêt)
@@ -293,74 +328,13 @@ export async function initCurrentBrowser (browserName, browserOptions = {}, cont
 }
 
 /**
- * Charge le graphe par défaut de la section dans le navigateur (via j3p.html)
- * @param {Page} page
- * @param {string} section
- * @return {Promise<void>}
- */
-export async function loadDefaultGraphe (page, section) {
-  const graphe = [
-    1,
-    section,
-    [{ pe: 'sans%20condition', nn: 'fin', conclusion: 'Fin' }]
-  ]
-  await loadGraphe(page, { graphe })
-}
-
-/**
- * Charge le graphe dans le navigateur (via j3p.html) et ajoute une callback pour mettre les résultats dans un Array global j3pResultats
- * @param {Page} page
- * @param {Object} datas Données initiales à charger via j3pTest
- * @param {Nodes[]} datas.graphe
- * @param {Object} [datas.lastResultat]
- * @param {Object} [datas.editgraphe]
- * @return {Promise<void>>}
- */
-export async function loadGraphe (page, datas) {
-  if (!datas || !datas.graphe || !Array.isArray(datas.graphe)) throw Error('graphe invalide (pas un tableau)')
-  prefs.currentGraphe = null
-  // on peut pas affecter directement datas.baseUrl si datas provient d'un import (object is not extensible)
-  datas = Object.assign({}, datas, { baseUrl: prefs.baseUrl })
-  // on passe pas toujours le graphe complet dans l'url, car s'il est gros ça peut donner du 414 Request-URI Too Large
-  let url = prefs.baseUrl + '?wait'
-  if (prefs.debug) url += '&debug'
-  // si le graphe est pas trop gros, on le passe quand même aussi dans l'url, bien pratique pour le debug (et avoir ça dans le log d'erreur)
-  // à priori une url < 4k doit toujours passer
-  const grapheSerialized = JSON.stringify(datas.graphe)
-  if (grapheSerialized.length < 4000 - url.length) url += `&graphe=${grapheSerialized}`
-
-  await purge(url)
-  await page.goto(url, { waitUntil: 'networkidle' }) // il faut networkidle pour que le code qui suit soit exécuté après le chargement des module js async
-  await page.evaluate((datas) => {
-    window.isPlaywright = true
-    // pour récupérer les résultats
-    window.j3pResultats = []
-    datas.resultatCallback = (resultat) => {
-      let fixedResultat
-      try {
-        // on clone tout
-        fixedResultat = JSON.parse(JSON.stringify(resultat))
-      } catch (error) {
-        console.error(error)
-        fixedResultat = resultat
-      }
-      window.j3pResultats.push(fixedResultat)
-    }
-    window.j3pLoad('j3pContainer', datas, (error) => {
-      if (error) console.error(error)
-    })
-  }, datas)
-  prefs.currentGraphe = datas.graphe
-}
-
-/**
  * Reset page puis charge url, recommence si on a des failures (ça arrive souvent, pas trouvé pourquoi)
  * @param {Page} page
  * @param {string} url
  * @param {number} [maxTries=3] Nb max d'essais
  * @return {Promise<number>} Le nb d'essais réalisés
  */
-export async function loadUrl (page, url, maxTries = 3) {
+export async function loadUrl (page: Page, url: string, maxTries: number = 3) {
   let tries = 1
   resetPage(page)
   await purge(url)
@@ -383,19 +357,19 @@ export async function loadUrl (page, url, maxTries = 3) {
  * @param {RegExp} pattern
  * @return {Promise<JSHandle[]>} La liste des éléments dont le contenu match le pattern
  */
-export async function patternFilter (page, selector, pattern) {
+export async function patternFilter (page: Page, selector: string, pattern: RegExp) {
   if (!(pattern instanceof RegExp)) return Promise.reject(Error('patternFilter veut un pattern en RexExp'))
   const elts = typeof selector === 'string' ? await page.$$(selector) : selector
-  return Promise.all(elts.map(elt => getContent(page, elt, { doNotDispose: true }))).then(contents => {
-    const filteredElements = []
+  return Promise.all(elts.map(elt => getContent(page, elt.toString(), true))).then(contents => {
+    const filteredElements: playwright.ElementHandle<SVGElement | HTMLElement>[] = []
     contents.forEach((content, i) => {
-      if (pattern.test(content)) filteredElements.push(elts[i])
+      if (pattern.test(content ?? '')) filteredElements.push(elts[i])
     })
     return filteredElements
   })
 }
 
-export async function purge (url) {
+export async function purge (url: string) {
   try {
     const response = await fetch(url, { method: 'PURGE' })
     if (!response.ok) {
@@ -413,7 +387,7 @@ export async function purge (url) {
  * Vide les propriétés errors/warnings/failures de l'objet page (retourné par getPage)
  * @param {Page} page
  */
-export function resetPage (page) {
+export function resetPage (page: Page) {
   page.errors = []
   page.warnings = []
   page.failures = []
