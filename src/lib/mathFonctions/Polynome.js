@@ -1,6 +1,6 @@
 import { equal, largerEq, max } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { randint } from '../../modules/outils.js'
+import { egal, randint } from '../../modules/outils.js'
 import { choice } from '../outils/arrayOutils.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../outils/ecritures.js'
 import Decimal from 'decimal.js'
@@ -79,24 +79,24 @@ export class Polynome {
           const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? ecritureAlgebrique(c) : rienSi1(c)
           switch (this.deg) {
             case 1:
-              maj = equal(c, 0) ? '' : `${coeffD}x`
+              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x`
               break
             case 0:
-              maj = equal(c, 0) ? '' : `${coeffD}`
+              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}`
               break
             default:
-              maj = equal(c, 0) ? '' : `${coeffD}x^${i}`
+              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x^${i}`
           }
           break
         }
         case 0:
-          maj = equal(c, 0) ? '' : ecritureAlgebrique(c)
+          maj = egal(c, 0, 1e-10) ? '' : ecritureAlgebrique(c)
           break
         case 1:
-          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
+          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
-          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
           break
       }
       maj = maj.replace(/\s/g, '').replace(',', '.')
@@ -118,24 +118,24 @@ export class Polynome {
           const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? c : rienSi1(c)
           switch (this.deg) {
             case 1:
-              maj = equal(c, 0) ? '' : `${coeffD}x`
+              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x`
               break
             case 0:
-              maj = equal(c, 0) ? '' : `${coeffD}`
+              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}`
               break
             default:
-              maj = equal(c, 0) ? '' : `${coeffD}x^${i}`
+              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x^${i}`
           }
           break
         }
         case 0:
-          maj = equal(c, 0) ? '' : ecritureAlgebrique(c)
+          maj = egal(c, 0, 1e-10) ? '' : ecritureAlgebrique(c)
           break
         case 1:
-          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
+          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
-          maj = equal(c, 0) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
           break
       }
       res = maj + res
@@ -211,6 +211,16 @@ export class Polynome {
     const coeffDerivee = this.monomes.map(function (el, i) { return el * i })
     coeffDerivee.shift()
     return new Polynome({ coeffs: coeffDerivee })
+  }
+
+  /**
+   * Retourne la primitive de constante 0 de this
+   * @returns {Polynome}
+   */
+  primitive0 () {
+    let coeffPrimitive = this.monomes.map((el, i) => el / (i + 1))
+    coeffPrimitive = [0, ...coeffPrimitive]
+    return new Polynome({ coeffs: coeffPrimitive })
   }
 
   /**
