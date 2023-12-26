@@ -71,6 +71,22 @@ class Grandeur {
       return false
     }
   }
+
+  /**
+   * Crée une grandeur à partir d'un texte '1 cm', '2 m^2', '3~\\text{L}'...
+   * @param {sting} text
+   * @returns Grandeur
+   */
+  static fromString (text) {
+    text = text.replace(',', '.')
+    text = text.replace(' ', '')
+    text = text.replace(/\\text{([^}]+)}/g, '$1')
+    text = text.replace('~', '')
+    const mesure = parseFloat(text)
+    const unite = text.replace(mesure, '')
+    const grandeur = new Grandeur(mesure, unite)
+    return grandeur
+  }
 }
 
 export default Grandeur
