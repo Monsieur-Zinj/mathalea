@@ -1,8 +1,9 @@
 import { choice, creerCouples } from '../../lib/outils/arrayOutils.js'
-import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import Decimal from 'decimal.js'
 
 export const amcReady = true
 export const interactifReady = true
@@ -78,18 +79,18 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
     ) // Liste tous les couples possibles (2,3)≠(3,2)
     for (let i = 0, a, b, k1, k2, couple, texte, texteCorr; i < this.nbQuestions; i++) {
       this.autoCorrection[i] = {}
-      a = couples[i][0]
-      b = couples[i][1]
+      a = new Decimal(couples[i][0])
+      b = new Decimal(couples[i][1])
       couple = choice([[1, 10], [1, 100], [1, 1000], [10, 100], [10, 1000], [100, 100], [100, 1000]])
       k1 = couple[0]
       k2 = couple[1]
-      a = calculANePlusJamaisUtiliser(a / k1)
-      b = calculANePlusJamaisUtiliser(b / k2)
-      if (a === 1) {
-        a = 0.01
+      a = a.div(k1)
+      b = b.div(k2)
+      if (a.equals(1)) {
+        a = new Decimal(1).div(100)
       }
-      if (b === 1) {
-        b = 0.1
+      if (b.equals(1)) {
+        b = new Decimal(1).div(10)
       }
       texte =
         '$ ' + texNombre(a) + ' \\times ' + texNombre(b) + ' =  $'
@@ -99,7 +100,7 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
         ' \\times ' +
         texNombre(b) +
         ' = ' +
-        texNombre(calculANePlusJamaisUtiliser(a * b)) +
+        texNombre(a.times(b)) +
         ' $'
       /**********************************/
       // QCM
@@ -107,27 +108,27 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {
-          texte: `$${texNombre2(a * b)}$`,
+          texte: `$${texNombre(a.times(b))}$`,
           statut: true,
           feedback: 'Correct !'
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b / 10))}$`,
+          texte: `$${texNombre(a.times(b).div(10))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b * 10))}$`,
+          texte: `$${texNombre(a.times(b).times(10))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b / 100))}$`,
+          texte: `$${texNombre(a.times(b).div(100))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         },
         {
-          texte: `$${texNombre2(calculANePlusJamaisUtiliser(a * b * 100))}$`,
+          texte: `$${texNombre(a.times(b).times(100))}$`,
           statut: false,
           feedback: 'Compte le nombre de zéros dans chaque facteur'
         }
