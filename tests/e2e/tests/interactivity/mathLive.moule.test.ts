@@ -26,4 +26,4 @@ async function test (page: Page) {
   return true
 }
 
-runTest(test, import.meta.url)
+runTest(test, import.meta.url, { pauseOnError: true }) // true pendant le développement, false ensuite

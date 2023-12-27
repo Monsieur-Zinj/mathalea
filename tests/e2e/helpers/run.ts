@@ -4,21 +4,22 @@ import { afterEach, beforeEach, describe, it } from 'vitest'
 import { getDefaultPage } from './browser.js'
 import { logError } from './log.js'
 import type { Locator, Page } from 'playwright'
-import type { Question } from './types.js'
+import type { Prefs, Question } from './types.js'
 import { clean } from './text.js'
 
 /**
  * Wrapper des test effectués par vitest
  * Ajoute un describe() contenant un it() (alias de test() dans vitest) par browser à tester
  * @param {function} test La fonction à exécuter dans chaque it()
- * @param metaUrl il faut passer import.meta.url depuis le fichier appelant pour savoir lequel c'est (et l'indiquer dans le log)
+ * @param {string} metaUrl il faut passer import.meta.url depuis le fichier appelant pour savoir lequel c'est (et l'indiquer dans le log)
+ * @param {Partial<Prefs>} prefsOverride permet d'écraser les préférences par défaut qui se trouvent dans le fichier helpers/prefs.ts
  */
-export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string) {
+export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string, prefsOverride?: Partial<Prefs>) {
+  Object.assign(prefs, prefsOverride)
   const filename = fileURLToPath(metaUrl)
   const testsSuiteDescription = '' // Ajoute une description intermédiaire dans le stdout si besoin
   describe(testsSuiteDescription, async () => {
     let page: Page, result: boolean
-    const { continueOnError } = prefs
     let stop = false
 
     beforeEach(({ skip }) => {
@@ -27,9 +28,7 @@ export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string
 
     // cf https://vitest.dev/guide/test-context.html pour l'argument passé
     afterEach(async () => {
-      if (continueOnError) return
-      // on s'arrête sur le 1er test qui plante pour creuser ça
-      if (!result && page && !prefs.headless) {
+      if (prefs.pauseOnError && !result && page) {
         await page.pause()
         stop = true
       }
