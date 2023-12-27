@@ -1,3 +1,6 @@
+import Decimal from 'decimal.js'
+import { stringNombre, texNombre } from 'src/lib/outils/texNombre'
+
 /**
  * @class
  * @param {number} mesure
@@ -5,20 +8,28 @@
  * @author Jean-Claude Lhote et Sébastien Lozano
 */
 class Grandeur {
-  mesure: number
+  mesureDecimal: Decimal
   unite: string
   puissanceUnite: number
   uniteDeReference: string
   prefixe: string
   puissancePrefixe: number
-  constructor (mesure: number, unite: string) {
-    this.mesure = mesure
+  constructor (mesure: number | Decimal, unite: string) {
+    this.mesureDecimal = mesure instanceof Decimal ? mesure : new Decimal(mesure)
     this.unite = unite
     const uniteParsee = parseUnite(unite)
     this.puissanceUnite = uniteParsee.puissanceUnite
     this.uniteDeReference = uniteParsee.uniteDeReference
     this.prefixe = uniteParsee.prefixe
     this.puissancePrefixe = uniteParsee.puissancePrefixe
+  }
+
+  get mesure () {
+    return this.mesureDecimal.toNumber()
+  }
+
+  set mesure (mesure: number) {
+    this.mesureDecimal = new Decimal(mesure)
   }
 
   /**
@@ -32,16 +43,16 @@ class Grandeur {
   convertirEn (uniteConversion: string) {
     const uniteConversionParsee = parseUnite(uniteConversion) // Unité de conversion (issue de la saisie)
     if (uniteConversionParsee.puissanceUnite === this.puissanceUnite && uniteConversionParsee.uniteDeReference === this.uniteDeReference) { // Mêmes unités
-      return new Grandeur(this.mesure * 10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe) * this.puissanceUnite), uniteConversion)
+      return new Grandeur(this.mesureDecimal.times(10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe) * this.puissanceUnite)), uniteConversion)
     } else if (uniteConversionParsee.uniteDeReference === 'm^3' && this.uniteDeReference === 'L') { // On met tout en litres.
-      return new Grandeur(this.mesure * 10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe - 3) * this.puissanceUnite), 'L')
+      return new Grandeur(this.mesureDecimal.times(10 ** ((this.puissancePrefixe - uniteConversionParsee.puissancePrefixe - 3)) * this.puissanceUnite), 'L')
     } else if (uniteConversionParsee.uniteDeReference === 'L' && this.uniteDeReference === 'm^3') { // On met tout en m³.
-      return new Grandeur(this.mesure * 10 ** (this.puissancePrefixe * this.puissanceUnite + 3), 'm^3')
+      return new Grandeur(this.mesureDecimal.times(10 ** (this.puissancePrefixe * this.puissanceUnite + 3)), 'm^3')
     } else if (uniteConversionParsee.uniteDeReference === 'm^2' && this.uniteDeReference === 'a') { // On met tout en m².
-      return new Grandeur(this.mesure * 10 ** (this.puissancePrefixe + 2), 'm^2')
+      return new Grandeur(this.mesureDecimal.times(10 ** (this.puissancePrefixe + 2)), 'm^2')
     } else if (uniteConversionParsee.uniteDeReference === 'a' && this.uniteDeReference === 'm^2') { // On met tout en a.
-      return new Grandeur(this.mesure * 10 ** (this.puissancePrefixe * this.puissanceUnite - 2), 'a')
-    } else return this
+      return new Grandeur(this.mesureDecimal.times(10 ** (this.puissancePrefixe * this.puissanceUnite - 2)), 'a')
+    } else throw new Error(`Conversion impossible de ${this.unite} en ${uniteConversion}`)
   }
 
   estEgal (unite2: Grandeur) {
@@ -67,8 +78,22 @@ class Grandeur {
     }
   }
 
-  toString () {
-    return `${String(this.mesure).replace('.', ',')} ${this.unite}`
+  /**
+   * Retourne une chaîne de caractères de la forme '12,345 cm'
+   * @param precision
+   * @returns
+   */
+  toString (precision = 12) {
+    return `${stringNombre(this.mesure, precision).replace('.', ',')}\u202f${this.unite}`
+  }
+
+  /**
+   * Retourne une chaîne de caractères de la forme '12,345~\\text{cm}'
+   * @param precision
+   * @returns
+   */
+  toTex (precision = 12) {
+    return `${texNombre(this.mesure, precision).replace('.', ',')}~\\text{${this.unite}}`
   }
 
   /**
@@ -77,10 +102,11 @@ class Grandeur {
      * @returns Grandeur
      */
   static fromString (text: string) {
+    text = text.replace('\\,', '')
+    text = text.replace('~', '')
     text = text.replace(',', '.')
     text = text.replace(' ', '')
     text = text.replace(/\\text{([^}]+)}/g, '$1')
-    text = text.replace('~', '')
     const mesure = parseFloat(text)
     const unite = text.replace(String(mesure), '')
     const grandeur = new Grandeur(mesure, unite)

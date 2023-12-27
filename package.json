@@ -47,6 +47,7 @@
     "lint": "eslint src/exercices/**/* --ext .js,.ts --fix",
     "lintSvelte": "eslint src/components/**/* --ext .js,.ts,.svelte --fix",
     "docs": "jsdoc -d docs --configure jsdocConf.json",
+    "test:unit": "vitest tests/unit",
     "test:e2e:all": "vitest --config tests/e2e/vitest.config.all.js --run",
     "test:e2e:interactivity": "vitest --config tests/e2e/vitest.config.interactivity.js --run",
     "test:e2e:console_errors": "vitest --config tests/e2e/vitest.config.console_errors.js --run"
