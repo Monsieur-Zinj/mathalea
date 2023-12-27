@@ -2,6 +2,7 @@
 import katex from 'katex'
 import { SVG } from '@svgdotjs/svg.js'
 import { context } from './context.js'
+import { arrondi } from '../lib/outils/nombres.js'
 
 /**
  * Renvoie deux engrenages en HTML
@@ -120,116 +121,74 @@ export function svgEngrenages () {
  */
 export function SvgMachineDiag3F12 (id_du_div, w, h, nom, xAnt, etapesExpressions) {
   const interligne = 10// w/80; //h/10; // unité d'espacement
-  if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
+  // if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
   // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-  window.SVGExist[id_du_div] = setInterval(function () {
-    if (document.querySelector(`#${id_du_div}`)) {
-      document.querySelector(`#${id_du_div}`).innerHTML = ''// Vide le div pour éviter les SVG en doublon
-      // on crée un rectangle dont la taille est adaptée au texte
-      // let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
-      document.getElementById(id_du_div).innerHTML = `
-                  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` + w + ' ' + h + '" width="' + w + `">
-                      <g>
-                          <path d="M0 ` + 5 * interligne + 'L0 ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 7 * interligne + 'L0 ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </path>
-                          <foreignObject width="` + interligne + '" height="' + h / 2 + '" x="' + 2.5 * interligne + '" y="' + h / 4 + `">
-                              <div style="position: fixed">
-                                  <span class="katex-display">
-                                      <span class="katex">
-                                          <span class="katex-html" aria-hidden="true">
-                                              <span class="base">
-                                                  <span class="mord mathdefault">` + xAnt + `</span>
-                                              </span>
-                                          </span>
-                                      </span>
-                                  </span>
-                              </div>
-                          </foreignObject>
-                      </g>
-                      <g>
-                          <line x1="` + 5 * interligne + '" y1="' + 5 * interligne + '" x2="' + 7 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
-                          </line>
-                          <circle r="` + 2 * interligne + '" cx="' + 9 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </circle>
-                          <path d="M` + 11 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </path>
-                          <foreignObject width="` + 4 * interligne + '" height="' + h / 2 + '" x="' + 7.5 * interligne + '" y="' + h / 4 + `">
-                              <div style="position: fixed">
-                                  <span class="katex-display">
-                                      <span class="katex">
-                                          <span class="katex-html" aria-hidden="true">
-                                              <span class="base">
-                                                  <span class="mord mathdefault">×` + etapesExpressions[0][0] + `</span>
-                                              </span>
-                                          </span>
-                                      </span>
-                                  </span>
-                              </div>
-                          </foreignObject>
-                      </g>
-                      <g>
-                          <path d="M` + 13 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 3 * interligne + 'L' + 21 * interligne + ' ' + 3 * interligne + 'L' + 21 * interligne + ' ' + 7 * interligne + 'L' + 13 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </path>
-                          <foreignObject width="` + 2.5 * interligne + '" height="' + h / 2 + '" x="' + 16 * interligne + '" y="' + h / 4 + `">
-                              <div style="position: fixed">
-                                  <span class="katex-display">
-                                      <span class="katex">
-                                          <span class="katex-html" aria-hidden="true">
-                                              <span class="base">
-                                                  <span class="mord mathdefault">` + etapesExpressions[0][1] + `</span>
-                                              </span>
-                                          </span>
-                                      </span>
-                                  </span>
-                              </div>
-                          </foreignObject>
-                      </g>
-                      <g>
-                          <line x1="` + 21 * interligne + '" y1="' + 5 * interligne + '" x2="' + 23 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
-                          </line>
-                          <circle r="` + 2 * interligne + '" cx="' + 25 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </circle>
-                          <path d="M` + 27 * interligne + ' ' + 5 * interligne + 'L' + 29 * interligne + ' ' + 5 * interligne + 'L' + (29 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 29 * interligne + ' ' + 5 * interligne + 'L' + (29 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </path>
-                          <foreignObject width="` + 4 * interligne + '" height="' + h / 2 + '" x="' + 23.5 * interligne + '" y="' + h / 4 + `">
-                          <body xmlns="http://www.w3.org/1999/xhtml">
-                              <div style="position: fixed">
-                                  <span class="katex-display">
-                                      <span class="katex">
-                                          <span class="katex-html" aria-hidden="true">
-                                              <span class="base">
-                                                  <span class="mord mathdefault">+` + etapesExpressions[1][0] + `</span>
-                                              </span>
-                                          </span>
-                                      </span>
-                                  </span>
-                              </div>
-                              </body>
-                          </foreignObject>
-                      </g>
-                      <g>
-                          <path d="M` + 29 * interligne + ' ' + 5 * interligne + 'L' + 29 * interligne + ' ' + 3 * interligne + 'L' + 44 * interligne + ' ' + 3 * interligne + 'L' + 44 * interligne + ' ' + 7 * interligne + 'L' + 29 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </path>
-                          <foreignObject width="` + 12 * interligne + '" height="' + h / 2 + '" x="' + 31 * interligne + '" y="' + h / 4 + `">
-                              <div style="position: fixed">
-                                  <span class="katex-display">
-                                      <span class="katex">
-                                          <span class="katex-html" aria-hidden="true">
-                                              <span class="base">
-                                                  <span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + xAnt + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapesExpressions[1][1] + `</span>
-                                              </span>
-                                          </span>
-                                      </span>
-                                  </span>
-                              </div>
-                          </foreignObject>
-                      </g>
-                  </svg>
-                  `
+  // window.SVGExist[id_du_div] = setInterval(function () {
+  // if (document.querySelector(`#${id_du_div}`)) {
+  //   document.querySelector(`#${id_du_div}`).innerHTML = ''// Vide le div pour éviter les SVG en doublon
+  const style = 'display: block'
+  let xTexte = arrondi((2.5 - 0) * interligne, 1)
+  let yTexte = arrondi(-(2 * h / 4 - h), 1)
+  const divAnt = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(xAnt)}</div>`
 
-      clearInterval(window.SVGExist[id_du_div])// Arrête le timer
-    }
-  }, 100) // Vérifie toutes les 100ms
+  xTexte = arrondi((9 - 0) * interligne, 1)
+  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  const divFunc = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString('\\times' + etapesExpressions[0][0])}</div>`
+
+  xTexte = arrondi((17 - 0) * interligne, 1)
+  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  const divIm = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(etapesExpressions[0][0] + '\\times ' + xAnt)}</div>`
+
+  xTexte = arrondi((25 - 0) * interligne, 1)
+  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  const divFunc2 = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString('+' + etapesExpressions[1][0])}</div>`
+
+  xTexte = arrondi((36 - 0) * interligne, 1)
+  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  const divIm2 = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(nom + '(' + xAnt + ') = ' + etapesExpressions[0][0] + '\\times ' + xAnt + '+' + etapesExpressions[1][0])}</div>`
+
+  return `<div class="svgContainer" ${style ? `style="${style}"` : ''}><div style="position: relative;">
+                <svg class="mathalea2d" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` + w + ' ' + h + '" width="' + w + '" height="' + h + `">
+                  <g>
+                      <path d="M0 ` + 5 * interligne + 'L0 ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 7 * interligne + 'L0 ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </path>                          
+                  </g>
+                  <g>
+                      <line x1="` + 5 * interligne + '" y1="' + 5 * interligne + '" x2="' + 7 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
+                      </line>
+                      <circle r="` + 2 * interligne + '" cx="' + 9 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </circle>
+                      <path d="M` + 11 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </path>                          
+                  </g>
+                  <g>
+                      <path d="M` + 13 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 3 * interligne + 'L' + 21 * interligne + ' ' + 3 * interligne + 'L' + 21 * interligne + ' ' + 7 * interligne + 'L' + 13 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </path>                          
+                  </g>
+                  <g>
+                      <line x1="` + 21 * interligne + '" y1="' + 5 * interligne + '" x2="' + 23 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
+                      </line>
+                      <circle r="` + 2 * interligne + '" cx="' + 25 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </circle>
+                      <path d="M` + 27 * interligne + ' ' + 5 * interligne + 'L' + 29 * interligne + ' ' + 5 * interligne + 'L' + (29 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 29 * interligne + ' ' + 5 * interligne + 'L' + (29 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </path>                          
+                  </g>
+                  <g>
+                      <path d="M` + 29 * interligne + ' ' + 5 * interligne + 'L' + 29 * interligne + ' ' + 3 * interligne + 'L' + 44 * interligne + ' ' + 3 * interligne + 'L' + 44 * interligne + ' ' + 7 * interligne + 'L' + 29 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </path>                  
+                  </g>
+              </svg>
+              ${divAnt}
+              ${divFunc}
+            ${divIm}
+            ${divFunc2}
+              ${divIm2}
+              </div>
+              </div>
+              `
+  // clearInterval(window.SVGExist[id_du_div])// Arrête le timer
+  // }
+  // }, 100) // Vérifie toutes les 100ms
 }
 
 /**
@@ -265,77 +224,53 @@ export function SVG_chemin (groupe, chemin, couleur) {
    */
 export function SvgMachineDiag3F1ActMono (id_du_div, w, h, nom, xAnt, etapesExpressions) {
   const interligne = 10// w/80; //h/10; // unité d'espacement
-  if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
+  // if (!window.SVGExist) { window.SVGExist = {} } // Si SVGExist n'existe pas on le créé
   // SVGExist est un dictionnaire dans lequel on stocke les listenner sur la création des div
-  window.SVGExist[id_du_div] = setInterval(function () {
-    if (document.querySelector(`#${id_du_div}`)) {
-      document.querySelector(`#${id_du_div}`).innerHTML = ''// Vide le div pour éviter les SVG en doublon
-      // on crée un rectangle dont la taille est adaptée au texte
-      // let path_cadre_rect_ant = 'M0,0L0,-'+interligne+',L'+(w_x_ant + 2*interligne)+',-'+interligne+',L'+(w_x_ant + 2*interligne)+','+interligne+'L0,'+interligne+'Z';
-      document.getElementById(id_du_div).innerHTML = `
-                  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` + w + ' ' + h + '" width="' + w + `">
-                      <g>
-                          <path d="M0 ` + 5 * interligne + 'L0 ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 7 * interligne + 'L0 ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </path>
-                          <foreignObject width="` + interligne + '" height="' + h / 2 + '" x="' + 2.5 * interligne + '" y="' + h / 4 + `">
-                              <div style="position: fixed">
-                                  <span class="katex-display">
-                                      <span class="katex">
-                                          <span class="katex-html" aria-hidden="true">
-                                              <span class="base">
-                                                  <span class="mord mathdefault">` + xAnt + `</span>
-                                              </span>
-                                          </span>
-                                      </span>
-                                  </span>
-                              </div>
-                          </foreignObject>
-                      </g>
-                      <g>
-                          <line x1="` + 5 * interligne + '" y1="' + 5 * interligne + '" x2="' + 7 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
-                          </line>
-                          <circle r="` + 2 * interligne + '" cx="' + 9 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </circle>
-                          <path d="M` + 11 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </path>
-                          <foreignObject width="` + 4 * interligne + '" height="' + h / 2 + '" x="' + 7.5 * interligne + '" y="' + h / 4 + `">
-                              <div style="position: fixed">
-                                  <span class="katex-display">
-                                      <span class="katex">
-                                          <span class="katex-html" aria-hidden="true">
-                                              <span class="base">
-                                                  <span class="mord mathdefault">×` + etapesExpressions[0][0] + `</span>
-                                              </span>
-                                          </span>
-                                      </span>
-                                  </span>
-                              </div>
-                          </foreignObject>
-                      </g>
-                      <g>
-                          <path d="M` + 13 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 3 * interligne + 'L' + 27 * interligne + ' ' + 3 * interligne + 'L' + 27 * interligne + ' ' + 7 * interligne + 'L' + 13 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
-                          </path>
-                          <foreignObject width="` + 12 * interligne + '" height="' + h / 2 + '" x="' + 16 * interligne + '" y="' + h / 4 + `">
-                              <div style="position: fixed">
-                                  <span class="katex-display">
-                                      <span class="katex">
-                                          <span class="katex-html" aria-hidden="true">
-                                              <span class="base">
-                                                  
-                                                  <span class="mord mathdefault">` + nom + '<span class="mopen">(</span>' + xAnt + '<span class="mclose">)</span><span class="mspace" style="margin-right: 0.408889em;"></span>=<span class="mspace" style="margin-right: 0.408889em;"></span>' + etapesExpressions[0][1] + `</span>
-                                              </span>
-                                          </span>
-                                      </span>
-                                  </span>
-                              </div>
-                          </foreignObject>
-                      </g>
-                  </svg>
-                  `
+  // window.SVGExist[id_du_div] = setInterval(function () {
+  // if (document.querySelector(`#${id_du_div}`)) {
+  // document.querySelector(`#${id_du_div}`).innerHTML = ''// Vide le div pour éviter les SVG en doublon
 
-      clearInterval(window.SVGExist[id_du_div])// Arrête le timer
-    }
-  }, 100) // Vérifie toutes les 100ms
+  const style = 'display: block'
+  let xTexte = arrondi((2.5 - 0) * interligne, 1)
+  let yTexte = arrondi(-(2 * h / 4 - h), 1)
+  const divAnt = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(xAnt)}</div>`
+
+  xTexte = arrondi((9 - 0) * interligne, 1)
+  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  const divFunc = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString('\\times ' + etapesExpressions[0][0])}</div>`
+
+  xTexte = arrondi((19 - 0) * interligne, 1)
+  yTexte = arrondi(-(2 * h / 4 - h), 1)
+  const divIm = ` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(nom + '(' + xAnt + ') = ' + etapesExpressions[0][0] + '\\times ' + xAnt)}</div>`
+
+  return `<div class="svgContainer" ${style ? `style="${style}"` : ''}><div style="position: relative;">
+              <svg class="mathalea2d" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 ` + w + ' ' + h + '" width="' + w + '" height="' + h + `">
+                  <g>
+                      <path d="M0 ` + 5 * interligne + 'L0 ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 3 * interligne + 'L' + 5 * interligne + ' ' + 7 * interligne + 'L0 ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </path>
+                  </g>
+                  <g>
+                      <line x1="` + 5 * interligne + '" y1="' + 5 * interligne + '" x2="' + 7 * interligne + '" y2="' + 5 * interligne + `" stroke-width="3" stroke="#f15929">
+                      </line>
+                      <circle r="` + 2 * interligne + '" cx="' + 9 * interligne + '" cy="' + 5 * interligne + `" fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </circle>
+                      <path d="M` + 11 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne - interligne / 2) + 'M' + 13 * interligne + ' ' + 5 * interligne + 'L' + (13 * interligne - interligne / 2) + ' ' + (5 * interligne + interligne / 2) + ` " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </path>                
+                  </g>
+                  <g>
+                      <path d="M` + 13 * interligne + ' ' + 5 * interligne + 'L' + 13 * interligne + ' ' + 3 * interligne + 'L' + 27 * interligne + ' ' + 3 * interligne + 'L' + 27 * interligne + ' ' + 7 * interligne + 'L' + 13 * interligne + ' ' + 7 * interligne + `Z " fill="none" stroke-linejoin="null" stroke-linecap="round" stroke-width="3" stroke="#f15929">
+                      </path>                          
+                  </g>
+              </svg>
+              ${divAnt}
+              ${divFunc}
+              ${divIm}
+              </div>
+              </div>
+                `
+  // clearInterval(window.SVGExist[id_du_div])// Arrête le timer
+  // }
+  // }, 100) // Vérifie toutes les 100ms
 }
 
 /**
@@ -434,6 +369,7 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       }
       if (etape1 !== '') {
         machine_etape1 = mon_svg.text(etape1).font(prop_font_etape)
+        console.log('etape1' + etape1)
         w_machine_etape1 = machine_etape1.length()
         machine_etape1.clear()
       } else {
