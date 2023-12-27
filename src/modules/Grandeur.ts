@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { stringNombre, texNombre } from 'src/lib/outils/texNombre'
+import { stringNombre, texNombre } from '../lib/outils/texNombre'
 
 /**
  * @class
