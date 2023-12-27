@@ -6,7 +6,7 @@ const l2 = new Grandeur(12, 'mm')
 const w = new Grandeur(1, 'W')
 const l3 = Grandeur.fromString('12,345~\\text{cm}')
 
-test('Conversion de longueurs', () => {
+test('Utilisation de la classe grandeur', () => {
   expect(l1.convertirEn('cm').mesure).toBe(1200000)
   expect(l1.convertirEn('Mm').mesure).toBe(0.012)
   expect(l1.convertirEn('mm').toString()).toBe('12\u202f000\u202f000\u202fmm')

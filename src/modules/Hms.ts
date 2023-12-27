@@ -12,6 +12,7 @@ class Hms {
 
   static fromString (text: string): Hms {
     const hms = new Hms()
+    text = text.replaceAll(' ', '')
     text = text.replaceAll('&nbsp;', '')
     text = text.replaceAll('{\\:\\text{h}\\:}', 'h')
     text = text.replaceAll('{\\:\\text{min}\\:}', 'min')
@@ -106,11 +107,12 @@ class Hms {
   /**
    * Normalise l'écriture au format HMS. Les secondes et les minutes seront inférieures à 60
    */
-  normalize (): void {
+  normalize (): Hms {
     this.minute += Math.floor(this.second / 60)
     this.second = this.second % 60
     this.hour += Math.floor(this.minute / 60)
     this.minute = this.minute % 60
+    return this
   }
 
   add (time: Hms): Hms {
