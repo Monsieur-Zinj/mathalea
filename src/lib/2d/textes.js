@@ -584,7 +584,7 @@ export function LatexParCoordonnees (texte, x, y, color, largeur, hauteur, color
   else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
   else if (this.tailleCaracteres < 10) taille = '\\small'
   else taille = '\\normalsize'
-  taille = ''
+  // taille = ''
   this.svg = function () {
     let divLatex
     if (this.colorBackground !== '') {
@@ -625,7 +625,7 @@ export function latexParCoordonnees (texte, x, y, color = 'black', largeur = 50,
  * @param {Number} [tailleCaracteres] Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
  * @Param {Struct} {options} options.anchor pour forcer la boite
  */
-export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres, options) {
+export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, colorBackground, tailleCaracteres = 8, options) {
   ObjetMathalea2D.call(this, {})
   this.x = x
   this.y = y
@@ -646,6 +646,7 @@ export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, co
   else if (this.tailleCaracteres < 9) taille = '\\footnotesize'
   else if (this.tailleCaracteres < 10) taille = '\\small'
   else taille = '\\normalsize'
+  this.taille = taille
 
   let style = ''
   if (options.anchor !== undefined && options.anchor !== '') {
@@ -689,7 +690,7 @@ export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, co
     const centrage = 0 // 0.4 * context.pixelsParCm * Math.log10(tailleCaracteres)
     return `<foreignObject style=" overflow: visible; line-height: 0;" x="${this.x * coeff - demiLargeur}" y="${-this.y * coeff - centrage - this.hauteur / 2}"  width="${this.largeur}" height="${this.hauteur}" id="${this.id}" ><div style="width:${this.largeur}px;height:${this.hauteur}px;position:fixed!important; text-align:center">
       <div style='${style}'>
-      $${taille} \\color{${this.color[0]}}{${this.texte}}$
+      $${this.taille} \\color{${this.color[0]}}{${this.texte}}$
       </div></div></foreignObject>`
     // <circle cx="${this.x * coeff - demiLargeur}" cy="${-this.y * coeff - centrage - this.hauteur / 2}" r="1" fill="red" stroke="blue" stroke-width="2"  />
     // <circle cx="${this.x * coeff}" cy="${-this.y * coeff}" r="1" fill="red" stroke="blue" stroke-width="2"  />`
@@ -698,11 +699,10 @@ export function LatexParCoordonneesBox (texte, x, y, color, largeur, hauteur, co
   this.tikz = function () {
     let code
     if (this.colorBackground !== '') {
-      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox ${this.colorBackground[1]}{${taille}  \\color${this.color[1]}{$${texte}$}}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {\\colorbox ${this.colorBackground[1]}{${this.taille}  \\color${this.color[1]}{$${texte}$}}};`
     } else {
-      code = `\\draw (${x},${y}) node[anchor = center] {${taille} \\color${this.color[1]}{$${texte}$}};`
+      code = `\\draw (${x},${y}) node[anchor = center] {${this.taille} \\color${this.color[1]}{$${texte}$}};`
     }
-
     return code
   }
 }

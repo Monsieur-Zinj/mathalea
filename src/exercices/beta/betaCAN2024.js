@@ -15,7 +15,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Hms from '../../modules/Hms'
 import { prenomF } from '../../lib/outils/Personne.js'
@@ -1841,13 +1841,13 @@ export default function CourseAuxNombres2024 () {
           choix = true
           if (choix) { // Pour enlever le second choix, trop difficile en CAN
             objets.push(
-              latexParCoordonnees(`${texNombre(new Decimal(a), 3)} \\text{ cm}`, 7.8, milieu(B, C).y + 0.5, 'black', 0, 0, '', 8),
+              latexParCoordonnees(`${texNombre(new Decimal(a), 3)} \\text{ cm}`, 8, milieu(B, C).y + 0.7, 'black', 0, 0, '', 9),
               codageSegments('||', 'blue', A, B), codageSegments('||', 'blue', B, C),
               codageSegments('||', 'blue', C, D), codageSegments('||', 'blue', A, D),
               codageAngleDroit(D, A, B), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, A), s1, s2, s3, s4)
             texte = 'Quel est le périmètre de ce carré ? '
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: ' cm' })
-            texte += '<br>' + mathalea2d({ xmin: -0.5, ymin: -1.2, xmax: 9.5, ymax: 7, scale: 0.4, style: 'margin: auto' }, objets)
+            texte += '<br>' + mathalea2d(Object.assign({ scale: 0.4, style: 'margin: auto' }, fixeBordures(objets)), objets)
             reponse = 4 * a
             texteCorr = `Il s'agit d'un carré. <br>
           Son périmètre est donc
