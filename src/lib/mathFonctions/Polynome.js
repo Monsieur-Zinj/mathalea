@@ -66,6 +66,39 @@ export class Polynome {
 
   isMon () { return this.monomes.filter(el => el !== 0).length === 1 }
 
+  isEqual (p) {
+    if (typeof p === 'number') {
+      if (this.monome[0] !== p) return false
+      for (let i = 1; i <= this.deg; i++) {
+        if (this.monomes[i] !== 0) {
+          return false
+        }
+      }
+      return true
+    }
+    if (p instanceof Polynome) {
+      const degP = p.deg
+      if (degP === this.deg) {
+        return this.monomes.filter((el, i) => el !== p.monomes[i]).length === 0
+      }
+      const degMin = Math.min(this.deg, p.deg)
+      for (let i = 0; i <= degMin; i++) {
+        if (p.monomes[i] !== this.monomes[i]) return false
+      }
+      for (let i = degMin + 1; i <= Math.max(p.deg, this.deg); i++) {
+        if (i <= this.deg) {
+          if (this.monomes[i] !== 0) return false
+        }
+        if (i <= p.deg) {
+          if (p.monomes[i] !== 0) return false
+        }
+      }
+      return true
+    }
+    window.notify(`Polynome.isEqual a reçu comme argument autre chose qu'un number ou un Polynome : ${p}`)
+    return false
+  }
+
   /**
    * @param {boolean} alg si true alors le coefficient dominant est doté de son signe +/-
    * @returns {string} expression mathématique compatible avec Algebrite
