@@ -253,8 +253,8 @@ export default function CanNoteLaCouleur6 () {
     <stop offset="0" style="stop-color:#FFFF99"/>
     <stop offset="1" style="stop-color:#FF9400"/>
   </radialGradient> <circle fill="url(#Ball)"  r="12" stroke-width="1"
-   cx="${lutin.listeTraces[0][0] * context.pixelsParCm}"
-    cy="${-lutin.listeTraces[0][1] * context.pixelsParCm}">\n
+   x="${lutin.listeTraces[0][0] * context.pixelsParCm}"
+    y="${-lutin.listeTraces[0][1] * context.pixelsParCm}">\n
     <animateMotion path="M ${lutin.listeTraces[0][0] * context.pixelsParCm} ${-lutin.listeTraces[0][1] * context.pixelsParCm} L`
 
       for (let i = 0; i < lutin.listeTraces.length; i++) {
