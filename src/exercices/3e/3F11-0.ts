@@ -2,8 +2,7 @@ import Exercice from '../ExerciceTs'
 
 import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'
-import { Spline, noeudsSplineAleatoire } from '../../lib/mathFonctions/Spline'
-import type Point from 'apigeom/src/elements/points/Point'
+// import type Point from 'apigeom/src/elements/points/Point'
 import { randint } from '../../modules/outils'
 import Figure from 'apigeom'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -50,71 +49,57 @@ function compareEnsembles (e1:string, e2:string) {
   return ok
 }
 
-function choisisFonction (type: TypesDeFonction, noeudsPassants: {x:number, y:number}[]): {func: (x:number)=>number, expr: string|Spline, poly?: Polynome} {
-  if (type === 'spline') {
-    const noeudsF = noeudsSplineAleatoire(5, true, -6, randint(-4, 4), 3)
-    for (const noeudPassant of noeudsPassants) {
-      for (let i = 0; i < noeudsF.length; i++) {
-        if (noeudsF[i].x === noeudPassant.x) {
-          noeudsF[i].y = noeudPassant.y
-          break
-        }
+function choisisFonction (type: TypesDeFonction, noeudsPassants: {x:number, y:number}[]): {func: (x:number)=>number, expr: string, poly: Polynome} {
+  let noeudsFonction
+  switch (type) {
+    case 'affine':
+      if (noeudsPassants.length < 2) {
+        throw Error('Un problème pas deux points pour une affine')
       }
-    }
-    const splineF = new Spline(noeudsF)
-    return { func: splineF.fonction, expr: splineF }
-  } else {
-    let noeudsFonction
-    switch (type) {
-      case 'affine':
-        if (noeudsPassants.length < 2) {
-          throw Error('Un problème pas deux points pour une affine')
-        }
-        // On prend les 1er et dernier noeuds
-        noeudsFonction = [noeudsPassants[1], noeudsPassants[3]]
-        break
-      case 'poly2':
-        // Pour un polynome de degré 2, il faut trois points sinon, c'est une droite
-        if (noeudsPassants.length < 3) {
-          throw Error('Un problème pas 3 noeuds pour un poly2')
-        }
-        noeudsFonction = [noeudsPassants[0], noeudsPassants[1], noeudsPassants[2]] // On prend tous les noeuds sauf l'avant-dernier'
-        break
-      case 'poly3':
-        // Pour un polynome de degré 3, il faut quatre points sinon, c'est un poly2
-        if (noeudsPassants.length < 4) {
-          throw Error('Un problème pas 4 noeuds pour un poly3')
-        }
-        noeudsFonction = noeudsPassants.slice(0, 4) // On prend tous les noeuds
-        break
-      case 'constante':
-      default:
-        if (noeudsPassants.length < 1) {
-          throw Error('Un problème il faut au moins un noeud !')
-        }
-        return { // On prend un noeud au milieu de la liste pour éviter d'avoir une tangente en -5.
-          func: () => noeudsPassants[0].y,
-          expr: `${noeudsPassants[0].y}`,
-          poly: new Polynome({ rand: false, deg: 3, coeffs: [noeudsPassants[0].y, 0, 0, 0] })
-        }
-    }
-    if (noeudsFonction == null) {
-      // si on arrive là, c'est qu'on a un truc inconnu
-      throw Error('type de fonction inconnu')
-    }
-    const poly = interpolationDeLagrange(noeudsFonction)
-    if (poly.deg < 3) {
-      const monomes = poly.monomes
-      for (let i = monomes.length - 1; i < 3; i++) {
-        monomes.push(0)
+      // On prend les 1er et dernier noeuds
+      noeudsFonction = [noeudsPassants[1], noeudsPassants[3]]
+      break
+    case 'poly2':
+      // Pour un polynome de degré 2, il faut trois points sinon, c'est une droite
+      if (noeudsPassants.length < 3) {
+        throw Error('Un problème pas 3 noeuds pour un poly2')
       }
-      poly.monomes = [...monomes]
-      poly.deg = 3
-    }
-    const func = poly.fonction
-    const expr: string = poly.toMathExpr()
-    return { func, expr, poly }
+      noeudsFonction = [noeudsPassants[0], noeudsPassants[1], noeudsPassants[2]] // On prend tous les noeuds sauf l'avant-dernier'
+      break
+    case 'poly3':
+      // Pour un polynome de degré 3, il faut quatre points sinon, c'est un poly2
+      if (noeudsPassants.length < 4) {
+        throw Error('Un problème pas 4 noeuds pour un poly3')
+      }
+      noeudsFonction = noeudsPassants.slice(0, 4) // On prend tous les noeuds
+      break
+    case 'constante':
+    default:
+      if (noeudsPassants.length < 1) {
+        throw Error('Un problème il faut au moins un noeud !')
+      }
+      return { // On prend un noeud au milieu de la liste pour éviter d'avoir une tangente en -5.
+        func: () => noeudsPassants[0].y,
+        expr: `${noeudsPassants[0].y}`,
+        poly: new Polynome({ rand: false, deg: 3, coeffs: [noeudsPassants[0].y, 0, 0, 0] })
+      }
   }
+  if (noeudsFonction == null) {
+    // si on arrive là, c'est qu'on a un truc inconnu
+    throw Error('type de fonction inconnu')
+  }
+  const poly = interpolationDeLagrange(noeudsFonction)
+  if (poly.deg < 3) {
+    const monomes = poly.monomes
+    for (let i = monomes.length - 1; i < 3; i++) {
+      monomes.push(0)
+    }
+    poly.monomes = [...monomes]
+    poly.deg = 3
+  }
+  const func = poly.fonction
+  const expr: string = poly.toMathExpr()
+  return { func, expr, poly }
 }
 
 class resolutionEquationInequationGraphique extends Exercice {
@@ -129,11 +114,11 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.formatChampTexte = 'largeur15 inline'
     this.exoCustomResultat = true
     this.answers = {}
-    this.sup2 = 5
+    this.sup2 = 10
     this.sup = 1
     this.besoinFormulaireNumerique = ['Choix des questions', 3, '1 : Résoudre une équation\n2 : Résoudre une inéquation\n3: Résoudre une équation et une inéquation']
-    this.besoinFormulaire2Numerique = ['Choix des deux fonctions', 13,
-      '1 : Constante-affine\nConstante-degré2\nConstante-degré3\nConstante-spline\nAffine-affine\nAffine-degré2\nAffine-degré3\nAffine-spline\nDegré2-degré2\nDegré2-degré3\nDegré2-spline\nDegré3-degré3\nDegré3-spline']
+    this.besoinFormulaire2Numerique = ['Choix des deux fonctions', 10,
+      'Constante-affine\nConstante-degré2\nConstante-degré3\nAffine-affine\nAffine-degré2\nAffine-degré3\nDegré2-degré2\nDegré2-degré3\nDegré3-degré3\nMélange']
   }
 
   nouvelleVersion (numeroExercice: number): void {
@@ -144,9 +129,9 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = ['']
     this.autoCorrection = []
+    const choixFonctions = this.sup2 < 10 ? this.sup : randint(1, 9)
     let integraleDiff: number
     let fonctions
-    let cpt = 0
     let f1Type: TypesDeFonction
     let f2Type: TypesDeFonction
     // On crée une seule spline
@@ -177,8 +162,7 @@ class resolutionEquationInequationGraphique extends Exercice {
         { x: x1, y: y1 },
         { x: x2, y: y2 },
         { x: x3, y: y3 }].sort((el1, el2) => el1.x - el2.x)
-
-      switch (this.sup2) { // On choisit les fonctions demandées
+      switch (choixFonctions) { // On choisit les fonctions demandées
         case 1 : // constante et affine
           f1Type = 'constante'
           f2Type = 'affine'
@@ -191,42 +175,29 @@ class resolutionEquationInequationGraphique extends Exercice {
           f1Type = 'constante'
           f2Type = 'poly3'
           break
-        case 4 : // constante et spline
-          f1Type = 'constante'
-          f2Type = 'spline'
-          break
-        case 6 : // affine et degré2
-          f1Type = 'poly2'
-          f2Type = 'affine'
-          break
-        case 7 : // affine et degré3
-          f1Type = 'poly3'
-          f2Type = 'affine'
-          break
-        case 8 : // affine et spline
+        case 4 : // 2 affines
           f1Type = 'affine'
-          f2Type = 'spline'
-
+          f2Type = 'affine'
           break
-        case 9 : // degré2 et degré2
+        case 5 : // affine et degré2
+          f2Type = 'poly2'
+          f1Type = 'affine'
+          break
+        case 6 : // affine et degré3
+          f2Type = 'poly3'
+          f1Type = 'affine'
+          break
+        case 7 : // degré2 et degré2
           f1Type = 'poly2'
           f2Type = 'poly2'
           break
-        case 10 : // degré2 et degré3
+        case 8 : // degré2 et degré3
           f1Type = 'poly2'
           f2Type = 'poly3'
           break
-        case 11 : // degré2 et spline
-          f1Type = 'poly2'
-          f2Type = 'spline'
-          break
-        case 12 : // degré3 et degré3
+        case 9 : // degré3 et degré3
           f1Type = 'poly3'
           f2Type = 'poly3'
-          break
-        case 13 : // degré3 et spline
-          f1Type = 'poly3'
-          f2Type = 'spline'
           break
         default: // affine et affine (c'est le this.sup par défaut)
           f1Type = 'affine'
@@ -248,19 +219,19 @@ class resolutionEquationInequationGraphique extends Exercice {
         fonctions = [choisisFonction(f1Type, noeudsPassant), choisisFonction(f2Type, newNoeudsPassants)]
       }
       const integrales = []
-      if (f2Type !== 'spline') { // on calcule la différence des polys, on intègre entre -5 et 0 et entre 0 et 5
-        const poly = fonctions[0].poly
-        if (poly == null) { // noremalement, ça ne doit pas arriver car la seule à ne pas avoir la propriété poly est la spline qui est éliminée
-          // d'ailleurs typescript le sait puisque dans le test, si on met f1Type !== 'spline' il nous fait remarquer que c'est pas la peine !
-          // donc ce test est là juste pour que typescript ne me dise pas que fonctions[0].poly peut être undefined
-          throw Error('la fonction 1 n\'a pas de polynôme alors qu\'elle devrait')
-        }
-        for (let k = 0; k < 10; k++) {
-          const diff = poly.multiply(-1).add(fonctions[1].poly)
-          integrales.push(Math.abs(diff.image(-4 + k) - diff.image(-5 + k)))
-        }
-        integraleDiff = Math.min(...integrales)
-      } else { // j'ai mis volontairement la spline en deuxième partout
+      // on calcule la différence des polys, on intègre entre -5 et 0 et entre 0 et 5
+      const poly = fonctions[0].poly
+      if (poly == null) { // noremalement, ça ne doit pas arriver car la seule à ne pas avoir la propriété poly est la spline qui est éliminée
+        // d'ailleurs typescript le sait puisque dans le test, si on met f1Type !== 'spline' il nous fait remarquer que c'est pas la peine !
+        // donc ce test est là juste pour que typescript ne me dise pas que fonctions[0].poly peut être undefined
+        throw Error('la fonction 1 n\'a pas de polynôme alors qu\'elle devrait')
+      }
+      for (let k = 0; k < 10; k++) {
+        const diff = poly.multiply(-1).add(fonctions[1].poly)
+        integrales.push(Math.abs(diff.image(-4 + k) - diff.image(-5 + k)))
+      }
+      integraleDiff = Math.min(...integrales)
+      /* else { // j'ai mis volontairement la spline en deuxième partout
         const spline = fonctions[1].expr as Spline // là on est certain que spline est bien une Spline !
         if (spline == null || spline.n == null) {
           // là encore ça n'arrive jamais !
@@ -283,7 +254,7 @@ class resolutionEquationInequationGraphique extends Exercice {
         }
         integraleDiff = Math.min(...integrales)
       }
-      cpt++
+      */
     } while (integraleDiff < 0.5)
     const [fonction1, fonction2] = fonctions
     // on s'occupe de la fonction 1 et du point mobile dessus on trace tout ça.
@@ -298,10 +269,8 @@ class resolutionEquationInequationGraphique extends Exercice {
     const textY = this.figure.create('DynamicY', { point: M })
     textX.dynamicText.maximumFractionDigits = 2
     textY.dynamicText.maximumFractionDigits = 1
-    let courbeG
-    if (f2Type !== 'spline') {
-      courbeG = this.figure.create('Graph', { expression: fonction2.expr as string, color: 'red', thickness: 1, fillOpacity: 0.5 })
-    } else {
+    this.figure.create('Graph', { expression: fonction2.expr as string, color: 'red', thickness: 1, fillOpacity: 0.5 })
+    /* {
       courbeG = fonction2.expr as Spline
       const mesPointsG = courbeG.pointsOfSpline(100)
       let mesPointsApiGeomG: Point[]
@@ -318,6 +287,7 @@ class resolutionEquationInequationGraphique extends Exercice {
         }
       }
     }
+    */
     this.idApigeom = `apigeomEx${numeroExercice}F0`
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
 
@@ -326,7 +296,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     // let diff
     let soluces
     const inferieur = choice([true, false])
-    if (f2Type === 'spline') {
+    /*    if (f2Type === 'spline') {
       const sols: number[] = []
       const spline = fonction2.expr as Spline
       const poly = fonction1.poly as Polynome
@@ -349,30 +319,31 @@ class resolutionEquationInequationGraphique extends Exercice {
           soluces = new Set(soluces)
         }
       }
-    } else { // ici, c'est deux polynomes !
-      soluces = []
-      if (fonction1.poly != null && fonction2.poly != null) {
-        const polyDiff = fonction1.poly.add(fonction2.poly.multiply(-1))
-        const [a, b, c, d] = polyDiff.monomes
-        const racines = polynomialRoot(a.valueOf(), b.valueOf(), c.valueOf(), d.valueOf())
-        const racinesReelles = racines.filter(el => typeof el === 'number') as number[]
-        const racinesArrondies = racinesReelles.map(el => Number(el.toFixed(1)))
-        for (let n = 0; n < racinesArrondies.length; n++) {
-          const image = fonction1.func(racinesArrondies[n])
-          const isInside = Math.abs(racinesArrondies[n]) <= 5.3
-          const isInside2 = Math.abs(image) <= 6.2
-          if (isInside && isInside2) {
-            soluces.push(racinesArrondies[n])
-          }
+    } else
+  */
+    // ici, c'est deux polynomes !
+    soluces = []
+    if (fonction1.poly != null && fonction2.poly != null) {
+      const polyDiff = fonction1.poly.add(fonction2.poly.multiply(-1))
+      const [a, b, c, d] = polyDiff.monomes
+      const racines = polynomialRoot(a.valueOf(), b.valueOf(), c.valueOf(), d.valueOf())
+      const racinesReelles = racines.filter(el => typeof el === 'number') as number[]
+      const racinesArrondies = racinesReelles.map(el => Number(el.toFixed(1)))
+      for (let n = 0; n < racinesArrondies.length; n++) {
+        const image = fonction1.func(racinesArrondies[n])
+        const isInside = Math.abs(racinesArrondies[n]) <= 5.3
+        const isInside2 = Math.abs(image) <= 6.2
+        if (isInside && isInside2) {
+          soluces.push(racinesArrondies[n])
         }
+      }
 
-        if (this.sup === 1 || this.sup === 3) {
-          enonce = `${numero}. Résoudre graphiquement $f(x)${miseEnEvidence('=', 'black')}g(x)$.<br>`
-          numero++
-          soluces = soluces.sort((a: number, b: number) => a - b)
-          enonce += '$\\{' + soluces.map(el => texNombre(el, 1)).join(' ; ') + '\\}$<br>'
-          soluces = new Set(soluces)
-        }
+      if (this.sup === 1 || this.sup === 3) {
+        enonce = `${numero}. Résoudre graphiquement $f(x)${miseEnEvidence('=', 'black')}g(x)$.<br>`
+        numero++
+        soluces = soluces.sort((a: number, b: number) => a - b)
+        enonce += '$\\{' + soluces.map(el => texNombre(el, 1)).join(' ; ') + '\\}$<br>'
+        soluces = new Set(soluces)
       }
     }
     if (soluces != null) {
@@ -386,17 +357,13 @@ class resolutionEquationInequationGraphique extends Exercice {
       enonce += `${numero}. Résoudre graphiquement $f(x)${inferieur ? miseEnEvidence('<', 'black') : miseEnEvidence('>', 'black')}g(x)$.`
       enonce += 'L\'ensemble des solutions de l\'inéquation est : ' + remplisLesBlancs(this, 1, '\\{%{solucesIneq}\\}', 'inline college6e', '.......') + '<br>'
       if (this.sup === 2 || this.sup === 3) {
-        if (f2Type !== 'spline') {
-          const poly = fonction2.poly as Polynome
-          const diff = poly.multiply(-1).add(fonction1.poly)
-          const solutions = inferieurSuperieur(diff.fonction, 0, -5.2, 5.2, inferieur, false, { step: 0.1 })
-          enonce += '$' + solutions.map(el => el.borneG.x !== el.borneD.x
-            ? `[${texNombre(Number(el.borneG.x), 1)};${texNombre(Number(el.borneD.x), 1)}]`
-            : `\\{${texNombre(Number(el.borneG.x), 1)}\\}`
-          ).join('\\cup') + '$'
-        } else {
-
-        }
+        const poly = fonction2.poly as Polynome
+        const diff = poly.multiply(-1).add(fonction1.poly)
+        const solutions = inferieurSuperieur(diff.fonction, 0, -5.2, 5.2, inferieur, false, { step: 0.1 })
+        enonce += '$' + solutions.map(el => el.borneG.x !== el.borneD.x
+          ? `[${texNombre(Number(el.borneG.x), 1)};${texNombre(Number(el.borneD.x), 1)}]`
+          : `\\{${texNombre(Number(el.borneG.x), 1)}\\}`
+        ).join('\\cup') + '$'
       }
     }
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
