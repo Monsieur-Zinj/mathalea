@@ -365,7 +365,7 @@ export function xcas (expression) {
  * @author Rémi Angot modifié par Jean-Claude Lhote mais en vain !
  */
 export function calculANePlusJamaisUtiliser (x) {
-  arrondi(x, 6)
+  return arrondi(x, 6)
 }
 
 /*
