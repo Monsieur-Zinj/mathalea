@@ -1,7 +1,5 @@
 import fs from 'node:fs'
-
 import prefs from './prefs'
-
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { JSHandle } from 'playwright'
@@ -54,6 +52,7 @@ export function getFileLogger (fileName: string, options: {append?: boolean} = {
  * @return {Promise} qui sera résolue lorsque cet appel sera sorti en console
  */
 function logSerializer (logger: Logger, ...args: unknown[]) {
+  if (prefs.silent) return
   const datePrefix = (args: unknown[]) => {
     const prefix = `[${getCurrentTime()}]`
     if (!Array.isArray(args) || !args.length) return logger(Error('fonction de log appelée sans argument'))
@@ -109,11 +108,6 @@ const dummyFn = () => Promise.resolve()
  * @type {Logger}
  */
 export const log = logSerializer.bind(null, console.log) // eslint-disable-line no-console
-/**
- * Idem log, sauf si on est en mode quiet (ça ne fait rien dans ce cas)
- * @type {Logger}
- */
-export const logButQuiet = prefs.quiet ? dummyFn : log
 /**
  * Envoie les arguments à console.log en préfixant avec la date courante
  * @type {Logger}
