@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
-export const titre = 'Déterminer le déterminant de deux vecteurs.'
+export const titre = 'Déterminer le déterminant de deux vecteurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

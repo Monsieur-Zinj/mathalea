@@ -1,6 +1,6 @@
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
-export const titre = 'Convertir des Heures/minutes en minutes'
+export const titre = 'Convertir des heures/minutes en minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
