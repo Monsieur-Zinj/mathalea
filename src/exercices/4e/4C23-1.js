@@ -82,7 +82,6 @@ export default function ExerciceAdditionnerFractionProduit () {
         typesDeQuestionsDisponibles = [1]
         break
     }
-
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions
@@ -208,13 +207,13 @@ export default function ExerciceAdditionnerFractionProduit () {
           texte += `$${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
 
           texteCorr = `$${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
-          if (!operation2) { // Si il y a division, multiplier par l'inverse du diviseur
+          if (!operation2) { // S'il y a division, multiplier par l'inverse du diviseur
             [e, f] = [f, e]
             texteCorr += `$=${deprecatedTexFraction(c, d)} \\times ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
           }
 
           produit = produitDeDeuxFractions(c, d, e, f)
-          texteCorr += `$=${deprecatedTexFraction(c, d)}\\times ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
+          // texteCorr += `$=${deprecatedTexFraction(c, d)}\\times ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
           if (this.correctionDetaillee) {
             texteCorr += `$=${deprecatedTexFraction(c + '\\times' + ecritureParentheseSiNegatif(e), d + '\\times' + ecritureParentheseSiNegatif(f))} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
             texteCorr += `$=${deprecatedTexFraction(c * e, d * f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
