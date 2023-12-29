@@ -18,26 +18,20 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
-export const dateDeModifImportante = '14/05/2023' // EE : Passage en interactif
-
+export const dateDeModifImportante = '14/05/2023'
+export const dateDePublication = '11/04/2021'
 export const titre = 'Note la couleur (scratch)'
 
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
- * Ref : 6I11
- * Publié le 11/04/2021
  * @author Jean-Claude Lhote
  * A faire : ajouter d'autres niveaux avec des instructions conditionnelles, des blocs définis...
- */
-/**
- * Fonction exercice.
  */
 export const uuid = '0e016'
 export const ref = '6I11'
 export default function NoteLaCouleur6e () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -49,7 +43,7 @@ export default function NoteLaCouleur6e () {
   this.sup = 1
   this.sup2 = 1
   this.sup3 = 4
-  this.sup4 = false
+  this.sup4 = true
   this.relatif = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
@@ -102,7 +96,7 @@ export default function NoteLaCouleur6e () {
     const typeDeQuestion = Number(this.sup2) === 1 ? combinaisonListes([1], this.nbQuestions) : Number(this.sup2) === 2 ? combinaisonListes([2], this.nbQuestions) : combinaisonListes([1, 2], this.nbQuestions)
     const lePlateau = plateau2dNLC({
       type: this.sup,
-      melange: this.sup4,
+      melange: !this.sup4,
       scale: echelleDessin,
       relatif: this.relatif,
       nx: 16,
@@ -377,11 +371,11 @@ export default function NoteLaCouleur6e () {
       if (this.sup % 2 === 0) reponseCouleur[0] = '(' + lePlateau.traducNum(couleurs[0]) + ') ' + couleurs[0]
       texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteEnCouleurEtGras(reponseCouleur[0])} `
-      texte += 'Couleur n°1 : ' + choixDeroulant(this, q, 0, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
+      texte += !this.interactif ? '' : 'Couleur n°1 : ' + choixDeroulant(this, q, 0, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
       for (let i = 1; i < couleurs.length; i++) {
         if (this.sup % 2 === 0) reponseCouleur[i] = '(' + lePlateau.traducNum(couleurs[i]) + ') ' + couleurs[i]
         texteCorr += `${texteEnCouleurEtGras(reponseCouleur[i])} `
-        texte += 'Couleur n°' + (i + 1) + ' : ' + choixDeroulant(this, q, i, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
+        texte += !this.interactif ? '' : 'Couleur n°' + (i + 1) + ' : ' + choixDeroulant(this, q, i, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
       }
       setReponse(this, q, [reponseCouleur])
       lutin.animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
