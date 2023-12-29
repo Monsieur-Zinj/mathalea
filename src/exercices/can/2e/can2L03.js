@@ -2,7 +2,7 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
-export const titre = 'Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite'
+export const titre = 'Calculer les coordonnées du point d’intersection entre l’axe des abscisses et une droite'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
