@@ -35,7 +35,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4
-    this.besoinFormulaireNumerique = ['Figure à tracer', 11, '1 : Carré\n2 : Rectangle\n3 : Carré (une diagonale)\n4 : Rectangle (une diagonale)\n5 : Losange (un côté et une diagonale)\n6 Losange (2 diagonales)\n7 : Parallélogramme\n8 : Mélange Carré - Rectangle\n9 : Mélange Carré - Rectangle - Losange\n10 : Mélange Losange - Parallélogramme\n11 : Mélange de toutes les figures']
+    this.besoinFormulaireNumerique = ['Figure à tracer', 11, '1 : Carré\n2 : Rectangle\n3 : Carré (une diagonale)\n4 : Rectangle (une diagonale)\n5 : Losange (un côté et une diagonale)\n6 : Losange (2 diagonales)\n7 : Parallélogramme\n8 : Mélange Carré - Rectangle\n9 : Mélange Carré - Rectangle - Losange\n10 : Mélange Losange - Parallélogramme\n11 : Mélange de toutes les figures']
     this.sup = 8
   }
 

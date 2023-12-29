@@ -95,7 +95,7 @@
         // il y a une liste de tooltips qui deviendront les entrées
         const dernier = entrees.pop() as string
         if (dernier) {
-          champs = dernier.split('\n').map((x) => x.replace(/(?:\d *: *)/i, ''))
+          champs = dernier.split('\n').map((x) => x.replace(/(?:\d* *: *)/i, ''))
         } else {
           champs = []
         }
