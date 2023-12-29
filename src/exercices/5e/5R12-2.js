@@ -96,7 +96,7 @@ export default function ReperagePointDuPlan () {
       objets2d.push(repere({ xMin: xmin - 1, yMin: ymin - 1, xMax: xmax + 1, yMax: ymax + 1 }))
     }
     for (let i = 0; i < 5; i++) {
-      objets2d.push(points[i], tracePoint(points[i], 'red'), labelPoint(points[i]))
+      objets2d.push(tracePoint(points[i], 'red'), labelPoint(points[i]))
     }
     texte += '<br>' + mathalea2d({ xmin: xmin - 1, ymin: ymin - 1, xmax: xmax + 1, ymax: ymax + 1, pixelsParCm: 30, scale: 0.75 }, objets2d)
     this.listeQuestions.push(texte)
