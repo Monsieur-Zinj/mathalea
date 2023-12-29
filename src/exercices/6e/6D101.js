@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import Hms from '../../modules/Hms.js'
+import Hms from '../../modules/Hms'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Utiliser les heures décimales'

@@ -4,7 +4,7 @@ import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -42,83 +42,83 @@ export default function IntercalerDecimalEntre2Decimaux () {
         case 'a,b1':
           d1 = randint(1, 6)
           u = randint(1, 39)
-          a = calculANePlusJamaisUtiliser(u + d1 / 10)
-          b = calculANePlusJamaisUtiliser(u + randint(d1 + 2, 9) / 10)
-          r = calculANePlusJamaisUtiliser(a + 1 / 10)
+          a = u + d1 / 10
+          b = u + randint(d1 + 2, 9) / 10
+          r = a + 1 / 10
           break
         case 'a,b2':
           d1 = randint(1, 8)
           u = randint(1, 39)
-          a = calculANePlusJamaisUtiliser(u + d1 / 10)
-          b = calculANePlusJamaisUtiliser(u + (d1 + 1) / 10)
-          r = calculANePlusJamaisUtiliser(a + 5 / 100)
+          a = u + d1 / 10
+          b = u + (d1 + 1) / 10
+          r = a + 5 / 100
           break
         case 'a,9':
-          a = calculANePlusJamaisUtiliser(randint(1, 39) + 9 / 10)
-          b = calculANePlusJamaisUtiliser(a + 1 / 10)
-          r = calculANePlusJamaisUtiliser(a + 5 / 100)
+          a = randint(1, 39) + 9 / 10
+          b = a + 1 / 10
+          r = a + 5 / 100
           break
         case 'a,bc':
           u = randint(1, 39)
           d1 = randint(1, 9)
           c1 = randint(1, 8)
           c2 = c1 + 1
-          a = calculANePlusJamaisUtiliser(u + d1 / 10 + c1 / 100)
-          b = calculANePlusJamaisUtiliser(u + d1 / 10 + c2 / 100)
-          r = calculANePlusJamaisUtiliser(a + 5 / 1000)
+          a = u + d1 / 10 + c1 / 100
+          b = u + d1 / 10 + c2 / 100
+          r = a + 5 / 1000
           break
         case 'a,b9':
           u = randint(1, 39)
           d1 = randint(1, 9)
           c1 = 9
-          a = calculANePlusJamaisUtiliser(u + d1 / 10 + c1 / 100)
-          b = calculANePlusJamaisUtiliser(u + (d1 + 1) / 10)
-          r = calculANePlusJamaisUtiliser(a + 5 / 1000)
+          a = u + d1 / 10 + c1 / 100
+          b = u + (d1 + 1) / 10
+          r = a + 5 / 1000
           break
         case 'a,99':
           u = randint(1, 39)
-          a = calculANePlusJamaisUtiliser(u + 99 / 100)
+          a = u + 99 / 100
           b = u + 1
-          r = calculANePlusJamaisUtiliser(a + 5 / 1000)
+          r = a + 5 / 1000
           break
         case 'a,b0c':
           u = randint(1, 39)
           d1 = randint(1, 6)
           c1 = randint(1, 8)
           c2 = c1 + 1
-          a = calculANePlusJamaisUtiliser(u + d1 / 10 + c1 / 1000)
-          b = calculANePlusJamaisUtiliser(u + randint(d1 + 1, 9) / 10)
-          if (calculANePlusJamaisUtiliser(b - a) > 0.1) {
-            r = calculANePlusJamaisUtiliser(u + (d1 + 1) / 10)
+          a = u + d1 / 10 + c1 / 1000
+          b = u + randint(d1 + 1, 9) / 10
+          if (b - a > 0.1) {
+            r = u + (d1 + 1) / 10
           } else {
-            r = calculANePlusJamaisUtiliser(u + (d1) / 10 + 1 / 100)
+            r = u + (d1) / 10 + 1 / 100
           }
           break
         case 'a,1':
           u = randint(1, 39)
           d1 = 1
-          a = calculANePlusJamaisUtiliser(u)
-          b = calculANePlusJamaisUtiliser(u + d1 / 10)
-          r = calculANePlusJamaisUtiliser(u + 5 / 100)
+          a = u
+          b = u + d1 / 10
+          r = u + 5 / 100
           break
 
         case 'a,01':
           u = randint(1, 39)
           c1 = 1
-          a = calculANePlusJamaisUtiliser(u)
-          b = calculANePlusJamaisUtiliser(u + c1 / 100)
-          r = calculANePlusJamaisUtiliser(u + 5 / 1000)
+          a = u
+          b = u + c1 / 100
+          r = u + 5 / 1000
           break
 
         case 'a':
           a = randint(1, 39)
           b = a + 1
-          r = calculANePlusJamaisUtiliser(a + 1 / 10)
+          r = a + 1 / 10
           break
       }
       if (this.interactif) {
         texte = `$${texNombre(a)}<$` + ajouteChampTexteMathLive(this, i, 'inline') + `$\\quad<${texNombre(b)}$`
-        setReponse(this, i, [a, b], { formatInteractif: 'intervalleStrict' })
+        setReponse(this, i, [[a, b]], { formatInteractif: 'intervalleStrict' })
       } else {
         texte = `$${texNombre(a)}<${sp(3)}\\ldots\\ldots\\ldots\\ldots\\ldots${sp(3)}<${texNombre(b)}$`
       }

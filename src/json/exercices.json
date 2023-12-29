@@ -1,4 +1,23 @@
 {
+  "": {
+    "url": "beta/betaCAN2024.js",
+    "tags": [],
+    "uuid": "8ff87",
+    "id": "",
+    "titre": "CAN Spéciale année 2024",
+    "datePublication": "20/12/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "1AN10-1": {
     "url": "1e/1AN10-1.js",
     "tags": [],
@@ -2778,8 +2797,8 @@
     "titre": "Factoriser avec les identités remarquables",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": false,
@@ -13031,7 +13050,7 @@
     "uuid": "1acf7",
     "id": "6N23-1",
     "titre": "Donner différentes écritures de nombres décimaux",
-    "dateModification": "25/09/2022",
+    "dateModification": "21/12/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -13530,6 +13549,7 @@
     "uuid": "06633",
     "id": "6N41",
     "titre": "Compléter les égalités entre fractions simples",
+    "dateModification": "20/12/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -16680,26 +16700,6 @@
     "id": "can1a-2022",
     "titre": "CAN première sujet 2022",
     "datePublication": "09/07/2022",
-    "dateModification": "24/10/2021",
-    "features": {
-      "interactif": {
-        "isActive": true,
-        "type": "'mathLive'"
-      },
-      "amc": {
-        "isActive": false,
-        "type": ""
-      }
-    },
-    "typeExercice": "alea"
-  },
-  "can2024": {
-    "url": "beta/betaCAN2024.js",
-    "tags": [],
-    "uuid": "8ff87",
-    "id": "can2024",
-    "titre": "CAN Spéciale année 2024",
-    "datePublication": "20/12/2023",
     "dateModification": "24/10/2021",
     "features": {
       "interactif": {

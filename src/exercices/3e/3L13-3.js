@@ -16,7 +16,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modu
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import Grandeur from '../../modules/Grandeur.js'
+import Grandeur from '../../modules/Grandeur'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 

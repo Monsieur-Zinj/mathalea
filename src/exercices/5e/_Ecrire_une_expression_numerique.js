@@ -21,7 +21,7 @@ export const dateDeModifImportante = '21/09/2023'
  * @author Jean-Claude Lhote
  * Référence 5C11, 5C11-1, 5C12-1, 5L10-1, 5L10-3, 5L14-1 et 5L14-3
  */
-export default function EcrireUneExpressionNumerique (calculMental) {
+export default function EcrireUneExpressionNumerique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''
   this.nbQuestions = 4
@@ -32,6 +32,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
   this.sup4 = 6
   this.version = 1 // 1 pour ecrire une expression, 2 pour écrire la phrase, 3 pour écrire l'expression et la calculer, 4 pour calculer une expression numérique
   this.besoinFormulaire4Texte = ['Nombre d\'opérations par expression', 'Nombres séparés par des tirets\n1 : Expressions à 1 opération\n2 : Expressions à 2 opérations\n3 : Expressions à 3 opérations\n4 : Expressions à 4 opérations\n5 : Expressions à 5 opérations\n6 : Mélange'] // Texte, tooltip - il faut au moins deux opérations
+  this.besoinFormulaire2CaseACocher = ['Utilisation de décimaux (pas de calcul mental)', false]
 
   this.nouvelleVersion = function () {
     this.interactifType = this.version !== 2 ? 'mathLive' : 'listeDeroulante'
@@ -56,6 +57,7 @@ export default function EcrireUneExpressionNumerique (calculMental) {
     let nbval
     let nbOperations
     let resultats
+    const calculMental = this.sup2
     if (!calculMental) {
       decimal = 10
     } else {

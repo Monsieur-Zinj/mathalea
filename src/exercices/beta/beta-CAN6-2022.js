@@ -12,7 +12,7 @@ import { fraction } from '../../modules/fractions.js'
 import { min, round } from 'mathjs'
 
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Grandeur from '../../modules/Grandeur.js'
+import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

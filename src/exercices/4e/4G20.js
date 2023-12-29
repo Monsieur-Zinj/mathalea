@@ -12,7 +12,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import Grandeur from '../../modules/Grandeur.js'
+import Grandeur from '../../modules/Grandeur'
 import { RedactionPythagore } from './_pythagore.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 

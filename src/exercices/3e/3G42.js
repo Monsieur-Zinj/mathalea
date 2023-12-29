@@ -8,7 +8,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { cylindre3d, point3d, sphere3d, vecteur3d } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-import Grandeur from '../../modules/Grandeur.js'
+import Grandeur from '../../modules/Grandeur'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'

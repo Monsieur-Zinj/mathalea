@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
-import Hms from '../../modules/Hms.js'
+import Hms from '../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'

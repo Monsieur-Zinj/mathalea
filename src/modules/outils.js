@@ -1,6 +1,6 @@
 /* globals UI */
 import Algebrite from 'algebrite'
-import { evaluate, round } from 'mathjs'
+import { round } from 'mathjs'
 import {
   combinaisonListes,
   combinaisonListesSansChangerOrdre,
@@ -364,8 +364,12 @@ export function xcas (expression) {
  * Si c'est pour arrondir, utiliser arrondi(nombre, précision) qui ne règle pas plus le problème des flottants.
  * @author Rémi Angot modifié par Jean-Claude Lhote mais en vain !
  */
-export function calculANePlusJamaisUtiliser (x, arrondir = 6) {
-  const sansPrecision = (arrondir === undefined)
+export function calculANePlusJamaisUtiliser (x) {
+  return arrondi(x, 6)
+}
+
+/*
+const sansPrecision = (arrondir === undefined)
   // if (sansPrecision) arrondir = 6
   if (typeof x === 'string') {
     window.notify('Calcul : Reçoit une chaine de caractère et pas un nombre', { x })
@@ -379,6 +383,7 @@ export function calculANePlusJamaisUtiliser (x, arrondir = 6) {
   }
   return parseFloat(x.toFixed(arrondir))
 }
+*/
 
 // Fonctions LaTeX
 

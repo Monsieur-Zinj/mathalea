@@ -240,6 +240,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
    * @param {'stringNombre'|'texNombre'} fonction la fonction appelante
    * @returns string avec le nombre dans le format français
    */
+
   function insereEspacesNombre (nb, nbChiffresPartieEntiere, precision, fonction) {
     let signe
     let nombre
@@ -341,7 +342,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
       // x.toFixed(18) ne contiendrait pas assez de chiffres significatifs
       // afficherNombre n'est pas prévu pour des nombres pareils sauf éventuellement au format Decimal
       window.notify(`trouveLaPrecision de ${x} n'est pas possible : il ne peut pas être transformé en écriture décimale. Il faut adapter le code de l'exercice ou verifier que ce nombre n'est pas un bug`)
-      return 20
+      return 10
     }
   }
   // fin trouveLaPrecision()
@@ -373,7 +374,12 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
       if (Number.isInteger(nb)) {
         precision = 0
       } else {
-        precision = trouveLaPrecision(nb)
+        const ordreGrandeur = Math.round(Math.log10(Number(nb)))
+        if (ordreGrandeur < -10) { // ça veut dire que le nombre est trop insignifiant pour donner un résultat affiché convenable
+          precision = 0 // on retourne 0 pour avoir un arrondi à zéro !
+        } else {
+          precision = trouveLaPrecision(nb)
+        }
       }
     }
   }
