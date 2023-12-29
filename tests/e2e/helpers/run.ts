@@ -40,7 +40,7 @@ export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string
           if (stop) return skip()
           try {
             result = false
-            page = await getDefaultPage({ browserName })
+            page = await getDefaultPage(browserName)
             const promise = test(page)
             if (!(promise instanceof Promise)) throw Error(`${filename} ne contient pas de fonction test qui prend une page et retourne une promesse`)
             result = await promise
