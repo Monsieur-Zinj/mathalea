@@ -3,8 +3,8 @@ export const CLAVIER_LYCEE = {
   tooltip: 'Clavier mathématique', // Tooltip when hovering over the label
   rows: [
     [
-      { class: 'small', latex: '\\bigcup' }, /// Union
-      { class: 'small', latex: '\\bigcap' }, /// Intersection
+      { class: 'small', latex: '\\cup' }, /// Union
+      { class: 'small', latex: '\\cap' }, /// Intersection
       {
         class: 'small',
         latex: '\\backslash\\{#0\\}',
@@ -191,8 +191,8 @@ export const raccourcisLycee = {
   '[': { mode: 'math', value: '$[$' },
   singleton: { mode: 'math', value: '\\{#0\\}' },
   inf: { mode: 'math', value: '\\infty' },
-  union: { mode: 'math', value: '\\bigcup' },
-  inter: { mode: 'math', value: '\\bigcap' },
+  union: { mode: 'math', value: '\\cup' },
+  inter: { mode: 'math', value: '\\cap' },
   sauf: { mode: 'math', value: '\\backslash\\{#0\\}' },
   integ: { mode: 'math', value: '\\int_#0^#1' },
   lim: { mode: 'math', value: '\\lim_{#0\\to\\ #1}}' },

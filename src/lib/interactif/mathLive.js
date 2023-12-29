@@ -24,7 +24,8 @@ export const fractionCompare = (a, b) => engine.parse(a).isSame(engine.parse(b))
  */
 function cleanInput (saisie) {
   return String(saisie).replaceAll('\\,', '')
-    .replace(',', '.')
+    .replaceAll('{,}', '.')
+    .replaceAll(',', '.')
     .replaceAll('²', '^2')
     .replaceAll('^{}', '')
     .replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
