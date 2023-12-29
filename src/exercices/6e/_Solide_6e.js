@@ -8,7 +8,7 @@ import { choice, combinaisonListes, enleveDoublonNum } from '../../lib/outils/ar
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
@@ -16,7 +16,6 @@ export const dateDeModifImportante = '07/06/2023' // par EE : QCM interactif, no
 
 /**
  * fonction servant à plusieurs exercices autour du cube et du pavé droit
- * références : 6G42
  * @author Jean-Claude Lhote
  */
 export default function Solide6e () {
@@ -54,7 +53,6 @@ export default function Solide6e () {
     let A; let B; let C; let D; let E; let F; let G; let H
     let AB; let BC; let CD; let DA; let EF; let FG; let GH; let HE; let AE; let BF; let CG; let DH
     let coeffpersp
-    // let codesseg = []
     let correction
     let carreaux; let g
     let objetsEnonce = []
@@ -98,6 +96,7 @@ export default function Solide6e () {
       const toutesLesFaces = [[0, 1, 2, 3], [1, 5, 6, 2], [2, 6, 7, 3], [3, 7, 4, 0], [0, 1, 5, 4], [4, 5, 6, 7]]
       let k, l, s
       let nomFace, nomArete
+      
       switch (listeDeProblemes[i]) {
         case 1: // citer les arêtes parallèles à une arête donnée
           [k, l, s] = [randint(0, 2), randint(0, 3), randint(0, 1)]
@@ -168,7 +167,7 @@ export default function Solide6e () {
           }
           break
       }
-
+      
       switch (listeTypeDeQuestions[i] % 2) {
         case 1:
           A = point(6, 0, nom[0], 'left')
@@ -268,8 +267,8 @@ export default function Solide6e () {
       Ymax = Math.max(D.y, H.y) + 1
       ppc = 20
 
-      g = this.sup2 < 3 ? grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) : ''
-      carreaux = this.sup2 === 2 ? seyes(Xmin, Ymin, Xmax, Ymax) : ''
+      g = this.sup2 < 3 ? grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7) : vide2d()
+      carreaux = this.sup2 === 2 ? seyes(Xmin, Ymin, Xmax, Ymax) : vide2d()
 
       objetsEnonce.push(AB, BC, CD, DA, EF, FG, GH, HE, AE, BF, CG, DH, labelPoint(A, B, C, D, E, F, G, H), p,
         g,
@@ -284,7 +283,6 @@ export default function Solide6e () {
         pixelsParCm: ppc,
         scale: sc
       }
-
       texte += mathalea2d(params, objetsEnonce)
       switch (listeDeProblemes[i]) {
         case 1 :

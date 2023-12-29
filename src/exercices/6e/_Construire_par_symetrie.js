@@ -195,7 +195,6 @@ export default class ConstruireParSymetrie extends Exercice {
       if (i % 3 === 0) listeDeNomsDePolygones = ['PQXD']
       objetsEnonce.length = 0
       objetsCorrection.length = 0
-      console.log(i, listeTypeDeQuestions[i])
       switch (listeTypeDeQuestions[i]) {
         case 0: // symétrie d'axe horizontal ou vertical de points
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
