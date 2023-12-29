@@ -158,7 +158,17 @@
         }
       }
       mathaleaRenderDiv(divExercice)
-      if (!exercice.nbQuestionsModifiable && !exercice.besoinFormulaireCaseACocher && !exercice.besoinFormulaireNumerique && !exercice.besoinFormulaireTexte) {
+      if (!exercice.nbQuestionsModifiable &&
+       !exercice.besoinFormulaireCaseACocher &&
+       !exercice.besoinFormulaireNumerique &&
+       !exercice.besoinFormulaireTexte &&
+       !exercice.besoinFormulaire2CaseACocher &&
+        !exercice.besoinFormulaire2Numerique &&
+        !exercice.besoinFormulaire2Texte &&
+        !exercice.besoinFormulaire3CaseACocher &&
+        !exercice.besoinFormulaire3Numerique &&
+        !exercice.besoinFormulaire3Texte
+      ) {
         isSettingsVisible = false
       }
     }

@@ -143,9 +143,6 @@
     <h3 class="text-coopmaths-struct dark:text-coopmathsdark-struct font-bold">
       Paramètres
     </h3>
-    {#if !exercice.nbQuestionsModifiable && !exercice.besoinFormulaireCaseACocher && !exercice.besoinFormulaireNumerique && !exercice.besoinFormulaireTexte}
-      <div class="italic">Cet exercice ne peut pas être paramétré.</div>
-    {/if}
     {#if exercice.nbQuestionsModifiable}
       <div>
         <span
