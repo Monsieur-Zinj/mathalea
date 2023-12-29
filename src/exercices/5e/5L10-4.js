@@ -63,7 +63,7 @@ export default function TableauxEtFonction () {
       if (this.sup === 1) { // même unités
         unites = choice([['cm', 'cm'], ['m', 'm']])
         grandL = [`${L1}`, `${L2}`, `${L3}`, `${L4}`]
-        grandLNum = [`${L1}`, `${L2}`, `${L3}`, `${L4}`]
+        grandLNum = [L1, L2, L3, L4]
         petitL = [`${coteConnu}`, '', '', '']
         petitLNum = [`${coteConnu}`, '', '', '']
         unitegrandL = unites[0]
@@ -75,7 +75,7 @@ export default function TableauxEtFonction () {
         unites = choice([['cm', 'm'], ['m', 'cm']])
         if (unites[0] === 'cm') {
           grandL = [`${L1}`, `${L2}`, `${L3}`, `${L4}`]
-          grandLNum = [`${L1}`, `${L2}`, `${L3}`, `${L4}`]
+          grandLNum = [L1, L2, L3, L4]
           petitL = [`${coteConnu}\\times 100`, '', '', '']
           petitLNum = [`${100 * coteConnu}`, '', '', '']
           unitegrandL = unites[0]
@@ -85,7 +85,7 @@ export default function TableauxEtFonction () {
         }
         if (unites[0] === 'm') {
           grandL = [`${L1}\\times 100`, `${L2}\\times 100`, `${L3}\\times 100`, `${L4}\\times 100`]
-          grandLNum = [`${100 * L1}`, `${100 * L2}`, `${100 * L3}`, `${100 * L4}`]
+          grandLNum = [L1 * 100, L2 * 100, L3 * 100, L4 * 100]
           petitL = [`${coteConnu}`, '', '', '']
           petitLNum = [`${coteConnu}`, '', '', '']
           unitegrandL = unites[1]
