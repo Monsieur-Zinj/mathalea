@@ -1,4 +1,4 @@
-import { equal, largerEq, max } from 'mathjs'
+import { abs, acos, equal, largerEq, max, polynomialRoot, round } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { egal, randint } from '../../modules/outils.js'
 import { choice } from '../outils/arrayOutils.js'
@@ -254,6 +254,35 @@ export class Polynome {
     let coeffPrimitive = this.monomes.map((el, i) => el / (i + 1))
     coeffPrimitive = [0, ...coeffPrimitive]
     return new Polynome({ coeffs: coeffPrimitive })
+  }
+
+  racines () {
+    const antecedents = []
+    const liste = polynomialRoot(...this.monomes)
+    for (const valeur of liste) {
+      let arr
+      if (typeof valeur === 'number') {
+        arr = round(valeur, 3)
+      } else { // complexe !
+        const module = valeur.toPolar().r
+        if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
+          arr = 0
+        } else {
+          const argument = valeur.arg()
+          if (abs(argument) < 0.01 || abs((abs(argument) - acos(-1))) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
+            arr = round(valeur.re, 3) // on prend la partie réelle
+          } else {
+            arr = null // c'est une vraie racine complexe, du coup, on prend null
+          }
+        }
+      }
+      if (arr !== null) {
+        if (!antecedents.includes(arr)) {
+          antecedents.push(arr)
+        }
+      }
+    }
+    return antecedents
   }
 
   /**

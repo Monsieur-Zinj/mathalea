@@ -15,10 +15,8 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
-import { polynomialRoot } from 'mathjs'
 import { interpolationDeLagrange } from '../../lib/mathFonctions/outilsMaths'
 import { rangeMinMax } from '../../lib/outils/nombres'
-import { inferieurSuperieur } from '../../lib/mathFonctions/etudeFonction'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
 
@@ -49,6 +47,28 @@ function compareEnsembles (e1:string, e2:string) {
   }
   return ok
 }
+
+/**
+ * La fonction pour récupérer les intervalles de solutions
+ * @param fonc
+ * @param inferieur
+ */
+function chercheIntervalles (fonc: Polynome, soluces: number[], inferieur: boolean): string {
+  const values = [-5.2, ...soluces, 5.2]
+  const solutions: string[] = []
+  for (let i = 0; i < values.length - 1; i += 2) {
+    const middle = (values[i] + values[i + 1]) / 2
+    if ((inferieur && fonc.image((middle) < 0)) || (!inferieur && fonc.image(middle) > 0)) {
+      solutions.push(`[${texNombre(values[i], 1)};${texNombre(values[i + 1], 1)}]`)
+    }
+  }
+  return solutions.join('\\cup')
+}
+/**
+ * La fonction de comparaison des intervalles pour l'interactif
+ * @param e1
+ * @param e2
+ */
 function compareIntervalles (e1:string, e2:string) {
   let result = true
   const cleanUp = (s:string) => s.replaceAll('{,}', '.').replaceAll(',', '.')
@@ -155,6 +175,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     let fonctions
     let f1Type: TypesDeFonction
     let f2Type: TypesDeFonction
+    let texteCorr = ''
     // On crée une seule spline
     do { // Une boucle pour tester des valeurs et on sort si les courbes sont suffisamment distantes      }
       // On choisit les noeuds passants (il en faut 4 pour déterminer un poly3, qui peut le plus peut le moins !
@@ -328,33 +349,29 @@ class resolutionEquationInequationGraphique extends Exercice {
     let enonce = `On considère les fonctions $${f1}$ et $${f2}$ définies sur $[-5{,}2;5{,}2]$ et dont on a représenté ci-dessous leurs courbes respectives.<br><br>`
     let numero = 1
     // let diff
-    let soluces
+    let soluces: number[]
     const inferieur = choice([true, false])
 
     soluces = []
-    if (fonction1.poly != null && fonction2.poly != null) {
-      const polyDiff = fonction1.poly.add(fonction2.poly.multiply(-1))
-      const [a, b, c, d] = polyDiff.monomes
-      const racines = polynomialRoot(a.valueOf(), b.valueOf(), c.valueOf(), d.valueOf())
-      const racinesReelles = racines.filter(el => typeof el === 'number') as number[]
-      const racinesArrondies = racinesReelles.map(el => Number(el.toFixed(1)))
-      for (let n = 0; n < racinesArrondies.length; n++) {
-        const image = fonction1.func(racinesArrondies[n])
-        const isInside = Math.abs(racinesArrondies[n]) <= 5.3
-        const isInside2 = Math.abs(image) <= 6.2
-        if (isInside && isInside2) {
-          soluces.push(racinesArrondies[n])
-        }
+    if (fonction1.poly == null && fonction2.poly == null) throw Error('Un problème avec l\'un des polynome')
+    const polyDiff = fonction1.poly.add(fonction2.poly.multiply(-1))
+    const racines = polyDiff.racines()
+    const racinesArrondies = racines.map(el => Number(el.toFixed(1)))
+    for (let n = 0; n < racinesArrondies.length; n++) {
+      const image = fonction1.func(racinesArrondies[n])
+      const isInside = Math.abs(racinesArrondies[n]) <= 5.3
+      const isInside2 = Math.abs(image) <= 6.2
+      if (isInside && isInside2) {
+        soluces.push(racinesArrondies[n])
       }
-
-      if (this.sup === 1 || this.sup === 3) {
-        enonce += `${numero}. Résoudre graphiquement $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$.<br>`
-        enonce += 'Les solutions doivent être rangées par ordre croissant et séparées par un point-virgule.<br>'
-        numero++
-        soluces = soluces.sort((a: number, b: number) => a - b)
-        // enonce += '$\\{' + soluces.map(el => texNombre(el, 1)).join(';') + '\\}$<br>'
-        soluces = new Set(soluces)
-      }
+    }
+    soluces = Array.from(new Set(soluces)) as number[]
+    soluces = soluces.sort((a: number, b: number) => a - b)
+    if (this.sup === 1 || this.sup === 3) {
+      enonce += `${String(numero)}. Résoudre graphiquement $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$.<br>`
+      enonce += 'Les solutions doivent être rangées par ordre croissant et séparées par un point-virgule.<br>'
+      texteCorr += `${String(numero)}. L'ensemble de solutions de l'équation est : $\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$<br><br>`
+      numero++
     }
     if (soluces != null) {
       if (this.sup === 1 || this.sup === 3) {
@@ -362,24 +379,20 @@ class resolutionEquationInequationGraphique extends Exercice {
         setReponse(this, 0, { soluces: { value: Array.from(soluces).join(';'), compare: compareEnsembles } }, { formatInteractif: 'fillInTheBlank' })
       }
     }
-    let soluces2: string
     if (this.sup === 2 || this.sup === 3) {
       enonce += `${numero}. Résoudre graphiquement $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$.<br>`
       if (this.interactif) {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
       }
       enonce += 'L\'ensemble des solutions de l\'inéquation est : ' + remplisLesBlancs(this, 1, '%{solucesIneq}', 'inline lycee', '\\ldots\\ldots') + '<br><br>'
-      if (this.sup === 2 || this.sup === 3) {
-        const poly = fonction2.poly as Polynome
-        const diff = poly.multiply(-1).add(fonction1.poly)
-        const solutions = inferieurSuperieur(diff.fonction, 0, -5.2, 5.2, inferieur, false, { step: 0.1 })
-        soluces2 = solutions.map(el => el.borneG.x !== el.borneD.x
-          ? `[${texNombre(Number(el.borneG.x), 1)};${texNombre(Number(el.borneD.x), 1)}]`
-          : `\\{${texNombre(Number(el.borneG.x), 1)}\\}`
-        ).join('\\cup')
-        // enonce += '$' + soluces2 + '$'
-        setReponse(this, 1, { solucesIneq: { value: soluces2, compare: compareIntervalles } }, { formatInteractif: 'fillInTheBlank' })
-      }
+      const poly = fonction2.poly as Polynome
+      const diff = poly.multiply(-1).add(fonction1.poly)
+      //  const solutions = inferieurSuperieur(diff.fonction, 0, -5.2, 5.2, inferieur, false, { step: 0.2 })
+      const soluces2: string = chercheIntervalles(diff, soluces, inferieur)
+
+      // enonce += '$' + soluces2 + '$'
+      setReponse(this, 1, { solucesIneq: { value: soluces2, compare: compareIntervalles } }, { formatInteractif: 'fillInTheBlank' })
+      texteCorr += `${String(numero)}. L'ensemble des solutions de l'inéquation est : $${soluces2}$.<br><br>`
     }
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')
@@ -432,8 +445,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       const courbes = [courbe1, courbe2]
       this.listeQuestions = [enonce + mathalea2d(Object.assign({}, fixeBordures([...repere.objets, ...courbes])))]
     }
-    /*
-     */
+    this.listeCorrections = [texteCorr]
   }
 }
 
