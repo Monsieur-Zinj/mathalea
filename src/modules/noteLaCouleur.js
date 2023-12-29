@@ -425,12 +425,13 @@ class Plateau2dNLC {
         plateau2d.push(b)
       }
     }
-    if (this.relatif) plateau2d.push(texteParPositionEchelle(`-${this.pas}`, -1.6, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle(`${this.pas}`, 1.5, -0.3, 'milieu', 'black', 1.2, 'middle', true, scale))
+    if (this.relatif) plateau2d.push(texteParPositionEchelle(`-${this.pas}`, -1.6, -0.4, 'milieu', 'black', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle(`${this.pas}`, 1.5, -0.4, 'milieu', 'black', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('0', -0.3, -0.4, 'milieu', 'black', 1.2, 'middle', true, scale))
     if (this.relatif) plateau2d.push(texteParPositionEchelle(`-${this.pas}`, -0.5, -1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
     plateau2d.push(texteParPositionEchelle(`${this.pas}`, -0.5, 1.5, 'milieu', 'black', 1.2, 'middle', true, scale))
     plateau2d.push(texteParPositionEchelle('x', this.nx * (this.relatif ? 0.75 : 1.5) + 0.7, -(this.relatif ? 0.6 : 0.6), 'milieu', 'purple', 1.2, 'middle', true, scale))
-    plateau2d.push(texteParPositionEchelle('y', -0.3, this.ny * (this.relatif ? 0.75 : 1.5) + 0.7, 'milieu', 'purple', 1.2, 'middle', true, scale))
+    plateau2d.push(texteParPositionEchelle('y', -0.4, this.ny * (this.relatif ? 0.75 : 1.5) + 0.7, 'milieu', 'purple', 1.2, 'middle', true, scale))
     if (this.relatif) {
       plateau2d.push(texteParPositionEchelle('+', (this.nx >> 1) * 1.5 + 0.8, 0, 'milieu', 'purple', 1.2, 'middle', true, scale))
       plateau2d.push(texteParPositionEchelle('-', -(this.nx >> 1) * 1.5 - 0.5, 0.2, 'milieu', 'purple', 1.2, 'middle', true, scale))

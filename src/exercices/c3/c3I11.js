@@ -3,7 +3,6 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { texteParPositionEchelle } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { modalPdf, modalUrl } from '../../lib/outils/modales.js'
-import { texteGras } from '../../lib/format/style.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -12,13 +11,20 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import { scratchblock } from '../../modules/scratchblock.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 
 export const titre = 'Note la couleur (scratch)'
+export const interactifReady = true
+export const interactifType = 'listeDeroulante'
+export const dateDeModifImportante = '27/12/2023'
+export const dateDePublication = '11/04/2021'
 
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
- * Ref : c3I11 (variante de 6I11 avec des dalles de 20 x 20)
+ * variante de 6I11 avec des dalles de 20 x 20
  * Publié le 11/04/2021
  * @author Jean-Claude Lhote
  */
@@ -38,7 +44,7 @@ export default function NoteLaCouleurC3 () {
   this.sup = 1
   this.sup2 = true
   this.sup3 = 4
-  this.sup4 = false
+  this.sup4 = true
   this.relatif = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
@@ -53,6 +59,10 @@ export default function NoteLaCouleurC3 () {
       ['Blanc', 'Bleu', 'Jaune', 'Orange', 'Vert', 'Gris', 'Jaune', 'Gris', 'Orange', 'Blanc'],
       ['Blanc', 'Rose', 'Bleu', 'Jaune', 'Rose', 'Orange', 'Rouge', 'Bleu', 'Noir', 'Blanc'],
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc']
+    ]
+    const choixListeDeroulante = [
+      ['Blanc', 'Noir', 'Rouge', 'Bleu', 'Orange', 'Rose', 'Jaune', 'Vert', 'Gris'],
+      ['(0) Blanc', '(1) Noir', '(2) Rouge', '(3) Bleu', '(4) Orange', '(5) Rose', '(6) Jaune', '(7) Vert', '(8) Gris']
     ]
     this.sup = contraindreValeur(1, 4, this.sup, 1)
     const echelleDessin = 0.75
@@ -80,7 +90,7 @@ export default function NoteLaCouleurC3 () {
     let pion
     const lePlateau = plateau2dNLC({
       type: this.sup,
-      melange: this.sup4,
+      melange: !this.sup4,
       scale: echelleDessin,
       relatif: this.relatif,
       nx: 10,
@@ -93,6 +103,7 @@ export default function NoteLaCouleurC3 () {
       objetsEnonce = []
       objetsEnonce.push(lePlateau.plateau2d)
       objetsCorrection.push(lePlateau.plateau2d)
+      let reponseCouleur = []
       let texte = ''
       let texteCorr = ''
       let compteur = 0
@@ -224,11 +235,24 @@ export default function NoteLaCouleurC3 () {
           texte += '\n\\newpage'
         }
       }
+      reponseCouleur = couleurs
+      if (this.sup % 2 === 0) reponseCouleur[0] = '(' + lePlateau.traducNum(couleurs[0]) + ') ' + couleurs[0]
       texteCorr = 'On obtient la série de couleurs suivante :<br> '
+      texteCorr += `${texteEnCouleurEtGras(reponseCouleur[0])} `
+      texte += !this.interactif ? '' : 'Couleur n°1 : ' + choixDeroulant(this, q, 0, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
+      /*
       texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
       for (let i = 1; i < couleurs.length; i++) {
         texteCorr += `- ${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[i]) + ')' + couleurs[i] : couleurs[i])} `
       }
+      texteCorr += '<br>'
+      */
+      for (let i = 1; i < couleurs.length; i++) {
+        if (this.sup % 2 === 0) reponseCouleur[i] = '(' + lePlateau.traducNum(couleurs[i]) + ') ' + couleurs[i]
+        texteCorr += `${texteEnCouleurEtGras(reponseCouleur[i])} `
+        texte += !this.interactif ? '' : 'Couleur n°' + (i + 1) + ' : ' + choixDeroulant(this, q, i, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
+      }
+      setReponse(this, q, [reponseCouleur])
       lutin.animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
     <stop offset="0" style="stop-color:#FFFF99"/>
     <stop offset="1" style="stop-color:#FF9400"/>

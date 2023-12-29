@@ -50,7 +50,7 @@ export default function CanNoteLaCouleur6 () {
   this.sup = 1
   this.sup2 = true
   this.sup3 = 1
-  this.sup4 = false
+  this.sup4 = true
   this.relatif = false
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
@@ -98,7 +98,7 @@ export default function CanNoteLaCouleur6 () {
     let pion
     const lePlateau = plateau2dNLC({
       type: this.sup,
-      melange: this.sup4,
+      melange: !this.sup4,
       scale: echelleDessin,
       relatif: this.relatif,
       nx: 6,
@@ -223,7 +223,7 @@ export default function CanNoteLaCouleur6 () {
         texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
         texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
       } else { texte = '' }
-      texte += `Exécuter le programme et trouver la couleur à noterXXX. ${ajouteChampTexteMathLive(this, q, 'alphanumeric largeur25 inline')}<br><br>`
+      texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexteMathLive(this, q, 'alphanumeric largeur25 inline')}<br><br>`
       if (context.isHtml) {
         texte += '<table><tr><td>' +
                     scratchblock(pion.codeScratch) + '</td><td>' + mathalea2d(Object.assign({}, fixeBordures([rose])), rose) +
