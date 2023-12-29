@@ -201,14 +201,12 @@ export default function FonctionsCalculsDImages () {
           texte += 'Soit la fonction $h$ définie par le diagramme :'
           if (context.isHtml) {
             // sous-question a/
-            texte += `<div id="${idDuDiv}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SvgMachineDiag3F12(idDuDiv, 800, 100, 'h', 'x', [['' + a, a + 'x'], ['' + b, a + 'x+' + b]])
+            texte += `<div id="${idDuDiv}" style="width: ${pourcentage}"; height: 50px; display : table ">${SvgMachineDiag3F12(idDuDiv, 800, 100, 'h', 'x', [['' + a, a + 'x'], ['' + b, a + 'x+' + b]])}</div>`
             texte += numAlpha(j) + ` Calculer l'image de ${c}.`
             texte += '<br>'
             texteCorr += '<br>'
             texteCorr += numAlpha(j) + ` Calculons l'image par $h$ de $x=$ ${c} :`
-            texteCorr += `<div id="${idDuDivCorr}" style="width: ${pourcentage}"; display : table "></div>`
-            SvgMachineDiag3F12(idDuDivCorr, 800, 100, 'h', '' + c, [['' + a, '' + (a * c)], ['' + b, '' + (a * c + b)]])
+            texteCorr += `<div id="${idDuDivCorr}" style="width: ${pourcentage}"; display : table ">${SvgMachineDiag3F12(idDuDivCorr, 800, 100, 'h', '' + c, [['' + a, '' + (a * c)], ['' + b, '' + (a * c + b)]])}</div>`
             j++
             // sous question b/
             texte += numAlpha(j) + ' Traduire ce calcul par une phrase contenant le mot image.'
