@@ -367,7 +367,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   } else {
                     saisieParsee = engine.parse(saisie, { canonical: false })
                     fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
-                    if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
+                    if (saisieParsee.isSame(fReponse)) resultat = 'OK'
                   }
                 } else {
                   window.notify(`question mathlive de type 'fraction' avec une réponse qui n'est pas une FractionEtendue : ${reponse}`, {
