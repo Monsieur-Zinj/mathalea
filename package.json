@@ -48,6 +48,7 @@
     "lintSvelte": "eslint src/components/**/* --ext .js,.ts,.svelte --fix",
     "docs": "jsdoc -d docs --configure jsdocConf.json",
     "test:unit": "vitest tests/unit",
+    "test:src": "vitest src",
     "test:e2e:all": "vitest --config tests/e2e/vitest.config.all.js --run",
     "test:e2e:interactivity": "vitest --config tests/e2e/vitest.config.interactivity.js --run",
     "test:e2e:console_errors": "vitest --config tests/e2e/vitest.config.console_errors.js --run"
@@ -92,6 +93,7 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.0.1",
     "@tailwindcss/forms": "^0.5.7",
+    "@testing-library/svelte": "^4.0.5",
     "@tsconfig/svelte": "^5.0.2",
     "@types/file-saver": "^2.0.7",
     "@types/katex": "^0.16.7",
@@ -100,6 +102,7 @@
     "@types/seedrandom": "^3.0.8",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
     "@typescript-eslint/parser": "^6.15.0",
+    "@vitest/coverage-v8": "^1.1.0",
     "autoprefixer": "^10.4.16",
     "big-integer": "^1.6.52",
     "eslint": "^8.56.0",
@@ -108,6 +111,7 @@
     "eslint-plugin-n": "^16.5.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-svelte": "^2.35.1",
+    "jsdom": "^23.0.1",
     "postcss": "^8.4.32",
     "postcss-load-config": "^5.0.2",
     "prettier": "^3.1.1",

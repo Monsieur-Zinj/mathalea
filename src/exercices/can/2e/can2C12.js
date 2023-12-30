@@ -1,6 +1,7 @@
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Déterminer un taux global d’évolution'
@@ -51,11 +52,11 @@ Globalement cela revient donc à multiplier par $${texNombre(1 + a / 100)}\\time
 Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
         if (coeffG > 1) {
           this.correction += ` $1+${texNombre(coeffG - 1)}$, ce qui revient à augmenter de $${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$. <br>
-          Le taux d'évolution global est donc : $+${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$.
+          Le taux d'évolution global est donc : $${miseEnEvidence('+')} ${miseEnEvidence(`${texNombre((coeffG - 1) * 100)}${sp(1)}`)} \\%$.
 `
         } else {
           this.correction += ` $1-${texNombre(1 - coeffG)}$. <br>
-        Le taux d'évolution global est donc : $${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$
+        Le taux d'évolution global est donc : $${miseEnEvidence(`${texNombre((coeffG - 1) * 100)}${sp(1)}`)} \\%$
 `
         }
         this.reponse = calculANePlusJamaisUtiliser((coeffG - 1) * 100)
@@ -79,7 +80,7 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
   Globalement cela revient donc à multiplier par $${texNombre(1 + a / 100)}\\times ${texNombre(1 + b / 100)}=${texNombre(coeffG)}$.<br>
   Multiplier par $${texNombre(coeffG)}$ revient à multiplier par
            $1+${texNombre(coeffG - 1)}$. <br>
-          Le taux d'évolution global est donc : $+${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$.
+          Le taux d'évolution global est donc : $${miseEnEvidence('+')} ${miseEnEvidence(`${texNombre((coeffG - 1) * 100)}${sp(1)}`)} \\%$.
   `
         this.reponse = calculANePlusJamaisUtiliser((coeffG - 1) * 100)
         break
@@ -101,7 +102,7 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
   Globalement cela revient donc à multiplier par $${texNombre(1 - a / 100)}\\times ${texNombre(1 - b / 100)}=${texNombre(coeffG)}$.<br>
   Multiplier par $${texNombre(coeffG)}$ revient à multiplier par
            $1-${texNombre(1 - coeffG)}$. <br>
-          Le taux d'évolution global est donc : $${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$.
+          Le taux d'évolution global est donc : $${miseEnEvidence(`${texNombre((coeffG - 1) * 100)}${sp(1)}`)} \\%$.
   `
         this.reponse = calculANePlusJamaisUtiliser((coeffG - 1) * 100)
         break
@@ -124,11 +125,11 @@ Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
   Multiplier par $${texNombre(coeffG)}$ revient à multiplier par `
         if (coeffG > 1) {
           this.correction += ` $1+${texNombre(coeffG - 1)}$, ce qui revient à augmenter de $${texNombre((coeffG - 1) * 100)}\\%$. <br>
-            Le taux d'évolution global est donc : $+${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$
+            Le taux d'évolution global est donc : $${miseEnEvidence('+')} ${miseEnEvidence(`${texNombre((coeffG - 1) * 100)}${sp(1)}`)} \\%$
   `
         } else {
           this.correction += ` $1-${texNombre(1 - coeffG)}$. <br>
-          Le taux d'évolution global est donc : $${texNombre((coeffG - 1) * 100)}${sp(1)}\\%$.
+          Le taux d'évolution global est donc : $${miseEnEvidence(`${texNombre((coeffG - 1) * 100)}${sp(1)}`)} \\%$.
   `
         }
         this.reponse = calculANePlusJamaisUtiliser((coeffG - 1) * 100)

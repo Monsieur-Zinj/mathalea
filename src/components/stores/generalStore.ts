@@ -121,11 +121,7 @@ export const isModalForStaticsVisible = writable<boolean>(false)
 /**
  * Déplace un exercice dans exercicesParams
  */
-export function moveExercice (
-  liste: InterfaceParams[],
-  iDepart: number,
-  iArrivee: number
-): InterfaceParams[] {
+export function moveExercice (liste: InterfaceParams[], iDepart: number, iArrivee: number): InterfaceParams[] {
   liste.splice(iArrivee, 0, liste.splice(iDepart, 1)[0])
   return liste
 }
