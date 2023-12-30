@@ -10,17 +10,15 @@ describe('BoutonDescendre Component', () => {
     render(BoutonDescendre, { indice: index, indiceLastExercice: index + randint(1, 10) })
 
     const button = screen.getByRole('button')
-    if (button !== null) {
-      expect(window.getComputedStyle(button).getPropertyValue('visibility')).toBe('visible')
-    }
+    expect(button.classList.contains('hidden')).toBe(false)
   })
-  test('should not be displayed', () => {
+  test('should not be displayed', async () => {
     const index = randint(0, 50)
     render(BoutonDescendre, { indice: index, indiceLastExercice: index })
 
     const button = screen.queryByRole('button')
     if (button !== null) {
-      expect(window.getComputedStyle(button).getPropertyValue('visibility')).toBe('hidden')
+      expect(button.classList.contains('hidden')).toBe(true)
     }
   })
   test('should move exercise one step down', () => {

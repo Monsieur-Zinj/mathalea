@@ -11,7 +11,7 @@
 
 <button
   on:click={descendre}
-  style={indice === indiceLastExercice ? 'visibility: hidden' : ''}
+  class={indice === indiceLastExercice ? 'hidden md:invisible' : ''}
 >
   <i
     class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-down-arrow-circle"
