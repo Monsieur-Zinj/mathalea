@@ -1,11 +1,11 @@
 {
   "": {
-    "url": "beta/betaCAN2024.js",
+    "url": "can/6e/CANSpeciale2024.js",
     "tags": [],
     "uuid": "8ff87",
     "id": "",
     "titre": "CAN Spéciale année 2024",
-    "datePublication": "20/12/2023",
+    "datePublication": "01/01/2024",
     "features": {
       "interactif": {
         "isActive": true,
@@ -4094,6 +4094,25 @@
     },
     "typeExercice": "alea"
   },
+  "3F11-0": {
+    "url": "3e/3F11-0.ts",
+    "tags": [],
+    "uuid": "28997",
+    "id": "3F11-0",
+    "titre": "Résoudre graphiquement une équation ou une inéquation",
+    "datePublication": "29/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "3F12": {
     "url": "3e/3F12.js",
     "tags": [],
@@ -5148,9 +5167,9 @@
     "typeExercice": "alea"
   },
   "3L11": {
-    "url": "3e/3L11.js",
+    "url": "3e/3L11new.js",
     "tags": [],
-    "uuid": "77a62",
+    "uuid": "db2e0",
     "id": "3L11",
     "titre": "Utiliser la simple distributivité",
     "features": {
@@ -22595,7 +22614,7 @@
     "typeExercice": "alea"
   },
   "can6N18": {
-    "url": "can/2e/can6N18.js",
+    "url": "can/6e/can6N18.js",
     "tags": [],
     "uuid": "b9582",
     "id": "can6N18",
