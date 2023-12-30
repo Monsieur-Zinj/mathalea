@@ -219,6 +219,8 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   if (saisie !== '' && Number(saisie) === Number(reponse)) {
                     resultat = 'OK'
                   }
+                } else if (saisie === '') {
+                  resultat = 'KO'
                 } else {
                   if (engine.parse(reponse).isSame(engine.parse(saisie))) { // engine.parse() retourne du canonical par défaut.
                     resultat = 'OK'
