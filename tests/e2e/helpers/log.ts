@@ -119,6 +119,11 @@ export const logError = logSerializer.bind(null, console.error)
  */
 export const logWarning = logSerializer.bind(null, console.warn)
 /**
+ * Idem log si debug, ne fait rien sinon
+ * @type {Logger}
+ */
+export const logIfDebug = prefs.debug ? log : dummyFn
+/**
  * Idem log si verbose, ne fait rien sinon
  * @type {Logger}
  */

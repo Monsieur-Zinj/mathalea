@@ -8,7 +8,6 @@ const ids = Object.keys(refToUuid)
 async function test (page: Page) {
   const i = Number(store.get('i'))
   const id = ids[i]
-  console.log('Test', (i + 1), '/', ids.length, ': Exercice', id)
   store.set('i', i + 1)
   const uuid = refToUuid[id]
   const messages: string[] = []
@@ -39,8 +38,8 @@ async function test (page: Page) {
     const exerciesBugges = store.get('exerciesBugges') as string[]
     exerciesBugges.push(id)
     store.set('exerciesBugges', exerciesBugges)
-    console.log('Exercices Buggés : ', exerciesBugges)
-    throw Error(`Il y a ${messages.length} messages d'erreur en console pour l'exercice ${id}. Exercices Buggés : ${exerciesBugges.join()}`)
+    console.log(exerciesBugges)
+    throw Error(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
   }
   return true
 }

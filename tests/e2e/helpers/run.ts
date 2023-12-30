@@ -7,6 +7,11 @@ import type { Locator, Page } from 'playwright'
 import type { Prefs, Question } from './types.js'
 import { clean } from './text.js'
 
+declare global {
+  interface Window {
+    katexRendered?: boolean;
+  }
+}
 /**
  * Wrapper des test effectués par vitest
  * Ajoute un describe() contenant un it() (alias de test() dans vitest) par browser à tester
@@ -40,7 +45,7 @@ export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string
           if (stop) return skip()
           try {
             result = false
-            page = await getDefaultPage(browserName)
+            page = await getDefaultPage({ browserName })
             const promise = test(page)
             if (!(promise instanceof Promise)) throw Error(`${filename} ne contient pas de fonction test qui prend une page et retourne une promesse`)
             result = await promise
@@ -64,6 +69,7 @@ export async function getQuestions (page: Page, urlExercice: string) {
   const questionSelector = 'div#exo0 div.mb-5 div.container>li'
 
   await page.goto(urlExercice)
+  await waitForKatex(page)
   await page.waitForSelector(questionSelector)
   const locators = await page.locator(questionSelector).all()
 
@@ -72,11 +78,28 @@ export async function getQuestions (page: Page, urlExercice: string) {
     questions.push({
       id: await getQuestionId(locator),
       innerText: await getInnerText(locator),
+      innerHTML: await getInnerHTML(locator),
       isCorrect: Math.random() < 0.5,
-      locator
+      katex: await getKatex(locator),
+      locator,
+      numero: 0
     })
+    const lastQuestion = questions[questions.length - 1]
+    lastQuestion.numero = Number(lastQuestion.id.split('Q')[1]) + 1
   }
   return questions
+}
+
+async function waitForKatex (page: Page) {
+  await page.evaluate(() => {
+    const katexRenderedHandler = () => {
+      window.katexRendered = true
+      document.removeEventListener('katexRendered', katexRenderedHandler)
+    }
+
+    document.addEventListener('katexRendered', katexRenderedHandler)
+  })
+  await page.waitForFunction(() => window.katexRendered)
 }
 
 async function getQuestionId (question: Locator) {
@@ -91,16 +114,34 @@ async function getQuestionId (question: Locator) {
   }
 }
 
-async function getInnerText (question: Locator) {
-  const innerTextRaw = (await question.innerText())
-  const innerText = clean(innerTextRaw, [])
-  return innerText
+async function getInnerText (locator: Locator) {
+  const innerTextRaw = (await locator.innerText())
+  return clean(innerTextRaw, [])
 }
 
-export async function inputAnswer (page: Page, questionId: string, answer: string | number | undefined) {
-  const champTexteSelector = `#champTexteEx${questionId}`
+async function getInnerHTML (locator: Locator) {
+  const innerHTMLRaw = (await locator.innerHTML())
+  return clean(innerHTMLRaw, [])
+}
 
-  if (answer === undefined) throw Error(`La réponse à la question ${questionId} est undefined`)
+async function getKatex (questionLocator: Locator) {
+  const locators = await questionLocator.locator('span.katex-html').all()
+  const innerHTMLs: string[] = []
+  const innerTexts: string[] = []
+  const elementsWithRedondancy: string[][][] = []
+  for (const locator of locators) {
+    innerHTMLs.push(await locator.innerHTML())
+    innerTexts.push(await locator.innerText())
+    elementsWithRedondancy.push(innerTexts.map(innerText => innerText.split('\n')))
+  }
+  const elements = elementsWithRedondancy[elementsWithRedondancy.length - 1].map(list => list.map(ele => clean(ele, [])))
+  return { elements, innerHTMLs, innerTexts, locators }
+}
+
+export async function inputAnswer (page: Page, question: Question, answer: string | number | undefined) {
+  const champTexteSelector = `#champTexteEx${question.id}`
+
+  if (answer === undefined) throw Error(`La réponse à la question ${question.id} est undefined`)
 
   await page.waitForSelector(champTexteSelector) // Les champs MathLive mettent un peu plus de temps à se charger que le reste
   const champTexteMathlive = page.locator(champTexteSelector)
@@ -113,8 +154,8 @@ export async function checkFeedback (page: Page, questions: Question[]) {
 
   for (const question of questions) {
     const numeroQuestion = Number(question.id.split('Q')[1]) + 1
-    if (question.feedback === 'OK' && question.isCorrect === false) throw Error(`On s'attendait à avoir une mauvaise réponse à la question ${numeroQuestion}`)
-    if (question.feedback === 'KO' && question.isCorrect === true) throw Error(`On s'attendait à avoir une bonne réponse à la question ${numeroQuestion}`)
+    if (question.feedback === 'OK' && !question.isCorrect) throw Error(`On s'attendait à avoir une mauvaise réponse à la question ${numeroQuestion}`)
+    if (question.feedback === 'KO' && question.isCorrect) throw Error(`On s'attendait à avoir une bonne réponse à la question ${numeroQuestion}`)
   }
 }
 
