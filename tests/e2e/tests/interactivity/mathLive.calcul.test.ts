@@ -56,7 +56,6 @@ async function testCalculLitteral (page: Page) {
         reponse = `${-k * a}x${k * b > 0 ? '+' : ''}${k * b}`
       }
     } else {
-      console.log(expression)
       throw new Error('Pas de match')
     }
 
@@ -74,7 +73,6 @@ async function testCalculLitteral2 (page: Page) {
     let reponse = ''
     const regex = /([-+]?\d+)x\(([-+]?\d*)x([-+]\d+)\)/
     const expression = question.katex.elements[0][0]
-    console.log(expression)
     const match = expression.match(regex)
 
     if (match) {
@@ -87,7 +85,6 @@ async function testCalculLitteral2 (page: Page) {
         reponse = `${-k * a}x${k * b > 0 ? '+' : ''}${k * b}`
       }
     } else {
-      console.log(expression)
       throw new Error('Pas de match')
     }
 
