@@ -1,6 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Passer du coefficient multiplicateur au taux d’évolution'
@@ -43,7 +44,7 @@ export default function CoeffTaux () {
         Autre formulation :<br>
         Multiplier une valeur par $${texNombre(coeff)}$ revient à en prendre  $${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
         Cela signifie  qu'on l'augmente de $${texNombre(coeff * 100 - 100)}${sp(1)}\\%$ car $100${sp(1)}\\% +${texNombre(coeff * 100 - 100)}${sp(1)}\\%=${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
-        Le taux d'évolution est donc $+${taux}${sp(1)}\\%$. `
+        Le taux d'évolution est donc $${miseEnEvidence('+')} ${miseEnEvidence(`${taux}${sp(1)}`)} \\%$.`
         this.reponse = taux
         break
       case 'b':
@@ -60,7 +61,7 @@ export default function CoeffTaux () {
         Autre formulation :<br>
         Multiplier une valeur par $${texNombre(coeff)}$ revient à en prendre  $${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
         Cela signifie  qu'on la diminue de $${texNombre(100 - coeff * 100)}${sp(1)}\\%$ car $100${sp(1)}\\%-${texNombre(100 - coeff * 100)}${sp(1)}\\% =${texNombre(coeff * 100)}${sp(1)}\\%$.<br>
-        Le taux d'évolution est donc $-${taux}${sp(1)}\\%$.`
+        Le taux d'évolution est donc $${miseEnEvidence('-')} ${miseEnEvidence(`${taux}${sp(1)}`)} \\%$.`
         this.reponse = -taux
         break
     }

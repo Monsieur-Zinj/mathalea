@@ -1,6 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer avec une racine carrée*'
 export const interactifReady = true
@@ -46,7 +47,7 @@ export default function CalculAvecRacineCarree3 () {
     &= (${reduction[0] + 1}\\sqrt{${reduction[1]}})^2 \\\\
     &=(${reduction[0] + 1}\\sqrt{${reduction[1]}})\\times (${reduction[0] + 1}\\sqrt{${reduction[1]}})\\\\
     &=\\underbrace{${reduction[0] + 1}\\times ${reduction[0] + 1}}_{${(reduction[0] + 1) ** 2}}\\times \\underbrace{\\sqrt{${reduction[1]}}\\times \\sqrt{${reduction[1]}}}_{${reduction[1]}}\\\\
-    &=  ${(reduction[0] + 1) ** 2 * reduction[1]}
+    &=  ${miseEnEvidence(`${(reduction[0] + 1) ** 2 * reduction[1]}`)}
     \\end{aligned}$
   `
           this.canEnonce = `Calculer le carré de $\\sqrt{${a}}+\\sqrt{${b}}$.`
@@ -64,7 +65,7 @@ export default function CalculAvecRacineCarree3 () {
   &= (${reduction[0] + 1}\\sqrt{${reduction[1]}})^2 \\\\
   &=(${reduction[0] + 1}\\sqrt{${reduction[1]}})\\times (${reduction[0] + 1}\\sqrt{${reduction[1]}})\\\\
   &=\\underbrace{${reduction[0] + 1}\\times ${reduction[0] + 1}}_{${(reduction[0] + 1) ** 2}}\\times \\underbrace{\\sqrt{${reduction[1]}}\\times \\sqrt{${reduction[1]}}}_{${reduction[1]}}\\\\
-   &=  ${(reduction[0] + 1) ** 2 * reduction[1]}
+   &=  ${miseEnEvidence(`${(reduction[0] + 1) ** 2 * reduction[1]}`)}
   \\end{aligned}$
 `
           this.canEnonce = `Calculer le carré de $\\sqrt{${b}}+\\sqrt{${a}}$.`
@@ -92,7 +93,7 @@ export default function CalculAvecRacineCarree3 () {
     &= (${1 - reduction[0]}\\sqrt{${reduction[1]}})^2 \\\\
     &=(${1 - reduction[0]}\\sqrt{${reduction[1]}})\\times (${1 - reduction[0]}\\sqrt{${reduction[1]}})\\\\
   &=\\underbrace{${ecritureParentheseSiNegatif(1 - reduction[0])}\\times ${ecritureParentheseSiNegatif(1 - reduction[0])}}_{${(1 - reduction[0]) ** 2}}\\times \\underbrace{\\sqrt{${reduction[1]}}\\times \\sqrt{${reduction[1]}}}_{${reduction[1]}}\\\\
-      &=  ${(1 - reduction[0]) ** 2 * reduction[1]}
+      &=  ${miseEnEvidence(`${(1 - reduction[0]) ** 2 * reduction[1]}`)}
     \\end{aligned}$
   `
           this.canEnonce = `Calculer le carré de $\\sqrt{${a}}-\\sqrt{${b}}$.`
@@ -110,7 +111,7 @@ export default function CalculAvecRacineCarree3 () {
   &= (${reduction[0] - 1}\\sqrt{${reduction[1]}})^2 \\\\
   &=(${reduction[0] - 1}\\sqrt{${reduction[1]}})\\times (${reduction[0] - 1}\\sqrt{${reduction[1]}})\\\\
   &=\\underbrace{${ecritureParentheseSiNegatif(reduction[0] - 1)}\\times ${ecritureParentheseSiNegatif(reduction[0] - 1)}}_{${(reduction[0] - 1) ** 2}}\\times \\underbrace{\\sqrt{${reduction[1]}}\\times \\sqrt{${reduction[1]}}}_{${reduction[1]}}\\\\
-       &=  ${(reduction[0] - 1) ** 2 * reduction[1]}
+       &=  ${miseEnEvidence(`${(reduction[0] - 1) ** 2 * reduction[1]}`)}
   \\end{aligned}$
 `
           this.canEnonce = `Calculer le carré de $\\sqrt{${b}}-\\sqrt{${a}}$.`

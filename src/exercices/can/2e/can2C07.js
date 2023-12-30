@@ -1,5 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer avec une racine carrée'
 export const interactifReady = true
@@ -42,7 +43,7 @@ export default function CalculAvecRacineCarree2 () {
     <br>
     $\\begin{aligned}
     \\sqrt{${a}}+\\sqrt{${b}}&=\\sqrt{${a}}+${reduction[0]}\\sqrt{${reduction[1]}}\\\\
-    &= ${reduction[0] + 1}\\sqrt{${reduction[1]}}
+    &= ${miseEnEvidence(`${reduction[0] + 1}\\sqrt{${reduction[1]}}`)}
     \\end{aligned}$
   `
         } else {
@@ -55,7 +56,7 @@ export default function CalculAvecRacineCarree2 () {
   <br>
   $\\begin{aligned}
   \\sqrt{${b}}+\\sqrt{${a}}&=${reduction[0]}\\sqrt{${reduction[1]}}+\\sqrt{${a}}\\\\
-  &= ${reduction[0] + 1}\\sqrt{${reduction[1]}}
+  &= ${miseEnEvidence(`${reduction[0] + 1}\\sqrt{${reduction[1]}}`)}
   \\end{aligned}$
 `
         }
@@ -77,7 +78,7 @@ export default function CalculAvecRacineCarree2 () {
     <br>
     $\\begin{aligned}
     \\sqrt{${a}}-\\sqrt{${b}}&=\\sqrt{${a}}-${reduction[0]}\\sqrt{${reduction[1]}}\\\\
-    &= ${1 - reduction[0]}\\sqrt{${reduction[1]}}
+    &= ${miseEnEvidence(`${1 - reduction[0]}\\sqrt{${reduction[1]}}`)}
     \\end{aligned}$
   `
           if (1 - reduction[0] === -1) {
@@ -93,7 +94,7 @@ export default function CalculAvecRacineCarree2 () {
   <br>
   $\\begin{aligned}
   \\sqrt{${b}}-\\sqrt{${a}}&=${reduction[0]}\\sqrt{${reduction[1]}}-\\sqrt{${a}}\\\\
-  &= ${reduction[0] - 1}\\sqrt{${reduction[1]}}
+  &= ${miseEnEvidence(`${reduction[0] - 1}\\sqrt{${reduction[1]}}`)}
   \\end{aligned}$
 `
           if (1 - reduction[0] === 1) {

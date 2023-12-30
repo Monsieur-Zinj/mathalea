@@ -1,4 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Développer des égalités remarquables avec des racines carrées'
@@ -27,7 +28,7 @@ export default function DevelopperEgalitesRemarquablesRC () {
           const a = randint(1, 9)
           this.question = ` Développer et réduire $(\\sqrt{${inconnue}}+${a})^2$.` // (x+a)²
           this.correction = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=\\sqrt{${inconnue}}$ et $b=${a}$.<br>
-      $(\\sqrt{${inconnue}}+${a})^2=(\\sqrt{${inconnue}})^2+2 \\times ${a} \\times \\sqrt{${inconnue}}+${a}^2=${inconnue}+${2 * a}\\sqrt{${inconnue}}+${a * a}=${inconnue + a * a}+${2 * a}\\sqrt{${inconnue}}$`
+      $(\\sqrt{${inconnue}}+${a})^2=(\\sqrt{${inconnue}})^2+2 \\times ${a} \\times \\sqrt{${inconnue}}+${a}^2=${inconnue}+${2 * a}\\sqrt{${inconnue}}+${a * a}=${miseEnEvidence(`${inconnue + a * a}+${2 * a}\\sqrt{${inconnue}}`)}$.`
           this.reponse = [[`${inconnue + a * a}+${2 * a}\\sqrt{${inconnue}}`], [`${2 * a}\\sqrt{${inconnue}}+${inconnue + a * a}`]] }
         break
       case 2 :
@@ -35,7 +36,7 @@ export default function DevelopperEgalitesRemarquablesRC () {
           const a = randint(1, 9)
           this.question = ` Développer et réduire $(\\sqrt{${inconnue}}-${a})^2$.` // (x-a)²
           this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=\\sqrt{${inconnue}}$ et $b=${a}$.<br>
-      $(\\sqrt{${inconnue}}-${a})^2=(\\sqrt{${inconnue}})^2-2 \\times ${a} \\times \\sqrt{${inconnue}}+${a}^2=${inconnue}-${2 * a}\\sqrt{${inconnue}}+${a * a}=${inconnue + a * a}-${2 * a}\\sqrt{${inconnue}}$`
+      $(\\sqrt{${inconnue}}-${a})^2=(\\sqrt{${inconnue}})^2-2 \\times ${a} \\times \\sqrt{${inconnue}}+${a}^2=${inconnue}-${2 * a}\\sqrt{${inconnue}}+${a * a}=${miseEnEvidence(`${inconnue + a * a}-${2 * a}\\sqrt{${inconnue}}`)}$.`
           this.reponse = [[`${inconnue + a * a}-${2 * a}\\sqrt{${inconnue}}`], [`${-2 * a}\\sqrt{${inconnue}}+${inconnue + a * a}`]] }
         break
       case 3 :
@@ -43,7 +44,7 @@ export default function DevelopperEgalitesRemarquablesRC () {
           const a = randint(1, 9)
           this.question = `Développer et réduire $(\\sqrt{${inconnue}}-${a})(\\sqrt{${inconnue}}+${a})$.` // (x-a)(x+a)
           this.correction = `On utilise l'égalité remarquable $(a+b)(a-b)=a^2-b^2$ avec $a=\\sqrt{${inconnue}}$ et $b=${a}$.<br>
-          $(\\sqrt{${inconnue}}-${a})(\\sqrt{${inconnue}}+${a})=(\\sqrt{${inconnue}})^2-${a}^2=${inconnue}-${a * a}=${inconnue - a * a}$.`
+          $(\\sqrt{${inconnue}}-${a})(\\sqrt{${inconnue}}+${a})=(\\sqrt{${inconnue}})^2-${a}^2=${inconnue}-${a * a}=${miseEnEvidence(`${inconnue - a * a}`)}$.`
           this.reponse = [`${inconnue - a * a}`] }
         break
       case 4 :
@@ -51,7 +52,7 @@ export default function DevelopperEgalitesRemarquablesRC () {
           const a = randint(1, 5)
           this.question = `Développer et réduire $(2\\sqrt{${inconnue}}+${a})^2$.` // (2x+a)²
           this.correction = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=2\\sqrt{${inconnue}}$ et $b=${a}$.<br>
-      $(2\\sqrt{${inconnue}}+${a})^2=(2\\sqrt{${inconnue}})^2+2 \\times 2\\sqrt{${inconnue}} \\times ${a} + ${a}^2=4\\times${inconnue}+${4 * a}\\sqrt{${inconnue}}+${a * a}=${4 * inconnue + a * a}+${4 * a}\\sqrt{${inconnue}}$`
+      $(2\\sqrt{${inconnue}}+${a})^2=(2\\sqrt{${inconnue}})^2+2 \\times 2\\sqrt{${inconnue}} \\times ${a} + ${a}^2=4\\times${inconnue}+${4 * a}\\sqrt{${inconnue}}+${a * a}=${miseEnEvidence(`${4 * inconnue + a * a}+${4 * a}\\sqrt{${inconnue}}`)}$.`
           this.reponse = [`${4 * inconnue + a * a}+${4 * a}\\sqrt{${inconnue}}`] }
         break
       case 5 :
@@ -59,7 +60,7 @@ export default function DevelopperEgalitesRemarquablesRC () {
           const a = randint(1, 5)
           this.question = `Développer et réduire $(2\\sqrt{${inconnue}}-${a})^2$.` // (2x-a)²
           this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=2\\sqrt{${inconnue}}$ et $b=${a}$.<br>
-              $(2\\sqrt{${inconnue}}-${a})^2=(2\\sqrt{${inconnue}})^2-2 \\times 2\\sqrt{${inconnue}} \\times ${a} + ${a}^2=4\\times${inconnue}-${4 * a}\\sqrt{${inconnue}}+${a * a}=${4 * inconnue + a * a}-${4 * a}\\sqrt{${inconnue}}$`
+              $(2\\sqrt{${inconnue}}-${a})^2=(2\\sqrt{${inconnue}})^2-2 \\times 2\\sqrt{${inconnue}} \\times ${a} + ${a}^2=4\\times${inconnue}-${4 * a}\\sqrt{${inconnue}}+${a * a}=${miseEnEvidence(`${4 * inconnue + a * a}-${4 * a}\\sqrt{${inconnue}}`)}$.`
           this.reponse = [`${4 * inconnue + a * a}-${4 * a}\\sqrt{${inconnue}}`] }
         break
       case 6 :
@@ -67,7 +68,7 @@ export default function DevelopperEgalitesRemarquablesRC () {
           const a = randint(1, 6)
           this.question = `Développer et réduire $(2\\sqrt{${inconnue}}-${a})(2\\sqrt{${inconnue}}+${a})$.` // (2x-a)(2x+a)
           this.correction = `On utilise l'égalité remarquable $(a+b)(a-b)=a^2-b^2$ avec $a=2\\sqrt{${inconnue}}$ et $b=${a}$.<br>
-                $(2\\sqrt{${inconnue}}-${a})(2\\sqrt{${inconnue}}+${a})=(2\\sqrt{${inconnue}})^2-${a}^2=4\\times${inconnue}-${a * a}=${4 * inconnue - a * a}$`
+                $(2\\sqrt{${inconnue}}-${a})(2\\sqrt{${inconnue}}+${a})=(2\\sqrt{${inconnue}})^2-${a}^2=4\\times${inconnue}-${a * a}=${miseEnEvidence(`${4 * inconnue - a * a}`)}$.`
           this.reponse = [`${4 * inconnue - a * a}`] }
         break
     }

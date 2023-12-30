@@ -10,7 +10,7 @@ export const interactifType = 'mathLive'
  * @author Sébastien Lozano
  */
 
-export const titre = 'Calculer avec les identités remarquables - simple'
+export const titre = 'Calculer avec les identités remarquables*'
 
 export const uuid = '69522'
 export const ref = 'can2C04'

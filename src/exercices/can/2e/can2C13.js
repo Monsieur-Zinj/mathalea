@@ -1,5 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer avec  des puissances'
@@ -34,7 +35,7 @@ export default function CalculPuissancesOperation () {
         this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
         $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(a)}^{${p}}$`
         this.correction = `On utilise la formule $a^n\\times a^m=a^{n+m}$ avec $a=${a}$, $n=${n}$ et $p=${p}$.<br>
-        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(a)}^{${p}}=${ecritureParentheseSiNegatif(a)}^{${n}+${ecritureParentheseSiNegatif(p)}}=${ecritureParentheseSiNegatif(a)}^{${n + p}}$
+        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(a)}^{${p}}=${ecritureParentheseSiNegatif(a)}^{${n}+${ecritureParentheseSiNegatif(p)}}=${miseEnEvidence(`${ecritureParentheseSiNegatif(a)}^{${n + p}}`)}$
         `
         this.reponse = `${ecritureParentheseSiNegatif(a)}^{${n + p}}`
 
@@ -48,7 +49,7 @@ export default function CalculPuissancesOperation () {
         $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(b)}^{${n}}$`
         this.correction = `On utilise la formule $a^n\\times b^n=(a\\times b)^{n}$
         avec $a=${a}$,  $b=${b}$ et $n=${n}$.<br>
-        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(b)}^{${n}}=(${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)})^{${n}}=${ecritureParentheseSiNegatif(p)}^{${n}}$
+        $${ecritureParentheseSiNegatif(a)}^{${n}}\\times ${ecritureParentheseSiNegatif(b)}^{${n}}=(${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)})^{${n}}=${miseEnEvidence(`${ecritureParentheseSiNegatif(p)}^{${n}}`)}$
         `
         this.reponse = `${ecritureParentheseSiNegatif(p)}^{${n}}`
         break
@@ -62,7 +63,7 @@ export default function CalculPuissancesOperation () {
         $\\left(${ecritureParentheseSiNegatif(a)}^{${n}}\\right)^{${p}}$`
         this.correction = `On utilise la formule $\\left(a^n\\right)^p=a^{n\\times p}$
         avec $a=${a}$,  $n=${n}$ et $p=${p}$.<br>
-        $\\left(${ecritureParentheseSiNegatif(a)}^{${n}}\\right)^{${p}}=${ecritureParentheseSiNegatif(a)}^{${n}\\times ${ecritureParentheseSiNegatif(p)}}=${ecritureParentheseSiNegatif(a)}^{${n * p}}$
+        $\\left(${ecritureParentheseSiNegatif(a)}^{${n}}\\right)^{${p}}=${ecritureParentheseSiNegatif(a)}^{${n}\\times ${ecritureParentheseSiNegatif(p)}}=${miseEnEvidence(`${ecritureParentheseSiNegatif(a)}^{${n * p}}`)}$
         `
         this.reponse = `${ecritureParentheseSiNegatif(a)}^{${s}}`
         break
@@ -75,7 +76,7 @@ export default function CalculPuissancesOperation () {
         this.question = `Écrire sous la forme $a^n$ où $a$ et $n$ sont des entiers relatifs. <br>
         $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(a)}^{${p}}}$`
         this.correction = `On utilise la formule $\\dfrac{a^n}{a^p}=a^{n-p}$ avec $a=${a}$,  $n=${n}$ et $p=${p}$.<br>
-        $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(a)}^{${p}}}=${ecritureParentheseSiNegatif(a)}^{${n}- ${ecritureParentheseSiNegatif(p)}}=${ecritureParentheseSiNegatif(a)}^{${n - p}}$
+        $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(a)}^{${p}}}=${ecritureParentheseSiNegatif(a)}^{${n}- ${ecritureParentheseSiNegatif(p)}}=${miseEnEvidence(`${ecritureParentheseSiNegatif(a)}^{${n - p}}`)}$
         `
         this.reponse = `${ecritureParentheseSiNegatif(a)}^{${s}}`
         break
@@ -89,7 +90,7 @@ export default function CalculPuissancesOperation () {
         $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}$`
         this.correction = `On utilise la formule $\\dfrac{a^n}{b^n}=\\left(\\dfrac{a}{b}\\right)^{n}$ avec
         $a=${a}$,  $b=${b}$ et $n=${n}$.<br>
-        $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}=\\left(\\dfrac{${ecritureParentheseSiNegatif(a)}}{${ecritureParentheseSiNegatif(b)}}\\right)^{${n}}=${s}^{${n}}$
+        $\\dfrac{${ecritureParentheseSiNegatif(a)}^{${n}}}{${ecritureParentheseSiNegatif(b)}^{${n}}}=\\left(\\dfrac{${ecritureParentheseSiNegatif(a)}}{${ecritureParentheseSiNegatif(b)}}\\right)^{${n}}=${miseEnEvidence(`${s}^{${n}}`)}$
         `
         this.reponse = `${s}^{${n}}`
         break
