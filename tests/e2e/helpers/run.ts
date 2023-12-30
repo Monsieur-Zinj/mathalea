@@ -134,7 +134,9 @@ async function getKatex (questionLocator: Locator) {
     innerTexts.push(await locator.innerText())
     elementsWithRedondancy.push(innerTexts.map(innerText => innerText.split('\n')))
   }
-  const elements = elementsWithRedondancy[elementsWithRedondancy.length - 1].map(list => list.map(ele => clean(ele, [])))
+  const selectedElements = elementsWithRedondancy[elementsWithRedondancy.length - 1]
+  let elements: string[][] = []
+  if (selectedElements !== undefined) elements = selectedElements.map(list => list.map(ele => clean(ele, [])))
   return { elements, innerHTMLs, innerTexts, locators }
 }
 
