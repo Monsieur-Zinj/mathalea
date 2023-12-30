@@ -19,6 +19,7 @@ import { interpolationDeLagrange } from '../../lib/mathFonctions/outilsMaths'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { pgcd } from '../../lib/outils/primalite'
+import Point from 'apigeom/src/elements/points/Point'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
@@ -27,10 +28,13 @@ export const interactifType = 'mathLive'
 
 /**
  * Résoudre graphiquement une équation ou une inéquation
+ *
  * @author Jean-Claude Lhote
  * Références
  */
 export const uuid = '28997'
+export const ref = '3F11-0'
+export const dateDeCreation = '29/12/2023'
 
 type TypesDeFonction = 'constante'|'affine'|'poly2'|'poly3'
 function compareEnsembles (e1:string, e2:string) {
@@ -54,9 +58,9 @@ function compareEnsembles (e1:string, e2:string) {
  * @param inferieur
  */
 function chercheIntervalles (fonc: Polynome, soluces: number[], inferieur: boolean): string {
-  const values = [-5.2, ...soluces, 5.2]
+  const values = [...soluces, 5]
   const solutions: string[] = []
-  for (let i = 0; i < values.length - 1; i += 2) {
+  for (let i = 0; i < values.length - 1; i++) {
     const middle = (values[i] + values[i + 1]) / 2
     if ((inferieur && fonc.image((middle) < 0)) || (!inferieur && fonc.image(middle) > 0)) {
       solutions.push(`[${texNombre(values[i], 1)};${texNombre(values[i + 1], 1)}]`)
@@ -87,6 +91,92 @@ function compareIntervalles (e1:string, e2:string) {
     return result
   }
 }
+
+/**
+ * retourne le yMin pour cadrer la figure
+ * @param poly1
+ * @param poly2
+ */
+function trouveMaxMin (poly1:Polynome, poly2:Polynome): number {
+  // on s'embête pas avec les constantes, elles sont toujours dans la fenêtre
+  // on ne s'embête pas avec les affines, la encore, on sait comment elles se comportent quand elles sortent de la fenêtre
+  // on va chercher donc le min et le max de fct1 et fct2 si ce sont au moins des polynomes de degré 2
+  const fPrime1 = poly1.derivee()
+  const fPrime2 = poly2.derivee()
+  let yMin1: number
+  let yMin2: number
+  switch (fPrime1.deg) {
+    case 0: // affine ou constante
+      if (poly1.monomes[1] === 0) {
+        yMin1 = poly1.image(-4) - 5
+      } else {
+        yMin1 = Math.round((poly1.image(-5) + poly1.image(5)) / 2) - 6
+      }
+      break
+    case 1: // degré 2 dérivée de degré 1
+      if (fPrime1.monomes[1] > 0) { // si le coeff de x de la dérivée est positif, c'est que le coeff de x² du poly1 l'est aussi
+        yMin1 = poly1.image(-fPrime1.monomes[0] / fPrime1.monomes[1])
+      } else {
+        yMin1 = poly1.image(-fPrime1.monomes[0] / fPrime1.monomes[1]) - 9
+      }
+      break
+    case 2:
+    default: // degré 3 donc dérivée de degré 2
+      /*  const monomes: number[] = fPrime2.monomes.map((el: number) => Number(el))
+      const extrema = polynomialRoot(monomes[0], monomes[1], monomes[2], 0).filter(nb => typeof nb === 'number').map(el => Math.round(Number(el) * 1000) / 1000) as number[]
+      switch (extrema.length) {
+        case 0: yMin1 = -6
+          break
+        case 1:
+          yMin1 = poly1.image(extrema[0]) - 6
+          break
+        default:
+          yMin1 = (poly1.image(extrema[0]) + poly1.image(extrema[1])) / 2 - 6
+      }
+      */
+      yMin1 = -6
+  }
+  switch (fPrime2.deg) {
+    case 0: // affine ou constante
+      if (poly2.monomes[1] === 0) {
+        yMin2 = poly2.image(-4) - 5
+      } else {
+        yMin2 = Math.round((poly2.image(-5) + poly2.image(5)) / 2) - 6
+      }
+      break
+    case 1: // degré 2 dérivée de degré 1
+      if (fPrime2.monomes[1] > 0) { // si le coeff de x de la dérivée est positif, c'est que le coeff de x² du poly2 l'est aussi
+        yMin2 = poly2.image(-fPrime2.monomes[0] / fPrime2.monomes[1])
+      } else {
+        yMin2 = poly2.image(-fPrime2.monomes[0] / fPrime2.monomes[1]) - 9
+      }
+      break
+    case 2:
+    default: // degré 3 donc dérivée de degré 2
+      /* const monomes: number[] = fPrime2.monomes.map((el: number) => Number(el))
+      const extrema = polynomialRoot(monomes[0], monomes[1], monomes[2], 0).filter(nb => typeof nb === 'number').map(el => Math.round(Number(el) * 1000) / 1000) as number[]
+      switch (extrema.length) {
+        case 0: yMin2 = -6
+          break
+        case 1:
+          yMin2 = poly2.image(extrema[0]) - 6
+          break
+        default:
+          yMin2 = (poly2.image(extrema[0]) + poly2.image(extrema[1])) / 2 - 6
+      }
+       */
+      yMin2 = -6
+  }
+  const yMin = Math.min(yMin1, yMin2)
+  console.log(`yMin trouvé : ${yMin}`)
+  return yMin
+}
+/**
+ * retourne un objet décrivant la fonction
+ * @param {TypesDeFonction} type
+ * @param {{x,y}[]} noeudsPassants
+ * @return {poly: Polynome, expr: string, func: (number)=>number}
+ */
 function choisisFonction (type: TypesDeFonction, noeudsPassants: {x:number, y:number}[]): {func: (x:number)=>number, expr: string, poly: Polynome} {
   let noeudsFonction
   switch (type) {
@@ -161,9 +251,6 @@ class resolutionEquationInequationGraphique extends Exercice {
 
   nouvelleVersion (numeroExercice: number): void {
     // on va chercher une spline aléatoire
-    this.figure = new Figure({ xMin: -5.23, yMin: -6.3, width: 314, height: 378 })
-    this.figure.create('Grid')
-    this.figure.options.limitNumberOfElement.set('Point', 1)
     this.listeQuestions = []
     this.listeCorrections = ['']
     this.autoCorrection = []
@@ -180,14 +267,14 @@ class resolutionEquationInequationGraphique extends Exercice {
     do { // Une boucle pour tester des valeurs et on sort si les courbes sont suffisamment distantes      }
       // On choisit les noeuds passants (il en faut 4 pour déterminer un poly3, qui peut le plus peut le moins !
       const listeMelangee = shuffle(rangeMinMax(-5, -1)).slice(0, 2).concat(shuffle(rangeMinMax(0, 5)).slice(0, 2)).slice(0, 4)
-      const [x0, x1, x2, x3] = combinaisonListes(listeMelangee, 4).sort((a:number, b:number) => a - b)
+      const [x0, x1, x2, x3] = combinaisonListes(listeMelangee, 4).sort((a: number, b: number) => a - b)
       let y0: number
       let y1: number
       let y2: number
       let y3: number
       let vec1, vec2, vec3, prodVec1, prodVec2
-      const vector = (x0:number, y0:number, x1:number, y1:number) => Object.assign({}, { u: x1 - x0, v: y1 - y0 })
-      const prodVec = (v1:{u:number, v:number}, v2:{u:number, v:number}) => v1.u * v2.v - v1.v * v2.u
+      const vector = (x0: number, y0: number, x1: number, y1: number) => Object.assign({}, { u: x1 - x0, v: y1 - y0 })
+      const prodVec = (v1: { u: number, v: number }, v2: { u: number, v: number }) => v1.u * v2.v - v1.v * v2.u
       do {
         y0 = randint(-2, 2)
         y1 = randint(-3, 3, y0)
@@ -274,8 +361,8 @@ class resolutionEquationInequationGraphique extends Exercice {
         const ordonnees = noeudsPassant.map(el => el.y)
         let newY: number
         do {
-          newY = randint(-5, 5, ordonnees)
-        } while (newY * noeudsPassant[1].y > 0)
+          newY = (noeudsPassant[1].y > 0 ? -1 : 1) * randint(-3, 3, ordonnees)
+        } while (Math.abs(newY - noeudsPassant[1].y) > 5)
         const newNoeudsPassants = []
         newNoeudsPassants.push(noeudsPassant[0])
         newNoeudsPassants.push({ x: noeudsPassant[1].x, y: newY })
@@ -297,19 +384,50 @@ class resolutionEquationInequationGraphique extends Exercice {
       integraleDiff = Math.min(...integrales)
     } while (integraleDiff < 0.5)
     const [fonction1, fonction2] = fonctions
+    const yMin = trouveMaxMin(fonction1.poly, fonction2.poly)
+    this.figure = new Figure({ xMin: -5.2, yMin, width: 312, height: 378 })
+    this.figure.create('Grid')
+    this.figure.options.limitNumberOfElement.set('Point', 1)
+
     // on s'occupe de la fonction 1 et du point mobile dessus on trace tout ça.
     // Maintenant, la fonction1 n'est jamais une spline !
-    const courbeF = this.figure.create('Graph', { expression: fonction1.expr as string, color: 'blue', thickness: 1, fillOpacity: 0.5 })
-    const M = this.figure.create('PointOnGraph', { graph: courbeF })
+    let courbeF
+    let M
+    if (f1Type === 'constante' || f1Type === 'affine') {
+      const a = fonction1.poly.monomes[1]
+      const b = fonction1.poly.monomes[0]
+      console.log(a + 'x+' + b)
+      const B = new Point(this.figure, { x: -5, y: -5 * a + b, isVisible: false })
+      const A = new Point(this.figure, { x: 5, y: 5 * a + b, isVisible: false })
+      const d = this.figure.create('Segment', { point1: B, point2: A })
+      d.color = 'blue'
+      d.thickness = 2
+      d.isDashed = true
+      M = this.figure.create('PointOnLine', { line: d })
+    } else {
+      courbeF = this.figure.create('Graph', {
+        expression: fonction1.expr as string,
+        color: 'blue',
+        thickness: 2,
+        fillOpacity: 0.5,
+        xMin: -5,
+        xMax: 5.05,
+        isDashed: true
+      })
+      M = this.figure.create('PointOnGraph', { graph: courbeF })
+    }
     // M.draw()
     M.label = 'M'
+    M.shape = 'x'
     M.createSegmentToAxeX()
     M.createSegmentToAxeY()
     const textX = this.figure.create('DynamicX', { point: M })
     const textY = this.figure.create('DynamicY', { point: M })
     textX.dynamicText.maximumFractionDigits = 1
     textY.dynamicText.maximumFractionDigits = 1
-    let x; let y; let trouve = false
+    let x
+    let y
+    let trouve = false
     // On cherche à placer Cf
     for (x = -5; x < 5 && !trouve; x++) {
       if (Math.abs(fonction1.poly.image(x)) < 5) {
@@ -325,9 +443,26 @@ class resolutionEquationInequationGraphique extends Exercice {
         y = 5
       }
     }
-    this.figure.create('TextByPosition', { x: x - 0.5, y: y + 0.5, text: `$\\mathscr{C_${f1}}$`, color: 'blue' })
-    this.figure.create('Graph', { expression: fonction2.expr as string, color: 'red', thickness: 1, fillOpacity: 0.5 })
-    // on cherche à placer Cg
+    if (f2Type === 'affine') {
+      const a = fonction2.poly.monomes[1]
+      const b = fonction2.poly.monomes[0]
+      const B = new Point(this.figure, { x: 0, y: b, isVisible: false })
+      const A = new Point(this.figure, { x: 1, y: b + a, isVisible: false })
+      const d = this.figure.create('Line', { point1: B, point2: A })
+      d.color = 'red'
+      d.thickness = 2
+      d.isDashed = false
+    } else {
+      this.figure.create('TextByPosition', { x: x - 0.5, y: y + 0.5, text: `$\\mathscr{C_${f1}}$`, color: 'blue' })
+      this.figure.create('Graph', {
+        expression: fonction2.expr as string,
+        color: 'red',
+        thickness: 2,
+        fillOpacity: 0.5,
+        xMin: -5,
+        xMax: 5.05
+      })
+    }
     trouve = false
     for (x = 4; x > -5 && !trouve; x--) {
       if (Math.abs(fonction2.poly.image(x)) < 5) {
@@ -356,6 +491,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     if (fonction1.poly == null && fonction2.poly == null) throw Error('Un problème avec l\'un des polynome')
     const polyDiff = fonction1.poly.add(fonction2.poly.multiply(-1))
     const racines = polyDiff.racines()
+    if (racines == null) throw Error(`Il n'y aurait pas de points d'intersection !!! polyDiff = ${polyDiff.toLatex()}`)
     const racinesArrondies = racines.map(el => Number(el.toFixed(1)))
     for (let n = 0; n < racinesArrondies.length; n++) {
       const image = fonction1.func(racinesArrondies[n])
@@ -370,7 +506,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     if (this.sup === 1 || this.sup === 3) {
       enonce += `${String(numero)}. Résoudre graphiquement $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$.<br>`
       enonce += 'Les solutions doivent être rangées par ordre croissant et séparées par un point-virgule.<br>'
-      texteCorr += `${String(numero)}. L'ensemble de solutions de l'équation est : $\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$<br><br>`
+      texteCorr += `${String(numero)}. L'ensemble de solutions de l'équation correspond aux abscisses des points d'intersection des deux courbes soit : $\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$<br><br>`
       numero++
     }
     if (soluces != null) {
@@ -392,7 +528,8 @@ class resolutionEquationInequationGraphique extends Exercice {
 
       // enonce += '$' + soluces2 + '$'
       setReponse(this, 1, { solucesIneq: { value: soluces2, compare: compareIntervalles } }, { formatInteractif: 'fillInTheBlank' })
-      texteCorr += `${String(numero)}. L'ensemble des solutions de l'inéquation est : $${soluces2}$.<br><br>`
+      texteCorr += `${String(numero)}. Pour trouver l'ensemble des solutions de l'inéquation, on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C_' + f1 + '}', 'blue')}$ est située ${inferieur ? 'en-dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C_' + f2 + '}', 'red')}$.<br>`
+      texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$.<br><br>`
     }
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')

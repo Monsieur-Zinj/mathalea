@@ -83,7 +83,7 @@ export class Polynome {
       }
       const degMin = Math.min(this.deg, p.deg)
       for (let i = 0; i <= degMin; i++) {
-        if (p.monomes[i] !== this.monomes[i]) return false
+        if (!egal(p.monomes[i], this.monomes[i], 1e-15)) return false
       }
       for (let i = degMin + 1; i <= Math.max(p.deg, this.deg); i++) {
         if (i <= this.deg) {
@@ -112,24 +112,24 @@ export class Polynome {
           const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? ecritureAlgebrique(c) : rienSi1(c)
           switch (this.deg) {
             case 1:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
               break
             case 0:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
               break
             default:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x^${i}`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^${i}`
           }
           break
         }
         case 0:
-          maj = egal(c, 0, 1e-10) ? '' : ecritureAlgebrique(c)
+          maj = egal(c, 0, 1e-15) ? '' : ecritureAlgebrique(c)
           break
         case 1:
-          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
+          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
-          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
           break
       }
       maj = maj.replace(/\s/g, '').replace(',', '.')
@@ -151,24 +151,24 @@ export class Polynome {
           const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? c : rienSi1(c)
           switch (this.deg) {
             case 1:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
               break
             case 0:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
               break
             default:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x^${i}`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^${i}`
           }
           break
         }
         case 0:
-          maj = egal(c, 0, 1e-10) ? '' : ecritureAlgebrique(c)
+          maj = egal(c, 0, 1e-15) ? '' : ecritureAlgebrique(c)
           break
         case 1:
-          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
+          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
-          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
           break
       }
       res = maj + res
@@ -243,6 +243,14 @@ export class Polynome {
   derivee () {
     const coeffDerivee = this.monomes.map(function (el, i) { return el * i })
     coeffDerivee.shift()
+    for (let i = coeffDerivee.length - 1; i > 0; i--) {
+      if (coeffDerivee[i] === 0) {
+        coeffDerivee.pop()
+        continue
+      }
+      break
+    }
+    console.log(`coeffs dérivée : ${coeffDerivee}`)
     return new Polynome({ coeffs: coeffDerivee })
   }
 
@@ -258,6 +266,9 @@ export class Polynome {
 
   racines () {
     const antecedents = []
+    if (this.monomes.slice(1).filter(el => el !== 0).length === 0) {
+      return null
+    }
     const liste = polynomialRoot(...this.monomes)
     for (const valeur of liste) {
       let arr
