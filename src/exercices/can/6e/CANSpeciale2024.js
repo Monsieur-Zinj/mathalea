@@ -407,7 +407,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           const a = new Decimal(2024).div(new Decimal(10).pow(exposant))
           texte = `Écriture scientifique de $${texNombre(a)}$`
           reponse = `2,024\\times 10^{${3 - exposant}}`
-          texteCorr = `L'écriture scientifique de $${texNombre(2024)}$ est $${miseEnEvidence(`${reponse}`)}$.`
+          texteCorr = `L'écriture scientifique de $${texNombre(a)}$ est $${miseEnEvidence(`${reponse}`)}$.`
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
@@ -566,11 +566,11 @@ export default function CourseAuxNombresSpeciale2024 () {
         case 17: {
           const a = randint(2040, 2080)
           const prenom = prenomF(1)
-          texte = 'Si ' + prenom + ' naît en $2024$, quel âge aura-t-elle en $a$ ?'
+          texte = 'Si ' + prenom + ` naît en $2024$, quel âge aura-t-elle en $${a}$ ?`
           reponse = a - 2024
           texteCorr = prenom + ` aura $(${a}-${2024})$ ans, soit $${miseEnEvidence(texNombre(reponse))}$ ans.`
           setReponse(this, index, reponse)
-          texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: ' ans' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
         }
@@ -958,7 +958,7 @@ export default function CourseAuxNombresSpeciale2024 () {
         }
           break
         case 32:{
-          const val = new Decimal(2024).div(choice([2, 20, 100, 1000]))
+          const val = new Decimal(2024).div(choice([100, 1000]))
           const coeff = randint(15, 59, [20, 30, 40, 50])
           const b = 100 - coeff
           const coeff2 = randint(2, 8)
@@ -982,12 +982,12 @@ export default function CourseAuxNombresSpeciale2024 () {
           const choix = randint(1, 4)
           if (choix === 1) {
             texte = `What is the value of $2^{${texNombre(2024)}}-2^{${texNombre(2023)}}$ ? `
-            texteCorr = `$2^{${texNombre(2024)}}-2^{${texNombre(2023)}}=2^{${texNombre(2023)}}(2-1)=${miseEnEvidence(texNombre(2023))}$`
-            reponse = 2023
+            texteCorr = `$2^{${texNombre(2024)}}-2^{${texNombre(2023)}}=2^{${texNombre(2023)}}(2-1)=${miseEnEvidence(`2^{${texNombre(2023)}}`)}$`
+            reponse = '2^{2023}'
           } else if (choix === 2) {
             texte = `What is the value of $2^{${texNombre(2025)}}-2^{${texNombre(2024)}}$ ? `
-            texteCorr = `$2^{${texNombre(2025)}}-2^{${texNombre(2024)}}=2^{${texNombre(2024)}}(2-1)=${miseEnEvidence(texNombre(2024))}$`
-            reponse = 2024
+            texteCorr = `$2^{${texNombre(2025)}}-2^{${texNombre(2024)}}=2^{${texNombre(2024)}}(2-1)=${miseEnEvidence(`2^{${texNombre(2024)}}`)}$`
+            reponse = '2^{2024}'
           } else if (choix === 3) {
             texte = `What is the value of $-1^{${texNombre(2024)}}-(-1^{${texNombre(2024)}})$ ? `
             texteCorr = `$-1^{${texNombre(2024)}}-(-1^{${texNombre(2024)}})=-1-(-1)=${miseEnEvidence('0')}$`
@@ -1202,7 +1202,7 @@ export default function CourseAuxNombresSpeciale2024 () {
               <br> Donc, $f(x)=${reduireAxPlusB(0, a)}(x-(\\underbrace{-${b}}_{\\alpha}))^2${ecritureAlgebrique(c)}$, d'où $\\alpha=-${b}$.
              <br> Le coefficient $${a}$ devant la parenthèse est strictement positif, la fonction est donc
              d'abord décroissante puis croissante (la parabole est "tournée vers le haut").
-             <br>  Ainsi, $f$ est croissante sur $${miseEnEvidence(`[-${texNombre(b)} \\, ;\\, +\\infty[`)}$.    `
+             <br>  Ainsi, $f$ est croissante sur $${miseEnEvidence(`[${texNombre(-b)} \\, ;\\, +\\infty[`)}$.    `
               reponse = [`]-${b};+\\infty[`, `[-${b};+\\infty[`]
             } else {
               texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
@@ -1212,7 +1212,7 @@ export default function CourseAuxNombresSpeciale2024 () {
                Ici,  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$, d'où $\\alpha=${-b}$.
                <br>  Le coefficient $${a}$ devant la parenthèse est strictement positif, la fonction est donc
               d'abord décroissante puis croissante (la parabole est "tournée vers le haut").
-              <br>  Ainsi, $f$ est croissante sur $${miseEnEvidence(`[${-texNombre(b)} \\, ;\\, +\\infty[`)}$.    `
+              <br>  Ainsi, $f$ est croissante sur $${miseEnEvidence(`[${texNombre(-b)} \\, ;\\, +\\infty[`)}$.    `
               reponse = [`]${-b};+\\infty[`, `[${-b};+\\infty[`]
             }
           } else { // a < 0
@@ -1223,7 +1223,7 @@ export default function CourseAuxNombresSpeciale2024 () {
               <br> Ici,  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$
               <br> Donc, $f(x)=${reduireAxPlusB(0, a)}(x-(\\underbrace{-${b}}_{\\alpha}))^2${ecritureAlgebrique(c)}$, d'où $\\alpha=-${b}$.
              <br> Comme le coefficient $${a}$ devant la parenthèse est strictement négatif, la fonction est d'abord croissante puis décroissante (la parabole est "tournée vers le bas").
-             <br>    Ainsi, $f$ est croissante sur $${miseEnEvidence(`]-\\infty \\, ;\\, -${texNombre(b)}]`)}$.    `
+             <br>    Ainsi, $f$ est croissante sur $${miseEnEvidence(`]-\\infty \\, ;\\, ${texNombre(-b)}]`)}$.    `
               reponse = [`]-\\infty;-${b}[`, `]-\\infty;-${b}]`]
             } else {
               texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
@@ -1231,7 +1231,7 @@ export default function CourseAuxNombresSpeciale2024 () {
                   <br> Le changement de variation de la fonction $f$ se fait en $\\alpha$.
                <br> Ici,  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$, d'où $\\alpha=${-b}$.
                <br> Comme le coefficient $${a}$ devant la parenthèse est strictement négatif, la fonction est d'abord croissante puis décroissante (la parabole est "tournée vers le bas").
-               Ainsi, $f$ est croissante sur $${miseEnEvidence(`]-\\infty \\, ;\\, ${-texNombre(b)}]`)}$.    `
+               Ainsi, $f$ est croissante sur $${miseEnEvidence(`]-\\infty \\, ;\\, ${texNombre(-b)}]`)}$.    `
               reponse = [`]-\\infty;${-b}[`, `]-\\infty;${-b}]`]
             }
           }
