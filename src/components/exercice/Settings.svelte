@@ -255,26 +255,6 @@
             />
           </div>
         {/if}
-        <!-- <fieldset>
-          <legend
-            class="text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35"
-            >{formText1.titre}</legend
-          >
-          <div class="flex flex-col ml-3 mt-1">
-            {#each formText1.champsDecortiques as entree, i}
-              <div class="flew-row space-x-2">
-                <Curseur
-                  on:curseurNotif={() => submitOnSliderChange('formText1')}
-                  titre={entree.parametre}
-                  montant={0}
-                  identifiant={['paramText1-', i + 1, '-curseur'].join('')}
-                  nom={['paramText1-idNum-', entree.valeur].join('')}
-                  max={nbQuestions}
-                />
-              </div>
-            {/each}
-          </div>
-        </fieldset> -->
       </form>
     {/if}
 
@@ -372,23 +352,6 @@
             />
           </div>
         {/if}
-        <!-- <fieldset>
-            <legend class="text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35">{formText2.titre}</legend>
-            <div class="flex flex-col  ml-3 mt-1">
-              {#each formText2.champsDecortiques as entree, i}
-                <div class="flew-row space-x-2">
-                  <Curseur
-                    on:curseurNotif={() => submitOnSliderChange("formText2")}
-                    titre={entree.parametre}
-                    montant={0}
-                    identifiant={["paramText2-", i + 1, "-curseur"].join("")}
-                    nom={["paramText2-idNum-", entree.valeur].join("")}
-                    max={nbQuestions}
-                  />
-                </div>
-              {/each}
-            </div>
-          </fieldset> -->
       </form>
     {/if}
 
@@ -486,25 +449,6 @@
             />
           </div>
         {/if}
-        <!-- <div>
-        <form id="formText3" name="formText3">
-          <fieldset>
-            <legend class="text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35">{formText3.titre}</legend>
-            <div class="flex flex-col  ml-3 mt-1">
-              {#each formText3.champsDecortiques as entree, i}
-                <div class="flew-row space-x-2">
-                  <Curseur
-                    on:curseurNotif={() => submitOnSliderChange("formText3")}
-                    titre={entree.parametre}
-                    montant={0}
-                    identifiant={["paramText3-", i + 1, "-curseur"].join("")}
-                    nom={["paramText3-idNum-", entree.valeur].join("")}
-                    max={nbQuestions}
-                  />
-                </div>
-              {/each}
-            </div>
-          </fieldset> -->
       </form>
     {/if}
 
@@ -604,27 +548,6 @@
           </div>
         {/if}
       </form>
-      <!-- <div>
-        <form id="formText4" name="formText4">
-          <fieldset>
-            <legend class="text-coopmaths-struct dark:text-coopmathsdark-struct opacity-35">{formText4.titre}</legend>
-            <div class="flex flex-col  ml-3 mt-1">
-              {#each formText4.champsDecortiques as entree, i}
-                <div class="flew-row space-x-2">
-                  <Curseur
-                    on:curseurNotif={() => submitOnSliderChange("formText4")}
-                    titre={entree.parametre}
-                    montant={0}
-                    identifiant={["paramText4-", i + 1, "-curseur"].join("")}
-                    nom={["paramText4-idNum-", entree.valeur].join("")}
-                    max={nbQuestions}
-                  />
-                </div>
-              {/each}
-            </div>
-          </fieldset>
-        </form>
-      </div> -->
     {/if}
 
     {#if exercice.correctionDetailleeDisponible}
