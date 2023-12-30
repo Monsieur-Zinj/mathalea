@@ -250,7 +250,6 @@ export class Polynome {
       }
       break
     }
-    console.log(`coeffs dérivée : ${coeffDerivee}`)
     return new Polynome({ coeffs: coeffDerivee })
   }
 
