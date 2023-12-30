@@ -108,6 +108,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
 
       const { figure, latex } = apigeomGraduatedLine({ xMin: abs0, xMax: abs0 + 7 / step, scale: step })
       figure.options.labelAutomaticBeginsWith = label1
+      figure.options.pointDescriptionWithCoordinates = false
       this.figures[i] = figure
 
       const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: abs0, xMax: abs0 + 7 / step, scale: step, points: this.goodAnswers[i] })

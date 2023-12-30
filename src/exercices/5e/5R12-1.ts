@@ -44,6 +44,7 @@ class ReperagePointDuPlan extends Exercice {
     this.figure.create('Grid')
     this.figure.options.labelAutomaticBeginsWith = 'A' // Les points sont nommés par ordre alphabétique
     this.figure.options.limitNumberOfElement.set('Point', 4) // On limite le nombre de points à 4
+    this.figure.options.pointDescriptionWithCoordinates = false
 
     let x1 = randint(-6, -1)
     let x2 = randint(1, 6, x1)
