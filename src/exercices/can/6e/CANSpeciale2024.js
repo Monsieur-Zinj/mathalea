@@ -23,7 +23,7 @@ import { context } from '../../../modules/context.js'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '8ff87'
+export const uuid = '6ca15'
 export const ref = ''
 export const dateDePublication = '01/01/2024'
 
@@ -710,7 +710,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           reponse = randint(-9, 9, [-1, 0, 1])
           const b = -a * reponse + 2024
           texte = `Donner la solution de l'équation : $${a}x+${texNombre(b)}=${texNombre(2024)}$.`
-          texteCorr = `On procède par étapes successives :<br>
+          texteCorr = `On procède par étapes successives.<br>
               On commence par isoler $${a}x$ dans le membre de gauche en ajoutant
               $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise
               par $${a}$ pour obtenir la solution : <br>
@@ -1360,7 +1360,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           const dec = new Decimal(a).div(puissance10)
           reponse = `\\dfrac{${a}}{10^{${puissance}}}`
           setReponse(this, index, reponse)
-          texte = `Écrire $${texNombre(dec, 5)}$ sous la forme $\\dfrac{a}{10^n}$ avec $a\\in \\mathbb{Z}$ et $n\\in \\mathbb{N}$`
+          texte = `Écrire $${texNombre(dec, 5)}$ sous la forme $\\dfrac{a}{10^n}$ avec $a\\in \\mathbb{Z}$ et $n\\in \\mathbb{N}$, $n$ le plus petit possible`
           texteCorr = `$${texNombre(dec, 5)}=${miseEnEvidence(`\\dfrac{${texNombre(a, 0)}}{10^{${puissance}}}`)}$`
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
@@ -1619,13 +1619,13 @@ export default function CourseAuxNombresSpeciale2024 () {
           const listeNombre2 = [2024, 2024 - a, 2024 - 2 * a]
           const Nombre2 = shuffle(listeNombre2)
           if (choix === 1) {
-            texte = `On donne la série de nombres : $${texNombre(Nombre1[0])}$${sp(2)} ; ${sp(2)} $${texNombre(Nombre1[1])}$ ${sp(2)} ; ${sp(2)}$${texNombre(Nombre1[2])}$<br>
+            texte = `On donne la série de nombres : $${texNombre(Nombre1[0])}$${sp(2)} ; ${sp(2)} $${texNombre(Nombre1[1])}$ ${sp(2)} ; ${sp(2)}$${texNombre(Nombre1[2])}$.<br>
               Quelle est la moyenne de cette série ?`
             texteCorr = `On remarque que $${texNombre(c)}=${texNombre(2024)}-${a}$ et $${texNombre(b)}=${texNombre(2024)}+${a}$, donc la moyenne est $${miseEnEvidence(`${texNombre(2024)}`)}$.`
             reponse = '2024'
           }
           if (choix === 2) {
-            texte = `On donne la série de nombres : $${texNombre(Nombre2[0])}$${sp(2)} ; ${sp(2)} $${texNombre(Nombre2[1])}$ ${sp(2)} ; ${sp(2)}$${texNombre(Nombre2[2])}$<br>
+            texte = `On donne la série de nombres : $${texNombre(Nombre2[0])}$${sp(2)} ; ${sp(2)} $${texNombre(Nombre2[1])}$ ${sp(2)} ; ${sp(2)}$${texNombre(Nombre2[2])}$.<br>
             Quelle est la moyenne de cette série ?`
             texteCorr = `On remarque que $${texNombre(2024)}=${texNombre(2024 - a)}+${a}$ et $${texNombre(2024 - 2 * a)}=${texNombre(2024 - a)}-${a}$, donc la moyenne est $${miseEnEvidence(`${texNombre(2024 - a)}`)}$.`
             reponse = `${2024 - a}`
