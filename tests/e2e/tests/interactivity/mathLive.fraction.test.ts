@@ -34,14 +34,10 @@ async function test (page: Page) {
       if (chunks !== null) {
         const nombre = Number(chunks[0].replace(',', '.'))
         if (nombre != null) { // on fabrique la réponse
-          console.log('On me demande de fournir une fraction')
-          console.log(`le nombre de l'énoncé est : ${String(nombre)}`)
-          console.log(`on me demande de répondre ${question.isCorrect ? 'correctement' : 'faux'}`)
           const fraction = new FractionEtendue(nombre)
           reponse = question.isCorrect
             ? `${String(fraction.num)}/${String(fraction.den)}`
             : `${String(fraction.den)}/${String(fraction.num)}`
-          console.log(`Je réponds donc : ${question.isCorrect ? String(fraction.num) + '/' + String(fraction.den) : String(fraction.den) + '/' + String(fraction.num)}`)
         }
       }
     }

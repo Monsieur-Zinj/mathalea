@@ -20,26 +20,9 @@ async function test (page: Page) {
       } else {
         reponse = d1.add(d2).add(d1).toString()
       }
-      console.log(reponse)
     } else {
-      console.log(expression)
       throw new Error('Pas de match')
     }
-
-    // ---------------------------------------------------------------
-    // Dupliquer ce fichier
-    // Se débrouiller à partir des console.log ci-dessous pour récupérer les informations nécessaires en utilisant
-    // éventuellement les fonctions dans helpers/text.ts et construire une réponse selon question.isCorrect
-    // (if (question.isCorrect) reponse = bonneReponse; else reponse = mauvaiseReponse)
-    console.log(`Question ${question.numero} :`)
-    console.log(`Texte énoncé : ${question.innerText}`)
-    console.log('Éléments Katex :', question.katex.elements)
-    // Si question.katex.elements ne suffit pas, on peut aller chercher des infos supplémentaires avec d'autres
-    // propriétés comme question.innerHTML ou pour les aventuriers question.locator.locator('sélecteur CSS')
-    //
-    // pnpm test:e2e:dev pour lancer les tests
-    // Une fois le test fonctionnel, déplacer le fichier vers son dossier de destination
-    // ---------------------------------------------------------------
 
     await inputAnswer(page, question, reponse)
   }

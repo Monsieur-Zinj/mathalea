@@ -35,18 +35,12 @@ async function test (page: Page) {
     let reponse
     const choix = choice(['décimal', 'fraction'])
     if (choix === 'décimal' && Number(image.toFixed(3)) === image) { // si image est égal à son approximation au millième, la saisie décimale est possible
-      console.log(`je dois répondre ${question.isCorrect ? 'correctement' : 'faux'}`)
-      console.log(`La bonne réponse est : ${image.toFixed(3).replace('.', ',')}`)
-      console.log(`Je réponds ${question.isCorrect ? image.toFixed(3).replace('.', ',') : (1 + image).toFixed(3).replace('.', ',')}`)
       reponse = question.isCorrect ? image.toFixed(3).replace('.', ',') : (1 + image).toFixed(3).replace('.', ',')
     }
     if (choix === 'fraction' || reponse == null) { // on doit taper une fraction
       const reponses = typeDeQuestion === 'ordonnee'
         ? { correct: String(a * n + b * d) + '/' + den, incorrect: String(a * n + b * d + 1) + '/' + den }
         : { correct: String(n - b * d) + '/' + String(d * a), incorrect: String(n + 1 - b * d) + '/' + String(d * a) }
-      console.log(`je dois répondre ${question.isCorrect ? 'correctement' : 'faux'}`)
-      console.log(`La bonne réponse est : ${reponses.correct}`)
-      console.log(`Je réponds ${question.isCorrect ? reponses.correct : reponses.incorrect}`)
       reponse = question.isCorrect ? reponses.correct : reponses.incorrect
     }
     await inputAnswer(page, question, reponse)
