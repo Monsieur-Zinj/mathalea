@@ -7,11 +7,9 @@ export const titre = 'Exprimer une variable en fonction d\'une autre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '12/01/2023'
+
 /**
- * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can2L11
- * Date de publication
 */
 
 export const uuid = 'b5c9c'
@@ -35,7 +33,7 @@ export default function ExprimerVariable () {
           $${rienSi1(a)}${var1}=${c}${ecritureAlgebrique(-b)}${var2}$.<br>`
       const corr2 = ` Puis, en divisant par $${a}$, on obtient $${var1}=\\dfrac{${c}${ecritureAlgebriqueSauf1(-b)}${var2}}{${a}}$`
       const corr3 = `De la relation $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$, on déduit en ajoutant $${rienSi1(-a)}${var1}$ dans chaque membre :
-          $${rienSi1(b)}${var2}=${c}${rienSi1(ecritureAlgebrique(-a))}${var1}$.<br>`
+          $${rienSi1(b)}${var2}=${c}${rienSi1(-a)}${var1}$.<br>`
       const corr4 = ` Puis, en divisant par $${b}$, on obtient $${var2}=\\dfrac{${c}${ecritureAlgebriqueSauf1(-a)}${var1}}{${b}}$`
 
       if (choice([true, false])) {
