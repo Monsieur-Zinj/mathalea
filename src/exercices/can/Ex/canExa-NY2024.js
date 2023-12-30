@@ -13,10 +13,10 @@ export const dateDePublication = '01/01/2024'
  * @author Eric Elter - Gilles Mora
  */
 
-export default class CourseAuxNombresSpeciale20246e extends CourseAuxNombresSpeciale2024 {
+export default class CourseAuxNombresSpeciale2024Terminale extends CourseAuxNombresSpeciale2024 {
   constructor () {
     super()
     this.besoinFormulaireTexte = false
-    this.niveau = 6
+    this.niveau = 0
   }
 }
