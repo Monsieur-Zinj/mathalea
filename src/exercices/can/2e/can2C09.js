@@ -3,7 +3,7 @@ import { milieu, point } from '../../../lib/2d/points.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
 import {
   deprecatedTexFraction,
   simplificationDeFractionAvecEtapes,
@@ -70,9 +70,9 @@ export default function MilieuEntre1EtFraction () {
     $x_I=\\dfrac{1+${deprecatedTexFraction(n, d)}}{2}=
     \\dfrac{${deprecatedTexFraction(d, d)}+${deprecatedTexFraction(n, d)}}{2}=
         ${deprecatedTexFraction(n + d, d)}\\times \\dfrac{1}{2}=
-        ${deprecatedTexFraction(d + n, 2 * d)} ${simplificationDeFractionAvecEtapes(d + n, 2 * d)}$ <br><br>`
+        ${miseEnEvidence(`${deprecatedTexFraction(d + n, 2 * d)} ${simplificationDeFractionAvecEtapes(d + n, 2 * d)}`)}$ <br><br>`
     this.correction += texteEnCouleur(` Mentalement : <br>
-        On calcule d'abord  $1+${deprecatedTexFraction(n, d)}$ en n'oubliant pas que $1=\\dfrac{${d}}{${d}}$, puis on multiplie le résultat par $\\dfrac{1}{2}$. `)
+        On calcule d'abord  $1+${deprecatedTexFraction(n, d)}$ en n'oubliant pas que $1=\\dfrac{${d}}{${d}}$, puis on multiplie le résultat par $\\dfrac{1}{2}$. `, 'blue')
 
     this.reponse = texFractionReduite(d + n, 2 * d)
     this.canEnonce = this.question// 'Compléter'
