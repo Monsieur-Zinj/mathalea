@@ -1,5 +1,5 @@
 import { specialKeys, numeric } from '../layouts/keyboardBlocks'
-import { keys } from '../layouts/keycaps'
+import { GAP_BETWEEN_KEYS, KEYCAP_WIDTH, keys } from '../layouts/keycaps'
 export type Keys = keyof typeof keys
 export type KeysList = Keys[]
 
@@ -52,5 +52,10 @@ export class Keyboard {
    * Calcule le nombre total de touches dans le clavier
    * @returns nombre total de touches
    */
-  numberOfKeys = ():number => this.numberOfKeysPerBlock().reduce((prev, current) => prev + current)
+  numberOfKeys = (): number => this.numberOfKeysPerBlock().reduce((prev, current) => prev + current)
+}
+
+export const inLineBlockWidth = (block: KeyboardBlock, mode: 'sm' | 'md'): number => {
+  const numberOfKeys = block.keycaps.inline.length
+  return numberOfKeys * KEYCAP_WIDTH[mode] + (numberOfKeys - 1) * GAP_BETWEEN_KEYS[mode]
 }

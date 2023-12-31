@@ -1,12 +1,12 @@
 <script lang="ts">
 import Key from './Keycap.svelte'
-  import { keys, GAP_BETWEEN_KEYS } from './layouts/keycaps'
+  import { keys, GAP_BETWEEN_KEYS, SM_BREAKPOINT } from './layouts/keycaps'
   import type { KeyboardBlock } from './types/keyboardContent'
   export let innerWidth: number
   export let block: KeyboardBlock
   export let isSpecial: boolean = false
   export let isInLine: boolean = false
-  $: gapsize = innerWidth <= 768 ? GAP_BETWEEN_KEYS.sm : GAP_BETWEEN_KEYS.md
+  $: gapsize = innerWidth <= SM_BREAKPOINT ? GAP_BETWEEN_KEYS.sm : GAP_BETWEEN_KEYS.md
 </script>
 {#if isInLine}
 <div class="grid grid-cols-{block.keycaps.inline.length} customgap h-full" style="--gapsize:{gapsize};">

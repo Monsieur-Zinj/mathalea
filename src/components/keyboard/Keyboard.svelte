@@ -3,14 +3,46 @@
   import { keyboardState } from '../stores/generalStore'
   import { mathaleaRenderDiv } from '../../lib/mathalea'
   import { fly } from 'svelte/transition'
-  import { Keyboard } from './types/keyboardContent'
-  import { fullOperations, numeric, variables, greek } from './layouts/keyboardBlocks'
+  import {
+    Keyboard,
+    inLineBlockWidth,
+    type KeyboardBlock
+  } from './types/keyboardContent'
+  import {
+    fullOperations,
+    numeric,
+    variables,
+    greek
+  } from './layouts/keyboardBlocks'
   import KeyboardPage from './KeyboardPage.svelte'
+  import { SM_BREAKPOINT, GAP_BETWEEN_BLOCKS } from './layouts/keycaps'
 
   export let innerWidth: number
 
-  const myKeyboard = new Keyboard(fullOperations).add(numeric).add(variables).add(greek)
-  // const specialKeys: KeyboardBlock = myKeyboard.blocks[0]
+  const myKeyboard = new Keyboard(fullOperations)
+    .add(numeric)
+    .add(variables)
+    .add(greek)
+  const mode = innerWidth < SM_BREAKPOINT ? 'sm' : 'md'
+  const pages: KeyboardBlock[][] = []
+  let pageWidth: number = 0
+  let page: KeyboardBlock[] = []
+  const blockList = [...myKeyboard.blocks].reverse()
+  while (blockList.length > 0) {
+    const block = blockList.pop()
+    pageWidth =
+      pageWidth + inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]
+    page.push(block!)
+    if (pageWidth > 0.7 * innerWidth) {
+      pages.push(page.reverse())
+      page = []
+      pageWidth = 0
+    }
+  }
+  if (page.length !== 0) {
+    pages.push(page.reverse())
+  }
+  let currentPageIndex = 0
   let divKeyboard: HTMLDivElement
   let reduced: boolean = false
 
@@ -37,7 +69,7 @@
   <div
     transition:fly={{ y: '100%', opacity: 1 }}
     bind:this={divKeyboard}
-    class="bg-coopmaths-struct dark:bg-coopmathsdark-struct p-4 w-full fixed bottom-0 left-0 right-0 z-[9999]"
+    class="bg-coopmaths-struct dark:bg-coopmathsdark-struct-dark p-4 w-full fixed bottom-0 left-0 right-0 z-[9999]"
   >
     {#if !reduced}
       <KeyboardPage
@@ -48,22 +80,38 @@
     {:else}
       <div class="relative px-10">
         <KeyboardPage
-          blocks={[...myKeyboard.blocks].reverse()}
+          blocks={pages[currentPageIndex]}
           isInLine={true}
           {innerWidth}
         />
 
-      <button
-      class="absolute right-0 top-0 bottom-0 m-auto text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-    >
-      <i class="bx bx-chevrons-right bx-lg" />
-    </button>
+        <button
+          class="absolute right-0 top-0 bottom-0 m-auto text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
+          on:click={async () => {
+            if (currentPageIndex !== 0) {
+              currentPageIndex--
+            }
+            await tick()
+            mathaleaRenderDiv(divKeyboard)
+          }}
+          disabled={pages.length === 1 || currentPageIndex === 0}
+        >
+          <i class="bx bx-chevrons-right bx-lg" />
+        </button>
 
-    <button
-    class="absolute left-0 top-0 bottom-0 m-auto  text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-  >
-    <i class="bx bx-chevrons-left bx-lg" />
-  </button>
+        <button
+          class="absolute left-0 top-0 bottom-0 m-auto text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
+          on:click={async () => {
+            if (currentPageIndex !== pages.length - 1) {
+              currentPageIndex++
+            }
+            await tick()
+            mathaleaRenderDiv(divKeyboard)
+          }}
+          disabled={pages.length === 1 || currentPageIndex === pages.length - 1}
+        >
+          <i class="bx bx-chevrons-left bx-lg" />
+        </button>
       </div>
     {/if}
     <button

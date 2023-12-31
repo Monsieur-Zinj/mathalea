@@ -1,17 +1,17 @@
 <script lang="ts">
   import Block from './KeyboardBlock.svelte'
   import type { KeyboardBlock } from './types/keyboardContent'
-  import { GAP_BETWEEN_BLOCKS } from './layouts/keycaps'
+  import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT } from './layouts/keycaps'
 
   export let innerWidth: number
   export let blocks: KeyboardBlock[]
   export let isInLine: boolean
   $: blockgapsize =
-    innerWidth <= 768 ? GAP_BETWEEN_BLOCKS.sm : GAP_BETWEEN_BLOCKS.md
+    innerWidth <= SM_BREAKPOINT ? GAP_BETWEEN_BLOCKS.sm : GAP_BETWEEN_BLOCKS.md
 </script>
 
 <div
-  class="bg-coopmaths-struct dark:bg-coopmathsdark-struct flex flex-row blockgap items-start justify-center w-full"
+  class="bg-coopmaths-struct dark:bg-coopmathsdark-struct-dark flex flex-row blockgap items-start justify-center w-full"
   style="--blockgapsize:{blockgapsize}"
 >
   {#each blocks as block}

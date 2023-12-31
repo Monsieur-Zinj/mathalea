@@ -42,13 +42,14 @@
   import Footer from './Footer.svelte'
   import ChipsList from './ui/ChipsList.svelte'
   import Keyboard from './keyboard/Keyboard.svelte'
+  import { SM_BREAKPOINT } from './keyboard/layouts/keycaps'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
   let chipsListDisplayed: boolean = false
   let sidenavOpen: boolean = false
   let innerWidth = 0
-  $: mdBreakpointDetection = innerWidth < 768
+  $: mdBreakpointDetection = innerWidth < SM_BREAKPOINT
   /**
    * Démarrage
    */
