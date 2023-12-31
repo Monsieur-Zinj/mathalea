@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { texteExposant } from '../../lib/outils/ecritures.js'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -63,7 +63,7 @@ export default function VolumeBoule () {
           texte += 'Calculer le volume' + (context.isAmc ? `, en ${choixUnites}` + texteExposant(3) + ',' : '') + ` d'une boule de rayon ${r} ${choixUnites}. Arrondir au dixième. `
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${r} \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr += 'Le volume de la boule est donc environ : ' + texteEnCouleurEtGras(texNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
+          texteCorr += 'Le volume de la boule est donc environ : ' + texteEnCouleurEtGras(stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
           break
 
         case 2:
@@ -73,7 +73,7 @@ export default function VolumeBoule () {
           texteCorr += 'Le volume d\'une boule est donné par la formule : $V = \\dfrac{4}{3}\\pi r^3$. <br>'
           texteCorr += `Le rayon de la boule est la moitié de son diamètre, soit : ${d} ${choixUnites}. <br>`
           texteCorr += `On a donc : $V = \\dfrac{4}{3} \\times \\pi \\times (${d} \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr += 'Le volume de la boule est donc environ : ' + texteEnCouleurEtGras(texNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
+          texteCorr += 'Le volume de la boule est donc environ : ' + texteEnCouleurEtGras(stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
           break
 
         case 3:
@@ -89,7 +89,7 @@ export default function VolumeBoule () {
           reponse = Decimal.acos(-1).mul(4 * rayon ** 3).div(3).toDP(1)
           texteCorr += 'On obtient donc une valeur approchée de $r$ : $r \\approx ' + texNombre(rayon, 2) + `$ ${choixUnites}. <br>`
           texteCorr += 'On a donc : $V \\approx \\dfrac{4}{3} \\times \\pi \\times (' + texNombre(rayon, 2) + ` \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr += 'Le volume de la boule est donc environ : ' + texteEnCouleurEtGras(texNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
+          texteCorr += 'Le volume de la boule est donc environ : ' + texteEnCouleurEtGras(stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
           break
 
         case 4:
@@ -120,7 +120,7 @@ export default function VolumeBoule () {
           texteCorr += `Ici, le volume du cylindre est donc : $V_c = \\pi \\times (${rayon} \\text{ ${choixUnites}})^2 \\times (${2 * rayon}\\text{ ${choixUnites}})$. <br>`
           texteCorr += `Le volume de la boule est : $V_b = \\dfrac{4}{3} \\times \\pi \\times (${rayon} \\text{ ${choixUnites}})^3$. <br>`
           texteCorr += `Le volume cherché est donc donné par : $\\pi \\times (${rayon} \\text{ ${choixUnites}})^2 \\times (${2 * rayon}\\text{ ${choixUnites}}) - \\dfrac{4}{3} \\times \\pi \\times (${rayon} \\text{ ${choixUnites}})^3$. <br>`
-          texteCorr += 'Le volume cherché est environ : ' + texteEnCouleurEtGras(texNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
+          texteCorr += 'Le volume cherché est environ : ' + texteEnCouleurEtGras(stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
           break
       }
       // EE : C'est le setReponse qui renvoie une console rouge.
