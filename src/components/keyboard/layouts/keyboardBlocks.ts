@@ -24,6 +24,14 @@ const fullOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', '(', ')', 'SQRT', 'SQ', 'POW'],
   block: ['ADD', 'SUB', 'SQRT', 'MULT', 'DIV', 'SQ', '(', ')', 'POW']
 }
+const hmsCaps: CompleteKeysList = {
+  inline: ['HOUR', 'MIN', 'SEC'],
+  block: ['HOUR', 'MIN', 'SEC']
+}
+const greekCaps: CompleteKeysList = {
+  inline: ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA', 'OMEGA'],
+  block: ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA', 'OMEGA']
+}
 
 export const specialKeys: KeyboardBlock = {
   keycaps: specialKeysCaps,
@@ -47,4 +55,14 @@ export const basicOperations: KeyboardBlock = {
 export const fullOperations: KeyboardBlock = {
   keycaps: fullOperationCaps,
   cols: 3
+}
+
+export const hms: KeyboardBlock = {
+  keycaps: hmsCaps,
+  cols: 1
+}
+
+export const greek: KeyboardBlock = {
+  keycaps: greekCaps,
+  cols: 2
 }

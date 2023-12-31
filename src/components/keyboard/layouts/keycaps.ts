@@ -33,7 +33,7 @@ export const keys = {
   },
   SQRT: {
     // eslint-disable-next-line no-useless-escape
-    key: '$\\sqrt{~}$',
+    key: '$\\sqrt{\\square}$',
     insert: '\\sqrt{#@}'
   },
   SQ: {
@@ -45,7 +45,7 @@ export const keys = {
     insert: '^3'
   },
   POW: {
-    key: '$x^n$',
+    key: '$x^\\square$',
     insert: '#@^{#0}'
   },
   // ================== symbols
@@ -118,10 +118,42 @@ export const keys = {
     key: 'π',
     insert: '\\pi'
   },
+  ALPHA: {
+    key: 'α',
+    insert: '\\alpha'
+  },
+  BETA: {
+    key: 'β',
+    insert: '\\beta'
+  },
+  GAMMA: {
+    key: 'γ',
+    insert: '\\gamma'
+  },
+  DELTA: {
+    key: 'δ',
+    insert: '\\delta'
+  },
+  EPSILON: {
+    key: 'ε',
+    insert: '\\epsilon'
+  },
+  THETA: {
+    key: 'θ',
+    insert: '\\theta'
+  },
+  LAMBDA: {
+    key: 'λ',
+    insert: '\\lambda'
+  },
+  OMEGA: {
+    key: 'ω',
+    insert: '\\omega'
+  },
   // ================== hours, minutes, secondes
-  HOUR: { key: 'h' },
-  MIN: { key: 'min' },
-  SEC: { key: 's' },
+  HOUR: { key: 'h', insert: '{\\:\\text{h}\\:}' },
+  MIN: { key: 'min', insert: '{\\:\\text{min}\\:}' },
+  SEC: { key: 's', insert: '{\\:\\text{s}\\:}' },
   // ================== special keys
   BACK: {
     key: '<i class="bx bx-arrow-back bx-xs md:bx-sm"/>',

@@ -4,12 +4,12 @@
   import { mathaleaRenderDiv } from '../../lib/mathalea'
   import { fly } from 'svelte/transition'
   import { Keyboard } from './types/keyboardContent'
-  import { fullOperations, numeric, variables } from './layouts/keyboardBlocks'
+  import { fullOperations, numeric, variables, greek } from './layouts/keyboardBlocks'
   import KeyboardPage from './KeyboardPage.svelte'
 
   export let innerWidth: number
 
-  const myKeyboard = new Keyboard()
+  const myKeyboard = new Keyboard(fullOperations).add(numeric).add(variables).add(greek)
   // const specialKeys: KeyboardBlock = myKeyboard.blocks[0]
   let divKeyboard: HTMLDivElement
   let reduced: boolean = false
