@@ -186,24 +186,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           while ((resultat !== 'OK') && (ii < reponses.length)) {
             reponse = reponses[ii]
             switch (formatInteractif) {
-              case 'Num':
-                num = parseInt(champTexte.value.replace(',', '.'))
-                if (isNaN(num) || num === undefined) num = 9999
-                den = reponse.den
-                fSaisie = new FractionEtendue(num, den)
-                if (fSaisie.isEqual(reponse)) {
-                  resultat = 'OK'
-                }
-                break
-              case 'Den':
-                den = parseInt(champTexte.value.replace(',', '.'))
-                if (isNaN(den) || den === undefined) den = 9999
-                num = reponse.num
-                fSaisie = new FractionEtendue(num, den)
-                if (fSaisie.isEqual(reponse)) {
-                  resultat = 'OK'
-                }
-                break
               case 'calcul':
                 // Le format par défaut
                 saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
