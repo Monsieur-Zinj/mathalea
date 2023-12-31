@@ -572,6 +572,25 @@
             }
           },
           "typeExercice": "alea"
+        },
+        "canc3a-NY2024": {
+          "url": "can/c3/canc3a-NY2024.js",
+          "tags": [],
+          "uuid": "5c15e",
+          "id": "canc3a-NY2024",
+          "titre": "CAN Spéciale année 2024 - CM",
+          "datePublication": "01/01/2024",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
         }
       }
     },
@@ -689,6 +708,25 @@
             "amc": {
               "isActive": true,
               "type": "AMCNum"
+            }
+          },
+          "typeExercice": "alea"
+        },
+        "can6a-NY2024": {
+          "url": "can/6e/can6a-NY2024.js",
+          "tags": [],
+          "uuid": "49fcb",
+          "id": "can6a-NY2024",
+          "titre": "CAN Spéciale année 2024 - 6ème",
+          "datePublication": "01/01/2024",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
             }
           },
           "typeExercice": "alea"
@@ -2561,6 +2599,25 @@
           },
           "typeExercice": "alea"
         },
+        "can5a-NY2024": {
+          "url": "can/5e/can5a-NY2024.js",
+          "tags": [],
+          "uuid": "53c5a",
+          "id": "can5a-NY2024",
+          "titre": "CAN Spéciale année 2024 - 5ème",
+          "datePublication": "01/01/2024",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
+        },
         "can5a-xxxx": {
           "url": "can/5e/can5a-xxxx.js",
           "tags": [],
@@ -3565,6 +3622,25 @@
             }
           },
           "typeExercice": "alea"
+        },
+        "can4a-NY2024": {
+          "url": "can/4e/can4a-NY2024.js",
+          "tags": [],
+          "uuid": "96476",
+          "id": "can4a-NY2024",
+          "titre": "CAN Spéciale année 2024 - 4ème",
+          "datePublication": "01/01/2024",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
         }
       },
       "can4C": {
@@ -4401,6 +4477,25 @@
           "titre": "CAN 3e sujet 2023",
           "datePublication": "03/04/2023",
           "dateModification": "24/10/2021",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
+        },
+        "can3a-NY2024": {
+          "url": "can/3e/can3a-NY2024.js",
+          "tags": [],
+          "uuid": "64c10",
+          "id": "can3a-NY2024",
+          "titre": "CAN Spéciale année 2024 - 3ème",
+          "datePublication": "01/01/2024",
           "features": {
             "interactif": {
               "isActive": true,
@@ -5345,6 +5440,25 @@
           "titre": "CAN Seconde sujet 2023",
           "datePublication": "03/04/2023",
           "dateModification": "24/10/2021",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
+        },
+        "can2a-NY2024": {
+          "url": "can/2e/can2a-NY2024.js",
+          "tags": [],
+          "uuid": "dd9d0",
+          "id": "can2a-NY2024",
+          "titre": "CAN Spéciale année 2024 - 2nde",
+          "datePublication": "01/01/2024",
           "features": {
             "interactif": {
               "isActive": true,
@@ -6820,6 +6934,25 @@
             }
           },
           "typeExercice": "alea"
+        },
+        "can1a-NY2024": {
+          "url": "can/1e/can1a-NY2024.js",
+          "tags": [],
+          "uuid": "ac288",
+          "id": "can1a-NY2024",
+          "titre": "CAN Spéciale année 2024 - 1ère",
+          "datePublication": "01/01/2024",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
         }
       },
       "can1F": {
@@ -8106,7 +8239,27 @@
       }
     },
     "Ex": {
-      "canExa": {},
+      "canExa": {
+        "canExa-NY2024": {
+          "url": "can/Ex/canExa-NY2024.js",
+          "tags": [],
+          "uuid": "60653",
+          "id": "canExa-NY2024",
+          "titre": "CAN Spéciale année 2024 - Terminale",
+          "datePublication": "01/01/2024",
+          "features": {
+            "interactif": {
+              "isActive": true,
+              "type": "'mathLive'"
+            },
+            "amc": {
+              "isActive": false,
+              "type": ""
+            }
+          },
+          "typeExercice": "alea"
+        }
+      },
       "canExC": {
         "canExC01": {
           "url": "can/Ex/canExC01.js",
@@ -18488,9 +18641,9 @@
         "typeExercice": "alea"
       },
       "3L11": {
-        "url": "3e/3L11new.js",
+        "url": "3e/3L11.js",
         "tags": [],
-        "uuid": "db2e0",
+        "uuid": "77a62",
         "id": "3L11",
         "titre": "Utiliser la simple distributivité",
         "features": {
