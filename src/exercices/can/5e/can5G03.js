@@ -12,7 +12,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
-export const titre = 'Compter les points symétriques manquant'
+export const titre = 'Compter les points symétriques manquants'
 export const dateDePublication = '18/12/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,15 +21,12 @@ export const amcType = 'AMCNum'
 
 /**
  * Symétrie centrale sur papier pointé
- * Ref can5G03
  * @author Jean-Claude Lhote
- * Publié le 18/12/2021
  */
 export const uuid = '36f08'
 export const ref = 'can5G03'
 export default function CompterlesSymetriquesCan5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -62,8 +59,8 @@ export default function CompterlesSymetriquesCan5e () {
       d = tracePoint(O, context.isHtml ? 'blue' : 'black')
       d.epaisseur = 2
       d.style = '+'
-      d.color =
-                objetsEnonce.push(d)
+      d.color = 'none'
+      objetsEnonce.push(d)
       pointsPossibles = papier.listeCoords.slice()
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
         image = rotation(point(pointsPossibles[0][0], pointsPossibles[0][1]), O, 180)

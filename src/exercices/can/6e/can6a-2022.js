@@ -30,7 +30,6 @@ export const dateDePublication = '13/04/2022' // La date de publication initiale
 /**
  * Aléatoirisation du sujet 2022 de CAN 6e
  * Gilles Mora
- * Référence can6a-2022
  */
 
 function compareNombres (a, b) {
@@ -41,9 +40,6 @@ export const uuid = 'b9634'
 export const ref = 'can6a-2022'
 export default function SujetCAN2022Sixieme () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -598,7 +594,9 @@ $${a + 1}$ h et $${reponse}$ min.`
             objets = []
             objets.push(
               texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.5),
-              a, s1, s2, labelPoint(A, B), A, B)
+              a, s1, s2, labelPoint(A, B)
+              // A, B
+            )
             reponse = fraction(b, 4)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
@@ -634,7 +632,9 @@ $${a + 1}$ h et $${reponse}$ min.`
             objets = []
             objets.push(
               texteParPosition('1 unité', milieu(C, D).x, milieu(C, D).y + 0.5),
-              a, s1, s2, labelPoint(A, B), A, B)
+              a, s1, s2, labelPoint(A, B)
+              // A, B
+            )
             reponse = fraction(b, 5)
             texte = `Quelle est la longueur du segment $[AB]$ ? <br>
             `
@@ -948,8 +948,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           nbChamps = 1
           break
       }
-
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
