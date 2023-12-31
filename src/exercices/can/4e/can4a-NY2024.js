@@ -4,7 +4,7 @@ export const titre = 'CAN Spéciale année 2024 - 4ème'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '96476'
-export const refOK = 'can4a-NY2024'
+export const ref = 'can4a-NY2024'
 export const dateDePublication = '01/01/2024'
 
 /**
