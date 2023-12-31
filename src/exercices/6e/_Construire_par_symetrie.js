@@ -170,7 +170,7 @@ export default class ConstruireParSymetrie extends Exercice {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, sc
-    if (parseInt(this.sup2) === 2) sc = 0.8
+    if (this.sup2 === 2) sc = 0.8
     else sc = 0.5
 
     let A; let AA; let cA; let sA
@@ -424,7 +424,7 @@ export default class ConstruireParSymetrie extends Exercice {
           sCE.pointilles = 5
           sED = droite(p2.listePoints[2], p2.listePoints[1], '', 'gray')
           sED.pointilles = 5
-          objetsCorrection.push(d, cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
+          objetsCorrection.push(d, cC, cD, cE, sC, sD, sE, CC, DD, p1, p2, sCE, sED)
           objetsEnonce.push(CC, p1, d)
           if (context.isHtml) {
             numQuestion = 0
@@ -481,7 +481,7 @@ export default class ConstruireParSymetrie extends Exercice {
           sCE.pointilles = 5
           sED = droite(p2.listePoints[2], p2.listePoints[1], '', 'gray')
           sED.pointilles = 5
-          objetsCorrection.push(d, cC, cD, cE, sC, sD, sE, CC, DD, p1, p1.sommets, p2, p2.sommets, sCE, sED)
+          objetsCorrection.push(d, cC, cD, cE, sC, sD, sE, CC, DD, p1, p2, sCE, sED)
           objetsEnonce.push(CC, p1, d)
           if (context.isHtml) {
             numQuestion = 0
@@ -591,7 +591,6 @@ export default class ConstruireParSymetrie extends Exercice {
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, AA.x, CC.x, DD.x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, AA.y, CC.y, DD.y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, AA.y, CC.y, DD.y) + 1)
-          correction = ''
           break
         case 7: // Symétrie centrale de triangle
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
@@ -635,7 +634,6 @@ export default class ConstruireParSymetrie extends Exercice {
           Xmax = Math.ceil(Math.max(A.x, B.x, C.x, D.x, p1.listePoints[0].x, p1.listePoints[1].x, p1.listePoints[2].x, p2.listePoints[0].x, p2.listePoints[1].x, p2.listePoints[2].x) + 1)
           Ymin = Math.floor(Math.min(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) - 1)
           Ymax = Math.ceil(Math.max(A.y, B.y, C.y, D.y, p1.listePoints[0].y, p1.listePoints[1].y, p1.listePoints[2].y, p2.listePoints[0].y, p2.listePoints[1].y, p2.listePoints[2].y) + 1)
-          correction = ''
           break
       }
       if (listeTypeDeQuestions[i] < 6) {
@@ -660,11 +658,10 @@ export default class ConstruireParSymetrie extends Exercice {
         k = 0.5
         carreaux = vide2d()
       }
-      enonce += mathalea2d(params
-        ,
+      enonce += mathalea2d(params,
         g, carreaux, ...objetsEnonce
       )
-      correction += mathalea2d(
+      correction = mathalea2d(
         params,
         g, carreaux, ...objetsCorrection
       )

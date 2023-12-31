@@ -15,10 +15,20 @@ export type Prefs = {
   verbose: boolean // Si true, affiche tous les messages de moindre importance loggés avec logIfVerbose()
 }
 
+export type Katex = {
+  elements: string[][]
+  locators: Locator[]
+  innerHTMLs: string[]
+  innerTexts: string[]
+}
+
 export type Question = {
   feedback?: 'OK' | 'KO'
   id: string // du type 0Q0
   innerText: string
+  innerHTML: string
   isCorrect: boolean
+  katex: Katex
   locator: Locator
+  numero: number
 }

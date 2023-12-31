@@ -1,4 +1,4 @@
-import { equal, largerEq, max } from 'mathjs'
+import { abs, acos, equal, largerEq, max, polynomialRoot, round } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { egal, randint } from '../../modules/outils.js'
 import { choice } from '../outils/arrayOutils.js'
@@ -83,7 +83,7 @@ export class Polynome {
       }
       const degMin = Math.min(this.deg, p.deg)
       for (let i = 0; i <= degMin; i++) {
-        if (p.monomes[i] !== this.monomes[i]) return false
+        if (!egal(p.monomes[i], this.monomes[i], 1e-15)) return false
       }
       for (let i = degMin + 1; i <= Math.max(p.deg, this.deg); i++) {
         if (i <= this.deg) {
@@ -112,24 +112,24 @@ export class Polynome {
           const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? ecritureAlgebrique(c) : rienSi1(c)
           switch (this.deg) {
             case 1:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
               break
             case 0:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
               break
             default:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x^${i}`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^${i}`
           }
           break
         }
         case 0:
-          maj = egal(c, 0, 1e-10) ? '' : ecritureAlgebrique(c)
+          maj = egal(c, 0, 1e-15) ? '' : ecritureAlgebrique(c)
           break
         case 1:
-          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
+          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
-          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
           break
       }
       maj = maj.replace(/\s/g, '').replace(',', '.')
@@ -151,24 +151,24 @@ export class Polynome {
           const coeffD = alg ? ecritureAlgebriqueSauf1(c) : this.deg === 0 ? c : rienSi1(c)
           switch (this.deg) {
             case 1:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x`
               break
             case 0:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
               break
             default:
-              maj = egal(c, 0, 1e-10) ? '' : `${coeffD}x^${i}`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^${i}`
           }
           break
         }
         case 0:
-          maj = egal(c, 0, 1e-10) ? '' : ecritureAlgebrique(c)
+          maj = egal(c, 0, 1e-15) ? '' : ecritureAlgebrique(c)
           break
         case 1:
-          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
+          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
-          maj = egal(c, 0, 1e-10) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
           break
       }
       res = maj + res
@@ -243,6 +243,13 @@ export class Polynome {
   derivee () {
     const coeffDerivee = this.monomes.map(function (el, i) { return el * i })
     coeffDerivee.shift()
+    for (let i = coeffDerivee.length - 1; i > 0; i--) {
+      if (coeffDerivee[i] === 0) {
+        coeffDerivee.pop()
+        continue
+      }
+      break
+    }
     return new Polynome({ coeffs: coeffDerivee })
   }
 
@@ -254,6 +261,38 @@ export class Polynome {
     let coeffPrimitive = this.monomes.map((el, i) => el / (i + 1))
     coeffPrimitive = [0, ...coeffPrimitive]
     return new Polynome({ coeffs: coeffPrimitive })
+  }
+
+  racines () {
+    const antecedents = []
+    if (this.monomes.slice(1).filter(el => el !== 0).length === 0) {
+      return null
+    }
+    const liste = polynomialRoot(...this.monomes)
+    for (const valeur of liste) {
+      let arr
+      if (typeof valeur === 'number') {
+        arr = round(valeur, 3)
+      } else { // complexe !
+        const module = valeur.toPolar().r
+        if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
+          arr = 0
+        } else {
+          const argument = valeur.arg()
+          if (abs(argument) < 0.01 || abs((abs(argument) - acos(-1))) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
+            arr = round(valeur.re, 3) // on prend la partie réelle
+          } else {
+            arr = null // c'est une vraie racine complexe, du coup, on prend null
+          }
+        }
+      }
+      if (arr !== null) {
+        if (!antecedents.includes(arr)) {
+          antecedents.push(arr)
+        }
+      }
+    }
+    return antecedents
   }
 
   /**

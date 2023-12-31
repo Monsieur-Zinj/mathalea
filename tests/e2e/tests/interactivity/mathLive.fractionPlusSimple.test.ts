@@ -1,0 +1,33 @@
+import FractionEtendue from '../../../../src/modules/FractionEtendue'
+import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
+import type { Page } from 'playwright'
+
+async function testFractionSimplifiee (page: Page) {
+  // Ce test s'assure que les fractions simplifiée pas au maximum sont acceptées
+  // et qu'une fraction égale (celle de l'énoncé) mais pas simplifiée n'est pas acceptée
+  const urlExercice = 'http://localhost:5173/alea/?uuid=f8f4e&id=5N13&n=50&d=10&s=50&s2=false&alea=EeW9&i=1&cd=1'
+  const questions = await getQuestions(page, urlExercice)
+
+  for (const question of questions) {
+    const den = Number(question.katex.elements[0][0])
+    const num = Number(question.katex.elements[0][1])
+    const fraction = new FractionEtendue(num, den)
+    let reponse = ''
+    if (question.isCorrect) {
+      reponse = `${fraction.n}/${fraction.d}` // fraction irréductible
+      for (const k of [2, 3, 5, 7, 11, 13, 17, 19, 23]) {
+        if (num % k === 0 && den % k === 0) {
+          reponse = `${num / k}/${den / k}` // fraction simplifiée mais pas forcément irréductible
+          break
+        }
+      }
+    } else {
+      reponse = `${fraction.num}/${fraction.den}` // fraction égale mais non simplifiée
+    }
+    await inputAnswer(page, question, reponse)
+  }
+
+  await checkFeedback(page, questions)
+  return true
+}
+runTest(testFractionSimplifiee, import.meta.url, { pauseOnError: false })

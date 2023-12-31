@@ -471,7 +471,7 @@
                       <Exercice
                         {paramsExercice}
                         indiceExercice={i}
-                        indiceLastExercice={$exercicesParams.length}
+                        indiceLastExercice={$exercicesParams.length - 1}
                       />
                     </div>
                   {/each}
@@ -577,7 +577,7 @@
                     <Exercice
                       {paramsExercice}
                       indiceExercice={i}
-                      indiceLastExercice={$exercicesParams.length}
+                      indiceLastExercice={$exercicesParams.length - 1}
                     />
                   </div>
                 {/each}

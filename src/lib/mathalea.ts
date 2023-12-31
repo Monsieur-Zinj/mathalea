@@ -220,6 +220,7 @@ export function mathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
       strict: 'warn',
       trust: false
     })
+    document.dispatchEvent(new window.Event('katexRendered'))
   }
   renderScratch('body')
   const params = get(globalOptions)

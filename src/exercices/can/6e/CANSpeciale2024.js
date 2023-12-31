@@ -1,33 +1,33 @@
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
-import { ecritureAlgebrique, rienSi1, reduirePolynomeDegre3, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures.js'
-import { arrondi, abs, range } from '../../lib/outils/nombres.js'
-import { codageSegments } from '../../lib/2d/codages.js'
-import { codageAngleDroit } from '../../lib/2d/angles.js'
-import { milieu, point } from '../../lib/2d/points.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition, labelPoint, latexParCoordonnees } from '../../lib/2d/textes.js'
-import { droiteGraduee } from '../../lib/2d/reperes.js'
-import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
-import { texNombre, stringNombre } from '../../lib/outils/texNombre.js'
-import Exercice from '../Exercice.js'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils.js'
+import { ecritureAlgebrique, rienSi1, reduirePolynomeDegre3, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
+import { arrondi, abs, range } from '../../../lib/outils/nombres.js'
+import { codageSegments } from '../../../lib/2d/codages.js'
+import { codageAngleDroit } from '../../../lib/2d/angles.js'
+import { milieu, point } from '../../../lib/2d/points.js'
+import { segment } from '../../../lib/2d/segmentsVecteurs.js'
+import { texteParPosition, labelPoint, latexParCoordonnees } from '../../../lib/2d/textes.js'
+import { droiteGraduee } from '../../../lib/2d/reperes.js'
+import { creerNomDePolygone, sp } from '../../../lib/outils/outilString.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
+import { texNombre, stringNombre } from '../../../lib/outils/texNombre.js'
+import Exercice from '../../Exercice.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import Hms from '../../modules/Hms'
-import { prenomF } from '../../lib/outils/Personne.js'
-import { context } from '../../modules/context.js'
+import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import Hms from '../../../modules/Hms'
+import { prenomF } from '../../../lib/outils/Personne.js'
+import { context } from '../../../modules/context.js'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '8ff87'
+export const uuid = '6ca15'
 export const ref = ''
-export const dateDePublication = '20/12/2023'
+export const dateDePublication = '01/01/2024'
 
-export default function CourseAuxNombres2024 () {
+export default function CourseAuxNombresSpeciale2024 () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
@@ -59,11 +59,11 @@ export default function CourseAuxNombres2024 () {
     }
     const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
 */
-    let niveauAttendu = !this.sup ? 8 : this.sup
+    let niveauAttendu = this.sup === 0 ? 0 : !this.sup ? 8 : parseInt(this.sup) // Ce parseInt est nécessaire car le formulaire est un texte
     if (isNaN(niveauAttendu) || (niveauAttendu > 7)) {
       niveauAttendu = choice(range(7)) // Niveau au Hasard
     }
-
+    /*
     let niveauChoisi = ''
     switch (niveauAttendu) {
       case 0 :
@@ -91,9 +91,9 @@ export default function CourseAuxNombres2024 () {
         niveauChoisi = 'CM2'
         break
     }
-    // this.consigne = 'Gilles, je te laisse modifier la consigne mais cela pourrait être du genre : <br>'
-    this.consigne = texteEnCouleurEtGras('Course Aux Nombres 2024 de niveau ', 'blue') + texteEnCouleurEtGras(niveauChoisi, 'red') + '<br>'
 
+   this.consigne = texteEnCouleurEtGras('Course Aux Nombres 2024 de niveau ', 'blue') + texteEnCouleurEtGras(niveauChoisi, 'red') + '<br>'
+*/
     const listeCAN = [ // Pour chaque question de la CAN, on établit un tableau  :
       // Chaque élément correspond à la difficulté pour un niveau.
       // L'élément 0 est pour la terminale, ..., l'élément 2 pour la 2nde, ..., l'élément 6 pour la 6ème,
@@ -407,7 +407,7 @@ export default function CourseAuxNombres2024 () {
           const a = new Decimal(2024).div(new Decimal(10).pow(exposant))
           texte = `Écriture scientifique de $${texNombre(a)}$`
           reponse = `2,024\\times 10^{${3 - exposant}}`
-          texteCorr = `L'écriture scientifique de $${texNombre(2024)}$ est $${miseEnEvidence(`${reponse}`)}$.`
+          texteCorr = `L'écriture scientifique de $${texNombre(a)}$ est $${miseEnEvidence(`${reponse}`)}$.`
           setReponse(this, index, reponse)
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
@@ -473,7 +473,7 @@ export default function CourseAuxNombres2024 () {
           } else {
             reponse = 202400
             texte = `$${texNombre(2024)}$ m  $=$ `
-            texteCorr = ` Comme $1$ m $=100$ cm,  alors $${texNombre(2024)}$ m$=${miseEnEvidence(texNombre(202400))}$ cm.`
+            texteCorr = ` Comme $1$ m $=100$ cm,  alors $${texNombre(2024)}$ m$${sp()}=${sp()}${miseEnEvidence(texNombre(202400))}$ cm.`
             setReponse(this, index, reponse)
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore') + 'cm'
@@ -566,11 +566,11 @@ export default function CourseAuxNombres2024 () {
         case 17: {
           const a = randint(2040, 2080)
           const prenom = prenomF(1)
-          texte = 'Si ' + prenom + ` naît en $${texNombre(2024)}$, quel âge aura-t-elle en $${texNombre(a)}$ ?`
+          texte = 'Si ' + prenom + ` naît en $2024$, quel âge aura-t-elle en $${a}$ ?`
           reponse = a - 2024
-          texteCorr = prenom + ` aura $(${texNombre(a)}-${texNombre(2024)})$ ans, soit $${miseEnEvidence(texNombre(reponse))}$ ans.`
+          texteCorr = prenom + ` aura $(${a}-${2024})$ ans, soit $${miseEnEvidence(texNombre(reponse))}$ ans.`
           setReponse(this, index, reponse)
-          texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: ' ans' })
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
         }
@@ -648,6 +648,7 @@ export default function CourseAuxNombres2024 () {
               labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(abs1)}`], [2, `${stringNombre(abs2)}`]],
               pointListe: [[x1, '']]
             })
+            reponse = new Decimal(x1).add(abs0)
             texteCorr = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $4$ intervalles.<br>
              Une graduation correspond donc à $0,25$ unité. Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(reponse, 2))}$.`
           } else {
@@ -668,10 +669,10 @@ export default function CourseAuxNombres2024 () {
               labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(abs1)}`], [2, `${stringNombre(abs2)}`]],
               pointListe: [[x1, '']]
             })
+            reponse = new Decimal(x1).add(abs0)
             texteCorr = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $5$ intervalles.<br>
              Une graduation correspond donc à $0,2$ unité. Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(reponse, 2))}$.`
           }
-          reponse = new Decimal(x1).add(abs0)
           texte = 'Déterminer l\'abscisse du point $A$ ci-dessous'
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' :' })
           texte += '<br>' + mathalea2d({ xmin: -0.7, ymin: -1.5, xmax: 10, ymax: 1.5, pixelsParCm: 35, scale: 0.75 }, texteParPosition('A', 4 * x1, 0.8, 'milieu', 'blue', 2), d)
@@ -696,8 +697,8 @@ export default function CourseAuxNombres2024 () {
               break
           }
           reponse = new FractionEtendue(2024, d).simplifie()
-          texte = `Écrire le plus simplement possible : $\\dfrac{${n}}{${d}}$`
-          texteCorr = `$\\dfrac{${n}}{${d}}=${miseEnEvidence(reponse)}$`
+          texte = `Écrire le plus simplement possible : $\\dfrac{${texNombre(n)}}{${texNombre(d)}}$`
+          texteCorr = `$\\dfrac{${texNombre(n)}}{${texNombre(d)}}=${miseEnEvidence(reponse)}$`
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' =' })
           this.listeCanEnonces.push(texte)
@@ -709,7 +710,7 @@ export default function CourseAuxNombres2024 () {
           reponse = randint(-9, 9, [-1, 0, 1])
           const b = -a * reponse + 2024
           texte = `Donner la solution de l'équation : $${a}x+${texNombre(b)}=${texNombre(2024)}$.`
-          texteCorr = `On procède par étapes successives :<br>
+          texteCorr = `On procède par étapes successives.<br>
               On commence par isoler $${a}x$ dans le membre de gauche en ajoutant
               $${ecritureAlgebrique(-b)}$ dans chacun des membres, puis on divise
               par $${a}$ pour obtenir la solution : <br>
@@ -918,7 +919,7 @@ export default function CourseAuxNombres2024 () {
             texte = `Le périmètre de ce triangle est  $${texNombre(2 * a + b)}$ cm. Quelle est la longueur manquante ?`
             reponse = a
             texteCorr = `Le triangle est isocèle, il possède donc deux longueurs égales.<br>
-                Puisque le périmètre est  $${texNombre(2 * a + b)}$ cm, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${2 * a + b}-${b}=${2 * a}$ cm.<br>
+                Puisque le périmètre est  $${texNombre(2 * a + b)}$ cm, on obtient la somme des deux longueurs égales  du triangle en effectuant la différence $${texNombre(2 * a + b)}-${texNombre(b)}=${texNombre(2 * a)}$ cm.<br>
                 On obtient la longueur cherchée en divisant par $2$, soit $${texNombre(2 * a)}\\div 2=${miseEnEvidence(texNombre(a))}$ cm.`
           }
           texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: ' cm' })
@@ -957,7 +958,7 @@ export default function CourseAuxNombres2024 () {
         }
           break
         case 32:{
-          const val = new Decimal(2024).div(choice([2, 20, 100, 1000]))
+          const val = new Decimal(2024).div(choice([100, 1000]))
           const coeff = randint(15, 59, [20, 30, 40, 50])
           const b = 100 - coeff
           const coeff2 = randint(2, 8)
@@ -981,12 +982,12 @@ export default function CourseAuxNombres2024 () {
           const choix = randint(1, 4)
           if (choix === 1) {
             texte = `What is the value of $2^{${texNombre(2024)}}-2^{${texNombre(2023)}}$ ? `
-            texteCorr = `$2^{${texNombre(2024)}}-2^{${texNombre(2023)}}=2^{${texNombre(2023)}}(2-1)=${miseEnEvidence('2023')}$`
-            reponse = 2
+            texteCorr = `$2^{${texNombre(2024)}}-2^{${texNombre(2023)}}=2^{${texNombre(2023)}}(2-1)=${miseEnEvidence(`2^{${texNombre(2023)}}`)}$`
+            reponse = '2^{2023}'
           } else if (choix === 2) {
             texte = `What is the value of $2^{${texNombre(2025)}}-2^{${texNombre(2024)}}$ ? `
-            texteCorr = `$2^{${texNombre(2025)}}-2^{${texNombre(2024)}}=2^{${texNombre(2024)}}(2-1)=${miseEnEvidence('2024')}$`
-            reponse = 2
+            texteCorr = `$2^{${texNombre(2025)}}-2^{${texNombre(2024)}}=2^{${texNombre(2024)}}(2-1)=${miseEnEvidence(`2^{${texNombre(2024)}}`)}$`
+            reponse = '2^{2024}'
           } else if (choix === 3) {
             texte = `What is the value of $-1^{${texNombre(2024)}}-(-1^{${texNombre(2024)}})$ ? `
             texteCorr = `$-1^{${texNombre(2024)}}-(-1^{${texNombre(2024)}})=-1-(-1)=${miseEnEvidence('0')}$`
@@ -1197,11 +1198,11 @@ export default function CourseAuxNombres2024 () {
               texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
                   <br>  $f(x)=a(x-\\alpha)^2+\\beta$
               <br>    Le changement de variation de la fonction $f$ se fait en $\\alpha$.
-              <br>  Ici,  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=
-             ${reduireAxPlusB(0, a)}(x-(\\underbrace{-${b}}_{\\alpha}))^2${ecritureAlgebrique(c)}$, d'où $\\alpha=-${b}$.
+              <br>  Ici,  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$
+              <br> Donc, $f(x)=${reduireAxPlusB(0, a)}(x-(\\underbrace{-${b}}_{\\alpha}))^2${ecritureAlgebrique(c)}$, d'où $\\alpha=-${b}$.
              <br> Le coefficient $${a}$ devant la parenthèse est strictement positif, la fonction est donc
              d'abord décroissante puis croissante (la parabole est "tournée vers le haut").
-             <br>  Ainsi, $f$ est croissante sur $${miseEnEvidence(`[-${b} \\, ;\\, +\\infty[`)}$.    `
+             <br>  Ainsi, $f$ est croissante sur $${miseEnEvidence(`[${texNombre(-b)} \\, ;\\, +\\infty[`)}$.    `
               reponse = [`]-${b};+\\infty[`, `[-${b};+\\infty[`]
             } else {
               texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
@@ -1211,7 +1212,7 @@ export default function CourseAuxNombres2024 () {
                Ici,  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$, d'où $\\alpha=${-b}$.
                <br>  Le coefficient $${a}$ devant la parenthèse est strictement positif, la fonction est donc
               d'abord décroissante puis croissante (la parabole est "tournée vers le haut").
-              <br>  Ainsi, $f$ est croissante sur $${miseEnEvidence(`[${-b} \\, ;\\, +\\infty[`)}$.    `
+              <br>  Ainsi, $f$ est croissante sur $${miseEnEvidence(`[${texNombre(-b)} \\, ;\\, +\\infty[`)}$.    `
               reponse = [`]${-b};+\\infty[`, `[${-b};+\\infty[`]
             }
           } else { // a < 0
@@ -1219,10 +1220,10 @@ export default function CourseAuxNombres2024 () {
               texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
                   <br>$f(x)=a(x-\\alpha)^2+\\beta$<br>
               Le changement de variation de la fonction $f$ se fait en $\\alpha$.
-              <br> Ici,  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}=
-             ${reduireAxPlusB(0, a)}(x-(\\underbrace{-${b}}_{\\alpha}))^2${ecritureAlgebrique(c)}$, d'où $\\alpha=-${b}$.
+              <br> Ici,  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$
+              <br> Donc, $f(x)=${reduireAxPlusB(0, a)}(x-(\\underbrace{-${b}}_{\\alpha}))^2${ecritureAlgebrique(c)}$, d'où $\\alpha=-${b}$.
              <br> Comme le coefficient $${a}$ devant la parenthèse est strictement négatif, la fonction est d'abord croissante puis décroissante (la parabole est "tournée vers le bas").
-             <br>    Ainsi, $f$ est croissante sur $${miseEnEvidence(`]-\\infty \\, ;\\, -${b}]`)}$.    `
+             <br>    Ainsi, $f$ est croissante sur $${miseEnEvidence(`]-\\infty \\, ;\\, ${texNombre(-b)}]`)}$.    `
               reponse = [`]-\\infty;-${b}[`, `]-\\infty;-${b}]`]
             } else {
               texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
@@ -1230,7 +1231,7 @@ export default function CourseAuxNombres2024 () {
                   <br> Le changement de variation de la fonction $f$ se fait en $\\alpha$.
                <br> Ici,  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$, d'où $\\alpha=${-b}$.
                <br> Comme le coefficient $${a}$ devant la parenthèse est strictement négatif, la fonction est d'abord croissante puis décroissante (la parabole est "tournée vers le bas").
-               Ainsi, $f$ est croissante sur $${miseEnEvidence(`]-\\infty \\, ;\\, ${-b}]`)}$.    `
+               Ainsi, $f$ est croissante sur $${miseEnEvidence(`]-\\infty \\, ;\\, ${texNombre(-b)}]`)}$.    `
               reponse = [`]-\\infty;${-b}[`, `]-\\infty;${-b}]`]
             }
           }
@@ -1243,8 +1244,8 @@ export default function CourseAuxNombres2024 () {
         case 43: {
           const date = randint(27, 30)
           const nbre = randint(1, 23)
-          texte = `Nous étions le $${date}$ décembre $${texNombre(2023)}$. Il était $${nbre}$ h${nbre < 12 ? ' du matin' : ''}.<br>
-                  Combien  d'heures fallait-il attendre avant de pouvoir se souhaiter la nouvelle année $${texNombre(2024)}$ (à minuit le $31$ décembre $${texNombre(2023)}$) ? <br>`
+          texte = `Nous étions le $${date}$ décembre $2023$. Il était $${nbre}$ h${nbre < 12 ? ' du matin' : ''}.<br>
+                  Combien  d'heures fallait-il attendre avant de pouvoir se souhaiter la nouvelle année $2024$ (à minuit le $31$ décembre $2023$) ? <br>`
           texteCorr = ` Jusqu'au $${date}$ décembre minuit, il y a $${24 - nbre}$ heures.  <br>
               Du $${date + 1}$ (0 h) au $31$ décembre (minuit), il y a $${31 - date}$ jour${31 - date > 1 ? 's' : ''}, soit $${24 * (31 - date)}$ heures. <br>
               Il faudra donc attendre $${24 * (31 - date)}+${24 - nbre}$ heures, soit $${miseEnEvidence(24 * (31 - date) + 24 - nbre)}$ heures avant de se souhaiter la bonne année.
@@ -1359,7 +1360,7 @@ export default function CourseAuxNombres2024 () {
           const dec = new Decimal(a).div(puissance10)
           reponse = `\\dfrac{${a}}{10^{${puissance}}}`
           setReponse(this, index, reponse)
-          texte = `Écrire $${texNombre(dec, 5)}$ sous la forme $\\dfrac{a}{10^n}$ avec $a\\in \\mathbb{Z}$ et $n\\in \\mathbb{N}$`
+          texte = `Écrire $${texNombre(dec, 5)}$ sous la forme $\\dfrac{a}{10^n}$ avec $a\\in \\mathbb{Z}$ et $n\\in \\mathbb{N}$, $n$ le plus petit possible`
           texteCorr = `$${texNombre(dec, 5)}=${miseEnEvidence(`\\dfrac{${texNombre(a, 0)}}{10^{${puissance}}}`)}$`
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' :' })
           this.listeCanEnonces.push(texte)
@@ -1565,7 +1566,7 @@ export default function CourseAuxNombres2024 () {
           const a = choice([-1, 1])
           const c = choice([-1, 1])
           const b = randint(1, 4) * c
-          texte = `Quel est le coefficient directeur de la tangente au point d'abscisse $${texNombre(2024)}$ de la courbe d'équation $y=${reduirePolynomeDegre3(0, a, b, 2024)}$.  `
+          texte = `Quel est le coefficient directeur de la tangente au point d'abscisse $${texNombre(2024)}$ de la courbe d'équation $y=${reduirePolynomeDegre3(0, a, b, 2024)}$ ?`
           texteCorr = `Si $f$ est la fonction définie par $f(x)=${reduirePolynomeDegre3(0, a, b, 2024)}$, le coeffcient directeur de la tangente au point d'abscisse  $${texNombre(2024)}$ est donné par le nombre dérivé  $f'(${texNombre(2024)})$.<br>
               Comme $f'(x)=${reduireAxPlusB(2 * a, b)}$, $f'(${texNombre(2024)})=${texNombre(2 * a)}\\times ${texNombre(2024)}${ecritureAlgebrique(b)}= ${miseEnEvidence(`${texNombre(2 * a * 2024 + b)}`)}$.
                `
@@ -1613,18 +1614,18 @@ export default function CourseAuxNombres2024 () {
           const a = randint(5, 15)
           const c = 2024 - a
           const b = 2024 + a
-          const listeNombre1 = ['2024', b, c]
+          const listeNombre1 = [2024, b, c]
           const Nombre1 = shuffle(listeNombre1)
-          const listeNombre2 = ['2024', 2024 - a, 2024 - 2 * a]
+          const listeNombre2 = [2024, 2024 - a, 2024 - 2 * a]
           const Nombre2 = shuffle(listeNombre2)
           if (choix === 1) {
-            texte = `On donne la série de nombres : $${texNombre(Nombre1[0])}$${sp(2)} ; ${sp(2)} $${texNombre(Nombre1[1])}$ ${sp(2)} ; ${sp(2)}$${texNombre(Nombre1[2])}$<br>
+            texte = `On donne la série de nombres : $${texNombre(Nombre1[0])}$${sp(2)} ; ${sp(2)} $${texNombre(Nombre1[1])}$ ${sp(2)} ; ${sp(2)}$${texNombre(Nombre1[2])}$.<br>
               Quelle est la moyenne de cette série ?`
             texteCorr = `On remarque que $${texNombre(c)}=${texNombre(2024)}-${a}$ et $${texNombre(b)}=${texNombre(2024)}+${a}$, donc la moyenne est $${miseEnEvidence(`${texNombre(2024)}`)}$.`
             reponse = '2024'
           }
           if (choix === 2) {
-            texte = `On donne la série de nombres : $${texNombre(Nombre2[0])}$${sp(2)} ; ${sp(2)} $${texNombre(Nombre2[1])}$ ${sp(2)} ; ${sp(2)}$${texNombre(Nombre2[2])}$<br>
+            texte = `On donne la série de nombres : $${texNombre(Nombre2[0])}$${sp(2)} ; ${sp(2)} $${texNombre(Nombre2[1])}$ ${sp(2)} ; ${sp(2)}$${texNombre(Nombre2[2])}$.<br>
             Quelle est la moyenne de cette série ?`
             texteCorr = `On remarque que $${texNombre(2024)}=${texNombre(2024 - a)}+${a}$ et $${texNombre(2024 - 2 * a)}=${texNombre(2024 - a)}-${a}$, donc la moyenne est $${miseEnEvidence(`${texNombre(2024 - a)}`)}$.`
             reponse = `${2024 - a}`
@@ -1663,7 +1664,7 @@ export default function CourseAuxNombres2024 () {
           texte = `${P} a acheté un scooter électrique coûtant $${texNombre(2024)}$ €. 
             Elle règle $${texNombre(a)}$ € à la livraison du scooter puis règlera la moitié du montant restant le mois suivant. <br>
             Quelle somme lui restera-t-il à payer ensuite pour le dernier versement ?  `
-          texteCorr = `Après le premier versement de $${texNombre(a)}$, ${P} doit encore payer $${texNombre(2024 - a)}$ €. <br>
+          texteCorr = `Après le premier versement de $${texNombre(a)}$ €, ${P} doit encore payer $${texNombre(2024 - a)}$ €. <br>
             La moitié de $${texNombre(2024 - a)}$ € est $${texNombre((2024 - a) / 2, 0)}$ €. <br>
               Ainsi, son dernier versement sera de $${miseEnEvidence(`${texNombre((2024 - a) / 2, 0)}`)}$ €.
                    `
@@ -1891,7 +1892,7 @@ export default function CourseAuxNombres2024 () {
               texte = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et
       $${nom[3]}${nom[4]}=${texNombre(a)}$.<br>
       Calculer $${nom[1]}${nom[2]}$`
-              texteCorr = ` Les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$ sont 2 fois plus grandes que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
+              texteCorr = ` Les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$ sont deux fois plus grandes que les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
       Le triangle $${nom[0]}${nom[1]}${nom[2]}$ est un agrandissement du triangle $${nom[0]}${nom[3]}${nom[4]}$.<br>
       Ainsi : $${nom[1]}${nom[2]}=2\\times ${nom[3]}${nom[4]}=2\\times ${texNombre(a)}=${miseEnEvidence(`${texNombre(2 * a)}`)}$.
   `
@@ -1900,7 +1901,7 @@ export default function CourseAuxNombres2024 () {
               texte = `$(${nom[3]}${nom[4]})//(${nom[1]}${nom[2]})$ et
        $${nom[1]}${nom[2]}=${texNombre(a)}$. <br>
          Calculer $${nom[3]}${nom[4]}$`
-              texteCorr = ` Les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont 2 fois plus petites que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
+              texteCorr = ` Les longueurs du triangle $${nom[0]}${nom[3]}${nom[4]}$ sont deux fois plus petites que les longueurs du triangle $${nom[0]}${nom[1]}${nom[2]}$.<br>
       Le triangle $${nom[0]}${nom[3]}${nom[4]}$ est une réduction du triangle $${nom[0]}${nom[1]}${nom[2]}$. <br>
             Ainsi : $${nom[3]}${nom[4]}= ${nom[1]}${nom[2]} \\div 2 = ${texNombre(a)}\\div 2 =${miseEnEvidence(`${texNombre(a / 2, 0)}`)}$.
      `
@@ -2501,7 +2502,7 @@ export default function CourseAuxNombres2024 () {
           reponse = reponse.floor()
           texte = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br>
             Combien va-t-il remplir de bouteilles pleines avec ses $${texNombre(2024)}$ kg d'olives cueillies ?`
-          texteCorr = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives, ce qui signifie que pour remplir $${1}$ bouteille d'huile, il utilise $${oliveParBouteille}$ kg d'olives car $${oliveK} \\div  ${nbreBouteilles} = ${oliveParBouteille}$.<br>`
+          texteCorr = `Pour remplir $${nbreBouteilles}$ bouteilles d'huile d'olive, Stéphane utilise $${oliveK}$ kg d'olives.<br> Cela signifie que pour remplir $1$ bouteille d'huile, il utilise $${oliveParBouteille}$ kg d'olives car $${oliveK} \\div  ${nbreBouteilles} = ${oliveParBouteille}$.<br>`
           if (new Decimal(2024).modulo(oliveParBouteille).equals(0)) {
             texteCorr += `Comme $${texNombre(2024)}=${texNombre(2000)}+${texNombre(24)}=${texNombre(new Decimal(2000).div(oliveParBouteille))}\\times ${oliveParBouteille}+${texNombre(new Decimal(24).div(oliveParBouteille).floor())}\\times ${oliveParBouteille}=${texNombre(reponse)}\\times ${oliveParBouteille}$, il peut remplir $${miseEnEvidence(reponse)}$ bouteilles d'huile d'olive.`
           } else {
@@ -2531,9 +2532,9 @@ export default function CourseAuxNombres2024 () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.besoinFormulaireTexte = [
-      'Niveau attendu de la CAN',
-      '7 : CM2\n6 : 6ème\n5 : 5ème\n4 : 4ème\n3 : 3ème\n2 : Seconde\n1 : Première\n0 : Terminale\nx : Au Hasard'
-    ]
   }
+  this.besoinFormulaireTexte = [
+    'Niveau attendu de la CAN',
+    '7 : CM2\n6 : 6ème\n5 : 5ème\n4 : 4ème\n3 : 3ème\n2 : Seconde\n1 : Première\n0 : Terminale\nx : Au Hasard'
+  ]
 }

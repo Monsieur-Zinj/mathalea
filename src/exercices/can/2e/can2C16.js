@@ -1,5 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
@@ -37,7 +38,7 @@ export default function ProgrammeCalcul2 () {
         this.question = `Choisir deux nombres puis calculer la somme de leurs carrés.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
-        this.correction = `$${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2=${reponse}$
+        this.correction = `$${ecritureParentheseSiNegatif(a)}^2+${ecritureParentheseSiNegatif(b)}^2=${miseEnEvidence(`${reponse}`)}$
       `
 
         this.reponse = reponse
@@ -52,7 +53,7 @@ export default function ProgrammeCalcul2 () {
         this.question = `Choisir deux nombres puis calculer le carré de leur somme.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
-        this.correction = `$(${a}${ecritureAlgebrique(b)})^2=${reponse}$
+        this.correction = `$(${a}${ecritureAlgebrique(b)})^2=${miseEnEvidence(`${reponse}`)}$
       `
 
         this.reponse = reponse
@@ -68,7 +69,7 @@ export default function ProgrammeCalcul2 () {
         this.question = `Choisir deux nombres puis calculer le double du carré de leur somme.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
-        this.correction = `$2\\times (${a}+${ecritureParentheseSiNegatif(b)})^2=2\\times ${(a + b) ** 2}=${reponse}$
+        this.correction = `$2\\times (${a}+${ecritureParentheseSiNegatif(b)})^2=2\\times ${(a + b) ** 2}=${miseEnEvidence(`${reponse}`)}$
       `
 
         this.reponse = reponse
@@ -84,7 +85,7 @@ export default function ProgrammeCalcul2 () {
           this.question = `Choisir deux nombres puis calculer le double de leur produit.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
-          this.correction = `$2\\times${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)} =${reponse}$
+          this.correction = `$2\\times${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(b)}=${miseEnEvidence(`${reponse}`)}$
       `
 
           this.reponse = reponse
@@ -95,7 +96,7 @@ export default function ProgrammeCalcul2 () {
           this.question = `Choisir deux nombres puis calculer le double de leur somme.  <br>
           
          Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
-          this.correction = `$2\\times(${a}+${ecritureParentheseSiNegatif(b)}) =${reponse}$
+          this.correction = `$2\\times(${a}+${ecritureParentheseSiNegatif(b)})=${miseEnEvidence(`${reponse}`)}$
           `
 
           this.reponse = reponse
@@ -118,7 +119,7 @@ export default function ProgrammeCalcul2 () {
         La somme des inverses est donc : $${f1.texFraction}+${f2.texFraction}=\\dfrac{1\\times${ecritureParentheseSiNegatif(b / a)}}{${a}\\times${ecritureParentheseSiNegatif(b / a)}}+${f2.texFraction}=
         \\dfrac{${(b / a)}}{${b}}+${f2.texFraction}=
         \\dfrac{${(b / a + f2.n)}}{${b}}=
-         ${reponse.texFractionSimplifiee}$
+         ${miseEnEvidence(`${reponse.texFractionSimplifiee}`)}$
       `
 
         this.reponse = reponse
@@ -135,7 +136,7 @@ export default function ProgrammeCalcul2 () {
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
         this.correction = `La somme de $${a}$ et $${b}$ est $${a + b}$. <br>
-        Son inverse est : $${reponse.texFractionSimplifiee}$.
+        Son inverse est : $${miseEnEvidence(`${reponse.texFractionSimplifiee}`)}$.
       `
 
         this.reponse = reponse
@@ -155,7 +156,7 @@ export default function ProgrammeCalcul2 () {
         this.correction = `La somme de $${f1.texFraction}$ et $${b}$ est : $${f1.texFraction}+${b}=${f1.texFraction}+\\dfrac{${b}\\times ${a}}{${a}}=
         ${f1.texFraction}+\\dfrac{${b * a}}{${a}}=${f2.texFraction}$. <br>
         <br>
-        Son inverse est : $${reponse.texFractionSimplifiee}$.
+        Son inverse est : $${miseEnEvidence(`${reponse.texFractionSimplifiee}`)}$.
       `
 
         this.reponse = reponse
@@ -174,7 +175,7 @@ export default function ProgrammeCalcul2 () {
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
         this.correction = `La somme de $${a}$ et $${b}$ est : $${a + b}$.<br>
         Le carré de cette somme est : $${ecritureParentheseSiNegatif(a + b)}^2=${(a + b) ** 2}$.<br>
-        L'inverse de ce carré est :  $${reponse.texFractionSimplifiee}$.
+        L'inverse de ce carré est :  $${miseEnEvidence(`${reponse.texFractionSimplifiee}`)}$.
       `
 
         this.reponse = reponse

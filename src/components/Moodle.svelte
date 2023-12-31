@@ -53,7 +53,7 @@
           paramUrl += `s3\\=${param[key]}&`
         } else if (key === 'nbQuestions') {
           paramUrl += `n\\=${param[key]}&`
-        } else if (key !== 'alea') {
+        } else if (key !== 'alea' && key !== 'id') {
           paramUrl += `${key}\\=${param[key]}&`
         }
       }

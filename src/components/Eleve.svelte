@@ -512,7 +512,7 @@
               <Exercice
                 {paramsExercice}
                 indiceExercice={i}
-                indiceLastExercice={$exercicesParams.length}
+                indiceLastExercice={$exercicesParams.length - 1}
                 isCorrectionVisible={isCorrectionVisible[i]}
               />
             </div>
@@ -530,7 +530,7 @@
               <Exercice
                 {paramsExercice}
                 indiceExercice={i}
-                indiceLastExercice={$exercicesParams.length}
+                indiceLastExercice={$exercicesParams.length - 1}
                 isCorrectionVisible={isCorrectionVisible[i]}
               />
             </div>
@@ -540,7 +540,7 @@
         <div id="exercises-list" class="p-4 columns-1 {$globalOptions.twoColumns ? 'md:columns-2' : ''}">
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
             <div class="break-inside-avoid-column">
-              <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length} isCorrectionVisible={$globalOptions.presMode === 'verso'} />
+              <Exercice {paramsExercice} indiceExercice={i} indiceLastExercice={$exercicesParams.length - 1} isCorrectionVisible={$globalOptions.presMode === 'verso'} />
             </div>
           {/each}
         </div>

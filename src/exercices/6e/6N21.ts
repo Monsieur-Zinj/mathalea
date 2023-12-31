@@ -97,6 +97,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
       texte = `Placer les points $${label1}\\left(${deprecatedTexFraction(num, den)}\\right)$, $~${label2}\\left(${deprecatedTexFraction(num2, den)}\\right)$ et $~${label3}\\left(${deprecatedTexFraction(num3, den)}\\right)$.`
       const { figure, latex } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: arrondi(1 / den, 6) })
       figure.options.labelAutomaticBeginsWith = label1
+      figure.options.pointDescriptionWithCoordinates = false
       this.figures[i] = figure
       const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: arrondi(1 / den, 6), points: this.goodAnswers[i] })
       figureCorr.create('Point', { label: label1, x: arrondi(num / den, 4), color: orangeMathalea, colorLabel: orangeMathalea, shape: 'x', labelDxInPixels: 0 })

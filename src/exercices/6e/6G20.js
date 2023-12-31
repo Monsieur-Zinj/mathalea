@@ -16,20 +16,19 @@ export const titre = 'Nommer et coder des polygones'
 /**
  * @author Jean-Claude Lhote
  * Placer les sommets et les égalités de longueur...
- * Référence 6G20
  */
 export const uuid = '90e1a'
 export const ref = '6G20'
 export default function NommerEtCoderDesPolygones () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = "Nommer les figures en fonction de l'énoncé puis ajouter le codage."
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 3
 
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions === 1 ? 'Nommer la figure' : 'Nommer les figures'
+    this.consigne += " en fonction de l'énoncé puis ajouter le codage."
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -52,11 +51,10 @@ export default function NommerEtCoderDesPolygones () {
     ) {
       if (i % 4 === 0) listeDeNomsDePolygones = ['PQD']
       context.pixelsParCm = 40
-      let pol, polcode, polsom, polnom
+      let pol, polcode, polsom
       const choisirPolygone = (n) => { // n compris entre 1 et 8 (1 à 4 pour un triangle, 5 à 8 pour une quadrilatère)
         let A, B, C, D
         const nom = creerNomDePolygone(4, listeDeNomsDePolygones); let pnom; let q; let p; let pcode; let enonce
-        listeDeNomsDePolygones.push(nom)
         switch (n) {
           case 1: // triangle isocèle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -69,7 +67,7 @@ export default function NommerEtCoderDesPolygones () {
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
             pcode = [codageSegments('||', 'blue', A, B, A, C), codageAngle(B, C, A, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2), codageAngle(C, B, A, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2)]
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est isocèle en $${nom[0]}$.<br>`
+            enonce = `Le triangle $${nom[0] + nom[1] + nom[2]}$ est isocèle en $${nom[0]}$.<br>`
             break
           case 2: // triangle équilatéral
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -82,7 +80,7 @@ export default function NommerEtCoderDesPolygones () {
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
             pcode = [codageSegments('||', 'blue', A, B, A, C, B, C), codageAngle(B, C, A, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2), codageAngle(C, B, A, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2), codageAngle(C, A, B, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2)]
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est équilatéral.<br>$\\phantom{et sa longueur est AB}$`
+            enonce = `Le triangle $${nom[0] + nom[1] + nom[2]}$ est équilatéral.<br>$\\phantom{et sa longueur est AB}$`
             break
           case 3: // triangle rectangle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -95,7 +93,7 @@ export default function NommerEtCoderDesPolygones () {
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
             pcode = codageAngleDroit(B, A, C)
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle en $${nom[0]}$.<br>$\\phantom{et sa longueur est AB}$`
+            enonce = `Le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle en $${nom[0]}$.<br>$\\phantom{et sa longueur est AB}$`
             break
           case 4: // triangle rectangle isocèle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -108,7 +106,7 @@ export default function NommerEtCoderDesPolygones () {
             C = p.listePoints[2]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2])
             pcode = [codageSegments('||', 'blue', A, B, A, C), codageAngleDroit(B, A, C), codageAngle(B, C, A, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2), codageAngle(C, B, A, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2)]
-            enonce = `le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle et isocèle en $${nom[0]}$.`
+            enonce = `Le triangle $${nom[0] + nom[1] + nom[2]}$ est rectangle et isocèle en $${nom[0]}$.`
             break
           // on choisit un quadrilatère
           case 5: // carré
@@ -122,7 +120,7 @@ export default function NommerEtCoderDesPolygones () {
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
             pcode = [codageSegments('||', 'blue', A, B, B, C, C, D, D, A), codageAngleDroit(B, A, D), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(A, D, C)]
-            enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un carré.<br>$\\phantom{et sa longueur est AB}$`
+            enonce = `Le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un carré.<br>$\\phantom{et sa longueur est AB}$`
             break
           case 6: // rectangle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -137,7 +135,7 @@ export default function NommerEtCoderDesPolygones () {
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
             pcode = [codageSegments('||', 'blue', A, B, C, D), codageSegments('|', 'red', C, B, A, D), codageAngleDroit(B, A, C), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), codageAngleDroit(A, D, C)]
-            enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un rectangle et $${nom[0] + nom[1]}$ est sa longueur.`
+            enonce = `Le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un rectangle et $${nom[0] + nom[1]}$ est sa longueur.`
             break
           case 7: // losange
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -152,7 +150,7 @@ export default function NommerEtCoderDesPolygones () {
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
             pcode = [codageSegments('O', 'blue', A, B, B, C, C, D, D, A), codageAngle(C, D, A, 0.8, '||', 'red', 2, 0.8, 'red', 0.2), codageAngle(C, B, A, 0.8, '||', 'red', 2, 0.8, 'red', 0.2), codageAngle(B, C, D, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2), codageAngle(D, A, B, 0.8, '|', 'blue', 2, 0.8, 'blue', 0.2)]
-            enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un losange et [$${nom[0] + nom[2]}$] est sa plus grande diagonale.`
+            enonce = `Le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un losange et [$${nom[0] + nom[2]}$] est sa plus grande diagonale.`
             break
           case 8: // trapèze rectangle
             A = point(3, randint(0, 20) / 10, nom[0])
@@ -167,12 +165,12 @@ export default function NommerEtCoderDesPolygones () {
             D = p.listePoints[3]
             pnom = nommePolygone(p, nom[0] + nom[1] + nom[2] + nom[3])
             pcode = [codageAngleDroit(B, A, D), codageAngleDroit(C, D, A)]
-            enonce = `le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un trapèze rectangle de grande base $${nom[0] + nom[1]}$ de hauteur $${nom[0] + nom[3]}$.`
+            enonce = `Le quadrilatère $${nom[0] + nom[1] + nom[2] + nom[3]}$ est un trapèze rectangle de grande base $${nom[0] + nom[1]}$ de hauteur $${nom[0] + nom[3]}$.`
             break
         }
         return [p, nom, pcode, pnom, enonce]
       }
-      [pol, polnom, polcode, polsom, texte] = choisirPolygone(liste[i])
+      [pol,, polcode, polsom, texte] = choisirPolygone(liste[i])
       if (pol.listePoints.length === 4) {
         Xmin = Math.floor(Math.min(pol.listePoints[0].x, pol.listePoints[1].x, pol.listePoints[2].x, pol.listePoints[3].x) - 1)
         Ymin = Math.floor(Math.min(pol.listePoints[0].y, pol.listePoints[1].y, pol.listePoints[2].y, pol.listePoints[3].y) - 1)
@@ -201,10 +199,9 @@ export default function NommerEtCoderDesPolygones () {
       }
 
       pol.epaisseur = 2
-      texte += '<br>' + mathalea2d(params, pol, polnom, g, carreaux)
-      texteCorr = mathalea2d(params, pol, polnom, polcode, polsom, g, carreaux)
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      texte += '<br>' + mathalea2d(params, pol, g, carreaux)
+      texteCorr = mathalea2d(params, pol, polcode, polsom, g, carreaux)
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

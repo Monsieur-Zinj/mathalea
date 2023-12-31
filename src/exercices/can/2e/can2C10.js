@@ -1,5 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Passer du taux d’évolution au coefficient multiplicateur'
@@ -37,7 +38,7 @@ export default function TauxCoeff () {
         this.correction = `Augmenter de $${taux}~\\%$ revient à multiplier par $1+\\dfrac{${taux}}{100}$.<br>
         Ainsi, le coefficient multiplicateur associé à une augmentation de $${taux}~\\%$ est $1+${texNombre(taux / 100)}$, soit $${texNombre(1 + taux / 100)}$.<br><br>
         Autre formulation : <br>Augmenter de $${taux}~\\%$ une valeur revient à en prendre $${texNombre(100 + taux)}~\\%$ car $100~\\% + ${taux} ~\\%=${texNombre(100 + taux)}~\\%$.<br>
-        Ainsi, le coefficient multiplicateur associé à une augmentation de  $${texNombre(taux)}~\\%$ est $\\dfrac{${texNombre(100 + taux)}}{100}$ soit $${texNombre(1 + taux / 100)}$.`
+        Ainsi, le coefficient multiplicateur associé à une augmentation de $${texNombre(taux)}~\\%$ est $\\dfrac{${texNombre(100 + taux)}}{100}$ soit $${miseEnEvidence(texNombre(1 + taux / 100))}$.`
         this.reponse = calculANePlusJamaisUtiliser(1 + taux / 100)
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `Augmenter une valeur de $${taux}~\\%$ revient à la multiplier par $\\ldots$`
@@ -51,7 +52,7 @@ export default function TauxCoeff () {
         this.correction = `Diminuer de $${taux}~\\%$ revient à multiplier par $1-\\dfrac{${taux}}{100}$.<br>
         Ainsi, le coefficient multiplicateur associé à une réduction de $${taux}~\\%$ est est $1-${texNombre(taux / 100)}$, soit $${texNombre(1 - taux / 100)}$.<br><br>
         Autre formulation : <br>Diminuer de $${taux}~\\%$ une valeur revient à en prendre $${texNombre(100 - taux)}~\\%$ car $100~\\% - ${texNombre(taux)} ~\\%=${texNombre(100 - taux)}~\\%$.<br>
-        Ainsi, le coefficient multiplicateur associé à une réduction de  $${taux}~\\%$ est $\\dfrac{${texNombre(100 - taux)}}{100}$ soit $${texNombre(1 - taux / 100)}$.`
+        Ainsi, le coefficient multiplicateur associé à une réduction de  $${taux}~\\%$ est $\\dfrac{${texNombre(100 - taux)}}{100}$ soit $${miseEnEvidence(texNombre(1 - taux / 100))}$.`
         this.reponse = calculANePlusJamaisUtiliser(1 - taux / 100)
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `Diminuer une valeur de $${taux}~\\%$ revient à la multiplier par $\\ldots$`

@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
-export const titre = 'Déterminer les coordonnées sommet parabole à partir de la forme canonique'
+export const titre = 'Déterminer les coordonnées du sommet d\'une parabole à partir de la forme canonique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

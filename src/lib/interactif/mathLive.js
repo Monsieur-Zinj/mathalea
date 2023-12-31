@@ -24,7 +24,8 @@ export const fractionCompare = (a, b) => engine.parse(a).isSame(engine.parse(b))
  */
 function cleanInput (saisie) {
   return String(saisie).replaceAll('\\,', '')
-    .replace(',', '.')
+    .replaceAll('{,}', '.')
+    .replaceAll(',', '.')
     .replaceAll('²', '^2')
     .replaceAll('^{}', '')
     .replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
@@ -218,6 +219,8 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   if (saisie !== '' && Number(saisie) === Number(reponse)) {
                     resultat = 'OK'
                   }
+                } else if (saisie === '') {
+                  resultat = 'KO'
                 } else {
                   if (engine.parse(reponse).isSame(engine.parse(saisie))) { // engine.parse() retourne du canonical par défaut.
                     resultat = 'OK'
@@ -315,9 +318,14 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                 if (reponse instanceof FractionEtendue) {
                   saisie = champTexte.value.replace(',', '.')
                   fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
-                  saisieParsee = engine.parse(saisie, { canonical: true })
-                  if (saisieParsee.json[0] === 'Rational') {
-                    if (saisieParsee.canonical.isSame(fReponse.canonical) && saisieParsee.json[1] && saisieParsee.json[1] < fReponse.json[1] && Number.isInteger(saisieParsee.json[1])) resultat = 'OK'
+                  saisieParsee = engine.parse(saisie, { canonical: false })
+                  if (saisieParsee.json[0] === 'Divide') {
+                    const inputNum = saisieParsee.json[1]
+                    const inputDen = saisieParsee.json[2]
+                    const answerNum = fReponse.json[1]
+                    if (saisieParsee.isEqual(fReponse) && inputNum < answerNum && Number.isInteger(inputNum) && Number.isInteger(inputDen)) resultat = 'OK'
+                  } else if (saisieParsee.json[0] === 'H') { // 1/2 est Half !!!!!!!
+                    if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
                   }
                 } else {
                   window.notify(`question mathlive de type 'fractionPlusSimple' avec une réponse qui n'est pas une FractionEtendue : ${reponse}`, {
@@ -366,7 +374,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   } else {
                     saisieParsee = engine.parse(saisie, { canonical: false })
                     fReponse = engine.parse(reponse.texFSD.replace('dfrac', 'frac').replaceAll('\\,', ''), { canonical: false })
-                    if (saisieParsee.isEqual(fReponse)) resultat = 'OK'
+                    if (saisieParsee.isSame(fReponse)) resultat = 'OK'
                   }
                 } else {
                   window.notify(`question mathlive de type 'fraction' avec une réponse qui n'est pas une FractionEtendue : ${reponse}`, {

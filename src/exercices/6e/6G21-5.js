@@ -14,7 +14,6 @@ export const ref = '6G21-5'
 export default class ConstruireUnLosangeOuParallélogrammes extends TracerQuadrilatèresParticuliers {
   constructor () {
     super()
-    this.titre = titre
     this.sup = 11
     this.nbQuestions = 10
   }

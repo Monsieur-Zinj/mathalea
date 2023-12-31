@@ -4,6 +4,7 @@
  * - src/json/exercicesNonInteractifs.json
  * - src/json/uuidsToUrl.json
  * - src/json/referentiel2022.json
+ * - src/json/refToUuid.json
  *
  * Il permet aussi de générer un uuid pour un nouvel exercice
  * Il faut lancer ce script après avoir créé un nouvel exercice
@@ -111,6 +112,7 @@ async function readInfos (dirPath) {
           infos.typeExercice = 'alea'
           if (infos.id !== undefined) {
             exercicesShuffled[infos.id] = infos
+            refToUuid[infos.id] = infos.uuid
           }
         }
       }
@@ -146,6 +148,7 @@ const exercicesDir = './src/exercices'
 const uuidMap = new Map()
 const exercicesNonInteractifs = []
 const exercicesShuffled = {}
+const refToUuid = {}
 /**
  * On utilise emptyRef2022 pour initialiser referentiel2022 avec les niveaux et les catégories
  * En cas de création de niveau ou de chapitre, il faudra mettre à jour ce fichier
@@ -186,6 +189,7 @@ readInfos(exercicesDir, uuidMap)
     fs.writeFile('src/json/exercicesNonInteractifs.json', JSON.stringify(exercicesNonInteractifs.sort(), null, 2))
     uuidToUrl = handleExerciceSvelte(uuidToUrl)
     fs.writeFile('src/json/uuidsToUrl.json', JSON.stringify(uuidToUrl, null, 2))
+    fs.writeFile('src/json/refToUuid.json', JSON.stringify(refToUuid, null, 2))
     for (const themePath of themesPath) {
       const theme = themePath.split('.').pop()
       for (const key in exercices) {

@@ -69,11 +69,6 @@ export default function FonctionNotionVocabulaire () {
   this.listePackages = 'bclogo'
 
   const numEx = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
-  let pourcentage
-  if (context.isHtml) {
-    pourcentage = '100%' // pour l'affichage des svg. On a besoin d'une variable globale
-  } else { // sortie LaTeX
-  }
 
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
@@ -219,11 +214,9 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           txtInfo = 'Voici le diagramme d\'une machine qui triple '
           if (context.isHtml) {
             texte += numAlpha(j) + ' Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>'
-            txtInfo += `<div id="${idDuDivDiag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SvgMachineDiag3F1ActMono(idDuDivDiag, 800, 100, 't', 'x', [['3', '3x']])
+            txtInfo += `<div id="${idDuDivDiag}" style="width: 100%"; height: 50px; display : table "> ${SvgMachineDiag3F1ActMono(idDuDivDiag, 800, 100, 't', 'x', [['3', '3x']])}</div>`
             texteCorr += numAlpha(j) + ' C\'est une machine qui quadruple, donc sous forme de diagramme.<br>'
-            texteCorr += `<div id="${idDuDivCorr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SvgMachineDiag3F1ActMono(idDuDivCorr, 800, 100, 'f', 'x', [['4', '4x']])
+            texteCorr += `<div id="${idDuDivCorr}" style="width: 100%"; height: 50px; display : table ">${SvgMachineDiag3F1ActMono(idDuDivCorr, 800, 100, 'f', 'x', [['4', '4x']])}</div>`
             j++ // incrémente la sous question
           } else { // sortie LaTeX
             texte += '\\item   Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>'
@@ -232,11 +225,23 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += tikzMachineDiag('f', 'x', [['\\times 4', '4x']])
           }
 
-          texte += infoMessage({
-            titre: 'Exemple',
-            texte: txtInfo,
-            couleur: 'nombres'
-          })
+          if (context.isHtml) {
+            // affichage tronqué avec width:66% par défaut
+            // il faudrait mieux avoir une option dans infomessage pour le style
+            const fonctionTriple = infoMessage({
+              titre: 'Exemple',
+              texte: txtInfo,
+              couleur: 'nombres'
+            })
+            const pos = fonctionTriple.indexOf('">') + 1
+            texte += fonctionTriple.substring(0, pos) + " style='width:100%'" + fonctionTriple.substring(pos)
+          } else {
+            texte += infoMessage({
+              titre: 'Exemple',
+              texte: txtInfo,
+              couleur: 'nombres'
+            })
+          }
 
           // sous question f/
           if (context.isHtml) {
@@ -336,11 +341,9 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           txtInfo = 'Voici le diagramme d\'une machine qui double '
           if (context.isHtml) {
             texte += numAlpha(j) + ' Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>'
-            txtInfo += `<div id="${idDuDivDiag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SvgMachineDiag3F1ActMono(idDuDivDiag, 800, 100, 'g', 'x', [['2', '2x']])
+            txtInfo += `<div id="${idDuDivDiag}" style="width: 100%"; height: 50px; display : table ">${SvgMachineDiag3F1ActMono(idDuDivDiag, 800, 100, 'g', 'x', [['2', '2x']])}</div>`
             texteCorr += numAlpha(j) + ' C\'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>'
-            texteCorr += `<div id="${idDuDivCorr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SvgMachineDiag3F1ActMono(idDuDivCorr, 800, 100, 'g', 'x', [['x', 'x²']])
+            texteCorr += `<div id="${idDuDivCorr}" style="width: 100%"; height: 50px; display : table ">${SvgMachineDiag3F1ActMono(idDuDivCorr, 800, 100, 'g', 'x', [['x', 'x²']])}</div>`
             j++ // incrémente la sous question
           } else {
             texte += '\\item  Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>'
@@ -349,11 +352,23 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += tikzMachineDiag('g', 'x', [['\\times x', 'x^2']])
           }
 
-          texte += infoMessage({
-            titre: 'Exemple',
-            texte: txtInfo,
-            couleur: 'nombres'
-          })
+          if (context.isHtml) {
+            // affichage tronqué avec width:66% par défaut
+            // il faudrait mieux avoir une option dans infomessage pour le style
+            const fonctionDouble = infoMessage({
+              titre: 'Exemple',
+              texte: txtInfo,
+              couleur: 'nombres'
+            })
+            const pos = fonctionDouble.indexOf('">') + 1
+            texte += fonctionDouble.substring(0, pos) + " style='width:100%'" + fonctionDouble.substring(pos)
+          } else {
+            texte += infoMessage({
+              titre: 'Exemple',
+              texte: txtInfo,
+              couleur: 'nombres'
+            })
+          }
 
           // sous question f/
           if (context.isHtml) {
@@ -459,11 +474,9 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           txtInfo = 'Voici le diagramme d\'une machine qui double puis qui ajoute 5 '
           if (context.isHtml) {
             texte += numAlpha(j) + ' Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>'
-            txtInfo += `<div id="${idDuDivDiag}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SvgMachineDiag3F12(idDuDivDiag, 800, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']])
+            txtInfo += `<div id="${idDuDivDiag}" style="width: 100%"; height: 50px; display : table ">${SvgMachineDiag3F12(idDuDivDiag, 800, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']])}</div>`
             texteCorr += numAlpha(j) + ' C\'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>'
-            texteCorr += `<div id="${idDuDivCorr}" style="width: ${pourcentage}"; height: 50px; display : table "></div>`
-            SvgMachineDiag3F12(idDuDivCorr, 800, 100, 'h', 'x', [['3', '3x'], ['1', '3x+1']])
+            texteCorr += `<div id="${idDuDivCorr}" style="width: 100%"; height: 50px; display : table ">${SvgMachineDiag3F12(idDuDivCorr, 800, 100, 'h', 'x', [['3', '3x'], ['1', '3x+1']])}</div>`
             j++ // incrémente la sous question
           } else {
             texte += '\\item  Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>'
@@ -472,11 +485,23 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             texteCorr += tikzMachineDiag('h', 'x', [['\\times 3', '3x'], ['+1', '3x+1']])
           }
 
-          texte += infoMessage({
-            titre: 'Exemple',
-            texte: txtInfo,
-            couleur: 'nombres'
-          })
+          if (context.isHtml) {
+            // affichage tronqué avec width:66% par défaut
+            // il faudrait mieux avoir une option dans infomessage pour le style
+            const fonctionDouble = infoMessage({
+              titre: 'Exemple',
+              texte: txtInfo,
+              couleur: 'nombres'
+            })
+            const pos = fonctionDouble.indexOf('">') + 1
+            texte += fonctionDouble.substring(0, pos) + " style='width:100%'" + fonctionDouble.substring(pos)
+          } else {
+            texte += infoMessage({
+              titre: 'Exemple',
+              texte: txtInfo,
+              couleur: 'nombres'
+            })
+          }
 
           // sous question f/
           if (context.isHtml) {
@@ -651,7 +676,6 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
       }
       cpt++
     }
-
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de fonction', 5, '1 : Périmètre d\'un carré\n2 : Aire d\'un carré\n3 : Somme de 1 et du triple du nombre de départ\n4 : Nombre de diviseurs d\'un entier positif\n5 : Les quatre']

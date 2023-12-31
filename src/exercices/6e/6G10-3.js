@@ -5,7 +5,7 @@ import { labelPoint } from '../../lib/2d/textes.js'
 import { combinaisonListes, enleveElement, shuffle } from '../../lib/outils/arrayOutils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Choisir la bonne figure'
@@ -63,7 +63,7 @@ export default function CliqueFigure () {
         case 'segment':
           texte = `Le segment d'extrémités $${A.nom}$ et $${B.nom}$.`
           this.figures[i][0].solution = true
-          figCorr = {}
+          figCorr = vide2d()
           figCorrecteAMC = figSegmentAMC
           break
         case 'droite':

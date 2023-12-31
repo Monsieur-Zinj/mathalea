@@ -17,7 +17,8 @@
      */
     "allowJs": true,
     "checkJs": false,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "types": ["vitest/globals"]
   },
   "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte", ".eslintrc.cjs"],
   "exclude": ["./built/**/*"],

@@ -1,11 +1,11 @@
 {
   "": {
-    "url": "beta/betaCAN2024.js",
+    "url": "can/6e/CANSpeciale2024.js",
     "tags": [],
     "uuid": "8ff87",
     "id": "",
     "titre": "CAN Spéciale année 2024",
-    "datePublication": "20/12/2023",
+    "datePublication": "01/01/2024",
     "features": {
       "interactif": {
         "isActive": true,
@@ -682,7 +682,7 @@
     "tags": [],
     "uuid": "93f13",
     "id": "2F10-2",
-    "titre": "Donner graphiquement l'expression d'une fonction affine",
+    "titre": "Déterminer graphiquement l'expression d'une fonction affine",
     "dateModification": "25/05/2023",
     "features": {
       "interactif": {
@@ -4094,6 +4094,25 @@
     },
     "typeExercice": "alea"
   },
+  "3F11-0": {
+    "url": "3e/3F11-0.ts",
+    "tags": [],
+    "uuid": "28997",
+    "id": "3F11-0",
+    "titre": "Résoudre graphiquement une équation ou une inéquation",
+    "datePublication": "29/10/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "3F12": {
     "url": "3e/3F12.js",
     "tags": [],
@@ -5148,9 +5167,9 @@
     "typeExercice": "alea"
   },
   "3L11": {
-    "url": "3e/3L11.js",
+    "url": "3e/3L11new.js",
     "tags": [],
-    "uuid": "77a62",
+    "uuid": "db2e0",
     "id": "3L11",
     "titre": "Utiliser la simple distributivité",
     "features": {
@@ -8699,10 +8718,11 @@
     "uuid": "a7650",
     "id": "5I11",
     "titre": "Note la couleur (scratch) 5e",
+    "dateModification": "27/12/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'listeDeroulante'"
       },
       "amc": {
         "isActive": false,
@@ -12093,6 +12113,7 @@
     "uuid": "0e016",
     "id": "6I11",
     "titre": "Note la couleur (scratch)",
+    "datePublication": "11/04/2021",
     "dateModification": "14/05/2023",
     "features": {
       "interactif": {
@@ -15280,10 +15301,12 @@
     "uuid": "e380b",
     "id": "c3I11",
     "titre": "Note la couleur (scratch)",
+    "datePublication": "11/04/2021",
+    "dateModification": "27/12/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'listeDeroulante'"
       },
       "amc": {
         "isActive": false,
@@ -15426,7 +15449,7 @@
     "tags": [],
     "uuid": "f2035",
     "id": "can1F01",
-    "titre": "Déterminer les coordonnées sommet parabole à partir de la forme canonique",
+    "titre": "Déterminer les coordonnées du sommet d'une parabole à partir de la forme canonique",
     "datePublication": "1/11/2021",
     "features": {
       "interactif": {
@@ -17637,7 +17660,7 @@
     "tags": [],
     "uuid": "84eaa",
     "id": "can2G15",
-    "titre": "Déterminer le déterminant de deux vecteurs.",
+    "titre": "Déterminer le déterminant de deux vecteurs",
     "datePublication": "04/03:2022",
     "features": {
       "interactif": {
@@ -17827,7 +17850,7 @@
     "tags": [],
     "uuid": "05ba1",
     "id": "can2L03",
-    "titre": "Calculer les coordonnées du point d’intersection entre l’axe des abscisses/droite",
+    "titre": "Calculer les coordonnées du point d’intersection entre l’axe des abscisses et une droite",
     "features": {
       "interactif": {
         "isActive": true,
@@ -18424,7 +18447,7 @@
     "tags": [],
     "uuid": "140ad",
     "id": "can3C13",
-    "titre": "Pyramide additive fractions",
+    "titre": "Calculer dans une pyramide additive de fractions",
     "datePublication": "09/05/2022",
     "features": {
       "interactif": {
@@ -18982,7 +19005,7 @@
     "tags": [],
     "uuid": "b2a59",
     "id": "can3S02",
-    "titre": "Calculer la probabilité d’ un évènement contraire",
+    "titre": "Calculer la probabilité d’un évènement contraire",
     "features": {
       "interactif": {
         "isActive": true,
@@ -21028,7 +21051,7 @@
     "tags": [],
     "uuid": "5b591",
     "id": "can6C04",
-    "titre": "Ajouter 10n + 9",
+    "titre": "Ajouter $10n + 9$",
     "features": {
       "interactif": {
         "isActive": true,
@@ -21118,7 +21141,7 @@
     "tags": [],
     "uuid": "592c7",
     "id": "can6C09",
-    "titre": "Soustraire 10n+9",
+    "titre": "Soustraire $10n + 9$",
     "features": {
       "interactif": {
         "isActive": true,
@@ -21823,7 +21846,7 @@
     "tags": [],
     "uuid": "1db82",
     "id": "can6D01",
-    "titre": "Convertir des Heures/minutes en minutes",
+    "titre": "Convertir des heures/minutes en minutes",
     "features": {
       "interactif": {
         "isActive": true,
@@ -22591,7 +22614,7 @@
     "typeExercice": "alea"
   },
   "can6N18": {
-    "url": "can/2e/can6N18.js",
+    "url": "can/6e/can6N18.js",
     "tags": [],
     "uuid": "b9582",
     "id": "can6N18",

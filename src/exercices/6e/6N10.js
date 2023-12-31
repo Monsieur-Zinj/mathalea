@@ -84,7 +84,6 @@ export default function EcrirePetitsNombresEntiers () {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let NombreAEcrire // Comme la valeur sera modifiée, on la déclare avec let
-      console.log(listeOptions[i])
       switch (listeOptions[i]) {
         case 0 :
           if (listeQuestions[i] < 7) {
