@@ -8,7 +8,7 @@ import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
 import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
-import { keyboard } from '../components/stores/generalStore'
+import { keyboardState } from '../components/stores/generalStore'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -264,7 +264,7 @@ export async function loadMathLive () {
       mf.style.fontSize = '1em'
       mf.classList.add('ml-1')
       mf.addEventListener('focus', () => {
-        keyboard.update((value) => {
+        keyboardState.update((value) => {
           return { isVisible: value.isVisible, idMathField: mf.id }
         })
       })
@@ -282,21 +282,22 @@ export async function loadMathLive () {
   }
 }
 
-let keyboardMathaleaAlreadyHandled = false
 function handleKeyboardMathalea () {
-  if (keyboardMathaleaAlreadyHandled) return
-  keyboardMathaleaAlreadyHandled = true
+  console.log('keyboardHandle')
   const keyboardButtons = document.querySelectorAll('button.keyboardMathalea')
   for (const button of keyboardButtons) {
-    button.addEventListener('click', (event) => {
-      keyboard.update((value) => {
-        if (value.idMathField === event.currentTarget.id) {
-          return { isVisible: false, idMathField: '' }
-        }
-        const mf = document.querySelector('#' + event.currentTarget.id)
-        if (mf != null) mf.focus()
-        return { isVisible: true, idMathField: event.currentTarget.id }
-      })
-    })
+    button.removeEventListener('click', handleClickOnKeyboardToggle)
+    button.addEventListener('click', handleClickOnKeyboardToggle)
   }
+}
+
+function handleClickOnKeyboardToggle (event) {
+  keyboardState.update((value) => {
+    if (value.idMathField === event.currentTarget.id) {
+      return { isVisible: false, idMathField: '' }
+    }
+    const mf = document.querySelector('#' + event.currentTarget.id)
+    if (mf != null) mf.focus()
+    return { isVisible: true, idMathField: event.currentTarget.id }
+  })
 }

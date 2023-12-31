@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { MathfieldElement } from 'mathlive'
-  import { keyboard } from '../stores/generalStore'
+  import { keyboardState } from '../stores/generalStore'
   import type { KeyCap } from './types/keycap'
   import { KEYCAP_WIDTH } from './layouts/keycaps'
   export let innerWidth: number
@@ -10,7 +10,7 @@
   $: keycapwidth = innerWidth <= 768 ? KEYCAP_WIDTH.sm : KEYCAP_WIDTH.md
   function clickKeycap (event: MouseEvent) {
     if (event.currentTarget instanceof HTMLButtonElement) {
-      const idMathField = $keyboard.idMathField
+      const idMathField = $keyboardState.idMathField
       const mf = document.querySelector('#' + idMathField) as MathfieldElement
       console.log({
         mf,
@@ -21,7 +21,7 @@
       if (mf != null) {
         mf.focus()
         if (data.command && data.command === 'closeKeyboard') {
-          keyboard.update((value) => {
+          keyboardState.update((value) => {
             value.isVisible = false
             value.idMathField = ''
             return value

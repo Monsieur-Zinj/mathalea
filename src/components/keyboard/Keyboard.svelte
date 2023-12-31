@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
-  import { keyboard } from '../stores/generalStore'
+  import { keyboardState } from '../stores/generalStore'
   import { mathaleaRenderDiv } from '../../lib/mathalea'
   import { fly } from 'svelte/transition'
   import { Keyboard } from './types/keyboardContent'
@@ -15,7 +15,7 @@
   let reduced: boolean = false
 
   let isVisible = false
-  keyboard.subscribe(async (value) => {
+  keyboardState.subscribe(async (value) => {
     isVisible = value.isVisible
     await tick()
     mathaleaRenderDiv(divKeyboard)

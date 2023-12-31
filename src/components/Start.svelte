@@ -8,7 +8,7 @@
     exercicesParams,
     globalOptions,
     isModalForStaticsVisible,
-    keyboard
+    keyboardState
   } from './stores/generalStore'
   import {
     mathaleaUpdateExercicesParamsFromUrl,
@@ -415,7 +415,7 @@
                   class="text-3xl"
                   on:click={() => {
                     $exercicesParams.length = 0
-                    $keyboard.isVisible = false
+                    $keyboardState.isVisible = false
                   }}
                 />
               </div>
