@@ -191,12 +191,12 @@ export class Rose {
             } else {
               if (this.typeDonnees !== 'litteraux') {
                 if (this.values[i] instanceof FractionEtendue) {
-                  objets.push(latexParCoordonnees(this.values[i].toLatex(), M.x, M.y, 'black', 0, 0, '', 8))
+                  objets.push(latexParCoordonnees(this.values[i].toLatex(), M.x, M.y, 'black', 0, 0, 'none', 8))
                 } else {
                   objets.push(texteParPoint(String(this.values[i]), M, 'milieu', 'black', 1, 'middle', true))
                 }
               } else {
-                objets.push(latexParCoordonneesBox(this.values[i], M2.x, M2.y, 'black', 50, 12, '', 8, { anchor: 'center' }))
+                objets.push(latexParCoordonneesBox(this.values[i], M2.x, M2.y, 'black', 50, 12, 'none', 8, { anchor: 'center' }))
               }
             }
           }
@@ -210,7 +210,7 @@ export class Rose {
           if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
             objets.push(texteParPoint((this.resultats[i]).toString(), P, 'milieu', 'black', 1, 'middle', true))
           } else {
-            objets.push(latexParCoordonnees(String(this.resultats[i]), P.x, P.y, 'black', 0, 0, '', 8))
+            objets.push(latexParCoordonnees(String(this.resultats[i]), P.x, P.y, 'black', 0, 0, 'none', 8))
           }
         }
         if (this.type === 'can2' && this.indexInconnue === i) {

@@ -114,7 +114,7 @@ export default function ImagePtParTranslation () {
       const Grille = grille(0, 0, 10, 4)
       let xSOL = 100; let xPtArrivSeg = 100; let xPt2Triangle = 100
       switch (listeTypeDeQuestions[i]) {
-        case 'point': { // A partir d'un point
+        case 'point': { // À partir d'un point
           const PtDepart = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
           let OrigVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [PtDepart])
           let ExtrVec = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R], [PtDepart, OrigVec])
@@ -169,7 +169,7 @@ export default function ImagePtParTranslation () {
         }
           break
 
-        case 'segment': { // A partir d'un segment
+        case 'segment': { // À partir d'un segment
           const PtDepartSeg = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
           xPtArrivSeg = PtDepartSeg.x + choice([-2, 0, 2])
           let yPtArrivSeg = PtDepartSeg.y + choice([-2, 0, 2])
@@ -269,7 +269,7 @@ export default function ImagePtParTranslation () {
         }
           break
 
-        case 'triangle': { // A partir d'un triangle
+        case 'triangle': { // À partir d'un triangle
           const Pt1Triangle = choice([A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R])
           xPt2Triangle = Pt1Triangle.x + choice([-2, 0, 2])
           let yPt2Triangle = Pt1Triangle.y + choice([-2, 0, 2])

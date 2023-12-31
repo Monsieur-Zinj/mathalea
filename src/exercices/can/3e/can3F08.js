@@ -35,7 +35,7 @@ export default function LectureGraphiqueFonctionAffine2 () {
   this.formatInteractif = 'calcul'
   this.nouvelleVersion = function () {
     const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-    let s1, s2, t
+    let s1, s2
     const a = randint(-5, 5, [0, 4]) // numérateut coefficient directeur non nul
     const b = randint(-2, 2) // ordonnée à l'origine
     const d = randint(2, 5, [-a, a, 2 * a, -2 * a]) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
@@ -66,7 +66,7 @@ style: 'margin: auto'
     L'ordonnée à l'origine  est $b=${b}$ et :`
     this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
     ${deprecatedTexFraction(miseEnEvidence(a, 'red'), miseEnEvidence(d, 'green'))}$`)
-    this.correction += `On en déduit que la fonction $f$ est définie par : $f(x)=${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(b)}$.<br>`
+    this.correction += `On en déduit que la fonction $f$ est définie par : $f(x)=${miseEnEvidence(`${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(b)}`)}$ .<br>`
     if (a > 0) {
       s1 = segment(0, b - a, -d, b - a, 'green')
       s2 = segment(0, b - a, 0, b, 'red')
@@ -88,7 +88,7 @@ style: 'margin: auto'
         pixelsParCm: 20,
         scale: 0.7,
         style: 'margin: auto'
-        }, r, s1, s2, t, c, o)}`
+        }, r, s1, s2, c, o)}`
     }// On trace le graphique
     this.canEnonce = `$f$ est une fonction affine. <br>
     

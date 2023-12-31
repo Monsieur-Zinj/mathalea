@@ -29,7 +29,6 @@ export const dateDeModifImportante = '29/01/2023' //  Par EE
 /**
  * Calculs dans une homothétie : longueurs, aires.
  * @author Frédéric PIOU
- * Référence
 */
 export const uuid = '6f383'
 export const ref = '3G13'
@@ -257,7 +256,7 @@ export default function CalculsHomothetie () {
       fImage2etapes = { enonce: (this.sup4 ? fImage2etapes : ''), solution: fImage2etapes }
 
       const flabelsAntecedent2etapes = labelPoint(figure.O, figure.A, figure.hA, figure.B, figure.hB)
-      objetsEnonce = [figure.segmentOA, figure.segmentOhA, figure.segmentOB, figure.segmentOhB, figure.legendeOBi, figure.arcOB, figure.legendeOhB, figure.arcOhB, figure.legendeOA, figure.arcOA, figure.legendeOhA, figure.arcOhA]
+      objetsEnonce = [figure.segmentOA, figure.segmentOhA, figure.segmentOB, figure.segmentOhB, figure.legendeOBi, figure.legendeOhB, figure.legendeOA, figure.legendeOhA]
       if (figure.arcOA.typeObjet !== 'point') objetsEnonce.push(figure.arcOA)
       if (figure.arcOhA.typeObjet !== 'point') objetsEnonce.push(figure.arcOhA)
       if (figure.arcOB.typeObjet !== 'point') objetsEnonce.push(figure.arcOB)

@@ -22,7 +22,7 @@ export const dateDePublication = '02/11/2021'
 
 /**
  * Description didactique de l'exercice
- * A partir d'une masse, proposer différentes questions qui permettent de répondre, selon les questions,
+ * À partir d'une masse, proposer différentes questions qui permettent de répondre, selon les questions,
  * soit de tête (*10), soit après un calcul posé (multiplication, addition ou soustraction),
  * soit après un calcul avec calculatrice (division)
  * Chacune de ces questions indépendantes trouve de l'intérêt par le choix de l'opération à effectuer
