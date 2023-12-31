@@ -177,7 +177,7 @@ async function getFeedback (page: Page, id: string) {
   const feedbackSelector = `#resultatCheckEx${id}`
   await page.waitForSelector(feedbackSelector)
   const feedback = await page.locator(feedbackSelector).innerText()
-  if (feedback === '☹️') return 'KO'
-  if (feedback === '😎') return 'OK'
+  if (feedback.includes('☹️')) return 'KO'
+  if (feedback.includes('😎')) return 'OK'
   throw Error('Un feedback autre que ☹️ et 😎 a été trouvé')
 }
