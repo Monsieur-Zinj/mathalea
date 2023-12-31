@@ -4,6 +4,8 @@ import { choice } from '../../../../src/lib/outils/arrayOutils'
 import { clean } from '../../helpers/text'
 import { KatexHandler } from '../../helpers/KatexHandler'
 import { extraireCoeffAffine } from '../../helpers/maths'
+import FractionEtendue from '../../../../src/modules/FractionEtendue'
+import { pgcd } from '../../../../src/lib/outils/primalite'
 
 async function test (page: Page) {
   const urlExercice = 'http://localhost:5173/alea/?uuid=ec059&id=2F20-2&n=10&d=10&s=1&s2=2&i=1&cd=1' // Mettre ici l'url de l'exercice (éventuellement avec la graine mais push sans la graine)
@@ -49,4 +51,33 @@ async function test (page: Page) {
   return true
 }
 
-runTest(test, import.meta.url, { pauseOnError: true }) // true pendant le développement, false ensuite
+async function testFractionSimplifieeIrreductible (page: Page) {
+  // Ce test s'assure que les fractions simplifiées mais non irréductibles ne sont pas acceptées
+  const urlExercice = 'http://localhost:5173/alea/?uuid=f8f4e&id=5N13&n=50&d=10&s=50&s2=true&alea=EeW9&i=1&cd=1'
+  const questions = await getQuestions(page, urlExercice)
+
+  for (const question of questions) {
+    const den = Number(question.katex.elements[0][0])
+    const num = Number(question.katex.elements[0][1])
+    const fraction = new FractionEtendue(num, den)
+    let reponse = ''
+    if (question.isCorrect) {
+      reponse = `${fraction.n}/${fraction.d}` // fraction irréductible
+    } else {
+      reponse = `${fraction.num}/${fraction.den}` // fraction égale mais non simplifiée
+      for (const k of [2, 3, 5, 7, 11, 13, 17, 19, 23]) {
+        if (num % k === 0 && den % k === 0 && pgcd(num, den) !== k) {
+          reponse = `${num / k}/${den / k}` // fraction simplifiée mais pas forcément irréductible
+          break
+        }
+      }
+    }
+    await inputAnswer(page, question, reponse)
+  }
+
+  await checkFeedback(page, questions)
+  return true
+}
+
+runTest(test, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
+runTest(testFractionSimplifieeIrreductible, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
