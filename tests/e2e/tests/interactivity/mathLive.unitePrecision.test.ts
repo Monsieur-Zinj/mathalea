@@ -3,7 +3,7 @@ import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers
 import type { Page } from 'playwright'
 
 async function test (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=bd660&id=4G20&n=10&d=10&s=3&s2=1&alea=vdiV&i=1&cd=1'
+  const urlExercice = 'http://localhost:5173/alea/?uuid=bd660&id=4G20&n=20&d=10&s=3&s2=1&alea=vdiV&i=1&cd=1'
   // 4G20 dans le cas où on ne cherche que l'hypoténuse
   const questions = await getQuestions(page, urlExercice)
 

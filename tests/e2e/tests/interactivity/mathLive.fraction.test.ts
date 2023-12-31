@@ -5,7 +5,7 @@ import { clean } from 'helpers/text'
 import { KatexHandler } from '../../helpers/KatexHandler'
 
 async function test (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=91d72&id=5N10&n=10&d=10&s=3&s2=false&i=1&cd=1'
+  const urlExercice = 'http://localhost:5173/alea/?uuid=91d72&id=5N10&n=20&d=10&s=3&s2=false&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
