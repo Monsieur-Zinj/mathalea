@@ -18,10 +18,6 @@ async function test (page: Page) {
       const { num, den } = fraction ?? { num: undefined, den: undefined }
       if (num == null || den == null) throw Error(`getFraction n'a pas trouvé la fraction : ${fraction}`)
       const [n, d] = [num, den].map(Number)
-      console.log('On me demande de fournir une valeur décimale')
-      console.log(`la fraction de l'énoncé est : ${num}/${den}`)
-      console.log(`on me demande de répondre ${question.isCorrect ? 'correctement' : 'faux'}`)
-      console.log(`Je réponds donc : ${question.isCorrect ? (n / d).toFixed(3).replace('.', ',') : (d / n).toFixed(3).replace('.', ',')}`)
       reponse = question.isCorrect
         ? (n / d).toFixed(3).replace('.', ',')
         : (d / n).toFixed(3).replace('.', ',')

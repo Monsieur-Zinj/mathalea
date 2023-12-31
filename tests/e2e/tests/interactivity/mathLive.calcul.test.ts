@@ -53,7 +53,7 @@ async function testCalculLitteral (page: Page) {
       if (question.isCorrect) {
         reponse = `${k * a}x${k * b > 0 ? '+' : ''}${k * b}`
       } else {
-        reponse = `${-k * a}x${k * b > 0 ? '+' : ''}${k * b}`
+        reponse = `${k}(${a}x${b > 0 ? '+' : ''}${b})` // Expression égale mais non développée
       }
     } else {
       throw new Error('Pas de match')
