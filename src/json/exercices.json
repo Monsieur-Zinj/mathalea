@@ -2,7 +2,7 @@
   "": {
     "url": "can/6e/CANSpeciale2024.js",
     "tags": [],
-    "uuid": "8ff87",
+    "uuid": "6ca15",
     "id": "",
     "titre": "CAN Spéciale année 2024",
     "datePublication": "01/01/2024",
@@ -16795,7 +16795,7 @@
     "tags": [],
     "uuid": "69522",
     "id": "can2C04",
-    "titre": "Calculer avec les identités remarquables - simple",
+    "titre": "Calculer avec les identités remarquables*",
     "features": {
       "interactif": {
         "isActive": true,
@@ -16813,7 +16813,7 @@
     "tags": [],
     "uuid": "c0f74",
     "id": "can2C05",
-    "titre": "Calculer avec les identités remarquables - Guidé",
+    "titre": "Calculer avec les identités remarquables",
     "features": {
       "interactif": {
         "isActive": true,
