@@ -1,11 +1,11 @@
 import { choice } from '../../lib/outils/arrayOutils.js'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampFractionMathLive, ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { format } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import Decimal from 'decimal.js'
 
 export const titre = 'Donner l\'écriture décimale d\'une fraction décimale'
 export const interactifReady = true
@@ -76,14 +76,16 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
         ])
       // X, XX, X0X, X00X, XX0
       b = [10, 100, 1000, 10, 100][i % 5]
-      n = calculANePlusJamaisUtiliser(a / b)
+      const aDecimal = new Decimal(a)
+      const bDecimal = new Decimal(b)
+      n = aDecimal.div(bDecimal).toNumber()
 
       switch (typesDeQuestions) {
         case 2: // fraction décimale -> écriture décimale
           consi[1] = true
           setReponse(this, i, n)
-          texte = `$${deprecatedTexFraction(texNombre(a), texNombre(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-          texteCorr = '$ ' + deprecatedTexFraction(texNombre(a), texNombre(b)) + ' = ' + texNombre(n) + ' $'
+          texte = `$${texFraction(texNombre(a), texNombre(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          texteCorr = '$ ' + texFraction(texNombre(a), texNombre(b)) + ' = ' + texNombre(n) + ' $'
           this.autoCorrection[i].reponse.param.digits = 5
           this.autoCorrection[i].reponse.param.decimals = 3
           break
@@ -106,13 +108,19 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           } else if (nbdigits === 1 && b === 10) {
             precision = randint(2, 3)
           }
-          setReponse(this, i, a)
+          setReponse(this, i, {
+            bareme: (listePoints) => [listePoints[0], 1],
+            num: { value: String(a) }
+          },
+          { formatInteractif: 'fillInTheBlank' }
+          )
+
           if (this.interactif) {
-            texte = `$${texNombre(n, precision, true)} =$` + ajouteChampFractionMathLive(this, i, false, b, 'min-width:100px')
+            texte = remplisLesBlancs(this, i, `${texNombre(n, precision, true)} = \\dfrac{%{num}}{$${texNombre(b)}}`, 'fillInTheBlanks')
           } else {
-            texte = `$${texNombre(n, precision, true)} = ${deprecatedTexFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
+            texte = `$${texNombre(n, precision, true)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
           }
-          texteCorr = '$ ' + texNombre(n) + ' = ' + deprecatedTexFraction(texNombre(a), texNombre(b)) + ' $'
+          texteCorr = '$ ' + texNombre(n) + ' = ' + texFraction(texNombre(a), texNombre(b)) + ' $'
           this.autoCorrection[i].reponse.param.digits = 6
           this.autoCorrection[i].reponse.param.decimals = 0
           break
@@ -144,3 +152,4 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
     ].join('\n')
   ]
 }
+const texFraction = (a, b) => `\\dfrac{${a}}{${b}}`
