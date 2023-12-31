@@ -36,7 +36,7 @@ function cleanInput (saisie) {
 }
 
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
-  let saisieParsee, num, den, fSaisie, fReponse
+  let saisieParsee, fReponse
   if (exercice.autoCorrection[i].reponse == null) {
     window.notify('verifQuestionMathlive appelé sur une question sans réponse', {
       exercice,
