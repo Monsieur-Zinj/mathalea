@@ -84,6 +84,8 @@ class Grandeur {
    * @returns
    */
   toString (precision = 12) {
+    const nbChiffrePartieDecimale = String(this.mesure).split('.')[1]?.length
+    if (nbChiffrePartieDecimale < precision) precision = nbChiffrePartieDecimale
     return `${stringNombre(this.mesure, precision).replace('.', ',')}\u202f${this.unite}`
   }
 
