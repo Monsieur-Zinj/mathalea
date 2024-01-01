@@ -156,15 +156,15 @@ export const keys = {
   SEC: { key: 's', insert: '{\\:\\text{s}\\:}' },
   // ================== special keys
   BACK: {
-    key: '<i class="bx bx-arrow-back bx-xs md:bx-sm"/>',
+    key: '<i class="bx bx-arrow-back"/>',
     command: ['performWithFeedback', 'moveToPreviousChar']
   },
   FWD: {
-    key: '<i class="bx bx-arrow-back bx-rotate-180 bx-xs md:bx-sm"/>',
+    key: '<i class="bx bx-arrow-back bx-rotate-180"/>',
     command: ['performWithFeedback', 'moveToNextChar']
   },
   CLOSE: {
-    key: '<i class="bx bx-x bx-xs md:bx-sm"/>',
+    key: '<i class="bx bx-x"/>',
     command: 'closeKeyboard'
   },
   DEL: {
@@ -174,7 +174,7 @@ export const keys = {
 }
 
 export const KEYCAP_WIDTH = {
-  sm: 30,
+  sm: 20,
   md: 40
 }
 export const GAP_BETWEEN_BLOCKS = {

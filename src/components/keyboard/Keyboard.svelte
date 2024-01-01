@@ -33,6 +33,7 @@
     pageWidth =
       pageWidth + inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]
     page.push(block!)
+    // console.log('pageWidth: ' + pageWidth + ' / innerWidth * 0.7: ' + innerWidth * 0.7)
     if (pageWidth > 0.7 * innerWidth) {
       pages.push(page.reverse())
       page = []
@@ -69,14 +70,16 @@
   <div
     transition:fly={{ y: '100%', opacity: 1 }}
     bind:this={divKeyboard}
-    class="bg-coopmaths-struct dark:bg-coopmathsdark-struct-dark p-4 w-full fixed bottom-0 left-0 right-0 z-[9999]"
+    class="bg-coopmaths-struct dark:bg-coopmathsdark-struct-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999]"
   >
     {#if !reduced}
-      <KeyboardPage
-        blocks={[...myKeyboard.blocks].reverse()}
-        isInLine={false}
-        {innerWidth}
-      />
+      <div class="py-2 md:py-0">
+        <KeyboardPage
+          blocks={[...myKeyboard.blocks].reverse()}
+          isInLine={false}
+          {innerWidth}
+        />
+      </div>
     {:else}
       <div class="relative px-10">
         <KeyboardPage
@@ -86,7 +89,7 @@
         />
 
         <button
-          class="absolute right-0 top-0 bottom-0 m-auto text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
+          class="absolute right-2 md:right-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
           on:click={async () => {
             if (currentPageIndex !== 0) {
               currentPageIndex--
@@ -96,11 +99,11 @@
           }}
           disabled={pages.length === 1 || currentPageIndex === 0}
         >
-          <i class="bx bx-chevrons-right bx-lg" />
+          <i class="bx bx-chevron-right bx-lg" />
         </button>
 
         <button
-          class="absolute left-0 top-0 bottom-0 m-auto text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
+          class="absolute left-2 md:left-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
           on:click={async () => {
             if (currentPageIndex !== pages.length - 1) {
               currentPageIndex++
@@ -110,7 +113,7 @@
           }}
           disabled={pages.length === 1 || currentPageIndex === pages.length - 1}
         >
-          <i class="bx bx-chevrons-left bx-lg" />
+          <i class="bx bx-chevron-left bx-lg" />
         </button>
       </div>
     {/if}
