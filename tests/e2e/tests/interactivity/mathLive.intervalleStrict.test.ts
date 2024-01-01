@@ -79,5 +79,26 @@ async function testNotes (page: Page) {
   return true
 }
 
+async function test6N314 (page: Page) {
+  const urlExercice = 'http://localhost:5173/alea/?uuid=b86b9&id=6N31-4&alea=x9ft&i=1'
+  // 6N31-4
+  const questions = await getQuestions(page, urlExercice)
+
+  for (const question of questions) {
+    let reponse = ''
+    const a = Number(question.katex.elements[0][0].replace('<', '').replace(',', '.'))
+    const b = Number(question.katex.elements[1][0].replace('<', '').replace(',', '.'))
+    if (question.isCorrect) {
+      reponse = String((a + b) / 2)
+    } else {
+      reponse = String(b)
+    }
+    await inputAnswer(page, question, reponse)
+  }
+  await checkFeedback(page, questions)
+  return true
+}
+
 runTest(testSalaires, import.meta.url, { pauseOnError: true }) // true pendant le développement, false ensuite
 runTest(testNotes, import.meta.url, { pauseOnError: true }) // true pendant le développement, false ensuite
+runTest(test6N314, import.meta.url, { pauseOnError: false })

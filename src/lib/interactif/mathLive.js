@@ -382,11 +382,14 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   }
                 }
                 break
-              case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
+              case 'intervalleStrict': { // Pour les exercice où la saisie doit être dans un intervalle
                 saisie = champTexte.value.replace(',', '.')
                 nombreSaisi = Number(saisie)
-                if (saisie !== '' && nombreSaisi > exercice.autoCorrection[i].reponse.valeur[0] && nombreSaisi < exercice.autoCorrection[i].reponse.valeur[1]) resultat = 'OK'
+                const a = exercice.autoCorrection[i].reponse.valeur[0]
+                const b = exercice.autoCorrection[i].reponse.valeur[1]
+                if (saisie !== '' && nombreSaisi > a && nombreSaisi < b) resultat = 'OK'
                 break
+              }
               case 'intervalle' :
                 saisie = champTexte.value.replace(',', '.')
                 nombreSaisi = Number(saisie)
