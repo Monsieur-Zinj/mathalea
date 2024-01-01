@@ -123,7 +123,7 @@ export default function CalculerCaracteristiques () {
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1]], { formatInteractif: 'intervalleStrict' })
                   reponsesAMC[questind] = arrondi((repMediane[0] + repMediane[1]) / 2, 1)
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
@@ -183,7 +183,7 @@ export default function CalculerCaracteristiques () {
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...mediane]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1]], { formatInteractif: 'intervalleStrict' })
                   reponsesAMC[questind] = arrondi((repMediane[0] + repMediane[1]) / 2, 1)
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
@@ -251,7 +251,7 @@ export default function CalculerCaracteristiques () {
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...mediane]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1]], { formatInteractif: 'intervalleStrict' })
                   reponsesAMC[questind] = arrondi((repMediane[0] + repMediane[1]) / 2, 1)
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
@@ -341,7 +341,7 @@ export default function CalculerCaracteristiques () {
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1]], { formatInteractif: 'intervalleStrict' })
                   reponsesAMC[questind] = arrondi((repMediane[0] + repMediane[1]) / 2, 1)
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
@@ -410,7 +410,7 @@ export default function CalculerCaracteristiques () {
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1]], { formatInteractif: 'intervalleStrict' })
                   reponsesAMC[questind] = arrondi((repMediane[0] + repMediane[1]) / 2, 1)
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
@@ -479,7 +479,7 @@ export default function CalculerCaracteristiques () {
                   reponsesAMC[questind] = repMediane
                 } else {
                   repMediane = [...scoresMedians]
-                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1] - 0.00000001], { formatInteractif: 'intervalle' })
+                  setReponse(this, i * nbReponse + questind, [repMediane[0], repMediane[1]], { formatInteractif: 'intervalleStrict' })
                   reponsesAMC[questind] = arrondi((repMediane[0] + repMediane[1]) / 2, 1)
                   approxAMC[questind] = arrondi(10 * (repMediane[1] - repMediane[0]) / 2, 0) - 0.1
                 }
