@@ -10,9 +10,12 @@
   } from './types/keyboardContent'
   import {
     fullOperations,
-    numeric,
+    numbers,
     variables,
-    greek
+    greek,
+
+    trigo
+
   } from './layouts/keyboardBlocks'
   import KeyboardPage from './KeyboardPage.svelte'
   import { SM_BREAKPOINT, GAP_BETWEEN_BLOCKS } from './layouts/keycaps'
@@ -20,7 +23,8 @@
   let innerWidth: number = 0
 
   const myKeyboard = new Keyboard(fullOperations)
-    .add(numeric)
+    .add(trigo)
+    .add(numbers)
     .add(variables)
     .add(greek)
   const pages: KeyboardBlock[][] = []

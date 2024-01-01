@@ -48,6 +48,23 @@ export const keys = {
     key: '$x^\\square$',
     insert: '#@^{#0}'
   },
+  POW10: {
+    key: '$10^\\square$',
+    insert: '$$\\times10^#0$$'
+  },
+  // ================== functions
+  COS: {
+    key: 'cos',
+    insert: '\\cos(#0)'
+  },
+  SIN: {
+    key: 'sin',
+    insert: 'sin(#0)'
+  },
+  TAN: {
+    key: 'tan',
+    insert: 'tan(#0)'
+  },
   // ================== symbols
   ',': {
     key: ','
@@ -59,6 +76,25 @@ export const keys = {
   ')': {
     key: ')',
     insert: '\\rparen'
+  },
+  '=': {
+    key: '='
+  },
+  DEG: {
+    key: '°'
+  },
+  ANG: {
+    key: '$\\widehat{\\square}$',
+    insert: '$$\\widehat{#0}$$'
+  },
+  PERCENT: {
+    key: '%'
+  },
+  COLON: {
+    key: ':'
+  },
+  SEMICOLON: {
+    key: ';'
   },
   // ================== letters
   a: { key: 'a' },

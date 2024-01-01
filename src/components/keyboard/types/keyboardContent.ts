@@ -1,4 +1,4 @@
-import { specialKeys, numeric } from '../layouts/keyboardBlocks'
+import { specialKeys, numbers } from '../layouts/keyboardBlocks'
 import { GAP_BETWEEN_KEYS, KEYCAP_WIDTH, keys } from '../layouts/keycaps'
 export type Keys = keyof typeof keys
 export type KeysList = Keys[]
@@ -16,7 +16,7 @@ export interface KeyboardBlock {
 export class Keyboard {
   blocks: KeyboardBlock[] = [specialKeys]
 
-  constructor (kb: KeyboardBlock = numeric) {
+  constructor (kb: KeyboardBlock = numbers) {
     this.blocks.push(kb)
   }
 
