@@ -59,11 +59,11 @@ export const keys = {
   },
   SIN: {
     key: 'sin',
-    insert: 'sin(#0)'
+    insert: '\\sin(#0)'
   },
   TAN: {
     key: 'tan',
-    insert: 'tan(#0)'
+    insert: '\\tan(#0)'
   },
   // ================== symbols
   ',': {
