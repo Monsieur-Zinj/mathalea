@@ -57,5 +57,6 @@ export class Keyboard {
 
 export const inLineBlockWidth = (block: KeyboardBlock, mode: 'sm' | 'md'): number => {
   const numberOfKeys = block.keycaps.inline.length
+  // console.log('nb of keys: ' + numberOfKeys + ' / key width: ' + KEYCAP_WIDTH[mode]s + ' / gap between keys: ' + GAP_BETWEEN_KEYS[mode])
   return numberOfKeys * KEYCAP_WIDTH[mode] + (numberOfKeys - 1) * GAP_BETWEEN_KEYS[mode]
 }

@@ -890,7 +890,7 @@
               class="flex flex-col h-full justify-between pl-4"
               bind:this={divExercices}
             >
-              <div class="flex flex-col md:mt-9 xl:mt-0">
+              <div class="flex flex-col md:mt-9 xl:mt-0 {$keyboardState.isVisible ? 'mb-20' : ''}">
                 {#each $exercicesParams as paramsExercice, i (paramsExercice)}
                   <div
                     id="exo{i}"
@@ -907,7 +907,6 @@
               <div class="hidden md:flex items-center justify-center">
                 <Footer />
               </div>
-
             </div>
           {:else}
             <div class="relative flex-1 h-full">
@@ -962,7 +961,7 @@
       <ChipsList bind:chipsListDisplayed={chipsListDisplayed}/>
     </div>
   {/if}
-  <Keyboard {innerWidth}/>
+  <Keyboard />
 
 </div>
 
