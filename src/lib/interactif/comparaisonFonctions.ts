@@ -2,6 +2,7 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
+import type { as } from 'vitest/dist/reporters-O4LBziQ_.js'
 
 const engine = new ComputeEngine()
 
@@ -233,13 +234,13 @@ export function upperCaseCompare (input: string, goodAnswer: string): { isOk: bo
  * @return {isOk: boolean, feedback?: string}
  */
 export function fractionPlusSimpleCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
-  const fReponse = engine.parse(goodAnswer, { canonical: false })
-  const saisieParsed = engine.parse(input, { canonical: true })
-  if (saisieParsed.head === 'Number' && Array.isArray(saisieParsed.numericValue) && fReponse.head === 'Divide') {
-    const num = saisieParsed.numericValue[0]
-    const numReponse = fReponse.op1.numericValue
-    if (numReponse == null || typeof numReponse !== 'number') throw Error(`problème avec ${goodAnswer} dans fractionPlusSimpleCompare : fReponse.op1.numericValue est nul`)
-    if (saisieParsed.canonical.isSame(fReponse.canonical) && num && num < numReponse && Number.isInteger(num)) return { isOk: true }
+  const goodAnswerParsed = engine.parse(goodAnswer, { canonical: false })
+  const inputParsed = engine.parse(input, { canonical: false })
+  if (inputParsed.head === 'Divide' && goodAnswerParsed.head === 'Divide') {
+    const num = (inputParsed.json as [string, number, number])[1] as number
+    const numGoodAnswer = (goodAnswerParsed.json as [string, number, number])[1] as number
+    if (numGoodAnswer == null || typeof numGoodAnswer !== 'number') throw Error(`problème avec ${goodAnswer} dans fractionPlusSimpleCompare : fReponse.op1.numericValue est nul`)
+    if (inputParsed.isEqual(goodAnswerParsed) && num && num < numGoodAnswer && Number.isInteger(num)) return { isOk: true }
   }
   return { isOk: false }
 }
