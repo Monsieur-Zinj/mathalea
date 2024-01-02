@@ -2,7 +2,6 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
-import type { as } from 'vitest/dist/reporters-O4LBziQ_.js'
 
 const engine = new ComputeEngine()
 
@@ -224,6 +223,8 @@ export function texteAvecEspacesCompare (input: string, goodAnswer: string): { i
  * @return {isOk: boolean, feedback?: string}
  */
 export function upperCaseCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  // @ToDo supprimer toutes les traces de LaTeX (gestion du - typographique...)
+  input = input.replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
   return { isOk: input.toUpperCase() === goodAnswer.toUpperCase() }
 }
 
