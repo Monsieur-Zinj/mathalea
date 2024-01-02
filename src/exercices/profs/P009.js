@@ -21,13 +21,10 @@ export const uuid = '691a7'
 
 export default function SimulateurAleatoire () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 1 // Ici le nombre de questions
   this.nbQuestionsModifiable = true // Active le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
-  this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
-  this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
@@ -35,7 +32,7 @@ export default function SimulateurAleatoire () {
   this.sup2 = 10000 // nbLancers
   this.sup3 = false // true = équiprobable, false = jeu truqué
 
-  this.consigne = '<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>'
+  //  this.consigne = '<center><a title="Diacritica, CC BY-SA 3.0 &lt;https://creativecommons.org/licenses/by-sa/3.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Dice_(typical_role_playing_game_dice).jpg"><img width="128" alt="Dice (typical role playing game dice)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Dice_%28typical_role_playing_game_dice%29.jpg/128px-Dice_%28typical_role_playing_game_dice%29.jpg"></a></center>'
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   this.nouvelleVersion = function () {
@@ -102,7 +99,7 @@ export default function SimulateurAleatoire () {
         face = randint(1, 4)
         texte += 'Des boules de différentes couleurs sont placées dans une urne.<br>'
         texte += `Il y a $${tabNbBoules[0]}$ ${tabcoul[0]}, $${tabNbBoules[1]}$ ${tabcoul[1]}, $${tabNbBoules[2]}$ ${tabcoul[2]} et $${tabNbBoules[3]}$ ${tabcoul[3]}.<br>`
-        texte += `On effectue $${nbLancers}$ tirages avec remise.<br>`
+        texte += `On effectue $${texNombre(nbLancers)}$ tirages avec remise.<br>`
         texte += 'On étudie les fréquences d\'apparition de chaque couleur.<br>On obtient les résultats suivants : <br>'
         f = fraction(tabNbBoules[face - 1], nbBoules)
         if (this.sup3) {
@@ -188,7 +185,8 @@ export default function SimulateurAleatoire () {
 
           const lstElementGraph = []
           for (let i = 0; i < nbFaces; i++) {
-            lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, i + 1), { unite: 1 / coef })
+          //  lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, i + 1), { unite: 1 / coef })
+            lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, i + 1))
           }
           texte += mathalea2d({ xmin: -1, xmax: 11, ymin: -4, ymax: 5.5, pixelsParCm: 30, scale: 1 }, r, lstElementGraph)
         }
@@ -227,7 +225,8 @@ export default function SimulateurAleatoire () {
 
           const lstElementGraph = []
           for (let i = 0; i < nbFaces; i++) {
-            lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, tabcoul[i]), { unite: 1 / coef })
+            // lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, tabcoul[i]), { unite: 1 / coef })
+            lstElementGraph.push(traceBarre(((r.xMax - r.xMin) / nbFaces) * (i + 0.5), tabRes[i][1] * 10, tabcoul[i]))
           }
           texte += mathalea2d({ xmin: -1, xmax: 12, ymin: -4, ymax: 7, pixelsParCm: 30, scale: 1 }, r, lstElementGraph)
         }
@@ -243,6 +242,6 @@ export default function SimulateurAleatoire () {
   // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
 
   this.besoinFormulaireNumerique = ['Type d\'expérience', 2, '1 : Tirage de dés\n 2 : Tirage dans une urne']
-  this.besoinFormulaire2Texte = ['Nombre de tirages', `Taper un nombre entier : ${10000}`]
+  this.besoinFormulaire2Texte = ['Nombre de tirages', `Taper un nombre entier : ${10000} par exemple`]
   this.besoinFormulaire3CaseACocher = ['Équiprobabilité', true]
 } // Fin de l'exercice.

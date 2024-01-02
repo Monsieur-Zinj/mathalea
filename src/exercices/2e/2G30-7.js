@@ -21,8 +21,6 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 /**
- 2G35-7, ex 2G50-2
-
  */
 export const uuid = '41e6f'
 export const ref = '2G30-7'
@@ -49,7 +47,7 @@ export default function Lecturegraphiquedeaetb () {
 
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, a, b, r, f, c, d, s1, s2, t, l, o, texte, texteCorr, cpt = 0;
+    for (let i = 0, a, b, r, c, d, s1, s2, t, l, o, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       if (this.sup === 1) {
         a = randint(-4, 4) // coefficient directeur
@@ -86,7 +84,7 @@ export default function Lecturegraphiquedeaetb () {
           xmax: 8,
           ymax: 8,
           scale: 0.5
-        }, r, f, c, o)// On trace le graphique
+        }, r, c, o)// On trace le graphique
         if (a === 0) {
           texteCorr = 'On observe que la droite est horizontale. '
           texteCorr += `<br>La droite est l'ensemble des points ayant comme ordonnée : $${b}$ `

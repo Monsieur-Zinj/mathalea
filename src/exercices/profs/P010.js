@@ -18,12 +18,9 @@ export const uuid = '691a8'
 /**
  * tableau de variation d'une fonction et tracé de la courbe (polynomes de degré <= 3)
  * @author Jean-Claude Lhote
- * Référence P010
  */
 export default function VariationPolynomeDegre3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
@@ -542,7 +539,6 @@ export default function VariationPolynomeDegre3 () {
       }
       YMAXI = 10 ** (Math.ceil(Math.log10(d)))
     }
-
     const pas = calculANePlusJamaisUtiliser(10 ** Math.ceil(Math.log10((Math.abs((YMAXI - YMINI) / 20)))) / 2)
     scalex = Math.abs(10 / (XMAXI - XMINI))
     scaley = calculANePlusJamaisUtiliser(20 / 10 ** Math.ceil(Math.log10(Math.abs(YMAXI - YMINI))))
@@ -576,12 +572,12 @@ export default function VariationPolynomeDegre3 () {
       } else {
         texte += 'Par lecture graphique on peut lire les solutions de $f(x)=0$ : '
         if (solutions.length === 1) {
-          texte += `$x\\approx${texNombre(solutions[0], 1)}$`
+          texte += `$x\\approx${texNombre(Number(solutions[0]), 1)}$`
         } else {
           if (solutions.length === 2) {
-            texte += `$x\\approx${texNombre(solutions[0], 1)}$ et $x\\approx${texNombre(solutions[1], 1)}$`
+            texte += `$x\\approx${texNombre(Number(solutions[0]), 1)}$ et $x\\approx${texNombre(Number(solutions[1]), 1)}$`
           } else {
-            texte += `$x\\approx${texNombre(solutions[0], 1)}$, $x\\approx${texNombre(solutions[1], 1)}$ et $x\\approx${texNombre(solutions[2], 1)}$`
+            texte += `$x\\approx${texNombre(Number(solutions[0]), 1)}$, $x\\approx${texNombre(Number(solutions[1]), 1)}$ et $x\\approx${texNombre(Number(solutions[2]), 1)}$`
           }
         }
       }
