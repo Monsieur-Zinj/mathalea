@@ -18,12 +18,7 @@ export const uuid = '7781a'
 export const ref = '6N22-1'
 export default function RapportsSurUnSegment () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.beta = false
-  if (this.beta) {
-    this.nbQuestions = 2
-  } else {
-    this.nbQuestions = 2
-  }
+  this.nbQuestions = 2
 
   this.consigne = 'Sur tous les axes, les graduations sont régulières.'
 
@@ -36,12 +31,7 @@ export default function RapportsSurUnSegment () {
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
-    if (this.beta) {
-      typesDeQuestionsDisponibles = [0, 1]
-    } else {
-      // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      typesDeQuestionsDisponibles = [0, 1]
-    }
+    typesDeQuestionsDisponibles = [0, 1]
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -86,7 +76,7 @@ export default function RapportsSurUnSegment () {
           rapport_inverse: `\\dfrac{${noms[0] + noms[2]}}{${noms[0] + noms[1]}}`,
           fig: mathalea2d(
             params,
-            fraction(Math.min(m, n), Math.max(m, n)).representation(0, 0, rayon, 0, 'segment', '', noms[0], noms[1], 1, noms[2])
+            fraction(Math.min(m, n), Math.max(m, n)).representation(0, 0, rayon, 0, 'segment', 'none', noms[0], noms[1], 1, noms[2])
           ),
           segment_corr1: `\\textcolor{red}{[${noms[0] + noms[2]}]}`,
           longueur_corr1: `\\textcolor{red}{${noms[0] + noms[2]}}`,
@@ -110,7 +100,7 @@ export default function RapportsSurUnSegment () {
           rapport_inverse: `\\dfrac{${noms[0] + noms[2]}}{${noms[0] + noms[1]}}`,
           fig: mathalea2d(
             params,
-            fraction(Math.max(m, n), Math.min(m, n)).representation(0, 0, 5, 0, 'segment', '', noms[0], noms[1], 1, noms[2])
+            fraction(Math.max(m, n), Math.min(m, n)).representation(0, 0, 5, 0, 'segment', 'none', noms[0], noms[1], 1, noms[2])
           ),
           segment_corr1: `\\textcolor{red}{[${noms[0] + noms[2]}]}`,
           longueur_corr1: `\\textcolor{red}{${noms[0] + noms[2]}}`,
@@ -156,58 +146,27 @@ export default function RapportsSurUnSegment () {
       switch (listeTypeDeQuestions[i]) {
         case 0:
           texte = `${enonces[0].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
+          texteCorr = `${enonces[0].correction}`
           break
         case 1:
           texte = `${enonces[1].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
+          texteCorr = `${enonces[1].correction}`
           break
         case 2:
           texte = `${enonces[2].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          }
+          texteCorr = `${enonces[2].correction}`
           break
         case 3:
           texte = `${enonces[3].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[3].correction}`
-          }
+          texteCorr = `${enonces[3].correction}`
           break
         case 4:
           texte = `${enonces[4].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[4].correction}`
-          }
+          texteCorr = `${enonces[4].correction}`
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
