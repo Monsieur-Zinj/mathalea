@@ -6,27 +6,21 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { prenom } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Mettre en équation un problème sans objectif de résolution'
 
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue afin de mettre en équation un problème
  * à partir de figure géométriques élémentaires
- * * 4L13-0
  * @author Sébastien Lozano
  */
 export const uuid = '5a6f2'
 export const ref = '4L13-0'
 export default function MettreEnEquationSansResoudre () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.debug = false
   this.sup = 1
-  if (this.debug) {
-    this.nbQuestions = 9
-  } else {
-    this.nbQuestions = 2
-  }
+  this.nbQuestions = 2
 
   this.titre = titre
   this.consigne = "Donner une équation qui permet de résoudre le problème.<br>On ne demande pas de résoudre l'équation."
@@ -37,11 +31,7 @@ export default function MettreEnEquationSansResoudre () {
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [1]
-    } else {
-      typesDeQuestionsDisponibles = [1, 2]
-    }
+    typesDeQuestionsDisponibles = [1, 2]
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -114,7 +104,7 @@ export default function MettreEnEquationSansResoudre () {
       if (n === 4) {
         anglesDroitsIfIsCarre = codageCarre(po)
       } else {
-        anglesDroitsIfIsCarre = {}
+        anglesDroitsIfIsCarre = vide2d()
       }
       // on finit les appels
       const mesAppels = [
@@ -171,23 +161,11 @@ export default function MettreEnEquationSansResoudre () {
       switch (listeTypeDeQuestions[i]) {
         case 1:
           texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
+          texteCorr = `${enonces[0].correction}`
           break
         case 2:
           texte = `${enonces[1].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
+          texteCorr = `${enonces[1].correction}`
           break
       }
 

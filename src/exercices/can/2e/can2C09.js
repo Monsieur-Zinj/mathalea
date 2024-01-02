@@ -16,11 +16,10 @@ import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '09/09/2021'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can3C07
- * Date de publication sptembre 2021
 */
 export const uuid = '5da59'
 export const ref = 'can2C09'
@@ -69,8 +68,8 @@ export default function MilieuEntre1EtFraction () {
     this.correction = `On calcule la moyenne de $1$ et $${deprecatedTexFraction(n, d)}$ :<br>
     $x_I=\\dfrac{1+${deprecatedTexFraction(n, d)}}{2}=
     \\dfrac{${deprecatedTexFraction(d, d)}+${deprecatedTexFraction(n, d)}}{2}=
-        ${deprecatedTexFraction(n + d, d)}\\times \\dfrac{1}{2}=
-        ${miseEnEvidence(`${deprecatedTexFraction(d + n, 2 * d)} ${simplificationDeFractionAvecEtapes(d + n, 2 * d)}`)}$ <br><br>`
+        ${deprecatedTexFraction(n + d, d)}\\times \\dfrac{1}{2}=${deprecatedTexFraction(d + n, 2 * d)}
+        ${miseEnEvidence(`${simplificationDeFractionAvecEtapes(d + n, 2 * d)}`)}$ <br><br>`
     this.correction += texteEnCouleur(` Mentalement : <br>
         On calcule d'abord  $1+${deprecatedTexFraction(n, d)}$ en n'oubliant pas que $1=\\dfrac{${d}}{${d}}$, puis on multiplie le résultat par $\\dfrac{1}{2}$. `, 'blue')
 
