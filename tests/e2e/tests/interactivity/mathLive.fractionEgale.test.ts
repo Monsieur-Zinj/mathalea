@@ -79,5 +79,5 @@ async function testFractionSimplifieeIrreductible (page: Page) {
   return true
 }
 
-runTest(test, import.meta.url, { pauseOnError: false })
-runTest(testFractionSimplifieeIrreductible, import.meta.url, { pauseOnError: false })
+runTest(test, import.meta.url)
+runTest(testFractionSimplifieeIrreductible, import.meta.url)

@@ -27,7 +27,7 @@ async function test (page: Page) {
   return true
 }
 
-runTest(test, import.meta.url, { pauseOnError: false })
+runTest(test, import.meta.url)
 
 function getNumbers (text: string): Decimal[] {
   const matches = text.match(/\d+(,\d+)?/g)

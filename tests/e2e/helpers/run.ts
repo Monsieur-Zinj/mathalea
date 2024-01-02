@@ -41,7 +41,7 @@ export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string
 
     if (prefs.browsers !== undefined) {
       for (const browserName of prefs.browsers) {
-        it(`works with ${browserName}`, async ({ skip }) => {
+        it(`${test.name} works with ${browserName}`, async ({ skip }) => {
           if (stop) return skip()
           try {
             result = false
