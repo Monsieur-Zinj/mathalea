@@ -397,9 +397,10 @@ export function setReponse (exercice, i, valeurs, {
 
     case 'hms':
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format hms, c\'est incohérent !')
+      if (!(reponses[0] instanceof Hms)) window.notify('setReponse : type "hms" la réponse n\'est pas une instance de Hms !', { reponses })
       return handleAnswers(exercice, i, {
         reponse: {
-          value: Hms.fromString(reponses[0]),
+          value: reponses[0].toString(),
           compare: hmsCompare
         }
       }, params)
@@ -613,7 +614,7 @@ export function handleAnswers (exercice, question, reponses, {
   formatInteractif = 'calcul',
   precision = null
 } = {}) {
-  if (!(reponses instanceof Object)) throw Error(`setReponse2() reponses dpoit être un objet : ${reponses}`)
+  if (!(reponses instanceof Object)) throw Error(`setReponse2() reponses doit être un objet : ${reponses}`)
   if (exercice.autoCorrection[question] === undefined) {
     exercice.autoCorrection[question] = {}
   }

@@ -41,6 +41,10 @@ function cleanParenthses (str: string): string {
   return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1')
 }
 
+function cleanUnite (str: string): string {
+  return str.replaceAll('{\\:\\text{', '').replaceAll('}\\:}', '')
+}
+
 function generateCleaner (operations: CleaningOperation[]): (str: string) => string {
   const cleaningFunctions = operations.map(operation => {
     switch (operation) {
@@ -115,9 +119,10 @@ export function calculCompare (input: string, goodAnswer: string): { isOk: boole
  * @return {isOk: boolean, feedback?: string}
  */
 export function hmsCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
-  const hmsSaisie = Hms.fromString(cleanStringBeforeParse(input))
-  const hmsReponse = Hms.fromString(cleanStringBeforeParse(goodAnswer))
-  return { isOk: hmsReponse.isTheSame(hmsSaisie) }
+  const cleanInput = cleanUnite(input)
+  const inputHms = Hms.fromString(cleanInput)
+  const goodAnswerHms = Hms.fromString(goodAnswer)
+  return { isOk: goodAnswerHms.isTheSame(inputHms) }
 }
 
 /**
