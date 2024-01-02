@@ -140,7 +140,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           if (context.isHtml) {
             texte = 'La $\\mathbf{machine\\,f}$ renvoie le ' + katexPopup('périmètre', 'Rappel', 'Le périmètre d\'un polygone est égal à la somme des longueurs de ses côtés.') + ' d\'un carré de côté $x$.'
           } else {
-            texte = '<br>La $\\mathbf{machine\\,f}$ renvoie le \\textbf{périmètre} \\footnote{\\textbf{Rappel :} Le périmètre d\'un polygone est égal à la somme des longueurs de ses côtés} d\'un carré de côté $x$.'
+            texte = 'La $\\mathbf{machine\\,f}$ renvoie le \\textbf{périmètre} \\footnote{\\textbf{Rappel :} Le périmètre d\'un polygone est égal à la somme des longueurs de ses côtés} d\'un carré de côté $x$.'
           }
           texte += '<br>'
           // machine
@@ -214,9 +214,9 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           txtInfo = 'Voici le diagramme d\'une machine qui triple '
           if (context.isHtml) {
             texte += numAlpha(j) + ' Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>'
-            txtInfo += `<div id="${idDuDivDiag}" style="width: 100%"; height: 50px; display : table "> ${SvgMachineDiag3F1ActMono(idDuDivDiag, 800, 100, 't', 'x', [['3', '3x']])}</div>`
+            txtInfo += `<div id="${idDuDivDiag}" style="width: 100%; display: table;"> ${SvgMachineDiag3F1ActMono(idDuDivDiag, 600, 100, 't', 'x', [['3', '3x']])}</div>`
             texteCorr += numAlpha(j) + ' C\'est une machine qui quadruple, donc sous forme de diagramme.<br>'
-            texteCorr += `<div id="${idDuDivCorr}" style="width: 100%"; height: 50px; display : table ">${SvgMachineDiag3F1ActMono(idDuDivCorr, 800, 100, 'f', 'x', [['4', '4x']])}</div>`
+            texteCorr += `<div id="${idDuDivCorr}" style="width: 100%; display: table; ">${SvgMachineDiag3F1ActMono(idDuDivCorr, 600, 100, 'f', 'x', [['4', '4x']])}</div>`
             j++ // incrémente la sous question
           } else { // sortie LaTeX
             texte += '\\item   Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{f}$.<br>'
@@ -341,9 +341,9 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           txtInfo = 'Voici le diagramme d\'une machine qui double '
           if (context.isHtml) {
             texte += numAlpha(j) + ' Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>'
-            txtInfo += `<div id="${idDuDivDiag}" style="width: 100%"; height: 50px; display : table ">${SvgMachineDiag3F1ActMono(idDuDivDiag, 800, 100, 'g', 'x', [['2', '2x']])}</div>`
+            txtInfo += `<div id="${idDuDivDiag}" style="width: 100%; display: table; ">${SvgMachineDiag3F1ActMono(idDuDivDiag, 600, 100, 'g', 'x', [['2', '2x']])}</div>`
             texteCorr += numAlpha(j) + ' C\'est une machine qui multiplie un nombre par lui-même, donc sous forme de diagramme.<br>'
-            texteCorr += `<div id="${idDuDivCorr}" style="width: 100%"; height: 50px; display : table ">${SvgMachineDiag3F1ActMono(idDuDivCorr, 800, 100, 'g', 'x', [['x', 'x²']])}</div>`
+            texteCorr += `<div id="${idDuDivCorr}" style="width: 100%; display: table; ">${SvgMachineDiag3F1ActMono(idDuDivCorr, 600, 100, 'g', 'x', [['x', 'x²']])}</div>`
             j++ // incrémente la sous question
           } else {
             texte += '\\item  Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{g}$.<br>'
@@ -387,14 +387,6 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           break
         case 3: // somme de 1 et du triple de x
           j = 0 // pour la sous-numérotation
-
-          // consigne
-          if (!context.isHtml) {
-            texte = '<br>'
-          } else {
-            texte = ''
-          }
-
           texte += 'La $\\mathbf{machine\\,h}$ renvoie la somme du triple du nombre de départ et de 1.'
           texte += '<br>'
           // machine
@@ -474,9 +466,9 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           txtInfo = 'Voici le diagramme d\'une machine qui double puis qui ajoute 5 '
           if (context.isHtml) {
             texte += numAlpha(j) + ' Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>'
-            txtInfo += `<div id="${idDuDivDiag}" style="width: 100%"; height: 50px; display : table ">${SvgMachineDiag3F12(idDuDivDiag, 800, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']])}</div>`
+            txtInfo += `<div id="${idDuDivDiag}" style="width: 100%; display: table;">${SvgMachineDiag3F12(idDuDivDiag, 600, 100, 'h', 'x', [['2', '2x'], ['5', '2x+5']])}</div>`
             texteCorr += numAlpha(j) + ' C\'est une machine qui triple un nombre et ajoute 1, donc sous forme de diagramme.<br>'
-            texteCorr += `<div id="${idDuDivCorr}" style="width: 100%"; height: 50px; display : table ">${SvgMachineDiag3F12(idDuDivCorr, 800, 100, 'h', 'x', [['3', '3x'], ['1', '3x+1']])}</div>`
+            texteCorr += `<div id="${idDuDivCorr}" style="width: 100%; display: table;">${SvgMachineDiag3F12(idDuDivCorr, 600, 100, 'h', 'x', [['3', '3x'], ['1', '3x+1']])}</div>`
             j++ // incrémente la sous question
           } else {
             texte += '\\item  Comme dans l\'exemple ci-dessous, écrire le diagramme de la fonction $\\mathbf{h}$.<br>'
@@ -520,14 +512,6 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           break
         case 4: // nombre de diviseurs de x entier
           j = 0 // pour la sous-numérotation
-
-          // consigne
-          if (!context.isHtml) {
-            texte = '<br>'
-          } else {
-            texte = ''
-          }
-
           texte += 'La $\\mathbf{machine\\,d}$, qui n\'accepte que des nombres entiers positifs, renvoie le nombre de diviseurs du nombre de départ.'
           texte += '<br>'
           // machine
