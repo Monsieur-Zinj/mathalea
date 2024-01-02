@@ -110,15 +110,15 @@ export default function CalculAvecRacineDef () {
 
         this.question = `Donner le nombre ${choix ? 'positif' : 'négatif'} dont le carré est $${a}$.`
         if (a === 4) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=${miseEnEvidence(2)}$.<br>`
+          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=2$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $-\\sqrt{${a}}=${miseEnEvidence(-2)}$.`}`
         }
         if (a === 9) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=${miseEnEvidence(3)}$.<br>`
+          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=3$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $-\\sqrt{${a}}=${miseEnEvidence(-3)}$.`}`
         }
         if (a !== 4 && a !== 9) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $${miseEnEvidence(`\\sqrt{${a}}`)}$.<br>`
+          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $${miseEnEvidence('-')} ${miseEnEvidence(`\\sqrt{${a}}`)}$.`}`
         }
 
@@ -140,15 +140,15 @@ export default function CalculAvecRacineDef () {
         }
 
         if (a === 4) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=${miseEnEvidence(2)}$.<br>`
+          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=2$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $-\\sqrt{${a}}=${miseEnEvidence(-2)}$.`}`
         }
         if (a === 9) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=${miseEnEvidence(3)}$.<br>`
+          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}=3$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $-\\sqrt{${a}}=${miseEnEvidence(-3)}$.`}`
         }
         if (a !== 4 && a !== 9) {
-          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $${miseEnEvidence(`\\sqrt{${a}}`)}$.<br>`
+          this.correction = `Par définition, le nombre positif dont le carré est $${a}$ est $\\sqrt{${a}}$.<br>`
           this.correction += `${choix ? '' : `Ainsi, le nombre négatif dont le carré est $${a}$ est $${miseEnEvidence('-')} ${miseEnEvidence(`\\sqrt{${a}}`)}$.`}`
         }
         this.reponse = choix ? [`\\sqrt{${a}}`, Math.sqrt(a)] : [`-\\sqrt{${a}}`, -Math.sqrt(a)]

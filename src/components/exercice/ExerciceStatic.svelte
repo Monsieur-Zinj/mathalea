@@ -76,7 +76,7 @@
 </script>
 
 <HeaderExerciceVueProf
-  {...headerExerciceProps}
+  {...headerExerciceProps}{indiceExercice}{indiceLastExercice}
   on:clickCorrection={(event) => {
     isCorrectionVisible = event.detail.isCorrectionVisible
   }}
