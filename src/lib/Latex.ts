@@ -274,6 +274,13 @@ class Latex {
         result += '\n\\usepackage{pst-node,pst-all}'
         result += '\n\\usepackage{pst-func,pst-math,pst-bspline,pst-3dplot}'
       }
+      if (content.includes('\\euro')) {
+        result += '\n\\usepackage[gen]{eurosym}'
+      }
+      if (content.includes('\\np{')) {
+        result += '\n\\usepackage[autolanguage,np]{numprint}'
+      }
+
       const [latexCmds, latexPackages] = this.getContentLatex()
       for (const pack of latexPackages) {
         result += '\n\\usepackage{' + pack + '}'
@@ -300,7 +307,7 @@ class Latex {
     for (const exo of this.exercices) {
       if (typeof exo.listePackages === 'string') {
         packLatex.push(exo.listePackages)
-      } else {
+      } else if (Array.isArray(exo.listePackages)) {
         packLatex.push(...exo.listePackages)
       }
     }
