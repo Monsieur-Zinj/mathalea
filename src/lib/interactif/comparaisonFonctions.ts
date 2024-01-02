@@ -255,12 +255,12 @@ export function fractionPlusSimpleCompare (input: string, goodAnswer: string): {
 export function fractionEgaleCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
   const fReponse = engine.parse(goodAnswer)
   if (!isNaN(parseFloat(cleanStringBeforeParse(input)))) {
-    console.log(`La saisie est faite sous forme décimale : ${input}`)
+    // La saisie est faite sous forme décimale
     const newFraction = new FractionEtendue(parseFloat(cleanStringBeforeParse(input)))
-    console.log(`On l'a convertie en fraction : ${newFraction.toLatex().replace('dfrac', 'frac')}`)
+    // On la convertit en fraction
     if (engine.parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`).canonical.isSame(fReponse.canonical)) return { isOk: true }
   } else {
-    console.log(`La saisie est une fraction : ${input}`)
+    // La saisie est une fraction
     if (engine.parse(cleanStringBeforeParse(input)).canonical.canonical.isEqual(fReponse.canonical)) return { isOk: true }
   }
   return { isOk: false }
@@ -276,7 +276,6 @@ export function fractionCompare (input: string, goodAnswer: string): { isOk: boo
   const clean = generateCleaner(['espaces', 'fractions'])
   const inputParsed = engine.parse(clean(input), { canonical: false })
   const goodAnswerParsed = engine.parse(clean(goodAnswer), { canonical: false })
-  console.log(inputParsed, goodAnswerParsed)
   return { isOk: inputParsed.isSame(goodAnswerParsed) }
 }
 
@@ -286,27 +285,28 @@ export function fractionCompare (input: string, goodAnswer: string): { isOk: boo
  * @param {{value: Grandeur, precision: number}} goodAnswer @todo est-il possible d'avoir un string et d'utiliser comme pour Hms un Grandeur.fromString() ?
  * @return {isOk: boolean, feedback?: string}
  */
-export function unitesCompare (input: string, goodAnswer: { value: Grandeur, precision: number }): {
+export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, precision: number }): {
     isOk: boolean,
     feedback?: string
 } {
-  const grandeurSaisie = inputToGrandeur(cleanStringBeforeParse(input))
-  const grandeurReponse = goodAnswer.value
-  const precision = goodAnswer.precision
-  if (grandeurSaisie) {
-    if (grandeurSaisie.estEgal(grandeurReponse)) return { isOk: true }
-    else if (precision && grandeurSaisie.estUneApproximation(grandeurReponse, precision)) {
-      return {
-        isOk: false,
-        feedback: 'Erreur d\'arrondi'
+  const inputGrandeur = inputToGrandeur(cleanStringBeforeParse(input))
+  const goodAnswerGrandeur = goodAnswer.grandeur
+  if (inputGrandeur) {
+    if (goodAnswer.precision !== undefined) {
+      if (inputGrandeur.estUneApproximation(goodAnswerGrandeur, goodAnswer.precision)) {
+        return { isOk: true }
+      } else {
+        return { isOk: false }
       }
-    } else return { isOk: false }
-  } else {
-    if ((input === '') || isNaN(parseFloat(input.replace(',', '.')))) {
-      return { isOk: false, feedback: 'Réponse incorrecte' }
     } else {
-      return { isOk: false, feedback: 'essaieEncoreAvecUneSeuleUnite' }
+      if (inputGrandeur.estEgal(goodAnswerGrandeur)) {
+        return { isOk: true }
+      } else {
+        return { isOk: false }
+      }
     }
+  } else {
+    return { isOk: false, feedback: 'essaieEncoreAvecUneSeuleUnite' }
   }
 }
 

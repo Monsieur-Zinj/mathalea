@@ -521,7 +521,12 @@ export function setReponse (exercice, i, valeurs, {
     case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
       if (!(reponses[0] instanceof Grandeur)) window.notify('setReponse : type "longueur" la réponse n\'est pas une instance de Grandeur !', { reponses })
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format unites, c\'est incohérent !')
-      return handleAnswers(exercice, i, { reponse: { value: reponses[0], compare: unitesCompare } }, params)
+      return handleAnswers(exercice, i, {
+        reponse: {
+          value: { grandeur: reponses[0], precision },
+          compare: unitesCompare
+        }
+      }, params)
     case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
       if (typeof reponses[0] !== 'number') throw Error('setReponse : type "intervalleStrict" la réponse n\'est pas un number !', { reponses })
       return handleAnswers(exercice, i, {
@@ -614,7 +619,7 @@ export function handleAnswers (exercice, question, reponses, {
   formatInteractif = 'calcul',
   precision = null
 } = {}) {
-  if (!(reponses instanceof Object)) throw Error(`setReponse2() reponses doit être un objet : ${reponses}`)
+  if (!(reponses instanceof Object)) throw Error(`handleAnswer() reponses doit être un objet : ${reponses}`)
   if (exercice.autoCorrection[question] === undefined) {
     exercice.autoCorrection[question] = {}
   }
