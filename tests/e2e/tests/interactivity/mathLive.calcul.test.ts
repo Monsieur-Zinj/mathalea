@@ -94,6 +94,39 @@ async function testCalculLitteral2 (page: Page) {
   return true
 }
 
+async function testRelatifs (page: Page) {
+  const urlExercice = 'http://localhost:5173/alea/?uuid=cbc26&id=5R20&i=1'
+  // 5R20 les réponses peuvent être de la forme 5 ou (+5) ou (5) ou (-5) ou -5
+  const questions = await getQuestions(page, urlExercice)
+
+  for (const question of questions) {
+    let reponse = ''
+    const regex = /(-?\d+)/g
+    const [a, b] = question.katex.elements[0][0].match(regex) as [string, string]
+    let s = Number(a) + Number(b)
+    if (!question.isCorrect) {
+      s = s === 0 ? 1 : -1 * s
+    }
+    if (Math.random() < 0.5) {
+      reponse = s.toString()
+    } else {
+      if (s > 0) {
+        if (Math.random() < 0.5) {
+          reponse = `(+${s.toString()})`
+        } else {
+          reponse = `(${s.toString()})`
+        }
+      } else {
+        reponse = `(${s.toString()})`
+      }
+    }
+    await inputAnswer(page, question, reponse)
+  }
+  await checkFeedback(page, questions)
+  return true
+}
+
+runTest(testRelatifs, import.meta.url, { pauseOnError: false })
 runTest(testEntier, import.meta.url, { pauseOnError: false })
 runTest(testCalculLitteral, import.meta.url, { pauseOnError: false })
 runTest(testCalculLitteral2, import.meta.url, { pauseOnError: false })
