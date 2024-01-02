@@ -20,12 +20,7 @@ export function cleanStringBeforeParse (aString: string) {
     .replaceAll('\\,', '') // pourquoi laisser des espaces indésirables si on peut les enlever ?
     .replaceAll('{,}', '.') // toujours cette histoire de virgule (celle-là, elle vient sans doute d'un texNombre() !
     .replaceAll(/\s/g, '') // encore des espaces à virer ?
-
-  // CE ne sait pas comparer (-5) et -5, il faut donc supprimer les parenthèses inutiles
-  // mais seulement pour les exercices où on compare des nombres pas pour des expressions littérales ou autres
-  // .replace(/\((\+?-?\d+)\)/, '$1') // @fixme ces règles viennent de verifQuestionMathlive, mais je ne suis pas certain qu'elles soient pertinentes
-  // .replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-  // .replace(/\\lparen(\+?-?\d+)\\rparen/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+    .replace(/\\lparen(\+?-?\d+)\\rparen/, '$1') // (+3) => +3 car CE ne sait pas comparer -5 et 5
 }
 
 type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses'
@@ -256,7 +251,7 @@ export function fractionEgaleCompare (input: string, goodAnswer: string): { isOk
     console.log(`La saisie est faite sous forme décimale : ${input}`)
     const newFraction = new FractionEtendue(parseFloat(cleanStringBeforeParse(input)))
     console.log(`On l'a convertie en fraction : ${newFraction.toLatex().replace('dfrac', 'frac')}`)
-    if (engine.parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`).canonical.isEqual(fReponse.canonical)) return { isOk: true }
+    if (engine.parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`).canonical.isSame(fReponse.canonical)) return { isOk: true }
   } else {
     console.log(`La saisie est une fraction : ${input}`)
     if (engine.parse(cleanStringBeforeParse(input)).canonical.canonical.isEqual(fReponse.canonical)) return { isOk: true }
@@ -272,7 +267,10 @@ export function fractionEgaleCompare (input: string, goodAnswer: string): { isOk
  */
 export function fractionCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
   const clean = generateCleaner(['espaces', 'fractions'])
-  return { isOk: engine.parse(clean(input)).isSame(engine.parse(clean(goodAnswer))) }
+  const inputParsed = engine.parse(clean(input), { canonical: false })
+  const goodAnswerParsed = engine.parse(clean(goodAnswer), { canonical: false })
+  console.log(inputParsed, goodAnswerParsed)
+  return { isOk: inputParsed.isSame(goodAnswerParsed) }
 }
 
 /**
