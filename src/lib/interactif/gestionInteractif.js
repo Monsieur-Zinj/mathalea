@@ -522,7 +522,7 @@ export function setReponse (exercice, i, valeurs, {
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format unites, c\'est incohérent !')
       return handleAnswers(exercice, i, { reponse: { value: reponses[0], compare: unitesCompare } }, params)
     case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
-      if (typeof reponses[0] !== 'string') throw Error('setReponse : type "intervalleStrict" la réponse n\'est pas un string !', { reponses })
+      if (typeof reponses[0] !== 'number') throw Error('setReponse : type "intervalleStrict" la réponse n\'est pas un number !', { reponses })
       return handleAnswers(exercice, i, {
         reponse: {
           value: { borneInf: reponses[0], borneSup: reponses[1] },
@@ -530,7 +530,7 @@ export function setReponse (exercice, i, valeurs, {
         }
       }, params)
     case 'intervalle' :
-      if (typeof reponses[0] !== 'string') throw Error('setReponse : type "intervalle" la réponse n\'est pas un string !', { reponses })
+      if (typeof reponses[0] !== 'string') throw Error('setReponse : type "intervalle" la réponse n\'est pas un number !', { reponses })
       return handleAnswers(exercice, i, {
         reponse: {
           value: { borneInf: reponses[0], borneSup: reponses[1] },

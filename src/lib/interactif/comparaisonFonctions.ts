@@ -313,9 +313,11 @@ export function intervallleStrictCompare (input: string, goodAnswer: { borneInf:
     isOk: boolean,
     feedback?: string
 } {
-  const nombreSaisi = Number(engine.parse(cleanStringBeforeParse(input)).numericValue)
-  if (Number.isNaN(nombreSaisi)) return { isOk: false }
-  if (nombreSaisi > goodAnswer.borneInf && nombreSaisi < goodAnswer.borneSup) return { isOk: true }
+  // Si on veut accepter une expressio :
+  // const inputNumber = Number(engine.parse(cleanStringBeforeParse(input)).N())
+  const inputNumber = Number(cleanStringBeforeParse(input))
+  if (Number.isNaN(inputNumber)) return { isOk: false }
+  if (inputNumber > goodAnswer.borneInf && inputNumber < goodAnswer.borneSup) return { isOk: true }
   return { isOk: false }
 }
 
@@ -329,9 +331,9 @@ export function intervallleCompare (input: string, goodAnswer: { borneInf: numbe
     isOk: boolean,
     feedback?: string
 } {
-  const nombreSaisi = Number(engine.parse(cleanStringBeforeParse(input)).numericValue)
-  if (Number.isNaN(nombreSaisi)) return { isOk: false }
-  if (nombreSaisi >= goodAnswer.borneInf && nombreSaisi <= goodAnswer.borneSup) return { isOk: true }
+  const inputNumber = Number(engine.parse(cleanStringBeforeParse(input)).numericValue)
+  if (Number.isNaN(inputNumber)) return { isOk: false }
+  if (inputNumber >= goodAnswer.borneInf && inputNumber <= goodAnswer.borneSup) return { isOk: true }
   return { isOk: false }
 }
 
