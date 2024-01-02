@@ -467,8 +467,10 @@ export function setReponse (exercice, i, valeurs, {
     case 'ecritureScientifique': {
       if (typeof reponses[0] !== 'string') throw Error('setReponse : type "ecritureScientifique" la réponse n\'est pas un string !', { reponses })
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format ecritureScientifique, c\'est incohérent !')
-      const [mantisse, exposant] = reponses[0].split('e')
-      if (Number(mantisse) != null && Math.abs(Number(mantisse)) < 10 && Number(exposant != null)) {
+      const [mantisseString, exposantString] = reponses[0].split('e')
+      const mantisse = Number(mantisseString.replace(',', '.'))
+      const exposant = Number(exposantString)
+      if (Number(mantisse) != null && Math.abs(mantisse) < 10 && Number.isFinite(exposant)) {
         return handleAnswers(exercice, i, {
           reponse: {
             value: reponses[0].replace(',', '.'),
