@@ -81,6 +81,7 @@ export async function getQuestions (page: Page, urlExercice: string) {
       innerHTML: await getInnerHTML(locator),
       isCorrect: Math.random() < 0.5,
       katex: await getKatex(locator),
+      mathField: await getMathField(locator),
       locator,
       numero: 0
     })
@@ -138,6 +139,26 @@ async function getKatex (questionLocator: Locator) {
   let elements: string[][] = []
   if (selectedElements !== undefined) elements = selectedElements.map(list => list.map(ele => clean(ele, [])))
   return { elements, innerHTMLs, innerTexts, locators }
+}
+
+async function getMathField (questionLocator: Locator) {
+  const locators = await questionLocator.locator('math-field').all()
+  const mathField: string[] = []
+  for (const locator of locators) {
+    mathField.push(await locator.innerHTML())
+  }
+  // const innerHTMLs: string[] = []
+  // const innerTexts: string[] = []
+  // const elementsWithRedondancy: string[][][] = []
+  // for (const locator of locators) {
+  //   innerHTMLs.push(await locator.innerHTML())
+  //   innerTexts.push(await locator.innerText())
+  //   elementsWithRedondancy.push(innerTexts.map(innerText => innerText.split('\n')))
+  // }
+  // const selectedElements = elementsWithRedondancy[elementsWithRedondancy.length - 1]
+  // let elements: string[][] = []
+  // if (selectedElements !== undefined) elements = selectedElements.map(list => list.map(ele => clean(ele, [])))
+  return mathField[0]
 }
 
 export async function inputAnswer (page: Page, question: Question, answer: string | number | (string | number)[] | undefined) {
