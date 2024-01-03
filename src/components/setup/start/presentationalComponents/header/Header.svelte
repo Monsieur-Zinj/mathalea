@@ -1,0 +1,57 @@
+<script lang="ts">
+  import NavBar from '../../../../../components/shared/header/NavBar.svelte'
+  import ModalReorder from './ModalReorder.svelte'
+  import HeaderButtons from './headerButtons/HeaderButtons.svelte'
+  import SideMenuWrapper from './SideMenuWrapper.svelte'
+
+  export let isExerciseDisplayed: boolean
+  export let isNavBarVisible: boolean
+  export let zoomUpdate: (plusMinus: ('+' | '-')) => void
+  export let setAllInteractive: (isAllInteractive: boolean) => void
+  export let newDataForAll: () => void
+  export let trash: () => void
+  export let setFullScreen: (isFullScreen: boolean) => void
+  export let handleExport: (vue: string) => void
+
+  let reorderModalDisplayed: boolean
+</script>
+
+<header
+  class="md:sticky md:top-0 md:z-50 flex flex-col scrollbar-hide w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+>
+  <!-- Entête -->
+  {#if isNavBarVisible}
+    <div
+      id="headerStart"
+      class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden"
+    >
+      <NavBar subtitle="Conception de document" subtitleType="design" />
+    </div>
+  {/if}
+  <!-- Barre de boutons si non-smartphone  -->
+  <div
+    class="hidden md:flex {isExerciseDisplayed
+      ? 'xl:h-[50px] md:h-[100px]'
+      : 'h-0'}"
+  >
+    <div
+      class={!isExerciseDisplayed
+        ? 'hidden'
+        : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
+      id="barre-boutons"
+    >
+      <SideMenuWrapper />
+      <HeaderButtons
+        bind:reorderModalDisplayed
+        {zoomUpdate}
+        {setAllInteractive}
+        {newDataForAll}
+        {trash}
+        {setFullScreen}
+        {handleExport}
+      />
+    </div>
+  </div>
+</header>
+
+<ModalReorder {reorderModalDisplayed} />

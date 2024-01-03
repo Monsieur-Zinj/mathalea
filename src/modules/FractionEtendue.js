@@ -933,7 +933,7 @@ class FractionEtendue extends Fraction {
         const den = Math.abs(this.den)
         const pgcd = gcd(num, den)
         if (pgcd !== 1) {
-          const redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd))}}=`
+          const redaction = `=${signe}\\dfrac{${num / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd), '#2563a5')} }{${den / pgcd}${miseEnEvidence('\\times' + ecritureParentheseSiNegatif(pgcd), '#2563a5')}}=`
           let redactionFinale
           if (Math.abs(den / pgcd) !== 1) redactionFinale = `${signe}\\dfrac{${Math.abs(num / pgcd)}}{${Math.abs(den / pgcd)}}`
           else redactionFinale = `${signe}${Math.abs(num / pgcd)}`

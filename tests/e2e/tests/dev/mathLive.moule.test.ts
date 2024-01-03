@@ -6,7 +6,7 @@ async function test (page: Page) {
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
-    let reponse
+    const reponse = ''
 
     // ---------------------------------------------------------------
     // Dupliquer ce fichier
@@ -16,6 +16,7 @@ async function test (page: Page) {
     console.log(`Question ${question.numero} :`)
     console.log(`Texte énoncé : ${question.innerText}`)
     console.log('Éléments Katex :', question.katex.elements)
+    console.log('Éléments MathField :', question.mathField)
     // Si question.katex.elements ne suffit pas, on peut aller chercher des infos supplémentaires avec d'autres
     // propriétés comme question.innerHTML ou pour les aventuriers question.locator.locator('sélecteur CSS')
     //

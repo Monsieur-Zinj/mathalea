@@ -544,10 +544,10 @@ class resolutionEquationInequationGraphique extends Exercice {
     }
     if (!trouve) {
       x = xMax
-      if (fonction1.poly.image(4) < 0) {
-        y = -5
+      if (fonction1.poly.image(xMax) < 0) {
+        y = yMin + 1
       } else {
-        y = 5
+        y = yMin + 10
       }
     }
     if (f2Type === 'affine') {
@@ -571,7 +571,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       })
     }
     trouve = false
-    for (x = xMin; x > -5 && !trouve; x--) {
+    for (x = xMax; x > xMin && !trouve; x--) {
       if (Math.abs(fonction2.poly.image(x)) < 5) {
         trouve = true
         y = fonction2.poly.image(x)
@@ -579,10 +579,10 @@ class resolutionEquationInequationGraphique extends Exercice {
     }
     if (!trouve) {
       x = xMin
-      if (fonction2.poly.image(-4) < 0) {
-        y = -5
+      if (fonction2.poly.image(xMin) < 0) {
+        y = yMin + 1
       } else {
-        y = 5
+        y = yMin + 10
       }
     }
     this.figure.create('TextByPosition', { x: x + 0.5, y: y + 0.5, text: `$\\mathscr{C_${f2}}$`, color: 'red' })
