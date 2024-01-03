@@ -98,15 +98,15 @@ export function ecritureAlgebrique (a) {
   if (a instanceof Fraction || a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') {
     if (a >= 0) {
-      return '+' + stringNombre(a)
+      return '+' + texNombre(a)
     } else {
-      return stringNombre(a)
+      return texNombre(a)
     }
   } else if (a instanceof Decimal) {
     if (a.isPos()) {
-      return '+' + stringNombre(a)
+      return '+' + texNombre(a)
     } else {
-      return stringNombre(a)
+      return texNombre(a)
     }
   } else window.notify('ecritureAlgebrique : type de valeur non prise en compte')
 }
@@ -252,11 +252,11 @@ export function reduireAxPlusB (a, b, inconnue = 'x') {
   if (!a.isZero()) {
     if (a.eq(1)) result = inconnue
     else if (a.eq(-1)) result = '-' + inconnue
-    else result = `${stringNombre(a)}${inconnue}`
+    else result = `${texNombre(a)}${inconnue}`
   }
   if (!b.isZero()) {
     if (!a.isZero()) result += `${ecritureAlgebrique(b)}`
-    else result = stringNombre(b)
+    else result = texNombre(b)
   } else if (a.isZero()) result = '0'
   return result
 }

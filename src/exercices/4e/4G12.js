@@ -27,7 +27,7 @@ export const amcType = 'AMCOpen'
 export const dateDePublication = '3/12/2021'
 
 /**
- * A partir de la figure 0, l'idée est de trouver un chemin qui mène à la figure 28 par une série
+ * À partir de la figure 0, l'idée est de trouver un chemin qui mène à la figure 28 par une série
  * de transformations entre deux figures strictement voisines.
  * @author : Jean-Claude Lhote (et modifié par Eric Elter)
  */

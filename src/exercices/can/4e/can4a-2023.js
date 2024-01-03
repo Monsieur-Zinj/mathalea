@@ -5,7 +5,7 @@ import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
-import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -38,7 +38,6 @@ export const ref = 'can4a-2023'
 /**
  * Aléatoirisation du sujet 2023 de CAN 4e
  * Gilles Mora
- * Référence can4a-2023
  */
 
 function compareNombres (a, b) {
@@ -428,27 +427,27 @@ export default function SujetCAN2023Quatrieme () {
           b = randint(0, 9, 5)
           c = randint(1, 9, b)
           e = randint(1, 9)
-          d = new Decimal(a + b * 0.1 + c * 0.01 + e * 0.001)
+          d = a + b * 0.1 + c * 0.01 + e * 0.001
           if (choice([true, false])) {
             texte = `Quel est l'arrondi au dixième de $${texNombre(d, 3)}$ ?`
             if (c > 4) {
               texteCorr = `Pour arrondir au dixième, on regarde le chiffre des centièmes : $${c}$.<br>
-             Comme $${c}\\geqslant 5$, alors l'arrondi au dixième de $${texNombre(d)}$ est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
+             Comme $${c}\\geqslant 5$, alors l'arrondi au dixième de $${texNombre(d, 3)}$ est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
               reponse = arrondi(d, 1)
             } else {
               texteCorr = `Pour arrondir au dixième, on regarde le chiffre des centièmes : $${c}$.<br>
-                Comme $${c}< 5$, alors l'arrondi au dixième de $${texNombre(d)}$  est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
+                Comme $${c}< 5$, alors l'arrondi au dixième de $${texNombre(d, 3)}$  est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
               reponse = arrondi(d, 1)
             }
           } else {
             texte = `Quel est l'arrondi au centième de $${texNombre(d, 3)}$ ?`
             if (e > 4) {
               texteCorr = `Pour arrondir au centième, on regarde le chiffre des millièmes : $${e}$.<br>
-             Comme $${e}\\geqslant 5$, alors l'arrondi au centième de $${texNombre(d)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
+             Comme $${e}\\geqslant 5$, alors l'arrondi au centième de $${texNombre(d, 3)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
               reponse = arrondi(d, 2)
             } else {
               texteCorr = `Pour arrondir au centième, on regarde le chiffre des millièmes : $${e}$.<br>
-                Comme $${e}< 5$, alors l'arrondi au centième de $${texNombre(d)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
+                Comme $${e}< 5$, alors l'arrondi au centième de $${texNombre(d, 3)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
               reponse = arrondi(d, 2)
             }
           }
@@ -990,10 +989,10 @@ export default function SujetCAN2023Quatrieme () {
           texte = `$${a}\\times ${texNombre(b, 1)}$ `
           texteCorr = `$${a}\\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(a * b, 1))}$`
           reponse = arrondi(a * b, 1)
-          texteCorr += texteEnCouleur(`
+          texteCorr += `
              <br> Mentalement : <br>
              $${a}\\times ${texNombre(b, 1)}=${a}\\times ${Math.floor(b)}+\\underbrace{${a}\\times 0,5}_{\\text{La moitié de }${a}}
-             =${a * Math.floor(b)}+${texNombre(a / 2, 1)}=${texNombre(reponse, 1)}$  `)
+             =${a * Math.floor(b)}+${texNombre(a / 2, 1)}=${texNombre(reponse, 1)}$  `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur15')
@@ -1010,16 +1009,16 @@ export default function SujetCAN2023Quatrieme () {
           texte = `$${p}${sp(1)}\\%$ de $${a}$ `
           texteCorr = `$${p}${sp(1)}\\%$ de $${a} = ${miseEnEvidence(reponse)}$`
           if (a === 10) {
-            texteCorr += `$10${sp(1)}\\%$ de $${a} = 0,1 \\times ${a}=${texNombre(this.reponse)}$.`
-            this.correction += texteEnCouleur(`<br> Mentalement : <br>
+            texteCorr += `<br>$10${sp(1)}\\%$ de $${a} = 0,1 \\times ${a}=${texNombre(reponse)}$.`
+            /* this.correction += `<br> Mentalement : <br>
         Prendre $10${sp(1)}\\%$  d'une quantité revient à la diviser par $10$.<br>
-        Ainsi, $10${sp(1)}\\%$ de $${a} = \\dfrac{${a}}{10}=${texNombre(this.reponse)}$.`)
+        Ainsi, $10${sp(1)}\\%$ de $${a} = \\dfrac{${a}}{10}=${texNombre(this.reponse)}$.` */
           } else {
-            texteCorr += texteEnCouleur(`<br> Mentalement : <br>
+            texteCorr += `<br> Mentalement : <br>
              Prendre $${p}${sp(1)}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10${sp(1)}\\%$  de $${a}$.<br>
              Comme $10${sp(1)}\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10${sp(1)}\\%$  d'une quantité, on la divise par $10$), alors
              $${p}${sp(1)}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${reponse}$.
-            `)
+            `
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
@@ -1128,8 +1127,7 @@ export default function SujetCAN2023Quatrieme () {
           this.listeCanReponsesACompleter.push('')
           break
       }
-
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

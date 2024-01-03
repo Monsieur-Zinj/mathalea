@@ -3,7 +3,7 @@ import type { Page } from 'playwright'
 import Hms from '../../../../src/modules/Hms'
 
 async function test (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=5f315&id=6D11&alea=02ek&i=1' // Mettre ici l'url de l'exercice (éventuellement avec la graine mais push sans la graine)
+  const urlExercice = 'http://localhost:5173/alea/?uuid=5f315&id=6D11&n=20&i=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -30,4 +30,4 @@ async function test (page: Page) {
   return true
 }
 
-runTest(test, import.meta.url, { pauseOnError: true }) // true pendant le développement, false ensuite
+runTest(test, import.meta.url, { pauseOnError: false })

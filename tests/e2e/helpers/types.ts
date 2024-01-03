@@ -31,4 +31,5 @@ export type Question = {
   katex: Katex
   locator: Locator
   numero: number
+  mathField: string
 }

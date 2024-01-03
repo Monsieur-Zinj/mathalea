@@ -13,14 +13,11 @@ export const titre = 'Connaître les effets des agrandissements/réductions sur 
 /**
 * Problèmes calculs d'aire et de volumes utilisant l'effet d'une réduction sur les aires et les volumes
 * @author Jean-Claude Lhote
-* 3G22
 */
 export const uuid = '960f9'
 export const ref = '3G22'
 export default function AgrandissementReduction () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   context.isHtml ? this.spacingCorr = 3.5 : this.spacingCorr = 1.5
@@ -37,14 +34,13 @@ export default function AgrandissementReduction () {
     this.listeCorrections = []
     let texte, texteCorr, r, r2, h1, h2, h3, c, c2, kprime
     const pi = Decimal.acos(-1)
-    //  if (context.isHtml) {
     this.typeExercice = 'MG32'
     this.dimensionsDivMg32 = [600, 700]
     let codeBase64
     let choix
-    if (parseInt(this.sup) === 1) {
+    if (this.sup === 1) {
       choix = randint(1, 3)
-    } else if (parseInt(this.sup) === 2) {
+    } else if (this.sup === 2) {
       choix = randint(4, 5)
     } else {
       choix = randint(1, 5)
@@ -55,7 +51,7 @@ export default function AgrandissementReduction () {
         h1 = new Decimal(randint(12, 20)).div(2)
         h2 = new Decimal(randint(3, h1.floor().sub(1).toNumber()))
         if (this.sup2 < 3) {
-          if (parseInt(this.sup2) === 1) {
+          if (this.sup2 === 1) {
             // on veut un coefficient de réduction décimal à 1 chiffre après la virgule
             while (!h2.div(h1).mul(10).eq(h2.div(h1).mul(10).round())) {
               c = new Decimal(randint(30, 60)).div(10)
@@ -181,7 +177,7 @@ export default function AgrandissementReduction () {
         h1 = new Decimal(randint(12, 20)).div(2)
         h2 = new Decimal(3, Math.floor(h1) - 1)
         if (this.sup2 < 3) {
-          if (parseInt(this.sup2) === 1) { // coefficient de réduction décimal
+          if (this.sup2 === 1) { // coefficient de réduction décimal
             while (!h2.div(h1).mul(10).eq(h2.div(h1).mul(10).round())) {
               r = new Decimal(randint(12, 35)).div(10)
               h1 = new Decimal(randint(12, 20)).div(2)
@@ -326,7 +322,7 @@ export default function AgrandissementReduction () {
         h1 = new Decimal(randint(12, 20) / 2)
         h2 = new Decimal(randint(3, h1.floor().sub(1)))
         if (this.sup2 < 3) {
-          if (parseInt(this.sup2) === 1) { // coefficient de réduction décimal
+          if (this.sup2 === 1) { // coefficient de réduction décimal
             while (!h2.div(h1).mul(10).eq(h2.div(h1).mul(10).round())) {
               c = new Decimal(randint(30, 60)).div(10)
               c2 = new Decimal(randint(30, 60)).div(10)
@@ -548,7 +544,7 @@ export default function AgrandissementReduction () {
         h2 = new Decimal(randint(1, 3))
 
         if (this.sup2 < 3) {
-          if (parseInt(this.sup2) === 1) { // coefficient de réduction décimal
+          if (this.sup2 === 1) { // coefficient de réduction décimal
             while (!h2.div(h1).mul(10).eq(h2.div(h1).mul(10).round())) {
               r = new Decimal(randint(20, 28)).div(10)
               h1 = new Decimal(randint(20, 28)).div(2)

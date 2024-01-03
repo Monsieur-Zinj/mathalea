@@ -347,9 +347,6 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             },
             { formatInteractif: 'fillInTheBlank' }
             )
-            // texte = `$${u}=$`
-            // texte += ajouteChampFractionMathLive(this, indexQ, false, 10)
-            // setReponse(this, indexQ, fraction(10 * u, 10), { formatInteractif: 'Num' })
           } else {
             texte = `$${u}=${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '10')}$`
             this.autoCorrection[i] = {

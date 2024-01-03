@@ -9,14 +9,12 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
-export const titre = 'Calcul mental et calcul littéral'
+export const titre = 'Utiliser la distributivité pour effectuer du calcul mental'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
+export const dateDePublication = '14/11/2020'
 /**
  * * Calcul mental autour des identités remarquables
- * * numéro de l'exo ex : 3L11-5
- * * publié le  14/11/2020
  * * décliné en 2N40-6 => 07/10/2021
  * * décliné en can2C04 => 08/10/2021
  * * décliné en can2C05 => 10/10/2021
@@ -26,22 +24,12 @@ export const uuid = 'edbd5'
 export const ref = '3L11-5'
 export default function IdentitesCalculs () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.debug = false // pour avoir la correction et l'enoncé en même temps
   this.can = false // pour décliner en version CAN
   this.canVersion = '' // Pour distinguer les déclinaisons
   // 'v1' Pour une version simple type 29² 31² ou 29x31, seulement 1 d'écart par rapport à la dizaine ou à la centaine
   // 'v2' Pour une version type (30-2)² (30+2)² ou (30-2)x(30+2), écart par rapport à la dizaine ou à la centaine de 1 à 4
   this.sup = 1
-  if (this.debug) {
-    this.nbQuestions = 3
-  } else {
-    this.nbQuestions = 3
-  }
-
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = 'Faire les calculs suivants sans calculatrice. Utiliser la double distributivité ou les identités remarquables.'
+  this.nbQuestions = 3
 
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -53,6 +41,9 @@ export default function IdentitesCalculs () {
   this.listePackages = 'bclogo'
   let typesDeQuestionsDisponibles
   this.nouvelleVersion = function () {
+    this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant ' : 'Effectuer les calculs suivants '
+    this.consigne += 'sans calculatrice. Utiliser la double distributivité ou les identités remarquables.'
+
     // une fonction pour gérer un \hfill dans la sortie LaTeX
     const myhfill = function () {
       if (context.isHtml) {
@@ -254,25 +245,20 @@ export default function IdentitesCalculs () {
         case 0: // carré d'une somme
           if (!this.can) {
             texte = `${enonces[0].enonce}`
-            if (this.debug) {
-              texte += '<br>'
-              texte += `<br> =====CORRECTION======<br>${enonces[0].correction1}<br>${enonces[0].correction2}`
-              texteCorr = ''
+            if (context.isHtml) {
+              texteCorr = `${enonces[0].correction1}<br><br>${enonces[0].correction2}`
             } else {
-              if (context.isHtml) {
-                texteCorr = `${enonces[0].correction1}<br><br>${enonces[0].correction2}`
-              } else {
-                texteCorr = 'Détaillons deux méthodes : <br><br>'
-                texteCorr += '\\begin{minipage}{8cm}'
-                texteCorr += enonces[0].correction1
-                texteCorr += '\\end{minipage}'
-                texteCorr += '\\hfill \\vrule \\hfill'
-                texteCorr += '\\begin{minipage}{8cm}'
-                texteCorr += enonces[0].correction2
-                texteCorr += '\\end{minipage}'
-                texteCorr += '<br>'
-              }
+              texteCorr = 'Détaillons deux méthodes : <br><br>'
+              texteCorr += '\\begin{minipage}{8cm}'
+              texteCorr += enonces[0].correction1
+              texteCorr += '\\end{minipage}'
+              texteCorr += '\\hfill \\vrule \\hfill'
+              texteCorr += '\\begin{minipage}{8cm}'
+              texteCorr += enonces[0].correction2
+              texteCorr += '\\end{minipage}'
+              texteCorr += '<br>'
             }
+
             setReponse(this, i, situations[0].resultatNumerique)
           } else {
             switch (this.canVersion) {
@@ -294,25 +280,20 @@ export default function IdentitesCalculs () {
         case 1: // carré d'une différence
           if (!this.can) {
             texte = `${enonces[1].enonce}`
-            if (this.debug) {
-              texte += '<br>'
-              texte += `<br> =====CORRECTION======<br>${enonces[1].correction1}<br>${enonces[1].correction2}`
-              texteCorr = ''
+            if (context.isHtml) {
+              texteCorr = `${enonces[1].correction1}<br><br>${enonces[1].correction2}`
             } else {
-              if (context.isHtml) {
-                texteCorr = `${enonces[1].correction1}<br><br>${enonces[1].correction2}`
-              } else {
-                texteCorr = 'Détaillons deux méthodes : <br><br>'
-                texteCorr += '\\begin{minipage}{8cm}'
-                texteCorr += enonces[1].correction1
-                texteCorr += '\\end{minipage}'
-                texteCorr += '\\hfill \\vrule \\hfill'
-                texteCorr += '\\begin{minipage}{8cm}'
-                texteCorr += enonces[1].correction2
-                texteCorr += '\\end{minipage}'
-                texteCorr += '<br>'
-              }
+              texteCorr = 'Détaillons deux méthodes : <br><br>'
+              texteCorr += '\\begin{minipage}{8cm}'
+              texteCorr += enonces[1].correction1
+              texteCorr += '\\end{minipage}'
+              texteCorr += '\\hfill \\vrule \\hfill'
+              texteCorr += '\\begin{minipage}{8cm}'
+              texteCorr += enonces[1].correction2
+              texteCorr += '\\end{minipage}'
+              texteCorr += '<br>'
             }
+
             setReponse(this, i, situations[1].resultatNumerique)
           } else {
             switch (this.canVersion) {
@@ -334,25 +315,20 @@ export default function IdentitesCalculs () {
         case 2: // Produit somme différence
           if (!this.can) {
             texte = `${enonces[2].enonce}`
-            if (this.debug) {
-              texte += '<br>'
-              texte += `<br> =====CORRECTION======<br>${enonces[2].correction1}<br>${enonces[2].correction2}`
-              texteCorr = ''
+            if (context.isHtml) {
+              texteCorr = `${enonces[2].correction1}<br><br>${enonces[2].correction2}`
             } else {
-              if (context.isHtml) {
-                texteCorr = `${enonces[2].correction1}<br><br>${enonces[2].correction2}`
-              } else {
-                texteCorr = 'Détaillons deux méthodes : <br><br>'
-                texteCorr += '\\begin{minipage}{8cm}'
-                texteCorr += enonces[2].correction1
-                texteCorr += '\\end{minipage}'
-                texteCorr += '\\hfill \\vrule \\hfill'
-                texteCorr += '\\begin{minipage}{8cm}'
-                texteCorr += enonces[2].correction2
-                texteCorr += '\\end{minipage}'
-                texteCorr += '<br>'
-              }
+              texteCorr = 'Détaillons deux méthodes : <br><br>'
+              texteCorr += '\\begin{minipage}{8cm}'
+              texteCorr += enonces[2].correction1
+              texteCorr += '\\end{minipage}'
+              texteCorr += '\\hfill \\vrule \\hfill'
+              texteCorr += '\\begin{minipage}{8cm}'
+              texteCorr += enonces[2].correction2
+              texteCorr += '\\end{minipage}'
+              texteCorr += '<br>'
             }
+
             setReponse(this, i, situations[2].resultatNumerique)
           } else {
             switch (this.canVersion) {

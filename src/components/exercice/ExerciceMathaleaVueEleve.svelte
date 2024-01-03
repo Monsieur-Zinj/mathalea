@@ -103,7 +103,7 @@
       }
     }, 100)
     await tick()
-    countMathField()
+    await countMathField()
     if ($globalOptions.setInteractive === '1') {
       setAllInteractif()
     } else if ($globalOptions.setInteractive === '0') {

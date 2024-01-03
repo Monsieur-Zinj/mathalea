@@ -56,11 +56,16 @@ class Grandeur {
   }
 
   estEgal (unite2: Grandeur) {
-    const u1 = this.convertirEn(this.uniteDeReference)
-    const u2 = unite2.convertirEn(this.uniteDeReference)
-    if (u1 && u2) {
-      return u1.mesure === u2.mesure
-    } else {
+    try {
+      const u1 = this.convertirEn(this.uniteDeReference)
+      const u2 = unite2.convertirEn(this.uniteDeReference)
+      if (u1 && u2) {
+        return u1.mesure === u2.mesure
+      } else {
+        return false
+      }
+    } catch (error) {
+      console.error(error)
       return false
     }
   }
@@ -69,11 +74,16 @@ class Grandeur {
    * La précision est donnée dans l'unité de référence
    */
   estUneApproximation (unite2: Grandeur, precision: number) {
-    const u1 = this.convertirEn(this.uniteDeReference)
-    const u2 = unite2.convertirEn(this.uniteDeReference)
-    if (u1 !== undefined && u2 !== undefined) {
-      return (Math.abs(u1.mesure - u2.mesure) <= precision)
-    } else {
+    try {
+      const u1 = this.convertirEn(this.uniteDeReference)
+      const u2 = unite2.convertirEn(this.uniteDeReference)
+      if (u1 !== undefined && u2 !== undefined) {
+        return (Math.abs(u1.mesure - u2.mesure) <= precision)
+      } else {
+        return false
+      }
+    } catch (error) {
+      console.error(error)
       return false
     }
   }
@@ -84,6 +94,8 @@ class Grandeur {
    * @returns
    */
   toString (precision = 12) {
+    const nbChiffrePartieDecimale = String(this.mesure).split('.')[1]?.length
+    if (nbChiffrePartieDecimale < precision) precision = nbChiffrePartieDecimale
     return `${stringNombre(this.mesure, precision).replace('.', ',')}\u202f${this.unite}`
   }
 

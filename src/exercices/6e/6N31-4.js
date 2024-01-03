@@ -118,7 +118,7 @@ export default function IntercalerDecimalEntre2Decimaux () {
       }
       if (this.interactif) {
         texte = `$${texNombre(a)}<$` + ajouteChampTexteMathLive(this, i, 'inline') + `$\\quad<${texNombre(b)}$`
-        setReponse(this, i, [[a, b]], { formatInteractif: 'intervalleStrict' })
+        setReponse(this, i, [a, b], { formatInteractif: 'intervalleStrict' })
       } else {
         texte = `$${texNombre(a)}<${sp(3)}\\ldots\\ldots\\ldots\\ldots\\ldots${sp(3)}<${texNombre(b)}$`
       }

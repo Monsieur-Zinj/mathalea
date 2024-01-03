@@ -32,11 +32,6 @@ export const uuid = '8c803'
 export const ref = '3G42'
 export default function VolumeBoule () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcReady = amcReady
-  this.amcType = amcType
   this.video = 'YQF7CBY-uEk'
   this.nbQuestions = 3 // Ici le nombre de questions
   this.sup = '1-2-4'
@@ -128,7 +123,11 @@ export default function VolumeBoule () {
           texteCorr += 'Le volume cherché est environ : ' + texteEnCouleurEtGras(stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
           break
       }
+      // EE : C'est le setReponse qui renvoie une console rouge.
+      // console.log('DEBUT DU PB')
+      // console.log(i, listeTypeDeQuestions[i], reponse.toNumber(), choixUnites)
       setReponse(this, i, new Grandeur(reponse.toNumber(), `${choixUnites}^3`), { formatInteractif: 'unites' })
+      // console.log('FIN DU PB')
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à préciser l\'unité dans le volume-réponse : ' })
       if (context.isAmc) {
         this.autoCorrection[i] = {

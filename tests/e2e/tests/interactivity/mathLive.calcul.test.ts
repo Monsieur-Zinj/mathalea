@@ -37,7 +37,7 @@ async function testEntier (page: Page) {
 }
 
 async function testCalculLitteral (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=77a62&id=3L11&n=6&d=10&s=3&s2=1&s3=1&s4=true&n=20&i=1'
+  const urlExercice = 'http://localhost:5173/alea/?uuid=77a62&id=3L11&n=10&d=10&s=3&s2=1&s3=1&s4=true&n=20&i=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -66,7 +66,7 @@ async function testCalculLitteral (page: Page) {
 }
 
 async function testCalculLitteral2 (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=77a62&n=6&d=10&s=3&s2=1&s3=3&s4=true&i=1&cd=1'
+  const urlExercice = 'http://localhost:5173/alea/?uuid=77a62&n=10&d=10&s=3&s2=1&s3=3&s4=true&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -94,9 +94,42 @@ async function testCalculLitteral2 (page: Page) {
   return true
 }
 
-runTest(testEntier, import.meta.url, { pauseOnError: true })
-runTest(testCalculLitteral, import.meta.url, { pauseOnError: true })
-runTest(testCalculLitteral2, import.meta.url, { pauseOnError: true })
+async function testRelatifs (page: Page) {
+  const urlExercice = 'http://localhost:5173/alea/?uuid=cbc26&id=5R20&i=1'
+  // 5R20 les réponses peuvent être de la forme 5 ou (+5) ou (5) ou (-5) ou -5
+  const questions = await getQuestions(page, urlExercice)
+
+  for (const question of questions) {
+    let reponse = ''
+    const regex = /(-?\d+)/g
+    const [a, b] = question.katex.elements[0][0].match(regex) as [string, string]
+    let s = Number(a) + Number(b)
+    if (!question.isCorrect) {
+      s = s === 0 ? 1 : -1 * s
+    }
+    if (Math.random() < 0.5) {
+      reponse = s.toString()
+    } else {
+      if (s > 0) {
+        if (Math.random() < 0.5) {
+          reponse = `(+${s.toString()})`
+        } else {
+          reponse = `(${s.toString()})`
+        }
+      } else {
+        reponse = `(${s.toString()})`
+      }
+    }
+    await inputAnswer(page, question, reponse)
+  }
+  await checkFeedback(page, questions)
+  return true
+}
+
+runTest(testRelatifs, import.meta.url, { pauseOnError: false })
+runTest(testEntier, import.meta.url, { pauseOnError: false })
+runTest(testCalculLitteral, import.meta.url, { pauseOnError: false })
+runTest(testCalculLitteral2, import.meta.url, { pauseOnError: false })
 
 function stringToNumber (str: string): number {
   if (str === '') {
