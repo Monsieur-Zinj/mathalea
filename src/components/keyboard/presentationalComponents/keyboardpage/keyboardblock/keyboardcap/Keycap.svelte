@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { MathfieldElement } from 'mathlive'
-  import { keyboardState } from '../stores/generalStore'
-  import type { KeyCap } from './types/keycap'
-  import { KEYCAP_WIDTH, SM_BREAKPOINT } from './layouts/keycaps'
+  import { keyboardState } from '../../../../../stores/generalStore'
+  import type { KeyCap } from '../../../../types/keycap'
+  import { KEYCAP_WIDTH, SM_BREAKPOINT } from '../../../../lib/sizes'
   export let innerWidth: number
   export let data: KeyCap
   export let isSpecial: boolean = false

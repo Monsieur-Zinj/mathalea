@@ -43,7 +43,7 @@
   import ChipsList from './ui/ChipsList.svelte'
   import PdfTextIcon from './icons/PdfTextIcon.svelte'
   import Keyboard from './keyboard/Keyboard.svelte'
-  import { SM_BREAKPOINT } from './keyboard/layouts/keycaps'
+  import { SM_BREAKPOINT } from './keyboard/lib/sizes'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true

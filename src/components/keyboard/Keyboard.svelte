@@ -13,12 +13,10 @@
     numbers,
     variables,
     greek,
-
     trigo
-
-  } from './layouts/keyboardBlocks'
-  import KeyboardPage from './KeyboardPage.svelte'
-  import { SM_BREAKPOINT, GAP_BETWEEN_BLOCKS } from './layouts/keycaps'
+  } from './layouts/keysBlocks'
+  import KeyboardPage from './presentationalComponents/keyboardpage/KeyboardPage.svelte'
+  import { SM_BREAKPOINT, GAP_BETWEEN_BLOCKS } from './lib/sizes'
 
   let innerWidth: number = 0
 
@@ -63,7 +61,6 @@
       pages.push(page.reverse())
     }
   }
-
   onMount(() => {
     computePages()
   })

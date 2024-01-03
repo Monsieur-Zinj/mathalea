@@ -1,5 +1,6 @@
-import { specialKeys, numbers } from '../layouts/keyboardBlocks'
-import { GAP_BETWEEN_KEYS, KEYCAP_WIDTH, keys } from '../layouts/keycaps'
+import { specialKeys, numbers } from '../layouts/keysBlocks'
+import type { keys } from '../lib/keycaps'
+import { GAP_BETWEEN_KEYS, KEYCAP_WIDTH } from '../lib/sizes'
 export type Keys = keyof typeof keys
 export type KeysList = Keys[]
 

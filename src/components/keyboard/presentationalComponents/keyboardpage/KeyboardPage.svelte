@@ -1,7 +1,7 @@
 <script lang="ts">
-  import Block from './KeyboardBlock.svelte'
-  import type { KeyboardBlock } from './types/keyboardContent'
-  import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT } from './layouts/keycaps'
+  import Block from './keyboardblock/KeyboardBlock.svelte'
+  import type { KeyboardBlock } from '../../types/keyboardContent'
+  import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT } from '../../lib/sizes'
 
   export let innerWidth: number
   export let blocks: KeyboardBlock[]
