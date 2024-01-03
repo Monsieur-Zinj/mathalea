@@ -17,6 +17,8 @@
   } from './layouts/keysBlocks'
   import KeyboardPage from './presentationalComponents/keyboardpage/KeyboardPage.svelte'
   import { SM_BREAKPOINT, GAP_BETWEEN_BLOCKS } from './lib/sizes'
+  import type { KeyCap } from './types/keycap'
+  import { MathfieldElement } from 'mathlive'
 
   let innerWidth: number = 0
 
@@ -61,6 +63,35 @@
       pages.push(page.reverse())
     }
   }
+
+  const clickKeycap = (data: KeyCap, event: MouseEvent) => {
+    if (event.currentTarget instanceof HTMLButtonElement) {
+      const idMathField = $keyboardState.idMathField
+      const mf = document.querySelector('#' + idMathField) as MathfieldElement
+      console.log({
+        mf,
+        idMathField,
+        command: `${data.command}`,
+        insert: `${data.insert}`
+      })
+      if (mf != null) {
+        mf.focus()
+        if (data.command && data.command === 'closeKeyboard') {
+          keyboardState.update((value) => {
+            value.isVisible = false
+            value.idMathField = ''
+            return value
+          })
+        } else if (data.command && data.command[0] !== '') {
+          // @ts-expect-error : command doit être compatible avec MathLive
+          mf.executeCommand(data.command)
+        } else {
+          console.log(data.insert)
+          mf.executeCommand(['insert', data.insert || data.key])
+        }
+      }
+    }
+  }
   onMount(() => {
     computePages()
   })
@@ -79,6 +110,7 @@
             blocks={[...myKeyboard.blocks].reverse()}
             isInLine={false}
             {innerWidth}
+            {clickKeycap}
           />
         </div>
       {:else}
@@ -87,6 +119,7 @@
             blocks={pages[currentPageIndex]}
             isInLine={true}
             {innerWidth}
+            {clickKeycap}
           />
 
           <button

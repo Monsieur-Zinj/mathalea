@@ -2,9 +2,11 @@
   import Block from './keyboardblock/KeyboardBlock.svelte'
   import type { KeyboardBlock } from '../../types/keyboardContent'
   import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT } from '../../lib/sizes'
+  import type { KeyCap } from '../../types/keycap'
 
   export let innerWidth: number
   export let blocks: KeyboardBlock[]
+  export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
   export let isInLine: boolean
   $: blockgapsize =
     innerWidth <= SM_BREAKPOINT ? GAP_BETWEEN_BLOCKS.sm : GAP_BETWEEN_BLOCKS.md
@@ -15,7 +17,7 @@
   style="--blockgapsize:{blockgapsize}"
 >
   {#each blocks as block}
-    <Block {block} {isInLine} {innerWidth} />
+    <Block {block} {isInLine} {innerWidth} {clickKeycap}/>
   {/each}
 </div>
 

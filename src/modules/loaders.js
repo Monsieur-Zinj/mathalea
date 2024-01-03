@@ -298,6 +298,7 @@ function handleClickOnKeyboardToggle (event) {
     }
     const mf = document.querySelector('#' + event.currentTarget.id)
     if (mf != null) mf.focus()
+    console.log('mf.classList: ' + mf.classList)
     return { isVisible: true, idMathField: event.currentTarget.id }
   })
 }
