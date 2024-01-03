@@ -1,4 +1,4 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { stringNombre } from '../../../lib/outils/texNombre.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
@@ -9,6 +9,7 @@ import { choice } from '../../../lib/outils/arrayOutils.js'
 import Exercice from '../../Exercice.js'
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { pgcd } from '../../../lib/outils/primalite'
 
 export const titre = 'Calculer le "milieu" entre 1 et une fraction'
 export const interactifReady = true
@@ -28,6 +29,7 @@ export default function MilieuEntre1EtFraction () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2
+  this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const listeFractions1 = [
       [10, 3], [5, 4], [7, 4], [10, 7], [11, 7], [12, 7], [9, 7], [13, 7], [11, 8], [11, 9], [7, 6], [12, 11], [4, 3],
@@ -86,7 +88,7 @@ export default function MilieuEntre1EtFraction () {
     $x_I=\\dfrac{1+${bonneFraction.texFraction}}{2}=
     \\dfrac{${un.texFraction}+${bonneFraction.texFraction}}{2}=
         ${unPlusBonneFraction.texFraction}\\times ${half.texFraction}=
-        ${resultat.texFraction} ${resultat.texSimplificationAvecEtapes(false, '#f15929')}$ <br><br>`
+        ${pgcd(d + n, 2 * d) === 1 ? `${miseEnEvidence(resultat.texFraction)}` : `${resultat.texFraction}`} ${resultat.texSimplificationAvecEtapes(false, '#f15929')}$ <br><br>`
     this.correction += texteEnCouleur(` Mentalement : <br>
         On calcule d'abord $1+${bonneFraction.texFraction}$ en n'oubliant pas que $1=${un.texFraction}$, puis on multiplie le résultat par $${half.texFraction}$.`)
 
