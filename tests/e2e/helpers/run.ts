@@ -140,14 +140,21 @@ async function getKatex (questionLocator: Locator) {
   return { elements, innerHTMLs, innerTexts, locators }
 }
 
-export async function inputAnswer (page: Page, question: Question, answer: string | number | undefined) {
+export async function inputAnswer (page: Page, question: Question, answer: string | number | (string | number)[] | undefined) {
   const champTexteSelector = `#champTexteEx${question.id}`
 
   if (answer === undefined) throw Error(`La réponse à la question ${question.id} est undefined`)
 
   await page.waitForSelector(champTexteSelector) // Les champs MathLive mettent un peu plus de temps à se charger que le reste
   const champTexteMathlive = page.locator(champTexteSelector)
-  await champTexteMathlive.pressSequentially(answer.toString()) // On a besoin de pressSequentially au lieu de fill pour que le clavier MathLive réagisse (et transforme les / en fraction par exemple)
+  if (Array.isArray(answer)) {
+    for (let i = 0; i < answer.length; i++) {
+      if (i > 0) await champTexteMathlive.press('Tab')
+      await champTexteMathlive.pressSequentially(answer[i].toString()) // On a besoin de pressSequentially au lieu de fill pour que le clavier MathLive réagisse (et transforme les / en fraction par exemple)
+    }
+  } else {
+    await champTexteMathlive.pressSequentially(answer.toString())
+  }
 }
 
 export async function checkFeedback (page: Page, questions: Question[]) {
