@@ -1,10 +1,11 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
+import { pgcd } from '../../../lib/outils/primalite.js'
 export const titre = 'Passer d\'un décimal à une fraction irréductible'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,14 +27,15 @@ export default function DecimalVersFractionIr () {
     let a, d, maFraction, d1
     this.formatChampTexte = 'largeur15 inline'
     this.formatInteractif = 'fraction'
-    switch (choice([1, 2, 3])) {
+    switch (choice([1, 2, 3])) { //, 2, 3
       case 1:// division par 10
         a = randint(1, 39, [10, 20, 30])
         d = new Decimal(a).div(10)
         maFraction = new FractionEtendue(a, 10)
         this.question = `Écrire $${texNombre(d, 1)}$ sous la forme d'une fraction irréductible.`
         this.correction = `
-        $${texNombre(d, 1)}=\\dfrac{${texNombre(d * 10, 0)}}{10}${maFraction.texSimplificationAvecEtapes()}$ `
+        $${texNombre(d, 1)}=${pgcd(a, 10) === 1 ? `${miseEnEvidence(maFraction.texFraction)}` : `${maFraction.texFraction}`} ${maFraction.texSimplificationAvecEtapes(false, '#f15929')}$
+        `
         this.reponse = maFraction.simplifie()
 
         break
@@ -43,7 +45,8 @@ export default function DecimalVersFractionIr () {
         maFraction = new FractionEtendue(a, 100)
         this.question = `Écrire $${texNombre(d, 2)}$ sous la forme d'une fraction irréductible.`
         this.correction = `
-        $${texNombre(d, 2)}=\\dfrac{${texNombre(d * 100, 2)}}{100}${maFraction.texSimplificationAvecEtapes()}$ `
+        $${texNombre(d, 2)}=${pgcd(a, 10) === 1 ? `${miseEnEvidence(maFraction.texFraction)}` : `${maFraction.texFraction}`} ${maFraction.texSimplificationAvecEtapes(false, '#f15929')}$
+        `
         this.reponse = maFraction.simplifie()
         break
 
@@ -53,12 +56,12 @@ export default function DecimalVersFractionIr () {
         maFraction = new FractionEtendue(a, 4)
         d1 = d.sub(Math.floor(a / 4))
         this.question = `Écrire $${texNombre(d, 2)}$ sous la forme d'une fraction irréductible.`
-        if (a === 1) {
+        if (a === 1 || a === 3) {
           this.correction = `$${texNombre(d, 3)}
-        =${maFraction.texFractionSimplifiee}$ `
+        =${miseEnEvidence(maFraction.texFractionSimplifiee)}$ `
         } else {
           this.correction = `$${texNombre(d, 3)}=${Math.floor(a / 4)}+${texNombre(d.sub(Math.floor(a / 4)))}
-        =\\dfrac{${Math.floor(a / 4) * 4}}{4}+${texFractionReduite(d1 * 100, 100)}=${maFraction.texFractionSimplifiee}$ `
+        =\\dfrac{${Math.floor(a / 4) * 4}}{4}+${new FractionEtendue(d1 * 100, 100).simplifie()}=${miseEnEvidence(maFraction.texFractionSimplifiee)}$ `
         }
         this.reponse = maFraction.simplifie()
         break
