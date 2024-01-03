@@ -6,7 +6,7 @@ import Exercice from '../exercices/Exercice.js'
 import type TypeExercice from '../exercices/ExerciceTs.js'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from '../components/stores/generalStore.js'
+import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './stores/generalStore.js'
 import { get } from 'svelte/store'
 // @ts-ignore
 // @ts-ignore
@@ -18,7 +18,7 @@ import 'katex/dist/katex.min.css'
 // @ts-ignore
 import renderScratch from './renderScratch.js'
 // @ts-ignore
-import { decrypt, isCrypted } from '../components/utils/urls.js'
+import { decrypt, isCrypted } from './components/urls.js'
 import type { InterfaceGlobalOptions, InterfaceParams } from './types.js'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
 import { setReponse } from './interactif/gestionInteractif'

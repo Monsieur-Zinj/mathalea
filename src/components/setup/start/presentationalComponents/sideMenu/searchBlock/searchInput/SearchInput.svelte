@@ -1,0 +1,373 @@
+<script lang="ts">
+  import { createEventDispatcher, onDestroy, onMount, tick } from 'svelte'
+  import { stringToCriterion } from '../../../../../../../lib/components/filters'
+  import {
+    isExerciceItemInReferentiel,
+    isTool,
+    type ExerciceItemInReferentiel,
+    type ResourceAndItsPath,
+    type ToolItemInReferentiel,
+    type Level
+  } from '../../../../../../../lib/types/referentiels'
+  import {
+    allFilters,
+    getSelectedFiltersObjects,
+    handleUncheckingMutipleFilters,
+    filtersHaveChanged
+  } from '../../filtersStore'
+  import type { FilterObject } from '../../../../../../../lib/types'
+  import { getUniqueStringBasedOnTimeStamp, debounce } from '../../../../../../../lib/components/time'
+  import Filtres from './Filtres.svelte'
+  import Chip from './Chip.svelte'
+  import type { Unsubscriber } from 'svelte/store'
+  import Button from '../../../../../../../components/shared/forms/Button.svelte'
+  export let origin: ResourceAndItsPath[]
+  export let results: ResourceAndItsPath[] = []
+  export let addExercise: (uuid: string) => void
+
+  let searchField: HTMLInputElement
+  let isFiltersVisible: boolean = false
+  let selectedFilters: FilterObject<string | Level>[] = []
+  let inputSearch: string = ''
+  let lastInput: string = ''
+  let isInputFocused = false
+  let isCtrlDown: boolean = false
+  let isKDown: boolean = false
+  let isEnterDown: boolean = false
+  let unsubscribeToFiltersStore: Unsubscriber
+
+  const dispatch = createEventDispatcher()
+  const timeStamp = getUniqueStringBasedOnTimeStamp()
+  const fetchResults = debounce<typeof updateResults>(updateResults, 500)
+  const inputSearchSamples = [
+    'pythagore',
+    '3e proba',
+    'dnb+3e stat',
+    'bac asie python',
+    'crpe 2016+2015 aires'
+  ]
+
+  onMount(() => {
+    typeWriter(`#searchInputField-${timeStamp}`, inputSearchSamples, true)
+    unsubscribeToFiltersStore = allFilters.subscribe(() => {
+      selectedFilters = [...getSelectedFiltersObjects()]
+    })
+  })
+
+  onDestroy(() => {
+    if (unsubscribeToFiltersStore) unsubscribeToFiltersStore()
+  })
+
+  $: handleInput(inputSearch)
+
+  // ===================================================================================
+  //
+  //                                Gestion de la recherche
+  //
+  // ===================================================================================
+  function updateResults (input: string): void {
+    const resultsWithDuplicates = getResults(input)
+    results = getUniques(resultsWithDuplicates)
+  }
+
+  function getResults (input: string) {
+    if (input.length === 0) {
+      return []
+    } else {
+      return [
+        ...stringToCriterion(
+          input,
+          true
+        ).meetCriterion(origin)
+      ]
+    }
+  }
+
+  function getUniques (results: ResourceAndItsPath[]) {
+    const uniques: ResourceAndItsPath[] = []
+    const treatedUuids: string[] = []
+    for (const elt of results) {
+      if (!treatedUuids.includes(elt.resource.uuid)) {
+        treatedUuids.push(elt.resource.uuid)
+        uniques.push(elt)
+      }
+    }
+    return uniques
+  }
+
+  function handleInput (input: string) {
+    const beginsWithQuote = input.replace(/^[\s"']/, '').length === 0
+    if (input.length === 0 || beginsWithQuote) {
+      results = []
+    } else {
+      if (input !== lastInput) {
+        lastInput = input
+        fetchResults(input)
+      }
+      if ($filtersHaveChanged) {
+        $filtersHaveChanged = false
+        fetchResults(input)
+      }
+    }
+  }
+  // ===================================================================================
+  //
+  //                                Gestion du clavier
+  //
+  // ===================================================================================
+  function onFocusInput () {
+    isInputFocused = true
+  }
+  function onBlurInput () {
+    isInputFocused = false
+  }
+
+  /**
+   * Recherche si la chaîne de l'input correspond à une ID de la liste des résultats.
+   * @returns {ExerciceItemInReferentiel|ToolItemInReferentiel|null} renvoie l'exercice trouvé ou `null`
+   */
+  function matchOnResultsList (inputSearch: string): ExerciceItemInReferentiel | ToolItemInReferentiel | null {
+    for (const result of results) {
+      if (isExerciceItemInReferentiel(result.resource) || isTool(result.resource)) {
+        if (inputSearch === result.resource.id) {
+          return result.resource
+        }
+      }
+    }
+    return null
+  }
+  /**
+   * Si Entrée et qu'un seul exercice matche alors on ajoute l'exercice à la liste
+   */
+  function onEnterDown () {
+    const matchingResource = matchOnResultsList(inputSearch)
+    if (matchingResource !== null) {
+      addExercise(matchingResource.uuid)
+    }
+  }
+  /**
+   *
+   * @param event
+   */
+  function onKeyDown (event: KeyboardEvent) {
+    if (event.repeat) return
+    switch (event.key) {
+      case 'Control':
+        isCtrlDown = true
+        event.preventDefault()
+        break
+      case 'k':
+        isKDown = true
+        break
+      case 'Enter':
+        if (isInputFocused) {
+          isEnterDown = true
+        }
+        event.preventDefault()
+        break
+    }
+    if (isCtrlDown && isKDown) { // https://svelte.dev/repl/48bd3726b74c4329a186838ce645099b?version=3.46.4
+      getFocusOnSearchInput()
+    }
+    if (isEnterDown) {
+      onEnterDown()
+    }
+  }
+
+  function onKeyUp (event: KeyboardEvent) {
+    switch (event.key) {
+      case 'Control':
+        isCtrlDown = false
+        event.preventDefault()
+        break
+      case 'k':
+        isKDown = false
+        event.preventDefault()
+        break
+      case 'Enter':
+        isEnterDown = false
+        break
+    }
+  }
+  const getFocusOnSearchInput = async () => {
+    await tick()
+    searchField.focus()
+  }
+  /**
+   * Permet d'afficher séquentiellement une liste de chaînes de caractères
+   * dans un champ de recherche à la place du placeholder
+   * @see https://stackoverflow.com/a/57903237/6625987
+   * @param selectorTarget
+   * @param textList
+   * @param placeholder
+   * @param i
+   * @param textListI
+   * @param delayMs
+   */
+  function typeWriter (
+    selectorTarget: string,
+    textList: string[],
+    placeholder = false,
+    i = 0,
+    textListI = 0,
+    delayMs = 100
+  ) {
+    if (lastInput === '') {
+      if (!i) {
+        if (placeholder) {
+          const inputDiv = document.querySelector(
+            selectorTarget
+          ) as HTMLInputElement
+          if (inputDiv) {
+            inputDiv.placeholder = ''
+          }
+        } else {
+          const inputDiv = document.querySelector(
+            selectorTarget
+          ) as HTMLInputElement
+          if (inputDiv) {
+            inputDiv.innerHTML = ''
+          }
+        }
+      }
+      const txt = textList[textListI]
+      if (i < txt.length) {
+        if (placeholder) {
+          const inputDiv = document.querySelector(
+            selectorTarget
+          ) as HTMLInputElement
+          if (inputDiv) {
+            inputDiv.placeholder += txt.charAt(i)
+          }
+        } else {
+          const inputDiv = document.querySelector(
+            selectorTarget
+          ) as HTMLInputElement
+          if (inputDiv) {
+            inputDiv.innerHTML += txt.charAt(i)
+          }
+        }
+        i++
+        setTimeout(
+          typeWriter,
+          delayMs,
+          selectorTarget,
+          textList,
+          placeholder,
+          i,
+          textListI
+        )
+      } else {
+        textListI++
+        if (typeof textList[textListI] === 'undefined') {
+          setTimeout(
+            typeWriter,
+            delayMs * 7,
+            selectorTarget,
+            textList,
+            placeholder
+          )
+        } else {
+          i = 0
+          setTimeout(
+            typeWriter,
+            delayMs * 7,
+            selectorTarget,
+            textList,
+            placeholder,
+            i,
+            textListI
+          )
+        }
+      }
+    } else {
+      const inputDiv = document.querySelector(
+        selectorTarget
+      ) as HTMLInputElement
+      if (inputDiv) {
+        inputDiv.placeholder = '🔍 Thème, identifiant...'
+      }
+    }
+  }
+</script>
+
+<!--
+  @component
+  Champ de texte pour recherche d'exercices
+  ### Paramètres
+  - **origin** (_ResourceAndItsPath[]_) : le référentiel à rechercher (déplier dans un tableau)
+  - **result** (_ResourceAndItsPath[]_) : la liste des entrées correspondant au texte dans le champ de recherche
+ -->
+<svelte:window on:keydown={onKeyDown} on:keyup={onKeyUp} />
+<div class="flex flex-col justify-start items-center">
+  <div class="relative flex flex-col w-full">
+    <input
+      type="search"
+      id="searchInputField-{timeStamp}"
+      class="w-full border border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light text-sm placeholder-coopmaths-corpus-lightest dark:placeholder-coopmathsdark-corpus-lightest placeholder:italic placeholder-opacity-50"
+      placeholder="🔍 Thème, identifiant..."
+      bind:value={inputSearch}
+      bind:this={searchField}
+      on:focus={onFocusInput}
+      on:blur={onBlurInput}
+      autocomplete="off"
+      autocorrect="off"
+      name="”notASearchField”"
+    />
+    <!-- Invite pour presser Entrée lors d'un match input = ID d'exo -->
+    <div
+      class="absolute -bottom-6 {matchOnResultsList(inputSearch) !== null && isInputFocused
+        ? 'flex'
+        : 'hidden'} items-center pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
+    >
+      Presser <span class="font-normal mx-1">Entrée</span> pour ajouter l'exercice
+    </div>
+    <!-- Bouton pour effacer l'input de recherche -->
+    <Button
+      title=""
+      icon="bxs-tag-x"
+      class="absolute right-2 top-1 text-2xl"
+      isDisabled={inputSearch.length === 0}
+      on:click={() => {
+        inputSearch = ''
+      }}
+    />
+    <!-- Bouton pour afficher les filtres -->
+    <button
+      type="button"
+      class="absolute right-2 -bottom-6 text-sm text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+      on:click={() => {
+        isFiltersVisible = !isFiltersVisible
+      }}
+    >
+      Filtrer les exercices <i class="bx bx-filter-alt" />
+    </button>
+  </div>
+  <!-- Chips des filtres -->
+  <div
+    class={selectedFilters.length === 0
+      ? 'hidden'
+      : 'flex w-full flex-row flex-wrap justify-start text-sm mt-6 leading-tight'}
+  >
+    {#each selectedFilters as filter}
+      <Chip
+        text={filter.content.title}
+        textColor="canvas"
+        bgColor="struct"
+        isVisible={true}
+        on:action={() => {
+          $allFilters[filter.type][filter.key].isSelected = false
+          handleUncheckingMutipleFilters(filter.key)
+          dispatch('filters-change')
+          $filtersHaveChanged = true
+        }}
+      />
+    {/each}
+  </div>
+  <!-- Filtres -->
+  <div class={isFiltersVisible ? 'flex flex-col w-full mt-4' : 'hidden'}>
+    <Filtres class="mt-2" filterType="levels" on:filters-change />
+    <Filtres class="mt-2" filterType="specs" on:filters-change />
+    <Filtres class="mt-2" filterType="types" on:filters-change />
+  </div>
+</div>
