@@ -797,7 +797,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex',
-    tags: ['Probabilités Conditionnelles', 'Loi binomiale','Variables alétoires']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale','Variables alétoires']
   },
   bac_2022_05_sujet1_ameriquenord_2: {
     annee: '2022',
@@ -862,7 +862,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex',
-    tags: ['suites', 'Python', 'Exponentielle', 'Logarithme']
+    tags: ['Suites', 'Python', 'Exponentielle', 'Logarithme']
   },
   bac_2022_05_sujet1_asie_3: {
     annee: '2022',
@@ -1083,7 +1083,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet1_polynesie_3.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet1_polynesie_3_cor.tex',
-    tags: ['suites','Python']
+    tags: ['Suites','Python']
   },
   bac_2022_05_sujet1_polynesie_4: {
     annee: '2022',
@@ -1291,7 +1291,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3_cor.tex',
-    tags: ['QCM','suites','Convexité']
+    tags: ['QCM','Suites','Convexité']
   },
   bac_2022_05_sujet2_madagascar_4: {
     annee: '2022',
@@ -1304,7 +1304,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4_cor.tex',
-    tags: ['Exponentielle','Logarithme','Suites']
+    tags: ['Exponentielle','Logarithme','Suites','Python']
   },
   bac_2022_05_sujet2_metropole_1: {
     annee: '2022',
@@ -1473,7 +1473,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_09_sujet1_metropole_1.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_09_sujet1_metropole_1_cor.tex',
-    tags: ['Exponentielle','TVI','Suites']
+    tags: ['QCM','Exponentielle','Convexité','Suites','Primitives']
   },
   bac_2022_09_sujet1_metropole_2: {
     annee: '2022',
@@ -1486,7 +1486,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_09_sujet1_metropole_2.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_09_sujet1_metropole_2_cor.tex',
-    tags: ['Espace']
+    tags: ['Probabilités conditionnelles','Variables aléatoires','Loi binomiale']
   },
   bac_2022_09_sujet1_metropole_3: {
     annee: '2022',
@@ -1499,7 +1499,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_09_sujet1_metropole_3.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_09_sujet1_metropole_3_cor.tex',
-    tags: ['Probabilités conditionnelles','Loi binomiale','Python']
+    tags: ['Logarithme','Exponentielle','TVI']
   },
   bac_2022_09_sujet1_metropole_4: {
     annee: '2022',
@@ -1512,7 +1512,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_09_sujet1_metropole_4.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_09_sujet1_metropole_4_cor.tex',
-    tags: ['QCM','Convexité','Exponentielle','Primitives','Logarithme']
+    tags: ['Espace']
   },
   bac_2022_09_sujet1_polynesie_1: {
     annee: '2022',
@@ -1681,7 +1681,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_10_sujet1_caledonie_1.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_10_sujet1_caledonie_1_cor.tex',
-    tags: ['']
+    tags: ['Logarithme','Convexité']
   },
   bac_2022_10_sujet1_caledonie_2: {
     annee: '2022',
@@ -1694,7 +1694,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2_cor.tex',
-    tags: ['Logarithme','TVI','Convexité']
+    tags: ['Logarithme','Suites','Python']
   },
   bac_2022_10_sujet1_caledonie_3: {
     annee: '2022',
@@ -1707,7 +1707,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_10_sujet1_caledonie_3.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_10_sujet1_caledonie_3_cor.tex',
-    tags: ['Suites','Exponentielle','Python']
+    tags: ['Espace']
   },
   bac_2022_10_sujet1_caledonie_4: {
     annee: '2022',
@@ -1720,7 +1720,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4_cor.tex',
-    tags: ['Espace']
+    tags: ['QCM','Probabilités conditionnelles','Loi binomiale']
   },
   bac_2022_10_sujet2_caledonie_1: {
     annee: '2022',
