@@ -61,7 +61,7 @@ class SoustractionRelatifs extends Exercice {
       if (this.interactif) {
         texte = `<math-field readonly class="fillInTheBlanks" style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
         ${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = (\\placeholder[place1]{}) + (\\placeholder[place2]{}) = \\placeholder[place3]{}
-      </math-field><span class="ml-2" id="feedbackEx${this.numeroExercice}Q${i}"></span>`
+      </math-field><span class="ml-2" id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       }
 
       if (this.questionJamaisPosee(i, a, b, listeTypeQuestions[i])) {
@@ -79,7 +79,7 @@ class SoustractionRelatifs extends Exercice {
     let result: 'OK' | 'KO' = 'KO'
     const mf = document.querySelector(`#champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
     this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     const a = this.listeA[i]
     const b = this.listeB[i]
     const test1 = ce.parse(mf.getPromptValue('place1')).isSame(ce.parse(`${a}`))
