@@ -1,5 +1,7 @@
 import scratchblocks from 'scratchblocks'
 import scratchFr from '../json/scratchFr.json'
+import { get } from 'svelte/store'
+import { globalOptions } from './stores/generalStore'
 
 export default function renderScratch (selector = '') {
   // Exécuter 2 fois le rendu sur un même élément <pre> semble buguer
@@ -22,4 +24,27 @@ export default function renderScratch (selector = '') {
     languages: ['fr'],
     scale: 0.7
   })
+}
+
+export function scratchZoomUpdate () {
+  const scratchDivs = document.getElementsByClassName('scratchblocks')
+  for (const scratchDiv of scratchDivs) {
+    const svgDivs = scratchDiv.getElementsByTagName('svg')
+    for (const svg of svgDivs) {
+      if (svg.hasAttribute('data-width') === false) {
+        const originalWidth = svg.getAttribute('width')
+        svg.dataset.width = originalWidth ?? undefined
+      }
+      if (svg.hasAttribute('data-height') === false) {
+        const originalHeight = svg.getAttribute('height')
+        svg.dataset.height = originalHeight ?? undefined
+      }
+      const w =
+        Number(svg.getAttribute('data-width')) * Number(get(globalOptions).z)
+      const h =
+        Number(svg.getAttribute('data-height')) * Number(get(globalOptions).z)
+      svg.setAttribute('width', w.toString())
+      svg.setAttribute('height', h.toString())
+    }
+  }
 }

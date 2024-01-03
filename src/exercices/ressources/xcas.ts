@@ -3,7 +3,7 @@ import { mathaleaRenderDiv } from '../../lib/mathalea.js'
 import { createButon, createTextInput } from './_components.js'
 import { createList } from '../../lib/format/lists.js'
 import type { List } from '../../lib/format/lists.js'
-import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time.js'
+import { getUniqueStringBasedOnTimeStamp } from '../../lib/components/time.js'
 
 export const uuid = 'xcas'
 export const titre = 'xCas'

@@ -1,0 +1,126 @@
+<script lang="ts">
+  import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
+  import { globalOptions } from '../../../lib/stores/generalStore'
+  import { retrieveResourceFromUuid } from '../../../lib/components/refUtils'
+  import { resourceHasPlace, isStaticType, type JSONReferentielObject, isCrpeType } from '../../../lib/types/referentiels'
+  /**
+   * Gestion du référentiel pour la recherche de l'uuid
+  */
+  import referentielStatic from '../../../json/referentielStatic.json'
+  import referentielBibliotheque from '../../../json/referentielBibliotheque.json'
+  import type { HeaderProps } from '../../../lib/types/ui'
+  // on rassemble les deux référentiel statique
+  const allStaticReferentiels: JSONReferentielObject = {
+    ...referentielBibliotheque,
+    ...referentielStatic
+  }
+  // on supprime les entrées par thèmes qui entraîne des doublons
+  delete allStaticReferentiels['Brevet des collèges par thèmes - APMEP']
+  delete allStaticReferentiels['BAC par thèmes - APMEP']
+  delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
+  delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
+  delete allStaticReferentiels['E3C par thèmes - APMEP']
+  export let uuid: string
+  export let indiceExercice: number
+  export let indiceLastExercice: number
+  const foundResource = retrieveResourceFromUuid(allStaticReferentiels, uuid)
+  const resourceToDisplay = isStaticType(foundResource) || isCrpeType(foundResource)
+    ? { ...foundResource }
+    : null
+  const exercice =
+    resourceToDisplay === null
+      ? null
+      : {
+          png: typeof resourceToDisplay.png === 'string' ? [resourceToDisplay.png] : resourceToDisplay.png,
+          pngCor: typeof resourceToDisplay.pngCor === 'string' ? [resourceToDisplay.pngCor] : resourceToDisplay.pngCor
+        }
+  let isCorrectionVisible = false
+  let isContentVisible = true
+  $: zoomFactor = $globalOptions.z
+  let headerExerciceProps: HeaderProps
+  if (resourceToDisplay !== null) {
+    headerExerciceProps = {
+      title: '',
+      id: '',
+      isInteractif: false,
+      settingsReady: false,
+      isSettingsVisible: false,
+      interactifReady: false,
+      indiceExercice,
+      indiceLastExercice,
+      randomReady: false,
+      correctionReady: $globalOptions.isSolutionAccessible ? $globalOptions.isSolutionAccessible : false
+    }
+    if (resourceHasPlace(resourceToDisplay)) {
+      // let numSujet = ''
+      // if (resourceToDisplay.jour !== undefined) {
+      //   switch (resourceToDisplay.jour) {
+      //     case 'J1':
+      //       numSujet = ' [sujet 1]'
+      //       break
+      //     case 'J2':
+      //       numSujet = ' [sujet 2]'
+      //       break
+      //     default:
+      //       numSujet = ''
+      //       break
+      //   }
+      // }
+      headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} ${
+        resourceToDisplay.mois || ''
+      } ${resourceToDisplay.annee} ${resourceToDisplay.lieu} - ${resourceToDisplay.numeroInitial}`
+    } else {
+      headerExerciceProps.title = resourceToDisplay.uuid
+    }
+  }
+</script>
+
+<HeaderExerciceVueProf
+  {...headerExerciceProps}{indiceExercice}{indiceLastExercice}
+  on:clickCorrection={(event) => {
+    isCorrectionVisible = event.detail.isCorrectionVisible
+  }}
+  on:clickVisible={(event) => {
+    isContentVisible = event.detail.isVisible
+    isCorrectionVisible = event.detail.isVisible
+  }}
+/>
+
+<div class="p-4">
+  {#if isContentVisible}
+    {#if exercice}
+      {#each exercice.png as url}
+        <img src={url} style="width: calc(100% * {zoomFactor}" alt="énoncé" />
+      {/each}
+    {/if}
+  {/if}
+
+  {#if isCorrectionVisible}
+    <div
+      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
+      id="correction{indiceExercice}"
+    >
+      <div class="container">
+        {#if exercice}
+          {#each exercice.pngCor as url}
+            <img
+              src={url}
+              class="p-2"
+              style="width: calc(100% * {zoomFactor}"
+              alt="correction"
+            />
+          {/each}
+        {/if}
+      </div>
+      <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
+      <div
+        class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+      >
+        Correction
+      </div>
+      <div
+        class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4"
+      />
+    </div>
+  {/if}
+</div>

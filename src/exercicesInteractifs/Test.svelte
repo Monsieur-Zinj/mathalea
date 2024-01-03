@@ -1,5 +1,5 @@
 <script>
-  import HeaderExerciceVueProf from '../components/exercice/HeaderExerciceVueProf.svelte'
+  import HeaderExerciceVueProf from '../components/shared/exercice/HeaderExerciceVueProf.svelte'
   export let indiceExercice
   export let indiceLastExercice
   const headerExerciceProps = {

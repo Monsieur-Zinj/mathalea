@@ -1,4 +1,4 @@
-import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time'
+import { getUniqueStringBasedOnTimeStamp } from '../../lib/components/time'
 export function createButon ({ title = 'Valider' } : {title?: string} = {}) {
   const button = document.createElement('button')
   button.textContent = title
