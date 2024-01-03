@@ -40,6 +40,7 @@
   import MoodleIcon from './icons/MoodleIcon.svelte'
   import Footer from './Footer.svelte'
   import ChipsList from './ui/ChipsList.svelte'
+  import PdfTextIcon from './icons/PdfTextIcon.svelte'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
@@ -500,8 +501,8 @@
                   })
                 }}
               >
-                <LatexIcon
-                  class="w-7 h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest"
+                <PdfTextIcon
+                  class="w-7 h-7 hover:fill-coopmaths-action-lightest fill-coopmaths-action dark:fill-coopmathsdark-action dark:hover:fill-coopmathsdark-action-lightest hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                 />
               </button>
               <button
