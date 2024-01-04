@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { exercicesParams, moveExercice } from '../../../lib/stores/generalStore'
+  import { exercicesParams, moveExercice } from '../../../../../lib/stores/generalStore'
   export let indice: number
   export let indiceLastExercice: number
   function descendre () {

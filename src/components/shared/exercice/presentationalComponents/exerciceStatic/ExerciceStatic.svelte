@@ -1,14 +1,13 @@
 <script lang="ts">
-  import HeaderExerciceVueProf from '../shared/HeaderExerciceVueProf.svelte'
-  import { globalOptions } from '../../../../lib/stores/generalStore'
-  import { retrieveResourceFromUuid } from '../../../../lib/components/refUtils'
-  import { resourceHasPlace, isStaticType, type JSONReferentielObject, isCrpeType } from '../../../../lib/types/referentiels'
+  import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
+  import { retrieveResourceFromUuid } from '../../../../../lib/components/refUtils'
+  import { resourceHasPlace, isStaticType, type JSONReferentielObject, isCrpeType } from '../../../../../lib/types/referentiels'
   /**
    * Gestion du référentiel pour la recherche de l'uuid
   */
-  import referentielStatic from '../../../../json/referentielStatic.json'
-  import referentielBibliotheque from '../../../../json/referentielBibliotheque.json'
-  import type { HeaderProps } from '../../../../lib/types/ui'
+  import referentielStatic from '../../../../../json/referentielStatic.json'
+  import referentielBibliotheque from '../../../../../json/referentielBibliotheque.json'
+  import type { HeaderProps } from '../../../../../lib/types/ui'
   // on rassemble les deux référentiel statique
   const allStaticReferentiels: JSONReferentielObject = {
     ...referentielBibliotheque,
@@ -23,6 +22,8 @@
   export let uuid: string
   export let indiceExercice: number
   export let indiceLastExercice: number
+  export let zoomFactor: string
+  export let isSolutionAccessible: boolean
   const foundResource = retrieveResourceFromUuid(allStaticReferentiels, uuid)
   const resourceToDisplay = isStaticType(foundResource) || isCrpeType(foundResource)
     ? { ...foundResource }
@@ -36,7 +37,6 @@
         }
   let isCorrectionVisible = false
   let isContentVisible = true
-  $: zoomFactor = $globalOptions.z
   let headerExerciceProps: HeaderProps
   if (resourceToDisplay !== null) {
     headerExerciceProps = {
@@ -49,7 +49,7 @@
       indiceExercice,
       indiceLastExercice,
       randomReady: false,
-      correctionReady: $globalOptions.isSolutionAccessible ? $globalOptions.isSolutionAccessible : false
+      correctionReady: isSolutionAccessible
     }
     if (resourceHasPlace(resourceToDisplay)) {
       headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} ${

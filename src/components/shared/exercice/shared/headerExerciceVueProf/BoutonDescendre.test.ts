@@ -1,6 +1,6 @@
-import { getMockInterfacesParams } from '../../../lib/types.mock'
-import { randint } from '../../../modules/outils'
-import { exercicesParams } from '../../../lib/stores/generalStore'
+import { getMockInterfacesParams } from '../../../../../lib/types.mock'
+import { randint } from '../../../../../modules/outils'
+import { exercicesParams } from '../../../../../lib/stores/generalStore'
 import BoutonDescendre from './BoutonDescendre.svelte'
 import { render, screen, fireEvent } from '@testing-library/svelte'
 

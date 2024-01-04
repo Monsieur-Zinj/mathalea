@@ -8,8 +8,8 @@
   import type { InterfaceParams } from '../../../lib/types'
   import uuidToUrl from '../../../json/uuidsToUrl.json'
   import ExerciceMathaleaVueEleve from './exerciceMathaleaVueEleve/ExerciceMathaleaVueEleve.svelte'
-  import ExerciceStatic from './exerciceStatic/ExerciceStatic.svelte'
-  import type Exercice from '../../../exercices/ExerciceTs'
+  import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
+  import Exercice from '../../../exercices/ExerciceTs'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathaleaVueProf from './exerciceMathaleaVueProf/ExerciceMathaleaVueProf.svelte'
 
@@ -18,81 +18,93 @@
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
 
+  type ExerciseType = 'mathaleaVueProf' | 'mathaleaVueEleve' | 'static' | 'html' | 'svelte'
+
   let exercise: Exercice
-  let typeExercice:
-    | 'mathaleaVueProf'
-    | 'mathaleaVueEleve'
-    | 'static'
-    | 'html'
-    | 'svelte'
+  let exerciseType: ExerciseType
   let ComponentExercice: typeof SvelteComponent
 
   onMount(async () => {
-    const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
-    if (
-      paramsExercice.uuid.startsWith('crpe-') ||
-      paramsExercice.uuid.startsWith('dnb_') ||
-      paramsExercice.uuid.startsWith('e3c_') ||
-      paramsExercice.uuid.startsWith('bac_') ||
-      paramsExercice.uuid.startsWith('2nd_')
-    ) {
-      typeExercice = 'static'
-    } else if (urlExercice && urlExercice.includes('.svelte')) {
-      typeExercice = 'svelte'
-      // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
-      ComponentExercice = (
-        await import(
-          '../../exercicesInteractifs/' +
-            urlExercice.replace('.svelte', '') +
-            '.svelte'
-        )
-      ).default
+    if (isStatic(paramsExercice.uuid)) {
+      exerciseType = 'static'
+    } else if (isSvelte(paramsExercice.uuid)) {
+      exerciseType = 'svelte'
+      ComponentExercice = await getSvelteComponent(paramsExercice)
     } else {
-      exercise = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
-      if (exercise === undefined) return
-      if (exercise.typeExercice && exercise.typeExercice.includes('html')) {
-        typeExercice = 'html'
-      } else {
-        if ($globalOptions.v === 'eleve') {
-          typeExercice = 'mathaleaVueEleve'
-        } else {
-          typeExercice = 'mathaleaVueProf'
-        }
-      }
-      exercise.numeroExercice = indiceExercice
-      mathaleaHandleParamOfOneExercice(exercise, paramsExercice)
-      if (paramsExercice.duration) exercise.duree = paramsExercice.duration
+      exercise = await getExercise(paramsExercice)
+      exerciseType = await getExerciseType(exercise)
     }
   })
+
+  function isStatic (uuid: string) {
+    return uuid.startsWith('crpe-') ||
+      uuid.startsWith('dnb_') ||
+      uuid.startsWith('e3c_') ||
+      uuid.startsWith('bac_') ||
+      uuid.startsWith('2nd_')
+  }
+
+  function isSvelte (uuid: string) {
+    const urlExercice = uuidToUrl[uuid as keyof typeof uuidToUrl]
+    return urlExercice && urlExercice.includes('.svelte')
+  }
+
+  async function getSvelteComponent (paramsExercice: InterfaceParams) {
+    const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
+    // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
+    return (await import('../../../exercicesInteractifs/' + urlExercice.replace('.svelte', '') + '.svelte')).default
+  }
+
+  async function getExercise (paramsExercice: InterfaceParams): Promise<Exercice> {
+    const exercise = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+    exercise.numeroExercice = indiceExercice
+    mathaleaHandleParamOfOneExercice(exercise, paramsExercice)
+    if (paramsExercice.duration) exercise.duree = paramsExercice.duration
+    return exercise
+  }
+
+  async function getExerciseType (exercise: Exercice): Promise<ExerciseType> {
+    if (exercise.typeExercice && exercise.typeExercice.includes('html')) {
+      return 'html'
+    } else {
+      if ($globalOptions.v === 'eleve') {
+        return 'mathaleaVueEleve'
+      } else {
+        return 'mathaleaVueProf'
+      }
+    }
+  }
 </script>
 
-{#if typeExercice === 'static'}
+{#if exerciseType === 'static'}
   <ExerciceStatic
     {indiceExercice}
     {indiceLastExercice}
     uuid={paramsExercice.uuid}
+    zoomFactor={$globalOptions.z ?? '1'}
+    isSolutionAccessible={!!$globalOptions.isSolutionAccessible}
   />
-{:else if typeExercice === 'html'}
+{:else if exerciseType === 'html'}
   <ExerciceHtml
     vue={$globalOptions.v}
     {exercise}
     {indiceExercice}
     {indiceLastExercice}
   />
-{:else if typeExercice === 'svelte'}
+{:else if exerciseType === 'svelte'}
   <svelte:component
     this={ComponentExercice}
     {indiceExercice}
     {indiceLastExercice}
   />
-{:else if typeExercice === 'mathaleaVueEleve'}
+{:else if exerciseType === 'mathaleaVueEleve'}
   <ExerciceMathaleaVueEleve
     {exercise}
     exerciseIndex={indiceExercice}
     {indiceLastExercice}
     {isCorrectionVisible}
   />
-{:else if typeExercice === 'mathaleaVueProf'}
+{:else if exerciseType === 'mathaleaVueProf'}
   <ExerciceMathaleaVueProf
     exercice={exercise}
     {indiceExercice}
