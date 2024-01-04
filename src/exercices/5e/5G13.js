@@ -1,6 +1,6 @@
 import { angle } from '../../lib/2d/angles.js'
 import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages.js'
-import { distancePointDroite, droite, droiteParPointEtParallele, positionLabelDroite } from '../../lib/2d/droites.js'
+import { distancePointDroite, droite, droiteAvecNomLatex, droiteParPointEtParallele, positionLabelDroite } from '../../lib/2d/droites.js'
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
@@ -11,18 +11,17 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles'
 
+export const dateDePublication = '05/08/2021'
 export const dateDeModifImportante = '06/03/2023'
 
 /**
  * Compléter le symétrique d'une figure en utilisant les propriétés de conservation de la symétrie et de la translation et en justifiant ses démarches
  * @author Guillaume Valmont
- * Référence 5G13
- * Date de publication 05/08/2021
  * Ajout de la translation par Guillaume Valmont le 16/05/2022
  * Les noms des points sont maintenant aléatoires par Guillaume Valmont le 06/03/2023
 */
@@ -76,7 +75,7 @@ export default function ConservationTransformation () {
         break
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    let objetsEnonceEtCorr, objetsEnonceOnly, objetsCorrectionOnly, paramsEnonce, paramsCorrection
+    let objetsEnonceEtCorr, objetsEnonceOnly, objetsCorrectionOnly, paramsEnonce
     for (let i = 0, texte, texteCorr, figure, transformation, enonceTransformation, d, d1, A, B, C, D, E, imageA, imageB, imageC, figureRetournee, O, poly, imPoly, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       objetsEnonceOnly = []
       objetsCorrectionOnly = []
@@ -92,6 +91,7 @@ export default function ConservationTransformation () {
       poly = polygoneAvecNom(A, B, C) // pour bien placer les labels
       objetsEnonceEtCorr.push(segment(A, B), afficheLongueurSegment(B, A), poly[1])
       // On prépare la transformation
+      console.log(listeTypeDeTransformations[i])
       switch (listeTypeDeTransformations[i]) {
         case 'symetrieAxiale':
           transformation = 'symétrie axiale'
@@ -103,7 +103,7 @@ export default function ConservationTransformation () {
           imageB = symetrieAxiale(B, d, `${B.nom}'`)
           imageC = symetrieAxiale(C, d, `${C.nom}'`)
           if (listeTypeDeQuestions[i] === 'parallelisme') {
-            objetsCorrectionOnly.push(droite(symetrieAxiale(point(d1.x1, d1.y1), d), symetrieAxiale(point(d1.x2, d1.y2), d), '$(d_1\')$'))
+            objetsCorrectionOnly.push(...droiteAvecNomLatex(droite(symetrieAxiale(point(d1.x1, d1.y1), d), symetrieAxiale(point(d1.x2, d1.y2), d), '', '#f15929'), '$(d_1\')$'))
           }
           figureRetournee = false
           break
@@ -118,7 +118,7 @@ export default function ConservationTransformation () {
           } while (distancePointDroite(O, d1) < 1 || longueur(O, B) < 1 || Math.abs(Math.round(angle(B, A, imageC)) - 90) > 85)
           objetsEnonceEtCorr.push(tracePoint(O), labelPoint(O))
           if (listeTypeDeQuestions[i] === 'parallelisme') {
-            objetsCorrectionOnly.push(droite(rotation(point(d1.x1, d1.y1), O, 180), rotation(point(d1.x2, d1.y2), O, 180)))
+            objetsCorrectionOnly.push(droite(rotation(point(d1.x1, d1.y1), O, 180), rotation(point(d1.x2, d1.y2), O, 180), '#f15929'))
           }
           figureRetournee = true
           break
@@ -132,7 +132,7 @@ export default function ConservationTransformation () {
           imageC = translation2Points(C, D, E, `${C.nom}'`)
           objetsEnonceEtCorr.push(vecteur(D, E).representant(D), tracePoint(D, E), labelPoint(D, E))
           if (listeTypeDeQuestions[i] === 'parallelisme') {
-            objetsCorrectionOnly.push(droite(translation2Points(point(d1.x1, d1.y1), D, E), translation2Points(point(d1.x2, d1.y2), D, E)))
+            objetsCorrectionOnly.push(droite(translation2Points(point(d1.x1, d1.y1), D, E), translation2Points(point(d1.x2, d1.y2), D, E), '#f15929'))
           }
           break
       }
@@ -176,18 +176,19 @@ export default function ConservationTransformation () {
         objetsEnonceOnly.push(afficheLongueurSegment(imageB, imageA))
         objetsCorrectionOnly.push(afficheLongueurSegment(imageA, imageB))
       }
+      console.log(listeTypeDeQuestions[i])
       if (listeTypeDeQuestions[i] === 'longueurEtAngle') {
-        objetsCorrectionOnly.push(segment(imageA, imageC), segment(imageB, imageC))
-        objetsCorrectionOnly.push(afficheMesureAngle(imageA, imageB, imageC, 'black', 1, Math.round(angle(A, B, C)) + '°'))
+        objetsCorrectionOnly.push(segment(imageA, imageC, '#f15929'), segment(imageB, imageC, '#f15929'))
+        objetsCorrectionOnly.push(afficheMesureAngle(imageA, imageB, imageC, '#f15929', 1, Math.round(angle(A, B, C)) + '°', { colorArc: '#f15929' }))
         if (figureRetournee) {
-          objetsCorrectionOnly.push(afficheLongueurSegment(imageC, imageB))
+          objetsCorrectionOnly.push(afficheLongueurSegment(imageC, imageB, '#f15929'))
         } else {
-          objetsCorrectionOnly.push(afficheLongueurSegment(imageB, imageC))
+          objetsCorrectionOnly.push(afficheLongueurSegment(imageB, imageC, '#f15929'))
         }
       } else if (listeTypeDeQuestions[i] === 'parallelisme') {
         objetsEnonceEtCorr.push(tracePoint(imageC))
         objetsEnonceOnly.push(labelPoint(imageC))
-        objetsCorrectionOnly.push(tracePoint(imageA, imageB))
+        // objetsCorrectionOnly.push(tracePoint(imageA, imageB))
       }
       const xmin = Math.min(A.x, B.x, C.x, D.x, E.x, imageA.x, imageB.x, imageC.x) - 2
       const xmax = Math.max(A.x, B.x, C.x, D.x, E.x, imageA.x, imageB.x, imageC.x) + 2
@@ -195,16 +196,15 @@ export default function ConservationTransformation () {
       const ymax = Math.max(A.y, B.y, C.y, D.x, E.x, imageA.y, imageB.y, imageC.y) + 2
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
-      // paramètres de la fenêtre Mathalea2d pour la correction
-      paramsCorrection = paramsEnonce
       // On ajoute les noms des droites si besoin
       if (listeTypeDeTransformations[i] === 'symetrieAxiale') objetsEnonceEtCorr.push(texteParPoint('$(d)$', positionLabelDroite(d, paramsEnonce), 'milieu', 'black', 1, 'middle', true))
       if (listeTypeDeQuestions[i] === 'parallelisme') objetsEnonceEtCorr.push(texteParPoint('$(d_1)$', positionLabelDroite(d1, paramsEnonce), 'milieu', 'black', 1, 'middle', true))
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-      texte += mathalea2d(paramsEnonce, objetsEnonceOnly, objetsEnonceEtCorr)
+      texte += mathalea2d(Object.assign({}, fixeBordures([objetsEnonceOnly, objetsEnonceEtCorr])), objetsEnonceOnly, objetsEnonceEtCorr)
+
       // On ajoute au texte de la correction, la figure de la correction
-      texteCorr += mathalea2d(paramsCorrection, objetsCorrectionOnly, objetsEnonceEtCorr)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      texteCorr += mathalea2d(Object.assign({}, fixeBordures([objetsCorrectionOnly, objetsEnonceEtCorr])), objetsCorrectionOnly, objetsEnonceEtCorr)
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

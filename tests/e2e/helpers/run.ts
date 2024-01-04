@@ -147,17 +147,6 @@ async function getMathField (questionLocator: Locator) {
   for (const locator of locators) {
     mathField.push(await locator.innerHTML())
   }
-  // const innerHTMLs: string[] = []
-  // const innerTexts: string[] = []
-  // const elementsWithRedondancy: string[][][] = []
-  // for (const locator of locators) {
-  //   innerHTMLs.push(await locator.innerHTML())
-  //   innerTexts.push(await locator.innerText())
-  //   elementsWithRedondancy.push(innerTexts.map(innerText => innerText.split('\n')))
-  // }
-  // const selectedElements = elementsWithRedondancy[elementsWithRedondancy.length - 1]
-  // let elements: string[][] = []
-  // if (selectedElements !== undefined) elements = selectedElements.map(list => list.map(ele => clean(ele, [])))
   return mathField[0]
 }
 
@@ -165,6 +154,23 @@ export async function inputAnswer (page: Page, question: Question, answer: strin
   const champTexteSelector = `#champTexteEx${question.id}`
 
   if (answer === undefined) throw Error(`La réponse à la question ${question.id} est undefined`)
+
+  await page.waitForSelector(champTexteSelector) // Les champs MathLive mettent un peu plus de temps à se charger que le reste
+  const champTexteMathlive = page.locator(champTexteSelector)
+  if (Array.isArray(answer)) {
+    for (let i = 0; i < answer.length; i++) {
+      if (i > 0) await champTexteMathlive.press('Tab')
+      await champTexteMathlive.pressSequentially(answer[i].toString()) // On a besoin de pressSequentially au lieu de fill pour que le clavier MathLive réagisse (et transforme les / en fraction par exemple)
+    }
+  } else {
+    await champTexteMathlive.pressSequentially(answer.toString())
+  }
+}
+
+export async function inputAnswerById (page: Page, id: string, answer: string | number | (string | number)[] | undefined) {
+  const champTexteSelector = `#champTexteEx${id}`
+
+  if (answer === undefined) throw Error(`La réponse à la question ${id} est undefined`)
 
   await page.waitForSelector(champTexteSelector) // Les champs MathLive mettent un peu plus de temps à se charger que le reste
   const champTexteMathlive = page.locator(champTexteSelector)

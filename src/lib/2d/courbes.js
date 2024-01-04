@@ -644,20 +644,23 @@ export function CourbeInterpolee (
     xMax < x1 ? (fin = xMax) : (fin = x1)
     const c = courbe(f, { repere, xMin: depart, xMax: fin, color, epaisseur })
     mesCourbes.push(c)
-    this.svg = function (coeff) {
-      let code = ''
-      for (const objet of mesCourbes) {
-        code += '\n\t' + objet.svg(coeff)
-      }
-      return code
+  }
+  const lesY = tableau.map(el => el[1])
+  const lesX = tableau.map(el => el[0])
+  this.bordures = [Math.min(...lesX), Math.min(...lesY), Math.max(...lesX), Math.max(...lesY)]
+  this.svg = function (coeff) {
+    let code = ''
+    for (const objet of mesCourbes) {
+      code += '\n\t' + objet.svg(coeff)
     }
-    this.tikz = function () {
-      let code = ''
-      for (const objet of mesCourbes) {
-        code += '\n\t' + objet.tikz()
-      }
-      return code
+    return code
+  }
+  this.tikz = function () {
+    let code = ''
+    for (const objet of mesCourbes) {
+      code += '\n\t' + objet.tikz()
     }
+    return code
   }
 }
 

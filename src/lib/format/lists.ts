@@ -1,4 +1,4 @@
-import { getUniqueStringBasedOnTimeStamp } from '../../components/utils/time.js'
+import { getUniqueStringBasedOnTimeStamp } from '../components/time.js'
 import { context } from '../../modules/context.js'
 
 const unorderedListTypes: string[] = ['puces', 'carres', 'qcm', 'fleches']

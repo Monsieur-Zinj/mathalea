@@ -34,6 +34,7 @@ function compareNombres (a, b) {
 
 export default function SujetCAN2023CM2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
+  this.keyboard = ['hms']
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

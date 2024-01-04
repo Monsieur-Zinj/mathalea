@@ -1,0 +1,303 @@
+<script lang="ts">
+
+  //
+  //
+  // /!\ Il reste à traiter ReferentielEnding.svelte qui contient encore des accès au generalStore
+  //     Il faut faire remonter les demandes à Start.svelte pour qu'il reste le seul avec ces accès
+  //        et faire en sorte que ReferentielEnding.svelte ne gère que de l'affichage en bon presentationalComponent
+  // /!\ Chip.svelte, SearchInput.svelte et Filtres.svelte contiennet encore des createEventDispatcher, dans l'idéal il
+  //     faudrait plutôtqu'ils fassent remonter les changements jusqu'à SideMenu.svelte via une {function} pour qu'ils
+  //     les fassent redescendre ensuite par des {attributs}
+  //
+  import { onMount, setContext } from 'svelte'
+  import {
+    callerComponent,
+    darkMode,
+    exercicesParams,
+    globalOptions
+  } from '../../../lib/stores/generalStore'
+  import SideMenu from './presentationalComponents/sideMenu/SideMenu.svelte'
+  import { Sidenav, Collapse, Ripple, initTE } from 'tw-elements'
+  import {
+    type AppTierceGroup
+  } from '../../../lib/types/referentiels'
+  import ModalGridOfCards from '../../shared/modal/ModalGridOfCards.svelte'
+  import appsTierce from '../../../json/referentielAppsTierceV2.json'
+  import Footer from '../../Footer.svelte'
+  import ModalThirdApps from './presentationalComponents/ModalThirdApps.svelte'
+  import ButtonBackToTop from './presentationalComponents/ButtonBackToTop.svelte'
+  import Header from './presentationalComponents/header/Header.svelte'
+  import HeaderButtons from './presentationalComponents/header/headerButtons/HeaderButtons.svelte'
+  import Exercices from './presentationalComponents/Exercices.svelte'
+  import Placeholder from './presentationalComponents/Placeholder.svelte'
+  import { scratchZoomUpdate } from '../../../lib/renderScratch'
+  import type { InterfaceParams, VueType } from 'src/lib/types'
+
+  let isNavBarVisible: boolean = true
+  let innerWidth = 0
+  let isBackToTopButtonVisible = false
+  let selectedThirdApps: string[]
+  let thirdAppsChoiceModal: ModalGridOfCards
+  let showThirdAppsChoiceDialog = false
+  let isMd: boolean
+
+  onMount(() => {
+    initTE({ Sidenav, Collapse, Ripple })
+    addScrollListener()
+  })
+
+  $: {
+    isNavBarVisible = $globalOptions.v !== 'l'
+    updateSelectedThirdApps()
+    isMd = innerWidth >= 768
+  }
+
+  function addScrollListener () {
+    function updateBackToTopButtonVisibility () {
+      isBackToTopButtonVisible = document.body.scrollTop > 500 || document.documentElement.scrollTop > 500
+    }
+    window.addEventListener('scroll', () => updateBackToTopButtonVisibility())
+  }
+
+  function updateSelectedThirdApps () {
+    const appsTierceReferentielArray: AppTierceGroup[] = Object.values(appsTierce)
+    const uuidList: string[] = $exercicesParams.map(exerciceParams => exerciceParams.uuid)
+    selectedThirdApps = []
+    for (const group of appsTierceReferentielArray) {
+      for (const app of group.liste) {
+        if (uuidList.includes(app.uuid)) {
+          selectedThirdApps.push(app.uuid)
+        }
+      }
+    }
+  }
+
+  function zoomUpdate (plusMinus: ('+' | '-')) {
+    let zoom = Number($globalOptions.z)
+    if (plusMinus === '+') zoom = Number.parseFloat((zoom + 0.1).toFixed(1))
+    if (plusMinus === '-') zoom = Number.parseFloat((zoom - 0.1).toFixed(1))
+    globalOptions.update((params) => {
+      params.z = zoom.toString()
+      return params
+    })
+    scratchZoomUpdate()
+  }
+
+  function setAllInteractive (isAllInteractive: boolean) {
+    const eventName = isAllInteractive ? 'setAllInteractif' : 'removeAllInteractif'
+    const event = new window.Event(eventName, {
+      bubbles: true
+    })
+    document.dispatchEvent(event)
+  }
+
+  function newDataForAll () {
+    const newDataForAll = new window.Event('newDataForAll', {
+      bubbles: true
+    })
+    document.dispatchEvent(newDataForAll)
+  }
+
+  function trash () {
+    exercicesParams.set([])
+  }
+
+  function setFullScreen (isFullScreen: boolean) {
+    globalOptions.update(params => {
+      isFullScreen ? params.v = 'l' : delete params.v
+      return params
+    })
+  }
+
+  function handleExport (vue: VueType) {
+    $callerComponent = ''
+    globalOptions.update((params) => {
+      params.v = vue
+      return params
+    })
+  }
+
+  function addExercise (uuid: string) {
+    const newExercise: InterfaceParams = { uuid }
+    if ($globalOptions.recorder === 'capytale') {
+      newExercise.interactif = '1'
+    }
+    exercicesParams.update((list) => [...list, newExercise])
+  }
+
+  function backToTop () {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  /**
+   * Gestion des référentiels
+   */
+  // Contexte pour le modal des apps tierces
+  setContext('thirdAppsChoiceContext', {
+    toggleThirdAppsChoiceDialog: () => {
+      showThirdAppsChoiceDialog = !showThirdAppsChoiceDialog
+      if (showThirdAppsChoiceDialog === false) {
+        thirdAppsChoiceModal.closeModal()
+      }
+    }
+  })
+</script>
+
+<svelte:window bind:innerWidth />
+<div
+  class="{$darkMode.isActive
+    ? 'dark'
+    : ''} relative flex w-screen h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  id="startComponent"
+>
+  <div class="flex-1 flex flex-col w-full md:overflow-hidden">
+    <Header
+      {isNavBarVisible}
+      isExerciseDisplayed={$exercicesParams.length !== 0}
+      {zoomUpdate}
+      {setAllInteractive}
+      {newDataForAll}
+      {trash}
+      {setFullScreen}
+      {handleExport}
+    />
+  {#if isMd}
+    <!-- ====================================================================================
+                    MODE NORMAL
+  ========================================================================================= -->
+    <!-- Menu choix + Exos en mode non-smartphone -->
+    <div
+      class="relative flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      <nav
+        id="choiceSideMenuWrapper"
+        class="absolute left-0 top-0 w-[400px] h-full z-[1035] -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+        data-te-sidenav-init
+        data-te-sidenav-width="400"
+        data-te-sidenav-hidden="false"
+        data-te-sidenav-content="#exercisesPart"
+        data-te-sidenav-position="absolute"
+        data-te-sidenav-mode="side"
+      >
+        <div
+          data-te-sidenav-menu-ref
+          class="w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+        >
+          <SideMenu
+            {addExercise}
+          />
+        </div>
+      </nav>
+      <!-- Affichage exercices -->
+      <main
+        id="exercisesPart"
+        class="absolute right-0 top-0 flex flex-col w-full h-full px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas overflow-x-hidden overflow-y-auto"
+      >
+        {#if $exercicesParams.length !== 0}
+          <Exercices exercicesParams={$exercicesParams} />
+        {:else}
+          <Placeholder text='Sélectionner les exercices' />
+        {/if}
+      </main>
+    </div>
+  {:else}
+  <!-- ====================================================================================
+                  MODE SMARTPHONE
+========================================================================================= -->
+    <div
+      class="flex flex-col h-full justify-between bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      <!-- Menu choix en mode smartphone -->
+      <div>
+        <div
+          class="w-full flex flex-col bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+        >
+          <button
+            type="button"
+            class="group w-full flex flex-row justify-between items-center p-4"
+            data-te-collapse-init
+            data-te-target="#choiceMenuWrapper"
+            aria-expanded="true"
+            aria-controls="choiceMenuWrapper"
+          >
+            <div
+              class="text-lg font-bold text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+            >
+              Choix des exercices
+            </div>
+            <i
+              class="bx bxs-up-arrow rotate-0 group-[[data-te-collapse-collapsed]]:rotate-180 text-lg text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+            />
+          </button>
+          <div
+            id="choiceMenuWrapper"
+            class="!visible w-full overflow-y-auto overscroll-contain bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+            data-te-collapse-item
+            data-te-collapse-show
+          >
+            <SideMenu
+              {addExercise}
+            />
+          </div>
+        </div>
+        <!-- Barre de boutons en mode smartphone -->
+        <div
+          class={$exercicesParams.length === 0
+            ? 'hidden'
+            : 'w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
+          id="barre-boutons"
+        >
+          <HeaderButtons
+            {zoomUpdate}
+            {setAllInteractive}
+            {newDataForAll}
+            {trash}
+            {setFullScreen}
+            {handleExport}
+          />
+        </div>
+        <!-- Affichage exercices en mode smartphone -->
+        <main
+          id="exercisesPart"
+          class="flex w-full px-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+        >
+          {#if $exercicesParams.length !== 0}
+            <Exercices exercicesParams={$exercicesParams} />
+          {:else}
+            <Placeholder text='Sélectionner les exercices' />
+          {/if}
+        </main>
+      </div>
+      <Footer />
+    </div>
+  {/if}
+  </div>
+</div>
+<ButtonBackToTop
+  {isBackToTopButtonVisible}
+  {backToTop}
+/>
+<ModalThirdApps
+  {thirdAppsChoiceModal}
+  {showThirdAppsChoiceDialog}
+  appsTierceInExercisesList={selectedThirdApps}
+/>
+
+<style>
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #dddddd;
+  }
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: inset 7px 10px 12px #f0f0f0;
+  }
+</style>

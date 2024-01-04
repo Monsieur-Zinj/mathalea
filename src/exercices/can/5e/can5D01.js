@@ -24,6 +24,7 @@ export const uuid = 'd8797'
 export const ref = 'can5D01'
 export default function ConversionHeuresDecimalesMinutes () {
   Exercice.call(this)
+  this.keyboard = ['hms']
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {

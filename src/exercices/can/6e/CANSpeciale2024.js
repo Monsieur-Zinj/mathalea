@@ -30,6 +30,7 @@ export const dateDePublication = '01/01/2024'
 export default function CourseAuxNombresSpeciale2024 () {
   Exercice.call(this) // Héritage de la classe Exercice()
 
+  this.keyboard = ['lycee', 'hms']
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -878,10 +879,10 @@ export default function CourseAuxNombresSpeciale2024 () {
           const n = a * 1000 + b * 100 + c * 10 + d
           texte = `Quel est le nombre entier de ${m} dans $${texNombre(n)}$ ? `
           if (m === 'centaines') {
-            texteCorr = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 10 + b}\\times 100+${c * 10 + d}$, il y a $${miseEnEvidence(a * 10 + b)}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
+            texteCorr = `Comme $${texNombre(a * 1000 + b * 100 + c * 10 + d)}=${a * 10 + b}\\times 100+${c * 10 + d}$, il y a $${miseEnEvidence(a * 10 + b)}$ ${m} dans $${texNombre(a * 1000 + b * 100 + c * 10 + d)}$.`
             reponse = a * 10 + b
           } else {
-            texteCorr = `Comme $${a * 1000 + b * 100 + c * 10 + d}=${a * 100 + b * 10 + c}\\times 10+${d}$, il y a $${miseEnEvidence(a * 100 + b * 10 + c)}$ ${m} dans $${a * 1000 + b * 100 + c * 10 + d}$.`
+            texteCorr = `Comme $${texNombre(a * 1000 + b * 100 + c * 10 + d)}=${a * 100 + b * 10 + c}\\times 10+${d}$, il y a $${miseEnEvidence(a * 100 + b * 10 + c)}$ ${m} dans $${texNombre(a * 1000 + b * 100 + c * 10 + d)}$.`
             reponse = a * 100 + b * 10 + c
           }
           setReponse(this, index, reponse)
@@ -1796,7 +1797,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           texte = `Calculer sous la forme d'une fraction :<br>${context.isHtml ? '' : '\\\\[0.7em]'}
           ${a > 0 ? `$\\dfrac{1}{${texNombre(2024)}} +\\dfrac{${a}}{${texNombre(1012)}}$` : `$\\dfrac{1}{${texNombre(2024)}} -\\dfrac{${-a}}{${texNombre(1012)}}$`}`
           texteCorr = ` $${a > 0 ? `\\dfrac{1}{${texNombre(2024)}} +\\dfrac{${a}}{${texNombre(1012)}}` : `\\dfrac{1}{${texNombre(2024)}} -\\dfrac{${-a}}{${texNombre(1012)}}`}
-            =${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{${texNombre(2024)}}`)}$.`
+            =${miseEnEvidence(`\\dfrac{${1 + 2 * a}}{${texNombre(2024)}}`)}$`
           setReponse(this, index, reponse, { formatInteractif: 'fraction' })
           texte += !this.interactif ? '.' : ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: ' $=$' })
           this.listeCanEnonces.push(texte)
@@ -1927,7 +1928,7 @@ export default function CourseAuxNombresSpeciale2024 () {
 
           if (choice([true, false])) {
             objets.push(segment(A, B), segment(A, C), segment(B, C), labelPoint(A, B, C), codageAngleDroit(A, B, C),
-              texteParPosition('$\\sqrt{texNombre(2024)}$', 2.6, 2), texteParPosition(`$${a}$`, 6.8, 1))
+              texteParPosition('$\\sqrt{2024}$', 2.6, 2), texteParPosition(`$${a}$`, 6.8, 1))
             texte = `Calculer $${nom[0]}${nom[1]}$`
             texteCorr = ` On utilise le théorème de Pythagore dans le triangle $${nom[0]}${nom[1]}${nom[2]}$,  rectangle en $${nom[1]}$.<br>
               On obtient :<br>
@@ -2103,10 +2104,10 @@ export default function CourseAuxNombresSpeciale2024 () {
           {
             const b = randint(2, 10) * 100 + 24
             reponse = (2024 - b) / 100
-            texte = `Je pense à un nombre. Je le multiplie par $100$, puis j'ajoute au résultat $${b}$ et j'obtiens $${texNombre(2024)}$. <br>
+            texte = `Je pense à un nombre. Je le multiplie par $100$, puis j'ajoute au résultat $${texNombre(b)}$ et j'obtiens $${texNombre(2024)}$. <br>
           Quel est ce nombre ?`
 
-            texteCorr = `Pour obtenir $${texNombre(2024)}$, on a ajouté $${texNombre(2024 - b)}$ à $${b}$ et le nombre qui, multiplié par $100$ donne $${texNombre(2024 - b)}$ est $${texNombre(reponse)}$.<br>
+            texteCorr = `Pour obtenir $${texNombre(2024)}$, on a ajouté $${texNombre(2024 - b)}$ à $${texNombre(b)}$ et le nombre qui, multiplié par $100$ donne $${texNombre(2024 - b)}$ est $${texNombre(reponse)}$.<br>
             Le nombre choisi au départ est donc $${miseEnEvidence(`${reponse}`)}$.`
 
             setReponse(this, index, reponse)
@@ -2320,7 +2321,7 @@ export default function CourseAuxNombresSpeciale2024 () {
 
         case 85: {
           const a = randint(2023, 2025)
-          texte = `Calculer  $\\dfrac{1}{${texNombre(2024, 0)}}\\div \\dfrac{1}{${texNombre(2024, 0)}}\\div\\dfrac{1}{${texNombre(a, 0)}}$`
+          texte = `Calculer  $\\dfrac{1}{${texNombre(2024, 0)}}\\div \\dfrac{1}{${texNombre(2024, 0)}}\\div\\dfrac{1}{${texNombre(a, 0)}}$.`
           reponse = a
           texteCorr = `$\\dfrac{1}{${texNombre(2024, 0)}}\\div \\dfrac{1}{${texNombre(2024, 0)}}\\div\\dfrac{1}{${texNombre(a, 0)}}=1\\div \\dfrac{1}{${texNombre(a, 0)}}=${miseEnEvidence(texNombre(reponse, 0))}$`
           setReponse(this, index, reponse)

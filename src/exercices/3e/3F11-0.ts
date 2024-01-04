@@ -485,6 +485,8 @@ class resolutionEquationInequationGraphique extends Exercice {
     } while (integraleDiff < 0.2 && cpt < 50)
     const polyDiff = fonction1.poly.add(fonction2.poly.multiply(-1))
     this.figure = new Figure({ xMin: x0 - decalAxe - 1.2, yMin, width: 312, height: 378 })
+    this.figure.options.automaticUserMessage = false
+    this.figure.userMessage = 'Cliquer sur le point $M$ pour le déplacer.'
     this.figure.create('Grid')
     this.figure.options.limitNumberOfElement.set('Point', 1)
 
@@ -495,7 +497,6 @@ class resolutionEquationInequationGraphique extends Exercice {
     if (f1Type === 'constante' || f1Type === 'affine') {
       const a = fonction1.poly.monomes[1]
       const b = fonction1.poly.monomes[0]
-      console.log(a + 'x+' + b)
       const B = new Point(this.figure, {
         x: x0 - 1 - decalAxe,
         y: (x0 - 1 - decalAxe) * a + b,
@@ -511,6 +512,8 @@ class resolutionEquationInequationGraphique extends Exercice {
       d.thickness = 2
       d.isDashed = true
       M = this.figure.create('PointOnLine', { line: d })
+      M.shape = 'o'
+      M.color = 'blue'
     } else {
       courbeF = this.figure.create('Graph', {
         expression: fonction1.expr as string,
@@ -522,10 +525,11 @@ class resolutionEquationInequationGraphique extends Exercice {
         isDashed: true
       })
       M = this.figure.create('PointOnGraph', { graph: courbeF })
+      M.shape = 'o'
+      M.color = 'blue'
     }
     // M.draw()
     M.label = 'M'
-    M.shape = 'x'
     M.createSegmentToAxeX()
     M.createSegmentToAxeY()
     const textX = this.figure.create('DynamicX', { point: M })
@@ -544,10 +548,10 @@ class resolutionEquationInequationGraphique extends Exercice {
     }
     if (!trouve) {
       x = xMax
-      if (fonction1.poly.image(4) < 0) {
-        y = -5
+      if (fonction1.poly.image(xMax) < 0) {
+        y = yMin + 1
       } else {
-        y = 5
+        y = yMin + 10
       }
     }
     if (f2Type === 'affine') {
@@ -571,7 +575,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       })
     }
     trouve = false
-    for (x = xMin; x > -5 && !trouve; x--) {
+    for (x = xMax; x > xMin && !trouve; x--) {
       if (Math.abs(fonction2.poly.image(x)) < 5) {
         trouve = true
         y = fonction2.poly.image(x)
@@ -579,10 +583,10 @@ class resolutionEquationInequationGraphique extends Exercice {
     }
     if (!trouve) {
       x = xMin
-      if (fonction2.poly.image(-4) < 0) {
-        y = -5
+      if (fonction2.poly.image(xMin) < 0) {
+        y = yMin + 1
       } else {
-        y = 5
+        y = yMin + 10
       }
     }
     this.figure.create('TextByPosition', { x: x + 0.5, y: y + 0.5, text: `$\\mathscr{C_${f2}}$`, color: 'red' })

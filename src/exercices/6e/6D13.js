@@ -26,6 +26,7 @@ export const uuid = '4f8f4'
 export const ref = '6D13'
 export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false) {
   Exercice.call(this)
+  this.keyboard = ['hms']
   this.nbQuestions = 5
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false

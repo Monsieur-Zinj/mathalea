@@ -1,9 +1,11 @@
+export type VueType = 'diaporama' | 'can' | 'eleve' | 'latex' | 'confeleve' | 'amc' | 'moodle' | 'l' | 'l2'
+
 /**
  * setInteractive à 0 on enlève tout, à 1 on les met tous en interactif, à 2 on ne change rien
  * iframe est un identifiant de l'iframe utilisé par des recorders comme Moodle
  */
 export interface InterfaceGlobalOptions {
-  v?: string
+  v?: VueType
   z?: string
   durationGlobal?: number
   nbVues?: 1 | 2 | 3 | 4
