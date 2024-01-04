@@ -27,6 +27,7 @@ export const ref = 'can1P08'
 export default function ProbaLoiVA () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true
+  this.keyboard = ['lycee']
   this.consigne = ''
   this.nbQuestions = 1
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
