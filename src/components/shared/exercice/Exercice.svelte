@@ -7,18 +7,18 @@
   import { globalOptions } from '../../../lib/stores/generalStore'
   import type { InterfaceParams } from '../../../lib/types'
   import uuidToUrl from '../../../json/uuidsToUrl.json'
-  import ExerciceMathaleaVueEleve from './ExerciceMathaleaVueEleve.svelte'
-  import ExerciceStatic from './ExerciceStatic.svelte'
+  import ExerciceMathaleaVueEleve from './exerciceMathaleaVueEleve/ExerciceMathaleaVueEleve.svelte'
+  import ExerciceStatic from './exerciceStatic/ExerciceStatic.svelte'
   import type Exercice from '../../../exercices/ExerciceTs'
-  import ExerciceHtml from './ExerciceHtml.svelte'
-  import ExerciceMathaleaVueProf from './ExerciceMathaleaVueProf.svelte'
+  import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
+  import ExerciceMathaleaVueProf from './exerciceMathaleaVueProf/ExerciceMathaleaVueProf.svelte'
 
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
   export let indiceLastExercice: number
   export let isCorrectionVisible = false
 
-  let exercice: Exercice
+  let exercise: Exercice
   let typeExercice:
     | 'mathaleaVueProf'
     | 'mathaleaVueEleve'
@@ -48,9 +48,9 @@
         )
       ).default
     } else {
-      exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
-      if (exercice === undefined) return
-      if (exercice.typeExercice && exercice.typeExercice.includes('html')) {
+      exercise = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+      if (exercise === undefined) return
+      if (exercise.typeExercice && exercise.typeExercice.includes('html')) {
         typeExercice = 'html'
       } else {
         if ($globalOptions.v === 'eleve') {
@@ -59,9 +59,9 @@
           typeExercice = 'mathaleaVueProf'
         }
       }
-      exercice.numeroExercice = indiceExercice
-      mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-      if (paramsExercice.duration) exercice.duree = paramsExercice.duration
+      exercise.numeroExercice = indiceExercice
+      mathaleaHandleParamOfOneExercice(exercise, paramsExercice)
+      if (paramsExercice.duration) exercise.duree = paramsExercice.duration
     }
   })
 </script>
@@ -73,7 +73,12 @@
     uuid={paramsExercice.uuid}
   />
 {:else if typeExercice === 'html'}
-  <ExerciceHtml {exercice} {indiceExercice} {indiceLastExercice} />
+  <ExerciceHtml
+    vue={$globalOptions.v}
+    {exercise}
+    {indiceExercice}
+    {indiceLastExercice}
+  />
 {:else if typeExercice === 'svelte'}
   <svelte:component
     this={ComponentExercice}
@@ -82,14 +87,14 @@
   />
 {:else if typeExercice === 'mathaleaVueEleve'}
   <ExerciceMathaleaVueEleve
-    {exercice}
-    {indiceExercice}
+    {exercise}
+    exerciseIndex={indiceExercice}
     {indiceLastExercice}
     {isCorrectionVisible}
   />
 {:else if typeExercice === 'mathaleaVueProf'}
   <ExerciceMathaleaVueProf
-    {exercice}
+    exercice={exercise}
     {indiceExercice}
     {indiceLastExercice}
     {isCorrectionVisible}

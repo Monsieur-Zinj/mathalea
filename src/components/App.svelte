@@ -16,7 +16,6 @@
   import Start from './setup/start/Start.svelte'
   import { onMount } from 'svelte'
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../lib/mathalea'
-  import handleCapytale from '../lib/handleCapytale'
 
   let isInitialUrlHandled = false
 
@@ -65,7 +64,6 @@
     if ($globalOptions.v === 'can') context.vue = 'can' // for compatibility
     // lorsque l'éditeur sera intégré à la v3, il faudra mettre à true cette propriété pour l'editeur
     context.isInEditor = false
-    if ($globalOptions.recorder === 'capytale') handleCapytale()
   }
 
   function handleInitialUrl () {

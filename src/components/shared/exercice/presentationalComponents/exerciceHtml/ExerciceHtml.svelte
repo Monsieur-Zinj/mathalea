@@ -1,17 +1,19 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
-  import type TypeExercice from '../../../exercices/ExerciceTs.js'
-  import { globalOptions } from '../../../lib/stores/generalStore'
-  import HeaderExerciceVueEleve from './HeaderExerciceVueEleve.svelte'
-  export let exercice: TypeExercice
+  import HeaderExerciceVueProf from '../../shared/HeaderExerciceVueProf.svelte'
+  import type TypeExercice from '../../../../../exercices/ExerciceTs.js'
+  import HeaderExerciceVueEleve from '../shared/HeaderExerciceVueEleve.svelte'
+  import type { VueType } from '../../../../../lib/types'
+  import { globalOptions, isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
+  export let vue: VueType | undefined
+  export let exercise: TypeExercice
   export let indiceExercice: number
   export let indiceLastExercice: number
 
   let divExercice: HTMLDivElement
 
   const headerExerciceProps = {
-    title: exercice.titre,
+    title: exercise.titre,
     id: '',
     indiceExercice,
     indiceLastExercice,
@@ -22,9 +24,8 @@
   }
 
   onMount(async () => {
-    // divExercice.appendChild(exercice.html ?? document.createTextNode(''))
-    if (exercice.html != null) {
-      divExercice.appendChild(exercice.html)
+    if (exercise.html != null) {
+      divExercice.appendChild(exercise.html)
     }
     const exercicesAffiches = new window.Event('addedToDom', { bubbles: true })
     divExercice.children[0].dispatchEvent(exercicesAffiches)
@@ -36,8 +37,12 @@
   }
 </script>
 
-{#if $globalOptions.v === 'eleve'}
-  <HeaderExerciceVueEleve {...headerExerciceProps} />
+{#if vue === 'eleve'}
+  <HeaderExerciceVueEleve
+    {...headerExerciceProps}
+    isMenuNeededForExercises={$isMenuNeededForExercises}
+    presMode={$globalOptions.presMode}
+  />
 {:else}
   <HeaderExerciceVueProf {...headerExerciceProps} />
 {/if}

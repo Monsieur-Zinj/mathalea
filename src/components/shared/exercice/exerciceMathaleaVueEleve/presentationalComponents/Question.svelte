@@ -1,0 +1,51 @@
+<script lang="ts">
+  import type TypeExercice from '../../../../../exercices/ExerciceTs.js'
+  import { mathaleaFormatExercice } from '../../../../../lib/mathalea.js'
+
+  export let exercise: TypeExercice
+  export let exerciseIndex: number
+  export let questionIndex:number
+  export let isCorrectionVisible: boolean
+
+</script>
+
+<div style="break-inside:avoid" id="consigne{exerciseIndex}-{questionIndex}" class="container grid grid-cols-1 auto-cols-min gap-4 mb-2 lg:mb-4">
+  <li id="exercice{exerciseIndex}Q{questionIndex}" style="line-height: {exercise.spacing || 1}">
+    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+    {@html mathaleaFormatExercice(exercise.listeQuestions[questionIndex])}
+  </li>
+  {#if isCorrectionVisible}
+    <div
+      class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
+      id="correction${exerciseIndex}Q${questionIndex}"
+    >
+      <div
+        class={exercise.consigneCorrection.length !== 0 ? 'container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3' : 'hidden'}
+      >
+        <div class="{exercise.consigneCorrection.length !== 0 ? 'container absolute top-4 -left-4' : 'hidden'} ">
+          <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
+        </div>
+        <div class="">
+          <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+          {@html exercise.consigneCorrection}
+        </div>
+      </div>
+      <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1" style="line-height: {exercise.spacingCorr || 1}; break-inside:avoid">
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+        {@html mathaleaFormatExercice(exercise.listeCorrections[questionIndex])}
+      </div>
+      <div
+        class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
+      >
+        Correction
+      </div>
+      <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
+    </div>
+  {/if}
+</div>
+
+<style>
+  li {
+    break-inside: avoid;
+  }
+</style>
