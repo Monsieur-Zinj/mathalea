@@ -30,6 +30,7 @@ export const uuid = 'e960d'
 export const ref = '6D12'
 export default function CalculsDeDureesOuHoraires () {
   Exercice.call(this) // Héritage de la classe Exercice()
+  this.keyboard = ['hms']
   this.consigne = ''
   this.sup = 4
   this.spacing = 2
