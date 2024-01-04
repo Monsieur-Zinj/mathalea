@@ -308,8 +308,8 @@ export function examCriterion (
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
       return items.filter((item: ResourceAndItsPath) => {
-        console.log('examToMatch.toLowerCase()')
-        console.log(examToMatch.toLowerCase())
+        // console.log('examToMatch.toLowerCase()')
+        // console.log(examToMatch.toLowerCase())
         return (
           EXAMS.includes(examToMatch.toLowerCase()) &&
           item.resource.uuid.startsWith(examToMatch.toLowerCase())

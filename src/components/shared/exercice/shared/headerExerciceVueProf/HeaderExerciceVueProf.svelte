@@ -1,13 +1,13 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
-  import BoutonMonter from '../BoutonMonter.svelte'
-  import BoutonDescendre from '../BoutonDescendre.svelte'
-  import { globalOptions, exercicesParams } from '../../../../lib/stores/generalStore'
-  import InteractivityIcon from '../../icons/TwoStatesIcon.svelte'
-  import uuidsRessources from '../../../../json/uuidsRessources.json'
-  import refProfs from '../../../../json/referentielProfs.json'
-  import { toMap } from '../../../../lib/components/toMap'
-  import { mathaleaGenerateSeed } from '../../../../lib/mathalea'
+  import BoutonMonter from './BoutonMonter.svelte'
+  import BoutonDescendre from './BoutonDescendre.svelte'
+  import { globalOptions, exercicesParams } from '../../../../../lib/stores/generalStore'
+  import InteractivityIcon from '../../../icons/TwoStatesIcon.svelte'
+  import uuidsRessources from '../../../../../json/uuidsRessources.json'
+  import refProfs from '../../../../../json/referentielProfs.json'
+  import { toMap } from '../../../../../lib/components/toMap'
+  import { mathaleaGenerateSeed } from '../../../../../lib/mathalea'
 
   // paramètres obligatoires
   export let title: string | undefined

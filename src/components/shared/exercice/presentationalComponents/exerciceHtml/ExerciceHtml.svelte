@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import HeaderExerciceVueProf from '../../shared/HeaderExerciceVueProf.svelte'
+  import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import type TypeExercice from '../../../../../exercices/ExerciceTs.js'
   import HeaderExerciceVueEleve from '../shared/HeaderExerciceVueEleve.svelte'
   import type { VueType } from '../../../../../lib/types'

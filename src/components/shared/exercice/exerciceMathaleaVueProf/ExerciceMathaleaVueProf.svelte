@@ -19,11 +19,11 @@
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams
   } from '../../../../lib/mathalea'
-  import HeaderExerciceVueProf from '../shared/HeaderExerciceVueProf.svelte'
-  import Settings from '../Settings.svelte'
+  import Settings from './Settings.svelte'
   import { exercisesUuidRanking, uuidCount } from '../../../../lib/components/counts'
   import Exercice from '../../../../exercices/ExerciceTs.js'
   import type { HeaderProps } from '../../../../lib/types/ui'
+  import HeaderExerciceVueProf from '../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   export let exercice: Exercice
   export let indiceExercice: number
   export let indiceLastExercice: number
