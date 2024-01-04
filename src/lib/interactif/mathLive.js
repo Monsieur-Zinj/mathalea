@@ -90,6 +90,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       const saisies = {}
       for (let k = 0; k < variables.length; k++) {
         const [key, reponse] = variables[k]
+        if (key === 'feedback' || key === 'bareme') continue
         const saisie = mfe.getPromptValue(key)
         saisies[key] = cleanStringBeforeParse(saisie)
         const compareFunction = reponse.compare ?? calculCompare

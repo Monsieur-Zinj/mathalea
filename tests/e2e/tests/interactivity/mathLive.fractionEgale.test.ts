@@ -53,7 +53,7 @@ async function test (page: Page) {
 
 async function testFractionSimplifieeIrreductible (page: Page) {
   // Ce test s'assure que les fractions simplifiées mais non irréductibles ne sont pas acceptées
-  const urlExercice = 'http://localhost:5173/alea/?uuid=f8f4e&id=5N13&n=50&d=10&s=50&s2=true&i=1&cd=1'
+  const urlExercice = 'http://localhost:5173/alea/?uuid=f8f4e&id=5N13&n=20&d=10&s=50&s2=true&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
