@@ -3,6 +3,7 @@
   import ModalReorder from './ModalReorder.svelte'
   import HeaderButtons from './headerButtons/HeaderButtons.svelte'
   import SideMenuWrapper from './SideMenuWrapper.svelte'
+  import type { VueType } from '../../../../../lib/types'
 
   export let isExerciseDisplayed: boolean
   export let isNavBarVisible: boolean
@@ -11,7 +12,7 @@
   export let newDataForAll: () => void
   export let trash: () => void
   export let setFullScreen: (isFullScreen: boolean) => void
-  export let handleExport: (vue: string) => void
+  export let handleExport: (vue: VueType) => void
 
   let reorderModalDisplayed: boolean
 </script>

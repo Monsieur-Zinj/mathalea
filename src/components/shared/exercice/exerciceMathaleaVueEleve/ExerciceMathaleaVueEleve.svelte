@@ -1,18 +1,18 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../lib/stores/generalStore'
+  import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../../lib/stores/generalStore'
   import { afterUpdate, onMount, tick } from 'svelte'
-  import type TypeExercice from '../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../../exercices/ExerciceTs.js'
   import seedrandom from 'seedrandom'
-  import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../../lib/interactif/gestionInteractif'
-  import { loadMathLive } from '../../../modules/loaders'
-  import { mathaleaFormatExercice, mathaleaGenerateSeed, mathaleaHandleExerciceSimple, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
-  import HeaderExerciceVueEleve from './HeaderExerciceVueEleve.svelte'
-  import InteractivityIcon from '../icons/TwoStatesIcon.svelte'
+  import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../../../lib/interactif/gestionInteractif'
+  import { loadMathLive } from '../../../../modules/loaders'
+  import { mathaleaGenerateSeed, mathaleaHandleExerciceSimple, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../../lib/mathalea'
+  import HeaderExerciceVueEleve from '../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
   import type { MathfieldElement } from 'mathlive'
-  import { sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
-  import Button from '../forms/Button.svelte'
-  export let exercice: TypeExercice
-  export let indiceExercice: number
+  import { sendToCapytaleSaveStudentAssignment } from '../../../../lib/handleCapytale'
+  import Question from './presentationalComponents/Question.svelte'
+  import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
+  export let exercise: TypeExercice
+  export let exerciseIndex: number
   export let indiceLastExercice: number
   export let isCorrectionVisible: boolean = false
 
@@ -20,42 +20,33 @@
   let divScore: HTMLDivElement
   let divCapytaleMessageProf: HTMLDivElement
   let buttonScore: HTMLButtonElement
-  let columnsCount = $exercicesParams[indiceExercice].cols || 1
-  let isInteractif = exercice.interactif && exercice?.interactifReady
+  let columnsCount = $exercicesParams[exerciseIndex].cols || 1
+  let isInteractif = exercise.interactif && exercise?.interactifReady
 
-  const title = exercice.id ? `${exercice.id.replace('.js', '').replace('.ts', '')} - ${exercice.titre}` : exercice.titre
+  const title = exercise.id ? `${exercise.id.replace('.js', '').replace('.ts', '')} - ${exercise.titre}` : exercise.titre
   // Evènement indispensable pour pointCliquable par exemple
   const exercicesAffiches = new window.Event('exercicesAffiches', {
     bubbles: true
   })
   document.dispatchEvent(exercicesAffiches)
 
-  let headerExerciceProps: {
-    title: string
-  } = {
-    title
-  }
+  let headerExerciceProps: {title: string} = { title }
 
   $: {
     if (isInteractif && buttonScore) initButtonScore()
     headerExerciceProps = headerExerciceProps
-    // if ($globalOptions.setInteractive === '1') {
-    //   setAllInteractif()
-    // } else if ($globalOptions.setInteractive === '0') {
-    //   removeAllInteractif()
-    // }
   }
 
   let numberOfAnswerFields: number = 0
   async function countMathField () {
     // IDs de la forme 'champTexteEx1Q0'
-    const answerFields = document.querySelectorAll(`[id^='champTexteEx${indiceExercice}']`)
+    const answerFields = document.querySelectorAll(`[id^='champTexteEx${exerciseIndex}']`)
     numberOfAnswerFields = answerFields.length
   }
 
   async function forceUpdate () {
-    if (exercice == null) return
-    exercice.numeroExercice = indiceExercice
+    if (exercise == null) return
+    exercise.numeroExercice = exerciseIndex
     await adjustMathalea2dFiguresWidth()
   }
 
@@ -86,7 +77,7 @@
               // Problème à régler pour ts. mais window.notify() existe bien au chargement en ce qui nous concerne.
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-expect-error
-              window.notify('Il y a un problème avec l\'input de cet exercice, il ne semble pas être un MathfieldElement, en tout cas ne possède pas de méthode setValue()', { exercice: JSON.stringify(exercice) })
+              window.notify('Il y a un problème avec l\'input de cet exercice, il ne semble pas être un MathfieldElement, en tout cas ne possède pas de méthode setValue()', { exercice: JSON.stringify(exercise) })
               field.value = objAnswers[answer]
             }
           }
@@ -97,7 +88,7 @@
           }
         }
         if (buttonScore) {
-          exercice.isDone = true
+          exercise.isDone = true
           buttonScore.click()
         }
       }
@@ -112,16 +103,16 @@
   })
 
   afterUpdate(async () => {
-    if (exercice) {
+    if (exercise) {
       await tick()
-      if (exercice.interactif) {
+      if (exercise.interactif) {
         loadMathLive()
-        if (exercice.interactifType === 'cliqueFigure') {
-          prepareExerciceCliqueFigure(exercice)
+        if (exercise.interactifType === 'cliqueFigure') {
+          prepareExerciceCliqueFigure(exercise)
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
         try {
-          if (window.localStorage != null && exercice.id !== undefined && exercice.seed !== undefined && window.localStorage.getItem(`${exercice.id}|${exercice.seed}`) != null) {
+          if (window.localStorage != null && exercise.id !== undefined && exercise.seed !== undefined && window.localStorage.getItem(`${exercise.id}|${exercise.seed}`) != null) {
             newData()
           }
         } catch (e) {
@@ -154,58 +145,58 @@
   })
 
   async function newData () {
-    exercice.isDone = false
+    exercise.isDone = false
     if (isCorrectionVisible) switchCorrectionVisible()
     const seed = mathaleaGenerateSeed()
-    exercice.seed = seed
+    exercise.seed = seed
     if (buttonScore) initButtonScore()
     updateDisplay()
   }
 
   async function setAllInteractif () {
-    if (exercice?.interactifReady) isInteractif = true
+    if (exercise?.interactifReady) isInteractif = true
     updateDisplay()
   }
   async function removeAllInteractif () {
-    if (exercice?.interactifReady) isInteractif = false
+    if (exercise?.interactifReady) isInteractif = false
     updateDisplay()
   }
 
   async function updateDisplay () {
-    if (exercice.seed === undefined) exercice.seed = mathaleaGenerateSeed()
-    seedrandom(exercice.seed, { global: true })
-    if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, !!isInteractif, indiceExercice)
-    exercice.interactif = isInteractif
-    $exercicesParams[indiceExercice].alea = exercice.seed
-    $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
-    $exercicesParams[indiceExercice].cols = columnsCount > 1 ? columnsCount : undefined
-    exercice.numeroExercice = indiceExercice
-    if (exercice !== undefined && exercice.typeExercice !== 'simple' && typeof exercice.nouvelleVersion === 'function') {
-      exercice.nouvelleVersion(indiceExercice)
+    if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+    seedrandom(exercise.seed, { global: true })
+    if (exercise.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex)
+    exercise.interactif = isInteractif
+    $exercicesParams[exerciseIndex].alea = exercise.seed
+    $exercicesParams[exerciseIndex].interactif = isInteractif ? '1' : '0'
+    $exercicesParams[exerciseIndex].cols = columnsCount > 1 ? columnsCount : undefined
+    exercise.numeroExercice = exerciseIndex
+    if (exercise !== undefined && exercise.typeExercice !== 'simple' && typeof exercise.nouvelleVersion === 'function') {
+      exercise.nouvelleVersion(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     adjustMathalea2dFiguresWidth()
   }
 
   function verifExerciceVueEleve () {
-    exercice.isDone = true
+    exercise.isDone = true
     if ($globalOptions.isSolutionAccessible) isCorrectionVisible = true
-    if (exercice.numeroExercice != null) {
-      const previousBestScore = $exercicesParams[exercice.numeroExercice].bestScore ?? 0
-      const { numberOfPoints, numberOfQuestions } = exerciceInteractif(exercice, divScore, buttonScore)
+    if (exercise.numeroExercice != null) {
+      const previousBestScore = $exercicesParams[exercise.numeroExercice].bestScore ?? 0
+      const { numberOfPoints, numberOfQuestions } = exerciceInteractif(exercise, divScore, buttonScore)
       const bestScore = Math.max(numberOfPoints, previousBestScore)
       exercicesParams.update(l => {
-        l[exercice.numeroExercice as number].bestScore = bestScore
+        l[exercise.numeroExercice as number].bestScore = bestScore
         return l
       })
       resultsByExercice.update((l) => {
-        l[exercice.numeroExercice as number] = {
-          uuid: exercice.uuid,
-          title: exercice.titre,
-          indice: exercice.numeroExercice as number,
+        l[exercise.numeroExercice as number] = {
+          uuid: exercise.uuid,
+          title: exercise.titre,
+          indice: exercise.numeroExercice as number,
           state: 'done',
-          alea: exercice.seed,
-          answers: exercice.answers,
+          alea: exercise.seed,
+          answers: exercise.answers,
           numberOfPoints,
           numberOfQuestions,
           bestScore
@@ -223,14 +214,14 @@
           console.log('Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau')
           return
         }
-        sendToCapytaleSaveStudentAssignment({ indiceExercice })
+        sendToCapytaleSaveStudentAssignment({ indiceExercice: exerciseIndex })
       }
     }
   }
 
   function initButtonScore () {
     buttonScore.classList.remove(...buttonScore.classList)
-    buttonScore.id = `buttonScoreEx${indiceExercice}`
+    buttonScore.id = `buttonScoreEx${exerciseIndex}`
     buttonScore.classList.add(
       'inline-block',
       'px-6',
@@ -307,10 +298,10 @@
 
   function switchCorrectionVisible () {
     isCorrectionVisible = !isCorrectionVisible
-    if (isCorrectionVisible && window.localStorage !== undefined && exercice.id !== undefined) {
-      window.localStorage.setItem(`${exercice.id}|${exercice.seed}`, 'true')
+    if (isCorrectionVisible && window.localStorage !== undefined && exercise.id !== undefined) {
+      window.localStorage.setItem(`${exercise.id}|${exercise.seed}`, 'true')
     }
-    if (!$globalOptions.oneShot && exercice.interactif && !isCorrectionVisible && !exercice.isDone) {
+    if (!$globalOptions.oneShot && exercise.interactif && !isCorrectionVisible && !exercise.isDone) {
       newData()
     }
     adjustMathalea2dFiguresWidth()
@@ -319,8 +310,14 @@
   function switchInteractif () {
     if (isCorrectionVisible) switchCorrectionVisible()
     isInteractif = !isInteractif
-    exercice.interactif = isInteractif
-    $exercicesParams[indiceExercice].interactif = isInteractif ? '1' : '0'
+    exercise.interactif = isInteractif
+    $exercicesParams[exerciseIndex].interactif = isInteractif ? '1' : '0'
+    updateDisplay()
+  }
+
+  function columnsCountUpdate (plusMinus: ('+' | '-')) {
+    if (plusMinus === '+') columnsCount++
+    if (plusMinus === '-') columnsCount--
     updateDisplay()
   }
 </script>
@@ -330,128 +327,62 @@
     <div class="text-coopmaths-struct text-xl m-2 font-black" bind:this={divCapytaleMessageProf}></div>
   {/if}
   {#if $globalOptions.presMode !== 'recto' && $globalOptions.presMode !== 'verso'}
-    <HeaderExerciceVueEleve {...headerExerciceProps} {indiceExercice} showNumber={indiceLastExercice > 1} />
+    <HeaderExerciceVueEleve
+      {...headerExerciceProps}
+      indiceExercice={exerciseIndex}
+      showNumber={indiceLastExercice > 1}
+      isMenuNeededForExercises={$isMenuNeededForExercises}
+      presMode={$globalOptions.presMode}
+    />
   {/if}
 
   <div class="flex flex-col-reverse lg:flex-row">
-    <div class="flex flex-col justify-start items-start" id="exercice{indiceExercice}">
-      <div class="flex flex-row justify-start items-center {indiceLastExercice > 1 && $globalOptions.presMode !== 'un_exo_par_page' ? 'ml-2 lg:ml-6' : 'ml-2'} mb-2 lg:mb-6 {$globalOptions.presMode === 'recto' || $globalOptions.presMode === 'verso' ? 'hidden' : 'flex'}">
-        <div class={!$globalOptions.oneShot && $globalOptions.done !== '1' ? 'flex' : 'hidden'}>
-          <Button
-            title="Nouvel Énoncé"
-            icon="bx-refresh"
-            class="py-[2px] px-2 text-[0.7rem]"
-            inverted={true}
-            on:click={() => {
-              newData()
-            }}
-          />
-        </div>
-        <div class={$globalOptions.isSolutionAccessible && !exercice.isDone && ((exercice.interactif && exercice.isDone) || !exercice.interactif) ? 'flex ml-2' : 'hidden'}>
-          <Button
-            title={isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}
-            icon={isCorrectionVisible ? 'bx-hide' : 'bx-show'}
-            class="py-[2px] px-2 text-[0.7rem] w-36"
-            inverted={true}
-            on:click={switchCorrectionVisible}
-          />
-        </div>
-        <!-- {/if} -->
-
-        <button
-          class={$globalOptions.isInteractiveFree && exercice?.interactifReady ? 'w-5 ml-2 tooltip tooltip-right tooltip-neutral ' : 'hidden'}
-          data-tip={isInteractif ? "Désactiver l'interactivité" : 'Rendre interactif'}
-          type="button"
-          on:click={switchInteractif}
-        >
-          <InteractivityIcon isOnStateActive={isInteractif} size={4} />
-        </button>
-        {#if $globalOptions.recorder === undefined}
-          <div class="hidden md:flex flex-row justify-start items-center text-coopmaths-struct dark:text-coopmathsdark-struct text-xs">
-            <button
-              class={(columnsCount > 1 && window.innerWidth > 1000) ? 'visible' : 'invisible'}
-              type="button"
-              on:click={() => {
-                columnsCount--
-                updateDisplay()
-              }}
-            >
-              <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-2 bx-xs bx-minus" />
-            </button>
-            <i class="bx ml-1 bx-xs bx-columns" />
-            <button
-              type="button"
-              on:click={() => {
-                columnsCount++
-                updateDisplay()
-              }}
-            >
-              <i class="text-coopmaths-action hover:text-coopmaths-action-darkest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-darkest bx ml-1 bx-xs bx-plus" />
-            </button>
-          </div>
-        {/if}
-      </div>
+    <div class="flex flex-col justify-start items-start" id="exercice{exerciseIndex}">
+      <ExerciceVueEleveButtons
+      globalOptions={$globalOptions}
+      {indiceLastExercice}
+      {exercise}
+      {isCorrectionVisible}
+      {newData}
+      {switchCorrectionVisible}
+      {isInteractif}
+      {switchInteractif}
+      {columnsCount}
+      {columnsCountUpdate}
+      />
       <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative w-full" style="font-size: {($globalOptions.z || 1).toString()}rem;  line-height: calc({$globalOptions.z || 1});">
         <div class="flex flex-col w-full">
-          {#if typeof exercice.consigne !== 'undefined' && exercice.consigne.length !== 0}
+          {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
             <div>
               <p class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html exercice.consigne}
+                {@html exercise.consigne}
               </p>
             </div>
           {/if}
-          {#if exercice.introduction}
+          {#if exercise.introduction}
             <div>
               <p class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html exercice.introduction}
+                {@html exercise.introduction}
               </p>
             </div>
           {/if}
         </div>
         <div style="columns: {window.innerWidth > 1000 ? columnsCount.toString() : '1'}">
           <ul
-            class="{exercice.listeQuestions.length === 1 || !exercice.listeAvecNumerotation
+            class="{exercise.listeQuestions.length === 1 || !exercise.listeAvecNumerotation
               ? 'list-none'
               : 'list-decimal'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
-            {#each exercice.listeQuestions as item, i (i)}
-              <div style="break-inside:avoid" id="consigne{indiceExercice}-{i}" class="container grid grid-cols-1 auto-cols-min gap-4 mb-2 lg:mb-4">
-                <li id="exercice{indiceExercice}Q{i}" style="line-height: {exercice.spacing || 1}">
-                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  {@html mathaleaFormatExercice(item)}
-                </li>
-                {#if isCorrectionVisible}
-                  <div
-                    class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
-                    id="correction${indiceExercice}Q${i}"
-                  >
-                    <div
-                      class={exercice.consigneCorrection.length !== 0 ? 'container bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3' : 'hidden'}
-                    >
-                      <div class="{exercice.consigneCorrection.length !== 0 ? 'container absolute top-4 -left-4' : 'hidden'} ">
-                        <i class="bx bx-bulb scale-200 text-coopmaths-warn-dark dark:text-coopmathsdark-warn-dark" />
-                      </div>
-                      <div class="">
-                        <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                        {@html exercice.consigneCorrection}
-                      </div>
-                    </div>
-                    <div class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto py-1" style="line-height: {exercice.spacingCorr || 1}; break-inside:avoid">
-                      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                      {@html mathaleaFormatExercice(exercice.listeCorrections[i])}
-                    </div>
-                    <!-- <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct top-0 left-0 border-b-[3px] w-10" /> -->
-                    <div
-                      class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-                    >
-                      Correction
-                    </div>
-                    <div class="absolute border-coopmaths-struct dark:border-coopmathsdark-struct bottom-0 left-0 border-b-[3px] w-4" />
-                  </div>
-                {/if}
-              </div>
+            <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+            {#each exercise.listeQuestions as question, questionIndex (questionIndex)}
+              <Question
+                {exercise}
+                {questionIndex}
+                {exerciseIndex}
+                {isCorrectionVisible}
+              />
             {/each}
             <div bind:this={divScore} />
           </ul>
@@ -463,9 +394,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  li {
-    break-inside: avoid;
-  }
-</style>

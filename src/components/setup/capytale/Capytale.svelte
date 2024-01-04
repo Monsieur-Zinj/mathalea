@@ -40,6 +40,7 @@
   import ButtonWithTooltip from './ButtonWithTooltip.svelte'
   import type { InterfaceParams } from 'src/lib/types'
   import BreadcrumbHeader from '../start/presentationalComponents/sideMenu/referentielNode/ModalStaticExercices/BreadcrumbHeader.svelte'
+  import handleCapytale from '../../../lib/handleCapytale'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
@@ -165,6 +166,7 @@
     initTE({ Sidenav, Collapse })
     // On analyse l'url pour mettre à jour l'affichage
     urlToDisplay()
+    if ($globalOptions.recorder === 'capytale') handleCapytale()
     globalOptions.update((params) => {
       params.presMode = 'un_exo_par_page'
       params.isDataRandom = true

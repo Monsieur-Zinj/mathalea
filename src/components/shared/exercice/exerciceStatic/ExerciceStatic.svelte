@@ -1,14 +1,14 @@
 <script lang="ts">
-  import HeaderExerciceVueProf from './HeaderExerciceVueProf.svelte'
-  import { globalOptions } from '../../../lib/stores/generalStore'
-  import { retrieveResourceFromUuid } from '../../../lib/components/refUtils'
-  import { resourceHasPlace, isStaticType, type JSONReferentielObject, isCrpeType } from '../../../lib/types/referentiels'
+  import HeaderExerciceVueProf from '../shared/HeaderExerciceVueProf.svelte'
+  import { globalOptions } from '../../../../lib/stores/generalStore'
+  import { retrieveResourceFromUuid } from '../../../../lib/components/refUtils'
+  import { resourceHasPlace, isStaticType, type JSONReferentielObject, isCrpeType } from '../../../../lib/types/referentiels'
   /**
    * Gestion du référentiel pour la recherche de l'uuid
   */
-  import referentielStatic from '../../../json/referentielStatic.json'
-  import referentielBibliotheque from '../../../json/referentielBibliotheque.json'
-  import type { HeaderProps } from '../../../lib/types/ui'
+  import referentielStatic from '../../../../json/referentielStatic.json'
+  import referentielBibliotheque from '../../../../json/referentielBibliotheque.json'
+  import type { HeaderProps } from '../../../../lib/types/ui'
   // on rassemble les deux référentiel statique
   const allStaticReferentiels: JSONReferentielObject = {
     ...referentielBibliotheque,
@@ -52,20 +52,6 @@
       correctionReady: $globalOptions.isSolutionAccessible ? $globalOptions.isSolutionAccessible : false
     }
     if (resourceHasPlace(resourceToDisplay)) {
-      // let numSujet = ''
-      // if (resourceToDisplay.jour !== undefined) {
-      //   switch (resourceToDisplay.jour) {
-      //     case 'J1':
-      //       numSujet = ' [sujet 1]'
-      //       break
-      //     case 'J2':
-      //       numSujet = ' [sujet 2]'
-      //       break
-      //     default:
-      //       numSujet = ''
-      //       break
-      //   }
-      // }
       headerExerciceProps.title = `${resourceToDisplay.typeExercice.toUpperCase()} ${
         resourceToDisplay.mois || ''
       } ${resourceToDisplay.annee} ${resourceToDisplay.lieu} - ${resourceToDisplay.numeroInitial}`

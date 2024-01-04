@@ -2,6 +2,7 @@
   import ButtonsDeck from '../../../../../shared/ui/ButtonsDeck.svelte'
   import SetupButtons from './setupButtons/SetupButtons.svelte'
   import ExportButtons from './exportButtons/ExportButtons.svelte'
+  import type { VueType } from '../../../../../../lib/types'
 
   export let reorderModalDisplayed: boolean = false
   export let zoomUpdate: (plusMinus: ('+' | '-')) => void
@@ -9,7 +10,7 @@
   export let newDataForAll: () => void
   export let trash: () => void
   export let setFullScreen: (isFullScreen: boolean) => void
-  export let handleExport: (vue: string) => void
+  export let handleExport: (vue: VueType) => void
 
 </script>
 

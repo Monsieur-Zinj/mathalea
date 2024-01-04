@@ -3,8 +3,9 @@
   import Button from '../../../../../../../components/shared/forms/Button.svelte'
   import AmcIcon from '../../../../../../../components/shared/icons/AmcIcon.svelte'
   import MoodleIcon from '../../../../../../../components/shared/icons/MoodleIcon.svelte'
+  import type { VueType } from '../../../../../../../lib/types'
 
-  export let handleExport: (vue: string) => void
+  export let handleExport: (vue: VueType) => void
 </script>
 
 <div class="tooltip tooltip-bottom" data-tip="Diaporama">

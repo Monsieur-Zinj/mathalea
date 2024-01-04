@@ -31,7 +31,7 @@
   import Exercices from './presentationalComponents/Exercices.svelte'
   import Placeholder from './presentationalComponents/Placeholder.svelte'
   import { scratchZoomUpdate } from '../../../lib/renderScratch'
-  import type { InterfaceParams } from 'src/lib/types'
+  import type { InterfaceParams, VueType } from 'src/lib/types'
 
   let isNavBarVisible: boolean = true
   let innerWidth = 0
@@ -109,7 +109,7 @@
     })
   }
 
-  function handleExport (vue: string) {
+  function handleExport (vue: VueType) {
     $callerComponent = ''
     globalOptions.update((params) => {
       params.v = vue
