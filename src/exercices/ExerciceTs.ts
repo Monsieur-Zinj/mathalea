@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import type { BlockForKeyboard } from '../components/keyboard/types/keyboardContent'
+
 /**
  *
  *  Classe parente de tous les exercices.
@@ -81,6 +83,7 @@ export default class Exercice {
   besoinFormulaire4CaseACocher: boolean | [string] | [string, boolean]
   mg32Editable: boolean
   listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
+  keyboard: BlockForKeyboard[] // variable stockant les types de claviers utilisés dans l'exercice
   examen?: string // Pour les exercices statiques
   mois?: string // Pour les exercices statiques
   annee?: string // Pour les exercices statiques
@@ -193,6 +196,7 @@ export default class Exercice {
     this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
     this.answers = {}
     this.listeAvecNumerotation = true
+    this.keyboard = ['numbersOperations']
 
     /**
    * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques

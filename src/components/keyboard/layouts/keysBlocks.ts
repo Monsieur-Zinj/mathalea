@@ -1,4 +1,5 @@
 import type {
+  BlockForKeyboard,
   CompleteKeysList,
   KeyboardBlock
 } from '../types/keyboardContent'
@@ -83,4 +84,15 @@ export const greek: KeyboardBlock = {
 export const trigo: KeyboardBlock = {
   keycaps: trigoCaps,
   cols: 1
+}
+
+export const keyboardBlocks: { [key in BlockForKeyboard]: KeyboardBlock } = {
+  numbers,
+  numbersOperations,
+  greek,
+  trigo,
+  hms,
+  fullOperations,
+  basicOperations,
+  variables
 }

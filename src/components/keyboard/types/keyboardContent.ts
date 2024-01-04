@@ -1,9 +1,24 @@
-import { specialKeys, numbers } from '../layouts/keysBlocks'
+import { specialKeys } from '../layouts/keysBlocks'
 import type { keys } from '../lib/keycaps'
 import { GAP_BETWEEN_KEYS, KEYCAP_WIDTH } from '../lib/sizes'
 export type Keys = keyof typeof keys
 export type KeysList = Keys[]
 export type AlphanumericPages = 'AlphaUp' | 'AlphaLow' | 'Numeric'
+export type BlockForKeyboard =
+  | 'alphanumeric'
+  | 'numbers'
+  | 'numbersOperations'
+  | 'variables'
+  | 'basicOperations'
+  | 'fullOperations'
+  | 'hms'
+  | 'greek'
+  | 'trigo'
+  | 'advanced'
+  | 'lengths'
+  | 'areas'
+  | 'volumes'
+  | 'masses'
 
 export interface CompleteKeysList {
   inline: KeysList
@@ -11,15 +26,17 @@ export interface CompleteKeysList {
 }
 
 export interface KeyboardBlock {
-  keycaps: CompleteKeysList,
+  keycaps: CompleteKeysList
   cols: number
 }
 
 export class Keyboard {
   blocks: KeyboardBlock[] = [specialKeys]
 
-  constructor (kb: KeyboardBlock = numbers) {
-    this.blocks.push(kb)
+  constructor (kb?: KeyboardBlock) {
+    if (kb) {
+      this.blocks.push(kb)
+    }
   }
 
   /**
@@ -27,7 +44,7 @@ export class Keyboard {
    * @param kb {KeyboardBlock} bloc de touches à ajouter
    * @returns le clavier lui-même (on peut donc chaîner cette fonction)
    */
-  add = (kb: KeyboardBlock):Keyboard => {
+  add = (kb: KeyboardBlock): Keyboard => {
     this.blocks.push(kb)
     return this
   }
@@ -54,11 +71,18 @@ export class Keyboard {
    * Calcule le nombre total de touches dans le clavier
    * @returns nombre total de touches
    */
-  numberOfKeys = (): number => this.numberOfKeysPerBlock().reduce((prev, current) => prev + current)
+  numberOfKeys = (): number =>
+    this.numberOfKeysPerBlock().reduce((prev, current) => prev + current)
 }
 
-export const inLineBlockWidth = (block: KeyboardBlock, mode: 'sm' | 'md'): number => {
+export const inLineBlockWidth = (
+  block: KeyboardBlock,
+  mode: 'sm' | 'md'
+): number => {
   const numberOfKeys = block.keycaps.inline.length
   // console.log('nb of keys: ' + numberOfKeys + ' / key width: ' + KEYCAP_WIDTH[mode]s + ' / gap between keys: ' + GAP_BETWEEN_KEYS[mode])
-  return numberOfKeys * KEYCAP_WIDTH[mode] + (numberOfKeys - 1) * GAP_BETWEEN_KEYS[mode]
+  return (
+    numberOfKeys * KEYCAP_WIDTH[mode] +
+    (numberOfKeys - 1) * GAP_BETWEEN_KEYS[mode]
+  )
 }

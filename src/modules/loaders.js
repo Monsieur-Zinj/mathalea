@@ -265,7 +265,7 @@ export async function loadMathLive () {
       mf.classList.add('ml-1')
       mf.addEventListener('focus', () => {
         keyboardState.update((value) => {
-          return { isVisible: value.isVisible, idMathField: mf.id, alphanumericLayout: value.alphanumericLayout }
+          return { isVisible: value.isVisible, idMathField: mf.id, alphanumericLayout: value.alphanumericLayout, blocks: value.blocks }
         })
       })
     }
@@ -283,7 +283,7 @@ export async function loadMathLive () {
 }
 
 function handleKeyboardMathalea () {
-  console.log('keyboardHandle')
+  // console.log('keyboardHandle')
   const keyboardButtons = document.querySelectorAll('button.keyboardMathalea')
   for (const button of keyboardButtons) {
     button.removeEventListener('click', handleClickOnKeyboardToggle)
@@ -294,11 +294,11 @@ function handleKeyboardMathalea () {
 function handleClickOnKeyboardToggle (event) {
   keyboardState.update((value) => {
     if (value.idMathField === event.currentTarget.id) {
-      return { isVisible: false, idMathField: '', alphanumericLayout: value.alphanumericLayout }
+      return { isVisible: false, idMathField: '', alphanumericLayout: value.alphanumericLayout, blocks: value.blocks }
     }
-    const mf = document.querySelector('#' + event.currentTarget.id)
+    const mf = document.querySelector(('#' + event.currentTarget.id).replace('-button', ''))
     if (mf != null) mf.focus()
-    console.log('mf.classList: ' + mf.classList)
-    return { isVisible: true, idMathField: event.currentTarget.id, alphanumericLayout: value.alphanumericLayout }
+    // console.log('mf.dataset.keyboard: ' + mf.dataset.keyboard)
+    return { isVisible: true, idMathField: event.currentTarget.id, alphanumericLayout: value.alphanumericLayout, blocks: mf.dataset.keyboard.split(' ') }
   })
 }

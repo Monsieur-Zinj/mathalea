@@ -8,17 +8,9 @@
     inLineBlockWidth,
     type KeyboardBlock,
     type Keys,
-
     type AlphanumericPages
-
   } from './types/keyboardContent'
-  import {
-    fullOperations,
-    numbers,
-    variables,
-    greek,
-    trigo
-  } from './layouts/keysBlocks'
+  import { keyboardBlocks } from './layouts/keysBlocks'
   import KeyboardPage from './presentationalComponents/keyboardpage/KeyboardPage.svelte'
   import { SM_BREAKPOINT, GAP_BETWEEN_BLOCKS } from './lib/sizes'
   import type { KeyCap } from './types/keycap'
@@ -28,24 +20,24 @@
 
   let innerWidth: number = 0
 
-  const myKeyboard = new Keyboard(fullOperations)
-    .add(trigo)
-    .add(numbers)
-    .add(variables)
-    .add(greek)
   const pages: KeyboardBlock[][] = []
-  const blockList = [...myKeyboard.blocks].reverse()
-  const currentPageIndex = 0
+  let currentPageIndex = 0
   let divKeyboard: HTMLDivElement
-  const reduced: boolean = false
+  let reduced: boolean = false
   let isVisible = false
   let pageType: AlphanumericPages = 'AlphaLow'
+  let myKeyboard: Keyboard = new Keyboard()
   keyboardState.subscribe(async (value) => {
     isVisible = value.isVisible
     pageType = value.alphanumericLayout
+    myKeyboard = new Keyboard()
+    for (const block of value.blocks) {
+      myKeyboard.add(keyboardBlocks[block])
+    }
     await tick()
     mathaleaRenderDiv(divKeyboard)
   })
+  const blockList = [...myKeyboard.blocks].reverse()
 
   const computePages = () => {
     pages.length = 0
@@ -130,7 +122,10 @@
     bind:this={divKeyboard}
     class="bg-coopmaths-struct dark:bg-coopmathsdark-struct-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999]"
   >
-    <!-- {#if !reduced}
+    {#if $keyboardState.blocks.includes('alphanumeric')}
+      <Alphanumeric {clickKeycap} {pageType} />
+    {:else}
+      {#if !reduced}
         <div class="py-2 md:py-0">
           <KeyboardPage
             blocks={[...myKeyboard.blocks].reverse()}
@@ -188,7 +183,7 @@
         }}
       >
         <i class="bx {reduced ? 'bx-plus' : 'bx-minus'}" />
-      </button> -->
-    <Alphanumeric {clickKeycap} pageType={pageType} />
+      </button>
+    {/if}
   </div>
 {/if}

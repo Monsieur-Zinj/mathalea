@@ -1,4 +1,17 @@
 import { writable } from 'svelte/store'
-import type { AlphanumericPages } from '../types/keyboardContent'
+import type {
+  AlphanumericPages,
+  BlockForKeyboard
+} from '../types/keyboardContent'
 
-export const keyboardState = writable<{ isVisible: boolean, idMathField: string, alphanumericLayout: AlphanumericPages}>({ isVisible: false, idMathField: '', alphanumericLayout: 'AlphaLow' })
+export const keyboardState = writable<{
+  isVisible: boolean
+  idMathField: string
+  alphanumericLayout: AlphanumericPages
+  blocks: BlockForKeyboard[]
+}>({
+  isVisible: false,
+  idMathField: '',
+  alphanumericLayout: 'AlphaLow',
+  blocks: ['numbersOperations']
+})
