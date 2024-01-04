@@ -34,6 +34,7 @@ function ObjetLutin () {
   this.xMax = 0
   this.yMin = 0
   this.yMax = 0
+  this.bordures = [0, 0, 0, 0] // désolé, mais pour pouvoir définir les bordures, il faudrait avoir déjà les traces. Or au moment de la création du lutin, il n'a encore pas bougé !
   this.xSVG = function (coeff) {
     return this.x * coeff
   }
