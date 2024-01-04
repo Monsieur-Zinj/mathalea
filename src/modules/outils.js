@@ -10,6 +10,7 @@ import {
 import { texMulticols } from '../lib/format/miseEnPage.js'
 import { arrondi, rangeMinMax } from '../lib/outils/nombres.js'
 import { context } from './context.js'
+import Decimal from 'decimal.js'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
@@ -258,6 +259,8 @@ export function carreParfait (x) {
  */
 export function randint (min, max, listeAEviter = []) {
   // Source : https://gist.github.com/pc035860/6546661
+  if (min instanceof Decimal) min = min.toNumber()
+  if (max instanceof Decimal) max = max.toNumber()
   if (!Number.isInteger(min) || !Number.isInteger(max)) {
     window.notify('Les min et max de randint doivent être entiers', { min, max })
     min = Math.floor(min)
