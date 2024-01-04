@@ -12,7 +12,7 @@ import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } fr
 /**
  * Afin de régler le problème des noms de droites en latex qui ne peuvent se fondre dans le svg, cette fonction retourne un Array de deux objets :
  * Le premier est la droite (avec toutes ses propriétés et méthodes
- * Le deuxième est un objet texteParPosittion ou latexParCoordonnees
+ * Le deuxième est un objet texteParPosition ou latexParCoordonnees
  * @param d
  * @param nom
  * @returns {*[]}
