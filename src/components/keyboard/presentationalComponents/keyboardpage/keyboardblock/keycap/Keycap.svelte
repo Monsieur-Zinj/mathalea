@@ -1,17 +1,22 @@
 <script lang="ts">
   import type { KeyCap } from '../../../../types/keycap'
   import { KEYCAP_WIDTH, SM_BREAKPOINT } from '../../../../lib/sizes'
+  import type { Keys } from '../../../../types/keyboardContent'
   export let innerWidth: number
+  export let keyName: Keys
   export let key: KeyCap
   export let isSpecial: boolean = false
   export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
   let button: HTMLButtonElement
-  $: keycapwidth = innerWidth <= SM_BREAKPOINT ? KEYCAP_WIDTH.sm : KEYCAP_WIDTH.md
+  $: keycapwidth =
+    innerWidth <= SM_BREAKPOINT ? KEYCAP_WIDTH.sm : KEYCAP_WIDTH.md
 </script>
 
 <button
   bind:this={button}
-  class="customwidth h-full flex justify-center items-center text-xs md:text-xl text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas dark:active:text-coopmathsdark-canvas  active:bg-coopmaths-action dark:active:bg-coopmathsdark-action {isSpecial ? 'bg-coopmaths-struct-lightest dark:bg-coopmathsdark-struct-lightest' : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono"
+  class="key--{keyName} customwidth h-full flex justify-center items-center text-xs md:text-xl text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas dark:active:text-coopmathsdark-canvas active:bg-coopmaths-action dark:active:bg-coopmathsdark-action {isSpecial
+    ? 'bg-coopmaths-struct-lightest dark:bg-coopmathsdark-struct-lightest'
+    : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono"
   style="--keycapwidth:{keycapwidth}"
   on:click={(e) => {
     clickKeycap(key, e)
@@ -22,8 +27,22 @@
     <span>{@html key.display}</span>
   </div>
 </button>
+
 <style>
   .customwidth {
-    width: calc( var(--keycapwidth) * 1px );
+    width: calc(var(--keycapwidth) * 1px);
+  }
+  button.key--FCT,
+  button.key--LIM,
+  button.key--SIGMA,
+  button.key--COS,
+  button.key--SIN,
+  button.key--TAN {
+    font-size: 1rem /* 16px */;
+    line-height: 1.5rem /* 24px */;
+  }
+  button.key--PROB {
+    font-size: 0.75rem /* 12px */;
+    line-height: 1rem /* 16px */;
   }
 </style>

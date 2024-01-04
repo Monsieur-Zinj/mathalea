@@ -42,6 +42,20 @@ const trigoCaps: CompleteKeysList = {
   inline: ['COS', 'SIN', 'TAN', 'ANG'],
   block: ['COS', 'SIN', 'TAN', 'ANG']
 }
+const advancedCaps: CompleteKeysList = {
+  inline: [
+    'FCT', 'LIM', 'INT', 'SIGMA', 'BINOM', //
+    'UNION', 'INTER', 'INFTY', 'EMPTY', 'PROB', //
+    'VECT', 'BRACKETS', 'BRACES', 'LESSEQ', 'GREATEQ', //
+    'COMP', 'REAL', 'RATIO', 'REL', 'INTEG'
+  ],
+  block: [
+    'FCT', 'LIM', 'INT', 'SIGMA', 'BINOM', //
+    'UNION', 'INTER', 'INFTY', 'EMPTY', 'PROB', //
+    'VECT', 'BRACKETS', 'BRACES', 'LESSEQ', 'GREATEQ', //
+    'COMP', 'REAL', 'RATIO', 'REL', 'INTEG'
+  ]
+}
 
 export const specialKeys: KeyboardBlock = {
   keycaps: specialKeysCaps,
@@ -85,7 +99,12 @@ export const trigo: KeyboardBlock = {
   keycaps: trigoCaps,
   cols: 1
 }
+export const advanced: KeyboardBlock = {
+  keycaps: advancedCaps,
+  cols: 5
+}
 
+// eslint-disable-next-line no-unused-vars
 export const keyboardBlocks: { [key in BlockForKeyboard]: KeyboardBlock } = {
   numbers,
   numbersOperations,
@@ -94,5 +113,6 @@ export const keyboardBlocks: { [key in BlockForKeyboard]: KeyboardBlock } = {
   hms,
   fullOperations,
   basicOperations,
-  variables
+  variables,
+  advanced
 }

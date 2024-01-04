@@ -30,6 +30,8 @@
   keyboardState.subscribe(async (value) => {
     isVisible = value.isVisible
     pageType = value.alphanumericLayout
+    // console.log('value.blocks')
+    // console.log(value.blocks)
     myKeyboard = new Keyboard()
     for (const block of value.blocks) {
       myKeyboard.add(keyboardBlocks[block])

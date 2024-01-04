@@ -116,18 +116,18 @@ export const keys = {
     display: ';'
   },
   LESS: {
-    display: '>'
-  },
-  GREAT: {
     display: '<'
   },
+  GREAT: {
+    display: '>'
+  },
   LESSEQ: {
-    display: '$\\leq$',
-    insert: '$$\\leq$$'
+    display: '$\\leqslant$',
+    insert: '$$\\leqslant$$'
   },
   GREATEQ: {
-    display: '$\\geq$',
-    insert: '$$\\geq$$'
+    display: '$\\geqslant$',
+    insert: '$$\\geqslant$$'
   },
   AST: {
     display: '*',
@@ -180,6 +180,22 @@ export const keys = {
   TILDE: {
     display: '~',
     insert: '$$\\sim$$'
+  },
+  BRACKETS: {
+    display: '$[\\square]$',
+    insert: '$$[#0]$$'
+  },
+  BRACES: {
+    display: '$\\{\\square\\}$',
+    insert: '$$\\{#0\\}$$'
+  },
+  VECT: {
+    display: '$\\overrightarrow{\\square}$',
+    insert: '$$\\overrightarrow#0$$'
+  },
+  INFTY: {
+    display: '$\\infty$',
+    insert: '\\infty'
   },
   // ================== letters
   a: { display: 'a' },
@@ -303,5 +319,64 @@ export const keys = {
   },
   SPACE: {
     display: ' '
+  },
+  // =================== sets
+  COMP: {
+    display: '$\\mathbb{C}$',
+    insert: '\\mathbb{C}'
+  },
+  REAL: {
+    display: '$\\mathbb{R}$',
+    insert: '\\mathbb{R}'
+  },
+  RATIO: {
+    display: '$\\mathbb{Q}$',
+    insert: '\\mathbb{Q}'
+  },
+  REL: {
+    display: '$\\mathbb{Z}$',
+    insert: '\\mathbb{Z}'
+  },
+  INTEG: {
+    display: '$\\mathbb{N}$',
+    insert: '\\mathbb{N}'
+  },
+  EMPTY: {
+    display: '$\\emptyset$',
+    insert: '\\emptyset'
+  },
+  UNION: {
+    display: '$\\cup$',
+    insert: '\\cup'
+  },
+  INTER: {
+    display: '$\\cap$',
+    insert: '\\cap'
+  },
+  // =================== functions
+  LIM: {
+    display: '$\\lim\\limits_{\\square\\to\\square}$',
+    insert: '$$\\lim_{#0\\to\\ #1}}$$'
+  },
+  FCT: {
+    display: '$f(\\square)$',
+    insert: '$$f(#0)$$'
+  },
+  SIGMA: {
+    display: '$\\sum\\limits_{\\square}^{\\square}$',
+    insert: '$$\\sum_#0^#1$$'
+  },
+  INT: {
+    display: '$\\int_{\\square}^{\\square}$',
+    insert: '$$\\int_#0^#1$$'
+  },
+  // =================== probabilities
+  BINOM: {
+    display: '$\\tbinom{\\square}{\\square}$',
+    insert: '$$\\tbinom{#0}{#1}$$'
+  },
+  PROB: {
+    display: '$P_{\\square}({\\square})$',
+    insert: '$$P_{#0}({#1})$$'
   }
 }

@@ -30,7 +30,7 @@ export const ref = 'can1P02'
 export default function LectureProbabilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true
-  this.keyboard = ['lycee']
+  this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

@@ -20,7 +20,7 @@
     style="--gapsize:{gapsize};"
   >
     {#each block.keycaps.inline as key}
-      <Key key={keys[key]} {isSpecial} {innerWidth} {clickKeycap} />
+      <Key keyName={key} key={keys[key]} {isSpecial} {innerWidth} {clickKeycap} />
     {/each}
   </div>
 {:else}
@@ -29,7 +29,7 @@
     style="--gapsize:{gapsize};"
   >
     {#each block.keycaps.block as key}
-      <Key key={keys[key]} {isSpecial} {innerWidth} {clickKeycap} />
+      <Key keyName={key} key={keys[key]} {isSpecial} {innerWidth} {clickKeycap} />
     {/each}
   </div>
 {/if}
