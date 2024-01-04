@@ -173,24 +173,26 @@
       }
     }
     // affectation du zoom pour les figures scratch
-    const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
-    for (const scratchDiv of scratchDivs) {
-      const svgDivs = scratchDiv.getElementsByTagName('svg')
-      for (const svg of svgDivs) {
-        if (svg.hasAttribute('data-width') === false) {
-          const originalWidth = svg.getAttribute('width')
-          svg.dataset.width = originalWidth ?? '0'
+    if (divExercice != null) {
+      const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
+      for (const scratchDiv of scratchDivs) {
+        const svgDivs = scratchDiv.getElementsByTagName('svg')
+        for (const svg of svgDivs) {
+          if (svg.hasAttribute('data-width') === false) {
+            const originalWidth = svg.getAttribute('width')
+            svg.dataset.width = originalWidth ?? '0'
+          }
+          if (svg.hasAttribute('data-height') === false) {
+            const originalHeight = svg.getAttribute('height')
+            svg.dataset.height = originalHeight ?? '0'
+          }
+          const w =
+            Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
+          const h =
+            Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
+          svg.setAttribute('width', String(w))
+          svg.setAttribute('height', String(h))
         }
-        if (svg.hasAttribute('data-height') === false) {
-          const originalHeight = svg.getAttribute('height')
-          svg.dataset.height = originalHeight ?? '0'
-        }
-        const w =
-          Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
-        const h =
-          Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
-        svg.setAttribute('width', String(w))
-        svg.setAttribute('height', String(h))
       }
     }
     // Evènement indispensable pour pointCliquable par exemple
