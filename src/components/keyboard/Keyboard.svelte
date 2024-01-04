@@ -83,7 +83,7 @@
     } else {
       if (event.currentTarget instanceof HTMLButtonElement) {
         const idMathField = $keyboardState.idMathField
-        const mf = document.querySelector('#' + idMathField) as MathfieldElement
+        const mf = document.querySelector(('#' + idMathField).replace('-button', '')) as MathfieldElement
         console.log({
           mf,
           idMathField,
