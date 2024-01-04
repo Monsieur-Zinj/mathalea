@@ -45,7 +45,7 @@
       <div class="">
         <div
           on:click={() => goToMathalea($globalOptions.v)}
-          on:keydown={() => goToMathalea($globalOptions.v)}
+          on:keydown={() => {}}
           role="link"
           tabindex="0"
           class=" relative inline-flex text-3xl md:text-6xl font-logo9 tracking-tighter font-black
