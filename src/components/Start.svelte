@@ -7,9 +7,9 @@
     darkMode,
     exercicesParams,
     globalOptions,
-    isModalForStaticsVisible,
-    keyboardState
+    isModalForStaticsVisible
   } from './stores/generalStore'
+  import { keyboardState } from './keyboard/stores/keyboardStore'
   import {
     mathaleaUpdateExercicesParamsFromUrl,
     mathaleaUpdateUrlFromExercicesParams

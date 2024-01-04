@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Key from './keyboardcap/Keycap.svelte'
+  import Key from './keycap/Keycap.svelte'
   import { GAP_BETWEEN_KEYS, SM_BREAKPOINT } from '../../../lib/sizes'
   import type { KeyboardBlock } from '../../../types/keyboardContent'
   import { keys } from '../../../lib/keycaps'
@@ -20,7 +20,7 @@
     style="--gapsize:{gapsize};"
   >
     {#each block.keycaps.inline as key}
-      <Key data={keys[key]} {isSpecial} {innerWidth} {clickKeycap} />
+      <Key key={keys[key]} {isSpecial} {innerWidth} {clickKeycap} />
     {/each}
   </div>
 {:else}
@@ -29,7 +29,7 @@
     style="--gapsize:{gapsize};"
   >
     {#each block.keycaps.block as key}
-      <Key data={keys[key]} {isSpecial} {innerWidth} {clickKeycap} />
+      <Key key={keys[key]} {isSpecial} {innerWidth} {clickKeycap} />
     {/each}
   </div>
 {/if}

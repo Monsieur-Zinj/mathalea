@@ -2,7 +2,7 @@
   import type { KeyCap } from '../../../../types/keycap'
   import { KEYCAP_WIDTH, SM_BREAKPOINT } from '../../../../lib/sizes'
   export let innerWidth: number
-  export let data: KeyCap
+  export let key: KeyCap
   export let isSpecial: boolean = false
   export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
   let button: HTMLButtonElement
@@ -14,12 +14,12 @@
   class="customwidth h-full flex justify-center items-center text-xs md:text-xl text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas dark:active:text-coopmathsdark-canvas  active:bg-coopmaths-action dark:active:bg-coopmathsdark-action {isSpecial ? 'bg-coopmaths-struct-lightest dark:bg-coopmathsdark-struct-lightest' : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono"
   style="--keycapwidth:{keycapwidth}"
   on:click={(e) => {
-    clickKeycap(data, e)
+    clickKeycap(key, e)
   }}
 >
-  <div id="key-{data.key}" class="relative">
+  <div id="key-{key.display}" class="relative">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    <span>{@html data.key}</span>
+    <span>{@html key.display}</span>
   </div>
 </button>
 <style>

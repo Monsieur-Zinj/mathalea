@@ -1,5 +1,5 @@
 export type KeyCap = {
-  key: string
+  display: string
   insert?: string
   command?: string | string[]
 }

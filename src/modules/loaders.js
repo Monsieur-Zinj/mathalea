@@ -8,7 +8,7 @@ import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/
 import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
 import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
 import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
-import { keyboardState } from '../components/stores/generalStore'
+import { keyboardState } from '../components/keyboard/stores/keyboardStore'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -265,7 +265,7 @@ export async function loadMathLive () {
       mf.classList.add('ml-1')
       mf.addEventListener('focus', () => {
         keyboardState.update((value) => {
-          return { isVisible: value.isVisible, idMathField: mf.id }
+          return { isVisible: value.isVisible, idMathField: mf.id, alphanumericLayout: value.alphanumericLayout }
         })
       })
     }
@@ -294,11 +294,11 @@ function handleKeyboardMathalea () {
 function handleClickOnKeyboardToggle (event) {
   keyboardState.update((value) => {
     if (value.idMathField === event.currentTarget.id) {
-      return { isVisible: false, idMathField: '' }
+      return { isVisible: false, idMathField: '', alphanumericLayout: value.alphanumericLayout }
     }
     const mf = document.querySelector('#' + event.currentTarget.id)
     if (mf != null) mf.focus()
     console.log('mf.classList: ' + mf.classList)
-    return { isVisible: true, idMathField: event.currentTarget.id }
+    return { isVisible: true, idMathField: event.currentTarget.id, alphanumericLayout: value.alphanumericLayout }
   })
 }

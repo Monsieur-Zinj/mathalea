@@ -9,12 +9,12 @@ export const specialKeysCaps: CompleteKeysList = {
   block: ['BACK', 'FWD', 'DEL', 'CLOSE']
 }
 const numbersCaps: CompleteKeysList = {
-  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, ',', 'PI'],
-  block: [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, ',', 'PI']
+  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', 'PI'],
+  block: [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, 'COMMA', 'PI']
 }
 const numbersOperationsCaps: CompleteKeysList = {
-  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, ',', 'PI', 'DIV', 'MULT', 'SUB', 'ADD'],
-  block: [7, 8, 9, 'DIV', 4, 5, 6, 'MULT', 1, 2, 3, 'SUB', 0, ',', 'PI', 'ADD']
+  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', 'PI', 'DIV', 'MULT', 'SUB', 'ADD'],
+  block: [7, 8, 9, 'DIV', 4, 5, 6, 'MULT', 1, 2, 3, 'SUB', 0, 'COMMA', 'PI', 'ADD']
 }
 const variableCaps: CompleteKeysList = {
   inline: ['a', 'b', 'c', 'x', 'y', 'z'],

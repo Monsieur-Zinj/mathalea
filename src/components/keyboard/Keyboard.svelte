@@ -1,12 +1,16 @@
 <script lang="ts">
   import { onMount, tick } from 'svelte'
-  import { keyboardState } from '../stores/generalStore'
+  import { keyboardState } from './stores/keyboardStore'
   import { mathaleaRenderDiv } from '../../lib/mathalea'
   import { fly } from 'svelte/transition'
   import {
     Keyboard,
     inLineBlockWidth,
-    type KeyboardBlock
+    type KeyboardBlock,
+    type Keys,
+
+    type AlphanumericPages
+
   } from './types/keyboardContent'
   import {
     fullOperations,
@@ -19,6 +23,8 @@
   import { SM_BREAKPOINT, GAP_BETWEEN_BLOCKS } from './lib/sizes'
   import type { KeyCap } from './types/keycap'
   import { MathfieldElement } from 'mathlive'
+  import Alphanumeric from './presentationalComponents/alphanumeric/Alphanumeric.svelte'
+  import { isPageKey } from './layouts/alphanumericRows'
 
   let innerWidth: number = 0
 
@@ -29,13 +35,14 @@
     .add(greek)
   const pages: KeyboardBlock[][] = []
   const blockList = [...myKeyboard.blocks].reverse()
-  let currentPageIndex = 0
+  const currentPageIndex = 0
   let divKeyboard: HTMLDivElement
-  let reduced: boolean = false
-
+  const reduced: boolean = false
   let isVisible = false
+  let pageType: AlphanumericPages = 'AlphaLow'
   keyboardState.subscribe(async (value) => {
     isVisible = value.isVisible
+    pageType = value.alphanumericLayout
     await tick()
     mathaleaRenderDiv(divKeyboard)
   })
@@ -64,47 +71,66 @@
     }
   }
 
-  const clickKeycap = (data: KeyCap, event: MouseEvent) => {
-    if (event.currentTarget instanceof HTMLButtonElement) {
-      const idMathField = $keyboardState.idMathField
-      const mf = document.querySelector('#' + idMathField) as MathfieldElement
-      console.log({
-        mf,
-        idMathField,
-        command: `${data.command}`,
-        insert: `${data.insert}`
-      })
-      if (mf != null) {
-        mf.focus()
-        if (data.command && data.command === 'closeKeyboard') {
-          keyboardState.update((value) => {
-            value.isVisible = false
-            value.idMathField = ''
-            return value
-          })
-        } else if (data.command && data.command[0] !== '') {
-          // @ts-expect-error : command doit être compatible avec MathLive
-          mf.executeCommand(data.command)
-        } else {
-          console.log(data.insert)
-          mf.executeCommand(['insert', data.insert || data.key])
+  const clickKeycap = (key: KeyCap, event: MouseEvent, value?: Keys) => {
+    if (value && isPageKey(value)) {
+      // la touche est une touche du clavier alphanumeric pour changer de page
+      switch (value) {
+        case 'abc':
+          $keyboardState.alphanumericLayout = 'AlphaLow'
+          break
+        case 'ABC':
+          $keyboardState.alphanumericLayout = 'AlphaUp'
+          break
+        case 'NUM':
+          $keyboardState.alphanumericLayout = 'Numeric'
+          break
+        default:
+          $keyboardState.alphanumericLayout = 'AlphaLow'
+          break
+      }
+    } else {
+      if (event.currentTarget instanceof HTMLButtonElement) {
+        const idMathField = $keyboardState.idMathField
+        const mf = document.querySelector('#' + idMathField) as MathfieldElement
+        console.log({
+          mf,
+          idMathField,
+          command: `${key.command}`,
+          insert: `${key.insert}`
+        })
+        if (mf != null) {
+          mf.focus()
+          if (key.command && key.command === 'closeKeyboard') {
+            keyboardState.update((value) => {
+              value.isVisible = false
+              value.idMathField = ''
+              return value
+            })
+          } else if (key.command && key.command[0] !== '') {
+            // @ts-expect-error : command doit être compatible avec MathLive
+            mf.executeCommand(key.command)
+          } else {
+            console.log(key.insert)
+            mf.executeCommand(['insert', key.insert || key.display])
+          }
         }
       }
     }
   }
+
   onMount(() => {
     computePages()
   })
 </script>
 
-<svelte:window bind:innerWidth/>
+<svelte:window bind:innerWidth />
 {#if isVisible}
-    <div
-      transition:fly={{ y: '100%', opacity: 1 }}
-      bind:this={divKeyboard}
-      class="bg-coopmaths-struct dark:bg-coopmathsdark-struct-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999]"
-    >
-      {#if !reduced}
+  <div
+    transition:fly={{ y: '100%', opacity: 1 }}
+    bind:this={divKeyboard}
+    class="bg-coopmaths-struct dark:bg-coopmathsdark-struct-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999]"
+  >
+    <!-- {#if !reduced}
         <div class="py-2 md:py-0">
           <KeyboardPage
             blocks={[...myKeyboard.blocks].reverse()}
@@ -162,6 +188,7 @@
         }}
       >
         <i class="bx {reduced ? 'bx-plus' : 'bx-minus'}" />
-      </button>
-    </div>
+      </button> -->
+    <Alphanumeric {clickKeycap} pageType={pageType} />
+  </div>
 {/if}

@@ -1,210 +1,307 @@
 export const keys = {
   // ================== numbers
-  0: { key: '0' },
-  1: { key: '1' },
-  2: { key: '2' },
-  3: { key: '3' },
-  4: { key: '4' },
-  5: { key: '5' },
-  6: { key: '6' },
-  7: { key: '7' },
-  8: { key: '8' },
-  9: { key: '9' },
+  0: { display: '0' },
+  1: { display: '1' },
+  2: { display: '2' },
+  3: { display: '3' },
+  4: { display: '4' },
+  5: { display: '5' },
+  6: { display: '6' },
+  7: { display: '7' },
+  8: { display: '8' },
+  9: { display: '9' },
   // ================== operations
   ADD: {
-    key: '+',
+    display: '+',
     insert: '+'
   },
   SUB: {
-    key: '—',
+    display: '—',
     insert: '-'
   },
   MULT: {
-    key: '$\\times$',
+    display: '$\\times$',
     insert: '\\times'
   },
   DIV: {
-    key: '$\\div$',
+    display: '$\\div$',
     insert: '\\div'
   },
   FRAC: {
-    key: '$\\frac{\\square}{\\square}$',
+    display: '$\\frac{\\square}{\\square}$',
     insert: '\\frac{#@}{#1}'
   },
   SQRT: {
     // eslint-disable-next-line no-useless-escape
-    key: '$\\sqrt{\\square}$',
+    display: '$\\sqrt{\\square}$',
     insert: '\\sqrt{#@}'
   },
   SQ: {
-    key: '$x^2$',
+    display: '$x^2$',
     insert: '^2'
   },
   CUBE: {
-    key: '$x^3$',
+    display: '$x^3$',
     insert: '^3'
   },
   POW: {
-    key: '$x^\\square$',
+    display: '$x^\\square$',
     insert: '#@^{#0}'
   },
   POW10: {
-    key: '$10^\\square$',
+    display: '$10^\\square$',
     insert: '$$\\times10^#0$$'
   },
   // ================== functions
   COS: {
-    key: 'cos',
+    display: 'cos',
     insert: '\\cos(#0)'
   },
   SIN: {
-    key: 'sin',
+    display: 'sin',
     insert: '\\sin(#0)'
   },
   TAN: {
-    key: 'tan',
+    display: 'tan',
     insert: '\\tan(#0)'
   },
   // ================== symbols
-  ',': {
-    key: ','
+  COMMA: {
+    display: ','
+  },
+  POINT: {
+    display: '.'
   },
   '(': {
-    key: '(',
+    display: '(',
     insert: '\\lparen'
   },
   ')': {
-    key: ')',
+    display: ')',
     insert: '\\rparen'
   },
+  '{': {
+    display: '{',
+    insert: '$$\\{$$'
+  },
+  '}': {
+    display: '}',
+    insert: '$$\\}$$'
+  },
+  '[': {
+    display: '[',
+    insert: '$[$'
+  },
+  ']': {
+    display: ']',
+    insert: '$]$'
+  },
   '=': {
-    key: '='
+    display: '='
   },
   DEG: {
-    key: '°'
+    display: '°'
   },
   ANG: {
-    key: '$\\widehat{\\square}$',
+    display: '$\\widehat{\\square}$',
     insert: '$$\\widehat{#0}$$'
   },
   PERCENT: {
-    key: '%'
+    display: '%'
   },
   COLON: {
-    key: ':'
+    display: ':'
   },
   SEMICOLON: {
-    key: ';'
+    display: ';'
+  },
+  LESS: {
+    display: '>'
+  },
+  GREAT: {
+    display: '<'
+  },
+  LESSEQ: {
+    display: '$\\leq$',
+    insert: '$$\\leq$$'
+  },
+  GREATEQ: {
+    display: '$\\geq$',
+    insert: '$$\\geq$$'
+  },
+  AST: {
+    display: '*',
+    insert: '$$\\ast$$'
+  },
+  SLASH: {
+    display: '/',
+    insert: '\\slash'
+  },
+  BACKSLASH: {
+    display: '\\',
+    insert: '\\backslash'
+  },
+  QUOTE: {
+    display: '\'',
+    insert: '{\\:\\text{\'}\\:}'
+  },
+  DBLQUOTE: {
+    display: '"',
+    insert: '{\\:\\text{"}\\:}'
+  },
+  INTPOINT: {
+    display: '?',
+    insert: '{\\:\\text{?}\\:}'
+  },
+  EXCPOINT: {
+    display: '!',
+    insert: '{\\:\\text{!}\\:}'
+  },
+  AROBASE: {
+    display: '@',
+    insert: '{\\:\\text{@}\\:}'
+  },
+  HASH: {
+    display: '#',
+    insert: '{\\:\\text{#}\\:}'
+  },
+  DOLLAR: {
+    display: '$',
+    insert: '{\\:\\text{\\$}\\:}'
+  },
+  AND: {
+    display: '&',
+    insert: '{\\:\\text{\\&}\\:}'
+  },
+  OR: {
+    display: '|',
+    insert: '{\\:\\text{|}\\:}'
+  },
+  TILDE: {
+    display: '~',
+    insert: '$$\\sim$$'
   },
   // ================== letters
-  a: { key: 'a' },
-  b: { key: 'b' },
-  c: { key: 'c' },
-  d: { key: 'd' },
-  e: { key: 'e' },
-  f: { key: 'f' },
-  g: { key: 'g' },
-  h: { key: 'h' },
-  i: { key: 'i' },
-  j: { key: 'j' },
-  k: { key: 'k' },
-  l: { key: 'l' },
-  m: { key: 'm' },
-  n: { key: 'n' },
-  o: { key: 'o' },
-  p: { key: 'p' },
-  q: { key: 'q' },
-  r: { key: 'r' },
-  s: { key: 's' },
-  t: { key: 't' },
-  u: { key: 'u' },
-  v: { key: 'v' },
-  w: { key: 'w' },
-  x: { key: 'x' },
-  y: { key: 'y' },
-  z: { key: 'z' },
-  A: { key: 'A' },
-  B: { key: 'B' },
-  C: { key: 'C' },
-  D: { key: 'D' },
-  E: { key: 'E' },
-  F: { key: 'F' },
-  G: { key: 'G' },
-  H: { key: 'H' },
-  I: { key: 'I' },
-  J: { key: 'J' },
-  K: { key: 'K' },
-  L: { key: 'L' },
-  M: { key: 'M' },
-  N: { key: 'N' },
-  O: { key: 'O' },
-  P: { key: 'P' },
-  Q: { key: 'Q' },
-  R: { key: 'R' },
-  S: { key: 'S' },
-  T: { key: 'T' },
-  U: { key: 'U' },
-  V: { key: 'V' },
-  W: { key: 'W' },
-  X: { key: 'X' },
-  Y: { key: 'Y' },
-  Z: { key: 'Z' },
+  a: { display: 'a' },
+  b: { display: 'b' },
+  c: { display: 'c' },
+  d: { display: 'd' },
+  e: { display: 'e' },
+  f: { display: 'f' },
+  g: { display: 'g' },
+  h: { display: 'h' },
+  i: { display: 'i' },
+  j: { display: 'j' },
+  k: { display: 'k' },
+  l: { display: 'l' },
+  m: { display: 'm' },
+  n: { display: 'n' },
+  o: { display: 'o' },
+  p: { display: 'p' },
+  q: { display: 'q' },
+  r: { display: 'r' },
+  s: { display: 's' },
+  t: { display: 't' },
+  u: { display: 'u' },
+  v: { display: 'v' },
+  w: { display: 'w' },
+  x: { display: 'x' },
+  y: { display: 'y' },
+  z: { display: 'z' },
+  A: { display: 'A' },
+  B: { display: 'B' },
+  C: { display: 'C' },
+  D: { display: 'D' },
+  E: { display: 'E' },
+  F: { display: 'F' },
+  G: { display: 'G' },
+  H: { display: 'H' },
+  I: { display: 'I' },
+  J: { display: 'J' },
+  K: { display: 'K' },
+  L: { display: 'L' },
+  M: { display: 'M' },
+  N: { display: 'N' },
+  O: { display: 'O' },
+  P: { display: 'P' },
+  Q: { display: 'Q' },
+  R: { display: 'R' },
+  S: { display: 'S' },
+  T: { display: 'T' },
+  U: { display: 'U' },
+  V: { display: 'V' },
+  W: { display: 'W' },
+  X: { display: 'X' },
+  Y: { display: 'Y' },
+  Z: { display: 'Z' },
   // ================== greek letters
   PI: {
-    key: 'π',
+    display: 'π',
     insert: '\\pi'
   },
   ALPHA: {
-    key: 'α',
+    display: 'α',
     insert: '\\alpha'
   },
   BETA: {
-    key: 'β',
+    display: 'β',
     insert: '\\beta'
   },
   GAMMA: {
-    key: 'γ',
+    display: 'γ',
     insert: '\\gamma'
   },
   DELTA: {
-    key: 'δ',
+    display: 'δ',
     insert: '\\delta'
   },
   EPSILON: {
-    key: 'ε',
+    display: 'ε',
     insert: '\\epsilon'
   },
   THETA: {
-    key: 'θ',
+    display: 'θ',
     insert: '\\theta'
   },
   LAMBDA: {
-    key: 'λ',
+    display: 'λ',
     insert: '\\lambda'
   },
   OMEGA: {
-    key: 'ω',
+    display: 'ω',
     insert: '\\omega'
   },
   // ================== hours, minutes, secondes
-  HOUR: { key: 'h', insert: '{\\:\\text{h}\\:}' },
-  MIN: { key: 'min', insert: '{\\:\\text{min}\\:}' },
-  SEC: { key: 's', insert: '{\\:\\text{s}\\:}' },
+  HOUR: { display: 'h', insert: '{\\:\\text{h}\\:}' },
+  MIN: { display: 'min', insert: '{\\:\\text{min}\\:}' },
+  SEC: { display: 's', insert: '{\\:\\text{s}\\:}' },
   // ================== special keys
   BACK: {
-    key: '<i class="bx bx-arrow-back"/>',
+    display: '<i class="bx bx-arrow-back"/>',
     command: ['performWithFeedback', 'moveToPreviousChar']
   },
   FWD: {
-    key: '<i class="bx bx-arrow-back bx-rotate-180"/>',
+    display: '<i class="bx bx-arrow-back bx-rotate-180"/>',
     command: ['performWithFeedback', 'moveToNextChar']
   },
   CLOSE: {
-    key: '<i class="bx bx-x"/>',
+    display: '<i class="bx bx-x"/>',
     command: 'closeKeyboard'
   },
   DEL: {
-    key: '&#x232b;',
+    display: '&#x232b;',
     command: ['performWithFeedback', 'deleteBackward']
+  },
+  ABC: {
+    display: 'ABC'
+  },
+  abc: {
+    display: 'abc'
+  },
+  NUM: {
+    display: '?123'
+  },
+  SPACE: {
+    display: ' '
   }
 }

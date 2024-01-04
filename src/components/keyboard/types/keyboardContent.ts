@@ -3,6 +3,7 @@ import type { keys } from '../lib/keycaps'
 import { GAP_BETWEEN_KEYS, KEYCAP_WIDTH } from '../lib/sizes'
 export type Keys = keyof typeof keys
 export type KeysList = Keys[]
+export type AlphanumericPages = 'AlphaUp' | 'AlphaLow' | 'Numeric'
 
 export interface CompleteKeysList {
   inline: KeysList
