@@ -2,10 +2,12 @@ import prefs from './prefs.js'
 import { fileURLToPath } from 'node:url'
 import { afterEach, beforeEach, describe, it } from 'vitest'
 import { getDefaultPage } from './browser.js'
-import { logError } from './log.js'
+import { getFileLogger, logError } from './log.js'
 import type { Locator, Page } from 'playwright'
 import type { Prefs, Question } from './types.js'
 import { clean } from './text.js'
+import path from 'node:path'
+import { store } from './store.js'
 
 declare global {
   interface Window {
@@ -23,6 +25,8 @@ export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string
   Object.assign(prefs, prefsOverride)
   const filename = fileURLToPath(metaUrl)
   const testsSuiteDescription = '' // Ajoute une description intermédiaire dans le stdout si besoin
+  const fileLogger = getFileLogger(path.basename(metaUrl))
+  store.set('fileLogger', fileLogger)
   describe(testsSuiteDescription, async () => {
     let page: Page, result: boolean
     let stop = false
