@@ -116,7 +116,6 @@ function verifExerciceListeDeroulante (exercice /** Exercice */, divScore /** HT
   let nbQuestionsValidees = 0
   let nbQuestionsNonValidees = 0
   const selects = document.querySelectorAll(`select[id^="ex${exercice.numeroExercice}"]`)
-  console.log(selects)
   selects.forEach(function (select) {
     select.disabled = true
   })
