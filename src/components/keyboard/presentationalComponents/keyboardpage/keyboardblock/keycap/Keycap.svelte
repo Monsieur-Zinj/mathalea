@@ -14,9 +14,9 @@
 
 <button
   bind:this={button}
-  class="key--{keyName} customwidth h-full flex justify-center items-center text-xs md:text-xl text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas dark:active:text-coopmathsdark-canvas active:bg-coopmaths-action dark:active:bg-coopmathsdark-action {isSpecial
+  class="key--{keyName} customwidth h-full flex justify-center items-center text-xs md:text-xl border-b-2 border-r border-r-slate-400 dark:border-r-gray-500 border-b-slate-300 dark:border-b-gray-600 active:border-b-0 active:border-r-0 text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light active:text-coopmaths-canvas active:translate-y-[1.5px] dark:active:text-coopmathsdark-canvas active:bg-coopmaths-action dark:active:bg-coopmathsdark-action transition-transform ease-in-out shadow-lg shadow-inner {isSpecial
     ? 'bg-coopmaths-struct-lightest dark:bg-coopmathsdark-struct-lightest'
-    : 'bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono"
+    : 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono"
   style="--keycapwidth:{keycapwidth}"
   on:click={(e) => {
     clickKeycap(key, e)

@@ -13,7 +13,7 @@
 </script>
 
 <div
-  class="bg-coopmaths-struct dark:bg-coopmathsdark-struct-dark flex flex-row blockgap items-start justify-center w-full"
+  class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex flex-row blockgap items-start justify-center w-full"
   style="--blockgapsize:{blockgapsize}"
 >
   {#each blocks as block}
