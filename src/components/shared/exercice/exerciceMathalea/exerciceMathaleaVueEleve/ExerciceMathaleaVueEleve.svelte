@@ -1,14 +1,14 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../../lib/stores/generalStore'
+  import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
   import { afterUpdate, onMount, tick } from 'svelte'
-  import type TypeExercice from '../../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../../../exercices/ExerciceTs.js'
   import seedrandom from 'seedrandom'
-  import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../../../lib/interactif/gestionInteractif'
-  import { loadMathLive } from '../../../../modules/loaders'
-  import { mathaleaGenerateSeed, mathaleaHandleExerciceSimple, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../../lib/mathalea'
-  import HeaderExerciceVueEleve from '../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
+  import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../../../../lib/interactif/gestionInteractif'
+  import { loadMathLive } from '../../../../../modules/loaders'
+  import { mathaleaGenerateSeed, mathaleaHandleExerciceSimple, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../../../lib/mathalea'
+  import HeaderExerciceVueEleve from '../../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
   import type { MathfieldElement } from 'mathlive'
-  import { sendToCapytaleSaveStudentAssignment } from '../../../../lib/handleCapytale'
+  import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import Question from './presentationalComponents/Question.svelte'
   import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
   export let exercise: TypeExercice
@@ -175,7 +175,7 @@
       exercise.nouvelleVersion(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    adjustMathalea2dFiguresWidth()
+    await adjustMathalea2dFiguresWidth()
   }
 
   function verifExerciceVueEleve () {

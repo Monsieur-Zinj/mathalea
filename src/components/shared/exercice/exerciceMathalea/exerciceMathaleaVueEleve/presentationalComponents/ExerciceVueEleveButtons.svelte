@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { InterfaceGlobalOptions } from '../../../../../lib/types'
-  import type TypeExercice from '../../../../../exercices/ExerciceTs'
-  import Button from '../../../forms/Button.svelte'
-  import InteractivityIcon from '../../../icons/TwoStatesIcon.svelte'
+    import type { InterfaceGlobalOptions } from '../../../../../../lib/types'
+  import type TypeExercice from '../../../../../../exercices/ExerciceTs'
+  import Button from '../../../../forms/Button.svelte'
+  import InteractivityIcon from '../../../../icons/TwoStatesIcon.svelte'
   export let exercise: TypeExercice
   export let indiceLastExercice: number
   export let globalOptions: InterfaceGlobalOptions

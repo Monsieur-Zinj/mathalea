@@ -7,11 +7,10 @@
   import { globalOptions } from '../../../lib/stores/generalStore'
   import type { InterfaceParams } from '../../../lib/types'
   import uuidToUrl from '../../../json/uuidsToUrl.json'
-  import ExerciceMathaleaVueEleve from './exerciceMathaleaVueEleve/ExerciceMathaleaVueEleve.svelte'
   import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
   import Exercice from '../../../exercices/ExerciceTs'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
-  import ExerciceMathaleaVueProf from './exerciceMathaleaVueProf/ExerciceMathaleaVueProf.svelte'
+  import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
 
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
@@ -98,19 +97,21 @@
     {indiceLastExercice}
   />
 {:else if exerciseType === 'mathaleaVueEleve'}
-  <ExerciceMathaleaVueEleve
-    {exercise}
-    exerciseIndex={indiceExercice}
-    {indiceLastExercice}
-    {isCorrectionVisible}
-  />
+<ExerciceMathalea
+  vue='eleve'
+  {exercise}
+  exerciseIndex={indiceExercice}
+  {indiceLastExercice}
+  {isCorrectionVisible}
+/>
 {:else if exerciseType === 'mathaleaVueProf'}
-  <ExerciceMathaleaVueProf
-    exercice={exercise}
-    {indiceExercice}
-    {indiceLastExercice}
-    {isCorrectionVisible}
-  />
+<ExerciceMathalea
+  vue='prof'
+  {exercise}
+  exerciseIndex={indiceExercice}
+  {indiceLastExercice}
+  {isCorrectionVisible}
+/>
 {/if}
 
 <style>
