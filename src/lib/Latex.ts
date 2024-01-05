@@ -280,6 +280,9 @@ class Latex {
       if (content.includes('\\np{')) {
         result += '\n\\usepackage[autolanguage,np]{numprint}'
       }
+      if (content.includes(',decorate,decoration=')) {
+        result += '\n\\usetikzlibrary{decorations.pathmorphing}'
+      }
 
       const [latexCmds, latexPackages] = this.getContentLatex()
       for (const pack of latexPackages) {
