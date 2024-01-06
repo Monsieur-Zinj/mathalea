@@ -24,6 +24,7 @@ import {
   upperCaseCompare
 } from './comparaisonFonctions'
 import Hms from '../../modules/Hms'
+import { context } from '../../modules/context.js'
 
 /**
  *
@@ -332,9 +333,103 @@ export function setReponse (exercice, i, valeurs, {
       }
     }
   }
+  // en contexte d'export AMC, on ne touche pas à l'existant
+  if (context.isAmc) {
+    let laReponseDemandee
 
+    switch (formatInteractif) {
+      case 'tableauMathlive':
+        //   if (reponses.filter((cellule) => Object.keys(cellule)[0].match(/L\dC\d/).length === 0).length !== 0) {
+        //    window.notify('setReponse : type "tableauMathlive" les objets proposés n\'ont pas tous une clé de la forme L$C$', { reponses })
+        //  }
+        break
+      case 'fillInTheBlank':
+        break
+      case 'Num':
+        if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "Num" une fraction est attendue !', { reponses })
+        else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
+        break
+      case 'Den':
+        if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "Den" une fraction est attendue !', { reponses })
+        break
+      case 'calcul':
+        laReponseDemandee = reponses[0]
+        if (typeof laReponseDemandee === 'string') {
+          laReponseDemandee = laReponseDemandee.replaceAll('dfrac', 'frac')
+        }
+        if (typeof laReponseDemandee === 'number' || typeof laReponseDemandee === 'string') {
+          laReponseDemandee = laReponseDemandee.toString().replace(/\s/g, '').replace(',', '.')
+        }
+        break
+      case 'nombreDecimal':
+        if (isNaN(reponses[0].toString())) window.notify('setReponse : type "nombreDecimal" un nombre est attendu !', { reponses })
+        break
+      case 'ecritureScientifique':
+        if (!(typeof reponses[0] === 'string')) window.notify('setReponse : type "ecritureScientifique" la réponse n\'est pas un string !', { reponses })
+        // ToFix : vérifier que la chaine est au bon format
+        break
+
+      case 'texte':
+        if (!(typeof reponses[0] === 'string')) window.notify('setReponse : type "texte" la réponse n\'est pas un string !', { reponses })
+        break
+
+      case 'ignorerCasse':
+        if (!(typeof reponses[0] === 'string')) window.notify('setReponse : type "ignorerCasse" la réponse n\'est pas un string !', { reponses })
+        break
+      case 'fractionPlusSimple':
+        if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fractionPlusSimple" une fraction est attendue !', { reponses })
+        else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
+        break
+      // case 'fractionEgale':
+      //   if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fractionEgale" une fraction est attendue !', { reponses })
+      //   else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
+      //   break
+      case 'fraction':
+        if (!(reponses[0] instanceof FractionEtendue)) window.notify('setReponse : type "fraction" une fraction est attendue !', { reponses })
+        else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) window.notify('setReponse : La fraction ne convient pas !', { reponses })
+        break
+      case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
+        if (!(reponses[0] instanceof Grandeur)) window.notify('setReponse : type "longueur" la réponse n\'est pas une instance de Grandeur !', { reponses })
+        break
+      case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
+        // ToFix : vérifier que la réponse est bien un intervalle valide
+        break
+      case 'intervalle' :
+        // ToFix : vérifier que la réponse est bien un intervalle valide
+        break
+      case 'puissance' :
+        // ToFix : vérifier que la réponse est bien l'écriture d'une puissance ou en tout cas une réponse acceptable pour ce format
+        break
+    }
+
+    if (exercice.autoCorrection[i] === undefined) {
+      exercice.autoCorrection[i] = {}
+    }
+    if (exercice.autoCorrection[i].reponse === undefined) {
+      exercice.autoCorrection[i].reponse = {}
+    }
+    exercice.autoCorrection[i].reponse.param = {
+      digits,
+      decimals,
+      signe,
+      exposantNbChiffres,
+      exposantSigne,
+      approx,
+      aussiCorrect,
+      digitsNum,
+      digitsDen,
+      basePuissance,
+      exposantPuissance,
+      milieuIntervalle,
+      baseNbChiffres,
+      formatInteractif,
+      precision
+    }
+    exercice.autoCorrection[i].reponse.valeur = reponses
+    return
+  }
+  // Ici on est en context non Amc, donc s'il y a un setReponse, c'est pour html interactif.
   let laReponseDemandee
-
   switch (formatInteractif) {
     case 'tableauMathlive':
       return handleAnswers(exercice, i, valeurs, params)
