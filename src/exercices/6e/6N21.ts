@@ -38,6 +38,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     this.sup = 1
     this.exoCustomResultat = true
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange']
+    this.listePackages = ['tkz-fct']
   }
 
   nouvelleVersion () {
@@ -232,9 +233,9 @@ function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points, step = 1, stepBi
     \\node[below=2mm of a\\i,inner sep=0pt,font=\\small] {$\\num{\\x}$};
   }`
   if (points !== undefined) {
-    const xA = arrondi((points[0].x - xMin) * scale * 10)
-    const xB = arrondi((points[1].x - xMin) * scale * 10)
-    const xC = arrondi((points[2].x - xMin) * scale * 10)
+    const xA = arrondi((points[0].x - xMin) * 10)
+    const xB = arrondi((points[1].x - xMin) * 10)
+    const xC = arrondi((points[2].x - xMin) * 10)
     const labelA = points[0].label
     const labelB = points[1].label
     const labelC = points[2].label
