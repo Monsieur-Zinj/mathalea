@@ -67,6 +67,11 @@
     isSettingsVisible
   }
 
+  // MGu : force le refresh des questions après une vérification des questions en interactifs et si par hasard, on a la même question après newdata,
+  // alors l'affichage bug!
+  let forceRefresh = false
+
+
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
     if ($globalOptions.v === 'eleve') {
@@ -208,6 +213,8 @@
         typeof exercise?.applyNewSeed === 'function'
       ) {
         exercise.applyNewSeed()
+        // force à détruire la liste des questions : Key blocks destroy and recreate their contents when the value of an expression changes.
+        if (isCorrectionVisible && isInteractif) forceRefresh = !forceRefresh
       }
       if (buttonScore) initButtonScore()
       if (
@@ -531,6 +538,7 @@
                 ? 'list-none'
                 : 'list-decimal'} w-full list-inside mb-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
+            {#key forceRefresh}
               {#each exercise.listeQuestions as item, i (i)}
                 <div
                   style="break-inside:avoid"
@@ -593,6 +601,7 @@
                   {/if}
                 </div>
               {/each}
+            {/key}
             </ul>
           </div>
         </article>
