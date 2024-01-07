@@ -69,7 +69,7 @@
 
   // MGu : force le refresh des questions après une vérification des questions en interactifs et si par hasard, on a la même question après newdata,
   // alors l'affichage bug!
-  let forceRefresh = false
+  let forceRefresh : number = 0
 
 
   $: {
@@ -207,14 +207,14 @@
 
   async function newData () {
     if (Object.prototype.hasOwnProperty.call(exercise, 'listeQuestions')) {
+      // force à détruire la liste des questions : Key blocks destroy and recreate their contents when the value of an expression changes.
+      if (isCorrectionVisible && isInteractif) { forceRefresh++; console.log(forceRefresh)}
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
       if (
         exercise !== undefined &&
         typeof exercise?.applyNewSeed === 'function'
       ) {
-        exercise.applyNewSeed()
-        // force à détruire la liste des questions : Key blocks destroy and recreate their contents when the value of an expression changes.
-        if (isCorrectionVisible && isInteractif) forceRefresh = !forceRefresh
+        exercise.applyNewSeed()        
       }
       if (buttonScore) initButtonScore()
       if (
@@ -307,7 +307,7 @@
       typeof exercise.nouvelleVersion === 'function'
     ) {
       exercise.nouvelleVersion(exerciseIndex)
-    }
+    }    
     mathaleaUpdateUrlFromExercicesParams()
     await adjustMathalea2dFiguresWidth()
   }
@@ -538,8 +538,8 @@
                 ? 'list-none'
                 : 'list-decimal'} w-full list-inside mb-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
-            {#key forceRefresh}
-              {#each exercise.listeQuestions as item, i (i)}
+            
+              {#each exercise.listeQuestions as item, i (i + '_' + forceRefresh)}
                 <div
                   style="break-inside:avoid"
                   id="consigne{exerciseIndex}-{i}"
@@ -550,7 +550,9 @@
                     style="line-height: {exercise.spacing || 1}"
                   >
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                    
                     {@html mathaleaFormatExercice(item)}
+                    
                   </li>
                   {#if isCorrectionVisible}
                     <div
@@ -601,7 +603,6 @@
                   {/if}
                 </div>
               {/each}
-            {/key}
             </ul>
           </div>
         </article>
