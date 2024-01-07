@@ -382,12 +382,12 @@ export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: p
       const serie = exo?.serie?.toLowerCase()
       for (const file of picsNames[i]) {
         if (serie === 'crpe') {
-          imagesFilesUrls.push(`https://coopmaths.fr/alea/static/${serie}/${year}/images/${file.name}.${file.format}`)
+          imagesFilesUrls.push(`static/${serie}/${year}/images/${file.name}.${file.format}`)
         } else {
           if (file.format) {
-            imagesFilesUrls.push(`https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)
+            imagesFilesUrls.push(`static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)
           } else {
-            imagesFilesUrls.push(`https://coopmaths.fr/alea/static/${serie}/${year}/tex/eps/${file.name}.eps`)
+            imagesFilesUrls.push(`static/${serie}/${year}/tex/eps/${file.name}.eps`)
           }
         }
       }
