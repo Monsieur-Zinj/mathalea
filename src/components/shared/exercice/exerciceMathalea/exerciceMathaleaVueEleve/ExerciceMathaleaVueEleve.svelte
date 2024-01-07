@@ -32,6 +32,10 @@
 
   let headerExerciceProps: {title: string} = { title }
 
+  // MGu : force le refresh des questions après une vérification des questions en interactifs et si par hasard, on a la même question après newdata,
+  // alors l'affichage bug!
+  let forceRefresh = false
+
   $: {
     if (isInteractif && buttonScore) initButtonScore()
     headerExerciceProps = headerExerciceProps
@@ -149,6 +153,8 @@
     if (isCorrectionVisible) switchCorrectionVisible()
     const seed = mathaleaGenerateSeed()
     exercise.seed = seed
+    // force à déruire la liste des questions : Key blocks destroy and recreate their contents when the value of an expression changes.
+    if (isCorrectionVisible && isInteractif) forceRefresh = !forceRefresh
     if (buttonScore) initButtonScore()
     updateDisplay()
   }
@@ -376,6 +382,7 @@
               : 'list-decimal'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+            {#key forceRefresh}
             {#each exercise.listeQuestions as question, questionIndex (questionIndex)}
               <Question
                 {exercise}
@@ -384,6 +391,7 @@
                 {isCorrectionVisible}
               />
             {/each}
+            {/key}
             <div bind:this={divScore} />
           </ul>
         </div>
