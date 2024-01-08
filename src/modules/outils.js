@@ -504,7 +504,7 @@ export function enumerateSansPuceSansNumero (liste, spacing) {
  * @author Rémi Angot
  */
 export function texConsigne (consigne) {
-  return '\\exo{' + ((consigne != null && typeof consigne === 'string') ? consigne.replace(/<br>/g, '\\\\') : '') + '}\n\n'
+  return ((consigne != null && typeof consigne === 'string') ? consigne.replace(/<br>/g, '\\\\') : '') + '\n\n'
 }
 
 /**
