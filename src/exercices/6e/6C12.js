@@ -9,6 +9,7 @@ import { estentier, gestionnaireFormulaireTexte, listeQuestionsToContenu } from 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import Operation from '../../modules/operations.js'
 
 export const titre = 'Résoudre des problèmes de prix avec des objets'
 export const interactifReady = true
@@ -203,6 +204,7 @@ export default class QuestionsPrix extends Exercice {
             enonceAMC += `Si ${quidame} décidait d'acheter ${ArticleDemonst} ${ArticleSingulier} avec $${Nbpartage}$ camarades, quelle somme équitable minimale devraient-ils, chacun, donner${sp()}?<br><br>`
             correctionAMC += `$1 + ${Nbpartage} = ${Nbpartage + 1}$<br>`
             correctionAMC += `Le partage se ferait entre ${Nbpartage + 1} personnes.<br>`
+            correctionAMC += Operation({ operande1: PrixUnitaire, operande2: (Nbpartage + 1), type: 'division', precision: 4 })
             if (estentier(arrondi(PrixUnitaire * 100, 0) / (Nbpartage + 1))) {
               reponseAMC = arrondi(PrixUnitaire / (Nbpartage + 1), 3)
               correctionAMC += `$${texNombre3(PrixUnitaire)} \\div ${Nbpartage + 1} = ${texNombre3(reponseAMC)}$<br>`
@@ -210,9 +212,9 @@ export default class QuestionsPrix extends Exercice {
             } else {
               reponseAMC = troncature(arrondi(PrixUnitaire / (Nbpartage + 1), 3) + 0.01, 2)
               if (estentier(arrondi(PrixUnitaire * 1000, 0) / (Nbpartage + 1))) {
-                correctionAMC += `$${texNombre3(PrixUnitaire)} \\div ${Nbpartage + 1} = ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / (Nbpartage + 1), 3), 2))} < ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))} < ${texNombre3(reponseAMC)}$<br>`
+                correctionAMC += `$${texNombre3(PrixUnitaire)} \\div ${Nbpartage + 1} = ${texNombre3(troncature(PrixUnitaire / (Nbpartage + 1), 3))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / (Nbpartage + 1), 3), 2))} < ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))} < ${texNombre3(reponseAMC)}$<br>`
               } else {
-                correctionAMC += `$${texNombre3(PrixUnitaire)} \\div ${Nbpartage + 1} \\approx ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / (Nbpartage + 1), 3), 2))} < ${texNombre3(arrondi(PrixUnitaire / (Nbpartage + 1), 3))} < ${texNombre3(reponseAMC)}$<br>`
+                correctionAMC += `$${texNombre3(PrixUnitaire)} \\div ${Nbpartage + 1} \\approx ${texNombre3(troncature(PrixUnitaire / (Nbpartage + 1), 4))}$ et $${texNombre3(troncature(arrondi(PrixUnitaire / (Nbpartage + 1), 3), 2))} < ${texNombre3(troncature(PrixUnitaire / (Nbpartage + 1), 4))} < ${texNombre3(reponseAMC)}$<br>`
               }
               correctionAMC += `Si ${quidame} partageait ${ArticleDemonst} ${ArticleSingulier} avec $${Nbpartage}$ camarades, chacun donnerait équitablement au moins ` + texteEnCouleurEtGras(`$${texPrix(reponseAMC)}$`) + `${sp()}€.<br><br>`
             }
