@@ -197,7 +197,6 @@ export default function AntecedentEtImageGraphique () {
 
     this.contenu += deuxColonnes(cont1, cont2)
     this.contenu += mathalea2d({ xmin: -7, ymin: -4.5, xmax: 7, ymax: 4.5, pixelsParCm: 30 }, r, gr)
-    this.contenuCorrection = (context.isHtml) ? '' : '\n\\exo{}\n\n'
     this.contenuCorrection += `${numAlpha(0)} L'image de $${x0}$ est $${a}$, on note $f(${x0})=${a}$.`
     setReponse(this, 0, a)
 
