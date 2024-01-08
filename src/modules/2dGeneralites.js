@@ -208,7 +208,7 @@ export function mathalea2d (
   }
 }
 
-class Vide2d {
+export class Vide2d {
   constructor (x, y) {
     this.bordures = [x, y, x, y]
     this.tikz = function () {
@@ -220,6 +220,12 @@ class Vide2d {
   }
 }
 
+/**
+ * Un objet pour rien mettre à la place de quelque chose.
+ * @param x
+ * @param y
+ * @returns {Vide2d}
+ */
 export function vide2d (x = 0, y = 0) {
   return new Vide2d(x, y)
 }
