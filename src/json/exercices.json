@@ -5167,9 +5167,9 @@
     "typeExercice": "alea"
   },
   "3L11": {
-    "url": "3e/3L11.js",
+    "url": "3e/3L11new.js",
     "tags": [],
-    "uuid": "77a62",
+    "uuid": "db2e0",
     "id": "3L11",
     "titre": "Utiliser la simple distributivité",
     "features": {
@@ -8285,6 +8285,7 @@
     "uuid": "07d1a",
     "id": "5G13",
     "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
+    "datePublication": "05/08/2021",
     "dateModification": "06/03/2023",
     "features": {
       "interactif": {
@@ -11633,6 +11634,25 @@
       "amc": {
         "isActive": true,
         "type": "AMCHybride"
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "6G24-0": {
+    "url": "6e/6G24-0.ts",
+    "tags": [],
+    "uuid": "26ea4",
+    "id": "6G24-0",
+    "titre": "Construire des symétriques de points",
+    "datePublication": "07/01/2024",
+    "features": {
+      "interactif": {
+        "isActive": false,
+        "type": ""
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
       }
     },
     "typeExercice": "alea"
