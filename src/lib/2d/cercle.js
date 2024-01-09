@@ -141,7 +141,7 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage[1] !== 'none') {
+    if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage[1] !== '') {
       tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
     }
 

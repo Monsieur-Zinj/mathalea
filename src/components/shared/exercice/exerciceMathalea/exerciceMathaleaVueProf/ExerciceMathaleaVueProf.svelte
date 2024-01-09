@@ -376,11 +376,11 @@
   ) {
     const mathalea2dFigures = document.getElementsByClassName('mathalea2d')
     if (mathalea2dFigures != null) {
+      await tick()
       const consigneDiv = document.getElementById(
         'consigne' + exerciseIndex + '-0'
       )
-      if (mathalea2dFigures.length !== 0) {
-        await tick()
+      if (mathalea2dFigures.length !== 0) {        
         for (let k = 0; k < mathalea2dFigures.length; k++) {
           if (initialDimensionsAreNeeded) {
             // réinitialisation
