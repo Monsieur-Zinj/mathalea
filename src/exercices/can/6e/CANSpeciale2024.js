@@ -177,7 +177,7 @@ export default function CourseAuxNombresSpeciale2024 () {
       [0, 0, 1, 1, 1, 1, 2, 2], // Q71
       [0, 0, 1, 1, 1, 2, 2, 3], // Q72
       [1, 1, 2, 2, 3, 3, 3, 3], // Q73
-      [2, 2, 2, 2, 3, 3, 3, 3], // Q74
+      [2, 2, 2, 3, 3, 3, 3, 3], // Q74
       [0, 0, 1, 1, 2, 2, 3, 3], // Q75
       [3, 3, 3, 0, 0, 0, 0, 0], // Q76 Complémentaire à Q5
       [0, 0, 0, 0, 1, 1, 1, 1], // Q77
@@ -836,9 +836,9 @@ export default function CourseAuxNombresSpeciale2024 () {
           }
           texteCorr += `${texteEnCouleurEtGras(prefixes[typeDeQuestion][1] + unite)}`
           this.listeCanEnonces.push('Compléter avec l\'unité qui convient. ')
-          reponse = `${prefixes[typeDeQuestion][1]}${unite}`
-          setReponse(this, index, reponse, { formatInteractif: 'texte' })
-          texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline nospacebefore ')
+          reponse = [`${prefixes[typeDeQuestion][1]}${unite}`, `\\operatorname{${prefixes[typeDeQuestion][1]}${unite}}`]
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline nospacebefore unites[longueurs] ')
         }
           break
         case 28: { // EE : J'ai changé la consigne pour que la réponse soit donnée sous forme décimale
@@ -2020,7 +2020,7 @@ export default function CourseAuxNombresSpeciale2024 () {
             texteCorr = `$2023=${miseEnEvidence(reponse)}$`
           }
           setReponse(this, index, reponse)
-          texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 alphanumeric')
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
 
