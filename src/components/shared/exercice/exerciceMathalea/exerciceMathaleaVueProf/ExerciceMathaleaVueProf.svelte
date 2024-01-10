@@ -71,7 +71,6 @@
   // alors l'affichage bug!
   let forceRefresh : number = 0
 
-
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
     if ($globalOptions.v === 'eleve') {
@@ -178,24 +177,26 @@
       }
     }
     // affectation du zoom pour les figures scratch
-    const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
-    for (const scratchDiv of scratchDivs) {
-      const svgDivs = scratchDiv.getElementsByTagName('svg')
-      for (const svg of svgDivs) {
-        if (svg.hasAttribute('data-width') === false) {
-          const originalWidth = svg.getAttribute('width')
-          svg.dataset.width = originalWidth ?? '0'
+    if (divExercice != null) {
+      const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
+      for (const scratchDiv of scratchDivs) {
+        const svgDivs = scratchDiv.getElementsByTagName('svg')
+        for (const svg of svgDivs) {
+          if (svg.hasAttribute('data-width') === false) {
+            const originalWidth = svg.getAttribute('width')
+            svg.dataset.width = originalWidth ?? '0'
+          }
+          if (svg.hasAttribute('data-height') === false) {
+            const originalHeight = svg.getAttribute('height')
+            svg.dataset.height = originalHeight ?? '0'
+          }
+          const w =
+            Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
+          const h =
+            Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
+          svg.setAttribute('width', String(w))
+          svg.setAttribute('height', String(h))
         }
-        if (svg.hasAttribute('data-height') === false) {
-          const originalHeight = svg.getAttribute('height')
-          svg.dataset.height = originalHeight ?? '0'
-        }
-        const w =
-          Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
-        const h =
-          Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
-        svg.setAttribute('width', String(w))
-        svg.setAttribute('height', String(h))
       }
     }
     // Evènement indispensable pour pointCliquable par exemple
@@ -208,13 +209,13 @@
   async function newData () {
     if (Object.prototype.hasOwnProperty.call(exercise, 'listeQuestions')) {
       // force à détruire la liste des questions : Key blocks destroy and recreate their contents when the value of an expression changes.
-      if (isCorrectionVisible && isInteractif) { forceRefresh++; console.log(forceRefresh)}
+      if (isCorrectionVisible && isInteractif) { forceRefresh++; console.log(forceRefresh) }
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
       if (
         exercise !== undefined &&
         typeof exercise?.applyNewSeed === 'function'
       ) {
-        exercise.applyNewSeed()        
+        exercise.applyNewSeed()
       }
       if (buttonScore) initButtonScore()
       if (
@@ -307,7 +308,7 @@
       typeof exercise.nouvelleVersion === 'function'
     ) {
       exercise.nouvelleVersion(exerciseIndex)
-    }    
+    }
     mathaleaUpdateUrlFromExercicesParams()
     await adjustMathalea2dFiguresWidth()
   }
@@ -380,7 +381,7 @@
       const consigneDiv = document.getElementById(
         'consigne' + exerciseIndex + '-0'
       )
-      if (mathalea2dFigures.length !== 0) {        
+      if (mathalea2dFigures.length !== 0) {
         for (let k = 0; k < mathalea2dFigures.length; k++) {
           if (initialDimensionsAreNeeded) {
             // réinitialisation
@@ -538,7 +539,7 @@
                 ? 'list-none'
                 : 'list-decimal'} w-full list-inside mb-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
-            
+
               {#each exercise.listeQuestions as item, i (i + '_' + (exercise.seed || ''))}
                 <div
                   style="break-inside:avoid"
@@ -550,9 +551,8 @@
                     style="line-height: {exercise.spacing || 1}"
                   >
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    
                     {@html mathaleaFormatExercice(item)}
-                    
+
                   </li>
                   {#if isCorrectionVisible}
                     <div
