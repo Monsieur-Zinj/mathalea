@@ -108,12 +108,12 @@ export function gestionnaireFormulaireTexte ({
     listeIndex = [defaut]
   } else {
     if (typeof (saisie) === 'number' || Number.isInteger(saisie)) { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
-      listeIndex = [contraindreValeur(min, Math.max(max, melange ?? max), saisie, defaut)]
+      listeIndex = [contraindreValeur(Math.min(min, melange ?? min), Math.max(max, melange ?? max), saisie, defaut)]
     } else {
       listeIndexProvisoire = saisie.split('-')// Sinon on crée un tableau à partir des valeurs séparées par des tirets
       for (let i = 0; i < listeIndexProvisoire.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
         if (!isNaN(parseInt(listeIndexProvisoire[i]))) {
-          listeIndex.push(contraindreValeur(min, Math.max(max, melange ?? max), parseInt(listeIndexProvisoire[i]), defaut))
+          listeIndex.push(contraindreValeur(Math.min(min, melange ?? min), Math.max(max, melange ?? max), parseInt(listeIndexProvisoire[i]), defaut))
         } // parseInt en fait un tableau d'entiers
       }
     }
