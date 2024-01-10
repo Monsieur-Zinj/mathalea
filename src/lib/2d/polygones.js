@@ -234,6 +234,10 @@ export function Polygone (...points) {
     this.couleurDeRemplissage = colorToLatexOrHTML('none')
     this.hachures = false
   }
+
+  if (this.hachures) {
+    console.log(this.hachures)
+  }
   let xmin = 1000
   let xmax = -1000
   let ymin = 1000
@@ -321,7 +325,7 @@ export function Polygone (...points) {
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
         epaisseurDesHachures: this.epaisseurDesHachures,
-        couleurDesHachures: this.couleurDesHachures[0],
+        couleurDesHachures: this.couleurDesHachures?.get(0) || 'black',
         couleurDeRemplissage: this.couleurDeRemplissage[0],
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }) + `<polygon points="${this.binomesXY(coeff)}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
@@ -376,7 +380,7 @@ export function Polygone (...points) {
         motif: this.hachures,
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
-        couleurDesHachures: this.couleurDesHachures[1],
+        couleurDesHachures: this.couleurDesHachures?.get(1) || 'black',
         couleurDeRemplissage: this.couleurDeRemplissage[1],
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }))
