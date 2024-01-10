@@ -139,14 +139,11 @@
         class="flex flex-row justify-start whitespace-pre text-start font-normal items-center text-sm md:text-base xl:text-lg pl-0
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
       >
+        {titleBase}
         {#if titleAddendum}
-          {titleBase}<span
-            class="ml-2 flex justify-center items-center rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm"
-          >
+            <span class="ml-2 flex justify-center items-center rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm">
             {titleAddendum}
-          </span>
-        {:else}
-          {titleBase}
+          </span>               
         {/if}
       </div>
     </div>
