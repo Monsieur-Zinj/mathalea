@@ -67,7 +67,7 @@ export default function LectureDiagrammeBarre () {
       yLegende: "Nombre d'individus"
     })
 
-    switch (parseInt(this.sup)) {
+    switch (this.sup) {
       case 1:
         nbAnimaux = 4
         break
@@ -89,22 +89,12 @@ export default function LectureDiagrammeBarre () {
     let N = 0
     let nom
 
-    switch (parseInt(this.sup2)) {
-      case 1:
-        for (let i = 0; i < nbAnimaux; i++) {
-          N = randint(2, 100, lstVal) // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
-          lstNombresAnimaux.push(N)
-          lstVal = lstVal.concat([N - 1, N, N + 1]) // valeurs à supprimer pour éviter des valeurs proches
-        }
-        break
-      case 2:
-        for (let i = 0; i < nbAnimaux; i++) {
-          N = randint(2, 100, lstVal) // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
-          lstNombresAnimaux.push(10 * N)
-          lstVal = lstVal.concat([N - 1, N, N + 1]) // valeurs à supprimer pour éviter des valeurs proches
-        }
-        break
+    for (let i = 0; i < nbAnimaux; i++) {
+      N = randint(2, 100, lstVal) // choisit un nombre entre 2 et 100 sauf dans les valeurs à éviter
+      lstNombresAnimaux.push(N * coef)
+      lstVal = lstVal.concat([N - 1, N, N + 1]) // valeurs à supprimer pour éviter des valeurs proches
     }
+
     for (let i = 0; i < nbAnimaux; i++) {
       nom = choice(lstAnimaux, lstAnimauxExo) // choisit un animal au hasard sauf parmi ceux déjà utilisés
       lstAnimauxExo.push(nom)
@@ -139,7 +129,7 @@ export default function LectureDiagrammeBarre () {
       } else {
         borne = choice(bornesinf, bornesAEviter)
         bornesAEviter.push(borne)
-        propc.push({ texte: `entre ${borne} et ${borne + 10 * coef}`, statut: false, reponse: reponsec })
+        propc.push({ texte: `entre ${coef * borne} et ${(borne + 10) * coef}`, statut: false, reponse: reponsec })
       }
     }
     this.introduction += mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: 0.5 },
