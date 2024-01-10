@@ -85,7 +85,7 @@ class ExternalApp {
           return l
         })
         if (get(globalOptions).recorder === 'capytale') {
-          sendToCapytaleSaveStudentAssignment()
+          sendToCapytaleSaveStudentAssignment({ indiceExercice: this.numeroExercice })
         }
       } else if (event.data?.type === 'mathaleaHasScore') {
         const numberOfPoints = parseInt(event.data.score)
