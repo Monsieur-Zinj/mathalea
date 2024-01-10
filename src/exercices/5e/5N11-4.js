@@ -1,31 +1,29 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texPrix } from '../../lib/format/style.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Exprimer une fraction sous la forme d\'une valeur approchée d\'un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
-export const dateDeModifImportante = '17/03/2022'
+export const dateDePublication = '06/02/2021'
+export const dateDeModifImportante = '10/01/2024'
 
 /**
  * Déterminer une valeur approchée d'un pourcentage à l'aide de la calculatrice
  * @author Rémi Angot
- * Référence 5N11-4
- * 2021-02-06
  * Ajout de l'interactivité par Guillaume Valmont le 17/03/2022
+ * Amélioration de l'interactivité par Eric Elter le 10/01/2024
  */
 export const uuid = '6b534'
 export const ref = '5N11-4'
 export default function ValeurApprocheeDePourcentages () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = "À l'aide de la calculatrice, donner une valeur approchée au centième près du quotient puis l'écrire sous la forme d'un pourcentage à l'unité près."
   this.nbQuestions = 6
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -40,9 +38,16 @@ export default function ValeurApprocheeDePourcentages () {
 
     const denominateurDisponibles = [100, 200, 300, 1000]
     const listeTypeDeQuestions = combinaisonListes(denominateurDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    if (this.sup === 2) {
-      this.consigne = "À l'aide de la calculatrice, donner une valeur approchée au millième près du quotient puis l'écrire sous la forme d'un pourcentage au dixième près."
-    }
+    this.consigne = this.interactif
+      ? (this.sup === 1
+          ? "À l'aide de la calculatrice, donner une valeur sous la forme d'un pourcentage à l'unité près."
+          : "À l'aide de la calculatrice, donner une valeur sous la forme d'un pourcentage au dixième près."
+        )
+      : (this.sup === 1
+          ? "À l'aide de la calculatrice, donner une valeur approchée au centième près du quotient puis l'écrire sous la forme d'un pourcentage à l'unité près."
+          : "À l'aide de la calculatrice, donner une valeur approchée au millième près du quotient puis l'écrire sous la forme d'un pourcentage au dixième près."
+        )
+
     for (let i = 0, texte, texteCorr, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       den = randint(10, listeTypeDeQuestions[i])
       num = randint(1, den - 8)
@@ -50,20 +55,20 @@ export default function ValeurApprocheeDePourcentages () {
         den = randint(10, listeTypeDeQuestions[i])
         num = randint(1, den - 8)
       }
-      texte = `$\\dfrac{${num}}{${den}}\\approx \\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$`
-      if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteApres: '%' })
-      }
+      texte = `$\\dfrac{${num}}{${den}}\\approx `
+      texte += this.interactif ? '$' : '\\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$'
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteApres: ' %' })
+
       if (this.sup === 1) {
-        texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texPrix(calculANePlusJamaisUtiliser(num / den, 2))} $ soit environ $${calculANePlusJamaisUtiliser(calculANePlusJamaisUtiliser(num / den, 2) * 100)}~\\%$ $\\left(\\text{car } ${texPrix(calculANePlusJamaisUtiliser(num / den, 2))}=\\dfrac{${calculANePlusJamaisUtiliser(calculANePlusJamaisUtiliser(num / den, 2) * 100)}}{100}\\right)$.`
-        setReponse(this, i, calculANePlusJamaisUtiliser(calculANePlusJamaisUtiliser(num / den, 2) * 100))
+        texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 2)} $ soit environ $${miseEnEvidence(texNombre(num / den * 100, 0))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 2)}=\\dfrac{${arrondi(num / den * 100, 0)}}{100}\\right)$.`
+        setReponse(this, i, arrondi(num / den * 100, 0))
       }
       if (this.sup === 2) {
-        texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(calculANePlusJamaisUtiliser(num / den, 3))} $ soit environ $${texNombre(calculANePlusJamaisUtiliser(num / den * 100, 1))}~\\%$ $\\left(\\text{car } ${texNombre(calculANePlusJamaisUtiliser(num / den, 3))}=\\dfrac{${texNombre(calculANePlusJamaisUtiliser(num / den * 100, 1))}}{100}\\right)$.`
-        setReponse(this, i, calculANePlusJamaisUtiliser(num / den * 100, 1))
+        texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 3)} $ soit environ $${miseEnEvidence(texNombre(num / den * 100, 1))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 3)}=\\dfrac{${arrondi(num / den * 100, 1)}}{100}\\right)$.`
+        setReponse(this, i, arrondi(num / den * 100, 0))
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
