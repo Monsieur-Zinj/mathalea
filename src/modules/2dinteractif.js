@@ -33,42 +33,42 @@ function PointCliquable (x, y, options) {
     code += '</g>'
     return code
   }
- 
+
   const gestionDeLaSouris = () => {
     document.removeEventListener('exercicesAffiches', gestionDeLaSouris)
     const groupe = document.getElementById(`${this.id}`)
     const changeEtatPoint = (etat) => {
       this.etat = etat
     }
-    const mouseOutEffect = ()=> {
+    const mouseOutEffect = () => {
       for (const key in out) {
-        try{
+        try {
           this.style[key] = out[key]
-        } catch (error){
-          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, {element: this, key})
+        } catch (error) {
+          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
         }
       }
     }
-    const mouseOverEffect = ()=> {
+    const mouseOverEffect = () => {
       for (const key in over) {
-        try{
+        try {
           this.style[key] = out[key]
-        } catch (error){
-          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, {element: this, key})
+        } catch (error) {
+          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
         }
       }
     }
-    const mouseClick =  () =>{
+    const mouseClick = () => {
       if (this.etat) {
         // On désactive le point
         groupe.addEventListener('mouseover', mouseOverEffect)
         groupe.addEventListener('mouseout', mouseOutEffect)
         // On lui remet le style de out
         for (const key in out) {
-          try{
+          try {
             this.style[key] = out[key]
-          } catch (error){
-            window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, {element: this, key})
+          } catch (error) {
+            window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
           }
         }
         this.etat = false
@@ -79,10 +79,10 @@ function PointCliquable (x, y, options) {
         groupe.removeEventListener('mouseout', mouseOutEffect)
         // On applique le style de click
         for (const key in click) {
-          try{
+          try {
             this.style[key] = out[key]
-          } catch (error){
-            window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, {element: this, key})
+          } catch (error) {
+            window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
           }
         }
         this.etat = true
@@ -92,17 +92,16 @@ function PointCliquable (x, y, options) {
     // On initialise avec le style de out
     if (groupe) {
       for (const key in out) {
-        try{
+        try {
           groupe.style[key] = out[key]
-        } catch (error){
-          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${groupe}`, {element: groupe, key})
+        } catch (error) {
+          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${groupe}`, { element: groupe, key })
         }
-
       }
       groupe.addEventListener('mouseover', mouseOverEffect)
       groupe.addEventListener('mouseout', mouseOutEffect)
       groupe.addEventListener('click', mouseClick)
-        }
+    }
   }
   document.addEventListener('exercicesAffiches', gestionDeLaSouris)
   this.stopCliquable = () => {
@@ -140,6 +139,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
   rectangle.epaisseurDesHachures = options.epaisseurDesHachures || 4
   bordure.epaisseur = options.epaisseur || 1
   this.etat = options.etat || false // Pour récupérer si le rectangle est cliqué ou pas
+  // his.style = rectangle.style
   this.svg = function (coeff) {
     let code
     rectangle.couleurDeRemplissage = colorToLatexOrHTML(options.color || options.couleur || options.couleurDeRemplissage || '#f15929')
@@ -156,7 +156,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
     bordure.hachures = rectangle.hachures
     return bordure.tikz(coeff)
   }
- 
+
   const gestionDeLaSouris = () => {
     document.removeEventListener('exercicesAffiches', gestionDeLaSouris)
     const groupe = document.getElementById('rectangle' + this.id)
@@ -166,42 +166,42 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
     if (groupe) {
       // On initialise avec le style de out ou de click suivant l'état
       for (const key in out) {
-        try{
+        try {
           groupe.style[key] = (this.etat) ? click[key] : out[key]
-        } catch (error){
-          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${groupe}`, {element: groupe, key})
+        } catch (error) {
+          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${groupe}`, { element: groupe, key })
         }
       }
     }
-    const mouseOverEffect = ()=> {
+    const mouseOverEffect = () => {
       for (const key in over) {
-        try{
-          this.style[key] = out[key]
-        } catch (error){
-          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, {element: this, key})
+        try {
+          groupe.style[key] = out[key]
+        } catch (error) {
+          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
         }
       }
     }
-    const mouseOutEffect =()=> {
+    const mouseOutEffect = () => {
       for (const key in out) {
-        try{
-          this.style[key] = out[key]
-        } catch (error){
-          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, {element: this, key})
+        try {
+          groupe.style[key] = out[key]
+        } catch (error) {
+          window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
         }
       }
     }
-    const mouseClick =()=> {
+    const mouseClick = () => {
       if (this.etat) {
         // On désactive le point
         groupe.addEventListener('mouseover', mouseOverEffect)
         groupe.addEventListener('mouseout', mouseOutEffect)
         // On lui remet le style de out
         for (const key in out) {
-          try{
-            this.style[key] = out[key]
-          } catch (error){
-            window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, {element: this, key})
+          try {
+            groupe.style[key] = out[key]
+          } catch (error) {
+            window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
           }
         }
         this.etat = false
@@ -212,10 +212,10 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
         groupe.removeEventListener('mouseout', mouseOutEffect)
         // On applique le style de click
         for (const key in click) {
-          try{
-            this.style[key] = out[key]
-          } catch (error){
-            window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, {element: this, key})
+          try {
+            groupe.style[key] = click[key]
+          } catch (error) {
+            window.notify(error.message + `\nProblème pour modifier style.${key} sur ${this}`, { element: this, key })
           }
         }
         this.etat = true
@@ -225,7 +225,6 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
       groupe.addEventListener('mouseover', mouseOverEffect)
       groupe.addEventListener('mouseout', mouseOutEffect)
       groupe.addEventListener('click', mouseClick)
-
     }
   }
   document.addEventListener('exercicesAffiches', gestionDeLaSouris)
@@ -256,7 +255,7 @@ export function fractionCliquable (x, y, unites, denominateur, options) {
   }
   const hachures1 = options.hachures1 || false
   const hachures2 = options.hachures2 || false
-  const couleur = options.couleur || couleur1
+  const couleur = options.couleur || (liste1.length === 0 ? couleur1 : 'white')
   const cliquable = (options.cliquable !== undefined) ? options.cliquable : true
   let O
   for (let i = 0; i < unites; i++) {
