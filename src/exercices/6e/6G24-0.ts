@@ -20,8 +20,7 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { context } from '../../modules/context'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
-import type { Point as PointApigeom } from 'apigeom/src/elements/Point'
-import { mathaleaRenderDiv } from '../../lib/mathalea'
+import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 
 export const titre = 'Construire des symétriques de points'
@@ -53,7 +52,7 @@ function checkDistance (points: Point[], d: Droite) {
 }
 class ConstrctionsSymetriquesPoints extends Exercice {
   figures!: Figure[]
-  idApigeom!: string
+  idApigeom!: string[]
   nbPoints!: number
   antecedents!: object[][]
   labels!: string[][]
@@ -83,6 +82,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     this.autoCorrection = []
     let choixDeLaxe: number[] = []
     this.figures = []
+    this.idApigeom = []
     if (this.sup === 5) {
       choixDeLaxe = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     } else {
@@ -215,9 +215,6 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       if (context.isHtml && this.interactif) {
         this.figures[i] = new Figure({ xMin: -7, yMin: -7, width: 420, height: 420 })
         this.figures[i].setToolbar({ tools: ['POINT', 'NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO'], position: 'top' })
-
-        this.figures[i].options.automaticUserMessage = false
-        this.figures[i].userMessage = ''
         const O = this.figures[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
         let pointB
         if (choixDeLaxe[i] === 1) {
@@ -256,8 +253,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           }
         }
         this.figures[i].options.limitNumberOfElement.set('Point', 1)
-        this.idApigeom = `apigeomEx${numeroExercice}F${i}`
-        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figures[i] })
+        this.idApigeom[i] = `apigeomEx${numeroExercice}F${i}`
+        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figures[i] })
         this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
       } else {
         this.listeQuestions.push(enonce + '<br><br>' + mathalea2d({ xmin: -7, xmax: 7, ymin: -7, ymax: 7, scale: 0.75 }, objets))
@@ -269,16 +266,16 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   correctionInteractive = (i: number) => {
     this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom] = this.figures[i].json
+    this.answers[this.idApigeom[i]] = this.figures[i].json
     const resultat = []
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedback${this.idApigeom[i]}`) as HTMLDivElement
     let feedback = ''
 
     // on crée les bons symétriques :
     for (let k = 0; k < this.nbPoints; k++) {
       const { x, y } = reflectOverLineCoord(this.antecedents[i][k], this.d[i])
       const elts = Array.from(this.figures[i].elements.values())
-      const points = elts.filter(e => e.type !== 'pointer' && e.type === 'PointIntersectionLC') as Point[]
+      const points = elts.filter(e => e.type !== 'pointer' && e.type === 'PointIntersectionLC') as PointApigeom[]
       const matchPoint = points.find(p => p.label === `${this.labels[i][k]}'`)
       if (matchPoint != null) {
         if (egal(x, matchPoint.x, 0.001) && egal(y, matchPoint.y, 0.001)) {
@@ -304,8 +301,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       }
     }
     divFeedback.innerHTML = feedback
-    // Comme c'est asynchrone, il faut forcer le rendu LaTeX
-    mathaleaRenderDiv(divFeedback)
+    // mathaleaRenderDiv(divFeedback)
     this.figures[i].isDynamic = false
     this.figures[i].divButtons.style.display = 'none'
     this.figures[i].divUserMessage.style.display = 'none'
