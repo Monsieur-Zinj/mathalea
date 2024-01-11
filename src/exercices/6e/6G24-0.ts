@@ -269,9 +269,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     for (let k = 0; k < this.nbPoints; k++) {
       const { x, y } = reflectOverLineCoord(this.antecedents[i][k], this.d[i])
       const elts = Array.from(this.figures[i].elements.values())
-      const points = [...this.figures[i].elements.values()]
+      const points = elts
         .filter(e => e.type !== 'pointer' &&
-              (e.type === 'Point' || e.type === 'PointOnLine' || e.type === 'PointOnCircle' || e.type === 'PointIntersectionLL' || e.type === 'PointIntersectionLC' || e.type === 'PointIntersectionCC')) as Point[]
+              (e.type === 'Point' || e.type === 'PointOnLine' || e.type === 'PointOnCircle' || e.type === 'PointIntersectionLL' || e.type === 'PointIntersectionLC' || e.type === 'PointIntersectionCC'))
       const matchPoints = points.find(p => p.label === `${this.labels[i][k]}'`)
       const sym = points.find(p => egal(x, p.x, 0.001) && egal(y, p.y, 0.001))
       if (matchPoints != null) {
