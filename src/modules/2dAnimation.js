@@ -5,7 +5,7 @@
  * @author Rémi Angot
  */
 
-import { affiniteOrtho, homothetie, symetrieAxiale } from '../lib/2d/transformations.js'
+import { affiniteOrtho, homothetie, rotation, symetrieAxiale } from '../lib/2d/transformations.js'
 import { fixeBordures, ObjetMathalea2D } from './2dGeneralites.js'
 
 // JSDOC Validee par EE Juin 2022
