@@ -5,13 +5,13 @@ import { barycentre, carre, nommePolygone, polygone } from '../../lib/2d/polygon
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie, rotation, similitude, translation } from '../../lib/2d/transformations.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Nommer et coder des polygones'
+export const dateDeModifImportante = '10/01/2024'
 
 /**
  * @author Jean-Claude Lhote
@@ -25,6 +25,7 @@ export default function NommerEtCoderDesPolygones () {
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 3
+  this.sup2 = 9
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions === 1 ? 'Nommer la figure' : 'Nommer les figures'
@@ -42,7 +43,16 @@ export default function NommerEtCoderDesPolygones () {
 
     let params
 
-    const liste = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8], this.nbQuestions)
+    // const liste = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8], this.nbQuestions)
+    const liste = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 8,
+      melange: 9,
+      defaut: 9,
+      nbQuestions: this.nbQuestions
+    })
+
     let listeDeNomsDePolygones
     for (
       let i = 0, texte, texteCorr, cpt = 0;
@@ -192,7 +202,7 @@ export default function NommerEtCoderDesPolygones () {
       }
       if (this.sup < 3) g = grille(Xmin, Ymin, Xmax, Ymax, 'gray', 0.7)
       else g = vide2d()
-      if (parseInt(this.sup === 2)) {
+      if (this.sup === 2) {
         carreaux = seyes(Xmin, Ymin, Xmax, Ymax)
       } else {
         carreaux = vide2d()
@@ -215,5 +225,19 @@ export default function NommerEtCoderDesPolygones () {
     'Type de cahier',
     3,
     ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
+  ]
+  this.besoinFormulaire2Texte = [
+    'Type de questions', [
+      'Nombres séparés par des tirets',
+      '1 : Triangle isocèle',
+      '2 : Triangle équilatéral',
+      '3 : Triangle rectangle',
+      '4 : Triangle rectangle isocèle',
+      '5 : Carré',
+      '6 : Rectangle',
+      '7 : Losange',
+      '8 : Trapèze rectangle',
+      '9 : Mélange'
+    ].join('\n')
   ]
 }
