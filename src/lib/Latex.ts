@@ -267,6 +267,10 @@ class Latex {
       result += '\n\\usepackage[margin=1cm]{geometry}'
       result += '\n\\pagestyle{empty}'
       result += '\n\\usepackage{enumitem}'
+      result += '\n\\usepackage{fontspec}'
+      result += '\n\\usepackage{unicode-math}'
+      result += '\n\\setmainfont{Arial}'
+      result += '\n\\setmathfont{STIX Two Math}'
       if (content.includes('pspicture')) {
         result += '\n\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}'
         result += '\n\\usepackage{pst-eucl}'
