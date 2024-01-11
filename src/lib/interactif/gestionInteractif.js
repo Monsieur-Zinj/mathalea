@@ -54,7 +54,7 @@ function verifExerciceMathLive (exercice /** Exercice */, divScore /** HTMLDivEl
   let nbMauvaisesReponses = 0
   const besoinDe2eEssai = false
   let resultat
-  for (const i in exercice.autoCorrection) {
+  for (let i = 0; i < exercice.autoCorrection.length; i++) { // i est un nombre !
     resultat = verifQuestionMathLive(exercice, i)
     nbBonnesReponses += resultat.score.nbBonnesReponses
     nbMauvaisesReponses += resultat.score.nbReponses - resultat.score.nbBonnesReponses // Il reste à gérer le 2e essai

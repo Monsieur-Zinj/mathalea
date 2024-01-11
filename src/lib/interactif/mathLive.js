@@ -85,7 +85,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             window.notify('verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom', { selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` })
             return { resultat: 'KO', feedback: 'Un problème avec cette configuration', score: { nbBonnesReponses: 0, nbReponses: 1 } }
           }
-          const cellules = Object.entries(reponses)
+          const cellules = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme' && key !== 'feedback')
           for (let k = 0; k < cellules.length; k++) {
             const [key, reponse] = cellules[k]
             const compareFunction = reponse.compare ?? calculCompare
