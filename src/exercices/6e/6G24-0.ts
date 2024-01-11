@@ -20,7 +20,7 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { context } from '../../modules/context'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
-import { mathaleaRenderDiv } from '../../lib/mathalea'
+import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 
 export const titre = 'Construire des symétriques de points'
@@ -193,9 +193,17 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         }
         objetsCorrection = [...objets, ...objetsCorrection]
         if (this.sup2 !== 2) {
+          guideDroites.forEach(guide => {
+            guide.epaisseur = 2
+            guide.opacite = 1
+          })
           objetsCorrection.push(...guideDroites)
         }
         if (this.sup2 !== 3) {
+          guidesArc.forEach(guide => {
+            guide.epaisseur = 2
+            guide.opacite = 1
+          })
           objetsCorrection.push(...guidesArc)
         }
         const pointSurD = pointSurDroite(d[i], 50, '', 'above')
@@ -206,7 +214,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       } while (!checkDistance(antecedents.slice(0, this.nbPoints) as Point[], d[i]))
       if (context.isHtml && this.interactif) {
         this.figures[i] = new Figure({ xMin: -7, yMin: -7, width: 420, height: 420 })
-        this.figures[i].setToolbar({ tools: ['POINT', 'NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO'], position: 'top' })
+        this.figures[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
         const O = this.figures[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
         let pointB
         if (choixDeLaxe[i] === 1) {
@@ -224,32 +232,32 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         this.figures[i].create('TextByPosition', { text: '$(d)$', x: labelX, y: labelY })
         this.antecedents[i] = []
         for (let k = 0; k < this.nbPoints; k++) {
-          this.antecedents[i][k] = this.figures[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isFree: false, isSelectable: true, label: antecedents[k].nom })
+          (this.antecedents[i][k] as PointApigeom) = this.figures[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isFree: false, isSelectable: true, label: antecedents[k].nom })
         }
         if (this.sup2 === 1) {
           this.figures[i].create('Grid', { stepX: 0.5, stepY: 0.5, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
         }
         if (this.sup2 === 2) {
           for (let k = 0; k < this.nbPoints; k++) {
-            this.figures[i].create('LinePerpendicular', { point: this.antecedents[i][k], line: this.d[i], isDashed: true, color: 'gray' })
+            this.figures[i].create('LinePerpendicular', { point: (this.antecedents[i][k] as PointApigeom), line: this.d[i], isDashed: true, color: 'gray' })
           }
         }
         if (this.sup2 === 3) {
           for (let k = 0; k < this.nbPoints; k++) {
             this.figures[i].create('CircleCenterPoint', {
               center: this.figures[i].create('Point', { isVisible: false, x: centre[k].x, y: centre[k].y }),
-              point: this.antecedents[i][k],
+              point: (this.antecedents[i][k] as PointApigeom),
               isDashed: true,
               color: 'gray'
             })
           }
         }
         this.figures[i].options.limitNumberOfElement.set('Point', 1)
-        this.idApigeom = `apigeomEx${numeroExercice}F${i}`
-        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figures[i] })
-        this.listeQuestions.push(enonce + emplacementPourFigure)
+        this.idApigeom[i] = `apigeomEx${numeroExercice}F${i}`
+        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figures[i] })
+        this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
       } else {
-        this.listeQuestions.push(enonce + mathalea2d({ xmin: -7, xmax: 7, ymin: -7, ymax: 7, scale: 0.75 }, objets))
+        this.listeQuestions.push(enonce + '<br><br>' + mathalea2d({ xmin: -7, xmax: 7, ymin: -7, ymax: 7, scale: 0.75 }, objets))
       }
       this.listeCorrections.push(mathalea2d({ xmin: -7, xmax: 7, ymin: -7, ymax: 7, scale: 0.75 }, objetsCorrection))
     }
@@ -265,25 +273,34 @@ class ConstrctionsSymetriquesPoints extends Exercice {
 
     // on crée les bons symétriques :
     for (let k = 0; k < this.nbPoints; k++) {
-      const { x, y } = reflectOverLineCoord(this.antecedents[i][k], this.d[i])
+      const { x, y } = reflectOverLineCoord((this.antecedents[i][k] as PointApigeom), this.d[i])
       const elts = Array.from(this.figures[i].elements.values())
       const points = elts
         .filter(e => e.type !== 'pointer' &&
-              (e.type === 'Point' || e.type === 'PointOnLine' || e.type === 'PointOnCircle' || e.type === 'PointIntersectionLL' || e.type === 'PointIntersectionLC' || e.type === 'PointIntersectionCC'))
-      const matchPoints = points.find(p => p.label === `${this.labels[i][k]}'`)
-      const sym = points.find(p => egal(x, p.x, 0.001) && egal(y, p.y, 0.001))
-      if (matchPoints != null) {
-        if (egal(x, matchPoints.x, 0.001) && egal(y, matchPoints.y, 0.001)) {
+              (e.type === 'Point' || e.type === 'PointOnLine' || e.type === 'PointOnCircle' || e.type === 'PointIntersectionLL' || e.type === 'PointIntersectionLC' || e.type === 'PointIntersectionCC')) as PointApigeom[]
+      const matchPoint = points.find(p => p.label === `${this.labels[i][k]}'`) as PointApigeom
+      const sym = points.find(p => egal(x, p.x, 0.001) && egal(y, p.y, 0.001)) as PointApigeom
+      if (matchPoint != null) {
+        if (egal(x, matchPoint.x, 0.001) && egal(y, matchPoint.y, 0.001)) {
+          matchPoint.color = 'green'
+          matchPoint.thickness = 2
+          matchPoint.colorLabel = 'green'
           resultat.push('OK')
         } else {
-          feedback += `Il y a  bien un point nommé $${this.antecedents[i][k].label}'$ mais ce n'est pas le symétrique de $${this.antecedents[i][k].label}$ !<br>`
+          matchPoint.color = 'green'
+          matchPoint.thickness = 2
+          matchPoint.colorLabel = 'green'
+          feedback += `Il y a  bien un point nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ mais ce n'est pas le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ !<br>`
           resultat.push('KO')
         }
       } else {
         if (sym != null) {
-          feedback += `Tu as bien construit le symétrique de $${this.antecedents[i][k].label}$ mais tu ne l'as pas nommé $${this.antecedents[i][k].label}'$ !<br>`
+          sym.color = 'green'
+          sym.thickness = 2
+          sym.colorLabel = 'red'
+          feedback += `Tu as bien construit le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ mais tu ne l'as pas nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
         } else {
-          feedback += `Il n'y a pas de point symétrique de $${this.antecedents[i][k].label}$ et il n'y a pas de point nommé $${this.antecedents[i][k].label}'$ !<br>`
+          feedback += `Il n'y a pas de point symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ et il n'y a pas de point nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ !<br>`
         }
         resultat.push('KO')
       }
