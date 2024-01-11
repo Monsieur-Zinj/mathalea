@@ -25,7 +25,7 @@ import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 
 export const titre = 'Construire des symétriques de points'
 export const dateDePublication = '07/01/2024'
-export const interactifReady = false
+export const interactifReady = true
 export const interactifType = 'custom'
 
 export const uuid = '26ea4'
@@ -61,8 +61,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   constructor () {
     super()
     this.exoCustomResultat = true
-    this.nbQuestions = 3
-    this.spacingCorr = 2
+    this.nbQuestions = 2
+    this.spacingCorr = 1
     this.besoinFormulaireNumerique = ['Choix de l\'axe', 5, 'Axe horizontal\nAxe vertical\nAxe oblique /\nAxe oblique \\\nMélange']
     this.besoinFormulaire2Numerique = [
       'Type d\'aide',
@@ -72,8 +72,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     this.besoinFormulaire3Numerique = ['Nombre de points à construire (5 maxi)', 5]
     this.sup = 1
     this.sup2 = 1
-    this.sup3 = 5
-    this.nbPoints = 5
+    this.sup3 = 3
+    this.nbPoints = 3
   }
 
   nouvelleVersion (numeroExercice: number) {
@@ -262,33 +262,32 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom] = this.figures[i].json
     const resultat = []
+    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
+    let feedback = ''
+
     // on crée les bons symétriques :
     for (let k = 0; k < this.nbPoints; k++) {
       const { x, y } = reflectOverLineCoord(this.antecedents[i][k], this.d[i])
-      const points = [...this.figures[i].elements.values()].filter(e => e.type !== 'pointer' && e.type === 'Point') as Point[]
-      const matchPoints = points.find(p => p.label === this.labels[i][k] + '\'')
+      const elts = Array.from(this.figures[i].elements.values())
+      const points = elts.filter(e => e.type !== 'pointer' && e.type === 'PointIntersectionLC') as Point[]
+      const matchPoints = points.find(p => p.label === `${this.labels[i][k]}'`)
       if (matchPoints != null) {
         if (egal(x, matchPoints.x, 0.001) && egal(y, matchPoints.y, 0.001)) {
+          console.log('Point trouvé et distance correcte')
           resultat.push('OK')
         } else {
+          console.log('Point trouvé et distance incorrecte')
           resultat.push('KO')
         }
       } else {
+        for (let j = 0; j < points.length; j++) {
+          if (egal(x, points[j].x, 0.001) && egal(y, points[j].y, 0.001)) {
+            feedback += `Tu as bien construit le symétrique de $${this.antecedents[i][k].label}$ mais tu ne l'as pas nommé $${this.antecedents[i][k].label}'$ !<br>`
+          }
+        }
         resultat.push('KO')
       }
     }
-    // 1 point par distance correcte + 2 points si tout est correct (on ne vérifie pas que le triangle est tracé)
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
-    const feedback = ''
-    /*  for (let k = 0; k < this.nbPoints; k++) {
-      const { message, isValid } = this.figures[i].checkDistance({ label1: this.labels[i][k] + '"', label2: this.labels[i][k] + '\'', distance: 0 })
-      if (message) feedback += message + '<br>'
-      resultat.push(isValid ? 'OK' : 'KO')
-    }
-    if (resultat.every(r => r === 'OK')) {
-      feedback += '<br>Bravo !'
-    }
-    */
     divFeedback.innerHTML = feedback
     // Comme c'est asynchrone, il faut forcer le rendu LaTeX
     mathaleaRenderDiv(divFeedback)
