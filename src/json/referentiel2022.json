@@ -9920,6 +9920,7 @@
         "uuid": "90e1a",
         "id": "6G20",
         "titre": "Nommer et coder des polygones",
+        "dateModification": "10/01/2024",
         "features": {
           "interactif": {
             "isActive": false,
@@ -10278,8 +10279,8 @@
         "datePublication": "07/01/2024",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'custom'"
           },
           "amc": {
             "isActive": false,
@@ -18662,9 +18663,9 @@
         "typeExercice": "alea"
       },
       "3L11": {
-        "url": "3e/3L11.js",
+        "url": "3e/3L11new.js",
         "tags": [],
-        "uuid": "77a62",
+        "uuid": "db2e0",
         "id": "3L11",
         "titre": "Utiliser la simple distributivité",
         "features": {
@@ -21156,6 +21157,7 @@
         "uuid": "4771d",
         "id": "2N32-7",
         "titre": "Rendre entier le dénominateur d'une fraction",
+        "dateModification": "10/01/2024",
         "features": {
           "interactif": {
             "isActive": false,
