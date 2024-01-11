@@ -236,6 +236,7 @@ function RotationAnimee (
   animation = 'begin="0s" dur="2s" repeatCount="indefinite"'
 ) {
   ObjetMathalea2D.call(this, { })
+  if (!Array.isArray(liste)) liste = [liste]
   const bordures = fixeBordures([liste, liste.map(el => rotation(el, O, angle))])
   this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   this.svg = function (coeff) {
