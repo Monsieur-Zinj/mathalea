@@ -20,7 +20,6 @@ import { codageAngleDroit } from '../../lib/2d/angles'
 import { context } from '../../modules/context'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
-import type { Point as PointApigeom } from 'apigeom/src/elements/Point'
 import { mathaleaRenderDiv } from '../../lib/mathalea'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 
@@ -193,17 +192,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         }
         objetsCorrection = [...objets, ...objetsCorrection]
         if (this.sup2 !== 2) {
-          guideDroites.forEach(guide => {
-            guide.epaisseur = 2
-            guide.opacite = 1
-          })
           objetsCorrection.push(...guideDroites)
         }
         if (this.sup2 !== 3) {
-          guidesArc.forEach(guide => {
-            guide.epaisseur = 2
-            guide.opacite = 1
-          })
           objetsCorrection.push(...guidesArc)
         }
         const pointSurD = pointSurDroite(d[i], 50, '', 'above')
@@ -258,9 +249,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         this.figures[i].options.limitNumberOfElement.set('Point', 1)
         this.idApigeom = `apigeomEx${numeroExercice}F${i}`
         const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figures[i] })
-        this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
+        this.listeQuestions.push(enonce + emplacementPourFigure)
       } else {
-        this.listeQuestions.push(enonce + '<br><br>' + mathalea2d({ xmin: -7, xmax: 7, ymin: -7, ymax: 7, scale: 0.75 }, objets))
+        this.listeQuestions.push(enonce + mathalea2d({ xmin: -7, xmax: 7, ymin: -7, ymax: 7, scale: 0.75 }, objets))
       }
       this.listeCorrections.push(mathalea2d({ xmin: -7, xmax: 7, ymin: -7, ymax: 7, scale: 0.75 }, objetsCorrection))
     }
@@ -278,27 +269,23 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     for (let k = 0; k < this.nbPoints; k++) {
       const { x, y } = reflectOverLineCoord(this.antecedents[i][k], this.d[i])
       const elts = Array.from(this.figures[i].elements.values())
-      const points = elts.filter(e => e.type !== 'pointer' && e.type === 'PointIntersectionLC') as Point[]
-      const matchPoint = points.find(p => p.label === `${this.labels[i][k]}'`)
-      if (matchPoint != null) {
-        if (egal(x, matchPoint.x, 0.001) && egal(y, matchPoint.y, 0.001)) {
-          const point = matchPoint as PointApigeom
-          point.color = 'green'
-          point.thickness = 2
-          point.colorLabel = 'green'
+      const points = [...this.figures[i].elements.values()]
+        .filter(e => e.type !== 'pointer' &&
+              (e.type === 'Point' || e.type === 'PointOnLine' || e.type === 'PointOnCircle' || e.type === 'PointIntersectionLL' || e.type === 'PointIntersectionLC' || e.type === 'PointIntersectionCC')) as Point[]
+      const matchPoints = points.find(p => p.label === `${this.labels[i][k]}'`)
+      const sym = points.find(p => egal(x, p.x, 0.001) && egal(y, p.y, 0.001))
+      if (matchPoints != null) {
+        if (egal(x, matchPoints.x, 0.001) && egal(y, matchPoints.y, 0.001)) {
           resultat.push('OK')
         } else {
+          feedback += `Il y a  bien un point nommé $${this.antecedents[i][k].label}'$ mais ce n'est pas le symétrique de $${this.antecedents[i][k].label}$ !<br>`
           resultat.push('KO')
         }
       } else {
-        for (let j = 0; j < points.length; j++) {
-          if (egal(x, points[j].x, 0.001) && egal(y, points[j].y, 0.001)) {
-            const point = points[j] as PointApigeom
-            point.color = 'green'
-            point.thickness = 2
-            point.colorLabel = 'red'
-            feedback += `Tu as bien construit le symétrique de $${this.antecedents[i][k].label}$ mais tu ne l'as pas nommé $${this.antecedents[i][k].label}'$ !<br>`
-          }
+        if (sym != null) {
+          feedback += `Tu as bien construit le symétrique de $${this.antecedents[i][k].label}$ mais tu ne l'as pas nommé $${this.antecedents[i][k].label}'$ !<br>`
+        } else {
+          feedback += `Il n'y a pas de point symétrique de $${this.antecedents[i][k].label}$ et il n'y a pas de point nommé $${this.antecedents[i][k].label}'$ !<br>`
         }
         resultat.push('KO')
       }
