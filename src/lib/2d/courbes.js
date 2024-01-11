@@ -193,6 +193,8 @@ export function Courbe (f, {
   yUnite = 1
 } = {}) {
   ObjetMathalea2D.call(this, {})
+  this.bordures = repere.bordures ?? [0, 0, 0, 0]
+
   this.color = color
   let xunite, yunite // Tout en minuscule pour les différencier des paramètres de la fonction
   xunite = repere.xUnite
