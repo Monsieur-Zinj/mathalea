@@ -52,7 +52,7 @@ function checkDistance (points: Point[], d: Droite) {
 }
 class ConstrctionsSymetriquesPoints extends Exercice {
   figures!: Figure[]
-  idApigeom!: string
+  idApigeom!: string[]
   nbPoints!: number
   antecedents!: object[][]
   labels!: string[][]
@@ -82,6 +82,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     this.autoCorrection = []
     let choixDeLaxe: number[] = []
     this.figures = []
+    this.idApigeom = []
     if (this.sup === 5) {
       choixDeLaxe = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     } else {
@@ -206,9 +207,6 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       if (context.isHtml && this.interactif) {
         this.figures[i] = new Figure({ xMin: -7, yMin: -7, width: 420, height: 420 })
         this.figures[i].setToolbar({ tools: ['POINT', 'NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO'], position: 'top' })
-
-        this.figures[i].options.automaticUserMessage = false
-        this.figures[i].userMessage = ''
         const O = this.figures[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
         let pointB
         if (choixDeLaxe[i] === 1) {
@@ -260,9 +258,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   correctionInteractive = (i: number) => {
     this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom] = this.figures[i].json
+    this.answers[this.idApigeom[i]] = this.figures[i].json
     const resultat = []
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedback${this.idApigeom[i]}`) as HTMLDivElement
     let feedback = ''
 
     // on crée les bons symétriques :
@@ -291,8 +289,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       }
     }
     divFeedback.innerHTML = feedback
-    // Comme c'est asynchrone, il faut forcer le rendu LaTeX
-    mathaleaRenderDiv(divFeedback)
+    // mathaleaRenderDiv(divFeedback)
     this.figures[i].isDynamic = false
     this.figures[i].divButtons.style.display = 'none'
     this.figures[i].divUserMessage.style.display = 'none'
