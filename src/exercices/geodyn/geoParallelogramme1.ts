@@ -63,7 +63,6 @@ class ConstructionParallelogramme extends Exercice {
     const { isValid: isValid2, message: message2 } = this.figure.checkParallel({ label1: 'BC', label2: 'AD' })
     resultat.push(isValid2 ? 'OK' : 'KO')
     if (message2 !== '') { feedback += message2 + '<br>' }
-    console.log(isValid, isValid2)
     if (isValid && isValid2) {
       resultat.push('OK', 'OK', 'OK')
       feedback += 'Le quadrilatère $ABCD$ a ses côtés opposés parallèles deux à deux donc, s\'il est non croisé, c\'est bien un parallélogramme.'

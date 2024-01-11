@@ -71,7 +71,6 @@ class ExternalApp {
 
   handleScore () {
     window.addEventListener('message', (event) => {
-      console.log('externalApp - handleScore', event)
       if (event.data?.numeroExercice !== this.numeroExercice) return
       if (event.data?.type === 'mathaleaSendScore') {
         this.state = 'done'

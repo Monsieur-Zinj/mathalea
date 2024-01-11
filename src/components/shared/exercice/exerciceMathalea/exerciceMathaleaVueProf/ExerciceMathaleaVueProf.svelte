@@ -209,7 +209,7 @@
   async function newData () {
     if (Object.prototype.hasOwnProperty.call(exercise, 'listeQuestions')) {
       // force à détruire la liste des questions : Key blocks destroy and recreate their contents when the value of an expression changes.
-      if (isCorrectionVisible && isInteractif) { forceRefresh++; console.log(forceRefresh) }
+      if (isCorrectionVisible && isInteractif) forceRefresh++
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
       if (
         exercise !== undefined &&
@@ -408,7 +408,6 @@
             consigneDiv &&
             mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth
           ) {
-            // console.log("got figures !!! --> DIV " + consigneDiv.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
             const coef =
               (consigneDiv.clientWidth * 0.95) /
               mathalea2dFigures[k].clientWidth
@@ -416,7 +415,6 @@
             const newFigHeight = mathalea2dFigures[k].clientHeight * coef
             mathalea2dFigures[k].setAttribute('width', newFigWidth.toString())
             mathalea2dFigures[k].setAttribute('height', newFigHeight.toString())
-            // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
           }
         }
       }

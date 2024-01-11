@@ -279,14 +279,12 @@
           mathalea2dFigures[k].setAttribute('width', initialWidth ?? '')
           mathalea2dFigures[k].setAttribute('height', initialHeight ?? '')
         }
-        // console.log("got figures !!! --> DIV " + body.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
         if (mathalea2dFigures[k].clientWidth > body.clientWidth) {
           const coef = (body.clientWidth * 0.9) / mathalea2dFigures[k].clientWidth
           const newFigWidth = body.clientWidth * 0.9
           const newFigHeight = mathalea2dFigures[k].clientHeight * coef
           mathalea2dFigures[k].setAttribute('width', newFigWidth.toString())
           mathalea2dFigures[k].setAttribute('height', newFigHeight.toString())
-          // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
         }
       }
     }

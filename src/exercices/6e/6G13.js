@@ -104,11 +104,9 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
             const cote = diagonale / Math.sqrt(2)
             const m = cote * 0.1 - Math.floor(cote /* * 0.1 * 10  */) * 0.1
             dis = [diagonale, cote, m]
-            // console.log('Carré1diag:j' + jj + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':dis' + dis[2].toFixed(4))
             if (dis[2] < 0.005) {
               disSave = dis
               ok = true
-              // console.log('TROUVE:Carré1diag:' + jj + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':dis' + dis[2].toFixed(4))
               break
             } else {
               if (dis[2] < disSave[2]) {
@@ -133,11 +131,9 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               const lBC = randint(35, 60, lAB)
               const lAC = Math.sqrt(lBC * lBC + lAB * lAB)
               dis = [lAB, lBC, lAC, lAC * 0.1 - Math.floor(lAC /** 0.1 * 10 */) * 0.1]
-              // console.log('Rectangle: j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
               if (dis[3] < 0.005) {
                 disSave = dis
                 ok = true
-                // console.log('TROUVE:Rectangle: j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
                 break
               } else {
                 if (dis[3] < disSave[3]) {
@@ -163,11 +159,9 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               const lBC = randint(lAB + 5, 100)
               const lAC = Math.sqrt(lBC * lBC - lAB * lAB)
               dis = [lAB, lBC, lAC, lAC * 0.1 - Math.floor(lAC /** 0.1 * 10 */) * 0.1]
-              // console.log('Rectangle1diag:j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
               if (dis[3] < 0.005) {
                 disSave = dis
                 ok = true
-                // console.log('TROUVE:Rectangle1diag:j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
                 break
               } else {
                 if (dis[3] < disSave[3]) {
@@ -272,14 +266,10 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               dis = [lAB, lBC, lAC, m - Math.floor(m * 10) * 0.1]
               if (dis[3] < 0.005) {
                 disSave = dis
-                // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':d:' + m + 'dmin:' + dis[3])
-                // console.log('OK i:' + i + ':kk:' + kk + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                 ok = true
                 break
               } else {
                 if (dis[3] < disSave[3]) {
-                  // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':d:' + m + 'dmin:' + dis[3])
-                  // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                   disSave = dis
                 }
               }

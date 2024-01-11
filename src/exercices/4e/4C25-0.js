@@ -293,11 +293,6 @@ export default function ProblemesAdditifsFractionsBis () {
           F2 = fraction(n2, d2).simplifie()
           F3 = fraction(n3, d3).simplifie()
           F4 = fraction(n4, d4).simplifie()
-          // console.log('b:' + b)
-          // console.log('f1:'+ F1.texFraction)
-          // console.log('f2:'+ F2.texFraction)
-          // console.log('f3:'+ F3.texFraction)
-          // console.log('f4:'+ F4.texFraction)
         }
         // on mélange
         [F1, F2, F3] = shuffle([F1, F2, F3])

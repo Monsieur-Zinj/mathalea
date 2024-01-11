@@ -91,7 +91,6 @@ export default function ConservationTransformation () {
       poly = polygoneAvecNom(A, B, C) // pour bien placer les labels
       objetsEnonceEtCorr.push(segment(A, B), afficheLongueurSegment(B, A), poly[1])
       // On prépare la transformation
-      console.log(listeTypeDeTransformations[i])
       switch (listeTypeDeTransformations[i]) {
         case 'symetrieAxiale':
           transformation = 'symétrie axiale'
@@ -176,7 +175,6 @@ export default function ConservationTransformation () {
         objetsEnonceOnly.push(afficheLongueurSegment(imageB, imageA))
         objetsCorrectionOnly.push(afficheLongueurSegment(imageA, imageB))
       }
-      console.log(listeTypeDeQuestions[i])
       if (listeTypeDeQuestions[i] === 'longueurEtAngle') {
         objetsCorrectionOnly.push(segment(imageA, imageC, '#f15929'), segment(imageB, imageC, '#f15929'))
         objetsCorrectionOnly.push(afficheMesureAngle(imageA, imageB, imageC, '#f15929', 1, Math.round(angle(A, B, C)) + '°', { colorArc: '#f15929' }))

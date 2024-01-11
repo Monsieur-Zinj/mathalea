@@ -23,7 +23,6 @@ if (get(globalOptions).interfaceBeta) {
   if (baseReferentiel.static !== null) {
     baseReferentiel.static['2nd'] = { ...referentiel2nd }
   }
-  console.log(baseReferentiel.static)
 }
 delete baseReferentiel['Calcul mental']
 let referentielMap = toMap(baseReferentiel)
@@ -142,7 +141,6 @@ export function updateReferentiel (
       baseReferentiel,
       (key) => key === 'amc'
     ).map((elt) => elt.replace(/(?:\.tags\.amc)$/, '').split('.'))
-    console.log(amcCompatible)
     filteredReferentiel = { ...buildReferentiel(amcCompatible) }
   } else if (isInteractiveOnlySelected && !isAmcOnlySelected) {
     const interactiveCompatible = findPropPaths(

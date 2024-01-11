@@ -76,7 +76,6 @@
   }
 
   function duplicate () {
-    // console.log($exercicesParams)
     exercicesParams.update((l) => {
       const newExercice = { ...l[indiceExercice] }
       newExercice.alea = mathaleaGenerateSeed()

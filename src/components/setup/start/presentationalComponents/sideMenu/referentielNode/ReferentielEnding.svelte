@@ -68,7 +68,6 @@
    * Ajouter l'exercice courant à la liste
    */
   function addToList () {
-    // console.log('before -> uuids: ' + $exercicesParams.map((item) => item.uuid))
     const newExercise = {
       uuid: ending.uuid,
       interactif: isGeoDynamic(ending) ? '1' : '0'
@@ -81,14 +80,12 @@
     }
     exercicesParams.update((list) => [...list, newExercise])
     $changes++
-    // console.log('now -> uuids: ' + $exercicesParams.map((item) => item.uuid))
   }
   /**
    * Retirer l'exercice de la liste (si plusieurs occurences
    * la première est retirée)
    */
   function removeFromList () {
-    // console.log('uuids?' + $exercicesParams.map((item) => item.uuid))
     const matchingIndex = $exercicesParams
       .map((item) => item.uuid)
       .findIndex(compareCodes)
