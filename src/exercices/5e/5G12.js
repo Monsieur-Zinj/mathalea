@@ -57,6 +57,14 @@ export default function PavageEtDemiTour2D () {
       }
       return tableau
     }
+    const videIdentite = function (tableau) {
+      for (let k = 0; k < tableau.length; k++) {
+        if (tableau[k][1] === tableau[k][0]) {
+          tableau.splice(k, 1)
+        }
+      }
+      return tableau
+    }
     const compare2polys = function (poly1, poly2) {
       if (comparenbsommets(poly1, poly2)) {
         if (comparesommets(poly1, poly2)) {
@@ -199,6 +207,7 @@ export default function PavageEtDemiTour2D () {
           }
         }
         couples = videcouples(couples) // supprime tous les couples en double (x,y)=(y,x)
+        couples = videIdentite(couples) // supprime tous les couples (x,x)
         nombreTentatives++
       }
       if (couples.length < this.nbQuestions) {
