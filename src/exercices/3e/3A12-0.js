@@ -103,6 +103,7 @@ export default class EngrenagesAnimes extends Exercice {
         roueACorr = rouesCorr[0]
         roueBCorr = rouesCorr[1]
         remiseAZero = () => {
+          if (divM2d == null) return
           try {
             clearInterval(interABC)
             clearInterval(interA)
@@ -115,16 +116,16 @@ export default class EngrenagesAnimes extends Exercice {
             animRoueA.beginElement()
             animRoueB.beginElement()
             do {
-              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+              compteurRoueA = divM2d.querySelector(`text#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`text#compteur${roueBCorr.id}`)
             } while (compteurRoueA == null || compteurRoueB == null)
-            compteurRoueA.innerHTML = '0'
-            compteurRoueB.innerHTML = '0'
+            compteurRoueA.textContent = '0'
+            compteurRoueB.textContent = '0'
             interA = setInterval(() => {
-              compteurRoueA.innerHTML = parseInt(compteurRoueA.innerHTML) + 1
+              compteurRoueA.textContent = parseInt(compteurRoueA.textContent) + 1
             }, animRoueA.getAttribute('dur') * 1000)
             interB = setInterval(() => {
-              compteurRoueB.innerHTML = parseInt(compteurRoueB.innerHTML) + 1
+              compteurRoueB.textContent = parseInt(compteurRoueB.textContent) + 1
             }, animRoueB.getAttribute('dur') * 1000)
             if (this.sup2) {
               interABC = setInterval(() => {
@@ -160,6 +161,7 @@ export default class EngrenagesAnimes extends Exercice {
         roueACorr = rouesCorr[0]
         roueBCorr = rouesCorr[1]
         remiseAZero = () => {
+          if (divM2d == null) return
           try {
             clearInterval(interABC)
             clearInterval(interA)
@@ -172,8 +174,8 @@ export default class EngrenagesAnimes extends Exercice {
             animRoueA.beginElement()
             animRoueB.beginElement()
             do {
-              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+              compteurRoueA = divM2d.querySelector(`text#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`text#compteur${roueBCorr.id}`)
             } while (compteurRoueA == null || compteurRoueB == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
@@ -219,6 +221,7 @@ export default class EngrenagesAnimes extends Exercice {
         roueACorr = rouesCorr[0]
         roueBCorr = rouesCorr[1]
         remiseAZero = () => {
+          if (divM2d == null) return
           try {
             clearInterval(interABC)
             clearInterval(interA)
@@ -231,8 +234,8 @@ export default class EngrenagesAnimes extends Exercice {
             animRoueA.beginElement()
             animRoueB.beginElement()
             do {
-              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+              compteurRoueA = divM2d.querySelector(`text#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`text#compteur${roueBCorr.id}`)
             } while (compteurRoueA == null || compteurRoueB == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
@@ -286,8 +289,8 @@ export default class EngrenagesAnimes extends Exercice {
             animRoueA.beginElement()
             animRoueB.beginElement()
             do {
-              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+              compteurRoueA = divM2d.querySelector(`text#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`text#compteur${roueBCorr.id}`)
             } while (compteurRoueA == null || compteurRoueB == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
@@ -348,6 +351,7 @@ export default class EngrenagesAnimes extends Exercice {
         texteCorr += nbToursC * nbDentsRoueC % nbDentsRoueB === 0 ? `Ce nombre est un multiple du nombre de dents de la roue du milieu, donc elle a effectué exactement $\\dfrac{${nbToursC * nbDentsRoueC}}{${nbDentsRoueB}}=${nbToursC * nbDentsRoueC / nbDentsRoueB}$ tours.<br>` : 'Ce nombre n\'est pas un multiple du nombre de dents de la roue du milieu, donc elle ne sera pas dans sa position initiale.<br>'
         texteCorr += `Il faudra attendre que la roue de gauche tourne de $${nbToursAbc * nbDentsRoueA}$ dents soit $${nbToursAbc}$ tours, la roue du milieu en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueB}$ et la roue de droite en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueC}$.<br>`
         remiseAZero = () => {
+          if (divM2d == null) return
           try {
             clearInterval(interABC)
             clearInterval(interA)
@@ -362,9 +366,9 @@ export default class EngrenagesAnimes extends Exercice {
             animRoueB.beginElement()
             animRoueC.beginElement()
             do {
-              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
-              compteurRoueC = divM2d.querySelector(`#compteur${roueCCorr.id}`)
+              compteurRoueA = divM2d.querySelector(`text#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`text#compteur${roueBCorr.id}`)
+              compteurRoueC = divM2d.querySelector(`text#compteur${roueCCorr.id}`)
             } while (compteurRoueA == null || compteurRoueB == null || compteurRoueC == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
@@ -421,13 +425,14 @@ export default class EngrenagesAnimes extends Exercice {
         div.appendChild(button)
         button.classList.add('px-6', 'py-2.5', 'mr-10', 'my-5', 'ml-6', 'bg-coopmaths', 'text-white', 'font-medium', 'text-xs', 'leading-tight', 'uppercase', 'rounded', 'shadow-md',
           'transform', 'hover:scale-110', 'hover:bg-coopmaths-dark', 'hover:shadow-lg', 'focus:bg-coopmaths-dark', 'focus:shadow-lg', 'focus:outline-none', 'focus:ring-0', 'active:bg-coopmaths-dark', 'active:shadow-lg', 'transition', 'duration-150', 'ease-in-out')
+        remiseAZero()
         document.removeEventListener('exercicesAffiches', remiseAZero)
         document.removeEventListener('exercicesAffiches', insertInDom)
       }
     }
 
-    document.addEventListener('exercicesAffiches', remiseAZero)
     document.addEventListener('exercicesAffiches', insertInDom)
+
     this.listeQuestions[0] = texte
     this.listeCorrections[0] = texteCorr
     listeQuestionsToContenu(this)
