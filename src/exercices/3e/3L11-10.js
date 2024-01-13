@@ -226,7 +226,6 @@ export default function TableDoubleDistributivite () {
     const spanReponseLigne1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${3 * i + 1}`)
     this.answers[`Ex${this.numeroExercice}Q${2 * i}`] = mfDevEclate.value
     this.answers[`Ex${this.numeroExercice}Q${2 * i + 1}`] = mfDevReduit.value
-    console.log(developpementEclate)
     if (mfDevEclate.value !== '') {
       if (ce.parse(developpementEclate).simplify().isSame(ce.parse(mfDevEclate.value).simplify())) {
         if (spanReponseLigne1) {

@@ -161,7 +161,7 @@ export default function OpposeExpression () {
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        setReponse(this, i, reponse)
+        setReponse(this, i, reponse, { formatInteractif: 'canonicalAdd' })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
       } else {
         this.autoCorrection[i] = {

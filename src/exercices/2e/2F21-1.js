@@ -881,7 +881,6 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const Texte2 = texteParPosition(`${stringNombre(Math.round(s0 * 10) / 10)}`, A.x, -1.3, 'milieu', 'red', 1.2)
             const Texte3 = texteParPosition(`${stringNombre(Math.round(s1 * 10) / 10)}`, B.x, -1.3, 'milieu', 'red', 1.2)
             const Texte4 = texteParPosition(`${stringNombre(Math.round(s2 * 10) / 10)}`, C.x, -1.3, 'milieu', 'red', 1.2)
-            // console.log(s2)
             const graphique = mathalea2d({
               xmin: -2,
               xmax: 16,

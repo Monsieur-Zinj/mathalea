@@ -557,7 +557,6 @@
                 const originalLeft = parseFloat(
                   divLatex.style.left.replace('px', '')
                 )
-                // console.log("(top: "+originalTop+ "; left: "+originalLeft+")")
                 divLatex.style.top =
                   (originalTop * heightCoef).toString() + 'px'
                 divLatex.style.left =
@@ -633,12 +632,6 @@
             correctionHeight = 0
             correctionWidth = 0
           }
-          // console.log('size:'+size)
-          // console.log('questionWidth:'+questionWidth)
-          // console.log('consigneWidth:'+consigneWidth)
-          // console.log('textcellWidth:'+textcellWidth)
-          // console.log('questionHeight + consigneHeight + correctionHeight:'+ (questionHeight + consigneHeight + correctionHeight))
-          // console.log('textcellHeight:'+textcellHeight)
         } while (
           size > 6 /* pour éviter la boucle infinie */ && (
             questionWidth > textcellWidth ||

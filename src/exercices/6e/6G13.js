@@ -13,13 +13,12 @@ import {
 import { polygone, polygoneRegulier } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Tracer des carrés et des rectangles de longueurs données'
 
@@ -35,8 +34,8 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 4
-    this.besoinFormulaireNumerique = ['Figure à tracer', 11, '1 : Carré\n2 : Rectangle\n3 : Carré (une diagonale)\n4 : Rectangle (une diagonale)\n5 : Losange (un côté et une diagonale)\n6 : Losange (2 diagonales)\n7 : Parallélogramme\n8 : Mélange Carré - Rectangle\n9 : Mélange Carré - Rectangle - Losange\n10 : Mélange Losange - Parallélogramme\n11 : Mélange de toutes les figures']
-    this.sup = 8
+    this.besoinFormulaireTexte = ['Figure à tracer (séparé par un trait d\'union)', '0 : Mélange\n1 : Carré\n2 : Rectangle\n3 : Carré (une diagonale)\n4 : Rectangle (une diagonale)\n5 : Losange (un côté et une diagonale)\n6 : Losange (2 diagonales)\n7 : Parallélogramme']
+    this.sup = '1-2-3-4'
   }
 
   nouvelleVersion (numeroExercice) {
@@ -44,26 +43,32 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    let typesDeQuestionsDisponibles = ['Carré', 'Rectangle']
-    if (this.sup === 1) typesDeQuestionsDisponibles = ['Carré']
-    else if (this.sup === 2) typesDeQuestionsDisponibles = ['Rectangle']
-    else if (this.sup === 3) typesDeQuestionsDisponibles = ['Carré1diag']
-    else if (this.sup === 4) typesDeQuestionsDisponibles = ['Rectangle1diag']
-    else if (this.sup === 5) typesDeQuestionsDisponibles = ['Losange']
-    else if (this.sup === 6) typesDeQuestionsDisponibles = ['Losange2diag']
-    else if (this.sup === 7) typesDeQuestionsDisponibles = ['Parallélogramme']
-    else if (this.sup === 8) typesDeQuestionsDisponibles = ['Carré', 'Rectangle']
-    else if (this.sup === 9) typesDeQuestionsDisponibles = ['Carré', 'Rectangle', 'Carré1diag', 'Rectangle1diag']
-    else if (this.sup === 10) typesDeQuestionsDisponibles = ['Losange', 'Losange2diag', 'Parallélogramme']
-    else typesDeQuestionsDisponibles = ['Carré', 'Rectangle', 'Carré1diag', 'Rectangle1diag', 'Losange', 'Losange2diag', 'Parallélogramme']
+    const listeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 7,
+      defaut: 1,
+      melange: 0,
+      nbQuestions: this.nbQuestions
+    })
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const typesDeQuestionsDisponibles = {
+      1: 'Carré',
+      2: 'Rectangle',
+      3: 'Carré1diag',
+      4: 'Rectangle1diag',
+      5: 'Losange',
+      6: 'Losange2diag',
+      7: 'Parallélogramme'
+    }
+
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const typeDeQuestion = typesDeQuestionsDisponibles[listeQuestions[i]]
       const objetsCorrection = []
-      const nomPoly = creerNomDePolygone(4)
+      const nomPoly = creerNomDePolygone(4, ['P', 'Q'])
       const A = point(0, 0, nomPoly.charAt(0), 'below left')
       let B, C, D, naturePoly, figure
-      switch (listeTypeDeQuestions[i]) {
+      switch (typeDeQuestion) {
         case 'Carré': {
           naturePoly = 'carré'
           let ok = false; let disSave = [0, 0, 1000]; const old = []; let dis
@@ -99,11 +104,9 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
             const cote = diagonale / Math.sqrt(2)
             const m = cote * 0.1 - Math.floor(cote /* * 0.1 * 10  */) * 0.1
             dis = [diagonale, cote, m]
-            // console.log('Carré1diag:j' + jj + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':dis' + dis[2].toFixed(4))
             if (dis[2] < 0.005) {
               disSave = dis
               ok = true
-              // console.log('TROUVE:Carré1diag:' + jj + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':dis' + dis[2].toFixed(4))
               break
             } else {
               if (dis[2] < disSave[2]) {
@@ -128,11 +131,9 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               const lBC = randint(35, 60, lAB)
               const lAC = Math.sqrt(lBC * lBC + lAB * lAB)
               dis = [lAB, lBC, lAC, lAC * 0.1 - Math.floor(lAC /** 0.1 * 10 */) * 0.1]
-              // console.log('Rectangle: j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
               if (dis[3] < 0.005) {
                 disSave = dis
                 ok = true
-                // console.log('TROUVE:Rectangle: j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
                 break
               } else {
                 if (dis[3] < disSave[3]) {
@@ -158,11 +159,9 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               const lBC = randint(lAB + 5, 100)
               const lAC = Math.sqrt(lBC * lBC - lAB * lAB)
               dis = [lAB, lBC, lAC, lAC * 0.1 - Math.floor(lAC /** 0.1 * 10 */) * 0.1]
-              // console.log('Rectangle1diag:j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
               if (dis[3] < 0.005) {
                 disSave = dis
                 ok = true
-                // console.log('TROUVE:Rectangle1diag:j' + jj + 'k' + kk + ':dis:' + dis[0].toFixed(2) + ':' + dis[1].toFixed(2) + ':' + dis[2].toFixed(2) + ':dis:' + dis[3].toFixed(4))
                 break
               } else {
                 if (dis[3] < disSave[3]) {
@@ -267,14 +266,10 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
               dis = [lAB, lBC, lAC, m - Math.floor(m * 10) * 0.1]
               if (dis[3] < 0.005) {
                 disSave = dis
-                // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':d:' + m + 'dmin:' + dis[3])
-                // console.log('OK i:' + i + ':kk:' + kk + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                 ok = true
                 break
               } else {
                 if (dis[3] < disSave[3]) {
-                  // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':d:' + m + 'dmin:' + dis[3])
-                  // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                   disSave = dis
                 }
               }
@@ -293,24 +288,24 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
           break
         }
       }
-      const aA = listeTypeDeQuestions[i] === 'Carré' || listeTypeDeQuestions[i] === 'Rectangle' ? codageAngleDroit(B, A, D, 'red', 0.7, 1, 0.6, 'red', 0.2) : vide2d()
-      const aB = listeTypeDeQuestions[i] === 'Carré' || listeTypeDeQuestions[i] === 'Rectangle' ? codageAngleDroit(A, B, C, 'red', 0.7, 1, 0.6, 'red', 0.2) : vide2d()
-      const aC = listeTypeDeQuestions[i] === 'Carré' || listeTypeDeQuestions[i] === 'Rectangle' ? codageAngleDroit(B, C, D, 'red', 0.7, 1, 0.6, 'red', 0.2) : vide2d()
-      const aD = listeTypeDeQuestions[i] === 'Carré' || listeTypeDeQuestions[i] === 'Rectangle' ? codageAngleDroit(C, D, A, 'red', 0.7, 1, 0.6, 'red', 0.2) : vide2d()
-      const aE = listeTypeDeQuestions[i] === 'Losange2diag' || listeTypeDeQuestions[i] === 'Carré1diag' ? codageAngleDroit(C, milieu(A, C), D, 'red', 0.7, 1, 0.6, 'red', 0.2) : vide2d()
+      const aA = typeDeQuestion === 'Carré' || typeDeQuestion === 'Rectangle' ? codageAngleDroit(B, A, D, 'red', 0.7, 1, 0.6, 'red', 0.2) : vide2d()
+      const aB = typeDeQuestion === 'Carré' || typeDeQuestion === 'Rectangle' ? codageAngleDroit(A, B, C, 'red', 0.7, 1, 0.6, 'red', 0.2) : vide2d()
+      const aC = typeDeQuestion === 'Carré' || typeDeQuestion === 'Rectangle' ? codageAngleDroit(B, C, D, 'red', 0.7, 1, 0.6, 'red', 0.2) : vide2d()
+      const aD = typeDeQuestion === 'Carré' || typeDeQuestion === 'Rectangle' ? codageAngleDroit(C, D, A, 'red', 0.7, 1, 0.6, 'red', 0.2) : vide2d()
+      const aE = typeDeQuestion === 'Losange2diag' || typeDeQuestion === 'Carré1diag' ? codageAngleDroit(C, milieu(A, C), D, 'red', 0.7, 1, 0.6, 'red', 0.2) : vide2d()
       const segmentAC = segment(A, C, 'blue')
       const segmentBC = segment(B, D, 'blue')
       const traces2 = tracePoint(A, B, C, D)
       const labels2 = labelPoint(A, B, C, D)
       figure.epaisseur = 2
       objetsCorrection.push(traces2, labels2, figure, aA, aB, aC, aD, aE, segmentAC, segmentBC)
-      if (listeTypeDeQuestions[i] === 'Rectangle' || listeTypeDeQuestions[i] === 'Carré') {
+      if (typeDeQuestion === 'Rectangle' || typeDeQuestion === 'Carré') {
         objetsCorrection.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C), afficheLongueurSegment(A, D))
         const txt = texteSurSegment(`${A.nom}${C.nom}≃${stringNombre(segment(A, C).longueur, 2)} cm`, milieu(A, C), C, 'blue')
         txt.mathOn = false
         txt.scale = 1.2
         objetsCorrection.push(txt)
-      } else if (listeTypeDeQuestions[i] === 'Carré1diag') {
+      } else if (typeDeQuestion === 'Carré1diag') {
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
         const txt2 = texteSurSegment(`${B.nom}${D.nom}=${stringNombre(segment(B, D).longueur, 1)} cm`, milieu(B, D), D)
@@ -319,7 +314,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         txt3.mathOn = false
         txt3.scale = 1.2
         objetsCorrection.push(txt, txt2, txt3)
-      } else if (listeTypeDeQuestions[i] === 'Rectangle1diag') {
+      } else if (typeDeQuestion === 'Rectangle1diag') {
         objetsCorrection.push(afficheLongueurSegment(B, A))
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
@@ -327,7 +322,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         txt3.mathOn = false
         txt3.scale = 1.2
         objetsCorrection.push(txt, txt3)
-      } else if (listeTypeDeQuestions[i] === 'Losange') {
+      } else if (typeDeQuestion === 'Losange') {
         objetsCorrection.push(afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C), afficheLongueurSegment(A, D))
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
@@ -335,7 +330,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         txt2.mathOn = false
         txt2.scale = 1.2
         objetsCorrection.push(txt, txt2)
-      } else if (listeTypeDeQuestions[i] === 'Losange2diag') {
+      } else if (typeDeQuestion === 'Losange2diag') {
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
         const txt2 = texteSurSegment(`${B.nom}${D.nom}=${stringNombre(segment(B, D).longueur, 1)} cm`, milieu(B, D), D)
@@ -344,7 +339,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         txt3.mathOn = false
         txt3.scale = 1.2
         objetsCorrection.push(txt, txt2, txt3)
-      } else if (listeTypeDeQuestions[i] === 'Parallélogramme') {
+      } else if (typeDeQuestion === 'Parallélogramme') {
         const txt = texteSurSegment(`${A.nom}${C.nom}=${stringNombre(segment(A, C).longueur, 1)} cm`, milieu(A, C), C)
         txt.mathOn = false
         const txt2 = texteSurSegment(`${B.nom}${D.nom}≃${stringNombre(segment(B, D).longueur, 2)} cm`, milieu(A, C), B, 'blue')
@@ -354,7 +349,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       }
 
       const anim = new Alea2iep()
-      if (listeTypeDeQuestions[i] === 'Rectangle' || listeTypeDeQuestions[i] === 'Carré') {
+      if (typeDeQuestion === 'Rectangle' || typeDeQuestion === 'Carré') {
         anim.recadre(-segment(A, B).longueur, segment(B, C).longueur) // Déplace l'origine du repère (à mettre en premier obligatoirement)
         anim.pointCreer(A, { dx: -0.5, dy: -0.5, label: nomPoly.charAt(0) }) // On déplace les labels des points avec dx et dy
         anim.regleMontrer(A)
@@ -389,7 +384,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         anim.regleSegment(D, A)
         anim.regleMasquer()
         anim.crayonMasquer()
-      } else if (listeTypeDeQuestions[i] === 'Rectangle1diag') {
+      } else if (typeDeQuestion === 'Rectangle1diag') {
         anim.recadre(-segment(A, B).longueur, segment(B, C).longueur) // Déplace l'origine du repère (à mettre en premier obligatoirement)
         anim.pointCreer(A, { dx: -0.5, dy: -0.5, label: nomPoly.charAt(0) }) // On déplace les labels des points avec dx et dy
         anim.regleMontrer(A)
@@ -432,7 +427,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         anim.regleMasquer()
         anim.crayonMasquer()
         anim.textePoint(`${nomPoly.charAt(1)}${nomPoly.charAt(2)} ≃ ${stringNombre(segment(B, C).longueur, 3, true)} cm`, milieu(B, C))
-      } else if (listeTypeDeQuestions[i] === 'Losange' || listeTypeDeQuestions[i] === 'Parallélogramme') {
+      } else if (typeDeQuestion === 'Losange' || typeDeQuestion === 'Parallélogramme') {
         anim.recadre(-segment(A, B).longueur, segment(B, D).longueur / 2) // Déplace l'origine du repère (à mettre en premier obligatoirement)
         anim.pointCreer(A, { dx: -0.5, dy: -0.5, label: nomPoly.charAt(0) }) // On déplace les labels des points avec dx et dy
         anim.regleMontrer(A)
@@ -476,7 +471,7 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
         anim.regleSegment(B, D)
         anim.regleMasquer()
         anim.textePoint(`${nomPoly.charAt(1)}${nomPoly.charAt(3)} ≃ ${stringNombre(segment(B, D).longueur, 3, true)} cm`, milieu(B, D))
-      } else if (listeTypeDeQuestions[i] === 'Losange2diag' || listeTypeDeQuestions[i] === 'Carré1diag') {
+      } else if (typeDeQuestion === 'Losange2diag' || typeDeQuestion === 'Carré1diag') {
         anim.recadre(-segment(A, B).longueur, segment(B, D).longueur) // Déplace l'origine du repère (à mettre en premier obligatoirement)
         anim.pointCreer(A, { dx: -0.5, dy: -0.5, label: nomPoly.charAt(0) }) // On déplace les labels des points avec dx et dy
         anim.regleMontrer(A)
@@ -527,13 +522,13 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       }
 
       texte = `Construire le ${naturePoly} $${nomPoly}$`
-      if (listeTypeDeQuestions[i] === 'Rectangle' || listeTypeDeQuestions[i] === 'Carré') texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 2)}~\\text{cm}$`
-      if (listeTypeDeQuestions[i] === 'Rectangle') texte += ` et $${B.nom + C.nom} = ${texNombre(segment(B, C).longueur, 2)}~\\text{cm}$`
-      if (listeTypeDeQuestions[i] === 'Losange') texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 2)}~\\text{cm}$ et $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$`
-      if (listeTypeDeQuestions[i] === 'Losange2diag') texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$ et $${B.nom + D.nom} = ${texNombre(segment(B, D).longueur, 2)}~\\text{cm}$`
-      if (listeTypeDeQuestions[i] === 'Carré1diag') texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$`
-      if (listeTypeDeQuestions[i] === 'Rectangle1diag') texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 2)}~\\text{cm}$ et $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$`
-      if (listeTypeDeQuestions[i] === 'Parallélogramme') texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$, $${A.nom + D.nom} = ${texNombre(segment(A, D).longueur, 2)}~\\text{cm}$ et $${D.nom + C.nom} = ${texNombre(segment(D, C).longueur, 2)}~\\text{cm}$`
+      if (typeDeQuestion === 'Rectangle' || typeDeQuestion === 'Carré') texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 2)}~\\text{cm}$`
+      if (typeDeQuestion === 'Rectangle') texte += ` et $${B.nom + C.nom} = ${texNombre(segment(B, C).longueur, 2)}~\\text{cm}$`
+      if (typeDeQuestion === 'Losange') texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 2)}~\\text{cm}$ et $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$`
+      if (typeDeQuestion === 'Losange2diag') texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$ et $${B.nom + D.nom} = ${texNombre(segment(B, D).longueur, 2)}~\\text{cm}$`
+      if (typeDeQuestion === 'Carré1diag') texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$`
+      if (typeDeQuestion === 'Rectangle1diag') texte += ` avec $${A.nom + B.nom} = ${texNombre(segment(A, B).longueur, 2)}~\\text{cm}$ et $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$`
+      if (typeDeQuestion === 'Parallélogramme') texte += ` avec $${A.nom + C.nom} = ${texNombre(segment(A, C).longueur, 2)}~\\text{cm}$, $${A.nom + D.nom} = ${texNombre(segment(A, D).longueur, 2)}~\\text{cm}$ et $${D.nom + C.nom} = ${texNombre(segment(D, C).longueur, 2)}~\\text{cm}$`
       texte += '.'
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       const xmin = Math.min(A.x, B.x, C.x, D.x) - 2
@@ -544,11 +539,11 @@ export default class TracerQuadrilatèresParticuliers extends Exercice {
       const paramsCorrection = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr = mathalea2d(paramsCorrection, objetsCorrection)
-      if (listeTypeDeQuestions[i] === 'Rectangle' || listeTypeDeQuestions[i] === 'Carré') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(segment(A, C).longueur, 2, true)}~\\text{cm}$`)}.<br>`
-      if (listeTypeDeQuestions[i] === 'Losange') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 2, true)}~\\text{cm}$`)}.<br>`
-      if (listeTypeDeQuestions[i] === 'Losange2diag' || listeTypeDeQuestions[i] === 'Carré1diag') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que tous les côtés du ${naturePoly} mesure environ $${texNombre(segment(A, B).longueur, 2, true)}~\\text{cm}$`)}.<br>`
-      if (listeTypeDeQuestions[i] === 'Rectangle1diag') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + C.nom}]$ mesure environ $${texNombre(segment(B, C).longueur, 2, true)}~\\text{cm}$`)}.<br>`
-      if (listeTypeDeQuestions[i] === 'Parallélogramme') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 2, true)}~\\text{cm}$`)}.<br>`
+      if (typeDeQuestion === 'Rectangle' || typeDeQuestion === 'Carré') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${A.nom + C.nom}]$ et $[${B.nom + D.nom}]$ mesurent bien tous les deux $${texNombre(segment(A, C).longueur, 2, true)}~\\text{cm}$`)}.<br>`
+      if (typeDeQuestion === 'Losange') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 2, true)}~\\text{cm}$`)}.<br>`
+      if (typeDeQuestion === 'Losange2diag' || typeDeQuestion === 'Carré1diag') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que tous les côtés du ${naturePoly} mesure environ $${texNombre(segment(A, B).longueur, 2, true)}~\\text{cm}$`)}.<br>`
+      if (typeDeQuestion === 'Rectangle1diag') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + C.nom}]$ mesure environ $${texNombre(segment(B, C).longueur, 2, true)}~\\text{cm}$`)}.<br>`
+      if (typeDeQuestion === 'Parallélogramme') texteCorr += `<br><br>${texteEnCouleur(`Pour l'auto-correction, on peut vérifier que $[${B.nom + D.nom}]$ mesure environ $${texNombre(segment(B, D).longueur, 2, true)}~\\text{cm}$`)}.<br>`
       texteCorr += anim.htmlBouton(numeroExercice, i)
 
       // Si la question n'a jamais été posée, on l'enregistre

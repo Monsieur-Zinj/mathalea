@@ -14,3 +14,5 @@ pnpm-lock.yaml
 /public/assets/e3c
 /public/static
 _private/
+tests/e2e/logs
+updatefile

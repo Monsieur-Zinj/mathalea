@@ -70,11 +70,11 @@ export default function VocabulaireDuCercle () {
   this.sup3 = 5
   this.besoinFormulaire3Numerique = ['Nombre de sous-questions', 5]
 
-  this.spacing = 1.5 // Interligne des questions
+  this.spacing = 1 // Interligne des questions
   this.spacingCorr = 1.5 // Interligne des réponses
 
   this.nouvelleVersion = function () {
-    this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
+    this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).<br><br>' : 'Compléter.<br><br>'
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -123,7 +123,7 @@ export default function VocabulaireDuCercle () {
       const DE = segment(D, E)
       const polygon = polygoneAvecNom(A, B, C, D, E)
       objetsEnonce.push(leCercle, labelPoint(O), tracePoint(O), OA, BC, DE, polygon[1])
-      const params = { xmin: -4, ymin: -4, xmax: 4, ymax: 4, pixelsParCm: 20, scale: 1 }
+      const params = { xmin: -4, ymin: -4, xmax: 4, ymax: 4, pixelsParCm: 20, scale: 1, optionsTikz: 'baseline=(current bounding box.north)' }
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       const figure = mathalea2d(params, objetsEnonce)
       texte += figure + '<br>'

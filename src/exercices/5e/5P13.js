@@ -126,9 +126,9 @@ export default function EchellesProblemes () {
           quidam = choice(Famille)
           quidam2 = choice([prenomF(), prenomM()])
           nb1 = choice(rangeMinMax(3, 47, [10, 20, 30, 40]))
-          nb1Unite1 = nb1 / Math.pow(10, min(Math.floor(Math.log10(nb1))))
+          nb1Unite1 = nb1 / Math.pow(10, min(Math.floor(Math.log10(nb1), 6)))
           echelleQ = choice(Echelle)
-          echelleQUnite2 = echelleQ[0] / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 6))
+          echelleQUnite2 = echelleQ[0] / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 6 - Math.floor(Math.log10(nb1))))
           unite1 = tableauUnites[Math.floor(Math.log10(nb1))]
           nb2 = nb1 * echelleQ[0]
           unite2 = tableauUnites[Math.floor(min(Math.log10(echelleQ[0]) + Math.floor(Math.log10(nb1)), 6))]

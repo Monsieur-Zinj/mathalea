@@ -270,7 +270,6 @@ function addExercise (uuid: string) {
    * Gestion des données
    */
   function newDataForAll () {
-    // console.log($globalOptions, $exercicesParams)
     const newDataForAll = new window.Event('newDataForAll', {
       bubbles: true
     })
@@ -376,8 +375,6 @@ function addExercise (uuid: string) {
                       } else {
                         alert('URL non valide !')
                       }
-                      // console.log("Après chargement :")
-                      // console.log($globalOptions)
                       urlFeuilleEleve = ''
                     }}
                   />

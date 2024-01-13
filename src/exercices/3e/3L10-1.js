@@ -155,7 +155,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
       }
       if (!context.isAmc && this.interactif) {
         const reponse = texteCorr.match(/=([^=$]+)\$$/)[1]
-        setReponse(this, i, reponse)
+        setReponse(this, i, reponse, { formatInteractif: 'canonicalAdd' })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
       } else {
         this.autoCorrection[i] = {

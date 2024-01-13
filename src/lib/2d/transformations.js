@@ -230,7 +230,7 @@ export function homothetie (Objet, O, k, nom = '', positionLabel = 'above', colo
 /**
  * Renvoie le point M symétrique du point A par la droite d.
  * @param {Point} A Objet de type Point (ses coordonnées x et y renseignées)
- * @param {droite} d Objet de type Droite (son équation ax+by+c=0 renseignée)
+ * @param {Droite} d Objet de type Droite (son équation ax+by+c=0 renseignée)
  * @param {string} M Nom de l'image. Facultatif, vide par défaut.
  * @param {string} positionLabel Facultatif, 'above' par défaut.
  * @return {Point} M image de A par la symétrie axiale d'axe d.

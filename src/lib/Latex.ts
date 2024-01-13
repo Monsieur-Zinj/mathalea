@@ -267,6 +267,10 @@ class Latex {
       result += '\n\\usepackage[margin=1cm]{geometry}'
       result += '\n\\pagestyle{empty}'
       result += '\n\\usepackage{enumitem}'
+      result += '\n\\usepackage{fontspec}'
+      result += '\n\\usepackage{unicode-math}'
+      result += '\n\\setmainfont{Arial}'
+      result += '\n\\setmathfont{STIX Two Math}'
       if (content.includes('pspicture')) {
         result += '\n\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}'
         result += '\n\\usepackage{pst-eucl}'
@@ -279,6 +283,9 @@ class Latex {
       }
       if (content.includes('\\np{')) {
         result += '\n\\usepackage[autolanguage,np]{numprint}'
+      }
+      if (content.includes(',decorate,decoration=')) {
+        result += '\n\\usetikzlibrary{decorations.pathmorphing}'
       }
 
       const [latexCmds, latexPackages] = this.getContentLatex()
@@ -379,7 +386,7 @@ export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: p
       const serie = exo?.serie?.toLowerCase()
       for (const file of picsNames[i]) {
         if (serie === 'crpe') {
-          imagesFilesUrls.push(`https://coopmaths.fr/alea/static/${serie}/${year}/images/${file.name}.${file.format}`)
+          imagesFilesUrls.push(`${window.location.origin}/static/${serie}/${year}/images/${file.name}.${file.format}`)
         } else {
           if (file.format) {
             imagesFilesUrls.push(`https://coopmaths.fr/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)

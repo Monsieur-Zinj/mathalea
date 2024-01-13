@@ -41456,423 +41456,7 @@
     "2025": {}
   },
   "BAC par thèmes - APMEP": {
-    "": {
-      "bac_2022_05_sujet1_madagascar_1": {
-        "uuid": "bac_2022_05_sujet1_madagascar_1",
-        "annee": "2022",
-        "lieu": "madagascar",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_madagascar_2": {
-        "uuid": "bac_2022_05_sujet1_madagascar_2",
-        "annee": "2022",
-        "lieu": "madagascar",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_madagascar_3": {
-        "uuid": "bac_2022_05_sujet1_madagascar_3",
-        "annee": "2022",
-        "lieu": "madagascar",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_madagascar_4": {
-        "uuid": "bac_2022_05_sujet1_madagascar_4",
-        "annee": "2022",
-        "lieu": "madagascar",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_polynesie_3": {
-        "uuid": "bac_2022_05_sujet1_polynesie_3",
-        "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet1_polynesie_4": {
-        "uuid": "bac_2022_05_sujet1_polynesie_4",
-        "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_ameriquenord_1": {
-        "uuid": "bac_2022_05_sujet2_ameriquenord_1",
-        "annee": "2022",
-        "lieu": "Amérique du Nord",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_ameriquenord_2": {
-        "uuid": "bac_2022_05_sujet2_ameriquenord_2",
-        "annee": "2022",
-        "lieu": "Amérique du Nord",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_ameriquenord_3": {
-        "uuid": "bac_2022_05_sujet2_ameriquenord_3",
-        "annee": "2022",
-        "lieu": "Amérique du Nord",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_ameriquenord_4": {
-        "uuid": "bac_2022_05_sujet2_ameriquenord_4",
-        "annee": "2022",
-        "lieu": "Amérique du Nord",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_asie_1": {
-        "uuid": "bac_2022_05_sujet2_asie_1",
-        "annee": "2022",
-        "lieu": "Asie",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_asie_2": {
-        "uuid": "bac_2022_05_sujet2_asie_2",
-        "annee": "2022",
-        "lieu": "Asie",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_asie_3": {
-        "uuid": "bac_2022_05_sujet2_asie_3",
-        "annee": "2022",
-        "lieu": "Asie",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_asie_4": {
-        "uuid": "bac_2022_05_sujet2_asie_4",
-        "annee": "2022",
-        "lieu": "Asie",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_etrangers_1": {
-        "uuid": "bac_2022_05_sujet2_etrangers_1",
-        "annee": "2022",
-        "lieu": "Centres étrangers",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_etrangers_2": {
-        "uuid": "bac_2022_05_sujet2_etrangers_2",
-        "annee": "2022",
-        "lieu": "Centres étrangers",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_etrangers_3": {
-        "uuid": "bac_2022_05_sujet2_etrangers_3",
-        "annee": "2022",
-        "lieu": "Centres étrangers",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_etrangers_4": {
-        "uuid": "bac_2022_05_sujet2_etrangers_4",
-        "annee": "2022",
-        "lieu": "Centres étrangers",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_madagascar_1": {
-        "uuid": "bac_2022_05_sujet2_madagascar_1",
-        "annee": "2022",
-        "lieu": "madagascar",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_madagascar_2": {
-        "uuid": "bac_2022_05_sujet2_madagascar_2",
-        "annee": "2022",
-        "lieu": "madagascar",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_madagascar_3": {
-        "uuid": "bac_2022_05_sujet2_madagascar_3",
-        "annee": "2022",
-        "lieu": "madagascar",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_madagascar_4": {
-        "uuid": "bac_2022_05_sujet2_madagascar_4",
-        "annee": "2022",
-        "lieu": "madagascar",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_metropole_1": {
-        "uuid": "bac_2022_05_sujet2_metropole_1",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_metropole_2": {
-        "uuid": "bac_2022_05_sujet2_metropole_2",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_metropole_3": {
-        "uuid": "bac_2022_05_sujet2_metropole_3",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_metropole_4": {
-        "uuid": "bac_2022_05_sujet2_metropole_4",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
+    " QCM": {
       "bac_2022_05_sujet2_polynesie_1": {
         "uuid": "bac_2022_05_sujet2_polynesie_1",
         "annee": "2022",
@@ -41886,528 +41470,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1_cor.tex",
         "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_polynesie_2": {
-        "uuid": "bac_2022_05_sujet2_polynesie_2",
-        "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_polynesie_3": {
-        "uuid": "bac_2022_05_sujet2_polynesie_3",
-        "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_05_sujet2_polynesie_4": {
-        "uuid": "bac_2022_05_sujet2_polynesie_4",
-        "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Mai",
-        "jour": "J2",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_ameriquesud_1": {
-        "uuid": "bac_2022_09_sujet1_ameriquesud_1",
-        "annee": "2022",
-        "lieu": "Amérique du sud",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_ameriquesud_2": {
-        "uuid": "bac_2022_09_sujet1_ameriquesud_2",
-        "annee": "2022",
-        "lieu": "Amérique du sud",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_ameriquesud_3": {
-        "uuid": "bac_2022_09_sujet1_ameriquesud_3",
-        "annee": "2022",
-        "lieu": "Amérique du sud",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_ameriquesud_4": {
-        "uuid": "bac_2022_09_sujet1_ameriquesud_4",
-        "annee": "2022",
-        "lieu": "Amérique du sud",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_metropole_1": {
-        "uuid": "bac_2022_09_sujet1_metropole_1",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_metropole_2": {
-        "uuid": "bac_2022_09_sujet1_metropole_2",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_metropole_3": {
-        "uuid": "bac_2022_09_sujet1_metropole_3",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_metropole_4": {
-        "uuid": "bac_2022_09_sujet1_metropole_4",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_polynesie_1": {
-        "uuid": "bac_2022_09_sujet1_polynesie_1",
-        "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_polynesie_2": {
-        "uuid": "bac_2022_09_sujet1_polynesie_2",
-        "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_polynesie_3": {
-        "uuid": "bac_2022_09_sujet1_polynesie_3",
-        "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet1_polynesie_4": {
-        "uuid": "bac_2022_09_sujet1_polynesie_4",
-        "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Septembre",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet2_ameriquesud_1": {
-        "uuid": "bac_2022_09_sujet2_ameriquesud_1",
-        "annee": "2022",
-        "lieu": "Amérique du sud",
-        "mois": "Septembre",
-        "jour": "J2",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet2_ameriquesud_2": {
-        "uuid": "bac_2022_09_sujet2_ameriquesud_2",
-        "annee": "2022",
-        "lieu": "Amérique du sud",
-        "mois": "Septembre",
-        "jour": "J2",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet2_ameriquesud_3": {
-        "uuid": "bac_2022_09_sujet2_ameriquesud_3",
-        "annee": "2022",
-        "lieu": "Amérique du sud",
-        "mois": "Septembre",
-        "jour": "J2",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet2_ameriquesud_4": {
-        "uuid": "bac_2022_09_sujet2_ameriquesud_4",
-        "annee": "2022",
-        "lieu": "Amérique du sud",
-        "mois": "Septembre",
-        "jour": "J2",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet2_metropole_1": {
-        "uuid": "bac_2022_09_sujet2_metropole_1",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "jour": "J2",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet2_metropole_2": {
-        "uuid": "bac_2022_09_sujet2_metropole_2",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "jour": "J2",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet2_metropole_3": {
-        "uuid": "bac_2022_09_sujet2_metropole_3",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "jour": "J2",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_09_sujet2_metropole_4": {
-        "uuid": "bac_2022_09_sujet2_metropole_4",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Septembre",
-        "jour": "J2",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_10_sujet1_caledonie_1": {
-        "uuid": "bac_2022_10_sujet1_caledonie_1",
-        "annee": "2022",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Octobre",
-        "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_10_sujet1_caledonie_2": {
-        "uuid": "bac_2022_10_sujet1_caledonie_2",
-        "annee": "2022",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Octobre",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_10_sujet1_caledonie_3": {
-        "uuid": "bac_2022_10_sujet1_caledonie_3",
-        "annee": "2022",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Octobre",
-        "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_10_sujet1_caledonie_4": {
-        "uuid": "bac_2022_10_sujet1_caledonie_4",
-        "annee": "2022",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Octobre",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_10_sujet2_caledonie_1": {
-        "uuid": "bac_2022_10_sujet2_caledonie_1",
-        "annee": "2022",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Octobre",
-        "jour": "J2",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_1_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_1_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_10_sujet2_caledonie_2": {
-        "uuid": "bac_2022_10_sujet2_caledonie_2",
-        "annee": "2022",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Octobre",
-        "jour": "J2",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_2_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_2_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_10_sujet2_caledonie_3": {
-        "uuid": "bac_2022_10_sujet2_caledonie_3",
-        "annee": "2022",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Octobre",
-        "jour": "J2",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_3_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_3_cor.tex",
-        "tags": [
-          ""
-        ]
-      },
-      "bac_2022_10_sujet2_caledonie_4": {
-        "uuid": "bac_2022_10_sujet2_caledonie_4",
-        "annee": "2022",
-        "lieu": "Nouvelle Calédonie",
-        "mois": "Octobre",
-        "jour": "J2",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4_cor.tex",
-        "tags": [
-          ""
-        ]
-      }
-    },
-    "Asymptotes": {
-      "bac_2022_05_sujet1_metropole_4": {
-        "uuid": "bac_2022_05_sujet1_metropole_4",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
-        "tags": [
-          "QCM",
-          "Primitives",
-          "Convexité",
-          "Exponentielles",
+          " QCM",
           "Logarithme",
-          "Limites",
-          "Asymptotes",
-          "Fonctions"
+          "Exponentielle",
+          "Primitive"
         ]
       }
     },
@@ -42632,22 +41698,41 @@
           "Convexité"
         ]
       },
-      "bac_2022_05_sujet1_etrangers_3": {
-        "uuid": "bac_2022_05_sujet1_etrangers_3",
+      "bac_2022_05_sujet1_etrangers_1": {
+        "uuid": "bac_2022_05_sujet1_etrangers_1",
         "annee": "2022",
         "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3_cor.png",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
         "tags": [
+          "QCM",
           "Convexité",
+          "Logarithme",
+          "Primitives"
+        ]
+      },
+      "bac_2022_05_sujet1_madagascar_2": {
+        "uuid": "bac_2022_05_sujet1_madagascar_2",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2_cor.tex",
+        "tags": [
           "Suites",
-          "QCM"
+          "Logarithme",
+          "Convexité"
         ]
       },
       "bac_2022_05_sujet1_metropole_4": {
@@ -42663,14 +41748,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
         "tags": [
+          "Exponentielle",
           "QCM",
           "Primitives",
-          "Convexité",
-          "Exponentielles",
-          "Logarithme",
-          "Limites",
-          "Asymptotes",
-          "Fonctions"
+          "Convexité"
         ]
       },
       "bac_2022_05_sujet1_polynesie_1": {
@@ -42686,14 +41767,232 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
         "tags": [
-          "Fonctions",
           "QCM",
           "Logarithme",
           "Primitives",
           "Suites",
-          "Limites",
           "Convexité",
           "Python"
+        ]
+      },
+      "bac_2022_05_sujet2_ameriquenord_2": {
+        "uuid": "bac_2022_05_sujet2_ameriquenord_2",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_2_cor.tex",
+        "tags": [
+          "TVI",
+          "Exponentielle",
+          "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet2_asie_2": {
+        "uuid": "bac_2022_05_sujet2_asie_2",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_2_cor.tex",
+        "tags": [
+          "Convexité",
+          "Logarithme",
+          "TVI"
+        ]
+      },
+      "bac_2022_05_sujet2_etrangers_1": {
+        "uuid": "bac_2022_05_sujet2_etrangers_1",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Convexité",
+          "Exponentielle",
+          "Primitive"
+        ]
+      },
+      "bac_2022_05_sujet2_etrangers_2": {
+        "uuid": "bac_2022_05_sujet2_etrangers_2",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Convexité",
+          "Suites"
+        ]
+      },
+      "bac_2022_05_sujet2_madagascar_3": {
+        "uuid": "bac_2022_05_sujet2_madagascar_3",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
+          "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet2_metropole_2": {
+        "uuid": "bac_2022_05_sujet2_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_2_cor.tex",
+        "tags": [
+          "QCM",
+          "Convexité",
+          "Suites"
+        ]
+      },
+      "bac_2022_09_sujet1_ameriquesud_3": {
+        "uuid": "bac_2022_09_sujet1_ameriquesud_3",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "TVI",
+          "Convexité"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_1": {
+        "uuid": "bac_2022_09_sujet1_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Exponentielle",
+          "Convexité",
+          "Suites",
+          "Primitives"
+        ]
+      },
+      "bac_2022_09_sujet1_polynesie_3": {
+        "uuid": "bac_2022_09_sujet1_polynesie_3",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Convexité",
+          "Primitives"
+        ]
+      },
+      "bac_2022_09_sujet2_ameriquesud_2": {
+        "uuid": "bac_2022_09_sujet2_ameriquesud_2",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "TVI",
+          "Convexité"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_2": {
+        "uuid": "bac_2022_09_sujet2_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
+          "Python",
+          "Convexité",
+          "Primitives"
+        ]
+      },
+      "bac_2022_10_sujet1_caledonie_1": {
+        "uuid": "bac_2022_10_sujet1_caledonie_1",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_1_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Convexité"
         ]
       }
     },
@@ -43113,6 +42412,22 @@
           "Espace"
         ]
       },
+      "bac_2022_05_sujet1_madagascar_4": {
+        "uuid": "bac_2022_05_sujet1_madagascar_4",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_4_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
       "bac_2022_05_sujet1_metropole_2": {
         "uuid": "bac_2022_05_sujet1_metropole_2",
         "annee": "2022",
@@ -43125,6 +42440,230 @@
         "typeExercice": "bac",
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_2_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_4": {
+        "uuid": "bac_2022_05_sujet1_polynesie_4",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_4_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_05_sujet2_ameriquenord_3": {
+        "uuid": "bac_2022_05_sujet2_ameriquenord_3",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_3_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_05_sujet2_asie_1": {
+        "uuid": "bac_2022_05_sujet2_asie_1",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_1_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_05_sujet2_etrangers_3": {
+        "uuid": "bac_2022_05_sujet2_etrangers_3",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_3_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_05_sujet2_madagascar_2": {
+        "uuid": "bac_2022_05_sujet2_madagascar_2",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_2_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_05_sujet2_metropole_3": {
+        "uuid": "bac_2022_05_sujet2_metropole_3",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_3_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_05_sujet2_polynesie_4": {
+        "uuid": "bac_2022_05_sujet2_polynesie_4",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_4_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_09_sujet1_ameriquesud_4": {
+        "uuid": "bac_2022_09_sujet1_ameriquesud_4",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_4_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_4": {
+        "uuid": "bac_2022_09_sujet1_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_4_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_09_sujet1_polynesie_4": {
+        "uuid": "bac_2022_09_sujet1_polynesie_4",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_4_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_09_sujet2_ameriquesud_4": {
+        "uuid": "bac_2022_09_sujet2_ameriquesud_4",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_4_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_4": {
+        "uuid": "bac_2022_09_sujet2_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_4_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_10_sujet1_caledonie_3": {
+        "uuid": "bac_2022_10_sujet1_caledonie_3",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_3_cor.tex",
+        "tags": [
+          "Espace"
+        ]
+      },
+      "bac_2022_10_sujet2_caledonie_3": {
+        "uuid": "bac_2022_10_sujet2_caledonie_3",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_3_cor.tex",
         "tags": [
           "Espace"
         ]
@@ -43459,29 +42998,46 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
         "tags": [
-          "suites",
+          "Suites",
           "Python",
           "Exponentielle",
           "Logarithme"
         ]
       },
-      "bac_2022_05_sujet1_etrangers_4": {
-        "uuid": "bac_2022_05_sujet1_etrangers_4",
+      "bac_2022_05_sujet1_etrangers_3": {
+        "uuid": "bac_2022_05_sujet1_etrangers_3",
         "annee": "2022",
         "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3_cor.tex",
         "tags": [
           "Exponentielle",
+          "Suites"
+        ]
+      },
+      "bac_2022_05_sujet1_madagascar_3": {
+        "uuid": "bac_2022_05_sujet1_madagascar_3",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3_cor.tex",
+        "tags": [
           "Suites",
-          "Python",
-          "TVI"
+          "Exponentielle",
+          "TVI",
+          "Python"
         ]
       },
       "bac_2022_05_sujet1_metropole_1": {
@@ -43501,9 +43057,7 @@
           "Suites",
           "TVI"
         ]
-      }
-    },
-    "Exponentielles": {
+      },
       "bac_2022_05_sujet1_metropole_4": {
         "uuid": "bac_2022_05_sujet1_metropole_4",
         "annee": "2022",
@@ -43517,110 +43071,159 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
         "tags": [
+          "Exponentielle",
           "QCM",
           "Primitives",
-          "Convexité",
-          "Exponentielles",
-          "Logarithme",
-          "Limites",
-          "Asymptotes",
-          "Fonctions"
-        ]
-      }
-    },
-    "Fonctions": {
-      "bac_2022_05_sujet1_metropole_4": {
-        "uuid": "bac_2022_05_sujet1_metropole_4",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
-        "tags": [
-          "QCM",
-          "Primitives",
-          "Convexité",
-          "Exponentielles",
-          "Logarithme",
-          "Limites",
-          "Asymptotes",
-          "Fonctions"
+          "Convexité"
         ]
       },
-      "bac_2022_05_sujet1_polynesie_1": {
-        "uuid": "bac_2022_05_sujet1_polynesie_1",
+      "bac_2022_05_sujet2_ameriquenord_2": {
+        "uuid": "bac_2022_05_sujet2_ameriquenord_2",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_2_cor.tex",
+        "tags": [
+          "TVI",
+          "Exponentielle",
+          "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet2_etrangers_1": {
+        "uuid": "bac_2022_05_sujet2_etrangers_1",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Convexité",
+          "Exponentielle",
+          "Primitive"
+        ]
+      },
+      "bac_2022_05_sujet2_madagascar_4": {
+        "uuid": "bac_2022_05_sujet2_madagascar_4",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Logarithme",
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet2_metropole_4": {
+        "uuid": "bac_2022_05_sujet2_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "TVI"
+        ]
+      },
+      "bac_2022_05_sujet2_polynesie_1": {
+        "uuid": "bac_2022_05_sujet2_polynesie_1",
         "annee": "2022",
         "lieu": "Polynésie",
         "mois": "Mai",
-        "jour": "J1",
+        "jour": "J2",
         "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_1_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1_cor.tex",
         "tags": [
-          "Fonctions",
-          "QCM",
+          " QCM",
           "Logarithme",
-          "Primitives",
-          "Suites",
-          "Limites",
-          "Convexité",
-          "Python"
-        ]
-      }
-    },
-    "Limites": {
-      "bac_2022_05_sujet1_metropole_4": {
-        "uuid": "bac_2022_05_sujet1_metropole_4",
-        "annee": "2022",
-        "lieu": "Métropole",
-        "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
-        "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
-        "tags": [
-          "QCM",
-          "Primitives",
-          "Convexité",
-          "Exponentielles",
-          "Logarithme",
-          "Limites",
-          "Asymptotes",
-          "Fonctions"
+          "Exponentielle",
+          "Primitive"
         ]
       },
-      "bac_2022_05_sujet1_polynesie_1": {
-        "uuid": "bac_2022_05_sujet1_polynesie_1",
+      "bac_2022_09_sujet1_metropole_1": {
+        "uuid": "bac_2022_09_sujet1_metropole_1",
         "annee": "2022",
-        "lieu": "Polynésie",
-        "mois": "Mai",
+        "lieu": "Métropole",
+        "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_1_cor.png",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1_cor.tex",
         "tags": [
-          "Fonctions",
           "QCM",
-          "Logarithme",
-          "Primitives",
-          "Suites",
-          "Limites",
+          "Exponentielle",
           "Convexité",
-          "Python"
+          "Suites",
+          "Primitives"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_3": {
+        "uuid": "bac_2022_09_sujet1_metropole_3",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Exponentielle",
+          "TVI"
+        ]
+      },
+      "bac_2022_10_sujet2_caledonie_4": {
+        "uuid": "bac_2022_10_sujet2_caledonie_4",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
+          "Exponentielle",
+          "Logarithme"
         ]
       }
     },
@@ -43832,7 +43435,7 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
         "tags": [
-          "suites",
+          "Suites",
           "Python",
           "Exponentielle",
           "Logarithme"
@@ -43855,27 +43458,41 @@
           "Convexité"
         ]
       },
-      "bac_2022_05_sujet1_metropole_4": {
-        "uuid": "bac_2022_05_sujet1_metropole_4",
+      "bac_2022_05_sujet1_etrangers_1": {
+        "uuid": "bac_2022_05_sujet1_etrangers_1",
         "annee": "2022",
-        "lieu": "Métropole",
+        "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_metropole_4_cor.png",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
         "tags": [
           "QCM",
-          "Primitives",
           "Convexité",
-          "Exponentielles",
           "Logarithme",
-          "Limites",
-          "Asymptotes",
-          "Fonctions"
+          "Primitives"
+        ]
+      },
+      "bac_2022_05_sujet1_madagascar_2": {
+        "uuid": "bac_2022_05_sujet1_madagascar_2",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2_cor.tex",
+        "tags": [
+          "Suites",
+          "Logarithme",
+          "Convexité"
         ]
       },
       "bac_2022_05_sujet1_polynesie_1": {
@@ -43891,14 +43508,283 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
         "tags": [
-          "Fonctions",
           "QCM",
           "Logarithme",
           "Primitives",
           "Suites",
-          "Limites",
           "Convexité",
           "Python"
+        ]
+      },
+      "bac_2022_05_sujet2_ameriquenord_4": {
+        "uuid": "bac_2022_05_sujet2_ameriquenord_4",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_4_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Loi binomiale",
+          "QCM"
+        ]
+      },
+      "bac_2022_05_sujet2_asie_2": {
+        "uuid": "bac_2022_05_sujet2_asie_2",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_2_cor.tex",
+        "tags": [
+          "Convexité",
+          "Logarithme",
+          "TVI"
+        ]
+      },
+      "bac_2022_05_sujet2_etrangers_2": {
+        "uuid": "bac_2022_05_sujet2_etrangers_2",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Convexité",
+          "Suites"
+        ]
+      },
+      "bac_2022_05_sujet2_madagascar_4": {
+        "uuid": "bac_2022_05_sujet2_madagascar_4",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Logarithme",
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet2_polynesie_1": {
+        "uuid": "bac_2022_05_sujet2_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1_cor.tex",
+        "tags": [
+          " QCM",
+          "Logarithme",
+          "Exponentielle",
+          "Primitive"
+        ]
+      },
+      "bac_2022_09_sujet1_ameriquesud_2": {
+        "uuid": "bac_2022_09_sujet1_ameriquesud_2",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_2_cor.tex",
+        "tags": [
+          "Suites",
+          "Python",
+          "Logarithme"
+        ]
+      },
+      "bac_2022_09_sujet1_ameriquesud_3": {
+        "uuid": "bac_2022_09_sujet1_ameriquesud_3",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "TVI",
+          "Convexité"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_3": {
+        "uuid": "bac_2022_09_sujet1_metropole_3",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Exponentielle",
+          "TVI"
+        ]
+      },
+      "bac_2022_09_sujet1_polynesie_3": {
+        "uuid": "bac_2022_09_sujet1_polynesie_3",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Convexité",
+          "Primitives"
+        ]
+      },
+      "bac_2022_09_sujet2_ameriquesud_2": {
+        "uuid": "bac_2022_09_sujet2_ameriquesud_2",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "TVI",
+          "Convexité"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_3": {
+        "uuid": "bac_2022_09_sujet2_metropole_3",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Suites"
+        ]
+      },
+      "bac_2022_10_sujet1_caledonie_1": {
+        "uuid": "bac_2022_10_sujet1_caledonie_1",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_1_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Convexité"
+        ]
+      },
+      "bac_2022_10_sujet1_caledonie_2": {
+        "uuid": "bac_2022_10_sujet1_caledonie_2",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_10_sujet2_caledonie_2": {
+        "uuid": "bac_2022_10_sujet2_caledonie_2",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "TVI",
+          "Python"
+        ]
+      },
+      "bac_2022_10_sujet2_caledonie_4": {
+        "uuid": "bac_2022_10_sujet2_caledonie_4",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
+          "Exponentielle",
+          "Logarithme"
         ]
       }
     },
@@ -44097,8 +43983,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex",
         "tags": [
-          "Probabilités Conditionnelles",
-          "Loi binomiale"
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables alétoires"
         ]
       },
       "bac_2022_05_sujet1_asie_1": {
@@ -44118,18 +44005,35 @@
           "Loi binomiale"
         ]
       },
-      "bac_2022_05_sujet1_etrangers_1": {
-        "uuid": "bac_2022_05_sujet1_etrangers_1",
+      "bac_2022_05_sujet1_etrangers_4": {
+        "uuid": "bac_2022_05_sujet1_etrangers_4",
         "annee": "2022",
         "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1_cor.png",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet1_madagascar_1": {
+        "uuid": "bac_2022_05_sujet1_madagascar_1",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_1_cor.tex",
         "tags": [
           "Probabilités conditionnelles",
           "Loi binomiale"
@@ -44169,6 +44073,272 @@
           "Probabilités conditionnelles",
           "Loi binomiale"
         ]
+      },
+      "bac_2022_05_sujet2_ameriquenord_4": {
+        "uuid": "bac_2022_05_sujet2_ameriquenord_4",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_4_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Loi binomiale",
+          "QCM"
+        ]
+      },
+      "bac_2022_05_sujet2_asie_3": {
+        "uuid": "bac_2022_05_sujet2_asie_3",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_3_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables aléatoires"
+        ]
+      },
+      "bac_2022_05_sujet2_etrangers_4": {
+        "uuid": "bac_2022_05_sujet2_etrangers_4",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_4_cor.tex",
+        "tags": [
+          "Variable aléatoire",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet2_madagascar_1": {
+        "uuid": "bac_2022_05_sujet2_madagascar_1",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet2_metropole_1": {
+        "uuid": "bac_2022_05_sujet2_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_1_cor.tex",
+        "tags": [
+          "Probabilites Conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet2_polynesie_2": {
+        "uuid": "bac_2022_05_sujet2_polynesie_2",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_2_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet1_ameriquesud_1": {
+        "uuid": "bac_2022_09_sujet1_ameriquesud_1",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_2": {
+        "uuid": "bac_2022_09_sujet1_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_2_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Variables aléatoires",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet1_polynesie_1": {
+        "uuid": "bac_2022_09_sujet1_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet2_ameriquesud_1": {
+        "uuid": "bac_2022_09_sujet2_ameriquesud_1",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_1": {
+        "uuid": "bac_2022_09_sujet2_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables aléatoires"
+        ]
+      },
+      "bac_2022_10_sujet1_caledonie_4": {
+        "uuid": "bac_2022_10_sujet1_caledonie_4",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_10_sujet2_caledonie_1": {
+        "uuid": "bac_2022_10_sujet2_caledonie_1",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      }
+    },
+    "Primitive": {
+      "bac_2022_05_sujet2_etrangers_1": {
+        "uuid": "bac_2022_05_sujet2_etrangers_1",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Convexité",
+          "Exponentielle",
+          "Primitive"
+        ]
+      },
+      "bac_2022_05_sujet2_polynesie_1": {
+        "uuid": "bac_2022_05_sujet2_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1_cor.tex",
+        "tags": [
+          " QCM",
+          "Logarithme",
+          "Exponentielle",
+          "Primitive"
+        ]
       }
     },
     "Primitives": {
@@ -44188,6 +44358,25 @@
           "Primitives"
         ]
       },
+      "bac_2022_05_sujet1_etrangers_1": {
+        "uuid": "bac_2022_05_sujet1_etrangers_1",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Convexité",
+          "Logarithme",
+          "Primitives"
+        ]
+      },
       "bac_2022_05_sujet1_metropole_4": {
         "uuid": "bac_2022_05_sujet1_metropole_4",
         "annee": "2022",
@@ -44201,14 +44390,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
         "tags": [
+          "Exponentielle",
           "QCM",
           "Primitives",
-          "Convexité",
-          "Exponentielles",
-          "Logarithme",
-          "Limites",
-          "Asymptotes",
-          "Fonctions"
+          "Convexité"
         ]
       },
       "bac_2022_05_sujet1_polynesie_1": {
@@ -44224,14 +44409,89 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
         "tags": [
-          "Fonctions",
           "QCM",
           "Logarithme",
           "Primitives",
           "Suites",
-          "Limites",
           "Convexité",
           "Python"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_1": {
+        "uuid": "bac_2022_09_sujet1_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Exponentielle",
+          "Convexité",
+          "Suites",
+          "Primitives"
+        ]
+      },
+      "bac_2022_09_sujet1_polynesie_3": {
+        "uuid": "bac_2022_09_sujet1_polynesie_3",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Convexité",
+          "Primitives"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_2": {
+        "uuid": "bac_2022_09_sujet2_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
+          "Python",
+          "Convexité",
+          "Primitives"
+        ]
+      }
+    },
+    "Probabilites Conditionnelles": {
+      "bac_2022_05_sujet2_metropole_1": {
+        "uuid": "bac_2022_05_sujet2_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_1_cor.tex",
+        "tags": [
+          "Probabilites Conditionnelles",
+          "Loi binomiale"
         ]
       }
     },
@@ -44399,6 +44659,24 @@
           "Loi binomiale"
         ]
       },
+      "bac_2022_05_sujet1_ameriquenord_1": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_1",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables alétoires"
+        ]
+      },
       "bac_2022_05_sujet1_asie_1": {
         "uuid": "bac_2022_05_sujet1_asie_1",
         "annee": "2022",
@@ -44416,18 +44694,35 @@
           "Loi binomiale"
         ]
       },
-      "bac_2022_05_sujet1_etrangers_1": {
-        "uuid": "bac_2022_05_sujet1_etrangers_1",
+      "bac_2022_05_sujet1_etrangers_4": {
+        "uuid": "bac_2022_05_sujet1_etrangers_4",
         "annee": "2022",
         "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J1",
-        "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1_cor.png",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet1_madagascar_1": {
+        "uuid": "bac_2022_05_sujet1_madagascar_1",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_1_cor.tex",
         "tags": [
           "Probabilités conditionnelles",
           "Loi binomiale"
@@ -44467,23 +44762,195 @@
           "Probabilités conditionnelles",
           "Loi binomiale"
         ]
-      }
-    },
-    "Probabilités Conditionnelles": {
-      "bac_2022_05_sujet1_ameriquenord_1": {
-        "uuid": "bac_2022_05_sujet1_ameriquenord_1",
+      },
+      "bac_2022_05_sujet2_ameriquenord_1": {
+        "uuid": "bac_2022_05_sujet2_ameriquenord_1",
         "annee": "2022",
         "lieu": "Amérique du Nord",
         "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Suites"
+        ]
+      },
+      "bac_2022_05_sujet2_asie_3": {
+        "uuid": "bac_2022_05_sujet2_asie_3",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_3_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables aléatoires"
+        ]
+      },
+      "bac_2022_05_sujet2_madagascar_1": {
+        "uuid": "bac_2022_05_sujet2_madagascar_1",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_05_sujet2_polynesie_2": {
+        "uuid": "bac_2022_05_sujet2_polynesie_2",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_2_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet1_ameriquesud_1": {
+        "uuid": "bac_2022_09_sujet1_ameriquesud_1",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
         "jour": "J1",
         "numeroInitial": "1",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1_cor.png",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_1_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_1_cor.tex",
         "tags": [
-          "Probabilités Conditionnelles",
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_2": {
+        "uuid": "bac_2022_09_sujet1_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_2_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Variables aléatoires",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet1_polynesie_1": {
+        "uuid": "bac_2022_09_sujet1_polynesie_1",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet2_ameriquesud_1": {
+        "uuid": "bac_2022_09_sujet2_ameriquesud_1",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_1": {
+        "uuid": "bac_2022_09_sujet2_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables aléatoires"
+        ]
+      },
+      "bac_2022_10_sujet1_caledonie_4": {
+        "uuid": "bac_2022_10_sujet1_caledonie_4",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_10_sujet2_caledonie_1": {
+        "uuid": "bac_2022_10_sujet2_caledonie_1",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
           "Loi binomiale"
         ]
       }
@@ -44669,29 +45136,29 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
         "tags": [
-          "suites",
+          "Suites",
           "Python",
           "Exponentielle",
           "Logarithme"
         ]
       },
-      "bac_2022_05_sujet1_etrangers_4": {
-        "uuid": "bac_2022_05_sujet1_etrangers_4",
+      "bac_2022_05_sujet1_madagascar_3": {
+        "uuid": "bac_2022_05_sujet1_madagascar_3",
         "annee": "2022",
-        "lieu": "Centres étrangers",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3_cor.tex",
         "tags": [
-          "Exponentielle",
           "Suites",
-          "Python",
-          "TVI"
+          "Exponentielle",
+          "TVI",
+          "Python"
         ]
       },
       "bac_2022_05_sujet1_metropole_3": {
@@ -44725,13 +45192,190 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
         "tags": [
-          "Fonctions",
           "QCM",
           "Logarithme",
           "Primitives",
           "Suites",
-          "Limites",
           "Convexité",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_3": {
+        "uuid": "bac_2022_05_sujet1_polynesie_3",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_3_cor.tex",
+        "tags": [
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet2_asie_4": {
+        "uuid": "bac_2022_05_sujet2_asie_4",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_4_cor.tex",
+        "tags": [
+          "Suites",
+          "Python",
+          "Tableur"
+        ]
+      },
+      "bac_2022_05_sujet2_madagascar_4": {
+        "uuid": "bac_2022_05_sujet2_madagascar_4",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Logarithme",
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet2_polynesie_3": {
+        "uuid": "bac_2022_05_sujet2_polynesie_3",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_3_cor.tex",
+        "tags": [
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_09_sujet1_ameriquesud_2": {
+        "uuid": "bac_2022_09_sujet1_ameriquesud_2",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_2_cor.tex",
+        "tags": [
+          "Suites",
+          "Python",
+          "Logarithme"
+        ]
+      },
+      "bac_2022_09_sujet1_polynesie_2": {
+        "uuid": "bac_2022_09_sujet1_polynesie_2",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_2_cor.tex",
+        "tags": [
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_09_sujet2_ameriquesud_3": {
+        "uuid": "bac_2022_09_sujet2_ameriquesud_3",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_3_cor.tex",
+        "tags": [
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_2": {
+        "uuid": "bac_2022_09_sujet2_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
+          "Python",
+          "Convexité",
+          "Primitives"
+        ]
+      },
+      "bac_2022_10_sujet1_caledonie_2": {
+        "uuid": "bac_2022_10_sujet1_caledonie_2",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_10_sujet2_caledonie_2": {
+        "uuid": "bac_2022_10_sujet2_caledonie_2",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "TVI",
           "Python"
         ]
       }
@@ -44906,22 +45550,23 @@
           "Espace"
         ]
       },
-      "bac_2022_05_sujet1_etrangers_3": {
-        "uuid": "bac_2022_05_sujet1_etrangers_3",
+      "bac_2022_05_sujet1_etrangers_1": {
+        "uuid": "bac_2022_05_sujet1_etrangers_1",
         "annee": "2022",
         "lieu": "Centres étrangers",
         "mois": "Mai",
         "jour": "J1",
-        "numeroInitial": "3",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_3_cor.png",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_1_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
         "tags": [
+          "QCM",
           "Convexité",
-          "Suites",
-          "QCM"
+          "Logarithme",
+          "Primitives"
         ]
       },
       "bac_2022_05_sujet1_metropole_4": {
@@ -44937,14 +45582,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
         "tags": [
+          "Exponentielle",
           "QCM",
           "Primitives",
-          "Convexité",
-          "Exponentielles",
-          "Logarithme",
-          "Limites",
-          "Asymptotes",
-          "Fonctions"
+          "Convexité"
         ]
       },
       "bac_2022_05_sujet1_polynesie_1": {
@@ -44960,33 +45601,160 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
         "tags": [
-          "Fonctions",
           "QCM",
           "Logarithme",
           "Primitives",
           "Suites",
-          "Limites",
           "Convexité",
           "Python"
         ]
-      }
-    },
-    "suites": {
-      "bac_2022_05_sujet1_asie_2": {
-        "uuid": "bac_2022_05_sujet1_asie_2",
+      },
+      "bac_2022_05_sujet2_ameriquenord_4": {
+        "uuid": "bac_2022_05_sujet2_ameriquenord_4",
         "annee": "2022",
-        "lieu": "Asie",
+        "lieu": "Amérique du Nord",
         "mois": "Mai",
-        "jour": "J1",
-        "numeroInitial": "2",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2_cor.png",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_4_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_4_cor.tex",
         "tags": [
-          "suites",
+          "Logarithme",
+          "Loi binomiale",
+          "QCM"
+        ]
+      },
+      "bac_2022_05_sujet2_etrangers_1": {
+        "uuid": "bac_2022_05_sujet2_etrangers_1",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Convexité",
+          "Exponentielle",
+          "Primitive"
+        ]
+      },
+      "bac_2022_05_sujet2_madagascar_3": {
+        "uuid": "bac_2022_05_sujet2_madagascar_3",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
+          "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet2_metropole_2": {
+        "uuid": "bac_2022_05_sujet2_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_2_cor.tex",
+        "tags": [
+          "QCM",
+          "Convexité",
+          "Suites"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_1": {
+        "uuid": "bac_2022_09_sujet1_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Exponentielle",
+          "Convexité",
+          "Suites",
+          "Primitives"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_2": {
+        "uuid": "bac_2022_09_sujet2_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
           "Python",
+          "Convexité",
+          "Primitives"
+        ]
+      },
+      "bac_2022_10_sujet1_caledonie_4": {
+        "uuid": "bac_2022_10_sujet1_caledonie_4",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J1",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Probabilités conditionnelles",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_10_sujet2_caledonie_4": {
+        "uuid": "bac_2022_10_sujet2_caledonie_4",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
           "Exponentielle",
           "Logarithme"
         ]
@@ -45269,6 +46037,25 @@
           "Logarithme"
         ]
       },
+      "bac_2022_05_sujet1_asie_2": {
+        "uuid": "bac_2022_05_sujet1_asie_2",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_asie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
+        "tags": [
+          "Suites",
+          "Python",
+          "Exponentielle",
+          "Logarithme"
+        ]
+      },
       "bac_2022_05_sujet1_etrangers_3": {
         "uuid": "bac_2022_05_sujet1_etrangers_3",
         "annee": "2022",
@@ -45282,28 +46069,45 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3_cor.tex",
         "tags": [
-          "Convexité",
-          "Suites",
-          "QCM"
+          "Exponentielle",
+          "Suites"
         ]
       },
-      "bac_2022_05_sujet1_etrangers_4": {
-        "uuid": "bac_2022_05_sujet1_etrangers_4",
+      "bac_2022_05_sujet1_madagascar_2": {
+        "uuid": "bac_2022_05_sujet1_madagascar_2",
         "annee": "2022",
-        "lieu": "Centres étrangers",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_2_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2_cor.tex",
         "tags": [
-          "Exponentielle",
           "Suites",
-          "Python",
-          "TVI"
+          "Logarithme",
+          "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet1_madagascar_3": {
+        "uuid": "bac_2022_05_sujet1_madagascar_3",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3_cor.tex",
+        "tags": [
+          "Suites",
+          "Exponentielle",
+          "TVI",
+          "Python"
         ]
       },
       "bac_2022_05_sujet1_metropole_1": {
@@ -45337,14 +46141,300 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
         "tags": [
-          "Fonctions",
           "QCM",
           "Logarithme",
           "Primitives",
           "Suites",
-          "Limites",
           "Convexité",
           "Python"
+        ]
+      },
+      "bac_2022_05_sujet1_polynesie_3": {
+        "uuid": "bac_2022_05_sujet1_polynesie_3",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_polynesie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_3_cor.tex",
+        "tags": [
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet2_ameriquenord_1": {
+        "uuid": "bac_2022_05_sujet2_ameriquenord_1",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Suites"
+        ]
+      },
+      "bac_2022_05_sujet2_asie_4": {
+        "uuid": "bac_2022_05_sujet2_asie_4",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_4_cor.tex",
+        "tags": [
+          "Suites",
+          "Python",
+          "Tableur"
+        ]
+      },
+      "bac_2022_05_sujet2_etrangers_2": {
+        "uuid": "bac_2022_05_sujet2_etrangers_2",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Convexité",
+          "Suites"
+        ]
+      },
+      "bac_2022_05_sujet2_madagascar_3": {
+        "uuid": "bac_2022_05_sujet2_madagascar_3",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
+          "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet2_madagascar_4": {
+        "uuid": "bac_2022_05_sujet2_madagascar_4",
+        "annee": "2022",
+        "lieu": "madagascar",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_madagascar_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "Logarithme",
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_05_sujet2_metropole_2": {
+        "uuid": "bac_2022_05_sujet2_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_2_cor.tex",
+        "tags": [
+          "QCM",
+          "Convexité",
+          "Suites"
+        ]
+      },
+      "bac_2022_05_sujet2_polynesie_3": {
+        "uuid": "bac_2022_05_sujet2_polynesie_3",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_polynesie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_3_cor.tex",
+        "tags": [
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_09_sujet1_ameriquesud_2": {
+        "uuid": "bac_2022_09_sujet1_ameriquesud_2",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_2_cor.tex",
+        "tags": [
+          "Suites",
+          "Python",
+          "Logarithme"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_1": {
+        "uuid": "bac_2022_09_sujet1_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1_cor.tex",
+        "tags": [
+          "QCM",
+          "Exponentielle",
+          "Convexité",
+          "Suites",
+          "Primitives"
+        ]
+      },
+      "bac_2022_09_sujet1_polynesie_2": {
+        "uuid": "bac_2022_09_sujet1_polynesie_2",
+        "annee": "2022",
+        "lieu": "Polynésie",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_polynesie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_2_cor.tex",
+        "tags": [
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_09_sujet2_ameriquesud_3": {
+        "uuid": "bac_2022_09_sujet2_ameriquesud_3",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_3_cor.tex",
+        "tags": [
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_2": {
+        "uuid": "bac_2022_09_sujet2_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
+          "Python",
+          "Convexité",
+          "Primitives"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_3": {
+        "uuid": "bac_2022_09_sujet2_metropole_3",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Suites"
+        ]
+      },
+      "bac_2022_10_sujet1_caledonie_2": {
+        "uuid": "bac_2022_10_sujet1_caledonie_2",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet1_caledonie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Suites",
+          "Python"
+        ]
+      },
+      "bac_2022_10_sujet2_caledonie_4": {
+        "uuid": "bac_2022_10_sujet2_caledonie_4",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4_cor.tex",
+        "tags": [
+          "QCM",
+          "Suites",
+          "Exponentielle",
+          "Logarithme"
         ]
       }
     },
@@ -45379,6 +46469,24 @@
         "tags": [
           "Suites",
           "Logarithme",
+          "Tableur"
+        ]
+      },
+      "bac_2022_05_sujet2_asie_4": {
+        "uuid": "bac_2022_05_sujet2_asie_4",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_4_cor.tex",
+        "tags": [
+          "Suites",
+          "Python",
           "Tableur"
         ]
       }
@@ -45449,23 +46557,23 @@
           "TVI"
         ]
       },
-      "bac_2022_05_sujet1_etrangers_4": {
-        "uuid": "bac_2022_05_sujet1_etrangers_4",
+      "bac_2022_05_sujet1_madagascar_3": {
+        "uuid": "bac_2022_05_sujet1_madagascar_3",
         "annee": "2022",
-        "lieu": "Centres étrangers",
+        "lieu": "madagascar",
         "mois": "Mai",
         "jour": "J1",
-        "numeroInitial": "4",
-        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4.png",
-        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_etrangers_4_cor.png",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_madagascar_3_cor.png",
         "typeExercice": "bac",
-        "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
-        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3_cor.tex",
         "tags": [
-          "Exponentielle",
           "Suites",
-          "Python",
-          "TVI"
+          "Exponentielle",
+          "TVI",
+          "Python"
         ]
       },
       "bac_2022_05_sujet1_metropole_1": {
@@ -45484,6 +46592,131 @@
           "Exponentielle",
           "Suites",
           "TVI"
+        ]
+      },
+      "bac_2022_05_sujet2_ameriquenord_2": {
+        "uuid": "bac_2022_05_sujet2_ameriquenord_2",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_ameriquenord_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_2_cor.tex",
+        "tags": [
+          "TVI",
+          "Exponentielle",
+          "Convexité"
+        ]
+      },
+      "bac_2022_05_sujet2_asie_2": {
+        "uuid": "bac_2022_05_sujet2_asie_2",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_2_cor.tex",
+        "tags": [
+          "Convexité",
+          "Logarithme",
+          "TVI"
+        ]
+      },
+      "bac_2022_05_sujet2_metropole_4": {
+        "uuid": "bac_2022_05_sujet2_metropole_4",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_metropole_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_4_cor.tex",
+        "tags": [
+          "Exponentielle",
+          "TVI"
+        ]
+      },
+      "bac_2022_09_sujet1_ameriquesud_3": {
+        "uuid": "bac_2022_09_sujet1_ameriquesud_3",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_ameriquesud_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "TVI",
+          "Convexité"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_3": {
+        "uuid": "bac_2022_09_sujet1_metropole_3",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_3_cor.tex",
+        "tags": [
+          "Logarithme",
+          "Exponentielle",
+          "TVI"
+        ]
+      },
+      "bac_2022_09_sujet2_ameriquesud_2": {
+        "uuid": "bac_2022_09_sujet2_ameriquesud_2",
+        "annee": "2022",
+        "lieu": "Amérique du sud",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_ameriquesud_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "TVI",
+          "Convexité"
+        ]
+      },
+      "bac_2022_10_sujet2_caledonie_2": {
+        "uuid": "bac_2022_10_sujet2_caledonie_2",
+        "annee": "2022",
+        "lieu": "Nouvelle Calédonie",
+        "mois": "Octobre",
+        "jour": "J2",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_10_sujet2_caledonie_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_2_cor.tex",
+        "tags": [
+          "Logarithme",
+          "TVI",
+          "Python"
         ]
       }
     },
@@ -45553,6 +46786,99 @@
         "tags": [
           "Logarithme",
           "Variable aléatoire"
+        ]
+      },
+      "bac_2022_05_sujet2_etrangers_4": {
+        "uuid": "bac_2022_05_sujet2_etrangers_4",
+        "annee": "2022",
+        "lieu": "Centres étrangers",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "4",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_4.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_etrangers_4_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_4.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_4_cor.tex",
+        "tags": [
+          "Variable aléatoire",
+          "Loi binomiale"
+        ]
+      }
+    },
+    "Variables aléatoires": {
+      "bac_2022_05_sujet2_asie_3": {
+        "uuid": "bac_2022_05_sujet2_asie_3",
+        "annee": "2022",
+        "lieu": "Asie",
+        "mois": "Mai",
+        "jour": "J2",
+        "numeroInitial": "3",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_3.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet2_asie_3_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_3.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_3_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables aléatoires"
+        ]
+      },
+      "bac_2022_09_sujet1_metropole_2": {
+        "uuid": "bac_2022_09_sujet1_metropole_2",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J1",
+        "numeroInitial": "2",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_2.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet1_metropole_2_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_2.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_2_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Variables aléatoires",
+          "Loi binomiale"
+        ]
+      },
+      "bac_2022_09_sujet2_metropole_1": {
+        "uuid": "bac_2022_09_sujet2_metropole_1",
+        "annee": "2022",
+        "lieu": "Métropole",
+        "mois": "Septembre",
+        "jour": "J2",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_09_sujet2_metropole_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables aléatoires"
+        ]
+      }
+    },
+    "Variables alétoires": {
+      "bac_2022_05_sujet1_ameriquenord_1": {
+        "uuid": "bac_2022_05_sujet1_ameriquenord_1",
+        "annee": "2022",
+        "lieu": "Amérique du Nord",
+        "mois": "Mai",
+        "jour": "J1",
+        "numeroInitial": "1",
+        "png": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1.png",
+        "pngCor": "static/bac/2022/tex/png/bac_2022_05_sujet1_ameriquenord_1_cor.png",
+        "typeExercice": "bac",
+        "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex",
+        "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex",
+        "tags": [
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables alétoires"
         ]
       }
     },
@@ -46652,8 +47978,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex",
         "tags": [
-          "Probabilités Conditionnelles",
-          "Loi binomiale"
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables alétoires"
         ]
       },
       "bac_2022_05_sujet1_ameriquenord_2": {
@@ -46738,7 +48065,7 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_asie_2_cor.tex",
         "tags": [
-          "suites",
+          "Suites",
           "Python",
           "Exponentielle",
           "Logarithme"
@@ -46790,8 +48117,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_1_cor.tex",
         "tags": [
-          "Probabilités conditionnelles",
-          "Loi binomiale"
+          "QCM",
+          "Convexité",
+          "Logarithme",
+          "Primitives"
         ]
       },
       "bac_2022_05_sujet1_etrangers_2": {
@@ -46823,9 +48152,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_3_cor.tex",
         "tags": [
-          "Convexité",
-          "Suites",
-          "QCM"
+          "Exponentielle",
+          "Suites"
         ]
       },
       "bac_2022_05_sujet1_etrangers_4": {
@@ -46841,10 +48169,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_etrangers_4_cor.tex",
         "tags": [
-          "Exponentielle",
-          "Suites",
-          "Python",
-          "TVI"
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_05_sujet1_madagascar_1": {
@@ -46860,7 +48186,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_05_sujet1_madagascar_2": {
@@ -46876,7 +48203,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2_cor.tex",
         "tags": [
-          ""
+          "Suites",
+          "Logarithme",
+          "Convexité"
         ]
       },
       "bac_2022_05_sujet1_madagascar_3": {
@@ -46892,7 +48221,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_3_cor.tex",
         "tags": [
-          ""
+          "Suites",
+          "Exponentielle",
+          "TVI",
+          "Python"
         ]
       },
       "bac_2022_05_sujet1_madagascar_4": {
@@ -46908,7 +48240,7 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_madagascar_4_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet1_metropole_1": {
@@ -46976,14 +48308,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_metropole_4_cor.tex",
         "tags": [
+          "Exponentielle",
           "QCM",
           "Primitives",
-          "Convexité",
-          "Exponentielles",
-          "Logarithme",
-          "Limites",
-          "Asymptotes",
-          "Fonctions"
+          "Convexité"
         ]
       },
       "bac_2022_05_sujet1_polynesie_1": {
@@ -46999,12 +48327,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_1_cor.tex",
         "tags": [
-          "Fonctions",
           "QCM",
           "Logarithme",
           "Primitives",
           "Suites",
-          "Limites",
           "Convexité",
           "Python"
         ]
@@ -47039,7 +48365,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_3_cor.tex",
         "tags": [
-          ""
+          "Suites",
+          "Python"
         ]
       },
       "bac_2022_05_sujet1_polynesie_4": {
@@ -47055,7 +48382,7 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet1_polynesie_4_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet2_ameriquenord_1": {
@@ -47071,7 +48398,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Suites"
         ]
       },
       "bac_2022_05_sujet2_ameriquenord_2": {
@@ -47087,7 +48415,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_2_cor.tex",
         "tags": [
-          ""
+          "TVI",
+          "Exponentielle",
+          "Convexité"
         ]
       },
       "bac_2022_05_sujet2_ameriquenord_3": {
@@ -47103,7 +48433,7 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_3_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet2_ameriquenord_4": {
@@ -47119,7 +48449,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_ameriquenord_4_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "Loi binomiale",
+          "QCM"
         ]
       },
       "bac_2022_05_sujet2_asie_1": {
@@ -47135,7 +48467,7 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_1_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet2_asie_2": {
@@ -47151,7 +48483,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_2_cor.tex",
         "tags": [
-          ""
+          "Convexité",
+          "Logarithme",
+          "TVI"
         ]
       },
       "bac_2022_05_sujet2_asie_3": {
@@ -47167,7 +48501,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_3_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables aléatoires"
         ]
       },
       "bac_2022_05_sujet2_asie_4": {
@@ -47183,7 +48519,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_asie_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_asie_4_cor.tex",
         "tags": [
-          ""
+          "Suites",
+          "Python",
+          "Tableur"
         ]
       },
       "bac_2022_05_sujet2_etrangers_1": {
@@ -47199,7 +48537,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1_cor.tex",
         "tags": [
-          ""
+          "QCM",
+          "Convexité",
+          "Exponentielle",
+          "Primitive"
         ]
       },
       "bac_2022_05_sujet2_etrangers_2": {
@@ -47215,7 +48556,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_2_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "Convexité",
+          "Suites"
         ]
       },
       "bac_2022_05_sujet2_etrangers_3": {
@@ -47231,7 +48574,7 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_3_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet2_etrangers_4": {
@@ -47247,7 +48590,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_etrangers_4_cor.tex",
         "tags": [
-          ""
+          "Variable aléatoire",
+          "Loi binomiale"
         ]
       },
       "bac_2022_05_sujet2_madagascar_1": {
@@ -47263,7 +48607,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_05_sujet2_madagascar_2": {
@@ -47279,7 +48624,7 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_2_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet2_madagascar_3": {
@@ -47295,7 +48640,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_3_cor.tex",
         "tags": [
-          ""
+          "QCM",
+          "Suites",
+          "Convexité"
         ]
       },
       "bac_2022_05_sujet2_madagascar_4": {
@@ -47311,7 +48658,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_madagascar_4_cor.tex",
         "tags": [
-          ""
+          "Exponentielle",
+          "Logarithme",
+          "Suites",
+          "Python"
         ]
       },
       "bac_2022_05_sujet2_metropole_1": {
@@ -47327,7 +48677,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_1_cor.tex",
         "tags": [
-          ""
+          "Probabilites Conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_05_sujet2_metropole_2": {
@@ -47343,7 +48694,9 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_2_cor.tex",
         "tags": [
-          ""
+          "QCM",
+          "Convexité",
+          "Suites"
         ]
       },
       "bac_2022_05_sujet2_metropole_3": {
@@ -47359,7 +48712,7 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_3_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_05_sujet2_metropole_4": {
@@ -47375,7 +48728,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_metropole_4_cor.tex",
         "tags": [
-          ""
+          "Exponentielle",
+          "TVI"
         ]
       },
       "bac_2022_05_sujet2_polynesie_1": {
@@ -47391,7 +48745,10 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1_cor.tex",
         "tags": [
-          ""
+          " QCM",
+          "Logarithme",
+          "Exponentielle",
+          "Primitive"
         ]
       },
       "bac_2022_05_sujet2_polynesie_2": {
@@ -47407,7 +48764,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_2_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_05_sujet2_polynesie_3": {
@@ -47423,7 +48781,8 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_3_cor.tex",
         "tags": [
-          ""
+          "Suites",
+          "Python"
         ]
       },
       "bac_2022_05_sujet2_polynesie_4": {
@@ -47439,7 +48798,7 @@
         "url": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_05_sujet2_polynesie_4_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_09_sujet1_ameriquesud_1": {
@@ -47455,7 +48814,8 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_09_sujet1_ameriquesud_2": {
@@ -47471,7 +48831,9 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_2_cor.tex",
         "tags": [
-          ""
+          "Suites",
+          "Python",
+          "Logarithme"
         ]
       },
       "bac_2022_09_sujet1_ameriquesud_3": {
@@ -47487,7 +48849,9 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_3_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "TVI",
+          "Convexité"
         ]
       },
       "bac_2022_09_sujet1_ameriquesud_4": {
@@ -47503,7 +48867,7 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_ameriquesud_4_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_09_sujet1_metropole_1": {
@@ -47519,7 +48883,11 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_1_cor.tex",
         "tags": [
-          ""
+          "QCM",
+          "Exponentielle",
+          "Convexité",
+          "Suites",
+          "Primitives"
         ]
       },
       "bac_2022_09_sujet1_metropole_2": {
@@ -47535,7 +48903,9 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_2_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Variables aléatoires",
+          "Loi binomiale"
         ]
       },
       "bac_2022_09_sujet1_metropole_3": {
@@ -47551,7 +48921,9 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_3_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "Exponentielle",
+          "TVI"
         ]
       },
       "bac_2022_09_sujet1_metropole_4": {
@@ -47567,7 +48939,7 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_metropole_4_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_09_sujet1_polynesie_1": {
@@ -47583,7 +48955,8 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_09_sujet1_polynesie_2": {
@@ -47599,7 +48972,8 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_2_cor.tex",
         "tags": [
-          ""
+          "Suites",
+          "Python"
         ]
       },
       "bac_2022_09_sujet1_polynesie_3": {
@@ -47615,7 +48989,9 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_3_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "Convexité",
+          "Primitives"
         ]
       },
       "bac_2022_09_sujet1_polynesie_4": {
@@ -47631,7 +49007,7 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet1_polynesie_4_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_09_sujet2_ameriquesud_1": {
@@ -47647,7 +49023,8 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_09_sujet2_ameriquesud_2": {
@@ -47663,7 +49040,9 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_2_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "TVI",
+          "Convexité"
         ]
       },
       "bac_2022_09_sujet2_ameriquesud_3": {
@@ -47679,7 +49058,8 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_3_cor.tex",
         "tags": [
-          ""
+          "Suites",
+          "Python"
         ]
       },
       "bac_2022_09_sujet2_ameriquesud_4": {
@@ -47695,7 +49075,7 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_ameriquesud_4_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_09_sujet2_metropole_1": {
@@ -47711,7 +49091,9 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale",
+          "Variables aléatoires"
         ]
       },
       "bac_2022_09_sujet2_metropole_2": {
@@ -47727,7 +49109,11 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_2_cor.tex",
         "tags": [
-          ""
+          "QCM",
+          "Suites",
+          "Python",
+          "Convexité",
+          "Primitives"
         ]
       },
       "bac_2022_09_sujet2_metropole_3": {
@@ -47743,7 +49129,8 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_3_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "Suites"
         ]
       },
       "bac_2022_09_sujet2_metropole_4": {
@@ -47759,7 +49146,7 @@
         "url": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_09_sujet2_metropole_4_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_10_sujet1_caledonie_1": {
@@ -47775,7 +49162,8 @@
         "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_1_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "Convexité"
         ]
       },
       "bac_2022_10_sujet1_caledonie_2": {
@@ -47791,7 +49179,9 @@
         "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_2_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "Suites",
+          "Python"
         ]
       },
       "bac_2022_10_sujet1_caledonie_3": {
@@ -47807,7 +49197,7 @@
         "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_3_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_10_sujet1_caledonie_4": {
@@ -47823,7 +49213,9 @@
         "url": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_10_sujet1_caledonie_4_cor.tex",
         "tags": [
-          ""
+          "QCM",
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_10_sujet2_caledonie_1": {
@@ -47839,7 +49231,8 @@
         "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_1.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_1_cor.tex",
         "tags": [
-          ""
+          "Probabilités conditionnelles",
+          "Loi binomiale"
         ]
       },
       "bac_2022_10_sujet2_caledonie_2": {
@@ -47855,7 +49248,9 @@
         "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_2.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_2_cor.tex",
         "tags": [
-          ""
+          "Logarithme",
+          "TVI",
+          "Python"
         ]
       },
       "bac_2022_10_sujet2_caledonie_3": {
@@ -47871,7 +49266,7 @@
         "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_3.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_3_cor.tex",
         "tags": [
-          ""
+          "Espace"
         ]
       },
       "bac_2022_10_sujet2_caledonie_4": {
@@ -47887,7 +49282,10 @@
         "url": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4.tex",
         "urlcor": "static/bac/2022/tex/bac_2022_10_sujet2_caledonie_4_cor.tex",
         "tags": [
-          ""
+          "QCM",
+          "Suites",
+          "Exponentielle",
+          "Logarithme"
         ]
       }
     },

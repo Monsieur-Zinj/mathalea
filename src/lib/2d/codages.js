@@ -804,7 +804,8 @@ export function CodageSegments (mark = '||', color = 'black', ...args) {
       ).tikz()
       code += '\n'
     } else if (args[0].constructor === Segment) {
-      for (let i = 0; i < isEchelle ? args.length - 1 : args.length; i++) {
+      const condition = isEchelle ? args.length - 1 : args.length
+      for (let i = 0; i < condition; i++) {
         code += codageSegment(
           args[i].extremite1,
           args[i].extremite2,
@@ -814,7 +815,8 @@ export function CodageSegments (mark = '||', color = 'black', ...args) {
         code += '\n'
       }
     } else {
-      for (let i = 0; i < (isEchelle ? args.length - 1 : args.length); i += 2) {
+      const condition = isEchelle ? args.length - 1 : args.length
+      for (let i = 0; i < condition; i += 2) {
         code += codageSegment(args[i], args[i + 1], mark, color, echelle).tikz()
         code += '\n'
       }

@@ -235,6 +235,7 @@ export function plot (x, y, {
  * pt.epaisseur = 5 (par défaut : 1)
  * pt.opacite = 0.2 (par défaut : 0.8 = 80%)
  * pt.style = '#' (choix parmi 'x','o','#','|','+','.' et par défaut : 'x')
+ * @property {string} color
  * @author Rémi Angot et Jean-Claude Lhote
  */
 export function TracePoint (...points) {
@@ -418,7 +419,7 @@ export function TracePoint (...points) {
 
 /**
  * @param  {(Point | string)[]} args Points précédemment créés. Si le dernier argument est une chaîne de caractère, définit la couleur des points tracés.
- * @return  {TracePoint} TracePoint
+ * @return  {TracePoint}
  * @example tracePoint(A,B,C,'red) // Trace les points A,B,C précédemment créés en rouge
  * @example tracePoint(A).style = '|' // Le style du point A sera '|' et non 'x' par défaut.
  * @example tracePoint(A).epaisseur = 5 // L'épaisseur du style du point sera 5 et non 1 par défaut.

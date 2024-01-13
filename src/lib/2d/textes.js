@@ -127,7 +127,7 @@ export function labelLatexPoint ({
  * @property {number} largeur Largeur de la boite contenant le nom des points
  * @property {number[]} bordures Coordonnées de la fenêtre d'affichage du genre [-2,-2,5,5]
  * @author Rémi Angot
- * @class
+ * @return object[]
  */
 // JSDOC Validee par EE Septembre 2022
 export function labelPoint (...points) {

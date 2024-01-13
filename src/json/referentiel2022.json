@@ -9920,6 +9920,7 @@
         "uuid": "90e1a",
         "id": "6G20",
         "titre": "Nommer et coder des polygones",
+        "dateModification": "10/01/2024",
         "features": {
           "interactif": {
             "isActive": false,
@@ -10265,6 +10266,25 @@
           "amc": {
             "isActive": true,
             "type": "AMCHybride"
+          }
+        },
+        "typeExercice": "alea"
+      },
+      "6G24-0": {
+        "url": "6e/6G24-0.ts",
+        "tags": [],
+        "uuid": "26ea4",
+        "id": "6G24-0",
+        "titre": "Construire des symétriques de points",
+        "datePublication": "07/01/2024",
+        "features": {
+          "interactif": {
+            "isActive": true,
+            "type": "'custom'"
+          },
+          "amc": {
+            "isActive": false,
+            "type": ""
           }
         },
         "typeExercice": "alea"
@@ -13117,6 +13137,7 @@
         "uuid": "07d1a",
         "id": "5G13",
         "titre": "Utiliser les propriétés de conservation du parallélisme, des longueurs et des angles",
+        "datePublication": "05/08/2021",
         "dateModification": "06/03/2023",
         "features": {
           "interactif": {
@@ -14039,7 +14060,8 @@
         "uuid": "6b534",
         "id": "5N11-4",
         "titre": "Exprimer une fraction sous la forme d'une valeur approchée d'un pourcentage",
-        "dateModification": "17/03/2022",
+        "datePublication": "06/02/2021",
+        "dateModification": "10/01/2024",
         "features": {
           "interactif": {
             "isActive": true,
@@ -18641,9 +18663,9 @@
         "typeExercice": "alea"
       },
       "3L11": {
-        "url": "3e/3L11.js",
+        "url": "3e/3L11new.js",
         "tags": [],
-        "uuid": "77a62",
+        "uuid": "db2e0",
         "id": "3L11",
         "titre": "Utiliser la simple distributivité",
         "features": {
@@ -21135,6 +21157,7 @@
         "uuid": "4771d",
         "id": "2N32-7",
         "titre": "Rendre entier le dénominateur d'une fraction",
+        "dateModification": "10/01/2024",
         "features": {
           "interactif": {
             "isActive": false,

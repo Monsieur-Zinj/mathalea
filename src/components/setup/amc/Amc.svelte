@@ -60,7 +60,6 @@
         if (exercice.id != null) {
           refsExercicesARetirer.push(exercice.id)
         } else {
-          // console.log(Object.entries(exercice))
           const proprietes: string[] = Object.values(exercice)
           proprietes.shift()
           refsExercicesARetirer.push(proprietes.join(' '))

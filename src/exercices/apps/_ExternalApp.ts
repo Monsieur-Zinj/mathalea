@@ -71,7 +71,6 @@ class ExternalApp {
 
   handleScore () {
     window.addEventListener('message', (event) => {
-      console.log('externalApp - handleScore', event)
       if (event.data?.numeroExercice !== this.numeroExercice) return
       if (event.data?.type === 'mathaleaSendScore') {
         this.state = 'done'
@@ -85,7 +84,7 @@ class ExternalApp {
           return l
         })
         if (get(globalOptions).recorder === 'capytale') {
-          sendToCapytaleSaveStudentAssignment()
+          sendToCapytaleSaveStudentAssignment({ indiceExercice: this.numeroExercice })
         }
       } else if (event.data?.type === 'mathaleaHasScore') {
         const numberOfPoints = parseInt(event.data.score)

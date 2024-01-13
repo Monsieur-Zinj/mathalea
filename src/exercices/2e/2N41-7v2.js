@@ -111,7 +111,6 @@ export default function FactoriserIdentitesRemarquables2 () {
           texte = `$${fraC.texFraction}x^2-${a * a}$` // b>1`
           texteCorr = `$${fraC.texFraction}x^2-${a * a}=\\left(${fra.texFraction}x\\right)^2-${a}^2=\\left(${fra.texFraction}x-${a}\\right)\\left(${fra.texFraction}x+${a}\\right)$`
           reponseAttendue = `(${fra.texFraction}x-${a})(${fra.texFraction}x+${a})`
-          console.log(`réponse attendue = ${reponseAttendue}`)
           break
       }
       reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
@@ -123,10 +122,6 @@ export default function FactoriserIdentitesRemarquables2 () {
         const reponseParsed = engine.parse(bCleaned, { canonical: true })
         const saisieDev = engine.box(['Expand', saisieParsed]).evaluate().simplify().canonical
         const reponseDev = engine.box(['Expand', reponseParsed]).evaluate().simplify().canonical
-        console.log(`saisieParsed.head = ${saisieParsed.head}`)
-        console.log(`saisieParsed = ${saisieParsed} et saisieDev = ${saisieDev}`)
-        console.log(`reponseParsed = ${reponseParsed} et reponseDev = ${reponseDev}`)
-        console.log('comparaison saisieDev.isEqual(reponseDev) : $ {saisieDev.isEqual(reponseDev)}')
         return saisieDev.isEqual(reponseDev) && ['Multiply', 'Square', 'Power'].includes(saisieParsed.head)
       }
       setReponse(this, i, { expr: { value: reponseAttendue, compare: compareReponseSaisie } }, { formatInteractif: 'fillInTheBlank' })

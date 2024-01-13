@@ -81,6 +81,8 @@ export function droiteAvecNomLatex (d, nom) { // nom est un latexParCoordonnees
  * @property {Vecteur} directeur Vecteur directeur de la droite
  * @property {number} angleAvecHorizontale Valeur de l'angle orienté entre la droite et l'horizontale
  * @property {number} epaisseur
+ * @property {number} pointilles
+ * @property {number} opacite
  * @author Jean-Claude Lhote
  * @class
  */
@@ -97,6 +99,8 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
       })
     }
     this.nom = ''
+    this.pointilles = 0
+    this.opacite = 1
     this.x1 = arg1.x
     this.y1 = arg1.y
     this.x2 = arg2.x
@@ -531,7 +535,7 @@ export function droiteParPointEtParallele (A, d, nom = '', color = 'black') {
  * @example droiteParPointEtPerpendiculaire(M, d2) // Trace la droite perpendiculaire à d2 passant par le point M
  * @example droiteParPointEtPerpendiculaire(M, d2, 'd1', 'red') // Trace, en rouge, la droite d1 perpendiculaire à d2 passant par le point M
  * @author Jean-Claude Lhote
- * @return {droiteParPointEtVecteur}
+ * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
 export function droiteParPointEtPerpendiculaire (A, d, nom = '', color = 'black') {
@@ -545,7 +549,7 @@ export function droiteParPointEtPerpendiculaire (A, d, nom = '', color = 'black'
  * @example droiteHorizontaleParPoint(M) // Trace la droite horizontale passant par le point M
  * @example droiteHorizontaleParPoint(M, 'd1', 'red') // Trace, en rouge, la droite horizontale d1 passant par le point M
  * @author Jean-Claude Lhote
- * @return {droiteParPointEtPente}
+ * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
 export function droiteHorizontaleParPoint (A, nom = '', color = 'black') {
@@ -559,7 +563,7 @@ export function droiteHorizontaleParPoint (A, nom = '', color = 'black') {
  * @example droiteVerticaleParPoint(M) // Trace la droite verticale passant par le point M
  * @example droiteVerticaleParPoint(M, 'd1', 'red') // Trace, en rouge, la droite verticale d1 passant par le point M
  * @author Jean-Claude Lhote
- * @return {droiteParPointEtVecteur}
+ * @return {Droite}
  */
 // JSDOC Validee par EE Aout 2022
 export function droiteVerticaleParPoint (A, nom = '', color = 'black') {

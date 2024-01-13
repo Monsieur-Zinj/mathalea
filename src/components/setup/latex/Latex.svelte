@@ -422,10 +422,11 @@ import {
           modalButtonId="downloadPicsModalButton"
           modalButtonTitle="Télécharger les figures"
           icon="bxs-file-png"
+          classForButton="px-2 py-1 rounded-md text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
           on:action={handleActionFromDownloadPicsModal}
         >
-          <span slot="header">Figures</span>
-          <div class="flex flex-col justify-start items-start">
+          <span slot="header"></span>
+          <div slot='content' class="flex flex-col justify-start items-start">
             Voici ce dont vous aurez besoin :
             {#each exosContentList as exo, i (exo)}
               <ul

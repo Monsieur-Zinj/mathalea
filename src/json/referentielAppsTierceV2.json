@@ -41,6 +41,13 @@
           "presentation": "Parcours personnalisé sur les tables de multiplications qui s'adapte aux erreurs pour reproposer les tables où l'élève fait des erreurs.",
           "imgPath": "images/apps/app_challenge_tables.png",
           "uuid": "parcoursTables"
+        },
+        {
+          "title": "Équations",
+          "typeExercice" : "tierce",
+          "presentation": "Déterminer l'opération à effectuer sur les deux membres d'une équation pour la résoudre. Les calculs sont automatiquement réalisés.",
+          "imgPath": "images/apps/app_equations.png",
+          "uuid": "equations"
         }
     ]
     }

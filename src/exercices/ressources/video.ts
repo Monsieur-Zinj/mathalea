@@ -132,7 +132,6 @@ class ressourceVideo {
     } else if (url.hostname === 'vimeo.com') {
       url.hostname = 'player.vimeo.com'
       url.pathname = '/video' + url.pathname
-      console.log(url.toString())
       this.iframe.src = url.toString()
     } else if (url.hostname === 'podeduc.apps.education.fr') {
       this.iframe.src = this.fieldUrl.value + '/?is_iframe=true'

@@ -3,6 +3,7 @@ import prefs from './prefs'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { JSHandle } from 'playwright'
+import { store } from './store'
 
 type Logger = (...args: unknown[]) => void
 
@@ -27,7 +28,7 @@ let lastLog = Promise.resolve()
  */
 export function getFileLogger (fileName: string, options: {append?: boolean} = {}): Logger {
   // on prépare le log
-  const logDir = resolve(__dirname, '..', '..', 'log')
+  const logDir = resolve(__dirname, '..', 'logs')
   // avec recursive, ça ne gêne pas si ça existe déjà (https://nodejs.org/docs/latest-v14.x/api/fs.html#fs_fs_mkdir_path_options_callback)
   fs.mkdirSync(logDir, { recursive: true })
   const logfile = join(logDir, fileName + '.log')
@@ -37,7 +38,7 @@ export function getFileLogger (fileName: string, options: {append?: boolean} = {
   const logger = (...args: unknown[]) => {
     fs.appendFileSync(fd, args.join(' ') + '\n')
   }
-  return (...args: unknown[]) => logSerializer(logger, ...args)
+  return logger
 }
 
 /**
@@ -53,11 +54,13 @@ export function getFileLogger (fileName: string, options: {append?: boolean} = {
  */
 function logSerializer (logger: Logger, ...args: unknown[]) {
   if (prefs.silent) return
+  const fileLogger = store.get('fileLogger') as (...args: unknown[]) => void
   const datePrefix = (args: unknown[]) => {
     const prefix = `[${getCurrentTime()}]`
     if (!Array.isArray(args) || !args.length) return logger(Error('fonction de log appelée sans argument'))
     args.unshift(prefix)
     logger(...args)
+    fileLogger(...args)
   }
 
   // on veut passer après les appels précédents (pas forcément terminés si on mix sync/async),

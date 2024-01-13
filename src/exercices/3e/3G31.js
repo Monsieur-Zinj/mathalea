@@ -355,15 +355,6 @@ export default function CalculDAngle () {
     const bdroite = pdroite.y >= centre.y - demirectHeight / pixelsParCm && pdroite.y <= centre.y + demirectHeight / pixelsParCm
     const bhaut = phaut.x >= centre.x - demirectWitdh / pixelsParCm && phaut.x <= centre.x + demirectWitdh / pixelsParCm
     const bbas = pbas.x >= centre.x - demirectWitdh / pixelsParCm && pbas.x <= centre.x + demirectWitdh / pixelsParCm
-    const debug = false
-    if (debug) {
-      console.log('iteration :' + iteration)
-      console.log('gauche :' + pgauche.y + ': [' + (centre.y - demirectHeight / pixelsParCm) + ':' + (centre.y + demirectHeight / pixelsParCm) + ']')
-      console.log('droite :' + pdroite.y + ': [' + (centre.y - demirectHeight / pixelsParCm) + ':' + (centre.y + demirectHeight / pixelsParCm) + ']')
-      console.log('haut :' + phaut.x + ': [' + (centre.x - demirectWitdh / pixelsParCm) + ':' + (centre.x + demirectWitdh / pixelsParCm) + ']')
-      console.log('bas : ' + pbas.x + ': [' + (centre.x - demirectWitdh / pixelsParCm) + ':' + (centre.x + demirectWitdh / pixelsParCm) + ']')
-      console.log('[bgauche, bdroite, bhaut, bbas]=' + bgauche + ', ' + bdroite + ', ' + bhaut + ', ' + bbas)
-    }
 
     if (bgauche) {
       centre.x = centre.x + 5 / pixelsParCm

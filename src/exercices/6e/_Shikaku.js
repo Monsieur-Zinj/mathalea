@@ -87,7 +87,7 @@ export default class Shikaku {
             xMax: rectangle.x + rectangle.largeur,
             yMax: rectangle.y + rectangle.hauteur
           }).addColor({ color: 'blue' })
-          objets.push(box)
+          objets.push(box.render())
         }
       }
       const cadre = flatArrayToPolygone([0, 0, this.largeur, 0, this.largeur, this.hauteur, 0, this.hauteur])

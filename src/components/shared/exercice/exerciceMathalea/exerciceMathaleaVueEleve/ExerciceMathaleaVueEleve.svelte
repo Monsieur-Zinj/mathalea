@@ -1,16 +1,17 @@
 <script lang="ts">
-  import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../../lib/stores/generalStore'
+  import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
   import { afterUpdate, onMount, tick } from 'svelte'
-  import type TypeExercice from '../../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../../../exercices/ExerciceTs.js'
   import seedrandom from 'seedrandom'
-  import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../../../lib/interactif/gestionInteractif'
-  import { loadMathLive } from '../../../../modules/loaders'
-  import { mathaleaGenerateSeed, mathaleaHandleExerciceSimple, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../../lib/mathalea'
-  import HeaderExerciceVueEleve from '../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
+  import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../../../../lib/interactif/gestionInteractif'
+  import { loadMathLive } from '../../../../../modules/loaders'
+  import { mathaleaGenerateSeed, mathaleaHandleExerciceSimple, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../../../lib/mathalea'
+  import HeaderExerciceVueEleve from '../../presentationalComponents/shared/HeaderExerciceVueEleve.svelte'
   import type { MathfieldElement } from 'mathlive'
-  import { sendToCapytaleSaveStudentAssignment } from '../../../../lib/handleCapytale'
+  import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import Question from './presentationalComponents/Question.svelte'
   import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
+    import Exercice from '../../Exercice.svelte';
   export let exercise: TypeExercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
@@ -175,7 +176,7 @@
       exercise.nouvelleVersion(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    adjustMathalea2dFiguresWidth()
+    await adjustMathalea2dFiguresWidth()
   }
 
   function verifExerciceVueEleve () {
@@ -278,14 +279,12 @@
           mathalea2dFigures[k].setAttribute('width', initialWidth ?? '')
           mathalea2dFigures[k].setAttribute('height', initialHeight ?? '')
         }
-        // console.log("got figures !!! --> DIV " + body.clientWidth + " vs FIG " + mathalea2dFigures[k].clientWidth)
         if (mathalea2dFigures[k].clientWidth > body.clientWidth) {
           const coef = (body.clientWidth * 0.9) / mathalea2dFigures[k].clientWidth
           const newFigWidth = body.clientWidth * 0.9
           const newFigHeight = mathalea2dFigures[k].clientHeight * coef
           mathalea2dFigures[k].setAttribute('width', newFigWidth.toString())
           mathalea2dFigures[k].setAttribute('height', newFigHeight.toString())
-          // console.log("fig" + k + " new dimensions : " + newFigWidth + " x " + newFigHeight)
         }
       }
     }
@@ -376,7 +375,7 @@
               : 'list-decimal'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-            {#each exercise.listeQuestions as question, questionIndex (questionIndex)}
+            {#each exercise.listeQuestions as question, questionIndex (questionIndex + '_' + (exercise.seed || '') )}
               <Question
                 {exercise}
                 {questionIndex}

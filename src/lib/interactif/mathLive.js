@@ -85,7 +85,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             window.notify('verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom', { selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` })
             return { resultat: 'KO', feedback: 'Un problème avec cette configuration', score: { nbBonnesReponses: 0, nbReponses: 1 } }
           }
-          const cellules = Object.entries(reponses)
+          const cellules = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme' && key !== 'feedback')
           for (let k = 0; k < cellules.length; k++) {
             const [key, reponse] = cellules[k]
             const compareFunction = reponse.compare ?? calculCompare
@@ -205,6 +205,29 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
                   resultat = 'KO'
                 } else {
                   if (engine.parse(reponse).isSame(engine.parse(saisie))) { // engine.parse() retourne du canonical par défaut.
+                    resultat = 'OK'
+                  }
+                }
+                break
+              case 'canonicalAdd':
+                // Inventée pour 3L10, 3L10-1 et 3L11 en attendant handleAnswer
+                saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
+                // La réponse est transformée en chaine compatible avec engine.parse()
+                reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
+                saisie = saisie.replaceAll('²', '^2')
+                saisie = saisie.replaceAll('^{}', '')
+                saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+                saisie = saisie.replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+                saisie = saisie.replace(/\\lparen(\+?-?\d+)\\rparen/, '$1') // Pour les nombres négatifs, supprime les parenthèses
+                saisie = saisie.replace(/\\lparen(\+?\+?\d+)\\rparen/, '$1') // Pour les nombres positifs, supprime les parenthèses
+                if (!isNaN(reponse)) {
+                  if (saisie !== '' && Number(saisie) === Number(reponse)) {
+                    resultat = 'OK'
+                  }
+                } else if (saisie === '') {
+                  resultat = 'KO'
+                } else {
+                  if (engine.parse(reponse, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] }).isSame(engine.parse(saisie, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] }))) { // engine.parse() retourne du canonical par défaut.
                     resultat = 'OK'
                   }
                 }

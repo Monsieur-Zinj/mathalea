@@ -341,7 +341,8 @@ export default function PavagesEtTransformations () {
         texteCorr += '<br>' + numAlpha(2) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_3)', context.isAmc ? 'black' : 'blue')}$  porte le numéro ${texteEnCouleurEtGras(num3)}.<br>`
 
         objetsEnonce.push(mediatrice1, mediatrice2, mediatrice3)
-        objetsCorrection.push(mediatrice1, mediatrice2, mediatrice3, symetrieAnimee(quad[numA], mediatrice1, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), symetrieAnimee(quad[numD], mediatrice2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), symetrieAnimee(quad[numC], mediatrice3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
+        objetsCorrection.push(mediatrice1, mediatrice2, mediatrice3)
+        if (context.isHtml) objetsCorrection.push(symetrieAnimee(quad[numA], mediatrice1, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), symetrieAnimee(quad[numD], mediatrice2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), symetrieAnimee(quad[numC], mediatrice3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
         pt1 = pointIntersectionDD(mediatrice1, droiteHorizontaleParPoint(point(context.fenetreMathalea2d[2], context.fenetreMathalea2d[3])))
         pt2 = pointIntersectionDD(mediatrice1, droiteVerticaleParPoint(point(context.fenetreMathalea2d[0], context.fenetreMathalea2d[1])))
@@ -528,8 +529,8 @@ export default function PavagesEtTransformations () {
         labelCentre3.taille = 2
 
         objetsEnonce.push(labelCentre1, labelCentre2, labelCentre3, labelPoint(centre1, 'red'), labelPoint(centre2, 'red'), labelPoint(centre3, 'red'))
-        objetsCorrection.push(labelCentre1, labelCentre2, labelCentre3, labelPoint(centre1, 'red'), labelPoint(centre2, 'red'), labelPoint(centre3, 'red')
-          , rotationAnimee(quad[numA], centre1, 180, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 180, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, 180, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
+        objetsCorrection.push(labelCentre1, labelCentre2, labelCentre3, labelPoint(centre1, 'red'), labelPoint(centre2, 'red'), labelPoint(centre3, 'red'))
+        if (context.isHtml) objetsCorrection.push(rotationAnimee(quad[numA], centre1, 180, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 180, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, 180, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
         consigneAMC = mathalea2d({
           xmin: Xmin,
@@ -713,8 +714,8 @@ export default function PavagesEtTransformations () {
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure image de la figure ${numC}  dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} porte le numéro ${num3}.<br>`, context.isAmc ? 'black' : 'blue')
 
         objetsEnonce.push(vecteur1, vecteur2, vecteur3)
-        objetsCorrection.push(vecteur1, vecteur2, vecteur3
-          , translationAnimee(quad[numA], vector1, `id="anim${numeroExercice}A" dur="2s" repeatcount="1"`), translationAnimee(quad[numD], vector2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), translationAnimee(quad[numC], vector3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
+        objetsCorrection.push(vecteur1, vecteur2, vecteur3)
+        if (context.isHtml) objetsCorrection.push(translationAnimee(quad[numA], vector1, `id="anim${numeroExercice}A" dur="2s" repeatcount="1"`), translationAnimee(quad[numD], vector2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), translationAnimee(quad[numC], vector3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
         consigneAMC = mathalea2d({
           xmin: Xmin,
@@ -883,7 +884,7 @@ export default function PavagesEtTransformations () {
         trace.taille = 4
         objetsEnonce.push(trace, label)
         objetsCorrection.push(trace, label)
-        objetsCorrection.push(rotationAnimee(quad[numA], centre1, -90, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 90, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, -90, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
+        if (context.isHtml) objetsCorrection.push(rotationAnimee(quad[numA], centre1, -90, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 90, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, -90, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
         consigneAMC = mathalea2d({
           xmin: Xmin,

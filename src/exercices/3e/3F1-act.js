@@ -66,7 +66,7 @@ export default function FonctionNotionVocabulaire () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 5
-  this.listePackages = 'bclogo'
+  this.listePackages = ['cmd\\usepackage[tikz]{bclogo}', 'cmd\\renewcommand{\\thempfootnote}{\\arabic{mpfootnote}}']
 
   const numEx = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 
@@ -105,7 +105,7 @@ export default function FonctionNotionVocabulaire () {
     // let typesDeQuestionsDisponibles = [1];
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
-    this.introduction = lampeMessage({
+    this.introduction = (!context.isHtml ? '\\definecolor{nombres}{RGB}{241, 89, 41}' : '') + lampeMessage({
       titre: 'Introduction',
       texte: `Lorsqu'un nombre $\\textit{x}$ entre dans une machine mathématique, celle-ci renvoie à la sortie un nombre appelé $\\textit{image de x}$.<br>
 On dit que le nombre de départ est un $\\textit{antécédent}$ du nombre qu'on trouve à la sortie.<br>
@@ -236,11 +236,11 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             const pos = fonctionTriple.indexOf('">') + 1
             texte += fonctionTriple.substring(0, pos) + " style='width:100%'" + fonctionTriple.substring(pos)
           } else {
-            texte += infoMessage({
+            texte += '\\setbox0\\box\\csname@mpfootins\\endcsname ' + infoMessage({
               titre: 'Exemple',
               texte: txtInfo,
               couleur: 'nombres'
-            })
+            }) + '\\global\\setbox\\csname@mpfootins\\endcsname\\box0 '
           }
 
           // sous question f/
@@ -263,7 +263,7 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
           if (context.isHtml) {
             texte = 'La $\\textbf{machine\\,g}$ renvoie ' + katexPopup('l\'aire', 'Rappel', 'L\'aire d\'un carré est égale au produit de la longueur de son côté par lui-même.') + ' d\'un carré de côté $x$'
           } else {
-            texte = '<br>La $\\textbf{machine\\,g}$ renvoie \\textbf{l\'aire} \\footnote{\\textbf{Rappel :} L\'aire d\'un carré est égale au produit de la longueur de son côté par lui-même.} d\'un carré de côté $x$.'
+            texte = 'La $\\textbf{machine\\,g}$ renvoie \\textbf{l\'aire} \\footnote{\\textbf{Rappel :} L\'aire d\'un carré est égale au produit de la longueur de son côté par lui-même.} d\'un carré de côté $x$.'
           }
           texte += '<br>'
           // machine
@@ -363,11 +363,11 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             const pos = fonctionDouble.indexOf('">') + 1
             texte += fonctionDouble.substring(0, pos) + " style='width:100%'" + fonctionDouble.substring(pos)
           } else {
-            texte += infoMessage({
+            texte += '\\setbox0\\box\\csname@mpfootins\\endcsname ' + infoMessage({
               titre: 'Exemple',
               texte: txtInfo,
               couleur: 'nombres'
-            })
+            }) + '\\global\\setbox\\csname@mpfootins\\endcsname\\box0 '
           }
 
           // sous question f/
@@ -488,11 +488,11 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
             const pos = fonctionDouble.indexOf('">') + 1
             texte += fonctionDouble.substring(0, pos) + " style='width:100%'" + fonctionDouble.substring(pos)
           } else {
-            texte += infoMessage({
+            texte += '\\setbox0\\box\\csname@mpfootins\\endcsname ' + infoMessage({
               titre: 'Exemple',
               texte: txtInfo,
               couleur: 'nombres'
-            })
+            }) + '\\global\\setbox\\csname@mpfootins\\endcsname\\box0 '
           }
 
           // sous question f/

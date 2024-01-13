@@ -154,7 +154,7 @@ export default function ExerciceDevelopper () {
           break
       }
       if (this.sup2 === 1) {
-        setReponse(this, i, reponse)
+        setReponse(this, i, reponse, { formatInteractif: 'canonicalAdd' })
       } else {
         setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppee' })
       }

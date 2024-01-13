@@ -11,10 +11,10 @@ export const dateDePublication = '19/12/2022'
 
 export const uuid = 'b3a4c'
 export const ref = '6G21-5'
-export default class ConstruireUnLosangeOuParallélogrammes extends TracerQuadrilatèresParticuliers {
+export default class ConstruireQuadrilatèresParticuliers extends TracerQuadrilatèresParticuliers {
   constructor () {
     super()
-    this.sup = 11
+    this.sup = '0'
     this.nbQuestions = 10
   }
 }

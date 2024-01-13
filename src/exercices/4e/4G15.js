@@ -121,39 +121,41 @@ export default function TransformationsDeTriangle () {
     texte += `$A_4B_4C_4$ le triangle obtenu par la rotation de $A_3B_3C_3$ de centre $F$ et d'angle $${Math.abs(alpha)}\\degree$ dans le sens des aiguilles d'une montre.<br>`
 
     const nomd = latexParPoint('(d)', translation(milieu(B, B1), vecteur(1, 0)), 'black', 30, 12, '')
-    const triangle2a = symetrieAnimee(triangle0, med, `id='anim${numeroExercice}A' begin="0s" dur ="2s" repeatcount="1" fill="freeze"`)
-    const triangle3a = rotationAnimee(triangle2, D, 180, `id='anim${numeroExercice}B' begin="2s" dur ="2s" repeatcount="1" fill="freeze"`)
-    const triangle4a = translationAnimee(triangle3, vecteur(D, F), `id='anim${numeroExercice}C' begin="4s" dur ="2s" repeatcount="1" fill="freeze"`)
-    const triangle5a = rotationAnimee(triangle4, F, alpha, `id='anim${numeroExercice}D' begin="6s" dur ="2s" repeatcount="1" fill="freeze"`)
-    anim.vitesse = 15
-    anim.tempo = 0.5
-    anim.recadre(xMin, yMax)
-    anim.polygoneRapide(...triangle0.listePoints)
-    anim.pointsCreer(A, B, C, F, D)
-    anim.couleur = 'black'
-    anim.traitRapide(X, Y)
-    anim.textePoint('(d)', milieu(B, B1))
-    anim.symetrieAxialePolygone(triangle0, med, ['A_1', 'B_1', 'C_1'], {
-      couleur: 'blue',
-      couleurCodage: 'lightblue'
-    })
-    anim.demiTourPolygone(triangle2, D, ['A_2', 'B_2', 'C_2'], {
-      couleur: 'red',
-      couleurCodage: 'pink'
-    })
-    anim.translationPolygone(triangle3, D, F, ['A_3', 'B_3', 'C_3'], {
-      couleur: 'brown',
-      couleurCodage: '#f15929'
-    })
-    anim.rotationPolygone(triangle4, F, alpha, ['A_4', 'B_4', 'C_4'], {
-      couleur: 'green',
-      couleurCodage: 'lightgreen'
-    })
-    anim.crayonMasquer()
-
+    if (context.isHtml) {
+      const triangle2a = symetrieAnimee(triangle0, med, `id='anim${numeroExercice}A' begin="0s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle3a = rotationAnimee(triangle2, D, 180, `id='anim${numeroExercice}B' begin="2s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle4a = translationAnimee(triangle3, vecteur(D, F), `id='anim${numeroExercice}C' begin="4s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle5a = rotationAnimee(triangle4, F, alpha, `id='anim${numeroExercice}D' begin="6s" dur ="2s" repeatcount="1" fill="freeze"`)
+      anim.vitesse = 15
+      anim.tempo = 0.5
+      anim.recadre(xMin, yMax)
+      anim.polygoneRapide(...triangle0.listePoints)
+      anim.pointsCreer(A, B, C, F, D)
+      anim.couleur = 'black'
+      anim.traitRapide(X, Y)
+      anim.textePoint('(d)', milieu(B, B1))
+      anim.symetrieAxialePolygone(triangle0, med, ['A_1', 'B_1', 'C_1'], {
+        couleur: 'blue',
+        couleurCodage: 'lightblue'
+      })
+      anim.demiTourPolygone(triangle2, D, ['A_2', 'B_2', 'C_2'], {
+        couleur: 'red',
+        couleurCodage: 'pink'
+      })
+      anim.translationPolygone(triangle3, D, F, ['A_3', 'B_3', 'C_3'], {
+        couleur: 'brown',
+        couleurCodage: '#f15929'
+      })
+      anim.rotationPolygone(triangle4, F, alpha, ['A_4', 'B_4', 'C_4'], {
+        couleur: 'green',
+        couleurCodage: 'lightgreen'
+      })
+      anim.crayonMasquer()
+      objetsCorrection.push(triangle2a, triangle3a, triangle4a, triangle5a)
+    }
     context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
     objetsEnonce.push(triangle0, triangle[1], traces, labels, med, nomd) // On rempli les tableaux d'objets Mathalea2d
-    objetsCorrection.push(triangle0, triangle[1], traces, labels, med, nomd, triangle2, nommePolygone(triangle2), triangle3, nommePolygone(triangle3), triangle4, nommePolygone(triangle4), triangle5, nommePolygone(triangle5), triangle2a, triangle3a, triangle4a, triangle5a)
+    objetsCorrection.push(triangle0, triangle[1], traces, labels, med, nomd, triangle2, nommePolygone(triangle2), triangle3, nommePolygone(triangle3), triangle4, nommePolygone(triangle4), triangle5, nommePolygone(triangle5))
 
     // paramètres de la fenêtre Mathalea2d pour l'énoncé main levée
     //    paramsEnonceml = { xmin: Math.min(objetsEnonceml.x), ymin: Math.min(objetsEnonceml.y), xmax: Math.max(objetsEnonceml.x), ymax: Math.max(objetsEnonceml.y), pixelsParCm: 20, scale: 1, mainlevee: true, amplitude: 1 }

@@ -14,7 +14,7 @@ export const ref = '6G13-1'
 export default class ConstruireCarréOuRectangles extends TracerQuadrilatèresParticuliers {
   constructor () {
     super()
-    this.sup = 9
+    this.sup = '1-2-3-4'
     this.nbQuestions = 6
   }
 }

@@ -286,6 +286,7 @@
   "src/exercices/PE/PEG24.js",
   "src/exercices/apps/challengeRelatif.ts",
   "src/exercices/apps/challengeTables.ts",
+  "src/exercices/apps/equations.ts",
   "src/exercices/apps/parcoursTables.ts",
   "src/exercices/apps/permisEquerre.ts",
   "src/exercices/apps/permisLitteral.ts",
