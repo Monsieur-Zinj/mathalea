@@ -210,6 +210,8 @@ export function mathalea2d (
 
 export class Vide2d {
   constructor (x, y) {
+    this.x = x
+    this.y = y
     this.bordures = [x, y, x, y]
     this.tikz = function () {
       return ''

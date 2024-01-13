@@ -120,8 +120,8 @@ export function arcenciel (i: number, fondblanc = true) {
 }
 
 export function texcolors (i: number, fondblanc = true) {
-  const couleurs = ['black', 'blue', 'GreenYellow', 'brown', 'LightSlateBlue', 'cyan', 'darkgray', 'HotPink', 'LightSteelBlue', 'Chocolate', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'DarkOrange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
-  if (fondblanc && i % couleurs.length >= couleurs.length - 2) i += 2
+  const couleurs = ['black', 'blue', 'brown', 'green', 'cyan', 'darkgray', 'pink', 'orange', 'red', 'magenta', 'purple', 'violet', 'white', 'yellow']
+  if (fondblanc && (i % couleurs.length) >= (couleurs.length - 2)) i += 2
   return couleurs[i % couleurs.length]
 }
 

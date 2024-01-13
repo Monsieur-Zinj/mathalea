@@ -234,7 +234,7 @@ export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
 /**
  * Construit le cercle (ou le disque) de centre O, passant par M
  * @param {Point} O Centre du cercle
- * @param {number} M Point du cercle
+ * @param {Point} M Point du cercle
  * @param {string} [color = 'black'] Couleur du cercle ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {string} [couleurDeRemplissage = 'none'] Couleur de remplissage ou 'none' : du type 'blue' ou du type '#f15929'
  * @param {string} [couleurDesHachures = 'none'] Couleur des hachures ou 'none' : du type 'blue' ou du type '#f15929' Si 'none' ou '', pas de hachures.
