@@ -101,6 +101,7 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     this.nom = ''
     this.pointilles = 0
     this.opacite = 1
+    this.epaisseur = 1
     this.x1 = arg1.x
     this.y1 = arg1.y
     this.x2 = arg2.x
