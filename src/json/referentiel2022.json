@@ -17576,25 +17576,6 @@
         },
         "typeExercice": "alea"
       },
-      "3F11-0": {
-        "url": "3e/3F11-0.ts",
-        "tags": [],
-        "uuid": "28997",
-        "id": "3F11-0",
-        "titre": "Résoudre graphiquement une équation ou une inéquation",
-        "datePublication": "29/10/2023",
-        "features": {
-          "interactif": {
-            "isActive": true,
-            "type": "'mathLive'"
-          },
-          "amc": {
-            "isActive": false,
-            "type": ""
-          }
-        },
-        "typeExercice": "alea"
-      },
       "3F12": {
         "url": "3e/3F12.js",
         "tags": [],
@@ -19562,6 +19543,25 @@
           "amc": {
             "isActive": true,
             "type": "AMCHybride"
+          }
+        },
+        "typeExercice": "alea"
+      },
+      "2F20-4": {
+        "url": "2e/2F20-4.ts",
+        "tags": [],
+        "uuid": "28997",
+        "id": "2F20-4",
+        "titre": "Résoudre graphiquement une équation ou une inéquation",
+        "datePublication": "29/10/2023",
+        "features": {
+          "interactif": {
+            "isActive": true,
+            "type": "'mathLive'"
+          },
+          "amc": {
+            "isActive": false,
+            "type": ""
           }
         },
         "typeExercice": "alea"
