@@ -436,6 +436,7 @@
     "id": "1G10",
     "titre": "Valeurs remarquables du cosinus et sinus",
     "datePublication": "16/04/2022",
+    "dateModification": "12/01/2024",
     "features": {
       "interactif": {
         "isActive": true,
@@ -3332,6 +3333,25 @@
     },
     "typeExercice": "alea"
   },
+  "2S10-4": {
+    "url": "2e/2S10-4.js",
+    "tags": [],
+    "uuid": "3f39d",
+    "id": "2S10-4",
+    "titre": "Compléter et utiliser un tableau d'effectif",
+    "datePublication": "08/01/2024",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
+      },
+      "amc": {
+        "isActive": false,
+        "type": ""
+      }
+    },
+    "typeExercice": "alea"
+  },
   "2S11-1": {
     "url": "2e/2S11-1.js",
     "tags": [],
@@ -3787,8 +3807,8 @@
     "datePublication": "05/10/2022",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": true,
