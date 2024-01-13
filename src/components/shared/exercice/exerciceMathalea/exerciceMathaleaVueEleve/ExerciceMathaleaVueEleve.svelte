@@ -11,7 +11,6 @@
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import Question from './presentationalComponents/Question.svelte'
   import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
-    import Exercice from '../../Exercice.svelte';
   export let exercise: TypeExercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
@@ -19,7 +18,6 @@
 
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
-  let divCapytaleMessageProf: HTMLDivElement
   let buttonScore: HTMLButtonElement
   let columnsCount = $exercicesParams[exerciseIndex].cols || 1
   let isInteractif = exercise.interactif && exercise?.interactifReady
@@ -198,7 +196,7 @@
           state: 'done',
           alea: exercise.seed,
           answers: exercise.answers,
-          numberOfPoints,
+          numberOfPoints: bestScore,
           numberOfQuestions,
           bestScore
         }
@@ -210,7 +208,6 @@
         const iframe = url.searchParams.get('iframe')
         window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: 'mathalea:score', iframe }, '*')
       } else if ($globalOptions.recorder === 'capytale') {
-        divCapytaleMessageProf.innerHTML = `Meilleur score : ${bestScore}`
         if (buttonScore.dataset.capytaleLoadAnswers === '1') {
           console.log('Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau')
           return
@@ -322,9 +319,6 @@
 </script>
 
 <div class="z-0 flex-1 w-full mb-10 lg:mb-20" bind:this={divExercice}>
-  {#if $globalOptions.recorder === 'capytale'}
-    <div class="text-coopmaths-struct text-xl m-2 font-black" bind:this={divCapytaleMessageProf}></div>
-  {/if}
   {#if $globalOptions.presMode !== 'recto' && $globalOptions.presMode !== 'verso'}
     <HeaderExerciceVueEleve
       {...headerExerciceProps}
@@ -375,7 +369,7 @@
               : 'list-decimal'} list-inside my-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
           >
             <!-- eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-            {#each exercise.listeQuestions as question, questionIndex (questionIndex + '_' + (exercise.seed || '') )}
+            {#each exercise.listeQuestions as question, questionIndex (questionIndex + '_' + (exercise.seed || ''))}
               <Question
                 {exercise}
                 {questionIndex}
