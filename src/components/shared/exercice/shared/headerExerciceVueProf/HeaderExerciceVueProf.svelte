@@ -40,7 +40,7 @@
       titleBase = decompo[0]
       titleAddendum = decompo[1]
     } else {
-      titleBase = title || ''
+      titleBase = (title  || '')
       titleAddendum = ''
     }
   }
@@ -133,18 +133,20 @@
           >
         {/if}
       </div>
+      {#key titleAddendum}
       <div
         id="exotitle-{indiceExercice}"
         class="flex flex-row justify-start whitespace-pre text-start font-normal items-center text-sm md:text-base xl:text-lg pl-0
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
-      >
-        {titleBase}
+      >        
+        {titleBase}        
         {#if titleAddendum}
             <span class="ml-2 flex justify-center items-center rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm">
             {titleAddendum}
           </span>               
         {/if}
       </div>
+      {/key}
     </div>
     <div
       class="print-hidden flex flex-col md:flex-row justify-start space-x-2 md:space-x-10 text-normal mt-1 text-xl lg:justify-end mr-1"
