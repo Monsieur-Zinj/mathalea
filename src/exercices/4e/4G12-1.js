@@ -241,8 +241,10 @@ export default function TrouverLaTransformations () {
           objetsCorrection.push(label)
         }
       }
-      for (let ee = 0; ee < 4; ee++) {
-        objetsCorrection.push(transfos[ee].animation)
+
+      const listeQuestionsPossibles = shuffle(range(3))
+      for (let ee = 0; ee < this.sup2; ee++) {
+        objetsCorrection.push(transfos[listeQuestionsPossibles[ee]].animation)
       }
 
       const paramsEnonce = { xmin: -0.5, ymin: -0.5, xmax: 17, ymax: 16.5, pixelsParCm: 20, scale: 0.6 }
@@ -297,7 +299,6 @@ export default function TrouverLaTransformations () {
         texteCorrPossible.push(transfos[k].texteCorr)
         reponsePossible.push(transfos[k].texteInteractif)
       }
-      const listeQuestionsPossibles = shuffle(range(3))
       for (let ee = 0; ee < nbSousQuestions; ee++) {
         texte += ee > 0 ? '<br>' : ''
         texte += nbSousQuestions > 1 ? numAlpha(ee) : ''
