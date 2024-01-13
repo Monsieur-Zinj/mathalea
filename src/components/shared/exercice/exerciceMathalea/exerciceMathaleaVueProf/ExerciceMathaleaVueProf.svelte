@@ -67,10 +67,6 @@
     isSettingsVisible
   }
 
-  // MGu : force le refresh des questions après une vérification des questions en interactifs et si par hasard, on a la même question après newdata,
-  // alors l'affichage bug!
-  let forceRefresh : number = 0
-
   $: {
     if (isContentVisible && isInteractif && buttonScore) initButtonScore()
     if ($globalOptions.v === 'eleve') {
@@ -207,9 +203,7 @@
   })
 
   async function newData () {
-    if (Object.prototype.hasOwnProperty.call(exercise, 'listeQuestions')) {
-      // force à détruire la liste des questions : Key blocks destroy and recreate their contents when the value of an expression changes.
-      if (isCorrectionVisible && isInteractif) forceRefresh++
+    if (Object.prototype.hasOwnProperty.call(exercise, 'listeQuestions')) {      
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
       if (
         exercise !== undefined &&
