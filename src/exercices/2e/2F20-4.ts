@@ -32,7 +32,7 @@ export const interactifType = 'mathLive'
  * Références
  */
 export const uuid = '28997'
-export const ref = '3F11-0'
+export const ref = '2F20-4'
 export const dateDeCreation = '29/12/2023'
 
 type TypesDeFonction = 'constante' | 'affine' | 'poly2' | 'poly3'
@@ -593,7 +593,6 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.idApigeom = `apigeomEx${numeroExercice}F0`
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     let enonce = `On considère les fonctions $${f1}$ et $${f2}$ définies sur $[${texNombre(xMin, 0)};${texNombre(xMax, 0)}]$ et dont on a représenté ci-dessous leurs courbes respectives.<br><br>`
-    let numero = 1
     // let diff
     let soluces: number[]
     const inferieur = choice([true, false])
@@ -606,7 +605,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     const racinesArrondies = racines.map(el => Number(el.toFixed(1)))
     for (let n = 0; n < racinesArrondies.length; n++) {
       const image = fonction1.func(racinesArrondies[n])
-      const isInside = racinesArrondies[n] < xMax && racinesArrondies[n] > xMin
+      const isInside = racinesArrondies[n] <= xMax && racinesArrondies[n] >= xMin
       const isInside2 = image > yMin && image < yMin + 12
       if (isInside && isInside2) {
         soluces.push(racinesArrondies[n])
@@ -615,14 +614,13 @@ class resolutionEquationInequationGraphique extends Exercice {
     soluces = Array.from(new Set(soluces)) as number[]
     soluces = soluces.sort((a: number, b: number) => a - b)
     if (this.sup === 1 || this.sup === 3) {
-      enonce += `${String(numero)}. Résoudre graphiquement $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$.<br>`
-      enonce += 'Les solutions doivent être rangées par ordre croissant et séparées par un point-virgule.<br>'
-      texteCorr += `${String(numero)}. L'ensemble de solutions de l'équation correspond aux abscisses des points d'intersection des deux courbes soit : $\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$<br><br>`
-      numero++
+      enonce += `Résoudre graphiquement $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$.<br>`
+      if (this.interactif) enonce += 'Les solutions doivent être rangées par ordre croissant et séparées par un point-virgule.<br>'
+      texteCorr += `L'ensemble de solutions de l'équation correspond aux abscisses des points d'intersection des deux courbes soit : $\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$<br><br>`
     }
     if (soluces != null) {
       if (this.sup === 1 || this.sup === 3) {
-        enonce += 'L\'ensemble de solutions de l\'équation est : ' + remplisLesBlancs(this, 0, '\\{%{soluces}\\}', 'inline lycee', '\\ldots\\ldots') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
+        if (this.interactif) enonce += 'L\'ensemble de solutions de l\'équation est : ' + remplisLesBlancs(this, 0, '\\{%{soluces}\\}', 'inline lycee', '\\ldots\\ldots') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
         setReponse(this, 0, {
           soluces: {
             value: Array.from(soluces).join(';'),
@@ -632,11 +630,11 @@ class resolutionEquationInequationGraphique extends Exercice {
       }
     }
     if (this.sup === 2 || this.sup === 3) {
-      enonce += `${numero}. Résoudre graphiquement $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$.<br>`
+      enonce += `Résoudre graphiquement $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$.<br>`
       if (this.interactif) {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
+        enonce += 'L\'ensemble des solutions de l\'inéquation est : ' + remplisLesBlancs(this, 1, '%{solucesIneq}', 'inline lycee', '\\ldots\\ldots') + '<br><br>'
       }
-      enonce += 'L\'ensemble des solutions de l\'inéquation est : ' + remplisLesBlancs(this, 1, '%{solucesIneq}', 'inline lycee', '\\ldots\\ldots') + '<br><br>'
       const soluces2: string = chercheIntervalles(polyDiff, soluces, inferieur, xMin, xMin + 10)
 
       // enonce += '$' + soluces2 + '$'
@@ -646,7 +644,7 @@ class resolutionEquationInequationGraphique extends Exercice {
           compare: compareIntervalles
         }
       }, { formatInteractif: 'fillInTheBlank' })
-      texteCorr += `${String(numero)}. Pour trouver l'ensemble des solutions de l'inéquation, on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C_' + f1 + '}', 'blue')}$ est située ${inferieur ? 'en-dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C_' + f2 + '}', 'red')}$.<br>`
+      texteCorr += `<br>Pour trouver l'ensemble des solutions de l'inéquation, on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C_' + f1 + '}', 'blue')}$ est située ${inferieur ? 'en-dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C_' + f2 + '}', 'red')}$.<br>`
       texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$.<br><br>`
     }
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
