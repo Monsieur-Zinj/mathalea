@@ -30,12 +30,8 @@
   keyboardState.subscribe(async (value) => {
     isVisible = value.isVisible
     pageType = value.alphanumericLayout
-    // console.log('value.blocks')
-    // console.log(value.blocks)
     myKeyboard = new Keyboard()
     for (const block of value.blocks) {
-      // console.log('blocks')
-      // console.log(keyboardBlocks[block])
       myKeyboard.add(keyboardBlocks[block])
     }
     await tick()
@@ -126,7 +122,7 @@
   <div
     transition:fly={{ y: '100%', opacity: 1 }}
     bind:this={divKeyboard}
-    class=" bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999] customshadow"
+    class=" bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999]"
   >
     {#if $keyboardState.blocks.includes('alphanumeric')}
       <Alphanumeric {clickKeycap} {pageType} />
@@ -190,11 +186,3 @@
       </button>
   </div>
 {/if}
-
-<style>
-  .customshadow {
-  -webkit-box-shadow: 0px -3px 6px rgba(180, 180, 180, 0.5);
-  -moz-box-shadow: 0px -3px 6px rgba(180, 180, 180, 0.5);
-  box-shadow: 0px -3px 8px rgba(180, 180, 180, 0.5);
-  }
-</style>
