@@ -89,9 +89,9 @@ export default function FabriqueAYohaku () {
         if (cell != null) {
           spanFeedback[l][c] = document.querySelector(`span#feedbackEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`)
           if (this.yohaku[i].type === 'littéraux') { // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
-            saisies[l * taille + c] = cell.value.replace(',', '.') ?? '0'
+            if (cell.value != null) saisies[l * taille + c] = cell.value.replace(',', '.') ?? '0'
           } else {
-            saisies[l * taille + c] = cell.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1') ?? '0'
+            if (cell.value != null) saisies[l * taille + c] = cell.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1') ?? '0'
             // on peut taper des entiers dans les Yohaku fraction, mais ils doivent être modifiés en fraction pour le calcul
             if (!isNaN(saisies[l * taille + c]) && this.yohaku[i].type.includes('frac')) {
               saisies[l * taille + c] = `\\frac{${saisies[l * taille + c]}}{1}`
