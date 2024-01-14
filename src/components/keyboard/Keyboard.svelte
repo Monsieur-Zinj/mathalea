@@ -34,6 +34,8 @@
     // console.log(value.blocks)
     myKeyboard = new Keyboard()
     for (const block of value.blocks) {
+      // console.log('blocks')
+      // console.log(keyboardBlocks[block])
       myKeyboard.add(keyboardBlocks[block])
     }
     await tick()

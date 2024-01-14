@@ -1,4 +1,6 @@
-export const keys = {
+import { lengthUnits } from './unitsSystem'
+
+const basicKeys = {
   // ================== numbers
   0: { display: '0' },
   1: { display: '1' },
@@ -380,3 +382,13 @@ export const keys = {
     insert: '$$P_{#0}({#1})$$'
   }
 }
+
+const lengthUnitsKeys: Record<string, { display: string, insert: string }> = {}
+for (const unit of lengthUnits.units) {
+  const k = 'LENGTH' + unit.symbol
+  lengthUnitsKeys[k] = {
+    display: unit.symbol,
+    insert: unit.insert
+  }
+}
+export const keys = { ...basicKeys, ...lengthUnitsKeys }

@@ -136,18 +136,24 @@ export class Unit {
   prefix: Prefix
   category: UnitCategory
   exp: 1 | 2 | 3
+  name: string
+  symbol: string
+  insert: string
   private superscript = [
     {
       name: '',
-      symbol: ''
+      symbol: '',
+      latexInsert: ''
     },
     {
       name: ' carré',
-      symbol: '²'
+      symbol: '²',
+      latexInsert: '^2'
     },
     {
       name: ' cube',
-      symbol: '³'
+      symbol: '³',
+      latexInsert: '^3'
     }
   ]
 
@@ -155,18 +161,21 @@ export class Unit {
     this.prefix = pre
     this.category = cat
     this.exp = e
+    this.name = [prefixes[this.prefix].name, units[this.category].name, this.superscript[this.exp - 1].name].join('')
+    this.symbol = [prefixes[this.prefix].symbol, units[this.category].symbol, this.superscript[this.exp - 1].symbol].join('')
+    const phrase = [prefixes[this.prefix].symbol, units[this.category].symbol, this.superscript[this.exp - 1].latexInsert].join('')
+    this.insert = `\\text{ ${phrase}}`
   }
-
-  name = () => [prefixes[this.prefix].name, units[this.category].name, this.superscript[this.exp].name].join('')
-  symbol = () => [prefixes[this.prefix].symbol, units[this.category].symbol, this.superscript[this.exp].symbol].join('')
 }
 
 export class UnitSystem {
   units: Unit[]
-  exp: number
+  private exp: number
 
   constructor (prefixList: Prefix[], cat: UnitCategory, e: 1 | 2 | 3 = 1) {
     this.units = prefixList.map(p => new Unit(p, cat, e))
     this.exp = e
   }
 }
+
+export const lengthUnits: UnitSystem = new UnitSystem([3, 2, 1, 0, '-1', '-2', '-3'], 'length')

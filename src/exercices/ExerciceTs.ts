@@ -196,7 +196,7 @@ export default class Exercice {
     this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
     this.answers = {}
     this.listeAvecNumerotation = true
-    this.keyboard = ['numbers', 'basicOperations', 'variables']
+    this.keyboard = ['numbers', 'basicOperations', 'variables', 'lengths']
 
     /**
    * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques

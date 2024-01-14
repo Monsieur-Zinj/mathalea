@@ -1,3 +1,4 @@
+import { keys } from '../lib/keycaps'
 import type {
   BlockForKeyboard,
   CompleteKeysList,
@@ -42,6 +43,7 @@ const trigoCaps: CompleteKeysList = {
   inline: ['COS', 'SIN', 'TAN', 'ANG'],
   block: ['COS', 'SIN', 'TAN', 'ANG']
 }
+
 const advancedCaps: CompleteKeysList = {
   inline: [
     'FCT', 'LIM', 'INT', 'SIGMA', 'BINOM', //
@@ -55,6 +57,12 @@ const advancedCaps: CompleteKeysList = {
     'VECT', 'BRACKETS', 'BRACES', 'LESSEQ', 'GREATEQ', //
     'COMP', 'REAL', 'RATIO', 'REL', 'INTEG'
   ]
+}
+
+const lengthUnitsKeys = Object.keys(keys).filter(k => k.includes('LENGTH')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
+const lengthsCaps: CompleteKeysList = {
+  inline: Object.keys(lengthUnitsKeys),
+  block: Object.keys(lengthUnitsKeys)
 }
 
 export const specialKeys: KeyboardBlock = {
@@ -104,6 +112,11 @@ export const advanced: KeyboardBlock = {
   cols: 5
 }
 
+export const lengths: KeyboardBlock = {
+  keycaps: lengthsCaps,
+  cols: 2
+}
+
 // eslint-disable-next-line no-unused-vars
 export const keyboardBlocks: { [key in BlockForKeyboard]: KeyboardBlock } = {
   numbers,
@@ -114,5 +127,6 @@ export const keyboardBlocks: { [key in BlockForKeyboard]: KeyboardBlock } = {
   fullOperations,
   basicOperations,
   variables,
-  advanced
+  advanced,
+  lengths
 }
