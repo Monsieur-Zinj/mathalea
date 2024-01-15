@@ -25,6 +25,9 @@ export const uuid = '87479'
 export const ref = '6N14'
 export default class RepresenterUneFraction extends Exercice {
   figures: Figure[] = []
+  diagrammes: CircleFractionDiagram[] = []
+  idApigeom: string[] = []
+  numerators: number[] = []
   constructor () {
     super()
     this.consigne = ''
@@ -33,7 +36,7 @@ export default class RepresenterUneFraction extends Exercice {
     this.nbColsCorr = 2
     this.sup = 3
     this.besoinFormulaireNumerique = ['Type de fractions', 6, '1 : Inférieures à 1\n2 : Supérieures à 1\n3 : Peu importe']
-    this.figures = []
+    this.diagrammes = []
   }
 
   nouvelleVersion (numeroExercice: number) {
@@ -74,17 +77,31 @@ export default class RepresenterUneFraction extends Exercice {
       }
       num = randint(1, den * 3)
       f = fraction(num, den)
-      const figure = new Figure()
-      this.figures[i] = figure
-      const A = figure.create('Point', { x: 0, y: 0 })
-      figure.setToolbar({ tools: [], position: 'top' })
-      if (figure.ui) figure.ui.send('FILL')
-      const diagramme = new CircleFractionDiagram(figure, { center: A, denominator: 8, numberOfCircle: 3, radius: 4 })
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
-      // texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
-      texte += figureApigeom({ exercice: this, idApigeom: `apigeomEx${numeroExercice}F${i}`, figure: this.figures[i] })
+      if (this.interactif) {
+        this.numerators[i] = num
+        const figure = new Figure({ xMin: -2, yMin: -2, width: 600, height: 95 })
+        this.figures[i] = figure
+        figure.options.color = 'blue'
+        figure.setToolbar({ tools: ['FILL'], position: 'top' })
+        if (figure.ui) figure.ui.send('FILL')
+        this.diagrammes[i] = new CircleFractionDiagram(figure, { denominator: den, numberOfCircle: 3, radius: 1 })
+        this.idApigeom[i] = `apigeomEx${numeroExercice}F${i}`
+        texte += figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure })
+        figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
+      } else {
+        texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
+      }
       texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
-      texteCorr += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'))
+      if (this.interactif) {
+        const figureCorr = new Figure({ xMin: -2, yMin: -2, width: 600, height: 95 })
+        figureCorr.options.color = 'blue'
+        const diagrammeCorr = new CircleFractionDiagram(figureCorr, { denominator: den, numberOfCircle: 3, radius: 1 })
+        diagrammeCorr.numerator = num
+        texteCorr += figureCorr.getStaticHtml()
+      } else {
+        texteCorr += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'))
+      }
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
@@ -114,5 +131,27 @@ export default class RepresenterUneFraction extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this)
+  }
+
+  correctionInteractive = (i: number) => {
+    this.answers = {}
+    // Sauvegarde de la réponse pour Capytale
+    this.answers[this.idApigeom[i]] = this.figures[i].json
+    let result = 'KO'
+    const divFeedback = document.querySelector(`#feedback${this.idApigeom[i]}`) as HTMLDivElement
+    if (this.diagrammes[i].numerator === this.numerators[i]) {
+      divFeedback.innerHTML = '😎'
+      result = 'OK'
+    } else {
+      const p1 = document.createElement('p')
+      p1.innerText = '☹️'
+      const p2 = document.createElement('p')
+      p2.innerText = `Tu as colorié $\\dfrac{${this.diagrammes[i].numerator}}{${this.diagrammes[i].denominator}}$.`
+      divFeedback.appendChild(p1)
+      divFeedback.appendChild(p2)
+    }
+    this.figures[i].isDynamic = false
+    this.figures[i].divUserMessage.style.display = 'none'
+    return result
   }
 }
