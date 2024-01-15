@@ -77,6 +77,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   nouvelleVersion (numeroExercice: number) {
     const marks: string[] = ['//', '\\', 'x', 'O', '|||']
     const colors: string[] = ['red', 'green', 'purple', 'blue', 'gray']
+    this.answers = {}
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -279,7 +280,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
-    this.answers = {}
+    if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom[i]] = this.figures[i].json
     const resultat = []
