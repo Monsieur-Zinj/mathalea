@@ -11509,16 +11509,16 @@
         "typeExercice": "alea"
       },
       "6N14": {
-        "url": "6e/6N14.js",
+        "url": "6e/6N14.ts",
         "tags": [],
         "uuid": "87479",
         "id": "6N14",
         "titre": "Représenter des fractions",
-        "dateModification": "07/03/2023",
+        "dateModification": "15/01/2024",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'custom'"
           },
           "amc": {
             "isActive": true,
