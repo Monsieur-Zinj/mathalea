@@ -7,6 +7,10 @@ import { contraindreValeur, listeQuestionsToContenu, ppcm, randint } from '../..
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { engrenages } from '../../lib/2d/engrenage.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -48,19 +52,19 @@ export default class EngrenagesAnimes extends Exercice {
      * @param {number} nbDentsRoueB
      */
     const listePremiersMultiples = function (nbDentsRoueA, nbDentsRoueB) {
-      let result = `Voici la liste des premiers multiples de $${nbDentsRoueA}$:<br>`
+      let result = `Voici la liste des premiers multiples de $${nbDentsRoueA}$ :<br>`
       // on va faire en sorte de toujours avoir un nombre de multiples multiple de 5
       const nbMarge = 5 - (ppcm(nbDentsRoueA, nbDentsRoueB) / nbDentsRoueA) % 5
       const kMax = (ppcm(nbDentsRoueA, nbDentsRoueB) / nbDentsRoueA + nbMarge)
       for (let k = 1; k < kMax + 1; k++) {
         result += `$${k}\\times${nbDentsRoueA} = `
         if (k === (ppcm(nbDentsRoueA, nbDentsRoueB) / nbDentsRoueA)) {
-          result += miseEnEvidence(texNombre(k * nbDentsRoueA, 0))
+          result += miseEnEvidence(texNombre(k * nbDentsRoueA, 0), 'blue')
           result += '$ ; '
         } else {
           result += `${texNombre(k * nbDentsRoueA, 0)}$ ; `
         }
-        if (k % 5 === 0) {
+        if (k % 5 === 0 && k !== kMax) {
           result += '<br>'
         }
       }
@@ -92,17 +96,21 @@ export default class EngrenagesAnimes extends Exercice {
         } while ((nbToursA > 4 && nbToursB > 4) || nbToursA === 1 || nbToursB === 1) // au moins une des deux roues fait moins de 5 tours
         texte += `La roue dentée de gauche possède $${nbDentsRoueA}$ dents ` + (context.isHtml ? '(le dessin n\'est pas représentatif)' : '') + '.<br>'
         texte += `Quand elle effectue $${nbToursA}$ tours, la roue de droite effectue $${nbToursB}$ tours.<br>`
-        texte += 'Combien la roue de droite possède-t-elle de dents ?<br>'
+        texte += 'Combien la roue de droite possède-t-elle de dents ?'
+        texte += ajouteChampTexteMathLive(this, 0, 'largeur01 inline')
+        texte += '<br>'
         texteCorr += 'Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>'
         texteCorr = `La roue de gauche effectue $${nbToursA}$ tours, donc tourne de $${nbToursA}\\times ${nbDentsRoueA}=${nbDentsRoueA * nbToursA}$ dents.<br>`
         texteCorr += `Soit $n$ le nombre de dents de la roue de droite qui effectue $${nbToursB}$ tours, on a alors : $n\\times${nbToursB} = ${nbDentsRoueA}\\times ${nbToursA} = ${nbDentsRoueA * nbToursA}$.<br>`
         texteCorr += `On en déduit que $n=\\dfrac{${nbDentsRoueA * nbToursA}}{${nbToursB}}=${nbDentsRoueB}$.<br>`
         texteCorr += `La roue de droite a donc $${miseEnEvidence(nbDentsRoueB)}$ dents.<br>`
+        setReponse(this, 0, nbDentsRoueB)
         roues = engrenages({ dureeTourBase: 0, module: 0.4 }, nbDentsRoueA, nbDentsRoueB)
         rouesCorr = engrenages({ dureeTourBase: Math.ceil(20 / Math.max(nbToursA, nbToursB)), module: 0.4, marqueurs: true }, nbDentsRoueA, nbDentsRoueB)
         roueACorr = rouesCorr[0]
         roueBCorr = rouesCorr[1]
         remiseAZero = () => {
+          if (divM2d == null) return
           try {
             clearInterval(interABC)
             clearInterval(interA)
@@ -115,16 +123,16 @@ export default class EngrenagesAnimes extends Exercice {
             animRoueA.beginElement()
             animRoueB.beginElement()
             do {
-              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+              compteurRoueA = divM2d.querySelector(`text#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`text#compteur${roueBCorr.id}`)
             } while (compteurRoueA == null || compteurRoueB == null)
-            compteurRoueA.innerHTML = '0'
-            compteurRoueB.innerHTML = '0'
+            compteurRoueA.textContent = '0'
+            compteurRoueB.textContent = '0'
             interA = setInterval(() => {
-              compteurRoueA.innerHTML = parseInt(compteurRoueA.innerHTML) + 1
+              compteurRoueA.textContent = parseInt(compteurRoueA.textContent) + 1
             }, animRoueA.getAttribute('dur') * 1000)
             interB = setInterval(() => {
-              compteurRoueB.innerHTML = parseInt(compteurRoueB.innerHTML) + 1
+              compteurRoueB.textContent = parseInt(compteurRoueB.textContent) + 1
             }, animRoueB.getAttribute('dur') * 1000)
             if (this.sup2) {
               interABC = setInterval(() => {
@@ -149,7 +157,10 @@ export default class EngrenagesAnimes extends Exercice {
         } while ((nbToursA > 4 && nbToursB > 4) || nbToursA === 1 || nbToursB === 1) // au moins une des deux roues fait moins de 5 tours
         texte += `La roue dentée de gauche possède $${nbDentsRoueA}$ dents ` + (context.isHtml ? '(le dessin n\'est pas représentatif)' : '') + '.<br>'
         texte += `Elle tourne de $${nbToursA * nbDentsRoueA}$ dents. Pendant ce temps, la roue de droite fait $${nbToursB}$ tour${nbToursB > 1 ? 's' : ''}.<br>`
-        texte += 'Combien la roue de droite possède-t-elle de dents ?<br>'
+        texte += 'Combien la roue de droite possède-t-elle de dents ?'
+        texte += ajouteChampTexteMathLive(this, 0, 'largeur01 inline')
+        texte += '<br>'
+        setReponse(this, 0, nbDentsRoueB)
         texteCorr += 'Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>'
         texteCorr += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents en $${nbToursA}$ tours.<br>`
         texteCorr += `Soit $n$ le nombre de dents de la roue de droite, on a alors : $n\\times${nbToursB} = ${nbDentsRoueA * nbToursA}$.<br>`
@@ -160,6 +171,7 @@ export default class EngrenagesAnimes extends Exercice {
         roueACorr = rouesCorr[0]
         roueBCorr = rouesCorr[1]
         remiseAZero = () => {
+          if (divM2d == null) return
           try {
             clearInterval(interABC)
             clearInterval(interA)
@@ -172,8 +184,8 @@ export default class EngrenagesAnimes extends Exercice {
             animRoueA.beginElement()
             animRoueB.beginElement()
             do {
-              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+              compteurRoueA = divM2d.querySelector(`text#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`text#compteur${roueBCorr.id}`)
             } while (compteurRoueA == null || compteurRoueB == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
@@ -206,7 +218,10 @@ export default class EngrenagesAnimes extends Exercice {
         } while ((nbToursA > 4 && nbToursB > 4) || nbToursA === 1 || nbToursB === 1) // au moins une des deux roues fait moins de 5 tours
         texte += `La roue dentée de gauche possède $${nbDentsRoueA}$ dents et celle de droite possède $${nbDentsRoueB}$ dents.<br>`
         texte += `${numAlpha(0)} Au bout de combien de tours pour la roue de gauche les deux roues retrouveront leur position initiale ?<br>`
-        texte += `${numAlpha(1)} Combien de tours aura alors effectués la roue de droite ?<br>`
+        texte += `${numAlpha(1)} Combien de tours aura alors effectués la roue de droite ?`
+        texte += ajouteChampTexteMathLive(this, 0, 'largeur01 inline')
+        texte += '<br>'
+        setReponse(this, 0, nbToursB)
         texteCorr += `Lorsque la roue de gauche effectue $n$ tours, cela fait $${nbDentsRoueA}n$ dents.<br>`
         texteCorr += `Lorsque la roue de gauche effectue $m$ tours, cela fait $${nbDentsRoueB}m$ dents.<br>`
         texteCorr += `Nous cherchons donc le plus petit multiple commun à $${nbDentsRoueA}$ et à $${nbDentsRoueB}$.<br>`
@@ -219,6 +234,7 @@ export default class EngrenagesAnimes extends Exercice {
         roueACorr = rouesCorr[0]
         roueBCorr = rouesCorr[1]
         remiseAZero = () => {
+          if (divM2d == null) return
           try {
             clearInterval(interABC)
             clearInterval(interA)
@@ -231,8 +247,8 @@ export default class EngrenagesAnimes extends Exercice {
             animRoueA.beginElement()
             animRoueB.beginElement()
             do {
-              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+              compteurRoueA = divM2d.querySelector(`text#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`text#compteur${roueBCorr.id}`)
             } while (compteurRoueA == null || compteurRoueB == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
@@ -263,7 +279,10 @@ export default class EngrenagesAnimes extends Exercice {
           nbToursB = ppcm(nbDentsRoueA, nbDentsRoueB) / nbDentsRoueB
         } while ((nbToursA > 4 && nbToursB > 4) || nbToursA === 1 || nbToursB === 1) // au moins une des deux roues fait moins de 5 tours
         texte += `La roue dentée de gauche possède $${nbDentsRoueA}$ dents et la roue de droite en possède $${nbDentsRoueB}$ ` + (context.isHtml ? '(le dessin n\'est pas représentatif)' : '') + '.<br>'
-        texte += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents.<br>Pendant ce temps, combien la roue de droite effectue-t-elle de tours ?<br>`
+        texte += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents.<br>Pendant ce temps, combien la roue de droite effectue-t-elle de tours ?`
+        texte += ajouteChampTexteMathLive(this, 0, 'largeur01 inline')
+        texte += '<br>'
+        setReponse(this, 0, nbToursB)
         texteCorr += 'Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>'
         texteCorr += `La roue de gauche tourne de $${nbToursA * nbDentsRoueA}$ dents.<br>`
         texteCorr += `Soit $n$ le nombre de tours de la roue de droite qui a $${nbDentsRoueB}$ dents, on a alors : $n\\times${nbDentsRoueB} = ${nbDentsRoueA * nbToursA}$.<br>`
@@ -286,8 +305,8 @@ export default class EngrenagesAnimes extends Exercice {
             animRoueA.beginElement()
             animRoueB.beginElement()
             do {
-              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
+              compteurRoueA = divM2d.querySelector(`text#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`text#compteur${roueBCorr.id}`)
             } while (compteurRoueA == null || compteurRoueB == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
@@ -326,15 +345,27 @@ export default class EngrenagesAnimes extends Exercice {
         roueBCorr = rouesCorr[1]
         roueCCorr = rouesCorr[2]
         texte += `La roue de gauche possède $${nbDentsRoueA}$ dents, celle du milieu en a $${nbDentsRoueB}$ et celle de droite en a $${nbDentsRoueC}$.<br>`
-        texte += `${numAlpha(0)}Combien de tours doit effectuer la roue de gauche avant que son repère et celui de la roue du milieu soient à nouveau comme dans la position initiale ?<br>`
-        texte += `${numAlpha(1)}Combien de tours doit effectuer la roue de gauche avant que son repère et celui de la roue de droite soient à nouveau comme dans la position initiale ?<br>`
-        texte += `${numAlpha(2)}Dans la situation ${numAlpha(1)}, la roue du milieu est-elle dans sa position initiale ? Sinon, combien de tours la roue de gauche doit-elle effectuer pour que les trois roues retrouvent leur position initiale ?<br>`
-        texteCorr += 'Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>'
+        texte += `${numAlpha(0)}Combien de tours doit effectuer la roue de gauche avant que son repère et celui de la roue du milieu soient à nouveau comme dans la position initiale ?`
+        texte += ajouteChampTexteMathLive(this, 0, 'largeur01 inline')
+        texte += '<br>'
+        setReponse(this, 0, nbToursA)
+        texte += `${numAlpha(1)}Combien de tours doit effectuer la roue de gauche avant que son repère et celui de la roue de droite soient à nouveau comme dans la position initiale ?`
+        texte += ajouteChampTexteMathLive(this, 0, 'largeur01 inline')
+        texte += '<br>'
+        setReponse(this, 1, nbToursB)
+        texte += `${numAlpha(2)}`
+        texte += this.interactif
+          ? `Dans la situation ${numAlpha(1, true)}, la roue du milieu n'étant pas dans sa position initiale, combien de tours la roue de gauche doit-elle effectuer pour que les trois roues retrouvent leur position initiale ?`
+          : `Dans la situation ${numAlpha(1, true)}, la roue du milieu est-elle dans sa position initiale ? Sinon, combien de tours la roue de gauche doit-elle effectuer pour que les trois roues retrouvent leur position initiale ?`
+        texte += ajouteChampTexteMathLive(this, 0, 'largeur01 inline')
+        texte += '<br>'
+        setReponse(this, 0, nbToursAbc)
+        texteCorr += `${numAlpha(0)}Le nombre de dents multiplié par le nombre de tours de chaque roue doit donner le même résultat.<br>`
         texteCorr += `Nous cherchons donc le plus petit multiple commun à $${nbDentsRoueA}$ et à $${nbDentsRoueB}$.<br>`
         texteCorr += listePremiersMultiples(nbDentsRoueA, nbDentsRoueB)
         texteCorr += listePremiersMultiples(nbDentsRoueB, nbDentsRoueA)
-        texteCorr += `${numAlpha(0)}Il faudra donc $${miseEnEvidence(nbToursA)}$ tours de la roue de gauche et $${nbToursB}$ tours à la roue du milieu pour qu'elles se retrouvent dans leur position initiale.<br>`
-        texteCorr += `${numAlpha(1)}Faisons de même avec la roue de gauche et celle de droite.<br>`
+        texteCorr += `Il faudra donc $${miseEnEvidence(nbToursA)}$ tours de la roue de gauche et $${nbToursB}$ tours à la roue du milieu pour qu'elles se retrouvent dans leur position initiale.<br>`
+        texteCorr += `<br>${numAlpha(1)}Faisons de même avec la roue de gauche et celle de droite.<br>`
         texteCorr += `Nous cherchons donc le plus petit multiple commun à $${nbDentsRoueA}$ et à $${nbDentsRoueC}$.<br>`
         texteCorr += listePremiersMultiples(nbDentsRoueA, nbDentsRoueC)
         texteCorr += listePremiersMultiples(nbDentsRoueC, nbDentsRoueA)
@@ -344,10 +375,11 @@ export default class EngrenagesAnimes extends Exercice {
         } else {
           texteCorr += `Remarque : Quand le plus petit multiple commun de deux nombres est le produit de ces nombres, on dit qu'ils sont premiers entre eux. $${nbDentsRoueC}$ et $${nbDentsRoueA}$ sont premiers entre eux.<br>`
         }
-        texteCorr += `${numAlpha(2)}Dans cette situation la roue du milieu tourne, elle aussi de $${nbToursC * nbDentsRoueC}$ dents.<br>`
+        texteCorr += `<br>${numAlpha(2)}Dans cette situation, la roue du milieu tourne, elle aussi, de $${nbToursC * nbDentsRoueC}$ dents.<br>`
         texteCorr += nbToursC * nbDentsRoueC % nbDentsRoueB === 0 ? `Ce nombre est un multiple du nombre de dents de la roue du milieu, donc elle a effectué exactement $\\dfrac{${nbToursC * nbDentsRoueC}}{${nbDentsRoueB}}=${nbToursC * nbDentsRoueC / nbDentsRoueB}$ tours.<br>` : 'Ce nombre n\'est pas un multiple du nombre de dents de la roue du milieu, donc elle ne sera pas dans sa position initiale.<br>'
-        texteCorr += `Il faudra attendre que la roue de gauche tourne de $${nbToursAbc * nbDentsRoueA}$ dents soit $${nbToursAbc}$ tours, la roue du milieu en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueB}$ et la roue de droite en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueC}$.<br>`
+        texteCorr += `Il faudra attendre que la roue de gauche tourne de $${nbToursAbc * nbDentsRoueA}$ dents soit $${miseEnEvidence(nbToursAbc)}$ tours, la roue du milieu en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueB}$ et la roue de droite en fera $${nbToursAbc * nbDentsRoueA / nbDentsRoueC}$.<br>`
         remiseAZero = () => {
+          if (divM2d == null) return
           try {
             clearInterval(interABC)
             clearInterval(interA)
@@ -362,9 +394,9 @@ export default class EngrenagesAnimes extends Exercice {
             animRoueB.beginElement()
             animRoueC.beginElement()
             do {
-              compteurRoueA = divM2d.querySelector(`#compteur${roueACorr.id}`)
-              compteurRoueB = divM2d.querySelector(`#compteur${roueBCorr.id}`)
-              compteurRoueC = divM2d.querySelector(`#compteur${roueCCorr.id}`)
+              compteurRoueA = divM2d.querySelector(`text#compteur${roueACorr.id}`)
+              compteurRoueB = divM2d.querySelector(`text#compteur${roueBCorr.id}`)
+              compteurRoueC = divM2d.querySelector(`text#compteur${roueCCorr.id}`)
             } while (compteurRoueA == null || compteurRoueB == null || compteurRoueC == null)
             compteurRoueA.innerHTML = '0'
             compteurRoueB.innerHTML = '0'
@@ -421,13 +453,14 @@ export default class EngrenagesAnimes extends Exercice {
         div.appendChild(button)
         button.classList.add('px-6', 'py-2.5', 'mr-10', 'my-5', 'ml-6', 'bg-coopmaths', 'text-white', 'font-medium', 'text-xs', 'leading-tight', 'uppercase', 'rounded', 'shadow-md',
           'transform', 'hover:scale-110', 'hover:bg-coopmaths-dark', 'hover:shadow-lg', 'focus:bg-coopmaths-dark', 'focus:shadow-lg', 'focus:outline-none', 'focus:ring-0', 'active:bg-coopmaths-dark', 'active:shadow-lg', 'transition', 'duration-150', 'ease-in-out')
+        remiseAZero()
         document.removeEventListener('exercicesAffiches', remiseAZero)
         document.removeEventListener('exercicesAffiches', insertInDom)
       }
     }
 
-    document.addEventListener('exercicesAffiches', remiseAZero)
     document.addEventListener('exercicesAffiches', insertInDom)
+
     this.listeQuestions[0] = texte
     this.listeCorrections[0] = texteCorr
     listeQuestionsToContenu(this)

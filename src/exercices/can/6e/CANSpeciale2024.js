@@ -838,7 +838,8 @@ export default function CourseAuxNombresSpeciale2024 () {
           this.listeCanEnonces.push('Compléter avec l\'unité qui convient. ')
           reponse = [`${prefixes[typeDeQuestion][1]}${unite}`, `\\operatorname{${prefixes[typeDeQuestion][1]}${unite}}`]
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-          texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline nospacebefore unites[longueurs] ')
+          if (unite === 'm') texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline nospacebefore unites[longueur] ')
+          else texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline nospacebefore unites[masse] ')
         }
           break
         case 28: { // EE : J'ai changé la consigne pour que la réponse soit donnée sous forme décimale

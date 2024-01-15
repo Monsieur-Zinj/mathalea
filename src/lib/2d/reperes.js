@@ -1318,8 +1318,8 @@ export function Repere ({
   if (axeXisVisible) objets.push(axeX)
   if (axeYisVisible) objets.push(axeY)
   // Cache les objets intermédiaires pour ne pas les afficher en double dans mathalea2d.html
-  axeX.isVisible = false
-  axeY.isVisible = false
+  // axeX.isVisible = false
+  // axeY.isVisible = false
   // GRILLE PRINCIPALE
 
   // Les traits horizontaux
@@ -1343,7 +1343,7 @@ export function Repere ({
     for (const y of grilleYListe) {
       if (y !== 0 || !axeXisVisible) {
         const traitH = segment(xMin * xUnite, y * yUnite, xMax * xUnite, y * yUnite, grilleYCouleur)
-        traitH.isVisible = false
+        //  traitH.isVisible = false // Pourquoi demander la création de ces traits si c'est pour les rendre invisibles ?
         traitH.opacite = grilleYOpacite
         traitH.epaisseur = grilleEpaisseur
         if (grilleY === 'pointilles') {
@@ -1374,7 +1374,7 @@ export function Repere ({
     for (const x of grilleXListe) {
       if (x !== 0 || !axeYisVisible) {
         const traitV = segment(x * xUnite, (this.grilleYMin ? this.grilleYMin : yMin) * yUnite, x * xUnite, (this.grilleYMax ? this.grilleYMax : yMax) * yUnite, grilleXCouleur)
-        traitV.isVisible = false
+        //  traitV.isVisible = false
         traitV.opacite = grilleXOpacite
         traitV.epaisseur = grilleEpaisseur
         if (grilleX === 'pointilles') {
@@ -1407,7 +1407,7 @@ export function Repere ({
     }
     for (const y of grilleSecondaireYListe) {
       const traitH = segment((grilleSecondaireXMin || xMin) * xUnite, y * yUnite, (grilleSecondaireXMax || xMax) * xUnite, y * yUnite, grilleSecondaireYCouleur)
-      traitH.isVisible = false
+      // traitH.isVisible = false
       traitH.opacite = grilleSecondaireYOpacite
       traitH.epaisseur = grilleSecondaireEpaisseur
       if (grilleSecondaireY === 'pointilles') {
@@ -1436,7 +1436,7 @@ export function Repere ({
     }
     for (const x of grilleSecondaireXListe) {
       const traitV = segment(x * xUnite, (grilleSecondaireYMin || yMin) * yUnite, x * xUnite, (grilleSecondaireYMax || yMax) * yUnite, grilleSecondaireXCouleur)
-      traitV.isVisible = false
+      //  traitV.isVisible = false
       traitV.opacite = grilleSecondaireXOpacite
       traitV.epaisseur = grilleSecondaireEpaisseur
       if (grilleSecondaireX === 'pointilles') {
@@ -1455,7 +1455,7 @@ export function Repere ({
 
     for (const x of xThickListe) {
       const thick = segment(x * xUnite, ordonneeAxe * yUnite - thickHauteur, x * xUnite, ordonneeAxe * yUnite + thickHauteur, thickCouleur)
-      thick.isVisible = false
+      // thick.isVisible = false
       thick.epaisseur = thickEpaisseur
       objets.push(thick)
     }
@@ -1468,7 +1468,7 @@ export function Repere ({
     } else if (typeof yThickListe === 'boolean') yThickListe = []
     for (const y of yThickListe) {
       const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite, thickCouleur)
-      thick.isVisible = false
+      // thick.isVisible = false
       thick.epaisseur = thickEpaisseur
       objets.push(thick)
     }
@@ -1485,13 +1485,13 @@ export function Repere ({
       if (typeof x === 'number') {
         if (x >= xMin && x <= xMax) {
           l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', false)
-          l.isVisible = false
+          //   l.isVisible = false
           objets.push(l)
         }
       } else {
         if (x.valeur <= xMax && x.valeur >= xMin) {
           l = latexParCoordonnees(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart * 2, 'black', 20, 20, '', 8)
-          l.isVisible = false
+          //  l.isVisible = false
           objets.push(l)
         }
       }
@@ -1508,13 +1508,13 @@ export function Repere ({
       if (typeof y === 'number') {
         if (y >= yMin && y <= yMax) {
           l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', false)
-          l.isVisible = false
+          //  l.isVisible = false
           objets.push(l)
         }
       } else {
         if (y.valeur >= yMin && y.valeur <= yMax) {
           l = latexParCoordonnees(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite, 'black', 20, 20, '', 8)
-          l.isVisible = false
+          //     l.isVisible = false
           objets.push(l)
         }
       }

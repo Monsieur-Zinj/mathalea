@@ -35,8 +35,10 @@ class ressourceVideo {
     )
     this.iframe.setAttribute('allowfullscreen', '')
     const updateVideoSize = () => {
-      this.iframe.setAttribute('width', '100%')
-      this.iframe.setAttribute('height', this.iframe.offsetWidth * 0.75 + '')
+      if (this.container.offsetWidth !== 0) {
+        this.iframe.setAttribute('width', '100%')
+        this.iframe.setAttribute('height', this.iframe.offsetWidth * 0.75 + '')
+      }
     }
     this.teacherText = document.createElement('div')
     window.addEventListener('resize', updateVideoSize)

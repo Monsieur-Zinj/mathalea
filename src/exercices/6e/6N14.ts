@@ -1,32 +1,45 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../ExerciceTs'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
+import Figure from 'apigeom'
+import figureApigeom from '../../lib/figureApigeom.js'
+import CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram.js'
 export const titre = 'Représenter des fractions'
 export const amcReady = true
+export const interactifReady = true
+export const interactifType = 'custom'
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '07/03/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '15/01/2024'
 
 /**
  * Représenter des fractions simples avec des disques partagés de façon adéquate.
- * @author Jean-Claude Lhote (Modifié par EE : rajout d'un paramètre)
+ * @author Jean-Claude Lhote (Modifié par EE : rajout d'un paramètre puis Rémi Angot pour apiGeom)
  * 6N14
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '87479'
 export const ref = '6N14'
-export default function RepresenterUneFraction () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 3
+export default class RepresenterUneFraction extends Exercice {
+  figures: Figure[] = []
+  diagrammes: CircleFractionDiagram[] = []
+  idApigeom: string[] = []
+  numerators: number[] = []
+  constructor () {
+    super()
+    this.consigne = ''
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 3
+    this.besoinFormulaireNumerique = ['Type de fractions', 6, '1 : Inférieures à 1\n2 : Supérieures à 1\n3 : Peu importe']
+    this.diagrammes = []
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion (numeroExercice: number) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -65,9 +78,30 @@ export default function RepresenterUneFraction () {
       num = randint(1, den * 3)
       f = fraction(num, den)
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
-      texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
+      if (this.interactif) {
+        this.numerators[i] = num
+        const figure = new Figure({ xMin: -2, yMin: -2, width: 600, height: 95 })
+        this.figures[i] = figure
+        figure.options.color = 'blue'
+        figure.setToolbar({ tools: ['FILL'], position: 'top' })
+        if (figure.ui) figure.ui.send('FILL')
+        this.diagrammes[i] = new CircleFractionDiagram(figure, { denominator: den, numberOfCircle: 3, radius: 1 })
+        this.idApigeom[i] = `apigeomEx${numeroExercice}F${i}`
+        texte += figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure })
+        figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
+      } else {
+        texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
+      }
       texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
-      texteCorr += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'))
+      if (this.interactif) {
+        const figureCorr = new Figure({ xMin: -2, yMin: -2, width: 600, height: 95 })
+        figureCorr.options.color = 'blue'
+        const diagrammeCorr = new CircleFractionDiagram(figureCorr, { denominator: den, numberOfCircle: 3, radius: 1 })
+        diagrammeCorr.numerator = num
+        texteCorr += figureCorr.getStaticHtml()
+      } else {
+        texteCorr += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'))
+      }
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
@@ -98,5 +132,26 @@ export default function RepresenterUneFraction () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de fractions', 6, '1 : Inférieures à 1\n2 : Supérieures à 1\n3 : Peu importe']
+
+  correctionInteractive = (i: number) => {
+    this.answers = {}
+    // Sauvegarde de la réponse pour Capytale
+    this.answers[this.idApigeom[i]] = this.figures[i].json
+    let result = 'KO'
+    const divFeedback = document.querySelector(`#feedback${this.idApigeom[i]}`) as HTMLDivElement
+    if (this.diagrammes[i].numerator === this.numerators[i]) {
+      divFeedback.innerHTML = '😎'
+      result = 'OK'
+    } else {
+      const p1 = document.createElement('p')
+      p1.innerText = '☹️'
+      const p2 = document.createElement('p')
+      p2.innerText = `Tu as colorié $\\dfrac{${this.diagrammes[i].numerator}}{${this.diagrammes[i].denominator}}$.`
+      divFeedback.appendChild(p1)
+      divFeedback.appendChild(p2)
+    }
+    this.figures[i].isDynamic = false
+    this.figures[i].divUserMessage.style.display = 'none'
+    return result
+  }
 }

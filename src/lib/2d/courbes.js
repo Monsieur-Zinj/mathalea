@@ -224,18 +224,22 @@ export function Courbe (f, {
       if (f(x) < yMax + 1 && f(x) > yMin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
       } else {
-        p = polyline([...points], this.color)
-        p.epaisseur = epaisseur
-        objets.push(p)
-        points = []
+        if (points.length > 1) {
+          p = polyline([...points], this.color)
+          p.epaisseur = epaisseur
+          objets.push(p)
+          points = []
+        }
       }
     } else {
       x += 0.05
     }
   }
-  p = polyline([...points], this.color)
-  p.epaisseur = epaisseur
-  objets.push(p)
+  if (points.length > 1) {
+    p = polyline([...points], this.color)
+    p.epaisseur = epaisseur
+    objets.push(p)
+  }
 
   this.svg = function (coeff) {
     let code = ''

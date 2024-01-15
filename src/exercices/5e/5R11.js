@@ -21,13 +21,11 @@ export const amcType = 'AMCHybride'
 /**
  * Lire l'abscisse décimale d'un point
  * @author Jean-Claude Lhote et Rémi Angot
- * Référence 5R11
  */
 export const uuid = 'cd7ce'
 export const ref = '5R11'
 export default function LireAbscisseRelative () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = "Lire l'abscisse de chacun des points suivants."
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
@@ -121,7 +119,7 @@ export default function LireAbscisseRelative () {
         setReponse(this, 3 * i + 2, abs3)
       } else {
         this.autoCorrection[i] = {
-          enonce: texte,
+          enonce: '',
           propositions: [
             {
               type: 'AMCNum',
@@ -129,7 +127,7 @@ export default function LireAbscisseRelative () {
                 texte: texteCorr,
                 statut: '',
                 reponse: {
-                  texte: `abscisse de ${l1}`,
+                  texte: texte + `<br>Abscisse de ${l1}`,
                   valeur: abs1,
                   param: {
                     digits: nombreDeChiffresDe(abs1),
@@ -146,7 +144,7 @@ export default function LireAbscisseRelative () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `abscisse de ${l2}`,
+                  texte: `Abscisse de ${l2}`,
                   valeur: abs2,
                   param: {
                     digits: nombreDeChiffresDe(abs2),
@@ -163,7 +161,7 @@ export default function LireAbscisseRelative () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `abscisse de ${l3}`,
+                  texte: `Abscisse de ${l3}`,
                   valeur: abs3,
                   param: {
                     digits: nombreDeChiffresDe(abs3),

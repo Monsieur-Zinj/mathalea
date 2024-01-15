@@ -54,10 +54,14 @@ export default function EvolutionsEnPourcentage () {
       typesDeQuestionsDisponibles = ['finale', 'evolution', 'initiale']
     }
     const situationsDisponibles = ['prix', 'etablissement', 'facture', 'population']
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const typesDeSituations = combinaisonListes(situationsDisponibles, this.nbQuestions)
     let date, cetteAnnee, anneeDerniere, etablissement, facture, nb
-    for (let i = 0, texte, texteCorr, depart, arrive, taux, coeff, reponse, texteApres, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let depart, arrive, taux, coeff, reponse
+      let texte = ''
+      let texteApres = ''
+      let texteCorr = ''
       switch (typesDeSituations[i]) {
         case 'prix':
           depart = choice([calculANePlusJamaisUtiliser(randint(11, 99) / 10), randint(11, 99), randint(11, 99) * 10])
@@ -285,6 +289,7 @@ export default function EvolutionsEnPourcentage () {
                 texteCorr += `<br>La population a été multipliée par $${coeff}$ elle a donc diminué de $${abs(taux)}~\\%$.`
               }
               reponse = abs(taux)
+              texteApres = ' %'
               break
           }
           break

@@ -62,7 +62,7 @@ export function Polyline (...points) {
   }
   this.bordures = [xmin, ymin, xmax, ymax]
   this.nom = ''
-  if (points.length < 15) {
+  if (this.listePoints.length < 15) {
     // Ne nomme pas les lignes brisées trop grandes (pratique pour les courbes de fonction)
     for (const point of points) {
       this.nom += point.nom
