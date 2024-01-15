@@ -129,6 +129,10 @@ export const units = {
   pressure: {
     symbol: 'Pa',
     name: 'pascal'
+  },
+  area: {
+    symbol: 'a',
+    name: 'are'
   }
 }
 
@@ -179,3 +183,8 @@ export class UnitSystem {
 }
 
 export const lengthUnits: UnitSystem = new UnitSystem([3, 2, 1, 0, '-1', '-2', '-3'], 'length')
+export const areaMetricUnits: UnitSystem = new UnitSystem([3, 2, 1, 0, '-1', '-2', '-3'], 'length', 2)
+export const areaOtherUnits: UnitSystem = new UnitSystem([2, 0, '-2'], 'area')
+export const volumeMetricUnits: UnitSystem = new UnitSystem([3, 2, 1, 0, '-1', '-2', '-3'], 'length', 3)
+export const volumeOtherUnits: UnitSystem = new UnitSystem([2, 1, 0, '-1', '-2', '-3'], 'content')
+export const massUnits: UnitSystem = new UnitSystem([3, 2, 1, 0, '-1', '-2', '-3'], 'mass')

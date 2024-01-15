@@ -1,4 +1,4 @@
-import { lengthUnits } from './unitsSystem'
+import { areaMetricUnits, areaOtherUnits, lengthUnits, massUnits, volumeMetricUnits, volumeOtherUnits } from './unitsSystem'
 
 const basicKeys = {
   // ================== numbers
@@ -383,6 +383,15 @@ const basicKeys = {
   }
 }
 
+const massUnitsKeys: Record<string, { display: string, insert: string }> = {}
+for (const unit of massUnits.units) {
+  const k = 'MASS' + unit.symbol
+  massUnitsKeys[k] = {
+    display: unit.symbol,
+    insert: unit.insert
+  }
+}
+
 const lengthUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of lengthUnits.units) {
   const k = 'LENGTH' + unit.symbol
@@ -391,4 +400,23 @@ for (const unit of lengthUnits.units) {
     insert: unit.insert
   }
 }
-export const keys = { ...basicKeys, ...lengthUnitsKeys }
+
+const areaUnitsKeys: Record<string, { display: string, insert: string }> = {}
+for (const unit of [...areaMetricUnits.units, ...areaOtherUnits.units]) {
+  const k = 'AREA' + unit.symbol
+  areaUnitsKeys[k] = {
+    display: unit.symbol,
+    insert: unit.insert
+  }
+}
+
+const volumeUnitsKeys: Record<string, { display: string, insert: string }> = {}
+for (const unit of [...volumeMetricUnits.units, ...volumeOtherUnits.units]) {
+  const k = 'VOLUME' + unit.symbol
+  volumeUnitsKeys[k] = {
+    display: unit.symbol,
+    insert: unit.insert
+  }
+}
+
+export const keys = { ...basicKeys, ...lengthUnitsKeys, ...massUnitsKeys, ...areaUnitsKeys, ...volumeUnitsKeys }

@@ -65,6 +65,24 @@ const lengthsCaps: CompleteKeysList = {
   block: Object.keys(lengthUnitsKeys)
 }
 
+const areasUnitsKeys = Object.keys(keys).filter(k => k.includes('AREA')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
+const areasCaps: CompleteKeysList = {
+  inline: Object.keys(areasUnitsKeys),
+  block: Object.keys(areasUnitsKeys)
+}
+
+const volumesUnitsKeys = Object.keys(keys).filter(k => k.includes('VOLUME')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
+const volumesCaps: CompleteKeysList = {
+  inline: Object.keys(volumesUnitsKeys),
+  block: Object.keys(volumesUnitsKeys)
+}
+
+const massesUnitsKeys = Object.keys(keys).filter(k => k.includes('MASS')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
+const massesCaps: CompleteKeysList = {
+  inline: Object.keys(massesUnitsKeys),
+  block: Object.keys(massesUnitsKeys)
+}
+
 export const specialKeys: KeyboardBlock = {
   keycaps: specialKeysCaps,
   cols: 1
@@ -117,6 +135,21 @@ export const lengths: KeyboardBlock = {
   cols: 2
 }
 
+export const areas: KeyboardBlock = {
+  keycaps: areasCaps,
+  cols: 3
+}
+
+export const volumes: KeyboardBlock = {
+  keycaps: volumesCaps,
+  cols: 3
+}
+
+export const masses: KeyboardBlock = {
+  keycaps: massesCaps,
+  cols: 2
+}
+
 // eslint-disable-next-line no-unused-vars
 export const keyboardBlocks: { [key in BlockForKeyboard]: KeyboardBlock } = {
   numbers,
@@ -128,5 +161,8 @@ export const keyboardBlocks: { [key in BlockForKeyboard]: KeyboardBlock } = {
   basicOperations,
   variables,
   advanced,
-  lengths
+  lengths,
+  areas,
+  volumes,
+  masses
 }
