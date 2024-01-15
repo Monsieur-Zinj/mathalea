@@ -1,32 +1,42 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../ExerciceTs'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
+import Figure from 'apigeom'
+import figureApigeom from '../../lib/figureApigeom.js'
+import CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram.js'
 export const titre = 'Représenter des fractions'
 export const amcReady = true
+export const interactifReady = true
+export const interactifType = 'custom'
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '07/03/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '15/01/2024'
 
 /**
  * Représenter des fractions simples avec des disques partagés de façon adéquate.
- * @author Jean-Claude Lhote (Modifié par EE : rajout d'un paramètre)
+ * @author Jean-Claude Lhote (Modifié par EE : rajout d'un paramètre puis Rémi Angot pour apiGeom)
  * 6N14
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '87479'
 export const ref = '6N14'
-export default function RepresenterUneFraction () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
-  this.nbQuestions = 4
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 3
+export default class RepresenterUneFraction extends Exercice {
+  figures: Figure[] = []
+  constructor () {
+    super()
+    this.consigne = ''
+    this.nbQuestions = 4
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.sup = 3
+    this.besoinFormulaireNumerique = ['Type de fractions', 6, '1 : Inférieures à 1\n2 : Supérieures à 1\n3 : Peu importe']
+    this.figures = []
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion (numeroExercice: number) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -64,8 +74,15 @@ export default function RepresenterUneFraction () {
       }
       num = randint(1, den * 3)
       f = fraction(num, den)
+      const figure = new Figure()
+      this.figures[i] = figure
+      const A = figure.create('Point', { x: 0, y: 0 })
+      figure.setToolbar({ tools: [], position: 'top' })
+      if (figure.ui) figure.ui.send('FILL')
+      const diagramme = new CircleFractionDiagram(figure, { center: A, denominator: 8, numberOfCircle: 3, radius: 4 })
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
-      texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
+      // texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
+      texte += figureApigeom({ exercice: this, idApigeom: `apigeomEx${numeroExercice}F${i}`, figure: this.figures[i] })
       texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
       texteCorr += mathalea2d(params, f.representation(0, 0, 2, randint(0, den - 1), 'gateau', 'blue'))
       if (context.isAmc) {
@@ -98,5 +115,4 @@ export default function RepresenterUneFraction () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de fractions', 6, '1 : Inférieures à 1\n2 : Supérieures à 1\n3 : Peu importe']
 }
