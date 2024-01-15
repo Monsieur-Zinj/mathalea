@@ -30,8 +30,9 @@ export default function CalculValeurApprocheeRacineCarree () {
   this.tailleDiaporama = 3
   this.video = ''
   this.besoinFormulaireNumerique = ['Avec ou sans calculatrice', 3, '1 : Avec calculatrice\n2 : Sans calculatrice\n3 : Mélange']
+  this.besoinFormulaire2Numerique = ['Choix des corrections', 2, '1 : Collège\n2 : Lycée']
   this.sup = 3
-
+  this.sup2 = 1
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = []
@@ -104,7 +105,9 @@ export default function CalculValeurApprocheeRacineCarree () {
         }
         texteCorr = `$${reponseG}^2 = ${reponseG ** 2}$ et $${reponseD}^2 = ${reponseD ** 2}$.<br>`
         texteCorr += `Or $${reponseG ** 2} < ${a} < ${reponseD ** 2}$,<br>`
-        texteCorr += `donc $\\sqrt{${reponseG ** 2}} < \\sqrt{${a}} < \\sqrt{${reponseD ** 2}}$,<br>`
+        if (this.sup2 === 1) {
+          texteCorr += `donc $\\sqrt{${reponseG ** 2}} < \\sqrt{${a}} < \\sqrt{${reponseD ** 2}}$,<br>`
+        } else { texteCorr += `donc $\\sqrt{${reponseG ** 2}} < \\sqrt{${a}} < \\sqrt{${reponseD ** 2}}$ puisque la fonction racine carrée est strictement croissante sur $\\mathbb{R}_+$,<br>` }
         texteCorr += `enfin $${reponseG} < \\sqrt{${a}} < ${reponseD}$.`
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
