@@ -3,21 +3,28 @@ import { obtenirListeFacteursPremiers } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 
 export const titre = 'Deviner un nombre relatif'
 
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
+export const dateDeModifImportante = '15/01/2024'
 /**
  * Additions à trou dans les relatifs
  *
  *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
- * Référence 5R10
+ * Eric Elter le rend interactif le 15/01/2024
  */
+
 export const uuid = '76343'
 export const ref = '5R10-1'
 export default function DevinerNombreRelatif () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.spacing = 2
   this.nbQuestions = 3
   this.nouvelleVersion = function () {
@@ -75,8 +82,10 @@ export default function DevinerNombreRelatif () {
           break
       }
       texteCorr = `Je suis $${texNombre(signe * (unite + dixieme / 10 + centieme / 100))}$.`
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      setReponse(this, i, arrondi(signe * (unite + dixieme / 10 + centieme / 100), 3), { signe: true })
+      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -85,7 +94,4 @@ export default function DevinerNombreRelatif () {
     }
     listeQuestionsToContenu(this)
   }
-//  this.besoinFormulaireNumerique = ["Niveau de difficulté",2,"1 : Nombres entiers\n2 : Nombres décimaux"];
-//  this.besoinFormulaire2Numerique = ["Valeur maximale", 9999]
-//  this.besoinFormulaire3Numerique = ["Type d'égalité",2,"1 : Égalité à trou\n2 : Équation"];
 }
