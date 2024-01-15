@@ -507,7 +507,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
 }
 
 /**
- * @param {...any[]} args Points ou coordonnées + couleur facultative en dernier
+ * @param {...any} args Points ou coordonnées + couleur facultative en dernier
  * @example segment(A,B,'blue') // Segment [AB] de couleur bleu
  * @example segment(x1,y1,x2,y2,'#f15929') // Segment dont les extrémités sont respectivement (x1,y1) et (x2,y2), de couleur orange (#f15929)
  * @author Rémi Angot

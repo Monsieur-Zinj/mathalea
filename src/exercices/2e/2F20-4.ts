@@ -9,7 +9,6 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGe
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { courbe } from '../../lib/2d/courbes'
 import { point } from '../../lib/2d/points'
-import { droite } from '../../lib/2d/droites'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -19,6 +18,8 @@ import { interpolationDeLagrange } from '../../lib/mathFonctions/outilsMaths'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import Point from 'apigeom/src/elements/points/Point'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import { latexParCoordonnees } from '../../lib/2d/textes'
+import { segment } from '../../lib/2d/segmentsVecteurs'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
@@ -39,8 +40,8 @@ type TypesDeFonction = 'constante' | 'affine' | 'poly2' | 'poly3'
 
 function compareEnsembles (e1: string, e2: string) {
   const cleanUp = (s: string) => s.replace('{.}', '.').replace(',', '.')
-  const elements1 = cleanUp(e1).split(';')
-  const elements2 = cleanUp(e2).split(';')
+  const elements1 = cleanUp(e1).split(';').sort((a: string, b:string) => Number(a) - Number(b))
+  const elements2 = cleanUp(e2).split(';').sort((a:string, b:string) => Number(a) - Number(b))
   if (elements1.length !== elements2.length) return false
   let ok = true
   for (let i = 0; i < elements1.length; i++) {
@@ -483,8 +484,9 @@ class resolutionEquationInequationGraphique extends Exercice {
       integraleDiff = Math.min(...integrales)
       yMin = Math.min(trouveMaxMin(fonction1.poly, fonction2.poly, noeudsPassants1, noeudsPassants2), -1) - 0.3
     } while (integraleDiff < 0.2 && cpt < 50)
+    const yMax = yMin + 12
     const polyDiff = fonction1.poly.add(fonction2.poly.multiply(-1))
-    this.figure = new Figure({ xMin: x0 - decalAxe - 1.2, yMin, width: 312, height: 378 })
+    this.figure = new Figure({ xMin: xMin - 0.2, yMin, width: 312, height: 378 })
     this.figure.options.automaticUserMessage = false
     this.figure.userMessage = 'Cliquer sur le point $M$ pour le déplacer.'
     this.figure.create('Grid')
@@ -498,13 +500,13 @@ class resolutionEquationInequationGraphique extends Exercice {
       const a = fonction1.poly.monomes[1]
       const b = fonction1.poly.monomes[0]
       const B = new Point(this.figure, {
-        x: x0 - 1 - decalAxe,
-        y: (x0 - 1 - decalAxe) * a + b,
+        x: xMin,
+        y: xMin * a + b,
         isVisible: false
       })
       const A = new Point(this.figure, {
-        x: (x3 + 1 - decalAxe),
-        y: (x3 + 1 - decalAxe) * a + b,
+        x: xMax,
+        y: xMax * a + b,
         isVisible: false
       })
       const d = this.figure.create('Segment', { point1: B, point2: A })
@@ -541,7 +543,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     let trouve = false
     // On cherche à placer Cf
     for (x = xMin; x < xMax && !trouve; x++) {
-      if (Math.abs(fonction1.poly.image(x)) < 5) {
+      if (Math.abs(fonction1.poly.image(x)) < yMax - 1) {
         y = fonction1.poly.image(x)
         trouve = true
       }
@@ -554,26 +556,28 @@ class resolutionEquationInequationGraphique extends Exercice {
         y = yMin + 10
       }
     }
+    const xCourbe1 = x - 0.5
+    const yCourbe1 = y + 0.5
     if (f2Type === 'affine') {
       const a = fonction2.poly.monomes[1]
       const b = fonction2.poly.monomes[0]
-      const B = new Point(this.figure, { x: (x0 - 1 - decalAxe), y: a * (x0 - 1 - decalAxe) + b, isVisible: false })
-      const A = new Point(this.figure, { x: (x3 + 1 - decalAxe), y: a * (x3 + 1 - decalAxe) + b, isVisible: false })
+      const B = new Point(this.figure, { x: xMin, y: a * xMin + b, isVisible: false })
+      const A = new Point(this.figure, { x: xMax, y: a * xMax + b, isVisible: false })
       const d = this.figure.create('Segment', { point1: B, point2: A })
       d.color = 'red'
       d.thickness = 2
       d.isDashed = false
     } else {
-      this.figure.create('TextByPosition', { x: x - 0.5, y: y + 0.5, text: `$\\mathscr{C_${f1}}$`, color: 'blue' })
       this.figure.create('Graph', {
         expression: fonction2.expr as string,
         color: 'red',
         thickness: 2,
         fillOpacity: 0.5,
-        xMin: x0 - 1 - decalAxe,
-        xMax: x3 + 1.05 - decalAxe
+        xMin,
+        xMax: xMax + 0.05
       })
     }
+    this.figure.create('TextByPosition', { x: xCourbe1, y: yCourbe1, text: `$\\mathscr{C_${f1}}$`, color: 'blue' })
     trouve = false
     for (x = xMax; x > xMin && !trouve; x--) {
       if (Math.abs(fonction2.poly.image(x)) < 5) {
@@ -589,7 +593,9 @@ class resolutionEquationInequationGraphique extends Exercice {
         y = yMin + 10
       }
     }
-    this.figure.create('TextByPosition', { x: x + 0.5, y: y + 0.5, text: `$\\mathscr{C_${f2}}$`, color: 'red' })
+    const xCourbe2 = x + 0.5
+    const yCourbe2 = y + 0.5
+    this.figure.create('TextByPosition', { x: xCourbe2, y: yCourbe2, text: `$\\mathscr{C_${f2}}$`, color: 'red' })
     this.idApigeom = `apigeomEx${numeroExercice}F0`
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     let enonce = `On considère les fonctions $${f1}$ et $${f2}$ définies sur $[${texNombre(xMin, 0)};${texNombre(xMax, 0)}]$ et dont on a représenté ci-dessous leurs courbes respectives.<br><br>`
@@ -614,8 +620,8 @@ class resolutionEquationInequationGraphique extends Exercice {
     soluces = Array.from(new Set(soluces)) as number[]
     soluces = soluces.sort((a: number, b: number) => a - b)
     if (this.sup === 1 || this.sup === 3) {
-      enonce += `Résoudre graphiquement $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$.<br>`
-      if (this.interactif) enonce += 'Les solutions doivent être rangées par ordre croissant et séparées par un point-virgule.<br>'
+      enonce += `Résoudre graphiquement l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$.<br>`
+      if (this.interactif) enonce += 'Les solutions doivent être séparées par un point-virgule.<br>'
       texteCorr += `L'ensemble de solutions de l'équation correspond aux abscisses des points d'intersection des deux courbes soit : $\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$<br><br>`
     }
     if (soluces != null) {
@@ -630,7 +636,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       }
     }
     if (this.sup === 2 || this.sup === 3) {
-      enonce += `Résoudre graphiquement $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$.<br>`
+      enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$.<br>`
       if (this.interactif) {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
         enonce += 'L\'ensemble des solutions de l\'inéquation est : ' + remplisLesBlancs(this, 1, '%{solucesIneq}', 'inline lycee', '\\ldots\\ldots') + '<br><br>'
@@ -656,47 +662,46 @@ class resolutionEquationInequationGraphique extends Exercice {
     if (context.isHtml) {
       this.listeQuestions = [enonce + emplacementPourFigure]
     } else {
-      const repere = new RepereBuilder({ xMin: -6.3, yMin: -6.3, xMax: 6.3, yMax: 6.3 })
+      const repere = new RepereBuilder({ xMin: xMin - 0.2, yMin: yMin - 0.2, xMax: xMax + 0.2, yMax: yMax + 0.2 })
         .setGrille({
           grilleX: {
-            dx: 1, xMin: -6, xMax: 6
+            dx: 1, xMin, xMax
           },
           grilleY: {
-            dy: 1, yMin: -6, yMax: 6
+            dy: 1, yMin, yMax
           }
         })
         .setGrilleSecondaire({
           grilleX: {
-            dx: 0.2, xMin: -6, xMax: 6
+            dx: 0.2, xMin, xMax
           },
-          grilleY: { dy: 0.2, yMin: -6, yMax: 6 }
+          grilleY: { dy: 0.2, yMin, yMax: yMin + 12 }
         })
         .buildStandard()
       let courbe1, courbe2
       if (f1Type === 'constante' || f1Type === 'affine') {
-        const M = point(-6, fonction1.func(-6), '')
-        const N = point(6, fonction1.func(6), '')
-        courbe1 = droite(M, N)
+        courbe1 = segment(xMin, fonction1.func(xMin), xMax, fonction1.func(xMax), 'blue')
       } else {
-        courbe1 = courbe(fonction1.func, { repere })
+        courbe1 = courbe(fonction1.func, { repere, xMin, xMax, color: 'blue' })
       }
+      const nomCourbe1 = latexParCoordonnees(`\\mathscr{C_${f1}}`, xCourbe1, yCourbe1, 'blue', 0, 0, '', 8)
+
       courbe1.color = colorToLatexOrHTML('blue')
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       courbe1.epaisseur = 2
       if (f2Type === 'affine') {
-        const M = point(-6, fonction2.func(-6), '')
-        const N = point(6, fonction2.func(6), '')
-        courbe2 = droite(M, N)
+        courbe2 = segment(xMin, fonction2.func(xMin), xMax, fonction2.func(xMax), 'red')
       } else {
-        courbe2 = courbe(fonction2.func, { repere })
+        courbe2 = courbe(fonction2.func, { repere, xMin, xMax, color: 'red' })
       }
-      courbe1.color = colorToLatexOrHTML('blue')
+      const nomCourbe2 = latexParCoordonnees(`\\mathscr{C_${f2}}`, xCourbe2, yCourbe2, 'red', 0, 0, '', 8)
+      courbe2.color = colorToLatexOrHTML('red')
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       courbe1.epaisseur = 2
-      const courbes = [courbe1, courbe2]
-      this.listeQuestions = [enonce + mathalea2d(Object.assign({}, fixeBordures([...repere.objets, ...courbes])))]
+      const courbes = [courbe1, courbe2, nomCourbe1, nomCourbe2]
+      this.listeQuestions = [enonce + mathalea2d(Object.assign({}, fixeBordures([...repere.objets, ...courbes])), ...repere.objets, ...courbes)]
     }
     this.listeCorrections = [texteCorr]
   }
