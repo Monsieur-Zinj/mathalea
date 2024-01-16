@@ -3,10 +3,13 @@ import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { Yohaku } from '../../lib/outils/Yohaku'
 import { ComputeEngine } from '@cortex-js/compute-engine'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 export const uuid = '3a377'
 export const ref = 'Yohaku'
@@ -70,6 +73,18 @@ export default function FabriqueAYohaku () {
       if (this.questionJamaisPosee(i, ...yohaku.cellules)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: this.introduction + texte,
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }
+        }
         i++
       }
       cpt++
