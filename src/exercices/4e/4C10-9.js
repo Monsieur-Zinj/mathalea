@@ -3,6 +3,8 @@ export const titre = 'Résoudre une Rose multiplicative avec des relatifs'
 export const interactifReady = true
 export const interactifType = 'custom'
 export const dateDePublication = '12/08/2022'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
  * Travailler les tables de multiplication autrement
