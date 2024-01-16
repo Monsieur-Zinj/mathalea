@@ -38,7 +38,7 @@ export default function FractionVersPourcentage () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.introduction = this.interactif ? 'Le premier calcul est facultatif : il sera corrigé, mais ne sera pas pris en compte dans le barême.' : ''
+    this.introduction = this.interactif ? 'Le premier calcul est facultatif : il sera corrigé, mais ne sera pas pris en compte dans le barème.' : ''
 
     const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200]
     const listeTypeDeQuestions = combinaisonListes(typeDeDenominateurs, this.nbQuestions)
@@ -129,7 +129,7 @@ export default function FractionVersPourcentage () {
             }
           }// ici, le premier calcul est faux donc tout est faux, y a rien a dire
         }
-        feedback += ',mais la suite est fausse.'
+        feedback += ' et le résultat final est faux.'
       }
       const divDuFeedback = document.createElement('div')
       divDuFeedback.classList.add('ml-2', 'py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
