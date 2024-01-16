@@ -645,6 +645,7 @@ export function fixeBordures (objets, {
    * @returns {[number,number,number,number,boolean]}
    */
   const majBordures = function (xmin, ymin, xmax, ymax, objets, borduresTrouvees) {
+    if (objets == null) return [xmin, ymin, xmax, ymax, borduresTrouvees]
     if (!Array.isArray(objets)) {
       const bordures = objets.bordures ?? null
       if (bordures == null) {
