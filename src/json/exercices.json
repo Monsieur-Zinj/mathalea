@@ -9581,14 +9581,15 @@
     "uuid": "76343",
     "id": "5R10-1",
     "titre": "Deviner un nombre relatif",
+    "dateModification": "15/01/2024",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "AMCNum"
       }
     },
     "typeExercice": "alea"
@@ -22719,7 +22720,7 @@
     "tags": [],
     "uuid": "fb7ac",
     "id": "can6N16",
-    "titre": "Lire une abscisse (entière) sur une droite graduée *",
+    "titre": "Lire une abscisse sur une droite graduée avec des entiers*",
     "datePublication": "29/08/2022",
     "features": {
       "interactif": {
@@ -22738,7 +22739,7 @@
     "tags": [],
     "uuid": "aa22e",
     "id": "can6N17",
-    "titre": "Lire une abscisse (décimale) sur une droite graduée*",
+    "titre": "Lire une abscisse sur une droite graduée avec des décimaux*",
     "datePublication": "29/08/2022",
     "features": {
       "interactif": {
