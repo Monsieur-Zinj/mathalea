@@ -6,7 +6,7 @@ import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-export const titre = 'Lire une abscisse (entière) sur une droite graduée *'
+export const titre = 'Lire une abscisse sur une droite graduée avec des entiers*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '29/08/2022'

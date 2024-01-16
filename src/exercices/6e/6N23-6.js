@@ -1,5 +1,4 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
@@ -9,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
-import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -18,7 +17,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 export const titre = 'Calculer la valeur décimale d\'une fraction'
-export const dateDePublication = '18/11/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '18/11/2021'
 
 /**
  * Calculer la valeur décimale des fractions suivantes.
@@ -66,7 +65,7 @@ export default function DivisionFraction () {
         defaut: 10,
         melange: 10,
         nbQuestions: this.nbQuestions
-      })// Exercice à la carte
+      })
 
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
@@ -85,9 +84,7 @@ export default function DivisionFraction () {
           break
         case 3: // fraction : entier divisé par 6 quotient : xxx,5
           b = 6
-          q = calculANePlusJamaisUtiliser(
-            randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) + 0.5
-          )
+          q = arrondi(randint(2, 9) * 100 + randint(2, 9) * 10 + randint(2, 9) + 0.5, 1)
           a = q * 6
           break
         case 4: // fraction : entier divisé par 2
@@ -111,29 +108,38 @@ export default function DivisionFraction () {
           q = arrondi(a / b, 3)
           break
         case 8: // dénominateur = 9
-          a = calculANePlusJamaisUtiliser((randint(11, 19) * 9) + randint(1, 8))
+          a = randint(11, 19) * 9 + randint(1, 8)
           b = 9
           q = arrondi(a / b, 3)
           break
         case 9: // dénominateur = 3
-          a = calculANePlusJamaisUtiliser((randint(11, 99) * 3) + randint(1, 2))
+          a = randint(11, 99) * 3 + randint(1, 2)
           b = 3
           q = arrondi(a / b, 3)
       }
       if (this.sup === 2) {
-        this.consigne =
-                    'Calculer une valeur approchée au centième près des fractions suivantes.'
+        this.consigne = 'Calculer une valeur approchée au centième près des fractions suivantes.'
+        q = arrondi(q, 2)
       }
-      texte = `$${deprecatedTexFraction(texNombre(a), texNombre(b))}$`
+      texte = `$${texFraction(texNombre(a), texNombre(b))}`
       if (this.sup === 1) {
         texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
-        texteCorr += `<br>$${deprecatedTexFraction(texNombre(a), texNombre(b))}=${texNombre(q)}$`
+        texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}=${texNombre(q)}$`
       } else {
         texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
-        texteCorr += `<br>$${deprecatedTexFraction(texNombre(a), texNombre(b))}\\approx${texNombre(q, 2)}$`
+        texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}\\approx${texNombre(q, 2)}$`
       }
       setReponse(this, i, q)
-      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+      if (context.isHtml && this.interactif) {
+        if (this.sup === 1) {
+          texte += '~=$'
+        } else {
+          texte += '~\\approx$'
+        }
+        texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+      } else {
+        texte += '$'
+      }
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
@@ -171,4 +177,8 @@ export default function DivisionFraction () {
 8 : entier divisé par 9 (quotient approché)
 9 : entier divisé par 3 (quotient approché)
 10 : Mélange`]
+}
+
+function texFraction (num, den) {
+  return `\\dfrac{${num}}{${den}}`
 }

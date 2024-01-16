@@ -8,7 +8,6 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { courbe } from '../../lib/2d/courbes'
-import { point } from '../../lib/2d/points'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -499,12 +498,12 @@ class resolutionEquationInequationGraphique extends Exercice {
     if (f1Type === 'constante' || f1Type === 'affine') {
       const a = fonction1.poly.monomes[1]
       const b = fonction1.poly.monomes[0]
-      const B = new Point(this.figure, {
+      const B = this.figure.create('Point', {
         x: xMin,
         y: xMin * a + b,
         isVisible: false
       })
-      const A = new Point(this.figure, {
+      const A = this.figure.create('Point', {
         x: xMax,
         y: xMax * a + b,
         isVisible: false
