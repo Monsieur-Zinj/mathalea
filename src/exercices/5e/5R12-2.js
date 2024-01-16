@@ -7,20 +7,21 @@ import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Lire les coordonnées d'un point du plan avec une précision allant de l'unité à 0,25.
  * @author Jean-Claude Lhote
- * Références 5R12-2
  */
 export const uuid = 'ab968'
 export const ref = '5R12-2'
 export default function ReperagePointDuPlan () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
@@ -43,7 +44,7 @@ export default function ReperagePointDuPlan () {
     let listePoints = []
     const points = []
     let xmin, xmax, ymin, ymax
-    const k = Math.pow(2, parseInt(this.sup) - 1)
+    const k = Math.pow(2, this.sup - 1)
     const nom = []
     const objets2d = []
     if (this.quartDePlan) {
@@ -52,10 +53,10 @@ export default function ReperagePointDuPlan () {
       xmin = -5; ymin = -5; xmax = 5; ymax = 5
     }
     const listeAbs = []; const listeOrd = []
-    for (let i = calculANePlusJamaisUtiliser(xmin + 1 / k); i < calculANePlusJamaisUtiliser(xmax - (parseInt(this.sup) - 1) / k); i = calculANePlusJamaisUtiliser(i + 1 / k)) {
+    for (let i = calculANePlusJamaisUtiliser(xmin + 1 / k); i < calculANePlusJamaisUtiliser(xmax - (this.sup - 1) / k); i = calculANePlusJamaisUtiliser(i + 1 / k)) {
       listeAbs.push(i)
     }
-    for (let i = calculANePlusJamaisUtiliser(ymin + 1 / k); i < calculANePlusJamaisUtiliser(ymax - (parseInt(this.sup) - 1) / k); i = calculANePlusJamaisUtiliser(i + 1 / k)) {
+    for (let i = calculANePlusJamaisUtiliser(ymin + 1 / k); i < calculANePlusJamaisUtiliser(ymax - (this.sup - 1) / k); i = calculANePlusJamaisUtiliser(i + 1 / k)) {
       listeOrd.push(i)
     }
     let X0 = false; let Y0 = false
@@ -71,14 +72,64 @@ export default function ReperagePointDuPlan () {
     if (!Y0) { points[1].y = 0 }
     shuffle2tableaux(points, nom)
 
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: '',
+        enonceAvant: false,
+        enonceApresNumQuestion: true,
+        options: { barreseparation: true },
+        propositions: []
+      }
+    }
+
     texte = 'Déterminer les coordonnées des points'
     texteCorr = 'Les coordonnées des points sont :<br>'
     for (let i = 0; i < 4; i++) {
       texte += ` $${nom[i]}$,`
-      texteCorr += ` $${nom[i]}(${texNombre(points[i].x)};${texNombre(points[i].y)})$, `
+      texteCorr += ` $${nom[i]}(${miseEnEvidence(texNombre(points[i].x))};${miseEnEvidence(texNombre(points[i].y))})$,`
+      if (context.isAmc) {
+        this.autoCorrection[0].propositions.push(
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: '',
+              statut: '',
+              multicolsBegin: true,
+              reponse: {
+                texte: `Abscisse de $${nom[i]}$ :`,
+                valeur: points[i].x,
+                param: {
+                  digits: 1,
+                  decimals: this.sup - 1,
+                  signe: !this.quartDePlan,
+                  approx: 0
+                }
+              }
+            }]
+          },
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: '',
+              statut: '',
+              multicolsEnd: true,
+              reponse: {
+                texte: `Ordonnée de $${nom[i]}$ :`,
+                valeur: points[i].y,
+                param: {
+                  digits: 1,
+                  decimals: this.sup - 1,
+                  signe: !this.quartDePlan,
+                  approx: 0
+                }
+              }
+            }]
+          }
+        )
+      }
     }
-    texte += ` $${nom[4]}$.<br>`
-    texteCorr += ` $${nom[4]}(${texNombre(points[4].x)};${texNombre(points[4].y)})$.`
+    texte = texte.slice(0, texte.length - 1) + ` et $${nom[4]}$.<br>`
+    texteCorr = texteCorr.slice(0, texteCorr.length - 1) + ` et $${nom[4]}(${miseEnEvidence(texNombre(points[4].x))};${miseEnEvidence(texNombre(points[4].y))})$.`
     if (this.sup2) {
       objets2d.push(repere({
         xMin: xmin - 1,
@@ -99,8 +150,13 @@ export default function ReperagePointDuPlan () {
       objets2d.push(tracePoint(points[i], 'red'), labelPoint(points[i]))
     }
     texte += '<br>' + mathalea2d({ xmin: xmin - 1, ymin: ymin - 1, xmax: xmax + 1, ymax: ymax + 1, pixelsParCm: 30, scale: 0.75 }, objets2d)
+
+    if (context.isAmc) {
+      this.autoCorrection[0].enonce = texte
+    }
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
+
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]

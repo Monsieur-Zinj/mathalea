@@ -720,8 +720,10 @@ export function exportQcmAmc (exercice, idExo) {
                     texQr += '0'
                   }
                   texQr += 'pt}\\begin{multicols}{2}\n'
-                  if (qr > 0) texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
-                } else if ((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) texQr += '\n\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+                  //  if (qr > 0) texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
+                }
+
+                if ((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) texQr += '\n\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
 
                 texQr += `\\begin{questionmultx}{${ref}/${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
                 /*
