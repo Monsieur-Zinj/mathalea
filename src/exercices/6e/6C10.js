@@ -32,7 +32,6 @@ export const uuid = 'cfa6a'
 export const ref = '6C10'
 export default function AdditionsSoustractionsMultiplicationsPosees () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
@@ -50,28 +49,11 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   this.sup2 = 3
 
   this.nouvelleVersion = function () {
-    // this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let typesDeQuestions, reponse
-    /*
-        let typesDequestionsDisponibles = [1, 2, 3, 4, 5] // Paramétrage par défaut
-        const valMaxParametre = 6
-        if (this.sup) { // Si une liste est saisie
-          if (this.sup.toString().indexOf('-') === -1) { // S'il n'y a pas de tiret ...
-            typesDequestionsDisponibles = [contraindreValeur(1, valMaxParametre, parseInt(this.sup), 1)] // ... on crée un tableau avec une seule valeur
-          } else {
-            typesDequestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-            for (let i = 0; i < typesDequestionsDisponibles.length; i++) { // on parcourt notre tableau de strings : ['1', '1', '2'] ...
-              typesDequestionsDisponibles[i] = contraindreValeur(1, valMaxParametre, parseInt(typesDequestionsDisponibles[i]), 1) // ... pour en faire un tableau d'entiers : [1, 1, 2]
-            }
-          }
-        }
-        // Attention ! Si la valeur max du paramètre n'est pas une option de type "mélange", supprimer la ligne ci-dessous !
-        if (compteOccurences(typesDequestionsDisponibles, valMaxParametre) > 0) typesDequestionsDisponibles = rangeMinMax(1, valMaxParametre - 1) // Si l'utilisateur a choisi l'option "mélange", on fait une liste avec un de chaque
-        let listeTypeDeQuestions = combinaisonListes(typesDequestionsDisponibles, this.nbQuestions)
-        */
+
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 5,
       defaut: randint(1, 5),
