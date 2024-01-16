@@ -17,6 +17,8 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
 
@@ -344,6 +346,19 @@ export function ExoRose () {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: this.introduction + '<br>' + texte,
+            propositions: [
+              {
+                texte: '',
+                statut: (this.type === 'can1' || this.type === 'can2') ? 1 : Math.ceil(this.sup2 / 4), // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                pointilles: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }
+        }
         i++
       }
       cpt++
