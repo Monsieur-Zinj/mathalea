@@ -3,6 +3,7 @@
   import type { KeyboardBlock } from '../../types/keyboardContent'
   import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT } from '../../lib/sizes'
   import type { KeyCap } from '../../types/keycap'
+  import KeyboardBlockPages from './keyboardblock/KeyboardBlockPages.svelte'
 
   export let innerWidth: number
   export let blocks: KeyboardBlock[]
@@ -16,6 +17,7 @@
   class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex flex-row blockgap items-start justify-center w-full"
   style="--blockgapsize:{blockgapsize}"
 >
+<KeyboardBlockPages {isInLine} {clickKeycap}/>
   {#each blocks as block}
     <Block {block} {isInLine} {innerWidth} {clickKeycap}/>
   {/each}

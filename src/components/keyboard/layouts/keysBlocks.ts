@@ -2,7 +2,8 @@ import { keys } from '../lib/keycaps'
 import type {
   BlockForKeyboard,
   CompleteKeysList,
-  KeyboardBlock
+  KeyboardBlock,
+  KeysList
 } from '../types/keyboardContent'
 
 // Keycaps lists
@@ -61,97 +62,123 @@ const advancedCaps: CompleteKeysList = {
 
 const lengthUnitsKeys = Object.keys(keys).filter(k => k.includes('LENGTH')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const lengthsCaps: CompleteKeysList = {
-  inline: Object.keys(lengthUnitsKeys),
-  block: Object.keys(lengthUnitsKeys)
+  inline: Object.keys(lengthUnitsKeys) as KeysList,
+  block: Object.keys(lengthUnitsKeys) as KeysList
 }
 
 const areasUnitsKeys = Object.keys(keys).filter(k => k.includes('AREA')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const areasCaps: CompleteKeysList = {
-  inline: Object.keys(areasUnitsKeys),
-  block: Object.keys(areasUnitsKeys)
+  inline: Object.keys(areasUnitsKeys) as KeysList,
+  block: Object.keys(areasUnitsKeys) as KeysList
 }
 
 const volumesUnitsKeys = Object.keys(keys).filter(k => k.includes('VOLUME')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const volumesCaps: CompleteKeysList = {
-  inline: Object.keys(volumesUnitsKeys),
-  block: Object.keys(volumesUnitsKeys)
+  inline: Object.keys(volumesUnitsKeys) as KeysList,
+  block: Object.keys(volumesUnitsKeys) as KeysList
+}
+
+const capacitiesUnitsKeys = Object.keys(keys).filter(k => k.includes('CAPACITY')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
+const capacitiesCaps: CompleteKeysList = {
+  inline: Object.keys(capacitiesUnitsKeys) as KeysList,
+  block: Object.keys(capacitiesUnitsKeys) as KeysList
 }
 
 const massesUnitsKeys = Object.keys(keys).filter(k => k.includes('MASS')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const massesCaps: CompleteKeysList = {
-  inline: Object.keys(massesUnitsKeys),
-  block: Object.keys(massesUnitsKeys)
+  inline: Object.keys(massesUnitsKeys) as KeysList,
+  block: Object.keys(massesUnitsKeys) as KeysList
 }
 
 export const specialKeys: KeyboardBlock = {
   keycaps: specialKeysCaps,
-  cols: 1
+  cols: 1,
+  title: 'Touches spéciales'
 }
 export const numbers: KeyboardBlock = {
   keycaps: numbersCaps,
-  cols: 3
+  cols: 3,
+  title: 'Nombres'
 }
 export const numbersOperations: KeyboardBlock = {
   keycaps: numbersOperationsCaps,
-  cols: 4
+  cols: 4,
+  title: 'Nombres+Opérations'
 }
 
 export const variables: KeyboardBlock = {
   keycaps: variableCaps,
-  cols: 2
+  cols: 2,
+  title: 'Variables'
 }
 
 export const basicOperations: KeyboardBlock = {
   keycaps: basicOperationCaps,
-  cols: 2
+  cols: 2,
+  title: 'Opérations de base'
 }
 
 export const fullOperations: KeyboardBlock = {
   keycaps: fullOperationCaps,
-  cols: 4
+  cols: 4,
+  title: 'Opérations complexes'
 }
 
 export const hms: KeyboardBlock = {
   keycaps: hmsCaps,
-  cols: 1
+  cols: 1,
+  title: 'Temps'
 }
 
 export const greek: KeyboardBlock = {
   keycaps: greekCaps,
-  cols: 2
+  cols: 2,
+  title: 'Lettres grecques'
 }
 
 export const trigo: KeyboardBlock = {
   keycaps: trigoCaps,
-  cols: 1
+  cols: 1,
+  title: 'Trigonométrie'
 }
 export const advanced: KeyboardBlock = {
   keycaps: advancedCaps,
-  cols: 5
+  cols: 5,
+  title: 'Fonctions avancées'
 }
 
 export const lengths: KeyboardBlock = {
   keycaps: lengthsCaps,
-  cols: 2
+  cols: 2,
+  title: 'Longueurs'
 }
 
 export const areas: KeyboardBlock = {
   keycaps: areasCaps,
-  cols: 3
+  cols: 3,
+  title: 'Aires'
 }
 
 export const volumes: KeyboardBlock = {
   keycaps: volumesCaps,
-  cols: 3
+  cols: 2,
+  title: 'Volumes'
+}
+
+export const capacities: KeyboardBlock = {
+  keycaps: capacitiesCaps,
+  cols: 2,
+  title: 'Capacités'
 }
 
 export const masses: KeyboardBlock = {
   keycaps: massesCaps,
-  cols: 2
+  cols: 2,
+  title: 'Masses'
 }
 
 // eslint-disable-next-line no-unused-vars
-export const keyboardBlocks: { [key in BlockForKeyboard]: KeyboardBlock } = {
+export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>]: KeyboardBlock } = {
   numbers,
   numbersOperations,
   greek,
@@ -164,5 +191,6 @@ export const keyboardBlocks: { [key in BlockForKeyboard]: KeyboardBlock } = {
   lengths,
   areas,
   volumes,
+  capacities,
   masses
 }

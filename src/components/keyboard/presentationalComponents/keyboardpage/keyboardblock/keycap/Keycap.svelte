@@ -37,7 +37,13 @@
   button.key--SIGMA,
   button.key--COS,
   button.key--SIN,
-  button.key--TAN {
+  button.key--TAN,
+  button[class^='key--MASS'],
+  button[class^='key--LENGTH'],
+  button[class^='key--AREA'],
+  button[class^='key--CAPACITY'],
+  button[class^='key--VOLUME']
+   {
     font-size: 1rem /* 16px */;
     line-height: 1.5rem /* 24px */;
   }

@@ -167,8 +167,9 @@ export class Unit {
     this.exp = e
     this.name = [prefixes[this.prefix].name, units[this.category].name, this.superscript[this.exp - 1].name].join('')
     this.symbol = [prefixes[this.prefix].symbol, units[this.category].symbol, this.superscript[this.exp - 1].symbol].join('')
-    const phrase = [prefixes[this.prefix].symbol, units[this.category].symbol, this.superscript[this.exp - 1].latexInsert].join('')
-    this.insert = `\\text{ ${phrase}}`
+    const symbol = [prefixes[this.prefix].symbol, units[this.category].symbol].join('')
+    const pow = this.superscript[this.exp - 1].latexInsert
+    this.insert = `$$\\text{ ${symbol}}${pow}$$`
   }
 }
 

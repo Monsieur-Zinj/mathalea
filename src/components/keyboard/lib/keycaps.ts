@@ -411,7 +411,7 @@ for (const unit of [...areaMetricUnits.units, ...areaOtherUnits.units]) {
 }
 
 const volumeUnitsKeys: Record<string, { display: string, insert: string }> = {}
-for (const unit of [...volumeMetricUnits.units, ...volumeOtherUnits.units]) {
+for (const unit of volumeMetricUnits.units) {
   const k = 'VOLUME' + unit.symbol
   volumeUnitsKeys[k] = {
     display: unit.symbol,
@@ -419,4 +419,13 @@ for (const unit of [...volumeMetricUnits.units, ...volumeOtherUnits.units]) {
   }
 }
 
-export const keys = { ...basicKeys, ...lengthUnitsKeys, ...massUnitsKeys, ...areaUnitsKeys, ...volumeUnitsKeys }
+const capacityUnitsKeys: Record<string, { display: string, insert: string }> = {}
+for (const unit of volumeOtherUnits.units) {
+  const k = 'CAPACITY' + unit.symbol
+  capacityUnitsKeys[k] = {
+    display: unit.symbol,
+    insert: unit.insert
+  }
+}
+
+export const keys = { ...basicKeys, ...lengthUnitsKeys, ...massUnitsKeys, ...areaUnitsKeys, ...volumeUnitsKeys, ...capacityUnitsKeys }

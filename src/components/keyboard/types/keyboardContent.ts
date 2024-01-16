@@ -18,6 +18,7 @@ export type BlockForKeyboard =
   | 'lengths'
   | 'areas'
   | 'volumes'
+  | 'capacities'
   | 'masses'
 
 export interface CompleteKeysList {
@@ -28,6 +29,7 @@ export interface CompleteKeysList {
 export interface KeyboardBlock {
   keycaps: CompleteKeysList
   cols: number
+  title: string
 }
 
 export class Keyboard {
