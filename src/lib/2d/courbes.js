@@ -387,7 +387,7 @@ export function Integrale (f, {
   p.opaciteDeRemplissage = opacite
   p.hachures = motifs(hachures)
   objets.push(p)
-
+  this.bordures = repere.bordures
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -544,7 +544,7 @@ export function CourbeSpline (f, {
   p.epaisseur = epaisseur
   p.opacite = 0.7
   objets.push(p)
-
+  this.bordures = repere.bordures
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
@@ -730,6 +730,7 @@ export function GraphiqueInterpole (
     })
     mesCourbes.push(c)
   }
+  this.bordures = repere.bordures
   this.svg = function (coeff) {
     let code = ''
     for (const objet of mesCourbes) {
