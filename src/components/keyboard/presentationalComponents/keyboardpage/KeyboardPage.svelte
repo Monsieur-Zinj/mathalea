@@ -17,9 +17,9 @@
   class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex flex-row blockgap items-start justify-center w-full"
   style="--blockgapsize:{blockgapsize}"
 >
-<KeyboardBlockPages {isInLine} {clickKeycap}/>
+  <KeyboardBlockPages {isInLine} {clickKeycap} />
   {#each blocks as block}
-    <Block {block} {isInLine} {innerWidth} {clickKeycap}/>
+    <Block {block} {isInLine} {innerWidth} {clickKeycap} />
   {/each}
 </div>
 

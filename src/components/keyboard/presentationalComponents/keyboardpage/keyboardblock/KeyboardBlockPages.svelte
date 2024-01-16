@@ -44,7 +44,7 @@
       <li role="presentation">
         <button
           type="button"
-          class="mb-1 block border-x-0 border-b-2 border-t-0 px-2 pb-1 text-[0.7rem] font-light leading-tight {currentBlock === toRegularCharacters(block.title) ? 'text-coopmaths-struct border-coopmaths-struct' : 'text-coopmaths-action border-transparent'}   hover:text-coopmaths-action-lightest active:border-coopmaths-struct active:text-coopmaths-struct dark:text-coopmathsdark-corpus dark:hover:bg-transparent dark:active:border-coopmathsdark-struct dark:active:text-coopmathsdark-struct"
+          class="mb-1 block border-x-0 border-b-2 border-t-0 px-2 pb-1 text-[0.7rem] font-light leading-tight {currentBlock === toRegularCharacters(block.title) ? 'text-coopmaths-struct border-coopmaths-struct dark:text-coopmathsdark-struct dark:border-coopmathsdark-struct' : 'text-coopmaths-action dark:text-coopmathsdark-action border-transparent'}   hover:text-coopmaths-action-lightest active:border-coopmaths-struct active:text-coopmaths-struct dark:hover:bg-transparent dark:active:border-coopmathsdark-struct dark:active:text-coopmathsdark-struct"
           id="tabs-{toRegularCharacters(block.title)}-tab"
           role="tab"
           aria-controls="tabs-{toRegularCharacters(block.title)}"
