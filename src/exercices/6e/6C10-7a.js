@@ -3,6 +3,8 @@ export const titre = 'Résoudre un Yohaku additif niveau 1'
 export const dateDePublication = '10/08/2022'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 export const dateDeModificationImportante = '16/12/2023'
 
 export const uuid = '26bb9'
