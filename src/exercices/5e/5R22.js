@@ -15,19 +15,18 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
-export const titre = 'Additions et soustractions de nombres relatifs'
+export const titre = 'Effectuer un enchaînement d\'additions et de soustractions de nombres relatifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpenNum'
 
 /**
- * Effectuer la somme ou la différence de deux nombres relatifs
+ * Effectuer la somme ou la différence de plusieurs relatifs
  *
  * * On peut paramétrer les distances à zéro qui sont par défaut inférieures à 20
  * * On peut utiliser des écritures simplifiées (ce qui n'est pas le cas par défaut)
  * @author Rémi Angot modifications par Jean-Claude Lhote (Correction optimisée par Eric Elter)
- * Référence 5R22
  */
 export const uuid = 'f6ea7'
 export const ref = '5R22'
@@ -36,7 +35,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
   this.sup = max
   this.sup2 = false // écriture simplifiée
   this.titre = titre
-  this.consigne = 'Calculer.'
+  this.consigne = 'Calculer, en détaillant les calculs.'
   // this.spacing = 2
   // this.spacingCorr = 1
   this.nbCols = 2
@@ -136,7 +135,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
           setReponse(this, i, a + s1 * b + s2 * c + s3 * d + s4 * e, { signe: true })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: texte,
+              enonce: this.consigne + '<br>' + texte,
               propositions: [
                 {
                   texte: texteCorr,
@@ -162,7 +161,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
           setReponse(this, i, a + b + c + d + e, { signe: true })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: texte,
+              enonce: this.consigne + '<br>' + texte,
               propositions: [
                 {
                   texte: texteCorr,
