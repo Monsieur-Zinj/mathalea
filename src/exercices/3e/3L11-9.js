@@ -4,6 +4,8 @@ export const dateDePublication = '12/08/2022'
 export const dateDeModifImportante = '01/10/2023'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
  * Travailler la double distributivité
@@ -17,5 +19,5 @@ export default function RoseAdditive4L () { // c'est l'ExoRose zéro contenu dan
   this.operation = 'multiplication'
   this.typeDonnees = 'litteraux'
   this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des facteurs', 30]
-  this.besoinFormulaire2Numerique = ['Nombre de facteur entre 3 et 5', 5]
+  this.besoinFormulaire2Numerique = ['Nombre de facteurs (entre 3 et 5)', 5]
 }
