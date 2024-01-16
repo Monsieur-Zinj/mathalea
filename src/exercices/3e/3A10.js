@@ -13,21 +13,16 @@ export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseur
  * Division Euclidienne; diviseurs, multiples, critères de divisibilité
  * Exercice bilan
  * @author Sébastien Lozano
- * Référence 3A10
  */
 export const uuid = '5b60d'
 export const ref = '3A10'
 export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = ''
   // context.isHtml ? this.spacing = 3 : this.spacing = 2;
   context.isHtml ? this.spacing = 1 : this.spacing = 2
   // context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 2
   this.nbQuestions = 5
-  // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = '3'
@@ -37,22 +32,14 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   this.correctionDetaillee = false
 
   this.nouvelleVersion = function (numeroExercice) {
-    const nbChiffresMax = combinaisonListesSansChangerOrdre(this.sup.toString().split('-'), this.nbQuestions)
-    const nbDiviseursMax = combinaisonListesSansChangerOrdre(this.sup2.toString().split('-'), this.nbQuestions)
-    this.sup3 = contraindreValeur(2, 16, parseFloat(this.sup3), 10)
-
-    for (let i = 0; i < this.nbQuestions; i++) {
-      nbChiffresMax[i] = contraindreValeur(1, 5, parseFloat(nbChiffresMax[i]), 2)
-    }
-    for (let i = 0; i < this.nbQuestions; i++) {
-      nbDiviseursMax[i] = contraindreValeur(2, parseInt(this.sup3), parseFloat(nbDiviseursMax[i]), 6)
-    }
+    this.sup3 = contraindreValeur(2, 16, this.sup3, 10)
+    let nbChiffresMax = contraindreValeur(1, 5, this.sup, 2)
+    const nbDiviseursMax = contraindreValeur(2, this.sup3, this.sup2, 6)
 
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
       // this.boutonAide = '';
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A10.pdf', 'Aide-mémoire sur la division euclidienne (Sébastien Lozano)', 'Aide-mémoire')
       // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
-    } else { // sortie LaTeX
     }
 
     this.listeQuestions = [] // Liste de questions
@@ -61,7 +48,6 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
     this.contenuCorrection = '' // Liste de questions corrigées
 
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
-    // let typesDeQuestionsDisponibles = [1];
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, M, listeDiviseursM, nbDiviseursM, n1, n2, p1, p2, rgDiviseur, typeDeQuestion, multiplicateurs, multiples, textes, textesCorr, candidatsDiviseurs, dividende, diviseur, quotient, reste, diviseurs, quotients, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -208,14 +194,14 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
           texteCorr += '<br>'
           break
         case 5:
-          if (nbDiviseursMax[i] > 10) { // les nombres de 2 chiffres ayant plus de 10 diviseurs étant peu nombreux, on force au moins 3 chiffres.
-            nbChiffresMax[i] = Math.max(nbChiffresMax[i], 3)
+          if (nbDiviseursMax > 10) { // les nombres de 2 chiffres ayant plus de 10 diviseurs étant peu nombreux, on force au moins 3 chiffres.
+            nbChiffresMax = Math.max(nbChiffresMax, 3)
           }
           do {
-            M = randint(10 ** (nbChiffresMax[i] - 1), 10 ** nbChiffresMax[i] - 1)
+            M = randint(10 ** (nbChiffresMax - 1), 10 ** nbChiffresMax - 1)
             listeDiviseursM = listeDesDiviseurs(M)
             nbDiviseursM = listeDiviseursM.length
-          } while (nbDiviseursM < Math.max(2, nbDiviseursMax[i] - 3) || nbDiviseursM > nbDiviseursMax[i])
+          } while (nbDiviseursM < Math.max(2, nbDiviseursMax - 3) || nbDiviseursM > nbDiviseursMax)
           texte = `Écrire la liste de tous les diviseurs de ${M}.`
           texteCorr = `Pour trouver la liste des diviseurs de ${M}, on cherche tous les produits de deux facteurs qui donnent ${M}, en écrivant toujours le plus petit facteur en premier.<br>`
           texteCorr += `Il est suffisant de chercher des diviseurs inférieurs au plus grand nombre dont le carré est inférieur à ${M}, par exemple ici, ${Math.trunc(Math.sqrt(M))}$\\times$${Math.trunc(Math.sqrt(M))} = ${Math.trunc(Math.sqrt(M)) * Math.trunc(Math.sqrt(M))}<${M}`
