@@ -5,6 +5,7 @@ import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
 import type { MathfieldElement } from 'mathlive'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { context } from '../../modules/context'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Transformer une soustraction en addition puis calculer'
 export const dateDePublication = '13/11/2023'
@@ -58,7 +59,7 @@ class SoustractionRelatifs extends Exercice {
       this.listeA[i] = a
       this.listeB[i] = b
       texte = `$${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)}$`
-      texteCorr = `$${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = ${ecritureNombreRelatif(a)} + ${ecritureNombreRelatif(-b)} = ${ecritureNombreRelatif(a - b)}$`
+      texteCorr = `$${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = ${miseEnEvidence(ecritureNombreRelatif(a))} + ${miseEnEvidence(ecritureNombreRelatif(-b))} = ${miseEnEvidence(ecritureNombreRelatif(a - b))}$`
 
       if (this.interactif) {
         texte = `<math-field readonly class="fillInTheBlanks" style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
