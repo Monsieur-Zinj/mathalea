@@ -7952,7 +7952,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_10_amsud_5.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_10_amsud_5_cor.tex',
-    tags: ['Probabilités', 'Algorithmique-Programmation']
+    tags: ['Probabilités', 'Algorithmique-programmation']
   },
   dnb_2023_12_caledonie_1: {
     annee: '2023',
@@ -8024,7 +8024,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2023/tex/dnb_2023_12_caledonie_6.tex',
     urlcor: 'static/dnb/2023/tex/dnb_2023_12_caledonie_6_cor.tex',
-    tags: ['Géométrie plane', 'Algorithmique-Programmation']
+    tags: ['Géométrie plane', 'Algorithmique-programmation']
   },
 
 }

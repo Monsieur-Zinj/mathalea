@@ -2656,7 +2656,7 @@
         ]
       }
     },
-    "Algorithmique-Programmation": {
+    "Algorithmique-programmation": {
       "dnb_2023_10_amsud_5": {
         "uuid": "dnb_2023_10_amsud_5",
         "annee": "2023",
@@ -2670,7 +2670,7 @@
         "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_5_cor.tex",
         "tags": [
           "Probabilités",
-          "Algorithmique-Programmation"
+          "Algorithmique-programmation"
         ]
       },
       "dnb_2023_12_caledonie_6": {
@@ -2686,7 +2686,7 @@
         "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_6_cor.tex",
         "tags": [
           "Géométrie plane",
-          "Algorithmique-Programmation"
+          "Algorithmique-programmation"
         ]
       }
     },
@@ -11392,7 +11392,7 @@
         "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_6_cor.tex",
         "tags": [
           "Géométrie plane",
-          "Algorithmique-Programmation"
+          "Algorithmique-programmation"
         ]
       }
     },
@@ -16129,7 +16129,7 @@
         "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_5_cor.tex",
         "tags": [
           "Probabilités",
-          "Algorithmique-Programmation"
+          "Algorithmique-programmation"
         ]
       },
       "dnb_2023_12_caledonie_1": {
@@ -41342,7 +41342,7 @@
         "urlcor": "static/dnb/2023/tex/dnb_2023_10_amsud_5_cor.tex",
         "tags": [
           "Probabilités",
-          "Algorithmique-Programmation"
+          "Algorithmique-programmation"
         ]
       },
       "dnb_2023_12_caledonie_1": {
@@ -41448,7 +41448,7 @@
         "urlcor": "static/dnb/2023/tex/dnb_2023_12_caledonie_6_cor.tex",
         "tags": [
           "Géométrie plane",
-          "Algorithmique-Programmation"
+          "Algorithmique-programmation"
         ]
       }
     },
