@@ -132,7 +132,7 @@ class Latex {
           contentCorr += '\n\\end{EXO}\n'
           content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${String(exercice.id).replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
-          content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation)), Number(exercice.nbCols))
+          content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))
           content += '\n\\end{EXO}\n'
         }
       }
@@ -168,7 +168,7 @@ class Latex {
         if (withQrcode) content += '\n\\begin{minipage}{0.75\\linewidth}'
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
-        content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation)), Number(exercice.nbCols))
+        content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))
         if (withQrcode) {
           content += '\n\\end{minipage}'
           content += '\n\\begin{minipage}{0.20\\linewidth}'
@@ -177,7 +177,7 @@ class Latex {
         }
         content += '\n\\end{exercice}\n'
         content += '\n\\begin{Solution}'
-        content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, Boolean(exercice.listeAvecNumerotation)), Number(exercice.nbColsCorr))
+        content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbColsCorr))
         content += '\n\\end{Solution}\n'
       }
     }
@@ -341,7 +341,7 @@ function writeIntroduction (introduction = ''): string {
   return content
 }
 
-function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolean): string {
+function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolean, nbCols: number = 1): string {
   let content = ''
   if (questions !== undefined && questions.length > 1) {
     content += '\n\\begin{enumerate}'
@@ -356,7 +356,7 @@ function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolea
       content += '[' + specs.join(',') + ']'
     }
     for (const question of questions) {
-      content += '\n\t\\item ' + format(question)
+      content += '\n\t\\item ' + (nbCols > 1 ? '\\begin{minipage}[t]{\\linewidth}' : '') + format(question) + (nbCols > 1 ? '\\end{minipage}' : '')
     }
     content += '\n\\end{enumerate}'
   } else {
