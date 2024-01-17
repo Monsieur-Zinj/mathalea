@@ -13,7 +13,6 @@
   let sup4: boolean
   let alea: string
   let correctionDetaillee: boolean
-  let premierUpdate: boolean = true
   let isCommentDisplayed: boolean = false
 
   // pour récupérer les tooltips de l'exercice
@@ -28,8 +27,7 @@
 
   afterUpdate(async () => {
     // On ne remplit les champs que la première fois
-    if (exercice && premierUpdate) {
-      premierUpdate = false
+    if (exercice) {
       nbQuestions = exercice.nbQuestions
       duration = exercice.duration || 10
       if (exercice.sup === 'false') {
