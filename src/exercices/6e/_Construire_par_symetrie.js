@@ -503,7 +503,7 @@ export default class ConstruireParSymetrie extends Exercice {
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
           A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
-          B = point(6, choice([-1, 1]), `${p1nom[1]}`, 'above')
+          B = point(6, choice([-1, 1], A.y), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.isVisible = true
           d.epaisseur = 2;

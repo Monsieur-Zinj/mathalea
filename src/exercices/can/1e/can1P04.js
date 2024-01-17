@@ -100,8 +100,7 @@ export default function CalculProbaArbre2e () {
       omega.setTailles() // On calcule les tailles des arbres.
       objets = omega.represente(0, 6, 0, 1.5, true, 1) // On crée l'arbre complet echelle 1.4 feuilles verticales sens gauche-droite
       pC = omega.getProba('C', false) // on calcule P(C) décimale.
-      texte = `On donne l'arbre de probabilités ci-dessous et $P(C)=${texProba(pC)}$.<br>
-      
+      texte = `On donne l'arbre de probabilités ci-dessous et $P(C)=${texProba(pC)}$.<br><br> 
       `
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 6, style: 'inline' }, objets)
       texte += `<br>

@@ -6,6 +6,7 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { pgcd } from '../../lib/outils/primalite.js'
+import { rienSi1 } from '../../lib/outils/ecritures.js'
 
 export const titre = 'Factoriser avec les identités remarquables'
 export const interactifReady = true
@@ -53,13 +54,11 @@ export default function FactoriserIdentitesRemarquables2 () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
-      do {
-        a = randint(1, 9)
-        b = randint(2, 9)
-        const fractionChoisie = choice(listeFractions)
-        ns = fractionChoisie[0]
-        ds = fractionChoisie[1]
-      } while (pgcd(ns, a) !== 1 || pgcd(a, b) !== 1) // On évite ainsi les doubles factorisations qui posent problème
+      a = randint(1, 9)
+      b = randint(2, 9)
+      const fractionChoisie = choice(listeFractions)
+      ns = fractionChoisie[0]
+      ds = fractionChoisie[1]
       const fra = fraction(ns, ds)
       const fraC = fra.produitFraction(fra)
       const fraD = fra.multiplieEntier(2 * a)
@@ -83,16 +82,40 @@ export default function FactoriserIdentitesRemarquables2 () {
         case 4:
           texte = `$${b * b}x^2+${2 * b * a}x+${a * a}$` // (bx+a)²  b>1
           texteCorr = `$${b * b}x^2+${2 * b * a}x+${a * a}=(${b}x)^2+2 \\times ${b}x \\times ${a} + ${a}^2=(${b}x+${a})^2$`
+          if (pgcd(b, a) !== 1) {
+            const p = pgcd(b, a)
+            const a2 = a / p
+            const b2 = b / p
+            const p2 = p * p
+            texteCorr += `<br>Il est possible de mettre tout d'abord $${p2}$ en facteur avant d'utiliser une identité remarquable :<br>`
+            texteCorr += `$${b * b}x^2+${2 * b * a}x+${a * a}=${p2}\\left(${rienSi1(b2 * b2)}x^2+${2 * b2 * a2}x+${a2 * a2}\\right)=${p2}\\left(${b2 !== 1 ? '(' + b2 + 'x)' : 'x'}^2+2 \\times ${rienSi1(b2)}x ${a2 !== 1 ? '\\times ' + a2 : ''} + ${a2}^2\\right)=${p2}(${rienSi1(b2)}x+${a2})^2$`
+          }
           reponseAttendue = `(${b}x+${a})^2`
           break
         case 5:
           texte = `$${b * b}x^2-${2 * b * a}x+${a * a}$` // (bx-a)² b>1
           texteCorr = `$${b * b}x^2-${2 * b * a}x+${a * a}=(${b}x)^2-2 \\times ${b}x \\times ${a} + ${a}^2=(${b}x-${a})^2$`
+          if (pgcd(b, a) !== 1) {
+            const p = pgcd(b, a)
+            const a2 = a / p
+            const b2 = b / p
+            const p2 = p * p
+            texteCorr += `<br>Il est possible de mettre tout d'abord $${p2}$ en facteur avant d'utiliser une identité remarquable :<br>`
+            texteCorr += `$${b * b}x^2-${2 * b * a}x+${a * a}=${p2}\\left(${rienSi1(b2 * b2)}x^2-${2 * b2 * a2}x+${a2 * a2}\\right)=${p2}\\left(${b2 !== 1 ? '(' + b2 + 'x)' : 'x'}^2-2 \\times ${rienSi1(b2)}x ${a2 !== 1 ? '\\times ' + a2 : ''} + ${a2}^2\\right)=${p2}(${rienSi1(b2)}x-${a2})^2$`
+          }
           reponseAttendue = `(${b}x-${a})^2`
           break
         case 6:
           texte = `$${b * b}x^2-${a * a}$` // (bx-a)(bx+a) b>1
           texteCorr = `$${b * b}x^2-${a * a}=(${b}x)^2-${a}^2=(${b}x-${a})(${b}x+${a})$`
+          if (pgcd(b, a) !== 1) {
+            const p = pgcd(b, a)
+            const a2 = a / p
+            const b2 = b / p
+            const p2 = p * p
+            texteCorr += `<br>Il est possible de mettre tout d'abord $${p2}$ en facteur avant d'utiliser une identité remarquable :<br>`
+            texteCorr += `$${b * b}x^2-${a * a}=${p2}\\left(${rienSi1(b2 * b2)}x^2-${a2 * a2}\\right)=${p2}\\left(${b2 !== 1 ? '(' + b2 + 'x)' : 'x'}^2-${a2}^2\\right)=${p2}(${rienSi1(b2)}x+${a2})(${rienSi1(b2)}x-${a2})$`
+          }
           reponseAttendue = `(${b}x-${a})(${b}x+${a})`
           break
         case 7:
@@ -115,16 +138,16 @@ export default function FactoriserIdentitesRemarquables2 () {
       }
       reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
       texte += remplisLesBlancs(this, i, '=%{expr}', 'inline15 college6e ml-2', '\\ldots\\ldots')
-      const compareReponseSaisie = (a, b) => {
+      const factorisationCompare = (a, b) => {
         const aCleaned = a.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
         const bCleaned = b.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
         const saisieParsed = engine.parse(aCleaned, { canonical: true })
         const reponseParsed = engine.parse(bCleaned, { canonical: true })
-        const saisieDev = engine.box(['Expand', saisieParsed]).evaluate().simplify().canonical
-        const reponseDev = engine.box(['Expand', reponseParsed]).evaluate().simplify().canonical
+        const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
+        const reponseDev = engine.box(['ExpandAll', reponseParsed]).evaluate().simplify().canonical
         return saisieDev.isEqual(reponseDev) && ['Multiply', 'Square', 'Power'].includes(saisieParsed.head)
       }
-      setReponse(this, i, { expr: { value: reponseAttendue, compare: compareReponseSaisie } }, { formatInteractif: 'fillInTheBlank' })
+      setReponse(this, i, { expr: { value: reponseAttendue, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

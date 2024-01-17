@@ -201,7 +201,7 @@ export default function CourseAuxNombresSpeciale2024 () {
 
     // Pour test, si on ne veut que les question 73, 72 et 43 soient les premières questions, les mettre dans le tableau ci-dessous.
     // const typeQuestionsDisponibles = [73,72,43] autrement rien []
-    const typeQuestionsDisponibles = []
+    const typeQuestionsDisponibles = [48]
 
     /// ///// Cette partie ci-dessous est destinée à afficher le tableau de répartition des différents niveaux de difficulté
     /// ///// Cette partie sera à commenter lors de la mise en production
@@ -304,8 +304,8 @@ export default function CourseAuxNombresSpeciale2024 () {
             reponse = 506
           } else if (choixQ2 === 1) {
             texte = `Le double de $${texNombre(2024)}$`
-            texteCorr = `$${texNombre(2024)}\\times 2=${miseEnEvidence(texNombre(2048))}$`
-            reponse = 2048
+            texteCorr = `$${texNombre(2024)}\\times 2=${miseEnEvidence(texNombre(4048))}$`
+            reponse = 4048
           } else {
             texte = `Le triple de $${texNombre(2024)}$`
             texteCorr = `$${texNombre(2024)}\\times 3=${miseEnEvidence(texNombre(6072))}$`

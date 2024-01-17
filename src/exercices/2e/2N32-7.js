@@ -105,7 +105,7 @@ export default function Rendreentier () {
             texteCorr += `$A=\\dfrac{ ${a * c / n} ${ecritureAlgebriqueSauf1(-a * d / n)}\\sqrt{x}}{${c * c / n}${ecritureAlgebriqueSauf1(-d * d / n)}x}$`
           }
       }
-      texte += listeQuestions[i]
+      // texte += listeQuestions[i]
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -3,6 +3,7 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -71,19 +72,19 @@ export default function ImageFonctionsRefs () {
           nombre = randint(-10, 10, [0, 1])
           solution = nombre * nombre
           solution = new FractionEtendue(solution, 1)
-          texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^2 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${solution}$`
+          texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^2 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${miseEnEvidence(solution)}$`
           break
         case 'cube':
           nombre = randint(-5, 5, [0, 1])
           solution = nombre * nombre * nombre
           solution = new FractionEtendue(solution, 1)
-          texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^3 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${ecritureParentheseSiNegatif(nombre * nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${solution}$`
+          texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^3 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${ecritureParentheseSiNegatif(nombre * nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${miseEnEvidence(solution)}$`
           break
         case 'racine carrée':
           solution = randint(1, 10)
           solution = new FractionEtendue(solution, 1)
           nombre = solution * solution
-          texteCorr = `$${nom}(${nombre}) = \\sqrt{${nombre}} = ${solution} $ car $ ${ecritureParentheseSiNegatif(solution)}^2 = ${nombre} $`
+          texteCorr = `$${nom}(${nombre}) = ${miseEnEvidence(`\\sqrt{${nombre}}`)} = ${miseEnEvidence(solution)} $ car $ ${ecritureParentheseSiNegatif(solution)}^2 = ${nombre} $`
           break
         case 'inverse':
           if (this.can) {
@@ -94,11 +95,11 @@ export default function ImageFonctionsRefs () {
           Math.random() < 0.25 && (nombre = arrondi(1 / nombre, 6))
           Math.random() < 0.5 && (nombre *= -1)
           solution = new FractionEtendue(1, nombre)
-          texteCorr = `$${nom}(${texNombre(nombre)}) = ${deprecatedTexFraction(1, nombre)} = ${texNombre(solution)}$`
+          texteCorr = `$${nom}(${texNombre(nombre)}) = ${miseEnEvidence(deprecatedTexFraction(1, nombre))} = ${miseEnEvidence(texNombre(solution))}$`
           break
       }
       const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre)})$` : `l'image de $${texNombre(nombre)}$ par la fonction $${nom}$`
-      listePhrases[i] && (texteCorr += `<br>L'image de $${texNombre(nombre)}$ par la fonction $${nom}$ est donc $${texNombre(solution)}$.`)
+      listePhrases[i] && (texteCorr += `<br>L'image de $${texNombre(nombre)}$ par la fonction $${nom}$ est donc $${miseEnEvidence(texNombre(solution))}$.`)
       texte = `Soit $${nom}$ la fonction ${listeTypeQuestions[i]}.<br>
       
       Calculer ${phrase}.`

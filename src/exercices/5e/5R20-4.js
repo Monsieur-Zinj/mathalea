@@ -6,11 +6,11 @@ import { texPrix, texteGras } from '../../lib/format/style.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+
 export const titre = 'Résoudre un problème en utilisant une somme algébrique de relatifs'
 
 /**
  * * résoudre un problème additif avec des relatifs
- * * 5R20-4
  * @author Sébastien Lozano
  */
 
