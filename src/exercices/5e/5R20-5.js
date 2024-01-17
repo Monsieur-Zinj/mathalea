@@ -2,13 +2,15 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-export const titre = 'Additions de deux entiers relatifs dans un tableau à double entrée'
+import { context } from '../../modules/context.js'
+
+export const titre = 'Additionner deux entiers relatifs dans un tableau à double entrée'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
-* Effectuer des additions de relatifs dans un tableau à double entrée
-*
+* Additionner deux entiers relatifs dans un tableau à double entrée
 * @author Rémi Angot
-* 5R20-5
 */
 export const uuid = '41254'
 export const ref = '5R20-5'
@@ -70,6 +72,19 @@ export default function ExerciceTableauAdditionsRelatifs () {
 \\end{array}$`
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
+
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: this.question,
+        propositions: [
+          {
+            texte: '',
+            statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+            sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+          }
+        ]
+      }
+    }
     listeQuestionsToContenu(this)
   }
 }
