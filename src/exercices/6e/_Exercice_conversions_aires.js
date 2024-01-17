@@ -7,7 +7,7 @@ import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { texTexte } from '../../lib/format/texTexte.js'
+import { texTexte } from '../../lib/format/texTexte'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true

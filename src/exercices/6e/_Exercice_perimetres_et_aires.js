@@ -24,7 +24,7 @@ import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestion
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { texTexte } from '../../lib/format/texTexte.js'
+import { texTexte } from '../../lib/format/texTexte'
 import Grandeur from '../../modules/Grandeur'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 

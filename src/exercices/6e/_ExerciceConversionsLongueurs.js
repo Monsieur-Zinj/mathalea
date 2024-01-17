@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-import { texTexte } from '../../lib/format/texTexte.js'
+import { texTexte } from '../../lib/format/texTexte'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
