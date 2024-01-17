@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { texteEnCouleur, texteEnCouleurEtGras, miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { fraction } from '../../../modules/fractions.js'
@@ -60,16 +60,16 @@ export default function SigneFonctionAffine () {
             En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
             $${rienSi1(a)}x>${-b}$<br>
             En divisant par $${a}$ dans chaque membre, on obtient :<br>
-            $x>${maFraction.texFractionSimplifiee}$.`
+            $x>${maFraction.texFractionSimplifiee}$.<br><br>
+            $${reduireAxPlusB(a, b)}$ est strictement positif pour $x>${maFraction.texFractionSimplifiee}$, il fallait donc cocher "${texteEnCouleurEtGras('Vrai')}".`
           } else {
             texteCorr = monQcm.texteCorr + `<br>$${reduireAxPlusB(a, b)}>0$.<br>
             En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
             $${rienSi1(a)}x>${-b}$<br>
             En divisant par $(${a})$ dans chaque membre, on obtient :<br>
-            $x$${texteEnCouleur('$<$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
-            ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}
-            
-            `
+            $x$ $${miseEnEvidence('<', 'blue')}$ $${maFraction.texFractionSimplifiee}$ ${sp(3)}
+            ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).', 'blue')}<br><br>
+            $${reduireAxPlusB(a, b)}$ est strictement positif pour $x<${maFraction.texFractionSimplifiee}$, il fallait donc cocher "${texteEnCouleurEtGras('Faux')}".`
           }
 
           break
@@ -101,17 +101,16 @@ export default function SigneFonctionAffine () {
               En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
               $${rienSi1(a)}x>${-b}$<br>
               En divisant par $(${a})$ dans chaque membre, on obtient :<br>
-              $x$${texteEnCouleur('$<$')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
-              ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}
-             `
+              $x$ $${miseEnEvidence('<', 'blue')}$ $${maFraction.texFractionSimplifiee}$ ${sp(3)}
+              ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).', 'blue')}<br><br>
+              $${reduireAxPlusB(a, b)}$ est strictement positif pour $x<${maFraction.texFractionSimplifiee}$, il fallait donc cocher "${texteEnCouleurEtGras('Vrai')}".`
           } else {
             texteCorr = monQcm.texteCorr + `<br>$${reduireAxPlusB(a, b)}>0$.<br>
               En ajoutant $${ecritureParentheseSiNegatif(-b)}$ dans chaque membre, on obtient :<br>
               $${rienSi1(a)}x>${-b}$<br>
               En divisant par $${a}$ dans chaque membre, on obtient :<br>
-              $x>${maFraction.texFractionSimplifiee}$.
-              
-              `
+              $x>${maFraction.texFractionSimplifiee}$.<br><br>
+              $${reduireAxPlusB(a, b)}$ est strictement positif pour $x>${maFraction.texFractionSimplifiee}$, il fallait donc cocher "${texteEnCouleurEtGras('Faux')}".`
           }
 
           break

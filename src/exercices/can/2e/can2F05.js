@@ -35,10 +35,10 @@ Pour résoudre cette équation, on isole la racine carrée dans le membre de gau
 
     $\\begin{aligned}
     ${m}\\sqrt{x}+${p}&=${a}\\\\
-    ${m}\\sqrt{x}+${p}${miseEnEvidence(-p)}&=${a}${miseEnEvidence(-p)}\\\\
-    \\dfrac{${m}\\sqrt{x}}{${miseEnEvidence(m)}}&=\\dfrac{${a - p}}{${miseEnEvidence(m)}}\\\\
+    ${m}\\sqrt{x}+${p}${miseEnEvidence(-p, 'blue')}&=${a}${miseEnEvidence(-p, 'blue')}\\\\
+    \\dfrac{${m}\\sqrt{x}}{${miseEnEvidence(m, 'blue')}}&=\\dfrac{${a - p}}{${miseEnEvidence(m, 'blue')}}\\\\
     \\sqrt{x}&=${maFraction.texFractionSimplifiee}{\\text{ On cherche le nombre dont la racine carrée vaut }}${maFraction.texFractionSimplifiee} \\\\
-    x&=${maFraction.texFractionSimplifiee ** 2}
+    x&=${miseEnEvidence(maFraction.texFractionSimplifiee ** 2)}
     \\end{aligned}$
     `
     this.reponse = maFraction.texFractionSimplifiee ** 2
