@@ -1,5 +1,5 @@
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import {
   ecritureAlgebrique,

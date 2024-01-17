@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1, reduirePolynomeDegre3, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import { arrondi, abs, range } from '../../../lib/outils/nombres.js'
 import { codageSegments } from '../../../lib/2d/codages.js'

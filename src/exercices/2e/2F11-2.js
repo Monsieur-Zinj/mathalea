@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { sp } from '../../lib/outils/outilString.js'

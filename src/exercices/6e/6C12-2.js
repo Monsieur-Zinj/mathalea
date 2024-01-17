@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements.ts'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { prenomM } from '../../lib/outils/Personne.js'

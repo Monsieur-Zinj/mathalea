@@ -10,7 +10,7 @@ import {
   hauteurTriangle,
   medianeTriangle
 } from '../../lib/2d/triangle.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

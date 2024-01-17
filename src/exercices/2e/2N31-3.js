@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { modalPdf } from '../../lib/outils/modales.js'
 import { simpExp } from '../../lib/outils/puissance.js'
 import Exercice from '../Exercice.js'

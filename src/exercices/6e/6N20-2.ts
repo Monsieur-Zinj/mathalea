@@ -1,4 +1,4 @@
-import { shuffle } from '../../lib/outils/arrayOutils.js'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../ExerciceTs'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

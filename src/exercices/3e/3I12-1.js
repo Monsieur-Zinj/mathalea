@@ -1,4 +1,4 @@
-import { choice, compteOccurences } from '../../lib/outils/arrayOutils.js'
+import { choice, compteOccurences } from '../../lib/outils/arrayOutils'
 import { lampeMessage } from '../../lib/format/message.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'

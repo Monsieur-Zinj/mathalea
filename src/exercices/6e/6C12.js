@@ -1,4 +1,4 @@
-import { choice, enleveElementNo } from '../../lib/outils/arrayOutils.js'
+import { choice, enleveElementNo } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi, range, rangeMinMax, troncature } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'

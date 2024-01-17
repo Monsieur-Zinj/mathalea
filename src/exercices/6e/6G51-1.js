@@ -1,7 +1,7 @@
 import { droite } from '../../lib/2d/droites.js'
 import { pointAdistance, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { labelPoint } from '../../lib/2d/textes.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

@@ -1,4 +1,4 @@
-import { enleveElementDouble, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
+import { enleveElementDouble, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

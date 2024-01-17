@@ -1,6 +1,6 @@
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

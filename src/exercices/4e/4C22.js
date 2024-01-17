@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'

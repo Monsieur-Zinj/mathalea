@@ -1,4 +1,4 @@
-import { shuffle } from '../../lib/outils/arrayOutils.js'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import { range } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

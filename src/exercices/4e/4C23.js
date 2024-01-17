@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'

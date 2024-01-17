@@ -1,4 +1,4 @@
-import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../lib/outils/ecritures.js'

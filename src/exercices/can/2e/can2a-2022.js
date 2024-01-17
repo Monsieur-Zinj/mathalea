@@ -3,7 +3,7 @@ import { droite } from '../../../lib/2d/droites.js'
 import { milieu, point } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
-import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -11,7 +11,7 @@ import {
   reduirePolynomeDegre3,
   rienSi1
 } from '../../../lib/outils/ecritures.js'
-import { texPrix } from '../../../lib/format/style.js'
+import { texPrix } from '../../../lib/format/style'
 import { sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'

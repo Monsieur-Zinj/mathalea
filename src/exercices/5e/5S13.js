@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
 import { joursParMois, nomDuMois } from '../../lib/outils/dateEtHoraires.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'

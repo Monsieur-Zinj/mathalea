@@ -1,6 +1,6 @@
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { choisiDelta } from '../../lib/mathFonctions/outilsMaths.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
 import { pgcd } from '../../lib/outils/primalite.js'

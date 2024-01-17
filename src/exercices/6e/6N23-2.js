@@ -1,5 +1,5 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
-import { shuffle } from '../../lib/outils/arrayOutils.js'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import {

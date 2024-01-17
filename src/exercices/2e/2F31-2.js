@@ -1,5 +1,5 @@
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { abs } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'

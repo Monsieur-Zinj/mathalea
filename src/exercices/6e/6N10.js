@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
 import Exercice from '../Exercice.js'

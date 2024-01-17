@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { xcas, listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

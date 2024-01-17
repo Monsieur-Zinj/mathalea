@@ -1,4 +1,4 @@
-import { choice, compteOccurences, enleveDoublonNum } from '../../lib/outils/arrayOutils.js'
+import { choice, compteOccurences, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { lampeMessage } from '../../lib/format/message.js'
 import { range1 } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'

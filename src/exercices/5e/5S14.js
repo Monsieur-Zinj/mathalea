@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
 import { joursParMois } from '../../lib/outils/dateEtHoraires.js'
 import Exercice from '../Exercice.js'

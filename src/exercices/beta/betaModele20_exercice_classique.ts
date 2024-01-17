@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../ExerciceTs'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 

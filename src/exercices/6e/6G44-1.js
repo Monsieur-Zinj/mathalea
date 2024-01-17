@@ -2,7 +2,7 @@ import { milieu, point, tracePoint } from '../../lib/2d/points.js'
 import { cone as cone2d, sphere2d } from '../../lib/2d/projections3d.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie } from '../../lib/2d/transformations.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import {
   arc3d,

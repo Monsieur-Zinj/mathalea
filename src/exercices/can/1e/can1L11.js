@@ -1,6 +1,6 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 

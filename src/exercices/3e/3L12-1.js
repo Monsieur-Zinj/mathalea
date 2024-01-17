@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures.js'
 import { range1 } from '../../lib/outils/nombres.js'

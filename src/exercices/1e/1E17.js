@@ -1,4 +1,4 @@
-import { shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
+import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

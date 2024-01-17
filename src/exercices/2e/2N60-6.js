@@ -1,6 +1,6 @@
-import { texteGras } from '../../lib/format/style.js'
+import { texteGras } from '../../lib/format/style'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
-import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
+import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import {

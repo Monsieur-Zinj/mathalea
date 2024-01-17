@@ -1,7 +1,7 @@
 import { point } from '../lib/2d/points.js'
 import { segment } from '../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPoint, texteParPointEchelle, texteParPositionEchelle } from '../lib/2d/textes.js'
-import { combinaisonListesSansChangerOrdre, enleveElement } from '../lib/outils/arrayOutils.js'
+import { combinaisonListesSansChangerOrdre, enleveElement } from '../lib/outils/arrayOutils'
 import { nombreAvecEspace } from '../lib/outils/texNombre.js'
 import { randint } from './outils.js'
 

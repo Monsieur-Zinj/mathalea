@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import {
   arrondi,
@@ -8,7 +8,7 @@ import {
 } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/format/style.js'
+import { texPrix } from '../../lib/format/style'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { checkSum, listeQuestionsToContenu, randint } from '../../modules/outils.js'

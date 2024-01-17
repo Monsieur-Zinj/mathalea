@@ -3,7 +3,7 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

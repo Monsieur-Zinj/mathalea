@@ -1,6 +1,6 @@
 import { tracePoint } from '../../lib/2d/points.js'
 import { labelLatexPoint, labelPoint, texteParPoint } from '../../lib/2d/textes.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'

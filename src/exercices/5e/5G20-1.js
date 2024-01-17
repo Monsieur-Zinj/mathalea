@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lampeMessage } from '../../lib/format/message.js'
 import { modalTexteLong } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

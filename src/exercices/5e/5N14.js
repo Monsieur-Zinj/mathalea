@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
 import Exercice from '../Exercice.js'

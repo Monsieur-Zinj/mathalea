@@ -1,4 +1,4 @@
-import { choice, creerCouples } from '../../lib/outils/arrayOutils.js'
+import { choice, creerCouples } from '../../lib/outils/arrayOutils'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

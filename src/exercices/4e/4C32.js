@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
 import { scientifiqueToDecimal, stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

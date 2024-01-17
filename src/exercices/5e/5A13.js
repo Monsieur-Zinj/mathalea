@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { compareNombres } from '../../lib/outils/nombres.js'
 import { texFactorisation } from '../../lib/outils/primalite.js'

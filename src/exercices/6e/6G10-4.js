@@ -4,7 +4,7 @@ import { point, pointAdistance, pointIntersectionLC, tracePoint } from '../../li
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'

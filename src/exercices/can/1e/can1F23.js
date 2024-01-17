@@ -1,7 +1,7 @@
 import { repere } from '../../../lib/2d/reperes.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
 import { spline } from '../../../lib/mathFonctions/Spline.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import { tableauSignesFonction } from '../../../lib/mathFonctions/etudeFonction.js'

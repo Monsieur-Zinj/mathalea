@@ -11,7 +11,7 @@ import {
   compteOccurences,
   enleveElementBis,
   enleveElementNo
-} from '../../lib/outils/arrayOutils.js'
+} from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'

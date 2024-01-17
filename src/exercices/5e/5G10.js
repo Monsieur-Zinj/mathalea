@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import Transformations from '../6e/_Transformations.js'
 
 export const titre = 'Trouver l\'image d\'un point par une symétrie axiale'

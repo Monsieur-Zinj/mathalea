@@ -1,4 +1,4 @@
-import { enleveElement } from '../../../lib/outils/arrayOutils.js'
+import { enleveElement } from '../../../lib/outils/arrayOutils'
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'

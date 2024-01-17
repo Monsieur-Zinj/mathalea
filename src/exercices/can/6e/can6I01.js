@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { point, tracePoint } from '../../../lib/2d/points.js'
 import { texteParPositionEchelle } from '../../../lib/2d/textes.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { modalPdf, modalUrl } from '../../../lib/outils/modales.js'
-import { texteGras } from '../../../lib/format/style.js'
+import { texteGras } from '../../../lib/format/style'
 import { stringNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'

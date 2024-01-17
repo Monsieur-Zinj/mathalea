@@ -1,4 +1,4 @@
-import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { infoMessage, lampeMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { numAlpha } from '../../lib/outils/outilString.js'

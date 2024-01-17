@@ -1,4 +1,4 @@
-import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

@@ -1,4 +1,4 @@
-import { choice, compteOccurences, enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, compteOccurences, enleveDoublonNum, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'

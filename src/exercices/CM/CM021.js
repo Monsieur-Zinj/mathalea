@@ -1,4 +1,4 @@
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import {

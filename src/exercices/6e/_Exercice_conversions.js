@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, compteOccurences } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, compteOccurences } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'

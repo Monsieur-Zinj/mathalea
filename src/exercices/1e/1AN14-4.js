@@ -1,7 +1,7 @@
 import { abs, derivative, parse, simplify } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { Polynome } from '../../lib/mathFonctions/Polynome.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import { signe } from '../../lib/outils/nombres.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'

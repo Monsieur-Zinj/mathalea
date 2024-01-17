@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

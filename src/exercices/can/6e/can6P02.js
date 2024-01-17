@@ -1,5 +1,5 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
-import { texPrix } from '../../../lib/format/style.js'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { texPrix } from '../../../lib/format/style'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser une proportionnalité*'

@@ -1,6 +1,6 @@
 import { derivative, divide, parse, simplify } from 'mathjs'
 import { Polynome } from '../../lib/mathFonctions/Polynome.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

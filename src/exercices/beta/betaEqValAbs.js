@@ -1,4 +1,4 @@
-import { texMasse } from '../../lib/format/style.js'
+import { texMasse } from '../../lib/format/style'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, xcas } from '../../modules/outils.js'

@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'

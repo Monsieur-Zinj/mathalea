@@ -1,6 +1,6 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../../lib/outils/arrayOutils.js'
-import { texPrix } from '../../../lib/format/style.js'
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../../lib/outils/arrayOutils'
+import { texPrix } from '../../../lib/format/style'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'

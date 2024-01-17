@@ -1,4 +1,4 @@
-import { shuffle } from '../../../lib/outils/arrayOutils.js'
+import { shuffle } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texteExposant } from '../../../lib/outils/ecritures.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'

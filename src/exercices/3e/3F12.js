@@ -1,4 +1,4 @@
-import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texCadreParOrange, tikzMachineDiag } from '../../modules/machines.js'

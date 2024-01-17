@@ -1,5 +1,5 @@
 import { context } from '../../modules/context.js'
-import { shuffleJusqua } from '../outils/arrayOutils.js'
+import { shuffleJusqua } from '../outils/arrayOutils'
 import { get } from '../html/dom.js'
 import { messageFeedback } from '../../modules/messages.js'
 import { gestionCan } from './gestionCan.js'

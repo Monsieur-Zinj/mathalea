@@ -1,4 +1,4 @@
-import { shuffle, enleveElementBis } from '../../lib/outils/arrayOutils.js'
+import { shuffle, enleveElementBis } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { prenom, prenomF, prenomM } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'

@@ -1,8 +1,8 @@
-import { texSymbole } from '../../lib/format/style.js'
+import { texSymbole } from '../../lib/format/style'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
