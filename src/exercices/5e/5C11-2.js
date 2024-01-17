@@ -2,7 +2,7 @@ import { context } from '../../modules/context.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { prenom } from '../../lib/outils/Personne.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import TrouverSolutionMathador from '../CM/_TrouverSolutionMathador.js'
+import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 import Exercice from '../Exercice.js'
 export const amcReady = true
 export const amcType = 'AMCOpen'
