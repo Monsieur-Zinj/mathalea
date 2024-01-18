@@ -141,7 +141,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = facteursDUnProduit.texteCorr
           setReponse(this, index, facteursDUnProduit.reponse, { formatInteractif: 'texte' })
           if (this.interactif && !context.isAmc) {
-            texte += '<br>Écris les deux nombres séparés par un point virgule.'
+            texte += '<br>Écris les deux nombres séparés par un point-virgule.'
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline')
           }
           nbChamps = 1
@@ -278,7 +278,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = decomposerUnNombreATroisChiffresEnDizainesUnites.texteCorr
           setReponse(this, index, decomposerUnNombreATroisChiffresEnDizainesUnites.reponse, { formatInteractif: 'texte' })
           if (this.interactif && !context.isAmc) {
-            texte += '<br>Écris le nombre de dizaines puis d\'unités dans cet ordre séparés par un point virgule. '
+            texte += '<br>Écris le nombre de dizaines puis d\'unités dans cet ordre séparés par un point-virgule. '
             texte += ajouteChampTexteMathLive(this, index, 'largeur6 inline')
           }
           nbChamps = 1
