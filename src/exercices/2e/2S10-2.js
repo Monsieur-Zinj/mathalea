@@ -201,7 +201,7 @@ export default function Proportions () {
           sous = p.mul(totale)
           sous2 = sous.mul(-1).plus(totale)
           // espèce = choice(['pic noir', 'pipit farlouse', 'bruant des roseaux']) au singulier, inutile à priori
-          espèces = choice(['pics noir', 'pipits farlouse', 'bruants des roseaux'])
+          espèces = choice(['pics noirs', 'pipits farlouse', 'bruants des roseaux'])
           switch (listeTypeDeQuestions[i]) {
             case 'sous-population':
               texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${taux}~\\%$ de ${espèces}.<br>Quel est le nombre de ${espèces} ?`
