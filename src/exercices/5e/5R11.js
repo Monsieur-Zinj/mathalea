@@ -120,11 +120,12 @@ export default function LireAbscisseRelative () {
       } else {
         this.autoCorrection[i] = {
           enonce: '',
+          options: { barreseparation: false },
           propositions: [
             {
               type: 'AMCNum',
               propositions: [{
-                texte: texteCorr,
+                texte: '',
                 statut: '',
                 reponse: {
                   texte: texte + `<br>Abscisse de ${l1}`,
@@ -143,6 +144,7 @@ export default function LireAbscisseRelative () {
               propositions: [{
                 texte: '',
                 statut: '',
+                multicolsBegin: true,
                 reponse: {
                   texte: `Abscisse de ${l2}`,
                   valeur: abs2,
@@ -160,6 +162,7 @@ export default function LireAbscisseRelative () {
               propositions: [{
                 texte: '',
                 statut: '',
+                multicolsEnd: true,
                 reponse: {
                   texte: `Abscisse de ${l3}`,
                   valeur: abs3,
