@@ -563,7 +563,7 @@ export default function SujetCAN2023Quatrieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
-            texte += '<br>Écrire les deux nombres  séparés par un point virgule.'
+            texte += '<br>Écrire les deux nombres  séparés par un point-virgule.'
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
           }
           nbChamps = 1

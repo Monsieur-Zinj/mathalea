@@ -39,7 +39,7 @@ export default function CalculerUnPourcentage () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const listeMoyens = ['en bus', 'en deux-roues', 'à  pieds', 'en voiture']
+    const listeMoyens = ['en bus', 'en deux-roues', 'à  pied', 'en voiture']
     const listeSports = ['le foot', 'la natation', 'le basket', 'le ping-pong', 'le volley', 'la gym']
     const listeHobbies = ['la couture', 'le cinéma', 'la musique', 'le sport', 'la programmation', 'le jardinage', 'la cuisine']
     let p1, p2, p3, moy1, moy2, moy3

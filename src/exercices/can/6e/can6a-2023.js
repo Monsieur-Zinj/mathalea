@@ -306,7 +306,7 @@ export default function SujetCAN2023Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
-            texte += '<br>Écrire les deux nombres dans l\'ordre croissant séparés par un point virgule.'
+            texte += '<br>Écrire les deux nombres dans l\'ordre croissant séparés par un point-virgule.'
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline')
           }
 

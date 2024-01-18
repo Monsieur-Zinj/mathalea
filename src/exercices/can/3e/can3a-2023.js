@@ -1242,7 +1242,7 @@ export default function SujetCAN2023troisieme () {
        $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${Math.floor(Math.sqrt(a)) + 1}$.`
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
-            texte += 'Écrire les entiers dans l’ordre croissant, séparés par un point virgule'
+            texte += 'Écrire les entiers dans l’ordre croissant, séparés par un point-virgule'
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
           this.listeCanEnonces.push('Complète avec deux entiers consécutifs.')
