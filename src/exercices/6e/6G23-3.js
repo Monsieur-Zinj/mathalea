@@ -1,12 +1,17 @@
 import { droite } from '../../lib/2d/droites.js'
 import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points.js'
-import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
+import { longueur, segment, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
+import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, contraindreValeur } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
+import { labelPoint } from '../../lib/2d/textes.js'
+import { arrondi } from '../../lib/outils/nombres.js'
 import Alea2iep from '../../modules/Alea2iep.js'
+import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { context } from '../../modules/context.js'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '04/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -29,41 +34,37 @@ export default function TracerTriangle2Angles () {
   this.nbColsCorr = 1
   this.typeExercice = 'IEP'
   this.sup = false
-  this.sup3 = 3 // Type de questions
+  this.sup2 = false
+  this.sup3 = '3' // Type de questions
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let listeDeNomsDePolygones
-    if (!this.sup3) { // Si aucune liste n'est saisie
-      this.sup3 = 3
-    }
-    if (typeof (this.sup3) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-      this.sup3 = contraindreValeur(1, 3, this.sup3, 3)
-    } else {
-      this.sup3 = contraindreValeur(1, 3, parseInt(this.sup3), 3)
-    }
 
-    for (
-      let i = 0, texte, texteCorr, cpt = 0;
-      i < this.nbQuestions && cpt < 50;
+    const listeTypesDeQuestions = gestionnaireFormulaireTexte({
+      min: 1,
+      max: 2,
+      defaut: 1,
+      melange: 3,
+      nbQuestions: this.nbQuestions,
+      saisie: this.sup3
+    })
 
-    ) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
 
-      const c = calculANePlusJamaisUtiliser(randint(40, 70) / 10)
-      const b = calculANePlusJamaisUtiliser(randint(40, 80) / 10)
+      const c = (randint(40, 70) / 10)
+      const b = (randint(40, 80) / 10)
       let ang1
-      if (this.sup3 === 3) {
-        ang1 = randint(20, 140)
-      } else if (this.sup3 === 1) {
+      if (listeTypesDeQuestions[i] === 1) {
         ang1 = randint(20, 80)
       } else {
         ang1 = randint(90, 140)
       }
-      const a = calculANePlusJamaisUtiliser(Math.sqrt(c * c + b * b - 2 * c * b * Math.cos(ang1 * Math.PI / 180.0)))
-      const ang2 = calculANePlusJamaisUtiliser(180 * Math.acos((b * b - a * a - c * c) / (-2 * a * c)) / Math.PI, 0)
+      const a = (Math.sqrt(c * c + b * b - 2 * c * b * Math.cos(ang1 * Math.PI / 180.0)))
+      const ang2 = arrondi(180 * Math.acos((b * b - a * a - c * c) / (-2 * a * c)) / Math.PI, 0)
       let angle1, angle2
       if (randint(0, 1) === 0) {
         angle1 = ang1
@@ -79,49 +80,60 @@ export default function TracerTriangle2Angles () {
         }}=${angle1}\\degree$ et $\\widehat{${p[0] + p[1] + p[2]
         }}=${angle2}\\degree$.`
       texte += `<br> Mesurer $${p[0] + p[2]}$,  $${p[1] + p[2]}$ et $\\widehat{${p[0] + p[2] + p[1]}}$`
-      // const A0 = point(0, 0, p[0], 'left')
+
+      // on construit le segment
+      const A0 = point(0, 0, p[0], 'left')
       const B0 = point(c, 0, p[1], 'right')
+      const s0 = segmentAvecExtremites(A0, B0)
+      const t0 = afficheLongueurSegment(B0, A0)
 
-      // const s0 = segmentAvecExtremites(A0, B0)
-      // const t1 = afficheLongueurSegment(B0, A0)
-
+      // on construit l'angle à gauche
       const A1 = point(B0.x + 4, 0, p[0], 'left')
       const B1 = point(A1.x + c, 0, p[1], 'right')
       const s1 = segment(A1, B1)
       s1.styleExtremites = '-|'
-      // const c1 = rotation(B1, A1, angle1)
-      // const C1 = pointSurSegment(c1, A1, -3)
-      // const s2 = segment(A1, C1)
-      // const t2 = afficheMesureAngle(B1, A1, C1)
+      const c1 = rotation(B1, A1, angle1)
+      const C1 = pointSurSegment(c1, A1, -3)
+      const s1g = segment(A1, C1)
+      const t1g = afficheMesureAngle(B1, A1, C1)
 
+      // on construit l'angle à droite
       const A2 = point(B1.x + 4, 0, p[0], 'left')
       const B2 = point(A2.x + c, 0, p[1], 'right')
-      // const s3 = segment(A2, B2)
-      const c2 = rotation(B2, A2, angle1)
-      const C2 = pointSurSegment(c2, A2, -3)
-      // const s4 = segment(A2, C2)
-      const c3 = rotation(A2, B2, -angle2)
-      const C3 = pointSurSegment(c3, B2, -3)
-      // const t3 = afficheMesureAngle(A2, B2, C3)
-      // const s5 = segment(B2, C3)
-      const d1 = droite(A2, C2)
+      const s2 = segment(A2, B2)
+      const c2g = rotation(B2, A2, angle1)
+      const C2g = pointSurSegment(c2g, A2, -3)
+      const s2g = segment(A2, C2g)
+      const c2d = rotation(A2, B2, -angle2)
+      const C2d = pointSurSegment(c2d, B2, -3)
+      const t2d = afficheMesureAngle(A2, B2, C2d)
+      const s2d = segment(B2, C2d)
+
+      // on construit le triangle
+      const A3 = point(B2.x + 4, 0, p[0], 'left')
+      const B3 = point(A3.x + c, 0, p[1], 'right')
+
+      const s3 = segment(A3, B3)
+      const c3g = rotation(B3, A3, angle1)
+      const C3g = pointSurSegment(c3g, A3, -3)
+      const c3d = rotation(A3, B3, -angle2)
+      const C3d = pointSurSegment(c3d, B3, -3)
+      const t3g = afficheMesureAngle(B3, A3, C3g)
+      const t3d = afficheMesureAngle(A3, B3, C3d)
+      const d1 = droite(A3, C3g)
       d1.isVisible = false
-      const d2 = droite(B2, C3)
+      const d2 = droite(B3, C3d)
       d2.isVisible = false
       const C = pointIntersectionDD(d1, d2, p[2])
-      // const l = labelPoint(A0, B0, A1, B1, A2, B2, C)
+      const l = labelPoint(A0, B0, A1, B1, A2, B2, C, A3, B3, C)
 
-      // if (context.isHtml) {
-      //   texteCorr = mathalea2d(
-      //     { xmin: -1, xmax: 3 * c + 10, ymin: -1, ymax: 10 }, s0, s1, s2, s3, s4, s5, t1, t2, t3, l)
-      //   texteCorr += '<br><br>'
-      // } else {
-      //   texteCorr = ''
-      // }
-      if (this.sup) {
-        texteCorr = ''
-      } else {
-        texteCorr = `$${p[0] + p[2]}\\approx${texNombre(longueur(A2, C, 1))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B2, C, 1))}$ cm`
+      texteCorr = ''
+      if (this.sup2) {
+        texteCorr += mathalea2d({ xmin: -1, xmax: 4 * c + 14, ymin: -1, ymax: 10 }, s0, s1, s1g, s2, s2g, s2d, s3, segment(A3, C), segment(B3, C), t0, t1g, t2d, t3g, t3d, l)
+        texteCorr += '<br><br>'
+      }
+      if (!this.sup) {
+        texteCorr += `$${p[0] + p[2]}\\approx${texNombre(longueur(A2, C, 2))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B2, C, 2))}$ cm`
         texteCorr += ` et $\\widehat{${p[1] + p[2] + p[0]
           }}=${180 - angle1 - angle2}\\degree$ `
       }
@@ -129,17 +141,17 @@ export default function TracerTriangle2Angles () {
       anim.triangle1longueur2angles(p, c, angle1, angle2, true, true) // description et longueur
       texteCorr += anim.htmlBouton(this.numeroExercice, i)
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, angle1, angle2)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
       }
-      cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireCaseACocher = ["Longueurs données qu'à la fin de l'animation"]
+  this.besoinFormulaireCaseACocher = ['Longueurs données qu\'à la fin de l\'animation']
+  this.besoinFormulaire2CaseACocher = ['Différentes figures de la construction']
   this.besoinFormulaire3Texte = [
     'Type de questions', [
       'Nombres séparés par des tirets',
