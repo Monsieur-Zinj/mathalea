@@ -45,11 +45,11 @@ export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
       if (s === 1) {
         texte += '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + '$'
         texteCorr = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' = ' + a + ecritureAlgebrique(s * b) + ' = ' + miseEnEvidence(a + b) + ' $'
-        setReponse(this, i, a + b)
+        setReponse(this, i, a + b, { digits: 2, signe: true })
       } else {
         texte += '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + '$'
         texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + a + ecritureAlgebrique(s * b) + ' = ' + miseEnEvidence(a - b) + ' $'
-        setReponse(this, i, a - b)
+        setReponse(this, i, a - b, { digits: 2, signe: true })
       }
       texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: `$${sp()}=$` })
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

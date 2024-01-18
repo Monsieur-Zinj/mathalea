@@ -19,7 +19,6 @@ export const titre = 'Trouver le terme manquant d\'une somme de nombres relatifs
  * Additions à trou dans les relatifs
  *
  *  @author Jean-Claude Lhote à partir de CM000 de Rémi Angot
- * Référence 5R10
  */
 export const uuid = '61b4a'
 export const ref = '5R10'
@@ -93,10 +92,10 @@ export default function TermeInconnuDeSomme () {
       }
       texteCorr += `. En effet : $${texNombre(b)}-${texNombre(a)}=${texNombre(b - a)}$`
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, b - a, {
+        setReponse(this, i, arrondi(b - a, 2), {
           signe: true,
           digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(b - a)),
           decimals: 0
