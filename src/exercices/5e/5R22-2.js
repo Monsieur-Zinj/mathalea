@@ -11,7 +11,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
+export const dateDeModifImportante = '18/01/2024'
 export const titre = 'Écrire sous la forme d\'une expression algébrique sans parenthèses puis calculer'
 
 /**
@@ -26,6 +26,7 @@ export const ref = '5R22-2'
 export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max
+  this.sup2 = 3
   this.consigne = 'Écrire sous la forme d\'une expression algébrique sans parenthèses puis calculer.'
   this.nbCols = 3
   this.nbColsCorr = 2
@@ -40,7 +41,17 @@ export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
     for (let i = 0, a, b, s, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(1, this.sup) * liste[i][0]
       b = randint(1, this.sup) * liste[i][1]
-      s = liste[i][2] // + ou -
+      switch (this.sup2) {
+        case 1 :
+          s = 1 // +
+          break
+        case 2 :
+          s = -1 // -
+          break
+        default :
+          s = liste[i][2] // + ou -
+          break
+      }
       texte = context.isAmc ? 'Calculer : ' : ''
       if (s === 1) {
         texte += '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + '$'
@@ -62,4 +73,5 @@ export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
+  this.besoinFormulaire2Numerique = ['Type de calculs', 3, '1 : Que des additions\n2 : Que des soustractions\n3 : Mélange']
 }
