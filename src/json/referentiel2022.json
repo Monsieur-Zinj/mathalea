@@ -14736,6 +14736,7 @@
         "uuid": "070b4",
         "id": "5R22-2",
         "titre": "Écrire sous la forme d'une expression algébrique sans parenthèses puis calculer",
+        "dateModification": "18/01/2024",
         "features": {
           "interactif": {
             "isActive": true,
@@ -18648,9 +18649,9 @@
         "typeExercice": "alea"
       },
       "3L11": {
-        "url": "3e/3L11.js",
+        "url": "3e/3L11new.js",
         "tags": [],
-        "uuid": "77a62",
+        "uuid": "db2e0",
         "id": "3L11",
         "titre": "Utiliser la simple distributivité",
         "features": {
@@ -21412,16 +21413,16 @@
         },
         "typeExercice": "alea"
       },
-      "2N41-7": {
-        "url": "2e/2N41-7.js",
+      "2N41-7a": {
+        "url": "2e/2N41-7a.js",
         "tags": [],
-        "uuid": "874e8",
-        "id": "2N41-7",
-        "titre": "Factoriser avec les identités remarquables (niveau II)",
+        "uuid": "0bd00",
+        "id": "2N41-7a",
+        "titre": "Factoriser avec les identités remarquables",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
@@ -21430,12 +21431,12 @@
         },
         "typeExercice": "alea"
       },
-      "2N41-7v2": {
-        "url": "2e/2N41-7v2.js",
+      "2N41-7b": {
+        "url": "2e/2N41-7b.js",
         "tags": [],
-        "uuid": "0bd00",
-        "id": "2N41-7v2",
-        "titre": "Factoriser avec les identités remarquables",
+        "uuid": "874e8",
+        "id": "2N41-7b",
+        "titre": "Factoriser avec les identités remarquables (niveau II)",
         "features": {
           "interactif": {
             "isActive": true,
