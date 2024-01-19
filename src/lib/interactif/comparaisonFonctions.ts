@@ -99,7 +99,7 @@ export function numberCompare (input: string, goodAnswer: string): { isOk: boole
   const clean = generateCleaner(['espaces', 'virgules', 'parentheses'])
   const inputParsed = engine.parse(clean(input))
   if (input.includes('frac') && inputParsed.isInteger) {
-    return { isOk: inputParsed.isEqual(engine.parse(clean(goodAnswer))), feedback: `La fraction $${input}$ aurait pu être simplifiée en $${inputParsed.latex}$` }
+    return { isOk: inputParsed.isEqual(engine.parse(clean(goodAnswer))), feedback: `La fraction $${input}$ aurait pu être simplifiée en $${inputParsed.latex}$<br>` }
   } else {
     return { isOk: inputParsed.isEqual(engine.parse(clean(goodAnswer))) }
   }

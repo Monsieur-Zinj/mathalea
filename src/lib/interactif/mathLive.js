@@ -48,11 +48,9 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         throw Error('verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom' + JSON.stringify({ selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` }))
       }
       const cellules = Object.entries(reponses).filter(([key]) => key.match(/L\dC\d/) != null)
-      let feedback = ''
       for (let k = 0; k < cellules.length; k++) {
         const [key, reponse] = cellules[k]
         const compareFunction = reponse.compare ?? calculCompare
-
         const inputs = Array.from(table.querySelectorAll('math-field'))
         const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`)
         const spanFedback = table.querySelector(`span#feedbackEx${exercice.numeroExercice}Q${i}${key}`)
@@ -69,11 +67,10 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         if (input.value.length > 0 && typeof exercice.answers === 'object') {
           exercice.answers[`Ex${exercice.numeroExercice}Q${i}${key}`] = input.value
         }
-        feedback += result.feedback != null ? result.feedback : ''
       }
 
       const [nbBonnesReponses, nbReponses] = bareme(points)
-      return { isOk: resultat, feedback, score: { nbBonnesReponses, nbReponses } }
+      return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }
     }
     if (formatInteractif === 'fillInTheBlank') {
       // Le format fillInTheBlank requiert une "reponse" avec le format objet.
@@ -90,13 +87,15 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       let nbBonnesReponses, nbReponses
       const points = []
       const saisies = {}
+      let feedback = ''
       for (let k = 0; k < variables.length; k++) {
         const [key, reponse] = variables[k]
         if (key === 'feedback' || key === 'bareme') continue
         const saisie = mfe.getPromptValue(key)
         const compareFunction = reponse.compare ?? calculCompare
         // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
-        if (compareFunction(saisie, reponse.value).isOk) {
+        const result = compareFunction(saisie, reponse.value)
+        if (result.isOk) {
           points.push(1)
           mfe.setPromptState(key, 'correct', true)
         } else {
@@ -104,6 +103,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           resultat = 'KO'
           mfe.setPromptState(key, 'incorrect', true)
         }
+        if (result.feedback != null) feedback += result.feedback
       }
       if (typeof reponses.feedback === 'function') {
         const feedback = reponses.feedback(saisies)
@@ -126,7 +126,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         spanReponseLigne.innerHTML = nbBonnesReponses === nbReponses ? '😎' : '☹️'
       }
       // le feedback est déjà assuré par la fonction feedback(), donc on le met à ''
-      return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }
+      return { isOk: resultat, feedback, score: { nbBonnesReponses, nbReponses } }
     }
     // ici, il n'y a qu'un seul input une seule saisie (même si la réponse peut contenir des variantes qui seront toutes comparées à la saisie
     champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
