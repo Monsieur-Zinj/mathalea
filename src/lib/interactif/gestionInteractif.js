@@ -637,7 +637,7 @@ export function setReponse (exercice, i, valeurs, {
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format unites, c\'est incohérent !')
       return handleAnswers(exercice, i, {
         reponse: {
-          value: { grandeur: reponses[0], precision },
+          value: { grandeur: reponses[0], precision: 10 ** precision * 10 ** (reponses[0].puissanceUnite * reponses[0].puissancePrefixe) },
           compare: unitesCompare
         }
       }, params)
