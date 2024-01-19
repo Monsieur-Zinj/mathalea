@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { numberCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'
@@ -31,7 +32,7 @@ export default class nomExercice extends Exercice {
     this.autoCorrection = []
 
     type TypeQuestionsDisponibles = 'dixieme'|'centieme'|'millieme'
-    const typeQuestionsDisponibles = ['dixieme', 'centieme', 'millieme'] as const
+    const typeQuestionsDisponibles = ['dixieme', 'centieme', 'millieme']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -75,8 +76,8 @@ export default class nomExercice extends Exercice {
             return ('L\'inégalité est vraie mais les deux nombres ne sont pas des entiers consécutifs.')
           }
         },
-        champ1: { value: String(a), compare: compareNumbers },
-        champ2: { value: String(b), compare: compareNumbers }
+        champ1: { value: String(a), compare: numberCompare },
+        champ2: { value: String(b), compare: numberCompare }
       }, { formatInteractif: 'fillInTheBlank' })
       if (this.questionJamaisPosee(i, num, den)) {
         this.listeQuestions.push(texte)
@@ -90,4 +91,4 @@ export default class nomExercice extends Exercice {
 }
 
 // Utiliser compareNumbers permet de disqualifier une bonne réponse donnée en écriture fractionnaire
-const compareNumbers = (n1: string, n2: string) => Number(n1) === Number(n2)
+const compareNumbers = (n1: string, n2: string) => Object.assign({}, { isOk: Boolean(Number(n1) === Number(n2)) })
