@@ -89,6 +89,3 @@ export default class nomExercice extends Exercice {
     listeQuestionsToContenu(this)
   }
 }
-
-// Utiliser compareNumbers permet de disqualifier une bonne réponse donnée en écriture fractionnaire
-const compareNumbers = (n1: string, n2: string) => Object.assign({}, { isOk: Boolean(Number(n1) === Number(n2)) })

@@ -97,7 +97,12 @@ function inputToGrandeur (input: string): Grandeur | false {
  */
 export function numberCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
   const clean = generateCleaner(['espaces', 'virgules', 'parentheses'])
-  return { isOk: engine.parse(clean(input)).isEqual(engine.parse(clean(goodAnswer))) }
+  const inputParsed = engine.parse(clean(input))
+  if (input.includes('frac') && inputParsed.isInteger) {
+    return { isOk: inputParsed.isEqual(engine.parse(clean(goodAnswer))), feedback: `La fraction $${input}$ aurait pu être simplifiée en $${inputParsed.latex}$` }
+  } else {
+    return { isOk: inputParsed.isEqual(engine.parse(clean(goodAnswer))) }
+  }
 }
 
 /**

@@ -34,7 +34,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const bareme = reponses.bareme ?? toutPourUnPoint
   const callback = reponses.callback
   try {
-    const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme' && key != 'feedback')
+    const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme' && key !== 'feedback')
     if (callback != null && typeof callback === 'function') { // Là c'est une correction custom ! Celui qui passe une callback doit savoir ce qu'il fait !
       return callback(variables, reponses.bareme)
     }
@@ -48,6 +48,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         throw Error('verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom' + JSON.stringify({ selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` }))
       }
       const cellules = Object.entries(reponses).filter(([key]) => key.match(/L\dC\d/) != null)
+      let feedback = ''
       for (let k = 0; k < cellules.length; k++) {
         const [key, reponse] = cellules[k]
         const compareFunction = reponse.compare ?? calculCompare
@@ -56,7 +57,8 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`)
         const spanFedback = table.querySelector(`span#feedbackEx${exercice.numeroExercice}Q${i}${key}`)
         // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
-        if (compareFunction(input.value, reponse.value).isOk) {
+        const result = compareFunction(input.value, reponse.value)
+        if (result.isOk) {
           points.push(1)
           spanFedback.innerHTML = '😎'
         } else {
@@ -67,10 +69,11 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         if (input.value.length > 0 && typeof exercice.answers === 'object') {
           exercice.answers[`Ex${exercice.numeroExercice}Q${i}${key}`] = input.value
         }
+        feedback += result.feedback != null ? result.feedback : ''
       }
 
       const [nbBonnesReponses, nbReponses] = bareme(points)
-      return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }
+      return { isOk: resultat, feedback, score: { nbBonnesReponses, nbReponses } }
     }
     if (formatInteractif === 'fillInTheBlank') {
       // Le format fillInTheBlank requiert une "reponse" avec le format objet.
