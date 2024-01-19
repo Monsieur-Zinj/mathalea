@@ -1,7 +1,7 @@
 import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
 
-async function test6N20 (page: Page) {
+async function test6N203 (page: Page) {
   const urlExercice = 'http://localhost:5173/alea/?uuid=3bdcd&id=6N20-3&alea=vBuv&i=1'
   const questions = await getQuestions(page, urlExercice)
 
@@ -56,5 +56,5 @@ async function test5R211 (page: Page) {
   return true
 }
 
-runTest(test6N20, import.meta.url)
+runTest(test6N203, import.meta.url)
 runTest(test5R211, import.meta.url)
