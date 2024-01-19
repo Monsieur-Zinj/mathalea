@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-export const titre = 'Résoudre des équations carrées de type $~x^² = a$'
+export const titre = 'Résoudre des équations carrées de type $x^2=a$'
 
 /**
  * Résoudre des équations de type x² = a

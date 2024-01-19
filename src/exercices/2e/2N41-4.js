@@ -9,7 +9,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Développer (a+b)²'
+export const titre = 'Développer $(a+b)^2$'
 
 /**
  * Développer (ax+b)²
