@@ -7,7 +7,7 @@ import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
   calculCompare, canonicalAddCompare,
-  decimalCompare,
+  decimalCompare, developpementCompare,
   formeDeveloppeeCompare,
   formeDeveloppeeParEECompare,
   fractionCompare,

@@ -14,7 +14,6 @@ export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-const ce = new ComputeEngine()
 /**
 * Développer des expressions de double distributivité à l'aide d'un tableau de multiplication
 * @author Sébastien LOZANO

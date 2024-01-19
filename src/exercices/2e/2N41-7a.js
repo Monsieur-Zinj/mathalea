@@ -22,7 +22,6 @@ export const uuid = '0bd00'
 export const ref = '2N41-7a'
 // fonction de comparaison de deux expressions factorisées
 // @todo à déplacer dans comparaisonFonctions.ts lors de la fusion de handleAnswer
-const engine = new ComputeEngine()
 
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
