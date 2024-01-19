@@ -633,6 +633,7 @@ export function setReponse (exercice, i, valeurs, {
         }
       }, params)
     case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
+      if (precision == null) precision = 0 // Des exercices utilisent le format 'unites' mais ne définissent pas la précision
       if (!(reponses[0] instanceof Grandeur)) window.notify('setReponse : type "longueur" la réponse n\'est pas une instance de Grandeur !', { reponses })
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format unites, c\'est incohérent !')
       return handleAnswers(exercice, i, {
