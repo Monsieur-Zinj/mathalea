@@ -129,11 +129,12 @@ export default function TracerTriangle2Angles () {
 
       texteCorr = ''
       if (this.sup2) {
-        texteCorr += mathalea2d({ xmin: -1, xmax: 4 * c + 14, ymin: -1, ymax: 10 }, s0, s1, s1g, s2, s2g, s2d, s3, segment(A3, C), segment(B3, C), t0, t1g, t2d, t3g, t3d, l)
+        texteCorr += 'Voici les étapes de la construction :'
+        texteCorr += mathalea2d({ xmin: -1, xmax: Math.max(C.x, B3.x) + 1, ymin: -1, ymax: C.y + 1 }, s0, s1, s1g, s2, s2g, s2d, s3, segment(A3, C), segment(B3, C), t0, t1g, t2d, t3g, t3d, l)
         texteCorr += '<br><br>'
       }
       if (!this.sup) {
-        texteCorr += `$${p[0] + p[2]}\\approx${texNombre(longueur(A2, C, 2))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B2, C, 2))}$ cm`
+        texteCorr += `$${p[0] + p[2]}\\approx${texNombre(longueur(A3, C, 2))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B3, C, 2))}$ cm`
         texteCorr += ` et $\\widehat{${p[1] + p[2] + p[0]
           }}=${180 - angle1 - angle2}\\degree$ `
       }
