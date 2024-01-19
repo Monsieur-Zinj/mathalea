@@ -1,12 +1,13 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fraction } from '../../modules/fractions.js'
+import { developpementCompare } from '../../lib/interactif/mathLive.js'
 
 export const titre = 'Développer $(a-b)^2$'
 export const interactifReady = true
@@ -17,6 +18,7 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '5a4ad'
 export const ref = '2N41-5'
+
 export default function DevelopperIdentitesRemarquables4 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -83,13 +85,17 @@ export default function DevelopperIdentitesRemarquables4 () {
       typesDeQuestionsDisponibles = [1, 2, 3, 4]
     } // mélange des questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, texteCorr2, reponse, cpt = 0, a, b, fraction = [], ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, texteCorr2, cpt = 0, a, b, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       a = randint(1, 12)
       b = randint(2, 12)
-      fraction = choice(listeFractions)
-      ns = fraction[0]
-      ds = fraction[1]
+      const uneFraction = choice(listeFractions)
+      const ns = uneFraction[0]
+      const ds = uneFraction[1]
+      const dfrac = fraction(ns, ds).texFraction
+      const dfrac2 = fraction(ns * ns, ds * ds).texFraction
+      const dbleProdFrac = fraction(2 * ns * a, ds).texFraction
+      const dbleProdFracRed = fraction(2 * ns * a, ds).simplifie().texFraction
       texteCorr = ''
       texteCorr2 = ''
       switch (typesDeQuestions) {
@@ -102,7 +108,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr += `$\\left(x+${a} \\right)^2=x^2-${2 * a}x+${a * a}$`
           }
-          reponse = `x^2-${2 * a}x+${a * a}`
+          setReponse(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'fillInTheBlank' })
           break
         case 2:
           texte = `$\\left(${b}x-${a}\\right)^2$` // b>1
@@ -113,7 +119,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr += `$\\left(${b}x+${a}\\right)^2 = ${b * b}x^2-${2 * b * a}x+${a * a}$`
           }
-          reponse = `${b * b}x^2-${2 * b * a}x+${a * a}`
+          setReponse(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'fillInTheBlank' })
           break
         case 3:
           b = -b
@@ -130,21 +136,21 @@ export default function DevelopperIdentitesRemarquables4 () {
             texteCorr = texte + `$= ${b * b}x^2-${2 * (-b) * a}x+${a * a}$`
           }
 
-          reponse = `${b * b}x^2-${2 * (-b) * a}x+${a * a}`
+          setReponse(this, i, { reponse: { value: `${b * b}x^2-${2 * (-b) * a}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'fillInTheBlank' })
           break
         case 4:
-          texte = `$\\left(${deprecatedTexFraction(ns, ds)}x-${a}\\right)^2$`
+          texte = `$\\left(${dfrac}x-${a}\\right)^2$`
           if (this.correctionDetaillee) {
-            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{blue} a = ${deprecatedTexFraction(ns, ds)}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
-            texteCorr += `$\\left(\\color{blue}${deprecatedTexFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{blue}${deprecatedTexFraction(ns, ds)}x\\color{black}\\right)^2 - 2 \\times \\color{blue}${deprecatedTexFraction(ns, ds)}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
-            texteCorr += `$\\phantom{\\left(\\color{blue}${deprecatedTexFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$`
+            texteCorr += `On développe l'expression en utilisant l'identité remarquable $(a-b)^2=a^2-2ab+b^2$, avec $\\color{blue} a = ${dfrac}x\\color{black}$ et $\\color{green} b = ${a} \\color{black} $ : <br> <br>`
+            texteCorr += `$\\left(\\color{blue}${dfrac}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2 = \\left(\\color{blue}${dfrac}x\\color{black}\\right)^2 - 2 \\times \\color{blue}${dfrac}x\\color{black} \\times \\color{green}${a} + ${a}\\color{black}^2 $ <br><br>`
+            texteCorr += `$\\phantom{\\left(\\color{blue}${dfrac}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${dfrac2}x^2-${dbleProdFrac}x+${a * a}$`
             if (pgcd(ns, ds) !== 1 || pgcd(2 * ns * a, ds) !== 1) {
-              texteCorr += `<br><br>$\\phantom{\\left(\\color{blue}${deprecatedTexFraction(ns, ds)}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${texFractionReduite(ns * ns, ds * ds)}x^2-${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
+              texteCorr += `<br><br>$\\phantom{\\left(\\color{blue}${dfrac}x\\color{black}-\\color{green}${a}\\color{black}\\right)^2} = ${dfrac2}x^2-${dbleProdFracRed}x+${a * a}$`
             }
           } else {
-            texteCorr = texte + `$= ${texFractionReduite(ns * ns, ds * ds)}x^2-${texFractionReduite(2 * ns * a, ds)}x+${a * a}$`
+            texteCorr = texte + `$= ${dfrac2}x^2-${dbleProdFracRed}x+${a * a}$`
           }
-          reponse = [`${deprecatedTexFraction(ns * ns, ds * ds)}x^2-${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}$`, `${texFractionReduite(ns * ns, ds * ds)}x^2-${texFractionReduite(2 * ns * a, ds)}x+${a * a}`]
+          setReponse(this, i, { reponse: { value: `${dfrac2}x^2-${dbleProdFrac}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'fillInTheBlank' })
           break
       }
 
@@ -161,8 +167,7 @@ export default function DevelopperIdentitesRemarquables4 () {
       // Fin de cette uniformisation
 
       texteCorr += texteCorr2
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: ' $=$ ' })
-      setReponse(this, i, reponse)
+      if (this.interactif) texte += remplisLesBlancs(this, i, '=%{reponse}', 'inline', '\\ldots\\ldots')
       if (this.questionJamaisPosee(i, a, b, ns, ds, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

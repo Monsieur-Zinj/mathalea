@@ -16,7 +16,27 @@ const engine = new ComputeEngine()
 export const calculCompare = (a, b) => engine.parse(a).isSame(engine.parse(b))
 export const numberCompare = (a, b) => engine.parse(a).isEqual(engine.parse(b))
 export const fractionCompare = (a, b) => engine.parse(a).isSame(engine.parse(b))
-
+export const factorisationCompare = (a, b) => {
+  const aCleaned = a.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+  const bCleaned = b.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+  const saisieParsed = engine.parse(aCleaned, { canonical: true })
+  const reponseParsed = engine.parse(bCleaned, { canonical: true })
+  const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
+  const reponseDev = engine.box(['ExpandAll', reponseParsed]).evaluate().simplify().canonical
+  return saisieDev.isEqual(reponseDev) && ['Multiply', 'Square', 'Power'].includes(saisieParsed.head)
+}
+export const developpementCompare = function (a, b) {
+  const aCleaned = a.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+  const bCleaned = b.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+  const saisieParsed = engine.parse(aCleaned, { canonicalOrder: true, invisibleOperator: true })
+  const reponseParsed = engine.parse(bCleaned, { canonicalOrder: true, invisibleOperator: true })
+  const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
+  console.log(`Commence par une addition ou une soustraction : ${['Add', 'Subtract'].includes(saisieParsed.head) ? 'oui' : 'non'}`)
+  console.log(`Si je développe j'obtiens pareil qu'en simplifiant: ${saisieDev.isSame(saisieParsed.simplify().canonical) ? 'oui' : 'non'}`)
+  console.log(`La saisie est égale à la réponse une fois mises dans l'ordre canonique avec invisibleOperator : ${saisieParsed.isEqual(reponseParsed) ? 'oui' : 'non'}`)
+  console.log(`La réponse attendue : ${reponseParsed.latex} et la saisie : ${saisieParsed.latex}`)
+  return ['Add', 'Subtract'].includes(saisieParsed.head) && saisieDev.isSame(saisieParsed.simplify().canonical) && saisieParsed.isEqual(reponseParsed)
+}
 /**
  * Fonction qui nettoie la saisie de ce qu'il ne devrait pas y avoir.
  * @param {string} saisie normalement une string, mais pour parer aux undefined on cast en string à l'entrée.
