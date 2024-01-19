@@ -5,13 +5,15 @@ import { egal, randint, printlatex, listeQuestionsToContenuSansNumero } from '..
 import { context } from '../../modules/context.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { calculCompare, canonicalAddCompare, developpementCompare } from '../../lib/interactif/comparaisonFonctions'
+import { toutPourUnPoint } from '../../lib/interactif/mathLive.js'
 export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'
 export const interactifReady = true
-export const interactifType = 'custom'
+export const interactifType = 'mathLive'
 const ce = new ComputeEngine()
 /**
 * Développer des expressions de double distributivité à l'aide d'un tableau de multiplication
@@ -55,7 +57,10 @@ export default function TableDoubleDistributivite () {
       c = randint(2, 9, [a])
       d = randint(2, 9, [b])
       let L1C1, L1C2, L2C1, L2C2
-      this.autoCorrection[i] = {}
+      this.autoCorrection[3 * i] = {}
+      this.autoCorrection[3 * i + 1] = {}
+      this.autoCorrection[3 * i + 2] = {}
+
       switch (typesDeQuestions) {
         case 1: // (x+b)(x+d)
           b = randint(2, 10)
@@ -170,9 +175,9 @@ export default function TableDoubleDistributivite () {
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '
       texteCorr += `Développement réduit : $${lettreDepuisChiffre(i + 1)} = ${developpements.reduit}$`
       // texteCorr += context.isHtml ? '<br>' : '\\par\\bigskip'
-      this.autoCorrection[3 * i] = { L1C1, L1C2, L2C1, L2C2 }
-      setReponse(this, 3 * i + 1, developpements.eclate)
-      setReponse(this, 3 * i + 2, developpements.reduit)
+      setReponse(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: calculCompare }, L1C2: { value: L1C2, compare: calculCompare }, L2C1: { value: L2C1, compare: calculCompare }, L2C2: { value: L2C2, compare: calculCompare } }, { formatInteractif: 'tableauMathlive' })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: developpementCompare } })
+      handleAnswers(this, 3 * i + 2, { reponse: { value: developpements.reduit, compare: canonicalAddCompare } })
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
@@ -185,77 +190,4 @@ export default function TableDoubleDistributivite () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
-
-  this.correctionInteractive = (i) => {
-    const tableId = `tabMathliveEx${this.numeroExercice}Q${3 * i}`
-    const tableau = document.querySelector(`table#${tableId}`)
-    if (tableau == null) throw Error('La correction de 3L11-10 n\'a pas trouvé le tableau interactif.')
-    const result = []
-    let points = 0
-    for (const k of [1, 2]) {
-      for (const j of [1, 2]) {
-        const answer = tableau.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${3 * i}L${j}C${k}`)
-        if (answer == null) throw Error(`Il n'y a pas de math-field d'id "champTexteEx${this.numeroExercice}Q${3 * i}L${j}C${k}" dans ce tableau !`)
-        const spanFeedback = tableau.querySelector(`span#feedbackEx${this.numeroExercice}Q${3 * i}L${j}C${k}`)
-        if (answer.value != null) this.answers[`Ex${this.numeroExercice}Q${3 * i}L${j}C${k}`] = answer.value
-        if (spanFeedback) {
-          if (ce.parse(answer.value).simplify().isSame(ce.parse(this.autoCorrection[3 * i][`L${j}C${k}`]))) {
-            spanFeedback.innerHTML = spanFeedback.innerHTML += '😎'
-            answer.classList.add('correct')
-            points++
-          //  result.push('OK')
-          } else {
-            spanFeedback.innerHTML += '☹️'
-            answer.classList.add('incorrect')
-            //    result.push('KO')
-          }
-        }
-      }
-    }
-    // un point seulement si tout est juste
-    if (points === 4) {
-      result.push('OK')
-    } else {
-      result.push('KO')
-    }
-    const developpementEclate = this.autoCorrection[3 * i + 1].reponse.valeur[0]
-    const developpementReduit = this.autoCorrection[3 * i + 2].reponse.valeur[0]
-    const mfDevEclate = document.getElementById(`champTexteEx${this.numeroExercice}Q${3 * i + 1}`)
-    const mfDevReduit = document.getElementById(`champTexteEx${this.numeroExercice}Q${3 * i + 2}`)
-    if (!mfDevEclate || !mfDevReduit) throw Error('3L11-10 : il manque un mathfield pour la correction de l\'exo')
-    const spanReponseLigne1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${3 * i + 1}`)
-    this.answers[`Ex${this.numeroExercice}Q${2 * i}`] = mfDevEclate.value
-    this.answers[`Ex${this.numeroExercice}Q${2 * i + 1}`] = mfDevReduit.value
-    if (mfDevEclate.value !== '') {
-      if (ce.parse(developpementEclate).simplify().isSame(ce.parse(mfDevEclate.value).simplify())) {
-        if (spanReponseLigne1) {
-          spanReponseLigne1.innerHTML = spanReponseLigne1.innerHTML += '😎'
-          result.push('OK')
-        }
-      } else {
-        spanReponseLigne1.innerHTML += '☹️'
-        result.push('KO')
-      }
-    } else {
-      spanReponseLigne1.innerHTML += '☹️'
-      result.push('KO')
-    }
-
-    const spanReponseLigne2 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${3 * i + 2}`)
-    if (mfDevReduit.value !== '') {
-      if (ce.parse(developpementReduit, { canonical: true }).isSame(mfDevReduit.expression.canonical)) {
-        if (spanReponseLigne1) {
-          spanReponseLigne2.innerHTML = spanReponseLigne2.innerHTML += '😎'
-          result.push('OK')
-        }
-      } else {
-        spanReponseLigne2.innerHTML += '☹️'
-        result.push('KO')
-      }
-    } else {
-      spanReponseLigne2.innerHTML += '☹️'
-      result.push('KO')
-    }
-    return result
-  }
 }

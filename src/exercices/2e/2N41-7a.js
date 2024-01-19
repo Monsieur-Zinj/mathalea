@@ -7,7 +7,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { rienSi1 } from '../../lib/outils/ecritures.js'
-import { factorisationCompare } from '../../lib/interactif/mathLive.js'
+import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Factoriser avec les identités remarquables'
 export const interactifReady = true

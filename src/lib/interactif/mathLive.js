@@ -1,5 +1,5 @@
 import { texteExposant } from '../outils/ecritures.js'
-import { calculCompare, cleanStringBeforeParse } from './comparaisonFonctions'
+import { calculCompare } from './comparaisonFonctions'
 
 export function toutPourUnPoint (listePoints) {
   return [Math.min(...listePoints), 1]
@@ -47,7 +47,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       if (table == null) {
         throw Error('verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom' + JSON.stringify({ selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` }))
       }
-      const cellules = Object.entries(reponses)
+      const cellules = Object.entries(reponses).filter(([key]) => key.match(/L\dC\d/) != null)
       for (let k = 0; k < cellules.length; k++) {
         const [key, reponse] = cellules[k]
         const compareFunction = reponse.compare ?? calculCompare
@@ -55,7 +55,8 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         const inputs = Array.from(table.querySelectorAll('math-field'))
         const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`)
         const spanFedback = table.querySelector(`span#feedbackEx${exercice.numeroExercice}Q${i}${key}`)
-        if (compareFunction(cleanStringBeforeParse(input.value), cleanStringBeforeParse(reponse.value))) {
+        // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
+        if (compareFunction(input.value, reponse.value).isOk) {
           points.push(1)
           spanFedback.innerHTML = '😎'
         } else {
@@ -74,12 +75,10 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
     if (formatInteractif === 'fillInTheBlank') {
       // Le format fillInTheBlank requiert une "reponse" avec le format objet.
       // cet objet contient des propriétés (autant que de blancs, et ont le même nom que les blancs créés avec la fonction remplisLesBlanc())
-      // chaque propriété a une valeur : c'est la valeur attendue.
-      // Pour l'instant, cette valeur est comparée sous sa forme canonique à la forme canonique de la saisie élève avec isEqual() donc garantissant un true pour des valeurs numériques égales
-      // Il faudra réfléchir à une façon de choisir la fonction de comparaison...
-      // La reponse peut contenir aussi une propriété callback facultative.
-      // c'est une fonction qui sera utilisée à la place de la procédure normale de traitement
-      // en fait c'est la fonction de correctionInteractive qui se trouvait avant dans l'exo et qui permet, par exemple, de pondérer les points.
+      // chaque propriété a une valeur : de la forme {value: string, compare: ComparaisonFonction} c'est la valeur attendue et sa méthode de comparaison facultatitve
+      // La reponse pourrait contenir aussi une propriété callback facultative (non implémenté pour l'instant car pas de besoin)
+      // c'est une fonction qui serait utilisée à la place de la procédure normale de traitement ci-dessous
+      // en fait ce serait la fonction de correctionInteractive 'custom' qui se trouverait avant dans l'exo et qui permet, par exemple, de réaliser des traitements spéciaux
       const mfe = document.querySelector(`math-field#champTexteEx${exercice.numeroExercice}Q${i}`)
       if (mfe == null) {
         throw Error('verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom : ' + JSON.stringify({ selecteur: `math-field#champTexteEx${exercice.numeroExercice}Q${i}` }))
@@ -92,9 +91,9 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         const [key, reponse] = variables[k]
         if (key === 'feedback' || key === 'bareme') continue
         const saisie = mfe.getPromptValue(key)
-        saisies[key] = cleanStringBeforeParse(saisie)
         const compareFunction = reponse.compare ?? calculCompare
-        if (compareFunction(cleanStringBeforeParse(saisie), cleanStringBeforeParse(reponse.value))) {
+        // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
+        if (compareFunction(saisie, reponse.value).isOk) {
           points.push(1)
           mfe.setPromptState(key, 'correct', true)
         } else {
@@ -204,27 +203,3 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
 }
 
 // # sourceMappingURL=mathLive.js.map
-/*
-case 'canonicalAdd':
-// Inventée pour 3L10, 3L10-1 et 3L11 en attendant handleAnswer
-saisie = champTexte.value.replaceAll(',', '.') // EE : Le All est nécessaire pour l'usage du clavier spécial 6ème
-// La réponse est transformée en chaine compatible avec engine.parse()
-reponse = reponse.toString().replaceAll(',', '.').replaceAll('dfrac', 'frac')
-saisie = saisie.replaceAll('²', '^2')
-saisie = saisie.replaceAll('^{}', '')
-saisie = saisie.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-saisie = saisie.replace(/\\left\((\+?-?\d+)\\right\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-saisie = saisie.replace(/\\lparen(\+?-?\d+)\\rparen/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-saisie = saisie.replace(/\\lparen(\+?\+?\d+)\\rparen/, '$1') // Pour les nombres positifs, supprime les parenthèses
-if (!isNaN(reponse)) {
-  if (saisie !== '' && Number(saisie) === Number(reponse)) {
-    resultat = 'OK'
-  }
-} else if (saisie === '') {
-  resultat = 'KO'
-} else {
-  if (engine.parse(reponse, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] }).isSame(engine.parse(saisie, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] }))) { // engine.parse() retourne du canonical par défaut.
-    resultat = 'OK'
-  }
-}
- */

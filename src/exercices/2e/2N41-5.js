@@ -7,7 +7,7 @@ import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions.js'
-import { developpementCompare } from '../../lib/interactif/mathLive.js'
+import { developpementCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Développer $(a-b)^2$'
 export const interactifReady = true

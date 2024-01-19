@@ -73,7 +73,7 @@ export class Yohaku {
             this.cellules.push(fraction(randint(1, valeurMax), den).texFraction.replace('dfrac', 'frac'))
             break
           case 'fractions positives dénominateurs premiers':
-            this.cellules.push(fraction(randint(1, valeurMax), choice([2, 3, 5, 7])).texFraction.replace('dfrac', 'frac'))
+            this.cellules.push(fraction(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
             break
 
           case 'fractions positives' :
@@ -107,7 +107,7 @@ export class Yohaku {
             }
               break
             case 'fractions positives dénominateurs premiers':
-              this.cellules.push(fraction(randint(1, valeurMax), choice([2, 3, 5, 7])).texFraction.replace('dfrac', 'frac'))
+              this.cellules.push(fraction(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
               break
             case 'fractions positives' :
               this.cellules.push(fraction(randint(1, valeurMax), randint(2, valeurMax)).texFraction.replace('dfrac', 'frac'))
@@ -197,7 +197,6 @@ export class Yohaku {
     }
     if (context.isHtml && isInteractif) {
       const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes)
-      console.log(tab.output)
       return tab.output
     } else {
       return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true)

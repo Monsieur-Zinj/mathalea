@@ -112,6 +112,53 @@ export function calculCompare (input: string, goodAnswer: string): { isOk: boole
   return { isOk: engine.parse(saisieClean).isSame(engine.parse(reponseClean)) }
 }
 
+export function canonicalAddCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  const saisieClean = cleanStringBeforeParse(input)
+  const reponseClean = cleanStringBeforeParse(goodAnswer)
+  return { isOk: engine.parse(reponseClean, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] }).isSame(engine.parse(saisieClean, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })) }
+}
+
+/**
+ * comparaison d'expressions factorisées'
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @return {isOk: boolean, feedback?: string}
+ */
+export function factorisationCompare (input: string, goodAnswer:string): { isOk: boolean, feedback?: string } {
+  const aCleaned = input.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+  const bCleaned = goodAnswer.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+  const saisieParsed = engine.parse(aCleaned, { canonical: true })
+  const reponseParsed = engine.parse(bCleaned, { canonical: true })
+  if (saisieParsed == null || reponseParsed == null) {
+    window.notify('factorisationCompare a rencontré un problème en analysant la réponse ou la saisie ', { saisie: input, reponse: goodAnswer })
+    return { isOk: false }
+  }
+  const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
+  const reponseDev = engine.box(['ExpandAll', reponseParsed]).evaluate().simplify().canonical
+  return { isOk: saisieDev.isEqual(reponseDev) && ['Multiply', 'Square', 'Power'].includes(String(saisieParsed.head)) }
+}
+/**
+ * comparaison d'expressions developpées'
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @return {isOk: boolean, feedback?: string}
+ */
+export const developpementCompare = function (input: string, goodAnswer:string) {
+  const aCleaned = input.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+  const bCleaned = goodAnswer.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+  const saisieParsed = engine.parse(aCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
+  const reponseParsed = engine.parse(bCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
+  if (saisieParsed == null || reponseParsed == null) {
+    window.notify('factorisationCompare a rencontré un problème en analysant la réponse ou la saisie ', { saisie: input, reponse: goodAnswer })
+    return { isOk: false }
+  }
+  const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
+  console.log(`Commence par une addition ou une soustraction : ${['Add', 'Subtract'].includes(String(saisieParsed.head)) ? 'oui' : 'non'}`)
+  console.log(`Si je développe j'obtiens pareil qu'en simplifiant: ${saisieDev.isSame(saisieParsed.simplify().canonical) ? 'oui' : 'non'}`)
+  console.log(`La saisie est égale à la réponse une fois mises dans l'ordre canonique avec invisibleOperator : ${saisieParsed.isEqual(reponseParsed) ? 'oui' : 'non'}`)
+  console.log(`La réponse attendue : ${reponseParsed.latex} et la saisie : ${saisieParsed.latex}`)
+  return { isOk: ['Add', 'Subtract'].includes(String(saisieParsed.head)) && saisieDev.isSame(saisieParsed.simplify().canonical) && saisieParsed.isEqual(reponseParsed) }
+}
 /**
  * comparaison de durées
  * @param {string} input

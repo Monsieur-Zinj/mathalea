@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '.
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { developpementCompare } from '../../lib/interactif/mathLive.js'
+import { developpementCompare } from '../../lib/interactif/comparaisonFonctions'
 import { fraction } from '../../modules/fractions.js'
 
 export const interactifReady = true

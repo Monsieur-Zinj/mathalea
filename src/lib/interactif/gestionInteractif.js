@@ -6,7 +6,7 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
-  calculCompare,
+  calculCompare, canonicalAddCompare,
   decimalCompare,
   formeDeveloppeeCompare,
   formeDeveloppeeParEECompare,
@@ -400,6 +400,9 @@ export function setReponse (exercice, i, valeurs, {
       case 'puissance' :
         // ToFix : vérifier que la réponse est bien l'écriture d'une puissance ou en tout cas une réponse acceptable pour ce format
         break
+      case 'canonicalAdd' :
+        // à priori ce format ne concerne pas AMC
+        break
     }
 
     if (exercice.autoCorrection[i] === undefined) {
@@ -432,10 +435,22 @@ export function setReponse (exercice, i, valeurs, {
   let laReponseDemandee
   switch (formatInteractif) {
     case 'tableauMathlive':
-      return handleAnswers(exercice, i, valeurs, params)
+      for (const [key, valeur] of Object.entries(reponses)) {
+        if (key.match(/L\dC\d/) != null) {
+          if (typeof valeur.value !== 'string') {
+            reponses[key].value = String(valeur.value)
+          }
+        }
+      }
+      return handleAnswers(exercice, i, reponses, params)
 
     case 'fillInTheBlank':
-      return handleAnswers(exercice, i, valeurs, params)
+      for (const [key, valeur] of Object.entries(reponses).filter(([key]) => !['bareme', 'callback', 'feedback'].includes(key))) {
+        if (typeof valeur.value !== 'string') {
+          reponses[key].value = String(valeur.value)
+        }
+      }
+      return handleAnswers(exercice, i, reponses, params)
 
     case 'Num':
       if (!(reponses[0] instanceof FractionEtendue)) throw Error('setReponse : type "Num" une fraction est attendue !', { reponses })
@@ -577,6 +592,9 @@ export function setReponse (exercice, i, valeurs, {
     case 'texte':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "texte" la réponse n\'est pas un string !', { reponses })
       return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: texteCompare } }, params)
+    case 'canonicalAdd':
+      if (typeof reponses[0] !== 'string') window.notify('setReponse : type "canonicalAdd" la réponse n\'est pas un string !', { reponses })
+      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: canonicalAddCompare } }, params)
     case 'ignorerCasse':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "ignorerCasse" la réponse n\'est pas un string !', { reponses })
       return handleAnswers(exercice, i, {
@@ -648,6 +666,9 @@ export function setReponse (exercice, i, valeurs, {
           compare: puissanceCompare
         }
       }, params)
+    case 'developpements' :
+      if (typeof reponses[0] !== 'string') window.notify('setReponse : type "developpements" la réponse n\'est pas un string !', { reponses })
+      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: developpementCompare } }, params)
   }
 
   if (exercice.autoCorrection[i] === undefined) {
