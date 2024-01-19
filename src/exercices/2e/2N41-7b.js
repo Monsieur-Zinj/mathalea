@@ -2,16 +2,20 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { factorisationCompare } from '../../lib/interactif/mathLive.js'
 
 export const titre = 'Factoriser avec les identités remarquables (niveau II)'
-
+export const interactifReady = true
+export const interactifType = 'mathLive'
 /**
  * Factoriser avec a²-b² avec a ou b expression algébrique 1er degré
 * @author Stéphane Guyon
-* 2L11-1
+* 2N41-7b
 */
 export const uuid = '874e8'
-export const ref = '2N41-7'
+export const ref = '2N41-7b'
 export default function FactoriserIdentitesremarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -42,28 +46,22 @@ export default function FactoriserIdentitesremarquables2 () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, k, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
-      k = choice([-1, 1])
-      a = randint(2, 9)
-      a = a * k
-      b = randint(1, 9)
-      k = choice([-1, 1])
-      b = b * k
-      c = randint(2, 9)
-      d = randint(1, 9)
-      k = choice([-1, 1])
-      d = d * k
-      if (a === c && b === d) {
-        a = a + 1
-        b = b - 2
-      }
+      do {
+        a = randint(2, 9) * choice([-1, 1])
+        b = randint(1, 9) * choice([-1, 1])
+        c = randint(2, 9)
+        d = randint(1, 9) * choice([-1, 1])
+      } while ((a === c && b === d) || (a === -c && b === -d) || [a, b].filter(el => el < 0).length === 2 || [c, d].filter(el => el < 0).length === 2)
       switch (typesDeQuestions) {
         case 1:
           texte = `$(${a}x${ecritureAlgebrique(b)})^2-${c * c}$` // (ax+b)²-c²
+
           texteCorr = // `$(${a}x${ecritureAlgebrique(b)})^2-${c * c}=(${a}x${ecritureAlgebrique(b)})^2-${c}^2$<br>
                     `On reconnaît l'identité remarquable $a^2-b^2=(\\color{red}a\\color{black}-\\color{blue}b)(\\color{red}a\\color{black}+\\color{blue}b)$, avec $a=\\color{red}${a}x${ecritureAlgebrique(b)}$ et $b=\\color{blue}${c}$.<br><br>
                     $(${a}x${ecritureAlgebrique(b)})^2-${c * c}= (\\color{red} ${a}x${ecritureAlgebrique(b)}\\color{black})^2-\\color{blue}${c}\\color{black}^2 $ <br>
                     $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-${c * c}}=\\left[\\color{red} (${a}x${ecritureAlgebrique(b)})\\color{black}-\\color{blue} ${c}\\right] \\left[ \\color{red}(${a}x${ecritureAlgebrique(b)})\\color{black}+\\color{blue}${c}\\right] $<br>
                     $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-${c * c}}= (${reduireAxPlusB(a, b - c)}) (${reduireAxPlusB(a, b + c)})$`
+          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(a, b - c)}) (${reduireAxPlusB(a, b + c)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
           break
         case 2:
           texte = `$${c * c}-(${a}x${ecritureAlgebrique(b)})^2$` // c²-(ax+b)²
@@ -73,8 +71,9 @@ export default function FactoriserIdentitesremarquables2 () {
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=\\left[ \\color{red}${c}\\color{black}-(\\color{blue}${a}x${ecritureAlgebrique(b)}\\color{black}) \\right] \\left[ \\color{red}${c}\\color{black}+(\\color{blue}${a}x${ecritureAlgebrique(b)}\\color{black}) \\right] $<br>
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=(${c}${ecritureAlgebrique(-a)}x${ecritureAlgebrique(-b)}) (${c}${ecritureAlgebrique(a)}x${ecritureAlgebrique(b)})$<br>
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=(${reduireAxPlusB(-a, c - b)}) (${reduireAxPlusB(a, b + c)})$`
+          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(-a, c - b)}) (${reduireAxPlusB(a, b + c)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
           break
-        case 3:
+        case 3: {
           texte = `$(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2$` // (ax+b)²-(cx+d)²
           // $(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2=a^2-b^2$<br>
           texteCorr = `On reconnaît l'identité remarquable $a^2-b^2=(\\color{red}a\\color{black}-\\color{blue}b\\color{black})(\\color{red}a\\color{black}+\\color{blue}b\\color{black})$, avec $a=\\color{red}${a}x${ecritureAlgebrique(b)}$ et $b=\\color{blue}${c}x${ecritureAlgebrique(d)}$. <br><br>
@@ -86,32 +85,30 @@ export default function FactoriserIdentitesremarquables2 () {
                     $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
                     (${a}x${ecritureAlgebrique(b)}${ecritureAlgebrique(-c)}x${ecritureAlgebrique(-d)})
                     (${a}x${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}x${ecritureAlgebrique(d)})$<br>`
-          if (a !== c && b !== d && a !== -c && b !== -d) {
-            texteCorr += `$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                        (${reduireAxPlusB(a - c, b - d)})(${reduireAxPlusB(a + c, b + d)})$  `
+
+          texteCorr += `$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=`
+          const facteur1 = reduireAxPlusB(a - c, b - d)
+          const facteur2 = reduireAxPlusB(a + c, b + d)
+          const facteurConstant = [facteur1, facteur2].filter(el => !el.includes('x'))
+          if (facteurConstant.length === 0) {
+            texteCorr += `(${facteur1})(${facteur2})$`
           } else {
-            if (a !== c && a !== -c && b === d && a !== c + 1) {
-              texteCorr += `$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                                ${a - c}x(${reduireAxPlusB(a + c, b + d)})$    `
-            }
-            if (a !== c && a !== -c && b === d && a === c + 1) {
-              texteCorr += `$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                                x(${reduireAxPlusB(a + c, b + d)})$    `
-            }
-            if (a !== c && a !== -c && b === -d) {
-              texteCorr += `$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                                    ${a + c}x(${reduireAxPlusB(a - c, b - d)})$  `
-            }
-            if (a === c && b !== d && b !== -d) {
-              texteCorr += `$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                                    ${b - d}(${reduireAxPlusB(a + c, b + d)})$  `
-            }
-            if (a === -c && b !== d && b !== -d) {
-              texteCorr += `$\\phantom{(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2}=
-                                    ${b + d}(${reduireAxPlusB(a - c, b - d)})$  `
+            if (facteur1.includes('x')) {
+              texteCorr += `${facteur2}(${facteur1})$`
+            } else {
+              texteCorr += `${facteur1}(${facteur2})$`
             }
           }
-          break
+          setReponse(this, i, {
+            expr: {
+              value: `(${facteur1})(${facteur2})`,
+              compare: factorisationCompare
+            }
+          }, { formatInteractif: 'fillInTheBlank' })
+        } break
+      }
+      if (this.interactif) {
+        texte += remplisLesBlancs(this, i, '=%{expr}', 'inline', '\\ldots\\ldots')
       }
       if (this.questionJamaisPosee(i, a, b, c, d, k, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre

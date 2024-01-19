@@ -7,6 +7,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { rienSi1 } from '../../lib/outils/ecritures.js'
+import { factorisationCompare } from '../../lib/interactif/mathLive.js'
 
 export const titre = 'Factoriser avec les identités remarquables'
 export const interactifReady = true
@@ -15,10 +16,14 @@ export const interactifType = 'mathLive'
 /**
  * Factoriser en utilisant les 3 identités remarquables
 * @author Jean-Claude Lhote
-* 2N41-7, ex 2L11
+* 2N41-7a
 */
 export const uuid = '0bd00'
-export const ref = '2N41-7v2'
+export const ref = '2N41-7a'
+// fonction de comparaison de deux expressions factorisées
+// @todo à déplacer dans comparaisonFonctions.ts lors de la fusion de handleAnswer
+const engine = new ComputeEngine()
+
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
@@ -29,8 +34,6 @@ export default function FactoriserIdentitesRemarquables2 () {
   this.spacingCorr = 1
   this.nbQuestions = 5
   this.sup = 1
-
-  const engine = new ComputeEngine()
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
@@ -138,17 +141,9 @@ export default function FactoriserIdentitesRemarquables2 () {
       }
       reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
       texte += remplisLesBlancs(this, i, '=%{expr}', 'inline15 college6e ml-2', '\\ldots\\ldots')
-      const factorisationCompare = (a, b) => {
-        const aCleaned = a.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
-        const bCleaned = b.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
-        const saisieParsed = engine.parse(aCleaned, { canonical: true })
-        const reponseParsed = engine.parse(bCleaned, { canonical: true })
-        const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
-        const reponseDev = engine.box(['ExpandAll', reponseParsed]).evaluate().simplify().canonical
-        return saisieDev.isEqual(reponseDev) && ['Multiply', 'Square', 'Power'].includes(saisieParsed.head)
-      }
+
       setReponse(this, i, { expr: { value: reponseAttendue, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
