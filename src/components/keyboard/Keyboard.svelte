@@ -16,7 +16,7 @@
   import type { KeyCap } from './types/keycap'
   import { MathfieldElement } from 'mathlive'
   import Alphanumeric from './presentationalComponents/alphanumeric/Alphanumeric.svelte'
-  import { isPageKey } from './layouts/alphanumericRows'
+  import { isPageKey } from './types/keycap'
 
   let innerWidth: number = 0
 

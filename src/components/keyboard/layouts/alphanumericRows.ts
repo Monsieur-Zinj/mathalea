@@ -1,4 +1,4 @@
-import type { Keys, KeysList, AlphanumericPages } from '../types/keyboardContent'
+import type { KeysList, AlphanumericPages } from '../types/keyboardContent'
 
 const rowsAlphaLow: KeysList[] = [
   [
@@ -47,5 +47,3 @@ export const alphanumericLayouts: { [key in AlphanumericPages]: KeysList[] } = {
   AlphaUp: rowsAlphaUp,
   Numeric: rowsNum
 }
-export const isSpecialKey = (key: Keys): boolean => ['DEL', 'CLOSE', 'BACK', 'FWD', 'abc', 'ABC', 'NUM'].includes(key.toString())
-export const isPageKey = (key: Keys): boolean => ['abc', 'ABC', 'NUM'].includes(key.toString())
