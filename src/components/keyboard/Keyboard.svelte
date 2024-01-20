@@ -113,13 +113,6 @@
   }
 
   onMount(() => {
-    const champs = document.getElementsByTagName('math-field')
-    if (champs.length > 0) {
-      console.log('les champs math-field:')
-      for (const champ of champs) {
-        console.log(champ)
-      }
-    }
     computePages()
   })
 </script>
