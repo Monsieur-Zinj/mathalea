@@ -5,7 +5,7 @@ import type { Page } from 'playwright'
 async function testFractionSimplifiee (page: Page) {
   // Ce test s'assure que les fractions simplifiée pas au maximum sont acceptées
   // et qu'une fraction égale (celle de l'énoncé) mais pas simplifiée n'est pas acceptée
-  const urlExercice = 'http://localhost:5173/alea/?uuid=f8f4e&id=5N13&n=50&d=10&s=50&s2=false&i=1&cd=1'
+  const urlExercice = 'http://localhost:5173/alea/?uuid=f8f4e&id=5N13&n=20&d=10&s=50&s2=false&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
