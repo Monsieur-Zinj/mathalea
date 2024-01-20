@@ -93,88 +93,103 @@ const massesCaps: CompleteKeysList = {
 export const specialKeys: KeyboardBlock = {
   keycaps: specialKeysCaps,
   cols: 1,
-  title: 'Touches spéciales'
+  title: 'Touches spéciales',
+  isUnits: false
 }
 export const numbers: KeyboardBlock = {
   keycaps: numbersCaps,
   cols: 3,
-  title: 'Nombres'
+  title: 'Nombres',
+  isUnits: false
 }
 export const numbersOperations: KeyboardBlock = {
   keycaps: numbersOperationsCaps,
   cols: 4,
-  title: 'Nombres+Opérations'
+  title: 'Nombres+Opérations',
+  isUnits: false
 }
 
 export const variables: KeyboardBlock = {
   keycaps: variableCaps,
   cols: 2,
-  title: 'Variables'
+  title: 'Variables',
+  isUnits: false
 }
 
 export const basicOperations: KeyboardBlock = {
   keycaps: basicOperationCaps,
   cols: 2,
-  title: 'Opérations de base'
+  title: 'Opérations de base',
+  isUnits: false
 }
 
 export const fullOperations: KeyboardBlock = {
   keycaps: fullOperationCaps,
   cols: 4,
-  title: 'Opérations complexes'
+  title: 'Opérations complexes',
+  isUnits: false
 }
 
 export const hms: KeyboardBlock = {
   keycaps: hmsCaps,
   cols: 1,
-  title: 'Temps'
+  title: 'Temps',
+  isUnits: true
 }
 
 export const greek: KeyboardBlock = {
   keycaps: greekCaps,
   cols: 2,
-  title: 'Lettres grecques'
+  title: 'Lettres grecques',
+  isUnits: false
 }
 
 export const trigo: KeyboardBlock = {
   keycaps: trigoCaps,
   cols: 1,
-  title: 'Trigonométrie'
+  title: 'Trigonométrie',
+  isUnits: false
 }
 export const advanced: KeyboardBlock = {
   keycaps: advancedCaps,
   cols: 5,
-  title: 'Fonctions avancées'
+  title: 'Fonctions avancées',
+  isUnits: false
 }
 
 export const lengths: KeyboardBlock = {
   keycaps: lengthsCaps,
   cols: 2,
-  title: 'Longueurs'
+  title: 'Longueurs',
+  isUnits: true
 }
 
 export const areas: KeyboardBlock = {
   keycaps: areasCaps,
   cols: 3,
-  title: 'Aires'
+  title: 'Aires',
+  isUnits: true
 }
 
 export const volumes: KeyboardBlock = {
   keycaps: volumesCaps,
   cols: 2,
-  title: 'Volumes'
+  title: 'Volumes',
+  isUnits: true
 }
 
 export const capacities: KeyboardBlock = {
   keycaps: capacitiesCaps,
   cols: 2,
-  title: 'Capacités'
+  title: 'Capacités',
+  isUnits: true
 }
 
 export const masses: KeyboardBlock = {
   keycaps: massesCaps,
   cols: 2,
-  title: 'Masses'
+  title: 'Masses',
+  isUnits: true
 }
 
 // eslint-disable-next-line no-unused-vars

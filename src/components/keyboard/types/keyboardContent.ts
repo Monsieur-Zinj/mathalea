@@ -30,6 +30,7 @@ export interface KeyboardBlock {
   keycaps: CompleteKeysList
   cols: number
   title: string
+  isUnits: boolean
 }
 
 export class Keyboard {

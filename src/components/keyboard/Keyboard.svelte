@@ -21,6 +21,8 @@
   let innerWidth: number = 0
 
   const pages: KeyboardBlock[][] = []
+  const usualBlocks: KeyboardBlock[] = []
+  const unitsBlocks: KeyboardBlock[] = []
   let currentPageIndex = 0
   let divKeyboard: HTMLDivElement
   let reduced: boolean = false
@@ -33,6 +35,15 @@
     myKeyboard = new Keyboard()
     for (const block of value.blocks) {
       myKeyboard.add(keyboardBlocks[block])
+    }
+    unitsBlocks.length = 0
+    usualBlocks.length = 0
+    for (const block of myKeyboard.blocks) {
+      if (block.isUnits) {
+        unitsBlocks.push(block)
+      } else {
+        usualBlocks.push(block)
+      }
     }
     await tick()
     mathaleaRenderDiv(divKeyboard)
@@ -129,7 +140,8 @@
     {:else if !reduced}
       <div class="py-2 md:py-0">
         <KeyboardPage
-          blocks={[...myKeyboard.blocks].reverse()}
+          unitsBlocks={[...unitsBlocks].reverse()}
+          usualBlocks={[...usualBlocks].reverse()}
           isInLine={false}
           {innerWidth}
           {clickKeycap}
@@ -138,7 +150,8 @@
     {:else}
       <div class="relative px-10">
         <KeyboardPage
-          blocks={pages[currentPageIndex]}
+          unitsBlocks={[...unitsBlocks].reverse()}
+          usualBlocks={[...usualBlocks].reverse()}
           isInLine={true}
           {innerWidth}
           {clickKeycap}
