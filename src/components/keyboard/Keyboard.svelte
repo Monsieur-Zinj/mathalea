@@ -113,6 +113,13 @@
   }
 
   onMount(() => {
+    const champs = document.getElementsByTagName('math-field')
+    if (champs.length > 0) {
+      console.log('les champs math-field:')
+      for (const champ of champs) {
+        console.log(champ)
+      }
+    }
     computePages()
   })
 </script>
@@ -174,15 +181,15 @@
       </div>
     {/if}
     <button
-        type="button"
-        class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
-        on:click={async () => {
-          reduced = !reduced
-          await tick()
-          mathaleaRenderDiv(divKeyboard)
-        }}
-      >
-        <i class="bx {reduced ? 'bx-plus' : 'bx-minus'}" />
-      </button>
+      type="button"
+      class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
+      on:click={async () => {
+        reduced = !reduced
+        await tick()
+        mathaleaRenderDiv(divKeyboard)
+      }}
+    >
+      <i class="bx {reduced ? 'bx-plus' : 'bx-minus'}" />
+    </button>
   </div>
 {/if}
