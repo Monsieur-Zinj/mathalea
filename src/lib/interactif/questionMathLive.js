@@ -63,15 +63,15 @@ export function ajouteChampTexteMathLive (
   style = '',
   { texteApres = '', texteAvant = '', tailleExtensible = false } = {}
 ) {
-  const test = buildDataKeyboardString(style)
-  console.log(test)
+  const dataKeyboard = buildDataKeyboardString(style)
+  // console.log(dataKeyboard)
   const buttonKeyboard = `<button class="keyboardMathalea" id="champTexteEx${exercice.numeroExercice}Q${i}-button">⌨️</button>`
   if (context.isHtml && exercice.interactif) {
     if (style === 'none') return ''
     if (style === '') {
       return `<label>${texteAvant}</label><math-field virtual-keyboard-mode=manual id="champTexteEx${
         exercice.numeroExercice
-      }Q${i}" data-keyboard="${exercice.keyboard.join(' ')}"></math-field>${
+      }Q${i}" data-keyboard="${dataKeyboard}"></math-field>${
         texteApres ? '<span>' + texteApres + '</span>' : ''
       }<span id="resultatCheckEx${
         exercice.numeroExercice
@@ -79,7 +79,7 @@ export function ajouteChampTexteMathLive (
     } else if (tailleExtensible) {
       return `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; top: 27px; left: 0px;padding:0px 0px 5px;margin:0px"><math-field virtual-keyboard-mode=manual id="champTexteEx${
         exercice.numeroExercice
-      }Q${i}" data-keyboard="${exercice.keyboard.join(' ')}"></math-field>${
+      }Q${i}" data-keyboard="${dataKeyboard}"></math-field>${
         texteApres ? '<span>' + texteApres + '</span>' : ''
       } </td></tr></table><span id="resultatCheckEx${
         exercice.numeroExercice
@@ -87,7 +87,7 @@ export function ajouteChampTexteMathLive (
     } else {
       return `<label>${texteAvant}</label><math-field virtual-keyboard-mode=manual class="${style}" id="champTexteEx${
         exercice.numeroExercice
-      }Q${i}" data-keyboard="${exercice.keyboard.join(' ')}"></math-field>${
+      }Q${i}" data-keyboard="${dataKeyboard}"></math-field>${
         texteApres ? '<span>' + texteApres + '</span>' : ''
       } <span id="resultatCheckEx${
         exercice.numeroExercice
