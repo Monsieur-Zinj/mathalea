@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { abs } from '../../../lib/outils/nombres.js'

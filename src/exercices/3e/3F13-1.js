@@ -1,6 +1,6 @@
 import { graphiqueInterpole } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'

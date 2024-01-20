@@ -11,6 +11,9 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
   figure.divUserMessage.style.pointerEvents = 'none'
   figure.divUserMessage.style.removeProperty('color')
   figure.divUserMessage.classList.add('text-coopmaths-struct')
+  if (!exercice.interactif) {
+    figure.divUserMessage.style.display = 'none'
+  }
 
   // Pour revoir la copie de l'élève dans Capytale
   document.addEventListener(idApigeom, (event: Event) => {

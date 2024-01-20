@@ -1,6 +1,6 @@
 import { courbe } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'

@@ -1,4 +1,4 @@
-import { combinaisonListes, choice } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'

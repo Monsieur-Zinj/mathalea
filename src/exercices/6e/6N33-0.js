@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { pgcd } from '../../lib/outils/primalite.js'

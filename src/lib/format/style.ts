@@ -5,11 +5,14 @@
  */
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
-import { choice } from '../outils/arrayOutils.js'
+import { choice } from '../outils/arrayOutils'
 import { texNombre } from '../outils/texNombre.js'
 
-export function couleurAleatoire () {
-  return choice(['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'])
+type Colors = 'white' | 'black' | 'red' | 'green' | 'blue' | 'cyan' | 'magenta' | 'yellow'
+const colors: Colors[] = ['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow']
+
+export function couleurAleatoire (): Colors {
+  return choice(colors) as Colors
 }
 
 /**
@@ -34,14 +37,14 @@ export function couleurTab (choixCouleur = 999) {
   return (choixCouleur === 999 || choixCouleur >= panelCouleurs.length || !Number.isInteger(choixCouleur)) ? choice(panelCouleurs) : panelCouleurs[choixCouleur]
 }
 
-export function arcenciel (i, fondblanc = true) {
+export function arcenciel (i: number, fondblanc = true) {
   let couleurs
   if (fondblanc) couleurs = ['violet', 'purple', 'blue', 'green', 'lime', '#f15929', 'red']
   else couleurs = ['violet', 'indigo', 'blue', 'green', 'yellow', '#f15929', 'red']
   return couleurs[i % 7]
 }
 
-export function texcolors (i, fondblanc = true) {
+export function texcolors (i: number, fondblanc = true) {
   const couleurs = ['black', 'blue', 'GreenYellow', 'brown', 'LightSlateBlue', 'cyan', 'darkgray', 'HotPink', 'LightSteelBlue', 'Chocolate', 'gray', 'green', 'lightgray', 'lime', 'magenta', 'olive', 'DarkOrange', 'pink', 'purple', 'red', 'teal', 'violet', 'white', 'yellow']
   if (fondblanc && i % couleurs.length >= couleurs.length - 2) i += 2
   return couleurs[i % couleurs.length]
@@ -52,7 +55,7 @@ export function texcolors (i, fondblanc = true) {
  * @param {string} texte à mettre en gras
  * @author Rémi Angot
  */
-export function texteGras (texte) {
+export function texteGras (texte: string) {
   if (context.isHtml) {
     return `<b>${texte}</b>`
   } else {
@@ -64,7 +67,7 @@ export function texteGras (texte) {
  * Pour bien afficher les centimes avec 2 chiffres après la virgule
  * @author Rémi Angot
  */
-export function texPrix (nb) {
+export function texPrix (nb: Decimal | number) {
   if (nb instanceof Decimal) {
     if (nb.isInteger()) return texNombre(nb, 0)
     else return texNombre(nb, 2, true)
@@ -81,7 +84,7 @@ export function texPrix (nb) {
  * Pour afficher les masses avec 3 chiffres après la virgule
  * @author Mireille Gain
  */
-export function texMasse (nb) {
+export function texMasse (nb: Decimal | number) {
   if (nb instanceof Decimal) {
     if (nb.isInteger()) return texNombre(nb, 0)
     else return texNombre(nb, 3, true)
@@ -101,7 +104,7 @@ export function texMasse (nb) {
  * @author Guillaume Valmont
  * @example texSymbole('≤') retourne '\\leqslant'
  */
-export function texSymbole (symbole) {
+export function texSymbole (symbole: '≤' | '≥' | '<' | '>' | '\\') {
   switch (symbole) {
     case '<':
       return '<'
@@ -114,6 +117,6 @@ export function texSymbole (symbole) {
     case '\\':
       return '\\smallsetminus'
     default:
-      return 'symbole non connu par texSymbole()'
+      return symbole
   }
 }

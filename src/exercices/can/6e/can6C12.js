@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer le double ou le triple'

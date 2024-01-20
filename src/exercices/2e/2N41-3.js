@@ -1,5 +1,5 @@
 import DevelopperIdentitesRemarquables3 from '../3e/3L12-1.js'
-export const titre = 'Développer (a-b)(a+b)'
+export const titre = 'Développer $(a-b)(a+b)$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'

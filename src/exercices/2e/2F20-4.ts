@@ -15,7 +15,6 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { interpolationDeLagrange } from '../../lib/mathFonctions/outilsMaths'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
-import Point from 'apigeom/src/elements/points/Point'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { latexParCoordonnees } from '../../lib/2d/textes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
@@ -560,8 +559,8 @@ class resolutionEquationInequationGraphique extends Exercice {
     if (f2Type === 'affine') {
       const a = fonction2.poly.monomes[1]
       const b = fonction2.poly.monomes[0]
-      const B = new Point(this.figure, { x: xMin, y: a * xMin + b, isVisible: false })
-      const A = new Point(this.figure, { x: xMax, y: a * xMax + b, isVisible: false })
+      const B = this.figure.create('Point', { x: xMin, y: a * xMin + b, isVisible: false })
+      const A = this.figure.create('Point', { x: xMax, y: a * xMax + b, isVisible: false })
       const d = this.figure.create('Segment', { point1: B, point2: A })
       d.color = 'red'
       d.thickness = 2
@@ -600,7 +599,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     let enonce = `On considère les fonctions $${f1}$ et $${f2}$ définies sur $[${texNombre(xMin, 0)};${texNombre(xMax, 0)}]$ et dont on a représenté ci-dessous leurs courbes respectives.<br><br>`
     // let diff
     let soluces: number[]
-    const inferieur = choice([true, false])
+    const inferieur = Boolean(choice([true, false]))
 
     soluces = []
     if (fonction1.poly == null && fonction2.poly == null) throw Error('Un problème avec l\'un des polynome')
@@ -640,7 +639,7 @@ class resolutionEquationInequationGraphique extends Exercice {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
         enonce += 'L\'ensemble des solutions de l\'inéquation est : ' + remplisLesBlancs(this, 1, '%{solucesIneq}', 'inline lycee', '\\ldots\\ldots') + '<br><br>'
       }
-      const soluces2: string = chercheIntervalles(polyDiff, soluces, inferieur, xMin, xMin + 10)
+      const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin, xMin + 10)
 
       // enonce += '$' + soluces2 + '$'
       setReponse(this, 1, {

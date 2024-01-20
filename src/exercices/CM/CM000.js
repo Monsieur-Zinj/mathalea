@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'

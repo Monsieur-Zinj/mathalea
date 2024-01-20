@@ -10,9 +10,9 @@ import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { aireTriangle } from '../../lib/2d/triangle.js'
-import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { texteGras } from '../../lib/format/style.js'
+import { texteGras } from '../../lib/format/style'
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
 import Exercice from '../Exercice.js'

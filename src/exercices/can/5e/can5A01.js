@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { scratchblock } from '../../../modules/scratchblock.js'
 

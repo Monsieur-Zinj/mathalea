@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'

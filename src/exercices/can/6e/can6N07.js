@@ -1,6 +1,6 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

@@ -1,6 +1,6 @@
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { warnMessage } from '../../lib/format/message.js'
-import { texteGras } from '../../lib/format/style.js'
+import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice.js'

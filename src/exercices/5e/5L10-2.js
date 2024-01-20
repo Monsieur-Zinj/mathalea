@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils.js'

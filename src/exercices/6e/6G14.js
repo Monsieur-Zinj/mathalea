@@ -9,7 +9,7 @@ import { point, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points.
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonneesBox } from '../../lib/2d/textes.js'
 import { rotation } from '../../lib/2d/transformations.js'
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'

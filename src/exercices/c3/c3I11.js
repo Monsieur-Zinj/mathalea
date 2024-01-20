@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { texteParPositionEchelle } from '../../lib/2d/textes.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { modalPdf, modalUrl } from '../../lib/outils/modales.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

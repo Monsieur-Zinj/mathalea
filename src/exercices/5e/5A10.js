@@ -1,4 +1,4 @@
-import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

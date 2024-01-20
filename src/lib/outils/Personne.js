@@ -1,5 +1,5 @@
 
-import { choice, shuffle } from './arrayOutils.js'
+import { choice, shuffle } from './arrayOutils'
 
 /**
  * Renvoie un prénom féminin au hasard

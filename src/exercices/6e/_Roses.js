@@ -4,7 +4,7 @@ import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees, latexParCoordonneesBox, texteParPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { calculer } from '../../modules/outilsMathjs.js'
@@ -17,6 +17,8 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 let engine
 if (context.versionMathalea) engine = new ComputeEngine()
 
@@ -344,6 +346,19 @@ export function ExoRose () {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: this.introduction + '<br>' + texte,
+            propositions: [
+              {
+                texte: '',
+                statut: (this.type === 'can1' || this.type === 'can2') ? 1 : Math.ceil(this.sup2 / 4), // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                pointilles: false // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }
+        }
         i++
       }
       cpt++

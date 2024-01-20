@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../Exercice.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Decimal from 'decimal.js'

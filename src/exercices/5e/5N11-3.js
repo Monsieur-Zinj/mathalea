@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -12,15 +12,13 @@ export const interactifReady = true
 export const interactifType = ['mathLive', 'custom']
 export const amcType = 'AMCNum'
 export const amcReady = true
-
+export const dateDePublication = '06/02/2021'
 export const dateDeModifImportante = '19/11/2023' // Fill in the blank
 const ce = new ComputeEngine()
 
 /**
  * Une fraction étant donnée, il faut l'écrire avec 100 au dénominateur puis donner son écriture sous forme de pourcentage.
  * @author Rémi Angot
- * Référence 5N11-3
- * 2021-02-06
  */
 export const uuid = '0e58f'
 export const ref = '5N11-3'
@@ -38,7 +36,7 @@ export default function FractionVersPourcentage () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.introduction = this.interactif ? 'Le premier calcul est facultatif : il sera corrigé, mais ne sera pas pris en compte dans le barême.' : ''
+    this.introduction = this.interactif ? 'La première fraction est facultative : elle sera corrigés, mais ne sera pas prise en compte dans le barème.' : ''
 
     const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200]
     const listeTypeDeQuestions = combinaisonListes(typeDeDenominateurs, this.nbQuestions)
@@ -105,31 +103,31 @@ export default function FractionVersPourcentage () {
         result = 'OK'
         if (test1) { // On a bon, mais regardons le premier calcul facultatif ici il est correct
           if (!test1Bis) { // pas égal à 100 au dénominateur
-            feedback += 'Le premier calcul est correct mais le dénominateur ne vaut pas $100$'
+            feedback += 'La première fraction est correcte mais le dénominateur ne vaut pas $100$.'
           }
           // sinon, il n'y a rien a dire.
         } else { // le premier calcul est faux, il faut le dire
           if (test1Ter) {
-            feedback += 'Le premier calcul est incomplet'
+            feedback += 'La première fraction est incomplète.'
           } else {
-            feedback += 'Le premier calcul est incorrect'
+            feedback += 'La première fraction est incorrecte.'
           }
         }
       } else { // ici le résultat est faux (ou la fraction sur 100)
         smiley = '☹️'
         result = 'KO'
         if (test1Ter) {
-          feedback += 'Le premier calcul est incomplet'
+          feedback += 'La première fraction est incomplète'
         } else {
           if (test1) { // On regarde le premier calcul ici il est juste
             if (!test1Bis) { // pas égal à 100 au dénominateur
-              feedback += 'Le premier calcul est correct mais le dénominateur ne vaut pas $100$'
+              feedback += 'La première fraction est correcte mais le dénominateur ne vaut pas $100$'
             } else {
-              feedback += 'Le premier calcul est correct'
+              feedback += 'La première fraction est incorrecte'
             }
           }// ici, le premier calcul est faux donc tout est faux, y a rien a dire
         }
-        feedback += ',mais la suite est fausse.'
+        feedback += ' et le résultat final est faux.'
       }
       const divDuFeedback = document.createElement('div')
       divDuFeedback.classList.add('ml-2', 'py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')

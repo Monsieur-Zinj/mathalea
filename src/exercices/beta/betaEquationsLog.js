@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'

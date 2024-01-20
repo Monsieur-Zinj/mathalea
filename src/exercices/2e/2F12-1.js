@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../lib/outils/calculs.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'

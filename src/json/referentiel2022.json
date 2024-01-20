@@ -8722,8 +8722,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -8834,8 +8834,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -8853,8 +8853,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -8872,8 +8872,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -9335,6 +9335,7 @@
         "uuid": "021f3",
         "id": "6C30-5",
         "titre": "Multiplier par 0,1 ; 0,01 ; 0,001 (compléter avec le nombre qui convient)",
+        "datePublication": "20/02/2021",
         "features": {
           "interactif": {
             "isActive": true,
@@ -14041,6 +14042,7 @@
         "uuid": "0e58f",
         "id": "5N11-3",
         "titre": "Écrire une fraction sur 100 puis sous la forme d'un pourcentage",
+        "datePublication": "06/02/2021",
         "dateModification": "19/11/2023",
         "features": {
           "interactif": {
@@ -14472,7 +14474,7 @@
         "tags": [],
         "uuid": "6d576",
         "id": "5R11-2",
-        "titre": "Placer un point d'abscisse un nombre relatif",
+        "titre": "Placer un point sur une droite graduée dont l'abscisse est un nombre relatif",
         "dateModification": "8/12/2023",
         "features": {
           "interactif": {
@@ -14498,8 +14500,8 @@
             "type": ""
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCHybride"
           }
         },
         "typeExercice": "alea"
@@ -14517,8 +14519,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -14535,8 +14537,8 @@
             "type": ""
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCHybride"
           }
         },
         "typeExercice": "alea"
@@ -14620,15 +14622,15 @@
         "tags": [],
         "uuid": "41254",
         "id": "5R20-5",
-        "titre": "Additions de deux entiers relatifs dans un tableau à double entrée",
+        "titre": "Additionner deux entiers relatifs dans un tableau à double entrée",
         "features": {
           "interactif": {
             "isActive": false,
             "type": ""
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -14646,8 +14648,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -14666,8 +14668,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -14704,8 +14706,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCHybride"
           }
         },
         "typeExercice": "alea"
@@ -14715,7 +14717,7 @@
         "tags": [],
         "uuid": "f6ea7",
         "id": "5R22",
-        "titre": "Additions et soustractions de nombres relatifs",
+        "titre": "Effectuer un enchaînement d'additions et de soustractions de nombres relatifs",
         "features": {
           "interactif": {
             "isActive": true,
@@ -14733,15 +14735,16 @@
         "tags": [],
         "uuid": "070b4",
         "id": "5R22-2",
-        "titre": "Simplifier l'écriture d'une somme de 2 relatifs et calculer",
+        "titre": "Écrire sous la forme d'une expression algébrique sans parenthèses puis calculer",
+        "dateModification": "18/01/2024",
         "features": {
           "interactif": {
             "isActive": true,
             "type": "'mathLive'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCNum"
           }
         },
         "typeExercice": "alea"
@@ -15265,8 +15268,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -15284,8 +15287,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -15414,8 +15417,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -15433,8 +15436,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -15507,8 +15510,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -15526,8 +15529,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -16608,8 +16611,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -16627,8 +16630,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -17263,6 +17266,7 @@
         "id": "3A12-0",
         "titre": "Problèmes avec des engrenages",
         "datePublication": "05/10/2022",
+        "dateModification": "17/01/2024",
         "features": {
           "interactif": {
             "isActive": true,
@@ -18824,8 +18828,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -18844,8 +18848,8 @@
             "type": "'custom'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCOpen"
           }
         },
         "typeExercice": "alea"
@@ -21409,16 +21413,16 @@
         },
         "typeExercice": "alea"
       },
-      "2N41-7": {
-        "url": "2e/2N41-7.js",
+      "2N41-7a": {
+        "url": "2e/2N41-7a.js",
         "tags": [],
-        "uuid": "874e8",
-        "id": "2N41-7",
-        "titre": "Factoriser avec les identités remarquables (niveau II)",
+        "uuid": "0bd00",
+        "id": "2N41-7a",
+        "titre": "Factoriser avec les identités remarquables",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
@@ -21427,12 +21431,12 @@
         },
         "typeExercice": "alea"
       },
-      "2N41-7v2": {
-        "url": "2e/2N41-7v2.js",
+      "2N41-7b": {
+        "url": "2e/2N41-7b.js",
         "tags": [],
-        "uuid": "0bd00",
-        "id": "2N41-7v2",
-        "titre": "Factoriser avec les identités remarquables",
+        "uuid": "874e8",
+        "id": "2N41-7b",
+        "titre": "Factoriser avec les identités remarquables (niveau II)",
         "features": {
           "interactif": {
             "isActive": true,

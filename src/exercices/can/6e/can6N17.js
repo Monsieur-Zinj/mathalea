@@ -1,6 +1,6 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils.js'

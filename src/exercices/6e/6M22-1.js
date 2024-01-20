@@ -14,7 +14,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 
 export const titre = 'Calculer périmètre et/ou aire de disques'
 export const interactifReady = true

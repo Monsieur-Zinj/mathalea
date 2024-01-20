@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre.js'

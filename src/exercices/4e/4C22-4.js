@@ -2,6 +2,8 @@ import { ExoRose } from '../6e/_Roses.js'
 export const titre = 'Résoudre une Rose multiplicative avec des fractions'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 export const dateDePublication = '12/08/2022'
 
 /**
@@ -15,5 +17,5 @@ export default function RoseAdditive4F () { // c'est l'ExoRose zéro contenu dan
   ExoRose.call(this) // Héritage de la classe Exercice()
   this.operation = 'multiplication'
   this.typeDonnees = 'fractions positives'
-  this.besoinFormulaire2Numerique = ['Nombre de facteur entre 3 et 5', 5]
+  this.besoinFormulaire2Numerique = ['Nombre de facteurs (entre 3 et 5)', 5]
 }

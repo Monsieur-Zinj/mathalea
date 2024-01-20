@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'

@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements.ts'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { prenomM } from '../../lib/outils/Personne.js'
@@ -53,7 +53,9 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de ${dividende} par ${diviseur}. <br>`
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`)}$`
           texteCorr += `<br>Il peut faire ${quotient} bouquets et il lui restera ${reste} fleurs.`
-          texteCorr += `<br>${numAlpha(1)} Il lui manquera ${quotient}-${reste} = ${quotient - reste} fleurs pour en faire un de plus`
+          texteCorr += `<br><br>${numAlpha(1)} Il reste ${reste} fleurs et il en faut ${diviseur} pour un bouquet.`
+          texteCorr += `<br>$${diviseur} - ${reste} = ${diviseur - reste}$`
+          texteCorr += `<br> Il manque donc ${diviseur - reste} fleurs pour faire un bouquet de plus.`
           break
         case 2:
           // problème sur les oeufs
@@ -65,7 +67,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de ${dividende} par ${diviseur}. <br>`
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`)}$`
           texteCorr += `<br>Il lui faudra ${quotient} boîtes et il restera ${reste} oeufs.`
-          texteCorr += `<br>${numAlpha(1)} Il lui manquera ${quotient}-${reste} = ${quotient - reste} oeufs pour en remplir une de plus.`
+          texteCorr += `<br><br>${numAlpha(1)} Il lui manquera ${quotient}-${reste} = ${quotient - reste} oeufs pour en remplir une de plus.`
           break
         case 3:
           // problème sur le partage d'un trésor
@@ -77,7 +79,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de ${dividende} par ${diviseur}. <br>`
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`)}$`
           texteCorr += `<br>Chaque pirate aura ${quotient} pièces.`
-          texteCorr += `<br>${numAlpha(1)}  Il restera ${reste} pièces d'or.`
+          texteCorr += `<br><br>${numAlpha(1)}  Il restera ${reste} pièces d'or.`
           break
         case 4: {
           // problème sur le jour de semaine
@@ -125,7 +127,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles)}$ par $${nbGrandeSalles * nb + nbPetiteSalles}$. <br>`
           texteCorr += Operation({ operande1: nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles, operande2: nbGrandeSalles * nb + nbPetiteSalles, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles)}=${nbGrandeSalles * nb + nbPetiteSalles}\\times${texNombre(nbPlacesPetiteSalles)}`)}$`
           texteCorr += `<br>Il y a ${nbPlacesPetiteSalles} places dans une petite salle.`
-          texteCorr += `<br>${numAlpha(1)} $${nbPlacesPetiteSalles} \\times ${nb} = ${nbPlacesPetiteSalles * nb}$ places.`
+          texteCorr += `<br><br>${numAlpha(1)} $${nbPlacesPetiteSalles} \\times ${nb} = ${nbPlacesPetiteSalles * nb}$ places.`
           texteCorr += `<br>Il y a $${nbPlacesPetiteSalles * nb}$ places dans une grande salle.`
           break
         }
@@ -149,7 +151,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += Operation({ operande1: nbPerlesRougeTotal, operande2: nbPerlesRouge, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbPerlesRougeTotal)}=${nbPerlesRouge}\\times${texNombre(nbColliersRouge)}${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge === 0 ? '' : `+ ${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge}`}`)}$`
           texteCorr += `<br>Il peut faire ${texNombre(nbColliersRouge)} colliers avec les perles rouges.`
           texteCorr += `<br>Finalement, il pourra ${texNombre(Math.min(nbColliersRouge, nbColliersJaune))} colliers en prenant en compte les deux couleurs.`
-          texteCorr += `<br>${numAlpha(1)} Il resta $${nbPerlesJauneTotal} - ${nbPerlesJaune} \\times ${Math.min(nbColliersRouge, nbColliersJaune)}=${nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune)}$  perles jaunes.`
+          texteCorr += `<br><br>${numAlpha(1)} Il resta $${nbPerlesJauneTotal} - ${nbPerlesJaune} \\times ${Math.min(nbColliersRouge, nbColliersJaune)}=${nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune)}$  perles jaunes.`
           texteCorr += `<br>Il resta $${nbPerlesRougeTotal} - ${nbPerlesRouge} \\times ${Math.min(nbColliersRouge, nbColliersJaune)}=${nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune)}$  perles rouges.`
           break
         }
@@ -165,7 +167,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbTimbres)}$ par $${nbTimbresParPage}$. <br>`
           texteCorr += Operation({ operande1: nbTimbres, operande2: nbTimbresParPage, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbTimbres)}=${nbTimbresParPage}\\times${texNombre(nbPages)}${nbTimbres - nbTimbresParPage * nbPages === 0 ? '' : `+ ${nbTimbres - nbTimbresParPage * nbPages}`}`)}$`
           texteCorr += `<br>Il y aura ${texNombre(nbPages)} pages remplies et une page avec ${reste} timbres. Donc au total, il faudra ${texNombre(nbPages + 1)} pages.`
-          texteCorr += `<br>${numAlpha(1)} Il y aura ${reste} sur la dernière page.`
+          texteCorr += `<br><br>${numAlpha(1)} Il y aura ${reste} sur la dernière page.`
           break
         }
         case 9: {
@@ -180,7 +182,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(dividende)}$ par $${diviseur}$. <br>`
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(nbPiecesParPirate)} +  ${reste}`)}$`
           texteCorr += `<br>Chaque pirate aura ${texNombre(nbPiecesParPirate)} pièces et il resta ${reste} pièces pour le capitaine.`
-          texteCorr += `<br>${numAlpha(1)} Le capitaine aura ${reste} pièces et il aura le plus de pièces.`
+          texteCorr += `<br><br>${numAlpha(1)} Le capitaine aura ${reste} pièces et il aura le plus de pièces.`
           break
         }
         case 10: {
@@ -203,7 +205,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += Operation({ operande1: nbPersonnes, operande2: nbPlaces2ParRangée, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbPersonnes)}=${nbPlaces2ParRangée}\\times${texNombre(nbRangée2)} +  ${reste2}`)}$`
           texteCorr += `<br> Avec ${nbPlaces2ParRangée} places par rangées, il y aura ${nbRangée2} rangées remplies et une dernière avec ${reste2} places occupées et ${nbPlaces2ParRangée - reste2} places libres.`
           texteCorr += `<br> Ils vont places ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbPlaces2ParRangée : nbPlaces1ParRangée} places par rangées.`
-          texteCorr += `<br>${numAlpha(1)} Il y aura ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 : nbRangée1} rangées remplies et une rangée avec ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? reste2 : reste1} places occupées, soit ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 : nbRangée1} rangées au total.`
+          texteCorr += `<br><br>${numAlpha(1)} Il y aura ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 : nbRangée1} rangées remplies et une rangée avec ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? reste2 : reste1} places occupées, soit ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 : nbRangée1} rangées au total.`
           break
         }
       }

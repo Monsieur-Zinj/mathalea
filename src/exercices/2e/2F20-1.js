@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import {
   ecritureAlgebrique,

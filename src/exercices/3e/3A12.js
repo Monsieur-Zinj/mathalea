@@ -1,4 +1,4 @@
-import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { katexPopup2, lampeMessage, warnMessage } from '../../lib/format/message.js'
 import { modalPdf } from '../../lib/outils/modales.js'

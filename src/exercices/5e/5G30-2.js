@@ -5,7 +5,7 @@ import { point } from '../../lib/2d/points.js'
 import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation, translation } from '../../lib/2d/transformations.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -76,7 +76,7 @@ export default function ExercicesAnglesAIC () {
     '3 : Déterminer si des droites sont parallèles (angles nommés).',
     '4 : Calculer la mesure d\'un angle (angles marqués).',
     '5 : Calculer la mesure d\'un angle (angles nommés).',
-    '6 : Nommer un angle alterne-interne ou correspondant à un angle marqué.',
+    '6 : Marquer un angle alterne-interne ou correspondant à un angle marqué.',
     '7 : Nommer un angle alterne-interne ou correspondant à un angle nommé.',
     '8 : Mélange'
   ]
@@ -85,8 +85,8 @@ export default function ExercicesAnglesAIC () {
   this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n' + formulaire.join('\n')]
 
   this.consigne = ''
-  this.nbCols = 0
-  this.nbColsCorr = 0
+  this.nbCols = 2
+  this.nbColsCorr = 2
   this.tailleDiaporama = 1
   this.video = ''
   this.correctionDetailleeDisponible = false
@@ -169,7 +169,7 @@ export default function ExercicesAnglesAIC () {
             reponse = `ne sont ${texteEnCouleurEtGras('ni alternes-internes')}, ${texteEnCouleurEtGras('ni correspondants')}`
           }
           const texteCorr = `Par définition, les angles marqués ${reponse}.`
-          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
           break
         }
@@ -311,7 +311,7 @@ export default function ExercicesAnglesAIC () {
             coord = 'et'
             sont = 'sont'
           }
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
+          const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection) + String.raw`
           <br>
           ${calculs !== undefined ? calculs : 'Les angles bleu et vert sont opposés par le sommet. <br> Donc ils sont de même mesure.'}
           <br>
@@ -319,7 +319,7 @@ export default function ExercicesAnglesAIC () {
           <br>
           Donc les droites rouges ${texteEnCouleurEtGras(sont + ' parallèles')}.
           `
-          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
           break
         }
@@ -474,7 +474,7 @@ export default function ExercicesAnglesAIC () {
             ...Object.keys(anglesB).map(key => { return anglesB[key] })
           ])
           let texte = 'Sachant que les droites rouges sont parallèles, en déduire la mesure de l\'angle bleu. Justifier.<br>'
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
+          const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection) + String.raw`
           <br>
           Les angles rouge et vert sont ${texteGras(angles)} et formés par des droites ${texteGras('parallèles')}.
           <br>
@@ -484,7 +484,7 @@ export default function ExercicesAnglesAIC () {
           <br>
           L'angle bleu mesure donc $${miseEnEvidence(mesure)}$.
           `
-          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
           break
         }
@@ -581,10 +581,9 @@ export default function ExercicesAnglesAIC () {
           } else if (a + b === 'ca' || a + b === 'db') {
             reponse = 'alterne-interne'
           }
-          let texte = String.raw`Quel est l'angle ${reponse} à l'angle marqué bleu ?<br>`
-          let texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection)
-          texteCorr += String.raw`L'angle ${reponse} à l'angle marqué $${miseEnEvidence('\\widehat{' + anglesA[a].nom + '}', 'blue')}$ est $${miseEnEvidence('\\widehat{' + anglesB[b].nom + '}')}$.`
-          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
+          let texte = String.raw`Marquer en rouge l'angle ${reponse} à l'angle marqué en bleu.<br>`
+          const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection)
+          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
           break
         }
@@ -685,9 +684,9 @@ export default function ExercicesAnglesAIC () {
             reponse = 'alterne-interne'
           }
           let texte = String.raw`Quel est l'angle ${reponse} à l'angle $\widehat{${anglesA[a].nom}}$ ?<br>`
-          let texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection)
+          let texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection)
           texteCorr += String.raw`L'angle ${reponse} à l'angle $${miseEnEvidence('\\widehat{' + anglesA[a].nom + '}', 'blue')}$ est $${miseEnEvidence('\\widehat{' + anglesB[b].nom + '}')}$.`
-          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
           break
         }
@@ -868,7 +867,7 @@ export default function ExercicesAnglesAIC () {
             sont = 'sont'
           }
           const nomAngleSolution = angles !== 'alternes-internes' ? anglesB[a].nom : a === 'c' ? anglesB.a.nom : anglesB.b.nom
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
+          const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection) + String.raw`
           <br>
           ${calculs !== undefined ? calculs : String.raw`Les angles $\widehat{${anglesB[a].nom}}$ et $\widehat{${anglesB[b].nom}}$ sont opposés par le sommet. <br> Donc ils sont de même mesure.`}
           <br>
@@ -876,7 +875,7 @@ export default function ExercicesAnglesAIC () {
           <br>
           Donc les droites $(${anglesA.S.nom}${anglesA.T.nom})$ et $(${anglesB.S.nom}${anglesB.T.nom})$ ${texteEnCouleurEtGras(sont + ' parallèles')}.
           `
-          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
           break
         }
@@ -1074,7 +1073,7 @@ export default function ExercicesAnglesAIC () {
           Sachant que les droites $(${anglesA.S.nom}${anglesA.T.nom})$ et $(${anglesB.S.nom}${anglesB.T.nom})$ sont parallèles, en déduire la mesure de l'angle $\widehat{${anglesB[b].nom}}$.<br>
           `
           const nomAngleSolution = angles !== 'alternes-internes' ? anglesB[a].nom : a === 'c' ? anglesB.a.nom : anglesB.b.nom
-          const texteCorr = mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsCorrection) + String.raw`
+          const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection) + String.raw`
           <br>
           Les angles $${miseEnEvidence('\\widehat{' + anglesA[a].nom + '}', 'red')}$ et $${miseEnEvidence('\\widehat{' + nomAngleSolution + '}', 'green')}$ sont ${texteGras(angles)} et formés par des droites ${texteGras('parallèles')}.
           <br>
@@ -1084,7 +1083,7 @@ export default function ExercicesAnglesAIC () {
           <br>
           Donc l'angle $${miseEnEvidence('\\widehat{' + anglesB[b].nom + '}', 'blue')}$ mesure $${miseEnEvidence(mesure)}$.
           `
-          texte += mathalea2d(Object.assign({ scale: 0.7 }, paramsEnonce), objetsEnonce)
+          texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
           break
         }

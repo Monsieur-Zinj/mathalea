@@ -1,5 +1,5 @@
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { texteGras } from '../../lib/format/style.js'
+import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Démontrer l\'équivalence de deux programmes de calcul'

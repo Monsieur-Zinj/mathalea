@@ -7,13 +7,13 @@ import { droiteGraduee, repere } from '../../../lib/2d/reperes.js'
 import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes.js'
 import { rotation } from '../../../lib/2d/transformations.js'
-import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { arrondi, signe } from '../../../lib/outils/nombres.js'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString.js'
 import { prenomF } from '../../../lib/outils/Personne.js'
-import { texPrix } from '../../../lib/format/style.js'
+import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -1242,7 +1242,7 @@ export default function SujetCAN2023troisieme () {
        $${Math.floor(Math.sqrt(a))}< \\sqrt{${a}} < ${Math.floor(Math.sqrt(a)) + 1}$.`
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
-            texte += 'Écrire les entiers dans l’ordre croissant, séparés par un point virgule'
+            texte += 'Écrire les entiers dans l’ordre croissant, séparés par un point-virgule'
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
           this.listeCanEnonces.push('Complète avec deux entiers consécutifs.')

@@ -1,4 +1,4 @@
-import { shuffle } from '../../../lib/outils/arrayOutils.js'
+import { shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { randint } from '../../../modules/outils.js'

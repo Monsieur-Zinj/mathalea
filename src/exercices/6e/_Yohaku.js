@@ -3,10 +3,13 @@ import Exercice from '../Exercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { Yohaku } from '../../lib/outils/Yohaku'
 import { ComputeEngine } from '@cortex-js/compute-engine'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 export const uuid = '3a377'
 export const ref = 'Yohaku'
@@ -70,6 +73,18 @@ export default function FabriqueAYohaku () {
       if (this.questionJamaisPosee(i, ...yohaku.cellules)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: this.introduction + texte,
+            propositions: [
+              {
+                texte: '',
+                statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+              }
+            ]
+          }
+        }
         i++
       }
       cpt++
@@ -89,9 +104,9 @@ export default function FabriqueAYohaku () {
         if (cell != null) {
           spanFeedback[l][c] = document.querySelector(`span#feedbackEx${this.numeroExercice}Q${i}L${l + 1}C${c + 1}`)
           if (this.yohaku[i].type === 'littéraux') { // on ne parse pas si c'est du littéral. On blinde pour les champs vide.
-            saisies[l * taille + c] = cell.value.replace(',', '.') ?? '0'
+            if (cell.value != null) saisies[l * taille + c] = cell.value.replace(',', '.') ?? '0'
           } else {
-            saisies[l * taille + c] = cell.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1') ?? '0'
+            if (cell.value != null) saisies[l * taille + c] = cell.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1') ?? '0'
             // on peut taper des entiers dans les Yohaku fraction, mais ils doivent être modifiés en fraction pour le calcul
             if (!isNaN(saisies[l * taille + c]) && this.yohaku[i].type.includes('frac')) {
               saisies[l * taille + c] = `\\frac{${saisies[l * taille + c]}}{1}`

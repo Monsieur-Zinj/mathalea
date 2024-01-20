@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPosition } from '../../lib/2d/textes.js'
-import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

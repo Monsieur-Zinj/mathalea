@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere, rangeMinMax } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

@@ -1,7 +1,7 @@
 import { tracePoint } from '../../lib/2d/points.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
-import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
 import { arrondi, nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres.js'

@@ -4,7 +4,7 @@ import {
   combinaisonListes2,
   enleveElement,
   enleveElementNo
-} from '../../lib/outils/arrayOutils.js'
+} from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'

@@ -1,4 +1,4 @@
-import { combinaisonListes, choice } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'

@@ -1,4 +1,4 @@
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
 import {
   deprecatedTexFraction,
   simplificationDeFractionAvecEtapes,
@@ -52,43 +52,43 @@ export default function CalculImageQuotient () {
         Calculer $f(${x})$ sous la forme d'une fraction irréductible ou d'un entier le cas échéant.`
     if (a === 1 && c === 1) {
       this.correction = `$f(${x})=\\dfrac{${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}}{${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}}
-          =${texFractionReduite(e, f)}$.<br>
+          =${miseEnEvidence(texFractionReduite(e, f))}$.<br><br>
           `
       this.correction += texteEnCouleur(` Mentalement : <br>
           On calcule  le numérateur et le dénominateur pour $x=${x}$, soit
            $ ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$ et $ ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
            On obtient le quotient que l'on simplifie éventuellement : $${deprecatedTexFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
-    `)
+    `, 'blue')
     }
     if (a === 1 && c !== 1) {
       this.correction = `$f(${x})=\\dfrac{${x}${ecritureAlgebrique(b)}}{${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}}
-          =${texFractionReduite(e, f)}$.<br>
+          =${miseEnEvidence(texFractionReduite(e, f))}$.<br><br>
           `
       this.correction += texteEnCouleur(` Mentalement : <br>
           On calcule  le numérateur et le dénominateur pour $x=${x}$, soit
            $ ${x}${ecritureAlgebrique(b)}=${a * x + b}$ et $${c}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
            On obtient le quotient que l'on simplifie éventuellement : $${deprecatedTexFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
-    `)
+    `, 'blue')
     }
     if (a !== 1 && c === 1) {
       this.correction = `$f(${x})=\\dfrac{${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}}{${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}}
-          =${texFractionReduite(e, f)}$.<br>
+          =${miseEnEvidence(texFractionReduite(e, f))}$.<br><br>
           `
       this.correction += texteEnCouleur(` Mentalement : <br>
           On calcule  le numérateur et le dénominateur pour $x=${x}$, soit
            $${a}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$ et $ ${x}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
            On obtient le quotient que l'on simplifie éventuellement : $${deprecatedTexFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
-    `)
+    `, 'blue')
     }
     if (a !== 1 && c !== 1) {
       this.correction = `$f(${x})=\\dfrac{${a}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}}{${c}\\times${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}}
-          =${texFractionReduite(e, f)}$.<br>
+          =${miseEnEvidence(texFractionReduite(e, f))}$.<br><br>
           `
       this.correction += texteEnCouleur(` Mentalement : <br>
           On calcule  le numérateur et le dénominateur pour $x=${x}$, soit
            $${a}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$ et $${c}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
            On obtient le quotient que l'on simplifie éventuellement : $${deprecatedTexFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$.
-    `)
+    `, 'blue')
     }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''

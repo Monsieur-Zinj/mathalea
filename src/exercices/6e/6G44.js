@@ -1,4 +1,4 @@
-import { shuffle } from '../../lib/outils/arrayOutils.js'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import {
   homothetie3d,
   point3d,

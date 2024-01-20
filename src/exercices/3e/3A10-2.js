@@ -1,4 +1,4 @@
-import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { warnMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'

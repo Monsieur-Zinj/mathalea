@@ -2,7 +2,7 @@ import { codageAngle } from '../../lib/2d/angles.js'
 import { point, pointSurSegment } from '../../lib/2d/points.js'
 import { texteParPoint } from '../../lib/2d/textes.js'
 import { rotation } from '../../lib/2d/transformations.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -39,7 +39,7 @@ export default function CalculerUnPourcentage () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const listeMoyens = ['en bus', 'en deux-roues', 'à  pieds', 'en voiture']
+    const listeMoyens = ['en bus', 'en deux-roues', 'à  pied', 'en voiture']
     const listeSports = ['le foot', 'la natation', 'le basket', 'le ping-pong', 'le volley', 'la gym']
     const listeHobbies = ['la couture', 'le cinéma', 'la musique', 'le sport', 'la programmation', 'le jardinage', 'la cuisine']
     let p1, p2, p3, moy1, moy2, moy3

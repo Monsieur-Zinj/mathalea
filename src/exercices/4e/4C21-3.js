@@ -2,6 +2,8 @@ import { ExoRose } from '../6e/_Roses.js'
 export const titre = 'Résoudre une Rose additive avec des fractions'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 export const dateDePublication = '12/08/2022'
 
 /**

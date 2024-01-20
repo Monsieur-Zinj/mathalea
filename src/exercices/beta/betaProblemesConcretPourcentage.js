@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { egalOuApprox } from '../../lib/outils/ecritures.js'
 import { range } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

@@ -1,5 +1,5 @@
 import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { texteGras } from '../../lib/format/style.js'
+import { texteGras } from '../../lib/format/style'
 import { sommeDesChiffres } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'

@@ -1,7 +1,7 @@
 import { abs, acos, equal, largerEq, max, polynomialRoot, round } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { egal, randint } from '../../modules/outils.js'
-import { choice } from '../outils/arrayOutils.js'
+import { choice } from '../outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../outils/ecritures.js'
 import Decimal from 'decimal.js'
 

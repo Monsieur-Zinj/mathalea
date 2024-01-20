@@ -1,5 +1,5 @@
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

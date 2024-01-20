@@ -1,9 +1,10 @@
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { tableauDeVariation } from '../../../lib/mathFonctions/etudeFonction.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
@@ -103,13 +104,13 @@ export default function EncadrerTableau () {
           if (M === y1) {
             correction1 = `Sur $[${x1}\\,;\\,${x3}]$, le minimum de $f$ est $${y2}$ et le maximum est
           $${y1}$. <br>
-          Ainsi, pour $x\\in[${x1}\\,;\\,${x3}]$, ${sp(3)} $${y2}\\leqslant f(x)\\leqslant ${y1}$.<br>`
+          Ainsi, pour $x\\in[${x1}\\,;\\,${x3}]$, ${sp(3)} $${miseEnEvidence(y2)}\\leqslant f(x)\\leqslant ${miseEnEvidence(y1)}$.<br>`
             setReponse(this, 2 * i, y2)
             setReponse(this, 2 * i + 1, y1)
           } else {
             correction1 = `Sur $[${x1}\\,;\\,${x3}]$, le minimum de $f$ est $${y2}$ et le maximum est
           $${y3}$. <br>
-          Ainsi, pour $x\\in[${x1}\\,;\\,${x3}]$, ${sp(3)} $${y2}\\leqslant f(x)\\leqslant ${y3}$.<br>`
+          Ainsi, pour $x\\in[${x1}\\,;\\,${x3}]$, ${sp(3)} $${miseEnEvidence(y2)}\\leqslant f(x)\\leqslant ${miseEnEvidence(y3)}$.<br>`
             setReponse(this, 2 * i, y2)
             setReponse(this, 2 * i + 1, y3)
           }
@@ -117,13 +118,13 @@ export default function EncadrerTableau () {
           if (M === y1) {
             correction1 = `Sur $[${x1}\\,;\\,${x3}]$, le minimum de $f$ est $${-y1}$ et le maximum est
           $${-y2}$. <br>
-          Ainsi, pour $x\\in[${x1}\\,;\\,${x3}]$, ${sp(3)} $${-y1}\\leqslant f(x)\\leqslant ${-y2}$. `
+          Ainsi, pour $x\\in[${x1}\\,;\\,${x3}]$, ${sp(3)} $${miseEnEvidence(-y1)}\\leqslant f(x)\\leqslant ${miseEnEvidence(-y2)}$. `
             setReponse(this, 2 * i, -y1)
             setReponse(this, 2 * i + 1, -y2)
           } else {
             correction1 = `Sur $[${x1}\\,;\\,${x3}]$, le minimum de $f$ est $${-y3}$ et le maximum est
           $${-y2}$. <br>
-          Ainsi, pour $x\\in[${x1}\\,;\\,${x3}]$, ${sp(3)} $${-y3}\\leqslant f(x)\\leqslant ${-y2}$.  `
+          Ainsi, pour $x\\in[${x1}\\,;\\,${x3}]$, ${sp(3)} $${miseEnEvidence(-y3)}\\leqslant f(x)\\leqslant ${miseEnEvidence(-y2)}$.  `
             setReponse(this, 2 * i, -y3)
             setReponse(this, 2 * i + 1, -y2)
           }
@@ -139,13 +140,13 @@ export default function EncadrerTableau () {
           if (m === y2) {
             correction1 = `Sur $[${x2}\\,;\\,${x4}]$, le minimum de $f$ est $${y2}$ et le maximum est
           $${y3}$. <br>
-          Ainsi, pour $x\\in[${x2}\\,;\\,${x4}]$, ${sp(3)} $${y2}\\leqslant f(x)\\leqslant ${y3}$.`
+          Ainsi, pour $x\\in[${x2}\\,;\\,${x4}]$, ${sp(3)} $${miseEnEvidence(y2)}\\leqslant f(x)\\leqslant ${miseEnEvidence(y3)}$.`
             setReponse(this, 2 * i, y2)
             setReponse(this, 2 * i + 1, y3)
           } else {
             correction1 = `Sur $[${x2}\\,;\\,${x4}]$, le minimum de $f$ est $${y4}$ et le maximum est
           $${y3}$. <br>
-          Ainsi, pour $x\\in[${x2}\\,;\\,${x4}]$, ${sp(3)} $${y4}\\leqslant f(x)\\leqslant ${y3}$.  `
+          Ainsi, pour $x\\in[${x2}\\,;\\,${x4}]$, ${sp(3)} $${miseEnEvidence(y4)}\\leqslant f(x)\\leqslant ${miseEnEvidence(y3)}$.  `
             setReponse(this, 2 * i, y4)
             setReponse(this, 2 * i + 1, y3)
           }
@@ -153,13 +154,13 @@ export default function EncadrerTableau () {
           if (m === y2) {
             correction1 = `Sur $[${x2}\\,;\\,${x4}]$, le minimum de $f$ est $${-y3}$ et le maximum est
           $${-y2}$. <br>
-          Ainsi, pour $x\\in[${x2}\\,;\\,${x4}]$, ${sp(3)} $${-y3}\\leqslant f(x)\\leqslant ${-y2}$. `
+          Ainsi, pour $x\\in[${x2}\\,;\\,${x4}]$, ${sp(3)} $${miseEnEvidence(-y3)}\\leqslant f(x)\\leqslant ${miseEnEvidence(-y2)}$. `
             setReponse(this, 2 * i, -y3)
             setReponse(this, 2 * i + 1, -y2)
           } else {
             correction1 = `Sur $[${x2}\\,;\\,${x4}]$, le minimum de $f$ est $${-y3}$ et le maximum est
           $${-y4}$. <br>
-          Ainsi, pour $x\\in[${x2}\\,;\\,${x4}]$, ${sp(3)} $${-y3}\\leqslant f(x)\\leqslant ${-y4}$.  `
+          Ainsi, pour $x\\in[${x2}\\,;\\,${x4}]$, ${sp(3)} $${miseEnEvidence(-y3)}\\leqslant f(x)\\leqslant ${miseEnEvidence(-y4)}$.  `
             setReponse(this, 2 * i, -y3)
             setReponse(this, 2 * i + 1, -y4)
           }

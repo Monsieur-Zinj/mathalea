@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureNombreRelatif } from '../../lib/outils/ecritures.js'
 import { Relatif } from '../../modules/Relatif.js'

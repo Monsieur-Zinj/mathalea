@@ -1,5 +1,5 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { texteGras } from '../../lib/format/style.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

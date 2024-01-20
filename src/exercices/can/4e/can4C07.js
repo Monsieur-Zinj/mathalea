@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import Exercice from '../../Exercice.js'

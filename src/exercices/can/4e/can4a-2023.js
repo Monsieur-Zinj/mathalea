@@ -4,13 +4,13 @@ import { polygone } from '../../../lib/2d/polygones.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { rotation } from '../../../lib/2d/transformations.js'
-import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { prenomF } from '../../../lib/outils/Personne.js'
-import { texPrix } from '../../../lib/format/style.js'
+import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -563,7 +563,7 @@ export default function SujetCAN2023Quatrieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
-            texte += '<br>Écrire les deux nombres  séparés par un point virgule.'
+            texte += '<br>Écrire les deux nombres  séparés par un point-virgule.'
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
           }
           nbChamps = 1

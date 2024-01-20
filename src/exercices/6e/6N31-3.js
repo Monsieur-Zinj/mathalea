@@ -1,6 +1,6 @@
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { degCos } from '../../lib/mathFonctions/trigo.js'
-import { choice, combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { troncature } from '../../lib/outils/nombres.js'

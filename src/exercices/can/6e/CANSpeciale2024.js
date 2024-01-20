@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1, reduirePolynomeDegre3, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
 import { arrondi, abs, range } from '../../../lib/outils/nombres.js'
 import { codageSegments } from '../../../lib/2d/codages.js'
@@ -304,8 +304,8 @@ export default function CourseAuxNombresSpeciale2024 () {
             reponse = 506
           } else if (choixQ2 === 1) {
             texte = `Le double de $${texNombre(2024)}$`
-            texteCorr = `$${texNombre(2024)}\\times 2=${miseEnEvidence(texNombre(2048))}$`
-            reponse = 2048
+            texteCorr = `$${texNombre(2024)}\\times 2=${miseEnEvidence(texNombre(4048))}$`
+            reponse = 4048
           } else {
             texte = `Le triple de $${texNombre(2024)}$`
             texteCorr = `$${texNombre(2024)}\\times 3=${miseEnEvidence(texNombre(6072))}$`

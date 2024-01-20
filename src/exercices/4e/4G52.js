@@ -1,7 +1,7 @@
 import { tracePoint } from '../../lib/2d/points.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { degSin, radians } from '../../lib/mathFonctions/trigo.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

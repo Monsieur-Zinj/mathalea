@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import Transformations from '../6e/_Transformations.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'

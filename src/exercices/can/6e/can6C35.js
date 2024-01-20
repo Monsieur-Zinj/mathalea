@@ -1,6 +1,6 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
-import { texPrix } from '../../../lib/format/style.js'
+import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'

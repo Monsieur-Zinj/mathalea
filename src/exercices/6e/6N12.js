@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { modalUrl } from '../../lib/outils/modales.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'

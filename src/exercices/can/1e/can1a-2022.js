@@ -5,7 +5,7 @@ import { pave } from '../../../lib/2d/projections3d.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
-import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import {
   ecritureAlgebrique,
@@ -15,7 +15,7 @@ import {
   reduirePolynomeDegre3,
   rienSi1
 } from '../../../lib/outils/ecritures.js'
-import { arcenciel, texPrix } from '../../../lib/format/style.js'
+import { arcenciel, texPrix } from '../../../lib/format/style'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'

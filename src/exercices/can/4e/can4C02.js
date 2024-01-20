@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Trouver l’opposé ou l’inverse d’une fraction'

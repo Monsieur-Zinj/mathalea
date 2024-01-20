@@ -1,6 +1,6 @@
-import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texPrix } from '../../lib/format/style.js'
+import { texPrix } from '../../lib/format/style'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

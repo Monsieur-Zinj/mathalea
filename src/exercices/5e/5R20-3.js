@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { sommeDesTermesParSigne } from '../../lib/outils/calculs.js'
 import {
   ecritureAlgebrique,

@@ -9,11 +9,12 @@ export const titre = 'Placer des points dans un repère'
 export const dateDePublication = '27/10/2023'
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 /**
- * Placer un point dans un repère
+ * Placer des points dans un repère
  * @author Rémi Angot
- * Références 5R12-1
  */
 export const uuid = '4dadb'
 export const ref = '5R12-1'
@@ -81,12 +82,24 @@ class ReperagePointDuPlan extends Exercice {
       this.question = enonce + emplacementPourFigure
       this.correction = texteCorr
     } else {
-      this.question = enonce + `\n\n\\bigskip\n\\Reperage[Plan,AffichageNom,AffichageGrad]{%
+      this.question = enonce + `\n\n\\bigskip\n\\Reperage[Plan,AffichageNom,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
         -5/0/,0/-5/,5/0/,0/5/%
         }`
-      this.correction = `\\Reperage[Plan,AffichageNom,AffichageGrad]{%
+      this.correction = `\\Reperage[Plan,AffichageNom,AffichageGrad,Unitesx=0.75,Unitey=0.75]{%
         -5/0/,0/-5/,5/0/,0/5/,${x1}/${y1}/A,${x2}/${y2}/B,${x3}/${y3}/C,${x4}/${y4}/D%
         }`
+    }
+    if (context.isAmc) {
+      this.autoCorrection[0] = {
+        enonce: this.question,
+        propositions: [
+          {
+            texte: '',
+            statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+            sanscadre: true // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+          }
+        ]
+      }
     }
   }
 

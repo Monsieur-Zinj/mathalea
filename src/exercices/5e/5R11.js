@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { labelPoint } from '../../lib/2d/textes.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -120,11 +120,12 @@ export default function LireAbscisseRelative () {
       } else {
         this.autoCorrection[i] = {
           enonce: '',
+          options: { barreseparation: false },
           propositions: [
             {
               type: 'AMCNum',
               propositions: [{
-                texte: texteCorr,
+                texte: '',
                 statut: '',
                 reponse: {
                   texte: texte + `<br>Abscisse de ${l1}`,
@@ -143,6 +144,7 @@ export default function LireAbscisseRelative () {
               propositions: [{
                 texte: '',
                 statut: '',
+                multicolsBegin: true,
                 reponse: {
                   texte: `Abscisse de ${l2}`,
                   valeur: abs2,
@@ -160,6 +162,7 @@ export default function LireAbscisseRelative () {
               propositions: [{
                 texte: '',
                 statut: '',
+                multicolsEnd: true,
                 reponse: {
                   texte: `Abscisse de ${l3}`,
                   valeur: abs3,

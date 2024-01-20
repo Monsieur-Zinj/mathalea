@@ -2,9 +2,10 @@ import { repere } from '../../lib/2d/reperes.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
 import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { spline } from '../../lib/mathFonctions/Spline.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
@@ -217,6 +218,14 @@ export default class BetaModeleSpline extends Exercice {
       texteCorrection += `Tableau de signes de $f(x)$ sur $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$ :<br>
           `
       texteCorrection += tableau
+
+      if (this.interactif) {
+        if (choixInteractif === 0) {
+          texteCorrection += `<br>Le tableau de signe correspond, il fallait donc répondre "${texteEnCouleurEtGras('Oui')}"`
+        } else {
+          texteCorrection += `<br>Le tableau de signe ne correspond pas, il fallait donc répondre "${texteEnCouleurEtGras('Non')}"`
+        }
+      }
 
       this.listeQuestions.push(texteEnonce)
       this.listeCorrections.push(texteCorrection)

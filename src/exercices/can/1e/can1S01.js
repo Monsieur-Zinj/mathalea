@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'

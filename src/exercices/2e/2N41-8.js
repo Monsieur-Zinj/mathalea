@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../lib/outils/ecritures.js'
 import { abs } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'

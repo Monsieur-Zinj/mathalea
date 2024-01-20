@@ -75,7 +75,6 @@
             else {
               // Problème à régler pour ts. mais window.notify() existe bien au chargement en ce qui nous concerne.
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-expect-error
               window.notify('Il y a un problème avec l\'input de cet exercice, il ne semble pas être un MathfieldElement, en tout cas ne possède pas de méthode setValue()', { exercice: JSON.stringify(exercise) })
               field.value = objAnswers[answer]
             }
@@ -181,7 +180,7 @@
     exercise.isDone = true
     if ($globalOptions.isSolutionAccessible) isCorrectionVisible = true
     if (exercise.numeroExercice != null) {
-      const previousBestScore = $exercicesParams[exercise.numeroExercice].bestScore ?? 0
+      const previousBestScore = $exercicesParams[exercise.numeroExercice]?.bestScore ?? 0
       const { numberOfPoints, numberOfQuestions } = exerciceInteractif(exercise, divScore, buttonScore)
       const bestScore = Math.max(numberOfPoints, previousBestScore)
       exercicesParams.update(l => {

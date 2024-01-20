@@ -2,7 +2,7 @@ import { codageAngle } from '../../../lib/2d/angles.js'
 import { afficheLongueurSegment } from '../../../lib/2d/codages.js'
 import { point, pointAdistance } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
@@ -61,7 +61,7 @@ export default function LongueurPythagore () {
       Calculer la longueur $${nom[0]}${nom[1]}$.<br>
       
       `
-        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
+        this.question += mathalea2d({ xmin: -b / 10 - 1, xmax: b + b / 10 + 1, ymin: -b / 10 - 1, ymax: C.y + b / 10 + 1, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
         this.correction = ` $${nom[0]}${nom[1]}=${b}$ cm.`
         this.reponse = b
         this.canEnonce = this.question// 'Compléter'
@@ -73,7 +73,7 @@ export default function LongueurPythagore () {
         Calculer la longueur $${nom[1]}${nom[2]}$.<br>
         
         `
-        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
+        this.question += mathalea2d({ xmin: -b / 10 - 1, xmax: b + b / 10 + 1, ymin: -b / 10 - 1, ymax: C.y + b / 10 + 1, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
         this.correction = ` $${nom[1]}${nom[2]}=${a}$ cm.`
         this.reponse = a
         this.canEnonce = this.question// 'Compléter'
@@ -85,7 +85,7 @@ export default function LongueurPythagore () {
        Calculer la longueur $${nom[0]}${nom[2]}$.<br>
        
        `
-        this.question += mathalea2d({ xmin: -b / 10, xmax: b + b / 10, ymin: -b / 10, ymax: C.y + b / 10, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
+        this.question += mathalea2d({ xmin: -b / 10 - 1, xmax: b + b / 10 + 1, ymin: -b / 10 - 1, ymax: C.y + b / 10 + 1, pixelsParCm: 140 / b, scale: 4 / b, style: 'margin: auto' }, objets) + '<br>'
 
         this.correction = ` $${nom[0]}${nom[2]}=${c}$ cm.`
         this.reponse = c

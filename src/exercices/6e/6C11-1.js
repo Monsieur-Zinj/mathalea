@@ -1,6 +1,6 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { texteGras } from '../../lib/format/style.js'
+import { texteGras } from '../../lib/format/style'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
@@ -17,16 +17,13 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 /**
  * Détermination du reste et quotient à partir de l'égalité découlant de la division euclidienne
- *
  * @author Cédric GROLLEAU
- * Référence 6C11-1
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '37267'
 export const ref = '6C11-1'
 export default function DivisionsEuclidiennesEgalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigneCorrection = texteGras('Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = b × q + r avec r < b')
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli

@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { warnMessage } from '../../lib/format/message.js'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres.js'

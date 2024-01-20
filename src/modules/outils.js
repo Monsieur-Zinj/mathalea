@@ -6,7 +6,7 @@ import {
   combinaisonListesSansChangerOrdre,
   compteOccurences,
   enleveDoublonNum
-} from '../lib/outils/arrayOutils.js'
+} from '../lib/outils/arrayOutils'
 import { texMulticols } from '../lib/format/miseEnPage.js'
 import { arrondi, rangeMinMax } from '../lib/outils/nombres.js'
 import { context } from './context.js'

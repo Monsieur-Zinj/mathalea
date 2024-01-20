@@ -1,4 +1,4 @@
-import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

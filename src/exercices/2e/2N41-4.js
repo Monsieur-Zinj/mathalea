@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
@@ -9,7 +9,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Développer (a+b)²'
+export const titre = 'Développer $(a+b)^2$'
 
 /**
  * Développer (ax+b)²

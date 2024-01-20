@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { warnMessage } from '../../lib/format/message.js'

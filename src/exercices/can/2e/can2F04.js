@@ -1,7 +1,8 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
 import { sp } from '../../../lib/outils/outilString.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Trouver les valeurs interdites d’une fonction'
@@ -34,7 +35,7 @@ export default function ValeurInterdite () {
     
             `
       this.correction = `La valeur interdite est la solution de l'équation $${reduireAxPlusB(b, c)}=0$.<br>
-    La valeur interdite est donc $${texFractionReduite(-c, b)}$.`
+    La valeur interdite est donc $${miseEnEvidence(texFractionReduite(-c, b))}$.`
       this.reponse = -n
     } else {
       a = randint(-10, 10, 0)
@@ -46,7 +47,7 @@ export default function ValeurInterdite () {
       `
       this.correction = `Les valeurs interdites sont les solutions de l'équation $x^2-${b ** 2}=0$.<br>
                Cette équation a deux solutions : $${b}$ et $-${b}$.<br>
-               La plus petite valeur interdite est donc : $-${b}$. `
+               La plus petite valeur interdite est donc : $${miseEnEvidence(`-${b}`)}$. `
       this.reponse = -b
     }
     this.canEnonce = this.question// 'Compléter'

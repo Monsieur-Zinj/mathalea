@@ -5,7 +5,7 @@ import { milieu, point, pointIntersectionDD, pointSurSegment } from '../../lib/2
 import { polygone } from '../../lib/2d/polygones.js'
 import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie, projectionOrtho, rotation, translation } from '../../lib/2d/transformations.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'

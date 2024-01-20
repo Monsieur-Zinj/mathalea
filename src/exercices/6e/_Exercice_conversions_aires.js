@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
@@ -7,7 +7,7 @@ import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { texTexte } from '../../lib/format/texTexte.js'
+import { texTexte } from '../../lib/format/texTexte'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true

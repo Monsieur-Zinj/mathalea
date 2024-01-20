@@ -1,4 +1,4 @@
-import { choice, enleveElement } from '../../lib/outils/arrayOutils.js'
+import { choice, enleveElement } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'

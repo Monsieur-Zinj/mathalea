@@ -1,7 +1,7 @@
 import Exercice from '../ExerciceTs'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { context } from '../../modules/context.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
@@ -16,13 +16,12 @@ export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
-export const titre = 'Placer un point d\'abscisse un nombre relatif'
+export const titre = 'Placer un point sur une droite graduée dont l\'abscisse est un nombre relatif'
 export const dateDeModifImportante = '8/12/2023'
 
 /**
 * Placer un point d'abscisse un nombre relatif
 * @author Jean-Claude Lhote et Rémi Angot
-* Référence 5R11-2
 */
 export const uuid = '6d576'
 export const ref = '5R11-2'
@@ -34,7 +33,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
   figures: Figure[] = []
   constructor () {
     super()
-    this.consigne = ''
     this.nbQuestions = 5
     this.nbQuestionsModifiable = true
     this.nbCols = 1
@@ -47,7 +45,8 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
   }
 
   nouvelleVersion () {
-    if (this.interactif) this.consigne = 'Placer les points sur la droite graduée, puis vérifier la réponse.'
+    // if (this.interactif) this.consigne = 'Placer les points sur la droite graduée, puis vérifier la réponse.'
+    // else this.consigne = 'Placer les points sur la droite graduée.'
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
@@ -131,7 +130,12 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
           texteCorr += '\\;\n' + latexCorr
           break
       }
-
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: this.consigne + '<br>' + texte + '<br>',
+          propositions: [{ statut: 3, sanscadre: true }]
+        }
+      }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

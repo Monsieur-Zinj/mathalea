@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

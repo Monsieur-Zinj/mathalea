@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 import { Triangle } from '../../../modules/Triangle.js'

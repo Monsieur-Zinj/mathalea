@@ -1,6 +1,6 @@
 import { all, create } from 'mathjs'
 import { MatriceCarree } from '../../lib/mathFonctions/MatriceCarree.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'

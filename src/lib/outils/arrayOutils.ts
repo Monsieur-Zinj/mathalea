@@ -1,18 +1,22 @@
 import { egal, epsilon } from '../../modules/outils.js'
-
+declare global {
+  interface Window {
+    notify: (message: string, object: unknown) => void;
+  }
+}
 /**
  *
  * @param {any[]} array1
  * @param {any[]} array2
  * @return boolean
  */
-export function compareArrays (array1, array2) {
+export function compareArrays (array1: unknown[], array2: unknown[]): boolean {
   if (!(Array.isArray(array1) && Array.isArray(array2)) || array1.length !== array2.length) return false
   for (let i = 0; i < array1.length; i++) {
     // le test suivant ne fonctionne pas avec des array contenant des objets, car objet1 === objet2 est toujours false.
     // il fonctionne avec des arrays d'array ou de primitives.
-    const test = Array.isArray(array1[i]) ? compareArrays(array1[i], array2[i]) : array1[i] === array2[i]
-    if (!test) return false // on retourne false et le test s'arrête dés que deux éléments ne correspondent pas.
+    const test = Array.isArray(array1[i]) ? compareArrays(array1[i] as unknown[], array2[i] as unknown[]) : array1[i] === array2[i]
+    if (!test) return false
   }
   return true
 }
@@ -26,7 +30,7 @@ export function compareArrays (array1, array2) {
  * @param {int} nombreDeCouplesMin=10 - Nombre de couples souhaités
  * @author Rémi Angot
  */
-export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
+export function creerCouples<T1, T2> (E1: T1[], E2: T2[], nombreDeCouplesMin = 10) {
   let result = []
   let temp = []
   for (const i of E1) {
@@ -51,15 +55,15 @@ export function creerCouples (E1, E2, nombreDeCouplesMin = 10) {
  *
  * @author Rémi Angot
  */
-export function enleveElement (array, item) {
+export function enleveElement<T> (array: Array<T>, item: T) {
   //
   for (let i = array.length - 1; i >= 0; i--) {
     if (typeof item === 'number') {
-      if (egal(array[i], item)) {
+      if (egal(array[i] as number, item)) {
         array.splice(i, 1)
       }
     } else if (Array.isArray(array[i]) && Array.isArray(item)) {
-      if (compareArrays(array[i], item)) {
+      if (compareArrays(array[i] as unknown[], item)) {
         array.splice(i, 1)
       }
     } else {
@@ -78,11 +82,11 @@ export function enleveElement (array, item) {
  *
  * @author Rémi Angot
  */
-export function enleveElementDouble (array1, array2, item) {
+export function enleveElementDouble<T> (array1: T[], array2: T[], item: T) {
   //
   for (let i = array1.length - 1; i >= 0; i--) {
     if (typeof item === 'number') {
-      if (egal(array1[i], item)) {
+      if (egal(array1[i] as number, item)) {
         array1.splice(i, 1)
         array2.splice(i, 1)
       }
@@ -102,7 +106,7 @@ export function enleveElementDouble (array1, array2, item) {
  * @param item
  * @Author Rémi Angot
  */
-export function compteOccurences (array, value) {
+export function compteOccurences<T> (array: T[], value: T): number {
   let cpt = 0
   array.forEach((v) => (v === value && cpt++))
   return cpt
@@ -113,7 +117,7 @@ export function compteOccurences (array, value) {
  * @author Rémi Angot & Jean-Claude Lhote
  */
 
-export function enleveElementBis (array, item = undefined) {
+export function enleveElementBis<T> (array: T[], item?: T) {
   const tableaucopie = []
   for (let i = 0; i < array.length; i++) {
     tableaucopie.push(array[i])
@@ -132,7 +136,7 @@ export function enleveElementBis (array, item = undefined) {
  * @param {number} index de l'élément à retirer
  * @author Jean-Claude Lhote
  */
-export function enleveElementNo (array, index) {
+export function enleveElementNo<T> (array: T[], index: number) {
   if (index >= 0 && index < array.length) array.splice(index, 1)
 }
 
@@ -143,7 +147,7 @@ export function enleveElementNo (array, index) {
  * @return {Array<any>} une copie du tableau modifié
  * @author Jean-Claude Lhote
  */
-export function nouveauTableauPriveDunElement (array, index) {
+export function nouveauTableauPriveDunElement<T> (array: T[], index: number) {
   const tableaucopie = array.slice()
   return tableaucopie.splice(index, 1)
 }
@@ -162,8 +166,7 @@ export function nouveauTableauPriveDunElement (array, index) {
  *
  * @author Rémi Angot
  */
-export function choice (liste, listeAEviter = []) {
-  // copie la liste pour ne pas y toucher (ce n'est pas le but de choice)
+export function choice<T> (liste: T[], listeAEviter: T[] = []) {
   if (!Array.isArray(listeAEviter)) {
     listeAEviter = [listeAEviter]
   }
@@ -186,7 +189,7 @@ export function choice (liste, listeAEviter = []) {
  * @param {number} tolerance La différence minimale entre deux valeurs pour les considérer comme égales
  * @author Jean-Claude Lhote
  **/
-export function enleveDoublonNum (arr, tolerance = epsilon) {
+export function enleveDoublonNum (arr: number[], tolerance = epsilon) {
   let k = 0
   while (k < arr.length - 1) {
     let kk = k + 1
@@ -210,7 +213,7 @@ export function enleveDoublonNum (arr, tolerance = epsilon) {
  * tableau_melange = shuffle (tableau_origine)
  * @see https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  */
-export function shuffle (array) {
+export function shuffle<T> (array: T[]): T[] {
   let currentIndex = array.length
   let temporaryValue
   let randomIndex
@@ -231,7 +234,7 @@ export function shuffle (array) {
   return arrayBis
 }
 
-export function shuffleJusqua (array, indice) {
+export function shuffleJusqua<T> (array: T[], indice: number): T[] {
   if (indice > array.length || indice < 0 || indice === undefined) {
     return shuffle(array)
   } else {
@@ -248,7 +251,7 @@ export function shuffleJusqua (array, indice) {
  * motMelange = shuffleLettres (mot)
  * @see https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
  */
-export function shuffleLettres (txt) {
+export function shuffleLettres (txt: string) {
   const array = txt.split('')
   return shuffle(array).join('')
 }
@@ -259,7 +262,7 @@ export function shuffleLettres (txt) {
  *
  * @see https://stackoverflow.com/questions/18194745/shuffle-multiple-javascript-arrays-in-the-same-way
  */
-export function shuffle2tableaux (obj1, obj2) {
+export function shuffle2tableaux<T> (obj1: T[], obj2: T[]): void {
   let index = obj1.length
   let rnd, tmp1, tmp2
 
@@ -287,7 +290,7 @@ export function shuffle2tableaux (obj1, obj2) {
  *
  * @author Rémi Angot
  */
-export function combinaisonListes (liste, tailleMinimale) {
+export function combinaisonListes<T> (liste: T[], tailleMinimale: number) {
   if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
   let l = shuffle(liste) // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
@@ -306,16 +309,16 @@ export function combinaisonListes (liste, tailleMinimale) {
  * // [B,C,D,B,C,A,B]
  * @author Eric Elter
  */
-export function combinaisonListes2 (liste, tailleMinimale) {
+export function combinaisonListes2<T> (liste: T[], tailleMinimale: number) {
   if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
   let l = [...liste] // on ne modifie pas la liste passée en argument !
   while (l.length < tailleMinimale) {
-    l = l.concat(choice(liste))
+    l = l.concat(choice(liste)as T[])
   }
   return shuffle(l)
 }
 
-export function combinaisonListesSansChangerOrdre (liste, tailleMinimale) {
+export function combinaisonListesSansChangerOrdre<T> (liste: T[], tailleMinimale: number) {
   // Concatène liste à elle-même sans changer l'ordre
   if (liste.length === 0) window.notify('erreur dans CombinaisonListes : la liste à combiner est vide', { liste })
   let l = [...liste] // on ne modifie pas la liste passée en argument !

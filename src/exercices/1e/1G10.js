@@ -1,7 +1,7 @@
 import { cercleTrigo } from '../../lib/2d/angles.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { valeursTrigo } from '../../lib/mathFonctions/trigo.js'
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
@@ -71,7 +71,10 @@ export default class CosEtsin extends Exercice { // Héritage de la classe Exerc
     const mesAngles = valeursTrigo({ modulos: listeK })
     mesAnglesAleatoiresBis.push(shuffle(mesAngles.liste1))
     mesAnglesAleatoiresBis.push(shuffle(mesAngles.liste2))
-    listeK = this.sup2.split(',')
+    const valeursDek = this.sup2.toString(10)
+
+    listeK = valeursDek.includes(',') ? valeursDek.split(',') : [this.sup2]
+
     for (let k = 0; k < listeK.length; k++) {
       const n = parseInt(listeK[k])
       if (n !== 0 && listeK.indexOf(n) === -1) {

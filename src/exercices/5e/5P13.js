@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'

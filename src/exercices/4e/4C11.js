@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { range1 } from '../../lib/outils/nombres.js'

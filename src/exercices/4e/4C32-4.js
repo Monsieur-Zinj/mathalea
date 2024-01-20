@@ -1,4 +1,4 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeDesDiviseurs, texFactorisation } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

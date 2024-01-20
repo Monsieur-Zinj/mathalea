@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import { prenomPronom } from '../../lib/outils/Personne.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

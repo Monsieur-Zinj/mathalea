@@ -5,6 +5,8 @@ export const dateDeModificationImportante = '16/12/2023'
 
 export const interactifReady = true
 export const interactifType = 'custom'
+export const amcReady = true
+export const amcType = 'AMCOpen'
 
 export const uuid = 'ee808'
 export const ref = '4C22-3'

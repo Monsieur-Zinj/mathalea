@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { minToHoraire, minToHour } from '../../lib/outils/dateEtHoraires.js'
 import { prenom, prenomF } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'

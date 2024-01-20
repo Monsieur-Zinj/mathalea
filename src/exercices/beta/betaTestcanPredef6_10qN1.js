@@ -1,5 +1,5 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
-import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { range1 } from '../../lib/outils/nombres.js'
 import { prenomF } from '../../lib/outils/Personne.js'

@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../../../lib/2d/points.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'

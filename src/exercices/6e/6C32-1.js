@@ -1,7 +1,7 @@
 import { arrondi } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { personne, prenom, prenomF } from '../../lib/outils/Personne.js'
-import { texPrix } from '../../lib/format/style.js'
+import { texPrix } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

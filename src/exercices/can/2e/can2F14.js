@@ -1,10 +1,11 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3
 } from '../../../lib/outils/ecritures.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 import {
   randint
@@ -47,19 +48,14 @@ export default function CalculOrdonneePoint () {
         ord = a * abs + b
         nom = choice(nomF)
         point = choice(pointM)
-        this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :<br>
-
-       $${nom}(x)=${reduireAxPlusB(a, b)}$<br>
-
+        this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par : $${nom}(x)=${reduireAxPlusB(a, b)}$<br>
         On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-
-       $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$. <br>
-       
-       Quelle est son ordonnée ?`
+        $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$.<br>
+        Quelle est son ordonnée ?`
 
         this.correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br>
           $${nom}(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}${ecritureAlgebrique(b)}=${ord}$.<br>
-          L'ordonnée du point $${point}$ est $${ord}$.`
+          L'ordonnée du point $${point}$ est $${miseEnEvidence(ord)}$.`
         this.reponse = ord
         break
       case 2:
@@ -70,25 +66,20 @@ export default function CalculOrdonneePoint () {
         ord = a * abs ** 2 + b * abs + c
         nom = choice(nomF)
         point = choice(pointM)
-        this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par :<br>
-
-  $${nom}(x)=${reduirePolynomeDegre3(0, a, b, c)}$<br>
-
-  On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
-  
-  $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$.<br>
-  
-  Quelle est son ordonnée ?`
+        this.question = `Soit $${nom}$ la fonction définie sur $\\mathbb{R}$ par : $${nom}(x)=${reduirePolynomeDegre3(0, a, b, c)}$<br>
+        On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
+        $${point}$ est le point de $\\mathscr{C}$ d'abscisse $${abs}$.<br>
+        Quelle est son ordonnée ?`
 
         this.correction = `Puisque le point $${point}$ appartient à $\\mathscr{C}$, son ordonnée est  l'image de son abscisse.<br> `
         if (a !== 1) {
           this.correction += `$${nom}(${abs})=${a}\\times ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}
   =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}=${ord}$.<br>
-  L'ordonnée du point $${point}$ est $${ord}$.`
+  L'ordonnée du point $${point}$ est $${miseEnEvidence(ord)}$.`
         } else {
           this.correction += `$${nom}(${abs})= ${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(b)}\\times${ecritureParentheseSiNegatif(abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}
   =${a * abs ** 2}${ecritureAlgebrique(b * abs)}${c === 0 ? '' : `${ecritureAlgebrique(c)}`}=${ord}$.<br>
-  L'ordonnée du point $${point}$ est $${ord}$.`
+  L'ordonnée du point $${point}$ est $${miseEnEvidence(ord)}$.`
         }
         this.reponse = ord
 

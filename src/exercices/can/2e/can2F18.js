@@ -1,7 +1,7 @@
 import { repere } from '../../../lib/2d/reperes.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
 import { spline } from '../../../lib/mathFonctions/Spline.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -104,8 +104,9 @@ export default function MaxMinG () {
     const choix = choice([true, false])
     this.reponse = choix ? Math.max(...nuage.map(el => el.y)) : Math.min(...nuage.map(el => el.y))
     this.question = `On donne la représentation graphique d'une fonction $f$. <br>
-    Déterminer le ${choix ? 'maximum' : 'minimum'} de $f$ sur son ensemble de définition.<br>` +
-       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
+    Déterminer le ${choix ? 'maximum' : 'minimum'} de $f$ sur son ensemble de définition.<br><br>` +
+       mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o) // fixeBordures(objetsEnonce))
+    this.question += '<br>'
     this.correction = `Sur l'intervalle $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$, le point le plus ${choix ? 'haut' : 'bas'} de la courbe a pour coordonnées ${choix ? `$(${solsMax[0]}\\,;\\,${Math.max(...nuage.map(el => el.y))})$` : `$(${solsMin[0]}\\,;\\,${Math.min(...nuage.map(el => el.y))})$`}.<br>
     On en déduit que le ${choix ? 'maximum' : 'minimum'} de $f$ est ${choix ? `$${miseEnEvidence(`${Math.max(...nuage.map(el => el.y))}`)}$` : `$${miseEnEvidence(`${Math.min(...nuage.map(el => el.y))}`)}$`} . Il est atteint en 
     ${choix ? `$x=${solsMax[0]}$` : `$x=${solsMin[0]}$`}.`

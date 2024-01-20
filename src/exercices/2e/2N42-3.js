@@ -1,4 +1,4 @@
-import { shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
+import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'

@@ -1,5 +1,5 @@
 import { BoiteBuilder } from '../lib/2d/polygones.js'
-import { choice } from '../lib/outils/arrayOutils.js'
+import { choice } from '../lib/outils/arrayOutils'
 import { stringNombre } from '../lib/outils/texNombre.js'
 import { fraction } from './fractions.js'
 import { randint } from './outils.js'

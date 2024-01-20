@@ -3,12 +3,12 @@ import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { droiteGraduee, grille } from '../../../lib/2d/reperes.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
-import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'
-import { texPrix } from '../../../lib/format/style.js'
+import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -306,7 +306,7 @@ export default function SujetCAN2023Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
-            texte += '<br>Écrire les deux nombres dans l\'ordre croissant séparés par un point virgule.'
+            texte += '<br>Écrire les deux nombres dans l\'ordre croissant séparés par un point-virgule.'
             texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline')
           }
 

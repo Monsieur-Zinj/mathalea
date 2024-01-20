@@ -1,7 +1,7 @@
 import { courbe } from '../../../lib/2d/courbes.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { point, tracePoint } from '../../../lib/2d/points.js'
 import { rienSi1 } from '../../../lib/outils/ecritures.js'
 import Exercice from '../../Exercice.js'

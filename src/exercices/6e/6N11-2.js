@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { labelPoint } from '../../lib/2d/textes.js'
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

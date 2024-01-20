@@ -2,7 +2,7 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPoint } from '../../lib/2d/textes.js'
-import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'

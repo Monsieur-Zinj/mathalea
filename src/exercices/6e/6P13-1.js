@@ -1,5 +1,5 @@
-import { choice } from '../../lib/outils/arrayOutils.js'
-import { texPrix } from '../../lib/format/style.js'
+import { choice } from '../../lib/outils/arrayOutils'
+import { texPrix } from '../../lib/format/style'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'

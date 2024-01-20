@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'

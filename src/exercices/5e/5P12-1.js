@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres.js'
@@ -36,7 +36,7 @@ export default function ProblemeDeRatio () {
     let prenoms = []
     const objets = ['billes', 'livres', 'perles', 'gâteaux', 'bonbons']
     const sirops = ['de fraise', 'de citron', 'de cerise', 'de menthe', 'd\'orange']
-    const jusdefruit = ['d\'annanas', 'de banane', 'de pamplemousse', 'd\'abricot', 'de raisin']
+    const jusdefruit = ['d\'ananas', 'de banane', 'de pamplemousse', 'd\'abricot', 'de raisin']
     const produits = ['produit d\'entretien', 'décapant biologique', 'colorant', 'shampoing automobile', 'fertilisant liquide']
     let article; let p1; let p2; let quidam; let index; let index2
     const ratiosables = [[10, 6, 5], [7, 4, 4], [13, 7, 10]]

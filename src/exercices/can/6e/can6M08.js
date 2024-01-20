@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texteExposant } from '../../../lib/outils/ecritures.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { context } from '../../../modules/context.js'

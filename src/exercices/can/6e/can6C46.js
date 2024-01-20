@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { rangeMinMax } from '../../../lib/outils/nombres.js'
 import { prenomF, prenomM } from '../../../lib/outils/Personne.js'

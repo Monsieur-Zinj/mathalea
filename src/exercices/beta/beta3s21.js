@@ -1,4 +1,4 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

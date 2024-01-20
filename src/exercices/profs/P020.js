@@ -1,4 +1,4 @@
-import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice.js'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'

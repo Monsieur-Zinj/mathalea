@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { abs } from '../../../lib/outils/nombres.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
@@ -34,7 +34,7 @@ export default function ComparerAvecFctCarre () {
         a = calculANePlusJamaisUtiliser(randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
         b = calculANePlusJamaisUtiliser(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
         if (this.interactif) {
-          texte = 'Sélectionner1111111 la réponse correcte. '
+          texte = 'Sélectionner la réponse correcte. '
           if (a < b) {
             this.autoCorrection[0] = {
               enonce: texte,
@@ -89,7 +89,7 @@ export default function ComparerAvecFctCarre () {
         a = calculANePlusJamaisUtiliser((randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000) * (-1))
         b = calculANePlusJamaisUtiliser(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
         if (this.interactif) {
-          texte = 'Sélectionner2222222 la réponse correcte. '
+          texte = 'Sélectionner la réponse correcte. '
           if (a < b) {
             this.autoCorrection[0] = {
               enonce: texte,
@@ -145,7 +145,7 @@ export default function ComparerAvecFctCarre () {
         a = calculANePlusJamaisUtiliser(randint(1, 6) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
         b = calculANePlusJamaisUtiliser((-1) * a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
         if (this.interactif) {
-          texte = 'Sélectionner 333333la réponse correcte. '
+          texte = 'Sélectionner la réponse correcte. '
           if (abs(a) < abs(b)) {
             this.autoCorrection[0] = {
               enonce: texte,

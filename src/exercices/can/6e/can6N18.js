@@ -1,7 +1,7 @@
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'

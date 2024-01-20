@@ -5,7 +5,7 @@ import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { ellipse } from '../../../lib/2d/projections3d.js'
 import { demiDroite, segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
-import { choice, shuffle } from '../../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
@@ -346,7 +346,7 @@ export default function SujetCAN20213ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
-            texte += 'Écrire les diviseurs dans l’ordre croissant, séparés par un point virgule'
+            texte += 'Écrire les diviseurs dans l’ordre croissant, séparés par un point-virgule'
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur17')
           }
           nbChamps = 1

@@ -20,7 +20,7 @@
     "isolatedModules": true,
     "types": ["vitest/globals"]
   },
-  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte", ".eslintrc.cjs"],
+  "include": ["src/**/*.d.ts", "src/**/*.ts", "src/**/*.js", "src/**/*.svelte", ".eslintrc.cjs", "src/global.d.ts"],
   "exclude": ["./built/**/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

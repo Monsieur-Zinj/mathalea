@@ -12,7 +12,7 @@ import { longueur, norme, segment, vecteur } from '../../lib/2d/segmentsVecteurs
 import { labelPoint, texteParPoint } from '../../lib/2d/textes.js'
 import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import { aireTriangle } from '../../lib/2d/triangle.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
@@ -503,7 +503,7 @@ export default class ConstruireParSymetrie extends Exercice {
           p1nom = creerNomDePolygone(5, listeDeNomsDePolygones)
           listeDeNomsDePolygones.push(p1nom)
           A = point(0, randint(-1, 1), `${p1nom[0]}`, 'above')
-          B = point(6, choice([-1, 1]), `${p1nom[1]}`, 'above')
+          B = point(6, choice([-1, 1], A.y), `${p1nom[1]}`, 'above')
           d = droite(A, B)
           d.isVisible = true
           d.epaisseur = 2;

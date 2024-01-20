@@ -13,7 +13,7 @@ import {
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint } from '../../lib/2d/textes.js'
-import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { stringNombre } from '../../lib/outils/texNombre.js'

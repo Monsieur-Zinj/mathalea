@@ -13,7 +13,7 @@
   import Button from '../../shared/forms/Button.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import { onMount } from 'svelte'
-  import ButtonToggle from '../../shared/forms/ButtonToggle.svelte'
+  import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'
   import ModalForQRCode from '../../shared/modal/ModalForQRCode.svelte'
   import {
@@ -82,7 +82,9 @@
     : ''}"
 >
   <NavBar subtitle="La page Élève" subtitleType="export" />
-  <div class="flex flex-col h-full w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+  <div
+    class="flex flex-col h-full w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  >
     <div
       class="h-full w-full md:w-2/3 lg:w-3/5 flex flex-col p-4 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas mx-auto"
     >
@@ -143,13 +145,14 @@
               // { label: 'Cartes', value: 'cartes' }
             ]}
           />
-          <div class="pl-4 pt-2">
-            <ButtonToggle
-              id="config-eleve-nb-colonnes-toggle"
+          <div class="pl-4 pt-4">
+            <ButtonToggleAlt
+              title={'Deux colonnes'}
               isDisabled={$globalOptions.presMode === 'un_exo_par_page' ||
                 $globalOptions.presMode === 'une_question_par_page'}
-              titles={['Texte sur deux colonnes', 'Texte sur une colonne']}
               bind:value={$globalOptions.twoColumns}
+              id={'config-eleve-nb-colonnes-toggle'}
+              explanations={['Les exercices seront présentés sur deux colonnes.', 'Les exercices seront présentés sur une seule colonne.']}
             />
           </div>
         </div>
@@ -168,26 +171,23 @@
               { label: "Pas d'interactivité", value: '0' }
             ]}
           />
-          <div class="pl-2 pt-2">
-            <ButtonToggle
-              id="config-eleve-interactif-permis-toggle"
+          <div class="pl-2 pt-4">
+            <ButtonToggleAlt
+              title={"Modifier l'interactivité"}
               isDisabled={$globalOptions.setInteractive === '0'}
-              titles={[
-                "Les élèves peuvent modifier l'interactivité",
-                "Les élèves ne peuvent pas modifier l'interactivité"
-              ]}
               bind:value={$globalOptions.isInteractiveFree}
+              id={'config-eleve-interactif-permis-toggle'}
+              explanations={["Les élèves peuvent rendre l'exercice interactif ou pas.", "Les élèves ne pourront pas changer le status de l'interactivité."]}
             />
           </div>
           <div class="pl-2 pt-2">
-            <ButtonToggle
-              id="config-eleve-refaire-toggle"
+            <ButtonToggleAlt
+              title={'Une seule réponse'}
               isDisabled={$globalOptions.setInteractive === '0'}
-              titles={[
-                'Les élèves peuvent répondre une seule fois',
-                'Les élèves peuvent répondre plusieurs fois'
-              ]}
               bind:value={$globalOptions.oneShot}
+              id={'config-eleve-refaire-toggle'}
+              explanations={["Les élèves n'auront qu'une seule possibilité pour répondre aux exercices.", "Les élèves pourront refaire les exercices autant de fois qu'ils le souhaitent."]}
+              on:toggle={handleSeed}
             />
           </div>
         </div>
@@ -197,15 +197,12 @@
           >
             Données
           </div>
-          <div
-            class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light"
-          >
-            Tous les élèves auront des pages :
-          </div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle
-              titles={['identiques', 'différentes']}
+            <ButtonToggleAlt
+              title={'Données différentes'}
               bind:value={isDataRandom}
+              id={'config-eleve-donnes-differentes-toggle'}
+              explanations={["Chaque élève aura des pages avec des données différentes d'un autre élève.", 'Tous les élèves auront des pages identiques.']}
               on:toggle={handleSeed}
             />
           </div>
@@ -217,10 +214,11 @@
             Correction
           </div>
           <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle
-              id={'config-eleve-acces-corrections-toggle'}
-              titles={['Accès aux corrections', 'Pas de corrections']}
+            <ButtonToggleAlt
+              title={'Accès aux corrections'}
               bind:value={$globalOptions.isSolutionAccessible}
+              id={'config-eleve-acces-corrections-toggle'}
+              explanations={['Les élèves pourront accéder aux corrections en cliquant sur un bouton.', "Les élèves n'auront aucun moyen de voir la correction."]}
             />
           </div>
         </div>

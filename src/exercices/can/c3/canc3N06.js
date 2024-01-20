@@ -1,4 +1,4 @@
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
