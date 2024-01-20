@@ -1,5 +1,5 @@
 import FactoriserIdentitesRemarquables3 from '../3e/3L12.js'
-export const titre = 'Factoriser a²-b²'
+export const titre = 'Factoriser $a^2-b^2$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
