@@ -280,23 +280,30 @@ export async function loadMathLive () {
 }
 
 function handleKeyboardMathalea () {
-  // console.log('keyboardHandle')
   const keyboardButtons = document.querySelectorAll('button.keyboardMathalea')
   for (const button of keyboardButtons) {
-    button.removeEventListener('click', handleClickOnKeyboardToggle)
     button.addEventListener('click', handleClickOnKeyboardToggle)
+    button.addEventListener('mousedown', preventDefaultAndStopPropagation)
   }
 }
 
+function preventDefaultAndStopPropagation (event) {
+  event.preventDefault()
+  event.stopPropagation()
+}
+
 function handleClickOnKeyboardToggle (event) {
+  event.preventDefault()
+  event.stopPropagation()
+  const idToggle = event.currentTarget.id.replace('-button', '')
   keyboardState.update((value) => {
-    if (value.idMathField === event.currentTarget.id) {
+    if (value.idMathField === idToggle) {
       return { isVisible: false, idMathField: '', alphanumericLayout: value.alphanumericLayout, blocks: value.blocks }
     }
-    const mf = document.querySelector(('#' + event.currentTarget.id).replace('-button', ''))
+    const mf = document.querySelector('#' + idToggle)
     if (mf != null) mf.focus()
     // console.log('mf.dataset.keyboard: ' + mf.dataset.keyboard)
-    return { isVisible: true, idMathField: event.currentTarget.id, alphanumericLayout: value.alphanumericLayout, blocks: mf.dataset.keyboard.split(' ') }
+    return { isVisible: true, idMathField: idToggle, alphanumericLayout: value.alphanumericLayout, blocks: mf.dataset.keyboard.split(' ') }
   })
 }
 
