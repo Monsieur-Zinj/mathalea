@@ -18,6 +18,7 @@ import { latexParCoordonnees } from '../../lib/2d/textes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { compareEnsembles, compareIntervalles } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
@@ -35,65 +36,6 @@ export const ref = '2F20-4'
 export const dateDeCreation = '29/12/2023'
 
 type TypesDeFonction = 'constante' | 'affine' | 'poly2' | 'poly3'
-
-function compareEnsembles (e1: string, e2: string) {
-  const cleanUp = (s: string) => s.replace('{.}', '.').replace(',', '.')
-  const elements1 = cleanUp(e1).split(';').sort((a: string, b:string) => Number(a) - Number(b))
-  const elements2 = cleanUp(e2).split(';').sort((a:string, b:string) => Number(a) - Number(b))
-  if (elements1.length !== elements2.length) return false
-  let ok = true
-  for (let i = 0; i < elements1.length; i++) {
-    if (Math.abs(Number(elements1[i].replace(',', '.')) - Number(elements2[i].replace(',', '.'))) > 0.1) {
-      ok = false
-      break
-    }
-  }
-  return { isOk: ok }
-}
-
-/**
- * La fonction pour récupérer les intervalles de solutions
- * @param fonc
- * @param inferieur
- */
-function chercheIntervalles (fonc: Polynome, soluces: number[], inferieur: boolean, xMin: number, xMax: number): string {
-  const liste = [xMin, ...soluces, xMax]
-  const values = liste.filter((el, i) => el !== liste[i + 1])
-  const solutions: string[] = []
-  for (let i = 0; i < values.length - 1; i++) {
-    const middle = (values[i] + values[i + 1]) / 2
-    const imageMiddle = fonc.image(middle)
-    if ((imageMiddle < 0 && inferieur) || (!inferieur && imageMiddle > 0)) {
-      solutions.push(`[${texNombre(values[i], 1)};${texNombre(values[i + 1], 1)}]`)
-    }
-  }
-  return solutions.join('\\cup')
-}
-
-/**
- * La fonction de comparaison des intervalles pour l'interactif
- * @param e1
- * @param e2
- */
-function compareIntervalles (e1: string, e2: string) {
-  let result = true
-  const cleanUp = (s: string) => s.replaceAll('{,}', '.').replaceAll(',', '.')
-  e1 = cleanUp(e1)
-  e2 = cleanUp(e2)
-  const intervallesSaisie = e1.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
-  const intervallesReponse = e2.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
-  if (intervallesReponse != null && intervallesSaisie != null) {
-    for (let i = 0; i < intervallesReponse.length; i++) {
-      const [borneInfRep, borneSupRep] = intervallesReponse[i].match(/-?\d\.?\d?/g) as string[]
-      const [borneInfSai, borneSupSai] = intervallesSaisie[i].match(/-?\d\.?\d?/g) as string[]
-      if (Math.abs(Number(borneInfSai) - Number(borneInfRep)) > 0.1 || Math.abs(Number(borneSupSai) - Number(borneSupRep)) > 0.1) {
-        result = false
-      }
-    }
-    return { isOk: result }
-  }
-  return { isOk: false }
-}
 
 /**
  * retourne le yMin pour cadrer la figure
@@ -169,6 +111,25 @@ function renseigneFonction (poly: Polynome) {
   const monomesInverses = monomesNormalized.reverse()
   const expr: string = reduirePolynomeDegre3(...monomesInverses.map((el: number) => Math.abs(el) < 1e-10 ? 0 : el)).replaceAll('\\,', '').replaceAll('{,}', '.')
   return { func, expr, poly }
+}
+
+/**
+ * La fonction pour récupérer les intervalles de solutions
+ * @param fonc
+ * @param inferieur
+ */
+export function chercheIntervalles (fonc: Polynome, soluces: number[], inferieur: boolean, xMin: number, xMax: number): string {
+  const liste = [xMin, ...soluces, xMax]
+  const values = liste.filter((el, i) => el !== liste[i + 1])
+  const solutions: string[] = []
+  for (let i = 0; i < values.length - 1; i++) {
+    const middle = (values[i] + values[i + 1]) / 2
+    const imageMiddle = fonc.image(middle)
+    if ((imageMiddle < 0 && inferieur) || (!inferieur && imageMiddle > 0)) {
+      solutions.push(`[${texNombre(values[i], 1)};${texNombre(values[i + 1], 1)}]`)
+    }
+  }
+  return solutions.join('\\cup')
 }
 
 class resolutionEquationInequationGraphique extends Exercice {
