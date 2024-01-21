@@ -17,6 +17,7 @@
   import { MathfieldElement } from 'mathlive'
   import Alphanumeric from './presentationalComponents/alphanumeric/Alphanumeric.svelte'
   import { isPageKey } from './types/keycap'
+  import { exercicesParams } from '../../lib/stores/generalStore'
 
   let innerWidth: number = 0
 
@@ -50,6 +51,11 @@
     mathaleaRenderDiv(divKeyboard)
   })
   const blockList = [...myKeyboard.blocks].reverse()
+
+  // fermer un clavier ouvert lorsqu'il n'y a plus d'exercices...
+  $: if ($exercicesParams.length === 0) {
+    $keyboardState.isVisible = false
+  }
 
   const computePages = () => {
     pages.length = 0
