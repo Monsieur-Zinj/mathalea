@@ -32,6 +32,7 @@
   import { getCanvasFont, getTextWidth, remToPixels } from '../../../lib/components/measures'
   import Footer2 from './Footer2.svelte'
   import FlipCard from './FlipCard.svelte'
+  import Keyboard from '../../keyboard/Keyboard.svelte'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -790,6 +791,7 @@
       {/if}
     </div>
   </div>
+  <Keyboard/>
   <div class="flex justify-center w-full">
     <Footer2 />
   </div>
