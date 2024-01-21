@@ -24,8 +24,8 @@ const variableCaps: CompleteKeysList = {
   block: ['a', 'x', 'b', 'y', 'c', 'z']
 }
 const basicOperationCaps: CompleteKeysList = {
-  inline: ['ADD', 'SUB', 'MULT', 'DIV', '=', 'FRAC', '(', ')'],
-  block: ['ADD', 'SUB', 'MULT', 'DIV', '=', 'FRAC', '(', ')']
+  inline: ['ADD', 'SUB', 'MULT', 'DIV', 'SQ', 'FRAC', '(', ')'],
+  block: ['ADD', 'SUB', 'MULT', 'DIV', 'SQ', 'FRAC', '(', ')']
 }
 const fullOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'FRAC', '=', '(', ')', 'SQRT', 'SQ', 'CUBE', 'POW', 'POW10', 'DEG', 'PERCENT', 'SEMICOLON'],

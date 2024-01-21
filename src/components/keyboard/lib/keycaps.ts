@@ -39,7 +39,7 @@ const basicKeys = {
     insert: '\\sqrt{#@}'
   },
   SQ: {
-    display: '$x^2$',
+    display: '$\\square^2$',
     insert: '^2'
   },
   CUBE: {
