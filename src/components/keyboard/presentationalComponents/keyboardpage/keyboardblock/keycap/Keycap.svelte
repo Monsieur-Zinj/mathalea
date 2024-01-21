@@ -18,6 +18,10 @@
     ? 'bg-coopmaths-canvas-moredark dark:bg-coopmathsdark-canvas-moredark'
     : 'bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas'}  py-1.5 px-2 md:py-2 md:px-4 text-center rounded-md font-mono"
   style="--keycapwidth:{keycapwidth}"
+  on:mousedown={(e) => {
+    e.preventDefault()
+    e.stopPropagation()
+  }}
   on:click={(e) => {
     clickKeycap(key, e)
   }}
