@@ -19,7 +19,7 @@ const buildDataKeyboardString = (style) => {
   // traitement
   if (style === '') {
     // clavier basique
-    return ['numbers', 'basicOperations', 'variables'].join(' ')
+    return ['numbers', 'fullOperations', 'variables'].join(' ')
   } else {
     const blocks = []
     const styleValues = style.split(' ')
@@ -52,7 +52,7 @@ const buildDataKeyboardString = (style) => {
         }, [])
         .join(' ')
     } else {
-      return ['numbers', 'basicOperations', 'variables'].join(' ')
+      return ['numbers', 'fullOperations', 'variables'].join(' ')
     }
   }
 }
