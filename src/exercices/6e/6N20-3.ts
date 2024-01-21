@@ -70,7 +70,6 @@ export default class nomExercice extends Exercice {
       setReponse(this, i, {
         bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
         feedback: (saisies: {champ1: string, champ2: string}) => {
-          // @fixme ne fonctionne pas si le nombre est sasisi sous forme fractionnaire.
           const rep1 = saisies.champ1
           const rep2 = saisies.champ2
           if (!consecutifsCompare(rep1, rep2, String(num / den)).isOk) {
