@@ -92,6 +92,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         const [key, reponse] = variables[k]
         if (key === 'feedback' || key === 'bareme') continue
         const saisie = mfe.getPromptValue(key)
+        saisies[key] = saisie
         const compareFunction = reponse.compare ?? calculCompare
         // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
         const result = compareFunction(saisie, reponse.value)
@@ -106,7 +107,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         if (result.feedback != null) feedback += result.feedback
       }
       if (typeof reponses.feedback === 'function') {
-        const feedback = reponses.feedback(saisies)
+        feedback += reponses.feedback(saisies)
         const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${i}`)
         if (feedback != null && spanFeedback != null) {
           spanFeedback.innerHTML = '💡 ' + feedback

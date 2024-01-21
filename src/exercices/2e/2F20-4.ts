@@ -10,14 +10,15 @@ import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { courbe } from '../../lib/2d/courbes'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { interpolationDeLagrange } from '../../lib/mathFonctions/outilsMaths'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { latexParCoordonnees } from '../../lib/2d/textes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { compareEnsembles, compareIntervalles } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
@@ -35,64 +36,6 @@ export const ref = '2F20-4'
 export const dateDeCreation = '29/12/2023'
 
 type TypesDeFonction = 'constante' | 'affine' | 'poly2' | 'poly3'
-
-function compareEnsembles (e1: string, e2: string) {
-  const cleanUp = (s: string) => s.replace('{.}', '.').replace(',', '.')
-  const elements1 = cleanUp(e1).split(';').sort((a: string, b:string) => Number(a) - Number(b))
-  const elements2 = cleanUp(e2).split(';').sort((a:string, b:string) => Number(a) - Number(b))
-  if (elements1.length !== elements2.length) return false
-  let ok = true
-  for (let i = 0; i < elements1.length; i++) {
-    if (Math.abs(Number(elements1[i].replace(',', '.')) - Number(elements2[i].replace(',', '.'))) > 0.1) {
-      ok = false
-      break
-    }
-  }
-  return ok
-}
-
-/**
- * La fonction pour récupérer les intervalles de solutions
- * @param fonc
- * @param inferieur
- */
-function chercheIntervalles (fonc: Polynome, soluces: number[], inferieur: boolean, xMin: number, xMax: number): string {
-  const liste = [xMin, ...soluces, xMax]
-  const values = liste.filter((el, i) => el !== liste[i + 1])
-  const solutions: string[] = []
-  for (let i = 0; i < values.length - 1; i++) {
-    const middle = (values[i] + values[i + 1]) / 2
-    const imageMiddle = fonc.image(middle)
-    if ((imageMiddle < 0 && inferieur) || (!inferieur && imageMiddle > 0)) {
-      solutions.push(`[${texNombre(values[i], 1)};${texNombre(values[i + 1], 1)}]`)
-    }
-  }
-  return solutions.join('\\cup')
-}
-
-/**
- * La fonction de comparaison des intervalles pour l'interactif
- * @param e1
- * @param e2
- */
-function compareIntervalles (e1: string, e2: string) {
-  let result = true
-  const cleanUp = (s: string) => s.replaceAll('{,}', '.').replaceAll(',', '.')
-  e1 = cleanUp(e1)
-  e2 = cleanUp(e2)
-  const intervallesSaisie = e1.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
-  const intervallesReponse = e2.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
-  if (intervallesReponse != null && intervallesSaisie != null) {
-    for (let i = 0; i < intervallesReponse.length; i++) {
-      const [borneInfRep, borneSupRep] = intervallesReponse[i].match(/-?\d\.?\d?/g) as string[]
-      const [borneInfSai, borneSupSai] = intervallesSaisie[i].match(/-?\d\.?\d?/g) as string[]
-      if (Math.abs(Number(borneInfSai) - Number(borneInfRep)) > 0.1 || Math.abs(Number(borneSupSai) - Number(borneSupRep)) > 0.1) {
-        result = false
-      }
-    }
-    return result
-  }
-}
 
 /**
  * retourne le yMin pour cadrer la figure
@@ -168,6 +111,25 @@ function renseigneFonction (poly: Polynome) {
   const monomesInverses = monomesNormalized.reverse()
   const expr: string = reduirePolynomeDegre3(...monomesInverses.map((el: number) => Math.abs(el) < 1e-10 ? 0 : el)).replaceAll('\\,', '').replaceAll('{,}', '.')
   return { func, expr, poly }
+}
+
+/**
+ * La fonction pour récupérer les intervalles de solutions
+ * @param fonc
+ * @param inferieur
+ */
+export function chercheIntervalles (fonc: Polynome, soluces: number[], inferieur: boolean, xMin: number, xMax: number): string {
+  const liste = [xMin, ...soluces, xMax]
+  const values = liste.filter((el, i) => el !== liste[i + 1])
+  const solutions: string[] = []
+  for (let i = 0; i < values.length - 1; i++) {
+    const middle = (values[i] + values[i + 1]) / 2
+    const imageMiddle = fonc.image(middle)
+    if ((imageMiddle < 0 && inferieur) || (!inferieur && imageMiddle > 0)) {
+      solutions.push(`[${texNombre(values[i], 1)};${texNombre(values[i + 1], 1)}]`)
+    }
+  }
+  return solutions.join('\\cup')
 }
 
 class resolutionEquationInequationGraphique extends Exercice {
@@ -622,32 +584,34 @@ class resolutionEquationInequationGraphique extends Exercice {
       if (this.interactif) enonce += 'Les solutions doivent être séparées par un point-virgule.<br>'
       texteCorr += `L'ensemble de solutions de l'équation correspond aux abscisses des points d'intersection des deux courbes soit : $\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$<br><br>`
     }
+    let indexQuestion = 0
     if (soluces != null) {
       if (this.sup === 1 || this.sup === 3) {
-        if (this.interactif) enonce += 'L\'ensemble de solutions de l\'équation est : ' + remplisLesBlancs(this, 0, '\\{%{soluces}\\}', 'inline lycee', '\\ldots\\ldots') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
-        setReponse(this, 0, {
-          soluces: {
+        if (this.interactif) enonce += 'L\'ensemble de solutions de l\'équation est : ' + ajouteChampTexteMathLive(this, indexQuestion, 'inline15 lycee ml-2') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
+        handleAnswers(this, indexQuestion, {
+          reponse: {
             value: Array.from(soluces).join(';'),
             compare: compareEnsembles
           }
-        }, { formatInteractif: 'fillInTheBlank' })
+        }, { formatInteractif: 'calcul' }) // on s'en fiche du formatInteractif, c'est la fonction compare qui fait ce qu'il faut
+        indexQuestion++
       }
     }
     if (this.sup === 2 || this.sup === 3) {
       enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$.<br>`
       if (this.interactif) {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
-        enonce += 'L\'ensemble des solutions de l\'inéquation est : ' + remplisLesBlancs(this, 1, '%{solucesIneq}', 'inline lycee', '\\ldots\\ldots') + '<br><br>'
+        enonce += 'L\'ensemble des solutions de l\'inéquation est : ' + ajouteChampTexteMathLive(this, indexQuestion, 'inline15 lycee ml-2') + '<br><br>'
       }
       const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin, xMin + 10)
 
       // enonce += '$' + soluces2 + '$'
-      setReponse(this, 1, {
-        solucesIneq: {
+      handleAnswers(this, indexQuestion, {
+        reponse: {
           value: soluces2,
           compare: compareIntervalles
         }
-      }, { formatInteractif: 'fillInTheBlank' })
+      }, { formatInteractif: 'calcul' })
       texteCorr += `<br>Pour trouver l'ensemble des solutions de l'inéquation, on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C_' + f1 + '}', 'blue')}$ est située ${inferieur ? 'en-dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C_' + f2 + '}', 'red')}$.<br>`
       texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$.<br><br>`
     }

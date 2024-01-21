@@ -91,6 +91,29 @@ function inputToGrandeur (input: string): Grandeur | false {
 
 /**
  * comparaison de nombres
+ * @param {string} entierInf
+ * @param {string} entierSup
+ * @param {string} valeurInter
+ * @return {isOk: boolean, feedback?: string}
+ */
+export function consecutifsCompare (entierInf: string, entierSup: string, valeurInter?: string): { isOk: boolean, feedback?: string } {
+  console.log(engine.parse(entierSup).json)
+  console.log(engine.parse(entierInf).json)
+
+  const diff = Number(engine.box(['Subtract', engine.parse(entierSup).json, engine.parse(entierInf).json]).N().numericValue)
+  let valueCheck = true
+  if (valeurInter != null) {
+    console.log(engine.parse(valeurInter).json)
+    const diff1 = Number(engine.box(['Subtract', engine.parse(entierSup).json, engine.parse(valeurInter).json]).N().numericValue)
+    const diff2 = Number(engine.box(['Subtract', engine.parse(valeurInter).json, engine.parse(entierInf).json]).N().numericValue)
+    if (diff1 != null && diff2 != null && diff1 < 1 && diff1 >= 0 && diff2 < 1 && diff2 >= 0) valueCheck = true
+    else valueCheck = false
+  }
+  return { isOk: valueCheck && diff === 1 }
+}
+
+/**
+ * comparaison de nombres
  * @param {string} input
  * @param {string} goodAnswer
  * @return {isOk: boolean, feedback?: string}
@@ -468,3 +491,49 @@ export function puissanceCompare (input: string, goodAnswer: string): { isOk: bo
 }
 
 export default engine
+
+/**
+ * Comparaison d'ensembles de solutions séparés par des ; dans des {} comme {-5;4;10}
+ * @param input
+ * @param goodAnswer
+ * @return {isOk: boolean, feedback?: string}
+ */
+export function compareEnsembles (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  const cleanUp = (s: string) => s.replace('{.}', '.').replace(',', '.')
+  const elements1 = cleanUp(input).split(';').sort((a: string, b: string) => Number(a) - Number(b))
+  const elements2 = cleanUp(goodAnswer).split(';').sort((a: string, b: string) => Number(a) - Number(b))
+  if (elements1.length !== elements2.length) return { isOk: false }
+  let ok = true
+  for (let i = 0; i < elements1.length; i++) {
+    if (Math.abs(Number(elements1[i].replace(',', '.')) - Number(elements2[i].replace(',', '.'))) > 0.1) {
+      ok = false
+      break
+    }
+  }
+  return { isOk: ok }
+}
+
+/**
+ * La fonction de comparaison des intervalles pour l'interactif
+ * @param input
+ * @param goodAnswer
+ */
+export function compareIntervalles (input: string, goodAnswer: string) {
+  let result = true
+  const cleanUp = (s: string) => s.replaceAll('{,}', '.').replaceAll(',', '.')
+  input = cleanUp(input)
+  goodAnswer = cleanUp(goodAnswer)
+  const intervallesSaisie = input.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
+  const intervallesReponse = goodAnswer.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
+  if (intervallesReponse != null && intervallesSaisie != null) {
+    for (let i = 0; i < intervallesReponse.length; i++) {
+      const [borneInfRep, borneSupRep] = intervallesReponse[i].match(/-?\d\.?\d?/g) as string[]
+      const [borneInfSai, borneSupSai] = intervallesSaisie[i].match(/-?\d\.?\d?/g) as string[]
+      if (Math.abs(Number(borneInfSai) - Number(borneInfRep)) > 0.1 || Math.abs(Number(borneSupSai) - Number(borneSupRep)) > 0.1) {
+        result = false
+      }
+    }
+    return { isOk: result }
+  }
+  return { isOk: false }
+}

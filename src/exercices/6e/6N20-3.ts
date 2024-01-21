@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { numberCompare } from '../../lib/interactif/comparaisonFonctions'
+import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'
@@ -70,9 +70,9 @@ export default class nomExercice extends Exercice {
       setReponse(this, i, {
         bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
         feedback: (saisies: {champ1: string, champ2: string}) => {
-          const rep1 = Number(saisies.champ1)
-          const rep2 = Number(saisies.champ2)
-          if (rep1 < num / den && rep2 > num / den && rep2 - rep1 !== 1) {
+          const rep1 = saisies.champ1
+          const rep2 = saisies.champ2
+          if (!consecutifsCompare(rep1, rep2, String(num / den)).isOk) {
             return ('L\'inégalité est vraie mais les deux nombres ne sont pas des entiers consécutifs.')
           }
         },

@@ -5,9 +5,9 @@ import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Factoriser une expression complexe'
 export const interactifReady = true
@@ -79,7 +79,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}+x)$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(1, c)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(1, c)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case 'c(ax+b)-x(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)} = ${c}(${rienSi1(a)}x${ecritureAlgebrique(b)})-x(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -91,7 +91,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}-x)$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(-1, c)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(-1, c)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case 'x(ax+b)+c(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)} = x(${rienSi1(a)}x${ecritureAlgebrique(b)})+${c}(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -103,7 +103,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(x+${c})$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(a, b)})(${reduireAxPlusB(1, c)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(a, b)})(${reduireAxPlusB(1, c)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case 'x(ax+b)-c(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)} = x(${rienSi1(a)}x${ecritureAlgebrique(b)})-${c}(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -115,7 +115,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(x-${c})$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(1, -c)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(1, -c)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case '(ax+b)(cx+d)+(ax+b)(ex+f)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})+(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(e)}x${ecritureAlgebrique(f)})$`
@@ -128,7 +128,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(c + e, d + f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(c + e, d + f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case '(ax+b)(cx+d)-(ax+b)(ex+f)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})-(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(e)}x${ecritureAlgebrique(f)})$`
@@ -142,7 +142,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(c - e, d - f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(c - e, d - f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case '(cx+d)(ax+b)+(ax+b)(ex+f)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${c}x${ecritureAlgebrique(d)})(${rienSi1(a)}x${ecritureAlgebrique(b)})+(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(e)}x${ecritureAlgebrique(f)})$`
@@ -155,7 +155,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(c + e, d + f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(c + e, d + f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case '(cx+d)(ax+b)-(ax+b)(ex+f)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${c}x${ecritureAlgebrique(d)})(${rienSi1(a)}x${ecritureAlgebrique(b)})-(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(e)}x${ecritureAlgebrique(f)})$`
@@ -169,7 +169,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(c - e, d - f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(c - e, d - f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case '(ax+b)(cx+d)+(ex+f)(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})+(${rienSi1(e)}x${ecritureAlgebrique(f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -182,7 +182,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(c + e, d + f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(c + e, d + f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case '(ax+b)(cx+d)-(ex+f)(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}x${ecritureAlgebrique(d)})-(${rienSi1(e)}x${ecritureAlgebrique(f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -196,7 +196,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(c - e, d - f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(c - e, d - f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case '(cx+d)(ax+b)+(ex+f)(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${c}x${ecritureAlgebrique(d)})(${rienSi1(a)}x${ecritureAlgebrique(b)})+(${rienSi1(e)}x${ecritureAlgebrique(f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -209,7 +209,7 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c + e}x${ecritureAlgebrique(d + f)})$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(c + e, d + f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(c + e, d + f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case '(cx+d)(ax+b)-(ex+f)(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=(${c}x${ecritureAlgebrique(d)})(${rienSi1(a)}x${ecritureAlgebrique(b)})-(${rienSi1(e)}x${ecritureAlgebrique(f)})(${rienSi1(a)}x${ecritureAlgebrique(b)})$`
@@ -223,10 +223,10 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${rienSi1(c - e)}x${ecritureAlgebrique(d - f)})$<br>`
           }
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(c - e, d - f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(c - e, d - f)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
       }
-      if (this.interactif) texte += `<br>$${lettreDepuisChiffre(i + 1)} = $` + remplisLesBlancs(this, i, '=%{reponse}', 'inline', '\\ldots\\ldots')
+      if (this.interactif) texte += `<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2', { texteAvant: ' = ' })
 
       if (this.questionJamaisPosee(i, a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
