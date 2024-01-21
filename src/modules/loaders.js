@@ -263,7 +263,8 @@ export async function loadMathLive () {
       }
       mf.style.fontSize = '1em'
       mf.classList.add('ml-1')
-      mf.addEventListener('focus', updateKeyboardState)
+      mf.addEventListener('focus', handleFocusMathField)
+      mf.addEventListener('focusout', handleFocusOutMathField)
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
@@ -299,9 +300,22 @@ function handleClickOnKeyboardToggle (event) {
   })
 }
 
-function updateKeyboardState (event) {
+function handleFocusMathField (event) {
   const mf = event.target
   keyboardState.update((value) => {
     return { isVisible: value.isVisible, idMathField: event.target.id, alphanumericLayout: value.alphanumericLayout, blocks: mf.dataset.keyboard.split(' ') }
   })
+}
+
+function handleFocusOutMathField () {
+  // Si le focus est sur un autre élément que mathfield, on cache le clavier
+  // On utilise setTimeout pour être sûr que le focus soit bien sur le nouvel élément
+  // car au focusout, le focus est sur body
+  setTimeout(() => {
+    if (document.activeElement.tagName !== 'MATH-FIELD') {
+      keyboardState.update(() => {
+        return { isVisible: false, idMathField: '', alphanumericLayout: '', blocks: '' }
+      })
+    }
+  }, 0)
 }
