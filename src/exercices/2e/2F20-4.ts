@@ -10,14 +10,14 @@ import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { courbe } from '../../lib/2d/courbes'
 import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { interpolationDeLagrange } from '../../lib/mathFonctions/outilsMaths'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { latexParCoordonnees } from '../../lib/2d/textes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
@@ -48,7 +48,7 @@ function compareEnsembles (e1: string, e2: string) {
       break
     }
   }
-  return ok
+  return { isOk: ok }
 }
 
 /**
@@ -90,8 +90,9 @@ function compareIntervalles (e1: string, e2: string) {
         result = false
       }
     }
-    return result
+    return { isOk: result }
   }
+  return { isOk: false }
 }
 
 /**
@@ -622,32 +623,34 @@ class resolutionEquationInequationGraphique extends Exercice {
       if (this.interactif) enonce += 'Les solutions doivent être séparées par un point-virgule.<br>'
       texteCorr += `L'ensemble de solutions de l'équation correspond aux abscisses des points d'intersection des deux courbes soit : $\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$<br><br>`
     }
+    let indexQuestion = 0
     if (soluces != null) {
       if (this.sup === 1 || this.sup === 3) {
-        if (this.interactif) enonce += 'L\'ensemble de solutions de l\'équation est : ' + remplisLesBlancs(this, 0, '\\{%{soluces}\\}', 'inline lycee', '\\ldots\\ldots') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
-        setReponse(this, 0, {
-          soluces: {
+        if (this.interactif) enonce += 'L\'ensemble de solutions de l\'équation est : ' + ajouteChampTexteMathLive(this, indexQuestion, 'inline15 lycee ml-2') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
+        handleAnswers(this, indexQuestion, {
+          reponse: {
             value: Array.from(soluces).join(';'),
             compare: compareEnsembles
           }
-        }, { formatInteractif: 'fillInTheBlank' })
+        }, { formatInteractif: 'calcul' }) // on s'en fiche du formatInteractif, c'est la fonction compare qui fait ce qu'il faut
+        indexQuestion++
       }
     }
     if (this.sup === 2 || this.sup === 3) {
       enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$.<br>`
       if (this.interactif) {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
-        enonce += 'L\'ensemble des solutions de l\'inéquation est : ' + remplisLesBlancs(this, 1, '%{solucesIneq}', 'inline lycee', '\\ldots\\ldots') + '<br><br>'
+        enonce += 'L\'ensemble des solutions de l\'inéquation est : ' + ajouteChampTexteMathLive(this, indexQuestion, 'inline15 lycee ml-2') + '<br><br>'
       }
       const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin, xMin + 10)
 
       // enonce += '$' + soluces2 + '$'
-      setReponse(this, 1, {
-        solucesIneq: {
+      handleAnswers(this, indexQuestion, {
+        reponse: {
           value: soluces2,
           compare: compareIntervalles
         }
-      }, { formatInteractif: 'fillInTheBlank' })
+      }, { formatInteractif: 'calcul' })
       texteCorr += `<br>Pour trouver l'ensemble des solutions de l'inéquation, on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C_' + f1 + '}', 'blue')}$ est située ${inferieur ? 'en-dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C_' + f2 + '}', 'red')}$.<br>`
       texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$.<br><br>`
     }
