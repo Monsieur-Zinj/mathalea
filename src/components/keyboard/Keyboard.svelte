@@ -19,7 +19,7 @@
   import { isPageKey } from './types/keycap'
   import { exercicesParams } from '../../lib/stores/generalStore'
 
-  let innerWidth: number = 0
+  $: innerWidth = 0
 
   const pages: KeyboardBlock[][] = []
   const usualBlocks: KeyboardBlock[] = []
@@ -140,7 +140,7 @@
   <div
     transition:fly={{ y: '100%', opacity: 1 }}
     bind:this={divKeyboard}
-    class=" bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999] drop-shadow-[0_-3px_5px_rgba(130,130,130,0.25)] dark:drop-shadow-[0_-3px_5px_rgba(250,250,250,0.25)]"
+    class=" bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 w-screen fixed bottom-0 left-0 right-0 z-[9999] drop-shadow-[0_-3px_5px_rgba(130,130,130,0.25)] dark:drop-shadow-[0_-3px_5px_rgba(250,250,250,0.25)]"
   >
     {#if alphanumericDisplayed}
       <Alphanumeric {clickKeycap} {pageType} />
