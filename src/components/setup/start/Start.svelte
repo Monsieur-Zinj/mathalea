@@ -32,6 +32,9 @@
   import Placeholder from './presentationalComponents/Placeholder.svelte'
   import { scratchZoomUpdate } from '../../../lib/renderScratch'
   import type { InterfaceParams, VueType } from 'src/lib/types'
+  import Keyboard from '../../keyboard/Keyboard.svelte'
+  import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
+  import { keyboardState } from '../../keyboard/stores/keyboardStore'
 
   let isNavBarVisible: boolean = true
   let innerWidth = 0
@@ -49,7 +52,7 @@
   $: {
     isNavBarVisible = $globalOptions.v !== 'l'
     updateSelectedThirdApps()
-    isMd = innerWidth >= 768
+    isMd = innerWidth >= SM_BREAKPOINT
   }
 
   function addScrollListener () {
@@ -167,7 +170,7 @@
   ========================================================================================= -->
     <!-- Menu choix + Exos en mode non-smartphone -->
     <div
-      class="relative flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+      class="relative flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$keyboardState.isVisible ? 'mb-12' : ''}"
     >
       <nav
         id="choiceSideMenuWrapper"
@@ -272,6 +275,7 @@
     </div>
   {/if}
   </div>
+  <Keyboard />
 </div>
 <ButtonBackToTop
   {isBackToTopButtonVisible}

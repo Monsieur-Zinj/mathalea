@@ -35,7 +35,7 @@ export const uuid = '014a4'
 export const ref = '2N61-2'
 export default function ExerciceInequationProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.keyboard = ['lycee']
+  this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.spacing = 2 // Espace entre deux lignes
   this.spacingCorr = 2 // Espace entre deux lignes pour la correction
   this.correctionDetailleeDisponible = true

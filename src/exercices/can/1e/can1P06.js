@@ -27,7 +27,7 @@ export const ref = 'can1P06'
 export default function CalculProbaTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true
-  this.keyboard = ['lycee']
+  this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.consigne = ''
   this.nbQuestions = 1
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
