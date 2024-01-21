@@ -17,8 +17,9 @@
   import { MathfieldElement } from 'mathlive'
   import Alphanumeric from './presentationalComponents/alphanumeric/Alphanumeric.svelte'
   import { isPageKey } from './types/keycap'
+  import { exercicesParams } from '../../lib/stores/generalStore'
 
-  let innerWidth: number = 0
+  $: innerWidth = 0
 
   const pages: KeyboardBlock[][] = []
   const usualBlocks: KeyboardBlock[] = []
@@ -26,6 +27,7 @@
   let currentPageIndex = 0
   let divKeyboard: HTMLDivElement
   let reduced: boolean = false
+  let alphanumericDisplayed: boolean = false
   let isVisible = false
   let pageType: AlphanumericPages = 'AlphaLow'
   let myKeyboard: Keyboard = new Keyboard()
@@ -39,7 +41,7 @@
     unitsBlocks.length = 0
     usualBlocks.length = 0
     for (const block of myKeyboard.blocks) {
-      if (block.isUnits) {
+      if (block && Object.hasOwn(block, 'isUnits') && block.isUnits) {
         unitsBlocks.push(block)
       } else {
         usualBlocks.push(block)
@@ -49,6 +51,11 @@
     mathaleaRenderDiv(divKeyboard)
   })
   const blockList = [...myKeyboard.blocks].reverse()
+
+  // fermer un clavier ouvert lorsqu'il n'y a plus d'exercices...
+  $: if ($exercicesParams.length === 0) {
+    $keyboardState.isVisible = false
+  }
 
   const computePages = () => {
     pages.length = 0
@@ -132,9 +139,9 @@
   <div
     transition:fly={{ y: '100%', opacity: 1 }}
     bind:this={divKeyboard}
-    class=" bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999] drop-shadow-[0_-3px_5px_rgba(130,130,130,0.25)] dark:drop-shadow-[0_-3px_5px_rgba(250,250,250,0.25)]"
+    class=" bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 w-screen fixed bottom-0 left-0 right-0 z-[9999] drop-shadow-[0_-3px_5px_rgba(130,130,130,0.25)] dark:drop-shadow-[0_-3px_5px_rgba(250,250,250,0.25)]"
   >
-    {#if $keyboardState.blocks.includes('alphanumeric')}
+    {#if alphanumericDisplayed}
       <Alphanumeric {clickKeycap} {pageType} />
     {:else if !reduced}
       <div class="py-2 md:py-0">
@@ -185,16 +192,30 @@
         </button>
       </div>
     {/if}
+    <!-- Bouton de réduction du clavier -->
     <button
       type="button"
       class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
       on:click={async () => {
         reduced = !reduced
+        computePages()
         await tick()
         mathaleaRenderDiv(divKeyboard)
       }}
     >
       <i class="bx {reduced ? 'bx-plus' : 'bx-minus'}" />
+    </button>
+    <!-- bouton de passage du clavier alphanumérique au clavier maths-->
+    <button
+      type="button"
+      class="z-[10000] {$keyboardState.blocks.includes('alphanumeric') ? 'flex justify-center items-center' : 'hidden'} absolute right-0 top-6 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
+      on:click={async () => {
+        alphanumericDisplayed = !alphanumericDisplayed
+        await tick()
+        mathaleaRenderDiv(divKeyboard)
+      }}
+    >
+      <i class="bx {alphanumericDisplayed ? 'bx-math' : 'bx-font-family'}" />
     </button>
   </div>
 {/if}

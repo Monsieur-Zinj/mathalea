@@ -58,7 +58,7 @@
     {/each}
   </ul>
   <!--Blocks content-->
-  <div>
+  <div class="flex  justify-center">
     {#each blocksList as block}
       <div
         class="{currentBlock === toRegularCharacters(block.title)
