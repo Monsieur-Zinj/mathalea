@@ -199,6 +199,7 @@
       class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
       on:click={async () => {
         reduced = !reduced
+        computePages()
         await tick()
         mathaleaRenderDiv(divKeyboard)
       }}
