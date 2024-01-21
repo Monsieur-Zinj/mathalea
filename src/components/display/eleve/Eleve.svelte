@@ -33,6 +33,7 @@
   import Footer2 from './Footer2.svelte'
   import FlipCard from './FlipCard.svelte'
   import Keyboard from '../../keyboard/Keyboard.svelte'
+  import { keyboardState } from '../../keyboard/stores/keyboardStore'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -792,7 +793,7 @@
     </div>
   </div>
   <Keyboard/>
-  <div class="flex justify-center w-full">
+  <div class="flex justify-center w-full {$keyboardState.isVisible ? 'mt-52' : ''}">
     <Footer2 />
   </div>
 </section>

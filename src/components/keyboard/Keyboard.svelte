@@ -115,7 +115,6 @@
             // @ts-expect-error : command doit être compatible avec MathLive
             mf.executeCommand(key.command)
           } else {
-            console.log(key.insert)
             mf.executeCommand(['insert', key.insert || key.display])
           }
         }

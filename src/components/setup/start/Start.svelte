@@ -271,7 +271,9 @@
           {/if}
         </main>
       </div>
-      <Footer />
+      <div class="{$keyboardState.isVisible ? 'mt-52' : ''}">
+        <Footer />
+      </div>
     </div>
   {/if}
   </div>

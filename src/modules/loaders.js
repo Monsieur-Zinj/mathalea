@@ -163,7 +163,7 @@ export async function loadMathLive () {
       // Suppression du menu secondaire
       mf.menuItems = []
       mf.virtualKeyboardTargetOrigin = '*'
-      mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
+      // mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
         clavier.push(CLAVIER_HMS)
@@ -220,9 +220,9 @@ export async function loadMathLive () {
       } else if (clavier.length === 1) {
         clavier = clavier[0]
       }
-      mf.addEventListener('focusin', () => {
-        window.mathVirtualKeyboard.layouts = clavier
-      })
+      // mf.addEventListener('focusin', () => {
+      //   window.mathVirtualKeyboard.layouts = clavier
+      // })
       mf.inlineShortcuts = raccourcis
 
       let style = 'font-size: 20px;'
@@ -263,11 +263,7 @@ export async function loadMathLive () {
       }
       mf.style.fontSize = '1em'
       mf.classList.add('ml-1')
-      mf.addEventListener('focus', () => {
-        keyboardState.update((value) => {
-          return { isVisible: value.isVisible, idMathField: mf.id, alphanumericLayout: value.alphanumericLayout, blocks: value.blocks }
-        })
-      })
+      mf.addEventListener('focus', updateKeyboardState)
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
@@ -300,5 +296,12 @@ function handleClickOnKeyboardToggle (event) {
     if (mf != null) mf.focus()
     // console.log('mf.dataset.keyboard: ' + mf.dataset.keyboard)
     return { isVisible: true, idMathField: event.currentTarget.id, alphanumericLayout: value.alphanumericLayout, blocks: mf.dataset.keyboard.split(' ') }
+  })
+}
+
+function updateKeyboardState (event) {
+  const mf = event.target
+  keyboardState.update((value) => {
+    return { isVisible: value.isVisible, idMathField: event.target.id, alphanumericLayout: value.alphanumericLayout, blocks: mf.dataset.keyboard.split(' ') }
   })
 }
