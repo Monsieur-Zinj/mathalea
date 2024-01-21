@@ -190,7 +190,7 @@ export default function ProblemesMultiplicatifsFractions () {
         //= ===== énoncé indice 0 la bouteille d'eau  ======
         //= =====================================================
 
-        pb3f[0].enonce += `Ce matin, ${pb3f[0].prenoms[0]} a ouvert une bouteille de $${pb3f[0].fractions[10]}$ cL d’eau. Elle a bu $${pb3f[0].fractions[0].texFraction}$ de la bouteille.`
+        pb3f[0].enonce += `Ce matin, ${pb3f[0].prenoms[0]} a ouvert une bouteille d’eau. Elle a bu $${pb3f[0].fractions[0].texFraction}$ de la bouteille.`
         pb3f[0].enonce += `<br>Puis à midi, elle a bu $${pb3f[0].fractions[8].texFraction}$ du reste. `
 
         //= =====================================================
@@ -398,8 +398,8 @@ export default function ProblemesMultiplicatifsFractions () {
         //= ==========énoncé indice 3 les bouquets ===========
         //= =====================================================
         pb4f[2].enonce = `Un marchand vend des bouquets de muguets le 1er mai. Il vend  $${pb4f[2].fractions[0].texFraction}$ de ses bouquets le matin, `
-        pb4f[2].enonce += `l'après-midi il vend $${pb4f[2].fractions[2].texFraction}$ de ce qui lui reste `
-        pb4f[2].enonce += `et le soir il vend $${pb4f[2].fractions[4].texFraction}$ de ce qui lui reste.`
+        pb4f[2].enonce += `l'après-midi il vend $${pb4f[2].fractions[12].texFraction}$ de ce qui lui reste `
+        pb4f[2].enonce += `et le soir il vend $${pb4f[2].fractions[14].texFraction}$ de ce qui lui reste.`
 
         //= =====================================================
         //= ========== Correction Commune  ===========
