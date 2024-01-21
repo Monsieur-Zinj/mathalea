@@ -4,7 +4,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import { factorisationCompare } from '../../lib/interactif/mathLive.js'
+import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Factoriser avec les identités remarquables (niveau II)'
 export const interactifReady = true

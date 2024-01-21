@@ -6,7 +6,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
-import { factorisationCompare } from '../../lib/interactif/mathLive.js'
+import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Factoriser a²-b²'

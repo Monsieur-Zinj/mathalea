@@ -2,12 +2,11 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { ComputeEngine } from '@cortex-js/compute-engine'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { rienSi1 } from '../../lib/outils/ecritures.js'
-import { factorisationCompare } from '../../lib/interactif/mathLive.js'
+import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Factoriser avec les identités remarquables'
 export const interactifReady = true
@@ -22,7 +21,6 @@ export const uuid = '0bd00'
 export const ref = '2N41-7a'
 // fonction de comparaison de deux expressions factorisées
 // @todo à déplacer dans comparaisonFonctions.ts lors de la fusion de handleAnswer
-const engine = new ComputeEngine()
 
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
@@ -140,9 +138,9 @@ export default function FactoriserIdentitesRemarquables2 () {
           break
       }
       reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
-      texte += remplisLesBlancs(this, i, '=%{expr}', 'inline15 college6e ml-2', '\\ldots\\ldots')
+      texte += ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2', { texteAvant: ' = ' })
 
-      setReponse(this, i, { expr: { value: reponseAttendue, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+      handleAnswers(this, i, { reponse: { value: reponseAttendue, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
       if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

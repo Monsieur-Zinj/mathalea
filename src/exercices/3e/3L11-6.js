@@ -7,7 +7,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { factorisationCompare } from '../../lib/interactif/mathLive.js'
+import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Factoriser une expression complexe'
 export const interactifReady = true
@@ -61,7 +61,7 @@ export default function FactoriserUneExpression3e () {
       }
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, reponse, a, b, c, d, e, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, c, d, e, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 3)
       b = randint(1, 5) * choice([-1, 1])
       c = randint(2, 5)
@@ -91,7 +91,6 @@ export default function FactoriserUneExpression3e () {
           } else {
             texteCorr += `<br>$\\phantom{ABC}=(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}-x)$<br>`
           }
-          reponse = [`(${c}-x)(${rienSi1(a)}x${ecritureAlgebrique(b)})`, `(${rienSi1(a)}x${ecritureAlgebrique(b)})(${c}-x)`]
           setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(-1, c)})(${reduireAxPlusB(a, b)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
           break
         case 'x(ax+b)+c(ax+b)':
