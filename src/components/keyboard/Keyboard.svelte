@@ -26,6 +26,7 @@
   let currentPageIndex = 0
   let divKeyboard: HTMLDivElement
   let reduced: boolean = false
+  let alphanumericDisplayed: boolean = false
   let isVisible = false
   let pageType: AlphanumericPages = 'AlphaLow'
   let myKeyboard: Keyboard = new Keyboard()
@@ -135,7 +136,7 @@
     bind:this={divKeyboard}
     class=" bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark p-2 md:p-4 w-full fixed bottom-0 left-0 right-0 z-[9999] drop-shadow-[0_-3px_5px_rgba(130,130,130,0.25)] dark:drop-shadow-[0_-3px_5px_rgba(250,250,250,0.25)]"
   >
-    {#if $keyboardState.blocks.includes('alphanumeric')}
+    {#if alphanumericDisplayed}
       <Alphanumeric {clickKeycap} {pageType} />
     {:else if !reduced}
       <div class="py-2 md:py-0">
@@ -186,6 +187,7 @@
         </button>
       </div>
     {/if}
+    <!-- Bouton de réduction du clavier -->
     <button
       type="button"
       class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
@@ -196,6 +198,18 @@
       }}
     >
       <i class="bx {reduced ? 'bx-plus' : 'bx-minus'}" />
+    </button>
+    <!-- bouton de passage du clavier alphanumérique au clavier maths-->
+    <button
+      type="button"
+      class="z-[10000] {$keyboardState.blocks.includes('alphanumeric') ? 'flex justify-center items-center' : 'hidden'} absolute right-0 top-6 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
+      on:click={async () => {
+        alphanumericDisplayed = !alphanumericDisplayed
+        await tick()
+        mathaleaRenderDiv(divKeyboard)
+      }}
+    >
+      <i class="bx {alphanumericDisplayed ? 'bx-math' : 'bx-font-family'}" />
     </button>
   </div>
 {/if}
