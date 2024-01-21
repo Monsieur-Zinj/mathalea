@@ -9,14 +9,17 @@ import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { pickRandom } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Effectuer des liens entre angles et parallélisme'
-export const dateDeModifImportante = '18/08/2023'
+export const dateDeModifImportante = '21/01/2024'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const interactifReady = true
+export const interactifType = 'qcm'
 
 function aleaName (names = [], n = names.length, result = []) {
   const r = Math.floor(Math.random() * names.length)
@@ -65,6 +68,7 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
 /**
  * Effectuer des liens entre angles et parallélisme
  * @author Frédéric PIOU
+ * rendu interactif par Guillaume Valmont le 21/01/2024
 */
 export const uuid = '19812'
 export const ref = '5G30-2'
@@ -110,6 +114,8 @@ export default function ExercicesAnglesAIC () {
     })
 
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
+      const propositions = []
+      let options = { ordered: true }
       switch (nquestion[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
@@ -161,16 +167,33 @@ export default function ExercicesAnglesAIC () {
           // ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice
           let texte = 'Les angles marqués sont-ils alternes-internes, correspondants ou ni l\'un, ni l\'autre ?<br>'
           let reponse
+          let reponseCorrecte
           if (a === b) {
             reponse = `sont ${texteEnCouleurEtGras('correspondants')}`
+            reponseCorrecte = 'correspondants'
           } else if (a + b === 'ca' || a + b === 'db') {
             reponse = `sont ${texteEnCouleurEtGras('alternes-internes')}`
+            reponseCorrecte = 'alternes-internes'
           } else {
             reponse = `ne sont ${texteEnCouleurEtGras('ni alternes-internes')}, ${texteEnCouleurEtGras('ni correspondants')}`
+            reponseCorrecte = 'ni l\'un ni l\'autre'
           }
           const texteCorr = `Par définition, les angles marqués ${reponse}.`
           texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
+          console.log(i, reponseCorrecte, propositions)
+          propositions.push({
+            texte: 'alternes-internes',
+            statut: reponseCorrecte === 'alternes-internes'
+          })
+          propositions.push({
+            texte: 'correspondants',
+            statut: reponseCorrecte === 'correspondants'
+          })
+          propositions.push({
+            texte: 'ni l\'un ni l\'autre',
+            statut: reponseCorrecte === 'ni l\'un ni l\'autre'
+          })
           break
         }
         case 2: {
@@ -321,6 +344,14 @@ export default function ExercicesAnglesAIC () {
           `
           texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
+          propositions.push({
+            texte: 'Oui',
+            statut: epsilon === 0
+          })
+          propositions.push({
+            texte: 'Non',
+            statut: epsilon !== 0
+          })
           break
         }
         case 4: {
@@ -486,6 +517,29 @@ export default function ExercicesAnglesAIC () {
           `
           texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
+          const valMesure = Number(mesure.slice(0, mesure.length - 1))
+          const valSupplementaireMesure = 180 - valMesure
+          const valMesureDizaines = Math.floor(valMesure / 10)
+          const valMesuresUnites = (valMesure % 10)
+          const valDistracteur = valMesure % 10 === 5 ? valMesure + choice([-1, 1]) * randint(1, 4) : (valMesureDizaines * 10) + (10 - valMesuresUnites)
+          const supplementaireDistracteur = 180 - valDistracteur
+          propositions.push({
+            texte: mesure,
+            statut: true
+          })
+          propositions.push({
+            texte: valSupplementaireMesure.toString() + '°',
+            statut: false
+          })
+          propositions.push({
+            texte: valDistracteur.toString() + '°',
+            statut: false
+          })
+          propositions.push({
+            texte: supplementaireDistracteur.toString() + '°',
+            statut: false
+          })
+          options = { ordered: false }
           break
         }
         case 6: {
@@ -540,7 +594,7 @@ export default function ExercicesAnglesAIC () {
           for (const i of ['a', 'b', 'c', 'd']) {
             anglesA[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
             anglesA[i].opaciteDeRemplissage = 0.4
-            anglesB[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('blue')
+            anglesB[i].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('green')
             anglesB[i].opaciteDeRemplissage = 0.4
           }
           const ab = choice([
@@ -572,8 +626,9 @@ export default function ExercicesAnglesAIC () {
           objetsEnonce.forEach(objet => {
             objetsCorrection.push(objet)
           })
-          anglesB[b].couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('#f15929')
-          objetsCorrection.push(anglesB[b])
+          const angleCorrection = Object.assign({}, anglesB[b])
+          angleCorrection.couleurDeRemplissage = context.isAmc ? '' : colorToLatexOrHTML('#f15929')
+          objetsCorrection.push(angleCorrection)
           // ici sont créés les texte, tex_corr, objets mathalea2d divers entrant dans le contenu de l'exercice
           let reponse
           if (a === b) {
@@ -581,10 +636,38 @@ export default function ExercicesAnglesAIC () {
           } else if (a + b === 'ca' || a + b === 'db') {
             reponse = 'alterne-interne'
           }
-          let texte = String.raw`Marquer en rouge l'angle ${reponse} à l'angle marqué en bleu.<br>`
+          let texte
+          if (this.interactif) {
+            texte = `Quel est l'angle ${reponse} à l'angle marqué en bleu ?<br>`
+            for (const i of ['a', 'b', 'c', 'd']) {
+              objetsEnonce.push(anglesB[i])
+            }
+            objetsEnonce.push(texteSurArc('1', anglesB.s, anglesB.x, param.O - param.A, 'black', 0.4, true))
+            objetsEnonce.push(texteSurArc('2', anglesB.x, anglesB.t, 180 - (param.O - param.A), 'black', 0.4, true))
+            objetsEnonce.push(texteSurArc('3', anglesB.t, anglesB.Ox, param.O - param.A, 'black', 0.4, true))
+            objetsEnonce.push(texteSurArc('4', anglesB.Ox, anglesB.s, 180 - (param.O - param.A), 'black', 0.4, true))
+          } else {
+            texte = String.raw`Marquer en rouge l'angle ${reponse} à l'angle marqué en bleu.<br>`
+          }
           const texteCorr = mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsCorrection)
           texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
+          propositions.push({
+            texte: 1,
+            statut: b === 'a'
+          })
+          propositions.push({
+            texte: 2,
+            statut: b === 'b'
+          })
+          propositions.push({
+            texte: 3,
+            statut: b === 'c'
+          })
+          propositions.push({
+            texte: 4,
+            statut: b === 'd'
+          })
           break
         }
         case 7: {
@@ -688,6 +771,22 @@ export default function ExercicesAnglesAIC () {
           texteCorr += String.raw`L'angle ${reponse} à l'angle $${miseEnEvidence('\\widehat{' + anglesA[a].nom + '}', 'blue')}$ est $${miseEnEvidence('\\widehat{' + anglesB[b].nom + '}')}$.`
           texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
+          propositions.push({
+            texte: `$\\widehat{${anglesB.a.nom}}$`,
+            statut: anglesB[b].nom === anglesB.a.nom
+          })
+          propositions.push({
+            texte: `$\\widehat{${anglesB.b.nom}}$`,
+            statut: anglesB[b].nom === anglesB.b.nom
+          })
+          propositions.push({
+            texte: `$\\widehat{${anglesB.c.nom}}$`,
+            statut: anglesB[b].nom === anglesB.c.nom
+          })
+          propositions.push({
+            texte: `$\\widehat{${anglesB.d.nom}}$`,
+            statut: anglesB[b].nom === anglesB.d.nom
+          })
           break
         }
         case 3: {
@@ -877,6 +976,14 @@ export default function ExercicesAnglesAIC () {
           `
           texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
+          propositions.push({
+            texte: 'Oui',
+            statut: epsilon === 0
+          })
+          propositions.push({
+            texte: 'Non',
+            statut: epsilon !== 0
+          })
           break
         }
         case 5: {
@@ -1085,13 +1192,34 @@ export default function ExercicesAnglesAIC () {
           `
           texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
+          const valMesure = Number(mesure.slice(0, mesure.length - 1))
+          const valSupplementaireMesure = 180 - valMesure
+          const valMesureDizaines = Math.floor(valMesure / 10)
+          const valMesuresUnites = (valMesure % 10)
+          const valDistracteur = valMesure % 10 === 5 ? valMesure + choice([-1, 1]) * randint(1, 4) : (valMesureDizaines * 10) + (10 - valMesuresUnites)
+          const supplementaireDistracteur = 180 - valDistracteur
+          propositions.push({
+            texte: mesure,
+            statut: true
+          })
+          propositions.push({
+            texte: valSupplementaireMesure.toString() + '°',
+            statut: false
+          })
+          propositions.push({
+            texte: valDistracteur.toString() + '°',
+            statut: false
+          })
+          propositions.push({
+            texte: supplementaireDistracteur.toString() + '°',
+            statut: false
+          })
+          options = { ordered: false }
           break
         }
       }
       // Les lignes ci-dessous permettent d'avoir un affichage aux dimensions optimisées
       if (this.questionJamaisPosee(i, exercice.texte)) {
-        this.listeQuestions.push(exercice.texte)
-        this.listeCorrections.push(exercice.texteCorr)
         if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: '',
@@ -1112,7 +1240,19 @@ export default function ExercicesAnglesAIC () {
               }
             ]
           }
+        } else {
+          this.autoCorrection[i] = {
+            enonce: exercice.texte,
+            propositions,
+            options
+          }
         }
+        const monQcm = propositionsQcm(this, i)
+        if (this.interactif) {
+          exercice.texte = exercice.texte + monQcm.texte
+        }
+        this.listeQuestions.push(exercice.texte)
+        this.listeCorrections.push(exercice.texteCorr)
         i++
       }
       cpt++
