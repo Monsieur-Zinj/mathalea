@@ -2,12 +2,12 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
-import { factorisationCompare } from '../../lib/interactif/mathLive.js'
+import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 import { fraction } from '../../modules/fractions.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Factoriser a²-b²'
 export const interactifReady = true
@@ -105,19 +105,19 @@ export default function FactoriserIdentitesRemarquables3 () {
         case 1:
           texte = `$${lettreDepuisChiffre(i + 1)} = x^2-${a * a}$` // (x-a)(x+a)
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = x^2-${a * a}=x^2-${a}^2=(x-${a})(x+${a})$`
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(1, -a)})(${reduireAxPlusB(1, a)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(1, -a)})(${reduireAxPlusB(1, a)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case 2:
           texte = `$${lettreDepuisChiffre(i + 1)} = ${b * b}x^2-${a * a}$` // b>1
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${b * b}x^2-${a * a}=(${b}x)^2-${a}^2=(${b}x-${a})(${b}x+${a})$`
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(b, -a)})(${reduireAxPlusB(b, a)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(b, -a)})(${reduireAxPlusB(b, a)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case 3:{
           const dfrac = fraction(ns, ds).texFraction
           const dfrac2 = fraction(ns * ns, ds * ds).texFraction
           texte = `$${lettreDepuisChiffre(i + 1)} = ${dfrac2}x^2-${a * a}$` // b>1
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${dfrac2}x^2-${a * a}=\\left(${dfrac}x\\right)^2-${a}^2=\\left(${dfrac}x-${a}\\right)\\left(${dfrac}x+${a}\\right)$`
-          setReponse(this, i, { reponse: { value: `(${dfrac}x+${a})(${dfrac}x-${a})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${dfrac}x+${a})(${dfrac}x-${a})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
         }
           break
       }
@@ -133,7 +133,7 @@ export default function FactoriserIdentitesRemarquables3 () {
           texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
         })
       }
-      if (this.interactif) texte += remplisLesBlancs(this, i, '=%{reponse}', 'inline', '\\ldots\\ldots')
+      if (this.interactif) texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
       if (this.questionJamaisPosee(i, a, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

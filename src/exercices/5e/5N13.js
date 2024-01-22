@@ -77,11 +77,10 @@ export default function Exercice_fractions_simplifier (max = 11) {
       [9, 10]
     ] // Couples de nombres premiers entre eux
     for (
-      let i = 0, fraction, a, k, b, texte, texteCorr, reponse;
-      i < this.nbQuestions;
-      i++
+      let i = 0, cpt = 0, fraction, a, k, b, texte, texteCorr, reponse;
+      i < this.nbQuestions && cpt < 50;
     ) {
-      if (liste_fractions.length === 0) break // En enlevant des fractions de la liste à chaque tour de boucle, on n'en a plus au bout de 31 ! donc il faut s'arrêter avant de provoquer une erreur.
+      if (liste_fractions.length === 0) break
       fraction = choice(liste_fractions) //
       a = fraction[0]
       b = fraction[1]
@@ -146,13 +145,17 @@ export default function Exercice_fractions_simplifier (max = 11) {
         this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
       }
       if ((this.interactif && context.isHtml) || this.sup3) texte = texte.replace(' \\dfrac{\\phantom{00000000000000}}{} = \\dfrac{\\phantom{0000}}{}', '')
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
-      if (this.sup2) {
-        setReponse(this, i, reponse, { formatInteractif: 'fraction' })
-      } else {
-        setReponse(this, i, reponse, { formatInteractif: 'fractionPlusSimple' })
+      if (this.questionJamaisPosee(i, a, b)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        if (this.sup2) {
+          setReponse(this, i, reponse, { formatInteractif: 'fraction' })
+        } else {
+          setReponse(this, i, reponse, { formatInteractif: 'fractionPlusSimple' })
+        }
+        i++
       }
+      cpt++
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }

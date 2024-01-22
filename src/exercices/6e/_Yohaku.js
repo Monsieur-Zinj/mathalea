@@ -1,6 +1,5 @@
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { Yohaku } from '../../lib/outils/Yohaku'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { context } from '../../modules/context.js'
@@ -61,14 +60,17 @@ export default function FabriqueAYohaku () {
       texteCorr = 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br><br>'
       yohaku.solution = true
       texteCorr += yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: false })
+      /*
+       // ça ne sert à rien à priori ce setReponse : la correction interactive est custom et se fiche des réponses proposées.
       const arrayReponses = []
       for (let l = 0; l < taille; l++) {
         for (let c = 0; c < taille; c++) {
-          arrayReponses.push([`L${l + 1}C${c + 1}`, yohaku.cellules[l * taille + c]])
+          arrayReponses.push([`L${l + 1}C${c + 1}`, { value: String(yohaku.cellules[l * taille + c]) }])
         }
       }
       const reponses = Object.fromEntries(arrayReponses)
       setReponse(this, i, reponses, { formatInteractif: 'tableauMathlive' })
+*/
       this.yohaku[i] = yohaku
       if (this.questionJamaisPosee(i, ...yohaku.cellules)) {
         this.listeQuestions.push(texte)
@@ -91,7 +93,6 @@ export default function FabriqueAYohaku () {
     }
     listeQuestionsToContenu(this)
   }
-
   this.correctionInteractive = (i) => {
     const taille = parseInt(this.sup3)
     let cell

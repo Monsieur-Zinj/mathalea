@@ -126,10 +126,10 @@ async function testRelatifs (page: Page) {
   return true
 }
 
-runTest(testRelatifs, import.meta.url, { pauseOnError: false })
-runTest(testEntier, import.meta.url, { pauseOnError: false })
-runTest(testCalculLitteral, import.meta.url, { pauseOnError: false })
-runTest(testCalculLitteral2, import.meta.url, { pauseOnError: false })
+runTest(testRelatifs, import.meta.url)
+runTest(testEntier, import.meta.url)
+runTest(testCalculLitteral, import.meta.url)
+runTest(testCalculLitteral2, import.meta.url)
 
 function stringToNumber (str: string): number {
   if (str === '') {

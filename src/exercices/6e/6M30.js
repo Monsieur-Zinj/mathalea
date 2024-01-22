@@ -372,7 +372,7 @@ export default function CalculDeVolumes () {
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
-        setReponse(this, i, new Grandeur(resultat, listeUnites[j][2]), { formatInteractif: 'unites' })
+        setReponse(this, i, new Grandeur(resultat, listeUnites[j][2]), { formatInteractif: 'unites', precision: 0 })
         texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à indiquer l\'unité au volume-réponse : ' })
       }
       if (context.isAmc) {

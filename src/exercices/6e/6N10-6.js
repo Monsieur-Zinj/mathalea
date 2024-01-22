@@ -10,7 +10,7 @@ import { max } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fractionCompare, numberCompare } from '../../lib/interactif/mathLive.js'
+import { fractionCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales'
 export const amcReady = true

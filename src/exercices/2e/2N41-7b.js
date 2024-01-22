@@ -2,9 +2,9 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import { factorisationCompare } from '../../lib/interactif/mathLive.js'
+import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Factoriser avec les identités remarquables (niveau II)'
 export const interactifReady = true
@@ -61,7 +61,7 @@ export default function FactoriserIdentitesremarquables2 () {
                     $(${a}x${ecritureAlgebrique(b)})^2-${c * c}= (\\color{red} ${a}x${ecritureAlgebrique(b)}\\color{black})^2-\\color{blue}${c}\\color{black}^2 $ <br>
                     $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-${c * c}}=\\left[\\color{red} (${a}x${ecritureAlgebrique(b)})\\color{black}-\\color{blue} ${c}\\right] \\left[ \\color{red}(${a}x${ecritureAlgebrique(b)})\\color{black}+\\color{blue}${c}\\right] $<br>
                     $\\phantom{(${a}x${ecritureAlgebrique(b)})^2-${c * c}}= (${reduireAxPlusB(a, b - c)}) (${reduireAxPlusB(a, b + c)})$`
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(a, b - c)}) (${reduireAxPlusB(a, b + c)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(a, b - c)}) (${reduireAxPlusB(a, b + c)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case 2:
           texte = `$${c * c}-(${a}x${ecritureAlgebrique(b)})^2$` // c²-(ax+b)²
@@ -71,7 +71,7 @@ export default function FactoriserIdentitesremarquables2 () {
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=\\left[ \\color{red}${c}\\color{black}-(\\color{blue}${a}x${ecritureAlgebrique(b)}\\color{black}) \\right] \\left[ \\color{red}${c}\\color{black}+(\\color{blue}${a}x${ecritureAlgebrique(b)}\\color{black}) \\right] $<br>
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=(${c}${ecritureAlgebrique(-a)}x${ecritureAlgebrique(-b)}) (${c}${ecritureAlgebrique(a)}x${ecritureAlgebrique(b)})$<br>
                     $\\phantom{${c * c}-(${a}x${ecritureAlgebrique(b)})^2}=(${reduireAxPlusB(-a, c - b)}) (${reduireAxPlusB(a, b + c)})$`
-          setReponse(this, i, { reponse: { value: `(${reduireAxPlusB(-a, c - b)}) (${reduireAxPlusB(a, b + c)})`, compare: factorisationCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `(${reduireAxPlusB(-a, c - b)}) (${reduireAxPlusB(a, b + c)})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
           break
         case 3: {
           texte = `$(${a}x${ecritureAlgebrique(b)})^2-(${c}x${ecritureAlgebrique(d)})^2$` // (ax+b)²-(cx+d)²
@@ -99,16 +99,16 @@ export default function FactoriserIdentitesremarquables2 () {
               texteCorr += `${facteur1}(${facteur2})$`
             }
           }
-          setReponse(this, i, {
+          handleAnswers(this, i, {
             expr: {
               value: `(${facteur1})(${facteur2})`,
               compare: factorisationCompare
             }
-          }, { formatInteractif: 'fillInTheBlank' })
+          }, { formatInteractif: 'calcul' })
         } break
       }
       if (this.interactif) {
-        texte += remplisLesBlancs(this, i, '=%{expr}', 'inline', '\\ldots\\ldots')
+        texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
       }
       if (this.questionJamaisPosee(i, a, b, c, d, k, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre

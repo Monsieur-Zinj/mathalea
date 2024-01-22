@@ -30,4 +30,4 @@ async function testFractionSimplifiee (page: Page) {
   await checkFeedback(page, questions)
   return true
 }
-runTest(testFractionSimplifiee, import.meta.url, { pauseOnError: false })
+runTest(testFractionSimplifiee, import.meta.url)

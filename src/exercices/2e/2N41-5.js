@@ -2,12 +2,12 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions.js'
-import { developpementCompare } from '../../lib/interactif/mathLive.js'
+import { developpementCompare } from '../../lib/interactif/comparaisonFonctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Développer $(a-b)^2$'
 export const interactifReady = true
@@ -108,7 +108,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr += `$\\left(x+${a} \\right)^2=x^2-${2 * a}x+${a * a}$`
           }
-          setReponse(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'calcul' })
           break
         case 2:
           texte = `$\\left(${b}x-${a}\\right)^2$` // b>1
@@ -119,7 +119,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr += `$\\left(${b}x+${a}\\right)^2 = ${b * b}x^2-${2 * b * a}x+${a * a}$`
           }
-          setReponse(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'calcul' })
           break
         case 3:
           b = -b
@@ -136,7 +136,7 @@ export default function DevelopperIdentitesRemarquables4 () {
             texteCorr = texte + `$= ${b * b}x^2-${2 * (-b) * a}x+${a * a}$`
           }
 
-          setReponse(this, i, { reponse: { value: `${b * b}x^2-${2 * (-b) * a}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * (-b) * a}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'calcul' })
           break
         case 4:
           texte = `$\\left(${dfrac}x-${a}\\right)^2$`
@@ -150,7 +150,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr = texte + `$= ${dfrac2}x^2-${dbleProdFracRed}x+${a * a}$`
           }
-          setReponse(this, i, { reponse: { value: `${dfrac2}x^2-${dbleProdFrac}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { reponse: { value: `${dfrac2}x^2-${dbleProdFrac}x+${a * a}`, compare: developpementCompare } }, { formatInteractif: 'calcul' })
           break
       }
 
@@ -167,7 +167,7 @@ export default function DevelopperIdentitesRemarquables4 () {
       // Fin de cette uniformisation
 
       texteCorr += texteCorr2
-      if (this.interactif) texte += remplisLesBlancs(this, i, '=%{reponse}', 'inline', '\\ldots\\ldots')
+      if (this.interactif) texte += '$=$' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
       if (this.questionJamaisPosee(i, a, b, ns, ds, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

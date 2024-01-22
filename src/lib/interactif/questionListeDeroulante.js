@@ -24,10 +24,10 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
   }
   const optionsChoisies = document.querySelectorAll(`[id^=ex${exercice.numeroExercice}Q${i}]`)
   let reponses = []
-  if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur)) {
-    reponses = [exercice.autoCorrection[i].reponse.valeur]
+  if (!Array.isArray(exercice.autoCorrection[i].reponse.valeur.reponse.value)) {
+    reponses = [exercice.autoCorrection[i].reponse.valeur.reponse.value]
   } else {
-    reponses = exercice.autoCorrection[i].reponse.valeur
+    reponses = exercice.autoCorrection[i].reponse.valeur.reponse.value
   }
   let saisie = []
   // Sauvegarde pour les exports Moodle, Capytale...
