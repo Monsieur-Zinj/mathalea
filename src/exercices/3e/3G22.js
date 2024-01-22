@@ -8,6 +8,7 @@ import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { mg32DisplayAll } from '../../modules/mathgraph.js'
 export const titre = 'Connaître les effets des agrandissements/réductions sur les aires et les volumes'
 
 /**
@@ -45,7 +46,7 @@ export default function AgrandissementReduction () {
       choix = randint(1, 5)
     }
     switch (choix) {
-      case 1: // calcul de l'aire de base, du volume d'une pyramide à base carrée. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
+      case 1: { // calcul de l'aire de base, du volume d'une pyramide à base carrée. puis, calcul de la section, du volume de la petite pyramide et du volume du tronc
         c = new Decimal(randint(30, 60)).div(10)
         h1 = new Decimal(randint(12, 20)).div(2)
         h2 = new Decimal(randint(3, h1.floor().sub(1).toNumber()))
@@ -159,7 +160,6 @@ export default function AgrandissementReduction () {
         texteCorr += numAlpha(4) + ' Le volume du tronc de la pyramide est : '
         texteCorr += `$V_\\text{SABCD} - V_\\text{SA'B'C'D'}$<br>Soit : <br>$${texNombre(h1.mul(c).mul(c).div(3), 3)}$ cm${texteExposant(3)}$ - ${texNombre(h2.pow(3).mul(c).mul(c).div(h1.pow(2)).div(3), 3)}$ cm${texteExposant(3)}$ \\approx ${texNombre(h1.sub(h2.pow(3).div(h1.pow(2))).mul(c.pow(2)).div(3), 2)}$ cm${texteExposant(3)}.<br>`
         texteCorr += `Ce qui représente $${texFractionReduite(h1.pow(3).sub(h2.pow(3)).mul(1000), h1.pow(3).mul(1000))}$ du volume de SABCD.`
-
         this.MG32codeBase64 = codeBase64
         this.mg32init = (mtg32App, idDoc) => {
           mtg32App.giveFormula2(idDoc, 'c', c.toString())
@@ -171,6 +171,7 @@ export default function AgrandissementReduction () {
           return mtg32App.display(idDoc)
         }
         break
+      }
       case 2: // calcul de l'aire de base, du volume d'un cône. puis, calcul de la section, du volume du cône réduit et du volume du tronc
         r = new Decimal(randint(12, 35)).div(10)
         h1 = new Decimal(randint(12, 20)).div(2)
@@ -681,6 +682,30 @@ export default function AgrandissementReduction () {
           return mtg32App.display(idDoc)
         }
         break
+    }
+
+    if (context.isHtml) {
+      const divMtg = document.createElement('div')
+      const svg = document.createElement('svg')
+      svg.id = `svgMtg${this.numeroExercice}`
+      divMtg.id = `MG32div${this.numeroExercice}`
+      // divMtg.style.display = 'none'
+      divMtg.appendChild(svg)
+      // divMtg.setAttribute('MG32codeBase64', codeBase64)
+      texteCorr += divMtg.outerHTML
+
+      // eslint-disable-next-line @typescript-eslint/no-this-alias
+      const that = this
+
+      const listener = function () {
+        // console.log(`listener${numeroExercice}`)
+        const div = document.getElementById(`MG32div${numeroExercice}`)
+        if (div) {
+          // console.log(`divMtg${numeroExercice}`)
+          mg32DisplayAll([that])
+        }
+      }
+      document.addEventListener('exercicesAffiches', listener)
     }
 
     this.listeQuestions.push(texte)
