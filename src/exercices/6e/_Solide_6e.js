@@ -96,7 +96,7 @@ export default function Solide6e () {
       const toutesLesFaces = [[0, 1, 2, 3], [1, 5, 6, 2], [2, 6, 7, 3], [3, 7, 4, 0], [0, 1, 5, 4], [4, 5, 6, 7]]
       let k, l, s
       let nomFace, nomArete
-      
+
       switch (listeDeProblemes[i]) {
         case 1: // citer les arêtes parallèles à une arête donnée
           [k, l, s] = [randint(0, 2), randint(0, 3), randint(0, 1)]
@@ -167,7 +167,7 @@ export default function Solide6e () {
           }
           break
       }
-      
+
       switch (listeTypeDeQuestions[i] % 2) {
         case 1:
           A = point(6, 0, nom[0], 'left')

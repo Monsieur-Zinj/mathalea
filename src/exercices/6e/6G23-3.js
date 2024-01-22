@@ -11,7 +11,6 @@ import { labelPoint } from '../../lib/2d/textes.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { context } from '../../modules/context.js'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '04/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
