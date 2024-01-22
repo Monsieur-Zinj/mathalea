@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
-import { joursParMois, nomDuMois } from '../../lib/outils/dateEtHoraires.js'
+import { joursParMois, nomDuMois } from '../../lib/outils/dateEtHoraires'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { prenom } from '../../lib/outils/Personne.js'

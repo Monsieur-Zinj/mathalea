@@ -2,7 +2,7 @@ import {
   randint
 } from '../../modules/outils.js'
 import { shuffle } from './arrayOutils.js'
-import { joursParMois } from './dateEtHoraires.js'
+import { joursParMois } from './dateEtHoraires'
 import { rangeMinMax } from './nombres.js'
 import { lettreDepuisChiffre, lettreMinusculeDepuisChiffre } from './outilString.js'
 

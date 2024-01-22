@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { minToHour } from '../../lib/outils/dateEtHoraires.js'
+import { minToHour } from '../../lib/outils/dateEtHoraires'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { nombreAvecEspace, stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

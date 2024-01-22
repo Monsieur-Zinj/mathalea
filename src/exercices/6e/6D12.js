@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { minToHoraire, minToHour } from '../../lib/outils/dateEtHoraires.js'
+import { minToHoraire, minToHour } from '../../lib/outils/dateEtHoraires'
 import { prenom, prenomF } from '../../lib/outils/Personne.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

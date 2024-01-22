@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
-import { joursParMois } from '../../lib/outils/dateEtHoraires.js'
+import { joursParMois } from '../../lib/outils/dateEtHoraires'
 import Exercice from '../Exercice.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

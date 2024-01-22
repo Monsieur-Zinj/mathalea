@@ -1,5 +1,5 @@
 import { choice } from '../lib/outils/arrayOutils'
-import { nomDuMois } from '../lib/outils/dateEtHoraires.js'
+import { nomDuMois } from '../lib/outils/dateEtHoraires'
 import { deprecatedTexFraction } from '../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures.js'
 import { lampeMessage } from '../lib/format/message.js'

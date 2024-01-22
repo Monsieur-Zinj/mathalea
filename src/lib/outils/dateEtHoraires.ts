@@ -6,8 +6,8 @@ import { sp } from './outilString.js'
  * @Example
  * //0 h 24 est accepté
  */
-export function minToHoraire (minutes) {
-  let nbHour = parseInt(minutes / 60)
+export function minToHoraire (minutes: number) {
+  let nbHour = Math.floor(minutes / 60)
   if (nbHour > 23) {
     nbHour = nbHour - 24
   }
@@ -24,8 +24,8 @@ export function minToHoraire (minutes) {
  * @Example
  * //on écrira 24 minutes plutôt que 0 h 24
  */
-export function minToHour (minutes) {
-  let nbHour = parseInt(minutes / 60)
+export function minToHour (minutes: number) {
+  let nbHour = Math.ceil(minutes / 60)
   if (nbHour > 23) {
     nbHour = nbHour - 24
   }
@@ -49,8 +49,8 @@ export function minToHour (minutes) {
  * @example minToHeuresMinutes (1456) renvoie [24,16] car 1456min = 24h16min
  *
  */
-export function minToHeuresMinutes (minutes) {
-  return [parseInt(minutes / 60), (minutes % 60)]
+export function minToHeuresMinutes (minutes: number) {
+  return [Math.ceil(minutes / 60), (minutes % 60)]
 }
 
 /**
@@ -58,7 +58,7 @@ export function minToHeuresMinutes (minutes) {
  * @param n quantième du mois (janvier=1...)
  * @author Jean-Claude Lhote
  */
-export function joursParMois (n, annee = 2022) {
+export function joursParMois (n: number, annee = 2022) {
   const joursMois = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
   if (n === 2) {
     if (((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) return 29 // années bissextiles.
@@ -71,7 +71,7 @@ export function joursParMois (n, annee = 2022) {
  * @param n quantième du mois
  * @author Jean-Claude Lhote
  */
-export function nomDuMois (n) {
+export function nomDuMois (n: number) {
   const mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
   return mois[n - 1]
 }
@@ -81,7 +81,7 @@ export function nomDuMois (n) {
  * @param n quantième du jour
  * @author Mireille Gain
  */
-export function nomDuJour (n) {
+export function nomDuJour (n: number) {
   const jour = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
   return jour[n - 1]
 }
