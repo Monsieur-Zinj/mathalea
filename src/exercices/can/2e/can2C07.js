@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
+import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer avec une racine carrée'

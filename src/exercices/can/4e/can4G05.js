@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
+import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { texRacineCarree } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'

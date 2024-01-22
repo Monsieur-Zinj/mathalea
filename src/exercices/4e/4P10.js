@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { produitsEnCroix, quatriemeProportionnelle } from '../../lib/outils/calculs.js'
+import { produitsEnCroix, quatriemeProportionnelle } from '../../lib/outils/calculs'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox, texteExposant } from '../../lib/outils/ecritures.js'
 import { katexPopup2 } from '../../lib/format/message.js'

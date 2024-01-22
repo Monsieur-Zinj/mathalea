@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
+import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { lettreMinusculeDepuisChiffre } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'

@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { extraireRacineCarree } from '../../lib/outils/calculs.js'
+import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
 import { sp } from '../../lib/outils/outilString.js'

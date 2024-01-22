@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { sommeDesTermesParSigne } from '../../lib/outils/calculs.js'
+import { sommeDesTermesParSigne } from '../../lib/outils/calculs'
 import {
   ecritureAlgebrique,
   ecritureAlgebriquec,

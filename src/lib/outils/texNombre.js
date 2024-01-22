@@ -5,7 +5,7 @@ import {
   tropDeChiffres
 } from '../../modules/outils.js'
 import { miseEnEvidence } from './embellissements'
-import { extraireRacineCarree } from './calculs.js'
+import { extraireRacineCarree } from './calculs'
 import { nombreDeChiffresDansLaPartieDecimale } from './nombres.js'
 import { sp } from './outilString.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

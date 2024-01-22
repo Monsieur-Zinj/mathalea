@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
+import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'

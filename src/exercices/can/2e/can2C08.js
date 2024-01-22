@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { extraireRacineCarree } from '../../../lib/outils/calculs.js'
+import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
