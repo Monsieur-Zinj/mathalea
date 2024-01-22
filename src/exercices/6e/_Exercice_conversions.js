@@ -1,13 +1,14 @@
 import { choice, combinaisonListes, compteOccurences } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'
-import { texNombre, texNombre2 } from '../../lib/outils/texNombre.js'
+import { rangeMinMax } from '../../lib/outils/nombres.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { texTexte } from '../../lib/format/texTexte'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import Decimal from 'decimal.js'
+import { fraction } from '../../modules/fractions.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +42,6 @@ export default function ExerciceConversions (niveau = 1) {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const tabRep = []
     const prefixeMulti = [
       ['da', 10],
       ['h', 100],
@@ -58,7 +58,7 @@ export default function ExerciceConversions (niveau = 1) {
     listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
     const listeDesOperations = combinaisonListes([true, false], this.nbQuestions)
     for (let i = 0,
-      a,
+      val,
       k,
       div,
       resultat,
@@ -83,23 +83,25 @@ export default function ExerciceConversions (niveau = 1) {
           listeUniteInfo = ['octets', 'ko', 'Mo', 'Go', 'To']
           break
       }
-
+      let nbChiffreArrondi
       if (this.sup2) {
         // Si la case pour les nombres décimaux est cochée
-        a = choice([
-          arrondi(randint(1, 19) + randint(1, 9) / 10, 1),
-          arrondi(randint(1, 9) / 10, 1),
-          arrondi(randint(1, 9) / 100, 2),
-          arrondi(randint(1, 9) + randint(1, 9) / 10 + randint(1, 9) / 100, 2)
+        nbChiffreArrondi = 2
+        val = choice([
+          new Decimal(randint(1, 9)).div(10).add(randint(1, 19)),
+          new Decimal(randint(1, 9)).div(10),
+          new Decimal(randint(1, 9)).div(100),
+          new Decimal(randint(1, 9) * 100 + randint(1, 9) * 10 + randint(1, 9)).div(100)
         ])
         // XX,X 0,X 0,0X X,XX
       } else {
-        a = choice([
+        nbChiffreArrondi = 0
+        val = new Decimal(choice([
           randint(1, 9),
           randint(1, 9) * 10,
           randint(1, 9) * 100,
           randint(1, 9) * 10 + randint(1, 9)
-        ])
+        ]))
         // X, X0, X00, XX
       }
 
@@ -117,62 +119,62 @@ export default function ExerciceConversions (niveau = 1) {
         } else {
           unite = 'o'
         }
-        resultat = calculANePlusJamaisUtiliser(a * prefixeMulti[k][1]) // Utilise Algebrite pour avoir le résultat exact même avec des décimaux
-        texte = '$ ' + texNombre(a) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
+        resultat = val.mul(prefixeMulti[k][1])
+        texte = '$ ' + texNombre(val, nbChiffreArrondi) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
 
         texteCorr =
                     '$ ' +
-                    texNombre(a) +
+                    texNombre(val, nbChiffreArrondi) +
                     texTexte(prefixeMulti[k][0] + unite) +
                     ' =  ' +
-                    texNombre(a) +
+                    texNombre(val, nbChiffreArrondi) +
                     '\\times' +
-                    texNombre(prefixeMulti[k][1]) +
+                    texNombre(prefixeMulti[k][1], nbChiffreArrondi) +
                     texTexte(unite) +
                     ' = ' +
-                    texNombre(resultat) +
+                    texNombre(resultat, Math.max(0, nbChiffreArrondi - k - 1)) +
                     texTexte(unite) +
                     '$'
       } else if (div &&
                 listeDesProblemes[i] < 4 &&
                 this.correction_avec_des_fractions) {
         unite = choice(['m', 'L', 'g'])
-        resultat = arrondi(a / prefixeDiv[k][1], 12)
+        resultat = val.div(prefixeDiv[k][1])
         texte =
                     '$ ' +
-                    texNombre(a) +
+                    texNombre(val, nbChiffreArrondi) +
                     texTexte(prefixeDiv[k][0] + unite) +
                     ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
         texteCorr =
                     '$ ' +
-                    texNombre(a) +
+                    texNombre(val, nbChiffreArrondi) +
                     texTexte(prefixeDiv[k][0] + unite) +
                     ' =  ' +
-                    deprecatedTexFraction(texNombre(a), texNombre(prefixeDiv[k][1])) +
+                    fraction(texNombre(val), prefixeDiv[k][1]).texFraction +
                     texTexte(unite) +
                     ' = ' +
-                    texNombre2(resultat) +
+                    texNombre(resultat, nbChiffreArrondi + 3) +
                     texTexte(unite) +
                     '$'
       } else if (div && listeDesProblemes[i] < 4) {
         unite = choice(['m', 'L', 'g'])
-        resultat = arrondi(a / prefixeDiv[k][1], 12)
+        resultat = val.div(prefixeDiv[k][1])
         texte =
                     '$ ' +
-                    texNombre(a) +
+                    texNombre(val, nbChiffreArrondi) +
                     texTexte(prefixeDiv[k][0] + unite) +
                     ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
         texteCorr =
                     '$ ' +
-                    texNombre(a) +
+                    texNombre(val, nbChiffreArrondi) +
                     texTexte(prefixeDiv[k][0] + unite) +
                     ' =  ' +
-                    texNombre(a) +
+                    texNombre(val, nbChiffreArrondi) +
                     '\\div' +
-                    texNombre(prefixeDiv[k][1]) +
+                    texNombre(prefixeDiv[k][1], 0) +
                     texTexte(unite) +
                     ' = ' +
-                    texNombre2(resultat) +
+                    texNombre(resultat, nbChiffreArrondi + k + 1) +
                     texTexte(unite) +
                     '$'
       } else {
@@ -188,56 +190,55 @@ export default function ExerciceConversions (niveau = 1) {
           unite2 = randint(0, unite1 - 1)
         }
         const ecart = unite2 - unite1 // nombre de multiplication par 1000 pour passer de l'un à l'autre
-        if (unite1 === 0 && a % 1 !== 0) a = randint(3, 100) // Pas de nombre d'octets non entiers
+        if (unite1 === 0 && val % 1 !== 0) val = randint(3, 100) // Pas de nombre d'octets non entiers
         if (!div) {
-          resultat = calculANePlusJamaisUtiliser(a * Math.pow(10, 3 * ecart))
+          resultat = val.mul(Math.pow(10, 3 * ecart))
           unite = listeUniteInfo[unite1]
           texte =
                         '$ ' +
-                        texNombre(a) +
+                        texNombre(val, nbChiffreArrondi) +
                         texTexte(listeUniteInfo[unite2]) +
                         ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
                         '$ ' +
-                        texNombre(a) +
+                        texNombre(val, nbChiffreArrondi) +
                         texTexte(listeUniteInfo[unite2]) +
                         ' =  ' +
-                        texNombre(a) +
+                        texNombre(val, nbChiffreArrondi) +
                         '\\times' +
-                        texNombre(Math.pow(10, 3 * ecart)) +
+                        texNombre(Math.pow(10, 3 * ecart), 0) +
                         texTexte(unite) +
                         ' = ' +
-                        texNombre(resultat) +
+                        texNombre(resultat, 0) +
                         texTexte(unite) +
                         '$'
         } else {
-          a = arrondi(a * Math.pow(10, randint(-3 * ecart - 1, -3 * ecart + 1)), 12)
-          resultat = arrondi(a / Math.pow(10, -3 * ecart), 12)
+          val = val.div(Math.pow(10, randint(3 * ecart - 1, 3 * ecart + 1)))
+          resultat = val.mul(Math.pow(10, 3 * ecart))
           unite = listeUniteInfo[unite1]
           texte =
                         '$ ' +
-                        texNombre(a) +
+                        texNombre(val, nbChiffreArrondi + 3 * ecart) +
                         texTexte(listeUniteInfo[unite2]) +
                         ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
                         '$ ' +
-                        texNombre(a) +
+                        texNombre(val, nbChiffreArrondi + 3 * ecart) +
                         texTexte(listeUniteInfo[unite2]) +
                         ' =  ' +
-                        texNombre(a) +
+                        texNombre(val, nbChiffreArrondi + 3 * ecart) +
                         '\\div' +
-                        texNombre(Math.pow(10, -3 * ecart)) +
+                        texNombre(Math.pow(10, -3 * ecart), 3 * ecart) +
                         texTexte(unite) +
                         ' = ' +
-                        texNombre2(resultat) +
+                        texNombre(resultat, 0) +
                         texTexte(unite) +
                         '$'
         }
       }
 
-      if (tabRep.indexOf(resultat) === -1) {
+      if (this.questionJamaisPosee(i, val, resultat)) {
         setReponse(this, i, resultat)
-        tabRep[i] = resultat
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.vue === 'diap') {
           texte = texte.replace('= \\dotfill', '\\text{ en }')
