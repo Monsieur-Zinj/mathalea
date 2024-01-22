@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { equal, type Fraction, round } from 'mathjs'
+import { equal, round } from 'mathjs'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { fraction } from '../../modules/fractions.js'
@@ -16,8 +16,8 @@ import { stringNombre, texNombre } from './texNombre.js'
  * //rienSi1(-1)+'x' -> -x
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
-export function rienSi1 (a: number | Fraction | FractionEtendue) {
-  if (a instanceof Fraction || a instanceof FractionEtendue) return a.toLatex().replace('dfrac', 'frac')
+export function rienSi1 (a: number | FractionEtendue) {
+  if (a instanceof FractionEtendue) return a.toLatex().replace('dfrac', 'frac')
   if (typeof a === 'string') {
     window.notify('rienSi1() n\'accepte pas les string.', { argument: a })
     a = Number(a)
@@ -90,12 +90,12 @@ export function ecritureNombreRelatifc (a: string | number) {
  * //+3 ou -3
  * @author Rémi Angot et Jean-claude Lhote pour le support des fractions
  */
-export function ecritureAlgebrique (a: string | number | Fraction | FractionEtendue | Decimal) {
+export function ecritureAlgebrique (a: string | number | FractionEtendue | Decimal) {
   if (typeof a === 'string') {
     window.notify('ecritureAlgebrique() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
-  if (a instanceof Fraction || a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
+  if (a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') {
     if (a >= 0) {
       return '+' + texNombre(a, 7)
@@ -118,7 +118,7 @@ export function ecritureAlgebrique (a: string | number | Fraction | FractionEten
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
 export function ecritureAlgebriqueSauf1 (a) {
-  if (a instanceof Fraction || a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
+  if (a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
   if (typeof a === 'string') {
     window.notify('ecritureAlgebriqueSauf1() n\'accepte pas les string.', { argument: a })
     a = Number(a)
@@ -225,8 +225,8 @@ export function calculAligne (numero: number, etapes: number[]) {
  * fonctionne aussi si a est une fraction : permet de finir un calcul par la valeur décimale si on veut.
  * @author Jean-Claude Lhote
  */
-export function egalOuApprox (a: number | Fraction | FractionEtendue, precision: number) {
-  if (typeof a === 'object' && ['Fraction', 'FractionEtendue'].indexOf(a.type) !== -1) {
+export function egalOuApprox (a: number | FractionEtendue, precision: number) {
+  if (typeof a === 'object' && ['FractionEtendue'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'
