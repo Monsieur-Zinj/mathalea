@@ -1,7 +1,7 @@
 import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
 
-async function test6N20 (page: Page) {
+async function test6N203 (page: Page) {
   const urlExercice = 'http://localhost:5173/alea/?uuid=3bdcd&id=6N20-3&alea=vBuv&i=1'
   const questions = await getQuestions(page, urlExercice)
 
@@ -20,7 +20,8 @@ async function test6N20 (page: Page) {
       a = Math.floor(num / den) - 1
       b = Math.floor(num / den) + 1
     }
-    const reponse = [a.toString(), b.toString()]
+    // @fixme trouver un moyen de mettre le focus sur le premier placeholder dans remplisLesBlancs()
+    const reponse = [b.toString(), a.toString()] // J'ai inversé l'ordre parce que le focus se place automatiquement sur le deuxième placeholder !
     await inputAnswer(page, question, reponse)
   }
   await checkFeedback(page, questions)
@@ -49,12 +50,13 @@ async function test5R211 (page: Page) {
       b = Number(stringB)
       c = a + b
     }
-    const reponse = [a.toString(), b.toString(), c.toString()]
+    // @fixme remettre de l'ordre dans les réponses lorsque le focus ne sera plus sur le dernier placeholder
+    const reponse = [c.toString(), a.toString(), b.toString()]
     await inputAnswer(page, question, reponse)
   }
   await checkFeedback(page, questions)
   return true
 }
 
-runTest(test6N20, import.meta.url)
+runTest(test6N203, import.meta.url)
 runTest(test5R211, import.meta.url)

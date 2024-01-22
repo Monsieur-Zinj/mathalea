@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'
@@ -31,7 +32,7 @@ export default class nomExercice extends Exercice {
     this.autoCorrection = []
 
     type TypeQuestionsDisponibles = 'dixieme'|'centieme'|'millieme'
-    const typeQuestionsDisponibles = ['dixieme', 'centieme', 'millieme'] as const
+    const typeQuestionsDisponibles = ['dixieme', 'centieme', 'millieme']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) as TypeQuestionsDisponibles[]
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -69,14 +70,14 @@ export default class nomExercice extends Exercice {
       setReponse(this, i, {
         bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
         feedback: (saisies: {champ1: string, champ2: string}) => {
-          const rep1 = Number(saisies.champ1)
-          const rep2 = Number(saisies.champ2)
-          if (rep1 < num / den && rep2 > num / den && rep2 - rep1 !== 1) {
+          const rep1 = saisies.champ1
+          const rep2 = saisies.champ2
+          if (!consecutifsCompare(rep1, rep2, String(num / den)).isOk) {
             return ('L\'inégalité est vraie mais les deux nombres ne sont pas des entiers consécutifs.')
           }
         },
-        champ1: { value: String(a), compare: compareNumbers },
-        champ2: { value: String(b), compare: compareNumbers }
+        champ1: { value: String(a), compare: numberCompare },
+        champ2: { value: String(b), compare: numberCompare }
       }, { formatInteractif: 'fillInTheBlank' })
       if (this.questionJamaisPosee(i, num, den)) {
         this.listeQuestions.push(texte)
@@ -88,6 +89,3 @@ export default class nomExercice extends Exercice {
     listeQuestionsToContenu(this)
   }
 }
-
-// Utiliser compareNumbers permet de disqualifier une bonne réponse donnée en écriture fractionnaire
-const compareNumbers = (n1: string, n2: string) => Number(n1) === Number(n2)

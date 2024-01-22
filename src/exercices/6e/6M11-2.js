@@ -163,8 +163,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
             texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(L1 + L2, 1)}+${texNombre(hyp, 1)}+${texNombre(L1, 1)}+${texNombre(l1, 1)}=${texNombre(L1 + L2 + hyp + L1 + l1, 1)}${sp()}${texTexte('cm')}$<br>` : ''
             texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(L1, 1)}\\times${texNombre(l1, 1)})+(${texNombre(L2, 1)}\\times${texNombre(l1, 1)}\\div2)=${texNombre(L1 * l1, 2)}+${texNombre((L2 * l1) / 2, 2)}=${texNombre(L1 * l1 + (L2 * l1) / 2, 2)}${sp()}${texTexte('cm')}^2$` : ''
           }
-          perimetre = [arrondi(L1 + L2 + hyp + L1 + l1, 1), arrondi(L1 + L2 + hyp + L1 + l1, 1)] // Volontairement doublés pour être synchrone avec les cercles
-          aire = [arrondi(L1 * l1 + (L2 * l1) / 2, 2), arrondi(L1 * l1 + (L2 * l1) / 2, 2)]
+          perimetre = arrondi(L1 + L2 + hyp + L1 + l1, 1)
+          aire = arrondi(L1 * l1 + (L2 * l1) / 2, 2)
           break
         }
         case 2 : { // 'rectangle_moins_triangle': {
@@ -217,8 +217,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
             texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(c, 1)}+${texNombre(c, 1)}+${texNombre(c, 1)}+${texNombre(c1, 1)}+${texNombre(c2, 1)}=${texNombre(3 * c + c1 + c2, 1)}${sp()}${texTexte('cm')}$<br>` : ''
             texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(c, 1)}\\times${texNombre(c, 1)})-(${texNombre(c1, 1)}\\times${texNombre(c2, 1)}\\div2)=${texNombre(c ** 2 - (c1 * c2) / 2, 2)}${sp()}${texTexte('cm')}^2$<br>` : ''
           }
-          perimetre = [arrondi(3 * c + c1 + c2, 1), arrondi(3 * c + c1 + c2, 1)]
-          aire = [arrondi(c ** 2 - (c1 * c2) / 2, 2), arrondi(c ** 2 - (c1 * c2) / 2, 2)]
+          perimetre = arrondi(3 * c + c1 + c2, 1)
+          aire = arrondi(c ** 2 - (c1 * c2) / 2, 2)
           break
         }
         case 3 : { // 'rectangle_moins_deux_triangles': {
@@ -294,8 +294,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
             texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(c, 1)}+${texNombre(c, 1)}+${texNombre(c, 1)}+${texNombre(c1, 1)}+${texNombre(c2, 1)}=${texNombre(3 * c + c1 + c2, 1)}${sp()}${texTexte('cm')}$<br>` : ''
             texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(c, 1)}\\times${texNombre(c, 1)})-(${texNombre(c, 1)}\\times${h}\\div2)=${texNombre(c * c, 2)}-${texNombre((c * h) / 2, 2)}=${texNombre(c ** 2 - (c * h) / 2, 2)}${sp()}${texTexte('cm')}^2$<br>` : ''
           }
-          perimetre = [arrondi(3 * c + c1 + c2, 1), arrondi(3 * c + c1 + c2, 1)]
-          aire = [arrondi(c ** 2 - (c * h) / 2, 2), arrondi(c ** 2 - (c * h) / 2, 2)]
+          perimetre = arrondi(3 * c + c1 + c2, 1)
+          aire = arrondi(c ** 2 - (c * h) / 2, 2)
           break
         }
         case 4 : { // 'rectangle_demi_cercle': {
@@ -363,10 +363,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
                       texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14 / 2, 1))}${sp()}${texTexte('cm')}^2$<br>`
                       */
           }
-          perimetre = [troncature(L1 + L2 + L1 + L2 * Math.PI / 2, this.sup3 - 1), troncature(L1 + L2 + L1 + L2 * Math.PI / 2 + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
-            troncature(L1 + L2 + L1 + L2 * Math.PI / 2, 0), troncature(L1 + L2 + L1 + L2 * Math.PI / 2 + 1, 0)]
-          aire = [troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, this.sup3 - 1), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2 + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
-            troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, 0), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2 + 1, 0)]
+          perimetre = arrondi(L1 + L2 + L1 + L2 * Math.PI / 2, this.sup3 - 1)
+          aire = arrondi(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI / 2, this.sup3 - 1)
           break
         }
         case 5 : { // 'rectangle_cercle': {
@@ -439,10 +437,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
                     texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * 3.14, 1))}${sp()}${texTexte('cm')}^2$.<br>`
                      */
           }
-          perimetre = [troncature(L1 + L1 + L2 * Math.PI, this.sup3 - 1), troncature(L1 + L1 + L2 * Math.PI + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
-            troncature(L1 + L1 + L2 * Math.PI, 0), troncature(L1 + L1 + L2 * Math.PI + 1, 0)]
-          aire = [troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
-            troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, 0), troncature(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI + 1, 0)]
+          perimetre = arrondi(L1 + L1 + L2 * Math.PI, this.sup3 - 1)
+          aire = arrondi(L1 * L2 + (L2 / 2) * (L2 / 2) * Math.PI, this.sup3 - 1)
           break
         }
         case 6 : { // 'rectangle_triangle_demi_disque': {
@@ -512,10 +508,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
                     texteCorr += `Une valeur approchée au dixième est donc $\\mathcal{A}\\approx ${texNombre(troncature(L1 * l1 + (l1 / 2) * (l1 / 2) * 3.14 / 2 + L2 * l1 / 2, 1))}${sp()}${texTexte('cm')}^2$.<br>`
                      */
           }
-          perimetre = [troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2, this.sup3 - 1), troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2 + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
-            troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2, 0), troncature(L1 + L2 + hyp + L1 + l1 * Math.PI / 2 + 1, 0)]
-          aire = [troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2, this.sup3 - 1), troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2 + Math.pow(10, 1 - this.sup3), this.sup3 - 1),
-            troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2, 0), troncature(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2 + 1, 0)]
+          perimetre = arrondi(L1 + L2 + hyp + L1 + l1 * Math.PI / 2, this.sup3 - 1)
+          aire = arrondi(L1 * l1 + (L2 * l1) / 2 + (l1 / 2) * (l1 / 2) * Math.PI / 2, this.sup3 - 1)
           break
         }
       }
@@ -550,14 +544,14 @@ export default function PerimetreOuAireDeFiguresComposees () {
                 {
                   texte: '',
                   reponse: {
-                    valeur: [perimetre[0 + (typesDeQuestions[i] > 3 ? 2 : 0)]],
+                    valeur: [Math.floor(perimetre)],
                     texte: 'Périmètre en cm ' + (typesDeQuestions[i] > 3 ? '(valeur approchée à l\'unité)' : '') + ' : ',
                     alignement: 'center',
                     param: {
                       digits: 3,
                       decimals: typesDeQuestions[i] > 3 ? 0 : 1,
                       signe: false,
-                      aussiCorrect: [perimetre[1 + (typesDeQuestions[i] > 3 ? 2 : 0)]]
+                      aussiCorrect: [Math.ceil(perimetre)]
                     }
                   }
                 }
@@ -573,14 +567,14 @@ export default function PerimetreOuAireDeFiguresComposees () {
                 {
                   texte: '',
                   reponse: {
-                    valeur: [aire[0 + (typesDeQuestions[i] > 3 ? 2 : 0)]],
+                    valeur: [Math.floor(aire)],
                     texte: 'Aire en cm$^2$ ' + (typesDeQuestions[i] > 3 ? '(valeur approchée à l\'unité)' : '') + ' : ',
                     alignement: 'center',
                     param: {
                       digits: 3,
                       decimals: typesDeQuestions[i] > 3 ? 0 : 1,
                       signe: false,
-                      aussiCorrect: [aire[1 + (typesDeQuestions[i] > 3 ? 2 : 0)]]
+                      aussiCorrect: [Math.ceil(aire)]
                     }
                   }
                 }
@@ -589,8 +583,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
           )
         }
       } else {
-        if (this.sup4 === 1 || this.sup4 === 3) setReponse(this, i * (this.sup4 === 3 ? 2 : 1), [new Grandeur(perimetre[0], 'cm'), new Grandeur(perimetre[1], 'cm')], { formatInteractif: 'unites' })
-        if (this.sup4 === 2 || this.sup4 === 3) setReponse(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), [new Grandeur(aire[0], 'cm^2'), new Grandeur(aire[1], 'cm^2')], { formatInteractif: 'unites' })
+        if (this.sup4 === 1 || this.sup4 === 3) setReponse(this, i * (this.sup4 === 3 ? 2 : 1), new Grandeur(perimetre, 'cm'), { formatInteractif: 'unites', precision: this.sup3 - 1 })
+        if (this.sup4 === 2 || this.sup4 === 3) setReponse(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), new Grandeur(aire, 'cm^2'), { formatInteractif: 'unites', precision: this.sup3 - 1 })
       }
       if (this.questionJamaisPosee(i, perimetre, aire)) {
         this.listeQuestions.push(texte)

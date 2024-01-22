@@ -99,6 +99,6 @@ async function test6N314 (page: Page) {
   return true
 }
 
-runTest(testSalaires, import.meta.url, { pauseOnError: true }) // true pendant le développement, false ensuite
-runTest(testNotes, import.meta.url, { pauseOnError: true }) // true pendant le développement, false ensuite
-runTest(test6N314, import.meta.url, { pauseOnError: false })
+runTest(testSalaires, import.meta.url)
+runTest(testNotes, import.meta.url)
+runTest(test6N314, import.meta.url)

@@ -18695,7 +18695,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'custom'"
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": false,
@@ -18825,7 +18825,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'custom'"
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": true,
