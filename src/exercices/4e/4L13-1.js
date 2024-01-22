@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { prenom } from '../../lib/outils/Personne.js'
+import { prenom } from '../../lib/outils/Personne'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue'

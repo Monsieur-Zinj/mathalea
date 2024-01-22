@@ -3,7 +3,7 @@ import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils
 import { joursParMois, nomDuMois } from '../../lib/outils/dateEtHoraires'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres.js'
-import { prenom } from '../../lib/outils/Personne.js'
+import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'

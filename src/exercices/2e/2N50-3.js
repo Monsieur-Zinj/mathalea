@@ -3,7 +3,7 @@ import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { prenom } from '../../lib/outils/Personne.js'
+import { prenom } from '../../lib/outils/Personne'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { fraction } from '../../modules/fractions.js'

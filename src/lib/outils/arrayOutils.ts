@@ -166,7 +166,7 @@ export function nouveauTableauPriveDunElement<T> (array: T[], index: number) {
  *
  * @author Rémi Angot
  */
-export function choice<T> (liste: T[], listeAEviter: T[] = []) {
+export function choice<T> (liste: T[], listeAEviter: T[] = []): T {
   if (!Array.isArray(listeAEviter)) {
     listeAEviter = [listeAEviter]
   }

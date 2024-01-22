@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString.js'
-import { prenomM } from '../../../lib/outils/Personne.js'
+import { prenomM } from '../../../lib/outils/Personne'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer une durée en minutes'

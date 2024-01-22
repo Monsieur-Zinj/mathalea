@@ -1,5 +1,5 @@
 import { miseEnCouleur, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { stringNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

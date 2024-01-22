@@ -4,7 +4,7 @@ import { deprecatedTexFraction } from '../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures'
 import { lampeMessage } from '../lib/format/message.js'
 import { arrondi } from '../lib/outils/nombres.js'
-import { prenom } from '../lib/outils/Personne.js'
+import { prenom } from '../lib/outils/Personne'
 import { texteGras } from '../lib/format/style'
 import { stringNombre, texNombre } from '../lib/outils/texNombre.js'
 

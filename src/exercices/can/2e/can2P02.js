@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { prenomM } from '../../../lib/outils/Personne.js'
+import { prenomM } from '../../../lib/outils/Personne'
 import Exercice from '../../Exercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Dénombrer dans une situation concrète'

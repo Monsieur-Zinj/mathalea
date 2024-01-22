@@ -9,7 +9,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embell
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
-import { prenomF } from '../../../lib/outils/Personne.js'
+import { prenomF } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'

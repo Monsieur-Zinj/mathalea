@@ -1,6 +1,6 @@
 import { shuffle, enleveElementBis } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { prenom, prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { prenom, prenomF, prenomM } from '../../lib/outils/Personne'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'

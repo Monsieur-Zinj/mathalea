@@ -1,6 +1,6 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
-import { prenom } from '../../lib/outils/Personne.js'
+import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

@@ -2,7 +2,7 @@ import { combinaisonListes, compteOccurences } from '../../lib/outils/arrayOutil
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { range } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
-import { prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

@@ -1,8 +1,7 @@
-
 import { choice, shuffle } from './arrayOutils'
 
 /**
- * Renvoie un prénom féminin au hasard
+ * Renvoie un prénom féminin au hasard ou une liste de prénoms féminins au hasard
  * @author Rémi Angot
  */
 export function prenomF (n = 1) {
@@ -14,10 +13,10 @@ export function prenomF (n = 1) {
 }
 
 /**
- * Renvoie un prénom masculin au hasard
+ * Renvoie un prénom masculin au hasard ou une liste de prénoms masculins au hasard
  * @author Rémi Angot
  */
-export function prenomM (n = 1) {
+export function prenomM (n: number = 1): string | string[] {
   if (n === 1) {
     return choice(['Arthur', 'Benjamin', 'Bernard', 'Christophe', 'Cyril', 'David', 'Fernando', 'Guillaume', 'Jean-Claude', 'Joachim', 'José', 'Kamel', 'Karim', 'Laurent', 'Mehdi', 'Nacim', 'Pablo', 'Rémi', 'Victor', 'Yazid'])
   } else {
@@ -26,7 +25,7 @@ export function prenomM (n = 1) {
 }
 
 /**
- * Renvoie un prénom au hasard
+ * Renvoie un prénom au hasard ou une liste de prénoms
  * @author Rémi Angot
  */
 export function prenom (n = 1) {
@@ -43,6 +42,10 @@ export function prenom (n = 1) {
  * le 14/03/2021
  */
 class Personne {
+  prenom: string
+  genre: string
+  pronom: string
+  Pronom: string
   constructor ({ prenom = '', genre = '', pronom = '' } = {}) {
     let choix
     this.prenom = ''
@@ -83,7 +86,7 @@ export function personne ({ prenom = '', genre = '', pronom = '' } = {}) {
  * @author Jean-Claude Lhote
  * le 14/03/2021
  */
-export function personnes (n) {
+export function personnes (n: number) {
   const liste = []
   let essai
   let trouve
@@ -108,10 +111,12 @@ export function personnes (n) {
  * Renvoie un couple [prénom,pronom] où pronom='il' ou 'elle'
  *  @author Jean-Claue Lhote
  */
-export function prenomPronom () {
+export function prenomPronom (): [string, string] {
   if (choice([true, false])) {
-    return [prenomM(1), 'il']
+    const prenom = prenomM(1) as string
+    return [prenom, 'il']
   } else {
-    return [prenomF(1), 'elle']
+    const prenom = prenomF(1) as string
+    return [prenom, 'elle']
   }
 }

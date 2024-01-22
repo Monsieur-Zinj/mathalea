@@ -1,7 +1,7 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { prenomF } from '../../lib/outils/Personne.js'
+import { prenomF } from '../../lib/outils/Personne'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'

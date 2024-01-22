@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements.ts'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import { prenomM } from '../../lib/outils/Personne.js'
+import { prenomM } from '../../lib/outils/Personne'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'

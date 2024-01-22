@@ -18,7 +18,7 @@ import Decimal from 'decimal.js'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import Hms from '../../../modules/Hms'
-import { prenomF } from '../../../lib/outils/Personne.js'
+import { prenomF } from '../../../lib/outils/Personne'
 import { context } from '../../../modules/context.js'
 export const titre = 'CAN Spéciale année 2024'
 export const interactifReady = true

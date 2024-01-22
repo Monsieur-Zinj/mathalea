@@ -3,7 +3,7 @@ import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements
 import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
-import { prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

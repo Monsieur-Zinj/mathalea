@@ -1,7 +1,7 @@
 import { tableau } from '../../lib/2d/tableau.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
-import { prenom } from '../../lib/outils/Personne.js'
+import { prenom } from '../../lib/outils/Personne'
 import { texMasse, texPrix } from '../../lib/format/style'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'

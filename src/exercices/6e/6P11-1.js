@@ -7,7 +7,7 @@ import {
   rangeMinMax
 } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { prenom } from '../../lib/outils/Personne.js'
+import { prenom } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

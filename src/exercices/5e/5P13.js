@@ -3,7 +3,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
-import { prenomF, prenomM } from '../../lib/outils/Personne.js'
+import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier } from '../../modules/outils.js'
