@@ -13368,11 +13368,11 @@
         "id": "5G30-2",
         "titre": "Effectuer des liens entre angles et parallélisme",
         "datePublication": "15/01/2022",
-        "dateModification": "18/08/2023",
+        "dateModification": "21/01/2024",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'qcm'"
           },
           "amc": {
             "isActive": true,
@@ -21327,7 +21327,7 @@
         "tags": [],
         "uuid": "47f20",
         "id": "2N41-2",
-        "titre": "Factoriser a²-b²",
+        "titre": "Factoriser $a^2-b^2$",
         "features": {
           "interactif": {
             "isActive": true,
@@ -21345,7 +21345,7 @@
         "tags": [],
         "uuid": "3b7ee",
         "id": "2N41-3",
-        "titre": "Développer (a-b)(a+b)",
+        "titre": "Développer $(a-b)(a+b)$",
         "features": {
           "interactif": {
             "isActive": true,
@@ -21363,7 +21363,7 @@
         "tags": [],
         "uuid": "877a9",
         "id": "2N41-4",
-        "titre": "Développer (a+b)²",
+        "titre": "Développer $(a+b)^2$",
         "features": {
           "interactif": {
             "isActive": true,
@@ -21663,7 +21663,7 @@
         "tags": [],
         "uuid": "78f02",
         "id": "2N51-3v2",
-        "titre": "Équations du type x/a=b/c (v2)",
+        "titre": "Équations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$ (v2)",
         "features": {
           "interactif": {
             "isActive": false,
@@ -21735,7 +21735,7 @@
         "tags": [],
         "uuid": "bb6d5",
         "id": "2N52-2",
-        "titre": "Résoudre des équations carrées de type $~x^² = a$",
+        "titre": "Résoudre des équations carrées de type $x^2=a$",
         "features": {
           "interactif": {
             "isActive": false,
