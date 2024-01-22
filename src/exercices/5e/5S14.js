@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
+import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import { joursParMois } from '../../lib/outils/dateEtHoraires.js'
 import Exercice from '../Exercice.js'
 import { OutilsStats } from '../../modules/outilsStat.js'

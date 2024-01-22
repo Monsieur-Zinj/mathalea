@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'

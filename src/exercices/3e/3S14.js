@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
+import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'

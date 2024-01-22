@@ -6,7 +6,7 @@ import { point, pointAdistance, pointIntersectionLC, tracePoint } from '../../li
 import { norme, segmentAvecExtremites, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes.js'
 import { homothetie, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'

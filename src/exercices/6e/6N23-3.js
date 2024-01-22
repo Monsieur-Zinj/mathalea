@@ -1,7 +1,7 @@
 import { point } from '../../lib/2d/points.js'
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDe, troncature } from '../../lib/outils/nombres.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'

@@ -8,7 +8,7 @@ import { labelPoint, latexParCoordonnees, texteParPosition } from '../../lib/2d/
 import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { numAlphaNum, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

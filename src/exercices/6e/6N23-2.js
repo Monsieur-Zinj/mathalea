@@ -1,6 +1,6 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { shuffle } from '../../lib/outils/arrayOutils'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import {
   nombreDeChiffresDansLaPartieDecimale,

@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires.js'
+import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import Exercice from '../Exercice.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

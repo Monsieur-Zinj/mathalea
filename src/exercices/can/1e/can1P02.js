@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires.js'
+import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'

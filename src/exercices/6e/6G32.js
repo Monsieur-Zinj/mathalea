@@ -8,7 +8,7 @@ import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.j
 import { labelPoint, latexParPoint } from '../../lib/2d/textes.js'
 import { homothetie, rotation, symetrieAxiale } from '../../lib/2d/transformations.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { choisitLettresDifferentes } from '../../lib/outils/aleatoires.js'
+import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

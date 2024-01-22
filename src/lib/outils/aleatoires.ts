@@ -1,7 +1,7 @@
 import {
   randint
 } from '../../modules/outils.js'
-import { shuffle } from './arrayOutils'
+import { shuffle } from './arrayOutils.js'
 import { joursParMois } from './dateEtHoraires.js'
 import { rangeMinMax } from './nombres.js'
 import { lettreDepuisChiffre, lettreMinusculeDepuisChiffre } from './outilString.js'
@@ -13,7 +13,7 @@ import { lettreDepuisChiffre, lettreMinusculeDepuisChiffre } from './outilString
  * @author Jean-Claude Lhote
  *
  */
-export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
+export function choisitNombresEntreMetN (m: number, n: number, combien: number, listeAEviter: number[] = []): number[] {
   let t
   if (m > n) {
     t = m
@@ -35,7 +35,7 @@ export function choisitNombresEntreMetN (m, n, combien, listeAEviter = []) {
  * les lettres à éviter sont données dans une chaine par exemple : 'QXY'
  * @author Jean-Claude Lhote
  */
-export function choisitLettresDifferentes (nombre, lettresAeviter = '', majuscule = true) {
+export function choisitLettresDifferentes (nombre: number, lettresAeviter: string = '', majuscule: boolean = true): string[] {
   const listeAEviter = []
   const lettres = []
   for (const l of lettresAeviter) {
@@ -56,7 +56,7 @@ export function choisitLettresDifferentes (nombre, lettresAeviter = '', majuscul
  * @param nombreDes Combien de dés à chaque tirage ?
  * @author Jean-Claude Lhote
  */
-export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
+export function tirerLesDes (nombreTirages: number, nombreFaces: number, nombreDes: number): number[][] {
   const tirages = []
   for (let i = 0; i <= (nombreFaces - 1) * nombreDes; i++) tirages.push([i + nombreDes, 0])
   for (let i = 0, resultat; i < nombreTirages; i++) {
@@ -75,8 +75,8 @@ export function tirerLesDes (nombreTirages, nombreFaces, nombreDes) {
  * @param distincts Si distincts === true, les notes de la liste seront toutes distinctes
  * @author Jean-Claude Lhote et Guillaume Valmont
  */
-export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts = false) {
-  const notes = []
+export function listeDeNotes (nombreNotes: number, noteMin: number = 0, noteMax: number = 20, distincts: boolean = false): number[] {
+  const notes: number[] = []
   let candidat, present, limite // nombre candidat, est-ce qu'il est déjà présent, une limite d'itérations pour éviter les boucles infinies
   limite = 0
   for (let i = 0; i < nombreNotes;) {
@@ -105,14 +105,14 @@ export function listeDeNotes (nombreNotes, noteMin = 0, noteMax = 20, distincts 
 /**
  * Renvoie un tableau de températures
  * @param base température médiane
- * @mois quantième du mois (janvier=1...)
+ * @mois indice du mois (janvier=1...)
  * @annee pour déterminer si elle est bissextile ou non
  * @author Jean-Claude Lhote
  */
-export function unMoisDeTemperature (base, mois, annee) {
+export function unMoisDeTemperature (base: number, indiceMois: number, annee: number): number[] {
   const temperatures = []
-  let nombreJours = joursParMois(mois)
-  if (mois === 2) {
+  let nombreJours = joursParMois(indiceMois)
+  if (indiceMois === 2) {
     if (((annee % 4 === 0) && (annee % 100 !== 0)) || (annee % 400 === 0)) nombreJours = 29 // années bissextiles.
     else nombreJours = 28
   }

@@ -1,7 +1,7 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires.js'
+import { choisitLettresDifferentes } from '../../../lib/outils/aleatoires'
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { randint } from '../../../modules/outils.js'

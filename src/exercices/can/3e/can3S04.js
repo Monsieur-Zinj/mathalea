@@ -1,4 +1,4 @@
-import { listeDeNotes } from '../../../lib/outils/aleatoires.js'
+import { listeDeNotes } from '../../../lib/outils/aleatoires'
 import { sp } from '../../../lib/outils/outilString.js'
 import { prenom } from '../../../lib/outils/Personne.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
