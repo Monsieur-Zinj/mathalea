@@ -43,8 +43,8 @@ export default class ProblemesEnEquation extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 2
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes\n6 : programmes2\n7 : tarifs\n8 : spectacle\n9 : isocèle\n10 : Thalès\n11 : Thalès2\n12 : Mélange']
-    this.sup = '12'
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : basket\n2 : basket2\n3 : achats\n4 : polygone\n5 : programmes (produit vs produit,\n ... solution entière positive)\n6 : programmes (produit vs produit,\n ... solution entière négative)\n7 : programmes (somme vs produit,\n ... solution entière positive)\n8 : programmes (somme vs produit,\n ... solution entière négative)\n9 : tarifs\n10 : spectacle\n11 : isocèle\n12 : Thalès\n13 : Thalès2\n14 : Mélange']
+    this.sup = '14'
     this.besoinFormulaire2CaseACocher = ['Uniquement des nombres entiers']
     this.sup2 = false
   }
@@ -97,8 +97,8 @@ export default class ProblemesEnEquation extends Exercice {
     const listeDeProblemes = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 11,
-      melange: 12,
+      max: 12,
+      melange: 14,
       defaut: 1,
       shuffle: true,
       nbQuestions: this.nbQuestions
@@ -224,15 +224,17 @@ export default class ProblemesEnEquation extends Exercice {
             , { valueOf: true })
           // falls through
         case 6: // programmes2
-          variables = aleaVariables(
-            {
-              a: 'randomInt(2,15)',
-              b: 'randomInt(1,10)',
-              c: 'randomInt(2,15)',
-              d: 'randomInt(1,10)',
-              test: 'abs((c*d-a*b))%abs(a-c) == 0 and (c*d-a*b)*(a-c)<0'
-            }
-            , { valueOf: true })
+          if (listeDeProblemes[i] === 6) {
+            variables = aleaVariables(
+              {
+                a: 'randomInt(2,15)',
+                b: 'randomInt(1,10)',
+                c: 'randomInt(2,15)',
+                d: 'randomInt(1,10)',
+                test: 'abs((c*d-a*b))%abs(a-c) == 0 and (c*d-a*b)*(a-c)<0'
+              }
+              , { valueOf: true })
+          }
           a = variables.a
           b = variables.b
           c = variables.c
@@ -244,7 +246,7 @@ export default class ProblemesEnEquation extends Exercice {
           enonce += `${quidam[1]} lui ajoute ${d} puis multiplie le résultat par ${c}.<br>`
           enonce += `${quidam[0]} et ${quidam[1]} obtiennent le même résultat.<br>`
           enonce += `Quel nombre commun ont choisi ${quidam[0]} et ${quidam[1]} ?`
-          intro = 'Posons x le nombre choisi au départ.<br>'
+          intro = 'Posons $x$ le nombre choisi au départ.<br>'
           intro += `Le programme de calcul effectué par ${quidam[0]} se traduit par : $(x+${b})\\times ${a}$.<br>`
           intro += `Le programme de calcul effectué par ${quidam[1]} se traduit par : $(x+${d})\\times ${c}$.<br>`
           intro += 'L\'égalité des résultats se traduit par l\'équation suivante :<br>'
@@ -257,7 +259,54 @@ export default class ProblemesEnEquation extends Exercice {
           D'autre part : $${resolution.verifRightSide.printExpression}=${resolution.verifRightSide.printResult}$
           `
           break
-        case 7: // tarifs
+        case 7: // programmes
+          variables = aleaVariables(
+            {
+              a: 'randomInt(2,15)',
+              b: 'randomInt(1,10)',
+              c: 'randomInt(2,15)',
+              d: 'randomInt(1,10)',
+              test: 'abs((d-a*b))%abs(a-c) == 0 and (d-a*b)*(a-c)>0'
+            }
+            , { valueOf: true })
+          // falls through
+        case 8: // programmes
+          if (listeDeProblemes[i] === 8) {
+            variables = aleaVariables(
+              {
+                a: 'randomInt(2,15)',
+                b: 'randomInt(1,10)',
+                c: 'randomInt(2,15)',
+                d: 'randomInt(1,10)',
+                test: 'abs((d-a*b))%abs(a-c) == 0 and (d-a*b)*(a-c)<0'
+              }
+              , { valueOf: true })
+          }
+          a = variables.a
+          b = variables.b
+          c = variables.c
+          d = variables.d
+          x = Math.round((d - a * b) / (a - c))
+          equation = `(x+${b})*${a}=${c}*x+${d}`
+          resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
+          enonce = `${quidam[0]} et ${quidam[1]} choisissent un même nombre.<br> ${quidam[0]} lui ajoute ${b} puis multiplie le résultat par ${a} alors que `
+          enonce += `${quidam[1]} le multiplie par ${c} puis ajoute au résultat ${d}.<br>`
+          enonce += `${quidam[0]} et ${quidam[1]} obtiennent le même résultat.<br>`
+          enonce += `Quel nombre commun ont choisi ${quidam[0]} et ${quidam[1]} ?`
+          intro = 'Posons $x$ le nombre choisi au départ.<br>'
+          intro += `Le programme de calcul effectué par ${quidam[0]} se traduit par : $(x+${b})\\times ${a}$.<br>`
+          intro += `Le programme de calcul effectué par ${quidam[1]} se traduit par : $${c}x + ${d}$.<br>`
+          intro += 'L\'égalité des résultats se traduit par l\'équation suivante :<br>'
+          conclusion = `<br>${quidam[0]} et ${quidam[1]} on donc choisi au départ le nombre ${x}.`
+          figure = ''
+          verification = `<br>Vérification :
+          <br>
+          D'une part : $${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$
+          <br>
+          D'autre part : $${resolution.verifRightSide.printExpression}=${resolution.verifRightSide.printResult}$
+          `
+          break
+        case 9: // tarifs
           variables = aleaVariables(
             {
               a: 'randomInt(0,2)',
@@ -292,7 +341,7 @@ export default class ProblemesEnEquation extends Exercice {
           `
           //  verification = `<br>Vérification :<br>$${x}\\times ${texPrix(b)}=${texPrix(x * b)}$ et $${c}+${x}\\times ${texPrix(d)}=${c}+${texPrix(x * d)}= ${texPrix(c + x * d)}$.<br>`
           break
-        case 8: // spectacle
+        case 10: // spectacle
           variables = aleaVariables(
             {
               a: 'randomInt(200,300)*10',
@@ -320,7 +369,7 @@ export default class ProblemesEnEquation extends Exercice {
           figure = ''
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           break
-        case 9: // isocele
+        case 11: // isocele
           variables = aleaVariables(
             {
               a: 'randomInt(50,100)',
@@ -361,7 +410,7 @@ export default class ProblemesEnEquation extends Exercice {
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
           break
-        case 10: // Thalès
+        case 12: // Thalès
           variables = variables = aleaVariables(
             {
               a: 'randomInt(5,40)',
@@ -393,7 +442,7 @@ export default class ProblemesEnEquation extends Exercice {
             `
           uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
           break
-        case 11: // Thales2
+        case 13: // Thales2
           variables = variables = aleaVariables(
             {
               a: 'randomInt(5,40)',
