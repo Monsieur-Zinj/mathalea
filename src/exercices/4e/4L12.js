@@ -44,7 +44,7 @@ export default function EquivalenceProgrammesCalcul () {
     for (let i = 0, texte, texteCorr, texteOperationA1, texteOperationA2, texteOperationB1, texteOperationB3, signeA2, signeB1, signeB3, signeB1B2, signeB1B2B3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const B1 = randint(-9, 9, [0])
       const B2 = randint(2, 6)
-      const B3 = randint(-9, 9, [0])
+      const B3 = randint(-9, 9, [0, -1 * B2 * B1]) // pour éviter -1 * B2 * B1 , car sinon A2 = 0
       const A1 = B2
       const A2 = B1 * B2 + B3
       const nombreATester = randint(-9, 9)
