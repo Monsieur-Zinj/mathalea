@@ -1,4 +1,4 @@
-import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'

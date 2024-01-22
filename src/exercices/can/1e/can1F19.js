@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3 } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer une dérivée et écrire le résultat sous la forme d’un quotient'

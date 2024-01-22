@@ -4,7 +4,7 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { abs, signe } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import {

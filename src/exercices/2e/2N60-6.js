@@ -9,7 +9,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3,
   rienSi1
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'

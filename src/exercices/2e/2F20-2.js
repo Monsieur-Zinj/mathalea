@@ -6,7 +6,7 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { texteCentre } from '../../lib/format/miseEnPage.js'
 import { sp } from '../../lib/outils/outilString.js'

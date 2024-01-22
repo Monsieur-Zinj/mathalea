@@ -5,7 +5,7 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
-} from '../../../lib/outils/ecritures.js'
+} from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'

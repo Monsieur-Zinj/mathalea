@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'

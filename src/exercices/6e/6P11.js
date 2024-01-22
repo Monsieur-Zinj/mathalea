@@ -1,5 +1,5 @@
 import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { texteExposant } from '../../lib/outils/ecritures.js'
+import { texteExposant } from '../../lib/outils/ecritures'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,

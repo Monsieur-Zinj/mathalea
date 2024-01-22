@@ -2,7 +2,7 @@ import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { tableauDeVariation } from '../../../lib/mathFonctions/etudeFonction.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
-import { reduireAxPlusB } from '../../../lib/outils/ecritures.js'
+import { reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 

@@ -1,6 +1,6 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { range1 } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'

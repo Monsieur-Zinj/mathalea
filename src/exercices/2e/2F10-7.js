@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

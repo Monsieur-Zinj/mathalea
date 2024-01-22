@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere, range1 } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'

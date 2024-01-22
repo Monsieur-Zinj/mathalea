@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { egalOuApprox } from '../../lib/outils/ecritures.js'
+import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

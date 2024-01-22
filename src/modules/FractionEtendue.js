@@ -6,7 +6,7 @@ import { texteParPosition } from '../lib/2d/textes.js'
 import { rotation, translation } from '../lib/2d/transformations.js'
 import { miseEnEvidence } from '../lib/outils/embellissements'
 import { extraireRacineCarree } from '../lib/outils/calculs'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, signeMoinsEnEvidence } from '../lib/outils/ecritures'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale } from '../lib/outils/nombres.js'
 import {
   decompositionFacteursPremiers,

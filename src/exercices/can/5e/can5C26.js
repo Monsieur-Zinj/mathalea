@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { randint } from '../../../modules/outils.js'

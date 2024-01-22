@@ -4,7 +4,7 @@ import {
   ecritureAlgebriqueSauf1,
   reduirePolynomeDegre3,
   rienSi1
-} from '../../../lib/outils/ecritures.js'
+} from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'

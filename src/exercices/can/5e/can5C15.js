@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'

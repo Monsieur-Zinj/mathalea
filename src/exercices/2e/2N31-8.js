@@ -7,7 +7,7 @@ import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '.
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const titre = 'Lier calcul avec des puissances de 10 et les préfixes'
 export const interactifReady = true
 export const interactifType = 'mathLive'

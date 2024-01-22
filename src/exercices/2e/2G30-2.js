@@ -1,5 +1,5 @@
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

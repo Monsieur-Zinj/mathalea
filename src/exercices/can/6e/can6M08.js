@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteExposant } from '../../../lib/outils/ecritures.js'
+import { texteExposant } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'

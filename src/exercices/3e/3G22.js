@@ -1,5 +1,5 @@
 import { fractionSimplifiee, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { texteExposant } from '../../lib/outils/ecritures.js'
+import { texteExposant } from '../../lib/outils/ecritures'
 import { katexPopup2 } from '../../lib/format/message.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'

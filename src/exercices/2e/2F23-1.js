@@ -1,4 +1,4 @@
-import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 

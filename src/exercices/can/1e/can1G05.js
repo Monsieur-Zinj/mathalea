@@ -1,4 +1,4 @@
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'

@@ -1,4 +1,4 @@
-import { rienSi1 } from '../../../lib/outils/ecritures.js'
+import { rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'

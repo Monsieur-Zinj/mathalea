@@ -5,7 +5,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { rangeMinMax } from '../../lib/outils/nombres.js'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const titre = 'Trouver l\'exposant manquant dans des nombres écrits avec des puissances de 10'
 export const dateDePublication = '08/09/2023'
 export const amcReady = true

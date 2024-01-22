@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { texteGras } from '../../lib/format/style'
 import { abs, arrondi } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'

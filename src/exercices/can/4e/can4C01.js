@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 export const titre = 'Utiliser les priorités opératoires avec des relatifs'

@@ -1,4 +1,4 @@
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Simplifier un taux de variation'

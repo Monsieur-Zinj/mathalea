@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, rienSi1, reduirePolynomeDegre3, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, rienSi1, reduirePolynomeDegre3, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { arrondi, abs, range } from '../../../lib/outils/nombres.js'
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { codageAngleDroit } from '../../../lib/2d/angles.js'

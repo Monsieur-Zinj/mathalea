@@ -4,7 +4,7 @@ import {
   obtenirListeFractionsIrreductibles,
   texFractionSigne
 } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'

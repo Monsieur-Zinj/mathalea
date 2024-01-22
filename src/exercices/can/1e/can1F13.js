@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'

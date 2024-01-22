@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const interactifType = 'mathLive'

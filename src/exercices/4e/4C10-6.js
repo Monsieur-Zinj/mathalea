@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { ecritureNombreRelatif } from '../../lib/outils/ecritures.js'
+import { ecritureNombreRelatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { Relatif } from '../../modules/Relatif.js'
 import Exercice from '../Exercice.js'

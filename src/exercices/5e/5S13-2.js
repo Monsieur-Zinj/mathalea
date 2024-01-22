@@ -1,6 +1,6 @@
 import { diagrammeBarres } from '../../lib/2d/diagrammes.js'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { egalOuApprox } from '../../lib/outils/ecritures.js'
+import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

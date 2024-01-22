@@ -1,10 +1,10 @@
 import Decimal from 'decimal.js'
-import { equal, Fraction, round } from 'mathjs'
+import { equal, type Fraction, round } from 'mathjs'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { fraction } from '../../modules/fractions.js'
 import { egal } from '../../modules/outils.js'
-import { miseEnEvidence } from './embellissements'
+import { miseEnEvidence } from './embellissements.js'
 import { arrondi } from './nombres.js'
 import { lettreDepuisChiffre } from './outilString.js'
 import { stringNombre, texNombre } from './texNombre.js'
@@ -16,7 +16,7 @@ import { stringNombre, texNombre } from './texNombre.js'
  * //rienSi1(-1)+'x' -> -x
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
-export function rienSi1 (a) {
+export function rienSi1 (a: number | Fraction | FractionEtendue) {
   if (a instanceof Fraction || a instanceof FractionEtendue) return a.toLatex().replace('dfrac', 'frac')
   if (typeof a === 'string') {
     window.notify('rienSi1() n\'accepte pas les string.', { argument: a })
@@ -25,7 +25,7 @@ export function rienSi1 (a) {
   if (equal(a, 1)) return ''
   if (equal(a, -1)) return '-'
 
-  if (Number(a) || a === 0) return stringNombre(a) // on retourne 0, ce ne sera pas joli, mais Number(0) est false !!!
+  if (Number(a) || a === 0) return stringNombre(a as number, 7) // on retourne 0, ce ne sera pas joli, mais Number(0) est false !!!
   window.notify('rienSi1 : type de valeur non prise en compte : ', { a })
 }
 
@@ -36,7 +36,7 @@ export function rienSi1 (a) {
  * // 'dm'+texteExposant(3)
  * @author Rémi Angot
  */
-export function texteExposant (texte) {
+export function texteExposant (texte: string) {
   if (context.isHtml) {
     return `<sup>${texte}</sup>`
   } else {
@@ -50,7 +50,7 @@ export function texteExposant (texte) {
  * //(+3) ou (-3)
  * @author Rémi Angot
  */
-export function ecritureNombreRelatif (a) {
+export function ecritureNombreRelatif (a: string | number) {
   if (typeof a === 'string') {
     window.notify('ecritureNombreRelatif() n\'accepte pas les string.', { argument: a })
     a = Number(a)
@@ -68,16 +68,16 @@ export function ecritureNombreRelatif (a) {
  * Idem ecritureNombreRelatif avec le code couleur : vert si positif, rouge si négatif, noir si nul
  * @param {number} a
  */
-export function ecritureNombreRelatifc (a) {
+export function ecritureNombreRelatifc (a: string | number) {
   if (typeof a === 'string') {
     window.notify('ecritureNombreRelatifc() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
   let result = ''
   if (a > 0) {
-    result = miseEnEvidence('(+' + texNombre(a) + ')', 'blue')
+    result = miseEnEvidence('(+' + texNombre(a, 7) + ')', 'blue')
   } else if (a < 0) {
-    result = miseEnEvidence('(' + texNombre(a) + ')')
+    result = miseEnEvidence('(' + texNombre(a, 7) + ')')
   } else { // ne pas mettre de parenthèses pour le nnombre 0.
     result = miseEnEvidence('0', 'black')
   }
@@ -90,7 +90,7 @@ export function ecritureNombreRelatifc (a) {
  * //+3 ou -3
  * @author Rémi Angot et Jean-claude Lhote pour le support des fractions
  */
-export function ecritureAlgebrique (a) {
+export function ecritureAlgebrique (a: string | number | Fraction | FractionEtendue | Decimal) {
   if (typeof a === 'string') {
     window.notify('ecritureAlgebrique() n\'accepte pas les string.', { argument: a })
     a = Number(a)
@@ -98,15 +98,15 @@ export function ecritureAlgebrique (a) {
   if (a instanceof Fraction || a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
   else if (typeof a === 'number') {
     if (a >= 0) {
-      return '+' + texNombre(a)
+      return '+' + texNombre(a, 7)
     } else {
-      return texNombre(a)
+      return texNombre(a, 7)
     }
   } else if (a instanceof Decimal) {
     if (a.isPos()) {
-      return '+' + texNombre(a)
+      return '+' + texNombre(a, 7)
     } else {
-      return texNombre(a)
+      return texNombre(a, 7)
     }
   } else window.notify('ecritureAlgebrique : type de valeur non prise en compte')
 }
@@ -133,17 +133,17 @@ export function ecritureAlgebriqueSauf1 (a) {
  * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul).
  * @param {number} a
  */
-export function ecritureAlgebriquec (a) {
+export function ecritureAlgebriquec (a: number | string) {
   if (typeof a === 'string') {
     window.notify('ecritureAlgebriquec() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
   let result = ''
   if (a > 0) {
-    result = miseEnEvidence('+' + texNombre(a), 'blue')
+    result = miseEnEvidence('+' + texNombre(a, 7), 'blue')
   } else if (a < 0) {
-    result = miseEnEvidence(texNombre(a))
-  } else result = miseEnEvidence(texNombre(a), 'black')
+    result = miseEnEvidence(texNombre(a, 7))
+  } else result = miseEnEvidence(texNombre(a, 7), 'black')
   return result
 }
 
@@ -153,7 +153,7 @@ export function ecritureAlgebriquec (a) {
  * @returns {string} met en évidence le signe - si r < 0
  */
 
-export function signeMoinsEnEvidence (r, precision = 0) {
+export function signeMoinsEnEvidence (r: number, precision = 0) {
   if (typeof r !== 'number') window.notify('signeMoinsEnEvidence() appelé avec autre chose qu\'un nombre.', { argument: r })
   else if (r < 0) return miseEnEvidence('-') + texNombre(Math.abs(r), precision)
   else return texNombre(Math.abs(r), precision)
@@ -165,7 +165,7 @@ export function signeMoinsEnEvidence (r, precision = 0) {
  * // 3 ou (-3)
  * @author Rémi Angot
  */
-export function ecritureParentheseSiNegatif (a) {
+export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtendue) {
   let result = ''
   if (a instanceof Decimal) {
     if (a.gte(0)) return texNombre(a, 8) // On met 8 décimales, mais cette fonctions s'utilise presque exclusivement avec des entiers donc ça ne sert à rien
@@ -190,11 +190,11 @@ export function ecritureParentheseSiNegatif (a) {
  * // (-3x)
  * @author Rémi Angot
  */
-export function ecritureParentheseSiMoins (expr) {
+export function ecritureParentheseSiMoins (expr: string | number) {
   if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
   else if (typeof expr === 'string') return expr // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
-  else if (typeof expr === 'number' && expr < 0) return `(${stringNombre(expr, undefined)})`
-  else if (typeof expr === 'number') return stringNombre(expr, undefined)
+  else if (typeof expr === 'number' && expr < 0) return `(${stringNombre(expr, 7)})`
+  else if (typeof expr === 'number') return stringNombre(expr, 7)
   else if (expr instanceof FractionEtendue && expr.s === -1) return `(${expr.texFSD})`
   else {
     // avant on passait ici quand c'était un string sans signe - devant... c'était une mauvaise idée !
@@ -210,7 +210,7 @@ export function ecritureParentheseSiMoins (expr) {
  * @param {etapes} tableau de chaines comportant les expressions à afficher dans le membre de droite.
  */
 
-export function calculAligne (numero, etapes) {
+export function calculAligne (numero: number, etapes: number[]) {
   let script = `$\\begin{aligned}${miseEnEvidence(lettreDepuisChiffre(numero))}&=${etapes[0]}`
   for (let i = 1; i < etapes.length - 1; i++) {
     script += `\\\\&=${etapes[i]}`
@@ -225,7 +225,7 @@ export function calculAligne (numero, etapes) {
  * fonctionne aussi si a est une fraction : permet de finir un calcul par la valeur décimale si on veut.
  * @author Jean-Claude Lhote
  */
-export function egalOuApprox (a, precision) {
+export function egalOuApprox (a: number | Fraction | FractionEtendue, precision: number) {
   if (typeof a === 'object' && ['Fraction', 'FractionEtendue'].indexOf(a.type) !== -1) {
     return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {
@@ -245,18 +245,18 @@ export function egalOuApprox (a, precision) {
  * @param {number} b
  * @param {string} inconnue 'x' par défaut, mais on peut préciser autre chose.
  */
-export function reduireAxPlusB (a, b, inconnue = 'x') {
+export function reduireAxPlusB (a: number | Decimal, b: number | Decimal, inconnue = 'x') {
   if (!(a instanceof Decimal)) a = new Decimal(a)
   if (!(b instanceof Decimal)) b = new Decimal(b)
   let result = ''
   if (!a.isZero()) {
     if (a.eq(1)) result = inconnue
     else if (a.eq(-1)) result = '-' + inconnue
-    else result = `${texNombre(a)}${inconnue}`
+    else result = `${texNombre(a, 7)}${inconnue}`
   }
   if (!b.isZero()) {
     if (!a.isZero()) result += `${ecritureAlgebrique(b)}`
-    else result = texNombre(b)
+    else result = texNombre(b, 7)
   } else if (a.isZero()) result = '0'
   return result
 }
@@ -265,7 +265,7 @@ export function reduireAxPlusB (a, b, inconnue = 'x') {
  * renvoie une chaine correspondant à l'écriture réduite d'ax^3+bx^2+cx+d selon les valeurs de a, b, c et d
  * @author Jean-Claude Lhote
  */
-export function reduirePolynomeDegre3 (a, b, c, d, x = 'x') {
+export function reduirePolynomeDegre3 (a: number, b: number, c: number, d: number, x = 'x') {
   [a, b, c, d].forEach((el) => typeof el === 'number' ? el : Number(el))
   let result = ''
   if (a !== 0) {

@@ -5,7 +5,7 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

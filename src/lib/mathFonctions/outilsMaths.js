@@ -1,7 +1,7 @@
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { fraction } from '../../modules/fractions.js'
 import { randint } from '../../modules/outils.js'
-import { ecritureAlgebrique } from '../outils/ecritures.js'
+import { ecritureAlgebrique } from '../outils/ecritures'
 import { matriceCarree } from './MatriceCarree.js'
 import Decimal from 'decimal.js'
 import { Polynome } from './Polynome.js'

@@ -5,7 +5,7 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3
-} from '../../../lib/outils/ecritures.js'
+} from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import { randint } from '../../../modules/outils.js'

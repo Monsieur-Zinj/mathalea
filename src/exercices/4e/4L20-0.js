@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { abs, signe } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'

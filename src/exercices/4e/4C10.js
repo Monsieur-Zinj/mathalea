@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

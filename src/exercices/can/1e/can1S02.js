@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { arcenciel } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'

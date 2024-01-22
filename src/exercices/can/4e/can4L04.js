@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer une expression pour une valeur particulière'

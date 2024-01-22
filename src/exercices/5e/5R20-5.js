@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'

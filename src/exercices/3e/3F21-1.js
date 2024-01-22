@@ -2,7 +2,7 @@ import { droiteParPointEtPente, positionLabelDroite } from '../../lib/2d/droites
 import { point } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { latexParPoint } from '../../lib/2d/textes.js'
-import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { katexPopup2 } from '../../lib/format/message.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

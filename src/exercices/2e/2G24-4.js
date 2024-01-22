@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
 import { signe } from '../../lib/outils/nombres.js'

@@ -7,7 +7,7 @@ import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segm
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { texPrix } from '../../../lib/format/style'
 import { abs, arrondi, range1 } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'

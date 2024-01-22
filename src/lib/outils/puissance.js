@@ -1,5 +1,5 @@
 import { round } from 'mathjs'
-import { ecritureParentheseSiNegatif } from './ecritures.js'
+import { ecritureParentheseSiNegatif } from './ecritures'
 
 /**
  * Fonction pour écrire des notations scientifique de la forme a * b ^ n

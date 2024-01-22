@@ -1,5 +1,5 @@
 import { miseEnEvidence } from './embellissements'
-import { ecritureParentheseSiNegatif } from './ecritures.js'
+import { ecritureParentheseSiNegatif } from './ecritures'
 import { pgcd } from './primalite.js'
 import { texNombre } from './texNombre.js'
 

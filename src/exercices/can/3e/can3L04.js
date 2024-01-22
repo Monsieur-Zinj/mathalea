@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'

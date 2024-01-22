@@ -1,6 +1,6 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'

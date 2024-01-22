@@ -3,7 +3,7 @@ import {
   ecritureNombreRelatif,
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'

@@ -10,7 +10,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3,
   rienSi1
-} from '../../../lib/outils/ecritures.js'
+} from '../../../lib/outils/ecritures'
 import { texPrix } from '../../../lib/format/style'
 import { sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'

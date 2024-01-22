@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { egalOuApprox } from '../../lib/outils/ecritures.js'
+import { egalOuApprox } from '../../lib/outils/ecritures'
 import { texPrix } from '../../lib/format/style'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

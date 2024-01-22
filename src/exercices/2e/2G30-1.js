@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { unSiPositifMoinsUnSinon } from '../../lib/outils/nombres.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'

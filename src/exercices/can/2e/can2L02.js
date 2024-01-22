@@ -1,4 +1,4 @@
-import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

@@ -1,4 +1,4 @@
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'

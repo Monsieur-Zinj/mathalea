@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'

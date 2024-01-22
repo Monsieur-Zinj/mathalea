@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

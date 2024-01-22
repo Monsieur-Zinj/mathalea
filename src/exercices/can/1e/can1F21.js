@@ -3,7 +3,7 @@ import {
   ecritureAlgebrique,
   ecritureParentheseSiNegatif,
   reduirePolynomeDegre3
-} from '../../../lib/outils/ecritures.js'
+} from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { randint } from '../../../modules/outils.js'

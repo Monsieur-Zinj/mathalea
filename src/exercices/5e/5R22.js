@@ -5,7 +5,7 @@ import {
   ecritureAlgebriquec,
   ecritureNombreRelatif,
   ecritureNombreRelatifc
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombreCoul } from '../../lib/outils/texNombre.js'

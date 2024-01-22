@@ -4,7 +4,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3,
   rienSi1
-} from '../../../lib/outils/ecritures.js'
+} from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’un polynôme de degré 2'

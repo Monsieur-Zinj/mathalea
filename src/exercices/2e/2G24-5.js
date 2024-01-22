@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

@@ -5,7 +5,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { abs, rangeMinMax } from '../../lib/outils/nombres.js'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const titre = 'Donner le résultat de nombres écrits avec des puissances de 10 en notation scientifique'
 export const dateDeModifImportante = '08/09/2023'
 export const amcReady = true

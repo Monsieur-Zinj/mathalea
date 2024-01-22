@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer une équation cartésienne à partir d\'un point et de la pente'

@@ -1,4 +1,4 @@
-import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { create, all } from 'mathjs'

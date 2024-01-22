@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre.js'
 import Exercice from '../../Exercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'

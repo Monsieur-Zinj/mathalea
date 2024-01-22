@@ -8,7 +8,7 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { modalTexteLong } from '../../lib/outils/modales.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

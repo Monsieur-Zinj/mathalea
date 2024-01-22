@@ -1,4 +1,4 @@
-import { texteExposant } from '../outils/ecritures.js'
+import { texteExposant } from '../outils/ecritures'
 import { calculCompare } from './comparaisonFonctions'
 
 export function toutPourUnPoint (listePoints) {

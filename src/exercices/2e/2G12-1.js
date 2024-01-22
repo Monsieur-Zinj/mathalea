@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
 import { cercle } from '../../lib/2d/cercle.js'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'

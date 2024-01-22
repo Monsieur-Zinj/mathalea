@@ -4,7 +4,7 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer une équation cartésienne de droite à partir de deux points'

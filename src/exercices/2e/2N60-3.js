@@ -4,7 +4,7 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { texteGras } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'

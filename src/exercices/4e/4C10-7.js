@@ -4,7 +4,7 @@ import {
   ecritureNombreRelatif,
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import Exercice from '../Exercice.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

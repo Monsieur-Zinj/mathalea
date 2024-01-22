@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

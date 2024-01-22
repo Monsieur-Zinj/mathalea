@@ -7,7 +7,7 @@ import {
   produitDeDeuxFractions,
   simplificationDeFractionAvecEtapes
 } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'

@@ -9,7 +9,7 @@ import { labelPoint, latexParCoordonnees, texteParPosition } from '../../../lib/
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { arrondi, signe } from '../../../lib/outils/nombres.js'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString.js'
 import { prenomF } from '../../../lib/outils/Personne.js'

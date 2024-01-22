@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur, texteEnCouleurEtGras, miseEnEvidence } from '../../../lib/outils/embellissements'
-import { ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import { fraction } from '../../../modules/fractions.js'
 import Exercice from '../../Exercice.js'

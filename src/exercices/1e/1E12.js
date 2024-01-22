@@ -7,7 +7,7 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre.js'

@@ -7,7 +7,7 @@ import {
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { fraction } from '../../modules/fractions.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'

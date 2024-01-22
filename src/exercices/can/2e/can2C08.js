@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
-import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'
 export const titre = 'Calculer avec une racine carrée*'

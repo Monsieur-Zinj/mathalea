@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../lib/outils/ecritures'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'

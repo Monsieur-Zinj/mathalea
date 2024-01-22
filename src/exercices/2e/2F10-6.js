@@ -7,7 +7,7 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   rienSi1
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

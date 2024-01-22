@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import { pgcd } from '../../../lib/outils/primalite.js'
 import Exercice from '../../Exercice.js'

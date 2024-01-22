@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'

@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import { arrondi, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice.js'

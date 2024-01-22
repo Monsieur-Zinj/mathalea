@@ -14,7 +14,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3,
   rienSi1
-} from '../../../lib/outils/ecritures.js'
+} from '../../../lib/outils/ecritures'
 import { arcenciel, texPrix } from '../../../lib/format/style'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'

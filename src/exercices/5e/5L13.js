@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, printlatex, randint } from '../../modules/outils.js'

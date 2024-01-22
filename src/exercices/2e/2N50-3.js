@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { reduireAxPlusB } from '../../lib/outils/ecritures.js'
+import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne.js'
 import { texteGras } from '../../lib/format/style'

@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
-import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'

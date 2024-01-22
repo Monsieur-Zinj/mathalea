@@ -1,7 +1,7 @@
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne.js'
 import { texteGras } from '../../lib/format/style'

@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures.js'
+import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

@@ -5,7 +5,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'

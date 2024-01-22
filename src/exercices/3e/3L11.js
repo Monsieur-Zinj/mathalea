@@ -4,7 +4,7 @@ import {
   ecritureParentheseSiMoins,
   ecritureParentheseSiNegatif,
   reduireAxPlusB, reduirePolynomeDegre3
-} from '../../lib/outils/ecritures.js'
+} from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'

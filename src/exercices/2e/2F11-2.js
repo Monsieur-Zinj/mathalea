@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import {

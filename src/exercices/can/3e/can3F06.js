@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
-import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures.js'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres.js'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'

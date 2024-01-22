@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../Exercice.js'

@@ -1,5 +1,5 @@
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'

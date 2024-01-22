@@ -1,4 +1,4 @@
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer une forme canonique'

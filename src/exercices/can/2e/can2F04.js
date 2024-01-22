@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
-import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures.js'
+import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../Exercice.js'

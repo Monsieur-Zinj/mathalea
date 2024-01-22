@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

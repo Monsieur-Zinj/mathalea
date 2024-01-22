@@ -1,4 +1,4 @@
-import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
