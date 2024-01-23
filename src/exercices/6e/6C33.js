@@ -1,6 +1,6 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { nombreDeChiffresDansLaPartieEntiere, range1, rangeMinMax } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieEntiere, range1, rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'

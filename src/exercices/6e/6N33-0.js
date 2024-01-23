@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

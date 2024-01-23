@@ -13,7 +13,7 @@ import {
 } from '../../lib/2d/points.js'
 import { polygone, polygoneRegulier } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, troncature } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, troncature } from '../../lib/outils/nombres'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'

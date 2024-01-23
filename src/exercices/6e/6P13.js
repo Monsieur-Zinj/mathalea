@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message.js'
-import { arrondi, nombreDeChiffresDansLaPartieDecimale } from '../../lib/outils/nombres.js'
+import { arrondi, nombreDeChiffresDansLaPartieDecimale } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'

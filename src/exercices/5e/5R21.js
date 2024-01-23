@@ -5,7 +5,7 @@ import {
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

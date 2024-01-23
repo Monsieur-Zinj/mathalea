@@ -1,5 +1,5 @@
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
-import { rangeMinMax } from '../../lib/outils/nombres.js'
+import { rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

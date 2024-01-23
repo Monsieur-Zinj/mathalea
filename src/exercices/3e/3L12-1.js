@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
-import { range1 } from '../../lib/outils/nombres.js'
+import { range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'

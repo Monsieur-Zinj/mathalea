@@ -5,7 +5,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Deviner un nombre relatif'
 

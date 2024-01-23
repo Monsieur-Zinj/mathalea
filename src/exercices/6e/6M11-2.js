@@ -6,7 +6,7 @@ import { point, pointIntersectionCC, pointIntersectionDD, pointSurCercle, traceP
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../lib/outils/arrayOutils'
-import { arrondi, troncature } from '../../lib/outils/nombres.js'
+import { arrondi, troncature } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

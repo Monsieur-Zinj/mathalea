@@ -9,7 +9,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 

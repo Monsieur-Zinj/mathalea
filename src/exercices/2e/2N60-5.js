@@ -5,7 +5,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3
 } from '../../lib/outils/ecritures'
-import { abs, signe } from '../../lib/outils/nombres.js'
+import { abs, signe } from '../../lib/outils/nombres'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu, randint

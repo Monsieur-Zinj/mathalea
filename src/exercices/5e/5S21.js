@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
-import { range } from '../../lib/outils/nombres.js'
+import { range } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne'
 import Exercice from '../Exercice.js'

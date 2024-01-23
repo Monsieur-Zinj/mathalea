@@ -6,7 +6,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
-import { abs, signe } from '../../lib/outils/nombres.js'
+import { abs, signe } from '../../lib/outils/nombres'
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

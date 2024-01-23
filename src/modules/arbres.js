@@ -3,7 +3,7 @@ import { point } from '../lib/2d/points.js'
 import { segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees, latexParPoint } from '../lib/2d/textes.js'
 import { homothetie, translation } from '../lib/2d/transformations.js'
-import { arrondi } from '../lib/outils/nombres.js'
+import { arrondi } from '../lib/outils/nombres'
 import { fraction } from './fractions.js'
 
 export function texProba (proba, rationnel, precision) {

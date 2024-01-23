@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import { abs } from '../../../lib/outils/nombres.js'
+import { abs } from '../../../lib/outils/nombres'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer le coefficient d’une fonction affine'

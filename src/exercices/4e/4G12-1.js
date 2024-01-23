@@ -16,7 +16,7 @@ import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { range } from '../../lib/outils/nombres.js'
+import { range } from '../../lib/outils/nombres'
 
 export const dateDePublication = '3/12/2021'
 export const dateDeModifImportante = '19/10/2023'

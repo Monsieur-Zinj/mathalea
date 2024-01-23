@@ -2,7 +2,7 @@ import Decimal from 'decimal.js'
 import katex from 'katex'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { arrondi } from '../outils/nombres.js'
+import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { point } from './points.js'
 

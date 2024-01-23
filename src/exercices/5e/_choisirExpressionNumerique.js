@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
 import { randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 

@@ -1,5 +1,5 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

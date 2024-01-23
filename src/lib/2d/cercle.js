@@ -1,6 +1,6 @@
 import { abs, random, round } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import { arrondi } from '../outils/nombres.js'
+import { arrondi } from '../outils/nombres'
 import { angleModulo, angleOriente } from './angles.js'
 import { droite, mediatrice } from './droites.js'
 import { point } from './points.js'

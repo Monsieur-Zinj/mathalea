@@ -8,7 +8,7 @@ import { point } from '../2d/points.js'
 import { polygone } from '../2d/polygones.js'
 import { segment, vecteur } from '../2d/segmentsVecteurs.js'
 import { translation } from '../2d/transformations.js'
-import { arrondi } from '../outils/nombres.js'
+import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { matriceCarree } from './MatriceCarree.js'
 

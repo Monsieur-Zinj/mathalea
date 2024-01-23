@@ -9,7 +9,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { range } from '../../lib/outils/nombres.js'
+import { range } from '../../lib/outils/nombres'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']

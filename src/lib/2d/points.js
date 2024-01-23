@@ -2,7 +2,7 @@ import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites
 import { context } from '../../modules/context.js'
 import { egal, inferieurouegal, randint, superieurouegal } from '../../modules/outils.js'
 import { radians } from '../mathFonctions/trigo.js'
-import { arrondi } from '../outils/nombres.js'
+import { arrondi } from '../outils/nombres'
 import { Cercle, cercle } from './cercle.js'
 import { droite, Droite, droiteParPointEtPerpendiculaire } from './droites.js'
 import { carre, polygone } from './polygones.js'

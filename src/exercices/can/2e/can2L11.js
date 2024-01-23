@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
-import { arrondi } from '../../../lib/outils/nombres.js'
+import { arrondi } from '../../../lib/outils/nombres'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Exprimer une variable en fonction d\'une autre'

@@ -1,7 +1,7 @@
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
-import { arrondi } from '../outils/nombres.js'
+import { arrondi } from '../outils/nombres'
 import { lettreDepuisChiffre } from '../outils/outilString.js'
 import { nombreAvecEspace } from '../outils/texNombre'
 import { arc, cercle } from './cercle.js'

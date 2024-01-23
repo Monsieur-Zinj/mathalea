@@ -5,7 +5,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/ou
 import { arcenciel } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
-import { signe } from '../../../lib/outils/nombres.js'
+import { signe } from '../../../lib/outils/nombres'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite récurrente*'
 export const interactifReady = true

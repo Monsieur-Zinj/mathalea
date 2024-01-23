@@ -1,6 +1,6 @@
 import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import { rienSi1 } from '../../lib/outils/ecritures'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
 import { estentier, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 /**

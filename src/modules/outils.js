@@ -8,7 +8,7 @@ import {
   enleveDoublonNum
 } from '../lib/outils/arrayOutils'
 import { texMulticols } from '../lib/format/miseEnPage.js'
-import { arrondi, rangeMinMax } from '../lib/outils/nombres.js'
+import { arrondi, rangeMinMax } from '../lib/outils/nombres'
 import { context } from './context.js'
 import Decimal from 'decimal.js'
 

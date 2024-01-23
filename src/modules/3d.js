@@ -6,7 +6,7 @@ import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs.js
 import { labelPoint } from '../lib/2d/textes.js'
 import { translation } from '../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires'
-import { arrondi } from '../lib/outils/nombres.js'
+import { arrondi } from '../lib/outils/nombres'
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, vide2d } from './2dGeneralites.js'
 import { context } from './context.js'
 

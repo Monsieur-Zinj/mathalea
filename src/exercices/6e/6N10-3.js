@@ -1,6 +1,6 @@
 import { choice, combinaisonListes, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
-import { nombreDeChiffresDansLaPartieEntiere, rangeMinMax } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieEntiere, rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

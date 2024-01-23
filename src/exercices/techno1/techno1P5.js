@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import Exercice from '../Exercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 export const titre = 'Déterminer un effectif à partir d\'une proportion'

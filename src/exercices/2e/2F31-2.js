@@ -1,6 +1,6 @@
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice } from '../../lib/outils/arrayOutils'
-import { abs } from '../../lib/outils/nombres.js'
+import { abs } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

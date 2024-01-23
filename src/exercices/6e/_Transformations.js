@@ -14,7 +14,7 @@ import {
 } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
-import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'
+import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'

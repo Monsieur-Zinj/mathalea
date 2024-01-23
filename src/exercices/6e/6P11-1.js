@@ -5,7 +5,7 @@ import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDe,
   rangeMinMax
-} from '../../lib/outils/nombres.js'
+} from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'

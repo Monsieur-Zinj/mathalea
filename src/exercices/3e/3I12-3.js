@@ -1,6 +1,6 @@
 import { choice, compteOccurences, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { lampeMessage } from '../../lib/format/message.js'
-import { range1 } from '../../lib/outils/nombres.js'
+import { range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

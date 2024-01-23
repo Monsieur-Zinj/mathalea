@@ -5,7 +5,7 @@ import {
   texFractionSigne
 } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { abs } from '../../lib/outils/nombres.js'
+import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite.js'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

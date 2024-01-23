@@ -8,7 +8,7 @@ import {
   reduireAxPlusB,
   rienSi1
 } from '../../lib/outils/ecritures'
-import { abs } from '../../lib/outils/nombres.js'
+import { abs } from '../../lib/outils/nombres'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 

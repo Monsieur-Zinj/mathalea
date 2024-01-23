@@ -11,7 +11,7 @@ import { numberCompare } from '../../lib/interactif/comparaisonFonctions'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 export const titre = 'Compléter et utiliser un tableau d\'effectif'
 export const dateDePublication = '08/01/2024'
 export const interactifReady = true

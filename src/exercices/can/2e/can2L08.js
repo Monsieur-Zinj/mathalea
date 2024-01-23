@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import { abs } from '../../../lib/outils/nombres.js'
+import { abs } from '../../../lib/outils/nombres'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Résoudre une équation du type $\\dfrac{x+a}{b}=c$'

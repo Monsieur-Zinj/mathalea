@@ -1,4 +1,4 @@
-import { arrondi } from '../../../lib/outils/nombres.js'
+import { arrondi } from '../../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'

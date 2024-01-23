@@ -3,7 +3,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
-import { signe } from '../../lib/outils/nombres.js'
+import { signe } from '../../lib/outils/nombres'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

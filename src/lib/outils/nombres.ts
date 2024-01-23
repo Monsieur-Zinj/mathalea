@@ -8,7 +8,7 @@ import Decimal from 'decimal.js'
 import { round } from 'mathjs'
 import { enleveElement } from './arrayOutils'
 
-export function signe (a) { // + ou -
+export function signe (a: number) { // + ou -
   let result
   if (a > 0) {
     result = '+'
@@ -24,19 +24,19 @@ export function signe (a) { // + ou -
  * sommeDesChiffres(123)
  * // [ 6, '1+2+3']
  * @author Rémi Angot (Rajout Tableau par EE)
- */export function sommeDesChiffres (n) {
+ */export function sommeDesChiffres (n: number) {
   let nString
   if (Array.isArray(n)) nString = n.join('').toString()
   else nString = n.toString()
   let somme = 0
   let sommeString = ''
   for (let i = 0; i < nString.length - 1; i++) {
-    if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[i] !== -1)) {
+    if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[i]) !== -1) {
       sommeString += nString[i] + '+'
       somme += Number(nString[i])
     }
   }
-  if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[nString.length - 1] !== -1)) {
+  if (['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].indexOf(nString[nString.length - 1]) !== -1) {
     sommeString += nString[nString.length - 1]
     somme += Number(nString[nString.length - 1])
   }
@@ -50,7 +50,7 @@ export function signe (a) { // + ou -
  * @param {number} precision
  * @return {number}
  */
-export function arrondi (nombre, precision = 2) {
+export function arrondi (nombre: number, precision = 2) {
   if (isNaN(nombre)) {
     window.notify('Le nombre à arrondir n\'en est pas un, ça retourne NaN', { nombre, precision })
     return NaN
@@ -63,7 +63,7 @@ export function arrondi (nombre, precision = 2) {
  * Retourne la troncature signée de nombre.
  * @author Jean-Claude Lhote
  */
-export function troncature (nombre, precision) {
+export function troncature (nombre: number, precision: number) {
   const tmp = Math.pow(10, precision)
   const absolu = new Decimal(nombre).abs()
   const tronc = absolu.mul(tmp).floor().div(tmp)
@@ -75,7 +75,7 @@ export function troncature (nombre, precision) {
  * Renvoie la valeur absolue
  * @author Rémi Angot + ajout du support des décimaux par Jean-Claude Lhote
  */
-export function abs (a) {
+export function abs (a: number | Decimal) {
   if (a instanceof Decimal) return a.abs()
   return Math.abs(a)
 }
@@ -84,7 +84,7 @@ export function abs (a) {
  * prend une liste de nombres relatifs et la retourne avec les positifs au début et les négatifs à la fin.
  * @param {array} liste la liste de nombres à trier
  */
-export function triePositifsNegatifs (liste) {
+export function triePositifsNegatifs (liste: number[]) {
   const positifs = []
   const negatifs = []
   for (let i = 0; i < liste.length; i++) {
@@ -97,13 +97,13 @@ export function triePositifsNegatifs (liste) {
 /**
  * Renvoie le nombre de chiffres de la partie décimale
  * @param {number} nb : nombre décimal
- * @param {number | string} except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
+ * @param {number} except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Rémi Angot
  */
-export function nombreDeChiffresDansLaPartieDecimale (nb, except = 'aucune') {
+export function nombreDeChiffresDansLaPartieDecimale (nb: number | string, except?: number) {
   let sauf = 0
   if (String(nb).indexOf('.') > 0) {
-    if (!isNaN(except)) sauf = (String(nb).split('.')[1].split(String(except)).length - 1)
+    if (except && !isNaN(except)) sauf = (String(nb).split('.')[1].split(String(except)).length - 1)
     return String(nb).split('.')[1].length - sauf
   } else {
     return 0
@@ -114,7 +114,7 @@ export function nombreDeChiffresDansLaPartieDecimale (nb, except = 'aucune') {
  * Renvoie le nombre de chiffres dans la partie entière
  * @author ?
  */
-export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
+export function nombreDeChiffresDansLaPartieEntiere (nb: number, except?: number) {
   let nombre
   let sauf = 0
   if (nb < 0) {
@@ -123,7 +123,7 @@ export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
     nombre = nb
   }
   if (String(nombre).indexOf('.') > 0) {
-    if (!isNaN(except)) sauf = (String(nombre).split('.')[0].split(String(except)).length - 1)
+    if (except && !isNaN(except)) sauf = (String(nombre).split('.')[0].split(String(except)).length - 1)
     return String(nombre).split('.')[0].length - sauf
   } else {
     // if (!isNaN(except)) sauf = (String(nombre).split(String(except)).length - 1) @fixme à quoi sert cette affectation inutile ?
@@ -134,10 +134,10 @@ export function nombreDeChiffresDansLaPartieEntiere (nb, except = 'aucune') {
 /**
  * Renvoie le nombre de chiffres d'un nombre décimal
  * @param {number} nb : nombre décimal
- * @param {number | string} except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
+ * @param {number} except : chiffre à ne pas compter (0 par exemple) [Ajout EE]
  * @author Jean-Claude Lhote
  */
-export function nombreDeChiffresDe (nb, except) {
+export function nombreDeChiffresDe (nb: number, except?: number) {
   return nombreDeChiffresDansLaPartieDecimale(nb, except) + nombreDeChiffresDansLaPartieEntiere(nb, except)
 }
 
@@ -146,7 +146,7 @@ export function nombreDeChiffresDe (nb, except) {
  * x le nombre dont on cherche l'ordre de grandeur
  * type = 0 pour la puissance de 10 inférieure, 1 pour la puissance de 10 supérieur et 2 pour la plus proche
  */
-export function ordreDeGrandeur (x, type) {
+export function ordreDeGrandeur (x: number, type: number) {
   let signe
   if (x < 0) signe = -1
   else signe = 1
@@ -169,10 +169,9 @@ export function ordreDeGrandeur (x, type) {
  *
  * @author Rémi Angot
  */
-export function range (max, listeAEviter = []) {
+export function range (max: number = 10, listeAEviter: number[] = []) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
-  const nbMax = parseInt(max, 10)
-  const liste = [...Array(nbMax + 1).keys()]
+  const liste = [...Array(max + 1).keys()]
   for (let i = 0; i < listeAEviter.length; i++) {
     enleveElement(liste, listeAEviter[i])
   }
@@ -191,7 +190,7 @@ export function range (max, listeAEviter = []) {
  *
  * @author Rémi Angot
  */
-export function rangeMinMax (min, max, listeAEviter = [], step = 1) {
+export function rangeMinMax (min: number, max: number, listeAEviter: number[] = [], step = 1) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
   const liste = []
   for (let i = min; i <= max; i = i + step) {
@@ -211,10 +210,9 @@ export function rangeMinMax (min, max, listeAEviter = [], step = 1) {
  * @param {number[]} listeAEviter valeurs à éviter
  * @author Rémi Angot
  */
-export function range1 (max, listeAEviter = []) {
-  const nbMax = parseInt(max, 10)
+export function range1 (max: number = 10, listeAEviter: number[] = []) {
   const liste = []
-  for (let i = 1; i <= nbMax; i++) {
+  for (let i = 1; i <= max; i++) {
     liste.push(i)
   }
   for (let i = 0; i < listeAEviter.length; i++) {
@@ -229,7 +227,7 @@ export function range1 (max, listeAEviter = []) {
  *
  * @author Rémi Angot
  */
-export function compareNombres (a, b) {
+export function compareNombres (a: number, b: number) {
   return a - b
 }
 
@@ -237,7 +235,7 @@ export function compareNombres (a, b) {
  *
  * Copié sur https://delicious-insights.com/fr/articles/le-piege-de-array-sort/
  */
-export function numTrie (arr) {
+export function numTrie (arr: number[]) {
   return arr.sort(function (a, b) {
     return a - b
   })
@@ -249,7 +247,7 @@ export function numTrie (arr) {
  * -1 si a est négatif, 1 sinon.
  * @author Jean-Claude Lhote
  */
-export function unSiPositifMoinsUnSinon (a) {
+export function unSiPositifMoinsUnSinon (a: number) {
   if (a < 0) return -1
   else return 1
 }

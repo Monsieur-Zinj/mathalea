@@ -5,7 +5,7 @@ import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs
 import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
-import { arrondi } from '../../../lib/outils/nombres.js'
+import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'

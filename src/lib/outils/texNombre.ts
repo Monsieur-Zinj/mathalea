@@ -6,7 +6,7 @@ import {
 } from '../../modules/outils.js'
 import { miseEnEvidence } from './embellissements.js'
 import { extraireRacineCarree } from './calculs.js'
-import { nombreDeChiffresDansLaPartieDecimale } from './nombres.js'
+import { nombreDeChiffresDansLaPartieDecimale } from './nombres'
 import { sp } from './outilString.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 const math = { format, evaluate }

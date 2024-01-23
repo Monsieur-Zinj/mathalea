@@ -2,7 +2,7 @@
 import katex from 'katex'
 import { SVG } from '@svgdotjs/svg.js'
 import { context } from './context.js'
-import { arrondi } from '../lib/outils/nombres.js'
+import { arrondi } from '../lib/outils/nombres'
 
 /**
  * Renvoie deux engrenages en HTML

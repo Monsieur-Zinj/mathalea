@@ -6,7 +6,7 @@ import {
   ecritureNombreRelatif,
   ecritureNombreRelatifc
 } from '../../lib/outils/ecritures'
-import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombreCoul } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

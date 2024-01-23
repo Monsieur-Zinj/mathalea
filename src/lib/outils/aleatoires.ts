@@ -3,7 +3,7 @@ import {
 } from '../../modules/outils.js'
 import { shuffle } from './arrayOutils.js'
 import { joursParMois } from './dateEtHoraires'
-import { rangeMinMax } from './nombres.js'
+import { rangeMinMax } from './nombres'
 import { lettreDepuisChiffre, lettreMinusculeDepuisChiffre } from './outilString.js'
 
 /**

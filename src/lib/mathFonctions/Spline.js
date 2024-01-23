@@ -12,7 +12,7 @@ import { MatriceCarree } from './MatriceCarree.js'
 import { rationnalise } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 import Decimal from 'decimal.js'
-import { rangeMinMax } from '../outils/nombres.js'
+import { rangeMinMax } from '../outils/nombres'
 
 /**
  * Une fonction pour créer une Spline aléatoire

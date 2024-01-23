@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

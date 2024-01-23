@@ -6,7 +6,7 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures'
 import { texteGras } from '../../lib/format/style'
-import { abs } from '../../lib/outils/nombres.js'
+import { abs } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

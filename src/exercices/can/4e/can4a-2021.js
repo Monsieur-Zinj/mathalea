@@ -10,7 +10,7 @@ import {
   simplificationDeFractionAvecEtapes,
   texFractionReduite
 } from '../../../lib/outils/deprecatedFractions.js'
-import { arrondi } from '../../../lib/outils/nombres.js'
+import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'

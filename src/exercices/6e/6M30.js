@@ -1,6 +1,6 @@
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

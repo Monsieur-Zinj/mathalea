@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, compteOccurences } from '../../lib/outils/arrayOutils'
-import { rangeMinMax } from '../../lib/outils/nombres.js'
+import { rangeMinMax } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

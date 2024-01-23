@@ -1,7 +1,7 @@
 import Decimal from 'decimal.js'
 import { Tableau } from '../../lib/2d/tableau.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'

@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
-import { signe } from '../../../lib/outils/nombres.js'
+import { signe } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { randint, printlatex } from '../../../modules/outils.js'

@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { nombreDeChiffresDansLaPartieEntiere } from '../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieEntiere } from '../lib/outils/nombres'
 import { estentier } from './outils.js'
 
 export function nombreEnLettres (nb, type = 1) {

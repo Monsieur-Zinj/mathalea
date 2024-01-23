@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { compareNombres } from '../../lib/outils/nombres.js'
+import { compareNombres } from '../../lib/outils/nombres'
 import { texFactorisation } from '../../lib/outils/primalite.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

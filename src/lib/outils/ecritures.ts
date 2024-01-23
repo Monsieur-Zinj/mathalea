@@ -5,7 +5,7 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 import { fraction } from '../../modules/fractions.js'
 import { egal } from '../../modules/outils.js'
 import { miseEnEvidence } from './embellissements.js'
-import { arrondi } from './nombres.js'
+import { arrondi } from './nombres'
 import { lettreDepuisChiffre } from './outilString.js'
 import { stringNombre, texNombre } from './texNombre'
 

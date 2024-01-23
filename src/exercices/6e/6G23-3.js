@@ -8,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { labelPoint } from '../../lib/2d/textes.js'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 

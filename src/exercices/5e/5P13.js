@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { arrondi, rangeMinMax } from '../../lib/outils/nombres.js'
+import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'

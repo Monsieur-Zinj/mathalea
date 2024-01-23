@@ -15,7 +15,7 @@ import { longueur, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.j
 import { texteParPoint } from '../../lib/2d/textes.js'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { range1 } from '../../lib/outils/nombres.js'
+import { range1 } from '../../lib/outils/nombres'
 import { creerNomDePolygone, lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

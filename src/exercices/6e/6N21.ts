@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom.js'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine.js'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 

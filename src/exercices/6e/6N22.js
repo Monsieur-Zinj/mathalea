@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier, randint } from '../../modules/outils.js'

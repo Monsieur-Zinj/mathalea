@@ -1,5 +1,5 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { nombreDeChiffresDe } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

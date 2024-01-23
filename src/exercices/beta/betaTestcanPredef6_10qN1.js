@@ -1,7 +1,7 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { range1 } from '../../lib/outils/nombres.js'
+import { range1 } from '../../lib/outils/nombres'
 import { prenomF } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

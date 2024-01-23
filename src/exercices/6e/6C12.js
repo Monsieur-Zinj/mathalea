@@ -1,6 +1,6 @@
 import { choice, enleveElementNo } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { arrondi, range, rangeMinMax, troncature } from '../../lib/outils/nombres.js'
+import { arrondi, range, rangeMinMax, troncature } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenomF } from '../../lib/outils/Personne'
 import { texNombre3, texPrix } from '../../lib/outils/texNombre'

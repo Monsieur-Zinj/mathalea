@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString.js'
 import { personne, personnes } from '../../lib/outils/Personne'
 import { texNombre2 } from '../../lib/outils/texNombre'

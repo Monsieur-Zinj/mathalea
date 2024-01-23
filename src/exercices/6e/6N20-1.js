@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { modalTexteCourt } from '../../lib/outils/modales.js'
-import { rangeMinMax } from '../../lib/outils/nombres.js'
+import { rangeMinMax } from '../../lib/outils/nombres'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'

@@ -2,7 +2,7 @@ import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { randint } from '../../modules/outils.js'
-import { arrondi } from '../outils/nombres.js'
+import { arrondi } from '../outils/nombres'
 import { angleOriente } from './angles.js'
 import { Cercle } from './cercle.js'
 import { Droite, droite } from './droites.js'

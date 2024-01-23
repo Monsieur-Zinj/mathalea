@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { arrondi } from '../../../lib/outils/nombres.js'
+import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

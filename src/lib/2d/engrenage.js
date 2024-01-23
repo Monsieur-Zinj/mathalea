@@ -1,5 +1,5 @@
 import { abs, round } from 'mathjs'
-import { arrondi } from '../outils/nombres.js'
+import { arrondi } from '../outils/nombres'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { degCos, degSin } from '../mathFonctions/trigo.js'
 /**

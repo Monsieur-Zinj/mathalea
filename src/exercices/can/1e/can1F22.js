@@ -5,7 +5,7 @@ import {
   reduirePolynomeDegre3,
   rienSi1
 } from '../../../lib/outils/ecritures'
-import { abs } from '../../../lib/outils/nombres.js'
+import { abs } from '../../../lib/outils/nombres'
 import Exercice from '../../Exercice.js'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'

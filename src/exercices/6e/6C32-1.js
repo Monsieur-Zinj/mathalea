@@ -1,4 +1,4 @@
-import { arrondi } from '../../lib/outils/nombres.js'
+import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { personne, prenom, prenomF } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
