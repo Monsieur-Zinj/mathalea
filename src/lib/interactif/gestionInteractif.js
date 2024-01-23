@@ -643,7 +643,7 @@ export function setReponse (exercice, i, valeurs, {
         }
       }, params)
     case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
-      if (typeof reponses[0] !== 'number') throw Error('setReponse : type "intervalleStrict" la réponse n\'est pas un number !', { reponses })
+      if (!Array.isArray(reponses) || reponses.length !== 2 || reponses.filter(el => typeof el !== 'number').length !== 0) throw Error('setReponse : type "intervalle" la réponse n\'est pas un tupple [number,number] !', { reponses })
       return handleAnswers(exercice, i, {
         reponse: {
           value: { borneInf: reponses[0], borneSup: reponses[1] },
@@ -651,7 +651,7 @@ export function setReponse (exercice, i, valeurs, {
         }
       }, params)
     case 'intervalle' :
-      if (typeof reponses[0] !== 'string') throw Error('setReponse : type "intervalle" la réponse n\'est pas un number !', { reponses })
+      if (!Array.isArray(reponses) || reponses.length !== 2 || reponses.filter(el => typeof el !== 'number').length !== 0) throw Error('setReponse : type "intervalle" la réponse n\'est pas un tupple [number,number] !', { reponses })
       return handleAnswers(exercice, i, {
         reponse: {
           value: { borneInf: reponses[0], borneSup: reponses[1] },
