@@ -4,7 +4,7 @@ import { polygone, polyline } from './polygones.js'
 import { segment } from './segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPosition } from './textes.js'
 import { context } from '../../modules/context.js'
-import { stringNombre, texNombre } from '../outils/texNombre.js'
+import { stringNombre, texNombre } from '../outils/texNombre'
 
 /**
  * fonction utilisée par la classe Tableau pour créer une flèche

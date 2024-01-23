@@ -14,7 +14,7 @@ import {
   obtenirListeFacteursPremiers,
   pgcd
 } from '../lib/outils/primalite.js'
-import { stringNombre, texNombre } from '../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../lib/outils/texNombre'
 import {
   quotientier,
   egal, ppcm

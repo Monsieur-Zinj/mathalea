@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer la raison d’une suite arithmétique/géométrique*'

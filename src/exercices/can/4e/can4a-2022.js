@@ -8,7 +8,7 @@ import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecat
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'

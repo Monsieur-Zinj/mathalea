@@ -4,7 +4,7 @@ import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString.js'
 import { personne, personnes } from '../../lib/outils/Personne'
-import { texNombre2 } from '../../lib/outils/texNombre.js'
+import { texNombre2 } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, ppcm, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 

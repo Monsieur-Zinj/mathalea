@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Comparer deux nombres entiers'

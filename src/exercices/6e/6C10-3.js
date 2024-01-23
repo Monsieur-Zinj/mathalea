@@ -1,5 +1,5 @@
 import { choice, creerCouples } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'

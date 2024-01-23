@@ -1,7 +1,7 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import { stringNombre } from '../../lib/outils/texNombre.js'
+import { stringNombre } from '../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

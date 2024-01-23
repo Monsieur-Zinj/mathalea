@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { randint } from '../../modules/outils.js'
 export const titre = 'Somme des termes d\'une suite arithmétique'

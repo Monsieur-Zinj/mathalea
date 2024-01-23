@@ -1,7 +1,7 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { arrondi } from '../../lib/outils/nombres.js'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { stringNombre } from '../../lib/outils/texNombre.js'
+import { stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'

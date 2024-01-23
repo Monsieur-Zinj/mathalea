@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'

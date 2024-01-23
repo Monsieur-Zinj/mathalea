@@ -10,7 +10,7 @@ import {
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
-import { nombreAvecEspace } from '../../lib/outils/texNombre.js'
+import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import { randint } from '../outils.js'
 
 /**

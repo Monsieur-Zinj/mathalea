@@ -3,7 +3,7 @@ import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arra
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { range1 } from '../../lib/outils/nombres.js'
 import { prenomF } from '../../lib/outils/Personne'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'

@@ -5,7 +5,7 @@ import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } fro
 import { sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

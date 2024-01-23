@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js'
 import { factorisation } from './primalite.js'
-import { texNombre } from './texNombre.js'
+import { texNombre } from './texNombre'
 
 /**
  * Retourne la somme des chiffres (ou d'un tableau de chiffres) d'un nombre en valeur et sous forme de String [valeur, String]

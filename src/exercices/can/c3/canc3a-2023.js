@@ -1,6 +1,6 @@
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context.js'

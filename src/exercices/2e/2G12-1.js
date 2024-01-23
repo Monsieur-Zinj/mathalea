@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
+import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
 import { cercle } from '../../lib/2d/cercle.js'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { milieu, point, tracePoint, pointIntersectionLC } from '../../lib/2d/points.js'

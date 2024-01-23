@@ -1,6 +1,6 @@
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'

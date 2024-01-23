@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer (ou calculer avec) un pourcentage de proportion'

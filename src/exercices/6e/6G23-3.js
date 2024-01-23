@@ -4,7 +4,7 @@ import { longueur, segment, segmentAvecExtremites } from '../../lib/2d/segmentsV
 import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { labelPoint } from '../../lib/2d/textes.js'

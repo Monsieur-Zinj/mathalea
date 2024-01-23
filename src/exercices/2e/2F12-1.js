@@ -4,7 +4,7 @@ import { extraireRacineCarree } from '../../lib/outils/calculs'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import {
   listeQuestionsToContenu, randint

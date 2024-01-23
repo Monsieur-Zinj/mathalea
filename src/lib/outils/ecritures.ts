@@ -7,7 +7,7 @@ import { egal } from '../../modules/outils.js'
 import { miseEnEvidence } from './embellissements.js'
 import { arrondi } from './nombres.js'
 import { lettreDepuisChiffre } from './outilString.js'
-import { stringNombre, texNombre } from './texNombre.js'
+import { stringNombre, texNombre } from './texNombre'
 
 /**
  * écrit le nombre, mais pas un nombre s'il est égal à 1

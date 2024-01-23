@@ -9,7 +9,7 @@ import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import {

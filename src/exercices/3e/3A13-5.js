@@ -1,5 +1,5 @@
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import Operation from '../../modules/operations.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

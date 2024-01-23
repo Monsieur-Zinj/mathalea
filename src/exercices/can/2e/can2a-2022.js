@@ -13,7 +13,7 @@ import {
 } from '../../../lib/outils/ecritures'
 import { texPrix } from '../../../lib/format/style'
 import { sp } from '../../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'

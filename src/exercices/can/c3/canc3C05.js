@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'

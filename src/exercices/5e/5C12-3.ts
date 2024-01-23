@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../ExerciceTs'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'

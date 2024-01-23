@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texPrix } from '../../../lib/format/style'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils.js'

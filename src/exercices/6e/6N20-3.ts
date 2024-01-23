@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../ExerciceTs.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
 

@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
 export const titre = 'Calculer des longueurs à partir des périmètres'

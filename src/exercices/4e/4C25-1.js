@@ -6,7 +6,7 @@ import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { fraction, listeFractions } from '../../modules/fractions.js'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 
 export const titre = 'Résoudre des problèmes additifs et multiplicatifs utilisant des fractions'
 

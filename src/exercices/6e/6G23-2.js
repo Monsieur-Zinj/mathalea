@@ -3,7 +3,7 @@ import { point, pointIntersectionDD, pointSurSegment } from '../../lib/2d/points
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'

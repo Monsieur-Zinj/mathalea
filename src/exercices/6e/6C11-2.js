@@ -8,7 +8,7 @@ import {
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { range, rangeMinMax } from '../../lib/outils/nombres.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'

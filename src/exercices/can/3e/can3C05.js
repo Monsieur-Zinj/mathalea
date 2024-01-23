@@ -1,5 +1,5 @@
 import { rienSi1 } from '../../../lib/outils/ecritures'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer avec  une puissance de 10'

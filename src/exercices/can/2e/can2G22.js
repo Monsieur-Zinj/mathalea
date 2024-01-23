@@ -1,6 +1,6 @@
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Trouver les coordonnées d\'un point avec un milieu'

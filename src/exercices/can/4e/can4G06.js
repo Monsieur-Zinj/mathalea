@@ -5,7 +5,7 @@ import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'

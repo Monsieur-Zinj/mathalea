@@ -12,7 +12,7 @@ import {
 } from '../../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../../lib/outils/nombres.js'
 import { sp } from '../../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'

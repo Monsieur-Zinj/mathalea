@@ -1,6 +1,6 @@
 import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
-import { stringNombre } from '../../../lib/outils/texNombre.js'
+import { stringNombre } from '../../../lib/outils/texNombre'
 import { texteParPosition } from '../../../lib/2d/textes.js'
 import { milieu, point } from '../../../lib/2d/points.js'
 import { randint } from '../../../modules/outils.js'

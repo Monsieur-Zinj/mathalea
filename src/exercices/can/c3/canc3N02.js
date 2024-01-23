@@ -1,6 +1,6 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'

@@ -4,8 +4,8 @@ import { context } from '../../modules/context.js'
 import {
   tropDeChiffres
 } from '../../modules/outils.js'
-import { miseEnEvidence } from './embellissements'
-import { extraireRacineCarree } from './calculs'
+import { miseEnEvidence } from './embellissements.js'
+import { extraireRacineCarree } from './calculs.js'
 import { nombreDeChiffresDansLaPartieDecimale } from './nombres.js'
 import { sp } from './outilString.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -16,26 +16,11 @@ const math = { format, evaluate }
  * retourne le code Latex de la racine carrée de n réduite
  * @author Jean-CLaude Lhote
  */
-export function texRacineCarree (n) {
+export function texRacineCarree (n: number) {
   const result = extraireRacineCarree(n)
   if (result[1] === 1) return `${result[0]}`
   else if (result[0] === 1) return `\\sqrt{${result[1]}}`
   else return `${result[0]}\\sqrt{${result[1]}}`
-}
-
-/**
- * Utilise la class Decimal pour s'assurer qu'il n'y a pas d'erreur dans les calculs avec des décimaux
- * Le 2e argument facultatif permet de préciser l'arrondi souhaité
- * @author Rémi Angot
- * @param {number|boolean} arrondir
- * @param {number|string} expression
- */
-export function nombreDecimal (expression, arrondir = false) {
-  if (!arrondir) {
-    return stringNombre(new Decimal(expression), 15)
-  } else {
-    return stringNombre(new Decimal(expression), arrondir)
-  }
 }
 
 /**
@@ -46,13 +31,19 @@ export function nombreDecimal (expression, arrondir = false) {
  * @param {string} nul couleur si 0
  * @param {number} precision
  */
-export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul = 'black', precision) {
+export function texNombreCoul (nombre: number | Decimal, positif = 'green', negatif = 'red', nul = 'black', precision: number) {
   if (typeof nombre === 'string') {
     window.notify('texNombreCouleur appelé avec un string à la place d\'un nombre', { nombre })
   }
-  if (nombre > 0) return miseEnEvidence(texNombre(nombre, precision), positif)
-  else if (nombre < 0) return miseEnEvidence(texNombre(nombre, precision), negatif)
-  else return miseEnEvidence(texNombre(0, precision), nul)
+  if (nombre instanceof Decimal) {
+    if (nombre.isZero()) return miseEnEvidence(texNombre(0, precision), nul)
+    else if (nombre.isNeg()) return miseEnEvidence(texNombre(nombre, precision), negatif)
+    else return miseEnEvidence(texNombre(nombre, precision), positif)
+  } else {
+    if (nombre > 0) return miseEnEvidence(texNombre(nombre, precision), positif)
+    else if (nombre < 0) return miseEnEvidence(texNombre(nombre, precision), negatif)
+    else return miseEnEvidence(texNombre(0, precision), nul)
+  }
 }
 
 /**
@@ -60,7 +51,7 @@ export function texNombreCoul (nombre, positif = 'green', negatif = 'red', nul =
  * @param {number} nb
  * @returns retourne un nombre au format français
  */
-export function numberFormat (nb) {
+export function numberFormat (nb: number) {
   return Intl.NumberFormat('fr-FR', { maximumFractionDigits: 20 }).format(nb).toString().replace(/\s+/g, '\\thickspace ')
 }
 
@@ -77,7 +68,7 @@ export function numberFormat (nb) {
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
-export function texNombre (nb, precision, completerZeros = false, aussiCompleterEntiers = false) {
+export function texNombre (nb: number | Decimal, precision: number, completerZeros = false, aussiCompleterEntiers = false) {
   if (typeof nb === 'string') {
     window.notify('texNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
   }
@@ -89,7 +80,7 @@ export function texNombre (nb, precision, completerZeros = false, aussiCompleter
  * Renvoie un nombre dans le format français (séparateur de classes) pour la partie entière comme pour la partie décimale
  * @author Rémi Angot
  */
-export function texNombre2 (nb) {
+export function texNombre2 (nb: number) {
   if (typeof nb === 'string') {
     window.notify('texNombre2 appelé avec un string à la place d\'un nombre', { nombre: nb })
   }
@@ -128,7 +119,7 @@ export function texNombre2 (nb) {
  * @author Eric Elter d'après la fonction de Rémi Angot
  * Rajout Octobre 2021 pour 6C14
  */
-export function texNombre3 (nb) {
+export function texNombre3 (nb: number) {
   if (typeof nb === 'string') {
     window.notify('texNombre3 appelé avec un string à la place d\'un nombre', { nombre: nb })
   }
@@ -166,7 +157,7 @@ export function texNombre3 (nb) {
  * insereEspaceDansNombre fonctionne peut-être mieux
  * @author Rémi Angot
  */
-export function nombreAvecEspace (nb) {
+export function nombreAvecEspace (nb: number) {
   if (isNaN(nb)) {
     window.notify('nombreAvecEspace : argument NaN ou undefined', { nb })
     return 'NaN'
@@ -191,7 +182,7 @@ export function nombreAvecEspace (nb) {
  * @param {number} exp
  * @returns {string} Écriture décimale avec espaces
  */
-export function scientifiqueToDecimal (mantisse, exp) {
+export function scientifiqueToDecimal (mantisse: number, exp: number) {
   if (exp < -6) Decimal.set({ toExpNeg: exp - 1 })
   else if (exp > 20) Decimal.set({ toExpPos: exp + 1 })
   return texNombre(new Decimal(mantisse).mul(Decimal.pow(10, exp)), 10)
@@ -209,7 +200,7 @@ export function scientifiqueToDecimal (mantisse, exp) {
  * @param {boolean?} aussiCompleterEntiers=false si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à placer hors des $ $
  */
-export function stringNombre (nb, precision, completerZeros = false, aussiCompleterEntiers = false) {
+export function stringNombre (nb: number | Decimal, precision: number, completerZeros = false, aussiCompleterEntiers = false) {
   if (typeof nb === 'string') {
     window.notify('stringNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
   }
@@ -228,7 +219,7 @@ export function stringNombre (nb, precision, completerZeros = false, aussiComple
  * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
  * @param {boolean} aussiCompleterEntiers true si on veut ajouter des zéros inutiles aux entiers
  */
-function afficherNombre (nb, precision, fonction, completerZeros = false, aussiCompleterEntiers) {
+function afficherNombre (nb: number | Decimal | FractionEtendue | string, precision: number, fonction: 'texNombre' | 'stringNombre', completerZeros = false, aussiCompleterEntiers: boolean) {
   /**
    * Fonction auxiliaire de stringNombre pour une meilleure lisibilité
    * Elle renvoie un nombre dans le format français (avec virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
@@ -241,7 +232,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
    * @returns string avec le nombre dans le format français
    */
 
-  function insereEspacesNombre (nb, nbChiffresPartieEntiere, precision, fonction) {
+  function insereEspacesNombre (nb: number | Decimal, nbChiffresPartieEntiere: number, precision: number, fonction: 'stringNombre' | 'texNombre') {
     let signe
     let nombre
     const maximumSignificantDigits = nbChiffresPartieEntiere + precision
@@ -319,7 +310,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
    * @param {number} x
    * @return {number}
    */
-  const trouveLaPrecision = function (x) {
+  const trouveLaPrecision = function (x: number) {
     if (Math.abs(x) > 1e-10 && Math.abs(x) < 1e11) {
       let fix = x.toFixed(18)
       if (fix.includes('.')) {
@@ -436,7 +427,7 @@ function afficherNombre (nb, precision, fonction, completerZeros = false, aussiC
  * Pour bien afficher les centimes avec 2 chiffres après la virgule
  * @author Rémi Angot
  */
-export function texPrix (nb) {
+export function texPrix (nb: number | Decimal) {
   if (nb instanceof Decimal) {
     if (nb.isInteger()) return texNombre(nb, 0)
     else return texNombre(nb, 2, true)
@@ -446,23 +437,6 @@ export function texPrix (nb) {
     return texNombre(nb, 0)
   } else {
     return texNombre(nb, 2, true)
-  }
-}
-
-/**
- * Pour afficher les masses avec 3 chiffres après la virgule
- * @author Mireille Gain
- */
-export function texMasse (nb) {
-  if (nb instanceof Decimal) {
-    if (nb.isInteger()) return texNombre(nb, 0)
-    else return texNombre(nb, 3, true)
-  }
-  const nombre = Number(nb)
-  if (nombre.toString() === nombre.toFixed(0)) {
-    return texNombre(nb, 0)
-  } else {
-    return texNombre(nb, 3, true)
   }
 }
 
@@ -480,7 +454,7 @@ export function texMasse (nb) {
  *
  * @author Eric Elter
  */
-export function decimalToScientifique (nbDecimal) {
+export function decimalToScientifique (nbDecimal: number) {
   let exposant = 0
   let mantisseNb = new Decimal(nbDecimal)
   if (mantisseNb.abs().gte(10)) {
@@ -496,12 +470,4 @@ export function decimalToScientifique (nbDecimal) {
     }
     return [mantisseNb.toNumber(), -1 * exposant]
   } else return [nbDecimal, 0]
-}
-
-export function dataTaille (taille) {
-  if (context.vue !== 'diap' || taille === 1) {
-    return ''
-  } else if (taille !== 1) {
-    return `data-taille = "${taille}"`
-  }
 }

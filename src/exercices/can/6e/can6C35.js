@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../Exercice.js'

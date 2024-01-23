@@ -1,6 +1,6 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, ppcm, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'

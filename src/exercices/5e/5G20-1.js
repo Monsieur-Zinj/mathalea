@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lampeMessage } from '../../lib/format/message.js'
 import { modalTexteLong } from '../../lib/outils/modales.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import { Triangle } from '../../modules/Triangle.js'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

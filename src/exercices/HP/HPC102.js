@@ -1,7 +1,7 @@
 import { courbe, integrale } from '../../lib/2d/courbes.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'

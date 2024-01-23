@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
+import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../Exercice.js'

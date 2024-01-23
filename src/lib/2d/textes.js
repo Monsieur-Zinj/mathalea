@@ -3,7 +3,7 @@ import katex from 'katex'
 import { colorToLatexOrHTML, ObjetMathalea2D, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { arrondi } from '../outils/nombres.js'
-import { stringNombre } from '../outils/texNombre.js'
+import { stringNombre } from '../outils/texNombre'
 import { point } from './points.js'
 
 /**

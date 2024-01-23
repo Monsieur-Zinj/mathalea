@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
-import { scientifiqueToDecimal, stringNombre, texNombre } from '../../lib/outils/texNombre.js'
+import { scientifiqueToDecimal, stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'

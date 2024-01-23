@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,

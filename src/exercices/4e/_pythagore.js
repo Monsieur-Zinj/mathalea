@@ -1,5 +1,5 @@
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import { arrondi } from '../../lib/outils/nombres.js'
 
 /**

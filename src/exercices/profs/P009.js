@@ -1,6 +1,6 @@
 import { repere } from '../../lib/2d/reperes.js'
 import { traceBarre } from '../../lib/2d/diagrammes.js'
-import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'

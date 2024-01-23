@@ -2,7 +2,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { cribleEratostheneN, listeDesDiviseurs } from '../../lib/outils/primalite.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import {

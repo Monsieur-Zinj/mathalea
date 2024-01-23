@@ -8,7 +8,7 @@ import {
   nombreDeChiffresDe
 } from '../../lib/outils/nombres.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'

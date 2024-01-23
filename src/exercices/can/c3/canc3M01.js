@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

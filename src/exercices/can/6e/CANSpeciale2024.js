@@ -9,7 +9,7 @@ import { texteParPosition, labelPoint, latexParCoordonnees } from '../../../lib/
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { texNombre, stringNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre, stringNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'

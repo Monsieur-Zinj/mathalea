@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre.js'
+import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'

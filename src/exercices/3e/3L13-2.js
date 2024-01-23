@@ -3,7 +3,7 @@ import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/ou
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { warnMessage } from '../../lib/format/message.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 

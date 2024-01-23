@@ -1,6 +1,6 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
-import { texNombre, texRacineCarree } from '../../lib/outils/texNombre.js'
+import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { texteGras } from '../../lib/format/style'

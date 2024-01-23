@@ -4,7 +4,7 @@ import { arrondi, range, rangeMinMax, troncature } from '../../lib/outils/nombre
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenomF } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
-import { texNombre3 } from '../../lib/outils/texNombre.js'
+import { texNombre3 } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { estentier, gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

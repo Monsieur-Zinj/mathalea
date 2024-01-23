@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteExposant } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

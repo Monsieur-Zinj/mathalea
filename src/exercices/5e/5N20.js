@@ -10,7 +10,7 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 
 export const amcReady = true
 export const amcType = 'qcmMono'

@@ -8,7 +8,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom, prenomM } from '../../lib/outils/Personne'
 import { texPrix, texteGras } from '../../lib/format/style'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'
 

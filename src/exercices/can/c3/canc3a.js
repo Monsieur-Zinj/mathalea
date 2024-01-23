@@ -7,7 +7,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { personne, prenom } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 

@@ -8,7 +8,7 @@ import {
 import { texteGras } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres.js'
 import { sp } from '../../lib/outils/outilString.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Utiliser les propriétés de conservation du sens d\'une inégalité'

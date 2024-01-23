@@ -4,7 +4,7 @@ import { katexPopup2, lampeMessage, warnMessage } from '../../lib/format/message
 import { modalPdf } from '../../lib/outils/modales.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { decompositionFacteursPremiers, pgcd } from '../../lib/outils/primalite.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'

@@ -8,7 +8,7 @@ import {
 } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import { texNombreCoul } from '../../lib/outils/texNombre.js'
+import { texNombreCoul } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

@@ -1,4 +1,4 @@
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../Exercice.js'

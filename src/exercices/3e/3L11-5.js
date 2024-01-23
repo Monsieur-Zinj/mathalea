@@ -1,7 +1,7 @@
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { warnMessage } from '../../lib/format/message.js'
 import { texteGras } from '../../lib/format/style'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

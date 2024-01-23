@@ -5,7 +5,7 @@ import { prenomM } from '../../lib/outils/Personne'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
+import { texNombre } from '../../lib/outils/texNombre'
 
 export const titre = 'Résoudre des problèmes utilisant la division Euclidienne'
 

@@ -6,7 +6,7 @@ import { lampeMessage } from '../lib/format/message.js'
 import { arrondi } from '../lib/outils/nombres.js'
 import { prenom } from '../lib/outils/Personne'
 import { texteGras } from '../lib/format/style'
-import { stringNombre, texNombre } from '../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../lib/outils/texNombre'
 
 function underbraceMediane (nbVal) {
   let sortie

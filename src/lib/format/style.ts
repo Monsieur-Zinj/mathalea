@@ -6,7 +6,7 @@
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { choice } from '../outils/arrayOutils'
-import { texNombre } from '../outils/texNombre.js'
+import { texNombre } from '../outils/texNombre'
 
 type Colors = 'white' | 'black' | 'red' | 'green' | 'blue' | 'cyan' | 'magenta' | 'yellow'
 const colors: Colors[] = ['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow']

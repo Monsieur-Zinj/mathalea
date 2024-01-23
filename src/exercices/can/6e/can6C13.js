@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { texNombre } from '../../../lib/outils/texNombre.js'
+import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'
 import Decimal from 'decimal.js' // ici j'importe la classe Decimal qui va me permettre de créer de tels nombres et d'utiliser leur méthodes de calcul exactes.

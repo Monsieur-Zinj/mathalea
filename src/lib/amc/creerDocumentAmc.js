@@ -10,7 +10,7 @@ import {
   nombreDeChiffresDe
 } from '../outils/nombres.js'
 import { lettreDepuisChiffre } from '../outils/outilString.js'
-import { decimalToScientifique } from '../outils/texNombre.js'
+import { decimalToScientifique } from '../outils/texNombre'
 
 /**
  *
