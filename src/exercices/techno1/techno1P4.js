@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { randint } from '../../modules/outils.js'
 export const titre = 'Proportions de proportions'
@@ -17,12 +17,16 @@ export const dateDeModifImportante = '09/05/2023'
 */
 export const uuid = 'f0c23'
 export const ref = 'techno1P4'
-export default function ProportiondeProportion () {
-  Exercice.call(this)
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
-  this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = function () {
+export default class ProportiondeProportion extends Exercice {
+  constructor () {
+    super()
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+    this.formatChampTexte = 'largeur15 inline'
+    this.optionsChampTexte = { texteApres: ' %' }
+  }
+
+  nouvelleVersion () {
     let a, b, c, d, g, tauxb, tauxc, tauxG
     switch (choice(['association', 'lycee', 'lyceeBis', 'election', 'associationBis', 'electionBis'])) { //
       case 'association':
@@ -154,5 +158,6 @@ $${texNombre(c, 2)}\\,\\%$ des suffrages exprimés ont voté pour le candidat.`
         this.reponse = c
         break
     }
+    if (this.interactif) this.question += '<br>'
   }
 }

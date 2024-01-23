@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texPrix } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -27,18 +27,21 @@ export const dateDePublication = '06/01/2022'
  */
 export const uuid = '12444'
 export const ref = '2S11-2'
-export default function EvolutionsEnPourcentage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = ''
-  this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 4 // type de questions
+export default class EvolutionsEnPourcentage extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.interactifReady = interactifReady
+    this.interactifType = interactifType
+    this.consigne = ''
+    this.nbQuestions = 4
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.sup = 4 // type de questions
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une évolution en pourcentage\n2 : Calculer un taux d\'évolution\n3 : Calculer la valeur initiale en connaissant le taux d\'évolution et la valeur finale\n4 : Mélange']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -313,7 +316,12 @@ export default function EvolutionsEnPourcentage () {
           break
       }
       setReponse(this, i, reponse)
-      texte += ajouteChampTexteMathLive(this, i)
+      if (this.interactif) texte += '<br><br>'
+      if (listeTypeDeQuestions[i] === 'evolution') {
+        texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
+      } else {
+        texte += ajouteChampTexteMathLive(this, i)
+      }
       if (this.questionJamaisPosee(i, depart, taux, typesDeSituations[i])) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -323,5 +331,4 @@ export default function EvolutionsEnPourcentage () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Déterminer le résultat après une évolution en pourcentage\n2 : Calculer un taux d\'évolution\n3 : Calculer la valeur initiale en connaissant le taux d\'évolution et la valeur finale\n4 : Mélange']
 }
