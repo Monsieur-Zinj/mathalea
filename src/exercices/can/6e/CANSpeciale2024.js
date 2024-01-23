@@ -2365,7 +2365,6 @@ export default function CourseAuxNombresSpeciale2024 () {
           const reponse = new Decimal(c).mul(k)
 
           texte = 'Complèter le tableau de proportionnalité :<br><br>'
-          // texte += tableauColonneLigne([a, b], [c], [''])
           texte += `$
             \\begin{array}{|c|c|}
             \\hline

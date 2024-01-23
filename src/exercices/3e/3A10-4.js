@@ -157,7 +157,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       }
 
       texte += '<br>'
-      texte += tableauColonneLigne(entColonnes, entLignes, contenuLignes)
+      texte += tableauColonneLigne(entColonnes, entLignes, contenuLignes, 1, true, this.numeroExercice, i)
       if (!context.isHtml) {
         texte += '$\\medskip$'
       }
@@ -227,7 +227,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       }
 
       texteCorr += '<br>'
-      texteCorr += tableauColonneLigne(entColonnesCorr, entLignesCorr, contenuLignesCorr)
+      texteCorr += tableauColonneLigne(entColonnesCorr, entLignesCorr, contenuLignesCorr, 1, true, this.numeroExercice, i)
       texteCorr += '<br>'
       texteCorr += numAlpha(1) + ` $${texNombre(nombreADecomposerb)}$ a donc `
       texteCorr += `$(${tabMultiplicitesb[0]}+1)\\times(${tabMultiplicitesb[1]}+1)\\times(${tabMultiplicitesb[2]}+1) = `
@@ -268,7 +268,7 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       //   break
       // };
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, ...tabPremiersb)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

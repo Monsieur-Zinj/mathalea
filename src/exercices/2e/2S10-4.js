@@ -96,16 +96,16 @@ export default function TableauProportion () {
           texte += '<br> Compléter le tableau suivant :<br><br>'
           if (this.interactif) {
             const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(entetesCol, entetesLgn, ['', '', '', '', '', '', '', '', ''])
-            const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, index, tableauVide, 'nospacebefore')
+            const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, index, tableauVide, 'nospacebefore', this.interactif)
             texte += tabMathlive.output
           } else {
-            texte += tableauColonneLigne(entetesCol, entetesLgn, contenu)
+            texte += tableauColonneLigne(entetesCol, entetesLgn, contenu, 1, true, this.numeroExercice, i)
           }
           texteCorr = `${choixEnonce[1]}`
           texteCorr += 'On en déduit le tableau suivant : <br> <br>'
           texteCorr += tableauColonneLigne(['~', '\\text{Garçons}', '\\text{Filles}', '\\text{Total}'],
             ['\\text{Première générale}', '\\text{Première technologique}', '\\text{Total}'],
-            [`${miseEnEvidence(GAetG)}`, `${miseEnEvidence(FetG)}`, `${miseEnEvidence(totalG)}`, `${miseEnEvidence(GAetT)}`, `${miseEnEvidence(FetT)}`, `${miseEnEvidence(totalT)}`, `${miseEnEvidence(totalGA)}`, `${miseEnEvidence(totalF)}`, `${miseEnEvidence(total)}`])
+            [`${miseEnEvidence(GAetG)}`, `${miseEnEvidence(FetG)}`, `${miseEnEvidence(totalG)}`, `${miseEnEvidence(GAetT)}`, `${miseEnEvidence(FetT)}`, `${miseEnEvidence(totalT)}`, `${miseEnEvidence(totalGA)}`, `${miseEnEvidence(totalF)}`, `${miseEnEvidence(total)}`], 1, true, this.numeroExercice, i)
           setReponse(this, index, {
             bareme: toutPourUn,
             L1C1: { value: GAetG, compare: numberCompare },

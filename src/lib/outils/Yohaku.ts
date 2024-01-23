@@ -159,14 +159,19 @@ export class Yohaku {
      * @returns {string}
      */
   representation ({ numeroExercice, question, isInteractif, classes = '' }:{numeroExercice: number, question: number, isInteractif: boolean, classes: string}) {
-    const tabEnteteColonnes = [this.operation === 'addition' ? '+' : '\\times', this.operation === 'addition' ? 'Termes' : 'Facteurs', this.operation === 'addition' ? 'Termes' : 'Facteurs', this.operation === 'addition' ? 'Sommes' : 'Produits']
+    const tabEnteteColonnes = [this.operation === 'addition' ? '+' : '\\times']
+    const couleur = context.isHtml ? '' : '\\cellcolor{lightgray}'
+    for (let i = 0; i < this.taille; i++) {
+      tabEnteteColonnes.push(`\\text{Colonne ${i + 1}}`)
+    }
+    tabEnteteColonnes.push(`\\text{${this.operation === 'addition' ? 'Sommes' : 'Produits'}}`)
     const laCase = this.Case == null ? null : (this.Case % this.taille) + (Math.floor(this.Case / this.taille) * (this.taille + 1))
 
     const tabEnteteLignes: string[] = []
-    for (let i = this.taille; i < 2 * this.taille; i++) {
-      tabEnteteLignes.push(this.operation === 'addition' ? 'Termes' : 'Facteurs')
+    for (let i = 0; i < this.taille; i++) {
+      tabEnteteLignes.push(`\\text{Ligne ${i + 1}}`)
     }
-    tabEnteteLignes.push(this.operation === 'addition' ? 'Sommes' : 'Produits')
+    tabEnteteLignes.push(`\\text{${this.operation === 'addition' ? 'Sommes' : 'Produits'}}`)
 
     const tabLignes: string[] = []
     let j = 0
@@ -180,13 +185,13 @@ export class Yohaku {
             k++
           } else {
             if (j < this.taille * 2) {
-              tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+              tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
               j++
             }
           }
         } else {
           if (j < this.taille * 2) {
-            tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+            tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
             j++
           }
         }
@@ -199,13 +204,13 @@ export class Yohaku {
                 k++
               } else {
                 if (j < this.taille * 2) {
-                  tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+                  tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
                   j++
                 }
               }
             } else {
               if (j < this.taille * 2) {
-                tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+                tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
                 j++
               }
             }
@@ -215,13 +220,13 @@ export class Yohaku {
                 tabLignes.push('')
               } else {
                 if (j < this.taille * 2) {
-                  tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+                  tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
                   j++
                 }
               }
             } else {
               if (j < this.taille * 2) {
-                tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+                tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
                 j++
               }
             }
@@ -242,26 +247,26 @@ export class Yohaku {
                 }
               } else {
                 if (j < this.taille * 2) {
-                  tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+                  tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
                   j++
                 }
               }
             }
           } else {
             if (j < this.taille * 2) {
-              tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+              tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
               j++
             }
           }
         }
       }
     }
-    tabLignes.push('------')
+    tabLignes.push(`${context.isHtml ? '' : couleur}///////`)
     if (context.isHtml && isInteractif) {
-      const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes)
+      const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes, isInteractif)
       return tab.output
     } else {
-      return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true)
+      return tableauColonneLigne(tabEnteteColonnes, tabEnteteLignes, tabLignes, 2, true, numeroExercice, question)
     }
   }
 }
