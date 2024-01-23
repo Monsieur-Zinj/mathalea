@@ -38,8 +38,9 @@ class ReperagePointDuPlan extends Exercice {
     this.formatChampTexte = 'none'
   }
 
-  nouvelleVersion (numeroExercice: number): void {
-    this.idApigeom = `apigeomEx${numeroExercice}F0`
+  nouvelleVersion (): void {
+    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
+    console.log('idApigeom : ', this.idApigeom)
     this.figure = new Figure({ snapGrid: true, xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     this.figure.create('Grid')
