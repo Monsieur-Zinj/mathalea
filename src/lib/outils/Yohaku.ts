@@ -159,42 +159,104 @@ export class Yohaku {
      * @returns {string}
      */
   representation ({ numeroExercice, question, isInteractif, classes = '' }:{numeroExercice: number, question: number, isInteractif: boolean, classes: string}) {
-    const tabEnteteColonnes = [this.operation === 'addition' ? '+' : '\\times']
-    for (let i = 0; i < this.taille; i++) {
-      const resultat = this.resultats[i]
-      tabEnteteColonnes.push(resultat)
-    }
+    const tabEnteteColonnes = [this.operation === 'addition' ? '+' : '\\times', this.operation === 'addition' ? 'Termes' : 'Facteurs', this.operation === 'addition' ? 'Termes' : 'Facteurs', this.operation === 'addition' ? 'Sommes' : 'Produits']
+    const laCase = this.Case == null ? null : (this.Case % this.taille) + (Math.floor(this.Case / this.taille) * (this.taille + 1))
+
     const tabEnteteLignes: string[] = []
     for (let i = this.taille; i < 2 * this.taille; i++) {
-      const resultat = this.resultats[i]
-      tabEnteteLignes.push(resultat)
+      tabEnteteLignes.push(this.operation === 'addition' ? 'Termes' : 'Facteurs')
     }
+    tabEnteteLignes.push(this.operation === 'addition' ? 'Sommes' : 'Produits')
+
     const tabLignes: string[] = []
-    for (let i = 0; i < this.taille ** 2; i++) {
+    let j = 0
+    let k = 0
+    for (let i = 0; i < (this.taille + 1) ** 2; i++) {
       if (this.solution) {
-        const cellule = this.cellules[i]
-        tabLignes.push(cellule)
-      } else {
-        if (this.Case == null) {
-          if (this.cellulesPreremplies[i] != null) {
-            tabLignes.push(this.cellulesPreremplies[i])
+        if (i % (this.taille + 1) < this.taille) {
+          if (i < (this.taille + 1) * (this.taille)) {
+            const cellule = this.cellules[k]
+            tabLignes.push(cellule)
+            k++
           } else {
-            tabLignes.push('')
+            if (j < this.taille * 2) {
+              tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+              j++
+            }
           }
         } else {
-          if (i === this.Case) {
-            const cellule = this.cellules[i]
-            tabLignes.push(cellule)
-          } else {
-            if (this.cellulesPreremplies[i] != null) {
-              tabLignes.push(this.cellulesPreremplies[i])
+          if (j < this.taille * 2) {
+            tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+            j++
+          }
+        }
+      } else {
+        if (this.Case == null) {
+          if (this.cellulesPreremplies[k] != null) {
+            if (i % (this.taille + 1) < this.taille) {
+              if (i < (this.taille + 1) * (this.taille)) {
+                tabLignes.push(this.cellulesPreremplies[k])
+                k++
+              } else {
+                if (j < this.taille * 2) {
+                  tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+                  j++
+                }
+              }
             } else {
-              tabLignes.push('')
+              if (j < this.taille * 2) {
+                tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+                j++
+              }
+            }
+          } else {
+            if (i % (this.taille + 1) < this.taille) {
+              if (i < (this.taille + 1) * (this.taille)) {
+                tabLignes.push('')
+              } else {
+                if (j < this.taille * 2) {
+                  tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+                  j++
+                }
+              }
+            } else {
+              if (j < this.taille * 2) {
+                tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+                j++
+              }
+            }
+          }
+        } else {
+          if (i % (this.taille + 1) < this.taille) {
+            if (i === laCase) {
+              const cellule = this.cellules[k]
+              k++
+              tabLignes.push(cellule)
+            } else {
+              if (i < (this.taille + 1) * (this.taille)) {
+                if (this.cellulesPreremplies[k] != null) {
+                  tabLignes.push(this.cellulesPreremplies[k])
+                  k++
+                } else {
+                  tabLignes.push('')
+                }
+              } else {
+                if (j < this.taille * 2) {
+                  tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+                  j++
+                }
+              }
+            }
+          } else {
+            if (j < this.taille * 2) {
+              tabLignes.push(this.resultats[(j + this.taille) % (this.taille * 2)])
+              j++
             }
           }
         }
       }
     }
+    tabLignes.push('------')
     if (context.isHtml && isInteractif) {
       const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes)
       return tab.output
