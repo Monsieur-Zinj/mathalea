@@ -261,7 +261,7 @@ export default function ResoudreUneEquationProduitNul () {
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25')
       }
-      this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule. Si c'est une fraction, elle doit être irréductible.</em>" : ''
+      this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule.</em>" : ''
       if (this.questionJamaisPosee(i, a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
