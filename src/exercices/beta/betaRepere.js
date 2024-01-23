@@ -1,7 +1,7 @@
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 
 export const titre = 'essai de RepereBuilder'
 export const uuid = '95699'

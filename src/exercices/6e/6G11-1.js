@@ -15,7 +15,7 @@ import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 
 export const titre = 'Tracer des perpendiculaires'
 export const dateDePublication = '09/10/2022'

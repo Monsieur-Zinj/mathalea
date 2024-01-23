@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { Triangle } from '../../modules/Triangle.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'

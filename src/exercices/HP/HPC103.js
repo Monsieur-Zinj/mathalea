@@ -1,5 +1,5 @@
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { create, all } from 'mathjs'
 

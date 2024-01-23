@@ -1,5 +1,5 @@
 import { diagrammeCirculaire } from '../../lib/2d/diagrammes.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

@@ -2,7 +2,7 @@ import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 
 export const titre = 'Étude complète de paraboles'
 export const interactifReady = false

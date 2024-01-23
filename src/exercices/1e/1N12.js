@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { randint } from '../../modules/outils.js'
 export const titre = 'Somme des termes d\'une suite arithmétique'
 export const interactifReady = true
