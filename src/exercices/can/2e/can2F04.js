@@ -41,7 +41,7 @@ export default function ValeurInterdite () {
       a = randint(-10, 10, 0)
 
       b = randint(1, 10)
-      this.question = `Donner la plus petite valeur interdite de de la fonction $f$ définie par ${sp(1)}: ${sp(1)} $f(x)=\\dfrac{${rienSi1(a)}x}{x^2-${b ** 2}}$.<br>
+      this.question = `Donner la plus petite valeur interdite de la fonction $f$ définie par ${sp(1)}: ${sp(1)} $f(x)=\\dfrac{${rienSi1(a)}x}{x^2-${b ** 2}}$.<br>
    
       
       `
