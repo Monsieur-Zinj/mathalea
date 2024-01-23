@@ -235,8 +235,14 @@ export default function CalculDeLongueur () {
       if (this.sup) {
         texte += mathalea2d(paramsEnonce, objetsEnonce) + '<br>'
       }
-      if (!context.isHtml && this.correctionDetaillee) {
-        texteCorr += '\\begin{minipage}{.4\\linewidth}\n' + mathalea2d(paramsCorrection, objetsCorrection) + '\n\\end{minipage}\n' + '\\begin{minipage}{.7\\linewidth}\n'
+      if (this.correctionDetaillee) {
+        if (!context.isHtml) {
+          texteCorr += '\\begin{minipage}{.4\\linewidth}\n'
+        }
+        texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
+        if (!context.isHtml) {
+          texteCorr += '\n\\end{minipage}\n' + '\\begin{minipage}{.7\\linewidth}\n'
+        }
       }
       if (!context.isHtml && this.sup) {
         // texte += '\n\\end{minipage}\n'
