@@ -4,7 +4,7 @@ import {
   ecritureNombreRelatifc,
   ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const amcReady = true

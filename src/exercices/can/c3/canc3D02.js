@@ -8,7 +8,7 @@ import { personne } from '../../../lib/outils/Personne'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Lire une durée'
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true

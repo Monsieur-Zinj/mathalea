@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { randint } from '../../modules/outils.js'
 export const titre = 'Somme des termes d\'une suite géométrique'
 export const interactifReady = true

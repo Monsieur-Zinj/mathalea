@@ -2,8 +2,8 @@ import loadjs from 'loadjs'
 // @ts-ignore
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 // @ts-ignore
-import Exercice from '../exercices/Exercice.js'
-import type TypeExercice from '../exercices/ExerciceTs.js'
+import Exercice from '../exercices/deprecatedExercice.js'
+import type TypeExercice from '../exercices/Exercice.js'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './stores/generalStore.js'

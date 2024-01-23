@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { Triangle } from '../../../modules/Triangle.js'

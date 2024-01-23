@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { creerNomDePolygone, sp } from '../../../lib/outils/outilString.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Utiliser la relation de Chasles/réductions vectorielles*'

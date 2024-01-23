@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Trouver le nombre de nombres entiers entre deux valeurs'
 export const interactifReady = true

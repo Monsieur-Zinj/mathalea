@@ -4,7 +4,7 @@ import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/
 import { labelPoint, latexParPoint, texteParPosition } from '../../lib/2d/textes.js'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 

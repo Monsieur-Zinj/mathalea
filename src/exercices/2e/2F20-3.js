@@ -7,7 +7,7 @@ import { combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutil
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi, numTrie } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { inferieurouegal, listeQuestionsToContenu, randint, superieurouegal } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

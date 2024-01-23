@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'

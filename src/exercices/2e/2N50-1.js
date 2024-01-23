@@ -13,7 +13,7 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 

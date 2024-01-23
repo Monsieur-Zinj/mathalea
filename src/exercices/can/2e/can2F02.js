@@ -1,6 +1,6 @@
 import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import {
   randint
 } from '../../../modules/outils.js'

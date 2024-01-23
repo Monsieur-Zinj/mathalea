@@ -1,5 +1,5 @@
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import ChoisirExpressionLitterale from './_Choisir_expression_litterale.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'

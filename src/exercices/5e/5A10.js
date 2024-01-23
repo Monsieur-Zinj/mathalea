@@ -1,7 +1,7 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 

@@ -8,7 +8,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { arete3d, point3d } from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Exercice de repérage dans un pavé droit'
 

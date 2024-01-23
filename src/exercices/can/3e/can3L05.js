@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer le produit des solutions d’une équation produit nul'
 export const interactifReady = true

@@ -7,7 +7,7 @@ import { rotation, similitude, translation } from '../../lib/2d/transformations.
 import { texteExposant } from '../../lib/outils/ecritures'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'

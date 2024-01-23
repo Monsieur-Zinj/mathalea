@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { choice, enleveElement } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

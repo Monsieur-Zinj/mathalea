@@ -3,7 +3,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 
 export const titre = 'Résoudre une inéquation du second degré (cas particuliers)'
 export const interactifReady = true

@@ -4,7 +4,7 @@ import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.j
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { arcenciel } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { signe } from '../../../lib/outils/nombres'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer un terme d’une suite récurrente*'

@@ -11,7 +11,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Utiliser les propriétés de conservation de la symétrie axiale'

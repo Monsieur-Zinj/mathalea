@@ -1,6 +1,6 @@
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'

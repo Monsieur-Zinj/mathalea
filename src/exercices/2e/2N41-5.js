@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'

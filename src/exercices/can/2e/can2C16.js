@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Calculer avec un programme de calcul*'

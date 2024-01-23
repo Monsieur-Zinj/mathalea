@@ -4,7 +4,7 @@ import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 

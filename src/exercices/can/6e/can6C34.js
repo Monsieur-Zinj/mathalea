@@ -1,6 +1,6 @@
 import { texteParPosition } from '../../../lib/2d/textes.js'
 import Pyramide from '../../../modules/pyramide.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Calculer dans une pyramide additive inverse'
 export const interactifReady = true

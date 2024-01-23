@@ -1,6 +1,6 @@
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { randint, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'

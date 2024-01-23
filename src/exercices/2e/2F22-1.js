@@ -11,7 +11,7 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Résoudre graphiquement une équation du type $f(x)=k$'

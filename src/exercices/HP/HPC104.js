@@ -4,7 +4,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 const math = create(all)
 

@@ -1,7 +1,7 @@
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { complex } from 'mathjs'
 export const titre = 'Racine carrée nombre complexe'
 

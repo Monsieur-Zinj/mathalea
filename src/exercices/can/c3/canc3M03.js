@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer une somme de nombres avec des unités'
 export const dateDePublication = '05/11/2022'
 export const interactifReady = true

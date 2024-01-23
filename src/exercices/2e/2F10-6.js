@@ -10,7 +10,7 @@ import {
 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 export const dateDeModifImportante = '18/05/2023'

@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Passer de la fraction décimale à l’écriture décimale*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

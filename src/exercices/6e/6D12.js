@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { minToHoraire, minToHour } from '../../lib/outils/dateEtHoraires'
 import { prenom, prenomF } from '../../lib/outils/Personne'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Hms from '../../modules/Hms'

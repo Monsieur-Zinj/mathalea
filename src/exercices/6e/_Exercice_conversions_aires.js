@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'

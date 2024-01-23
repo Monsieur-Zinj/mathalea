@@ -21,7 +21,7 @@
   } from '../../../../../lib/mathalea'
   import Settings from './presentationalComponents/Settings.svelte'
   import { exercisesUuidRanking, uuidCount } from '../../../../../lib/components/counts'
-  import Exercice from '../../../../../exercices/ExerciceTs.js'
+  import Exercice from '../../../../../exercices/Exercice'
   import type { HeaderProps } from '../../../../../lib/types/ui'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   export let exercise: Exercice

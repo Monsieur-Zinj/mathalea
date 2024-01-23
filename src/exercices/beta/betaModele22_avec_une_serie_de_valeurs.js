@@ -1,5 +1,5 @@
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Nom de l\'exercice'
 

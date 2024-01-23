@@ -4,7 +4,7 @@ import { tableauSignesFonction, tableauVariationsFonction } from '../../lib/math
 // import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 
 export const titre = 'Recherche d\'antécédents'

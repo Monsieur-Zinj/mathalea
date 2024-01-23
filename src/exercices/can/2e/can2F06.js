@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 
 export const titre = 'Dresser le tableau de signes d’une fonction affine'
 export const interactifReady = true

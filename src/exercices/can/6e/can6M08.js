@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Comparer des aires (V/F)'
 export const interactifReady = true
 export const interactifType = 'qcm'

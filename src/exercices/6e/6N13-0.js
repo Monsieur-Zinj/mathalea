@@ -1,5 +1,5 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 

@@ -4,7 +4,7 @@ import { demiDroite, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs
 import { labelPoint } from '../../lib/2d/textes.js'
 import { combinaisonListes, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'

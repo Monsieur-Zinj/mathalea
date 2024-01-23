@@ -1,5 +1,5 @@
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { all, create } from 'mathjs'

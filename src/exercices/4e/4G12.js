@@ -10,7 +10,7 @@ import { miseEnEvidence, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/
 import { centrage, deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { texcolors } from '../../lib/format/style'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'

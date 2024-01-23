@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 export const titre = 'Calculer une fraction de dénominateur 0,25 ou 0,1 ...'
 export const interactifReady = true

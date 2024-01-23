@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur, miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import {
   randint, calculANePlusJamaisUtiliser
 } from '../../../modules/outils.js'

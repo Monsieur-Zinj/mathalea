@@ -2,7 +2,7 @@ import { pgcd } from '../../../lib/outils/primalite'
 import { context } from '../../../modules/context.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Trouver la fraction (définition)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

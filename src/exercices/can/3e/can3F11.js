@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { randint } from '../../../modules/outils.js'
 import { context } from '../../../modules/context.js'

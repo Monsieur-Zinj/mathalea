@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import { joursParMois } from '../../lib/outils/dateEtHoraires'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

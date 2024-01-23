@@ -8,7 +8,7 @@ import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom, prenomF } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,

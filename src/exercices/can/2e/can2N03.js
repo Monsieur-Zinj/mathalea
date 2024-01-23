@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Déterminer l\'intersection de deux intervalles'

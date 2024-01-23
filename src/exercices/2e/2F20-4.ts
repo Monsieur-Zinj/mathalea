@@ -1,4 +1,4 @@
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 
 import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'

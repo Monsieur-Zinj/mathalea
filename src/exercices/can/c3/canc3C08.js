@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"*'
 export const interactifReady = true

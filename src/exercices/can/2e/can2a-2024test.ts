@@ -1,4 +1,4 @@
-import Exercice from '../../ExerciceTs'
+import Exercice from '../../Exercice'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'

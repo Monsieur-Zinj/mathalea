@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils.js'

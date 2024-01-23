@@ -10,7 +10,7 @@ import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecat
 import { arrondi } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { min, round } from 'mathjs'

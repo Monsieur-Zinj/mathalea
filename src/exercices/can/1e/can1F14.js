@@ -6,7 +6,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer un nombre dérivé'
 export const interactifReady = true

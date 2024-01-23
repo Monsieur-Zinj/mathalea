@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Déterminer si des droites sont parallèles, sécantes ou confondues'

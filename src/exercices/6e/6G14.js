@@ -11,7 +11,7 @@ import { latexParCoordonneesBox } from '../../lib/2d/textes.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import {

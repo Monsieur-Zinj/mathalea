@@ -4,7 +4,7 @@ import { valeursTrigo } from '../../lib/mathFonctions/trigo.js'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Valeurs remarquables du cosinus et sinus'

@@ -4,7 +4,7 @@ import {
 } from '../../modules/outils.js'
 import FonctionsAffines from './3F20-1.js'
 import FonctionsLineaires from './3F20.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Fonctions affines et/ou linéaires'
 export const interactifType = 'mathLive'

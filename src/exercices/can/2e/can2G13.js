@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../../lib/outils/outilString.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer la norme d’un vecteur'
 export const interactifReady = true

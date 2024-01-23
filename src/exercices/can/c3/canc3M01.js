@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Trouver la bonne unité'
 export const dateDePublication = '5/11/2021'
 export const interactifReady = true

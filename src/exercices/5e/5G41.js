@@ -21,7 +21,7 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 

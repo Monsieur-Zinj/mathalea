@@ -1,7 +1,7 @@
 /**
  *
- *  Classe parente de tous les exercices.
- *
+ *  Classe parente de tous les exercices (à remplacer par Exercice.ts à partir de janvier 2024)
+ * @deprecated
  * @author Rémi Angot
  */
 export default function Exercice () {

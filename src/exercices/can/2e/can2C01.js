@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Trouver le nombre d’entiers entre deux valeurs'
 export const interactifReady = true

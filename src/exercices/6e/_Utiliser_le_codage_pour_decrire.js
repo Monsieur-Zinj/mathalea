@@ -8,7 +8,7 @@ import { labelPoint } from '../../lib/2d/textes.js'
 import { affiniteOrtho, rotation, similitude, translation2Points } from '../../lib/2d/transformations.js'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 

@@ -15,7 +15,7 @@ import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { texteGras } from '../../lib/format/style'
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation.js'

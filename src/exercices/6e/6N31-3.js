@@ -9,7 +9,7 @@ import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const amcReady = true
 export const amcType = 'qcmMult'

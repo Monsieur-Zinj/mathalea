@@ -1,6 +1,6 @@
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { sp } from '../../../lib/outils/outilString.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer le rang d’une médiane'
 export const interactifReady = true

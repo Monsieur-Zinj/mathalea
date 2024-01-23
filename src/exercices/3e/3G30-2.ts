@@ -1,5 +1,5 @@
 import { randint } from '../../modules/outils'
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'

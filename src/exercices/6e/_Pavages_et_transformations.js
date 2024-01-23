@@ -12,7 +12,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { numAlpha } from '../../lib/outils/outilString.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { imagePointParTransformation } from '../../modules/imagePointParTransformation.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'

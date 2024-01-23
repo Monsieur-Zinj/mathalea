@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Équations et inéquations du second degré'
 export const interactifReady = false

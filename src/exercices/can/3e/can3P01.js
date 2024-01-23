@@ -1,6 +1,6 @@
 import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Utiliser la proportionnalité sur une expression algébrique'
 export const interactifReady = true

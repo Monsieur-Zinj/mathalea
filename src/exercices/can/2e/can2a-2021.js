@@ -9,7 +9,7 @@ import { simplificationDeFractionAvecEtapes, texFractionReduite } from '../../..
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { context } from '../../../modules/context.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'

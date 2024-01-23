@@ -8,7 +8,7 @@ import {
 } from '../../lib/outils/ecritures'
 import { texteCentre } from '../../lib/format/miseEnPage.js'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import {
   listeQuestionsToContenu, randint

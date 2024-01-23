@@ -7,7 +7,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Dresser un tableau de variations à partir d\'une courbe'
 export const dateDePublication = '14/02/2023'

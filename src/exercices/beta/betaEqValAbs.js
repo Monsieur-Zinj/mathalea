@@ -2,7 +2,7 @@ import { texMasse } from '../../lib/format/style'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, xcas } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Résoudre une équation avec une valeur absolue'
 

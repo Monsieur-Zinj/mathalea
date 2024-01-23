@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Utiliser une priorité opératoire'
 export const interactifReady = true
 export const interactifType = 'mathLive'

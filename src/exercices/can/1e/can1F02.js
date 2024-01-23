@@ -6,7 +6,7 @@ import {
   reduirePolynomeDegre3
 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'

@@ -8,7 +8,7 @@ import { homothetie, projectionOrtho, rotation, translation } from '../../lib/2d
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, entreDeux, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { min, max } from 'mathjs'

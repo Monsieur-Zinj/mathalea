@@ -3,7 +3,7 @@ import { deprecatedTexFraction, obtenirListeFractionsIrreductibles } from '../..
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer un nombre connaissant son inverse'
 export const interactifReady = true
 export const interactifType = 'mathLive'

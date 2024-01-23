@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Résoudre un problème avec "fois plus", "fois moins"'
 export const interactifReady = true
 export const interactifType = 'mathLive'

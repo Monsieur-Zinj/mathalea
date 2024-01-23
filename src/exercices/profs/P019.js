@@ -1,6 +1,6 @@
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import Shikaku from '../6e/_Shikaku.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 export const titre = 'Générateur de Shikaku'
 export const ref = 'P019'
 export const uuid = '6fb13'

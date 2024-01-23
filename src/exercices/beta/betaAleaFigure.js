@@ -1,4 +1,4 @@
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { parse, create, all, unit } from 'mathjs'

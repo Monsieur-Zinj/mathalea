@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 export const interactifType = 'mathLive'

@@ -1,7 +1,7 @@
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer la moitié d’un nombre impair'
 export const interactifReady = true
 export const interactifType = 'mathLive'

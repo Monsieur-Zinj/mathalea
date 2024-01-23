@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer avec une racine carrée*'
 export const interactifReady = true
 export const interactifType = 'mathLive'

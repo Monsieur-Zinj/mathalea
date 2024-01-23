@@ -10,7 +10,7 @@ import {
     mathaleaUpdateExercicesParamsFromUrl,
     mathaleaUpdateUrlFromExercicesParams
   } from '../../../lib/mathalea.js'
-  import type TypeExercice from '../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../exercices/Exercice'
   import Footer from '../../Footer.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
   import Latex, {

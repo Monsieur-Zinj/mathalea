@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import {
   listeQuestionsToContenu,
   randint,

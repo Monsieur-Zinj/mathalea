@@ -16,7 +16,7 @@
     isMenuNeededForExercises,
     isMenuNeededForQuestions
   } from '../../../lib/stores/generalStore'
-  import type TypeExercice from '../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../exercices/Exercice'
   import Exercice from '../../shared/exercice/Exercice.svelte'
   import { onDestroy, onMount, tick } from 'svelte'
   import seedrandom from 'seedrandom'

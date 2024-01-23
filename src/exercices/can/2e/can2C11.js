@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Passer du coefficient multiplicateur au taux d’évolution'
 export const interactifReady = true

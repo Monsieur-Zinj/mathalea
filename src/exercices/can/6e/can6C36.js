@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Résoudre un problème de partage*'

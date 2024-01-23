@@ -1,5 +1,5 @@
 import { sp } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { randint, listeQuestionsToContenu, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { min } from 'mathjs'
 export const titre = 'Connaître le vocabulaire lié aux 4 opérations'

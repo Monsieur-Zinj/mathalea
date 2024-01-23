@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer la fraction d’une quantité'
 export const interactifReady = true

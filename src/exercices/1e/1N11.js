@@ -4,7 +4,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outil
 import { arcenciel } from '../../lib/format/style'
 import { signe } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Déterminer les termes d\'une suite définie par récurrence'

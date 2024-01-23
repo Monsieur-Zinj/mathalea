@@ -1,5 +1,5 @@
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { fraction } from '../../modules/fractions.js'

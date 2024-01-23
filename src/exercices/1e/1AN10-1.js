@@ -5,7 +5,7 @@ import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB
 } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Nombre dérivé de fonctions de références'
 

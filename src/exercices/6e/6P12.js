@@ -2,7 +2,7 @@ import { miseEnCouleur, texteEnCouleur, texteEnCouleurEtGras } from '../../lib/o
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

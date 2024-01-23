@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Multiplier ou diviser par 10, 100,  1000 ou 0,1 ou 0,01'
 export const interactifReady = true

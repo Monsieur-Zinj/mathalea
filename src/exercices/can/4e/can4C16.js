@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Multiplier des fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'

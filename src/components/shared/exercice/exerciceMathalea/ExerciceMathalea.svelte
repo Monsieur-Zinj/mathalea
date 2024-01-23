@@ -1,7 +1,7 @@
 <script lang="ts">
   import ExerciceMathaleaVueEleve from './exerciceMathaleaVueEleve/ExerciceMathaleaVueEleve.svelte'
   import ExerciceMathaleaVueProf from './exerciceMathaleaVueProf/ExerciceMathaleaVueProf.svelte'
-  import type TypeExercice from '../../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../../exercices/Exercice'
 
   export let vue: ('prof' | 'eleve')
   export let exercise: TypeExercice

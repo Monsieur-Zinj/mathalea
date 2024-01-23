@@ -1,7 +1,7 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Rechercher un nombre à ajouter'
 export const interactifReady = true

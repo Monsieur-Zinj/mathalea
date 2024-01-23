@@ -2,7 +2,7 @@ import { choice, compteOccurences, enleveDoublonNum } from '../../lib/outils/arr
 import { lampeMessage } from '../../lib/format/message.js'
 import { range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { context } from '../../modules/context.js'

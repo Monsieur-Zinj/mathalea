@@ -7,7 +7,7 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'

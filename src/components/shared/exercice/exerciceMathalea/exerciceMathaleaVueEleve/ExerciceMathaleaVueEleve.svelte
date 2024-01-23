@@ -1,7 +1,7 @@
 <script lang="ts">
   import { globalOptions, resultsByExercice, exercicesParams, isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'
   import { afterUpdate, onMount, tick } from 'svelte'
-  import type TypeExercice from '../../../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../../../exercices/Exercice'
   import seedrandom from 'seedrandom'
   import { prepareExerciceCliqueFigure, exerciceInteractif } from '../../../../../lib/interactif/gestionInteractif'
   import { loadMathLive } from '../../../../../modules/loaders'

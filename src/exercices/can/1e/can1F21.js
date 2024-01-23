@@ -4,7 +4,7 @@ import {
   ecritureParentheseSiNegatif,
   reduirePolynomeDegre3
 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer l’abscisse ou l’ordonnée du sommet d’une parabole'

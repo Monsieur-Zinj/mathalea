@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Encadrer en utilisant un tableau de variations'

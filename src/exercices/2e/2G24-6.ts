@@ -1,6 +1,6 @@
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import { randint } from '../../modules/outils'
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 
 export const titre = 'Calculer les coordonnées du 4e sommet d\'un parallélogramme'
 export const dateDePublication = '11/11/2023'

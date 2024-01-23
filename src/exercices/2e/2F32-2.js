@@ -5,7 +5,7 @@ import { spline } from '../../lib/mathFonctions/Spline.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer graphiquement les extremums'

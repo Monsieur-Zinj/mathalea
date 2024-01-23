@@ -5,7 +5,7 @@ import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const dateDePublication = '01/10/2022'
 export const titre = 'Dresser et utiliser le tableau de signes d\'une fonction affine en lien avec son sens de variation'

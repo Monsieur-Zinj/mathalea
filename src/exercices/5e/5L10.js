@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'

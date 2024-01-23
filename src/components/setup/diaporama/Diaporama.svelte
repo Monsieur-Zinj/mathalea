@@ -18,7 +18,7 @@
     transitionsBetweenQuestions,
     darkMode
   } from '../../../lib/stores/generalStore'
-  import type Exercice from '../../../exercices/ExerciceTs.js'
+  import type Exercice from '../../../exercices/Exercice'
   import seedrandom from 'seedrandom'
   import { context } from '../../../modules/context.js'
   import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'

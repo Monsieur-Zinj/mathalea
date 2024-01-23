@@ -5,7 +5,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../
 // import { lampeMessage } from '../../lib/format/message.js'
 import { abs, signe } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

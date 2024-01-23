@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 
 export const titre = 'Titre de l\'exercice'

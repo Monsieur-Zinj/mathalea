@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Passer d\'un décimal à une fraction'
 export const interactifReady = true

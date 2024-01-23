@@ -5,7 +5,7 @@ import { afficheLongueurSegment, afficheMesureAngle } from '../../lib/2d/codages
 import { rotation } from '../../lib/2d/transformations.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { arrondi } from '../../lib/outils/nombres'

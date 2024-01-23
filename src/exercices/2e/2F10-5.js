@@ -11,7 +11,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const dateDeModifImportante = '06/07/2023'
 export const titre = 'Déterminer le signe d\'une fonction affine'

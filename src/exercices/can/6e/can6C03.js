@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Rechercher un terme dans une somme'
 export const interactifReady = true
 export const interactifType = 'mathLive'

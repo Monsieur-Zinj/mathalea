@@ -7,7 +7,7 @@ import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 
 export const titre = 'Calculer un angle dans un triangle isocèle'
 export const interactifReady = true

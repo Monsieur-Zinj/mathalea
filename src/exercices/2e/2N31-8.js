@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { modalTexteCourt } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'

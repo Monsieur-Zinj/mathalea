@@ -14,7 +14,7 @@ import { ecritureParentheseSiNegatif, ecritureAlgebrique } from '../../lib/outil
 import { abs } from '../../lib/outils/nombres'
 import { texteGras } from '../../lib/format/style'
 import { texNombre, stringNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'

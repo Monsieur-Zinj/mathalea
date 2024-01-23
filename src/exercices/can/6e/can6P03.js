@@ -1,7 +1,7 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Déterminer le nombre de km avec une vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'

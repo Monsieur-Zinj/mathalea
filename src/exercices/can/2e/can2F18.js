@@ -5,7 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const dateDePublication = '16/11/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'

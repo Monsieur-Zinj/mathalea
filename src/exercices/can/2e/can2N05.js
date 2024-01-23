@@ -5,7 +5,7 @@ import { texteEnCouleurEtGras, texteGras } from '../../../lib/outils/embellissem
 import { listeDesDiviseurs, premiersEntreBornes } from '../../../lib/outils/primalite'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 
 export const titre = 'Reconnaître un nombre premier'
 export const interactifReady = true

@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'

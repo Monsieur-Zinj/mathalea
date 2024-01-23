@@ -2,7 +2,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { xcas, listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Asymptote oblique'
 

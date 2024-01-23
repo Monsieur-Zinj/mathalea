@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 export const titre = '2S30-6'
 
 const multiple = (n, d) => n % d === 0

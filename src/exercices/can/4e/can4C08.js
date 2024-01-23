@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 export const titre = 'Calculer une somme de puissances de 10'
 export const interactifReady = true

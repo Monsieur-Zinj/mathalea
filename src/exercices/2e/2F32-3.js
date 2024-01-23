@@ -2,7 +2,7 @@ import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Déterminer un extremum ou encadrer par lecture d\'un tableau de variations'
 export const dateDePublication = '20/12/2021'

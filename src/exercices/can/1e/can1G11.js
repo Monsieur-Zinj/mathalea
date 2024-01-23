@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Donner la mesure d\'un angle à partir des cosinus et sinus '
 export const interactifReady = true
 export const interactifType = 'mathLive'

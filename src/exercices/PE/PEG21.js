@@ -4,7 +4,7 @@ import { milieu, point, pointAdistance, pointIntersectionLC } from '../../lib/2d
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 export const titre = 'Tracer une racine au compas et à la règle non graduée à l\'aide du théorème de la hauteur'

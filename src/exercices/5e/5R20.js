@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'

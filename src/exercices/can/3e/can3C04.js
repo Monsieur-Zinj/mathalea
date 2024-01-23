@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions.js'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 export const titre = 'Calculer une somme entre fraction et entier'
 export const interactifReady = true

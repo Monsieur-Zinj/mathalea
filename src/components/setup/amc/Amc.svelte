@@ -10,7 +10,7 @@
   } from '../../../lib/mathalea.js'
   import Footer from '../../Footer.svelte'
   import { darkMode, exercicesParams } from '../../../lib/stores/generalStore.js'
-  import type TypeExercice from '../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../exercices/Exercice'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
   import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'

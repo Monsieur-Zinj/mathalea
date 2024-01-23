@@ -14,7 +14,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const dateDePublication = '25/05/2023'
 export const titre = 'Étudier la position relative de deux courbes'

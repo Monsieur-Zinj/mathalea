@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'

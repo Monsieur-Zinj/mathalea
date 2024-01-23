@@ -3,7 +3,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import { pgcd } from '../../../lib/outils/primalite'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 

@@ -3,7 +3,7 @@ import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { modalPdf } from '../../lib/outils/modales.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, egal, randint, contraindreValeur } from '../../modules/outils.js'
 

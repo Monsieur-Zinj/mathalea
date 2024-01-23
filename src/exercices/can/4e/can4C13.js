@@ -3,7 +3,7 @@ import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 export const titre = 'Calculer une fraction de dénominateur un décimal'
 export const interactifReady = true

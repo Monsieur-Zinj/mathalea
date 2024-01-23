@@ -3,7 +3,7 @@ import { repere } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 

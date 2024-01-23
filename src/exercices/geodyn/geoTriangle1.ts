@@ -1,4 +1,4 @@
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { creerNomDePolygone } from '../../lib/outils/outilString'

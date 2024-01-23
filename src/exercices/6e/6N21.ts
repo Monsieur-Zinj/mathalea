@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Figure from 'apigeom'

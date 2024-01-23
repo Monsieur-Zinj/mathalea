@@ -7,7 +7,7 @@ import { deprecatedTexFraction, texFractionReduite } from '../../../lib/outils/d
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import { abs } from '../../../lib/outils/nombres'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { randint, egal, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'

@@ -1,6 +1,6 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Connaître les tables de multiplication (phrases)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

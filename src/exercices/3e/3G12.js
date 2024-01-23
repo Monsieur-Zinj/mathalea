@@ -13,7 +13,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { egal, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { pavage } from '../../modules/Pavage.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'

@@ -6,7 +6,7 @@ import {
   rienSi1
 } from '../../../lib/outils/ecritures'
 import { abs } from '../../../lib/outils/nombres'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint, listeQuestionsToContenu } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Reconnaître une fonction polynôme du second degré (V/F)'

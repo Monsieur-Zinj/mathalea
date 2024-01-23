@@ -7,7 +7,7 @@ import { prenom } from '../../lib/outils/Personne'
 import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import { fraction } from '../../modules/fractions.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { randint, itemize, listeQuestionsToContenu } from '../../modules/outils.js'
 
 export const titre = 'Modéliser une situation  à l\'aide d\'une équation'

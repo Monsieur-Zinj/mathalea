@@ -3,7 +3,7 @@
   import Footer from '../../Footer.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../../../lib/mathalea.js'
-  import type TypeExercice from '../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../exercices/Exercice'
 
   const copyCode = async () => {
     const preElt = document.querySelector('pre')

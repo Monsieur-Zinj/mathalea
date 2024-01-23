@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 import comprendreScriptMultiples from './3I12-2.js'
 import completerScriptDiviseurs from './3I12-3.js'

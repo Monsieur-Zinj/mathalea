@@ -1,6 +1,6 @@
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Résoudre une équation du type $ax+b=c$'
 export const interactifReady = true
 export const interactifType = 'mathLive'

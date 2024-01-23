@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Soustraire $10n + 9$'
 export const interactifReady = true
 export const interactifType = 'mathLive'

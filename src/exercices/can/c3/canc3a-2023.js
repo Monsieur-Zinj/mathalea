@@ -1,7 +1,7 @@
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { min, round } from 'mathjs'
 import { context } from '../../../modules/context.js'
 import Hms from '../../../modules/Hms'

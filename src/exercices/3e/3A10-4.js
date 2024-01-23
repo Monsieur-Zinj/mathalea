@@ -3,7 +3,7 @@ import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { cribleEratostheneN, listeDesDiviseurs } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import {
   listeQuestionsToContenu,

@@ -1,4 +1,4 @@
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 import Figure from 'apigeom'
 import { egal, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context'

@@ -6,7 +6,7 @@ import { texteParPosition } from '../../../lib/2d/textes.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer une longueur/un périmètre/une aire (avec des entiers)'
 export const dateDePublication = '25/08/2022'
 export const interactifReady = true

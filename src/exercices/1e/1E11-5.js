@@ -11,7 +11,7 @@ import {
 import { pgcd } from '../../lib/outils/primalite'
 import { fraction } from '../../modules/fractions.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const interactifReady = false
 // export const interactifType = 'mathLive'

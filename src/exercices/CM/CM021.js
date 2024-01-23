@@ -1,6 +1,6 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { range1 } from '../../lib/outils/nombres'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import {
   listeQuestionsToContenu,
   randint,

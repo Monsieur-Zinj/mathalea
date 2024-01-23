@@ -3,7 +3,7 @@ import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Trouver les valeurs interdites d’une fonction'
 export const interactifReady = true

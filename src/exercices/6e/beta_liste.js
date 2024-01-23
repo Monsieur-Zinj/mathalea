@@ -1,4 +1,4 @@
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { randint } from '../../modules/outils.js'
 import { createList } from '../../lib/format/lists.ts'
 import { context } from '../../modules/context.js'

@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import Trinome from '../../modules/Trinome.js'

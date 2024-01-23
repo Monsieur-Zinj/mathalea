@@ -1,7 +1,7 @@
 import { choice, combinaisonListes, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { compareFractions, deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 

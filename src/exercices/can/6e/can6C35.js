@@ -4,7 +4,7 @@ import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Résoudre un problème avec "de plus", "de moins"'
 export const interactifReady = true
 export const interactifType = 'mathLive'

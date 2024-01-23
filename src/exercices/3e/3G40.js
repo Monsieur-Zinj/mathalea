@@ -20,7 +20,7 @@ import {
   listeQuestionsToContenuSansNumero,
   randint
 } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const dateDeModifImportante = '02/11/2022' // EE : Mise en place de this.sup2, des unités et du grossissement des points
 export const titre = 'Repérage sur la sphère'

@@ -6,7 +6,7 @@ import Hms from '../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Convertir en min vers h et min ou en s vers min et s'

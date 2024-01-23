@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

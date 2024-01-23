@@ -16,7 +16,7 @@ import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
 import { listeQuestionsToContenu, gestionnaireFormulaireTexte, randint } from '../../modules/outils.js'
 import { RedactionPythagore } from '../4e/_pythagore.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 export const titre = 'Bonne année...'
 
 export const dateDePublication = '02/01/2023'

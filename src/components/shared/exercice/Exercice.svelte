@@ -8,7 +8,7 @@
   import type { InterfaceParams } from '../../../lib/types'
   import uuidToUrl from '../../../json/uuidsToUrl.json'
   import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
-  import Exercice from '../../../exercices/ExerciceTs'
+  import Exercice from '../../../exercices/Exercice'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
 

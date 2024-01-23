@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { fraction, obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Trouver l’opposé ou l’inverse d’une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

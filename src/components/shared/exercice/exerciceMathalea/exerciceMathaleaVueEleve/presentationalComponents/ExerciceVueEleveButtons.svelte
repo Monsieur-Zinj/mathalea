@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { InterfaceGlobalOptions } from '../../../../../../lib/types'
-  import type TypeExercice from '../../../../../../exercices/ExerciceTs'
+  import type TypeExercice from '../../../../../../exercices/Exercice'
   import Button from '../../../../forms/Button.svelte'
   import InteractivityIcon from '../../../../icons/TwoStatesIcon.svelte'
   export let exercise: TypeExercice

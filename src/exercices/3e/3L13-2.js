@@ -9,7 +9,7 @@ import FractionEtendue from '../../modules/FractionEtendue.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 

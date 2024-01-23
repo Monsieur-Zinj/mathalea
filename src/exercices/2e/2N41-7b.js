@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'

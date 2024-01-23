@@ -3,7 +3,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import {
   obtenirListeFractionsIrreductibles
 } from '../../../lib/outils/deprecatedFractions.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Rendre irréductible une fraction'
 export const interactifReady = true
 export const interactifType = 'mathLive'

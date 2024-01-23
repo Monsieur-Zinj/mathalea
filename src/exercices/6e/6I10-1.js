@@ -8,7 +8,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type TypeExercice from '../../../../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../../../../exercices/Exercice'
   import { mathaleaFormatExercice } from '../../../../../../lib/mathalea.js'
 
   export let exercise: TypeExercice

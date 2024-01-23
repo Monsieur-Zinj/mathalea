@@ -7,7 +7,7 @@ import { context } from '../../modules/context.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 

@@ -1,7 +1,7 @@
 import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Utiliser une proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'

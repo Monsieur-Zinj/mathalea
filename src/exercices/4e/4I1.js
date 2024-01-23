@@ -1,6 +1,6 @@
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'

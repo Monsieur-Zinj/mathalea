@@ -4,7 +4,7 @@ import { rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { ecriturePuissance } from '../../lib/outils/puissance'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 

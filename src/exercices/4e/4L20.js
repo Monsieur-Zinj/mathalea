@@ -4,7 +4,7 @@ import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/depr
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 // import { lampeMessage } from '../../lib/format/message.js'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { abs, signe } from '../../lib/outils/nombres'
 

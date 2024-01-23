@@ -5,7 +5,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString.js'
 import { personne, personnes } from '../../lib/outils/Personne'
 import { texNombre2 } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint, ppcm, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Problèmes de ratio'

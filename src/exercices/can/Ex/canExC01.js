@@ -1,4 +1,4 @@
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 import { complex, add } from 'mathjs'
 export const titre = 'Somme de nombres complexes'

@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { toTex, resoudre, calculer, aleaVariables } from '../../modules/outilsMathjs.js'
 import { simplify } from 'mathjs'

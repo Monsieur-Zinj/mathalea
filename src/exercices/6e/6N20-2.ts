@@ -1,5 +1,5 @@
 import { shuffle } from '../../lib/outils/arrayOutils'
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'

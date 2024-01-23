@@ -5,7 +5,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3, rienSi1
 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer la fonction dérivée d’un polynôme de degré 3'
 export const interactifReady = true

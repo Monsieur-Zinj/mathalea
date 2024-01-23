@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 export const amcReady = true
 export const amcType = 'qcmMono'

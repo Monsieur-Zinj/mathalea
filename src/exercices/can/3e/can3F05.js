@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer un antécédent par fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'

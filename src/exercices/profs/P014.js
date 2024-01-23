@@ -3,7 +3,7 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { splineCatmullRom } from '../../lib/mathFonctions/SplineCatmullRom.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Interpollation de Catmull-Rom'
 export const ref = 'P014'

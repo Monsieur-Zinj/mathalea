@@ -1,7 +1,7 @@
 import { point } from '../../lib/2d/points.js'
 import { infoMessage } from '../../lib/format/message.js'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { randint, enumerate, enumerateSansPuceSansNumero } from '../../modules/outils.js'

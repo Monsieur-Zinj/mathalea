@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
-  import type TypeExercice from '../../../../../exercices/ExerciceTs.js'
+  import type TypeExercice from '../../../../../exercices/Exercice'
   import HeaderExerciceVueEleve from '../shared/HeaderExerciceVueEleve.svelte'
   import type { VueType } from '../../../../../lib/types'
   import { globalOptions, isMenuNeededForExercises } from '../../../../../lib/stores/generalStore'

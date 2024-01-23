@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
 export const titre = 'Calculer une somme/différence de fractions égyptiennes'

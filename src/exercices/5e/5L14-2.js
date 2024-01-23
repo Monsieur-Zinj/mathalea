@@ -2,7 +2,7 @@ import { choice, combinaisonListes, enleveElement } from '../../lib/outils/array
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { range } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

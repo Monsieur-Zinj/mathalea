@@ -11,7 +11,7 @@ import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Fonctions : Notion et vocabulaire'
 

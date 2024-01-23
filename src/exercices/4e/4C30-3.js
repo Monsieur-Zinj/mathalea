@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { puissanceEnProduit } from '../../lib/outils/puissance'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

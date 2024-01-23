@@ -17,7 +17,7 @@
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams
   } from '../../../lib/mathalea'
-  import type Exercice from '../../../exercices/ExerciceTs.js'
+  import type Exercice from '../../../exercices/Exercice'
   import seedrandom from 'seedrandom'
   import type { InterfaceParams } from '../../../lib/types'
   import BtnZoom from '../../shared/ui/btnZoom.svelte'

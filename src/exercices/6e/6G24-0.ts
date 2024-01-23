@@ -1,4 +1,4 @@
-import Exercice from '../ExerciceTs'
+import Exercice from '../Exercice'
 import {
   droiteHorizontaleParPoint,
   droiteParPointEtPente,

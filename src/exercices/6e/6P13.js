@@ -5,7 +5,7 @@ import { arrondi, nombreDeChiffresDansLaPartieDecimale } from '../../lib/outils/
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'

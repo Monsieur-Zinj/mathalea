@@ -6,7 +6,7 @@ import {
   reduireAxPlusB,
   reduirePolynomeDegre3
 } from '../../../lib/outils/ecritures'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer le nombre de solutions d’une équation du second degré'

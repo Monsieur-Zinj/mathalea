@@ -1,5 +1,5 @@
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { Yohaku } from '../../lib/outils/Yohaku'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { context } from '../../modules/context.js'

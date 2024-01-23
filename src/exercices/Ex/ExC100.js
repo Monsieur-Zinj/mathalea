@@ -3,7 +3,7 @@ import { deprecatedTexFraction, fractionSimplifiee } from '../../lib/outils/depr
 import { abs } from '../../lib/outils/nombres'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { complex, multiply } from 'mathjs'
 export const titre = 'Résoudre une équation du premier degré dans C'
 export const dateDePublication = '30/10/2021'

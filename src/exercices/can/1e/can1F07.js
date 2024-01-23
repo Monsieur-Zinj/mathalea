@@ -7,7 +7,7 @@ import {
   reduirePolynomeDegre3, rienSi1
 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { fraction } from '../../../modules/fractions.js'

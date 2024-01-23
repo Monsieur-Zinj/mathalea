@@ -1,6 +1,6 @@
 import { pave } from '../../../lib/2d/projections3d.js'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Volume de pavé droit'
 export const interactifReady = true

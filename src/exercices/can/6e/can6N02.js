@@ -1,6 +1,6 @@
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Recomposer un entier (bis)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

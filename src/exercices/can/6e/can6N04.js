@@ -5,7 +5,7 @@ import { pgcd } from '../../../lib/outils/primalite'
 import { context } from '../../../modules/context.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 export const titre = 'Lire une abscisse sur une droite graduée'
 export const interactifReady = true

@@ -9,7 +9,7 @@ import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom, prenomM } from '../../lib/outils/Personne'
 import { texPrix, texteGras } from '../../lib/format/style'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 
 import { mathalea2d } from '../../modules/2dGeneralites.js'

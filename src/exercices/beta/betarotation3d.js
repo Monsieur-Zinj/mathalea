@@ -1,5 +1,5 @@
 import { texcolors } from '../../lib/format/style'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 import { point3d, polygone3d, rotation3d, droite3d } from '../../modules/3d.js'

@@ -2,7 +2,7 @@ import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { valeurBase } from './PEA11-1.js'
 
 export const titre = 'Multiplications dans d\'autres bases'

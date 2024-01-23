@@ -3,7 +3,7 @@ import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../..
 import { range } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 

@@ -1,6 +1,6 @@
 import { texNombre } from '../../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Arrondir à l\'unité'
 export const interactifReady = true
 export const interactifType = 'mathLive'

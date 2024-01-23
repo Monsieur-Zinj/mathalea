@@ -1,5 +1,5 @@
 import { numAlpha } from '../../lib/outils/outilString.js'
-import Exercice from '../Exercice.js'
+import Exercice from '../deprecatedExercice.js'
 import {
   listeQuestionsToContenuSansNumero,
   randint,
