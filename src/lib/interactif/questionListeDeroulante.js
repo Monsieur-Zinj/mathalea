@@ -49,7 +49,7 @@ export function verifQuestionListeDeroulante (exercice/** Exercice */, i/** numb
       }
     } else {
       // Pour les exercices classiques, on compare directement
-      if (reponse === saisie) {
+      if (reponse.replaceAll(' ', '') === saisie.replaceAll(' ', '')) {
         resultat = 'OK'
         if (spanReponseLigne) spanReponseLigne.innerHTML = '😎'
       }
