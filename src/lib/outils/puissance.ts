@@ -8,7 +8,7 @@ import { ecritureParentheseSiNegatif } from './ecritures'
  * @param n {number} exposant
  * @author Erwan Duplessy
  */
-export function puissance (b, n) {
+export function puissance (b: number, n: number) {
   switch (b) {
     case 0:
       return '0'
@@ -29,7 +29,7 @@ export function puissance (b, n) {
   }
 }
 
-export function ecriturePuissance (a, b, n) {
+export function ecriturePuissance (a: number, b: number, n: number) {
   switch (a) {
     case 0:
       return '$0$'
@@ -49,7 +49,7 @@ export function ecriturePuissance (a, b, n) {
  * @param e exposant
  * @author Sébastien Lozano
  */
-export function simpNotPuissance (b, e) {
+export function simpNotPuissance (b: number, e: number) {
   // on switch sur la base
   switch (b) {
     case -1: // si la base vaut -1 on teste la parité de l'exposant
@@ -88,7 +88,7 @@ export function simpNotPuissance (b, e) {
  * @param couleur
  * @author Sébastien Lozano
  */
-export function eclatePuissance (b, e, couleur) {
+export function eclatePuissance (b: number, e: number, couleur: string) {
   let str
   switch (e) {
     case 0:
@@ -111,8 +111,8 @@ export function eclatePuissance (b, e, couleur) {
  * @author Rémi Angot
  * @return string
  */
-export function puissanceEnProduit (b, e) {
-  let str
+export function puissanceEnProduit (b: number, e: number): string {
+  let str = ''
   if (e === 0) {
     return '1'
   } else if (e === 1) {
@@ -126,6 +126,7 @@ export function puissanceEnProduit (b, e) {
   } else if (e < 0) {
     return `\\dfrac{1}{${puissanceEnProduit(b, -e)}}`
   }
+  return str
 }
 
 /**
@@ -135,7 +136,7 @@ export function puissanceEnProduit (b, e) {
  * @param e exposant
  * @author Sébastien Lozano
  */
-export function simpExp (b, e) {
+export function simpExp (b: number, e: number) {
   switch (e) {
     case 1:
       return ` ${b}`

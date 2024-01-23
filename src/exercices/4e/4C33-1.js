@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { modalPdf } from '../../lib/outils/modales.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import { eclatePuissance, simpNotPuissance } from '../../lib/outils/puissance.js'
+import { eclatePuissance, simpNotPuissance } from '../../lib/outils/puissance'
 import { texteGras } from '../../lib/format/style'
 import { context } from '../../modules/context.js'
 

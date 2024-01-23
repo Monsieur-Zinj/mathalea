@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { modalPdf } from '../../lib/outils/modales.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import { eclatePuissance, simpExp } from '../../lib/outils/puissance.js'
+import { eclatePuissance, simpExp } from '../../lib/outils/puissance'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
