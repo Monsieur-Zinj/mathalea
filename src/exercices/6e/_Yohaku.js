@@ -51,11 +51,11 @@ export default function FabriqueAYohaku () {
         valeurMax
       })
       yohaku.calculeResultats()
-      const mot = type === 'littéraux' ? ['expressions', 'contenues'] : ['nombres', 'contenus']
+      const mot = type === 'littéraux' ? 'expressions' : type.includes('frac') ? 'fractions' : 'nombres'
       this.introduction = operateur === 'addition'
-        ? `Les ${mot[0]} en bout de ligne ou de colonne sont les sommes des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
-        : `Les ${mot[0]} en bout de ligne ou de colonne sont les produits des ${mot[0]} ${mot[1]} dans la ligne ou la colonne.`
-      this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot[0]} qui conviennent (plusieurs solutions possibles).<br>`
+        ? `Trouve les ${mot} à mettre dans les cases vides pour que les sommes de chaque ligne et chaque colonne soient exactes.`
+        : `Trouve les ${mot} à mettre dans les cases vides pour que les produits de chaque ligne et chaque colonne soient exacts.`
+      this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot} qui conviennent (plusieurs solutions possibles).<br>`
       texte = yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: this.interactif })
       texteCorr = 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br><br>'
       yohaku.solution = true
