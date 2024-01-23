@@ -33,21 +33,43 @@ export interface ItabDbleEntry {
   headingLines: Icell[]
 }
 
-function appendCell ({ line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ }: {line: HTMLElement, icell: Icell, indexCol:number, indexLine:number, tag:'th'|'td', classes:string, NoEx: number, NoQ: number}) {
+/**
+ * Ajoute une cellule et ce qu'il faut dedans
+ * @param {boolean} isInteractif
+ * @param line
+ * @param icell
+ * @param indexCol
+ * @param indexLine
+ * @param tag
+ * @param classes
+ * @param NoEx
+ * @param NoQ
+ */
+function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ }: {isInteractif: boolean, line: HTMLElement, icell: Icell, indexCol:number, indexLine:number, tag:'th'|'td', classes:string, NoEx: number, NoQ: number}) {
   const cell = document.createElement(tag)
   let element: HTMLElement
   if (icell.texte === '') {
-    element = document.createElement('math-field')
-    element.classList.add('tableauMathlive')
-    for (const classe of classes.split(' ')) {
-      if (classe !== '') element.classList.add(classe)
+    if (isInteractif) {
+      element = document.createElement('math-field')
+      element.classList.add('tableauMathlive')
+      for (const classe of classes.split(' ')) {
+        if (classe !== '') element.classList.add(classe)
+      }
+      element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
+      element.setAttribute('virtual-keyboard-mode', 'manual')
+      cell.appendChild(element)
+      const spanFeedback = document.createElement('span')
+      spanFeedback.id = `feedbackEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
+      cell.appendChild(spanFeedback)
+    } else {
+      element = document.createElement('span')
+      element.classList.add('tableauMathlive')
+      for (const classe of classes.split(' ')) {
+        if (classe !== '') element.classList.add(classe)
+      }
+      element.id = `cell${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
+      cell.appendChild(element)
     }
-    element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
-    element.setAttribute('virtual-keyboard-mode', 'manual')
-    cell.appendChild(element)
-    const spanFeedback = document.createElement('span')
-    spanFeedback.id = `feedbackEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
-    cell.appendChild(spanFeedback)
   } else {
     if (icell.latex) {
     // J'aimerais pouvoir utiliser mathlive mais ça semble poser des soucis, je remplace par katex...
@@ -73,9 +95,9 @@ function appendCell ({ line, icell, indexCol, indexLine, tag, classes, NoEx, NoQ
  * @param {'td'|'th'} tag le tag (td pour des cellules à l'intérieur th pour des cellules d'entête)
  * @param {string} classes une liste de className dans un string séparés par des espaces
  */
-const fillLine = function ({ line, content, index, tag, classes, NoEx, NoQ }:{line: HTMLElement, content: Icell[], index: number, tag: 'td'|'th', classes: string, NoEx: number, NoQ: number}): void {
+const fillLine = function ({ isInteractif, line, content, index, tag, classes, NoEx, NoQ }:{isInteractif: boolean, line: HTMLElement, content: Icell[], index: number, tag: 'td'|'th', classes: string, NoEx: number, NoQ: number}): void {
   for (let i = 0; i < content.length; i++) {
-    appendCell({ line, icell: content[i], indexCol: i, indexLine: index, tag, classes, NoEx, NoQ })
+    appendCell({ isInteractif, line, icell: content[i], indexCol: i, indexLine: index, tag, classes, NoEx, NoQ })
   }
 }
 
@@ -94,8 +116,9 @@ export class AddTabPropMathlive {
   flecheGauche: FlecheCote
   flecheGaucheSens: FlecheSens
   classes?: string
+  isInteractif: boolean
 
-  private constructor (numeroExercice: number, question: number, tableau: Itableau, classes: string) {
+  private constructor (numeroExercice: number, question: number, tableau: Itableau, classes: string, isInteractif: boolean) {
     this.nbColonnes = tableau.nbColonnes ?? 1
     this.flecheHaut = tableau.flecheHaut ?? []
     this.flecheBas = tableau.flecheBas ?? []
@@ -107,9 +130,10 @@ export class AddTabPropMathlive {
     this.numeroQuestion = question
     this.id = `tabMLEx${this.numeroExercice}Q${this.numeroQuestion}`
     this.classes = classes
+    this.isInteractif = isInteractif
   }
 
-  static create (numeroExercice: number, question: number, tableau: Itableau, classes: string) {
+  static create (numeroExercice: number, question: number, tableau: Itableau, classes: string, isInteractif: boolean) {
     if (!Array.isArray(tableau.ligne1) || !Array.isArray(tableau.ligne1)) {
       notify('ajouteTableauMathlive : vérifiez vos paramètres !', { ligne1: tableau.ligne1, ligne2: tableau.ligne2, nbColonnes: tableau.nbColonnes })
     }
@@ -118,23 +142,23 @@ export class AddTabPropMathlive {
     const NoQ = question
     const ligne1 = [...tableau.ligne1]
     const ligne2 = [...tableau.ligne2]
-    const tableauMathlive: AddTabPropMathlive = new AddTabPropMathlive(numeroExercice, question, tableau, classes)
+    const tableauMathlive: AddTabPropMathlive = new AddTabPropMathlive(numeroExercice, question, tableau, classes, isInteractif)
     const table = document.createElement('table')
     table.className = 'tableauMathlive'
     table.id = `tabMathliveEx${NoEx}Q${question}`
     const firstLine = document.createElement('tr')
     const entete1 = ligne1.shift()
-    if (entete1) appendCell({ line: firstLine, icell: entete1, indexCol: 0, indexLine: 0, tag: 'th', classes, NoEx, NoQ })
+    if (entete1) appendCell({ isInteractif, line: firstLine, icell: entete1, indexCol: 0, indexLine: 0, tag: 'th', classes, NoEx, NoQ })
     for (let i = 0; i < ligne1.length; i++) {
-      appendCell({ line: firstLine, icell: ligne1[i], indexCol: i + 1, indexLine: 0, tag: 'td', classes, NoEx, NoQ })
+      appendCell({ isInteractif, line: firstLine, icell: ligne1[i], indexCol: i + 1, indexLine: 0, tag: 'td', classes, NoEx, NoQ })
     }
     table.appendChild(firstLine)
     // tableau de proportionnalité conforme à ceux définis dans src/lib/2d/tableau.js
     const secondLine = document.createElement('tr')
     const entete2 = ligne2.shift()
-    if (entete2) appendCell({ line: secondLine, icell: entete2, indexCol: 0, indexLine: 1, tag: 'th', classes, NoEx, NoQ })
+    if (entete2) appendCell({ isInteractif, line: secondLine, icell: entete2, indexCol: 0, indexLine: 1, tag: 'th', classes, NoEx, NoQ })
     for (let i = 0; i < ligne2.length; i++) {
-      appendCell({ line: secondLine, icell: ligne2[i], indexCol: i + 1, indexLine: 1, tag: 'td', classes, NoEx, NoQ })
+      appendCell({ isInteractif, line: secondLine, icell: ligne2[i], indexCol: i + 1, indexLine: 1, tag: 'td', classes, NoEx, NoQ })
     }
     table.appendChild(secondLine)
     const spanCheckOuterHTML = `<span id="resultatCheckEx${numeroExercice}Q${question}"></span>`
@@ -175,7 +199,8 @@ export class AddTabDbleEntryMathlive {
   headingCols: Icell[]
   headingLines: Icell[]
   classes: string
-  private constructor (numeroExercice: number, question: number, tableau: ItabDbleEntry, classes: string) {
+  isInteractif: boolean
+  private constructor (numeroExercice: number, question: number, tableau: ItabDbleEntry, classes: string, isInteractif: boolean) {
     if (numeroExercice == null) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
@@ -188,14 +213,15 @@ export class AddTabDbleEntryMathlive {
     this.id = `tabMLEx${this.numeroExercice}Q${this.numeroQuestion}`
     this.raws = tableau.raws
     this.classes = classes
+    this.isInteractif = isInteractif
   }
 
-  static create (numeroExercice: number, question: number, tableau: ItabDbleEntry, classes: string) {
+  static create (numeroExercice: number, question: number, tableau: ItabDbleEntry, classes: string, isInteractif: boolean) {
     // tableau doit contenir headingCols et headingLines, qui peuvent être vides, mais doivent être fournis.
     if (!Array.isArray(tableau.headingCols) || !Array.isArray(tableau.headingLines)) {
       notify('ajouteTableauMathlive : vérifiez vos paramètres !', { headingCols: tableau.headingCols, headingLines: tableau.headingLines })
     }
-    const tableauMathlive: AddTabDbleEntryMathlive = new AddTabDbleEntryMathlive(numeroExercice, question, tableau, classes)
+    const tableauMathlive: AddTabDbleEntryMathlive = new AddTabDbleEntryMathlive(numeroExercice, question, tableau, classes, isInteractif)
     const table = document.createElement('table')
     const NoEx = numeroExercice ?? 0
     const NoQ = question
@@ -204,14 +230,14 @@ export class AddTabDbleEntryMathlive {
     const firstLine = document.createElement('tr')
     table.appendChild(firstLine)
     if (tableau.headingCols != null) {
-      fillLine({ line: firstLine, content: tableau.headingCols, index: 0, tag: 'th', classes, NoEx, NoQ })
+      fillLine({ isInteractif, line: firstLine, content: tableau.headingCols, index: 0, tag: 'th', classes, NoEx, NoQ })
     }
     // lignes suivantes
     for (let j = 0; j < tableau.raws.length; j++) {
       const newLine = document.createElement('tr')
       table.appendChild(newLine)
       if (tableau.headingLines != null) {
-        appendCell({ line: newLine, icell: tableau.headingLines[j], indexCol: 0, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'th', classes, NoEx, NoQ })
+        appendCell({ isInteractif, line: newLine, icell: tableau.headingLines[j], indexCol: 0, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'th', classes, NoEx, NoQ })
         /*
         const head = document.createElement('th')
         head.textContent = `$${tableau.headingLines[j]}$`
@@ -221,7 +247,7 @@ export class AddTabDbleEntryMathlive {
       const raw = tableau.raws[j]
       if (Array.isArray(raw) && raw.length > 0) {
         for (let i = 0; i < raw.length; i++) {
-          appendCell({ line: newLine, icell: raw[i], indexCol: tableau.headingLines != null ? i + 1 : i, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'td', classes, NoEx, NoQ })
+          appendCell({ isInteractif, line: newLine, icell: raw[i], indexCol: tableau.headingLines != null ? i + 1 : i, indexLine: tableau.headingCols != null ? 1 + j : j, tag: 'td', classes, NoEx, NoQ })
         }
       }
     }

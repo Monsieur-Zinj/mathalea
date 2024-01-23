@@ -5,6 +5,8 @@ import { segment } from './segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPosition } from './textes.js'
 import { context } from '../../modules/context.js'
 import { stringNombre, texNombre } from '../outils/texNombre'
+import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMathlive'
+import { randint } from '../../modules/outils.js'
 
 /**
  * fonction utilisée par la classe Tableau pour créer une flèche
@@ -326,74 +328,72 @@ export function tableau (...args) {
  * @param {array} tabLignes contient les elements de chaque ligne
  * @param {number} arraystretch
  * @param {boolean} math
+ * @param {number} exo  Le numéro de l'exercice pour les ids
+ * @param {number} question Le numéro de la question pour les ids
  * @return {string}
  * @author Sébastien Lozano
  *
  */
-export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch, math = true) {
+export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch, math = true, exo = randint(0, 9999999), question = randint(0, 9999999)) {
   // on définit le nombre de colonnes
   const C = tabEntetesColonnes.length
   // on définit le nombre de lignes
   const L = tabEntetesLignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
-  let tableauCL = ''
-  if (arraystretch === undefined || typeof arraystretch === 'boolean') {
-    if (context.isHtml) {
-      arraystretch = 2.5
-    } else {
+  if (context.isHtml) {
+    const tableauCL = AddTabDbleEntryMathlive.create(exo, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEntetesColonnes, tabEntetesLignes, tabLignes), 'tableauMathlive')
+    return tableauCL.output
+  } else {
+    let tableauCL = ''
+    if (arraystretch === undefined || typeof arraystretch === 'boolean') {
       arraystretch = 1
     }
-  }
-  if (context.isHtml) {
-    tableauCL += `$\\def\\arraystretch{${arraystretch}}\\begin{array}{|`
-  } else {
+
     tableauCL += `$\\renewcommand{\\arraystretch}{${arraystretch}}\n`
     tableauCL += '\\begin{array}{|'
-  }
-  // on construit la 1ere ligne avec toutes les colonnes
-  for (let k = 0; k < C; k++) {
-    tableauCL += 'c|'
-  }
-  tableauCL += '}\n'
 
-  tableauCL += '\\hline\n'
-  if (typeof tabEntetesColonnes[0] === 'number') {
-    tableauCL += math ? texNombre(tabEntetesColonnes[0]) + '' : `\\text{${stringNombre(tabEntetesColonnes[0])}} `
-  } else {
-    tableauCL += math ? tabEntetesColonnes[0] : `\\text{${tabEntetesColonnes[0]}}`
-  }
-  for (let k = 1; k < C; k++) {
-    if (typeof tabEntetesColonnes[k] === 'number') {
-      tableauCL += ` & ${math ? texNombre(tabEntetesColonnes[k]) : '\\text{' + stringNombre(tabEntetesColonnes[k]) + '}'}`
-    } else {
-      tableauCL += ` & ${math ? tabEntetesColonnes[k] : '\\text{' + tabEntetesColonnes[k] + '}'}`
+    // on construit la 1ere ligne avec toutes les colonnes
+    for (let k = 0; k < C; k++) {
+      tableauCL += 'c|'
     }
-  }
-  tableauCL += '\\\\\n'
-  tableauCL += '\\hline\n'
-  // on construit toutes les lignes
-  for (let k = 0; k < L; k++) {
-    if (typeof tabEntetesLignes[k] === 'number') {
-      tableauCL += math ? texNombre(tabEntetesLignes[k]) : `\\text{${stringNombre(tabEntetesLignes[k]) + ''}}`
+    tableauCL += '}\n'
+
+    tableauCL += '\\hline\n'
+    if (typeof tabEntetesColonnes[0] === 'number') {
+      tableauCL += `\\cellcolor{lightgray}${math ? texNombre(tabEntetesColonnes[0], 2) + '' : `\\text{${stringNombre(tabEntetesColonnes[0], 2)}} `}`
     } else {
-      tableauCL += math ? tabEntetesLignes[k] : `\\text{${tabEntetesLignes[k] + ''}}`
+      tableauCL += `\\cellcolor{lightgray}${math ? tabEntetesColonnes[0] : `\\text{${tabEntetesColonnes[0]}}`}`
     }
-    for (let m = 1; m < C; m++) {
-      if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
-        tableauCL += ` & ${math ? texNombre(tabLignes[(C - 1) * k + m - 1]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m - 1]) + '}'}`
+    for (let k = 1; k < C; k++) {
+      if (typeof tabEntetesColonnes[k] === 'number') {
+        tableauCL += ` & \\cellcolor{lightgray} ${math ? texNombre(tabEntetesColonnes[k]) : '\\text{' + stringNombre(tabEntetesColonnes[k]) + '}'}`
       } else {
-        tableauCL += ` & ${math ? tabLignes[(C - 1) * k + m - 1] : '\\text{' + tabLignes[(C - 1) * k + m - 1] + '}'}`
+        tableauCL += ` & \\cellcolor{lightgray} ${math ? tabEntetesColonnes[k] : '\\text{' + tabEntetesColonnes[k] + '}'}`
       }
     }
     tableauCL += '\\\\\n'
     tableauCL += '\\hline\n'
-  }
-  tableauCL += '\\end{array}\n'
-  if (context.isHtml) {
-    tableauCL += '$'
-  } else {
-    tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
-  }
+    // on construit toutes les lignes
+    for (let k = 0; k < L; k++) {
+      if (typeof tabEntetesLignes[k] === 'number') {
+        tableauCL += `\\cellcolor{lightgray}${math ? texNombre(tabEntetesLignes[k]) : `\\text{${stringNombre(tabEntetesLignes[k]) + ''}}`}`
+      } else {
+        tableauCL += `\\cellcolor{lightgray}${math ? tabEntetesLignes[k] : `\\text{${tabEntetesLignes[k] + ''}}`}`
+      }
+      for (let m = 1; m < C; m++) {
+        if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
+          tableauCL += ` & ${math ? texNombre(tabLignes[(C - 1) * k + m - 1]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m - 1]) + '}'}`
+        } else {
+          tableauCL += ` & ${math ? tabLignes[(C - 1) * k + m - 1] : '\\text{' + tabLignes[(C - 1) * k + m - 1] + '}'}`
+        }
+      }
+      tableauCL += '\\\\\n'
+      tableauCL += '\\hline\n'
+    }
+    tableauCL += '\\end{array}\n'
 
-  return tableauCL
+    tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
+
+    return tableauCL
+  }
 }
