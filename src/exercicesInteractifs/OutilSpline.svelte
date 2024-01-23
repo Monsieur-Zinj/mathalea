@@ -1,5 +1,5 @@
 <script>
-  import HeaderExerciceVueProf from '../components/shared/exercice/shared/HeaderExerciceVueProf.svelte'
+  import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import { repere } from '../lib/2d/reperes.js'
   import { spline, trieNoeuds } from '../lib/mathFonctions/Spline.js'
   import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
