@@ -9,7 +9,7 @@ import {
   rienSi1
 } from '../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite.js'
+import { premierMultipleInferieur, premierMultipleSuperieur } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

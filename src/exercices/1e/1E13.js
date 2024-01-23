@@ -8,7 +8,7 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../lib/outils/ecritures'
-import { pgcd } from '../../lib/outils/primalite.js'
+import { pgcd } from '../../lib/outils/primalite'
 import { fraction } from '../../modules/fractions.js'
 import { egal, listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice.js'

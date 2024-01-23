@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { factorisation } from './primalite.js'
+import { factorisation } from './primalite'
 import { texNombre } from './texNombre'
 
 /**

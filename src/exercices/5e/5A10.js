@@ -1,5 +1,5 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
-import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
+import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

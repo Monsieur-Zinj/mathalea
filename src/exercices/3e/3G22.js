@@ -2,7 +2,7 @@ import { fractionSimplifiee, texFractionReduite } from '../../lib/outils/depreca
 import { texteExposant } from '../../lib/outils/ecritures'
 import { katexPopup2 } from '../../lib/format/message.js'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { pgcd } from '../../lib/outils/primalite.js'
+import { pgcd } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import Decimal from 'decimal.js'

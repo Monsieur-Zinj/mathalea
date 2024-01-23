@@ -1,4 +1,4 @@
-import { obtenirListeFacteursPremiers } from '../lib/outils/primalite.js'
+import { obtenirListeFacteursPremiers } from '../lib/outils/primalite'
 import { texNombre2 } from '../lib/outils/texNombre'
 import { context } from './context.js'
 import { all, create } from 'mathjs'

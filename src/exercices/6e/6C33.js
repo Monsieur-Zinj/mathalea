@@ -2,7 +2,7 @@ import { choice, combinaisonListes, enleveElement } from '../../lib/outils/array
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { nombreDeChiffresDansLaPartieEntiere, range1, rangeMinMax } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
+import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

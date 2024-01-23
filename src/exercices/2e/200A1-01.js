@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
-import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite.js'
+import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite'
 import Exercice from '../Exercice.js'
 
 export const titre = 'Lister tous les diviseurs d’un entier'

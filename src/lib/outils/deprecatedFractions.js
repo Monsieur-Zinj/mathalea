@@ -1,6 +1,6 @@
 import { miseEnEvidence } from './embellissements'
 import { ecritureParentheseSiNegatif } from './ecritures'
-import { pgcd } from './primalite.js'
+import { pgcd } from './primalite'
 import { texNombre } from './texNombre'
 
 /**

@@ -1,6 +1,6 @@
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
+import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import Exercice from '../Exercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

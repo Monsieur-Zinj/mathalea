@@ -9,7 +9,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi
 import { abs } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenomF } from '../../lib/outils/Personne'
-import { pgcd } from '../../lib/outils/primalite.js'
+import { pgcd } from '../../lib/outils/primalite'
 import { texPrix, texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'

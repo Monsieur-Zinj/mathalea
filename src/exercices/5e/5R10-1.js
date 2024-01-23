@@ -1,5 +1,5 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { obtenirListeFacteursPremiers } from '../../lib/outils/primalite.js'
+import { obtenirListeFacteursPremiers } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

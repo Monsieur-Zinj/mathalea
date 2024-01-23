@@ -13,7 +13,7 @@ import {
   listeDesDiviseurs,
   obtenirListeFacteursPremiers,
   pgcd
-} from '../lib/outils/primalite.js'
+} from '../lib/outils/primalite'
 import { stringNombre, texNombre } from '../lib/outils/texNombre'
 import {
   quotientier,

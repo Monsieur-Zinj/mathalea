@@ -1,6 +1,6 @@
 import { diagrammeBarres } from '../../lib/2d/diagrammes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { decompositionFacteursPremiers } from '../../lib/outils/primalite.js'
+import { decompositionFacteursPremiers } from '../../lib/outils/primalite'
 import { listeEntiersSommeConnue } from '../../modules/debarras/listeEntiersSommeConnue.js'
 import Exercice from '../Exercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'

@@ -1,7 +1,7 @@
 import { combinaisonListesSansChangerOrdre, shuffle, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { modalPdf } from '../../lib/outils/modales.js'
-import { listeDesDiviseurs } from '../../lib/outils/primalite.js'
+import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

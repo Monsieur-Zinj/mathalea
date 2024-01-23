@@ -6,7 +6,7 @@ import { choice, combinaisonListesSansChangerOrdre } from '../../lib/outils/arra
 import { texteEnCouleur } from '../../lib/outils/embellissements'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne'
-import { premierMultipleSuperieur } from '../../lib/outils/primalite.js'
+import { premierMultipleSuperieur } from '../../lib/outils/primalite'
 import { texPrix, texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

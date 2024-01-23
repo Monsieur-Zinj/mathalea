@@ -2,7 +2,7 @@ import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arr
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { warnMessage } from '../../lib/format/message.js'
 import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
-import { cribleEratostheneN } from '../../lib/outils/primalite.js'
+import { cribleEratostheneN } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice.js'
 import { context } from '../../modules/context.js'

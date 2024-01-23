@@ -5,7 +5,7 @@ import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../Exercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
-import { pgcd } from '../../../lib/outils/primalite.js'
+import { pgcd } from '../../../lib/outils/primalite'
 export const titre = 'Passer d\'un décimal à une fraction irréductible'
 export const interactifReady = true
 export const interactifType = 'mathLive'

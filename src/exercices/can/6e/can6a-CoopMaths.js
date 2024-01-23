@@ -1,7 +1,7 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString.js'
-import { pgcd } from '../../../lib/outils/primalite.js'
+import { pgcd } from '../../../lib/outils/primalite'
 import { texPrix } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../Exercice.js'

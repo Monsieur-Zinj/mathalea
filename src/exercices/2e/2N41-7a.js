@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { pgcd } from '../../lib/outils/primalite.js'
+import { pgcd } from '../../lib/outils/primalite'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
 

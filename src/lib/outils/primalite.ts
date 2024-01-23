@@ -1,12 +1,12 @@
 import { gcd, isPrime } from 'mathjs'
-import { egal, inferieur } from '../../modules/outils.js'
-import { ecritureParentheseSiNegatif } from './ecritures'
+import { egal } from '../../modules/outils.js'
+import { ecritureParentheseSiNegatif } from './ecritures.js'
 
 /**
  * Renvoie le PGCD de deux nombres
  * @author Rémi Angot
  */
-export function pgcd (...args) {
+export function pgcd (...args: number[]) {
   return gcd(...args)
 }
 
@@ -15,7 +15,7 @@ export function pgcd (...args) {
  * @param { number } n - Nombre à décomposer
  * @returns {number[]} - Liste des facteurs premiers
  */
-export function obtenirListeFacteursPremiers (n) {
+export function obtenirListeFacteursPremiers (n: number) {
   if (n === 1 || n === 0) return [] // 1 n'est pas premier, mais, sinon, ça retourne [NaN]
   const facteurs = []
   const signe = n < 0 ? -1 : 1
@@ -36,8 +36,8 @@ export function obtenirListeFacteursPremiers (n) {
  * @author Jean-Claude Lhote
  */
 
-export function factorisation (n) {
-  if (n === 1) return [1]
+export function factorisation (n: number) {
+  if (n === 1) return [[1, 1]]
   const liste = obtenirListeFacteursPremiers(n)
   const facto = []
   let index = 0
@@ -64,7 +64,7 @@ export function factorisation (n) {
  * @param {boolean} puissancesOn
  * @returns {string} texFacto
  */
-export function texFactorisation (n, puissancesOn = true) {
+export function texFactorisation (n: number, puissancesOn = true) {
   let texFacto = ''
   let facto = []
   if (puissancesOn) {
@@ -76,9 +76,9 @@ export function texFactorisation (n, puissancesOn = true) {
   } else {
     facto = obtenirListeFacteursPremiers(n)
     for (let i = 0; i < facto.length - 1; i++) {
-      texFacto += `${facto[i][0]}\\times `
+      texFacto += `${facto[i]}\\times `
     }
-    texFacto += `${facto[facto.length - 1][0]}`
+    texFacto += `${facto[facto.length - 1]}`
   }
   return texFacto
 }
@@ -88,7 +88,7 @@ export function texFactorisation (n, puissancesOn = true) {
  * @param {integer} n
  * @author Sébastien Lozano
  */
-export function listeDesDiviseurs (n) {
+export function listeDesDiviseurs (n: number) {
   let i = 2
   const diviseurs = [1]
   while (i <= n) {
@@ -106,7 +106,7 @@ export function listeDesDiviseurs (n) {
  * @param {integer} n Ce multiple sera supérieur ou égal à n
  * @author Rémi Angot
  */
-export function premierMultipleSuperieur (k, n) {
+export function premierMultipleSuperieur (k: number, n: number) {
   let result = n
   let reste
   if (Number.isInteger(k) && Number.isInteger(n)) {
@@ -115,7 +115,7 @@ export function premierMultipleSuperieur (k, n) {
     }
     return result
   } else {
-    if (egal(Math.floor((n / k), n / k))) return n
+    if (egal(Math.floor(n / k), n / k)) return n
     else {
       reste = n / k - Math.floor(n / k)
       return n - reste * k + k
@@ -123,7 +123,7 @@ export function premierMultipleSuperieur (k, n) {
   }
 }
 
-export function premierMultipleInferieur (k, n) {
+export function premierMultipleInferieur (k: number, n: number) {
   const result = premierMultipleSuperieur(k, n)
   if (result !== n) return result - k
   else return n
@@ -134,7 +134,7 @@ export function premierMultipleInferieur (k, n) {
  * @param {number} borneSup
  * @author Sébastien Lozano
  */
-export function listeNombresPremiersStrictJusqua (borneSup) {
+export function listeNombresPremiersStrictJusqua (borneSup: number) {
   // tableau contenant les 300 premiers nombres premiers
   const liste300 = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181, 191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251, 257, 263, 269, 271, 277, 281, 283, 293]
   const liste = []
@@ -151,7 +151,7 @@ export function listeNombresPremiersStrictJusqua (borneSup) {
  * @param {number} n
  * @author Sébastien Lozano
  */
-export function cribleEratostheneN (n) {
+export function cribleEratostheneN (n: number) {
   const tabEntiers = [] // pour tous les entiers de 2 à n
   const testMax = Math.sqrt(n + 1) // inutile de tester au dela de racine de n
   const liste = [] // tableau de la liste des premiers jusqu'à n
@@ -189,7 +189,7 @@ export function cribleEratostheneN (n) {
  * @author Sébastien Lozano
  */
 
-export function premiersEntreBornes (min, max) {
+export function premiersEntreBornes (min: number, max: number) {
   // on crée les premiers jusque min
   const premiersASupprimer = cribleEratostheneN(min - 1)
   // on crée les premiers jusque max
@@ -205,7 +205,7 @@ export function premiersEntreBornes (min, max) {
  * @param {number} n
  * @author Sébastien Lozano
  */
-export function decompositionFacteursPremiersArray (n) {
+export function decompositionFacteursPremiersArray (n: number) {
   const decomposition = []
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
@@ -230,7 +230,7 @@ export function obtenirListeNombresPremiers (n = 300) {
  * Retourne le code LaTeX de la décomposition en produit de facteurs premiers d'un nombre
  * @author Rémi Angot
  */
-export function decompositionFacteursPremiers (n) {
+export function decompositionFacteursPremiers (n: number) {
   let decomposition = ''
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
@@ -246,7 +246,7 @@ export function decompositionFacteursPremiers (n) {
  * @param {boolean} inférieur si true, commence la recherche à 2 en croissant sinon commence à n+1
  * @returns {number}
  */
-export function premierAvec (n, listeAEviter = []) {
+export function premierAvec (n: number, listeAEviter: number[] = [], inferieur = true) {
   if (n < 2) throw Error(`Impossible de trouver un nombre premier avec ${n}`)
   let candidat = inferieur ? 2 : n + 1
   do {
