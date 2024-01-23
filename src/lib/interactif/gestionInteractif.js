@@ -529,7 +529,7 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: laReponseDemandee,
-          compare: formeDeveloppeeCompare()
+          compare: formeDeveloppeeCompare
         }
       }, params)
 
