@@ -16551,12 +16551,12 @@
         "titre": "Utiliser la simple distributivité",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "AMCHybride"
           }
         },
         "typeExercice": "alea"
@@ -18649,9 +18649,9 @@
         "typeExercice": "alea"
       },
       "3L11": {
-        "url": "3e/3L11new.js",
+        "url": "3e/3L11.js",
         "tags": [],
-        "uuid": "db2e0",
+        "uuid": "77a62",
         "id": "3L11",
         "titre": "Utiliser la simple distributivité",
         "features": {
