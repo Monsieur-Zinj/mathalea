@@ -1,7 +1,7 @@
 import { tableau } from '../../lib/2d/tableau.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 
 export const titre = 'Nom de l\'exercice'
 

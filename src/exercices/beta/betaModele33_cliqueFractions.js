@@ -1,7 +1,7 @@
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fractionCliquable, rectangleCliquable } from '../../modules/2dinteractif.js'

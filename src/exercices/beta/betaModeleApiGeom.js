@@ -2,7 +2,7 @@ import Figure from 'apigeom'
 import { spline } from '../../lib/mathFonctions/Spline.js'
 import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 
 export const titre = 'Géométrie dynamique'
 export const uuid = 'betaGeom'

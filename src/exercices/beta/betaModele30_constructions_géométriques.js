@@ -7,7 +7,7 @@ import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 
 export const titre = 'Nom de l\'exercice'
 

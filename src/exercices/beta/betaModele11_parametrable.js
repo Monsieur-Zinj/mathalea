@@ -1,4 +1,4 @@
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Nom de l\'exercice'
 
