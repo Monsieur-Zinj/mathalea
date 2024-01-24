@@ -8,6 +8,7 @@
   export let innerWidth: number
   export let unitsBlocks: KeyboardBlock[]
   export let usualBlocks: KeyboardBlock[]
+  export let page: KeyboardBlock[]
   const blocks: KeyboardBlock[] =
     unitsBlocks.length > 1 ? [...usualBlocks] : [...unitsBlocks, ...usualBlocks]
   export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
@@ -29,7 +30,7 @@
       <Block {block} {isInLine} {innerWidth} {clickKeycap} />
     {/each}
   {:else}
-    {#each [...unitsBlocks, ...usualBlocks] as block}
+    {#each page as block}
       <Block {block} {isInLine} {innerWidth} {clickKeycap} />
     {/each}
   {/if}

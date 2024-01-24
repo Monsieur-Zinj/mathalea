@@ -50,7 +50,7 @@
     await tick()
     mathaleaRenderDiv(divKeyboard)
   })
-  const blockList = [...myKeyboard.blocks].reverse()
+  // const blockList = [...myKeyboard.blocks].reverse()
 
   // fermer un clavier ouvert lorsqu'il n'y a plus d'exercices...
   $: if ($exercicesParams.length === 0) {
@@ -62,23 +62,33 @@
     let pageWidth: number = 0
     let page: KeyboardBlock[] = []
     const mode = innerWidth < SM_BREAKPOINT ? 'sm' : 'md'
+    console.log('computePages: mode')
+    console.log(mode)
+    const blockList = [...usualBlocks, ...unitsBlocks].reverse()
     while (blockList.length > 0) {
       const block = blockList.pop()
+      console.log('computePages: block')
+      console.log(block)
       pageWidth =
         pageWidth + inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]
       page.push(block!)
+      console.log('computePages: pageWidth')
+      console.log(pageWidth)
       // console.log(
       //   'pageWidth: ' + pageWidth + ' / innerWidth * 0.7: ' + innerWidth * 0.7
       // )
       if (pageWidth > 0.7 * innerWidth) {
+        console.log('on change de page')
         pages.push(page.reverse())
         page = []
         pageWidth = 0
       }
     }
     if (page.length !== 0) {
+      console.log('il reste une page à créer')
       pages.push(page.reverse())
     }
+    console.log('nb de pages: ' + pages.length)
   }
 
   const clickKeycap = (key: KeyCap, event: MouseEvent, value?: Keys) => {
@@ -148,6 +158,7 @@
         <KeyboardPage
           unitsBlocks={[...unitsBlocks].reverse()}
           usualBlocks={[...usualBlocks].reverse()}
+          bind:page={pages[currentPageIndex]}
           isInLine={false}
           {innerWidth}
           {clickKeycap}
@@ -158,33 +169,46 @@
         <KeyboardPage
           unitsBlocks={[...unitsBlocks].reverse()}
           usualBlocks={[...usualBlocks].reverse()}
+          bind:page={pages[currentPageIndex]}
           isInLine={true}
           {innerWidth}
           {clickKeycap}
         />
-
+        <!-- Boutons de navigation entre les pages : vers la DROITE -->
         <button
           class="absolute right-2 md:right-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
-          on:click={async () => {
+          on:click={async (e) => {
+            e.preventDefault()
+            e.stopPropagation()
             if (currentPageIndex !== 0) {
               currentPageIndex--
             }
             await tick()
             mathaleaRenderDiv(divKeyboard)
           }}
+          on:mousedown={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
+          }}
           disabled={pages.length === 1 || currentPageIndex === 0}
         >
           <i class="bx bx-chevron-right bx-lg" />
         </button>
-
+        <!-- Boutons de navigation entre les pages : vers la GAUCHE -->
         <button
           class="absolute left-2 md:left-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
-          on:click={async () => {
+          on:click={async (e) => {
+            e.preventDefault()
+            e.stopPropagation()
             if (currentPageIndex !== pages.length - 1) {
               currentPageIndex++
             }
             await tick()
             mathaleaRenderDiv(divKeyboard)
+          }}
+          on:mousedown={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
           }}
           disabled={pages.length === 1 || currentPageIndex === pages.length - 1}
         >
@@ -214,7 +238,9 @@
     <!-- bouton de passage du clavier alphanumérique au clavier maths-->
     <button
       type="button"
-      class="z-[10000] {$keyboardState.blocks.includes('alphanumeric') ? 'flex justify-center items-center' : 'hidden'} absolute right-0 top-6 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
+      class="z-[10000] {$keyboardState.blocks.includes('alphanumeric')
+        ? 'flex justify-center items-center'
+        : 'hidden'} absolute right-0 top-6 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
       on:click={async (e) => {
         e.preventDefault()
         e.stopPropagation()
@@ -222,7 +248,7 @@
         await tick()
         mathaleaRenderDiv(divKeyboard)
       }}
-      on:mousedown={ (e) => {
+      on:mousedown={(e) => {
         e.preventDefault()
         e.stopPropagation()
       }}
