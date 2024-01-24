@@ -9,7 +9,7 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 
 export const titre = 'Écrire une fraction sur 100 puis sous la forme d\'un pourcentage'
 export const interactifReady = true
-export const interactifType = ['mathLive', 'custom']
+export const interactifType = 'custom'
 export const amcType = 'AMCNum'
 export const amcReady = true
 export const dateDePublication = '06/02/2021'
@@ -56,17 +56,20 @@ export default function FractionVersPourcentage () {
       if (this.sup === 1) {
         this.interactifType = 'custom'
         texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{num1}}{%{den1}}=\\dfrac{%{num2}}{100}=%{percent}\\%`, 'college6e', '\\ldots\\ldots')
+
         if (den < 100) {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${100 / den}}}{${den}{\\color{blue}\\times${100 / den}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${den / 100}}}{${den}{\\color{blue}\\div${den / 100}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         }
+        setReponse(this, i, { num1: { value: '' }, num2: { value: String(percenti) }, percent: { value: String(percenti) } }, { formatInteractif: 'fillInTheBlank', digits: 3, decimals: 0 })
       } else {
         this.interactifType = 'mathLive'
         texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
         texteCorr = `$\\dfrac{${texNombre(percenti, 0)}}{100}=${texNombre(percenti, 0)}~\\%$`
+        setReponse(this, i, percenti, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
       }
-      setReponse(this, i, percenti, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -79,7 +82,7 @@ export default function FractionVersPourcentage () {
   }
 
   this.correctionInteractive = function (i) {
-    const reponseAttendue = this.autoCorrection[i].reponse.valeur[0].toString()
+    const reponseAttendue = this.autoCorrection[i].reponse.valeur.percent.value
     if (this.answers === undefined) this.answers = {}
     let result = 'KO'
     const mf = document.querySelector(`#champTexteEx${this.numeroExercice}Q${i}`)
