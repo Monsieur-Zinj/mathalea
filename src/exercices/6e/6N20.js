@@ -1,19 +1,21 @@
 import { choice, enleveElement } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { getDynamicFractionDiagram } from './6N20-2'
+import figureApigeom from '../../lib/figureApigeom'
 
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
+export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
 
 /**
  * @author Rémi Angot
@@ -22,22 +24,35 @@ export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour 
  */
 export const uuid = '6c8a1'
 export const ref = '6N20'
-export default function ExerciceFractionsDecomposer () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne =
-        "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1."
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.sup = false // Donner l'écriture décimale
-  this.sup2 = false
-  this.sup3 = '11'
-  this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
-  this.besoinFormulaire3Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange']
+export default class ExerciceFractionsDecomposer extends Exercice {
+  constructor () {
+    super()
+    this.consigne =
+          "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1."
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.sup = false // Donner l'écriture décimale
+    this.sup2 = false
+    this.sup3 = '11'
+    this.sup4 = true
+    this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
+    this.besoinFormulaire3Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange']
+    this.besoinFormulaire4CaseACocher = ['Brouillon interactif']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    if (this.sup4) {
+      const figure = getDynamicFractionDiagram()
+      this.introduction = figureApigeom({ exercice: this, idApigeom: `apiGeomEx${this.numeroExercice}`, figure })
+      figure.isDynamic = true
+      figure.divButtons.style.display = 'grid'
+      if (figure.ui) figure.ui.send('FILL')
+    } else {
+      this.introduction = ''
+    }
     const listeDenominateurs = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       min: 2,

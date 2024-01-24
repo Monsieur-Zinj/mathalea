@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { modalTexteCourt } from '../../lib/outils/modales.js'
 import { rangeMinMax } from '../../lib/outils/nombres'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -9,13 +9,15 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { getDynamicFractionDiagram } from './6N20-2'
+import figureApigeom from '../../lib/figureApigeom'
 
 export const titre = 'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
+export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
 
 /**
  * Une fraction avec pour dénominateur 2, 3, 4, 5, 10 à encadrer entre 2 entiers
@@ -25,22 +27,26 @@ export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour 
  */
 export const uuid = '1f5de'
 export const ref = '6N20-1'
-export default function EncadrerFractionEntre2Entiers () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = 'Compléter avec deux nombres entiers consécutifs.' + modalTexteCourt(1, 'Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5.', 'Consécutifs')
-  this.introduction = 'Exemple : $2 < \\dfrac{9}{4} < 3$ car  $2=\\dfrac{8}{4}$ et $3=\\dfrac{12}{4}$'
-  this.nbQuestions = 6
-  this.nbCols = 2
-  this.nbColsCorr = 1
-  this.correctionDetaillee =
-        this.sup = false
-  this.sup2 = '11'
-  this.besoinFormulaireCaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
-  this.besoinFormulaire2Texte = this.lycee
-    ? ['Dénominateurs à choisir', 'Nombres séparés par des tirets\nDe 2 à 9\n10: mélange']
-    : ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
+export default class EncadrerFractionEntre2Entiers extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Compléter avec deux nombres entiers consécutifs.' + modalTexteCourt(1, 'Nombres entiers consécutifs : Ce sont deux nombres entiers qui se suivent comme 4 et 5.', 'Consécutifs')
+    this.introduction = 'Exemple : $2 < \\dfrac{9}{4} < 3$ car  $2=\\dfrac{8}{4}$ et $3=\\dfrac{12}{4}$'
+    this.nbQuestions = 6
+    this.nbCols = 2
+    this.nbColsCorr = 1
+    this.correctionDetaillee =
+          this.sup = false
+    this.sup2 = '11'
+    this.sup3 = true
+    this.besoinFormulaireCaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
+    this.besoinFormulaire2Texte = this.lycee
+      ? ['Dénominateurs à choisir', 'Nombres séparés par des tirets\nDe 2 à 9\n10: mélange']
+      : ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
+    this.besoinFormulaire3CaseACocher = ['Brouillon interactif']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.correctionDetailleeDisponible = !this.lycee
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -54,6 +60,15 @@ export default function EncadrerFractionEntre2Entiers () {
       nbQuestions: this.nbQuestions,
       exclus: this.lycee ? [] : [6, 7, 8, 9]
     })
+    if (this.sup3) {
+      const figure = getDynamicFractionDiagram()
+      this.introduction = figureApigeom({ exercice: this, idApigeom: `apiGeomEx${this.numeroExercice}`, figure })
+      figure.isDynamic = true
+      figure.divButtons.style.display = 'grid'
+      if (figure.ui) figure.ui.send('FILL')
+    } else {
+      this.introduction = ''
+    }
     this.liste_de_denominateurs = !this.sup ? this.lycee ? combinaisonListes([2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions) : combinaisonListes([2, 3, 4, 5, 10], this.nbQuestions) : listeDenominateurs
     const denominateursDifferents = new Set(this.liste_de_denominateurs)
     const nbDenominateursDifferents = denominateursDifferents.size
