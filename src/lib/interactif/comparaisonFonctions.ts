@@ -12,6 +12,9 @@ const engine = new ComputeEngine()
  * @return {string} la chaine de caractère dont on espère que ComputeEngine (CE) en digérera correctement le contenu.
  */
 export function cleanStringBeforeParse (aString: string) {
+  if (typeof aString !== 'string') {
+    aString = String(aString)
+  }
   return aString.replaceAll(',', '.') // CE n'aime pas les virgules, il veut des . (on pourrait lui dire que le séparateur décimal est la virgule)
     .replaceAll('dfrac', 'frac') // CE n'aime pas \dfrac
     .replaceAll('²', '^2') // '²' c'est pas correct en latex !
@@ -61,7 +64,7 @@ function generateCleaner (operations: CleaningOperation[]): (str: string) => str
     }
   })
 
-  return (str: string) => cleaningFunctions.reduce((result, cleaningFn) => cleaningFn(result), str)
+  return (str: string) => cleaningFunctions.reduce((result, cleaningFn) => cleaningFn(result), String(str))
 }
 
 /**
@@ -124,6 +127,9 @@ export function consecutifsCompare (entierInf: string, entierSup: string, valeur
  * @return {isOk: boolean, feedback?: string}
  */
 export function numberCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   const clean = generateCleaner(['espaces', 'virgules', 'parentheses'])
   const inputParsed = engine.parse(clean(input))
   if (input.includes('frac') && inputParsed.isInteger) {
@@ -140,12 +146,18 @@ export function numberCompare (input: string, goodAnswer: string): { isOk: boole
  * @return {isOk: boolean, feedback?: string}
  */
 export function calculCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   const saisieClean = cleanStringBeforeParse(input)
   const reponseClean = cleanStringBeforeParse(goodAnswer)
   return { isOk: engine.parse(saisieClean).isSame(engine.parse(reponseClean)) }
 }
 
 export function canonicalAddCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   const saisieClean = cleanStringBeforeParse(input)
   const reponseClean = cleanStringBeforeParse(goodAnswer)
   return { isOk: engine.parse(reponseClean, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] }).isSame(engine.parse(saisieClean, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })) }
@@ -158,6 +170,9 @@ export function canonicalAddCompare (input: string, goodAnswer: string): { isOk:
  * @return {isOk: boolean, feedback?: string}
  */
 export function factorisationCompare (input: string, goodAnswer:string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   const aCleaned = input.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
   const bCleaned = goodAnswer.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
   const saisieParsed = engine.parse(aCleaned, { canonical: true })
@@ -177,6 +192,9 @@ export function factorisationCompare (input: string, goodAnswer:string): { isOk:
  * @return {isOk: boolean, feedback?: string}
  */
 export const developpementCompare = function (input: string, goodAnswer:string) {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   const aCleaned = input.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
   const bCleaned = goodAnswer.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
   const saisieParsed = engine.parse(aCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
@@ -199,6 +217,9 @@ export const developpementCompare = function (input: string, goodAnswer:string) 
  * @return {isOk: boolean, feedback?: string}
  */
 export function hmsCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   const cleanInput = cleanUnite(input)
   const inputHms = Hms.fromString(cleanInput)
   const goodAnswerHms = Hms.fromString(goodAnswer)
@@ -212,6 +233,9 @@ export function hmsCompare (input: string, goodAnswer: string): { isOk: boolean,
  * @return {isOk: boolean, feedback?: string}
  */
 export function formeDeveloppeeCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   input = cleanStringBeforeParse(input)
   const saisieParsed = engine.parse(input).canonical
   const isSomme = ['Add', 'Subtract'].includes(saisieParsed.head as string)
@@ -228,6 +252,9 @@ export function formeDeveloppeeCompare (input: string, goodAnswer: string): { is
  * @return {isOk: boolean, feedback?: string}
  */
 export function formeDeveloppeeParEECompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   input = cleanStringBeforeParse(input)
   const regleSuppressionInvisibleOperator = engine.rules([{
     match: ['InvisibleOperator', '_x', '_y'],
@@ -247,8 +274,11 @@ export function formeDeveloppeeParEECompare (input: string, goodAnswer: string):
  * @return {isOk: boolean, feedback?: string}
  */
 export function decimalCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
-  const saisieClean = cleanStringBeforeParse(String(input))
-  const reponseClean = cleanStringBeforeParse(String(goodAnswer))
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
+  const saisieClean = cleanStringBeforeParse(input)
+  const reponseClean = cleanStringBeforeParse(goodAnswer)
   return { isOk: saisieClean === reponseClean } // facile ! des Décimaux en string sont égaux si les strings sont égales.
 }
 
@@ -259,8 +289,11 @@ export function decimalCompare (input: string, goodAnswer: string): { isOk: bool
  * @return {isOk: boolean, feedback?: string}
  */
 export function scientificCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
-  const saisieClean = cleanStringBeforeParse(String(input))
-  const reponseClean = cleanStringBeforeParse(String(goodAnswer))
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
+  const saisieClean = cleanStringBeforeParse(input)
+  const reponseClean = cleanStringBeforeParse(goodAnswer)
   if (engine.parse(saisieClean).canonical.isSame(engine.parse(reponseClean).canonical)) {
     const [mantisse] = saisieClean.split('\\times')
     if (Number(mantisse) >= 1 && Number(mantisse) < 10) {
@@ -277,6 +310,9 @@ export function scientificCompare (input: string, goodAnswer: string): { isOk: b
  * @return {isOk: boolean, feedback?: string}
  */
 export function texteCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   return { isOk: input === goodAnswer }
 }
 
@@ -287,6 +323,9 @@ export function texteCompare (input: string, goodAnswer: string): { isOk: boolea
  * @return {isOk: boolean, feedback?: string}
  */
 export function texteAvecEspacesCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   input = input.replaceAll('\\:', ' ') // Suppression des espaces LaTeX (présents quand on met des crochets pour les segments)
   input = input.replaceAll('\\left\\lbrack ', '[').replaceAll('\\right\\rbrack ', ']') // Suppression des crochets LaTeX (pour les segments)
   while (input.includes('  ')) input = input.replace('  ', ' ') // Pour enlever tous les doubles espaces
@@ -303,6 +342,9 @@ export function texteAvecEspacesCompare (input: string, goodAnswer: string): { i
  * @return {isOk: boolean, feedback?: string}
  */
 export function upperCaseCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   // @ToDo supprimer toutes les traces de LaTeX (gestion du - typographique...)
   input = input.replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
   return { isOk: input.toUpperCase() === goodAnswer.toUpperCase() }
@@ -315,6 +357,9 @@ export function upperCaseCompare (input: string, goodAnswer: string): { isOk: bo
  * @return {isOk: boolean, feedback?: string}
  */
 export function fractionPlusSimpleCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   const goodAnswerParsed = engine.parse(goodAnswer, { canonical: false })
   const inputParsed = engine.parse(input, { canonical: false })
   if (inputParsed.head === 'Divide' && goodAnswerParsed.head === 'Divide') {
@@ -333,6 +378,9 @@ export function fractionPlusSimpleCompare (input: string, goodAnswer: string): {
  * @return {isOk: boolean, feedback?: string}
  */
 export function fractionEgaleCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   const fReponse = engine.parse(goodAnswer)
   if (!isNaN(parseFloat(cleanStringBeforeParse(input)))) {
     // La saisie est faite sous forme décimale
@@ -353,6 +401,9 @@ export function fractionEgaleCompare (input: string, goodAnswer: string): { isOk
  * @return {isOk: boolean, feedback?: string}
  */
 export function fractionCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   const clean = generateCleaner(['espaces', 'fractions'])
   const inputParsed = engine.parse(clean(input), { canonical: false })
   const goodAnswerParsed = engine.parse(clean(goodAnswer), { canonical: false })
@@ -432,6 +483,9 @@ export function intervallleCompare (input: string, goodAnswer: { borneInf: numbe
  * @return {isOk: boolean, feedback?: string}
  */
 export function puissanceCompare (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   let formatOK: boolean = false
   let formatKO: boolean = false
   const nombreSaisi = input.split('^')
@@ -505,6 +559,9 @@ export default engine
  * @return {isOk: boolean, feedback?: string}
  */
 export function compareEnsembles (input: string, goodAnswer: string): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   const cleanUp = (s: string) => s.replace('{.}', '.').replace(',', '.')
   const elements1 = cleanUp(input).split(';').sort((a: string, b: string) => Number(a) - Number(b))
   const elements2 = cleanUp(goodAnswer).split(';').sort((a: string, b: string) => Number(a) - Number(b))
@@ -525,6 +582,9 @@ export function compareEnsembles (input: string, goodAnswer: string): { isOk: bo
  * @param goodAnswer
  */
 export function compareIntervalles (input: string, goodAnswer: string) {
+  if (typeof goodAnswer !== 'string') {
+    goodAnswer = String(goodAnswer)
+  }
   let result = true
   const cleanUp = (s: string) => s.replaceAll('{,}', '.').replaceAll(',', '.')
   input = cleanUp(input)

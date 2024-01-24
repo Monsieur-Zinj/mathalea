@@ -3,8 +3,8 @@ import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Exprimer une fraction sous la forme d\'une valeur approchée d\'un pourcentage'
@@ -55,17 +55,26 @@ export default function ValeurApprocheeDePourcentages () {
         den = randint(10, listeTypeDeQuestions[i])
         num = randint(1, den - 8)
       }
-      texte = `$\\dfrac{${num}}{${den}}\\approx `
-      texte += this.interactif ? '$' : '\\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$'
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteApres: ' %' })
+      texte = `$\\dfrac{${num}}{${den}}\\approx$`
+      texte += remplisLesBlancs(this, i, '%{champ1}\\text{ soit environ }%{champ2}', 'inline50', '\\ldots\\ldots\\ldots')
+      // this.interactif ? '$' : '\\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$'
+      // texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteApres: ' %' })
 
       if (this.sup === 1) {
         texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 2)} $ soit environ $${miseEnEvidence(texNombre(num / den * 100, 0))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 2)}=\\dfrac{${arrondi(num / den * 100, 0)}}{100}\\right)$.`
-        setReponse(this, i, arrondi(num / den * 100, 0))
+        // setReponse(this, i, arrondi(num / den * 100, 0))
+        handleAnswers(this, i, {
+          // bareme: (listePoints) => [Math.min(...listePoints), 1],
+          champ1: { value: (num / den).toFixed(2) }, champ2: { value: (100 * num / den).toFixed(0) }
+        }, { formatInteractif: 'fillInTheBlank' })
       }
       if (this.sup === 2) {
         texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 3)} $ soit environ $${miseEnEvidence(texNombre(num / den * 100, 1))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 3)}=\\dfrac{${arrondi(num / den * 100, 1)}}{100}\\right)$.`
-        setReponse(this, i, arrondi(num / den * 100, 0))
+        // setReponse(this, i, arrondi(num / den * 100, 0))
+        handleAnswers(this, i, {
+          // bareme: (listePoints) => [Math.min(...listePoints), 1],
+          champ1: { value: (num / den).toFixed(3) }, champ2: { value: (100 * num / den).toFixed(1) }
+        }, { formatInteractif: 'fillInTheBlank' })
       }
 
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

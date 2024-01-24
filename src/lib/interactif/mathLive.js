@@ -14,13 +14,13 @@ export function toutPourUnPoint (listePoints) {
  */
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
   if (exercice.autoCorrection[i].reponse == null) {
-    throw Error(`verifQuestionMathlive appelé sur une question sans réponse: ${JSON.strignify({
+    throw Error(`verifQuestionMathlive appelé sur une question sans réponse: ${JSON.stringify({
             exercice,
             question: i,
             autoCorrection: exercice.autoCorrection[i]
         })}`)
   } else if (exercice.autoCorrection[i].reponse.param == null) {
-    throw Error(`verifQuestionMathlive appelé sur une question sans param : ${JSON.strignify({
+    throw Error(`verifQuestionMathlive appelé sur une question sans param : ${JSON.stringify({
             exercice,
             question: i,
             param: exercice.autoCorrection[i].reponse
