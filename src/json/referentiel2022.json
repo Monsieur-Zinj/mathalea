@@ -11536,7 +11536,7 @@
         "uuid": "6c8a1",
         "id": "6N20",
         "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1)",
-        "dateModification": "14/05/2023",
+        "dateModification": "24/01/2024",
         "features": {
           "interactif": {
             "isActive": true,
@@ -11555,7 +11555,7 @@
         "uuid": "1f5de",
         "id": "6N20-1",
         "titre": "Encadrer une fraction entre deux nombres entiers consécutifs",
-        "dateModification": "14/05/2023",
+        "dateModification": "24/01/2024",
         "features": {
           "interactif": {
             "isActive": true,
@@ -11574,7 +11574,7 @@
         "uuid": "ab44e",
         "id": "6N20-2",
         "titre": "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale",
-        "dateModification": "18/11/2023",
+        "dateModification": "24/01/2024",
         "features": {
           "interactif": {
             "isActive": true,
@@ -14047,7 +14047,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "['mathLive', 'custom']"
+            "type": "'custom'"
           },
           "amc": {
             "isActive": true,
