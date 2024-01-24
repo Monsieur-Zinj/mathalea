@@ -692,7 +692,7 @@ export default function AgrandissementReduction () {
       // divMtg.style.display = 'none'
       divMtg.appendChild(svg)
       // divMtg.setAttribute('MG32codeBase64', codeBase64)
-      texteCorr += divMtg.outerHTML
+      texte += divMtg.outerHTML
 
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const that = this
