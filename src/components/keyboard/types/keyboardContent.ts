@@ -89,3 +89,10 @@ export const inLineBlockWidth = (
     (numberOfKeys - 1) * GAP_BETWEEN_KEYS[mode]
   )
 }
+export const usualBlockWidth = (
+  block: KeyboardBlock,
+  mode: 'sm' | 'md'
+): number => {
+  const numberOfCols = block.cols
+  return numberOfCols * KEYCAP_WIDTH[mode] + (numberOfCols - 1) * GAP_BETWEEN_KEYS[mode]
+}
