@@ -342,7 +342,7 @@
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section
   bind:this={eleveSection}
-  class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive
+  class="relative flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive
     ? 'dark'
     : ''}"
 >

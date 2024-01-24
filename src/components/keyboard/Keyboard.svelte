@@ -196,11 +196,17 @@
     <button
       type="button"
       class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
-      on:click={async () => {
+      on:click={async (e) => {
+        e.preventDefault()
+        e.stopPropagation()
         reduced = !reduced
         computePages()
         await tick()
         mathaleaRenderDiv(divKeyboard)
+      }}
+      on:mousedown={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
       }}
     >
       <i class="bx {reduced ? 'bx-plus' : 'bx-minus'}" />
@@ -209,10 +215,16 @@
     <button
       type="button"
       class="z-[10000] {$keyboardState.blocks.includes('alphanumeric') ? 'flex justify-center items-center' : 'hidden'} absolute right-0 top-6 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
-      on:click={async () => {
+      on:click={async (e) => {
+        e.preventDefault()
+        e.stopPropagation()
         alphanumericDisplayed = !alphanumericDisplayed
         await tick()
         mathaleaRenderDiv(divKeyboard)
+      }}
+      on:mousedown={ (e) => {
+        e.preventDefault()
+        e.stopPropagation()
       }}
     >
       <i class="bx {alphanumericDisplayed ? 'bx-math' : 'bx-font-family'}" />
