@@ -62,13 +62,13 @@
     let pageWidth: number = 0
     let page: KeyboardBlock[] = []
     const mode = innerWidth < SM_BREAKPOINT ? 'sm' : 'md'
-    console.log('computePages: mode')
-    console.log(mode)
+    // console.log('computePages: mode')
+    // console.log(mode)
     const blockList = [...usualBlocks, ...unitsBlocks].reverse()
     while (blockList.length > 0) {
       const block = blockList.pop()
-      console.log('computePages: block')
-      console.log(block)
+      // console.log('computePages: block')
+      // console.log(block)
       pageWidth =
         pageWidth + inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]
       page.push(block!)
@@ -78,17 +78,17 @@
       //   'pageWidth: ' + pageWidth + ' / innerWidth * 0.7: ' + innerWidth * 0.7
       // )
       if (pageWidth > 0.7 * innerWidth) {
-        console.log('on change de page')
+        // console.log('on change de page')
         pages.push(page.reverse())
         page = []
         pageWidth = 0
       }
     }
     if (page.length !== 0) {
-      console.log('il reste une page à créer')
+      // console.log('il reste une page à créer')
       pages.push(page.reverse())
     }
-    console.log('nb de pages: ' + pages.length)
+    // console.log('nb de pages: ' + pages.length)
   }
 
   const clickKeycap = (key: KeyCap, event: MouseEvent, value?: Keys) => {
