@@ -8,21 +8,21 @@ import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { fractionEgaleCompare } from '../../lib/interactif/comparaisonFonctions'
+import { fractionPlusSimpleCompare } from '../../lib/interactif/comparaisonFonctions'
 export const titre = 'Lire des abscisses fractionnaires de points (niv 2)'
 export const interactifReady = true
 // remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const dateDePublication = '11/05/2023'
+export const dateDePublication = '25/01/2024'
 
 /**
  * Description didactique de l'exercice :
- * Cherche des abscisses sous forme de fractions avec possibilté d'avoir des fractions simplifiées
- * @author Mickael Guironnet
- * Référence 6N21-1
- * publié le 10/05/2023
+ * Lire des abscisses sous forme de fractions avec possibilté d'avoir des fractions simplifiées
+ * @author Jean-Claude Lhote à partir de 6N21-1 de Mickaël Guironnet
+ * Référence 6N21-2
+ * publié le 25/01/2024
  */
 export const uuid = '442f4'
 export const ref = '6N21-2'
@@ -77,16 +77,19 @@ export default function LireAbscissesFractionnairesComplexes () {
       const origine = data[tab].min
 
       const den1 = !this.sup2 ? data[tab].id : choice(data[tab].den)
+      const tab1 = tab / den1
       const num1 = trouveNumerateur(den1, origine, data[tab].max)
       const den2 = !this.sup2 ? data[tab].id : choice(data[tab].den, den1)
+      const tab2 = tab / den2
       const num2 = trouveNumerateur(den2, origine, data[tab].max, [{ num: num1, den: den1 }])
       const den3 = !this.sup2 ? data[tab].id : choice(data[tab].den, (data[tab].den.length > 2 ? [den1, den2] : [den1]))
+      const tab3 = tab / den3
       const num3 = trouveNumerateur(den3, origine, data[tab].max, [{ num: num1, den: den1 }, { num: num2, den: den2 }])
       texte = remplisLesBlancs(this, i, `\\text{Donner les abscisses des points}  \\quad ${lettreIndiceeDepuisChiffre(i * 3 + 1)}%{champ1} \\quad ${lettreIndiceeDepuisChiffre(i * 3 + 2)}  %{champ2} \\quad ${lettreIndiceeDepuisChiffre(i * 3 + 3)}  %{champ3}`, 'college6e', '\\ldots')
       handleAnswers(this, i, {
-        champ1: { value: fraction(num1, den1).texFraction, compare: fractionEgaleCompare },
-        champ2: { value: fraction(num2, den2).texFraction, compare: fractionEgaleCompare },
-        champ3: { value: fraction(num3, den3).texFraction, compare: fractionEgaleCompare }
+        champ1: { value: fraction(num1, den1).reduire(tab1 * 2).texFraction, compare: fractionPlusSimpleCompare },
+        champ2: { value: fraction(num2, den2).reduire(tab2 * 2).texFraction, compare: fractionPlusSimpleCompare },
+        champ3: { value: fraction(num3, den3).reduire(tab3 * 2).texFraction, compare: fractionPlusSimpleCompare }
       },
       { formatInteractif: 'fillInTheBlank' })
 
@@ -101,7 +104,7 @@ export default function LireAbscissesFractionnairesComplexes () {
         pointListe: [[num1 / den1, lettreIndiceeDepuisChiffre(i * 3 + 1)], [num2 / den2, lettreIndiceeDepuisChiffre(i * 3 + 2)], [num3 / den3, lettreIndiceeDepuisChiffre(i * 3 + 3)]]
       })
 
-      texte += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - origine) * tailleUnite + 1, ymin: -1, ymax: 1.5, style: 'margin-top:30px ', scale: 0.6 }, d)
+      texte += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - origine) * tailleUnite + 1, ymin: -1, ymax: 1, style: 'margin-top:10px ', scale: 0.6 }, d)
       const dCorr = droiteGraduee({
         Min: origine,
         Max: data[tab].max,
@@ -111,10 +114,11 @@ export default function LireAbscissesFractionnairesComplexes () {
         thickEpaisseur: 3,
         pointListe: [[num1 / den1, lettreIndiceeDepuisChiffre(i * 3 + 1)], [num2 / den2, lettreIndiceeDepuisChiffre(i * 3 + 2)], [num3 / den3, lettreIndiceeDepuisChiffre(i * 3 + 3)]],
         labelListe: [[num1 / den1, fraction(num1, den1).texFraction], [num2 / den2, fraction(num2, den2).texFraction], [num3 / den3, fraction(num3, den3).texFraction]],
-        labelDistance: 1
+        labelDistance: 0.8,
+        labelCustomDistance: 1.7
       })
 
-      const texteCorr = mathalea2d({ xmin: -0.2, xmax: (data[tab].max - origine) * tailleUnite + 1, ymin: -2, ymax: 1.5, style: 'margin-top:30px ', scale: 0.6 }, dCorr)
+      const texteCorr = mathalea2d({ xmin: -0.2, xmax: (data[tab].max - origine) * tailleUnite + 1, ymin: -2.5, ymax: 1, style: 'margin-top:10px ', scale: 0.6 }, dCorr)
 
       if (this.questionJamaisPosee(i, num1, num2, num3)) {
         // Si la question n'a jamais été posée, on en crée une autre
