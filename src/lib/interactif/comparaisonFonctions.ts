@@ -24,6 +24,7 @@ export function cleanStringBeforeParse (aString: string) {
     .replaceAll('{,}', '.') // toujours cette histoire de virgule (celle-là, elle vient sans doute d'un texNombre() !
     .replaceAll(/\s/g, '') // encore des espaces à virer ?
     .replace(/\\lparen(\+?-?\d+)\\rparen/, '$1') // (+3) => +3 car CE ne sait pas comparer -5 et 5
+    .replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
 }
 
 type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses'
