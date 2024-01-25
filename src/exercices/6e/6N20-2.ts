@@ -6,7 +6,7 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
 import figureApigeom from '../../lib/figureApigeom'
 import Figure from 'apigeom'
-import CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram'
+import RectangleFractionDiagram from 'apigeom/src/elements/diagrams/RectangleFractionDiagram'
 import minus from 'apigeom/src/assets/svg/minus.svg'
 import plus from 'apigeom/src/assets/svg/plus.svg'
 import erase from 'apigeom/src/assets/svg/erase.svg'
@@ -182,13 +182,13 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
 }
 
 export function getDynamicFractionDiagram () {
-  const figure = new Figure({ xMin: -2, yMin: -2, width: 600, height: 120 })
+  const figure = new Figure({ xMin: -0.5, yMin: -2, width: 800, height: 120 })
   figure.divUserMessage.style.display = 'none'
   figure.options.automaticUserMessage = false
   figure.options.color = 'blue'
   figure.options.limitNumberOfElement.set('Point', 0)
 
-  const d = new CircleFractionDiagram(figure, { denominator: 8, numberOfCircle: 6, radius: 1.5 })
+  const d = new RectangleFractionDiagram(figure, { denominator: 2, numberOfRectangles: 5 })
 
   function decreaseDenominator (): void {
     if (d.denominator === 2) return
@@ -196,6 +196,7 @@ export function getDynamicFractionDiagram () {
     d.denominator--
     d.redraw()
     d.numerator = num
+    text.text = `L'unité est partagée en ${d.denominator} parts égales.`
   }
 
   function increaseNumerator (): void {
@@ -203,6 +204,7 @@ export function getDynamicFractionDiagram () {
     d.denominator++
     d.redraw()
     d.numerator = num
+    text.text = `L'unité est partagée en ${d.denominator} parts égales.`
   }
 
   function clearFill (): void {
@@ -217,5 +219,6 @@ export function getDynamicFractionDiagram () {
   figure.addCustomButton({ action: clearFill, tooltip: 'Réinitialiser le coloriage', url: erase })
   figure.divButtons.appendChild(p)
   figure.container.classList.add('border-2', 'border-coopmaths-struct', 'p-2', 'rounded-md')
+  const text = figure.create('TextByPosition', { text: `L'unité est partagée en ${d.denominator} parts égales.`, x: 0, y: -1.5, anchor: 'bottomLeft', color: 'black', size: 20, isChild: true, isFree: false, shape: '' })
   return figure
 }
