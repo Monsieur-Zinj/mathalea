@@ -2,15 +2,15 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { labelPoint } from '../../lib/2d/textes.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Utiliser des abscisses fractionnaires (niv 2)'
-export const interactifReady = false
+import { fraction } from '../../modules/fractions.js'
+export const titre = 'Placer des points d’abscisses fractionnaires (niv 2)'
+export const interactifReady = true
 // remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
 export const interactifType = 'custom'
 export const amcReady = true
@@ -67,29 +67,29 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
       [4, 6, 8, 9, 10],
       [12, 14, 15, 16, 18, 20]]
 
-    const tableUtilisées = [[], []]
+    const tableUtilisees = [[], []]
     const pointsSolutions = []
     const pointsNonSolutions = [] // Pour chaque question, la liste des points qui ne doivent pas être cliqués
     const fractionsUtilisees = [] // Pour s'assurer de ne pas poser 2 fois la même question
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
-      if (tableDisponibles[typeDeQuestions[i]].length === tableUtilisées[typeDeQuestions[i]].length) {
-        tableUtilisées[typeDeQuestions[i]] = []
+      if (tableDisponibles[typeDeQuestions[i]].length === tableUtilisees[typeDeQuestions[i]].length) {
+        tableUtilisees[typeDeQuestions[i]] = []
       }
-      const tab = choice(tableDisponibles[typeDeQuestions[i]], tableUtilisées[typeDeQuestions[i]])
-      tableUtilisées[typeDeQuestions[i]].push(tab)
+      const tab = choice(tableDisponibles[typeDeQuestions[i]], tableUtilisees[typeDeQuestions[i]])
+      tableUtilisees[typeDeQuestions[i]].push(tab)
       // console.log(data[tab])
 
       let num2, num3, den2, den3
       const den1 = !this.sup2 ? data[tab].id : choice(data[tab].den)
-      const num1 = trouveNumérateur(den1, data[tab].min, data[tab].max)
+      const num1 = trouveNumerateur(den1, data[tab].min, data[tab].max)
       if (this.interactif) {
-        texte = `Placer le point $${lettreIndiceeDepuisChiffre(i + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right).$`
+        texte = `Placer le point $${lettreIndiceeDepuisChiffre(i + 1)}\\left(${fraction(num1, den1).texFraction}\\right).$`
       } else {
         den2 = !this.sup2 ? data[tab].id : choice(data[tab].den, den1)
-        num2 = trouveNumérateur(den2, data[tab].min, data[tab].max, [{ num: num1, den: den1 }])
+        num2 = trouveNumerateur(den2, data[tab].min, data[tab].max, [{ num: num1, den: den1 }])
         den3 = !this.sup2 ? data[tab].id : choice(data[tab].den, (data[tab].den.length > 2 ? [den1, den2] : [den1]))
-        num3 = trouveNumérateur(den3, data[tab].min, data[tab].max, [{ num: num1, den: den1 }, { num: num2, den: den2 }])
-        texte = `Placer les points $${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${deprecatedTexFraction(num2, den2)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${deprecatedTexFraction(num3, den3)}\\right)$.`
+        num3 = trouveNumerateur(den3, data[tab].min, data[tab].max, [{ num: num1, den: den1 }, { num: num2, den: den2 }])
+        texte = `Placer les points $${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${fraction(num1, den1).texFraction}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${fraction(num2, den2).texFraction}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${fraction(num3, den3).texFraction}\\right)$.`
       }
       const origine = data[tab].min
       const tailleUnite = 20 / (data[tab].max - data[tab].min)
@@ -158,10 +158,10 @@ export default function PlacerPointsAbscissesFractionnairesComplexes () {
       }
 
       if (this.interactif) {
-        texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right).$`
+        texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}\\left(${fraction(num1, den1).texFraction}\\right).$`
         texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:30px ', scale: 0.6 }, d, traceA, labels)
       } else {
-        texteCorr = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${deprecatedTexFraction(num1, den1)}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${deprecatedTexFraction(num2, den2)}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${deprecatedTexFraction(num3, den3)}\\right)$`
+        texteCorr = `$${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\left(${fraction(num1, den1).texFraction}\\right)$, $~${lettreIndiceeDepuisChiffre(i * 3 + 2)}\\left(${fraction(num2, den2).texFraction}\\right)$ et $~${lettreIndiceeDepuisChiffre(i * 3 + 3)}\\left(${fraction(num3, den3).texFraction}\\right)$`
         texteCorr += '<br>' + mathalea2d({ xmin: -0.2, xmax: (data[tab].max - data[tab].min) * tailleUnite + 1, ymin: -1, ymax: 2, style: 'margin-top:5px ', scale: 1 }, d, traceA, traceB, traceC, labels)
       }
 
@@ -224,7 +224,7 @@ function isArrayInArray (arr, item) {
   return contains
 }
 
-function trouveNumérateur (den, min, max, fractionsAEviter = []) {
+function trouveNumerateur (den, min, max, fractionsAEviter = []) {
   const isNombreEntier = function (nu, de) {
     if (nu % de === 0) return true
     return false

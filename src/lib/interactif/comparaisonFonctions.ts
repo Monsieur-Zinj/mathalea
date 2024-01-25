@@ -381,6 +381,8 @@ export function fractionEgaleCompare (input: string, goodAnswer: string): { isOk
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
+  const cleaner = generateCleaner(['fractions', 'virgules', 'espaces'])
+  goodAnswer = cleaner(goodAnswer)
   const fReponse = engine.parse(goodAnswer)
   if (!isNaN(parseFloat(cleanStringBeforeParse(input)))) {
     // La saisie est faite sous forme décimale
