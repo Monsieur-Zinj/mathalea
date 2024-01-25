@@ -1136,10 +1136,10 @@ export default function SujetCAN2023Cinquieme () {
             Quelle durée met-il pour parcourir ${context.isHtml ? `$${texNombre(1.5 * b, 0)}$ km` : `\\Lg[km]{${texNombre(1.5 * b, 0)}}`} ?`
             texteCorr = `En 1h 30 min, l'avion parcourt $${texNombre(0.5 * b, 0)}$ km.<br>
             Comme il met $3$ h pour parcourir $${texNombre(b)}$ km,  il mettra $${miseEnEvidence(4)}$ h $${miseEnEvidence(30)}$ min pour parcourir $${texNombre(1.5 * b, 0)}$ km. `
-            setReponse(this, index, [new Hms({
+            setReponse(this, index, new Hms({
               hour: 4,
               minute: 30
-            }), new Hms({ minute: 270 })], { formatInteractif: 'hms' })
+            }), { formatInteractif: 'hms' })
 
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
