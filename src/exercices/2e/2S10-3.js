@@ -13,6 +13,5 @@ export const dateDePublication = '10/05/2023'
  */
 export const uuid = '0f1d1'
 export const ref = '2S10-3'
-export default function ProportiondeProportionS () {
-  ProportiondeProportion.call(this)
+export default class ProportiondeProportionS extends ProportiondeProportion {
 }
