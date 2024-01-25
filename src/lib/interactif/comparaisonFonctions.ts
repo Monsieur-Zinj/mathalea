@@ -361,6 +361,8 @@ export function fractionPlusSimpleCompare (input: string, goodAnswer: string): {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
+  const cleaner = generateCleaner(['fractions', 'espaces'])
+  goodAnswer = cleaner(goodAnswer)
   const goodAnswerParsed = engine.parse(goodAnswer, { canonical: false })
   const inputParsed = engine.parse(input, { canonical: false })
   if (inputParsed.head === 'Divide' && goodAnswerParsed.head === 'Divide') {
