@@ -8,7 +8,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
@@ -55,6 +55,7 @@ export default function LireAbscisseRelative () {
 
     for (let i = 0, abs0, l1, l2, l3, x1, x2, x3, x11, x22, x33, pas1, pas2, abs1, abs2, abs3, A, B, C, texte, texteCorr; i < this.nbQuestions; i++) {
       objets = []
+      let precision
       l1 = lettreDepuisChiffre(i * 3 + 1)
       l2 = lettreDepuisChiffre(i * 3 + 2)
       l3 = lettreDepuisChiffre(i * 3 + 3)
@@ -63,18 +64,21 @@ export default function LireAbscisseRelative () {
           abs0 = randint(-6, -3)
           pas1 = 1
           pas2 = 10
+          precision = 1
           break
 
         case 2: // Placer des décimaux relatifs sur un axe (2 décimales)
-          abs0 = calculANePlusJamaisUtiliser(randint(-4, -2) / 10)
+          abs0 = randint(-4, -2) / 10
           pas1 = 10
           pas2 = 10
+          precision = 2
           break
 
         case 3: // Placer des décimaux relatifs sur un axe (3 décimales)
-          abs0 = calculANePlusJamaisUtiliser(randint(-6, -2) / 100)
+          abs0 = randint(-6, -2) / 100
           pas1 = 100
           pas2 = 10
+          precision = 3
           break
       }
       x1 = randint(0, 2)
@@ -178,7 +182,7 @@ export default function LireAbscisseRelative () {
           ]
         }
       }
-      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 2, scale: 0.75 },
+      texteCorr = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1.5, ymax: 1, scale: 0.75 },
         droiteGraduee({
           Unite: 3 * pas1,
           Min: abs0,
@@ -189,9 +193,12 @@ export default function LireAbscisseRelative () {
           thickSec: true,
           labelsPrincipaux: true,
           thickDistance: 1 / pas1,
-          labelPointTaille: 10,
-          labelPointLargeur: 20 + 5 * typesDeQuestions[i],
-          pointListe: [[abs1, `${l1}(${texNombre(abs1)})`], [abs2, `${l2}(${texNombre(abs2)})`], [abs3, `${l3}(${texNombre(abs3)})`]]
+          labelPointTaille: 8,
+          labelPointLargeur: 0, // ce paramètre ne sert plus
+          pointListe: [[abs1, l1], [abs2, l2], [abs3, l3]],
+          labelListe: [[abs1, texNombre(abs1, precision)], [abs2, texNombre(abs2, precision)], [abs3, texNombre(abs3, precision)]],
+          labelDistance: 0.7,
+          labelCustomDistance: 1.2
         }))
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
