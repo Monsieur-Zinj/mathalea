@@ -219,6 +219,6 @@ export function getDynamicFractionDiagram () {
   figure.addCustomButton({ action: clearFill, tooltip: 'Réinitialiser le coloriage', url: erase })
   figure.divButtons.appendChild(p)
   figure.container.classList.add('border-2', 'border-coopmaths-struct', 'p-2', 'rounded-md')
-  const text = figure.create('TextByPosition', { text: `L'unité est partagée en ${d.denominator} parts égales.`, x: 0, y: -1.5, anchor: 'bottomLeft', color: 'black', size: 20, isChild: true, isFree: false, shape: '' })
+  const text = figure.create('TextByPosition', { text: `L'unité est partagée en ${d.denominator} parts égales.`, x: 0, y: -1.5, anchor: 'bottomLeft', isChild: true })
   return figure
 }
