@@ -1,18 +1,18 @@
 import { choice, enleveElement } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
+import type { MathfieldElement } from 'mathlive'
 
 export const titre = 'Décomposer une fraction (partie entière + fraction inférieure à 1)'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
@@ -27,6 +27,7 @@ export const ref = '6N20'
 export default class ExerciceFractionsDecomposer extends Exercice {
   constructor () {
     super()
+    this.nbQuestions = 5
     this.consigne =
           "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1."
     this.spacing = 2
@@ -60,9 +61,9 @@ export default class ExerciceFractionsDecomposer extends Exercice {
       defaut: 11,
       melange: 11,
       nbQuestions: this.nbQuestions
-    })
-    let fractions = []
-    let fractions1 = []
+    }) as number[]
+    let fractions: [number, number, number|string, string?][] = []
+    let fractions1: [number, number, string][] = []
     if (!this.sup2) {
       fractions = [
         [1, 2, ',5'],
@@ -110,11 +111,11 @@ export default class ExerciceFractionsDecomposer extends Exercice {
         const n = randint(1, aleaMax)
         const b = listeDenominateurs[i]
         const num = randint(1, b - 1)
-        let partieDecimale = num * 1000 / b // avec les 8e on a 3 chiffres, avec les 4 2...
-        partieDecimale = ',' + partieDecimale.toString().match(/[1-9]+/g)[0]
+        const partieDecimale = num * 1000 / b // avec les 8e on a 3 chiffres, avec les 4 2...
+        const partieDecimaleString = ',' + partieDecimale.toString().match(/[1-9]+/g)![0]
         const a = n * b + randint(1, b - 1)
         if (fractions.filter((element) => element[0] === a && element[1] === b).length === 0) { // la fraction n'a pas encore été construite
-          fractions.push([a, b, n, partieDecimale])
+          fractions.push([a, b, n, partieDecimaleString])
           i++
         } else {
           cpt++
@@ -122,7 +123,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
       }
     }
     for (
-      let i = 0, fraction, a, b, c, n, texte, texteCorr, reponse;
+      let i = 0, fraction, a, b, c, n, texte, texteCorr;
       i < this.nbQuestions;
       i++
     ) {
@@ -141,24 +142,26 @@ export default class ExerciceFractionsDecomposer extends Exercice {
       } else {
         a = fractions[i][0]
         b = fractions[i][1]
-        n = fractions[i][2]
+        n = fractions[i][2] as number
         c = a - n * b
         // ed = fractions[i][2].toString() + fractions[i][3]
       }
       texte =
                 '$ ' +
-                deprecatedTexFraction(a, b) +
+                texFraction(a, b) +
                 ' = \\ldots\\ldots + ' +
-                deprecatedTexFraction('\\ldots\\ldots', '\\ldots\\ldots') +
+                texFraction('\\ldots\\ldots', '\\ldots\\ldots') +
                 ' $'
       texteCorr =
-                '$ ' + deprecatedTexFraction(a, b) + ' = ' + n + '+' + deprecatedTexFraction(c, b) + ' $'
-      reponse = `${n} + ${deprecatedTexFraction(c, b)}`
+                '$ ' + texFraction(a, b) + ' = ' + n + '+' + texFraction(c, b) + ' $'
 
-      setReponse(this, i, reponse)
       if (this.interactif) {
-        texte = `$ ${deprecatedTexFraction(a, b)} = $`
-        texte += ajouteChampTexteMathLive(this, i)
+        texte = remplisLesBlancs(this, i, `\\dfrac{${a}}{${b}}~=~%{champ1} + \\dfrac{%{champ2}}{%{champ3}}`, 'inline college fillInTheBlank')
+        handleAnswers(this, i, {
+          champ1: { value: String(n) },
+          champ2: { value: String(c) },
+          champ3: { value: String(b) }
+        }, { formatInteractif: 'fillInTheBlank' })
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -177,7 +180,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
                   statut: true, // true au false pour un QCM
                   feedback: '',
                   reponse: { // utilisé si type = 'AMCNum'
-                    texte: 'Décomposer $' + deprecatedTexFraction(a, b) + '$ sous forme d\'une somme d\'un entier et d\'une fraction inférieure à 1. \\\\\n \\\\\n Entier ', // facultatif
+                    texte: 'Décomposer $' + texFraction(a, b) + '$ sous forme d\'une somme d\'un entier et d\'une fraction inférieure à 1. \\\\\n \\\\\n Entier ', // facultatif
                     valeur: n, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                     alignement: 'flushleft', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                     param: {
@@ -221,4 +224,37 @@ export default class ExerciceFractionsDecomposer extends Exercice {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque question.
   }
+
+  correctionInteractive = (i: number) => {
+    const mfe = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
+    if (mfe == null) {
+      throw Error('verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom : ' + JSON.stringify({ selecteur: `math-field#champTexteEx${this.numeroExercice}Q${i}` }))
+    }
+    const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+    const reponses = this.autoCorrection[i].reponse.valeur
+    let result: string
+    const num = Number(mfe.getPromptValue('champ2'))
+    const den = Number(mfe.getPromptValue('champ3'))
+    const fractionIsOk = (num * den) && Number(reponses.champ2.value) * den === Number(reponses.champ3.value) * num
+    const partieEntiereIsOk = reponses.champ1.value === mfe.getPromptValue('champ1')
+    if (partieEntiereIsOk && fractionIsOk) {
+      result = 'OK'
+    } else {
+      result = 'KO'
+    }
+    if (!this.answers) this.answers = {}
+    this.answers[`Ex${this.numeroExercice}Q${i}`] = mfe.getValue()
+    mfe.setPromptState('champ2', fractionIsOk ? 'correct' : 'incorrect', true)
+    mfe.setPromptState('champ3', fractionIsOk ? 'correct' : 'incorrect', true)
+    mfe.setPromptState('champ1', partieEntiereIsOk ? 'correct' : 'incorrect', true)
+
+    if (spanReponseLigne != null) {
+      spanReponseLigne.innerHTML = result === 'OK' ? '😎' : '☹️'
+    }
+    return result
+  }
+}
+
+function texFraction (a: number | string, b: number | string): string {
+  return `\\frac{${a}}{${b}}`
 }
