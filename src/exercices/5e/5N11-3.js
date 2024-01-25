@@ -9,7 +9,7 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 
 export const titre = 'Écrire une fraction sur 100 puis sous la forme d\'un pourcentage'
 export const interactifReady = true
-export const interactifType = 'custom'
+export const interactifType = ['custom', 'mathLive']
 export const amcType = 'AMCNum'
 export const amcReady = true
 export const dateDePublication = '06/02/2021'
@@ -85,7 +85,7 @@ export default function FractionVersPourcentage () {
     const reponseAttendue = this.autoCorrection[i].reponse.valeur.percent.value
     if (this.answers === undefined) this.answers = {}
     let result = 'KO'
-    const mf = document.querySelector(`#champTexteEx${this.numeroExercice}Q${i}`)
+    const mf = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}`)
     if (mf == null) {
       window.notify(`La correction de 5N11-3 n'a pas trouvé de mathfield d'id champTexteEx${this.numeroExercice}Q${i}`)
     } else {

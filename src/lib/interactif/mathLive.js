@@ -36,7 +36,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
   try {
     const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme' && key !== 'feedback')
     if (callback != null && typeof callback === 'function') { // Là c'est une correction custom ! Celui qui passe une callback doit savoir ce qu'il fait !
-      return callback(variables, reponses.bareme)
+      return callback(exercice, i, variables, reponses.bareme)
     }
     // Je traîte le cas des tableaux à part : une question pour de multiples inputs mathlive !
     // on pourra faire d'autres formats interactifs sur le même modèle

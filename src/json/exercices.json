@@ -5189,9 +5189,9 @@
     "typeExercice": "alea"
   },
   "3L11": {
-    "url": "3e/3L11.js",
+    "url": "3e/3L11new.js",
     "tags": [],
-    "uuid": "77a62",
+    "uuid": "db2e0",
     "id": "3L11",
     "titre": "Utiliser la simple distributivité",
     "features": {
@@ -12908,7 +12908,7 @@
     "typeExercice": "alea"
   },
   "6N20": {
-    "url": "6e/6N20.js",
+    "url": "6e/6N20.ts",
     "tags": [],
     "uuid": "6c8a1",
     "id": "6N20",
