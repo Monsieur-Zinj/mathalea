@@ -973,6 +973,7 @@
     "id": "2F21-1",
     "titre": "Modéliser une situation à l'aide d'une fonction",
     "datePublication": "14/02/2023",
+    "dateModification": "24/01/2024",
     "features": {
       "interactif": {
         "isActive": false,
@@ -9198,7 +9199,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'custom'"
+        "type": "['custom', 'mathLive']"
       },
       "amc": {
         "isActive": true,
@@ -12917,7 +12918,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'mathLive'"
+        "type": "'custom'"
       },
       "amc": {
         "isActive": true,
@@ -12989,7 +12990,7 @@
     "tags": [],
     "uuid": "2ba53",
     "id": "6N21",
-    "titre": "Utiliser les abscisses fractionnaires",
+    "titre": "Placer des points d’abscisses fractionnaires",
     "dateModification": "12/12/2023",
     "features": {
       "interactif": {
@@ -13008,12 +13009,31 @@
     "tags": [],
     "uuid": "a2582",
     "id": "6N21-1",
-    "titre": "Utiliser des abscisses fractionnaires (niv 2)",
+    "titre": "Placer des points d’abscisses fractionnaires (niv 2)",
     "datePublication": "11/05/2023",
     "features": {
       "interactif": {
-        "isActive": false,
-        "type": ""
+        "isActive": true,
+        "type": "'custom'"
+      },
+      "amc": {
+        "isActive": true,
+        "type": "AMCOpen"
+      }
+    },
+    "typeExercice": "alea"
+  },
+  "6N21-2": {
+    "url": "6e/6N21-2.js",
+    "tags": [],
+    "uuid": "442f4",
+    "id": "6N21-2",
+    "titre": "Lire des abscisses fractionnaires de points (niv 2)",
+    "datePublication": "11/05/2023",
+    "features": {
+      "interactif": {
+        "isActive": true,
+        "type": "'mathLive'"
       },
       "amc": {
         "isActive": true,
