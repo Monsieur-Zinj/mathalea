@@ -236,7 +236,7 @@ export default function ColorierDeplacement () {
         xLutin += ajoutXY[0]
         yLutin += ajoutXY[1]
         p = polygone(point(xLutin, yLutin), point(xLutin + 1, yLutin), point(xLutin + 1, yLutin - 1), point(xLutin, yLutin - 1))
-        p.couleurDeRemplissage = couleur
+        p.couleurDeRemplissage = colorToLatexOrHTML(couleur)
         p.opaciteDeRemplissage = 0.25
         p.epaisseur = 0
         lstObjet.push(p)
