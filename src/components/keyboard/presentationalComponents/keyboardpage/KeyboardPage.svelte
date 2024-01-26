@@ -13,6 +13,7 @@
     unitsBlocks.length > 1 ? [...usualBlocks] : [...unitsBlocks, ...usualBlocks]
   export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
   export let isInLine: boolean
+  $: blocksToBeDisplayed = isInLine ? [...page] : [...blocks]
   $: blockgapsize =
     innerWidth <= SM_BREAKPOINT ? GAP_BETWEEN_BLOCKS.sm : GAP_BETWEEN_BLOCKS.md
 </script>
@@ -21,19 +22,13 @@
   class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex flex-row blockgap items-start justify-center w-full"
   style="--blockgapsize:{blockgapsize}"
 >
-  {#if !isInLine}
-    {#if unitsBlocks.length > 1}
-      <KeyboardBlockPages blocksList={unitsBlocks} {isInLine} {clickKeycap} />
-    {/if}
+  <div class={unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}>
+    <KeyboardBlockPages blocksList={unitsBlocks} {isInLine} {clickKeycap} />
+  </div>
 
-    {#each blocks as block}
-      <Block {block} {isInLine} {innerWidth} {clickKeycap} />
-    {/each}
-  {:else}
-    {#each page as block}
-      <Block {block} {isInLine} {innerWidth} {clickKeycap} />
-    {/each}
-  {/if}
+  {#each blocksToBeDisplayed as block}
+    <Block {block} {isInLine} {innerWidth} {clickKeycap} />
+  {/each}
 </div>
 
 <style>

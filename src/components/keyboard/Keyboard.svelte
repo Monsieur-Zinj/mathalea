@@ -153,24 +153,13 @@
   >
     {#if alphanumericDisplayed}
       <Alphanumeric {clickKeycap} {pageType} />
-    {:else if !reduced}
-      <div class="py-2 md:py-0">
-        <KeyboardPage
-          unitsBlocks={[...unitsBlocks].reverse()}
-          usualBlocks={[...usualBlocks].reverse()}
-          bind:page={pages[currentPageIndex]}
-          isInLine={false}
-          {innerWidth}
-          {clickKeycap}
-        />
-      </div>
     {:else}
-      <div class="relative px-10">
+      <div class={reduced ? 'relative px-10' : 'py-2 md:py-0'}>
         <KeyboardPage
           unitsBlocks={[...unitsBlocks].reverse()}
           usualBlocks={[...usualBlocks].reverse()}
-          bind:page={pages[currentPageIndex]}
-          isInLine={true}
+          page={pages[currentPageIndex]}
+          isInLine={reduced}
           {innerWidth}
           {clickKeycap}
         />
@@ -178,13 +167,13 @@
         <button
           class="absolute right-2 md:right-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
           on:click={async (e) => {
-            e.preventDefault()
-            e.stopPropagation()
             if (currentPageIndex !== 0) {
               currentPageIndex--
             }
             await tick()
             mathaleaRenderDiv(divKeyboard)
+            e.preventDefault()
+            e.stopPropagation()
           }}
           on:mousedown={(e) => {
             e.preventDefault()
@@ -198,13 +187,13 @@
         <button
           class="absolute left-2 md:left-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
           on:click={async (e) => {
-            e.preventDefault()
-            e.stopPropagation()
             if (currentPageIndex !== pages.length - 1) {
               currentPageIndex++
             }
             await tick()
             mathaleaRenderDiv(divKeyboard)
+            e.preventDefault()
+            e.stopPropagation()
           }}
           on:mousedown={(e) => {
             e.preventDefault()
@@ -221,12 +210,11 @@
       type="button"
       class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
       on:click={async (e) => {
-        e.preventDefault()
-        e.stopPropagation()
         reduced = !reduced
-        computePages()
         await tick()
         mathaleaRenderDiv(divKeyboard)
+        e.preventDefault()
+        e.stopPropagation()
       }}
       on:mousedown={(e) => {
         e.preventDefault()
@@ -242,11 +230,11 @@
         ? 'flex justify-center items-center'
         : 'hidden'} absolute right-0 top-6 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
       on:click={async (e) => {
-        e.preventDefault()
-        e.stopPropagation()
         alphanumericDisplayed = !alphanumericDisplayed
         await tick()
         mathaleaRenderDiv(divKeyboard)
+        e.preventDefault()
+        e.stopPropagation()
       }}
       on:mousedown={(e) => {
         e.preventDefault()
