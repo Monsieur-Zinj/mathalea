@@ -5,6 +5,7 @@ import { OutilsStats } from '../../modules/outilsStat.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { context } from '../../modules/context'
 
 export const titre = 'Calculer des étendues'
 export const interactifReady = true
@@ -52,7 +53,7 @@ export default function CalculerEtendues () {
           texte = OutilsStats.texteNotes(notes)
           texte += '<br>Calculer l\'étendue de ces notes.';
           [min, max] = OutilsStats.computeEtendue(notes)
-          texteCorr = '<br>' + OutilsStats.texteCorrEtendueNotes(min, max)
+          texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrEtendueNotes(min, max)
           break
         case 'températures': {
           const mois = randint(1, 12)
@@ -62,7 +63,7 @@ export default function CalculerEtendues () {
           texte = OutilsStats.texteTemperatures(annee, mois, temperatures)
           texte += '<br>Calculer l\'étendue des températures.';
           [min, max] = OutilsStats.computeEtendue(temperatures)
-          texteCorr = '<br>' + OutilsStats.texteCorrEtendueNotes(min, max, 'température')
+          texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrEtendueNotes(min, max, 'température')
           break
         }
       }

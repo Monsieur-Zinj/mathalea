@@ -100,7 +100,7 @@ export default function Proportions () {
                   break
                 case 2:
                   texte = `$${texNombre(totale, 0)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes majeures dans le public.`
-                  texteCorr = `<br>On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.`
+                  texteCorr = `${context.isHtml ? '<br>' : ''}On commence par déterminer la proportion de personnes majeures avec ce calcul : <br> $100-${taux}=${100 - taux}$.`
                   texteCorr += 'Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$.'
                   texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
                   texteCorr += `<br>$\\dfrac{${100 - taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p.mul(-1).add(1))} \\times ${texNombre(totale, 0)} = ${texNombre(sous2, 2)}$`

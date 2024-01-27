@@ -5,6 +5,7 @@ import Exercice from '../Exercice'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import Decimal from 'decimal.js'
+import { context } from '../../modules/context'
 export const titre = 'Produit et somme ou différence de décimaux'
 
 export const dateDePublication = '20/12/2022'
@@ -55,7 +56,7 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
       }
       const couples = shuffle(couplesPossibles).slice(0, this.sup)
       texte = 'Calculer.'
-      texteCorr = '<br>'
+      texteCorr = context.isHtml ? '<br>' : '' + ''
       texteCorr += Operation({ operande1: A, operande2: B, type: 'multiplication', style: 'display: inline' }) + '<br>'
       let indice = 0
       for (const couple of couples) {

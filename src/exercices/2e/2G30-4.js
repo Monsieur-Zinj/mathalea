@@ -7,6 +7,7 @@ import {
 } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { context } from '../../modules/context'
 export const titre = 'Déterminer une équation cartésienne de droite à partir d\'un point et d\'un vecteur directeur'
 
 /**
@@ -65,7 +66,7 @@ export default function Equationcartesienne () {
           if (this.sup === 2) {
             texte += '<br><i>On demande une démonstration n\'utilisant pas de résultat de cours.</i>'
 
-            texteCorr = '<br>Soit $M(x;y)$ un point du plan distinct de $A$.'
+            texteCorr = context.isHtml ? '<br>' : '' + 'Soit $M(x;y)$ un point du plan distinct de $A$.'
             texteCorr += '<br>$M(x;y) \\in (d)$'
             texteCorr += ' <br>$\\iff \\overrightarrow {AM}$ est un vecteur directeur de la droite $(d)$. '
             texteCorr += ' <br>$\\iff \\overrightarrow {AM}$ et $\\vec u$ sont donc des vecteurs colinéaires. '

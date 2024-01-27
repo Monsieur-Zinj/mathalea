@@ -59,7 +59,7 @@ export default function CalculerDesMoyennes () {
         texte = OutilsStats.texteTemperatures(annee, mois, temperatures)
         texte += '<br>Calculer la moyenne des températures.'
         const [, somme] = OutilsStats.computeMoyenne(temperatures)
-        texteCorr = '<br>' + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
+        texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
         reponse = new FractionEtendue(somme, nombreTemperatures)
       } else { // pointures des membres du club de foot (moyenne pondérée)
         const nombreNotes = 5 // 5 colonnes
@@ -74,7 +74,7 @@ export default function CalculerDesMoyennes () {
         texte = OutilsStats.texteSalaires(pointures, [], 'pointures')
         texte += '<br>Calculer la pointure moyenne des membres de ce club.'
         const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(pointures)
-        texteCorr = '<br>' + OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
+        texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
         reponse = new FractionEtendue(somme, effectifTotal)
       }
       if (this.interactif) {

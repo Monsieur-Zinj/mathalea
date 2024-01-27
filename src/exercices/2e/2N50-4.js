@@ -12,6 +12,7 @@ import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
+import { context } from '../../modules/context'
 export const titre = 'Modéliser une situation géométrique à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
 /**
@@ -311,7 +312,7 @@ export default function ModeliserEquationsGeometrie () {
       On pose $AM=x$.<br>
      Déterminer la valeur de $x$ pour que le périmètre du triangle $AME$ soit égal à celui du carré $MBCD$.  `
 
-          texteCorr = '<br>On réalise une figure pour visualiser la situation :<br>'
+          texteCorr = context.isHtml ? '<br>' : '' + 'On réalise une figure pour visualiser la situation :<br>'
           texteCorr += mathalea2d({ xmin: -1, ymin: -3, xmax: 12, ymax: 8, pixelsParCm: 30, scale: 2 }, objets)
 
           texteCorr += ` Le triangle $AME$ est un triangle équilatéral de côté $x$, son périmètre est donc  $3x$.<br>

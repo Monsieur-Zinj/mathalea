@@ -79,7 +79,7 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
           texte = `$ ${texNombre(a[0])} \\times 10^{${texNombre(c[0])}} \\times ${texNombre(b[0])} \\times 10^{${texNombre(c[1])}} $\n` // a.10^n x b.10^m = ?
           somme = c[1] + c[0]
           if (this.correctionDetaillee) {
-            texteCorr = `<br>$\\begin{aligned}${texNombre(a[0])} \\times 10^{${texNombre(c[0])}} \\times ${texNombre(b[0])} \\times 10^{${texNombre(c[1])}} &= \\left ( ${texNombre(a[0])} \\times   ${texNombre(b[0])} \\right ) \\times \\left ( 10^{${texNombre(c[1])}} \\times 10^{${texNombre(c[0])}} \\right )\\\\\n`
+            texteCorr = `${context.isHtml ? '<br>' : ''}$\\begin{aligned}${texNombre(a[0])} \\times 10^{${texNombre(c[0])}} \\times ${texNombre(b[0])} \\times 10^{${texNombre(c[1])}} &= \\left ( ${texNombre(a[0])} \\times   ${texNombre(b[0])} \\right ) \\times \\left ( 10^{${texNombre(c[1])}} \\times 10^{${texNombre(c[0])}} \\right )\\\\\n`
             texteCorr += `&= ${texNombre(a[0] * b[0], 3)} \\times 10^{${texNombre(somme)}}\\\\\n`
             if (prod[0][1] !== 0) { // On ajoute ces lignes seulement si l'exposant du produit est différent de zéro
               texteCorr += `&= ${texNombre(prod[0][0])} \\times 10^{${prod[0][1]}} \\times 10^{${somme}}\\\\\n`
