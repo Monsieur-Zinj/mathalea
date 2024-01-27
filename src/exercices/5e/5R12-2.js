@@ -6,13 +6,14 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser, contraindreValeur } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Déterminer les coordonnées (relatives) d\'un point'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '22/01/2024'
 
 /**
  * Lire les coordonnées d'un point du plan avec une précision allant de l'unité à 0,25.
@@ -30,6 +31,7 @@ export default function ReperagePointDuPlan () {
   this.spacingCorr = 1
   this.sup = 1
   this.sup2 = true
+  this.sup3 = 5
   this.quartDePlan = false
   this.listePackages = 'tkz-euclide'
   this.listeAvecNumerotation = false
@@ -47,6 +49,7 @@ export default function ReperagePointDuPlan () {
     const k = Math.pow(2, this.sup - 1)
     const nom = []
     const objets2d = []
+    const nbPoints = contraindreValeur(2, 5, this.sup3, 5)
     if (this.quartDePlan) {
       xmin = 0; ymin = 0; xmax = 10; ymax = 10
     } else {
@@ -63,7 +66,7 @@ export default function ReperagePointDuPlan () {
     listePoints = creerCouples(listeAbs, listeOrd, 10 * k)
     for (let l = 0, lettre = randint(1, 20); l < 5; l++) {
       nom.push(lettreDepuisChiffre(l + lettre))
-    } for (let j = 0; j < 5; j++) {
+    } for (let j = 0; j < nbPoints; j++) {
       points.push(point(listePoints[j][0], listePoints[j][1], nom[j], 'above left'))
       if (points[j].x === 0) { X0 = true }
       if (points[j].y === 0) { Y0 = true }
@@ -84,7 +87,7 @@ export default function ReperagePointDuPlan () {
 
     texte = 'Déterminer les coordonnées des points'
     texteCorr = 'Les coordonnées des points sont :<br>'
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < nbPoints - 1; i++) {
       texte += ` $${nom[i]}$,`
       texteCorr += ` $${nom[i]}(${miseEnEvidence(texNombre(points[i].x))};${miseEnEvidence(texNombre(points[i].y))})$,`
       if (context.isAmc) {
@@ -128,8 +131,8 @@ export default function ReperagePointDuPlan () {
         )
       }
     }
-    texte = texte.slice(0, texte.length - 1) + ` et $${nom[4]}$.<br>`
-    texteCorr = texteCorr.slice(0, texteCorr.length - 1) + ` et $${nom[4]}(${miseEnEvidence(texNombre(points[4].x))};${miseEnEvidence(texNombre(points[4].y))})$.`
+    texte = texte.slice(0, texte.length - 1) + ` et $${nom[nbPoints - 1]}$.<br>`
+    texteCorr = texteCorr.slice(0, texteCorr.length - 1) + ` et $${nom[nbPoints - 1]}(${miseEnEvidence(texNombre(points[nbPoints - 1].x))};${miseEnEvidence(texNombre(points[nbPoints - 1].y))})$.`
     if (this.sup2) {
       objets2d.push(repere({
         xMin: xmin - 1,
@@ -146,7 +149,7 @@ export default function ReperagePointDuPlan () {
     } else {
       objets2d.push(repere({ xMin: xmin - 1, yMin: ymin - 1, xMax: xmax + 1, yMax: ymax + 1 }))
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < nbPoints; i++) {
       objets2d.push(tracePoint(points[i], 'red'), labelPoint(points[i]))
     }
     texte += '<br>' + mathalea2d({ xmin: xmin - 1, ymin: ymin - 1, xmax: xmax + 1, ymax: ymax + 1, pixelsParCm: 30, scale: 0.75 }, objets2d)
@@ -161,4 +164,5 @@ export default function ReperagePointDuPlan () {
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Coordonnées entières\n2 : Coordonnées 'en demis'\n3 : Coordonnées 'en quarts'"]
   this.besoinFormulaire2CaseACocher = ['Grille de lecture']
+  this.besoinFormulaire3Numerique = ['Nombre de points (entre 2 et 5)', 5]
 }
