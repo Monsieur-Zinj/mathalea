@@ -133,10 +133,7 @@ export default function SujetCAN2021Sixieme () {
         case 4:
           a = randint(3, 8) // choix de la table = écart entre deux graduations
           c = Math.floor(randint(10, 40) / a) * a // premier nombre.
-          maListe = []
-          for (let i = 0; i < 2; i++) {
-            maListe.push([`${c + a * i}`, `${c + a * i}`])
-          }
+          maListe = [[c, String(c)], [c + a, String(c + a)]]
           d = droiteGraduee({
             Unite: 3 / a,
             Min: c - 2 * a,
