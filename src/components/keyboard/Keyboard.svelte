@@ -17,7 +17,6 @@
   import { MathfieldElement } from 'mathlive'
   import Alphanumeric from './presentationalComponents/alphanumeric/Alphanumeric.svelte'
   import { isPageKey } from './types/keycap'
-  import { exercicesParams } from '../../lib/stores/generalStore'
 
   $: innerWidth = 0
 
@@ -87,9 +86,28 @@
     mathaleaRenderDiv(divKeyboard)
   })
 
-  // fermer un clavier ouvert lorsqu'il n'y a plus d'exercices...
-  $: if ($exercicesParams.length === 0) {
-    $keyboardState.isVisible = false
+  async function navRight (e: MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    if (currentPageIndex !== 0) {
+      currentPageIndex--
+    }
+    console.log('page à afficher n°' + currentPageIndex)
+    console.log(pages[currentPageIndex])
+    await tick()
+    mathaleaRenderDiv(divKeyboard)
+  }
+
+  async function navLeft (e: MouseEvent) {
+    e.preventDefault()
+    e.stopPropagation()
+    if (currentPageIndex !== pages.length - 1) {
+      currentPageIndex++
+    }
+    console.log('page à afficher n°' + currentPageIndex)
+    console.log(pages[currentPageIndex])
+    await tick()
+    mathaleaRenderDiv(divKeyboard)
   }
 
   const clickKeycap = (key: KeyCap, event: MouseEvent, value?: Keys) => {
@@ -172,17 +190,7 @@
         <button
           id="kb-nav-right"
           class="absolute right-2 md:right-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
-          on:click={async (e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            if (currentPageIndex !== 0) {
-              currentPageIndex--
-            }
-            console.log('page à afficher n°' + currentPageIndex)
-            console.log(pages[currentPageIndex])
-            await tick()
-            mathaleaRenderDiv(divKeyboard)
-          }}
+          on:click={navRight}
           on:mousedown={(e) => {
             e.preventDefault()
             e.stopPropagation()
@@ -195,17 +203,7 @@
         <button
           id="kb-nav-left"
           class="absolute left-2 md:left-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
-          on:click={async (e) => {
-            e.preventDefault()
-            e.stopPropagation()
-            if (currentPageIndex !== pages.length - 1) {
-              currentPageIndex++
-            }
-            console.log('page à afficher n°' + currentPageIndex)
-            console.log(pages[currentPageIndex])
-            await tick()
-            mathaleaRenderDiv(divKeyboard)
-          }}
+          on:click={navLeft}
           on:mousedown={(e) => {
             e.preventDefault()
             e.stopPropagation()
