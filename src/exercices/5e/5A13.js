@@ -56,7 +56,19 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
     if (this.sup2 && this.sup3) {
       grandNombres = combinaisonListes([true, true, false, true], this.nbQuestions)
     } else if (this.sup2) {
-      grandNombres = combinaisonListes([false, false, false, true], this.nbQuestions)
+      switch (this.nbQuestions) {
+        case 1:
+          grandNombres = [true]
+          break
+        case 2:
+          grandNombres = combinaisonListes([true, false], this.nbQuestions)
+          break
+        case 3:
+          grandNombres = combinaisonListes([true, false, false], this.nbQuestions)
+          break
+        default:
+          grandNombres = combinaisonListes([true, false, false, false], this.nbQuestions)
+      }
     } else {
       grandNombres = combinaisonListes([false, false, false, false], this.nbQuestions)
     }
@@ -77,7 +89,6 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
           this.sup3 ? facteurs.push(choice(listeFacteurs2.concat([3, 13]))) : facteurs.push(choice(listeFacteurs2))
         }
       }
-
       if (this.sup2 && grandNombres[i]) { // Une fois sur 4 on multilie le nombre par 100 (par 60 pour le niveau 2nde)
         this.sup3 ? facteurs.push(2, 2, 3, 5) : facteurs.push(2, 2, 5, 5)
       }
