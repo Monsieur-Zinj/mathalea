@@ -6,6 +6,7 @@ import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { context } from '../../modules/context'
 
 export const titre = 'Variations en pourcentage'
 export const interactifReady = true
@@ -107,7 +108,7 @@ export default function EvolutionsEnPourcentage () {
                 texteCorr += `<br>Le prix a été multiplié par ${coeff}, il a donc augmenté de $${taux}~\\%$.`
               } else {
                 texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
-                texteCorr = `<br>$${texPrix(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
+                texteCorr = `${context.isHtml ? '<br>' : ''}$${texPrix(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
                 texteCorr += `<br>Le prix a été multiplié par $${coeff}$, il a donc diminué de $${abs(taux)}~\\%$.`
               }
               reponse = abs(taux)

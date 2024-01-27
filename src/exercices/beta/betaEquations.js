@@ -1144,7 +1144,7 @@ export default function EquationsProgression () {
         case 114: {
           exercice = resoudre('9*x+7=6*x-3', { color: 'black', comment: true })
           exercice.texte = `Résoudre : $${exercice.equation}$`
-          exercice.texteCorr = `<br>
+          exercice.texteCorr = `${context.isHtml ? '<br>' : ''}
           ${exercice.texteCorr}<br>
           La solution est $${exercice.solution.print}$.
           <br>

@@ -983,7 +983,7 @@ export function resoudre (equation, params) {
     calculateRightSide = calculer(sides[1].replaceAll(SymbolNode, `(${thesolution})`))
   }
   if (params.verifications) {
-    texteCorr = `<br>
+    texteCorr = `${context.isHtml ? '<br>' : ''}
           ${texteCorr}<br>
           La solution est $${solution.print}$.
           <br>

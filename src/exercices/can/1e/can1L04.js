@@ -4,6 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { context } from '../../../modules/context'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
@@ -63,7 +64,7 @@ export default function ResoudreEquationSecondDegre () {
         setReponse(this, 2 * i, Math.min(x1, x2))
         setReponse(this, 2 * i + 1, Math.max(x1, x2))
       }
-      texteCorr = '<br>$\\Delta>0$ donc l\'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
+      texteCorr = context.isHtml ? '<br>' : '' + '$\\Delta>0$ donc l\'équation admet deux solutions : $x_1 = \\dfrac{-b-\\sqrt{\\Delta}}{2a}$ et $x_2 = \\dfrac{-b+\\sqrt{\\Delta}}{2a}$'
       texteCorr += `<br>$x_1 = \\dfrac{${-b} -\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${texNombre((-b - Math.sqrt(d)) / (2 * a), 0)}$ et
        $x_2 = \\dfrac{${-b} +\\sqrt{${d}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${texNombre((-b + Math.sqrt(d)) / (2 * a), 0)}$`
       if (this.questionJamaisPosee(i, a, x1, x2)) {
