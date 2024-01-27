@@ -1,4 +1,4 @@
-import { codageAngle } from '../../lib/2d/angles.js'
+import { codageAngle, codageAngleDroit } from '../../lib/2d/angles.js'
 import { point } from '../../lib/2d/points.js'
 import { nommePolygone } from '../../lib/2d/polygones.js'
 import { triangle2points2angles } from '../../lib/2d/triangle.js'
@@ -61,8 +61,8 @@ export default function ExerciceAnglesTriangles () {
   context.isHtml ? this.spacing = 2 : this.spacing = 2
   this.nbQuestions = 5
   this.correctionDetailleeDisponible = true
-  this.nbCols = 1
-  this.nbColsCorr = 1
+  this.nbCols = 2
+  this.nbColsCorr = 2
 
   const troisiemeAngle = function (a1, a2) {
     if (a1 + a2 <= 180) {
@@ -116,8 +116,8 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle))
           objetsCorrection.push(triangle, nommePolygone(triangle))
-          angleA = codageAngle(B, A, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleB = codageAngle(A, B, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(B, A, C, 1.5, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(A, B, C, 1.5, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
           objetsEnonce.push(angleA, angleB)
           angleC = codageAngle(A, C, B, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
           objetsCorrection.push(angleA, angleB, angleC)
@@ -141,10 +141,10 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle))
           objetsCorrection.push(triangle, nommePolygone(triangle))
-          angleA = codageAngle(B, A, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleB = codageAngle(A, B, C, 1.5, '|', 'green', 2)
+          angleA = codageAngle(B, A, C, 1.5, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngleDroit(A, B, C, 'blue', 1, 1.5)
           objetsEnonce.push(angleA, angleB)
-          angleA = codageAngle(B, A, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(B, A, C, 1.5, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
           angleC = codageAngle(A, C, B, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
           objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
@@ -166,12 +166,12 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
           objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
-          angleB = codageAngle(A, B, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(A, B, C, 1.5, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
           angleB.echelleMark = 2
           objetsEnonce.push(angleB)
           angleA = codageAngle(B, A, angle2, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
           angleA.angleArrondi = 1
-          angleB = codageAngle(A, B, -angle1, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(A, B, -angle1, 1.5, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
           angleC = codageAngle(A, C, B, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
           angleC.angleArrondi = 1
           objetsCorrection.push(angleA, angleB, angleC)
@@ -199,11 +199,11 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[2], triangle.listePoints[0]), 2))
           objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('||', 'blue', segment(triangle.listePoints[1], triangle.listePoints[2]), segment(triangle.listePoints[2], triangle.listePoints[0]), 2))
-          angleB = codageAngle(A, B, C, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(A, B, C, 1.5, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
           angleB.echelleMark = 2
           objetsEnonce.push(angleB)
-          angleA = codageAngle(B, A, angle2, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
-          angleB = codageAngle(A, B, -angle1, 1.5, '', 'green', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleA = codageAngle(B, A, angle2, 1.5, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
+          angleB = codageAngle(A, B, -angle1, 1.5, '', 'blue', 2, 1, 'none', 0.2, true, false, '', 1.2)
           angleC = codageAngle(A, C, B, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
           objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
@@ -226,11 +226,11 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle))
           objetsCorrection.push(triangle, nommePolygone(triangle))
-          angleA = codageAngle(B, A, C, 1.5, '', 'green', 2)
+          angleA = codageAngleDroit(B, A, C, 'blue', 1, 1.5)
           angleA.echelleMark = 2
-          angleB = codageAngle(A, B, C, 1.5, '|', 'green', 2)
+          angleB = codageAngle(A, B, C, 1.5, '|', 'blue', 2)
           angleB.echelleMark = 2
-          angleC = codageAngle(A, C, B, 1.5, '|', 'green', 2)
+          angleC = codageAngle(A, C, B, 1.5, '|', 'blue', 2)
           angleC.echelleMark = 2
           objetsEnonce.push(angleA, angleB, angleC)
           angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
@@ -262,11 +262,11 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle))
           objetsCorrection.push(triangle, nommePolygone(triangle))
-          angleA = codageAngle(B, A, C, 1, '', 'green', 2)
+          angleA = codageAngleDroit(B, A, C, 'blue', 1, 1.5)
           angleA.echelleMark = 2
-          angleB = codageAngle(A, B, C, 1, '||', 'green', 2)
+          angleB = codageAngle(A, B, C, 1, '||', 'blue', 2)
           angleB.echelleMark = 2
-          angleC = codageAngle(A, C, B, 1, '|', 'green', 1.5)
+          angleC = codageAngle(A, C, B, 1, '|', 'blue', 1.5)
           angleC.echelleMark = 2
           objetsEnonce.push(angleA, angleB, angleC)
           angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
@@ -297,11 +297,11 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle))
           objetsCorrection.push(triangle, nommePolygone(triangle))
-          angleA = codageAngle(B, A, C, 1, '', 'green', 2)
+          angleA = codageAngleDroit(B, A, C, 'blue', 1, 1.5)
           angleA.echelleMark = 2
-          angleB = codageAngle(A, B, C, 1, '|', 'green', 2)
+          angleB = codageAngle(A, B, C, 1, '|', 'blue', 2)
           angleB.echelleMark = 2
-          angleC = codageAngle(A, C, B, 1, '||||', 'green', 1.5)
+          angleC = codageAngle(A, C, B, 1, '||||', 'blue', 1.5)
           angleC.echelleMark = 2
           objetsEnonce.push(angleA, angleB, angleC)
           angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
@@ -332,11 +332,11 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle))
           objetsCorrection.push(triangle, nommePolygone(triangle))
-          angleA = codageAngle(B, A, C, 1.5, '', 'green', 2)
+          angleA = codageAngleDroit(B, A, C, 'blue', 1, 1.5)
           angleA.echelleMark = 2
-          angleB = codageAngle(A, B, C, 1.5, '|||||', 'green', 2)
+          angleB = codageAngle(A, B, C, 1.5, '|||||', 'blue', 2)
           angleB.echelleMark = 2
-          angleC = codageAngle(A, C, B, 1.5, '|', 'green', 2)
+          angleC = codageAngle(A, C, B, 1.5, '|', 'blue', 2)
           angleC.echelleMark = 2
           objetsEnonce.push(angleA, angleB, angleC)
           angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
@@ -362,11 +362,11 @@ export default function ExerciceAnglesTriangles () {
           triangle = triangle2points2angles(A, B, 60, 60)
           C = triangle.listePoints[2]
           C.nom = s3
-          angleA = codageAngle(B, A, 60, 1.5, '|', 'green', 2)
+          angleA = codageAngle(B, A, 60, 1.5, '|', 'blue', 2)
           angleA.echelleMark = 2
-          angleB = codageAngle(A, B, -60, 1.5, '|', 'green', 2)
+          angleB = codageAngle(A, B, -60, 1.5, '|', 'blue', 2)
           angleB.echelleMark = 2
-          angleC = codageAngle(A, C, 60, 1.5, '|', 'green', 2)
+          angleC = codageAngle(A, C, 60, 1.5, '|', 'blue', 2)
           angleC.echelleMark = 2
           objetsEnonce.push(triangle, angleA, angleB, angleC, nommePolygone(triangle))
           angleB = codageAngle(A, B, -60, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
@@ -394,11 +394,11 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle))
           objetsCorrection.push(triangle, nommePolygone(triangle))
-          angleA = codageAngle(B, A, C, 1, '', 'green', 2)
+          angleA = codageAngleDroit(B, A, C, 'blue', 1, 1.5)
           angleA.echelleMark = 2
-          angleB = codageAngle(A, B, C, 1.5, '|', 'green', 2)
+          angleB = codageAngle(A, B, C, 1.5, '|', 'blue', 2)
           angleB.echelleMark = 2
-          angleC = codageAngle(A, C, B, 1.5, '|||', 'green', 2)
+          angleC = codageAngle(A, C, B, 1.5, '|||', 'blue', 2)
           angleC.echelleMark = 2
           objetsEnonce.push(angleA, angleB, angleC)
           angleB = codageAngle(A, B, -angle1, 0.8, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
@@ -430,9 +430,9 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('XX', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
           objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('XX', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
-          angleA = codageAngle(B, A, C, 1.5, '||', 'green', 2)
+          angleA = codageAngle(B, A, C, 1.5, '||', 'blue', 2)
           angleA.echelleMark = 2
-          angleB = codageAngle(A, B, C, 1.5, '|||', 'green', 2)
+          angleB = codageAngle(A, B, C, 1.5, '|||', 'blue', 2)
           angleB.echelleMark = 2
           objetsEnonce.push(angleA, angleB)
           angleA = codageAngle(B, A, angle2, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
@@ -469,9 +469,9 @@ export default function ExerciceAnglesTriangles () {
           C.nom = s3
           objetsEnonce.push(triangle, nommePolygone(triangle), codageSegments('|||', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
           objetsCorrection.push(triangle, nommePolygone(triangle), codageSegments('|||', 'blue', segment(triangle.listePoints[0], triangle.listePoints[2]), segment(triangle.listePoints[1], triangle.listePoints[0]), 2))
-          angleA = codageAngle(B, A, C, 1.5, '|', 'green', 2)
+          angleA = codageAngle(B, A, C, 1.5, '|', 'blue', 2)
           angleA.echelleMark = 2
-          angleB = codageAngle(A, B, C, 1.5, '||', 'green', 2)
+          angleB = codageAngle(A, B, C, 1.5, '||', 'blue', 2)
           angleB.echelleMark = 2
           objetsEnonce.push(angleA, angleB)
           angleA = codageAngle(B, A, angle2, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
@@ -534,7 +534,7 @@ export default function ExerciceAnglesTriangles () {
       const xmax = Math.max(A.x, B.x, C.x) + 2
       const ymin = Math.min(A.y, B.y, C.y) - 2
       const ymax = Math.max(A.y, B.y, C.y) + 2
-      const paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
+      const paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 0.3 }
 
       if (this.sup2) {
         texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
@@ -542,7 +542,7 @@ export default function ExerciceAnglesTriangles () {
         texteCorrFinal += this.correctionDetaillee ? '<br>' + mathalea2d(paramsEnonce, objetsEnonce) : ''
       }
       texteCorrFinal += texteCorr
-      texteCorrFinal += '<br>' + mathalea2d(Object.assign(fixeBordures(objetsCorrection)), objetsCorrection)
+      texteCorrFinal += '<br>' + mathalea2d(Object.assign(fixeBordures(objetsCorrection), { pixelsParCm: 20, scale: 0.3 }), objetsCorrection)
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
