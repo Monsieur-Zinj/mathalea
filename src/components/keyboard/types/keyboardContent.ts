@@ -52,6 +52,11 @@ export class Keyboard {
     return this
   }
 
+  empty = (): Keyboard => {
+    this.blocks.length = 0
+    this.blocks.push(specialKeys)
+  }
+
   /**
    * Retrouve le nombre de blocs dans le clavier
    * @returns nombre de blocs dans le clavier

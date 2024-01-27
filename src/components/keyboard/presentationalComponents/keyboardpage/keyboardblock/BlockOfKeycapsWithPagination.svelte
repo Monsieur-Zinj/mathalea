@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { KeyboardBlock } from '../../../types/keyboardContent'
   import { getUniqueStringBasedOnTimeStamp } from '../../../../../lib/components/time'
-  import Block from './KeyboardBlock.svelte'
+  import BlockOfKeycaps from './BlockOfKeycaps.svelte'
   import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT } from '../../../lib/sizes'
   import type { KeyCap } from '../../../types/keycap'
   import { keyboardBlocks } from '../../../layouts/keysBlocks'
@@ -68,7 +68,7 @@
         role="tabpanel"
         aria-labelledby="tabs-{toRegularCharacters(block.title)}-tab"
       >
-        <Block {block} {isInLine} {innerWidth} {clickKeycap} />
+        <BlockOfKeycaps {block} {isInLine} {innerWidth} {clickKeycap} />
       </div>
     {/each}
   </div>

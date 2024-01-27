@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, tick } from 'svelte'
+  import { tick } from 'svelte'
   import { keyboardState } from './stores/keyboardStore'
   import { mathaleaRenderDiv } from '../../lib/mathalea'
   import { fly } from 'svelte/transition'
@@ -30,34 +30,10 @@
   let alphanumericDisplayed: boolean = false
   let isVisible = false
   let pageType: AlphanumericPages = 'AlphaLow'
-  let myKeyboard: Keyboard = new Keyboard()
-  keyboardState.subscribe(async (value) => {
-    isVisible = value.isVisible
-    pageType = value.alphanumericLayout
-    myKeyboard = new Keyboard()
-    for (const block of value.blocks) {
-      myKeyboard.add(keyboardBlocks[block])
-    }
-    unitsBlocks.length = 0
-    usualBlocks.length = 0
-    for (const block of myKeyboard.blocks) {
-      if (block && Object.hasOwn(block, 'isUnits') && block.isUnits) {
-        unitsBlocks.push(block)
-      } else {
-        usualBlocks.push(block)
-      }
-    }
-    await tick()
-    mathaleaRenderDiv(divKeyboard)
-  })
-  // const blockList = [...myKeyboard.blocks].reverse()
-
-  // fermer un clavier ouvert lorsqu'il n'y a plus d'exercices...
-  $: if ($exercicesParams.length === 0) {
-    $keyboardState.isVisible = false
-  }
+  const myKeyboard: Keyboard = new Keyboard()
 
   const computePages = () => {
+    console.log('computePages is called!')
     pages.length = 0
     let pageWidth: number = 0
     let page: KeyboardBlock[] = []
@@ -72,8 +48,8 @@
       pageWidth =
         pageWidth + inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]
       page.push(block!)
-      console.log('computePages: pageWidth')
-      console.log(pageWidth)
+      // console.log('computePages: pageWidth')
+      // console.log(pageWidth)
       // console.log(
       //   'pageWidth: ' + pageWidth + ' / innerWidth * 0.7: ' + innerWidth * 0.7
       // )
@@ -89,6 +65,31 @@
       pages.push(page.reverse())
     }
     // console.log('nb de pages: ' + pages.length)
+  }
+
+  keyboardState.subscribe(async (value) => {
+    isVisible = value.isVisible
+    pageType = value.alphanumericLayout
+    myKeyboard.empty()
+    for (const block of value.blocks) {
+      myKeyboard.add(keyboardBlocks[block])
+    }
+    unitsBlocks.length = 0
+    usualBlocks.length = 0
+    for (const block of myKeyboard.blocks) {
+      if (block && Object.hasOwn(block, 'isUnits') && block.isUnits) {
+        unitsBlocks.push(block)
+      } else {
+        usualBlocks.push(block)
+      }
+    }
+    await tick()
+    mathaleaRenderDiv(divKeyboard)
+  })
+
+  // fermer un clavier ouvert lorsqu'il n'y a plus d'exercices...
+  $: if ($exercicesParams.length === 0) {
+    $keyboardState.isVisible = false
   }
 
   const clickKeycap = (key: KeyCap, event: MouseEvent, value?: Keys) => {
@@ -139,9 +140,13 @@
     }
   }
 
-  onMount(() => {
-    computePages()
-  })
+    // onMount(() => {
+    //   computePages()
+    // })
+
+    // afterUpdate(() => {
+    //   computePages()
+    // })
 </script>
 
 <svelte:window bind:innerWidth />
@@ -165,11 +170,14 @@
         />
         <!-- Boutons de navigation entre les pages : vers la DROITE -->
         <button
+          id="kb-nav-right"
           class="absolute right-2 md:right-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
           on:click={async (e) => {
             if (currentPageIndex !== 0) {
               currentPageIndex--
             }
+            console.log('page à afficher n°' + currentPageIndex)
+            console.log(pages[currentPageIndex])
             await tick()
             mathaleaRenderDiv(divKeyboard)
             e.preventDefault()
@@ -179,17 +187,20 @@
             e.preventDefault()
             e.stopPropagation()
           }}
-          disabled={pages.length === 1 || currentPageIndex === 0}
+          disabled={pages.length === 1 || currentPageIndex === 0 || !reduced}
         >
           <i class="bx bx-chevron-right bx-lg" />
         </button>
         <!-- Boutons de navigation entre les pages : vers la GAUCHE -->
         <button
+          id="kb-nav-left"
           class="absolute left-2 md:left-0 top-0 bottom-0 m-auto flex justify-center items-center h-8 w-8 text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest disabled:text-opacity-0 dark:disabled:text-opacity-0"
           on:click={async (e) => {
             if (currentPageIndex !== pages.length - 1) {
               currentPageIndex++
             }
+            console.log('page à afficher n°' + currentPageIndex)
+            console.log(pages[currentPageIndex])
             await tick()
             mathaleaRenderDiv(divKeyboard)
             e.preventDefault()
@@ -199,7 +210,7 @@
             e.preventDefault()
             e.stopPropagation()
           }}
-          disabled={pages.length === 1 || currentPageIndex === pages.length - 1}
+          disabled={pages.length === 1 || currentPageIndex === pages.length - 1 || !reduced}
         >
           <i class="bx bx-chevron-left bx-lg" />
         </button>
@@ -207,9 +218,11 @@
     {/if}
     <!-- Bouton de réduction du clavier -->
     <button
+      id="kb-nav-reduced"
       type="button"
       class="z-[10000] absolute right-0 top-0 h-5 w-5 rounded-sm bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action-light dark:hover:bg-coopmathsdark-action-lightest text-coopmaths-canvas dark:text-coopmaths-canvas"
       on:click={async (e) => {
+        computePages()
         reduced = !reduced
         await tick()
         mathaleaRenderDiv(divKeyboard)
@@ -225,6 +238,7 @@
     </button>
     <!-- bouton de passage du clavier alphanumérique au clavier maths-->
     <button
+      id="kb-nav-alpha"
       type="button"
       class="z-[10000] {$keyboardState.blocks.includes('alphanumeric')
         ? 'flex justify-center items-center'
