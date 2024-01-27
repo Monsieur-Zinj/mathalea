@@ -48,8 +48,14 @@
           id="tabs-{toRegularCharacters(block.title)}-tab"
           role="tab"
           aria-controls="tabs-{toRegularCharacters(block.title)}"
-          on:click={() => {
+          on:click={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
             switchToBlock(toRegularCharacters(block.title))
+          }}
+          on:mousedown={(e) => {
+            e.preventDefault()
+            e.stopPropagation()
           }}
         >
           {block.title}
