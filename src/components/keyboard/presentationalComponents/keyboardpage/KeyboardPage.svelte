@@ -23,15 +23,19 @@
   style="--blockgapsize:{blockgapsize}"
 >
   {#if isInLine}
-    {#each page as block}
-      <BlockOfKeyCaps {block} {isInLine} {innerWidth} {clickKeycap} />
+    {#each page as block, index}
+      <div id="kb-block-{index}">
+        <BlockOfKeyCaps {block} {isInLine} {innerWidth} {clickKeycap} />
+      </div>
     {/each}
   {:else}
   <div class={unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}>
     <BlockOfKeycapsWithPagination blocksList={unitsBlocks} {isInLine} {clickKeycap} />
   </div>
-    {#each blocks as block}
-      <BlockOfKeyCaps {block} {isInLine} {innerWidth} {clickKeycap} />
+    {#each blocks as block, index}
+      <div id="kb-block-{index}">
+        <BlockOfKeyCaps {block} {isInLine} {innerWidth} {clickKeycap} />
+      </div>
     {/each}
   {/if}
 </div>
