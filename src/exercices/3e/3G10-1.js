@@ -90,7 +90,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
       const pointO = point(0, 0, 'O', 'above right')
 
       const O = point(xO, yO, "O'", 'above left') // on crée le point O'
-      let droited1, droited2, droited, droitedprime
+      let droited1, droited2, droited, droitedprime, droited1Latex, droited2Latex, droitedLatex, droitedprimeLatex
       let trouve = false
       let compteur = 0
       while (trouve === false) {
@@ -176,7 +176,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
       for (let i = 0; i < 3; i++) {
         switch (choixTransformation[i]) {
           case 1: // symétrie axiale
-            droited1 = droiteAvecNomLatex(droiteParPointEtPente(O, 1, '', context.isHtml ? couleurs[i] : 'black'), '(d_1)')
+            droited1Latex = droiteAvecNomLatex(droiteParPointEtPente(O, 1, '', context.isHtml ? couleurs[i] : 'black'), '(d_1)')
+            droited1 = droited1Latex[0]
             droited1.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited1.isVisible = true
             droited1.epaisseur = 2
@@ -198,8 +199,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
               xP[1] = xC
               yP[1] = yC
             }
-            objetsEnonce.push(droited1)
-            objetsCorrection.push(droited1)
+            objetsEnonce.push(droited1Latex)
+            objetsCorrection.push(droited1Latex)
 
             texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_1)', droited1.color)}$.`
             if (context.isAmc) {
@@ -209,7 +210,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 2: // symétrie axiale
-            droited2 = droiteAvecNomLatex(droiteParPointEtPente(O, -1, '', context.isHtml ? couleurs[i] : 'black'), '(d_2)')
+            droited2Latex = droiteAvecNomLatex(droiteParPointEtPente(O, -1, '', context.isHtml ? couleurs[i] : 'black'), '(d_2)')
+            droited2 = droited2Latex[0]
             droited2.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited2.isVisible = true
             droited2.epaisseur = 2
@@ -231,8 +233,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
               xP[2] = xC
               yP[2] = yC
             }
-            objetsEnonce.push(droited2)
-            objetsCorrection.push(droited2)
+            objetsEnonce.push(droited2Latex)
+            objetsCorrection.push(droited2Latex)
             texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', droited2.color)}$.`
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', droited2.color)}$.`
@@ -242,6 +244,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
 
           case 3: // symétrie axiale
             droited = droiteAvecNomLatex(droiteHorizontaleParPoint(O, '', context.isHtml ? couleurs[i] : 'black'), '(d)')
+            droited = droitedLatex[0]
             droited.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited.isVisible = true
             droited.epaisseur = 2
@@ -263,8 +266,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
               xP[3] = xC
               yP[3] = yC
             }
-            objetsEnonce.push(droited)
-            objetsCorrection.push(droited)
+            objetsEnonce.push(droitedLatex)
+            objetsCorrection.push(droitedLatex)
             texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
@@ -273,7 +276,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 4: // symétrie axiale
-            droitedprime = droiteAvecNomLatex(droiteVerticaleParPoint(O, '', context.isHtml ? couleurs[i] : 'black'), '(d\')')
+            droitedprimeLatex = droiteAvecNomLatex(droiteVerticaleParPoint(O, '', context.isHtml ? couleurs[i] : 'black'), '(d\')')
+            droitedprime = droitedprimeLatex[0]
             droitedprime.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droitedprime.isVisible = true
             droitedprime.epaisseur = 2
@@ -295,8 +299,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
               xP[4] = xC
               yP[4] = yC
             }
-            objetsEnonce.push(droitedprime)
-            objetsCorrection.push(droitedprime)
+            objetsEnonce.push(droitedprimeLatex)
+            objetsCorrection.push(droitedprimeLatex)
             texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d\')', droitedprime.color)}$.`
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d\')', droitedprime.color)}$.`
