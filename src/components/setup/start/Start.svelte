@@ -34,7 +34,7 @@
   import type { InterfaceParams, VueType } from 'src/lib/types'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
-  import { keyboardState } from '../../keyboard/stores/keyboardStore'
+  // import { keyboardState } from '../../keyboard/stores/keyboardStore'
 
   let isNavBarVisible: boolean = true
   let innerWidth = 0
@@ -170,7 +170,7 @@
   ========================================================================================= -->
     <!-- Menu choix + Exos en mode non-smartphone -->
     <div
-      class="relative flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$keyboardState.isVisible ? 'mb-12' : ''}"
+      class="relative flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       <nav
         id="choiceSideMenuWrapper"
@@ -271,9 +271,7 @@
           {/if}
         </main>
       </div>
-      <div class="{$keyboardState.isVisible ? 'mt-52' : ''}">
         <Footer />
-      </div>
     </div>
   {/if}
   </div>

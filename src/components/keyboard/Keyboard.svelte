@@ -25,9 +25,9 @@
   const unitsBlocks: KeyboardBlock[] = []
   let currentPageIndex = 0
   let divKeyboard: HTMLDivElement
-  let reduced: boolean = false
   let alphanumericDisplayed: boolean = false
   let isVisible = false
+  let isInLine = false
   let pageType: AlphanumericPages = 'AlphaLow'
   const myKeyboard: Keyboard = new Keyboard()
 
@@ -37,42 +37,32 @@
     let pageWidth: number = 0
     let page: KeyboardBlock[] = []
     const mode = innerWidth < SM_BREAKPOINT ? 'sm' : 'md'
-    // console.log('computePages: mode')
-    // console.log(mode)
     const blockList = [...usualBlocks, ...unitsBlocks].reverse()
     while (blockList.length > 0) {
       const block = blockList.pop()
-      // console.log('computePages: block')
-      // console.log(block)
       pageWidth =
         pageWidth + inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]
       page.push(block!)
-      // console.log('computePages: pageWidth')
-      // console.log(pageWidth)
-      // console.log(
-      //   'pageWidth: ' + pageWidth + ' / innerWidth * 0.7: ' + innerWidth * 0.7
-      // )
       if (pageWidth > 0.7 * innerWidth) {
-        // console.log('on change de page')
         pages.push(page.reverse())
         page = []
         pageWidth = 0
       }
     }
     if (page.length !== 0) {
-      // console.log('il reste une page à créer')
       pages.push(page.reverse())
     }
-    // console.log('nb de pages: ' + pages.length)
   }
 
   keyboardState.subscribe(async (value) => {
     isVisible = value.isVisible
+    isInLine = value.isInLine
     pageType = value.alphanumericLayout
     myKeyboard.empty()
     for (const block of value.blocks) {
       myKeyboard.add(keyboardBlocks[block])
     }
+    computePages()
     unitsBlocks.length = 0
     usualBlocks.length = 0
     for (const block of myKeyboard.blocks) {
@@ -157,14 +147,6 @@
       }
     }
   }
-
-    // onMount(() => {
-    //   computePages()
-    // })
-
-    // afterUpdate(() => {
-    //   computePages()
-    // })
 </script>
 
 <svelte:window bind:innerWidth />
@@ -177,12 +159,12 @@
     {#if alphanumericDisplayed}
       <Alphanumeric {clickKeycap} {pageType} />
     {:else}
-      <div class={reduced ? 'relative px-10' : 'py-2 md:py-0'}>
+      <div class={isInLine ? 'relative px-10' : 'py-2 md:py-0'}>
         <KeyboardPage
           unitsBlocks={[...unitsBlocks].reverse()}
           usualBlocks={[...usualBlocks].reverse()}
           page={pages[currentPageIndex]}
-          isInLine={reduced}
+          isInLine={isInLine}
           {innerWidth}
           {clickKeycap}
         />
@@ -195,7 +177,7 @@
             e.preventDefault()
             e.stopPropagation()
           }}
-          disabled={pages.length === 1 || currentPageIndex === 0 || !reduced}
+          disabled={pages.length === 1 || currentPageIndex === 0 || !isInLine}
         >
           <i class="bx bx-chevron-right bx-lg" />
         </button>
@@ -208,7 +190,7 @@
             e.preventDefault()
             e.stopPropagation()
           }}
-          disabled={pages.length === 1 || currentPageIndex === pages.length - 1 || !reduced}
+          disabled={pages.length === 1 || currentPageIndex === pages.length - 1 || !isInLine}
         >
           <i class="bx bx-chevron-left bx-lg" />
         </button>
@@ -223,7 +205,7 @@
         e.preventDefault()
         e.stopPropagation()
         computePages()
-        reduced = !reduced
+        isInLine = !isInLine
         await tick()
         mathaleaRenderDiv(divKeyboard)
       }}
@@ -232,7 +214,7 @@
         e.stopPropagation()
       }}
     >
-      <i class="bx {reduced ? 'bx-plus' : 'bx-minus'}" />
+      <i class="bx {isInLine ? 'bx-plus' : 'bx-minus'}" />
     </button>
     <!-- bouton de passage du clavier alphanumérique au clavier maths-->
     <button
