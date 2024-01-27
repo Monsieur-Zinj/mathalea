@@ -17,7 +17,7 @@ export function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points }: {
   d.draw()
   let latex = `\n\\bigskip
     \\begin{tikzpicture}[x=2.5mm]
-    \\draw[-{Latex[round]},thick] (0,0) -- (61,0);
+    \\draw[-{Latex[round]},thick] (0,0) -- (62,0);
     \\foreach \\x in {0,1,...,60} \\draw[thick] ([yshift=-0.8mm]\\x,0) -- ([yshift=0.8mm]\\x,0);
     \\foreach \\x [count=\\i from 0] in {0,10,...,60} \\draw[ultra thick] ([yshift=-1.5mm]\\x,0) coordinate (a\\i) -- ([yshift=1.5mm]\\x,0);
     \\foreach \\x [count=\\i from 0] in {${xMin},${arrondi(xMin + 1 / scale)},${arrondi(xMin + 2 / scale)},${arrondi(xMin + 3 / scale)},${arrondi(xMin + 4 / scale)},${arrondi(xMin + 5 / scale)},${arrondi(xMin + 6 / scale)}} {
