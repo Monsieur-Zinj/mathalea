@@ -19,24 +19,24 @@
 </script>
 
 <div
-  class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex flex-row blockgap items-start justify-center w-full"
+  class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark flex flex-row blockgap items-center justify-center w-full"
   style="--blockgapsize:{blockgapsize}"
 >
   {#if isInLine}
-    {#each page as block, index}
-      <div id="kb-block-{index}">
+  <div id="kb-page" class="flex flex-row blockgap items-start justify-center">
+    {#each page as block}
         <BlockOfKeyCaps {block} {isInLine} {innerWidth} {clickKeycap} />
+        {/each}
       </div>
-    {/each}
   {:else}
   <div class={unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}>
     <BlockOfKeycapsWithPagination blocksList={unitsBlocks} {isInLine} {clickKeycap} />
   </div>
-    {#each blocks as block, index}
-      <div id="kb-block-{index}">
+  <div id="kb-block" class="flex flex-row blockgap items-start justify-center">
+    {#each blocks as block}
         <BlockOfKeyCaps {block} {isInLine} {innerWidth} {clickKeycap} />
+        {/each}
       </div>
-    {/each}
   {/if}
 </div>
 
