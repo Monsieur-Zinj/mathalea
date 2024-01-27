@@ -182,9 +182,9 @@ export function rapporteur ({
  */
 // JSDOC Validee par EE Juin 2022
 export function angle (A, O, B, precision = 2) {
-  const OA = longueur(O, A)
-  const OB = longueur(O, B)
-  const AB = longueur(A, B)
+  const OA = longueur(O, A, precision)
+  const OB = longueur(O, B, precision)
+  const AB = longueur(A, B, precision)
   const v = vecteur(O, A)
   const w = vecteur(O, B)
   if (egal(v.x * w.y - v.y * w.x, 0)) { // vecteurs colinéaires à epsilon près pour éviter les effets de bords dus aux flottants.
@@ -237,7 +237,7 @@ export function angleOriente (A, O, B, precision = 2) {
   const A2 = rotation(A, O, 90)
   const v = vecteur(O, B)
   const u = vecteur(O, A2)
-  return arrondi(unSiPositifMoinsUnSinon(arrondi(v.x * u.x + v.y * u.y, 10)) * angle(A, O, B), precision)
+  return arrondi(unSiPositifMoinsUnSinon(arrondi(v.x * u.x + v.y * u.y, 10)) * angle(A, O, B, precision), precision)
 }
 
 /**
