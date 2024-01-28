@@ -1326,7 +1326,7 @@
       >
         <div
           class:invisible={isManualModeActive}
-          class="flex flex-row h-10 border border-coopmaths-warn dark:border-coopmathsdark-warn"
+          class="flex flex-row flex-shrink-0 h-6 border border-coopmaths-warn dark:border-coopmathsdark-warn"
         >
           <div
             id="diapoProgressBar"
