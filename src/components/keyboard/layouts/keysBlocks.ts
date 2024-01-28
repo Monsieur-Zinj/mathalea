@@ -20,8 +20,8 @@ const numbersOperationsCaps: CompleteKeysList = {
   block: [7, 8, 9, 'DIV', 4, 5, 6, 'MULT', 1, 2, 3, 'SUB', 0, 'COMMA', 'PI', 'ADD']
 }
 const variableCaps: CompleteKeysList = {
-  inline: ['a', 'b', 'c', 'x', 'y', 'z'],
-  block: ['a', 'x', 'b', 'y', 'c', 'z']
+  inline: ['a', 'b', 'c', 'x', 'y', 'z', 'k', 'n', 'i'],
+  block: ['a', 'x', 'k', 'b', 'y', 'n', 'c', 'z', 'i']
 }
 const basicOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'SQ', 'FRAC', '(', ')'],
@@ -111,7 +111,7 @@ export const numbersOperations: KeyboardBlock = {
 
 export const variables: KeyboardBlock = {
   keycaps: variableCaps,
-  cols: 2,
+  cols: 3,
   title: 'Variables',
   isUnits: false
 }

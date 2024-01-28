@@ -303,7 +303,7 @@ const basicKeys = {
     command: ['performWithFeedback', 'moveToNextChar']
   },
   CLOSE: {
-    display: '<i class="bx bx-x"/>',
+    display: '<i class="bx bx-window-close"/>',
     command: 'closeKeyboard'
   },
   DEL: {
