@@ -7850,13 +7850,13 @@
     "typeExercice": "alea"
   },
   "5A12-2": {
-    "url": "5e/5A12-2.js",
+    "url": "5e/5A12-2.ts",
     "tags": [],
     "uuid": "03d65",
     "id": "5A12-2",
     "titre": "Déterminer si un nombre est premier",
     "datePublication": "11/07/2022",
-    "dateModification": "",
+    "dateModification": "27/01/2024",
     "features": {
       "interactif": {
         "isActive": true,
@@ -9677,6 +9677,7 @@
     "uuid": "ab968",
     "id": "5R12-2",
     "titre": "Déterminer les coordonnées (relatives) d'un point",
+    "dateModification": "22/01/2024",
     "features": {
       "interactif": {
         "isActive": false,
@@ -13029,7 +13030,7 @@
     "uuid": "442f4",
     "id": "6N21-2",
     "titre": "Lire des abscisses fractionnaires de points (niv 2)",
-    "datePublication": "11/05/2023",
+    "datePublication": "25/01/2024",
     "features": {
       "interactif": {
         "isActive": true,
