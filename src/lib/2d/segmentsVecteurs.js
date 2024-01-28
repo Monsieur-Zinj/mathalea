@@ -237,7 +237,8 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
   this.angleAvecHorizontale = angleOriente(
     point(this.x1 + 1, this.y1),
     this.extremite1,
-    this.extremite2
+    this.extremite2,
+    5
   )
 
   this.codeExtremitesSVG = function (coeff) {
