@@ -204,7 +204,7 @@
         e.preventDefault()
         e.stopPropagation()
         computePages()
-        isInLine = !isInLine
+        $keyboardState.isInLine = !$keyboardState.isInLine
         await tick()
         mathaleaRenderDiv(divKeyboard)
       }}

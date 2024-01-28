@@ -23,20 +23,27 @@
   style="--blockgapsize:{blockgapsize}"
 >
   {#if isInLine}
-  <div id="kb-page" class="flex flex-row blockgap items-start justify-center">
-    {#each page as block}
+    <div id="kb-page" class="flex flex-row blockgap items-start justify-center">
+      {#each page as block}
         <BlockOfKeyCaps {block} {isInLine} {innerWidth} {clickKeycap} />
-        {/each}
-      </div>
+      {/each}
+    </div>
   {:else}
-  <div class={unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}>
-    <BlockOfKeycapsWithPagination blocksList={unitsBlocks} {isInLine} {clickKeycap} />
-  </div>
-  <div id="kb-block" class="flex flex-row blockgap items-start justify-center">
-    {#each blocks as block}
+    <div class={unitsBlocks.length > 1 && !isInLine ? 'flex' : 'hidden'}>
+      <BlockOfKeycapsWithPagination
+        blocksList={unitsBlocks}
+        {isInLine}
+        {clickKeycap}
+      />
+    </div>
+    <div
+      id="kb-block"
+      class="flex flex-row blockgap items-start justify-center"
+    >
+      {#each blocks as block}
         <BlockOfKeyCaps {block} {isInLine} {innerWidth} {clickKeycap} />
-        {/each}
-      </div>
+      {/each}
+    </div>
   {/if}
 </div>
 
