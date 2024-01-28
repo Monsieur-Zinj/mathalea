@@ -16,11 +16,11 @@ export function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points }: {
   const d = new GraduatedLine(figure, { min: xMin, max: xMax, step: arrondi(1 / scale, 6), stepBis: arrondi(1 / (10 * scale), 6) })
   d.draw()
   let latex = `\n\\bigskip
-    \\begin{tikzpicture}[x=2.5mm]
-    \\draw[-{Latex[round]},thick] (0,0) -- (62,0);
-    \\foreach \\x in {0,1,...,60} \\draw[thick] ([yshift=-0.8mm]\\x,0) -- ([yshift=0.8mm]\\x,0);
-    \\foreach \\x [count=\\i from 0] in {0,10,...,60} \\draw[ultra thick] ([yshift=-1.5mm]\\x,0) coordinate (a\\i) -- ([yshift=1.5mm]\\x,0);
-    \\foreach \\x [count=\\i from 0] in {${xMin},${arrondi(xMin + 1 / scale)},${arrondi(xMin + 2 / scale)},${arrondi(xMin + 3 / scale)},${arrondi(xMin + 4 / scale)},${arrondi(xMin + 5 / scale)},${arrondi(xMin + 6 / scale)}} {
+    \\begin{tikzpicture}[x=2.2mm]
+    \\draw[-{Latex[round]},thick] (0,0) -- (72,0);
+    \\foreach \\x in {0,1,...,70} \\draw[thick] ([yshift=-0.8mm]\\x,0) -- ([yshift=0.8mm]\\x,0);
+    \\foreach \\x [count=\\i from 0] in {0,10,...,70} \\draw[ultra thick] ([yshift=-1.5mm]\\x,0) coordinate (a\\i) -- ([yshift=1.5mm]\\x,0);
+    \\foreach \\x [count=\\i from 0] in {${xMin},${arrondi(xMin + 1 / scale)},${arrondi(xMin + 2 / scale)},${arrondi(xMin + 3 / scale)},${arrondi(xMin + 4 / scale)},${arrondi(xMin + 5 / scale)},${arrondi(xMin + 6 / scale)},${arrondi(xMin + 7 / scale)}} {
       \\node[below=2mm of a\\i,inner sep=0pt,font=\\small] {$\\num{\\x}$};
     }`
   if (points !== undefined) {
