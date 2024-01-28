@@ -8027,4 +8027,101 @@ export const dictionnaireDNB = {
     tags: ['Géométrie plane', 'Algorithmique-programmation']
   },
 
+  dnb_2021_12_caledonie_1: {
+    annee: '2021',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '1',
+    png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_1.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_1_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_1.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_1_cor.tex',
+    tags: ['']
+  },
+  dnb_2021_12_caledonie_2: {
+    annee: '2021',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '2',
+    png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_2.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_2_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_2.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_2_cor.tex',
+    tags: ['']
+  },
+  dnb_2021_12_caledonie_3: {
+    annee: '2021',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '3',
+    png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_3.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_3_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_3.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_3_cor.tex',
+    tags: ['']
+  },
+  dnb_2021_12_caledonie_4: {
+    annee: '2021',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '4',
+    png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_4.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_4_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_4.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_4_cor.tex',
+    tags: ['']
+  },
+  dnb_2021_12_caledonie_5: {
+    annee: '2021',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '5',
+    png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_5.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_5_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_5.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_5_cor.tex',
+    tags: ['']
+  },
+  dnb_2021_12_caledonie_6: {
+    annee: '2021',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '6',
+    png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_6.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_6_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_6.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_6_cor.tex',
+    tags: ['']
+  },
+  dnb_2021_12_caledonie_7: {
+    annee: '2021',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '7',
+    png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_7.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_7_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_7.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_7_cor.tex',
+    tags: ['']
+  },
+  dnb_2021_12_caledonie_8: {
+    annee: '2021',
+    lieu: 'Nouvelle Calédonie',
+    mois: 'Décembre',
+    numeroInitial: '8',
+    png: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_8.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_12_caledonie_8_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_8.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_8_cor.tex',
+    tags: ['']
+  },
+
 }
