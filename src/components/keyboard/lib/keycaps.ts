@@ -307,7 +307,7 @@ const basicKeys = {
     command: 'closeKeyboard'
   },
   DEL: {
-    display: '&#x232b;',
+    display: '⌫',
     command: ['performWithFeedback', 'deleteBackward']
   },
   ABC: {

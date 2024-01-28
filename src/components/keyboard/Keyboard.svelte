@@ -32,7 +32,6 @@
   const myKeyboard: Keyboard = new Keyboard()
 
   const computePages = () => {
-    console.log('computePages is called!')
     pages.length = 0
     let pageWidth: number = 0
     let page: KeyboardBlock[] = []
@@ -123,12 +122,12 @@
         const mf = document.querySelector(
           ('#' + idMathField).replace('-button', '')
         ) as MathfieldElement
-        // console.log({
-        //   mf,
-        //   idMathField,
-        //   command: `${key.command}`,
-        //   insert: `${key.insert}`
-        // })
+        console.log({
+          mf,
+          idMathField,
+          command: `${key.command}`,
+          insert: `${key.insert}`
+        })
         if (mf != null) {
           mf.focus()
           if (key.command && key.command === 'closeKeyboard') {

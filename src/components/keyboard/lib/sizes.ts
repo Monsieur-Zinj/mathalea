@@ -3,7 +3,7 @@ export const KEYCAP_WIDTH = {
   md: 40
 }
 export const GAP_BETWEEN_BLOCKS = {
-  sm: 20,
+  sm: 10,
   md: 48
 }
 export const GAP_BETWEEN_KEYS = {
