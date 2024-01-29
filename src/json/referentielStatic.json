@@ -13,7 +13,7 @@
         "url": "static/dnb/2021/tex/dnb_2021_12_caledonie_1.tex",
         "urlcor": "static/dnb/2021/tex/dnb_2021_12_caledonie_1_cor.tex",
         "tags": [
-          ""
+          "Pourcentages", "Fractions", "Calcul littéral", "Equations", "Calcul numérique", "Volumes", "Trigonométrie", "Géométrie plane"
         ]
       },
       "dnb_2021_12_caledonie_2": {
@@ -28,7 +28,7 @@
         "url": "static/dnb/2021/tex/dnb_2021_12_caledonie_2.tex",
         "urlcor": "static/dnb/2021/tex/dnb_2021_12_caledonie_2_cor.tex",
         "tags": [
-          ""
+          "Statistiques", "Pourcentages"
         ]
       },
       "dnb_2021_12_caledonie_3": {
@@ -43,7 +43,7 @@
         "url": "static/dnb/2021/tex/dnb_2021_12_caledonie_3.tex",
         "urlcor": "static/dnb/2021/tex/dnb_2021_12_caledonie_3_cor.tex",
         "tags": [
-          ""
+          "Géométrie plane", "Pythagore"
         ]
       },
       "dnb_2021_12_caledonie_4": {
@@ -58,7 +58,7 @@
         "url": "static/dnb/2021/tex/dnb_2021_12_caledonie_4.tex",
         "urlcor": "static/dnb/2021/tex/dnb_2021_12_caledonie_4_cor.tex",
         "tags": [
-          ""
+          "Arithmétique", "Pourcentages"
         ]
       },
       "dnb_2021_12_caledonie_5": {
@@ -73,7 +73,7 @@
         "url": "static/dnb/2021/tex/dnb_2021_12_caledonie_5.tex",
         "urlcor": "static/dnb/2021/tex/dnb_2021_12_caledonie_5_cor.tex",
         "tags": [
-          ""
+          "Probabilités", "Fractions"
         ]
       },
       "dnb_2021_12_caledonie_6": {
@@ -88,7 +88,7 @@
         "url": "static/dnb/2021/tex/dnb_2021_12_caledonie_6.tex",
         "urlcor": "static/dnb/2021/tex/dnb_2021_12_caledonie_6_cor.tex",
         "tags": [
-          ""
+          "Proportionnalité", "Lecture graphique", "Tableur"
         ]
       },
       "dnb_2021_12_caledonie_7": {
@@ -103,7 +103,7 @@
         "url": "static/dnb/2021/tex/dnb_2021_12_caledonie_7.tex",
         "urlcor": "static/dnb/2021/tex/dnb_2021_12_caledonie_7_cor.tex",
         "tags": [
-          ""
+          "Recherche d'informations", "Aires et périmètres"
         ]
       },
       "dnb_2021_12_caledonie_8": {
@@ -118,7 +118,7 @@
         "url": "static/dnb/2021/tex/dnb_2021_12_caledonie_8.tex",
         "urlcor": "static/dnb/2021/tex/dnb_2021_12_caledonie_8_cor.tex",
         "tags": [
-          ""
+          "Géométrie plane", "Thalès", "Algorithmique-programmation"
         ]
       }
     },
