@@ -1,4 +1,44 @@
 {
+  "elements": {
+    "elements1": {
+      "url": "geodyn/geoElements1.ts",
+      "tags": [],
+      "uuid": "6fdab",
+      "id": "elements1",
+      "titre": "Tracer segment, droite et demi-droite (depuis notation)",
+      "datePublication": "29/01/2024",
+      "features": {
+        "interactif": {
+          "isActive": true,
+          "type": "'custom'"
+        },
+        "amc": {
+          "isActive": false,
+          "type": ""
+        }
+      },
+      "typeExercice": "alea"
+    },
+    "elements2": {
+      "url": "geodyn/geoElements1.ts",
+      "tags": [],
+      "uuid": "b1e01",
+      "id": "elements2",
+      "titre": "Tracer segment, droite et demi-droite (depuis description)",
+      "datePublication": "29/01/2024",
+      "features": {
+        "interactif": {
+          "isActive": true,
+          "type": "'custom'"
+        },
+        "amc": {
+          "isActive": false,
+          "type": ""
+        }
+      },
+      "typeExercice": "alea"
+    }
+  },
   "triangle": {
     "triangle1": {
       "url": "geodyn/geoTriangle1.ts",

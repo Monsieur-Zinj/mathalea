@@ -11627,12 +11627,11 @@
         "typeExercice": "alea"
       },
       "6N21-1": {
-        "url": "6e/6N21-1.js",
+        "url": "6e/6N21-1.ts",
         "tags": [],
-        "uuid": "a2582",
+        "uuid": "778c0",
         "id": "6N21-1",
         "titre": "Placer des points d’abscisses fractionnaires (niv 2)",
-        "datePublication": "11/05/2023",
         "features": {
           "interactif": {
             "isActive": true,
@@ -11640,7 +11639,7 @@
           },
           "amc": {
             "isActive": true,
-            "type": "AMCOpen"
+            "type": "AMCHybride"
           }
         },
         "typeExercice": "alea"
@@ -11654,8 +11653,8 @@
         "datePublication": "25/01/2024",
         "features": {
           "interactif": {
-            "isActive": true,
-            "type": "'mathLive'"
+            "isActive": false,
+            "type": ""
           },
           "amc": {
             "isActive": true,
