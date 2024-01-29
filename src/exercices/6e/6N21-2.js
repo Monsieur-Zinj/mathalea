@@ -10,7 +10,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { fractionPlusSimpleCompare } from '../../lib/interactif/comparaisonFonctions'
 export const titre = 'Lire des abscisses fractionnaires de points (niv 2)'
-export const interactifReady = true
+export const interactifReady = false
 // remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
 export const interactifType = 'mathLive'
 export const amcReady = true
