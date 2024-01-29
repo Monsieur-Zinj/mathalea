@@ -1174,7 +1174,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           if (choix === 1) {
             texte = `Écrire $\\sqrt{${ecritureParentheseSiNegatif(nbre)}^2}$ le plus simplement possible`
             texteCorr = ` $\\sqrt{${ecritureParentheseSiNegatif(nbre)}^2}=${miseEnEvidence(`${texNombre(abs(nbre))}`)}$.`
-            reponse = -nbre
+            reponse = abs(nbre)
           } else if (choix === 2) {
             texte = `Écrire $(\\sqrt{${ecritureParentheseSiNegatif(2024)}})^2$ le plus simplement possible`
             texteCorr = ` $(\\sqrt{${ecritureParentheseSiNegatif(2024)}})^2=${miseEnEvidence(`${texNombre(2024)}`)}$.`
@@ -2065,10 +2065,12 @@ export default function CourseAuxNombresSpeciale2024 () {
 
         case 73: {
           const a = randint(-2, 2, 0)
-          reponse = `${a}\\times x`
+          if (a === 1) { reponse = [`${a}\\times x`, 'x', '1\\times x', '1x'] }
+          if (a === -1) { reponse = [`${a}\\times x`, '-x', '-1\\times x', '-1x'] }
+          if (a === -2 || a === 2) { reponse = [`${a}\\times x`, `${a}x`] }
           texte = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2024)})=${texNombre(a * 2024, 0)}$.<br>
           Compléter : $f(x)=$ `
-          texteCorr = `Une fonction linéaire est une fonction de la forme $f(x)=ax$.<br>
+          texteCorr = `${reponse}Une fonction linéaire est une fonction de la forme $f(x)=ax$.<br>
           Comme $f(${texNombre(2024)})=${texNombre(a * 2024)}$, on a $${texNombre(a * 2024, 0)}=a\\times ${texNombre(2024)}$, soit $a=${a}$.<br>
           On obtient donc : $f(x)=${miseEnEvidence(`${rienSi1(a)}x`)}$.`
           setReponse(this, index, reponse)
