@@ -7,6 +7,8 @@ import { arrondi } from '../lib/outils/nombres'
 import { prenom } from '../lib/outils/Personne'
 import { texteGras } from '../lib/format/style'
 import { stringNombre, texNombre } from '../lib/outils/texNombre'
+import { miseEnEvidence } from '../lib/outils/embellissements'
+import FractionEtendue from './FractionEtendue'
 
 function underbraceMediane (nbVal) {
   let sortie
@@ -320,11 +322,11 @@ function texteCorrMoyenneNotes (notesSeries, somme, nombreNotes, notes = 'notes'
     texteCorr += `}{${notesSeries.length}}=\\dfrac{${texNombre(somme, 0)}}{${texNombre(nombreNotes, 0)}}$. <br>`
   }
   texteCorr += `La somme des ${notes} est : $${texNombre(somme, 0)}$.<br> Il y a $${texNombre(nombreNotes, 0)}$ ${notes}.<br>`
-  texteCorr += `Donc ${texteGras(`${noteStr[1]} est `)} $\\mathbf{${deprecatedTexFraction(texNombre(somme, 0), texNombre(nombreNotes, 0))}`
+  texteCorr += `Donc ${noteStr[1]} est $${new FractionEtendue(somme, nombreNotes).texFSD}`
   if (arrondi(somme / nombreNotes, 1) === somme / nombreNotes) { // moyenne exacte
-    texteCorr += `=${texNombre(somme / nombreNotes, 1)}}$${noteStr[2]}.<br>`
+    texteCorr += `=${miseEnEvidence(texNombre(somme / nombreNotes, 1))}$${noteStr[2]}.<br>`
   } else { // moyenne arrondie
-    texteCorr += ` \\approx${texNombre(somme / nombreNotes, 1)}}$${noteStr[2]}.<br>`
+    texteCorr += `\\approx${miseEnEvidence(texNombre(somme / nombreNotes, 1))}$${noteStr[2]}.<br>`
   }
   return texteCorr
 }
@@ -551,7 +553,7 @@ function texteTirages2D (nombreDes, nombreTirages, nombreFaces, tirages, aveclam
       titre: 'Vocabulaire',
       texte: `Le solide qui correspond à ce type de dé s'appelle ${texteGras(solidName(nombreFaces))}.`,
       couleur: 'nombres'
-    }) 
+    })
     : ''
   texte += 'Les résultats sont inscrits dans le tableau ci-dessous :<br><br>'
   texte += desTabEffCumul(tirages, false) + '<br>'
