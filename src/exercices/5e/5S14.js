@@ -5,9 +5,9 @@ import Exercice from '../deprecatedExercice.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { arrondi } from '../../lib/outils/nombres'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +20,7 @@ export const dateDeModifImportante = '28/02/2022'
 /**
  * Calcul de moyennes de série statistiques
  * @author Jean-Claude Lhote et Guillaume Valmont (Interactif et AMC par EE)
- * 12/01/2023 : Mickael Guironnet Refactoring
+ * 12/01/2023 : Mickael Guironnet Refactoring (remodifié par EE car il n'y avait plus de correction et l'interactif ne fonctionnait plus)
  * Référence 5S14
  */
 export const uuid = 'ab91d'
@@ -49,7 +49,7 @@ export default function CalculerDesMoyennes () {
         texte += '<br>Calculer la moyenne des notes.'
         const [, somme] = OutilsStats.computeMoyenne(notes)
         texteCorr = OutilsStats.texteCorrMoyenneNotes(notes, somme, nombreNotes)
-        reponse = new FractionEtendue(somme, nombreNotes)
+        reponse = arrondi(somme / nombreNotes, 1)
       } else if (this.sup === 2) { // ici on relève des températures
         const mois = randint(1, 12)
         const annee = randint(1980, 2019)
@@ -59,8 +59,9 @@ export default function CalculerDesMoyennes () {
         texte = OutilsStats.texteTemperatures(annee, mois, temperatures)
         texte += '<br>Calculer la moyenne des températures.'
         const [, somme] = OutilsStats.computeMoyenne(temperatures)
-        texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
-        reponse = new FractionEtendue(somme, nombreTemperatures)
+        // texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
+        texteCorr = OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
+        reponse = arrondi(somme / nombreTemperatures, 1)
       } else { // pointures des membres du club de foot (moyenne pondérée)
         const nombreNotes = 5 // 5 colonnes
         const min = randint(33, 35)
@@ -74,14 +75,14 @@ export default function CalculerDesMoyennes () {
         texte = OutilsStats.texteSalaires(pointures, [], 'pointures')
         texte += '<br>Calculer la pointure moyenne des membres de ce club.'
         const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(pointures)
-        texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
-        reponse = new FractionEtendue(somme, effectifTotal)
+        // texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
+        texteCorr = OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
+        reponse = arrondi(somme / effectifTotal, 1)
       }
       if (this.interactif) {
-        texte += ' (On donnera la valeur exacte en écriture décimale ou fractionnaire)<br>'
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        texte += ' Si besoin, on arrondira au dixième.<br>'
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
         setReponse(this, i, reponse, {
-          formatInteractif: 'fractionEgale',
           digits: 5,
           digitsNum: 3,
           digitsDen: 2,
@@ -107,7 +108,7 @@ export default function CalculerDesMoyennes () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: 'Résultat sous forme d\'une fraction irréductible',
+                  texte: 'Résultat (si besoin, on arrondira au dixième.)',
                   valeur: [reponse],
                   param: {
                     signe: false,
