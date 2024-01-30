@@ -191,6 +191,7 @@
       "PEG2": {}
     },
     "Géométrie dynamique": {
+        "elements": {},
         "triangle": {},
         "rectangle": {},
         "carre": {},
