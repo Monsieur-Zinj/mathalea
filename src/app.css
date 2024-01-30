@@ -485,3 +485,24 @@ ol.Roman {
   75% { transform: translate(-5px, 5px) rotate(-5deg); }
   100% { transform: translate(0, 0) rotate(0deg); }
 }
+
+table.tableauMathlive {
+  tbody {
+    tr {
+      td {
+        math-field {
+          min-width: 60px;
+          margin-top: 2px;
+          padding: 2px;
+          border: transparent;
+        }
+        @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus p-2 text-center
+      }
+    }
+    th {
+      @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus bg-coopmaths-struct dark:bg-coopmathsdark-struct bg-opacity-40 dark:bg-opacity-40 text-coopmaths-corpus dark:text-coopmathsdark-corpus p-2 text-center min-w-[75px] m-[3px]
+    }
+    @apply border border-coopmaths-corpus dark:border-coopmathsdark-corpus p-2 m-[3px] text-center
+  }
+  @apply mx-auto mt-2 border-collapse text-center border-2 border-coopmaths-corpus dark:border-coopmathsdark-corpus
+}
