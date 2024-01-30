@@ -2,16 +2,16 @@ import { repere } from '../../lib/2d/reperes.js'
 import { traceBarre } from '../../lib/2d/diagrammes.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
-import { texteGras } from '../../lib/format/style'
 import { arrondi } from '../../lib/outils/nombres'
-import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
+import { numAlpha, premiereLettreEnMajuscule, sp } from '../../lib/outils/outilString.js'
 import { stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer des effectifs et des fréquences'
 export const interactifReady = true
@@ -19,13 +19,11 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '07/02/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '10/04/2023'
+export const dateDeModifImportante = '30/01/2024'
 
 /**
  * Calculer des effectifs et des fréquences.
  * @author Erwan DUPLESSY
- * 3S12
- * 2021-02-07
  */
 
 export const uuid = 'f4b95'
@@ -126,18 +124,18 @@ export default function CalculEffectifFrequence () {
       let texte0, texte1, texte2, texte3
       const texteAMC = texte
       texte0 = numAlpha(0) + ' Quel est l\'effectif des ' + lstAnimauxExo[0] + ' ?'
-      texte0 += ajouteChampTexteMathLive(this, 4 * ee, 'largeur25 inline') + '<br>'
+      texte0 += ajouteChampTexteMathLive(this, 4 * ee, 'largeur01 inline') + '<br>'
       texte1 = numAlpha(1) + ' Calculer la fréquence des ' + lstAnimauxExo[1] + `. Donner le résultat sous la forme d'un pourcentage arrondi, si besoin, à 0,1${symbolePourCent} près.`
-      texte1 += ajouteChampTexteMathLive(this, 4 * ee + 1, 'largeur25 inline') + '<br>'
+      texte1 += ajouteChampTexteMathLive(this, 4 * ee + 1, 'largeur01 inline') + '<br>'
       texte2 = numAlpha(2) + ' Calculer l\'effectif des quadrupèdes.'
-      texte2 += ajouteChampTexteMathLive(this, 4 * ee + 2, 'largeur25 inline') + '<br>'
+      texte2 += ajouteChampTexteMathLive(this, 4 * ee + 2, 'largeur01 inline') + '<br>'
       texte3 = numAlpha(3) + ` Calculer la fréquence des oiseaux. Donner le résultat sous la forme d'un pourcentage arrondi, si besoin, à 0,1${symbolePourCent} près.`
-      texte3 += ajouteChampTexteMathLive(this, 4 * ee + 3, 'largeur25 inline') + '<br>'
+      texte3 += ajouteChampTexteMathLive(this, 4 * ee + 3, 'largeur01 inline') + '<br>'
       texte += texte0 + texte1 + texte2 + texte3
 
       // début de la correction
       // question 1
-      texteCorr += numAlpha(0) + texteGras(' D\'après le graphique, il y a ' + lstNombresAnimaux[0] + ' ' + lstAnimauxExo[0] + '. <br>')
+      texteCorr += numAlpha(0) + ' D\'après le graphique, il y a ' + texteEnCouleurEtGras(lstNombresAnimaux[0]) + ' ' + lstAnimauxExo[0] + '. <br>'
       setReponse(this, 4 * ee, lstNombresAnimaux[0])
       // question 2
       let Ntotal = lstNombresAnimaux[0]
@@ -151,14 +149,14 @@ export default function CalculEffectifFrequence () {
       texteCorr += ' D\'après le graphique, il y a ' + lstNombresAnimaux[1] + ' ' + lstAnimauxExo[1] + '. <br>'
       texteCorr += ' La fréquence (ou la proportion) de  ' + lstAnimauxExo[1] + ' est : $ ' + texFractionSigne(lstNombresAnimaux[1], Ntotal) + '$ '
       // test de l'arrondi
-      if (calculANePlusJamaisUtiliser(lstNombresAnimaux[1] / Ntotal, 4) === arrondi(lstNombresAnimaux[1] / Ntotal, 3)) {
+      if (arrondi(lstNombresAnimaux[1] / Ntotal, 4) === arrondi(lstNombresAnimaux[1] / Ntotal, 3)) {
         texteCorr += '= '
       } else {
         texteCorr += '$\\approx $ '
       }
       texteCorr += stringNombre(lstNombresAnimaux[1] / Ntotal, 3) + '. <br>'
-      texteCorr += texteGras('La fréquence des ' + lstAnimauxExo[1] + ' est donc : ' + stringNombre(100 * lstNombresAnimaux[1] / Ntotal, 1) + symbolePourCent + '. <br>')
-      setReponse(this, 4 * ee + 1, [calculANePlusJamaisUtiliser(100 * lstNombresAnimaux[1] / Ntotal, 1), calculANePlusJamaisUtiliser(100 * lstNombresAnimaux[1] / Ntotal, 1) + `\\${symbolePourCent}`])
+      texteCorr += 'La fréquence des ' + lstAnimauxExo[1] + ' est donc : ' + texteEnCouleurEtGras(stringNombre(100 * lstNombresAnimaux[1] / Ntotal, 1)) + sp(1) + symbolePourCent + '. <br>'
+      setReponse(this, 4 * ee + 1, arrondi(100 * lstNombresAnimaux[1] / Ntotal, 1))
       // question 3
       texteCorr += numAlpha(2) + ' On fait la somme des effectifs de chaque espèce de quadrupèdes : '
       let NTotalQuadri = lstNombresAnimaux[0]
@@ -168,7 +166,7 @@ export default function CalculEffectifFrequence () {
         NTotalQuadri += lstNombresAnimaux[i]
       }
       texteCorr += '. <br>'
-      texteCorr += texteGras('L\'effectif des quadrupèdes est donc : ' + NTotalQuadri + '.<br>')
+      texteCorr += 'L\'effectif des quadrupèdes est donc : ' + texteEnCouleurEtGras(NTotalQuadri) + '.<br>'
       setReponse(this, 4 * ee + 2, NTotalQuadri)
       // question 4
       let NTotalOiseaux = lstNombresAnimaux[3]
@@ -181,14 +179,14 @@ export default function CalculEffectifFrequence () {
       texteCorr += ' L\'effectif total des animaux est : ' + Ntotal + '. <br>'
       texteCorr += ' La fréquence (ou la proportion) d\'oiseaux est : $ ' + texFractionSigne(NTotalOiseaux, Ntotal) + '$ '
       // test de l'arrondi
-      if (calculANePlusJamaisUtiliser(NTotalOiseaux / Ntotal, 4) === arrondi(NTotalOiseaux / Ntotal, 3)) {
+      if (arrondi(NTotalOiseaux / Ntotal, 4) === arrondi(NTotalOiseaux / Ntotal, 3)) {
         texteCorr += '= '
       } else {
         texteCorr += '$\\approx $ '
       }
       texteCorr += stringNombre(NTotalOiseaux / Ntotal, 3) + '. <br>'
-      texteCorr += texteGras('La fréquence des oiseaux est donc : ' + stringNombre(100 * NTotalOiseaux / Ntotal, 1) + symbolePourCent + '. <br>')
-      setReponse(this, 4 * ee + 3, [calculANePlusJamaisUtiliser(100 * NTotalOiseaux / Ntotal, 1), calculANePlusJamaisUtiliser(100 * NTotalOiseaux / Ntotal, 1) + `\\${symbolePourCent}`])
+      texteCorr += 'La fréquence des oiseaux est donc : ' + texteEnCouleurEtGras(stringNombre(100 * NTotalOiseaux / Ntotal, 1)) + sp(1) + symbolePourCent + '. <br>'
+      setReponse(this, 4 * ee + 3, arrondi(100 * NTotalOiseaux / Ntotal, 1))
 
       if (context.isAmc) {
         this.autoCorrection[ee] = {
@@ -222,7 +220,7 @@ export default function CalculEffectifFrequence () {
                   texte: '',
                   reponse: {
                     texte: texte1,
-                    valeur: calculANePlusJamaisUtiliser(100 * lstNombresAnimaux[1] / Ntotal, 1),
+                    valeur: arrondi(100 * lstNombresAnimaux[1] / Ntotal, 1),
                     param: {
                       signe: false,
                       digits: 3,
@@ -257,7 +255,7 @@ export default function CalculEffectifFrequence () {
                   multicolsEnd: true,
                   reponse: {
                     texte: texte3,
-                    valeur: calculANePlusJamaisUtiliser(100 * NTotalOiseaux / Ntotal, 1),
+                    valeur: arrondi(100 * NTotalOiseaux / Ntotal, 1),
                     param: {
                       signe: false,
                       digits: 3,
