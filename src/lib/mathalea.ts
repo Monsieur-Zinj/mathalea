@@ -1,28 +1,29 @@
 import loadjs from 'loadjs'
-// @ts-ignore
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
-// @ts-ignore
 import Exercice from '../exercices/deprecatedExercice.js'
 import type TypeExercice from '../exercices/Exercice.js'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './stores/generalStore.js'
 import { get } from 'svelte/store'
-// @ts-ignore
-// @ts-ignore
-import { ajouteChampTexteMathLive } from '../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
 import uuidToUrl from '../json/uuidsToUrl.json'
 import refToUuid from '../json/refToUuid.json'
 import referentielStatic from '../json/referentielStatic.json'
 import 'katex/dist/katex.min.css'
-// @ts-ignore
 import renderScratch from './renderScratch.js'
-// @ts-ignore
 import { decrypt, isCrypted } from './components/urls.js'
 import type { InterfaceGlobalOptions, InterfaceParams } from './types.js'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
-import { setReponse } from './interactif/gestionInteractif'
+import { handleAnswers, setReponse } from './interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
+import { calculCompare } from './interactif/comparaisonFonctions'
+import FractionEtendue from '../modules/FractionEtendue'
+import Decimal from 'decimal.js'
+import Grandeur from '../modules/Grandeur'
 
 function getExerciceByUuid (root: object, targetUUID: string): object | null {
   if ('uuid' in root) {
@@ -458,16 +459,50 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
   exercice.listeCanEnonces = []
   exercice.listeCanReponsesACompleter = []
   for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
-    seedrandom(exercice.seed + i + cptSecours, { global: true })
+    const compare = exercice.compare == null ? calculCompare : exercice.compare
+    seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     exercice.nouvelleVersion?.(numeroExercice)
-    if (exercice.questionJamaisPosee(i, exercice.question)) {
-      setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif } || {})
-      exercice.listeQuestions.push(
-        exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {})
-      )
-      exercice.listeCorrections.push(exercice.correction)
-      exercice.listeCanEnonces.push(exercice.canEnonce)
-      exercice.listeCanReponsesACompleter.push(exercice.canReponseACompleter)
+    if (exercice.questionJamaisPosee(i, String(exercice.question))) {
+      if (exercice.compare != null) {
+        let value: string | Grandeur | string[]
+        if (typeof exercice.reponse !== 'string') {
+          if (exercice.reponse instanceof FractionEtendue) {
+            value = exercice.reponse.texFraction
+          } else if (exercice.reponse instanceof Decimal) {
+            value = exercice.reponse.toString()
+          } else if (exercice.reponse instanceof Grandeur) {
+            value = exercice.reponse
+          } else if (Array.isArray(exercice.reponse)) {
+            window.notify(`MathaleaHandleExerciceSimple a reçu une exercice.reponse de type Array, ${JSON.stringify(exercice.reponse)}, on passe la liste, mais il faudrait certainement remplacer ça par une seule réponse associée à une fonction de comparaison qui fait le job !`)
+            value = [...exercice.reponse]
+          } else {
+            window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`)
+            value = String(exercice.reponse) // valeur par défaut on transforme tout en string.
+          }
+        } else {
+          value = exercice.reponse
+        }
+        handleAnswers(exercice, i, {
+          reponse: {
+            value,
+            compare
+          }
+        }, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
+      } else {
+        setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
+      }
+      if (exercice.formatInteractif !== 'fillInTheBlank') {
+        exercice.listeQuestions.push(
+          exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {})
+        )
+      } else {
+        // La question doit contenir une unique variable %{champ1}
+        exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'inline', '\\ldots'))
+        handleAnswers(exercice, i, { champ1: { value: exercice.reponse, compare } }, { formatInteractif: 'fillInTheBlank' })
+      }
+      exercice.listeCorrections.push(exercice.correction ?? '')
+      exercice.listeCanEnonces.push(exercice.canEnonce ?? '')
+      exercice.listeCanReponsesACompleter.push(exercice.canReponseACompleter ?? '')
       cptSecours = 0
       i++
     } else {
