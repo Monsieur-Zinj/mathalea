@@ -8037,7 +8037,9 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_1.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_1_cor.tex',
-    tags: ['']
+    tags: [
+      'Pourcentages', 'Fractions', 'Calcul littéral', 'Equations', 'Calcul numérique', 'Volumes', 'Trigonométrie', 'Géométrie plane'
+    ]
   },
   dnb_2021_12_caledonie_2: {
     annee: '2021',
@@ -8049,7 +8051,9 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_2.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_2_cor.tex',
-    tags: ['']
+    tags: [
+      'Statistiques', 'Pourcentages'
+    ]
   },
   dnb_2021_12_caledonie_3: {
     annee: '2021',
@@ -8061,7 +8065,9 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_3.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_3_cor.tex',
-    tags: ['']
+    tags: [
+      'Géométrie plane', 'Pythagore'
+    ]
   },
   dnb_2021_12_caledonie_4: {
     annee: '2021',
@@ -8073,7 +8079,9 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_4.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_4_cor.tex',
-    tags: ['']
+    tags: [
+      'Arithmétique', 'Pourcentages'
+    ]
   },
   dnb_2021_12_caledonie_5: {
     annee: '2021',
@@ -8085,7 +8093,9 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_5.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_5_cor.tex',
-    tags: ['']
+    tags: [
+      'Probabilités', 'Fractions'
+    ]
   },
   dnb_2021_12_caledonie_6: {
     annee: '2021',
@@ -8097,7 +8107,9 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_6.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_6_cor.tex',
-    tags: ['']
+    tags: [
+      'Proportionnalité', 'Lecture graphique', 'Tableur'
+    ]
   },
   dnb_2021_12_caledonie_7: {
     annee: '2021',
@@ -8109,7 +8121,9 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_7.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_7_cor.tex',
-    tags: ['']
+    tags: [
+      "Recherche d'informations", 'Aires et périmètres'
+    ]
   },
   dnb_2021_12_caledonie_8: {
     annee: '2021',
@@ -8121,7 +8135,71 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_8.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_8_cor.tex',
+    tags: [
+      'Géométrie plane', 'Thalès', 'Algorithmique-programmation'
+    ]
+  },
+
+  dnb_2021_06_polynesie_1: {
+    annee: '2021',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '1',
+    png: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_1.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_1_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_1.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_1_cor.tex',
     tags: ['']
   },
+  dnb_2021_06_polynesie_2: {
+    annee: '2021',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '2',
+    png: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_2.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_2_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_2.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_2_cor.tex',
+    tags: ['']
+  },
+  dnb_2021_06_polynesie_3: {
+    annee: '2021',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '3',
+    png: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_3.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_3_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_3.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_3_cor.tex',
+    tags: ['']
+  },
+  dnb_2021_06_polynesie_4: {
+    annee: '2021',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '4',
+    png: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_4.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_4_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_4.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_4_cor.tex',
+    tags: ['']
+  },
+  dnb_2021_06_polynesie_5: {
+    annee: '2021',
+    lieu: 'Polynésie',
+    mois: 'Juin',
+    numeroInitial: '5',
+    png: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_5.png',
+    pngCor: 'static/dnb/2021/tex/png/dnb_2021_06_polynesie_5_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_5.tex',
+    urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_5_cor.tex',
+    tags: ['']
+  },
+
 
 }
