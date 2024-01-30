@@ -27,8 +27,8 @@ export const ref = '6N21'
 type goodAnswer = { label: string, x: number }[]
 
 class PlacerPointsAbscissesFractionnaires extends Exercice {
-  figures: Figure[] = []
-  goodAnswers: goodAnswer[] = []
+  figures!: Figure[]
+  goodAnswers!: goodAnswer[]
   constructor () {
     super()
     this.consigne = ''
@@ -43,6 +43,8 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    this.figures = []
+    this.goodAnswers = []
     let typeDeQuestions
     if (this.sup > 3) {
       typeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
@@ -104,7 +106,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `ex${this.numeroExercice}Q${i}`, figure })
+          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `ex${this.numeroExercice + ref}Q${i}`, figure })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -152,6 +154,9 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
 
   correctionInteractive = (i?: number) => {
     if (i === undefined) return ['KO']
+    // Sauvegarde de la réponse pour Capytale
+    if (this.answers == null) this.answers = {}
+    this.answers[`ex${this.numeroExercice + ref}Q${i}`] = this.figures[i].json
     const result: ('OK'|'KO')[] = []
     const figure = this.figures[i]
     figure.isDynamic = false
