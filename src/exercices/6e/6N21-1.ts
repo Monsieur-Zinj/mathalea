@@ -169,9 +169,9 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
       const label3 = lettreIndiceeDepuisChiffre(i * 3 + 3)
 
       this.goodAnswers[i] = [
-        { label: label1, x: arrondi(num / den, 4) },
-        { label: label2, x: arrondi(num2 / den, 4) },
-        { label: label3, x: arrondi(num3 / den, 4) }
+        { label: label1, x: arrondi(num1 / den1, 4) },
+        { label: label2, x: arrondi(num2 / den2, 4) },
+        { label: label3, x: arrondi(num3 / den3, 4) }
       ]
 
       texte = `Placer les points $${label1}\\left(${fraction(num1, den1).texFraction}\\right)$, $~${label2}\\left(${fraction(num2, den2).texFraction}\\right)$ et $~${label3}\\left(${fraction(num3, den3).texFraction}\\right)$.`
