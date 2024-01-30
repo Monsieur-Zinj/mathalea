@@ -37,7 +37,7 @@ export function Pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, 
   sAE.pointilles = 5
   sEF.pointilles = 5
   sHE.pointilles = 5
-  
+
   objets.push(p, sAE, sBF, sCG, sDH, sEF, sFG, sGH, sHE)
   if (cote) {
     objets.push(afficheCoteSegment(segment(B, A), '', 1))
@@ -115,7 +115,7 @@ export function Ellipse (O, rx, ry, color = 'black') {
         this.style += ' stroke-dasharray="5 5" '
         break
     }
-    
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
@@ -125,7 +125,7 @@ export function Ellipse (O, rx, ry, color = 'black') {
       this.style += ` fill="${this.couleurDeRemplissage[0]}" `
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
     }
-    
+
     return `<ellipse cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" rx="${rx * coeff}" ry="${ry * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
   }
   this.tikz = function () {
@@ -154,7 +154,7 @@ export function Ellipse (O, rx, ry, color = 'black') {
         tableauOptions.push(' dashed ')
         break
     }
-    
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
@@ -173,11 +173,11 @@ export function Ellipse (O, rx, ry, color = 'black') {
     if (this.epaisseur !== 1) {
       this.style += ` stroke-width="${this.epaisseur}" `
     }
-    
+
     if (this.opacite !== 1) {
       this.style += ` stroke-opacity="${this.opacite}" `
     }
-    
+
     let code = `<path d="M ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)} C ${O.xSVG(coeff) + rx * coeff} ${O.ySVG(coeff)}, `
     let compteur = 1
     for (let k = 1, variation; k < 181; k++) {
@@ -198,13 +198,13 @@ export function Ellipse (O, rx, ry, color = 'black') {
     if (this.epaisseur !== 1) {
       tableauOptions.push(`line width = ${this.epaisseur}`)
     }
-    
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
     optionsDraw = '[' + tableauOptions.join(',') + ']'
-    
+
     const code = `\\draw${optionsDraw} (${O.x},${O.y}) ellipse (${rx}cm and ${ry}cm);`
     return code
   }
@@ -261,7 +261,7 @@ export function SemiEllipse ({
   const angle = hemisphere === 'nord' ? 180 : -180
   const M = point(centre.x + Rx, centre.y)
   const med = homothetie(rotation(M, centre, angle / 2), centre, Ry / Rx)
-  
+
   let large = 0
   let sweep = 0
   if (angle > 180) {
@@ -282,7 +282,7 @@ export function SemiEllipse ({
       if (this.epaisseur !== 1) {
         this.style += ` stroke-width="${this.epaisseur}" `
       }
-      
+
       switch (this.pointilles) {
         case 1:
           this.style += ' stroke-dasharray="6 10" '
@@ -300,12 +300,12 @@ export function SemiEllipse ({
           this.style += ' stroke-dasharray="5 5" '
           break
       }
-      
+
       if (this.hachures) {
         if (this.couleurDeRemplissage.length < 1) {
           this.couleurDeRemplissage = colorToLatexOrHTML('none')
         }
-        
+
         return pattern({
           motif: this.hachures,
           id: this.id,
@@ -322,7 +322,7 @@ export function SemiEllipse ({
         if (this.couleurDeRemplissage !== 'none') {
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
-        
+
         return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${centre.xSVG(coeff)} ${centre.ySVG(coeff)} Z" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style}/>`
       }
     }
@@ -332,7 +332,7 @@ export function SemiEllipse ({
       if (this.epaisseur !== 1) {
         this.style += ` stroke-width="${this.epaisseur}" `
       }
-      
+
       switch (this.pointilles) {
         case 1:
           this.style += ' stroke-dasharray="6 10" '
@@ -354,7 +354,7 @@ export function SemiEllipse ({
         this.style += ` stroke-opacity="${this.opacite}" `
       }
       this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
-      
+
       return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${Rx * coeff} ${Ry * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)}" stroke="${this.color[0]}" fill="${this.couleurDeRemplissage[0]}" ${this.style} id="${this.id}" />`
     }
   }
@@ -384,16 +384,16 @@ export function SemiEllipse ({
         tableauOptions.push(' dashed ')
         break
     }
-    
+
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    
+
     if ((this.couleurDeRemplissage !== 'none' || this.couleurDeRemplissage !== '')) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
       tableauOptions.push(`fill = ${this.couleurDeRemplissage[1]}`)
     }
-    
+
     if (this.hachures) {
       tableauOptions.push(pattern({
         motif: this.hachures,
@@ -411,7 +411,7 @@ export function SemiEllipse ({
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}];`
   }
   let code, P
-  
+
   this.svgml = function (coeff, amp) {
     this.style = ''
     if (this.epaisseur !== 1) {
@@ -436,7 +436,7 @@ export function SemiEllipse ({
     code += `" stroke="${this.color[0]}" ${this.style}/>`
     return code
   }
-  
+
   this.tikzml = function (amp) {
     let optionsDraw = []
     const tableauOptions = []
@@ -449,9 +449,9 @@ export function SemiEllipse ({
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    
+
     tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
-    
+
     optionsDraw = '[' + tableauOptions.join(',') + ']'
     if (this.couleurDeRemplissage[1] !== 'none') return `\\filldraw  ${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}]; -- cycle ;`
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc [start angle=0, end angle = ${angle}, x radius = ${Rx}, y radius = ${Ry}];`

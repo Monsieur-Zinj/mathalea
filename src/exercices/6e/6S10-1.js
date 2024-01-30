@@ -101,6 +101,7 @@ export default function LireUnDiagramme () {
         nom = choice(lstAnimaux, lstAnimauxExo) // choisit un animal au hasard sauf parmi ceux déjà utilisés
         lstAnimauxExo.push(nom)
       }
+
       switch (listeTypeDeQuestions[q]) {
         case 1:
           A = point(0, 0)
@@ -193,7 +194,7 @@ export default function LireUnDiagramme () {
             objets.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], lstAnimauxExo[i], { unite: 0.1 / coef, couleurDeRemplissage: texcolors(i + 1), hachures: 'north east lines' }))
           }
           objets.push(r)
-          paramsEnonce = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+          paramsEnonce = { xmin: -6.5, ymin: -4, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
 
           break
 

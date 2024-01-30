@@ -377,7 +377,7 @@ export function Polygone (...points) {
         motif: this.hachures,
         id: this.id,
         distanceDesHachures: this.distanceDesHachures,
-        couleurDesHachures: this.couleurDesHachures?.get(1) || 'black',
+        couleurDesHachures: this.couleurDesHachures[1] ?? 'black',
         couleurDeRemplissage: this.couleurDeRemplissage[1],
         opaciteDeRemplissage: this.opaciteDeRemplissage
       }))
