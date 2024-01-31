@@ -3,8 +3,9 @@
   import ReferentielEnding from '../referentielNode/ReferentielEnding.svelte'
   import type { ResourceAndItsPath } from '../../../../../../lib/types/referentiels'
   export let resourcesSet: ResourceAndItsPath[]
-  export let addExercise: (uuid: string) => void
+  export let addExercise: (uuid: string, id: string) => void
   let foundResources: ResourceAndItsPath[] = []
+  let inputSearch: string = ''
 </script>
 <!--
   @component
@@ -20,12 +21,13 @@
     <SearchInput
       origin={resourcesSet}
       bind:results={foundResources}
+      bind:inputSearch
       on:filters-change
       {addExercise}
     />
   </div>
   <ul
-    class="{foundResources.length === 0
+    class="{inputSearch.length === 0 || foundResources.length === 0
       ? 'hidden'
       : 'flex flex-col justify-start w-full mt-4 mx-0 p-4 text-[10px] bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'} "
   >

@@ -16,19 +16,22 @@
     filtersHaveChanged
   } from '../../filtersStore'
   import type { FilterObject } from '../../../../../../../lib/types'
-  import { getUniqueStringBasedOnTimeStamp, debounce } from '../../../../../../../lib/components/time'
+  import {
+    getUniqueStringBasedOnTimeStamp,
+    debounce
+  } from '../../../../../../../lib/components/time'
   import Filtres from './Filtres.svelte'
   import Chip from './Chip.svelte'
   import type { Unsubscriber } from 'svelte/store'
   import Button from '../../../../../../../components/shared/forms/Button.svelte'
   export let origin: ResourceAndItsPath[]
   export let results: ResourceAndItsPath[] = []
-  export let addExercise: (uuid: string) => void
+  export let addExercise: (uuid: string, id: string) => void
+  export let inputSearch: string = ''
 
   let searchField: HTMLInputElement
   let isFiltersVisible: boolean = false
   let selectedFilters: FilterObject<string | Level>[] = []
-  let inputSearch: string = ''
   let lastInput: string = ''
   let isInputFocused = false
   let isCtrlDown: boolean = false
@@ -58,7 +61,11 @@
     if (unsubscribeToFiltersStore) unsubscribeToFiltersStore()
   })
 
-  $: handleInput(inputSearch)
+  $: if (inputSearch != null && inputSearch.length !== 0) {
+    handleInput(inputSearch)
+  } else {
+    results.length = 0
+  }
 
   // ===================================================================================
   //
@@ -66,20 +73,19 @@
   //
   // ===================================================================================
   function updateResults (input: string): void {
-    const resultsWithDuplicates = getResults(input)
-    results = getUniques(resultsWithDuplicates)
+    if (input == null || input.length === 0) {
+      results.length = 0
+    } else {
+      const resultsWithDuplicates = getResults(input)
+      results = getUniques(resultsWithDuplicates)
+    }
   }
 
   function getResults (input: string) {
     if (input.length === 0) {
       return []
     } else {
-      return [
-        ...stringToCriterion(
-          input,
-          true
-        ).meetCriterion(origin)
-      ]
+      return [...stringToCriterion(input, true).meetCriterion(origin)]
     }
   }
 
@@ -97,8 +103,8 @@
 
   function handleInput (input: string) {
     const beginsWithQuote = input.replace(/^[\s"']/, '').length === 0
-    if (input.length === 0 || beginsWithQuote) {
-      results = []
+    if (input == null || input.length === 0 || beginsWithQuote) {
+      results.length = 0
     } else {
       if (input !== lastInput) {
         lastInput = input
@@ -126,9 +132,15 @@
    * Recherche si la chaîne de l'input correspond à une ID de la liste des résultats.
    * @returns {ExerciceItemInReferentiel|ToolItemInReferentiel|null} renvoie l'exercice trouvé ou `null`
    */
-  function matchOnResultsList (inputSearch: string): ExerciceItemInReferentiel | ToolItemInReferentiel | null {
+  function matchOnResultsList (
+    inputSearch: string
+  ): ExerciceItemInReferentiel | ToolItemInReferentiel | null {
+    if (inputSearch == null || inputSearch.length === 0) return null
     for (const result of results) {
-      if (isExerciceItemInReferentiel(result.resource) || isTool(result.resource)) {
+      if (
+        isExerciceItemInReferentiel(result.resource) ||
+        isTool(result.resource)
+      ) {
         if (inputSearch === result.resource.id) {
           return result.resource
         }
@@ -142,7 +154,7 @@
   function onEnterDown () {
     const matchingResource = matchOnResultsList(inputSearch)
     if (matchingResource !== null) {
-      addExercise(matchingResource.uuid)
+      addExercise(matchingResource.uuid, matchingResource.id)
     }
   }
   /**
@@ -166,7 +178,8 @@
         event.preventDefault()
         break
     }
-    if (isCtrlDown && isKDown) { // https://svelte.dev/repl/48bd3726b74c4329a186838ce645099b?version=3.46.4
+    if (isCtrlDown && isKDown) {
+      // https://svelte.dev/repl/48bd3726b74c4329a186838ce645099b?version=3.46.4
       getFocusOnSearchInput()
     }
     if (isEnterDown) {
@@ -316,7 +329,8 @@
     />
     <!-- Invite pour presser Entrée lors d'un match input = ID d'exo -->
     <div
-      class="absolute -bottom-6 {matchOnResultsList(inputSearch) !== null && isInputFocused
+      class="absolute -bottom-6 {matchOnResultsList(inputSearch) !== null &&
+      isInputFocused
         ? 'flex'
         : 'hidden'} items-center pl-1 italic font-extralight text-xs text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
     >
