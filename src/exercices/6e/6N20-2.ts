@@ -150,7 +150,7 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
     const test2 = (denSaisi !== 0) && Number.isInteger(denSaisi) && Number.isInteger(numSaisi) && new FractionEtendue(numPartieDecimale, den).isEqual(new FractionEtendue(numSaisi, denSaisi))
     const test3 = ce
       .parse(mf.getPromptValue('ecritureDecimale'))
-      .isSame(ce.parse(`${ecritureDecimale}`))
+      .isEqual(ce.parse(`${ecritureDecimale}`))
     if (test1 && test2 && test3) {
       divFeedback.innerHTML = '😎'
     } else {
