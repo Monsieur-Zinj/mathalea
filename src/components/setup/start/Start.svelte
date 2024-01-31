@@ -117,8 +117,8 @@
     })
   }
 
-  function addExercise (uuid: string) {
-    const newExercise: InterfaceParams = { uuid }
+  function addExercise (uuid: string, id:string) {
+    const newExercise: InterfaceParams = { uuid, id }
     if ($globalOptions.recorder === 'capytale') {
       newExercise.interactif = '1'
     }

@@ -22,7 +22,7 @@
   import { applyFilters } from './filtersStore'
 
   export let excludedReferentiels: ActivationName[] = []
-  export let addExercise: (uuid: string) => void
+  export let addExercise: (uuid: string, id: string) => void
 
   let referentiels: ReferentielInMenu[] = []
   onMount(() => { updateRepositories() })
