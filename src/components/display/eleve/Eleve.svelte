@@ -32,6 +32,8 @@
   import { getCanvasFont, getTextWidth, remToPixels } from '../../../lib/components/measures'
   import Footer2 from './Footer2.svelte'
   import FlipCard from './FlipCard.svelte'
+  import Keyboard from '../../keyboard/Keyboard.svelte'
+  import { keyboardState } from '../../keyboard/stores/keyboardStore'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -340,7 +342,7 @@
 <svelte:window bind:innerWidth={currentWindowWidth} />
 <section
   bind:this={eleveSection}
-  class="flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive
+  class="relative flex flex-col min-h-screen min-w-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus {$darkMode.isActive
     ? 'dark'
     : ''}"
 >
@@ -790,7 +792,8 @@
       {/if}
     </div>
   </div>
-  <div class="flex justify-center w-full">
+  <Keyboard/>
+  <div class="flex justify-center w-full {$keyboardState.isVisible ? 'mt-52' : ''}">
     <Footer2 />
   </div>
 </section>
