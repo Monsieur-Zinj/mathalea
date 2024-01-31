@@ -109,7 +109,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       if (typeof reponses.feedback === 'function') {
         feedback += reponses.feedback(saisies)
         const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${i}`)
-        if (feedback != null && spanFeedback != null) {
+        if (feedback != null && spanFeedback != null && feedback.length > 0) {
           spanFeedback.innerHTML = '💡 ' + feedback
           spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
         }

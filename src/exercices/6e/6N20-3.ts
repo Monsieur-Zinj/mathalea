@@ -12,10 +12,8 @@ export const ref = '6N20-3'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '14/12/2023'
-// export const dateDeModifImportante = '24/10/2021'
 
 /**
- * Description didactique de l'exercice
  * @author Rémi Angot
 */
 
@@ -72,9 +70,8 @@ export default class nomExercice extends Exercice {
         feedback: (saisies: {champ1: string, champ2: string}) => {
           const rep1 = saisies.champ1
           const rep2 = saisies.champ2
-          if (!consecutifsCompare(rep1, rep2, String(num / den)).isOk) {
-            return ('L\'inégalité est vraie mais les deux nombres ne sont pas des entiers consécutifs.')
-          }
+          const { feedback } = consecutifsCompare(rep1, rep2, String(num / den))
+          return feedback
         },
         champ1: { value: String(a), compare: numberCompare },
         champ2: { value: String(b), compare: numberCompare }

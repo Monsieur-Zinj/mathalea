@@ -102,7 +102,7 @@ function inputToGrandeur (input: string): Grandeur | false {
  */
 export function consecutifsCompare (entierInf: string, entierSup: string, valeurInter?: string): { isOk: boolean, feedback?: string } {
   let feedback = ''
-  if (!(Number.isInteger(entierSup) && Number.isInteger(entierInf))) {
+  if (!(Number.isInteger(Number(entierSup)) && Number.isInteger(Number(entierInf)))) {
     feedback = 'On attend comme réponse deux nombres entiers.'
     return { isOk: false, feedback }
   }
@@ -118,7 +118,7 @@ export function consecutifsCompare (entierInf: string, entierSup: string, valeur
     const diff2 = Number(engine.box(['Subtract', engine.parse(valeurInter).json, engine.parse(entierInf).json]).N().numericValue)
     if (!(diff1 != null && diff2 != null && diff1 < 1 && diff1 >= 0 && diff2 < 1 && diff2 >= 0)) { return { isOk: false, feedback: `Les deux nombres entiers sont biens consécutifs mais n'encadrent pas la valeur ${valeurInter}` } }
   }
-  return { isOk: true }
+  return { isOk: true, feedback: '' }
 }
 
 /**
