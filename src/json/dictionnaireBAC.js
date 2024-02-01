@@ -1777,4 +1777,101 @@ export const dictionnaireBAC = {
 
 
 
+  bac_2024_01_sujet0_1: {
+    annee: '2024',
+    lieu: 'sujet0',
+    mois: 'Janvier',
+    numeroInitial: '1',
+    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_1.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_1_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_01_sujet0_1.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_1_cor.tex',
+    tags: ['']
+  },
+  bac_2024_01_sujet0_2: {
+    annee: '2024',
+    lieu: 'sujet0',
+    mois: 'Janvier',
+    numeroInitial: '2',
+    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_2.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_2_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_01_sujet0_2.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_2_cor.tex',
+    tags: ['']
+  },
+  bac_2024_01_sujet0_3: {
+    annee: '2024',
+    lieu: 'sujet0',
+    mois: 'Janvier',
+    numeroInitial: '3',
+    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_3.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_3_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_01_sujet0_3.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_3_cor.tex',
+    tags: ['']
+  },
+  bac_2024_01_sujet0_4: {
+    annee: '2024',
+    lieu: 'sujet0',
+    mois: 'Janvier',
+    numeroInitial: '4',
+    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_4.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_4_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_01_sujet0_4.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_4_cor.tex',
+    tags: ['']
+  },
+  bac_2024_01_sujet0_5: {
+    annee: '2024',
+    lieu: 'sujet0',
+    mois: 'Janvier',
+    numeroInitial: '5',
+    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_5.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_5_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_01_sujet0_5.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_5_cor.tex',
+    tags: ['']
+  },
+  bac_2024_01_sujet0_6: {
+    annee: '2024',
+    lieu: 'sujet0',
+    mois: 'Janvier',
+    numeroInitial: '6',
+    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_6.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_6_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_01_sujet0_6.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_6_cor.tex',
+    tags: ['']
+  },
+  bac_2024_01_sujet0_7: {
+    annee: '2024',
+    lieu: 'sujet0',
+    mois: 'Janvier',
+    numeroInitial: '7',
+    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_7.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_7_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_01_sujet0_7.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_7_cor.tex',
+    tags: ['']
+  },
+  bac_2024_01_sujet0_8: {
+    annee: '2024',
+    lieu: 'sujet0',
+    mois: 'Janvier',
+    numeroInitial: '8',
+    png: 'static/bac/2024/tex/png/bac_2024_01_sujet0_8.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_01_sujet0_8_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_01_sujet0_8.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_8_cor.tex',
+    tags: ['']
+  },
+
 }
