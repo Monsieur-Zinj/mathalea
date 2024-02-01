@@ -1,8 +1,9 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
-import { arrondi } from '../../../lib/outils/nombres'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
+import { fonctionCompare } from '../../../lib/interactif/comparaisonFonctions'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive.js'
 export const titre = 'Exprimer une variable en fonction d\'une autre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,8 +22,9 @@ export default function ExprimerVariable () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
   this.tailleDiaporama = 2
+  this.compare = fonctionCompare
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline nospacebefore'
   this.nouvelleVersion = function () {
     { const a = randint(-9, 9, 0)
       const b = randint(-5, 9, [0, a, -a])
@@ -41,7 +43,7 @@ export default function ExprimerVariable () {
       if (choice([true, false])) {
         this.question = ` On donne la relation  : $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$.<br>
         
-        Exprimer $${var1}$ en fonction de $${var2}$.`
+        Exprimer $${var1}$ en fonction de $${var2}$.<br>`
         if (a === 1) {
           this.correction = `${corr1}`
         } else {
@@ -54,7 +56,9 @@ export default function ExprimerVariable () {
             this.correction += ` que l'on peut écrire également $${var1}=\\dfrac{${-c}${ecritureAlgebriqueSauf1(b)}${var2}}{${-a}}$.`
           }
         }
-        this.reponse = [`${var1}=\\dfrac{${c}-${b}${var2}}{${a}}`,
+        this.optionsChampTexte = { texteAvant: `$${var1}=$` }
+
+        this.reponse = { fonction: `\\dfrac{${c}-${b}${var2}}{${a}}`, variable: var2 }/*,
             `${var1}=\\dfrac{${c}+${-b}${var2}}{${a}}`,
             `${var1}=\\dfrac{${-c}+${b}${var2}}{${-a}}`,
             `${var1}=\\dfrac{${-c}}{${-a}}+\\dfrac{${b}}{${-a}}${var2}`,
@@ -65,10 +69,11 @@ export default function ExprimerVariable () {
             `${var1}=${arrondi(c / a, 2)}+\\dfrac{${-b}}{${a}}${var2}`,
              `${var1}=${arrondi(c / a, 2)}+${arrondi(-b / a, 2)}${var2}`,
               `${var1}=\\dfrac{${c}}{${a}}+${arrondi(-b / a, 2)}${var2}`]
+              */
       } else {
         this.question = ` On donne la relation  : $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$.<br>
         
-        Exprimer $${var2}$ en fonction de $${var1}$.`
+        Exprimer $${var2}$ en fonction de $${var1}$.<br>`
         if (b === 1) {
           this.correction = `${corr3}`
         } else {
@@ -81,7 +86,9 @@ export default function ExprimerVariable () {
             this.correction += ` que l'on peut écrire également $${var2}=\\dfrac{${-c}${ecritureAlgebriqueSauf1(a)}${var1}}{${-b}}$.`
           }
         }
-        this.reponse = [`${var2}=\\dfrac{${c}-${b}${var1}}{${a}}`,
+        this.optionsChampTexte = { texteAvant: `$${var2}=$` }
+
+        this.reponse = { fonction: `\\dfrac{${c}-${b}${var1}}{${a}}`, variable: var1 }/*,
                 `${var2}=\\dfrac{${c}+${-a}${var1}}{${b}}`,
                 `${var2}=\\dfrac{${-c}+${a}${var1}}{${-b}}`,
                 `${var2}=\\dfrac{${-c}}{${-b}}+\\dfrac{${a}}{${-b}}${var1}`,
@@ -92,6 +99,7 @@ export default function ExprimerVariable () {
                 `${var2}=${arrondi(c / b, 2)}+\\dfrac{${-a}}{${b}}${var1}`,
                  `${var2}=${arrondi(c / b, 2)}+${arrondi(-a / b, 2)}${var1}`,
                   `${var2}=\\dfrac{${c}}{${b}}+${arrondi(-a / b, 2)}${var1}`]
+                  */
       }
     }
 

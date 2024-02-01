@@ -3,10 +3,15 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Connaître les différentes écritures d\'une proportion'
 export const dateDePublication = '21/04/2023'
-
+export const dateDeModificationImportante = '31/01/2024'
 /**
 * Ecriture des  proportions
 *
@@ -60,6 +65,7 @@ export default function DiffentesEcrituresProportions () {
           n = fraction[0]
           d = fraction[1]
           f = new Decimal(n).div(d)
+
           break
         case 2:
           dec = new Decimal(randint(1, 99)).div(1000)
@@ -92,50 +98,66 @@ export default function DiffentesEcrituresProportions () {
         case 'Decimal':
 
           texte = 'Écrire sous la forme d\'une fraction de dénominateur $100$, puis sous la forme d\'un pourcentage.<br>'
-          if (context.isHtml) {
-            texte += ''
+          if (this.interactif) {
+            texte += remplisLesBlancs(this, i, `$${texNombre(dec, 4)}=\\dfrac{%{num1}}{%{num2}}=%{num3}\\%`, 'college6e', '\\ldots\\ldots')
           } else {
-            texte += '<br>'
+            if (context.isHtml) {
+              texte += ''
+            } else {
+              texte += '<br>'
+            }
+            texte += `$${texNombre(dec, 4)}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}\\,\\%$`
+            if (context.isHtml) {
+              texte += ''
+            } else {
+              texte += '<br>'
+            }
           }
-          texte += `$${texNombre(dec, 4)}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}\\,\\%$`
-          if (context.isHtml) {
-            texte += ''
-          } else {
-            texte += '<br>'
-          }
-          texteCorr = `$${texNombre(dec, 4)}=\\dfrac{${texNombre(pourc, 3)}}{100}=${texNombre(pourc, 3)} \\,\\%$`
+          texteCorr = `$${texNombre(dec, 4)}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}=${miseEnEvidence(texNombre(pourc, 3))} \\,\\%$`
+          setReponse(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], num1: { value: pourc.toFixed(4) }, num2: { value: String(100) }, num3: { value: pourc.toFixed(4) } }, { formatInteractif: 'fillInTheBlank' })
           break
 
         case 'Pourcentage':
           texte = 'Écrire sous forme décimale, puis sous la forme d\'une fraction de dénominateur $100$.<br>'
-          if (context.isHtml) {
-            texte += ''
+          if (this.interactif) {
+            texte += remplisLesBlancs(this, i, `$${texNombre(pourc, 4)}\\,\\%=%{num1}=\\dfrac{%{num2}}{%{num3}}`, 'college6e', '\\ldots\\ldots')
           } else {
-            texte += '<br>'
+            if (context.isHtml) {
+              texte += ''
+            } else {
+              texte += '<br>'
+            }
+            texte += `$${texNombre(pourc, 4)}\\,\\%=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}$`
+            if (context.isHtml) {
+              texte += ''
+            } else {
+              texte += '<br>'
+            }
           }
-          texte += `$${texNombre(pourc, 4)}\\,\\%=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}$`
-          if (context.isHtml) {
-            texte += ''
-          } else {
-            texte += '<br>'
-          }
-          texteCorr = `$${texNombre(pourc, 3)}\\,\\%=${texNombre(dec, 4)}=\\dfrac{${texNombre(pourc, 3)}}{100}$`
+          texteCorr = `$${texNombre(pourc, 3)}\\,\\%=${miseEnEvidence(texNombre(dec, 4))}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}$`
+          setReponse(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1] * listePoints[2], 2], num1: { value: dec.toFixed(4) }, num2: { value: pourc.toFixed(4) }, num3: { value: String(100) } }, { formatInteractif: 'fillInTheBlank' })
 
           break
         case 'Fraction':
           texte = 'Écrire sous forme décimale, puis sous la forme d\'un pourcentage.<br>'
-          if (context.isHtml) {
-            texte += ''
+          if (this.interactif) {
+            texte += remplisLesBlancs(this, i, `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=%{num1}=%{num2}\\%`, 'college6e', '\\ldots\\ldots')
           } else {
-            texte += '<br>'
+            if (context.isHtml) {
+              texte += ''
+            } else {
+              texte += '<br>'
+            }
+            texte += `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}\\,\\%$`
+            if (context.isHtml) {
+              texte += ''
+            } else {
+              texte += '<br>'
+            }
           }
-          texte += `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}=${context.isHtml ? '\\ldots' : '\\makebox[.08\\linewidth]{\\dotfill}'}\\,\\%$`
-          if (context.isHtml) {
-            texte += ''
-          } else {
-            texte += '<br>'
-          }
-          texteCorr = `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${texNombre(f, 4)}=${texNombre(f * 100, 4)}\\,\\%$`
+
+          texteCorr = `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${miseEnEvidence(texNombre(f, 4))}=${miseEnEvidence(texNombre(f * 100, 4))}\\,\\%$`
+          setReponse(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], num1: { value: f.toFixed(4) }, num2: { value: (f * 100).toFixed(4) }, num3: { value: String(100) } }, { formatInteractif: 'fillInTheBlank' })
           break
       }
 
