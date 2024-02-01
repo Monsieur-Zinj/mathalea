@@ -110,20 +110,22 @@
     if (divExercice) mathaleaRenderDiv(divExercice)
   }
 
-  async function switchCorrectionVisible (
-    section: 'correction' | 'instructions'
-  ) {
-    switch (section) {
-      case 'correction':
-        isCorrectionVisible = !isCorrectionVisible
-        break
-      case 'instructions':
-        isQuestionsVisible = !isQuestionsVisible
-        break
-      default:
-        break
+  async function setCorrectionVisible (correctionVisibility: boolean) {
+    isCorrectionVisible = correctionVisibility
+    if (!isCorrectionVisible) {
+      setQuestionsVisible(true)
+    } else {
+      updateDisplay()
     }
-    updateDisplay()
+  }
+
+  async function setQuestionsVisible (questionsVisibility: boolean) {
+    isQuestionsVisible = questionsVisibility
+    if (!isQuestionsVisible) {
+      setCorrectionVisible(true)
+    } else {
+      updateDisplay()
+    }
   }
 
   async function updateDisplay () {
@@ -203,8 +205,7 @@
         >
         <button
           type="button"
-          disabled={!isCorrectionVisible && correctionsSteps.length === 0}
-          on:click={() => switchCorrectionVisible('instructions')}
+          on:click={() => setQuestionsVisible(!isQuestionsVisible)}
           ><i
             class="bx bx-sm text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {isQuestionsVisible
               ? 'bx-toggle-right'
@@ -218,8 +219,7 @@
         >
         <button
           type="button"
-          disabled={!isQuestionsVisible}
-          on:click={() => switchCorrectionVisible('correction')}
+          on:click={() => setCorrectionVisible(!isCorrectionVisible)}
         >
           <i
             class="mb-8 bx bx-sm text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest {isCorrectionVisible
