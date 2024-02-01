@@ -32,7 +32,7 @@ export default class Exercice {
   listeCanReponsesACompleter?: string[]
   listeCanEnonces?: string[]
   question?: string // Seulement pour les exercices de type simple
-  reponse?: string | number // Seulement pour les exercices de type simple
+  reponse?: string | number | object// Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
   canEnonce?: string // Seulement pour les exercices de type simple
   canReponseACompleter?: string // Seulement pour les exercices de type simple

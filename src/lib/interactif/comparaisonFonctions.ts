@@ -42,7 +42,7 @@ function cleanSpaces (str: string): string {
 }
 
 function cleanParenthses (str: string): string {
-  return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1')
+  return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1').replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
 }
 
 function cleanUnite (str: string): string {
@@ -91,6 +91,32 @@ function inputToGrandeur (input: string): Grandeur | false {
       return false
     }
   }
+}
+
+/**
+ * Comparaison de fonction f(x)
+ * @param input
+ * @param goodAnswer
+ */
+export function fonctionCompare (input: string, goodAnswer: {fonction: string, variable: string} = { fonction: '', variable: 'x' }): { isOk: boolean, feedback?: string } {
+  if (typeof goodAnswer === 'string') {
+    goodAnswer = { fonction: goodAnswer, variable: 'x' }
+  }
+  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions'])
+  const cleanInput = clean(input)
+  const inputParsed = engine.parse(cleanInput)
+  const inputFn = inputParsed.compile()
+  const cleanAnswer = clean(goodAnswer.fonction)
+  const goodAnswerFn = engine.parse(cleanAnswer).compile()
+
+  let isOk = true
+  if (inputFn == null || goodAnswerFn == null) throw Error(`fonctionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
+  const [a, b, c] = [Math.random(), Math.random(), Math.random()]
+  for (const x of [a, b, c]) {
+    const variable = Object.fromEntries([[goodAnswer.variable, x]])
+    isOk = isOk && Math.abs(inputFn(variable) - goodAnswerFn(variable)) < 1e-10
+  }
+  return { isOk }
 }
 
 /**
