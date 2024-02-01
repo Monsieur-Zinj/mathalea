@@ -7,6 +7,7 @@ import {
 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
+import { fonctionCompare } from '../../../lib/interactif/comparaisonFonctions'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $a/u(x)$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,6 +29,7 @@ export default function CalculFonctionDeriveeAsurU () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2
+  this.compare = fonctionCompare
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -48,7 +50,7 @@ export default function CalculFonctionDeriveeAsurU () {
           Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
           On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. On en déduit,  $f'(x)=${a}\\times \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}=\\dfrac{${-a * m}}{(${reduireAxPlusB(m, p)})^2}$.`
 
-        this.reponse = [`\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`, `\\dfrac{${-a * m}}{(${m}x+${p})^2}`, `${-a}\\times\\dfrac{${m}}{(${m}x+${p})^2}`, `${a}\\times\\dfrac{${-m}}{(${m}x+${p})^2}`, `${-a * m}\\times\\dfrac{1}{(${m}x+${p})^2}`]
+        this.reponse = `\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`//, `\\dfrac{${-a * m}}{(${m}x+${p})^2}`, `${-a}\\times\\dfrac{${m}}{(${m}x+${p})^2}`, `${a}\\times\\dfrac{${-m}}{(${m}x+${p})^2}`, `${-a * m}\\times\\dfrac{1}{(${m}x+${p})^2}`]
 
         break
       case 2:// //a/(p+mx)
@@ -64,7 +66,7 @@ export default function CalculFonctionDeriveeAsurU () {
           Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
           On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. On en déduit,  $f'(x)=${a}\\times \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}=\\dfrac{${-a * m}}{(${reduireAxPlusB(m, p)})^2}$.`
 
-        this.reponse = [`\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`, `\\dfrac{${-a * m}}{(${m}x+${p})^2}`, `${-a}\\times\\dfrac{${m}}{(${m}x+${p})^2}`, `${a}\\times\\dfrac{${-m}}{(${m}x+${p})^2}`, `${-a * m}\\times\\dfrac{1}{(${m}x+${p})^2}`]
+        this.reponse = `\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`//, `\\dfrac{${-a * m}}{(${m}x+${p})^2}`, `${-a}\\times\\dfrac{${m}}{(${m}x+${p})^2}`, `${a}\\times\\dfrac{${-m}}{(${m}x+${p})^2}`, `${-a * m}\\times\\dfrac{1}{(${m}x+${p})^2}`]
 
         break
 
@@ -83,7 +85,7 @@ export default function CalculFonctionDeriveeAsurU () {
                 On a  $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $u'(x)=${2 * m}x$. On en déduit,
                 $f'(x)= ${a}\\times\\dfrac{-${ecritureParentheseSiNegatif(2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}=\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}$.`
 
-        this.reponse = [`\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`, `\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, -m, 0, -p)})^2}`]
+        this.reponse = `\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}` //, `\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, -m, 0, -p)})^2}`]
         break
     }
     this.canEnonce = this.question
