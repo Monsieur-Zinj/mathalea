@@ -314,7 +314,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let isInteractiveFree = true
   let oneShot = false
   let twoColumns = false
-  let interfaceBeta = false
+  let beta = false
   let url: URL
   try {
     url = new URL(urlString)
@@ -396,8 +396,8 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       iframe = entry[1]
     } else if (entry[0] === 'answers') {
       answers = entry[1]
-    } else if (entry[0] === 'interfaceBeta') {
-      interfaceBeta = true
+    } else if (entry[0] === 'beta') {
+      beta = true
     }
     if (entry[0] === 'uuid') previousEntryWasUuid = true
     else previousEntryWasUuid = false
@@ -439,7 +439,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     twoColumns,
     recorder,
     done,
-    interfaceBeta,
+    beta,
     iframe,
     answers
   }
@@ -471,6 +471,8 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
           } else if (exercice.reponse instanceof Decimal) {
             value = exercice.reponse.toString()
           } else if (exercice.reponse instanceof Grandeur) {
+            value = exercice.reponse
+          } else if (typeof exercice.reponse === 'object' && exercice.reponse.fonction != null) {
             value = exercice.reponse
           } else if (Array.isArray(exercice.reponse)) {
             window.notify(`MathaleaHandleExerciceSimple a reçu une exercice.reponse de type Array, ${JSON.stringify(exercice.reponse)}, on passe la liste, mais il faudrait certainement remplacer ça par une seule réponse associée à une fonction de comparaison qui fait le job !`)

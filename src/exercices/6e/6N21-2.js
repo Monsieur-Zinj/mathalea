@@ -10,8 +10,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { fractionPlusSimpleCompare } from '../../lib/interactif/comparaisonFonctions'
 export const titre = 'Lire des abscisses fractionnaires de points (niv 2)'
-export const interactifReady = false
-// remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
+export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -21,8 +20,6 @@ export const dateDePublication = '25/01/2024'
  * Description didactique de l'exercice :
  * Lire des abscisses sous forme de fractions avec possibilté d'avoir des fractions simplifiées
  * @author Jean-Claude Lhote à partir de 6N21-1 de Mickaël Guironnet
- * Référence 6N21-2
- * publié le 25/01/2024
  */
 export const uuid = '442f4'
 export const ref = '6N21-2'

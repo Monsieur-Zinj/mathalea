@@ -53,7 +53,8 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
   isSolutionAccessible: true,
   isInteractiveFree: true,
   oneShot: false,
-  twoColumns: false
+  twoColumns: false,
+  beta: false
 })
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
@@ -236,8 +237,8 @@ export function updateGlobalOptionsInURL (url: URL) {
       )
     }
   }
-  if (options.interfaceBeta) {
-    url.searchParams.append('interfaceBeta', '1')
+  if (options.beta) {
+    url.searchParams.append('beta', '1')
   }
   const currentUrl = new URL(window.location.href)
   if (currentUrl.searchParams.has('triche')) {

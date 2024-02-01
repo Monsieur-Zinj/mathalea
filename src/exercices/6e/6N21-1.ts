@@ -177,7 +177,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
       ]
 
       texte = `Placer les points $${label1}\\left(${fraction(num1, den1).texFraction}\\right)$, $~${label2}\\left(${fraction(num2, den2).texFraction}\\right)$ et $~${label3}\\left(${fraction(num3, den3).texFraction}\\right)$.`
-      const { figure, latex } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: arrondi(1 / (coef * den), 6) })
+      const { figure, latex } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: 1 / (coef * den) })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
       this.figures[i] = figure

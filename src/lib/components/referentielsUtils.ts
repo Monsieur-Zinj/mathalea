@@ -17,12 +17,14 @@ const baseReferentiel: JSONReferentielObject = {
   ...referentiel,
   static: { ...referentielStatic }
 }
-if (get(globalOptions).interfaceBeta) {
+if (get(globalOptions).beta) {
   // const second: JSONReferentielObject = referentiel2nd
   // Object.assign(baseReferentiel.static, { '2nd': second['2nd'] })
-  if (baseReferentiel.static !== null) {
-    baseReferentiel.static['2nd'] = { ...referentiel2nd }
-  }
+
+  // @ToDo afficher les exercices statiques de 2nd
+  // if (baseReferentiel.static !== null) {
+  //   baseReferentiel.static['2nd'] = { ...referentiel2nd }
+  // }
 }
 delete baseReferentiel['Calcul mental']
 let referentielMap = toMap(baseReferentiel)
