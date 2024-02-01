@@ -32,7 +32,7 @@ export interface InterfaceGlobalOptions {
   answers?: string
   iframe?: string
   twoColumns?: boolean
-  interfaceBeta?: boolean
+  beta?: boolean
   isDataRandom?: boolean
 }
 

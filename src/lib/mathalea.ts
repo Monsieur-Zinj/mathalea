@@ -314,7 +314,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let isInteractiveFree = true
   let oneShot = false
   let twoColumns = false
-  let interfaceBeta = false
+  let beta = false
   let url: URL
   try {
     url = new URL(urlString)
@@ -396,8 +396,8 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       iframe = entry[1]
     } else if (entry[0] === 'answers') {
       answers = entry[1]
-    } else if (entry[0] === 'interfaceBeta') {
-      interfaceBeta = true
+    } else if (entry[0] === 'beta') {
+      beta = true
     }
     if (entry[0] === 'uuid') previousEntryWasUuid = true
     else previousEntryWasUuid = false
@@ -439,7 +439,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     twoColumns,
     recorder,
     done,
-    interfaceBeta,
+    beta,
     iframe,
     answers
   }
