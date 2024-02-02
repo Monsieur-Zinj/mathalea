@@ -13,14 +13,12 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
-export const dateDeModifImportante = '28/10/2021'
+export const dateDeCreation = '01/12/2021'
+export const dateDeModifImportante = '02/02/2024'
 
 /**
- * Calculs de médianes dans des séries statistiques
+ * Calculs de médianes dans des séries statistiques numériques
  * @author Sébastien Lozano forked de Jean-Claude Lhote
- * Référence 4S11
- * Date initiale 2021-01-12
  * Ajout de l'alternance entre effectif total pair et impair le 18/08/2021 : Guilllaume Valmont
  */
 export const uuid = '7c068'
@@ -73,7 +71,7 @@ export default function DeterminerDesMedianes () {
         texte = OutilsStats.texteNotes(notes)
         const [mediane, medianeCorr] = OutilsStats.computeMediane(notes)
         texteCorr = OutilsStats.texteCorrMedianeNotes(notes, medianeCorr, mediane)
-        repInteractive = mediane
+        repInteractive = medianeCorr
       } else { // ici on relève des températures
         const annee = randint(1980, 2019)
         let listeMois
@@ -93,7 +91,7 @@ export default function DeterminerDesMedianes () {
         texte = OutilsStats.texteTemperatures(annee, mois, temperatures)
         const [mediane, medianeCorr] = OutilsStats.computeMediane(temperatures)
         texteCorr = OutilsStats.texteCorrMedianeTemperatures(temperatures, medianeCorr, mediane)
-        repInteractive = mediane
+        repInteractive = medianeCorr
       }
 
       // On factorise la question
