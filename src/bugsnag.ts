@@ -2,6 +2,7 @@ import Bugsnag from '@bugsnag/js'
 import bigInt from 'big-integer'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import { tropDeChiffres } from './modules/outils.js'
+import { showDialogForLimitedTime } from './lib/components/dialogs.js'
 
 type Metadatas = Record<string, unknown>
 
@@ -42,7 +43,9 @@ export function notify (error: string|Error, metadatas: Metadatas) {
     if (metadatas) Bugsnag.addMetadata('ajouts', metadatas)
     Bugsnag.notify(error)
   } else {
-    console.error('message qui aurait été envoyé à bugsnag s\'il avait été configuré', error)
+    const message = 'message qui aurait été envoyé à bugsnag s\'il avait été configuré'
+    showDialogForLimitedTime('notifDialog', 10000, message + ' : <br>' + error.toString())
+    console.error(message, error)
     if (metadatas) console.info('avec les metadatas', metadatas)
   }
 }
