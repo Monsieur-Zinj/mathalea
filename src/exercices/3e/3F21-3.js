@@ -7,13 +7,14 @@ import { texteParPoint } from '../../lib/2d/textes.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { fonctionCompare, fractionEgaleCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true
@@ -127,8 +128,8 @@ export default function PenteEtOrdonneeOrigineDroite () {
       correction3 += `<br>Finalement, $${nomFonction} : x \\mapsto ${rienSi1(a).toString().replace('.', ',')}x$` + (vocabulaire === 'affine' ? `$${ecritureAlgebrique(b)}$.` : '.')
 
       if (vocabulaire === 'affine') setReponse(this, questionInteractif, b)
-      setReponse(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, [a, `\\frac{${num}}{${den}}`])
-      setReponse(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, den === 2 ? (vocabulaire === 'affine' ? [`${stringNombre(a)}x+${b}`, `\\frac{${num}}{2}\\times x + ${b}`] : [`${stringNombre(a)}x`, `\\frac{${num}}{2}\\times x`, `${stringNombre(a)}x+${b}`, `\\frac{${num}}{2}\\times x + ${b}`]) : (vocabulaire === 'affine' ? `${stringNombre(a)}x+${b}` : [`${stringNombre(a)}x+${b}`, `${stringNombre(a)}x`]))
+      handleAnswers(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}`, compare: fractionEgaleCompare } }, { formatInteractif: 'fractionEgale' })
+      handleAnswers(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}x+${b}`, compare: fonctionCompare } }, { formatInteractif: 'calcul' })
 
       texte = introduction + '<br>' + (vocabulaire === 'affine' ? (question1 + '<br>') : '') + question2 + '<br>' + question3
       texteCorr = (vocabulaire === 'affine' ? (correction1 + '<br>') : '') + correction2 + '<br>' + correction3
