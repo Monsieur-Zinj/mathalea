@@ -2,10 +2,11 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { environEgalCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Exprimer une fraction sous la forme d\'une valeur approchée d\'un pourcentage'
 export const interactifReady = true
@@ -51,12 +52,12 @@ export default function ValeurApprocheeDePourcentages () {
     for (let i = 0, texte, texteCorr, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       den = randint(10, listeTypeDeQuestions[i])
       num = randint(1, den - 8)
-      while (calculANePlusJamaisUtiliser(num / den) === arrondi(num / den, 4)) {
+      while (Math.round(num * 10000 / den) === 10000 * num / den) {
         den = randint(10, listeTypeDeQuestions[i])
         num = randint(1, den - 8)
       }
       texte = `$\\dfrac{${num}}{${den}}\\approx$`
-      texte += remplisLesBlancs(this, i, '%{champ1}\\text{ soit environ }%{champ2}', 'inline50', '\\ldots\\ldots\\ldots')
+      texte += remplisLesBlancs(this, i, '%{champ1}\\text{ soit environ }%{champ2}\\%', 'inline50', '\\ldots\\ldots\\ldots')
       // this.interactif ? '$' : '\\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$'
       // texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteApres: ' %' })
 
@@ -65,7 +66,7 @@ export default function ValeurApprocheeDePourcentages () {
         // setReponse(this, i, arrondi(num / den * 100, 0))
         handleAnswers(this, i, {
           // bareme: (listePoints) => [Math.min(...listePoints), 1],
-          champ1: { value: (num / den).toFixed(2) }, champ2: { value: (100 * num / den).toFixed(0) }
+          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.01 }, compare: environEgalCompare }, champ2: { value: { attendu: (100 * num / den).toFixed(0), tolerance: 1 }, compare: environEgalCompare }
         }, { formatInteractif: 'fillInTheBlank' })
       }
       if (this.sup === 2) {
@@ -73,11 +74,11 @@ export default function ValeurApprocheeDePourcentages () {
         // setReponse(this, i, arrondi(num / den * 100, 0))
         handleAnswers(this, i, {
           // bareme: (listePoints) => [Math.min(...listePoints), 1],
-          champ1: { value: (num / den).toFixed(3) }, champ2: { value: (100 * num / den).toFixed(1) }
+          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.001 }, compare: environEgalCompare }, champ2: { value: { attendu: (100 * num / den).toFixed(1), tolerance: 0.1 }, compare: environEgalCompare }
         }, { formatInteractif: 'fillInTheBlank' })
       }
 
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, num, den)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
