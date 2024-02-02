@@ -9,8 +9,14 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { hmsCompare, unitesCompare } from '../../lib/interactif/comparaisonFonctions'
+import Grandeur from '../../modules/Grandeur'
 export const titre = 'Résoudre un problème s\'appuyant sur la lecture d\'une représentation graphique'
+export const interactifType = 'mathLive'
+export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
@@ -50,15 +56,17 @@ export default function ExploiterRepresentationGraphique () {
       typeDeProbleme = choice(['projectile', 'projectile2'])
     }
     if (this.sup === 2) {
-      typeDeProbleme = 'velo'
+      if (this.interactif) typeDeProbleme = choice(['projectile', 'projectile2', 'temperature'])
+      else typeDeProbleme = 'velo'
     }
     if (this.sup === 3) {
       typeDeProbleme = 'temperature'
     }
     if (this.sup === 4) {
-      typeDeProbleme = choice(['temperature', 'projectile', 'projectile2', 'velo'])
+      typeDeProbleme = this.interactif ? choice(['temperature', 'projectile', 'projectile2']) : choice(['temperature', 'projectile', 'projectile2', 'velo'])
     }
     let f, t1, l, g1, r, graphique, fille, hmin, hmax, tmin, tmax
+    let indiceQuestion = 0
     switch (typeDeProbleme) {
       case 'projectile': // Courbe de l'altitude de vol en fonction du temps
         V0 = choice(vitessesInitiales)
@@ -89,8 +97,10 @@ export default function ExploiterRepresentationGraphique () {
           'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
-          'Au bout de combien de temps le projectile retombe-t-il au sol ?'
+          'Au bout de combien de temps le projectile retombe-t-il au sol ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 clavierHms')
         )
+        handleAnswers(this, indiceQuestion, { reponse: { value: texNombre(t1, 0) + 's', compare: hmsCompare } }, { formatInteractif: 'hms' })
+        indiceQuestion++
         this.listeCorrections.push(
           `Au bout de ${texNombre(
             t1
@@ -98,10 +108,11 @@ export default function ExploiterRepresentationGraphique () {
             t1
           )}~;~0)$.`
         )
-
         this.listeQuestions.push(
-          'Quelle est la hauteur maximale atteinte par le projectile ?'
+          'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesLongueur')
         )
+        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(Math.round(f(t1 / 2)), 'm'), precision: 0 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+        indiceQuestion++
         this.listeCorrections.push(
           `Le point le plus haut de la courbe a pour abscisse $${texNombre(
             (t1 / 2)
@@ -139,8 +150,11 @@ export default function ExploiterRepresentationGraphique () {
             'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
-          'À quelle distance le projectile est-il retombé au sol ?'
+          'À quelle distance le projectile est-il retombé au sol ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesLongueur')
         )
+        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(t1, 'm'), precision: 0 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+        indiceQuestion++
+
         this.listeCorrections.push(
             `Le projectile retombe au sol à une distance de ${t1} m, car la courbe passe par le point de coordonnées $(${texNombre(
               t1
@@ -148,8 +162,11 @@ export default function ExploiterRepresentationGraphique () {
         )
 
         this.listeQuestions.push(
-          'Quelle est la hauteur maximale atteinte par le projectile ?'
+          'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesLongueur')
         )
+        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(Math.round(f(t1 / 2)), 'm'), precision: 0 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+        indiceQuestion++
+
         this.listeCorrections.push(
             `Le point le plus haut de la courbe a pour abscisse $${texNombre((t1 / 2))}$ et pour ordonnée $${Math.round(f(t1 / 2))}$ donc la hauteur maximale est de $${Math.round(f(t1 / 2))}$ m.`
         )
@@ -215,6 +232,7 @@ export default function ExploiterRepresentationGraphique () {
         this.introduction += '<br><br>' + 'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push('Pendant combien de temps a-t-elle fait du vélo ?')
+
         this.listeCorrections.push('Elle a fait du vélo pendant 40 minutes.')
 
         this.listeQuestions.push('Quelle distance a-t-elle parcourue au total ?')
@@ -263,8 +281,8 @@ export default function ExploiterRepresentationGraphique () {
           '<br><br>' +
           mathalea2d(
             Object.assign({}, fixeBordures([r, graphique]), {
-              pixelsParCm: 30,
-              scale: 1
+              pixelsParCm: 20,
+              scale: 0.5
             })
             ,
             r,
@@ -277,21 +295,33 @@ export default function ExploiterRepresentationGraphique () {
           'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
-          'Quelle est la température la plus froide de la journée ?'
+          'Quelle est la température la plus froide de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesAngle alphanumeric')
         )
+        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(tmin, '°C'), precision: 0 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+        indiceQuestion++
+
         this.listeCorrections.push(`La température la plus basse est ${tmin}°C.`)
 
         this.listeQuestions.push(
-          'Quelle est la température la plus chaude de la journée ?'
+          'Quelle est la température la plus chaude de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesAngle alphanumeric')
         )
+        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(tmax, '°C'), precision: 0 }, compare: unitesCompare } }, { formatInteractif: 'unites' })
+        indiceQuestion++
+
         this.listeCorrections.push(`La température la plus élevée de la journée est ${tmax}°C.`)
         this.listeQuestions.push(
-          'À quelle heure fait-il le plus chaud ?'
+          'À quelle heure fait-il le plus chaud ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 clavierHms')
         )
+        handleAnswers(this, indiceQuestion, { reponse: { value: String(hmax) + ' h', compare: hmsCompare } }, { formatInteractif: 'hms' })
+        indiceQuestion++
+
         this.listeCorrections.push(`C'est à ${hmax} h qu'il fait le plus chaud.`)
         this.listeQuestions.push(
-          'À quelle heure fait-il le plus froid ?'
+          'À quelle heure fait-il le plus froid ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 clavierHms')
         )
+        handleAnswers(this, indiceQuestion, { reponse: { value: String(hmin) + ' h', compare: hmsCompare } }, { formatInteractif: 'hms' })
+        indiceQuestion++
+
         this.listeCorrections.push(`C'est à ${hmin} h qu'il fait le plus froid.`)
 
         break
@@ -368,7 +398,7 @@ export default function ExploiterRepresentationGraphique () {
                   statut: '',
                   reponse: {
                     texte: '1)',
-                    valeur: calculANePlusJamaisUtiliser(t1),
+                    valeur: t1,
                     param: {
                       digits: 2,
                       decimals: 0,
@@ -517,5 +547,5 @@ export default function ExploiterRepresentationGraphique () {
       }
     } else listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des problèmes', 4, '1 : Projectile\n2 : Trajet à vélo\n3 : Température\n4 : Au hasard']
+  this.besoinFormulaireNumerique = ['Choix des problèmes', 4, '1 : Projectile\n2 : Trajet à vélo(non disponible en interactif)\n3 : Température\n4 : Au hasard']
 }
