@@ -135,6 +135,11 @@ function parseUnite (unite: string) {
     puissanceUnite = 1
     avantPuissanceUnite = '°'
   }
+  if (unite === '°C') {
+    puissanceUnite = 1
+    avantPuissanceUnite = '°C'
+  }
+
   if (unite.indexOf('^') > 0) { // m² ou m³ et ses dérivées
     puissanceUnite = Number(unite.split('^')[1])
     avantPuissanceUnite = unite.split('^')[0]
@@ -151,7 +156,7 @@ function parseUnite (unite: string) {
     puissanceUnite = 1
     avantPuissanceUnite = unite
   }
-  const prefixe = ['t', 'q'].includes(unite) ? unite : avantPuissanceUnite.substring(0, avantPuissanceUnite.length - 1) // Pour prendre en compte la tonne aussi.
+  const prefixe = unite === '°C' ? '' : ['t', 'q'].includes(unite) ? unite : avantPuissanceUnite.substring(0, avantPuissanceUnite.length - 1) // Pour prendre en compte la tonne aussi.
   const puissancePrefixe = prefixeToPuissance(prefixe, unite)
   const uniteDeReference = ['t', 'q'].includes(unite) ? 'g' : unite.substring(prefixe.length)
   return { prefixe, uniteDeReference, puissanceUnite, puissancePrefixe }

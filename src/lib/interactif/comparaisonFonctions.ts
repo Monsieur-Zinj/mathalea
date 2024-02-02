@@ -74,6 +74,10 @@ function generateCleaner (operations: CleaningOperation[]): (str: string) => str
  * @return {Grandeur|false} l'objet de type Grandeur qui contient la valeur et l'unité... ou false si c'est pas une grandeur.
  */
 function inputToGrandeur (input: string): Grandeur | false {
+  if (input.indexOf('°C') > 0) {
+    const split = input.split('°C')
+    return new Grandeur(parseFloat(split[0].replace(',', '.')), '°C')
+  }
   if (input.indexOf('°') > 0) {
     const split = input.split('°')
     return new Grandeur(parseFloat(split[0].replace(',', '.')), '°')
@@ -460,7 +464,9 @@ export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, p
     isOk: boolean,
     feedback?: string
 } {
-  const inputGrandeur = inputToGrandeur(cleanStringBeforeParse(input))
+  input = input.replace('\\degree', '°')
+  const cleaner = generateCleaner(['virgules', 'espaces', 'fractions', 'parentheses'])
+  const inputGrandeur = inputToGrandeur(cleaner(input))
   const goodAnswerGrandeur = goodAnswer.grandeur
   if (inputGrandeur) {
     console.log(`grandeur passée : ${JSON.stringify(inputGrandeur)} goodAnswer : ${JSON.stringify(goodAnswer.grandeur)} et precision passée à estUneApproximation() : ${goodAnswer.precision}`)
