@@ -262,16 +262,16 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
             minimumFractionDigits: precision
           }).format(nb)
         } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb).replaceAll(/\s+/g, ' ')
         }
       } else {
         if (completerZeros && ((aussiCompleterEntiers && Number.isInteger(nb)) || (!Number.isInteger(nb)))) {
           nombre = Intl.NumberFormat('fr-FR', {
             maximumSignificantDigits,
             minimumSignificantDigits: Math.min(maximumSignificantDigits, 15)
-          }).format(nb)
+          }).format(nb).replaceAll(/\s+/g, ' ')
         } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits: Math.min(maximumSignificantDigits, 15) }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits: Math.min(maximumSignificantDigits, 15) }).format(nb).replaceAll(/\s+/g, ' ')
         }
       }
     }
