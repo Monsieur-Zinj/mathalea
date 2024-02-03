@@ -186,6 +186,13 @@ export function numberCompare (input: string, goodAnswer: string): { isOk: boole
   }
 }
 
+export function environEgalCompare (input: string, goodAnswer:{attendu: string, tolerance: number}) {
+  const cleaner = generateCleaner(['virgules'])
+  const saisieClean = Number(cleaner(input))
+  const answerClean = Number(cleaner(goodAnswer.attendu))
+  return { isOk: Math.abs(saisieClean - answerClean) < goodAnswer.tolerance }
+}
+
 /**
  * comparaison d'expressions'
  * @param {string} input
