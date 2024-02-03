@@ -472,7 +472,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
             value = exercice.reponse.toString()
           } else if (exercice.reponse instanceof Grandeur) {
             value = exercice.reponse
-          } else if (typeof exercice.reponse === 'object' && exercice.reponse.fonction != null) {
+          } else if (typeof exercice.reponse === 'object') {
             value = exercice.reponse
           } else if (Array.isArray(exercice.reponse)) {
             value = [...exercice.reponse]
