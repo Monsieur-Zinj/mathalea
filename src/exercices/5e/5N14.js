@@ -74,9 +74,9 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
       else signeAsurB = ''
       texteCorr = `$${fraction.texFSD}= ${signeAsurB} \\dfrac{${Math.abs(fractionAbsolue.num).toString() + miseEnEvidence('\\times  ' + k.toString())}}{${Math.abs(fractionAbsolue.den).toString() + miseEnEvidence('\\times  ' + k.toString())}}=${fraction.reduire(k).texFSD}\\quad$`
       if (ordreDesFractions) {
-        texteCorr += `  et   $\\quad${fraction.reduire(k).texFSD} ${signe} ${autreFraction.texFSD} \\quad$ donc $\\quad ${fraction.texFSD} ${signe} ${autreFraction.texFSD}$ `
+        texteCorr += `  et   $\\quad${fraction.reduire(k).texFSD} ${signe} ${autreFraction.texFSD} \\quad$ donc $\\quad ${fraction.texFSD} ${signe} ${autreFraction.texFSD}$.`
       } else {
-        texteCorr += `  et   $\\quad${autreFraction.texFSD} ${signe2} ${fraction.reduire(k).texFSD} \\quad$ donc $\\quad ${autreFraction.texFSD} ${signe2} ${fraction.texFSD} $ `
+        texteCorr += `  et   $\\quad${autreFraction.texFSD} ${signe2} ${fraction.reduire(k).texFSD} \\quad$ donc $\\quad ${autreFraction.texFSD} ${signe2} ${fraction.texFSD} $.`
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
