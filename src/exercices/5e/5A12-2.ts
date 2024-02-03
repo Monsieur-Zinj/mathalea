@@ -56,11 +56,6 @@ export default class PremierOuPas extends Exercice {
       switch (listeTypeQuestions[i]) {
         case 'oui': {
           nombreATrouver = listePremiers[randint(0, listePremiers.length - 1)]
-          if (this.interactif) {
-            texte = `${nombreATrouver} est un nombre premier.`
-          } else {
-            texte = `${nombreATrouver} est-il un nombre premier ?`
-          }
           if (nombreATrouver < 30) {
             texteCorr = `$${nombreATrouver}$ est un nombre premier qui fait partie de la liste à apprendre.`
           } else {
@@ -80,11 +75,6 @@ export default class PremierOuPas extends Exercice {
         }
         case 'non': {
           nombreATrouver = randint(0, max, listePremiers)
-          if (this.interactif) {
-            texte = `${nombreATrouver} est un nombre premier.`
-          } else {
-            texte = `${nombreATrouver} est-il un nombre premier ?`
-          }
           if (nombreATrouver === 1) {
             texteCorr = '$1$ n\'a qu\'un seul diviseur (lui-même) et n\'est donc pas un nombre premier'
           } else {
@@ -101,6 +91,15 @@ export default class PremierOuPas extends Exercice {
             }
           }
           break
+        }
+      }
+      if (context.isDiaporama) {
+        texte = `${nombreATrouver} est un nombre premier.<br>Vrai ou Faux ?`
+      } else {
+        if (this.interactif) {
+          texte = `${nombreATrouver} est un nombre premier.`
+        } else {
+          texte = `${nombreATrouver} est-il un nombre premier ?`
         }
       }
       this.autoCorrection[i] = {
