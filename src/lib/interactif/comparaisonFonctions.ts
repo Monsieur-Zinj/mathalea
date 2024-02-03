@@ -237,7 +237,21 @@ export function factorisationCompare (input: string, goodAnswer:string): { isOk:
   }
   const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
   const reponseDev = engine.box(['ExpandAll', reponseParsed]).evaluate().simplify().canonical
-  return { isOk: saisieDev.isEqual(reponseDev) && ['Multiply', 'Square', 'Power'].includes(String(saisieParsed.head)) }
+  const isOk1 = saisieDev.isEqual(reponseDev)
+  let isOk2: boolean
+  const head = String(saisieParsed.head)
+  if (head === 'Negate') {
+    if (saisieParsed.ops && Array.isArray(saisieParsed.ops)) {
+      const operationFinale = String(saisieParsed.ops[0].head)
+      isOk2 = ['Multiply', 'Square', 'Power', 'Divide'].includes(operationFinale)
+    } else {
+      isOk2 = false
+    }
+  } else {
+    // @fixme Est-ce qu'une division finale est bien représentative d'une expression factorisée (une division, c'est une multiplication par l'inverse, donc a le même statut que Multiply en théorie)
+    isOk2 = ['Multiply', 'Square', 'Power', 'Divide'].includes(head)
+  }
+  return { isOk: isOk1 && isOk2 }
 }
 /**
  * comparaison d'expressions developpées'
