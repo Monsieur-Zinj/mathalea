@@ -75,7 +75,7 @@
   }
 
   function isDevMode () {
-    return window.location.href.slice(0, 'http://localhost'.length) === 'http://localhost'
+    return window.location.href.startsWith('http://localhost')
   }
 </script>
 
