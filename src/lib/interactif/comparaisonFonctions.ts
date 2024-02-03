@@ -74,6 +74,10 @@ function generateCleaner (operations: CleaningOperation[]): (str: string) => str
  * @return {Grandeur|false} l'objet de type Grandeur qui contient la valeur et l'unité... ou false si c'est pas une grandeur.
  */
 function inputToGrandeur (input: string): Grandeur | false {
+  if (input.indexOf('°C') > 0) {
+    const split = input.split('°C')
+    return new Grandeur(parseFloat(split[0].replace(',', '.')), '°C')
+  }
   if (input.indexOf('°') > 0) {
     const split = input.split('°')
     return new Grandeur(parseFloat(split[0].replace(',', '.')), '°')
@@ -93,10 +97,39 @@ function inputToGrandeur (input: string): Grandeur | false {
   }
 }
 
+export function operationCompare (input: string, goodAnswer: string) {
+  const clean = generateCleaner(['virgules', 'parentheses', 'fractions', 'espaces'])
+  const saisie = clean(input)
+  const saisieParsed = engine.parse(saisie, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
+  const answer = engine.parse(goodAnswer, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
+  // @fixme 64/8 et 32/4 seront considérés comme équivalent ...
+  const evaluationAnswer = answer.evaluate()
+  const evaluationSaisie = saisieParsed.evaluate()
+  const isOk1 = evaluationAnswer.isEqual(evaluationSaisie)
+  const isOk2 = String(answer.head) === String(saisieParsed.head)
+  return { isOk: isOk1 && isOk2 } // Une précaution pour éviter de valider 64/8 à la place de 2*4
+}
+
+/**
+ *
+ * @param {string} input
+ * @param {{membre1: {fonction: string, variable?: string},membre2: {fonction: string, variable?: string},strict?: boolean}} goodAnswer
+ *
+ */
+export function egaliteCompare (input: string, goodAnswer: {membre1:{fonction: string, variable?: string}, membre2: {fonction: string, variable?: string}, strict?: boolean}) {
+  const [m1, m2] = input.split('=')
+  if (m1 == null || m2 == null) return { isOk: false, feedback: 'Une égalité est attendue' }
+  if (goodAnswer.strict) {
+    const { isOk: isOk1 } = fonctionCompare(m1, { fonction: goodAnswer.membre1.fonction, variable: goodAnswer.membre1.variable ?? 'x' })
+    const { isOk: isOk2 } = fonctionCompare(m2, { fonction: goodAnswer.membre2.fonction, variable: goodAnswer.membre2.variable ?? 'x' })
+    return { isOk: isOk1 && isOk2 }
+  }
+}
+
 /**
  * Comparaison de fonction f(x)
- * @param input
- * @param goodAnswer
+ * @param {string} input
+ * @param {{fonction: string, variable: string}} goodAnswer
  */
 export function fonctionCompare (input: string, goodAnswer: {fonction: string, variable: string} = { fonction: '', variable: 'x' }): { isOk: boolean, feedback?: string } {
   if (typeof goodAnswer === 'string') {
@@ -166,6 +199,13 @@ export function numberCompare (input: string, goodAnswer: string): { isOk: boole
   }
 }
 
+export function environEgalCompare (input: string, goodAnswer:{attendu: string, tolerance: number}) {
+  const cleaner = generateCleaner(['virgules'])
+  const saisieClean = Number(cleaner(input))
+  const answerClean = Number(cleaner(goodAnswer.attendu))
+  return { isOk: Math.abs(saisieClean - answerClean) < goodAnswer.tolerance }
+}
+
 /**
  * comparaison d'expressions'
  * @param {string} input
@@ -210,7 +250,21 @@ export function factorisationCompare (input: string, goodAnswer:string): { isOk:
   }
   const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
   const reponseDev = engine.box(['ExpandAll', reponseParsed]).evaluate().simplify().canonical
-  return { isOk: saisieDev.isEqual(reponseDev) && ['Multiply', 'Square', 'Power'].includes(String(saisieParsed.head)) }
+  const isOk1 = saisieDev.isEqual(reponseDev)
+  let isOk2: boolean
+  const head = String(saisieParsed.head)
+  if (head === 'Negate') {
+    if (saisieParsed.ops && Array.isArray(saisieParsed.ops)) {
+      const operationFinale = String(saisieParsed.ops[0].head)
+      isOk2 = ['Multiply', 'Square', 'Power', 'Divide'].includes(operationFinale)
+    } else {
+      isOk2 = false
+    }
+  } else {
+    // @fixme Est-ce qu'une division finale est bien représentative d'une expression factorisée (une division, c'est une multiplication par l'inverse, donc a le même statut que Multiply en théorie)
+    isOk2 = ['Multiply', 'Square', 'Power', 'Divide'].includes(head)
+  }
+  return { isOk: isOk1 && isOk2 }
 }
 /**
  * comparaison d'expressions developpées'
@@ -353,13 +407,22 @@ export function texteAvecEspacesCompare (input: string, goodAnswer: string): { i
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
+  // parce qu'il vaut mieux être trop prudent que pas assez, j'applique le même traitement à goodAnswer qu'à input ;-)
+  goodAnswer = goodAnswer.replaceAll('\\:', ' ') // Suppression des espaces LaTeX (présents quand on met des crochets pour les segments)
+  goodAnswer = goodAnswer.replaceAll('\\left\\lbrack ', '[').replaceAll('\\right\\rbrack ', ']') // Suppression des crochets LaTeX (pour les segments)
+  while (goodAnswer.includes('  ')) goodAnswer = goodAnswer.replace('  ', ' ') // Pour enlever tous les doubles espaces
+  goodAnswer = goodAnswer.replaceAll('\\text{', '').replaceAll('}', '').replaceAll('$', '') // Supprimer le \text{....} mis par MathLive
+  if (goodAnswer[0] === ' ') goodAnswer = goodAnswer.substring(1, goodAnswer.length) // Supprimer l'eventuel espace en début de ligne
+  if (goodAnswer[goodAnswer.length - 1] === ' ') goodAnswer = goodAnswer.substring(0, goodAnswer.length - 1) // Supprimer l'éventuel espace en fin de ligne
+
   input = input.replaceAll('\\:', ' ') // Suppression des espaces LaTeX (présents quand on met des crochets pour les segments)
   input = input.replaceAll('\\left\\lbrack ', '[').replaceAll('\\right\\rbrack ', ']') // Suppression des crochets LaTeX (pour les segments)
   while (input.includes('  ')) input = input.replace('  ', ' ') // Pour enlever tous les doubles espaces
   input = input.replaceAll('\\text{', '').replaceAll('}', '').replaceAll('$', '') // Supprimer le \text{....} mis par MathLive
   if (input[0] === ' ') input = input.substring(1, input.length) // Supprimer l'eventuel espace en début de ligne
   if (input[input.length - 1] === ' ') input = input.substring(0, input.length - 1) // Supprimer l'éventuel espace en fin de ligne
-  return { isOk: input === goodAnswer }
+  const result = input.localeCompare(goodAnswer)
+  return { isOk: result === 0 }
 }
 
 /**
@@ -451,7 +514,9 @@ export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, p
     isOk: boolean,
     feedback?: string
 } {
-  const inputGrandeur = inputToGrandeur(cleanStringBeforeParse(input))
+  input = input.replace('\\degree', '°')
+  const cleaner = generateCleaner(['virgules', 'espaces', 'fractions', 'parentheses'])
+  const inputGrandeur = inputToGrandeur(cleaner(input))
   const goodAnswerGrandeur = goodAnswer.grandeur
   if (inputGrandeur) {
     console.log(`grandeur passée : ${JSON.stringify(inputGrandeur)} goodAnswer : ${JSON.stringify(goodAnswer.grandeur)} et precision passée à estUneApproximation() : ${goodAnswer.precision}`)

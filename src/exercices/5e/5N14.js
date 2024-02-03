@@ -4,10 +4,12 @@ import { obtenirListeFractionsIrreductibles } from '../../modules/fractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { texteCompare } from '../../lib/interactif/comparaisonFonctions'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
-export const interactifType = 'qcm'
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = 'Comparer deux fractions (dénominateurs multiples)'
@@ -58,11 +60,11 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
       enleveElement(listeFractions, fractionAbsolue) // Il n'y aura pas 2 fois la même réponse
       const fraction = fractionAbsolue.multiplieEntier(positifOuNegatif)
       const autreFraction = new FractionEtendue(k * fraction.num + ecart, k * fraction.den)
-      const ordreDesFractions = randint(1, 2)
-      if (ordreDesFractions === 1) {
-        texte = `$${fraction.texFSD} \\quad$ et $\\quad ${autreFraction.texFSD}$`
+      const ordreDesFractions = Math.random() < 0.5
+      if (ordreDesFractions) {
+        texte = remplisLesBlancs(this, i, `${fraction.texFSD}\\quad%{champ1}\\quad${autreFraction.texFSD}`, 'College6e', '\\quad\\ldots\\quad')
       } else {
-        texte = `$${autreFraction.texFSD} \\quad$ et $\\quad ${fraction.texFSD}$`
+        texte = remplisLesBlancs(this, i, `${autreFraction.texFSD}\\quad%{champ1}\\quad${fraction.texFSD}`, 'College6e', '\\quad\\ldots\\quad')
       }
       if (!context.isHtml) {
         texte = texte.replace('\\quad$ et $\\quad', '\\ldots\\ldots\\ldots')
@@ -71,30 +73,35 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
       if (fraction.signe < 0) signeAsurB = '-'
       else signeAsurB = ''
       texteCorr = `$${fraction.texFSD}= ${signeAsurB} \\dfrac{${Math.abs(fractionAbsolue.num).toString() + miseEnEvidence('\\times  ' + k.toString())}}{${Math.abs(fractionAbsolue.den).toString() + miseEnEvidence('\\times  ' + k.toString())}}=${fraction.reduire(k).texFSD}\\quad$`
-      if (ordreDesFractions === 1) {
-        texteCorr += `  et   $\\quad${fraction.reduire(k).texFSD} ${signe} ${autreFraction.texFSD} \\quad$ donc $\\quad ${fraction.texFSD} ${signe} ${autreFraction.texFSD}$ `
+      if (ordreDesFractions) {
+        texteCorr += `  et   $\\quad${fraction.reduire(k).texFSD} ${signe} ${autreFraction.texFSD} \\quad$ donc $\\quad ${fraction.texFSD} ${signe} ${autreFraction.texFSD}$.`
       } else {
-        texteCorr += `  et   $\\quad${autreFraction.texFSD} ${signe2} ${fraction.reduire(k).texFSD} \\quad$ donc $\\quad ${autreFraction.texFSD} ${signe2} ${fraction.texFSD} $ `
+        texteCorr += `  et   $\\quad${autreFraction.texFSD} ${signe2} ${fraction.reduire(k).texFSD} \\quad$ donc $\\quad ${autreFraction.texFSD} ${signe2} ${fraction.texFSD} $.`
       }
-      this.autoCorrection[i] = {
-        enonce: 'comparer les fractions suivantes : ' + (ordreDesFractions < 2 ? `$${fraction.texFSD} \\quad$ et $\\quad ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} \\quad$ et $\\quad ${fraction.texFSD}$`),
-        propositions: [
-          {
-            texte: ordreDesFractions < 2 ? `$${fraction.texFSD} < ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} < ${fraction.texFSD}$`,
-            statut: ordreDesFractions < 2 ? ecart > 0 : ecart < 0
-          },
-          {
-            texte: ordreDesFractions < 2 ? `$${fraction.texFSD} > ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} >${fraction.texFSD}$`,
-            statut: ordreDesFractions < 2 ? ecart < 0 : ecart > 0
-          }
-        ],
-        options: { ordered: false }
+      if (context.isAmc) {
+        this.autoCorrection[i] = {
+          enonce: 'comparer les fractions suivantes : ' + (ordreDesFractions ? `$${fraction.texFSD} \\quad$ et $\\quad ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} \\quad$ et $\\quad ${fraction.texFSD}$`),
+          propositions: [
+            {
+              texte: ordreDesFractions ? `$${fraction.texFSD} < ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} < ${fraction.texFSD}$`,
+              statut: ordreDesFractions ? ecart > 0 : ecart < 0
+            },
+            {
+              texte: ordreDesFractions ? `$${fraction.texFSD} > ${autreFraction.texFSD}$` : `$${autreFraction.texFSD} >${fraction.texFSD}$`,
+              statut: ordreDesFractions ? ecart < 0 : ecart > 0
+            }
+          ],
+          options: { ordered: false }
+        }
+      } else {
+        handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, compare: texteCompare } }, { formatInteractif: 'fillInTheBlank' })
       }
-
+      /*
       if (this.interactif && !context.isAmc) {
         texte = propositionsQcm(this, i).texte
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+ */
+      if (this.questionJamaisPosee(i, fractionAbsolue.num, fractionAbsolue.den, k)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

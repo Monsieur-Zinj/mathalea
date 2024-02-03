@@ -73,6 +73,10 @@
     })
     isInitialUrlHandled = true
   }
+
+  function isDevMode () {
+    return window.location.href.startsWith('http://localhost')
+  }
 </script>
 
 <div class="subpixel-antialiased" id="appComponent">
@@ -96,3 +100,11 @@
     <Start />
   {/if}
 </div>
+
+{#if isDevMode()}
+  <dialog
+    id="notifDialog"
+    class="rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
+  >
+  </dialog>
+{/if}

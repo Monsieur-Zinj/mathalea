@@ -1,10 +1,15 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { texNombre } from '../../lib/outils/texNombre'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { texteAvecEspacesCompare } from '../../lib/interactif/comparaisonFonctions'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 export const titre = 'Écrire correctement les grands nombres entiers'
 
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 
@@ -53,11 +58,9 @@ export default function ÉcrireNombresEntiersFormates () {
         if (tranche[2] === 0) nombre = 0
       }
       nombrestring = zeroSuperflus(nombre)
-      if (context.vue !== 'diap') texte = `$${nombrestring}$ : \\dotfill`
-      else texte = `$${nombrestring}$`
-      if (context.vue !== 'diap') texteCorr = `$${nombrestring}=${texNombre(nombre)}$`
-      else texteCorr = `${texNombre(nombre)}`
-
+      texte = `$${nombrestring}$` + ajouteChampTexteMathLive(this, i, 'inline largeur25 alphanumericAvecEspace', { texteAvant: '$=$', tailleExtensible: true })
+      if (context.vue !== 'diap') texteCorr = `$${nombrestring}$ s'écrit plus lisiblement $${texNombre(nombre, 0)}$.`
+      else texteCorr = `${texNombre(nombre, 0)}`
       if (context.isAmc) {
         this.autoCorrection[i] =
         {
@@ -70,9 +73,11 @@ export default function ÉcrireNombresEntiersFormates () {
             }
           ]
         }
+      } else {
+        handleAnswers(this, i, { reponse: { value: stringNombre(nombre, 0), compare: texteAvecEspacesCompare } }, { formatInteractif: 'calcul' })
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, nombre)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

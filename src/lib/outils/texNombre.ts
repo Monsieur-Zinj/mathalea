@@ -262,16 +262,16 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
             minimumFractionDigits: precision
           }).format(nb)
         } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', { maximumFractionDigits: precision }).format(nb).replaceAll(/\s+/g, ' ')
         }
       } else {
         if (completerZeros && ((aussiCompleterEntiers && Number.isInteger(nb)) || (!Number.isInteger(nb)))) {
           nombre = Intl.NumberFormat('fr-FR', {
             maximumSignificantDigits,
-            minimumSignificantDigits: maximumSignificantDigits
-          }).format(nb)
+            minimumSignificantDigits: Math.min(maximumSignificantDigits, 15)
+          }).format(nb).replaceAll(/\s+/g, ' ')
         } else {
-          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits }).format(nb)
+          nombre = Intl.NumberFormat('fr-FR', { maximumSignificantDigits: Math.min(maximumSignificantDigits, 15) }).format(nb).replaceAll(/\s+/g, ' ')
         }
       }
     }
@@ -332,7 +332,7 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
       // On a à faire à un number trop petit ou trop grand pour que l'algorithme classique fonctionne.
       // x.toFixed(18) ne contiendrait pas assez de chiffres significatifs
       // afficherNombre n'est pas prévu pour des nombres pareils sauf éventuellement au format Decimal
-      window.notify(`trouveLaPrecision de ${x} n'est pas possible : il ne peut pas être transformé en écriture décimale. Il faut adapter le code de l'exercice ou verifier que ce nombre n'est pas un bug`)
+      window.notify(`trouveLaPrecision de ${x} n'est pas possible : il ne peut pas être transformé en écriture décimale. Il faut adapter le code de l'exercice ou verifier que ce nombre n'est pas un bug`, { x })
       return 10
     }
   }
@@ -346,13 +346,13 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
       if (nb !== '') {
         nb = new Decimal(nbFormatAnglais)
       } else {
-        window.notify(`TrouveLaPrecision : problème avec ce nombre : ${nb}`)
+        window.notify(`TrouveLaPrecision : problème avec ce nombre : ${nb}`, { nb })
       }
     } else if (typeof nb !== 'number') {
       window.notify(`afficherNombre a reçu un argument de type inconnu come nombre : ${nb}`, { nombreEntrant: nb })
       nb = Number(nb)
       if (isNaN(nb)) {
-        window.notify('Et ce paramètre n\'est pas convertible en nombre ! il faut donc vérifier l\'exercice qui comporte un bug !')
+        window.notify('Et ce paramètre n\'est pas convertible en nombre ! il faut donc vérifier l\'exercice qui comporte un bug !', { nb })
         nb = 0
       }
     }
@@ -369,13 +369,13 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
         if (ordreGrandeur < -10) { // ça veut dire que le nombre est trop insignifiant pour donner un résultat affiché convenable
           precision = 0 // on retourne 0 pour avoir un arrondi à zéro !
         } else {
-          precision = trouveLaPrecision(nb)
+          precision = trouveLaPrecision(Number(nb))
         }
       }
     }
   }
   // si nb n'est pas un nombre, on le retourne tel quel, on ne fait rien.
-  if (isNaN(nb) && !(nb instanceof Decimal)) {
+  if (Number.isNaN(nb) && !(nb instanceof Decimal)) {
     window.notify('AfficherNombre : Le nombre n\'en est pas un', { nb, precision, fonction })
     return ''
   }
@@ -396,11 +396,11 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
       precision = 0
     }
   } else { // nb est un number
-    if (Math.abs(nb) < 1) {
+    if (Math.abs(Number(nb)) < 1) {
       nbChiffresPartieEntiere = 0
     } else {
       // attention 9.7 donner 10 avec Math.abs(9.7).toFixed(0)
-      nbChiffresPartieEntiere = Math.floor(Math.abs(nb)).toFixed(0).length
+      nbChiffresPartieEntiere = Math.floor(Math.abs(Number(nb))).toFixed(0).length
     }
     if (Number.isInteger(nb) && !completerZeros) {
       precision = 0
@@ -417,9 +417,9 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
 
   if ((maximumSignificantDigits > 15) && (!(nb instanceof Decimal))) { // au delà de 15 chiffres significatifs, on risque des erreurs d'arrondi
     window.notify(fonction + ` : ${tropDeChiffres} le nombre passé à la fonction a trop de chiffres significatifs, soit c'est un bug à corriger, soit il faut utiliser un Decimal !`, { nb, precision })
-    return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
+    return insereEspacesNombre(Number(nb), nbChiffresPartieEntiere, precision, fonction)
   } else {
-    return insereEspacesNombre(nb, nbChiffresPartieEntiere, precision, fonction)
+    return insereEspacesNombre(Number(nb), nbChiffresPartieEntiere, precision, fonction)
   }
 }
 

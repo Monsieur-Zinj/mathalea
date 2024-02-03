@@ -3,9 +3,10 @@
    * @param {string} dialogId id de l'élément <dialog> à activer
    * @param {number} nbOfMilliseconds durée de l'affichage en ms
    */
-export async function showDialogForLimitedTime (dialogId, nbOfMilliseconds) {
+export async function showDialogForLimitedTime (dialogId, nbOfMilliseconds, innerHTML = '') {
   const dialog = document.getElementById(dialogId)
   if (dialog) {
+    if (innerHTML !== '') dialog.innerHTML = innerHTML
     dialog.showModal()
     await sleep(nbOfMilliseconds)
     dialog.close()

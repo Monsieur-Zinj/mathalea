@@ -6,7 +6,7 @@ import { lampeMessage } from '../lib/format/message.js'
 import { arrondi } from '../lib/outils/nombres'
 import { prenom } from '../lib/outils/Personne'
 import { texteGras } from '../lib/format/style'
-import { stringNombre, texNombre } from '../lib/outils/texNombre'
+import { texNombre } from '../lib/outils/texNombre'
 import { miseEnEvidence } from '../lib/outils/embellissements'
 import FractionEtendue from './FractionEtendue'
 
@@ -341,8 +341,8 @@ function texteCorrEtendueNotes (min, max, note = 'note') {
   ]
   const notes = data.find(el => el[0] === note) || ['', '', '', '']
   let texteCorr = `${notes[1]} est $${min}$${notes[3]}.<br>${notes[2]} est $${max}$${notes[3]}.<br>`
-  texteCorr += `Donc ${texteGras(`l'étendue des ${note}s est  $\\mathbf{${texNombre(max, 1)}-${ecritureParentheseSiNegatif(min)}=${texNombre(max - min, 1)}}$ ${notes[3]}`)}.`
-  return texteCorr
+  texteCorr += `Donc l'étendue des ${note}s est  $${texNombre(max, 1)}-${ecritureParentheseSiNegatif(min)}=${miseEnEvidence(texNombre(max - min, 1))}$ ${notes[3]}.`
+  return texteCorr + '<br>'
 }
 
 function texteCorrMedianeTemperatures (temperatures, medianeCorr, scoresMedians) {
@@ -394,7 +394,7 @@ function texteCorrMedianeNotes (notes, medianeCorr, scoresMedians, note = 'note'
     La médiane est donc la $${(notes.length + 1) / 2}^{e}$ ${noteStr[0]}.<br>`
   }
 
-  texteCorr += `D'où ${texteGras(`la médiane des ${noteStr[0]}s est ${scoresMedians[0] === scoresMedians[1] ? '' : `$\\mathbf{(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=}$`} ${stringNombre(medianeCorr)}${noteStr[1]}`)}.<br>`
+  texteCorr += `D'où la médiane des ${noteStr[0]}s est ${scoresMedians[0] === scoresMedians[1] ? '' : `$\\mathbf{(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=}$`} $${miseEnEvidence(texNombre(medianeCorr))}$${noteStr[1]}.<br>`
   if (notes.length % 2 === 0) {
     texteCorr += lampeMessage({
       titre: 'Interprétation',
@@ -428,7 +428,7 @@ function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMe
               On peut ajouter une ligne avec les effectifs cumulés pour trouver ces deux valeurs.<br><br>
               ${desTabEffCumul(salaires, true, categories, salairesStr[5])}<br><br>
               La $${nombreTirages / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
-    texteCorr += `D'où ${texteGras(`${salairesStr[2]} est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} ${stringNombre(medianeCorr)}`)}${salairesStr[3]}.<br>`
+    texteCorr += `D'où ${salairesStr[2]} est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} $${miseEnEvidence(texNombre(medianeCorr))}$${salairesStr[3]}.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${(nombreTirages) / 2}$ ${salairesStr[0]}s dont la valeur est inférieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]} et $${(nombreTirages) / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]}.`,
@@ -441,7 +441,7 @@ function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMe
                   La médiane est donc la $${(nombreTirages - 1) / 2 + 1}^{e}$ valeur.<br>
                   On peut ajouter une ligne avec les effectifs cumulés pour trouver cette valeur.<br><br>
                   ${desTabEffCumul(salaires, true, categories, salairesStr[5])}<br><br>`
-    texteCorr += `D'où ${texteGras(`${salairesStr[2]} est ${stringNombre(medianeCorr)}`)}${salairesStr[3]}.<br>`
+    texteCorr += `D'où ${salairesStr[2]} est $${miseEnEvidence(texNombre(medianeCorr))}$ ${salairesStr[3]}.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeur est inférieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]} et $${(nombreTirages - 1) / 2}$ ${salairesStr[0]}s dont la valeur est supérieure ou égale à  $${texNombre(medianeCorr, 1)}$${salairesStr[3]}.`,
@@ -461,7 +461,7 @@ function texteCorrMedianeTirages2D (nombreTirages, medianeCorr, scoresMedians, t
               On peut ajouter une ligne avec les effectifs cumulés pour trouver ces deux valeurs.<br><br>
               ${desTabEffCumul(tirages, true)}<br><br>
               La $${nombreTirages / 2}^{e}$ valeur est $${scoresMedians[0]}$ et la $${nombreTirages / 2 + 1}^{e}$ valeur est $${scoresMedians[1]}$.<br>`
-    texteCorr += `D'où ${texteGras(`le score médian est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} ${stringNombre(medianeCorr)}`)}.<br>`
+    texteCorr += `D'où le score médian est ${scoresMedians[0] === scoresMedians[1] ? '' : `$(${scoresMedians[0]} + ${scoresMedians[1]}) \\div 2=$`} $${miseEnEvidence(texNombre(medianeCorr))}$.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${(nombreTirages) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr, 1)}$ et $${(nombreTirages) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr, 1)}$.`,
@@ -474,7 +474,7 @@ function texteCorrMedianeTirages2D (nombreTirages, medianeCorr, scoresMedians, t
                   La médiane est donc le $${(nombreTirages - 1) / 2 + 1}^{e}$ lancer.<br>
                   On peut ajouter une ligne avec les effectifs cumulés pour trouver cette valeur.<br><br>
                   ${desTabEffCumul(tirages, true)}<br><br>`
-    texteCorr += `D'où ${texteGras(`le score médian est ${stringNombre(medianeCorr)}`)}.<br>`
+    texteCorr += `D'où le score médian est $${miseEnEvidence(texNombre(medianeCorr))}$.<br>`
     texteCorr += lampeMessage({
       titre: 'Interprétation',
       texte: `Il y a bien $${(nombreTirages - 1) / 2}$ lancers dont le score est inférieur ou égal à  $${texNombre(medianeCorr, 1)}$ et $${(nombreTirages - 1) / 2}$ lancers dont le score est supérieur ou égal à  $${texNombre(medianeCorr, 1)}$.`,

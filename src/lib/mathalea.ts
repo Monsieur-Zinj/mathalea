@@ -472,10 +472,9 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
             value = exercice.reponse.toString()
           } else if (exercice.reponse instanceof Grandeur) {
             value = exercice.reponse
-          } else if (typeof exercice.reponse === 'object' && exercice.reponse.fonction != null) {
+          } else if (typeof exercice.reponse === 'object') {
             value = exercice.reponse
           } else if (Array.isArray(exercice.reponse)) {
-            window.notify(`MathaleaHandleExerciceSimple a reçu une exercice.reponse de type Array, ${JSON.stringify(exercice.reponse)}, on passe la liste, mais il faudrait certainement remplacer ça par une seule réponse associée à une fonction de comparaison qui fait le job !`)
             value = [...exercice.reponse]
           } else {
             window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`)

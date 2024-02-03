@@ -2,8 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import { fonctionCompare } from '../../../lib/interactif/comparaisonFonctions'
-import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive.js'
+import { egaliteCompare } from '../../../lib/interactif/comparaisonFonctions'
 export const titre = 'Exprimer une variable en fonction d\'une autre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +21,7 @@ export default function ExprimerVariable () {
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = fonctionCompare
+  this.compare = egaliteCompare
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline nospacebefore'
   this.nouvelleVersion = function () {
@@ -56,9 +55,8 @@ export default function ExprimerVariable () {
             this.correction += ` que l'on peut écrire également $${var1}=\\dfrac{${-c}${ecritureAlgebriqueSauf1(b)}${var2}}{${-a}}$.`
           }
         }
-        this.optionsChampTexte = { texteAvant: `$${var1}=$` }
 
-        this.reponse = { fonction: `\\dfrac{${c}-${b}${var2}}{${a}}`, variable: var2 }/*,
+        this.reponse = { membre1: { fonction: var1, variable: var1 }, membre2: { fonction: `\\dfrac{${c}-${b}${var2}}{${a}}`, variable: var2 }, strict: true } /*,
             `${var1}=\\dfrac{${c}+${-b}${var2}}{${a}}`,
             `${var1}=\\dfrac{${-c}+${b}${var2}}{${-a}}`,
             `${var1}=\\dfrac{${-c}}{${-a}}+\\dfrac{${b}}{${-a}}${var2}`,
@@ -86,9 +84,8 @@ export default function ExprimerVariable () {
             this.correction += ` que l'on peut écrire également $${var2}=\\dfrac{${-c}${ecritureAlgebriqueSauf1(a)}${var1}}{${-b}}$.`
           }
         }
-        this.optionsChampTexte = { texteAvant: `$${var2}=$` }
 
-        this.reponse = { fonction: `\\dfrac{${c}-${b}${var1}}{${a}}`, variable: var1 }/*,
+        this.reponse = { membre1: { fonction: var2, variable: var2 }, membre2: { fonction: `\\dfrac{${c}-${a}${var1}}{${b}}`, variable: var1 }, strict: true }/*,
                 `${var2}=\\dfrac{${c}+${-a}${var1}}{${b}}`,
                 `${var2}=\\dfrac{${-c}+${a}${var1}}{${-b}}`,
                 `${var2}=\\dfrac{${-c}}{${-b}}+\\dfrac{${a}}{${-b}}${var1}`,

@@ -25,7 +25,7 @@ export function minToHoraire (minutes: number) {
  * //on écrira 24 minutes plutôt que 0 h 24
  */
 export function minToHour (minutes: number) {
-  let nbHour = Math.ceil(minutes / 60)
+  let nbHour = Math.floor(minutes / 60)
   if (nbHour > 23) {
     nbHour = nbHour - 24
   }
