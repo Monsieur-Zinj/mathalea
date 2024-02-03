@@ -98,6 +98,22 @@ function inputToGrandeur (input: string): Grandeur | false {
 }
 
 /**
+ *
+ * @param {string} input
+ * @param {{membre1: {fonction: string, variable?: string},membre2: {fonction: string, variable?: string},strict?: boolean}} goodAnswer
+ *
+ */
+export function egaliteCompare (input: string, goodAnswer: {membre1:{fonction: string, variable?: string}, membre2: {fonction: string, variable?: string}, strict?: boolean}) {
+  const [m1, m2] = input.split('=')
+  if (m1 == null || m2 == null) return { isOk: false, feedback: 'Une égalité est attendue' }
+  if (goodAnswer.strict) {
+    const { isOk: isOk1 } = fonctionCompare(m1, { fonction: goodAnswer.membre1.fonction, variable: goodAnswer.membre1.variable ?? 'x' })
+    const { isOk: isOk2 } = fonctionCompare(m2, { fonction: goodAnswer.membre2.fonction, variable: goodAnswer.membre2.variable ?? 'x' })
+    return { isOk: isOk1 && isOk2 }
+  }
+}
+
+/**
  * Comparaison de fonction f(x)
  * @param input
  * @param goodAnswer
