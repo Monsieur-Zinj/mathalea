@@ -6,7 +6,7 @@ import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../lib/2d/textes.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { jourAuHasard } from '../../lib/outils/dateEtHoraires'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
@@ -15,9 +15,10 @@ import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { operationCompare, upperCaseCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
@@ -69,8 +70,8 @@ export function objet () {
 export default function ModelisationProblemes () {
   Exercice.call(this)
   this.titre = titre
-  this.nbQuestions = 8
-  this.nbQuestionsModifiable = true
+  this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
   this.sup = 2
   this.sup2 = 3
   this.sup3 = 3
@@ -81,9 +82,8 @@ export default function ModelisationProblemes () {
   this.correctionDetaillee = true
 
   this.nouvelleVersion = function () {
-    if (this.interactif & this.sup3 === 2) {
-      this.sup3 = 3
-    }
+    const presenceSchemas = this.sup3 === 3 && !context.isDiaporama
+    let nbSchemas = 8
     if (this.sup3 === 1) {
       this.consigne = 'Trouver l\'opération qui permet de résoudre le problème. Il n\'est pas demandé d\'effectuer le calcul.'
     } else if (this.sup3 === 2) {
@@ -91,8 +91,6 @@ export default function ModelisationProblemes () {
     } else {
       this.consigne = 'Associer chaque problème avec sa modélisation.'
     }
-    this.sup = parseInt(this.sup)
-    this.sup3 = parseInt(this.sup3)
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -101,25 +99,25 @@ export default function ModelisationProblemes () {
     const schemas = []
     let brouilleLesCartes
     let typesDeQuestionsDisponibles
-    let correctionSansSchema = []
+    let correctionSansSchema = ''
     let correctionSansSchemaLatex = ''
     switch (parseInt(this.sup2)) {
       case 1:
-        this.nbQuestion = 4
+        nbSchemas = 4
         typesDeQuestionsDisponibles = rangeMinMax(1, 4, [choice(rangeMinMax(1, 4))])
         colorA = 'black'
         lettres = shuffle(['A', 'B', 'C'])
         brouilleLesCartes = shuffle(range(2))
         break
       case 2:
-        this.nbQuestions = 4
+        nbSchemas = 4
         typesDeQuestionsDisponibles = [5, 6, 7, 8]
         colorB = 'black'
         lettres = shuffle(['A', 'B', 'C', 'D'])
         brouilleLesCartes = shuffle(range(3))
         break
       case 3:
-        this.nbQuestions = 8
+        nbSchemas = 8
         typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
         colorA = 'red'
         colorB = 'blue'
@@ -127,7 +125,7 @@ export default function ModelisationProblemes () {
         brouilleLesCartes = shuffle(range(7))
         break
       case 4:
-        this.nbQuestions = 8
+        nbSchemas = 8
         typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
         colorA = 'black'
         colorB = 'black'
@@ -135,8 +133,8 @@ export default function ModelisationProblemes () {
         brouilleLesCartes = shuffle(range(7))
         break
       default :
-        this.nbQuestions = max(parseInt(this.nbQuestions), 1)
-        typesDeQuestionsDisponibles = shuffle([1, 2, 3, 4, 5, 6, 7, 8]).slice(0, this.nbQuestions)
+        nbSchemas = max(parseInt(nbSchemas), 1)
+        typesDeQuestionsDisponibles = shuffle([1, 2, 3, 4, 5, 6, 7, 8]).slice(0, nbSchemas)
         colorA = 'black'
         colorB = 'black'
         lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']).slice(0, this.nbQuestions)
@@ -181,16 +179,14 @@ export default function ModelisationProblemes () {
         case 1:
           o = choice([1, 2])
           if (o === 1) {
-            colonne1 += `${prenomF()} avait ${b1} ${objetM()} ${jourAuHasard()}. `
-            colonne1 += `<br>Le lendemain, elle en a trouvé ${c1} autres.`
+            colonne1 += `${prenomF()} avait $${b1}$ ${objetM()} ${jourAuHasard()}. `
+            colonne1 += `<br>Le lendemain, elle en a trouvé $${c1}$ autres.`
             colonne1 += '<br>Combien cela lui en fait-il ?'
           } else {
-            colonne1 += `${prenomM()} a ${c1} ans de moins que sa sœur ${prenomF()}.`
-            colonne1 += `<br>Sachant qu'il a ${b1} ans, quel âge a sa sœur ?`
+            colonne1 += `${prenomM()} a $${c1}$ ans de moins que sa sœur ${prenomF()}.`
+            colonne1 += `<br>Sachant qu'il a $${b1}$ ans, quel âge a sa sœur ?`
           }
-          correctionSansSchema = []
-          correctionSansSchema[0] = `${b1}+${c1}`
-          correctionSansSchema[1] = `${c1}+${b1}`
+          correctionSansSchema = `${b1}+${c1}`
           correctionSansSchemaLatex = `${b1} + ${c1}`
           A1 = point(0, 0)
           B1 = point(12, 0)
@@ -218,16 +214,16 @@ export default function ModelisationProblemes () {
         case 2:
           o = choice([1, 2])
           if (o === 1) {
-            colonne1 += `${prenomM()} achète ${b1 * c1} ${objetM()} par paquets de ${b1}.`
+            colonne1 += `${prenomM()} achète $${b1 * c1}$ ${objetM()} par paquets de $${b1}$.`
             colonne1 += '<br>Combien a-t-il acheté de paquets ?'
           } else {
-            colonne1 += `${prenomM()} a besoin de ${b1 * c1} ${objetF()}.`
-            colonne1 += `<br>Il en récupère ${b1} chaque jour.`
+            colonne1 += `${prenomM()} a besoin de $${b1 * c1}$ ${objetF()}.`
+            colonne1 += `<br>Il en récupère $${b1}$ chaque jour.`
             colonne1 += '<br>Au bout de combien de temps aura-t-il le nécessaire ?'
           }
-          correctionSansSchema = []
-          correctionSansSchema[0] = `${b1 * c1}\\div${b1}`
-          correctionSansSchemaLatex = `${b1 * c1} $\\div$ ${b1}`
+
+          correctionSansSchema = `${b1 * c1}\\div${b1}`
+          correctionSansSchemaLatex = `${b1 * c1} \\div ${b1}`
           A2 = point(0, 0)
           B2 = point(12, 0)
           C2 = point(12, 4)
@@ -261,15 +257,15 @@ export default function ModelisationProblemes () {
         case 3:
           o = choice([1, 2])
           if (o === 1) {
-            colonne1 += `${prenomF()} a ${b5} ans.`
-            colonne1 += `<br>Sachant qu'elle a ${c5} ans de plus que son frère, quel âge a celui-ci ?`
+            colonne1 += `${prenomF()} a $${b5}$ ans.`
+            colonne1 += `<br>Sachant qu'elle a $${c5}$ ans de plus que son frère, quel âge a celui-ci ?`
           } else {
-            colonne1 += `${prenomF()} a acheté ${b5} ${objetM()} pour les donner à ses amis.`
-            colonne1 += `<br>Il lui en reste encore ${c5} à donner.`
+            colonne1 += `${prenomF()} a acheté $${b5}$ ${objetM()} pour les donner à ses amis.`
+            colonne1 += `<br>Il lui en reste encore $${c5}$ à donner.`
             colonne1 += '<br>Combien en a-t-elle déjà distribué ?'
           }
-          correctionSansSchema = []
-          correctionSansSchema[0] = `${b5}-${c5}`
+
+          correctionSansSchema = `${b5}-${c5}`
           correctionSansSchemaLatex = `${b5} - ${c5}`
           A3 = point(0, 0)
           B3 = point(12, 0)
@@ -297,16 +293,15 @@ export default function ModelisationProblemes () {
         case 4:
           o = choice([1, 2])
           if (o === 1) {
-            colonne1 += `${prenomF()} a acheté ${c5} ${objetM()} à ${b5} € pièce.`
+            colonne1 += `${prenomF()} a acheté $${c5}$ ${objetM()} à $${b5}$ € pièce.`
             colonne1 += '<br>Combien a-t-elle payé ?'
           } else {
-            colonne1 += `${prenomF()} récupère ${c5} paquets de ${b5} ${objetM()} chacun.`
+            colonne1 += `${prenomF()} récupère $${c5}$ paquets de $${b5}$ ${objetM()} chacun.`
             colonne1 += '<br>Combien en a-t-elle en tout ?'
           }
-          correctionSansSchema = []
-          correctionSansSchema[0] = `${c5}\\times${b5}`
-          correctionSansSchema[1] = `${b5}\\times${c5}`
-          correctionSansSchemaLatex = ` ${c5} $\\times$ ${b5}`
+
+          correctionSansSchema = `${c5}\\times${b5}`
+          correctionSansSchemaLatex = ` ${c5} \\times ${b5}`
           A4 = point(0, 0)
           B4 = point(12, 0)
           C4 = point(12, 4)
@@ -340,15 +335,15 @@ export default function ModelisationProblemes () {
         case 5:
           o = choice([1, 2])
           if (o === 1) {
-            colonne1 += `J'ai ${d3} ${objetF()} dans mon sac et je souhaite les partager avec mes ${c3 - 1} amis.`
+            colonne1 += `J'ai $${d3}$ ${objetF()} dans mon sac et je souhaite les partager avec mes $${c3 - 1}$ amis.`
             colonne1 += '<br>Quelle sera la part de chacun ?'
           } else {
-            colonne1 += `${c3} ${objetF()} identiques coûtent ${d3} €.`
+            colonne1 += `$${c3}$ ${objetF()} identiques coûtent $${d3}$ €.`
             colonne1 += '<br>Quel est le prix d\'une d\'entre elles ?'
           }
-          correctionSansSchema = []
-          correctionSansSchema[0] = `${d3}$\\div$${c3}`
-          correctionSansSchemaLatex = `${d3} $\\div$ ${c3}`
+
+          correctionSansSchema = `${d3}\\div${c3}`
+          correctionSansSchemaLatex = `${d3} \\div ${c3}`
           A5 = point(0, 0)
           B5 = point(12, 0)
           C5 = point(12, 4)
@@ -382,15 +377,14 @@ export default function ModelisationProblemes () {
         case 6:
           o = choice([1, 2])
           if (o === 1) {
-            colonne1 += `${prenomF()} récupère ${b7} ${objet()} dans une salle, puis ${a7} dans une autre.`
+            colonne1 += `${prenomF()} récupère $${b7}$ ${objet()} dans une salle, puis $${a7}$ dans une autre.`
             colonne1 += '<br>Combien en a-t-elle en tout ?'
           } else {
-            colonne1 += `Un lot de ${objetM()} coûte ${b7} € et un lot de ${objetF()} coûte ${a7} €.`
+            colonne1 += `Un lot de ${objetM()} coûte $${b7}$ € et un lot de ${objetF()} coûte $${a7}$ €.`
             colonne1 += '<br>Combien coûte l\'ensemble ?'
           }
-          correctionSansSchema = []
-          correctionSansSchema[0] = `${a7}+${b7}`
-          correctionSansSchema[1] = `${b7}+${a7}`
+
+          correctionSansSchema = `${a7}+${b7}`
           correctionSansSchemaLatex = `${b7} + ${a7}`
           A6 = point(0, 0)
           B6 = point(12, 0)
@@ -418,15 +412,15 @@ export default function ModelisationProblemes () {
         case 7:
           o = choice([1, 2])
           if (o === 1) {
-            colonne1 += `J'ai ${d3} ${objetM()} dans mon sac et je dois les regrouper par ${c3}.`
+            colonne1 += `J'ai $${d3}$ ${objetM()} dans mon sac et je dois les regrouper par $${c3}$.`
             colonne1 += '<br>Combien puis-je faire de tas ?'
           } else {
-            colonne1 += `J'ai payé ${d3} € pour des ${objetM()} coûtant ${c3} € chacun.`
+            colonne1 += `J'ai payé $${d3}$ € pour des ${objetM()} coûtant $${c3}$ € chacun.`
             colonne1 += '<br>Combien en ai-je acheté ?'
           }
-          correctionSansSchema = []
-          correctionSansSchema[0] = `${d3}\\div${c3}`
-          correctionSansSchemaLatex = `${d3} $\\div$ ${c3}`
+
+          correctionSansSchema = `${d3}\\div${c3}`
+          correctionSansSchemaLatex = `${d3} \\div ${c3}`
           A7 = point(0, 0)
           B7 = point(12, 0)
           C7 = point(12, 4)
@@ -460,14 +454,14 @@ export default function ModelisationProblemes () {
         case 8:
           o = choice([1, 2])
           if (o === 1) {
-            colonne1 += `Dans un sac, il y a ${a7} ${objetF()} et dans l'autre, il y en a ${b7}.`
+            colonne1 += `Dans un sac, il y a $${a7}$ ${objetF()} et dans l'autre, il y en a $${b7}$.`
             colonne1 += '<br>Combien y en a-t-il de plus dans ce deuxième sac ?'
           } else {
-            colonne1 += `${prenomF()} a trouvé ${b7} ${objetF()} et ${prenomM()} en a trouvé ${a7}.`
+            colonne1 += `${prenomF()} a trouvé $${b7}$ ${objetF()} et ${prenomM()} en a trouvé $${a7}$.`
             colonne1 += '<br>Combien en a-t-il de moins qu\'elle ?'
           }
-          correctionSansSchema = []
-          correctionSansSchema[0] = `${b7}-${a7}`
+
+          correctionSansSchema = `${b7}-${a7}`
           correctionSansSchemaLatex = `${b7} - ${a7}`
           A8 = point(0, 0)
           B8 = point(12, 0)
@@ -497,54 +491,46 @@ export default function ModelisationProblemes () {
       }
 
       if (this.sup3 === 1) {
-        setReponse(this, i, correctionSansSchema, { formatInteractif: 'texte' })
+        handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: operationCompare } }, { formatInteractif: 'calcul' })
         texteCorr += "L'opération qui peut résoudre le problème est : "
-        texteCorr += texteEnCouleurEtGras(correctionSansSchemaLatex)
-        colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteAvant: sp(5) + '<br>Opération :' })
+        texteCorr += `$${miseEnEvidence(correctionSansSchemaLatex)}$`
+        colonne1 += ajouteChampTexteMathLive(this, i, 'largeur01 inline college6eme', { texteAvant: sp(5) + '<br>Opération :' })
       } else if (this.sup3 === 2) {
         texteCorr += 'Cet énoncé peut être associé avec le schéma ci-dessous.<br>' + schemas[brouilleLesCartes[i]]
       } else {
         texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
-        setReponse(this, i, [lettres[i], lettres[i].toLowerCase()], { formatInteractif: 'texte' })
+        handleAnswers(this, i, { reponse: { value: lettres[i], compare: upperCaseCompare } }, { formatInteractif: 'calcul' })
         if (this.correctionDetaillee) {
           texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
         }
-        colonne1 += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteAvant: sp(5) + '<br>Schéma :' })
+        colonne1 += ajouteChampTexteMathLive(this, i, 'largeur01 inline alphanumeric', { texteAvant: sp(5) + '<br>Schéma :' })
       }
       this.listeQuestions.push(colonne1)
       this.listeCorrections.push(texteCorr)
     }
 
-    listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
-    let colonne2 = ''
+    const listeSchemas = []
+    listeSchemas[0] = []
+    listeSchemas[1] = []
     if (this.sup3 === 3) {
-      colonne2 = `Les schémas à associer à chacun des énoncés sont : ${context.isHtml ? '<br>' : '\\\\\n'}`
-      for (let j = 0; j < Math.min(4, listeTypeDeQuestions.length); j++) {
-        colonne2 += schemas[j]
-      }
-      colonne2 += context.isHtml ? '<br>' : '\\\\\n'
-      for (let j = 4; j < Math.min(8, listeTypeDeQuestions.length); j++) {
-        colonne2 += schemas[j]
+      for (let j = 0; j < listeTypeDeQuestions.length; j++) {
+        if (j % 2 === 0) {
+          listeSchemas[0].push(schemas[j])
+        } else {
+          listeSchemas[1].push(schemas[j])
+        }
       }
     }
 
     // On ne met pas les schéma en mode diaporama
-    if (context.isDiaporama) {
-      this.sup3 = 1
+
+    if (presenceSchemas) {
+      this.introduction = `Les schémas à associer à chacun des énoncés sont : ${context.isHtml ? '<br>' : '\\\\\n'}`
+      this.introduction += deuxColonnes(listeSchemas[0].join(context.isHtml ? '<br>' : '\\\\\n'), listeSchemas[1].join(context.isHtml ? '<br>' : '\\\\\n'))
     }
-    this.introduction = ''
-    if (this.sup3 === 3) {
-      for (let j = 0; j < listeTypeDeQuestions.length; j++) {
-        this.introduction += schemas[j]
-      }
-    }
-    if (context.isHtml & this.sup3) {
-      this.contenu = deuxColonnes(this.contenu, colonne2, 35)
-    } else {
-      this.contenu += colonne2
-    }
+    // listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2 : Valeurs identiques dans tous les exercices']
   this.besoinFormulaire2Numerique = ['Sélection de problèmes', 4, '1 : 3 problèmes basés sur les mêmes nombres\n2 : 4 problèmes basés sur les mêmes nombres\n3 : 8 problèmes (par groupe de 4, avec distinction de 2 couleurs)\n4 : 8 problèmes mélangés (sans distinction de couleurs)\n5 : Nombre de problèmes choisi par l\'utilisateur']
-  this.besoinFormulaire3Numerique = ['Variante avec les schémas', 4, '1 : Sans aucun schéma\n2 : Avec des schémas uniquement dans la correction\n3 : Avec des schémas dans l\'énoncé et la correction']
+  this.besoinFormulaire3Numerique = ['Variante avec les schémas', 4, '1 : Sans schéma\n2 : Schémas dans la correction (non interactif)\n3 : Schémas dans l\'énoncé et la correction']
 }

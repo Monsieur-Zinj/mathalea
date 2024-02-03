@@ -97,10 +97,23 @@ function inputToGrandeur (input: string): Grandeur | false {
   }
 }
 
+export function operationCompare (input: string, goodAnswer: string) {
+  const clean = generateCleaner(['virgules', 'parentheses', 'fractions', 'espaces'])
+  const saisie = clean(input)
+  const saisieParsed = engine.parse(saisie, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
+  const answer = engine.parse(goodAnswer, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
+  // @fixme 64/8 et 32/4 seront considérés comme équivalent ...
+  const evaluationAnswer = answer.evaluate()
+  const evaluationSaisie = saisieParsed.evaluate()
+  const isOk1 = evaluationAnswer.isEqual(evaluationSaisie)
+  const isOk2 = String(answer.head) === String(saisieParsed.head)
+  return { isOk: isOk1 && isOk2 } // Une précaution pour éviter de valider 64/8 à la place de 2*4
+}
+
 /**
  * Comparaison de fonction f(x)
- * @param input
- * @param goodAnswer
+ * @param {string} input
+ * @param {{fonction: string, variable: string}} goodAnswer
  */
 export function fonctionCompare (input: string, goodAnswer: {fonction: string, variable: string} = { fonction: '', variable: 'x' }): { isOk: boolean, feedback?: string } {
   if (typeof goodAnswer === 'string') {
