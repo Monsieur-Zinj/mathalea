@@ -262,25 +262,58 @@
    * @param {boolean} initialDimensionsAreNeeded si `true`, les valeurs initiales sont rechargées ()`false` par défaut)
    * @author sylvain
    */
-  async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false) {
-    const mathalea2dFigures = document.getElementsByClassName('mathalea2d')
-    if (mathalea2dFigures.length !== 0) {
-      await tick()
-      const body = document.getElementsByTagName('body')[0]
-      for (let k = 0; k < mathalea2dFigures.length; k++) {
-        if (initialDimensionsAreNeeded) {
-          // réinitialisation
-          const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
-          const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
-          mathalea2dFigures[k].setAttribute('width', initialWidth ?? '')
-          mathalea2dFigures[k].setAttribute('height', initialHeight ?? '')
-        }
-        if (mathalea2dFigures[k].clientWidth > body.clientWidth) {
-          const coef = (body.clientWidth * 0.9) / mathalea2dFigures[k].clientWidth
-          const newFigWidth = body.clientWidth * 0.9
-          const newFigHeight = mathalea2dFigures[k].clientHeight * coef
-          mathalea2dFigures[k].setAttribute('width', newFigWidth.toString())
-          mathalea2dFigures[k].setAttribute('height', newFigHeight.toString())
+   async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false) {
+    const mathalea2dFigures = document.querySelectorAll<SVGElement>('.mathalea2d')
+    const zoom = Number($globalOptions.z ?? 1)
+    // console.log('zoom:' + zoom )
+    if (mathalea2dFigures != null) {
+      if (mathalea2dFigures.length !== 0) {
+        await tick()
+        // console.log('adjustMathalea2dFiguresWidth:' + initialDimensionsAreNeeded )
+        for (let k = 0; k < mathalea2dFigures.length; k++) {
+          if (initialDimensionsAreNeeded) {
+            // réinitialisation
+            const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
+            const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
+            mathalea2dFigures[k].setAttribute('width', (Number(initialWidth) * zoom).toString())
+            mathalea2dFigures[k].setAttribute('height', (Number(initialHeight) * zoom).toString() )
+            // les éléments Katex des figures SVG
+            if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement  != null) { 
+              const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex')
+              for (const elt of eltsInFigures) {
+                const e = elt
+                e.style.setProperty('top', (Number(e.dataset.top) * zoom).toString() + 'px')
+                e.style.setProperty('left', (Number(e.dataset.left) * zoom).toString() + 'px')
+              }
+            }
+          }
+          /* Mickael:
+          Ne surtout pas mettre la référence de l'exercice dans la requête suivante, 
+          car dans svelte, la référence est liée au dernier exercice chargé, ce qui bug!
+          */
+          const consigneDiv = mathalea2dFigures[k].closest('article')?.querySelector('[id^="consigne"]')
+          // const consigneDiv = document.getElementById('consigne' + exnumero + '-0')
+          if ( consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth ) {
+            const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
+            // console.log('coef:' + coef )
+            const width = mathalea2dFigures[k].getAttribute('width')
+            const height = mathalea2dFigures[k].getAttribute('height')         
+            if (!mathalea2dFigures[k].dataset.widthInitiale && width != null) mathalea2dFigures[k].dataset.widthInitiale = width
+            if (!mathalea2dFigures[k].dataset.heightInitiale && height != null) mathalea2dFigures[k].dataset.heightInitiale = height
+            mathalea2dFigures[k].setAttribute('height', (Number(mathalea2dFigures[k].dataset.heightInitiale) * zoom * coef).toString())
+            mathalea2dFigures[k].setAttribute('width', (Number(mathalea2dFigures[k].dataset.widthInitiale) * zoom * coef).toString())
+
+            if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement !== null) { 
+              const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex')
+              for (const elt of eltsInFigures) {
+                const e = elt
+                const initialTop = Number(e.dataset.top) ?? 0
+                const initialLeft = Number(e.dataset.left) ?? 0
+                e.style.setProperty('top', (initialTop * coef * zoom).toString() + 'px')
+                e.style.setProperty('left', (initialLeft * coef * zoom).toString() + 'px')
+              }
+            }
+          }
         }
       }
     }

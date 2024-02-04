@@ -75,7 +75,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           quotient = randint(101, 500)
           reste = randint(2, diviseur - 1)
           dividende = diviseur * quotient + reste
-          texte = `${diviseur} pirates veulent se partager équitablement le trésor comprenant ${texNombre(dividende)} pièces d'or.<br> ${numAlpha(0)} Combien chaque pirate aura-t-il? <br> ${numAlpha(1)} Combien restera-t-il de pièces ?`
+          texte = `${diviseur} pirates veulent se partager équitablement le trésor comprenant $${texNombre(dividende)}$ pièces d'or.<br> ${numAlpha(0)} Combien chaque pirate aura-t-il? <br> ${numAlpha(1)} Combien restera-t-il de pièces ?`
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de ${dividende} par ${diviseur}. <br>`
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`)}$`
           texteCorr += `<br>Chaque pirate aura ${quotient} pièces.`
@@ -123,7 +123,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           const nb = randint(3, 4) // nombre de fois plus grand que la petite salle.
           diviseur = nbGrandeSalles * nb + nbPetiteSalles
           dividende = nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles
-          texte = `Dans un cinéma, il y a ${nbPetiteSalles + nbGrandeSalles} salles dont ${nbGrandeSalles} grandes salles et ${nbPetiteSalles} petites salles. Il y a ${nb} moins fois de places assises dans les petites salles que les grandes salles. Au total, dans ce cinéma, il y a ${texNombre(nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles)} places<br>${numAlpha(0)} Quel est le nombre de places dans une petite salle? <br> ${numAlpha(1)} Quel est le nombre de places dans une grande salle?`
+          texte = `Dans un cinéma, il y a ${nbPetiteSalles + nbGrandeSalles} salles dont ${nbGrandeSalles} grandes salles et ${nbPetiteSalles} petites salles. Il y a ${nb} moins fois de places assises dans les petites salles que les grandes salles. Au total, dans ce cinéma, il y a $${texNombre(nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles)}$ places<br>${numAlpha(0)} Quel est le nombre de places dans une petite salle? <br> ${numAlpha(1)} Quel est le nombre de places dans une grande salle?`
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles)}$ par $${nbGrandeSalles * nb + nbPetiteSalles}$. <br>`
           texteCorr += Operation({ operande1: nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles, operande2: nbGrandeSalles * nb + nbPetiteSalles, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles)}=${nbGrandeSalles * nb + nbPetiteSalles}\\times${texNombre(nbPlacesPetiteSalles)}`)}$`
           texteCorr += `<br>Il y a ${nbPlacesPetiteSalles} places dans une petite salle.`
@@ -146,11 +146,11 @@ export default function QuestionsDivisionsEuclidiennes () {
           texte = `Un bijoutier fabrique des colliers avec des perles. Il décide de mettre ${nbPerlesJaune} perles jaunes et ${nbPerlesRouge} perles rouges par collier. Il possède ${nbPerlesRougeTotal} perles rouges et ${nbPerlesJauneTotal} perles jaunes. <br>${numAlpha(0)} Combien pourra-t-il fabriquer de colliers? <br> ${numAlpha(1)} Combien lui restera-t-il de perles de chaque couleur?`
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbPerlesJauneTotal)}$ par $${nbPerlesJaune}$. <br>`
           texteCorr += Operation({ operande1: nbPerlesJauneTotal, operande2: nbPerlesJaune, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbPerlesJauneTotal)}=${nbPerlesJaune}\\times${texNombre(nbColliersJaune)}${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune === 0 ? '' : `+ ${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune}`}`)}$`
-          texteCorr += `<br>Il peut faire ${texNombre(nbColliersJaune)} colliers avec les perles jaunes.`
+          texteCorr += `<br>Il peut faire $${texNombre(nbColliersJaune)}$ colliers avec les perles jaunes.`
           texteCorr += `<br>Posons la division euclidienne de $${texNombre(nbPerlesRougeTotal)}$ par $${nbPerlesRouge}$. <br>`
           texteCorr += Operation({ operande1: nbPerlesRougeTotal, operande2: nbPerlesRouge, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbPerlesRougeTotal)}=${nbPerlesRouge}\\times${texNombre(nbColliersRouge)}${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge === 0 ? '' : `+ ${nbPerlesRougeTotal - nbPerlesRouge * nbColliersRouge}`}`)}$`
-          texteCorr += `<br>Il peut faire ${texNombre(nbColliersRouge)} colliers avec les perles rouges.`
-          texteCorr += `<br>Finalement, il pourra ${texNombre(Math.min(nbColliersRouge, nbColliersJaune))} colliers en prenant en compte les deux couleurs.`
+          texteCorr += `<br>Il peut faire $${texNombre(nbColliersRouge)}$ colliers avec les perles rouges.`
+          texteCorr += `<br>Finalement, il pourra $${texNombre(Math.min(nbColliersRouge, nbColliersJaune))}$ colliers en prenant en compte les deux couleurs.`
           texteCorr += `<br><br>${numAlpha(1)} Il resta $${nbPerlesJauneTotal} - ${nbPerlesJaune} \\times ${Math.min(nbColliersRouge, nbColliersJaune)}=${nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune)}$  perles jaunes.`
           texteCorr += `<br>Il resta $${nbPerlesRougeTotal} - ${nbPerlesRouge} \\times ${Math.min(nbColliersRouge, nbColliersJaune)}=${nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune)}$  perles rouges.`
           break
@@ -166,7 +166,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           texte = `Dans sa collection, ${prenomM()} possède ${nbTimbres} timbres et souhaite les ranger dans un album qui peut contenir ${nbTimbresParPage} timbres par page.<br>${numAlpha(0)}  De combien de pages aura-t-il besoin pour ranger tous ses timbres ? <br> ${numAlpha(1)}  Combien de timbres il y aura sur la dernière page ?`
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbTimbres)}$ par $${nbTimbresParPage}$. <br>`
           texteCorr += Operation({ operande1: nbTimbres, operande2: nbTimbresParPage, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbTimbres)}=${nbTimbresParPage}\\times${texNombre(nbPages)}${nbTimbres - nbTimbresParPage * nbPages === 0 ? '' : `+ ${nbTimbres - nbTimbresParPage * nbPages}`}`)}$`
-          texteCorr += `<br>Il y aura ${texNombre(nbPages)} pages remplies et une page avec ${reste} timbres. Donc au total, il faudra ${texNombre(nbPages + 1)} pages.`
+          texteCorr += `<br>Il y aura $${texNombre(nbPages)}$ pages remplies et une page avec ${reste} timbres. Donc au total, il faudra $${texNombre(nbPages + 1)}$ pages.`
           texteCorr += `<br><br>${numAlpha(1)} Il y aura ${reste} sur la dernière page.`
           break
         }
@@ -181,7 +181,7 @@ export default function QuestionsDivisionsEuclidiennes () {
           du reste. » <br> Le capitaine est-il vraiment généreux ? <br>${numAlpha(0)}  Combien de pièces aura chaque pirate ? <br> ${numAlpha(1)}  Combien aura le capitaine ?`
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(dividende)}$ par $${diviseur}$. <br>`
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(nbPiecesParPirate)} +  ${reste}`)}$`
-          texteCorr += `<br>Chaque pirate aura ${texNombre(nbPiecesParPirate)} pièces et il resta ${reste} pièces pour le capitaine.`
+          texteCorr += `<br>Chaque pirate aura $${texNombre(nbPiecesParPirate)}$ pièces et il resta ${reste} pièces pour le capitaine.`
           texteCorr += `<br><br>${numAlpha(1)} Le capitaine aura ${reste} pièces et il aura le plus de pièces.`
           break
         }

@@ -314,6 +314,10 @@ export async function loadMathLive () {
       mf.classList.add('ml-1')
       mf.addEventListener('focus', handleFocusMathField)
       mf.addEventListener('focusout', handleFocusOutMathField)
+      /*Mgu obliger de rajouter le click sur le bouton clavier , car si on ferme le clavier, on clique sur le bouton, et rien ne se passe */
+      const buttonClivier = mf.shadowRoot?.querySelector('.ML__virtual-keyboard-toggle')
+      if (buttonClivier) buttonClivier.addEventListener('click', clickButtonMathField)
+      
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
@@ -373,6 +377,25 @@ function handleFocusMathField (event) {
       }
     })
     // console.log(get(keyboardState))
+  }
+}
+
+function clickButtonMathField (event) {
+  if (get(globalOptions).beta) {
+    const mf = event.target?.getRootNode()?.host
+    if (mf) {
+      console.log(mf.dataset.keyboard.split(' '))
+      keyboardState.update((value) => {
+        return {
+          isVisible: true, // value.isVisible || window.innerWidth < 800,
+          isInLine: value.isInLine,
+          idMathField:mf.id,
+          alphanumericLayout: value.alphanumericLayout,
+          blocks: mf.dataset.keyboard.split(' ')
+        }
+      })
+      console.log(get(keyboardState))
+    }
   }
 }
 
