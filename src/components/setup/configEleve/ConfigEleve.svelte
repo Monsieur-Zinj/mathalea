@@ -59,7 +59,14 @@
     let url = document.URL + '&v=eleve'
     url += '&title=' + $globalOptions.title
     url += '&es=' + buildUrlAddendumForEsParam()
+    if ($globalOptions.beta) url += '&beta=1'
     window.open(url, '_blank')?.focus()
+  }
+
+  // Gestion du clavier
+  let isBetaKeyboard: boolean = false
+  function handleKeyboard () {
+    $globalOptions.beta = isBetaKeyboard
   }
 
   // Gestion de la graine
@@ -204,6 +211,20 @@
               id={'config-eleve-donnes-differentes-toggle'}
               explanations={["Chaque élève aura des pages avec des données différentes d'un autre élève.", 'Tous les élèves auront des pages identiques.']}
               on:toggle={handleSeed}
+            />
+          </div>
+          <div
+            class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Clavier
+          </div>
+          <div class="flex flex-row justify-start items-center px-4">
+            <ButtonToggleAlt
+              title={'Clavier expérimental'}
+              bind:value={isBetaKeyboard}
+              id={'config-eleve-clavier-experimental'}
+              explanations={['Nouveau clavier en test.', 'On reste sur l\'ancien clavier.']}
+              on:toggle={handleKeyboard}
             />
           </div>
         </div>

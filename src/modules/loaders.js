@@ -1,14 +1,37 @@
 import loadjs from 'loadjs'
 import { context } from './context.js'
 import { UserFriendlyError } from './messages.js'
-import { CLAVIER_HMS, raccourcisHMS } from '../lib/interactif/claviers/clavierHms.js'
-import { CLAVIER_LYCEE, raccourcisLycee } from '../lib/interactif/claviers/lycee.js'
-import { CLAVIER_COLLEGE, raccourcisCollege } from '../lib/interactif/claviers/college.js'
-import { CLAVIER_COLLEGE6EME, raccourcis6eme } from '../lib/interactif/claviers/college6eme.js'
-import { CLAVIER_GRECTRIGO, raccourcisTrigo } from '../lib/interactif/claviers/trigo.js'
-import { clavierUNITES, raccourcisUnites } from '../lib/interactif/claviers/claviersUnites.js'
-import { CLAVIER_ENSEMBLE, raccourcisEnsemble } from '../lib/interactif/claviers/ensemble.js'
-
+import {
+  CLAVIER_HMS,
+  raccourcisHMS
+} from '../lib/interactif/claviers/clavierHms.js'
+import {
+  CLAVIER_LYCEE,
+  raccourcisLycee
+} from '../lib/interactif/claviers/lycee.js'
+import {
+  CLAVIER_COLLEGE,
+  raccourcisCollege
+} from '../lib/interactif/claviers/college.js'
+import {
+  CLAVIER_COLLEGE6EME,
+  raccourcis6eme
+} from '../lib/interactif/claviers/college6eme.js'
+import {
+  CLAVIER_GRECTRIGO,
+  raccourcisTrigo
+} from '../lib/interactif/claviers/trigo.js'
+import {
+  clavierUNITES,
+  raccourcisUnites
+} from '../lib/interactif/claviers/claviersUnites.js'
+import {
+  CLAVIER_ENSEMBLE,
+  raccourcisEnsemble
+} from '../lib/interactif/claviers/ensemble.js'
+import { keyboardState } from '../components/keyboard/stores/keyboardStore'
+import { get } from 'svelte/store'
+import { globalOptions } from '../lib/stores/generalStore'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -18,7 +41,11 @@ const apps = {
   mathgraph: 'https://www.mathgraph32.org/js/mtgLoad/mtgLoad.min.js',
   prism: ['/assets/externalJs/prism.js', '/assets/externalJs/prism.css'],
   scratchblocks: 'assets/externalJs/scratchblocks-v3.5-min.js',
-  slick: ['/assets/externalJs/semantic-ui/semantic.min.css', '/assets/externalJs/semantic-ui/semantic.min.js', '/assets/externalJs/semantic-ui/components/state.min.js']
+  slick: [
+    '/assets/externalJs/semantic-ui/semantic.min.css',
+    '/assets/externalJs/semantic-ui/semantic.min.js',
+    '/assets/externalJs/semantic-ui/components/state.min.js'
+  ]
 }
 
 /**
@@ -32,7 +59,7 @@ async function load (name) {
   if (!apps[name]) throw UserFriendlyError(`application ${name} inconnue`)
   // cf https://github.com/muicss/loadjs
   try {
-    if (!loadjs.isDefined(name)) await loadjs(apps[name], name, { returnPromise: true })
+    if (!loadjs.isDefined(name)) { await loadjs(apps[name], name, { returnPromise: true }) }
   } catch (error) {
     console.error(error)
     throw new UserFriendlyError(`Le chargement de ${name} a échoué`)
@@ -42,7 +69,8 @@ async function load (name) {
     loadjs.ready(name, {
       success: resolve,
       // si le chargement précédent a réussi on voit pas trop comment on pourrait arriver là, mais ça reste plus prudent de gérer l'erreur éventuelle
-      error: () => reject(new UserFriendlyError(`Le chargement de ${name} a échoué`))
+      error: () =>
+        reject(new UserFriendlyError(`Le chargement de ${name} a échoué`))
     })
   })
 }
@@ -53,7 +81,11 @@ async function load (name) {
  */
 function waitForGiac () {
   /* global Module */
-  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') return Promise.reject(Error('Le loader giac n’a pas été correctement appelé'))
+  if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') {
+    return Promise.reject(
+      Error('Le loader giac n’a pas été correctement appelé')
+    )
+  }
   const timeout = 60 // en s
   const tsStart = Date.now()
   return new Promise((resolve, reject) => {
@@ -64,7 +96,9 @@ function waitForGiac () {
         resolve()
       } else if (delay > timeout) {
         clearInterval(monInterval)
-        reject(UserFriendlyError(`xcas n’est toujours pas chargé après ${delay}s`))
+        reject(
+          UserFriendlyError(`xcas n’est toujours pas chargé après ${delay}s`)
+        )
       }
     }, 500)
   })
@@ -90,7 +124,10 @@ export async function loadGiac () {
 export async function loadIep (elt, xml) {
   try {
     const { default: iepLoadPromise } = await import('instrumenpoche')
-    const iepApp = await iepLoadPromise(elt, xml, { zoom: true, autostart: false })
+    const iepApp = await iepLoadPromise(elt, xml, {
+      zoom: true,
+      autostart: false
+    })
     return iepApp
   } catch (error) {
     console.error(error)
@@ -108,7 +145,7 @@ export async function loadIep (elt, xml) {
 export async function loadMG32 (elt, svgOptions, mtgOptions) {
   try {
     if (typeof window.mtgLoad !== 'function') await load('mathgraph')
-    if (typeof window.mtgLoad !== 'function') throw Error('mtgLoad n’existe pas')
+    if (typeof window.mtgLoad !== 'function') { throw Error('mtgLoad n’existe pas') }
     // cf https://www.mathgraph32.org/documentation/loading/global.html#mtgLoad
     // la syntaxe qui retourne une promesse fonctionne avec un import seulement (il faudrait mettre mathgraph dans nos dépendances et l'importer)
     // avec le chargement du js via un tag script il faut fournir une callback
@@ -152,7 +189,8 @@ export async function loadMathLive () {
     window.mathVirtualKeyboard.targetOrigin = '*'
     window.mathVirtualKeyboard.alphabeticLayout = 'azerty'
     for (const mf of champs) {
-      let clavier = []; let raccourcis = {}
+      let clavier = []
+      let raccourcis = {}
       mf.mathVirtualKeyboardPolicy = 'manual'
       /*
       if (isInIframe && !isInCapytale) {
@@ -162,7 +200,7 @@ export async function loadMathLive () {
       // Suppression du menu secondaire
       mf.menuItems = []
       mf.virtualKeyboardTargetOrigin = '*'
-      mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
+      // mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
       // Gestion des claviers personnalisés
       if (mf.classList.contains('clavierHms')) {
         clavier.push(CLAVIER_HMS)
@@ -198,10 +236,14 @@ export async function loadMathLive () {
         raccourcis = { ...raccourcis }
       }
 
-      if (mf.className.includes('nite') || mf.className.includes('nité')) { // Gestion du clavier Unites
+      if (mf.className.includes('nite') || mf.className.includes('nité')) {
+        // Gestion du clavier Unites
         const listeParamClavier = mf.classList
         let index = 0
-        while (!listeParamClavier[index].includes('nites') && !listeParamClavier[index].includes('nités')) {
+        while (
+          !listeParamClavier[index].includes('nites') &&
+          !listeParamClavier[index].includes('nités')
+        ) {
           index++
         }
         // récupère tous les mots de listeParamClavier[index]
@@ -219,62 +261,10 @@ export async function loadMathLive () {
       } else if (clavier.length === 1) {
         clavier = clavier[0]
       }
-      mf.addEventListener('focusin', () => {
-        window.mathVirtualKeyboard.layouts = clavier
-      })
+      // mf.addEventListener('focusin', () => {
+      //   window.mathVirtualKeyboard.layouts = clavier
+      // })
       mf.inlineShortcuts = raccourcis
-
-      // Evite les problèmes de positionnement du clavier mathématique dans les iframes
-      /*
-      if (isInIframe) {
-        if (!document.getElementById('fixKeyboardPositionInIframe')) {
-          const style = document.createElement('style')
-          style.setAttribute('id', 'fixKeyboardPositionInIframe')
-          style.innerHTML = `
-          div.ML__keyboard.is-visible {
-            position: absolute;
-            top: var(--keyboard-position);
-            height: var(--_keyboard-height);
-          }
-
-          div.ML__keyboard.is-visible .ML__keyboard--plate {
-            position: static;
-            transform: none;
-          }`
-          document.head.appendChild(style)
-        }
-        const events = ['focus', 'input']
-        events.forEach(e => {
-          mf.addEventListener(e, () => {
-            setTimeout(() => { // Nécessaire pour que le calcul soit effectué après la mise à jour graphique
-              // Alternative à jQuery Offset : https://youmightnotneedjquery.com/#offset
-              const box = mf.getBoundingClientRect()
-              const docElem = document.documentElement
-              const offset = {
-                top: box.top + window.scrollY - docElem.clientTop, // pageYOffset remplacé par scrollY
-                left: box.left + window.scrollX - docElem.clientLeft // pageXOffset remplacé par scrollX
-              }
-              // Autre Alternative à jQuery Offset : https://usefulangle.com/post/179/jquery-offset-vanilla-javascript
-              // const rect = mf.getBoundingClientRect();
-              // const offset = {
-              //   top: rect.top + window.scrollY,
-              //   left: rect.left + window.scrollX,
-              // }
-              // Alternative à jQuery outerHeight : https://youmightnotneedjquery.com/#outer_height
-              const position = offset.top + mf.offsetHeight + 'px'
-              document.body.style.setProperty('--keyboard-position', position)
-            })
-          })
-        })
-      }
-
-      if ((('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0))) {
-        // Sur les écrans tactiles, on met le clavier au focus (qui des écrans tactiles avec claviers externes ?)
-        mf.setOptions({
-          virtualKeyboardMode: 'onfocus'
-        })
-      }
-      */
 
       let style = 'font-size: 20px;'
       if (mf.classList.contains('tableauMathlive')) continue
@@ -284,12 +274,20 @@ export async function loadMathLive () {
         } else {
           style += 'margin-left: 25px;'
         }
-        style += ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
-        if (!mf.classList.contains('largeur01') && !mf.classList.contains('largeur10') && !mf.classList.contains('largeur25') && !mf.classList.contains('largeur50') && !mf.classList.contains('largeur75')) {
+        style +=
+          ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
+        if (
+          !mf.classList.contains('largeur01') &&
+          !mf.classList.contains('largeur10') &&
+          !mf.classList.contains('largeur25') &&
+          !mf.classList.contains('largeur50') &&
+          !mf.classList.contains('largeur75')
+        ) {
           style += ' width: 25%;'
         }
       } else {
-        style += ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 4px;'
+        style +=
+          ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 4px;'
       }
       if (mf.classList.contains('largeur10')) {
         style += ' width: 10%;'
@@ -314,16 +312,82 @@ export async function loadMathLive () {
       }
       mf.style.fontSize = '1em'
       mf.classList.add('ml-1')
+      mf.addEventListener('focus', handleFocusMathField)
+      mf.addEventListener('focusout', handleFocusOutMathField)
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
   if (context.vue === 'exMoodle') {
-    const hauteurExercice = window.document.querySelector('section').scrollHeight
-    window.parent.postMessage({
-      hauteurExercice,
-      iMoodle: parseInt(new URLSearchParams(window.location.search).get('iMoodle'))
-    }, '*')
-    const domExerciceInteractifReady = new window.Event('domExerciceInteractifReady', { bubbles: true })
+    const hauteurExercice =
+      window.document.querySelector('section').scrollHeight
+    window.parent.postMessage(
+      {
+        hauteurExercice,
+        iMoodle: parseInt(
+          new URLSearchParams(window.location.search).get('iMoodle')
+        )
+      },
+      '*'
+    )
+    const domExerciceInteractifReady = new window.Event(
+      'domExerciceInteractifReady',
+      { bubbles: true }
+    )
     document.dispatchEvent(domExerciceInteractifReady)
   }
+  if (get(globalOptions).beta) {
+    window.mathVirtualKeyboard.addEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
+  } else {
+    window.mathVirtualKeyboard.removeEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
+  }
+}
+
+function handleClickOnKeyboardToggle (event) {
+  event.preventDefault()
+  event.stopPropagation()
+  const idToggle = document.activeElement.id
+  keyboardState.update((value) => {
+    const mf = document.querySelector('#' + idToggle)
+    return {
+      isVisible: !value.isVisible,
+      idMathField: idToggle,
+      alphanumericLayout: value.alphanumericLayout,
+      blocks: mf.dataset.keyboard.split(' ')
+    }
+  })
+}
+
+function handleFocusMathField (event) {
+  if (get(globalOptions).beta) {
+    const mf = event.target
+    keyboardState.update((value) => {
+      return {
+        isVisible: value.isVisible,
+        isInLine: value.isInLine,
+        idMathField: event.target.id,
+        alphanumericLayout: value.alphanumericLayout,
+        blocks: mf.dataset.keyboard.split(' ')
+      }
+    })
+  }
+}
+
+function handleFocusOutMathField () {
+  // Si le focus est sur un autre élément que mathfield, on cache le clavier
+  // On utilise setTimeout pour être sûr que le focus soit bien sur le nouvel élément
+  // car au focusout, le focus est sur body
+  setTimeout(() => {
+    if (document.activeElement.tagName !== 'MATH-FIELD') {
+      const currentIsInLine = get(keyboardState).isInLine
+      keyboardState.update(() => {
+        return {
+          isVisible: false,
+          isInLine: currentIsInLine,
+          idMathField: '',
+          alphanumericLayout: '',
+          blocks: ''
+        }
+      })
+    }
+  }, 0)
 }

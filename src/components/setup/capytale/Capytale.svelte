@@ -41,6 +41,8 @@
   import type { InterfaceParams } from 'src/lib/types'
   import BreadcrumbHeader from '../start/presentationalComponents/sideMenu/referentielNode/ModalStaticExercices/BreadcrumbHeader.svelte'
   import handleCapytale from '../../../lib/handleCapytale'
+  import Keyboard from '../../keyboard/Keyboard.svelte'
+  import { keyboardState } from '../../keyboard/stores/keyboardStore'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
@@ -155,6 +157,9 @@
       'es',
       buildUrlAddendumForEsParam(false, presMode).replace('&es=', '')
     )
+    if ($globalOptions.beta) {
+      url.searchParams.append('beta', '1')
+    }
     window.open(url, '_blank')?.focus()
   }
   /**
@@ -505,7 +510,10 @@ function addExercise (uuid: string) {
             {/if}
           </div>
         </div>
-        <Footer />
+        <Keyboard/>
+        <div class="flex justify-center w-full {$keyboardState.isVisible ? 'mt-52' : ''}">
+          <Footer />
+        </div>
       </div>
     {:else}
       <!-- ====================================================================================
@@ -586,9 +594,10 @@ function addExercise (uuid: string) {
                   </div>
                 {/each}
               </div>
-              <div class="hidden md:flex items-center justify-center">
-                <Footer />
-              </div>
+              <Keyboard/>
+        <div class="flex justify-center w-full {$keyboardState.isVisible ? 'mt-52' : ''}">
+          <Footer />
+        </div>
             </div>
           {:else}
             <div class="relative flex-1 h-full">
@@ -613,9 +622,10 @@ function addExercise (uuid: string) {
                     Sélectionner les exercices
                   </div>
                 </div>
-                <div class="flex items-center justify-center">
-                  <Footer />
-                </div>
+                <Keyboard/>
+        <div class="flex justify-center w-full {$keyboardState.isVisible ? 'mt-52' : ''}">
+          <Footer />
+        </div>
               </div>
             </div>
           {/if}
@@ -756,6 +766,19 @@ function addExercise (uuid: string) {
             <ButtonToggle
               titles={['Accès aux corrections', 'Pas de corrections']}
               bind:value={$globalOptions.isSolutionAccessible}
+            />
+          </div>
+        </div>
+        <div class="pb-2">
+          <div
+            class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Clavier expérimental
+          </div>
+          <div class="flex flex-row justify-start items-center px-4">
+            <ButtonToggle
+              titles={['Nouveau clavier en test', 'Ancien clavier']}
+              bind:value={$globalOptions.beta}
             />
           </div>
         </div>
