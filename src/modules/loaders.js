@@ -347,21 +347,22 @@ export async function loadMathLive () {
 function handleClickOnKeyboardToggle (event) {
   event.preventDefault()
   event.stopPropagation()
-  const idToggle = document.activeElement.id
-  keyboardState.update((value) => {
-    const mf = document.querySelector('#' + idToggle)
-    return {
-      isVisible: !value.isVisible,
-      idMathField: idToggle,
-      alphanumericLayout: value.alphanumericLayout,
-      blocks: mf.dataset.keyboard.split(' ')
-    }
-  })
+  // const idToggle = document.activeElement.id
+  // keyboardState.update((value) => {
+  //   const mf = document.activeElement
+  //   return {
+  //     isVisible: !value.isVisible,
+  //     idMathField: idToggle,
+  //     alphanumericLayout: value.alphanumericLayout,
+  //     blocks: mf.dataset.keyboard.split(' ')
+  //   }
+  // })
 }
 
 function handleFocusMathField (event) {
   if (get(globalOptions).beta) {
     const mf = event.target
+    console.log(mf.dataset.keyboard.split(' '))
     keyboardState.update((value) => {
       return {
         isVisible: true, // value.isVisible || window.innerWidth < 800,
@@ -371,6 +372,7 @@ function handleFocusMathField (event) {
         blocks: mf.dataset.keyboard.split(' ')
       }
     })
+    console.log(get(keyboardState))
   }
 }
 

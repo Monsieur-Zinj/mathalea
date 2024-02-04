@@ -20,9 +20,9 @@
 
   $: innerWidth = 0
 
-  const pages: KeyboardBlock[][] = []
-  const usualBlocks: KeyboardBlock[] = []
-  const unitsBlocks: KeyboardBlock[] = []
+  let pages: KeyboardBlock[][] = []
+  let usualBlocks: KeyboardBlock[] = []
+  let unitsBlocks: KeyboardBlock[] = []
   let currentPageIndex = 0
   let divKeyboard: HTMLDivElement
   let alphanumericDisplayed: boolean = false
@@ -51,6 +51,7 @@
     if (page.length !== 0) {
       pages.push(page.reverse())
     }
+    pages = pages
   }
 
   keyboardState.subscribe(async (value) => {
@@ -71,6 +72,8 @@
         usualBlocks.push(block)
       }
     }
+    unitsBlocks = unitsBlocks
+    usualBlocks = usualBlocks
     await tick()
     mathaleaRenderDiv(divKeyboard)
   })
@@ -164,6 +167,7 @@
       <Alphanumeric {clickKeycap} {pageType} />
     {:else}
       <div class={isInLine ? 'relative px-10' : 'py-2 md:py-0'}>
+        {#key [unitsBlocks, usualBlocks, pages]}
         <KeyboardPage
           unitsBlocks={[...unitsBlocks].reverse()}
           usualBlocks={[...usualBlocks].reverse()}
@@ -172,6 +176,7 @@
           {innerWidth}
           {clickKeycap}
         />
+        {/key}
         <!-- Boutons de navigation entre les pages : vers la DROITE -->
         <button
           id="kb-nav-right"
