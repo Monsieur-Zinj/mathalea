@@ -3,7 +3,7 @@ import Exercice from '../Exercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
@@ -65,12 +65,14 @@ export default class nomExercice extends Exercice {
       } else {
         texteCorr += `Remarque : il faut ${texteEgaliteUnite} pour faire une unité donc $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} = ${a}$ et $\\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}} = ${b}$.`
       }
-      setReponse(this, i, {
+      handleAnswers(this, i, {
         bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
         feedback: (saisies: {champ1: string, champ2: string}) => {
           const rep1 = saisies.champ1
           const rep2 = saisies.champ2
-          const { feedback } = consecutifsCompare(rep1, rep2, String(num / den))
+          // on teste consecutifsCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
+          // consecutifsCompare peut être utilisée pour évaluer des saisies complètes d'encadrements avec les signes < ou >
+          const { feedback } = consecutifsCompare(`${rep1}<${(num / den).toFixed(4)}<${rep2}`, { entierInf: a, entierSup: b, valeurInter: (a + b) / 2 })
           return feedback
         },
         champ1: { value: String(a), compare: numberCompare },
