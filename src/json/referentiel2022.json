@@ -11274,8 +11274,8 @@
         "titre": "Écrire correctement les grands nombres entiers",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": true,
@@ -14156,7 +14156,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'qcm'"
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": true,
@@ -15340,7 +15340,7 @@
         "features": {
           "interactif": {
             "isActive": true,
-            "type": "'qcm'"
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": true,
@@ -15964,8 +15964,8 @@
         "titre": "Résoudre un problème s'appuyant sur la lecture d'une représentation graphique",
         "features": {
           "interactif": {
-            "isActive": false,
-            "type": ""
+            "isActive": true,
+            "type": "'mathLive'"
           },
           "amc": {
             "isActive": true,
@@ -16997,7 +16997,7 @@
         "uuid": "7c068",
         "id": "4S11",
         "titre": "Déterminer des médianes",
-        "dateModification": "28/10/2021",
+        "dateModification": "02/02/2024",
         "features": {
           "interactif": {
             "isActive": true,
@@ -18667,9 +18667,9 @@
         "typeExercice": "alea"
       },
       "3L11": {
-        "url": "3e/3L11new.js",
+        "url": "3e/3L11.js",
         "tags": [],
-        "uuid": "db2e0",
+        "uuid": "77a62",
         "id": "3L11",
         "titre": "Utiliser la simple distributivité",
         "features": {
