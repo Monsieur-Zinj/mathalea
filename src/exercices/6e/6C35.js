@@ -12,7 +12,7 @@ import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { randint } from '../../modules/outils.js'
@@ -176,7 +176,7 @@ export default function ModelisationProblemes () {
       texteCorr = ''
 
       switch (listeTypeDeQuestions[i]) {
-        case 1:
+        case 1:{
           o = choice([1, 2])
           if (o === 1) {
             colonne1 += `${prenomF()} avait $${b1}$ ${objetM()} ${jourAuHasard()}. `
@@ -200,18 +200,18 @@ export default function ModelisationProblemes () {
           th1 = texteParPosition(b1, 3, 3)
           th12 = texteParPosition(c1, 9, 3)
           n1 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({
-            xmin: -2,
+          const objets = [p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1]
+          schemas[brouilleLesCartes[i]] = mathalea2d(Object.assign({}, fixeBordures(objets), {
             ymin: -1,
-            xmax: 16,
             ymax: 6,
             style: 'display: inline',
-            pixelsParCm: 15,
+            pixelsParCm: 13,
             scale: 0.25
-          }, p1, traitHorizontal1, traitVertical1, tb1, th1, th12, n1)
+          }), objets)
+        }
           break
 
-        case 2:
+        case 2:{
           o = choice([1, 2])
           if (o === 1) {
             colonne1 += `${prenomM()} achète $${b1 * c1}$ ${objetM()} par paquets de $${b1}$.`
@@ -243,18 +243,18 @@ export default function ModelisationProblemes () {
           th24 = texteParPosition(b1, 11, 3)
           th25 = texteParPosition('?', 6, 5)
           n2 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({
-            xmin: -2,
+          const objets = [p2, traitHorizontal2, traitVertical2, tb2, th2, th22, traitHorizontal22, traitVertical22, traitVertical23, th23, th24, th25, n2]
+          schemas[brouilleLesCartes[i]] = mathalea2d(Object.assign({}, fixeBordures(objets), {
             ymin: -1,
-            xmax: 16,
             ymax: 6,
             style: 'display: inline',
-            pixelsParCm: 15,
+            pixelsParCm: 13,
             scale: 0.25
-          }, p2, traitHorizontal2, traitVertical2, tb2, th2, th22, traitHorizontal22, traitVertical22, traitVertical23, th23, th24, th25, n2)
+          }), objets)
+        }
           break
 
-        case 3:
+        case 3: {
           o = choice([1, 2])
           if (o === 1) {
             colonne1 += `${prenomF()} a $${b5}$ ans.`
@@ -279,18 +279,18 @@ export default function ModelisationProblemes () {
           th3 = texteParPosition('?', 3, 3)
           th32 = texteParPosition(c5, 9, 3)
           n3 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({
-            xmin: -2,
+          const objets = [p3, traitHorizontal3, traitVertical3, tb3, th3, th32, n3]
+          schemas[brouilleLesCartes[i]] = mathalea2d(Object.assign({}, fixeBordures(objets), {
             ymin: -1,
-            xmax: 16,
             ymax: 6,
             style: 'display: inline',
-            pixelsParCm: 15,
+            pixelsParCm: 13,
             scale: 0.25
-          }, p3, traitHorizontal3, traitVertical3, tb3, th3, th32, n3)
+          }), objets)
+        }
           break
 
-        case 4:
+        case 4:{
           o = choice([1, 2])
           if (o === 1) {
             colonne1 += `${prenomF()} a acheté $${c5}$ ${objetM()} à $${b5}$ € pièce.`
@@ -321,18 +321,18 @@ export default function ModelisationProblemes () {
           th44 = texteParPosition(b5, 11, 3)
           th45 = texteParPosition(c5, 6, 5)
           n4 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({
-            xmin: -2,
+          const objets = [p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45, n4]
+          schemas[brouilleLesCartes[i]] = mathalea2d(Object.assign({}, fixeBordures(objets), {
             ymin: -1,
-            xmax: 16,
             ymax: 6,
             style: 'display: inline',
-            pixelsParCm: 15,
+            pixelsParCm: 13,
             scale: 0.25
-          }, p4, traitHorizontal4, traitVertical4, tb4, th4, th42, traitHorizontal42, traitVertical42, traitVertical43, th43, th44, th45, n4)
+          }), objets)
+        }
           break
 
-        case 5:
+        case 5:{
           o = choice([1, 2])
           if (o === 1) {
             colonne1 += `J'ai $${d3}$ ${objetF()} dans mon sac et je souhaite les partager avec mes $${c3 - 1}$ amis.`
@@ -363,18 +363,18 @@ export default function ModelisationProblemes () {
           th54 = texteParPosition('?', 11, 3)
           th55 = texteParPosition(c3, 6, 5.2)
           n5 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({
-            xmin: -2,
+          const objets = [p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55, n5]
+          schemas[brouilleLesCartes[i]] = mathalea2d(Object.assign({}, fixeBordures(objets), {
             ymin: -1,
-            xmax: 16,
             ymax: 6,
             style: 'display: inline',
-            pixelsParCm: 15,
+            pixelsParCm: 13,
             scale: 0.25
-          }, p5, traitHorizontal5, traitVertical5, tb5, th5, th52, traitHorizontal52, traitVertical52, traitVertical53, th53, th54, th55, n5)
+          }), objets)
+        }
           break
 
-        case 6:
+        case 6:{
           o = choice([1, 2])
           if (o === 1) {
             colonne1 += `${prenomF()} récupère $${b7}$ ${objet()} dans une salle, puis $${a7}$ dans une autre.`
@@ -398,18 +398,18 @@ export default function ModelisationProblemes () {
           th6 = texteParPosition(b7, 3, 3)
           th62 = texteParPosition(a7, 9, 3)
           n6 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({
-            xmin: -2,
+          const objets = [p6, traitHorizontal6, traitVertical6, tb6, th6, th62, n6]
+          schemas[brouilleLesCartes[i]] = mathalea2d(Object.assign({}, fixeBordures(objets), {
             ymin: -1,
-            xmax: 16,
             ymax: 6,
             style: 'display: inline',
-            pixelsParCm: 15,
+            pixelsParCm: 13,
             scale: 0.25
-          }, p6, traitHorizontal6, traitVertical6, tb6, th6, th62, n6)
+          }), objets)
+        }
           break
 
-        case 7:
+        case 7: {
           o = choice([1, 2])
           if (o === 1) {
             colonne1 += `J'ai $${d3}$ ${objetM()} dans mon sac et je dois les regrouper par $${c3}$.`
@@ -440,18 +440,18 @@ export default function ModelisationProblemes () {
           th74 = texteParPosition(c3, 11, 3)
           th75 = texteParPosition('?', 6, 5.2)
           n7 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({
-            xmin: -2,
+          const objets = [p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75, n7]
+          schemas[brouilleLesCartes[i]] = mathalea2d(Object.assign({}, fixeBordures(objets), {
             ymin: -1,
-            xmax: 16,
             ymax: 6,
             style: 'display: inline',
-            pixelsParCm: 15,
+            pixelsParCm: 13,
             scale: 0.25
-          }, p7, traitHorizontal7, traitVertical7, tb7, th7, th72, traitHorizontal72, traitVertical72, traitVertical73, th73, th74, th75, n7)
+          }), objets)
+        }
           break
 
-        case 8:
+        case 8: {
           o = choice([1, 2])
           if (o === 1) {
             colonne1 += `Dans un sac, il y a $${a7}$ ${objetF()} et dans l'autre, il y en a $${b7}$.`
@@ -475,15 +475,15 @@ export default function ModelisationProblemes () {
           th8 = texteParPosition(a7, 3, 3)
           th82 = texteParPosition('?', 9, 3)
           n8 = (this.sup3 === 2) ? texteParPosition('', -1, 4) : texteParPosition(`${lettres[i]}.`, -1, 4)
-          schemas[brouilleLesCartes[i]] = mathalea2d({
-            xmin: -2,
+          const objets = [p8, traitHorizontal8, traitVertical8, tb8, th8, th82, n8]
+          schemas[brouilleLesCartes[i]] = mathalea2d(Object.assign({}, fixeBordures(objets), {
             ymin: -1,
-            xmax: 16,
             ymax: 6,
             style: 'display: inline',
-            pixelsParCm: 15,
+            pixelsParCm: 13,
             scale: 0.25
-          }, p8, traitHorizontal8, traitVertical8, tb8, th8, th82, n8)
+          }), objets)
+        }
           break
       }
       if (this.correctionDetaillee) {
@@ -512,12 +512,22 @@ export default function ModelisationProblemes () {
     const listeSchemas = []
     listeSchemas[0] = []
     listeSchemas[1] = []
+    listeSchemas[2] = []
+    listeSchemas[3] = []
     if (this.sup3 === 3) {
       for (let j = 0; j < listeTypeDeQuestions.length; j++) {
-        if (j % 2 === 0) {
-          listeSchemas[0].push(schemas[j])
+        if (j % 4 < 2) {
+          if (j % 2 === 0) {
+            listeSchemas[0].push(schemas[j])
+          } else {
+            listeSchemas[1].push(schemas[j])
+          }
         } else {
-          listeSchemas[1].push(schemas[j])
+          if (j % 2 === 0) {
+            listeSchemas[2].push(schemas[j])
+          } else {
+            listeSchemas[3].push(schemas[j])
+          }
         }
       }
     }
@@ -526,7 +536,14 @@ export default function ModelisationProblemes () {
 
     if (presenceSchemas) {
       this.introduction = `Les schémas à associer à chacun des énoncés sont : ${context.isHtml ? '<br>' : '\\\\\n'}`
-      this.introduction += deuxColonnes(listeSchemas[0].join(context.isHtml ? '<br>' : '\\\\\n'), listeSchemas[1].join(context.isHtml ? '<br>' : '\\\\\n'))
+      this.introduction += deuxColonnes(
+        deuxColonnes(
+          listeSchemas[0].join(context.isHtml ? '<br>' : '\\\\\n'), listeSchemas[1].join(context.isHtml ? '<br>' : '\\\\\n')
+        ),
+        deuxColonnes(
+          listeSchemas[2].join(context.isHtml ? '<br>' : '\\\\\n'), listeSchemas[3].join(context.isHtml ? '<br>' : '\\\\\n')
+        )
+      )
     }
     // listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }

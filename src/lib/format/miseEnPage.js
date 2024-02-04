@@ -23,12 +23,12 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
    </div>
 `
   } else {
-    return `\\begin{minipage}{${largeur1 / 100}\\linewidth}
+    return `\\begin{multicols}{2}
     ${cont1.replaceAll('<br>', '\\\\\n')}
-    \\end{minipage}
-    \\begin{minipage}{${(100 - largeur1) / 100}\\linewidth}
+    \\end{multicols}
+    \\begin{multicols}{2}
     ${cont2.replaceAll('<br>', '\\\\\n')}
-    \\end{minipage}
+    \\end{multicols}
     `
   }
 }
