@@ -615,7 +615,7 @@
                     {/if}
 
                     <div
-                      class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto"
+                      class="container overflow-x-auto overflow-y-hidden md:overflow-x-auto"
                       style="break-inside:avoid"
                     >
                       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -724,7 +724,7 @@
                         </div>
                       {/if}
                       <div
-                        class="container overflow-x-scroll overflow-y-hidden md:overflow-x-auto"
+                        class="container overflow-x-auto overflow-y-hidden md:overflow-x-auto"
                         style="break-inside:avoid"
                       >
                         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
