@@ -335,10 +335,12 @@ export async function loadMathLive () {
     )
     document.dispatchEvent(domExerciceInteractifReady)
   }
-  if (get(globalOptions).beta) {
-    window.mathVirtualKeyboard.addEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
-  } else {
-    window.mathVirtualKeyboard.removeEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
+  if (window.self === window.top) {
+    if (get(globalOptions).beta) {
+      window.mathVirtualKeyboard.addEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
+    } else {
+      window.mathVirtualKeyboard.removeEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
+    }
   }
 }
 
@@ -362,7 +364,7 @@ function handleFocusMathField (event) {
     const mf = event.target
     keyboardState.update((value) => {
       return {
-        isVisible: value.isVisible,
+        isVisible: true, // value.isVisible || window.innerWidth < 800,
         isInLine: value.isInLine,
         idMathField: event.target.id,
         alphanumericLayout: value.alphanumericLayout,
@@ -378,15 +380,10 @@ function handleFocusOutMathField () {
   // car au focusout, le focus est sur body
   setTimeout(() => {
     if (document.activeElement.tagName !== 'MATH-FIELD') {
-      const currentIsInLine = get(keyboardState).isInLine
-      keyboardState.update(() => {
-        return {
-          isVisible: false,
-          isInLine: currentIsInLine,
-          idMathField: '',
-          alphanumericLayout: '',
-          blocks: ''
-        }
+      keyboardState.update((value) => {
+        const newValue = value
+        newValue.isVisible = false
+        return newValue
       })
     }
   }, 0)
