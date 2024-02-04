@@ -7,7 +7,8 @@ import { context } from '../../modules/context.js'
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMathlive'
 import { randint } from '../../modules/outils.js'
-
+import { MathfieldElement } from 'mathlive'
+import './tableau2x2.scss'
 /**
  * fonction utilisée par la classe Tableau pour créer une flèche
  * Pour l'objet texte : si texte.latex est true, alors les autres paramètres sont ignorés et tout le formatage doit être contenu dans texte
@@ -417,4 +418,123 @@ export function tableauColonneLigne (tabEntetesColonnes,
     tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
     return tableauCL
   }
+}
+
+/**
+ * produit un tableau 2x2 pour calcul de 4e proportionnelle par exemple
+ * @param {{content: string, latex: boolean, color: string, background: string}} L0C0
+ * @param {{content: string, latex: boolean, color: string, background: string}} L0C1
+ * @param {{content: string, latex: boolean, color: string, background: string}} L1C0
+ * @param {{content: string, latex: boolean, color: string, background: string}} L1C1
+ * @param {number} numeroExercice
+ * @param {number} question
+ * @param {boolean} isInteractif
+ * @param {string} classe
+ */
+export function tableau2x2 ({ L0C0, L0C1, L1C0, L1C1 }, numeroExercice, question, isInteractif, classes) {
+  let tableau
+  if (context.isHtml) {
+    const ajouteClass = function (element, classes) {
+      for (const classe of classes.split(' ')) {
+        if (classe !== '') element.classList.add(classe)
+      }
+    }
+    const table = document.createElement('table')
+    table.className = 'tableau2x2'
+    table.id = `tableau2x2Ex${numeroExercice}Q${question}`
+    const firstLine = document.createElement('tr')
+    const secondLine = document.createElement('tr')
+    table.appendChild(firstLine)
+    table.appendChild(secondLine)
+    const l0c0 = document.createElement('td')
+    const l0c1 = document.createElement('td')
+    const l1c0 = document.createElement('td')
+    const l1c1 = document.createElement('td')
+    firstLine.appendChild(l0c0)
+    firstLine.appendChild(l0c1)
+    secondLine.appendChild(l1c0)
+    secondLine.appendChild(l1c1)
+    if (isInteractif) {
+      if (L0C0.content === '') {
+        const mf00 = new MathfieldElement()
+        mf00.id = `champTexteEx${numeroExercice}Q${question}L0C0`
+        mf00.setAttribute('virtual-keyboard-mode', 'manual')
+        l0c0.appendChild(mf00)
+        ajouteClass(mf00, classes)
+        l0c0.appendChild(mf00)
+      } else {
+        const span00 = document.createElement('span')
+        span00.textContent = L0C0.content
+        if (span00) l0c0.appendChild(span00)
+      }
+      if (L0C1.content === '') {
+        const mf01 = new MathfieldElement()
+        mf01.id = `champTexteEx${numeroExercice}Q${question}L0C1`
+        mf01.setAttribute('virtual-keyboard-mode', 'manual')
+        l0c1.appendChild(mf01)
+        ajouteClass(mf01, classes)
+      } else {
+        const span01 = document.createElement('span')
+        span01.textContent = L0C1.content
+        if (span01) l0c1.appendChild(span01)
+      }
+      if (L1C0.content === '') {
+        const mf10 = new MathfieldElement()
+        mf10.id = `champTexteEx${numeroExercice}Q${question}L1C0`
+        mf10.setAttribute('virtual-keyboard-mode', 'manual')
+        l1c0.appendChild(mf10)
+        ajouteClass(mf10, classes)
+      } else {
+        const span10 = document.createElement('span')
+        span10.textContent = L1C0.content
+        if (span10) l1c0.appendChild(span10)
+      }
+      if (L1C1.content === '') {
+        const mf11 = new MathfieldElement()
+        mf11.id = `champTexteEx${numeroExercice}Q${question}L1C1`
+        mf11.setAttribute('virtual-keyboard-mode', 'manual')
+        l1c1.appendChild(mf11)
+        ajouteClass(mf11, classes)
+      } else {
+        const span11 = document.createElement('span')
+        span11.textContent = L1C1.content
+        if (span11) l1c1.appendChild(span11)
+      }
+    } else {
+      l0c0.textContent = L0C0.content ?? ''
+      l0c1.textContent = L0C1.content ?? ''
+      l1c0.textContent = L1C0.content ?? ''
+      l1c1.textContent = L1C1.content ?? ''
+    }
+    if (L0C0.background != null) l0c0.style.backgroundColor = L0C0.background
+    if (L0C1.background != null) l0c1.style.backgroundColor = L0C1.background
+    if (L1C0.background != null) l1c0.style.backgroundColor = L1C0.background
+    if (L1C1.background != null) l1c1.style.backgroundColor = L1C1.background
+    if (L0C0.color != null) l0c0.style.color = L0C0.color
+    if (L0C1.color != null) l0c1.style.color = L0C1.color
+    if (L1C0.color != null) l1c0.style.color = L1C0.color
+    if (L1C1.color != null) l1c1.style.color = L1C1.color
+
+    tableau = table.outerHTML
+  } else {
+    tableau = '$\\renewcommand{\\arraystretch}{1.5}\n\\begin{array}{|c|c|}\n\\hline'
+    if (L0C0 != null && L0C0.content !== '') {
+      tableau += `${L0C0.background != null ? '\\cellcolor{' + L0C0.background + '}' : ''} ${L0C0.content} `
+    }
+    tableau += ' & '
+    if (L0C1 != null && L0C1.content !== '') {
+      tableau += `${L0C1.background != null ? '\\cellcolor{' + L0C0.background + '}' : ''} ${L0C1.content} `
+    }
+    tableau += '\\\\\n \\hline\n '
+    if (L1C0 != null && L1C0.content !== '') {
+      tableau += `${L1C0.background != null ? '\\cellcolor{' + L0C0.background + '}' : ''} ${L1C0.content} `
+    }
+    tableau += ' & '
+    if (L1C1 != null && L1C1.content !== '') {
+      tableau += `${L1C1.background != null ? '\\cellcolor{' + L0C0.background + '}' : ''} ${L1C1.content} `
+    }
+    tableau += '\\\\\n \\hline\n '
+    tableau += '\\end{array}\n\\renewcommand{\\arraystretch}{1}$'
+  }
+  return tableau
 }

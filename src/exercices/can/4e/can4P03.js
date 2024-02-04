@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
+import { tableau2x2 } from '../../../lib/2d/tableau'
 export const titre = 'Calculer une quatrième proportionnelle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +32,12 @@ export default function QuatriemeProportionnelle () {
         this.question = `Complèter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableauColonneLigne([b, a], [' '], [a * c])
+        this.question += tableau2x2({
+          L0C0: { content: String(b), background: 'lightgray' },
+          L1C0: { content: '' },
+          L0C1: { content: String(a), background: 'lightgray' },
+          L1C1: { content: String(a * c), background: 'lightgray' }
+        }, this.numeroExercice, 0, false, '')
         this.question += `<br>
         
         `
@@ -46,7 +51,12 @@ export default function QuatriemeProportionnelle () {
         this.question = `Complèter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableauColonneLigne([a, a * c], [b], [' '])
+        this.question += tableau2x2({
+          L0C0: { content: String(a), background: 'lightgray' },
+          L1C1: { content: '' },
+          L1C0: { content: String(b), background: 'lightgray' },
+          L0C1: { content: String(a * c), background: 'lightgray' }
+        }, this.numeroExercice, 0, false, '')
         this.question += `<br>
         
         `
@@ -60,7 +70,12 @@ export default function QuatriemeProportionnelle () {
         this.question = `Complèter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableauColonneLigne([' ', a * c], [b], [a])
+        this.question += tableau2x2({
+          L1C0: { content: String(b), background: 'lightgray' },
+          L0C0: { content: '' },
+          L1C1: { content: String(a), background: 'lightgray' },
+          L0C1: { content: String(a * c), background: 'lightgray' }
+        }, this.numeroExercice, 0, false, '')
         this.question += `<br>
         
         `
@@ -74,7 +89,12 @@ export default function QuatriemeProportionnelle () {
         this.question = `Complèter le tableau de proportionnalité.<br>
         
         `
-        this.question += tableauColonneLigne([b, ' '], [a], [a * c])
+        this.question += tableau2x2({
+          L0C0: { content: String(b), background: 'lightgray' },
+          L0C1: { content: '' },
+          L1C0: { content: String(a), background: 'lightgray' },
+          L1C1: { content: String(a * c), background: 'lightgray' }
+        }, this.numeroExercice, 0, false, '')
         this.question += `<br>
         
         `
