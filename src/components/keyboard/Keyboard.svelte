@@ -51,7 +51,6 @@
     if (page.length !== 0) {
       pages.push(page.reverse())
     }
-    pages = pages
   }
 
   keyboardState.subscribe(async (value) => {
@@ -62,7 +61,6 @@
     for (const block of value.blocks) {
       myKeyboard.add(keyboardBlocks[block])
     }
-    computePages()
     unitsBlocks.length = 0
     usualBlocks.length = 0
     for (const block of myKeyboard.blocks) {
@@ -74,6 +72,8 @@
     }
     unitsBlocks = unitsBlocks
     usualBlocks = usualBlocks
+    computePages()
+    pages = pages
     await tick()
     mathaleaRenderDiv(divKeyboard)
   })
@@ -167,7 +167,7 @@
       <Alphanumeric {clickKeycap} {pageType} />
     {:else}
       <div class={isInLine ? 'relative px-10' : 'py-2 md:py-0'}>
-        {#key [unitsBlocks, usualBlocks, pages]}
+        {#key [unitsBlocks, usualBlocks, pages, isInLine]}
         <KeyboardPage
           unitsBlocks={[...unitsBlocks].reverse()}
           usualBlocks={[...usualBlocks].reverse()}

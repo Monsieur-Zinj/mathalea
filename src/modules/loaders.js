@@ -362,7 +362,7 @@ function handleClickOnKeyboardToggle (event) {
 function handleFocusMathField (event) {
   if (get(globalOptions).beta) {
     const mf = event.target
-    console.log(mf.dataset.keyboard.split(' '))
+    // console.log(mf.dataset.keyboard.split(' '))
     keyboardState.update((value) => {
       return {
         isVisible: true, // value.isVisible || window.innerWidth < 800,
@@ -372,7 +372,7 @@ function handleFocusMathField (event) {
         blocks: mf.dataset.keyboard.split(' ')
       }
     })
-    console.log(get(keyboardState))
+    // console.log(get(keyboardState))
   }
 }
 
