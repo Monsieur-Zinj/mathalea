@@ -1,8 +1,8 @@
-import { fixeBordures } from '../../modules/2dGeneralites.js'
-import { milieu, point, Point } from './points.js'
-import { polygone, polyline } from './polygones.js'
+import { fixeBordures } from '../../modules/2dGeneralites'
+import { milieu, point, Point } from './points'
+import { polygone, polyline } from './polygones'
 import { segment } from './segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPosition } from './textes.js'
+import { latexParCoordonnees, texteParPosition } from './textes'
 import { context } from '../../modules/context.js'
 import { stringNombre, texNombre } from '../outils/texNombre'
 import { AddTabDbleEntryMathlive } from '../interactif/tableaux/AjouteTableauMathlive'
@@ -330,18 +330,28 @@ export function tableau (...args) {
  * @param {boolean} math
  * @param {number} exo  Le numéro de l'exercice pour les ids
  * @param {number} question Le numéro de la question pour les ids
+ * @param {boolean} isInteractif
+ * @param {object} style Un objet pour passer le style des cellules si on veut customiser.
  * @return {string}
  * @author Sébastien Lozano
  *
  */
-export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLignes, arraystretch, math = true, exo = randint(0, 9999999), question = randint(0, 9999999)) {
+export function tableauColonneLigne (tabEntetesColonnes,
+  tabEntetesLignes,
+  tabLignes,
+  arraystretch,
+  math = true,
+  exo = randint(0, 9999999),
+  question = randint(0, 9999999),
+  isInteractif = false,
+  style = {}) {
   // on définit le nombre de colonnes
   const C = tabEntetesColonnes.length
   // on définit le nombre de lignes
   const L = tabEntetesLignes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
   if (context.isHtml) {
-    const tableauCL = AddTabDbleEntryMathlive.create(exo, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEntetesColonnes, tabEntetesLignes, tabLignes), 'tableauMathlive')
+    const tableauCL = AddTabDbleEntryMathlive.create(exo, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEntetesColonnes, tabEntetesLignes, tabLignes), 'tableauMathlive', isInteractif, style)
     return tableauCL.output
   } else {
     let tableauCL = ''
@@ -359,32 +369,44 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
     tableauCL += '}\n'
 
     tableauCL += '\\hline\n'
+    const color0 = style.L0C0 != null ? style.L0C0 : 'lightgray'
     if (typeof tabEntetesColonnes[0] === 'number') {
-      tableauCL += `\\cellcolor{lightgray}${math ? texNombre(tabEntetesColonnes[0], 2) + '' : `\\text{${stringNombre(tabEntetesColonnes[0], 2)}} `}`
+      tableauCL += `\\cellcolor{${color0}} ${math ? texNombre(tabEntetesColonnes[0], 2) : '\\text{' + stringNombre(tabEntetesColonnes[0], 2) + '}'}`
     } else {
-      tableauCL += `\\cellcolor{lightgray}${math ? tabEntetesColonnes[0] : `\\text{${tabEntetesColonnes[0]}}`}`
+      tableauCL += `\\cellcolor{${color0}} ${math ? tabEntetesColonnes[0] : ('\\text{' + tabEntetesColonnes[0] + '}')}`
     }
     for (let k = 1; k < C; k++) {
+      const color = style[`L0C${k}`] != null ? style[`L0C${k}`] : 'lightgray'
       if (typeof tabEntetesColonnes[k] === 'number') {
-        tableauCL += ` & \\cellcolor{lightgray} ${math ? texNombre(tabEntetesColonnes[k]) : '\\text{' + stringNombre(tabEntetesColonnes[k]) + '}'}`
+        tableauCL += ` & \\cellcolor{${color}} ${math ? texNombre(tabEntetesColonnes[k]) : '\\text{' + stringNombre(tabEntetesColonnes[k]) + '}'}`
       } else {
-        tableauCL += ` & \\cellcolor{lightgray} ${math ? tabEntetesColonnes[k] : '\\text{' + tabEntetesColonnes[k] + '}'}`
+        tableauCL += ` & \\cellcolor{${color}} ${math ? tabEntetesColonnes[k] : ('\\text{' + tabEntetesColonnes[k] + '}')}`
       }
     }
     tableauCL += '\\\\\n'
     tableauCL += '\\hline\n'
     // on construit toutes les lignes
     for (let k = 0; k < L; k++) {
+      const color = style[`L${k + 1}C0`] != null ? style[`L${k + 1}C0`] : 'lightgray'
       if (typeof tabEntetesLignes[k] === 'number') {
-        tableauCL += `\\cellcolor{lightgray}${math ? texNombre(tabEntetesLignes[k]) : `\\text{${stringNombre(tabEntetesLignes[k]) + ''}}`}`
+        tableauCL += `\\cellcolor{${color}} ${math ? texNombre(tabEntetesLignes[k]) : '\\text{' + stringNombre(tabEntetesLignes[k]) + '}'}`
       } else {
-        tableauCL += `\\cellcolor{lightgray}${math ? tabEntetesLignes[k] : `\\text{${tabEntetesLignes[k] + ''}}`}`
+        tableauCL += `\\cellcolor{${color}} ${math ? tabEntetesLignes[k] : '\\text{' + tabEntetesLignes[k] + '}'}`
       }
-      for (let m = 1; m < C; m++) {
-        if (typeof tabLignes[(C - 1) * k + m - 1] === 'number') {
-          tableauCL += ` & ${math ? texNombre(tabLignes[(C - 1) * k + m - 1]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m - 1]) + '}'}`
+      for (let m = 0; m < C - 1; m++) {
+        const color = style[`L${k + 1}C${m + 1}`] != null ? style[`L${k + 1}C${m + 1}`] : ''
+        if (typeof tabLignes[(C - 1) * k + m] === 'number') {
+          if (color !== '') {
+            tableauCL += ` & \\cellcolor{${color}} ${math ? texNombre(tabLignes[(C - 1) * k + m]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m]) + '}'}`
+          } else {
+            tableauCL += ` & ${math ? texNombre(tabLignes[(C - 1) * k + m]) : '\\text{' + stringNombre(tabLignes[(C - 1) * k + m]) + '}'}`
+          }
         } else {
-          tableauCL += ` & ${math ? tabLignes[(C - 1) * k + m - 1] : '\\text{' + tabLignes[(C - 1) * k + m - 1] + '}'}`
+          if (color !== '') {
+            tableauCL += ` & \\cellcolor{${color}} ${math ? tabLignes[(C - 1) * k + m] : '\\text{' + tabLignes[(C - 1) * k + m] + '}'}`
+          } else {
+            tableauCL += ` & ${math ? tabLignes[(C - 1) * k + m] : '\\text{' + tabLignes[(C - 1) * k + m] + '}'}`
+          }
         }
       }
       tableauCL += '\\\\\n'
@@ -393,7 +415,6 @@ export function tableauColonneLigne (tabEntetesColonnes, tabEntetesLignes, tabLi
     tableauCL += '\\end{array}\n'
 
     tableauCL += '\\renewcommand{\\arraystretch}{1}$\n'
-
     return tableauCL
   }
 }
