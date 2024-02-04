@@ -31,6 +31,7 @@ import {
 } from '../lib/interactif/claviers/ensemble.js'
 import { keyboardState } from '../components/keyboard/stores/keyboardStore'
 import { get } from 'svelte/store'
+import { globalOptions } from '../lib/stores/generalStore'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -184,7 +185,6 @@ export function loadScratchblocks () {
 export async function loadMathLive () {
   const champs = document.getElementsByTagName('math-field')
   if (champs.length > 0) {
-    handleKeyboardMathalea()
     await import('mathlive')
     window.mathVirtualKeyboard.targetOrigin = '*'
     window.mathVirtualKeyboard.alphabeticLayout = 'azerty'
@@ -335,39 +335,21 @@ export async function loadMathLive () {
     )
     document.dispatchEvent(domExerciceInteractifReady)
   }
-}
-
-function handleKeyboardMathalea () {
-  const keyboardButtons = document.querySelectorAll('button.keyboardMathalea')
-  for (const button of keyboardButtons) {
-    button.addEventListener('click', handleClickOnKeyboardToggle)
-    button.addEventListener('mousedown', preventDefaultAndStopPropagation)
+  if (get(globalOptions).beta) {
+    window.mathVirtualKeyboard.addEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
+  } else {
+    window.mathVirtualKeyboard.removeEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
   }
-}
-
-function preventDefaultAndStopPropagation (event) {
-  event.preventDefault()
-  event.stopPropagation()
 }
 
 function handleClickOnKeyboardToggle (event) {
   event.preventDefault()
   event.stopPropagation()
-  const idToggle = event.currentTarget.id.replace('-button', '')
+  const idToggle = document.activeElement.id
   keyboardState.update((value) => {
-    if (value.idMathField === idToggle) {
-      return {
-        isVisible: false,
-        idMathField: '',
-        alphanumericLayout: value.alphanumericLayout,
-        blocks: value.blocks
-      }
-    }
     const mf = document.querySelector('#' + idToggle)
-    if (mf != null) mf.focus()
-    // console.log('mf.dataset.keyboard: ' + mf.dataset.keyboard)
     return {
-      isVisible: true,
+      isVisible: !value.isVisible,
       idMathField: idToggle,
       alphanumericLayout: value.alphanumericLayout,
       blocks: mf.dataset.keyboard.split(' ')
@@ -376,16 +358,18 @@ function handleClickOnKeyboardToggle (event) {
 }
 
 function handleFocusMathField (event) {
-  const mf = event.target
-  keyboardState.update((value) => {
-    return {
-      isVisible: value.isVisible,
-      isInLine: value.isInLine,
-      idMathField: event.target.id,
-      alphanumericLayout: value.alphanumericLayout,
-      blocks: mf.dataset.keyboard.split(' ')
-    }
-  })
+  if (get(globalOptions).beta) {
+    const mf = event.target
+    keyboardState.update((value) => {
+      return {
+        isVisible: value.isVisible,
+        isInLine: value.isInLine,
+        idMathField: event.target.id,
+        alphanumericLayout: value.alphanumericLayout,
+        blocks: mf.dataset.keyboard.split(' ')
+      }
+    })
+  }
 }
 
 function handleFocusOutMathField () {

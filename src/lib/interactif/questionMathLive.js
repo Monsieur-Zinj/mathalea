@@ -57,54 +57,25 @@ const buildDataKeyboardString = (style) => {
   }
 }
 
-export function ajouteChampTexteMathLive (
-  exercice,
-  i,
-  style = '',
-  { texteApres = '', texteAvant = '', tailleExtensible = false } = {}
-) {
-  const dataKeyboard = buildDataKeyboardString(style)
-  // console.log(dataKeyboard)
-  const buttonKeyboard = `<button class="keyboardMathalea" id="champTexteEx${exercice.numeroExercice}Q${i}-button">⌨️</button>`
+export function ajouteChampTexteMathLive (exercice, i, style = '', {
+  texteApres = '',
+  texteAvant = '',
+  tailleExtensible = false
+} = {}) {
   if (context.isHtml && exercice.interactif) {
+    const dataKeyboard = buildDataKeyboardString(style)
     if (style === 'none') return ''
     if (style === '') {
-      return `<label>${texteAvant}</label><math-field virtual-keyboard-mode=manual id="champTexteEx${
-        exercice.numeroExercice
-      }Q${i}" data-keyboard="${dataKeyboard}"></math-field>${
-        texteApres ? '<span>' + texteApres + '</span>' : ''
-      }<span id="resultatCheckEx${
-        exercice.numeroExercice
-      }Q${i}"></span>${buttonKeyboard}`
+      return `<label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else if (tailleExtensible) {
-      return `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-size: small;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; top: 27px; left: 0px;padding:0px 0px 5px;margin:0px"><math-field virtual-keyboard-mode=manual id="champTexteEx${
-        exercice.numeroExercice
-      }Q${i}" data-keyboard="${dataKeyboard}"></math-field>${
-        texteApres ? '<span>' + texteApres + '</span>' : ''
-      } </td></tr></table><span id="resultatCheckEx${
-        exercice.numeroExercice
-      }Q${i}"></span>${buttonKeyboard}`
-    } else {
-      return `<label>${texteAvant}</label><math-field virtual-keyboard-mode=manual class="${style}" id="champTexteEx${
-        exercice.numeroExercice
-      }Q${i}" data-keyboard="${dataKeyboard}"></math-field>${
-        texteApres ? '<span>' + texteApres + '</span>' : ''
-      } <span id="resultatCheckEx${
-        exercice.numeroExercice
-      }Q${i}"></span>${buttonKeyboard}`
-    }
+      return `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; top: 27px; left: 0;padding:0 0;margin:0"><math-field data-keyboard="${dataKeyboard}"  class="${style}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    } else return `<label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
   } else {
     return ''
   }
 }
 
-export function remplisLesBlancs (
-  exercice,
-  question,
-  content,
-  classes,
-  blanc = '\\ldots'
-) {
+export function remplisLesBlancs (exercice, question, content, classes, blanc = '\\ldots') {
   let mfeValue = ''
   while (content) {
     const chunks = /^(.*?)%\{([^}]+)}(.*?)$/.exec(content)

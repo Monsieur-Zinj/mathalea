@@ -81,8 +81,8 @@
     if (currentPageIndex !== 0) {
       currentPageIndex--
     }
-    console.log('page à afficher n°' + currentPageIndex)
-    console.log(pages[currentPageIndex])
+    // console.log('page à afficher n°' + currentPageIndex)
+    // console.log(pages[currentPageIndex])
     await tick()
     mathaleaRenderDiv(divKeyboard)
   }
@@ -93,8 +93,8 @@
     if (currentPageIndex !== pages.length - 1) {
       currentPageIndex++
     }
-    console.log('page à afficher n°' + currentPageIndex)
-    console.log(pages[currentPageIndex])
+    // console.log('page à afficher n°' + currentPageIndex)
+    // console.log(pages[currentPageIndex])
     await tick()
     mathaleaRenderDiv(divKeyboard)
   }
@@ -122,12 +122,12 @@
         const mf = document.querySelector(
           ('#' + idMathField).replace('-button', '')
         ) as MathfieldElement
-        console.log({
-          mf,
-          idMathField,
-          command: `${key.command}`,
-          insert: `${key.insert}`
-        })
+        // console.log({
+        //   mf,
+        //   idMathField,
+        //   command: `${key.command}`,
+        //   insert: `${key.insert}`
+        // })
         if (mf != null) {
           mf.focus()
           if (key.command && key.command === 'closeKeyboard') {
