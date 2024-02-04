@@ -1,6 +1,6 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Déterminer le nombre de km avec une vitesse'
 export const interactifReady = true
@@ -24,7 +24,7 @@ export default function QuestionDeVitesse () {
   this.nouvelleVersion = function () {
     const a = randint(2, 6) * 20
     const b = randint(1, 6)
-    this.reponse = calculANePlusJamaisUtiliser(a * (b + 0.5))
+    this.reponse = Math.round(a * (b + 0.5))
     this.question = `Une voiture roule à une vitesse constante de $${a}$ km/h. <br>
     
     Combien de kilomètres parcourt-elle en $${b}$ h et $30$ min ?`
