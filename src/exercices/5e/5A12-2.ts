@@ -75,8 +75,10 @@ export default class PremierOuPas extends Exercice {
         }
         case 'non': {
           nombreATrouver = randint(0, max, listePremiers)
-          if (nombreATrouver === 1) {
-            texteCorr = '$1$ n\'a qu\'un seul diviseur (lui-même) et n\'est donc pas un nombre premier'
+          if (nombreATrouver === 0) {
+            texteCorr = '$0$ a plus que deux diviseurs (il est divisible par 1, par 2, par 3, par 4, ...) et n\'est donc pas un nombre premier.'
+          } else if (nombreATrouver === 1) {
+            texteCorr = '$1$ n\'a qu\'un seul diviseur (lui-même) et n\'est donc pas un nombre premier.'
           } else {
             const { txt, rsltDiv } = EcritListeDivisions(nombreATrouver)
             const quotient = new Decimal(nombreATrouver).div(rsltDiv)
