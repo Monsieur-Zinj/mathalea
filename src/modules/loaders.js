@@ -261,10 +261,13 @@ export async function loadMathLive () {
       } else if (clavier.length === 1) {
         clavier = clavier[0]
       }
-      // mf.addEventListener('focusin', () => {
-      //   window.mathVirtualKeyboard.layouts = clavier
-      // })
-      mf.inlineShortcuts = raccourcis
+
+      if (!get(globalOptions).beta) {
+        mf.addEventListener('focusin', () => {
+          window.mathVirtualKeyboard.layouts = clavier
+        })
+        mf.inlineShortcuts = raccourcis
+      }
 
       let style = 'font-size: 20px;'
       if (mf.classList.contains('tableauMathlive')) continue
