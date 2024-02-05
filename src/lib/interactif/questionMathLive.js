@@ -15,7 +15,8 @@ const buildDataKeyboardString = (style) => {
     longueur: ['numbers', 'lengths'],
     aire: ['numbers', 'areas'],
     volume: ['numbers', 'volumes', 'capacities'],
-    masse: ['numbers', 'masses']
+    masse: ['numbers', 'masses'],
+    fillInTheBlanks: ['numbers', 'fullOperations', 'variables']
   }
   // traitement
   if (style === '') {
