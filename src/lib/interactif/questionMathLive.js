@@ -9,7 +9,7 @@ const buildDataKeyboardString = (style) => {
     grecTrigo: ['numbers', 'fullOperations', 'greek', 'trigo'],
     college6eme: ['numbersOperations'],
     clavierDeBase: ['numbersOperations'],
-    clavierDeBaseAvecFraction : ['numbers', 'basicOperations'],
+    clavierDeBaseAvecFraction: ['numbers', 'basicOperations'],
     alphanumericAvecEspace: ['alphanumeric'],
     alphanumeric: ['alphanumeric'],
     longueur: ['numbers', 'lengths'],
@@ -23,7 +23,7 @@ const buildDataKeyboardString = (style) => {
     return ['numbers', 'fullOperations', 'variables'].join(' ')
   } else {
     const blocks = []
-    const styleValues = style.split(' ')
+    const styleValues = style?.split(' ')
     for (const value of styleValues) {
       if (Object.keys(translate).includes(value)) {
         blocks.push(translate[value])
@@ -64,6 +64,10 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
   tailleExtensible = false
 } = {}) {
   if (context.isHtml && exercice.interactif) {
+    if (typeof style !== 'string') {
+      window.notify(`style doit être une chaîne de caractères. Exercice ${exercice.id} ${exercice.uuid}`)
+      style = ''
+    }
     const dataKeyboard = buildDataKeyboardString(style)
     if (style === 'none') return ''
     if (style === '') {

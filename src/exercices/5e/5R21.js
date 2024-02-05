@@ -62,7 +62,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
       if (this.sup2) {
         texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} =$`
         if (this.interactif && !context.isAmc) {
-          texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexteMathLive(this, i, { texteAvant: '' })
+          texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexteMathLive(this, i, '', { texteAvant: '' })
         }
         if (b > 0) {
           texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a - b} $`
@@ -76,7 +76,7 @@ export default function ExerciceSoustractionsRelatifs (max = 20) {
       } else {
         texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' =$'
         if (this.interactif && !context.isAmc) {
-          texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexteMathLive(this, i, { texteAvant: '' })
+          texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexteMathLive(this, i, '', { texteAvant: '' })
         }
         if (this.correctionDetaillee) {
           texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
