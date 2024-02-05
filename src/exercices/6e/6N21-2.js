@@ -82,7 +82,7 @@ export default function LireAbscissesFractionnairesComplexes () {
       const den3 = !this.sup2 ? data[tab].id : choice(data[tab].den, (data[tab].den.length > 2 ? [den1, den2] : [den1]))
       const tab3 = tab / den3
       const num3 = trouveNumerateur(den3, origine, data[tab].max, [{ num: num1, den: den1 }, { num: num2, den: den2 }])
-      texte = 'Donner les abscisses des points' + remplisLesBlancs(this, i, `\\text{ \\quad ${lettreIndiceeDepuisChiffre(i * 3 + 1)} %{champ1} \\quad ${lettreIndiceeDepuisChiffre(i * 3 + 2)}  %{champ2} \\quad ${lettreIndiceeDepuisChiffre(i * 3 + 3)}  %{champ3}`, 'clavierDeBaseAvecFraction', '\\ldots')
+      texte = 'Donner les abscisses des points ' + remplisLesBlancs(this, i, `\\quad ${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\; %{champ1} \\quad ${lettreIndiceeDepuisChiffre(i * 3 + 2)} \\; %{champ2} \\quad ${lettreIndiceeDepuisChiffre(i * 3 + 3)} \\;  %{champ3}`, 'clavierDeBaseAvecFraction', '\\ldots')
       handleAnswers(this, i, {
         champ1: { value: fraction(num1, den1).reduire(tab1 * 2).texFraction, compare: fractionPlusSimpleCompare },
         champ2: { value: fraction(num2, den2).reduire(tab2 * 2).texFraction, compare: fractionPlusSimpleCompare },

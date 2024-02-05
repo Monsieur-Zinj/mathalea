@@ -62,7 +62,7 @@ class SoustractionRelatifs extends Exercice {
       texteCorr = `$${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = ${miseEnEvidence(ecritureNombreRelatif(a))} + ${miseEnEvidence(ecritureNombreRelatif(-b))} = ${miseEnEvidence(ecritureNombreRelatif(a - b))}$`
 
       if (this.interactif) {
-        texte = `<math-field readonly class="fillInTheBlanks" style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
+        texte = `<math-field readonly class="fillInTheBlanks" data-keyboard="numbers basicOperations" style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
         ${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} = (\\placeholder[place1]{}) + (\\placeholder[place2]{}) = \\placeholder[place3]{}
       </math-field><span class="ml-2" id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       }
