@@ -11,10 +11,6 @@ math-field.fillInTheBlanks {
   @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus
 }
 
-/* math-field::part(virtual-keyboard-toggle) {
-  display: none;
-} */
-
 @media print {
   body {
     font-size: 10pt!important;
