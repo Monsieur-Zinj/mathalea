@@ -10,18 +10,15 @@ import { fraction } from '../../modules/fractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { randint, itemize, listeQuestionsToContenu } from '../../modules/outils.js'
 
-export const titre = 'Modéliser une situation  à l\'aide d\'une équation'
+export const titre = 'Modéliser une situation à l\'aide d\'une équation'
 export const dateDePublication = '16/12/2021'
 /**
- * Description didactique de l'exercice
  * @author Gilles Mora
- * Référence
  */
 export const uuid = '846b8'
 export const ref = '2N50-3'
 export default function ModeliserEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestions = 1
   // this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -138,7 +135,7 @@ export default function ModeliserEquations () {
         case 'typeE3':
           a = randint(4, 10) / 100 //
           b = randint(300, 400) //
-          c = randint((a + 1) * 100, 12) / 100
+          c = randint(Math.floor((a + 1) * 100), 12)
           texte = `  Une usine fabrique des bouteilles en verre. <br>
             En notant $x$ le nombre de bouteilles fabriquées dans une journée, les coûts de fabrication en euros, sont donnés par :
             $${texNombre(a)}x+${texNombre(b)}$.<br>
