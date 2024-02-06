@@ -15,7 +15,7 @@ export const interactifType = 'mathLive'
 export const interactifReady = true
 
 export const titre = 'Substituer par des nombres'
-export const dateDeModifImportante = '13/11/2023'
+export const dateDeModifImportante = '06/02/2024'
 
 /**
  * x, y, z étant 3 entiers compris entre 2 et 9, calculer :
@@ -31,7 +31,6 @@ export const dateDeModifImportante = '13/11/2023'
  * * ax^2+y^2
  * * ax^2+bx+c
  * @author Rémi Angot
- * 5L14-2
  */
 export const uuid = '8865d'
 export const ref = '5L14-2'
@@ -62,12 +61,11 @@ export default function ExerciceSubstituer (difficulte = 1) {
     const y = choice(valeursPossibles)
     enleveElement(valeursPossibles, y)
     const z = choice(valeursPossibles)
-    // x, y et z sont différents
-    if (context.isHtml) {
-      this.consigne = `Calculer pour $\\boldsymbol{x=${x}}$, $\\boldsymbol{y=${y}}$ et $\\boldsymbol{z=${z}}$.`
-    } else {
-      this.consigne = `Calculer pour $x=${x}$, $y=${y}$ et $z=${z}$.`
-    }
+
+    const listeTypeDeQuestionsExact = listeTypeDeQuestions.slice(0, this.nbQuestions)
+    if (listeTypeDeQuestionsExact.includes(5) || listeTypeDeQuestionsExact.includes(6)) this.consigne = `Calculer pour $x=${x}$, $y=${y}$ et $z=${z}$.`
+    else this.consigne = `Calculer pour $x=${x}$ et $y=${y}$.`
+
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       switch (listeTypeDeQuestions[i]) {

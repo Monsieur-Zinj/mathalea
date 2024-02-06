@@ -9,6 +9,7 @@ import { texTexte } from '../../lib/format/texTexte'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Decimal from 'decimal.js'
 import { fraction } from '../../modules/fractions.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -119,6 +120,7 @@ export default function ExerciceConversions (niveau = 1) {
         } else {
           unite = 'o'
         }
+
         resultat = val.mul(prefixeMulti[k][1])
         texte = '$ ' + texNombre(val, nbChiffreArrondi) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
 
@@ -190,7 +192,7 @@ export default function ExerciceConversions (niveau = 1) {
           unite2 = randint(0, unite1 - 1)
         }
         const ecart = unite2 - unite1 // nombre de multiplication par 1000 pour passer de l'un à l'autre
-        if (unite1 === 0 && val % 1 !== 0) val = randint(3, 100) // Pas de nombre d'octets non entiers
+        if (unite1 === 0 && val % 1 !== 0) val = new Decimal(randint(3, 100)) // Pas de nombre d'octets non entiers
         if (!div) {
           resultat = val.mul(Math.pow(10, 3 * ecart))
           unite = listeUniteInfo[unite1]
@@ -216,8 +218,7 @@ export default function ExerciceConversions (niveau = 1) {
           val = val.div(Math.pow(10, randint(3 * ecart - 1, 3 * ecart + 1)))
           resultat = val.mul(Math.pow(10, 3 * ecart))
           unite = listeUniteInfo[unite1]
-          texte =
-                        '$ ' +
+          texte = '$ ' +
                         texNombre(val, nbChiffreArrondi + 3 * ecart) +
                         texTexte(listeUniteInfo[unite2]) +
                         ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
@@ -231,11 +232,15 @@ export default function ExerciceConversions (niveau = 1) {
                         texNombre(Math.pow(10, -3 * ecart), 3 * ecart) +
                         texTexte(unite) +
                         ' = ' +
-                        texNombre(resultat, 0) +
+                        texNombre(resultat) +
                         texTexte(unite) +
                         '$'
         }
       }
+
+      // EE : Mise en couleur de la réponse interactive
+      const aMettreEnCouleur = miseEnEvidence(texteCorr.split('=').pop().replaceAll('$', '')) + '$'
+      texteCorr = '$$' + texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur.replace(texTexte(unite), '') + '$' + texTexte(unite) + '$'
 
       if (this.questionJamaisPosee(i, val, resultat)) {
         setReponse(this, i, resultat)

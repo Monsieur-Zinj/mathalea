@@ -9,12 +9,14 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Compléter un tableau de valeurs'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '20/02/2023'
 
 /**
  * Déterminer l'image d'un nombre par une fonction d'après sa forme algébrique
@@ -25,14 +27,11 @@ export const amcType = 'AMCHybride'
  * * Niveau 4 : (ax+b)(cx+d)
  * * Niveau 5 : Mélange
  * @author Rémi Angot
- * 3F12-3
  */
 export const uuid = 'afb2f'
 export const ref = '3F12-3'
 export default function TableauDeValeurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -44,21 +43,16 @@ export default function TableauDeValeurs () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.sup = parseInt(this.sup)
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['ax+b', 'ax']
-    }
-    if (this.sup === 2) {
+    } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = ['ax2+bx+c', 'ax2+c', 'ax2+bx']
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = ['a/cx+d', 'ax+b/cx+d']
-    }
-    if (this.sup === 4) {
+    } else if (this.sup === 4) {
       typesDeQuestionsDisponibles = ['(ax+b)(cx+d)', '(ax+b)2']
-    }
-    if (this.sup === 5) {
+    } else {
       typesDeQuestionsDisponibles = ['ax+b', 'ax', 'ax2+bx+c', 'ax2+c', 'ax2+bx', 'a/cx+d', 'ax+b/cx+d', '(ax+b)(cx+d)', '(ax+b)2']
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -216,10 +210,8 @@ export default function TableauDeValeurs () {
           reponse = [f(x1), f(x2), f(x3)]
           break
       }
-
       texte = `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$. ${this.interactif ? '<br>Calculer les images par $f$ suivantes.' : '<br>Compléter le tableau de valeurs suivant.<br><br>'}`
-      texteCorr = ''
-      // texte += '<br>'
+
       if (context.isHtml) {
         if (!this.interactif) texte += '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
       } else {
@@ -233,11 +225,10 @@ export default function TableauDeValeurs () {
         texte += '\\hline\n'
         texte += '\\end{array}\n$'
       }
-      if (context.isHtml) {
-        if (!this.interactif) texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|c|}\n'
-      } else {
-        texteCorr = '$\\begin{array}{|l|c|c|c|}\n'
-      }
+
+      texteCorr = context.isHtml ? '$\\def\\arraystretch{2.5}' : '$'
+      texteCorr += '\\begin{array}{|l|c|c|c|}\n'
+
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: `On considère la fonction $${nomdef}$ définie par $${nomdef}:x\\mapsto ${expression}$.\\\\ \n
@@ -341,10 +332,33 @@ export default function TableauDeValeurs () {
       texteCorr += '\\hline\n'
       texteCorr += `x & ${listeDeX[i][0]} & ${listeDeX[i][1]} & ${listeDeX[i][2]} \\\\\n`
       texteCorr += '\\hline\n'
+
+      // EE : Mise en couleur de ligne2
+      const chaqueReponse = ligne2.split('&')
+      ligne2 = chaqueReponse[0] + '&' + miseEnEvidence(chaqueReponse[1]) + '&' + miseEnEvidence(chaqueReponse[2]) + '&' + miseEnEvidence(chaqueReponse[3]).replace('\\\\\n', '') + '\\\\\n'
+
       texteCorr += ligne2
       texteCorr += '\\hline\n'
       texteCorr += '\\end{array}\n$'
+
       if (this.correctionDetaillee) {
+        // EE : Permet en quelques lignes de mettre toutes les réponses attendues en couleur
+        const chaqueLigneDeCalcul = calculs.split('<br>')
+        const tabDesCalculs = []
+        let aMettreEnCouleur, splitChaqueCalcul
+        for (let ee = 0; ee < 3; ee++) {
+          aMettreEnCouleur = miseEnEvidence(chaqueLigneDeCalcul[ee].split('=').pop().replaceAll('$', '')) + '$'
+          splitChaqueCalcul = chaqueLigneDeCalcul[ee].split('=')
+          tabDesCalculs[ee] = ''
+          for (let ii = 0; ii < splitChaqueCalcul.length - 1; ii++) {
+            tabDesCalculs[ee] += splitChaqueCalcul[ii] + '='
+          }
+          tabDesCalculs[ee] += aMettreEnCouleur + '<br>'
+        }
+        calculs = ''
+        for (let ee = 0; ee < 3; ee++) calculs += tabDesCalculs[ee]
+        // Fin de le mise en couleur
+
         texteCorr += '<br><br>'
         texteCorr += calculs
       }
