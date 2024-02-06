@@ -397,7 +397,7 @@ export function RoseDesVents () {
       }
       return group + '</g>\n'
     }
-    
+
     function sorientera (angle) {
       return `<g id="sorientera${angle}" style="transform: scale(0.675)">
 <g transform="translate(0 0)">
@@ -423,7 +423,7 @@ export function RoseDesVents () {
       </g>
       </g>`
     }
-    
+
     const code = `<g class="roseDesVents" id=roseDesVents${this.id} transform="translate(-115 -115) scale(${coeff / 20})">
 <rect x="50" y="50" rx="4" ry="4" width="130" height="130" fill="#4c97ff" stroke="#3373cc"/>
 <circle r="50" cx="115" cy="115" fill="#3373cc" stroke="#3373cc"/>
