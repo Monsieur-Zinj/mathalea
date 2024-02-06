@@ -62,9 +62,9 @@ export default function ColorierDeplacement () {
     // 0 : gauche, 1 : droite, 2 : haut, 3 : bas, 4 : colorier.
     const mvtOppose = [1, 0, 3, 2, 4]
     const lstCommandesTikz = ['\\blockmove{Aller à gauche}', '\\blockmove{Aller à droite}', '\\blockmove{Aller en haut}', '\\blockmove{Aller en bas}', '\\blockmove{Colorier la case}']
-    const lstCommandesSVG = ['Aller à gauche', 'Aller à droite', 'Aller en haut', 'Aller en bas', 'Colorier']
+    const lstCommandesSVG = ['Aller à gauche :: motion stack', 'Aller à droite :: motion stack', 'Aller en haut :: motion stack', 'Aller en bas :: motion stack', 'Colorier']
     const lstAjoutXY = [[-1, 0], [1, 0], [0, 1], [0, -1], [0, 0]]
-    codeTikz += '\\medskip \\begin{scratch} <br>'
+    codeTikz += '\\medskip \\begin{scratch}[print,fill blocks] <br>'
     codeSvg += '<pre class=\'blocks\'>'
     let n = 0 // variable temporaire pour stocker le numéro de la commande
     const lstNumCommande = [] // liste des commandes successives
