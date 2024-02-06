@@ -28,7 +28,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '15/01/2023' //  Par EE
+export const dateDeModifImportante = '06/02/2024'
 
 /**
  * Trouver les coordonnées d'un punto transformé d'un autre par une des transformations du plan
@@ -90,7 +90,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
       const pointO = point(0, 0, 'O', 'above right')
 
       const O = point(xO, yO, "O'", 'above left') // on crée le point O'
-      let droited1, droited2, droited, droitedprime, droited1Latex, droited2Latex, droitedLatex, droitedprimeLatex
+      let droited1, droited2, droited, droitedprime, droited1Latex, droited2Latex, droitedprimeLatex
       let trouve = false
       let compteur = 0
       while (trouve === false) {
@@ -244,7 +244,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
 
           case 3: // symétrie axiale
             droited = droiteAvecNomLatex(droiteHorizontaleParPoint(O, '', context.isHtml ? couleurs[i] : 'black'), '(d)')
-            droited = droitedLatex[0]
+            droited = droited[0]
             droited.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited.isVisible = true
             droited.epaisseur = 2
@@ -266,8 +266,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
               xP[3] = xC
               yP[3] = yC
             }
-            objetsEnonce.push(droitedLatex)
-            objetsCorrection.push(droitedLatex)
+            objetsEnonce.push(droited)
+            objetsCorrection.push(droited)
             texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
