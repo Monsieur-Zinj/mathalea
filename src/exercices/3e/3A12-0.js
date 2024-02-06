@@ -120,7 +120,6 @@ export default class EngrenagesAnimes extends Exercice {
       const objetsEnonce = []
       const objetsCorrection = []
       let kk = k
-      console.log(kk)
       let nbDentsRoueA, nbDentsRoueB, nbDentsRoueC
       let nbToursA, nbToursB, nbToursC, nbToursAbc
       let texte = '' // Nous utilisons souvent cette variable pour construire le texte de la question.
@@ -292,13 +291,10 @@ export default class EngrenagesAnimes extends Exercice {
 
         const questNbr = i
         const listener = function () {
-          console.log(`listener${numeroExercice}_${questNbr}`)
           const btn = document.getElementById(`b_AnimRoue${numeroExercice}_${questNbr}`)
           if (btn) {
-            console.log(`b_AnimRoue${numeroExercice}_${questNbr}`)
             const intervallesId = {}
             btn.onclick = function () {
-              console.log(`click b_AnimRoue${numeroExercice}_${questNbr}`)
               remiseAZeroT(`${numeroExercice}_${questNbr}`, nbToursA, oneCycle, intervallesId)
             }
 
