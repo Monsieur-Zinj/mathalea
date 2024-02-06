@@ -1,7 +1,7 @@
 import { context } from '../../modules/context.js'
 import { sp } from '../outils/outilString.js'
 
-const buildDataKeyboardString = (style) => {
+const buildDataKeyboardString = (style = '') => {
   // traductions des types de claviers en successions de blocs
   const translate = {
     clavierHms: ['numbers', 'hms'],
@@ -81,7 +81,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
   }
 }
 
-export function remplisLesBlancs (exercice, question, content, classes, blanc = '\\ldots') {
+export function remplisLesBlancs (exercice, question, content, classes = '', blanc = '\\ldots') {
   let mfeValue = ''
   while (content) {
     const chunks = /^(.*?)%\{([^}]+)}(.*?)$/.exec(content)
