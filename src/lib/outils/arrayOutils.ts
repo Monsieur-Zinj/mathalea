@@ -179,7 +179,7 @@ export function choice<T> (liste: T[], listeAEviter: T[] = []): T {
   if (listebis[index] != null) return listebis[index]
   else {
     window.notify('choice a éliminé toutes les possibilités, il ne reste rien à choisir ! ', { liste, listeAEviter })
-    return undefined
+    return listebis[index] // C'est null...
   }
 }
 
