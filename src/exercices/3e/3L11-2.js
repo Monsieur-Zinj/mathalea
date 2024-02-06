@@ -5,13 +5,14 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, printlatex, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Réduire une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
 export const amcReady = true
-export const dateDeModifImportante = '20/02/2023'
+export const dateDeModifImportante = '06/02/2024'
 
 /**
  * Réduire des expressions lorsque c'est possible
@@ -51,8 +52,8 @@ export default function ReductionSiPossible () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
       saisie: this.sup3,
-      max: 7,
-      melange: 8,
+      max: 8,
+      melange: 9,
       defaut: 2,
       exclus
     })
@@ -176,6 +177,11 @@ export default function ReductionSiPossible () {
           texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
         })
       }
+
+      // EE : Permet en deux lignes de mettre toutes les réponses attendues en couleur
+      const aMettreEnCouleur = miseEnEvidence(texteCorr.split('=').pop().replace('$', '')) + '$'
+      texteCorr = texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur
+
       if (!context.isAmc) {
         setReponse(this, i, reponse)
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
