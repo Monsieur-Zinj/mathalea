@@ -59,6 +59,12 @@
       headerExerciceProps.title = resourceToDisplay.uuid
     }
   }
+
+  let noCorrectionAvailable = false
+
+  function handleNoCorrectionAvailable() {
+    noCorrectionAvailable = true
+  }
 </script>
 
 <HeaderExerciceVueProf
@@ -89,12 +95,17 @@
       <div class="container">
         {#if exercice}
           {#each exercice.pngCor as url}
-            <img
+            {#if noCorrectionAvailable}
+              <p class="text-red-500">Aucune correction disponible</p>
+            {:else}
+              <img
               src={url}
               class="p-2"
               style="width: calc(100% * {zoomFactor}"
               alt="correction"
-            />
+              on:error={handleNoCorrectionAvailable}
+              />
+              {/if}
           {/each}
         {/if}
       </div>
