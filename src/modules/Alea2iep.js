@@ -1119,12 +1119,14 @@ export default class Alea2iep {
       this.regleMontrer(B, options)
       this.regleRotation(A, options)
     }
-    if (longueur(this.crayon.position, A) < longueur(this.crayon.position, B)) { // Le crayon ira au point le plus proche
-      this.crayonMontrer(A, options)
-      id = this.tracer(B, options)
-    } else {
-      this.crayonMontrer(B, options)
-      id = this.tracer(A, options)
+    if (this.crayon != null) {
+      if (longueur(this.crayon.position, A) < longueur(this.crayon.position, B)) { // Le crayon ira au point le plus proche
+        this.crayonMontrer(A, options)
+        id = this.tracer(B, options)
+      } else {
+        this.crayonMontrer(B, options)
+        id = this.tracer(A, options)
+      }
     }
     return id
   }
@@ -1145,10 +1147,12 @@ export default class Alea2iep {
    * @param  {...points} sommets du polygonne séparés par des virgules
    */
   polygoneRapide (...sommets) {
-    for (let i = 0; i < sommets.length - 1; i++) {
-      this.traitRapide(sommets[i], sommets[i + 1])
-    }
-    this.traitRapide(sommets[sommets.length - 1], sommets[0])
+    if (Array.isArray(sommets) && sommets.length > 2) {
+      for (let i = 0; i < sommets.length - 1; i++) {
+        this.traitRapide(sommets[i], sommets[i + 1])
+      }
+      this.traitRapide(sommets[sommets.length - 1], sommets[0])
+    } else throw Error(`Pour utiliser polygoneRapide, il faut passer une liste de points ! et pas ça : ${JSON.stringify(sommets)} `)
   }
 
   /**

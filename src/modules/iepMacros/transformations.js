@@ -281,7 +281,6 @@ export const symetrieAxialePolygone = function (p, d, noms = [], { couleur = thi
   this.epaisseur = 2
   this.couleur = couleur
   this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
-  this.polygoneRapide(p2)
 }
 
 /**
@@ -311,7 +310,6 @@ export const translationPolygone = function (p, A, B, noms = [], { couleur = thi
   this.epaisseur = 2
   this.couleur = couleur
   this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
-  this.polygoneRapide(p2)
   i++
 }
 /**
@@ -341,7 +339,6 @@ export const demiTourPolygone = function (p, centre, noms = [], { couleur = this
   this.epaisseur = 2
   this.couleur = couleur
   this.polygoneRapide(...p2.listePoints) // on trace le polygone image en bleu épaisseur 2
-  this.polygoneRapide(p2)// figure svg de l'exercice
 }
 
 /**
