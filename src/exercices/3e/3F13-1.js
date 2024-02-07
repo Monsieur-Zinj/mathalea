@@ -82,7 +82,7 @@ export default function AntecedentEtImageGraphique () {
     }
 
     if (context.isHtml && this.interactif) {
-      this.contenu += '<br><em>S\'il y a plusieurs réponses, les séparer les réponses avec un point-virgule.</em>'
+      this.contenu += '<br><em>S\'il y a plusieurs réponses, séparer les réponses avec un point-virgule.</em>'
     }
     this.contenu += '<br><br>'
     let cont1 = `${numAlpha(0)} Quelle est l'image de $${x0}$ ?`
