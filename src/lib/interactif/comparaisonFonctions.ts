@@ -60,7 +60,7 @@ export function cleanStringBeforeParse (aString: string) {
     .replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
 }
 
-type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances'
+type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions'
 
 /**
  * Nettoie la saisie des \\dfrac en les remplaçant par des \frac comprises par ComputeEngine
@@ -69,7 +69,13 @@ type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 
 function cleanFractions (str: string): string {
   return str.replaceAll(/dfrac/g, 'frac')
 }
-
+/**
+ * Nettoie la saisie des \\div en les remplaçant par des / compris par ComputeEngine
+ * @param {string} str
+ */
+function cleanDivisions (str: string): string {
+  return str.replaceAll(/\\div/g, '/')
+}
 /**
  * Nettoie la saisie des virgules décimales en les remplaçant par des points.
  * @param {string} str
@@ -125,6 +131,8 @@ function generateCleaner (operations: CleaningOperation[]): (str: string) => str
         return cleanParenthses
       case 'puissances':
         return cleanPuissances
+      case 'divisions':
+        return cleanDivisions
       default:
         throw new Error(`Unsupported cleaning operation: ${operation}`)
     }
@@ -744,7 +752,7 @@ export function fonctionCompare (input: string, goodAnswer: {fonction: string, v
   if (typeof goodAnswer === 'string') {
     goodAnswer = { fonction: goodAnswer, variable: 'x' }
   }
-  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions'])
+  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions', 'divisions'])
   const cleanInput = clean(input)
   const inputParsed = engine.parse(cleanInput)
   const inputFn = inputParsed.compile()
@@ -757,6 +765,35 @@ export function fonctionCompare (input: string, goodAnswer: {fonction: string, v
   for (const x of [a, b, c]) {
     const variable = Object.fromEntries([[goodAnswer.variable, x]])
     isOk = isOk && Math.abs(inputFn(variable) - goodAnswerFn(variable)) < 1e-10
+  }
+  return { isOk }
+}
+
+/**
+ * Comparaison de fonction f(x,y) (ou tout autre variable) x et y étant les lettres par défaut
+ * @param {string} input
+ * @param {{fonction: string, variables: string[]}} goodAnswer
+ */
+export function fonctionXyCompare (input: string, goodAnswer: {fonction: string, variables: string[]} = { fonction: '', variables: ['x', 'y'] }): ResultType {
+  if (typeof goodAnswer === 'string') {
+    goodAnswer = { fonction: goodAnswer, variables: ['x', 'y'] }
+  }
+  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions', 'divisions'])
+  const cleanInput = clean(input)
+  const inputParsed = engine.parse(cleanInput)
+  const inputFn = inputParsed.compile()
+  const cleanAnswer = clean(goodAnswer.fonction)
+  const goodAnswerFn = engine.parse(cleanAnswer).compile()
+
+  let isOk = true
+  if (inputFn == null || goodAnswerFn == null) throw Error(`fonctionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
+  const [a, b, c] = [Math.random(), Math.random(), Math.random()]
+  const [A, B, C] = [Math.random(), Math.random(), Math.random()]
+  for (const x of [a, b, c]) {
+    for (const y of [A, B, C]) {
+      const variable = Object.fromEntries([[goodAnswer.variables[0], x], [goodAnswer.variables[1], y]])
+      isOk = isOk && Math.abs(inputFn(variable) - goodAnswerFn(variable)) < 1e-10
+    }
   }
   return { isOk }
 }

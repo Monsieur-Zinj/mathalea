@@ -6,10 +6,11 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range } from '../../lib/outils/nombres'
+import { fonctionXyCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']
@@ -98,7 +99,7 @@ export default function EcrireUneExpressionNumerique () {
           expn = expn.split(' ou ') // Pour traiter le cas du 'ou'.
           texteCorr = `${expf} s'écrit : $${miseEnEvidence(expn[0].substring(1, expn[0].length - 1))}$`
           texteCorr += expn.length > 1 ? ` ou $${miseEnEvidence(expn[1].substring(1, expn[1].length - 1))}$.` : '.'
-          reponse = expn[0].slice(1, expn[0].length - 1)
+          reponse = /* expn.length > 1 ? expn[1].substring(1, expn[1].length - 1) : */ expn[0].substring(1, expn[0].length - 1)
           break
         case 2:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
@@ -157,11 +158,10 @@ export default function EcrireUneExpressionNumerique () {
           break
       }
       if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version, expf) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
+        // On doit effectuer un calcul numérique et donner une réponse numérique
         if (this.version > 2) {
           /// vérifier qu'il n'y a plus d'OpenNUM
-          if (!context.isAmc) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' Résultat : ' })
-          } else {
+          if (context.isAmc) {
             texte += '<br>Détailler les calculs dans le cadre et coder le résultat ci-dessous.'
             this.autoCorrection[i] = {
               enonce: '',
@@ -195,28 +195,52 @@ export default function EcrireUneExpressionNumerique () {
                 }
               ]
             }
+          } else {
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' Résultat : ' })
+            setReponse(this, i, reponse)
           }
-          setReponse(this, i, reponse)
-        } else if (context.isAmc) { // AMCOpen pour 5C11, 5C11-1, 5L10-1, 5L10-3
-          this.autoCorrection[i] =
-        {
-          enonce: this.consigne + '<br>' + texte,
-          propositions: [
+        }
+        // on doit donner la traduction en français de l'expression (liste déroulante pour l'interactif et AMCOpen
+        if (this.version === 2) {
+          if (context.isAmc) { // AMCOpen pour 5C11, 5C11-1, 5L10-1, 5L10-3
+            this.autoCorrection[i] =
+              {
+                enonce: this.consigne + '<br>' + texte,
+                propositions: [
+                  {
+                    texte: texteCorr,
+                    statut: this.version, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                    sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                    pointilles: this.version === 2 // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+                  }
+                ]
+              }
+          } else {
+            texte += sp(10) + choixDeroulant(this, i, 0, combinaisonListes(['somme', 'différence', 'produit', 'quotient'], 1), 'une réponse')
+            setReponse(this, i, expNom, { formatInteractif: 'texte' })
+          }
+        }
+        // on doit donner une expression littérale => handleAnswer avec fonctionXyCompare. ou amcOpen
+        if (this.version === 1) {
+          if (context.isAmc) { // AMCOpen pour 5C11, 5C11-1, 5L10-1, 5L10-3
+            this.autoCorrection[i] =
             {
-              texte: texteCorr,
-              statut: this.version, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-              sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
-              pointilles: this.version === 2 // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+              enonce: this.consigne + '<br>' + texte,
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: this.version, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                  sanscadre: false, // EE : ce champ est facultatif et permet (si true) de cacher le cadre et les lignes acceptant la réponse de l'élève
+                  pointilles: this.version === 2 // EE : ce champ est facultatif et permet (si false) d'enlever les pointillés sur chaque ligne.
+                }
+              ]
             }
-          ]
+          } else {
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Résultat : ' })
+            handleAnswers(this, i, { reponse: { value: { fonction: reponse, variables: ['x', 'y'] }, compare: fonctionXyCompare } }, { formatInteractif: 'calcul' })
+          }
         }
-        } else if (this.version === 2) {
-          texte += sp(10) + choixDeroulant(this, i, 0, combinaisonListes(['somme', 'différence', 'produit', 'quotient'], 1), 'une réponse')
-          setReponse(this, i, expNom, { formatInteractif: 'texte' })
-        } else {
-          texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Résultat : ' })
-          setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppeeParEE' })
-        }
+
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
