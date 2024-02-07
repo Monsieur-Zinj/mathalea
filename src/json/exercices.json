@@ -2949,7 +2949,7 @@
     "tags": [],
     "uuid": "846b8",
     "id": "2N50-3",
-    "titre": "Modéliser une situation  à l'aide d'une équation",
+    "titre": "Modéliser une situation à l'aide d'une équation",
     "datePublication": "16/12/2021",
     "features": {
       "interactif": {
@@ -4178,6 +4178,7 @@
     "uuid": "afb2f",
     "id": "3F12-3",
     "titre": "Compléter un tableau de valeurs",
+    "dateModification": "20/02/2023",
     "features": {
       "interactif": {
         "isActive": true,
@@ -4382,7 +4383,7 @@
     "uuid": "d4088",
     "id": "3G10-1",
     "titre": "Trouver les coordonnées de l'image d'un point par une rotation et une homothétie",
-    "dateModification": "15/01/2023",
+    "dateModification": "06/02/2024",
     "features": {
       "interactif": {
         "isActive": true,
@@ -5251,7 +5252,7 @@
     "uuid": "f6853",
     "id": "3L11-2",
     "titre": "Réduire une expression",
-    "dateModification": "20/02/2023",
+    "dateModification": "06/02/2024",
     "features": {
       "interactif": {
         "isActive": true,
@@ -8969,7 +8970,7 @@
     "uuid": "8865d",
     "id": "5L14-2",
     "titre": "Substituer par des nombres",
-    "dateModification": "13/11/2023",
+    "dateModification": "06/02/2024",
     "features": {
       "interactif": {
         "isActive": true,
