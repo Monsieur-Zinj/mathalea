@@ -413,9 +413,9 @@ function texteCorrMedianeNotes (notes, medianeCorr, scoresMedians, note = 'note'
 
 function texteCorrMedianeTirages2DSalaires (nombreTirages, medianeCorr, scoresMedians, salaires, categories, salaire = 'salaire') {
   const data = [
-    ['note', 'F', 'la médiane des notes', '', `Le nombre de notes est $${nombreTirages}$.`, ['', 'Note', 'Coefficient (Effectif)', 'Effectifs cumulés']],
-    ['salaire', 'M', 'le salaire médian', ' €', `Dans l'entreprise, le nombre de salariés est $${nombreTirages}$.`, ['Catégories', 'Salaires en €', 'Effectif', 'Effectifs cumulés']],
-    ['pointure', 'M', 'la pointure médiane', '', `Le nombre de pointures relevées est $${nombreTirages}$.`, ['', 'Pointure', 'Effectif', 'Effectifs cumulés']]
+    ['note', 'F', 'la médiane des notes', '', `Le nombre de notes est $${nombreTirages}$.`, ['', 'Note', 'Coefficient (Effectif)', 'Effectif cumulé']],
+    ['salaire', 'M', 'le salaire médian', ' €', `Dans l'entreprise, le nombre de salariés est $${nombreTirages}$.`, ['Catégorie', 'Salaire en €', 'Effectif', 'Effectif cumulé']],
+    ['pointure', 'M', 'la pointure médiane', '', `Le nombre de pointures relevées est $${nombreTirages}$.`, ['', 'Pointure', 'Effectif', 'Effectif cumulé']]
   ]
   const salairesStr = data.find(el => el[0] === salaire) || ['', '', '', '', '', '']
 
