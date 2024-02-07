@@ -5,7 +5,7 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
-export const titre = 'Trouver ordre de grandeur d\'opérations sur les décimaux'
+export const titre = 'Trouver un ordre de grandeur d\'opérations sur les décimaux'
 
 /**
  * * Ordre de grandeur d'une opération entre décimaux
