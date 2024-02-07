@@ -83,6 +83,6 @@ export function choixDeroulant (exercice, i, c = 0, choix, type = 'nombre', styl
   for (const a of choix) {
     result += `<option>${a}</option>`
   }
-  result += '</select>'
+  result += `</select><div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
   return result
 }
