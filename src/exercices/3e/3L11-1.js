@@ -4,8 +4,9 @@ import Exercice from '../deprecatedExercice.js'
 import { egal, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
@@ -128,7 +129,7 @@ export default function DoubleDistributivite () {
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        setReponse(this, i, reponse)
+        handleAnswers(this, i, { reponse: { value: reponse, compare: formeDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$' })
       } else {
         this.autoCorrection[i] = {

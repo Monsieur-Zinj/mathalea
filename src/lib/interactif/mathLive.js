@@ -161,7 +161,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       const check = compare(saisie, reponse)
       if (check.isOk) {
         resultat = 'OK'
-        feedback = ''
+        feedback = check.feedback ?? ''
       } else if (check.feedback) {
         feedback = check.feedback
       }
@@ -190,9 +190,9 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       spanReponseLigne.innerHTML = '☹️'
       spanReponseLigne.style.fontSize = 'large'
       champTexte.readOnly = true
-      return { resultat, feedback: '', score: { nbBonnesReponses: 0, nbReponses: 1 } }
+      return { resultat, feedback, score: { nbBonnesReponses: 0, nbReponses: 1 } }
     }
-    return { resultat, feedback: '', score: { nbBonnesReponses: resultat === 'OK' ? 1 : 0, nbReponses: 1 } }
+    return { resultat, feedback, score: { nbBonnesReponses: resultat === 'OK' ? 1 : 0, nbReponses: 1 } }
   } catch (error) {
     window.notify(`Erreur dans verif QuestionMathLive : ${error}\n Avec les métadonnées : `, {
       champTexteValue: champTexte?._slotValue ?? null,
