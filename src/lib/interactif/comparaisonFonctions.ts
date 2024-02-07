@@ -315,25 +315,21 @@ export function formeDeveloppeeCompare (input: string, goodAnswer: string): Resu
 }
 
 /**
- * comparaison d'expression développées pour les tests d'Éric Elter
+ * comparaison d'expression développées et réduite pour les tests d'Éric Elter
  * @param {string} input
  * @param {string} goodAnswer
  * @return ResultType
  */
-export function formeDeveloppeeParEECompare (input: string, goodAnswer: string): ResultType {
+export function formeDeveloppeeEtReduiteCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  input = cleanStringBeforeParse(input)
-  const regleSuppressionInvisibleOperator = engine.rules([{
-    match: ['InvisibleOperator', '_x', '_y'],
-    replace: ['Multiply', '_x', '_y']
-  }])
-  let saisieNonCanonique = engine.box(['CanonicalOrder', engine.parse(input, { canonical: false })])
-  saisieNonCanonique = saisieNonCanonique.replace(regleSuppressionInvisibleOperator) ?? saisieNonCanonique
-  let reponseNonCanonique = engine.box(['CanonicalOrder', engine.parse(goodAnswer, { canonical: false })])
-  reponseNonCanonique = reponseNonCanonique.replace(regleSuppressionInvisibleOperator) ?? reponseNonCanonique
-  return { isOk: saisieNonCanonique.isSame(reponseNonCanonique) }
+  const clean = generateCleaner(['fractions', 'virgules', 'puissances'])
+  const saisie = engine.box(['CanonicalOrder', engine.parse(clean(input))])
+  const answer = engine.box(['CanonicalOrder', engine.parse(clean(goodAnswer))])
+  const isOk1 = answer.isSame(saisie)
+  const isOk2 = engine.box(['CanonicalOrder', engine.parse(clean(input)).simplify()]).isSame(answer)
+  return { isOk: isOk1 && isOk2, feedback: isOk1 && isOk2 ? '' : isOk2 ? 'L\'expression est développée correctement mais pas réduite' : '' }
 }
 
 /**

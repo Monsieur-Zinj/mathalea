@@ -9,7 +9,7 @@ import {
   calculCompare, canonicalAddCompare,
   decimalCompare, developpementCompare,
   formeDeveloppeeCompare,
-  formeDeveloppeeParEECompare,
+  formeDeveloppeeEtReduiteCompare,
   fractionCompare,
   fractionEgaleCompare,
   fractionPlusSimpleCompare,
@@ -549,7 +549,7 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: laReponseDemandee,
-          compare: formeDeveloppeeParEECompare
+          compare: formeDeveloppeeEtReduiteCompare
         }
       }, params)
 
