@@ -12,7 +12,7 @@ export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
 export const uuid = 'd309b'
 export const ref = '2N12-1'
-export default class EncadrerFractionEntre2Entiers2nde extends EncadrerFractionEntre2Entiers{
+export default class EncadrerFractionEntre2Entiers2nde extends EncadrerFractionEntre2Entiers {
   constructor () {
     super()
     this.lycee = true
