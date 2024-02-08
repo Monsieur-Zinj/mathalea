@@ -28,6 +28,9 @@ export default function PremierOuPasCriterePar7Par11 () {
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Justifier que les nombres suivants sont premiers ou pas. Penser aux critères de divisibilité.'
+  if (context.isDiaporama) {
+    this.consigne = 'Ce nombre est-il premier ?'
+  }
   context.isHtml ? this.spacing = 1 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestions = 7
@@ -88,7 +91,11 @@ export default function PremierOuPasCriterePar7Par11 () {
     }
     stringRappelB += '.'
 
-    if (this.sup) this.introduction = warnMessage(stringRappelB, 'nombres', 'Coup de pouce')
+    if (this.sup) {
+      this.introduction = warnMessage(stringRappelB, 'nombres', 'Coup de pouce')
+    } else {
+      this.introduction = ''
+    }
 
     for (let i = 0, texte, texteCorr, N, sum, bonneReponse, evenSum, oddSum, r, r1, r2, tabPremiersATester, prime1, prime2, NLongueur, N1Longueur, N1, sum1, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
