@@ -12,10 +12,12 @@ export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '14/05/2023' // ajout d'un paramètre pour choisir les dénominateurs
 export const uuid = 'd309b'
 export const ref = '2N12-1'
-export default function EncadrerFractionEntre2Entiers2nde () {
-  EncadrerFractionEntre2Entiers.call(this)
-  this.lycee = true
-  this.sup = false
-  this.sup2 = '10'
-  this.besoinFormulaire2Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets\nDe 2 à 9 pour les dénominateurs correspondants\n10 Mélange']
+export default class EncadrerFractionEntre2Entiers2nde extends EncadrerFractionEntre2Entiers{
+  constructor () {
+    super()
+    this.lycee = true
+    this.sup = false
+    this.sup2 = '10'
+    this.besoinFormulaire2Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets\nDe 2 à 9 pour les dénominateurs correspondants\n10 Mélange']
+  }
 }
