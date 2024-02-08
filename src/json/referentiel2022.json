@@ -3490,6 +3490,7 @@
           "id": "can5P06",
           "titre": "Écrire sous la forme d’un pourcentage",
           "datePublication": "19/12/2021",
+          "dateModification": "07/02/2024",
           "features": {
             "interactif": {
               "isActive": true,
@@ -12041,7 +12042,7 @@
         "tags": [],
         "uuid": "843e5",
         "id": "6N31-2",
-        "titre": "Trouver ordre de grandeur d'opérations sur les décimaux",
+        "titre": "Trouver un ordre de grandeur d'opérations sur les décimaux",
         "features": {
           "interactif": {
             "isActive": false,
@@ -18668,9 +18669,9 @@
         "typeExercice": "alea"
       },
       "3L11": {
-        "url": "3e/3L11.js",
+        "url": "3e/3L11new.js",
         "tags": [],
-        "uuid": "77a62",
+        "uuid": "db2e0",
         "id": "3L11",
         "titre": "Utiliser la simple distributivité",
         "features": {
