@@ -659,9 +659,11 @@ export function tableauDeVariation ({
       rxmax: 0.1,
       rymax: 0.05
     })), segments)
+
+    /* pour éviter d'avoir des containers imbriquées, util pour le zoom */
     const codeHtml = `<div class="svgContainer">
       <div style="position: relative;">
-        ${svgCode}
+        ${svgCode.replaceAll('svgContainer', '')} 
         ${divsTexte.join('\n')}
       </div>
       </div>`
