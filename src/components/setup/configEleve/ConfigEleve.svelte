@@ -22,6 +22,7 @@
   } from '../../../lib/components/clipboard'
   import { buildUrlAddendumForEsParam } from '../../../lib/components/urls'
   import type { NumericRange } from '../../../lib/types'
+  import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
 
   onMount(() => {
     // mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -64,9 +65,10 @@
   }
 
   // Gestion du clavier
-  let isBetaKeyboard: boolean = false
+  let isBetaKeyboard: boolean = $globalOptions.beta ?? false
   function handleKeyboard () {
     $globalOptions.beta = isBetaKeyboard
+    displayKeyboardToggle(isBetaKeyboard)
   }
 
   // Gestion de la graine

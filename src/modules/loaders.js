@@ -394,7 +394,6 @@ function clickButtonMathField (event) {
           blocks: 'keyboard' in mf.dataset ? mf.dataset.keyboard.split(' ') : ['numbers', 'fullOperations', 'variables']
         }
       })
-      // console.log(get(keyboardState))
     }
   }
 }

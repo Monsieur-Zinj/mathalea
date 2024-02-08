@@ -43,6 +43,7 @@
   import handleCapytale from '../../../lib/handleCapytale'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
+  import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
@@ -183,6 +184,7 @@
     // Réglage du vecteur de translation pour le dé au loading
     const root = document.documentElement
     root.style.setProperty('--vect', 'calc((100vw / 10) * 0.5)')
+    displayKeyboardToggle($globalOptions.beta ?? false)
   })
   addEventListener('popstate', urlToDisplay)
 
@@ -279,6 +281,13 @@ function addExercise (uuid: string) {
       bubbles: true
     })
     document.dispatchEvent(newDataForAll)
+  }
+
+  // Gestion du clavier
+  let isBetaKeyboard: boolean = $globalOptions.beta ?? false
+  function handleKeyboard () {
+    $globalOptions.beta = isBetaKeyboard
+    displayKeyboardToggle(isBetaKeyboard)
   }
 </script>
 
@@ -778,7 +787,8 @@ function addExercise (uuid: string) {
           <div class="flex flex-row justify-start items-center px-4">
             <ButtonToggle
               titles={['Nouveau clavier en test', 'Ancien clavier']}
-              bind:value={$globalOptions.beta}
+              bind:value={isBetaKeyboard}
+              on:toggle={handleKeyboard}
             />
           </div>
         </div>
