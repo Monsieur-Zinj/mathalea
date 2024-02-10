@@ -117,7 +117,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       let contentCorr = ''
       if (infosExerciceStatique?.url) {
         const response = await window.fetch(infosExerciceStatique.url)
-        if (response.status === 200 && response.headers.get('Content-Type')?.includes('text')) {
+        if (response.status === 200) {
           const text = await response.clone().text()
           if (!text.trim().startsWith('<!DOCTYPE html>')) {
             content = text
@@ -128,7 +128,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       }
       if (infosExerciceStatique?.urlcor) {
         const response = await window.fetch(infosExerciceStatique.urlcor)
-        if (response.status === 200 && response.headers.get('Content-Type')?.includes('text')) {
+        if (response.status === 200) {
           const text = await response.clone().text()
           if (!text.trim().startsWith('<!DOCTYPE html>')) {
             contentCorr = text
