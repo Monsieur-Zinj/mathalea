@@ -10,6 +10,7 @@ import RectangleFractionDiagram from 'apigeom/src/elements/diagrams/RectangleFra
 import minus from 'apigeom/src/assets/svg/minus.svg'
 import plus from 'apigeom/src/assets/svg/plus.svg'
 import erase from 'apigeom/src/assets/svg/erase.svg'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
@@ -118,7 +119,8 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
       if (this.interactif) {
         texte = `<math-field data-keyboard="numbers basicOperations" class="fillInTheBlanks invisible" readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
         ${frac.texFraction} =~\\placeholder[n]{} + \\dfrac{\\placeholder[num]{}}{\\placeholder[den]{}} =~\\placeholder[ecritureDecimale]{}
-      </math-field><span class="ml-2" id="feedbackEx${this.numeroExercice}Q${i}"></span>`
+      </math-field><span class="ml-2" id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+        texte += ajouteFeedback(this, i)
       }
       if (this.questionJamaisPosee(i, num, den)) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -140,8 +142,8 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
     if (mf === null) return ''
     const { entier, numPartieDecimale, den, ecritureDecimale } = this.reponsesAttendues[i]
     this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
-    const divFeedback = document.querySelector(
-      `#feedbackEx${this.numeroExercice}Q${i}`
+    const spanResultat = document.querySelector(
+      `#resultatCheckEx${this.numeroExercice}Q${i}`
     ) as HTMLDivElement
     const nSaisi = Number(mf.getPromptValue('n').replaceAll(',', '.'))
     const test1 = nSaisi === entier
@@ -151,10 +153,11 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
     const test3 = ce
       .parse(mf.getPromptValue('ecritureDecimale'))
       .isEqual(ce.parse(`${ecritureDecimale}`))
+    let feedback: string
     if (test1 && test2 && test3) {
-      divFeedback.innerHTML = '😎'
+      spanResultat.innerHTML = '😎'
     } else {
-      divFeedback.innerHTML = '☹️'
+      spanResultat.innerHTML = '☹️'
     }
     if (!test1) {
       mf.setPromptState('n', 'incorrect', true)
@@ -173,10 +176,22 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
     } else {
       mf.setPromptState('ecritureDecimale', 'correct', true)
     }
-    if (test1 && test2) result.push('OK')
-    else result.push('KO')
-    if (test3) result.push('OK')
-    else result.push('KO')
+    if (test1 && test2) {
+      feedback = 'Décomposition correcte, '
+      result.push('OK')
+    } else {
+      feedback = 'Décomposition fausse, '
+      result.push('KO')
+    }
+    if (test3) {
+      feedback += 'valeur décimale exacte.'
+      result.push('OK')
+    } else {
+      feedback += 'valeur décimale fausse.'
+      result.push('KO')
+    }
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
+    if (divFeedback) divFeedback.innerHTML = feedback
     return result
   }
 }
