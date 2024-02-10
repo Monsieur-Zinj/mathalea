@@ -86,7 +86,7 @@ export default class RepresenterUneFraction extends Exercice {
         figure.setToolbar({ tools: ['FILL'], position: 'top' })
         if (figure.ui) figure.ui.send('FILL')
         this.diagrammes[i] = new CircleFractionDiagram(figure, { denominator: den, numberOfCircle: 3, radius: 1 })
-        this.idApigeom[i] = `apigeomEx${numeroExercice}F${i}`
+        this.idApigeom[i] = `Ex${numeroExercice}Q${i}`
         texte += figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure })
         figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
       } else {

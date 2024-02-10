@@ -134,7 +134,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       }
       texte += (context.isHtml ? '' : '\\\\') + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, ...mesObjets)
       if (this.interactif) {
-        texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
+        texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       }
 
       A = point(abscisse[0][0] * tailleUnite, 0, l1)
