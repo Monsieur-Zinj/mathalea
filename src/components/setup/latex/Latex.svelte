@@ -339,7 +339,7 @@ import {
           Que faire du code $\LaTeX$ ?
         </div>
         <div
-          class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+          class="grid grid-cols-1 grid-rows-1 md:grid-cols-2 xl:grid-cols-2 gap-8"
         >
           <SimpleCard title={'Obtenir un PDF'}>
             <div>
@@ -364,8 +364,8 @@ import {
           </SimpleCard>
           <SimpleCard title={'Compiler le code pour avoir un fichier PDF (version béta)'}>
             <div>
-              Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. Je
-              vais compiler le code directement (Server TexLive.net).
+              Je souhaite obtenir un fichier PDF à partir du code $\LaTeX$. J'essaie
+              le nouveau compilateur en ligne (serveur TexLive.net).
             </div>
             <div slot="button1">
               <ButtonCompileLatexToPDF
