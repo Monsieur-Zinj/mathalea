@@ -59,6 +59,22 @@ const buildDataKeyboardString = (style = '') => {
   }
 }
 
+/**
+ * Retourne le code html d'un div prévu pour le feedback toute forme d'interactivité.
+ * @param {Exercice} exercice
+ * @param {number} question
+ * @param {string} style
+ */
+export function ajouteFeedback (exercice, question, style = 'style="display: block"') {
+  const exo = exercice.numeroExercice
+  if (exo == null || typeof question !== 'number') return ''
+  if (question > exercice.autoCorrection.length) {
+    window.notify(`Dans ajouteFeedback() un problème car la question ${question} n'existe pas pour cet exercice ${exercice.titre} de numéro ${exercice.numeroExercice}.`)
+    return ''
+  }
+  return `<div id="feedbackEx${exo}Q${question}" ${style !== '' ? style : ''}></div>`
+}
+
 export function ajouteChampTexteMathLive (exercice, i, style = '', {
   texteApres = '',
   texteAvant = '',
@@ -77,7 +93,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
     } else if (tailleExtensible) {
       html = `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; top: 27px; left: 0;padding:0 0;margin:0"><math-field data-keyboard="${dataKeyboard}"  class="${style}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else html = `<label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    html += `<span id="feedbackEx${exercice.numeroExercice}Q${i}"></span>`
+    // html += `<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
     return html
   } else {
     return ''
