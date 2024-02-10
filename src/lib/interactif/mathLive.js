@@ -132,7 +132,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
     // ici, il n'y a qu'un seul input une seule saisie (même si la réponse peut contenir des variantes qui seront toutes comparées à la saisie
     champTexte = document.getElementById(`champTexteEx${exercice.numeroExercice}Q${i}`)
     if (champTexte == null) {
-      throw Error('verifQuestionMathlive: type tableauMathlive ne trouve pas le champ de saisie dans le dom' + JSON.stringify({ selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` }))
+      throw Error(`verifQuestionMathlive: type ${formatInteractif} ne trouve pas le champ de saisie dans le dom ${JSON.stringify({ selecteur: 'champTexteEx' + String(exercice.numeroExercice) + 'Q' + String(i) })}`)
     }
     if (champTexte.value.length > 0 && typeof exercice.answers === 'object') {
       exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
