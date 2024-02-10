@@ -184,16 +184,16 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     this.correctionInteractive = (i) => {
       let resultat
       let aucunMauvaisPointsCliques = true
-      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+      const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
       pointsSolutions[i].stopCliquable()
       for (const monPoint of pointsNonSolutions[i]) {
         if (monPoint.etat) aucunMauvaisPointsCliques = false
         monPoint.stopCliquable()
         if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
-          divFeedback.innerHTML = '😎'
+          spanResultat.innerHTML = '😎'
           resultat = 'OK'
         } else {
-          divFeedback.innerHTML = '☹️'
+          spanResultat.innerHTML = '☹️'
           resultat = 'KO'
         }
       }
