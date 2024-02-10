@@ -68,10 +68,6 @@ const buildDataKeyboardString = (style = '') => {
 export function ajouteFeedback (exercice, question, style = 'style="display: block"') {
   const exo = exercice.numeroExercice
   if (exo == null || typeof question !== 'number') return ''
-  if (question > exercice.autoCorrection.length) {
-    window.notify(`Dans ajouteFeedback() un problème car la question ${question} n'existe pas pour cet exercice ${exercice.titre} de numéro ${exercice.numeroExercice}.`)
-    return ''
-  }
   return `<div id="feedbackEx${exo}Q${question}" ${style !== '' ? style : ''}></div>`
 }
 
