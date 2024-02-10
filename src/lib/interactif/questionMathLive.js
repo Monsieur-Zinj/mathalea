@@ -77,7 +77,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
     } else if (tailleExtensible) {
       html = `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; top: 27px; left: 0;padding:0 0;margin:0"><math-field data-keyboard="${dataKeyboard}"  class="${style}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else html = `<label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    html += `<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
+    html += `<span id="feedbackEx${exercice.numeroExercice}Q${i}"></span>`
     return html
   } else {
     return ''
