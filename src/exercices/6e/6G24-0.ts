@@ -32,6 +32,11 @@ export const interactifType = 'custom'
 export const uuid = '26ea4'
 export const ref = '6G24-0'
 
+/**
+ * Fonction pour positionner le label
+ * @param pointA
+ * @param pointB
+ */
 function positionneLabel (pointA: Point, pointB: Point) {
   if (pointA.x < pointB.x) return 'above left'
   else if (pointA > pointB.x) return 'below right'
@@ -40,6 +45,11 @@ function positionneLabel (pointA: Point, pointB: Point) {
     else return 'below right'
   }
 }
+
+/**
+ * fonction pour verifier qu'on est dans le cadre
+ * @param points
+ */
 function checkDistance (points: {x: number, y:number}[]) {
   for (const point of points) {
     if (point.x < -7 || point.x > 7 || point.y < -7 || point.y > 7) {
@@ -48,6 +58,11 @@ function checkDistance (points: {x: number, y:number}[]) {
   }
   return true
 }
+
+/**
+ * Construction interactive de symétriques de points
+ * @author Jean-Claude Lhote
+ */
 class ConstrctionsSymetriquesPoints extends Exercice {
   figures!: Figure[]
   idApigeom!: string[]
@@ -269,7 +284,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           }
         }
         this.figures[i].options.limitNumberOfElement.set('Point', 1)
-        this.idApigeom[i] = `apigeomEx${numeroExercice}F${i}`
+        this.idApigeom[i] = `Ex${numeroExercice}Q${i}`
         const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figures[i] })
         this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
       } else {
