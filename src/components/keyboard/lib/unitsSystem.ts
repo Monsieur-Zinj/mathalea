@@ -169,7 +169,7 @@ export class Unit {
     this.symbol = [prefixes[this.prefix].symbol, units[this.category].symbol, this.superscript[this.exp - 1].symbol].join('')
     const symbol = [prefixes[this.prefix].symbol, units[this.category].symbol].join('')
     const pow = this.superscript[this.exp - 1].latexInsert
-    this.insert = `$$\\text{ ${symbol}}${pow}$$`
+    this.insert = `$$\\operatorname{ ${symbol}}${pow}$$`
   }
 }
 

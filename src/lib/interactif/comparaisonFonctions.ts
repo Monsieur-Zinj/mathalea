@@ -644,6 +644,9 @@ export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, p
   const inputGrandeur = inputToGrandeur(cleaner(input))
   const goodAnswerGrandeur = goodAnswer.grandeur
   if (inputGrandeur) {
+    if (inputGrandeur.uniteDeReference !== goodAnswerGrandeur.uniteDeReference) {
+      return { isOk: false, feedback: `Il faut donner la réponse en $${goodAnswerGrandeur.latexUnit}$.` }
+    }
     if (goodAnswer.precision !== undefined) {
       if (inputGrandeur.estUneApproximation(goodAnswerGrandeur, goodAnswer.precision)) {
         return { isOk: true }
@@ -653,12 +656,20 @@ export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, p
     } else {
       if (inputGrandeur.estEgal(goodAnswerGrandeur)) {
         return { isOk: true }
-      } else {
-        return { isOk: false }
       }
+      return { isOk: false }
     }
   } else {
-    return { isOk: false, feedback: 'essaieEncoreAvecUneSeuleUnite' }
+    // Oubli de l'unité ?
+    const inputNumber = Number(engine.parse(cleaner(input)))
+    const inputWithAddedUnit = new Grandeur(inputNumber, goodAnswer.grandeur.unite)
+    if (inputWithAddedUnit.estEgal(goodAnswerGrandeur)) {
+      return { isOk: false, feedback: 'La réponse est correcte mais tu as oublié de préciser l\'unité.' }
+    }
+    if (inputNumber !== 0) {
+      return { isOk: false, feedback: 'La réponse est fausse et il faut saisir l\'unité.' }
+    }
+    return { isOk: false }
   }
 }
 

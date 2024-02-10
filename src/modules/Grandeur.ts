@@ -56,6 +56,7 @@ class Grandeur {
   }
 
   estEgal (unite2: Grandeur) {
+    if (unite2.uniteDeReference !== this.uniteDeReference) return false
     try {
       const u1 = this.convertirEn(this.uniteDeReference)
       const u2 = unite2.convertirEn(this.uniteDeReference)
@@ -74,9 +75,17 @@ class Grandeur {
    * La précision est donnée dans l'unité de référence
    */
   estUneApproximation (unite2: Grandeur, precision: number) {
+    if (unite2.uniteDeReference !== this.uniteDeReference) return false
     try {
-      const u1 = this.convertirEn(this.uniteDeReference)
-      const u2 = unite2.convertirEn(this.uniteDeReference)
+      let u1: Grandeur
+      let u2: Grandeur
+      if (this.puissancePrefixe > unite2.puissancePrefixe) {
+        u1 = this.convertirEn(unite2.unite)
+        u2 = unite2
+      } else {
+        u1 = this.convertirEn(this.unite)
+        u2 = unite2.convertirEn(this.unite)
+      }
       if (u1 !== undefined && u2 !== undefined) {
         return (Math.abs(u1.mesure - u2.mesure) <= precision)
       } else {
@@ -106,6 +115,10 @@ class Grandeur {
    */
   toTex (precision = 12) {
     return `${texNombre(this.mesure, precision).replace('.', ',')}~\\text{${this.unite}}`
+  }
+
+  get latexUnit () {
+    return `\\text{${this.prefixe}${this.uniteDeReference.split('^')[0]}}${this.puissanceUnite === 1 ? '' : `^{${this.puissanceUnite.toString()}}`}`
   }
 
   /**
