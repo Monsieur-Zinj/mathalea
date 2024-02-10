@@ -170,6 +170,11 @@ function inputToGrandeur (input: string): Grandeur | false {
   }
 }
 
+/**
+ * Permet de valider des 'opérations' par exemple : '4+8' ou '4\\times 5' ou encore '3\\times 5 + 4'
+ * @param {string} input
+ * @param {string} goodAnswer
+ */
 export function operationCompare (input: string, goodAnswer: string):ResultType {
   const clean = generateCleaner(['virgules', 'parentheses', 'fractions', 'espaces'])
   const saisie = clean(input)
@@ -281,10 +286,6 @@ export const developpementCompare = function (input: string, goodAnswer:string) 
     return { isOk: false }
   }
   const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
-  console.log(`Commence par une addition ou une soustraction : ${['Add', 'Subtract'].includes(String(saisieParsed.head)) ? 'oui' : 'non'}`)
-  console.log(`Si je développe j'obtiens pareil qu'en simplifiant: ${saisieDev.isSame(saisieParsed.simplify().canonical) ? 'oui' : 'non'}`)
-  console.log(`La saisie est égale à la réponse une fois mises dans l'ordre canonique avec invisibleOperator : ${saisieParsed.isEqual(reponseParsed) ? 'oui' : 'non'}`)
-  console.log(`La réponse attendue : ${reponseParsed.latex} et la saisie : ${saisieParsed.latex}`)
   return { isOk: ['Add', 'Subtract'].includes(String(saisieParsed.head)) && saisieDev.isSame(saisieParsed.simplify().canonical) && saisieParsed.isEqual(reponseParsed) }
 }
 /**
@@ -643,7 +644,6 @@ export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, p
   const inputGrandeur = inputToGrandeur(cleaner(input))
   const goodAnswerGrandeur = goodAnswer.grandeur
   if (inputGrandeur) {
-    console.log(`grandeur passée : ${JSON.stringify(inputGrandeur)} goodAnswer : ${JSON.stringify(goodAnswer.grandeur)} et precision passée à estUneApproximation() : ${goodAnswer.precision}`)
     if (goodAnswer.precision !== undefined) {
       if (inputGrandeur.estUneApproximation(goodAnswerGrandeur, goodAnswer.precision)) {
         return { isOk: true }
