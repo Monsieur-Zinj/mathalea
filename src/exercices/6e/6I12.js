@@ -285,7 +285,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     let nbBonnesReponses = 0
     let nbMauvaisesReponses = 0
     let nbFiguresCliquees = 0
-    const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`)
+    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`)
     const figures = []
     for (let i = 0; i < 5; i++) {
       const figure = document.getElementById(`figure${i}exo${this.numeroExercice}`)
@@ -296,10 +296,10 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
       if (figure.etat) nbFiguresCliquees++
     }
     if (nbFiguresCliquees === 1 && figures[this.indiceBonneFigure].etat) {
-      divFeedback.innerHTML = '😎'
+      spanResultat.innerHTML = '😎'
       nbBonnesReponses++
     } else {
-      divFeedback.innerHTML = '☹️'
+      spanResultat.innerHTML = '☹️'
       nbMauvaisesReponses++
     }
     afficheScore(this, nbBonnesReponses, nbMauvaisesReponses)
