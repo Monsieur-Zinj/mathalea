@@ -67,8 +67,8 @@ export default function VecteurNormEqCart () {
   this.correctionInteractive = i => {
     const champTexte1 = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i}`)
     const champTexte2 = document.getElementById(`champTexteEx${this.numeroExercice}Q${2 * i + 1}`)
-    const divFeedback1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i}`)
-    const divFeedback2 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`)
+    const spanResultat1 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i}`)
+    const spanResultat2 = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`)
     let saisie1 = champTexte1.value.replace(',', '.')
     let saisie2 = champTexte2.value.replace(',', '.')
     saisie1 = saisie1.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
@@ -79,12 +79,12 @@ export default function VecteurNormEqCart () {
     const y = Number(saisie2)
     let resultat
     if (egal(x / x0, y / y0) && !(x === 0 && y === 0)) {
-      divFeedback1.innerHTML = '😎'
-      divFeedback2.innerHTML = '😎'
+      spanResultat1.innerHTML = '😎'
+      spanResultat2.innerHTML = '😎'
       resultat = 'OK'
     } else {
-      divFeedback1.innerHTML = '☹️'
-      divFeedback2.innerHTML = '☹️'
+      spanResultat1.innerHTML = '☹️'
+      spanResultat2.innerHTML = '☹️'
       resultat = 'KO'
     }
     return resultat
