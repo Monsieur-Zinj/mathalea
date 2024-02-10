@@ -8,7 +8,7 @@ import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { fractionCompare } from '../../lib/interactif/comparaisonFonctions'
+import { fractionEgaleCompare } from '../../lib/interactif/comparaisonFonctions'
 export const titre = 'Lire des abscisses fractionnaires de points (niv 2)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +25,6 @@ export const uuid = '442f4'
 export const ref = '6N21-2'
 export default function LireAbscissesFractionnairesComplexes () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestions = 5
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
@@ -84,9 +83,9 @@ export default function LireAbscissesFractionnairesComplexes () {
       const num3 = trouveNumerateur(den3, origine, data[tab].max, [{ num: num1, den: den1 }, { num: num2, den: den2 }])
       texte = 'Donner les abscisses des points ' + remplisLesBlancs(this, i, `\\quad ${lettreIndiceeDepuisChiffre(i * 3 + 1)}\\; %{champ1} \\quad ${lettreIndiceeDepuisChiffre(i * 3 + 2)} \\; %{champ2} \\quad ${lettreIndiceeDepuisChiffre(i * 3 + 3)} \\;  %{champ3}`, 'clavierDeBaseAvecFraction', '\\ldots')
       handleAnswers(this, i, {
-        champ1: { value: fraction(num1, den1).reduire(tab1 * 2).texFraction, compare: fractionCompare },
-        champ2: { value: fraction(num2, den2).reduire(tab2 * 2).texFraction, compare: fractionCompare },
-        champ3: { value: fraction(num3, den3).reduire(tab3 * 2).texFraction, compare: fractionCompare }
+        champ1: { value: fraction(num1, den1).reduire(tab1 * 2).texFraction, compare: fractionEgaleCompare },
+        champ2: { value: fraction(num2, den2).reduire(tab2 * 2).texFraction, compare: fractionEgaleCompare },
+        champ3: { value: fraction(num3, den3).reduire(tab3 * 2).texFraction, compare: fractionEgaleCompare }
       },
       { formatInteractif: 'fillInTheBlank' })
 
