@@ -135,7 +135,6 @@ export default function FractionVersPourcentage () {
         feedback += ' et le résultat final est faux.'
       }
       const divDuFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${i}`)
-      divDuFeedback.classList.add('ml-2', 'py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
       spanResultat.innerHTML = smiley
       divDuFeedback.innerHTML = feedback
       spanResultat.after(divDuFeedback)

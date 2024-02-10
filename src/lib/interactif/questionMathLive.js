@@ -68,7 +68,7 @@ const buildDataKeyboardString = (style = '') => {
 export function ajouteFeedback (exercice, question, style = 'style="display: block"') {
   const exo = exercice.numeroExercice
   if (exo == null || typeof question !== 'number') return ''
-  return `<div id="feedbackEx${exo}Q${question}" ${style !== '' ? style : ''}></div>`
+  return `<div class ="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exo}Q${question}" ${style !== '' ? style : ''}></div>`
 }
 
 export function ajouteChampTexteMathLive (exercice, i, style = '', {
