@@ -15,6 +15,7 @@ import initialiseEditeur from './initialiseEditeur.js'
 import '../../css/style_mathalea.css'
 import { telechargeFichier } from './download.js'
 import { context } from './context.js'
+import { isLocalStorageAvailable } from '../lib/stores/storage'
 window.notify = function (error, metadatas) { // On écrit la fonction window.notify ici pour éviter les signalements bugsnag... on ne charge plus firstload pour cet éditeur
   console.log(error instanceof Error ? error.message : error, ' avec les métadatas : ', metadatas)
 }
@@ -71,7 +72,7 @@ if (url.searchParams.get('url')) { // Si on spécifie une url
   myCodeMirror.setValue(decodeURIComponent(url.searchParams.get('script')))
   scriptJsToAnimEtSvg()
 } else { // Récupère le dernier script validé
-  if (window.localStorage.getItem('Script Mathalea 2D IEP')) {
+  if (isLocalStorageAvailable() && window.localStorage.getItem('Script Mathalea 2D IEP')) {
     myCodeMirror.setValue(window.localStorage.getItem('Script Mathalea 2D IEP'))
     buttonSubmit.click()
   }
@@ -88,7 +89,7 @@ buttonSubmit.addEventListener('click', scriptJsToAnimEtSvg)
 // Bouton Valider
 function scriptJsToAnimEtSvg () {
   // On sauvegarde dans le navigateur le code du script
-  window.localStorage.setItem('Script Mathalea 2D IEP', myCodeMirror.getValue())
+  if (isLocalStorageAvailable()) window.localStorage.setItem('Script Mathalea 2D IEP', myCodeMirror.getValue())
   // On affiche les boutons
   if (buttonTelecharger) {
     buttonTelecharger.style.visibility = 'visible'
