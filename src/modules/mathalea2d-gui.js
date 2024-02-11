@@ -19,6 +19,7 @@ import '../../css/style_mathalea.css'
 import initialiseEditeur from './initialiseEditeur.js'
 import { context } from './context.js'
 import { telechargeFichier } from './download.js'
+import { isLocalStorageAvailable } from '../lib/stores/storage'
 
 // Les variables globales utiles pour l'autocomplétion
 initialiseEditeur()
@@ -96,7 +97,7 @@ window.addEventListener('load', function () {
   } else if (url.searchParams.get('script')) { // Si un script est présent dans l'URL
     myCodeMirror.setValue(decodeURIComponent(url.searchParams.get('script')))
   } else { // Récupère le dernier script validé
-    if (window.localStorage.getItem('Script Mathalea 2D')) {
+    if (isLocalStorageAvailable() && window.localStorage.getItem('Script Mathalea 2D')) {
       myCodeMirror.setValue(window.localStorage.getItem('Script Mathalea 2D'))
     }
   }
@@ -119,7 +120,7 @@ window.addEventListener('load', function () {
         window.clearInterval(i)
       }
       window.numId = 0
-      window.localStorage.setItem('Script Mathalea 2D', myCodeMirror.getValue()) // On sauvegarde dans le navigateur le code du script
+      if (isLocalStorageAvailable()) window.localStorage.setItem('Script Mathalea 2D', myCodeMirror.getValue()) // On sauvegarde dans le navigateur le code du script
       if (buttonTelecharger) {
         buttonTelecharger.style.visibility = 'visible'
       }

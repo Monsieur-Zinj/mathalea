@@ -24,6 +24,7 @@
   import Exercice from '../../../../../exercices/Exercice'
   import type { HeaderProps } from '../../../../../lib/types/ui'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
+  import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   export let exercise: Exercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
@@ -147,7 +148,7 @@
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
         if (
-          window.localStorage != null &&
+          isLocalStorageAvailable() &&
           exercise.id !== undefined &&
           exercise.seed !== undefined &&
           window.localStorage.getItem(`${exercise.id}|${exercise.seed}`) !=
@@ -213,7 +214,7 @@
       }
       if (buttonScore) initButtonScore()
       if (
-        window.localStorage !== undefined &&
+        isLocalStorageAvailable() &&
         exercise.id !== undefined &&
         isCorrectionVisible
       ) {
@@ -431,7 +432,7 @@
       isContentVisible = event.detail.isContentVisible
       isCorrectionVisible = event.detail.isCorrectionVisible
       if (
-        window.localStorage !== undefined &&
+        isLocalStorageAvailable() &&
         exercise.id !== undefined &&
         isCorrectionVisible
       ) {

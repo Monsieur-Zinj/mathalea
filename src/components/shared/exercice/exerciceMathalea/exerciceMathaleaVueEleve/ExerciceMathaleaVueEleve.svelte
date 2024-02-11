@@ -11,6 +11,7 @@
   import { sendToCapytaleSaveStudentAssignment } from '../../../../../lib/handleCapytale'
   import Question from './presentationalComponents/Question.svelte'
   import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
+  import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
   export let exercise: TypeExercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
@@ -110,7 +111,7 @@
         }
         // Ne pas être noté sur un exercice dont on a déjà vu la correction
         try {
-          if (window.localStorage != null && exercise.id !== undefined && exercise.seed !== undefined && window.localStorage.getItem(`${exercise.id}|${exercise.seed}`) != null) {
+          if (isLocalStorageAvailable() && exercise.id !== undefined && exercise.seed !== undefined && window.localStorage.getItem(`${exercise.id}|${exercise.seed}`) != null) {
             newData()
           }
         } catch (e) {
@@ -263,61 +264,61 @@
    * @author sylvain
    */
    async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false) {
-    const mathalea2dFigures = document.querySelectorAll<SVGElement>('.mathalea2d')
-    const zoom = Number($globalOptions.z ?? 1)
-    // console.log('zoom:' + zoom )
-    if (mathalea2dFigures != null) {
-      if (mathalea2dFigures.length !== 0) {
-        await tick()
-        // console.log('adjustMathalea2dFiguresWidth:' + initialDimensionsAreNeeded )
-        for (let k = 0; k < mathalea2dFigures.length; k++) {
-          if (initialDimensionsAreNeeded) {
-            // réinitialisation
-            const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
-            const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
-            mathalea2dFigures[k].setAttribute('width', (Number(initialWidth) * zoom).toString())
-            mathalea2dFigures[k].setAttribute('height', (Number(initialHeight) * zoom).toString() )
-            // les éléments Katex des figures SVG
-            if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement  != null) { 
-              const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex')
-              for (const elt of eltsInFigures) {
-                const e = elt
-                e.style.setProperty('top', (Number(e.dataset.top) * zoom).toString() + 'px')
-                e.style.setProperty('left', (Number(e.dataset.left) * zoom).toString() + 'px')
-              }
-            }
-          }
-          /* Mickael:
-          Ne surtout pas mettre la référence de l'exercice dans la requête suivante, 
+     const mathalea2dFigures = document.querySelectorAll<SVGElement>('.mathalea2d')
+     const zoom = Number($globalOptions.z ?? 1)
+     // console.log('zoom:' + zoom )
+     if (mathalea2dFigures != null) {
+       if (mathalea2dFigures.length !== 0) {
+         await tick()
+         // console.log('adjustMathalea2dFiguresWidth:' + initialDimensionsAreNeeded )
+         for (let k = 0; k < mathalea2dFigures.length; k++) {
+           if (initialDimensionsAreNeeded) {
+             // réinitialisation
+             const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
+             const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
+             mathalea2dFigures[k].setAttribute('width', (Number(initialWidth) * zoom).toString())
+             mathalea2dFigures[k].setAttribute('height', (Number(initialHeight) * zoom).toString())
+             // les éléments Katex des figures SVG
+             if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement != null) {
+               const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex')
+               for (const elt of eltsInFigures) {
+                 const e = elt
+                 e.style.setProperty('top', (Number(e.dataset.top) * zoom).toString() + 'px')
+                 e.style.setProperty('left', (Number(e.dataset.left) * zoom).toString() + 'px')
+               }
+             }
+           }
+           /* Mickael:
+          Ne surtout pas mettre la référence de l'exercice dans la requête suivante,
           car dans svelte, la référence est liée au dernier exercice chargé, ce qui bug!
           */
-          const consigneDiv = mathalea2dFigures[k].closest('article')?.querySelector('[id^="consigne"]')
-          // const consigneDiv = document.getElementById('consigne' + exnumero + '-0')
-          if ( consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth ) {
-            const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
-            // console.log('coef:' + coef )
-            const width = mathalea2dFigures[k].getAttribute('width')
-            const height = mathalea2dFigures[k].getAttribute('height')         
-            if (!mathalea2dFigures[k].dataset.widthInitiale && width != null) mathalea2dFigures[k].dataset.widthInitiale = width
-            if (!mathalea2dFigures[k].dataset.heightInitiale && height != null) mathalea2dFigures[k].dataset.heightInitiale = height
-            mathalea2dFigures[k].setAttribute('height', (Number(mathalea2dFigures[k].dataset.heightInitiale) * zoom * coef).toString())
-            mathalea2dFigures[k].setAttribute('width', (Number(mathalea2dFigures[k].dataset.widthInitiale) * zoom * coef).toString())
+           const consigneDiv = mathalea2dFigures[k].closest('article')?.querySelector('[id^="consigne"]')
+           // const consigneDiv = document.getElementById('consigne' + exnumero + '-0')
+           if (consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
+             const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
+             // console.log('coef:' + coef )
+             const width = mathalea2dFigures[k].getAttribute('width')
+             const height = mathalea2dFigures[k].getAttribute('height')
+             if (!mathalea2dFigures[k].dataset.widthInitiale && width != null) mathalea2dFigures[k].dataset.widthInitiale = width
+             if (!mathalea2dFigures[k].dataset.heightInitiale && height != null) mathalea2dFigures[k].dataset.heightInitiale = height
+             mathalea2dFigures[k].setAttribute('height', (Number(mathalea2dFigures[k].dataset.heightInitiale) * zoom * coef).toString())
+             mathalea2dFigures[k].setAttribute('width', (Number(mathalea2dFigures[k].dataset.widthInitiale) * zoom * coef).toString())
 
-            if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement !== null) { 
-              const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex')
-              for (const elt of eltsInFigures) {
-                const e = elt
-                const initialTop = Number(e.dataset.top) ?? 0
-                const initialLeft = Number(e.dataset.left) ?? 0
-                e.style.setProperty('top', (initialTop * coef * zoom).toString() + 'px')
-                e.style.setProperty('left', (initialLeft * coef * zoom).toString() + 'px')
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+             if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement !== null) {
+               const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex')
+               for (const elt of eltsInFigures) {
+                 const e = elt
+                 const initialTop = Number(e.dataset.top) ?? 0
+                 const initialLeft = Number(e.dataset.left) ?? 0
+                 e.style.setProperty('top', (initialTop * coef * zoom).toString() + 'px')
+                 e.style.setProperty('left', (initialLeft * coef * zoom).toString() + 'px')
+               }
+             }
+           }
+         }
+       }
+     }
+   }
 
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
   window.onresize = () => {
@@ -326,7 +327,7 @@
 
   function switchCorrectionVisible () {
     isCorrectionVisible = !isCorrectionVisible
-    if (isCorrectionVisible && window.localStorage !== undefined && exercise.id !== undefined) {
+    if (isCorrectionVisible && isLocalStorageAvailable() && exercise.id !== undefined) {
       window.localStorage.setItem(`${exercise.id}|${exercise.seed}`, 'true')
     }
     if (!$globalOptions.oneShot && exercise.interactif && !isCorrectionVisible && !exercise.isDone) {
