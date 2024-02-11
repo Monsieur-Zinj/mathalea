@@ -30,7 +30,6 @@ export const ref = '5G40'
 export default function ConstructionsParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -38,7 +37,7 @@ export default function ConstructionsParallelogrammes () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.typeExercice = 'IEP'
-  this.nouvelleVersion = function () {
+  this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -99,7 +98,7 @@ export default function ConstructionsParallelogrammes () {
 
       switch (listeTypeQuestions[i]) {
         case 1: // deux côtés consécutifs
-          this.consigne = `Construire le parallélogramme $${nom}$.`
+          texte = `Construire le parallélogramme $${nom}$.`
           texteCorr = 'Plusieurs constructions sont possibles :<br>'
           if (this.correctionDetaillee) {
             texteCorr += `- En utilisant l'égalité des longueurs : $${noms[0] + noms[1]}=${noms[3] + noms[2]}$ et $${noms[2] + noms[1]}=${noms[3] + noms[0]}$.<br>`
@@ -119,7 +118,7 @@ export default function ConstructionsParallelogrammes () {
           animIEP.parallelogramme3sommetsConsecutifs(D, A, B, C.nom)
           break
         case 2: // trois sommets consécutifs
-          this.consigne = `Construire le parallélogramme $${nom}$.`
+          texte = `Construire le parallélogramme $${nom}$.`
           texteCorr = 'Plusieurs constructions sont possibles :<br>'
           if (this.correctionDetaillee) {
             texteCorr += `- En utilisant l'égalité des longueurs : $${noms[0] + noms[1]}=${noms[3] + noms[2]}$ et $${noms[2] + noms[1]}=${noms[3] + noms[0]}$.<br>`
@@ -144,7 +143,7 @@ export default function ConstructionsParallelogrammes () {
 
           break
         case 3: // deux sommets consécutifs plus le centre
-          this.consigne = `Construire le parallélogramme $${nom}$ de centre $${noms[4]}$.`
+          texte = `Construire le parallélogramme $${nom}$ de centre $${noms[4]}$.`
           texteCorr += `O est le centre de symétrie du parallélogramme $${nom}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr += `Le point $${noms[3]}$ est le symétrique du point $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
@@ -159,7 +158,7 @@ export default function ConstructionsParallelogrammes () {
 
           break
         case 4: // Un angle formé par deux demi-droites et le centre
-          this.consigne = `Construire le parallélogramme $${nom}$ de centre ${noms[4]}.`
+          texte = `Construire le parallélogramme $${nom}$ de centre ${noms[4]}.`
           texte += `Le point $${noms[3]}$ est sur la demi-droite $[${noms[0]}x)$ et le point $${noms[1]}$ est sur la demi-droite $[${noms[0]}y)$.<br>`
           if (this.correctionDetaillee) {
             texteCorr += `Le point $${noms[2]}$ est le symétrique du point $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
@@ -176,9 +175,9 @@ export default function ConstructionsParallelogrammes () {
 
           break
       }
-      texte = mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsEnonce)
+      texte += '<br>' + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsEnonce)
       texteCorr = mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsCorrection)
-      texteCorr += animIEP.htmlBouton(this.umeroExercice)
+      texteCorr += animIEP.htmlBouton(numeroExercice, i)
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Supprime b, c et d dans la ligne ci-dessus et remplace les par NombreAAjouter !
