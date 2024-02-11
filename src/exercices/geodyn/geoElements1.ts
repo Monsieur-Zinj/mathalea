@@ -3,6 +3,7 @@ import Figure from 'apigeom'
 import checkElementExist from 'apigeom/src/check/checkElementExist'
 import figureApigeom from '../../lib/figureApigeom'
 import Point from 'apigeom/src/elements/points/Point'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Tracer segment, droite et demi-droite (depuis notation)'
 export const dateDePublication = '29/01/2024'
@@ -128,7 +129,7 @@ class ConstructionSegmentRayLine extends Exercice {
     const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
     const figureCorrection = createAnimation(this.traits)
     const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
-    this.question = enonce + emplacementPourFigure
+    this.question = enonce + emplacementPourFigure + ajouteFeedback(this, 0)
     this.correction = emplacementPourFigureCorrection
   }
 
@@ -138,7 +139,7 @@ class ConstructionSegmentRayLine extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom] = this.figure.json
     let feedback = ''
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}`) as HTMLDivElement
     for (const trait of this.traits) {
       const { isValid, result } = trait.checkExist(this.figure)
       if (isValid) {
