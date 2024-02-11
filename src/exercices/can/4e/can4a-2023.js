@@ -428,27 +428,28 @@ export default function SujetCAN2023Quatrieme () {
           b = randint(0, 9, 5)
           c = randint(1, 9, b)
           e = randint(1, 9)
-          d = a + b * 0.1 + c * 0.01 + e * 0.001
+          f = randint(1, 9)
+          d = a + b * 0.1 + c * 0.01 + e * 0.001 + f * 0.0001
           if (choice([true, false])) {
-            texte = `Quel est l'arrondi au dixième de $${texNombre(d, 3)}$ ?`
+            texte = `Quel est l'arrondi au dixième de $${texNombre(d, 4)}$ ?`
             if (c > 4) {
               texteCorr = `Pour arrondir au dixième, on regarde le chiffre des centièmes : $${c}$.<br>
-             Comme $${c}\\geqslant 5$, alors l'arrondi au dixième de $${texNombre(d, 3)}$ est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
+             Comme $${c}\\geqslant 5$, alors l'arrondi au dixième de $${texNombre(d, 4)}$ est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
               reponse = arrondi(d, 1)
             } else {
               texteCorr = `Pour arrondir au dixième, on regarde le chiffre des centièmes : $${c}$.<br>
-                Comme $${c}< 5$, alors l'arrondi au dixième de $${texNombre(d, 3)}$  est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
+                Comme $${c}< 5$, alors l'arrondi au dixième de $${texNombre(d, 4)}$  est $${miseEnEvidence(texNombre(arrondi(d, 1)))}$.`
               reponse = arrondi(d, 1)
             }
           } else {
-            texte = `Quel est l'arrondi au centième de $${texNombre(d, 3)}$ ?`
+            texte = `Quel est l'arrondi au centième de $${texNombre(d, 4)}$ ?`
             if (e > 4) {
               texteCorr = `Pour arrondir au centième, on regarde le chiffre des millièmes : $${e}$.<br>
-             Comme $${e}\\geqslant 5$, alors l'arrondi au centième de $${texNombre(d, 3)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
+             Comme $${e}\\geqslant 5$, alors l'arrondi au centième de $${texNombre(d, 4)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
               reponse = arrondi(d, 2)
             } else {
               texteCorr = `Pour arrondir au centième, on regarde le chiffre des millièmes : $${e}$.<br>
-                Comme $${e}< 5$, alors l'arrondi au centième de $${texNombre(d, 3)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
+                Comme $${e}< 5$, alors l'arrondi au centième de $${texNombre(d, 4)}$ est $${miseEnEvidence(texNombre(arrondi(d, 2)))}$.`
               reponse = arrondi(d, 2)
             }
           }
