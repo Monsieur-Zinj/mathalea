@@ -17,7 +17,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { max, min } from 'mathjs'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { aleaVariables } from '../../modules/outilsMathjs.js'
 
 export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"
 export const interactifReady = true
@@ -25,11 +24,11 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '13/03/2022'
+export const dateDeModifImportante = '11/02/2024'
 
 /**
  * Trouver comment agrandir ou réduire des longueurs d'une figure et construire la figure demandée
  * @author Eric Elter
- * Référence 6P14
  */
 export const uuid = '4c6e2'
 export const ref = '6P14'
@@ -56,24 +55,6 @@ export default function AgrandirReduireFigure () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    /*
-        let listeTypeQuestions = []
-        if (!this.sup) { // Si aucune liste n'est saisie
-          listeTypeQuestions = rangeMinMax(1, 6)
-        } else {
-          if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-            listeTypeQuestions[0] = contraindreValeur(1, 7, this.sup, 7)
-          } else {
-            listeTypeQuestions = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-            for (let i = 0; i < listeTypeQuestions.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-              listeTypeQuestions[i] = contraindreValeur(1, 7, parseInt(listeTypeQuestions[i]), 7) // parseInt en fait un tableau d'entiers
-            }
-          }
-        }
-        if (compteOccurences(listeTypeQuestions, 7) > 0) listeTypeQuestions = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
-        listeTypeQuestions = combinaisonListes(listeTypeQuestions, this.nbQuestions)
-        */
-
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       max: 6,
       defaut: 7,
@@ -93,7 +74,8 @@ export default function AgrandirReduireFigure () {
       coefReduction = [new FractionEtendue(1, 2), new FractionEtendue(1, 4), new FractionEtendue(3, 4)]
       choixAgrandissementOuReduction = randint(0, 6)
       A = point(0, 0)
-      absB = choixAgrandissementOuReduction < 5 ? randint(5, 11, [6, 9]) : 2 * randint(4, 7)
+      absB = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9]) : 2 * randint(4, 7)
+
       switch (listeTypeQuestions[i]) {
         case 1:
           reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
@@ -309,8 +291,9 @@ export default function AgrandirReduireFigure () {
           break
         case 3:
           absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
-          absD = Object.values(aleaVariables({ absD: true, test: `absD>0 and absD<${absB + absC} and ${absB}<absD+${absC} and ${absC}<absD+${absB}` }, { valueOf: true }))[0]
-          // absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
+          // Le code ci-dessous ne permet pas dans certains cas de trouver une valeur aléatoire
+          // absD = Object.values(aleaVariables({ absD: true, test: `absD>0 and absD<${absB + absC} and ${absB}<absD+${absC} and ${absC}<absD+${absB}` }, { valueOf: true }))[0]
+          absD = choixAgrandissementOuReduction < 4 ? randint(1 + Math.abs(absB - absC), absB + absC - 1, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
           reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
           reponse1 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absC, 1)
           reponse2 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absD, 1)
@@ -355,7 +338,9 @@ export default function AgrandirReduireFigure () {
             setReponse(this, i + ii, max(reponse, reponse1, reponse2))
             ii++
             texte += '<br> Dans le nouveau triangle, la dernière longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
-            setReponse(this, i + ii, choice([reponse, reponse1, reponse2], [min(reponse, reponse1, reponse2), max(reponse, reponse1, reponse2)]))
+            let derniereReponse = [reponse, reponse1, reponse2].slice([reponse, reponse1, reponse2].indexOf(min(reponse, reponse1, reponse2)))
+            derniereReponse = derniereReponse.slice(derniereReponse.indexOf(max(reponse, reponse1, reponse2)))
+            setReponse(this, i + ii, derniereReponse)
           } else if (!context.isAmc) {
             texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
             texte += '<br>' + mathalea2d({
@@ -473,8 +458,9 @@ export default function AgrandirReduireFigure () {
         case 4:
 
           absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
-          absD = Object.values(aleaVariables({ absD: true, test: `absD>0 and absD<${absB + absC} and ${absB}<absD+${absC} and ${absC}<absD+${absB}` }, { valueOf: true }))[0]
-          // absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
+          // Le code ci-dessous ne permet pas dans certains cas de trouver une valeur aléatoire
+          // absD = Object.values(aleaVariables({ absD: true, test: `absD>0 and absD<${absB + absC} and ${absB}<absD+${absC} and ${absC}<absD+${absB}` }, { valueOf: true }))[0]
+          absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
           reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
           reponse1 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absC, 1)
           reponse2 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absD, 1)
