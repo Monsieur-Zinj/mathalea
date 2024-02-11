@@ -24,7 +24,7 @@ import {
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const titre = 'Utiliser les propriétés des droites perpendiculaires'
+export const titre = 'Utiliser les propriétés des droites parallèles et perpendiculaires'
 
 /**
  * Ref 6G14
