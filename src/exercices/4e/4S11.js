@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const dateDeCreation = '01/12/2021'
+export const dateDePublication = '01/12/2021'
 export const dateDeModifImportante = '02/02/2024'
 
 /**

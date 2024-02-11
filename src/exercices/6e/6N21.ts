@@ -10,7 +10,7 @@ import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine.js'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import { fraction } from '../../modules/fractions'
 
-export const dateDeCreation = '29/06/2021'
+export const dateDePublication = '29/06/2021'
 export const dateDeModifImportante = '12/12/2023'
 export const titre = 'Placer des points d’abscisses fractionnaires'
 export const interactifReady = true
