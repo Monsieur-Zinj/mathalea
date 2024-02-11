@@ -13,6 +13,7 @@
     innerWidth <= SM_BREAKPOINT ? GAP_BETWEEN_KEYS.sm : GAP_BETWEEN_KEYS.md
 </script>
 
+{#if block !== undefined}
 <div id='kb-block-{block.title.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(' ', '-')}'>
   {#if isInLine}
     <div
@@ -34,6 +35,9 @@
     </div>
   {/if}
 </div>
+
+{/if}
+
 
 <style>
   .customgap {
