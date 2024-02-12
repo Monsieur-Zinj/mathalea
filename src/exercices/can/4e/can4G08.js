@@ -113,7 +113,7 @@ export default function QuestionsAiresEtPerimetres () {
 
           Quelle est l'aire (en cm$^2$) du rectangle ainsi obtenu ?
           `
-
+          this.formatInteractif = 'calcul'
           this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${c}^2=${c ** 2}$.<br>
           Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${a * c * c}$ cm$^2$.
       <br>`
@@ -125,16 +125,16 @@ export default function QuestionsAiresEtPerimetres () {
           n = randint(1, 3)
           d = randint(n + 1, 10)
           maFraction = fraction(n, d).simplifie()
+          this.reponse = maFraction.puissanceFraction(2)
           this.question = `Les longueurs d'un triangle sont multipliées par $${maFraction.texFraction}$.<br>
 
           Par combien est multipliée son aire  ?
           `
 
           this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$.<br>
-          Ainsi, l'aire a été multipliée par : $\\left(\\dfrac{${n}}{${d}}\\right)^2=\\dfrac{${n * n}}{${d * d}}$.
+          Ainsi, l'aire a été multipliée par : $\\left(${maFraction.texFraction}\\right)^2=${this.reponse.texFraction}$.
       <br>`
 
-          this.reponse = fraction(n * n, d * d)
           this.formatInteractif = 'fractionEgale'
           this.canEnonce = this.question// 'Compléter'
           this.canReponseACompleter = ''
@@ -142,15 +142,16 @@ export default function QuestionsAiresEtPerimetres () {
           n = randint(1, 3)
           d = randint(n + 1, 10)
           maFraction = fraction(n, d).simplifie()
-          this.question = `L'aire d'un parallélogramme a été multipliée par $\\dfrac{${n * n}}{${d * d}}$.<br>
+          const maFractionAuCarre = maFraction.puissanceFraction(2).texFraction
+          this.question = `L'aire d'un parallélogramme a été multipliée par $${maFractionAuCarre}$.<br>
           
           Par combien ont été multipliées les longueurs de ses côtés ?
           `
 
           this.correction = ` Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$.<br>
-          Ainsi, les longueurs ont été multipliées par  : $\\sqrt{\\dfrac{${n * n}}{${d * d}}}=\\dfrac{${n}}{${d}}$.
+          Ainsi, les longueurs ont été multipliées par : $\\sqrt{${maFractionAuCarre}=${maFraction.texFraction}$.
       <br>`
-          this.reponse = fraction(n, d)
+          this.reponse = maFraction
           this.formatInteractif = 'fractionEgale'
           this.canEnonce = this.question// 'Compléter'
           this.canReponseACompleter = ''
