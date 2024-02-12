@@ -17,7 +17,7 @@ export function verifQuestionQcm (exercice, i) {
       nbBonnesReponsesAttendues++
     }
   }
-  const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
+  const divReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   exercice.autoCorrection[i].propositions.forEach((proposition, indice) => {
     // La liste de question peut être plus courte que autoCorrection si on n'a pas réussi à générer suffisamment de questions différentes
     // if (exercice.listeQuestions[i] !== undefined) {
@@ -54,15 +54,15 @@ export function verifQuestionQcm (exercice, i) {
   })
   let typeFeedback = 'positive'
   if (nbMauvaisesReponses === 0 && nbBonnesReponses === nbBonnesReponsesAttendues) {
-    spanReponseLigne.innerHTML = '😎'
+    if (divReponseLigne) divReponseLigne.innerHTML = '😎'
     resultat = 'OK'
   } else {
-    spanReponseLigne.innerHTML = '☹️'
+    if (divReponseLigne) divReponseLigne.innerHTML = '☹️'
     typeFeedback = 'error'
     resultat = 'KO'
   }
   // Gestion du feedback global de la question
-  spanReponseLigne.style.fontSize = 'large'
+  if (divReponseLigne) divReponseLigne.style.fontSize = 'large'
   const eltFeedback = get(`feedbackEx${exercice.numeroExercice}Q${i}`, false)
   let message = ''
   if (eltFeedback) {
