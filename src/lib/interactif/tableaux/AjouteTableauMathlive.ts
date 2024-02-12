@@ -60,9 +60,9 @@ function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, clas
       element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
       element.setAttribute('virtual-keyboard-mode', 'manual')
       cell.appendChild(element)
-      const spanFeedback = document.createElement('span')
-      spanFeedback.id = `feedbackEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
-      cell.appendChild(spanFeedback)
+      const spanResultat = document.createElement('span')
+      spanResultat.id = `resultatCheckEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
+      cell.appendChild(spanResultat)
     } else {
       element = document.createElement('span')
       element.classList.add('tableauMathlive')

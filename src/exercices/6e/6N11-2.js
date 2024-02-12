@@ -134,7 +134,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       }
       texte += (context.isHtml ? '' : '\\\\') + mathalea2d({ xmin: -2, ymin: -1, xmax: 30, ymax: 1, pixelsParCm: 20, scale: 0.5 }, ...mesObjets)
       if (this.interactif) {
-        texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
+        texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       }
 
       A = point(abscisse[0][0] * tailleUnite, 0, l1)
@@ -184,16 +184,16 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     this.correctionInteractive = (i) => {
       let resultat
       let aucunMauvaisPointsCliques = true
-      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+      const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
       pointsSolutions[i].stopCliquable()
       for (const monPoint of pointsNonSolutions[i]) {
         if (monPoint.etat) aucunMauvaisPointsCliques = false
         monPoint.stopCliquable()
         if (aucunMauvaisPointsCliques && pointsSolutions[i].etat) {
-          divFeedback.innerHTML = '😎'
+          spanResultat.innerHTML = '😎'
           resultat = 'OK'
         } else {
-          divFeedback.innerHTML = '☹️'
+          spanResultat.innerHTML = '☹️'
           resultat = 'KO'
         }
       }

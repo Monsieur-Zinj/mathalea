@@ -236,27 +236,27 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
     // console.log(`passage dans this.correctionInteractive avec la valeur i = ${i}`)
     let resultat1, resultat2, resultat3
     for (let k = 0; k < 3; k++) {
-      const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i * 3 + k}`)
+      const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i * 3 + k}`)
       const reponseEleve = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * 3 + k}`)?.value
       if (reponseEleve != null) {
         if (this.autoCorrection[i * 3 + k] != null && this.autoCorrection[i * 3 + k].reponse != null && Array.isArray(this.autoCorrection[i * 3 + k].reponse.valeur)) {
           switch (k) {
             case 0:
               if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-                divFeedback.innerHTML = '😎'
+                spanResultat.innerHTML = '😎'
                 resultat1 = 'OK'
               } else {
-                divFeedback.innerHTML = '☹️'
+                spanResultat.innerHTML = '☹️'
                 resultat1 = 'KO'
               }
               break
             case 1:
               if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur[0]) ||
                 (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-                divFeedback.innerHTML = '😎'
+                spanResultat.innerHTML = '😎'
                 resultat2 = 'OK'
               } else {
-                divFeedback.innerHTML = '☹️'
+                spanResultat.innerHTML = '☹️'
                 resultat2 = 'KO'
               }
               break
@@ -268,14 +268,14 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
                     reponse: this.autoCorrection[i * 3 + k].reponse.valeur[0]
                   })
                 }
-                divFeedback.innerHTML = '☹️'
+                spanResultat.innerHTML = '☹️'
                 resultat3 = 'KO'
               } else {
                 if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-                  divFeedback.innerHTML = '😎'
+                  spanResultat.innerHTML = '😎'
                   resultat3 = 'OK'
                 } else {
-                  divFeedback.innerHTML = '☹️'
+                  spanResultat.innerHTML = '☹️'
                   resultat3 = 'KO'
                 }
               }
@@ -286,15 +286,15 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         window.notify('Quelque chose de pas normal avec l\'autoCorrection : ', { nbQuestions: this.nbQuestions, index: i * 3 + k, autoCorrection: this.autoCorrection })
         switch (k) {
           case 0:
-            divFeedback.innerHTML = '☹️'
+            spanResultat.innerHTML = '☹️'
             resultat1 = 'KO'
             break
           case 1:
-            divFeedback.innerHTML = '☹️'
+            spanResultat.innerHTML = '☹️'
             resultat2 = 'KO'
             break
           case 2:
-            divFeedback.innerHTML = '☹️'
+            spanResultat.innerHTML = '☹️'
             resultat3 = 'KO'
             break
         }

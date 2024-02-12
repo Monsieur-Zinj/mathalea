@@ -422,7 +422,7 @@ export default function RecomposerEntierC3 () {
                     }
       }
 
-      texte += (context.isHtml) ? `<div id=divDuSmiley${this.numeroExercice}Q${i} style= "display" class = "inline college6eme largeur01 nospacebefore-block"></div>` : ''
+      texte += (context.isHtml && this.interactif) ? `<span id=resultatCheckEx${this.numeroExercice}Q${i}></span>` : ''
 
       if (this.questionJamaisPosee(i, nombre)) {
         this.listeQuestions.push(texte)
@@ -441,7 +441,7 @@ export default function RecomposerEntierC3 () {
     const champsTexte = []
     const saisies = []
     if (this.premierChamp[i] === undefined) return 'OK'
-    const divFeedback = document.querySelector(`#divDuSmiley${this.numeroExercice}Q${i}`)
+    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
     let resultatOK = true
     for (let k = 0; k < this.nombreDeChamps[i]; k++) {
       champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${k + this.premierChamp[i]}`)
@@ -449,10 +449,10 @@ export default function RecomposerEntierC3 () {
       resultatOK = resultatOK && parseInt(saisies[k]) === parseInt(this.autoCorrection[this.premierChamp[i] + k].reponse.valeur[0])
     }
     if (resultatOK) {
-      divFeedback.innerHTML += '😎'
+      spanResultat.innerHTML += '😎'
       return 'OK'
     } else {
-      divFeedback.innerHTML += '☹️'
+      spanResultat.innerHTML += '☹️'
       return 'KO'
     }
   }

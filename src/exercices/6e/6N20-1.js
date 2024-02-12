@@ -7,10 +7,11 @@ import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
+import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
@@ -79,7 +80,8 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
       d = this.liste_de_denominateurs[i]
       k = this.lycee ? choice(rangeMinMax(-5, 5)) : choice(rangeMinMax(0, aleaMax))
       n = k * d + randint(1, d - 1)
-      texte = this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + `$< \\dfrac{${n}}{${d}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') : `$\\ldots < \\dfrac{${n}}{${d}} < \\ldots$`
+      texte = remplisLesBlancs(this, i, `%{champ1} < \\dfrac{${n}}{${d}} < %{champ2}`, 'college6eme', '\\ldots')
+      texte += ajouteFeedback(this, i)
       texteCorr = `$${k} < \\dfrac{${n}}{${d}} < ${k + 1}$`
       texteCorr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `
       texteCorr += '<br><br>'
@@ -131,8 +133,19 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
             ]
           }
         } else {
-          setReponse(this, 2 * i, k)
-          setReponse(this, 2 * i + 1, k + 1)
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            feedback: (saisies/** {champ1: string, champ2:string} */) => {
+              const rep1 = saisies.champ1
+              const rep2 = saisies.champ2
+              // on teste consecutifsCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
+              // consecutifsCompare peut être utilisée pour évaluer des saisies complètes d'encadrements avec les signes < ou >
+              const { feedback } = consecutifsCompare(`${rep1}<${(n / d).toFixed(4)}<${rep2}`, { entierInf: k, entierSup: k + 1, valeurInter: (2 * k + 1) / 2 })
+              return feedback
+            },
+            champ1: { value: String(k), compare: numberCompare },
+            champ2: { value: String(k + 1), compare: numberCompare }
+          }, { formatInteractif: 'fillInTheBlank' })
         }
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

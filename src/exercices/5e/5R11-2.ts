@@ -118,7 +118,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `ex${this.numeroExercice}Q${i}`, figure })
+          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `Ex${this.numeroExercice}Q${i}`, figure })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -152,7 +152,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
     const goodAnswer = this.goodAnswers[i]
-    const divFeedback = document.querySelector(`#feedback${`ex${this.numeroExercice}Q${i}`}`)
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
     for (let j = 0; j < goodAnswer.length; j++) {
       const label = goodAnswer[j].label
       const x = goodAnswer[j].x

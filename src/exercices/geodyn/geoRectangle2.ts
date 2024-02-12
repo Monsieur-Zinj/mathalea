@@ -2,6 +2,7 @@ import Exercice from '../Exercice'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Tracer un rectangle de dimensions données'
 export const dateDePublication = '4/11/2023'
@@ -48,7 +49,7 @@ class ConstructionRectangleDimensions extends Exercice {
     texteCorr += '<br>Pour faire un segment de longueur donnée, il faut obligatoirement un tracer un cercle de centre un point et de rayon la longueur du segment.'
     const figureCorrection = createAnimationConstructionRectangle(this.L, this.l)
     const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
-    this.question = enonce + emplacementPourFigure
+    this.question = enonce + emplacementPourFigure + ajouteFeedback(this, 0)
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
@@ -59,7 +60,7 @@ class ConstructionRectangleDimensions extends Exercice {
     const resultat = []
     let feedback = ''
     // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le triangle est tracé)
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedback${this.numeroExercice}`) as HTMLDivElement
     const { isValid, message } = this.figure.checkAngle({ angle: 90, label1: 'A', label2: 'B', label3: 'C' })
     resultat.push(isValid ? 'OK' : 'KO')
     if (message !== '') { feedback += message + '<br>' }

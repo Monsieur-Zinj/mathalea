@@ -372,7 +372,7 @@ export function ExoRose () {
   this.correctionInteractive = i => {
     const taille = this.nombreDeValeurs
     const champsTexte = []
-    const divFeedback = this.type.substring(0, 3) === 'can'
+    const spanResultat = this.type.substring(0, 3) === 'can'
       ? document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
       : document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${(i + 1) * taille - 1}`)
     const saisies = []
@@ -387,10 +387,10 @@ export function ExoRose () {
     }
     let resultat
     if (this.saisieCoherente(saisies, taille, i)) {
-      divFeedback.innerHTML = '😎'
+      spanResultat.innerHTML = '😎'
       resultat = 'OK'
     } else {
-      divFeedback.innerHTML = '☹️'
+      spanResultat.innerHTML = '☹️'
       resultat = 'KO'
     }
     return resultat

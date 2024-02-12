@@ -4,6 +4,7 @@ import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils.js'
 import type TextByPosition from 'apigeom/src/elements/text/TextByPosition.js'
 import { context } from '../../modules/context'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Placer des points dans un repère'
 export const dateDePublication = '27/10/2023'
@@ -39,7 +40,7 @@ class ReperagePointDuPlan extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
+    this.idApigeom = `apiGeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ snapGrid: true, xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     this.figure.create('Grid')
@@ -79,7 +80,7 @@ class ReperagePointDuPlan extends Exercice {
     const texteCorr = figureCorr.getStaticHtml()
 
     if (context.isHtml) {
-      this.question = enonce + emplacementPourFigure
+      this.question = enonce + emplacementPourFigure + ajouteFeedback(this, 0)
       this.correction = texteCorr
     } else {
       this.question = enonce + `\n\n\\bigskip\n\\Reperage[Plan,AffichageNom,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
@@ -108,7 +109,7 @@ class ReperagePointDuPlan extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom] = this.figure.json
     const resultat = [] // Tableau de 'OK' ou de'KO' pour le calcul du score
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`)
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q0`)
     for (const coord of this.points) {
       const { points, isValid, message } = this.figure.checkCoords({ label: coord.label, x: coord.x, y: coord.y })
       // Point par point, je vérifie que le label et les coordonnées correspondent

@@ -23,6 +23,7 @@ import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 import { codageMilieu } from '../../lib/2d/codages'
 import type Line from 'apigeom/src/elements/lines/Line'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Construire des symétriques de points'
 export const dateDePublication = '07/01/2024'
@@ -32,6 +33,11 @@ export const interactifType = 'custom'
 export const uuid = '26ea4'
 export const ref = '6G24-0'
 
+/**
+ * Fonction pour positionner le label
+ * @param pointA
+ * @param pointB
+ */
 function positionneLabel (pointA: Point, pointB: Point) {
   if (pointA.x < pointB.x) return 'above left'
   else if (pointA > pointB.x) return 'below right'
@@ -40,6 +46,11 @@ function positionneLabel (pointA: Point, pointB: Point) {
     else return 'below right'
   }
 }
+
+/**
+ * fonction pour verifier qu'on est dans le cadre
+ * @param points
+ */
 function checkDistance (points: {x: number, y:number}[]) {
   for (const point of points) {
     if (point.x < -7 || point.x > 7 || point.y < -7 || point.y > 7) {
@@ -48,6 +59,11 @@ function checkDistance (points: {x: number, y:number}[]) {
   }
   return true
 }
+
+/**
+ * Construction interactive de symétriques de points
+ * @author Jean-Claude Lhote
+ */
 class ConstrctionsSymetriquesPoints extends Exercice {
   figures!: Figure[]
   idApigeom!: string[]
@@ -269,9 +285,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           }
         }
         this.figures[i].options.limitNumberOfElement.set('Point', 1)
-        this.idApigeom[i] = `apigeomEx${numeroExercice}F${i}`
+        this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
         const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figures[i] })
-        this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
+        this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure + ajouteFeedback(this, i))
       } else {
         this.listeQuestions.push(enonce + '<br><br>' + mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objets))
       }
@@ -284,7 +300,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom[i]] = this.figures[i].json
     const resultat = []
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom[i]}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     let feedback = ''
 
     // on crée les bons symétriques :

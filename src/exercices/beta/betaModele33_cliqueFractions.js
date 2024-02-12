@@ -104,13 +104,13 @@ export default class NomExercice extends Exercice {
           if (rectangle.etat) nbPartsColoriees++
           rectangle.stopCliquable()
         }
-        const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+        const spanFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
 
         if (nbPartsColoriees === nbParts[i]) {
-          divFeedback.innerHTML = '😎'
+          spanFeedback.innerHTML = '😎'
           nbBonnesReponses++
         } else {
-          divFeedback.innerHTML = '☹️'
+          spanFeedback.innerHTML = '☹️'
           nbMauvaisesReponses++
         }
       }

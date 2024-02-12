@@ -2,6 +2,7 @@ import Exercice from '../Exercice'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Tracer un carré de dimension donnée'
 export const dateDePublication = '10/11/2023'
@@ -46,7 +47,7 @@ class ConstructionCarre2 extends Exercice {
     texteCorr += '<br>Dans cette animation, on va tracer un quadrilatère avec 3 angles droits et deux côtés consécutifs de même longueur mais on n\'aurait pu aussi ne faire qu\'un angle droit et tracer des côtés opposés parallèles.'
     const figureCorrection = createAnimationConstructionCarre(this.cote)
     const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
-    this.question = enonce + emplacementPourFigure
+    this.question = enonce + emplacementPourFigure + ajouteFeedback(this, 0)
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
@@ -57,7 +58,7 @@ class ConstructionCarre2 extends Exercice {
     const resultat = []
     let feedback = ''
     // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le triangle est tracé)
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q0`) as HTMLDivElement
     const { isValid, message } = this.figure.checkAngle({ angle: 90, label1: 'A', label2: 'B', label3: 'C' })
     resultat.push(isValid ? 'OK' : 'KO')
     if (message !== '') { feedback += message + '<br>' }

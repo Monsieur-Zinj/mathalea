@@ -110,13 +110,14 @@ class SoustractionRelatifs extends Exercice {
     }
   }
 
+  // à mon avis, cette correction est à proscrire et doit pouvoir se faire avec handleAnswer et le formatInteractif 'fillInTheBlank'
   correctionInteractive = (i?: number) => {
     if (i === undefined) return ''
     if (this.answers === undefined) this.answers = {}
     let result: 'OK' | 'KO' = 'KO'
     const mf = document.querySelector(`#champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
     this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
-    const divFeedback = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`) as HTMLDivElement
+    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`) as HTMLSpanElement
     const a = this.listeA[i]
     const b = this.listeB[i]
     const test1 = ce.parse(mf.getPromptValue('place1')).isSame(ce.parse(`${a}`))
@@ -124,9 +125,9 @@ class SoustractionRelatifs extends Exercice {
     const test3 = ce.parse(mf.getPromptValue('place3')).isSame(ce.parse(`(${a - b})`)) || ce.parse(mf.getPromptValue('place3')).isSame(ce.parse(`${a - b}`))
     if (test1 && test2 && test3) {
       result = 'OK'
-      divFeedback.innerHTML = '😎'
+      spanResultat.innerHTML = '😎'
     } else {
-      divFeedback.innerHTML = '☹️'
+      spanResultat.innerHTML = '☹️'
     }
     if (!test1) {
       mf.setPromptState('place1', 'incorrect', true)

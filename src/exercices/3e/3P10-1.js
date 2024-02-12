@@ -50,8 +50,8 @@ export default function CoefficientEvolution () {
       this.introduction = this.interactif ? '<em>Il faut saisir un nombre décimal ou une réponse de la forme +10% ou -10%</em>' : ''
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, reponse, taux, coeff, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      taux = choice([randint(1, 9) * 10, randint(1, 9)])
+    for (let i = 0, texte, texteCorr, reponse, taux, coeff, cpt = 0; i < this.nbQuestions && cpt < 100;) {
+      taux = choice([randint(1, 19) * 10, randint(1, 29, [10, 20])])
       switch (listeTypeDeQuestions[i]) {
         case 'coef+':
           texte = `Augmenter de $${taux}~\\%$ revient à multiplier par...`

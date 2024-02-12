@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
@@ -56,7 +56,7 @@ export default function FractionVersPourcentage () {
       if (this.sup === 1) {
         this.interactifType = 'custom'
         texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{num1}}{%{den1}}=\\dfrac{%{num2}}{100}=%{percent}\\%`, 'college6e', '\\ldots\\ldots')
-
+        texte += ajouteFeedback(this, i)
         if (den < 100) {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${100 / den}}}{${den}{\\color{blue}\\times${100 / den}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {
@@ -90,7 +90,7 @@ export default function FractionVersPourcentage () {
       window.notify(`La correction de 5N11-3 n'a pas trouvé de mathfield d'id champTexteEx${this.numeroExercice}Q${i}`)
     } else {
       this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
-      const spanFeedback = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q${i}`)
+      const spanResultat = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q${i}`)
       const num1 = mf.getPromptValue('num1')
       const num2 = mf.getPromptValue('num2')
       const den1 = mf.getPromptValue('den1')
@@ -128,15 +128,16 @@ export default function FractionVersPourcentage () {
             } else {
               feedback += 'La première fraction est incorrecte'
             }
+          } else {
+            feedback += 'Le calcul est faux'
           }// ici, le premier calcul est faux donc tout est faux, y a rien a dire
         }
         feedback += ' et le résultat final est faux.'
       }
-      const divDuFeedback = document.createElement('div')
-      divDuFeedback.classList.add('ml-2', 'py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
-      spanFeedback.innerHTML = smiley
+      const divDuFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${i}`)
+      spanResultat.innerHTML = smiley
       divDuFeedback.innerHTML = feedback
-      spanFeedback.after(divDuFeedback)
+      spanResultat.after(divDuFeedback)
       mf.setPromptState('num1', test1 ? 'correct' : 'incorrect', true)
       mf.setPromptState('den1', test1 ? 'correct' : 'incorrect', true)
       mf.setPromptState('num2', test2 ? 'correct' : 'incorrect', true)

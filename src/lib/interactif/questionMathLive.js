@@ -59,6 +59,19 @@ const buildDataKeyboardString = (style = '') => {
   }
 }
 
+/**
+ * Retourne le code html d'un div prévu pour le feedback toute forme d'interactivité.
+ * @param {Exercice} exercice
+ * @param {number} question
+ * @param {string} style
+ */
+export function ajouteFeedback (exercice, question, style = 'style="display: block"') {
+  if (context.isHtml) return ''
+  const exo = exercice.numeroExercice
+  if (exercice == null || typeof exo !== 'number' || typeof question !== 'number') return ''
+  return `<div class ="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exo}Q${question}" ${style !== '' ? style : ''}></div>`
+}
+
 export function ajouteChampTexteMathLive (exercice, i, style = '', {
   texteApres = '',
   texteAvant = '',
@@ -77,7 +90,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
     } else if (tailleExtensible) {
       html = `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; top: 27px; left: 0;padding:0 0;margin:0"><math-field data-keyboard="${dataKeyboard}"  class="${style}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else html = `<label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? '<span>' + texteApres + '</span>' : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    html += `<span id="feedbackEx${exercice.numeroExercice}Q${i}"></span>`
+    // html += `<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
     return html
   } else {
     return ''
@@ -112,7 +125,9 @@ export function remplisLesBlancs (exercice, question, content, classes = '', bla
     } else {
       classe = 'fillInTheBlanks'
     }
-    return `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly style="font-size:2em" class="${classe}" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span><div id="feedbackEx${exercice.numeroExercice}Q${question}"></div>`
+    return `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly style="font-size:2em" class="${classe}" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>`
+    // on enlève ce divFeedback automatique, c'est l'exercice qui doit l'ajouter.
+    // <div id="feedbackEx${exercice.numeroExercice}Q${question}"></div>`
   } else {
     return `$${mfeValue}$`
   }

@@ -4,7 +4,7 @@ import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
@@ -57,9 +57,9 @@ class DistributiviteNumerique extends Exercice {
       if (formeInitiale === 'factorisee') {
         sortie = [`
         $\\textbf{Ici, il est plus judicieux de distribuer d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${operation === 1 ? texNombre(b + c, 0) : texNombre(b - c, 0)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times (${texNombre(b, 0)} ${operation === 1 ? `+ ${texNombre(c, 0)}` : `- ${texNombre(c, 0)}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${texNombre(b, 0)} ${operation === 1 ? '+' : '-'} ${miseEnEvidence(k)}\\times ${texNombre(c, 0)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(String(k))}\\times ${operation === 1 ? texNombre(b + c, 0) : texNombre(b - c, 0)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(String(k))}\\times (${texNombre(b, 0)} ${operation === 1 ? `+ ${texNombre(c, 0)}` : `- ${texNombre(c, 0)}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(String(k))}\\times ${texNombre(b, 0)} ${operation === 1 ? '+' : '-'} ${miseEnEvidence(String(k))}\\times ${texNombre(c, 0)}$<br>
         $${lettreDepuisChiffre(i + 1)}=${texNombre(k * b, 0)} ${operation === 1 ? '+' : '-'} ${texNombre(k * c, 0)}$<br>
         $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * b + k * c, 0) : texNombre(k * b - k * c, 0)}$
         `,
@@ -72,9 +72,9 @@ class DistributiviteNumerique extends Exercice {
       } else {
         sortie = [`
         $\\textbf{Ici, il est plus judicieux de factoriser d'abord :}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${texNombre(b, 0)} ${operation === 1 ? '+' : '-'} ${miseEnEvidence(k)}\\times ${texNombre(c, 0)}$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times (${texNombre(b, 0)} ${operation === 1 ? `+ ${texNombre(c, 0)}` : `- ${texNombre(c, 0)}`})$<br>
-        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(k)}\\times ${operation === 1 ? texNombre(b + c, 0) : texNombre(b - c, 0)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(String(k))}\\times ${texNombre(b, 0)} ${operation === 1 ? '+' : '-'} ${miseEnEvidence(String(k))}\\times ${texNombre(c, 0)}$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(String(k))}\\times (${texNombre(b, 0)} ${operation === 1 ? `+ ${texNombre(c, 0)}` : `- ${texNombre(c, 0)}`})$<br>
+        $${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(String(k))}\\times ${operation === 1 ? texNombre(b + c, 0) : texNombre(b - c, 0)}$<br>
         $${lettreDepuisChiffre(i + 1)}=${operation === 1 ? texNombre(k * (b + c), 0) : texNombre(k * (b - c), 0)}$
         `,
         b,
@@ -156,6 +156,7 @@ class DistributiviteNumerique extends Exercice {
           const code = sp(2) + remplisLesBlancs(this, i, ` = ${texNombre(k, 0)} \\times (%{place1} ${listeTypeDeQuestions[i] % 2 === 1 ? '+' : '-'} %{place2}) = ${texNombre(k, 0)} \\times %{place3} = %{place4}`, 'ml-2')
           texte += code
         }
+        texte += ajouteFeedback(this, i)
       }
 
       if (this.questionJamaisPosee(i, texte)) {
@@ -211,7 +212,8 @@ class DistributiviteNumerique extends Exercice {
     const result: ('OK' | 'KO')[] = []
     const mf = document.querySelector(`#champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
     this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
+    // C'est dommage d'utiliser ce divFeedback pour y mettre juste un smiley !
+    const divFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     const test1 = ce.parse(mf.getPromptValue('place1')).isSame(ce.parse(`${this.rep1[i]}`))
     const test2 = ce.parse(mf.getPromptValue('place2')).isSame(ce.parse(`${this.rep2[i]}`))
     const test3 = ce.parse(mf.getPromptValue('place3')).isSame(ce.parse(`${this.rep3[i]}`))
@@ -223,7 +225,7 @@ class DistributiviteNumerique extends Exercice {
     if (this.typeQuestion[i] === 1) {
       const test5 = ce.parse(mf.getPromptValue('place5')).isSame(ce.parse(`${this.rep5[i]}`))
       mf.setPromptState('place5', test5 ? 'correct' : 'incorrect', true)
-      if (test1 && test2 && test3 && test4) {
+      if (test1 && test2 && test3 && test4) { // question à 5 champs test5 est pour la réponse finale
         result.push('OK')
         divFeedback.innerHTML = '😎'
       } else {
@@ -235,7 +237,7 @@ class DistributiviteNumerique extends Exercice {
       } else {
         result.push('KO')
       }
-    } else {
+    } else { // question à 4 champs test4 est pour la réponse final
       if (test1 && test2 && test3) {
         result.push('OK')
         divFeedback.innerHTML = '😎'

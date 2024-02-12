@@ -131,18 +131,18 @@ class LireImageParApiGeom extends Exercice {
     const xs = this.X.map(el => texNombre(el, 1))
 
     if (this.interactif) {
-      const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'college6eme nospacebefore', true)
+      const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'college6eme nospacebefore', true, {})
       enonce += '<br>' + tabMathlive.output
     } else {
       if (context.isHtml) {
-        const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'college6eme nospacebefore', false)
+        const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'college6eme nospacebefore', false, {})
         enonce += tabMathlive.output
       } else {
         const tabVideTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs.map(() => ''), 1, true, this.numeroExercice, 0)
         enonce += tabVideTex
       }
     }
-    const tableauValeur = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2, nbColonnes }, 'college6eme nospacebefore', false)
+    const tableauValeur = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2, nbColonnes }, 'college6eme nospacebefore', false, {})
     const tabValeurTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs, 1, true, this.numeroExercice, 0)
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')
@@ -195,13 +195,13 @@ class LireImageParApiGeom extends Exercice {
       if (answer == null) throw Error(`Il n'y a pas de math-field d'id champTexteEx${this.numeroExercice}QOL1C${k + 1} dans ce tableau !`)
       const valeur = Number(answer.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1'))
       if (valeur) this.answers[`Ex${this.numeroExercice}Q0L1C${k + 1}`] = String(valeur)
-      const spanFeedback = tableau.querySelector(`span#feedbackEx${this.numeroExercice}Q0L1C${k + 1}`)
-      if (spanFeedback) {
+      const spanResultat = tableau.querySelector(`span#resultatCheckEx${this.numeroExercice}Q0L1C${k + 1}`)
+      if (spanResultat) {
         if (egal(valeur, this.Y[k], 0.1)) {
-          spanFeedback.innerHTML = spanFeedback.innerHTML += '😎'
+          spanResultat.innerHTML = spanResultat.innerHTML += '😎'
           result.push('OK')
         } else {
-          spanFeedback.innerHTML += '☹️'
+          spanResultat.innerHTML += '☹️'
           result.push('KO')
         }
       }
