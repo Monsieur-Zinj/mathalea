@@ -89,7 +89,7 @@ class ConstructionTriangle extends Exercice {
     } else {
       resultat = [...resultat, 'KO', 'KO']
     }
-    divFeedback.innerHTML = feedback
+    if (divFeedback) divFeedback.innerHTML = feedback
     // Comme c'est asynchrone, il faut forcer le rendu LaTeX
     mathaleaRenderDiv(divFeedback)
     this.figure.isDynamic = false

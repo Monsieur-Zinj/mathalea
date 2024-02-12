@@ -150,7 +150,7 @@ class ConstructionSegmentRayLine extends Exercice {
         feedback += trait.wrongFeedback + '<br><br>'
       }
     }
-    divFeedback.innerHTML = feedback
+    if (divFeedback) divFeedback.innerHTML = feedback
     this.figure.isDynamic = false
     this.figure.divButtons.style.display = 'none'
     this.figure.divUserMessage.style.display = 'none'

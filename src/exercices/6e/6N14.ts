@@ -142,15 +142,15 @@ export default class RepresenterUneFraction extends Exercice {
     let result = 'KO'
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     if (this.diagrammes[i].numerator === this.numerators[i]) {
-      divFeedback.innerHTML = '😎'
+      if (divFeedback) divFeedback.innerHTML = '😎'
       result = 'OK'
     } else {
       const p1 = document.createElement('p')
       p1.innerText = '☹️'
       const p2 = document.createElement('p')
       p2.innerText = `Tu as colorié $\\dfrac{${this.diagrammes[i].numerator}}{${this.diagrammes[i].denominator}}$.`
-      divFeedback.appendChild(p1)
-      divFeedback.appendChild(p2)
+      if (divFeedback) divFeedback.appendChild(p1)
+      if (divFeedback) divFeedback.appendChild(p2)
     }
     this.figures[i].isDynamic = false
     this.figures[i].divUserMessage.style.display = 'none'

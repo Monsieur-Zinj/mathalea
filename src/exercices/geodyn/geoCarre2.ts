@@ -78,7 +78,7 @@ class ConstructionCarre2 extends Exercice {
       feedback += 'Le quadrilatère $ABCD$ a 3 angles droits et deux côtés consécutifs de même longueur donc c\'est un carré.'
       feedback += '<br>Bravo !'
     }
-    divFeedback.innerHTML = feedback
+    if (divFeedback) divFeedback.innerHTML = feedback
     this.figure.isDynamic = false
     this.figure.divButtons.style.display = 'none'
     this.figure.divUserMessage.style.display = 'none'

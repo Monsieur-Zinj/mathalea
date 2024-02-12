@@ -136,8 +136,10 @@ export default function FractionVersPourcentage () {
       }
       const divDuFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${i}`)
       spanResultat.innerHTML = smiley
-      divDuFeedback.innerHTML = feedback
-      spanResultat.after(divDuFeedback)
+      if (divDuFeedback) {
+        divDuFeedback.innerHTML = feedback
+        spanResultat.after(divDuFeedback)
+      }
       mf.setPromptState('num1', test1 ? 'correct' : 'incorrect', true)
       mf.setPromptState('den1', test1 ? 'correct' : 'incorrect', true)
       mf.setPromptState('num2', test2 ? 'correct' : 'incorrect', true)

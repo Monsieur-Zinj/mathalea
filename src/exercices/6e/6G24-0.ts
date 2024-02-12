@@ -337,7 +337,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         resultat.push('KO')
       }
     }
-    divFeedback.innerHTML = feedback
+    if (divFeedback) divFeedback.innerHTML = feedback
     // mathaleaRenderDiv(divFeedback)
     this.figures[i].isDynamic = false
     this.figures[i].divButtons.style.display = 'none'
