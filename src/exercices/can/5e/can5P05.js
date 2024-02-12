@@ -1,14 +1,16 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
+import Decimal from 'decimal.js'
+import { randint } from '../../../modules/outils.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 export const titre = 'Prendre t % d’une quantité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '18/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
+export const dateDeModifImportante = '12/02/2024'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -20,46 +22,57 @@ export default function PoucentageP2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    let a, u
-    switch (choice(['a', 'a', 'b', 'c', 'c'])) {
+    let a, u, b
+    switch (choice(['a', 'a', 'b', 'c', 'c', 'd', 'd'])) { //
       case 'a':
-        a = randint(10, 99)
-
-        this.question = `Prendre $${a}~\\%$ d'une quantité revient à la multiplier par `
+        a = new Decimal(randint(10, 99))
+        this.reponse = a.div(100)
+        this.question = `Prendre $${texNombre(a, 0)}\\,\\%$ d'une quantité revient à la multiplier par `
         if (!this.interactif) {
           this.question += '.... '
         }
-        this.correction = `$${a}~\\%=\\dfrac{${a}}{100}=${texNombre(a / 100)}$ <br>
-    Donc prendre $${a}~\\%$ d'une quantité revient à la multiplier par $${texNombre(a / 100)}$.`
-        this.reponse = a / 100
+        this.correction = `$${texNombre(a, 0)}\\,\\%=\\dfrac{${a}}{100}=${texNombre(this.reponse, 2)}$ <br>
+    Donc prendre $${texNombre(a, 0)}\\,\\%$ d'une quantité revient à la multiplier par $${miseEnEvidence(texNombre(this.reponse, 2))}$.`
+
         break
       case 'b':
-        a = randint(1, 9)
-
-        this.question = `Prendre $${a}~\\%$ d'une quantité revient à la multiplier par `
+        a = new Decimal(randint(1, 9))
+        this.reponse = a.div(100)
+        this.question = `Prendre $${a}\\,\\%$ d'une quantité revient à la multiplier par `
         if (!this.interactif) {
           this.question += '.... '
         }
-        this.correction = `$${a}~\\%=\\dfrac{${a}}{100}=${texNombre(a / 100)}$ <br>
-       Donc prendre $${a}~\\%$ d'une quantité revient à la multiplier par $${texNombre(a / 100)}$.`
+        this.correction = `$${a}\\,\\%=\\dfrac{${a}}{100}=${texNombre(this.reponse, 2)}$ <br>
+       Donc prendre $${texNombre(a, 0)}\\,\\%$ d'une quantité revient à la multiplier par $${miseEnEvidence(texNombre(this.reponse, 2))}$.`
         this.reponse = a / 100
         break
       case 'c':
         u = randint(1, 99)
-        a = calculANePlusJamaisUtiliser(randint(1, 9) / 10)
-
-        this.question = `Prendre $${texNombre(u + a)}~\\%$ d'une quantité revient à la multiplier par `
+        a = new Decimal(randint(1, 9)).div(10)
+        this.reponse = a.add(u).div(100)
+        this.question = `Prendre $${texNombre(a.add(u), 1)}\\,\\%$ d'une quantité revient à la multiplier par `
         if (!this.interactif) {
           this.question += '.... '
         }
-        this.correction = `$${texNombre(u + a)}~\\%=\\dfrac{${texNombre(u + a)}}{100}=${texNombre((u + a) / 100)}$ <br>
-       Donc prendre $${texNombre(u + a)}~\\%$ d'une quantité revient à la multiplier par $${texNombre((u + a) / 100)}$.`
-        this.reponse = (u + a) / 100
+        this.correction = `$${texNombre(a.add(u), 1)}\\,\\%=\\dfrac{${texNombre(a.add(u), 1)}}{100}=${texNombre(this.reponse, 3)}$ <br>
+       Donc prendre $${texNombre(a.add(u), 1)}\\,\\%$ d'une quantité revient à la multiplier par $${miseEnEvidence(texNombre(this.reponse, 3))}$.`
+
         break
+
+      case 'd':
+        b = new Decimal(randint(11, 99, [20, 30, 40, 50, 60, 70, 80]))
+        a = new Decimal(b).div(10)
+        this.reponse = a.div(100)
+        this.question = `Prendre $${texNombre(a, 1)}\\,\\%$ d'une quantité revient à la multiplier par `
+        if (!this.interactif) {
+          this.question += '.... '
+        }
+        this.correction = `$${texNombre(a, 1)}\\,\\%=\\dfrac{${a}}{100}=${texNombre(this.reponse, 3)}$ <br>
+      Donc prendre $${texNombre(a, 0)}\\,\\%$ d'une quantité revient à la multiplier par $${miseEnEvidence(texNombre(this.reponse, 3))}$.`
     }
     this.canEnonce = 'Compléter.'
     this.canReponseACompleter = this.question
