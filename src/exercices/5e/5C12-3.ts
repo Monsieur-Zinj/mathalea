@@ -227,10 +227,10 @@ class DistributiviteNumerique extends Exercice {
       mf.setPromptState('place5', test5 ? 'correct' : 'incorrect', true)
       if (test1 && test2 && test3 && test4) { // question à 5 champs test5 est pour la réponse finale
         result.push('OK')
-        divFeedback.innerHTML = '😎'
+        if (divFeedback) divFeedback.innerHTML = '😎'
       } else {
         result.push('KO')
-        divFeedback.innerHTML = '☹️'
+        if (divFeedback) divFeedback.innerHTML = '☹️'
       }
       if (test5) {
         result.push('OK')
@@ -240,10 +240,10 @@ class DistributiviteNumerique extends Exercice {
     } else { // question à 4 champs test4 est pour la réponse final
       if (test1 && test2 && test3) {
         result.push('OK')
-        divFeedback.innerHTML = '😎'
+        if (divFeedback) divFeedback.innerHTML = '😎'
       } else {
         result.push('KO')
-        divFeedback.innerHTML = '☹️'
+        if (divFeedback) divFeedback.innerHTML = '☹️'
       }
       if (test4) {
         result.push('OK')

@@ -66,7 +66,7 @@ const buildDataKeyboardString = (style = '') => {
  * @param {string} style
  */
 export function ajouteFeedback (exercice, question, style = 'style="display: block"') {
-  if (context.isHtml) return ''
+  if (!context.isHtml) return ''
   const exo = exercice.numeroExercice
   if (exercice == null || typeof exo !== 'number' || typeof question !== 'number') return ''
   return `<div class ="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exo}Q${question}" ${style !== '' ? style : ''}></div>`

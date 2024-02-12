@@ -79,7 +79,7 @@ class ConstructionRectangleDimensions extends Exercice {
     if (isValid && isValid2 && isValid3 && isValid4) {
       feedback += 'Bravo !'
     }
-    divFeedback.innerHTML = feedback
+    if (divFeedback) divFeedback.innerHTML = feedback
     this.figure.isDynamic = false
     this.figure.divButtons.style.display = 'none'
     this.figure.divUserMessage.style.display = 'none'

@@ -71,7 +71,7 @@ class ConstructionCarre extends Exercice {
     const { isValid: isValid5, message: message5 } = this.figure.checkSameDistance({ label1: 'BC', label2: 'CD' })
     resultat.push(isValid5 ? 'OK' : 'KO')
     if (message5 !== '') { feedback += message5 + '<br>' }
-    divFeedback.innerHTML = feedback
+    if (divFeedback) divFeedback.innerHTML = feedback
     this.figure.isDynamic = false
     this.figure.divButtons.style.display = 'none'
     this.figure.divUserMessage.style.display = 'none'
