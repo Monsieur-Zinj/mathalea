@@ -91,8 +91,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   }
 
   nouvelleVersion (numeroExercice: number) {
-    const marks: string[] = ['//', '\\', 'x', 'O', '|||']
-    const colors: string[] = ['red', 'green', 'purple', 'blue', 'gray']
+    const marks: string[] = ['//', '///', 'x', 'O', '|||']
+    const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
     this.listeQuestions = []
     this.listeCorrections = []
@@ -113,7 +113,6 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       let enonce = ''
       let antecedents: Array<Point> = []
       const middle: Point[] = []
-      const centre: Point[] = []
       const symetriques: Point[] = []
       const objets = []
       let objetsCorrection: object[] = []
@@ -179,7 +178,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         const guide = droiteParPointEtPerpendiculaire(antecedents[k], d[i]) as Droite
         guide.pointilles = 2
         guide.color = colorToLatexOrHTML(colors[k])
-        guide.opacite = 0.4
+        guide.opacite = 0.8
         guideDroites.push(guide)
       }
       enonce = `Construire le${this.nbPoints > 1 ? 's' : ''} symétrique${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join('\',') + '\'' : (this.labels[i][0] + '\' ')}$` + (this.nbPoints > 1 ? ` et $${this.labels[i][this.nbPoints - 1] + '\''}$` : '') + (this.nbPoints > 1 ? ' respectifs ' : '')
@@ -194,7 +193,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
          */
         const guide = cercleCentrePoint(middle[k], antecedents[k], colors[k])
         guide.pointilles = 2
-        guide.opacite = 0.4
+        guide.opacite = 0.8
         guidesArc.push(guide)
       }
       if (this.sup2 === 1) {
@@ -221,17 +220,17 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         objetsCorrection.push(trace, labelSym, egalite)
       }
       objetsCorrection = [...objets, ...objetsCorrection]
-      if (this.sup2 !== 2) {
+      if (this.sup2 === 2) {
         guideDroites.forEach(guide => {
           guide.epaisseur = 1
-          guide.opacite = 0.5
+          guide.opacite = 0.8
         })
         objetsCorrection.push(...guideDroites)
       }
-      if (this.sup2 !== 3) {
+      if (this.sup2 === 3) {
         guidesArc.forEach(guide => {
           guide.epaisseur = 1
-          guide.opacite = 0.5
+          guide.opacite = 0.8
         })
         objetsCorrection.push(...guidesArc)
       }
@@ -241,6 +240,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
 
         objetsCorrection.push(carre)
       }
+
       if (context.isHtml && this.interactif) {
         this.figures[i] = new Figure({ xMin: -10, yMin: -10, width: 600, height: 600 })
         this.figures[i].scale = 0.7
@@ -277,7 +277,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         if (this.sup2 === 3) {
           for (let k = 0; k < this.nbPoints; k++) {
             this.figures[i].create('CircleCenterPoint', {
-              center: this.figures[i].create('Point', { isVisible: false, x: centre[k].x, y: centre[k].y }),
+              center: this.figures[i].create('Point', { isVisible: false, x: middle[k].x, y: middle[k].y }),
               point: (this.antecedents[i][k] as PointApigeom),
               isDashed: true,
               color: 'gray'
