@@ -22,6 +22,10 @@ export const dateDePublication = '12/12/2021'
  */
 export const uuid = '7cf81'
 export const ref = '3L11-7'
+export const refs = {
+  'fr-fr': ['3L11-7'],
+  'fr-ch': []
+}
 export default function CarreDoubleDistributivite () {
   Exercice.call(this)
   this.titre = titre

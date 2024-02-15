@@ -31,6 +31,10 @@ export const dateDeModifImportante = '11/11/2021'
  */
 export const uuid = 'b6982'
 export const ref = '5R21'
+export const refs = {
+  'fr-fr': ['5R21'],
+  'fr-ch': []
+}
 export default function ExerciceSoustractionsRelatifs (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max

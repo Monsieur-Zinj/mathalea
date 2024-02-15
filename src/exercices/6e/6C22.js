@@ -27,6 +27,10 @@ export const dateDePublication = '10/07/2021'
  */
 export const uuid = '99522'
 export const ref = '6C22'
+export const refs = {
+  'fr-fr': ['6C22'],
+  'fr-ch': []
+}
 export default function ProblemesDePlusEtDeMoins () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...'

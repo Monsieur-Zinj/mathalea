@@ -20,6 +20,10 @@ export const dateDeModifImportante = '18/05/2023'
  */
 export const uuid = 'b72b0'
 export const ref = '2F10-6'
+export const refs = {
+  'fr-fr': ['2F10-6'],
+  'fr-ch': []
+}
 export default function Variationsfonctionaffine () {
   Exercice.call(this)
   this.titre = titre

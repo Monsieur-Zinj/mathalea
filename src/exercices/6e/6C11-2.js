@@ -34,6 +34,10 @@ export const dateDeModifImportante = '07/05/2023'
  */
 export const uuid = '4e35d'
 export const ref = '6C11-2'
+export const refs = {
+  'fr-fr': ['6C11-2'],
+  'fr-ch': []
+}
 export default function VocabulaireDivisionEuclidienne () {
   Exercice.call(this)
   this.titre = titre

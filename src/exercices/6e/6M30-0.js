@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
 
 export const uuid = '0d4be'
 export const ref = '6M30-0'
+export const refs = {
+  'fr-fr': ['6M30-0'],
+  'fr-ch': []
+}
 export default function VolumesPavesParDenombrement () {
   Exercice.call(this)
   this.nbQuestions = 1 // Ici le nombre de questions

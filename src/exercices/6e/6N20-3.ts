@@ -9,6 +9,10 @@ import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparai
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'
 export const ref = '6N20-3'
+export const refs = {
+  'fr-fr': ['6N20-3'],
+  'fr-ch': []
+}
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '14/12/2023'

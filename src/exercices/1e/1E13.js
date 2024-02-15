@@ -24,6 +24,10 @@ export const titre = 'Factoriser, si possible, un polynôme du second degré'
  */
 export const uuid = '334ca'
 export const ref = '1E13'
+export const refs = {
+  'fr-fr': ['1E13'],
+  'fr-ch': []
+}
 export default function Resolutionavecformecanonique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

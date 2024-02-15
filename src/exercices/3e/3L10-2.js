@@ -16,6 +16,10 @@ export const dateDePublication = '28/11/2022'
  */
 export const uuid = 'c88ba'
 export const ref = '3L10-2'
+export const refs = {
+  'fr-fr': ['3L10-2'],
+  'fr-ch': []
+}
 export default class ReduireExpressionComplexe extends OpposeExpression {
   constructor () {
     super()

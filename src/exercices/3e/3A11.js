@@ -16,6 +16,10 @@ export const titre = 'Rendre irréductible une fraction'
  */
 export const uuid = 'a6667'
 export const ref = '3A11'
+export const refs = {
+  'fr-fr': ['3A11'],
+  'fr-ch': []
+}
 export default function FractionsIrreductibles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

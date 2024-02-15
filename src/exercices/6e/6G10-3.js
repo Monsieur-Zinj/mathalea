@@ -21,6 +21,10 @@ export const interactifType = ['cliqueFigure']
 */
 export const uuid = '83763'
 export const ref = '6G10-3'
+export const refs = {
+  'fr-fr': ['6G10-3'],
+  'fr-ch': []
+}
 export default function CliqueFigure () {
   Exercice.call(this)
   this.nbQuestions = 3

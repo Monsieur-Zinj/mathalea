@@ -11,6 +11,10 @@ export const titre = 'Déterminer une équation cartésienne à partir d\'un poi
 */
 export const uuid = 'd1da3'
 export const ref = '2G30-5'
+export const refs = {
+  'fr-fr': ['2G30-5'],
+  'fr-ch': []
+}
 export default function Determinerequationcartesienneavecpente () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

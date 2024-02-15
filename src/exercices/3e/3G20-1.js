@@ -22,6 +22,10 @@ export const titre = 'Problèmes avec le théorème de Thalès'
 */
 export const uuid = 'eea67'
 export const ref = '3G20-1'
+export const refs = {
+  'fr-fr': ['3G20-1'],
+  'fr-ch': []
+}
 export default function ProblemesThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

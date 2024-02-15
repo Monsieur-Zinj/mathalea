@@ -20,6 +20,10 @@ export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un tr
  */
 export const uuid = 'a896e'
 export const ref = '1E12-1'
+export const refs = {
+  'fr-fr': ['1E12-1'],
+  'fr-ch': []
+}
 export default function LireElementsCarac () {
   Exercice.call(this)
   this.nbQuestions = 5 // Nombre de questions par défaut

@@ -19,6 +19,10 @@ export const dateDeModifImportante = '10/01/2024'
  */
 export const uuid = '90e1a'
 export const ref = '6G20'
+export const refs = {
+  'fr-fr': ['6G20'],
+  'fr-ch': []
+}
 export default function NommerEtCoderDesPolygones () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4

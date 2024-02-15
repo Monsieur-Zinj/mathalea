@@ -12,6 +12,10 @@ export const dateDePublication = '09/05/2023'
  */
 export const uuid = '99c84'
 export const ref = '2N32-8'
+export const refs = {
+  'fr-fr': ['2N32-8'],
+  'fr-ch': []
+}
 export default function CalculValeurApprocheeRacineCarreeS () {
   CalculValeurApprocheeRacineCarree.call(this)
 }

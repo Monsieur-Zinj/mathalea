@@ -23,6 +23,10 @@ export const dateDePublication = '14/02/2023'
  */
 export const uuid = '277d3'
 export const ref = '2F12-2'
+export const refs = {
+  'fr-fr': ['2F12-2'],
+  'fr-ch': []
+}
 export default function ResoudreGraphFonctionRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

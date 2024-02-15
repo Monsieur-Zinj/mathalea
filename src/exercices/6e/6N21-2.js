@@ -23,6 +23,10 @@ export const dateDePublication = '25/01/2024'
  */
 export const uuid = '442f4'
 export const ref = '6N21-2'
+export const refs = {
+  'fr-fr': ['6N21-2'],
+  'fr-ch': []
+}
 export default function LireAbscissesFractionnairesComplexes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

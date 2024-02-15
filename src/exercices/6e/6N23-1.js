@@ -34,6 +34,10 @@ function texFraction (numerateur, denominateur) {
  */
 export const uuid = '1acf7'
 export const ref = '6N23-1'
+export const refs = {
+  'fr-fr': ['6N23-1'],
+  'fr-ch': []
+}
 export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l’écriture décimale.'

@@ -19,6 +19,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = '8f5d3'
 export const ref = '6G10'
+export const refs = {
+  'fr-fr': ['6G10'],
+  'fr-ch': []
+}
 export default function NotationSegmentDroiteDemiDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

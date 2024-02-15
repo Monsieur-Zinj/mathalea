@@ -22,6 +22,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '4b9d5'
 export const ref = '6N23'
+export const refs = {
+  'fr-fr': ['6N23'],
+  'fr-ch': []
+}
 export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale."

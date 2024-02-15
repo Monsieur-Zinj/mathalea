@@ -20,6 +20,10 @@ export const dateDePublication = '20/12/2022'
 */
 export const uuid = 'c6836'
 export const ref = '6C30-9'
+export const refs = {
+  'fr-fr': ['6C30-9'],
+  'fr-ch': []
+}
 export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
   constructor () {
     super()

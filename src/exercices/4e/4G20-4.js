@@ -20,6 +20,10 @@ export const titre = 'Arrondir une racine carrée'
 
 export const uuid = '41187'
 export const ref = '4G20-4'
+export const refs = {
+  'fr-fr': ['4G20-4'],
+  'fr-ch': []
+}
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -14,6 +14,10 @@ export const dateDeModifImportante = '07/06/2023'
  */
 export const uuid = 'b36df'
 export const ref = '6G42'
+export const refs = {
+  'fr-fr': ['6G42'],
+  'fr-ch': []
+}
 export default function UtiliserVocabulairePave () {
   Solide6e.call(this)
   this.titre = titre

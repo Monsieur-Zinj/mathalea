@@ -9,6 +9,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'cf83c'
 export const ref = '5R12'
+export const refs = {
+  'fr-fr': ['5R12'],
+  'fr-ch': []
+}
 export default function ReperagePointDuQuartDePlan () {
   ReperagePointDuPlan.call(this)
   this.quartDePlan = true

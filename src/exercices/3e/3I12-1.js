@@ -18,6 +18,10 @@ export const dateDeModifImportante = '08/05/2023' // par EE : Le nb de questions
  */
 export const uuid = '39a32'
 export const ref = '3I12-1'
+export const refs = {
+  'fr-fr': ['3I12-1'],
+  'fr-ch': []
+}
 export default function CompleterScriptMultiple () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 5

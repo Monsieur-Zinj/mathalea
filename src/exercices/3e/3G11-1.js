@@ -17,6 +17,10 @@ export const dateDePublication = '27/11/2022'
 
 export const uuid = '1ebf7'
 export const ref = '3G11-1'
+export const refs = {
+  'fr-fr': ['3G11-1'],
+  'fr-ch': []
+}
 export default class HomothetieRapport extends Exercice {
   constructor () {
     super()

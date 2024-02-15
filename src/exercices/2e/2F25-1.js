@@ -19,6 +19,10 @@ export const titre = 'Étudier graphiquement la parité d\'une fonction'
 */
 export const uuid = '6e82d'
 export const ref = '2F25-1'
+export const refs = {
+  'fr-fr': ['2F25-1'],
+  'fr-ch': []
+}
 export default function EtudierGraphiqueParite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

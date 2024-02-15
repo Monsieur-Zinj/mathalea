@@ -26,6 +26,10 @@ export const dateDeModifImportante = '26/02/2023'
  */
 export const uuid = '81fd2'
 export const ref = '3L12'
+export const refs = {
+  'fr-fr': ['3L12'],
+  'fr-ch': []
+}
 export default function FactoriserIdentitesRemarquables3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

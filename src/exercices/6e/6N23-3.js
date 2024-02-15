@@ -27,6 +27,10 @@ export const dateDeModifImportante = '22/11/2022'
  */
 export const uuid = '23c48'
 export const ref = '6N23-3'
+export const refs = {
+  'fr-fr': ['6N23-3'],
+  'fr-ch': []
+}
 export default function LireUneAbscisseAvecZoom () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.niveau = 'sixième'

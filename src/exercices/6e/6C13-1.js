@@ -10,6 +10,10 @@ export const titre = 'Connaître le vocabulaire lié aux 4 opérations'
  */
 export const uuid = '32e02'
 export const ref = '6C13-1'
+export const refs = {
+  'fr-fr': ['6C13-1'],
+  'fr-ch': []
+}
 export default function VocabulaireSur4Operations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

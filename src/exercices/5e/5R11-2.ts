@@ -25,6 +25,10 @@ export const dateDeModifImportante = '8/12/2023'
 */
 export const uuid = '6d576'
 export const ref = '5R11-2'
+export const refs = {
+  'fr-fr': ['5R11-2'],
+  'fr-ch': []
+}
 
 type goodAnswer = { label: string, x: number }[]
 

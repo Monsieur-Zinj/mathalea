@@ -23,6 +23,10 @@ export const dateDeModifImportante = '03/05/2023'
  */
 export const uuid = '9c916'
 export const ref = '4G52'
+export const refs = {
+  'fr-fr': ['4G52'],
+  'fr-ch': []
+}
 export default function ReperagePaveDroit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

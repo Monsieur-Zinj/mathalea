@@ -21,6 +21,10 @@ export const amcType = 'AMCHybride'
  * @author Mickael Guironnet (rendu AMC par Eric Elter)
  */
 export const ref = '6N31-5'
+export const refs = {
+  'fr-fr': ['6N31-5'],
+  'fr-ch': []
+}
 export const uuid = 'a8c21'
 export default function EncadrerUnDecimal () {
   Exercice.call(this) // Héritage de la classe Exercice()

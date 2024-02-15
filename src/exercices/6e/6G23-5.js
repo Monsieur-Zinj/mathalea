@@ -33,6 +33,10 @@ export const dateDeModifImportante = '09/05/2023'
  */
 export const uuid = '329fe'
 export const ref = '6G23-5'
+export const refs = {
+  'fr-fr': ['6G23-5'],
+  'fr-ch': []
+}
 export default function CalculerUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

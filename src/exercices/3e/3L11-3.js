@@ -19,6 +19,10 @@ export const amcReady = true
  */
 export const uuid = '82313'
 export const ref = '3L11-3'
+export const refs = {
+  'fr-fr': ['3L11-3'],
+  'fr-ch': []
+}
 export default function DistributiviteSimpleDoubleReduction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

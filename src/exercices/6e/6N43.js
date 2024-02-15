@@ -23,6 +23,10 @@ export const titre = 'Utiliser les critères de divisibilité'
  */
 export const uuid = '4a128'
 export const ref = '6N43'
+export const refs = {
+  'fr-fr': ['6N43'],
+  'fr-ch': []
+}
 export default function CriteresDeDivisibilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 4 // Correspond au facteur commun

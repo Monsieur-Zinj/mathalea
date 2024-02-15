@@ -26,6 +26,10 @@ export const dateDeModifImportante = '19/11/2023'
 */
 export const uuid = '3c1f7'
 export const ref = '5L10'
+export const refs = {
+  'fr-fr': ['5L10'],
+  'fr-ch': []
+}
 export default function ÉcrireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4

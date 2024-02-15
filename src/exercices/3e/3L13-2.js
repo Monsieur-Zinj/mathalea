@@ -30,6 +30,10 @@ export const dateDeModifImportante = '02/04/2023'
  */
 export const uuid = '6516e'
 export const ref = '3L13-2'
+export const refs = {
+  'fr-fr': ['3L13-2'],
+  'fr-ch': []
+}
 export default function EqResolvantesThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -17,6 +17,10 @@ export const titre = 'Organiser des données dans un tableau'
 
 export const uuid = '99d95'
 export const ref = '6S11'
+export const refs = {
+  'fr-fr': ['6S11'],
+  'fr-ch': []
+}
 export default function OrganiserDonneesDepuisTexte () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

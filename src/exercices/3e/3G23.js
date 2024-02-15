@@ -31,6 +31,10 @@ export const titre = 'Reconnaître des triangles égaux dans différentes config
  */
 export const uuid = '91513'
 export const ref = '3G23'
+export const refs = {
+  'fr-fr': ['3G23'],
+  'fr-ch': []
+}
 export default function TrianglesEgaux () {
   Exercice.call(this)
   this.debug = false

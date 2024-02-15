@@ -23,6 +23,10 @@ export const dateDeModifImportante = '09/07/2023'
  */
 export const uuid = 'fa7b9'
 export const ref = '2G23-2'
+export const refs = {
+  'fr-fr': ['2G23-2'],
+  'fr-ch': []
+}
 export default function TranslationEtCoordonnes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

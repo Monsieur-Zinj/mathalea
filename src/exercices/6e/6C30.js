@@ -29,6 +29,10 @@ export const titre = 'Poser des multiplications de nombres décimaux'
  */
 export const uuid = '52939'
 export const ref = '6C30'
+export const refs = {
+  'fr-fr': ['6C30'],
+  'fr-ch': []
+}
 export default function MultiplierDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

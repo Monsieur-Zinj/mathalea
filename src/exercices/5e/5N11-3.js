@@ -22,6 +22,10 @@ const ce = new ComputeEngine()
  */
 export const uuid = '0e58f'
 export const ref = '5N11-3'
+export const refs = {
+  'fr-fr': ['5N11-3'],
+  'fr-ch': []
+}
 export default function FractionVersPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter.'

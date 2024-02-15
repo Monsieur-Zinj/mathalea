@@ -25,6 +25,10 @@ export const dateDeModifImportante = '07/03/2023' // Une date de modification im
  */
 export const uuid = 'c75b6'
 export const ref = '6N22'
+export const refs = {
+  'fr-fr': ['6N22'],
+  'fr-ch': []
+}
 export default function FractionsCalculsSimples () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Calculer.'

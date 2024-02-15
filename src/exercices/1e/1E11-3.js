@@ -22,6 +22,10 @@ export const titre = 'Déterminer la forme canonique d\'un polynôme du second d
  */
 export const uuid = '60504'
 export const ref = '1E11-3'
+export const refs = {
+  'fr-fr': ['1E11-3'],
+  'fr-ch': []
+}
 export default function Formacanonique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

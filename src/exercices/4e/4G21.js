@@ -17,6 +17,10 @@ export const interactifReady = true
  */
 export const uuid = 'ab5d4'
 export const ref = '4G21'
+export const refs = {
+  'fr-fr': ['4G21'],
+  'fr-ch': []
+}
 export default function ReciproquePythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

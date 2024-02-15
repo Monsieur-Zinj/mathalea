@@ -24,11 +24,15 @@ export const titre = 'Tracer des parallèles et des perpendiculaires'
  * Fonction générale pour exercices de constructions de parallèles et perpendiculaires
  * références 6G11, 6G12 et 6G12-1
  * Animation de la correction ajoutée le 16/04/2021
- * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021, ES6 par Loïc Geeraerts
+ * @author Jean-Claude Lhote  (AMC par Eric Elter en septembre 2021, ES6 par Loïc Geeraerts)
  */
 
 export const uuid = 'd14bc'
 export const ref = '6G12-1'
+export const refs = {
+  'fr-fr': ['6G12-1'],
+  'fr-ch': []
+}
 export default class ParalleleEtPerpendiculaires extends Exercice {
 //
   constructor () {

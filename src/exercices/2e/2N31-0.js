@@ -11,6 +11,10 @@ export const interactifType = 'mathLive'
 
 export const uuid = '53fbb'
 export const ref = '2N31-0'
+export const refs = {
+  'fr-fr': ['2N31-0'],
+  'fr-ch': []
+}
 export default function PuissanceDunNombre2e () {
   PuissanceDunNombre.call(this)
   this.sup = true

@@ -19,6 +19,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = '4dadb'
 export const ref = '5R12-1'
+export const refs = {
+  'fr-fr': ['5R12-1'],
+  'fr-ch': []
+}
 
 // Type simplifié pour la sauvegarde de la réponse
 type Coords = { label: string, x: number, y: number }

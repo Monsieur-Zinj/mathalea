@@ -11,6 +11,10 @@ export const dateDeModifImportante = '05/11/2023'
  */
 export const uuid = 'b6cbe'
 export const ref = '4G53'
+export const refs = {
+  'fr-fr': ['4G53'],
+  'fr-ch': []
+}
 export default function CalculDeVolumes4e () {
   CalculDeVolumes.call(this)
   this.titre = titre

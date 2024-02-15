@@ -17,6 +17,10 @@ export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angl
  */
 export const uuid = '1ad45'
 export const ref = '6G23-2'
+export const refs = {
+  'fr-fr': ['6G23-2'],
+  'fr-ch': []
+}
 export default function TracerTriangle2Angles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

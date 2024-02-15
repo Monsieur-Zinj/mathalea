@@ -23,6 +23,10 @@ export const titre = 'Montrer qu\'un point appartient ou non à une courbe'
 */
 export const uuid = '36795'
 export const ref = '2F20-1'
+export const refs = {
+  'fr-fr': ['2F20-1'],
+  'fr-ch': []
+}
 export default function PointSurCourbe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1

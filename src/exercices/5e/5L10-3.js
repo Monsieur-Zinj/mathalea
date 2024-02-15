@@ -10,6 +10,10 @@ export const dateDeModifImportante = '21/09/2023'
 
 export const uuid = '458ae'
 export const ref = '5L10-3'
+export const refs = {
+  'fr-fr': ['5L10-3'],
+  'fr-ch': []
+}
 export default function TraduireUneExpressionLitteraleParUnePhrase () {
   EcrireUneExpressionNumerique.call(this)
   this.version = 2

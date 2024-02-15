@@ -25,6 +25,10 @@ export const dateDeModifImportante = '09/09/2022'
  */
 export const uuid = '7efdf'
 export const ref = '6N10-1'
+export const refs = {
+  'fr-fr': ['6N10-1'],
+  'fr-ch': []
+}
 export default function ExerciceNumerationEntier () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

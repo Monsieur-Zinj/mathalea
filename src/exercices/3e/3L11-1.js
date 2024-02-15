@@ -21,6 +21,10 @@ export const dateDeModifImportante = '26/02/2023'
  */
 export const uuid = '4197c'
 export const ref = '3L11-1'
+export const refs = {
+  'fr-fr': ['3L11-1'],
+  'fr-ch': []
+}
 export default function DoubleDistributivite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

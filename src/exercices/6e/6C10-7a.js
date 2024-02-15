@@ -9,6 +9,10 @@ export const dateDeModificationImportante = '16/12/2023'
 
 export const uuid = '26bb9'
 export const ref = '6C10-7a'
+export const refs = {
+  'fr-fr': ['6C10-7a'],
+  'fr-ch': []
+}
 /**
  * @author Jean-Claude Lhote
  * @constructor

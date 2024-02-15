@@ -23,6 +23,10 @@ export const dateDeModifImportante = '23/09/2023'
  */
 export const uuid = '8117d'
 export const ref = '3F13'
+export const refs = {
+  'fr-fr': ['3F13'],
+  'fr-ch': []
+}
 export default function AntecedentGraphique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

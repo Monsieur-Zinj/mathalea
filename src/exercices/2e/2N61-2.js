@@ -33,6 +33,10 @@ export const titre = 'Résoudre une inéquation-produit'
  */
 export const uuid = '014a4'
 export const ref = '2N61-2'
+export const refs = {
+  'fr-fr': ['2N61-2'],
+  'fr-ch': []
+}
 export default function ExerciceInequationProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']

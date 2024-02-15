@@ -30,6 +30,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = 'be1e4'
 export const ref = '6N31'
+export const refs = {
+  'fr-fr': ['6N31'],
+  'fr-ch': []
+}
 export default function ComparerDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter avec le signe < , > ou =.'

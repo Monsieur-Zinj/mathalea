@@ -8,6 +8,10 @@ export const dateDePublication = '03/04/2022'
  */
 export const uuid = '7ba64'
 export const ref = '4S20'
+export const refs = {
+  'fr-fr': ['4S20'],
+  'fr-ch': []
+}
 export default function FonctionsVocabulaireProbabilite4e () {
   FonctionsProbabilite1.call(this)
   this.titre = titre

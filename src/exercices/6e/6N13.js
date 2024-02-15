@@ -13,6 +13,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '3eae0'
 export const ref = '6N13'
+export const refs = {
+  'fr-fr': ['6N13'],
+  'fr-ch': []
+}
 export default function Exercice6N13 () {
   ExerciceConversions.call(this)
   this.sup = 1

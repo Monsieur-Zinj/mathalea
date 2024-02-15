@@ -27,6 +27,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '6c6b3'
 export const ref = '3F10-4'
+export const refs = {
+  'fr-fr': ['3F10-4'],
+  'fr-ch': []
+}
 
 class LireImageParApiGeom extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction

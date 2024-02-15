@@ -16,6 +16,10 @@ export const titre = 'Traduire une succession d\'opérations par une expression'
  */
 export const uuid = '3406a'
 export const ref = '5C11-2'
+export const refs = {
+  'fr-fr': ['5C11-2'],
+  'fr-ch': []
+}
 export default function ÉcrireUneExpressionMathador () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

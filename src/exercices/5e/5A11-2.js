@@ -16,6 +16,10 @@ export const titre = 'Parcourir un labyrinthe de multiples avec critères choisi
  */
 export const uuid = '5618d'
 export const ref = '5A11-2'
+export const refs = {
+  'fr-fr': ['5A11-2'],
+  'fr-ch': []
+}
 export default function ExerciceLabyrintheDivisibilite2 () {
   Exercice.call(this)
   this.titre = titre

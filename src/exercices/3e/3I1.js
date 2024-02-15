@@ -11,6 +11,10 @@ export const titre = 'Instruction conditionnelle (scratch)'
  */
 export const uuid = '8cbd6'
 export const ref = '3I1'
+export const refs = {
+  'fr-fr': ['3I1'],
+  'fr-ch': []
+}
 export default function InstructionConditionnelle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false

@@ -27,6 +27,10 @@ export const dateDeModifImportante = '08/05/2022'
  */
 export const uuid = 'b611a'
 export const ref = '5G40'
+export const refs = {
+  'fr-fr': ['5G40'],
+  'fr-ch': []
+}
 export default function ConstructionsParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

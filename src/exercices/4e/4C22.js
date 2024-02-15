@@ -28,6 +28,10 @@ export const dateDeModifImportante = '09/04/2022'
  */
 export const uuid = '72ce7'
 export const ref = '4C22'
+export const refs = {
+  'fr-fr': ['4C22'],
+  'fr-ch': []
+}
 export default function ExerciceMultiplierFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   const space = '\\phantom{\\dfrac{(_(^(}{(_(^(}}' // Utilisé pour mettre de l'espace dans une fraction de fraction

@@ -24,6 +24,10 @@ export const dateDeModifImportante = '15/01/2024'
  */
 export const uuid = '87479'
 export const ref = '6N14'
+export const refs = {
+  'fr-fr': ['6N14'],
+  'fr-ch': []
+}
 export default class RepresenterUneFraction extends Exercice {
   figures: Figure[] = []
   diagrammes: CircleFractionDiagram[] = []

@@ -30,6 +30,10 @@ export const dateDePublication = '01/03/2022'
  */
 export const uuid = '529ad'
 export const ref = '6C12-4'
+export const refs = {
+  'fr-fr': ['6C12-4'],
+  'fr-ch': []
+}
 export default function ExerciceInformationsProblemes () {
   // Multiplier deux nombres
   Exercice.call(this) // Héritage de la classe Exercice()

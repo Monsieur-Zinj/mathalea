@@ -27,6 +27,10 @@ export const dateDeModifImportante = '14/09/2022'
  */
 export const uuid = '0688e'
 export const ref = '6N10'
+export const refs = {
+  'fr-fr': ['6N10'],
+  'fr-ch': []
+}
 export default function EcrirePetitsNombresEntiers () {
   Exercice.call(this)
   this.nbQuestions = 5

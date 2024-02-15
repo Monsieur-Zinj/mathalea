@@ -10,6 +10,10 @@ export const amcType = 'AMCNum'
 
 export const uuid = '3cb1d'
 export const ref = '6M12'
+export const refs = {
+  'fr-fr': ['6M12'],
+  'fr-ch': []
+}
 export default function Reglages6M12 () {
   ExerciceConversionsLongueurs.call(this)
   this.sup = 3

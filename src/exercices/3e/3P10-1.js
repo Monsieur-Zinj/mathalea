@@ -21,6 +21,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '4ce2d'
 export const ref = '3P10-1'
+export const refs = {
+  'fr-fr': ['3P10-1'],
+  'fr-ch': []
+}
 export default function CoefficientEvolution () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

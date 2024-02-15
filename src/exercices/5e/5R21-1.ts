@@ -20,6 +20,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'f2db1'
 export const ref = '5R21-1'
+export const refs = {
+  'fr-fr': ['5R21-1'],
+  'fr-ch': []
+}
 
 type TypeQuestionsDisponibles = '+-' | '--' | '-+'
 const ce = new ComputeEngine()

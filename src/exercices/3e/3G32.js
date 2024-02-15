@@ -11,6 +11,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '95adb'
 export const ref = '3G32'
+export const refs = {
+  'fr-fr': ['3G32'],
+  'fr-ch': []
+}
 export default function CalculHauteurMontagne () {
   problemesTrigoLongueur.call(this)
   this.titre = titre

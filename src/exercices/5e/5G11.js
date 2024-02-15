@@ -14,6 +14,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'ec32b'
 export const ref = '5G11'
+export const refs = {
+  'fr-fr': ['5G11'],
+  'fr-ch': []
+}
 export default function Transformations5e () {
   Transformations.call(this)
   this.sup = choice(['1-3-7', '1-4-7', '2-3-7', '2-4-7'])

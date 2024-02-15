@@ -11,6 +11,10 @@ export const dateDePublication = '19/12/2022'
 
 export const uuid = 'b3a4c'
 export const ref = '6G21-5'
+export const refs = {
+  'fr-fr': ['6G21-5'],
+  'fr-ch': []
+}
 export default class ConstruireQuadrilatèresParticuliers extends TracerQuadrilatèresParticuliers {
   constructor () {
     super()

@@ -21,6 +21,10 @@ export const dateDeModifImportante = '15/10/2022' // Ajout du programme équival
 */
 export const uuid = '12bb6'
 export const ref = '5L10-2'
+export const refs = {
+  'fr-fr': ['5L10-2'],
+  'fr-ch': []
+}
 export default function TraduireUnProgrammeDeCalcul () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

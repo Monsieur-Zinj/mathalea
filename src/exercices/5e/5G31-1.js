@@ -14,6 +14,10 @@ export const dateDeModifImportante = '10/12/2023'
  */
 export const uuid = 'bcbe1'
 export const ref = '5G31-1'
+export const refs = {
+  'fr-fr': ['5G31-1'],
+  'fr-ch': []
+}
 export default function ConstructibiliteDesTrianglesAngles () {
   this.exo = '5G31-1'
   ConstructibiliteDesTriangles.call(this)

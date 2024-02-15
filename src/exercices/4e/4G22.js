@@ -20,6 +20,10 @@ export const titre = 'Résoudre des problèmes utilisant le théorème de Pythag
  */
 export const uuid = 'b18e8'
 export const ref = '4G22'
+export const refs = {
+  'fr-fr': ['4G22'],
+  'fr-ch': []
+}
 export default function ProblemesPythagore () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

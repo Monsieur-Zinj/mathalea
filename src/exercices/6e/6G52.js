@@ -28,6 +28,10 @@ export const dateDePublication = '11/09/2022'
 */
 export const uuid = '5bac3'
 export const ref = '6G52'
+export const refs = {
+  'fr-fr': ['6G52'],
+  'fr-ch': []
+}
 export default class TracerCarresRectangleslongueurDonnees extends Exercice {
   constructor () {
     super()

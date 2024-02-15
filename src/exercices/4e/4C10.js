@@ -18,6 +18,10 @@ export const dateDePublication = '23/09/2022'
 
 export const uuid = '745ba'
 export const ref = '4C10'
+export const refs = {
+  'fr-fr': ['4C10'],
+  'fr-ch': []
+}
 export default function ProduitsEtQuotientRelatifs () {
   Exercice.call(this)
   this.consigne = 'Calculer.'

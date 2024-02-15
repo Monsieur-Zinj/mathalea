@@ -14,6 +14,10 @@ export const dateDeModifImportante = '28/12/2022'
  */
 export const uuid = '2d2bb'
 export const ref = '5G11-5'
+export const refs = {
+  'fr-fr': ['5G11-5'],
+  'fr-ch': []
+}
 export default function SymetriesEtCoordonnees5e () {
   TransformationsDuPlanEtCoordonnees.call(this)
   this.sup = '1-2'

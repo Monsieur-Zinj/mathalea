@@ -16,6 +16,10 @@ export const titre = 'Exprimer le rapport de deux longueurs sur un segment'
 
 export const uuid = '7781a'
 export const ref = '6N22-1'
+export const refs = {
+  'fr-fr': ['6N22-1'],
+  'fr-ch': []
+}
 export default function RapportsSurUnSegment () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 2

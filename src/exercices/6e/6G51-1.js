@@ -18,6 +18,10 @@ export const dateDePublication = '22/02/2023'
 */
 export const uuid = '02320'
 export const ref = '6G51-1'
+export const refs = {
+  'fr-fr': ['6G51-1'],
+  'fr-ch': []
+}
 export default class ReconnaitreDesPointsAlignes extends Exercice {
   constructor () {
     super()

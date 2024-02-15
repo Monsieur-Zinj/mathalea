@@ -30,6 +30,10 @@ export const dateDeModifImportante = '20/02/2023'
  */
 export const uuid = 'afb2f'
 export const ref = '3F12-3'
+export const refs = {
+  'fr-fr': ['3F12-3'],
+  'fr-ch': []
+}
 export default function TableauDeValeurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

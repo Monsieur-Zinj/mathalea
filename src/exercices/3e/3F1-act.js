@@ -26,6 +26,10 @@ export const titre = 'Fonctions : Notion et vocabulaire'
  */
 export const uuid = '77d18'
 export const ref = '3F1-act'
+export const refs = {
+  'fr-fr': ['3F1-act'],
+  'fr-ch': []
+}
 
 /**
  * Crée un popup html avec un icon info, éventuellement avec du contenu LaTeX

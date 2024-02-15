@@ -23,6 +23,10 @@ export const titre = 'Écrire sous la forme d\'une expression algébrique sans p
 */
 export const uuid = '070b4'
 export const ref = '5R22-2'
+export const refs = {
+  'fr-fr': ['5R22-2'],
+  'fr-ch': []
+}
 export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max

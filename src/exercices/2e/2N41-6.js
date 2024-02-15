@@ -20,6 +20,10 @@ export const dateDeModifImportante = '26/04/2023' // Correction par Rémi Angot 
  */
 export const uuid = '04b0a'
 export const ref = '2N41-6'
+export const refs = {
+  'fr-fr': ['2N41-6'],
+  'fr-ch': []
+}
 export default function DevelopperIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

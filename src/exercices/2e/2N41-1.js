@@ -10,6 +10,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '3d2f9'
 export const ref = '2N41-1'
+export const refs = {
+  'fr-fr': ['2N41-1'],
+  'fr-ch': []
+}
 export default function FactoriserUneExpression3e2nde () {
   FactoriserUneExpression3e.call(this)
 }

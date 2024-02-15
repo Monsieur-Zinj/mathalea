@@ -15,6 +15,10 @@ export const interactifType = 'mathLive'
 
 export const uuid = '8741f'
 export const ref = '3A13-1'
+export const refs = {
+  'fr-fr': ['3A13-1'],
+  'fr-ch': []
+}
 export default function DivisionsEuclidiennes3e () {
   DivisionsEuclidiennes.call(this)
   this.classe = 3

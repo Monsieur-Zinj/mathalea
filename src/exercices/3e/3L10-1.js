@@ -22,6 +22,10 @@ export const dateDeModifImportante = '26/12/2022' // Une date de modification im
  */
 export const uuid = '815eb'
 export const ref = '3L10-1'
+export const refs = {
+  'fr-fr': ['3L10-1'],
+  'fr-ch': []
+}
 export default function ParenthesesPrecedesDeMoinsOuPlus () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

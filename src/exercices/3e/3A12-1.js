@@ -24,6 +24,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '8c05e'
 export const ref = '3A12-1'
+export const refs = {
+  'fr-fr': ['3A12-1'],
+  'fr-ch': []
+}
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

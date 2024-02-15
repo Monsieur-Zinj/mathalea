@@ -33,6 +33,10 @@ export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèle
  */
 export const uuid = '3451c'
 export const ref = '3G21'
+export const refs = {
+  'fr-fr': ['3G21'],
+  'fr-ch': []
+}
 export default function ReciproqueThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

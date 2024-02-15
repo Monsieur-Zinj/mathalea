@@ -33,6 +33,10 @@ export const dateDeModifImportante = '05/06/2023'
  */
 export const uuid = 'f4d29'
 export const ref = '6M31-2'
+export const refs = {
+  'fr-fr': ['6M31-2'],
+  'fr-ch': []
+}
 export default function UnitesDeVolumesEtDeCapacite () {
   Decimal.set({ toExpNeg: -10 }) // Pour permettre aux petits nombres de s'afficher sans puissances de 10.
   Exercice.call(this) // Héritage de la classe Exercice()

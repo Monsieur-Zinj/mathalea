@@ -12,6 +12,10 @@ export const titre = 'Déterminer si des droites sont parallèles, sécantes ou 
 */
 export const uuid = 'e715d'
 export const ref = '2G33-2'
+export const refs = {
+  'fr-fr': ['2G33-2'],
+  'fr-ch': []
+}
 export default function PositionsDeDroites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

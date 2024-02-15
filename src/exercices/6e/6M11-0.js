@@ -8,6 +8,10 @@ export const dateDePublication = '28/10/2023'
  */
 export const uuid = 'fbaff'
 export const ref = '6M11-0'
+export const refs = {
+  'fr-fr': ['6M11-0'],
+  'fr-ch': []
+}
 export default class DecomposerFigureComplexe extends PerimetreOuAireDeFiguresComposees {
   constructor () {
     super()

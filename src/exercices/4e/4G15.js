@@ -17,6 +17,10 @@ export const titre = 'Tranformations de triangle'
  */
 export const uuid = '0da6a'
 export const ref = '4G15'
+export const refs = {
+  'fr-fr': ['4G15'],
+  'fr-ch': []
+}
 export default function TransformationsDeTriangle () {
   Exercice.call(this)
   this.titre = 'Tranformations de triangle'

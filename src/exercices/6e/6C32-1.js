@@ -24,6 +24,10 @@ export const dateDeModifImportante = '14/05/2023' // par EE : Décoquillage et p
  */
 export const uuid = 'e906e'
 export const ref = '6C32-1'
+export const refs = {
+  'fr-fr': ['6C32-1'],
+  'fr-ch': []
+}
 export default function ExerciceProblemesComplexes () {
   // Multiplier deux nombres
   Exercice.call(this) // Héritage de la classe Exercice()

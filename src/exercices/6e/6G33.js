@@ -23,6 +23,10 @@ export const titre = 'Reconnaître un quadrilatère particulier à partir de ses
 */
 export const uuid = '4e52e'
 export const ref = '6G33'
+export const refs = {
+  'fr-fr': ['6G33'],
+  'fr-ch': []
+}
 export default function ReconnaitreQuadrilatereParticulier () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

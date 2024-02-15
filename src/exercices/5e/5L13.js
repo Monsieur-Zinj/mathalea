@@ -20,6 +20,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = '1bce3'
 export const ref = '5L13'
+export const refs = {
+  'fr-fr': ['5L13'],
+  'fr-ch': []
+}
 export default function Reductionaxbx () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

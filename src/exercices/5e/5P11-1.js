@@ -20,6 +20,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'a29bd'
 export const ref = '5P11-1'
+export const refs = {
+  'fr-fr': ['5P11-1'],
+  'fr-ch': []
+}
 export default class VitesseDistanceTemps extends Exercice {
   constructor () {
     super()

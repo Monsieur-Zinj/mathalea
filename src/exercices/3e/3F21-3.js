@@ -30,6 +30,10 @@ export const dateDeModifImportante = '28/05/2023'
  */
 export const uuid = '056fa'
 export const ref = '3F21-3'
+export const refs = {
+  'fr-fr': ['3F21-3'],
+  'fr-ch': []
+}
 export default function PenteEtOrdonneeOrigineDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

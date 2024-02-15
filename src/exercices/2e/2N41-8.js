@@ -20,6 +20,10 @@ export const titre = 'Mettre au même dénominateur des expressions littérales'
  */
 export const uuid = '641bc'
 export const ref = '2N41-8'
+export const refs = {
+  'fr-fr': ['2N41-8'],
+  'fr-ch': []
+}
 export default function MettreAuMemeDenominateurLit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

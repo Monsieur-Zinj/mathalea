@@ -17,6 +17,10 @@ export const titre = 'Factoriser un polynôme du second degré avec racines enti
  */
 export const uuid = 'a8e1b'
 export const ref = '1E14'
+export const refs = {
+  'fr-fr': ['1E14'],
+  'fr-ch': []
+}
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

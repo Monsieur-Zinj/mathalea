@@ -22,6 +22,10 @@ export const dateDePublication = '14/11/2020'
  */
 export const uuid = 'edbd5'
 export const ref = '3L11-5'
+export const refs = {
+  'fr-fr': ['3L11-5'],
+  'fr-ch': []
+}
 export default function IdentitesCalculs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.can = false // pour décliner en version CAN

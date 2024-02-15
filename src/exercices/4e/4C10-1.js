@@ -13,6 +13,10 @@ export const amcType = 'qcmMono'
  */
 export const uuid = '4fd42'
 export const ref = '4C10-1'
+export const refs = {
+  'fr-fr': ['4C10-1'],
+  'fr-ch': []
+}
 export default function SigneProduitRelatifs () {
   SigneProduitQuotientRelatifs.call(this)
   this.beta = ''// ici this.beta peut prendre la valeur 'beta' ou '', tous les autres this.beta sont devenus des this.debug

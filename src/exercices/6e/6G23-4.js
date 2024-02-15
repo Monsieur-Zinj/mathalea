@@ -31,6 +31,10 @@ export const dateDePublication = '26/04/2022'
  */
 export const uuid = 'ff2cc'
 export const ref = '6G23-4'
+export const refs = {
+  'fr-fr': ['6G23-4'],
+  'fr-ch': []
+}
 export default function MesurerUnAngleAvecRapporteur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

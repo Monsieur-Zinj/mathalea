@@ -24,6 +24,10 @@ export const amcType = 'qcmMono'
  */
 export const uuid = '36074'
 export const ref = '5A12-1'
+export const refs = {
+  'fr-fr': ['5A12-1'],
+  'fr-ch': []
+}
 export default function PremierOuPas5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

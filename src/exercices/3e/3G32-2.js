@@ -11,6 +11,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '5986b'
 export const ref = '3G32-2'
+export const refs = {
+  'fr-fr': ['3G32-2'],
+  'fr-ch': []
+}
 export default function CalculHauteurObjet () {
   problemesTrigoLongueur.call(this)
   this.titre = titre

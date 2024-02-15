@@ -24,6 +24,10 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '08/05/2023'
 export const ref = '3F20-1'
+export const refs = {
+  'fr-fr': ['3F20-1'],
+  'fr-ch': []
+}
 export const uuid = '20d20'
 /**
  * Questions sur les fonctions affines

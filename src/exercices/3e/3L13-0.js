@@ -16,6 +16,10 @@ export const titre = 'Résoudre une équation du premier degré à solutions ent
  */
 export const uuid = '5a02b'
 export const ref = '3L13-0'
+export const refs = {
+  'fr-fr': ['3L13-0'],
+  'fr-ch': []
+}
 export default function EquationPremierDegreSolutionsEntieres () {
   ExerciceEquationASolutionEntiere.call(this) // Héritage de la classe Exercice()
 

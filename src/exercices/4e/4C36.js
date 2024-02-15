@@ -25,6 +25,10 @@ export const dateDeModifImportante = '18/06/2022'
 */
 export const uuid = '975cc'
 export const ref = '4C36'
+export const refs = {
+  'fr-fr': ['4C36'],
+  'fr-ch': []
+}
 export default class nomExercice extends Exercice {
   constructor () {
     super()

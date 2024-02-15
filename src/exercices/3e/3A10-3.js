@@ -26,6 +26,10 @@ export const titre = 'Décomposer un entier en produit de facteurs premiers'
  */
 export const uuid = '32f33'
 export const ref = '3A10-3'
+export const refs = {
+  'fr-fr': ['3A10-3'],
+  'fr-ch': []
+}
 export default function DecompositionFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // pas de différence entre la version html et la version latex pour la consigne

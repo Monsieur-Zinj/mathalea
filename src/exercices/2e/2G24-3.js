@@ -17,6 +17,10 @@ export const dateDePublication = '28/05/2023'
  */
 export const uuid = '14a2c'
 export const ref = '2G24-3'
+export const refs = {
+  'fr-fr': ['2G24-3'],
+  'fr-ch': []
+}
 export default function Calculercoordonneesdifferencevecteurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

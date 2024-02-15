@@ -18,6 +18,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'b92da'
 export const ref = '3F10'
+export const refs = {
+  'fr-fr': ['3F10'],
+  'fr-ch': []
+}
 export default function ImageAntecedentDepuisTableauOuFleche () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

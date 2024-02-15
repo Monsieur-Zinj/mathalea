@@ -21,6 +21,10 @@ export const dateDePublication = '05/02/2021'
 */
 export const uuid = 'fedae'
 export const ref = '2N31-8'
+export const refs = {
+  'fr-fr': ['2N31-8'],
+  'fr-ch': []
+}
 export default function ConversionsPuissancesDe10 (numeroExercice) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter :'

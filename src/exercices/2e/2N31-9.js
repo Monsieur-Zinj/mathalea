@@ -12,6 +12,10 @@ export const dateDePublication = '12/09/2023'
 
 export const uuid = 'fb1a4'
 export const ref = '2N31-9'
+export const refs = {
+  'fr-fr': ['2N31-9'],
+  'fr-ch': []
+}
 export default function NotationPuissanceEn2nde () {
   NotationPuissance.call(this)
   this.sup = 3

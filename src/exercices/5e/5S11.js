@@ -14,6 +14,10 @@ export const interactifType = 'qcm'
  */
 export const uuid = '9926a'
 export const ref = '5S11'
+export const refs = {
+  'fr-fr': ['5S11'],
+  'fr-ch': []
+}
 export default function LectureDiagrammeBarre5e () {
   LectureDiagrammeBarre.call(this)
   // this.titre = titre

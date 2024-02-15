@@ -14,6 +14,10 @@ export const dateDePublication = '30/10/2021'
 */
 export const uuid = 'fe4df'
 export const ref = '1E15'
+export const refs = {
+  'fr-fr': ['1E15'],
+  'fr-ch': []
+}
 export default function EquationDuSecondDegreAvecUnParametre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = `Déterminer, suivant la valeur du paramètre $m$, le ${texteGras('nombre de solutions')} de l'équation du second degré.`

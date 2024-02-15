@@ -28,6 +28,10 @@ export const dateDePublication = '02/01/2023'
 
 export const uuid = '75002'
 export const ref = 'bonneAnnee2023'
+export const refs = {
+  'fr-fr': ['bonneAnnee2023'],
+  'fr-ch': []
+}
 export default function Questions2023 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

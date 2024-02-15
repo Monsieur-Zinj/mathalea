@@ -8,6 +8,10 @@ export const titre = 'Résoudre des problèmes utilisant la trigonométrie'
  */
 export const uuid = '20907'
 export const ref = '2G11-3'
+export const refs = {
+  'fr-fr': ['2G11-3'],
+  'fr-ch': []
+}
 export default function MonSuperExerciceTropBeau2nde () {
   MonSuperExerciceTropBeau.call(this)
 }

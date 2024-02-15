@@ -24,6 +24,10 @@ export const titre = 'Calculer images (et antécédents) de fonctions'
  */
 export const uuid = 'ba520'
 export const ref = '3F10-2'
+export const refs = {
+  'fr-fr': ['3F10-2'],
+  'fr-ch': []
+}
 export default function CalculsImagesFonctions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2

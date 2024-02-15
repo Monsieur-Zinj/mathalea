@@ -11,6 +11,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'e42e0'
 export const ref = '3G32-3'
+export const refs = {
+  'fr-fr': ['3G32-3'],
+  'fr-ch': []
+}
 export default function CalculHauteurFalaise () {
   problemesTrigoLongueur.call(this)
   this.titre = titre

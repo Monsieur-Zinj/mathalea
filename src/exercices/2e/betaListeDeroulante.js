@@ -15,7 +15,10 @@ export const interactifType = 'custom'
 export const dateDePublication = '22/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'addd5' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = 'betaListeDeroulante'// @todo à modifier aussi
-
+export const refs = {
+  'fr-fr': ['betaListeDeroulante'],
+  'fr-ch': []
+}
 const fonctionsAuChoix = [
   { latex: '\\sin(x)', name: 'sin', fonction: x => Math.sin(x), derivee: x => Math.cos(x) },
   { latex: '\\cos(x)', name: 'cos', fonction: x => Math.cos(x), derivee: x => -Math.sin(x) },

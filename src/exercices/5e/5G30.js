@@ -4,6 +4,10 @@ export const dateDeModifImportante = '17/08/2023'
 
 export const uuid = '2b6a2'
 export const ref = '5G30'
+export const refs = {
+  'fr-fr': ['5G30'],
+  'fr-ch': []
+}
 export default function UtiliserLeCodagePourDecrire5e () {
   this.classe = 5
   UtiliserLeCodagePourDecrire.call(this)

@@ -10,6 +10,10 @@ export const dateDePublication = '4/12/2021'
 
 export const uuid = '2d343'
 export const ref = '5G12-3'
+export const refs = {
+  'fr-fr': ['5G12-3'],
+  'fr-ch': []
+}
 export default function TrouverLaTransformations5e () {
   TrouverLaTransformations.call(this)
   this.version = 1

@@ -8,6 +8,10 @@ export const titre = 'Utiliser le vocabulaire des triangles'
  */
 export const uuid = 'b5eaf'
 export const ref = '6G20-2'
+export const refs = {
+  'fr-fr': ['6G20-2'],
+  'fr-ch': []
+}
 export default function VocabulaireDesTriangles6e () {
   VocabulaireDesTriangles.call(this)
   this.titre = titre

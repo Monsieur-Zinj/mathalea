@@ -8,6 +8,10 @@ export const titre = 'Résoudre une équation du type $\\dfrac{x}{a}=\\dfrac{b}{
  */
 export const uuid = '7959f'
 export const ref = '2N51-3'
+export const refs = {
+  'fr-fr': ['2N51-3'],
+  'fr-ch': []
+}
 export default function EqResolvantesThales2nde () {
   EqResolvantesThales.call(this)
   this.exo = '4L15-1'

@@ -10,6 +10,10 @@ export const titre = 'Connaître le cours sur le périmètre et l\'aire'
  */
 export const uuid = 'dc7ba'
 export const ref = '6M25'
+export const refs = {
+  'fr-fr': ['6M25'],
+  'fr-ch': []
+}
 export default function ConnaitreFormulesDePerimetreEtAires () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

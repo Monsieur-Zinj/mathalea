@@ -13,6 +13,10 @@ export const titre = 'Remplir une facture'
 */
 export const uuid = '837cd'
 export const ref = '6P13-1'
+export const refs = {
+  'fr-fr': ['6P13-1'],
+  'fr-ch': []
+}
 export default function CompleterUneFacture () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

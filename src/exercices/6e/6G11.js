@@ -10,6 +10,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = '7ff97'
 export const ref = '6G11'
+export const refs = {
+  'fr-fr': ['6G11'],
+  'fr-ch': []
+}
 export default class TracerDesPerpendiculaires extends ParalleleEtPerpendiculaires {
   constructor () {
     super()

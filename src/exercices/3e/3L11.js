@@ -42,6 +42,10 @@ export const amcReady = true
  */
 export const uuid = '77a62'
 // export const ref = '3L11'
+// export const refs = {
+//  'fr-fr': ['3L11'],
+//   'fr-ch': []
+//  }
 export default function ExerciceDevelopper () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 3 // difficulté

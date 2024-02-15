@@ -15,6 +15,10 @@ export const dateDePublication = '07/08/2022'
 */
 export const uuid = 'a7aa7'
 export const ref = '6N11-5'
+export const refs = {
+  'fr-fr': ['6N11-5'],
+  'fr-ch': []
+}
 export default class ComparerDeuxNombresEntiers extends Exercice {
   constructor () {
     super()

@@ -17,6 +17,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '12b72'
 export const ref = '2N32-4'
+export const refs = {
+  'fr-fr': ['2N32-4'],
+  'fr-ch': []
+}
 export default function SimplifierUneSommeDeRacinesCarrees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

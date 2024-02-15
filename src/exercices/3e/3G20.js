@@ -12,6 +12,10 @@ export const titre = 'Calculer des longueurs avec le théorème de Thalès'
 */
 export const uuid = '74eac'
 export const ref = '3G20'
+export const refs = {
+  'fr-fr': ['3G20'],
+  'fr-ch': []
+}
 export default function Thales2D3e () {
   this.level = 3
   Thales2D.call(this)

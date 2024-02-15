@@ -21,6 +21,10 @@ export const dateDeModifImportante = '20/12/2023'
  */
 export const uuid = '06633'
 export const ref = '6N41'
+export const refs = {
+  'fr-fr': ['6N41'],
+  'fr-ch': []
+}
 export default function EgalitesEntreFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 11 // Correspond au facteur commun

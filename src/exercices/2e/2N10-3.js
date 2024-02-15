@@ -12,6 +12,10 @@ export const dateDeModifImportante = '27/10/2021'
  */
 export const uuid = '7cfbe'
 export const ref = '2N10-3'
+export const refs = {
+  'fr-fr': ['2N10-3'],
+  'fr-ch': []
+}
 export default function PlacerPointsAbscissesFractionnaires2nde () {
   PlacerPointsAbscissesFractionnaires.call(this)
   this.sup = 5

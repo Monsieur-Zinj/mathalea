@@ -11,6 +11,10 @@ export const amcType = 'AMCHybride'
 // 5G10
 export const uuid = 'da157'
 export const ref = '5G10'
+export const refs = {
+  'fr-fr': ['5G10'],
+  'fr-ch': []
+}
 export default function SymetrieAxiale5e () {
   Transformations.call(this)
   this.sup = choice(['1-2-3', '1-2-4', '2-3-4', '1-3-4'])

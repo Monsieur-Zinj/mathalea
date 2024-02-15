@@ -21,6 +21,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = 'dc348'
 export const ref = '6N10-4'
+export const refs = {
+  'fr-fr': ['6N10-4'],
+  'fr-ch': []
+}
 export default function ÉcrireNombresEntiersFormates () {
   Exercice.call(this)
   this.nbQuestions = 5

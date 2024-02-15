@@ -24,6 +24,10 @@ export const dateDeModifImportante = '18/06/2022'
  */
 export const uuid = '0e754'
 export const ref = '4G51'
+export const refs = {
+  'fr-fr': ['4G51'],
+  'fr-ch': []
+}
 export default function RepresenterUnSolide4e () {
   Exercice.call(this) // Héritage de la classe Exercice ()
   this.titre = titre

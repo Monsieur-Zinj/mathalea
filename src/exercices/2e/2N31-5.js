@@ -12,6 +12,10 @@ export const dateDePublication = '05/09/2023'
 
 export const uuid = '6b2e5'
 export const ref = '2N31-5'
+export const refs = {
+  'fr-fr': ['2N31-5'],
+  'fr-ch': []
+}
 export default function PuissancesDeDix2 () {
   PuissancesDeDix.call(this)
   this.sup = 3

@@ -22,6 +22,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '37267'
 export const ref = '6C11-1'
+export const refs = {
+  'fr-fr': ['6C11-1'],
+  'fr-ch': []
+}
 export default function DivisionsEuclidiennesEgalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigneCorrection = texteGras('Pour la division euclidienne de a par b, on cherche les nombres q et r tels que  a = b × q + r avec r < b')

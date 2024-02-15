@@ -12,6 +12,10 @@ export const dateDeModifImportante = '27/10/2021'
  */
 export const uuid = '8164e'
 export const ref = '2N10-2'
+export const refs = {
+  'fr-fr': ['2N10-2'],
+  'fr-ch': []
+}
 export default class PlacerPointsSurAxe2nde extends PlacerPointsSurAxe {
   constructor () {
     super()

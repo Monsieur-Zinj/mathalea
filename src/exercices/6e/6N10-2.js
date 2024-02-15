@@ -21,6 +21,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '6ea89'
 export const ref = '6N10-2'
+export const refs = {
+  'fr-fr': ['6N10-2'],
+  'fr-ch': []
+}
 export default function DecompositionNombreDecimal () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Compléter les phrases suivantes.'

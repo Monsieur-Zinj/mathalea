@@ -34,6 +34,10 @@ export const titre = 'Construire un triangle avec les instruments'
  */
 export const uuid = 'e0bc9'
 export const ref = '6G21'
+export const refs = {
+  'fr-fr': ['6G21'],
+  'fr-ch': []
+}
 export default function ConstruireUnTriangle () {
   Exercice.call(this)
   this.titre = titre

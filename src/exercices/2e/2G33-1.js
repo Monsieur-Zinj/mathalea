@@ -12,6 +12,10 @@ export const titre = 'Déterminer si trois points sont alignés'
 */
 export const uuid = 'b1777'
 export const ref = '2G33-1'
+export const refs = {
+  'fr-fr': ['2G33-1'],
+  'fr-ch': []
+}
 export default function Alignementdetroispoints () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

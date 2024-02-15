@@ -8,6 +8,10 @@ export const titre = 'Déterminer si ces expressions sont des sommes, des diffé
  */
 export const uuid = '68cda'
 export const ref = '4L16'
+export const refs = {
+  'fr-fr': ['4L16'],
+  'fr-ch': []
+}
 export default function DeterminerStructureExpressionLitterale () {
   DeterminerDerniereOperationExpressionLitterale.call(this)
   this.titre = titre

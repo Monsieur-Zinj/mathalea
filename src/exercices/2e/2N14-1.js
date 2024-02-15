@@ -21,6 +21,10 @@ export const dateDeModifImportante = '01/11/2023'
  */
 export const uuid = '25fb4'
 export const ref = '2N14-1'
+export const refs = {
+  'fr-fr': ['2N14-1'],
+  'fr-ch': []
+}
 export default function EnsembleDeNombres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

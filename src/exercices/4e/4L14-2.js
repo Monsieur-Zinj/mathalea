@@ -10,6 +10,10 @@ export const titre = 'Tester si un nombre est solution d\'une équation du secon
  */
 export const uuid = '1188b'
 export const ref = '4L14-2'
+export const refs = {
+  'fr-fr': ['4L14-2'],
+  'fr-ch': []
+}
 export default function TesterSiUnNombreEstSolutionDUneEquationDeg2 () {
   TesterSiUnNombreEstSolutionDUneEquation.call(this)
   this.exo = '4L14-2'

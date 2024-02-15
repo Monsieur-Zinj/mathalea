@@ -23,6 +23,10 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '13/04/2023'
 export const ref = '3F20'
+export const refs = {
+  'fr-fr': ['3F20'],
+  'fr-ch': []
+}
 export const uuid = 'aeb5a'
 /**
  * Questions sur les fonctions linéaires

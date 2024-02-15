@@ -12,6 +12,10 @@ export const amcType = 'qcmMono'
  */
 export const uuid = 'd7e11'
 export const ref = '4C20'
+export const refs = {
+  'fr-fr': ['4C20'],
+  'fr-ch': []
+}
 export default function ExerciceComparerDeuxFractions4e () {
   ExerciceComparerDeuxFractions.call(this)
   this.titre = titre

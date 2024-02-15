@@ -8,6 +8,10 @@ export const titre = 'Calculer la valeur d\'une expression littérale de degré 
  */
 export const uuid = '72764'
 export const ref = '5L14-5'
+export const refs = {
+  'fr-fr': ['5L14-5'],
+  'fr-ch': []
+}
 export default function CalculerLaValeurDUneExpressionLitteraleDeg1Inc1 () {
   CalculerLaValeurDUneExpressionLitterale.call(this)
   this.version = '5L13-5'

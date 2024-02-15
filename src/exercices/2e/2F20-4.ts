@@ -33,7 +33,10 @@ export const interactifType = 'mathLive'
 
 export const uuid = '28997'
 export const ref = '2F20-4'
-
+export const refs = {
+  'fr-fr': ['2F20-4'],
+  'fr-ch': []
+}
 type TypesDeFonction = 'constante' | 'affine' | 'poly2' | 'poly3'
 
 /**

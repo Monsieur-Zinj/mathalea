@@ -34,6 +34,10 @@ export const titre = 'Utiliser les propriétés des droites parallèles et perpe
  */
 export const uuid = '6a336'
 export const ref = '6G14'
+export const refs = {
+  'fr-fr': ['6G14'],
+  'fr-ch': []
+}
 export default function ProprietesParallelesPerpendiculaires () {
   Exercice.call(this)
   this.nbQuestions = 3

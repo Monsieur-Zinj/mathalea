@@ -23,6 +23,10 @@ export const dateDePublication = '08/06/2022'
  */
 export const uuid = 'f6413'
 export const ref = '6C30-0'
+export const refs = {
+  'fr-fr': ['6C30-0'],
+  'fr-ch': []
+}
 export default function MultiplierDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

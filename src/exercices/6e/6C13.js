@@ -17,6 +17,10 @@ export const dateDeModifImportante = '08/05/2023'
  */
 export const uuid = 'ed0ea'
 export const ref = '6C13'
+export const refs = {
+  'fr-fr': ['6C13'],
+  'fr-ch': []
+}
 export default function VocabulaireEtOperations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

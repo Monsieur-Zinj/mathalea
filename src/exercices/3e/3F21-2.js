@@ -27,6 +27,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'b8b33'
 export const ref = '3F21-2'
+export const refs = {
+  'fr-fr': ['3F21-2'],
+  'fr-ch': []
+}
 export default function DeterminerFonctionAffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

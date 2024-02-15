@@ -24,6 +24,10 @@ export const interactifType = 'mathLive'
 export const uuid = '3f39d'
 // Je déréférence temporairement pour éviter que cet exo non finalisé apparaîsse dans le menu.
 // export const ref = '2S10-4'
+// export const refs = {
+//  'fr-fr': ['2S10-4'],
+//   'fr-ch': []
+//  }
 
 export default function TableauProportion () {
   Exercice.call(this) // Héritage de la classe Exercice()

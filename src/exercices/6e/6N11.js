@@ -25,6 +25,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'acd4a'
 export const ref = '6N11'
+export const refs = {
+  'fr-fr': ['6N11'],
+  'fr-ch': []
+}
 export default function LireAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 3

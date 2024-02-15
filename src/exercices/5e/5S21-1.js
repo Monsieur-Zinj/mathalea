@@ -14,6 +14,10 @@ export const titre = 'Trouver des probabilités simples'
 */
 export const uuid = '850b0'
 export const ref = '5S21-1'
+export const refs = {
+  'fr-fr': ['5S21-1'],
+  'fr-ch': []
+}
 export default function ProbabilitesSimples () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

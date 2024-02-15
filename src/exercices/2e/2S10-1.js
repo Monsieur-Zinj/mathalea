@@ -25,6 +25,10 @@ export const dateDeModificationImportante = '31/01/2024'
 */
 export const uuid = 'ae913'
 export const ref = '2S10-1'
+export const refs = {
+  'fr-fr': ['2S10-1'],
+  'fr-ch': []
+}
 export default function DiffentesEcrituresProportions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

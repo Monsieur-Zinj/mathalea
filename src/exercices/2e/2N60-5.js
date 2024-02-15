@@ -26,6 +26,10 @@ export const amcType = 'qcmMono'
 */
 export const uuid = '2844c'
 export const ref = '2N60-5'
+export const refs = {
+  'fr-fr': ['2N60-5'],
+  'fr-ch': []
+}
 export default function SolInequation () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

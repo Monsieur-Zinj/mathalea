@@ -10,6 +10,10 @@ export const titre = 'Tester si un nombre est solution d\'une équation du premi
  */
 export const uuid = '5ecb8'
 export const ref = '4L14-1'
+export const refs = {
+  'fr-fr': ['4L14-1'],
+  'fr-ch': []
+}
 export default function TesterSiUnNombreEstSolutionDUneEquationDeg1 () {
   TesterSiUnNombreEstSolutionDUneEquation.call(this)
   this.exo = '4L14-1'

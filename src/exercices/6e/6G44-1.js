@@ -38,6 +38,10 @@ export const amcType = 'qcmMono'
  * Créé le 24/09/2022
  */
 export const ref = '6G44-1'
+export const refs = {
+  'fr-fr': ['6G44-1'],
+  'fr-ch': []
+}
 export const uuid = '051aa'
 export default function ReconnaitreDesSolides () {
   Exercice.call(this)

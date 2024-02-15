@@ -10,6 +10,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '47f20'
 export const ref = '2N41-2'
+export const refs = {
+  'fr-fr': ['2N41-2'],
+  'fr-ch': []
+}
 export default function FactoriserIdentitesRemarquables32nde () {
   FactoriserIdentitesRemarquables3.call(this)
 }

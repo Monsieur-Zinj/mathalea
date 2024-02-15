@@ -19,6 +19,10 @@ export const titre = 'Utiliser tables de multiplication pour effectuer produits 
  */
 export const uuid = 'a5c5a'
 export const ref = '6C10-3'
+export const refs = {
+  'fr-fr': ['6C10-3'],
+  'fr-ch': []
+}
 export default function ExerciceTablesMultiplicationsEtDecimaux (
   tablesParDefaut = '2-3-4-5-6-7-8-9'
 ) {

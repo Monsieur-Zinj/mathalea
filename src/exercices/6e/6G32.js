@@ -26,6 +26,10 @@ export const dateDePublication = '25/01/2023'
 
 export const uuid = '65bd7'
 export const ref = '6G32'
+export const refs = {
+  'fr-fr': ['6G32'],
+  'fr-ch': []
+}
 export default function SymetrieAxialeProprietes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

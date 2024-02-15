@@ -24,6 +24,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'ddb83'
 export const ref = '6N33'
+export const refs = {
+  'fr-fr': ['6N33'],
+  'fr-ch': []
+}
 export default function FractionDUnNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

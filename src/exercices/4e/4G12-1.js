@@ -26,6 +26,10 @@ export const interactifType = 'listeDeroulante'
 
 export const uuid = '8ac93'
 export const ref = '4G12-1'
+export const refs = {
+  'fr-fr': ['4G12-1'],
+  'fr-ch': []
+}
 export default function TrouverLaTransformations () {
   Exercice.call(this)
   this.nbQuestions = 1

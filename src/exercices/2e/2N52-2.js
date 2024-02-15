@@ -12,6 +12,10 @@ export const titre = 'Résoudre des équations carrées de type $x^2=a$'
 */
 export const uuid = 'bb6d5'
 export const ref = '2N52-2'
+export const refs = {
+  'fr-fr': ['2N52-2'],
+  'fr-ch': []
+}
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

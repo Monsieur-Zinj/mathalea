@@ -22,6 +22,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '96b94'
 export const ref = '6C32'
+export const refs = {
+  'fr-fr': ['6C32'],
+  'fr-ch': []
+}
 export default function ProblemeCourse () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -27,6 +27,10 @@ export const dateDeModifImportante = '08/05/2022'
  **/
 export const uuid = 'd6cd1'
 export const ref = '5M10'
+export const refs = {
+  'fr-fr': ['5M10'],
+  'fr-ch': []
+}
 export default function AireDuParallelogramme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

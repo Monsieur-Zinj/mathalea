@@ -12,6 +12,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'd02da'
 export const ref = '2N51-4'
+export const refs = {
+  'fr-fr': ['2N51-4'],
+  'fr-ch': []
+}
 export default function ExerciceEquation12nde () {
   ExerciceEquation1.call(this)
   this.sup = true

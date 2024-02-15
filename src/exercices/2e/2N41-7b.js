@@ -16,6 +16,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '874e8'
 export const ref = '2N41-7b'
+export const refs = {
+  'fr-fr': ['2N41-7b'],
+  'fr-ch': []
+}
 export default function FactoriserIdentitesremarquables2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

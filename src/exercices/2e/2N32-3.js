@@ -14,6 +14,10 @@ export const dateDeModifImportante = '01/11/2023' // Correction de l'interactivi
  */
 export const uuid = 'd9495'
 export const ref = '2N32-3'
+export const refs = {
+  'fr-fr': ['2N32-3'],
+  'fr-ch': []
+}
 export default function ExtraireUnCarreParfaitDUneRacineCarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = 'Écrire une racine carrée sous la forme $a\\sqrt{b}$'

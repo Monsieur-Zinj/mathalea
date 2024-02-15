@@ -17,6 +17,10 @@ export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un
 */
 export const uuid = 'ce9ca'
 export const ref = '5N14-2'
+export const refs = {
+  'fr-fr': ['5N14-2'],
+  'fr-ch': []
+}
 export default function ExerciceComparerQuatreFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Ranger les nombres suivants dans l'ordre croissant."

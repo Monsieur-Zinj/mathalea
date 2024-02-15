@@ -28,6 +28,10 @@ export const dateDeModifImportante = '09/10/2023' // Correction détaillée
  */
 export const uuid = 'e960d'
 export const ref = '6D12'
+export const refs = {
+  'fr-fr': ['6D12'],
+  'fr-ch': []
+}
 export default function CalculsDeDureesOuHoraires () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.keyboard = ['hms']

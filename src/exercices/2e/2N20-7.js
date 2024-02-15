@@ -10,6 +10,10 @@ export const dateDeModifImportante = '14/11/2021'
 
 export const uuid = 'c3c84'
 export const ref = '2N20-7'
+export const refs = {
+  'fr-fr': ['2N20-7'],
+  'fr-ch': []
+}
 export default function PpcmEngrenages2nde () {
   ppcmEngrenages.call(this)
   this.sup = true

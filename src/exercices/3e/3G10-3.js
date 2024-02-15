@@ -21,6 +21,10 @@ export const titre = 'Construire l\'image d\'un point par une rotation avec cibl
  */
 export const uuid = '19ce6'
 export const ref = '3G10-3'
+export const refs = {
+  'fr-fr': ['3G10-3'],
+  'fr-ch': []
+}
 export default function ConstruireRotationPoint3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

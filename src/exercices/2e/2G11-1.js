@@ -8,6 +8,10 @@ export const titre = 'Résoudre des problèmes utilisant le théorème de Pythag
  */
 export const uuid = '109b1'
 export const ref = '2G11-1'
+export const refs = {
+  'fr-fr': ['2G11-1'],
+  'fr-ch': []
+}
 export default function ProblemesPythagore2nde () {
   ProblemesPythagore.call(this)
 }

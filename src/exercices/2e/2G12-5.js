@@ -30,6 +30,10 @@ export const dateDePublication = '06/12/2023'
  */
 export const uuid = 'b77cc'
 export const ref = '2G12-5'
+export const refs = {
+  'fr-fr': ['2G12-5'],
+  'fr-ch': []
+}
 export default function ParallélogrammeSommet () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

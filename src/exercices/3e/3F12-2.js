@@ -27,6 +27,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '082d7'
 export const ref = '3F12-2'
+export const refs = {
+  'fr-fr': ['3F12-2'],
+  'fr-ch': []
+}
 export default function ImageFonctionAlgebrique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

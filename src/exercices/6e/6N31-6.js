@@ -17,6 +17,10 @@ export const interactifType = 'mathLive'
  * @author Mickael Guironnet
  */
 export const ref = '6N31-6'
+export const refs = {
+  'fr-fr': ['6N31-6'],
+  'fr-ch': []
+}
 export const uuid = 'd2b82'
 export default function ArrondirUnDecimal () {
   Exercice.call(this) // Héritage de la classe Exercice()

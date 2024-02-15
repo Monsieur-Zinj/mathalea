@@ -26,6 +26,10 @@ export const dateDeModifImportante = '23/04/2023' // EE : Rajout du paramètre d
  */
 export const uuid = 'cd69a'
 export const ref = '6G32-1'
+export const refs = {
+  'fr-fr': ['6G32-1'],
+  'fr-ch': []
+}
 export default function SymetrieAxialeConservation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

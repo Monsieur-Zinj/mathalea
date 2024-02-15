@@ -16,6 +16,10 @@ export const dateDePublication = '06/07/2023' // La date de publication initiale
 export const dateDeModifImportante = '07/12/2023' // interactivité
 export const uuid = 'a7860' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = '2F22-3'// @todo à modifier aussi
+export const refs = {
+  'fr-fr': ['2F22-3'],
+  'fr-ch': []
+}
 // une liste de nœuds pour définir une fonction Spline
 const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisible: true },
   { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },

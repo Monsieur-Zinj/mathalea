@@ -17,6 +17,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'cdcc1'
 export const ref = '4C10-4'
+export const refs = {
+  'fr-fr': ['4C10-4'],
+  'fr-ch': []
+}
 export default function ExerciceQuotientsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = false

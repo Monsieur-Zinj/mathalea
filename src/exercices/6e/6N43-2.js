@@ -20,6 +20,10 @@ export const titre = 'Utiliser les critères de divisibilité (plusieurs possibl
  */
 export const uuid = 'fa2eb'
 export const ref = '6N43-2'
+export const refs = {
+  'fr-fr': ['6N43-2'],
+  'fr-ch': []
+}
 export default function TableauCriteresDeDivisibilite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.spacing = 1

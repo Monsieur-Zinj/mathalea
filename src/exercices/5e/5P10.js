@@ -15,6 +15,10 @@ export const titre = 'Reconnaître des tableaux de proportionnalité'
 
 export const uuid = 'aa997'
 export const ref = '5P10'
+export const refs = {
+  'fr-fr': ['5P10'],
+  'fr-ch': []
+}
 
 // une fonction pour la justification
 function justificationsOK (n1, n2, n3, coeff, sens) {

@@ -16,6 +16,10 @@ export const titre = 'Résoudre une équation du premier degré'
  */
 export const uuid = 'f239f'
 export const ref = '3L13'
+export const refs = {
+  'fr-fr': ['3L13'],
+  'fr-ch': []
+}
 export default function ExerciceEquation3e () {
   ExerciceEquation1.call(this) // Héritage de la classe Exercice()
   this.sup = true

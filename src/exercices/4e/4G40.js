@@ -11,6 +11,10 @@ export const titre = 'Utiliser le cosinus pour calculer une longueur dans un tri
  */
 export const uuid = '3303a'
 export const ref = '4G40'
+export const refs = {
+  'fr-fr': ['4G40'],
+  'fr-ch': []
+}
 export default function CalculDeLongueur4e () {
   CalculDeLongueur.call(this)
   this.titre = titre

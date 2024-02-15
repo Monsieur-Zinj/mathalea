@@ -15,6 +15,10 @@ export const dateDeModifImportante = '15/01/2023' //  Par EE
  */
 export const uuid = 'f5569'
 export const ref = '6G25-2'
+export const refs = {
+  'fr-fr': ['6G25-2'],
+  'fr-ch': []
+}
 export default function PavagesEtSymetries () {
   PavagesEtTransformations.call(this)
   this.titre = titre

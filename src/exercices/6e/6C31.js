@@ -35,6 +35,10 @@ export const titre = 'Effectuer divisions décimales'
  */
 export const uuid = '294bb'
 export const ref = '6C31'
+export const refs = {
+  'fr-fr': ['6C31'],
+  'fr-ch': []
+}
 export default function DivisionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

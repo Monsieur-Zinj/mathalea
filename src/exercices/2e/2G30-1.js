@@ -22,6 +22,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '1ea16'
 export const ref = '2G30-1'
+export const refs = {
+  'fr-fr': ['2G30-1'],
+  'fr-ch': []
+}
 export default function CoefficientDirecteurDeDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
 

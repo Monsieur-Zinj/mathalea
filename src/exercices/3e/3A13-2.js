@@ -16,6 +16,10 @@ export const dateDePublication = '14/09/2022'
 
 export const uuid = 'd8bf2'
 export const ref = '3A13-2'
+export const refs = {
+  'fr-fr': ['3A13-2'],
+  'fr-ch': []
+}
 export default function DivisionsEuclidiennesEgalite3e () {
   DivisionsEuclidiennesEgalite.call(this)
   this.sup = 1

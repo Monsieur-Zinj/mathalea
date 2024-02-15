@@ -52,6 +52,10 @@ export const dateDeModifImportante = '21/05/2023'
  */
 export const uuid = '4c10a'
 export const ref = '6C33'
+export const refs = {
+  'fr-fr': ['6C33'],
+  'fr-ch': []
+}
 export default function Priorites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

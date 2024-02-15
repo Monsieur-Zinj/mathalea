@@ -18,6 +18,10 @@ export const titre = 'Résoudre une inéquation du second degré'
  */
 export const uuid = '77bcc'
 export const ref = '1E16'
+export const refs = {
+  'fr-fr': ['1E16'],
+  'fr-ch': []
+}
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -23,6 +23,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = '34e3c'
 export const ref = '6G23'
+export const refs = {
+  'fr-fr': ['6G23'],
+  'fr-ch': []
+}
 export default function ConstruireUnAngle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -18,6 +18,10 @@ export const dateDeModifImportante = '' // Une date de modification importante a
 */
 export const uuid = '501f9'
 export const ref = '4L12'
+export const refs = {
+  'fr-fr': ['4L12'],
+  'fr-ch': []
+}
 export default function EquivalenceProgrammesCalcul () {
   Exercice.call(this)
   this.nbQuestions = 1

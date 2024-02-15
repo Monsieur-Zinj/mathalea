@@ -14,6 +14,10 @@ export const dateDeModifImportante = '04/04/2022'
  */
 export const uuid = 'ce00c'
 export const ref = '4L15-1'
+export const refs = {
+  'fr-fr': ['4L15-1'],
+  'fr-ch': []
+}
 export default function EquationsFractions () {
   EqResolvantesThales.call(this)
   this.exo = '4L15-1'

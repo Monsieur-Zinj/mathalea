@@ -37,6 +37,10 @@ export const dateDePublication = '27/09/2022'
  */
 export const uuid = '2ecd9'
 export const ref = '3I10-1'
+export const refs = {
+  'fr-fr': ['3I10-1'],
+  'fr-ch': []
+}
 export default function ScratchMultiScript () {
   Exercice.call(this) // Héritage de la classe Exercice()
   function nombreDeNegatifs (arr) {

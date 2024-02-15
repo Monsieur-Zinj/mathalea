@@ -8,6 +8,10 @@ export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
  */
 export const uuid = '430b9'
 export const ref = '2G10-1'
+export const refs = {
+  'fr-fr': ['2G10-1'],
+  'fr-ch': []
+}
 export default function EgaliteDAngles2nde () {
   EgaliteDAngles.call(this)
 }

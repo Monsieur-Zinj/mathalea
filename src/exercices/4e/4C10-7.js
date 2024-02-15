@@ -27,6 +27,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '0b020'
 export const ref = '4C10-7'
+export const refs = {
+  'fr-fr': ['4C10-7'],
+  'fr-ch': []
+}
 export default function ExerciceOperationsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = false // écriture simplifiée

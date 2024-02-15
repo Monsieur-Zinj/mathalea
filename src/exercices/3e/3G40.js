@@ -29,6 +29,10 @@ export const amcType = 'AMCHybride'
 
 export const uuid = '75ea2'
 export const ref = '3G40'
+export const refs = {
+  'fr-fr': ['3G40'],
+  'fr-ch': []
+}
 export default function ReperageSurLaSphere () {
   Exercice.call(this)
   this.titre = titre

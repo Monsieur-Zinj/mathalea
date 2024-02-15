@@ -35,6 +35,10 @@ export const dateDeModifImportante = '22/11/2022'
  */
 export const uuid = '12773'
 export const ref = '6N23-2'
+export const refs = {
+  'fr-fr': ['6N23-2'],
+  'fr-ch': []
+}
 export default function LireAbscisseDecimaleTroisFormes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.niveau = 'sixième'

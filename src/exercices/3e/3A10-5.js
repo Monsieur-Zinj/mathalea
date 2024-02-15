@@ -23,6 +23,10 @@ export const dateDeModifImportante = '27/09/2023'
 
 export const uuid = 'eee79'
 export const ref = '3A10-5'
+export const refs = {
+  'fr-fr': ['3A10-5'],
+  'fr-ch': []
+}
 export default function RecourirDecompositionFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4

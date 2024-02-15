@@ -37,6 +37,10 @@ export const titre = 'Calculer une longueur dans un triangle rectangle en utilis
  */
 export const uuid = 'bd6b1'
 export const ref = '3G30'
+export const refs = {
+  'fr-fr': ['3G30'],
+  'fr-ch': []
+}
 export default function CalculDeLongueur () {
   Exercice.call(this)
   this.nbQuestions = 3

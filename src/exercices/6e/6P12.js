@@ -469,6 +469,10 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
 
 export const uuid = 'b0f4e'
 export const ref = '6P12'
+export const refs = {
+  'fr-fr': ['6P12'],
+  'fr-ch': []
+}
 export default function ProportionnaliteParCoefDeProportionnalite () {
   let question
   Exercice.call(this) // Héritage de la classe Exercice()

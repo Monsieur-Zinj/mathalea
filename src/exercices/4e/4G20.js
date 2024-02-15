@@ -31,6 +31,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'bd660'
 export const ref = '4G20'
+export const refs = {
+  'fr-fr': ['4G20'],
+  'fr-ch': []
+}
 export default function Pythagore2D () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -17,7 +17,10 @@ export const dateDeModifImportante = '5/11/2023'
 // Réparation de trinome.js
 export const uuid = '731f0'
 export const ref = '1E11-1'
-
+export const refs = {
+  'fr-fr': ['1E11-1'],
+  'fr-ch': []
+}
 export default function CalculerDiscriminant () {
   Exercice.call(this)
   this.besoinFormulaireNumerique = ['Niveaux de difficulté', 4, '1 : Coefficients entiers positifs\n2 : Coefficients entiers relatifs\n3 : Coefficients rationnels\n4 : Mélange']

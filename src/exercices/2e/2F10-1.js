@@ -19,6 +19,10 @@ export const amcType = 'qcmMono'
 */
 export const uuid = '90998'
 export const ref = '2F10-1'
+export const refs = {
+  'fr-fr': ['2F10-1'],
+  'fr-ch': []
+}
 export default function Reconnaitrefonctionaffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

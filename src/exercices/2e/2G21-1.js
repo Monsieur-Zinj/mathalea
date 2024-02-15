@@ -17,6 +17,10 @@ export const dateDeModifImportante = '29/01/2023' //  Par EE
  */
 export const uuid = '2b8bf'
 export const ref = '2G21-1'
+export const refs = {
+  'fr-fr': ['2G21-1'],
+  'fr-ch': []
+}
 export default function SommeDeVecteurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

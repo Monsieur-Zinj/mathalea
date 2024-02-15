@@ -23,6 +23,10 @@ export const titre = 'Simplification de fractions'
  */
 export const uuid = 'f8f4e'
 export const ref = '5N13'
+export const refs = {
+  'fr-fr': ['5N13'],
+  'fr-ch': []
+}
 export default function Exercice_fractions_simplifier (max = 11) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max // Correspond au facteur commun

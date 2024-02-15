@@ -34,6 +34,10 @@ export const dateDePublication = '03/02/2020'
  */
 export const uuid = '37e37'
 export const ref = '5G41'
+export const refs = {
+  'fr-fr': ['5G41'],
+  'fr-ch': []
+}
 export default function ConstructionsParallelogrammesParticuliers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

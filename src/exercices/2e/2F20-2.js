@@ -30,6 +30,10 @@ export const dateDeModifImportante = '07/11/2023'
 
 export const uuid = 'ec059'
 export const ref = '2F20-2'
+export const refs = {
+  'fr-fr': ['2F20-2'],
+  'fr-ch': []
+}
 export default function CalculPointSurCourbe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1

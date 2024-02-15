@@ -23,6 +23,10 @@ export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 */
 export const uuid = '234a7'
 export const ref = '5N14'
+export const refs = {
+  'fr-fr': ['5N14'],
+  'fr-ch': []
+}
 export default function ExerciceComparerDeuxFractions (max = 11) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max // Correspond au facteur commun

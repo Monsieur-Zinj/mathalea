@@ -21,6 +21,10 @@ export const titre = 'Résoudre un problème de proportionnalité à l\'aide d\'
 
 export const uuid = 'c668a'
 export const ref = '4P10-1'
+export const refs = {
+  'fr-fr': ['4P10-1'],
+  'fr-ch': []
+}
 export default function GraphiquesEtProportionnalite2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false

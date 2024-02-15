@@ -32,6 +32,10 @@ export const dateDeModifImportante = '20/11/2023'
  */
 export const uuid = 'f9a02'
 export const ref = '6M22-1'
+export const refs = {
+  'fr-fr': ['6M22-1'],
+  'fr-ch': []
+}
 
 /**
  * Fonctions diverses pour la création des exercices

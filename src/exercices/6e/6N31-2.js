@@ -15,6 +15,10 @@ export const titre = 'Trouver un ordre de grandeur d\'opérations sur les décim
 
 export const uuid = '843e5'
 export const ref = '6N31-2'
+export const refs = {
+  'fr-fr': ['6N31-2'],
+  'fr-ch': []
+}
 // une fonction pour ordre de grandeur en fonction de ... opération 1
 function myOrdreOpe1 (c, d) {
   if (c * d >= 60) {

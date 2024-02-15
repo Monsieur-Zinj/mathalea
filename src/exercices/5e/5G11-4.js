@@ -14,6 +14,10 @@ export const dateDeModifImportante = '28/12/2022'
  */
 export const uuid = '08f60'
 export const ref = '5G11-4'
+export const refs = {
+  'fr-fr': ['5G11-4'],
+  'fr-ch': []
+}
 export default function TransformationsDuPlanEtCoordonnees5e () {
   TransformationsDuPlanEtCoordonnees.call(this)
   this.sup = 2

@@ -12,6 +12,10 @@ export const amcType = 'AMCOpen'
 
 export const uuid = '2e5df'
 export const ref = '2N40-5'
+export const refs = {
+  'fr-fr': ['2N40-5'],
+  'fr-ch': []
+}
 export default function FactoriserParNombreOux2e () {
   FactoriserParNombreOux.call(this)
 }

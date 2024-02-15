@@ -25,6 +25,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '5e8fc'
 export const ref = '4C21-1'
+export const refs = {
+  'fr-fr': ['4C21-1'],
+  'fr-ch': []
+}
 export default function ExerciceAdditionnerDesFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 2 // Niveau de difficulté

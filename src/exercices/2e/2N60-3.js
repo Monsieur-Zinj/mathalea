@@ -20,6 +20,10 @@ export const dateDePublication = '14/02/2023'
 */
 export const uuid = 'e32f3'
 export const ref = '2N60-3'
+export const refs = {
+  'fr-fr': ['2N60-3'],
+  'fr-ch': []
+}
 export default function ProprietesInegalites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

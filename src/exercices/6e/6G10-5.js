@@ -21,6 +21,10 @@ export const dateDePublication = '05/10/2022' // La date de publication initiale
 
 export const uuid = '3dbda'
 export const ref = '6G10-5'
+export const refs = {
+  'fr-fr': ['6G10-5'],
+  'fr-ch': []
+}
 export default class constructionElementaire extends Exercice {
 //
   constructor () {

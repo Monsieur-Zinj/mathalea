@@ -24,6 +24,10 @@ export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
  */
 export const uuid = 'ab44e'
 export const ref = '6N20-2'
+export const refs = {
+  'fr-fr': ['6N20-2'],
+  'fr-ch': []
+}
 
 const ce = new ComputeEngine()
 

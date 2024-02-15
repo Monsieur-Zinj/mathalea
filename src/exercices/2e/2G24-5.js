@@ -17,6 +17,10 @@ export const dateDePublication = '12/06/2023'
  */
 export const uuid = '222f6'
 export const ref = '2G24-5'
+export const refs = {
+  'fr-fr': ['2G24-5'],
+  'fr-ch': []
+}
 export default function Calculercoordonneesegalitevecteurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

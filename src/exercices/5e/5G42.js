@@ -19,6 +19,10 @@ export const titre = 'Déterminer la nature de parallélogrammes'
 */
 export const uuid = '8812e'
 export const ref = '5G42'
+export const refs = {
+  'fr-fr': ['5G42'],
+  'fr-ch': []
+}
 export default function DemonstrationsParallelogrammes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

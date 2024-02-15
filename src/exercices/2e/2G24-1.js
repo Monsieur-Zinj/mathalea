@@ -23,6 +23,10 @@ export const dateDeModifImportante = '30/06/2023'
  */
 export const uuid = 'f71c1'
 export const ref = '2G24-1'
+export const refs = {
+  'fr-fr': ['2G24-1'],
+  'fr-ch': []
+}
 export default function Calculercoordonneesvecteurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

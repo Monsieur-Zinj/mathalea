@@ -21,6 +21,10 @@ export const dateDeModifImportante = '06/02/2024'
  */
 export const uuid = 'f6853'
 export const ref = '3L11-2'
+export const refs = {
+  'fr-fr': ['3L11-2'],
+  'fr-ch': []
+}
 export default function ReductionSiPossible () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

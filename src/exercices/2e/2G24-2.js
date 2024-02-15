@@ -17,6 +17,10 @@ export const dateDePublication = '21/05/2023'
  */
 export const uuid = '49570'
 export const ref = '2G24-2'
+export const refs = {
+  'fr-fr': ['2G24-2'],
+  'fr-ch': []
+}
 export default function Calculercoordonneessommevecteurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -22,6 +22,10 @@ export const dateDeModifImportante = '31/08/2022'
  */
 export const uuid = '36e68'
 export const ref = '3S15'
+export const refs = {
+  'fr-fr': ['3S15'],
+  'fr-ch': []
+}
 export default function CalculerEtendues () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

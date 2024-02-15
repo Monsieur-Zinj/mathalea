@@ -23,6 +23,10 @@ export const amcType = 'AMCOpenNum'
  */
 export const uuid = '2a611'
 export const ref = '5G11-6'
+export const refs = {
+  'fr-fr': ['5G11-6'],
+  'fr-ch': []
+}
 export default function CompleterParSymetrie5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

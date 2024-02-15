@@ -12,6 +12,10 @@ export const titre = 'Déterminer les termes d\'une suite définie de façon exp
  */
 export const uuid = 'f0c2d'
 export const ref = '1N10'
+export const refs = {
+  'fr-fr': ['1N10'],
+  'fr-ch': []
+}
 export default function TermeDUneSuiteDefinieExplicitement () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -17,6 +17,10 @@ export const titre = 'Convertir des durées'
  */
 export const uuid = '8b0f9'
 export const ref = '6D10'
+export const refs = {
+  'fr-fr': ['6D10'],
+  'fr-ch': []
+}
 export default function ConversionsDeDurees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 5

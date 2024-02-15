@@ -27,6 +27,10 @@ export const dateDeModifImportante = '15/01/2022' // Ajout de paramètres
  */
 export const uuid = 'e8e24'
 export const ref = '6N23-4'
+export const refs = {
+  'fr-fr': ['6N23-4'],
+  'fr-ch': []
+}
 export default function NombreDecimalOraliseDeDifferentesManieres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale de chaque nombre."

@@ -20,6 +20,10 @@ export const dateDeModifImportante = '01/04/2023'
  */
 export const uuid = 'ce352'
 export const ref = '3A12'
+export const refs = {
+  'fr-fr': ['3A12'],
+  'fr-ch': []
+}
 export default function PpcmEngrenages () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

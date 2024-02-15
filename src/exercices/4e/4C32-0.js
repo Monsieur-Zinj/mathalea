@@ -20,6 +20,10 @@ export const dateDeModifImportante = '05/09/2023'
  */
 export const uuid = '5d72b'
 export const ref = '4C32-0'
+export const refs = {
+  'fr-fr': ['4C32-0'],
+  'fr-ch': []
+}
 export default function EcritureDecimaleApresPuissancesDeDix () {
   Exercice.call(this)
   this.nbQuestions = 4

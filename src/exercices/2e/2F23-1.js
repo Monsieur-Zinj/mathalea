@@ -18,6 +18,10 @@ export const dateDeModifImportante = '5/11/2023'
 */
 export const uuid = '4dced'
 export const ref = '2F23-1'
+export const refs = {
+  'fr-fr': ['2F23-1'],
+  'fr-ch': []
+}
 export default class EtudeTrinome extends Exercice {
   constructor () {
     super()
