@@ -32,7 +32,7 @@ export default function CalculDureeMinutes () {
     this.question = `${prenomM()} est parti à  $${a}$h${sp(1)}$${c}$ de son domicile.
     Il est arrivé à $${b}$h${sp(1)}$${d}$.<br>
 
-    Combien de temps à duré son trajet ?`
+    Combien de temps a duré son trajet ?`
     this.correction = `$${b}$h${sp(1)}$${d}-${a}$h${sp(1)}$${c}=${this.reponse}$ min`
     this.correction += texteEnCouleur(`<br> Mentalement : <br>
       On part de $${a}$h${sp(1)}$${c}$ et  on complète par $${(a + 1) * 60 - (a * 60 + c)}$ min pour arriver
