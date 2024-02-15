@@ -10,6 +10,10 @@ export const dateDePublication = '17/12/2022'
  */
 export const uuid = 'f4fdd'
 export const ref = '6G21-2'
+export const refs = {
+  'fr-fr': ['6G21-2'],
+  'fr-ch': []
+}
 export default class ConstruireUnTriangleQuelconque extends ConstruireUnTriangle {
   constructor () {
     super()

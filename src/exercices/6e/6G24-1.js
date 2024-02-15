@@ -10,6 +10,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = '91a00'
 export const ref = '6G24-1'
+export const refs = {
+  'fr-fr': ['6G24-1'],
+  'fr-ch': []
+}
 export default class SymetrieAxialePoint6e extends ConstruireParSymetrie {
   constructor () {
     super()

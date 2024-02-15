@@ -12,6 +12,10 @@ export const titre = 'Développer les identités remarquables avec des racines c
  */
 export const uuid = '91dc4'
 export const ref = '2N32-6'
+export const refs = {
+  'fr-fr': ['2N32-6'],
+  'fr-ch': []
+}
 export default function IdentitesRemarquablesEtRacineCarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

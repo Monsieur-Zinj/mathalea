@@ -7,6 +7,10 @@ export const titre = 'Construire un diagramme'
  */
 export const uuid = '26ea7'
 export const ref = '4S10'
+export const refs = {
+  'fr-fr': ['4S10'],
+  'fr-ch': []
+}
 export default function ConstruireUnDiagramme4e () {
   ConstruireUnDiagramme.call(this)
   this.titre = titre

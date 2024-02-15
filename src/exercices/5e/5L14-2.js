@@ -34,6 +34,10 @@ export const dateDeModifImportante = '06/02/2024'
  */
 export const uuid = '8865d'
 export const ref = '5L14-2'
+export const refs = {
+  'fr-fr': ['5L14-2'],
+  'fr-ch': []
+}
 export default function ExerciceSubstituer (difficulte = 1) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = difficulte

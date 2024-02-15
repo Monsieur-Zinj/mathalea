@@ -23,6 +23,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '2ba53'
 export const ref = '6N21'
+export const refs = {
+  'fr-fr': ['6N21'],
+  'fr-ch': []
+}
 
 type goodAnswer = { label: string, x: number }[]
 

@@ -9,6 +9,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = '46429'
 export const ref = '6G12'
+export const refs = {
+  'fr-fr': ['6G12'],
+  'fr-ch': []
+}
 export default class TracerDesParalleles extends ParalleleEtPerpendiculaires {
   constructor () {
     super()

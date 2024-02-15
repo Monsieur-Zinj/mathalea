@@ -15,6 +15,10 @@ export const titre = 'Résoudre des équations avec un quotient'
 */
 export const uuid = 'b5828'
 export const ref = '2N52-5'
+export const refs = {
+  'fr-fr': ['2N52-5'],
+  'fr-ch': []
+}
 export default function ResoudreEquationsQuotient () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

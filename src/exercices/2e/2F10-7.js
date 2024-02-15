@@ -17,6 +17,10 @@ export const titre = 'Dresser et utiliser le tableau de signes d\'une fonction a
 
 export const uuid = '46bec'
 export const ref = '2F10-7'
+export const refs = {
+  'fr-fr': ['2F10-7'],
+  'fr-ch': []
+}
 export default function SignefonctionaffineVariation () {
   Exercice.call(this)
   this.titre = titre

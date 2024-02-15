@@ -32,6 +32,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '18ddd'
 export const ref = '4C23-1'
+export const refs = {
+  'fr-fr': ['4C23-1'],
+  'fr-ch': []
+}
 export default function ExerciceAdditionnerFractionProduit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 3

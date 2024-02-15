@@ -21,6 +21,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '6b3e4'
 export const ref = '6D101'
+export const refs = {
+  'fr-fr': ['6D101'],
+  'fr-ch': []
+}
 export default function HeuresDecimales () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.keyboard = ['hms']

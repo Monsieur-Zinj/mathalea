@@ -20,6 +20,10 @@ export const dateDePublication = '29/08/2022'
  */
 
 export const ref = '3A10-6'
+export const refs = {
+  'fr-fr': ['3A10-6'],
+  'fr-ch': []
+}
 export const uuid = '5636e'
 export default function TrouverChiffre () {
   Exercice.call(this) // Héritage de la classe Exercice()

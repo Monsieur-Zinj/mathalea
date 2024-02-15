@@ -13,6 +13,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '48253'
 export const ref = '4G11-1'
+export const refs = {
+  'fr-fr': ['4G11-1'],
+  'fr-ch': []
+}
 export default function PavagesEtTranslation () {
   PavagesEtTransformations.call(this)
   this.titre = titre

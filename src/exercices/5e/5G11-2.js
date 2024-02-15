@@ -9,6 +9,10 @@ export const dateDeModifImportante = '14/11/2021'
  */
 export const uuid = '49786'
 export const ref = '5G11-2'
+export const refs = {
+  'fr-fr': ['5G11-2'],
+  'fr-ch': []
+}
 export default class ConstruireParSymetrieCentraleFigure extends ConstruireParSymetrie {
   constructor () {
     super()

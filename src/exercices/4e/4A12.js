@@ -30,6 +30,10 @@ export const dateDeModifImportante = '10/10/2022'
  */
 export const uuid = 'b16c6'
 export const ref = '4A12'
+export const refs = {
+  'fr-fr': ['4A12'],
+  'fr-ch': []
+}
 export default function ProblemesEvenementsRecurrents () {
   Exercice.call(this)
   this.nbQuestions = 1

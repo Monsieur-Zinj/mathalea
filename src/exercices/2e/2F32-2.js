@@ -15,6 +15,10 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '27/06/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '7761e' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = '2F32-2'// @todo à modifier aussi
+export const refs = {
+  'fr-fr': ['2F32-2'],
+  'fr-ch': []
+}
 // une liste de nœuds pour définir une fonction Spline
 const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: -3, y: 1, deriveeGauche: 2, deriveeDroit: 2, isVisible: false },

@@ -11,6 +11,10 @@ export const titre = 'Tableaux et pourcentages - prix constant'
 
 export const uuid = 'f00fb'
 export const ref = '5N11-1'
+export const refs = {
+  'fr-fr': ['5N11-1'],
+  'fr-ch': []
+}
 export default function TableauxEtPourcentagesPrixConstant () {
   this.exo = '5N11-1'
   this.titre = titre

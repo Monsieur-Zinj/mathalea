@@ -25,6 +25,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '0bcef'
 export const ref = '3P10'
+export const refs = {
+  'fr-fr': ['3P10'],
+  'fr-ch': []
+}
 export default function EvolutionsEnPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4

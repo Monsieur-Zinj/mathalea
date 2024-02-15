@@ -36,6 +36,10 @@ export const titre = 'Effectuer des divisions euclidiennes'
  */
 export const uuid = '2da81'
 export const ref = '6C11'
+export const refs = {
+  'fr-fr': ['6C11'],
+  'fr-ch': []
+}
 export default function DivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1

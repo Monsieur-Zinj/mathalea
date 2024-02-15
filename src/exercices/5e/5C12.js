@@ -18,6 +18,10 @@ export const titre = 'Calculer en respectant les priorités opératoires'
  */
 export const uuid = 'e61fc'
 export const ref = '5C12'
+export const refs = {
+  'fr-fr': ['5C12'],
+  'fr-ch': []
+}
 export default function CalculerUneExpressionNumerique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4

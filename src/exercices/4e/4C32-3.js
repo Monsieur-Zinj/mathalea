@@ -15,6 +15,10 @@ export const amcType = 'AMCOpen'
 */
 export const uuid = '051c7'
 export const ref = '4C32-3'
+export const refs = {
+  'fr-fr': ['4C32-3'],
+  'fr-ch': []
+}
 export default function ProblemesPuissancesDe10EtConversions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4

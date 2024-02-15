@@ -23,6 +23,10 @@ export const dateDeModifImportante = '30/11/2023'
  */
 export const uuid = '31760'
 export const ref = '2G12-3'
+export const refs = {
+  'fr-fr': ['2G12-3'],
+  'fr-ch': []
+}
 export default function Parallélogramme () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

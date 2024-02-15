@@ -17,6 +17,10 @@ export const dateDeModifImportante = '5/11/2023'
  */
 export const uuid = 'e6718'
 export const ref = '1E12-2'
+export const refs = {
+  'fr-fr': ['1E12-2'],
+  'fr-ch': []
+}
 export default class EtudeParabole extends Exercice {
   constructor () {
     super()

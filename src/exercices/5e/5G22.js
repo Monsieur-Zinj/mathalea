@@ -25,6 +25,10 @@ export const titre = 'Déterminer la nature d\'une droite remarquable'
  */
 export const uuid = '796f3'
 export const ref = '5G22'
+export const refs = {
+  'fr-fr': ['5G22'],
+  'fr-ch': []
+}
 export default function DroiteRemarquableDuTriangle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

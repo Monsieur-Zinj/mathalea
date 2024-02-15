@@ -29,6 +29,10 @@ export const dateDeModifImportante = '23/11/2023'
  */
 export const uuid = 'c5480'
 export const ref = '2G12-1'
+export const refs = {
+  'fr-fr': ['2G12-1'],
+  'fr-ch': []
+}
 export default function Distance () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

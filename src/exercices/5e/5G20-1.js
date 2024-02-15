@@ -17,6 +17,10 @@ export const titre = 'Utiliser le vocabulaire des triangles'
  */
 export const uuid = 'c3781'
 export const ref = '5G20-1'
+export const refs = {
+  'fr-fr': ['5G20-1'],
+  'fr-ch': []
+}
 export default function VocabulaireDesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Donner la nature des triangles en justifiant.'

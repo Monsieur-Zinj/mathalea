@@ -845,6 +845,10 @@ fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${s
 
 export const uuid = 'f7a14'
 export const ref = '6P11'
+export const refs = {
+  'fr-fr': ['6P11'],
+  'fr-ch': []
+}
 export default function ProportionnaliteParLinearite () {
   let question
   Exercice.call(this) // Héritage de la classe Exercice()

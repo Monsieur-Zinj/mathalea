@@ -25,6 +25,10 @@ export const dateDeModifImportante = '28/02/2022'
  */
 export const uuid = 'ab91d'
 export const ref = '5S14'
+export const refs = {
+  'fr-fr': ['5S14'],
+  'fr-ch': []
+}
 export default function CalculerDesMoyennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -32,6 +32,10 @@ export const dateDeModifImportante = '12/12/2021'
  */
 export const uuid = '2471d'
 export const ref = '6C30-1'
+export const refs = {
+  'fr-fr': ['6C30-1'],
+  'fr-ch': []
+}
 export default function MultiplierDecimauxPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Calculer et donner le résultat sous forme d\'un nombre décimal.'

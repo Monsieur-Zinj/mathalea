@@ -22,6 +22,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '5f315'
 export const ref = '6D11'
+export const refs = {
+  'fr-fr': ['6D11'],
+  'fr-ch': []
+}
 export default function SommeDeDurees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -28,6 +28,10 @@ export const dateDeModifImportante = '28/02/2022'
  */
 export const uuid = '8cdd5'
 export const ref = '5S13'
+export const refs = {
+  'fr-fr': ['5S13'],
+  'fr-ch': []
+}
 export default function CalculerDesFrequences () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

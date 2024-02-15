@@ -22,6 +22,10 @@ export const dateDePublication = '07/11/2022'
 
 export const uuid = 'a3cb9'
 export const ref = '3G41-1'
+export const refs = {
+  'fr-fr': ['3G41-1'],
+  'fr-ch': []
+}
 export default function ConstruireSectionPaveDroit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

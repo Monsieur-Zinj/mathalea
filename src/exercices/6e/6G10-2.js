@@ -10,6 +10,10 @@ export const dateDeModifImportante = '17/08/2023'
  */
 export const uuid = 'e8f0b'
 export const ref = '6G10-2'
+export const refs = {
+  'fr-fr': ['6G10-2'],
+  'fr-ch': []
+}
 export default function UtiliserLeCodagePourDecrire6e () {
   this.classe = 6
   UtiliserLeCodagePourDecrire.call(this)

@@ -22,6 +22,10 @@ export const titre = 'Résoudre un problème en utilisant des fractions'
  */
 export const uuid = 'b6250'
 export const ref = '5N20-0'
+export const refs = {
+  'fr-fr': ['5N20-0'],
+  'fr-ch': []
+}
 // une fonction pour gérer le codage des angles
 function myCodageAngle (A, O, B, angle, [...args]) {
   if (angle === 90) {

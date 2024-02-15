@@ -22,6 +22,10 @@ export const titre = 'Parcourir un labyrinthe de fractions égales'
  */
 export const uuid = 'f8a4d'
 export const ref = '6N41-1'
+export const refs = {
+  'fr-fr': ['6N41-1'],
+  'fr-ch': []
+}
 export default function ExerciceLabyrintheFractionsEgales () {
   Exercice.call(this)
   this.consigne = ''

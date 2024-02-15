@@ -18,6 +18,10 @@ export const titre = 'Produire une formule à partir d\'un tableau'
 
 export const uuid = '7aba6'
 export const ref = '5L10-4'
+export const refs = {
+  'fr-fr': ['5L10-4'],
+  'fr-ch': []
+}
 
 // une fonction pour moduler l'affichage d'une étape dans la correction
 function etapeCorrective (str, sup) {

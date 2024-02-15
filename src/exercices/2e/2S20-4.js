@@ -10,6 +10,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '55d00'
 export const ref = '2S20-4'
+export const refs = {
+  'fr-fr': ['2S20-4'],
+  'fr-ch': []
+}
 export default function CalculerEtendues2nde () {
   CalculerEtendues.call(this)
 }

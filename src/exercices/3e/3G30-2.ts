@@ -18,6 +18,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'f13e3'
 export const ref = '3G30-2'
+export const refs = {
+  'fr-fr': ['3G30-2'],
+  'fr-ch': []
+}
 
 class EquationTrigo extends Exercice {
   constructor () {

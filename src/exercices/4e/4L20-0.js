@@ -29,6 +29,10 @@ export const titre = 'Résoudre une équation du premier degré à solutions ent
  */
 export const uuid = '515b0'
 export const ref = '4L20-0'
+export const refs = {
+  'fr-fr': ['4L20-0'],
+  'fr-ch': []
+}
 export default function ExerciceEquationASolutionEntiere () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

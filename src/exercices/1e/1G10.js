@@ -21,6 +21,10 @@ export const dateDeModifImportante = '12/01/2024'
 
 export const uuid = '4e684'
 export const ref = '1G10'
+export const refs = {
+  'fr-fr': ['1G10'],
+  'fr-ch': []
+}
 export default class CosEtsin extends Exercice { // Héritage de la classe Exercice()
   constructor () {
     super()

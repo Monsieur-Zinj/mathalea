@@ -24,6 +24,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'cd7ce'
 export const ref = '5R11'
+export const refs = {
+  'fr-fr': ['5R11'],
+  'fr-ch': []
+}
 export default function LireAbscisseRelative () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Lire l'abscisse de chacun des points suivants."

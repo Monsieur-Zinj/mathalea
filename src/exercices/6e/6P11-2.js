@@ -24,6 +24,10 @@ export const dateDeModifImportante = '30/04/2023' // EE : Rajout de 2 paramètre
  */
 export const uuid = '65288'
 export const ref = '6P11-2'
+export const refs = {
+  'fr-fr': ['6P11-2'],
+  'fr-ch': []
+}
 export default function ProportionnaliteParLineariteTableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

@@ -13,6 +13,10 @@ export const dateDeModifImportante = '05/11/2023'
  */
 export const uuid = '65bed'
 export const ref = '2G11-5'
+export const refs = {
+  'fr-fr': ['2G11-5'],
+  'fr-ch': []
+}
 export default function CalculDeVolumes2nde () {
   CalculDeVolumes.call(this)
   this.titre = titre

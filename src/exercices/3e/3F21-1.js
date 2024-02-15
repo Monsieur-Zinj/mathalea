@@ -33,6 +33,10 @@ export const dateDeModifImportante = '31/03/2023'
  */
 export const uuid = 'e5ddd'
 export const ref = '3F21-1'
+export const refs = {
+  'fr-fr': ['3F21-1'],
+  'fr-ch': []
+}
 export default function LectureExpressionFonctionsAffines () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

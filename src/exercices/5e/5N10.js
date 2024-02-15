@@ -22,6 +22,10 @@ export const dateDePublication = '16/03/2022'
  */
 export const uuid = '91d72'
 export const ref = '5N10'
+export const refs = {
+  'fr-fr': ['5N10'],
+  'fr-ch': []
+}
 export default function PasserEcritureDecimaleEcritureFractionnaireInversement () {
   Exercice.call(this)
   this.nbQuestions = 10

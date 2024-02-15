@@ -22,6 +22,10 @@ export const titre = 'Calculer mentalement le pourcentage d\'un nombre'
  */
 export const uuid = '66756'
 export const ref = '6N33-1'
+export const refs = {
+  'fr-fr': ['6N33-1'],
+  'fr-ch': []
+}
 export default function PourcentageDunNombre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

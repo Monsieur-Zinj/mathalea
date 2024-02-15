@@ -46,6 +46,10 @@ export const dateDeModifImportante = '13/11/2023'
 
 export const uuid = '57c70'
 export const ref = '3G44'
+export const refs = {
+  'fr-fr': ['3G44'],
+  'fr-ch': []
+}
 export default function CalculPythagoreEspace () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

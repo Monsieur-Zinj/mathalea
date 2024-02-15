@@ -19,6 +19,10 @@ export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de
  */
 export const uuid = '80645'
 export const ref = '6N10-5'
+export const refs = {
+  'fr-fr': ['6N10-5'],
+  'fr-ch': []
+}
 export default function ExerciceLabyrintheNumeration () {
   Exercice.call(this)
   this.consigne = ''

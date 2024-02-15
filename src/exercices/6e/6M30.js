@@ -27,6 +27,10 @@ export const dateDeModifImportante = '05/11/2023'
 
 export const uuid = '04b0d'
 export const ref = '6M30'
+export const refs = {
+  'fr-fr': ['6M30'],
+  'fr-ch': []
+}
 export default function CalculDeVolumes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

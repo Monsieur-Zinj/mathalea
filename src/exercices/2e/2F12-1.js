@@ -20,6 +20,10 @@ export const dateDePublication = '07/01/2022'
 */
 export const uuid = 'de0d1'
 export const ref = '2F12-1'
+export const refs = {
+  'fr-fr': ['2F12-1'],
+  'fr-ch': []
+}
 export default function EquationsFonctionsRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1

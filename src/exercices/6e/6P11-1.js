@@ -30,6 +30,10 @@ export const dateDeModifImportante = '23/02/2022'
 
 export const uuid = 'c511f'
 export const ref = '6P11-1'
+export const refs = {
+  'fr-fr': ['6P11-1'],
+  'fr-ch': []
+}
 export default function ProportionnaliteParLineariteBis () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false

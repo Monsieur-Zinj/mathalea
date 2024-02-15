@@ -14,6 +14,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'cf7ce'
 export const ref = '4G10'
+export const refs = {
+  'fr-fr': ['4G10'],
+  'fr-ch': []
+}
 export default function Transformations4e () {
   Transformations.call(this)
   this.sup = choice(['1-7-8', '2-7-8', '3-7-8', '4-7-8'])

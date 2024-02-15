@@ -9,6 +9,10 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 export const uuid = '08680'
 export const ref = '6C10-7b'
+export const refs = {
+  'fr-fr': ['6C10-7b'],
+  'fr-ch': []
+}
 /**
  * @author Jean-Claude Lhote
  * @constructor

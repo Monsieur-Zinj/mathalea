@@ -12,6 +12,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'dc3d2'
 export const ref = '2S20-1'
+export const refs = {
+  'fr-fr': ['2S20-1'],
+  'fr-ch': []
+}
 export default function CalculEffectifFrequence2nde () {
   calculEffectifFrequence.call(this)
 }

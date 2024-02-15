@@ -14,6 +14,10 @@ export const titre = 'Utiliser le cosinus pour calculer la mesure d\'un angle da
  */
 export const uuid = '22810'
 export const ref = '4G41'
+export const refs = {
+  'fr-fr': ['4G41'],
+  'fr-ch': []
+}
 export default function CalculDAngle4e () {
   CalculDAngle.call(this)
   this.level = 4

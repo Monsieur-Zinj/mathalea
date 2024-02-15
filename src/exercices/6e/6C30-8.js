@@ -21,6 +21,10 @@ export const dateDePublication = '08/12/2021'
  */
 export const uuid = '9540b'
 export const ref = '6C30-8'
+export const refs = {
+  'fr-fr': ['6C30-8'],
+  'fr-ch': []
+}
 export default function DiviserPar101001000 () {
   Exercice.call(this)
   this.nbQuestions = 4 // Ici le nombre de questions

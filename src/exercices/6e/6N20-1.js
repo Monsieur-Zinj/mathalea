@@ -28,6 +28,10 @@ export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
  */
 export const uuid = '1f5de'
 export const ref = '6N20-1'
+export const refs = {
+  'fr-fr': ['6N20-1'],
+  'fr-ch': []
+}
 export default class EncadrerFractionEntre2Entiers extends Exercice {
   constructor () {
     super()

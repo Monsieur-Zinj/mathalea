@@ -29,6 +29,10 @@ export const dateDeModifImportante = '5/08/2022'
  */
 export const uuid = '573f2'
 export const ref = '2F20-3'
+export const refs = {
+  'fr-fr': ['2F20-3'],
+  'fr-ch': []
+}
 export default function LecturesGraphiques () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

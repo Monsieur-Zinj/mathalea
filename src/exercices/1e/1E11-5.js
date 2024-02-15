@@ -24,6 +24,10 @@ export const titre = 'Résoudre une équation du second degré avec le discrimin
  */
 export const uuid = '3de81'
 export const ref = '1E11-5'
+export const refs = {
+  'fr-fr': ['1E11-5'],
+  'fr-ch': []
+}
 export default function Resolutionavecdelta () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

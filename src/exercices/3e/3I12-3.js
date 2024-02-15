@@ -19,6 +19,10 @@ export const dateDeModifImportante = '08/05/2023' // par EE : Le nb de questions
  */
 export const uuid = '52c97'
 export const ref = '3I12-3'
+export const refs = {
+  'fr-fr': ['3I12-3'],
+  'fr-ch': []
+}
 export default function CompleterScriptDiviseurs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 11

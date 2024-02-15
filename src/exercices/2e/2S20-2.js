@@ -12,6 +12,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '4bc38'
 export const ref = '2S20-2'
+export const refs = {
+  'fr-fr': ['2S20-2'],
+  'fr-ch': []
+}
 export default function DeterminerDesMedianes2nde () {
   DeterminerDesMedianes.call(this)
 }

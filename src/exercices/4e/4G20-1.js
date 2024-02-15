@@ -6,6 +6,10 @@ export const dateDeModifImportante = '28/12/2022'
 
 export const uuid = '40c47'
 export const ref = '4G20-1'
+export const refs = {
+  'fr-fr': ['4G20-1'],
+  'fr-ch': []
+}
 export default function EgalitePythagore2D () {
   Pythagore2D.call(this)
   this.sup = 1

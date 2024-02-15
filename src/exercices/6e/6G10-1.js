@@ -23,6 +23,10 @@ export const dateDeModifImportante = '07/10/2023' // Interactivité type Qcm par
  */
 export const uuid = 'd81c6'
 export const ref = '6G10-1'
+export const refs = {
+  'fr-fr': ['6G10-1'],
+  'fr-ch': []
+}
 export default function DescriptionSegmentDroiteDemiDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 3

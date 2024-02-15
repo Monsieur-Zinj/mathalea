@@ -28,6 +28,10 @@ export const dateDeModifImportante = '27/01/2024' // Une date de modification im
 */
 export const uuid = '03d65'
 export const ref = '5A12-2'
+export const refs = {
+  'fr-fr': ['5A12-2'],
+  'fr-ch': []
+}
 export default class PremierOuPas extends Exercice {
   constructor () {
     super()

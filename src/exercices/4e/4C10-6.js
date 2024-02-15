@@ -22,6 +22,10 @@ export const titre = 'Multiplications et quotients de relatifs : signe avec une 
 */
 export const uuid = '73187'
 export const ref = '4C10-6'
+export const refs = {
+  'fr-fr': ['4C10-6'],
+  'fr-ch': []
+}
 export default function ExerciceTableauMultiplicationsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 3

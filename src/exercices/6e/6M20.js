@@ -36,6 +36,10 @@ export const dateDeModifImportante = '12/04/2023'
  */
 export const uuid = '06b1a'
 export const ref = '6M20'
+export const refs = {
+  'fr-fr': ['6M20'],
+  'fr-ch': []
+}
 export default function AireDeTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.interactifReady = interactifReady

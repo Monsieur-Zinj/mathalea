@@ -23,6 +23,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '93df9'
 export const ref = '4C30-2'
+export const refs = {
+  'fr-fr': ['4C30-2'],
+  'fr-ch': []
+}
 export default function EcritureDecimalePuissanceDe10 () {
   Exercice.call(this)
   this.nbQuestions = 8

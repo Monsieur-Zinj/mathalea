@@ -12,6 +12,10 @@ export const titre = 'Déterminer la dernière opération à effectuer dans une 
  */
 export const uuid = '97f1a'
 export const ref = '5L14-4'
+export const refs = {
+  'fr-fr': ['5L14-4'],
+  'fr-ch': []
+}
 export default function DeterminerDerniereOperationExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false

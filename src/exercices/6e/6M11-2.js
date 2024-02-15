@@ -34,6 +34,10 @@ export const dateDeModifImportante = '28/10/2023'
  */
 export const uuid = '5999f'
 export const ref = '6M11-2'
+export const refs = {
+  'fr-fr': ['6M11-2'],
+  'fr-ch': []
+}
 export default function PerimetreOuAireDeFiguresComposees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -20,6 +20,10 @@ export const interactifType = 'mathLive'
 
 export const uuid = 'c8403'
 export const ref = '3L11-10'
+export const refs = {
+  'fr-fr': ['3L11-10'],
+  'fr-ch': []
+}
 export default function TableDoubleDistributivite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbCols = 1

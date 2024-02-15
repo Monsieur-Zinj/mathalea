@@ -14,6 +14,10 @@ export const dateDeModifImportante = '15/01/2023' //  Par EE
  */
 export const uuid = '034f1'
 export const ref = '3G12-1'
+export const refs = {
+  'fr-fr': ['3G12-1'],
+  'fr-ch': []
+}
 export default function PavagesEtRotation () {
   PavagesEtTransformations.call(this)
   this.titre = titre

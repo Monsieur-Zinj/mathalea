@@ -14,6 +14,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '6b705'
 export const ref = '2G24-6'
+export const refs = {
+  'fr-fr': ['2G24-6'],
+  'fr-ch': []
+}
 
 class CoordonneesParallelogramme extends Exercice {
   constructor () {

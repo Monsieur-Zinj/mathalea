@@ -32,6 +32,10 @@ export const dateDeModifImportante = '14/09/2023'
  */
 export const uuid = 'bae57'
 export const ref = '4C33-1'
+export const refs = {
+  'fr-fr': ['4C33-1'],
+  'fr-ch': []
+}
 
 /**
  * Fonction pour écrire avec deux couleurs la forme éclatée d'un produit de puissances de même exposant

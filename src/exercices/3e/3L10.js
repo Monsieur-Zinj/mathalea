@@ -22,6 +22,10 @@ export const amcReady = true
  */
 export const uuid = '603a8'
 export const ref = '3L10'
+export const refs = {
+  'fr-fr': ['3L10'],
+  'fr-ch': []
+}
 export default function OpposeExpression () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.spacing = context.isHtml ? 3 : 2

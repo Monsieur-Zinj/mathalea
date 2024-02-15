@@ -23,6 +23,10 @@ export const amcType = 'qcmMono'
  */
 export const uuid = '850d5'
 export const ref = '6P10'
+export const refs = {
+  'fr-fr': ['6P10'],
+  'fr-ch': []
+}
 export default function ProportionnalitePasProportionnalite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   context.isHtml ? this.spacing = 2 : this.spacing = 1.4

@@ -22,6 +22,10 @@ export const dateDeModifImportante = '10/01/2024'
  */
 export const uuid = '6b534'
 export const ref = '5N11-4'
+export const refs = {
+  'fr-fr': ['5N11-4'],
+  'fr-ch': []
+}
 export default function ValeurApprocheeDePourcentages () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

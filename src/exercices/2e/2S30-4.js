@@ -27,6 +27,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'cee5d'
 export const ref = '2S30-4'
+export const refs = {
+  'fr-fr': ['2S30-4'],
+  'fr-ch': []
+}
 export default function CalculProbaExperience2Epreuves2e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = true

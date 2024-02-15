@@ -26,6 +26,10 @@ export const dateDePublication = '12/05/2023' // La date de publication initiale
  */
 export const uuid = '75f80'
 export const ref = '5N20-1'
+export const refs = {
+  'fr-fr': ['5N20-1'],
+  'fr-ch': []
+}
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = max // Correspond au facteur commun

@@ -12,6 +12,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'b51ec'
 export const ref = '2N30-2'
+export const refs = {
+  'fr-fr': ['2N30-2'],
+  'fr-ch': []
+}
 export default function ExerciceAdditionnerOuSoustraireDesFractions2nde () {
   ExerciceAdditionnerOuSoustraireDesFractions.call(this)
 }

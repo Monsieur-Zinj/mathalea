@@ -11,6 +11,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = 'b8a38'
 export const ref = '4A11-1'
+export const refs = {
+  'fr-fr': ['4A11-1'],
+  'fr-ch': []
+}
 export default function DecompositionFacteursPremiers4e () {
   decompositionFacteursPremiers.call(this)
   this.titre = titre

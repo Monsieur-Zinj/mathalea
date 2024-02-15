@@ -8,6 +8,10 @@ export const titre = 'Calculer des probabilités simples'
  */
 export const uuid = '0cf54'
 export const ref = '2S30-3'
+export const refs = {
+  'fr-fr': ['2S30-3'],
+  'fr-ch': []
+}
 export default function ProbabilitesSimples2nde () {
   ProbabilitesSimples.call(this)
 }

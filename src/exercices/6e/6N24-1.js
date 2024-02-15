@@ -15,6 +15,10 @@ export const titre = 'Multiplier ou diviser un nombre entier par 10, 100 ou 1 00
  */
 export const uuid = 'ec005'
 export const ref = '6N24-1'
+export const refs = {
+  'fr-fr': ['6N24-1'],
+  'fr-ch': []
+}
 export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Donner l'écriture décimale."

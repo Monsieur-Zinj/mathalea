@@ -26,6 +26,10 @@ export const dateDeModifImportante = '10/12/2023'
  */
 export const uuid = 'd12db'
 export const ref = '5G30-1'
+export const refs = {
+  'fr-fr': ['5G30-1'],
+  'fr-ch': []
+}
 export default function EgaliteDAngles () {
   Exercice.call(this)
   this.sup = 1

@@ -21,6 +21,10 @@ export const dateDeModifImportante = '02/04/2023' // Une date de modification im
  */
 export const uuid = 'a0ad1'
 export const ref = '3G22-1'
+export const refs = {
+  'fr-fr': ['3G22-1'],
+  'fr-ch': []
+}
 export default function Agrandissement () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = '9'

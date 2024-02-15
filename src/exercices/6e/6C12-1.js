@@ -34,6 +34,10 @@ export const dateDePublication = '02/11/2021'
 
 export const uuid = '4e2b2'
 export const ref = '6C12-1'
+export const refs = {
+  'fr-fr': ['6C12-1'],
+  'fr-ch': []
+}
 export default function QuestionsMasses () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Répondre aux questions suivantes.' // Consigne modifiée, plus bas, à l'intérieur de la fonction

@@ -27,6 +27,10 @@ export const dateDeModifImportante = '04/12/2023'
  */
 export const uuid = '4b25a'
 export const ref = '2G12-2'
+export const refs = {
+  'fr-fr': ['2G12-2'],
+  'fr-ch': []
+}
 export default function Milieu () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

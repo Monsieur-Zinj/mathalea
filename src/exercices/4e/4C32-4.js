@@ -22,6 +22,10 @@ export const dateDePublication = '20/08/2022' // La date de publication initiale
 */
 export const uuid = '8b399'
 export const ref = '4C32-4'
+export const refs = {
+  'fr-fr': ['4C32-4'],
+  'fr-ch': []
+}
 export default function CalculsPuissancesDe10 () {
   Exercice.call(this)
   this.sup = 1

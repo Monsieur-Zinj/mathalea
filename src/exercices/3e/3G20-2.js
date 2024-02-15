@@ -10,6 +10,10 @@ export const titre = 'Écrire une relation de Thalès'
 
 export const uuid = '6fd12'
 export const ref = '3G20-2'
+export const refs = {
+  'fr-fr': ['3G20-2'],
+  'fr-ch': []
+}
 export default function RelationDeThales3e () {
   RelationDeThales.call(this)
   this.sup = 2

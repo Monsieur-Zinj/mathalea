@@ -27,6 +27,10 @@ export const titre = 'Trouver l\'équation d\'une parabole'
  */
 export const uuid = '392b3'
 export const ref = '1E12'
+export const refs = {
+  'fr-fr': ['1E12'],
+  'fr-ch': []
+}
 export default function TrouverEquationParabole () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

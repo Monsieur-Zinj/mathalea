@@ -27,6 +27,10 @@ export const dateDeModifImportante = '25/05/2023'
  */
 export const uuid = '93f13'
 export const ref = '2F10-2'
+export const refs = {
+  'fr-fr': ['2F10-2'],
+  'fr-ch': []
+}
 export default function Lecturefonctionaffine () {
   Exercice.call(this)
   this.titre = titre

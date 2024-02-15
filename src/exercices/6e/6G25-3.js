@@ -33,6 +33,10 @@ export const dateDePublication = '14/12/2020'
  */
 export const uuid = '328b1'
 export const ref = '6G25-3'
+export const refs = {
+  'fr-fr': ['6G25-3'],
+  'fr-ch': []
+}
 export default function PavageEtReflexion2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

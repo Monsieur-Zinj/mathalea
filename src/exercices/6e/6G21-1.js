@@ -3,6 +3,10 @@ export const titre = 'Construire un triangle avec cible'
 
 export const uuid = 'a07bb'
 export const ref = '6G21-1'
+export const refs = {
+  'fr-fr': ['6G21-1'],
+  'fr-ch': []
+}
 export default function ConstruireUnTriangleAvecCible6e () {
   ConstruireUnTriangleAvecCible.call(this)
   this.titre = titre

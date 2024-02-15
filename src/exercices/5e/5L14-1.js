@@ -10,6 +10,10 @@ export const dateDeModifImportante = '21/09/2023'
 */
 export const uuid = '1abc6'
 export const ref = '5L14-1'
+export const refs = {
+  'fr-fr': ['5L14-1'],
+  'fr-ch': []
+}
 export default function CalculerUneExpressionLitterale () {
   EcrireUneExpressionNumerique.call(this)
   this.version = 4

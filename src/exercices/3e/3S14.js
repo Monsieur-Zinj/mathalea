@@ -24,6 +24,10 @@ export const dateDeModifImportante = '19/08/2023'
  */
 export const uuid = 'b8afd'
 export const ref = '3S14'
+export const refs = {
+  'fr-fr': ['3S14'],
+  'fr-ch': []
+}
 
 export default function CalculerCaracteristiques () {
   Exercice.call(this) // Héritage de la classe Exercice()

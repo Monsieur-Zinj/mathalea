@@ -11,6 +11,10 @@ export const dateDePublication = '11/07/2023' // La date de publication initiale
 export const dateDeModifImportante = '11/07/2023' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '15fd6'
 export const ref = '200A1-01'
+export const refs = {
+  'fr-fr': ['200A1-01'],
+  'fr-ch': []
+}
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres

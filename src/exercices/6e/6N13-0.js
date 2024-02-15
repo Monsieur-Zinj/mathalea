@@ -18,6 +18,10 @@ export const dateDePublication = '17/09/2022'
  */
 export const uuid = '5d1e2'
 export const ref = '6N13-0'
+export const refs = {
+  'fr-fr': ['6N13-0'],
+  'fr-ch': []
+}
 export default class sensDesPrefixes extends Exercice {
   constructor () {
     super()

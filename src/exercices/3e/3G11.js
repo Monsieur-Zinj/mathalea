@@ -26,6 +26,10 @@ export const dateDeModifImportante = '31/01/2023'
 */
 export const uuid = '18e25'
 export const ref = '3G11'
+export const refs = {
+  'fr-fr': ['3G11'],
+  'fr-ch': []
+}
 export default function ConstruireHomothetiePoint3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 2

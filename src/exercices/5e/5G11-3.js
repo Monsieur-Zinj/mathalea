@@ -23,6 +23,10 @@ export const titre = 'Construire le symétrique d\'un point avec cible auto-corr
  */
 export const uuid = '34032'
 export const ref = '5G11-3'
+export const refs = {
+  'fr-fr': ['5G11-3'],
+  'fr-ch': []
+}
 export default function ConstruireSymetriquePoint5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -16,6 +16,10 @@ export const dateDePublication = '28/12/2022'
  * Référence 1N13
 */
 export const ref = '1N13'
+export const refs = {
+  'fr-fr': ['1N13'],
+  'fr-ch': []
+}
 export const uuid = '974a9'
 export default class SommeSuiteGeometrique extends Exercice {
   constructor () {

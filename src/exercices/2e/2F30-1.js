@@ -18,6 +18,10 @@ export const dateDePublication = '14/02/2023'
  */
 export const uuid = '05b52'
 export const ref = '2F30-1'
+export const refs = {
+  'fr-fr': ['2F30-1'],
+  'fr-ch': []
+}
 export default function VariationsCourbe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

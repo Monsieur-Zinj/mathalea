@@ -28,6 +28,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '17e39'
 export const ref = '5L14'
+export const refs = {
+  'fr-fr': ['5L14'],
+  'fr-ch': []
+}
 export default function CalculerLaValeurDUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

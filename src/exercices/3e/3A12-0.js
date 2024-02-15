@@ -23,6 +23,10 @@ export const dateDeModifImportante = '17/01/2024'
  */
 export const uuid = '6b37f'
 export const ref = '3A12-0'
+export const refs = {
+  'fr-fr': ['3A12-0'],
+  'fr-ch': []
+}
 
 export default class EngrenagesAnimes extends Exercice {
   constructor () {

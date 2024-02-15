@@ -11,6 +11,10 @@ export const amcType = 'qcmMono'
  */
 export const uuid = 'bdb18'
 export const ref = '4A10'
+export const refs = {
+  'fr-fr': ['4A10'],
+  'fr-ch': []
+}
 export default function PremierOuPas4e () {
   PremierOuPas.call(this)
   this.titre = titre

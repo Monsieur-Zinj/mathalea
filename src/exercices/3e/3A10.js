@@ -16,6 +16,10 @@ export const titre = 'Comprendre le vocabulaire : division euclidienne, diviseur
  */
 export const uuid = '5b60d'
 export const ref = '3A10'
+export const refs = {
+  'fr-fr': ['3A10'],
+  'fr-ch': []
+}
 export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // context.isHtml ? this.spacing = 3 : this.spacing = 2;

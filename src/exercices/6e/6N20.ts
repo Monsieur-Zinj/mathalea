@@ -24,6 +24,10 @@ export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
  */
 export const uuid = '6c8a1'
 export const ref = '6N20'
+export const refs = {
+  'fr-fr': ['6N20'],
+  'fr-ch': []
+}
 export default class ExerciceFractionsDecomposer extends Exercice {
   constructor () {
     super()

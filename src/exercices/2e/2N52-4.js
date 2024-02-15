@@ -14,6 +14,10 @@ export const titre = 'Résoudre des équations se ramenant au produit-nul'
 */
 export const uuid = '93432'
 export const ref = '2N52-4'
+export const refs = {
+  'fr-fr': ['2N52-4'],
+  'fr-ch': []
+}
 export default function Equationspresqueproduitnulle () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

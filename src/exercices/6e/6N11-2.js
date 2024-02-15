@@ -25,6 +25,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = '4f2a3'
 export const ref = '6N11-2'
+export const refs = {
+  'fr-fr': ['6N11-2'],
+  'fr-ch': []
+}
 export default function PlacerUnPointAbscisseEntiere2d () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

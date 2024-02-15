@@ -30,6 +30,10 @@ export const dateDeModifImportante = '17/08/2023'
 
 export const uuid = '3acc1'
 export const ref = '5G22-1'
+export const refs = {
+  'fr-fr': ['5G22-1'],
+  'fr-ch': []
+}
 export default function ProprietesMediatrice () {
   Exercice.call(this)
   this.nbQuestions = 4

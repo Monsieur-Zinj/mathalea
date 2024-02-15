@@ -18,6 +18,10 @@ export const dateDeModifImportante = '13/11/2023'
  */
 export const uuid = 'e2e64'
 export const ref = '5L16'
+export const refs = {
+  'fr-fr': ['5L16'],
+  'fr-ch': []
+}
 export default function SimplifierEcritureLitterale () {
   Exercice.call(this)
   this.nbQuestions = 10

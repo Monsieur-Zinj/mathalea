@@ -37,6 +37,10 @@ export const dateDeModifImportante = '06/02/2024'
  */
 export const uuid = 'd4088'
 export const ref = '3G10-1'
+export const refs = {
+  'fr-fr': ['3G10-1'],
+  'fr-ch': []
+}
 export default function TransformationsDuPlanEtCoordonnees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

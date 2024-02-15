@@ -3,6 +3,10 @@ export const titre = 'Message secret à décoder avec les tables de multiplicati
 
 export const uuid = 'fe6e0'
 export const ref = '6C10-8'
+export const refs = {
+  'fr-fr': ['6C10-8'],
+  'fr-ch': []
+}
 export default function MessageCodeAvecTables () {
   EncodeurTexte.call(this, 'exo')
   this.nbQuestions = 1

@@ -23,6 +23,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '4b121'
 export const ref = '3F13-1'
+export const refs = {
+  'fr-fr': ['3F13-1'],
+  'fr-ch': []
+}
 export default function AntecedentEtImageGraphique () {
   Exercice.call(this)
   this.titre = titre

@@ -18,6 +18,10 @@ export const dateDeModifImportante = '17/05/2023' // Une date de modification im
  */
 export const uuid = 'c705b'
 export const ref = '2F31-3'
+export const refs = {
+  'fr-fr': ['2F31-3'],
+  'fr-ch': []
+}
 export default function Variationsapartirtableau () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1 // Nombre de questions par défaut

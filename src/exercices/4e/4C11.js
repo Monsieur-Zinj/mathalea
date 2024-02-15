@@ -50,6 +50,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '62f66'
 export const ref = '4C11'
+export const refs = {
+  'fr-fr': ['4C11'],
+  'fr-ch': []
+}
 export default function PrioritesEtRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

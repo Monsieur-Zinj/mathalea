@@ -69,6 +69,10 @@ export const dateDeModifImportante = '17/09/2023'
  */
 export const uuid = '2d79c'
 export const ref = '4C34'
+export const refs = {
+  'fr-fr': ['4C34'],
+  'fr-ch': []
+}
 export default function PrioritesEtRelatifsEtPuissances () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Calculer.'

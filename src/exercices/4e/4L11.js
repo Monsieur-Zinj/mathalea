@@ -12,6 +12,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = 'dd1c9'
 export const ref = '4L11'
+export const refs = {
+  'fr-fr': ['4L11'],
+  'fr-ch': []
+}
 export default function Factoriser4e () {
   FactoriserParNombreOux.call(this)
   this.titre = titre

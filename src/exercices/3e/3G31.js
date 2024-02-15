@@ -33,6 +33,10 @@ export const dateDeModifImportante = '11/04/2023' // Modif consigne et passage Ã
  */
 export const uuid = '0ac11'
 export const ref = '3G31'
+export const refs = {
+  'fr-fr': ['3G31'],
+  'fr-ch': []
+}
 export default function CalculDAngle () {
   Exercice.call(this)
   this.nbQuestions = 2

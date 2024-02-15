@@ -16,6 +16,10 @@ export const dateDePublication = '14/09/2022'
 
 export const uuid = 'b0cee'
 export const ref = '3A13-4'
+export const refs = {
+  'fr-fr': ['3A13-4'],
+  'fr-ch': []
+}
 export default function APartirDeDivisionsEuclidiennes3e () {
   APartirDeDivisionsEuclidiennes.call(this)
   this.classe = 3

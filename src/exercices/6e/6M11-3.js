@@ -32,6 +32,10 @@ export const dateDePublication = '27/11/2022'
  */
 export const uuid = '5563e'
 export const ref = '6M11-3'
+export const refs = {
+  'fr-fr': ['6M11-3'],
+  'fr-ch': []
+}
 export default function AireCarresRectanglesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

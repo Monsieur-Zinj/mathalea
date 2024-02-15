@@ -20,6 +20,10 @@ export const dateDeModifImportante = '08/05/2023' // par EE : Le nb de questions
  */
 export const uuid = '9a1a9'
 export const ref = '3I12-4'
+export const refs = {
+  'fr-fr': ['3I12-4'],
+  'fr-ch': []
+}
 export default function ComprendreScriptListeMultiples () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 9

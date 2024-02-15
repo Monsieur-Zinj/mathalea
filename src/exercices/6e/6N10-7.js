@@ -36,6 +36,10 @@ function remplaceParZero (chaine, place) {
  */
 export const uuid = 'f899b'
 export const ref = '6N10-7'
+export const refs = {
+  'fr-fr': ['6N10-7'],
+  'fr-ch': []
+}
 export default function RecomposerEntierC3 () {
   Exercice.call(this)
   this.nbQuestions = 4

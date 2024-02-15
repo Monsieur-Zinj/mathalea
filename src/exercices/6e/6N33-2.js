@@ -24,6 +24,10 @@ export const amcReady = true
  */
 export const uuid = 'db772'
 export const ref = '6N33-2'
+export const refs = {
+  'fr-fr': ['6N33-2'],
+  'fr-ch': []
+}
 export default function CalculerUnPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

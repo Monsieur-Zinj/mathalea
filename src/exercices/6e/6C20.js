@@ -33,6 +33,10 @@ export const dateDeModifImportante = '01/04/2023'
  */
 export const uuid = '01873'
 export const ref = '6C20'
+export const refs = {
+  'fr-fr': ['6C20'],
+  'fr-ch': []
+}
 export default function AdditionnerSoustrairesDecimaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

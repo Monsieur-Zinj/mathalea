@@ -24,6 +24,10 @@ export const dateDeModifImportante = '21/06/2023' // EE : Rajout d'un paramètre
  */
 export const uuid = '231d2'
 export const ref = '3L15'
+export const refs = {
+  'fr-fr': ['3L15'],
+  'fr-ch': []
+}
 export default function ExerciceEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -26,6 +26,10 @@ export const titre = 'Tortue Scratch avec répétitions'
  */
 export const uuid = '8ded2'
 export const ref = '4I1-2'
+export const refs = {
+  'fr-fr': ['4I1-2'],
+  'fr-ch': []
+}
 export default function AlgoTortue () { // ça c'est la classe qui permet de créer cet exercice
   Exercice.call(this) // la classe parente qui définit les attributs commun à tous les exercices
   this.titre = titre

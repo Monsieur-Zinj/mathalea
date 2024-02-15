@@ -16,6 +16,10 @@ export const titre = 'Résoudre un problème en utilisant une somme algébrique 
 
 export const uuid = '6667e'
 export const ref = '5R20-4'
+export const refs = {
+  'fr-fr': ['5R20-4'],
+  'fr-ch': []
+}
 export default function ProblemesAdditifsRelatifs5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.debug = false

@@ -21,6 +21,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '125bd'
 export const ref = '4C35'
+export const refs = {
+  'fr-fr': ['4C35'],
+  'fr-ch': []
+}
 export default function PuissanceDecimaleOuFractionnaire () {
   Exercice.call(this)
   this.titre = titre

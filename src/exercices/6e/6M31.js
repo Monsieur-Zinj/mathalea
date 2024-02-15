@@ -35,6 +35,10 @@ export const dateDeModifImportante = '31/05/2023'
  */
 export const uuid = '33ac2'
 export const ref = '6M31'
+export const refs = {
+  'fr-fr': ['6M31'],
+  'fr-ch': []
+}
 export default function ExerciceConversionsVolumes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1 // Niveau de difficulté de l`exercice

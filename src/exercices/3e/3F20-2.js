@@ -13,6 +13,10 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '21/05/2023'
 export const ref = '3F20-2'
+export const refs = {
+  'fr-fr': ['3F20-2'],
+  'fr-ch': []
+}
 export const uuid = '17c65'
 /**
  * Questions sur les fonctions affines ou linéaires

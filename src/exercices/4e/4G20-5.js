@@ -9,6 +9,10 @@ export const titre = 'Trouver la valeur arrondie d\'une racine carrée'
 
 export const uuid = '9c484'
 export const ref = '4G20-5'
+export const refs = {
+  'fr-fr': ['4G20-5'],
+  'fr-ch': []
+}
 export default function ArrondirUneValeur4e () {
   ArrondirUneValeur.call(this)
   this.titre = titre

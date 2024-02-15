@@ -39,6 +39,10 @@ export const dateDeModifImportante = '05/11/2023'
  */
 export const uuid = 'a8ad0'
 export const ref = '5L12-2'
+export const refs = {
+  'fr-fr': ['5L12-2'],
+  'fr-ch': []
+}
 export default function ReduireUneExpressionLitterale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

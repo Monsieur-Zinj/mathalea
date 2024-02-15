@@ -22,6 +22,10 @@ export const dateDePublication = '05/02/2023'
  */
 export const uuid = '594eb'
 export const ref = '6I10-1'
+export const refs = {
+  'fr-fr': ['6I10-1'],
+  'fr-ch': []
+}
 export default function ColorierDeplacement () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.typeExercice = 'Scratch'

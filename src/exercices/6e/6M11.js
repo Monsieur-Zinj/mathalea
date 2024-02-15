@@ -32,6 +32,10 @@ export const interactifReady = true
  */
 export const uuid = 'eb45a'
 export const ref = '6M11'
+export const refs = {
+  'fr-fr': ['6M11'],
+  'fr-ch': []
+}
 export default function AireCarresRectanglesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

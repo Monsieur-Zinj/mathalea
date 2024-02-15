@@ -21,6 +21,10 @@ export const dateDePublication = '20/04/2022' // La date de publication initiale
  */
 export const uuid = 'a720c'
 export const ref = '1G11'
+export const refs = {
+  'fr-fr': ['1G11'],
+  'fr-ch': []
+}
 export default function MesurePrincipale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 3 // Nombre de questions par défaut

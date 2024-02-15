@@ -35,6 +35,10 @@ export const dateDeModifImportante = '16/04/2023'
  */
 export const uuid = '064ce'
 export const ref = '6P13'
+export const refs = {
+  'fr-fr': ['6P13'],
+  'fr-ch': []
+}
 export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

@@ -13,6 +13,10 @@ export const dateDePublication = '4/12/2021'
  */
 export const uuid = 'd7da5'
 export const ref = '6G26'
+export const refs = {
+  'fr-fr': ['6G26'],
+  'fr-ch': []
+}
 export default function SerieDeTransformations6e () {
   SerieDeTransformations.call(this)
   this.titre = titre

@@ -24,6 +24,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '76230'
 export const ref = '3S21'
+export const refs = {
+  'fr-fr': ['3S21'],
+  'fr-ch': []
+}
 export default function CalculProbaExperience2Epreuves3e () {
   Exercice.call(this) // Héritage de la classe Exercice()
 

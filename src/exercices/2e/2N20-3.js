@@ -9,6 +9,10 @@ export const dateDeModifImportante = '29/10/2021'
 
 export const uuid = '098db'
 export const ref = '2N20-3'
+export const refs = {
+  'fr-fr': ['2N20-3'],
+  'fr-ch': []
+}
 export default function DivisionEuclidienneMultiplesDiviseursCriteres2nde () {
   DivisionEuclidienneMultiplesDiviseursCriteres.call(this)
   this.sup = '3'

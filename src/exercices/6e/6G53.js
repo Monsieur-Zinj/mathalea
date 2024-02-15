@@ -23,6 +23,10 @@ export const dateDePublication = '01/03/2023'
 */
 export const uuid = '29c3b'
 export const ref = '6G53'
+export const refs = {
+  'fr-fr': ['6G53'],
+  'fr-ch': []
+}
 export default class MesurerDistancePointDroite extends Exercice {
   constructor () {
     super()

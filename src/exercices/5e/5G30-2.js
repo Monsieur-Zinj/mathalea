@@ -72,6 +72,10 @@ function anglesSecantes (A, rot = { O: 60, A: 0 }) {
 */
 export const uuid = '19812'
 export const ref = '5G30-2'
+export const refs = {
+  'fr-fr': ['5G30-2'],
+  'fr-ch': []
+}
 export default function ExercicesAnglesAIC () {
   Exercice.call(this)
   const formulaire = [

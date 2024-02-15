@@ -8,6 +8,10 @@ export const titre = 'Connaître les propriétés des parallélogrammes particul
 export const dateDePublication = '26/04/2023'
 export const uuid = '78f28'
 export const ref = '5G42-1'
+export const refs = {
+  'fr-fr': ['5G42-1'],
+  'fr-ch': []
+}
 export const interactifReady = true
 export const interactifType = 'qcm'
 

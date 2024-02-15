@@ -32,6 +32,10 @@ export const dateDeModifImportante = '12/04/2023' // Ajout de trois paramètres 
  */
 export const uuid = 'd1513'
 export const ref = '6M11-1'
+export const refs = {
+  'fr-fr': ['6M11-1'],
+  'fr-ch': []
+}
 export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

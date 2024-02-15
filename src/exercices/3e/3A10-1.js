@@ -24,6 +24,10 @@ export const amcType = 'qcmMono'
  */
 export const uuid = 'bba55'
 export const ref = '3A10-1'
+export const refs = {
+  'fr-fr': ['3A10-1'],
+  'fr-ch': []
+}
 export default function PremierOuPas () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // pas de différence entre la version html et la version latex pour la consigne

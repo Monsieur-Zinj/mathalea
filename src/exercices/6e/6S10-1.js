@@ -28,6 +28,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'adac4'
 export const ref = '6S10-1'
+export const refs = {
+  'fr-fr': ['6S10-1'],
+  'fr-ch': []
+}
 export default function LireUnDiagramme () {
   Exercice.call(this)
   this.titre = titre

@@ -19,6 +19,10 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
  */
 export const uuid = '04f53'
 export const ref = '3S20'
+export const refs = {
+  'fr-fr': ['3S20'],
+  'fr-ch': []
+}
 export default function FonctionsProbabilite2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

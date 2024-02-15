@@ -19,6 +19,10 @@ export const titre = 'Compléter une représentation en perspective cavalière'
  */
 export const uuid = 'a013f'
 export const ref = '5G51'
+export const refs = {
+  'fr-fr': ['5G51'],
+  'fr-ch': []
+}
 export default function RepresenterUnSolide5e () {
   Exercice.call(this) // Héritage de la classe Exercice ()
   this.titre = titre

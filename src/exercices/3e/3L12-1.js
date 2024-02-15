@@ -24,6 +24,10 @@ export const dateDeModifImportante = '26/02/2023' // Une date de modification im
  */
 export const uuid = 'be157'
 export const ref = '3L12-1'
+export const refs = {
+  'fr-fr': ['3L12-1'],
+  'fr-ch': []
+}
 export default function DevelopperIdentitesRemarquables3 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

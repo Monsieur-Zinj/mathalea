@@ -17,6 +17,10 @@ export const amcType = 'AMCHybride'
 
 export const uuid = 'c28e5'
 export const ref = '6N32'
+export const refs = {
+  'fr-fr': ['6N32'],
+  'fr-ch': []
+}
 export default function FractionsDunite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

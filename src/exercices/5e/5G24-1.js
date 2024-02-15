@@ -20,6 +20,10 @@ export const titre = 'Triangles égaux et côtés homologues'
 */
 export const uuid = '10148'
 export const ref = '5G24-1'
+export const refs = {
+  'fr-fr': ['5G24-1'],
+  'fr-ch': []
+}
 export default function TrianglesEgaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

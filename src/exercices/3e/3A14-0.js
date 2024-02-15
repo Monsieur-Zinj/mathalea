@@ -24,6 +24,10 @@ export const titre = 'Arithmétique & volumes'
  */
 export const uuid = '2e22a'
 export const ref = '3A14-0'
+export const refs = {
+  'fr-fr': ['3A14-0'],
+  'fr-ch': []
+}
 export default function DesChocolatsDansDesBoites () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

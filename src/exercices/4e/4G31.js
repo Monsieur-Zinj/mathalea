@@ -11,6 +11,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '4dce8'
 export const ref = '4G31'
+export const refs = {
+  'fr-fr': ['4G31'],
+  'fr-ch': []
+}
 export default function ReciproqueThales4eme () {
   ReciproqueThales.call(this)
   this.quatrieme = true

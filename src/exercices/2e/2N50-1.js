@@ -36,6 +36,10 @@ export const dateDeModifImportante = '05/06/2023'
  */
 export const uuid = '622b9'
 export const ref = '2N50-1'
+export const refs = {
+  'fr-fr': ['2N50-1'],
+  'fr-ch': []
+}
 export default class ProblemesAvecEquations extends Exercice {
   constructor () {
     super()

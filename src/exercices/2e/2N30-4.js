@@ -13,6 +13,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'cb572'
 export const ref = '2N30-4'
+export const refs = {
+  'fr-fr': ['2N30-4'],
+  'fr-ch': []
+}
 export default function ExerciceDiviserFractions2nde () {
   ExerciceDiviserFractions.call(this)
 }

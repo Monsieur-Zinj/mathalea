@@ -23,6 +23,10 @@ export const dateDeModifImportante = '11/09/2023'
 
 export const uuid = '374b6'
 export const ref = '4C23'
+export const refs = {
+  'fr-fr': ['4C23'],
+  'fr-ch': []
+}
 export default function SommeOuProduitFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.interactifReady = interactifReady

@@ -23,6 +23,10 @@ export const interactifType = 'qcm'
 
 export const uuid = '17bce'
 export const ref = '6S10'
+export const refs = {
+  'fr-fr': ['6S10'],
+  'fr-ch': []
+}
 export default function LectureDiagrammeBarre () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = "Répondre aux questions à l'aide du graphique."

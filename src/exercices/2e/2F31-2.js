@@ -16,6 +16,10 @@ export const dateDeModifImportante = '12/07/2023'
  */
 export const uuid = '1ca05'
 export const ref = '2F31-2'
+export const refs = {
+  'fr-fr': ['2F31-2'],
+  'fr-ch': []
+}
 export default function EncadrerAvecFctRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

@@ -28,6 +28,10 @@ export const dateDePublication = '18/01/2022' // La date de publication initiale
  */
 export const uuid = 'b6cc0'
 export const ref = '2F11-1'
+export const refs = {
+  'fr-fr': ['2F11-1'],
+  'fr-ch': []
+}
 export default function ImageFonctionsRefs () {
   Exercice.call(this)
   this.nbQuestions = 8

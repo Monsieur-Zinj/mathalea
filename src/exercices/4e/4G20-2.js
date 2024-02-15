@@ -19,6 +19,10 @@ export const interactifReady = true
  */
 export const uuid = 'f5cbd'
 export const ref = '4G20-2'
+export const refs = {
+  'fr-fr': ['4G20-2'],
+  'fr-ch': []
+}
 export default function RacineCareeDeCarresParfaits () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

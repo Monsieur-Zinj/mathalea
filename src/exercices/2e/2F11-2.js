@@ -19,6 +19,10 @@ export const dateDePublication = '14/02/2023'
  */
 export const uuid = '9315e'
 export const ref = '2F11-2'
+export const refs = {
+  'fr-fr': ['2F11-2'],
+  'fr-ch': []
+}
 export default function ComparerAvecFonctionRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

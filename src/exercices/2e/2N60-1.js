@@ -26,6 +26,10 @@ export const dateDePublication = '14/02/2023'
 */
 export const uuid = 'd2084'
 export const ref = '2N60-1'
+export const refs = {
+  'fr-fr': ['2N60-1'],
+  'fr-ch': []
+}
 export default function ModeliseInequations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

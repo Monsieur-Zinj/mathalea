@@ -24,6 +24,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '6a17f'
 export const ref = '6N22-2'
+export const refs = {
+  'fr-fr': ['6N22-2'],
+  'fr-ch': []
+}
 export default function AjouterDesFractionsDunite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

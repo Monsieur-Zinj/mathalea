@@ -28,6 +28,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '1802d'
 export const ref = '3L13-1'
+export const refs = {
+  'fr-fr': ['3L13-1'],
+  'fr-ch': []
+}
 export default function ExerciceEquation1Tiret2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.comment = 'Les équations sont de la forme :<br>$ax+b=cx+d$<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'

@@ -19,6 +19,10 @@ export const dateDeModifImportante = '24/09/2023'
  */
 export const uuid = '1d078'
 export const ref = '4C33-0'
+export const refs = {
+  'fr-fr': ['4C33-0'],
+  'fr-ch': []
+}
 export default function NotationPuissance () {
   Exercice.call(this)
   this.nbQuestions = 4

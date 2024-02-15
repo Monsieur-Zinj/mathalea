@@ -13,6 +13,10 @@ export const dateDeModifImportante = '11/04/2023'
  */
 export const uuid = '83be1'
 export const ref = '6M10'
+export const refs = {
+  'fr-fr': ['6M10'],
+  'fr-ch': []
+}
 export default function Reglages6M10 () {
   ExercicePerimetresEtAires.call(this)
   this.sup = '1-2-3'

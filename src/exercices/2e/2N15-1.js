@@ -10,6 +10,10 @@ export const titre = 'Utiliser la notion de valeur absolue d\'une quantité'
  */
 export const uuid = '0d8b3'
 export const ref = '2N15-1'
+export const refs = {
+  'fr-fr': ['2N15-1'],
+  'fr-ch': []
+}
 export default function ValeurAbsolue () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

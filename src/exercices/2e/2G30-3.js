@@ -16,6 +16,10 @@ export const titre = 'Déterminer une équation cartésienne de droite à partir
 */
 export const uuid = '1bb30'
 export const ref = '2G30-3'
+export const refs = {
+  'fr-fr': ['2G30-3'],
+  'fr-ch': []
+}
 export default function Equationcartesienne () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

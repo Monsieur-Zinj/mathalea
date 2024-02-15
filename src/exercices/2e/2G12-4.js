@@ -20,6 +20,10 @@ export const dateDeModifImportante = '30/11/2023'
  */
 export const uuid = 'd633a'
 export const ref = '2G12-4'
+export const refs = {
+  'fr-fr': ['2G12-4'],
+  'fr-ch': []
+}
 export default function NaturePolygone () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -27,6 +27,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'b8946'
 export const ref = '3F12-4'
+export const refs = {
+  'fr-fr': ['3F12-4'],
+  'fr-ch': []
+}
 export default function ImageGraphique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

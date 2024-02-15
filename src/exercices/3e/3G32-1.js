@@ -11,6 +11,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'e0287'
 export const ref = '3G32-1'
+export const refs = {
+  'fr-fr': ['3G32-1'],
+  'fr-ch': []
+}
 export default function CalculParalleleTerrestre () {
   problemesTrigoLongueur.call(this)
   this.titre = titre

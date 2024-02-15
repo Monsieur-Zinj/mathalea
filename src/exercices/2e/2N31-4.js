@@ -12,6 +12,10 @@ export const amcType = 'AMCOpenNum'
 
 export const uuid = '6fda8'
 export const ref = '2N31-4'
+export const refs = {
+  'fr-fr': ['2N31-4'],
+  'fr-ch': []
+}
 export default function PrioritesEtRelatifsEtPuissances2e () {
   PrioritesEtRelatifsEtPuissances.call(this)
 }

@@ -26,6 +26,10 @@ export const dateDeModifImportante = '24/01/2024'
 */
 export const uuid = '5621b'
 export const ref = '2F21-1'
+export const refs = {
+  'fr-fr': ['2F21-1'],
+  'fr-ch': []
+}
 export default function ModeliserParUneFonction () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

@@ -14,6 +14,10 @@ export const titre = 'Résoudre les équations produit-nul'
 */
 export const uuid = '53762'
 export const ref = '2N52-1'
+export const refs = {
+  'fr-fr': ['2N52-1'],
+  'fr-ch': []
+}
 export default function EquationsProduitsNuls2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -12,6 +12,10 @@ export const amcType = 'AMCNum'
 
 export const uuid = 'c9404'
 export const ref = '2N31-1'
+export const refs = {
+  'fr-fr': ['2N31-1'],
+  'fr-ch': []
+}
 export default function NotationScientifique2e () {
   NotationScientifique.call(this)
 }

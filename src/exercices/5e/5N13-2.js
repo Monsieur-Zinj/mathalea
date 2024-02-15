@@ -13,6 +13,10 @@ export const titre = 'Égalités entre fractions simples'
  */
 export const uuid = '4718e'
 export const ref = '5N13-2'
+export const refs = {
+  'fr-fr': ['5N13-2'],
+  'fr-ch': []
+}
 export default function EgalitesEntreFractions5e () {
   EgalitesEntreFractions.call(this)
   this.titre = titre

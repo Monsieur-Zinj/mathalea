@@ -24,7 +24,10 @@ export const interactifType = 'mathLive'
 
 export const uuid = '1a60f'
 export const ref = '1AN14-4'
-
+export const refs = {
+  'fr-fr': ['1AN14-4'],
+  'fr-ch': []
+}
 /**
  * @param {string} expression expression parsée
  * @returns expression en LaTeX avec multication implicite

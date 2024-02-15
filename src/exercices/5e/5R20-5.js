@@ -14,6 +14,10 @@ export const amcType = 'AMCOpen'
 */
 export const uuid = '41254'
 export const ref = '5R20-5'
+export const refs = {
+  'fr-fr': ['5R20-5'],
+  'fr-ch': []
+}
 export default function ExerciceTableauAdditionsRelatifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Calculer.'

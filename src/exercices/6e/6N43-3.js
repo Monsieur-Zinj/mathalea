@@ -20,6 +20,10 @@ export const dateDeModifImportante = '07/03/2023'
 */
 export const uuid = 'bbdd6'
 export const ref = '6N43-3'
+export const refs = {
+  'fr-fr': ['6N43-3'],
+  'fr-ch': []
+}
 export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'

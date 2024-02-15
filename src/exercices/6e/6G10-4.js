@@ -33,6 +33,10 @@ export const dateDeModifImportante = '07/11/2023'
  */
 export const uuid = '03b49'
 export const ref = '6G10-4'
+export const refs = {
+  'fr-fr': ['6G10-4'],
+  'fr-ch': []
+}
 
 function ajouterAlternatives (fonction, reponses) {
   const copieReponses = []

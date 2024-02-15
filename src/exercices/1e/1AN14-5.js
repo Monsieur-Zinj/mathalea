@@ -23,6 +23,10 @@ export const interactifType = 'mathLive'
 
 export const uuid = 'b32f2'
 export const ref = '1AN14-5'
+export const refs = {
+  'fr-fr': ['1AN14-5'],
+  'fr-ch': []
+}
 export default function DeriveeQuotient () {
   Exercice.call(this)
   this.titre = titre

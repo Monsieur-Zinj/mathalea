@@ -34,6 +34,10 @@ export const dateDePublication = '3/12/2021'
 
 export const uuid = '4ffdb'
 export const ref = '4G12'
+export const refs = {
+  'fr-fr': ['4G12'],
+  'fr-ch': []
+}
 export default function SerieDeTransformations () {
   Exercice.call(this)
   this.nbQuestions = 1

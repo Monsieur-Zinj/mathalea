@@ -12,6 +12,10 @@ export const interactifType = 'qcm'
 
 export const uuid = 'a16a0'
 export const ref = '2N40-3'
+export const refs = {
+  'fr-fr': ['2N40-3'],
+  'fr-ch': []
+}
 export default function EcrireUneExpressionLitterale2e () {
   ÉcrireUneExpressionLitterale.call(this)
 }

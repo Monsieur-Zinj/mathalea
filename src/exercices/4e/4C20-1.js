@@ -8,6 +8,10 @@ export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un
  */
 export const uuid = '7e31e'
 export const ref = '4C20-1'
+export const refs = {
+  'fr-fr': ['4C20-1'],
+  'fr-ch': []
+}
 export default function ExerciceComparerQuatreFractions4e () {
   ExerciceComparerQuatreFractions.call(this)
   this.titre = titre

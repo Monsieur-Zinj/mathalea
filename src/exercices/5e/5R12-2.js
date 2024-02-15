@@ -21,6 +21,10 @@ export const dateDeModifImportante = '22/01/2024'
  */
 export const uuid = 'ab968'
 export const ref = '5R12-2'
+export const refs = {
+  'fr-fr': ['5R12-2'],
+  'fr-ch': []
+}
 export default function ReperagePointDuPlan () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

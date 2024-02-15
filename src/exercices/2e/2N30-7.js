@@ -9,6 +9,10 @@ export const titre = 'Résoudre des problèmes additifs et de comparaison sur le
  */
 export const uuid = 'd0fdc'
 export const ref = '2N30-7'
+export const refs = {
+  'fr-fr': ['2N30-7'],
+  'fr-ch': []
+}
 export default function ProblemesAdditifsFractionsBis2nde () {
   ProblemesAdditifsFractionsBis.call(this)
 }

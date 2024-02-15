@@ -22,6 +22,10 @@ export const dateDePublication = '28/09/22'
  * 6N23-8
  */
 export const ref = '6N23-8'
+export const refs = {
+  'fr-fr': ['6N23-8'],
+  'fr-ch': []
+}
 export const uuid = '708a9'
 export default function ExerciceEcritureDecimaleOuFractionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()

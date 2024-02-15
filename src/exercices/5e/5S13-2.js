@@ -200,6 +200,10 @@ class Population {
  */
 export const uuid = 'ff67d'
 export const ref = '5S13-2'
+export const refs = {
+  'fr-fr': ['5S13-2'],
+  'fr-ch': []
+}
 export default function CalculerDesFrequences () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

@@ -19,6 +19,10 @@ export const titre = 'Justifier que deux triangles sont égaux'
 */
 export const uuid = 'b9a52'
 export const ref = '5G24-2'
+export const refs = {
+  'fr-fr': ['5G24-2'],
+  'fr-ch': []
+}
 export default function TrianglesEgaux () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

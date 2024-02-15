@@ -21,6 +21,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '013ef'
 export const ref = '6C31-2'
+export const refs = {
+  'fr-fr': ['6C31-2'],
+  'fr-ch': []
+}
 export default function ValeurApprocheeDivisionDecimale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

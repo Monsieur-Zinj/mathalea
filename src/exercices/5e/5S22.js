@@ -8,6 +8,10 @@ export const dateDePublication = '03/04/2022'
  */
 export const uuid = 'df72b'
 export const ref = '5S22'
+export const refs = {
+  'fr-fr': ['5S22'],
+  'fr-ch': []
+}
 export default function FonctionsVocabulaireProbabilite5e () {
   FonctionsProbabilite1.call(this)
   this.titre = titre

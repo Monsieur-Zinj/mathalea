@@ -24,6 +24,10 @@ export const dateDePublication = '30/09/2023'
 
 export const uuid = '2ae9b'
 export const ref = '3A13-5'
+export const refs = {
+  'fr-fr': ['3A13-5'],
+  'fr-ch': []
+}
 export default function DivisionEuclienneEtAjout () {
   Exercice.call(this)
   this.spacing = 1

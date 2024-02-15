@@ -20,6 +20,10 @@ export const dateDePublication = '11/12/2023'
 
 export const uuid = '88021'
 export const ref = '6C12-2'
+export const refs = {
+  'fr-fr': ['6C12-2'],
+  'fr-ch': []
+}
 export default function QuestionsDivisionsEuclidiennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Résoudre les problèmes suivants.'

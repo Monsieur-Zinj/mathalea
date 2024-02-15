@@ -20,6 +20,10 @@ export const dateDePublication = '12/04/2022' // La date de publication initiale
  */
 export const uuid = 'b0b3c'
 export const ref = '4C30-4'
+export const refs = {
+  'fr-fr': ['4C30-4'],
+  'fr-ch': []
+}
 export default class PuissancesEtPrefixe extends Exercice {
   constructor () {
     super()

@@ -25,6 +25,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'a168c'
 export const ref = '6N33-0'
+export const refs = {
+  'fr-fr': ['6N33-0'],
+  'fr-ch': []
+}
 export default function FractionDuneQuantite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 5

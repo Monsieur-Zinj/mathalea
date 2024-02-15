@@ -20,6 +20,10 @@ export const dateDeModifImportante = '31/08/2023'
 */
 export const uuid = '588fe'
 export const ref = '5G40-2'
+export const refs = {
+  'fr-fr': ['5G40-2'],
+  'fr-ch': []
+}
 export default function ParallelogrammeAPartirDUneFigure () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

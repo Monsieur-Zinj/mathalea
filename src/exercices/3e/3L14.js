@@ -26,6 +26,10 @@ export const dateDeModifImportante = '09/03/2023'
  */
 export const uuid = 'ecf62'
 export const ref = '3L14'
+export const refs = {
+  'fr-fr': ['3L14'],
+  'fr-ch': []
+}
 export default function ResoudreUneEquationProduitNul () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

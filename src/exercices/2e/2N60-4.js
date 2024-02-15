@@ -22,6 +22,10 @@ export const titre = 'Résoudre une inéquation du premier degré'
  */
 export const uuid = 'bc1e4'
 export const ref = '2N60-4'
+export const refs = {
+  'fr-fr': ['2N60-4'],
+  'fr-ch': []
+}
 export default function ExerciceInequation1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

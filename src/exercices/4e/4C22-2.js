@@ -28,6 +28,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '55354'
 export const ref = '4C22-2'
+export const refs = {
+  'fr-fr': ['4C22-2'],
+  'fr-ch': []
+}
 export default function ExerciceDiviserFractions () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = 1 // Avec ou sans relatifs

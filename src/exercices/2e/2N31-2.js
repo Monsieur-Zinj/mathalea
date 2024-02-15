@@ -13,6 +13,10 @@ export const dateDeModifImportante = '14/09/2023'
 
 export const uuid = '1e42b'
 export const ref = '2N31-2'
+export const refs = {
+  'fr-fr': ['2N31-2'],
+  'fr-ch': []
+}
 export default function PuissancesDunRelatif12e () {
   PuissancesDunRelatif1.call(this)
   this.classe = 2

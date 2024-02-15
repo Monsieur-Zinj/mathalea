@@ -14,6 +14,10 @@ export const titre = 'Encadrer un décimal par deux entiers consécutifs'
  */
 export const uuid = '3e083'
 export const ref = '6N31-1'
+export const refs = {
+  'fr-fr': ['6N31-1'],
+  'fr-ch': []
+}
 export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.beta = false

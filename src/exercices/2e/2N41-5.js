@@ -18,6 +18,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '5a4ad'
 export const ref = '2N41-5'
+export const refs = {
+  'fr-fr': ['2N41-5'],
+  'fr-ch': []
+}
 
 export default function DevelopperIdentitesRemarquables4 () {
   Exercice.call(this) // Héritage de la classe Exercice()

@@ -14,6 +14,10 @@ export const titre = 'Tester si un nombre est solution d\'une équation'
  */
 export const uuid = 'a1c9a'
 export const ref = '4L14-0'
+export const refs = {
+  'fr-fr': ['4L14-0'],
+  'fr-ch': []
+}
 export default function TesterSiUnNombreEstSolutionDUneEquation () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

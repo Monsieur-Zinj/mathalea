@@ -14,6 +14,10 @@ export const dateDeModifImportante = '10/01/2024'
  */
 export const uuid = '4771d'
 export const ref = '2N32-7'
+export const refs = {
+  'fr-fr': ['2N32-7'],
+  'fr-ch': []
+}
 export default function Rendreentier () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = 'Rendre entier le dénominateur d\'une fraction'

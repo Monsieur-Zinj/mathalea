@@ -8,6 +8,10 @@ export const dateDeModifImportante = '14/11/2021'
  */
 export const uuid = '8ea24'
 export const ref = '5G10-2'
+export const refs = {
+  'fr-fr': ['5G10-2'],
+  'fr-ch': []
+}
 export default class SymetrieAxialeFigure5e extends ConstruireParSymetrie {
   constructor () {
     super()

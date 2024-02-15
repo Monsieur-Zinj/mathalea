@@ -15,6 +15,10 @@ export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ a
  */
 export const uuid = 'dc2a5'
 export const ref = '2N11-2'
+export const refs = {
+  'fr-fr': ['2N11-2'],
+  'fr-ch': []
+}
 export default function UnionEtIntersectionIntervallesDeR () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 4

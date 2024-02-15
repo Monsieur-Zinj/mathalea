@@ -21,6 +21,10 @@ function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
 }
 export const uuid = '1803c'
 export const ref = '2F31-1'
+export const refs = {
+  'fr-fr': ['2F31-1'],
+  'fr-ch': []
+}
 export default function ComparerAvecFctRef () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

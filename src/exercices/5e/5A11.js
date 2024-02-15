@@ -10,6 +10,10 @@ export const interactifType = 'qcm'
  */
 export const uuid = 'a55d2'
 export const ref = '5A11'
+export const refs = {
+  'fr-fr': ['5A11'],
+  'fr-ch': []
+}
 export default function TableauCriteresDeDivisibilite5e () {
   TableauCriteresDeDivisibilite.call(this)
   this.sup = true

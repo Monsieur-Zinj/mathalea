@@ -12,6 +12,10 @@ export const dateDePublication = '15/10/2023'
 
 export const uuid = '6ddc5'
 export const ref = '4G10-3'
+export const refs = {
+  'fr-fr': ['4G10-3'],
+  'fr-ch': []
+}
 export default function ImagePtParTranslation4e () {
   ImagePtParTranslation.call(this)
   this.classe = 4

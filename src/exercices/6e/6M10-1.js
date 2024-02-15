@@ -22,6 +22,10 @@ export const interactifType = 'mathLive'
 
 export const uuid = '9a5fe'
 export const ref = '6M10-1'
+export const refs = {
+  'fr-fr': ['6M10-1'],
+  'fr-ch': []
+}
 export default function ProblemesAiresRectangles () {
   Exercice.call(this)
   this.consigne = "Trouver la mesure désignée par un point d'interrogation."

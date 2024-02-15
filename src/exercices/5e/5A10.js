@@ -23,6 +23,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = '4828d'
 export const ref = '5A10'
+export const refs = {
+  'fr-fr': ['5A10'],
+  'fr-ch': []
+}
 export default function ListeDesDiviseurs5e () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

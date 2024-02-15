@@ -23,6 +23,10 @@ export const dateDeModifImportante = '24/09/2023'
  */
 export const uuid = 'f5dcf'
 export const ref = '4C30'
+export const refs = {
+  'fr-fr': ['4C30'],
+  'fr-ch': []
+}
 export default function PuissancesDeDix () {
   Exercice.call(this) // Héritage de la classe Exercice()
   context.isHtml

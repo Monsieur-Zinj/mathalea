@@ -20,6 +20,10 @@ export const dateDeModifImportante = '13/12/2023'
 
 export const uuid = '63f03'
 export const ref = '6N23-7'
+export const refs = {
+  'fr-fr': ['6N23-7'],
+  'fr-ch': []
+}
 export default function RecompositionDecimale () {
   Exercice.call(this)
   this.nbQuestions = 1 // Ici le nombre de questions

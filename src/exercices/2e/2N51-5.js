@@ -10,6 +10,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '3b3d9'
 export const ref = '2N51-5'
+export const refs = {
+  'fr-fr': ['2N51-5'],
+  'fr-ch': []
+}
 export default function ExerciceEquation1Tiret22nde () {
   ExerciceEquation1Tiret2.call(this)
 }

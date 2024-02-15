@@ -14,6 +14,10 @@ export const titre = 'Ranger une liste de nombres entiers dans l\'ordre croissan
 
 export const uuid = '3bba9'
 export const ref = '6N11-4'
+export const refs = {
+  'fr-fr': ['6N11-4'],
+  'fr-ch': []
+}
 // une fonction pour gérer l'ordre
 function myOrdre (ordre, tab) {
   tab.sort((a, b) => a - b)

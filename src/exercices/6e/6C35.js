@@ -42,6 +42,10 @@ export const dateDeModifImportante = '16/11/2021'
  */
 export const uuid = '4e89b'
 export const ref = '6C35'
+export const refs = {
+  'fr-fr': ['6C35'],
+  'fr-ch': []
+}
 
 /**
  * Renvoie un petit objet masculin au hasard

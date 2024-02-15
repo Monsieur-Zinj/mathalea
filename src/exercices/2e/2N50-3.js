@@ -17,6 +17,10 @@ export const dateDePublication = '16/12/2021'
  */
 export const uuid = '846b8'
 export const ref = '2N50-3'
+export const refs = {
+  'fr-fr': ['2N50-3'],
+  'fr-ch': []
+}
 export default function ModeliserEquations () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 1

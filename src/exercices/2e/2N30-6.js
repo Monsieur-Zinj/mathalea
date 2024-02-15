@@ -9,6 +9,10 @@ export const titre = 'Rendre irréductible une fraction'
  */
 export const uuid = 'c1561'
 export const ref = '2N30-6'
+export const refs = {
+  'fr-fr': ['2N30-6'],
+  'fr-ch': []
+}
 export default function FractionsIrreductibles2nde () {
   FractionsIrreductibles.call(this)
 }

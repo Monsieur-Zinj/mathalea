@@ -27,6 +27,10 @@ export const dateDePublication = '06/11/2022'
 
 export const uuid = '6809f'
 export const ref = '6G42-1'
+export const refs = {
+  'fr-fr': ['6G42-1'],
+  'fr-ch': []
+}
 export default function LireFacePaveDroit () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

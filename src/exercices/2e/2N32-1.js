@@ -14,6 +14,10 @@ export const dateDeModifImportante = '15/11/2023'
  */
 export const uuid = '55cc0'
 export const ref = '2N32-1'
+export const refs = {
+  'fr-fr': ['2N32-1'],
+  'fr-ch': []
+}
 export default function ExistenceDUneRacineCarree () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

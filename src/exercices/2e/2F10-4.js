@@ -21,6 +21,10 @@ export const dateDeModifImportante = '14/05/2023'
  */
 export const uuid = 'ef897'
 export const ref = '2F10-4'
+export const refs = {
+  'fr-fr': ['2F10-4'],
+  'fr-ch': []
+}
 export default function Determinerfonctionaffine () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

@@ -10,6 +10,10 @@ export const dateDeModifImportante = '28/10/2021'
  */
 export const uuid = '7cf48'
 export const ref = '2N20-1'
+export const refs = {
+  'fr-fr': ['2N20-1'],
+  'fr-ch': []
+}
 export default function ListeDesDiviseurs2nde () {
   ListeDesDiviseurs5e.call(this)
   this.sup = '3-3-3'

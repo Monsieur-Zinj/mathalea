@@ -21,6 +21,10 @@ export const dateDeModifImportante = '03/10/2023'
  */
 export const uuid = '612b9'
 export const ref = '4C24'
+export const refs = {
+  'fr-fr': ['4C24'],
+  'fr-ch': []
+}
 export default function SimplifierFractions () {
   Exercice.call(this)
   this.consigne = 'Simplifier le plus possible les fractions suivantes.'

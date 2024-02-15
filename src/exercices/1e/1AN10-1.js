@@ -15,6 +15,10 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 
 export const uuid = '29202'
 export const ref = '1AN10-1'
+export const refs = {
+  'fr-fr': ['1AN10-1'],
+  'fr-ch': []
+}
 export default function Tauxvariation () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = ''

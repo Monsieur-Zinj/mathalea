@@ -16,6 +16,10 @@ export const dateDePublication = '25/09/2023'
  */
 export const uuid = 'ef686'
 export const ref = '2N42-1'
+export const refs = {
+  'fr-fr': ['2N42-1'],
+  'fr-ch': []
+}
 export default function ExprimerEnFonctionDesAutres () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

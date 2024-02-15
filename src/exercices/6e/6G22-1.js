@@ -26,6 +26,10 @@ export const dateDeModifImportante = '17/10/2023'
 */
 export const uuid = 'e8d33'
 export const ref = '6G22-1'
+export const refs = {
+  'fr-fr': ['6G22-1'],
+  'fr-ch': []
+}
 export default class VocabulaireDeBaseDesAngles extends Exercice {
   constructor () {
     super()

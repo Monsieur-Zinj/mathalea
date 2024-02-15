@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
 
 export const uuid = '379cd'
 export const ref = '3C10-2'
+export const refs = {
+  'fr-fr': ['3C10-2'],
+  'fr-ch': []
+}
 export default function PuissancesDunRelatif13e () {
   PuissancesDunRelatif1.call(this)
   this.classe = 3

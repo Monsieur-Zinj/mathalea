@@ -19,6 +19,10 @@ export const interactifReady = true
  */
 export const uuid = '762fe'
 export const ref = '4C32-1'
+export const refs = {
+  'fr-fr': ['4C32-1'],
+  'fr-ch': []
+}
 export default function CalculsAvecPuissancesDeDix () {
   Exercice.call(this)
   this.sup = 1

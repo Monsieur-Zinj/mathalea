@@ -16,6 +16,10 @@ export const titre = 'Résoudre des problèmes additifs et de comparaison sur le
  */
 export const uuid = '9db08'
 export const ref = '4C25-0'
+export const refs = {
+  'fr-fr': ['4C25-0'],
+  'fr-ch': []
+}
 export default function ProblemesAdditifsFractionsBis () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = '6'

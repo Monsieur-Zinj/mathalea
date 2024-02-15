@@ -25,6 +25,10 @@ export const amcReady = true
 
 export const uuid = '5f115'
 export const ref = '6G43'
+export const refs = {
+  'fr-fr': ['6G43'],
+  'fr-ch': []
+}
 export default function DenombrerCubes () {
   Exercice.call(this)
   this.titre = titre

@@ -20,6 +20,10 @@ export const titre = 'Compter et lister les diviseurs d\'un entier à partir de 
  */
 export const uuid = '4117b'
 export const ref = '3A10-4'
+export const refs = {
+  'fr-fr': ['3A10-4'],
+  'fr-ch': []
+}
 export default function ListerDiviseursParDecompositionFacteursPremiers () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.sup = false

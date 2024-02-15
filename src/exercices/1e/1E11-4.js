@@ -19,6 +19,10 @@ export const titre = 'Résoudre une équation du second degré à partir de la f
  */
 export const uuid = '89559'
 export const ref = '1E11-4'
+export const refs = {
+  'fr-fr': ['1E11-4'],
+  'fr-ch': []
+}
 export default function Resolutionavecformecanonique () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

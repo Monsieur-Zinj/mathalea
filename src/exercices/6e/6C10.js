@@ -30,6 +30,10 @@ export const titre = 'Poser additions, soustractions et multiplications de nombr
  */
 export const uuid = 'cfa6a'
 export const ref = '6C10'
+export const refs = {
+  'fr-fr': ['6C10'],
+  'fr-ch': []
+}
 export default function AdditionsSoustractionsMultiplicationsPosees () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Poser et effectuer les calculs suivants.'

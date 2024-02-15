@@ -23,6 +23,10 @@ export const amcType = 'qcmMono'
  */
 export const uuid = '526f8'
 export const ref = '3A10-2'
+export const refs = {
+  'fr-fr': ['3A10-2'],
+  'fr-ch': []
+}
 export default function PremierOuPasCriterePar7Par11 () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

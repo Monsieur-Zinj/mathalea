@@ -22,6 +22,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'b2c55'
 export const ref = '5N110'
+export const refs = {
+  'fr-fr': ['5N110'],
+  'fr-ch': []
+}
 export default function VariationEnPourcentages () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.titre = titre

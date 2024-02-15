@@ -11,6 +11,10 @@ export const dateDeModifImportante = '21/05/2023'
  */
 export const uuid = 'c1961'
 export const ref = '2F10-8'
+export const refs = {
+  'fr-fr': ['2F10-8'],
+  'fr-ch': []
+}
 export default function FonctionsAffinesS () {
   FonctionsAffinesOuLineaires.call(this)
   this.lycee = true

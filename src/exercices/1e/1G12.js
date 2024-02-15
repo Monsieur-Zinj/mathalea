@@ -20,6 +20,10 @@ export const dateDePublication = '20/04/2022' // La date de publication initiale
  */
 export const uuid = 'b9e6a'
 export const ref = '1G12'
+export const refs = {
+  'fr-fr': ['1G12'],
+  'fr-ch': []
+}
 export default function MesurePrincipale () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.consigne = 'Déterminer une écriture plus simple, en fonction de $\\cos(x)$ ou $\\sin(x)$.'
