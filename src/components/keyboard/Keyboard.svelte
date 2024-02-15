@@ -64,7 +64,7 @@
     unitsBlocks.length = 0
     usualBlocks.length = 0
     for (const block of myKeyboard.blocks) {
-      if (block && Object.hasOwn(block, 'isUnits') && block.isUnits) {
+      if (block && Object.prototype.hasOwnProperty.call(block, 'isUnits') && block.isUnits) {
         unitsBlocks.push(block)
       } else {
         usualBlocks.push(block)
