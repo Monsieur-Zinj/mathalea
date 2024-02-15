@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 import { egaliteCompare } from '../../../lib/interactif/comparaisonFonctions'
@@ -28,10 +28,8 @@ export default function ExprimerVariable () {
     { const a = randint(-9, 9, 0)
       const b = randint(-5, 9, [0, a, -a])
       const c = randint(-9, 9, 0)
-      const Variable1 = ['x', 'z', 'a']
-      const var1 = choice(Variable1)
-      const Variable2 = ['b', 'c', 'y']
-      const var2 = choice(Variable2)
+      const var1 = choice(['x', 'z', 'a'])
+      const var2 = choice(['b', 'c', 'y'])
       const corr1 = `De la relation $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$, on déduit en ajoutant $${rienSi1(-b)}${var2}$ dans chaque membre :
           $${rienSi1(a)}${var1}=${c}${ecritureAlgebrique(-b)}${var2}$.<br>`
       const corr2 = ` Puis, en divisant par $${a}$, on obtient $${var1}=\\dfrac{${c}${ecritureAlgebriqueSauf1(-b)}${var2}}{${a}}$`
@@ -56,18 +54,7 @@ export default function ExprimerVariable () {
           }
         }
 
-        this.reponse = { membre1: { fonction: var1, variable: var1 }, membre2: { fonction: `\\dfrac{${c}-${b}${var2}}{${a}}`, variable: var2 }, strict: true } /*,
-            `${var1}=\\dfrac{${c}+${-b}${var2}}{${a}}`,
-            `${var1}=\\dfrac{${-c}+${b}${var2}}{${-a}}`,
-            `${var1}=\\dfrac{${-c}}{${-a}}+\\dfrac{${b}}{${-a}}${var2}`,
-            `${var1}=\\dfrac{${-c}}{${-a}}+\\dfrac{${b}${var2}}{${-a}}`,
-            `${var1}=\\dfrac{${c}}{${a}}+\\dfrac{${-b}}{${a}}${var2}`,
-            `${var1}=\\dfrac{${c}}{${a}}+\\dfrac{${-b}${var2}}{${a}}`,
-            `${var1}=${arrondi(c / a, 2)}+\\dfrac{${-b}${var2}}{${a}}`,
-            `${var1}=${arrondi(c / a, 2)}+\\dfrac{${-b}}{${a}}${var2}`,
-             `${var1}=${arrondi(c / a, 2)}+${arrondi(-b / a, 2)}${var2}`,
-              `${var1}=\\dfrac{${c}}{${a}}+${arrondi(-b / a, 2)}${var2}`]
-              */
+        this.reponse = { membre1: { fonction: var1, variable: var1 }, membre2: { fonction: `\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}`, variable: var2 }, strict: true }
       } else {
         this.question = ` On donne la relation  : $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$.<br>
         
@@ -85,18 +72,7 @@ export default function ExprimerVariable () {
           }
         }
 
-        this.reponse = { membre1: { fonction: var2, variable: var2 }, membre2: { fonction: `\\dfrac{${c}-${a}${var1}}{${b}}`, variable: var1 }, strict: true }/*,
-                `${var2}=\\dfrac{${c}+${-a}${var1}}{${b}}`,
-                `${var2}=\\dfrac{${-c}+${a}${var1}}{${-b}}`,
-                `${var2}=\\dfrac{${-c}}{${-b}}+\\dfrac{${a}}{${-b}}${var1}`,
-                `${var2}=\\dfrac{${-c}}{${-b}}+\\dfrac{${a}${var1}}{${-b}}`,
-                `${var2}=\\dfrac{${c}}{${b}}+\\dfrac{${-a}}{${b}}${var1}`,
-                `${var2}=\\dfrac{${c}}{${b}}+\\dfrac{${-a}${var1}}{${b}}`,
-                    `${var2}=${arrondi(c / b, 2)}+\\dfrac{${-a}${var1}}{${b}}`,
-                `${var2}=${arrondi(c / b, 2)}+\\dfrac{${-a}}{${b}}${var1}`,
-                 `${var2}=${arrondi(c / b, 2)}+${arrondi(-a / b, 2)}${var1}`,
-                  `${var2}=\\dfrac{${c}}{${b}}+${arrondi(-a / b, 2)}${var1}`]
-                  */
+        this.reponse = { membre1: { fonction: var2, variable: var2 }, membre2: { fonction: `\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`, variable: var1 }, strict: true }
       }
     }
 
