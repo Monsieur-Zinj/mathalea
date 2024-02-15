@@ -21,7 +21,6 @@ export const dateDeModifImportante = '28/02/2022'
  * Calcul de moyennes de série statistiques
  * @author Jean-Claude Lhote et Guillaume Valmont (Interactif et AMC par EE)
  * 12/01/2023 : Mickael Guironnet Refactoring (remodifié par EE car il n'y avait plus de correction et l'interactif ne fonctionnait plus)
- * Référence 5S14
  */
 export const uuid = 'ab91d'
 export const ref = '5S14'
@@ -31,8 +30,6 @@ export const refs = {
 }
 export default function CalculerDesMoyennes () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 1
   this.spacing = 1
   this.spacingCorr = 2.5
@@ -63,7 +60,6 @@ export default function CalculerDesMoyennes () {
         texte = OutilsStats.texteTemperatures(annee, mois, temperatures)
         texte += '<br>Calculer la moyenne des températures.'
         const [, somme] = OutilsStats.computeMoyenne(temperatures)
-        // texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
         texteCorr = OutilsStats.texteCorrMoyenneNotes(temperatures, somme, temperatures.length, 'températures')
         reponse = arrondi(somme / nombreTemperatures, 1)
       } else { // pointures des membres du club de foot (moyenne pondérée)
@@ -79,7 +75,6 @@ export default function CalculerDesMoyennes () {
         texte = OutilsStats.texteSalaires(pointures, [], 'pointures')
         texte += '<br>Calculer la pointure moyenne des membres de ce club.'
         const [, somme, effectif] = OutilsStats.computeMoyenneTirages2D(pointures)
-        // texteCorr = context.isHtml ? '<br>' : '' + '' + OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
         texteCorr = OutilsStats.texteCorrMoyenneNotes(pointures, somme, effectif, 'pointures')
         reponse = arrondi(somme / effectifTotal, 1)
       }
