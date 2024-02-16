@@ -28,9 +28,6 @@ export const refs = {
 }
 export default function CarreDoubleDistributivite () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -178,7 +175,7 @@ export default function CarreDoubleDistributivite () {
         }
       }
 
-      if (this.questionJamaisPosee(a, b, listeTypeDeQuestions[i])) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
