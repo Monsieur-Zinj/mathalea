@@ -205,7 +205,7 @@ export function getDynamicFractionDiagram () {
   figure.divUserMessage.style.display = 'none'
   figure.options.automaticUserMessage = false
   figure.options.color = 'blue'
-  figure.options.limitNumberOfElement.set('Point', 0)
+  // figure.options.limitNumberOfElement.set('Point', 0)
 
   const d = new RectangleFractionDiagram(figure, { denominator: 2, numberOfRectangles: 5 })
 
