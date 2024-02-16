@@ -43,7 +43,6 @@ export const refs = {
 }
 export default function TransformationsDuPlanEtCoordonnees () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -94,10 +93,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
       const pointO = point(0, 0, 'O', 'above right')
 
       const O = point(xO, yO, "O'", 'above left') // on crée le point O'
-      let droited1, droited2, droited, droitedprime, droited1Latex, droited2Latex, droitedprimeLatex
+      let droited1, droited2, droited, droitedprime, droitedLatex, droited1Latex, droited2Latex, droitedprimeLatex
       let trouve = false
       let compteur = 0
-      while (trouve === false) {
+      while (!trouve) {
         xA = randint(-7, 7, 0) // Point A
         yA = randint(-7, 7, -1)
         if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
@@ -110,16 +109,19 @@ export default function TransformationsDuPlanEtCoordonnees () {
           punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
           compteur++
         }
+        /*
         if (compteur < 20) {
           // console.log('compteur fin1:' + compteur)
         } else {
           continue
-        }
+        } */
         A = point(xA, yA, 'A')
         Aprime = point(punto[0][0], punto[0][1], "A'")
 
-        xB = randint(-7, 7, [xA, 0]) // Point B
-        yB = randint(-7, 7, -1)
+        // xB = randint(-7, 7, [xA, 0]) // Point B
+        xB = randint(-7, 7, [xA, 0, punto[0][0]]) // Point B
+        // yB = randint(-7, 7, -1)
+        yB = randint(-7, 7, [yA, -1])
         if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
         if (choixTransformation[1] > 4) {
           punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
@@ -138,16 +140,17 @@ export default function TransformationsDuPlanEtCoordonnees () {
           } // si c'est une symétrie, l'axe passe par O'
           compteur++
         }
-        if (compteur < 20) {
+        /* if (compteur < 20) {
           // console.log('compteur fin2:' + compteur)
         } else {
           continue
-        }
+        } */
 
         B = point(xB, yB, 'B')
         Bprime = point(punto[1][0], punto[1][1], "B'")
 
-        xC = randint(-7, 7, 0) // Point C
+        // xC = randint(-7, 7, 0) // Point C
+        xC = randint(-7, 7, 0, punto[0][0], punto[1][0]) // Point C
         yC = randint(-7, 7, [yA, yB, -1])
         if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
         if (choixTransformation[2] > 4) {
@@ -176,13 +179,14 @@ export default function TransformationsDuPlanEtCoordonnees () {
         C = point(xC, yC, 'C')
         Cprime = point(punto[2][0], punto[2][1], "C'")
       }
+      let couleurDroite
       // les puntos sont choisis, on écrit l'énoncé
       for (let i = 0; i < 3; i++) {
+        couleurDroite = context.isHtml ? couleurs[i] : 'black'
         switch (choixTransformation[i]) {
           case 1: // symétrie axiale
-            droited1Latex = droiteAvecNomLatex(droiteParPointEtPente(O, 1, '', context.isHtml ? couleurs[i] : 'black'), '(d_1)')
+            droited1Latex = droiteAvecNomLatex(droiteParPointEtPente(O, 1, '', couleurDroite), '(d_1)')
             droited1 = droited1Latex[0]
-            droited1.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited1.isVisible = true
             droited1.epaisseur = 2
             droited1.opacite = 0.5
@@ -193,16 +197,20 @@ export default function TransformationsDuPlanEtCoordonnees () {
               xP[1] = xA
               yP[1] = yA
             } else if (i === 1) {
+              couleurDroite = colorToLatexOrHTML(context.isHtml ? (choixTransformation[0] === choixTransformation[1] ? couleurs[0] : couleurs[i]) : 'black')
               objetsEnonce.push(tracePoint(B), labelPoint(B))
               objetsCorrection.push(tracePoint(B), labelPoint(B), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), segment(B, Bprime, couleurs[i]), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited1, -15), couleurs[i]), codageSegments('O', couleurs[i], B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
               xP[1] = xB
               yP[1] = yB
             } else {
+              couleurDroite = colorToLatexOrHTML(context.isHtml ? (choixTransformation[0] === choixTransformation[2] ? couleurs[0] : choixTransformation[1] === choixTransformation[2] ? couleurs[1] : couleurs[i]) : 'black')
               objetsEnonce.push(tracePoint(C), labelPoint(C))
               objetsCorrection.push(tracePoint(C), labelPoint(C), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'), segment(C, Cprime, couleurs[i]), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited1, -15), couleurs[i]), codageSegments('|||', couleurs[i], C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
               xP[1] = xC
               yP[1] = yC
             }
+            droited1.color = colorToLatexOrHTML(couleurDroite)
+            droited1Latex[1].color = colorToLatexOrHTML(couleurDroite)
             objetsEnonce.push(droited1Latex)
             objetsCorrection.push(droited1Latex)
 
@@ -214,29 +222,33 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 2: // symétrie axiale
-            droited2Latex = droiteAvecNomLatex(droiteParPointEtPente(O, -1, '', context.isHtml ? couleurs[i] : 'black'), '(d_2)')
+            droited2Latex = droiteAvecNomLatex(droiteParPointEtPente(O, -1, '', couleurDroite), '(d_2)')
             droited2 = droited2Latex[0]
-            droited2.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droited2.isVisible = true
             droited2.epaisseur = 2
             droited2.opacite = 0.5
             t[2] = 1
             if (i === 0) {
+              droited2.color = colorToLatexOrHTML(couleurDroite)
               objetsEnonce.push(tracePoint(A), labelPoint(A))
               objetsCorrection.push(tracePoint(A), labelPoint(A), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'), segment(A, Aprime, couleurs[i]), codageAngleDroit(A, milieu(A, Aprime), pointSurDroite(droited2, -15), couleurs[i]), codageSegments('//', couleurs[i], A, milieu(A, Aprime), milieu(A, Aprime), Aprime))
               xP[2] = xA
               yP[2] = yA
             } else if (i === 1) {
+              couleurDroite = colorToLatexOrHTML(context.isHtml ? (choixTransformation[0] === choixTransformation[1] ? couleurs[0] : couleurs[i]) : 'black')
               objetsEnonce.push(tracePoint(B), labelPoint(B))
               objetsCorrection.push(tracePoint(B), labelPoint(B), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), segment(B, Bprime, couleurs[i]), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited2, -15), couleurs[i]), codageSegments('O', couleurs[i], B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
               xP[2] = xB
               yP[2] = yB
             } else {
+              couleurDroite = colorToLatexOrHTML(context.isHtml ? (choixTransformation[0] === choixTransformation[2] ? couleurs[0] : choixTransformation[1] === choixTransformation[2] ? couleurs[1] : couleurs[i]) : 'black')
               objetsEnonce.push(tracePoint(C), labelPoint(C))
               objetsCorrection.push(tracePoint(C), labelPoint(C), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'), segment(C, Cprime, couleurs[i]), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited2, -15), couleurs[i]), codageSegments('|||', couleurs[i], C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
               xP[2] = xC
               yP[2] = yC
             }
+            droited2.color = colorToLatexOrHTML(couleurDroite)
+            droited2Latex[1].color = colorToLatexOrHTML(couleurDroite)
             objetsEnonce.push(droited2Latex)
             objetsCorrection.push(droited2Latex)
             texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d_2)', droited2.color)}$.`
@@ -247,9 +259,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 3: // symétrie axiale
-            droited = droiteAvecNomLatex(droiteHorizontaleParPoint(O, '', context.isHtml ? couleurs[i] : 'black'), '(d)')
-            droited = droited[0]
-            droited.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
+            droitedLatex = droiteAvecNomLatex(droiteHorizontaleParPoint(O, '', couleurDroite), '(d)')
+            droited = droitedLatex[0]
             droited.isVisible = true
             droited.epaisseur = 2
             droited.opacite = 0.5
@@ -260,18 +271,22 @@ export default function TransformationsDuPlanEtCoordonnees () {
               xP[3] = xA
               yP[3] = yA
             } else if (i === 1) {
+              couleurDroite = colorToLatexOrHTML(context.isHtml ? (choixTransformation[0] === choixTransformation[1] ? couleurs[0] : couleurs[i]) : 'black')
               objetsEnonce.push(tracePoint(B), labelPoint(B))
               objetsCorrection.push(tracePoint(B), labelPoint(B), tracePoint(Bprime, couleurs[i]), labelPoint(Bprime, '#f15929'), segment(B, Bprime, '#f15929'), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droited, -15), couleurs[i]), codageSegments('O', couleurs[i], B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
               xP[3] = xB
               yP[3] = yB
             } else {
+              couleurDroite = colorToLatexOrHTML(context.isHtml ? (choixTransformation[0] === choixTransformation[2] ? couleurs[0] : choixTransformation[1] === choixTransformation[2] ? couleurs[1] : couleurs[i]) : 'black')
               objetsEnonce.push(tracePoint(C), labelPoint(C))
               objetsCorrection.push(tracePoint(C), labelPoint(C), tracePoint(Cprime, couleurs[i]), labelPoint(Cprime, '#f15929'), segment(C, Cprime, '#f15929'), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droited, -15), couleurs[i]), codageSegments('|||', couleurs[i], C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
               xP[3] = xC
               yP[3] = yC
             }
-            objetsEnonce.push(droited)
-            objetsCorrection.push(droited)
+            droited.color = colorToLatexOrHTML(couleurDroite)
+            droitedLatex[1].color = colorToLatexOrHTML(couleurDroite)
+            objetsEnonce.push(droitedLatex)
+            objetsCorrection.push(droitedLatex)
             texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
             if (context.isAmc) {
               enonceAmc += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d)', droited.color)}$.`
@@ -280,9 +295,8 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 4: // symétrie axiale
-            droitedprimeLatex = droiteAvecNomLatex(droiteVerticaleParPoint(O, '', context.isHtml ? couleurs[i] : 'black'), '(d\')')
+            droitedprimeLatex = droiteAvecNomLatex(droiteVerticaleParPoint(O, '', couleurDroite), '(d\')')
             droitedprime = droitedprimeLatex[0]
-            droitedprime.color = colorToLatexOrHTML(context.isHtml ? couleurs[i] : 'black')
             droitedprime.isVisible = true
             droitedprime.epaisseur = 2
             droitedprime.opacite = 0.5
@@ -293,16 +307,20 @@ export default function TransformationsDuPlanEtCoordonnees () {
               xP[4] = xA
               yP[4] = yA
             } else if (i === 1) {
+              couleurDroite = colorToLatexOrHTML(context.isHtml ? (choixTransformation[0] === choixTransformation[1] ? couleurs[0] : couleurs[i]) : 'black')
               objetsEnonce.push(tracePoint(B), labelPoint(B))
               objetsCorrection.push(tracePoint(B), labelPoint(B), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), segment(B, Bprime, couleurs[i]), codageAngleDroit(B, milieu(B, Bprime), pointSurDroite(droitedprime, -15), couleurs[i]), codageSegments('O', couleurs[i], B, milieu(B, Bprime), milieu(B, Bprime), Bprime))
               xP[4] = xB
               yP[4] = yB
             } else {
+              couleurDroite = colorToLatexOrHTML(context.isHtml ? (choixTransformation[0] === choixTransformation[2] ? couleurs[0] : choixTransformation[1] === choixTransformation[2] ? couleurs[1] : couleurs[i]) : 'black')
               objetsEnonce.push(tracePoint(C), labelPoint(C))
               objetsCorrection.push(tracePoint(C), labelPoint(C), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'), segment(C, Cprime, couleurs[i]), codageAngleDroit(C, milieu(C, Cprime), pointSurDroite(droitedprime, -15), couleurs[i]), codageSegments('|||', couleurs[i], C, milieu(C, Cprime), milieu(C, Cprime), Cprime))
               xP[4] = xC
               yP[4] = yC
             }
+            droitedprime.color = colorToLatexOrHTML(couleurDroite)
+            droitedprimeLatex[1].color = colorToLatexOrHTML(couleurDroite)
             objetsEnonce.push(droitedprimeLatex)
             objetsCorrection.push(droitedprimeLatex)
             texte += (i === 0 ? numAlpha(i) : '<br>' + numAlpha(i)) + ` Donner les coordonnées du symétrique de $${lettre1[i]}$ par rapport à la droite $${miseEnCouleur('(d\')', droitedprime.color)}$.`
