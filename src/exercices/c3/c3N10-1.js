@@ -14,6 +14,7 @@ export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '14/08/2022'
+export const glossaire = [['unité', 'unités'], ['dizaine', 'dizaines'], ['centaine', 'centaines'], ['mille', 'mille'], ['dizaine de mille', 'dizaines de mille'], ['centaine de mille', 'centaines de mille'], ['million', 'millions'], ['dizaine de millions', 'dizaines de millions']]
 
 function remplaceParZero (chaine, place) {
   try {
@@ -54,7 +55,6 @@ export default function RecomposerEntierC3 () {
     this.premierChamp = []
     this.morceaux = []
     this.exposantMorceaux = []
-    const glossaire = [['unité', 'unités'], ['dizaine', 'dizaines'], ['centaine', 'centaines'], ['mille', 'mille'], ['dizaine de mille', 'dizaines de mille'], ['centaine de mille', 'centaines de mille'], ['million', 'millions'], ['dizaine de millions', 'dizaines de millions']]
     for (let i = 0, cpt = 0, texte, texteCorr, indexChamp = 0, place; i < this.nbQuestions && cpt < 50;) {
       texte = ''
       texteCorr = ''

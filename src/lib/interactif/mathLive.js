@@ -84,7 +84,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         throw Error('verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom : ' + JSON.stringify({ selecteur: `math-field#champTexteEx${exercice.numeroExercice}Q${i}` }))
       }
       let resultat = 'OK'
-      let nbBonnesReponses, nbReponses
       const points = []
       const saisies = {}
       let feedback = ''
@@ -114,12 +113,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
         }
       }
-      if (typeof reponses.bareme === 'function') {
-        [nbBonnesReponses, nbReponses] = reponses.bareme(points)
-      } else {
-        nbReponses = points.length
-        nbBonnesReponses = points.filter(el => el === 1).length
-      }
+      const [nbBonnesReponses, nbReponses] = bareme(points)
       if (mfe.getValue().length > 0 && typeof exercice.answers === 'object') {
         exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.getValue()
       }
