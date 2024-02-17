@@ -6,6 +6,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { shuffle } from '../../lib/outils/arrayOutils'
 export const uuid = 'e116b'
+export const ref = 'c3N10-2'
 export const refs = {
   'fr-fr': ['c3N10-2']
 }
