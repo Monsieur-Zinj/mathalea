@@ -387,7 +387,7 @@ export default function SujetCAN20213ieme () {
             pixelsParCm: 30,
             mainlevee: false,
             amplitude: 0.5,
-            scale: 1,
+            scale: 0.8,
             style: 'margin: auto'
           }, objets)
           texteCorr = `Le triangle $ADC$ est un agrandissement du triangle $ABE$. Le coefficient d'agrandissement est donné par : $\\dfrac{${b}}{${a}}=${texNombre(b / a)}$.<br>
@@ -545,9 +545,9 @@ export default function SujetCAN20213ieme () {
           B = point(2, 3, 'B', 'above')
 
           xmin = -1
-          ymin = -0.5
+          ymin = -1
           xmax = 3.5
-          ymax = 3.5
+          ymax = 4
           pol = polygoneAvecNom(A, B, C)
           objets = []
           choix = choice(['a', 'b', 'c'])
