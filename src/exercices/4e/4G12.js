@@ -12,7 +12,7 @@ import { texcolors } from '../../lib/format/style'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
-import { calculANePlusJamaisUtiliser, contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mod } from 'mathjs'
@@ -191,13 +191,11 @@ export default function SerieDeTransformations () {
   }
 
   this.nouvelleVersion = function () {
-    if (this.version === 1) {
+    if (this.version === 1) { // On bride this.sup à 1 pour les 6èmes
       this.sup = 1
     } else if (this.version === 2) {
-      this.sup = 2
-    } else if (this.version === 3) {
-      this.sup = 3
-    } else this.sup = 4
+      this.sup = 2 // On le bride à 2 pour les 5èmes
+    } // on ne bride pas pour ce 4G12 et visiblement, il n'existe pas en 3ème. c'est donc la référence max ici.
     this.autoCorrection = []
     this.sup = contraindreValeur(1, 4, this.sup, 4)
     if (this.sup === 1) typeDeTransfos = ['symax']
@@ -351,7 +349,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calculANePlusJamaisUtiliser(1.1 - chemin.length * 0.03125)
+          scale: 1.1 - chemin.length * 0.03125
         }
         paramsCorrection = {
           xmin: -0.5,
@@ -359,7 +357,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calculANePlusJamaisUtiliser(1 - chemin.length * 0.03125)
+          scale: 1 - chemin.length * 0.03125
         }
       } else { // à partir de la symétrie centrale, il peut y avoir 2 lignes par étapes, donc on rétrécit davantage la figure.
         paramsEnonce = {
@@ -368,7 +366,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calculANePlusJamaisUtiliser(1.2 - chemin.length * 0.05)
+          scale: 1.2 - chemin.length * 0.05
         }
         paramsCorrection = {
           xmin: -0.5,
@@ -376,7 +374,7 @@ export default function SerieDeTransformations () {
           xmax: 17,
           ymax: 16.5,
           pixelsParCm: 20,
-          scale: calculANePlusJamaisUtiliser(1.1 - chemin.length * 0.05)
+          scale: 1.1 - chemin.length * 0.05
         }
       }
       for (let k = 1, figure; k < chemin.length - 1; k++) {
