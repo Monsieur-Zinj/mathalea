@@ -41,7 +41,7 @@ export default class ProportiondeProportion extends Exercice {
 
         this.question = `Dans une association,  $${b}\\,\\%$ des adhérents ont plus de $${a}$ ans. <br>
         Parmi eux,   $${c}\\,\\%$ ont plus de $${d}$ années d'ancienneté.<br>
-        Quel est le pourcentage d'adhérents de plus de $${a}$ ans ayant plus de $${d}$ années d'ancienneté ?<br>`
+        Quel est le pourcentage d'adhérents de plus de $${a}$ ans ayant plus de $${d}$ années d'ancienneté dans cette association ?<br>`
         this.correction = `La population de référence est celle des membres de l'association.<br>
         La première sous-population est celle des plus de $${a}$ ans,
         qui représente $p_1=${b}\\,\\%$ de la population de référence. <br>
