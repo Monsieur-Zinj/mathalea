@@ -8,7 +8,7 @@
     type JSONReferentielEnding,
     isGeoDynamic
   } from '../../../../../../lib/types/referentiels'
-  import renderMathInElement from 'katex/dist/contrib/auto-render.js'
+  import katex from 'katex/dist/katex.js'
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
   import { changes, exercicesParams, globalOptions } from '../../../../../../lib/stores/generalStore'
   import type { InterfaceParams } from '../../../../../../lib/types'
@@ -44,24 +44,25 @@
     selectedCount = countOccurences()
   })
 
-  onMount(() => {
-    if (nomDeExercice && nomDeExercice.innerHTML.includes('$')) {
-      renderMathInElement(nomDeExercice, {
-        delimiters: [
-          { left: '\\[', right: '\\]', display: true },
-          { left: '$', right: '$', display: false }
-        ],
-        // Les accolades permettent d'avoir une formule non coupée
-        preProcess: (chaine: string) =>
-          '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
-        throwOnError: true,
-        errorColor: '#CC0000',
-        strict: 'warn',
-        trust: false
-      })
-      selectedCount = countOccurences()
+  let endingTitre = ''
+  
+  $: {
+    if (isExerciceItemInReferentiel(ending)) {
+      endingTitre = ending.titre
+      if (endingTitre.includes('$')){
+        const regexp = /(['$])(.*?)\1/g;
+        const matchs = endingTitre.match(regexp)
+        matchs?.forEach(match => {
+          endingTitre = endingTitre.replace(match, katex.renderToString(match.replaceAll('$','')))
+        });
+      }
+      
     }
-  })
+    selectedCount = countOccurences()
+  }
+  
+
+
   onDestroy(unsubscribeToExerciceParams)
 
   /**
@@ -140,7 +141,7 @@
           <div
             class="text-start text-coopmaths-corpus dark:text-coopmathsdark-corpus bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark hover:bg-coopmaths-canvas dark:hover:bg-coopmathsdark-canvas-darkest"
           >
-            <span class="font-bold">{ending.id} - </span>{ending.titre}
+            <span class="font-bold">{ending.id} - </span>{@html endingTitre}
             {#if isLessThanAMonth(ending.datePublication)}
               &nbsp;<span
                 class="inline-flex flex-wrap items-center justify-center rounded-full bg-coopmaths-warn-dark dark:bg-coopmathsdark-warn-dark text-coopmaths-canvas dark:text-coopmathsdark-canvas text-[0.6rem] px-2 ml-2 font-semibold leading-normal"
