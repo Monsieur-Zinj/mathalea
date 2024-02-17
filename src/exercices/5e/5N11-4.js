@@ -69,16 +69,18 @@ export default function ValeurApprocheeDePourcentages () {
         texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 2)} $ soit environ $${miseEnEvidence(texNombre(num / den * 100, 0))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 2)}=\\dfrac{${arrondi(num / den * 100, 0)}}{100}\\right)$.`
         // setReponse(this, i, arrondi(num / den * 100, 0))
         handleAnswers(this, i, {
-          // bareme: (listePoints) => [Math.min(...listePoints), 1],
-          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.01 }, compare: environEgalCompare }, champ2: { value: { attendu: (100 * num / den).toFixed(0), tolerance: 1 }, compare: environEgalCompare }
+          bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
+          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.01 }, compare: environEgalCompare },
+          champ2: { value: { attendu: (100 * num / den).toFixed(0), tolerance: 1 }, compare: environEgalCompare }
         }, { formatInteractif: 'fillInTheBlank' })
       }
       if (this.sup === 2) {
         texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 3)} $ soit environ $${miseEnEvidence(texNombre(num / den * 100, 1))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 3)}=\\dfrac{${arrondi(num / den * 100, 1)}}{100}\\right)$.`
         // setReponse(this, i, arrondi(num / den * 100, 0))
         handleAnswers(this, i, {
-          // bareme: (listePoints) => [Math.min(...listePoints), 1],
-          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.001 }, compare: environEgalCompare }, champ2: { value: { attendu: (100 * num / den).toFixed(1), tolerance: 0.1 }, compare: environEgalCompare }
+          bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
+          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.001 }, compare: environEgalCompare },
+          champ2: { value: { attendu: (100 * num / den).toFixed(1), tolerance: 0.1 }, compare: environEgalCompare }
         }, { formatInteractif: 'fillInTheBlank' })
       }
 
