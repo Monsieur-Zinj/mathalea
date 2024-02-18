@@ -60,7 +60,7 @@ export function cleanStringBeforeParse (aString: string) {
     .replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
 }
 
-type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions'
+type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex'
 
 /**
  * Nettoie la saisie des \\dfrac en les remplaçant par des \frac comprises par ComputeEngine
@@ -118,6 +118,12 @@ function cleanPuissances (str: string): string {
     .replaceAll('^{}', '') // les exposants vides, il n'aime pas ça non plus
 }
 
+function cleanLatex (str:string): string {
+  const text = str.match(/(\\text\{)(.*)}/)
+  if (text && text?.length > 2) return text[2]
+  else return str
+}
+
 function generateCleaner (operations: CleaningOperation[]): (str: string) => string {
   const cleaningFunctions = operations.map(operation => {
     switch (operation) {
@@ -133,6 +139,8 @@ function generateCleaner (operations: CleaningOperation[]): (str: string) => str
         return cleanPuissances
       case 'divisions':
         return cleanDivisions
+      case 'latex':
+        return cleanLatex
       default:
         throw new Error(`Unsupported cleaning operation: ${operation}`)
     }
@@ -417,7 +425,6 @@ export function texteAvecEspacesCompare (input: string, goodAnswer: string): Res
   const result = input.localeCompare(goodAnswer)
   return { isOk: result === 0 }
 }
-
 /**
  * comparaison de textes sans s'occuper de la casse.
  * @param {string} input
@@ -628,6 +635,59 @@ export function compareIntervalles (input: string, goodAnswer: string) {
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // %%%%%%%%%%%%%%%%%% Fonctions dont la signature est spéciale %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/**
+ * Comparaison de chaînes (principalement des noms de classes
+ * @param {string} input ce que saisit l'élève
+ * @param {{value: string, nombre:boolean}} goodAnswer value est ce qui est attendu, si nombre est true, on compte faux l'absence de s quand il en faut un et la présence de s quand il n'y en a pas besoin
+ * si nombre est false, on compte juste une réponse au pluriel ou au singulier quelque soit la réponse attendue, mais on met un feedback si le pluriel ou le singulier n'est pas respecté
+ */
+export function numerationCompare (input: string, goodAnswer: {value: string, nombre: boolean}): ResultType {
+// normalement, il n'y a rien à nettoyer au niveau de l'input ou de goodAnswer
+  const clean = generateCleaner(['latex'])
+  const saisie: string[] = clean(input).toLowerCase().split(' ')
+  const answer: string[] = goodAnswer.value.toLowerCase().split(' ')
+  let result: boolean
+  let feedback: string = ''
+  if (goodAnswer.nombre) {
+    result = true
+    for (let i = 0; i < answer.length; i++) {
+      result = result && (saisie[i] === answer[i])
+      if (!result) {
+        if (saisie[i].endsWith('s') && !answer[i].endsWith('s')) {
+          if (saisie[i].substring(0, saisie[i].length - 1) === answer[i]) {
+            feedback = `${saisie[i]} est au pluriel alors qu'il faut le mettre au singulier.<br>`
+          }
+        } else if (!saisie[i].endsWith('s') && answer[i].endsWith('s')) {
+          if (saisie[i] === answer[i].substring(0, answer[i].length - 1)) {
+            feedback = `${saisie[i]} est au singulier alors qu'il faut le mettre au pluriel.<br>`
+          }
+        }
+      }
+      if (!result) break
+    }
+  } else { // ici on tolère singulier ou pluriel
+    // On regarde quand même si le singulier/pluriel est respecté pour le feedback
+    result = true
+    for (let i = 0; i < answer.length; i++) {
+      if (saisie[i].endsWith('s') && !answer[i].endsWith('s')) {
+        if (saisie[i].substring(0, saisie[i].length - 1) === answer[i]) {
+          feedback = `${saisie[i]} est au pluriel alors qu'il faut le mettre au singulier.<br>`
+        }
+      } else if (!saisie[i].endsWith('s') && answer[i].endsWith('s')) {
+        if (saisie[i] === answer[i].substring(0, answer[i].length - 1)) {
+          feedback = `${saisie[i]} est au singulier alors qu'il faut le mettre au pluriel.<br>`
+        }
+      }
+      // on vire le 's' final éventuel
+      if (saisie[i].endsWith('s')) saisie[i] = saisie[i].substring(0, saisie[i].length - 1)
+      if (answer[i].endsWith('s')) answer[i] = answer[i].substring(0, answer[i].length - 1)
+      result = result && (saisie[i] === answer[i])
+    }
+    if (!result) feedback = '' // c'est pas bon, on se fout du feedback
+  }
+  return { isOk: result, feedback }
+}
 
 /**
  * comparaison de grandeurs avec une unité

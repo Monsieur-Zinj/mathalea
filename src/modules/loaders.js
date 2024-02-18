@@ -29,6 +29,10 @@ import {
   CLAVIER_ENSEMBLE,
   raccourcisEnsemble
 } from '../lib/interactif/claviers/ensemble.js'
+import {
+  CLAVIER_NUMERATION,
+  raccourcisNumeration
+} from '../lib/interactif/claviers/numeration'
 import { keyboardState } from '../components/keyboard/stores/keyboardStore'
 import { get } from 'svelte/store'
 import { globalOptions } from '../lib/stores/generalStore'
@@ -224,6 +228,10 @@ export async function loadMathLive () {
       }
       if (mf.classList.contains('alphanumeric')) {
         clavier.push('alphabetic')
+      }
+      if (mf.classList.contains('numeration')) {
+        clavier.push(CLAVIER_NUMERATION)
+        raccourcis = { ...raccourcisNumeration, ...raccourcis }
       }
       if (mf.classList.contains('alphanumericAvecEspace')) {
         clavier.push('alphabetic')
