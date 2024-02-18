@@ -22,7 +22,7 @@
     type AppTierceGroup
   } from '../../../lib/types/referentiels'
   import ModalGridOfCards from '../../shared/modal/ModalGridOfCards.svelte'
-  import appsTierce from '../../../json/referentielAppsTierceV2.json'
+  import appsTierce from '../../../json/referentielAppsTierce.json'
   import Footer from '../../Footer.svelte'
   import ModalThirdApps from './presentationalComponents/ModalThirdApps.svelte'
   import ButtonBackToTop from './presentationalComponents/ButtonBackToTop.svelte'

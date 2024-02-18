@@ -32,7 +32,7 @@
     isStaticType
   } from '../../../lib/types/referentiels'
   import ModalGridOfCards from '../../shared/modal/ModalGridOfCards.svelte'
-  import appsTierce from '../../../json/referentielAppsTierceV2.json'
+  import appsTierce from '../../../json/referentielAppsTierce.json'
   import Card from '../../shared/ui/Card.svelte'
   import CardForStatic from '../../shared/ui/CardForStatic.svelte'
   import { doesImageExist } from '../../../lib/components/images'

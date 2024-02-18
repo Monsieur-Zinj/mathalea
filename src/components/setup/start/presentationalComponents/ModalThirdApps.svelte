@@ -1,7 +1,7 @@
 <script lang="ts">
   import Card from '../../../shared/ui/Card.svelte'
   import ModalGridOfCards from '../../../shared/modal/ModalGridOfCards.svelte'
-  import appsTierce from '../../../../json/referentielAppsTierceV2.json'
+  import appsTierce from '../../../../json/referentielAppsTierce.json'
   import type { AppTierceGroup } from 'src/lib/types/referentiels'
 
   export let thirdAppsChoiceModal: ModalGridOfCards
