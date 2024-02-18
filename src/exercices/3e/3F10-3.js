@@ -9,6 +9,7 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
@@ -16,10 +17,8 @@ export const amcType = 'qcmMult'
 export const titre = 'Vocabulaire et notations des fonctions'
 export const dateDePublication = '29/09/2022'
 /**
-* Répndre à des questions sur les fonctions.
-*
+* Répondre à des questions sur les fonctions.
 * @author Gilles Mora
-* 3F10-1
 */
 
 export const uuid = '4daef'
@@ -106,8 +105,7 @@ export default function VocabulaireNotationsFonctions2 () {
                 statut: true
               }
             ]
-          }
-          if (choix === 1) {
+          } else if (choix === 1) {
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
             texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}image${sp(1)}».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
@@ -142,9 +140,7 @@ export default function VocabulaireNotationsFonctions2 () {
               }
 
             ]
-          }
-
-          if (choix === 2) {
+          } else if (choix === 2) {
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
             texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}antécédent${sp(1)}».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
@@ -172,8 +168,7 @@ export default function VocabulaireNotationsFonctions2 () {
                 statut: false
               }
             ]
-          }
-          if (choix === 3) {
+          } else if (choix === 3) {
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
             texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}antécédent${sp(1)}».`
             if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
@@ -207,8 +202,7 @@ export default function VocabulaireNotationsFonctions2 () {
                 statut: false
               }
             ]
-          }
-          if (choix === 4) {
+          } else if (choix === 4) {
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
             texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase.`
             texte += '<br>Une ou plusieurs réponses correctes.'
@@ -237,8 +231,7 @@ export default function VocabulaireNotationsFonctions2 () {
                 statut: false
               }
             ]
-          }
-          if (choix === 5) {
+          } else if (choix === 5) {
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
             texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase.`
             texte += '<br>Une ou plusieurs réponses correctes.'
@@ -318,7 +311,6 @@ export default function VocabulaireNotationsFonctions2 () {
           x = randint(-4, 4, [0, 1, -1])
           y = randint(-3, 3, x)
           choix = randint(0, 3)
-
           if (choix === 0) {
             PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
@@ -335,67 +327,57 @@ export default function VocabulaireNotationsFonctions2 () {
             texte += mathalea2d({ xmin: -5.1, ymin: -4.1, xmax: 5.1, ymax: 4.1, pixelsParCm: 30, scale: 0.7 }, r, d, o, t, labelPoint(A))
             texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
             `
-            if (this.interactif) {
-              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
-              this.autoCorrection[i].enonce = `${texte}\n`
-              this.autoCorrection[i].propositions = [
-                {
-                  texte: `$${nomF}(${x})=${y}$`,
-                  statut: true
-                },
-                {
-                  texte: `$${nomF}(${y})=${x}$`,
-                  statut: false
-                }
-              ]
-            }
-          }
-          if (choix === 1) {
+            this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+            this.autoCorrection[i].enonce = `${texte}\n`
+            this.autoCorrection[i].propositions = [
+              {
+                texte: `$${nomF}(${x})=${y}$`,
+                statut: true
+              },
+              {
+                texte: `$${nomF}(${y})=${x}$`,
+                statut: false
+              }
+            ]
+          } else if (choix === 1) {
             PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
             texte = `Le point $${PointC}(${x}\\;;\\;${y})$  est un point de la courbe représentant la fonction $${nomF}$.<br>
               Donner l'égalité correspondante.`
             texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$.
               `
-            if (this.interactif) {
-              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
-              this.autoCorrection[i].enonce = `${texte}\n`
-              this.autoCorrection[i].propositions = [
-                {
-                  texte: `$${nomF}(${x})=${y}$`,
-                  statut: true
-                },
-                {
-                  texte: `$${nomF}(${y})=${x}$`,
-                  statut: false
-                }
-              ]
-            }
-          }
-
-          if (choix === 2) {
+            this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+            this.autoCorrection[i].enonce = `${texte}\n`
+            this.autoCorrection[i].propositions = [
+              {
+                texte: `$${nomF}(${x})=${y}$`,
+                statut: true
+              },
+              {
+                texte: `$${nomF}(${y})=${x}$`,
+                statut: false
+              }
+            ]
+          } else if (choix === 2) {
             PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
             texte = ` La courbe représentant la fonction $${nomF}$ passe par le point $${PointC}(${x}\\;;\\;${y})$.<br>
               Donner l'égalité correspondante. `
             texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
               `
-            if (this.interactif) {
-              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
-              this.autoCorrection[i].enonce = `${texte}\n`
-              this.autoCorrection[i].propositions = [
-                {
-                  texte: `$${nomF}(${x})=${y}$`,
-                  statut: true
-                },
-                {
-                  texte: `$${nomF}(${y})=${x}$`,
-                  statut: false
-                }
-              ]
-            }
-          }
-          if (choix === 3) {
+            this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+            this.autoCorrection[i].enonce = `${texte}\n`
+            this.autoCorrection[i].propositions = [
+              {
+                texte: `$${nomF}(${x})=${y}$`,
+                statut: true
+              },
+              {
+                texte: `$${nomF}(${y})=${x}$`,
+                statut: false
+              }
+            ]
+          } else if (choix === 3) {
             PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
             nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
             texte = `
@@ -403,20 +385,18 @@ export default function VocabulaireNotationsFonctions2 () {
            Quelles sont les coordonnées du point $${PointC}$ ? `
             texteCorr = `L'égalité $${nomF}(${x})=${y}$ permet d'affirmer que le point  $${PointC}(${x}\\;;\\;${y})$ est sur la courbe représentant $${nomF}$.
               `
-            if (this.interactif) {
-              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
-              this.autoCorrection[i].enonce = `${texte}\n`
-              this.autoCorrection[i].propositions = [
-                {
-                  texte: `$${PointC}(${x}\\;;\\;${y})$`,
-                  statut: true
-                },
-                {
-                  texte: `$${PointC}(${y};${x})$`,
-                  statut: false
-                }
-              ]
-            }
+            this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+            this.autoCorrection[i].enonce = `${texte}\n`
+            this.autoCorrection[i].propositions = [
+              {
+                texte: `$${PointC}(${x}\\;;\\;${y})$`,
+                statut: true
+              },
+              {
+                texte: `$${PointC}(${y};${x})$`,
+                statut: false
+              }
+            ]
           }
 
           break
@@ -427,7 +407,7 @@ export default function VocabulaireNotationsFonctions2 () {
 
           listeFonction = [`${x}x`, `${x}x^2`, `${reduireAxPlusB(x, y)}`, `${reduirePolynomeDegre3(0, x, 0, y)}`]
           fonction1 = choice(listeFonction)
-          if (!this.interactif) {
+          if (!this.interactif && !context.isAmc) {
             choix = randint(0, 4)
             if (choix === 0) {
               nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
@@ -485,9 +465,7 @@ export default function VocabulaireNotationsFonctions2 () {
               Alors :<br>
               $${nomF}(x)=${fonction1}$
               `
-            }
-
-            if (choix === 1) {
+            } else if (choix === 1) {
               nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
               texte = ` L'image de $x$ par la fonction $${nomF}$ est $${fonction1}$.<br>
               Alors :`
@@ -512,9 +490,7 @@ export default function VocabulaireNotationsFonctions2 () {
               Alors :<br>
               $x$ a pour image $${fonction1}$ par la fonction $${nomF}$.
               `
-            }
-
-            if (choix === 2) {
+            } else if (choix === 2) {
               nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
               texte = `Par la fonction $${nomF}$, $${fonction1}$ est l'image de $x$.<br>
               Alors :`
