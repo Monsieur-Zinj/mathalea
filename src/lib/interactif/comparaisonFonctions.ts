@@ -1,4 +1,4 @@
-import { ComputeEngine } from '@cortex-js/compute-engine'
+import { ComputeEngine, type Rule } from '@cortex-js/compute-engine'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
@@ -60,7 +60,7 @@ export function cleanStringBeforeParse (aString: string) {
     .replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
 }
 
-type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex'
+type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex' | 'foisUn'
 
 /**
  * Nettoie la saisie des \\dfrac en les remplaçant par des \frac comprises par ComputeEngine
@@ -104,7 +104,7 @@ function cleanParenthses (str: string): string {
  * Nettoie le latex \text{} mis pour séparer le nombre de l'unité en mode texte
  * @param {string} str
  */
-function cleanUnite (str: string): string {
+function cleanUnity (str: string): string {
   return str.replaceAll('{\\:\\text{', '').replaceAll('}\\:}', '')
 }
 
@@ -112,7 +112,7 @@ function cleanUnite (str: string): string {
  * Nettoie tout ce qui peut arriver à l'utilisation des puissances
   * @param {sting} str
  */
-function cleanPuissances (str: string): string {
+function cleanPower (str: string): string {
   return str.replaceAll('²', '^2') // '²' c'est pas correct en latex !
     .replaceAll('³', '^3') // '³' non plus
     .replaceAll('^{}', '') // les exposants vides, il n'aime pas ça non plus
@@ -122,6 +122,11 @@ function cleanLatex (str:string): string {
   const text = str.match(/(\\text\{)(.*)}/)
   if (text && text?.length > 2) return text[2]
   else return str
+}
+
+function cleanMultipliyByOne (str: string): string {
+  if (!str.match(/\D*1([a-z])/)) return str // à priori, rien à nettoyer ici
+  return str.replace(/(\D*)1([a-z])/g, '$1$2')
 }
 
 function generateCleaner (operations: CleaningOperation[]): (str: string) => string {
@@ -136,11 +141,13 @@ function generateCleaner (operations: CleaningOperation[]): (str: string) => str
       case 'parentheses':
         return cleanParenthses
       case 'puissances':
-        return cleanPuissances
+        return cleanPower
       case 'divisions':
         return cleanDivisions
       case 'latex':
         return cleanLatex
+      case 'foisUn':
+        return cleanMultipliyByOne
       default:
         throw new Error(`Unsupported cleaning operation: ${operation}`)
     }
@@ -306,7 +313,7 @@ export function hmsCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  const cleanInput = cleanUnite(input)
+  const cleanInput = cleanUnity(input)
   const inputHms = Hms.fromString(cleanInput)
   const goodAnswerHms = Hms.fromString(goodAnswer)
   return { isOk: goodAnswerHms.isTheSame(inputHms) }
@@ -337,16 +344,24 @@ export function formeDeveloppeeCompare (input: string, goodAnswer: string): Resu
  * @param {string} goodAnswer
  * @return ResultType
  */
-export function formeDeveloppeeEtReduiteCompare (input: string, goodAnswer: string): ResultType {
-  if (typeof goodAnswer !== 'string') {
-    goodAnswer = String(goodAnswer)
+export function formeDeveloppeeEtReduiteCompare (input: string, goodAnswer: {expr: string, strict: boolean}): ResultType {
+  const expr = goodAnswer.expr
+  let clean
+  let feedback = ''
+  if (!goodAnswer.strict) {
+    // on va virer les multiplications par 1 de variables.
+    clean = generateCleaner(['fractions', 'virgules', 'puissances', 'foisUn'])
+  } else {
+    clean = generateCleaner(['fractions', 'virgules', 'puissances'])
   }
-  const clean = generateCleaner(['fractions', 'virgules', 'puissances'])
-  const saisie = engine.box(['CanonicalOrder', engine.parse(clean(input))])
-  const answer = engine.box(['CanonicalOrder', engine.parse(clean(goodAnswer))])
+  if (input.match(/\D*1[a-z]/)) feedback = 'La multiplication par 1 est inutile.<br>'
+  const saisieCleaned = clean(input)
+  const saisie = engine.parse(saisieCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
+  const answer = engine.parse(clean(expr), { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
+  console.log(`saisie : ${saisie.latex} et answer : ${answer.latex}`)
   const isOk1 = answer.isSame(saisie)
-  const isOk2 = engine.box(['CanonicalOrder', engine.parse(clean(input)).simplify()]).isSame(answer)
-  return { isOk: isOk1 && isOk2, feedback: isOk1 && isOk2 ? '' : isOk2 ? 'L\'expression est développée correctement mais pas réduite' : '' }
+  const isOk2 = saisie.simplify().isSame(answer)
+  return { isOk: isOk1 && isOk2, feedback: isOk1 && isOk2 ? feedback : isOk2 ? feedback + 'L\'expression est développée correctement mais pas réduite.<br>' : feedback }
 }
 
 /**
@@ -875,14 +890,41 @@ export function egaliteCompare (input: string, goodAnswer: {membre1:{fonction: s
   const [m1, m2] = input.split('=')
   if (m1 == null || m2 == null) return { isOk: false, feedback: 'Une égalité est attendue' }
   if (goodAnswer.strict) {
-    const { isOk: isOk1 } = fonctionCompare(m1, { fonction: goodAnswer.membre1.fonction, variable: goodAnswer.membre1.variable ?? 'x' })
-    const { isOk: isOk2 } = fonctionCompare(m2, { fonction: goodAnswer.membre2.fonction, variable: goodAnswer.membre2.variable ?? 'x' })
+    const { isOk: isOk1 } = fonctionCompare(m1, {
+      fonction: goodAnswer.membre1.fonction,
+      variable: goodAnswer.membre1.variable ?? 'x'
+    })
+    const { isOk: isOk2 } = fonctionCompare(m2, {
+      fonction: goodAnswer.membre2.fonction,
+      variable: goodAnswer.membre2.variable ?? 'x'
+    })
     return { isOk: isOk1 && isOk2 }
   } else {
     // @todo à implémenter : permettre de saisir une égalité et de vérifier l'équivalence avec celle proposée comme bonne réponse.
     // En attendant, je recopie le code de strict = true
-    const { isOk: isOk1 } = fonctionCompare(m1, { fonction: goodAnswer.membre1.fonction, variable: goodAnswer.membre1.variable ?? 'x' })
-    const { isOk: isOk2 } = fonctionCompare(m2, { fonction: goodAnswer.membre2.fonction, variable: goodAnswer.membre2.variable ?? 'x' })
-    return { isOk: isOk1 && isOk2, feedback: 'La réponse serait peut-être acceptée en mode équivalence, mais nous ne l\'avaons pas encore programmé' }
+    const { isOk: isOk1 } = fonctionCompare(m1, {
+      fonction: goodAnswer.membre1.fonction,
+      variable: goodAnswer.membre1.variable ?? 'x'
+    })
+    const { isOk: isOk2 } = fonctionCompare(m2, {
+      fonction: goodAnswer.membre2.fonction,
+      variable: goodAnswer.membre2.variable ?? 'x'
+    })
+    return {
+      isOk: isOk1 && isOk2,
+      feedback: 'La réponse serait peut-être acceptée en mode équivalence, mais nous ne l\'avaons pas encore programmé'
+    }
   }
+}
+/**
+   * L'appelant doit impérativement fournir un Array de Rule @see https://cortexjs.io/compute-engine/guides/patterns-and-rules/
+   * @param {string} input
+   * @param {{expr: string, rules: Rule[]}} goodAnswer
+   */
+export function compareWithRules (input: string, goodAnswer: {expr: string, rules: Rule[]}): ResultType {
+  const rule = engine.rules(goodAnswer.rules)
+  const saisie = engine.parse(input).replace(rule)
+  const answer = engine.parse(goodAnswer.expr).replace(rule)
+  if (saisie && answer) return { isOk: saisie.isSame(answer), feedback: '' }
+  else return { isOk: false, feedback: '' }
 }

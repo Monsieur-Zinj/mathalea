@@ -2,11 +2,12 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { egal, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparaisonFonctions'
+import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 
 export const titre = 'Utiliser la double distributivité'
 export const interactifReady = true
@@ -39,6 +40,7 @@ export default function DoubleDistributivite () {
   this.nbQuestions = 5
   this.sup = 1
   this.sup2 = true
+  this.sup3 = false
   this.tailleDiaporama = 3
   this.listeAvecNumerotation = false
 
@@ -70,7 +72,7 @@ export default function DoubleDistributivite () {
           d = randint(2, 12)
           texte = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})=x^2+${b}x+${d}x+${b * d}=x^2+${b + d}x+${b * d}$`
-          reponse = `x^2+${b + d}x+${b * d}`
+          reponse = reduirePolynomeDegre3(0, 1, b + d, b * d)
           reponse1 = 1
           reponse2 = b + d
           reponse3 = b * d
@@ -78,7 +80,7 @@ export default function DoubleDistributivite () {
         case 2: // (ax+b)(cx+d)
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x+${b})(${c}x+${d})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x+${b})(${c}x+${d})=${a * c}x^2+${a * d}x+${b * c}x+${b * d}=${a * c}x^2+${a * d + b * c}x+${b * d}$`
-          reponse = `${a * c}x^2+${a * d + b * c}x+${b * d}`
+          reponse = reduirePolynomeDegre3(0, a * c, a * d + b * c, b * d)
           reponse1 = a * c
           reponse2 = a * d + b * c
           reponse3 = b * d
@@ -87,13 +89,13 @@ export default function DoubleDistributivite () {
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})$`
           if (egal(a * d - b * c, 0)) {
             texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`
-            reponse = printlatex(`${a * c}*x^2-${b * d}`)
+            reponse = reduirePolynomeDegre3(0, a * c, 0, -b * d)
             reponse1 = a * c
             reponse2 = 0
             reponse3 = -b * d
           } else {
             texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}$`
-            reponse = printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)
+            reponse = reduirePolynomeDegre3(0, a * c, d * a - b * c, -b * d)
             reponse1 = a * c
             reponse2 = a * d - b * c
             reponse3 = -b * d
@@ -102,7 +104,7 @@ export default function DoubleDistributivite () {
         case 4: // (ax-b)(cx-d)
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x-${d})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x-${d})=${a * c}x^2-${a * d}x-${b * c}x+${b * d}=${a * c}x^2-${a * d + b * c}x+${b * d}$`
-          reponse = `${a * c}x^2-${a * d + b * c}x+${b * d}`
+          reponse = reduirePolynomeDegre3(0, a * c, -(a * d + b * c), b * d)
           reponse1 = a * c
           reponse2 = -a * d - b * c
           reponse3 = b * d
@@ -133,8 +135,9 @@ export default function DoubleDistributivite () {
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: formeDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: this.sup3 }, compare: formeDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$' })
+        texte += ajouteFeedback(this, i)
       } else {
         this.autoCorrection[i] = {
           enonce: '',
@@ -215,4 +218,5 @@ export default function DoubleDistributivite () {
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : (x+a)(x+b) et (ax+b)(cx+d)\n 2 : (ax-b)(cx+d) et (ax-b)(cx-d)\n 3 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes', false]
+  this.besoinFormulaire3CaseACocher = ['Sanctionner les formes non simplifiées', false]
 }
