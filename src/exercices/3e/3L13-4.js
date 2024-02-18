@@ -27,7 +27,7 @@ export const refs = {
 export default class problemes extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+    this.sup2 = 1
     this.nbQuestions = 2
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
