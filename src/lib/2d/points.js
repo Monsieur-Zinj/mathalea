@@ -24,13 +24,13 @@ export function Point (arg1, arg2, arg3, positionLabel = 'above') {
   if (arguments.length === 1) {
     this.nom = arg1
   } else if (arguments.length === 2) {
-    if (isNaN(arg1) || isNaN(arg2)) window.notify(`Point : les coordonnées ne sont pas valides ${arg1} ${arg2}`)
+    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
     else {
       this.x = arg1
       this.y = arg2
     }
   } else {
-    if (isNaN(arg1) || isNaN(arg2)) window.notify(`Point : les coordonnées ne sont pas valides ${arg1} ${arg2}`)
+    if (isNaN(arg1) || isNaN(arg2)) window.notify('Point : les coordonnées ne sont pas valides', { arg1, arg2 })
     else {
       this.x = arg1
       this.y = arg2
@@ -490,7 +490,7 @@ export function traceMilieuSegment (A, B) {
  *
  * @author Rémi Angot
  */
-export function milieu (A, B, nom, positionLabel = 'above') {
+export function milieu (A, B, nom = '', positionLabel = 'above') {
   if (isNaN(longueur(A, B))) window.notify('milieu : Quelque chose ne va pas avec les points', { A, B })
   const x = (A.x + B.x) / 2
   const y = (A.y + B.y) / 2
