@@ -54,7 +54,7 @@
           "typeExercice" : "tierce",
           "presentation": "Utiliser les propriétés pour faire une démonstration. 10 questions, non aléatoires, avec la possibilité de modifier ses réponses jusqu'à la validation.",
           "imgPath": "images/apps/app_parallelogramme.png",
-          "uuid": "equations"
+          "uuid": "parallelogramme"
         }
     ]
     }
