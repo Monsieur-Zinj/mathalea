@@ -37,8 +37,8 @@ async function readInfos (dirPath) {
         // Si ce n'est pas un fichier .js ou .ts, on ne fait rien
         if (file.match(/\.jsx?|\.ts$/) &&
           !file.startsWith('_') &&
-          file !== 'Exercice.js' &&
-          file !== 'ExerciceTs.ts') {
+          file !== 'deprecatedExercice.js' &&
+          file !== 'Exercice.ts') {
           const infos = {}
           const data = await fs.readFile(filePath, 'utf8')
           const matchUuid = data.match(/export const uuid = '(.*)'/)
