@@ -4,7 +4,9 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparaisonFonctions'
+import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
 export const interactifReady = true
@@ -51,6 +53,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
       a = randint(-9, 9, 0)
       b = randint(-9, 9, 0)
       choixLettre = choice(lettresPossibles)
+      let reponse
       switch (listeTypeDeQuestions[i]) {
         case 1:
           // k-(ax+b)
@@ -64,17 +67,16 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}+(${-a}*${choixLettre})+(${-b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${-a}*${choixLettre}+(${k - b})`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(-a, k - b, choixLettre)}$`
+            reponse = reduireAxPlusB(-a, k - b, choixLettre)
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}+(${-a}*${choixLettre})+(${-b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${-a}*${choixLettre}`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(-a, 0, choixLettre)}$`
+            reponse = reduireAxPlusB(-a, 0, choixLettre)
           }
+
           reponse1 = 0
           reponse2 = -a
           reponse3 = -b + k
@@ -91,16 +93,14 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}+(${a}*${choixLettre})+(${b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${a}*${choixLettre}+(${k + b})`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(a, k + b, choixLettre)}$`
+            reponse = reduireAxPlusB(a, k + b, choixLettre)
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}+(${a}*${choixLettre})+(${b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${a}*${choixLettre}`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(a, 0, choixLettre)}$`
+            reponse = reduireAxPlusB(a, 0, choixLettre)
           }
           reponse1 = 0
           reponse2 = a
@@ -116,16 +116,14 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}${choixLettre}+(${-a}*${choixLettre})+(${-b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `(${k - a})*${choixLettre}+(${-b})`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(k - a, -b, choixLettre)}$`
+            reponse = reduireAxPlusB(k - a, -b, choixLettre)
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}${choixLettre}+(${-a}*${choixLettre})+(${-b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${-b}`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${ecritureAlgebrique(-b)}$`
+            reponse = ecritureAlgebrique(-b)
           }
           reponse1 = 0
           reponse2 = k - a
@@ -141,16 +139,16 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}${choixLettre}+(${a}*${choixLettre})+(${b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `(${k + a})*${choixLettre}+(${b})`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(
+                            k + a, b, choixLettre)}$`
+            reponse = reduireAxPlusB(
+              k + a, b, choixLettre)
           } else {
             texteCorr += `<br>$${lettreDepuisChiffre(
                             i + 1
                         )}=${printlatex(`${k}${choixLettre}+(${a}*${choixLettre})+(${b})`)}$`
-            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${printlatex(
-                            `${b}`
-                        )}$`
+            texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}=${ecritureAlgebrique(b)}$`
+            reponse = ecritureAlgebrique(b)
           }
           reponse1 = 0
           reponse2 = k + a
@@ -158,8 +156,8 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           break
       }
       if (!context.isAmc && this.interactif) {
-        const reponse = texteCorr.match(/=([^=$]+)\$$/)[1]
-        setReponse(this, i, reponse, { formatInteractif: 'canonicalAdd' })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: formeDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+        // setReponse(this, i, reponse, { formatInteractif: 'canonicalAdd' })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
       } else {
         this.autoCorrection[i] = {
