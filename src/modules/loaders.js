@@ -228,6 +228,15 @@ export async function loadMathLive () {
       }
       if (mf.classList.contains('alphanumeric')) {
         clavier.push('alphabetic')
+        mf.onInlineShortcut = (_mf, s) => {
+          if (/^[A-Z]{2}/.test(s)) {
+            const m = s.match(/^([A-Z]{2})/)
+            if (m) {
+              return `\\mathrm{${m[1]}}`
+            }
+          }
+          return ''
+        }
       }
       if (mf.classList.contains('numeration')) {
         clavier.push(CLAVIER_NUMERATION)
@@ -237,6 +246,15 @@ export async function loadMathLive () {
         clavier.push('alphabetic')
         mf.mathModeSpace = '\\:' // Permet d'accepter la saisie d'espaces
         mf.defaultMode = 'text' // Permet d'avoir toujours du texte (peu importe ce qui est saisi)
+        mf.onInlineShortcut = (_mf, s) => {
+          if (/^[A-Z]{2}/.test(s)) {
+            const m = s.match(/^([A-Z]{2})/)
+            if (m) {
+              return `\\mathrm{${m[1]}}`
+            }
+          }
+          return ''
+        }
         // mf.smartMode = true // Permet d'avoir du texte quand il reconnait qu'il y en a : Commande dangereuse car à la fin, on obtient du mode text mélangé à du mode math
       }
       if (mf.classList.contains('clavierDeBase')) {

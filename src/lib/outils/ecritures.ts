@@ -360,3 +360,9 @@ export function reduirePolynomeDegre3 (a: number, b: number, c: number, d: numbe
   }
   return result
 }
+
+export function ordreAlphabetique (str: string):string {
+  const chars = Array.from(str)
+  const orderedChars = chars.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0))
+  return orderedChars.join('')
+}
