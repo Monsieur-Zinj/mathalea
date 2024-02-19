@@ -13,6 +13,6 @@ export const refs = {
 export default function EgalitePythagore2D () {
   Pythagore2D.call(this)
   this.sup = 1
-  this.typeDeQuestion = ''
+  this.typeDeQuestion = 'Donner égalité'
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Donner l'égalité de Pythagore\n2 : Compléter l'égalité de Pythagore"]
 }
