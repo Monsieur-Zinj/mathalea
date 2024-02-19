@@ -29,8 +29,6 @@ export const titre = 'Construire un triangle avec les instruments'
  * Publié le 30/08/202
  * @author Jean-Claude Lhote (exercice) et Rémi Angot (animation Instrumenpoche)
  * @author Guironnet Refactoring et ajout des cas 4 à 10.
- * Référence 6G21 et 5G20-0
- * Modifié 2021/04/02
  */
 export const uuid = 'e0bc9'
 export const ref = '6G21'
@@ -40,7 +38,6 @@ export const refs = {
 }
 export default function ConstruireUnTriangle () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 2
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -58,7 +55,7 @@ export default function ConstruireUnTriangle () {
     let IEP
     let typesDeQuestionsDisponibles, A, B, C, CC, lAB, lBC, lAC, cA, cB, T, TT, dBC, dAB, objetsEnonce, objetsCorrection, paramsEnonce, paramsCorrection, nom, sommets
     if (this.classe === 6 || this.classe === 5) {
-      switch (parseInt(this.sup)) {
+      switch (this.sup) {
         case 1 :
           typesDeQuestionsDisponibles = [1]
           break
@@ -194,12 +191,12 @@ export default function ConstruireUnTriangle () {
           objetsCorrection.push(traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
           const mil = labelPoint(milieu(A, B, sommets[3], 'above right'))
           mil.positionLabel = 'above right'
-          objetsCorrection.push(mil, tracePoint(milieu(A, B)), segment(milieu(A, B), C, 'red'), codageSegments('||', 'red', milieu(A, B), B), codageSegments('||', 'red', milieu(A, B), A), afficheLongueurSegment(milieu(A, B), C, 'black', 0.5, 'cm', false, 2))
+          objetsCorrection.push(mil, tracePoint(milieu(A, B)), segment(milieu(A, B), C, 'red'), codageSegments('||', 'red', milieu(A, B), B), codageSegments('||', 'red', milieu(A, B), A), afficheLongueurSegment(milieu(A, B), C, 'black', 0.5, 'cm', false, 1))
           if (this.sup2) {
             texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ tel que $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}~\\text{cm}$, $${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}~\\text{cm}$ et $${sommets[0]}${sommets[2]} = ${stringNombre(lAC)}~\\text{cm}$.<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[0]}${sommets[1]}]$, tracer le segment $[${sommets[3]}${sommets[2]}]$ et mesurer la longueur de ce segment.<br>`
-          verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 2)} cm`) + '.<br>'
+          verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 1)} cm`) + '.<br>'
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
           const [Ai, Bi, Ci] = IEP.triangle3longueurs(sommets.slice(0, 3), lAB, lAC, lBC, false)
@@ -255,12 +252,12 @@ export default function ConstruireUnTriangle () {
           objetsCorrection.push(traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
           const mil = labelPoint(milieu(A, B, sommets[3], 'above right'))
           mil.positionLabel = 'above right'
-          objetsCorrection.push(mil, tracePoint(milieu(A, B)), segment(milieu(A, B), C, 'red'), codageSegments('||', 'red', milieu(A, B), B), codageSegments('||', 'red', milieu(A, B), A), afficheLongueurSegment(milieu(A, B), C, 'black', 0.5, 'cm', false, 2))
+          objetsCorrection.push(mil, tracePoint(milieu(A, B)), segment(milieu(A, B), C, 'red'), codageSegments('||', 'red', milieu(A, B), B), codageSegments('||', 'red', milieu(A, B), A), afficheLongueurSegment(milieu(A, B), C, 'black', 0.5, 'cm', false, 1))
           if (this.sup2) {
             texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ isocèle en $${sommets[2]}$ tel que ${randint(0, 1) === 0 ? `$${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}~\\text{cm}$ et $${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}~\\text{cm}$` : `$${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}~\\text{cm}$ et $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}~\\text{cm}$`} .<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[0]}${sommets[1]}]$, tracer le segment $[${sommets[3]}${sommets[2]}]$ et mesurer la longueur de ce segment.<br>`
-          verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 2)} cm`) + '.<br>'
+          verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 1)} cm`) + '.<br>'
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
           const [Ai, Bi, Ci] = IEP.triangle3longueurs(sommets.slice(0, 3), lAB, lAC, lBC, false)
@@ -315,12 +312,12 @@ export default function ConstruireUnTriangle () {
           objetsCorrection.push(traceCompas(B, C, 30, 'gray', 1, 2), codageAngleDroit(B, A, C), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
           const mil = labelPoint(milieu(C, B, sommets[3], 'left'))
           mil.positionLabel = 'left'
-          objetsCorrection.push(mil, tracePoint(milieu(C, B)), segment(milieu(C, B), A, 'red'), codageSegments('||', 'red', milieu(B, C), C), codageSegments('||', 'red', milieu(C, B), B), afficheLongueurSegment(milieu(C, B), A, 'black', 0.5, 'cm', false, 2))
+          objetsCorrection.push(mil, tracePoint(milieu(C, B)), segment(milieu(C, B), A, 'red'), codageSegments('||', 'red', milieu(B, C), C), codageSegments('||', 'red', milieu(C, B), B), afficheLongueurSegment(milieu(C, B), A, 'black', 0.5, 'cm', false, 1))
           if (this.sup2) {
             texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[0]}$ avec $${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}~\\text{cm}$ et $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}~\\text{cm}$.<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[1]}${sommets[2]}]$, tracer le segment $[${sommets[3]}${sommets[0]}]$ et mesurer la longueur de ce segment.<br>`
-          verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[0]}]$ mesure environ ${stringNombre(segment(milieu(C, B), A).longueur, 2)} cm`) + '.<br>'
+          verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[0]}]$ mesure environ ${stringNombre(segment(milieu(C, B), A).longueur, 1)} cm`) + '.<br>'
           texteCorr += 'Pour cette construction, nous avons utilisé la règle graduée, l\'équerre et le compas.<br>'
 
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
@@ -376,12 +373,12 @@ export default function ConstruireUnTriangle () {
           objetsCorrection.push(codageAngleDroit(B, A, C), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
           const mil = labelPoint(milieu(C, B, sommets[3], 'left'))
           mil.positionLabel = 'left'
-          objetsCorrection.push(mil, tracePoint(milieu(C, B)), segment(milieu(C, B), A, 'red'), codageSegments('||', 'red', milieu(B, C), C), codageSegments('||', 'red', milieu(C, B), B), afficheLongueurSegment(milieu(C, B), A, 'black', 0.5, 'cm', false, 2))
+          objetsCorrection.push(mil, tracePoint(milieu(C, B)), segment(milieu(C, B), A, 'red'), codageSegments('||', 'red', milieu(B, C), C), codageSegments('||', 'red', milieu(C, B), B), afficheLongueurSegment(milieu(C, B), A, 'black', 0.5, 'cm', false, 1))
           if (this.sup2) {
             texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ rectangle en $${sommets[0]}$ avec $${sommets[1]}${sommets[2]} = ${stringNombre(lBC)}~\\text{cm}$ et $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}~\\text{cm}$.<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[1]}${sommets[2]}]$, tracer le segment $[${sommets[3]}${sommets[0]}]$ et mesurer la longueur de ce segment.<br>`
-          verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[0]}]$ mesure environ ${stringNombre(segment(milieu(C, B), A).longueur, 2)} cm`) + '.<br>'
+          verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[0]}]$ mesure environ ${stringNombre(segment(milieu(C, B), A).longueur, 1)} cm`) + '.<br>'
           texteCorr += 'Pour cette construction, nous avons utilisé la règle graduée et l\'équerre.<br>'
 
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
@@ -440,12 +437,12 @@ export default function ConstruireUnTriangle () {
           objetsCorrection.push(traceCompas(A, C, 30, 'gray', 1, 2), traceCompas(B, C, 30, 'gray', 1, 2), afficheLongueurSegment(B, A), afficheLongueurSegment(C, B), afficheLongueurSegment(A, C))
           const mil = labelPoint(milieu(A, B, sommets[3], 'above right'))
           mil.positionLabel = 'above right'
-          objetsCorrection.push(mil, tracePoint(milieu(A, B)), segment(milieu(A, B), C, 'red'), codageSegments('||', 'red', milieu(A, B), B), codageSegments('||', 'red', milieu(A, B), A), afficheLongueurSegment(milieu(A, B), C, 'black', 0.5, 'cm', false, 2))
+          objetsCorrection.push(mil, tracePoint(milieu(A, B)), segment(milieu(A, B), C, 'red'), codageSegments('||', 'red', milieu(A, B), B), codageSegments('||', 'red', milieu(A, B), A), afficheLongueurSegment(milieu(A, B), C, 'black', 0.5, 'cm', false, 1))
           if (this.sup2) {
             texte = `Construire un triangle $${sommets[0]}${sommets[1]}${sommets[2]}$ équilatéral tel que $${sommets[0]}${sommets[1]} = ${stringNombre(lAB)}~\\text{cm}$.<br>`
           }
           texte += `Puis placer le point $${sommets[3]}$ milieu de $[${sommets[0]}${sommets[1]}]$, tracer le segment $[${sommets[3]}${sommets[2]}]$ et mesurer la longueur de ce segment.<br>`
-          verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 2)} cm`) + '.<br>'
+          verif = texteEnCouleur(`Auto-vérification : le segment $[${sommets[3]}${sommets[2]}]$ mesure environ ${stringNombre(segment(milieu(A, B), C).longueur, 1)} cm`) + '.<br>'
           texteCorr += 'Pour cette construction, nous avons utilisé le compas et la règle graduée.<br>'
           IEP.recadre(-1, Math.max(A.y, B.y, C.y) + 3)
           const [Ai, Bi, Ci] = IEP.triangle3longueurs(sommets.slice(0, 3), lAB, lAC, lBC, false)
