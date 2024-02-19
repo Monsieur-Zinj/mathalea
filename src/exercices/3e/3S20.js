@@ -251,8 +251,8 @@ export default function FonctionsProbabilite2 () {
           texte += numAlpha(0) + ' Reporter dans un tableau les issues possibles de cette expérience aléatoire et leurs probabilités respectives.<br>'
           texte += numAlpha(1) + ` ${quidame} dispose d'un dé à ${n[1]} faces numérotées de 1 à ${n[1]} et d'un dé à ${m[1]} faces numérotées de 1 à ${m[1]}.<br>`
           texte += `Elle décide de proposer un défi à ${quidam} : "On choisit un nombre cible entre 2 et ${r}, on lance nos deux dés en même temps. Le premier dont la somme des dés est la cible a gagné."<br>`
-          texte += numAlpha(2) + ` ${quidam} qui connaît les probabilités calculées au 1) propose alors de choisir ${n[0] + 1} comme nombre cible. Il pense avoir plus de chances de gagner que ${quidame}. A-t-il raison ?<br>`
-          texte += `Si oui, quel nombre doit choisir ${quidame} pour avoir un défi qui lui soit favorable et si non, y a-t-il un meilleur choix pour ${quidam} ?<br>`
+          texte += `${quidam} qui connaît les probabilités calculées au ${numAlpha(0)} propose alors de choisir ${n[0] + 1} comme nombre cible. Il pense avoir plus de chances de gagner que ${quidame}. A-t-il raison ?<br>`
+          texte += numAlpha(2) + `Si oui, quel nombre doit choisir ${quidame} pour avoir un défi qui lui soit favorable et si non, y a-t-il un meilleur choix pour ${quidam} ?<br>`
           texte += numAlpha(3) + ' Y a-t-il un nombre cible qui donne un jeu équitable où chacun aura la même probabilité de gagner ?<br>'
           texte += '$\\textit {Exercice inspiré des problèmes DuDu (mathix.org)}$'
           texteCorr = numAlpha(0) + ` Les différents résultats de l'expérience de ${quidam} sont présentés dans cette table :<br>`
@@ -299,7 +299,7 @@ export default function FonctionsProbabilite2 () {
                 texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
                 trouve = true
               }
-              if (trouve === true) { break }
+              if (trouve) { break }
             }
             if (trouve === false) {
               texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.`
@@ -314,7 +314,7 @@ export default function FonctionsProbabilite2 () {
                   texteCorr += numAlpha(2) + ` ${quidame} devrait choisir ${j + 2} comme nombre cible.<br>Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>Celle de ${quidam} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et $${texFractionReduite(fra1[j], p1[0])}<${deprecatedTexFraction(fra2[j], p1[1])}$.<br>`
                   trouve = true
                 }
-                if (trouve === true) { break }
+                if (trouve) { break }
               }
               if (trouve === false) {
                 texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidame} d'avoir plus de chance que ${quidam} de gagner.<br>`
@@ -328,7 +328,7 @@ export default function FonctionsProbabilite2 () {
                   texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
                   trouve = true
                 }
-                if (trouve === true) { break }
+                if (trouve) { break }
               }
               if (trouve === false) {
                 texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.<br>`
@@ -344,7 +344,7 @@ export default function FonctionsProbabilite2 () {
                                 Pour ${quidam} la probabilité est : $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ tout comme pour ${quidame} : $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
                 trouve = true
               }
-              if (trouve === true) { break }
+              if (trouve) { break }
             }
             if (trouve === false) {
               texteCorr += numAlpha(3) + ` Il n'existe pas de choix qui permette à ${quidam} et à ${quidame} d'avoir la même probabilité de gagner car : <br>`
