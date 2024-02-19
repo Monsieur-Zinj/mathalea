@@ -265,6 +265,7 @@ export function codageCarre (c, color = 'black', mark = '×') {
  * @param  {number} [d=0.5] Distance entre l'affichage de la longueur et le segment.
  * @param  {string} [unite='cm'] Affiche cette unité après la valeur numérique de la longueur.
  * @param  {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
+ * @param  {boolean} [precision=1]
  * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
  * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur de la longueur affichée. À associer obligatoirement à colorToLatexOrHTML().
@@ -309,6 +310,7 @@ export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 
  * @param  {number} [d=0.5] Distance entre l'affichage de la longueur et le segment.
  * @param  {string} [unite='cm'] Affiche cette unité après la valeur numérique de la longueur.
  * @param  {boolean} [horizontal=false] Si true, alors le texte est horizontal, sinon le texte est parallèle au segment.
+ * @param  {boolean} [precision=1]
  * @example  afficheLongueurSegment(A,B)
  * // Affiche la longueur du segment [AB] (en noir, à 0,5 "cm" du segment, complétée par l'unité cm et parallèlement au segment).
  * @example  afficheLongueurSegment(A,B,'blue',1,'mm',true)
