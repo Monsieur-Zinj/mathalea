@@ -119,8 +119,8 @@ export default function ReductionsPiegesClassiques () {
           reponse = `${a * b}x`
           break
         case 'ax×bx':
-          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x')}\\times${ecritureParentheseSiMoins(b + 'x')}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x')}\\times${ecritureParentheseSiMoins(b + 'x')}=${a * b}x^2$`
+          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x'}\\times${ecritureParentheseSiMoins(b + 'x')}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x'}\\times${ecritureParentheseSiMoins(b + 'x')}=${a * b}x^2$`
           reponse = `${a * b}x^2`
           break
         case 'ax+0':
@@ -134,15 +134,15 @@ export default function ReductionsPiegesClassiques () {
           reponse = '0'
           break
         case 'ax^2×x':
-          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x^2')}\\times x$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x^2')}\\times x=${ecritureParentheseSiMoins(a + 'x^3')}$`
-          reponse = `${ecritureParentheseSiMoins(a + 'x^3')}`
+          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x^2'}\\times x$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x^2'}\\times x=${a + 'x^3'}$`
+          reponse = `${a + 'x^3'}`
           break
         case 'ax^2-a':
           a = Math.abs(a)
-          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x^2')}-${a}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${ecritureParentheseSiMoins(a + 'x^2')}-${a}$`
-          reponse = `${ecritureParentheseSiMoins(a + 'x^2')}-${a}`
+          texte = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x^2'}-${a}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1, saufD)}=${a + 'x^2'}-${a}$`
+          reponse = `${a + 'x^2'}-${a}`
           break
         case 'ax^2-ax^2':
           a = Math.abs(a)
