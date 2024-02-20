@@ -117,7 +117,7 @@ export function remplisLesBlancs (exercice, question, content, classes = '', bla
       content = ''
     }
   }
-  if (exercice.interactif) {
+  if (exercice.interactif && context.isHtml) {
     const dataKeyboard = buildDataKeyboardString(classes)
     let classe = ''
     if (classes) {

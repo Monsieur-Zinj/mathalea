@@ -5,6 +5,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
+import { context } from '../../modules/context'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'
@@ -59,7 +60,10 @@ export default class nomExercice extends Exercice {
       do {
         num = randint(0, den * 10)
       } while (num % den === 0)
-      const texte = remplisLesBlancs(this, i, `%{champ1}~~\\lt~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~\\lt~~%{champ2}`, 'inline clavierDeBaseAvecFraction fillInTheBlank')
+      let texte = remplisLesBlancs(this, i, `%{champ1}~~\\lt~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~\\lt~~%{champ2}`, 'inline clavierDeBaseAvecFraction fillInTheBlank')
+      if (!context.isHtml) {
+        texte = texte.replaceAll('\\lt', ' < ').replaceAll('\\gt', ' > ')
+      }
       const a = Math.floor(num / den)
       const b = a + 1
       texteCorr = ` $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}}\\quad$ `
