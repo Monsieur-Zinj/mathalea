@@ -81,7 +81,7 @@ function cleanDivisions (str: string): string {
  * @param {string} str
  */
 function cleanComas (str: string): string {
-  return str.replaceAll(/\{,}/g, '.').replaceAll(/,/g, '.')
+  return str.replaceAll(/\{,}/g, '.').replaceAll(/(?<!\\),/g, '.')
 }
 
 /**
