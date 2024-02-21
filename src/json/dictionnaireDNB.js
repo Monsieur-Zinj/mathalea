@@ -8038,7 +8038,7 @@ export const dictionnaireDNB = {
     url: 'static/dnb/2021/tex/dnb_2021_12_caledonie_1.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_12_caledonie_1_cor.tex',
     tags: [
-      'Pourcentages', 'Fractions', 'Calcul littéral', 'Equations', 'Calcul numérique', 'Volumes', 'Trigonométrie', 'Géométrie plane'
+      'Pourcentages', 'Fractions', 'Calcul littéral', 'Équations', 'Calcul numérique', 'Volumes', 'Trigonométrie', 'Géométrie plane'
     ]
   },
   dnb_2021_12_caledonie_2: {
@@ -8150,7 +8150,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_1.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_1_cor.tex',
-    tags: ['']
+    tags: ['Transformations','Calcul littéral','Équations','Arithmétique','Fractions','Coordonnées terrestres']
   },
   dnb_2021_06_polynesie_2: {
     annee: '2021',
@@ -8162,7 +8162,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_2.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_2_cor.tex',
-    tags: ['']
+    tags: ['Probabilités','Fractions','Équations']
   },
   dnb_2021_06_polynesie_3: {
     annee: '2021',
@@ -8174,7 +8174,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_3.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_3_cor.tex',
-    tags: ['']
+    tags: ['Pythagore','Aires et périmètres','Trigonométrie','Géométrie plane']
   },
   dnb_2021_06_polynesie_4: {
     annee: '2021',
@@ -8186,7 +8186,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_4.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_4_cor.tex',
-    tags: ['']
+    tags: ['Algorithmique-programmation']
   },
   dnb_2021_06_polynesie_5: {
     annee: '2021',
@@ -8198,7 +8198,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2021/tex/dnb_2021_06_polynesie_5.tex',
     urlcor: 'static/dnb/2021/tex/dnb_2021_06_polynesie_5_cor.tex',
-    tags: ['']
+    tags: ['Lecture graphique','Proportionnalité','Fonctions','Équations']
   },
 
 
