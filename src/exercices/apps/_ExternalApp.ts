@@ -99,6 +99,15 @@ class ExternalApp {
         if (this.iframe !== null && this.iframe.contentWindow !== null) {
           this.iframe.contentWindow.postMessage(message, '*')
         }
+      } else if (event.data?.type === 'mathaleaAskScore') {
+        const indice = parseInt(event.data.numeroExercice) || 0
+        const results = get(resultsByExercice)[indice]
+        if (typeof results !== 'undefined') {
+          const message = { type: 'mathaleaHasScore', score: results.numberOfPoints, numeroExercice: indice, numberOfQuestions: results.numberOfQuestions, finalState: results.answers }
+          if (this.iframe !== null && this.iframe.contentWindow !== null) {
+            this.iframe.contentWindow.postMessage(message, '*')
+          }
+        }
       }
     })
   }
