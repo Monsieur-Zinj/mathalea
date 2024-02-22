@@ -48,7 +48,7 @@ export default function ProduitScalaireFiguresClassiques () {
         poly = polygone(A, B, C, D)
         a1 = afficheLongueurSegment(B, A, 'black', 0.5, '')
         a2 = afficheLongueurSegment(C, B, 'black', 0.5, '')
-        a3 = afficheMesureAngle(B, A, D, 'black', 1.5, `${angle}°`)
+        a3 = afficheMesureAngle(B, A, D, 'black', 1.5, `${angle}^\\circ`)
         objets = []
         xmin = Math.min(A.x, B.x, C.x, D.x) - 1
         ymin = Math.min(A.y, B.y, C.y, D.y) - 1

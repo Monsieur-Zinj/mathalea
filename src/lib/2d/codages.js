@@ -8,7 +8,7 @@ import { arc } from './cercle.js'
 import { droite, mediatrice } from './droites.js'
 import { milieu, Point, point, pointSurSegment, tracePointSurDroite } from './points.js'
 import { longueur, Segment, segment, vecteur } from './segmentsVecteurs.js'
-import { latexParPoint, TexteParPoint, texteParPoint } from './textes.js'
+import { latexParCoordonnees, latexParPoint, TexteParPoint, texteParPoint } from './textes.js'
 import { rotation, similitude, translation } from './transformations.js'
 
 /**
@@ -500,8 +500,21 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
   this.epaisseur = arcEpaisseur
   const M = pointSurSegment(this.sommet, this.depart, this.distance)
   const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / context.pixelsParCm), this.sommet, mesureAngle / 2)
+  let mesureAngleString
+  if (label !== '') {
+    mesureAngleString = label
+  } else {
+    mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '^\\circ'
+  }
+  const mesure = latexParCoordonnees(mesureAngleString, N.x, N.y, color, 0, 0, '', 8)
+  const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
+  mesure.contour = mesureEnGras
+  mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
+  marque.epaisseur = this.epaisseur
   this.bordures = [Math.min(N.x, M.x) - 0.5, Math.min(N.y, M.y) - 0.5, Math.max(N.x, M.x) + 0.5, Math.max(N.y, M.y) + 0.5]
-  this.svg = function (coeff) {
+  return [mesure, marque]
+
+  /*  this.svg = function (coeff) {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
     const N = rotation(pointSurSegment(this.sommet, M, this.distance + this.ecart * 20 / coeff), this.sommet, mesureAngle / 2, '', 'center')
     let mesureAngleString
@@ -510,12 +523,12 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
     } else {
       mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '°'
     }
-    const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
+    const mesure = latexParPoint(mesureAngleString, N, color, 0, 0, '', 8)
     const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = this.epaisseur
-    return '\n' + mesure.svg(coeff) + '\n' + marque.svg(coeff)
+    return [mesure, marque]
   }
   this.tikz = function () {
     const M = pointSurSegment(this.sommet, this.depart, this.distance)
@@ -526,13 +539,13 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
     } else {
       mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '\\degree'
     }
-    const mesure = texteParPoint(mesureAngleString, N, 'milieu', color, 1, 'middle', true)
+    const mesure = latexParPoint(mesureAngleString, N, color, 0, 0, '', 8)
     const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)
     mesure.contour = mesureEnGras
     mesure.couleurDeRemplissage = colorToLatexOrHTML(color)
     marque.epaisseur = this.epaisseur
     return '\n' + mesure.tikz() + '\n' + marque.tikz()
-  }
+  } */
 }
 
 /**

@@ -36,7 +36,7 @@ export default function DecimalForme () {
 
     this.correction = `$${texNombre(dec, 5)}=\\dfrac{${texNombre(a, 0)}}{10^{${puissance}}}$`
     this.reponse = `\\dfrac{${a}}{10^{${puissance}}}`
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
-  this.canEnonce = this.question
-  this.canReponseACompleter = ''
 }

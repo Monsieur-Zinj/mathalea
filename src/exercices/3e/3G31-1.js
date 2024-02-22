@@ -80,7 +80,7 @@ export default function CalculDAngleFigureComplexe () {
       const BAC = Math.round(angle(B, A, C))
       let AC = BA / Math.cos(radians(BAC))
       let ACD = Math.round(degres(Math.atan(AD / AC)))
-      let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + (context.isHtml ? '°' : '\\degree'))
+      let a1 = afficheMesureAngle(B, A, C, 'black', 1, BAC + '^\\circ')
       const a2 = afficheLongueurSegment(A, B)
       const a3 = afficheLongueurSegment(D, A)
       const a4 = afficheLongueurSegment(A, C)
@@ -153,7 +153,7 @@ export default function CalculDAngleFigureComplexe () {
         case 'BA-AD-ACB':
           AC = BA / Math.sin(radians(ACB))
           ACD = Math.round(degres(Math.atan(AD / AC)))
-          a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + (context.isHtml ? '°' : '\\degree'))
+          a1 = afficheMesureAngle(A, C, B, 'black', 1, ACB + '\\circ')
           if (this.sup) {
             objetsMathalea.push(a1, a2, a3)
           }
