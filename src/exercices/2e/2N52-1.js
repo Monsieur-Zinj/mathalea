@@ -4,9 +4,10 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from 
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine from '../../lib/interactif/comparaisonFonctions'
+import { sp } from '../../lib/outils/outilString'
 export const titre = 'Résoudre les équations produit-nul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -40,21 +41,33 @@ export default function EquationsProduitsNuls2 () {
   function verifReponse (exo, question, variable) {
     const saisieElt = document.querySelector(`#champTexteEx${exo.numeroExercice}Q${question}`)
     const objetReponse = Object.fromEntries(variable)
-    const reponse = objetReponse.reponse.value.replace(';', ' ') // on remplace le ; par un espace pour que la regex fonctionne
+    const reponse = objetReponse.reponse.value.replace(';', ' ').replaceAll('dfrac', 'frac') // on remplace le ; par un espace pour que la regex fonctionne
     let feedback = ''
     let isOk = true
-    const saisie = saisieElt.value.replace(';', ' ')
-    const sols = reponse.match('/^{(\\S*)\\s?(\\S*)}$/')
-    if (saisie[0] !== '{' || saisie[saisie.length - 1] !== '}') feedback += 'Les solutions doivent être données sous la forme d\'un ensemble.<br>'
+    const sols = /^{(\S*)\s?(\S*)}$/g.exec(reponse)
+    if (sols[2] === '' && saisieElt.value.includes(';')) {
+      feedback += 'Il n\'y a qu\'une seule solution.<br>'
+    }
+    let saisie = saisieElt.value.replace(';', ' ').replace('\\{', '{').replace('\\}', '}')
+    if (saisie[0] !== '{' || saisie[saisie.length - 1] !== '}') {
+      feedback += 'Les solutions doivent être données sous la forme d\'un ensemble.<br>'
+      // On rend la saisie propre pour la régex
+      if (saisie[0] !== '{') saisie = '{' + saisie
+      if (saisie[saisie.length - 1] !== '}') saisie += '}'
+    }
     let valeursSaisies
-    if (sols.length < 3) {
+    if (sols[2] === '') {
       // il n'y a qu'une solution
-      valeursSaisies = saisie.match('/^{(\\S*)}$/')
+      if (/\s/.exec(saisie) != null) {
+        valeursSaisies = /^{(\S*)\s(\S*)}$/g.exec(saisie)
+        if (valeursSaisies[1] !== valeursSaisies[2]) return { resultat: 'KO', feedback, score: { nbBonnesReponses: 0, nbReponses: 1 } }
+      } else valeursSaisies = /^{(.*)}$/g.exec(saisie)
       const valeur = valeursSaisies[1] ?? '99999999' // Si il n'y a pas de valeur saisie on met un truc improbable pour la comparaison
       isOk = engine.parse(valeur).isEqual(engine.parse(sols[1]))
     } else {
       // il y a deux solutions
-      valeursSaisies = saisie.match(/^{?(\\S*)\s*(\\S*)}?$/)
+      valeursSaisies = /^{(\S*)\s*(\S*)}$/g.exec(saisie)
+      if (valeursSaisies == null) return { resultat: 'KO', feedback, score: { nbBonnesReponses: 0, nbReponses: 1 } }
       if (valeursSaisies.length < 3) {
         feedback += 'Il y a deux solutions.<br>'
         isOk = false
@@ -63,17 +76,25 @@ export default function EquationsProduitsNuls2 () {
       } else {
         const val1 = engine.parse(valeursSaisies[1] ?? '9999999')
         const val2 = engine.parse(valeursSaisies[2] ?? '9999999')
-        const isOk1 = val1.isEqual(engine.parse(sols[1])) || val1.isEqual(engine.parse(sols[2]))
-        const isOk2 = val2.isEqual(engine.parse(sols[1])) || val2.isEqual(engine.parse(sols[2]))
+        const sol1 = engine.parse(sols[1])
+        const sol2 = engine.parse(sols[2])
+        const isOk1 = val1.isEqual(sol1) || val1.isEqual(sol2)
+        const isOk2 = val2.isEqual(sol1) || val2.isEqual(sol2)
         const isOk3 = !val2.isEqual(val1)
         isOk = isOk1 && isOk2 && isOk3
         if (!isOk) {
           if (!isOk3) feedback += 'Il y a deux solutions différentes à donner.<br>'
           if (!isOk1) feedback += 'La première solution donnée est fausse.<br>'
           if (!isOk2) feedback += 'La deuxième solution donnée est fausse.<br>'
+        } else {
+          if (val1.N().value > val2.N().value) feedback += 'Les solutions seraient mieux dans l\'ordre croissant.<br>'
         }
       }
     }
+    const spanResult = document.querySelector(`#resultatCheckEx${exo.numeroExercice}Q${question}`)
+    if (spanResult != null) spanResult.textContent = isOk ? '😎' : '☹️'
+    spanResult.style.fontSize = 'large'
+    saisieElt.readOnly = true
     return { resultat: isOk ? 'OK' : 'KO', feedback, score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 } }
   }
 
@@ -118,13 +139,13 @@ export default function EquationsProduitsNuls2 () {
           texteCorr += `$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
           if (-b / a > -d / c) {
             texteCorr += `$S=\\left\\{${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f2.texFraction};${f1.texFraction}}` }
+            reponse = { value: `{${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}}` }
           } else if (-b / a < -d / c) {
             texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f1.texFraction};${f2.texFraction}}` }
+            reponse = { value: `{${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}}` }
           } else {
             texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f1.texFraction}}` }
+            reponse = { value: `{${f1.texFractionSimplifiee}}` }
           }
           break
         case 2:
@@ -144,13 +165,13 @@ export default function EquationsProduitsNuls2 () {
                      On en déduit :  `
           if (f3.differenceFraction(f4).s > 0) {
             texteCorr += `$S=\\left\\{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f4.texFraction};${f3.texFraction}}` }
+            reponse = { value: `{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}}` }
           } else if (f3.differenceFraction(f4).s < 0) {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f3.texFraction};${f4.texFraction}}` }
+            reponse = { value: `{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}}` }
           } else {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f3.texFraction}}` }
+            reponse = { value: `{${f3.texFractionSimplifiee}}` }
           }
 
           break
@@ -174,14 +195,15 @@ export default function EquationsProduitsNuls2 () {
             reponse = { value: `{${f4.texFraction};${f3.texFraction}}` }
           } else if (f3.differenceFraction(f4).s < 0) {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f3.texFraction};${f4.texFraction}}` }
+            reponse = { value: `{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}}` }
           } else {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f3.texFraction}}` }
+            reponse = { value: `{${f3.texFractionSimplifiee}}` }
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline lycee')
+      texte += sp(4) + ajouteChampTexteMathLive(this, i, 'inline lycee nospacebefore largeur01', { texteAvant: ' $S=$' })
+      texte += ajouteFeedback(this, i)
       handleAnswers(this, i, { reponse, callback: verifReponse }, { formatInteractif: 'calcul' })
       if (this.questionJamaisPosee(i, a, b, c, d, ...fractions)) {
         // Si la question n'a jamais été posée, on en créé une autre
