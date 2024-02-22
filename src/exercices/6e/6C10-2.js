@@ -148,7 +148,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
-        texte += ajouteChampTexteMathLive(this, i)
+        texte += ajouteChampTexteMathLive(this, i, 'clavierDeBase')
         setReponse(this, i, a * b)
       }
       if (this.questionJamaisPosee(i, a, b)) {

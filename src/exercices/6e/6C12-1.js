@@ -214,7 +214,7 @@ export default function QuestionsMasses () {
           texteCorr += correctionAMC
         }
         if (this.interactif && !context.isAmc) {
-          texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25', { texteApres: ' €' }) + '<br><br>'
+          texte += ajouteChampTexteMathLive(this, 8 * i + kk, 'inline largeur25 clavierDeBase', { texteApres: ' €' }) + '<br><br>'
           setReponse(this, 8 * i + kk, reponseAMC)
         }
         if (context.isAmc) {
