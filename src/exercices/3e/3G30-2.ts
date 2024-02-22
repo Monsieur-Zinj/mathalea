@@ -69,7 +69,7 @@ class EquationTrigo extends Exercice {
 
       switch (listeTypeQuestions[i]) {
         case 'den':
-          texte += `toto $\\${cosSinTan}\\left( ${angle} \\degree \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${nomA}${nomC}}$.<br>`
+          texte += `$\\${cosSinTan}\\left( ${angle} \\degree \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${nomA}${nomC}}$.<br>`
           switch (cosSinTan) {
             case 'cos' :
               reponse = lAB.div(new Decimal(Math.cos(angle * Math.PI / 180))).times(10).round().div(10).toNumber()
@@ -94,7 +94,7 @@ class EquationTrigo extends Exercice {
           $${nomA}${nomC} \\approx ${miseEnEvidence(stringNombre(reponse, 1))}$`
           break
         case 'num':
-          texte += `titi $\\${cosSinTan}\\left( ${angle} \\degree \\right) = \\dfrac{${nomA}${nomC}}{${stringNombre(lAB, 1)}}$.<br>`
+          texte += `$\\${cosSinTan}\\left( ${angle} \\degree \\right) = \\dfrac{${nomA}${nomC}}{${stringNombre(lAB, 1)}}$.<br>`
           switch (cosSinTan) {
             case 'cos' :
               reponse = lAB.times(new Decimal(Math.cos(angle * Math.PI / 180))).times(10).round().div(10).toNumber()
@@ -120,7 +120,7 @@ class EquationTrigo extends Exercice {
           break
         case 'angle':
           lBC = new Decimal(randint(lAB.times(10).toNumber(), 120)).div(10)
-          texte += `tutu $\\${cosSinTan}\\left( \\widehat{${nomA}${nomB}${nomC}} \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${stringNombre(lBC, 1)}}$.<br>`
+          texte += `$\\${cosSinTan}\\left( \\widehat{${nomA}${nomB}${nomC}} \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${stringNombre(lBC, 1)}}$.<br>`
           switch (cosSinTan) {
             case 'cos' :
               reponse = Math.round(Math.acos(lAB.div(lBC).toNumber()) * 180 / Math.PI)
