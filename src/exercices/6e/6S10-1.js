@@ -24,7 +24,6 @@ export const amcType = 'AMCHybride'
 /**
  * Lecture de diagrammes
  * @author Jean-Claude Lhote
- * Référence 6S10-1
  */
 export const uuid = 'adac4'
 export const ref = '6S10-1'
@@ -34,7 +33,6 @@ export const refs = {
 }
 export default function LireUnDiagramme () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -92,12 +90,27 @@ export default function LireUnDiagramme () {
         case 3: nbAnimaux = 4; break
         default: nbAnimaux = 4
       }
-      for (let i = 0; i < nbAnimaux; i++) {
+      for (let i = 0; i < nbAnimaux - 1; i++) {
         N = randint(5, 40, lstVal) // choisit un nombre entre 5 et 40 sauf dans les valeurs à éviter
         lstNombresAnimaux.push(N)
         lstVal = lstVal.concat([N - 2, N - 1, N, N + 1, N + 2]) // valeurs à supprimer pour éviter des valeurs proches
       }
-      let effectiftotal = 0
+
+      let effectiftotal
+      // Le test ci-dessous permet de proposer (avec une fréquence de 1/3) des effectifs les nombreux > 50 %
+      const choixMajoritaire = randint(0, 2)
+      if (choixMajoritaire > 0) {
+        N = randint(5, 40, lstVal) // choisit un nombre entre 5 et 40 sauf dans les valeurs à éviter
+        lstNombresAnimaux.push(N)
+      } else {
+        effectiftotal = 0
+        for (let i = 0; i < nbAnimaux - 1; i++) {
+          effectiftotal += lstNombresAnimaux[i]
+        }
+        lstNombresAnimaux.push(Math.round(effectiftotal * 1.25))
+      }
+
+      effectiftotal = 0
       for (let i = 0; i < nbAnimaux; i++) {
         effectiftotal += lstNombresAnimaux[i]
       }
@@ -105,6 +118,9 @@ export default function LireUnDiagramme () {
         nom = choice(lstAnimaux, lstAnimauxExo) // choisit un animal au hasard sauf parmi ceux déjà utilisés
         lstAnimauxExo.push(nom)
       }
+
+      nbMin = Math.min(...lstNombresAnimaux)
+      nbMax = Math.max(...lstNombresAnimaux)
 
       switch (listeTypeDeQuestions[q]) {
         case 1:
@@ -185,7 +201,8 @@ export default function LireUnDiagramme () {
             xLabelListe: false,
             yUnite: 0.1 / coef,
             yThickDistance: 10 * coef,
-            yMax: 60 * coef,
+            yMax: (Math.round(nbMax / 10) + 1) * 10 * coef,
+            yLabelEcart: 0.75,
             xMin: 0,
             xMax: 10,
             yMin: 0,
@@ -198,7 +215,7 @@ export default function LireUnDiagramme () {
             objets.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], lstAnimauxExo[i], { unite: 0.1 / coef, couleurDeRemplissage: texcolors(i + 1), hachures: 'north east lines' }))
           }
           objets.push(r)
-          paramsEnonce = { xmin: -6.5, ymin: -4, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+          paramsEnonce = { xmin: -6.5, ymin: -4, xmax: 20, ymax: choixMajoritaire > 0 ? nbMax / 5 : nbMax / 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
 
           break
 
@@ -219,7 +236,8 @@ export default function LireUnDiagramme () {
             xLabelListe: false,
             yUnite: 0.1 / coef,
             yThickDistance: 10 * coef,
-            yMax: 60 * coef,
+            yMax: (Math.round(nbMax / 10) + 1) * 10 * coef,
+            yLabelEcart: 0.75,
             xMin: 0,
             xMax: 10,
             yMin: 0,
@@ -244,12 +262,10 @@ export default function LireUnDiagramme () {
 
           objets.push(r, g)
 
-          paramsEnonce = { xmin: -6.5, ymin: -3, xmax: 20, ymax: 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+          paramsEnonce = { xmin: -6.5, ymin: -3, xmax: 20, ymax: choixMajoritaire > 0 ? nbMax / 5 : nbMax / 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
 
           break
       }
-      nbMin = Math.min(...lstNombresAnimaux)
-      nbMax = Math.max(...lstNombresAnimaux)
       reponse1 = lstAnimauxExo[lstNombresAnimaux.indexOf(nbMin)]
       reponse2 = lstAnimauxExo[lstNombresAnimaux.indexOf(nbMax)]
       texteAMC += mathalea2d(paramsEnonce, objets)
