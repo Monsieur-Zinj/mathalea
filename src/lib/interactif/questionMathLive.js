@@ -10,6 +10,7 @@ const buildDataKeyboardString = (style = '') => {
     college6eme: ['numbersOperations'],
     clavierDeBase: ['numbersOperations'],
     clavierDeBaseAvecFraction: ['numbers', 'basicOperations'],
+    clavierDeBaseAvecEgal: ['numbers2', 'basicOperations'],
     clavierAvecVariable: ['numbers', 'basicOperations', 'variables'],
     clavierFullOperations: ['numbers', 'fullOperations'],
     alphanumericAvecEspace: ['alphanumeric'],
