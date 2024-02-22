@@ -78,7 +78,8 @@ export default function VocabulaireDuCercle () {
   this.spacingCorr = 1.5 // Interligne des réponses
 
   this.nouvelleVersion = function () {
-    this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).<br><br>' : 'Compléter.<br><br>'
+    this.consigne = this.sup2 ? 'Cocher la (ou les) bonne(s) réponse(s).' : 'Compléter.'
+    if (context.isHtml) this.consigne += '<br><br>'
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
