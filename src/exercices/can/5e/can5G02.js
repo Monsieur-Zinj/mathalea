@@ -48,7 +48,7 @@ export default function AngleTriangleIsocele () {
           xmax = Math.max(A.x, B.x, C.x) + 2
           ymax = Math.max(A.y, B.y, C.y) + 2
           objets.push(pol[0], pol[1])
-          objets.push(afficheMesureAngle(B, A, C, 'black', 1, a + '°'), codageSegments('||', 'blue', C, A, C, B))
+          objets.push(afficheMesureAngle(B, A, C, 'black', 1, a + '^\\circ'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[2]}}$ ? <br>
         `
           this.question += mathalea2d({
@@ -73,7 +73,7 @@ export default function AngleTriangleIsocele () {
           xmax = Math.max(A.x, B.x, C.x) + 1
           ymax = Math.max(A.y, B.y, C.y) + 1.5
           objets.push(pol[0], pol[1])
-          objets.push(afficheMesureAngle(B, A, C, 'black', 1, a + '°'), codageSegments('||', 'blue', C, A, C, B))
+          objets.push(afficheMesureAngle(B, A, C, 'black', 1, a + '^\\circ'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[2]}}$ ? <br>
             `
           this.question += mathalea2d({
@@ -108,7 +108,7 @@ export default function AngleTriangleIsocele () {
           xmax = Math.max(A.x, B.x, C.x) + 2
           ymax = Math.max(A.y, B.y, C.y) + 3
           objets.push(pol[0], pol[1])
-          objets.push(afficheMesureAngle(A, C, B, 'black', 2.5, 180 - 2 * a + '°'), codageSegments('||', 'blue', C, A, C, B))
+          objets.push(afficheMesureAngle(A, C, B, 'black', 2.5, 180 - 2 * a + '^\\circ'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br>
             `
           this.question += mathalea2d({
@@ -133,7 +133,7 @@ export default function AngleTriangleIsocele () {
           xmax = Math.max(A.x, B.x, C.x) + 1
           ymax = Math.max(A.y, B.y, C.y) + 1
           objets.push(pol[0], pol[1])
-          objets.push(afficheMesureAngle(A, C, B, 'black', 0.4, 180 - 2 * a + '°'), codageSegments('||', 'blue', C, A, C, B))
+          objets.push(afficheMesureAngle(A, C, B, 'black', 0.4, 180 - 2 * a + '^\\circ'), codageSegments('||', 'blue', C, A, C, B))
           this.question = `Quelle est la mesure en degré de l'angle $\\widehat{${nom[1]}}$ ?<br>
               `
           this.question += mathalea2d({

@@ -336,20 +336,20 @@ export default function TransformationsDuPlanEtCoordonnees () {
             if (i === 0) {
               objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
               objetsCorrection.push(tracePoint(A, O), labelPoint(A, O), tracePoint(Aprime, '#f15929'), labelPoint(Aprime, '#f15929'), codageAngleDroit(A, O, Aprime, couleurs[i]),
-                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), afficheMesureAngle(A, O, Aprime), codageSegments('//', couleurs[i], O, A, O, Aprime)
+                segment(O, A, couleurs[i]), segment(O, Aprime, couleurs[i]), codageSegments('//', couleurs[i], O, A, O, Aprime)
               )
               xP[5] = xA
               yP[5] = yA
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
-              objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), codageAngleDroit(B, O, Bprime, couleurs[i]),
-                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), afficheMesureAngle(B, A, Bprime), codageSegments('O', couleurs[i], A, B, A, Bprime))
+              objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), codageAngleDroit(B, A, Bprime, couleurs[i]),
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[5] = xB
               yP[5] = yB
             } else {
               objetsEnonce.push(tracePoint(C, B), labelPoint(C, B))
               objetsCorrection.push(tracePoint(C, B), labelPoint(C, B), tracePoint(Cprime, '#f15929'), labelPoint(Cprime, '#f15929'), codageAngleDroit(C, O, Cprime, couleurs[i]),
-                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), afficheMesureAngle(C, B, Cprime), codageSegments('|||', couleurs[i], B, C, B, Cprime))
+                segment(B, C, couleurs[i]), segment(B, Cprime, couleurs[i]), codageSegments('|||', couleurs[i], B, C, B, Cprime))
               xP[5] = xC
               yP[5] = yC
             }
@@ -372,7 +372,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             } else if (i === 1) {
               objetsEnonce.push(tracePoint(B, A), labelPoint(B, A))
               objetsCorrection.push(tracePoint(B, A), labelPoint(B, A), tracePoint(Bprime, '#f15929'), labelPoint(Bprime, '#f15929'), codageAngleDroit(B, A, Bprime, couleurs[i]),
-                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), afficheMesureAngle(B, A, Bprime), codageSegments('O', couleurs[i], A, B, A, Bprime))
+                segment(A, B, couleurs[i]), segment(A, Bprime, couleurs[i]), codageSegments('O', couleurs[i], A, B, A, Bprime))
               xP[6] = xB
               yP[6] = yB
             } else {

@@ -117,10 +117,10 @@ export default function ProblemesTrigoLongueur () {
       iiAMC = 0
       if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
       const choixAlpha = randint(0, 7)
-      const alfa = context.isHtml ? lettresGrecques[choixAlpha][0] : lettresGrecques[choixAlpha][1]
+      const alfa = lettresGrecques[choixAlpha][1] // context.isHtml ? lettresGrecques[choixAlpha][0] : // on passe tout en latex
       const alfaInteractif = lettresGrecques[choixAlpha][1]
       const choixBeta = randint(0, 7, [choixAlpha])
-      const baita = context.isHtml ? lettresGrecques[choixBeta][0] : lettresGrecques[choixBeta][1]
+      const baita = lettresGrecques[choixBeta][1] // context.isHtml ? lettresGrecques[choixBeta][0] :
       const baitaInteractif = lettresGrecques[choixBeta][1]
       const sensV = choice([-1, 1])
       const sensH = choice([-1, 1])
@@ -362,7 +362,7 @@ export default function ProblemesTrigoLongueur () {
           objets.push(demicercle3d(H, normalV, R2, 'indirect', false, 'red', -context.anglePerspective))
           objets.push(demicercle3d(H, normalV, R2, 'direct', true, 'red', -context.anglePerspective))
           objets.push(arete3d(O, M).c2d)
-          objets.push(afficheMesureAngle(M.c2d, O.c2d, P.c2d, 'black', 1.5, `$${alpha} \\degree$`))
+          objets.push(afficheMesureAngle(M.c2d, O.c2d, P.c2d, 'black', 1.5, `${alpha}^\\circ`))
           texte = mathalea2d({
             xmin: -8,
             ymin: -6,

@@ -89,8 +89,8 @@ export default function ExprimerCosSinTan () {
         t3 = texteSurSegment('opposé à ⍺', A, C)
         t22 = texteSurSegment('opposé à 𝛽', B, A)
         t32 = texteSurSegment('adjacent à 𝛽', A, C)
-        codageAngle = afficheMesureAngle(A, B, C, 'red', 1.5, '⍺')
-        codageAngle2 = afficheMesureAngle(A, C, B, 'red', 1.5, '𝛽')
+        codageAngle = afficheMesureAngle(A, B, C, 'red', 1.5, '\\alpha')
+        codageAngle2 = afficheMesureAngle(A, C, B, 'red', 1.5, '\\beta')
       } else {
         t2 = texteSurSegment('adjacent à $\\alpha$', B, A)
         t3 = texteSurSegment('opposé à $\\alpha$', A, C)

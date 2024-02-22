@@ -153,7 +153,7 @@ export default function ConservationTransformation () {
         case 'longueurEtAngle':
           objetsEnonceEtCorr.push(segment(A, C), segment(B, C))
           objetsEnonceEtCorr.push(afficheLongueurSegment(C, B))
-          objetsEnonceEtCorr.push(afficheMesureAngle(A, B, C, 'black', 1, Math.round(angle(A, B, C)) + '°'))
+          objetsEnonceEtCorr.push(afficheMesureAngle(A, B, C, 'black', 1, Math.round(angle(A, B, C)) + '^\\circ'))
           texte = `Les points $${A.nom}'$ et $${B.nom}'$ sont les images respectives de $${A.nom}$ et $${B.nom}$ ${enonceTransformation}.<br>`
           texte += `L'angle $\\widehat{${A.nom + B.nom + C.nom}}$ mesure $${texNombre(Math.round(angle(A, B, C)))}$ °.<br>`
           figure = `du triangle $${A.nom + B.nom + C.nom}$`
@@ -181,7 +181,7 @@ export default function ConservationTransformation () {
       }
       if (listeTypeDeQuestions[i] === 'longueurEtAngle') {
         objetsCorrectionOnly.push(segment(imageA, imageC, '#f15929'), segment(imageB, imageC, '#f15929'))
-        objetsCorrectionOnly.push(afficheMesureAngle(imageA, imageB, imageC, '#f15929', 1, Math.round(angle(A, B, C)) + '°', { colorArc: '#f15929' }))
+        objetsCorrectionOnly.push(afficheMesureAngle(imageA, imageB, imageC, '#f15929', 1, Math.round(angle(A, B, C)) + '^\\circ', { colorArc: '#f15929' }))
         if (figureRetournee) {
           objetsCorrectionOnly.push(afficheLongueurSegment(imageC, imageB, '#f15929'))
         } else {
