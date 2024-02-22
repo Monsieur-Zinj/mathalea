@@ -95,6 +95,7 @@ export default function FractionsCalculsSimples () {
           f2 = new FractionEtendue(c, b)
           f3 = new FractionEtendue(a + c, b)
           texte = `$${f1.texFraction} + ${f2.texFraction}$`
+          texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: '=' })
           texteCorr = `$${f1.texFraction} + ${f2.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schema = fractionCliquable(0, 0, 4, b)
           if (this.sup) texte += '<br>' + mathalea2d({ scale, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
@@ -120,6 +121,7 @@ export default function FractionsCalculsSimples () {
           f2 = new FractionEtendue(n * b, b)
           f3 = new FractionEtendue(n * b + a, b)
           texte = `$${n} + ${f1.texFraction}$`
+          texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: '=' })
           texteCorr = `$${n} + ${f1.texFraction} = ${f2.texFraction} + ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schema = fractionCliquable(0, 0, 4, b)
           schemaCorr = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b, {
@@ -144,6 +146,7 @@ export default function FractionsCalculsSimples () {
           f1 = new FractionEtendue(a, b)
           f3 = new FractionEtendue(n * a, b)
           texte = `$${n} \\times ${f1.texFraction}$`
+          texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: '=' })
           texteCorr = `$${n} \\times ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           texteCorr += '<br>'
           if (this.correctionDetaillee) {
@@ -187,6 +190,7 @@ export default function FractionsCalculsSimples () {
           f2 = new FractionEtendue(n * b, b)
           f3 = new FractionEtendue(n * b - a, b)
           texte = `$${n} - ${f1.texFraction}$`
+          texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: '=' })
           texteCorr = `$${n} - ${f1.texFraction} = ${f2.texFraction} - ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
           schemaCorr = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b, {
             cliquable: false,
@@ -210,7 +214,6 @@ export default function FractionsCalculsSimples () {
           break
       }
       setReponse(this, i, reponseAMC, { formatInteractif: 'fractionEgale' })
-      texte += ajouteChampTexteMathLive(this, i)
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte, // Si vide, l'énoncé est celui de l'exercice.

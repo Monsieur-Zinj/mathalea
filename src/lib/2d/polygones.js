@@ -232,9 +232,9 @@ export function Polygone (...points) {
     this.listePoints = points
     this.nom = this.listePoints.join()
     this.couleurDeRemplissage = colorToLatexOrHTML('none')
+    this.couleurDesHachures = colorToLatexOrHTML('none') // Rajout EE du 22/02/2024 pour 6N22 cas 3
     this.hachures = false
   }
-
   let xmin = 1000
   let xmax = -1000
   let ymin = 1000
