@@ -55,7 +55,10 @@ function appendCell ({ isInteractif, line, icell, indexCol, indexLine, tag, clas
       element = document.createElement('math-field')
       element.classList.add('tableauMathlive')
       for (const classe of classes.split(' ')) {
-        if (classe !== '') element.classList.add(classe)
+        if (classe === 'clavierDeBase') element.setAttribute('data-keyboard', 'numbersOperations')
+        else if (classe === 'clavierDeBaseAvecFraction') element.setAttribute('data-keyboard', 'numbers basicOperations')
+        else if (classe === 'clavierAvecVariable') element.setAttribute('data-keyboard', 'numbers basicOperations variables')
+        else if (classe !== '') element.classList.add(classe)
       }
       element.id = `champTexteEx${NoEx}Q${NoQ}L${indexLine}C${indexCol}`
       element.setAttribute('virtual-keyboard-mode', 'manual')

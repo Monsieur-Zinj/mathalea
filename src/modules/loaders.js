@@ -296,7 +296,6 @@ export async function loadMathLive () {
       }
 
       let style = 'font-size: 20px;'
-      if (mf.classList.contains('tableauMathlive')) continue
       if (mf.classList.contains('inline')) {
         if (mf.classList.contains('nospacebefore')) {
           style += 'margin-left:5px;'
@@ -332,7 +331,7 @@ export async function loadMathLive () {
       } else {
         style += ' min-width: 200px'
       }
-      mf.setAttribute('style', style)
+      if (!mf.classList.contains('tableauMathlive')) mf.setAttribute('style', style)
       if (mf.classList.contains('fillInTheBlanks')) {
         mf.style.border = 'none'
         mf.style.boxShadow = 'none'

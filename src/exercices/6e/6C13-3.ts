@@ -124,7 +124,7 @@ class OperationsReciproques extends Exercice {
       }
       texteCorr += `<br>Le nombre de départ est donc $${depart}$.`
       if (this.interactif) {
-        texte += '<br>' + ajouteChampTexteMathLive(this, i)
+        texte += '<br>' + ajouteChampTexteMathLive(this, i, 'clavierDeBase')
         setReponse(this, i, depart)
       }
       if (this.questionJamaisPosee(i, depart, operande1, operande2)) {

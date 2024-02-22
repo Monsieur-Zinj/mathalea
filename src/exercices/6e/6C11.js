@@ -133,7 +133,7 @@ export default function DivisionsEuclidiennes () {
         `${a}=(${b}\\times ${q})+${r}`, `${a}=(${q}\\times ${b})+${r}`,
         `(${b}\\times ${q})+${r}=${a}`, `(${q}\\times ${b})+${r}=${a}`])
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { texteAvant: sp(10) + ' Égalité fondamentale :' })
+      texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore clavierDeBase', { texteAvant: sp(10) + ' Égalité fondamentale :' })
       // Pour AMC question AmcOpen
       if (context.isAmc) {
         this.autoCorrection[i].enonce = 'Poser et effectuer la division euclidienne suivante puis donner l\'égalité fondamentale correspondante.<br>' + texte

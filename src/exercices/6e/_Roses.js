@@ -246,6 +246,7 @@ export function ExoRose () {
   this.nombreDeValeurs = 4
   this.valeurMax = 10
   this.roses = []
+  this.clavier = 'clavierDeBase'
 
   this.indexInconnue = []
   this.nouvelleVersion = function () {
@@ -275,6 +276,14 @@ export function ExoRose () {
           if (this.nombreDeValeurs > 5) this.nombreDeValeurs = 5
         }
         break
+    }
+
+    if (this.typeDonnees === 'litteraux') {
+      this.clavier = 'clavierAvecVariable'
+    } else if (this.typeDonnees.includes('frac')) {
+      this.clavier = 'clavierDeBaseAvecFraction'
+    } else {
+      this.clavier = 'clavierDeBase'
     }
 
     for (
@@ -333,10 +342,10 @@ export function ExoRose () {
       texte += mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets)), objets)
       if (this.interactif) {
         if (this.type.substring(0, 3) === 'can') {
-          texte += ajouteChampTexteMathLive(this, i, 'nospacebefor', { texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`, tailleExtensible: true })
+          texte += ajouteChampTexteMathLive(this, i, 'nospacebefor ' + this.clavier, { texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`, tailleExtensible: true })
         } else {
           for (let k = 0; k < this.nombreDeValeurs; k++) {
-            texte += ajouteChampTexteMathLive(this, i * this.nombreDeValeurs + k, 'nospacebefor', { texteAvant: `${lettreMinusculeDepuisChiffre(k + 1)}=`, tailleExtensible: true })
+            texte += ajouteChampTexteMathLive(this, i * this.nombreDeValeurs + k, 'nospacebefor ' + this.clavier, { texteAvant: `${lettreMinusculeDepuisChiffre(k + 1)}=`, tailleExtensible: true })
             texte += sp(6)
           }
         }
