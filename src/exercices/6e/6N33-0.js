@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes, compteOccurences } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
@@ -57,6 +57,8 @@ export default function FractionDuneQuantite () {
       else typesDeQuestionsDisponibles = [1, 2, 3]
     }
     listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+    const nbQuestions3 = combinaisonListes([1, 2], compteOccurences(listeTypeDeQuestions, 3))
+    let indiceNbQuestions3 = 0
     for (
       let i = 0, den, num, choix, longueur, numIrred, denIrred, k, masse, frac, frac2, texte, texteCorr, index = 0, nbreponse, cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -106,7 +108,7 @@ export default function FractionDuneQuantite () {
           frac = fraction(numIrred, denIrred)
           frac2 = frac.entierMoinsFraction(1)
           texte = `Une tablette de chocolat a une masse totale de $${masse}$ grammes. Quelqu'un en a déjà consommé les $${frac.texFractionSimplifiee}$.<br>`
-          choix = randint(1, 2)
+          choix = nbQuestions3[indiceNbQuestions3]
           if (choix === 1) {
             texte += `Quelle masse de chocolat a été consommée ? ${ajouteChampTexteMathLive(this, index, 'largeur01 inline', { texteApres: ' g' })}<br>`
             texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${deprecatedTexFraction(1, denIrred)}$ de la tablette représente une masse de $${texNombre(masse / denIrred, 2)}$ grammes.<br>`
@@ -124,6 +126,7 @@ export default function FractionDuneQuantite () {
             texteCorr += `Il reste donc : $${denIrred - numIrred}\\times${texNombre(masse / denIrred, 2)}=${miseEnEvidence(texNombre((denIrred - numIrred) * masse / denIrred, 2))}$ grammes de chocolat.`
             setReponse(this, index, arrondi((denIrred - numIrred) * masse / denIrred, 2))
           }
+          indiceNbQuestions3++
           if (this.sup2) {
             texte += 'La tablette de chocolat est représentée ci-dessous :<br>'
             const figure = frac2.representationIrred(0, 0, 4, 0, 'baton', 'brown')
