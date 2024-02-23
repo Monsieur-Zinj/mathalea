@@ -1,6 +1,6 @@
 <script lang="ts">
   import Key from './keycap/Keycap.svelte'
-  import { GAP_BETWEEN_KEYS, SM_BREAKPOINT } from '../../../lib/sizes'
+  import { GAP_BETWEEN_KEYS, SM_BREAKPOINT, getMode } from '../../../lib/sizes'
   import type { KeyboardBlock } from '../../../types/keyboardContent'
   import { keys } from '../../../lib/keycaps'
   import { type KeyCap, isSpecialKey } from '../../../types/keycap'
@@ -9,8 +9,8 @@
   export let isInLine: boolean = false
   export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
 
-  $: gapsize =
-    innerWidth <= SM_BREAKPOINT ? GAP_BETWEEN_KEYS.sm : GAP_BETWEEN_KEYS.md
+  $: gapsize = GAP_BETWEEN_KEYS[getMode(innerWidth, isInLine)]
+
 </script>
 
 {#if block !== undefined}
@@ -21,7 +21,7 @@
       style="--gapsize:{gapsize};"
     >
       {#each block.keycaps.inline as key}
-        <Key keyName={key} key={keys[key]} isSpecial={isSpecialKey(key)} {innerWidth} {clickKeycap} />
+        <Key keyName={key} key={keys[key]} isSpecial={isSpecialKey(key)} {isInLine} {innerWidth} {clickKeycap} />
       {/each}
     </div>
   {:else}
@@ -30,7 +30,7 @@
       style="--gapsize:{gapsize};"
     >
       {#each block.keycaps.block as key}
-        <Key keyName={key} key={keys[key]} isSpecial={isSpecialKey(key)} {innerWidth} {clickKeycap} />
+        <Key keyName={key} key={keys[key]} isSpecial={isSpecialKey(key)} {isInLine} {innerWidth} {clickKeycap} />
       {/each}
     </div>
   {/if}

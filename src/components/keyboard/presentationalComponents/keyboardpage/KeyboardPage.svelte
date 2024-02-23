@@ -1,7 +1,7 @@
 <script lang="ts">
   import BlockOfKeyCaps from './keyboardblock/BlockOfKeycaps.svelte'
   import type { KeyboardBlock } from '../../types/keyboardContent'
-  import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT } from '../../lib/sizes'
+  import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT, getMode } from '../../lib/sizes'
   import type { KeyCap } from '../../types/keycap'
   import BlockOfKeycapsWithPagination from './keyboardblock/BlockOfKeycapsWithPagination.svelte'
 
@@ -14,8 +14,8 @@
   export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
   export let isInLine: boolean
   // // $: blocksToBeDisplayed = isInLine ? [...page] : [...blocks]
-  $: blockgapsize =
-    innerWidth <= SM_BREAKPOINT ? GAP_BETWEEN_BLOCKS.sm : GAP_BETWEEN_BLOCKS.md
+  $: blockgapsize = GAP_BETWEEN_BLOCKS[getMode(innerWidth, isInLine)]
+  
 </script>
 
 <div

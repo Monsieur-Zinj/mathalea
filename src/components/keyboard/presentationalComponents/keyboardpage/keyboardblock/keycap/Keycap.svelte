@@ -1,15 +1,16 @@
 <script lang="ts">
   import type { KeyCap } from '../../../../types/keycap'
-  import { KEYCAP_HEIGHT, KEYCAP_WIDTH, SM_BREAKPOINT, MD_BREAKPOINT, LG_BREAKPOINT } from '../../../../lib/sizes'
+  import { KEYCAP_HEIGHT, KEYCAP_WIDTH, SM_BREAKPOINT, MD_BREAKPOINT, LG_BREAKPOINT, getMode } from '../../../../lib/sizes'
   import type { Keys } from '../../../../types/keyboardContent'
   export let innerWidth: number
   export let keyName: Keys
   export let key: KeyCap
+  export let isInLine: boolean
   export let isSpecial: boolean = false
   export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
   let button: HTMLButtonElement
-  $: keycapwidth =
-    innerWidth <= SM_BREAKPOINT ? KEYCAP_WIDTH.sm :  innerWidth <= MD_BREAKPOINT ? KEYCAP_WIDTH.md : innerWidth <= LG_BREAKPOINT ? KEYCAP_WIDTH.lg : KEYCAP_WIDTH.xl
+  $: keycapwidth = KEYCAP_WIDTH[getMode(innerWidth, isInLine)]
+
   $: keycapheight =
     innerWidth <= SM_BREAKPOINT ? KEYCAP_HEIGHT.sm : KEYCAP_HEIGHT.md
 </script>

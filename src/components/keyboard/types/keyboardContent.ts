@@ -87,7 +87,7 @@ export class Keyboard {
 
 export const inLineBlockWidth = (
   block: KeyboardBlock,
-  mode: 'sm' | 'md'
+  mode: 'sm' | 'md' | 'lg' | 'xl'
 ): number => {
   // 3G30-1 renvoie un keycaps undefined, pourquoi ?
   const numberOfKeys = block?.keycaps?.inline?.length || 0
@@ -99,7 +99,7 @@ export const inLineBlockWidth = (
 }
 export const usualBlockWidth = (
   block: KeyboardBlock,
-  mode: 'sm' | 'md'
+  mode: 'sm' | 'md' | 'lg' | 'xl'
 ): number => {
   const numberOfCols = block.cols
   return numberOfCols * KEYCAP_WIDTH[mode] + (numberOfCols - 1) * GAP_BETWEEN_KEYS[mode]

@@ -12,7 +12,7 @@
   } from './types/keyboardContent'
   import { keyboardBlocks } from './layouts/keysBlocks'
   import KeyboardPage from './presentationalComponents/keyboardpage/KeyboardPage.svelte'
-  import { SM_BREAKPOINT, GAP_BETWEEN_BLOCKS } from './lib/sizes'
+  import { GAP_BETWEEN_BLOCKS, getMode } from './lib/sizes'
   import type { KeyCap } from './types/keycap'
   import { MathfieldElement } from 'mathlive'
   import Alphanumeric from './presentationalComponents/alphanumeric/Alphanumeric.svelte'
@@ -35,18 +35,19 @@
     pages.length = 0
     let pageWidth: number = 0
     let page: KeyboardBlock[] = []
-    const mode = innerWidth < SM_BREAKPOINT ? 'sm' : 'md'
+    const mode = getMode(innerWidth, true)    
     const blockList = [...usualBlocks, ...unitsBlocks].reverse()
     while (blockList.length > 0) {
       const block = blockList.pop()
-      pageWidth =
-        pageWidth + inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]
-      page.push(block!)
-      if (pageWidth > 0.7 * innerWidth) {
+      const blockWidth = inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]            
+      if (pageWidth + blockWidth > 0.8 * innerWidth) {
+        // plus de places
         pages.push(page.reverse())
         page = []
-        pageWidth = 0
+        pageWidth = 0 
       }
+      page.push(block!)
+      pageWidth =+ blockWidth
     }
     if (page.length !== 0) {
       pages.push(page.reverse())
@@ -56,7 +57,7 @@
   keyboardState.subscribe(async (value) => {
     isVisible = value.isVisible
     isInLine = value.isInLine
-    pageType = value.alphanumericLayout
+    pageType = value.alphanumericLayout    
     myKeyboard.empty()
     for (const block of value.blocks) {
       myKeyboard.add(keyboardBlocks[block])
@@ -74,6 +75,7 @@
     usualBlocks = usualBlocks
     computePages()
     pages = pages
+    alphanumericDisplayed = value.blocks.includes('alphanumeric')
     await tick()
     mathaleaRenderDiv(divKeyboard)
   })
