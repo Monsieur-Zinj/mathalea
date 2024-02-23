@@ -117,7 +117,7 @@
       id="exercice{indiceExercice}"
     >
       <div
-        class="flex flex-row items-center font-bold text-sm md:text-base lg:text-xl pb-1 lg:pb-0"
+        class="flex flex-row items-center whitespace-pre font-bold text-sm md:text-base lg:text-xl pb-1 lg:pb-0"
       >
         <div
           class="{$exercicesParams.length <= 1
@@ -136,7 +136,7 @@
       {#key titleAddendum}
       <div
         id="exotitle-{indiceExercice}"
-        class="flex flex-row justify-start whitespace-pre text-start font-normal items-center text-sm md:text-base xl:text-lg pl-0
+        class="flex flex-row justify-start whitespace-pre-line text-start font-normal items-center text-sm md:text-base xl:text-lg pl-0
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
       >        
         {titleBase}        
