@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
@@ -11,6 +11,7 @@ import Operation from '../../modules/operations.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const amcReady = true
 export const interactifReady = true
@@ -18,6 +19,7 @@ export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 export const titre = 'Calculer la valeur décimale d\'une fraction'
 export const dateDePublication = '18/11/2021'
+export const dateDeModifImportante = '23/02/2024'
 
 /**
  * Calculer la valeur décimale des fractions suivantes.
@@ -32,7 +34,6 @@ export const dateDePublication = '18/11/2021'
  *
  * Niveau de difficulté 2 : division par 3, 7 ou 9
  * @author Mireille Gain, s'inspirant de 6C31
- * Référence 6N23-6
  */
 export const uuid = 'd5e44'
 export const ref = '6N23-6'
@@ -42,13 +43,12 @@ export const refs = {
 }
 export default function DivisionFraction () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.consigne = 'Calculer la valeur décimale des fractions suivantes.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
   this.nbQuestions = 4
   this.sup = 1
-  this.sup2 = false
+  // this.sup2 = false
   this.sup3 = '10'
   this.listePackages = 'xlop'
 
@@ -57,7 +57,7 @@ export default function DivisionFraction () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    const typesDeQuestionsDisponibles = this.sup === 1
+    /*    const typesDeQuestionsDisponibles = this.sup === 1
       ? [choice([1, 2, 3]), 4, 5]
       : [7, 8, 9]
     const listeTypeDeQuestions = (!this.sup2)
@@ -68,9 +68,19 @@ export default function DivisionFraction () {
         max: 9,
         defaut: 10,
         melange: 10,
-        nbQuestions: this.nbQuestions
-      })
+        nbQuestions: this.nbQuestions,
+        listeOfCase: [4, 8, 6, 2, 5, 10, 7, 9, 3]
+      }) */
 
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      min: this.sup === 1 ? 1 : 7,
+      max: this.sup === 1 ? 6 : 9,
+      defaut: 10,
+      melange: 10,
+      nbQuestions: this.nbQuestions
+    })
+    console.log(listeTypeDeQuestions)
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
       i < this.nbQuestions && cpt < 50;
@@ -128,10 +138,10 @@ export default function DivisionFraction () {
       texte = `$${texFraction(texNombre(a), texNombre(b))}`
       if (this.sup === 1) {
         texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
-        texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}=${texNombre(q)}$`
+        texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}=${miseEnEvidence(texNombre(q))}$`
       } else {
         texteCorr = Operation({ operande1: a, operande2: b, type: 'division', precision: 3 })
-        texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}\\approx${texNombre(q, 2)}$`
+        texteCorr += `<br>$${texFraction(texNombre(a), texNombre(b))}\\approx${miseEnEvidence(texNombre(q, 2))}$`
       }
       setReponse(this, i, q)
       if (context.isHtml && this.interactif) {
@@ -140,7 +150,7 @@ export default function DivisionFraction () {
         } else {
           texte += '~\\approx$'
         }
-        texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
       } else {
         texte += '$'
       }
@@ -154,7 +164,7 @@ export default function DivisionFraction () {
           exposantNbChiffres: 0
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, q)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -169,7 +179,7 @@ export default function DivisionFraction () {
     2,
     '1 : Déterminer le quotient exact\n2 : Déterminer un quotient approché au centième près'
   ]
-  this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
+  // this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
   this.besoinFormulaire3Texte = ['Types de questions', `Nombres séparés par des tirets
 1 : entier divisé par 4 (quotient exact)
 2 : entier divisé par 8 (quotient exact)
