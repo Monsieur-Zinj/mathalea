@@ -49,7 +49,7 @@ export function TraceGraphiqueCartesien (data, repere = {}, {
     l.pointilles = 5
   }
   objets.push(l)
-
+  this.bordures = repere.bordures
   // LES SORTIES TiKZ et SVG
   this.svg = function (coeff) {
     let code = ''
