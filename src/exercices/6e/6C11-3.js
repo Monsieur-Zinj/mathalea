@@ -7,6 +7,7 @@ import Operation from '../../modules/operations.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -127,7 +128,7 @@ export default function APartirDeDivisionsEuclidiennes () {
         `${a}=(${b}\\times ${q})+${r}`, `${a}=(${q}\\times ${b})+${r}`,
         `(${b}\\times ${q})+${r}=${a}`, `(${q}\\times ${b})+${r}=${a}`])
       }
-      texte += ajouteChampTexteMathLive(this, i, 'clavierFullOperations')
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecEgal)
       // Pour AMC question AmcOpen
       if (context.isAmc) {
         this.autoCorrection[i].enonce = 'Indiquer une égalité à partir de la  division euclidienne suivante : <br><br>' + texte

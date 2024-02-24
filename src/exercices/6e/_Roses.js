@@ -14,6 +14,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { context } from '../../modules/context.js'
 import * as pkg from '@cortex-js/compute-engine'
 import FractionEtendue from '../../modules/FractionEtendue.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 const { ComputeEngine } = pkg
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -246,7 +247,7 @@ export function ExoRose () {
   this.nombreDeValeurs = 4
   this.valeurMax = 10
   this.roses = []
-  this.clavier = 'clavierDeBase'
+  this.clavier = KeyboardType.clavierDeBase
 
   this.indexInconnue = []
   this.nouvelleVersion = function () {
@@ -279,11 +280,11 @@ export function ExoRose () {
     }
 
     if (this.typeDonnees === 'litteraux') {
-      this.clavier = 'clavierAvecVariable'
+      this.clavier = KeyboardType.clavierDeBaseAvecVariable
     } else if (this.typeDonnees.includes('frac')) {
-      this.clavier = 'clavierDeBaseAvecFraction'
+      this.clavier = KeyboardType.clavierDeBaseAvecFraction
     } else {
-      this.clavier = 'clavierDeBase'
+      this.clavier = KeyboardType.clavierDeBase
     }
 
     for (

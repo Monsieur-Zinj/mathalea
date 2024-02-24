@@ -60,7 +60,7 @@ export default function FabriqueAYohaku () {
         ? `Trouve les ${mot} à mettre dans les cases vides pour que les sommes de chaque ligne et chaque colonne soient exactes.`
         : `Trouve les ${mot} à mettre dans les cases vides pour que les produits de chaque ligne et chaque colonne soient exacts.`
       this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot} qui conviennent (plusieurs solutions possibles).<br>`
-      texte = yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: this.interactif, classes: 'clavierDeBase' })
+      texte = yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: this.interactif, classes: '' })
       texteCorr = 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br><br>'
       yohaku.solution = true
       texteCorr += yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: false })

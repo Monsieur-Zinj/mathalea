@@ -12,6 +12,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -105,7 +106,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb1, 'blue')} \\times ${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' livres', 'blue') + `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` + texteEnCouleurEtGras(' livres', 'blue') + '<br>'
               texteCorr += `$${miseEnEvidence(reponse)}$ livres sont distribués par le professeur.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'livres'
                 })
@@ -118,7 +119,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' g', 'blue') + `$${sp()}\\times${sp()}${miseEnEvidence(nb4, 'blue')}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' g', 'blue') + '<br>'
               texteCorr += `La masse moyenne des livres distribués à chaque enfant est de $${miseEnEvidence(texNombre(reponse))}$ g.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'g'
                 })
@@ -181,7 +182,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb4, 'blue')} \\times ${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `Le prix total des fruits achetés est de $${miseEnEvidence(texPrix(reponse1))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + '€'
                 })
@@ -227,7 +228,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb1, 'blue')} \\times ${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse2), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `Le prix total des légumes achetés est de $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + '€'
                 })
@@ -287,7 +288,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb1, 'blue')}$` + texteEnCouleurEtGras(' habitants', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' habitants', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' habitants', 'blue') + '<br>'
               texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin compte $${miseEnEvidence(texNombre(reponse))}$ habitants.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'habitants'
                 })
@@ -300,7 +301,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}+${sp()} ${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + '<br>'
               texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin se situe à $${miseEnEvidence(texNombre(reponse))}$ m d'altitude.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'm'
                 })
@@ -363,7 +364,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' cases', 'blue') + `$${sp()}\\times${sp()} ${miseEnEvidence(nb5, 'blue')}$` + `$${sp()}=${miseEnEvidence(texNombre(reponse1), 'blue')}$` + texteEnCouleurEtGras(' cases', 'blue') + '<br>'
               texteCorr += `Il y a $${miseEnEvidence(texNombre(reponse1))}$ cases dans le manga de ${quidam2}.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'cases'
                 })
@@ -409,7 +410,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse2), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `On a rendu à ${quidam2} $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + '€'
                 })
@@ -480,13 +481,13 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += texteEnCouleurEtGras(nb3, 'blue') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb2, 'blue') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse1[0] * 60 + reponse1[1]), 'blue') + '<br>'
               texteCorr += `La durée prévue du film est de ${texteEnCouleurEtGras(minToHour(reponse1[0] * 60 + reponse1[1]))}.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'h'
                 })
                 setReponse(this, i + ii, reponse1[0])
                 ii++
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'min'
                 })
@@ -550,13 +551,13 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += texteEnCouleurEtGras(nb4, 'blue') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' minutes', 'blue') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse2[0] * 60 + reponse2[1]), 'blue') + '<br>'
               texteCorr += `L'émission se termine à ${texteEnCouleurEtGras(minToHoraire(reponse2[0] * 60 + reponse2[1]))}.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'h'
                 })
                 setReponse(this, i + ii, reponse2[0])
                 ii++
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'min'
                 })
@@ -641,7 +642,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}\\div${sp()}${miseEnEvidence(nb5, 'blue')}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `La ${personnage1} de ${quidam2} payera $${nb5}$ fois, la somme de $${miseEnEvidence(texPrix(reponse1))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + '€'
                 })
@@ -687,7 +688,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${sp()}${miseEnEvidence(texPrix(reponse2), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `Le montant total des cadeaux offerts à ${quidam2} est de $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + '€'
                 })
@@ -751,7 +752,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' ans', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(nb1 + 2, 'blue')}$` + texteEnCouleurEtGras(' ans', 'blue') + `$${sp()}=${miseEnEvidence(reponse1, 'blue')}$` + texteEnCouleurEtGras(' ans', 'blue') + '<br>'
               texteCorr += `${quidam2} a $${miseEnEvidence(reponse1)}$ ans.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'ans'
                 })
@@ -797,7 +798,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' cm', 'blue') + `$${sp()}=${sp()}${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}+${sp()}${miseEnEvidence(texNombre(arrondi(nb5 / 100)), 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + `$${sp()}=${sp()}${miseEnEvidence(texNombre(reponse2), 'blue')}$` + texteEnCouleurEtGras(' m', 'blue') + '<br>'
               texteCorr += `${quidam2} mesure $${miseEnEvidence(texNombre(reponse2))}$ m.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'm'
                 })
@@ -861,7 +862,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb2, 'blue')} \\times ${miseEnEvidence(nb4, 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + `$${sp()}=${miseEnEvidence(texPrix(reponse1), 'blue')}$` + texteEnCouleurEtGras(' €', 'blue') + '<br>'
               texteCorr += `Le ${personnage1} de ${quidam} dépense chaque semaine $${miseEnEvidence(texPrix(reponse1))}$ € pour son journal.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + '€'
                 })
@@ -907,13 +908,13 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += texteEnCouleurEtGras(nb3, 'blue') + `$${sp()}+${sp()}$` + texteEnCouleurEtGras(nb5 + ' min', 'blue') + `${sp()}=${sp()}` + texteEnCouleurEtGras(minToHour(reponse2[0] * 60 + reponse2[1]), 'blue') + '<br>'
               texteCorr += `Le ${personnage1} de ${quidam} arrive à son travail ${texteEnCouleurEtGras(minToHoraire(reponse2[0] * 60 + reponse2[1]))}.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'h'
                 })
                 setReponse(this, i + ii, reponse2[0])
                 ii++
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'min'
                 })
@@ -993,7 +994,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' km', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' km', 'blue') + `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` + texteEnCouleurEtGras(' km', 'blue') + '<br>'
               texteCorr += `La distance séparant l'entrepôt du premier arrêt est de $${miseEnEvidence(reponse)}$ km.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'km'
                 })
@@ -1006,7 +1007,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb1, 'blue')}$` + texteEnCouleurEtGras(' colis', 'blue') + `$${sp()}-${sp()} ${miseEnEvidence(nb2, 'blue')}$` + texteEnCouleurEtGras(' colis', 'blue') + `$${sp()}=${miseEnEvidence(reponse, 'blue')}$` + texteEnCouleurEtGras(' colis', 'blue') + '<br>'
               texteCorr += `Le livreur a déposé $${miseEnEvidence(reponse)}$ colis à son deuxième arrêt.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'colis'
                 })
@@ -1071,7 +1072,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb5, 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + `$${sp()}\\div${sp()}${miseEnEvidence(nb4, 'blue')}=${miseEnEvidence(texNombre(reponse2), 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse1), 'blue')}$` + texteEnCouleurEtGras(' kg', 'blue') + '<br>'
               texteCorr += `La masse de chacun des petits conteneurs est de $${miseEnEvidence(texNombre(reponse1))}$ kg.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'kg'
                 })
@@ -1118,7 +1119,7 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(nb2, 'blue')} \\times ${miseEnEvidence(nb3, 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + `$${sp()}=${miseEnEvidence(texNombre(reponse), 'blue')}$` + texteEnCouleurEtGras(' tonnes', 'blue') + '<br>'
               texteCorr += `La masse totale des gros conteneurs est de $${miseEnEvidence(texNombre(reponse))}$ tonnes.`
               if (this.interactif) {
-                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline clavierDeBase', {
+                texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
                   texte: '',
                   texteApres: sp(3) + 'tonnes'
                 })

@@ -6,6 +6,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -148,7 +149,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
       if (this.interactif && this.interactifType === 'qcm') {
         texte += propositionsQcm(this, i).texte
       } else {
-        texte += ajouteChampTexteMathLive(this, i, 'clavierDeBase')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
         setReponse(this, i, a * b)
       }
       if (this.questionJamaisPosee(i, a, b)) {

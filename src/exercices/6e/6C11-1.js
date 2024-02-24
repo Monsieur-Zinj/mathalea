@@ -8,6 +8,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = "Déterminer reste et quotient d'une division euclidienne à partir d'une égalité"
 
@@ -89,11 +90,11 @@ export default function DivisionsEuclidiennesEgalite () {
           <br> On a donc : ${texteEnCouleurEtGras(q)} le quotient et ${texteEnCouleurEtGras(r)} le reste.`
           break
       }
-      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline clavierDeBase', {
+      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
         texte: 'Quotient : ',
         texteApres: sp(5)
       })
-      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline clavierDeBase', { texteAvant: ' Reste : ' })
+      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline ' + KeyboardType.clavierDeBase, { texteAvant: ' Reste : ' })
       setReponse(this, 2 * i, q)
       setReponse(this, 2 * i + 1, r)
       if (context.isAmc) {
