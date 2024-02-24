@@ -8,6 +8,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -133,7 +134,7 @@ export default function DivisionsEuclidiennes () {
         `${a}=(${b}\\times ${q})+${r}`, `${a}=(${q}\\times ${b})+${r}`,
         `(${b}\\times ${q})+${r}=${a}`, `(${q}\\times ${b})+${r}=${a}`])
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore clavierDeBase', { texteAvant: sp(10) + ' Égalité fondamentale :' })
+      texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore ' + KeyboardType.clavierDeBaseAvecEgal, { texteAvant: sp(10) + ' Égalité fondamentale :' })
       // Pour AMC question AmcOpen
       if (context.isAmc) {
         this.autoCorrection[i].enonce = 'Poser et effectuer la division euclidienne suivante puis donner l\'égalité fondamentale correspondante.<br>' + texte

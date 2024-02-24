@@ -75,6 +75,7 @@
     usualBlocks = usualBlocks
     computePages()
     pages = pages
+    if (currentPageIndex >= pages.length) currentPageIndex = 0
     alphanumericDisplayed = value.blocks.includes('alphanumeric')
     await tick()
     mathaleaRenderDiv(divKeyboard)

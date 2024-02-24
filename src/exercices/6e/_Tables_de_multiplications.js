@@ -6,6 +6,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -74,11 +75,11 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         // classique
         if (choix) {
           texte = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} =`
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore clavierDeBase') : '\\ldots\\ldots$'
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierDeBase) : '\\ldots\\ldots$'
           texteCorr = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(a * b, 0))}$`
         } else {
           texte = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore clavierDeBase') : '\\ldots\\ldots$'
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierDeBase) : '\\ldots\\ldots$'
           texteCorr = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(a * b, 0))}$`
         }
         setReponse(this, i, a * b)
@@ -89,10 +90,10 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
 
         if (choix) {
           texte = '$' + a.toString() + '\\times '
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore clavierDeBase', { texteApres: ` $=${(a * b).toString()}$` }) : ` \\ldots\\ldots =${(a * b).toString()}$`
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierDeBase, { texteApres: ` $=${(a * b).toString()}$` }) : ` \\ldots\\ldots =${(a * b).toString()}$`
           setReponse(this, i, b)
         } else {
-          texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore clavierDeBase', { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
+          texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierDeBase, { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
           setReponse(this, i, a)
         }
         /*   } else {
@@ -106,7 +107,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           : `$${miseEnEvidence(a.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
       } else { // typeDeQuestion === 'quotient'
         texte = `$${texNombre(a * b, 0)} \\div ${texNombre(a, 0)} = `
-        texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore clavierDeBase') : '\\ldots\\ldots$'
+        texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierDeBase) : '\\ldots\\ldots$'
         texteCorr = `$ ${texNombre(a * b, 0)}\\div ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(b, 0))}$`
         setReponse(this, i, b)
       }

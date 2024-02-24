@@ -3,6 +3,7 @@ import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Retrouver le nombre de départ'
 export const dateDePublication = '11/11/2023'
@@ -124,7 +125,7 @@ class OperationsReciproques extends Exercice {
       }
       texteCorr += `<br>Le nombre de départ est donc $${depart}$.`
       if (this.interactif) {
-        texte += '<br>' + ajouteChampTexteMathLive(this, i, 'clavierDeBase')
+        texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
         setReponse(this, i, depart)
       }
       if (this.questionJamaisPosee(i, depart, operande1, operande2)) {
