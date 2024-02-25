@@ -24,6 +24,7 @@ import { calculCompare } from './interactif/comparaisonFonctions'
 import FractionEtendue from '../modules/FractionEtendue'
 import Decimal from 'decimal.js'
 import Grandeur from '../modules/Grandeur'
+import { canOptions } from './stores/canStore.js'
 
 function getExerciceByUuid (root: object, targetUUID: string): object | null {
   if ('uuid' in root) {
@@ -336,6 +337,11 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let twoColumns = false
   let beta = false
   let url: URL
+  let canDuration = 540
+  let canTitle = ''
+  let canSolAccess = true
+  let canSolMode = 'gathered'
+  let canIsInteractive = true
   try {
     url = new URL(urlString)
   } catch (error) {
@@ -418,7 +424,18 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       answers = entry[1]
     } else if (entry[0] === 'beta') {
       beta = true
+    } else if (entry[0] === 'canD') {
+      canDuration = parseInt(entry[1])
+    } else if (entry[0] === 'canT') {
+      canTitle = entry[1]
+    } else if (entry[0] === 'canSA') {
+      canSolAccess = entry[1] === '1'
+    } else if (entry[0] === 'canSM') {
+      canSolMode = entry[1]
+    } else if (entry[0] === 'canI') {
+      canIsInteractive = entry[1] === '1'
     }
+
     if (entry[0] === 'uuid') previousEntryWasUuid = true
     else previousEntryWasUuid = false
   }
@@ -428,6 +445,19 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   if (urlNeedToBeFreezed) {
     freezeUrl.set(true)
   }
+
+  if (v === 'can') {
+    canOptions.update(e => {
+      e.durationInMinutes = canDuration
+      e.isInteractive = canIsInteractive
+      e.solutionsAccess = canSolAccess
+      if (canSolMode === 'gathered') e.solutionsMode = 'gathered'
+      else e.solutionsMode = 'split'
+      e.subTitle = canTitle
+      return e
+    })
+  }
+
   /**
      * es permet de résumer les réglages de la vue élève
      * Il est de la forme 210110

@@ -7,6 +7,7 @@ import type {
   bibliothequeExercise
 } from '../types'
 import { type JSONReferentielEnding } from '../types/referentiels'
+import { canOptions } from './canStore'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -45,7 +46,7 @@ export const changes = writable<number>(0)
  * une unique chaîne de caractères contient dans l'ordre : titre + mode présentation + interactivité +  accès solutions + affichage deux colonnes
  */
 export const globalOptions = writable<InterfaceGlobalOptions>({
-  v: '',
+  v: undefined,
   z: '1',
   title: 'Évaluation',
   presMode: 'un_exo_par_page',
@@ -137,6 +138,7 @@ export function updateGlobalOptionsInURL (url: URL) {
   const options = get(globalOptions)
   const selectedExexercicesStore = get(selectedExercises)
   const questionsOrderStore = get(questionsOrder)
+  const canStore = get(canOptions)
   if (options.v) {
     url.searchParams.append('v', options.v)
   } else {
@@ -218,12 +220,21 @@ export function updateGlobalOptionsInURL (url: URL) {
     url.searchParams.delete('recorder')
     url.searchParams.delete('done')
   }
+  if (options.v === 'can') {
+    if (canStore) {
+      url.searchParams.append('canD', canStore.durationInMinutes.toString())
+      url.searchParams.append('canT', canStore.subTitle)
+      url.searchParams.append('canSA', canStore.solutionsAccess ? '1' : '0')
+      url.searchParams.append('canSM', canStore.solutionsMode)
+      url.searchParams.append('canI', canStore.isInteractive ? '1' : '0')
+    }
+  }
   if (options.recorder) {
     url.searchParams.append('recorder', options.recorder)
   } else {
     url.searchParams.delete('recorder')
   }
-  if (options.v === 'can' || options.v === 'diaporama') {
+  if (options.v === 'diaporama') {
     if (selectedExexercicesStore) {
       url.searchParams.append(
         'selectedExercises',

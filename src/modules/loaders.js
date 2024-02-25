@@ -427,6 +427,7 @@ function handleFocusOutMathField () {
   // Si le focus est sur un autre élément que mathfield, on cache le clavier
   // On utilise setTimeout pour être sûr que le focus soit bien sur le nouvel élément
   // car au focusout, le focus est sur body
+  if (get(globalOptions).v === 'can') return
   setTimeout(() => {
     if (document.activeElement.tagName !== 'MATH-FIELD') {
       keyboardState.update((value) => {

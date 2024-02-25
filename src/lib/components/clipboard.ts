@@ -5,24 +5,24 @@ import { encrypt, getShortenedCurrentUrl } from './urls'
 /**
    * Copy current URL to clipboard
    * @param dialogId id of dialog widget where the info is displayed
-   * @param urlAddendum string to be added at the end of the URL
+   * @param url string to be added at the end of the URL
    * @param {boolean} shorten does the URL has to be shorten ?
    * @param {boolean} crypted does the URL need to be crypted ?
    * @author sylvain
    */
-export async function copyLinkToClipboard (dialogId, urlAddendum = '', shorten = false, crypted = false) {
-  let url
+export async function copyLinkToClipboard (dialogId: string, url: URL, shorten = false, crypted = false) {
+  let finalUrl
   if (shorten) {
     try {
-      url = await getShortenedCurrentUrl(urlAddendum)
+      finalUrl = await getShortenedCurrentUrl(url.toString())
     } catch (error) {
       showDialogForLimitedTime(dialogId + '-2', 1000)
       throw error
     }
   } else {
-    url = crypted ? encrypt(document.URL + urlAddendum) : document.URL + urlAddendum
+    finalUrl = crypted ? encrypt(url.toString()) : url.toString()
   }
-  navigator.clipboard.writeText(url).then(
+  navigator.clipboard.writeText(finalUrl.toString()).then(
     () => {
       showDialogForLimitedTime(dialogId + '-1', 1000)
     },
@@ -40,9 +40,9 @@ export async function copyLinkToClipboard (dialogId, urlAddendum = '', shorten =
    * @param dialogId id of dialog widget where the info is displayed
    * @author sylvain
    */
-export function copyQRCodeImageToClipboard (imageId, dialogId) {
+export function copyQRCodeImageToClipboard (imageId: string, dialogId: string) {
   if (canCopyImagesToClipboard()) {
-    const imageElement = document.getElementById(imageId)
+    const imageElement = document.getElementById(imageId) as HTMLImageElement
     getBlobFromImageElement(imageElement)
       .then((blob) => {
         return copyBlobToClipboard(blob)
@@ -58,22 +58,29 @@ export function copyQRCodeImageToClipboard (imageId, dialogId) {
   }
 }
 
-export async function copyEmbeddedCodeToClipboard (dialogId, urlAddendum = '', shorten = false, crypted = false) {
-  let url
+/**
+ * Copy the code to be embedded into a webpage to the clipboard
+ * @param {string} dialogId ID of dialog widget where the info is displayed
+ * @param {string} url string to add to the URL
+ * @param {boolean} shorten tag for shortening the URL
+ * @param {boolean} crypted tag for encrypting the URL
+ */
+export async function copyEmbeddedCodeToClipboard (dialogId: string, url: URL, shorten = false, crypted = false) {
+  let finalUrl
   if (shorten) {
     try {
-      url = await getShortenedCurrentUrl(urlAddendum)
+      finalUrl = await getShortenedCurrentUrl(url.toString())
     } catch (error) {
       showDialogForLimitedTime(dialogId + '-2', 1000)
       throw error
     }
   } else {
-    url = crypted ? encrypt(document.URL + urlAddendum) : document.URL + urlAddendum
+    finalUrl = crypted ? encrypt(document.URL + url) : document.URL + url
   }
   const embeddedCode =
   `<iframe
       height="400" 
-      src="${url}"
+      src="${finalUrl}"
       frameborder="0" >
   </iframe>`
   navigator.clipboard.writeText(embeddedCode).then(

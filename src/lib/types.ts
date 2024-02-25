@@ -1,4 +1,6 @@
-export type VueType = 'diaporama' | 'can' | 'eleve' | 'latex' | 'confeleve' | 'amc' | 'moodle' | 'l' | 'l2'
+import type { CanOptions, CanSolutionsMode } from './types/can'
+
+export type VueType = 'diaporama' | 'can' | 'eleve' | 'latex' | 'confeleve' | 'amc' | 'moodle' | 'l' | 'l2' | 'overview'
 
 /**
  * setInteractive à 0 on enlève tout, à 1 on les met tous en interactif, à 2 on ne change rien
@@ -34,6 +36,11 @@ export interface InterfaceGlobalOptions {
   twoColumns?: boolean
   beta?: boolean
   isDataRandom?: boolean
+  canD?: string
+  canT?: string
+  canSA?: boolean
+  canSM?: CanSolutionsMode
+  canI?: boolean
 }
 
 export interface InterfaceParams extends Partial<Record<string, string| number>> {
@@ -81,6 +88,7 @@ export interface InterfaceResultExercice {
 export interface Activity {
   globalOptions: InterfaceGlobalOptions
   exercicesParams: InterfaceParams[]
+  canOptions: CanOptions
 }
 
 export interface StudentAssignment {

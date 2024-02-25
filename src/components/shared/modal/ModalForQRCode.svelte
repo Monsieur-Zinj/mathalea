@@ -19,7 +19,7 @@
   export let buttonIcon: string = 'bx-qr'
   export let buttonSecondIcon: string = ''
   export let classForButton: string = ''
-  export let urlAddendum: string = ''
+  export let url: string = ''
   export let isShort: boolean = false
   export let isEncrypted: boolean = false
 
@@ -61,7 +61,7 @@
         format={formatQRCodeIndex}
         buttonSize="text-[100px]"
         classForButton="mx-12 my-2"
-        urlAddendum={buildUrlAddendumForEsParam()}
+        url={buildMathAleaURL($canIsChoosen ? 'can' : 'eleve').toString()}
     />
     ```
 
@@ -75,7 +75,7 @@
           imageId,
           width,
           format,
-          urlAddendum,
+          url,
           isShort,
           isEncrypted
         )}
@@ -84,7 +84,7 @@
           imageId,
           width,
           format,
-          urlAddendum,
+          url,
           isShort,
           isEncrypted
         )}
@@ -166,7 +166,7 @@
             imageId,
             width,
             format,
-            urlAddendum,
+            url,
             isShort,
             isEncrypted
           )}
