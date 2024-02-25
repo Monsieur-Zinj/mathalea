@@ -1,6 +1,6 @@
 import { base10VersBaseN } from '../exercices/PE/PEA13.js'
 import { segment } from '../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../lib/2d/textes.js'
+import { texteParPosition } from '../lib/2d/textes.ts'
 import { nombreDeChiffresDansLaPartieEntiere, ordreDeGrandeur } from '../lib/outils/nombres'
 import Decimal from 'decimal.js'
 import { context } from './context.js'

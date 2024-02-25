@@ -8,7 +8,7 @@ import { arc } from './cercle.js'
 import { droite, mediatrice } from './droites.js'
 import { milieu, Point, point, pointSurSegment, tracePointSurDroite } from './points.js'
 import { longueur, Segment, segment, vecteur } from './segmentsVecteurs.js'
-import { latexParCoordonnees, latexParPoint, TexteParPoint, texteParPoint } from './textes.js'
+import { latexParCoordonnees, latexParPoint, TexteParPoint, texteParPoint } from './textes.ts'
 import { rotation, similitude, translation } from './transformations.js'
 
 /**

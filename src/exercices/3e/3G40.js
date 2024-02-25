@@ -1,5 +1,5 @@
 import { tracePoint } from '../../lib/2d/points.js'
-import { labelLatexPoint, labelPoint, texteParPoint } from '../../lib/2d/textes.js'
+import { labelLatexPoint, labelPoint, texteParPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { numAlpha } from '../../lib/outils/outilString.js'
@@ -87,25 +87,25 @@ export default function ReperageSurLaSphere () {
     let origine = rotation3d(point3d(0, -10, 0), droite3d(O, normalV), context.anglePerspective)
     const normalH = rotationV3d(vecteur3d(O, origine), normalV, 90)
     if (context.isAmc) origine = rotation3d(origine, droite3d(O, normalH), -2) // Parce qu'il existe un décalage en Latex
-    origine.c2d.nom = '0 \\degree'
+    origine.c2d.nom = '0 ^\\circ'
     origine.c2d.positionLabel = 'above left'
     const uniteLongitudePositive = rotation3d(origine, droite3d(O, normalV), 8)
     uniteLongitudePositive.visible = true
-    uniteLongitudePositive.c2d.nom = '10 \\degree'
+    uniteLongitudePositive.c2d.nom = '10 ^\\circ'
     uniteLongitudePositive.c2d.positionLabel = 'above left'
     const uniteLongitudeNegative = rotation3d(origine, droite3d(O, normalV), this.sup2 ? -15 : -12)
     uniteLongitudeNegative.visible = true
-    uniteLongitudeNegative.c2d.nom = (this.sup2 ? '-' : '') + '10 \\degree'
+    uniteLongitudeNegative.c2d.nom = (this.sup2 ? '-' : '') + '10 ^\\circ'
     uniteLongitudeNegative.c2d.positionLabel = 'above left'
     let uniteLattitudePositive = rotation3d(origine, droite3d(O, normalH), -10)
     uniteLattitudePositive = rotation3d(uniteLattitudePositive, droite3d(O, normalV), -2)
     uniteLattitudePositive.visible = true
-    uniteLattitudePositive.c2d.nom = '10 \\degree'
+    uniteLattitudePositive.c2d.nom = '10 ^\\circ'
     uniteLattitudePositive.c2d.positionLabel = 'above left'
     let uniteLattitudeNegative = rotation3d(origine, droite3d(O, normalH), 10)
     uniteLattitudeNegative = rotation3d(uniteLattitudeNegative, droite3d(O, normalV), this.sup2 ? -5 : -2)
     uniteLattitudeNegative.visible = true
-    uniteLattitudeNegative.c2d.nom = (this.sup2 ? '-' : '') + '10 \\degree'
+    uniteLattitudeNegative.c2d.nom = (this.sup2 ? '-' : '') + '10 ^\\circ'
     uniteLattitudeNegative.c2d.positionLabel = 'above left'
     const labelUnites = labelLatexPoint({
       points: [origine, uniteLattitudePositive, uniteLattitudeNegative, uniteLongitudePositive, uniteLongitudeNegative],
@@ -205,7 +205,7 @@ export default function ReperageSurLaSphere () {
         case 1:
           texte += `${numAlpha(i)} Donner les coordonnées GPS du point $${nom[i]}$.<br>`
           texteCorrection += `${numAlpha(i)} Les coordonnées de $${nom[i]}$ sont `
-          texteCorrection += this.sup2 ? `$(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` : `$(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}).<br>`
+          texteCorrection += this.sup2 ? `$(${longitudes[i]}^\\circ$ ; $${latitudes[i]}^\\circ )$.<br>` : `$(${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]}).<br>`
           objetsEnonce.push(croix, lab)
           objetsCorrection.push(croix, lab)
           if (context.isAmc) {
@@ -244,10 +244,10 @@ export default function ReperageSurLaSphere () {
         case 2:
 
           texteAMC = `Placer le point $${nom[i]}$ de  coordonnées GPS `
-          texteAMC += this.sup2 ? `$(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` : `$(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}).<br>`
+          texteAMC += this.sup2 ? `$(${longitudes[i]}^\\circ$ ; $${latitudes[i]}^\\circ )$.<br>` : `$(${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]}).<br>`
           texte += `${numAlpha(i)} ` + texteAMC
           texteCorrection += `${numAlpha(i)} Le point $${nom[i]}$ de coordonnées GPS `
-          texteCorrection += this.sup2 ? `$(${longitudes[i]}\\degree$ ; $${latitudes[i]}\\degree )$.<br>` : `$(${Math.abs(longitudes[i])}\\degree$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}\\degree$${NordouSud[i]}).<br>`
+          texteCorrection += this.sup2 ? `$(${longitudes[i]}^\\circ$ ; $${latitudes[i]}^\\circ )$.<br>` : `$(${Math.abs(longitudes[i])}^\\circ$${EstouOuest[i]} ; $${Math.abs(latitudes[i])}^\\circ$${NordouSud[i]}).<br>`
           texteCorrection += ' est placé sur cette sphère.<br>'
           objetsCorrection.push(croix, lab)
           if (context.isAmc) {

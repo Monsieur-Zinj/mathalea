@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { milieu, point, tracePoint } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'

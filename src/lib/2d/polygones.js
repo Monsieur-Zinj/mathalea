@@ -5,7 +5,7 @@ import { randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres'
 import { Point, point, pointAdistance, pointSurSegment } from './points.js'
 import { longueur, segment, vecteur } from './segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.js'
+import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.ts'
 import { homothetie, rotation, translation } from './transformations.js'
 import { aireTriangle } from './triangle.js'
 

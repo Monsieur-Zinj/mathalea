@@ -2,7 +2,7 @@ import { apparitionAnimee, translationAnimee } from '../../modules/2dAnimation.j
 import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { point } from './points.js'
 import { segment, vecteur } from './segmentsVecteurs.js'
-import { texteParPosition } from './textes.js'
+import { texteParPosition } from './textes.ts'
 
 export function GlisseNombre (nombre = '', decalage = 0) {
   ObjetMathalea2D.call(this, {})
@@ -27,7 +27,6 @@ export function GlisseNombre (nombre = '', decalage = 0) {
     trait.isVisible = false
     objets.push(trait)
   }
-  
   const placeDansTableau = (texte, colonne, ligne, vertical = false, couleur = 'black') => {
     let textePlaceDansTableau = ''
     if (vertical) {
@@ -57,7 +56,6 @@ export function GlisseNombre (nombre = '', decalage = 0) {
   chiffreDesUnites2.gras = true
   objets.push(chiffreDesUnites)
   chiffresADecaler.push(chiffreDesUnites2)
-  
   for (let i = 1; i < partieEntiere.length; i++) {
     const chiffre = placeDansTableau(partieEntiere[partieEntiere.length - 1 - i], 6 - i, 1)
     const chiffre2 = placeDansTableau(partieEntiere[partieEntiere.length - 1 - i], 6 - i, 2)

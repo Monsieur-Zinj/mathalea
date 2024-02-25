@@ -1,7 +1,7 @@
 import { afficheMesureAngle } from '../../lib/2d/codages.js'
 import { point, pointSurSegment } from '../../lib/2d/points.js'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'

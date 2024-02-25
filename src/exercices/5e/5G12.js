@@ -1,7 +1,7 @@
 import { codageMilieu } from '../../lib/2d/codages.js'
 import { tracePoint } from '../../lib/2d/points.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { rotation, translation } from '../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'

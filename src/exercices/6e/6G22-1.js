@@ -1,7 +1,7 @@
 import { angle, codageAngle } from '../../lib/2d/angles.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { demiDroite, longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'

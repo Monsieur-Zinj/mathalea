@@ -2,7 +2,7 @@ import { point } from '../../lib/2d/points.js'
 import { carre, polygone } from '../../lib/2d/polygones.js'
 import { grille, lignesHorizontales, lignesVerticales } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 

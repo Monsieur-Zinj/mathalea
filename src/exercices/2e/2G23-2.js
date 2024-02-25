@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { latexParPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

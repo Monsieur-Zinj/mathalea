@@ -12,7 +12,6 @@ export function remToPixels (rem: number) {
    */
 export function getTextWidth (text: string, font: string, factor: number = 1): number {
   // re-use canvas object for better performance
-  // @ts-ignore
   const canvas: HTMLCanvasElement = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'))
   const context: CanvasRenderingContext2D | null = canvas.getContext('2d')
   if (!context) {
@@ -81,12 +80,12 @@ export const resizeTags = (tags: Element[], factor:number = 1) => {
     const widthAttributeExists: boolean = tag.hasAttribute('width')
     const heightAttributeExists: boolean = tag.hasAttribute('height')
     if (tag.hasAttribute('data-width') === false) {
-      let originalWidth: number
+      let originalWidth: string|null
       if (widthAttributeExists) {
         originalWidth = tag.getAttribute('width')
       } else {
         widthUnit = tag.style.width.match(/\D/g).join('')
-        originalWidth = parseFloat(tag.style.width.replace(widthUnit, ''))
+        originalWidth = String(parseFloat(tag.style.width.replace(widthUnit, '')))
       }
       tag.dataset.width = originalWidth
     }

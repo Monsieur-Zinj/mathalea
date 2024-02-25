@@ -1,7 +1,7 @@
 import { fraction, number } from 'mathjs'
 import { point } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees } from '../../lib/2d/textes.js'
+import { latexParCoordonnees } from '../../lib/2d/textes.ts'
 import { texteGras } from '../../lib/format/style'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'

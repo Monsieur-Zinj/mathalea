@@ -1,6 +1,6 @@
 import { codageAngle } from '../../lib/2d/angles.js'
 import { point, pointSurSegment } from '../../lib/2d/points.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'

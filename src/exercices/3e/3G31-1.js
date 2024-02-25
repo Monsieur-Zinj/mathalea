@@ -3,7 +3,7 @@ import { afficheLongueurSegment, afficheMesureAngle, texteSurSegment } from '../
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { similitude } from '../../lib/2d/transformations.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { degres, radians } from '../../lib/mathFonctions/trigo.js'

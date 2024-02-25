@@ -7,7 +7,7 @@ import { CodageAngle } from './codages.js'
 import { point, pointSurCercle, pointSurSegment } from './points.js'
 import { polygone, polyline } from './polygones.js'
 import { longueur, segment, vecteur } from './segmentsVecteurs.js'
-import { latexParPoint, texteParPoint, texteParPosition } from './textes.js'
+import { latexParPoint, texteParPoint, texteParPosition } from './textes.ts'
 import { homothetie, rotation } from './transformations.js'
 
 export function Rapporteur ({

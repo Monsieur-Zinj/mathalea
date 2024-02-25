@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../../../lib/2d/points.js'
 import { papierPointe } from '../../../lib/2d/reperes.js'
 import { longueur } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../../lib/2d/textes.js'
+import { labelPoint } from '../../../lib/2d/textes.ts'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'

@@ -1,7 +1,7 @@
 import { codageAngle } from '../../lib/2d/angles.js'
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points.js'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { triangle2points1angle1longueur } from '../../lib/2d/triangle.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'

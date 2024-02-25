@@ -1,5 +1,5 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'

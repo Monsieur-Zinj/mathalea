@@ -6,7 +6,7 @@ import { arrondi, rangeMinMax } from '../outils/nombres'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre'
 import { plot, point, tracePoint } from './points.js'
 import { segment } from './segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.js'
+import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.ts'
 
 /**  Trace un axe gradué
  * @param {Object} parametres À saisir entre accolades
@@ -1526,10 +1526,10 @@ export function Repere ({
   }
   // LES LÉGENDES
   if (xLegende.length > 0) {
-    objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 'droite'))
+    objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 0, 'black', 1, 'droite'))
   }
   if (yLegende.length > 0) {
-    objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 'droite'))
+    objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 0, 'black', 1, 'droite'))
   }
   this.objets = objets
 

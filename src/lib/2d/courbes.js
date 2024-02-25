@@ -4,7 +4,7 @@ import { inferieurouegal } from '../../modules/outils.js'
 import { point, tracePoint } from './points.js'
 import { motifs, polygone, polyline } from './polygones.js'
 import { segment } from './segmentsVecteurs.js'
-import { texteParPosition } from './textes.js'
+import { texteParPosition } from './textes.ts'
 import { arc } from './cercle.js'
 
 export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textAbs = '', textOrd = '') {

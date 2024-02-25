@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { milieu, point, pointAdistance } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { similitude } from '../../../lib/2d/transformations.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'

@@ -2,7 +2,7 @@ import { arc, cercle } from '../lib/2d/cercle.js'
 import { point } from '../lib/2d/points.js'
 import { carre } from '../lib/2d/polygones.js'
 import { segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../lib/2d/textes.js'
+import { texteParPosition } from '../lib/2d/textes.ts'
 import { rotation, translation } from '../lib/2d/transformations.js'
 import { miseEnEvidence } from '../lib/outils/embellissements'
 import { extraireRacineCarree } from '../lib/outils/calculs'
@@ -235,15 +235,7 @@ class FractionEtendue extends Fraction {
        * @property texFSD littéralement texFractionSigneDevant (si c'est un moins sinon rien... pour avoir le + devant, utiliser ecritureAlgebrique)
        * @type {string}
        */
-    let texFSD
-    Object.defineProperty(this, 'texFSD', {
-      enumerable: true,
-      get: () => {
-        if (!texFSD) texFSD = this.signe === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num), 0)) : `-\\dfrac{${texNombre(Math.abs(this.num), 0)}}{${texNombre(Math.abs(this.den), 0)}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num), 0)) : `\\dfrac{${texNombre(Math.abs(this.num), 0)}}{${texNombre(Math.abs(this.den), 0)}}`
-        return texFSD
-      },
-      set: () => { throw Error('\'texFSD\' est en lecture seule') }
-    })
+    this.texFSD = this.signe === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num), 0)) : `-\\dfrac{${texNombre(Math.abs(this.num), 0)}}{${texNombre(Math.abs(this.den), 0)}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num), 0)) : `\\dfrac{${texNombre(Math.abs(this.num), 0)}}{${texNombre(Math.abs(this.den), 0)}}`
 
     /**
      * + n/d si positif, - n/d si négatif

@@ -3,7 +3,7 @@ import { distancePointDroite, droite } from '../lib/2d/droites.js'
 import { point, pointIntersectionDD, pointSurSegment, tracePoint } from '../lib/2d/points.js'
 import { polygone, polygoneAvecNom, polyline, renommePolygone } from '../lib/2d/polygones.js'
 import { longueur, norme, segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../lib/2d/textes.js'
+import { labelPoint } from '../lib/2d/textes.ts'
 import { translation } from '../lib/2d/transformations.js'
 import { choisitLettresDifferentes } from '../lib/outils/aleatoires'
 import { arrondi } from '../lib/outils/nombres'
@@ -52,7 +52,7 @@ function ObjetMathalea2D () {
  * Point de l'espace défini par ses trois coordonnées (Si deux sont données seulement, le point est dans le plan XY)
  * le paramètre visible définit si ce point est placé devant (par défaut) ou derrière une surface. Il sera utilisé pour définir la visibilité des arêtes qui en partent
  */
-class Point3d {
+export class Point3d {
   constructor (x, y, z, visible, label, positionLabel) {
     const alpha = context.anglePerspective * Math.PI / 180 // context.anglePerspective peut être changé globalement pour modifier la perspective
     const rapport = context.coeffPerspective // idem pour context.coefficientPerspective qui est la réduction sur l'axe y.

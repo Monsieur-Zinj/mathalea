@@ -1,7 +1,7 @@
 import { point } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, latexParPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { labelPoint, latexParPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'

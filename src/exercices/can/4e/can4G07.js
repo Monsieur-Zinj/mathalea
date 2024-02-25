@@ -1,7 +1,7 @@
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { point } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../../lib/2d/textes.js'
+import { labelPoint } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'

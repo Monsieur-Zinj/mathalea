@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { milieu, point } from '../../../lib/2d/points.js'
 import { polygone, polygoneAvecNom } from '../../../lib/2d/polygones.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecatedFractions.js'
 import { sp } from '../../../lib/outils/outilString.js'

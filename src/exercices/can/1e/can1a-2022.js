@@ -4,7 +4,7 @@ import { milieu, plot, point, tracePoint } from '../../../lib/2d/points.js'
 import { pave } from '../../../lib/2d/projections3d.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import {
