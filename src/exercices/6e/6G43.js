@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { cube } from '../../modules/3d.js'
@@ -122,31 +122,23 @@ export default function DenombrerCubes () {
       sina = Math.sin(alpha1 * Math.PI / 180)
       cosb = Math.cos(beta1 * Math.PI / 180)
       sinb = Math.sin(beta1 * Math.PI / 180)
-      const paramsEnonce = {
-        xmin: -sina * largeur - 0.5,
-        ymin: -0.5,
-        xmax: cosa * longueur + 0.5,
-        ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
+      const paramsEnonce = Object.assign({
         pixelsParCm: 20,
         scale: 0.6,
         mainlevee: false,
         style: 'display: inline'
-      }
+      }, fixeBordures(objetsEnonce))
 
       cosa = Math.cos(alpha2 * Math.PI / 180)
       sina = Math.sin(alpha2 * Math.PI / 180)
       cosb = Math.cos(beta2 * Math.PI / 180)
       sinb = Math.sin(beta2 * Math.PI / 180)
-      const paramsEnonce2 = {
-        xmin: -sina * largeur - 0.5,
-        ymin: -0.5,
-        xmax: cosa * longueur + 0.5,
-        ymax: -sina * sinb * longueur - cosa * sinb * largeur + cosb * hauteur + 0.5,
+      const paramsEnonce2 = Object.assign({
         pixelsParCm: 20,
         scale: 0.6,
         mainlevee: false,
         style: 'display: inline'
-      }
+      }, fixeBordures(objetsEnonce2))
       const paramsCorrection = {
         xmin: -sina * largeur - 0.5,
         ymin: -0.5,
@@ -170,7 +162,7 @@ export default function DenombrerCubes () {
           break
         case 2:
           texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube de côté ${longueur} ?` + ajouteChampTexteMathLive(this, q, 'largeur10 inline')
-          texte += '<br>' + deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce, objetsEnonce2)) + '<br>'
+          texte += '<br>' + deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce2, objetsEnonce2)) + '<br>'
           // correction :
           texteCorr += "On peut, par exemple, représenter l'empilement par tranches : <br>"
           texteCorr += mathalea2d(paramsCorrection, objetsCorrection) + '<br>'
