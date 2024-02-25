@@ -64,7 +64,7 @@ export default function ConstruireUnAngle () {
       angle = angle * signe[i]
       anglerot = randint(-50, 50)
       p = ['x', lettreDepuisChiffre(19 + i), 'y']
-      texte = `Construire l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ de mesure $${texNombre(Math.abs(angle))}\\degree$ en tournant dans le sens `
+      texte = `Construire l'angle $\\widehat{${p[0] + p[1] + p[2]}}$ de mesure $${texNombre(Math.abs(angle))}^\\circ$ en tournant dans le sens `
       if (angle < 0) {
         texte += 'des aiguilles d\'une montre.<br>'
       } else {

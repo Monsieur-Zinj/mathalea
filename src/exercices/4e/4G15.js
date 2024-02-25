@@ -122,7 +122,7 @@ export default function TransformationsDeTriangle () {
     let texte = 'Construire<br>$A_1B_1C_1$ le triangle symétrique de $ABC$ par rapport à la droite $(d)$;<br>' // Nous utilisons souvent cette variable pour construire le texte de la question.
     texte += '$A_2B_2C_2$ le triangle symétrique de $A_1B_1C_1$ par rapport au point $D$;<br>'
     texte += '$A_3B_3C_3$ le triangle translaté de $A_2B_2C_2$ tel que $D$ soit transformé en $F$;<br>'
-    texte += `$A_4B_4C_4$ le triangle obtenu par la rotation de $A_3B_3C_3$ de centre $F$ et d'angle $${Math.abs(alpha)}\\degree$ dans le sens des aiguilles d'une montre.<br>`
+    texte += `$A_4B_4C_4$ le triangle obtenu par la rotation de $A_3B_3C_3$ de centre $F$ et d'angle $${Math.abs(alpha)}^\\circ$ dans le sens des aiguilles d'une montre.<br>`
 
     const nomd = latexParPoint('(d)', translation(milieu(B, B1), vecteur(1, 0)), 'black', 30, 12, '')
     if (context.isHtml) {

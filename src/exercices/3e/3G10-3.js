@@ -53,7 +53,7 @@ export default function ConstruireRotationPoint3e () {
       this.consigne += `, $${noms[i]}$`
     }
     this.consigne += ` et $${noms[nbpoints - 1]}$ par la rotation de centre $O$`
-    this.consigne += ` et d'angle $${Math.abs(angle)}\\degree$`
+    this.consigne += ` et d'angle $${Math.abs(angle)}^\\circ$`
     if (angle < 0) { this.consigne += ' dans le sens des aiguilles d\'une montre.' } else { this.consigne += ' dans le sens contraire des aiguilles d\'une montre.' }
     const cibles = []; const M = []; const N = []; const objetsEnonce = []; const objetsCorrection = [] // cibles, M point marqués, N symétrique de M
     const cellules = []

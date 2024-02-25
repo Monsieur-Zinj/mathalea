@@ -39,14 +39,14 @@ function myCodageAngle (A, O, B, angle, [...args]) {
 function myTexteVolsCorr (angle) {
   switch (angle) {
     case 90:
-      return `du secteur est un angle droit, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{4}$.`
+      return `du secteur est un angle droit, il mesure $${angle}^\\circ$ sur les $360^\\circ$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{4}$.`
     case 30:
-      return `rouge apparaît 3 fois, l'angle vert vaut $180\\degree$ et il y a un angle droit.<br>
-L'angle pour un tour complet vaut $360\\degree$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}\\degree$.<br>
-L'angle rouge mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{12}$.
+      return `rouge apparaît 3 fois, l'angle vert vaut $180^\\circ$ et il y a un angle droit.<br>
+L'angle pour un tour complet vaut $360^\\circ$, donc l'angle rouge vaut $(360-180-90)\\div 3 = ${angle}^\\circ$.<br>
+L'angle rouge mesure $${angle}^\\circ$ sur les $360^\\circ$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{12}$.
 `
     case 180:
-      return `du secteur est un angle plat, il mesure $${angle}\\degree$ sur les $360\\degree$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{2}$.`
+      return `du secteur est un angle plat, il mesure $${angle}^\\circ$ sur les $360^\\circ$ d'un tour complet, donc il représente $\\dfrac{${angle}}{360}$ du disque soit $\\dfrac{1}{2}$.`
   }
 }
 

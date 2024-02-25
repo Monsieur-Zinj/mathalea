@@ -97,60 +97,60 @@ export default function MesurerUnAngle () {
       context.fenetreMathalea2d = [xMin, yMin, xMax, yMax]
       objetsEnonce = [s1, s2, Apos, Bpos, Cpos, secteur0]
       texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.7 }, objetsEnonce)
-      texteCorr += `$${Math.abs(angle)}\\degree$`
+      texteCorr += `$${Math.abs(angle)}^\\circ$`
       this.autoCorrection[i] = {}
       this.autoCorrection[i].enonce = `${texte}\n`
       if (!this.sup2) {
         this.autoCorrection[i].propositions = [
           {
-            texte: `$${Math.abs(angle)}\\degree$`,
+            texte: `$${Math.abs(angle)}^\\circ$`,
             statut: true
           },
           {
-            texte: `$${(Math.abs(angle) + 45) % 180}\\degree$`,
+            texte: `$${(Math.abs(angle) + 45) % 180}^\\circ$`,
             statut: false
           },
           {
-            texte: `$${(Math.abs(angle) + 90) % 180}\\degree$`,
+            texte: `$${(Math.abs(angle) + 90) % 180}^\\circ$`,
             statut: false
           },
           {
-            texte: `$${(Math.abs(angle) + 135) % 180}\\degree$`,
+            texte: `$${(Math.abs(angle) + 135) % 180}^\\circ$`,
             statut: false
           },
           {
-            texte: '$180\\degree$',
+            texte: '$180^\\circ$',
             statut: false
           },
           {
-            texte: '$90\\degree$',
+            texte: '$90^\\circ$',
             statut: false
           }
         ]
       } else {
         this.autoCorrection[i].propositions = [
           {
-            texte: `$${Math.abs(angle)}\\degree$`,
+            texte: `$${Math.abs(angle)}^\\circ$`,
             statut: true
           },
           {
-            texte: `$${180 - Math.abs(angle)}\\degree$`,
+            texte: `$${180 - Math.abs(angle)}^\\circ$`,
             statut: false
           },
           {
-            texte: `$${Math.round(Math.abs(angle) / 2)}\\degree$`,
+            texte: `$${Math.round(Math.abs(angle) / 2)}^\\circ$`,
             statut: false
           },
           {
-            texte: `$${this.interactif ? Math.abs(angle) + 20 : arrondiA10Pres > angle ? arrondiA10Pres + delta : arrondiA10Pres - delta}\\degree$`,
+            texte: `$${this.interactif ? Math.abs(angle) + 20 : arrondiA10Pres > angle ? arrondiA10Pres + delta : arrondiA10Pres - delta}^\\circ$`,
             statut: false
           },
           {
-            texte: '$180\\degree$',
+            texte: '$180^\\circ$',
             statut: false
           },
           {
-            texte: '$90\\degree$',
+            texte: '$90^\\circ$',
             statut: false
           }
         ]

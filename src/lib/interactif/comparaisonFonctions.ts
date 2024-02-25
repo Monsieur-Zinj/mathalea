@@ -714,7 +714,7 @@ export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, p
   isOk: boolean,
   feedback?: string
 } {
-  input = input.replace('\\degree', '°')
+  input = input.replace('^\\circ', '°')
   const cleaner = generateCleaner(['virgules', 'espaces', 'fractions', 'parentheses'])
   const inputGrandeur = inputToGrandeur(cleaner(input))
   const goodAnswerGrandeur = goodAnswer.grandeur

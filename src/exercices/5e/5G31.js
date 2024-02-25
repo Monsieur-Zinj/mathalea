@@ -114,7 +114,7 @@ export default function ExerciceAnglesTriangles () {
           nomAngles.push(s2 + s3 + s1)
           angle1 = randint(10, 40)
           angle2 = randint(20, 100)
-          texte = `$${s1 + s2 + s3}$ est un triangle quelconque. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}\\degree$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
+          texte = `$${s1 + s2 + s3}$ est un triangle quelconque. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}^\\circ$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}^\\circ$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
@@ -126,12 +126,12 @@ export default function ExerciceAnglesTriangles () {
           angleC = codageAngle(A, C, B, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
           objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
-            texteCorr += 'Dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
-            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s3 + s1}} + \\widehat{${s2 + s1 + s3}}=180\\degree$<br>`
+            texteCorr += 'Dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s3 + s1}} + \\widehat{${s2 + s1 + s3}}=180^\\circ$<br>`
             texteCorr += `D'où : $\\widehat{${s2 + s3 + s1}}=180- \\left(\\widehat{${s1 + s2 + s3}} + \\widehat{${s2 + s1 + s3}}\\right)$.<br>D'où : `
           }
-          texteCorr += `$\\widehat{${s2 + s3 + s1}}$= $180\\degree-\\left(${angle1}\\degree+${angle2}\\degree\\right)=180\\degree-${angle1 + angle2}\\degree=${troisiemeAngle(angle1, angle2)}\\degree$.<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(troisiemeAngle(angle1, angle2))}\\degree$.`
+          texteCorr += `$\\widehat{${s2 + s3 + s1}}$= $180^\\circ-\\left(${angle1}^\\circ+${angle2}^\\circ\\right)=180^\\circ-${angle1 + angle2}^\\circ=${troisiemeAngle(angle1, angle2)}^\\circ$.<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(troisiemeAngle(angle1, angle2))}^\\circ$.`
           reponseInteractive = [troisiemeAngle(angle1, angle2)]
           break
         case 2: // Triangle rectangle Un angle aigu connu
@@ -139,7 +139,7 @@ export default function ExerciceAnglesTriangles () {
           nomAngles.push(s2 + s3 + s1)
           angle1 = 90
           angle2 = randint(20, 70)
-          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s2}$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
+          texte = `$${s1 + s2 + s3}$ est un triangle rectangle en $${s2}$ et l'angle $\\widehat{${s2 + s1 + s3}}$ mesure $${angle2}^\\circ$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
@@ -152,11 +152,11 @@ export default function ExerciceAnglesTriangles () {
           angleC = codageAngle(A, C, B, 1.5, '', '#f15929', 2, 1, 'none', 0.2, true, false, '', 1.2)
           objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
-            texteCorr += `Le triangle $${s1 + s2 + s3}$ étant rectangle en $${s2}$, les angles $\\widehat{${s2 + s1 + s3}}$ et $\\widehat{${s2 + s3 + s1}}$ sont complémentaires (leur somme est égale à $90\\degree$).<br>`
-            texteCorr += `D'où : $\\widehat{${s2 + s3 + s1}}+ \\widehat{${s2 + s1 + s3}}=90\\degree$<br>D'où : `
+            texteCorr += `Le triangle $${s1 + s2 + s3}$ étant rectangle en $${s2}$, les angles $\\widehat{${s2 + s1 + s3}}$ et $\\widehat{${s2 + s3 + s1}}$ sont complémentaires (leur somme est égale à $90^\\circ$).<br>`
+            texteCorr += `D'où : $\\widehat{${s2 + s3 + s1}}+ \\widehat{${s2 + s1 + s3}}=90^\\circ$<br>D'où : `
           }
-          texteCorr += `$\\widehat{${s2 + s3 + s1}}=90\\degree-${angle2}\\degree=${90 - angle2}\\degree$<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(90 - angle2)}\\degree$.`
+          texteCorr += `$\\widehat{${s2 + s3 + s1}}=90^\\circ-${angle2}^\\circ=${90 - angle2}^\\circ$<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(90 - angle2)}^\\circ$.`
           reponseInteractive = [90 - angle2]
           break
         case 12: // triangle isocèle, angle au sommet principal connu
@@ -164,7 +164,7 @@ export default function ExerciceAnglesTriangles () {
           nomAngles.push(s2 + s3 + s1)
           angle1 = randint(30, 150)
           angle2 = arrondi((180 - angle1) / 2, 1)
-          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s2}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
+          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s2}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}^\\circ$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
@@ -182,14 +182,14 @@ export default function ExerciceAnglesTriangles () {
           if (this.correctionDetaillee) {
             texteCorr += 'Les angles à la base d\'un triangle isocèle sont de même mesure.<br>'
             texteCorr += `D'où : $\\widehat{${s2 + s1 + s3}}=\\widehat{${s2 + s3 + s1}}$.<br>`
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
-            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}+ \\widehat{${s2 + s3 + s1}}+ \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
-            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}+2\\times  \\widehat{${s2 + s3 + s1}}=180\\degree$.<br>`
-            texteCorr += `Soit  $${angle1}\\degree+2\\times  \\widehat{${s2 + s3 + s1}}=180\\degree$.<br>`
-            texteCorr += `D'où $2\\times  \\widehat{${s2 + s3 + s1}}=180\\degree-${angle1}\\degree$.<br>D'où `
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}+ \\widehat{${s2 + s3 + s1}}+ \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
+            texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}+2\\times  \\widehat{${s2 + s3 + s1}}=180^\\circ$.<br>`
+            texteCorr += `Soit  $${angle1}^\\circ+2\\times  \\widehat{${s2 + s3 + s1}}=180^\\circ$.<br>`
+            texteCorr += `D'où $2\\times  \\widehat{${s2 + s3 + s1}}=180^\\circ-${angle1}^\\circ$.<br>D'où `
           }
-          texteCorr += `$\\widehat{${s2 + s3 + s1}}=\\left(180\\degree-${angle1}\\degree\\right)\\div  2=${180 - angle1}\\degree\\div  2=${texNombre((180 - angle1) / 2)}\\degree$<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(texNombre((180 - angle1) / 2))}\\degree$.`
+          texteCorr += `$\\widehat{${s2 + s3 + s1}}=\\left(180^\\circ-${angle1}^\\circ\\right)\\div  2=${180 - angle1}^\\circ\\div  2=${texNombre((180 - angle1) / 2)}^\\circ$<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(texNombre((180 - angle1) / 2))}^\\circ$.`
           reponseInteractive = [arrondi((180 - angle1) / 2, 1)]
           break
         case 3: // triangle isocèle, angle à la base connu
@@ -197,7 +197,7 @@ export default function ExerciceAnglesTriangles () {
           nomAngles.push(s2 + s3 + s1)
           angle2 = randint(30, 60, [90])
           angle1 = angle2
-          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s3}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}\\degree$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
+          texte = `$${s1 + s2 + s3}$ est un triangle isocèle en $${s3}$. L'angle $\\widehat{${s1 + s2 + s3}}$ mesure $${angle1}^\\circ$.<br>Quelle est la mesure de l'angle $\\widehat{${s2 + s3 + s1}}$ ?`
           triangle = triangle2points2angles(A, B, angle2, angle1)
           C = triangle.listePoints[2]
           C.nom = s3
@@ -212,11 +212,11 @@ export default function ExerciceAnglesTriangles () {
           objetsCorrection.push(angleA, angleB, angleC)
           if (this.correctionDetaillee) {
             texteCorr += 'Les deux angles à la base d\'un triangle isocèle sont égaux.<br>'
-            texteCorr += `Donc $\\widehat{${s1 + s2 + s3}}=\\widehat{${s2 + s1 + s3}}=${angle2}\\degree$.<br>`
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>D\'où : '
+            texteCorr += `Donc $\\widehat{${s1 + s2 + s3}}=\\widehat{${s2 + s1 + s3}}=${angle2}^\\circ$.<br>`
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>D\'où : '
           }
-          texteCorr += `$\\widehat{${s2 + s3 + s1}}=180\\degree-2\\times ${angle2}\\degree=180\\degree-${2 * angle2}\\degree=${180 - 2 * angle2}\\degree$.<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(180 - 2 * angle2)}\\degree$.`
+          texteCorr += `$\\widehat{${s2 + s3 + s1}}=180^\\circ-2\\times ${angle2}^\\circ=180^\\circ-${2 * angle2}^\\circ=${180 - 2 * angle2}^\\circ$.<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s2 + s3 + s1 + '}', 'black')}$ mesure $${miseEnEvidence(180 - 2 * angle2)}^\\circ$.`
           reponseInteractive = [180 - 2 * angle2]
           break
         case 4: // cas non aléatoire triangle rectangle isocèle
@@ -244,14 +244,14 @@ export default function ExerciceAnglesTriangles () {
           objetsCorrection.push(angleA, angleB, angleC)
           texteCorr += `$\\widehat{${s1 + s3 + s2}}=\\widehat{${s1 + s2 + s3}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
-            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}} + 90\\degree=180\\degree$.<br>`
-            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}}=180\\degree-90\\degree=90\\degree$.<br>`
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}} + 90^\\circ=180^\\circ$.<br>`
+            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}}=180^\\circ-90^\\circ=90^\\circ$.<br>`
           } else {
-            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}} + 90\\degree=180\\degree$.<br>`
+            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}} + 90^\\circ=180^\\circ$.<br>`
           }
-          texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}=90\\degree \\div  2=45\\degree$.<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('45')}\\degree$.`
+          texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}=90^\\circ \\div  2=45^\\circ$.<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('45')}^\\circ$.`
           reponseInteractive = [45]
           break
         case 6: // cas non aléatoire triangle rectangle 30,60,90
@@ -280,13 +280,13 @@ export default function ExerciceAnglesTriangles () {
           objetsCorrection.push(angleA, angleB, angleC)
           texteCorr += `$\\widehat{${s1 + s2 + s3}}=2\\times \\widehat{${s1 + s3 + s2}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90\\degree$).<br>`
-            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>`
-            texteCorr += `D'où :  $3 \\times  \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>`
+            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90^\\circ$).<br>`
+            texteCorr += `D'où : $2 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90^\\circ$.<br>`
+            texteCorr += `D'où :  $3 \\times  \\widehat{${s1 + s3 + s2}}=90^\\circ$.<br>`
           }
-          texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}=90\\degree \\div  3=30\\degree$.<br>`
-          texteCorr += `$\\widehat{${s1 + s2 + s3}}=2\\times \\widehat{${s1 + s3 + s2}}=2\\times  30\\degree=60\\degree$<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('30')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('60')}\\degree$.`
+          texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}=90^\\circ \\div  3=30^\\circ$.<br>`
+          texteCorr += `$\\widehat{${s1 + s2 + s3}}=2\\times \\widehat{${s1 + s3 + s2}}=2\\times  30^\\circ=60^\\circ$<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('30')}^\\circ$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('60')}^\\circ$.`
           reponseInteractive = [30, 60]
           break
         case 7: // cas non aléatoires triangle rectangle 18,72,90
@@ -315,13 +315,13 @@ export default function ExerciceAnglesTriangles () {
           objetsCorrection.push(angleA, angleB, angleC)
           texteCorr += `Comme $\\widehat{${s1 + s2 + s3}}=\\dfrac{\\widehat{${s1 + s3 + s2}}}{4}$, on en déduit que $\\widehat{${s1 + s3 + s2}}=4\\times \\widehat{${s1 + s2 + s3}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90\\degree$).<br>`
-            texteCorr += `D'où : $4 \\times  \\widehat{${s1 + s2 + s3}} + \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où `
-            texteCorr += ` $5 \\times  \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où `
+            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90^\\circ$).<br>`
+            texteCorr += `D'où : $4 \\times  \\widehat{${s1 + s2 + s3}} + \\widehat{${s1 + s2 + s3}}=90^\\circ$.<br>D'où `
+            texteCorr += ` $5 \\times  \\widehat{${s1 + s2 + s3}}=90^\\circ$.<br>D'où `
           }
-          texteCorr += `$\\widehat{${s1 + s2 + s3}}=90\\degree \\div  5=18\\degree$.<br>`
-          texteCorr += `$\\widehat{${s1 + s3 + s2}}=4\\times \\widehat{${s1 + s2 + s3}}=4\\times  18\\degree=72\\degree$.<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('72')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('18')}\\degree$.`
+          texteCorr += `$\\widehat{${s1 + s2 + s3}}=90^\\circ \\div  5=18^\\circ$.<br>`
+          texteCorr += `$\\widehat{${s1 + s3 + s2}}=4\\times \\widehat{${s1 + s2 + s3}}=4\\times  18^\\circ=72^\\circ$.<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('72')}^\\circ$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('18')}^\\circ$.`
           reponseInteractive = [72, 18]
           break
         case 8: // cas non aléatoires triangle rectangle 15,75,90
@@ -350,13 +350,13 @@ export default function ExerciceAnglesTriangles () {
           objetsCorrection.push(angleA, angleB, angleC)
           texteCorr += `$\\widehat{${s1 + s2 + s3}}=5\\times \\widehat{${s1 + s3 + s2}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90\\degree$).<br>`
-            texteCorr += `D'où : $5 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>`
-            texteCorr += `D'où : $6 \\times  \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>`
-          } else texteCorr += `D'où : $5 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90\\degree$.<br>`
-          texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}=90\\degree \\div  6=15\\degree$<br>`
-          texteCorr += `$\\widehat{${s1 + s2 + s3}}=5\\times \\widehat{${s1 + s3 + s2}}=5\\times  15\\degree=75\\degree$<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('15')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('75')}\\degree$.`
+            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90^\\circ$).<br>`
+            texteCorr += `D'où : $5 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90^\\circ$.<br>`
+            texteCorr += `D'où : $6 \\times  \\widehat{${s1 + s3 + s2}}=90^\\circ$.<br>`
+          } else texteCorr += `D'où : $5 \\times  \\widehat{${s1 + s3 + s2}} + \\widehat{${s1 + s3 + s2}}=90^\\circ$.<br>`
+          texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}=90^\\circ \\div  6=15^\\circ$<br>`
+          texteCorr += `$\\widehat{${s1 + s2 + s3}}=5\\times \\widehat{${s1 + s3 + s2}}=5\\times  15^\\circ=75^\\circ$<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('15')}^\\circ$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('75')}^\\circ$.`
           reponseInteractive = [15, 75]
           break
         case 5: // cas non aléatoire triangle équilatéral
@@ -378,11 +378,11 @@ export default function ExerciceAnglesTriangles () {
           objetsCorrection.push(triangle, angleA, angleB, angleC, nommePolygone(triangle))
           texteCorr += `Comme le triangle $${s1 + s2 + s3}$ a trois angles égaux, $\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=\\widehat{${s2 + s1 + s3}}$<br>`
           if (this.correctionDetaillee) {
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
-            texteCorr += `D'où $3\\times \\widehat{${s1 + s2 + s3}}=180\\degree$.<br>`
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr += `D'où $3\\times \\widehat{${s1 + s2 + s3}}=180^\\circ$.<br>`
           }
-          texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}=180\\degree\\div  3=60\\degree$.<br>`
-          texteCorr += `On a donc $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}=${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}=${miseEnEvidence('\\widehat{' + s2 + s1 + s3 + '}', 'black')}=${miseEnEvidence('60')}\\degree$.<br>`
+          texteCorr += `D'où : $\\widehat{${s1 + s2 + s3}}=180^\\circ\\div  3=60^\\circ$.<br>`
+          texteCorr += `On a donc $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}=${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}=${miseEnEvidence('\\widehat{' + s2 + s1 + s3 + '}', 'black')}=${miseEnEvidence('60')}^\\circ$.<br>`
           texteCorr += `Le triangle $${s1 + s2 + s3}$ est un triangle équilatéral.`
           reponseInteractive = [60]
           break
@@ -412,15 +412,15 @@ export default function ExerciceAnglesTriangles () {
           objetsCorrection.push(angleA, angleB, angleC)
           texteCorr += `Comme $\\widehat{${s1 + s2 + s3}}=\\dfrac{\\widehat{${s1 + s3 + s2}}}{3}$, on en déduit que $\\widehat{${s1 + s3 + s2}}=3\\times \\widehat{${s1 + s2 + s3}}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90\\degree$).<br>`
-            texteCorr += `D'où : $3 \\times  \\widehat{${s1 + s2 + s3}} + \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où : `
-            texteCorr += ` $4 \\times  \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où : `
+            texteCorr += `De plus, le triangle $${s1 + s2 + s3}$ étant rectangle en $${s1}$, les angles $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont complémentaires (leur somme est égale à $90^\\circ$).<br>`
+            texteCorr += `D'où : $3 \\times  \\widehat{${s1 + s2 + s3}} + \\widehat{${s1 + s2 + s3}}=90^\\circ$.<br>D'où : `
+            texteCorr += ` $4 \\times  \\widehat{${s1 + s2 + s3}}=90^\\circ$.<br>D'où : `
           } else {
-            texteCorr += `D'où : $3 \\times  \\widehat{${s1 + s2 + s3}} + \\widehat{${s1 + s2 + s3}}=90\\degree$.<br>D'où : `
+            texteCorr += `D'où : $3 \\times  \\widehat{${s1 + s2 + s3}} + \\widehat{${s1 + s2 + s3}}=90^\\circ$.<br>D'où : `
           }
-          texteCorr += `$\\widehat{${s1 + s2 + s3}}=90\\degree \\div  4=22,5\\degree$.<br>`
-          texteCorr += `$\\widehat{${s1 + s3 + s2}}=3\\times \\widehat{${s1 + s2 + s3}}=3\\times  22,5\\degree=67,5\\degree$<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('67.5')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('22.5')}\\degree$.`
+          texteCorr += `$\\widehat{${s1 + s2 + s3}}=90^\\circ \\div  4=22,5^\\circ$.<br>`
+          texteCorr += `$\\widehat{${s1 + s3 + s2}}=3\\times \\widehat{${s1 + s2 + s3}}=3\\times  22,5^\\circ=67,5^\\circ$<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('67.5')}^\\circ$ et l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('22.5')}^\\circ$.`
           reponseInteractive = [67.5, 22.5]
           break
         case 10: // cas non aléatoire triangle 67.5 , 67.5 , 45.
@@ -448,18 +448,18 @@ export default function ExerciceAnglesTriangles () {
           texteCorr += `Comme $\\widehat{${s2 + s1 + s3}}=\\dfrac{2\\times  \\widehat{${s1 + s3 + s2}}}{3}$, on en déduit que $\\widehat{${s1 + s3 + s2}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr += `De plus, comme le triangle $${s1 + s2 + s3}$ est isocèle en $${s1}$, $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont égaux, alors $\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}$.<br>`
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
-            texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}+\\widehat{${s1 + s2 + s3}}+\\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
-            texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
-            texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2}\\times  2 + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
-            texteCorr += `D'où : $3 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
-            texteCorr += `D'où : $4 \\times  \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>D'où : `
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}+\\widehat{${s1 + s2 + s3}}+\\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
+            texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
+            texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2}\\times  2 + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
+            texteCorr += `D'où : $3 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
+            texteCorr += `D'où : $4 \\times  \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>D'où : `
           } else {
-            texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
+            texteCorr += `D'où : $\\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\dfrac{3 \\times  \\widehat{${s2 + s1 + s3}}}{2} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
           }
-          texteCorr += `$\\widehat{${s2 + s1 + s3}}=180\\degree \\div  4=45\\degree$.<br>`
-          texteCorr += `$\\widehat{${s1 + s3 + s2}}=\\widehat{${s1 + s2 + s3}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}=\\dfrac{3\\times  45\\degree}{2}=\\dfrac{135\\degree}{2}=67,5\\degree$<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('67.5')}\\degree$, l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('67.5')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s2 + s1 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('45')}\\degree$.`
+          texteCorr += `$\\widehat{${s2 + s1 + s3}}=180^\\circ \\div  4=45^\\circ$.<br>`
+          texteCorr += `$\\widehat{${s1 + s3 + s2}}=\\widehat{${s1 + s2 + s3}}=\\dfrac{3\\times \\widehat{${s2 + s1 + s3}}}{2}=\\dfrac{3\\times  45^\\circ}{2}=\\dfrac{135^\\circ}{2}=67,5^\\circ$<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('67.5')}^\\circ$, l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('67.5')}^\\circ$ et l'angle $${miseEnEvidence('\\widehat{' + s2 + s1 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('45')}^\\circ$.`
           reponseInteractive = [67.5, 67.5, 45]
           break
         case 11: // cas non aléatoire triangle 72 , 72 , 36.
@@ -485,17 +485,17 @@ export default function ExerciceAnglesTriangles () {
           texteCorr += `On a $\\widehat{${s1 + s2 + s3}}=2\\times  \\widehat{${s2 + s1 + s3}}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr += `De plus, comme le triangle $${s1 + s2 + s3}$ est isocèle en $${s1}$, $\\widehat{${s1 + s3 + s2}}$ et $\\widehat{${s1 + s2 + s3}}$ sont égaux, alors $\\widehat{${s1 + s3 + s2}}=\\widehat{${s1 + s2 + s3}}=2\\times \\widehat{${s2 + s1 + s3}}$.<br>`
-            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180\\degree$.<br>'
-            texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}+\\widehat{${s1 + s2 + s3}}+\\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
-            texteCorr += `D'où : $2 \\times  \\widehat{${s2 + s1 + s3}} + 2 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
-            texteCorr += `D'où : $4 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>D'où `
-            texteCorr += ` $5 \\times  \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>D'où `
+            texteCorr += 'Or, dans un triangle, la somme des angles est égale à $180^\\circ$.<br>'
+            texteCorr += `D'où : $\\widehat{${s1 + s3 + s2}}+\\widehat{${s1 + s2 + s3}}+\\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
+            texteCorr += `D'où : $2 \\times  \\widehat{${s2 + s1 + s3}} + 2 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
+            texteCorr += `D'où : $4 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>D'où `
+            texteCorr += ` $5 \\times  \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>D'où `
           } else {
-            texteCorr += `D'où : $2 \\times  \\widehat{${s2 + s1 + s3}} + 2 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180\\degree$.<br>`
+            texteCorr += `D'où : $2 \\times  \\widehat{${s2 + s1 + s3}} + 2 \\times  \\widehat{${s2 + s1 + s3}} + \\widehat{${s2 + s1 + s3}}=180^\\circ$.<br>`
           }
-          texteCorr += `$\\widehat{${s2 + s1 + s3}}=180\\degree \\div  5=36\\degree$.<br>`
-          texteCorr += `$\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=2\\times \\widehat{${s2 + s1 + s3}}=2\\times  36\\degree=72\\degree$<br>`
-          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('72')}\\degree$, l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('72')}\\degree$ et l'angle $${miseEnEvidence('\\widehat{' + s2 + s1 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('36')}\\degree$.`
+          texteCorr += `$\\widehat{${s2 + s1 + s3}}=180^\\circ \\div  5=36^\\circ$.<br>`
+          texteCorr += `$\\widehat{${s1 + s2 + s3}}=\\widehat{${s1 + s3 + s2}}=2\\times \\widehat{${s2 + s1 + s3}}=2\\times  36^\\circ=72^\\circ$<br>`
+          texteCorr += `L'angle $${miseEnEvidence('\\widehat{' + s1 + s3 + s2 + '}', 'black')}$ mesure $${miseEnEvidence('72')}^\\circ$, l'angle $${miseEnEvidence('\\widehat{' + s1 + s2 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('72')}^\\circ$ et l'angle $${miseEnEvidence('\\widehat{' + s2 + s1 + s3 + '}', 'black')}$ mesure $${miseEnEvidence('36')}^\\circ$.`
           reponseInteractive = [72, 72, 36]
           break
       }
@@ -514,17 +514,17 @@ export default function ExerciceAnglesTriangles () {
       if (this.interactif) {
         texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse, 'inline nospacebefore largeur15', {
           texte: `$\\widehat{${nomAngles[choixAngle[0]]}} = $`,
-          texteApres: '$\\degree$'
+          texteApres: '$^\\circ$'
         })
         if (reponseInteractive.length > 1) {
           texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 1, 'inline nospacebefore largeur15', {
             texte: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`,
-            texteApres: '$\\degree$'
+            texteApres: '$^\\circ$'
           })
           if (reponseInteractive.length > 2) {
             texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 2, 'inline nospacebefore largeur15', {
               texte: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`,
-              texteApres: '$\\degree$'
+              texteApres: '$^\\circ$'
             })
           }
         }

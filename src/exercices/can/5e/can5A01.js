@@ -48,7 +48,7 @@ export default function RepetitionScratch () {
         prog += '\\end{scratch}'
         setReponse(this, 0, angleRot)
         this.listeQuestions[0] = `${scratchblock(prog)}<br>Quel nombre doit-on écrire à la place des pointillés pour tracer un ${b[1]} ?` + ajouteChampTexteMathLive(this, 0, 'largeur15 inline')
-        this.listeCorrections[0] = `Un ${b[1]} a des anlges de $${calculANePlusJamaisUtiliser(180 - angleRot)}\\degree$. Le lutin doit tourner de $180-${calculANePlusJamaisUtiliser(180 - angleRot)}=${angleRot}\\degree$ après avoir tracé un côté.<br>`
+        this.listeCorrections[0] = `Un ${b[1]} a des anlges de $${calculANePlusJamaisUtiliser(180 - angleRot)}^\\circ$. Le lutin doit tourner de $180-${calculANePlusJamaisUtiliser(180 - angleRot)}=${angleRot}^\\circ$ après avoir tracé un côté.<br>`
         this.listeCorrections[0] += texteEnCouleur(`Mentalement on divise $360$ par $${nbRep}$ : $\\dfrac{360}{${nbRep}}=${angleRot}$.`)
         break
       case 2: // trouver le nombre de répétition
@@ -61,7 +61,7 @@ export default function RepetitionScratch () {
         prog += '\\end{scratch}'
         setReponse(this, 0, nbRep)
         this.listeQuestions[0] = `${scratchblock(prog)}<br>Quel nombre doit-on écrire à la place des pointillés pour tracer un ${b[1]} ?` + ajouteChampTexteMathLive(this, 0, 'largeur15 inline')
-        this.listeCorrections[0] = `Un ${b[1]} a ${nbRep} côtés ($${nbRep}\\times ${angleRot}=360\\degree$), il faut donc répéter ${nbRep} fois les instructions de la boucle.<br>`
+        this.listeCorrections[0] = `Un ${b[1]} a ${nbRep} côtés ($${nbRep}\\times ${angleRot}=360^\\circ$), il faut donc répéter ${nbRep} fois les instructions de la boucle.<br>`
         this.listeCorrections[0] += texteEnCouleur(`Mentalement, on divise $360$ par $${angleRot}$ : $\\dfrac{360}{${angleRot}}=${nbRep}$.`)
         break
       case 3: //
@@ -107,7 +107,7 @@ export default function RepetitionScratch () {
         prog += '} \n'
         prog += '\\end{scratch}'
         this.listeQuestions[0] = `${scratchblock(prog)}<br>Quelle figure le lutin va-t-il tracer ?` + propositionsQcm(this, 0).texte
-        this.listeCorrections[0] = `Un ${b[1]} a ${nbRep} côtés ($${nbRep}\\times ${angleRot}=360\\degree$), il faut donc répéter ${nbRep} fois les instructions de la boucle.<br>`
+        this.listeCorrections[0] = `Un ${b[1]} a ${nbRep} côtés ($${nbRep}\\times ${angleRot}=360^\\circ$), il faut donc répéter ${nbRep} fois les instructions de la boucle.<br>`
         this.listeCorrections[0] += texteEnCouleur(`Mentalement, on divise $360$ par $${angleRot}$ : $\\dfrac{360}{${angleRot}}=${nbRep}$.`)
         break
     }

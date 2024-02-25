@@ -283,7 +283,7 @@ export default function ProblemesTrigoLongueur () {
             iiAMC++
           }
           j++
-          enonceAMC = `${numAlpha(j)}Calculer la largeur de la rivière au mètre près sachant que $${alfa}=${alpha}\\degree$ et $${baita}=${beta}\\degree$.`
+          enonceAMC = `${numAlpha(j)}Calculer la largeur de la rivière au mètre près sachant que $${alfa}=${alpha}^\\circ$ et $${baita}=${beta}^\\circ$.`
           texte += '<br>' + enonceAMC
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]', { texteAvant: `$${sp(25)}$` })
@@ -330,7 +330,7 @@ export default function ProblemesTrigoLongueur () {
             j++
           }
           texteCorr += `Comme $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}=${AB}\\times \\tan(${baita})$ et $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=${AB}\\times \\tan(${alfa})$, alors $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}=${AB}\\times(\\tan(${baita})-\\tan(${alfa}))$.<br>`
-          texteCorr += `${numAlpha(j)}Donc $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}=${distance}${sp()} m\\times(\\tan(${beta}\\degree)-\\tan(${alpha}\\degree))\\approx ${taille}${sp()}\\text{m}$.<br>`
+          texteCorr += `${numAlpha(j)}Donc $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}=${distance}${sp()} m\\times(\\tan(${beta}^\\circ)-\\tan(${alpha}^\\circ))\\approx ${taille}${sp()}\\text{m}$.<br>`
 
           break
         case 2:
@@ -386,7 +386,7 @@ export default function ProblemesTrigoLongueur () {
           texteCorr += 'Les segments $[HP]$ et $[OM]$ sont parallèles, donc les angles alternes-internes $\\widehat{MOP}$ et $\\widehat{OPH}$ sont égaux.<br>'
           texteCorr += 'Dans le triangle $OPH$ rectangle en $H$, $\\cos(\\widehat{OPH})=\\dfrac{HP}{OP}$ d\'où $HP=OP\\times \\cos(\\widehat{OPH})$.<br>'
           texteCorr += `Le rayon de la Terre étant approximativement de $${texNombre(6400)}$${sp()}km, nous pouvons calculer $HP$.<br>`
-          texteCorr += `$HP\\approx${texNombre(6400)}${sp()}km\\times \\cos(${alpha}\\degree)\\approx ${texNombre(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km$<br>`
+          texteCorr += `$HP\\approx${texNombre(6400)}${sp()}km\\times \\cos(${alpha}^\\circ)\\approx ${texNombre(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km$<br>`
           reponse = Math.round(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180))
           texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombre(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km\\approx ${texNombre(reponse)}${sp()}km$.<br>`
           if (this.interactif) {
@@ -455,7 +455,7 @@ export default function ProblemesTrigoLongueur () {
           objets.push(p[1], p[0], segment(C, B), segment(C, R), codageAngleDroit(C, A, B), codageAngleDroit(A, B, R), codageAngleDroit(C, R, S))
           objets.push(afficheMesureAngle(B, C, S, 'black', 3, `${alfa}`), afficheMesureAngle(A, B, C, 'black', 2, `${baita}`), afficheMesureAngle(B, C, R, 'black', 2, `${baita}`))
           objets.push(texteSurSegment(`${stringNombre(hauteur)} m`, sensH < 0 ? A : C, sensH < 0 ? C : A, 'black', -0.5), texteSurSegment(`${stringNombre(distance)} m`, C, R))
-          texte = `Un observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}\\degree$.<br>`
+          texte = `Un observateur regarde ${objet[index][1]} ${objet[index][0]} sous un angle de $${alpha}^\\circ$.<br>`
           texte += `Cet${objet[index][2]} ${objet[index][0]} est ${objet[index][3]} à une distance de $${texNombre(distance)}$ m de l'observateur.<br>`
           texte += `L'œil de l'observateur est situé à $${texNombre(hauteur)}$ m du sol.`
           enonceInit = texte
@@ -475,7 +475,7 @@ export default function ProblemesTrigoLongueur () {
             enonceAMC = texte
             texte = enonceInit + texte
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore', { texteApres: '$\\degree$' })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore', { texteApres: '$^\\circ$' })
               setReponse(this, i + ii, arrondi(beta))
               ii++
             } else if (context.isAmc) {
@@ -515,7 +515,7 @@ export default function ProblemesTrigoLongueur () {
             enonceAMC = `${numAlpha(j)}En déduire la mesure de l'angle $\\widehat{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}}$, arrondie au centième près.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore', { texteApres: '$\\degree$' })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore', { texteApres: '$^\\circ$' })
               setReponse(this, i + ii, arrondi(alpha - beta))
               ii++
             } else if (context.isAmc) {
@@ -633,14 +633,14 @@ export default function ProblemesTrigoLongueur () {
             scale: 0.5
           }, objets)
           texteCorr += this.sup ? `<br>${numAlpha(j)}` : '<br>'
-          texteCorr += `Dans le triangle $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numB)}$ rectangle en $${lettreDepuisChiffre(numR)}$, $\\tan(${baita})=\\dfrac{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numB)}}{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}}$.<br>D'où $${baita}=\\arctan(\\dfrac{${texNombre(hauteur)}}{${texNombre(distance)}})\\approx ${texNombre(beta, 2)}\\degree$.<br>`
+          texteCorr += `Dans le triangle $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numB)}$ rectangle en $${lettreDepuisChiffre(numR)}$, $\\tan(${baita})=\\dfrac{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numB)}}{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}}$.<br>D'où $${baita}=\\arctan(\\dfrac{${texNombre(hauteur)}}{${texNombre(distance)}})\\approx ${texNombre(beta, 2)}^\\circ$.<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `$\\widehat{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}}=${alfa}-${baita}\\approx ${texNombre(alpha - beta, 2)}\\degree$<br>`
+          texteCorr += `$\\widehat{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}}=${alfa}-${baita}\\approx ${texNombre(alpha - beta, 2)}^\\circ$<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `Dans le triangle $${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}$ rectangle en $${lettreDepuisChiffre(numC)}$, $\\tan(\\widehat{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}})=\\dfrac{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numS)}}{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}}$.<br>`
-          texteCorr += `D'où $${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numS)}=${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}\\times \\tan(\\widehat{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}})\\approx ${distance}${sp()}\\text{m}\\times \\tan(${texNombre(alpha - beta, 2)}\\degree)\\approx ${texNombre(taille - hauteur)}${sp()}\\text{m}$<br>`
+          texteCorr += `D'où $${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numS)}=${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}\\times \\tan(\\widehat{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}})\\approx ${distance}${sp()}\\text{m}\\times \\tan(${texNombre(alpha - beta, 2)}^\\circ)\\approx ${texNombre(taille - hauteur)}${sp()}\\text{m}$<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
           texteCorr += `$${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}=${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numR)}+${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numS)}\\approx${texNombre(hauteur)}${sp()}\\text{m}+${texNombre(taille - hauteur)}${sp()}\\text{m}=${texNombre(taille)}${sp()}\\text{m}\\approx${texNombre(Math.round(taille))}${sp()}\\text{m}$<br>`
@@ -670,8 +670,8 @@ export default function ProblemesTrigoLongueur () {
           j = 0
           texte = 'Un observateur sur un bateau s\'approche d\'une falaise dont il veut mesurer la hauteur'
           texte += this.sup ? ' $h$.<br>' : '.<br>'
-          texte += `Il jette l'ancre puis constate qu'il voit la falaise sous un angle de $${alpha}\\degree$.<br>`
-          texte += `Il se rapproche ensuite de la falaise jusqu'à la voir sous un angle de $${alpha + 5}\\degree$.<br>`
+          texte += `Il jette l'ancre puis constate qu'il voit la falaise sous un angle de $${alpha}^\\circ$.<br>`
+          texte += `Il se rapproche ensuite de la falaise jusqu'à la voir sous un angle de $${alpha + 5}^\\circ$.<br>`
           texte += `Il constate qu'entre ses deux mesures, il s'est rapproché de la falaise de $${distance}$ m.<br>`
           enonceInit = texte
           if (this.sup) {
@@ -901,11 +901,11 @@ export default function ProblemesTrigoLongueur () {
           texteCorr += this.sup ? '' : 'Application numérique : <br>'
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `$h=\\dfrac{${distance}${sp()}\\text{m}\\times \\tan(${alpha}\\degree)\\times \\tan(${alpha + 5}\\degree)}{\\tan(${alpha + 5}\\degree)-\\tan(${alpha}\\degree)}\\approx ${Math.round(taille)}${sp()}\\text{m}$.<br>`
+          texteCorr += `$h=\\dfrac{${distance}${sp()}\\text{m}\\times \\tan(${alpha}^\\circ)\\times \\tan(${alpha + 5}^\\circ)}{\\tan(${alpha + 5}^\\circ)-\\tan(${alpha}^\\circ)}\\approx ${Math.round(taille)}${sp()}\\text{m}$.<br>`
           texteCorr += this.sup ? `La hauteur de la falaise est de $${Math.round(taille)}${sp()}\\text{m}$.<br>` : ''
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `$${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}=\\dfrac{${distance}${sp()}\\text{m}\\times \\tan(${alpha}\\degree)}{\\tan(${alpha + 5}\\degree)-\\tan(${alpha}\\degree)}\\approx ${texNombre(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}${sp()}\\text{m}$.<br>`
+          texteCorr += `$${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}=\\dfrac{${distance}${sp()}\\text{m}\\times \\tan(${alpha}^\\circ)}{\\tan(${alpha + 5}^\\circ)-\\tan(${alpha}^\\circ)}\\approx ${texNombre(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}${sp()}\\text{m}$.<br>`
           texteCorr += this.sup ? `L'observateur se trouve à $${texNombre(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m de la falaise lors du deuxième relevé.<br>` : ''
           texteCorr += this.sup ? '' : `La hauteur de la falaise est de $${Math.round(taille)}$ m et l'observateur se trouve à $${texNombre(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m de celle-ci lors du deuxième relevé.<br>`
           break
@@ -940,7 +940,7 @@ export default function ProblemesTrigoLongueur () {
           texte += `Pour cela, il utilise un théodolite en un point $${lettreDepuisChiffre(numB)}$ qui lui permet de mesurer l'angle $${alfa}$ vertical formé par le sommet $${lettreDepuisChiffre(numA)}$ de la montagne, le point $${lettreDepuisChiffre(numB)}$ et la base de la montagne $${lettreDepuisChiffre(numS)}$.<br>`
           texte += `Il parcourt ensuite $${distance}$ m en direction de la montagne et effectue une nouvelle mesure de l'angle $${baita}$ en un point $${lettreDepuisChiffre(numC)}$.<br>`
           texte += '(Le schéma ci-dessous n\'est pas en vraie grandeur et ne respecte pas les proportions.)<br>'
-          texte += `  On donne : $${alfa}=${alpha}\\degree$, $${baita}=${beta}\\degree$ et $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=${distance}$ m.<br>`
+          texte += `  On donne : $${alfa}=${alpha}^\\circ$, $${baita}=${beta}^\\circ$ et $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=${distance}$ m.<br>`
           texte += mathalea2d({
             xmin: min(-sensH, absS + sensH),
             ymin: -1,
@@ -1177,8 +1177,8 @@ export default function ProblemesTrigoLongueur () {
           texteCorr += `${numAlpha(j)}Dans le triangle $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numA)}$ rectangle en $${lettreDepuisChiffre(numS)}$, $h=${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}\\times \\sin(${baita})=\\dfrac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})=\\dfrac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times \\sin(${alfa})}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})$<br>`
 
           j++
-          texteCorr += `${numAlpha(j)}Application numérique : $h=\\dfrac{${distance}${sp()}\\text{m}\\times \\sin(${alpha}\\degree)}{\\sin(${beta}\\degree-${alpha}\\degree)}\\times \\sin(${beta}\\degree)$`
-          texteCorr += `$=\\dfrac{${distance}${sp()}\\text{m}\\times \\sin(${alpha}\\degree)\\times \\sin(${beta}\\degree)}{\\sin(${beta - alpha}\\degree)}\\approx ${texNombre(Math.round(taille))}${sp()}\\text{m}$.<br>`
+          texteCorr += `${numAlpha(j)}Application numérique : $h=\\dfrac{${distance}${sp()}\\text{m}\\times \\sin(${alpha}^\\circ)}{\\sin(${beta}^\\circ-${alpha}^\\circ)}\\times \\sin(${beta}^\\circ)$`
+          texteCorr += `$=\\dfrac{${distance}${sp()}\\text{m}\\times \\sin(${alpha}^\\circ)\\times \\sin(${beta}^\\circ)}{\\sin(${beta - alpha}^\\circ)}\\approx ${texNombre(Math.round(taille))}${sp()}\\text{m}$.<br>`
           break
         case 6: {
           let objetsEnonce = []
@@ -1274,11 +1274,11 @@ export default function ProblemesTrigoLongueur () {
           }
           texteCorr = `Dans le triangle $${A.nom + D.nom + E.nom}$ rectangle en $${D.nom}$ : `
           texteCorr += `<br>$\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${A.nom + D.nom}}{${A.nom + E.nom}}\\quad$ soit $\\quad\\cos(\\widehat{${D.nom + A.nom + E.nom}})=\\dfrac{${AD}}{${AE}}$,`
-          texteCorr += `<br> d'où $\\widehat{${D.nom + A.nom + E.nom}}=\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\approx${texNombre(angle(D, A, E), 1)}\\degree$.`
+          texteCorr += `<br> d'où $\\widehat{${D.nom + A.nom + E.nom}}=\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\approx${texNombre(angle(D, A, E), 1)}^\\circ$.`
 
           texteCorr += `<br><br>Dans le triangle $${A.nom + B.nom + C.nom}$ rectangle en $${B.nom}$ : `
-          texteCorr += `<br>$\\cos(\\widehat{${B.nom + A.nom + C.nom}})=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}\\quad$ soit $\\quad\\cos(${texNombre(arrondi(angle(D, A, E), 1))}\\degree)\\approx\\dfrac{${A.nom + B.nom}}{${AC}}$,`
-          texteCorr += `<br> d'où $${A.nom + B.nom} \\approx ${AC}${sp()}\\text{cm}\\times \\cos(${texNombre(arrondi(angle(D, A, E), 1))}\\degree)\\approx${texNombre(longueur(A, B), 1)}$ cm.`
+          texteCorr += `<br>$\\cos(\\widehat{${B.nom + A.nom + C.nom}})=\\dfrac{${A.nom + B.nom}}{${A.nom + C.nom}}\\quad$ soit $\\quad\\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx\\dfrac{${A.nom + B.nom}}{${AC}}$,`
+          texteCorr += `<br> d'où $${A.nom + B.nom} \\approx ${AC}${sp()}\\text{cm}\\times \\cos(${texNombre(arrondi(angle(D, A, E), 1))}^\\circ)\\approx${texNombre(longueur(A, B), 1)}$ cm.`
 
           // texteCorr += `<br><br>On pouvait aussi écrire : $${A.nom + B.nom} = ${AC}\\times \\cos\\left(\\text{arccos}\\left(\\dfrac{${AD}}{${AE}}\\right)\\right)=${AC}\\times \\dfrac{${AD}}{${AE}}=${texFractionReduite(AC * AD, AE)}$ cm qui est la valeur exacte.`
         }

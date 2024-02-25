@@ -103,7 +103,7 @@ export default function PpcmEngrenages () {
           { // avec de petits nombres on calcule les mutliples
             nbDentsr1 = randint(5, 30)
             nbDentsr2 = randint(5, 30, nbDentsr1)
-            texte = `La roue n$\\degree$1 possède $${nbDentsr1}$ dents et la roue n$\\degree$2 a $${nbDentsr2}$ dents.`
+            texte = `La roue n$^\\circ$1 possède $${nbDentsr1}$ dents et la roue n$^\\circ$2 a $${nbDentsr2}$ dents.`
             texte += '<br>' + numAlpha(0) + ` Écrire la liste des multiples de $${nbDentsr1}$ et de $${nbDentsr2}$ jusqu'à trouver un multiple commun.`
             if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
               texte += `<br>Justifier que ${nbDentsr1} et ${nbDentsr2} sont des `
@@ -175,14 +175,14 @@ export default function PpcmEngrenages () {
             } else {
               texteCorr += ' tours '
             }
-            texteCorr += 'pour la roue n$\\degree$1.'
+            texteCorr += 'pour la roue n$^\\circ$1.'
             texteCorr += `<br>Cela correspond à $(${ppcm(nbDentsr1, nbDentsr2)}\\text{ dents})\\div (${nbDentsr2}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$`
             if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 === 1) {
               texteCorr += ' tour '
             } else {
               texteCorr += ' tours '
             }
-            texteCorr += 'pour la roue n$\\degree$2.'
+            texteCorr += 'pour la roue n$^\\circ$2.'
           }
           break
         case 2: // avec de plus grands nombre, c'est mieux de décomposer en facteurs premiers
@@ -200,7 +200,7 @@ export default function PpcmEngrenages () {
             }
           }
 
-          texte = `La roue n$\\degree$1 possède $${nbDentsr1}$ dents et la roue n$\\degree$2 a $${nbDentsr2}$ dents.`
+          texte = `La roue n$^\\circ$1 possède $${nbDentsr1}$ dents et la roue n$^\\circ$2 a $${nbDentsr2}$ dents.`
           texte += '<br>' + numAlpha(0) + ` Décomposer $${nbDentsr1}$ et $${nbDentsr2}$ en produit de facteurs premiers.`
           if (ppcm(nbDentsr1, nbDentsr2) === (nbDentsr1 * nbDentsr2)) {
             texte += `<br>Justifier que ${nbDentsr1} et ${nbDentsr2} sont des `
@@ -273,14 +273,14 @@ export default function PpcmEngrenages () {
           } else {
             texteCorr += ' tours '
           }
-          texteCorr += 'pour la roue n$\\degree$1.'
+          texteCorr += 'pour la roue n$^\\circ$1.'
           texteCorr += `<br> Cela correspond à $(${texNombre(ppcm(nbDentsr1, nbDentsr2))}\\text{ dents})\\div (${nbDentsr2}\\text{ dents/tour}) = ${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$`
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 === 1) {
             texteCorr += ' tour '
           } else {
             texteCorr += ' tours '
           }
-          texteCorr += 'pour la roue n$\\degree$2.'
+          texteCorr += 'pour la roue n$^\\circ$2.'
           break
         case 3: // déterminer le nombre de dents d'une roue connaissant l'autre et le nombre de tours nécessaires à la re-synchro
           if (this.sup) k = choice([2, 3, 4, 5, 6])
@@ -289,22 +289,22 @@ export default function PpcmEngrenages () {
           nbDentsr2 = randint(5, 80, nbDentsr1)
           nbDentsr1 *= k
           nbDentsr2 *= k
-          texte = `La roue n$\\degree$2 a maintenant $${nbDentsr2}$ dents.`
-          texte += ` Déterminer le nombre de dents de la roue n$\\degree$1 qui ferait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$ `
+          texte = `La roue n$^\\circ$2 a maintenant $${nbDentsr2}$ dents.`
+          texte += ` Déterminer le nombre de dents de la roue n$^\\circ$1 qui ferait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$ `
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
             texte += ' tour '
           } else {
             texte += ' tours '
           }
-          texte += ` pendant que la roue n$\\degree$2 en fait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$.`
-          texteCorr = `Puisque la roue n$\\degree$2, qui a $${nbDentsr2}$ dents, fait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$ `
+          texte += ` pendant que la roue n$^\\circ$2 en fait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$.`
+          texteCorr = `Puisque la roue n$^\\circ$2, qui a $${nbDentsr2}$ dents, fait $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr2}$ `
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr2 === 1) {
             texteCorr += ' tour '
           } else {
             texteCorr += ' tours '
           }
           texteCorr += `, cela représente $${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents.`
-          texteCorr += `<br>La roue n$\\degree$1 doit donc aussi tourner de $${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents, ceci en $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$ `
+          texteCorr += `<br>La roue n$^\\circ$1 doit donc aussi tourner de $${texNombre(ppcm(nbDentsr1, nbDentsr2))}$ dents, ceci en $${ppcm(nbDentsr1, nbDentsr2) / nbDentsr1}$ `
           if (ppcm(nbDentsr1, nbDentsr2) / nbDentsr1 === 1) {
             texteCorr += ' tour '
           } else {
@@ -318,7 +318,7 @@ export default function PpcmEngrenages () {
             texteCorr += ' tours '
           }
           texteCorr += `}) = ${nbDentsr1} \\text{ dents/tour}.$`
-          texteCorr += `<br>La roue n$\\degree$1 a donc $${nbDentsr1}$ dents.`
+          texteCorr += `<br>La roue n$^\\circ$1 a donc $${nbDentsr1}$ dents.`
           break
       }
 

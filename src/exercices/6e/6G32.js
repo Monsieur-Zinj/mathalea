@@ -155,23 +155,23 @@ export default function SymetrieAxialeProprietes () {
           Barc = homothetie(ptRef1, B, 2 / 10)
           BLabel = rotation(homothetie(ptRef1, B, 2 / 10 + 1 / longueur(ptRef1, B)), B, angleOriente(ptRef1, B, ptRef2) / 3)
           BLabel.positionLabel = 'center'
-          objetsEnonce.push(arc(Barc, B, angleOriente(ptRef1, B, ptRef2)), latexParPoint(`${angle(ptRef1, B, ptRef2, 0)}\\degree`, BLabel, 'black', 12, 20, ''))
+          objetsEnonce.push(arc(Barc, B, angleOriente(ptRef1, B, ptRef2)), latexParPoint(`${angle(ptRef1, B, ptRef2, 0)}^\\circ`, BLabel, 'black', 12, 20, ''))
           ptRef1 = (longueur(A, C) < longueur(C, B)) ? A : B
           ptRef2 = (longueur(A, C) < longueur(C, B)) ? B : A
           Carc = homothetie(ptRef1, C, 2 / 10)
           CLabel = rotation(homothetie(ptRef1, C, 2 / 10 + 1 / longueur(ptRef1, C)), C, angleOriente(ptRef1, C, ptRef2) / 3)
           CLabel.positionLabel = 'center'
-          objetsEnonce.push(arc(Carc, C, angleOriente(ptRef1, C, ptRef2)), latexParPoint(`${angle(ptRef1, C, ptRef2, 0)}\\degree`, CLabel, 'black', 12, 20, ''))
+          objetsEnonce.push(arc(Carc, C, angleOriente(ptRef1, C, ptRef2)), latexParPoint(`${angle(ptRef1, C, ptRef2, 0)}^\\circ`, CLabel, 'black', 12, 20, ''))
           ptRef1 = (longueur(A, C) < longueur(A, B)) ? C : B
           ptRef2 = (longueur(A, C) < longueur(A, B)) ? B : C
           Aarc = homothetie(ptRef1, A, 2 / 10)
           ALabel = rotation(homothetie(ptRef1, A, 2 / 10 + 1 / longueur(A, ptRef1)), A, angleOriente(ptRef1, A, ptRef2) / 3)
           ALabel.positionLabel = 'center'
-          objetsEnonce.push(arc(Aarc, A, angleOriente(ptRef1, A, ptRef2)), latexParPoint(`${180 - angle(A, ptRef2, ptRef1, 0) - angle(A, ptRef1, ptRef2, 0)}\\degree`, ALabel, 'black', 12, 20, ''))
+          objetsEnonce.push(arc(Aarc, A, angleOriente(ptRef1, A, ptRef2)), latexParPoint(`${180 - angle(A, ptRef2, ptRef1, 0) - angle(A, ptRef1, ptRef2, 0)}^\\circ`, ALabel, 'black', 12, 20, ''))
           texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce, { rxmin: -1, rymin: -1, rxmax: 1, rymax: 1, pixelsParCm: 40, scale: 1, style: 'margin-top: 40px' })), objetsEnonce)
           texteCorr += `Les angles $\\widehat{${A.nom}${C.nom}${B.nom}}$ et $\\widehat{${D.nom}${F.nom}${E.nom}}$ sont symétriques par rapport à $(d)$.<br>`
           texteCorr += 'Or, le symétrique d\'un angle est un angle de même mesure.<br>'
-          texteCorr += `Donc les angles $\\widehat{${A.nom}${C.nom}${B.nom}}$ et $\\widehat{${D.nom}${F.nom}${E.nom}}$ ont la même mesure et $\\widehat{${D.nom}${F.nom}${E.nom}} = ${angle(D, F, E, 0)}\\degree$.<br>`
+          texteCorr += `Donc les angles $\\widehat{${A.nom}${C.nom}${B.nom}}$ et $\\widehat{${D.nom}${F.nom}${E.nom}}$ ont la même mesure et $\\widehat{${D.nom}${F.nom}${E.nom}} = ${angle(D, F, E, 0)}^\\circ$.<br>`
           break
       }
       if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en crée une autre

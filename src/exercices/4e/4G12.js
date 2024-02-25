@@ -160,8 +160,8 @@ export default function SerieDeTransformations () {
             nomCentreRotation = leSens ? noeuds[depart + 6].nom : noeuds[depart].nom
             break
         }
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la rotation de centre $${nomCentreRotation}$ d'angle $90\\degree$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
-        texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la rotation de centre${sp(1)}\\ldots${sp(1)}d'angle $90\\degree$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}`
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 11))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 12))} par la rotation de centre $${nomCentreRotation}$ d'angle $90^\\circ$ dans le sens ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}.`
+        texte = `La figure \\ldots${sp()}a pour image la figure${sp(1)}\\ldots${sp(1)}par la rotation de centre${sp(1)}\\ldots${sp(1)}d'angle $90^\\circ$ dans le sens  ${leSens ? "contraire des aiguilles d'une montre" : "des aiguilles d'une montre"}`
         texteInteractif = "Une rotation d'angle 90° et dont le centre est un point du quadrillage."
         return { texte, texteCorr, texteInteractif, type, centre: centreRotation, sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisi dépend de depart et arrivee

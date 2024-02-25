@@ -1008,13 +1008,13 @@ $\\textbf{1.}$ L'image de $${ABCD[P[i]]}$ est $${EFGH[P[i]]}$.
 
 $\\textbf{2.}$ Il y a $${n.value}$ rectangles en tout.
 
-$\\dfrac{360\\degree}{${n.toFixed}} = ${angle.toFixed}\\degree$
+$\\dfrac{360^\\circ}{${n.toFixed}} = ${angle.toFixed}^\\circ$
 
-On doit tourner $${aleaRectangle}$ fois d'un angle de $${angle.toFixed}\\degree$ dans le sens direct (anti-horaire).
+On doit tourner $${aleaRectangle}$ fois d'un angle de $${angle.toFixed}^\\circ$ dans le sens direct (anti-horaire).
 
-$${aleaRectangle}\\times${angle.toFixed}\\degree=${angleSolution.toFixed}\\degree$
+$${aleaRectangle}\\times${angle.toFixed}^\\circ=${angleSolution.toFixed}^\\circ$
 
-Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixed}\\degree$.
+Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixed}^\\circ$.
 `.replaceAll('\n\n', '<br>')
           break
         }
@@ -1088,11 +1088,11 @@ Donc c'est la rotation de centre $${ABCD[1]}$ et d'angle $${angleSolution.toFixe
           angle.name = aleaName(['\\alpha', '\\beta', '\\gamma', '\\delta'], 1)
           let remarque
           if (angleSolution.toFixed + 90 > 360) {
-            remarque = `<br>\\textit{Remarque :} L'angle est plus grand que $360\\degree$.
+            remarque = `<br>\\textit{Remarque :} L'angle est plus grand que $360^\\circ$.
 
 $${angleSolution.toFixed + 90}-360=${angleSolution.toFixed + 90 - 360}$
 
-Donc la solution peut être une rotation d'angle $${angleSolution.toFixed + 90 - 360}\\degree$.`
+Donc la solution peut être une rotation d'angle $${angleSolution.toFixed + 90 - 360}^\\circ$.`
           } else { remarque = '' }
           // L'exercice
           // Chaque rectangle et son suivant sont obtenus par une rotation de même centre et de même angle.
@@ -1103,17 +1103,17 @@ Déterminer l'angle de la rotation de centre $${ABCD[2]}$ qui permet de transfor
 ${graph.split('\n').filter(x => x !== '').filter(x => x !== '').join('\n')}`.replaceAll('\n\n', context.isHtml ? '<br>' : '\n\n')
           exercice.texteCorr = `Il y a $${n.value}$ carrés en tout.
 
-$\\dfrac{360\\degree}{${n.toFixed}} = ${angle.toFixed}\\degree$
+$\\dfrac{360^\\circ}{${n.toFixed}} = ${angle.toFixed}^\\circ$
 
-On doit tourner $${rectangleImage}$ fois d'un angle de $${angle.toFixed}\\degree$ dans le sens direct (anti-horaire) pour passer de $${ABCD.name}$ à $${EFGH.name}$.
+On doit tourner $${rectangleImage}$ fois d'un angle de $${angle.toFixed}^\\circ$ dans le sens direct (anti-horaire) pour passer de $${ABCD.name}$ à $${EFGH.name}$.
 
 L'image de $${ABCD[3]}$ par cette rotation est $${EFGH[3]}$.
 
-On doit ensuite effectuer une rotation de centre $${ABCD[2]}$ d'un angle de $90\\degree$ pour passer du point $${EFGH[3]}$ au point $${EFGH[1]}$.
+On doit ensuite effectuer une rotation de centre $${ABCD[2]}$ d'un angle de $90^\\circ$ pour passer du point $${EFGH[3]}$ au point $${EFGH[1]}$.
 
-$${rectangleImage}\\times${angle.toFixed}\\degree+90\\degree=${angleSolution.toFixed + 90}\\degree$
+$${rectangleImage}\\times${angle.toFixed}^\\circ+90^\\circ=${angleSolution.toFixed + 90}^\\circ$
 
-Donc c'est la rotation de centre $${ABCD[2]}$ et d'angle $${angleSolution.toFixed + 90}\\degree$.
+Donc c'est la rotation de centre $${ABCD[2]}$ et d'angle $${angleSolution.toFixed + 90}^\\circ$.
 
 ${remarque}`
           break

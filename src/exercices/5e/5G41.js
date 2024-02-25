@@ -118,13 +118,13 @@ export default function ConstructionsParallelogrammesParticuliers () {
         D = rotation(B, O, 180, noms[3])
         C = rotation(A, O, 180, noms[2])
         texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
-        texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm, $${noms[1] + noms[3]}=${texNombre(c4)}$ cm et $\\widehat{${noms[0] + noms[4] + noms[1]}}=${alpha}\\degree$  dans le sens inverse des aiguilles d'une montre.<br>`
+        texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm, $${noms[1] + noms[3]}=${texNombre(c4)}$ cm et $\\widehat{${noms[0] + noms[4] + noms[1]}}=${alpha}^\\circ$  dans le sens inverse des aiguilles d'une montre.<br>`
         objetsEnonce.push(tracePoint(A, O), labelPoint(A, O))
         if (this.correctionDetaillee) {
           texteCorr += `Comme $${nom}$ est un parallélogramme, ses diagonales se coupent en leur milieu $${noms[4]}$.<br>`
           texteCorr += `$${noms[2]}$ est le symétrique de $${noms[0]}$ par rapport à $${noms[4]}$. La distance $${noms[4] + noms[1]}$ est égale à la moitié de $${noms[1] + noms[3]}$.<br>`
           texteCorr += `Construisons tout d'abord le point $${noms[2]}$ symétrique de $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
-          texteCorr += `Construisons ensuite un angle $\\widehat{${noms[0] + noms[4] + 'x'}}$ de mesure $${alpha}\\degree$ dans le sens inverse des aiguilles d'une montre.<br>`
+          texteCorr += `Construisons ensuite un angle $\\widehat{${noms[0] + noms[4] + 'x'}}$ de mesure $${alpha}^\\circ$ dans le sens inverse des aiguilles d'une montre.<br>`
           texteCorr += `Construisons enfin le point $${noms[1]}$ sur $[${noms[4]}x)$ et son symétrique $${noms[3]}$ par rapport à $${noms[4]}$ situés tous les deux à $${texNombre(arrondi(c4 / 2))}$ cm de $${noms[4]}$.<br>`
         }
         texteCorr += `$${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('n\'est pas un paraléllogramme particulier')}.<br>`
@@ -206,10 +206,10 @@ export default function ConstructionsParallelogrammesParticuliers () {
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
         texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
-        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm et $\\widehat{${noms[1] + noms[2] + noms[3]}}=${alpha}\\degree$  dans le sens inverse des aiguilles d'une montre.<br>`
+        texte += `$${noms[0] + noms[1]}=${texNombre(c1)}$ cm, $${noms[0] + noms[3]}=${texNombre(c4)}$ cm et $\\widehat{${noms[1] + noms[2] + noms[3]}}=${alpha}^\\circ$  dans le sens inverse des aiguilles d'une montre.<br>`
         objetsEnonce.push(tracePoint(A, B), labelPoint(A, B))
         if (this.correctionDetaillee) {
-          texteCorr += `Comme $${nom}$ est un parallélogramme, ses angles opposés ont la même mesure, donc $\\widehat{${noms[3] + noms[0] + noms[1]}}=${alpha}\\degree$.<br>`
+          texteCorr += `Comme $${nom}$ est un parallélogramme, ses angles opposés ont la même mesure, donc $\\widehat{${noms[3] + noms[0] + noms[1]}}=${alpha}^\\circ$.<br>`
           texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[3]}$.<br>`
           texteCorr += `Désignons $${noms[4]}$ le milieu de $[${noms[1] + noms[3]}]$.<br>`
           texteCorr += `Construisons ensuite le point $${noms[2]}$ symétrique  de $${noms[0]}$ par rapport à $${noms[4]}$, milieu de $[${noms[1] + noms[3]}]$.<br>`
@@ -282,19 +282,19 @@ export default function ConstructionsParallelogrammesParticuliers () {
         B = pointIntersectionDD(dd1, dd2, noms[1])
         D = rotation(B, O, 180, noms[3])
         texte = `$${nom}$ est un parallélogramme de centre $${noms[4]}$ tel que `
-        texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm.<br>$\\widehat{${noms[4] + noms[0] + noms[1]}}=${c2}\\degree$  dans le sens inverse des aiguilles d'une montre.<br>$\\widehat{${noms[4] + noms[2] + noms[1]}}=${c3}\\degree$  dans le sens des aiguilles d'une montre.<br>`
+        texte += `$${noms[0] + noms[2]}=${texNombre(c1)}$ cm.<br>$\\widehat{${noms[4] + noms[0] + noms[1]}}=${c2}^\\circ$  dans le sens inverse des aiguilles d'une montre.<br>$\\widehat{${noms[4] + noms[2] + noms[1]}}=${c3}^\\circ$  dans le sens des aiguilles d'une montre.<br>`
         objetsEnonce.push(tracePoint(A, C), labelPoint(A, C))
         if (this.correctionDetaillee) {
           texteCorr += `Comme $${nom}$ est un parallélogramme, ses côtés opposés sont parallèles.<br>`
           texteCorr += `La diagonale $[${noms[0]}${noms[2]}]$ forme des angles $\\widehat{${noms[4] + noms[0] + noms[1]}}$ et $\\widehat{${noms[4] + noms[2] + noms[3]}}$ alternes-internes égaux.<br>`
           texteCorr += `De même les angles $\\widehat{${noms[4] + noms[0] + noms[3]}}$ et $\\widehat{${noms[4] + noms[2] + noms[1]}}$ sont alternes-internes égaux eux aussi.<br>`
-          texteCorr += `On en déduit que $\\widehat{${noms[4] + noms[0] + noms[3]}}=\\widehat{${noms[4] + noms[2] + noms[1]}}=${miseEnEvidence(c3, 'red')}\\degree$ et que $\\widehat{${noms[4] + noms[0] + noms[1]}}=\\widehat{${noms[4] + noms[2] + noms[3]}}=${miseEnEvidence(c2, 'blue')}\\degree$.<br>`
+          texteCorr += `On en déduit que $\\widehat{${noms[4] + noms[0] + noms[3]}}=\\widehat{${noms[4] + noms[2] + noms[1]}}=${miseEnEvidence(c3, 'red')}^\\circ$ et que $\\widehat{${noms[4] + noms[0] + noms[1]}}=\\widehat{${noms[4] + noms[2] + noms[3]}}=${miseEnEvidence(c2, 'blue')}^\\circ$.<br>`
           texteCorr += `Construisons tout d'abord le triangle $${noms[0] + noms[1] + noms[2]}$ `
           texteCorr += `puis le point $${noms[3]}$ symétrique de $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
         }
 
         texteCorr += `Le triangle $${noms[0] + noms[1] + noms[2]}$ n'est pas un triangle isocèle car ses angles ne sont pas égaux.<br>`
-        texteCorr += `De plus, dans ce triangle $${noms[0] + noms[1] + noms[2]}$,  l'angle $\\widehat{${noms[0] + noms[1] + noms[2]}}$ mesure $${180 - c2 - c3}\\degree$ et n'est pas droit donc $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('n\'est pas un paraléllogramme particulier')}.<br>`
+        texteCorr += `De plus, dans ce triangle $${noms[0] + noms[1] + noms[2]}$,  l'angle $\\widehat{${noms[0] + noms[1] + noms[2]}}$ mesure $${180 - c2 - c3}^\\circ$ et n'est pas droit donc $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('n\'est pas un paraléllogramme particulier')}.<br>`
         t1 = afficheMesureAngle(O, A, B, 'blue', 1, texNombre(c2) + '^\\circ')
         t2 = afficheMesureAngle(O, C, B, 'red', 1, texNombre(c3) + '^\\circ')
         t3 = traceCompas(O, D, 30)

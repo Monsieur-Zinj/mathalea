@@ -80,8 +80,8 @@ export default function TracerTriangle2Angles () {
       const p = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(p)
       texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(c)}$ cm, $\\widehat{${p[1] + p[0] + p[2]
-        }}=${angle1}\\degree$ et $\\widehat{${p[0] + p[1] + p[2]
-        }}=${angle2}\\degree$.`
+        }}=${angle1}^\\circ$ et $\\widehat{${p[0] + p[1] + p[2]
+        }}=${angle2}^\\circ$.`
       texte += `<br> Mesurer $${p[0] + p[2]}$,  $${p[1] + p[2]}$ et $\\widehat{${p[0] + p[2] + p[1]}}$`
 
       // on construit le segment
@@ -139,7 +139,7 @@ export default function TracerTriangle2Angles () {
       if (!this.sup) {
         texteCorr += `$${p[0] + p[2]}\\approx${texNombre(longueur(A3, C, 2))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B3, C, 2))}$ cm`
         texteCorr += ` et $\\widehat{${p[1] + p[2] + p[0]
-          }}=${180 - angle1 - angle2}\\degree$ `
+          }}=${180 - angle1 - angle2}^\\circ$ `
       }
       const anim = new Alea2iep()
       anim.triangle1longueur2angles(p, c, angle1, angle2, true, true) // description et longueur

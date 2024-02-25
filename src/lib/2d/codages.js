@@ -537,7 +537,7 @@ export function AfficheMesureAngle (A, B, C, color = 'black', distance = 1.5, la
     if (label !== '') {
       mesureAngleString = label
     } else {
-      mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '\\degree'
+      mesureAngleString = Math.round(Math.abs(mesureAngle)).toString() + '^\\circ'
     }
     const mesure = latexParPoint(mesureAngleString, N, color, 0, 0, '', 8)
     const marque = arc(M, B, mesureAngle, rayon, couleurDeRemplissage, colorArc, opaciteDeRemplissage)

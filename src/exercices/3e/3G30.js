@@ -93,7 +93,7 @@ export default function CalculDeLongueur () {
           bc = new Decimal(randint(10, 15))
           ab = Decimal.cos(angleABCr).mul(bc)
           ac = Decimal.sin(angleABCr).mul(bc)
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[1]
           break
@@ -101,7 +101,7 @@ export default function CalculDeLongueur () {
           bc = new Decimal(randint(10, 15))
           ab = Decimal.cos(angleABCr).mul(bc)
           ac = Decimal.sin(angleABCr).mul(bc)
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[1] + nom[2]}=${bc}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[2]
           break
@@ -109,7 +109,7 @@ export default function CalculDeLongueur () {
           ab = new Decimal(randint(7, 10))
           ac = Decimal.tan(angleABCr).mul(ab)
           bc = new Decimal(ab).div(Decimal.cos(angleABCr))
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[2]
           break
@@ -117,7 +117,7 @@ export default function CalculDeLongueur () {
           ab = new Decimal(randint(7, 10))
           bc = new Decimal(ab).div(Decimal.cos(angleABCr))
           ac = Decimal.sin(angleABCr).mul(bc)
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[1]}=${ab}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[1]
           nom2 = nom[2]
           break
@@ -125,7 +125,7 @@ export default function CalculDeLongueur () {
           ac = new Decimal(randint(7, 10))
           bc = new Decimal(ac).div(Decimal.sin(angleABCr))
           ab = Decimal.cos(angleABCr).mul(bc)
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[1]
           nom2 = nom[2]
           break
@@ -133,7 +133,7 @@ export default function CalculDeLongueur () {
           ac = new Decimal(randint(7, 10))
           bc = new Decimal(ac).div(Decimal.sin(angleABCr))
           ab = Decimal.cos(angleABCr).mul(bc)
-          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}\\degree$.<br>`
+          texteAMC += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> $${nom[0] + nom[2]}=${ac}$ ${unite} et $\\widehat{${nom}}=${angleABC}^\\circ$.<br>`
           nom1 = nom[0]
           nom2 = nom[1]
           break
@@ -178,37 +178,37 @@ export default function CalculDeLongueur () {
           t3 = latexParPoint(`${bc} \\text{ ${unite}}`, m3, 'black', 120, 12, '')
           t2 = latexParPoint('?', m1, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
-          t1 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 20, 12, '')
+          t1 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 20, 12, '')
           break
         case 'sinus':
           t3 = latexParPoint(`${bc} \\text{ ${unite}}`, m3, 'black', 120, 12, '')
           t2 = latexParPoint('?', m2, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
-          t1 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
+          t1 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
           break
         case 'tangente':
           t1 = latexParPoint(`${ab} \\text{ ${unite}}`, m1, 'black', 120, 12, '')
           t2 = latexParPoint('?', m2, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
-          t3 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
+          t3 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
           break
         case 'invCosinus':
           t1 = latexParPoint(`${ab} \\text{ ${unite}}`, m1, 'black', 120, 12, '')
           t3 = latexParPoint('?', m3, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
-          t2 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
+          t2 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
           break
         case 'invSinus':
           t2 = latexParPoint(`${ac} \\text{ ${unite}}`, m2, 'black', 120, 12, '')
           t3 = latexParPoint('?', m3, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
-          t1 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
+          t1 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
           break
         case 'invTangente':
           t2 = latexParPoint(`${ac} \\text{ ${unite}}`, m2, 'black', 120, 12, '')
           t1 = latexParPoint('?', m1, 'black', 120, 12, '')
           m4 = homothetie(G, B, 2.7 / longueur(B, G), 'B2', 'center')
-          t3 = latexParPoint(`${angleABC}\\degree`, m4, 'black', 100, 12, '')
+          t3 = latexParPoint(`${angleABC}^\\circ`, m4, 'black', 100, 12, '')
           break
       }
       objetsEnonce.push(p2, codage, nomme, t1, t2, t3, codageDeAngle)
@@ -256,108 +256,108 @@ export default function CalculDeLongueur () {
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${deprecatedTexFraction(nom[0] + nom[1], bc)}$<br>`
+          texteCorr += `$\\dfrac{\\cos\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(nom[0] + nom[1], bc)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\cos\\left(${angleABC}\\degree\\right)`)}$`
+          texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\cos\\left(${angleABC}^\\circ\\right)`)}$`
           texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
           reponse = ab.toDP(1)
           nomLongueur = `$${nom[0] + nom[1]}$`
-          calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
-          calcul1 = `$${nom[1] + nom[2]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
-          calcul2 = `$${nom[1] + nom[2]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
-          calcul3 = `$\\dfrac{${nom[1] + nom[2]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
-          calcul4 = `$\\dfrac{${nom[1] + nom[2]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
-          calcul5 = `$\\dfrac{${nom[1] + nom[2]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
+          calcul1 = `$${nom[1] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
+          calcul2 = `$${nom[1] + nom[2]}\\times\\tan\\left(${angleABC}^\\circ\\right)$`
+          calcul3 = `$\\dfrac{${nom[1] + nom[2]}}{\\cos\\left(${angleABC}^\\circ\\right)}$`
+          calcul4 = `$\\dfrac{${nom[1] + nom[2]}}{\\sin\\left(${angleABC}^\\circ\\right)}$`
+          calcul5 = `$\\dfrac{${nom[1] + nom[2]}}{\\tan\\left(${angleABC}^\\circ\\right)}$`
           calculTrue = 0
           break
         case 'sinus':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${deprecatedTexFraction(nom[0] + nom[2], bc)}$<br>`
+          texteCorr += `$\\dfrac{\\sin\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(nom[0] + nom[2], bc)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\sin\\left(${angleABC}\\degree\\right)`)}$`
+          texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\sin\\left(${angleABC}^\\circ\\right)`)}$`
           texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
           reponse = ac.toDP(1)
           nomLongueur = `$${nom[0] + nom[2]}$`
-          calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
-          calcul1 = `$${nom[1] + nom[2]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
-          calcul2 = `$${nom[1] + nom[2]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
-          calcul3 = `$\\dfrac{${nom[1] + nom[2]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
-          calcul4 = `$\\dfrac{${nom[1] + nom[2]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
-          calcul5 = `$\\dfrac{${nom[1] + nom[2]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calcul0 = `$${nom[1] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
+          calcul1 = `$${nom[1] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
+          calcul2 = `$${nom[1] + nom[2]}\\times\\tan\\left(${angleABC}^\\circ\\right)$`
+          calcul3 = `$\\dfrac{${nom[1] + nom[2]}}{\\cos\\left(${angleABC}^\\circ\\right)}$`
+          calcul4 = `$\\dfrac{${nom[1] + nom[2]}}{\\sin\\left(${angleABC}^\\circ\\right)}$`
+          calcul5 = `$\\dfrac{${nom[1] + nom[2]}}{\\tan\\left(${angleABC}^\\circ\\right)}$`
           calculTrue = 1
           break
         case 'tangente':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${deprecatedTexFraction(nom[0] + nom[2], ab)}$<br>`
+          texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(nom[0] + nom[2], ab)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}\\degree\\right)`)}$`
+          texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}^\\circ\\right)`)}$`
           texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
           reponse = ac.toDP(1)
           nomLongueur = `$${nom[0] + nom[2]}$`
-          calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
-          calcul1 = `$${nom[0] + nom[1]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
-          calcul2 = `$${nom[0] + nom[1]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
-          calcul3 = `$\\dfrac{${nom[0] + nom[1]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
-          calcul4 = `$\\dfrac{${nom[0] + nom[1]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
-          calcul5 = `$\\dfrac{${nom[0] + nom[1]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
+          calcul1 = `$${nom[0] + nom[1]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
+          calcul2 = `$${nom[0] + nom[1]}\\times\\tan\\left(${angleABC}^\\circ\\right)$`
+          calcul3 = `$\\dfrac{${nom[0] + nom[1]}}{\\cos\\left(${angleABC}^\\circ\\right)}$`
+          calcul4 = `$\\dfrac{${nom[0] + nom[1]}}{\\sin\\left(${angleABC}^\\circ\\right)}$`
+          calcul5 = `$\\dfrac{${nom[0] + nom[1]}}{\\tan\\left(${angleABC}^\\circ\\right)}$`
           calculTrue = 2
           break
         case 'invCosinus':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\cos\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${deprecatedTexFraction(ab, nom[1] + nom[2])}$<br>`
+          texteCorr += `$\\dfrac{\\cos\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(ab, nom[1] + nom[2])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\cos\\left(${angleABC}\\degree\\right)`, ab, '\\color{red}{1}')}$`
+          texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\cos\\left(${angleABC}^\\circ\\right)`, ab, '\\color{red}{1}')}$`
           texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
           reponse = bc.toDP(1)
           nomLongueur = `$${nom[1] + nom[2]}$`
-          calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
-          calcul1 = `$${nom[0] + nom[1]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
-          calcul2 = `$${nom[0] + nom[1]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
-          calcul3 = `$\\dfrac{${nom[0] + nom[1]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
-          calcul4 = `$\\dfrac{${nom[0] + nom[1]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
-          calcul5 = `$\\dfrac{${nom[0] + nom[1]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calcul0 = `$${nom[0] + nom[1]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
+          calcul1 = `$${nom[0] + nom[1]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
+          calcul2 = `$${nom[0] + nom[1]}\\times\\tan\\left(${angleABC}^\\circ\\right)$`
+          calcul3 = `$\\dfrac{${nom[0] + nom[1]}}{\\cos\\left(${angleABC}^\\circ\\right)}$`
+          calcul4 = `$\\dfrac{${nom[0] + nom[1]}}{\\sin\\left(${angleABC}^\\circ\\right)}$`
+          calcul5 = `$\\dfrac{${nom[0] + nom[1]}}{\\tan\\left(${angleABC}^\\circ\\right)}$`
           calculTrue = 3
           break
         case 'invSinus':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\sin\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${deprecatedTexFraction(ac, nom[1] + nom[2])}$<br>`
+          texteCorr += `$\\dfrac{\\sin\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(ac, nom[1] + nom[2])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\sin\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
+          texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\sin\\left(${angleABC}^\\circ\\right)`, ac, '\\color{red}{1}')}$`
           texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
           reponse = bc.toDP(1)
           nomLongueur = `$${nom[1] + nom[2]}$`
-          calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
-          calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
-          calcul2 = `$${nom[0] + nom[2]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
-          calcul3 = `$\\dfrac{${nom[0] + nom[2]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
-          calcul4 = `$\\dfrac{${nom[0] + nom[2]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
-          calcul5 = `$\\dfrac{${nom[0] + nom[2]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
+          calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
+          calcul2 = `$${nom[0] + nom[2]}\\times\\tan\\left(${angleABC}^\\circ\\right)$`
+          calcul3 = `$\\dfrac{${nom[0] + nom[2]}}{\\cos\\left(${angleABC}^\\circ\\right)}$`
+          calcul4 = `$\\dfrac{${nom[0] + nom[2]}}{\\sin\\left(${angleABC}^\\circ\\right)}$`
+          calcul5 = `$\\dfrac{${nom[0] + nom[2]}}{\\tan\\left(${angleABC}^\\circ\\right)}$`
           calculTrue = 4
           break
         case 'invTangente':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\tan\\left(${angleABC}\\degree\\right)}{\\color{red}{1}}=${deprecatedTexFraction(ac, nom[0] + nom[1])}$<br>`
+          texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(ac, nom[0] + nom[1])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
-          texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}\\degree\\right)`, ac, '\\color{red}{1}')}$`
+          texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}^\\circ\\right)`, ac, '\\color{red}{1}')}$`
           texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
           reponse = ab.toDP(1)
           nomLongueur = `$${nom[0] + nom[1]}$`
-          calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}\\degree\\right)$`
-          calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}\\degree\\right)$`
-          calcul2 = `$${nom[0] + nom[2]}\\times\\tan\\left(${angleABC}\\degree\\right)$`
-          calcul3 = `$\\dfrac{${nom[0] + nom[2]}}{\\cos\\left(${angleABC}\\degree\\right)}$`
-          calcul4 = `$\\dfrac{${nom[0] + nom[2]}}{\\sin\\left(${angleABC}\\degree\\right)}$`
-          calcul5 = `$\\dfrac{${nom[0] + nom[2]}}{\\tan\\left(${angleABC}\\degree\\right)}$`
+          calcul0 = `$${nom[0] + nom[2]}\\times\\cos\\left(${angleABC}^\\circ\\right)$`
+          calcul1 = `$${nom[0] + nom[2]}\\times\\sin\\left(${angleABC}^\\circ\\right)$`
+          calcul2 = `$${nom[0] + nom[2]}\\times\\tan\\left(${angleABC}^\\circ\\right)$`
+          calcul3 = `$\\dfrac{${nom[0] + nom[2]}}{\\cos\\left(${angleABC}^\\circ\\right)}$`
+          calcul4 = `$\\dfrac{${nom[0] + nom[2]}}{\\sin\\left(${angleABC}^\\circ\\right)}$`
+          calcul5 = `$\\dfrac{${nom[0] + nom[2]}}{\\tan\\left(${angleABC}^\\circ\\right)}$`
           calculTrue = 5
           break
       }
