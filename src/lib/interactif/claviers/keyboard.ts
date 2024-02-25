@@ -42,6 +42,8 @@ export const convertKeyboardTypeToBlocks = (type : KeyboardType): BlockForKeyboa
   switch (type) {
     case KeyboardType.clavierDeBase:
       return ['numbersOperations']
+    case KeyboardType.grecTrigo:
+      return ['numbers', 'fullOperations', 'greek', 'trigo']
     case KeyboardType.clavierHms:
       return ['numbers', 'hms']
     case KeyboardType.lycee:
