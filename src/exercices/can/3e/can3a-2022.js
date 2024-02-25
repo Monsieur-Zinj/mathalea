@@ -583,7 +583,7 @@ export default function SujetCAN2022troisieme () {
           texte += mathalea2d({
             xmin: -1.5,
             ymin: -1,
-            xmax: 7.1,
+            xmax: 7.6,
             ymax: 6,
             scale: 0.7
           }, poly, labelPoint(A, B, C, D), d, e)
