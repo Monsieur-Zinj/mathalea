@@ -51,7 +51,7 @@ import {
   }
   let dialogLua: HTMLDialogElement
   let exercices: TypeExercice[]
-  let contents = { content: '', contentCorr: '' }
+  let latexWithoutPreamble: string = ''
   let isExerciceStaticInTheList = false
   let downloadPicsModal: HTMLElement
   let picsWanted: boolean
@@ -71,13 +71,25 @@ import {
       }
     }
     latex.addExercices(exercices.filter((ex) => ex.typeExercice !== 'html'))
-    contents = await latex.getContents(style, nbVersions)
+    const contents = await latex.getContents(style, nbVersions)
     picsWanted = doesLatexNeedsPics(contents)
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
   }
 
   async function updateLatex () {
-    contents = await latex.getContents(style, nbVersions)
+    try {
+      latexWithoutPreamble = await latex.getFile({
+        title,
+        reference,
+        subtitle,
+        style,
+        nbVersions,
+        withPreamble: false
+      })
+    } catch (error) {
+      console.error('Erreur lors de la création du code LaTeX :', error)
+      latexWithoutPreamble = '% Erreur à signaler'
+    }
   }
 
   onMount(() => {
@@ -90,8 +102,15 @@ import {
     mathaleaRenderDiv(divText)
   })
 
+  let timerId: ReturnType<typeof setTimeout> | undefined
   afterUpdate(() => {
-    mathaleaRenderDiv(divText)
+    if (timerId === undefined) {
+      timerId = setTimeout(() => {
+        updateLatex()
+        mathaleaRenderDiv(divText)
+        timerId = undefined
+      }, 1000)
+    }
   })
 
   /* ============================================================================
@@ -127,20 +146,6 @@ import {
   //= ===================== Fin Modal figures ====================================
 
   initExercices()
-
-  $: {
-    (async () => {
-      try {
-        contents = await latex.getContents(style, nbVersions)
-      } catch (error) {
-        console.error('Erreur lors de la création du code LaTeX :', error)
-        contents = {
-          content: '% Erreur à signaler',
-          contentCorr: '% Erreur à signaler'
-        }
-      }
-    })()
-  }
 
   const copyDocument = async () => {
     try {
@@ -504,16 +509,10 @@ import {
       Code
     </h1>
     <pre
-      class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto text-xs">
-      {contents.content}
-      {#if style !== 'ProfMaquette' && style !== 'ProfMaquetteQrcode'}
-        %%%%%%%%%%%%%%%%%%%%%%
-      %%%   CORRECTION   %%%
-      %%%%%%%%%%%%%%%%%%%%%%
-
-            {contents.contentCorr}
-      {/if}
-  </pre>
+      class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto text-xs"
+      >
+      {latexWithoutPreamble}
+    </pre>
   </section>
   <footer>
     <Footer />
