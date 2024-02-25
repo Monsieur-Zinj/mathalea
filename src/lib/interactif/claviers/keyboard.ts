@@ -33,7 +33,7 @@ export enum KeyboardType {
   masse = 'masse',
 }
 
-function convertToKeyboardTypeEnum (str: string): KeyboardType | undefined {
+export const convertToKeyboardTypeEnum = (str: string): KeyboardType | undefined => {
   const type = KeyboardType[str as keyof typeof KeyboardType]
   return type
 }
