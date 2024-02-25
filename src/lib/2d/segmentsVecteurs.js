@@ -251,8 +251,8 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
       if (fin === '|') {
         // si ça termine par | on le rajoute en B
         const M = pointSurSegment(B, A, h / context.pixelsParCm)
-        const B1 = similitude(M, B, 90, 0.7)
-        const B2 = similitude(M, B, -90, 0.7)
+        const B1 = rotation(M, B, 90)
+        const B2 = rotation(M, B, -90)
         code += `<line x1="${B1.xSVG(coeff)}" y1="${B1.ySVG(
                     coeff
                 )}" x2="${B2.xSVG(coeff)}" y2="${B2.ySVG(coeff)}" stroke="${this.color[0]
