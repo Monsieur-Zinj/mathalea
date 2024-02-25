@@ -31,6 +31,7 @@ export class Polynome {
         if (typeof el === 'number') {
           return el
         } else if (Array.isArray(el)) {
+          if (el[0] === 0) return 0
           return el[1] ? choice([-1, 1]) * randint(1, Number(el[0])) : randint(1, Number(el[0]))
         } else if (el instanceof FractionEtendue) {
           return el.valeurDecimale
