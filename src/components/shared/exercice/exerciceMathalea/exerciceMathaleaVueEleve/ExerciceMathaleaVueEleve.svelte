@@ -356,7 +356,7 @@
     <HeaderExerciceVueEleve
       {...headerExerciceProps}
       indiceExercice={exerciseIndex}
-      showNumber={indiceLastExercice > 1}
+      showNumber={indiceLastExercice > 0 && $globalOptions.presMode !== 'un_exo_par_page'}
       isMenuNeededForExercises={$isMenuNeededForExercises}
       presMode={$globalOptions.presMode}
     />

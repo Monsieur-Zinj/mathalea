@@ -34,7 +34,7 @@
       id="exerciceHeader{indiceExercice}"
     >
       <div
-        class={showNumber && presMode === 'liste_exos'
+        class={showNumber
           ? 'flex'
           : 'hidden'}
       >
