@@ -25,7 +25,7 @@ const numbersOperationsCaps: CompleteKeysList = {
 }
 const variableCaps: CompleteKeysList = {
   inline: ['a', 'b', 'c', 'x', 'y', 'z', 'k', 'n', 'i'],
-  block: ['a', 'x', 'k', 'b', 'y', 'n', 'c', 'z', 'i']
+  block: ['a', 'x', 'k', 'b', 'y', 'n', 'c', 'z', 'i', 'V', 'F']
 }
 const basicOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'SQ', 'FRAC', '(', ')'],
