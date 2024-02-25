@@ -103,7 +103,7 @@ export default function EtudierGraphiqueParite () {
           texteCorr += 'On observe bien que ces deux points ont des ordonnées ni égales, ni opposées.<br>'
           texteCorr += 'La fonction représentée est donc ni paire, ni impaire.<br>'
 
-          texteCorr += mathalea2d({ xmin: -5, xmax: 5, ymin: -7, ymax: 7, scale: 0.7 }, rC, o, C, lA, lB, traceAetB)
+          texteCorr += '<br>' + mathalea2d({ xmin: -5, xmax: 5, ymin: -7, ymax: 7, scale: 0.7 }, rC, o, C, lA, lB, traceAetB)
 
           break
         case 2:// Cas f(x)=ax
@@ -176,7 +176,7 @@ export default function EtudierGraphiqueParite () {
           texteCorr += 'On observe bien que ces deux points qui ont des abscisses opposées, ont aussi des ordonnées opposées.<br>'
           texteCorr += 'La fonction représentée est impaire.<br>'
 
-          texteCorr += mathalea2d({ xmin: -5, xmax: 6, ymin: -7, ymax: 7, scale: 0.7 }, rC, C, lA, lB, traceAetB, labB0, labA1, s1, s2, s3, s4, labA0)
+          texteCorr += '<br>' + mathalea2d({ xmin: -5, xmax: 6, ymin: -7, ymax: 7, scale: 0.7 }, rC, C, lA, lB, traceAetB, labB0, labA1, s1, s2, s3, s4, labA0)
           break
         case 3:// Cas f(x)=ax^2
           a = randint(-2, 2, [0])
@@ -254,7 +254,7 @@ export default function EtudierGraphiqueParite () {
           texteCorr += 'On observe bien que ces deux points qui ont des abscisses opposées, ont des ordonnées égales.<br>'
           texteCorr += 'La fonction représentée est paire.<br>'
 
-          texteCorr += mathalea2d({ xmin: -8, xmax: 8, ymin: -6, ymax: 6, scale: 0.7 }, rC, o, C, lA, lB, traceAetB, labB0, labA1, s1, s2, s3, s4, labA0)
+          texteCorr += '<br>' + mathalea2d({ xmin: -8, xmax: 8, ymin: -6, ymax: 6, scale: 0.7 }, rC, o, C, lA, lB, traceAetB, labB0, labA1, s1, s2, s3, s4, labA0)
           break
         case 4:// Cas f(x)=a(x-b)²+c
           a = randint(-1, 1, [0]) * 0.5
@@ -320,7 +320,7 @@ export default function EtudierGraphiqueParite () {
           texteCorr += 'On observe bien que ces deux points ont des ordonnées ni égales, ni opposées.<br>'
           texteCorr += 'La fonction représentée est donc ni paire, ni impaire.<br>'
 
-          texteCorr += mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 8, scale: 0.6 }, rC, o, C, lA, lB, traceAetB)
+          texteCorr += '<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -8, ymax: 8, scale: 0.6 }, rC, o, C, lA, lB, traceAetB)
           break
         case 5:// Cas f(x)=1/ax+b
           a = randint(-2, 2, [0])
@@ -387,7 +387,7 @@ export default function EtudierGraphiqueParite () {
           texteCorr += 'On observe bien que ces deux points ont des ordonnées ni égales, ni opposées.<br>'
           texteCorr += 'La fonction représentée est donc ni paire, ni impaire.<br>'
 
-          texteCorr += mathalea2d({ xmin: -6, xmax: 6, ymin: -5, ymax: 5, scale: 0.6 }, rC, o, C, lA, lB, traceAetB)
+          texteCorr += '<br>' + mathalea2d({ xmin: -6, xmax: 6, ymin: -5, ymax: 5, scale: 0.6 }, rC, o, C, lA, lB, traceAetB)
           break
         case 6:// Cas f(x)=1/ax
           a = randint(-3, 3, [0, 1, -1])
@@ -453,14 +453,14 @@ export default function EtudierGraphiqueParite () {
           traceAetB.epaisseur = 2
 
           texte = mathalea2d({ xmin: -8, xmax: 8, ymin: -5, ymax: 5, scale: 0.7 }, r, C, o)
-          texteCorr = 'On observe que la représentation graphique admet les ordonnées comme axe de symétrie.<br> '
+          texteCorr = 'On observe que la représentation graphique admet l\'origine comme centre de symétrie.<br> '
           texteCorr += 'Prenons un point $M$ de la courbe, d\'abscisse $x$, et '
           texteCorr += 'le point $M\'$ aussi de la courbe, mais d\'abscisse opposée : $-x$. <br>'
           texteCorr += 'Les coordonnées sont $M(x;f(x))$ et  $M\'(-x;f(-x))$. <br>'
-          texteCorr += 'On observe bien que ces deux points qui ont des abscisses opposées, ont des ordonnées égales.<br>'
+          texteCorr += 'On observe bien que ces deux points qui ont des abscisses opposées, ont aussi des ordonnées opposées.<br>'
           texteCorr += 'La fonction représentée est impaire.<br>'
 
-          texteCorr += mathalea2d({ xmin: -8, xmax: 8, ymin: -5, ymax: 5, scale: 0.7 }, rC, C, lA, lB, o, traceAetB, labB0, labA1, s3, s4, labA0)
+          texteCorr += '<br>' + mathalea2d({ xmin: -8, xmax: 8, ymin: -5, ymax: 5, scale: 0.7 }, rC, C, lA, lB, o, traceAetB, labB0, labA1, s3, s4, labA0)
           break
       }
 
