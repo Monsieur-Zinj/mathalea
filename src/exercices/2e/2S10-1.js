@@ -101,7 +101,7 @@ export default function DiffentesEcrituresProportions () {
       switch (listeTypeDeQuestions[i]) {
         case 'Decimal':
 
-          texte = 'Écrire sous la forme d\'une fraction de dénominateur $100$, puis sous la forme d\'un pourcentage.<br>'
+          texte = 'Écrire sous la forme d\'une écriture fractionnaire de dénominateur $100$, puis sous la forme d\'un pourcentage.<br>'
           if (this.interactif) {
             texte += remplisLesBlancs(this, i, `$${texNombre(dec, 4)}=\\dfrac{%{num1}}{%{num2}}=%{num3}\\%`, 'college6e', '\\ldots\\ldots')
           } else {
@@ -122,7 +122,7 @@ export default function DiffentesEcrituresProportions () {
           break
 
         case 'Pourcentage':
-          texte = 'Écrire sous forme décimale, puis sous la forme d\'une fraction de dénominateur $100$.<br>'
+          texte = 'Écrire sous forme décimale, puis sous la forme d\'une écriture fractionnaire de dénominateur $100$.<br>'
           if (this.interactif) {
             texte += remplisLesBlancs(this, i, `$${texNombre(pourc, 4)}\\,\\%=%{num1}=\\dfrac{%{num2}}{%{num3}}`, 'college6e', '\\ldots\\ldots')
           } else {
