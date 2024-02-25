@@ -135,8 +135,8 @@ export default function TrouverLaTransformations () {
           vecteur: vecteur(noeuds[depart], noeuds[arrivee])
         }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90\\degree$ dans le sens ${leSens ? 'direct' : 'indirect'}.`
-        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90\\degree$ dans le sens  ${leSens ? 'direct' : 'indirect'}.`
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90^\\circ$ dans le sens ${leSens ? 'direct' : 'indirect'}.`
+        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90^\\circ$ dans le sens  ${leSens ? 'direct' : 'indirect'}.`
         texteInteractif = `la rotation de centre ${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)} d'angle 90° dans le sens ${leSens ? 'direct' : 'indirect'}`
         centre = Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6])
         if (poly1 != null) {

@@ -56,45 +56,45 @@ export default class anglesTrianglesTableau extends Exercice {
       switch (choix) {
         case 0:
           sortie.enonce.valeurs = ['\\ldots', triangle.a2, triangle.a3]
-          sortie.correction.details = `Donc ${sortie.enonce.noms[0]} $=180\\degree-($ ${sortie.enonce.noms[1]} $+$ ${sortie.enonce.noms[2]} $)$.<br>`
-          sortie.correction.details += `Donc ${sortie.enonce.noms[0]} $=180\\degree-( ${sortie.enonce.valeurs[1]}\\degree + ${sortie.enonce.valeurs[2]}\\degree )$.<br>`
-          sortie.correction.details += `Donc ${sortie.enonce.noms[0]} $=180\\degree-${sortie.enonce.valeurs[1] + sortie.enonce.valeurs[2]}\\degree$.<br>`
-          sortie.correction.details += `Donc ${sortie.enonce.noms[0]} $=${180 - sortie.enonce.valeurs[1] - sortie.enonce.valeurs[2]}\\degree$.<br>`
+          sortie.correction.details = `Donc ${sortie.enonce.noms[0]} $=180^\\circ-($ ${sortie.enonce.noms[1]} $+$ ${sortie.enonce.noms[2]} $)$.<br>`
+          sortie.correction.details += `Donc ${sortie.enonce.noms[0]} $=180^\\circ-( ${sortie.enonce.valeurs[1]}^\\circ + ${sortie.enonce.valeurs[2]}^\\circ )$.<br>`
+          sortie.correction.details += `Donc ${sortie.enonce.noms[0]} $=180^\\circ-${sortie.enonce.valeurs[1] + sortie.enonce.valeurs[2]}^\\circ$.<br>`
+          sortie.correction.details += `Donc ${sortie.enonce.noms[0]} $=${180 - sortie.enonce.valeurs[1] - sortie.enonce.valeurs[2]}^\\circ$.<br>`
           sortie.correction.tableau = `${tableauColonneLigne(
             [`\\text{${sortie.enonce.noms[0]}}`, `\\text{${sortie.enonce.noms[1]}}`, `\\text{${sortie.enonce.noms[2]}}`, '\\text{Nature du triangle}'],
-            [miseEnEvidence(`${sortie.correction.valeurs[0]}\\degree`)],
-            [`${sortie.correction.valeurs[1]}\\degree`, `${sortie.correction.valeurs[2]}\\degree`, miseEnEvidence(`\\text{${type}}`)]
+            [miseEnEvidence(`${sortie.correction.valeurs[0]}^\\circ`)],
+            [`${sortie.correction.valeurs[1]}^\\circ`, `${sortie.correction.valeurs[2]}^\\circ`, miseEnEvidence(`\\text{${type}}`)]
           )}`
           break
         case 1:
           sortie.enonce.valeurs = [triangle.a1, '\\ldots', triangle.a3]
-          sortie.correction.details = `Donc ${sortie.enonce.noms[1]} $=180\\degree-($ ${sortie.enonce.noms[0]} $+$ ${sortie.enonce.noms[2]} $)$.<br>`
-          sortie.correction.details += `Donc ${sortie.enonce.noms[1]} $=180\\degree-( ${sortie.enonce.valeurs[0]}\\degree + ${sortie.enonce.valeurs[2]}\\degree )$.<br>`
-          sortie.correction.details += `Donc ${sortie.enonce.noms[1]} $=180\\degree-${sortie.enonce.valeurs[0] + sortie.enonce.valeurs[2]}\\degree$.<br>`
-          sortie.correction.details += `Donc ${sortie.enonce.noms[1]} $=${180 - sortie.enonce.valeurs[0] - sortie.enonce.valeurs[2]}\\degree$.<br>`
+          sortie.correction.details = `Donc ${sortie.enonce.noms[1]} $=180^\\circ-($ ${sortie.enonce.noms[0]} $+$ ${sortie.enonce.noms[2]} $)$.<br>`
+          sortie.correction.details += `Donc ${sortie.enonce.noms[1]} $=180^\\circ-( ${sortie.enonce.valeurs[0]}^\\circ + ${sortie.enonce.valeurs[2]}^\\circ )$.<br>`
+          sortie.correction.details += `Donc ${sortie.enonce.noms[1]} $=180^\\circ-${sortie.enonce.valeurs[0] + sortie.enonce.valeurs[2]}^\\circ$.<br>`
+          sortie.correction.details += `Donc ${sortie.enonce.noms[1]} $=${180 - sortie.enonce.valeurs[0] - sortie.enonce.valeurs[2]}^\\circ$.<br>`
           sortie.correction.tableau = `${tableauColonneLigne(
             [`\\text{${sortie.enonce.noms[0]}}`, `\\text{${sortie.enonce.noms[1]}}`, `\\text{${sortie.enonce.noms[2]}}`, '\\text{Nature du triangle}'],
-            [`${sortie.correction.valeurs[0]}\\degree`],
-            [miseEnEvidence(`${sortie.correction.valeurs[1]}\\degree`), `${sortie.correction.valeurs[2]}\\degree`, miseEnEvidence(`\\text{${type}}`)]
+            [`${sortie.correction.valeurs[0]}^\\circ`],
+            [miseEnEvidence(`${sortie.correction.valeurs[1]}^\\circ`), `${sortie.correction.valeurs[2]}^\\circ`, miseEnEvidence(`\\text{${type}}`)]
           )}`
           break
         case 2:
           sortie.enonce.valeurs = [triangle.a1, triangle.a2, '\\ldots']
-          sortie.correction.details = `Donc ${sortie.enonce.noms[2]} $=180\\degree-($ ${sortie.enonce.noms[1]} $+$ ${sortie.enonce.noms[0]} $)$.<br>`
-          sortie.correction.details += `Donc ${sortie.enonce.noms[2]} $=180\\degree-( ${sortie.enonce.valeurs[1]}\\degree + ${sortie.enonce.valeurs[0]}\\degree )$.<br>`
-          sortie.correction.details += `Donc ${sortie.enonce.noms[2]} $=180\\degree-${sortie.enonce.valeurs[1] + sortie.enonce.valeurs[0]}\\degree$.<br>`
-          sortie.correction.details += `Donc ${sortie.enonce.noms[2]} $=${180 - sortie.enonce.valeurs[1] - sortie.enonce.valeurs[0]}\\degree$.<br>`
+          sortie.correction.details = `Donc ${sortie.enonce.noms[2]} $=180^\\circ-($ ${sortie.enonce.noms[1]} $+$ ${sortie.enonce.noms[0]} $)$.<br>`
+          sortie.correction.details += `Donc ${sortie.enonce.noms[2]} $=180^\\circ-( ${sortie.enonce.valeurs[1]}^\\circ + ${sortie.enonce.valeurs[0]}^\\circ )$.<br>`
+          sortie.correction.details += `Donc ${sortie.enonce.noms[2]} $=180^\\circ-${sortie.enonce.valeurs[1] + sortie.enonce.valeurs[0]}^\\circ$.<br>`
+          sortie.correction.details += `Donc ${sortie.enonce.noms[2]} $=${180 - sortie.enonce.valeurs[1] - sortie.enonce.valeurs[0]}^\\circ$.<br>`
           sortie.correction.tableau = `${tableauColonneLigne(
             [`\\text{${sortie.enonce.noms[0]}}`, `\\text{${sortie.enonce.noms[1]}}`, `\\text{${sortie.enonce.noms[2]}}`, '\\text{Nature du triangle}'],
-            [`${sortie.correction.valeurs[0]}\\degree`],
-            [`${sortie.correction.valeurs[1]}\\degree`, miseEnEvidence(`${sortie.correction.valeurs[2]}\\degree`), miseEnEvidence(`\\text{${type}}`)]
+            [`${sortie.correction.valeurs[0]}^\\circ`],
+            [`${sortie.correction.valeurs[1]}^\\circ`, miseEnEvidence(`${sortie.correction.valeurs[2]}^\\circ`), miseEnEvidence(`\\text{${type}}`)]
           )}`
           break
       }
       sortie.enonce.tableau = `${tableauColonneLigne(
         [`\\text{${sortie.enonce.noms[0]}}`, `\\text{${sortie.enonce.noms[1]}}`, `\\text{${sortie.enonce.noms[2]}}`, '\\text{Nature du triangle}'],
-        [`${sortie.enonce.valeurs[0]}\\degree`],
-        [`${sortie.enonce.valeurs[1]}\\degree`, `${sortie.enonce.valeurs[2]}\\degree`, '']
+        [`${sortie.enonce.valeurs[0]}^\\circ`],
+        [`${sortie.enonce.valeurs[1]}^\\circ`, `${sortie.enonce.valeurs[2]}^\\circ`, '']
       )}`
 
       return sortie
@@ -159,7 +159,7 @@ export default class anglesTrianglesTableau extends Exercice {
       sortie.texte = anglesEnonce.tableau
       if (this.correctionDetaillee) {
         sortie.texteCorr = `Dans le triangle ${triangle.getNom()}, `
-        sortie.texteCorr += `${anglesEnonce.noms[0]} + ${anglesEnonce.noms[1]} + ${anglesEnonce.noms[2]} $=180\\degree$.<br>`
+        sortie.texteCorr += `${anglesEnonce.noms[0]} + ${anglesEnonce.noms[1]} + ${anglesEnonce.noms[2]} $=180^\\circ$.<br>`
         sortie.texteCorr += `${anglesCorrection.details}<br>`
       }
       sortie.texteCorr += context.isHtml ? '' : '\\medskip '
@@ -197,7 +197,7 @@ export default class anglesTrianglesTableau extends Exercice {
     this.nbQuestions === 1 ? this.consigne = 'Compléter le tableau suivant avec la mesure de l\'angle manquant et la nature du triangle.' : this.consigne = 'Compléter les tableaux suivants avec la mesure de l\'angle manquant et la nature du triangle.'
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (this.correctionDetaillee) { texteCorr = 'Dans un triangle, la somme des angles est égale à $180\\degree$.<br>' } else { texteCorr = '' }
+      if (this.correctionDetaillee) { texteCorr = 'Dans un triangle, la somme des angles est égale à $180^\\circ$.<br>' } else { texteCorr = '' }
       switch (listeTypeDeQuestions[i]) {
         case 1: { // triangle quelconque
           const currentTriangle = this.typeTriangle('quelconque')

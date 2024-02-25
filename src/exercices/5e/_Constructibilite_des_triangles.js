@@ -239,8 +239,8 @@ export default function ConstructibiliteDesTriangles () {
           }
           texte = ''
           texteCorr = ''
-          texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `
-          texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} $= ${triangle.a3}\\degree$.`
+          texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}^\\circ$ ; `
+          texte += `${triangle.getAngles()[1]} $= ${triangle.a2}^\\circ$ et ${triangle.getAngles()[2]} $= ${triangle.a3}^\\circ$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
@@ -250,8 +250,8 @@ export default function ConstructibiliteDesTriangles () {
             return a.valeur - b.valeur
           })
           texteCorr = `Supposons que l'on puisse construire un triangle ${triangle.getNom()} avec ces mesures.`
-          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}\\degree + ${currentTriangle[1].valeur}\\degree + ${currentTriangle[2].valeur}\\degree = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
-          texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.'
+          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
+          texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180^\\circ$.'
           texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
           // texteCorr += `<br><br>  ${texteEnCouleurEtGras('Il existe une infinité de triangles avec ces mesures.')}`
           // texteCorr += '<br> On les obtient les uns à partir des autres par un agrandissement ou une réduction.'
@@ -267,8 +267,8 @@ export default function ConstructibiliteDesTriangles () {
           }
           texte = ''
           texteCorr = ''
-          texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `
-          texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} $= ${triangle.a3}\\degree$.`
+          texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}^\\circ$ ; `
+          texte += `${triangle.getAngles()[1]} $= ${triangle.a2}^\\circ$ et ${triangle.getAngles()[2]} $= ${triangle.a3}^\\circ$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
@@ -278,10 +278,10 @@ export default function ConstructibiliteDesTriangles () {
             return a.valeur - b.valeur
           })
           texteCorr = `Supposons que l'on puisse construire un triangle ${triangle.getNom()} avec ces mesures.`
-          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}\\degree + ${currentTriangle[1].valeur}\\degree + ${currentTriangle[2].valeur}\\degree = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
-          texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.'
+          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
+          texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180^\\circ$.'
           texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
-          texteCorr += '<br> Deux des trois angles du triangle valent $0\\degree$, ' + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$` + texteEnCouleurEtGras(' est donc un triangle plat.')
+          texteCorr += '<br> Deux des trois angles du triangle valent $0^\\circ$, ' + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$` + texteEnCouleurEtGras(' est donc un triangle plat.')
           // texteCorr += `<br><br>  ${texteEnCouleurEtGras('Il existe une infinité de triangles avec ces mesures.')}`
           // texteCorr += '<br> On les obtient en traçant des segments et en plaçant le troisième sommet sur ce segment, les longueurs n\'ayant aucune importance.'
           // texteCorr += `<br> Dans le cas présent, il s'agit d'un segment $[${currentTriangle[2].angle.split('')[12]}${currentTriangle[2].angle.split('')[14]}]$ sur lequel on place un point ${currentTriangle[2].angle.split('')[13]}.`
@@ -302,8 +302,8 @@ export default function ConstructibiliteDesTriangles () {
             triangle.a2 = a2
             triangle.a3 = a3
           }
-          texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}\\degree$ ; `
-          texte += `${triangle.getAngles()[1]} $= ${triangle.a2}\\degree$ et ${triangle.getAngles()[2]} $= ${triangle.a3}\\degree$.`
+          texte = `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${triangle.a1}^\\circ$ ; `
+          texte += `${triangle.getAngles()[1]} $= ${triangle.a2}^\\circ$ et ${triangle.getAngles()[2]} $= ${triangle.a3}^\\circ$.`
           // on crée l'objet longueurs + valeurs des côtés du triangle
           for (let i = 0; i < 3; i++) {
             currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
@@ -313,8 +313,8 @@ export default function ConstructibiliteDesTriangles () {
             return a.valeur - b.valeur
           })
           texteCorr = `Supposons que l'on puisse construire un triangle ${triangle.getNom()} avec ces mesures.`
-          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}\\degree + ${currentTriangle[1].valeur}\\degree + ${currentTriangle[2].valeur}\\degree = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
-          texteCorr += '<br> Si le triangle était constructible, la somme des trois angles vaudrait $180\\degree$,'
+          texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${currentTriangle[0].valeur}^\\circ + ${currentTriangle[1].valeur}^\\circ + ${currentTriangle[2].valeur}^\\circ = ${calculANePlusJamaisUtiliser(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
+          texteCorr += '<br> Si le triangle était constructible, la somme des trois angles vaudrait $180^\\circ$,'
           texteCorr += ' or ce n\'est pas le cas.'
           texteCorr += `<br> ${texteEnCouleurEtGras('On ne peut donc pas construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1) + '.')}$`
           // texteCorr += `<br><br>  ${texteEnCouleurEtGras('Aucun triangle de ce type n\'existe')}.`
@@ -331,7 +331,7 @@ export default function ConstructibiliteDesTriangles () {
               a1 = randint(aMin, aMax)
               triangle.a1 = a1
               operation = operationsPossibles[randint(0, 2)]
-              texte += `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${texNombre(triangle.a1)}\\degree$ ; `
+              texte += `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${texNombre(triangle.a1)}^\\circ$ ; `
               switch (operation) {
                 case 'triple':
                   a2 = calculANePlusJamaisUtiliser((180 - a1) / 4)
@@ -348,18 +348,18 @@ export default function ConstructibiliteDesTriangles () {
               }
               triangle.a2 = a2
               triangle.a3 = a3
-              texte += `${triangle.getAngles()[1]} $= ${texNombre(triangle.a2)}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`
+              texte += `${triangle.getAngles()[1]} $= ${texNombre(triangle.a2)}^\\circ$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[1]}.`
               // on crée l'objet longueurs + valeurs des côtés du triangle
               for (let i = 0; i < 3; i++) {
                 currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
               }
-              texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[2].angle} est le ${operation} de ${currentTriangle[1].angle} = $${texNombre(currentTriangle[1].valeur)}\\degree$  d'où ${currentTriangle[2].angle} = $${texNombre(currentTriangle[2].valeur)}\\degree$.`
+              texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[2].angle} est le ${operation} de ${currentTriangle[1].angle} = $${texNombre(currentTriangle[1].valeur)}^\\circ$  d'où ${currentTriangle[2].angle} = $${texNombre(currentTriangle[2].valeur)}^\\circ$.`
               break
             case 1:
               a2 = randint(aMin, aMax)
               triangle.a2 = a2
               operation = operationsPossibles[randint(0, 2)]
-              texte += `${triangle.getNom()} tel que ${triangle.getAngles()[1]} $= ${texNombre(triangle.a2)}\\degree$ ; `
+              texte += `${triangle.getNom()} tel que ${triangle.getAngles()[1]} $= ${texNombre(triangle.a2)}^\\circ$ ; `
               switch (operation) {
                 case 'triple':
                   a1 = calculANePlusJamaisUtiliser((180 - a2) / 4)
@@ -376,16 +376,16 @@ export default function ConstructibiliteDesTriangles () {
               }
               triangle.a1 = a1
               triangle.a3 = a3
-              texte += `${triangle.getAngles()[0]} $= ${texNombre(triangle.a1)}\\degree$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[0]}.`
+              texte += `${triangle.getAngles()[0]} $= ${texNombre(triangle.a1)}^\\circ$ et ${triangle.getAngles()[2]} est le ${operation} de ${triangle.getAngles()[0]}.`
               // on crée l'objet longueurs + valeurs des côtés du triangle
               for (let i = 0; i < 3; i++) {
                 currentTriangle.push({ angle: triangle.getAngles()[i], valeur: triangle.getAnglesValeurs()[i] })
               }
-              texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[2].angle} est le ${operation} de ${currentTriangle[0].angle} = $${texNombre(currentTriangle[0].valeur)}\\degree$  d'où ${currentTriangle[2].angle} = $${texNombre(currentTriangle[2].valeur)}\\degree$.`
+              texteCorr += `<br>Dans le triangle ${triangle.getNom()}, ${currentTriangle[2].angle} est le ${operation} de ${currentTriangle[0].angle} = $${texNombre(currentTriangle[0].valeur)}^\\circ$  d'où ${currentTriangle[2].angle} = $${texNombre(currentTriangle[2].valeur)}^\\circ$.`
               break
           }
-          texteCorr += `<br>Donc ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${texNombre(currentTriangle[0].valeur)}\\degree + ${texNombre(currentTriangle[1].valeur)}\\degree + ${texNombre(currentTriangle[2].valeur)}\\degree = ${texNombre(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}\\degree$.`
-          texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180\\degree$.'
+          texteCorr += `<br>Donc ${currentTriangle[0].angle} + ${currentTriangle[1].angle} + ${currentTriangle[2].angle} = $${texNombre(currentTriangle[0].valeur)}^\\circ + ${texNombre(currentTriangle[1].valeur)}^\\circ + ${texNombre(currentTriangle[2].valeur)}^\\circ = ${texNombre(currentTriangle[0].valeur + currentTriangle[1].valeur + currentTriangle[2].valeur)}^\\circ$.`
+          texteCorr += '<br> On constate que la somme des trois angles du triangle vaut bien $180^\\circ$.'
           texteCorr += `<br> ${texteEnCouleurEtGras('On peut donc construire le triangle ')}` + `$${miseEnEvidence(triangle.getNom().substring(1, triangle.getNom().length - 1))}$.`
           // texteCorr += `<br><br>  ${texteEnCouleurEtGras('Il existe une infinité de triangles avec ces mesures.')}`
           // texteCorr += '<br> On les obtient les uns à partir des autres par un agrandissement ou une réduction.'

@@ -69,7 +69,7 @@ class EquationTrigo extends Exercice {
 
       switch (listeTypeQuestions[i]) {
         case 'den':
-          texte += `$\\${cosSinTan}\\left( ${angle} \\degree \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${nomA}${nomC}}$.<br>`
+          texte += `$\\${cosSinTan}\\left( ${angle} ^\\circ \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${nomA}${nomC}}$.<br>`
           switch (cosSinTan) {
             case 'cos' :
               reponse = lAB.div(new Decimal(Math.cos(angle * Math.PI / 180))).times(10).round().div(10).toNumber()
@@ -89,12 +89,12 @@ class EquationTrigo extends Exercice {
           } else {
             texte += `Calculer la longueur $${nomA}${nomC}$ (au dixième près).`
           }
-          texteCorr = `$\\${cosSinTan}\\left( ${angle} \\degree \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${nomA}${nomC}}$<br>
-          $${nomA}${nomC} = \\dfrac{${stringNombre(lAB, 1)}}{\\${cosSinTan}\\left( ${angle} \\degree \\right)}$<br>
+          texteCorr = `$\\${cosSinTan}\\left( ${angle} ^\\circ \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${nomA}${nomC}}$<br>
+          $${nomA}${nomC} = \\dfrac{${stringNombre(lAB, 1)}}{\\${cosSinTan}\\left( ${angle} ^\\circ \\right)}$<br>
           $${nomA}${nomC} \\approx ${miseEnEvidence(stringNombre(reponse, 1))}$`
           break
         case 'num':
-          texte += `$\\${cosSinTan}\\left( ${angle} \\degree \\right) = \\dfrac{${nomA}${nomC}}{${stringNombre(lAB, 1)}}$.<br>`
+          texte += `$\\${cosSinTan}\\left( ${angle} ^\\circ \\right) = \\dfrac{${nomA}${nomC}}{${stringNombre(lAB, 1)}}$.<br>`
           switch (cosSinTan) {
             case 'cos' :
               reponse = lAB.times(new Decimal(Math.cos(angle * Math.PI / 180))).times(10).round().div(10).toNumber()
@@ -114,8 +114,8 @@ class EquationTrigo extends Exercice {
           } else {
             texte += `Calculer la longueur $${nomA}${nomC}$ (au dixième près).`
           }
-          texteCorr = `$\\${cosSinTan}\\left( ${angle} \\degree \\right) = \\dfrac{${nomA}${nomC}}{${stringNombre(lAB, 1)}}$<br>
-          $${nomA}${nomC} = ${stringNombre(lAB, 1)} \\times \\${cosSinTan}\\left( ${angle} \\degree \\right) $<br>
+          texteCorr = `$\\${cosSinTan}\\left( ${angle} ^\\circ \\right) = \\dfrac{${nomA}${nomC}}{${stringNombre(lAB, 1)}}$<br>
+          $${nomA}${nomC} = ${stringNombre(lAB, 1)} \\times \\${cosSinTan}\\left( ${angle} ^\\circ \\right) $<br>
           $${nomA}${nomC} \\approx ${miseEnEvidence(stringNombre(reponse, 1))}$`
           break
         case 'angle':
@@ -142,7 +142,7 @@ class EquationTrigo extends Exercice {
           }
           texteCorr = `$\\${cosSinTan}\\left( \\widehat{${nomA}${nomB}${nomC}} \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${stringNombre(lBC, 1)}}$<br>
           $\\widehat{${nomA}${nomB}${nomC}} = \\arc${cosSinTan} \\left( \\dfrac{${stringNombre(lAB, 1)}}{${stringNombre(lBC, 1)}} \\right)$<br>
-          $\\widehat{${nomA}${nomB}${nomC}} \\approx ${miseEnEvidence(stringNombre(reponse, 0))}\\degree$`
+          $\\widehat{${nomA}${nomB}${nomC}} \\approx ${miseEnEvidence(stringNombre(reponse, 0))}^\\circ$`
           break
       }
       setReponse(this, i, reponse)

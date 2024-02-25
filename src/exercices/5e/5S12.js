@@ -141,9 +141,9 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(lstNombresAnimaux[i] * 360 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}\\degree`)
+          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(lstNombresAnimaux[i] * 360 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}^\\circ`)
         }
-        contenutableau.push('360\\degree')
+        contenutableau.push('360^\\circ')
 
         texteCorr += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 
@@ -195,9 +195,9 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(lstNombresAnimaux[i] * 180 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}\\degree`)
+          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(lstNombresAnimaux[i] * 180 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}^\\circ`)
         }
-        contenutableau.push('180\\degree')
+        contenutableau.push('180^\\circ')
 
         texteCorr += `${tableauColonneLigne(entete, ['\\text{Effectifs}', '\\text{Fréquences}', '\\text{Angles}'], contenutableau, 3)}<br>`
 

@@ -50,8 +50,8 @@ export default function TracerTriangle2Angles () {
       texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(
         c
       )}$ cm, $\\widehat{${p[1] + p[0] + p[2]
-        }}=${angle1}\\degree$ et $\\widehat{${p[0] + p[1] + p[2]
-        }}=${angle2}\\degree$.`
+        }}=${angle1}^\\circ$ et $\\widehat{${p[0] + p[1] + p[2]
+        }}=${angle2}^\\circ$.`
       texte += `<br> Mesurer $${p[0] + p[2]}$ et $${p[1] + p[2]}$.`
       // const A0 = point(0, 0, p[0], 'left')
       const B0 = point(c, 0, p[1], 'right')

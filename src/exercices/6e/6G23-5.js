@@ -42,7 +42,7 @@ export default function CalculerUnAngle () {
   this.nbQuestions = 5
   this.sup = 15
   this.nouvelleVersion = function () {
-    this.consigne = (this.nbQuestions === 1 ? 'L\' angle attendu est un angle saillant' : 'Les angles attendus sont des angles saillants') + ' (dont la mesure est comprise entre $0\\degree$ et $180\\degree$).'
+    this.consigne = (this.nbQuestions === 1 ? 'L\' angle attendu est un angle saillant' : 'Les angles attendus sont des angles saillants') + ' (dont la mesure est comprise entre $0^\\circ$ et $180^\\circ$).'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -355,7 +355,7 @@ export default function CalculerUnAngle () {
 
       // Correction selon les cas
       // Les espaces (sp) sont nécessaires pour contrecarrer l'espace créé par les °.
-      if (QuestionsDisponibles[i] < 6) texteCorr += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ mesure $${abs(angC)}°$, alors l'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ mesure : $${abs(angC)}\\degree-${sp()}${abs(angD)}°=${sp()}${miseEnEvidence(reponse + '°')}$.<br>`
+      if (QuestionsDisponibles[i] < 6) texteCorr += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ mesure $${abs(angC)}°$, alors l'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ mesure : $${abs(angC)}^\\circ-${sp()}${abs(angD)}°=${sp()}${miseEnEvidence(reponse + '°')}$.<br>`
       else if ([6, 7, 8, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) {
         texteCorr += `Sachant que l'angle ${QuestionsDisponibles[i] < 9 ? 'droit' : 'plat'} $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ est partagé en ${partageAngle} angles égaux, alors chacun de ces angles égaux mesure $${arrondi(abs(angC) / partageAngle)}°$ (car $${abs(angC)}°\\div${sp()}${partageAngle}=${sp()}${arrondi(abs(angC) / partageAngle)}°$).<br>`
         if ([6, 9].indexOf(QuestionsDisponibles[i]) !== -1) {

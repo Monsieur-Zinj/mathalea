@@ -29,12 +29,12 @@ export class GVGrandeur {
     } else {
       this._name = (aleaName(newname).map(x => x.name)).join('')
     }
-    this.nameAndValue = `$ {${this.name}=${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg', '\\degree')}}$`.replace('~\\degree', '\\degree')
+    this.nameAndValue = `$ {${this.name}=${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg', '^\\circ')}}$`.replace('~^\\circ', '^\\circ')
   }
 
   get name () { return this._name }
   format () {
-    return `{${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg', '\\degree')}}`.replace('~\\degree', '\\degree')
+    return `{${texNombre2(this.toFixed).replace(',', '{,}')}~${this.unit.replace('deg', '^\\circ')}}`.replace('~^\\circ', '^\\circ')
   }
 
   aleaName (...name/** (string | GVGraphicObject)[] */) {

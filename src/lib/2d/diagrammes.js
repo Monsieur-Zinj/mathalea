@@ -402,7 +402,7 @@ export function DiagrammeCirculaire ({
       etiquettes2.push(latexParPoint(texNombre(100 * effectifs[i] / effectifTotal, 0) + '\\%', similitude(depart, centre, alpha + angle / 4, 0.8), 'black', 20, 12, 'yellow', 8))
     }
     if (mesures[i]) {
-      etiquettes3.push(latexParPoint(texNombre(angle, 0) + '\\degree', similitude(depart, centre, alpha + angle / 2, 0.6), 'black', 20, 12, 'yellow', 8))
+      etiquettes3.push(latexParPoint(texNombre(angle, 0) + '^\\circ', similitude(depart, centre, alpha + angle / 2, 0.6), 'black', 20, 12, 'yellow', 8))
     }
     alpha += angle
 
