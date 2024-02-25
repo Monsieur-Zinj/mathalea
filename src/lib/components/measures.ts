@@ -1,13 +1,8 @@
-// Module inutilisé. Décommentez si c'est utile un jour.
-/*
 let canvas: HTMLCanvasElement
- */
 
-/*
 export function remToPixels (rem: number) {
   return rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
 }
- */
 
 /**
    * Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
@@ -17,7 +12,6 @@ export function remToPixels (rem: number) {
    *
    * @see https://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
    */
-/*
 export function getTextWidth (text: string, font: string, factor: number = 1): number {
   // re-use canvas object for better performance
   if (canvas == null) {
@@ -31,13 +25,9 @@ export function getTextWidth (text: string, font: string, factor: number = 1): n
   const metrics: TextMetrics = context.measureText(text)
   return metrics.width * factor
 }
- */
-/*
 export function getCssStyle (element: HTMLElement, prop: string) {
   return window.getComputedStyle(element, null).getPropertyValue(prop)
 }
- */
-/*
 export function getCanvasFontDetails (el = document.body) {
   const fontWeight = getCssStyle(el, 'font-weight') || 'normal'
   const fontSize = getCssStyle(el, 'font-size') || '16px'
@@ -49,8 +39,6 @@ export function getCanvasFontDetails (el = document.body) {
     family: `${fontFamily}`
   }
 }
-*/
-/*
 export function getCanvasFont (el = document.body) {
   const fontWeight = getCssStyle(el, 'font-weight') || 'normal'
   const fontSize = getCssStyle(el, 'font-size') || '16px'
@@ -58,14 +46,12 @@ export function getCanvasFont (el = document.body) {
 
   return `${fontWeight} ${fontSize} ${fontFamily}`
 }
-*/
 /**
    * Détecter le type de machine sur lequel le site est utilisé
    * ([Source](https://attacomsian.com/blog/javascript-detect-mobile-device))
    * @return {('mobile'|'tablet'|'desktop')} nom du type de machine
    * @author sylvain
    */
-/*
 export const deviceType = () => {
   const ua = navigator.userAgent
   if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -75,7 +61,6 @@ export const deviceType = () => {
   }
   return 'desktop'
 }
-*/
 /**
  * Change la taille de tous les divs passés en paramètres.
  *
@@ -88,8 +73,7 @@ export const deviceType = () => {
  * @param {HTMLOrSVGElement[]} tags Liste des divs à inspecter et changer
  * @param {number} factor facteur d'agrandissement par rapport à la taille initiale
  */
-/*
-export const resizeTags = (tags: Element[], factor:number = 1) => {
+export const resizeTags = (tags: HTMLElement[], factor:number = 1) => {
   let widthUnit, heightUnit: string
   for (const tag of tags) {
     const widthAttributeExists: boolean = tag.hasAttribute('width')
@@ -99,34 +83,40 @@ export const resizeTags = (tags: Element[], factor:number = 1) => {
       if (widthAttributeExists) {
         originalWidth = tag.getAttribute('width')
       } else {
-        widthUnit = tag.style.width.match(/\D/g).join('')
+        const width = tag.style.width
+        const units = width.match(/\D/g) ?? []
+        widthUnit = units.join('')
         originalWidth = String(parseFloat(tag.style.width.replace(widthUnit, '')))
       }
-      tag.dataset.width = originalWidth
+      tag.dataset.width = originalWidth ?? '50'
     }
     if (!widthAttributeExists && tag.hasAttribute('data-width-unit') === false) {
       tag.dataset.widthUnit = widthUnit
     }
     if (tag.hasAttribute('data-height') === false) {
-      let originalHeight:number
+      let originalHeight:string|null
       if (heightAttributeExists) {
         originalHeight = tag.getAttribute('height')
+        heightUnit = 'px'
       } else {
-        heightUnit = tag.style.height.match(/\D/g).join('')
-        originalHeight = parseFloat(tag.style.height.replace(heightUnit, ''))
+        const height = tag.style.height
+        const units = height.match(/\D/g) ?? []
+        heightUnit = units.join('')
+        originalHeight = String(parseFloat(tag.style.height.replace(heightUnit, '')))
       }
-      tag.dataset.height = originalHeight
+      tag.dataset.height = originalHeight ?? '30'
+    } else {
+      heightUnit = 'px'
     }
 
     if (!heightAttributeExists && tag.hasAttribute('data-height-unit') === false) {
       tag.dataset.heightUnit = heightUnit
     }
-    const w = tag.getAttribute('data-width') * factor
-    const h = tag.getAttribute('data-height') * factor
+    const w = Number(tag.getAttribute('data-width')) * factor
+    const h = Number(tag.getAttribute('data-height')) * factor
     if (widthAttributeExists && heightAttributeExists) {
-      tag.setAttribute('width', w)
-      tag.setAttribute('height', h)
-    } else { tag.setAttribute('style', 'width:' + w + tag.dataset.widthUnit + '; height:' + h + tag.dataset.heightUnit + ';') }
+      tag.setAttribute('width', String(w))
+      tag.setAttribute('height', String(h))
+    } else { tag.setAttribute('style', 'width:' + String(w) + tag.dataset.widthUnit + '; height:' + String(h) + tag.dataset.heightUnit + ';') }
   }
 }
-*/
