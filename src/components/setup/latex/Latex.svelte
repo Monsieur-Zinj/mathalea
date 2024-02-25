@@ -70,7 +70,7 @@ import {
         break
       }
     }
-    latex.addExercices(exercices)
+    latex.addExercices(exercices.filter((ex) => ex.typeExercice !== 'html'))
     contents = await latex.getContents(style, nbVersions)
     picsWanted = doesLatexNeedsPics(contents)
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
