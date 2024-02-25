@@ -1,9 +1,9 @@
 <script lang="ts">
   import {
     mathaleaFormatExercice,
-    mathaleaHandleExerciceSimple,
-    mathaleaHandleParamOfOneExercice,
-    mathaleaLoadExerciceFromUuid,
+    // mathaleaHandleExerciceSimple,
+    // mathaleaHandleParamOfOneExercice,
+    // mathaleaLoadExerciceFromUuid,
     mathaleaRenderDiv,
     mathaleaUpdateExercicesParamsFromUrl,
     mathaleaUpdateUrlFromExercicesParams
@@ -19,7 +19,7 @@
   import type TypeExercice from '../../../exercices/Exercice'
   import Exercice from '../../shared/exercice/Exercice.svelte'
   import { onDestroy, onMount, tick } from 'svelte'
-  import seedrandom from 'seedrandom'
+  // import seedrandom from 'seedrandom'
   import { loadMathLive } from '../../../modules/loaders'
   import Button from '../../shared/forms/Button.svelte'
   import { verifQuestionMathLive } from '../../../lib/interactif/mathLive'
@@ -35,6 +35,7 @@
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
   import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
+  import { buildExercisesList, splitExercisesIntoQuestions } from '../../../lib/components/exercisesUtils'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -42,11 +43,11 @@
   let consignes: string[] = []
   let corrections: string[] = []
   let consignesCorrections: string[] = []
-  const indiceExercice: number[] = []
-  const indiceQuestionInExercice: number[] = []
+  let indiceExercice: number[] = []
+  let indiceQuestionInExercice: number[] = []
   const resultsByQuestion: boolean[] = []
   const isDisabledButton: boolean[] = []
-  const isCorrectionVisible: boolean[] = []
+  let isCorrectionVisible: boolean[] = []
   const divsCorrection: HTMLDivElement[] = []
   let currentWindowWidth: number = document.body.clientWidth
   let eleveSection: HTMLElement
@@ -174,18 +175,18 @@
         param.interactif = '1'
       }
     }
-    for (const paramsExercice of $exercicesParams) {
-      const exercice: TypeExercice = await mathaleaLoadExerciceFromUuid(
-        paramsExercice.uuid
-      )
-      if (typeof exercice === 'undefined') return
-      mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-      if ($globalOptions.setInteractive === '1' && exercice?.interactifReady) {
-        exercice.interactif = true
-      }
-      exercices.push(exercice)
-    }
-    exercices = exercices
+    // for (const paramsExercice of $exercicesParams) {
+    //   const exercice: TypeExercice = await mathaleaLoadExerciceFromUuid(
+    //     paramsExercice.uuid
+    //   )
+    //   if (typeof exercice === 'undefined') return
+    //   mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
+    //   if ($globalOptions.setInteractive === '1' && exercice?.interactifReady) {
+    //     exercice.interactif = true
+    //   }
+    //   exercices.push(exercice)
+    // }
+    exercices = [...await buildExercisesList()]
     await tick()
     if ($globalOptions.presMode === 'liste_questions' || $globalOptions.presMode === 'une_question_par_page') {
       buildQuestions()
@@ -215,44 +216,14 @@
   })
 
   async function buildQuestions () {
-    for (const [k, exercice] of exercices.entries()) {
-      if (exercice.typeExercice === 'simple') {
-        mathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
-      }
-      if (exercice.seed !== undefined) {
-        seedrandom(exercice.seed, { global: true })
-      }
-      exercice.numeroExercice = k
-      if (exercice.nouvelleVersion !== undefined) {
-        exercice.nouvelleVersion(k)
-      }
-      isCorrectionVisible[k] = false
-      const cumulConsignesCorrections = []
-      if (exercice.listeQuestions === undefined) {
-        exercice.listeQuestions = []
-      }
-      if (exercice.listeCorrections === undefined) {
-        exercice.listeCorrections = []
-      }
-      for (let i = 0; i < exercice.listeQuestions.length; i++) {
-        consignes.push(exercice?.consigne + exercice?.introduction)
-        indiceExercice.push(k)
-        indiceQuestionInExercice.push(i)
-        if (exercice.consigneCorrection !== undefined) {
-          cumulConsignesCorrections.push(exercice.consigneCorrection)
-        }
-      }
-      questions = [...questions, ...exercice.listeQuestions]
-      corrections = [...corrections, ...exercice.listeCorrections]
-      consignesCorrections = [
-        ...consignesCorrections,
-        ...cumulConsignesCorrections
-      ]
-      questions = questions.map(mathaleaFormatExercice)
-      corrections = corrections.map(mathaleaFormatExercice)
-      consignesCorrections = consignesCorrections.map(mathaleaFormatExercice)
-      consignes = consignes.map(mathaleaFormatExercice)
-    }
+    const splitResults = splitExercisesIntoQuestions(exercices)
+    questions = [...splitResults.questions]
+    consignes = [...splitResults.consignes]
+    corrections = [...splitResults.corrections]
+    consignesCorrections = [...splitResults.consignesCorrections]
+    isCorrectionVisible = [...splitResults.isCorrectionVisible]
+    indiceExercice = [...splitResults.indiceExercice]
+    indiceQuestionInExercice = [...splitResults.indiceQuestionInExercice]
     if (
       $globalOptions.presMode === 'liste_questions' ||
       $globalOptions.presMode === 'une_question_par_page'

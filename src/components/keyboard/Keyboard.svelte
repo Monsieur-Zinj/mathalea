@@ -35,35 +35,35 @@
     pages.length = 0
     let pageWidth: number = 0
     let page: KeyboardBlock[] = []
-    const mode = getMode(innerWidth, true)    
+    const mode = getMode(innerWidth, true)
     const blockList = [...usualBlocks, ...unitsBlocks].reverse()
     while (blockList.length > 0) {
       const block = blockList.pop()
-      const blockWidth = inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]            
+      const blockWidth = inLineBlockWidth(block!, mode) + GAP_BETWEEN_BLOCKS[mode]
       if (pageWidth + blockWidth > 0.8 * innerWidth) {
         // plus de places
         pages.push(page.reverse())
         page = []
-        pageWidth = 0 
+        pageWidth = 0
       }
       page.push(block!)
-      pageWidth =+ blockWidth
+      pageWidth = +blockWidth
     }
     if (page.length !== 0) {
       pages.push(page.reverse())
-    }    
+    }
   }
 
   keyboardState.subscribe(async (value) => {
     isVisible = value.isVisible
     isInLine = value.isInLine
-    pageType = value.alphanumericLayout    
+    pageType = value.alphanumericLayout
     myKeyboard.empty()
     for (const block of value.blocks) {
       if (block !== 'alphanumeric') myKeyboard.add(keyboardBlocks[block])
     }
     unitsBlocks.length = 0
-    usualBlocks.length = 0    
+    usualBlocks.length = 0
     for (const block of myKeyboard.blocks) {
       if (block && Object.prototype.hasOwnProperty.call(block, 'isUnits') && block.isUnits) {
         unitsBlocks.push(block)
@@ -170,7 +170,7 @@
       <Alphanumeric {clickKeycap} {pageType} />
     {:else}
       <div class={isInLine ? 'relative px-10' : 'py-2 md:py-0'}>
-        {#key [[ ...unitsBlocks, ...usualBlocks].map(e=>e.title).join(), pages.map((e,i)=> 'p' + i +':' + e.map(f=>f.title).join()).join(), isInLine].join()}
+        {#key [[...unitsBlocks, ...usualBlocks].map(e => e.title).join(), pages.map((e, i) => 'p' + i + ':' + e.map(f => f.title).join()).join(), isInLine].join()}
         <KeyboardPage
           unitsBlocks={[...unitsBlocks].reverse()}
           usualBlocks={[...usualBlocks].reverse()}

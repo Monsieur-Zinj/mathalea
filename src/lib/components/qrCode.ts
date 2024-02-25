@@ -13,7 +13,7 @@ export const allowedImageFormats = [
  * @param imageId id of the image
  * @param QRCodeWidth largeur du QR-Code (en pixels)
  * @param formatQRCodeIndex code du format d'image (voir allowedImageFormats)
- * @param urlAddendum chaîne à ajouter à l'URL courante
+ * @param url chaîne à ajouter à l'URL courante
  * @param shorten l'URL doit être raccourcie ou pas ?
  * @param crypted l'URL doit être encryptée ou pas ?
  * @author sylvain
@@ -22,7 +22,7 @@ export async function urlToQRCodeOnWithinImgTag (
   imageId: string,
   QRCodeWidth: number,
   formatQRCodeIndex = 0,
-  urlAddendum = '',
+  url = '',
   shorten = false,
   crypted = false
 ) {
@@ -30,15 +30,15 @@ export async function urlToQRCodeOnWithinImgTag (
   let currentURL
   if (shorten) {
     try {
-      currentURL = await getShortenedCurrentUrl(urlAddendum)
+      currentURL = await getShortenedCurrentUrl(url)
     } catch (error) {
       console.log('Impossible de créer le QR-Code avec lien raccourci')
       throw error
     }
   } else {
     currentURL = crypted
-      ? encrypt(document.URL + urlAddendum) + ''
-      : document.URL + urlAddendum
+      ? encrypt(url) + ''
+      : url
   }
   const options = {
     errorCorrectionLevel: 'H',

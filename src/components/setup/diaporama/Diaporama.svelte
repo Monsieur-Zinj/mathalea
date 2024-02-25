@@ -24,7 +24,10 @@
   import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'
   import { showDialogForLimitedTime } from '../../../lib/components/dialogs'
   import { copyLinkToClipboard } from '../../../lib/components/clipboard'
-  import { formattedTimeStamp, setPhraseDuree } from '../../../lib/components/time'
+  import {
+    formattedTimeStamp,
+    setPhraseDuree
+  } from '../../../lib/components/time'
   import ModalForQRCode from '../../shared/modal/ModalForQRCode.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import ButtonToggle from '../../shared/forms/ButtonToggle.svelte'
@@ -498,7 +501,6 @@
           'correction' + i
         ) as HTMLDivElement
 
-
         const svgDivs = diapocellDiv?.getElementsByClassName('mathalea2d')
         const textcellWidth = textcellDiv.clientWidth
         const textcellHeight = textcellDiv.clientHeight
@@ -516,13 +518,25 @@
             if (startingHeight * rw < optimalSVGHeigth) {
               // console.log('rh -> height:' + rh)
               // console.log('rw -> height (win):' + rw)
-              svgDivs[k].setAttribute('width', (optimalSVGWidth * currentZoom).toString())
-              svgDivs[k].setAttribute('height',(svgDivs[k].clientHeight * rw * currentZoom).toString())
+              svgDivs[k].setAttribute(
+                'width',
+                (optimalSVGWidth * currentZoom).toString()
+              )
+              svgDivs[k].setAttribute(
+                'height',
+                (svgDivs[k].clientHeight * rw * currentZoom).toString()
+              )
             } else {
               // console.log('rw -> height:' + rw)
               // console.log('rh -> height (win):' + rh)
-              svgDivs[k].setAttribute('height', (optimalSVGHeigth * currentZoom).toString())
-              svgDivs[k].setAttribute('width', (svgDivs[k].clientWidth * rh * currentZoom).toString())
+              svgDivs[k].setAttribute(
+                'height',
+                (optimalSVGHeigth * currentZoom).toString()
+              )
+              svgDivs[k].setAttribute(
+                'width',
+                (svgDivs[k].clientWidth * rh * currentZoom).toString()
+              )
             }
             svgDivs[k].removeAttribute('style')
 
@@ -532,16 +546,19 @@
             const heightCoef = finalHeight / startingHeight
             // console.log('rw -> widthCoef:' + widthCoef)
             // console.log('rh -> heightCoef:' + heightCoef)
-            
+
             /** on cherche le parent de la figure SVG */
-            const svgContainerDivs = svgDivs[k].closest('.svgContainer') as HTMLDivElement
+            const svgContainerDivs = svgDivs[k].closest(
+              '.svgContainer'
+            ) as HTMLDivElement
             if (svgContainerDivs) {
               svgContainerDivs.classList.add('flex')
               svgContainerDivs.classList.add('justify-center')
-              svgContainerDivs.style.display=''
-            
-              /** on ajuste les étiquettes divLatex*/
-              const divLatexDivs = svgContainerDivs.getElementsByClassName('divLatex') ?? []
+              svgContainerDivs.style.display = ''
+
+              /** on ajuste les étiquettes divLatex */
+              const divLatexDivs =
+                svgContainerDivs.getElementsByClassName('divLatex') ?? []
               for (let i = 0; i < divLatexDivs.length; i++) {
                 const divLatex = divLatexDivs[i] as HTMLDivElement
                 const originalTop = parseFloat(
@@ -551,15 +568,15 @@
                   divLatex.style.left.replace('px', '')
                 )
                 divLatex.style.top =
-                  (originalTop  * heightCoef).toString() + 'px'
+                  (originalTop * heightCoef).toString() + 'px'
                 divLatex.style.left =
                   (originalLeft * widthCoef).toString() + 'px'
               }
             }
           }
         }
-        
-        // Donner la bonne taille au texte        
+
+        // Donner la bonne taille au texte
         let consigneHeight,
           correctionHeight,
           questionHeight,
@@ -567,18 +584,21 @@
           consigneWidth,
           correctionWidth: number
         let size = 300
-        for (let i = 0; i< 3 ; i++){
-          /* on fait trois boucles par pas de 50, puis 10, puis 2 pour accélerer la recherche */ 
-          let delta = (i ===0 ? 50 : i===1 ? 10 : 2) 
-          size = (i === 0 ? size : i===1 ? size + 50 : size + 10) 
-        
+        for (let i = 0; i < 3; i++) {
+          /* on fait trois boucles par pas de 50, puis 10, puis 2 pour accélerer la recherche */
+          const delta = i === 0 ? 50 : i === 1 ? 10 : 2
+          size = i === 0 ? size : i === 1 ? size + 50 : size + 10
+
           do {
             size = size - delta
             // console.log('size:' + size)
             if (questionDiv !== null) {
               questionDiv.style.fontSize = size + 'px'
               questionHeight = questionDiv.clientHeight
-              questionWidth = questionDiv.scrollWidth > questionDiv.clientWidth ? questionDiv.scrollWidth : questionDiv.clientWidth
+              questionWidth =
+                questionDiv.scrollWidth > questionDiv.clientWidth
+                  ? questionDiv.scrollWidth
+                  : questionDiv.clientWidth
             } else {
               questionHeight = 0
               questionWidth = 0
@@ -600,17 +620,16 @@
               correctionWidth = 0
             }
           } while (
-            size > 6 /* pour éviter la boucle infinie */ && (
-              questionWidth > textcellWidth ||
-            consigneWidth > textcellWidth ||
-            correctionWidth > textcellWidth ||
-            questionHeight + consigneHeight + correctionHeight > textcellHeight
-            )
+            size > 6 /* pour éviter la boucle infinie */ &&
+            (questionWidth > textcellWidth ||
+              consigneWidth > textcellWidth ||
+              correctionWidth > textcellWidth ||
+              questionHeight + consigneHeight + correctionHeight >
+                textcellHeight)
           )
           // console.log('stop size:' + size)
         }
 
-        
         if (questionDiv !== null) {
           questionDiv.style.fontSize = currentZoom * size + 'px'
         }
@@ -842,11 +861,11 @@
 </script>
 
 <svelte:head>
-<style>
-  svg.mathalea2d {
-    display: inline-flex;
-  }
-</style>
+  <style>
+    svg.mathalea2d {
+      display: inline-flex;
+    }
+  </style>
 </svelte:head>
 
 <svelte:window on:keyup={handleShortcut} />
@@ -888,7 +907,7 @@
                     on:click={() => {
                       // console.log('indexes des questions :')
                       // console.log($questionsOrder.indexes)
-                      mathaleaHandleComponentChange('diaporama', 'can')
+                      mathaleaHandleComponentChange('diaporama', 'overview')
                     }}
                   >
                     <i class="bx text-2xl bx-detail" />
@@ -1582,7 +1601,8 @@
           <button
             type="button"
             class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-            on:click={() => mathaleaHandleComponentChange('diaporama', 'can')}
+            on:click={() =>
+              mathaleaHandleComponentChange('diaporama', 'overview')}
           >
             <i class="bx text-[100px] bx-detail" />
           </button>

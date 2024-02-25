@@ -3,6 +3,7 @@ import { capytaleMode, exercicesParams, globalOptions, resultsByExercice } from 
 import { mathaleaHandleComponentChange, mathaleaWriteStudentPreviousAnswers } from './mathalea.js'
 import { get } from 'svelte/store'
 import { RPC } from '@mixer/postmessage-rpc'
+import { canOptions as canOptionsStore } from './stores/canStore.js'
 
 interface ActivityParams { mode: 'create' | 'assignment' | 'review' | 'view', activity: Activity, workflow: 'current' | 'finished' | 'corrected', studentAssignment: InterfaceResultExercice[] }
 
@@ -30,7 +31,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   currentMode = mode
   capytaleMode.set(mode)
   if (activity === null || activity === undefined) return
-  const [newExercicesParams, newGlobalOptions] = [activity.exercicesParams, activity.globalOptions]
+  const [newExercicesParams, newGlobalOptions, newCanOptions] = [activity.exercicesParams, activity.globalOptions, activity.canOptions]
   // On met à jour les paramètres des exercices
   exercicesParams.update((l) => {
     Object.assign(l, newExercicesParams)
@@ -39,6 +40,11 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   // On met à jour les paramètres globaux
   globalOptions.update((l) => {
     Object.assign(l, newGlobalOptions)
+    return l
+  })
+  canOptionsStore.update((l) => {
+    Object.assign(l, newCanOptions)
+    l.isInteractive = newGlobalOptions.setInteractive === '1'
     return l
   })
   // On charge l'aléa qui a pu être modifié par l'élève
@@ -55,11 +61,19 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   }
   if (mode !== 'create') {
     // Vue élève
-    mathaleaHandleComponentChange('', 'eleve')
-    globalOptions.update((l) => {
-      l.v = 'eleve'
-      return l
-    })
+    if (newCanOptions?.isChoosen) {
+      mathaleaHandleComponentChange('', 'can')
+      globalOptions.update((l) => {
+        l.v = 'can'
+        return l
+      })
+    } else {
+      mathaleaHandleComponentChange('', 'eleve')
+      globalOptions.update((l) => {
+        l.v = 'eleve'
+        return l
+      })
+    }
   }
   if (mode === 'assignment') {
     // Si la copie a déjà été rendue, on ne peut plus modifier les réponses
@@ -155,12 +169,13 @@ export function sendToCapytaleSaveStudentAssignment ({ indiceExercice }: { indic
 function sendToCapytaleActivityParams () {
   const params = get(exercicesParams)
   const options = get(globalOptions)
+  const canOptions = get(canOptionsStore)
   for (const param of params) {
     if (param.alea !== undefined && get(globalOptions).isDataRandom) {
       param.alea = undefined
     }
   }
-  return { exercicesParams: params, globalOptions: options }
+  return { exercicesParams: params, globalOptions: options, canOptions }
 }
 
 export default async function handleCapytale () {

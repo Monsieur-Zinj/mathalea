@@ -89,3 +89,18 @@ export function debounce<T extends (...args: any[])=> void> (callback: T, delay:
 export function delay (time: number) {
   return new Promise(resolve => setTimeout(resolve, time))
 }
+
+/**
+ * Calcule le nombre de minnutes et de secondes dans une durée donnée en millisecondes
+ * et renvoie ces deux nombres dans un objet.
+ * @param milliseconds durée en millisecondes
+ * @returns un objet constitué du nombre de minutes et du nombre de secondes
+ */
+export function millisecondToMinSec (milliseconds: number): {
+  minutes: number
+  seconds: number
+} {
+  const seconds = Math.floor((milliseconds / 1000) % 60)
+  const minutes = Math.floor((milliseconds / 1000 / 60) % 60)
+  return { minutes, seconds }
+}

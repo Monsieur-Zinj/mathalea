@@ -94,6 +94,7 @@ export default class Exercice {
   answers?: { [key: string]: string } // Réponses de l'élève
   isDone?: boolean
   html?: HTMLElement
+  score?: number
   constructor () {
   // ////////////////////////////////////////////////
   // Autour de l'exercice
