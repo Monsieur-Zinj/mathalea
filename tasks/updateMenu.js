@@ -137,6 +137,7 @@ function createUuid () {
 // ToDo : automatiser la lecture de exercicesInteractifs
 function handleExerciceSvelte (uuidToUrl) {
   uuidToUrl.spline = 'OutilSpline.svelte'
+  uuidToUrl.clavier = 'ClavierTest.svelte'
   return uuidToUrl
 }
 

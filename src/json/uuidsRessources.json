@@ -4,5 +4,6 @@
   "video": "ressources/video.ts",
   "spline": "OutilSpline.svelte",
   "test": "Test.svelte",
+  "clavier": "ClavierTest.svelte",
   "sandboxCE": "ressources/sandboxCE.ts"
 }
