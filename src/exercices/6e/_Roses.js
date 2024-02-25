@@ -10,7 +10,7 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import { calculer } from '../../modules/outilsMathjs.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML, vide2d, fixeBordures } from '../../modules/2dGeneralites.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import * as pkg from '@cortex-js/compute-engine'
 import FractionEtendue from '../../modules/FractionEtendue.js'
@@ -345,10 +345,11 @@ export function ExoRose () {
         if (this.type.substring(0, 3) === 'can') {
           texte += ajouteChampTexteMathLive(this, i, 'nospacebefor ' + this.clavier, { texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=`, tailleExtensible: true })
         } else {
+          let question = ''
           for (let k = 0; k < this.nombreDeValeurs; k++) {
-            texte += ajouteChampTexteMathLive(this, i * this.nombreDeValeurs + k, 'nospacebefor ' + this.clavier, { texteAvant: `${lettreMinusculeDepuisChiffre(k + 1)}=`, tailleExtensible: true })
-            texte += sp(6)
+            question += `${lettreMinusculeDepuisChiffre(k + 1)}=%{champ${k + 1}}${sp(3)}`
           }
+          texte += remplisLesBlancs(this, i, question, this.clavier, '\\ldots')
         }
       }
       texteCorr = mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objetsCorr)), objetsCorr)
@@ -382,17 +383,16 @@ export function ExoRose () {
   this.correctionInteractive = i => {
     const taille = this.nombreDeValeurs
     const champsTexte = []
-    const spanResultat = this.type.substring(0, 3) === 'can'
-      ? document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
-      : document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${(i + 1) * taille - 1}`)
+    const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
     const saisies = []
     if (this.type.substring(0, 3) === 'can') {
       champsTexte[0] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i}`)
       saisies[0] = champsTexte[0].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
     } else {
+      const mfe = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}`)
       for (let k = 0; k < taille; k++) {
-        champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * taille + k}`)
-        saisies[k] = champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
+        champsTexte[k] = mfe.getPromptValue(`champ${k + 1}`)
+        saisies[k] = champsTexte[k].replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
       }
     }
     let resultat
