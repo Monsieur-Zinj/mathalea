@@ -2,7 +2,7 @@
 import { point } from '../../lib/2d/points.js'
 import { polygoneRegulierParCentreEtRayon } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonnees, latexParCoordonneesBox, texteParPoint } from '../../lib/2d/textes.js'
+import { latexParCoordonnees, latexParCoordonneesBox, texteParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'

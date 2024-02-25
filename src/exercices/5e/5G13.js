@@ -4,7 +4,7 @@ import { distancePointDroite, droite, droiteAvecNomLatex, droiteParPointEtParall
 import { point, pointAdistance, tracePoint } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint, texteParPoint } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPoint } from '../../lib/2d/textes.ts'
 import { rotation, symetrieAxiale, translation, translation2Points } from '../../lib/2d/transformations.js'
 import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'

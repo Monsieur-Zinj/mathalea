@@ -1,6 +1,6 @@
 import { pointSurSegment, tracePoint } from '../../lib/2d/points.js'
 import { longueur, segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { translation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'

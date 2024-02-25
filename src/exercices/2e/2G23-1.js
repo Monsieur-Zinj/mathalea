@@ -1,7 +1,7 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { grille } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Exercice from '../deprecatedExercice.js'

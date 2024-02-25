@@ -2,7 +2,7 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { grille } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteGras } from '../../lib/format/style'
 import Exercice from '../deprecatedExercice.js'

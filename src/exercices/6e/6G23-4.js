@@ -1,7 +1,7 @@
 import { angleModulo, rapporteur } from '../../lib/2d/angles.js'
 import { point, pointSurSegment, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'

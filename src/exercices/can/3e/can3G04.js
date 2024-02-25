@@ -1,7 +1,7 @@
 import { milieu, point } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'

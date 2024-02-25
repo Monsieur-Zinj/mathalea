@@ -1,7 +1,7 @@
 import { droite } from '../../lib/2d/droites.js'
 import { point } from '../../lib/2d/points.js'
 import { demiDroite, segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

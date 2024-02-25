@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-constructor */
 import { point, tracePoint } from '../../lib/2d/points.js'
-import { latexParCoordonnees } from '../../lib/2d/textes.js'
+import { latexParCoordonnees } from '../../lib/2d/textes.ts'
 /* eslint-disable no-unused-vars */
 import { context } from '../context.js'
 import { GVCartesian, GVCoordinates } from './coordinates.js'

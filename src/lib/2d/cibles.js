@@ -1,4 +1,3 @@
-
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres'
@@ -8,7 +7,7 @@ import { arc, cercle } from './cercle.js'
 import { milieu, point, pointSurSegment } from './points.js'
 import { grille } from './reperes.js'
 import { longueur, segment } from './segmentsVecteurs.js'
-import { texteParPoint, texteParPosition } from './textes.js'
+import { texteParPoint, texteParPosition } from './textes.ts'
 import { rotation, similitude } from './transformations.js'
 
 /**  Retourne un couple de coordonnées correspondant au centre d'une cible, connaissant les coordonnées du point réponse et de la cellule dans laquelle on veut qu'il soit
@@ -343,7 +342,6 @@ export function CibleCouronne ({
   const arc1 = arc(azimut, centre, arcPlein - 0.1, false, 'none', this.color)
   const arc2 = arc(azimut2, centre, arcPlein - 0.1, false, 'none', this.color)
   rayon = segment(azimut, azimut2)
-  
   objets.push(arc1, arc2, rayon)
   for (let i = 0; i < nbDivisions; i++) {
     for (let j = 1; j < nbSubDivisions; j++) {
@@ -368,7 +366,6 @@ export function CibleCouronne ({
     objets.push(rayon)
   }
   this.bordures = [this.x - taille - 1, this.y - this.taille - 1, this.x + this.taille + 1, this.y + this.taille + 1]
-  
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {

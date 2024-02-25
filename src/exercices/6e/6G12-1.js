@@ -4,7 +4,7 @@ import { droite, droiteParPointEtParallele, droiteParPointEtPerpendiculaire } fr
 import { point, pointIntersectionDD, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { grille, seyes } from '../../lib/2d/reperes.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'

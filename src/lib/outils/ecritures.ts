@@ -95,8 +95,9 @@ export function ecritureAlgebrique (a: string | number | FractionEtendue | Decim
     window.notify('ecritureAlgebrique() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
-  if (a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
-  else if (typeof a === 'number') {
+  if (a instanceof FractionEtendue) {
+    return a.texFSD
+  } else if (typeof a === 'number') {
     if (a >= 0) {
       return '+' + texNombre(a, 7)
     } else {

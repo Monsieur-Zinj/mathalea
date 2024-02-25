@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { point, tracePoint } from '../../../lib/2d/points.js'
-import { texteParPositionEchelle } from '../../../lib/2d/textes.js'
+import { texteParPositionEchelle } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { modalPdf, modalUrl } from '../../../lib/outils/modales.js'
 import { texteGras } from '../../../lib/format/style'

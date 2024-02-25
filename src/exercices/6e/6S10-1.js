@@ -4,13 +4,13 @@ import { carre, motifs } from '../../lib/2d/polygones.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { traceBarre, traceGraphiqueCartesien } from '../../lib/2d/diagrammes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { rotation, translation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texcolors } from '../../lib/format/style'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
@@ -151,7 +151,7 @@ export default function LireUnDiagramme () {
             legende.opaciteDeRemplissage = 0.7
             textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + 0.5, 0, 'black', 1.5, 'gauche', false)
             objets.push(legende, textelegende)
-            paramsEnonce = { xmin: -6.5, ymin: -6.5, xmax: 20, ymax: 6.5, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+            paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
           }
           break
         case 2:
@@ -179,9 +179,9 @@ export default function LireUnDiagramme () {
             legende.couleurDesHachures = a.couleurDesHachures
             legende.hachures = hachures
             legende.opaciteDeRemplissage = 0.7
-            textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + 0.5, 0, 'black', 1.5, 'gauche', false)
+            textelegende = texteParPosition(lstAnimauxExo[i], 8.5, i * 1.5 + 0.5, 0, 'black', 1, 'gauche', false)
             objets.push(legende, textelegende)
-            paramsEnonce = { xmin: -6.5, ymin: -0.2, xmax: 20, ymax: 6.5, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+            paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
           }
           break
         case 3:
@@ -214,8 +214,8 @@ export default function LireUnDiagramme () {
           for (let i = 0; i < nbAnimaux; i++) {
             objets.push(traceBarre((((r.xMax - r.xMin) / (nbAnimaux + 1)) * (i + 1)), lstNombresAnimaux[i], lstAnimauxExo[i], { unite: 0.1 / coef, couleurDeRemplissage: texcolors(i + 1), hachures: 'north east lines' }))
           }
-          objets.push(r)
-          paramsEnonce = { xmin: -6.5, ymin: -4, xmax: 20, ymax: choixMajoritaire > 0 ? nbMax / 5 : nbMax / 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+          objets.push(...r.objets)
+          paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
 
           break
 
@@ -260,9 +260,9 @@ export default function LireUnDiagramme () {
             tailleDesPoints: 3
           })
 
-          objets.push(r, g)
+          objets.push(...r.objets, g)
 
-          paramsEnonce = { xmin: -6.5, ymin: -3, xmax: 20, ymax: choixMajoritaire > 0 ? nbMax / 5 : nbMax / 7, pixelsParCm: 20, scale: 0.5, mainlevee: false }
+          paramsEnonce = Object.assign({ pixelsParCm: 20, scale: 0.5, mainlevee: false }, fixeBordures(objets))
 
           break
       }

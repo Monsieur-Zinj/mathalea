@@ -1,6 +1,6 @@
 import { droite } from '../../lib/2d/droites.js'
 import { point, tracePoint, tracePointSurDroite } from '../../lib/2d/points.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, symetrieAxiale, translation2Points } from '../../lib/2d/transformations.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'

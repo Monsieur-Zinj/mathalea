@@ -2,7 +2,7 @@ import { angleModulo, codageAngle, codageAngleDroit } from '../../lib/2d/angles.
 import { afficheMesureAngle } from '../../lib/2d/codages.js'
 import { point, pointSurSegment, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'

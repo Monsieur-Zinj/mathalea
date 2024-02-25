@@ -8,7 +8,7 @@ import { texcolors } from '../format/style'
 import { combinaisonListes } from '../outils/arrayOutils'
 import { numberFormat, texNombre } from '../outils/texNombre'
 import { segment, vecteur } from './segmentsVecteurs.js'
-import { latexParPoint, texteParPoint, texteParPosition } from './textes.js'
+import { latexParPoint, texteParPoint, texteParPosition } from './textes.ts'
 import { rotation, similitude, translation } from './transformations.js'
 
 /**

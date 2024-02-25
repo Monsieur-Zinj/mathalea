@@ -1,7 +1,7 @@
 import { point } from '../../../lib/2d/points.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'

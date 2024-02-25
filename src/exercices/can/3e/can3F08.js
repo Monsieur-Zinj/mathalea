@@ -1,7 +1,7 @@
 import { droite } from '../../../lib/2d/droites.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { deprecatedTexFraction, texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'

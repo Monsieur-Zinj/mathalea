@@ -2,7 +2,7 @@ import { angleOriente, codageAngle, codageAngleDroit } from '../../lib/2d/angles
 import { milieu, point, pointIntersectionDD, tracePoint } from '../../lib/2d/points.js'
 import { barycentre, nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParPoint } from '../../lib/2d/textes.js'
+import { latexParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'

@@ -1,5 +1,5 @@
 import { tracePoint } from '../../lib/2d/points.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { degSin, radians } from '../../lib/mathFonctions/trigo.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'

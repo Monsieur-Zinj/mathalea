@@ -2,7 +2,7 @@ import { antecedentInterpole, graphiqueInterpole, imageInterpolee } from '../../
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { arrondi, numTrie } from '../../lib/outils/nombres'

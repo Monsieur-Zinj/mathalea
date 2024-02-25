@@ -6,7 +6,7 @@ import { traceCompas } from './cercle.js'
 import { codageBissectrice, codageMediatrice, codageSegments } from './codages.js'
 import { milieu, point, pointSurDroite, pointSurSegment } from './points.js'
 import { demiDroite, longueur, norme, segment, vecteur } from './segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPosition } from './textes.js'
+import { latexParCoordonnees, texteParPosition } from './textes.ts'
 import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } from './transformations.js'
 
 /**

@@ -1,7 +1,7 @@
 import { cercle } from '../../../lib/2d/cercle.js'
 import { point } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { rotation } from '../../../lib/2d/transformations.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { personne } from '../../../lib/outils/Personne'

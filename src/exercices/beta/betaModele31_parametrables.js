@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { polygoneRegulier } from '../../lib/2d/polygones.js'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

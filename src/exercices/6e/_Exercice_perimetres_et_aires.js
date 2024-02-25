@@ -14,7 +14,7 @@ import {
 import { polygone, polygoneRegulier } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe, troncature } from '../../lib/outils/nombres'
-import { labelPoint } from '../../lib/2d/textes.js'
+import { labelPoint } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'

@@ -1,7 +1,7 @@
 import { courbeInterpolee } from '../../lib/2d/courbes.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.ts'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../modules/2dGeneralites.js'

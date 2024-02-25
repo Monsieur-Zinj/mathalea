@@ -1,5 +1,5 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { texFractionReduite } from '../../../lib/outils/deprecatedFractions.js'
 import { pgcd } from '../../../lib/outils/primalite'
 import { context } from '../../../modules/context.js'

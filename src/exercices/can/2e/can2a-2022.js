@@ -2,7 +2,7 @@ import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { droite } from '../../../lib/2d/droites.js'
 import { milieu, point } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
-import { labelPoint, texteParPosition } from '../../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,

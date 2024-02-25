@@ -1,6 +1,6 @@
 import { courbe } from '../../../lib/2d/courbes.js'
 import { repere } from '../../../lib/2d/reperes.js'
-import { latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes.js'
+import { latexParCoordonnees, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'

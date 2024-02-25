@@ -7,7 +7,7 @@ import {
 } from '../../lib/2d/droites.js'
 import { point, pointIntersectionDD, pointSurDroite } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { latexParCoordonneesBox } from '../../lib/2d/textes.js'
+import { latexParCoordonneesBox } from '../../lib/2d/textes.ts'
 import { rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { range, rangeMinMax } from '../../lib/outils/nombres'

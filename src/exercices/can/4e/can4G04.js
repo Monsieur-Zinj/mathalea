@@ -1,7 +1,7 @@
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { milieu, point, pointAdistance } from '../../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'

@@ -235,6 +235,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
       throw Error('verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom : ' + JSON.stringify({ selecteur: `math-field#champTexteEx${this.numeroExercice}Q${i}` }))
     }
     const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+    // @ts-expect-error TS2339 Penser à typer correctement Exercice.autoCorrection
     const reponses = this.autoCorrection[i].reponse.valeur
     let result: string
     const num = Number(mfe.getPromptValue('champ2'))

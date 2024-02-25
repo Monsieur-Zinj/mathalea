@@ -1,7 +1,7 @@
 // on importe les fonctions nécessaires.
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
-import { texteParPoint } from '../../lib/2d/textes.js'
+import { texteParPoint } from '../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { arrondi } from '../../lib/outils/nombres'
 import Exercice from '../deprecatedExercice.js'

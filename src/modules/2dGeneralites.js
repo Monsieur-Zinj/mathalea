@@ -286,7 +286,7 @@ function convertHexToRGB (couleur = '000000') {
  * @example colorToLatexOrHTML('')=''
  * @example colorToLatexOrHTML('none')=['none','none']
  * @author Eric Elter
- * @return {string[]}
+ * @return {[string,string]}
  */
 // JSDOC Validee par EE Juin 2022
 export function colorToLatexOrHTML (couleur) {

@@ -1,7 +1,7 @@
 import { courbe } from '../../lib/2d/courbes.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.js'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'

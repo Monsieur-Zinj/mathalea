@@ -7,7 +7,7 @@ import { angleOriente } from './angles.js'
 import { Cercle } from './cercle.js'
 import { Droite, droite } from './droites.js'
 import { milieu, Point, point, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './points.js'
-import { texteParPosition } from './textes.js'
+import { texteParPosition } from './textes.ts'
 import { rotation, similitude, translation } from './transformations.js'
 
 /**

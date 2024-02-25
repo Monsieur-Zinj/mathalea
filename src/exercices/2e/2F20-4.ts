@@ -110,8 +110,8 @@ function renseigneFonction (poly: Polynome) {
   while (monomesNormalized.length < 4) {
     monomesNormalized.push(0)
   }
-  const monomesInverses = monomesNormalized.reverse()
-  const expr: string = reduirePolynomeDegre3(...monomesInverses.map((el: number) => Math.abs(el) < 1e-10 ? 0 : el)).replaceAll('\\,', '').replaceAll('{,}', '.')
+  const [a, b, c, d]: [number, number, number, number] = monomesNormalized.reverse().map((el: number) => Math.abs(el) < 1e-10 ? 0 : el)
+  const expr: string = reduirePolynomeDegre3(a, b, c, d).replaceAll('\\,', '').replaceAll('{,}', '.')
   return { func, expr, poly }
 }
 

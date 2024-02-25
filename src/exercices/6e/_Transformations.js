@@ -3,7 +3,7 @@ import { afficheMesureAngle, codageSegments } from '../../lib/2d/codages.js'
 import { droiteHorizontaleParPoint, droiteParPointEtPente, droiteVerticaleParPoint } from '../../lib/2d/droites.js'
 import { milieu, point, pointSurDroite, tracePoint } from '../../lib/2d/points.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
-import { labelLatexPoint, latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes.js'
+import { labelLatexPoint, latexParCoordonnees, texteParPositionEchelle } from '../../lib/2d/textes.ts'
 import { translation } from '../../lib/2d/transformations.js'
 import {
   choice,
