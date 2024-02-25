@@ -1,6 +1,13 @@
+// Module inutilisé. Décommentez si c'est utile un jour.
+/*
+let canvas: HTMLCanvasElement
+ */
+
+/*
 export function remToPixels (rem: number) {
   return rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
 }
+ */
 
 /**
    * Uses canvas.measureText to compute and return the width of the given text of given font in pixels.
@@ -10,9 +17,12 @@ export function remToPixels (rem: number) {
    *
    * @see https://stackoverflow.com/questions/118241/calculate-text-width-with-javascript/21015393#21015393
    */
+/*
 export function getTextWidth (text: string, font: string, factor: number = 1): number {
   // re-use canvas object for better performance
-  const canvas: HTMLCanvasElement = getTextWidth.canvas || (getTextWidth.canvas = document.createElement('canvas'))
+  if (canvas == null) {
+    canvas = document.createElement('canvas')
+  }
   const context: CanvasRenderingContext2D | null = canvas.getContext('2d')
   if (!context) {
     throw new Error('Canvas context is null')
@@ -21,11 +31,13 @@ export function getTextWidth (text: string, font: string, factor: number = 1): n
   const metrics: TextMetrics = context.measureText(text)
   return metrics.width * factor
 }
-
+ */
+/*
 export function getCssStyle (element: HTMLElement, prop: string) {
   return window.getComputedStyle(element, null).getPropertyValue(prop)
 }
-
+ */
+/*
 export function getCanvasFontDetails (el = document.body) {
   const fontWeight = getCssStyle(el, 'font-weight') || 'normal'
   const fontSize = getCssStyle(el, 'font-size') || '16px'
@@ -37,7 +49,8 @@ export function getCanvasFontDetails (el = document.body) {
     family: `${fontFamily}`
   }
 }
-
+*/
+/*
 export function getCanvasFont (el = document.body) {
   const fontWeight = getCssStyle(el, 'font-weight') || 'normal'
   const fontSize = getCssStyle(el, 'font-size') || '16px'
@@ -45,13 +58,14 @@ export function getCanvasFont (el = document.body) {
 
   return `${fontWeight} ${fontSize} ${fontFamily}`
 }
-
+*/
 /**
    * Détecter le type de machine sur lequel le site est utilisé
    * ([Source](https://attacomsian.com/blog/javascript-detect-mobile-device))
    * @return {('mobile'|'tablet'|'desktop')} nom du type de machine
    * @author sylvain
    */
+/*
 export const deviceType = () => {
   const ua = navigator.userAgent
   if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
@@ -61,7 +75,7 @@ export const deviceType = () => {
   }
   return 'desktop'
 }
-
+*/
 /**
  * Change la taille de tous les divs passés en paramètres.
  *
@@ -74,6 +88,7 @@ export const deviceType = () => {
  * @param {HTMLOrSVGElement[]} tags Liste des divs à inspecter et changer
  * @param {number} factor facteur d'agrandissement par rapport à la taille initiale
  */
+/*
 export const resizeTags = (tags: Element[], factor:number = 1) => {
   let widthUnit, heightUnit: string
   for (const tag of tags) {
@@ -114,3 +129,4 @@ export const resizeTags = (tags: Element[], factor:number = 1) => {
     } else { tag.setAttribute('style', 'width:' + w + tag.dataset.widthUnit + '; height:' + h + tag.dataset.heightUnit + ';') }
   }
 }
+*/
