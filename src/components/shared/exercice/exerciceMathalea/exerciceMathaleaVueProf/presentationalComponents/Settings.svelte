@@ -27,6 +27,9 @@
   let formNum4: FormNumerique
 
   afterUpdate(async () => {
+    if (exercice.seed !== undefined) {
+      alea = exercice.seed
+    }
     // On ne remplit les champs que la première fois
     if (exercice && premierUpdate) {
       premierUpdate = false
@@ -41,7 +44,7 @@
       sup3 = exercice.sup3
       sup4 = exercice.sup4
       const seed = exercice.seed
-      if (seed) {
+      if (seed !== undefined) {
         alea = seed
       }
       correctionDetaillee = exercice.correctionDetaillee
