@@ -204,7 +204,7 @@
   })
 
   async function newData () {
-    if (Object.prototype.hasOwnProperty.call(exercise, 'listeQuestions')) {      
+    if (Object.prototype.hasOwnProperty.call(exercise, 'listeQuestions')) {
       if (isCorrectionVisible && isInteractif) isCorrectionVisible = false
       if (
         exercise !== undefined &&
@@ -368,52 +368,52 @@
    * @author sylvain
    */
    async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false) {
-    const mathalea2dFigures = document.querySelectorAll<SVGElement>('.mathalea2d')
-    if (mathalea2dFigures != null) {
-      await tick()
-      const consigneDiv = document.getElementById('consigne' + exerciseIndex + '-0')
-      if (mathalea2dFigures.length !== 0) {
-        for (let k = 0; k < mathalea2dFigures.length; k++) {
-          if (initialDimensionsAreNeeded) {
-            // réinitialisation
-            const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
-            const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
-            mathalea2dFigures[k].setAttribute('width', initialWidth ?? '0')
-            mathalea2dFigures[k].setAttribute('height', initialHeight ?? '0')
-            // les éléments Katex des figures SVG
-            if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement  != null) { 
-              const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex') || []
-              for (const elt of eltsInFigures) {
-                const e = elt
-                e.style.setProperty('top', e.dataset.top + 'px')
-                e.style.setProperty('left', e.dataset.left + 'px')
-              }
-            }
-          }
-          if ( consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth ) {
-            const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
-            const width = mathalea2dFigures[k].getAttribute('width')
-            const height = mathalea2dFigures[k].getAttribute('height')         
-            if (!mathalea2dFigures[k].dataset.widthInitiale && width != null) mathalea2dFigures[k].dataset.widthInitiale = width
-            if (!mathalea2dFigures[k].dataset.heightInitiale && height != null) mathalea2dFigures[k].dataset.heightInitiale = height
-            mathalea2dFigures[k].setAttribute('height', (Number(mathalea2dFigures[k].dataset.heightInitiale) * coef).toString())
-            mathalea2dFigures[k].setAttribute('width', (Number(mathalea2dFigures[k].dataset.widthInitiale) * coef).toString())
+     const mathalea2dFigures = document.querySelectorAll<SVGElement>('.mathalea2d')
+     if (mathalea2dFigures != null) {
+       await tick()
+       const consigneDiv = document.getElementById('consigne' + exerciseIndex + '-0')
+       if (mathalea2dFigures.length !== 0) {
+         for (let k = 0; k < mathalea2dFigures.length; k++) {
+           if (initialDimensionsAreNeeded) {
+             // réinitialisation
+             const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
+             const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
+             mathalea2dFigures[k].setAttribute('width', initialWidth ?? '0')
+             mathalea2dFigures[k].setAttribute('height', initialHeight ?? '0')
+             // les éléments Katex des figures SVG
+             if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement != null) {
+               const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex') || []
+               for (const elt of eltsInFigures) {
+                 const e = elt
+                 e.style.setProperty('top', e.dataset.top + 'px')
+                 e.style.setProperty('left', e.dataset.left + 'px')
+               }
+             }
+           }
+           if (consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
+             const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
+             const width = mathalea2dFigures[k].getAttribute('width')
+             const height = mathalea2dFigures[k].getAttribute('height')
+             if (!mathalea2dFigures[k].dataset.widthInitiale && width != null) mathalea2dFigures[k].dataset.widthInitiale = width
+             if (!mathalea2dFigures[k].dataset.heightInitiale && height != null) mathalea2dFigures[k].dataset.heightInitiale = height
+             mathalea2dFigures[k].setAttribute('height', (Number(mathalea2dFigures[k].dataset.heightInitiale) * coef).toString())
+             mathalea2dFigures[k].setAttribute('width', (Number(mathalea2dFigures[k].dataset.widthInitiale) * coef).toString())
 
-            if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement !== null) { 
-              const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex') || []
-              for (const elt of eltsInFigures) {
-                const e = elt
-                const initialTop = Number(e.dataset.top) ?? 0
-                const initialLeft = Number(e.dataset.left) ?? 0
-                e.style.setProperty('top', (initialTop * coef).toString() + 'px')
-                e.style.setProperty('left', (initialLeft * coef).toString() + 'px')
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+             if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement !== null) {
+               const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex') || []
+               for (const elt of eltsInFigures) {
+                 const e = elt
+                 const initialTop = Number(e.dataset.top) ?? 0
+                 const initialLeft = Number(e.dataset.left) ?? 0
+                 e.style.setProperty('top', (initialTop * coef).toString() + 'px')
+                 e.style.setProperty('left', (initialLeft * coef).toString() + 'px')
+               }
+             }
+           }
+         }
+       }
+     }
+   }
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
   window.onresize = async () => {
     await adjustMathalea2dFiguresWidth(true)
