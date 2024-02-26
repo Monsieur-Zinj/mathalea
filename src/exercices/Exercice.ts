@@ -27,13 +27,14 @@ export default class Exercice {
   consigne: string
   consigneCorrection: string
   introduction: string
-  listeQuestions: string[]
-  listeCorrections: string[]
-  listeCanReponsesACompleter?: string[]
-  listeCanEnonces?: string[]
+  listeQuestions: string[] = []
+  listeCorrections: string[] = []
+  listeCanReponsesACompleter?: string[] = []
+  listeCanEnonces?: string[] = []
   question?: string // Seulement pour les exercices de type simple
   reponse?: string | number | object// Seulement pour les exercices de type simple
   correction?: string // Seulement pour les exercices de type simple
+  canOfficielle?: boolean = false
   canEnonce?: string // Seulement pour les exercices de type simple
   canReponseACompleter?: string // Seulement pour les exercices de type simple
   formatChampTexte?: string // Seulement pour les exercices de type simple

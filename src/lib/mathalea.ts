@@ -4,7 +4,7 @@ import loadjs from 'loadjs'
 // @ts-expect-error
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from '../exercices/deprecatedExercice.js'
-import type TypeExercice from '../exercices/Exercice.js'
+import type TypeExercice from '../exercices/Exercice'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './stores/generalStore.js'

@@ -1,0 +1,100 @@
+import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils.js'
+import { context } from '../../../modules/context.js'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { sp } from '../../../lib/outils/outilString.js'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+export const titre = 'Trouver le résultat d\'un programme Python'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = 'eb3e8'
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+ * Référence
+*/
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.canOfficielle = true
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatChampTexte = 'largeur01 inline nospacebefore'
+  }
+
+  nouvelleVersion () {
+    if (this.canOfficielle) {
+      this.question = 'Soit le script Python : <br><br>'
+      this.question += '$\\begin{array}{|l|}\n'
+      this.question += '\\hline\n'
+      this.question += '\\\n \\texttt{def mystere(a) :}  \\\n '
+      this.question += `\\\\\n${sp(9)}\\texttt{b=3*a} \\\n`
+      this.question += `\\\\\n${sp(9)} \\texttt{return b} \\\\\n`
+      this.question += '\\hline\n'
+      this.question += '\\end{array}\n$'
+      this.question += '<br>Que renvoie  $\\texttt{mystere(12)}$ ?'
+      this.reponse = 36
+      this.correction = `L'algorithme retourne $3\\times12=${miseEnEvidence('36')}$. `
+      this.canEnonce = 'Soit le script Python :<br>'
+      this.canEnonce += '\\medskip'
+      this.canEnonce += '\\hspace*{10mm}\\fbox{'
+      this.canEnonce += '\\parbox{0.4\\linewidth}{'
+      this.canEnonce += '\\setlength{\\parskip}{.5cm}'
+      this.canEnonce += ' \\texttt{def mystere(a) :}\\newline'
+      this.canEnonce += ' \\hspace*{7mm}\\texttt{b=3*a}\\newline'
+      this.canEnonce += ' \\hspace*{7mm}\\texttt{return b}'
+      this.canEnonce += '}'
+      this.canEnonce += '}\\newline'
+      this.canEnonce += '\\medskip'
+
+      this.canReponseACompleter = 'Que renvoie  $\\texttt{mystere(12)}$ ?\\\\'
+      this.canReponseACompleter += '$\\ldots$'
+    } else {
+      const a = randint(2, 9) * choice([-1, 1])
+      const choix = choice([true, false])
+      const coeff = randint(2, 6) * choice([-1, 1])
+
+      if (context.isHtml) {
+        this.question = 'Soit le script Python : <br><br>'
+        this.question += '$\\begin{array}{|l|}\n'
+        this.question += '\\hline\n'
+        this.question += '\\\n \\texttt{def mystere(a) :}  \\\n '
+        this.question += `\\\\\n${sp(9)} ${choix ? `\\texttt{b=${coeff}*a}` : `\\texttt{b=${coeff}+a}`} \\\n`
+        this.question += `\\\\\n${sp(9)} \\texttt{return b} \\\\\n`
+        this.question += '\\hline\n'
+        this.question += '\\end{array}\n$'
+        this.question += `<br>Que renvoie  $\\texttt{mystere(${a})}$ ?`
+      } else {
+        this.question = 'Soit le script Python : <br><br>'
+        this.question += '\\medskip'
+        this.question += '\\hspace*{10mm}\\fbox{'
+        this.question += '\\parbox{0.5\\linewidth}{'
+        this.question += '\\setlength{\\parskip}{.5cm}'
+        this.question += ' \\texttt{def mystere(a) :}\\newline'
+        this.question += ` \\hspace*{7mm}${choix ? `\\texttt{b=${coeff}*a}` : `\\texttt{b=${coeff}+a}`}\\newline`
+        this.question += ' \\hspace*{7mm}\\texttt{return b}'
+        this.question += '}'
+        this.question += '}\\newline'
+        this.question += '\\medskip'
+        this.question += `<br>Que renvoie  $\\texttt{mystere(${a})}$ ?`
+      }
+      this.reponse = choix ? `${coeff * a}` : `${coeff + a}`
+      this.correction = ` L'algorithme retourne ${choix ? `$${coeff}\\times${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(this.reponse)}$.` : `$${coeff}+${ecritureParentheseSiNegatif(a)}=${miseEnEvidence(this.reponse)}$.`} `
+      this.canEnonce = 'Soit le script Python : <br><br>'
+      this.canEnonce += '\\medskip'
+      this.canEnonce += '\\hspace*{10mm}\\fbox{'
+      this.canEnonce += '\\parbox{0.5\\linewidth}{'
+      this.canEnonce += '\\setlength{\\parskip}{.5cm}'
+      this.canEnonce += ' \\texttt{def mystere(a) :}\\newline'
+      this.canEnonce += ` \\hspace*{7mm}${choix ? `\\texttt{b=${coeff}*a}` : `\\texttt{b=${coeff}+a}`}\\newline`
+      this.canEnonce += ' \\hspace*{7mm}\\texttt{return b}'
+      this.canEnonce += '}'
+      this.canEnonce += '}\\newline'
+      this.canEnonce += '\\medskip'
+      this.canReponseACompleter = `Que renvoie  $\\texttt{mystere(${a})}$ ?<br>\\\\`
+      this.canReponseACompleter += '$\\ldots$'
+    }
+  }
+}

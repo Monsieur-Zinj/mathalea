@@ -1,5 +1,5 @@
-import genericPreamble from '../lib/latex/preambule.tex?raw'
-import TypeExercice from '../exercices/Exercice.js'
+import preambule from '../lib/latex/preambule.tex?raw'
+import TypeExercice from '../exercices/Exercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
 // printPrettier pose problème avec begin{aligned}[t] en ajoutant un saut de ligne problématique

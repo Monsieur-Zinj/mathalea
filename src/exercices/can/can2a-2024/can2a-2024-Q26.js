@@ -1,0 +1,40 @@
+import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils.js'
+export const titre = 'Factoriser avec une identité remarquable'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = '2f071'
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+ * Référence
+*/
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.canOfficielle = true
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatInteractif = 'calcul'
+  }
+
+  nouvelleVersion () {
+    if (this.canOfficielle) {
+      this.reponse = ['(x-5)(x+5)', '(x+5)(x-5)', '(x-5)(5+x)', '(5+x)(x-5)', '(x+5)(-5+x)', '(5+x)(-5+x)']
+      this.question = ' Factoriser  $x^2-25$.' //
+      this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a+b)(a-b)$ avec $a=x$ et $b=5$.<br>
+    $x^2-25=x^2-5^2=${miseEnEvidence('(x-5)(x+5)')}$`
+    } else {
+      const a = randint(1, 10)
+      this.reponse = [`(x-${a})(x+${a})`, `(x+${a})(x-${a})`, `(x-${a})(${a}+x)`, `(${a}+x)(x-${a})`]
+      this.question = ` Factoriser  $x^2-${a * a}$.` //
+      this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a+b)(a-b)$ avec $a=x$ et $b=${a}$.<br>
+      $x^2-${a * a}=x^2-${a}^2=${miseEnEvidence(`(x-${a})(x+${a})`)}$`
+    }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
+  }
+}
