@@ -33,6 +33,7 @@
   let indiceQuestionInExercice: number[] = []
   let resultsByQuestion: boolean[] = []
   let answers: string[] = []
+  let recordedTimeFromCapytale: number
   onMount(async () => {
     // reconstitution des exercices
     exercises = [...(await buildExercisesList())]
@@ -153,7 +154,7 @@
    * Construit la chaîne MM:SS qui sera affichée pour le temps mis à faire la course
    */
   function buildTime (): string {
-    const nbOfSeconds =
+    const nbOfSeconds = recordedTimeFromCapytale ||
       $canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds
     const time = millisecondToMinSec(nbOfSeconds * 1000)
     return [
@@ -176,6 +177,7 @@
         const answersOfExercise = Object.values(exercise.answers)
         answers = answers.concat(answersOfExercise)
         if (exercise.resultsByQuestion !== undefined) resultsByQuestion = exercise.resultsByQuestion
+        if (exercise.duration !== undefined) recordedTimeFromCapytale = exercise.duration
       }
     }
   })
