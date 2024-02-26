@@ -91,56 +91,61 @@ export default function TrianglesEgaux () {
       const nommeP2 = nommePolygone(p2, nom2)
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'CCC':
-          texte = '<br>' + mathalea2d({
+          texte = mathalea2d({
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            optionsTikz: 'baseline=(current bounding box.north)'
           },
           p1, p2, code1, code2, code3, code4, code5, code6, nommeP1, nommeP2)
           texteCorr = 'Ces deux triangles sont égaux car ils ont leurs trois côtés de même longueur 2 à 2.'
           break
         case 'CAC':
-          texte = '<br>' + mathalea2d({
+          texte = mathalea2d({
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            optionsTikz: 'baseline=(current bounding box.north)'
           },
           p1, p2, code1, code2, code3, code4, codeA1, codeA2, nommeP1, nommeP2)
           texteCorr = 'Ces deux triangles sont égaux car ils ont ont un angle de même mesure compris entre deux côtés de même longueur 2 à 2. '
           break
         case 'ACA':
-          texte = '<br>' + mathalea2d({
+          texte = mathalea2d({
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            optionsTikz: 'baseline=(current bounding box.north)'
           },
           p1, p2, code1, code2, codeA1, codeA2, codeA5, codeA6, nommeP1, nommeP2)
           texteCorr = 'Ces deux triangles sont égaux car ils ont un côté de même longueur compris entre deux angles de même mesure 2 à 2. '
           break
         case 'AAA':
-          texte = '<br>' + mathalea2d({
+          texte = mathalea2d({
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            optionsTikz: 'baseline=(current bounding box.north)'
           },
           p1, p2, codeA1, codeA2, codeA3, codeA4, codeA5, codeA6, nommeP1, nommeP2)
           texteCorr = `On ne peut pas déterminer si ces triangles sont égaux. Ils ont la même forme mais leurs longueurs peuvent être différentes. On dit qu'ils sont ${texteEnCouleur('semblables')}.`
           break
         case 'CC':
-          texte = '<br>' + mathalea2d({
+          texte = mathalea2d({
             xmin: Math.min(A.x, B.x, C.x, D.x, E.x, F.x) - 3,
             ymin: Math.min(A.y, B.y, C.y, D.y, E.y, F.y) - 3,
             xmax: Math.max(A.x, B.x, C.x, D.x, E.x, F.x) + 3,
             ymax: Math.max(A.y, B.y, C.y, D.y, E.y, F.y) + 3,
-            scale: 0.5
+            scale: 0.5,
+            optionsTikz: 'baseline=(current bounding box.north)'
           },
           p1, p2, code1, code2, code5, code6, nommeP1, nommeP2)
           texteCorr = 'On ne peut pas déterminer si ces triangles sont égaux.'

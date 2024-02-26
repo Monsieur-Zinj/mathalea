@@ -534,14 +534,14 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
     else if (tailleCaracteres < 9) this.taille = '\\footnotesize'
     else if (tailleCaracteres < 10) this.taille = '\\small'
     else this.taille = '\\normalsize'
-    if (typeof texte !== 'string') throw Error(`Vous n'avez pas passer un string à latexParCoordonnees() : ${texte}`)
+    if (typeof this.texte !== 'string') throw Error(`Vous n'avez pas passer un string à latexParCoordonnees() : ${this.texte}`)
     // texte doit être de type texte maintenant, sinon, tu revois ton code !
     //  if (texte === '') return vide2d(x, y) // ton texte est vide ? ben y a rien à afficher !
-    if (texte[0] === '$' && texte[texte.length - 1] === '$') {
+    if (this.texte[0] === '$' && this.texte[this.texte.length - 1] === '$') {
       // tu as mis des $ $ pour délimiter ton texte.
       // Or c'est prévu d'en ajouter parce que c'est l'idée qu'on se fait de latexParCoordonnees()
       // Si c'est pas pour du latex en mode math, on aurait utilisé texteParPosition-) !
-      texte = texte.substring(1, texte.length - 2)// donc on les enlève, pour ne pas avoir des $$ !
+      this.texte = this.texte.substring(1, this.texte.length - 2)// donc on les enlève, pour ne pas avoir des $$ !
     }
   }
 
