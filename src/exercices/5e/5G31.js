@@ -543,7 +543,10 @@ export default function ExerciceAnglesTriangles () {
       if (this.sup2) {
         texte += '<br>' + mathalea2d(paramsEnonce, objetsEnonce)
       } else {
-        texteCorrFinal += this.correctionDetaillee ? '<br>' + mathalea2d(paramsEnonce, objetsEnonce) : ''
+        if (this.correctionDetaillee) {
+          texteCorrFinal += context.isHtml ? '<br>' : ''
+          texteCorrFinal += mathalea2d(paramsEnonce, objetsEnonce)
+        }
       }
       texteCorrFinal += texteCorr
       texteCorrFinal += '<br>' + mathalea2d(Object.assign(fixeBordures(objetsCorrection), { pixelsParCm: 20, scale: 0.3 }), objetsCorrection)
