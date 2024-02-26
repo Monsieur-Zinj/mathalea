@@ -445,7 +445,7 @@ class FractionEtendue extends Fraction {
    * @returns {string}
    */
   toString () {
-    return this.texFraction
+    return this.valeurDecimale.toFixed(4)
   }
 
   /**
