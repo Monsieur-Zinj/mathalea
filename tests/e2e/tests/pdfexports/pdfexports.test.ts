@@ -79,14 +79,20 @@ async function getLatexFile (page: Page, urlExercice: string) {
     method: 'POST',
     body: formData,
     signal: AbortSignal.timeout(60 * 1000)
-  }).then((res : Response) => { /* console.log(res); */ return res.blob() })
-    .then(blob => {
+  }).then((res : Response) => {
+    log('response.status =' + res.status)
+    if (res.status === 200) {
       resultReq = 'OK'
-      log(resultReq)
-      return blob.arrayBuffer()
-    })
+    } else {
+      resultReq = 'KO'
+    }
+    return res.blob()
+  }).then(blob => {
+    log(resultReq)
+    return blob.arrayBuffer()
+  })
     .then(buffer => {
-      fs.writeFile(UPLOAD_FOLDER + '/' + id + '_' + uuid + '.pdf', new Uint8Array(buffer))
+      fs.writeFile(UPLOAD_FOLDER + '/' + id + '_' + uuid + (resultReq === 'OK' ? '.pdf' : '.log'), new Uint8Array(buffer))
     })
     .catch((err) => {
       logError('Error occured' + err)
@@ -114,7 +120,7 @@ async function testAll (page: Page, filter: string) {
 
   const uuids = await findUuid(filter)
   const resultReqs = []
-  for (let i = 0; i < uuids.length && i < 300; i++) {
+  for (let i = 70; i < uuids.length && i < 300; i++) {
     log(`uuid=${uuids[i][0]} exo=${uuids[i][1]} i=${i} / ${uuids.length}`)
     const resultReq = await getLatexFile(page, `http://localhost:5173/alea/?uuid=${uuids[i][0]}&id=${uuids[i][1].substring(0, uuids[i][1].lastIndexOf('.')) || uuids[i][1]}&alea=QrHL&v=latex`)
     log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[i][1]}`)
@@ -140,7 +146,8 @@ async function test6e (page: Page) {
 }
 
 async function testOneExo (page: Page) {
-  return testAll(page, '6e/6G23')
+  // return testAll(page, '6e/6G23')
+  return testAll(page, '3e')
 }
 
 /**
@@ -148,7 +155,8 @@ async function testOneExo (page: Page) {
  * pour ensuite les compiler avec lualatex...
  */
 runTest(testOneExo, import.meta.url, { pauseOnError: false })
-runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+/*runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 runTest(test6e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+*/
