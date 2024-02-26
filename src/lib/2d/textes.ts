@@ -113,8 +113,7 @@ export function labelLatexPoint ({
 }
 
 /**  Nomme les points passés en argument, le nombre d'arguments n'est pas limité.
- * @param  {Point[]} points Points mis à la suite
- * @param {string} [color = 'black'] Couleur des points : du type 'blue' ou du type '#f15929'
+ * @param  {(Point|string)[]} args Points mis à la suite si une couleur doit être passée, c'est le dernier argument
  * @property {string} color Couleur des points. À associer obligatoirement à colorToLatexOrHTML().
  * @property {number} taille Taille de la boite contenant le nom des points
  * @property {number} largeur Largeur de la boite contenant le nom des points
@@ -123,9 +122,9 @@ export function labelLatexPoint ({
  * @return object[]
  */
 // JSDOC Validee par EE Septembre 2022
-export function labelPoint (...points: Array<Point|Point3d|string>) {
+export function labelPoint (...args: (Point|string)[]) {
   const taille = 1
-
+  const points = [...args]
   // ObjetMathalea2D.call(this, {})
   let color
   if (typeof points[points.length - 1] === 'string') {
