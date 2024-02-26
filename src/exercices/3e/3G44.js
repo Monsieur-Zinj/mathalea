@@ -119,12 +119,12 @@ export default function CalculPythagoreEspace () {
           segmentATrouver = segment(solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d, solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d, '#f15929')
           segmentATrouver.epaisseur = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
-          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texte += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: 0.7,
             style: 'block'
           }), objetsEnonce) + '<br>'
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
-          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texteCorr += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: 0.7,
             style: 'block'
           }), objetsEnonce) + '<br>'
@@ -151,7 +151,7 @@ export default function CalculPythagoreEspace () {
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
-          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texte += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: 0.7,
             style: 'block'
           }), objetsEnonce) + '<br>'
@@ -161,7 +161,7 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe.pointilles = 1
           objetsEnonce.push(segmentAnnexe)
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[3])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], 'green', 2))
-          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texteCorr += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: 0.7,
             style: 'block'
           }), objetsEnonce) + '<br>'
@@ -215,12 +215,12 @@ export default function CalculPythagoreEspace () {
           segmentATrouver = segment(solideDessine.sommets[parseInt(segmentChoisi[0][0])].c2d, solideDessine.sommets[parseInt(segmentChoisi[0][1])].c2d, '#f15929')
           segmentATrouver.epaisseur = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
-          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texte += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce) + '<br>'
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
-          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texteCorr += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce) + '<br>'
@@ -253,7 +253,7 @@ export default function CalculPythagoreEspace () {
           segmentATrouver.epaisseur = 2
           segmentATrouver.pointilles = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver)
-          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texte += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce) + '<br>'
@@ -263,7 +263,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(segmentAnnexe)
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[0][0])], solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], '#f15929', 2))
           objetsEnonce.push(new CodageAngleDroit3D(solideDessine.sommets[parseInt(segmentChoisi[1])], solideDessine.sommets[parseInt(segmentChoisi[3])], solideDessine.sommets[parseInt(segmentChoisi[0][1])], 'green', 2))
-          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texteCorr += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: 0.7,
             style: 'block'
           }), objetsEnonce) + '<br>'
@@ -315,7 +315,7 @@ export default function CalculPythagoreEspace () {
           segmentATrouver.pointilles = 2
           objetsEnonce.push(...solideDessine.c2d, segmentATrouver, tracePoint(ptBase2), labelPoint(A, D, ptBase2.c2d))
           texte += `Dans ce cylindre de révolution, le rayon de ses bases (de centre respectif $${A.label}$ et $${D.label}$) est de $${r}$ ${listeUnites[j]} et sa hauteur est de $${h}$ ${listeUnites[j]}. Sachant que le point $${ptBase2.c2d.nom}$ est sur la base de centre $${D.label}$, calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
-          texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), {
+          texte += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures([...solideDessine.c2d]), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce)
@@ -325,7 +325,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(segmentAnnexe)
           segmentAnnexe = segment(D.c2d, A.c2d, 'green')
           objetsEnonce.push(segmentAnnexe)
-          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texteCorr += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce)
@@ -353,7 +353,7 @@ export default function CalculPythagoreEspace () {
           segmentATrouver.color = colorToLatexOrHTML('#f15929')
           longueurATrouver = D.label + p.listePoints2d[numeroSommet].nom
           texte += `$${solideDessine.nom}$ est une pyramide régulière. La distance entre $${A.label}$, le centre de la base, et l'un des sommets de la base est de $${r}$ ${listeUnites[j]} et la hauteur de cette pyramide est de $${h}$ ${listeUnites[j]}. Calculer la longueur $${longueurATrouver}$, arrondie au dixième de ${listeUnites[j]}.<br>`
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), {
+          texte += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures([...solideDessine.c2d]), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), [...solideDessine.c2d, segmentATrouver])
@@ -363,7 +363,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce.push(segmentAnnexe)
           segmentAnnexe = segment(D.c2d, A.c2d, 'green')
           objetsEnonce.push(segmentAnnexe)
-          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texteCorr += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce)
@@ -389,7 +389,7 @@ export default function CalculPythagoreEspace () {
           segmentATrouver = segment(D.c2d, p.listePoints2d[numeroSommet], '#f15929')
           segmentATrouver.epaisseur = 2
           texte += `Dans ce cône de révolution, le rayon de sa base est de $${r}$ ${listeUnites[j]} et sa hauteur est de $${h}$ ${listeUnites[j]}. Calculer la longueur d'une génératrice de ce cône, arrondie au dixième de ${listeUnites[j]}.<br>`
-          texte += mathalea2d(Object.assign({}, fixeBordures([...solideDessine.c2d]), {
+          texte += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures([...solideDessine.c2d]), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), [...solideDessine.c2d, segmentATrouver])
@@ -404,7 +404,7 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe = segment(D.c2d, A.c2d, 'green')
           objetsEnonce.push(segmentAnnexe)
           objetsEnonce.push(labelPoint(ptBase, D.c2d))
-          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texteCorr += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce)
@@ -436,7 +436,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce = sph.c2d
           objetsEnonce.push(segmentATrouver, segmentAnnexe, tracePoint(B, D, A), labelPoint(A, D, B), new CodageAngleDroit3D(A, D, B, 'black', 1))
           texte += `$${B.label}$ appartient à cette sphère de centre $${A.label}$. $${D.label}$ est un point à l'intérieur de la sphère, à $${texNombre(h)}$ ${listeUnites[j]} de $${A.label}$ et la distance entre $${B.label}$ et $${D.label}$ est de $${texNombre(r2)}$ ${listeUnites[j]}. Calculer le rayon de la sphère, arrondi au dixième de ${listeUnites[j]}.<br>`
-          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texte += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce)
@@ -448,7 +448,7 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe.epaisseur = 2
           segmentAnnexe.pointilles = 2
           objetsEnonce.push(segmentAnnexe)
-          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texteCorr += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce)
@@ -477,7 +477,7 @@ export default function CalculPythagoreEspace () {
           objetsEnonce = sph.c2d
           objetsEnonce.push(segmentATrouver, tracePoint(B, D, A), labelPoint(A, D, B), new CodageAngleDroit3D(A, D, B, 'black', 1))
           texte += `$${B.label}$ appartient à cette sphère de centre $${A.label}$ de rayon $${texNombre(r)}$ ${listeUnites[j]}. $${D.label}$ est un point à l'intérieur de la sphère, à $${texNombre(h)}$ ${listeUnites[j]} de $${A.label}$. Calculer la distance entre $${B.label}$ et $${D.label}$, arrondie au dixième de ${listeUnites[j]}.<br>`
-          texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texte += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce)
@@ -491,7 +491,7 @@ export default function CalculPythagoreEspace () {
           segmentAnnexe.epaisseur = 2
           segmentAnnexe.pointilles = 2
           objetsEnonce.push(segmentAnnexe)
-          texteCorr += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), {
+          texteCorr += mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), {
             scale: context.isHtml ? 0.7 : 0.3,
             style: 'block'
           }), objetsEnonce)

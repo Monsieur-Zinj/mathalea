@@ -109,7 +109,7 @@ export default function ConstruireSectionPaveDroit () {
       traceTesPoints.epaisseur = 2
       traceTesPoints.taille = 5
 
-      enonceFigure = (context.isAmc ? '' : '<br>') + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce, traceTesPoints, labelPoint(Z, Y)) + '<br>'
+      enonceFigure = mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce, traceTesPoints, labelPoint(Z, Y)) + '<br>'
       texte += enonceFigure
       texte += context.isAmc ? '' : 'Reproduire cette figure. '
       texte += `Sachant que ${Z.nom} est sur l'arête [${areteZ}] et que ${Y.nom} est sur l'arête [${areteY}], `
@@ -156,7 +156,7 @@ export default function ConstruireSectionPaveDroit () {
           }
           break
       }
-      enonceFigure = (context.isAmc ? '' : '<br>') + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce, traceTesPoints, labelPoint(Z, Y, ZCorr, YCorr), s1, s2, s3, s4, s5) + '<br>'
+      enonceFigure = mathalea2d(Object.assign({ optionsTikz: 'baseline=(current bounding box.north)' }, fixeBordures(objetsEnonce), { scale: context.isHtml ? 0.7 : 0.3, style: 'block' }), objetsEnonce, traceTesPoints, labelPoint(Z, Y, ZCorr, YCorr), s1, s2, s3, s4, s5) + '<br>'
       texteCorr += enonceFigure
 
       if (this.questionJamaisPosee(i, nomSolide)) {
