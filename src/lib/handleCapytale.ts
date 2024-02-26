@@ -16,6 +16,9 @@ const rpc = new RPC({
   origin: '*'
 })
 
+// On copie les réponses pour que la vue CAN puisse les utiliser
+export let answersFromCapytale: InterfaceResultExercice[] = []
+
 // timer pour ne pas lancer hasChanged trop souvent
 let timerId: ReturnType<typeof setTimeout> | undefined
 let firstTime = true
@@ -92,6 +95,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   }
   await new Promise((resolve) => setTimeout(resolve, 500))
   if (studentAssignment != null) {
+    answersFromCapytale = studentAssignment
     console.log('Réponses à charger', studentAssignment)
     for (const exercice of studentAssignment) {
       if (exercice == null) continue
@@ -109,20 +113,30 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     }
     await new Promise((resolve) => setTimeout(resolve, 500))
     // On attend 500 ms pour que les champs texte soient bien remplis
-    console.log('Maintenant que les réponses sont chargées, clic sur les boutons score', studentAssignment)
-    for (const exercice of studentAssignment) {
-      if (exercice == null) continue
-      // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
-      const buttonScore = document.querySelector(`#buttonScoreEx${exercice?.indice}`) as HTMLButtonElement
-      console.log('Clic sur le bouton score ', `#buttonScoreEx${exercice?.indice}`, buttonScore)
-      if (buttonScore !== null) {
-        // On note dans le bouton que ce sont les réponses sauvegardées et pas de nouvelles réponses de l'élève
-        // Cela évite, en cas de problème de chargement, d'effacer les réponses de l'élève
-        buttonScore.dataset.capytaleLoadAnswers = '1'
-        buttonScore.click()
-      } else {
-        console.log(`Bouton score #buttonScoreEx${exercice.indice} non trouvé`)
+    const canOptions = get(canOptionsStore)
+    console.log(studentAssignment)
+    if (!canOptions.isChoosen) {
+      console.log('Maintenant que les réponses sont chargées, clic sur les boutons score', studentAssignment)
+      for (const exercice of studentAssignment) {
+        if (exercice == null) continue
+        // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
+        const buttonScore = document.querySelector(`#buttonScoreEx${exercice?.indice}`) as HTMLButtonElement
+        console.log('Clic sur le bouton score ', `#buttonScoreEx${exercice?.indice}`, buttonScore)
+        if (buttonScore !== null) {
+          // On note dans le bouton que ce sont les réponses sauvegardées et pas de nouvelles réponses de l'élève
+          // Cela évite, en cas de problème de chargement, d'effacer les réponses de l'élève
+          buttonScore.dataset.capytaleLoadAnswers = '1'
+          buttonScore.click()
+        } else {
+          console.log(`Bouton score #buttonScoreEx${exercice.indice} non trouvé`)
+        }
       }
+    } else if (canOptions.isChoosen && mode === 'review') {
+      console.log('On charge les réponses pour le CAN')
+      canOptionsStore.update((l) => {
+        l.state = 'solutions'
+        return l
+      })
     }
   }
 }

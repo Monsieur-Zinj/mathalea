@@ -21,7 +21,7 @@
     globalOptions,
     resultsByExercice
   } from '../../../lib/stores/generalStore'
-  import { sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
+  import { answersFromCapytale, sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
   import { millisecondToMinSec } from '../../../lib/components/time'
   let state: CanState = 'start'
   let exercises: TypeExercice[] = []
@@ -31,8 +31,8 @@
   let consignesCorrections: string[] = []
   let indiceExercice: number[] = []
   let indiceQuestionInExercice: number[] = []
-  const resultsByQuestion: boolean[] = []
-  const answers: string[] = []
+  let resultsByQuestion: boolean[] = []
+  let answers: string[] = []
   onMount(async () => {
     // reconstitution des exercices
     exercises = [...(await buildExercisesList())]
@@ -121,9 +121,10 @@
           answers: exercise.answers,
           numberOfPoints: exercise.score || 0,
           numberOfQuestions: exercise.nbQuestions,
-          bestScore: exercise.score
+          bestScore: exercise.score,
+          resultsByQuestion,
+          duration: Math.floor($canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds)
         }
-        console.log(exercise.score, exercise.numeroExercice)
         return l
       })
       if ($globalOptions.recorder === 'capytale') {
@@ -160,6 +161,24 @@
       time.seconds.toString().padStart(2, '0')
     ].join(':')
   }
+
+  // handleCapytale peut changer la valeur du store pour que le
+  // professeur aille directement aux solutions de l'élève
+  canOptions.subscribe((value) => {
+    if (value.state !== 'solutions') return
+    state = value.state
+    if (answersFromCapytale.length === 0) {
+      return
+    }
+    console.log('answersFromCapytale', answersFromCapytale)
+    for (const exercise of answersFromCapytale) {
+      if (exercise.answers !== undefined) {
+        const answersOfExercise = Object.values(exercise.answers)
+        answers = answers.concat(answersOfExercise)
+        if (exercise.resultsByQuestion !== undefined) resultsByQuestion = exercise.resultsByQuestion
+      }
+    }
+  })
 </script>
 
 <div class="{$darkMode.isActive ? 'dark' : ''} relative w-full h-screen bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
