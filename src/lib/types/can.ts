@@ -9,4 +9,5 @@ export type CanOptions = {
   isInteractive: boolean
   remainingTimeInSeconds: number
   questionGetAnswer: boolean[]
+  state: CanState
 }

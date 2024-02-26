@@ -81,7 +81,9 @@ export interface InterfaceResultExercice {
   indice?: number
   state?: 'done'
   type?: 'mathalea' | 'static' | 'app'
-  bestScore?: number
+  bestScore?: number,
+  duration?: number,
+  resultsByQuestion?: boolean[]
 }
 
 // Pour Capytale

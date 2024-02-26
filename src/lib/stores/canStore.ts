@@ -9,6 +9,7 @@ export const canOptions = writable<CanOptions>(
     solutionsMode: 'gathered',
     isInteractive: false,
     remainingTimeInSeconds: 0,
-    questionGetAnswer: []
+    questionGetAnswer: [],
+    state: 'start'
   }
 )
