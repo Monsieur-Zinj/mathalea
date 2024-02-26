@@ -229,8 +229,15 @@ class Latex {
       if (contents.content.includes('\\euro')) {
         contents.preamble += '\n\\usepackage[gen]{eurosym}'
       }
-      if (contents.content.includes('\\np{')) {
+      if (contents.content.includes('\\np{') || contents.content.includes('\\numprint{')) {
         contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
+      }
+      if (contents.content.includes('\\up{')) {
+        contents.preamble += '\n\\renewcommand{\\up}[1]{\\textsuperscript{#1}}'
+      }
+
+      if (contents.content.includes('\\begin{bclogo}') || contents.content.includes('\\fcolorbox{nombres}')) {
+        contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
       }
       if (contents.content.includes(',decorate,decoration=')) {
         contents.preamble += '\n\\usetikzlibrary{decorations.pathmorphing}'
@@ -238,7 +245,11 @@ class Latex {
 
       const [latexCmds, latexPackages] = this.getContentLatex()
       for (const pack of latexPackages) {
-        contents.preamble += '\n\\usepackage{' + pack + '}'
+        if (pack === 'bclogo') {
+          contents.preamble += '\n\\usepackage[tikz]{' + pack + '}'
+        } else {
+          contents.preamble += '\n\\usepackage{' + pack + '}'
+        }
       }
       for (const cmd of latexCmds) {
         contents.preamble += '\n' + cmd.replace('cmd', '')

@@ -9,7 +9,7 @@ import { Polygone } from './polygones'
 export const tikzAncrages = {
   gauche: 'west',
   milieu: 'center',
-  droite: 'est'
+  droite: 'east'
 }
 export const svgAncrages = {
   gauche: 'start',
