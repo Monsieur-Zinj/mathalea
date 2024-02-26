@@ -233,7 +233,7 @@ class Latex {
         contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
       }
       if (contents.content.includes('\\up{')) {
-        contents.preamble += '\n\\renewcommand{\\up}[1]{\\textsuperscript{#1}}'
+        contents.preamble += '\n\\newcommand{\\up}[1]{\\textsuperscript{#1}}'
       }
 
       if (contents.content.includes('\\begin{bclogo}') || contents.content.includes('\\fcolorbox{nombres}')) {

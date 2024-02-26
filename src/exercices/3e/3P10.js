@@ -161,12 +161,12 @@ export default function EvolutionsEnPourcentage () {
                 texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a augmenté de $${taux}~\\%$. Il y a maintenant $${texNombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
                 texteCorr = `Une augmentation de $${taux}~\\%$ revient à multiplier par $100~\\% + ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${coeff}$.`
                 texteCorr += `<br>$${texNombre(arrive)}\\div ${coeff} = ${texNombre(depart)}$`
-                texteCorr += `<br>En ${anneeDerniere}, il y avait ${miseEnEvidence(stringNombre(depart))} élèves dans ce ${etablissement}.`
+                texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(stringNombre(depart))}$ élèves dans ce ${etablissement}.`
               } else {
                 texte = `Depuis ${anneeDerniere} le nombre d'élèves d'un ${etablissement} a diminué de $${taux}~\\%$. Il y a maintenant $${texNombre(arrive)}$ élèves. Calculer le nombre d'élèves en ${anneeDerniere} dans cet établissement.`
                 texteCorr = `Une diminution de $${abs(taux)}~\\%$ revient à multiplier par $100~\\% ${taux}~\\% = ${100 + taux}~\\% = ${coeff}$.<br>Pour retrouver le nombre initial d'élèves, on va donc diviser le nombre actuel d'élèves par $${coeff}$.`
                 texteCorr += `<br>$${texNombre(arrive)}\\div ${coeff} = ${texNombre(depart)}$`
-                texteCorr += `<br>En ${anneeDerniere}, il y avait ${miseEnEvidence(stringNombre(depart))} élèves dans ce ${etablissement}.`
+                texteCorr += `<br>En ${anneeDerniere}, il y avait $${miseEnEvidence(stringNombre(depart))}$ élèves dans ce ${etablissement}.`
               }
               reponse = depart
               texteApres = ' élèves'
