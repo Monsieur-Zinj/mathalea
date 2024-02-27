@@ -265,7 +265,7 @@ export default function TracerAvecScratch () {
           `,
           question: '',
           correction: `
-          <br> Les figures rouges sont erronées.
+          Les figures rouges sont erronées.
           <br> La figure tracée par le programme a ${situations[0].nbCotes} côtés de même longueur et ${situations[0].nbCotes} angles de même mesure, c'est un ${situations[0].nom}.
           <br>${texteEnCouleur('La bonne figure est donc la figure verte.')}
           <br><br>

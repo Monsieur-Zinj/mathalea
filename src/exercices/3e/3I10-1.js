@@ -60,8 +60,9 @@ export default function ScratchMultiScript () {
   this.listePackages = ['scratch3', 'bclogo']
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({
-      titre: scratchblock(`\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill,blocks,scale=0.5]\n\\blockmoreblocks{Note la couleur}\\end{scratch}`),
-      texte: 'Cette brique donne la couleur de la case sur laquelle est positionné le lutin.',
+      titre: 'Information',
+      texte: scratchblock(`\\begin{scratch}[${context.issortieNB ? 'print,' : ''}fill,blocks,scale=0.5]\n\\blockmoreblocks{Note la couleur}\\end{scratch}`) +
+          ' Cette brique donne la couleur de la case sur laquelle est positionné le lutin.',
       couleur: 'nombres'
     })
     const lePlateau = plateau2dNLC(1, false, 0.5, true)

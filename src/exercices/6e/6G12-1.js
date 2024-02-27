@@ -211,7 +211,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           numAlpha(4) +
           ' Mesurer ensuite les distances $AM$ et $AN$. Pour l\'auto-correction comparer ces mesures avec celles données dans la correction<br>'
 
-            correction = `<br>$AM \\approx ${texNombre(
+            correction = `$AM \\approx ${texNombre(
           lC
         )}$ cm et $AN \\approx ${texNombre(lD)}$ cm.<br>`
             correction += 'Pour la perpendiculaire en $B$, contrôle la position du point $E$.<br>'

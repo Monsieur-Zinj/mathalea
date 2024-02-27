@@ -87,11 +87,18 @@ class ReperagePointDuPlan extends Exercice {
       this.question = enonce + emplacementPourFigure + ajouteFeedback(this, 0)
       this.correction = texteCorr
     } else {
-      this.question = enonce + `\n\n\\bigskip\n\\Reperage[Plan,AffichageNom,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
-        -5/0/,0/-5/,5/0/,0/5/%
+      this.question = enonce + `\n\n\\bigskip\n\\Reperage[Plan,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
+        -5/0/A,0/-5/B,5/0/C,0/5/D%
         }`
-      this.correction = `\\Reperage[Plan,AffichageNom,AffichageGrad,Unitesx=0.75,Unitey=0.75]{%
-        -5/0/,0/-5/,5/0/,0/5/,${x1}/${y1}/A,${x2}/${y2}/B,${x3}/${y3}/C,${x4}/${y4}/D%
+      this.correction = `\\Reperage[Plan,AffichageGrad,Unitesx=0.75,Unitey=0.75,Traces={%
+        drawoptions(withcolor red);
+        pointe(A,B,C,D);
+        label.urt(btex A etex,A);
+        label.urt(btex B etex,B);
+        label.urt(btex C etex,C);
+        label.urt(btex D etex,D);
+      }]{%
+        -5/0/ ,0/-5/ ,5/0/ ,0/5/ ,${x1}/${y1}/A,${x2}/${y2}/B,${x3}/${y3}/C,${x4}/${y4}/D%
         }`
     }
     if (context.isAmc) {

@@ -120,7 +120,7 @@ async function testAll (page: Page, filter: string) {
 
   const uuids = await findUuid(filter)
   const resultReqs = []
-  for (let i = 70; i < uuids.length && i < 300; i++) {
+  for (let i = 0; i < uuids.length && i < 300; i++) {
     log(`uuid=${uuids[i][0]} exo=${uuids[i][1]} i=${i} / ${uuids.length}`)
     const resultReq = await getLatexFile(page, `http://localhost:5173/alea/?uuid=${uuids[i][0]}&id=${uuids[i][1].substring(0, uuids[i][1].lastIndexOf('.')) || uuids[i][1]}&alea=QrHL&v=latex`)
     log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[i][1]}`)
@@ -154,9 +154,8 @@ async function testOneExo (page: Page) {
  * Attention, il faut un service REST en localhost qui récupère les fichiers
  * pour ensuite les compiler avec lualatex...
  */
-runTest(testOneExo, import.meta.url, { pauseOnError: false })
-/*runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+// runTest(testOneExo, import.meta.url, { pauseOnError: false })
+runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 runTest(test6e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-*/
