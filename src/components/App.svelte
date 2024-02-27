@@ -5,6 +5,7 @@
   import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
   import Latex from './setup/latex/Latex.svelte'
   import {
+    darkMode,
     exercicesParams,
     freezeUrl,
     globalOptions,
@@ -114,7 +115,9 @@
   }
 </script>
 
-<div class="subpixel-antialiased" id="appComponent">
+<div class=" {$darkMode.isActive
+  ? 'dark'
+  : ''} subpixel-antialiased bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="appComponent">
   {#if $globalOptions.v === 'diaporama'}
     <Diaporama />
   {:else if $globalOptions.v === 'overview'}
