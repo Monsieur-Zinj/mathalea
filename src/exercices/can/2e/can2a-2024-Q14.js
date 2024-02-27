@@ -26,7 +26,7 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
     if (this.canOfficielle) {
       const valeurs = 100
-      this.question = `Un article $${valeurs}$ € subit une hausse de $10\\,\\%$ puis une baisse de $10\\,\\%$.<br>
+      this.question = `Un article à $${valeurs}$ € subit une hausse de $10\\,\\%$ puis une baisse de $10\\,\\%$.<br>
         Son nouveau prix est maintenant de $100$ € ou $99$ € ?`
 
       this.correction = ` $10\\,\\%$ de  $100$ € est égal à $10$ €. <br>
