@@ -1,4 +1,4 @@
-import preambule from '../lib/latex/preambule.tex?raw'
+import genericPreamble from '../lib/latex/preambule.tex?raw'
 import TypeExercice from '../exercices/Exercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
