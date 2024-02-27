@@ -2,6 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { printlatex, randint } from '../../../modules/outils.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Développer une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +19,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecVariable
     this.formatInteractif = 'calcul'
   }
 

@@ -4,7 +4,6 @@ import { buildDataKeyboardFromStyle } from './claviers/keyboard'
 
 const buildDataKeyboardString = (style = '') => {
   const blocks = buildDataKeyboardFromStyle(style)
-  console.log(blocks.join(' '))
   return blocks.join(' ')
 }
 
