@@ -191,20 +191,28 @@
     if ($globalOptions.presMode === 'liste_questions' || $globalOptions.presMode === 'une_question_par_page') {
       buildQuestions()
     }
-    resizeObserver = new ResizeObserver(x => {
-      const url = new URL(window.location.href)
-      const iframe = url.searchParams.get('iframe')
-      window.parent.postMessage(
-        {
-          hauteurExercice: x[0].contentRect.height,
-          action: 'mathalea:resize',
-          iframe
-        },
-        '*'
-      )
-      // ou x[0].contentRect.height ou x[0].contentBoxSize[0].blockSize ou x[0].borderBoxSize[0].inlineSize ou x[0].target.scrollHeight
-    })
-    if (eleveSection != null) resizeObserver.observe(eleveSection)
+
+    if ($globalOptions.recorder === 'capytale' || $globalOptions.recorder === 'moodle' || $globalOptions.recorder === 'anki' || $globalOptions.recorder === 'labomep') {
+      /* 
+      Ce code est nécessaire seulement si coopmaths est intégré dans un autre site pour permettre de redimensionner la fenêtre
+      */
+      resizeObserver = new ResizeObserver(x => {
+        const url = new URL(window.location.href)
+        const iframe = url.searchParams.get('iframe')
+        console.log(x[0].contentRect.height)
+        window.parent.postMessage(
+          {
+            hauteurExercice: x[0].contentRect.height,
+            action: 'mathalea:resize',
+            iframe
+          },
+          '*'
+        )
+        // ou x[0].contentRect.height ou x[0].contentBoxSize[0].blockSize ou x[0].borderBoxSize[0].inlineSize ou x[0].target.scrollHeight
+      })
+      if (eleveSection != null) resizeObserver.observe(eleveSection)
+    } 
+
     if ($globalOptions.recorder === 'capytale') {
       $globalOptions.isInteractiveFree = false
     }
@@ -212,7 +220,7 @@
   })
 
   onDestroy(() => {
-    resizeObserver.disconnect()
+    if (resizeObserver) resizeObserver.disconnect()
   })
 
   async function buildQuestions () {
