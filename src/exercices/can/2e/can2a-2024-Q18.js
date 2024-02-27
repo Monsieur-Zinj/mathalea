@@ -19,14 +19,14 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01'
     this.formatInteractif = 'calcul'
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = '5,4\\times 10^{4}'
-      this.question = `Écriture  scientifique de $${texNombre(54000)}$`
+      this.question = `Écriture  scientifique de $${texNombre(54000)}$<br>`
       this.correction = `La notation scientifique est de la forme $a\\times 10^{n}$ avec $1\\leqslant a <10$ et $n$ un entier relatif.<br>
             Ici : $${texNombre(54000)}=\\underbrace{${miseEnEvidence(texNombre(5.4))}}_{1\\leqslant 5,4 <10}${miseEnEvidence('\\times')} ${miseEnEvidence('10^4')}$.`
     } else {

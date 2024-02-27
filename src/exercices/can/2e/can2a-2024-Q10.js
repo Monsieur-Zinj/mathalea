@@ -5,6 +5,7 @@ import { context } from '../../../modules/context.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString.js'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Trouver le résultat d\'un programme Python'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,12 +22,12 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.question = 'Soit le script Python : <br><br>'
+      this.question = 'Soit le script Python : <br>'
       this.question += '$\\begin{array}{|l|}\n'
       this.question += '\\hline\n'
       this.question += '\\\n \\texttt{def mystere(a) :}  \\\n '

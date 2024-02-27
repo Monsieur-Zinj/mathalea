@@ -18,14 +18,14 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01'
     this.formatInteractif = 'calcul'
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = ['x^2-8x+16']
-      this.question = ' Développer $(x-4)^2$.' // (x+a)²
+      this.question = ' Développer $(x-4)^2$.<br>' // (x+a)²
       this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=x$ et $b=4$.<br>
       $(x-4)^2=x^2-2 \\times x \\times 4+4^2=${miseEnEvidence(this.reponse)}$`
     } else {

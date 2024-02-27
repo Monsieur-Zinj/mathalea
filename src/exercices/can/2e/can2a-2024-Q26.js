@@ -17,14 +17,14 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01'
     this.formatInteractif = 'calcul'
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = ['(x-5)(x+5)', '(x+5)(x-5)', '(x-5)(5+x)', '(5+x)(x-5)', '(x+5)(-5+x)', '(5+x)(-5+x)']
-      this.question = ' Factoriser  $x^2-25$.' //
+      this.question = ' Factoriser  $x^2-25$.<br>' //
       this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a+b)(a-b)$ avec $a=x$ et $b=5$.<br>
     $x^2-25=x^2-5^2=${miseEnEvidence('(x-5)(x+5)')}$`
     } else {

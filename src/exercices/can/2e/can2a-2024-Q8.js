@@ -4,6 +4,7 @@ import { randint } from '../../../modules/outils.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer une moyenne'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,13 +21,13 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFraction
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.question = `Moyenne de la série : <br>
-      $12$ ${sp(4)} ; ${sp(4)} $7$ ${sp(4)} ; ${sp(4)} $8$${sp(4)} ; ${sp(4)} $13$`
+      $12$ ${sp(4)} ; ${sp(4)} $7$ ${sp(4)} ; ${sp(4)} $8$${sp(4)} ; ${sp(4)} $13$<br>`
       this.correction = `En rassemblant astucieusement, la somme des $4$ nombres est : $\\underbrace{12+8}_{20}+\\underbrace{13+7}_{20} =40$.<br>
             La moyenne est donc $\\dfrac{40}{4}=${miseEnEvidence('10')}$.`
       this.reponse = 10

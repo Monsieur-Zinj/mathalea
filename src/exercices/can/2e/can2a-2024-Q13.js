@@ -6,6 +6,7 @@ import { polygoneAvecNom } from '../../../lib/2d/polygones.js'
 import { afficheLongueurSegment } from '../../../lib/2d/codages.js'
 import { codageAngle } from '../../../lib/2d/angles.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer l\'aire d\'un triangle rectangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +23,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'calcul'
   }
 

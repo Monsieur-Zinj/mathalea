@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer un prix après des évolutions successives'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +20,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteApres: '€' }
   }
 

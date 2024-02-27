@@ -2,6 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer une expression pour une valeur particulière'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,13 +19,13 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'calcul'
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.question = 'Valeur de $9x+2$ pour $x=-2$ '
+      this.question = 'Valeur de $9x+2$ pour $x=-2$<br>'
       this.correction = `Pour $x=-2$, on obtient :  <br>
           $9\\times(-2)+2=-18+2=${miseEnEvidence('-16')}$.`
       this.reponse = '-16'

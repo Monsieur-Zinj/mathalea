@@ -18,13 +18,13 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01'
     this.formatInteractif = 'calcul'
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.question = 'Forme développée réduite de  $(x+7)(x+4)$'
+      this.question = 'Forme développée réduite de  $(x+7)(x+4)$<br>'
       this.correction = `$(x+7)(x+4)=x^2+7x+4x+28=${miseEnEvidence('x^2+11x+28')}$`
       this.correction += '<br>Le terme en $x^2$ vient de $x\\times x=x^2$.'
       this.correction += '<br>Le terme en $x$ vient de la somme de $7 \\times x$ et de $4 \\times x$.'
