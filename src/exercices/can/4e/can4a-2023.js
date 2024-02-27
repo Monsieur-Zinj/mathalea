@@ -13,7 +13,7 @@ import { prenomF } from '../../../lib/outils/Personne'
 import { texPrix } from '../../../lib/format/style'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
-import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import { scratchblock } from '../../../modules/scratchblock.js'
@@ -366,12 +366,10 @@ export default function SujetCAN2023Quatrieme () {
             texteCorr = `$${a}$ classeurs coûtent $${b}$ €.<br>
               $${a / 2}$ ${a / 2 === 1 ? 'classeur coûte' : 'classeurs coûtent'}  $${texPrix(b / 2)}$ €.<br>
               Ainsi,   $${b}$ classeurs coûtent ${k > 2 ? `$2\\times ${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(reponse))}$ €.` : `$${b}+ ${texPrix(b / 2)} =${miseEnEvidence(texPrix(reponse))}$ €.`}`
-
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
-                                '€'
-            }
+          }
+          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          if (this.interactif) {
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€'
           }
           nbChamps = 1
           this.listeCanEnonces.push(texte)
@@ -743,14 +741,7 @@ export default function SujetCAN2023Quatrieme () {
             reponse = arrondi(a * b / 2, 0)
             texte = 'L\'aire du triangle $ABC$ est :<br>'
 
-            texte += mathalea2d({
-              xmin: -1.8,
-              ymin: -1,
-              xmax: 5,
-              ymax: 2.5,
-              scale: 0.8,
-              pixelsParCm: 40
-            }, poly, labelPoint(A, B, C), codageAngleDroit(A, C, B), d, e, f)
+            texte += mathalea2d(Object.assign({ pixelsParCm: 40, scale: 0.8 }, fixeBordures(labelPoint(A, B, C))), poly, labelPoint(A, B, C), codageAngleDroit(A, C, B), d, e, f)
             texteCorr = `L'aire du triangle est $\\dfrac{\\text{AC}\\times \\text{CB}}{2}=\\dfrac{${a}\\times ${a}}{2}=${miseEnEvidence(reponse)}$ cm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
