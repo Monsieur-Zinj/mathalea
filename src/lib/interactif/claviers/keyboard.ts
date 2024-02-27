@@ -91,8 +91,8 @@ export const buildDataKeyboardFromStyle = (style : string) : BlockForKeyboard[] 
         // peut-être des unités... du style unites[longueurs,aires]
         if (value.startsWith('unit') || value.startsWith('Unit')) {
           // extraire les informations entre les [...] pour avoir les unités
-          const unitValuesMatches = value.match(/(?<=\[)[^\][]*(?=])/g)
-          const unitValues = unitValuesMatches?.join(',').split(',').map((s) => s.toLowerCase().replace(/[s]$/, '')) || []// tout en minuscule et virer les 's' à la fin
+          const unitValuesMatches = value.match(/\[(.*?)\]/g)
+          const unitValues = unitValuesMatches?.map(e => e.slice(1, -1)).join(',').split(',').map((s) => s.toLowerCase().replace(/[s]$/, '')) || []// tout en minuscule et virer les 's' à la fin
           for (const v of unitValues) {
             const type = convertToKeyboardTypeEnum(v)
             if (type !== undefined) {
