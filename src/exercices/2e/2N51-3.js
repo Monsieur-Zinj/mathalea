@@ -6,6 +6,10 @@ export const titre = 'Résoudre une équation du type $\\dfrac{x}{a}=\\dfrac{b}{
  *
  * @author Sébastien LOZANO
  */
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 export const uuid = '7959f'
 export const ref = '2N51-3'
 export const refs = {
