@@ -20,11 +20,9 @@ export const dateDeModifImportante = '21/09/2023'
 /**
  * Fonction noyau pour 6 fonctions qui utilisent les mêmes variables et la fonction choisirExpressionNumerique
  * @author Jean-Claude Lhote
- * Référence 5C11, 5C11-1, 5C12-1, 5L10-1, 5L10-3, 5L14-1 et 5L14-3
  */
 export default function EcrireUneExpressionNumerique () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1

@@ -1,6 +1,6 @@
 import ReperagePointDuPlan from './5R12-2.js'
 export const titre = 'Déterminer les coordonnées (positives) d\'un point'
-
+export const interactifReady = false
 export const amcReady = true
 export const amcType = 'AMCHybride'
 /**

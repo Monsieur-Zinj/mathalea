@@ -18,8 +18,6 @@ export const refs = {
 }
 export default function ExerciceLabyrinthePremiers3e () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1

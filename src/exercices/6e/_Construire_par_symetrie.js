@@ -25,7 +25,6 @@ export const titre = 'Construire par symétrie...'
 /**
  * @author Jean-Claude Lhote  (Ajout AMC par Eric Elter, ES6 par Loïc Geeraerts)
  * Fonction générale pour les exercices de construction de symétriques (centrale/axiale et points/triangles)
- * références  6G24-1, 6G24-2, 5G10-1, 5G10-2, 5G11-1 et 5G11-2
  * Permet une sortie html/pdf sur petits carreaux/gros carreaux/papier blanc
  * Relecture : Novembre 2021 par EE
  */

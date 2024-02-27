@@ -12,7 +12,6 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
 /**
  * Calculs de probabilités sur une expérience aléatoire à une épreuve.
  * @author Jean-Claude Lhote
- * Référence 5S21
  * Ajout de la partie vocabulaire (this.sup !== 1) par Guillaume Valmont le 03/04/2022
  * Remplacement des this.sup par des this.niveau par Guillaume Valmont le 07/05/2022
  */
