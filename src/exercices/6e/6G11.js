@@ -1,5 +1,6 @@
 import ParalleleEtPerpendiculaires from './6G12-1.js'
 export const titre = 'Tracer des perpendiculaires'
+export const interactifReady = false
 export const amcReady = true
 export const amcType = 'AMCOpen'
 

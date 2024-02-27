@@ -18,6 +18,7 @@ import {
 import Exercice from '../Exercice'
 
 export const titre = 'Tracer des perpendiculaires'
+export const interactifReady = false
 export const dateDePublication = '09/10/2022'
 /**
  * Fonction générale pour construire des perpendiculairs

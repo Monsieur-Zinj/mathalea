@@ -27,7 +27,6 @@ import { context } from '../../modules/context.js'
 /**
  * publié le 1/12/2020
  * @author Jean-Claude Lhote
- * Réfrence 6G21-1 et 5G20
  */
 export default function ConstruireUnTriangleAvecCible () {
   Exercice.call(this)

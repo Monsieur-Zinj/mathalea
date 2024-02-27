@@ -1,5 +1,6 @@
 import EncodeurTexte from '../profs/P020.js'
 export const titre = 'Message secret à décoder avec les tables de multiplication'
+export const interactifReady = false
 
 export const uuid = 'fe6e0'
 export const ref = '6C10-8'

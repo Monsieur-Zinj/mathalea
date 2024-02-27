@@ -3,8 +3,9 @@ export const titre = 'Construire le symétrique d\'un point par rapport à une d
 export const dateDeModifImportante = '14/11/2021'
 export const amcReady = true
 export const amcType = 'AMCOpen'
+export const interactifReady = false
+
 /**
- * Référence 6G24-1
  * @author Jean-Claude Lhote
  * Relecture : Novembre 2021 par EE
  */

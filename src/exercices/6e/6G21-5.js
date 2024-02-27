@@ -1,6 +1,7 @@
 import TracerQuadrilatèresParticuliers from './6G13.js'
 
 export const titre = 'Construire des quadrilatères particuliers et auto-vérification'
+export const interactifReady = false
 export const dateDePublication = '19/12/2022'
 
 /**
