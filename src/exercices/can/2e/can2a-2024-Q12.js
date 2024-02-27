@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { texteParPosition } from '../../../lib/2d/textes.js'
+import { texteParPosition } from '../../../lib/2d/textes'
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 export const titre = 'Déterminer une abscisse'
 export const interactifReady = true
