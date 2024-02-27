@@ -16,6 +16,7 @@
     ElementInstrumenpoche
   } from '../modules/ElementInstrumenpoche.js'
   import Amc from './setup/amc/Amc.svelte'
+  import Anki from './setup/anki/Anki.svelte'
   import Moodle from './setup/moodle/Moodle.svelte'
   import Capytale from './setup/capytale/Capytale.svelte'
   import Start from './setup/start/Start.svelte'
@@ -130,6 +131,8 @@
     <Amc />
   {:else if $globalOptions.v === 'moodle'}
     <Moodle />
+  {:else if $globalOptions.v === 'anki'}
+    <Anki />
   {:else if $globalOptions.recorder === 'capytale'}
     <Capytale />
   {:else}

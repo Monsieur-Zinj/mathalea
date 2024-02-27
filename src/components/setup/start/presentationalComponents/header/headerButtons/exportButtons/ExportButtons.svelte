@@ -2,6 +2,7 @@
   import PdfTextIcon from '../../../../../../../components/shared/icons/PdfTextIcon.svelte'
   import Button from '../../../../../../../components/shared/forms/Button.svelte'
   import AmcIcon from '../../../../../../../components/shared/icons/AmcIcon.svelte'
+  import AnkiIcon from '../../../../../../../components/shared/icons/AnkiIcon.svelte'
   import MoodleIcon from '../../../../../../../components/shared/icons/MoodleIcon.svelte'
   import type { VueType } from '../../../../../../../lib/types'
 
@@ -48,6 +49,16 @@
   on:click={() => handleExport('amc')}
 >
   <AmcIcon
+    class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+  />
+</button>
+<button
+  type="button"
+  class="tooltip tooltip-bottom tooltip-neutral"
+  data-tip="Anki"
+  on:click={() => handleExport('anki')}
+>
+  <AnkiIcon
     class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
   />
 </button>
