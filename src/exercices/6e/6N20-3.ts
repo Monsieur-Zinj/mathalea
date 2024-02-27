@@ -60,14 +60,11 @@ export default class nomExercice extends Exercice {
       do {
         num = randint(0, den * 10)
       } while (num % den === 0)
-      let texte = remplisLesBlancs(this, i, `%{champ1}~~\\lt~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~\\lt~~%{champ2}`, 'inline clavierDeBaseAvecFraction fillInTheBlank')
-      if (!context.isHtml) {
-        texte = texte.replaceAll('\\lt', ' < ').replaceAll('\\gt', ' > ')
-      }
+      let texte = remplisLesBlancs(this, i, `%{champ1}~~ < ~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~ < ~~%{champ2}`, 'inline clavierDeBaseAvecFraction fillInTheBlank')
       const a = Math.floor(num / den)
       const b = a + 1
-      texteCorr = ` $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt \\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}}\\quad$ `
-      texteCorr += ` donc $\\quad${a}\\lt \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} \\lt ${b}$.<br><br>`
+      texteCorr = ` $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} < \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} < \\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}}\\quad$ `
+      texteCorr += ` donc $\\quad${a} < \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} < ${b}$.<br><br>`
       if (a === 0) {
         texteCorr += `Remarque : on sait que $0 = \\dfrac{0}{${texNombre(den, 1)}}\\quad$ et $\\quad\\dfrac{${texNombre(den, 1)}}{${texNombre(den, 1)}} = ${b}$.`
       } else {
