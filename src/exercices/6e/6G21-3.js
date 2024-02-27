@@ -1,6 +1,7 @@
 import ConstruireUnTriangle from './6G21.js'
 
 export const titre = 'Construire un triangle particulier avec les instruments et auto-vérification'
+export const interactifReady = false
 export const dateDePublication = '17/12/2022'
 
 /**

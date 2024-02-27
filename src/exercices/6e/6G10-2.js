@@ -1,4 +1,6 @@
 import UtiliserLeCodagePourDecrire from './_Utiliser_le_codage_pour_decrire.js'
+
+export const interactifReady = false
 export const titre = 'Utiliser le codage pour décrire ou illustrer une figure'
 export const dateDeModifImportante = '17/08/2023'
 
@@ -6,7 +8,6 @@ export const dateDeModifImportante = '17/08/2023'
  * Exercice du test de positionnement 5e
  * Variantes à venir...
  * @author Jean-Claude Lhote
- * Référence 6G10-2
  */
 export const uuid = 'e8f0b'
 export const ref = '6G10-2'

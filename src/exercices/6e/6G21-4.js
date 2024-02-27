@@ -1,5 +1,6 @@
 import TracerQuadrilatèresParticuliers from './6G13.js'
 
+export const interactifReady = false
 export const titre = 'Construire des losanges ou des parallélogrammes et auto-vérification'
 export const dateDePublication = '19/12/2022'
 

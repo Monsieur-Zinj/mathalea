@@ -12,7 +12,6 @@ export const titre = 'Utiliser le vocabulaire des triangles'
 
 /**
  * Vocabulaire des triangles
- * 6G20-2 ; 5G20-1
  * @author Sébastien Lozano
  */
 export const uuid = 'c3781'
