@@ -9,12 +9,11 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = false
 export const titre = 'Parcourir un labyrinthe de multiples'
+export const dateDePublication = '06/12/2020'
 export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
 
 /**
  * @author Jean-Claude Lhote (remaniée par EE pour la prise en compte du nb de lignes et de colonnes du labyrinthe)
- * Publié le 6/12/2020
- * Ref : c3C10-2 et 6C10-5
  * Parcourir un labyrinthe de nombres en passant par les multiples du nombre choisi.
  * Relecture : Janvier 2022 par EE
  */
@@ -27,8 +26,6 @@ export const refs = {
 }
 export default function ExerciceLabyrintheMultiples () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.niveau = '6e'
   this.nbQuestions = 3
   this.nbCols = 1
