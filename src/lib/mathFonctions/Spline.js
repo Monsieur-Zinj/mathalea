@@ -20,6 +20,7 @@ import { rangeMinMax } from '../outils/nombres'
  * @param {boolean} noeudsVisibles
  * @param {number} xMin
  * @param {number} step
+ * @param {number} y0 ordonnée de départ de la spline aléatoire
  * @returns {Array<{x: number, y:number, deriveeGauche:number, deriveeDroit:number, isVisible:boolean}>}
  */
 export function noeudsSplineAleatoire (n, noeudsVisibles, xMin = -n / 2, y0 = 0, step = 2) {
@@ -408,6 +409,9 @@ export class Spline {
       const xMax = Math.floor(Math.max(...this.noeuds.map(el => el.x)))
       const yMax = Math.floor(Math.max(...this.noeuds.map(el => el.y)))
       return { xMin, xMax, yMin, yMax }
+    } else {
+      window.notify('Spline.trouveMaxes() on demande ça alors que la Spline n\'a pas de noeuds !', { laSpline: JSON.stringify(this) })
+      return { xMin: 0, xMax: 0, yMin: 0, yMax: 0 }
     }
   }
 
