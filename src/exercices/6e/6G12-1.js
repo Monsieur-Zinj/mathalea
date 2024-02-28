@@ -261,8 +261,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           if (this.sup2) {
             enonce += numAlpha(4) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.<br>'
 
-            correction = `<br>$AM \\approx ${texNombre(
-          lC
+            correction = `$AM \\approx ${texNombre(lC
         )}$ cm, $AN \\approx ${texNombre(
           lD
         )}$ cm et $AO \\approx${texNombre(
@@ -355,7 +354,7 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
           if (this.sup2) {
             enonce += numAlpha(5) + ' Mesurer les distances $AM$, $AN$ et $AO$. Pour l\'auto-correction, comparer ces mesures avec celles données par  l\'ordinateur dans la correction.<br>'
 
-            correction += `<br>$AM \\approx ${texNombre(
+            correction += `$AM \\approx ${texNombre(
           lC
         )}$ cm, $AN \\approx ${texNombre(
           lD

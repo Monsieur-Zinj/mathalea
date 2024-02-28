@@ -116,7 +116,7 @@ export default function MesurerUnAngleAvecRapporteur () {
       texteCorr = texteAMC
       texteAMC += `Quelle est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ ?`
 
-      texte = nbAngles > 1 ? '<br>' + texteAMC : texteAMC
+      texte = texteAMC
       texteCorr += `Comme la demi-droite (${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteGras(0)} du rapporteur et que la demi-droite (${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC), 'red')} du rapporteur, on lit que l'angle $\\widehat{${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ mesure ${texteEnCouleurEtGras(abs(angC) + '°')}.<br>`
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i * nbAngles, 'inline largeur25', { texteApres: ' °' })
@@ -197,13 +197,13 @@ export default function MesurerUnAngleAvecRapporteur () {
           const posE = angleModulo(angB + angC + angD + angE) > 135 ? 'above' : (angleModulo(angB + angC + angD + angE) > 45 ? 'right' : (angleModulo(angB + angC + angD + angE) > -45 ? 'below' : (angleModulo(angB + angC + angD + angE) > -135 ? 'left' : 'above')))
           const E = pointSurSegment(A, E1, tailleRapporteur + randint(10, 25) / 10, lettreDepuisChiffre(numE), posE)
           const AE = segment(A, E1)
-          const AECorr = segment(A, E1, 'hotpink')
+          const AECorr = segment(A, E1, 'magenta')
           AECorr.epaisseur = 2
           texteAMC = `${numAlpha(2)} Quelle est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numE)}}$ ?`
 
           texte += '<br>' + texteAMC
           texteCorr += `<br>${numAlpha(2)} La demi-droite (${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD), 'blue')} du rapporteur. `
-          texteCorr += `La demi-droite (${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD + angE), 'hotpink')} du rapporteur. `
+          texteCorr += `La demi-droite (${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD + angE), 'magenta')} du rapporteur. `
           texteCorr += `Et ${abs(angC + angD + angE)}-${abs(angC + angD)}=${texteGras(abs(angE))}.<br>Donc on en déduit que l'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numE)}}$ mesure ${texteEnCouleurEtGras(abs(angE) + '°')}.<br>`
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i * nbAngles + 2, 'inline largeur25', { texteApres: ' °' })
@@ -245,7 +245,7 @@ export default function MesurerUnAngleAvecRapporteur () {
             texteAMC = `${numAlpha(3)} Quelle est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numF)}}$ ?`
 
             texte += '<br>' + texteAMC
-            texteCorr += `<br>${numAlpha(3)} La demi-droite (${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD + angE), 'hotpink')} du rapporteur. `
+            texteCorr += `<br>${numAlpha(3)} La demi-droite (${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD + angE), 'magenta')} du rapporteur. `
             texteCorr += `La demi-droite (${lettreDepuisChiffre(numF) + lettreDepuisChiffre(numA)}] passe par la graduation ${texteEnCouleurEtGras(abs(angC + angD + angE + angF), 'green')} du rapporteur. `
             texteCorr += `Et ${abs(angC + angD + angE + angF)}-${abs(angC + angD + angE)}=${texteGras(abs(angF))}.<br>Donc on en déduit que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numF)}}$ mesure ${texteEnCouleurEtGras(abs(angF) + '°')}.<br>`
             if (this.interactif) {

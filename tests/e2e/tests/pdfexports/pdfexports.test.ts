@@ -35,7 +35,9 @@ async function readZip (file: fs.FileHandle): Promise<Map<string, string>> {
 async function getLatexFile (page: Page, urlExercice: string) {
   log(urlExercice)
   page.setDefaultTimeout(100000)
+  
   await page.goto(urlExercice)
+  await page.reload()
   await page.click('input#Style2') // style maquette
 
   const downloadPromise = page.waitForEvent('download')
@@ -122,10 +124,16 @@ async function testAll (page: Page, filter: string) {
   const uuids = await findUuid(filter)
   const resultReqs = []
   for (let i = 0; i < uuids.length && i < 300; i++) {
+    try{
     log(`uuid=${uuids[i][0]} exo=${uuids[i][1]} i=${i} / ${uuids.length}`)
     const resultReq = await getLatexFile(page, `http://localhost:5173/alea/?uuid=${uuids[i][0]}&id=${uuids[i][1].substring(0, uuids[i][1].lastIndexOf('.')) || uuids[i][1]}&alea=QrHL&v=latex`)
     log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[i][1]}`)
     resultReqs.push(resultReq)
+    } catch (err) {
+      log(`Resu: KO uuid=${uuids[i][0]} exo=${uuids[i][1]}`)
+      log(err)
+      resultReqs.push('KO')
+    }
   }
   return resultReqs.every(e => e === 'OK')
 }
@@ -151,12 +159,36 @@ async function testOneExo (page: Page) {
   return testAll(page, '3e')
 }
 
+async function testRunAll (filter: string) {
+  // return testAll(page, '6e/6G23')
+  const uuids = await findUuid(filter)
+  const resultReqs = []
+  for (let i = 0; i < uuids.length && i < 300; i++) {
+    const myName = 'test' + uuids[i][1]
+    const f = async function (page: Page) { 
+      // Listen for all console logs
+      page.on('console', msg => {
+        logPDF(msg.text())
+      })
+      log(`uuid=${uuids[i][0]} exo=${uuids[i][1]} i=${i} / ${uuids.length}`)
+      const resultReq = await getLatexFile(page, `http://localhost:5173/alea/?uuid=${uuids[i][0]}&id=${uuids[i][1].substring(0, uuids[i][1].lastIndexOf('.')) || uuids[i][1]}&alea=QrHL&v=latex`)
+      log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[i][1]}`)
+      return resultReq === 'OK'
+    }
+    Object.defineProperty(f, 'name', {value: myName, writable: false})
+    runTest(f, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+  }
+}
+
+
 /**
  * Attention, il faut un service REST en localhost qui récupère les fichiers
  * pour ensuite les compiler avec lualatex...
  */
 // runTest(testOneExo, import.meta.url, { pauseOnError: false })
-runTest(test6e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+// runTest(test6e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+// runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+// runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+// runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+
+testRunAll('6e')
