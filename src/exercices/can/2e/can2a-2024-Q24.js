@@ -25,7 +25,7 @@ export default class NomExercice extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = '5;15'
+      this.reponse = ['5;15', '5,15']
       this.question = 'Coordonnées du point $M$ milieu du segment $[AB]$ où $A(2\\,;\\,20)$ et $B(8\\,;\\,10)$<br>'
       this.correction = `Les coordonnées du milieu sont données par la moyenne des abscisses et la moyenne des ordonnées : <br>
     $x_M=\\dfrac{2+8}{2}=${miseEnEvidence(texNombre(5))}$ et $y_M=\\dfrac{20+10}{2}=${miseEnEvidence(texNombre(15))}$.<br>
@@ -37,7 +37,7 @@ export default class NomExercice extends Exercice {
       const yb = randint(1, 5) * 2
       const xm = (xa + xb) / 2
       const ym = (ya + yb) / 2
-      this.reponse = `${xm};${ym}`
+      this.reponse = [`${xm};${ym}`, `${xm},${ym}`]
       this.question = `Coordonnées du point $M$ milieu du segment $[AB]$ où $A(${xa}\\,;\\,${ya})$ et $B(${xb}\\,;\\,${yb})$<br>`
 
       this.correction = `Les coordonnées du milieu sont données par la moyenne des abscisses et la moyenne des ordonnées : <br>
