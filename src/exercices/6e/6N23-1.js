@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Donner différentes écritures de nombres décimaux'
@@ -75,14 +75,11 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
       switch (typesDeQuestions) {
         case 1: // n/100 = .... + .../10 + .../100=...
           ecritureDecimale = texNombre(arrondi(u + d / 10 + c / 100, 2))
-          texteCorr = `$${fraction(n, '100').texFraction}=${u}+${texFraction(
-                        d,
-                        '10'
-                    )}+${texFraction(c, '100')}=${ecritureDecimale}$`
+          texteCorr = `$${fraction(n, 100).texFraction}=${u}+${fraction(d, 10).texFraction}+${fraction(c, 100).texFraction}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            const content = `${fraction(n, '100')}~=~ %{unite} + \\dfrac{%{dixieme}}{10} + \\dfrac{%{centieme}}{100}~=~%{ecritureDecimale}`
+            const content = `${fraction(n, 100).texFraction}~=~ %{unite} + \\dfrac{%{dixieme}}{10} + \\dfrac{%{centieme}}{100}~=~%{ecritureDecimale}`
             texte = remplisLesBlancs(this, i, content)
-            setReponse(this, i, {
+            handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
               unite: { value: u },
               dixieme: { value: d },
@@ -92,14 +89,8 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
             { formatInteractif: 'fillInTheBlank' }
             )
           } else {
-            texte = `$${texFraction(n, '100')}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(
-                            context.isAmc ? 'b' : '\\ldots\\ldots',
-                            10
-                        )}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 100)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
-            texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(
-                            d,
-                            '10'
-                        )}+${texFraction(c, '100')}=${ecritureDecimale}$`
+            texte = `$${fraction(n, 100).texFraction}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(context.isAmc ? 'b' : '\\ldots\\ldots', '10')}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', '100')}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
+            texteCorr = `$${fraction(n, 100).texFraction}=${u}+${texFraction(d, '10')}+${texFraction(c, '100')}=${ecritureDecimale}$`
             this.autoCorrection[i] = {
               enonceAvant: false,
               options: { multicols: true },
@@ -183,9 +174,9 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                         100
                     )}+${texFraction(d, 10)}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            const content = `${fraction(n, '100')}~=~ %{unite} + \\dfrac{%{centieme}}{100} + \\dfrac{%{dixieme}}{10}~=~%{ecritureDecimale}`
+            const content = `${fraction(n, 100).texFraction}~=~ %{unite} + \\dfrac{%{centieme}}{100} + \\dfrac{%{dixieme}}{10}~=~%{ecritureDecimale}`
             texte = remplisLesBlancs(this, i, content)
-            setReponse(this, i, {
+            handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
               unite: { value: u },
               dixieme: { value: d },
@@ -285,7 +276,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           if (this.interactif && !context.isAmc) {
             const content = `\\dfrac{%{num}}{%{den}}~=~ ${u} + \\dfrac{${d}}{10} + \\dfrac{${c}}{100}~=~%{ecritureDecimale}`
             texte = remplisLesBlancs(this, i, content)
-            setReponse(this, i, {
+            handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
               num: { value: n },
               den: { value: 100 },
@@ -345,7 +336,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           if (this.interactif && !context.isAmc) {
             const content = `${u}~=~\\dfrac{%{dixieme}}{10}`
             texte = remplisLesBlancs(this, i, content)
-            setReponse(this, i, {
+            handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
               dixieme: { value: u * 10 }
             },
@@ -383,7 +374,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           if (this.interactif && !context.isAmc) {
             const content = `${u}~=~\\dfrac{%{centieme}}{100}`
             texte = remplisLesBlancs(this, i, content)
-            setReponse(this, i, {
+            handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
               centieme: { value: u * 100 }
             },
@@ -421,7 +412,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           if (this.interactif && !context.isAmc) {
             const content = `\\dfrac{${n}}{10}~=~ %{unite} + \\dfrac{%{dixieme}}{10} + \\dfrac{%{centieme}}{100}~=~%{ecritureDecimale}`
             texte = remplisLesBlancs(this, i, content)
-            setReponse(this, i, {
+            handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
               unite: { value: u * 10 + d },
               dixieme: { value: c },
@@ -515,7 +506,7 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           if (this.interactif && !context.isAmc) {
             const content = `\\dfrac{%{num}}{100}~=~ ${u} + \\dfrac{${d}}{10}~=~%{ecritureDecimale}`
             texte = remplisLesBlancs(this, i, content)
-            setReponse(this, i, {
+            handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
               num: { value: n },
               ecritureDecimale: { value: arrondi(u + d / 10, 1) }
