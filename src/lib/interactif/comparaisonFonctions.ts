@@ -629,7 +629,7 @@ export function compareIntervalles (input: string, goodAnswer: string) {
     goodAnswer = String(goodAnswer)
   }
   let result = true
-  const cleanUp = (s: string) => s.replaceAll('{,}', '.').replaceAll(',', '.')
+  const cleanUp = (s: string) => s.replaceAll('{,}', '.').replaceAll(',', '.').replaceAll('\\left\\lbrack', '[').replaceAll('\\right\\rbrack', ']')
   input = cleanUp(input)
   goodAnswer = cleanUp(goodAnswer)
   const intervallesSaisie = input.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
@@ -638,7 +638,8 @@ export function compareIntervalles (input: string, goodAnswer: string) {
     for (let i = 0; i < intervallesReponse.length; i++) {
       const [borneInfRep, borneSupRep] = intervallesReponse[i].match(/-?\d\.?\d?/g) as string[]
       const [borneInfSai, borneSupSai] = intervallesSaisie[i].match(/-?\d\.?\d?/g) as string[]
-      if (Math.abs(Number(borneInfSai) - Number(borneInfRep)) > 0.1 || Math.abs(Number(borneSupSai) - Number(borneSupRep)) > 0.1) {
+      // ToDo parser les deux bornes pour accepter les fractions
+      if (Math.abs(Number(borneInfSai) - Number(borneInfRep)) > 0.001 || Math.abs(Number(borneSupSai) - Number(borneSupRep)) > 0.001) {
         result = false
       }
     }
@@ -772,7 +773,7 @@ export function intervallleStrictCompare (input: string, goodAnswer: { borneInf:
  * @param {{borneInf: number, borneSup: number}} goodAnswer @todo idem ci-dessus, avoir un Intervalle.fromString() qui donne cet objet à partir de ']3.4;5.6]' par exemple
  * @return ResultType
  */
-export function intervallleCompare (input: string, goodAnswer: { borneInf: number, borneSup: number }): {
+export function intervalleCompare (input: string, goodAnswer: { borneInf: number, borneSup: number }): {
   isOk: boolean,
   feedback?: string
 } {

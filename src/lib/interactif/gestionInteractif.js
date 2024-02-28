@@ -14,7 +14,7 @@ import {
   fractionEgaleCompare,
   fractionPlusSimpleCompare,
   hmsCompare,
-  intervallleCompare,
+  intervalleCompare,
   intervallleStrictCompare,
   numberCompare,
   puissanceCompare,
@@ -655,7 +655,7 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: { borneInf: reponses[0], borneSup: reponses[1] },
-          compare: intervallleCompare
+          compare: intervalleCompare
         }
       }, params)
     case 'puissance' :
