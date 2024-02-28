@@ -1,11 +1,12 @@
 import ExerciceLabyrintheMultiples from '../6e/6C10-5.js'
 export const titre = 'Parcourir un labyrinthe de multiples'
+export const amcReady = true
+export const amcType = 'AMCOpen'
+export const interactifReady = false
 export const dateDeModifImportante = '30/03/2023'
 /**
  * Lire des nombres déciamux sur une portion de droite graduée
  * Une question demande la forme décimale, une autre, la partie entière plus la fraction décimale, et une troisième demande une seule fraction décimale.
- * ref 6N23-2
- *
  * @author Jean-Claude Lhote
  */
 export const uuid = '40ae0'

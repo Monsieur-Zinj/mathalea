@@ -22,7 +22,6 @@ export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '22/11/2022'
 /**
- * 6N23-3
  * Ajout Interactivité et AMC : Janvier 2022 par EE
  */
 export const uuid = '23c48'
