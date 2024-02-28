@@ -1,10 +1,12 @@
 import ArrondirUneValeur from '../4e/4G20-4.js'
 export const titre = 'Arrondir une valeur comprenant un cosinus'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDePublication = '02/07/2021'
 
 /**
  * Arrondir un cosinus
- * @Auteur Mireille Gain, 2 juillet 2021
- * référence 4G40-2
+ * @Author Mireille Gain
  */
 
 export const uuid = '2f4d7'
@@ -15,7 +17,6 @@ export const refs = {
 }
 export default function ArrondirUneValeur4e () {
   ArrondirUneValeur.call(this)
-  this.titre = titre
   this.version = 2
   this.spacing = 3
 }

@@ -12,7 +12,6 @@ export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un
 *
 * Pour la correction, les fractions sont toute écrites avec un dénominateur commun avant d'être classées
 * @author Rémi Angot
-* 5N14-2
 * Ajout du paramètre d'inclusion de nombres négatifs le 14/08/2021 : Guillaume Valmont
 */
 export const uuid = 'ce9ca'
