@@ -112,7 +112,8 @@ export function Rapporteur ({
     rayon = segment(centre, homothetie(rotation(azimut, centre, -90), centre, 0.2), this.color)
   }
   objets.push(rayon)
-  this.bordures = [x - taille - 1, y - taille - 1, x + taille + 1, y + taille + 1]
+  const bordures = fixeBordures(objets)
+  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
 
   this.svg = function (coeff) {
     let code = ''

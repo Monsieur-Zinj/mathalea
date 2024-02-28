@@ -623,7 +623,6 @@ export default function SujetCAN2022cinquieme () {
           break
 
         case 19:
-
           a = randint(1, 6)
           k = randint(3, 9)
           b = a * k

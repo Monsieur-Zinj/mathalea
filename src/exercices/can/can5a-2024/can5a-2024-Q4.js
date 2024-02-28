@@ -1,0 +1,43 @@
+import Exercice from '../../Exercice'
+import Decimal from 'decimal.js'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { intervallleStrictCompare } from '../../../lib/interactif/comparaisonFonctions'
+export const titre = 'Compléter un encadrement'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = 'd8549'
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+ * Référence
+*/
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.compare = intervallleStrictCompare
+    this.formatInteractif = 'calcul' // 'intervalleStrict'
+    this.canOfficielle = false
+  }
+
+  nouvelleVersion () {
+    const valInf = this.canOfficielle ? 3 : randint(1, 10)
+    const valSup = this.canOfficielle ? new Decimal(3.1) : choice([new Decimal(valInf).add(0.1), new Decimal(valInf).add(0.01)])
+    this.reponse = { borneInf: valInf, borneSup: valSup }
+    this.question = 'Complète par un nombre. <br>'
+    if (this.interactif) {
+      this.optionsChampTexte = { texteAvant: `$${valInf} < $`, texteApres: `$<${texNombre(valSup, 2)}  $` }
+    } else { this.question += `$${valInf} < \\ldots < ${texNombre(valSup, 2)}$` }
+    this.correction = `On complète avec un nombre strictement compris entre $${valInf}$ et $${texNombre(valSup, 2)}$. <br>
+     Par exemple $${miseEnEvidence(texNombre(valSup.add(valInf).div(2), 3))}$`
+
+    this.canEnonce = 'Complète par un nombre.'
+    this.canReponseACompleter = `$${valInf} < \\ldots < ${texNombre(valSup, 2)}$`
+  }
+}
