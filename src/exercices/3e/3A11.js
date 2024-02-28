@@ -12,7 +12,6 @@ export const titre = 'Rendre irréductible une fraction'
 /**
  * Fractions irréductibles
  * @author Sébastien Lozano
- * Référence 3A11
  */
 export const uuid = 'a6667'
 export const ref = '3A11'
@@ -22,7 +21,6 @@ export const refs = {
 }
 export default function FractionsIrreductibles () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.'
   // this.consigne += `<br>`;

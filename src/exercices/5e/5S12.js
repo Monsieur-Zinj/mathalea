@@ -24,7 +24,6 @@ export const titre = 'Représenter des données par un diagramme'
 
 /**
  * @author Mickael Guironnet - Jean-Claude Lhote
- * Référence 5S12
  */
 export const uuid = 'd3ca7'
 export const ref = '5S12'
@@ -34,7 +33,6 @@ export const refs = {
 }
 export default function ConstruireUnDiagramme () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1

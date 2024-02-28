@@ -1,10 +1,15 @@
 import ArrondirUneValeur from '../6e/6N31-3.js'
 export const titre = 'Encadrer puis arrondir une valeur comprenant un cosinus'
 
+export const amcReady = true
+export const amcType = 'qcmMult'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const dateDePublication = '09/05/2021'
+
 /**
  * Encadrer puis arrondir un cosinus
- * @Auteur Mireille Gain, 9 mai 2021
- * référence 4G40-1
+ * @author Mireille Gain
  */
 
 export const uuid = 'b236d'
@@ -15,7 +20,6 @@ export const refs = {
 }
 export default function ArrondirUneValeur4e () {
   ArrondirUneValeur.call(this)
-  this.titre = titre
   this.version = 4
   this.sup2 = true
   this.spacing = 3

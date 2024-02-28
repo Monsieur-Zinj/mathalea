@@ -8,7 +8,6 @@ export const titre = 'Tester si un nombre est solution d\'une équation'
 
 /**
  * Tester si un nombre est solution d'une équation
- * * 4L14-0
  * * adaptation de l'exo 5L14 de Rémi Angot
  * @author Sébastien Lozano
  */
@@ -20,8 +19,6 @@ export const refs = {
 }
 export default function TesterSiUnNombreEstSolutionDUneEquation () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
