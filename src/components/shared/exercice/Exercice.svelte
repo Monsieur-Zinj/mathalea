@@ -1,7 +1,8 @@
 <script lang="ts">
   import {
     mathaleaHandleParamOfOneExercice,
-    mathaleaLoadExerciceFromUuid
+    mathaleaLoadExerciceFromUuid,
+    getSvelteComponent
   } from '../../../lib/mathalea'
   import { SvelteComponent, onMount } from 'svelte'
   import { globalOptions } from '../../../lib/stores/generalStore'
@@ -48,11 +49,6 @@
     return urlExercice && urlExercice.includes('.svelte')
   }
 
-  async function getSvelteComponent (paramsExercice: InterfaceParams) {
-    const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
-    // Pour l'instant tous les exercices Svelte doivent être dans le dossier src/exercicesInteractifs
-    return (await import('../../../exercicesInteractifs/' + urlExercice.replace('.svelte', '') + '.svelte')).default
-  }
 
   async function getExercise (paramsExercice: InterfaceParams): Promise<Exercice> {
     const exercise = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
