@@ -136,10 +136,10 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
   const couleur = options.couleur || '#f15929'
   const cliquable = (options.cliquable !== undefined) ? options.cliquable : true
   rectangle.hachures = options.hachures || false
+  rectangle.couleurDesHachures = colorToLatexOrHTML('black')
   rectangle.epaisseurDesHachures = options.epaisseurDesHachures || 4
   bordure.epaisseur = options.epaisseur || 1
   this.etat = options.etat || false // Pour récupérer si le rectangle est cliqué ou pas
-  // his.style = rectangle.style
   this.svg = function (coeff) {
     let code
     rectangle.couleurDeRemplissage = colorToLatexOrHTML(options.color || options.couleur || options.couleurDeRemplissage || '#f15929')
@@ -153,6 +153,7 @@ function RectangleCliquable (x1, y1, x2, y2, options) {
   }
   this.tikz = (coeff) => {
     if (this.etat) bordure.couleurDeRemplissage = colorToLatexOrHTML(couleur)
+    bordure.couleurDesHachures = colorToLatexOrHTML('white')
     bordure.hachures = rectangle.hachures
     return bordure.tikz(coeff)
   }

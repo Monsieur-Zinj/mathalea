@@ -21,7 +21,6 @@ export const dateDeModifImportante = '07/03/2023' // Une date de modification im
 /**
  * Calculs avec des fractions que l'on peut faire à partir de schémas
  * @author Rémi Angot (Modifié par EE : rajout d'un paramètre)
- * Référence 6N22
  */
 export const uuid = 'c75b6'
 export const ref = '6N22'
@@ -53,25 +52,6 @@ export default function FractionsCalculsSimples () {
     } else {
       this.consigne = 'Calculer.'
     }
-
-    /*
-        let typeQuestionsDisponibles = []
-        if (!this.sup2) { // Si aucune liste n'est saisie
-          typeQuestionsDisponibles = rangeMinMax(1, 4)
-        } else {
-          if (typeof (this.sup2) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-            typeQuestionsDisponibles[0] = contraindreValeur(1, 5, this.sup2, 5)
-          } else {
-            typeQuestionsDisponibles = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-            for (let i = 0; i < typeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-              typeQuestionsDisponibles[i] = contraindreValeur(1, 5, parseInt(typeQuestionsDisponibles[i]), 5) // parseInt en fait un tableau d'entiers
-            }
-          }
-        }
-        if (compteOccurences(typeQuestionsDisponibles, 5) > 0) typeQuestionsDisponibles = rangeMinMax(1, 4) // Teste si l'utilisateur a choisi tout
-
-        const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-        */
 
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       max: 4,
@@ -141,6 +121,34 @@ export default function FractionsCalculsSimples () {
           }
           reponseAMC = new FractionEtendue(n * b + a, b)
           break
+        case 3 : // 'n-a/b':
+          n = randint(1, 3)
+          f1 = new FractionEtendue(a, b)
+          f2 = new FractionEtendue(n * b, b)
+          f3 = new FractionEtendue(n * b - a, b)
+          texte = `$${n} - ${f1.texFraction}$`
+          texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: '=' })
+          texteCorr = `$${n} - ${f1.texFraction} = ${f2.texFraction} - ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
+          schemaCorr = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b, {
+            cliquable: false,
+            liste2: rangeMinMax(1, n * b),
+            hachures1: true,
+            liste1: rangeMinMax(n * b - a + 1, n * b),
+            couleur2: context.isHtml ? '#f15929' : 'gray'
+          })
+          schema = fractionCliquable(0, 0, 4, b)
+          if (this.correctionDetaillee) {
+            texteCorr += '<br>' + mathalea2d({
+              scale,
+              xmin: -0.2,
+              xmax,
+              ymin: -1,
+              ymax: 2
+            }, schemaCorr)
+          }
+          if (this.sup) texte += '<br>' + mathalea2d({ scale, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
+          reponseAMC = new FractionEtendue(n * b - a, b)
+          break
         case 4 : // 'n*a/b':
           n = randint(2, 5, b)
           f1 = new FractionEtendue(a, b)
@@ -183,34 +191,6 @@ export default function FractionsCalculsSimples () {
             }, schema)
           }
           reponseAMC = new FractionEtendue(n * a, b)
-          break
-        case 3 : // 'n-a/b':
-          n = randint(1, 3)
-          f1 = new FractionEtendue(a, b)
-          f2 = new FractionEtendue(n * b, b)
-          f3 = new FractionEtendue(n * b - a, b)
-          texte = `$${n} - ${f1.texFraction}$`
-          texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: '=' })
-          texteCorr = `$${n} - ${f1.texFraction} = ${f2.texFraction} - ${f1.texFraction} = ${f3.texFraction} ${(f3.estEntiere) ? `=${f3.texFractionSimplifiee}` : ''}$`
-          schemaCorr = fractionCliquable(0, 0, quotientier(n * b + a, b) + 1, b, {
-            cliquable: false,
-            liste2: rangeMinMax(1, n * b),
-            hachures1: true,
-            liste1: rangeMinMax(n * b - a + 1, n * b),
-            couleur2: context.isHtml ? '#f15929' : 'gray'
-          })
-          schema = fractionCliquable(0, 0, 4, b)
-          if (this.correctionDetaillee) {
-            texteCorr += '<br>' + mathalea2d({
-              scale,
-              xmin: -0.2,
-              xmax,
-              ymin: -1,
-              ymax: 2
-            }, schemaCorr)
-          }
-          if (this.sup) texte += '<br>' + mathalea2d({ scale, xmin: -0.2, xmax, ymin: -1, ymax: 2 }, schema)
-          reponseAMC = new FractionEtendue(n * b - a, b)
           break
       }
       setReponse(this, i, reponseAMC, { formatInteractif: 'fractionEgale' })
