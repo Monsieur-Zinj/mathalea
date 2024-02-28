@@ -34,7 +34,7 @@
         </button>
         {#if state === 'race'}
           <div
-            class="absolute -bottom-1 left-1/2 -translate-x-1/2 h-3 w-3 rounded-full bg-coopmaths-warn-800
+            class="absolute -bottom-1 left-1/2 -translate-x-1/2 h-3 w-3 rounded-full bg-coopmaths-struct
         {$canOptions.isInteractive && $canOptions.questionGetAnswer[i]
           ? 'flex'
           : 'hidden'}"

@@ -23,6 +23,7 @@
   } from '../../../lib/stores/generalStore'
   import { answersFromCapytale, sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
   import { millisecondToMinSec } from '../../../lib/components/time'
+  import { keyboardState } from '../../keyboard/stores/keyboardStore'
   let state: CanState = 'start'
   let exercises: TypeExercice[] = []
   let questions: string[] = []
@@ -39,6 +40,7 @@
     exercises = [...(await buildExercisesList())]
     // interactivité
     if ($canOptions.isInteractive) {
+      $keyboardState.isVisible = true
       for (const param of exercises) {
         param.interactif = true
       }
