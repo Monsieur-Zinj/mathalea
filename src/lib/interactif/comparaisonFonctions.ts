@@ -834,7 +834,7 @@ export function fonctionCompare (input: string, goodAnswer: {fonction: string, v
   if (typeof goodAnswer === 'string') {
     goodAnswer = { fonction: goodAnswer, variable: 'x' }
   }
-  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions', 'divisions'])
+  const clean = generateCleaner(['virgules', 'parentheses', 'fractions', 'divisions'])
   const cleanInput = clean(input)
   const inputParsed = engine.parse(cleanInput)
   const inputFn = inputParsed.compile()

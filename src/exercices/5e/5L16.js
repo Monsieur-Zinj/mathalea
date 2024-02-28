@@ -1,9 +1,13 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import {
+  factorisationCompare, fonctionCompare,
+  formeDeveloppeeEtReduiteCompare
+} from '../../lib/interactif/comparaisonFonctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -11,7 +15,54 @@ export const titre = 'Simplifier l\'écriture d\'une expression littérale'
 
 export const dateDePublication = '07/04/2022'
 export const dateDeModifImportante = '13/11/2023'
-
+// fonctions de comparaison spécifiques à cet exo
+function simplifierCompare (input, goodAnswer) {
+  if (input.includes('\\times')) return { isOk: false, feedback: 'On peut supprimer le signe $\\times$ devant une lettre ou une parenthèse.<br>' }
+  if (goodAnswer.expr.includes('(')) return factorisationCompare(input, goodAnswer.expr)
+  return formeDeveloppeeEtReduiteCompare(input, goodAnswer)
+}
+function compliquerCompare (input, goodAnswer) {
+  const reponse = goodAnswer.reponse
+  const nbFacteursRep = reponse.split('\\times').length
+  const nbFacteursInp = input.split('\\times').length
+  if (nbFacteursRep > nbFacteursInp && nbFacteursInp !== 1) return { isOk: false, feedback: 'Il reste au moins une multiplication implicite.<br>' }
+  if (nbFacteursInp === 1 && nbFacteursRep !== 1) return { isOk: false, feedback: 'Il y a au moins une multiplication implicite.<br>' }
+  if (nbFacteursRep !== nbFacteursInp) return { isOk: false, feedback: 'Il y a des signes $\\times$ en trop.<br>' }
+  const inputRangee = rangerFacteurs(input.replace('\\lparen', '(').replace('\\rparen', ')'))
+  let feedback = ''
+  let isOk = true
+  const implicitMulLettre = /(\d+[a-z])/g.exec(inputRangee)
+  if (implicitMulLettre != null) {
+    implicitMulLettre.shift()
+    for (const terme of implicitMulLettre) {
+      const avantLettre = terme.substring(0, terme.length - 1)
+      feedback += `Il faut remettre le signe $\\times$ entre $${avantLettre}$ et ${terme.charAt(terme.length - 1)}.<br>`
+      isOk = false
+    }
+  }
+  const implicitMulParenthese = /(\d+\()/g.exec(inputRangee)
+  if (implicitMulParenthese != null) {
+    implicitMulParenthese.shift()
+    for (const terme of implicitMulParenthese) {
+      const avantPar = terme.substring(0, -1)
+      feedback += `Il faut remettre le signe $\\times$ entre $${avantPar}$ et $($.<br>`
+      isOk = false
+    }
+  }
+  const implicitMulPuissance = /([a-z]\^\d)/g.exec(inputRangee)
+  if (implicitMulPuissance != null) {
+    implicitMulPuissance.shift()
+    for (const terme of implicitMulPuissance) {
+      const lettre = terme.charAt(0)
+      const exposant = terme.charAt(2)
+      feedback += `Il faut écrire $${terme}$ comme un produit de $${exposant}$ facteurs $${lettre}$.<br>`
+      isOk = false
+    }
+  }
+  const test2 = fonctionCompare(input, { fonction: reponse, variable: 'x' })
+  isOk = test2.isOk && isOk
+  return { isOk, feedback }
+}
 /**
  * @author Guillaume Valmont
  * Ajout du paramètre de procédure inverse par Guillaume Valmont le 18/06/2022
@@ -317,11 +368,12 @@ export default function SimplifierEcritureLitterale () {
       reponse = reponse.replace(/\\timesx/g, '\\times x') // Et en les remettant entre les times et les x
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$ ' })
+        texte += ajouteFeedback(this, i)
       }
-      if (this.sup2) {
-        setReponse(this, i, reponse, { formatInteractif: 'texte' })
+      if (!this.sup2) {
+        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: simplifierCompare } }, { formatInteractif: 'calcul' })
       } else {
-        setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppeeParEE' })
+        handleAnswers(this, i, { reponse: { value: { reponse, donnee: resultat }, compare: compliquerCompare } }, { formatInteractif: 'calcul' })
       }
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
@@ -334,6 +386,11 @@ export default function SimplifierEcritureLitterale () {
   }
 }
 
+/**
+ * fonction qui range les facteurs en calculant le produit des constantes puis les lettres et en laissant les \\times
+ * @param expressionLaTeX
+ * @returns {string}
+ */
 function rangerFacteurs (expressionLaTeX) {
   const facteurs = expressionLaTeX.split(' \\times ')
   const nombresConstants = []
