@@ -16,7 +16,6 @@ export const dateDeModifImportante = '01/04/2023'
  * les deux on besoin de la def partielle serie : stlX
  * pb dans la sortie LaTeX, revoir comment user de la fonction katexPopup2() pour affichage d'une note hors texte !
  * @author Sébastien Lozano
- * Référence 3A12
  */
 export const uuid = 'ce352'
 export const ref = '3A12'
@@ -26,14 +25,10 @@ export const refs = {
 }
 export default function PpcmEngrenages () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne = ''
   context.isHtml ? this.spacing = 2 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestionsModifiable = false
   this.nbQuestions = 4
-  // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
   this.listePackages = 'bclogo'

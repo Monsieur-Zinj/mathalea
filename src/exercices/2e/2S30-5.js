@@ -1,5 +1,6 @@
 import FonctionsProbabilite2 from '../3e/3S20.js'
 export const titre = 'Résoudre un problème basé sur une expérience aléatoire à deux épreuves'
+export const interactifReady = false
 
 /**
  * Clone de 3S20 pour les 2nde

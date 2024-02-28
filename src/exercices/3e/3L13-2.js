@@ -23,9 +23,6 @@ export const amcType = 'AMCNum'
 export const dateDeModifImportante = '02/04/2023'
 /**
  * * Équations résolvantes pour le théorème de Thalès
- * * 3L13-2 enfants : 4P10-2 et 4L15-1
- * * modification le 11/01/2021
- * * correctif le 27/03/2022
  * @author Sébastien Lozano
  */
 export const uuid = '6516e'
@@ -36,7 +33,6 @@ export const refs = {
 }
 export default function EqResolvantesThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.debug = false
   if (this.debug) {
     this.nbQuestions = 4

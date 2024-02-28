@@ -26,7 +26,6 @@ export const titre = 'Calculer toutes les mesures d\'angle d\'une figure complex
 /**
  * Deux triangles rectangles accolés, on connaît deux longueurs et un angle, il faut déterminer tous les autres angles
  * @author Rémi Angot
- * 3G31-1
  * Février 2021
  */
 export const uuid = '35e0b'

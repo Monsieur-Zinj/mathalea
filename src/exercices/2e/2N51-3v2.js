@@ -1,9 +1,13 @@
 import EqResolvantesThales from '../3e/3L13-2.js'
 export const titre = 'Équations du type $\\dfrac{x}{a}=\\dfrac{b}{c}$ (v2)'
 
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
+
 /**
  * Clone de 3L13-2 pour les 2nde
- *
  * @author Sébastien LOZANO
  */
 export const uuid = '78f02'

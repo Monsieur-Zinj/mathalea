@@ -7,7 +7,6 @@ export const titre = 'Produire une forme littérale en introduisant une lettre p
 
 /**
  * Produire une forme littérale en introduisant une lettre pour désigner une valeur inconnue
- * * 4L13-1
  * @author Sébastien Lozano
  */
 export const uuid = '8b18b'
@@ -26,7 +25,6 @@ export default function FormeLitteraleIntroduireUneLettre () {
     this.nbQuestions = 2
   }
 
-  this.titre = titre
   this.consigne = "Exprimer le prix total de l'achat, en fonction des lettres introduites dans l'énoncé."
 
   this.nbCols = 1

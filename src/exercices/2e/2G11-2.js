@@ -1,5 +1,6 @@
 import ProblemesThales from '../3e/3G20-1.js'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Thalès'
+export const interactifReady = false
 
 /**
  * Clone de 3G20-1 pour les 2nde

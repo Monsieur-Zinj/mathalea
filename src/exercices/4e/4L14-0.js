@@ -22,7 +22,6 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
-  // this.sup2=false;
   if (this.exo === '4L14-1') {
     this.nbQuestions = 4
   } else if (this.exo === '4L14-2') {
@@ -34,10 +33,8 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.sup = Number(this.sup)
     let typesDeQuestionsDisponibles
     if (this.exo === '4L14-1') {
-      // typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 8];
       typesDeQuestionsDisponibles = [choice([1, 2]), 3, choice([4, 5]), 8]
     } else if (this.exo === '4L14-2') {
       typesDeQuestionsDisponibles = [9, 6, 7]

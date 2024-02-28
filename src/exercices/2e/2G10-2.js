@@ -1,9 +1,9 @@
 import demonstrationsParallelogrammes from '../5e/5G42.js'
 export const titre = 'Déterminer la nature de parallélogrammes'
+export const interactifReady = false
 
 /**
  * Clone de 5G42 pour les 2nde
- *
  * @author Sébastien LOZANO
  */
 export const uuid = '86a65'

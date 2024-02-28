@@ -6,11 +6,10 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Trouver des probabilités simples'
+export const dateDePublication = '01/05/2021'
 /**
  * Description didactique de l'exercice
  * @author Rémi Angot et Matthieu Devillers
- * Référence 5S21-1
- * Publié le 1/5/2021
 */
 export const uuid = '850b0'
 export const ref = '5S21-1'
@@ -20,7 +19,6 @@ export const refs = {
 }
 export default function ProbabilitesSimples () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX

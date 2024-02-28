@@ -1,6 +1,7 @@
 import ProblemesAdditifsFractionsBis from '../4e/4C25-0.js'
 
 export const titre = 'Résoudre des problèmes additifs et de comparaison sur les fractions'
+export const interactifReady = false
 
 /**
  * Clone de 4C25-0 pour les 2nde
