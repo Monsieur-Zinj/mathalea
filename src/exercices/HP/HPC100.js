@@ -35,15 +35,16 @@ export default function DivisionDePolynomes () {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0)
       // Diviseur D(x)
-        [`D:=x+${a}`,
-          'P:=simplify(D*product(randint(2)*x+(2*randint(1)-1)*randint(1,3),k,1,2)))',
-          'E1:=simplify(lcoeff(P)*x^2*D)', // Etapes de la division
-          'E2:=simplify(P-E1)',
-          'E3:=simplify(lcoeff(E2)*x^(degree(E2)-1)*D)',
-          'E4:=simplify(E2-E3)',
-          'E5:=simplify(lcoeff(E4)*D)',
-          'E6:=simplify(E4-E5)'
-        ].forEach(e => `${xcas(e)}`)
+      const cmds = [`D:=x+${a}`,
+        'P:=simplify(D*product(randint(2)*x+(2*randint(1)-1)*randint(1,3),k,1,2)))',
+        'E1:=simplify(lcoeff(P)*x^2*D)', // Etapes de la division
+        'E2:=simplify(P-E1)',
+        'E3:=simplify(lcoeff(E2)*x^(degree(E2)-1)*D)',
+        'E4:=simplify(E2-E3)',
+        'E5:=simplify(lcoeff(E4)*D)',
+        'E6:=simplify(E4-E5)'
+      ]
+      cmds.forEach(e => xcas(e))
       // Enoncé
       texte = `$P(x)=${xcas('P')} \\text{ par } D(x)=${xcas('D')}$`
       // Corrigé
