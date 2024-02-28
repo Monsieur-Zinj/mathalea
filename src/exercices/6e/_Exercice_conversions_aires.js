@@ -437,22 +437,22 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     // texte += '\\\\'
     if (hectare) {
       for (let i = first; i < first + 2; i++) {
-        texte += '\\begin{array}{c c}'
+        texte += '\\begin{array}{cc}'
         texte += '\\hspace*{0.4cm} & \\hspace*{0.4cm} \\\\'
         texte += '\\end{array}&'
       }
-      texte += '\\begin{array}{c:c}'
+      texte += '\\begin{array}{c|c}'
       texte += '\\hspace*{0.4cm} & ha\\\\'
       texte += '\\end{array}&'
-      texte += '\\begin{array}{c:c}'
+      texte += '\\begin{array}{c|c}'
       texte += '\\hspace*{0.2cm} & a\\\\'
       texte += '\\end{array}&'
-      texte += '\\begin{array}{c:c}'
+      texte += '\\begin{array}{c|c}'
       texte += '\\hspace*{0.4cm} & ca\\\\'
       texte += '\\end{array}&'
 
       for (let i = first + 4; i < end; i++) {
-        texte += '\\begin{array}{c c}'
+        texte += '\\begin{array}{cc}'
         texte += '\\hspace*{0.4cm} & \\hspace*{0.4cm} \\\\'
         texte += '\\end{array}'
         texte += (i !== end - 1 ? ' & ' : '')
@@ -461,7 +461,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     }
     texte += '\\hline'
     for (let i = first; i < end; i++) {
-      texte += '\\begin{array}{c:c}'
+      texte += '\\begin{array}{c|c}'
       texte += `${aT[2 * i]} & ${aT[2 * i + 1]}  \\\\`
       texte += !correction ? ` ${rT[2 * i]} & ${rT[2 * i + 1]}  \\\\` : ''
       texte += '\\end{array}'
@@ -470,7 +470,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     for (let k = 3; k <= ligne; k++) {
       texte += '\\\\ \\hline '
       for (let i = first; i < end; i++) {
-        texte += '\\begin{array}{c:c}'
+        texte += '\\begin{array}{c|c}'
         texte += ' & \\\\'
         texte += '\\end{array}'
         texte += (i !== end - 1 ? ' & ' : '')

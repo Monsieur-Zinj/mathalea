@@ -403,7 +403,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     texte += ' \\hline '
 
     for (let i = first; i < end; i++) {
-      texte += '\\begin{array}{c:c:c}'
+      texte += '\\begin{array}{c|c|c}'
       texte += `${aT[3 * i]} & ${aT[3 * i + 1]}& ${aT[3 * i + 2]}  \\\\`
       texte += !correction ? ` ${rT[3 * i]} & ${rT[3 * i + 1]}& ${rT[3 * i + 2]}  \\\\` : ''
       texte += '\\end{array}'
@@ -412,7 +412,7 @@ function buildTab (a, uniteA, r, uniteR, ligne = 2, force = false, correction = 
     for (let k = 3; k <= ligne; k++) {
       texte += '\\\\ \\hline '
       for (let i = first; i < end; i++) {
-        texte += '\\begin{array}{c:c:c}'
+        texte += '\\begin{array}{c|c|c}'
         texte += ' & & \\\\'
         texte += '\\end{array}'
         texte += (i !== end - 1 ? ' & ' : '')
