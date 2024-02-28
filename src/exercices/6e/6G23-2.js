@@ -13,7 +13,6 @@ export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angl
 /**
  * Un nombre à 2 chiffres (non multiple de 10) + 9
  * @author Rémi Angot
- * Références 6G23-2 et 5G20-2
  */
 export const uuid = '1ad45'
 export const ref = '6G23-2'

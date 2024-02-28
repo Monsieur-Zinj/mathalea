@@ -1,9 +1,11 @@
 import ConstruireParSymetrie from '../6e/_Construire_par_symetrie.js'
 
 export const titre = 'Construire le symétrique d\'un triangle par rapport à une droite'
+export const interactifReady = false
+export const amcReady = true
+export const amcType = 'AMCOpen'
 export const dateDeModifImportante = '14/11/2021'
 /**
- * Référence 5G10-2
  * @author Jean-Claude Lhote
  */
 export const uuid = '8ea24'

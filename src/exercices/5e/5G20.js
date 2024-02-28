@@ -1,10 +1,9 @@
 import ConstruireUnTriangleAvecCible from '../6e/_Construire_un_triangle_avec_cible.js'
 export const titre = 'Construire un triangle avec cible auto-corrective'
+export const interactifReady = false
 
 /**
  * @author Jean-Claude Lhote
- * référence 5G20
- *
  */
 export const uuid = 'a808d'
 export const ref = '5G20'
@@ -14,6 +13,5 @@ export const refs = {
 }
 export default function ConstruireUnTriangleAvecCible5e () {
   ConstruireUnTriangleAvecCible.call(this)
-  this.titre = titre
   this.classe = 5
 }
