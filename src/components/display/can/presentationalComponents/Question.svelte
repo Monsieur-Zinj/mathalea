@@ -75,7 +75,7 @@
 <div
   id="question-content-{index}"
   class={visible
-    ? 'p-4 md:p-20 flex flex-col justify-center items-center font-normal leading-relaxed'
+    ? 'px-4 md:px-20 lg:px-32 flex flex-col justify-center items-center font-normal leading-relaxed overflow-y-auto h-[100%]  w-[100%] text-justify'
     : 'hidden'}
   bind:this={questionContainer}
 >
