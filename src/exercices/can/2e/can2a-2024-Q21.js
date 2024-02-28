@@ -25,7 +25,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
+    this.formatChampTexte = 'largeur01 inline nospacebefore blocCenter' + KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fractionEgale'
   }
 
