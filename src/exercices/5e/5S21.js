@@ -23,8 +23,6 @@ export const refs = {
 }
 export default function FonctionsProbabilite1 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 4
   this.nbQuestionsModifiable = true
   this.nbCols = 1

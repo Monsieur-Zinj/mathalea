@@ -1,4 +1,5 @@
 import FractionsIrreductibles from '../3e/3A11.js'
+export const interactifReady = false
 
 export const titre = 'Rendre irréductible une fraction'
 

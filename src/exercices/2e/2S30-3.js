@@ -1,9 +1,9 @@
 import ProbabilitesSimples from '../5e/5S21-1.js'
 export const titre = 'Calculer des probabilités simples'
+export const interactifReady = false
 
 /**
  * Clone de 5S21-1 pour les 2nde
- *
  * @author Sébastien LOZANO
  */
 export const uuid = '0cf54'

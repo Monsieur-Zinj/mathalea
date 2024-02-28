@@ -12,7 +12,6 @@ export const titre = 'Trouver l\'erreur dans une résolution d\'équation du pre
 
 /**
  * * Trouver l'erreur dans une equation
- * * 4L15-0
  * @author Sébastien Lozano
  */
 export const uuid = 'df5a3'

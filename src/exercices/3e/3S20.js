@@ -15,7 +15,6 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
 /**
  * Calculs de probabilités sur une expérience aléatoire à deux épreuves
  * @author Jean-Claude Lhote
- * 3S20
  */
 export const uuid = '04f53'
 export const ref = '3S20'
@@ -25,7 +24,6 @@ export const refs = {
 }
 export default function FonctionsProbabilite2 () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.consigne = ''
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.nbCols = 1

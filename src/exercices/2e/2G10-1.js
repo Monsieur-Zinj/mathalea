@@ -1,9 +1,11 @@
 import EgaliteDAngles from '../5e/5G30-1.js'
 export const titre = 'Déterminer des angles en utilisant les cas d\'égalité'
+export const interactifReady = false
+export const amcReady = true
+export const amcType = 'AMCHybride'
 
 /**
  * Clone de 5G42 pour les 2nde
- *
  * @author Sébastien LOZANO
  */
 export const uuid = '430b9'

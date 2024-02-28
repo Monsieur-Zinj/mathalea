@@ -23,11 +23,9 @@ export default function FractionsIrreductibles () {
   Exercice.call(this) // Héritage de la classe Exercice()
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.'
-  // this.consigne += `<br>`;
   context.isHtml ? this.spacing = 4 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2
   this.nbQuestions = 1
-  // this.correctionDetailleeDisponible = true;
   this.nbCols = 1
   this.nbColsCorr = 1
   this.listePackages = 'bclogo'
@@ -39,7 +37,6 @@ export default function FractionsIrreductibles () {
       // this.boutonAide = '';
       this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A12.pdf', 'Aide mémoire sur les fonctions (Sébastien Lozano)', 'Aide mémoire')
       // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
-    } else { // sortie LaTeX
     }
 
     this.listeQuestions = [] // Liste de questions
@@ -47,7 +44,6 @@ export default function FractionsIrreductibles () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 
-    // let typesDeQuestionsDisponibles = [1,2,3,4];
     const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 

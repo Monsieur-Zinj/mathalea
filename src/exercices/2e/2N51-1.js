@@ -1,5 +1,6 @@
 import TesterSiUnNombreEstSolutionDUneEquation from '../4e/4L14-0.js'
 export const titre = 'Tester si un nombre est solution d\'une équation'
+export const interactifReady = false
 
 /**
  * Clone de 4L14-0 pour les 2nde

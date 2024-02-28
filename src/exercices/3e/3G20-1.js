@@ -18,7 +18,6 @@ export const titre = 'Problèmes avec le théorème de Thalès'
 /**
 * Banque de problèmes utilisant le théorème de Thalès et différentes propriétés de géométrie
 * @author Rémi Angot
-* 3G20-1
 */
 export const uuid = 'eea67'
 export const ref = '3G20-1'
@@ -28,7 +27,6 @@ export const refs = {
 }
 export default function ProblemesThales () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
