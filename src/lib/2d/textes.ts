@@ -6,6 +6,8 @@ import { stringNombre } from '../outils/texNombre'
 import { point, Point } from './points.js'
 import { Point3d } from '../../modules/3d'
 import { Polygone } from './polygones'
+
+export type AncrageDeRotationType = 'gauche'|'milieu'|'droite'
 export const tikzAncrages = {
   gauche: 'west',
   milieu: 'center',
@@ -218,7 +220,7 @@ export class TexteParPoint extends ObjetMathalea2D {
   orientation: number
   color: [string, string]
   scale: number
-  ancrageDeRotation: 'milieu' | 'gauche' | 'droite'
+  ancrageDeRotation: AncrageDeRotationType
   mathOn: boolean
   opacite: number
   gras: boolean
@@ -228,7 +230,7 @@ export class TexteParPoint extends ObjetMathalea2D {
   contour: boolean
   taille: number
 
-  constructor (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'gauche' | 'droite' = 'milieu', mathOn: boolean = false, opacite: number = 1) {
+  constructor (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: AncrageDeRotationType = 'milieu', mathOn: boolean = false, opacite: number = 1) {
     super()
     if (typeof orientation !== 'number') {
       if (orientation === 'milieu' || typeof orientation === 'string') {
@@ -339,7 +341,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
   orientation:number
   color:[string, string]
   scale:number
-  ancrageDeRotation:'milieu' | 'droite' | 'gauche'
+  ancrageDeRotation:AncrageDeRotationType
   mathOn:boolean
   scaleFigure:number
   contour: boolean
@@ -347,7 +349,7 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
   opaciteDeRemplissage!: number
   bordures: [number, number, number, number]
   taille: number
-  constructor (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: 'milieu' | 'droite' | 'gauche' = 'milieu', mathOn: boolean = false, scaleFigure: number) {
+  constructor (texte: string, A: Point, orientation: number = 0, color: string = 'black', scale: number = 1, ancrageDeRotation: AncrageDeRotationType = 'milieu', mathOn: boolean = false, scaleFigure: number) {
     super()
     if (typeof orientation !== 'number') {
       if (orientation === 'milieu' || typeof orientation === 'string') {
@@ -416,10 +418,10 @@ export function texteParPositionEchelle (texte:string, x:number, y:number, orien
  * @param {string} texte // Le texte qu'on veut afficher
  * @param {number} x // L'abscisse de la position initiale du texte
  * @param {number} y // L'ordonnée de la position initiale du texte
- * @param {string} orientation=['milieu'] // Angle d'orientation du texte ou bien 'milieu', gauche' ou 'droite'. Voir exemple
+ * @param {number} [orientation=0] // Angle d'orientation du texte ou bien 'milieu', gauche' ou 'droite'. Voir exemple
  * @param {string} [color='black'] // Couleur du texte
  * @param {number} [scale=1] // Echelle du texte.
- * @param {string} [ancrageDeRotation='middle'] // Choix parmi 'middle', 'start' ou 'end'. En cas d'orientation avec un angle, permet de savoir où est le centre de la rotation par rapport au texte.
+ * @param {AncrageDeRotationType} [ancrageDeRotation='milieu'] // Choix parmi 'middle', 'start' ou 'end'. En cas d'orientation avec un angle, permet de savoir où est le centre de la rotation par rapport au texte.
  * @param {string} [mathOn=false] // Ecriture dans le style de Latex.
  *
  * @author Rémi Angot
@@ -429,7 +431,7 @@ export function texteParPosition (texte:string, x:number, y:number, orientation:
     ancrageDeRotation = orientation
     orientation = 0
   }
-  // @ts-expect-error TS2367
+  // @ts-expect-error TS2367 // normalement ts devrait veiller au grain, sauf que plein d'exo tournant en js ont mal utilisé ces paramètres, donc on blinde.
   if (ancrageDeRotation === 'middle') ancrageDeRotation = 'milieu'
   if (!['milieu', 'droite', 'gauche'].includes(ancrageDeRotation)) ancrageDeRotation = 'milieu'
   if (texte[0] === '$') {
@@ -497,14 +499,16 @@ export function latexParPoint (texte: string, A:Point, color:string = 'black', l
 }
 
 /**
- * @param {String} texte Le code latex qui sera mis en mode math en ligne. Ex : '\\dfrac{4}{5}\\text{cm}'
- * @param {Number} x abscisse du point de centrage
- * @param {Number} y ordonnée du point de centrage
- * @param {String} [color] couleur
- * @param {Number} [largeur] Dimensions de la 'box' rectangulaire conteneur de la formule en pixels en considérant la taille de caractère 8='\footnotesize'
- * @param {Number} [hauteur] Idem pour la hauteur de la box. Prévoir 20 par exemple pour une fraction. Permet le centrage correct.
- * @param {String} [colorBackground] Couleur du fond de la box. Chaine vide pour un fond transparent.
- * @param {Number} [tailleCaracteres] Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
+ * @param {string} texte Le code latex qui sera mis en mode math en ligne. Ex : '\\dfrac{4}{5}\\text{cm}'
+ * @param {number} x abscisse du point de centrage
+ * @param {number} y ordonnée du point de centrage
+ * @param {string} [color] couleur
+ * @param {number} [largeur] Dimensions de la 'box' rectangulaire conteneur de la formule en pixels en considérant la taille de caractère 8='\footnotesize'
+ * @param {number} [hauteur] Idem pour la hauteur de la box. Prévoir 20 par exemple pour une fraction. Permet le centrage correct.
+ * @param {string} [colorBackground] Couleur du fond de la box. Chaine vide pour un fond transparent.
+ * @param {number} [tailleCaracteres] Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
+ * @return LatexParCoordonnees
+ * @class
  */
 export class LatexParCoordonnees extends ObjetMathalea2D {
   x: number
@@ -515,7 +519,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
   texte: string
   bordures: [number, number, number, number]
   taille: string
-  constructor (texte: string, x: number, y: number, color: string, largeur: number, hauteur: number, colorBackground: string = '', tailleCaracteres: number) {
+  constructor (texte: string, x: number, y: number, color: string, largeur: number, hauteur: number, colorBackground: string = '', tailleCaracteres: number = 8) {
     super()
     this.x = x
     this.y = y
@@ -549,9 +553,9 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
   svg () {
     let divLatex
     if (this.colorBackground !== '') {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\colorbox{' + colorToLatexOrHTML(this.colorBackground)[0] + '}{ ' + this.taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
+      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%);">${katex.renderToString('\\colorbox{' + colorToLatexOrHTML(this.colorBackground)[0] + '}{ ' + this.taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
     } else {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%); ">${katex.renderToString('\\color{' + this.color[0] + '}' + this.taille + ' ' + this.texte + '')}</div>`
+      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%);">${katex.renderToString('\\color{' + this.color[0] + '}' + this.taille + ' ' + this.texte + '')}</div>`
     }
     /* const thisX = this.x
       const thisY = this.y
@@ -569,6 +573,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
     return code
   }
 }
+
 export function latexParCoordonnees (texte: string, x:number, y:number, color:string = 'black', largeur: number = 50, hauteurLigne:number = 20, colorBackground:string = '', tailleCaracteres:number = 8) {
   if (texte === '') return vide2d()
   else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)

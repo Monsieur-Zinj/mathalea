@@ -54,7 +54,7 @@ export function droiteAvecNomLatex (d, nom) { // nom est un latexParCoordonnees
       }
     }
   }
-  const leNom = latexParCoordonnees(nom, absNom, ordNom, d.color, 0, 0, '', 8)
+  const leNom = latexParCoordonnees(nom, absNom, ordNom, d.color, 0, 0, '', 8, d.angleAvecHorizontale)
   return [d, leNom]
 }
 
