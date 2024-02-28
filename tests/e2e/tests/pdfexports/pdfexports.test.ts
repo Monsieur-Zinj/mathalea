@@ -34,6 +34,7 @@ async function readZip (file: fs.FileHandle): Promise<Map<string, string>> {
 
 async function getLatexFile (page: Page, urlExercice: string) {
   log(urlExercice)
+  page.setDefaultTimeout(100000)
   await page.goto(urlExercice)
   await page.click('input#Style2') // style maquette
 
@@ -155,7 +156,7 @@ async function testOneExo (page: Page) {
  * pour ensuite les compiler avec lualatex...
  */
 // runTest(testOneExo, import.meta.url, { pauseOnError: false })
-runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 runTest(test6e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
+runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })

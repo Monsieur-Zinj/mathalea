@@ -16,7 +16,7 @@ import referentielStatic from '../json/referentielStatic.json'
 import 'katex/dist/katex.min.css'
 import renderScratch from './renderScratch.js'
 import { decrypt, isCrypted } from './components/urls.js'
-import type { InterfaceGlobalOptions, InterfaceParams } from './types.js'
+import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type VueType } from './types.js'
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
 import { handleAnswers, setReponse } from './interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
@@ -43,6 +43,80 @@ function getExerciceByUuid (root: object, targetUUID: string): object | null {
   }
 
   return null
+}
+
+/*
+ Chargement d'un composant SVELTE
+ ATTENTION : oliger d'être daans ce répertoire, sinon différence entre le serveur de test et de production
+*/
+export async function getSvelteComponent (paramsExercice: InterfaceParams) {
+  const urlExercice = uuidToUrl[paramsExercice.uuid as keyof typeof uuidToUrl]
+
+  let filename, directory
+  if (urlExercice) {
+    [filename, directory] = urlExercice.replaceAll('\\', '/').split('/').reverse()
+  }
+  try {
+    if (filename && filename.includes('.svelte')) {
+      return (await import(`../exercicesInteractifs/${directory === undefined ? '' : `${directory}/`}${filename.replace('.svelte', '')}.svelte`)).default
+    }
+  } catch (err) {
+    console.log(`Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier  ${directory === undefined ? '' : `${directory}/`}${filename}`)
+  }
+  throw new Error(`Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier ${directory === undefined ? '' : `${directory}/`}${filename}`)
+}
+
+/**
+ * Charge un svelte exercice depuis son uuid
+ * Exemple : mathaleaLoadSvelteExerciceFromUuid('clavier')
+ * @param {string} uuid
+ * @returns {Promise<Exercice>} exercice
+ */
+export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
+  const url = uuidToUrl[uuid as keyof typeof uuidToUrl]
+  let filename, directory, isCan
+  if (url) {
+    [filename, directory, isCan] = url.replaceAll('\\', '/').split('/').reverse()
+  }
+  try {
+    // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
+    // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
+    // L'extension doit-être visible donc on l'enlève avant de la remettre...
+    let module: any
+    if (isCan === 'can') {
+      if (filename != null && filename.includes('.ts')) {
+        module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
+      } else if (filename != null) {
+        module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+      }
+    } else {
+      if (filename != null && filename.includes('.ts')) {
+        module = await import(`../exercices/${directory}/${filename.replace('.ts', '')}.ts`)
+      } else if (filename != null) {
+        module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
+      }
+    }
+    const ClasseExercice = module.default
+    const exercice = new ClasseExercice()
+        ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
+      if (module[p] !== undefined) exercice[p] = module[p]
+    })
+    ;(await exercice).id = filename
+    if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
+      animationLoading(true)
+      await loadGiac()
+      animationLoading(false)
+    }
+    return exercice
+  } catch (error) {
+    console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
+    console.log(error)
+    const exercice = new Exercice()
+    exercice.titre = `Uuid ${uuid} - Problème à signaler`
+    exercice.nouvelleVersion = () => {
+    }
+    return exercice
+  }
 }
 
 /**
@@ -317,7 +391,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
  */
 export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.location.href): InterfaceGlobalOptions {
   let urlNeedToBeFreezed = false
-  let v = ''
+  let v: VueType | undefined
   let z = '1'
   let durationGlobal = 0
   let nbVues = 1
@@ -393,7 +467,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {
       newListeExercice[indiceExercice].cd = entry[1]
     } else if (entry[0] === 'v') {
-      v = entry[1]
+      v = convertVueType(entry[1])
     } else if (entry[0] === 'recorder') {
       if (entry[1] === 'capytale' || entry[1] === 'moodle' || entry[1] === 'labomep' || entry[1] === 'anki') {
         recorder = entry[1]
@@ -439,7 +513,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     if (entry[0] === 'uuid') previousEntryWasUuid = true
     else previousEntryWasUuid = false
   }
-  exercicesParams.update((l) => {
+  exercicesParams.update(() => {
     return newListeExercice
   })
   if (urlNeedToBeFreezed) {
