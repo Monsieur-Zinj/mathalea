@@ -1,0 +1,56 @@
+import Exercice from '../../Exercice'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+import { choice } from '../../../lib/outils/arrayOutils'
+import { prenomF } from '../../../lib/outils/Personne'
+import { context } from '../../../modules/context'
+export const titre = 'Calculer une durée en minutes'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = '7eb06'
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+ * Référence
+*/
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatInteractif = 'calcul'
+    this.canOfficielle = true
+  }
+
+  nouvelleVersion () {
+    if (this.canOfficielle) {
+      this.reponse = '55'
+      this.question = `Eugène part à la piscine à $8$ h $10$ min et arrive à $9$ h $05$ min.<br>
+      La durée  de son trajet ${this.interactif ? 'en minutes' : ''} est de : `
+      this.correction = `Pour atteindre $9$ h, il faut $50$ min, puis il faut ajouter encore $5$
+      min pour atteindre $9$ h $05$ min. <br>Son trajet aura  duré  $${miseEnEvidence('55')}$ min.`
+      if (this.interactif) {
+        this.optionsChampTexte = { texteApres: 'min' }
+      } else { this.question += `${context.isHtml ? '$\\ldots$ min' : ''}` }
+    } else {
+      const a = randint(14, 19)
+      const b = choice([20, 25, 35, 45, 55])
+
+      const d = choice([5, 10, 15, 20, 25])
+      this.reponse = 60 - b + d
+      const prenom1 = prenomF()
+      this.question = `${prenom1} part à  $${a}$ h $${b}$ min et arrive à  $${a + 1}$ h $${d}$ min.<br>
+          Quelle est la durée de son trajet ?`
+      this.correction = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${d}$
+           min pour atteindre $${a + 1}$ h $${d}$ min. <br>
+           Son trajet aura  duré  $${miseEnEvidence(60 - b + d)}$ min.`
+      if (this.interactif) {
+        this.optionsChampTexte = { texteApres: 'min' }
+      } else { this.question += `${context.isHtml ? '$\\ldots$ min' : ''}` }
+    }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ' $\\ldots$ min'
+  }
+}

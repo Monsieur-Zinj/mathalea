@@ -1,0 +1,43 @@
+import Exercice from '../../Exercice'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { randint } from '../../../modules/outils'
+export const titre = 'Calculer avec les tables de multiplication'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = '107a3'
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+ * Référence
+*/
+export default class NomExercice extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.nbQuestions = 1
+    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatInteractif = 'calcul'
+    this.canOfficielle = true
+  }
+
+  nouvelleVersion () {
+    if (this.canOfficielle) {
+      this.reponse = 45
+      this.question = '$5\\times 9$ '
+      this.correction = `$5\\times 9=${miseEnEvidence(45)}$`
+    } else {
+      const a = randint(5, 9)
+      const b = randint(5, 9)
+      this.reponse = a * b
+      this.question = `$${a} \\times ${b}$ `
+      this.correction = `$${a} \\times ${b}=${miseEnEvidence(texNombre(this.reponse, 0))}$`
+    }
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
+    if (this.interactif) {
+      this.question += '$=$'
+    }
+  }
+}
