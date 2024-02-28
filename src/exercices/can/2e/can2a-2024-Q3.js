@@ -26,7 +26,10 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.question = 'Forme développée réduite de  $(x+7)(x+4)$<br>'
-      this.correction = `$(x+7)(x+4)=x^2+7x+4x+28=${miseEnEvidence('x^2+11x+28')}$`
+      this.correction = `$\\begin{aligned}
+      (x+7)(x+4)&=x^2+7x+4x+28\\\\
+      &=${miseEnEvidence('x^2+11x+28')}
+      \\end{aligned}$`
       this.correction += '<br>Le terme en $x^2$ vient de $x\\times x=x^2$.'
       this.correction += '<br>Le terme en $x$ vient de la somme de $7 \\times x$ et de $4 \\times x$.'
       this.correction += '<br>Le terme constant vient de $7\\times 4=28$.'
@@ -37,7 +40,10 @@ export default class NomExercice extends Exercice {
       const c = randint(1, 2)
       const d = randint(-5, 5, [0, b])
       this.question = `Développer et réduire l'expression $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$.`
-      this.correction = `$(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}=${miseEnEvidence(reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d))}$`
+      this.correction = `$\\begin{aligned}
+      (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})&=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}\\\\
+      &=${miseEnEvidence(reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d))}
+      \\end{aligned}$`
       this.correction += `<br>Le terme en $x^2$ vient de $${rienSi1(a)}x\\times ${ecritureParentheseSiNegatif(c)}x=${rienSi1(a * c)}x^2$.`
       this.correction += `<br>Le terme en $x$ vient de la somme de $${rienSi1(a)}x \\times ${ecritureParentheseSiNegatif(d)}$ et de $${b} \\times ${ecritureParentheseSiNegatif(c)}x$.`
       this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`

@@ -27,7 +27,10 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.question = 'Valeur de $9x+2$ pour $x=-2$<br>'
       this.correction = `Pour $x=-2$, on obtient :  <br>
-          $9\\times(-2)+2=-18+2=${miseEnEvidence('-16')}$.`
+          $\\begin{aligned}
+          9\\times(-2)+2&=-18+2\\\\
+          &=${miseEnEvidence('-16')}
+          \\end{aligned}$.`
       this.reponse = '-16'
     } else {
       const a = randint(2, 6)
@@ -35,8 +38,8 @@ export default class NomExercice extends Exercice {
       const truc = randint(-4, -2)
       const choix = choice([true, false])
       this.question = `Valeur de ${choix ? `$${a}+${b}x$` : `$${b}x+${a}$`} pour $x=${truc}$ `
-      this.correction = `Pour $x=${truc}$, on obtient :  
-            ${choix ? `$${a}+${b}x=${a}+${b}\\times(${truc})=${miseEnEvidence(a + b * truc)}$.` : `$${b}x+${a}=${b}\\times(${truc})+${a}=${miseEnEvidence(a + b * truc)}$.`}
+      this.correction = `Pour $x=${truc}$, on obtient : <br> 
+            ${choix ? `$\\begin{aligned}${a}+${b}x&=${a}+${b}\\times(${truc})\\\\&=${miseEnEvidence(a + b * truc)}\\end{aligned}$.` : `$\\begin{aligned}${b}x+${a}&=${b}\\times(${truc})+${a}\\\\&=${miseEnEvidence(a + b * truc)}\\end{aligned}$.`}
             `
       this.reponse = a + b * truc
     }
