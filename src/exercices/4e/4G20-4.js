@@ -10,12 +10,12 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '27/06/2021'
 export const titre = 'Arrondir une racine carrée'
 
 /**
  * * Arrondir_une_valeur
- * * 4G20-4
- * @author Mireille Gain, 27 juin 2021
+ * @author Mireille Gain
  */
 
 export const uuid = '41187'
@@ -26,13 +26,9 @@ export const refs = {
 }
 export default function ArrondirUneValeur () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-
   this.nbQuestions = 3
   this.nbColsCorr = 1
   this.version = 1
-  this.interactifType = interactifType
-  this.interactifReady = interactifReady
   context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
 
   this.nouvelleVersion = function () {

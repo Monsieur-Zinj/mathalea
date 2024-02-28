@@ -29,7 +29,6 @@ export const dateDeModifImportante = '31/03/2023'
  * - Réduction de la plage des pentes possibles dans le cas d'un coefficient directeur 'en quart' pour que les droites passent par un point de coordonnées entières visible
  * - Factorisation des dimensions de la grille
  * - Ajout d'un paramètre Mélange
- * Référence : 3F21-1
  */
 export const uuid = 'e5ddd'
 export const ref = '3F21-1'
@@ -39,10 +38,6 @@ export const refs = {
 }
 export default function LectureExpressionFonctionsAffines () {
   Exercice.call(this) // Héritage de la classe Exercice()
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
@@ -52,8 +47,6 @@ export default function LectureExpressionFonctionsAffines () {
   this.sup = 1
   this.sup2 = 3
   this.lineaire = false
-  this.amcReady = amcReady
-  this.amcType = amcType
 
   this.nouvelleVersion = function (numeroExercice) {
     let explain = ''

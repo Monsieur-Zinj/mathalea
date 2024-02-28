@@ -33,7 +33,6 @@ export const refs = {
 }
 export default function ConservationTransformation () {
   Exercice.call(this)
-  this.consigne = ''
   this.nbQuestions = 2
 
   this.besoinFormulaireNumerique = ['Transformations', 4, '1 : Symétrie axiale\n2 : Symétrie centrale\n3 : Symétrie axiale ou centrale\n4 : Translation'] // Je n'ajoute pas de nouvelle option de mélange, ce serait bien d'ajouter la rotation avant.

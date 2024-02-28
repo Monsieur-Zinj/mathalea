@@ -20,7 +20,6 @@ export const titre = 'Arrondir une valeur'
 
 /**
  * * Encadrer_puis_arrondir_une_valeur
- * * 6N31-3
  * @author Mireille Gain, s'inspirant de 6N31-1 de Sébastien Lozano
  * Ajout Nouvel AMC : Janvier 2022 par EE
  */
