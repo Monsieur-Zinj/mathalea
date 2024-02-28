@@ -71,10 +71,10 @@ export default function CalculCotePythagore () {
         \\end{aligned}$
 
         ${reductible ? `En simplifiant, on obtient : $${nom[1]}${nom[2]} = ${texRacineCarree(c2)}$` : ''}
-        
+        <br>
         `
     // this.reponse = calcul(b ** 2 - a ** 2)
-    this.correction += texteEnCouleur(`<br> Mentalement : <br>
+    this.correction += texteEnCouleur(`Mentalement : <br>
     La longueur $${nom[1]}${nom[2]}$ est donnée par la racine carrée de la différence des carrés de $${b}$ et de $${a}$.<br>
     Cette différence vaut $${b ** 2}-${a ** 2}=${c2}$. <br>
     La valeur cherchée est donc : $\\sqrt{${c2}}${reductible ? '=' + texRacineCarree(c2) : ''}$.`)
