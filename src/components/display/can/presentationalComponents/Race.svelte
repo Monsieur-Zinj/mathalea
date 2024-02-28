@@ -9,6 +9,7 @@
   import Keyboard from '../../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../../keyboard/stores/keyboardStore'
   import { millisecondToMinSec } from '../../../../lib/components/time'
+    import Timer from './Timer.svelte';
 
   export let state: CanState
   export let numberOfSeconds: number = 20
@@ -21,31 +22,16 @@
 
   let remainingTime = numberOfSeconds * 100
   const totalTime = numberOfSeconds * 100
-  let displayedTime: string = '00:00'
-  $: widthFactor = remainingTime / totalTime
+
+  function endTimer(event) {
+    /**
+     * Timer fini
+     * A Continuer
+    */
+    handleEndOfRace()
+	}
+
   onMount(() => {
-    const timeDisplayDiv =
-      widthFactor > 0.2
-        ? document.getElementById('time-display-1')
-        : document.getElementById('time-display-2')
-    if (timeDisplayDiv) {
-      interval = window.setInterval(() => {
-        const time = millisecondToMinSec(remainingTime * 10)
-        const formattedtime = [
-          time.minutes.toString().padStart(2, '0'),
-          time.seconds.toString().padStart(2, '0')
-        ].join(':')
-        displayedTime = formattedtime
-        timeDisplayDiv.textContent = displayedTime
-        const nexttime = --remainingTime
-        // sauvegarde du temps restant dans le store
-        $canOptions.remainingTimeInSeconds = remainingTime / 100
-        if (nexttime === 0) {
-          // course terminée
-          handleEndOfRace()
-        }
-      }, 10)
-    }
   })
   /**
    * Gestion de la fion de la course : on annule le décompte,
@@ -53,7 +39,6 @@
    * et on bascule sur l'état `end`
    */
   function handleEndOfRace () {
-    window.clearInterval(interval)
     if ($canOptions.isInteractive) {
       checkAnswers()
     }
@@ -70,8 +55,9 @@
 <div
   class="w-full h-full flex flex-col justify-between items-center overflow-y-hidden bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
+  
   <div class="w-full flex flex-col">
-    <ElapsedTime {widthFactor} {displayedTime} />
+    <Timer durationInMilliSeconds={numberOfSeconds * 1000} on:message={endTimer}/>
     <Pagination bind:current {numberOfQuestions} state={'race'} resultsByQuestion={[]} />
   </div>
   <div
