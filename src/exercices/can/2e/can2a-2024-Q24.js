@@ -15,7 +15,7 @@ export default class NomExercice extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.canOfficielle = true
+    this.canOfficielle = false
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore'
@@ -29,7 +29,7 @@ export default class NomExercice extends Exercice {
       this.question = 'Coordonnées du point $M$ milieu du segment $[AB]$ où $A(2\\,;\\,20)$ et $B(8\\,;\\,10)$<br>'
       this.correction = `Les coordonnées du milieu sont données par la moyenne des abscisses et la moyenne des ordonnées : <br>
     $x_M=\\dfrac{2+8}{2}=${miseEnEvidence(texNombre(5))}$ et $y_M=\\dfrac{20+10}{2}=${miseEnEvidence(texNombre(15))}$.<br>
-    Ainsi,  $M(${miseEnEvidence(this.reponse)})$.`
+    Ainsi,  $M(${miseEnEvidence('5\\,;\\,15')})$.`
     } else {
       const xa = randint(1, 5) * 2
       const ya = randint(1, 5) * 2
@@ -42,7 +42,7 @@ export default class NomExercice extends Exercice {
 
       this.correction = `Les coordonnées du milieu sont données par la moyenne des abscisses et la moyenne des ordonnées : <br>
       $x_M=\\dfrac{${xa}+${xb}}{2}=${miseEnEvidence(texNombre(xm, 0))}$ et $y_M=\\dfrac{${ya}+${yb}}{2}=${miseEnEvidence(texNombre(ym, 0))}$.<br>
-      Ainsi,  $M(${miseEnEvidence(this.reponse)})$.`
+      Ainsi,  $M(${miseEnEvidence(`${xm}\\,;\\,${ym}`)})$.`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

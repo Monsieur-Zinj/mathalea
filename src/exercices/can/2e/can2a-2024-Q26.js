@@ -27,13 +27,15 @@ export default class NomExercice extends Exercice {
       this.reponse = ['(x-5)(x+5)', '(x+5)(x-5)', '(x-5)(5+x)', '(5+x)(x-5)', '(x+5)(-5+x)', '(5+x)(-5+x)']
       this.question = ' Factoriser  $x^2-25$.<br>' //
       this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a+b)(a-b)$ avec $a=x$ et $b=5$.<br>
-    $x^2-25=x^2-5^2=${miseEnEvidence('(x-5)(x+5)')}$`
+    $\\begin{aligned}x^2-25&=x^2-5^2\\\\
+    &=${miseEnEvidence('(x-5)(x+5)')}\\end{aligned}$`
     } else {
       const a = randint(1, 10)
       this.reponse = [`(x-${a})(x+${a})`, `(x+${a})(x-${a})`, `(x-${a})(${a}+x)`, `(${a}+x)(x-${a})`]
       this.question = ` Factoriser  $x^2-${a * a}$.` //
       this.correction = `On utilise l'égalité remarquable $a^2-b^2=(a+b)(a-b)$ avec $a=x$ et $b=${a}$.<br>
-      $x^2-${a * a}=x^2-${a}^2=${miseEnEvidence(`(x-${a})(x+${a})`)}$`
+      $\\begin{aligned}x^2-${a * a}&=x^2-${a}^2\\\\
+      &=${miseEnEvidence(`(x-${a})(x+${a})`)}\\end{aligned}$`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

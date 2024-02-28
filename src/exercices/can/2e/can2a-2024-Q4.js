@@ -29,7 +29,11 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(22, 7)
       this.question = '$3+\\dfrac{1}{7}$ '
-      this.correction = `$3+\\dfrac{1}{7} = \\dfrac{3 \\times 7}{7} + \\dfrac{1}{7} = \\dfrac{21}{7} + \\dfrac{1}{7}  =${miseEnEvidence('\\dfrac{22}{7}')}$`
+      this.correction = `$\\begin{aligned}
+      3+\\dfrac{1}{7} &= \\dfrac{3 \\times 7}{7} + \\dfrac{1}{7}\\\\
+      & = \\dfrac{21}{7} + \\dfrac{1}{7}\\\\
+      &  =${miseEnEvidence('\\dfrac{22}{7}')}
+      \\end{aligned}$`
     } else {
       const listeFractions2 = [[1, 3], [2, 3], [3, 7], [2, 7], [4, 3], [5, 3], [4, 7], [1, 5], [3, 5], [1, 7], [2, 9], [1, 9], [7, 9], [1, 8], [5, 8]
       ]
@@ -41,7 +45,11 @@ export default class NomExercice extends Exercice {
       const d = new FractionEtendue(a * c + b, c)
       this.reponse = d
       this.question = `$${a}+${bSurC.texFraction}$ `
-      this.correction = `$${a}+${bSurC.texFraction} = \\dfrac{${a} \\times ${c}}{${c}} + ${bSurC.texFraction} = \\dfrac{${a * c}}{${c}} + ${bSurC.texFraction}  =${miseEnEvidence(d.texFraction)}$`
+      this.correction = `$\\begin{aligned}
+      ${a}+${bSurC.texFraction} &= \\dfrac{${a} \\times ${c}}{${c}} + ${bSurC.texFraction} \\\\
+      &= \\dfrac{${a * c}}{${c}} + ${bSurC.texFraction}\\\\
+      &  =${miseEnEvidence(d.texFraction)}
+      \\end{aligned}$`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

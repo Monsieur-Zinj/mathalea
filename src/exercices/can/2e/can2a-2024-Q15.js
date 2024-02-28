@@ -30,14 +30,20 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.reponse = '100.1'
       this.question = '$10^{-1}+10^{2}$'
-      this.correction = `$10^{-1}+10^{2}=${texNombre(0.1)} +${texNombre(100)}=${miseEnEvidence(texNombre(100.1))}$`
+      this.correction = `$\\begin{aligned}
+      10^{-1}+10^{2}&=${texNombre(0.1)} +${texNombre(100)}\\\\
+      &=${miseEnEvidence(texNombre(100.1))}
+      \\end{aligned}$`
     } else {
       const n1 = randint(2, 4)
       const n2 = randint(-3, 0)
       const choix = choice([true, false])
       this.reponse = arrondi(10 ** n1 + 10 ** n2, 3)
       this.question = `${choix ? `$10^{${n1}}+10^{${n2}}$ ` : `$10^{${n2}}+10^{${n1}}$ `}`
-      this.correction = `$${choix ? `10^{${n1}}+10^{${n2}}=${texNombre(10 ** n1, 0)} +${texNombre(10 ** n2, 3)}=` : `10^{${n2}}+10^{${n1}}=${texNombre(10 ** n2, 3)} +${texNombre(10 ** n1, 0)}=`}${miseEnEvidence(texNombre(this.reponse, 3))}$`
+      this.correction = `$\\begin{aligned}
+      ${choix ? `10^{${n1}}+10^{${n2}}&=${texNombre(10 ** n1, 0)} +${texNombre(10 ** n2, 3)}` : `10^{${n2}}+10^{${n1}}&=${texNombre(10 ** n2, 3)} +${texNombre(10 ** n1, 0)}`}\\\\
+      &=${miseEnEvidence(texNombre(this.reponse, 3))}
+      \\end{aligned}$`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
