@@ -444,9 +444,10 @@ class FractionEtendue extends Fraction {
    *
    * @returns {string}
    */
-  // toString () {
-  //   return this.valeurDecimale.toFixed(4)
-  // }
+  toString () {
+    return this.texFraction
+    // return this.valeurDecimale.toFixed(4)
+  }
 
   /**
    * Pour la conversion automatique en number
