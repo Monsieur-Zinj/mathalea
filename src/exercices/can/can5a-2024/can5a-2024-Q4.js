@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { intervallleStrictCompare } from '../../../lib/interactif/comparaisonFonctions'
+import { intervalleStrictCompare } from '../../../lib/interactif/comparaisonFonctions'
 export const titre = 'Compléter un encadrement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore'
-    this.compare = intervallleStrictCompare
+    this.compare = intervalleStrictCompare
     this.formatInteractif = 'calcul' // 'intervalleStrict'
     this.canOfficielle = false
   }

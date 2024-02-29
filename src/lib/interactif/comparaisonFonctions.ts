@@ -755,7 +755,7 @@ export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, p
  * @param {{borneInf: number, borneSup: number}} goodAnswer @todo idem ci-dessus, avoir un Intervalle.fromString() qui donne cet objet à partir de ']3.4;5.6]' par exemple
  * @return ResultType
  */
-export function intervallleStrictCompare (input: string, goodAnswer: { borneInf: number, borneSup: number }): {
+export function intervalleStrictCompare (input: string, goodAnswer: { borneInf: number, borneSup: number }): {
   isOk: boolean,
   feedback?: string
 } {
