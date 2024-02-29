@@ -1,6 +1,3 @@
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
-import Exercice from '../../Exercice'
-
 import Question1 from '../can5a-2024/can5a-2024-Q1'
 import Question2 from '../can5a-2024/can5a-2024-Q2'
 import Question3 from '../can5a-2024/can5a-2024-Q3'
@@ -31,7 +28,9 @@ import Question27 from '../can4a-2024/can4-2024-Q27.js'
 import Question28 from '../can4a-2024/can4-2024-Q28.js'
 import Question29 from '../can4a-2024/can4-2024-Q29.js'
 import Question30 from '../can4a-2024/can4-2024-Q30.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+
+import MetaExercice from '../../MetaExercice'
+import Exercice from '../../Exercice'
 
 export const titre = 'CAN 4e sujet 2024'
 export const interactifReady = true
@@ -44,74 +43,43 @@ export const uuid = '82764'
  * @author Gilles Mora
 */
 
-export default class Can4a2024 extends Exercice {
+const exercices = [
+  Question1,
+  Question2,
+  Question3,
+  Question4,
+  Question5,
+  Question6,
+  Question7,
+  Question8,
+  Question9,
+  Question10,
+  Question11,
+  Question12,
+  Question13,
+  Question14,
+  Question15,
+  Question16,
+  Question17,
+  Question18,
+  Question19,
+  Question20,
+  Question21,
+  Question22,
+  Question23,
+  Question24,
+  Question25,
+  Question26,
+  Question27,
+  Question28,
+  Question29,
+  Question30
+] as unknown
+
+const questions = exercices as Exercice[]
+
+export default class Can4a2024 extends MetaExercice {
   constructor () {
-    super()
-    this.nbQuestions = 30
-    this.nbQuestionsModifiable = false
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
-    this.formatInteractif = 'calcul'
-    this.besoinFormulaireCaseACocher = ['Sujet officiel']
-    this.sup = false
-  }
-
-  nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.listeCanEnonces = []
-    this.listeCanReponsesACompleter = []
-
-    let indexQuestion = 0
-    for (const Question of [
-      Question1,
-      Question2,
-      Question3,
-      Question4,
-      Question5,
-      Question6,
-      Question7,
-      Question8,
-      Question9,
-      Question10,
-      Question11,
-      Question12,
-      Question13,
-      Question14,
-      Question15,
-      Question16,
-      Question17,
-      Question18,
-      Question19,
-      Question20,
-      Question21,
-      Question22,
-      Question23,
-      Question24,
-      Question25,
-      Question26,
-      Question27,
-      Question28,
-      Question29,
-      Question30]) {
-      const Q = new Question()
-      Q.canOfficielle = this.sup
-      Q.interactif = this.interactif
-      Q.nouvelleVersion()
-      this.formatChampTexte = Q.formatChampTexte
-      this.formatInteractif = Q.formatInteractif
-      setReponse(this, indexQuestion, Q.reponse, { formatInteractif: Q.formatInteractif })
-      let texte = Q.question
-      if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, indexQuestion, Q.formatChampTexte || '', Q.optionsChampTexte || {})
-      }
-      this.canEnonce = Q.canEnonce
-      this.canReponseACompleter = ''
-      this.listeCanEnonces.push(Q.canEnonce!)
-      this.listeCanReponsesACompleter.push(Q.canReponseACompleter!)
-      this.listeQuestions.push(texte!)
-      this.listeCorrections.push(Q.correction!)
-      indexQuestion++
-    }
+    super(questions)
   }
 }

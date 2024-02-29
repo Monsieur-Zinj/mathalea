@@ -38,6 +38,7 @@ async function readInfos (dirPath) {
         if (file.match(/\.jsx?|\.ts$/) &&
           !file.startsWith('_') &&
           file !== 'deprecatedExercice.js' &&
+          file !== 'MetaExercice.ts' &&
           file !== 'Exercice.ts') {
           const infos = {}
           const data = await fs.readFile(filePath, 'utf8')

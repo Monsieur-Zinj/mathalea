@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { intervalleStrictCompare } from '../../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Calculer une expression pour une valeur particulière'
 export const interactifReady = true
@@ -21,6 +22,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
+    this.compare = intervalleStrictCompare
     this.canOfficielle = true
   }
 

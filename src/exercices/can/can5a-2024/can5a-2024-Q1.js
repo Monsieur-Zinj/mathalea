@@ -13,7 +13,7 @@ export const uuid = '107a3'
  * @author Gilles Mora
  * Référence
 */
-export default class NomExercice extends Exercice {
+export default class Can2024Q1 extends Exercice {
   constructor () {
     super()
     this.titre = titre
