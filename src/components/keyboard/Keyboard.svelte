@@ -79,6 +79,8 @@
     alphanumericDisplayed = value.blocks.includes('alphanumeric')
     await tick()
     mathaleaRenderDiv(divKeyboard)
+    document.dispatchEvent(new window.Event('KeyboardUpdated', { bubbles: true }))
+    console.log('message envoyé: ' + 'KeyboardUpdated')
   })
 
   async function navRight (e: MouseEvent) {

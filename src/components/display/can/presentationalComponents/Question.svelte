@@ -27,10 +27,21 @@
     loadMathLive()
   })
 
+  // document.addEventListener('KeyboardUpdated', function() {
+  //   // on recalcul quand le clavier est affiché et pas avant   
+  //   if (visible) {
+  //     console.log('message reçu: ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
+  //     const questionContent = document.getElementById(`question-content-${index}`) as HTMLDivElement
+  //     if (questionContent) setSizeWithinSvgContainer(questionContent)
+  //   }
+  // })
+
   keyboardState.subscribe((value) => {
     if (visible) {
+      console.log('message reçu: ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
       const questionContent = document.getElementById(`question-content-${index}`) as HTMLDivElement
       if (questionContent) setSizeWithinSvgContainer(questionContent)
+      console.log('message reçu fin : ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
     }
     return value
   })
