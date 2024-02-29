@@ -51,7 +51,7 @@ const basicKeys = {
     insert: '#@^{#0}'
   },
   POW10: {
-    display: '$10^\\square$',
+    display: '$\\times10^\\square$',
     insert: '$$\\times10^#0$$'
   },
   // ================== functions
