@@ -240,7 +240,7 @@ export default function ExerciceConversions (niveau = 1) {
 
       // EE : Mise en couleur de la réponse interactive
       const aMettreEnCouleur = miseEnEvidence(texteCorr.split('=').pop().replaceAll('$', '')) + '$'
-      texteCorr = '$$' + texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur.replace(texTexte(unite), '') + '$' + texTexte(unite) + '$'
+      texteCorr = texteCorr.replace(texteCorr.split('=').pop(), '') + aMettreEnCouleur.replace(texTexte(unite), '') + '$' + texTexte(unite) + '$'
 
       if (this.questionJamaisPosee(i, val, resultat)) {
         setReponse(this, i, resultat)

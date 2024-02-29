@@ -30,7 +30,7 @@ export const refs = {
 export default function DescriptionSegmentDroiteDemiDroite () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.nbQuestions = 3
-  this.nbCols = 3
+  this.nbCols = 1
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
@@ -99,8 +99,8 @@ export default function DescriptionSegmentDroiteDemiDroite () {
       }
       const [dAB, dABCorr, propsQcm] = creerDroiteDemiSegment(A, B)
       const labels = labelPoint(A, B)
-      texte = '<br>' + mathalea2d(
-        { xmin: -2, ymin: -1, xmax: 7, ymax: 3, pixelsParCm: 40, scale: 0.6 },
+      texte = mathalea2d(
+        { xmin: -2, ymin: -1, xmax: 7, ymax: 3, pixelsParCm: 40, scale: 0.6, optionsTikz: 'baseline=(current bounding box.north)'},
         dAB,
         t1,
         t2,
