@@ -120,7 +120,7 @@ export default function ConservationTransformation () {
           } while (distancePointDroite(O, d1) < 1 || longueur(O, B) < 1 || Math.abs(Math.round(angle(B, A, imageC)) - 90) > 85)
           objetsEnonceEtCorr.push(tracePoint(O), labelPoint(O))
           if (listeTypeDeQuestions[i] === 'parallelisme') {
-            objetsCorrectionOnly.push(droite(rotation(point(d1.x1, d1.y1), O, 180), rotation(point(d1.x2, d1.y2), O, 180), '#f15929'))
+            objetsCorrectionOnly.push(droite(rotation(point(d1.x1, d1.y1), O, 180), rotation(point(d1.x2, d1.y2), O, 180), '', '#f15929'))
           }
           figureRetournee = true
           break
@@ -134,7 +134,7 @@ export default function ConservationTransformation () {
           imageC = translation2Points(C, D, E, `${C.nom}'`)
           objetsEnonceEtCorr.push(vecteur(D, E).representant(D), tracePoint(D, E), labelPoint(D, E))
           if (listeTypeDeQuestions[i] === 'parallelisme') {
-            objetsCorrectionOnly.push(droite(translation2Points(point(d1.x1, d1.y1), D, E), translation2Points(point(d1.x2, d1.y2), D, E), '#f15929'))
+            objetsCorrectionOnly.push(droite(translation2Points(point(d1.x1, d1.y1), D, E), translation2Points(point(d1.x2, d1.y2), D, E), '', '#f15929'))
           }
           break
       }

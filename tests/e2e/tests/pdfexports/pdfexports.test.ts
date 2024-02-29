@@ -190,5 +190,7 @@ async function testRunAll (filter: string) {
 // runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 // runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 // runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-
+testRunAll('3e')
+testRunAll('4e')
+testRunAll('5e')
 testRunAll('6e')

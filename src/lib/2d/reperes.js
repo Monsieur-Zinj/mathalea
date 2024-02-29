@@ -507,18 +507,19 @@ export function AxeY (
   if (!(ytick instanceof Fraction || ytick instanceof FractionEtendue)) ytick = fraction(ytick)
   ObjetMathalea2D.call(this, {})
   const objets = []
+
   objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 'gauche', color))
-  const ordonnee = segment(-1, ymin, -1, ymax, color)
+  const ordonnee = segment(-1, ymin.valueOf(), -1, ymax.valueOf(), color)
   ordonnee.styleExtremites = '->'
   ordonnee.epaisseur = epaisseur
   objets.push(ordonnee)
   for (let y = ymin; y < ymax; y = fraction(y).add(ystep)) {
-    const s = segment(-1 - thick, y, -1, y, color)
+    const s = segment(-1 - thick, y.valueOf(), -1, y.valueOf(), color)
     s.epaisseur = epaisseur
     objets.push(s)
   }
   for (let y = ymin; y < ymax; y = fraction(y).add(ystep.div(ytick))) {
-    const s = segment(-1 - thick / 2, y, -1, y, color)
+    const s = segment(-1 - thick / 2, y.valueOf(), -1, y.valueOf(), color)
     s.epaisseur = epaisseur
     objets.push(s)
   }

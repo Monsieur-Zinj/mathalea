@@ -552,7 +552,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
   // taille = ''
   svg () {
     let divLatex
-    if (this.colorBackground !== '') {
+    if (this.colorBackground !== '' && this.colorBackground !== 'none') {
       divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%);">${katex.renderToString('\\colorbox{' + colorToLatexOrHTML(this.colorBackground)[0] + '}{ ' + this.taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
     } else {
       divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%);">${katex.renderToString('\\color{' + this.color[0] + '}' + this.taille + ' ' + this.texte + '')}</div>`
@@ -565,7 +565,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
 
   tikz () {
     let code
-    if (this.colorBackground !== '') {
+    if (this.colorBackground !== '' && this.colorBackground !== 'none') {
       code = `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox ${colorToLatexOrHTML(this.colorBackground)[1]}{${this.taille}  \\color${this.color[1]}{$${this.texte}$}}};`
     } else {
       code = `\\draw (${this.x},${this.y}) node[anchor = center] {${this.taille} \\color${this.color[1]}{$${this.texte}$}};`

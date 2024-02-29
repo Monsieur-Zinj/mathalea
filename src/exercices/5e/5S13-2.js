@@ -246,7 +246,7 @@ export default function CalculerDesFrequences () {
     const rangValeurChoisie = randint(0, serie.effectifs.length - 1, serie.rangEffectifCache)
     const frequenceDemandee = arrondi(serie.effectifs[rangValeurChoisie] * 100 / serie.effectifTotal, 1)
     // correction question 1
-    let correction1 = '<br>' + numAlpha(0) + `L'effectif manquant est celui du ${serie.entreeCachee.charAt(0).toLocaleLowerCase() + serie.entreeCachee.slice(1)}. Soit $e$ cet effectif.<br>`
+    let correction1 = numAlpha(0) + `L'effectif manquant est celui du ${serie.entreeCachee.charAt(0).toLocaleLowerCase() + serie.entreeCachee.slice(1)}. Soit $e$ cet effectif.<br>`
     correction1 += `$e=${serie.effectifTotal}-( `
     let first = true
     serie.effectifs.forEach((eff, index) => {
@@ -265,7 +265,7 @@ export default function CalculerDesFrequences () {
     // correction question 2
     let correction2
     if (!context.isAmc && !exercice.interactif) {
-      correction2 = '<br>' + numAlpha(1) + 'Calculs des fréquences.<br><br>'
+      correction2 = numAlpha(1) + 'Calculs des fréquences.<br><br>'
       correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
       correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$<br><br>'
       correction2 += 'On en déduit donc les calculs suivants :<br><br>'
