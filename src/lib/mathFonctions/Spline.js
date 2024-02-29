@@ -190,20 +190,26 @@ export class Spline {
         })
         return
       }
-      const determinant = matrice.determinant()// c'est maintenant une FractionEtendue !
-      if (determinant.valeurDecimale === 0) {
-        window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
-          noeudGauche: noeuds[i],
-          noeudDroit: noeuds[i + 1]
-        })
-        return
+      if (y0 + (x1 - x0) * d1 === y1 && d0 === d1) {
+        const a = (y1 - y0) / (x1 - x0)
+        const b = y0 - a * x0
+        this.polys.push(new Polynome({ coeffs: [b, a, 0, 0] }))
+      } else {
+        const determinant = matrice.determinant()// c'est maintenant une FractionEtendue !
+        if (determinant.valeurDecimale === 0) {
+          window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
+            noeudGauche: noeuds[i],
+            noeudDroit: noeuds[i + 1]
+          })
+          return
+        }
+        const matriceInverse = matrice.inverse()
+        const vecteur = [y0, y1, d0, d1]
+        this.polys.push(new Polynome({
+          isUseFraction: true,
+          coeffs: matriceInverse.multiplieVecteur(vecteur).reverse()
+        }))
       }
-      const matriceInverse = matrice.inverse()
-      const vecteur = [y0, y1, d0, d1]
-      this.polys.push(new Polynome({
-        isUseFraction: true,
-        coeffs: matriceInverse.multiplieVecteur(vecteur).reverse()
-      }))
     }
     this.noeuds = [...noeuds]
     this.n = this.noeuds.length
