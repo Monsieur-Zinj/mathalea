@@ -3,6 +3,8 @@ import bigInt from 'big-integer'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import { tropDeChiffres } from './modules/outils.js'
 import { showDialogForLimitedTime } from './lib/components/dialogs.js'
+import { get } from 'svelte/store'
+import { exercicesParams } from './lib/stores/generalStore.js'
 
 type Metadatas = Record<string, unknown>
 
@@ -41,12 +43,14 @@ export function notify (error: string|Error, metadatas: Metadatas) {
   // @ts-expect-error
   if (window.Bugsnag) {
     if (metadatas) Bugsnag.addMetadata('ajouts', metadatas)
+    Bugsnag.addMetadata('Paramètres des exercices', get(exercicesParams))
     Bugsnag.notify(error)
   } else {
     const message = 'message qui aurait été envoyé à bugsnag s\'il avait été configuré'
     showDialogForLimitedTime('notifDialog', 10000, message + ' : <br>' + error.toString())
     console.error(message, error)
     if (metadatas) console.info('avec les metadatas', metadatas)
+    console.info('Paramètres des exercices', get(exercicesParams))
   }
 }
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
