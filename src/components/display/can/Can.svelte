@@ -24,6 +24,7 @@
   import { answersFromCapytale, sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
   import { millisecondToMinSec } from '../../../lib/components/time'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
+  import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
   let state: CanState = 'start'
   let exercises: TypeExercice[] = []
   let questions: string[] = []
@@ -36,6 +37,7 @@
   let answers: string[] = []
   let recordedTimeFromCapytale: number
   onMount(async () => {
+    displayKeyboardToggle(false)
     // reconstitution des exercices
     exercises = [...(await buildExercisesList())]
     // interactivité

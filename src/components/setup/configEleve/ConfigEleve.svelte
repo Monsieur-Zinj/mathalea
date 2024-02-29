@@ -81,10 +81,11 @@
   }
 
   // Gestion du clavier
-  let isBetaKeyboard: boolean = $globalOptions.beta ?? false
+  let isBetaKeyboard: boolean = true
+  $globalOptions.beta = isBetaKeyboard
   function handleKeyboard () {
     $globalOptions.beta = isBetaKeyboard
-    displayKeyboardToggle(isBetaKeyboard)
+    displayKeyboardToggle(!isBetaKeyboard)
   }
 
   // Gestion de la graine

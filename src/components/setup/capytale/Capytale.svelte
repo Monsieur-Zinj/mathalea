@@ -186,7 +186,7 @@
     // Réglage du vecteur de translation pour le dé au loading
     const root = document.documentElement
     root.style.setProperty('--vect', 'calc((100vw / 10) * 0.5)')
-    displayKeyboardToggle($globalOptions.beta ?? false)
+    displayKeyboardToggle(!$globalOptions.beta)
   })
   addEventListener('popstate', urlToDisplay)
 
@@ -289,7 +289,7 @@ function addExercise (uuid: string) {
   let isBetaKeyboard: boolean = $globalOptions.beta ?? false
   function handleKeyboard () {
     $globalOptions.beta = isBetaKeyboard
-    displayKeyboardToggle(isBetaKeyboard)
+    displayKeyboardToggle(!isBetaKeyboard)
   }
 
   function toggleCan () {

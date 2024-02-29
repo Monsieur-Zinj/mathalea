@@ -216,7 +216,7 @@
     if ($globalOptions.recorder === 'capytale') {
       $globalOptions.isInteractiveFree = false
     }
-    displayKeyboardToggle($globalOptions.beta ?? false)
+    displayKeyboardToggle(!$globalOptions.beta)
   })
 
   onDestroy(() => {
