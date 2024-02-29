@@ -105,11 +105,10 @@ export default class NomExercice extends Exercice {
       } else {
         this.question = ' Sur quel intervalle, $f$ est-elle positive ou nulle ?'
       }
-      this.reponse = '[-5;2]'
-      // this.reponse = { }
+      this.reponse = ['[-5;2]', '[-5,2]']
       this.correction = `La fonction est positive ou nulle lorsque les images sont positives ou nulles.<br>
     Graphiquement, les images sont positives ou nulles  lorsque la courbe se situe sur ou au-dessus  de l'axe des abscisses, soit sur l'intervalle  $${miseEnEvidence(this.reponse)}$.`
-      this.canEnonce = this.question// 'Compléter'
+      this.canEnonce = this.question
       this.canReponseACompleter = ''
     } else {
       const noeuds1 = [{ x: -3, y: -1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
@@ -155,14 +154,14 @@ export default class NomExercice extends Exercice {
       const objetsEnonce = [repere1, courbe1]
       const choix = choice([true, false])
       if (theSpline.y[0] > 0) { // le premier point a une ordonnée positive ---> courbe + puis -
-        this.reponse = choix ? `[${theSpline.x[0]};${theSpline.x[3]}]` : `[${theSpline.x[3]};${theSpline.x[6]}]`
+        this.reponse = choix ? [`[${theSpline.x[0]};${theSpline.x[3]}]`, `[${theSpline.x[0]},${theSpline.x[3]}]`] : [`[${theSpline.x[3]};${theSpline.x[6]}]`, `[${theSpline.x[3]},${theSpline.x[6]}]`]
         this.question = `Sur quel intervalle, $f$ est-elle ${choix ? 'positive' : 'négative'} ou nulle ?<br>` +
          mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
         this.correction = `La fonction est ${choix ? 'positive' : 'négative'} ou nulle lorsque les images sont ${choix ? 'positives' : 'négatives'} ou nulles.<br>
     Graphiquement, les images sont ${choix ? 'positives' : 'négatives'} ou nulles  lorsque la courbe se situe sur ou ${choix ? 'au-dessus' : 'en dessous'}  de l'axe des abscisses, soit sur l'intervalle  $${miseEnEvidence(this.reponse)}$.`
       }
       if (theSpline.y[0] < 0) { // le premier point a une ordonnée négative ---> courbe - puis +
-        this.reponse = choix ? `[${theSpline.x[0]};${theSpline.x[3]}]` : `[${theSpline.x[3]};${theSpline.x[6]}]`
+        this.reponse = choix ? [`[${theSpline.x[0]};${theSpline.x[3]}]`, `[${theSpline.x[0]},${theSpline.x[3]}]`] : [`[${theSpline.x[3]};${theSpline.x[6]}]`, `[${theSpline.x[3]},${theSpline.x[6]}]`]
         this.question = `Sur quel intervalle,  $f$ est-elle ${choix ? 'négative' : 'positive'} ou nulle ?<br>` +
              mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.65, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
         this.correction = `La fonction est ${choix ? 'négative' : 'positive'} ou nulle lorsque les images sont ${choix ? 'négatives' : 'positives'} ou nulles.<br>
