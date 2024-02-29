@@ -29,7 +29,7 @@ import Question28 from '../can3a-2024/can3-2024-Q28.js'
 import Question29 from '../can3a-2024/can3-2024-Q29.js'
 import Question30 from '../can3a-2024/can3-2024-Q30.js'
 
-import MetaExercice from '../../MetaExercice'
+import MetaExercice from '../../MetaExerciceCan'
 import Exercice from '../../Exercice'
 
 export const titre = 'CAN troisième sujet 2024'
