@@ -1,6 +1,16 @@
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import Exercice from '../../Exercice'
 
+import Question1 from '../can5a-2024/can5a-2024-Q1'
+import Question2 from '../can5a-2024/can5a-2024-Q2'
+import Question3 from '../can5a-2024/can5a-2024-Q3'
+import Question4 from '../can5a-2024/can5a-2024-Q4'
+import Question5 from '../can5a-2024/can5a-2024-Q5'
+import Question6 from '../can5a-2024/can5a-2024-Q6'
+import Question7 from '../can5a-2024/can5a-2024-Q7'
+import Question8 from '../can5a-2024/can5a-2024-Q8'
+import Question9 from '../can5a-2024/can5a-2024-Q9'
+import Question10 from '../can5a-2024/can5a-2024-Q10'
 import Question11 from '../can3a-2024/can3-2024-Q11.js'
 import Question12 from '../can3a-2024/can3-2024-Q12.js'
 import Question13 from '../can3a-2024/can3-2024-Q13.js'
@@ -54,6 +64,16 @@ export default class Can3a2024 extends Exercice {
 
     let indexQuestion = 0
     for (const Question of [
+      Question1,
+      Question2,
+      Question3,
+      Question4,
+      Question5,
+      Question6,
+      Question7,
+      Question8,
+      Question9,
+      Question10,
       Question11,
       Question12,
       Question13,
