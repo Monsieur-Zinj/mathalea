@@ -70,7 +70,7 @@ export default function EncadrerAvecFctRef () {
               a = randint(-12, 12, 0)
               xMin = -200
               xMax = a
-              substituts = [{ antVal: -200, antTex: '$-\\infty$', imgVal: -40000, imgTex: '' }]
+              substituts = [{ antVal: -200, antTex: '$-\\infty$', imgVal: 40000, imgTex: '' }]
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $x^2$ ......`
               texteCorrAvantTableau = `$x${large1 ? '\\leqslant' : ' < '} ${a}$ signifie $x\\in ]-\\infty;${a}${large1 ? ']' : ' [ '}$. <br>
                 Puisque la fonction carré est strictement décroissante sur $]-\\infty;0]$ et strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations

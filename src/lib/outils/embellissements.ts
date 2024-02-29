@@ -1,6 +1,7 @@
 import { isArray, isInteger } from 'mathjs'
 import { context } from '../../modules/context.js'
 import { choice } from './arrayOutils'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 /**
  * Met en couleur et en gras
@@ -11,6 +12,8 @@ import { choice } from './arrayOutils'
  * @author Rémi Angot
  */
 export function miseEnEvidence (texte: string, couleur: string = '#f15929') {
+  // @ts-ignore
+  if (texte instanceof FractionEtendue) texte = texte.texFraction
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
     return `{\\color{${couleur}}\\boldsymbol{${texte}}}`

@@ -444,8 +444,10 @@ class FractionEtendue extends Fraction {
    *
    * @returns {string}
    */
-  toString () {
-    return this.texFraction
+  toString () { // Cette fonction n'a pas vocation à être utilisée ! si on veut du latex, il faut utiliser texFraction.
+    // Cette méthode vient se substituer à la méthode toString() de Object.prototype qui renvoie '[object object]' elle est utilisée si la FractionEtendue a été utilisée par erreur à la place de sa propriété texFraction
+    window.notify('Pour obtenir du Latex avec une FractionEtendue, il faut utiliser sa propriété texFraction !', { numerateur: this.num, denominateur: this.den })
+    return `\\frac{${this.num}}{${this.den}}`
     // return this.valeurDecimale.toFixed(4)
   }
 
