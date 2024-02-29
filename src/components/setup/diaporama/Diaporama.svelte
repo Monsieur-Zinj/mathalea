@@ -501,9 +501,14 @@
           'correction' + i
         ) as HTMLDivElement
 
+        if (diapocellDiv === null){
+          // ca sert à rien de continuer
+          continue
+        }
+
         const svgDivs = diapocellDiv?.getElementsByClassName('mathalea2d')
-        const textcellWidth = textcellDiv.clientWidth
-        const textcellHeight = textcellDiv.clientHeight
+        const textcellWidth = textcellDiv?.clientWidth
+        const textcellHeight = textcellDiv?.clientHeight
         // Donner la bonne taille aux figures
         if (svgDivs != null && svgDivs.length !== 0 && questionDiv !== null) {
           const nbOfSVG = svgDivs.length
