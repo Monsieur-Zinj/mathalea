@@ -5,6 +5,8 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Hms from '../../../modules/Hms'
 import { context } from '../../../modules/context'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
 export const titre = 'Transformer une heure décimale en heures/minutes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +23,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.keyboard = ['hms']
-    this.formatChampTexte = 'largeur01 inline nospacebefore clavierHms inline'
+    this.formatChampTexte = 'largeur01 inline nospacebefore inline ' + KeyboardType.clavierHms
     this.formatInteractif = 'hms'
 
     this.canOfficielle = true

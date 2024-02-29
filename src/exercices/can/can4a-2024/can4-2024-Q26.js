@@ -7,6 +7,8 @@ import { milieu, point, tracePointSurDroite } from '../../../lib/2d/points'
 import { droite } from '../../../lib/2d/droites'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
 export const titre = 'Calculer une longueur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +24,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteApres: 'cm', texteAvant: '$AB=$' }
     this.formatInteractif = 'calcul'
     this.canOfficielle = true

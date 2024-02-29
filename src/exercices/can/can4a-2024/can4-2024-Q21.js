@@ -3,6 +3,8 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { scratchblock } from '../../../modules/scratchblock'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
 export const titre = 'Comprendre un programme scratch'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +20,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
   }
@@ -92,6 +94,7 @@ export default class NomExercice extends Exercice {
       if (choix === 'a') {
         this.formatInteractif = 'texte'
         this.reponse = ['carré', 'carre', 'Carré', 'carré de côté 100', 'carré de côté 100 pas']
+        this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.alphanumericAvecEspace
         this.question = `${scratchblock(prog1)}`
         if (this.interactif) {
           this.question += 'La nature de la figure tracée est  un  '
