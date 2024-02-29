@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function FonctionsCalculsDImages () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne

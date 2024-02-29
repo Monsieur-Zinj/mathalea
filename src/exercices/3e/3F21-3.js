@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PenteEtOrdonneeOrigineDroite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
   // this.nbCols = 2 // Uniquement pour la sortie LaTeX

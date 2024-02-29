@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 export const uuid = '678f9'
 export const ref = 'CM018'
 export default function SommeDeDeuxNombresMariesEtUnEntier () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 10
   this.nbCols = 2

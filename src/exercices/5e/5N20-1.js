@@ -31,7 +31,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max // Correspond au facteur commun
   this.sup3 = false // Si false alors le résultat n'est pas en fraction simplifiée
   this.titre = titre

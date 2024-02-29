@@ -18,7 +18,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function RoseAdditive4L () { // c'est l'ExoRose zéro contenu dans _Roses.js
-  ExoRose.call(this) // Héritage de la classe Exercice()
+  ExoRose.call(this)
   this.operation = 'addition'
   this.typeDonnees = 'litteraux'
   this.besoinFormulaireNumerique = ['Valeur maximale (entre 10 et 30) des termes', 30]

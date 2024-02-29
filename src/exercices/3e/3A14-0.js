@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DesChocolatsDansDesBoites () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.introduction = 'D’après Brevet des Collège - Centres étrangers - Juin 2022'
   this.consigne = ''

@@ -10,7 +10,7 @@ export const titre = 'Rotation 3d de polygones'
  * essais en vue de faire des animations de patrons de solides
  */
 export default function BetaRotation3d () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.spacing = 2
   this.nbQuestions = 1

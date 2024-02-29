@@ -36,7 +36,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function MesurerUnAngleAvecRapporteur () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1
   this.sup = 1

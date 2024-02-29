@@ -14,7 +14,7 @@ export const dateDePublication = '26/10/2023'
 export const uuid = 'e356a'
 export const ref = 'can2N03'
 export default function IntersectionIntervalles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2

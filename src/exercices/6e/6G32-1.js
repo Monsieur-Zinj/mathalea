@@ -31,7 +31,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function SymetrieAxialeConservation1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.spacing = 2
   this.nbQuestions = 1

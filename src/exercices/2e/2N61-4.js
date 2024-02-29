@@ -36,7 +36,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceInequationQuotient () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.spacing = 2 // Espace entre deux lignes
   this.spacingCorr = 2 // Espace entre deux lignes pour la correction
   this.correctionDetailleeDisponible = true

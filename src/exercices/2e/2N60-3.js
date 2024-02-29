@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProprietesInegalites () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = true

@@ -24,7 +24,7 @@ export const dateDeModifImportante = '10/12/2023'
  * @author Sébastien Lozano
  */
 export default function ConstructibiliteDesTriangles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.sup2 = false
   this.nbQuestions = 3

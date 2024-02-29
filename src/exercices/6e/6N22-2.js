@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function AjouterDesFractionsDunite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 4
   this.nbCols = 2

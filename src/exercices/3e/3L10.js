@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function OpposeExpression () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.spacing = context.isHtml ? 3 : 2
   this.spacing = context.isHtml ? 3 : 2
   this.nbQuestions = 6

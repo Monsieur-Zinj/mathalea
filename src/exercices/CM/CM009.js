@@ -20,7 +20,7 @@ export const amcType = 'AMCNum'
 export const uuid = '14688'
 export const ref = 'CM009'
 export default function Moitie () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 10
   this.nbCols = 2

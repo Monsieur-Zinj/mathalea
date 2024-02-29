@@ -42,7 +42,7 @@ function compareNombres (a, b) {
 }
 
 export default function SujetCAN2024Seconde () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

@@ -40,7 +40,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DivisionDecimale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Effectuer les divisions décimales suivantes et donner la valeur exacte de leur quotient.'
   this.spacing = 2

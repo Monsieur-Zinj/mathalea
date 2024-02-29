@@ -17,7 +17,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceTableauMultiplicationsRelatifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = false
   this.titre = titre
   this.consigne = 'Calculer.'

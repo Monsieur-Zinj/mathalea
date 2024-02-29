@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ValeurApprocheeDivisionDecimale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1

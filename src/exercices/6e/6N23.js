@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Donner l'écriture décimale."
   this.spacing = 2
   this.spacingCorr = 2

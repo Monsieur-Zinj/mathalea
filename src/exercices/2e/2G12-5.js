@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ParallélogrammeSommet () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 1
   this.nbCols = 1

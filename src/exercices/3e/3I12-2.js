@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ComprendreScriptMultiples () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 9
   this.sup2 = 5
   this.sup3 = 4

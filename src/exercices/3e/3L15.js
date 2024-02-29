@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceEquations () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
   this.nbQuestions = 6

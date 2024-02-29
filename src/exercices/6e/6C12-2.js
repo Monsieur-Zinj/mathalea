@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function QuestionsDivisionsEuclidiennes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Résoudre les problèmes suivants.'
   this.nbQuestions = 4
   this.sup = 11

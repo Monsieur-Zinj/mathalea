@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculProbaExperience2Epreuves3e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
 
   this.besoinFormulaireTexte = ['Type de question', '1 : Deux épreuves\n2 : Deux épreuves avec Remise\n3 : Deux épreuves sans remise\n4 : Mélange']
   this.sup = 1

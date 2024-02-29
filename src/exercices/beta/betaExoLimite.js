@@ -16,7 +16,7 @@ export const dateDeModifImportante = '09/02/2022' // Une date de modification im
  * Référence
 */
 export default function NomExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 3 // Nombre de questions par défaut
   this.sup = false // x>2 au lieu de x->2+
   this.sup2 = false // asymptotes

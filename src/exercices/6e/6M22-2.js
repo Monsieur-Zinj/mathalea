@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Perimetre_aire_et_portions_de_disques () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 3 // 1 : périmètre, 2 : aire, 3 : périmètres et aires
   this.sup2 = 4
   this.spacing = 2

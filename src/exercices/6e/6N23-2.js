@@ -40,7 +40,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function LireAbscisseDecimaleTroisFormes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.niveau = 'sixième'
   this.consigne = ''
   if (context.isHtml) {

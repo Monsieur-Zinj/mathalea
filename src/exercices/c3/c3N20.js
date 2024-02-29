@@ -21,7 +21,7 @@ export const dateDePublication = '24/03/2021'
 export const uuid = 'ec7e4'
 export const ref = 'c3N20'
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Donner l'écriture décimale des nombres suivants."
   this.nbQuestions = 6
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

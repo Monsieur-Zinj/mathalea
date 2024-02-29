@@ -31,7 +31,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ArrondirUneValeur () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
 
   this.nbQuestions = 3
   this.nbColsCorr = 1

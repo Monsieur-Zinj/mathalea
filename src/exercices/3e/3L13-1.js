@@ -33,7 +33,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceEquation1Tiret2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.comment = 'Les équations sont de la forme :<br>$ax+b=cx+d$<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
   this.spacing = 2
   this.interactifType = 'mathLive'

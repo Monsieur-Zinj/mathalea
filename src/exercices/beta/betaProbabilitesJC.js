@@ -12,7 +12,7 @@ export const titre = 'Probabilités simples'
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = true
   this.consigne = ''
   this.nbQuestionsModifiable = false

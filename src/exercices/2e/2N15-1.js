@@ -15,7 +15,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ValeurAbsolue () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Déterminer la valeur du nombre proposé.'
   this.nbQuestions = 5

@@ -20,7 +20,7 @@ export const dateDePublication = '12/10/2023' // La date de publication initiale
 export const uuid = 'b53ea'
 export const ref = 'can1L13'
 export default function InequationCasParticuliers () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.listePackages = ['tkz-tab']

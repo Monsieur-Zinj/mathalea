@@ -18,7 +18,7 @@ export const interactifType = 'qcm'
 export const uuid = 'e7754'
 export const ref = 'can3L04'
 export default function SolutionInequation () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

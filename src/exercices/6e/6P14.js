@@ -37,7 +37,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function AgrandirReduireFigure () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.besoinFormulaireTexte = [
     'Type de figures', [

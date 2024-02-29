@@ -32,7 +32,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function NombreDecimalOraliseDeDifferentesManieres () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Donner l'écriture décimale de chaque nombre."
   this.nbQuestions = 5
   this.besoinFormulaireTexte = ['Type des textes', 'Nombres séparés par des tirets\n1 : 3 unités, 5 dixièmes et 8 centièmes\n2 : 3 unités et 5 centièmes\n3 : 5 dixièmes\n4 : Du genre 128/10\n5 : Du genre 8+5/100+7/100\n6 : Mélange']

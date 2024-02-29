@@ -18,8 +18,8 @@ export const dateDeModifImportante = '22/08/2022'
 export const uuid = '02170'
 export const ref = 'can6C27'
 export default function RenduMonnaie () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

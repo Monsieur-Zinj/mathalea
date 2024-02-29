@@ -40,7 +40,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PerimetreOuAireDeFiguresComposees () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 2

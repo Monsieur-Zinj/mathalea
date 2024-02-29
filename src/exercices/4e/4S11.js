@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DeterminerDesMedianes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.spacing = 1
   this.spacingCorr = 1.5

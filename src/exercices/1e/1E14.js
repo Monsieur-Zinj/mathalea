@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ResoudreEquationDegre2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Factoriser, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme suivant $P$ défini pour tout $x$ de $\\mathbb R$ par : '
   this.nbQuestions = 4

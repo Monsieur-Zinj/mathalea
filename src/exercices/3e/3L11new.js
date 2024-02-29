@@ -46,7 +46,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceDevelopper () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 3 // difficulté
   this.sup2 = 1 // consigne
   this.sup3 = 7 // forme de développement

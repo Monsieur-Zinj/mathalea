@@ -66,7 +66,7 @@ export function baseValeur (n) {
 }
 
 export default function PasserDeLaBase12Ou16ALaBase10 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3

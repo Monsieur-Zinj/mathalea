@@ -17,8 +17,8 @@ export const interactifType = 'mathLive'
 export const uuid = 'f0983'
 export const ref = 'can3S04'
 export default function Etendue () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

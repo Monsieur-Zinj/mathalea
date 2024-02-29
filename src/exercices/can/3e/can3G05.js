@@ -22,8 +22,8 @@ export const interactifType = 'mathLive'
 export const uuid = 'c6b9c'
 export const ref = 'can3G05'
 export default function Trigo () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

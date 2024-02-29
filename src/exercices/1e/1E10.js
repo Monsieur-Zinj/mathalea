@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculDiscriminant () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Pour chaque équation, calculer le discriminant et déterminer le nombre de solutions de cette équation dans $\\mathbb{R}$.'
   this.nbQuestions = 6

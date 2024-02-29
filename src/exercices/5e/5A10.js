@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ListeDesDiviseurs5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   context.isHtml ? this.spacing = 2 : this.spacing = 1

@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Resolutionavecformecanonique () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Utiliser la forme canonique pour résoudre une équation du second degré : '
   this.nbQuestions = 4

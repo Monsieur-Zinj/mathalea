@@ -21,7 +21,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   // context.isHtml ? this.spacing = 3 : this.spacing = 2;
   context.isHtml ? this.spacing = 1 : this.spacing = 2
   // context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1;

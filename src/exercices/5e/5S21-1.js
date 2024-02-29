@@ -18,7 +18,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProbabilitesSimples () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX

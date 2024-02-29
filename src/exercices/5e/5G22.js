@@ -30,7 +30,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DroiteRemarquableDuTriangle () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.spacing = 2
   this.nbQuestions = 1

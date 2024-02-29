@@ -23,7 +23,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function FonctionsProbabilite2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.nbCols = 1

@@ -30,7 +30,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function SigneProduitQuotientRelatifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Donner le signe des expressions numériques.'
   this.nbQuestions = 7
   this.nbCols = 1

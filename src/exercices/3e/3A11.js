@@ -20,7 +20,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function FractionsIrreductibles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Rendre irréductible une fraction et son inverse à partir des décompositions en produit de facteurs premiers.'
   context.isHtml ? this.spacing = 4 : this.spacing = 2

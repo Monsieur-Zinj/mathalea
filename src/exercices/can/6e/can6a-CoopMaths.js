@@ -27,7 +27,7 @@ export const amcType = 'AMCNum'
 export const uuid = '3a526'
 export const ref = 'can6a-CoopMaths'
 export default function CourseAuxNombres6e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 30
   if (this.interactif) {
     this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."

@@ -90,7 +90,7 @@ function nombreDeJustif (type, str, rang, cduNum) {
 }
 
 export default function ChiffreNombreDe () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.sup2 = 3
 

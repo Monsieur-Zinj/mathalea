@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ModeliserEquations () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   // this.nbQuestionsModifiable = false
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

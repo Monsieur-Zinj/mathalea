@@ -21,7 +21,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function VocabulaireDesTriangles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Donner la nature des triangles en justifiant.'
   this.sup = 1
   this.sup2 = false

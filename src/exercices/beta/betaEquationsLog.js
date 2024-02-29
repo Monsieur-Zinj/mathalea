@@ -15,7 +15,7 @@ const EgalEnviron = (v, d = 3) => ((Math.abs(v) * 10 ** d) % 1 > 0 ? '\\approx' 
  * Référence
 */
 export default function EquationAvecUnLogarithme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes :'
   this.nbQuestions = 2
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

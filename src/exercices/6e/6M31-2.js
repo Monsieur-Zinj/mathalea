@@ -39,7 +39,7 @@ export const refs = {
 }
 export default function UnitesDeVolumesEtDeCapacite () {
   Decimal.set({ toExpNeg: -10 }) // Pour permettre aux petits nombres de s'afficher sans puissances de 10.
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1 // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 4

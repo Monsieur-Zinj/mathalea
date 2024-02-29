@@ -42,7 +42,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DivisionFraction () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer la valeur décimale des fractions suivantes.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli

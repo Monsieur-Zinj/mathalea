@@ -44,7 +44,7 @@ function myOrdreOpe3 (n) {
   }
 }
 export default function OrdreDeGrandeurOperationsDecimaux () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.beta = false
   if (this.beta) {
     this.nbQuestions = 1

@@ -18,7 +18,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DeterminerDerniereOperationExpNum () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.consigne = ''
   this.nbQuestions = 4

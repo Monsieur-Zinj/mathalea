@@ -22,7 +22,7 @@ bmath.config({ number: 'BigNumber' })
  * Référence
 */
 export default function NomExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.sup = 0.001
   this.sup2 = 2

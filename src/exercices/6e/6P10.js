@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProportionnalitePasProportionnalite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   context.isHtml ? this.spacing = 2 : this.spacing = 1.4
   context.isHtml ? this.spacingCorr = 1.5 : this.spacingCorr = 1
   this.nbQuestions = 5

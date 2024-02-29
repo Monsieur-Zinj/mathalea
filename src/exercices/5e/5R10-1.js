@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DevinerNombreRelatif () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.spacing = 2
   this.nbQuestions = 3
   this.nouvelleVersion = function () {

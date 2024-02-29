@@ -15,8 +15,8 @@ export const dateDePublication = '21/10/2021'
 export const uuid = '55c60'
 export const ref = 'can2L07'
 export default function Factoriser () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

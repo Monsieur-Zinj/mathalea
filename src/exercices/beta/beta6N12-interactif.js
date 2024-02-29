@@ -17,7 +17,7 @@ export const interactifReady = true
  * Référence 6N12
  */
 export default function MultiplierEntierPar101001000 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.consigne = 'Calculer'

@@ -42,7 +42,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ScratchMultiScript () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   function nombreDeNegatifs (arr) {
     const initialValue = 0
     return arr.reduce((previousValue, currentValue) => previousValue + (currentValue < 0 ? 1 : 0), initialValue)

@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ValeurApprocheeDePourcentages () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 6
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

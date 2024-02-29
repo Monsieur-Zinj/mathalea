@@ -40,7 +40,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function QuestionsMasses () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Répondre aux questions suivantes.' // Consigne modifiée, plus bas, à l'intérieur de la fonction
   this.nbQuestionsModifiable = true
   this.nbQuestions = 1

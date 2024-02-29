@@ -14,8 +14,8 @@ export const dateDePublication = '07/06/2022'
 export const uuid = 'd1ad9'
 export const ref = 'can1L06'
 export default function FormeCanonique () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'

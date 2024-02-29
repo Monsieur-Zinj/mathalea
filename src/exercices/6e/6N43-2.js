@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function TableauCriteresDeDivisibilite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.spacing = 1
   this.spacingCorr = 1
   this.nbQuestions = 5

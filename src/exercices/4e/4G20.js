@@ -116,7 +116,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Pythagore2D () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.amcReady = amcReady
   this.amcType = amcType

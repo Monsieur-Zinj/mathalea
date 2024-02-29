@@ -16,7 +16,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function InstructionConditionnelle () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.sup = 1
   this.nbQuestions = 2

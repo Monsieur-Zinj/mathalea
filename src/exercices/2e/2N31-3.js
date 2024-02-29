@@ -30,7 +30,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PuissancesDUnRelatif2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   context.isHtml
     ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
     : (this.consigne = 'Écrire sous la forme $a^n$.')

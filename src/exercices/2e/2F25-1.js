@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function EtudierGraphiqueParite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.video = ''
   this.consigne = 'Déterminer, par lecture graphique mais en le justifiant, si la fonction $f$ représentée est paire, impaire ou ni paire, ni impaire.'

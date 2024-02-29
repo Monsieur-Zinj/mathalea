@@ -31,7 +31,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ÉcrireUneExpressionLitterale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1

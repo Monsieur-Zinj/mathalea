@@ -21,7 +21,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function TrouverOppose () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.besoinFormulaireCaseACocher = ['Afficher quelques fois le signe des nombres positifs']
   this.sup = true

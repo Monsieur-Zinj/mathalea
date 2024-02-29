@@ -25,7 +25,7 @@ const listePremiers = premiersEntreBornes(1, 100)
 const listeNonPremiers = [1, 21, 27, 33, 39, 42, 45, 49, 51, 54, 55, 57, 63, 69, 75, 77, 81, 87, 91, 93, 95, 99]
 
 export default function NombresPremiers () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.spacing = 1

@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PuissancesEncadrement () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 4
   this.nbQuestions = 5
 

@@ -14,7 +14,7 @@ export const dateDePublication = '26/10/2023'
 export const uuid = 'bb947'
 export const ref = 'can2N04'
 export default function ReunionIntervalles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2

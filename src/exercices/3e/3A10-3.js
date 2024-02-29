@@ -31,7 +31,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DecompositionFacteursPremiers () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   // pas de différence entre la version html et la version latex pour la consigne
   // mais une différence selon que l'exo est affiché en interactif ou non
   this.consigne = ''

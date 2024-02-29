@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function MesurePrincipale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 3 // Nombre de questions par défaut
   this.nbColsddd = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX

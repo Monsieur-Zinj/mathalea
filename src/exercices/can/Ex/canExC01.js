@@ -16,7 +16,7 @@ export const dateDePublication = '26/10/2021'
 export const uuid = '71292'
 export const ref = 'canExC01'
 export default function SommeDeComplexes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.typeExercice = 'simple'
 

@@ -30,7 +30,7 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
   tablesParDefaut = '2-3-4-5-6-7-8-9'
 ) {
   // Multiplier deux nombres
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = tablesParDefaut
   this.sup2 = 1
   this.titre = titre

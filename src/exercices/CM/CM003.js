@@ -23,7 +23,7 @@ export default function TablesMultiplicationsDivisions (
   tablesParDefaut = '2-3-4-5-6-7-8-9'
 ) {
   // Multiplier ou diviser deux nombres
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = tablesParDefaut
   this.sup2 = 1 // classique|a_trous|melange
   this.consigne = 'Calculer.'

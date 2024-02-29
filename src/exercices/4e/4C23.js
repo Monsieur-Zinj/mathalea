@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function SommeOuProduitFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.spacing = context.isHtml ? 4 : 3

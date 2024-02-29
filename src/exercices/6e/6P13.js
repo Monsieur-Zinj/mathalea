@@ -40,7 +40,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function AugmenterEtReduireDunPourcentage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

@@ -23,7 +23,7 @@ export const refs = {
 }
 export const uuid = 'd2b82'
 export default function ArrondirUnDecimal () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 7 // Type de questions
   this.nbQuestions = 6
 

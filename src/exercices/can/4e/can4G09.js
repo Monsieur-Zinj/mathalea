@@ -22,8 +22,8 @@ export const dateDePublication = '01/10/2023'
 export const uuid = '96bcd'
 export const ref = 'can4G09'
 export default function TripletsPythagoriciens () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.tailleDiaporama = 2

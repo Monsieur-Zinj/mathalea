@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function TrianglesEgaux () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Compléter les phrases suivantes.'
   this.nbQuestions = 3

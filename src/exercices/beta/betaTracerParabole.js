@@ -19,7 +19,7 @@ export const titre = 'Etude d\'une parabole'
  * @author Eric Schrafstetter
  */
 export default function TrouverEquationDeParabole () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Etude d\'une parabole'
   this.nbQuestions = 2

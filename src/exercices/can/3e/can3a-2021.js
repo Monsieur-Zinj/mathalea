@@ -39,7 +39,7 @@ function compareNombres (a, b) {
 export const uuid = 'afd9f'
 export const ref = 'can3a-2021'
 export default function SujetCAN20213ieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

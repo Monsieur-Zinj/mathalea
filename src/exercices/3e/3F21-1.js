@@ -37,7 +37,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function LectureExpressionFonctionsAffines () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1

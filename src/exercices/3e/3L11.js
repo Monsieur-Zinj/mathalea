@@ -47,7 +47,7 @@ export const uuid = '77a62'
 //   'fr-ch': []
 //  }
 export default function ExerciceDevelopper () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 3 // difficulté
   this.sup2 = 1 // consigne
   this.sup3 = 8 // forme de développement

@@ -24,7 +24,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'd15f3'
 export const ref = 'can1P04'
 export default function CalculProbaArbre2e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = true
   this.consigne = ''
   this.nbQuestions = 1

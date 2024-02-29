@@ -36,7 +36,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceSoustractionsRelatifs (max = 20) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max
   this.sup2 = false // écriture simplifiée
   this.titre = titre

@@ -27,7 +27,7 @@ export const refs = {
 // @todo à déplacer dans comparaisonFonctions.ts lors de la fusion de handleAnswer
 
 export default function FactoriserIdentitesRemarquables2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Factoriser les expressions suivantes.'
   this.nbCols = 1

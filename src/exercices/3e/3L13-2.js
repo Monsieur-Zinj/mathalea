@@ -32,7 +32,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function EqResolvantesThales () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   if (this.debug) {
     this.nbQuestions = 4

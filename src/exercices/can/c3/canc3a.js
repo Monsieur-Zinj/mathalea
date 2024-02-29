@@ -29,7 +29,7 @@ export const amcType = 'AMCNum'
 export const uuid = '32a0f'
 export const ref = 'canc3a'
 export default function CourseAuxNombresCM () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 30
   if (this.interactif) {
     this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."

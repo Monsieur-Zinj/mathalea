@@ -75,7 +75,7 @@ function justificationsKO (n1, n2, n3, coeff, operation, sens) {
 }
 
 export default function TableauxEtProportionnalite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.sup = 1
   if (this.debug) {

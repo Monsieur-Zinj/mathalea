@@ -20,7 +20,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProprietesDesParallelogrammes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 3
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

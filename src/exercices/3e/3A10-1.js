@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PremierOuPas () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   // pas de différence entre la version html et la version latex pour la consigne
   context.isHtml ? this.spacing = 1 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1

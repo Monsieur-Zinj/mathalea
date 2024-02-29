@@ -23,7 +23,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CompleterScriptMultiple () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 5
   this.sup2 = 5
   this.sup3 = 4

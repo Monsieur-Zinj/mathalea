@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function MettreEnEquationSansResoudre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.nbQuestions = 2
 

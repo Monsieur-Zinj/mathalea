@@ -28,7 +28,7 @@ export const ref = ''
 export const dateDePublication = '01/01/2024'
 
 export default function CourseAuxNombresSpeciale2024 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
 
   this.keyboard = ['lycee', 'hms']
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

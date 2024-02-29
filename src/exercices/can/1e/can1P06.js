@@ -25,7 +25,7 @@ export const amcType = 'AMCNum'
 export const uuid = '73673'
 export const ref = 'can1P06'
 export default function CalculProbaTableau () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = true
   this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.consigne = ''

@@ -18,7 +18,7 @@ export const titre = 'Le compte est bon original'
 export const uuid = 'bd6ff'
 export const ref = 'CM021'
 export default function CompteEstBon () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne =
     'Trouve le résultat en utilisant les quatre opérations et les nombres du tirage (une seule fois).'
   this.nbQuestions = 5

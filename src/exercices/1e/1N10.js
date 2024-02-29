@@ -17,7 +17,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function TermeDUneSuiteDefinieExplicitement () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Une suite étant donnée, calculer le terme demandé.'
   this.nbQuestions = 4

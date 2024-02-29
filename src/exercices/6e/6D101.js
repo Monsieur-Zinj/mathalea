@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function HeuresDecimales () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.keyboard = ['hms']
   this.consigne = 'Écrire les durées suivantes en heures et minutes.'
   this.spacing = 2

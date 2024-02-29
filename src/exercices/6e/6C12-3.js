@@ -34,7 +34,7 @@ export const refs = {
 }
 export default function ExerciceInformationsProblemes () {
   // Multiplier deux nombres
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.sup2 = 11
   this.sup3 = false

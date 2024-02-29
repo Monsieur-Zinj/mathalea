@@ -12,7 +12,7 @@ export const dateDePublication = '06/04/2022'
  * Référence P016
 */
 export default function SimulateurDes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ParenthesesPrecedesDeMoinsOuPlus () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2

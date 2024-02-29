@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function EncadrerRacineCarreeEntre2Entiers () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 2
   this.nbCols = 1
   this.nbColsCorr = 1

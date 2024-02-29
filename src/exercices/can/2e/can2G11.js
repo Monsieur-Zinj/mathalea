@@ -19,7 +19,7 @@ export const dateDeModifImportante = '03/01/2022'
 export const uuid = '7bc4a'
 export const ref = 'can2G11'
 export default function RelationChasles2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 3

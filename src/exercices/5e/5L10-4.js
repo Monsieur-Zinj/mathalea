@@ -29,7 +29,7 @@ function etapeCorrective (str, sup) {
 }
 
 export default function TableauxEtFonction () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.nbQuestions = 1
 

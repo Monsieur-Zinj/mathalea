@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CompleterScriptDiviseurs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 11
   this.sup2 = 3
   this.sup3 = 5

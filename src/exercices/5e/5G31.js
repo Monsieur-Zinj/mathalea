@@ -57,7 +57,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceAnglesTriangles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = '1-2-3-4-5'
   this.sup2 = false
   this.sup3 = true

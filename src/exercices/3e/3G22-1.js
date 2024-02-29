@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Agrandissement () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = '9'
 
   this.besoinFormulaireTexte = ['Choix des types de problèmes', `Nombres séparés par des tirets

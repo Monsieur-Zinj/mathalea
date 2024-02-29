@@ -17,7 +17,7 @@ export const uuid = 'ad5f8'
  * Ref : P007
  */
 export default function PavagesMathalea2d () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

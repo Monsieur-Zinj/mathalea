@@ -15,7 +15,7 @@ export const titre = 'Division de polynômes'
 export const uuid = 'ad6a2'
 export const ref = 'HPC100'
 export default function DivisionDePolynomes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer le quotient Q(x) de la division de P(x) par D(x)'
 
   this.nbQuestions = 2

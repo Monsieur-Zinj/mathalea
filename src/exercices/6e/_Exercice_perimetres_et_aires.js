@@ -47,7 +47,7 @@ export const titre = "Calculs de périmètres et d'aires"
  */
 export default function ExercicePerimetresEtAires () {
   // Calculer le périmètre et l'aire de figures
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = '1-2'
   this.consigne = ''
   this.spacing = 1

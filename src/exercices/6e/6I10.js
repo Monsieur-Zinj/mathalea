@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ColorierDeplacement () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.typeExercice = 'Scratch'
   this.sup = 1 // nombre de commandes = this.sup + 2
   this.sup2 = false // 1 : sans boucle ; true : avec boucle

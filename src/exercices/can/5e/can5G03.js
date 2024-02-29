@@ -26,7 +26,7 @@ export const amcType = 'AMCNum'
 export const uuid = '36f08'
 export const ref = 'can5G03'
 export default function CompterlesSymetriquesCan5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1

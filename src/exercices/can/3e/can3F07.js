@@ -24,8 +24,8 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const uuid = '82f73'
 export const ref = 'can3F07'
 export default function LectureGraphiqueFonctionAffine1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

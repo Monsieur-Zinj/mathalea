@@ -37,7 +37,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceEquation1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Résoudre les équations suivantes.'
   this.spacing = 2
   this.interactifType = 'mathLive'

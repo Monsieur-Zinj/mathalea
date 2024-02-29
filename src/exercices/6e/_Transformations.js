@@ -37,7 +37,7 @@ export const amcType = 'AMCHybride'
  * Relecture : Novembre 2021 par EE
  */
 export default function Transformations () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.can = false
   this.consigne = ''
   this.nbQuestions = 1

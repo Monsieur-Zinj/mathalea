@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceAdditionnerOuSoustraireDesFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 2 // Niveau de difficulté
   this.sup2 = false // Avec ou sans relatifs
   this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée

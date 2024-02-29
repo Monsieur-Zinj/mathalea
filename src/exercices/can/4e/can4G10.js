@@ -25,7 +25,7 @@ export const dateDePublication = '01/10/2023'
 export const uuid = '5344c'
 export const ref = 'can4G10'
 export default function TripletsPythagoriciensOuPas () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestionsModifiable = true
   this.nbQuestions = 3

@@ -30,7 +30,7 @@ export const refs = {
 }
 export default function ExerciceProblemesComplexes () {
   // Multiplier deux nombres
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 11
   this.titre = titre
   this.spacing = 1.5

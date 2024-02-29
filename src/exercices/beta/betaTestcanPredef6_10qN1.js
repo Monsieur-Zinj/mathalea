@@ -22,7 +22,7 @@ export const dateDePublication = '/11/2021' // La date de publication initiale a
  * Référence
  */
 export default function Can10Questions6N1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

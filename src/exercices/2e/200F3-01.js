@@ -27,7 +27,7 @@ export default class LectureSigneAffine extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.sup = 3
     this.besoinFormulaireNumerique = ['Niveau', 3]

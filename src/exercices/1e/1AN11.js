@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Equationdetangente () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

@@ -20,8 +20,8 @@ export const dateDePublication = '20/06/2022'
 export const uuid = 'a3e7a'
 export const ref = 'can1F10'
 export default function DeriveePoly2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

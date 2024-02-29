@@ -27,7 +27,7 @@ export const refs = {
 }
 export const uuid = 'a8c21'
 export default function EncadrerUnDecimal () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 4 // Type de questions
   this.nbQuestions = 4
   this.consigneCorrection = 'Encadrer'

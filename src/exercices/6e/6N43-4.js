@@ -23,7 +23,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DivisibleDiviseurMultiple () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 6 // 6 questions au maximum
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

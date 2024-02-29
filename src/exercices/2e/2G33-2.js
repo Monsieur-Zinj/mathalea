@@ -17,7 +17,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PositionsDeDroites () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Déterminer si les droites $\\bm{(d)}$ et $\\bm{(d\')}$ dont on donne ci-dessous des équations cartésiennes, sont parallèles, confondues ou sécantes.'
   this.nbQuestions = 3

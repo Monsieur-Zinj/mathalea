@@ -20,7 +20,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProblemesAdditifsFractionsBis () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = '6'
   this.video = ''
   this.nbQuestions = 5

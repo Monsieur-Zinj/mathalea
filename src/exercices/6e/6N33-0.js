@@ -30,7 +30,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function FractionDuneQuantite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 5
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 2)

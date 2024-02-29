@@ -21,7 +21,7 @@ export const dateDePublication = '16/11/2023' // La date de publication initiale
 export const uuid = 'b9582'
 export const ref = 'can6N18'
 export default function EncadrerDizaine () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

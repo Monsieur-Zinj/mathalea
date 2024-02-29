@@ -37,7 +37,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function MultiplierDecimauxPar101001000 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer et donner le résultat sous forme d\'un nombre décimal.'
   this.sup = 3
   this.sup2 = false

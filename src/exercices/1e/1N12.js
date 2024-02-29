@@ -22,7 +22,7 @@ export const refs = {
 export default class SommeSuiteArithmetique extends Exercice {
   constructor () {
     super()
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple'
     this.nbQuestions = 2
     this.spacingCorr = 1.5
     this.consigneCorrection = 'Rappel : $1 + 2 + 3 + ... + n = \\dfrac{n(n + 1)}{2}$'

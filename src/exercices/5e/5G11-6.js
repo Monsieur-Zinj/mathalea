@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CompleterParSymetrie5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1

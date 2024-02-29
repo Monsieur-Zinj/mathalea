@@ -30,7 +30,7 @@ function myOrdre (ordre, tab) {
 }
 
 export default function RangerOrdreCroissantDecroissant () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.beta = false
   this.sup = 1
   if (this.beta) {

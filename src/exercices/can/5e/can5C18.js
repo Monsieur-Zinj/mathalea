@@ -18,7 +18,7 @@ export const dateDePublication = '24/02/2022' // La date de publication initiale
 export const uuid = '1f71c'
 export const ref = 'can5C18'
 export default function ReconnaitreExp () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 1

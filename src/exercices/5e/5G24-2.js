@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function TrianglesEgaux () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Les triangles sont-ils égaux ? S\'ils sont égaux, justifier la réponse.'
   this.nbQuestions = 4

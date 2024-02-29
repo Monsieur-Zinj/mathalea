@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CriteresDeDivisibilite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 4 // Correspond au facteur commun
   this.consigne = 'Répondre aux questions suivantes en justifiant.'
   this.spacing = 2

@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculsImagesFonctions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 2
   this.sup2 = 1
   this.sup3 = 1

@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function IdentitesCalculs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.can = false // pour décliner en version CAN
   this.canVersion = '' // Pour distinguer les déclinaisons
   // 'v1' Pour une version simple type 29² 31² ou 29x31, seulement 1 d'écart par rapport à la dizaine ou à la centaine

@@ -22,8 +22,8 @@ export const dateDeModifImportante = '07/02/2024'
 export const uuid = '802cc'
 export const ref = 'can5P06'
 export default function ÉcrirePourcentage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur01 inline nospacebefore'

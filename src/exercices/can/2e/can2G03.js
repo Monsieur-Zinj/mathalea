@@ -22,8 +22,8 @@ export const interactifType = 'mathLive'
 export const uuid = '6341d'
 export const ref = 'can2G03'
 export default function CalculHypotenusePythagore () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   this.tailleDiaporama = 2

@@ -21,7 +21,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function FactoriserIdentitesremarquables2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Factoriser les expressions suivantes.'
   this.nbCols = 1

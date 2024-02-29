@@ -33,7 +33,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculsDeDureesOuHoraires () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.keyboard = ['hms']
   this.consigne = ''
   this.sup = 4

@@ -31,7 +31,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function FactoriserIdentitesRemarquables3 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.correctionDetailleeDisponible = false
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)

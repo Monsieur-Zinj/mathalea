@@ -46,7 +46,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProblemesTrigoLongueur () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.besoinFormulaireCaseACocher = ['Afficher des questions intermédiaires et éventuellement un schéma']
   this.sup = true

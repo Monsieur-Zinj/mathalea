@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function VocabulaireNotationsFonctions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 2
   this.consigne = ''
   this.correctionDetailleeDisponible = true

@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function EnsembleDeNombres () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient.'
   this.nbQuestions = 5

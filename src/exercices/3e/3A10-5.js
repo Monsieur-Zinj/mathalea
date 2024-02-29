@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function RecourirDecompositionFacteursPremiers () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 4
   this.besoinFormulaireTexte = ['Nombres premiers utilisés ', 'Nombres séparés par des tirets\n1 : 2, 3 et 5\n2 : 2, 3 et 7\n3 : 2, 5 et 7\n4 : 3, 5 et 7\n5 : Au moins un nombre premier entre 10 et 20\n6 : Mélange']
   this.besoinFormulaire2Numerique = ['Puissance la plus élevée possible (entre 2 et 5)', 3]

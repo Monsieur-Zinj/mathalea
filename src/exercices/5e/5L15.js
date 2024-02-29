@@ -32,7 +32,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function TesterUneEgalite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1

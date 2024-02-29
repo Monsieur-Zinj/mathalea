@@ -30,7 +30,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function MultiplierEntierPar101001000 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 8
   this.nbCols = 2

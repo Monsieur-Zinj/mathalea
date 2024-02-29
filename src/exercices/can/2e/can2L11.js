@@ -17,8 +17,8 @@ export const dateDePublication = '12/01/2023'
 export const uuid = 'b5c9c'
 export const ref = 'can2L11'
 export default function ExprimerVariable () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.compare = egaliteCompare

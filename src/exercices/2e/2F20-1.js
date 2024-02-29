@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PointSurCourbe () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1
   this.sup2 = 1
   this.consigne = ''

@@ -32,7 +32,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculProbaExperience2Epreuves2e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = true
   this.sup2 = false
   this.tailleDiaporama = 2

@@ -16,8 +16,8 @@ export const interactifType = 'mathLive'
 export const uuid = '3a350'
 export const ref = 'can2C08'
 export default function CalculAvecRacineCarree3 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'

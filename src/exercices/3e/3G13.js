@@ -61,7 +61,7 @@ export function texNum (expression, formatFraction = false) {
 }
 
 export default function CalculsHomothetie () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 4 // Nombre de questions par défaut
   this.nbCols = 0 // Uniquement pour la sortie LaTeX

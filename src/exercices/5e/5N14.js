@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceComparerDeuxFractions (max = 11) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max // Correspond au facteur commun
   this.consigne = 'Comparer les fractions suivantes.'
   this.spacing = 2

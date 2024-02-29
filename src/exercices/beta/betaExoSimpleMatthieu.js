@@ -8,7 +8,7 @@ export const titre = 'Ceci est le titre de l\'exercice BetaExosimpleMatthieu'
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Ceci est la consigne (en gras) de l'exercice."
   this.introduction = "Ceci est l'introduction (pas en gras) de l'exercice"
   this.nbQuestionsModifiable = false // le nombre de questions est fixe dans cet exercice.

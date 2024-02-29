@@ -20,7 +20,7 @@ export const dateDePublication = '07/10/2023' // La date de publication initiale
 export const uuid = '7c76a'
 export const ref = 'can1L12'
 export default function TableauSignesSecondDegre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.listePackages = ['tkz-tab']

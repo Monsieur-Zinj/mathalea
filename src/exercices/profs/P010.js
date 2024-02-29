@@ -20,7 +20,7 @@ export const uuid = '691a8'
  * @author Jean-Claude Lhote
  */
 export default function VariationPolynomeDegre3 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

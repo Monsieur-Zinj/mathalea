@@ -58,7 +58,7 @@ $${miseEnEvidence(`${texPrix(prix)} \\times (100${sp(1)}\\% - ${remise.str}) = $
  * @author Sébastien Lozano
  */
 export default function TableauxEtPourcentages () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.sup = 1 // nature du coefficient entre les pourcentages, entier/decimal
   this.sup2 = 1 // nombre de colonnes

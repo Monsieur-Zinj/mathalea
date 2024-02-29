@@ -12,7 +12,7 @@ export const titre = 'Calculer la racine carrée de (x² +/- y²)'
  * Référence : 4G20-4
 */
 export default function CalculerUneExpressionLitteralePythagore () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Dans chaque cas, calculer a² + b² et a² - b²; puis donner la racine carrée de chaque résultat en valeur arrondie au centième.'
   this.nbQuestions = 2

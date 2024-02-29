@@ -19,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function EquationDuSecondDegreAvecUnParametre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = `Déterminer, suivant la valeur du paramètre $m$, le ${texteGras('nombre de solutions')} de l'équation du second degré.`
   this.nbQuestions = 2
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

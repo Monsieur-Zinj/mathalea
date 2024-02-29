@@ -15,7 +15,7 @@ export const uuid = '295a8'
  * Référence P014
  */
 export default function TraceCourbeInterpolee1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 1

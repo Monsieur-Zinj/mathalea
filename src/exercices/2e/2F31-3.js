@@ -23,7 +23,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Variationsapartirtableau () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.video = '' // Id YouTube ou url
   this.listePackages = ['tkz-tab']//, 'tkz-fct', 'tkz-euclide'

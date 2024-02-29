@@ -17,8 +17,8 @@ export const interactifType = 'mathLive'
 export const uuid = 'f6f76'
 export const ref = 'can2N01'
 export default function Intervalles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.date = 1635094684684
   this.nbQuestions = 1
   this.tailleDiaporama = 2

@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ListerDiviseursParDecompositionFacteursPremiers () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = false
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Sans la calculatrice, compter/lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers.'

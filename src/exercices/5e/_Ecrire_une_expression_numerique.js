@@ -22,7 +22,7 @@ export const dateDeModifImportante = '21/09/2023'
  * @author Jean-Claude Lhote
  */
 export default function EcrireUneExpressionNumerique () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1

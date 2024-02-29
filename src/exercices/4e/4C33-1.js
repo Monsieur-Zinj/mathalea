@@ -63,7 +63,7 @@ export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
 }
 
 export default function PuissancesDunRelatif1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   context.isHtml
     ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
     : (this.consigne = 'Écrire sous la forme $a^n$.')

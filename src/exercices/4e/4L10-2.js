@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function AirePerimetrePolygone () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Exprimer le périmètre et l\'aire des rectangles et carrés suivants par une expression littérale réduite.'
   this.nbQuestions = 4 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

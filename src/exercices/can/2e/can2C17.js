@@ -15,8 +15,8 @@ export const dateDePublication = '30/03/2023'
 export const uuid = '9883e'
 export const ref = 'can2C17'
 export default function DevelopperEgalitesRemarquablesRC () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

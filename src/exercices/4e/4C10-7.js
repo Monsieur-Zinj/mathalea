@@ -32,7 +32,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceOperationsRelatifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = false // écriture simplifiée
   this.sup2 = 5 // Mélange par défaut
   this.sup3 = 10 // Valeur maximum

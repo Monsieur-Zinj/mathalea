@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function TableDoubleDistributivite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2

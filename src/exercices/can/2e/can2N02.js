@@ -18,8 +18,8 @@ export const dateDeModifImportante = '26/08/2023'
 export const uuid = 'e31d1'
 export const ref = 'can2N02'
 export default function PlusPetitEnsemble () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'

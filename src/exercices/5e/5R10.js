@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function TermeInconnuDeSomme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 5
   this.sup = 1
   this.sup3 = 1

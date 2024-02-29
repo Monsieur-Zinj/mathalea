@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ComparerDecimaux () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Compléter avec le signe < , > ou =.'
   this.nbQuestions = 8
   this.nbCols = 2

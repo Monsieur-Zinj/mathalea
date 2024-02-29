@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Reductionaxbx () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1

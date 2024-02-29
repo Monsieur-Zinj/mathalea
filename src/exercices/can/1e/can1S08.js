@@ -19,8 +19,8 @@ export const dateDePublication = '18/02/2022' // La date de publication initiale
 export const uuid = 'baa9f'
 export const ref = 'can1S08'
 export default function CalculRaison2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

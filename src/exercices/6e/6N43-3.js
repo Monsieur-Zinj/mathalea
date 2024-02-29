@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Pour chaque affirmation, indiquer si elle est vraie ou fausse.'
   this.nbQuestions = 5
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

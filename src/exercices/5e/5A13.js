@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceDecomposerEnFacteursPremiers () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.spacing = 2
   this.nbQuestions = 6
   this.sup = 2 // 4 facteurs par défaut

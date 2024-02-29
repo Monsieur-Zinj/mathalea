@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 export const uuid = '30800'
 export const ref = 'CM005'
 export default function Ajouter9 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 10
   this.nbCols = 2

@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ConversionsDeDurees () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 5
   this.titre = titre
   this.consigne = 'Convertir.'

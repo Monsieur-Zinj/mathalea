@@ -26,7 +26,7 @@ export const dateDePublication = '17/06/2022' // La date de publication initiale
 export const uuid = '26b38'
 export const ref = 'can1F06'
 export default function LectureGraphiqueParaboleaEtb () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur10 inline'
   this.tailleDiaporama = 1

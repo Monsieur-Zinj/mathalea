@@ -14,7 +14,7 @@ export const titre = 'Exercice exemple'
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 10
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

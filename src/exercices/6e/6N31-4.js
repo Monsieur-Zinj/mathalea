@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function IntercalerDecimalEntre2Decimaux () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Compléter avec un nombre décimal.'
   this.nbQuestions = 6
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX

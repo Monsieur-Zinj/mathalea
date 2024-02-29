@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'ee307'
 export const ref = 'CM008'
 export default function Soustraire11 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 10
   this.nbCols = 2

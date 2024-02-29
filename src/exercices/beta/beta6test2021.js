@@ -8,7 +8,7 @@ export const titre = 'Exercice exemple'
  * Référence
 */
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestionsModifiable = false

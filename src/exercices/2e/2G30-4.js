@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Equationcartesienne () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Déterminer une équation cartésienne de la droite $\\bm(d)$.'
   this.nbQuestions = 2

@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceTablesAdditions (max = 20) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.sup2 = '1'
   this.sup = max // Le paramètre accessible à l'utilisateur sera la valeur maximale

@@ -19,8 +19,8 @@ export const dateDePublication = '08/12/2022'
 export const uuid = '3cf30'
 export const ref = 'can3L06'
 export default function ReduireAvecFraction () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.compare = factorisationCompare

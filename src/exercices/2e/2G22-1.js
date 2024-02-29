@@ -21,7 +21,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function RepresenterUnVecteur () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 2
   this.nbCols = 2
   this.nbColsCorr = 2

@@ -28,7 +28,7 @@ export const refs = {
 }
 export const uuid = '708a9'
 export default function ExerciceEcritureDecimaleOuFractionDecimale () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Donner l'écriture décimale ou la fraction décimale."
   this.spacing = 2
   this.spacingCorr = 2

@@ -19,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function EncadrerUnDecimalParDeuxEntiersConsecutifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.beta = false
   this.sup = 1
   if (this.beta) {

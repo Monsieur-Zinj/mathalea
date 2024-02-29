@@ -41,7 +41,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function AireDeTriangles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   this.amcReady = amcReady

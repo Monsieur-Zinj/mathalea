@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function EquationReduiteDeDroites () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

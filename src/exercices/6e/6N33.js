@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function FractionDUnNombre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 5
   this.consigne = 'Calculer.'
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)

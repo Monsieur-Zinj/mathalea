@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function AdditionsSoustractionsMultiplicationsPosees () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies

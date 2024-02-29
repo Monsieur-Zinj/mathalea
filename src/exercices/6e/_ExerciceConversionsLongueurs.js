@@ -26,7 +26,7 @@ export const titre = 'Convertir des longueurs'
  * @author Rémi Angot
  */
 export default function ExerciceConversionsLongueurs (niveau = 1) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = false // avec le tableau

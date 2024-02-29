@@ -17,8 +17,8 @@ export const dateDePublication = '19/09/2022'
 export const uuid = '27f5c'
 export const ref = 'can2C14'
 export default function CalculAvecRacineDef () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline nospacebefore'

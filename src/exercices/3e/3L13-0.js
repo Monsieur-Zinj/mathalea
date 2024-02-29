@@ -21,7 +21,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function EquationPremierDegreSolutionsEntieres () {
-  ExerciceEquationASolutionEntiere.call(this) // Héritage de la classe Exercice()
+  ExerciceEquationASolutionEntiere.call(this)
 
   this.sup = true // Avec des nombres relatifs
   this.sup2 = 4 // Choix du type d'équation

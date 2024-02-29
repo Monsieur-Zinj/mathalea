@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PpcmEngrenages () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   context.isHtml ? this.spacing = 2 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.nbQuestionsModifiable = false

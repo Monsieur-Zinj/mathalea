@@ -42,7 +42,7 @@ export function baseNVersBase10 (stringNombre, b) {
 }
 
 export default function MultiplicationsBaseN () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.video = 'pkp9e8XDH3M'
   this.consigne = 'Poser et effectuer les calculs suivants :'
   this.nbQuestions = 3

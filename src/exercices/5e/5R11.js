@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function LireAbscisseRelative () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Lire l'abscisse de chacun des points suivants."
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true

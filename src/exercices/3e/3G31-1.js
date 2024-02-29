@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculDAngleFigureComplexe () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Calculer la mesure de tous les angles de cette figure.'
   this.nbQuestions = 2

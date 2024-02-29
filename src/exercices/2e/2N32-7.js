@@ -19,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Rendreentier () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = 'Rendre entier le dénominateur d\'une fraction'
   this.nbQuestions = 1
   this.nbCols = 2

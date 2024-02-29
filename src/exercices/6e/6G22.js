@@ -39,7 +39,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function NommerUnAngle () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
   this.sup = 2

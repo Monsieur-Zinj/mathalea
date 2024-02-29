@@ -33,7 +33,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceMultiplierFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   const space = '\\phantom{\\dfrac{(_(^(}{(_(^(}}' // Utilisé pour mettre de l'espace dans une fraction de fraction
   const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une fraction de fraction lorsque le numérateur ou le dénominateur est entier
   this.sup = 1 // Avec ou sans relatifs

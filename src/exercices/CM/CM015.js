@@ -17,7 +17,7 @@ export const amcType = 'AMCNum'
 export const uuid = 'fbd32'
 export const ref = 'CM015'
 export default function SommeDeDeuxNombresMaries () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 10
   this.nbCols = 2

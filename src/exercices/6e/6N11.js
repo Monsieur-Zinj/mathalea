@@ -30,7 +30,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function LireAbscisseEntiere2d () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
   this.nbCols = 1

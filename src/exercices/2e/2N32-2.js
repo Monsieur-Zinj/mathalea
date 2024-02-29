@@ -19,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Proprietesracinecarree () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 2
   this.nbCols = 2

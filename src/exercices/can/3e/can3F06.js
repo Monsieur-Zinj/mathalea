@@ -18,8 +18,8 @@ export const dateDePublication = '25/10/2021'
 export const uuid = '17987'
 export const ref = 'can3F06'
 export default function CoefficientFonctionAffine () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

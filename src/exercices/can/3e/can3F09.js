@@ -24,7 +24,7 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 export const uuid = 'b60f4'
 export const ref = 'can3F09'
 export default function ReconnaitreFonctionAffine () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'calcul'

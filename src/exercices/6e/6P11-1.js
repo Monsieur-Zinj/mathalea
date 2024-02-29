@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProportionnaliteParLineariteBis () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.beta = false
   if (this.beta) {
     this.nbQuestions = 3

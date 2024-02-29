@@ -23,7 +23,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProblemesMultiplicatifsFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = '8'
   this.video = ''
   this.nbQuestions = 4

@@ -44,7 +44,7 @@ function compareNombres (a, b) {
 export const uuid = '1fdf7'
 export const ref = 'can5a-2022'
 export default function SujetCAN2022cinquieme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

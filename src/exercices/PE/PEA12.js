@@ -19,7 +19,7 @@ export const dateDePublication = '31/10/2021'
 export const uuid = '3441e'
 export const ref = 'PEA12'
 export default function AdditionSoustractionBaseN () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Poser et effectuer les calculs suivants :'
   this.video = '-bIvS95dmYw'
   this.nbQuestions = 4

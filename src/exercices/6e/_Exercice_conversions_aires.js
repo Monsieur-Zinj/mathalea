@@ -32,7 +32,7 @@ export const titre = "Conversions d'aires"
  * Référence 6M23
  */
 export default function ExerciceConversionsAires () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 1 // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 1 // interactifType Qcm

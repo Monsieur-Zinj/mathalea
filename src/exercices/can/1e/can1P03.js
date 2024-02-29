@@ -25,7 +25,7 @@ export const amcType = 'AMCNum'
 export const uuid = '7c8b7'
 export const ref = 'can1P03'
 export default function CalculerProbabiliteIntersection () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = true
   this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.consigne = ''

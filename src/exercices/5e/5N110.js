@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function VariationEnPourcentages () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Calculer le nouveau prix. Pour chaque réponse, écrire la valeur décimale.'
   this.nbQuestions = 5

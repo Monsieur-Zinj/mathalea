@@ -42,7 +42,7 @@ export function codeCesar (mots, decal) {
 }
 
 export default function PremierEscapeGameMathalea () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Trouver le mot de passe.'
   this.nbQuestions = 1

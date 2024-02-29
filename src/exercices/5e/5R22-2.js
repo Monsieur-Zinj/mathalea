@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max
   this.sup2 = 3
   this.consigne = 'Écrire sous la forme d\'une expression algébrique sans parenthèses puis calculer.'

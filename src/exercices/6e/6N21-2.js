@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function LireAbscissesFractionnairesComplexes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 5
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX

@@ -13,7 +13,7 @@ export const titre = 'Croissance de fonction ?'
  * Référence
 */
 export default function CroissanceDeFonction () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

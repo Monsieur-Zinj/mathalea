@@ -19,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExtraireUnCarreParfaitDUneRacineCarree () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = 'Écrire une racine carrée sous la forme $a\\sqrt{b}$'
   this.nbQuestions = 4
   this.nbCols = 2

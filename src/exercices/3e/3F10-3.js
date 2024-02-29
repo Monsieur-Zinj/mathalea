@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function VocabulaireNotationsFonctions2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 5
   this.consigne = ''
   this.spacing = 1.5

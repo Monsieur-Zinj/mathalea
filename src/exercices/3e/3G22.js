@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function AgrandissementReduction () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   context.isHtml ? this.spacingCorr = 3.5 : this.spacingCorr = 1.5

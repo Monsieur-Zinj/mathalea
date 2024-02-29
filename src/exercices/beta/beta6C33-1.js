@@ -8,7 +8,7 @@ export const titre = 'Parenthèses manquantes'
  * Référence 6C33-1
  */
 export default function Priorites () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = "Si besoin, ajoute des parenthèses pour rendre l'égalité correcte. <br> S'il y a plusieurs fois la même égalité trouve des solutions différentes."
   this.nbQuestions = 2

@@ -22,7 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceQuotientsRelatifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = false
   this.interactifReady = interactifReady
   this.interactifType = interactifType

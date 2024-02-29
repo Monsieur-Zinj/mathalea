@@ -19,7 +19,7 @@ export const dateDePublication = '30/10/2021' // La date de publication initiale
 export const uuid = '2ba42'
 export const ref = 'can2G12'
 export default function VecteursColineairesVF () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

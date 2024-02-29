@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function TracerAvecScratch () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Laquelle des 4 figures ci-dessous va être tracée avec le script fourni ?'
 

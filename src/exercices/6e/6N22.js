@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function FractionsCalculsSimples () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.sup = true
   this.sup2 = 5

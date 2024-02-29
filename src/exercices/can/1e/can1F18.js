@@ -24,8 +24,8 @@ export const dateDePublication = '24/06/2022' // La date de publication initiale
 export const uuid = 'c4251'
 export const ref = 'can1F18'
 export default function CalculFonctionDeriveeAsurU () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

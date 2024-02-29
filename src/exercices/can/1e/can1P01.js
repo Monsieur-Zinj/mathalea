@@ -22,7 +22,7 @@ export const amcType = 'AMCNum'
 export const uuid = '15f6d'
 export const ref = 'can1P01'
 export default function ProbabilitesNotation () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.sup = true
   this.consigne = ''

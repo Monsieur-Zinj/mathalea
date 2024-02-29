@@ -23,7 +23,7 @@ export const uuid = '0ff0f'
  * Référence P017
 */
 export default function EncadrerAireDisque () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.spacing = context.isHtml ? 2 : 1

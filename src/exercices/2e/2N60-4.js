@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceInequation1 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)

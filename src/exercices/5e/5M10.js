@@ -32,7 +32,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function AireDuParallelogramme () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = "Calculer l'aire des parallélogrammes suivants."
   this.spacing = 2

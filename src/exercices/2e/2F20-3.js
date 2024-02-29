@@ -34,7 +34,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function LecturesGraphiques () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true

@@ -18,7 +18,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function RoseMultiplicative () { // c'est l'ExoRose zéro contenu dans _Roses.js
-  ExoRose.call(this) // Héritage de la classe Exercice()
+  ExoRose.call(this)
   this.operation = 'multiplication'
   this.typeDonnees = 'entiers'
   this.besoinFormulaire2Numerique = ['Nombre de facteurs (entre 3 et 9)', 9]

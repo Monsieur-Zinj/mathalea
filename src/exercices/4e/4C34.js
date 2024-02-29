@@ -74,7 +74,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PrioritesEtRelatifsEtPuissances () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Calculer.'
   this.nbQuestions = 5
   this.nbCols = 1

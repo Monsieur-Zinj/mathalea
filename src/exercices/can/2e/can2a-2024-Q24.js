@@ -16,7 +16,7 @@ export default class NomExercice extends Exercice {
     super()
     this.titre = titre
     this.canOfficielle = false
-    this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore'
     this.optionsChampTexte = { texteAvant: '$M($', texteApres: '$)$' }

@@ -20,7 +20,7 @@ export const dateDePublication = '27/12/2021' // La date de publication initiale
 export const uuid = 'a7515'
 export const ref = 'can2F09'
 export default function ResoudreEquationsFonctionDeReference () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 2

@@ -37,7 +37,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceAdditionnerFractionProduit () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 3
   this.sup2 = false
   this.sup3 = true

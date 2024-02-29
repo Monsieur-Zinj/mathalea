@@ -25,7 +25,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DevelopperIdentitesRemarquables2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Développer et réduire les expressions suivantes.'
   this.nbCols = 1

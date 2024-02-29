@@ -30,7 +30,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceAdditionnerDesFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 2 // Niveau de difficulté
   this.sup2 = false // Avec ou sans relatifs
   this.titre = titre

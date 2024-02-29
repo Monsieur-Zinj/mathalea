@@ -25,7 +25,7 @@ export const refs = {
   'fr-fr': ['1G10'],
   'fr-ch': []
 }
-export default class CosEtsin extends Exercice { // Héritage de la classe Exercice()
+export default class CosEtsin extends Exercice {
   constructor () {
     super()
     this.consigne = 'Déterminer la valeur exacte de :'

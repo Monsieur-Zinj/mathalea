@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ResoudreEquationDegre2 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
   this.nbQuestions = 4

@@ -31,7 +31,7 @@ export const dateDeModifImportante = '17/09/2022' // Modifications pour les octe
  * Relecture : Novembre 2021 par EE
  */
 export default function ExerciceConversions (niveau = 1) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = niveau // Niveau de difficulté de l'exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.titre =

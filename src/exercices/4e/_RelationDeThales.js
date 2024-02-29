@@ -20,7 +20,7 @@ export const titre = 'Écrire une relation de Thalès'
  * @author Sébastien LOZANO
 */
 export default function RelationDeThales () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1

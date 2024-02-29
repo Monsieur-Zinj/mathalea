@@ -24,8 +24,8 @@ export const dateDePublication = '27/06/2022'
 export const uuid = 'a394f'
 export const ref = 'can1G06'
 export default function ProduitScalaireFiguresClassiques () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

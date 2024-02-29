@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Exercice_fractions_simplifier (max = 11) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max // Correspond au facteur commun
   this.sup2 = false
   this.titre = titre

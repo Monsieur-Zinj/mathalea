@@ -35,7 +35,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PavageEtDemiTour2D () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.nbQuestions = 3

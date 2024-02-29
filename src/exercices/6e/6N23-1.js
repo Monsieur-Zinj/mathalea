@@ -39,7 +39,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceDifferentesEcrituresNombresDecimaux () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Compléter les égalités avec une fraction décimale, la décomposition canonique puis l’écriture décimale.'
   this.spacing = 2
   this.spacingCorr = 2

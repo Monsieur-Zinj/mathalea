@@ -21,7 +21,7 @@ export const dateDePublication = '19/06/2022' // La date de publication initiale
 export const uuid = '6adb0'
 export const ref = 'can1L09'
 export default function EquationSecondDegreParticuliere () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2

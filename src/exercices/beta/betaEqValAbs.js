@@ -12,7 +12,7 @@ export const titre = 'Résoudre une équation avec une valeur absolue'
  * Référence
  */
 export default function EquationAvecUneValeurAbsolue () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations :'
   this.nbQuestions = 2
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

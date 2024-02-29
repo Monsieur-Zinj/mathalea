@@ -19,8 +19,8 @@ export const amcType = 'AMCNum'
 export const uuid = '31096'
 export const ref = 'can6C26'
 export default function MultiplierDiviserPar10Par100Par1000 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

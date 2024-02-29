@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculerEtendues () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

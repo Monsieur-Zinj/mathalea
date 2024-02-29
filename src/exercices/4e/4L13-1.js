@@ -16,7 +16,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function FormeLitteraleIntroduireUneLettre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.debug = false
   this.sup = 1
   if (this.debug) {

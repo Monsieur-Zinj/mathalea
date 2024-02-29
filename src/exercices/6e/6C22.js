@@ -32,7 +32,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProblemesDePlusEtDeMoins () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...'
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

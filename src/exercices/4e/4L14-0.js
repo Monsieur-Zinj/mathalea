@@ -18,7 +18,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function TesterSiUnNombreEstSolutionDUneEquation () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1

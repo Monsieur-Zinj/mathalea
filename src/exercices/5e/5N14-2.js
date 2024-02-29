@@ -21,7 +21,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceComparerQuatreFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Ranger les nombres suivants dans l'ordre croissant."
   this.spacing = 2
   context.isHtml ? this.spacingCorr = 4 : this.spacingCorr = 2.5

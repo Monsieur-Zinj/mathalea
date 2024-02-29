@@ -32,7 +32,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculDeVolumes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbQuestions = 4
   this.nbCols = 1

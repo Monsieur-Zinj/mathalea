@@ -28,7 +28,7 @@ export const amcType = 'AMCNum'
 export const uuid = '32394'
 export const ref = 'can1P02'
 export default function LectureProbabilite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = true
   this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.consigne = ''

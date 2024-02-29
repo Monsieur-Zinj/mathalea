@@ -11,7 +11,7 @@ export const titre = 'Générateur de compte est bon version semi-aléatoire'
 export const uuid = 'fec06'
 export const ref = 'CM020'
 export default function LeCompteEstBonV4 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne =
     'Écrire un calcul égal au nombre cible en utilisant les 5 nombres, 4 opérations différentes et éventuellement des parenthèses.'
   this.nbQuestions = 1

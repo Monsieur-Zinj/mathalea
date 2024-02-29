@@ -406,7 +406,7 @@ class FauxPatrons {
 export default class PatronsSolides extends Exercice {
   constructor () {
     super()
-    this.sup = '1-2-3' // Cette ligne est très importante pour faire faire un exercice simple !
+    this.sup = '1-2-3'
     this.nbQuestions = 3
     this.besoinFormulaireTexte = ['Trois dimensions du parallélépipède rectangle séparés par des tirets']
   }

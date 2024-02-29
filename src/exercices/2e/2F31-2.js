@@ -21,7 +21,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function EncadrerAvecFctRef () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 3
   // this.nbQuestionsModifiable = false

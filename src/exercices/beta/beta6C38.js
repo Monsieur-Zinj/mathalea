@@ -18,7 +18,7 @@ export const interactifType = 'mathLive'
  * Référence
  */
 export default function AugmenterEtReduireDunPourcentage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 2
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

@@ -24,8 +24,8 @@ export const dateDePublication = '10/11/2022'
 export const uuid = '6082f'
 export const ref = 'can2G19'
 export default function CoeffDirDroite () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.formatInteractif = 'fractionEgale'
   this.nbQuestions = 1

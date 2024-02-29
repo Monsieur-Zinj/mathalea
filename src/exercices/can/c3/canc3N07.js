@@ -22,7 +22,7 @@ export const dateDePublication = '25/01/2023' // La date de publication initiale
 export const uuid = 'ba5d4'
 export const ref = 'canc3N07'
 export default function DecompositionNombre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur12 inline'
   this.tailleDiaporama = 2

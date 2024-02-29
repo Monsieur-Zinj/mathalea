@@ -38,7 +38,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculerUnAngle () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 5
   this.sup = 15
   this.nouvelleVersion = function () {

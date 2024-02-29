@@ -27,7 +27,7 @@ export const titre = 'Additionner ou soustraire deux fractions (dénominateurs m
  * 5N20
  */
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = max // Correspond au facteur commun
   this.sup2 = 3 // Si 1 alors il n'y aura pas de soustraction
   this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée

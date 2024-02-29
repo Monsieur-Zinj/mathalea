@@ -26,7 +26,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function DecompositionNombreDecimal () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Compléter les phrases suivantes.'
   this.nbQuestions = 5
   this.nbCols = 1

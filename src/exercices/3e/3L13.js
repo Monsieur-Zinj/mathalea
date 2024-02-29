@@ -21,7 +21,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceEquation3e () {
-  ExerciceEquation1.call(this) // Héritage de la classe Exercice()
+  ExerciceEquation1.call(this)
   this.sup = true
   this.sup2 = 4
   this.tailleDiaporama = 3

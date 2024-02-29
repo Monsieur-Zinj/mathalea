@@ -19,7 +19,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExprimerEnFonctionDesAutresFormules () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.nbCols = 1
   this.nbColsCorr = 1

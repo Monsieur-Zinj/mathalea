@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function LectureDiagrammeBarre () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = "Répondre aux questions à l'aide du graphique."
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false

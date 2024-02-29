@@ -34,7 +34,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function Distance () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
 
   this.nbQuestions = 1

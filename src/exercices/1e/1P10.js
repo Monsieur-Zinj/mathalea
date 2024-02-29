@@ -31,7 +31,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ProbabilitesConditionnelles () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte

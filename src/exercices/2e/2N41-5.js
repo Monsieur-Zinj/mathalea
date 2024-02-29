@@ -24,7 +24,7 @@ export const refs = {
 }
 
 export default function DevelopperIdentitesRemarquables4 () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.interactifReady = interactifReady
   this.interactifType = interactifType

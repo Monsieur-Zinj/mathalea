@@ -18,7 +18,7 @@ export const amcType = 'AMCNum'
  * Référence
  */
 export default function CourseAuxNombresCM () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   if (this.interactif) {
     this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
   } else {

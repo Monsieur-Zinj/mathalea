@@ -38,7 +38,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ExerciceInequationProduit () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.keyboard = ['numbers', 'fullOperations', 'variables', 'trigo', 'advanced']
   this.spacing = 2 // Espace entre deux lignes
   this.spacingCorr = 2 // Espace entre deux lignes pour la correction

@@ -27,7 +27,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function FractionVersPourcentage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Compléter.'
   this.nbQuestions = 6
   this.nbCols = 2

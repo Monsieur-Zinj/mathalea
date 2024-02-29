@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PremierOuPas5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = 'Justifier que les nombres suivants sont premiers ou pas.'

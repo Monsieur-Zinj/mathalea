@@ -21,7 +21,7 @@ export const uuid = '691a6'
  * Référence 6C11
  */
 export default function OperationsPosees () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = ''
   this.spacing = 2

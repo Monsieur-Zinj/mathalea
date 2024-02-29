@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ReperagePaveDroit () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Dans le repère $(A;I;J;K)$ :'
   this.nbQuestions = 3

@@ -30,7 +30,7 @@ const dessSysteme = (s, d, niveau) =>
  * Référence
  */
 export default function Systeme2x2parCombinaisonLineaire () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Résoudre chacun des systèmes suivants $\\emph{par combinaisons}$'
   this.nbQuestions = 2
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

@@ -38,7 +38,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function AdditionnerSoustrairesDecimaux () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.consigne = 'Poser et effectuer les calculs suivants.'
   this.listePackages = 'xlop'

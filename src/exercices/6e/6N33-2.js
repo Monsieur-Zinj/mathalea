@@ -29,7 +29,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function CalculerUnPourcentage () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.nbQuestions = 1
   this.consigne = 'Calculer.'
   this.spacing = 2

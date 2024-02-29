@@ -11,7 +11,7 @@ export const titre = 'Racine carrée nombre complexe'
  * Référence
 */
 export default function ResoudreDesEquationsCarreeDansC () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = 'Résoudre dans $\\mathbb{C}$ les équations :'
   this.nbQuestions = 2
   this.nbCols = 1 // Uniquement pour la sortie LaTeX

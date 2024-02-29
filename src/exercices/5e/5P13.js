@@ -33,7 +33,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function EchellesProblemes () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = 4
   this.titre = titre
   this.spacing = 2

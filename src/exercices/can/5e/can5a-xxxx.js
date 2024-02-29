@@ -26,7 +26,7 @@ export const amcType = 'AMCNum'
 export const uuid = '9e40d'
 export const ref = 'can5a-xxxx'
 export default function CourseAuxNombres5e () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 30
   this.nbCols = 2 // Uniquement pour la sortie LaTeX

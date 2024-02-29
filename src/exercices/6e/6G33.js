@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function ReconnaitreQuadrilatereParticulier () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.titre = titre
   this.amcReady = amcReady
   this.amcType = amcType

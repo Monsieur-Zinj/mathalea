@@ -14,8 +14,8 @@ export const dateDePublication = '02/11/2022'
 export const uuid = '18b46'
 export const ref = 'can1G11'
 export default function mesureAngleCosSin () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

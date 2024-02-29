@@ -76,7 +76,7 @@ function encadrementCorr (nb, precision) {
   }
 }
 export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.beta = false
   this.sup = 1
   if (this.beta) {

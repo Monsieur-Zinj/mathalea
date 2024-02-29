@@ -20,8 +20,8 @@ export const dateDePublication = '23/02/2022' // La date de publication initiale
 export const uuid = '97664'
 export const ref = 'can4L07'
 export default function ReduireExp () {
-  Exercice.call(this) // Héritage de la classe Exercice()
-  this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
+  Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

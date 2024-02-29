@@ -851,7 +851,7 @@ export const refs = {
 }
 export default function ProportionnaliteParLinearite () {
   let question
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nbQuestions = 6

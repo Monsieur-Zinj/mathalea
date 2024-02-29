@@ -28,7 +28,7 @@ export const refs = {
   'fr-ch': []
 }
 export default function PuissancesDeDix () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   context.isHtml
     ? (this.consigne = 'Écrire sous la forme $\\mathbf{10^n}$.')
     : (this.consigne = 'Écrire sous la forme $10^n$.')
