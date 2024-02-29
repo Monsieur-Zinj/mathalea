@@ -37,7 +37,7 @@ export const titre = 'CAN 2nde sujet 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'testCan2024'
-// export const ref = 'can2a-2024'
+// export const refAMODIFIERPLUSTARD = 'can2a-2024'
 
 /**
  * Annales CAN 2024
