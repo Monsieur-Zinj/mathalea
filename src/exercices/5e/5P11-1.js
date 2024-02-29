@@ -8,7 +8,10 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
 
+export const dateDeModifImportante = '29/02/2024'
 export const titre = 'Problème de vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +19,6 @@ export const interactifType = 'mathLive'
 /**
  * Recherche de la vitesse, du temps ou de la distance en utilisant un tableau de proportionnalité et le produit en croix
  * @author Rémi Angot
- * Référence 5P11-1
  */
 export const uuid = 'a29bd'
 export const ref = '5P11-1'
@@ -53,6 +55,7 @@ export default class VitesseDistanceTemps extends Exercice {
       typesDeQuestionsDisponibles = ['distance']
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    let texteApres
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let t; let prenom; let destination; let texte; let texteCorr
       const v = randint(8, 26, [12]) * 5 // On évite le 60 km/h trop trivial
@@ -77,7 +80,8 @@ export default class VitesseDistanceTemps extends Exercice {
       }
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'vitesse':
-          texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km. Déterminer sa vitesse moyenne.`
+          texte = `${prenom} met ${minToHour(t)} pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km. Déterminer sa vitesse moyenne`
+          texte += this.interactif ? ' : ' : '.'
           if (this.sup2 === 1) {
             if (context.isHtml) {
               texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n'
@@ -100,12 +104,16 @@ export default class VitesseDistanceTemps extends Exercice {
             }
           }
           texteCorr += '<br><br>'
-          texteCorr += `Sa vitesse moyenne est de ${v} km/h.`
+          texteCorr += `Sa vitesse moyenne est de ${texteEnCouleurEtGras(v)} km/h.`
+          texteApres = sp() + ' km/h'
           setReponse(this, i, v)
           break
         case 'temps':
-          texte = `Si ${prenom} roule à ${v} km/h. Combien de temps lui faudra-t-il  pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km ?`
-          if (this.interactif && context.isHtml) texte += '<br><em>Donner le nombre de minutes.</em>'
+          texte = `Si ${prenom} roule à ${v} km/h, combien de temps`
+          texte += this.interactif ? ' (en minutes)' : ''
+          texte += ' lui faudra-t-'
+          texte += `${pronomgenre}`
+          texte += `  pour aller ${destination} qui est à une distance de ${nombreAvecEspace(d)} km ?`
           if (this.sup2 === 1) {
             if (context.isHtml) {
               texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n'
@@ -125,11 +133,15 @@ export default class VitesseDistanceTemps extends Exercice {
             texteCorr = `$t = \\dfrac{d}{v} = \\dfrac{${texNombre(d)}~\\text{km}}{${v}~\\text{km/h}} = ${tFrac.texFractionSimplifiee}~\\text{h} = ${tFrac.texFractionSimplifiee} \\times 60~\\text{min} = ${t}~\\text{min}$`
           }
           texteCorr += '<br><br>'
-          texteCorr += `${pronomgenre.charAt(0).toUpperCase() + pronomgenre.slice(1)} mettra ${minToHour(t)} pour aller ${destination}.`
+          texteCorr += `${prenom} mettra`
+          texteCorr += this.interactif ? ` ${texteEnCouleurEtGras(t)} min` : ` ${texteEnCouleurEtGras(minToHour(t))}`
+          texteCorr += ` pour aller ${destination}.`
+          texteApres = sp() + ' minutes'
           setReponse(this, i, t)
           break
         case 'distance':
-          texte = `${prenom} roule à ${v} km/h de moyenne pendant ${minToHour(t)}. Calculer la distance parcourue.`
+          texte = `${prenom} roule à ${v} km/h de moyenne pendant ${minToHour(t)}. Calculer la distance parcourue`
+          texte += this.interactif ? ' : ' : '.'
           if (this.sup2 === 1) {
             if (context.isHtml) {
               texteCorr = '$\\def\\arraystretch{2.5}\\begin{array}{|l|c|c|}\n'
@@ -152,12 +164,13 @@ export default class VitesseDistanceTemps extends Exercice {
             }
           }
           texteCorr += '<br><br>'
-          texteCorr += `${pronomgenre.charAt(0).toUpperCase() + pronomgenre.slice(1)} a donc parcouru ${stringNombre(d)} km.`
+          texteCorr += `${pronomgenre.charAt(0).toUpperCase() + pronomgenre.slice(1)} a donc parcouru ${texteEnCouleurEtGras(stringNombre(d))} km.`
+          texteApres = sp() + ' km'
           setReponse(this, i, d)
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteApres })
+      if (this.questionJamaisPosee(i, v, t)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -167,5 +180,4 @@ export default class VitesseDistanceTemps extends Exercice {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 3]
 }
