@@ -20,28 +20,25 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore'
     this.formatInteractif = 'calcul'
-    // this.optionsChampTexte = {  texteAvant: '' }
+    this.optionsChampTexte = { texteAvant: '$=$' }
     this.canOfficielle = true
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = 40
-      this.question = '$2,5\\times 16=$ '
+      this.question = '$2,5\\times 16$ '
       this.correction = `$2,5\\times 16=\\underbrace{2\\times 16}_{=32}+ \\underbrace{0,5 \\times 16}_{=8}=${miseEnEvidence(this.reponse)}$`
     } else {
       const couple = choice([[16, 25, 2], [16, 15, 1], [8, 15, 1], [14, 25, 2], [18, 15, 1], [18, 25, 2], [12, 15, 1], [12, 25, 2], [20, 25, 2], [20, 15, 1]])
       const a = couple[0]
       const b = couple[1] / 10
       this.reponse = new Decimal(a).mul(b)
-      this.question = `$${texNombre(b, 1)}\\times ${a}=$ `
+      this.question = `$${texNombre(b, 1)}\\times ${a}$ `
       this.correction = `$${texNombre(b, 1)}\\times ${a}=
       \\underbrace{${couple[2]}\\times ${couple[0]}}_{=${couple[2] * couple[0]}}+\\underbrace{0,5 \\times ${couple[0]}}_{=${texNombre(couple[0] / 2, 0)}}=${miseEnEvidence(texNombre(this.reponse, 1))}$`
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$'
-    if (!this.interactif) {
-      this.question += '$\\ldots$'
-    }
+    this.canReponseACompleter = ''
   }
 }

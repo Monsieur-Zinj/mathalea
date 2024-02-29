@@ -20,13 +20,12 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore'
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
-    // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = ['12x-5']//, '12\\times x-5'
-      this.question = 'Réduire $2x-5+14x$'
+      this.question = 'Réduis $2x-5+14x$'
       this.correction = `$2x-5+14x=${miseEnEvidence('12x-5')}$`
     } else {
       const lettre = choice(['a', 'b', 'x', 'y'])
@@ -40,7 +39,7 @@ export default class NomExercice extends Exercice {
         this.correction = ` $${a}${lettre}+${b}+${c}${lettre}+${d}=${a}${lettre}+${c}${lettre}+${b}+${d}=${miseEnEvidence(this.reponse)}$`
       } else {
         this.reponse = printlatex(`${a + c}*${lettre}+${b}`)
-        this.question = `Réduire   $${a}${lettre}+${b}+${c}${lettre}$`
+        this.question = `Réduis   $${a}${lettre}+${b}+${c}${lettre}$`
         this.correction = ` $${a}${lettre}+${b}+${c}${lettre}=${a}${lettre}+${c}${lettre}+${b}=${miseEnEvidence(this.reponse)}$`
       }
     }

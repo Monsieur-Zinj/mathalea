@@ -21,7 +21,6 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore'
     this.formatInteractif = 'calcul'
     this.canOfficielle = false
-    // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })
   }
 
   nouvelleVersion () {
