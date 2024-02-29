@@ -7,6 +7,8 @@ import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { afficheLongueurSegment } from '../../../lib/2d/codages'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
 import Decimal from 'decimal.js'
 export const titre = 'Déterminer la longueur d\'un segment'
 export const interactifReady = true
@@ -23,7 +25,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
   }

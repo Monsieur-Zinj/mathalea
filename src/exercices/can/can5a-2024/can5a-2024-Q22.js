@@ -2,6 +2,8 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
 export const titre = 'Additionner deux fractions de même dénominateur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +19,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fractionEgale'
     this.canOfficielle = true
   }
@@ -25,7 +27,7 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(11, 3)
-      this.question = '$\\dfrac{4}{3}+\\dfrac{7}{3}$ '
+      this.question = `$\\dfrac{4}{3}+\\dfrac{7}{3} ${this.interactif ? '=' : ''}$ `
       this.correction = `Les fractions ont le même dénominateur, ainsi :  <br>
       $\\dfrac{4}{3}+\\dfrac{7}{3}=${miseEnEvidence(this.reponse)}$`
     } else {
@@ -35,13 +37,10 @@ export default class NomExercice extends Exercice {
       const b = new FractionEtendue(a[0], a[1])
       const c = new FractionEtendue(a[2], a[3])
       this.reponse = new FractionEtendue(a[0] + a[2], a[3])
-      this.question = `$${b.texFraction}+${c.texFraction}=$`
+      this.question = `$${b.texFraction}+${c.texFraction} ${this.interactif ? '=' : ''}$`
       this.correction = `$${b.texFraction}+${c.texFraction}=${miseEnEvidence(this.reponse)}$`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\dfrac{\\ldots}{\\ldots}$'
-    if (this.interactif) {
-      this.question += '$=$'
-    }
   }
 }

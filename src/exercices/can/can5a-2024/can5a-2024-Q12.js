@@ -6,6 +6,8 @@ import { point } from '../../../lib/2d/points'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { polygone } from '../../../lib/2d/polygones'
 import { codageSegment } from '../../../lib/2d/codages'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
 export const titre = 'Compter le nombre d\'axe de symétrie d\'une figure'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +23,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
   }

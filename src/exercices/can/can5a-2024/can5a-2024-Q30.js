@@ -10,6 +10,8 @@ import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
 export const titre = 'Calculer une aire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +27,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
     // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })

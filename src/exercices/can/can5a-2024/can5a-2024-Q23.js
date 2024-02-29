@@ -5,6 +5,8 @@ import { plaque3d } from '../../../modules/3d'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { context } from '../../../modules/context'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
 export const titre = 'Déterminer un nombre de cubes dans une pyramide'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,6 +21,7 @@ export default class NomExercice extends Exercice {
     super()
     this.typeExercice = 'simple'
     context.anglePerspective = 40
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.compare = numberCompare
     this.nbQuestions = 1
     this.canOfficielle = true
