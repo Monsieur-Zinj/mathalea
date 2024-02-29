@@ -20,7 +20,6 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
     // const fontSize = window.getComputedStyle(parent, null).getPropertyValue('font-size')
     let zoom = 3 // parseFloat(fontSize) / 16
     do {
-      console.log('zoom:' + zoom)
       for (const svgContainer of svgContainers) {
         svgContainer.classList.add('flex')
         svgContainer.classList.add('justify-center')
