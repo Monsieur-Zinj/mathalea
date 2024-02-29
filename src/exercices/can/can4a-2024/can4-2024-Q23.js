@@ -20,15 +20,15 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.optionsChampTexte = { texteAvant: ' $=$ ' }
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
-    // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = 5
-      this.question = '$10\\times 2,5\\times 2\\times 0,1=$ '
+      this.question = '$10\\times 2,5\\times 2\\times 0,1$ '
       this.correction = `$10\\times 2,5\\times 2\\times 0,1=\\underbrace{2,5\\times 2}_{=5}\\times \\underbrace{10 \\times 0,1}_{=1}=${miseEnEvidence(this.reponse)}$`
     } else {
       const Val1 = randint(2, 5) * choice([10, 100])
@@ -38,7 +38,7 @@ export default class NomExercice extends Exercice {
       const Valeurs = shuffle([Val1, Val2, Val3, Val4])
 
       this.reponse = new Decimal(Val1).mul(Val2).mul(Val3).mul(Val4)
-      this.question = `$${texNombre(Valeurs[0], 2)}\\times ${texNombre(Valeurs[1], 2)} \\times ${texNombre(Valeurs[2], 2)}\\times ${texNombre(Valeurs[3], 2)}=$ `
+      this.question = `$${texNombre(Valeurs[0], 2)}\\times ${texNombre(Valeurs[1], 2)} \\times ${texNombre(Valeurs[2], 2)}\\times ${texNombre(Valeurs[3], 2)}$ `
       this.correction = `$\\begin{aligned}
       ${texNombre(Valeurs[0], 2)}\\times ${texNombre(Valeurs[1], 2)} \\times ${texNombre(Valeurs[2], 2)}\\times ${texNombre(Valeurs[3], 2)}
       &=\\underbrace{${texNombre(Val1, 2)}\\times ${texNombre(Val4, 2)} }_{=${texNombre(Val1 * Val4, 2)}}\\times \\underbrace{${texNombre(Val2, 2)}\\times ${texNombre(Val3, 2)}}_{=${texNombre(Val2 * Val3, 2)}}\\\\
@@ -48,8 +48,5 @@ export default class NomExercice extends Exercice {
     }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$'
-    if (!this.interactif) {
-      this.question += '$\\ldots$'
-    }
   }
 }

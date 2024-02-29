@@ -20,16 +20,14 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore'
     this.optionsChampTexte = { texteApres: 'L' }
     this.formatInteractif = 'calcul'
-    this.canOfficielle = false
-    // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })
+    this.canOfficielle = true
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = 0.5
-      this.question = `J'ouvre une bouteille d'eau de $1,5$ L. <br>
-      Je bois deux tiers de la bouteille. <br>
-      La quantité d'eau restante est : `
+      this.question = `Je bois deux tiers d'une bouteille d'eau de $1,5$ L. <br>
+      Quelle est la quantité d'eau restante ? `
       this.correction = `$1,5$ L $=3\\times 0,5$ L.<br>Après avoir bu deux tiers de la bouteille, il en reste un tiers, soit $${miseEnEvidence(texNombre(this.reponse))}$ L.`
     } else {
       if (choice([true, false])) {
@@ -51,9 +49,6 @@ export default class NomExercice extends Exercice {
     }
 
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$'
-    if (!this.interactif) {
-      this.question += '$\\ldots$'
-    }
+    this.canReponseACompleter = '$\\ldots$ L'
   }
 }

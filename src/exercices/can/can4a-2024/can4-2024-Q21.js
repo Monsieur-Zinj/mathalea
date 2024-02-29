@@ -2,6 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { scratchblock } from '../../../modules/scratchblock'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { randint } from '../../../modules/outils'
 export const titre = 'Comprendre un programme scratch'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,11 +20,21 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore'
     this.formatInteractif = 'calcul'
-    this.canOfficielle = false
-    // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })
+    this.canOfficielle = true
   }
 
   nouvelleVersion () {
+    const a = this.canOfficielle ? 3 : randint(2, 6)
+    const n = this.canOfficielle ? 50 : choice([10, 20, 50, 100])
+    let prog0 = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
+    prog0 += '\\blockinit{quand \\greenflag est cliqué}\n'
+    prog0 += '\\blocklook{Le lutin est placé au centre de l\'écran} \n'
+    prog0 += `\\blockrepeat{répéter \\ovalnum{${a}} fois}\n`
+    prog0 += '{\n'
+    prog0 += `\\blockmove{avancer de \\ovalnum{${n}} pas}\n`
+    prog0 += '\\blockmove{attendre \\ovalmove{2} seconde}\n'
+    prog0 += '}\n'
+    prog0 += '\\end{scratch}<br>'
     let prog1 = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
     prog1 += '\\blockinit{quand \\greenflag est cliqué}\n'
     prog1 += '\\blockrepeat{répéter \\ovalnum{4} fois}\n'
@@ -32,7 +43,7 @@ export default class NomExercice extends Exercice {
     prog1 += '\\blockmove{avancer de \\ovalnum{100} pas}\n'
     prog1 += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
     prog1 += '}\n'
-    prog1 += '\\end{scratch}'
+    prog1 += '\\end{scratch}<br>'
 
     let prog2 = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
     prog2 += '\\blockinit{quand \\greenflag est cliqué}\n'
@@ -42,7 +53,7 @@ export default class NomExercice extends Exercice {
     prog2 += '\\blockmove{avancer de \\ovalnum{100} pas}\n'
     prog2 += '\\blockmove{tourner \\turnright{} de \\ovalnum{...} degrés}\n'
     prog2 += '}\n'
-    prog2 += '\\end{scratch}'
+    prog2 += '\\end{scratch}<br>'
 
     let prog3 = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
     prog3 += '\\blockinit{quand \\greenflag est cliqué}\n'
@@ -52,7 +63,7 @@ export default class NomExercice extends Exercice {
     prog3 += '\\blockmove{avancer de \\ovalnum{100} pas}\n'
     prog3 += '\\blockmove{tourner \\turnright{} de \\ovalnum{...} degrés}\n'
     prog3 += '}\n'
-    prog3 += '\\end{scratch}'
+    prog3 += '\\end{scratch}<br>'
 
     let prog4 = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
     prog4 += '\\blockinit{quand \\greenflag est cliqué}\n'
@@ -64,17 +75,20 @@ export default class NomExercice extends Exercice {
     prog4 += '\\blockmove{avancer de \\ovalnum{50} pas}\n'
     prog4 += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
     prog4 += '}\n'
-    prog4 += '\\end{scratch}'
+    prog4 += '\\end{scratch}<br>'
     if (this.canOfficielle) {
-      this.formatInteractif = 'texte'
-      this.reponse = ['carré', 'carre', 'Carré', 'carré de côté 100', 'carré de côté 100 pas']
-      this.question = `${scratchblock(prog1)}`
-      if (this.interactif) {
-        this.question += 'La nature de la figure tracée est  un  '
-      } else { this.question += 'La nature de la figure tracée est : ' }
-      this.correction = `La figure obtenue est $${miseEnEvidence('carré')}$.`
+      this.formatInteractif = 'calcul'
+      this.reponse = 150
+      this.question = `${scratchblock(prog0)}`
+
+      this.question += 'À l\'issue de l\'exécution de ce programme, de combien de pas le lutin a-t-il avancé ?'
+
+      this.correction = `Le lutin a avancé de $3\\times 50 =${miseEnEvidence('50')}$ pas.`
+      this.canEnonce = this.question
+      this.canReponseACompleter = '$\\ldots$ pas'
+      if (this.interactif) { this.optionsChampTexte = { texteApres: 'pas ' } }
     } else {
-      const choix = choice(['a', 'b', 'c', 'd'])//, 'b'
+      const choix = choice(['a', 'b', 'c', 'd', 'e'])//
       if (choix === 'a') {
         this.formatInteractif = 'texte'
         this.reponse = ['carré', 'carre', 'Carré', 'carré de côté 100', 'carré de côté 100 pas']
@@ -83,6 +97,8 @@ export default class NomExercice extends Exercice {
           this.question += 'La nature de la figure tracée est  un  '
         } else { this.question += 'La nature de la figure tracée est : ' }
         this.correction = `La figure obtenue est $${miseEnEvidence('carré')}$.`
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'b') {
         this.formatInteractif = 'calcul'
@@ -92,6 +108,8 @@ export default class NomExercice extends Exercice {
         this.question += 'Quel nombre doit-on écrire à la place des pointillés pour tracer un carré ?'
 
         this.correction = `Un carré a des angles droits, il faut donc écrire  $${miseEnEvidence(90)}$.`
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'c') {
         this.formatInteractif = 'calcul'
@@ -103,6 +121,8 @@ export default class NomExercice extends Exercice {
         this.correction = `Un triangle équilatéral a des anlges de $60°$.<br>
      Le lutin doit tourner de $180-60=120°$ après avoir tracé un côté. <br>
      Ainsi, à la place des pointillés il faut écrire  $${miseEnEvidence(120)}$.`
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\ldots$'
       }
       if (choix === 'd') {
         this.formatInteractif = 'calcul'
@@ -114,10 +134,21 @@ export default class NomExercice extends Exercice {
         this.correction = `
       La boucle contient le tracé d'une longueur et d'une largeur du rectangle. <br>
       Ainsi, à la place des pointillés il faut écrire  $${miseEnEvidence(2)}$.`
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\ldots$'
+      }
+      if (choix === 'e') {
+        this.formatInteractif = 'calcul'
+        this.reponse = a * n
+        this.question = `${scratchblock(prog0)}`
+
+        this.question += 'À l\'issue de l\'exécution de ce programme, de combien de pas le lutin a-t-il avancé ?'
+
+        this.correction = `Le lutin a avancé de $${a}\\times ${n} =${miseEnEvidence(this.reponse)}$ pas.`
+        if (this.interactif) { this.optionsChampTexte = { texteApres: 'pas ' } }
+        this.canEnonce = this.question
+        this.canReponseACompleter = '$\\ldots$ pas'
       }
     }
-
-    this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$'
   }
 }

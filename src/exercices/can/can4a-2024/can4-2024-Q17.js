@@ -5,10 +5,9 @@ import { codageAngleDroit } from '../../../lib/2d/angles'
 import { milieu, point } from '../../../lib/2d/points'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { polygone } from '../../../lib/2d/polygones'
-import { context } from '../../../modules/context.js'
-import { segment } from '../../../lib/2d/segmentsVecteurs'
 import { latexParCoordonnees } from '../../../lib/2d/textes'
-export const titre = 'Calculer le périmètre d\'un rectangle'
+import { choice } from '../../../lib/outils/arrayOutils'
+export const titre = 'Calculer une dimension dans un rectangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -27,7 +26,6 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore'
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
-    // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })
   }
 
   nouvelleVersion () {
@@ -45,49 +43,73 @@ export default class NomExercice extends Exercice {
     const xmax = 5.2
     const ymax = 3.5
     const objets1 = []
-    const k = this.canOfficielle ? 1 : randint(1, 4)
-
-    objets1.push(P, code1, code2, code3, code4, segment(D, B),
-      context.isHtml ? latexParCoordonnees(`${4 * k}`, milieu(A, B).x, milieu(A, B).y - 0.2, 'black', 0, 0, '', 8) : latexParCoordonnees(`${4 * k}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'black', 0, 0, '', 8),
-      context.isHtml ? latexParCoordonnees(`${3 * k}`, milieu(A, D).x - 0.2, milieu(A, D).y, 'black', 0, 0, '', 8) : latexParCoordonnees(`${3 * k}`, milieu(A, D).x - 0.2, milieu(A, D).y, 'black', 0, 0, '', 8),
-      context.isHtml ? latexParCoordonnees(`${5 * k}`, milieu(D, B).x, milieu(D, B).y + 0.3, 'black', 0, 0, '', 8) : latexParCoordonnees(`${5 * k}`, milieu(D, B).x, milieu(D, B).y + 0.3, 'black', 0, 0, '', 8))
+    const objets2 = []
+    const L = this.canOfficielle ? 4 : randint(4, 8)
+    const l = this.canOfficielle ? 2 : randint(1, 3)
+    objets1.push(P, code1, code2, code3, code4,
+      latexParCoordonnees(`${L} \\text{ cm}`, milieu(A, B).x, milieu(A, B).y - 0.2, 'black', 0, 0, '', 8),
+      latexParCoordonnees('?', milieu(B, C).x + 0.4, milieu(B, C).y, 'black', 0, 0, '', 8))
+    objets2.push(P, code1, code2, code3, code4,
+      latexParCoordonnees('?', milieu(A, B).x, milieu(A, B).y - 0.2, 'black', 0, 0, '', 8),
+      latexParCoordonnees(`${l} \\text{ cm}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'black', 0, 0, '', 8))
     if (this.canOfficielle) {
-      this.reponse = 14
-      this.question = mathalea2d({
+      this.reponse = l
+      this.question = `Le périmètre de ce rectangle est  $12$ cm.<br>
+      Quelle est sa largeur ?<br>`
+      this.question += mathalea2d({
         xmin,
         ymin,
         xmax,
         ymax,
         pixelsParCm: 35,
-        mainlevee: false,
+        mainlevee: true,
         amplitude: 0.5,
         scale: 0.8,
         style: 'margin: auto'
       }, objets1)
-      this.question += `<br>Les mesures sont en cm.<br>
-      Le périmètre du rectangle est  : `
-      this.correction = 'Le périmètre du rectangle est donné par $2\\times (4+3)=14$ cm.'
+
+      this.correction = `Le demi-périmètre est $12\\div 2 = 6$ cm, la largeur du rectangle est donc égale à  $6-4=${miseEnEvidence(2)}$ cm.`
     } else {
-      this.reponse = 2 * 3 * k + 2 * 4 * k
-      this.question = mathalea2d({
-        xmin,
-        ymin,
-        xmax,
-        ymax,
-        pixelsParCm: 35,
-        mainlevee: false,
-        amplitude: 0.5,
-        scale: 0.8,
-        style: 'margin: auto'
-      }, objets1)
-      this.question += `<br>Les mesures sont en cm.<br>
-          Le périmètre du rectangle est  : `
-      this.correction = `Le périmètre du rectangle est donné par $2\\times (${4 * k}+${3 * k})=${miseEnEvidence(this.reponse)}$ cm.`
+      if (choice([true, false])) {
+        this.reponse = l
+        this.question = `Le périmètre de ce rectangle est  $${2 * L + 2 * l}$ cm.<br>
+      Quelle est sa largeur ?<br>`
+        this.question += mathalea2d({
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          pixelsParCm: 35,
+          mainlevee: true,
+          amplitude: 0.5,
+          scale: 0.8,
+          style: 'margin: auto'
+        }, objets1)
+
+        this.correction = `Le demi-périmètre est $${2 * L + 2 * l}\\div 2 = ${L + l}$ cm, la largeur du rectangle est donc égale à  $${L + l}-${L}=${miseEnEvidence(this.reponse)}$ cm.`
+      } else {
+        this.reponse = L
+        this.question = `Le périmètre de ce rectangle est  $${2 * L + 2 * l}$ cm.<br>
+    Quelle est sa longueur ?<br>`
+        this.question += mathalea2d({
+          xmin,
+          ymin,
+          xmax,
+          ymax,
+          pixelsParCm: 35,
+          mainlevee: true,
+          amplitude: 0.5,
+          scale: 0.8,
+          style: 'margin: auto'
+        }, objets2)
+
+        this.correction = `Le demi-périmètre est $${2 * L + 2 * l}\\div 2 = ${L + l}$ cm, la longeur du rectangle est donc égale à  $${L + l}-${l}=${miseEnEvidence(this.reponse)}$ cm.`
+      }
     }
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ cm'
+    this.canReponseACompleter = '? $=\\ldots$ cm'
     if (!this.interactif) {
-      this.question += '$\\ldots$ cm'
-    }
+      this.question += '? $=\\ldots$ cm'
+    } else { this.optionsChampTexte = { texteAvant: '? $=$', texteApres: 'cm' } }
   }
 }
