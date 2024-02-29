@@ -2,6 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +18,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fractionEgale'
     this.canOfficielle = true
   }

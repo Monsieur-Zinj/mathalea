@@ -5,6 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { signe } from '../../../lib/outils/nombres'
 import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +21,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecVariable
     this.optionsChampTexte = { texteAvant: '$=$' }
     this.canOfficielle = false
   }

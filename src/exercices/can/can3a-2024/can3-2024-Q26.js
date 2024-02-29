@@ -7,6 +7,7 @@ import { labelPoint, latexParCoordonnees } from '../../../lib/2d/textes'
 import { codageSegments } from '../../../lib/2d/codages'
 import { droite } from '../../../lib/2d/droites'
 import { mathalea2d } from '../../../modules/2dGeneralites'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Exprimer en fonction de ...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +23,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecVariable
     this.optionsChampTexte = { texteAvant: '$AB=$', texteApres: 'cm' }
     this.formatInteractif = 'calcul'
     this.canOfficielle = false
@@ -68,7 +69,7 @@ export default class NomExercice extends Exercice {
       maTrace.taille = 2.5
       objets.push(tracePointSurDroite(pointsSurAB2[2 * (i - 1)], d), Texte1, A4B4)
     }
-    objets.push(codageSegments('/', 'blue', A, ...pointsSurAB2, B2), AB2, A3B3, Texte2)
+    objets.push(codageSegments('//', 'blue', A, ...pointsSurAB2, B2), AB2, A3B3, Texte2)
     this.question = 'Exprime $AB$ en fonction de $x$.<br>'
 
     this.question += mathalea2d({

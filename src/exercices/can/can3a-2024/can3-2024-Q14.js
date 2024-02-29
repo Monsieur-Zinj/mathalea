@@ -5,6 +5,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { context } from '../../../modules/context.js'
 import { sp } from '../../../lib/outils/outilString'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Calculer avec un programme de calcul'
 export const interactifReady = true
@@ -21,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
   }

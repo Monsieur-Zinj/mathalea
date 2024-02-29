@@ -3,6 +3,8 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { ecritureAlgebrique, reduireAxPlusB, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
 export const titre = 'Calculer une image'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +20,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
   }
@@ -26,7 +28,7 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = -2
-      this.question = ` $f$ est la fonction par : $f(x)=4-2x$ pour tout nombre $x$.<br>
+      this.question = ` $f$ est la fonction définie par : $f(x)=4-2x$ pour tout nombre $x$.<br>
       Quelle est l'image de $3$ par la fonction $f$ ? `
       this.correction = `On remplace $x$ par $3$ dans l'expression de $f$ : <br>
        $\\begin{aligned}
@@ -41,7 +43,7 @@ export default class NomExercice extends Exercice {
       const choix = choice([true, false])
       const val = randint(-5, 5, [-1, 0, 1])
       this.reponse = a * val + b
-      this.question = `$f$ est la fonction par : $f(x)=${choix ? `${reduireAxPlusB(a, b)}` : `${b}${ecritureAlgebrique(a)}x`}$ pour tout nombre $x$.<br>
+      this.question = `$f$ est la fonction définie par : $f(x)=${choix ? `${reduireAxPlusB(a, b)}` : `${b}${ecritureAlgebrique(a)}x`}$ pour tout nombre $x$.<br>
       Quelle est l'image de $${val}$ par la fonction $f$ ? `
       this.correction = `On remplace $x$ par $${val}$ dans l'expression de $f$ : <br>
       $\\begin{aligned}

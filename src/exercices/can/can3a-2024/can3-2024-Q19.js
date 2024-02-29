@@ -3,6 +3,8 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+
 export const titre = 'Calculer une fraction d\'un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -18,7 +20,7 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: ' est égal à : ' }
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
