@@ -41,7 +41,7 @@
 
   function removeMF (text: string) {
     const regex = /<math-field[^>]*>[^]*?<\/math-field>/g
-    return text.replace(regex, ' ')
+    return text.replace(regex, ' ... ')
   }
 </script>
 
