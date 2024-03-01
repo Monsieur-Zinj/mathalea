@@ -5,7 +5,7 @@
  * @author Rémi Angot
  */
 
-import { affiniteOrtho, homothetie, rotation, symetrieAxiale } from '../lib/2d/transformations.js'
+import { affiniteOrtho, homothetie, rotation, symetrieAxiale, translation } from '../lib/2d/transformations.js'
 import { fixeBordures, ObjetMathalea2D } from './2dGeneralites.js'
 
 // JSDOC Validee par EE Juin 2022
@@ -196,6 +196,9 @@ export function apparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'i
  */
 function TranslationAnimee (liste, v, animation = 'begin="0s" dur="2s" repeatCount="indefinite"') {
   ObjetMathalea2D.call(this, { })
+  if (!Array.isArray(liste)) liste = [liste]
+  const bordures = fixeBordures([liste, liste.map(el => translation(el, v))])
+  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   this.svg = function (coeff) {
     let code = '<g> '
     if (Array.isArray(liste)) {

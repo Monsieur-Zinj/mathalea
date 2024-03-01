@@ -114,8 +114,9 @@ export default function TrouverLaTransformations () {
         axe = Est ? droite(noeuds[arrivee], noeuds[arrivee + 1]) : droite(noeuds[arrivee], noeuds[arrivee + 6])
         if (poly1 != null) {
           animation = symetrieAnimee(poly1, axe, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        }
-        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, axe }
+        } else animation = vide2d()
+        if (context.isHtml) return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, axe }
+        else return { depart, arrivee, texte, texteCorr, texteInteractif, type, axe }
       case 'trans': // facile pour la translation : depart->arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la translation transformant $${noeuds[depart].nom}$ en $${noeuds[arrivee].nom}$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la translation transformant ${sp(1)}\\ldots${sp(1)} en ${sp(1)}\\ldots${sp(1)}.`
@@ -123,16 +124,28 @@ export default function TrouverLaTransformations () {
         vector = vecteur(noeuds[depart], noeuds[arrivee])
         if (poly1 != null) {
           animation = translationAnimee(poly1, vector, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        }
-        return {
-          animation,
-          depart,
-          arrivee,
-          texte,
-          texteCorr,
-          texteInteractif,
-          type,
-          vecteur: vecteur(noeuds[depart], noeuds[arrivee])
+        } else animation = vide2d()
+        if (context.isHtml) {
+          return {
+            animation,
+            depart,
+            arrivee,
+            texte,
+            texteCorr,
+            texteInteractif,
+            type,
+            vecteur: vecteur(noeuds[depart], noeuds[arrivee])
+          }
+        } else {
+          return {
+            depart,
+            arrivee,
+            texte,
+            texteCorr,
+            texteInteractif,
+            type,
+            vecteur: vecteur(noeuds[depart], noeuds[arrivee])
+          }
         }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90^\\circ$ dans le sens ${leSens ? 'direct' : 'indirect'}.`
@@ -141,8 +154,9 @@ export default function TrouverLaTransformations () {
         centre = Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6])
         if (poly1 != null) {
           animation = rotationAnimee(poly1, centre, leSens ? 90 : -90, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        }
-        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre, sens: leSens }
+        } else animation = vide2d()
+        if (context.isHtml) return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre, sens: leSens }
+        else return { depart, arrivee, texte, texteCorr, texteInteractif, type, centre, sens: leSens }
       case 'rot180': // pas besoin du sens, mais le milieu choisit dépend de depart et arrivee
         texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par ${texteEnCouleurEtGras('la symétrie dont le centre est le milieu de ')}$${miseEnEvidence('[' + noeuds[arrivee].nom + (Est ? noeuds[arrivee + 1].nom : noeuds[arrivee + 6].nom)) + ']'}$.`
         texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la symétrie dont le centre est le milieu de $[${sp(1)}\\ldots${sp(1)}]$.`
@@ -150,8 +164,9 @@ export default function TrouverLaTransformations () {
         centre = milieu(noeuds[arrivee], Est ? noeuds[arrivee + 1] : noeuds[arrivee + 6])
         if (poly1 != null) {
           animation = rotationAnimee(poly1, centre, 180, 'begin="0s" dur="5s" repeatCount="indefinite"')
-        }
-        return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre }
+        } else animation = vide2d()
+        if (context.isHtml) return { animation, depart, arrivee, texte, texteCorr, texteInteractif, type, centre }
+        else return { depart, arrivee, texte, texteCorr, texteInteractif, type, centre }
     }
   }
 

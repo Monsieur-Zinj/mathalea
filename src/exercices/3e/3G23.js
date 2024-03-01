@@ -16,17 +16,18 @@ import { texteGras } from '../../lib/format/style'
 /* eslint-disable prefer-const */
 /* eslint-disable no-case-declarations */
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { rotationAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { context } from '../../modules/context.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
 export const titre = 'Reconnaître des triangles égaux dans différentes configurations'
 
 /**
- * 3G23 reconnaître des triangles égaux
+ * Reconnaître des triangles égaux
  * @author Jean-Claude Lhote et Sébastien Lozano (Rendu QCM et interactif par EE)
  */
 export const uuid = '91513'
@@ -288,7 +289,7 @@ export default function TrianglesEgaux () {
                         nommePolygone(r, 'DE' + I.nom, 0.4),
                         // sgmt_DE,
                         r,
-                        transformationAnimee.sol1,
+                        !context.isHtml ? vide2d() : transformationAnimee.sol1,
                         codages_correction.sol1
                     )}`,
           corr_animmee_sol2: `
@@ -304,7 +305,7 @@ export default function TrianglesEgaux () {
                         labelPoint(I, F, L),
                         nommePolygone(s, 'DE' + I1.nom, 0.4),
                         s,
-                        transformationAnimee.sol2,
+                        !context.isHtml ? vide2d() : transformationAnimee.sol2,
                         codages_correction.sol2
                     )}`
         }
