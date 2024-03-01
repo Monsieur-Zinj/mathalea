@@ -7,6 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { context } from '../../modules/context'
 
 export const titre = 'Augmenter ou diminuer d\'un pourcentage'
 export const interactifReady = true

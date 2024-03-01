@@ -5,7 +5,6 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { consecutiveCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
-import { context } from '../../modules/context'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'

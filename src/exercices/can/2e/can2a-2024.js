@@ -264,7 +264,7 @@ export default function SujetCAN2024Seconde () {
         }
           break
 
-        case 8:{
+        case 8:
           if (choice([true, false])) {
             const a = randint(2, 6)
             const b = randint(8, 15)
@@ -296,7 +296,6 @@ export default function SujetCAN2024Seconde () {
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
-        }
           break
 
         case 9:{
@@ -376,7 +375,7 @@ export default function SujetCAN2024Seconde () {
         }
           break
 
-        case 12:{
+        case 12:
           if (choice([true, false])) {
             const a = choice([1, 3, 5, 6, 7, 9, 10, 11]) // numérateur
             reponse = new FractionEtendue(a, 4)
@@ -434,7 +433,7 @@ export default function SujetCAN2024Seconde () {
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
           nbChamps = 1
-        }
+
           break
 
         case 13:

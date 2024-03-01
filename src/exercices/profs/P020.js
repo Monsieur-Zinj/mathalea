@@ -17,7 +17,6 @@ export default function EncodeurTexte (type = 'générateur') {
   this.nbQuestions = 1
   this.besoinCorrection = false
 
-
   const tableauDesCaracteres = Array.from('-xçwjè,k~:aq«rlgdmftbéocsà.êeipzhu\'ynvî»â!')
   tableauDesCaracteres[2] = 'ç'
   const enteteColonnes = ['×', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']

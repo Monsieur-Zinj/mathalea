@@ -33,19 +33,18 @@ export default function EquationDuSecondDegreAvecUnParametre () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    for (let i = 0, texte, etape, texteCorr, a, a2, b2, c2, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, a2, b2, c2, f, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       a = randint(-5, 5, 0)
-      etape = [
-          `a:=${a}`,
-          'b:=randint(-2,2)*m+randint(-3,3)',
-          'c:=randint(-2,2)*m+randint(-3,3)',
-          'P:= a*x^2+b*x+c',
-          'D:=b^2-4*a*c',
-          'a2:=coeff(D,m,2)',
-          'b2:=coeff(D,m,1)',
-          'c2:=coeff(D,m,0)',
-          'd2:=simplify(b2^2-4*a2*c2)'
+      ;[`a:=${a}`,
+        'b:=randint(-2,2)*m+randint(-3,3)',
+        'c:=randint(-2,2)*m+randint(-3,3)',
+        'P:= a*x^2+b*x+c',
+        'D:=b^2-4*a*c',
+        'a2:=coeff(D,m,2)',
+        'b2:=coeff(D,m,1)',
+        'c2:=coeff(D,m,0)',
+        'd2:=simplify(b2^2-4*a2*c2)'
       ].forEach(e => `${xcas(e)}`)
       // Enoncé
       texte = `$${xcas('expand(P)')}=0$`
@@ -58,7 +57,7 @@ export default function EquationDuSecondDegreAvecUnParametre () {
       a2 = +`${xcas('a2')}` // coefficient "a" dans l'écriture de Delta
       b2 = +`${xcas('b2')}` // coefficient "b" dans l'écriture de Delta
       if (a2 === 0) { // Eq du 1er degré
-        etape = `${xcas('m1:=simplify(-c2/b2)')}`
+        xcas('m1:=simplify(-c2/b2)')
         if (b2 > 0) { // Delta est une droite croissante
           texteCorr += `<br>Cherchons la valeur de $m$ qui annule cette expression du premier degré : $m=${xcas('m1')}$`
           texteCorr += `<br>$\\Delta$ est une droite croissante de coefficient directeur $${xcas('b2')}$.`
@@ -103,7 +102,7 @@ export default function EquationDuSecondDegreAvecUnParametre () {
             texteCorr += '<br>$\\underline{\\text{Conclusion}}$ : L\'équation du départ n\'a pas de solution réelle.'
           }
         } else if (a === 0) {
-          etape = `${xcas('m1:=simplify(-b2/(2*a2))')}`
+          xcas('m1:=simplify(-b2/(2*a2))')
           texteCorr += `<br>Celui-ci étant nul, l'équation $\\Delta = 0$ a une unique solution $m=\\dfrac{-b}{2a}=${xcas('m1')}$.`
           if (a2 > 0) {
             texteCorr += `<br>De plus le coefficient $${xcas('a2')}$ devant $m^2$ étant positif, $\\Delta > 0$ si $m\\neq${xcas('m1')}$.`
@@ -113,8 +112,8 @@ export default function EquationDuSecondDegreAvecUnParametre () {
             texteCorr += `<br>$\\underline{\\text{Conclusion}}$ : Si $m=${xcas('m1')}$ l'équation admet une unique solution, sinon l'équation n'admet pas de solution.`
           }
         } else {
-          etape = `${xcas('m1:=min((-b2-sqrt(d2))/(2*a2),(-b2+sqrt(d2))/(2*a2))')}`
-          etape = `${xcas('m2:=max((-b2-sqrt(d2))/(2*a2),(-b2+sqrt(d2))/(2*a2))')}`
+          xcas('m1:=min((-b2-sqrt(d2))/(2*a2),(-b2+sqrt(d2))/(2*a2))')
+          xcas('m2:=max((-b2-sqrt(d2))/(2*a2),(-b2+sqrt(d2))/(2*a2))')
           texteCorr += '<br>Celui-ci étant strictement positif, l\'équation $\\Delta = 0$ a 2 solutions :'
           texteCorr += `<br>$m_1=${xcas('m1')}\\simeq${xcas('approx(m1,4)')}$ et $m_2=${xcas('m2')}\\simeq${xcas('approx(m2,4)')}$`
           if (a2 > 0) {

@@ -7,7 +7,7 @@ import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
   calculCompare, canonicalAddCompare,
-  decimalCompare, developpementCompare,
+  decimalCompare, developmentCompare,
   expandedFormCompare,
   expandedAndReductedCompare,
   fractionCompare,
@@ -669,7 +669,7 @@ export function setReponse (exercice, i, valeurs, {
       }, params)
     case 'developpements' :
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "developpements" la réponse n\'est pas un string !', { reponses })
-      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: developpementCompare } }, params)
+      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: developmentCompare } }, params)
   }
 
   if (exercice.autoCorrection[i] === undefined) {
