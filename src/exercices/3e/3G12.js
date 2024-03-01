@@ -37,8 +37,6 @@ export const refs = {
 }
 export default function PavageEtRotation2D () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
   this.correctionDetailleeDisponible = true
@@ -157,7 +155,7 @@ export default function PavageEtRotation2D () {
     if (this.sup3 === 8) {
       typeDePavage = randint(1, 7)
     } else {
-      typeDePavage = parseInt(this.sup3)
+      typeDePavage = this.sup3
     }
     while (couples.length < this.nbQuestions && nombrePavageTestes < 6) {
       nombreTentatives = 0
@@ -288,10 +286,14 @@ export default function PavageEtRotation2D () {
         P2.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
-        P3 = rotationAnimee(P1, A, alpha * sensdirect, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
-        P3.color = colorToLatexOrHTML(texcolors(i))
-        P3.epaisseur = 2
-        objetsCorrection.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codageAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2, P3)
+        if (context.isHtml) {
+          P3 = rotationAnimee(P1, A, alpha * sensdirect, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
+          P3.color = colorToLatexOrHTML(texcolors(i))
+          P3.epaisseur = 2
+          objetsCorrection.push(P3)
+        }
+        //  objetsCorrection.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codageAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2, P3)
+        objetsCorrection.push(tracePoint(M, N), segment(A, M, texcolors(i)), segment(A, N, arcenciel(i)), codageAngle(M, A, N, 0.8, '', arcenciel(i), 1, 1, 'blue', 0.2, true), P1, P2)
       }
     }
     if (this.correctionDetaillee) {

@@ -28,7 +28,6 @@ export const dateDePublication = '14/12/2020'
 /**
  * Trouver une figure symétrique dans un pavage. Symétrie axiale. 6 pavages différents.
  * @author Jean-Claude Lhote
- * Réf : 6G25-3
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '328b1'
@@ -283,9 +282,12 @@ export default function PavageEtReflexion2d () {
         P2.couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
-        P3 = symetrieAnimee(P1, d, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
-        P3.color = colorToLatexOrHTML(couleurs[i])
-        P3.epaisseur = 2
+        if (context.isHtml) {
+          P3 = symetrieAnimee(P1, d, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
+          P3.color = colorToLatexOrHTML(couleurs[i])
+          P3.epaisseur = 2
+          objetsCorrection.push(P3)
+        }
         objetsCorrection.push(tracePoint(A, B), segment(A, B, couleurs[i]), P1, P2, P3)
         if (A !== B) objetsCorrection.push(codageMediatrice(A, B, couleurs[i], codes[i]))
       }

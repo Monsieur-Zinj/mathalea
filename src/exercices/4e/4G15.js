@@ -5,7 +5,7 @@ import { longueur, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, latexParPoint } from '../../lib/2d/textes.ts'
 import { rotation, similitude, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
@@ -126,10 +126,10 @@ export default function TransformationsDeTriangle () {
 
     const nomd = latexParPoint('(d)', translation(milieu(B, B1), vecteur(1, 0)), 'black', 30, 12, '')
     if (context.isHtml) {
-      const triangle2a = symetrieAnimee(triangle0, med, `id='anim${numeroExercice}A' begin="0s" dur ="2s" repeatcount="1" fill="freeze"`)
-      const triangle3a = rotationAnimee(triangle2, D, 180, `id='anim${numeroExercice}B' begin="2s" dur ="2s" repeatcount="1" fill="freeze"`)
-      const triangle4a = translationAnimee(triangle3, vecteur(D, F), `id='anim${numeroExercice}C' begin="4s" dur ="2s" repeatcount="1" fill="freeze"`)
-      const triangle5a = rotationAnimee(triangle4, F, alpha, `id='anim${numeroExercice}D' begin="6s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle2a = !context.isHtml ? vide2d() : symetrieAnimee(triangle0, med, `id='anim${numeroExercice}A' begin="0s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle3a = !context.isHtml ? vide2d() : rotationAnimee(triangle2, D, 180, `id='anim${numeroExercice}B' begin="2s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle4a = !context.isHtml ? vide2d() : translationAnimee(triangle3, vecteur(D, F), `id='anim${numeroExercice}C' begin="4s" dur ="2s" repeatcount="1" fill="freeze"`)
+      const triangle5a = !context.isHtml ? vide2d() : rotationAnimee(triangle4, F, alpha, `id='anim${numeroExercice}D' begin="6s" dur ="2s" repeatcount="1" fill="freeze"`)
       anim.vitesse = 15
       anim.tempo = 0.5
       anim.recadre(xMin, yMax)

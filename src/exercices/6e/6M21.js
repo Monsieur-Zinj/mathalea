@@ -22,9 +22,7 @@ export const interactifType = 'qcm'
 
 /**
  * Comparer aires et/ou périmètres de figures avec ceux d'un rectangle référence
- * Ref 6M21
  * @author Eric Elter
- * Publié le 08/06/2022
  */
 function TranslationPuisRotationAnimee (numId, figure1, v, figure2, O, angle, t1 = 5, t2 = 2) {
   ObjetMathalea2D.call(this, { })
@@ -296,7 +294,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
             angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
             figAireCorr2 = arc(rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], angleCorr), choixFigAire2[choixFig2][1], -180, false, color[q], 'black', 0.5)
             objets.push(poly, figAire1, figAire2, N, codageSegment(M, pt1, '|||'), P, codageSegment(O, choixFigAire2[choixFig2][1], '|||'), rect)
-            objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
+            if (context.isHtml) objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
@@ -386,7 +384,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
             angleCorr = angleCorr === 1 ? 90 : angleCorr === 2 ? 0 : -90
             figAireCorr2 = arc(rotation(choixFigAire2[choixFig2][0], choixFigAire2[choixFig2][1], angleCorr), choixFigAire2[choixFig2][1], -180, false, color[q], 'black', 0.5)
             objets.push(poly, figAire1, figAire2, rect)
-            objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
+            if (context.isHtml) objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][1]), figAireCorr2, choixFigAire2[choixFig2][1], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
@@ -694,7 +692,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
             figAireCorr2.opaciteDeRemplissage = 0.5
             objets.push(poly, figAire1, figAire2, segment(pt2, R), segment(pt1, R), codageSegment(pt2, R, '|||'), codageSegment(pt2, pt1, 'OO'), codageSegment(pt1, R, 'XX'), rect)
             objets.push(segment(choixFigAire2[choixFig2][0], T), segment(choixFigAire2[choixFig2][1], T), codageSegment(choixFigAire2[choixFig2][1], T, '|||'), codageSegment(choixFigAire2[choixFig2][1], choixFigAire2[choixFig2][0], 'OO'), codageSegment(choixFigAire2[choixFig2][0], T, 'XX'))
-            objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
+            if (context.isHtml) objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)
@@ -806,7 +804,7 @@ export default function CompareAireEtPerimetreAvecRectangle () {
             figAireCorr2.opaciteDeRemplissage = 0.5
             objets.push(poly, figAire1, figAire2, segment(pt2, R), segment(pt1, R), rect)
             objets.push(homothetie(segment(choixFigAire2[choixFig2][0], T), choixFigAire2[choixFig2][0], aleaRapportHomothetie), homothetie(segment(choixFigAire2[choixFig2][1], T), choixFigAire2[choixFig2][0], aleaRapportHomothetie))
-            objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
+            if (context.isHtml) objets.push(translationPuisRotationAnimees(q, figAireCorr, vecteur(pt1, choixFigAire2[choixFig2][0]), figAireCorr2, choixFigAire2[choixFig2][0], -angleCorr))
             paramsEnonce.ymin = choixFig2 === 0 ? -0.5 - rayonOuCote : paramsEnonce.ymin
             paramsEnonce.ymax = choixFig2 === 2 ? rayonOuCote + C.y + 0.5 : paramsEnonce.ymax
             texteCorr += '<br>' + mathalea2d(paramsEnonce, objets)

@@ -451,7 +451,7 @@ export default function SymetrieAxialePavageTriangulaire () {
           })
         }
       }
-      objetsEnonce.push(symetrieAnimee(triAngles[question[i].antecedent].tri, d[i], `id="anim${numeroExercice}-${i}" dur="2s" repeatCount="2" `))
+      if (context.isHtml) objetsEnonce.push(symetrieAnimee(triAngles[question[i].antecedent].tri, d[i], `id="anim${numeroExercice}-${i}" dur="2s" repeatCount="2" `))
       images[i] = symetrieAxiale(triAngles[question[i].antecedent].tri, d[i])
       images[i].couleurDeRemplissage = colorToLatexOrHTML(couleurs[i])
       images[i].opaciteDeRemplissage = 0.3
