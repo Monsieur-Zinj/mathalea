@@ -1,12 +1,19 @@
-<script lang='ts'>
+<script lang="ts">
   import SearchInput from './searchInput/SearchInput.svelte'
   import ReferentielEnding from '../referentielNode/ReferentielEnding.svelte'
   import type { ResourceAndItsPath } from '../../../../../../lib/types/referentiels'
+  import type { SvelteComponent } from 'svelte'
+  interface SearchInputType extends SvelteComponent {
+    triggerUpdate: () => void
+  }
   export let resourcesSet: ResourceAndItsPath[]
   export let addExercise: (uuid: string, id: string) => void
   let foundResources: ResourceAndItsPath[] = []
   let inputSearch: string = ''
+  let searchInput: SearchInputType
+  export const triggerUpdateFromSearchBlock = (): void => searchInput.triggerUpdate()
 </script>
+
 <!--
   @component
   Bloc de recherche comprenant~:
@@ -19,6 +26,7 @@
 <div class={`${$$props.class || ''}`}>
   <div class="p-4">
     <SearchInput
+      bind:this={searchInput}
       origin={resourcesSet}
       bind:results={foundResources}
       bind:inputSearch
@@ -33,7 +41,10 @@
   >
     {#each foundResources as foundResource}
       <li>
-        <ReferentielEnding ending={foundResource.resource} nestedLevelCount={1} />
+        <ReferentielEnding
+          ending={foundResource.resource}
+          nestedLevelCount={1}
+        />
       </li>
     {/each}
   </ul>
