@@ -116,6 +116,13 @@
       }
     }
   }
+
+  export const triggerUpdate = (): void => {
+    if (inputSearch != null && inputSearch.length !== 0) {
+      handleInput(inputSearch)
+    }
+  }
+
   // ===================================================================================
   //
   //                                Gestion du clavier
@@ -374,6 +381,7 @@
           handleUncheckingMutipleFilters(filter.key)
           dispatch('filters-change')
           $filtersHaveChanged = true
+          triggerUpdate()
         }}
       />
     {/each}
