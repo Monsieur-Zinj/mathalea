@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/q
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparaisonFonctions'
+import { formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 
 export const titre = 'Utiliser la double distributivité'

@@ -3,7 +3,7 @@ import { nombreDeChiffresDe, rangeMinMax } from '../../lib/outils/nombres'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, quotientier, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 
 import { fractionCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'

@@ -2,7 +2,7 @@ import { addElement, get, setStyles } from '../html/dom'
 import { verifQuestionMathLive } from './mathLive.js'
 import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
@@ -22,7 +22,7 @@ import {
   texteCompare,
   unitesCompare,
   upperCaseCompare
-} from './comparaisonFonctions'
+} from './comparisonFunctions'
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
 

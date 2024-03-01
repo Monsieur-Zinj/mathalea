@@ -8,7 +8,7 @@ import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Calculer une aire ou un périmètre (carré et rectangle)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

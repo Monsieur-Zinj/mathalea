@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
 import Exercice from '../../deprecatedExercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { pgcd } from '../../../lib/outils/primalite'
 export const titre = 'Passer d\'un décimal à une fraction irréductible'
 export const interactifReady = true

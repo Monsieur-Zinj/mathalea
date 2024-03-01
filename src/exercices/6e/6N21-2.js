@@ -8,7 +8,7 @@ import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { fractionEgaleCompare } from '../../lib/interactif/comparaisonFonctions'
+import { fractionEgaleCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Lire des abscisses fractionnaires de points (niv 2)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

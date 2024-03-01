@@ -1,11 +1,11 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { developpementCompare } from '../../lib/interactif/comparaisonFonctions'
+import { developpementCompare } from '../../lib/interactif/comparisonFunctions'
 import { fraction } from '../../modules/fractions.js'
 
 export const interactifReady = true

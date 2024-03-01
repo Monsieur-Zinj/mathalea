@@ -205,6 +205,8 @@ export function Polygone (...points) {
   this.opaciteDeRemplissage = 1
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
+  this.couleurDeRemplissage = ''
+  this.opaciteDeRemplissage = 0.5
   if (Array.isArray(points[0])) {
     // Si le premier argument est un tableau
     this.listePoints = points[0]

@@ -13,7 +13,7 @@ import { mathalea2d, colorToLatexOrHTML, vide2d, fixeBordures } from '../../modu
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import * as pkg from '@cortex-js/compute-engine'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 const { ComputeEngine } = pkg
 export const interactifReady = true

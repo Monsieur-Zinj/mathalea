@@ -15,7 +15,7 @@ import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/q
 import Grandeur from '../../modules/Grandeur'
 import { RedactionPythagore } from './_pythagore.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
-import engine from '../../lib/interactif/comparaisonFonctions'
+import engine from '../../lib/interactif/comparisonFunctions'
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'

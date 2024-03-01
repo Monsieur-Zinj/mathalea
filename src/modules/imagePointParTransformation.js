@@ -1,5 +1,5 @@
 import { matriceCarree } from '../lib/mathFonctions/MatriceCarree.js'
-import FractionEtendue from './FractionEtendue.js'
+import FractionEtendue from './FractionEtendue.ts'
 
 /**
  *

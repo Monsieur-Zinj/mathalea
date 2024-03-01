@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { texteAvecEspacesCompare } from '../../lib/interactif/comparaisonFonctions'
+import { texteAvecEspacesCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 export const titre = 'Écrire correctement les grands nombres entiers'
 

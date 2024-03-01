@@ -18,7 +18,7 @@ import { latexParCoordonnees } from '../../lib/2d/textes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { compareEnsembles, compareIntervalles } from '../../lib/interactif/comparaisonFonctions'
+import { setsCompare, intervalsCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
@@ -593,7 +593,7 @@ class resolutionEquationInequationGraphique extends Exercice {
         handleAnswers(this, indexQuestion, {
           reponse: {
             value: Array.from(soluces).join(';'),
-            compare: compareEnsembles
+            compare: setsCompare
           }
         }, { formatInteractif: 'calcul' }) // on s'en fiche du formatInteractif, c'est la fonction compare qui fait ce qu'il faut
         indexQuestion++
@@ -611,7 +611,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       handleAnswers(this, indexQuestion, {
         reponse: {
           value: soluces2,
-          compare: compareIntervalles
+          compare: intervalsCompare
         }
       }, { formatInteractif: 'calcul' })
       texteCorr += `<br>Pour trouver l'ensemble des solutions de l'inéquation, on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C_' + f1 + '}', 'blue')}$ est située ${inferieur ? 'en-dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C_' + f2 + '}', 'red')}$.<br>`

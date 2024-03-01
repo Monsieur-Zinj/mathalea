@@ -10,7 +10,7 @@ import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteracti
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range } from '../../lib/outils/nombres'
-import { fonctionXyCompare } from '../../lib/interactif/comparaisonFonctions'
+import { fonctionXyCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']

@@ -14,7 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { fonctionCompare, fractionEgaleCompare } from '../../lib/interactif/comparaisonFonctions'
+import { fonctionCompare, fractionEgaleCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true

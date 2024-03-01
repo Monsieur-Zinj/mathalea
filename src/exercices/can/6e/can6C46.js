@@ -4,7 +4,7 @@ import { rangeMinMax } from '../../../lib/outils/nombres'
 import { prenomF, prenomM } from '../../../lib/outils/Personne'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'//
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
 import { fractionCliquable } from '../../../modules/2dinteractif.js'
 export const titre = 'Résoudre un problème de reste en fraction'

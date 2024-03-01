@@ -7,7 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
-import { factorisationCompare, formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparaisonFonctions'
+import { factorisationCompare, formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -7,7 +7,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   factorisationCompare, fonctionCompare,
   formeDeveloppeeEtReduiteCompare
-} from '../../lib/interactif/comparaisonFonctions'
+} from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

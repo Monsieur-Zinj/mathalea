@@ -27,7 +27,7 @@ import { context } from '../../modules/context.js'
 import { texTexte } from '../../lib/format/texTexte'
 import Grandeur from '../../modules/Grandeur'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { unitesCompare } from '../../lib/interactif/comparaisonFonctions'
+import { unitesCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

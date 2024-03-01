@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Déterminer le coefficient directeur d’une tangente (fonctions de référence)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

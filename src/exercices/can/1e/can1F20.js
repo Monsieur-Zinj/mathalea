@@ -5,7 +5,7 @@ import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Résoudre une équation du second degré sans $\\Delta$'
 export const interactifReady = true
 export const interactifType = 'qcm'

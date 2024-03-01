@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Multiplier des fractions'
 export const interactifReady = true

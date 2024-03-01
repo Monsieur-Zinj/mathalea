@@ -7,7 +7,7 @@ import {
 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import { fonctionCompare } from '../../../lib/interactif/comparaisonFonctions'
+import { fonctionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Déterminer la fonction dérivée d’une fonction $a/u(x)$'
 export const interactifReady = true
 export const interactifType = 'mathLive'

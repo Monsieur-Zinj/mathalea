@@ -109,7 +109,7 @@ export function ecritureAlgebrique (a: string | number | FractionEtendue | Decim
     } else {
       return texNombre(a, 7)
     }
-  } else window.notify('ecritureAlgebrique : type de valeur non prise en compte')
+  } else window.notify('ecritureAlgebrique : type de valeur non prise en compte', { valeur: a })
 }
 
 /**
@@ -118,8 +118,8 @@ export function ecritureAlgebrique (a: string | number | FractionEtendue | Decim
  * //+3 ou -3
  * @author Rémi Angot et Jean-Claude Lhote pour le support des fractions
  */
-export function ecritureAlgebriqueSauf1 (a) {
-  if (a instanceof FractionEtendue) return fraction(a).ecritureAlgebrique
+export function ecritureAlgebriqueSauf1 (a: FractionEtendue | number | Decimal) {
+  if (a instanceof FractionEtendue) return a.ecritureAlgebrique
   if (typeof a === 'string') {
     window.notify('ecritureAlgebriqueSauf1() n\'accepte pas les string.', { argument: a })
     a = Number(a)
@@ -226,9 +226,11 @@ export function calculAligne (numero: number, etapes: number[]) {
  * fonctionne aussi si a est une fraction : permet de finir un calcul par la valeur décimale si on veut.
  * @author Jean-Claude Lhote
  */
-export function egalOuApprox (a: number | FractionEtendue, precision: number) {
-  if (typeof a === 'object' && ['FractionEtendue'].indexOf(a.type) !== -1) {
-    return egal(a.n / a.d, arrondi(a.n / a.d, precision)) ? '=' : '\\approx'
+export function egalOuApprox (a: number | FractionEtendue | Decimal, precision: number) {
+  if (a instanceof FractionEtendue) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-errors
+    return egal(a.num / a.den, arrondi(a.num / a.den, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'
   } else if (!isNaN(a) && !isNaN(precision)) return egal(a, round(a, precision), 10 ** (-precision - 2)) ? '=' : '\\approx'

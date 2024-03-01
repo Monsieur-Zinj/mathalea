@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { intervalleStrictCompare } from '../../../lib/interactif/comparaisonFonctions'
+import { intervalleStrictCompare } from '../../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Compléter un encadrement'

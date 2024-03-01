@@ -3,7 +3,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/ou
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Déterminer une coordonnée avec un produit scalaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
