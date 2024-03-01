@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { intervalleStrictCompare } from '../../../lib/interactif/comparisonFunctions'
+import { intervalStrictCompare } from '../../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Compléter un encadrement'
@@ -23,7 +23,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
-    this.compare = intervalleStrictCompare
+    this.compare = intervalStrictCompare
     this.formatInteractif = 'calcul' // 'intervalleStrict'
     this.canOfficielle = true
   }

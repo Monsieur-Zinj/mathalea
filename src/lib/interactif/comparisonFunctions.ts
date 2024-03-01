@@ -474,7 +474,7 @@ export function simplerFractionCompare (input: string, goodAnswer: string): Resu
   if (inputParsed.head === 'Divide' && goodAnswerParsed.head === 'Divide') {
     const num = (inputParsed.json as [string, number, number])[1] as number
     const numGoodAnswer = (goodAnswerParsed.json as [string, number, number])[1] as number
-    if (numGoodAnswer == null || typeof numGoodAnswer !== 'number') throw Error(`problème avec ${goodAnswer} dans fractionPlusSimpleCompare : fReponse.op1.numericValue est nul`)
+    if (numGoodAnswer == null || typeof numGoodAnswer !== 'number') throw Error(`problème avec ${goodAnswer} dans simplerFractionCompare : fReponse.op1.numericValue est nul`)
     if (inputParsed.isEqual(goodAnswerParsed) && num && num < numGoodAnswer && Number.isInteger(num)) return { isOk: true }
   }
   return { isOk: false }
@@ -495,7 +495,7 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
   const fReponse = engine.parse(goodAnswer)
   if (!isNaN(parseFloat(cleanStringBeforeParse(input)))) {
     // La saisie est faite sous forme décimale
-    const newFraction = new FractionEtendue(parseFloat(cleanStringBeforeParse(input)))
+    const newFraction = new FractionEtendue(parseFloat(cleanStringBeforeParse(input)), 1)
     // On la convertit en fraction
     if (engine.parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`).canonical.isSame(fReponse.canonical)) return { isOk: true }
   } else {

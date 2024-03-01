@@ -2,7 +2,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import { egaliteCompare } from '../../../lib/interactif/comparisonFunctions'
+import { equalityCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Exprimer une variable en fonction d\'une autre'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,7 +21,7 @@ export default function ExprimerVariable () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = egaliteCompare
+  this.compare = equalityCompare
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline nospacebefore'
   this.nouvelleVersion = function () {

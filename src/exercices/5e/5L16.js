@@ -6,7 +6,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   factorisationCompare, fonctionCompare,
-  formeDeveloppeeEtReduiteCompare
+  expandedAndReductedCompare
 } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
@@ -19,7 +19,7 @@ export const dateDeModifImportante = '13/11/2023'
 function simplifierCompare (input, goodAnswer) {
   if (input.includes('\\times')) return { isOk: false, feedback: 'On peut supprimer le signe $\\times$ devant une lettre ou une parenthèse.<br>' }
   if (goodAnswer.expr.includes('(')) return factorisationCompare(input, goodAnswer.expr)
-  return formeDeveloppeeEtReduiteCompare(input, goodAnswer)
+  return expandedAndReductedCompare(input, goodAnswer)
 }
 function compliquerCompare (input, goodAnswer) {
   const reponse = goodAnswer.reponse

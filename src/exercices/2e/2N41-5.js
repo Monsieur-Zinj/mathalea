@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions.js'
-import { developpementCompare } from '../../lib/interactif/comparisonFunctions'
+import { developmentCompare } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 

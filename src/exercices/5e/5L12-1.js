@@ -7,7 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
-import { factorisationCompare, formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { factorisationCompare, expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -91,13 +91,13 @@ export default function ReduireDinstinctionSommeProduit () {
         if (listeTypeDeQuestions[i] < 2) {
           handleAnswers(this, 2 * i, { reponse: { value: reponseProduit, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
         } else {
-          handleAnswers(this, 2 * i, { reponse: { value: { expr: reponseSomme, strict: true }, compare: formeDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, 2 * i, { reponse: { value: { expr: reponseSomme, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
         }
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Produit : ' : '<br>Somme : ' })
         if (listeTypeDeQuestions[i] > 1) {
           handleAnswers(this, 2 * i + 1, { reponse: { value: reponseProduit, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
         } else {
-          handleAnswers(this, 2 * i + 1, { reponse: { value: { expr: reponseSomme, strict: true }, compare: formeDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, 2 * i + 1, { reponse: { value: { expr: reponseSomme, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
         }
       }
       texteCorr = listeTypeDeQuestions[i] > 1 ? enonces[listeTypeDeQuestions[i]].correction_somme : enonces[listeTypeDeQuestions[i]].correction_produit

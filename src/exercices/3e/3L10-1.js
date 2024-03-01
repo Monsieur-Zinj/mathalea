@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 
 export const titre = 'Additionner ou soustraire une expression entre parenthèses'
@@ -158,7 +158,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
           break
       }
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: this.sup }, compare: formeDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: this.sup }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
         // setReponse(this, i, reponse, { formatInteractif: 'canonicalAdd' })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
         texte += ajouteFeedback(this, i)
