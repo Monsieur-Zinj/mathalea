@@ -7,7 +7,7 @@
   import { canOptions } from '../../../../lib/stores/canStore'
   import Keyboard from '../../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../../keyboard/stores/keyboardStore'
-  import Timer from './Timer.svelte'
+  import Timer from './Timer.svelte';
 
   export let state: CanState
   export let numberOfSeconds: number = 20
@@ -63,15 +63,11 @@
   <div
     id="questions-container"
     class="flex flex-col justify-center items-center font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus text-3xl md:text-5xl
-     {$keyboardState.isVisible && !$keyboardState.isInLine
-       ? 'h-[calc(100%-30rem)]'
-       : ''}
-     {$keyboardState.isVisible && $keyboardState.isInLine
-       ? 'h-[calc(100%-16rem)]'
-       : ''}
+     {$keyboardState.isVisible && !$keyboardState.isInLine  ? 'h-[calc(100%-30rem)]' : ''}
+     {$keyboardState.isVisible && $keyboardState.isInLine  ? 'h-[calc(100%-20rem)]' : ''}
      {!$keyboardState.isVisible ? 'h-full' : ''} w-full"
   >
-    {#each [...Array(numberOfQuestions).keys()] as i}
+    {#each [...Array(numberOfQuestions).keys()] as i }
       <Question
         consigne={consignes[i]}
         question={questions[i]}
@@ -85,12 +81,7 @@
     {/each}
   </div>
   <div
-    class="flex justify-center w-full {$keyboardState.isVisible &&
-    $keyboardState.isInLine
-      ? 'mb-10'
-      : ''} {$keyboardState.isVisible && !$keyboardState.isInLine
-        ? 'mb-52'
-        : ''}"
+    class="flex justify-center w-full {$keyboardState.isVisible && $keyboardState.isInLine? 'mb-20' : ''} {$keyboardState.isVisible && !$keyboardState.isInLine? 'mb-52' : ''}"
   >
     <NavigationButtons
       bind:current

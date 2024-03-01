@@ -36,25 +36,27 @@
   //   }
   // })
 
-  keyboardState.subscribe((value) => {
-    if (visible) {
-      console.log('message reçu: ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
-      const questionContent = document.getElementById(`question-content-${index}`) as HTMLDivElement
-      if (questionContent) setSizeWithinSvgContainer(questionContent)
-      console.log('message reçu fin : ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
-    }
-    return value
-  })
+  // keyboardState.subscribe((value) => {
+  //   if (visible) {
+  //     // console.log('message reçu: ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
+  //     const questionContent = document.getElementById(`question-content-${index}`) as HTMLDivElement
+  //     if (questionContent) setSizeWithinSvgContainer(questionContent)
+  //     // console.log('message reçu fin : ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
+  //   }
+  //   return value
+  // })
 
   afterUpdate(() => {
     // const questionsContainer = document.getElementById('questions-container') as HTMLDivElement
     // if (questionsContainer) {
     //  setSizeWithinSvgContainer(questionsContainer)
     // }
-    const questionContent = document.getElementById(
-      `question-content-${index}`
-    ) as HTMLDivElement
-    setSizeWithinSvgContainer(questionContent)
+    if (visible) {
+      const questionContent = document.getElementById(
+        `question-content-${index}`
+      ) as HTMLDivElement
+      setSizeWithinSvgContainer(questionContent)
+    }
   })
 
   $: {
@@ -63,6 +65,7 @@
       if (mf) {
         // ToDo : gérer les QCM
         mf.addEventListener('input', (e) => {
+          console.log(e)
           if (e instanceof InputEvent && e.data === 'insertLineBreak') {
             nextQuestion()
           }
@@ -86,17 +89,17 @@
 <div
   id="question-content-{index}"
   class={visible
-    ? 'px-4 md:px-20 lg:px-32 flex flex-col justify-center items-center font-normal leading-relaxed overflow-y-auto h-full w-full'
+    ? 'px-4 md:px-20 lg:px-32 flex flex-col justify-center items-center font-normal leading-relaxed h-[100%]  w-[100%] text-center'
     : 'hidden'}
   bind:this={questionContainer}
 >
   {#if mode === 'display' || mode === 'correction'}
-    <div class='text-coopmaths-corpus dark:text-coopmathsdark-corpus'>
+    <div style='padding:15px;' class='flex overflow-x-auto overflow-y-auto'>
     <div class="text-pretty">
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html consigne}
     </div>
-    <div class="text-pretty">
+    <div class="text-pretty" style=''>
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html question}
     </div>
