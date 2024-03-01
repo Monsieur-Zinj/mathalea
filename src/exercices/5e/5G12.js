@@ -261,11 +261,13 @@ export default function PavageEtDemiTour2D () {
         P2.couleurDeRemplissage = colorToLatexOrHTML(texcolors(i))
         P2.opaciteDeRemplissage = 0.5
         P2.epaisseur = 2
-        P3 = rotationAnimee(P1, A, 180, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
-        P3.color = colorToLatexOrHTML(texcolors(i))
-        P3.epaisseur = 2
+        if (context.isHtml) {
+          P3 = rotationAnimee(P1, A, 180, `begin="${i * 3}s;${i * 3 + t}s;${i * 3 + t * 2}s" end="${i * 3 + 2}s;${i * 3 + t + 2}s;${i * 3 + t * 2 + 2}s" dur="2s" repeatCount="indefinite" repeatDur="${9 * this.nbQuestions}s" id="poly-${i}-anim"`)
+          P3.color = colorToLatexOrHTML(texcolors(i))
+          P3.epaisseur = 2
+          objetsCorrection.push(P3)
+        }
         objetsCorrection.push(tracePoint(G1, G2), segment(G1, G2, texcolors(i)), codageMilieu(G1, G2, texcolors(i), codes[i], false), P1, P2)
-        if (context.isHtml) objetsCorrection.push(P3)
       }
     }
     if (this.correctionDetaillee) {

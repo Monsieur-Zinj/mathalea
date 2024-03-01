@@ -26,15 +26,10 @@ export const amcType = 'AMCHybride'
 /**
  * Trouver l'image d'une figure par diverses transformations dans un pavage (7 motifs différents)
  * @author Jean-Claude Lhote
- * fonction servant à tous les niveaux
- * Références 5G12-1, 6G25-2, 4G11-1, 3G12-1
  * Relecture : Novembre 2021 par EE
  */
 export default function PavagesEtTransformations () {
   Exercice.call(this)
-
-  // this.titre = "Trouver l'image d'une figure par une symétrie centrale";
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1

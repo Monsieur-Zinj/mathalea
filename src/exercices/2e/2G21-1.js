@@ -5,12 +5,13 @@ import { latexParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, similitude, translation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
+import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { translationAnimee } from '../../modules/2dAnimation.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Construire un point à partir d\'une égalité vectorielle'
-export const dateDeModifImportante = '29/01/2023' //  Par EE
+export const dateDeModifImportante = '29/01/2023'
 
 /**
  * @author Jean-Claude Lhote
@@ -23,7 +24,6 @@ export const refs = {
 }
 export default function SommeDeVecteurs () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 2
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -114,13 +114,17 @@ export default function SommeDeVecteurs () {
       anim.crayonMasquer()
       anim.compasMasquer()
       anim.pointCreer(C)
-      texteCorr += mathalea2d({
+      const objets = [U, V, p[1], tracePoint(A, 'red'), UU, VV, u.representant(A), v.representant(B), latexParPoint('A', posLabelA, 'red', 12, 12, '')]
+      if (context.isHtml) objets.push(translationAnimee(UU, vecteur(M, A)), translationAnimee(VV, vecteur(N, B)))
+      /* texteCorr += mathalea2d({
         xmin: Math.min(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) - 1,
         ymin: Math.min(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) - 1,
         xmax: Math.max(0, B.x, C.x, M.x, M.x + xU, N.x, N.x + xV) + 1,
         ymax: Math.max(0, B.y, C.y, M.y, M.y + yU, N.y, N.y + yV) + 1,
         scale: 0.7
-      }, U, V, p[1], tracePoint(A, 'red'), UU, VV, u.representant(A), v.representant(B), translationAnimee(UU, vecteur(M, A)), translationAnimee(VV, vecteur(N, B)), latexParPoint('A', posLabelA, 'red', 12, 12, ''))
+      }, objets) */
+
+      texteCorr += mathalea2d(Object.assign({ scale: 0.7 }, fixeBordures(objets)), objets) // translationAnimee n'a pas de bordure
       texteCorr += "Remarque : comme $\\overrightarrow{AB} = \\vec{u}$ et $\\overrightarrow{BC} = \\vec{v}$, alors $\\vec{u}+\\vec{v}=\\overrightarrow{AB}+\\overrightarrow{BC}=\\overrightarrow{AC}$ d'après la relation de Chasles."
       texteCorr += anim.htmlBouton(numeroExercice, i)
       if (this.questionJamaisPosee(i, xU, yU, xV, yV)) { // Si la question n'a jamais été posée, on en créé une autre
