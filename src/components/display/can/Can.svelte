@@ -166,7 +166,6 @@
   function buildTime (): string {
     const nbOfSeconds = recordedTimeFromCapytale ||
       $canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds
-    console.log(nbOfSeconds, recordedTimeFromCapytale, $canOptions.durationInMinutes * 60, $canOptions.remainingTimeInSeconds)
     const time = millisecondToMinSec(nbOfSeconds * 1000)
     return [
       time.minutes.toString().padStart(2, '0'),
@@ -187,10 +186,10 @@
       if (exercise.answers !== undefined) {
         const answersOfExercise = Object.values(exercise.answers)
         answers = answers.concat(answersOfExercise)
-        if (assignmentDataFromCapytale.resultsByQuestion !== undefined) resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion
-        if (assignmentDataFromCapytale.duration !== undefined) recordedTimeFromCapytale = assignmentDataFromCapytale.duration
       }
     }
+    if (assignmentDataFromCapytale?.resultsByQuestion !== undefined) resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion
+    if (assignmentDataFromCapytale?.duration !== undefined) recordedTimeFromCapytale = assignmentDataFromCapytale.duration
   })
 </script>
 
