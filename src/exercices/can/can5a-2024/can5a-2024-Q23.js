@@ -38,7 +38,7 @@ export default class NomExercice extends Exercice {
       }
       this.question = mathalea2d(Object.assign({}, fixeBordures(objets)), objets)
       this.question += 'Les étages de cette construction sont pleins.<br>Le nombre total de cubes est : '
-      this.reponse = 35
+      this.reponse = '35'
       this.correction = `Il y a $1+3\\times 3+5\\times 5=${miseEnEvidence(35)}$ petits cubes.`
     } else {
       const objets = []

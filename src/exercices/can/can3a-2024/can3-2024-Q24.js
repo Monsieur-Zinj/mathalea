@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { intervalleStrictCompare } from '../../../lib/interactif/comparaisonFonctions'
 
 export const titre = 'Calculer une expression pour une valeur particulière'
 export const interactifReady = true
@@ -39,7 +38,7 @@ export default class NomExercice extends Exercice {
       const a = randint(-5, 5, [0, 1])
       const b = randint(-10, 10, 0)
       const c = randint(-5, 3, 0)
-      this.reponse = a * c + b
+      this.reponse = { value: (a * c + b).toString() }
       this.question = `Calculer $${reduireAxPlusB(a, b)}$ pour $x=${c}$.`
       this.correction = `Pour $x=${c}$, on a : <br>
       $\\begin{aligned}
