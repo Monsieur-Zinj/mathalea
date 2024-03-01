@@ -601,7 +601,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
           } else if (Array.isArray(exercice.reponse)) {
             value = [...exercice.reponse]
           } else {
-            window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`)
+            window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`)
             value = String(exercice.reponse) // valeur par défaut on transforme tout en string.
           }
         } else {
