@@ -8,6 +8,9 @@ export default class MetaExercice extends Exercice {
     super()
     this.Exercices = Exercices
     this.besoinFormulaireCaseACocher = ['Sujet officiel']
+    this.nbQuestions = 30
+    this.nbQuestionsModifiable = false
+    this.sup = true
   }
 
   nouvelleVersion (): void {
