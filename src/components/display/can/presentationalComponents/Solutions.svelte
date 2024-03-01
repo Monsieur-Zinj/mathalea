@@ -150,14 +150,14 @@
           </div>
           <div class="flex flex-col">
             <div
-              class="p-2 text-pretty"
+              class="p-2 text-pretty text-coopmaths-corpus dark:text-coopmathsdark-corpus"
               hidden={resultsByQuestion[i] && displayCorrection}
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html removeMF(questions[i])}
             </div>
             <div
-              class="p-2 text-pretty bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest"
+              class="p-2 text-pretty bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus-darkest"
               hidden={resultsByQuestion[i] && displayCorrection}
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -169,7 +169,7 @@
               id="answer-container-{i}"
               class="{$canOptions.isInteractive &&
               (!resultsByQuestion[i] || !displayCorrection)
-                ? 'flex text-coopmaths-corpus font-light py-2 md:py-4'
+                ? 'flex text-coopmaths-corpus dark:text-coopmathsdark-corpus font-light py-2 md:py-4'
                 : 'hidden'} "
             >
               Réponse donnée&nbsp;:&nbsp;
