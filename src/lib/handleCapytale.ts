@@ -5,7 +5,12 @@ import { get } from 'svelte/store'
 import { RPC } from '@mixer/postmessage-rpc'
 import { canOptions as canOptionsStore } from './stores/canStore.js'
 
-interface ActivityParams { mode: 'create' | 'assignment' | 'review' | 'view', activity: Activity, workflow: 'current' | 'finished' | 'corrected', studentAssignment: InterfaceResultExercice[] }
+interface AssignmentData {
+  duration?: number
+  resultsByQuestion?: boolean[]
+}
+
+interface ActivityParams { mode: 'create' | 'assignment' | 'review' | 'view', activity: Activity, workflow: 'current' | 'finished' | 'corrected', studentAssignment: InterfaceResultExercice[], assignmentData: AssignmentData}
 
 const serviceId = 'capytale-player'
 
@@ -18,6 +23,7 @@ const rpc = new RPC({
 
 // On copie les réponses pour que la vue CAN puisse les utiliser
 export let answersFromCapytale: InterfaceResultExercice[] = []
+export let assignmentDataFromCapytale: AssignmentData = {}
 
 // timer pour ne pas lancer hasChanged trop souvent
 let timerId: ReturnType<typeof setTimeout> | undefined
@@ -27,7 +33,8 @@ let currentMode: 'create' | 'assignment' | 'review' | 'view'
 /**
    * Fonction pour recevoir les paramètres des exercices depuis Capytale
   */
-async function toolSetActivityParams ({ mode, activity, workflow, studentAssignment }: ActivityParams) {
+async function toolSetActivityParams ({ mode, activity, workflow, studentAssignment, assignmentData }: ActivityParams) {
+  assignmentDataFromCapytale = assignmentData
   // mode : create (le prof créé sa séance), assignment (l'élève voit sa copie), review (le prof voit la copie d'un élève), view (le prof voit la séance d'un collègue dans la bibliothèque et pourra la cloner)
   // workflow : current (la copie n'a pas encore été rendue), finished (la copie a été rendue), corrected (la copie a été anotée par l'enseignant)
   // On récupère les paramètres de l'activité
@@ -157,7 +164,8 @@ export async function sendToCapytaleMathaleaHasChanged () {
   }
 }
 
-export function sendToCapytaleSaveStudentAssignment ({ indiceExercice }: { indiceExercice: number}) {
+export function sendToCapytaleSaveStudentAssignment ({ indiceExercice, assignmentData }: { indiceExercice?: number | 'all', assignmentData?: AssignmentData}) {
+  if (indiceExercice === undefined) return
   const results = get(resultsByExercice)
   let evaluation = 0
   for (const resultExercice of results) {
@@ -168,8 +176,23 @@ export function sendToCapytaleSaveStudentAssignment ({ indiceExercice }: { indic
   if (currentMode === 'assignment') {
     // exerciceGraded est l'indice du dernier exercice évalué
     // L'information est envoyée à Capytale pour qu'ils sachent quel exercice ajouter en base de données
-    console.log('Message envoyé à Capytale', { studentAssignment: results, evaluation: evaluation.toString(), exerciceGraded: indiceExercice })
-    const promiseSaveStudentAssignment = rpc.call('saveStudentAssignment', { studentAssignment: results, evaluation: evaluation.toString(), exerciceGraded: indiceExercice })
+    const data = {
+      // Les réponses de l'élève
+      // Le tableau fourni remplace complètement les réponses précédemment sauvegardées.
+      studentAssignment: results,
+      // L'évaluation totale
+      evaluation: evaluation.toString(),
+      // L'index dans le tableau `studentAssignment` de l'exercice qui vient d'être soumis
+      // 'all' pour indiquer que tous les exercices sont soumis
+      exerciceGraded: indiceExercice,
+      // Des données globales concernant le travail de l'élève : temps passé, etc... Format à définir.
+      // Les données fournies remplacent complètement les données précédemment sauvegardées.
+      assignmentData
+      // Indique que l'activité est terminée et doit être verrouillée pour l'élève : workflow = 'finished'
+      // final?: boolean;
+    }
+    console.log('Message envoyé à Capytale', data)
+    const promiseSaveStudentAssignment = rpc.call('saveStudentAssignment', data)
     promiseSaveStudentAssignment.then(() => {
       console.log('Sauvegarde effectuée')
       // Afficher sauvegarde réussie

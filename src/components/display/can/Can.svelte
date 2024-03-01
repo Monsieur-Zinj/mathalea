@@ -21,7 +21,7 @@
     globalOptions,
     resultsByExercice
   } from '../../../lib/stores/generalStore'
-  import { answersFromCapytale, sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
+  import { answersFromCapytale, assignmentDataFromCapytale, sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
   import { millisecondToMinSec } from '../../../lib/components/time'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
   import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
@@ -82,9 +82,10 @@
         resultsByQuestion[i] =
           verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === 'OK'
         // récupération de la réponse
-        const propositions =
-          exercice.autoCorrection[indiceQuestionInExercice[i]].propositions
+        // @ts-expect-error typage pour les QCM
+        const propositions = exercice.autoCorrection[indiceQuestionInExercice[i]].propositions
         const qcmAnswers: string[] = []
+        // @ts-expect-error typage pour les QCM
         propositions.forEach((proposition, indice: number) => {
           if (
             exercice.answers![
@@ -115,7 +116,8 @@
     for (const param of exercises) {
       param.interactif = false
     }
-    for (const exercise of exercises) {
+    for (let i = 0; i < exercises.length; i++) {
+      const exercise = exercises[i]
       resultsByExercice.update((l) => {
         l[exercise.numeroExercice as number] = {
           uuid: exercise.uuid,
@@ -132,9 +134,13 @@
         }
         return l
       })
-      if ($globalOptions.recorder === 'capytale') {
+      if (i === exercises.length - 1 && $globalOptions.recorder === 'capytale') {
         sendToCapytaleSaveStudentAssignment({
-          indiceExercice: exercise.numeroExercice || 0
+          indiceExercice: 'all',
+          assignmentData: {
+            duration: Math.floor($canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds),
+            resultsByQuestion
+          }
         })
       }
     }
@@ -160,6 +166,7 @@
   function buildTime (): string {
     const nbOfSeconds = recordedTimeFromCapytale ||
       $canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds
+    console.log(nbOfSeconds, recordedTimeFromCapytale, $canOptions.durationInMinutes * 60, $canOptions.remainingTimeInSeconds)
     const time = millisecondToMinSec(nbOfSeconds * 1000)
     return [
       time.minutes.toString().padStart(2, '0'),
@@ -180,8 +187,8 @@
       if (exercise.answers !== undefined) {
         const answersOfExercise = Object.values(exercise.answers)
         answers = answers.concat(answersOfExercise)
-        if (exercise.resultsByQuestion !== undefined) resultsByQuestion = exercise.resultsByQuestion
-        if (exercise.duration !== undefined) recordedTimeFromCapytale = exercise.duration
+        if (assignmentDataFromCapytale.resultsByQuestion !== undefined) resultsByQuestion = assignmentDataFromCapytale.resultsByQuestion
+        if (assignmentDataFromCapytale.duration !== undefined) recordedTimeFromCapytale = assignmentDataFromCapytale.duration
       }
     }
   })

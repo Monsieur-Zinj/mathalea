@@ -28,7 +28,7 @@
   })
 
   // document.addEventListener('KeyboardUpdated', function() {
-  //   // on recalcul quand le clavier est affiché et pas avant   
+  //   // on recalcul quand le clavier est affiché et pas avant
   //   if (visible) {
   //     console.log('message reçu: ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
   //     const questionContent = document.getElementById(`question-content-${index}`) as HTMLDivElement
@@ -86,12 +86,12 @@
 <div
   id="question-content-{index}"
   class={visible
-    ? 'px-4 md:px-20 lg:px-32 flex flex-col justify-center items-center font-normal leading-relaxed overflow-y-auto h-[100%]  w-[100%] text-justify'
+    ? 'px-4 md:px-20 lg:px-32 flex flex-col justify-center items-center font-normal leading-relaxed overflow-y-auto h-full w-full'
     : 'hidden'}
   bind:this={questionContainer}
 >
   {#if mode === 'display' || mode === 'correction'}
-    <div class=''>
+    <div class='text-coopmaths-corpus dark:text-coopmathsdark-corpus'>
     <div class="text-pretty">
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html consigne}
@@ -104,7 +104,7 @@
   {/if}
 
   {#if mode === 'correction'}
-    <div class="relative flex p-4 mt-10 bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest">
+    <div class="relative flex p-4 mt-10 bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus">
       <div class="text-pretty">
         <!-- eslint-disable-next-line svelte/no-at-html-tags -->
         {@html consigneCorrection}
