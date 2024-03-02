@@ -270,7 +270,7 @@ class FractionEtendue {
 
     this.texParentheses = den === 1 && signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
-    this.texFractionSimplifiee = signe === 1 ? `\\dfrac{${Math.abs(numIrred)}{${Math.abs(denIrred)}})` : `-\\dfrac{${Math.abs(numIrred)}{${Math.abs(denIrred)}})`
+    this.texFractionSimplifiee = signe === 1 ? `\\dfrac{${Math.abs(numIrred)}}{${Math.abs(denIrred)}}` : `-\\dfrac{${Math.abs(numIrred)}}{${Math.abs(denIrred)}}`
 
     this.ecritureAlgebrique = signe === 1 ? '+' + this.texFSD : this.texFSD
 
