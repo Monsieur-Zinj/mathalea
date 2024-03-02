@@ -7,6 +7,7 @@ import { tableauColonneLigne } from '../2d/tableau'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { reduireAxPlusB } from './ecritures'
 import { KeyboardType } from '../interactif/claviers/keyboard'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 const engine = new ComputeEngine()
 
@@ -121,7 +122,7 @@ export class Yohaku {
             }
               break
             case 'fractions positives dénominateurs premiers':
-              this.cellules.push(fraction(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
+              this.cellules.push(new FractionEtendue(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
               this.clavier = KeyboardType.clavierDeBaseAvecFraction
               break
             case 'fractions positives' :

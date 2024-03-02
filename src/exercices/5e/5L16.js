@@ -5,7 +5,7 @@ import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/q
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
-  factorisationCompare, fonctionCompare,
+  factorisationCompare, functionCompare,
   expandedAndReductedCompare
 } from '../../lib/interactif/comparisonFunctions'
 
@@ -59,7 +59,7 @@ function compliquerCompare (input, goodAnswer) {
       isOk = false
     }
   }
-  const test2 = fonctionCompare(input, { fonction: reponse, variable: 'x' })
+  const test2 = functionCompare(input, { fonction: reponse, variable: 'x' })
   isOk = test2.isOk && isOk
   return { isOk, feedback }
 }
