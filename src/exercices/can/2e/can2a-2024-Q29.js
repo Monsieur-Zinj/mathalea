@@ -6,8 +6,8 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { repere } from '../../../lib/2d/reperes.js'
-import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { context } from '../../../modules/context'
 export const titre = 'Lire une image graphiquement '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -97,12 +97,10 @@ export default class NomExercice extends Exercice {
       })
       const objetsEnonce = [repere1, courbe1]
       if (context.isHtml) {
-        this.question = 'On donne le  graphique d’une fonction $f$ : <br>'
+        this.question = 'On donne le graphique d’une fonction $f$ : <br>'
         this.question += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)
-        this.question += 'Image de $0$ par la fonction $f$'
-      } else {
-        this.question = ' Image de $0$ par la fonction $f$'
       }
+      this.question += 'Image de $0$ par la fonction $f$'
       this.correction = `L'image de $0$ par $f$ est donnée par l'ordonnée du point d'intersection de la courbe avec l'axe des ordonnées. <br>
     On lit $f(0)=${miseEnEvidence('3')}$.`
       this.reponse = '3'

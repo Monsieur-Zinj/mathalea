@@ -25,7 +25,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = 'largeur01 inline nospacebefore blocCenter ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
   }
 
@@ -106,7 +106,7 @@ export default class NomExercice extends Exercice {
       } else { this.question = 'On donne le  graphique d’une fonction $f$ : <br>' }
 
       this.question += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)// fixeBordures(objetsEnonce))
-      this.question += '<br>Nombre de solutions de l\'équation  $f(x)=2$'
+      this.question += '<br>Nombre de solutions de l\'équation  $f(x)=2$<br>'
       this.correction = 'Le nombre de solution de l\'équation $f(x)=2$ est le nombre de points d\'intersection entre la droite horizontale d\'équation $y=2$ et la courbe de $f$. <br>'
 
       this.reponse = 2

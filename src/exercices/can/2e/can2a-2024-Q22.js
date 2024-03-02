@@ -10,7 +10,6 @@ export const uuid = 'fc596'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -21,6 +20,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fractionEgale'
+    this.optionsChampTexte = { texteApres: '.' }
   }
 
   nouvelleVersion () {

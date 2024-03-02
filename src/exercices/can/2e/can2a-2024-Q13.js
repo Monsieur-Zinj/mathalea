@@ -7,6 +7,7 @@ import { afficheLongueurSegment } from '../../../lib/2d/codages.js'
 import { codageAngle } from '../../../lib/2d/angles.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { sp } from '../../../lib/outils/outilString'
 export const titre = 'Calculer l\'aire d\'un triangle rectangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -14,7 +15,6 @@ export const uuid = '1e8ea'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -28,6 +28,8 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
+    this.optionsChampTexte = { texteApres: sp() + 'cm$^2$' }
+    let tri
     if (this.canOfficielle) {
       const objets = []
       const A = point(0, 0)
@@ -41,30 +43,20 @@ export default class NomExercice extends Exercice {
       objets.push(pol[0], la, lb, lc, codageAngle(A, B, C))
       this.question = 'Aire du triangle <br>' + mathalea2d({ xmin: -1, xmax: 5, ymin: -1, ymax: 4, scale: 0.6, style: 'margin: auto' }, objets)
       this.correction = `L'aire est donnée par le produit des deux plus petits côtés divisé par $2$, soit : $\\dfrac{3\\times 4}{2}=${miseEnEvidence(this.reponse)}$ cm$^2$.`
-      this.optionsChampTexte = { texteApres: 'cm$^2$' }
-      this.canEnonce = this.question
       this.canReponseACompleter = ''
     } else {
       if (choice([true, false])) {
-        const tri = shuffle(['3', '4', '5'])
+        tri = shuffle(['3', '4', '5'])
         this.reponse = 6
-        this.question = `Aire d'un triangle rectangle dont les côtés mesurent $${tri[0]}$ cm, $${tri[1]}$ cm et $${tri[2]}$ cm.`
-        this.correction = `L'aire est donnée par le produit des  deux plus petits côtés divisé par $2$, soit : $\\dfrac{3\\times 4}{2}=${miseEnEvidence(this.reponse)}$ cm$^2$.`
-        this.optionsChampTexte = { texteApres: 'cm$^2$' }
-        this.canEnonce = this.question
-        this.canReponseACompleter = '$ \\ldots$ cm$^2$'
-
-        this.listeCanEnonces.push(this.canEnonce)
-        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+        this.correction = `L'aire est donnée par le produit des deux plus petits côtés divisé par $2$, soit : $\\dfrac{3\\times 4}{2}=${miseEnEvidence(this.reponse)}$ cm$^2$.`
       } else {
-        const tri = shuffle(['5', '12', '13'])
+        tri = shuffle(['5', '12', '13'])
         this.reponse = 30
-        this.question = `Aire d'un triangle rectangle dont les côtés mesurent $${tri[0]}$ cm, $${tri[1]}$ cm et $${tri[2]}$ cm.`
         this.correction = `L'aire est donnée par le produit des  deux plus petits côtés divisé par $2$, soit : $\\dfrac{5\\times 12}{2}=${miseEnEvidence(this.reponse)}$ cm$^2$.`
-        this.optionsChampTexte = { texteApres: 'cm$^2$' }
-        this.canEnonce = this.question
-        this.canReponseACompleter = '$ \\ldots$ cm$^2$'
       }
+      this.question = `Aire d'un triangle rectangle dont les côtés mesurent $${tri[0]}$ cm, $${tri[1]}$ cm et $${tri[2]}$ cm.`
+      this.canReponseACompleter = '$ \\ldots$ cm$^2$'
     }
+    this.canEnonce = this.question
   }
 }

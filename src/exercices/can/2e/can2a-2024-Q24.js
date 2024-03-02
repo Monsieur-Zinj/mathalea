@@ -9,7 +9,6 @@ export const uuid = '24396'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -18,7 +17,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = 'largeur01 inline nospacebefore blocCenter'
     this.optionsChampTexte = { texteAvant: '$M($', texteApres: '$)$' }
     this.formatInteractif = 'texte'
   }
