@@ -1,24 +1,57 @@
 <script lang="ts">
   import { onMount } from 'svelte'
+  import { swipe } from 'svelte-gestures'
   import type { CanState } from '../../../../lib/types/can'
   import { Modal, initTE } from 'tw-elements'
   import { canOptions } from '../../../../lib/stores/canStore'
+  import ShortPagination from './ShortPagination.svelte'
 
   export let current: number
   export let numberOfQuestions: number
   export let handleEndOfRace: () => void
   export let state: CanState
+  export let resultsByQuestion: boolean[]
 
   onMount(() => {
     initTE({ Modal })
   })
+
+  let direction
+
+  function handleSwipe (event) {
+    direction = event.detail.direction
+    if (direction === 'left' && current < numberOfQuestions - 1) {
+      current += 1
+    }
+    if (direction === 'right' && current > 0) {
+      current -= 1
+    }
+  }
 </script>
 
 <div
+use:swipe={{ timeframe: 300, minSwipeDistance: 60 }}
+on:swipe={handleSwipe}
   class="w-full pb-8 md:pb-10 px-10 space-y-4 flex flex-col md:flex-row justify-start md:justify-between items-center"
 >
   <div></div>
   <div class="flex flex-row space-x-10">
+    <button
+    class="md:hidden flex justify-center items-center"
+      type="button"
+      on:click={() => {
+        if (current >= 10) {
+          current -= 10
+        }
+      }}
+    >
+      <i
+        class="bx bxs-chevrons-left text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
+            {current < 10
+              ? 'text-opacity-10'
+              : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
+      ></i>
+    </button>
     <button
       type="button"
       on:click={() => {
@@ -28,12 +61,13 @@
       }}
     >
       <i
-        class="bx bxs-left-arrow text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
+        class="bx bxs-chevron-left md:bxs-left-arrow text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
             {current === 0
               ? 'text-opacity-10'
               : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
+    <ShortPagination {current} {state} {resultsByQuestion}/>
     <button
       type="button"
       on:click={() => {
@@ -43,8 +77,24 @@
       }}
     >
       <i
-        class="bx bxs-right-arrow text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
+        class="bx bxs-chevron-right md:bxs-right-arrow text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
             {current === numberOfQuestions - 1
+              ? 'text-opacity-10'
+              : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
+      ></i>
+    </button>
+    <button
+      class="md:hidden flex justify-center items-center"
+      type="button"
+      on:click={() => {
+        if (current + 10 <= numberOfQuestions - 1) {
+          current += 10
+        }
+      }}
+    >
+      <i
+        class="bx bxs-chevrons-right text-coopmaths-action dark:text-coopmathsdark-action text-3xl md:text-7xl
+            {current > numberOfQuestions - 11
               ? 'text-opacity-10'
               : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
