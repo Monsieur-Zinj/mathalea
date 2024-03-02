@@ -1,7 +1,7 @@
 import { ecritureAlgebrique, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'

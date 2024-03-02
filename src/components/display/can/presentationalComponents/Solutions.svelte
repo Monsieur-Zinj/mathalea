@@ -90,6 +90,7 @@
       bind:current
       {numberOfQuestions}
       state={'solutions'}
+      {resultsByQuestion}
       handleEndOfRace={() => {}}
     />
   {/if}

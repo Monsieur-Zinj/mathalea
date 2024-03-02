@@ -10,7 +10,7 @@
 
 <nav
   aria-label="course pagination"
-  class="w-full flex flex-row justify-center items-centers py-1"
+  class="w-full hidden md:flex flex-row justify-center items-centers py-4"
 >
   <u
     class="list-none w-full flex flex-row flex-wrap justify-around items-center"

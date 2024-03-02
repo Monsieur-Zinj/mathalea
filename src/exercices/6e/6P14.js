@@ -15,7 +15,7 @@ import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { max, min } from 'mathjs'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = "Agrandir ou réduire des figures, d'après une situation de proportionnalité"

@@ -9,7 +9,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { sp } from '../../lib/outils/outilString.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type Grandeur from '../modules/Grandeur'
+import FractionEtendue from '../modules/FractionEtendue'
 
 /**
  *
@@ -221,11 +222,11 @@ export default class Exercice {
     this.seed = seed
   }
 
-  questionJamaisPosee (i: number, ...args:(string|number)[]) {
+  questionJamaisPosee (i: number, ...args:(string|number|FractionEtendue)[]) {
     if (i === 0) this.listeArguments = []
     let argsConcatenes = ''
     for (const arg of args) {
-      if (arg !== undefined) argsConcatenes += arg.toString()
+      if (arg !== undefined) argsConcatenes += (arg instanceof FractionEtendue ? arg.texFraction : arg.toString())
     }
     if (this.listeArguments != null && this.listeArguments.indexOf(argsConcatenes) > -1) {
       return false

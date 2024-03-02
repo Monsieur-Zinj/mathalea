@@ -9,7 +9,7 @@ import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Calculer un produit scalaire à l’aide de normes et d’un angle '
 export const interactifReady = true
 export const interactifType = 'mathLive'

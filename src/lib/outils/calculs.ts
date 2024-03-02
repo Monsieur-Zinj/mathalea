@@ -70,8 +70,8 @@ export function quatriemeProportionnelle (a: number, b: number, c: number, preci
  * retourne le résulat [a, b] pour a²b=n
  * @author Jean-Claude Lhote
  */
-export function extraireRacineCarree (n: number) {
-  if (n === 1) return [[1], [1]]
+export function extraireRacineCarree (n: number): [number, number] {
+  if (n === 1) return [1, 1]
   const facto = factorisation(n) as number[][]
   let radical = 1
   let facteur = 1

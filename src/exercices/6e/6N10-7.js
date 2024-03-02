@@ -9,7 +9,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { calculCompare } from '../../lib/interactif/comparaisonFonctions'
+import { calculCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Recomposer un décimal ou un entier'
 export const interactifReady = true

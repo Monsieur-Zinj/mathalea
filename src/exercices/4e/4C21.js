@@ -4,7 +4,7 @@ import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../..
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

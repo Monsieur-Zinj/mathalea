@@ -1,6 +1,6 @@
 import { pgcd } from '../../../lib/outils/primalite'
 import { context } from '../../../modules/context.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Trouver la fraction (définition)'

@@ -1,7 +1,7 @@
 import katex from 'katex'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { fraction } from '../../modules/fractions.js'
 import { egal } from '../../modules/outils.js'
 import { point } from '../2d/points.js'

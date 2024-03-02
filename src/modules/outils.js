@@ -212,11 +212,11 @@ export function estentier (a, tolerance = epsilon) {
  * Retourne le quotient entier (donc sans le reste) de a/b si a & b sont entiers, false sinon
  * @param {number} a
  * @param {number} b
- * @return {boolean|number}
+ * @return {number}
  */
 export function quotientier (a, b) {
   if (estentier(a) && estentier(b)) return Math.floor(a / b)
-  return false
+  return Math.floor(Math.round(a) / Math.round(b))
 }
 
 /**

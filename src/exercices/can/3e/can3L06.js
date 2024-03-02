@@ -3,7 +3,7 @@ import { rienSi1 } from '../../../lib/outils/ecritures'
 import { arrondi } from '../../../lib/outils/nombres'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import { factorisationCompare } from '../../../lib/interactif/comparaisonFonctions'
+import { factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
 import { fraction } from '../../../modules/fractions'
 export const titre = 'Réduire une expression avec une fraction'
 export const interactifReady = true

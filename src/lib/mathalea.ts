@@ -20,7 +20,7 @@ import { convertVueType, type InterfaceGlobalOptions, type InterfaceParams, type
 import { sendToCapytaleMathaleaHasChanged } from './handleCapytale.js'
 import { handleAnswers, setReponse } from './interactif/gestionInteractif'
 import type { MathfieldElement } from 'mathlive'
-import { calculCompare } from './interactif/comparaisonFonctions'
+import { calculCompare } from './interactif/comparisonFunctions'
 import FractionEtendue from '../modules/FractionEtendue'
 import Decimal from 'decimal.js'
 import Grandeur from '../modules/Grandeur'

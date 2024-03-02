@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import engine from '../../lib/interactif/comparaisonFonctions'
+import engine from '../../lib/interactif/comparisonFunctions'
 import { sp } from '../../lib/outils/outilString'
 export const titre = 'Résoudre les équations produit-nul'
 export const interactifReady = true

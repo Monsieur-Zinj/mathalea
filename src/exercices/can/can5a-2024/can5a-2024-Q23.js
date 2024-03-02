@@ -1,6 +1,6 @@
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice'
-import { numberCompare } from '../../../lib/interactif/comparaisonFonctions'
+import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
 import { plaque3d } from '../../../modules/3d'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'

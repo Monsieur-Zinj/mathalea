@@ -5,7 +5,7 @@ import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { warnMessage } from '../../lib/format/message.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'

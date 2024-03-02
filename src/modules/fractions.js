@@ -1,4 +1,4 @@
-import FractionEtendue from './FractionEtendue.js'
+import FractionEtendue from './FractionEtendue.ts'
 import ListeFraction from './ListeFraction.js'
 
 /**

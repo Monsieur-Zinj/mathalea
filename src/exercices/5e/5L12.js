@@ -9,7 +9,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
-import { formeDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparaisonFonctions'
+import { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
@@ -120,7 +120,7 @@ export default function ReduireUneExpressionLitterale () {
       }
       texteCorr += `${sp()}${miseEnEvidence(reponse)}$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${sp()} = $` })
-      handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: formeDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+      handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

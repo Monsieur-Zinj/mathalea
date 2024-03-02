@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
 import { pgcd } from '../../../lib/outils/primalite'

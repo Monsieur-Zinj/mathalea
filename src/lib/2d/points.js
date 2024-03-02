@@ -153,11 +153,11 @@ export function Point (arg1, arg2, arg3, positionLabel = 'above') {
  * Crée un objet Point ayant les propriétés suivantes :
  * @param {number} x abscisse
  * @param {number} y ordonnée
- * @param {string?} A son nom qui apparaîtra
- * @param {string?} positionLabel Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
+ * @param {string} [A] son nom qui apparaîtra
+ * @param {string} [positionLabel] Les possibilités sont : 'left', 'right', 'below', 'above', 'above right', 'above left', 'below right', 'below left'. Si on se trompe dans l'orthographe, ce sera 'above left' et si on ne précise rien, pour un point ce sera 'above'.
  * @return {Point}
  */
-export function point (x, y, A, positionLabel = 'above') {
+export function point (x, y, A = '', positionLabel = 'above') {
   return new Point(x, y, A, positionLabel)
 }
 

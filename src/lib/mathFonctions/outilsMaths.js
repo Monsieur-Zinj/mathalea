@@ -1,4 +1,4 @@
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { fraction } from '../../modules/fractions.js'
 import { randint } from '../../modules/outils.js'
 import { ecritureAlgebrique } from '../outils/ecritures'

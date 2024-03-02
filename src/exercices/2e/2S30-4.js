@@ -7,7 +7,7 @@ import { fraction } from '../../modules/fractions.js'
 import { Arbre, texProba } from '../../modules/arbres.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 

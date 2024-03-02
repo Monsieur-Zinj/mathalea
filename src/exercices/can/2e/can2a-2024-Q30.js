@@ -8,7 +8,7 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { repere } from '../../../lib/2d/reperes.js'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { compareIntervalles } from '../../../lib/interactif/comparaisonFonctions'
+import { intervalsCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Déterminer le signe d\'une fonction graphiquement '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore blocCenter ' + KeyboardType.lycee
     this.formatInteractif = 'calcul'
-    this.compare = compareIntervalles
+    this.compare = intervalsCompare
   }
 
   nouvelleVersion () {

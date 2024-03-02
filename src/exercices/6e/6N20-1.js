@@ -11,7 +11,7 @@ import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionM
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
-import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
+import { consecutiveCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
@@ -142,9 +142,9 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
             feedback: (saisies/** {champ1: string, champ2:string} */) => {
               const rep1 = saisies.champ1
               const rep2 = saisies.champ2
-              // on teste consecutifsCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
-              // consecutifsCompare peut être utilisée pour évaluer des saisies complètes d'encadrements avec les signes < ou >
-              const { feedback } = consecutifsCompare(`${rep1}<${(n / d).toFixed(4)}<${rep2}`, { entierInf: k, entierSup: k + 1, valeurInter: (2 * k + 1) / 2 })
+              // on teste consecutiveCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
+              // consecutiveCompare peut être utilisée pour évaluer des saisies complètes d'encadrements avec les signes < ou >
+              const { feedback } = consecutiveCompare(`${rep1}<${(n / d).toFixed(4)}<${rep2}`, { entierInf: k, entierSup: k + 1, valeurInter: (2 * k + 1) / 2 })
               return feedback
             },
             champ1: { value: String(k), compare: numberCompare },

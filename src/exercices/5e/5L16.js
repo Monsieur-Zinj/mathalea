@@ -5,9 +5,9 @@ import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/q
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
-  factorisationCompare, fonctionCompare,
-  formeDeveloppeeEtReduiteCompare
-} from '../../lib/interactif/comparaisonFonctions'
+  factorisationCompare, functionCompare,
+  expandedAndReductedCompare
+} from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +19,7 @@ export const dateDeModifImportante = '13/11/2023'
 function simplifierCompare (input, goodAnswer) {
   if (input.includes('\\times')) return { isOk: false, feedback: 'On peut supprimer le signe $\\times$ devant une lettre ou une parenthèse.<br>' }
   if (goodAnswer.expr.includes('(')) return factorisationCompare(input, goodAnswer.expr)
-  return formeDeveloppeeEtReduiteCompare(input, goodAnswer)
+  return expandedAndReductedCompare(input, goodAnswer)
 }
 function compliquerCompare (input, goodAnswer) {
   const reponse = goodAnswer.reponse
@@ -59,7 +59,7 @@ function compliquerCompare (input, goodAnswer) {
       isOk = false
     }
   }
-  const test2 = fonctionCompare(input, { fonction: reponse, variable: 'x' })
+  const test2 = functionCompare(input, { fonction: reponse, variable: 'x' })
   isOk = test2.isOk && isOk
   return { isOk, feedback }
 }

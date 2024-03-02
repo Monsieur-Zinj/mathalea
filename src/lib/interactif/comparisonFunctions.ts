@@ -43,6 +43,7 @@ export type CompareFunction<T extends CompareType> = ({ input, goodAnswer }:{inp
  * Peut nettoyer aussi la réponse fournie par l'auteur indélicat d'un exercice (par exemple, celui qui passe du texNombre()...)
  * @param {string} aString // ce qui vient en entrée
  * @return {string} la chaine de caractère dont on espère que ComputeEngine (CE) en digérera correctement le contenu.
+ * @deprecated utiliser un cleaner fabriqué avec generateCleaner() plutôt
  */
 export function cleanStringBeforeParse (aString: string) {
   if (typeof aString !== 'string') {
@@ -288,7 +289,7 @@ export function factorisationCompare (input: string, goodAnswer:string): ResultT
  * @param {string} goodAnswer
  * @return ResultType
  */
-export const developpementCompare = function (input: string, goodAnswer:string) {
+export const developmentCompare = function (input: string, goodAnswer:string) {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
@@ -325,15 +326,16 @@ export function hmsCompare (input: string, goodAnswer: string): ResultType {
  * @param {string} goodAnswer
  * @return ResultType
  */
-export function formeDeveloppeeCompare (input: string, goodAnswer: string): ResultType {
+export function expandedFormCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  input = cleanStringBeforeParse(input)
+  const clean = generateCleaner(['espaces', 'virgules', 'fractions', 'parentheses'])
+  input = clean(input)
   const saisieParsed = engine.parse(input).canonical
   const isSomme = ['Add', 'Subtract'].includes(saisieParsed.head as string)
   const isNumber = !isNaN(Number(saisieParsed.numericValue))
-  const reponseParsed = engine.parse(cleanStringBeforeParse(goodAnswer)).canonical
+  const reponseParsed = engine.parse(clean(goodAnswer)).canonical
   const isOk = reponseParsed.isSame(saisieParsed) && (isSomme || isNumber)
   return { isOk }
 }
@@ -344,7 +346,7 @@ export function formeDeveloppeeCompare (input: string, goodAnswer: string): Resu
  * @param {string} goodAnswer
  * @return ResultType
  */
-export function formeDeveloppeeEtReduiteCompare (input: string, goodAnswer: {expr: string, strict: boolean}): ResultType {
+export function expandedAndReductedCompare (input: string, goodAnswer: {expr: string, strict: boolean}): ResultType {
   const expr = goodAnswer.expr
   let clean
   let feedback = ''
@@ -406,7 +408,7 @@ export function scientificCompare (input: string, goodAnswer: string): ResultTyp
  * @param {string} goodAnswer
  * @return ResultType
  */
-export function texteCompare (input: string, goodAnswer: string): ResultType {
+export function textCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
@@ -419,7 +421,7 @@ export function texteCompare (input: string, goodAnswer: string): ResultType {
  * @param {string} goodAnswer
  * @return ResultType
  */
-export function texteAvecEspacesCompare (input: string, goodAnswer: string): ResultType {
+export function textWithSpacesCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
@@ -461,7 +463,7 @@ export function upperCaseCompare (input: string, goodAnswer: string): ResultType
  * @param {string} goodAnswer
  * @return ResultType
  */
-export function fractionPlusSimpleCompare (input: string, goodAnswer: string): ResultType {
+export function simplerFractionCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
@@ -472,7 +474,7 @@ export function fractionPlusSimpleCompare (input: string, goodAnswer: string): R
   if (inputParsed.head === 'Divide' && goodAnswerParsed.head === 'Divide') {
     const num = (inputParsed.json as [string, number, number])[1] as number
     const numGoodAnswer = (goodAnswerParsed.json as [string, number, number])[1] as number
-    if (numGoodAnswer == null || typeof numGoodAnswer !== 'number') throw Error(`problème avec ${goodAnswer} dans fractionPlusSimpleCompare : fReponse.op1.numericValue est nul`)
+    if (numGoodAnswer == null || typeof numGoodAnswer !== 'number') throw Error(`problème avec ${goodAnswer} dans simplerFractionCompare : fReponse.op1.numericValue est nul`)
     if (inputParsed.isEqual(goodAnswerParsed) && num && num < numGoodAnswer && Number.isInteger(num)) return { isOk: true }
   }
   return { isOk: false }
@@ -484,7 +486,7 @@ export function fractionPlusSimpleCompare (input: string, goodAnswer: string): R
  * @param {string} goodAnswer
  * @return ResultType
  */
-export function fractionEgaleCompare (input: string, goodAnswer: string): ResultType {
+export function equalFractionCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
@@ -493,7 +495,7 @@ export function fractionEgaleCompare (input: string, goodAnswer: string): Result
   const fReponse = engine.parse(goodAnswer)
   if (!isNaN(parseFloat(cleanStringBeforeParse(input)))) {
     // La saisie est faite sous forme décimale
-    const newFraction = new FractionEtendue(parseFloat(cleanStringBeforeParse(input)))
+    const newFraction = new FractionEtendue(parseFloat(cleanStringBeforeParse(input)), 1)
     // On la convertit en fraction
     if (engine.parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`).canonical.isSame(fReponse.canonical)) return { isOk: true }
   } else {
@@ -525,7 +527,7 @@ export function fractionCompare (input: string, goodAnswer: string): ResultType 
  * @param {string} goodAnswer
  * @return ResultType
  */
-export function puissanceCompare (input: string, goodAnswer: string): ResultType {
+export function powerCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
@@ -601,7 +603,7 @@ export default engine
  * @param goodAnswer
  * @return ResultType
  */
-export function compareEnsembles (input: string, goodAnswer: string): ResultType {
+export function setsCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
@@ -624,7 +626,7 @@ export function compareEnsembles (input: string, goodAnswer: string): ResultType
  * @param input
  * @param goodAnswer
  */
-export function compareIntervalles (input: string, goodAnswer: string) {
+export function intervalsCompare (input: string, goodAnswer: string) {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
@@ -711,7 +713,7 @@ export function numerationCompare (input: string, goodAnswer: {value: string, no
  * @param {{value: Grandeur, precision: number}} goodAnswer @todo est-il possible d'avoir un string et d'utiliser comme pour Hms un Grandeur.fromString() ?
  * @return ResultType
  */
-export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, precision: number }): {
+export function unitsCompare (input: string, goodAnswer: {grandeur: Grandeur, precision: number }): {
   isOk: boolean,
   feedback?: string
 } {
@@ -750,12 +752,12 @@ export function unitesCompare (input: string, goodAnswer: {grandeur: Grandeur, p
 }
 
 /**
- * comparaison de valeur dans un intervalle strict.
+ * vérifie qu'une valeur saisie est dans un intervalle strict
  * @param {string} input
  * @param {{borneInf: number, borneSup: number}} goodAnswer @todo idem ci-dessus, avoir un Intervalle.fromString() qui donne cet objet à partir de ']3.4;5.6]' par exemple
  * @return ResultType
  */
-export function intervalleStrictCompare (input: string, goodAnswer: { borneInf: number, borneSup: number }): {
+export function intervalStrictCompare (input: string, goodAnswer: { borneInf: number, borneSup: number }): {
   isOk: boolean,
   feedback?: string
 } {
@@ -768,12 +770,12 @@ export function intervalleStrictCompare (input: string, goodAnswer: { borneInf: 
 }
 
 /**
- * comparaison de valeur dans un intervalle large.
+ * vérifie qu'une valeur est dans un intervalle large.
  * @param {string} input
  * @param {{borneInf: number, borneSup: number}} goodAnswer @todo idem ci-dessus, avoir un Intervalle.fromString() qui donne cet objet à partir de ']3.4;5.6]' par exemple
  * @return ResultType
  */
-export function intervalleCompare (input: string, goodAnswer: { borneInf: number, borneSup: number }): {
+export function intervalCompare (input: string, goodAnswer: { borneInf: number, borneSup: number }): {
   isOk: boolean,
   feedback?: string
 } {
@@ -790,7 +792,7 @@ export function intervalleCompare (input: string, goodAnswer: { borneInf: number
  * @param {string} valeurInter
  * @return ResultType
  */
-export function consecutifsCompare (input: string, goodAnswer: {entierInf: number, entierSup: number, valeurInter?: number}): ResultType {
+export function consecutiveCompare (input: string, goodAnswer: {entierInf: number, entierSup: number, valeurInter?: number}): ResultType {
   let feedback = ''
   const [entierInf, valeurInter, entierSup] = input.includes('<') ? input.split('<').map(el => Number(engine.parse(el).numericValue)) : input.split('>').map(el => Number(engine.parse(el).numericValue)).sort((a: number, b:number) => a - b)
   if (!(Number.isInteger(Number(entierSup)) && Number.isInteger(Number(entierInf)))) {
@@ -819,7 +821,7 @@ export function consecutifsCompare (input: string, goodAnswer: {entierInf: numbe
  * @param {string} input
  * @param {{attendu: string, tolerance: number}} goodAnswer
  */
-export function environEgalCompare (input: string, goodAnswer:{attendu: string, tolerance: number}) {
+export function approximatelyCompare (input: string, goodAnswer:{attendu: string, tolerance: number}) {
   const cleaner = generateCleaner(['virgules', 'fractions', 'espaces', 'parentheses', 'puissances'])
   const saisieClean = Number(engine.parse(cleaner(input)).numericValue)
   const answerClean = Number(engine.parse(cleaner(goodAnswer.attendu)).numericValue)
@@ -831,7 +833,7 @@ export function environEgalCompare (input: string, goodAnswer:{attendu: string, 
  * @param {string} input
  * @param {{fonction: string, variable: string}} goodAnswer
  */
-export function fonctionCompare (input: string, goodAnswer: {fonction: string, variable: string} = { fonction: '', variable: 'x' }): ResultType {
+export function functionCompare (input: string, goodAnswer: {fonction: string, variable: string} = { fonction: '', variable: 'x' }): ResultType {
   if (typeof goodAnswer === 'string') {
     goodAnswer = { fonction: goodAnswer, variable: 'x' }
   }
@@ -843,7 +845,7 @@ export function fonctionCompare (input: string, goodAnswer: {fonction: string, v
   const goodAnswerFn = engine.parse(cleanAnswer).compile()
 
   let isOk = true
-  if (inputFn == null || goodAnswerFn == null) throw Error(`fonctionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
+  if (inputFn == null || goodAnswerFn == null) throw Error(`functionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
   const [a, b, c] = [Math.random(), Math.random(), Math.random()]
   for (const x of [a, b, c]) {
     const variable = Object.fromEntries([[goodAnswer.variable, x]])
@@ -857,7 +859,7 @@ export function fonctionCompare (input: string, goodAnswer: {fonction: string, v
  * @param {string} input
  * @param {{fonction: string, variables: string[]}} goodAnswer
  */
-export function fonctionXyCompare (input: string, goodAnswer: {fonction: string, variables: string[]} = { fonction: '', variables: ['x', 'y'] }): ResultType {
+export function functionXyCompare (input: string, goodAnswer: {fonction: string, variables: string[]} = { fonction: '', variables: ['x', 'y'] }): ResultType {
   if (typeof goodAnswer === 'string') {
     goodAnswer = { fonction: goodAnswer, variables: ['x', 'y'] }
   }
@@ -869,7 +871,7 @@ export function fonctionXyCompare (input: string, goodAnswer: {fonction: string,
   const goodAnswerFn = engine.parse(cleanAnswer).compile()
 
   let isOk = true
-  if (inputFn == null || goodAnswerFn == null) throw Error(`fonctionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
+  if (inputFn == null || goodAnswerFn == null) throw Error(`functionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
   const [a, b, c] = [Math.random(), Math.random(), Math.random()]
   const [A, B, C] = [Math.random(), Math.random(), Math.random()]
   for (const x of [a, b, c]) {
@@ -887,15 +889,15 @@ export function fonctionXyCompare (input: string, goodAnswer: {fonction: string,
  * @param {{membre1: {fonction: string, variable?: string},membre2: {fonction: string, variable?: string},strict?: boolean}} goodAnswer
  *
  */
-export function egaliteCompare (input: string, goodAnswer: {membre1:{fonction: string, variable?: string}, membre2: {fonction: string, variable?: string}, strict?: boolean}):ResultType {
+export function equalityCompare (input: string, goodAnswer: {membre1:{fonction: string, variable?: string}, membre2: {fonction: string, variable?: string}, strict?: boolean}):ResultType {
   const [m1, m2] = input.split('=')
   if (m1 == null || m2 == null) return { isOk: false, feedback: 'Une égalité est attendue' }
   if (goodAnswer.strict) {
-    const { isOk: isOk1 } = fonctionCompare(m1, {
+    const { isOk: isOk1 } = functionCompare(m1, {
       fonction: goodAnswer.membre1.fonction,
       variable: goodAnswer.membre1.variable ?? 'x'
     })
-    const { isOk: isOk2 } = fonctionCompare(m2, {
+    const { isOk: isOk2 } = functionCompare(m2, {
       fonction: goodAnswer.membre2.fonction,
       variable: goodAnswer.membre2.variable ?? 'x'
     })
@@ -903,11 +905,11 @@ export function egaliteCompare (input: string, goodAnswer: {membre1:{fonction: s
   } else {
     // @todo à implémenter : permettre de saisir une égalité et de vérifier l'équivalence avec celle proposée comme bonne réponse.
     // En attendant, je recopie le code de strict = true
-    const { isOk: isOk1 } = fonctionCompare(m1, {
+    const { isOk: isOk1 } = functionCompare(m1, {
       fonction: goodAnswer.membre1.fonction,
       variable: goodAnswer.membre1.variable ?? 'x'
     })
-    const { isOk: isOk2 } = fonctionCompare(m2, {
+    const { isOk: isOk2 } = functionCompare(m2, {
       fonction: goodAnswer.membre2.fonction,
       variable: goodAnswer.membre2.variable ?? 'x'
     })
