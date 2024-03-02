@@ -3,14 +3,17 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { compareFractions, deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import FractionEtendue from '../../modules/FractionEtendue'
+import Decimal from 'decimal.js'
 
 export const titre = 'Comparer quatre fractions (dénominateurs multiples) et un nombre entier'
+export const dateDeModifImportante = '02/03/2024'
 
 /**
 * 4 fractions aux dénominateurs multiples et un nombre entier sont donnés, il faut les classer dans l'ordre croissant ou décroissant
 *
-* Pour la correction, les fractions sont toute écrites avec un dénominateur commun avant d'être classées
+* Pour la correction, les fractions sont toutes écrites avec un dénominateur commun avant d'être classées
 * @author Rémi Angot
 * Ajout du paramètre d'inclusion de nombres négatifs le 14/08/2021 : Guillaume Valmont
 */
@@ -36,7 +39,7 @@ export default function ExerciceComparerQuatreFractions () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     const listeSignes = combinaisonListes([-1, 1], this.nbQuestions * 4)
-    for (let i = 0, denominateurs, n1, d1, n2, d2, n3, d3, n4, d4, k, positifOuNegatif = [], texte = '', texteCorr = ''; i < this.nbQuestions; i++) {
+    for (let i = 0, denominateurs, n1, d1, n2, d2, n3, d3, n4, d4, k, positifOuNegatif = [], texte = '', texteCorr; i < this.nbQuestions; i++) {
       if (this.sup === true) {
         positifOuNegatif[0] = listeSignes[4 * i]
         positifOuNegatif[1] = listeSignes[4 * i + 1]
@@ -72,11 +75,11 @@ export default function ExerciceComparerQuatreFractions () {
       n2 *= positifOuNegatif[1]
       n3 *= positifOuNegatif[2]
       n4 *= positifOuNegatif[3]
-      const tableauFractions = [[n1, d1, `$${deprecatedTexFraction(n1, d1)}$`, `$${deprecatedTexFraction(n1, d1)}$`]]
-      tableauFractions.push([n2, d2, `$${deprecatedTexFraction(n2, d2)} = ${deprecatedTexFraction(n2 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d2)), d2 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d2)))}=${deprecatedTexFraction(calculANePlusJamaisUtiliser(n2 * d1 / d2), d1)}$`, `$${deprecatedTexFraction(calculANePlusJamaisUtiliser(n2 * d1 / d2), d1)}$`])
-      tableauFractions.push([n3, d3, `$${deprecatedTexFraction(n3, d3)} = ${deprecatedTexFraction(n3 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d3)), d3 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d3)))}=${deprecatedTexFraction(calculANePlusJamaisUtiliser(n3 * d1 / d3), d1)}$`, `$${deprecatedTexFraction(calculANePlusJamaisUtiliser(n3 * d1 / d3), d1)}$`])
-      tableauFractions.push([n4, d4, `$${deprecatedTexFraction(n4, d4)} = ${deprecatedTexFraction(n4 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d4)), d4 + miseEnEvidence('\\times ' + calculANePlusJamaisUtiliser(d1 / d4)))}=${deprecatedTexFraction(calculANePlusJamaisUtiliser(n4 * d1 / d4), d1)}$`, `$${deprecatedTexFraction(calculANePlusJamaisUtiliser(n4 * d1 / d4), d1)}$`])
-      tableauFractions.push([k, 1, `$${k} = ${deprecatedTexFraction(d1 * k, d1)}$`, `$${deprecatedTexFraction(k * d1, d1)}$`])
+      const tableauFractions = [[n1, d1, `$${new FractionEtendue(n1, d1).texFSD}$`, `$${new FractionEtendue(n1, d1).texFSD}$`]]
+      tableauFractions.push([n2, d2, `$${new FractionEtendue(n2, d2).texFSD} = ${deprecatedTexFraction(n2 + miseEnEvidence('\\times ' + new Decimal(d1).div(d2)), d2 + miseEnEvidence('\\times ' + new Decimal(d1).div(d2)))}=${new FractionEtendue(new Decimal(n2 * d1).div(d2), d1).texFSD}$`, `$${new FractionEtendue(new Decimal(n2 * d1).div(d2), d1).texFSD}$`])
+      tableauFractions.push([n3, d3, `$${new FractionEtendue(n3, d3).texFSD} = ${deprecatedTexFraction(n3 + miseEnEvidence('\\times ' + new Decimal(d1).div(d3)), d3 + miseEnEvidence('\\times ' + new Decimal(d1).div(d3)))}=${new FractionEtendue(new Decimal(n3 * d1).div(d3), d1).texFSD}$`, `$${new FractionEtendue(new Decimal(n3 * d1).div(d3), d1).texFSD}$`])
+      tableauFractions.push([n4, d4, `$${new FractionEtendue(n4, d4).texFSD} = ${deprecatedTexFraction(n4 + miseEnEvidence('\\times ' + new Decimal(d1).div(d4)), d4 + miseEnEvidence('\\times ' + new Decimal(d1).div(d4)))}=${new FractionEtendue(new Decimal(n4 * d1).div(d4), d1).texFSD}$`, `$${new FractionEtendue(new Decimal(n4 * d1).div(d4), d1).texFSD}$`])
+      tableauFractions.push([k, 1, `$${k} = ${new FractionEtendue(d1 * k, d1).texFSD}$`, `$${new FractionEtendue(k * d1, d1).texFSD}$`])
       tableauFractions.sort(compareFractions)
       const tableauFractionsEnonce = shuffle(tableauFractions)
       texte = ''
@@ -84,12 +87,12 @@ export default function ExerciceComparerQuatreFractions () {
         if (tableauFractionsEnonce[j][1] === 1) {
           texte += `$${tableauFractionsEnonce[j][0]}\\quad\\text{;}\\quad$`
         } else {
-          texte += `$${deprecatedTexFraction(tableauFractionsEnonce[j][0], tableauFractionsEnonce[j][1])}\\quad\\text{;}\\quad$`
+          texte += `$${new FractionEtendue(tableauFractionsEnonce[j][0], tableauFractionsEnonce[j][1]).texFSD}\\quad\\text{;}\\quad$`
         }
       }
       texte = texte.substring(0, texte.length - 19) + '$' // Enlève les 21 derniers caractères (pour le ; de la fin)
       tableauFractions.sort(compareFractions)
-      texteCorr = ''
+      texteCorr = `Pour comparer facilement ces fractions, mettons-les toutes sur le même dénominateur (ici, ce sera ${Math.max(d1, d2, d3, d4)} ).<br>`
       for (let j = 0; j < tableauFractionsEnonce.length; j++) {
         texteCorr += tableauFractionsEnonce[j][2]
         texteCorr += '<br>'
@@ -106,7 +109,7 @@ export default function ExerciceComparerQuatreFractions () {
         if (tableauFractions[j][1] === 1) {
           texteConclusion += `$${tableauFractions[j][0]}\\quad<\\quad$`
         } else {
-          texteConclusion += `$${deprecatedTexFraction(tableauFractions[j][0], tableauFractions[j][1])}\\quad<\\quad$`
+          texteConclusion += `$${new FractionEtendue(tableauFractions[j][0], tableauFractions[j][1]).texFSD}\\quad<\\quad$`
         }
       }
       texteCorr += 'Finalement : $\\quad$ ' + texteConclusion.substring(0, texteConclusion.length - 12) + '$'
