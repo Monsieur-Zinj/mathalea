@@ -1,6 +1,6 @@
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { randint } from '../../modules/outils.js'
 import { arrondi } from '../outils/nombres'
 import { angleOriente } from './angles.js'
@@ -230,6 +230,10 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     this.color = colorToLatexOrHTML(color)
     this.styleExtremites = styleExtremites
   }
+  this.epaisseur = 1
+  this.opacite = 1
+  this.pointilles = ''
+
   this.bordures = [Math.min(this.x1, this.x2), Math.min(this.y1, this.y2), Math.max(this.x1, this.x2), Math.max(this.y1, this.y2)]
   this.extremite1 = point(this.x1, this.y1)
   this.extremite2 = point(this.x2, this.y2)

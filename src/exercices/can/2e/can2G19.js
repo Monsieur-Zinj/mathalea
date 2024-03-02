@@ -9,7 +9,7 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Déterminer le coefficient directeur d\'une droite (graphique)'
 export const interactifReady = true
 export const interactifType = 'mathLive'

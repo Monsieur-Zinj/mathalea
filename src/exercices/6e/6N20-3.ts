@@ -4,8 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
-import { context } from '../../modules/context'
+import { consecutiveCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'
@@ -60,7 +59,7 @@ export default class nomExercice extends Exercice {
       do {
         num = randint(0, den * 10)
       } while (num % den === 0)
-      let texte = remplisLesBlancs(this, i, `%{champ1}~~ < ~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~ < ~~%{champ2}`, 'inline clavierDeBaseAvecFraction fillInTheBlank')
+      const texte = remplisLesBlancs(this, i, `%{champ1}~~ < ~~\\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}}~~ < ~~%{champ2}`, 'inline clavierDeBaseAvecFraction fillInTheBlank')
       const a = Math.floor(num / den)
       const b = a + 1
       texteCorr = ` $\\dfrac{${texNombre(a * den, 1)}}{${texNombre(den, 1)}} < \\dfrac{${texNombre(num, 1)}}{${texNombre(den, 1)}} < \\dfrac{${texNombre(b * den, 1)}}{${texNombre(den, 1)}}\\quad$ `
@@ -77,7 +76,7 @@ export default class nomExercice extends Exercice {
           const rep2 = saisies.champ2
           // on teste consecutifsCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
           // consecutifsCompare peut être utilisée pour évaluer des saisies complètes d'encadrements avec les signes < ou >
-          const { feedback } = consecutifsCompare(`${rep1}<${(num / den).toFixed(4)}<${rep2}`, { entierInf: a, entierSup: b, valeurInter: (a + b) / 2 })
+          const { feedback } = consecutiveCompare(`${rep1}<${(num / den).toFixed(4)}<${rep2}`, { entierInf: a, entierSup: b, valeurInter: (a + b) / 2 })
           return feedback
         },
         champ1: { value: String(a), compare: numberCompare },

@@ -100,7 +100,7 @@ export default function DescriptionSegmentDroiteDemiDroite () {
       const [dAB, dABCorr, propsQcm] = creerDroiteDemiSegment(A, B)
       const labels = labelPoint(A, B)
       texte = mathalea2d(
-        { xmin: -2, ymin: -1, xmax: 7, ymax: 3, pixelsParCm: 40, scale: 0.6, optionsTikz: 'baseline=(current bounding box.north)'},
+        { xmin: -2, ymin: -1, xmax: 7, ymax: 3, pixelsParCm: 40, scale: 0.6, optionsTikz: 'baseline=(current bounding box.north)' },
         dAB,
         t1,
         t2,

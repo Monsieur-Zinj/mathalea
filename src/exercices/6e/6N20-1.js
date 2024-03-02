@@ -11,7 +11,7 @@ import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionM
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
-import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparaisonFonctions'
+import { consecutifsCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true

@@ -47,7 +47,7 @@ export function notify (error: string|Error, metadatas: Metadatas) {
     Bugsnag.notify(error)
   } else {
     const message = 'message qui aurait été envoyé à bugsnag s\'il avait été configuré'
-    showDialogForLimitedTime('notifDialog', 10000, message + ' : <br>' + error.toString())
+    showDialogForLimitedTime('notifDialog', 5000, message + ' : <br>' + error.toString())
     console.error(message, error)
     if (metadatas) console.info('avec les metadatas', metadatas)
     console.info('Paramètres des exercices', get(exercicesParams))

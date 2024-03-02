@@ -1,7 +1,7 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
-import { factorisationCompare } from '../../../lib/interactif/comparaisonFonctions'
+import { factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'

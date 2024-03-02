@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Trinome from '../../modules/Trinome.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 

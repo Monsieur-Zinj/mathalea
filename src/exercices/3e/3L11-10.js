@@ -7,7 +7,7 @@ import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { calculCompare, canonicalAddCompare, developpementCompare } from '../../lib/interactif/comparaisonFonctions'
+import { calculCompare, canonicalAddCompare, developmentCompare } from '../../lib/interactif/comparisonFunctions'
 import { toutPourUnPoint } from '../../lib/interactif/mathLive.js'
 export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'
@@ -178,7 +178,7 @@ export default function TableDoubleDistributivite () {
       texteCorr += `Développement réduit : $${lettreDepuisChiffre(i + 1)} = ${developpements.reduit}$`
       // texteCorr += context.isHtml ? '<br>' : '\\par\\bigskip'
       setReponse(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: calculCompare }, L1C2: { value: L1C2, compare: calculCompare }, L2C1: { value: L2C1, compare: calculCompare }, L2C2: { value: L2C2, compare: calculCompare } }, { formatInteractif: 'tableauMathlive' })
-      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: developpementCompare } })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: developmentCompare } })
       handleAnswers(this, 3 * i + 2, { reponse: { value: developpements.reduit, compare: canonicalAddCompare } })
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions[i])) {

@@ -1,7 +1,7 @@
 import { abs, acos, polynomialRoot, round } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { egal, randint } from '../../modules/outils.js'
 import { Courbe } from '../2d/courbes.js'
 import { point, tracePoint } from '../2d/points.js'

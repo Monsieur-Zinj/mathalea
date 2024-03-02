@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Comparer des fractions de même dénominateur/numérateur'
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -5,7 +5,7 @@ import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionM
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { numerationCompare } from '../../lib/interactif/comparaisonFonctions'
+import { numerationCompare } from '../../lib/interactif/comparisonFunctions'
 export const uuid = 'e116b'
 export const ref = 'c3N10-2'
 export const refs = {

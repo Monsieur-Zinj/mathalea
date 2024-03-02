@@ -18,7 +18,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { operationCompare, upperCaseCompare } from '../../lib/interactif/comparaisonFonctions'
+import { operationCompare, upperCaseCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true

@@ -10,7 +10,7 @@ import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import Decimal from 'decimal.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 export const titre = 'Déterminer un produit scalaire sur des figures géométriques classiques '
 export const interactifReady = true
 export const interactifType = 'mathLive'

@@ -1,5 +1,5 @@
 import { fraction, matrix, parse } from 'mathjs'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { egal } from '../../modules/outils.js'
 import { rationnalise } from './outilsMaths.js'
 

@@ -1,5 +1,5 @@
 import { texteExposant } from '../outils/ecritures'
-import { calculCompare } from './comparaisonFonctions'
+import { calculCompare } from './comparisonFunctions'
 
 export function toutPourUnPoint (listePoints) {
   return [Math.min(...listePoints), 1]

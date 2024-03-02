@@ -6,7 +6,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { pgcd } from '../../lib/outils/primalite'
 import { rienSi1 } from '../../lib/outils/ecritures'
-import { factorisationCompare } from '../../lib/interactif/comparaisonFonctions'
+import { factorisationCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Factoriser avec les identités remarquables'
 export const interactifReady = true
@@ -24,7 +24,7 @@ export const refs = {
   'fr-ch': []
 }
 // fonction de comparaison de deux expressions factorisées
-// @todo à déplacer dans comparaisonFonctions.ts lors de la fusion de handleAnswer
+// @todo à déplacer dans comparisonFunctions.ts lors de la fusion de handleAnswer
 
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this)

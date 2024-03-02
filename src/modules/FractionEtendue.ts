@@ -1,8 +1,8 @@
 import { arc, cercle } from '../lib/2d/cercle.js'
-import { point } from '../lib/2d/points.js'
+import { Point, point } from '../lib/2d/points.js'
 import { carre } from '../lib/2d/polygones.js'
 import { segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
-import { texteParPosition } from '../lib/2d/textes.ts'
+import { texteParPosition } from '../lib/2d/textes'
 import { rotation, translation } from '../lib/2d/transformations.js'
 import { miseEnEvidence } from '../lib/outils/embellissements'
 import { extraireRacineCarree } from '../lib/outils/calculs'
@@ -19,10 +19,102 @@ import {
   quotientier,
   egal, ppcm
 } from './outils.js'
-import { abs, multiply, gcd, round, lcm, max, min, pow, Fraction } from 'mathjs'
-import { fraction } from './fractions.js'
+import { abs, multiply, gcd, round, lcm, max, min } from 'mathjs'
 import { colorToLatexOrHTML } from './2dGeneralites.js'
 import Decimal from 'decimal.js'
+
+type FractionRepresentationType = 'gateau'|'barre'|'segment'
+
+function normalizeFraction (n: number|Decimal, d:number): [number, number] {
+  let num: number
+  let den: number
+  if (d == null) { // un seul argument qui peut être un nombre (décimal ou pas)
+    if (n instanceof Decimal) { // Decimal.toFraction() retourne '7, 4' pour 1.75... On récupère ainsi le numérateur et le dénominateur.
+      const dec = n as Decimal
+      [num, den] = dec.toString().split(',').map(el => Number(el))
+    } else {
+      num = Number(n.toFixed(4)) // ça c'est pas terrible... et ça peut conduire à des fractions monumentales alors on se limite à 4 décimales
+      den = 1
+    }
+  } else {
+    num = Number(n)
+    den = Number(d)
+  }
+  if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
+    //  num = Number(num) // Je ne vois pas bien à quoi ça sert ça ! ce sont déjà des numbers !
+    //  den = Number(den) // Je le vire le 27/09/2023 (J-C)
+
+    // Méthode codée par Eric Elter pour tenter de rendre rationnel un nombre qui ne l'est pas forcément.
+    let maxDecimalesNumDen: number = Math.max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
+    if (maxDecimalesNumDen > 9) { // On peut estimer que num et/ou den ne sont pas décimaux. Essayons de les diviser car peut-être que leur quotient est mieux.
+      const quotientNumDen = arrondi(num / den, 12)
+      if (nombreDeChiffresDansLaPartieDecimale(quotientNumDen) < 9) { // On peut estimer que le quotient aboutit à un décimal. Ex. dans fraction(7/3,14/3)
+        num = quotientNumDen
+        den = 1
+        maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
+      } else { // On peut estimer que le quotient n'aboutit pas à un décimal. Essayons par l'inverse du quotient.
+        const quotientDenNum = arrondi(den / num, 12)
+        if (nombreDeChiffresDansLaPartieDecimale(quotientDenNum) < 9) { // On peut estimer que l'inverse du quotient aboutit à un décimal. Ex. dans fraction(7/3,7/9)
+          den = quotientDenNum
+          num = 1
+          maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
+        } else { // num et/ou den non décimaux et leurs quotients n'aboutissent pas à un décimal. Essayons par l'inverse de chaque nombre.
+          const inverseNum = arrondi(1 / num, 12)
+          const inverseDen = arrondi(1 / den, 12)
+          maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(inverseNum), nombreDeChiffresDansLaPartieDecimale(inverseDen))
+          if (maxDecimalesNumDen < 13) { // Ex. dans fraction(1/3,1/7)
+            den = inverseNum
+            num = inverseDen
+          } else { // Méthode plus bourrin
+            const testMAX = 2000 // Voir explications ci-dessous
+            // Ici, JCL, cela veut dire qu'on traite toutes les fractions de fractions où chaque numérateur ou dénominateur est inférieur à 1000.
+            // Si tu veux davantage que 1000, il faut augmenter ce nombre et dimininuer alors le nb de décimales de test fixé ici à 9.
+            let iDen = 1
+            let denTest = den
+            let inverseDenTest = inverseDen
+            while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 9 && iDen < testMAX) {
+              iDen += (iDen % 5 === 3) ? 4 : 2
+              denTest = arrondi(den * iDen, 10)
+              inverseDenTest = arrondi(inverseDen * iDen, 10)
+            }
+            let iNum = 1
+            let numTest = num
+            let inverseNumTest = inverseNum
+            while (min(nombreDeChiffresDansLaPartieDecimale(numTest), nombreDeChiffresDansLaPartieDecimale(inverseNumTest)) > 9 && iNum < testMAX) {
+              iNum += (iNum % 5 === 3) ? 4 : 2
+              numTest = arrondi(num * iNum, 10)
+              inverseNumTest = arrondi(inverseNum * iNum, 10)
+            }
+            if (nombreDeChiffresDansLaPartieDecimale(numTest) < 10) {
+              if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) {
+                num = arrondi(numTest * iDen, 10)
+                den = arrondi(denTest * iNum, 10)
+              } else {
+                num = arrondi(numTest * inverseDenTest, 10)
+                den = iDen * iNum
+              }
+            } else {
+              if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) {
+                den = arrondi(denTest * inverseNumTest, 10)
+                num = iDen * iNum
+              } else {
+                den = arrondi(inverseNumTest * iDen, 10)
+                num = arrondi(inverseDenTest * iNum, 10)
+              }
+            }
+            maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
+          }
+        }
+      }
+    }
+    den = round(den * Math.pow(10, maxDecimalesNumDen))
+    num = round(num * Math.pow(10, maxDecimalesNumDen))
+    return [num, den]
+  } else {
+    window.notify('Fraction Etendue : le constructeur a reçu des valeurs impossibles à mettre sous la forme d\'une fraction', { n, d })
+    return [NaN, NaN]
+  }
+}
 
 /**
  * La classe FractionEtendue est une extension de la classe  FractionMathjs  de mathjs
@@ -35,400 +127,168 @@ import Decimal from 'decimal.js'
  * f = fraction(12,15) // crée la  FractionMathjs  $\frac{12}{15}$ (Remarque : new FractionEtendue(12,15) crée $\frac{4}{5}$)
  * f = fraction(0.4) // crée la  FractionMathjs  $\frac{2}{5}$
  */
-class FractionEtendue extends Fraction {
-  constructor (...args) {
-    super()
-    let num, den
-    if (args.length > 2 || args.length < 1) {
-      window.notify('FractionEtendue : nombre d\'arguments incorrect', { args })
-    } else {
-      if (args.length === 1) { // un seul argument qui peut être un nombre (décimal ou pas)
-        if (args[0] instanceof Decimal) { // Decimal.toFraction() retourne '7, 4' pour 1.75... On récupère ainsi le numérateur et le dénominateur.
-          [num, den] = args[0].toFraction().split(',').map(el => Number(el))
-        } else {
-          num = Number(args[0]) // ça c'est pas terrible... et ça peut conduire à des fractions monumentales !
-          den = 1
-        }
-      } else {
-        num = Number(args[0])
-        den = Number(args[1])
-      }
-      if (!isNaN(num) && !isNaN(den)) { // Si ce sont des nombres, on les rend entiers si besoin.
-      //  num = Number(num) // Je ne vois pas bien à quoi ça sert ça ! ce sont déjà des numbers !
-      //  den = Number(den) // Je le vire le 27/09/2023 (J-C)
+class FractionEtendue {
+  num: number
+  den: number
+  /**
+   * Numérateur réduit // Le numérateur réduit peut être négatif
+   */
+  numIrred: number
+  /**
+   * Dénominateur réduit // le dénominateur réduit est toujours positif.
+   */
+  denIrred: number
+  signe: -1|1|0
+  sign: -1|1|0
+  signeString: '+'|'-'|''
+  n: number
+  d: number
+  s: -1|1|0
+  type: 'FractionEtendue'
+  /**
+   * Valeur de la  FractionMathjs  × 100 arrondi au centième
+   */
+  pourcentage: number
+  /**
+   * num/den mais sans traitement des signes des numérateur et dénominateur
+   */
+  texFraction: string
+  /**
+   * le code LaTeX de la  FractionMathjs  simplifiée
+   */
+  texFractionSimplifiee: string
+  /**
+   * num/den mais avec simplification des signes (numérateur et dénominateur positifs, signe - eventuellement devant.)
+   * littéralement texFractionSigneDevant (si c'est un moins sinon rien... pour avoir le + devant, utiliser ecritureAlgebrique)
+   */
+  texFSD: string
+  /**
+   * retourne la  Fraction avec signe devant  mis entre parenthèses notamment pour l'exponentiation.
+   */
+  texParentheses: string
+  /**
+   * num/den avec mise en évidence des signes - s'il y en a au numérateur et au dénominateur
+   */
+  texFractionSR: string
+  /**
+   * + n/d si positif, - n/d si négatif
+   * propriété qui n'est pas très utile puisque ecritureAlgebrique gère les fractions maintenant (défini pour compatibilité avec les exos qui l'utilisent)
+   */
+  texFractionSignee: string
+  /**
+   * -1 => '-'
+   * 1 => ''
+   * inchangé sinon
+   * permet d'écrire le coefficient devant une lettre ou une parenthèse
+   */
+  texFractionSaufUn: string
+  /**
+   * Valeur décimale de la  FractionMathjs  (arrondie à la sixième décimale)
+   */
+  valeurDecimale: number
+  /**
+   * -1 => '-'
+   * 1 => '+'
+   * texFractionSignee sinon
+   * permet d'écrire le coefficient devant une lettre ou une parenthèse
+   */
+  texFractionSaufUnSignee: string
+  /**
+   * num/den si positif, (- num/den) sinon
+   * @property texFSP littéralement texFractionSigneParentheses
+   * @type {string}
+   */
+  texFSP: string
+  /**
+   * le code LaTeX de l'écriture algébrique de la fraction
+   * Pour compatibilité avec les anciens exos... la fonction de outils.js ecritureAlgebrique() est compatible avec les fractions
+   */
+  ecritureAlgebrique: string
+  /**
+   * le code LaTeX de l'écriture avec parenthèse si négatif
+   */
+  ecritureParentheseSiNegatif: string
+  /**
+   * true si la  FractionMathjs  est un entier false sinon
+   */
+  estEntiere: boolean
+  /**
+   * true si la FractionEtendue est le carré d'une FractionEtendue
+   */
+  estParfaite: boolean
+  /**
+   * @return true si la FractionEtendue est irréductible
+   */
+  estIrreductible: boolean
 
-        // Méthode codée par Eric Elter pour tenter de rendre rationnel un nombre qui ne l'est pas forcément.
-        let maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
-        if (maxDecimalesNumDen > 9) { // On peut estimer que num et/ou den ne sont pas décimaux. Essayons de les diviser car peut-être que leur quotient est mieux.
-          const quotientNumDen = arrondi(num / den, 12)
-          if (nombreDeChiffresDansLaPartieDecimale(quotientNumDen) < 9) { // On peut estimer que le quotient aboutit à un décimal. Ex. dans fraction(7/3,14/3)
-            num = quotientNumDen
-            den = 1
-            maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
-          } else { // On peut estimer que le quotient n'aboutit pas à un décimal. Essayons par l'inverse du quotient.
-            const quotientDenNum = arrondi(den / num, 12)
-            if (nombreDeChiffresDansLaPartieDecimale(quotientDenNum) < 9) { // On peut estimer que l'inverse du quotient aboutit à un décimal. Ex. dans fraction(7/3,7/9)
-              den = quotientDenNum
-              num = 1
-              maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
-            } else { // num et/ou den non décimaux et leurs quotients n'aboutissent pas à un décimal. Essayons par l'inverse de chaque nombre.
-              const inverseNum = arrondi(1 / num, 12)
-              const inverseDen = arrondi(1 / den, 12)
-              maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(inverseNum), nombreDeChiffresDansLaPartieDecimale(inverseDen))
-              if (maxDecimalesNumDen < 13) { // Ex. dans fraction(1/3,1/7)
-                den = inverseNum
-                num = inverseDen
-              } else { // Méthode plus bourrin
-                const testMAX = 2000 // Voir explications ci-dessous
-                // Ici, JCL, cela veut dire qu'on traite toutes les fractions de fractions où chaque numérateur ou dénominateur est inférieur à 1000.
-                // Si tu veux davantage que 1000, il faut augmenter ce nombre et dimininuer alors le nb de décimales de test fixé ici à 9.
-                let iDen = 1
-                let denTest = den
-                let inverseDenTest = inverseDen
-                while (min(nombreDeChiffresDansLaPartieDecimale(denTest), nombreDeChiffresDansLaPartieDecimale(inverseDenTest)) > 9 && iDen < testMAX) {
-                  iDen += (iDen % 5 === 3) ? 4 : 2
-                  denTest = arrondi(den * iDen, 10)
-                  inverseDenTest = arrondi(inverseDen * iDen, 10)
-                }
-                let iNum = 1
-                let numTest = num
-                let inverseNumTest = inverseNum
-                while (min(nombreDeChiffresDansLaPartieDecimale(numTest), nombreDeChiffresDansLaPartieDecimale(inverseNumTest)) > 9 && iNum < testMAX) {
-                  iNum += (iNum % 5 === 3) ? 4 : 2
-                  numTest = arrondi(num * iNum, 10)
-                  inverseNumTest = arrondi(inverseNum * iNum, 10)
-                }
-                if (nombreDeChiffresDansLaPartieDecimale(numTest) < 10) {
-                  if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) {
-                    num = arrondi(numTest * iDen, 10)
-                    den = arrondi(denTest * iNum, 10)
-                  } else {
-                    num = arrondi(numTest * inverseDenTest, 10)
-                    den = iDen * iNum
-                  }
-                } else {
-                  if (nombreDeChiffresDansLaPartieDecimale(denTest) < 10) {
-                    den = arrondi(denTest * inverseNumTest, 10)
-                    num = iDen * iNum
-                  } else {
-                    den = arrondi(inverseNumTest * iDen, 10)
-                    num = arrondi(inverseDenTest * iNum, 10)
-                  }
-                }
-                maxDecimalesNumDen = max(nombreDeChiffresDansLaPartieDecimale(num), nombreDeChiffresDansLaPartieDecimale(den))
-              }
-            }
-          }
-        }
-        den = round(den * pow(10, maxDecimalesNumDen))
-        num = round(num * pow(10, maxDecimalesNumDen))
-        try {
-          this.num = num
-          this.den = den
-          this.signe = num * den < 0 ? -1 : num * den > 0 ? 1 : 0
-        } catch (error) {
-          window.notify(`transformation impossible en  FractionMathjs  par Math.Fraction() de num = ${num} et den = ${den} ! `, { num, den })
-          return new FractionEtendue(0)
-        }
-      } else {
-        return NaN
-      }
-    }
-    this.type = 'FractionEtendue'
-    // pour ne pas faire ces calculs à chaque instanciation de Fraction, on passe par defineProperty
-    // (qui permet de ne faire le calcul qu'à la première lecture de la propriété)
-    /**
-     * Numérateur réduit // Le numérateur réduit peut être négatif
-     * @property numIrred
-     * @type {number}
-     */
-    let numIrred
-    Object.defineProperty(this, 'numIrred', {
-      enumerable: true,
-      get: () => {
-        if (!numIrred) numIrred = this.simplifie().num
-        return numIrred
-      },
-      set: () => { throw Error('\'numIrred\' est en lecture seule') }
-    })
-
-    /**
-     * Dénominateur réduit // le dénominateur réduit est toujours positif.
-     * @property denIrred
-     * @type {number}
-     */
-    let denIrred
-    Object.defineProperty(this, 'denIrred', {
-      enumerable: true,
-      get: () => {
-        if (!denIrred) denIrred = this.simplifie().den
-        return denIrred
-      },
-      set: () => { throw Error('\'numIrred\' est en lecture seule') }
-    })
-
-    /**
-        * Valeur de la  FractionMathjs  × 100
-        * @property pourcentage
-        * @type {number}
-        */
-    let pourcentage
-    Object.defineProperty(this, 'pourcentage', {
-      enumerable: true,
-      get: () => {
-        if (!pourcentage) pourcentage = arrondi(this.num * 100 / this.den, 2)
-        return pourcentage
-      },
-      set: () => { throw Error('\'pourcentage\' est en lecture seule') }
-    })
-
+  constructor (n: number, d: number) {
+    const [num, den] = normalizeFraction(n, d)
+    console.log(num, den)
+    if (isNaN(num) || isNaN(den)) throw Error(`Fraction Etendue les données ne permettent pas de définir une fraction : n=${n}, d=${d}`)
+    const pgcd = (Math.abs(num) === 1 && Math.abs(den) === 1) ? 1 : gcd(Math.abs(num), Math.abs(den))
+    const numIrred = num / pgcd
+    const denIrred = den / pgcd
+    this.num = num
+    this.den = den
+    this.n = Math.abs(num / pgcd)
+    this.d = Math.abs(den / pgcd)
+    const prodNumDen = num * den
     /**
      * le signe de la  FractionMathjs  : -1 pour négatif , 0 ou 1 pour positif
      * Au cas où quelqu'un oublie le e de this.signe
      * @type {number}
      */
-    let sign
-    Object.defineProperty(this, 'sign', {
-      enumerable: true,
-      get: () => {
-        if (!sign) sign = this.signe
-        return sign
-      },
-      set: () => { throw Error('\'sign\' est en lecture seule') }
-    })
+    const signe = prodNumDen < 0 ? -1 : 1
+    this.s = signe// pour compatibilité avec les Fraction de mathjs
+    this.signe = signe
+    this.sign = signe // Pour le cas où on utilise signe en anglais
+    this.type = 'FractionEtendue'
 
-    let signeString
-    Object.defineProperty(this, 'signeString', {
-      enumerable: true,
-      get: () => {
-        if (!signeString) signeString = this.signe === -1 ? '-' : this.signe === 1 ? '+' : ''
-        return signeString
-      },
-      set: () => { throw Error('\'signeString\' est en lecture seule') }
-    })
+    this.numIrred = num / pgcd
 
-    /**
-     * num/den mais sans traitement des signes des numérateur et dénominateur
-     * @property texFraction
-     * @type {string}
-     */
+    this.denIrred = den / pgcd
 
-    this.texFraction = this.den === 1 ? `${texNombre(this.num, 0)}` : `\\dfrac{${texNombre(this.num, 0)}}{${texNombre(this.den, 0)}}`
+    this.pourcentage = arrondi(num * 100 / den, 2)
 
-    /**
-     * num/den avec mise en évidence des signes - s'il y en a au numérateur et au dénominateur
-     * @property texFractionSR
-     * @type {string}
-     */
-    let texFractionSR
-    Object.defineProperty(this, 'texFractionSR', {
-      enumerable: true,
-      get: () => {
-        if (!texFractionSR) texFractionSR = `\\dfrac{${signeMoinsEnEvidence(this.num)}}{${signeMoinsEnEvidence(this.den)}}`
-        return texFractionSR
-      },
-      set: () => { throw Error('\'texFractionSR\' est en lecture seule') }
-    })
+    this.signeString = signe === -1 ? '-' : signe === 1 ? '+' : ''
 
-    /**
-       * num/den mais avec simplification des signes (numérateur et dénominateur positifs, signe - eventuellement devant.)
-       * @property texFSD littéralement texFractionSigneDevant (si c'est un moins sinon rien... pour avoir le + devant, utiliser ecritureAlgebrique)
-       * @type {string}
-       */
-    this.texFSD = this.signe === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num), 0)) : `-\\dfrac{${texNombre(Math.abs(this.num), 0)}}{${texNombre(Math.abs(this.den), 0)}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num), 0)) : `\\dfrac{${texNombre(Math.abs(this.num), 0)}}{${texNombre(Math.abs(this.den), 0)}}`
+    this.texFraction = den === 1 ? `${texNombre(num, 0)}` : `\\dfrac{${texNombre(num, 0)}}{${texNombre(den, 0)}}`
 
-    /**
-     * + n/d si positif, - n/d si négatif
-     * propriété qui n'est pas très utile puisque ecritureAlgebrique gère les fractions maintenant (défini pour compatibilité avec les exos qui l'utilisent)
-     * @property texFractionSignee
-     * @type {string}
-     */
-    let texFractionSignee
-    Object.defineProperty(this, 'texFractionSignee', {
-      enumerable: true,
-      get: () => {
-        if (!texFractionSignee) texFractionSignee = this.signe === -1 ? this.texFSD : '+' + this.texFSD
-        return texFractionSignee
-      },
-      set: () => { throw Error('\'texFractionSignee\' est en lecture seule') }
-    })
+    this.texFractionSR = `\\dfrac{${signeMoinsEnEvidence(num)}}{${signeMoinsEnEvidence(den)}}`
 
-    /**
-     * -1 => '-'
-     * 1 => ''
-     * inchangé sinon
-     * permet d'écrire le coefficient devant une lettre ou une parenthèse
-     * @property texFractionSaufUn
-     * @type {string}
-     */
-    let texFractionSaufUn
-    Object.defineProperty(this, 'texFractionSaufUn', {
-      enumerable: true,
-      get: () => {
-        if (!texFractionSaufUn) texFractionSaufUn = this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '' : this.texFSD
-        return texFractionSaufUn
-      },
-      set: () => { throw Error('\'texFractionSaufUn\' est en lecture seule') }
-    })
+    this.texFSD = signe === -1 ? Math.abs(den) === 1 ? '-' + String(texNombre(Math.abs(num), 0)) : `-\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}` : Math.abs(den) === 1 ? String(texNombre(Math.abs(num), 0)) : `\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`
 
-    /**
-     * -1 => '-'
-     * 1 => '+'
-     * texFractionSignee sinon
-     * permet d'écrire le coefficient devant une lettre ou une parenthèse
-     * @property texFractionSaufUnSignee
-     * @type {string}
-     */
-    let texFractionSaufUnSignee
-    Object.defineProperty(this, 'texFractionSaufUnSignee', {
-      enumerable: true,
-      get: () => {
-        if (!texFractionSaufUnSignee) texFractionSaufUnSignee = this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '+' : this.texFractionSignee
-        return texFractionSaufUnSignee
-      },
-      set: () => { throw Error('\'texFractionSaufUnSignee\' est en lecture seule') }
-    })
+    this.texFractionSignee = signe === -1 ? this.texFSD : '+' + this.texFSD
 
-    /**
-     * num/den si positif, (- num/den) sinon
-     * @property texFSP littéralement texFractionSigneParentheses
-     * @type {string}
-     */
-    let texFSP
-    Object.defineProperty(this, 'texFSP', {
-      enumerable: true,
-      get: () => {
-        if (!texFSP) texFSP = this.signe > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
-        return texFSP
-      },
-      set: () => { throw Error('\'texFSP\' est en lecture seule') }
-    })
+    this.valeurDecimale = arrondi(num / den, 6)
 
-    /**
- * retourne la  FractionMathjs  mis entre parenthèses notamment pour l'exponentiation.
- */
-    let texParentheses
-    Object.defineProperty(this, 'texParentheses', {
-      enumerable: true,
-      get: () => {
-        if (!texParentheses) texParentheses = this.den === 1 && this.signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
-        return texParentheses
-      },
-      set: () => { throw Error('\'texParentheses\' est en lecture seule') }
-    })
+    this.texFractionSaufUn = this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '' : this.texFSD
 
-    /**
-     * le code LaTeX de la  FractionMathjs  simplifiée
-     * @property texFractionSimplifiee
-     * @type {string}
-     */
-    let texFractionSimplifiee
-    Object.defineProperty(this, 'texFractionSimplifiee', {
-      enumerable: true,
-      get: () => {
-        if (!texFractionSimplifiee) texFractionSimplifiee = this.simplifie().texFSD
-        return texFractionSimplifiee
-      },
-      set: () => { throw Error('\'texFractionSimplifiee\' est en lecture seule') }
-    })
+    this.texFractionSaufUnSignee = this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '+' : this.texFractionSignee
 
-    /**
-     * le code LaTeX de l'écriture algébrique de la fraction
-     * Pour compatibilité avec les anciens exos... la fonction de outils.js ecritureAlgebrique() est compatible avec les fractions
-     * @property ecritureAlgebrique
-     * @type {string}
-     */
-    let ecritureAlgebrique
-    Object.defineProperty(this, 'ecritureAlgebrique', {
-      enumerable: true,
-      get: () => {
-        if (!ecritureAlgebrique) ecritureAlgebrique = this.signe === 1 ? '+' + this.texFSD : this.texFSD
-        return ecritureAlgebrique
-      },
-      set: () => { throw Error('\'ecritureAlgebrique\' est en lecture seule') }
-    })
+    this.texFSP = signe > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
-    /**
-     * le code LaTeX de l'écriture avec parenthèse si négatif
-     * @property ecritureParentheseSiNegatif
-     * @type {string}
-     */
-    let ecritureParentheseSiNegatif
-    Object.defineProperty(this, 'ecritureParentheseSiNegatif', {
-      enumerable: true,
-      get: () => {
-        if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
-        return ecritureParentheseSiNegatif
-      },
-      set: () => { throw Error('\'ecritureParentheseSiNegatif\' est en lecture seule') }
-    })
+    this.texParentheses = den === 1 && signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
-    /**
-     * Valeur décimale de la  FractionMathjs  (arrondie à la sixième décimale)
-     * @property valeurDecimale
-     * @type {number}
-     */
-    let valeurDecimale
-    Object.defineProperty(this, 'valeurDecimale', {
-      enumerable: true,
-      get: () => {
-        if (!valeurDecimale) valeurDecimale = arrondi(this.num / this.den, 6)
-        return valeurDecimale
-      },
-      set: () => { throw Error('\'valeurDecimale\' est en lecture seule') }
-    })
+    this.texFractionSimplifiee = signe === 1 ? `\\dfrac{${Math.abs(numIrred)}}{${Math.abs(denIrred)}}` : `-\\dfrac{${Math.abs(numIrred)}}{${Math.abs(denIrred)}}`
 
-    /**
-     * true si la  FractionMathjs  est un entier false sinon
-     */
-    let estEntiere
-    Object.defineProperty(this, 'estEntiere', {
-      enumerable: true,
-      get: () => {
-        if (!estEntiere) estEntiere = this.denIrred === 1
-        return estEntiere
-      },
-      set: () => { throw Error('\'estEntiere\' est en lecture seule') }
-    })
+    this.ecritureAlgebrique = signe === 1 ? '+' + this.texFSD : this.texFSD
 
-    /**
- * @return true si la FractionEtendue est le carré d'une FractionEtendue
- */
-    let estParfaite
-    Object.defineProperty(this, 'estParfaite', {
-      enumerable: true,
-      get: () => {
-        if (!estParfaite) estParfaite = this.racineCarree() !== false
-        return estParfaite
-      },
-      set: () => { throw Error('\'estParfaite\' est en lecture seule') }
-    })
+    this.ecritureParentheseSiNegatif = signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
-    /**
- * @return true si la FractionEtendue est irréductible
- */
-    let estIrreductible
-    Object.defineProperty(this, 'estIrreductible', {
-      enumerable: true,
-      get: () => {
-        if (!estIrreductible) estIrreductible = gcd(this.num, this.den) === 1 && this.den !== 1
-        return estIrreductible
-      },
-      set: () => { throw Error('\'estIrreductible\' est en lecture seule') }
-    })
-    const pgcd = gcd(this.num, this.den)
-    this.n = Math.abs(this.num / pgcd)
-    this.d = Math.abs(this.den / pgcd)
-    const prodNumDen = this.num * this.den
-    this.s = prodNumDen < 0 ? -1 : 1
+    this.estEntiere = denIrred === 1
+
+    this.estParfaite = Number.isInteger(Math.sqrt(num)) && Number.isInteger(Math.sqrt(den))
+
+    this.estIrreductible = gcd(num, den) === 1 && den !== 1
   }
 
   /**
    * basé sur la méthode toLatex() de mathjs, on remplace \frac par \dfrac plus joli.
    * @return {string} la chaine Latex pour écrire la  FractionMathjs  (signe devant)
    */
-  toLatex () {
-    const text = super.toLatex()
+  toLatex (): string {
+    const text = this.texFSD
     return text.replace('\\frac', '\\dfrac')
   }
 
@@ -436,7 +296,7 @@ class FractionEtendue extends Fraction {
    * retourne un flottant pour compatibilité de FractionEtendue() avec Number().
    * @return {number}
    */
-  toNumber () {
+  toNumber (): number {
     return this.num / this.den
   }
 
@@ -444,7 +304,7 @@ class FractionEtendue extends Fraction {
    *
    * @returns {string}
    */
-  toString () { // Cette fonction n'a pas vocation à être utilisée ! si on veut du latex, il faut utiliser texFraction.
+  toString (): string { // Cette fonction n'a pas vocation à être utilisée ! si on veut du latex, il faut utiliser texFraction.
     // Cette méthode vient se substituer à la méthode toString() de Object.prototype qui renvoie '[object object]' elle est utilisée si la FractionEtendue a été utilisée par erreur à la place de sa propriété texFraction
     window.notify('Pour obtenir du Latex avec une FractionEtendue, il faut utiliser sa propriété texFraction !', { numerateur: this.num, denominateur: this.den })
     return `\\frac{${this.num}}{${this.den}}`
@@ -455,7 +315,7 @@ class FractionEtendue extends Fraction {
    * Pour la conversion automatique en number
    * @returns {number}
    */
-  valueOf () {
+  valueOf (): number {
     return this.toNumber()
   }
 
@@ -464,10 +324,16 @@ class FractionEtendue extends Fraction {
    * @param {FractionEtendue[]} fractions
    * @return {FractionEtendue}
    */
-  sommeFractions (fractions) { // retourne un résultat simplifié
+  sommeFractions (...fractions: FractionEtendue[]) { // retourne un résultat simplifié
     let s = new FractionEtendue(this.num, this.den)
-    for (const f of fractions) {
-      s = s.sommeFraction(f).simplifie()
+    if (s != null) {
+      for (const f of fractions) {
+        s = s.sommeFraction(f).simplifie()
+      }
+    }
+    if (s == null) {
+      window.notify('il se passe quelque chose de travers dans sommeFractions() avec les fractions passées', { fractions })
+      return this
     }
     return s.simplifie()
   }
@@ -483,7 +349,7 @@ class FractionEtendue extends Fraction {
  * Convertit la FractionEtendue en Fraction
  * @return {FractionEtendue} un objet  FractionMathjs  (mathjs)
  */
-  valeurAbsolue () { return new FractionEtendue(abs(this.num), abs(this.den)) }
+  valeurAbsolue ():FractionEtendue { return new FractionEtendue(abs(this.num), abs(this.den)) }
   /**
  * @return {FractionEtendue} opposé de la FractionEtendue
  */
@@ -493,7 +359,7 @@ class FractionEtendue extends Fraction {
  * @param {number} k
  * @return {FractionEtendue} La FractionEtendue dont le numérateur et le dénominateur ont été multipliés par k.
  */
-  reduire (k) {
+  reduire (k: number) {
     const num = multiply(this.num, k)
     const den = multiply(this.den, k)
     return new FractionEtendue(num, den)
@@ -503,11 +369,11 @@ class FractionEtendue extends Fraction {
  * @param {FractionEtendue  | number} f2
  * @return true si la FractionEtendue est égale à la  FractionMathjs  passée en argument.
  */
-  isEqual (f2) {
+  isEqual (f2: FractionEtendue | number) {
     if (f2 instanceof FractionEtendue) {
       return f2.differenceFraction(this).simplifie().num === 0
     } else {
-      const f2bis = new FractionEtendue(f2)
+      const f2bis = new FractionEtendue(f2, 1)
       return f2bis.differenceFraction(this).simplifie().num === 0
     }
   }
@@ -516,9 +382,9 @@ class FractionEtendue extends Fraction {
  * @param {FractionEtendue  | number} f
  * @return {FractionEtendue} la FractionEtendue - f résultat simplifié
  */
-  differenceFraction (f) {
+  differenceFraction (f: FractionEtendue|number) {
     if (!(f instanceof FractionEtendue)) {
-      f = new FractionEtendue(f)
+      f = new FractionEtendue(f, 1)
     }
     return new FractionEtendue(this.num * f.den - f.num * this.den, f.den * this.den).simplifie()
   }
@@ -527,36 +393,59 @@ class FractionEtendue extends Fraction {
  * @param {number} n
  * @return {FractionEtendue}La FractionEtendue multipliée par n (numérateur n fois plus grand)
  */
-  multiplieEntier (n) {
-    return new FractionEtendue(this.num * n, this.den)
+  multiplieEntier (n: number) {
+    if (Number.isInteger(n)) return new FractionEtendue(this.num * n, this.den)
+    else {
+      window.notify(`multiplieEntier() : l'argument n'est pas entier : n=${n}... j'arrondis !`, { n: Math.round(n) })
+      return new FractionEtendue(this.num * Math.round(n), this.den)
+    }
   }
 
   /**
   * @param {number} n
   * @return {FractionEtendue} La FractionEtendue divisée par n (denominateur n fois plus grand)
   */
-  entierDivise (n) { return new FractionEtendue(this.num, n * this.den) }
+  entierDivise (n: number):FractionEtendue {
+    if (Number.isInteger(n)) return new FractionEtendue(this.num, n * this.den)
+    else {
+      window.notify(`entierDivise() : l'argument n'est pas entier : n=${n}... j'arrondis !`, { n: Math.round(n) })
+      return new FractionEtendue(this.num, this.den * Math.round(n))
+    }
+  }
+
   /**
   *
   * @param {number} n
   * @return {FractionEtendue} n + la FractionEtendue
   */
-  ajouteEntier (n) { return new FractionEtendue(this.num + n * this.den, this.den) }
+  ajouteEntier (n: number) {
+    if (Number.isInteger(n)) return new FractionEtendue(this.num + n * this.den, this.den)
+    else {
+      window.notify(`ajouteEntier() : l'argument n'est pas entier : n=${n}... j'arrondis !`, { n: Math.round(n) })
+      return new FractionEtendue(this.num + Math.round(n) * this.den, this.den)
+    }
+  }
 
   /**
   * @param {number} n
   * @return {FractionEtendue} n - la FractionEtendue
   */
-  entierMoinsFraction (n) { return new FractionEtendue(n * this.den - this.num, this.den) }
+  entierMoinsFraction (n: number):FractionEtendue {
+    if (Number.isInteger(n)) return new FractionEtendue(n * this.den - this.num, this.den)
+    else {
+      window.notify(`entierMoinsFraction() : l'argument n'est pas entier : n=${n}... j'arrondis !`, { n: Math.round(n) })
+      return new FractionEtendue(Math.round(n) * this.den - this.num, this.den)
+    }
+  }
 
   /**
   *
   * @param {FractionEtendue   | nombre} f2
   * @return {boolean} true si FractionEtendue >= f
   */
-  superieurLarge (f2) {
+  superieurLarge (f2: FractionEtendue|number) {
     if (!(f2 instanceof FractionEtendue)) {
-      f2 = new FractionEtendue(f2)
+      f2 = new FractionEtendue(f2, 1)
     }
     return this.num * f2.den >= f2.num * this.den
   }
@@ -566,9 +455,9 @@ class FractionEtendue extends Fraction {
     * @param {FractionEtendue   | nombre} f2
     * @return {boolean} true si
     */
-  superieurstrict (f2) {
+  superieurstrict (f2: FractionEtendue|number):boolean {
     if (!(f2 instanceof FractionEtendue)) {
-      f2 = new FractionEtendue(f2)
+      f2 = new FractionEtendue(f2, 1)
     }
     return this.num * f2.den > f2.num * this.den
   }
@@ -578,9 +467,9 @@ class FractionEtendue extends Fraction {
     * @param {FractionEtendue   | nombre} f2
     * @return {boolean}
     */
-  inferieurstrict (f2) {
+  inferieurstrict (f2: FractionEtendue|number): boolean {
     if (!(f2 instanceof FractionEtendue)) {
-      f2 = new FractionEtendue(f2)
+      f2 = new FractionEtendue(f2, 1)
     }
     return this.num * f2.den < f2.num * this.den
   }
@@ -590,9 +479,9 @@ class FractionEtendue extends Fraction {
     * @param {FractionEtendue   | nombre} f2
     * @return {boolean}
     */
-  inferieurlarge (f2) {
+  inferieurlarge (f2:FractionEtendue|number) {
     if (!(f2 instanceof FractionEtendue)) {
-      f2 = new FractionEtendue(f2)
+      f2 = new FractionEtendue(f2, 1)
     }
     return this.num * f2.den <= f2.num * this.den
   }
@@ -602,7 +491,8 @@ class FractionEtendue extends Fraction {
   * @param {FractionEtendue} f2
   * @return {boolean} true si f2 = f et  f2 est plus réduite que f
   */
-  estUneSimplification (f2) {
+  estUneSimplification (f2: FractionEtendue):boolean {
+    if (f2.num == null || f2.den == null) throw Error(`estUneSimplification(f2) : f2 n'est pas une FractionEtendue ! f2=${JSON.stringify(f2)}`)
     return (this.isEqual(f2) && abs(this.num) < abs(f2.num))
   }
 
@@ -611,7 +501,7 @@ class FractionEtendue extends Fraction {
   * @param {FractionEtendue   | nombre} f2
   * @return {FractionEtendue} f + FractionEtendue
   */
-  sommeFraction (f2) {
+  sommeFraction (f2: FractionEtendue) {
     if (f2 instanceof FractionEtendue) {
       if (this.den === f2.den) { // on ajoute 2 fractions de même dénominateur
         return new FractionEtendue(this.num + f2.num, f2.den)
@@ -625,7 +515,8 @@ class FractionEtendue extends Fraction {
         return new FractionEtendue(this.num * round(lcm(this.den, f2.den) / this.den) + f2.num * round(lcm(this.den, f2.den) / f2.den), lcm(this.den, f2.den))
       }
     } else {
-      window.notify(`FractionEtendue.sommeFraction(fractionAAjouter) a été appelée avec autre chose qu'une  FractionMathjs  étendue, alors que c'est obligatoire !\nVoilci l'argument passé : ${f2}`, { argument: f2 })
+      window.notify(`FractionEtendue.sommeFraction(fractionAAjouter) a été appelée avec autre chose qu'une  FractionMathjs  étendue, alors que c'est obligatoire !\nVoilci l'argument passé : ${f2}... je retourne la fraction de départ`, { argument: f2 })
+      return this
     }
   }
 
@@ -635,7 +526,7 @@ class FractionEtendue extends Fraction {
    * @param {boolean} simplify
    * @returns {string}
    */
-  texSommeFraction (f2Arg, simplify = true) {
+  texSommeFraction (f2Arg: FractionEtendue, simplify = true): string {
     if (f2Arg instanceof FractionEtendue) {
       // on crée une fraction indépendante pour ne pas modifier f2 (c'est un objet et si on le bricole, il sera modifié pour le code appelant.
       const f2 = new FractionEtendue(f2Arg.num, f2Arg.den)
@@ -678,7 +569,7 @@ class FractionEtendue extends Fraction {
       calcul += `=${fResult.texFractionSimplifiee}`
       return calcul
     } else {
-      window.notify('texSommeFraction : pour l\'instant on n\'ajoute que une fractionEtendue et rien d\'autre')
+      window.notify('texSommeFraction : pour l\'instant on n\'ajoute que une fractionEtendue et rien d\'autre', { fraction: JSON.stringify(f2Arg) })
       return ''
     }
   }
@@ -687,9 +578,9 @@ class FractionEtendue extends Fraction {
   * @param {FractionEtendue   | nombre} f2
   * @return {FractionEtendue} f * FractionEtendue  // retourne un non résultat simplifié
   */
-  produitFraction (f2) {
+  produitFraction (f2: FractionEtendue|number) {
     if (!(f2 instanceof FractionEtendue)) {
-      f2 = new FractionEtendue(f2)
+      f2 = new FractionEtendue(f2, 1)
     }
     if (this.signe * f2.signe === 1) {
       return new FractionEtendue(Math.abs(this.num * f2.num), Math.abs(this.den * f2.den))
@@ -702,7 +593,7 @@ class FractionEtendue extends Fraction {
   * @param  {Array<FractionEtendue>} fractions
   * @return {FractionEtendue} produit de FractionEtendue par toutes les fractions passées en argument.
   */
-  produitFractions (fractions) { // retourne un résultat simplifié
+  produitFractions (...fractions: FractionEtendue[]) { // retourne un résultat simplifié
     let s = new FractionEtendue(this.num, this.den)
     for (const f of fractions) {
       s = s.produitFraction(f)
@@ -715,7 +606,7 @@ class FractionEtendue extends Fraction {
     *  @param {'none'|true|false} simplification true si on veut afficher la simplification par décomposition false si on veut celle par le pgcd et 'none' si on ne veut pas simplifier
     * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
     */
-  texProduitFraction (f2, simplification = 'none') {
+  texProduitFraction (f2: FractionEtendue, simplification: boolean|'none' = 'none'):string {
     if (this.estEntiere) {
       return `${this.texFraction}\\times ${f2.texFraction}=\\dfrac{${this.simplifie().num + '\\times' + ecritureParentheseSiNegatif(f2.num)}}{${ecritureParentheseSiNegatif(f2.den)}}
       ${simplification === 'none' || this.produitFraction(f2).estIrreductible
@@ -742,7 +633,7 @@ class FractionEtendue extends Fraction {
   *  @param {string} symbole '/' pour la forme fractionnaire de la division, ':' ou autre chose pour l'obèle
   * @return {string} Le calcul du produit de deux fractions avec étape intermédiaire
   */
-  texDiviseFraction (f2, simplification = 'none', symbole = '/') {
+  texDiviseFraction (f2: FractionEtendue, simplification: boolean|'none' = 'none', symbole = '/') {
     const space = '\\phantom{\\dfrac{(_(^(}{(_(^(}}' // Utilisé pour mettre de l'espace dans une  FractionMathjs  de fraction
     const space2 = '\\phantom{(_(^(}' // Utilisé pour mettre de l'espace dans une  FractionMathjs  de  FractionMathjs  lorsque le numérateur ou le dénominateur est entier
     if (this.estEntiere) {
@@ -800,20 +691,20 @@ class FractionEtendue extends Fraction {
     * @param {number} n l'exposant de la fraction
     * @return {FractionEtendue} La puissance n de la fraction
     */
-  puissanceFraction (n) {
-    return new FractionEtendue(this.num ** n, this.den ** n)
+  puissanceFraction (n: number):FractionEtendue {
+    if (Number.isInteger(n)) return new FractionEtendue(this.num ** n, this.den ** n)
+    else {
+      window.notify('puissanceFraction() l\'argument n\'est pas un entier j\'arrondis !', { argument: n })
+      return new FractionEtendue(this.num ** Math.round(n), this.den ** Math.round(n))
+    }
   }
 
   /**
-  * @return {FractionEtendue|number} inverse de la fraction
+  * @return {FractionEtendue} inverse de la fraction
   */
-  inverse () {
-    if (this.num !== 0) {
-      return new FractionEtendue(this.den, this.num)
-    } else {
-      window.notify('FractionEtendue.inverse() : division par zéro', { fraction: this })
-      return NaN
-    }
+  inverse ():FractionEtendue {
+    if (this.num === 0) throw Error(`Division par 0 dans inverse() : ${JSON.stringify(this)}`)
+    return new FractionEtendue(this.den, this.num)
   }
 
   /**
@@ -821,11 +712,14 @@ class FractionEtendue extends Fraction {
     * @param {FractionEtendue} f2
     * @return {FractionEtendue} f/f2
     */
-  diviseFraction (f2) {
-    if (['Fraction', 'FractionEtendue'].indexOf(f2.type) === -1) {
+  diviseFraction (f2: FractionEtendue|number):FractionEtendue {
+    if (!(f2 instanceof FractionEtendue)) {
       window.notify('FractionEtendue.diviseFraction() : l\'argument n\'est pas une fraction', { f2 })
-      if (!Number.isNaN(f2)) return this.multiplieEntier(1 / f2)
-      else window.notify('FractionEtendue.diviseFraction() : l\'argument n\'est pas un nombre', { f2 })
+      if (typeof f2 === 'number') return this.multiplieEntier(1 / f2)
+      else {
+        window.notify('FractionEtendue.diviseFraction() : l\'argument n\'est pas un nombre, je retourne la fraction de départ.', { f2 })
+        return this
+      }
     } else return this.produitFraction(f2.inverse())
   }
 
@@ -833,8 +727,12 @@ class FractionEtendue extends Fraction {
     * @param {number} n entier divisé par la fraction
     * @return {FractionEtendue} n divisé par fraction
     */
-  diviseEntier (n) {
-    return new FractionEtendue(n * this.den, this.num).simplifie()
+  diviseEntier (n: number):FractionEtendue {
+    if (Number.isInteger(n)) return new FractionEtendue(n * this.den, this.num).simplifie()
+    else {
+      window.notify('diviseEntier() : l\'argument n\'est pas un entier, j\'arrondis', { n })
+      return new FractionEtendue(Math.round(n) * this.den, this.num).simplifie()
+    }
   }
 
   /**
@@ -842,7 +740,15 @@ class FractionEtendue extends Fraction {
     * @param {FractionEtendue} f2
     * @return {string} Calcul f/f2 avec les étapes mais sans simplification
     */
-  texQuotientFraction (f2) {
+  texQuotientFraction (f2: FractionEtendue):string {
+    if (!(f2 instanceof FractionEtendue)) {
+      window.notify('texQuotientFraction() : l\'argument n\'est pas une fraction', { f2 })
+      if (typeof f2 === 'number') f2 = new FractionEtendue(f2, 1)
+      else {
+        window.notify('texQuotientFraction() : l\'argument n\'est pas un nombre, je retourne la fraction de départ.', { f2 })
+        return this.texFraction
+      }
+    }
     return `${this.texFraction}\\div ${f2.texFraction}=${this.texFraction}\\times ${f2.inverse().texFraction}=\\dfrac{${this.num + '\\times' + f2.den}}{${this.den + '\\times' + f2.num}}=\\dfrac{${this.num * f2.den}}{${this.den * f2.num}}`
   }
 
@@ -852,7 +758,7 @@ class FractionEtendue extends Fraction {
    * @param {string} couleurFinale
    * @return {string}
  */
-  texSimplificationAvecEtapes (factorisation = false, couleurFinale = '') {
+  texSimplificationAvecEtapes (factorisation: boolean|'none' = false, couleurFinale: string = ''):string {
     if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
     else if (this.estIrreductible && this.num * this.den < 0) { // irréductible mais négatifs
       return `=${this.texFSD}`
@@ -948,7 +854,7 @@ class FractionEtendue extends Fraction {
   /**
   * @return {FractionEtendue|number} NaN si la FractionEtendue n'est pas un nombre décimal sinon retourne une FractionEtendue avec la bonne puissance de 10 au dénominateur
   */
-  fractionDecimale () {
+  fractionDecimale (): FractionEtendue {
     const den = Math.abs(this.simplifie().den)
     const num = Math.abs(this.simplifie().num)
     const signe = this.simplifie().signe
@@ -957,7 +863,7 @@ class FractionEtendue extends Fraction {
     for (const n of liste) {
       if (n === 2) { n2++ } else if (n === 5) { n5++ } else {
         window.notify('FractionEtendue.valeurDecimale :  FractionMathjs  non décimale', { fraction: this })
-        return NaN
+        return this
       }
     }
     if (n5 === n2) {
@@ -972,14 +878,16 @@ class FractionEtendue extends Fraction {
   /**
     * Retourne la chaine latex contenant la racine carrée de la fraction
     * @param {boolean} detaillee Si detaillee est true, une étape de calcul se place avant le résultat.
-    * @return {string|false}
+    * @return {string}
     */
-  texRacineCarree (detaillee = false) {
+  texRacineCarree (detaillee: boolean = false):string {
     if (this.estParfaite) {
-      return this.racineCarree().texFraction
+      const rac = this.racineCarree()
+      if (rac) return rac.texFraction
+      else return `\\sqrt{${this.texFraction}}`
     }
-    if (this.signe === -1) return false
-    let factoDen = extraireRacineCarree(Math.abs(this.den))
+    if (this.signe === -1) return 'Not a real number !'
+    let factoDen:[number, number] = extraireRacineCarree(Math.abs(this.den))
     let factoNum
     let etape
     if (!this.estEntiere) {
@@ -1002,8 +910,8 @@ class FractionEtendue extends Fraction {
     } else {
       factoNum = extraireRacineCarree(Math.abs(this.num))
     }
-    const k = fraction(factoNum[0], factoDen[0]).simplifie()
-    const r = fraction(factoNum[1], factoDen[1]).simplifie()
+    const k = new FractionEtendue(factoNum[0], factoDen[0]).simplifie()
+    const r = new FractionEtendue(factoNum[1], factoDen[1]).simplifie()
 
     if (detaillee) {
       if (k.valeurDecimale !== 1) {
@@ -1044,11 +952,11 @@ class FractionEtendue extends Fraction {
     * Retourne la racine carrée de la  FractionMathjs  si c'est une  FractionMathjs  et false sinon
     * @return {FractionEtendue|boolean}
     */
-  racineCarree () {
+  racineCarree (): FractionEtendue|false {
     const factoNum = extraireRacineCarree(Math.abs(this.num))
     const factoDen = extraireRacineCarree(Math.abs(this.den))
-    const k = fraction(factoNum[0], factoDen[0]).simplifie()
-    const r = fraction(factoNum[1], factoDen[1]).simplifie()
+    const k = new FractionEtendue(factoNum[0], factoDen[0]).simplifie()
+    const r = new FractionEtendue(factoNum[1], factoDen[1]).simplifie()
     if (r.valeurDecimale !== 1 || this.signe === -1) {
       return false
     } else {
@@ -1070,30 +978,31 @@ class FractionEtendue extends Fraction {
   * @param {string} label ce qu'il faut écrire sous le segment ... x ?
   * @return {object[]} objets mathalea2d
   */
-  representationIrred (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') {
-    let num, k, dep, s, a, O, C
+  representationIrred (x:number, y:number, rayon:number, depart:number = 0, type:FractionRepresentationType = 'gateau', couleur:string = 'gray', unite0:number = 0, unite1:number = 1, scale:number = 1, label:string = '') {
+    let num:number
+    let k:number
     const objets = []
     const n = quotientier(this.numIrred, this.denIrred)
     num = this.numIrred
-    const unegraduation = function (x, y, couleur = 'black', epaisseur = 1) {
-      const A = point(x, y + 0.2)
-      const B = point(x, y - 0.2)
+    const unegraduation = function (x: number, y:number, couleur:string = 'black', epaisseur:number = 1) {
+      const A = point(x, y + 0.2, '')
+      const B = point(x, y - 0.2, '')
       const g = segment(A, B, couleur)
       g.epaisseur = epaisseur
       return g
     }
     if (type === 'gateau') {
       for (k = 0; k < n; k++) {
-        O = point(x + k * 2 * (rayon + 0.5), y)
-        C = cercle(O, rayon)
+        const O = point(x + k * 2 * (rayon + 0.5), y)
+        const C = cercle(O, rayon)
         objets.push(C)
         for (let i = 0; i < this.denIrred; i++) {
-          s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.denIrred))
+          const s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.denIrred))
           objets.push(s)
         }
-        dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.denIrred)
+        let dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.denIrred)
         for (let j = 0; j < Math.min(this.denIrred, num); j++) {
-          a = arc(dep, O, -360 / this.denIrred, true, couleur)
+          const a = arc(dep, O, -360 / this.denIrred, true, couleur)
           a.opacite = 0.3
           dep = rotation(dep, O, -360 / this.denIrred)
           objets.push(a)
@@ -1101,16 +1010,16 @@ class FractionEtendue extends Fraction {
         num -= this.denIrred
       }
       if (Math.abs(this.numIrred) % Math.abs(this.denIrred) !== 0) {
-        O = point(x + k * 2 * (rayon + 0.5), y)
-        C = cercle(O, rayon)
+        const O = point(x + k * 2 * (rayon + 0.5), y)
+        const C = cercle(O, rayon)
         objets.push(C)
         for (let i = 0; i < this.denIrred; i++) {
-          s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.denIrred))
+          const s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.denIrred))
           objets.push(s)
         }
-        dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.denIrred)
+        let dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.denIrred)
         for (let j = 0; j < Math.min(this.denIrred, num); j++) {
-          a = arc(dep, O, -360 / this.denIrred, true, couleur)
+          const a = arc(dep, O, -360 / this.denIrred, true, couleur)
           a.opacite = 0.3
           dep = rotation(dep, O, -360 / this.denIrred)
           objets.push(a)
@@ -1118,45 +1027,45 @@ class FractionEtendue extends Fraction {
       }
     } else if (type === 'segment') {
       for (k = 0; k < n; k++) {
-        O = point(x + k * rayon, y)
-        C = translation(O, vecteur(rayon, 0))
-        s = segment(O, C)
+        const O = point(x + k * rayon, y)
+        const C = translation(O, vecteur(rayon, 0))
+        const s = segment(O, C)
         s.styleExtremites = '-|'
         objets.push(s)
         for (let i = 0; i < this.denIrred; i++) {
-          s = segment(translation(O, vecteur(i * rayon / this.denIrred, 0)), translation(O, vecteur((i + 1) * rayon / this.denIrred, 0)))
+          const s = segment(translation(O, vecteur(i * rayon / this.denIrred, 0)), translation(O, vecteur((i + 1) * rayon / this.denIrred, 0)))
           s.styleExtremites = '|-'
           objets.push(s)
         }
-        a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y), couleur)
+        const a = segment(O, point(O.x + Math.min(num, this.denIrred) * rayon / this.denIrred, O.y), couleur)
         a.opacite = 0.4
         a.epaisseur = 6
         objets.push(a)
         num -= this.denIrred
       }
-      O = point(x + k * rayon, y)
-      C = translation(O, vecteur(rayon, 0))
-      s = segment(O, C)
+      const O = point(x + k * rayon, y)
+      const C = translation(O, vecteur(rayon, 0))
+      const s = segment(O, C)
       s.styleExtremites = '-|'
       objets.push(s)
       for (let i = 0; i < this.denIrred; i++) {
-        s = segment(translation(O, vecteur(i * rayon / this.denIrred, 0)), translation(O, vecteur((i + 1) * rayon / this.denIrred, 0)))
+        const s = segment(translation(O, vecteur(i * rayon / this.denIrred, 0)), translation(O, vecteur((i + 1) * rayon / this.denIrred, 0)))
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y), couleur)
+      const a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y), couleur)
       a.opacite = 0.4
       a.epaisseur = 6
       objets.push(a)
       objets.push(unegraduation(x, y))
       if (typeof (unite0) === 'number' && typeof (unite1) === 'number') {
         for (k = 0; k <= n + 1; k++) {
-          objets.push(texteParPosition(stringNombre(unite0 + k * (unite1 - unite0), 0), x + rayon * k, y - 0.6, 'milieu', 'black', scale))
+          objets.push(texteParPosition(stringNombre(unite0 + k * (unite1 - unite0), 0), x + rayon * k, y - 0.6, 0, 'black', scale, 'milieu', true, 1))
         }
       } else {
-        if (unite0 != null) { objets.push(texteParPosition(String(unite0), x, y - 0.6, 'milieu', 'black', scale)) }
-        if (unite1 != null) { objets.push(texteParPosition(String(unite1), x + rayon, y - 0.6, 'milieu', 'black', scale)) }
-        if (label != null) { objets.push(texteParPosition(label, x + rayon * this.numIrred / this.denIrred, y - 0.6, 'milieu', 'black', scale)) }
+        if (unite0 != null) { objets.push(texteParPosition(String(unite0), x, y - 0.6, 0, 'black', scale, 'milieu', true, 1)) }
+        if (unite1 != null) { objets.push(texteParPosition(String(unite1), x + rayon, y - 0.6, 0, 'black', scale, 'milieu', true, 1)) }
+        if (label != null) { objets.push(texteParPosition(label, x + rayon * this.numIrred / this.denIrred, y - 0.6, 0, 'black', scale, 'milieu', true, 1)) }
       }
     } else {
       let diviseur
@@ -1177,10 +1086,14 @@ class FractionEtendue extends Fraction {
       for (k = 0; k < n; k++) {
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < this.denIrred / diviseur; h++) {
-            O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
-            C = translation(O, vecteur(tailleCarres, 0))
-            dep = carre(O, C, 'black')
+            const O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
+            const C: Point = translation(O, vecteur(tailleCarres, 0))
+            const dep = carre(O, C, 'black')
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
@@ -1190,17 +1103,21 @@ class FractionEtendue extends Fraction {
       if (num > 0) {
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < this.denIrred / diviseur; h++) {
-            O = point(x + n * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
-            C = translation(O, vecteur(tailleCarres, 0))
-            dep = carre(O, C, 'black')
+            const O = point(x + n * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
+            const C = translation(O, vecteur(tailleCarres, 0))
+            const dep = carre(O, C, 'black')
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
-          O = point(x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
-          C = translation(O, vecteur(tailleCarres, 0))
-          dep = carre(O, C, 'black')
+          const O = point(x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
+          const C = translation(O, vecteur(tailleCarres, 0))
+          const dep = carre(O, C, 'black')
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }
@@ -1223,12 +1140,13 @@ class FractionEtendue extends Fraction {
   * @param {string} label ce qu'il faut écrire sous le segment ... x ?
   * @return {object[]}objets mathalea2d
   */
-  representation (x, y, rayon, depart = 0, type = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') {
+  representation (x: number, y:number, rayon:number, depart: number = 0, type: FractionRepresentationType = 'gateau', couleur = 'gray', unite0 = 0, unite1 = 1, scale = 1, label = '') {
     const objets = []
-    let num, k, dep, s, a, O, C
+    let num: number
+    let k: number
     const n = quotientier(Math.abs(this.num), Math.abs(this.den))
     num = Math.abs(this.num)
-    const unegraduation = function (x, y, couleur = 'black', epaisseur = 1) {
+    const unegraduation = function (x:number, y:number, couleur:string = 'black', epaisseur:number = 1) {
       const A = point(x, y + 0.2)
       const B = point(x, y - 0.2)
       const g = segment(A, B, couleur)
@@ -1240,14 +1158,13 @@ class FractionEtendue extends Fraction {
         const O = point(x + k * 2 * (rayon + 0.5), y)
         const C = cercle(O, rayon)
         objets.push(C)
-        let s, a
         for (let i = 0; i < this.den; i++) {
-          s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.den))
+          const s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.den))
           objets.push(s)
         }
-        dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.den)
+        let dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.den)
         for (let j = 0; j < Math.min(this.den, num); j++) {
-          a = arc(dep, O, -360 / this.den, true, couleur)
+          const a = arc(dep, O, -360 / this.den, true, couleur)
           a.opacite = 0.3
           dep = rotation(dep, O, -360 / this.den)
           objets.push(a)
@@ -1259,14 +1176,14 @@ class FractionEtendue extends Fraction {
         const C = cercle(O, rayon)
         objets.push(C)
         for (let i = 0; i < this.den; i++) {
-          s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.den))
+          const s = segment(O, rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - i * 360 / this.den))
           objets.push(s)
         }
 
-        dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.den)
+        let dep = rotation(point(x + rayon + k * 2 * (rayon + 0.5), y), O, 90 - depart * 360 / this.den)
         if (this.num % this.den !== 0) {
           for (let j = 0; j < Math.min(this.den, num); j++) {
-            a = arc(dep, O, -360 / this.den, true, couleur)
+            const a = arc(dep, O, -360 / this.den, true, couleur)
             a.opacite = 0.3
             dep = rotation(dep, O, -360 / this.den)
             objets.push(a)
@@ -1275,45 +1192,45 @@ class FractionEtendue extends Fraction {
       }
     } else if (type === 'segment') {
       for (k = 0; k < n; k++) {
-        O = point(x + k * rayon, y)
-        C = translation(O, vecteur(rayon, 0))
-        s = segment(O, C)
+        const O = point(x + k * rayon, y)
+        const C = translation(O, vecteur(rayon, 0))
+        const s = segment(O, C)
         s.styleExtremites = '-|'
         objets.push(s)
         for (let i = 0; i < this.den; i++) {
-          s = segment(translation(O, vecteur(i * rayon / this.den, 0)), translation(O, vecteur((i + 1) * rayon / this.den, 0)))
+          const s = segment(translation(O, vecteur(i * rayon / this.den, 0)), translation(O, vecteur((i + 1) * rayon / this.den, 0)))
           s.styleExtremites = '|-'
           objets.push(s)
         }
-        a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
+        const a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
         a.opacite = 0.4
         a.epaisseur = 6
         objets.push(a)
         num -= this.den
       }
-      O = point(x + k * rayon, y)
-      C = translation(O, vecteur(rayon, 0))
-      s = segment(O, C)
+      const O = point(x + k * rayon, y)
+      const C = translation(O, vecteur(rayon, 0))
+      const s = segment(O, C)
       s.styleExtremites = '-|'
       objets.push(s)
       for (let i = 0; i < this.den; i++) {
-        s = segment(translation(O, vecteur(i * rayon / this.den, 0)), translation(O, vecteur((i + 1) * rayon / this.den, 0)))
+        const s = segment(translation(O, vecteur(i * rayon / this.den, 0)), translation(O, vecteur((i + 1) * rayon / this.den, 0)))
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
+      const a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
       a.opacite = 0.4
       a.epaisseur = 6
       objets.push(a)
       objets.push(unegraduation(x, y))
       if (typeof (unite0) === 'number' && typeof (unite1) === 'number') {
         for (k = 0; k <= n + 1; k++) {
-          objets.push(texteParPosition(String(unite0 + k * (unite1 - unite0)), x + rayon * k, y - 0.6, 'milieu', 'black', scale))
+          objets.push(texteParPosition(String(unite0 + k * (unite1 - unite0)), x + rayon * k, y - 0.6, 0, 'black', scale, 'milieu', true, 1))
         }
       } else {
-        if (String(unite0) !== '') { objets.push(texteParPosition(String(unite0), x, y - 0.6, 'milieu', 'black', scale)) }
-        if (String(unite1) !== '') { objets.push(texteParPosition(String(unite1), x + rayon, y - 0.6, 'milieu', 'black', scale)) }
-        if (label !== '') { objets.push(texteParPosition(label, x + rayon * this.num / this.den, y - 0.6, 'milieu', 'black', scale)) }
+        if (String(unite0) !== '') { objets.push(texteParPosition(String(unite0), x, y - 0.6, 0, 'black', scale, 'milieu', true, 1)) }
+        if (String(unite1) !== '') { objets.push(texteParPosition(String(unite1), x + rayon, y - 0.6, 0, 'black', scale, 'milieu', true, 1)) }
+        if (label !== '') { objets.push(texteParPosition(label, x + rayon * this.num / this.den, y - 0.6, 0, 'black', scale, 'milieu', true, 1)) }
       }
     } else { // Type barre
       let diviseur
@@ -1334,11 +1251,14 @@ class FractionEtendue extends Fraction {
       for (k = 0; k < n; k++) { // on fait autant de plaques que d'unités entières
         for (let j = 0; j < diviseur; j++) { // on fait this.den carrés répartis sur this.den/diviseur lignes de diviseur de long
           for (let h = 0; h < this.den / diviseur; h++) {
-            O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
-            C = translation(O, vecteur(tailleCarres, 0))
-            dep = carre(O, C, 'black')
-
+            const O = point(x + k * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
+            const C = translation(O, vecteur(tailleCarres, 0))
+            const dep = carre(O, C, 'black')
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             dep.opaciteDeRemplissage = 0.4
             objets.push(dep)
           }
@@ -1348,17 +1268,21 @@ class FractionEtendue extends Fraction {
       if (num > 0) { // il reste une portion d'unité à faire après n unités.
         for (let j = 0; j < diviseur; j++) {
           for (let h = 0; h < this.den / diviseur; h++) {
-            O = point(x + n * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
-            C = translation(O, vecteur(tailleCarres, 0))
-            dep = carre(O, C, 'black')
+            const O = point(x + n * (diviseur * tailleCarres + 1) + j * tailleCarres, y + h * tailleCarres)
+            const C = translation(O, vecteur(tailleCarres, 0))
+            const dep = carre(O, C, 'black')
             objets.push(dep)
           }
         }
         for (let i = 0; i < num; i++) {
-          O = point(x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
-          C = translation(O, vecteur(tailleCarres, 0))
-          dep = carre(O, C, 'black')
+          const O = point(x + n * (diviseur * tailleCarres + 1) + (i % diviseur) * tailleCarres, y + quotientier(i, diviseur) * tailleCarres)
+          const C = translation(O, vecteur(tailleCarres, 0))
+          const dep = carre(O, C, 'black')
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           dep.couleurDeRemplissage = colorToLatexOrHTML(couleur)
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
           dep.opaciteDeRemplissage = 0.4
           objets.push(dep)
         }
@@ -1377,7 +1301,7 @@ class FractionEtendue extends Fraction {
  * @param {number} d2 dénominateur de la 2e fraction
  * @return array avec la liste des couples de fractions égales et simplifiées sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
  */
-  static texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees (n1, d1, n2, d2) {
+  static texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees (n1:number, d1: number, n2: number, d2: number) {
     return this.texArrayReponsesCoupleDeFractions(n1, d1, n2, d2, true)
   }
 
@@ -1389,7 +1313,7 @@ class FractionEtendue extends Fraction {
  * @param {number} d dénominateur
  * @return array avec la liste des fractions égales et simplifiées sous la forme '\\frac{n}{d}'
  */
-  static texArrayReponsesFractionsEgalesEtSimplifiees (n, d) {
+  static texArrayReponsesFractionsEgalesEtSimplifiees (n:number, d:number) {
     const fractionsSimplifiees = this.listerFractionsSimplifiees(n, d)
     const liste = []
     for (const fractionSimplifiee of fractionsSimplifiees) {
@@ -1412,7 +1336,7 @@ class FractionEtendue extends Fraction {
  * @param {boolean} egalesEtSimplifiees true si on veut inclure l'ensemble des fractions égales et simplifiées
  * @return array avec la liste des couples de fractions sous la forme '\\frac{n1}{d1};\\frac{n2}{d2}'
  */
-  static texArrayReponsesCoupleDeFractions (n1, d1, n2, d2, egalesEtSimplifiees = false) {
+  static texArrayReponsesCoupleDeFractions (n1: number, d1: number, n2: number, d2: number, egalesEtSimplifiees: boolean = false) {
     let listeFraction1, listeFraction2
     if (egalesEtSimplifiees) {
       listeFraction1 = this.texArrayReponsesFractionsEgalesEtSimplifiees(n1, d1)
@@ -1437,7 +1361,7 @@ class FractionEtendue extends Fraction {
  * @param {number} denominateur
  * @return array avec l'ensemble des possibilités d'écriture d'une même  FractionMathjs  au format LateX
  */
-  static texArrayReponsesFraction (numerateur, denominateur) {
+  static texArrayReponsesFraction (numerateur: number, denominateur: number) {
     const n = Math.abs(numerateur)
     const d = Math.abs(denominateur)
     if (d === 1) {
@@ -1461,7 +1385,7 @@ class FractionEtendue extends Fraction {
  * @param {number} d
  * @return array de couples [numerateur, denominateur] de l'ensemble des fractions égales et simplifiées
  */
-  static listerFractionsSimplifiees (n, d) {
+  static listerFractionsSimplifiees (n:number, d:number) {
     if (pgcd(n, d) === 1) {
       return [[n, d]]
     } else {

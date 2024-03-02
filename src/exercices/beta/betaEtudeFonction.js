@@ -5,7 +5,7 @@ import { tableauSignesFonction, tableauVariationsFonction } from '../../lib/math
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice'
-import FractionEtendue from '../../modules/FractionEtendue.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 
 export const titre = 'Recherche d\'antécédents'
 export const interactifReady = true

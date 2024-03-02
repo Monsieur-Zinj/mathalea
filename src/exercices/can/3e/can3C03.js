@@ -1,4 +1,4 @@
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
   obtenirListeFractionsIrreductibles
