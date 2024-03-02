@@ -65,7 +65,7 @@
       if (mf) {
         // ToDo : gérer les QCM
         mf.addEventListener('input', (e) => {
-          console.log(e)
+          // console.log(e)
           if (e instanceof InputEvent && e.data === 'insertLineBreak') {
             nextQuestion()
           }

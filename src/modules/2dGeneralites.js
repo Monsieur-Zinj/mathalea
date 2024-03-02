@@ -91,8 +91,8 @@ export function mathalea2d (
             } else {
               const xSvg = (code.x - xmin) * pixelsParCm * zoom
               const ySvg = -(code.y - ymax) * pixelsParCm * zoom
-              const part1 = code.divLatex.substring(0, 81)
-              const part2 = code.divLatex.substring(81)
+              const part1 = code.divLatex.substring(0, 81) // MGU CODE DANGEREUX... on coupe au guillement mais non pris
+              const part2 = code.divLatex.substring(82) // MGU CODE DANGEREUX... on ne prend pas le guillement
               const codeHtml = part1 + ` top: ${ySvg}px; left: ${xSvg}px;" data-top=${ySvg} data-left=${xSvg}` + part2
               divsLatex.push(codeHtml)
             }
