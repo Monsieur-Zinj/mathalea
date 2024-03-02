@@ -23,6 +23,10 @@ const numbersOperationsCaps: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', 'PI', 'DIV', 'MULT', 'SUB', 'ADD'],
   block: [7, 8, 9, 'DIV', 4, 5, 6, 'MULT', 1, 2, 3, 'SUB', 0, 'COMMA', 'PI', 'ADD']
 }
+const numbersOperationsXCaps: CompleteKeysList = {
+  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', 'x', 'DIV', 'MULT', 'SUB', 'ADD'],
+  block: [7, 8, 9, 'DIV', 4, 5, 6, 'MULT', 1, 2, 3, 'SUB', 0, 'COMMA', 'x', 'ADD']
+}
 const variableCaps: CompleteKeysList = {
   inline: ['a', 'b', 'c', 'x', 'y', 'z', 'k', 'n', 'i'],
   block: ['a', 'x', 'k', 'b', 'y', 'n', 'c', 'z', 'i', 'V', 'F']
@@ -67,31 +71,35 @@ const advancedCaps: CompleteKeysList = {
     'COMP', 'REAL', 'RATIO', 'REL', 'INTEG'
   ]
 }
-
+// @ts-expect-error Problème de typage
 const lengthUnitsKeys = Object.keys(keys).filter(k => k.includes('LENGTH')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const lengthsCaps: CompleteKeysList = {
   inline: Object.keys(lengthUnitsKeys) as KeysList,
   block: Object.keys(lengthUnitsKeys) as KeysList
 }
 
+// @ts-expect-error Problème de typage
 const areasUnitsKeys = Object.keys(keys).filter(k => k.includes('AREA')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const areasCaps: CompleteKeysList = {
   inline: Object.keys(areasUnitsKeys) as KeysList,
   block: Object.keys(areasUnitsKeys) as KeysList
 }
 
+// @ts-expect-error Problème de typage
 const volumesUnitsKeys = Object.keys(keys).filter(k => k.includes('VOLUME')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const volumesCaps: CompleteKeysList = {
   inline: Object.keys(volumesUnitsKeys) as KeysList,
   block: Object.keys(volumesUnitsKeys) as KeysList
 }
 
+// @ts-expect-error Problème de typage
 const capacitiesUnitsKeys = Object.keys(keys).filter(k => k.includes('CAPACITY')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const capacitiesCaps: CompleteKeysList = {
   inline: Object.keys(capacitiesUnitsKeys) as KeysList,
   block: Object.keys(capacitiesUnitsKeys) as KeysList
 }
 
+// @ts-expect-error Problème de typage
 const massesUnitsKeys = Object.keys(keys).filter(k => k.includes('MASS')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const massesCaps: CompleteKeysList = {
   inline: Object.keys(massesUnitsKeys) as KeysList,
@@ -118,6 +126,13 @@ export const numbers2: KeyboardBlock = {
 }
 export const numbersOperations: KeyboardBlock = {
   keycaps: numbersOperationsCaps,
+  cols: 4,
+  title: 'Nombres+Opérations',
+  isUnits: false
+}
+
+export const numbersOperationsX: KeyboardBlock = {
+  keycaps: numbersOperationsXCaps,
   cols: 4,
   title: 'Nombres+Opérations',
   isUnits: false
@@ -218,6 +233,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   numbers,
   numbers2,
   numbersOperations,
+  numbersOperationsX,
   greek,
   trigo,
   hms,

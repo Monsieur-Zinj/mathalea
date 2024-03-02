@@ -9,6 +9,7 @@ export type BlockForKeyboard =
   | 'numbers'
   | 'numbers2'
   | 'numbersOperations'
+  | 'numbersOperationsX'
   | 'variables'
   | 'basicOperations'
   | 'basicOperations2'
@@ -54,7 +55,7 @@ export class Keyboard {
     return this
   }
 
-  empty = (): Keyboard => {
+  empty = (): void => {
     this.blocks.length = 0
     this.blocks.push(specialKeys)
   }
