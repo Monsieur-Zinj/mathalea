@@ -19,7 +19,7 @@ import {
   quotientier,
   egal, ppcm
 } from './outils.js'
-import { abs, multiply, gcd, round, lcm, max, min, fraction } from 'mathjs'
+import { abs, multiply, gcd, round, lcm, max, min } from 'mathjs'
 import { colorToLatexOrHTML } from './2dGeneralites.js'
 import Decimal from 'decimal.js'
 
@@ -223,62 +223,64 @@ class FractionEtendue {
 
   constructor (n: number, d: number) {
     const [num, den] = normalizeFraction(n, d)
+    console.log(num, den)
     if (isNaN(num) || isNaN(den)) throw Error(`Fraction Etendue les données ne permettent pas de définir une fraction : n=${n}, d=${d}`)
-    const pgcd = gcd(num, den)
+    const pgcd = (Math.abs(num) === 1 && Math.abs(den) === 1) ? 1 : gcd(Math.abs(num), Math.abs(den))
+    const numIrred = num / pgcd
+    const denIrred = den / pgcd
     this.num = num
     this.den = den
-    this.n = Math.abs(this.num / pgcd)
-    this.d = Math.abs(this.den / pgcd)
-    const prodNumDen = this.num * this.den
+    this.n = Math.abs(num / pgcd)
+    this.d = Math.abs(den / pgcd)
+    const prodNumDen = num * den
     /**
      * le signe de la  FractionMathjs  : -1 pour négatif , 0 ou 1 pour positif
      * Au cas où quelqu'un oublie le e de this.signe
      * @type {number}
      */
-    this.s = prodNumDen < 0 ? -1 : 1 // pour compatibilité avec les Fraction de mathjs
-    this.signe = this.s
-    this.sign = this.signe // Pour le cas où on utilise signe en anglais
+    const signe = prodNumDen < 0 ? -1 : 1
+    this.s = signe// pour compatibilité avec les Fraction de mathjs
+    this.signe = signe
+    this.sign = signe // Pour le cas où on utilise signe en anglais
     this.type = 'FractionEtendue'
 
-    this.numIrred = this.simplifie().num
+    this.numIrred = num / pgcd
 
-    this.denIrred = this.simplifie().den
+    this.denIrred = den / pgcd
 
-    this.pourcentage = arrondi(this.num * 100 / this.den, 2)
+    this.pourcentage = arrondi(num * 100 / den, 2)
 
-    this.signeString = this.signe === -1 ? '-' : this.signe === 1 ? '+' : ''
+    this.signeString = signe === -1 ? '-' : signe === 1 ? '+' : ''
 
-    this.texFraction = this.den === 1 ? `${texNombre(this.num, 0)}` : `\\dfrac{${texNombre(this.num, 0)}}{${texNombre(this.den, 0)}}`
+    this.texFraction = den === 1 ? `${texNombre(num, 0)}` : `\\dfrac{${texNombre(num, 0)}}{${texNombre(den, 0)}}`
 
-    this.texFractionSR = `\\dfrac{${signeMoinsEnEvidence(this.num)}}{${signeMoinsEnEvidence(this.den)}}`
+    this.texFractionSR = `\\dfrac{${signeMoinsEnEvidence(num)}}{${signeMoinsEnEvidence(den)}}`
 
-    this.texFSD = this.signe === -1 ? Math.abs(this.den) === 1 ? '-' + String(texNombre(Math.abs(this.num), 0)) : `-\\dfrac{${texNombre(Math.abs(this.num), 0)}}{${texNombre(Math.abs(this.den), 0)}}` : Math.abs(this.den) === 1 ? String(texNombre(Math.abs(this.num), 0)) : `\\dfrac{${texNombre(Math.abs(this.num), 0)}}{${texNombre(Math.abs(this.den), 0)}}`
+    this.texFSD = signe === -1 ? Math.abs(den) === 1 ? '-' + String(texNombre(Math.abs(num), 0)) : `-\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}` : Math.abs(den) === 1 ? String(texNombre(Math.abs(num), 0)) : `\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`
 
-    this.texFractionSignee = this.signe === -1 ? this.texFSD : '+' + this.texFSD
+    this.texFractionSignee = signe === -1 ? this.texFSD : '+' + this.texFSD
 
-    this.valeurDecimale = arrondi(this.num / this.den, 6)
+    this.valeurDecimale = arrondi(num / den, 6)
 
     this.texFractionSaufUn = this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '' : this.texFSD
 
     this.texFractionSaufUnSignee = this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '+' : this.texFractionSignee
 
-    this.texFSP = this.signe > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+    this.texFSP = signe > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
-    this.texParentheses = this.den === 1 && this.signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+    this.texParentheses = den === 1 && signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
-    this.texFractionSimplifiee = this.simplifie().texFSD
+    this.texFractionSimplifiee = signe === 1 ? `\\dfrac{${Math.abs(numIrred)}{${Math.abs(denIrred)}})` : `-\\dfrac{${Math.abs(numIrred)}{${Math.abs(denIrred)}})`
 
-    this.ecritureAlgebrique = this.signe === 1 ? '+' + this.texFSD : this.texFSD
+    this.ecritureAlgebrique = signe === 1 ? '+' + this.texFSD : this.texFSD
 
-    this.ecritureParentheseSiNegatif = this.signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+    this.ecritureParentheseSiNegatif = signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
-    this.estEntiere = this.denIrred === 1
+    this.estEntiere = denIrred === 1
 
-    this.estParfaite = this.racineCarree() !== false
+    this.estParfaite = Number.isInteger(Math.sqrt(num)) && Number.isInteger(Math.sqrt(den))
 
-    this.estIrreductible = gcd(this.num, this.den) === 1 && this.den !== 1
-    console.log(fraction(this.num, this.den))
-    console.log(JSON.stringify(fraction(this.num, this.den)))
+    this.estIrreductible = gcd(num, den) === 1 && den !== 1
   }
 
   /**
