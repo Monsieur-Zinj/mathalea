@@ -9,6 +9,7 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { grille } from '../../../lib/2d/reperes.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { sp } from '../../../lib/outils/outilString'
 export const titre = 'Déterminer la longueur d\'une ligne brisée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,7 +17,6 @@ export const uuid = 'd0a64'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -82,7 +82,7 @@ export default class NomExercice extends Exercice {
         scale: 0.5,
         style: 'margin: auto'
       }, objets) + '<br>'
-      this.optionsChampTexte = { texteApres: 'u.l.' }
+      this.optionsChampTexte = { texteApres: sp() + 'u.l.' }
       this.correction = `Une unité correspond à $4$ carreaux, la ligne brisée mesure $10$ carreaux, soit $\\dfrac{${miseEnEvidence('10')}}{${miseEnEvidence('4')}}$ u.l. ou
        plus simplement $\\dfrac{${miseEnEvidence('5')}}{${miseEnEvidence('2')}}$ u.l. `
 

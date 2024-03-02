@@ -12,7 +12,6 @@ export const uuid = '8a4eb'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -26,8 +25,8 @@ export default class NomExercice extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.question = `Moyenne de la série : <br>
-      $12$ ${sp(4)} ; ${sp(4)} $7$ ${sp(4)} ; ${sp(4)} $8$${sp(4)} ; ${sp(4)} $13$<br>`
+      this.question = `Moyenne de la série : 
+      ${sp(2)} $12$ ${sp(2)} ; ${sp(2)} $7$ ${sp(2)} ; ${sp(2)} $8$${sp(2)} ; ${sp(2)} $13$<br>`
       this.correction = `En rassemblant astucieusement, la somme des $4$ nombres est : $\\underbrace{12+8}_{20}+\\underbrace{13+7}_{20} =40$.<br>
             La moyenne est donc $\\dfrac{40}{4}=${miseEnEvidence('10')}$.`
       this.reponse = 10
