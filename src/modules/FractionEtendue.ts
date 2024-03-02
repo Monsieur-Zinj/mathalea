@@ -221,8 +221,12 @@ class FractionEtendue {
    */
   estIrreductible: boolean
 
-  constructor (n: number, d: number) {
-    const [num, den] = normalizeFraction(n, d)
+  constructor (n: number|FractionEtendue, d: number) {
+    if (d == null && n instanceof FractionEtendue) {
+      d = n.den
+      n = n.num
+    }
+    const [num, den] = normalizeFraction(n as number, d)
     console.log(num, den)
     if (isNaN(num) || isNaN(den)) throw Error(`Fraction Etendue les données ne permettent pas de définir une fraction : n=${n}, d=${d}`)
     const pgcd = (Math.abs(num) === 1 && Math.abs(den) === 1) ? 1 : gcd(Math.abs(num), Math.abs(den))
