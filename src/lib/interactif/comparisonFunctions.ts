@@ -845,7 +845,7 @@ export function functionCompare (input: string, goodAnswer: {fonction: string, v
   const goodAnswerFn = engine.parse(cleanAnswer).compile()
 
   let isOk = true
-  if (inputFn == null || goodAnswerFn == null) throw Error(`fonctionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
+  if (inputFn == null || goodAnswerFn == null) throw Error(`functionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
   const [a, b, c] = [Math.random(), Math.random(), Math.random()]
   for (const x of [a, b, c]) {
     const variable = Object.fromEntries([[goodAnswer.variable, x]])
@@ -871,7 +871,7 @@ export function functionXyCompare (input: string, goodAnswer: {fonction: string,
   const goodAnswerFn = engine.parse(cleanAnswer).compile()
 
   let isOk = true
-  if (inputFn == null || goodAnswerFn == null) throw Error(`fonctionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
+  if (inputFn == null || goodAnswerFn == null) throw Error(`functionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
   const [a, b, c] = [Math.random(), Math.random(), Math.random()]
   const [A, B, C] = [Math.random(), Math.random(), Math.random()]
   for (const x of [a, b, c]) {

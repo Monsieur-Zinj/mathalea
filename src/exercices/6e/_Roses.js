@@ -190,13 +190,13 @@ export class Rose {
         if (!(this.type === 'can1' && (this.indexInconnue === i || i === (this.indexInconnue - 1) % this.nombreDeValeurs || i === (this.indexInconnue + 1) % this.nombreDeValeurs))) {
           if (!(this.type === 'can2' && (this.indexInconnue === i || i === (this.indexInconnue + 1) % this.nombreDeValeurs))) {
             if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
-              objets.push(texteParPoint(this.values[i].toString(), M, 'milieu', 'black', 1, 'middle', true))
+              objets.push(texteParPoint(this.values[i], M, 0, 'black', 1, 'milieu', true))
             } else {
               if (this.typeDonnees !== 'litteraux') {
                 if (this.values[i] instanceof FractionEtendue) {
-                  objets.push(latexParCoordonnees(this.values[i].toLatex(), M.x, M.y, 'black', 0, 0, 'none', 8))
+                  objets.push(latexParCoordonnees(this.values[i].texFSD, M.x, M.y, 'black', 0, 0, 'none', 8))
                 } else {
-                  objets.push(texteParPoint(String(this.values[i]), M, 'milieu', 'black', 1, 'middle', true))
+                  objets.push(texteParPoint(String(this.values[i]), M, 0, 'black', 1, 'milieu', true))
                 }
               } else {
                 objets.push(latexParCoordonneesBox(this.values[i], M2.x, M2.y, 'black', 50, 12, 'none', 8, { anchor: 'center' }))
@@ -211,9 +211,13 @@ export class Rose {
       if (this.type === 'solutions' || this.type === 'valeurs' || this.type === 'can1' || this.type === 'can2') { // on ajoute les produits
         if (!(this.type === 'can2' && this.indexInconnue === i)) {
           if (this.typeDonnees !== 'litteraux' && this.typeDonnees.substring(0, 4) !== 'frac') {
-            objets.push(texteParPoint((this.resultats[i]).toString(), P, 'milieu', 'black', 1, 'middle', true))
+            objets.push(texteParPoint((this.resultats[i]), P, 0, 'black', 1, 'milieu', true))
           } else {
-            objets.push(latexParCoordonnees(String(this.resultats[i]), P.x, P.y, 'black', 0, 0, 'none', 8))
+            if (this.resultats[i] instanceof FractionEtendue) {
+              objets.push(latexParCoordonnees(this.resultats[i].texFSD, P.x, P.y, 'black', 0, 0, 'none', 8))
+            } else {
+              objets.push(latexParCoordonnees(String(this.resultats[i]), P.x, P.y, 'black', 0, 0, 'none', 8))
+            }
           }
         }
         if (this.type === 'can2' && this.indexInconnue === i) {
@@ -225,7 +229,11 @@ export class Rose {
           }
         }
       } else {
-        objets.push(texteParPoint(this.cellulesPreremplies[i], P, 'milieu', 'black', 1, 'middle', true))
+        if (this.cellulesPreremplies[i] instanceof FractionEtendue) {
+          objets.push(texteParPoint(this.cellulesPreremplies[i].texFSD, P, 0, 'black', 1, 'milieu', true))
+        } else {
+          objets.push(texteParPoint(this.cellulesPreremplies[i], P, 0, 'black', 1, 'milieu', true))
+        }
       }
 
       objets.push(bulle2)

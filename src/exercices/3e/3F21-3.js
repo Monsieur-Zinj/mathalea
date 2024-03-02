@@ -14,7 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { fonctionCompare, equalFractionCompare } from '../../lib/interactif/comparisonFunctions'
+import { functionCompare, equalFractionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"
 export const interactifReady = true
@@ -133,7 +133,7 @@ export default function PenteEtOrdonneeOrigineDroite () {
 
       if (vocabulaire === 'affine') setReponse(this, questionInteractif, b)
       handleAnswers(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}`, compare: equalFractionCompare } }, { formatInteractif: 'fractionEgale' })
-      handleAnswers(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}x+${b}`, compare: fonctionCompare } }, { formatInteractif: 'calcul' })
+      handleAnswers(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, { reponse: { value: `\\frac{${num}}{${den}}x+${b}`, compare: functionCompare } }, { formatInteractif: 'calcul' })
 
       texte = introduction + '<br>' + (vocabulaire === 'affine' ? (question1 + '<br>') : '') + question2 + '<br>' + question3
       texteCorr = (vocabulaire === 'affine' ? (correction1 + '<br>') : '') + correction2 + '<br>' + correction3

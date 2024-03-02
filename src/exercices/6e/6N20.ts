@@ -261,5 +261,5 @@ export default class ExerciceFractionsDecomposer extends Exercice {
 }
 
 function texFraction (a: number | string, b: number | string): string {
-  return `\\frac{${a}}{${b}}`
+  return `\\dfrac{${a}}{${b}}`
 }

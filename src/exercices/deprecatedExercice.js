@@ -1,3 +1,5 @@
+import FractionEtendue from '../modules/FractionEtendue'
+
 /**
  *
  *  Classe parente de tous les exercices (à remplacer par Exercice.ts à partir de janvier 2024)
@@ -120,7 +122,7 @@ export default function Exercice () {
     if (i === 0) this.listeArguments = []
     let argsConcatenes = ''
     for (const arg of args) {
-      if (arg !== undefined) argsConcatenes += arg.toString()
+      if (arg !== undefined) argsConcatenes += (arg instanceof FractionEtendue ? arg.texFraction : arg.toString())
     }
     if (this.listeArguments.indexOf(argsConcatenes) > -1) {
       return false
