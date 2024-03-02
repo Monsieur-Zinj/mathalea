@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { SvelteComponent } from 'svelte'
   import type { CanState } from '../../../../lib/types/can'
   import Question from './Question.svelte'
   import Pagination from './Pagination.svelte'
@@ -7,6 +8,9 @@
   import Keyboard from '../../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../../keyboard/stores/keyboardStore'
   import Timer from './Timer.svelte'
+  interface TimerComponent extends SvelteComponent {
+    terminateTimer: () => void
+  }
 
   export let state: CanState
   export let numberOfSeconds: number = 20
@@ -15,12 +19,13 @@
   export let questions: string[]
   export let consignes: string[]
   const numberOfQuestions: number = questions.length
+  let timerComponent: TimerComponent
 
-  function endTimer () {
-    /**
-     * Timer fini
-     * A Continuer
-     */
+  function endTimer (e: CustomEvent) {
+    const du = parseInt(e.detail.duration)
+    const el = parseInt(e.detail.elapsed)
+    $canOptions.remainingTimeInSeconds =
+      el >= du ? 0 : Math.floor((du - el) / 1000)
     handleEndOfRace()
   }
   /**
@@ -47,6 +52,7 @@
 >
   <div class="w-full flex flex-col">
     <Timer
+      bind:this={timerComponent}
       durationInMilliSeconds={numberOfSeconds * 1000}
       on:message={endTimer}
     />
@@ -60,11 +66,15 @@
   <div
     id="questions-container"
     class="flex flex-col justify-center items-center font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus text-3xl md:text-5xl
-     {$keyboardState.isVisible && !$keyboardState.isInLine ? 'h-[calc(100%-30rem)]' : ''}
-     {$keyboardState.isVisible && $keyboardState.isInLine ? 'h-[calc(100%-20rem)]' : ''}
+     {$keyboardState.isVisible && !$keyboardState.isInLine
+       ? 'h-[calc(100%-30rem)]'
+       : ''}
+     {$keyboardState.isVisible && $keyboardState.isInLine
+       ? 'h-[calc(100%-20rem)]'
+       : ''}
      {!$keyboardState.isVisible ? 'h-full' : ''} w-full"
   >
-    {#each [...Array(numberOfQuestions).keys()] as i }
+    {#each [...Array(numberOfQuestions).keys()] as i}
       <Question
         consigne={consignes[i]}
         question={questions[i]}
@@ -78,12 +88,19 @@
     {/each}
   </div>
   <div
-    class="flex justify-center w-full {$keyboardState.isVisible && $keyboardState.isInLine ? 'mb-20' : ''} {$keyboardState.isVisible && !$keyboardState.isInLine ? 'mb-52' : ''}"
+    class="flex justify-center w-full {$keyboardState.isVisible &&
+    $keyboardState.isInLine
+      ? 'mb-20'
+      : ''} {$keyboardState.isVisible && !$keyboardState.isInLine
+        ? 'mb-52'
+        : ''}"
   >
     <NavigationButtons
       bind:current
       {numberOfQuestions}
-      {handleEndOfRace}
+      handleEndOfRace={() => {
+        timerComponent.terminateTimer()
+      }}
       {state}
       resultsByQuestion={[]}
     />

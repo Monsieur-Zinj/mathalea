@@ -27,30 +27,7 @@
     loadMathLive()
   })
 
-  // document.addEventListener('KeyboardUpdated', function() {
-  //   // on recalcul quand le clavier est affiché et pas avant
-  //   if (visible) {
-  //     console.log('message reçu: ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
-  //     const questionContent = document.getElementById(`question-content-${index}`) as HTMLDivElement
-  //     if (questionContent) setSizeWithinSvgContainer(questionContent)
-  //   }
-  // })
-
-  // keyboardState.subscribe((value) => {
-  //   if (visible) {
-  //     // console.log('message reçu: ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
-  //     const questionContent = document.getElementById(`question-content-${index}`) as HTMLDivElement
-  //     if (questionContent) setSizeWithinSvgContainer(questionContent)
-  //     // console.log('message reçu fin : ' + 'KeyboardUpdated' + ', le clavier a changé de forme')
-  //   }
-  //   return value
-  // })
-
   afterUpdate(() => {
-    // const questionsContainer = document.getElementById('questions-container') as HTMLDivElement
-    // if (questionsContainer) {
-    //  setSizeWithinSvgContainer(questionsContainer)
-    // }
     if (visible) {
       const questionContent = document.getElementById(
         `question-content-${index}`
@@ -65,15 +42,12 @@
       if (mf) {
         // ToDo : gérer les QCM
         mf.addEventListener('input', (e) => {
-          // console.log(e)
           if (e instanceof InputEvent && e.data === 'insertLineBreak') {
             nextQuestion()
           }
           if (mf.value !== '') {
-            // console.log('input', index)
             $canOptions.questionGetAnswer[index] = true
           } else {
-            // console.log('input empty', index)
             $canOptions.questionGetAnswer[index] = false
           }
         })

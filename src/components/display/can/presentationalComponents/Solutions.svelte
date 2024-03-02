@@ -17,6 +17,7 @@
   export let time: string
   export let score: string
   const numberOfQuestions: number = questions.length
+  const solutionDisplayed: boolean[] = new Array(numberOfQuestions).fill(false)
 
   let displayCorrection = true
 
@@ -53,7 +54,12 @@
 >
   {#if $canOptions.solutionsMode === 'split'}
     <div class="w-full flex flex-col">
-      <Pagination bind:current {numberOfQuestions} {resultsByQuestion} state={'solutions'} />
+      <Pagination
+        bind:current
+        {numberOfQuestions}
+        {resultsByQuestion}
+        state={'solutions'}
+      />
     </div>
     <div
       class="flex flex-col justify-center items-center font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus text-3xl md:text-5xl"
@@ -96,11 +102,13 @@
   {/if}
   {#if $canOptions.solutionsMode === 'gathered'}
     <div
-      class="w-full flex justify-center items-center p-6  bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas text-5xl md:text-7xl font-black"
+      class="w-full flex justify-center items-center p-6 bg-coopmaths-struct text-coopmaths-canvas dark:bg-coopmathsdark-struct dark:text-coopmathsdark-canvas text-5xl md:text-7xl font-black"
     >
       Corrections
     </div>
-    <div class="w-full grid grid-rows-3 md:grid-cols-3 py-4 px-4 md:px-10 mb-10">
+    <div
+      class="w-full grid grid-rows-3 md:grid-cols-3 py-4 px-4 md:px-10 mb-10"
+    >
       {#if $canOptions.isInteractive}
         <div
           id="score"
@@ -142,24 +150,34 @@
               Question {i + 1}
             </div>
             <div class={$canOptions.isInteractive ? 'flex text-xl' : 'hidden'}>
-              <i
-                class="pl-2 bx {resultsByQuestion[i]
-                  ? 'bxs-check-square text-coopmaths-warn-800 dark:text-green-500'
-                  : 'bxs-x-square text-red-500 dark:text-coopmathsdark-warn'}"
-              />
+              {#if resultsByQuestion[i]}
+                <button
+                type="button"
+                on:click={() => {
+                  solutionDisplayed[i] = !solutionDisplayed[i]
+                }}>
+                  <i
+                    class="pl-2 bx bxs-check-square text-coopmaths-warn-800 dark:text-green-500"
+                  />
+                </button>
+              {:else}
+                <i
+                  class="pl-2 bx bxs-x-square text-red-500 dark:text-coopmathsdark-warn"
+                />
+              {/if}
             </div>
           </div>
           <div class="flex flex-col">
             <div
               class="p-2 text-pretty text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-              hidden={resultsByQuestion[i] && displayCorrection}
+              hidden={!solutionDisplayed[i] && resultsByQuestion[i] && displayCorrection}
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html removeMF(questions[i])}
             </div>
             <div
               class="p-2 text-pretty bg-coopmaths-warn-200 dark:bg-coopmathsdark-warn-lightest text-coopmaths-corpus dark:text-coopmathsdark-corpus-darkest"
-              hidden={resultsByQuestion[i] && displayCorrection}
+              hidden={!solutionDisplayed[i] && resultsByQuestion[i] && displayCorrection}
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html consignesCorrections[i]}
