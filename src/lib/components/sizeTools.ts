@@ -19,21 +19,13 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
   let zoom = 3 // parseFloat(fontSize) / 16
   parent.style.fontSize = `${zoom}rem` // on remet zoom à 3... au départ
 
-  // console.log('parent.clientWidth:' + parent.clientWidth + ';parent.clientHeight:' + parent.clientHeight)
-  // console.log('parent.scrollWidth:' + parent.scrollWidth + ';parent.scrollHeight:' + parent.scrollHeight)
-  // console.log('firstChild.clientWidth:' + parent.firstElementChild.clientWidth + ';firstChild.clientHeight:' + parent.firstElementChild.clientHeight)
-  // console.log('firstChild.scrollWidth:' + parent.firstElementChild.scrollWidth + ';firstChild.scrollHeight:' + parent.firstElementChild.scrollHeight)
-
   const originalClientWidth = parent.clientWidth
   const originalClientHeight = parent.clientHeight
 
   const svgContainers = parent.getElementsByClassName('svgContainer')
-  // if (svgContainers.length > 0 || (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth)) {
-  // la question contient des figures SVG OU il y a un scrollbar
-  // const fontSize = window.getComputedStyle(parent, null).getPropertyValue('font-size')
 
   do {
-    console.log('zoom:' + zoom)
+    // console.log('zoom:' + zoom)
     if (svgContainers.length > 0) {
       for (const svgContainer of svgContainers) {
         svgContainer.classList.add('flex')
@@ -42,10 +34,6 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
       }
     }
     if (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth) {
-      // console.log('attention: scrollHeight > originalClientHeight')
-      // console.log('originalClientWidth:' + originalClientWidth + ';originalClientHeight:' + originalClientHeight)
-      // console.log('parent.scrollWidth:' + parent.scrollWidth + ';parent.scrollHeight:' + parent.scrollHeight)
-      // console.log('parent.offsetWidth:' + parent.offsetWidth + ';parent.offsetHeight:' + parent.offsetHeight)
       zoom -= 0.2
       if (zoom >= 1) parent.style.fontSize = `${zoom}rem`
     }

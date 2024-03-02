@@ -3,7 +3,6 @@
   import { swipe } from 'svelte-gestures'
   import type { CanState } from '../../../../lib/types/can'
   import { Modal, initTE } from 'tw-elements'
-  import { canOptions } from '../../../../lib/stores/canStore'
   import ShortPagination from './ShortPagination.svelte'
 
   export let current: number
@@ -14,11 +13,17 @@
 
   onMount(() => {
     initTE({ Modal })
+    setTimeout(() => {
+      const endButtonDiv = document.getElementById('race-ended-by-user-btn')
+      if (endButtonDiv) {
+        endButtonDiv.removeAttribute('disabled')
+      }
+    }, 30 * 1000)
   })
 
   let direction
 
-  function handleSwipe (event) {
+  function handleSwipe (event: CustomEvent) {
     direction = event.detail.direction
     if (direction === 'left' && current < numberOfQuestions - 1) {
       current += 1
@@ -30,14 +35,14 @@
 </script>
 
 <div
-use:swipe={{ timeframe: 300, minSwipeDistance: 60 }}
-on:swipe={handleSwipe}
+  use:swipe={{ timeframe: 300, minSwipeDistance: 60 }}
+  on:swipe={handleSwipe}
   class="w-full pb-8 md:pb-10 px-10 space-y-4 flex flex-col md:flex-row justify-start md:justify-between items-center"
 >
   <div></div>
   <div class="flex flex-row space-x-10">
     <button
-    class="md:hidden flex justify-center items-center"
+      class="md:hidden flex justify-center items-center"
       type="button"
       on:click={() => {
         if (current >= 10) {
@@ -67,7 +72,7 @@ on:swipe={handleSwipe}
               : 'text-opacity_100 hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest'}"
       ></i>
     </button>
-    <ShortPagination {current} {state} {resultsByQuestion}/>
+    <ShortPagination {current} {state} {resultsByQuestion} />
     <button
       type="button"
       on:click={() => {
@@ -105,10 +110,10 @@ on:swipe={handleSwipe}
       <button
         id="race-ended-by-user-btn"
         type="button"
-        class="inline-block p-2 md:p-4 font-bold rounded-lg text-sm md:text-xl leading-normal text-coopmaths-canvas dark:text-coopmathsdark-canvas transition duration-150 ease-in-out bg-coopmaths-action hover:bg-coopmaths-action-lightest focus:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest dark:focus:bg-coopmathsdark-action-lightest focus:outline-none focus:ring-0 active:bg-coopmaths-action-light dark:active:bg-coopmathsdark-action-light  disabled:bg-opacity-10"
+        class="inline-block p-2 md:p-4 font-bold rounded-lg text-sm md:text-xl leading-normal text-coopmaths-canvas dark:text-coopmathsdark-canvas transition duration-150 ease-in-out bg-coopmaths-action hover:bg-coopmaths-action-lightest focus:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest dark:focus:bg-coopmathsdark-action-lightest focus:outline-none focus:ring-0 active:bg-coopmaths-action-light dark:active:bg-coopmathsdark-action-light disabled:bg-opacity-10"
         data-te-toggle="modal"
         data-te-target="#staticBackdrop"
-        disabled={$canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds < 15}
+        disabled
       >
         Rendre la copie
       </button>
