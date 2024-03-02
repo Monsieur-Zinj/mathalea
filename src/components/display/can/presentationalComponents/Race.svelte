@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
   import type { CanState } from '../../../../lib/types/can'
   import Question from './Question.svelte'
   import Pagination from './Pagination.svelte'
@@ -24,10 +23,8 @@
      */
     handleEndOfRace()
   }
-
-  onMount(() => {})
   /**
-   * Gestion de la fion de la course : on annule le décompte,
+   * Gestion de la fin de la course : on annule le décompte,
    * si le mode interactif est présent, on vérifie les questions
    * et on bascule sur l'état `end`
    */
@@ -88,6 +85,7 @@
       {numberOfQuestions}
       {handleEndOfRace}
       {state}
+      resultsByQuestion={[]}
     />
   </div>
   <Keyboard />
