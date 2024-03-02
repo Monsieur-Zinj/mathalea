@@ -42,7 +42,7 @@ export class MatriceCarree {
      */
     this.determinant = function () {
       const n = this.dim // taille de la matrice = nxn
-      let determinant = new FractionEtendue(0)
+      let determinant = new FractionEtendue(0, 1)
       let M
       for (let i = 0; i < n; i++) { // on travaille sur la ligne du haut de la matrice :ligne 0 i est la colonne de 0 à n-1
         // if (n==1) determinant=this.table[0][0]
@@ -123,7 +123,7 @@ export class MatriceCarree {
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
-          const f2 = new FractionEtendue(this.table[i][j])
+          const f2 = new FractionEtendue(this.table[i][j].signe * this.table[i][j].n, this.table[i][j].d)
           ligne.push(f2.produitFraction(f).simplifie())
         }
         resultat.push(ligne)
@@ -136,7 +136,7 @@ export class MatriceCarree {
      */
     this.multiplieParReel = function (k) { // retourne k * la matrice on essaye de convertir k en FractionEtendue
       const n = this.dim
-      k = fraction(k.toFixed(2))
+      k = fraction(k.toFixed(2) * 100, 100)
       k = new FractionEtendue(k.s * k.n, k.d)
       const resultat = []
       let ligne
@@ -160,7 +160,7 @@ export class MatriceCarree {
       if (n === V.length) {
         const resultat = []
         for (let i = 0; i < n; i++) {
-          let somme = new FractionEtendue(0)
+          let somme = new FractionEtendue(0, 1)
           for (let j = 0; j < n; j++) {
             V[j] = rationnalise(V[j])
             somme = somme.sommeFraction(this.table[i][j].produitFraction(V[j])).simplifie()
@@ -191,7 +191,7 @@ export class MatriceCarree {
       for (let i = 0; i < n; i++) {
         ligne = []
         for (let j = 0; j < n; j++) {
-          somme = new FractionEtendue(0)
+          somme = new FractionEtendue(0, 1)
           for (let k = 0; k < n; k++) {
             somme = somme.sommeFraction(this.table[i][k].produitFraction(M.table[k][j]).simplifie())
           }
