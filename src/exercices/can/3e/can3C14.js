@@ -61,7 +61,7 @@ export default function DecimalVersFractionIr () {
         =${miseEnEvidence(maFraction.texFractionSimplifiee)}$ `
         } else {
           this.correction = `$${texNombre(d, 3)}=${Math.floor(a / 4)}+${texNombre(d.sub(Math.floor(a / 4)))}
-        =\\dfrac{${Math.floor(a / 4) * 4}}{4}+${new FractionEtendue(d1 * 100, 100).simplifie()}=${miseEnEvidence(maFraction.texFractionSimplifiee)}$ `
+        =\\dfrac{${Math.floor(a / 4) * 4}}{4}+${new FractionEtendue(d1 * 100, 100).simplifie().texFraction}=${miseEnEvidence(maFraction.texFractionSimplifiee)}$ `
         }
         this.reponse = maFraction.simplifie()
         break

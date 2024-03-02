@@ -30,7 +30,7 @@ export default function SimplifierFractionSimple () {
           const d = choice([-1, 1])
           this.reponse = new FractionEtendue(n, d).simplifie()
           this.question = `Écrire le plus simplement possible : $\\dfrac{${n}}{${d}}$.`
-          this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse}$`
+          this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse.texFraction}$`
           this.canEnonce = this.question
           this.canReponseACompleter = '' }
         break
@@ -39,7 +39,7 @@ export default function SimplifierFractionSimple () {
         const d = n * choice([-1, 1])
         this.reponse = new FractionEtendue(n, d).simplifie()
         this.question = `Écrire le plus simplement possible : $\\dfrac{${n}}{${d}}$.`
-        this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse}$`
+        this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse.texFraction}$`
         this.canEnonce = this.question
         this.canReponseACompleter = '' }
         break
@@ -49,7 +49,7 @@ export default function SimplifierFractionSimple () {
         const n = d * choice([-10, 10])
         this.reponse = new FractionEtendue(n, d).simplifie()
         this.question = `Écrire le plus simplement possible : $\\dfrac{${n}}{${d}}$.`
-        this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse}$`
+        this.correction = `$\\dfrac{${n}}{${d}}=${this.reponse.texFraction}$`
         this.canEnonce = this.question
         this.canReponseACompleter = '' }
         break
