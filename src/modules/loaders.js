@@ -36,6 +36,7 @@ import {
 import { keyboardState } from '../components/keyboard/stores/keyboardStore'
 import { get } from 'svelte/store'
 import { globalOptions } from '../lib/stores/generalStore'
+import { getKeyboardShortcusts } from '../lib/interactif/claviers/keyboard'
 /**
  * Nos applis prédéterminées avec la liste des fichiers à charger
  * @type {Object}
@@ -378,21 +379,12 @@ export async function loadMathLive () {
 function handleClickOnKeyboardToggle (event) {
   event.preventDefault()
   event.stopPropagation()
-  // const idToggle = document.activeElement.id
-  // keyboardState.update((value) => {
-  //   const mf = document.activeElement
-  //   return {
-  //     isVisible: !value.isVisible,
-  //     idMathField: idToggle,
-  //     alphanumericLayout: value.alphanumericLayout,
-  //     blocks: mf.dataset.keyboard.split(' ')
-  //   }
-  // })
 }
 
 function handleFocusMathField (event) {
   if (get(globalOptions).beta) {
     const mf = event.target
+    getKeyboardShortcusts(mf)
     keyboardState.update((value) => {
       return {
         isVisible: true, // value.isVisible || window.innerWidth < 800,
