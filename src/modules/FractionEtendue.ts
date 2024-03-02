@@ -221,13 +221,8 @@ class FractionEtendue {
    */
   estIrreductible: boolean
 
-  constructor (n: number|FractionEtendue, d: number) {
-    if (d == null && n instanceof FractionEtendue) {
-      d = n.den
-      n = n.num
-    }
-    const [num, den] = normalizeFraction(n as number, d)
-    console.log(num, den)
+  constructor (n: number, d: number) {
+    const [num, den] = normalizeFraction(n, d)
     if (isNaN(num) || isNaN(den)) throw Error(`Fraction Etendue les données ne permettent pas de définir une fraction : n=${n}, d=${d}`)
     const pgcd = (Math.abs(num) === 1 && Math.abs(den) === 1) ? 1 : gcd(Math.abs(num), Math.abs(den))
     const numIrred = num / pgcd
@@ -260,7 +255,7 @@ class FractionEtendue {
 
     this.texFractionSR = `\\dfrac{${signeMoinsEnEvidence(num)}}{${signeMoinsEnEvidence(den)}}`
 
-    this.texFSD = signe === -1 ? Math.abs(den) === 1 ? '-' + String(texNombre(Math.abs(num), 0)) : `-\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}` : Math.abs(den) === 1 ? String(texNombre(Math.abs(num), 0)) : `\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`
+    this.texFSD = signe === -1 ? Math.abs(den) === 1 ? '-' + texNombre(Math.abs(num), 0) : `-\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}` : Math.abs(den) === 1 ? String(texNombre(Math.abs(num), 0)) : `\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`
 
     this.texFractionSignee = signe === -1 ? this.texFSD : '+' + this.texFSD
 
@@ -274,7 +269,7 @@ class FractionEtendue {
 
     this.texParentheses = den === 1 && signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
-    this.texFractionSimplifiee = signe === 1 ? `\\dfrac{${Math.abs(numIrred)}}{${Math.abs(denIrred)}}` : `-\\dfrac{${Math.abs(numIrred)}}{${Math.abs(denIrred)}}`
+    this.texFractionSimplifiee = signe === 1 ? `\\dfrac{${texNombre(Math.abs(numIrred), 0)}}{${texNombre(Math.abs(denIrred), 0)}}` : `-\\dfrac{${texNombre(Math.abs(numIrred), 0)}}{${texNombre(Math.abs(denIrred), 0)}}`
 
     this.ecritureAlgebrique = signe === 1 ? '+' + this.texFSD : this.texFSD
 

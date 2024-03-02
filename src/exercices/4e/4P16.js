@@ -232,23 +232,26 @@ export default class NomExercice extends Exercice {
       const coef1 = new Decimal(unite1Depart.coef).div(unite1Arrivee.coef)
       const coef2 = new Decimal(unite2Depart.coef).div(unite2Arrivee.coef)
       valeurArrivee = new Decimal(valeurDepart).times(coef1)
+      let precision
       if (typeDeComposition === 'quotient') {
         operateur = '/'
         cfrac = ' \\cfrac '
         times = ''
         valeurArrivee = valeurArrivee.div(coef2)
+        precision = Math.log10(coef1 / coef2) < 0 ? -Math.floor(Math.log10(coef1 / coef2)) : 0
       } else {
         operateur = '.'
         cfrac = ''
         times = ' \\times '
         valeurArrivee = valeurArrivee.times(coef2)
+        precision = Math.log10(coef1 * coef2) < 0 ? -Math.floor(Math.log10(coef1 * coef2)) : 0
       }
       texte = `Convertir $${valeurDepart}$ ${unite1Depart.unite}${operateur}${unite2Depart.unite} en ${unite1Arrivee.unite}${operateur}${unite2Arrivee.unite}.`
       texteCorr = `$${valeurDepart}\\text{ ${unite1Depart.unite}${operateur}${unite2Depart.unite}}
       = ${cfrac}{${valeurDepart}\\text{ ${unite1Depart.unite}}}${times}{1 \\text{ ${unite2Depart.unite}}}
       = ${cfrac}{${valeurDepart} \\times ${fraction(unite1Depart.coef, unite1Arrivee.coef).texFractionSimplifiee} \\text{ ${unite1Arrivee.unite}}}
       ${times}{${fraction(unite2Depart.coef, unite2Arrivee.coef).texFractionSimplifiee} \\text{ ${unite2Arrivee.unite}}}
-      = ${texNombre(valeurArrivee)}\\text{ ${unite1Arrivee.unite}${operateur}${unite2Arrivee.unite}}$`
+      = ${texNombre(valeurArrivee, precision)}\\text{ ${unite1Arrivee.unite}${operateur}${unite2Arrivee.unite}}$`
       if (this.interactif && context.isHtml) {
         setReponse(this, i, valeurArrivee)
         texte += `<br> $${valeurDepart}$ ${unite1Depart.unite}${operateur}${unite2Depart.unite} = `
