@@ -1,4 +1,4 @@
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { randint } from '../../modules/outils.js'
@@ -104,6 +104,8 @@ export function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
   s.styleExtremites = '->'
   s.tailleExtremites = 2
   objets.push(t, s)
+  const bordures = fixeBordures(objets)
+  this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {
