@@ -25,7 +25,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = true
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore blocCenter ' + KeyboardType.lycee
+    this.formatChampTexte = 'largeur01 inline nospacebefore blocCenter ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
     this.formatInteractif = 'calcul'
     this.compare = intervalsCompare
   }
@@ -98,11 +98,12 @@ export default class NomExercice extends Exercice {
         color: 'blue'
       })
       const objetsEnonce = [repere1, courbe1]
+      this.question = ''
       if (context.isHtml) {
         this.question = 'On donne le graphique d’une fonction $f$ : <br>'
         this.question += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: bornes.xMin - 1, ymin: bornes.yMin - 1, xmax: bornes.xMax + 1, ymax: bornes.yMax + 1 }), objetsEnonce, o)
       }
-      this.question = ' Sur quel intervalle, $f$ est-elle positive ou nulle ?'
+      this.question += 'Sur quel intervalle, $f$ est-elle positive ou nulle ?'
       this.reponse = ['[-5;2]', '[-5,2]']
       this.correction = `La fonction est positive ou nulle lorsque les images sont positives ou nulles.<br>
     Graphiquement, les images sont positives ou nulles  lorsque la courbe se situe sur ou au-dessus  de l'axe des abscisses, soit sur l'intervalle  $${miseEnEvidence(this.reponse)}$.`

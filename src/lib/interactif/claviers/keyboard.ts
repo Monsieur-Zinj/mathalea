@@ -17,6 +17,8 @@ export enum KeyboardType {
   // eslint-disable-next-line no-unused-vars
   clavierDeBaseAvecFraction = 'clavierDeBaseAvecFraction',
   // eslint-disable-next-line no-unused-vars
+  clavierDeBaseAvecFractionPuissanceCrochets = 'clavierDeBaseAvecFractionPuissanceCrochets',
+  // eslint-disable-next-line no-unused-vars
   clavierDeBaseAvecEgal = 'clavierDeBaseAvecEgal',
   // eslint-disable-next-line no-unused-vars
   clavierDeBaseAvecVariable = 'clavierDeBaseAvecVariable',
@@ -57,6 +59,8 @@ export const convertKeyboardTypeToBlocks = (type : KeyboardType): BlockForKeyboa
       return ['numbersOperations']
     case KeyboardType.clavierDeBaseAvecFraction:
       return ['numbers', 'basicOperations']
+    case KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets:
+      return ['numbers', 'basicOperationsPlus']
     case KeyboardType.clavierDeBaseAvecEgal:
       return ['numbers2', 'basicOperations']
     case KeyboardType.clavierDeBaseAvecVariable:

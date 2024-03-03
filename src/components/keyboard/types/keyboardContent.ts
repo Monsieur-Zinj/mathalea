@@ -13,6 +13,7 @@ export type BlockForKeyboard =
   | 'variables'
   | 'basicOperations'
   | 'basicOperations2'
+  | 'basicOperationsPlus'
   | 'fullOperations'
   | 'hms'
   | 'greek'

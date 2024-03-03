@@ -35,6 +35,10 @@ const basicOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'SQ', 'FRAC', '(', ')'],
   block: ['ADD', 'SUB', 'MULT', 'DIV', 'SQ', 'FRAC', '(', ')']
 }
+const basicOperationPlusCaps: CompleteKeysList = {
+  inline: ['ADD', 'SUB', 'MULT', 'DIV', 'xMath', 'SQ', 'POW', 'FRAC', '(', ')', 'BRACKETS', 'SEMICOLON'],
+  block: ['xMath', 'ADD', 'SUB', 'SQ', 'MULT', 'DIV', 'POW', 'BRACKETS', 'FRAC', 'SEMICOLON', '(', ')']
+}
 const basicOperationCaps2: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', '=', 'FRAC', '(', ')'],
   block: ['ADD', 'SUB', 'MULT', 'DIV', '=', 'FRAC', '(', ')']
@@ -159,6 +163,13 @@ export const basicOperations2: KeyboardBlock = {
   isUnits: false
 }
 
+export const basicOperationsPlus: KeyboardBlock = {
+  keycaps: basicOperationPlusCaps,
+  cols: 3,
+  title: 'Opérations de base',
+  isUnits: false
+}
+
 export const fullOperations: KeyboardBlock = {
   keycaps: fullOperationCaps,
   cols: 4,
@@ -240,6 +251,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   fullOperations,
   basicOperations,
   basicOperations2,
+  basicOperationsPlus,
   variables,
   advanced,
   lengths,
