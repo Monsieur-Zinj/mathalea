@@ -8,7 +8,7 @@ import { droite } from '../../../lib/2d/droites'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer une longueur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,6 +27,7 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteApres: 'cm', texteAvant: '$AB=$' }
     this.formatInteractif = 'calcul'
+    this.compare = functionCompare
     this.canOfficielle = true
   }
 
