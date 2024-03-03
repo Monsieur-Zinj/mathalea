@@ -282,7 +282,7 @@ ${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situat
           break
       }
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: `<br> ${inc} = ` })
-      reponse = new FractionEtendue(correctionInteractif)
+      reponse = new FractionEtendue(Number(correctionInteractif))
       if (context.isAmc) setReponse(this, i, reponse)
       else setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 
