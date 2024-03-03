@@ -69,7 +69,8 @@ const basicKeys = {
   },
   // ================== symbols
   COMMA: {
-    display: ','
+    display: ',',
+    insert: '{,}'
   },
   POINT: {
     display: '.'

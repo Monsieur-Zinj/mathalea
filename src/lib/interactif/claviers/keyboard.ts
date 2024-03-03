@@ -152,7 +152,8 @@ const shortcutsByKeyboards = {
   default: {
     D: { mode: 'math', value: 'd' },
     '*': { mode: 'math', value: '\\times' },
-    '.': { mode: 'math', value: ',' },
+    '.': { mode: 'math', value: '{,}' },
+    ',': { mode: 'math', value: '{,}' },
     '%': { mode: 'math', value: '\\%' },
     '²': { mode: 'math', value: '^2' },
     '³': { mode: 'math', value: '^3' },

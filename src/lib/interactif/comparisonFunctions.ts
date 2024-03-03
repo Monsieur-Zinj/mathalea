@@ -49,16 +49,17 @@ export function cleanStringBeforeParse (aString: string) {
   if (typeof aString !== 'string') {
     aString = String(aString)
   }
-  return aString.replaceAll(',', '.') // CE n'aime pas les virgules, il veut des . (on pourrait lui dire que le séparateur décimal est la virgule)
+  return aString // CE n'aime pas les virgules, il veut des . (on pourrait lui dire que le séparateur décimal est la virgule)
     .replaceAll('dfrac', 'frac') // CE n'aime pas \dfrac
     .replaceAll('²', '^2') // '²' c'est pas correct en latex !
     .replaceAll('³', '^3') // '³' non plus
     .replaceAll('^{}', '') // les exposants vides, il n'aime pas ça non plus
+    .replaceAll('{,}', '.') // On écrit {,} pour éviter les espaces disgracieux dans les nombres décimaux
     .replaceAll('\\,', '') // pourquoi laisser des espaces indésirables si on peut les enlever ?
-    .replaceAll('{,}', '.') // toujours cette histoire de virgule (celle-là, elle vient sans doute d'un texNombre() !
     .replaceAll(/\s/g, '') // encore des espaces à virer ?
     .replace(/\\lparen(\+?-?\d+)\\rparen/, '$1') // (+3) => +3 car CE ne sait pas comparer -5 et 5
     .replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
+    .replaceAll(',', '.')
 }
 
 type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex' | 'foisUn'
@@ -79,6 +80,7 @@ function cleanDivisions (str: string): string {
 }
 /**
  * Nettoie la saisie des virgules décimales en les remplaçant par des points.
+ * @warning Attention ne fonctionne avec Safari que depuis 2023
  * @param {string} str
  */
 function cleanComas (str: string): string {
