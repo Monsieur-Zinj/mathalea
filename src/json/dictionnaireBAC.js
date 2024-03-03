@@ -1980,7 +1980,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet1_etrangers_groupe1_1: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 1',
+    lieu: 'Centres étrangers G1',
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '1',
@@ -1993,7 +1993,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet1_etrangers_groupe1_2: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 1',
+    lieu: 'Centres étrangers G1',
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '2',
@@ -2006,7 +2006,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet1_etrangers_groupe1_3: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 1',
+    lieu: 'Centres étrangers G1',
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '3',
@@ -2019,7 +2019,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet1_etrangers_groupe1_4: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 1',
+    lieu: 'Centres étrangers G1',
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '4',
@@ -2032,7 +2032,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet1_etrangers_groupe2_1: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 2',
+    lieu: 'Centres étrangers G2',
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '1',
@@ -2045,7 +2045,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet1_etrangers_groupe2_2: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 2',
+    lieu: 'Centres étrangers G2',
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '2',
@@ -2058,7 +2058,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet1_etrangers_groupe2_3: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 2',
+    lieu: 'Centres étrangers G2',
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '3',
@@ -2071,7 +2071,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet1_etrangers_groupe2_4: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 2',
+    lieu: 'Centres étrangers G2',
     mois: 'Mars',
     jour: 'J1',
     numeroInitial: '4',
@@ -2344,7 +2344,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet2_etrangers_groupe1_1: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 1',
+    lieu: 'Centres étrangers G1',
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '1',
@@ -2357,7 +2357,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet2_etrangers_groupe1_2: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 1',
+    lieu: 'Centres étrangers G1',
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '2',
@@ -2370,7 +2370,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet2_etrangers_groupe1_3: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 1',
+    lieu: 'Centres étrangers G1',
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '3',
@@ -2383,7 +2383,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet2_etrangers_groupe1_4: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 1',
+    lieu: 'Centres étrangers G1',
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '4',
@@ -2396,7 +2396,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet2_etrangers_groupe2_1: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 2',
+    lieu: 'Centres étrangers G2',
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '1',
@@ -2409,7 +2409,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet2_etrangers_groupe2_2: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 2',
+    lieu: 'Centres étrangers G2',
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '2',
@@ -2422,7 +2422,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet2_etrangers_groupe2_3: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 2',
+    lieu: 'Centres étrangers G2',
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '3',
@@ -2435,7 +2435,7 @@ export const dictionnaireBAC = {
   },
   bac_2023_03_sujet2_etrangers_groupe2_4: {
     annee: '2023',
-    lieu: 'Centres étrangers Groupe 2',
+    lieu: 'Centres étrangers G2',
     mois: 'Mars',
     jour: 'J2',
     numeroInitial: '4',
