@@ -216,7 +216,7 @@ export function DiagrammeBarres (hauteursBarres, etiquettes, {
     }
     if (etiquetteValeur) {
       if (hauteursBarres[j] !== 0) {
-        diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.3))) // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
+        diagramme.push(texteParPoint(numberFormat(hauteursBarres[j]), point(abscisseBarre, hauteurBarre + 0.5))) // On écrit la valeur au dessus de la barre sauf pour une hauteur de 0
       }
     }
     // Calculs permettant de graduer l'axe vertical et de placer des valeurs
@@ -240,7 +240,7 @@ export function DiagrammeBarres (hauteursBarres, etiquettes, {
     if (labelAxeVert) diagramme.push(labelY(0, max(hauteursBarres), (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 'black', -3, max(hauteursBarres) / hauteurDiagramme))
     if (axeVertical) diagramme.push(axeY(0, hauteurDiagramme + 1, 0.2, (fraction(hauteurDiagramme, max(hauteursBarres))).mul(step), 0.2, 'black', ytick, titreAxeVertical))
   }
-  if (titre !== '') diagramme.push(texteParPoint(titre, point((hauteursBarres.length - 1) * coeff / 2, hauteurDiagramme + 1)))
+  if (titre !== '') diagramme.push(texteParPoint(titre, point(-3, hauteurDiagramme + 1), 0, 'black', 1, 'droite', false, 1))
   this.bordures = [1000, 1000, -1000, -1000]
   for (const objet of diagramme) {
     if (objet.bordures !== undefined) {
