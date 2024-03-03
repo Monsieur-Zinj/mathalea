@@ -25,13 +25,16 @@ export default function AbscisseDroiteDecimaux () {
   this.consigne = ''
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    let d, abs0, abs1, abs2, x1
+    let d, abs0, abs1, abs2, x1, partieDec1, partieDec2, partieDec3
 
-    const choix1 = choice(['a', 'b'])
+    const choix1 = choice(['a', 'b'])//, 'b'
     if (choix1 === 'a') { // graduation de 0,02 en 0,02
-      abs0 = randint(0, 9) + randint(1, 9) / choice([10, 100])
-      abs1 = new Decimal(abs0).add(1 / 100)
-      abs2 = new Decimal(abs0).add(2 / 100)
+      partieDec1 = new Decimal(randint(1, 9)).div(choice([10, 100]))
+      abs0 = new Decimal(randint(0, 9)).add(partieDec1)
+      partieDec2 = new Decimal(1).div(100)
+      abs1 = abs0.add(partieDec2)
+      partieDec3 = new Decimal(2).div(100)
+      abs2 = abs0.add(partieDec3)
       x1 = new Decimal(2 * randint(1, 9, 5)).div(10)
       d = droiteGraduee({
         Unite: 4,
@@ -53,9 +56,13 @@ export default function AbscisseDroiteDecimaux () {
     }
 
     if (choix1 === 'b') { // graduation de 0,025 en 0,025
-      abs0 = randint(0, 9) + randint(1, 9) / choice([10, 100])
-      abs1 = new Decimal(abs0).add(1 / 100)
-      abs2 = new Decimal(abs0).add(2 / 100)
+      partieDec1 = new Decimal(randint(1, 9)).div(choice([10, 100]))
+      abs0 = new Decimal(randint(0, 9)).add(partieDec1)
+
+      partieDec2 = new Decimal(1).div(100)
+      abs1 = abs0.add(partieDec2)
+      partieDec3 = new Decimal(2).div(100)
+      abs2 = abs0.add(partieDec3)
       x1 = new Decimal(choice([25, 50, 75, 125, 150, 175])).div(100)
       d = droiteGraduee({
         Unite: 4,

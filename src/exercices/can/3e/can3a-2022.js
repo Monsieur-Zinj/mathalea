@@ -65,7 +65,7 @@ export default function SujetCAN2022troisieme () {
     ]
     const listeFractions11 = [[2, 3], [5, 8], [3, 5], [5, 6], [5, 7], [5, 9], [3, 7], [6, 7], [5, 4], [4, 5]
     ]
-    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction23, poly, propositions, chiffre, chiffre2, u, moy, a3, k1, k2, e, f, g, choix, a, b, c, d, p, k, A, B, C, D, I, J, K, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, index = 0, nbChamps, texte, texteCorr, reponse, fraction23, poly, propositions, partieDec1, partieDec2, chiffre, chiffre2, u, moy, a3, k1, k2, e, f, g, choix, a, b, c, d, p, k, A, B, C, D, I, J, K, xmin, xmax, ymin, ymax, objets, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (typeQuestionsDisponibles[i]) {
         case 1:
           a = randint(4, 9)
@@ -223,7 +223,9 @@ export default function SujetCAN2022troisieme () {
           u = randint(21, 99)
           a = randint(1, 9)
           c = randint(1, 9)
-          a3 = new Decimal(a / 10).plus(c / 1000)
+          partieDec1 = new Decimal(a).div(10)
+          partieDec2 = new Decimal(c).div(1000)
+          a3 = partieDec1.plus(partieDec2)
           reponse = a3.plus(u)
 
           if (choice([true, false])) {
@@ -546,7 +548,9 @@ export default function SujetCAN2022troisieme () {
           break
 
         case 20:
-          a = new Decimal(((randint(1, 9) / 10 + randint(1, 9) / 100))).plus(randint(1, 9))
+          partieDec1 = new Decimal(randint(1, 9)).div(10)
+          partieDec2 = new Decimal(randint(1, 9)).div(100)
+          a = new Decimal(randint(1, 9)).add(partieDec1).add(partieDec2)
           b = choice([new Decimal('0.1'), new Decimal('0.01')])
 
           reponse = a.div(b)
