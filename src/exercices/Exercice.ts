@@ -212,6 +212,13 @@ export default class Exercice {
     console.log(numeroExercice)
   }
 
+  reinit () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    this.listeArguments = []
+    this.autoCorrection = []
+  }
+
   applyNewSeed () {
     const seed = generateSeed({
       includeUpperCase: true,
