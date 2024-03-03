@@ -25,11 +25,11 @@ const numbersOperationsCaps: CompleteKeysList = {
 }
 const numbersOperationsXCaps: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', 'x', 'DIV', 'MULT', 'SUB', 'ADD'],
-  block: [7, 8, 9, 'DIV', 4, 5, 6, 'MULT', 1, 2, 3, 'SUB', 0, 'COMMA', 'x', 'ADD']
+  block: [7, 8, 9, 'DIV', 4, 5, 6, 'MULT', 1, 2, 3, 'SUB', 0, 'COMMA', 'xMath', 'ADD']
 }
 const variableCaps: CompleteKeysList = {
-  inline: ['a', 'b', 'c', 'x', 'y', 'z', 'k', 'n', 'i'],
-  block: ['a', 'x', 'k', 'b', 'y', 'n', 'c', 'z', 'i', 'V', 'F']
+  inline: ['aMath', 'bMath', 'cMath', 'xMath', 'yMath', 'zMath', 'kMath', 'nMath', 'iMath', 'V', 'F'],
+  block: ['aMath', 'xMath', 'kMath', 'bMath', 'yMath', 'nMath', 'cMath', 'zMath', 'iMath', 'V', 'F']
 }
 const basicOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'SQ', 'FRAC', '(', ')'],
