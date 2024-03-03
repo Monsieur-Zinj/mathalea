@@ -6,7 +6,7 @@ import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -260,12 +260,12 @@ export default function CalculerDesFrequences () {
       }
     })
     correction1 += ')$<br>'
-    correction1 += `$e=${serie.effectifTotal}-${calculANePlusJamaisUtiliser(serie.effectifTotal - serie.effectifs[serie.rangEffectifCache])}$<br>`
-    correction1 += `$e=${serie.effectifs[serie.rangEffectifCache]}$`
+    correction1 += `$e=${texNombre(serie.effectifTotal, 0)}-${texNombre(serie.effectifTotal - serie.effectifs[serie.rangEffectifCache], 0)}$<br>`
+    correction1 += `$e=${texNombre(serie.effectifs[serie.rangEffectifCache], 0)}$<br>`
     // correction question 2
     let correction2
     if (!context.isAmc && !exercice.interactif) {
-      correction2 = numAlpha(1) + 'Calculs des fréquences.<br><br>'
+      correction2 = numAlpha(1) + 'Calculs des fréquences.<br>'
       correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
       correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$<br><br>'
       correction2 += 'On en déduit donc les calculs suivants :<br><br>'
@@ -277,15 +277,15 @@ export default function CalculerDesFrequences () {
         enteteTableau.push(`\\text{${serie.modalites[index]}}`)
         const f = fraction(eff, serie.effectifTotal)
         premiereLigneTableau.push(f.texFraction)
-        deuxiemeLigneTableau.push(`${texNombre(f.pourcentage)} ${sp(1)}\\%`)
+        deuxiemeLigneTableau.push(`${texNombre(f.pourcentage, 1)} ${sp(1)}\\%`)
       })
       premiereColonne.push('\\textbf{Fréquences}', '\\textbf{Fréquences en pourcentages}')
       correction2 += tableauColonneLigne(enteteTableau, premiereColonne, premiereLigneTableau.concat(deuxiemeLigneTableau))
       correction2 += '<br>'
     } else { // Pas besoin de tableau pour une seule valeur demandée.
-      correction2 = '<br>' + numAlpha(1) + `Calcul de la fréquence de la valeur ${serie.modalites[rangValeurChoisie]}.<br><br>`
+      correction2 = '<br>' + numAlpha(1) + `Calcul de la fréquence de la valeur ${serie.modalites[rangValeurChoisie]}<br><br>`
       correction2 += 'On rappelle que pour la fréquence relative à une valeur est donnée par le quotient : '
-      correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$<br><br>'
+      correction2 += '$\\dfrac{\\text{effectif de la valeur}}{\\text{effectif total}}$.<br><br>'
       correction2 += 'On en déduit donc :<br>'
       const fValeur = fraction(serie.effectifs[rangValeurChoisie], serie.effectifTotal)
       correction2 += `$\\text{Fréquence}_{${serie.modalites[rangValeurChoisie]}}= ${fValeur.texFraction}$<br>`
@@ -294,15 +294,15 @@ export default function CalculerDesFrequences () {
 
     if (!exercice.interactif && !context.isAmc) { // Questions normales pour version non interactive html ou latex
       questions = [preambule,
-        '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.',
-        '<br>' + numAlpha(1) + `Déterminer les fréquences pour chaque ${serie.caractere.substring(5)} (en pourcentage, arrondir au dixième si besoin).`]
+        numAlpha(0) + 'Déterminer l\'effectif manquant.<br>',
+        numAlpha(1) + `Déterminer les fréquences pour chaque ${serie.caractere.substring(5)} (en pourcentage, arrondir au dixième si besoin).<br>`]
     } else {
       if (!context.isAmc) { // Questions pour interactivité html
         setReponse(exercice, numero * 2, serie.effectifs[serie.rangEffectifCache], { formatInteractif: 'calcul' })
         setReponse(exercice, numero * 2 + 1, frequenceDemandee, { formatInteractif: 'calcul' })
         questions = [preambule,
-          '<br>' + numAlpha(0) + 'Déterminer l\'effectif manquant.' + ajouteChampTexteMathLive(exercice, numero * 2, 'largeur10 inline'),
-          '<br>' + numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).` + ajouteChampTexteMathLive(exercice, numero * 2 + 1, 'largeur10 inline')]
+          numAlpha(0) + 'Déterminer l\'effectif manquant.' + ajouteChampTexteMathLive(exercice, numero * 2, 'largeur10 inline') + '<br>',
+          numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).` + ajouteChampTexteMathLive(exercice, numero * 2 + 1, 'largeur10 inline') + '<br>']
       } else { // Pour AMC, on ne peut pas doubler les questions, il faut les intégrer dans un seul AMCHybride.
         exercice.autoCorrection[numero] = {
           options: { multicols: true },

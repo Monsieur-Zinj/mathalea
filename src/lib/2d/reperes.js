@@ -1,7 +1,5 @@
-import { ceil, fraction, Fraction } from 'mathjs'
 import { ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { arrondi, rangeMinMax } from '../outils/nombres'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre'
 import { plot, point, tracePoint } from './points.js'
@@ -503,22 +501,20 @@ export function AxeY (
   ytick = 2,
   titre = ''
 ) {
-  if (!(ystep instanceof Fraction || ystep instanceof FractionEtendue)) ystep = fraction(ystep)
-  if (!(ytick instanceof Fraction || ytick instanceof FractionEtendue)) ytick = fraction(ytick)
   ObjetMathalea2D.call(this, {})
   const objets = []
 
-  objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 'gauche', color))
+  objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 0, color, 1, 'droite', false, 1))
   const ordonnee = segment(-1, ymin.valueOf(), -1, ymax.valueOf(), color)
   ordonnee.styleExtremites = '->'
   ordonnee.epaisseur = epaisseur
   objets.push(ordonnee)
-  for (let y = ymin; y < ymax; y = fraction(y).add(ystep)) {
+  for (let y = ymin; y < ymax; y = y + ystep) {
     const s = segment(-1 - thick, y.valueOf(), -1, y.valueOf(), color)
     s.epaisseur = epaisseur
     objets.push(s)
   }
-  for (let y = ymin; y < ymax; y = fraction(y).add(ystep.div(ytick))) {
+  for (let y = ymin; y < ymax; y = y + ystep / ytick) {
     const s = segment(-1 - thick / 2, y.valueOf(), -1, y.valueOf(), color)
     s.epaisseur = epaisseur
     objets.push(s)
@@ -592,7 +588,7 @@ export function axeY (
 export function LabelY (ymin = 1, ymax = 20, step = 1, color = 'black', pos = -0.6, coeff = 1) {
   ObjetMathalea2D.call(this, {})
   const objets = []
-  for (let y = ceil(ymin / coeff);
+  for (let y = Math.ceil(ymin / coeff);
     y * coeff <= ymax;
     y = y + step
   ) {
