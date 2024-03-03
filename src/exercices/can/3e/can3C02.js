@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = 'debe7'
 export const ref = 'can3C02'
+export const refs = {
+  'fr-fr': ['can3C02'],
+  'fr-ch': []
+}
 export default function MoyenneEntiereDeDecimaux () {
   Exercice.call(this)
   this.typeExercice = 'simple'

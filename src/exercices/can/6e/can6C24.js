@@ -19,6 +19,10 @@ export const dateDeModifImportante = '19/02/2023'
  */
 export const uuid = '53034'
 export const ref = 'can6C24'
+export const refs = {
+  'fr-fr': ['can6C24'],
+  'fr-ch': []
+}
 export default function MultiplierParPuissanceDixNeg () {
   Exercice.call(this)
   this.typeExercice = 'simple'

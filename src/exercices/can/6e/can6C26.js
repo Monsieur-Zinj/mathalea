@@ -18,6 +18,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '31096'
 export const ref = 'can6C26'
+export const refs = {
+  'fr-fr': ['can6C26'],
+  'fr-ch': []
+}
 export default function MultiplierDiviserPar10Par100Par1000 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '22f41'
 export const ref = 'can6N05'
+export const refs = {
+  'fr-fr': ['can6N05'],
+  'fr-ch': []
+}
 export default function ChiffreDes () {
   Exercice.call(this)
   this.typeExercice = 'simple'

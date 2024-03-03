@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '8be78'
 export const ref = 'can6C06'
+export const refs = {
+  'fr-fr': ['can6C06'],
+  'fr-ch': []
+}
 export default function DivisionPar9 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

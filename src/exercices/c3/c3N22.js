@@ -12,6 +12,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '2fa3b'
 export const ref = 'c3N22'
+export const refs = {
+  'fr-fr': ['c3N22'],
+  'fr-ch': []
+}
 export default function LireAbscisseDecimaleTroisFormesCM () {
   LireAbscisseDecimaleTroisFormes.call(this)
   this.titre = titre

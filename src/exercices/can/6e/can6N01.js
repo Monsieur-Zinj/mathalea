@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '5cffb'
 export const ref = 'can6N01'
+export const refs = {
+  'fr-fr': ['can6N01'],
+  'fr-ch': []
+}
 export default function RecomposerEntier () {
   Exercice.call(this)
   this.typeExercice = 'simple'

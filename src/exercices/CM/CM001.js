@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '665a0'
 export const ref = 'CM001'
+export const refs = {
+  'fr-fr': ['CM001'],
+  'fr-ch': []
+}
 export default class TablesParametres extends TablesDeMultiplications {
   constructor (tablesParDefaut = '2-3-4-5-6-7-8-9') {
     super(tablesParDefaut)

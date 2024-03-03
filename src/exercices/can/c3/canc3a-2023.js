@@ -21,6 +21,10 @@ export const dateDePublication = '03/04/2023' // La date de publication initiale
 
 export const uuid = '57239'
 export const ref = 'canc3a-2023'
+export const refs = {
+  'fr-fr': ['canc3a-2023'],
+  'fr-ch': []
+}
 
 /**
  * Aléatoirisation du sujet 2023 de CAN CM2

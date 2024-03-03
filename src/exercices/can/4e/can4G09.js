@@ -21,6 +21,10 @@ export const dateDePublication = '01/10/2023'
  */
 export const uuid = '96bcd'
 export const ref = 'can4G09'
+export const refs = {
+  'fr-fr': ['can4G09'],
+  'fr-ch': []
+}
 export default function TripletsPythagoriciens () {
   Exercice.call(this)
   this.typeExercice = 'simple'

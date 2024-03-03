@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '5c1b3'
 export const ref = 'can6C02'
+export const refs = {
+  'fr-fr': ['can6C02'],
+  'fr-ch': []
+}
 export default function NombrePairFois5 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

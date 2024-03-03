@@ -15,6 +15,10 @@ export const dateDeModifImportante = '13/10/2022'
 */
 export const uuid = '83a8a'
 export const ref = 'can3F05'
+export const refs = {
+  'fr-fr': ['can3F05'],
+  'fr-ch': []
+}
 export default function CalculAntecedentAffine () {
   Exercice.call(this)
   this.nbQuestions = 1

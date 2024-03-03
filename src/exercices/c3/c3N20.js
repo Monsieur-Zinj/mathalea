@@ -20,6 +20,10 @@ export const dateDePublication = '24/03/2021'
 
 export const uuid = 'ec7e4'
 export const ref = 'c3N20'
+export const refs = {
+  'fr-fr': ['c3N20'],
+  'fr-ch': []
+}
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this)
   this.consigne = "Donner l'écriture décimale des nombres suivants."

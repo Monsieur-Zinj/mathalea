@@ -15,6 +15,10 @@ export const dateDeModifImportante = '27/01/2022'
 */
 export const uuid = '3a087'
 export const ref = 'c3C23'
+export const refs = {
+  'fr-fr': ['c3C23'],
+  'fr-ch': []
+}
 export default function CalculsFractionsSimples () {
   Exercice.call(this)
   this.typeExercice = 'simple'

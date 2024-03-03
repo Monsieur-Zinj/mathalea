@@ -15,6 +15,10 @@ export const interactifType = 'custom'
  */
 
 export const ref = 'elements1'
+export const refs = {
+  'fr-fr': ['elements1'],
+  'fr-ch': []
+}
 export const uuid = '6fdab'
 
 class Trait {

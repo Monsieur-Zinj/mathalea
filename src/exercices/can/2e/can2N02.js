@@ -17,6 +17,10 @@ export const dateDeModifImportante = '26/08/2023'
 */
 export const uuid = 'e31d1'
 export const ref = 'can2N02'
+export const refs = {
+  'fr-fr': ['can2N02'],
+  'fr-ch': []
+}
 export default function PlusPetitEnsemble () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -5,6 +5,10 @@ import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Encodeur de texte'
 export const ref = 'P020'
+export const refs = {
+  'fr-fr': ['P020'],
+  'fr-ch': []
+}
 export const uuid = 'de353'
 export default function EncodeurTexte (type = 'générateur') {
   Exercice.call(this)

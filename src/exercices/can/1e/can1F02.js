@@ -25,6 +25,10 @@ export const dateDeModifImportante = '10/06/2022' // Une date de modification im
 */
 export const uuid = 'cc460'
 export const ref = 'can1F02'
+export const refs = {
+  'fr-fr': ['can1F02'],
+  'fr-ch': []
+}
 export default function SecondDegreVariations () {
   Exercice.call(this)
   this.nbQuestions = 1

@@ -18,6 +18,10 @@ export const titre = 'Résoudre une équation graphiquement'
 */
 export const uuid = '9d293'
 export const ref = 'can2F16'
+export const refs = {
+  'fr-fr': ['can2F16'],
+  'fr-ch': []
+}
 export default function EquationsGSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'

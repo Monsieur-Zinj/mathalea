@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '4fc0e'
 export const ref = 'can5C14'
+export const refs = {
+  'fr-fr': ['can5C14'],
+  'fr-ch': []
+}
 export default function DivisionAvecDecimaux () {
   Exercice.call(this)
   this.typeExercice = 'simple'

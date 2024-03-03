@@ -17,6 +17,10 @@ export const dateDePublication = '10/11/2022'
 
 export const uuid = 'd9488'
 export const ref = 'can2C15'
+export const refs = {
+  'fr-fr': ['can2C15'],
+  'fr-ch': []
+}
 export default function NombreInverse () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '678f9'
 export const ref = 'CM018'
+export const refs = {
+  'fr-fr': ['CM018'],
+  'fr-ch': []
+}
 export default function SommeDeDeuxNombresMariesEtUnEntier () {
   Exercice.call(this)
   this.consigne = 'Calculer.'

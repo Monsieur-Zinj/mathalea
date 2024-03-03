@@ -15,6 +15,10 @@ export const interactifType = 'custom'
  */
 
 export const ref = 'carre1'
+export const refs = {
+  'fr-fr': ['carre1'],
+  'fr-ch': []
+}
 export const uuid = 'e7bad'
 
 class ConstructionCarre extends Exercice {

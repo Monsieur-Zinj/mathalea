@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'bf6e6'
 export const ref = 'can6C22'
+export const refs = {
+  'fr-fr': ['can6C22'],
+  'fr-ch': []
+}
 export default function ValeursDecimalesFractions () {
   Exercice.call(this)
   this.nbQuestions = 1

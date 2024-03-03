@@ -20,6 +20,10 @@ export const dateDePublication = '07/10/2023' // La date de publication initiale
  */
 export const uuid = '131bd'
 export const ref = 'can1L11'
+export const refs = {
+  'fr-fr': ['can1L11'],
+  'fr-ch': []
+}
 export default function TableauSignesSecondDegre () {
   Exercice.call(this)
   this.nbQuestions = 1

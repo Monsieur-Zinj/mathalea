@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '50fc4'
 export const ref = 'can6C11'
+export const refs = {
+  'fr-fr': ['can6C11'],
+  'fr-ch': []
+}
 export default function DoubleOuTripleDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'

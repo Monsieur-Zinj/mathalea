@@ -12,6 +12,10 @@ export const titre = 'Dresser le tableau de signes d\'une fonction dérivée à 
 export const dateDePublication = '18/11/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'ad915' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 export const ref = 'can1F23'// @todo à modifier aussi
+export const refs = {
+  'fr-fr': ['can1F23'],
+  'fr-ch': []
+}
 // une liste de nœuds pour définir une fonction Spline
 export default function SignesTabGSpline () {
   Exercice.call(this)

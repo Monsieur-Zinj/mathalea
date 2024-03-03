@@ -13,6 +13,10 @@ export const dateDePublication = '1/11/2021'
 */
 export const uuid = 'f9dd2'
 export const ref = 'PEG24'
+export const refs = {
+  'fr-fr': ['PEG24'],
+  'fr-ch': []
+}
 export default function QuotientDeDeuxLongueurs () {
   Exercice.call(this)
   this.typeExercice = 'IEP'

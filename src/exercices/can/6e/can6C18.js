@@ -15,6 +15,10 @@ export const dateDeModifImportante = '04/12/2021'
  */
 export const uuid = 'd02a7'
 export const ref = 'can6C18'
+export const refs = {
+  'fr-fr': ['can6C18'],
+  'fr-ch': []
+}
 export default function ResteDivisionEuclidienne () {
   Exercice.call(this)
   this.typeExercice = 'simple'

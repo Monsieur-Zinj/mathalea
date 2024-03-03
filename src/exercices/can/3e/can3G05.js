@@ -21,6 +21,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'c6b9c'
 export const ref = 'can3G05'
+export const refs = {
+  'fr-fr': ['can3G05'],
+  'fr-ch': []
+}
 export default function Trigo () {
   Exercice.call(this)
   this.typeExercice = 'simple'

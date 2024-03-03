@@ -15,6 +15,10 @@ export const dateDePublication = '1/11/2021'
 */
 export const uuid = 'b752a'
 export const ref = 'PEG22'
+export const refs = {
+  'fr-fr': ['PEG22'],
+  'fr-ch': []
+}
 export default function RacineCarrAvecTheoremePythagore () {
   Exercice.call(this)
   this.typeExercice = 'IEP'

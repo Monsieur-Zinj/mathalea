@@ -25,6 +25,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '9e40d'
 export const ref = 'can5a-xxxx'
+export const refs = {
+  'fr-fr': ['can5a-xxxx'],
+  'fr-ch': []
+}
 export default function CourseAuxNombres5e () {
   Exercice.call(this)
   this.consigne = ''

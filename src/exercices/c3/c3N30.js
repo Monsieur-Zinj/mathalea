@@ -16,6 +16,10 @@ export const dateDePublication = '13/11/2020'
  */
 export const uuid = 'c9ba6'
 export const ref = 'c3N30'
+export const refs = {
+  'fr-fr': ['c3N30'],
+  'fr-ch': []
+}
 export default function ConversionsC3 () {
   ExerciceConversions.call(this)
   this.sup = 1

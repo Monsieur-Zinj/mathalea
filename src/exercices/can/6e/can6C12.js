@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'c3b5b'
 export const ref = 'can6C12'
+export const refs = {
+  'fr-fr': ['can6C12'],
+  'fr-ch': []
+}
 export default function DoubleOuTriple () {
   Exercice.call(this)
   this.typeExercice = 'simple'

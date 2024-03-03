@@ -24,6 +24,10 @@ export const dateDePublication = '01/10/2023'
  */
 export const uuid = '5344c'
 export const ref = 'can4G10'
+export const refs = {
+  'fr-fr': ['can4G10'],
+  'fr-ch': []
+}
 export default function TripletsPythagoriciensOuPas () {
   Exercice.call(this)
   this.nbQuestions = 1

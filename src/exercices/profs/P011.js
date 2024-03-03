@@ -9,6 +9,10 @@ import { contraindreValeur } from '../../modules/outils.js'
 
 export const titre = 'Construction animée d\'un triangle'
 export const ref = 'P011'
+export const refs = {
+  'fr-fr': ['P011'],
+  'fr-ch': []
+}
 export const uuid = '697a7'
 
 export default function ConstruisMonTriangle () {

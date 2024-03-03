@@ -14,6 +14,10 @@ export const amcType = 'AMCOpen'
 
 export const uuid = '1e528'
 export const ref = 'CM019'
+export const refs = {
+  'fr-fr': ['CM019'],
+  'fr-ch': []
+}
 export default function LeCompteEstBonV3 () {
   Exercice.call(this)
   this.consigne =

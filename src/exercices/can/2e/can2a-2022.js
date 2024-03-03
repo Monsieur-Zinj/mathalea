@@ -42,6 +42,10 @@ function compareNombres (a, b) {
 
 export const uuid = '2a4b1'
 export const ref = 'can2a-2022'
+export const refs = {
+  'fr-fr': ['can2a-2022'],
+  'fr-ch': []
+}
 export default function SujetCAN2022Seconde () {
   Exercice.call(this)
   this.titre = titre

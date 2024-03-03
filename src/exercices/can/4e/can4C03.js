@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '22c4c'
 export const ref = 'can4C03'
+export const refs = {
+  'fr-fr': ['can4C03'],
+  'fr-ch': []
+}
 export default function QuotientEntierQuiVaBienParFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

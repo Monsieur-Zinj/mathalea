@@ -25,6 +25,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '36f08'
 export const ref = 'can5G03'
+export const refs = {
+  'fr-fr': ['can5G03'],
+  'fr-ch': []
+}
 export default function CompterlesSymetriquesCan5e () {
   Exercice.call(this)
   this.nbQuestions = 1

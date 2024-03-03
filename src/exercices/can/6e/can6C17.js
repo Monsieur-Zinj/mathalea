@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'daaa3'
 export const ref = 'can6C17'
+export const refs = {
+  'fr-fr': ['can6C17'],
+  'fr-ch': []
+}
 export default function FractionSimpleDeQuantite () {
   Exercice.call(this)
   this.typeExercice = 'simple'

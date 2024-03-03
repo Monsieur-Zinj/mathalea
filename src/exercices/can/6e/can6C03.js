@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '2e274'
 export const ref = 'can6C03'
+export const refs = {
+  'fr-fr': ['can6C03'],
+  'fr-ch': []
+}
 export default function AdditionATrou () {
   Exercice.call(this)
   this.typeExercice = 'simple'

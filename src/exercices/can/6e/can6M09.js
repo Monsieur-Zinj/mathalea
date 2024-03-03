@@ -14,6 +14,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'd5c88'
 export const ref = 'can6M09'
+export const refs = {
+  'fr-fr': ['can6M09'],
+  'fr-ch': []
+}
 export default function PerimetreCarreRectangle () {
   Exercice.call(this)
   this.typeExercice = 'simple'

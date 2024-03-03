@@ -17,6 +17,10 @@ export const dateDePublication = '13/09/2022'
 
 export const uuid = 'bfec4'
 export const ref = 'can6C40'
+export const refs = {
+  'fr-fr': ['can6C40'],
+  'fr-ch': []
+}
 export default function CalculMoitieDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -12,6 +12,10 @@ export const dateDePublication = '20/11/2021'
  */
 export const uuid = 'e3b7d'
 export const ref = 'canc3D03'
+export const refs = {
+  'fr-fr': ['canc3D03'],
+  'fr-ch': []
+}
 export default function AjouterDesDurees () {
   Exercice.call(this)
   this.typeExercice = 'simple'

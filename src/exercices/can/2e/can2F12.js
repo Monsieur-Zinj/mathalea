@@ -20,6 +20,10 @@ export const dateDePublication = '03/01/2022' // La date de publication initiale
 
 export const uuid = '25143'
 export const ref = 'can2F12'
+export const refs = {
+  'fr-fr': ['can2F12'],
+  'fr-ch': []
+}
 export default function ComparerAvecFctRef () {
   Exercice.call(this)
   this.nbQuestions = 1

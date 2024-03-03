@@ -10,6 +10,10 @@ export const titre = 'Générateur de compte est bon version semi-aléatoire'
  */
 export const uuid = 'fec06'
 export const ref = 'CM020'
+export const refs = {
+  'fr-fr': ['CM020'],
+  'fr-ch': []
+}
 export default function LeCompteEstBonV4 () {
   Exercice.call(this)
   this.consigne =

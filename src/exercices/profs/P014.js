@@ -7,6 +7,10 @@ import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Interpollation de Catmull-Rom'
 export const ref = 'P014'
+export const refs = {
+  'fr-fr': ['P014'],
+  'fr-ch': []
+}
 export const uuid = '295a8'
 
 /**

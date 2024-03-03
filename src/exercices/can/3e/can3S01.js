@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '47142'
 export const ref = 'can3S01'
+export const refs = {
+  'fr-fr': ['can3S01'],
+  'fr-ch': []
+}
 export default function CalculProbaSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'

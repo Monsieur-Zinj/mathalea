@@ -11,6 +11,10 @@ export const dateDeModifImportante = '30/03/2023'
  */
 export const uuid = '40ae0'
 export const ref = 'c3C10-2'
+export const refs = {
+  'fr-fr': ['c3C10-2'],
+  'fr-ch': []
+}
 export default function LabyrintheDeMultiplesCM () {
   ExerciceLabyrintheMultiples.call(this)
   this.niveau = 'CM'

@@ -17,6 +17,10 @@ export const dateDeModifImportante = '22/08/2022'
 */
 export const uuid = '02170'
 export const ref = 'can6C27'
+export const refs = {
+  'fr-fr': ['can6C27'],
+  'fr-ch': []
+}
 export default function RenduMonnaie () {
   Exercice.call(this)
   this.typeExercice = 'simple'

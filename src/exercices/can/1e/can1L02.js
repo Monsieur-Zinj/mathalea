@@ -23,6 +23,10 @@ export const dateDePublication = '1/11/2021' // La date de publication initiale 
 */
 export const uuid = 'c74ea'
 export const ref = 'can1L02'
+export const refs = {
+  'fr-fr': ['can1L02'],
+  'fr-ch': []
+}
 export default function NombreSolutionsSecondDegre () {
   Exercice.call(this)
   this.typeExercice = 'simple'

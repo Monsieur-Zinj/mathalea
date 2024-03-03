@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '48334'
 export const ref = 'can4C08'
+export const refs = {
+  'fr-fr': ['can4C08'],
+  'fr-ch': []
+}
 export default function SommePuissancesDeDix () {
   Exercice.call(this)
   this.typeExercice = 'simple'

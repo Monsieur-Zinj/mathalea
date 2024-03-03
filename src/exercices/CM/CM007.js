@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '9fe43'
 export const ref = 'CM007'
+export const refs = {
+  'fr-fr': ['CM007'],
+  'fr-ch': []
+}
 export default function Ajouter11 () {
   Exercice.call(this)
   this.consigne = 'Calculer.'

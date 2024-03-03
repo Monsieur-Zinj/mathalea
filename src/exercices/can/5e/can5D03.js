@@ -19,6 +19,10 @@ export const dateDePublication = '08/02/2022' // La date de publication initiale
  */
 export const uuid = '5430f'
 export const ref = 'can5D03'
+export const refs = {
+  'fr-fr': ['can5D03'],
+  'fr-ch': []
+}
 export default function HeuresFractionHeuresMinutes2 () {
   Exercice.call(this)
   this.nbQuestions = 1

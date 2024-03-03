@@ -21,6 +21,10 @@ export const dateDePublication = '05/11/2023' // La date de publication initiale
  */
 export const uuid = 'c52a3'
 export const ref = 'can2N05'
+export const refs = {
+  'fr-fr': ['can2N05'],
+  'fr-ch': []
+}
 const listePremiers = premiersEntreBornes(1, 100)
 const listeNonPremiers = [1, 21, 27, 33, 39, 42, 45, 49, 51, 54, 55, 57, 63, 69, 75, 77, 81, 87, 91, 93, 95, 99]
 

@@ -9,7 +9,8 @@ import { numerationCompare } from '../../lib/interactif/comparisonFunctions'
 export const uuid = 'e116b'
 export const ref = 'c3N10-2'
 export const refs = {
-  'fr-fr': ['c3N10-2']
+  'fr-fr': ['c3N10-2'],
+  'fr-ch': []
 }
 export const titre = 'Décomposition de nombre entier version 1'
 export const interactifReady = true

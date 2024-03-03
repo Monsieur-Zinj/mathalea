@@ -11,6 +11,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '7fa0e'
 export const ref = 'c3C30'
+export const refs = {
+  'fr-fr': ['c3C30'],
+  'fr-ch': []
+}
 export default function MultiplierDecimauxPar101001000C3 () {
   MultiplierDecimauxPar101001000.call(this)
   this.nbQuestions = 3

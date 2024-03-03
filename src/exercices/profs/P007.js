@@ -8,6 +8,10 @@ import { pavage } from '../../modules/Pavage.js'
 
 export const titre = 'Fabriquer des pavages pour travailler les transformations'
 export const ref = 'P007'
+export const refs = {
+  'fr-fr': ['P007'],
+  'fr-ch': []
+}
 export const uuid = 'ad5f8'
 
 /**

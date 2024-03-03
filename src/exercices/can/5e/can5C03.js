@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '62e1f'
 export const ref = 'can5C03'
+export const refs = {
+  'fr-fr': ['can5C03'],
+  'fr-ch': []
+}
 export default function DifferenceEntiers5e () {
   Exercice.call(this)
   this.nbQuestions = 1

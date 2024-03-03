@@ -19,6 +19,10 @@ export const dateDePublication = '28/10/2021'
 */
 export const uuid = '57777'
 export const ref = 'can5P03'
+export const refs = {
+  'fr-fr': ['can5P03'],
+  'fr-ch': []
+}
 export default function PoucentageP2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

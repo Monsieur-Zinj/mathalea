@@ -23,6 +23,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'd15f3'
 export const ref = 'can1P04'
+export const refs = {
+  'fr-fr': ['can1P04'],
+  'fr-ch': []
+}
 export default function CalculProbaArbre2e () {
   Exercice.call(this)
   this.sup = true

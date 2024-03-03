@@ -18,6 +18,10 @@ export const interactifType = 'custom'
  */
 
 export const ref = 'triangle1'
+export const refs = {
+  'fr-fr': ['triangle1'],
+  'fr-ch': []
+}
 export const uuid = 'e514f'
 
 type Triangle = { label: string, a: number, b: number, c: number }

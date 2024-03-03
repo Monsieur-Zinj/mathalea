@@ -11,6 +11,10 @@ export const dateDePublication = '14/03/2022' // La date de publication initiale
 
 export const titre = 'Puzzles géométriques avec animation'
 export const ref = 'P015'
+export const refs = {
+  'fr-fr': ['P015'],
+  'fr-ch': []
+}
 export const uuid = '085ed'
 
 /**

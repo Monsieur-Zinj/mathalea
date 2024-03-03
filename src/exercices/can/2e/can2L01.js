@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '3b832'
 export const ref = 'can2L01'
+export const refs = {
+  'fr-fr': ['can2L01'],
+  'fr-ch': []
+}
 export default function EquationPlusMoinsX2PlusAEgalB () {
   Exercice.call(this)
   this.typeExercice = 'simple'

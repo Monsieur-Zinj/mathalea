@@ -22,6 +22,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '5da59'
 export const ref = 'can2C09'
+export const refs = {
+  'fr-fr': ['can2C09'],
+  'fr-ch': []
+}
 export default function MilieuEntre1EtFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

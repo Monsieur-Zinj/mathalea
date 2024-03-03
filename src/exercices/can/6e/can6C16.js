@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '88435'
 export const ref = 'can6C16'
+export const refs = {
+  'fr-fr': ['can6C16'],
+  'fr-ch': []
+}
 export default function DoubleEtMoitie () {
   Exercice.call(this)
   this.typeExercice = 'simple'

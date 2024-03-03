@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '11f3c'
 export const ref = 'can4C06'
+export const refs = {
+  'fr-fr': ['can4C06'],
+  'fr-ch': []
+}
 export default function NombreDeNombresEntiersEntreDeuxValeurs () {
   Exercice.call(this)
   this.typeExercice = 'simple'

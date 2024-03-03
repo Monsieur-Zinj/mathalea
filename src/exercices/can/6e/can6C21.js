@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '89135'
 export const ref = 'can6C21'
+export const refs = {
+  'fr-fr': ['can6C21'],
+  'fr-ch': []
+}
 export default function ComplementAUn () {
   Exercice.call(this)
   this.nbQuestions = 1

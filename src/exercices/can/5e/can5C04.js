@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '52336'
 export const ref = 'can5C04'
+export const refs = {
+  'fr-fr': ['can5C04'],
+  'fr-ch': []
+}
 export default function TripleEtMoitie () {
   Exercice.call(this)
   this.nbQuestions = 1

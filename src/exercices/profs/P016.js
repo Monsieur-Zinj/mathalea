@@ -3,6 +3,10 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Exercice from '../deprecatedExercice.js'
 export const titre = 'Simulateur de Dés'
 export const ref = 'P016'
+export const refs = {
+  'fr-fr': ['P016'],
+  'fr-ch': []
+}
 export const uuid = 'bc372'
 export const dateDePublication = '06/04/2022'
 

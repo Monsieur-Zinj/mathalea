@@ -18,6 +18,10 @@ export const dateDeModifImportante = '03/01/2022'
 */
 export const uuid = '26f3b'
 export const ref = 'can2G10'
+export const refs = {
+  'fr-fr': ['can2G10'],
+  'fr-ch': []
+}
 export default function RelationChasles1 () {
   Exercice.call(this)
   this.nbQuestions = 1

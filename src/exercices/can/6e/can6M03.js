@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'd52aa'
 export const ref = 'can6M03'
+export const refs = {
+  'fr-fr': ['can6M03'],
+  'fr-ch': []
+}
 export default function ConvertirEnM () {
   Exercice.call(this)
   this.typeExercice = 'simple'

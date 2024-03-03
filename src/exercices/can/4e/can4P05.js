@@ -18,6 +18,10 @@ export const dateDeModifImportante = '23/01/2021' // Une date de modification im
  */
 export const uuid = '8171f'
 export const ref = 'can4P05'
+export const refs = {
+  'fr-fr': ['can4P05'],
+  'fr-ch': []
+}
 export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'

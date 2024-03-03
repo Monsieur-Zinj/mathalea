@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '102f4'
 export const ref = 'can5C01'
+export const refs = {
+  'fr-fr': ['can5C01'],
+  'fr-ch': []
+}
 export default function ProduitEntiers5e () {
   Exercice.call(this)
   this.typeExercice = 'simple'

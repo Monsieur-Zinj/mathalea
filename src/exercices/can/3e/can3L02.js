@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '9419f'
 export const ref = 'can3L02'
+export const refs = {
+  'fr-fr': ['can3L02'],
+  'fr-ch': []
+}
 export default function EquationAXPlusBEgalZero () {
   Exercice.call(this)
   this.typeExercice = 'simple'

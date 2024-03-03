@@ -15,6 +15,10 @@ export const dateDePublication = '04/03/2022'
 */
 export const uuid = 'c1123'
 export const ref = 'can2L08'
+export const refs = {
+  'fr-fr': ['can2L08'],
+  'fr-ch': []
+}
 export default function ResoudreEquationAvecQuotient () {
   Exercice.call(this)
   this.typeExercice = 'simple'

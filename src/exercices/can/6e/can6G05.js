@@ -19,6 +19,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '84be1'
 export const ref = 'can6G05'
+export const refs = {
+  'fr-fr': ['can6G05'],
+  'fr-ch': []
+}
 export default function ProblemesDeLongueursInverse () {
   Exercice.call(this)
   this.nbQuestions = 1

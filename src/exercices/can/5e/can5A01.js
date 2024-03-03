@@ -21,6 +21,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'af3c8'
 export const ref = 'can5A01'
+export const refs = {
+  'fr-fr': ['can5A01'],
+  'fr-ch': []
+}
 export default function RepetitionScratch () {
   Exercice.call(this)
   this.listeQuestions = []

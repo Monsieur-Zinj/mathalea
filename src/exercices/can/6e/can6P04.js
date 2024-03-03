@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'da0c1'
 export const ref = 'can6P04'
+export const refs = {
+  'fr-fr': ['can6P04'],
+  'fr-ch': []
+}
 export default function AppliquerUnPourcentage () {
   Exercice.call(this)
   this.typeExercice = 'simple'

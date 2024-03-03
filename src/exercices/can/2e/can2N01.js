@@ -16,6 +16,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'f6f76'
 export const ref = 'can2N01'
+export const refs = {
+  'fr-fr': ['can2N01'],
+  'fr-ch': []
+}
 export default function Intervalles () {
   Exercice.call(this)
   this.typeExercice = 'simple'

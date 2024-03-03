@@ -18,6 +18,10 @@ export const interactifType = 'qcm'
 */
 export const uuid = '03b1d'
 export const ref = 'can2F03'
+export const refs = {
+  'fr-fr': ['can2F03'],
+  'fr-ch': []
+}
 export default function SigneFonctionAffine () {
   Exercice.call(this)
   this.date = 1635094684684

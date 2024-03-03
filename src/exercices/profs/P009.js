@@ -8,6 +8,10 @@ import { fraction } from '../../modules/fractions.js'
 
 export const titre = 'Simulation d\'expériences aléatoires'
 export const ref = 'P009'
+export const refs = {
+  'fr-fr': ['P009'],
+  'fr-ch': []
+}
 export const uuid = '691a7'
 
 /**

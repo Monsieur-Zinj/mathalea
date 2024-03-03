@@ -13,6 +13,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'eae92'
 export const ref = 'can6C10'
+export const refs = {
+  'fr-fr': ['can6C10'],
+  'fr-ch': []
+}
 export default function Tables5A9 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

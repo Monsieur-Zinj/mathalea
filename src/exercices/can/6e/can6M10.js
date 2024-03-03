@@ -16,6 +16,10 @@ export const dateDePublication = '04/07/2022'
  */
 export const uuid = 'f8019'
 export const ref = 'can6M10'
+export const refs = {
+  'fr-fr': ['can6M10'],
+  'fr-ch': []
+}
 export default function VolumePaveSimple () {
   Exercice.call(this)
   this.typeExercice = 'simple'

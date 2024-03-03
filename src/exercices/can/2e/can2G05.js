@@ -16,6 +16,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'b0d98'
 export const ref = 'can2G05'
+export const refs = {
+  'fr-fr': ['can2G05'],
+  'fr-ch': []
+}
 export default function DistanceRepere () {
   Exercice.call(this)
   this.typeExercice = 'simple'

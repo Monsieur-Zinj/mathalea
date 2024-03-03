@@ -13,6 +13,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'b259a'
 export const ref = 'c3C11'
+export const refs = {
+  'fr-fr': ['c3C11'],
+  'fr-ch': []
+}
 export default function DivisionCycle3 () {
   DivisionsEuclidiennes.call(this)
   this.sup = 1

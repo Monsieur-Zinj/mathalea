@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = 'bdb11'
 export const ref = 'canc3C03'
+export const refs = {
+  'fr-fr': ['canc3C03'],
+  'fr-ch': []
+}
 export default function TableMultiplicationTrous () {
   Exercice.call(this)
   this.typeExercice = 'simple'

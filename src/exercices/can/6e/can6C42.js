@@ -11,6 +11,10 @@ export const dateDePublication = '04/11/2022'
 
 export const uuid = 'b0fc5'
 export const ref = 'can6C42'
+export const refs = {
+  'fr-fr': ['can6C42'],
+  'fr-ch': []
+}
 export default function ComparerFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

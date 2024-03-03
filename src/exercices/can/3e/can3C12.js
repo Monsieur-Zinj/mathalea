@@ -12,6 +12,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '0ad86'
 export const ref = 'can3C12'
+export const refs = {
+  'fr-fr': ['can3C12'],
+  'fr-ch': []
+}
 export default function EncadrementRacineCarree () {
   Exercice.call(this)
   this.typeExercice = 'simple'

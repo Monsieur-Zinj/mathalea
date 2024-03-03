@@ -14,6 +14,10 @@ export const dateDePublication = '30/03/2023'
 */
 export const uuid = '9883e'
 export const ref = 'can2C17'
+export const refs = {
+  'fr-fr': ['can2C17'],
+  'fr-ch': []
+}
 export default function DevelopperEgalitesRemarquablesRC () {
   Exercice.call(this)
   this.typeExercice = 'simple'

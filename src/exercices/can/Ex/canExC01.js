@@ -15,6 +15,10 @@ export const dateDePublication = '26/10/2021'
 */
 export const uuid = '71292'
 export const ref = 'canExC01'
+export const refs = {
+  'fr-fr': ['canExC01'],
+  'fr-ch': []
+}
 export default function SommeDeComplexes () {
   Exercice.call(this)
   this.nbQuestions = 1

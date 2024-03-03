@@ -12,6 +12,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'e75ae'
 export const ref = 'can4L06'
+export const refs = {
+  'fr-fr': ['can4L06'],
+  'fr-ch': []
+}
 export default function CalculSubstitution () {
   Exercice.call(this)
   this.typeExercice = 'simple'

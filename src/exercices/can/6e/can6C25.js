@@ -16,6 +16,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '81a00'
 export const ref = 'can6C25'
+export const refs = {
+  'fr-fr': ['can6C25'],
+  'fr-ch': []
+}
 export default function RecherchePrix () {
   Exercice.call(this)
   this.typeExercice = 'simple'

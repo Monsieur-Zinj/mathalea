@@ -18,6 +18,10 @@ export const dateDePublication = '21/06/2022' // La date de publication initiale
     */
 export const uuid = '3c690'
 export const ref = 'can1F13'
+export const refs = {
+  'fr-fr': ['can1F13'],
+  'fr-ch': []
+}
 export default function CalculCoeffDir () {
   Exercice.call(this)
   this.typeExercice = 'simple'

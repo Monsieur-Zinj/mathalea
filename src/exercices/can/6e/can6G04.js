@@ -19,6 +19,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'd30d1'
 export const ref = 'can6G04'
+export const refs = {
+  'fr-fr': ['can6G04'],
+  'fr-ch': []
+}
 export default function ProblemesDeLongueurs () {
   Exercice.call(this)
   this.nbQuestions = 1

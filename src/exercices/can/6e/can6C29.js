@@ -16,6 +16,10 @@ export const amcReady = true
 */
 export const uuid = 'c9168'
 export const ref = 'can6C29'
+export const refs = {
+  'fr-fr': ['can6C29'],
+  'fr-ch': []
+}
 export default function Partage () {
   Exercice.call(this)
   this.typeExercice = 'simple'

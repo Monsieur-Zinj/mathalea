@@ -20,6 +20,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '85416'
 export const ref = 'can3G04'
+export const refs = {
+  'fr-fr': ['can3G04'],
+  'fr-ch': []
+}
 export default function RechercheValeurPythagore () {
   Exercice.call(this)
   this.typeExercice = 'simple'

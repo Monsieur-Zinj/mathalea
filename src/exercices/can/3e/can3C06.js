@@ -18,6 +18,10 @@ export const dateDeModifImportante = '08/12/2021'
 */
 export const uuid = '9634b'
 export const ref = 'can3C06'
+export const refs = {
+  'fr-fr': ['can3C06'],
+  'fr-ch': []
+}
 export default function CalculDivers1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

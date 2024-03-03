@@ -14,6 +14,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '3c064'
 export const ref = 'can3C10'
+export const refs = {
+  'fr-fr': ['can3C10'],
+  'fr-ch': []
+}
 export default function EncadrementAvecPuissancesDe10 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

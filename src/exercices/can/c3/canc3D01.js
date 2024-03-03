@@ -20,6 +20,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = '2ce11'
 export const ref = 'canc3D01'
+export const refs = {
+  'fr-fr': ['canc3D01'],
+  'fr-ch': []
+}
 export default function LireHeure () {
   Exercice.call(this)
   this.nbQuestions = 1

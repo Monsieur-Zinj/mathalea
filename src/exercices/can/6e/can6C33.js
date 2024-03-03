@@ -15,6 +15,10 @@ export const dateDePublication = '09/05/2022'
  */
 export const uuid = 'a905f'
 export const ref = 'can6C33'
+export const refs = {
+  'fr-fr': ['can6C33'],
+  'fr-ch': []
+}
 export default function PyramideMul3Etages () {
   Exercice.call(this)
   this.nbQuestions = 1

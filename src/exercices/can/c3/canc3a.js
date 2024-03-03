@@ -28,6 +28,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '32a0f'
 export const ref = 'canc3a'
+export const refs = {
+  'fr-fr': ['canc3a'],
+  'fr-ch': []
+}
 export default function CourseAuxNombresCM () {
   Exercice.call(this)
   this.nbQuestions = 30

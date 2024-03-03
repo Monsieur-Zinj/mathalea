@@ -25,6 +25,10 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '6ca15'
 export const ref = ''
+export const refs = {
+  'fr-fr': [''],
+  'fr-ch': []
+}
 export const dateDePublication = '01/01/2024'
 
 export default function CourseAuxNombresSpeciale2024 () {

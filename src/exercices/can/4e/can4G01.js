@@ -22,6 +22,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = 'f0b9b'
 export const ref = 'can4G01'
+export const refs = {
+  'fr-fr': ['can4G01'],
+  'fr-ch': []
+}
 export default function LongueurPythagore () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -18,6 +18,10 @@ export const dateDeModifImportante = '29/11/2023'
 */
 export const uuid = '8bc88'
 export const ref = 'can2G04'
+export const refs = {
+  'fr-fr': ['can2G04'],
+  'fr-ch': []
+}
 export default function CalculCoordonneesMilieu () {
   Exercice.call(this)
   this.typeExercice = 'simple'

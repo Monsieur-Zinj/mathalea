@@ -23,6 +23,10 @@ export const dateDePublication = '09/06/2022' // La date de publication initiale
  */
 export const uuid = '0f0de'
 export const ref = 'can1F04'
+export const refs = {
+  'fr-fr': ['can1F04'],
+  'fr-ch': []
+}
 export default function LectureGraphiqueParaboleB () {
   Exercice.call(this)
   this.nbQuestions = 1

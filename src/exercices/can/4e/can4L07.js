@@ -19,6 +19,10 @@ export const dateDePublication = '23/02/2022' // La date de publication initiale
 */
 export const uuid = '97664'
 export const ref = 'can4L07'
+export const refs = {
+  'fr-fr': ['can4L07'],
+  'fr-ch': []
+}
 export default function ReduireExp () {
   Exercice.call(this)
   this.typeExercice = 'simple'

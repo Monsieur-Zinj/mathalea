@@ -15,6 +15,10 @@ export const interactifType = 'custom'
  */
 
 export const ref = 'parallelogramme2'
+export const refs = {
+  'fr-fr': ['parallelogramme2'],
+  'fr-ch': []
+}
 export const uuid = '784a7'
 
 class ConstructionParallelogramme extends Exercice {

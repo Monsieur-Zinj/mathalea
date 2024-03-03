@@ -14,6 +14,10 @@ export const dateDePublication = '21/10/2021'
 */
 export const uuid = '55c60'
 export const ref = 'can2L07'
+export const refs = {
+  'fr-fr': ['can2L07'],
+  'fr-ch': []
+}
 export default function Factoriser () {
   Exercice.call(this)
   this.typeExercice = 'simple'

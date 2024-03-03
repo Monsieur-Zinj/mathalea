@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'bc6a9'
 export const ref = 'can5C06'
+export const refs = {
+  'fr-fr': ['can5C06'],
+  'fr-ch': []
+}
 export default function ResteDivision5e () {
   Exercice.call(this)
   this.nbQuestions = 1

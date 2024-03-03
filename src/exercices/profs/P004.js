@@ -9,6 +9,10 @@ import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Droites graduées avec zoom'
 export const ref = 'P004'
+export const refs = {
+  'fr-fr': ['P004'],
+  'fr-ch': []
+}
 export const uuid = 'ad5f6'
 
 /**

@@ -30,6 +30,10 @@ export const dateDePublication = '11/04/2021'
  */
 export const uuid = 'e380b'
 export const ref = 'c3I11'
+export const refs = {
+  'fr-fr': ['c3I11'],
+  'fr-ch': []
+}
 export default function NoteLaCouleurC3 () {
   Exercice.call(this)
   this.titre = titre

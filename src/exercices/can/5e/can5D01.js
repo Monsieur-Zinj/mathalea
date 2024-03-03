@@ -22,6 +22,10 @@ export const dateDeModifImportante = '08/02/2022' // Une date de modification im
  */
 export const uuid = 'd8797'
 export const ref = 'can5D01'
+export const refs = {
+  'fr-fr': ['can5D01'],
+  'fr-ch': []
+}
 export default function ConversionHeuresDecimalesMinutes () {
   Exercice.call(this)
   this.keyboard = ['hms']

@@ -16,6 +16,10 @@ export const amcType = 'qcmMono'
  */
 export const uuid = 'ac56a'
 export const ref = 'can6M02'
+export const refs = {
+  'fr-fr': ['can6M02'],
+  'fr-ch': []
+}
 export default function LaBonneUnite () {
   Exercice.call(this)
   this.nbQuestions = 1

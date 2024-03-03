@@ -21,6 +21,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '4b711'
 export const ref = 'can4G04'
+export const refs = {
+  'fr-fr': ['can4G04'],
+  'fr-ch': []
+}
 export default function CalculCotePythagore () {
   Exercice.call(this)
   this.typeExercice = 'simple'

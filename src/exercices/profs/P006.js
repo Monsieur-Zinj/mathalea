@@ -10,6 +10,10 @@ import { calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
 export const ref = 'P006'
+export const refs = {
+  'fr-fr': ['P006'],
+  'fr-ch': []
+}
 export const uuid = 'bd5f7'
 
 /**

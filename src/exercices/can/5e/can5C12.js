@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'e4b95'
 export const ref = 'can5C12'
+export const refs = {
+  'fr-fr': ['can5C12'],
+  'fr-ch': []
+}
 export default function FractionDEntierQuiVaBien () {
   Exercice.call(this)
   this.typeExercice = 'simple'

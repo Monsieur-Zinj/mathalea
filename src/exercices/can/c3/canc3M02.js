@@ -20,6 +20,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'cb91f'
 export const ref = 'canc3M02'
+export const refs = {
+  'fr-fr': ['canc3M02'],
+  'fr-ch': []
+}
 export default function ProblemesDeLongueursEtPerimetreCM () {
   Exercice.call(this)
   this.nbQuestions = 1

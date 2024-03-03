@@ -14,6 +14,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'cc70a'
 export const ref = 'can5L01'
+export const refs = {
+  'fr-fr': ['can5L01'],
+  'fr-ch': []
+}
 export default function MoitiePlusOuMoinsUn () {
   Exercice.call(this)
   this.typeExercice = 'simple'

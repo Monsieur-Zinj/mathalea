@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '92186'
 export const ref = 'can4C09'
+export const refs = {
+  'fr-fr': ['can4C09'],
+  'fr-ch': []
+}
 export default function PuissancesDe2345 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

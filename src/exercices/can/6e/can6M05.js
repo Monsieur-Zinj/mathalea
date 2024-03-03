@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'a39f6'
 export const ref = 'can6M05'
+export const refs = {
+  'fr-fr': ['can6M05'],
+  'fr-ch': []
+}
 export default function ConversionM3EtLitres () {
   Exercice.call(this)
   this.typeExercice = 'simple'

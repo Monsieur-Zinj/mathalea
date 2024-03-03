@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '5ecdc'
 export const ref = 'can5C02'
+export const refs = {
+  'fr-fr': ['can5C02'],
+  'fr-ch': []
+}
 export default function SommeEntiers5e () {
   Exercice.call(this)
   this.nbQuestions = 1

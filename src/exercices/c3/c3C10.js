@@ -11,6 +11,10 @@ export const amcType = 'AMCOpen'
  */
 export const uuid = 'fa836'
 export const ref = 'c3C10'
+export const refs = {
+  'fr-fr': ['c3C10'],
+  'fr-ch': []
+}
 export default function OperationsPosees () {
   AdditionsSoustractionsMultiplicationsPosees.call(this)
   this.nbQuestions = 3

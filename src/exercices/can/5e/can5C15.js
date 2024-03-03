@@ -15,6 +15,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '6b25b'
 export const ref = 'can5C15'
+export const refs = {
+  'fr-fr': ['can5C15'],
+  'fr-ch': []
+}
 export default function NombreATrouver () {
   Exercice.call(this)
   this.typeExercice = 'simple'

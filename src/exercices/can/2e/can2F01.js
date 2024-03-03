@@ -18,6 +18,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'b2c31'
 export const ref = 'can2F01'
+export const refs = {
+  'fr-fr': ['can2F01'],
+  'fr-ch': []
+}
 export default function CalculImageSecondDegre () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '2aa64'
 export const ref = 'can5C08'
+export const refs = {
+  'fr-fr': ['can5C08'],
+  'fr-ch': []
+}
 export default function ProchainMultipleDeTroisOuDeNeuf () {
   Exercice.call(this)
   this.nbQuestions = 1

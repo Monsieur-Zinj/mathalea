@@ -14,6 +14,10 @@ export const dateDePublication = '17/04/2023'
 */
 export const uuid = 'ed8da'
 export const ref = 'can5N03'
+export const refs = {
+  'fr-fr': ['can5N03'],
+  'fr-ch': []
+}
 export default function PlusGrandMultiple () {
   Exercice.call(this)
   this.typeExercice = 'simple'

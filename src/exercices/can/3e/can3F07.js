@@ -23,6 +23,10 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
 */
 export const uuid = '82f73'
 export const ref = 'can3F07'
+export const refs = {
+  'fr-fr': ['can3F07'],
+  'fr-ch': []
+}
 export default function LectureGraphiqueFonctionAffine1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

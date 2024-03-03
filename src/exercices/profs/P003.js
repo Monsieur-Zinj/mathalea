@@ -5,6 +5,10 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero } from '
 
 export const titre = 'Tracer des droites graduées'
 export const ref = 'P003'
+export const refs = {
+  'fr-fr': ['P003'],
+  'fr-ch': []
+}
 export const uuid = 'ad5f5'
 
 /**
