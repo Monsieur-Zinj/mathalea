@@ -39,7 +39,7 @@
   onMount(async () => {
     displayKeyboardToggle(false)
     // reconstitution des exercices
-    exercises = [...(await buildExercisesList())]
+    exercises = await Promise.all(buildExercisesList())
     // interactivité
     if ($canOptions.isInteractive) {
       $keyboardState.isVisible = true
