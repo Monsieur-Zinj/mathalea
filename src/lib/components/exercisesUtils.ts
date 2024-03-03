@@ -26,43 +26,60 @@ delete allStaticReferentiels['E3C par thèmes - APMEP']
 
 /**
  * Construit la liste des exercices basée sur le contenu du store exercicesParams
- * @returns liste des exercices
+ * @returns liste des exercices EN PROMESSE
  */
-export const buildExercisesList = async (): Promise<TypeExercice[]> => {
-  const exos: TypeExercice[] = []
+export const buildExercisesList = (filter: string[] = []): Promise<TypeExercice>[] => {
+  const promiseExos: Promise<TypeExercice>[] = []
   const options = get(globalOptions)
   const exosParams = get(exercicesParams)
   for (const paramsExercice of exosParams) {
-    let exo: TypeExercice
+    if (filter.length > 0 && !filter.includes(paramsExercice.uuid)) {
+      continue
+    }
     if (isStatic(paramsExercice.uuid)) {
-      exo = new Exercice()
-      exo.titre = `Uuid ${paramsExercice.uuid} - Exercice statique`
-      exo.listeQuestions[0] = `Uuid ${paramsExercice.uuid} - Exercice statique: pas de question chargée<br>`
-      exo.listeCorrections[0] = `Uuid ${paramsExercice.uuid} -Exercice statique: pas de question chargée<br>`
-      exo.nbQuestions = 1
-      const foundResource = retrieveResourceFromUuid(allStaticReferentiels, paramsExercice.uuid)
-      if (isStaticType(foundResource)) {
-        console.log(foundResource)
-        exo.listeQuestions[0] = exo.listeQuestions[0] + `<br>
-        <img src="${foundResource.png || ''}" style="width: calc(100% * {zoomFactor}" alt="énoncé" />`
-      }
+      const p = new Promise<TypeExercice>((resolve) => {
+        // console.log('id' + paramsExercice.id)
+        const exo = new Exercice()
+        exo.titre = `Uuid ${paramsExercice.uuid} - Exercice statique`
+        exo.listeQuestions[0] = `Uuid ${paramsExercice.uuid} - Exercice statique: pas de question chargée<br>`
+        exo.listeCorrections[0] = `Uuid ${paramsExercice.uuid} -Exercice statique: pas de question chargée<br>`
+        exo.nbQuestions = 1
+        const foundResource = retrieveResourceFromUuid(allStaticReferentiels, paramsExercice.uuid)
+        if (isStaticType(foundResource)) {
+          exo.listeQuestions[0] = exo.listeQuestions[0] + `<br>
+          <img src="${foundResource.png || ''}" style="width: calc(100% * {zoomFactor}" alt="énoncé" />`
+        }
+        mathaleaHandleParamOfOneExercice(exo, paramsExercice)
+        if (options.setInteractive === '1' && exo?.interactifReady) {
+          exo.interactif = true
+        }
+        resolve(exo)
+        // console.log('id resolu' + paramsExercice.id)
+      })
+      promiseExos.push(p)
     } else {
-      exo = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+      const p = new Promise<TypeExercice>((resolve) => {
+        // console.log('id' + paramsExercice.id)
+        mathaleaLoadExerciceFromUuid(paramsExercice.uuid).then(exo => {
+          if (typeof exo === 'undefined') {
+            throw new Error(
+              "L'exercice correspondant à l'uuid " +
+                paramsExercice.uuid +
+                " n'est pas défini..."
+            )
+          }
+          mathaleaHandleParamOfOneExercice(exo, paramsExercice)
+          if (options.setInteractive === '1' && exo?.interactifReady) {
+            exo.interactif = true
+          }
+          resolve(exo)
+        })
+        // console.log('id resolu' + paramsExercice.id)
+      })
+      promiseExos.push(p)
     }
-    if (typeof exo === 'undefined') {
-      throw new Error(
-        "L'exercice correspondant à l'uuid " +
-          paramsExercice.uuid +
-          " n'est pas défini..."
-      )
-    }
-    mathaleaHandleParamOfOneExercice(exo, paramsExercice)
-    if (options.setInteractive === '1' && exo?.interactifReady) {
-      exo.interactif = true
-    }
-    exos.push(exo)
   }
-  return exos
+  return promiseExos
 }
 
 function isStatic (uuid: string) {
