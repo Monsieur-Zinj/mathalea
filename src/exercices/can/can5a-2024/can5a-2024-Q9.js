@@ -14,7 +14,6 @@ export const uuid = '1bb1e'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -31,13 +30,9 @@ export default class NomExercice extends Exercice {
       this.formatInteractif = 'fractionEgale'
       this.reponse = new FractionEtendue(7, 10)
       this.question = 'Complète : <br> $7$ dm $=$ '
-      if (this.interactif) {
-        this.optionsChampTexte = { texteApres: 'm' }
-      } else { this.question += `${context.isHtml ? '$\\ldots$ m' : ''}` }
       this.correction = ` Comme $1$ m $=10$ dm, alors $1$ dm $=0,1$ m.<br>
-      Ainsi pour passer des "dm" au "m", on divise par $10$.<br>
-        Comme : $7\\div 10 =0,7$, alors $7$ dm$=${miseEnEvidence('0,7')}$ m. `
-      this.canEnonce = 'Complète.'
+      Ainsi, pour passer des "dm" au "m", on divise par $10$.<br>
+        Comme $7\\div 10 =0,7$, alors $7$ dm$=${miseEnEvidence('0,7')}$ m. `
       this.canReponseACompleter = ' $7$ dm $=\\ldots$ m'
     } else {
       if (choice([true, false])) {
@@ -45,14 +40,10 @@ export default class NomExercice extends Exercice {
         const a = randint(3, 15)
         this.reponse = new FractionEtendue(a, 10)
         this.question = `Complète : <br>$${a}$ dm $=$`
-        if (this.interactif) {
-          this.optionsChampTexte = { texteApres: 'm' }
-        } else { this.question += `${context.isHtml ? '$\\ldots$ m' : ''}` }
         this.correction = `
          Comme $1$ m $=10$ dm, alors $1$ dm $=0,1$ m.<br>
-        Ainsi pour passer des "dm" au "m", on divise par $10$.<br>
-      Comme : $${a}\\div 10 =${texNombre(a / 10, 1)}$, alors $${a}$ dm$=${miseEnEvidence(texNombre(a / 10, 1))}$ m.  `
-        this.canEnonce = 'Complète.'
+        Ainsi, pour passer des "dm" au "m", on divise par $10$.<br>
+      Comme $${a}\\div 10 =${texNombre(a / 10, 1)}$, alors $${a}$ dm$=${miseEnEvidence(texNombre(a / 10, 1))}$ m.  `
         this.canReponseACompleter = `$${a}$ dm $=\\ldots$ m`
       } else {
         this.formatInteractif = 'calcul'
@@ -63,10 +54,13 @@ export default class NomExercice extends Exercice {
           this.optionsChampTexte = { texteApres: 'cm' }
         } else { this.question += `${context.isHtml ? '$\\ldots$ cm' : ''}` }
         this.correction = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-            Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${miseEnEvidence(texNombre(this.reponse, 0))}$ cm.`
-        this.canEnonce = 'Complète.'
+            Comme $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${miseEnEvidence(texNombre(this.reponse, 0))}$ cm.`
         this.canReponseACompleter = ` $${texNombre(a, 0)}$ m $= \\ldots$ cm`
       }
     }
+    this.canEnonce = 'Complète.'
+    if (this.interactif) {
+      this.optionsChampTexte = { texteApres: 'm' }
+    } else { this.question += `${context.isHtml ? '$\\ldots$ m' : ''}` }
   }
 }

@@ -24,7 +24,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierFullOperations
-    this.optionsChampTexte = { texteApres: 'cm' }
+    this.optionsChampTexte = { texteApres: 'cm.' }
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
   }

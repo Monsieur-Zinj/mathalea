@@ -26,6 +26,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
   blocCenter = false,
   tailleExtensible = false
 } = {}) {
+  if (texteApres !== '') texteApres = sp() + texteApres
   if (context.isHtml && exercice.interactif) {
     if (typeof style !== 'string') {
       window.notify(`style doit être une chaîne de caractères. Exercice ${exercice.id} ${exercice.uuid}`)

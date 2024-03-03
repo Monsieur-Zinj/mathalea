@@ -36,8 +36,8 @@ export default class NomExercice extends Exercice {
     if (this.interactif) {
       this.optionsChampTexte = { texteAvant: `$${valInf} < $`, texteApres: `$<${texNombre(valSup, 2)}  $` }
     } else { this.question += `$${valInf} < \\ldots < ${texNombre(valSup, 2)}$` }
-    this.correction = `On complète avec un nombre strictement compris entre $${valInf}$ et $${texNombre(valSup, 2)}$. <br>
-     Par exemple $${miseEnEvidence(texNombre(valSup.add(valInf).div(2), 3))}$`
+    this.correction = `On complète avec un nombre strictement compris entre $${valInf}$ et $${texNombre(valSup, 2)}$, comme 
+     par exemple : $${miseEnEvidence(texNombre(valSup.add(valInf).div(2), 3))}$.`
 
     this.canEnonce = 'Complète par un nombre.'
     this.canReponseACompleter = `$${valInf} < \\ldots < ${texNombre(valSup, 2)}$`

@@ -13,7 +13,6 @@ export const uuid = 'fad30'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -60,7 +59,7 @@ export default class NomExercice extends Exercice {
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ €'
     if (this.interactif) {
-      this.optionsChampTexte = { texteApres: '€' }
-    } else { this.question += '$\\ldots$ €' }
+      this.optionsChampTexte = { texteApres: '€.' }
+    } else { this.question += '$\\ldots$ €.' }
   }
 }
