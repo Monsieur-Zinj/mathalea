@@ -1,6 +1,7 @@
 <script lang="ts">
   import { slide } from 'svelte/transition'
   import {
+    isExamItemInReferentiel,
     isJSONReferentielEnding,
     isParentOfStaticEnding,
     isRealJSONReferentielObject,
@@ -15,7 +16,13 @@
   import StaticEnding from './StaticEnding.svelte'
   import { onMount } from 'svelte'
   import ModalStaticExercises from './ModalStaticExercices/ModalStaticExercises.svelte'
-  import { isModalForStaticsVisible, bibliothequePathToSection, exercicesParams, bibliothequeDisplayedContent } from '../../../../../../lib/stores/generalStore'
+  import {
+    isModalForStaticsVisible,
+    bibliothequePathToSection,
+    exercicesParams,
+    bibliothequeDisplayedContent
+  } from '../../../../../../lib/stores/generalStore'
+  import { monthes } from '../../../../../../lib/components/handleDate'
 
   export let subset: JSONReferentielObject
   export let unfold: boolean = false
@@ -47,6 +54,9 @@
    */
   function prepareSubset (s: JSONReferentielObject) {
     if (pathToThisNode.length !== 0) {
+      // console.log('object in prepareSubset (pathToThisNode): ')
+      // console.log(pathToThisNode)
+      // console.log(s)
       // classement entrées CAN
       if (pathToThisNode[pathToThisNode.length - 1].includes('CAN')) {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -65,31 +75,47 @@
           return keyA.localeCompare(keyB, 'fr')
         })
       }
+      // classement des entrées par années : sujets 1 et 2
+      const regExpForExactlyFourDigits = /^\d{4}$/gm
+      if (regExpForExactlyFourDigits.test(pathToThisNode[pathToThisNode.length - 1])) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        return Object.entries(s).sort(([keyA, valueA], [keyB, valueB]) => {
+          if (isExamItemInReferentiel(valueA) && isExamItemInReferentiel(valueB) && valueA.jour && valueB.jour) {
+            const jourA = parseInt(valueA.jour.replace('J', ''))
+            const jourB = parseInt(valueB.jour.replace('J', ''))
+            const moisA = monthes.indexOf(valueA.mois ?? '')
+            const moisB = monthes.indexOf(valueB.mois ?? '')
+            return moisB - moisA || valueA.lieu.localeCompare(valueB.lieu) || jourA - jourB
+          } else {
+            return 0
+          }
+        })
+      }
       return Object.entries(s)
     } else {
       return Object.entries(s)
     }
   }
 
-/**
- * Gestion la bibliothèque de statiques
- */
-let bibliothequeUuidInExercisesList: string[]
-$: {
-  bibliothequeUuidInExercisesList = []
-  const uuidList: string[] = []
-  for (const entry of $exercicesParams) {
-    uuidList.push(entry.uuid)
-  }
-  if ($bibliothequeDisplayedContent) {
-    for (const item of Object.values($bibliothequeDisplayedContent)) {
-      if (isJSONReferentielEnding(item) && uuidList.includes(item.uuid)) {
-        bibliothequeUuidInExercisesList.push(item.uuid)
+  /**
+   * Gestion la bibliothèque de statiques
+   */
+  let bibliothequeUuidInExercisesList: string[]
+  $: {
+    bibliothequeUuidInExercisesList = []
+    const uuidList: string[] = []
+    for (const entry of $exercicesParams) {
+      uuidList.push(entry.uuid)
+    }
+    if ($bibliothequeDisplayedContent) {
+      for (const item of Object.values($bibliothequeDisplayedContent)) {
+        if (isJSONReferentielEnding(item) && uuidList.includes(item.uuid)) {
+          bibliothequeUuidInExercisesList.push(item.uuid)
+        }
       }
     }
+    bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
   }
-  bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
-}
 
   onMount(() => {
     if (nestedLevelCount === 1 && levelTitle === 'Exercices aléatoires') {
@@ -182,7 +208,7 @@ $: {
                 class={i === items.length - 1 ? 'pb-6' : ''}
               />
             {:else if Object.keys(obj).length === 0}
-            <!-- DEAD CODE -->
+              <!-- DEAD CODE -->
               <!-- Terminaison vide est affichée comme un bouton désactivé -->
               <StaticEnding
                 pathToThisNode={[...pathToThisNode, key]}
