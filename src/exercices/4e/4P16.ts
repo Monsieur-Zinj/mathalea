@@ -27,7 +27,7 @@ export const refs = {
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : m/h\n2 : m³/h\n3 : L/h\n4 : L/m²\n5 : m²/h\n6 : Wh\n7 : VA\n8 : Mélange']
+    this.besoinFormulaireTexte = ['Choix des problèmes', 'Nombres séparés par des tirets\n1 : m/h\n2 : m$^3$/h\n3 : L/h\n4 : L/m$^2$\n5 : m$^2$/h\n6 : Wh\n7 : VA\n8 : Mélange']
     this.sup = 8
     this.titre = titre
   }
@@ -46,7 +46,12 @@ export default class NomExercice extends Exercice {
       defaut: 1
     })
 
-    const unitesLongueur = [
+    type Unite = {
+      unite: string,
+      coef: number
+    }
+
+    const unitesLongueur: Unite[] = [
       {
         unite: 'mm',
         coef: 1
@@ -76,55 +81,55 @@ export default class NomExercice extends Exercice {
         coef: 10 ** 6
       }
     ]
-    const unitesSurface = [
+    const unitesSurface: Unite[] = [
       {
-        unite: 'mm²',
+        unite: 'mm$^2$',
         coef: 1
       },
       {
-        unite: 'cm²',
+        unite: 'cm$^2$',
         coef: 10 ** 2
       },
       {
-        unite: 'dm²',
+        unite: 'dm$^2$',
         coef: 10 ** 4
       },
       {
-        unite: 'm²',
+        unite: 'm$^2$',
         coef: 10 ** 6
       },
       {
-        unite: 'dam²',
+        unite: 'dam$^2$',
         coef: 10 ** 8
       },
       {
-        unite: 'hm²',
+        unite: 'hm$^2$',
         coef: 10 ** 10
       },
       {
-        unite: 'km²',
+        unite: 'km$^2$',
         coef: 10 ** 12
       }
     ]
-    const unitesVolume = [
+    const unitesVolume: Unite[] = [
       {
-        unite: 'mm³',
+        unite: 'mm$^3$',
         coef: 1
       },
       {
-        unite: 'cm³',
+        unite: 'cm$^3$',
         coef: 10 ** 3
       },
       {
-        unite: 'dm³',
+        unite: 'dm$^3$',
         coef: 10 ** 6
       },
       {
-        unite: 'm³',
+        unite: 'm$^3$',
         coef: 10 ** 9
       }
     ]
-    const unitesContenance = [
+    const unitesContenance: Unite[] = [
       {
         unite: 'mL',
         coef: 1
@@ -142,7 +147,7 @@ export default class NomExercice extends Exercice {
         coef: 10 ** 3
       }
     ]
-    const unitesTemps = [
+    const unitesTemps: Unite[] = [
       {
         unite: 's',
         coef: 1
@@ -156,7 +161,7 @@ export default class NomExercice extends Exercice {
         coef: 3600
       }
     ]
-    const unitesPuissance = [
+    const unitesPuissance: Unite[] = [
       {
         unite: 'mW',
         coef: 1
@@ -170,7 +175,7 @@ export default class NomExercice extends Exercice {
         coef: 10 ** 6
       }
     ]
-    const unitesTension = [
+    const unitesTension: Unite[] = [
       {
         unite: 'mV',
         coef: 1
@@ -184,7 +189,7 @@ export default class NomExercice extends Exercice {
         coef: 10 ** 6
       }
     ]
-    const unitesIntensite = [
+    const unitesIntensite: Unite[] = [
       {
         unite: 'mA',
         coef: 1
@@ -194,31 +199,63 @@ export default class NomExercice extends Exercice {
         coef: 10 ** 3
       }
     ]
-    let unite1Depart, unite2Depart, unite1Arrivee, unite2Arrivee, valeurDepart, valeurArrivee
+    let unite1Depart: Unite = { unite: '', coef: 1 }
+    let unite2Depart: Unite = { unite: '', coef: 1 }
+    let unite1Arrivee: Unite = { unite: '', coef: 1 }
+    let unite2Arrivee: Unite = { unite: '', coef: 1 }
+    let valeurDepart: number
+    let valeurArrivee: Decimal = new Decimal(1)
+    let typeDeComposition: 'quotient' | 'produit'
+    let coef1: Decimal = new Decimal(1)
+    let coef2: Decimal = new Decimal(1)
+    let precision = 0
+    let operateur, cfrac, times
 
-    function fixeUnites (unite1, unite2) {
-      const index1Depart = randint(0, unite1.length - 1)
-      const index2Depart = randint(0, unite2.length - 1)
-      const index1Arrivee = randint(0, unite1.length - 1, [index1Depart])
-      const index2Arrivee = randint(0, unite2.length - 1, [index2Depart])
-      unite1Depart = unite1[index1Depart]
-      unite2Depart = unite2[index2Depart]
-      unite1Arrivee = unite1[index1Arrivee]
-      unite2Arrivee = unite2[index2Arrivee]
+    function fixeUnites (unite1: Unite[], unite2: Unite[]) {
+      let index1Depart
+      let index2Depart
+      let index1Arrivee: number
+      let index2Arrivee: number
+      do {
+        index1Depart = randint(0, unite1.length - 1)
+        index2Depart = randint(0, unite2.length - 1)
+        index1Arrivee = randint(0, unite1.length - 1, [index1Depart])
+        index2Arrivee = randint(0, unite2.length - 1, [index2Depart])
+        unite1Depart = unite1[index1Depart]
+        unite2Depart = unite2[index2Depart]
+        unite1Arrivee = unite1[index1Arrivee]
+        unite2Arrivee = unite2[index2Arrivee]
+        coef1 = new Decimal(unite1Depart.coef).div(unite1Arrivee.coef)
+        coef2 = new Decimal(unite2Depart.coef).div(unite2Arrivee.coef)
+        valeurArrivee = new Decimal(valeurDepart).times(coef1)
+        if (typeDeComposition === 'quotient') {
+          operateur = '/'
+          cfrac = ' \\cfrac '
+          times = ''
+          valeurArrivee = valeurArrivee.div(coef2)
+          precision = Math.log10(coef1.div(coef2).toNumber()) < 0 ? -Math.floor(Math.log10(coef1.div(coef2).toNumber())) : 0
+        } else {
+          operateur = '.'
+          cfrac = ''
+          times = ' \\times '
+          valeurArrivee = valeurArrivee.times(coef2)
+          precision = Math.log10(coef1.mul(coef2).toNumber()) < 0 ? -Math.floor(Math.log10(coef1.mul(coef2).toNumber())) : 0
+        }
+      } while (Math.abs(Math.log10(valeurArrivee.toNumber())) > 6)
     }
 
-    for (let i = 0, texte, texteCorr, typeDeComposition, operateur, cfrac, times, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       valeurDepart = randint(1, 80) * 9 // Comme ça même si on doit diviser par 3600 le résultat restera décimal
       typeDeComposition = 'quotient'
       if (listeDesProblemes[i] === 1) { // Vitesse
         fixeUnites(unitesLongueur, unitesTemps)
-      } else if (listeDesProblemes[i] === 2) { // Débit (m³)
+      } else if (listeDesProblemes[i] === 2) { // Débit (m$^3$)
         fixeUnites(unitesVolume, unitesTemps)
       } else if (listeDesProblemes[i] === 3) { // Débit (L)
         fixeUnites(unitesContenance, unitesTemps)
-      } else if (listeDesProblemes[i] === 4) { // L/m²
+      } else if (listeDesProblemes[i] === 4) { // L/m$^2$
         fixeUnites(unitesContenance, unitesSurface)
-      } else if (listeDesProblemes[i] === 5) { // m²/h
+      } else if (listeDesProblemes[i] === 5) { // m$^2$/h
         fixeUnites(unitesSurface, unitesTemps)
       } else if (listeDesProblemes[i] === 6) { // Wh
         typeDeComposition = 'produit'
@@ -227,24 +264,11 @@ export default class NomExercice extends Exercice {
         typeDeComposition = 'produit'
         fixeUnites(unitesTension, unitesIntensite)
       } else {
-        window.notify('listeDesProblemes[i] a une valeur inattendue.\nPeut-être que valMaxParametre est incorrect ?')
-      }
-      const coef1 = new Decimal(unite1Depart.coef).div(unite1Arrivee.coef)
-      const coef2 = new Decimal(unite2Depart.coef).div(unite2Arrivee.coef)
-      valeurArrivee = new Decimal(valeurDepart).times(coef1)
-      let precision
-      if (typeDeComposition === 'quotient') {
-        operateur = '/'
-        cfrac = ' \\cfrac '
-        times = ''
-        valeurArrivee = valeurArrivee.div(coef2)
-        precision = Math.log10(coef1 / coef2) < 0 ? -Math.floor(Math.log10(coef1 / coef2)) : 0
-      } else {
-        operateur = '.'
-        cfrac = ''
-        times = ' \\times '
-        valeurArrivee = valeurArrivee.times(coef2)
-        precision = Math.log10(coef1 * coef2) < 0 ? -Math.floor(Math.log10(coef1 * coef2)) : 0
+        window.notify('listeDesProblemes[i] a une valeur inattendue.\nPeut-être que valMaxParametre est incorrect ?', {
+          listeDesProblemes,
+          i,
+          valMaxParametre
+        })
       }
       texte = `Convertir $${valeurDepart}$ ${unite1Depart.unite}${operateur}${unite2Depart.unite} en ${unite1Arrivee.unite}${operateur}${unite2Arrivee.unite}.`
       texteCorr = `$${valeurDepart}\\text{ ${unite1Depart.unite}${operateur}${unite2Depart.unite}}
