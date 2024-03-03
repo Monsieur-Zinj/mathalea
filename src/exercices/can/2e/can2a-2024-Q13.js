@@ -28,7 +28,7 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.optionsChampTexte = { texteApres: sp() + 'cm$^2$' }
+    this.optionsChampTexte = { texteApres: 'cm$^2$' }
     let tri
     if (this.canOfficielle) {
       const objets = []

@@ -27,7 +27,7 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(17, 3)
       this.question = 'Compléter : $3\\times \\ldots =17$'
-      this.optionsChampTexte = { texteAvant: '$3\\times$', texteApres: sp() + '$=17$' }
+      this.optionsChampTexte = { texteAvant: '$3\\times$', texteApres: '$=17$' }
       if (this.interactif) {
         this.question = `Compléter : <br>
       `
