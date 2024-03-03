@@ -32,6 +32,10 @@ export const dateDePublication = '03/04/2023' // La date de publication initiale
 
 export const uuid = '07680'
 export const ref = 'can6a-2023'
+export const refs = {
+  'fr-fr': ['can6a-2023'],
+  'fr-ch': []
+}
 
 /**
  * Aléatoirisation du sujet 2023 de CAN 6e

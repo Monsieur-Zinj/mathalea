@@ -18,6 +18,10 @@ export const dateDePublication = '30/10/2021' // La date de publication initiale
 */
 export const uuid = '2ba42'
 export const ref = 'can2G12'
+export const refs = {
+  'fr-fr': ['can2G12'],
+  'fr-ch': []
+}
 export default function VecteursColineairesVF () {
   Exercice.call(this)
   this.nbQuestions = 1

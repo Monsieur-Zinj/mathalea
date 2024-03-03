@@ -19,6 +19,10 @@ export const dateDePublication = '19/05/2023' // La date de publication initiale
 */
 export const uuid = 'a3e06'
 export const ref = 'can2F15'
+export const refs = {
+  'fr-fr': ['can2F15'],
+  'fr-ch': []
+}
 export default function VariationFA () {
   Exercice.call(this)
   this.nbQuestions = 1

@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'cc882'
 export const ref = 'can6N09'
+export const refs = {
+  'fr-fr': ['can6N09'],
+  'fr-ch': []
+}
 export default function PositionDesChiffres () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -16,6 +16,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '66672'
 export const ref = 'can4G05'
+export const refs = {
+  'fr-fr': ['can4G05'],
+  'fr-ch': []
+}
 export default function DiagonaleCarre () {
   Exercice.call(this)
   this.typeExercice = 'simple'

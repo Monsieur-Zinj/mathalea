@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'c3e17'
 export const ref = 'can6C13'
+export const refs = {
+  'fr-fr': ['can6C13'],
+  'fr-ch': []
+}
 export default function FSomme2Decimaux () {
   Exercice.call(this)
   this.typeExercice = 'simple'

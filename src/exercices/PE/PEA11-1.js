@@ -21,6 +21,10 @@ export const titre = 'Passer de la base 12 ou 16 à la base 10 et inversement'
 */
 export const uuid = 'a24a6'
 export const ref = 'PEA11-1'
+export const refs = {
+  'fr-fr': ['PEA11-1'],
+  'fr-ch': []
+}
 
 /**
  * Renvoie la valeur du chiffre (8->8, A->10, B->11...)

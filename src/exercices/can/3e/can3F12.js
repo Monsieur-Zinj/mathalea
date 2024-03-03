@@ -18,6 +18,10 @@ export const titre = 'Lire des antécédents graphiquement'
 */
 export const uuid = '0e1c6'
 export const ref = 'can3F12'
+export const refs = {
+  'fr-fr': ['can3F12'],
+  'fr-ch': []
+}
 export default function AntecedentSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'

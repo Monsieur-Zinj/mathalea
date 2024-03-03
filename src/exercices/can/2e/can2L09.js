@@ -15,6 +15,10 @@ export const dateDePublication = '08/12/2022'
 
 export const uuid = '05bc2'
 export const ref = 'can2L09'
+export const refs = {
+  'fr-fr': ['can2L09'],
+  'fr-ch': []
+}
 export default function ÉcrireUnQuotient () {
   Exercice.call(this)
   this.typeExercice = 'simple'

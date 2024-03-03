@@ -25,6 +25,10 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  */
 export const uuid = 'd5b6c'
 export const ref = 'can2F07'
+export const refs = {
+  'fr-fr': ['can2F07'],
+  'fr-ch': []
+}
 export default function ExtremumsTableau () {
   Exercice.call(this)
   this.nbQuestions = 1

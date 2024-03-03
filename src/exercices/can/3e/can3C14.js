@@ -18,6 +18,10 @@ export const dateDePublication = '31/10/2022'
 
 export const uuid = '3f875'
 export const ref = 'can3C14'
+export const refs = {
+  'fr-fr': ['can3C14'],
+  'fr-ch': []
+}
 export default function DecimalVersFractionIr () {
   Exercice.call(this)
   this.typeExercice = 'simple'

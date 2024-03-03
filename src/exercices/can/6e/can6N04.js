@@ -20,6 +20,10 @@ export const amcType = 'AMCHybride'
  */
 export const uuid = 'ca515'
 export const ref = 'can6N04'
+export const refs = {
+  'fr-fr': ['can6N04'],
+  'fr-ch': []
+}
 export default function AbscisseFractionnaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'

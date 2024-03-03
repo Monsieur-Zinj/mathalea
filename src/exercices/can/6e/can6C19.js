@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'd656b'
 export const ref = 'can6C19'
+export const refs = {
+  'fr-fr': ['can6C19'],
+  'fr-ch': []
+}
 export default function ComplementACent () {
   Exercice.call(this)
   this.nbQuestions = 1

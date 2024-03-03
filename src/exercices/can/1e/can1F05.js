@@ -23,6 +23,10 @@ export const dateDeModifImportante = '11/10/2023'// j'ai enlevé c. J'ai ajoute 
  */
 export const uuid = '053d7'
 export const ref = 'can1F05'
+export const refs = {
+  'fr-fr': ['can1F05'],
+  'fr-ch': []
+}
 export default function LectureGraphiqueParabolebEtc () {
   Exercice.call(this)
   this.nbQuestions = 1

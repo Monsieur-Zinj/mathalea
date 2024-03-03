@@ -4,6 +4,10 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Pyramide from '../../modules/pyramide.js'
 export const titre = 'Générateur de pyramides'
 export const ref = 'P018'
+export const refs = {
+  'fr-fr': ['P018'],
+  'fr-ch': []
+}
 export const uuid = '75f89'
 
 export default class Pyramides extends Exercice {

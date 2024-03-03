@@ -13,6 +13,10 @@ export const titre = 'Lire l\'abscisse entière d\'un point (grands nombres)'
  */
 export const uuid = 'c0fb1'
 export const ref = 'c3N11'
+export const refs = {
+  'fr-fr': ['c3N11'],
+  'fr-ch': []
+}
 export default function LireAbscisseEntiere2dC3 () {
   LireAbscisseEntiere2d.call(this)
   this.sup = 1

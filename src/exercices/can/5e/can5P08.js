@@ -18,6 +18,10 @@ export const dateDePublication = '19/07/2022'
 */
 export const uuid = 'c3a01'
 export const ref = 'can5P08'
+export const refs = {
+  'fr-fr': ['can5P08'],
+  'fr-ch': []
+}
 export default function Proportionnalite3 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

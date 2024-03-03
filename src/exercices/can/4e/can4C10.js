@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '8cbb4'
 export const ref = 'can4C10'
+export const refs = {
+  'fr-fr': ['can4C10'],
+  'fr-ch': []
+}
 export default function SommeDifferenceFractionsEgyptiennes () {
   Exercice.call(this)
   this.typeExercice = 'simple'

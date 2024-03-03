@@ -19,6 +19,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '14145'
 export const ref = 'can3G03'
+export const refs = {
+  'fr-fr': ['can3G03'],
+  'fr-ch': []
+}
 export default function CalculLongueurThales2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

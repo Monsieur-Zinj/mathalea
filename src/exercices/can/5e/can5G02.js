@@ -21,6 +21,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '7b386'
 export const ref = 'can5G02'
+export const refs = {
+  'fr-fr': ['can5G02'],
+  'fr-ch': []
+}
 export default function AngleTriangleIsocele () {
   Exercice.call(this)
   this.typeExercice = 'simple'

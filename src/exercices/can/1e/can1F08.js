@@ -20,6 +20,10 @@ export const dateDePublication = '20/06/2022' // La date de publication initiale
 */
 export const uuid = '45511'
 export const ref = 'can1F08'
+export const refs = {
+  'fr-fr': ['can1F08'],
+  'fr-ch': []
+}
 export default function CalculFonctionDeriveeAffine () {
   Exercice.call(this)
   this.typeExercice = 'simple'

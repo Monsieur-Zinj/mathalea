@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'fc2fd'
 export const ref = 'can6C08'
+export const refs = {
+  'fr-fr': ['can6C08'],
+  'fr-ch': []
+}
 export default function QuartOuTiers () {
   Exercice.call(this)
   this.typeExercice = 'simple'

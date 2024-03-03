@@ -18,6 +18,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '34d01'
 export const ref = 'can6N07'
+export const refs = {
+  'fr-fr': ['can6N07'],
+  'fr-ch': []
+}
 export default function LireAbscisseDecimaleDeFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

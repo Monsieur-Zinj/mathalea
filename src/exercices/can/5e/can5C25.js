@@ -13,6 +13,10 @@ export const dateDePublication = '04/10/2023'
  */
 export const uuid = 'a7061'
 export const ref = 'can5C25'
+export const refs = {
+  'fr-fr': ['can5C25'],
+  'fr-ch': []
+}
 export default function AdditionRelatifCAN () {
   Exercice.call(this)
   this.typeExercice = 'simple'

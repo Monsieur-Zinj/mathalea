@@ -22,6 +22,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '1b057'
 export const ref = 'can1P07'
+export const refs = {
+  'fr-fr': ['can1P07'],
+  'fr-ch': []
+}
 export default function CalculProbaTableauEff () {
   Exercice.call(this)
   this.sup = true

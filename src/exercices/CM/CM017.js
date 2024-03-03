@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'fc635'
 export const ref = 'CM017'
+export const refs = {
+  'fr-fr': ['CM017'],
+  'fr-ch': []
+}
 export default function DiviserDecimalPar101001000 () {
   Exercice.call(this)
   this.consigne = 'Calculer.'

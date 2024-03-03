@@ -20,6 +20,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'b1a48'
 export const ref = 'can4G08'
+export const refs = {
+  'fr-fr': ['can4G08'],
+  'fr-ch': []
+}
 export default function QuestionsAiresEtPerimetres () {
   Exercice.call(this)
   this.typeExercice = 'simple'

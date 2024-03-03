@@ -14,6 +14,10 @@ export const titre = 'Calculer avec les identités remarquables'
 
 export const uuid = 'c0f74'
 export const ref = 'can2C05'
+export const refs = {
+  'fr-fr': ['can2C05'],
+  'fr-ch': []
+}
 export default function IdentitesCalculs2e () {
   identitesCalculs.call(this)
   this.nbQuestions = 1

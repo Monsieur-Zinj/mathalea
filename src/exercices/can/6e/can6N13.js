@@ -14,6 +14,10 @@ export const dateDePublication = '20/01/2022'
  */
 export const uuid = 'ce3da'
 export const ref = 'can6N13'
+export const refs = {
+  'fr-fr': ['can6N13'],
+  'fr-ch': []
+}
 export default function SommeFractionsDecimalesCAN () {
   sommeFractionsDecimales.call(this)
   this.nbQuestions = 1

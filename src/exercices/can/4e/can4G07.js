@@ -20,6 +20,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'ae712'
 export const ref = 'can4G07'
+export const refs = {
+  'fr-fr': ['can4G07'],
+  'fr-ch': []
+}
 export default function CalculLongueurThalesMilieu () {
   Exercice.call(this)
   this.typeExercice = 'simple'

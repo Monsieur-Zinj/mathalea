@@ -10,6 +10,10 @@ export const dateDePublication = '01/06/2022'
  */
 export const uuid = '4c2a0'
 export const ref = 'can1G01'
+export const refs = {
+  'fr-fr': ['can1G01'],
+  'fr-ch': []
+}
 export default class CosEtsinsCAN extends CosEtsin {
   constructor () {
     super()

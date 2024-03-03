@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '14b41'
 export const ref = 'can5C07'
+export const refs = {
+  'fr-fr': ['can5C07'],
+  'fr-ch': []
+}
 export default function PrioriteOperatoire5e () {
   Exercice.call(this)
   this.nbQuestions = 1

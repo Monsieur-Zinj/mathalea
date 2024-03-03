@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'c0bf1'
 export const ref = 'can6M04'
+export const refs = {
+  'fr-fr': ['can6M04'],
+  'fr-ch': []
+}
 export default function ConversionEnTousSens () {
   Exercice.call(this)
   this.typeExercice = 'simple'

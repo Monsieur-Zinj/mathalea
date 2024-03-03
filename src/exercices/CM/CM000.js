@@ -23,6 +23,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '6d698'
 export const ref = 'CM000'
+export const refs = {
+  'fr-fr': ['CM000'],
+  'fr-ch': []
+}
 export default function TablesAdditionsSoustractions () {
   Exercice.call(this)
   this.sup = 20

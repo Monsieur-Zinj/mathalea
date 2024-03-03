@@ -18,6 +18,10 @@ export const dateDePublication = '21/06/2022' // La date de publication initiale
     */
 export const uuid = 'e794b'
 export const ref = 'can1F12'
+export const refs = {
+  'fr-fr': ['can1F12'],
+  'fr-ch': []
+}
 export default function CalculFonctionDeriveeFctRef () {
   Exercice.call(this)
   this.typeExercice = 'simple'

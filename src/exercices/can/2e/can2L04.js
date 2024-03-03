@@ -14,6 +14,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '898a7'
 export const ref = 'can2L04'
+export const refs = {
+  'fr-fr': ['can2L04'],
+  'fr-ch': []
+}
 export default function CoordonneesPointIntersectionAxeOrdonneesDroite () {
   Exercice.call(this)
   this.typeExercice = 'simple'

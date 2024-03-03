@@ -6,6 +6,10 @@
 
   export const titre = 'Interpolation par splines (avec formulaire)'
   export const ref = 'P022'
+  export const refs = {  
+    'fr-fr': ['P022'],  
+    'fr-ch': []
+  }
   export const uuid = 'spline'
 
   export let indiceExercice

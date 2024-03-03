@@ -15,6 +15,10 @@ export const dateDePublication = '16/11/2021'
  */
 export const uuid = '4ba86'
 export const ref = 'canc3C04'
+export const refs = {
+  'fr-fr': ['canc3C04'],
+  'fr-ch': []
+}
 export default function DoubleOuBienMoitie () {
   Exercice.call(this)
   this.typeExercice = 'simple'

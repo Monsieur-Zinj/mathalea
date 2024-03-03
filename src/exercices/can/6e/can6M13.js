@@ -14,6 +14,10 @@ export const amcReady = true
  */
 export const uuid = '59144'
 export const ref = 'can6M13'
+export const refs = {
+  'fr-fr': ['can6M13'],
+  'fr-ch': []
+}
 export default function CombienDeFois () {
   Exercice.call(this)
   this.nbQuestions = 1

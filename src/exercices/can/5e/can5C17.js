@@ -14,6 +14,10 @@ export const dateDeModifImportante = '31/03/2023'
  */
 export const uuid = 'b1881'
 export const ref = 'can5C17'
+export const refs = {
+  'fr-fr': ['can5C17'],
+  'fr-ch': []
+}
 export default function EntierPlusFractionVersDecimal () {
   Exercice.call(this)
   this.typeExercice = 'simple'

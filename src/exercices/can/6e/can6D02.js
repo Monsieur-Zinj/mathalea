@@ -13,6 +13,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '46e66'
 export const ref = 'can6D02'
+export const refs = {
+  'fr-fr': ['can6D02'],
+  'fr-ch': []
+}
 export default function ResteEnMinutes () {
   Exercice.call(this)
   this.nbQuestions = 1

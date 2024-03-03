@@ -13,6 +13,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = 'a66ad'
 export const ref = 'techno1P2-1'
+export const refs = {
+  'fr-fr': ['techno1P2-1'],
+  'fr-ch': []
+}
 export default function Proportion () {
   Exercice.call(this)
   this.typeExercice = 'simple'

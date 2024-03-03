@@ -36,6 +36,10 @@ export const interactifReady = true
  */
 export const uuid = '667d1'
 export const ref = 'can6I01'
+export const refs = {
+  'fr-fr': ['can6I01'],
+  'fr-ch': []
+}
 export default function CanNoteLaCouleur6 () {
   Exercice.call(this)
   this.titre = titre

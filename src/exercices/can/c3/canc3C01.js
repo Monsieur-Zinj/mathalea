@@ -13,6 +13,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '385b7'
 export const ref = 'canc3C01'
+export const refs = {
+  'fr-fr': ['canc3C01'],
+  'fr-ch': []
+}
 export default function CalculsAutomatiques () {
   Exercice.call(this)
   this.typeExercice = 'simple'

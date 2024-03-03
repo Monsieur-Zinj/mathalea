@@ -21,6 +21,10 @@ export const dateDeModifImportante = '07/02/2024'
 */
 export const uuid = '802cc'
 export const ref = 'can5P06'
+export const refs = {
+  'fr-fr': ['can5P06'],
+  'fr-ch': []
+}
 export default function ÉcrirePourcentage () {
   Exercice.call(this)
   this.typeExercice = 'simple'

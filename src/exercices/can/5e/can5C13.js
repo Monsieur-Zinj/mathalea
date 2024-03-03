@@ -18,6 +18,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = 'ca4ce'
 export const ref = 'can5C13'
+export const refs = {
+  'fr-fr': ['can5C13'],
+  'fr-ch': []
+}
 export default function CalculAstucieux1 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

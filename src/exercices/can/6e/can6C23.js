@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = 'ad0ee'
 export const ref = 'can6C23'
+export const refs = {
+  'fr-fr': ['can6C23'],
+  'fr-ch': []
+}
 export default function CalculAvec99 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -14,6 +14,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '2ce71'
 export const ref = 'can6C28'
+export const refs = {
+  'fr-fr': ['can6C28'],
+  'fr-ch': []
+}
 export default function PetitsProblemeDeFraction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

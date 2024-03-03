@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '90d0d'
 export const ref = 'can6C14'
+export const refs = {
+  'fr-fr': ['can6C14'],
+  'fr-ch': []
+}
 export default function Somme4EntiersQuiSeMarient () {
   Exercice.call(this)
   this.typeExercice = 'simple'

@@ -17,6 +17,10 @@ export const interactifType = 'qcm'
 */
 export const uuid = 'e7754'
 export const ref = 'can3L04'
+export const refs = {
+  'fr-fr': ['can3L04'],
+  'fr-ch': []
+}
 export default function SolutionInequation () {
   Exercice.call(this)
   this.nbQuestions = 1

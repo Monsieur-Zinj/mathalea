@@ -15,6 +15,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '7374f'
 export const ref = 'can4P02'
+export const refs = {
+  'fr-fr': ['can4P02'],
+  'fr-ch': []
+}
 export default function ProblemesDeVitesse () {
   Exercice.call(this)
   this.typeExercice = 'simple'

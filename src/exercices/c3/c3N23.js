@@ -13,6 +13,10 @@ export const dateDePublication = '13/11/2020'
  */
 export const uuid = 'b2f66'
 export const ref = 'c3N23'
+export const refs = {
+  'fr-fr': ['c3N23'],
+  'fr-ch': []
+}
 export default function LireUneAbscisseAvecZoomCM () {
   LireUneAbscisseAvecZoom.call(this)
   this.niveau = 'CM'

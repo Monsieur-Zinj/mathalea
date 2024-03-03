@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '5b591'
 export const ref = 'can6C04'
+export const refs = {
+  'fr-fr': ['can6C04'],
+  'fr-ch': []
+}
 export default function Ajoute10NPlus9 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

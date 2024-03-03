@@ -16,6 +16,10 @@ export const dateDePublication = '19/09/2022'
 
 export const uuid = '27f5c'
 export const ref = 'can2C14'
+export const refs = {
+  'fr-fr': ['can2C14'],
+  'fr-ch': []
+}
 export default function CalculAvecRacineDef () {
   Exercice.call(this)
   this.typeExercice = 'simple'

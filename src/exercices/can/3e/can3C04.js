@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '1853b'
 export const ref = 'can3C04'
+export const refs = {
+  'fr-fr': ['can3C04'],
+  'fr-ch': []
+}
 export default function SommeEntierEtFractionIrred () {
   Exercice.call(this)
   this.typeExercice = 'simple'

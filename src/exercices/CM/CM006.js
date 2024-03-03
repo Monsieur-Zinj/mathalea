@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'd8a39'
 export const ref = 'CM006'
+export const refs = {
+  'fr-fr': ['CM006'],
+  'fr-ch': []
+}
 export default function Soustraire9 () {
   Exercice.call(this)
   this.consigne = 'Calculer.'

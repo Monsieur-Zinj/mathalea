@@ -16,6 +16,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '9094b'
 export const ref = 'can3C08'
+export const refs = {
+  'fr-fr': ['can3C08'],
+  'fr-ch': []
+}
 export default function ProgrammeCalcul () {
   Exercice.call(this)
   this.typeExercice = 'simple'

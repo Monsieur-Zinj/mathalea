@@ -18,6 +18,10 @@ export const dateDePublication = '08/12/2022'
 
 export const uuid = 'cb5d5'
 export const ref = 'can5C23'
+export const refs = {
+  'fr-fr': ['can5C23'],
+  'fr-ch': []
+}
 export default function MultiplierPar () {
   Exercice.call(this)
   this.nbQuestions = 1

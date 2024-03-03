@@ -20,6 +20,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '8d08f'
 export const ref = 'can3C01'
+export const refs = {
+  'fr-fr': ['can3C01'],
+  'fr-ch': []
+}
 export default function CalculPuissanceSimple () {
   Exercice.call(this)
   this.nbQuestions = 1

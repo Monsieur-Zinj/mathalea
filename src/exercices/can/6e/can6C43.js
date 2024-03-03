@@ -13,6 +13,10 @@ export const dateDePublication = '04/11/2022'
  */
 export const uuid = 'f3b31'
 export const ref = 'can6C43'
+export const refs = {
+  'fr-fr': ['can6C43'],
+  'fr-ch': []
+}
 export default function ExerciceComparerDeuxFractionsCAN () {
   exerciceComparerDeuxFractions.call(this)
   this.nbQuestions = 1

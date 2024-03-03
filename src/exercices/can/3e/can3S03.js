@@ -19,6 +19,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'd86be'
 export const ref = 'can3S03'
+export const refs = {
+  'fr-fr': ['can3S03'],
+  'fr-ch': []
+}
 export default function CalculsProbabilite2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

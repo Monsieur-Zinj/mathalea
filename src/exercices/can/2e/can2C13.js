@@ -18,6 +18,10 @@ export const dateDePublication = '15/09/2022' // La date de publication initiale
 
 export const uuid = 'b31eb'
 export const ref = 'can2C13'
+export const refs = {
+  'fr-fr': ['can2C13'],
+  'fr-ch': []
+}
 export default function CalculPuissancesOperation () {
   Exercice.call(this)
   this.typeExercice = 'simple'

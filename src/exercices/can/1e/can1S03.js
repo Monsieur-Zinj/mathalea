@@ -22,6 +22,10 @@ export const dateDePublication = '15/02/2022' // La date de publication initiale
 */
 export const uuid = 'fccb4'
 export const ref = 'can1S03'
+export const refs = {
+  'fr-fr': ['can1S03'],
+  'fr-ch': []
+}
 export default function CalculTermeSuiteRec2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

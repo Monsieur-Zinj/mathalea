@@ -14,6 +14,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '2af85'
 export const ref = 'can2C07'
+export const refs = {
+  'fr-fr': ['can2C07'],
+  'fr-ch': []
+}
 export default function CalculAvecRacineCarree2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

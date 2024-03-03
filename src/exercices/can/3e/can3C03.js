@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = 'f1208'
 export const ref = 'can3C03'
+export const refs = {
+  'fr-fr': ['can3C03'],
+  'fr-ch': []
+}
 export default function FractionIrreductible () {
   Exercice.call(this)
   this.typeExercice = 'simple'

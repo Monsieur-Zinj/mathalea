@@ -16,6 +16,10 @@ export const titre = 'Lire une image graphiquement'
 */
 export const uuid = '966a6'
 export const ref = 'can3F01'
+export const refs = {
+  'fr-fr': ['can3F01'],
+  'fr-ch': []
+}
 export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'

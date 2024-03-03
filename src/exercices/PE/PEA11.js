@@ -17,6 +17,10 @@ export const titre = 'Passer de la base dix à une autre base et inversement'
 */
 export const uuid = '8dbda'
 export const ref = 'PEA11'
+export const refs = {
+  'fr-fr': ['PEA11'],
+  'fr-ch': []
+}
 export default function PasserDUneBaseA1Autre () {
   Exercice.call(this)
   this.titre = titre

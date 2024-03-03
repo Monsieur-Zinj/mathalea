@@ -19,6 +19,10 @@ export const amcReady = false
  */
 export const uuid = '315b6'
 export const ref = 'can6a-Aléa'
+export const refs = {
+  'fr-fr': ['can6a-Aléa'],
+  'fr-ch': []
+}
 export default function can6eAll () {
   Exercice.call(this)
   this.nbQuestions = 4

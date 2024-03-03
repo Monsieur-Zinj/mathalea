@@ -17,6 +17,10 @@ export const dateDePublication = '24/06/2022' // La date de publication initiale
     */
 export const uuid = 'c7f8e'
 export const ref = 'can1F19'
+export const refs = {
+  'fr-fr': ['can1F19'],
+  'fr-ch': []
+}
 export default function CalculFonctionDeriveeQuotient () {
   Exercice.call(this)
   this.typeExercice = 'simple'

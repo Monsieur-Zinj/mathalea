@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'c8078'
 export const ref = 'can6C05'
+export const refs = {
+  'fr-fr': ['can6C05'],
+  'fr-ch': []
+}
 export default function MultiplierAstucieusement () {
   Exercice.call(this)
   this.typeExercice = 'simple'

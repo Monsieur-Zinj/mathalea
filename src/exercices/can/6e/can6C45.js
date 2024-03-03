@@ -16,6 +16,10 @@ export const dateDePublication = '09/02/2023'
 
 export const uuid = '4a157'
 export const ref = 'can6C45'
+export const refs = {
+  'fr-fr': ['can6C45'],
+  'fr-ch': []
+}
 export default function ProblemeSoustractionDivision () {
   Exercice.call(this)
   this.typeExercice = 'simple'

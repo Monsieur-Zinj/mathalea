@@ -13,6 +13,10 @@ export const dateDePublication = '04/10/2023'
  */
 export const uuid = '1ae99'
 export const ref = 'can4C19'
+export const refs = {
+  'fr-fr': ['can4C19'],
+  'fr-ch': []
+}
 export default function MultiplicationRelatifCAN () {
   Exercice.call(this)
   this.typeExercice = 'simple'

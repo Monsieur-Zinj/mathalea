@@ -14,6 +14,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = 'dcc68'
 export const ref = 'can3G01'
+export const refs = {
+  'fr-fr': ['can3G01'],
+  'fr-ch': []
+}
 export default function AgrandissementReduction () {
   Exercice.call(this)
   this.typeExercice = 'simple'

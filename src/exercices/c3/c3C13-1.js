@@ -15,6 +15,10 @@ export const dateDePublication = '02/11/2021'
  */
 export const uuid = 'ec3cc'
 export const ref = 'c3C13-1'
+export const refs = {
+  'fr-fr': ['c3C13-1'],
+  'fr-ch': []
+}
 export default function QuestionsMassesCM () {
   QuestionsMasses.call(this)
   this.titre = titre

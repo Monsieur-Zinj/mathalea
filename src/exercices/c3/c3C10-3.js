@@ -15,6 +15,10 @@ export const dateDePublication = '12/12/2021'
  */
 export const uuid = 'f92e1'
 export const ref = 'c3C10-3'
+export const refs = {
+  'fr-fr': ['c3C10-3'],
+  'fr-ch': []
+}
 export default function MultiplierDecimauxPar101001000CM () {
   MultiplierDecimauxPar101001000.call(this)
   this.titre = titre

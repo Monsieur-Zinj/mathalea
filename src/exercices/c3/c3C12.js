@@ -11,6 +11,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'e2a48'
 export const ref = 'c3C12'
+export const refs = {
+  'fr-fr': ['c3C12'],
+  'fr-ch': []
+}
 export default function DerbierChiffreC3 () {
   DernierChiffre.call(this)
   this.nbQuestions = 4

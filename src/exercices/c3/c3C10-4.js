@@ -14,6 +14,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = 'ed7fc'
 export const ref = 'c3C10-4'
+export const refs = {
+  'fr-fr': ['c3C10-4'],
+  'fr-ch': []
+}
 export default function TablesAdditionsCycle3 () {
   ExerciceTablesAdditions.call(this, 10)
 }

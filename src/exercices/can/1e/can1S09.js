@@ -22,6 +22,10 @@ export const dateDePublication = '18/02/2022' // La date de publication initiale
  */
 export const uuid = '1eb6e'
 export const ref = 'can1S09'
+export const refs = {
+  'fr-fr': ['can1S09'],
+  'fr-ch': []
+}
 export default function RelationRec () {
   Exercice.call(this)
   this.nbQuestions = 1

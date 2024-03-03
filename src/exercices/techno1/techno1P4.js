@@ -17,6 +17,10 @@ export const dateDeModifImportante = '09/05/2023'
 */
 export const uuid = 'f0c23'
 export const ref = 'techno1P4'
+export const refs = {
+  'fr-fr': ['techno1P4'],
+  'fr-ch': []
+}
 export default class ProportiondeProportion extends Exercice {
   constructor () {
     super()

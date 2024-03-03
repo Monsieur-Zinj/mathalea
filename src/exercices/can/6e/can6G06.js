@@ -12,6 +12,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '86ea3'
 export const ref = 'can6G06'
+export const refs = {
+  'fr-fr': ['can6G06'],
+  'fr-ch': []
+}
 export default function NombreDeFacesEtDAretesExo () {
   NombreDeFacesEtDAretes.call(this)
   this.titre = titre

@@ -14,6 +14,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '38207'
 export const ref = 'can2P02'
+export const refs = {
+  'fr-fr': ['can2P02'],
+  'fr-ch': []
+}
 export default function Denombrement () {
   Exercice.call(this)
   this.typeExercice = 'simple'

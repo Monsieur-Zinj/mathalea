@@ -5,6 +5,10 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '5c15e'
 export const ref = 'canc3a-NY2024'
+export const refs = {
+  'fr-fr': ['canc3a-NY2024'],
+  'fr-ch': []
+}
 export const dateDePublication = '01/01/2024'
 
 /**

@@ -18,6 +18,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = '5e28d'
 export const ref = 'can6P02'
+export const refs = {
+  'fr-fr': ['can6P02'],
+  'fr-ch': []
+}
 export default function ProportionnaliteCompliquee () {
   Exercice.call(this)
   this.typeExercice = 'simple'

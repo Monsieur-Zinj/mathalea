@@ -15,6 +15,10 @@ export const dateDePublication = '30/10/2021'
 */
 export const uuid = '8e72e'
 export const ref = 'ExC100'
+export const refs = {
+  'fr-fr': ['ExC100'],
+  'fr-ch': []
+}
 export default function EquationDuPremierDegreDansC () {
   Exercice.call(this)
   this.consigne = 'Résoudre dans $\\mathbb{C}$ les équations ci-dessous. On écrira les solutions sous forme algébrique.'

@@ -12,6 +12,10 @@ export const dateDePublication = '13/11/2021'
  */
 export const uuid = 'a2bbc'
 export const ref = 'can6P05'
+export const refs = {
+  'fr-fr': ['can6P05'],
+  'fr-ch': []
+}
 export default function AppliquerUnPourcentageBis () {
   AppliquerUnPourcentage.call(this)
   this.bis = true

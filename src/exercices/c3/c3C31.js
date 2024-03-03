@@ -11,6 +11,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'b74c6'
 export const ref = 'c3C31'
+export const refs = {
+  'fr-fr': ['c3C31'],
+  'fr-ch': []
+}
 export default function ProblemeCourseC3 () {
   ProblemeCourse.call(this)
   this.nbQuestions = 1

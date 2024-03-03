@@ -18,6 +18,10 @@ export const dateDePublication = '18/02/2022' // La date de publication initiale
 */
 export const uuid = 'baa9f'
 export const ref = 'can1S08'
+export const refs = {
+  'fr-fr': ['can1S08'],
+  'fr-ch': []
+}
 export default function CalculRaison2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'

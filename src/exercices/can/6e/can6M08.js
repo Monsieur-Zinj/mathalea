@@ -18,6 +18,10 @@ export const amcType = 'qcmMono'
  */
 export const uuid = 'bae27'
 export const ref = 'can6M08'
+export const refs = {
+  'fr-fr': ['can6M08'],
+  'fr-ch': []
+}
 export default function QuestionDAires () {
   Exercice.call(this)
   this.nbQuestions = 1

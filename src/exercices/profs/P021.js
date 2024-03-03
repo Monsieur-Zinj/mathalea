@@ -5,6 +5,10 @@ import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Interpollation par splines avec tangentes'
 export const ref = 'P021'
+export const refs = {
+  'fr-fr': ['P021'],
+  'fr-ch': []
+}
 export const uuid = '4c7ca'
 
 /**

@@ -17,6 +17,10 @@ export const amcType = 'AMCNum'
  */
 export const uuid = 'fc190'
 export const ref = 'canc3N02'
+export const refs = {
+  'fr-fr': ['canc3N02'],
+  'fr-ch': []
+}
 export default function SuiteSurDroiteGraduee () {
   Exercice.call(this)
   this.typeExercice = 'simple'

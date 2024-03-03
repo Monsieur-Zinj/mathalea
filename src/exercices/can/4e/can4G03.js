@@ -23,6 +23,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = 'd9524'
 export const ref = 'can4G03'
+export const refs = {
+  'fr-fr': ['can4G03'],
+  'fr-ch': []
+}
 export default function CalculHypotenusePythagore () {
   Exercice.call(this)
   this.typeExercice = 'simple'

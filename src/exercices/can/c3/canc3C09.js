@@ -15,6 +15,10 @@ export const dateDePublication = '23/07/2022'
  */
 export const uuid = 'a8e75'
 export const ref = 'canc3C09'
+export const refs = {
+  'fr-fr': ['canc3C09'],
+  'fr-ch': []
+}
 export default function FoisPlusFoisMoins () {
   Exercice.call(this)
   this.typeExercice = 'simple'

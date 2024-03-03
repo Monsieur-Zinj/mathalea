@@ -14,6 +14,10 @@ export const interactifType = 'mathLive'
 */
 export const uuid = '87ceb'
 export const ref = 'can3S06'
+export const refs = {
+  'fr-fr': ['can3S06'],
+  'fr-ch': []
+}
 export default function Mediane () {
   Exercice.call(this)
   this.typeExercice = 'simple'

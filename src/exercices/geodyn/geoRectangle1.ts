@@ -15,6 +15,10 @@ export const interactifType = 'custom'
  */
 
 export const ref = 'rectangle1'
+export const refs = {
+  'fr-fr': ['rectangle1'],
+  'fr-ch': []
+}
 export const uuid = '95526'
 
 class ConstructionRectangle extends Exercice {

@@ -22,6 +22,10 @@ export const dateDePublication = '24/09/2022'
 
 export const uuid = '6e9df'
 export const ref = 'can1F22'
+export const refs = {
+  'fr-fr': ['can1F22'],
+  'fr-ch': []
+}
 export default function ReconnaitreFonctionDegre2 () {
   Exercice.call(this)
   this.nbQuestions = 1

@@ -3,6 +3,10 @@ import Shikaku from '../6e/_Shikaku.js'
 import Exercice from '../deprecatedExercice.js'
 export const titre = 'Générateur de Shikaku'
 export const ref = 'P019'
+export const refs = {
+  'fr-fr': ['P019'],
+  'fr-ch': []
+}
 export const uuid = '6fb13'
 export default function GenerateurShikaku () {
   Exercice.call(this)

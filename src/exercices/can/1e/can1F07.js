@@ -23,6 +23,10 @@ export const dateDePublication = '15/06/2022'
 */
 export const uuid = '5b203'
 export const ref = 'can1F07'
+export const refs = {
+  'fr-fr': ['can1F07'],
+  'fr-ch': []
+}
 export default function AxeSymetrieParabole () {
   Exercice.call(this)
   this.typeExercice = 'simple'

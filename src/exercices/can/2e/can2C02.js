@@ -16,6 +16,10 @@ export const amcType = 'AMCNum'
 */
 export const uuid = '76ac6'
 export const ref = 'can2C02'
+export const refs = {
+  'fr-fr': ['can2C02'],
+  'fr-ch': []
+}
 export default function CalculAstucieuxAvecDifferenceCarre () {
   Exercice.call(this)
   this.typeExercice = 'simple'

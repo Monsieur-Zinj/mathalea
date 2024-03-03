@@ -21,6 +21,10 @@ export const interactifType = 'mathLive'
  */
 export const uuid = '0861b'
 export const ref = 'canc3D02'
+export const refs = {
+  'fr-fr': ['canc3D02'],
+  'fr-ch': []
+}
 export default function LireUneDuree () {
   Exercice.call(this)
   this.nbQuestions = 1
