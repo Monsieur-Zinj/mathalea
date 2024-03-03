@@ -1,6 +1,6 @@
 import { handleAnswers, setReponse } from '../lib/interactif/gestionInteractif'
 import Exercice from './Exercice'
-import { ajouteChampTexteMathLive } from '../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 
 export default class MetaExercice extends Exercice {
   Exercices: Exercice[]
@@ -32,11 +32,19 @@ export default class MetaExercice extends Exercice {
       if (Question.compare == null) {
         setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif })
       } else {
-        handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, compare: Question.compare } }, { formatInteractif: 'calcul' })
+        if (this.formatInteractif === 'fillInTheBlank') {
+          handleAnswers(this, indexQuestion, { champ1: { value: Question.reponse, compare: Question.compare } }, { formatInteractif: 'fillInTheBlank' })
+        } else {
+          handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, compare: Question.compare } }, { formatInteractif: 'calcul' })
+        }
       }
       let texte = Question.question
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, indexQuestion, Question.formatChampTexte ?? '', Question.optionsChampTexte || {})
+        if (this.formatInteractif === 'fillInTheBlank') {
+          texte = remplisLesBlancs(this, indexQuestion, texte, 'fillInTheBlank', '\\ldots')
+        } else {
+          texte += ajouteChampTexteMathLive(this, indexQuestion, Question.formatChampTexte ?? '', Question.optionsChampTexte || {})
+        }
       }
       this.canEnonce = Question.canEnonce
       this.canReponseACompleter = ''
