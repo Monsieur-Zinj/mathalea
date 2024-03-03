@@ -28,7 +28,7 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(4, 45)
       this.question = '$\\dfrac{2}{5}\\div\\dfrac{9}{2}$'
-      this.correction = `Diviser revient à multiplier par l'inverse. L'inverse de $\\dfrac{9}{2}$ est 
+      this.correction = `Diviser par un nombre revient à multiplier par  son inverse. L'inverse de $\\dfrac{9}{2}$ est 
       $\\dfrac{2}{9}$. <br>Ainsi, 
       $\\dfrac{2}{5}\\div\\dfrac{9}{2}=\\dfrac{2}{5}\\times\\dfrac{2}{9}=${miseEnEvidence(this.reponse)}$.`
     } else {
@@ -42,7 +42,7 @@ export default class NomExercice extends Exercice {
       this.reponse = new FractionEtendue(a * d, b * c)
 
       this.question = `$\\dfrac{${a}}{${b}}\\div \\dfrac{${c}}{${d}}$`
-      this.correction = `Diviser revient à multiplier par l'inverse. L'inverse de $\\dfrac{${c}}{${d}}$ est 
+      this.correction = `Diviser par un nombre revient à multiplier par  son inverse. L'inverse de $\\dfrac{${c}}{${d}}$ est 
       $\\dfrac{${d}}{${c}}$. <br>Ainsi, <br><br>
        $\\begin{aligned}
        \\dfrac{${a}}{${b}}\\div \\dfrac{${c}}{${d}}&=\\dfrac{${a}}{${b}}\\times \\dfrac{${d}}{${c}}\\\\
