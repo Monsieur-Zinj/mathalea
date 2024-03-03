@@ -237,7 +237,7 @@ class FractionEtendue {
      * Au cas où quelqu'un oublie le e de this.signe
      * @type {number}
      */
-    const signe = prodNumDen < 0 ? -1 : 1
+    const signe = prodNumDen === 0 ? 0 : prodNumDen < 0 ? -1 : 1
     this.s = signe// pour compatibilité avec les Fraction de mathjs
     this.signe = signe
     this.sign = signe // Pour le cas où on utilise signe en anglais
@@ -251,11 +251,11 @@ class FractionEtendue {
 
     this.signeString = signe === -1 ? '-' : signe === 1 ? '+' : ''
 
-    this.texFraction = den === 1 ? `${texNombre(num, 0)}` : `\\dfrac{${texNombre(num, 0)}}{${texNombre(den, 0)}}`
+    this.texFraction = signe === 0 ? '0' : den === 1 ? `${texNombre(num, 0)}` : `\\dfrac{${texNombre(num, 0)}}{${texNombre(den, 0)}}`
 
     this.texFractionSR = `\\dfrac{${signeMoinsEnEvidence(num)}}{${signeMoinsEnEvidence(den)}}`
 
-    this.texFSD = signe === -1 ? Math.abs(den) === 1 ? '-' + texNombre(Math.abs(num), 0) : `-\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}` : Math.abs(den) === 1 ? String(texNombre(Math.abs(num), 0)) : `\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`
+    this.texFSD = signe === 0 ? '0' : signe === -1 ? Math.abs(den) === 1 ? '-' + texNombre(Math.abs(num), 0) : `-\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}` : Math.abs(den) === 1 ? String(texNombre(Math.abs(num), 0)) : `\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`
 
     this.texFractionSignee = signe === -1 ? this.texFSD : '+' + this.texFSD
 
@@ -265,15 +265,15 @@ class FractionEtendue {
 
     this.texFractionSaufUnSignee = this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '+' : this.texFractionSignee
 
-    this.texFSP = signe > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+    this.texFSP = signe === 0 ? '0' : signe > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
-    this.texParentheses = den === 1 && signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+    this.texParentheses = signe === 0 ? '0' : den === 1 && signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
-    this.texFractionSimplifiee = signe === 1 ? `\\dfrac{${texNombre(Math.abs(numIrred), 0)}}{${texNombre(Math.abs(denIrred), 0)}}` : `-\\dfrac{${texNombre(Math.abs(numIrred), 0)}}{${texNombre(Math.abs(denIrred), 0)}}`
+    this.texFractionSimplifiee = signe === 0 ? '0' : signe === 1 ? `\\dfrac{${texNombre(Math.abs(numIrred), 0)}}{${texNombre(Math.abs(denIrred), 0)}}` : `-\\dfrac{${texNombre(Math.abs(numIrred), 0)}}{${texNombre(Math.abs(denIrred), 0)}}`
 
-    this.ecritureAlgebrique = signe === 1 ? '+' + this.texFSD : this.texFSD
+    this.ecritureAlgebrique = signe === 0 ? '' : signe === 1 ? '+' + this.texFSD : this.texFSD
 
-    this.ecritureParentheseSiNegatif = signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+    this.ecritureParentheseSiNegatif = signe === 0 ? '0' : signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
 
     this.estEntiere = denIrred === 1
 
