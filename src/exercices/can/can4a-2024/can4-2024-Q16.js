@@ -32,17 +32,17 @@ export default class NomExercice extends Exercice {
     this.reponse = (a * b) - c
     if (context.isHtml) {
       this.question = 'Nombre de départ <br>'
-      this.question += `${sp(15)}$\\downarrow$<br>`
+      this.question += '$\\downarrow$<br>'
       this.question += '$\\begin{array}{|l|}\n'
       this.question += '\\hline\n'
       this.question += `\\\n \\text{Multiplier par } ${b} \\\n`
       this.question += `\\\\\n \\text{Soustraire } ${c}\\\\\n `
       this.question += '\\hline\n'
       this.question += '\\end{array}\n$<br>'
-      this.question += `${sp(15)}$\\downarrow$<br>
+      this.question += `$\\downarrow$<br>
      `
-      this.question += `${sp(8)}Résultat`
-      this.question += `<br><br>Quel est le résultat de ce programme de calcul lorsque le nombre de départ est $${a}$ ?`
+      this.question += 'Résultat'
+      this.question += `<br>Quel est le résultat de ce programme de calcul lorsque le nombre de départ est $${a}$ ?`
     } else {
       this.question = '\\texttt{Nombre de départ}'
       this.question += `<br>${sp(10)}$\\downarrow$<br>`

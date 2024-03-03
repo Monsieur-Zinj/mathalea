@@ -34,7 +34,7 @@ export default class NomExercice extends Exercice {
     prog0 += `\\blockrepeat{répéter \\ovalnum{${a}} fois}\n`
     prog0 += '{\n'
     prog0 += `\\blockmove{avancer de \\ovalnum{${n}} pas}\n`
-    prog0 += '\\blockmove{attendre \\ovalmove{2} seconde}\n'
+    prog0 += '\\blockmove{attendre \\ovalmove{2} secondes}\n'
     prog0 += '}\n'
     prog0 += '\\end{scratch}<br>'
     let prog1 = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
@@ -85,7 +85,7 @@ export default class NomExercice extends Exercice {
 
       this.question += 'À l\'issue de l\'exécution de ce programme, de combien de pas le lutin a-t-il avancé ?'
 
-      this.correction = `Le lutin a avancé de $3\\times 50 =${miseEnEvidence('50')}$ pas.`
+      this.correction = `Le lutin a avancé de $3\\times 50 =${miseEnEvidence('150')}$ pas.`
       this.canEnonce = this.question
       this.canReponseACompleter = '$\\ldots$ pas'
       if (this.interactif) { this.optionsChampTexte = { texteApres: 'pas ' } }
