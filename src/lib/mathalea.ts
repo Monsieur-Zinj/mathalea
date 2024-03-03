@@ -601,7 +601,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
           } else if (Array.isArray(exercice.reponse)) {
             value = [...exercice.reponse]
           } else {
-            window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`)
+            window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`, { exercice: JSON.stringify(exercice) })
             value = String(exercice.reponse) // valeur par défaut on transforme tout en string.
           }
         } else {
@@ -622,8 +622,12 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         )
       } else {
         // La question doit contenir une unique variable %{champ1}
-        exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'inline', '\\ldots'))
-        handleAnswers(exercice, i, { champ1: { value: exercice.reponse, compare } }, { formatInteractif: 'fillInTheBlank' })
+        if (exercice.interactif) {
+          exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank', '\\ldots'))
+          handleAnswers(exercice, i, { champ1: { value: exercice.reponse, compare } }, { formatInteractif: 'fillInTheBlank' })
+        } else {
+          exercice.listeQuestions.push(exercice.question ?? '')
+        }
       }
       exercice.listeCorrections.push(exercice.correction ?? '')
       exercice.listeCanEnonces.push(exercice.canEnonce ?? '')
