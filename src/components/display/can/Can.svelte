@@ -43,6 +43,9 @@
     // interactivité
     if ($canOptions.isInteractive) {
       $keyboardState.isVisible = true
+      if (!('ontouchstart' in window)) {
+        $keyboardState.isInLine = true
+      }
       for (const param of exercises) {
         param.interactif = true
       }
