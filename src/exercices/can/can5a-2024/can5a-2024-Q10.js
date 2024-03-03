@@ -6,7 +6,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
-export const titre = 'Calculer une somme de deux décimaux'
+export const titre = 'Calculer un prix dans une situation de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'fad30'
@@ -28,12 +28,12 @@ export default class NomExercice extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = '12'
+      this.reponse = '20'
       this.question = `$4$ stylos identiques coûtent $8$ €.<br>
       Le prix de $10$ stylos est de : `
 
       this.correction = `$4$ stylos coûtent $8$ € donc $2$ stylos coûtent $8\\div 2=4$ €.<br>
-      Ainsi, $10$ stylos coûtent $${miseEnEvidence('12')}$ €.`
+      Ainsi, $10$ stylos coûtent $${miseEnEvidence('20')}$ €.`
     } else {
       if (choice([true, false])) {
         const a = randint(2, 6)

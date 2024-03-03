@@ -27,7 +27,7 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = -6
-      this.question = 'Calculer $2+8x$ pour $x=-1$. '
+      this.question = 'Calculer $2+8x$ pour $x=-1$.<br> '
       this.correction = `On remplace $x$ par $-1$ dans l'expression  : <br>
        $\\begin{aligned}
        2+8\\times (-1)&=2-8\\\\
@@ -39,7 +39,7 @@ export default class NomExercice extends Exercice {
       const b = randint(-10, 10, 0)
       const c = randint(-5, 3, 0)
       this.reponse = a * c + b
-      this.question = `Calculer $${reduireAxPlusB(a, b)}$ pour $x=${c}$.`
+      this.question = `Calculer $${reduireAxPlusB(a, b)}$ pour $x=${c}$.<br>`
       this.correction = `Pour $x=${c}$, on a : <br>
       $\\begin{aligned}
       ${reduireAxPlusB(a, b)}&=${a}\\times ${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(b)}\\\\

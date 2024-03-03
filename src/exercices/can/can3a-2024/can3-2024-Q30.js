@@ -20,7 +20,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
-    this.optionsChampTexte = { texteApres: 'billes', texteAvant: '<br>Bruno a pris' }
+    this.optionsChampTexte = { texteApres: 'billes.', texteAvant: '<br>Bruno a pris' }
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
   }
@@ -32,7 +32,7 @@ export default class NomExercice extends Exercice {
     const nbreA = k * ratio[0]
     const nbreB = k * ratio[1]
     this.reponse = nbreB
-    this.question = `Alice et Bruno se partagent un lot de billes dans le ratio $${ratio[0]}$ : $${ratio[1]}$<br>
+    this.question = `Alice et Bruno se partagent un lot de billes dans le ratio $${ratio[0]}$ : $${ratio[1]}$.<br>
       Alice a pris $${nbreA}$ billes.`
     this.correction = `Quand Alice prend $${nbreA}$ billes, Bruno en prend $${nbreB}$.<br>
       Comme Alice en prend $${k}\\times ${ratio[0]}=${nbreA}$, alors Bruno en prend $${k}\\times ${ratio[1]}=${miseEnEvidence(nbreB)}$.`
