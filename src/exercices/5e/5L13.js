@@ -1,11 +1,12 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
+import { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Réduire une expression de la forme $ax+bx$ '
 export const interactifReady = true
@@ -51,16 +52,16 @@ export default function Reductionaxbx () {
         case 'ax+bx':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*${x}+(${b}*${x})`)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*${x}+(${b}*${x})`)}=(${a}${ecritureAlgebrique(b)})\\times ${x}=${printlatex(`${a + b}${x}`)}$`
-          reponse = printlatex(`${a + b}${x}`)
+          reponse = reduireAxPlusB(a + b, 0, x)
           break
         case 'ax+x':
           texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*${x}+${x}`)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${a}*${x}+${x}`)}=(${a}+1)\\times ${x}=${printlatex(`${a + 1}${x}`)}$`
-          reponse = printlatex(`${a + 1}${x}`)
+          reponse = reduireAxPlusB(a + 1, 0, x)
           break
       }
 
-      setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppeeParEE' })
+      handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: false }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
       texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: ' $=$' })
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
