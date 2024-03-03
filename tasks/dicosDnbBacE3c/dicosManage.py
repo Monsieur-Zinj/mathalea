@@ -103,9 +103,9 @@ def newEntry(file:str,dicoType:str)->list:
             lieu = locationName(filename.split('_')[4])
             if (('groupe1' in filename) or ('groupe2' in filename)):
                 if ('groupe1' in filename) :
-                    lieu = lieu + ' Groupe 1'
+                    lieu = lieu + ' G1'
                 else :
-                    lieu = lieu + ' Groupe 2'
+                    lieu = lieu + ' G2'
                 numeroInitial = filename.split('_')[6]  
             else :
                 numeroInitial = filename.split('_')[5] 
