@@ -8,6 +8,7 @@ import { codageSegments } from '../../../lib/2d/codages'
 import { droite } from '../../../lib/2d/droites'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Exprimer en fonction de ...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +27,8 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecVariable
     this.optionsChampTexte = { texteAvant: '$AB=$', texteApres: 'cm' }
     this.formatInteractif = 'calcul'
-    this.canOfficielle = true
+    this.compare = functionCompare
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {
