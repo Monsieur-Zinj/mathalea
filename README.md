@@ -1,3 +1,15 @@
+```
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%                                                    %%%
+%%%                                                    %%%
+%%% LE PROJET EST MAINTENU SUR FORGE.APPS.EDUCATION.FR %%%
+%%%                                                    %%%
+%%%                                                    %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+```
+
+
+
 # MathALÉA
 
 MathALÉA est un générateur d'exercices de mathématiques qui suit le programme actuel de mathématiques en France.
@@ -33,5 +45,5 @@ pnpm start
 
 La communauté de développeur autour de MathALEA est ouverte et prête à accompagner toutes les bonnes volontés intéressées pour améliorer l'outil.
 
-La documentation est disponible sur https://forge.aeif.fr/coopmaths/mathalea/-/wikis/home. 
+La documentation est disponible sur https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/home. 
 Vous pouvez nous contacter à contact@coopmaths.fr.
