@@ -30,7 +30,7 @@ export default class NomExercice extends Exercice {
       this.reponse = 6
       this.question = 'Le quart de $24$'
       this.correction = `Prendre le quart d'un nombre revient à le diviser par $4$.<br>
-      Ainsi le quart de $24$ est : $24\\div 4 =${miseEnEvidence(6)}$`
+      Ainsi, le quart de $24$ est : $24\\div 4 =${miseEnEvidence(6)}$.`
     } else {
       const a = randint(6, 12) * 4
       const b = randint(6, 15) * 3
@@ -39,13 +39,13 @@ export default class NomExercice extends Exercice {
       if (m === 'quart') {
         this.question = `Le quart de $${a}$  `
         this.correction = `Prendre le quart d'un nombre revient à le diviser par $4$.<br>
-            Ainsi le quart de $${a}$ est : $${a}\\div 4 =${miseEnEvidence(texNombre(a / 4))}$.`
+            Ainsi, le quart de $${a}$ est : $${a}\\div 4 =${miseEnEvidence(texNombre(a / 4))}$.`
         this.reponse = a / 4
       }
       if (m === 'tiers') {
         this.question = `Le tiers de $${b}$ `
         this.correction = `Prendre le tiers d'un nombre revient à le diviser par $3$.<br>
-            Ainsi le tiers de $${b}$ est : $${b}\\div 3 =${miseEnEvidence(texNombre(b / 3))}$.`
+            Ainsi, le tiers de $${b}$ est : $${b}\\div 3 =${miseEnEvidence(texNombre(b / 3))}$.`
         this.reponse = b / 3
       }
     }

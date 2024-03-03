@@ -14,7 +14,6 @@ export const uuid = 'f9727'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -53,7 +52,7 @@ export default class NomExercice extends Exercice {
         this.question += '<br>'
       }
       this.question += 'Quel est le résultat  si le nombre de départ est $2$ ?'
-      this.correction = `On soustrait $5$, on obtient : $2-5=-3$ ;<br>
+      this.correction = `On soustrait $5$, on obtient : $2-5=-3$.<br>
       En prenant le carré, on obtient  : $(-3)^2=${miseEnEvidence(this.reponse)}$.`
     } else {
       if (choice([true, false])) {
@@ -83,7 +82,7 @@ export default class NomExercice extends Exercice {
           this.question += '<br>'
         }
         this.question += `Quel est le résultat  si le nombre de départ est $${choix}$ ?`
-        this.correction = `On soustrait $${a}$, on obtient : $${choix}-${a}=${choix - a}$ ;<br>
+        this.correction = `On soustrait $${a}$, on obtient : $${choix}-${a}=${choix - a}$.<br>
          En prenant le carré, on obtient  : $${ecritureParentheseSiNegatif(choix - a)}^2=${miseEnEvidence(this.reponse)}$.
         `
       } else {
@@ -113,7 +112,7 @@ export default class NomExercice extends Exercice {
           this.question += '<br>'
         }
         this.question += `Quel est le résultat  si le nombre de départ est $${choix}$ ?`
-        this.correction = `On ajoute  $${a}$, on obtient : $${choix}+${a}=${choix + a}$ ;<br>
+        this.correction = `On ajoute  $${a}$, on obtient : $${choix}+${a}=${choix + a}$.<br>
        En prenant le carré, on obtient  : $${ecritureParentheseSiNegatif(choix + a)}^2=${miseEnEvidence(this.reponse)}$.
       `
       }

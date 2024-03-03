@@ -13,7 +13,6 @@ export const uuid = '7eb06'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -33,9 +32,6 @@ export default class NomExercice extends Exercice {
       La durée  de son trajet ${this.interactif ? 'en minutes' : ''} est de : `
       this.correction = `Pour atteindre $9$ h, il faut $50$ min, puis il faut ajouter encore $5$
       min pour atteindre $9$ h $05$ min. <br>Son trajet aura  duré  $${miseEnEvidence('55')}$ min.`
-      if (this.interactif) {
-        this.optionsChampTexte = { texteApres: 'min' }
-      } else { this.question += `${context.isHtml ? '$\\ldots$ min' : ''}` }
     } else {
       const a = randint(14, 19)
       const b = choice([20, 25, 35, 45, 55])
@@ -48,10 +44,10 @@ export default class NomExercice extends Exercice {
       this.correction = `Pour atteindre $${a + 1}$ h, il faut $${60 - b}$ min, puis il faut ajouter encore $${d}$
            min pour atteindre $${a + 1}$ h $${d}$ min. <br>
            Son trajet aura  duré  $${miseEnEvidence(60 - b + d)}$ min.`
-      if (this.interactif) {
-        this.optionsChampTexte = { texteApres: 'min' }
-      } else { this.question += `${context.isHtml ? '$\\ldots$ min' : ''}` }
     }
+    if (this.interactif) {
+      this.optionsChampTexte = { texteApres: 'min.' }
+    } else { this.question += `${context.isHtml ? '$\\ldots$ min.' : ''}` }
     this.canEnonce = this.question
     this.canReponseACompleter = ' $\\ldots$ min'
   }

@@ -28,7 +28,7 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.reponse = 4
       this.question = '$3x-5=7$'
-      this.correction = `On procède par étapes successives :<br>
+      this.correction = `On procède par étapes successives.<br>
       On commence par isoler $3x$ dans le membre de gauche en ajoutant
       $5$ dans chacun des membres, puis on divise
       par $3$ pour obtenir la solution : <br>

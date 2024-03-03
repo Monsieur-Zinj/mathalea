@@ -12,7 +12,6 @@ export const uuid = '4a518'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -30,7 +29,7 @@ export default class NomExercice extends Exercice {
       this.reponse = 6
       this.question = `Un carré a une aire de $36$ cm$^2$.<br>
       La longueur de l'un de ses côtés est :   `
-      this.correction = `L'aire d'un carré est le carré du côté. <br>
+      this.correction = `L'aire d'un carré est le carré de la longueur d'un côté. <br>
       Ainsi, la longueur $c$ d'un de ses côtés est :   $c=\\sqrt{36}=${miseEnEvidence(texNombre(this.reponse, 0))}$ cm.
      `
       this.optionsChampTexte = { texteApres: 'cm' }
@@ -45,7 +44,7 @@ export default class NomExercice extends Exercice {
         this.reponse = a
         this.question = `Un carré a une aire de $${a ** 2}$ cm$^2$.<br>
       La longueur d'un de ses côtés est :   `
-        this.correction = `L'aire d'un carré est le carré du côté. <br>
+        this.correction = `L'aire d'un carré est le carré de la longueur d'un côté. <br>
       Ainsi, la longueur $c$ d'un de ses côtés est : $c=\\sqrt{${a ** 2}}=${miseEnEvidence(texNombre(this.reponse, 0))}$ cm.
      `
         this.optionsChampTexte = { texteApres: 'cm' }

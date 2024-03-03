@@ -11,7 +11,6 @@ export const uuid = '63e03'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -29,7 +28,7 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.reponse = 30
       this.question = `Sam roule à une vitesse constante de $90$ km/h.<br>
-      Quelle distance parcourt-il en $20$ minutes ?<br>`
+      Quelle distance parcourt-il en $20$ minutes ?`
       this.correction = `En $20$ minutes, il parcourt $3$ fois moins de km qu'en $1$ heure, soit $\\dfrac{90}{3}=
        ${miseEnEvidence(30)}$ km.`
     } else {
@@ -40,7 +39,7 @@ export default class NomExercice extends Exercice {
       const choix = choice(listeHeureVitesse)
       this.reponse = choix[3]
       this.question = `${P} roule à une vitesse constante de $${choix[0]}$ km/h. <br>
-      Quelle distance parcourt-il en  $${choix[1]}$  minutes ?<br>`
+      Quelle distance parcourt-il en  $${choix[1]}$  minutes ?`
       this.correction = `En $${choix[1]}$ minutes, il parcourt $${choix[2]}$ fois moins de km qu'en $1$ heure, 
       soit $\\dfrac{${choix[0]}}{${choix[2]}}=${miseEnEvidence(this.reponse)}$ km.`
     }

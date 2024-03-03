@@ -30,7 +30,7 @@ export default class NomExercice extends Exercice {
       this.reponse = 16
       this.question = `$10$ ${sp(1)};${sp(1)}$16$${sp(1)};${sp(1)}$5$${sp(1)};${sp(1)}$18$${sp(1)};${sp(1)}$27$<br>
       La médiane de cette série est : `
-      this.correction = `On ordonne la série :  $5$ ${sp(1)};${sp(1)}$10$${sp(1)};${sp(1)}$16$${sp(1)};${sp(1)}$18$${sp(1)};${sp(1)}$27$<br>
+      this.correction = `On ordonne la série :  $5$ ${sp(1)};${sp(1)}$10$${sp(1)};${sp(1)}$16$${sp(1)};${sp(1)}$18$${sp(1)};${sp(1)}$27$.<br>
        La série comporte $5$ valeurs donc la médiane est la troisième valeur : $${miseEnEvidence(this.reponse)}$.`
     } else {
       const med = randint(10, 15)
@@ -43,7 +43,7 @@ export default class NomExercice extends Exercice {
 
       this.question = `$${valeurs[0]}$ ${sp(1)};${sp(1)}$${valeurs[1]}$${sp(1)};${sp(1)}$${valeurs[2]}$${sp(1)};${sp(1)}$${valeurs[3]}$${sp(1)};${sp(1)}$${valeurs[4]}$<br>
       La médiane de cette série est : `
-      this.correction = `On ordonne la série :  $${val1}$ ${sp(1)};${sp(1)}$${val2}$${sp(1)};${sp(1)}$${med}$${sp(1)};${sp(1)}$${val3}$${sp(1)};${sp(1)}$${val4}$<br>
+      this.correction = `On ordonne la série :  $${val1}$ ${sp(1)};${sp(1)}$${val2}$${sp(1)};${sp(1)}$${med}$${sp(1)};${sp(1)}$${val3}$${sp(1)};${sp(1)}$${val4}$.<br>
       La série comporte $5$ valeurs donc la médiane est la troisième valeur : $${miseEnEvidence(this.reponse)}$.`
     }
     this.canEnonce = this.question
