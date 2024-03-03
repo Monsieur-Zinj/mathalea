@@ -51,7 +51,7 @@ export default function ComparerAvecFonctionRef () {
     } else if (this.sup === 5) {
       typeDeQuestionsDisponibles = ['typeE7']
     } else if (this.sup === 6) {
-      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7']
+      typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7']//
     }
     //
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -108,8 +108,12 @@ export default function ComparerAvecFonctionRef () {
 
         case 'typeE2':// fct carré avec des nombres positifs
           {
-            const x1 = new Decimal(randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
-            const x2 = new Decimal(x1).add((2 * randint(1, 9) / 1000) * choice([1, -1]))
+            const partiedec1x1 = new Decimal(randint(5, 9)).div(10)
+            const partiedec2x1 = new Decimal(randint(5, 9)).div(100)
+            const partiedec3x1 = new Decimal(randint(0, 2)).div(1000)
+            const x1 = new Decimal(randint(0, 5)).add(partiedec1x1).add(partiedec2x1).add(partiedec3x1)
+            const x2b = new Decimal(2 * randint(1, 9)).div(1000) * choice([1, -1])
+            const x2 = new Decimal(x1).add(x2b)
             const x1B = Math.round(x1 * 1000) / 1000
             const x2B = Math.round(x2 * 1000) / 1000
             const nom = choice(nomF)
@@ -145,8 +149,14 @@ export default function ComparerAvecFonctionRef () {
 
         case 'typeE3':// fct carré avec des nombres négatifs
           {
-            const x1 = new Decimal(randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000).mul(-1)
-            const x2 = new Decimal(x1).add((2 * randint(1, 9) / 1000) * choice([1, -1]))
+            const partiedec1x1 = new Decimal(randint(5, 9)).div(10)
+            const partiedec2x1 = new Decimal(randint(5, 9)).div(100)
+            const partiedec3x1 = new Decimal(randint(0, 2)).div(1000)
+            const x1 = new Decimal(randint(0, 5)).add(partiedec1x1).add(partiedec2x1).add(partiedec3x1).mul(-1)
+
+            const x2b = new Decimal(2 * randint(1, 9)).div(1000) * choice([1, -1])
+            const x2 = new Decimal(x1).add(x2b)
+
             const x1B = Math.round(x1 * 1000) / 1000
             const x2B = Math.round(x2 * 1000) / 1000
             const nom = choice(nomF)
@@ -182,8 +192,10 @@ export default function ComparerAvecFonctionRef () {
 
         case 'typeE4':// fct inverse avec des nombres positifs
           {
-            const x1 = new Decimal(randint(1, 9) + randint(5, 9) / 10)
-            const x2 = new Decimal(x1).add((randint(1, 9) / 10) * choice([1, -1]))
+            const partiedec1x1 = new Decimal(randint(5, 9)).div(10)
+            const partiedec1x2 = new Decimal(randint(1, 9)).div(10).mul(choice([1, -1]))
+            const x1 = new Decimal(randint(1, 9)).add(partiedec1x1)
+            const x2 = new Decimal(x1).add(partiedec1x2)
             const x1B = Math.round(x1 * 10) / 10
             const x2B = Math.round(x2 * 10) / 10
 
@@ -220,8 +232,10 @@ export default function ComparerAvecFonctionRef () {
 
         case 'typeE5':// fct inverse avec des nombres négatifs
           {
-            const x1 = new Decimal(randint(1, 9) + randint(5, 9) / 10).mul(-1)
-            const x2 = new Decimal(x1).add((randint(1, 9) / 10) * choice([1, -1]))
+            const partiedec1x1 = new Decimal(randint(5, 9)).div(10)
+            const partiedec1x2 = new Decimal(randint(1, 9)).div(10).mul(choice([1, -1]))
+            const x1 = new Decimal(randint(1, 9)).add(partiedec1x1).mul(-1)
+            const x2 = new Decimal(x1).add(partiedec1x2)
             const x1B = Math.round(x1 * 10) / 10
             const x2B = Math.round(x2 * 10) / 10
 
@@ -258,8 +272,10 @@ export default function ComparerAvecFonctionRef () {
 
         case 'typeE6':// fct racine carrée
           {
-            let x1 = new Decimal(randint(0, 10) + (randint(6, 9) / 10))
-            const x2 = new Decimal(x1).add((randint(1, 5, 0) / 10) * choice([1, -1]))
+            const partiedec1x1 = new Decimal(randint(6, 9)).div(10)
+            const partiedec1x2 = new Decimal(randint(1, 5)).div(10).mul(choice([1, -1]))
+            let x1 = new Decimal(randint(0, 10)).add(partiedec1x1)
+            const x2 = new Decimal(x1).add(partiedec1x2)
             const x1B = Math.round(x1 * 10) / 10
             const x2B = Math.round(x2 * 10) / 10
             if (x1B === 1) {
@@ -297,8 +313,10 @@ export default function ComparerAvecFonctionRef () {
           break
         case 'typeE7':// fct cube
           {
-            const x1 = new Decimal(randint(-10, 10) + (randint(-9, 9, 0) / 10) * choice([-1, 1]))
-            const x2 = new Decimal(x1).add((randint(1, 9) / 10) * choice([1, -1]))
+            const partiedec1x1 = new Decimal(randint(-9, 9, 0)).div(10).mul(choice([1, -1]))
+            const partiedec1x2 = new Decimal(randint(1, 9)).div(10).mul(choice([1, -1]))
+            const x1 = new Decimal(randint(-10, 10)).add(partiedec1x1)
+            const x2 = new Decimal(x1).add(partiedec1x2)
             const x1B = Math.round(x1 * 10) / 10
             const x2B = Math.round(x2 * 10) / 10
             const nom = choice(nomF)

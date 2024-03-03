@@ -1172,7 +1172,8 @@ export default function SujetCAN2023Sixieme () {
         case 27:
           if (choice([true, false])) {
             a = randint(2, 6)
-            prix = new Decimal(2 + randint(1, 3) / 10).add(0.05)
+            b = new Decimal(randint(1, 3)).div(10)
+            prix = new Decimal(2).add(b).add(0.05)
             k = randint(2, 4)
             reponse = new Decimal(prix).mul(100 * k)
             texte = `$${a}$ stylos identiques coûtent  $${texPrix(prix)}$ €. <br>

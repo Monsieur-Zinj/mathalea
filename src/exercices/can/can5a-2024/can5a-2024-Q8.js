@@ -23,7 +23,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
-    this.canOfficielle = true
+    this.canOfficielle = false
     // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })
   }
 
@@ -36,9 +36,10 @@ export default class NomExercice extends Exercice {
       const u = randint(21, 99)
       const a = randint(1, 9)
       const c = randint(1, 9)
-
+      const partieDec1 = new Decimal(a).div(100)
+      const partieDec2 = new Decimal(c).div(1000)
+      this.reponse = new Decimal(u).add(partieDec1).add(partieDec2)
       if (choice([true, false])) {
-        this.reponse = new Decimal(u).add(a / 100).add(c / 1000)
         if (choice([true, false])) {
           this.question = `Écriture décimale de : <br> $${u}+\\dfrac{${a}}{100}+\\dfrac{${c}}{${texNombre(1000)}}$ `
           this.correction = `$${u}+\\dfrac{${a}}{100}+\\dfrac{${c}}{${texNombre(1000)}}=${u}+${texNombre(a / 100)}+${texNombre(c / 1000, 3)}=${miseEnEvidence(texNombre(u + a / 100 + c / 1000, 3))}$`
@@ -47,7 +48,6 @@ export default class NomExercice extends Exercice {
           this.correction = `$${u}+\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${a}}{100}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 100)}=${miseEnEvidence(texNombre(u + a / 100 + c / 1000, 3))}$`
         }
       } else {
-        this.reponse = new Decimal(u).add(a / 10).add(c / 1000)
         if (choice([true, false])) {
           this.question = `Écriture décimale de : <br> $${u}+\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${a}}{10}$ `
           this.correction = `$${u}+\\dfrac{${c}}{${texNombre(1000)}}+\\dfrac{${a}}{10}=${u}+${texNombre(c / 1000, 3)}+${texNombre(a / 10, 1)}=${miseEnEvidence(texNombre(u + a / 10 + c / 1000, 3))}$
