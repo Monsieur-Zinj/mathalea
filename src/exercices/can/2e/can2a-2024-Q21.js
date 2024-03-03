@@ -82,7 +82,7 @@ export default class NomExercice extends Exercice {
         scale: 0.5,
         style: 'margin: auto'
       }, objets) + '<br>'
-      this.optionsChampTexte = { texteApres: sp() + 'u.l.' }
+      this.optionsChampTexte = { texteApres: 'u.l.' }
       this.correction = `Une unité correspond à $4$ carreaux, la ligne brisée mesure $10$ carreaux, soit $\\dfrac{${miseEnEvidence('10')}}{${miseEnEvidence('4')}}$ u.l. ou
        plus simplement $\\dfrac{${miseEnEvidence('5')}}{${miseEnEvidence('2')}}$ u.l. `
 

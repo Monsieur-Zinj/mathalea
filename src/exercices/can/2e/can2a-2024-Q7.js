@@ -29,7 +29,7 @@ export default class NomExercice extends Exercice {
       this.question = 'Multiplier par $1,12$ revient à augmenter de : '
       this.correction = `Comme $1,12=1+0,12$, multiplier par $1,12$ revient à augmenter de $${miseEnEvidence('12')}\\,\\%$. `
       this.reponse = 12
-      this.optionsChampTexte = { texteApres: sp() + '$\\%$' }
+      this.optionsChampTexte = { texteApres: '$\\%$' }
       if (!this.interactif) {
         this.question += '$\\ldots\\,\\%$'
       }
