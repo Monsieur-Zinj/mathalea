@@ -1485,7 +1485,7 @@ export function Repere ({
       let l
       if (typeof x === 'number') {
         if (x >= xMin && x <= xMax) {
-          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 1, 'middle', false)
+          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 0.8, 'middle', false)
           //   l.isVisible = false
           objets.push(l)
         }
@@ -1508,7 +1508,7 @@ export function Repere ({
       let l
       if (typeof y === 'number') {
         if (y >= yMin && y <= yMax) {
-          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 1, 'middle', false)
+          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 0.8, 'middle', false)
           //  l.isVisible = false
           objets.push(l)
         }
