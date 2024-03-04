@@ -121,8 +121,8 @@ export default function TrouverSolutionMathador (
       op = operationsRestantes.pop()
       if (op === '\\times') {
         c = a * b
-        expressionEnCoursF.push(`${part1f}${op}${part2f}`)
-        expressionEnCoursD.push(`${part1d}${op}${part2d}`)
+        expressionEnCoursF.push(`\\left(${part1f}${op}${part2f}\\right)`)
+        expressionEnCoursD.push(`\\left(${part1d}${op}${part2d}\\right)`)
         nombresRestants.push(c)
       } else if (op === '\\div') {
         if (a % b === 0) {
@@ -136,7 +136,7 @@ export default function TrouverSolutionMathador (
             part2f = part2f.substring(0, part2f.length - 7)
           }
           expressionEnCoursF.push(`\\dfrac{${part1f}}{${part2f}}`)
-          expressionEnCoursD.push(`${part1d}${op}${part2d}`)
+          expressionEnCoursD.push(`\\left(${part1d}${op}${part2d}\\right)`)
           nombresRestants.push(c)
         } else { break }
       } else if (op === '-') {
