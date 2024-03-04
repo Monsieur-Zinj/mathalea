@@ -172,13 +172,13 @@ export default function CalculProbaExperience2Epreuves2e () {
     texte += `<br>Donner la probabilité d'obtenir une boule ${boules[choix]}.` + ajouteChampTexteMathLive(exercice, i, 'largeur15 inline')
     setReponse(exercice, i, new FractionEtendue(p[choix].n, p[choix].d), { formatInteractif: 'fractionEgale' })
     texteCorr = "La probabilité que la pièce tombe sur 'Pile' est de $\\dfrac{1}{2}$ et "
-    texteCorr += `la probabilité de tirer une boule ${boules[choix]} dans la première urne est de $${texProba(urne1.getProba(B[choix], true), true)}$.<br>`
-    texteCorr += `La probabilité de l'issue ('Pile','${boules[choix]}') est donc : $\\dfrac{1}{2}\\times ${texProba(urne1.getProba(B[choix], true), true)}=${texProba(fraction(n1[choix], 2 * card1), true)}$.<br>`
+    texteCorr += `la probabilité de tirer une boule ${boules[choix]} dans la première urne est de $${texProba(urne1.getProba(B[choix], true))}$.<br>`
+    texteCorr += `La probabilité de l'issue ('Pile','${boules[choix]}') est donc : $\\dfrac{1}{2}\\times ${texProba(urne1.getProba(B[choix], true))}=${texProba(fraction(n1[choix], 2 * card1))}$.<br>`
     texteCorr += "La probabilité que la pièce tombe sur 'Face' est de $\\dfrac{1}{2}$ et "
     texteCorr += `la probabilité de tirer une boule ${boules[choix]} dans la deuxième urne est de $${texProba(urne2.getProba(B[choix], true), true)}$.<br>`
-    texteCorr += `La probabilité de l'issue ('Face','${boules[choix]}') est donc : $\\dfrac{1}{2}\\times ${texProba(urne2.getProba(B[choix], true), true)}=${texProba(fraction(n2[choix], 2 * card2), true)}$.<br>`
+    texteCorr += `La probabilité de l'issue ('Face','${boules[choix]}') est donc : $\\dfrac{1}{2}\\times ${texProba(urne2.getProba(B[choix], true))}=${texProba(fraction(n2[choix], 2 * card2))}$.<br>`
     texteCorr += `L'événement 'obtenir une boule ${boules[choix]}' est réalisé par les issues ('Pile','${boules[choix]}') et ('Face','${boules[choix]}'), donc sa probabilité est la somme des probabilités calculées ci-dessus.<br>`
-    texteCorr += `La probabilité d'obtenir une boule ${boules[choix]} est donc de $${texProba(fraction(n1[choix], 2 * card1), true)}+${texProba(fraction(n2[choix], 2 * card2), true)}=${texProba(p[choix], true)}$.`
+    texteCorr += `La probabilité d'obtenir une boule ${boules[choix]} est donc de $${texProba(fraction(n1[choix], 2 * card1))}+${texProba(fraction(n2[choix], 2 * card2))}=${texProba(p[choix])}$.`
 
     return { texte, texteCorr, alea: [...n1, ...n2] }
   }
