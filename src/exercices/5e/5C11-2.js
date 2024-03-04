@@ -45,7 +45,7 @@ export default function ÉcrireUneExpressionMathador () {
       for (let j = 0; j < 4; j++) {
         texte += `$${calculsSuccessifs[j]}$<br>`
       }
-      texte += 'Écris cette succession d\'opérations en une seule expression.'
+      texte += 'Écrire cette succession d\'opérations en une seule expression.'
       texteCorr = `L'expression correspondante au calcul de ${quidam} est :<br>$${miseEnEvidence(expression)}$ ou $${miseEnEvidence(solutionMathador[4])}$.`
       if (context.isAmc) {
         this.autoCorrection[i] =
