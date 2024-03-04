@@ -12,7 +12,6 @@ export const dateDeModifImportante = '12/07/2023'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora, Louis Paternault
- * Référence
  */
 export const uuid = '1ca05'
 export const ref = '2F31-2'
@@ -77,13 +76,13 @@ export default function EncadrerAvecFctRef () {
                     sur l'intervalle $]-\\infty;${a}]$ : <br>
                 `
               if (a < 0) {
-                texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $]-\\infty;${a}]$ est $${a ** 2}$. <br>
+                texteCorrApresTableau = `On constate que le minimum de $x^2$ sur $]-\\infty;${a}]$ est $${a ** 2}$. <br>
             On en déduit que si  $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $x^2\\geqslant ${a ** 2}$.
             <br> Remarque :  la fonction carré étant strictement décroissante sur $]-\\infty;0]$, elle change l'ordre.<br>
             Ainsi les antécédents et les images sont rangées dans l'ordre inverse : <br>
             Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $x^2\\geqslant (${a})^2$ soit $x^2\\geqslant ${a ** 2}$.`
               } else {
-                texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $]-\\infty;${a}]$ est $0$. <br>
+                texteCorrApresTableau = `On constate que le minimum de $x^2$ sur $]-\\infty;${a}]$ est $0$. <br>
         On en déduit que si  $x${large1 ? '\\leqslant' : ' < '}${a}$ alors  $x^2\\geqslant 0$.`
               }
 
@@ -170,7 +169,7 @@ export default function EncadrerAvecFctRef () {
               a = randint(2, 20)
               b = randint(a + 1, 20)
               substituts = [{ antVal: a, antTex: a.toString(), imgVal: 1 / a, imgTex: `$\\frac{1}{${a}}$` },
-                { antVal: b, antTex: b.toString(), imgVal: 1 / b, imgTex: `\\frac{1}{${b}}` }]
+                { antVal: b, antTex: b.toString(), imgVal: 1 / b, imgTex: `$\\frac{1}{${b}}$` }]
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors ${sp(3)} .......  $\\dfrac{1}{x}$  .......`
               texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
                       Puisque la fonction inverse est strictement décroissante sur $]-\\infty;0[$ et strictement décroissante sur $[0;+\\infty[$, on obtient son tableau de variations
@@ -181,7 +180,6 @@ export default function EncadrerAvecFctRef () {
                   <br> Remarque :  la fonction inverse étant strictement décroissante sur $]0; +\\infty[$, elle change l'ordre.<br>
                   Ainsi les antécédents et les images sont rangées dans l'ordre inverse : <br>
             Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors ${sp(2)}$\\dfrac{1}{${a}} ${large1 ? '\\geqslant' : ' > '} \\dfrac{1}{x} ${large2 ? '\\geqslant' : ' > '}\\dfrac{1}{${b}}$ `
-
               break
             case 2: // cas a<x<b avec b<0
               a = randint(-20, -3)

@@ -750,9 +750,9 @@ export function tableauDeVariation ({
  * @param xMax
  * @param tolerance
  */
-export function solve (fonction, y, xMin, xMax, tolerance) {
+// export function solve (fonction, y, xMin, xMax, tolerance) {
 
-}
+// }
 /**
  * renvoie les solutions (intervalles) de f(x) < y (ou f(x)<=y ou f(x)>y ou f(x)>=y)
  * @param {function} fonction une fonction x=>f(x)
@@ -1047,7 +1047,7 @@ export function tableauSignesFonction (fonction, xMin, xMax, {
  * @param {object} options
  * @param {{antVal: number, antTex: string, imgVal: number, imgTex: string}[]} [options.substituts]
  * @param {number|FractionEtendue} [options.step] // pas de balayage pour trouver les solutions de f'(x)=0
- * @param {number|FractionEtendue} [options.tolerance]tolerance la valeur en dessous de laquelle les images sont considérées comme des zéros
+ * @param {number|FractionEtendue} [options.tolerance] // la valeur en dessous de laquelle les images sont considérées comme des zéros
  * @param {boolean} [options.ligneDerivee] Mettre à true pour faire apparaître la ligne de f'
  * @param {string} [options.nomVariable] 'x' par défaut
  * @param {string} [options.nomFonction] 'f(x)' par défaut
