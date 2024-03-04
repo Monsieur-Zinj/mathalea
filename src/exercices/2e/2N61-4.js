@@ -14,7 +14,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDeModifImportante = '03/04/2022'
-
+export const dateDePublication = '17/07/2021'
 export const titre = 'Résoudre une inéquation quotient'
 
 /**
@@ -26,8 +26,6 @@ export const titre = 'Résoudre une inéquation quotient'
  * * Type 5 : (ax+b)/(cx+d)+e<0
  * * Tous les types
  * @author Guillaume Valmont
- * 2N61-4, ex 2L14-2
- * 17/07/2021
  */
 export const uuid = '0716b'
 export const ref = '2N61-4'
@@ -44,16 +42,16 @@ export default function ExerciceInequationQuotient () {
   this.sup = 1 // Choix du type d'inéquation
   this.nbQuestions = 4 // Choix du nombre de questions
   let debutConsigne
-  if (this.nbQuestions.toString() === '1') {
-    debutConsigne = 'Résoudre l\'inéquation suivante :'
-  } else {
-    debutConsigne = 'Résoudre les inéquations suivantes :'
-  }
   this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
   this.nbCols = 1 // Fixe le nombre de colonnes pour les énoncés de la sortie LateX
   this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
 
   this.nouvelleVersion = function () {
+    if (this.nbQuestions === 1) {
+      debutConsigne = 'Résoudre l\'inéquation suivante :'
+    } else {
+      debutConsigne = 'Résoudre les inéquations suivantes :'
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions // Stockera la liste des types de questions

@@ -10,7 +10,6 @@ export const interactifType = 'mathLive'
 /**
  * Calculer les coordonnées du 4e sommet d\'un parallélogramme
  * @author Rémi Angot
- * Références 2G24-6
  */
 export const uuid = '6b705'
 export const ref = '2G24-6'
@@ -56,7 +55,7 @@ class CoordonneesParallelogramme extends Exercice {
     this.correction += `<br>Le vecteur $\\overrightarrow{${nomD}${nomC}}$ a pour coordonnées : $\\dbinom{x_${nomC} - x_${nomD}}{y_${nomC} - y_${nomD} }`
     this.correction += `=\\dbinom{${cx} - x}{${cy} - y}$.`
     this.correction += `<br>L'égalité $\\overrightarrow{${nomA}${nomB}} = \\overrightarrow{${nomD}${nomC}}$ se traduit donc par : `
-    this.correction += `$\\begin{cases}${cx} - x &=& ${bx - ax} \\\\ ${cy} - y &=& ${by - ay}\\end{cases}\\quad$ soit $\\quad\\begin{cases}x &=& ${dx} \\\\ y &=& ${dy}\\end{cases}$.`
+    this.correction += `$\\begin{cases}${cx} - x &= ${bx - ax} \\\\ ${cy} - y &= ${by - ay}\\end{cases}\\quad$ soit $\\quad\\begin{cases}x &= ${dx} \\\\ y &= ${dy}\\end{cases}$.`
     this.correction += `<br>Les coordonnées du point $${nomD}$ sont donc $(${dx}\\;;\\;${dy})$.`
   }
 }

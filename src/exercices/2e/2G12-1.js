@@ -20,11 +20,10 @@ import { mediatrice } from '../../lib/2d/droites.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Calculer et utiliser la distance entre deux points dans un repère.'
+export const titre = 'Calculer et utiliser la distance entre deux points dans un repère'
 export const dateDeModifImportante = '23/11/2023'
 
 /**
- * 2G12-1
  * @author Stéphane Guyon + Gilles Mora (interactif + bricoles)
  */
 export const uuid = 'c5480'
@@ -35,8 +34,6 @@ export const refs = {
 }
 export default function Distance () {
   Exercice.call(this)
-  this.titre = titre
-
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -50,18 +47,16 @@ export default function Distance () {
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
-    }
-    if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [2, 3, 4, 5]//,
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 2) {
+      typesDeQuestionsDisponibles = [2, 3, 4, 5]
+    } else {
       typesDeQuestionsDisponibles = [1, 1, 2, 3, 4, 5]
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, s1, s2, s3, colonne1, colonne2, xM1, xM2, yM1, yM2, med, M1, M2, M3, ux, uy, xA, yA, xB, yB, xC, yC, AB, XAB, YAB, XAC, YAC, AC, XBC, YBC, BC, nom, A, B, C, CorrD, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
-      CorrD = '<br>On sait d\'après le cours, que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère orthonormé, alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$<br>'
+      CorrD = 'On sait d\'après le cours, que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère orthonormé, alors on a : $AB=\\sqrt{\\left(x_B-x_A\\right)^{2}+\\left(y_B-y_A\\right)^{2}}$.<br>'
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
@@ -130,7 +125,7 @@ export default function Distance () {
           texteCorr += `<br>${texteGras('Conseil :')} Faites un croquis pour visualiser la situation.<br>`
           texteCorr += '<br>On calcule séparément ces deux distances.<br>'
           if (this.correctionDetaillee) {
-            texteCorr += `${CorrD}`
+            texteCorr += `<br>${CorrD}`
           }
           texteCorr += `<br>$\\phantom{on applique la relation         } ${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{on applique la relation        } ${A.nom}${B.nom}=\\sqrt{${XAB}+${YAB}}$<br>`
@@ -177,7 +172,7 @@ export default function Distance () {
           texteCorr += `<br>${texteGras('Conseil :')} Faites un croquis pour visualiser la situation.<br>`
           texteCorr += '<br>On calcule séparément ces deux distances.<br>'
           if (this.correctionDetaillee) {
-            texteCorr += `${CorrD}`
+            texteCorr += `<br>${CorrD}`
           }
           texteCorr += `<br>$\\phantom{on applique la relation         } ${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{on applique la relation        } ${A.nom}${B.nom}=\\sqrt{${XAB}+${YAB}}$<br>`
@@ -241,15 +236,15 @@ export default function Distance () {
             , codageAngleDroit(M2, milieu(M1, M2), M3),
             codageSegments('//', 'black', M1, M3, M2, M3),
             codageSegments('/', 'black', M1, milieu(M1, M2), M2, milieu(M1, M2)))
-          colonne2 = `<br>${texteGras('Rappel :')} La médiatrice du segment $[${A.nom}${B.nom}]$ est la droite qui passe  par le milieu de $[${A.nom}${B.nom}]$ et qui est perpendiculaire à $[${A.nom}${B.nom}]$.<br><br>
+          colonne2 = `${texteGras('Rappel :')} La médiatrice du segment $[${A.nom}${B.nom}]$ est la droite qui passe  par le milieu de $[${A.nom}${B.nom}]$ et qui est perpendiculaire à $[${A.nom}${B.nom}]$.<br><br>
            Cette droite est l'ensemble des points équidistants des deux extrémités du segment.`
 
           if (this.correctionDetaillee) {
             texteCorr = deuxColonnes(colonne1, colonne2)
-            texteCorr += `<br> Cela signifie que $${C.nom}$ est un point de la médiatrice de $[${A.nom}${B.nom}]$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$. <br>
+            texteCorr += `Cela signifie que $${C.nom}$ est un point de la médiatrice de $[${A.nom}${B.nom}]$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$. <br>
             Ainsi, le point $${C.nom}$ appartient à la médiatrice du segment $[${A.nom}${B.nom}]$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$.<br>
             `
-            texteCorr += `${CorrD}`
+            texteCorr += `<br>${CorrD}`
           } else {
             texteCorr = `Le point $${C.nom}$ appartient à la médiatrice du segment $[${A.nom}${B.nom}]$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$.<br>`
           }
@@ -317,12 +312,12 @@ export default function Distance () {
             , codageAngleDroit(M2, milieu(M1, M2), M3),
             codageSegments('//', 'black', M1, M3, M2, M3),
             codageSegments('/', 'black', M1, milieu(M1, M2), M2, milieu(M1, M2)))
-          colonne2 = `<br>${texteGras('Rappel :')} La médiatrice du segment $[${A.nom}${B.nom}]$ est la droite qui passe  par le milieu de $[${A.nom}${B.nom}]$ et qui est perpendiculaire à $[${A.nom}${B.nom}]$.<br><br>
+          colonne2 = `${texteGras('Rappel :')} La médiatrice du segment $[${A.nom}${B.nom}]$ est la droite qui passe  par le milieu de $[${A.nom}${B.nom}]$ et qui est perpendiculaire à $[${A.nom}${B.nom}]$.<br><br>
            Cette droite est l'ensemble des points équidistants des deux extrémités du segment.`
 
           if (this.correctionDetaillee) {
             texteCorr = deuxColonnes(colonne1, colonne2)
-            texteCorr += `<br> Cela signifie que $${C.nom}$ est un point de la médiatrice de $[${A.nom}${B.nom}]$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$. <br>
+            texteCorr += `Cela signifie que $${C.nom}$ est un point de la médiatrice de $[${A.nom}${B.nom}]$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$. <br>
             Ainsi, le point $${C.nom}$ appartient à la médiatrice du segment $[${A.nom}${B.nom}]$ si et seulement si $${C.nom}${A.nom}=${C.nom}${B.nom}$.<br>
             `
             texteCorr += `${CorrD}`

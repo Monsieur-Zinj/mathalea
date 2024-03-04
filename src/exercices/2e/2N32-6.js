@@ -2,11 +2,11 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Développer les identités remarquables avec des racines carrées'
 
 /**
- * 2N32-6
  * @author Stéphane Guyon
  * Relecture : Novembre 2021 par EE
  */
@@ -18,25 +18,23 @@ export const refs = {
 }
 export default function IdentitesRemarquablesEtRacineCarree () {
   Exercice.call(this)
-  this.titre = titre
   this.consigne = 'Effectuer les calculs suivants.'
   this.nbQuestions = 5
   this.nbCols = 2
-  this.nbColsCorr = 2
-  this.sup = 1 //
+  this.nbColsCorr = 1
+  this.sup = 1
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, a, b, c, d = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
         case 1:
-
           a = randint(2, 6) * choice([-1, 1])
           b = randint(2, 11, [4, 8, 9])
           c = randint(2, 6)
@@ -46,13 +44,9 @@ export default function IdentitesRemarquablesEtRacineCarree () {
                     \\left(${a} \\sqrt{${b}} \\right)^{2}+2\\times ${ecritureParentheseSiNegatif(a)}\\sqrt{${b}}\\times ${c}+${c}^{2}$<br>
                     $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)^{2}}=${ecritureParentheseSiNegatif(a)}^{2}\\times ${b} ${ecritureAlgebrique(2 * a * c)}\\sqrt{${b}}+ ${c * c}$<br>
                     $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)^{2}}=${a * a * b}${ecritureAlgebrique(2 * a * c)}\\sqrt{${b}}+${c * c}$<br>
-                    $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)^{2}}=${a * a * b + c * c}${ecritureAlgebrique(2 * a * c)}\\sqrt{${b}}$
-                    `
-
+                    $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)^{2}}=${a * a * b + c * c}${ecritureAlgebrique(2 * a * c)}\\sqrt{${b}}$`
           break
-
         case 2:
-
           a = randint(2, 6) * choice([-1, 1])
           b = randint(2, 11, [4, 8, 9])
           c = randint(2, 6)
@@ -61,9 +55,7 @@ export default function IdentitesRemarquablesEtRacineCarree () {
           texteCorr = `$\\left(${a} \\sqrt{${b}} -${c}\\right)^{2}=\\left(${a} \\sqrt{${b}} \\right)^{2}-2\\times ${ecritureParentheseSiNegatif(a)}\\sqrt{${b}}\\times ${c}+${c}^{2}$<br>
                     $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)^{2}}=${ecritureParentheseSiNegatif(a)}^{2}\\times ${b} ${ecritureAlgebrique(-2 * a * c)}\\sqrt{${b}}+ ${c * c}$<br>
                     $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)^{2}}=${a * a * b}${ecritureAlgebrique(-2 * a * c)}\\sqrt{${b}}+${c * c}$<br>
-                    $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)^{2}}=${a * a * b + c * c}${ecritureAlgebrique(-2 * a * c)}\\sqrt{${b}}$
-
-                    `
+                    $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)^{2}}=${a * a * b + c * c}${ecritureAlgebrique(-2 * a * c)}\\sqrt{${b}}$`
           break
         case 3:
           a = randint(2, 6) * choice([-1, 1])
@@ -74,12 +66,9 @@ export default function IdentitesRemarquablesEtRacineCarree () {
           texteCorr = `$\\left(${a} \\sqrt{${b}} +${c}\\right)\\left(${a} \\sqrt{${b}}-${c}\\right)=\\left(${a} \\sqrt{${b}} \\right)^{2}-${c}^{2}$<br>
                     $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)\\left(${a} \\sqrt{${b}}-${c}\\right)}=${ecritureParentheseSiNegatif(a)}^{2}\\times ${b}-${c * c}$<br>
                         $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)\\left(${a} \\sqrt{${b}}-${c}\\right)}=${a * a * b}-${c * c}$<br>
-                        $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)\\left(${a} \\sqrt{${b}}-${c}\\right)}=${a * a * b - c * c}$
-                    `
-
+                        $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\right)\\left(${a} \\sqrt{${b}}-${c}\\right)}=${a * a * b - c * c}$`
           break
         case 4:
-
           a = randint(2, 5) * choice([-1, 1])
           b = randint(3, 11, [4, 8, 9])
           c = randint(2, 5)
@@ -91,16 +80,14 @@ export default function IdentitesRemarquablesEtRacineCarree () {
                     $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\sqrt{${d}}\\right)^{2}}=${ecritureParentheseSiNegatif(a)}^{2}\\times ${b} +2\\times ${ecritureParentheseSiNegatif(a)}
                     \\times \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(c)}    \\times\\sqrt{${d}}+ ${c * c}\\times ${d}$<br>
                     $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\sqrt{${d}}\\right)^{2}}=${a * a * b} ${ecritureAlgebrique(2 * a * c)}\\sqrt{${b}\\times${d}} ${ecritureAlgebrique(c * c * d)}$<br>
-                    $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\sqrt{${d}}\\right)^{2}}=${a * a * b + c * c * d}${ecritureAlgebrique(2 * a * c)}\\sqrt{${b * d}}
-
-                    $`
-
+                    $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\sqrt{${d}}\\right)^{2}}=${a * a * b + c * c * d}${ecritureAlgebrique(2 * a * c)}\\sqrt{${b * d}}$`
           break
         case 5:
           a = randint(2, 6) * choice([-1, 1])
           b = randint(2, 11, [4, 8, 9])
           c = randint(2, 6)
           d = randint(2, 11, [4, 8, 9])
+
           texte = `$\\left(${a} \\sqrt{${b}} +${c}\\sqrt{${d}}\\right)\\left(${a} \\sqrt{${b}}-${c}\\sqrt{${d}}\\right)$`
           texteCorr = `$\\left(${a} \\sqrt{${b}} +${c}\\sqrt{${d}}\\right)\\left(${a} \\sqrt{${b}}-${c}\\sqrt{${d}}\\right)=
                     \\left(${a} \\sqrt{${b}} \\right)^{2}-\\left(${c}\\sqrt{${d}}\\right)^{2}$<br>
@@ -109,12 +96,22 @@ export default function IdentitesRemarquablesEtRacineCarree () {
                     $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\sqrt{${d}}\\right)\\left(${a} \\sqrt{${b}}-${c}\\sqrt{${d}}\\right)}
                     =${a * a * b}-${c * c * d}$<br>
                     $\\phantom{\\left(${a} \\sqrt{${b}} +${c}\\sqrt{${d}}\\right)\\left(${a} \\sqrt{${b}}-${c}\\sqrt{${d}}\\right)}
-                    =${a * a * b - c * c * d}$
-                    `
-
+                    =${a * a * b - c * c * d}$`
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
+      if (this.questionJamaisPosee(i, a, b, c, d)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

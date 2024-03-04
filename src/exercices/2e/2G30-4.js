@@ -13,7 +13,6 @@ export const titre = 'Déterminer une équation cartésienne de droite à partir
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * Référence 2G30-4, ex 2G51-1
 */
 export const uuid = '0ec77'
 export const ref = '2G30-4'
@@ -23,8 +22,7 @@ export const refs = {
 }
 export default function Equationcartesienne () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Déterminer une équation cartésienne de la droite $\\bm(d)$.'
+  this.consigne = 'Déterminer une équation cartésienne de la droite $(d)$.'
   this.nbQuestions = 2
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -33,7 +31,6 @@ export default function Equationcartesienne () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -47,7 +44,7 @@ export default function Equationcartesienne () {
           yA = randint(-5, 5)
           xu = randint(-5, 5)
           yu = randint(-5, 5)
-          texte = `passant par le point $A$ de coordonnées : $A(${xA};${yA})$ et ayant le vecteur $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur.`
+          texte = `La droite $(d)$ passe par le point $A$ de coordonnées : $A(${xA};${yA})$ et ayant le vecteur $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur.`
           if (this.sup === 1) {
             texte += '<br><i>On demande une rédaction utilisant un résultat de cours.</i>'
             texteCorr = 'On sait, d\'après le cours, que si une droite $(d)$ admet un vecteur directeur de coordonnées :'
@@ -60,11 +57,12 @@ export default function Equationcartesienne () {
             texteCorr += ` <br>$\\iff ${yu} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebrique(-xu)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
             texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
             texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
-            if (xu === 0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, 0)} ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` } else {
-              if (xu === 1) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, 0)}-y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
-              if (xu === -1 & yu !== 0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, 0)}+y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
-              if (xu === -1 & yu === 0) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
-              if (xu !== 0 & xu !== 1 & xu !== -1) { texteCorr += ` <br>Une équation cartésienne est donc de la forme : $ (d): ${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
+            texteCorr += ' <br>Une équation cartésienne de la droite $(d)$ est donc de la forme : '
+            if (xu === 0) { texteCorr += `$${reduireAxPlusB(yu, 0)} ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` } else {
+              if (xu === 1) { texteCorr += `$${reduireAxPlusB(yu, 0)}-y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
+              if (xu === -1 & yu !== 0) { texteCorr += `$${reduireAxPlusB(yu, 0)}+y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
+              if (xu === -1 & yu === 0) { texteCorr += `$y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
+              if (xu !== 0 & xu !== 1 & xu !== -1) { texteCorr += `$${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$.` }
             }
           }
           if (this.sup === 2) {
@@ -79,7 +77,7 @@ export default function Equationcartesienne () {
             texteCorr += `<br>$\\iff \\begin{vmatrix}x-${ecritureParentheseSiNegatif(xA)}&${xu}\\\\y-${ecritureParentheseSiNegatif(yA)}&${yu}\\end{vmatrix}=0$<br>`
             texteCorr += `<br>$\\iff (x-${ecritureParentheseSiNegatif(xA)})\\times ${yu}-( y-${ecritureParentheseSiNegatif(yA)}) \\times ${ecritureParentheseSiNegatif(xu)}=0$`
             texteCorr += `<br>$\\iff ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y -${ecritureParentheseSiNegatif(xA)} \\times ${yu} ${ecritureAlgebrique(yA)} \\times ${ecritureParentheseSiNegatif(xu)}=0$`
-            texteCorr += ` <br>Après réduction, une équation cartésienne est de la forme : $ (d): ${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$ `
+            texteCorr += ` <br>Après réduction, une équation cartésienne de la droite $(d)$ est de la forme : $${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$.`
           }
           break
       }

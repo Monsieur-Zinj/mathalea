@@ -19,7 +19,6 @@ export const amcType = 'AMCOpen'
 /**
  * Placer un point d'abscisse décimale
  * @author Jean-Claude Lhote et Rémi Angot
- * référence : 6N30-2
  * Relecture : Janvier 2022 par EE
  */
 
