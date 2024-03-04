@@ -159,27 +159,28 @@ async function testOneExo (page: Page) {
   return testAll(page, '3e')
 }
 
+// const alea = QrHL (1ere passe de test)
+const alea = 'e906e'
+
 async function testRunAll (filter: string) {
   // return testAll(page, '6e/6G23')
   const uuids = await findUuid(filter)
-  const resultReqs = []
   for (let i = 0; i < uuids.length && i < 300; i++) {
     const myName = 'test' + uuids[i][1]
-    const f = async function (page: Page) { 
+    const f = async function (page: Page) {
       // Listen for all console logs
       page.on('console', msg => {
         logPDF(msg.text())
       })
       log(`uuid=${uuids[i][0]} exo=${uuids[i][1]} i=${i} / ${uuids.length}`)
-      const resultReq = await getLatexFile(page, `http://localhost:5173/alea/?uuid=${uuids[i][0]}&id=${uuids[i][1].substring(0, uuids[i][1].lastIndexOf('.')) || uuids[i][1]}&alea=QrHL&v=latex`)
+      const resultReq = await getLatexFile(page, `http://localhost:5173/alea/?uuid=${uuids[i][0]}&id=${uuids[i][1].substring(0, uuids[i][1].lastIndexOf('.')) || uuids[i][1]}&alea=${alea}&v=latex`)
       log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[i][1]}`)
       return resultReq === 'OK'
     }
-    Object.defineProperty(f, 'name', {value: myName, writable: false})
+    Object.defineProperty(f, 'name', { value: myName, writable: false })
     runTest(f, import.meta.url, { pauseOnError: false, silent: false, debug: false })
   }
 }
-
 
 /**
  * Attention, il faut un service REST en localhost qui récupère les fichiers
@@ -190,7 +191,7 @@ async function testRunAll (filter: string) {
 // runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 // runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 // runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-testRunAll('can/3e')
-testRunAll('can/4e')
-testRunAll('can/5e')
-testRunAll('can/6e')
+testRunAll('3e')
+testRunAll('4e')
+testRunAll('5e')
+testRunAll('6e')
