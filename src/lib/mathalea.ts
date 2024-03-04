@@ -623,7 +623,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       } else {
         // La question doit contenir une unique variable %{champ1}
         if (exercice.interactif) {
-          exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank', '\\ldots'))
+          exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank ' + exercice.formatChampTexte || '', '\\ldots'))
           handleAnswers(exercice, i, { champ1: { value: exercice.reponse, compare } }, { formatInteractif: 'fillInTheBlank' })
         } else {
           exercice.listeQuestions.push(exercice.question ?? '')
