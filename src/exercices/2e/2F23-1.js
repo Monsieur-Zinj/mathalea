@@ -83,7 +83,7 @@ export default class EtudeTrinome extends Exercice {
       }
       correction2 += `<br> On retrouve la même forme développée que celle de la question précédente donc on a bien $f(x)=${p.texFormeFactorisee}$.`
     }
-    let question3 = 'Répondre aux questions suivantes en utilisant l\'écriture de $f(x)$ la mieux adaptée :'
+    let question3 = 'Répondre aux questions suivantes en utilisant l\'écriture de $f(x)$ la mieux adaptée :<br><br>'
     let correction3 = ''
 
     const q3a = 'Quelles sont les coordonnées du point d\'intersection entre $\\mathscr{C}_f$ et l\'axe des ordonnées ?'
@@ -92,7 +92,7 @@ export default class EtudeTrinome extends Exercice {
     corr3a += `<br>$f(0)= ${p.texCalculImage(0)}$ `
 
     corr3a += `<br>On en déduit que les coordonnées du point d'intersection entre l'axe des ordonnées et la courbe $\\mathscr{C}_f$ sont
-    $(0\\, ;\\,${p.c})$.`
+    $(0\\, ;\\,${p.c.texFraction})$.`
 
     const q3b = 'Quelles sont les coordonnées des points d\'intersection  entre $\\mathscr{C}_f$ et l\'axe des abscisses ?'
     let corr3b = `Les coordonnées des points d'intersection entre l'axe des abscisses et la courbe $\\mathscr{C}_f$ sont
@@ -155,8 +155,8 @@ ${a !== 1 ? `\\iff &${p.a.simplifie().texFractionSaufUn}\\left( x ${p.alpha.oppo
     const [sousQuestions, sousCorrections] = [[q3a, q3b, q3c, q3d], [corr3a, corr3b, corr3c, corr3d]]
     // shuffle2tableaux(sousQuestions, sousCorrections)
     for (let i = 0; i < 4; i++) {
-      question3 += `<br><br>${numAlpha(i)} ${sousQuestions[i]}`
-      correction3 += `<br><br>${numAlpha(i)} ${sousCorrections[i]}`
+      question3 += `${numAlpha(i)} ${sousQuestions[i]}<br><br>`
+      correction3 += `${numAlpha(i)} ${sousCorrections[i]}<br><br>`
     }
     this.listeQuestions = [question1, question2, question3]
     this.listeCorrections = [correction1, correction2, correction3]
