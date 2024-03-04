@@ -17,7 +17,7 @@ import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, itemize, randint } from '../../modules/outils.js'
-export const titre = 'Modéliser un problème par une inéquation.'
+export const titre = 'Modéliser un problème par une inéquation'
 export const dateDePublication = '14/02/2023'
 /**
  * Description didactique de l'exercice

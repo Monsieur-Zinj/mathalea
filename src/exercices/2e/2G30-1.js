@@ -18,7 +18,6 @@ export const amcType = 'AMCHybride'
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * 2G30-1, ex 2G50
  */
 export const uuid = '1ea16'
 export const ref = '2G30-1'
@@ -28,7 +27,6 @@ export const refs = {
 }
 export default function CoefficientDirecteurDeDroite () {
   Exercice.call(this)
-
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -42,13 +40,13 @@ export default function CoefficientDirecteurDeDroite () {
     this.autoCorrection = []
     const typeQuestionsDisponibles = ['Droite oblique', 'Droite oblique', 'Droite oblique', 'Droite oblique', 'Droite verticale'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
+    if (!this.interactif) {
+      this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $(AB)$."
+    } else {
+      this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe, le coefficient directeur de la droite $(AB)$, écrire 'non' si la droite n'a pas de coefficicient directeur."
+    }
     for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      if (!this.interactif) {
-        this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$,"
-      } else {
-        this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$, écrire 'non' si la droite n'a pas de coefficicient directeur,"
-      }
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'Droite oblique':
           xA = randint(-5, 5)
@@ -58,16 +56,16 @@ export default function CoefficientDirecteurDeDroite () {
           n = yB - yA
           d = xB - xA
 
-          texte = `avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
+          texte = `Avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
           texteCorr = 'On observe que $ x_B\\neq x_A$.'
           texteCorr += "<br>La droite $(AB)$ n'est donc pas verticale."
-          texteCorr += '<br>On peut donc calculer le coefficient directeur de la droite.'
+          texteCorr += '<br>On peut donc calculer le coefficient directeur $m$ de la droite.'
           texteCorr += "<br>On sait d'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$."
           texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n, d)}`
           if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
             texteCorr += `=${texFractionReduite(n, d)}`
           }
-          texteCorr += '$'
+          texteCorr += '$.'
           setReponse(this, i, texFractionReduite(n, d))
           if (context.isAmc) {
             n = unSiPositifMoinsUnSinon(n) * unSiPositifMoinsUnSinon(d) * Math.abs(n)
@@ -135,7 +133,7 @@ export default function CoefficientDirecteurDeDroite () {
           n = yB - yA
           d = xB - xA
 
-          texte = `avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
+          texte = `Avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
           texteCorr = 'On observe que $ x_B = x_A$.'
           texteCorr += '<br>La droite $(AB)$ est donc verticale.'
           texteCorr += "<br>Elle n'admet donc pas de coefficient directeur."
@@ -198,11 +196,6 @@ export default function CoefficientDirecteurDeDroite () {
 
           break
       }
-      if (!this.interactif) {
-        this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$,"
-      } else {
-        this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $\\bm{(AB)}$, écrire 'non' si la droite n'a pas de coefficicient directeur,"
-      }
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, xA, yA, xB, yB)) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -214,5 +207,4 @@ export default function CoefficientDirecteurDeDroite () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }
