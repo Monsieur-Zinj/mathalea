@@ -21,6 +21,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
+    this.optionsChampTexte = { texteAvant: ' $=$' }
     this.canOfficielle = true
   }
 
