@@ -737,7 +737,10 @@ export function handleAnswers (exercice, question, reponses, {
   formatInteractif = 'calcul',
   precision = null
 } = {}) {
+  if (question === 0) exercice.autoCorrection = []
   if (!(reponses instanceof Object)) throw Error(`handleAnswer() reponses doit être un objet : ${reponses}`)
+  const url = new URL(window.location.href)
+  if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${question + 1} : `, reponses)
   if (exercice.autoCorrection[question] === undefined) {
     exercice.autoCorrection[question] = {}
   }

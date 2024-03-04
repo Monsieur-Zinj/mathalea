@@ -1,14 +1,15 @@
-import { arrondi } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { personne, prenom, prenomF } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { max, min } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { numberCompare, upperCaseCompare } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -28,18 +29,34 @@ export const refs = {
   'fr-fr': ['6C32-1'],
   'fr-ch': []
 }
-export default function ExerciceProblemesComplexes () {
-  // Multiplier deux nombres
-  Exercice.call(this)
-  this.sup = 11
-  this.titre = titre
-  this.spacing = 1.5
-  if (context.isHtml) this.spacingCorr = 1.5
-  this.nbQuestions = 3
+export default class ExerciceProblemesComplexes extends Exercice {
+  constructor () {
+    super()
+    this.sup = 11
+    this.titre = titre
+    this.spacing = 1.5
+    if (context.isHtml) this.spacingCorr = 1.5
+    this.nbQuestions = 3
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+    this.besoinFormulaireTexte = ['Type de questions', [
+      'Nombres séparés par des tirets',
+      '1 : Régime alimentaire',
+      '2 : Fromagerie',
+      '3 : Programme de calcul',
+      '4 : Cinéma (siège)',
+      '5 : Cinéma (pellicule)',
+      '6 : Boulangerie (sandwichs)',
+      '7 : Cagettes',
+      '8 : Billets',
+      '9 : Fruits',
+      '10 : Devinette',
+      '11 : Mélange'
+    ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
+    this.reinit() // initiase les tableaux des questions/réponses
 
     const listeDesProblemes = gestionnaireFormulaireTexte({
       max: 10,
@@ -49,10 +66,12 @@ export default function ExerciceProblemesComplexes () {
       shuffle: false, // A GARDER POUR DEBUGGAGE
       saisie: this.sup
     })
+
     let indiceInteractif = 0
-    for (let i = 0, cpt = 0, texte, texteCorr; i < this.nbQuestions && cpt < 50; cpt++) {
-      texte = ''
-      texteCorr = ''
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+      let texte = ''
+      let texteCorr = ''
+      let questionParametre = ''
       switch (listeDesProblemes[i]) {
         case 1 : {
           const calAgneau = 3 + randint(1, 3) * 0.1 // 3.3
@@ -63,6 +82,7 @@ export default function ExerciceProblemesComplexes () {
           const quaEpinards = 150 + randint(0, 5) // 150
           const quaFro = 40 + randint(0, 9) // 45
           const quaPom = 120 + randint(0, 5) // 120
+          questionParametre = [1, calAgneau, calEpinards, calFro, calPom, quaAgneau, quaEpinards, quaFro, quaPom]
           const personnage = personne()
           const prenomFP = personnage.prenom
           texte += `${prenomFP} suit un régime et ne doit pas absorber plus de $700$ calories par repas.<br>
@@ -78,26 +98,26 @@ export default function ExerciceProblemesComplexes () {
                         car $${texNombre(calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom)} ${calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? '< 700' : '> 700'}$.`
           if (this.interactif) {
             texte += '<br>' + numAlpha(0) + `Combien de calories fournit une côtelette d'agneau de $${quaAgneau}$ g ?`
-            setReponse(this, indiceInteractif, calAgneau * quaAgneau)
-            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' calories' })
+            handleAnswers(this, indiceInteractif, { reponse: { value: (calAgneau * quaAgneau).toFixed(2), compare: numberCompare } })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
 
             texte += '<br>' + numAlpha(1) + `Combien de calories fournit $${quaEpinards}$ g d'épinards ?`
-            setReponse(this, indiceInteractif + 1, calEpinards * quaEpinards)
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25', { texteApres: ' calories' })
+            handleAnswers(this, indiceInteractif + 1, { reponse: { value: (calEpinards * quaEpinards).toFixed(2), compare: numberCompare } })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
 
             texte += '<br>' + numAlpha(2) + `Combien de calories fournit $${quaFro}$ g de fromage blanc ?`
-            setReponse(this, indiceInteractif + 2, calFro * quaFro)
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur25', { texteApres: ' calories' })
+            handleAnswers(this, indiceInteractif + 2, { reponse: { value: (calFro * quaFro).toFixed(2), compare: numberCompare } })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
 
             texte += '<br>' + numAlpha(3) + `Combien de calories fournit une pomme de $${quaPom}$ g ?`
-            setReponse(this, indiceInteractif + 3, calPom * quaPom)
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 3, 'inline largeur25', { texteApres: ' calories' })
+            handleAnswers(this, indiceInteractif + 3, { reponse: { value: (calPom * quaPom).toFixed(2), compare: numberCompare } })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 3, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
 
             texte += '<br>' + numAlpha(4)
           }
           texte += `${prenomFP} respecte-t-${personnage.pronom} son régime ?`
-          setReponse(this, indiceInteractif + 4, calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700 ? ['Oui', 'OUI', 'oui'] : ['Non', 'NON', 'non'])
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur25')
+          handleAnswers(this, indiceInteractif + 4, { reponse: { value: (calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700) ? 'Oui' : 'Non', compare: upperCaseCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur25 ' + KeyboardType.alphanumeric, { texteApres: ' (oui ou non)' })
 
           indiceInteractif += 5
 
@@ -109,15 +129,16 @@ export default function ExerciceProblemesComplexes () {
           const quaFro2 = 120 + randint(0, 9) // 122
           const masseFro2 = 3.1 + randint(0, 9) * 0.01 // 3,115
           const total = quaFro1 * masseFro1 + quaFro2 * masseFro2
+          questionParametre = [2, quaFro1, masseFro1, quaFro2, masseFro2, total]
           texte += `Le livreur d'une fromagerie charge $${quaFro1}$ fromages pesant chacun $${texNombre(masseFro1)}$ kg <br>
                                   et $${quaFro2}$ autres pesant chacun $${texNombre(masseFro2)}$ kg dans une voiture pouvant transporter $550$ kg.<br>
                                   Le véhicule est-il en surcharge ?`
-          setReponse(this, indiceInteractif, total > 550 ? ['Oui', 'OUI', 'oui'] : ['Non', 'NON', 'non'])
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
+          handleAnswers(this, indiceInteractif, { reponse: { value: (total > 550) ? 'Oui' : 'Non', compare: upperCaseCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.alphanumeric, { texteApres: ' (oui ou non)' })
 
           texte += '<br>Si oui, de combien ? Si non, combien reste-t-il ?'
-          setReponse(this, indiceInteractif + 1, total > 550 ? total - 550 : 550 - total)
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25', { texteApres: ' kg' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: (total > 550 ? (total - 550).toFixed(2) : (550 - total).toFixed()), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' kg' })
 
           texteCorr += `Première sorte de fromage : $${quaFro1}\\times ${texNombre(masseFro1)}${sp()}\\text{kg} =   ${texNombre(quaFro1 * masseFro1)}${sp()}\\text{kg}$. <br>
                         Deuxième sorte de fromage : $${quaFro2}\\times ${texNombre(masseFro2)}${sp()}\\text{kg} =   ${texNombre(quaFro2 * masseFro2)}${sp()}\\text{kg}$. <br>
@@ -133,6 +154,7 @@ export default function ExerciceProblemesComplexes () {
           const k2 = randint(10, 30) // 25
           const n1 = randint(2, 9)
           const n2 = randint(2, 9, [n1])
+          questionParametre = [3, k1, k2, n1, n2]
           texte += `On considère le programme de calcul :<br>
           • Choisir un nombre.<br>
           • Multiplier ce nombre par $${texNombre(k1)}$.<br>
@@ -142,12 +164,12 @@ export default function ExerciceProblemesComplexes () {
             <br>${numAlpha(1)} Remplacer ce programme par un programme plus court. Expliquer.`
           } else {
             texte += `<br>${numAlpha(0)} Effectuer ce programme avec $${n1}$.`
-            setReponse(this, indiceInteractif, arrondi(n1 * k1 * k2, 2))
-            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
+            handleAnswers(this, indiceInteractif, { reponse: { value: (n1 * k1 * k2).toFixed(2), compare: numberCompare } })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase)
 
             texte += `<br>${numAlpha(1)} Effectuer ce programme avec $${n2}$.`
-            setReponse(this, indiceInteractif + 1, arrondi(n2 * k1 * k2, 2))
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25')
+            handleAnswers(this, indiceInteractif + 1, { reponse: { value: (n2 * k1 * k2).toFixed(2), compare: numberCompare } })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase)
           }
           texteCorr += `${numAlpha(0)} Si le nombre est $${n1}$ :<br>
                         • $${n1} \\times ${texNombre(k1)} = ${texNombre(n1 * k1)}$ ;<br>
@@ -172,17 +194,18 @@ export default function ExerciceProblemesComplexes () {
           const fauteuils = randint(10, 20) // 12
           const prix = randint(5, 12) + randint(5, 8) * 0.1
           const n1 = randint(10, 15)
+          questionParametre = [4, range, fauteuils, prix, n1]
           texte += `Dans une salle de cinéma, il y a $${range}$ rangées de $${fauteuils}$ fauteuils.<br>
                     Le prix d'une place pour une séance est de $${texPrix(prix)}$ €.<br>
                   ${numAlpha(0)} Si toutes les places sont occupées, quelle est la somme d'argent récoltée ?`
-          setReponse(this, indiceInteractif, arrondi(fauteuils * range * prix, 2))
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' €' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: (fauteuils * range * prix).toFixed(2), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texte += `<br>
                   ${numAlpha(1)} Pour une autre séance, $${n1}$ rangées sont pleines, le reste des
                   rangées étant vides. Quelle est la recette pour cette séance ?`
-          setReponse(this, indiceInteractif + 1, arrondi(fauteuils * n1 * prix, 2))
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25', { texteApres: ' €' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: (fauteuils * n1 * prix).toFixed(2), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texteCorr += `${numAlpha(0)} $${range} \\times ${fauteuils} =${fauteuils * range}$<br>
                         Il y a $${fauteuils * range}$ places dans la salle.<br>
@@ -201,33 +224,34 @@ export default function ExerciceProblemesComplexes () {
           const min = randint(1, 5) * 10 //  30
           const longueur = randint(2, 9) * 30 // 600m
           const nombreP = randint(3, 8)
+          questionParametre = [5, min, longueur, nombreP]
           texte += `Avant l'arrivée du numérique, au cinéma, la pellicule était utilisée pour projeter des films.<br>
                    Le format souvent utilisé était le format $35$ mm ce qui signifie que la pellicule faisait $35$ mm de largeur.<br>
                    Avec $24$ images par seconde, une pellicule de film de $30$ mètres de long représente $1$ minute de projection.<br>
                    Pour projeter un film, plusieurs pellicules étaient nécessaires et le projectionniste avait pour rôle de les changer.<br>
                    ${numAlpha(0)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la longueur totale en mètres du film ?`
-          setReponse(this, indiceInteractif, arrondi(nombreP * 600, 2))
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' m' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: (nombreP * 600).toFixed(2), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' m' })
 
           texte += `<br> ${numAlpha(1)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la durée totale du film ?`
-          setReponse(this, indiceInteractif + 1, arrondi(nombreP * 20, 2))
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25', { texteApres: ' minutes' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: (nombreP * 20).toFixed(2), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' minutes' })
 
           texte += `<br>${numAlpha(2)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, quelle est la longueur totale, en mètres, du film ?`
-          setReponse(this, indiceInteractif + 2, arrondi((60 + min) * 30, 2))
+          handleAnswers(this, indiceInteractif + 2, { reponse: { value: ((60 + min) * 30).toFixed(2), compare: numberCompare } })
           texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur25', { texteApres: ' m' })
 
           texte += `<br>${numAlpha(3)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, combien faut-il de pellicules entières de $600$ m ?`
-          setReponse(this, indiceInteractif + 3, Math.floor(((60 + min) * 30) / 600))
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 3, 'inline largeur25', { texteApres: ' pellicules entières de $600$ m' })
+          handleAnswers(this, indiceInteractif + 3, { reponse: { value: Math.floor(((60 + min) * 30) / 600).toFixed(2), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 3, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' pellicules entières de $600$ m' })
 
           texte += `<br>${numAlpha(4)} Si la pellicule mesure $${longueur}$ m, quelle est la durée de la pellicule ?`
-          setReponse(this, indiceInteractif + 4, Math.floor(longueur / 30))
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur25', { texteApres: ' minutes' })
+          handleAnswers(this, indiceInteractif + 4, { reponse: { value: (Math.floor(longueur / 30)).toFixed(2), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' minutes' })
 
           texte += `<br>${numAlpha(5)} Si la pellicule mesure $${longueur}$ m, combien d'images y a-t-il sur la pellicule ?`
-          setReponse(this, indiceInteractif + 5, Math.floor(longueur / 30) * 60 * 24)
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 5, 'inline largeur25', { texteApres: ' images' })
+          handleAnswers(this, indiceInteractif + 5, { reponse: { value: (Math.floor(longueur / 30) * 60 * 24).toFixed(2), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 5, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' images' })
 
           texteCorr += `${numAlpha(0)} $${nombreP}${sp()}\\text{ pellicules} \\times 600${sp()}\\text{m} = ${texNombre(nombreP * 600)}${sp()}\\text{m}$<br>
                         La longueur totale du film est de $${texNombre(nombreP * 600)}$ mètres.<br>
@@ -258,12 +282,13 @@ export default function ExerciceProblemesComplexes () {
           const prixBo = 1 + randint(1, 9) * 0.1 + randint(1, 9) * 0.01
           const nbSch = randint(2, 5, [nbBo])
           const prixSch = 3 + randint(1, 9) * 0.1 + randint(1, 9) * 0.01
+          questionParametre = [6, nbBo, prixBo, nbSch, prixSch]
           const prenomAcheteur = prenom()
           texte += `Dans une boulangerie, ${prenomAcheteur} achète ${nbSch} sandwichs à $${texNombre(prixSch)}$ € chacun.<br>
                     et ${nbBo} boissons à $${texNombre(prixBo, 2)}$ € chacune.<br>
                     ${prenomAcheteur} a un billet de 50 €, combien va lui rendre le caissier ?`
-          setReponse(this, indiceInteractif, 50 - (nbBo * prixBo + nbSch * prixSch))
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' €' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: (50 - (nbBo * prixBo + nbSch * prixSch)).toFixed(2), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texteCorr += `$${nbSch} \\times ${texNombre(prixSch, 2)} =${texNombre(nbSch * prixSch, 2)}$<br>
                         Le prix des sandwichs est de $${texPrix(nbSch * prixSch)}$ €.<br>
@@ -283,12 +308,13 @@ export default function ExerciceProblemesComplexes () {
           const kgOranges = 5 + randint(2, 5) * 0.1
           const prixOranges = 6 + randint(2, 9) * 0.1 + randint(2, 9) * 0.01
           const prixOrangesKg = 1 + randint(5, 9) * 0.1
+          questionParametre = [7, nbCagettes, kgOranges, prixOranges, prixOrangesKg]
           texte += `Un commerçant achète $${nbCagettes}$ cagettes d'oranges. Chaque cagette contient <br>
                     $${texNombre(kgOranges)}$ kg d'oranges et coûte $${texPrix(prixOranges)}$ €.<br>
                     Le commerçant revend les oranges $${texPrix(prixOrangesKg)}$ € le kilogramme.<br>
                     Quel est son bénéfice s'il réussit à tout vendre ?`
-          setReponse(this, indiceInteractif, nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges)
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' €' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: (50 - (nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges)).toFixed(2), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texteCorr += `$${nbCagettes} \\times ${texNombre(kgOranges)} =${texNombre(nbCagettes * kgOranges)}$<br>
                         Il y a $${texNombre(nbCagettes * kgOranges)}$ kg d'oranges.<br>
@@ -306,6 +332,7 @@ export default function ExerciceProblemesComplexes () {
         case 8 : {
           const nbDix = randint(10, 20)
           const nbCinq = randint(10, 20, [nbDix])
+          questionParametre = [8, nbDix, nbCinq]
           const prenomFe = prenomF()
           texte += `${prenomFe} a dans sa tirelire uniquement des billets de $5$ € et de $10$ €.<br>
                     Au total, elle a $${texNombre(nbDix + nbCinq)}$ billets qui représentent $${texNombre(nbDix * 10 + nbCinq * 5)}$ €.<br>`
@@ -313,12 +340,12 @@ export default function ExerciceProblemesComplexes () {
             texte += 'Combien a-t-elle de billets de $5$ € et de $10$ € ?<br>'
           } else {
             texte += 'Combien a-t-elle de billets de $5$ € ?'
-            setReponse(this, indiceInteractif, nbCinq)
-            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' billets de 5 €' })
+            handleAnswers(this, indiceInteractif, { reponse: { value: (nbCinq).toFixed(2), compare: numberCompare } })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' billets de 5 €' })
 
             texte += '<br>Combien a-t-elle de billets de $10$ € ?'
-            setReponse(this, indiceInteractif + 1, nbDix)
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25', { texteApres: ' billets de 10 €' })
+            handleAnswers(this, indiceInteractif + 1, { reponse: { value: (nbDix).toFixed(2), compare: numberCompare } })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' billets de 10 €' })
           }
           texteCorr += `Après plusieurs essais, on trouve qu'elle a $${nbDix}$ billets de 10 € et $${nbCinq}$ billets de 5 €.`
           texteCorr += `<br><br>Vérification :<br>
@@ -337,12 +364,13 @@ export default function ExerciceProblemesComplexes () {
           const gBarquettesMy = 250 * randint(2, 5)
           const prixMy = 8 + randint(2, 5) * 0.1
           const prixFinal = nbBarquettesFr * gBarquettesFr * 0.001 * prixFr + nbBarquettesMy * gBarquettesMy * 0.001 * prixMy
+          questionParametre = [9, nbBarquettesFr, gBarquettesFr, prixFr, nbBarquettesMy, gBarquettesMy, prixMy, prixFinal]
           const isEnviron = Math.abs(prixFinal * 100 - Math.round(prixFinal * 100)) > 0.001 ? 'environ' : ''
           texte += `Un marchand de fruits vend $${nbBarquettesFr}$ barquettes de $${texNombre(gBarquettesFr)}$ g de fraises des bois à $${texPrix(prixFr)}$ € le kg<br>
                     et $${nbBarquettesMy}$ barquettes de $${texNombre(gBarquettesMy)}$ g de myrtilles des bois à $${texPrix(prixMy)}$ € le kg.<br>
                     Combien d'argent lui rapporte cette vente ?`
-          setReponse(this, indiceInteractif, prixFinal)
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25', { texteApres: ' €' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: (prixFinal).toFixed(2), compare: numberCompare } })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25  ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texteCorr += `$${nbBarquettesFr} \\times ${texNombre(gBarquettesFr)}${sp()}\\text{g} = ${texNombre(nbBarquettesFr * gBarquettesFr)}${sp()}\\text{g}$ de fraises.<br>
                         $${texNombre(nbBarquettesFr * gBarquettesFr)}${sp()}\\text{g} \\div 1${sp()}000 = ${texNombre(nbBarquettesFr * gBarquettesFr * 0.001, 4)} $ kg de fraises.<br>
@@ -362,6 +390,7 @@ export default function ExerciceProblemesComplexes () {
           const nbD = randint(2, nbP - 1)
           const opP = randint(1, 3)
           const opD = randint(1, 3, [opP])
+          questionParametre = [10, nbP, nbD, opP, opD]
           texte += `Devinette : je pense à deux nombres entiers.<br>
                     Si j'effectue ${opP === 1 ? 'la somme' : opP === 2 ? 'la différence' : 'le produit'} entre ses deux nombres,
                     alors j'obtiens $${opP === 1 ? texNombre(nbP + nbD) : opP === 2 ? texNombre(nbP - nbD) : texNombre(nbP * nbD)}$.<br>
@@ -371,12 +400,12 @@ export default function ExerciceProblemesComplexes () {
             texte += 'Quels sont ces deux nombres ?'
           } else {
             texte += 'Quel est le plus petit de ces deux nombres ?'
-            setReponse(this, indiceInteractif, min(nbP, nbD))
-            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25')
+            handleAnswers(this, indiceInteractif, { reponse: { value: (min(nbP, nbD)).toFixed(2), compare: numberCompare } })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase)
 
             texte += 'Quel est le plus grand de ces deux nombres ?'
-            setReponse(this, indiceInteractif + 1, max(nbP, nbD))
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25')
+            handleAnswers(this, indiceInteractif + 1, { reponse: { value: (max(nbP, nbD)).toFixed(2), compare: numberCompare } })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase)
           }
 
           texteCorr += `Par essais-erreurs, on trouve ${nbP} et ${nbD}.<br>
@@ -391,7 +420,7 @@ export default function ExerciceProblemesComplexes () {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, ...questionParametre)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -400,19 +429,4 @@ export default function ExerciceProblemesComplexes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de questions', [
-    'Nombres séparés par des tirets',
-    '1 : Régime alimentaire',
-    '2 : Fromagerie',
-    '3 : Programme de calcul',
-    '4 : Cinéma (siège)',
-    '5 : Cinéma (pellicule)',
-    '6 : Boulangerie (sandwichs)',
-    '7 : Cagettes',
-    '8 : Billets',
-    '9 : Fruits',
-    '10 : Devinette',
-    '11 : Mélange'
-  ].join('\n')
-  ]
 }
