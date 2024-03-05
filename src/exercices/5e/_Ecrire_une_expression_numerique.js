@@ -107,6 +107,7 @@ export default function EcrireUneExpressionNumerique () {
           texteCorr = `${expn} s'écrit : ${texteEnCouleurEtGras(expf)}.`
           break
         case 3:
+        {
           if (this.interactif) {
             this.consigne = 'Traduire la phrase par un calcul et effectuer le calcul demandé au brouillon.<br> Saisir uniquement le résultat.'
           } else {
@@ -119,7 +120,7 @@ export default function EcrireUneExpressionNumerique () {
 
           if (!this.litteral) {
             texteCorr = ''
-            if (!this.sup4) {
+            if (!this.sup4) { // EE : Ce test ne semble plus servir.
               const expc2 = expc.substring(1, expc.length - 1).split('=')
               texteCorr += `$${miseEnEvidence(expc2[0])} =$` + sp()
               for (let ee = 1; ee < expc2.length - 1; ee++) {
@@ -142,7 +143,21 @@ export default function EcrireUneExpressionNumerique () {
           } else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}`
           else texteCorr += `Pour $x=${val1}$ :<br>${expc}`
           reponse = parseInt(expc.split('=')[expc.split('=').length - 1].replace('$', ''))
+
+          // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+          const textCorrSplit = texteCorr.split('=')
+          let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+          aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+          texteCorr = ''
+          for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+            texteCorr += textCorrSplit[ee] + '='
+          }
+          texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+          // Fin de cette uniformisation
+
           break
+        }
         case 4:
           if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
           this.consigne = ''
