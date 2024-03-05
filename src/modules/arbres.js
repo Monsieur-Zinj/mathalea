@@ -1,13 +1,16 @@
-import { add, multiply, number } from 'mathjs'
 import { point } from '../lib/2d/points.js'
 import { segment, vecteur } from '../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees, latexParPoint } from '../lib/2d/textes.ts'
 import { homothetie, translation } from '../lib/2d/transformations.js'
-import { arrondi } from '../lib/outils/nombres'
 import { fraction } from './fractions.js'
+import FractionEtendue from './FractionEtendue'
+import { texNombre } from '../lib/outils/texNombre'
 
-export function texProba (proba, rationnel, precision) {
-  return rationnel ? fraction(proba, 1).toLatex() : number(arrondi(proba, precision)).toString().replace('.', '{,}')
+function isFraction (obj) {
+  return (typeof obj === 'object' && obj instanceof FractionEtendue)
+}
+export function texProba (proba) {
+  return isFraction(proba) ? proba.simplifie().toLatex() : fraction(proba, 1).toLatex()
 }
 
 /**
@@ -42,7 +45,7 @@ export class Arbre {
     this.enfants = enfants !== undefined ? [...enfants] : []
     this.nom = nom !== undefined ? String(nom) : ''
     this.rationnel = rationnel !== undefined ? Boolean(rationnel) : true
-    this.proba = proba !== undefined ? (rationnel ? fraction(proba, 1) : number(proba)) : 0
+    this.proba = proba !== undefined ? isFraction(proba) ? proba.simplifie() : fraction(proba, 1) : fraction(0, 1)
     this.visible = visible !== undefined ? visible : true
     this.alter = alter !== undefined ? String(alter) : ''
     this.taille = 0
@@ -90,16 +93,12 @@ export class Arbre {
   setFilsProba (nom, proba, rationnel) { // si le fils nommé nom existe, on fixe sa proba (en gros, on la modifie)
     let arbre = this.getFils(nom)
     if (arbre) {
-      arbre.proba = (rationnel || this.rationnel) ? fraction(proba, 1) : number(proba)
+      arbre.proba = isFraction(proba) ? proba : fraction(proba, 1)
     } else { // sinon on ajoute ce fils.
       arbre = new Arbre(this, nom, proba, (rationnel || this.rationnel))
       this.enfants.push(arbre)
     }
     return arbre
-  }
-
-  isFraction (obj) {
-    return (typeof obj === 'object' && ['Fraction', 'FractionEtendue'].indexOf(obj.type) !== -1)
   }
 
   /**
@@ -112,30 +111,27 @@ export class Arbre {
      * alors pin.getProba('malade')===0.4 et sylvestre.getProba('malade')===0.4 aussi ! par contre
      * sylvestre.getProba('malade', 1)= 0.5
      */
-  getProba (nom, rationnel) {
-    let p = rationnel ? fraction(0, 1) : 0
-    let probaArbre = rationnel ? fraction(0, 1) : 0
+  getProba (nom) {
+    let p = fraction(0, 1)
+    let probaArbre = fraction(0, 1)
     let getPro
-    if (this.nom === nom) return (rationnel || this.rationnel) ? (this.isFraction(this.proba) ? this.proba : fraction(this.proba, 1)) : number(this.proba)
+    if (this.nom === nom) return isFraction(this.proba) ? this.proba.simplifie() : fraction(this.proba * 100, 100)
     else {
       for (const arbre of this.enfants) {
         if (arbre.nom === nom) {
-          p = add(p, (rationnel || this.rationnel) ? ((typeof arbre.proba === 'number' || typeof arbre.proba === 'string') ? fraction(arbre.proba, 1) : arbre.proba) : number(arbre.proba))
+          const term2 = arbre.proba
+          p = p.sommeFraction(term2)
         } else {
-          if (rationnel) {
-            getPro = arbre.getProba(nom, true)
-            probaArbre = add(this.isFraction(probaArbre) ? probaArbre : fraction(probaArbre, 1),
-              multiply(this.isFraction(arbre.proba) ? arbre.proba : fraction(arbre.proba, 1),
-                this.isFraction(getPro) ? getPro : fraction(getPro, 1)))
-          } else {
-            getPro = arbre.getProba(nom, false)
-            probaArbre = number(probaArbre) + number(multiply(arbre.proba, number(getPro)))
-          }
+          getPro = arbre.getProba(nom)
+          const term1 = isFraction(probaArbre) ? probaArbre : fraction(probaArbre, 1)
+          const facteur1 = isFraction(arbre.proba) ? arbre.proba : fraction(arbre.proba, 1)
+          const facteur2 = isFraction(getPro) ? getPro : fraction(getPro, 1)
+          probaArbre = term1.sommeFraction(facteur1.produitFraction(facteur2))
         }
       }
-      p = add(p, (rationnel || this.rationnel) ? this.isFraction(probaArbre) ? probaArbre : fraction(probaArbre, 1) : number(probaArbre))
+      p = p.sommeFraction(isFraction(probaArbre) ? probaArbre : fraction(probaArbre, 1))
     }
-    return rationnel ? (this.isFraction(p) ? p : fraction(p, 1)) : number(p)
+    return isFraction(p) ? p.simplifie() : fraction(p, 1)
   }
 
   // méthode pour compter les descendants de l'arbre (le nombre de feuilles terminales).
@@ -196,11 +192,11 @@ export class Arbre {
       : yOrigine - sens * 5
     )
     const labelA = latexParCoordonnees(this.nom, A.x + (vertical ? 0.5 * sens : 0), A.y + (vertical ? 0 : 0.5 * sens), 'black', 15 * this.nom.length, 20, 'white', tailleCaracteres)
-    const positionProba = vertical ? translation(homothetie(A, B, 0.6), vecteur(0, A.y > B.y ? 0.8 : -0.2), '', 'center') : translation(homothetie(A, B, 0.6), vecteur(A.x > B.x ? 0.5 : -0.5, 0), '', 'center') // Proba au 2/5 de [AB] en partant de A.
+    const positionProba = vertical ? homothetie(A, B, 0.7, '', 'center') : translation(homothetie(A, B, 0.6), vecteur(A.x > B.x ? 0.5 : -0.5, 0), '', 'center') // Proba au 2/5 de [AB] en partant de A.
     positionProba.positionLabel = 'center'
     const probaA = this.visible
-      ? latexParPoint(texProba(this.proba, this.rationnel, 2), positionProba, 'black', 20, 24, 'white', tailleCaracteres)
-      : latexParPoint(this.alter, positionProba, 'black', 20, 24, '', tailleCaracteres)
+      ? latexParPoint(this.rationnel ? texProba(this.proba) : texNombre(this.proba.valueOf(), 2), positionProba, 'black', 20, 24, 'white', tailleCaracteres)
+      : latexParPoint(this.alter, positionProba, 'black', 20, 24, 'white', tailleCaracteres)
     if (this.enfants.length === 0) {
       return [segment(B, A), labelA, probaA]
     } else {
