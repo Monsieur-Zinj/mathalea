@@ -2,6 +2,26 @@
   import { Sidenav } from 'tw-elements'
 
   let sidenavOpen: boolean = false
+
+  /**
+   * OUvre/ferme le menu de choix
+   * @param testSideMenuOpenedNeeded flag indiquant la nécessité de contrôler si le menu est ouvert avant de
+   * déclencher le basculement
+   */
+  export const toggleMenu = (testSideMenuOpenedNeeded: boolean): void => {
+    const instance = Sidenav.getOrCreateInstance(
+      document.getElementById('choiceSideMenuWrapper')
+    )
+    if (testSideMenuOpenedNeeded) {
+      if (sidenavOpen === true) {
+        instance.toggle()
+        sidenavOpen = !sidenavOpen
+      }
+    } else {
+      instance.toggle()
+      sidenavOpen = !sidenavOpen
+    }
+  }
 </script>
 
 <div
@@ -14,11 +34,7 @@
     aria-controls="#choiceSideMenuWrapper"
     aria-haspopup="true"
     on:click={() => {
-      sidenavOpen = !sidenavOpen
-      const instance = Sidenav.getOrCreateInstance(
-        document.getElementById('choiceSideMenuWrapper')
-      )
-      instance.toggle()
+      toggleMenu(false)
     }}
   >
     <i

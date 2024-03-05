@@ -44,7 +44,7 @@
     presMode={$globalOptions.presMode}
   />
 {:else}
-  <HeaderExerciceVueProf {...headerExerciceProps} />
+  <HeaderExerciceVueProf {...headerExerciceProps} on:exerciseRemoved/>
 {/if}
 <section id="insert-html-{indiceExercice}" class="mt-6 mb-2 ml-2 lg:mx-5">
   <div bind:this={divExercice} />

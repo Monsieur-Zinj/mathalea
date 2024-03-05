@@ -460,6 +460,7 @@
         !isCorrectionVisible &&
         headerProps?.interactifReady
     )}
+    on:exerciseRemoved
   />
 
   {#if isVisible}

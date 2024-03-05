@@ -40,7 +40,7 @@
       titleBase = decompo[0]
       titleAddendum = decompo[1]
     } else {
-      titleBase = (title  || '')
+      titleBase = (title || '')
       titleAddendum = ''
     }
   }
@@ -73,6 +73,7 @@
       ...l.slice(0, indiceExercice),
       ...l.slice(indiceExercice + 1)
     ])
+    dispatch('exerciseRemoved')
   }
 
   function duplicate () {
@@ -138,12 +139,12 @@
         id="exotitle-{indiceExercice}"
         class="flex flex-row justify-start whitespace-pre-line text-start font-normal items-center text-sm md:text-base xl:text-lg pl-0
         {id && id.length !== 0 ? 'lg:pl-0' : 'lg:pl-4'}"
-      >        
-        {titleBase}        
+      >
+        {titleBase}
         {#if titleAddendum}
             <span class="ml-2 flex justify-center items-center rounded-full h-5 w-5 bg-coopmaths-warn-900 text-coopmaths-canvas font-bold text-sm">
             {titleAddendum}
-          </span>               
+          </span>
         {/if}
       </div>
       {/key}

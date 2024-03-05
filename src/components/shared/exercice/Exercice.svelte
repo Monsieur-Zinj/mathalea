@@ -49,7 +49,6 @@
     return urlExercice && urlExercice.includes('.svelte')
   }
 
-
   async function getExercise (paramsExercice: InterfaceParams): Promise<Exercice> {
     const exercise = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
     exercise.numeroExercice = indiceExercice
@@ -78,6 +77,7 @@
     uuid={paramsExercice.uuid}
     zoomFactor={$globalOptions.z ?? '1'}
     isSolutionAccessible={!!$globalOptions.isSolutionAccessible}
+    on:exerciseRemoved
   />
 {:else if exerciseType === 'html'}
   <ExerciceHtml
@@ -85,6 +85,7 @@
     {exercise}
     {indiceExercice}
     {indiceLastExercice}
+    on:exerciseRemoved
   />
 {:else if exerciseType === 'svelte'}
   <svelte:component
@@ -99,6 +100,7 @@
   exerciseIndex={indiceExercice}
   {indiceLastExercice}
   {isCorrectionVisible}
+  on:exerciseRemoved
 />
 {:else if exerciseType === 'mathaleaVueProf'}
 <ExerciceMathalea
@@ -107,6 +109,7 @@
   exerciseIndex={indiceExercice}
   {indiceLastExercice}
   {isCorrectionVisible}
+  on:exerciseRemoved
 />
 {/if}
 
