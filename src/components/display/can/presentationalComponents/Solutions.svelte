@@ -44,6 +44,10 @@
     const regex = /<math-field[^>]*>[^]*?<\/math-field>/g
     return text.replace(regex, ' ... ')
   }
+
+  function cleanFillInTheBlanks (text: string) {
+    return text.replace(/\\placeholder\[(.*?)\]\[(.*?)\]\[(.*?)\]/g, '')
+  }
 </script>
 
 <div
@@ -86,7 +90,7 @@
               class="text-coopmaths-warn-800 dark:text-coopmathsdark-warn font-bold"
               >{answers[current] === undefined
                 ? 'aucune'
-                : '$' + answers[current] + '$'}
+                : '$' + cleanFillInTheBlanks(answers[current]) + '$'}
             </span>
           </div>
         {/if}
@@ -196,7 +200,7 @@
                 id="answer-{i}"
                 class="text-coopmaths-warn-1000 dark:text-coopmathsdark-warn font-bold"
               >
-                {answers[i] === undefined ? 'aucune' : '$' + answers[i] + '$'}
+                {answers[i] === undefined ? 'aucune' : '$' + cleanFillInTheBlanks(answers[i]) + '$'}
               </span>
             </div>
           </div>
