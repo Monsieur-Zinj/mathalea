@@ -39,7 +39,7 @@ export default function FonctionsProbabilite2 () {
     const listeIndex = combinaisonListes(indexDisponibles, this.nbQuestions)
     const qualites = [[]]
     const Initiale = []
-    const Couleurs = ['red', 'green', 'blue', 'gray', 'brown', '#f15929', 'magenta', 'pink', 'black', 'lightgray']
+    const Couleurs = ['red', 'green', 'blue', 'gray', 'brown', 'orange', 'magenta', 'pink', 'black', 'lightgray']
     qualites[0] = ['à la fraise', 'à la vanille', 'à l\'abricot', 'à la cerise', 'à la banane']
     qualites[1] = ['trèfle', 'carreau', 'cœur', 'pique']
     qualites[2] = ['rouges', 'vertes', 'bleues', 'noires', 'blanches']
@@ -300,7 +300,7 @@ export default function FonctionsProbabilite2 () {
               if (trouve) { break }
             }
             if (trouve === false) {
-              texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.`
+              texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permettent à ${quidam} d'avoir plus de chance que ${quidame} de gagner.`
             }
           } else // quidam a plus de chances de gagner
             if (p2[n[0] - 1] < 0) {
@@ -315,7 +315,7 @@ export default function FonctionsProbabilite2 () {
                 if (trouve) { break }
               }
               if (trouve === false) {
-                texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidame} d'avoir plus de chance que ${quidam} de gagner.<br>`
+                texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permettent à ${quidame} d'avoir plus de chance que ${quidam} de gagner.<br>`
               }
             } else { // Ils ont autant de chances de gagner l'un que l'autre
               texteCorr += `${quidam} et ${quidame} ont autant de chances de gagner car ils ont tous deux la même probabilité de faire ${n[0] + 1}, ce qui répond à la question ${numAlpha(3)}.<br>`
@@ -329,7 +329,7 @@ export default function FonctionsProbabilite2 () {
                 if (trouve) { break }
               }
               if (trouve === false) {
-                texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permette à ${quidam} d'avoir plus de chance que ${quidame} de gagner.<br>`
+                texteCorr += numAlpha(2) + ` Il n'existe pas de choix qui permettent à ${quidam} d'avoir plus de chance que ${quidame} de gagner.<br>`
               }
             }
           if (p2[n[0] - 1] === 0) {
@@ -345,7 +345,7 @@ export default function FonctionsProbabilite2 () {
               if (trouve) { break }
             }
             if (trouve === false) {
-              texteCorr += numAlpha(3) + ` Il n'existe pas de choix qui permette à ${quidam} et à ${quidame} d'avoir la même probabilité de gagner car : <br>`
+              texteCorr += numAlpha(3) + ` Il n'existe pas de choix qui permettent à ${quidam} et à ${quidame} d'avoir la même probabilité de gagner car : <br>`
               for (let j = 2; j < r / 2; j++) {
                 texteCorr += `$\\textcolor {${Couleurs[(j) % 10]}}{${deprecatedTexFraction(fra1[j - 2], p1[0])}}\\ne \\textcolor {${Couleurs[(j) % 10]}}{${deprecatedTexFraction(fra2[j - 2], p1[1])}}$ ; `
               }
