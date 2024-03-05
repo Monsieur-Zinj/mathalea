@@ -83,9 +83,9 @@ export default function Distance () {
             texte += 'Calculer la distance $AB$. <br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${A.nom}${B.nom}=$` })
           } else { texte += `Calculer la distance $${A.nom}${B.nom}$.` }
           if (this.correctionDetaillee) {
-            texteCorr = `${CorrD}`
+            texteCorr = `${CorrD}<br>`
           } else { texteCorr = '' }
-          texteCorr += '<br>On applique la formule aux données de l\'énoncé :<br><br>'
+          texteCorr += 'On applique la formule aux données de l\'énoncé :<br><br>'
           texteCorr += `$\\phantom{On applique la formule  : } ${A.nom}${B.nom}=\\sqrt{\\left(x_${B.nom}-x_${A.nom}\\right)^{2}+\\left(y_${B.nom}-y_${A.nom}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{On applique la formule  : }${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}$<br>`
           texteCorr += `$\\phantom{On applique la formule :        } ${A.nom}${B.nom}=\\sqrt{${XAB}+${YAB}}$<br>`

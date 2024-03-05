@@ -21,7 +21,6 @@ export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
 /**
  * Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale.
  * @author Rémi Angot
- * 6N20-2
  */
 export const uuid = 'ab44e'
 export const ref = '6N20-2'
