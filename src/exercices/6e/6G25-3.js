@@ -191,7 +191,7 @@ export default function PavageEtReflexion2d () {
         index1 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3)) // On choisit 2 points dans 2 polygones distincts.
         index2 = randint(Math.floor(monpavage.nb_polygones / 3), Math.ceil(monpavage.nb_polygones * 2 / 3), index1)
         A = monpavage.polygones[index1].listePoints[randint(0, 2)] // On les choisit dans les trois premiers
-        B = monpavage.polygones[index2].listePoints[randint(0, 2)] // points pour éviter un point qui n'éxiste pas
+        B = monpavage.polygones[index2].listePoints[randint(0, 2)] // points pour éviter un point qui n'existe pas
         while (compare2sommets(A, B)) { // On vérifie qu'ils sont bien distincts sinon, on change.
           index1 = randint(0, monpavage.nb_polygones - 1)
           index2 = randint(0, monpavage.nb_polygones - 1, index1)

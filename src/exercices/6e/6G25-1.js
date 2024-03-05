@@ -22,7 +22,6 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
-* Référence 6G25-1
 * Relecture : Novembre 2021 par EE
 */
 
@@ -34,7 +33,6 @@ export const refs = {
 }
 export default function SymetrieAxialePavageTriangulaire () {
   Exercice.call(this)
-  this.titre = 'Symétrie axiale dans un pavage de triangles équilatéraux'
   this.nbQuestionsModifiable = false // désactive le formulaire nombre de questions
   this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
   this.nbColsCorr = 1// Le nombre de colonne pour la correction LaTeX
