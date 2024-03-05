@@ -4,7 +4,6 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texPrix } from '../../../lib/format/style'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { sp } from '../../../lib/outils/outilString'
 export const titre = 'Calculer un prix après des évolutions successives'
 export const interactifReady = true
 export const interactifType = 'mathLive'

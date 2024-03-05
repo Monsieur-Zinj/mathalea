@@ -71,7 +71,8 @@
       if (type === 'mathLive') {
         resultsByQuestion[i] =
           verifQuestionMathLive(exercice, indiceQuestionInExercice[i])
-            ?.resultat === 'OK'
+            ?.resultat === 'OK' || verifQuestionMathLive(exercice, indiceQuestionInExercice[i])
+            ?.isOk === 'OK'
         // Pour Capytale, on a besoin du score de l'exercice et non de la question
         // donc on sauvegarde le score dans l'exercice
         if (resultsByQuestion[i] && exercice.score !== undefined) { exercice.score++ }
