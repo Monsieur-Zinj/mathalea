@@ -41,7 +41,7 @@ export function fractionSimplifiee (n, d) {
 
 /**
  * Retourne le code LaTeX d'une fraction simplifiée ou d'un nombre entier
- * @deprecated : utiliser la class FractionEtendue à la place
+ * @deprecated : utiliser la class FractionEtendue à la place. Exemple : new FractionEtendue(a, b).texFractionSimplifiee
  * @author Rémi Angot
  */
 export function texFractionReduite (n, d) {
