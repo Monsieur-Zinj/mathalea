@@ -114,7 +114,7 @@ export default function ProgrammeCalcul2 () {
         f1 = new FractionEtendue(1, a)
         f2 = new FractionEtendue(1, b)
         this.formatInteractif = 'fractionEgale'
-        reponse = new FractionEtendue((f1).add(f2))
+        reponse = f1.sommeFraction(f2).simplifie()
         this.question = `Choisir deux nombres puis calculer la somme de leur inverse.  <br>
       
      Quel résultat obtient-on si on choisit comme nombres $${a}$ et $${b}$ ?`
