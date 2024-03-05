@@ -22,7 +22,7 @@ export const uuid = '47a54'
 export const ref = '6C30-4'
 export const refs = {
   'fr-fr': ['6C30-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-3']
 }
 export default function PlacerLaVirgule () {
   Exercice.call(this)

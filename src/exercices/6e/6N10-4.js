@@ -23,7 +23,7 @@ export const uuid = 'dc348'
 export const ref = '6N10-4'
 export const refs = {
   'fr-fr': ['6N10-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO1-5']
 }
 export default function ÉcrireNombresEntiersFormates () {
   Exercice.call(this)

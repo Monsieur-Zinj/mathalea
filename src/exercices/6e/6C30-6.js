@@ -29,7 +29,7 @@ export const uuid = '18559'
 export const ref = '6C30-6'
 export const refs = {
   'fr-fr': ['6C30-6'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-5']
 }
 export default function MultiplierUnNombreParPuissanceDeDix () {
   Exercice.call(this)

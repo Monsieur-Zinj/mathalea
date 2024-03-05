@@ -29,7 +29,7 @@ export const uuid = '85989'
 export const ref = '6C30-7'
 export const refs = {
   'fr-fr': ['6C30-7'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-13']
 }
 export default function DiviserUnNombreParPuissanceDeDix () {
   Exercice.call(this)

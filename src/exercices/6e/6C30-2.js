@@ -24,7 +24,7 @@ export const uuid = '625c0'
 export const ref = '6C30-2'
 export const refs = {
   'fr-fr': ['6C30-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-10']
 }
 export default function ProduitDeDecimauxAPartirProduitConnu () {
   Exercice.call(this)

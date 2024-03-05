@@ -27,7 +27,7 @@ export const uuid = 'd1fb2'
 export const ref = '5N14-3'
 export const refs = {
   'fr-fr': ['5N14-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO12-7']
 }
 
 /**

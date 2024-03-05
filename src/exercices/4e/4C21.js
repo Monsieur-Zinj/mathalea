@@ -32,7 +32,7 @@ export const uuid = '5f429'
 export const ref = '4C21'
 export const refs = {
   'fr-fr': ['4C21'],
-  'fr-ch': []
+  'fr-ch': ['9NO13-5']
 }
 export default function ExerciceAdditionnerOuSoustraireDesFractions () {
   Exercice.call(this)

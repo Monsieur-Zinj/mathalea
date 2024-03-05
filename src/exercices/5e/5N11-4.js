@@ -24,7 +24,7 @@ export const uuid = '6b534'
 export const ref = '5N11-4'
 export const refs = {
   'fr-fr': ['5N11-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO14-7']
 }
 export default function ValeurApprocheeDePourcentages () {
   Exercice.call(this)

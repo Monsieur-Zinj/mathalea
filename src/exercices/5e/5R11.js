@@ -26,7 +26,7 @@ export const uuid = 'cd7ce'
 export const ref = '5R11'
 export const refs = {
   'fr-fr': ['5R11'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-1']
 }
 export default function LireAbscisseRelative () {
   Exercice.call(this)

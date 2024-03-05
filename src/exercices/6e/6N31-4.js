@@ -25,7 +25,7 @@ export const uuid = 'b86b9'
 export const ref = '6N31-4'
 export const refs = {
   'fr-fr': ['6N31-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-7']
 }
 export default function IntercalerDecimalEntre2Decimaux () {
   Exercice.call(this)

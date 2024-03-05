@@ -21,7 +21,7 @@ export const uuid = 'ce9ca'
 export const ref = '5N14-2'
 export const refs = {
   'fr-fr': ['5N14-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO12-6']
 }
 export default function ExerciceComparerQuatreFractions () {
   Exercice.call(this)

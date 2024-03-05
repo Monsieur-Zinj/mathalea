@@ -6,7 +6,7 @@ export const uuid = 'fe6e0'
 export const ref = '6C10-8'
 export const refs = {
   'fr-fr': ['6C10-8'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-14']
 }
 export default function MessageCodeAvecTables () {
   EncodeurTexte.call(this, 'exo')

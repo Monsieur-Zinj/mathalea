@@ -25,7 +25,7 @@ export const uuid = '4828d'
 export const ref = '5A10'
 export const refs = {
   'fr-fr': ['5A10'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-6']
 }
 export default function ListeDesDiviseurs5e () {
   Exercice.call(this)

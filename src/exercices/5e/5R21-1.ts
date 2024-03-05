@@ -22,7 +22,7 @@ export const uuid = 'f2db1'
 export const ref = '5R21-1'
 export const refs = {
   'fr-fr': ['5R21-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-14']
 }
 
 type TypeQuestionsDisponibles = '+-' | '--' | '-+'

@@ -22,7 +22,7 @@ export const uuid = 'bbdd6'
 export const ref = '6N43-3'
 export const refs = {
   'fr-fr': ['6N43-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-2']
 }
 export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   Exercice.call(this)

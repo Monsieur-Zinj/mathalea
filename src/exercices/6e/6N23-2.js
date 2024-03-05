@@ -37,7 +37,7 @@ export const uuid = '12773'
 export const ref = '6N23-2'
 export const refs = {
   'fr-fr': ['6N23-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-7']
 }
 export default function LireAbscisseDecimaleTroisFormes () {
   Exercice.call(this)

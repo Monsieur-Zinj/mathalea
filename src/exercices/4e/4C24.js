@@ -23,7 +23,7 @@ export const uuid = '612b9'
 export const ref = '4C24'
 export const refs = {
   'fr-fr': ['4C24'],
-  'fr-ch': []
+  'fr-ch': ['9NO12-9']
 }
 export default function SimplifierFractions () {
   Exercice.call(this)

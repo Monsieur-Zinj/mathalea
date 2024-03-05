@@ -13,7 +13,7 @@ export const uuid = '5a44b'
 export const ref = '5N11-2'
 export const refs = {
   'fr-fr': ['5N11-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO14-5']
 }
 export default function TableauxEtPourcentagesPourcentConstant () {
   this.exo = '5N11-2'

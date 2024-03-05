@@ -11,7 +11,7 @@ export const uuid = '3bdcd'
 export const ref = '6N20-3'
 export const refs = {
   'fr-fr': ['6N20-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-3']
 }
 export const interactifReady = true
 export const interactifType = 'mathLive'

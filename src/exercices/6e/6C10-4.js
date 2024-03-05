@@ -25,7 +25,7 @@ export const uuid = 'ace0a'
 export const ref = '6C10-4'
 export const refs = {
   'fr-fr': ['6C10-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-16']
 }
 export default function ExerciceTablesAdditions (max = 20) {
   Exercice.call(this)

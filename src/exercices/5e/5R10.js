@@ -24,7 +24,7 @@ export const uuid = '61b4a'
 export const ref = '5R10'
 export const refs = {
   'fr-fr': ['5R10'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-4']
 }
 export default function TermeInconnuDeSomme () {
   Exercice.call(this)

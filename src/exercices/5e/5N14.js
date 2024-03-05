@@ -25,7 +25,7 @@ export const uuid = '234a7'
 export const ref = '5N14'
 export const refs = {
   'fr-fr': ['5N14'],
-  'fr-ch': []
+  'fr-ch': ['9NO12-5']
 }
 export default function ExerciceComparerDeuxFractions (max = 11) {
   Exercice.call(this)

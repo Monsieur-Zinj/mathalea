@@ -30,7 +30,7 @@ export const uuid = '03d65'
 export const ref = '5A12-2'
 export const refs = {
   'fr-fr': ['5A12-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-14']
 }
 export default class PremierOuPas extends Exercice {
   constructor () {

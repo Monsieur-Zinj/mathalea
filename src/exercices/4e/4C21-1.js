@@ -27,7 +27,7 @@ export const uuid = '5e8fc'
 export const ref = '4C21-1'
 export const refs = {
   'fr-fr': ['4C21-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO13-7']
 }
 export default function ExerciceAdditionnerDesFractions () {
   Exercice.call(this)

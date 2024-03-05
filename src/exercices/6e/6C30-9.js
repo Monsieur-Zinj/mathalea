@@ -22,7 +22,7 @@ export const uuid = 'c6836'
 export const ref = '6C30-9'
 export const refs = {
   'fr-fr': ['6C30-9'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-17']
 }
 export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
   constructor () {

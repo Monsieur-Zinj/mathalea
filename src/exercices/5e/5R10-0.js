@@ -18,7 +18,7 @@ export const uuid = 'cab80'
 export const ref = '5R10-0'
 export const refs = {
   'fr-fr': ['5R10-0'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-3']
 }
 export default function TrouverOppose () {
   Exercice.call(this)

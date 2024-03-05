@@ -26,7 +26,7 @@ export const uuid = 'cbc26'
 export const ref = '5R20'
 export const refs = {
   'fr-fr': ['5R20'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-6']
 }
 export default function ExerciceAdditionsRelatifs (max = 20) {
   Exercice.call(this)

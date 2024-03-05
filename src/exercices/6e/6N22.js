@@ -26,7 +26,7 @@ export const uuid = 'c75b6'
 export const ref = '6N22'
 export const refs = {
   'fr-fr': ['6N22'],
-  'fr-ch': []
+  'fr-ch': ['9NO13-2']
 }
 export default function FractionsCalculsSimples () {
   Exercice.call(this)

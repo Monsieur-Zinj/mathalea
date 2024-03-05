@@ -17,7 +17,7 @@ export const uuid = '9db08'
 export const ref = '4C25-0'
 export const refs = {
   'fr-fr': ['4C25-0'],
-  'fr-ch': []
+  'fr-ch': ['9NO15-3']
 }
 export default function ProblemesAdditifsFractionsBis () {
   Exercice.call(this)

@@ -26,7 +26,7 @@ export const uuid = '2ae9b'
 export const ref = '3A13-5'
 export const refs = {
   'fr-fr': ['3A13-5'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-25']
 }
 export default function DivisionEuclienneEtAjout () {
   Exercice.call(this)

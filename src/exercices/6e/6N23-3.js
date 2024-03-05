@@ -28,7 +28,7 @@ export const uuid = '23c48'
 export const ref = '6N23-3'
 export const refs = {
   'fr-fr': ['6N23-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-7']
 }
 export default function LireUneAbscisseAvecZoom () {
   Exercice.call(this)

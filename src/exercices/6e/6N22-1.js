@@ -18,7 +18,7 @@ export const uuid = '7781a'
 export const ref = '6N22-1'
 export const refs = {
   'fr-fr': ['6N22-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-6']
 }
 export default function RapportsSurUnSegment () {
   Exercice.call(this)

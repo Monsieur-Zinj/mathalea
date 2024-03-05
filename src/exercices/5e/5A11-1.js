@@ -18,7 +18,7 @@ export const uuid = 'a3870'
 export const ref = '5A11-1'
 export const refs = {
   'fr-fr': ['5A11-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-11']
 }
 export default function ExerciceLabyrintheDivisibilite1 () {
   Exercice.call(this)

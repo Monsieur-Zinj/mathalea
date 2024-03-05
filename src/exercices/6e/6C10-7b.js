@@ -11,7 +11,7 @@ export const uuid = '08680'
 export const ref = '6C10-7b'
 export const refs = {
   'fr-fr': ['6C10-7b'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-13']
 }
 /**
  * @author Jean-Claude Lhote

@@ -25,7 +25,7 @@ export const uuid = 'f8f4e'
 export const ref = '5N13'
 export const refs = {
   'fr-fr': ['5N13'],
-  'fr-ch': []
+  'fr-ch': ['9NO12-3']
 }
 export default function Exercice_fractions_simplifier (max = 11) {
   Exercice.call(this)

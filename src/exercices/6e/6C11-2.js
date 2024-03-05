@@ -37,7 +37,7 @@ export const uuid = '4e35d'
 export const ref = '6C11-2'
 export const refs = {
   'fr-fr': ['6C11-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-6']
 }
 export default function VocabulaireDivisionEuclidienne () {
   Exercice.call(this)

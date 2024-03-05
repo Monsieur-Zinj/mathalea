@@ -23,7 +23,7 @@ export const uuid = 'd67e9'
 export const ref = '6N33-3'
 export const refs = {
   'fr-fr': ['6N33-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO15-2']
 }
 export default function AppliquerUnPourcentage () {
   Exercice.call(this)

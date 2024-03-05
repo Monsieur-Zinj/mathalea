@@ -23,7 +23,7 @@ export const amcType = 'AMCHybride'
 export const ref = '6N31-5'
 export const refs = {
   'fr-fr': ['6N31-5'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-8']
 }
 export const uuid = 'a8c21'
 export default function EncadrerUnDecimal () {

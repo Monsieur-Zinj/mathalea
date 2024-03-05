@@ -32,7 +32,7 @@ export const uuid = 'be1e4'
 export const ref = '6N31'
 export const refs = {
   'fr-fr': ['6N31'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-4']
 }
 export default function ComparerDecimaux () {
   Exercice.call(this)

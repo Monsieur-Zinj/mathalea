@@ -26,7 +26,7 @@ export const uuid = '6a17f'
 export const ref = '6N22-2'
 export const refs = {
   'fr-fr': ['6N22-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-13']
 }
 export default function AjouterDesFractionsDunite () {
   Exercice.call(this)

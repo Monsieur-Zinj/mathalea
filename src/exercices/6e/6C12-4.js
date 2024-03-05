@@ -33,7 +33,7 @@ export const uuid = '529ad'
 export const ref = '6C12-4'
 export const refs = {
   'fr-fr': ['6C12-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO16-3']
 }
 export default function ExerciceInformationsProblemes () {
   // Multiplier deux nombres

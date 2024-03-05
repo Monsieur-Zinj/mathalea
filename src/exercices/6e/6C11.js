@@ -39,7 +39,7 @@ export const uuid = '2da81'
 export const ref = '6C11'
 export const refs = {
   'fr-fr': ['6C11'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-3']
 }
 export default function DivisionsEuclidiennes () {
   Exercice.call(this)

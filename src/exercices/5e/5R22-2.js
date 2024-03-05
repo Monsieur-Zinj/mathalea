@@ -25,7 +25,7 @@ export const uuid = '070b4'
 export const ref = '5R22-2'
 export const refs = {
   'fr-fr': ['5R22-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-16']
 }
 export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
   Exercice.call(this)

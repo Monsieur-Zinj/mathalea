@@ -18,7 +18,7 @@ export const uuid = '3e436'
 export const ref = '3A10-0'
 export const refs = {
   'fr-fr': ['3A10-0'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-26']
 }
 export default function PremierOuPasDebut () {
   PremierOuPas.call(this)

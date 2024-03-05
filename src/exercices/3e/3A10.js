@@ -18,7 +18,7 @@ export const uuid = '5b60d'
 export const ref = '3A10'
 export const refs = {
   'fr-fr': ['3A10'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-1']
 }
 export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   Exercice.call(this)

@@ -25,7 +25,7 @@ export const uuid = '442f4'
 export const ref = '6N21-2'
 export const refs = {
   'fr-fr': ['6N21-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-6']
 }
 export default function LireAbscissesFractionnairesComplexes () {
   Exercice.call(this)

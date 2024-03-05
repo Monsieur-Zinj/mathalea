@@ -27,7 +27,7 @@ export const uuid = 'bb9d8'
 export const ref = '6N12'
 export const refs = {
   'fr-fr': ['6N12'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-2']
 }
 export default function MultiplierEntierPar101001000 () {
   Exercice.call(this)

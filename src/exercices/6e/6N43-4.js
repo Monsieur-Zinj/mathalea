@@ -20,7 +20,7 @@ export const uuid = 'f894a'
 export const ref = '6N43-4'
 export const refs = {
   'fr-fr': ['6N43-4'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-3']
 }
 export default function DivisibleDiviseurMultiple () {
   Exercice.call(this)

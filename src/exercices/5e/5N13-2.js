@@ -15,7 +15,7 @@ export const uuid = '4718e'
 export const ref = '5N13-2'
 export const refs = {
   'fr-fr': ['5N13-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO12-4']
 }
 export default function EgalitesEntreFractions5e () {
   EgalitesEntreFractions.call(this)

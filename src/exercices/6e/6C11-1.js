@@ -25,7 +25,7 @@ export const uuid = '37267'
 export const ref = '6C11-1'
 export const refs = {
   'fr-fr': ['6C11-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-5']
 }
 export default function DivisionsEuclidiennesEgalite () {
   Exercice.call(this)

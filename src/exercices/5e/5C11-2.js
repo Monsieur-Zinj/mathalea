@@ -18,7 +18,7 @@ export const uuid = '3406a'
 export const ref = '5C11-2'
 export const refs = {
   'fr-fr': ['5C11-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO6-3']
 }
 export default function ÉcrireUneExpressionMathador () {
   Exercice.call(this)

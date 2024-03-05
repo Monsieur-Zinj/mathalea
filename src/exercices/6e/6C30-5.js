@@ -23,7 +23,7 @@ export const uuid = '021f3'
 export const ref = '6C30-5'
 export const refs = {
   'fr-fr': ['6C30-5'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-4']
 }
 export default function MultiplierPar001 () {
   Exercice.call(this)

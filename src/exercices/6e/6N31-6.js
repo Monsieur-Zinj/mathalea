@@ -19,7 +19,7 @@ export const interactifType = 'mathLive'
 export const ref = '6N31-6'
 export const refs = {
   'fr-fr': ['6N31-6'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-9']
 }
 export const uuid = 'd2b82'
 export default function ArrondirUnDecimal () {
