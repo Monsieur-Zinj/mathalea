@@ -53,7 +53,7 @@ export default class EtudeTrinome extends Exercice {
     const etapesDeveloppement = p.arrayTexDevelopperFormeCanonique
     const etapesDeveloppement2 = p.arrayTexDevelopperFormeFactorisee
     if (this.sup === 1) {
-      this.introduction = `Soit $f$ la fonction définie sur $\\R$ par $f(x)=${q.tex}$. ${sp(5)} ($\\textit{Forme développée}$)
+      this.introduction = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${q.tex}$. ${sp(5)} ($\\textit{Forme développée}$)
      `
       question1 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${p.texFormeFactorisee}$.${sp(5)} ($\\textit{Forme factorisée}$)`
       question2 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${p.texFormeCanonique}$. ${sp(5)} ($\\textit{Forme canonique}$)`
@@ -81,7 +81,7 @@ export default class EtudeTrinome extends Exercice {
       correction2 += `<br>On en déduit que $f(x)$ s'écrit sous forme canonique :  $f(x)=${p.texFormeCanonique}$.`
     }
     if (this.sup === 2) {
-      this.introduction = `Soit $f$ la fonction définie sur $\\R$ par $f(x)=${p.texFormeFactorisee}$. ${sp(5)} ($\\textit{Forme factorisée}$)
+      this.introduction = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${p.texFormeFactorisee}$. ${sp(5)} ($\\textit{Forme factorisée}$)
      `
       question1 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${q.tex}$. ${sp(5)} ($\\textit{Forme développée}$)`
       question2 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${p.texFormeCanonique}$. ${sp(5)} ($\\textit{Forme canonique}$)`
@@ -118,7 +118,7 @@ ${p.texFormeCanonique}  &=${etapesDeveloppement[1]}${this.correctionDetaillee ==
       correction2 += `<br>On en déduit que $f(x)$ s'écrit sous forme canonique :  $f(x)=${p.texFormeCanonique}$.`
     }
     if (this.sup === 3) {
-      this.introduction = `Soit $f$ la fonction définie sur $\\R$ par $f(x)=${p.texFormeCanonique}$. ${sp(5)} ($\\textit{Forme canonique}$)
+      this.introduction = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${p.texFormeCanonique}$. ${sp(5)} ($\\textit{Forme canonique}$)
      `
       question1 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${q.tex}$. ${sp(5)} ($\\textit{Forme développée}$)`
       question2 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${p.texFormeFactorisee}$. ${sp(5)} ($\\textit{Forme factorisée}$)`
