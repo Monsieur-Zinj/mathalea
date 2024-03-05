@@ -34,7 +34,7 @@ export default class EtudeTrinome extends Exercice {
     const x2 = x1 + 2 * randint(1, 4)
     const p = new Trinome()
     p.defFormeFactorisee(a, x1, x2)
-    this.introduction = `Soit $f$ la fonction définie sur $\\R$ par $f(x)=${p.texFormeCanonique}$.`
+    this.introduction = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${p.texFormeCanonique}$.`
     const question1 = 'Développer $f(x)$.'
     const etapesDeveloppement = p.arrayTexDevelopperFormeCanonique
     let correction1 = `$f(x)=${p.texFormeCanonique}$`

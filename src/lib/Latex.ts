@@ -245,21 +245,6 @@ class Latex {
       if (contents.content.includes('\\tkzText')) {
         contents.preamble += '\n\\usepackage{tkz-fct}'
       }
-      if (contents.content.includes('\\R')) { // EE : Rajout de l'ensemble R
-        contents.preamble += '\n\\newcommand\\R{\\mathbb{R}}'
-      }
-      if (contents.content.includes('\\N')) { // EE : Rajout de l'ensemble N
-        contents.preamble += '\n\\newcommand\\N{\\mathbb{N}}'
-      }
-      if (contents.content.includes('\\D')) { // EE : Rajout de l'ensemble D
-        contents.preamble += '\n\\newcommand\\D{\\mathbb{D}}'
-      }
-      if (contents.content.includes('\\Z')) { // EE : Rajout de l'ensemble Z
-        contents.preamble += '\n\\newcommand\\Z{\\mathbb{Z}}'
-      }
-      if (contents.content.includes('\\Q')) { // EE : Rajout de l'ensemble Q
-        contents.preamble += '\n\\newcommand\\Q{\\mathbb{Q}}'
-      }
       const [latexCmds, latexPackages] = this.getContentLatex()
       for (const pack of latexPackages) {
         if (pack === 'bclogo') {

@@ -35,8 +35,8 @@ export default class EquationsEtInequations extends Exercice {
     this.listeCorrections = []
     this.tailleDiaporama = 3
     if (context.vue === 'diap' || this.nbQuestions === 1) {
-      this.introduction = 'Résoudre dans $\\R$ :'
-    } else this.introduction = 'Résoudre dans $\\R$ les équations et inéquations suivantes.'
+      this.introduction = 'Résoudre dans $\\mathbb{R}$ :'
+    } else this.introduction = 'Résoudre dans $\\mathbb{R}$ les équations et inéquations suivantes.'
     let typesDeQuestionsDisponibles = ['inequationFormeFactorisee', 'inequationFormeDevelopeeSansRacine', 'inequationFormeDevelopeeAvecRacines', 'inequationFormeDevelopeeSansRacineBis', 'inequationFormeDevelopeeAvecRacinesBis', 'ax2=bx']
     if (this.nbQuestions === 4) {
       typesDeQuestionsDisponibles = ['inequationFormeFactorisee', 'ax2=bx']

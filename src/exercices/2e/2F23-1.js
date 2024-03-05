@@ -47,7 +47,7 @@ export default class EtudeTrinome extends Exercice {
     }
     const p = new Trinome()
     p.defFormeFactorisee(a, x1, x2)
-    this.introduction = `Soit $f$ la fonction définie sur $\\R$ par $f(x)=${p.texFormeCanonique}$.<br>
+    this.introduction = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${p.texFormeCanonique}$.<br>
     On note $\\mathscr{C}_f$ sa courbe représentative dans un repère.`
     const question1 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${rienSi1(p.a)}x^2${ecritureAlgebrique(p.b)}x${x1 === 0 || x2 === 0 ? '' : `${ecritureAlgebrique(p.c)}`}$.`
     const etapesDeveloppement = p.arrayTexDevelopperFormeCanonique
