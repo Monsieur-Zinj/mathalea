@@ -261,7 +261,7 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
           while (a * b < c / d) a = calculANePlusJamaisUtiliser(a * c)
           expf = `La différence du produit de $${nombreAvecEspace(a)}$ par $${l1}$ et du quotient de $${nombreAvecEspace(c)}$ par $${l2}$`
           expl = `$${texNombre(a)}${l1}-${texNombre(c)}\\div ${l2}$ ou $${texNombre(a)}\\times ${l1}-\\dfrac{${texNombre(c)}}{${l2}}$`
-          expc = `${texNombre(a)}${l1}-${texNombre(c)}\\div ${l2}=${texNombre(a)}\\times ${texNombre(b)}-${texNombre(c)}\\div ${texNombre(d)} = ${texNombre(a * b)}-${texNombre(c / d)} = ${texNombre(a * b - c / d)}$`
+          expc = `$${texNombre(a)}${l1}-${texNombre(c)}\\div ${l2}=${texNombre(a)}\\times ${texNombre(b)}-${texNombre(c)}\\div ${texNombre(d)} = ${texNombre(a * b)}-${texNombre(c / d)} = ${texNombre(a * b - c / d)}$`
           lastOp = 'soustraction'
           break
         case 12: // a/b+c/d
