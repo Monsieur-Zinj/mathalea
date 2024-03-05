@@ -69,7 +69,10 @@
    * @author sylvain
    */
   function buildExoTitle (dim: number, nbOfExercises: number) {
-    
+    // if ($globalOptions.title.length === 0) {
+    //   $isMenuNeededForExercises = false
+    //   return ""
+    // }
     const navigationHeaderElt = document.getElementById('navigationHeaderID')
     const exerciseTitleElt = document.getElementById('exerciseTitleID0')
     // soit l'élément existe et on récupère sa vraie largeur, soit on calcule une valeur approchée
@@ -105,8 +108,7 @@
       return ''
     }
   }
-
-  $: exerciseTitle = buildExoTitle(currentWindowWidth, $exercicesParams.length)
+  $: exerciseTitle = buildExoTitle(currentWindowWidth, exercices.length)
 
   /**
    * Adaptation du titre des pages pour chaque question
@@ -152,10 +154,7 @@
       return ''
     }
   }
-
   $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
-
-
   let resizeObserver: ResizeObserver
   onMount(async () => {
     // Si presMode est undefined cela signifie que l'on charge cet url
@@ -187,11 +186,9 @@
     //   }
     //   exercices.push(exercice)
     // }
-    
+    exercices = [...await buildExercisesList()]
+    await tick()
     if ($globalOptions.presMode === 'liste_questions' || $globalOptions.presMode === 'une_question_par_page') {
-      // on charge tous les exos et les questions ...
-      const promiseExercic = buildExercisesList()
-      exercices  = await Promise.all([...promiseExercic])
       buildQuestions()
     }
 
@@ -311,6 +308,7 @@
   }
 
   function handleIndexChange (exoNum: number) {
+    currentIndex = exoNum
     if (
       exercices[exoNum] &&
       exercices[exoNum].interactifType === 'cliqueFigure' &&
@@ -318,18 +316,6 @@
     ) {
       prepareExerciceCliqueFigure(exercices[exoNum])
     }
-    currentIndex = exoNum
-  }
-
-  function handleIndexChangeQuest (i: number) {
-    if (
-      exercices[indiceExercice[i]] &&
-      exercices[indiceExercice[i]].interactifType === 'cliqueFigure' &&
-      exercices[indiceExercice[i]].interactif
-    ) {
-      prepareExerciceCliqueFigure(exercices[indiceExercice[i]])
-    }
-    currentIndex = i
   }
 </script>
 
@@ -385,7 +371,7 @@
         id="navigationHeaderID"
         class="grid justify-items-center w-full mt-4 mb-8 grid-cols-{$globalOptions.presMode ===
         'un_exo_par_page'
-          ? $exercicesParams.length
+          ? exercices.length
           : questions.length}
           {($globalOptions.presMode === 'un_exo_par_page' &&
           !$isMenuNeededForExercises) ||
@@ -442,7 +428,7 @@
                   ? 'border-b-4'
                   : 'border-b-0'} border-coopmaths-struct dark:border-coopmathsdark-struct text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
                 disabled={currentIndex === i}
-                on:click={() => handleIndexChangeQuest(i)}
+                on:click={() => handleIndexChange(i)}
               >
                 <div
                   id="questionTitleID{i}"
@@ -503,7 +489,6 @@
                 </div>
               </button>
             </div>
-            {#if currentIndex === i}
             <div class={currentIndex === i ? '' : 'hidden'}>
               <Exercice
                 {paramsExercice}
@@ -512,7 +497,6 @@
                 isCorrectionVisible={isCorrectionVisible[i]}
               />
             </div>
-            {/if}
           </div>
         {/each}
       {:else if $globalOptions.presMode === 'liste_exos'}
@@ -641,7 +625,7 @@
                   ? 'bg-coopmaths-canvas-darkest'
                   : 'bg-coopmaths-canvas-dark'} hover:bg-coopmaths-canvas-darkest text-coopmaths-action hover:text-coopmaths-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-lightest"
                 disabled={currentIndex === k}
-                on:click={() => handleIndexChangeQuest(k)}
+                on:click={() => handleIndexChange(k)}
               >
                 <div
                   id="questionTitleID2{k}"
