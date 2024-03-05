@@ -242,6 +242,9 @@ class Latex {
       if (contents.content.includes(',decorate,decoration=')) {
         contents.preamble += '\n\\usetikzlibrary{decorations.pathmorphing}'
       }
+      if (contents.content.includes('\\tkzText')) {
+        contents.preamble += '\n\\usepackage{tkz-fct}'
+      }
 
       const [latexCmds, latexPackages] = this.getContentLatex()
       for (const pack of latexPackages) {
