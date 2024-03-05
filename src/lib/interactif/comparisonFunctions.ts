@@ -132,7 +132,7 @@ function cleanMultipliyByOne (str: string): string {
   return str.replace(/(\D*)1([a-z])/g, '$1$2')
 }
 
-function generateCleaner (operations: CleaningOperation[]): (str: string) => string {
+export function generateCleaner (operations: CleaningOperation[]): (str: string) => string {
   const cleaningFunctions = operations.map(operation => {
     switch (operation) {
       case 'fractions':

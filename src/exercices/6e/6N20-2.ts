@@ -11,6 +11,7 @@ import minus from 'apigeom/src/assets/svg/minus.svg'
 import plus from 'apigeom/src/assets/svg/plus.svg'
 import erase from 'apigeom/src/assets/svg/erase.svg'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
@@ -118,7 +119,7 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
         ' = ' +
         ecriDec +
         ' $'
-      this.reponsesAttendues[i] = { entier, numPartieDecimale: numPartieFrac, den, ecritureDecimale: ecriDec }
+      this.reponsesAttendues[i] = { entier, numPartieDecimale: numPartieFrac, den, ecritureDecimale: ecriDec.replace(',', '.') }
 
       if (this.interactif) {
         texte = `<math-field data-keyboard="numbers basicOperations" class="fillInTheBlanks invisible" readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
@@ -149,14 +150,16 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
     const spanResultat = document.querySelector(
       `#resultatCheckEx${this.numeroExercice}Q${i}`
     ) as HTMLDivElement
-    const nSaisi = Number(mf.getPromptValue('n').replaceAll(',', '.'))
+    const clean = generateCleaner(['virgules'])
+    const nSaisi = Number(clean(mf.getPromptValue('n')))
     const test1 = nSaisi === entier
-    const numSaisi = Number(mf.getPromptValue('num').replaceAll(',', '.'))
-    const denSaisi = Number(mf.getPromptValue('den').replaceAll(',', '.'))
+    const numSaisi = Number(clean(mf.getPromptValue('num')))
+    const denSaisi = Number(clean(mf.getPromptValue('den')))
+    const valeurDecimale = clean(mf.getPromptValue('ecritureDecimale'))
     const test2 = (denSaisi !== 0) && Number.isInteger(denSaisi) && Number.isInteger(numSaisi) && new FractionEtendue(numPartieDecimale, den).isEqual(new FractionEtendue(numSaisi, denSaisi))
     const test3 = ce
-      .parse(mf.getPromptValue('ecritureDecimale'))
-      .isEqual(ce.parse(`${ecritureDecimale}`))
+      .parse(valeurDecimale)
+      .isEqual(ce.parse(`${clean(ecritureDecimale)}`))
     let feedback: string
     if (test1 && test2 && test3) {
       spanResultat.innerHTML = '😎'
