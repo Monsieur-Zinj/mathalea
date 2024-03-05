@@ -24,7 +24,7 @@ export const uuid = 'f8a4d'
 export const ref = '6N41-1'
 export const refs = {
   'fr-fr': ['6N41-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO12-2']
 }
 export default function ExerciceLabyrintheFractionsEgales () {
   Exercice.call(this)

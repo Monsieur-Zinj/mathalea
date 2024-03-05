@@ -28,7 +28,7 @@ export const uuid = '4d0dd'
 export const ref = '6N23-5'
 export const refs = {
   'fr-fr': ['6N23-5'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-4']
 }
 export default function SensDeLaFraction () {
   Exercice.call(this)

@@ -26,7 +26,7 @@ export const uuid = '36074'
 export const ref = '5A12-1'
 export const refs = {
   'fr-fr': ['5A12-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-13']
 }
 export default function PremierOuPas5e () {
   Exercice.call(this)

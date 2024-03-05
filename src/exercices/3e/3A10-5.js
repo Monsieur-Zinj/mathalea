@@ -25,7 +25,7 @@ export const uuid = 'eee79'
 export const ref = '3A10-5'
 export const refs = {
   'fr-fr': ['3A10-5'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-28']
 }
 export default function RecourirDecompositionFacteursPremiers () {
   Exercice.call(this)

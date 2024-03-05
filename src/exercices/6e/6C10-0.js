@@ -15,7 +15,7 @@ export const uuid = '322a0'
 export const ref = '6C10-0'
 export const refs = {
   'fr-fr': ['6C10-0'],
-  'fr-ch': []
+  'fr-ch': ['9NO3-10']
 }
 export default function RoseAdditive () { // c'est l'ExoRose zéro contenu dans _Roses.js
   ExoRose.call(this)

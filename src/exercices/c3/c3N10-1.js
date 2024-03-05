@@ -34,7 +34,7 @@ export const uuid = 'c96de'
 export const ref = 'c3N10-1'
 export const refs = {
   'fr-fr': ['c3N10-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO1-8']
 }
 export default function RecomposerEntierC3 () {
   Exercice.call(this)

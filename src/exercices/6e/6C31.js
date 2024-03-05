@@ -37,7 +37,7 @@ export const uuid = '294bb'
 export const ref = '6C31'
 export const refs = {
   'fr-fr': ['6C31'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-14']
 }
 export default function DivisionDecimale () {
   Exercice.call(this)

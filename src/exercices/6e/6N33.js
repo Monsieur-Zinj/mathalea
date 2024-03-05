@@ -26,7 +26,7 @@ export const uuid = 'ddb83'
 export const ref = '6N33'
 export const refs = {
   'fr-fr': ['6N33'],
-  'fr-ch': []
+  'fr-ch': ['9NO14-1']
 }
 export default function FractionDUnNombre () {
   Exercice.call(this)

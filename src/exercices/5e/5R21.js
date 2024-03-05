@@ -33,7 +33,7 @@ export const uuid = 'b6982'
 export const ref = '5R21'
 export const refs = {
   'fr-fr': ['5R21'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-13']
 }
 export default function ExerciceSoustractionsRelatifs (max = 20) {
   Exercice.call(this)

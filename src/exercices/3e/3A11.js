@@ -17,7 +17,7 @@ export const uuid = 'a6667'
 export const ref = '3A11'
 export const refs = {
   'fr-fr': ['3A11'],
-  'fr-ch': []
+  'fr-ch': ['9NO12-8']
 }
 export default function FractionsIrreductibles () {
   Exercice.call(this)

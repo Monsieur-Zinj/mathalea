@@ -27,7 +27,7 @@ export const uuid = 'acd4a'
 export const ref = '6N11'
 export const refs = {
   'fr-fr': ['6N11'],
-  'fr-ch': []
+  'fr-ch': ['9NO2-1']
 }
 export default function LireAbscisseEntiere2d () {
   Exercice.call(this)

@@ -24,7 +24,7 @@ export const uuid = '5eb83'
 export const ref = '6N23-0'
 export const refs = {
   'fr-fr': ['6N23-0'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-10']
 }
 export default function ÉcrireNombresDecimal () {
   Exercice.call(this)

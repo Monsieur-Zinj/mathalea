@@ -26,7 +26,7 @@ export const uuid = '8c05e'
 export const ref = '3A12-1'
 export const refs = {
   'fr-fr': ['3A12-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-24']
 }
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this)

@@ -22,7 +22,7 @@ export const uuid = 'fd4d8'
 export const ref = '6C10-5'
 export const refs = {
   'fr-fr': ['6C10-5'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-18']
 }
 export default function ExerciceLabyrintheMultiples () {
   Exercice.call(this)

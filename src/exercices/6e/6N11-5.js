@@ -17,7 +17,7 @@ export const uuid = 'a7aa7'
 export const ref = '6N11-5'
 export const refs = {
   'fr-fr': ['6N11-5'],
-  'fr-ch': []
+  'fr-ch': ['9NO2-5']
 }
 export default class ComparerDeuxNombresEntiers extends Exercice {
   constructor () {

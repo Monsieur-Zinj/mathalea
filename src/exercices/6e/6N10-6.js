@@ -33,7 +33,7 @@ export const uuid = 'c5438'
 export const ref = '6N10-6'
 export const refs = {
   'fr-fr': ['6N10-6'],
-  'fr-ch': []
+  'fr-ch': ['9NO13-4']
 }
 export default function SommeFractionsDecimales () {
   Exercice.call(this)

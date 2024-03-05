@@ -17,7 +17,7 @@ export const uuid = 'f92e1'
 export const ref = 'c3C10-3'
 export const refs = {
   'fr-fr': ['c3C10-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-2']
 }
 export default function MultiplierDecimauxPar101001000CM () {
   MultiplierDecimauxPar101001000.call(this)

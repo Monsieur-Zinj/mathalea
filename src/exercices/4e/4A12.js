@@ -32,7 +32,7 @@ export const uuid = 'b16c6'
 export const ref = '4A12'
 export const refs = {
   'fr-fr': ['4A12'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-22']
 }
 export default function ProblemesEvenementsRecurrents () {
   Exercice.call(this)

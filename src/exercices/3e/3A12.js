@@ -21,7 +21,7 @@ export const uuid = 'ce352'
 export const ref = '3A12'
 export const refs = {
   'fr-fr': ['3A12'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-23']
 }
 export default function PpcmEngrenages () {
   Exercice.call(this)

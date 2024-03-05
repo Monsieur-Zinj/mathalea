@@ -24,7 +24,7 @@ export const uuid = '778c0'
 export const ref = '6N21-1'
 export const refs = {
   'fr-fr': ['6N21-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-5']
 }
 
 type goodAnswer = { label: string, x: number }[]

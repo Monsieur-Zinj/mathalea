@@ -24,7 +24,7 @@ export const uuid = 'b6250'
 export const ref = '5N20-0'
 export const refs = {
   'fr-fr': ['5N20-0'],
-  'fr-ch': []
+  'fr-ch': ['9NO15-4']
 }
 // une fonction pour gérer le codage des angles
 function myCodageAngle (A, O, B, angle, [...args]) {

@@ -27,7 +27,7 @@ export const uuid = 'ab44e'
 export const ref = '6N20-2'
 export const refs = {
   'fr-fr': ['6N20-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-2']
 }
 
 const ce = new ComputeEngine()

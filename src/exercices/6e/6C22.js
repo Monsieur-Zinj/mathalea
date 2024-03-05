@@ -29,7 +29,7 @@ export const uuid = '99522'
 export const ref = '6C22'
 export const refs = {
   'fr-fr': ['6C22'],
-  'fr-ch': []
+  'fr-ch': ['9NO16-4']
 }
 export default function ProblemesDePlusEtDeMoins () {
   Exercice.call(this)

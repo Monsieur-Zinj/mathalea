@@ -23,7 +23,7 @@ export const uuid = '9540b'
 export const ref = '6C30-8'
 export const refs = {
   'fr-fr': ['6C30-8'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-16']
 }
 export default function DiviserPar101001000 () {
   Exercice.call(this)

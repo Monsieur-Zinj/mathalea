@@ -22,7 +22,7 @@ export const uuid = '88021'
 export const ref = '6C12-2'
 export const refs = {
   'fr-fr': ['6C12-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO16-1']
 }
 export default function QuestionsDivisionsEuclidiennes () {
   Exercice.call(this)

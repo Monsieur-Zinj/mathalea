@@ -39,7 +39,7 @@ export const uuid = 'd5e44'
 export const ref = '6N23-6'
 export const refs = {
   'fr-fr': ['6N23-6'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-7']
 }
 export default function DivisionFraction () {
   Exercice.call(this)

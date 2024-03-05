@@ -30,7 +30,7 @@ export const uuid = '1f5de'
 export const ref = '6N20-1'
 export const refs = {
   'fr-fr': ['6N20-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO11-1']
 }
 export default class EncadrerFractionEntre2Entiers extends Exercice {
   constructor () {

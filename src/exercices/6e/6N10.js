@@ -29,7 +29,7 @@ export const uuid = '0688e'
 export const ref = '6N10'
 export const refs = {
   'fr-fr': ['6N10'],
-  'fr-ch': []
+  'fr-ch': ['9NO1-1']
 }
 export default function EcrirePetitsNombresEntiers () {
   Exercice.call(this)

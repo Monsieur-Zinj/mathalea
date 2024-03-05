@@ -21,7 +21,7 @@ export const uuid = '80645'
 export const ref = '6N10-5'
 export const refs = {
   'fr-fr': ['6N10-5'],
-  'fr-ch': []
+  'fr-ch': ['9NO1-6']
 }
 export default function ExerciceLabyrintheNumeration () {
   Exercice.call(this)

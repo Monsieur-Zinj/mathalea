@@ -14,7 +14,7 @@ export const uuid = '0a637'
 export const ref = '5P12-1'
 export const refs = {
   'fr-fr': ['5P12-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO14-10']
 }
 // Ancien 5N15 avant septembre 2023
 export default function ProblemeDeRatio () {

@@ -25,7 +25,7 @@ export const uuid = 'c1888'
 export const ref = '6N30'
 export const refs = {
   'fr-fr': ['6N30'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-1']
 }
 export default function LireAbscisseDecimale () {
   Exercice.call(this)

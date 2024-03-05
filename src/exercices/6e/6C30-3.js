@@ -26,7 +26,7 @@ export const uuid = '36573'
 export const ref = '6C30-3'
 export const refs = {
   'fr-fr': ['6C30-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO8-11']
 }
 export default function MultiplicationMentalDecimaux () {
   Exercice.call(this)

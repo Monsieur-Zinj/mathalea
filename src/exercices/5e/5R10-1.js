@@ -25,7 +25,7 @@ export const uuid = '76343'
 export const ref = '5R10-1'
 export const refs = {
   'fr-fr': ['5R10-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO9-5']
 }
 export default function DevinerNombreRelatif () {
   Exercice.call(this)

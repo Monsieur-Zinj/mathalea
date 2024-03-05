@@ -26,7 +26,7 @@ export const uuid = '87479'
 export const ref = '6N14'
 export const refs = {
   'fr-fr': ['6N14'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-1']
 }
 export default class RepresenterUneFraction extends Exercice {
   figures: Figure[] = []

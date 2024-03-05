@@ -24,7 +24,7 @@ export const uuid = '66756'
 export const ref = '6N33-1'
 export const refs = {
   'fr-fr': ['6N33-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO14-3']
 }
 export default function PourcentageDunNombre () {
   Exercice.call(this)

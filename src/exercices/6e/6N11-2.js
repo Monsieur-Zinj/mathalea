@@ -27,7 +27,7 @@ export const uuid = '4f2a3'
 export const ref = '6N11-2'
 export const refs = {
   'fr-fr': ['6N11-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO2-2']
 }
 export default function PlacerUnPointAbscisseEntiere2d () {
   Exercice.call(this)

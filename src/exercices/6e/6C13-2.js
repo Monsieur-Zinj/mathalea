@@ -14,7 +14,7 @@ export const uuid = 'e6f62'
 export const ref = '6C13-2'
 export const refs = {
   'fr-fr': ['6C13-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-19']
 }
 export default function TraduireUneExpressionParUnePhrase6eme () {
   EcrireUneExpressionNumerique.call(this)

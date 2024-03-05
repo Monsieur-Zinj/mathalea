@@ -24,7 +24,7 @@ export const uuid = '6babf'
 export const ref = '6N10-0'
 export const refs = {
   'fr-fr': ['6N10-0'],
-  'fr-ch': []
+  'fr-ch': ['9NO1-2']
 }
 export default function ÉcrireNombresEntiers () {
   Exercice.call(this)

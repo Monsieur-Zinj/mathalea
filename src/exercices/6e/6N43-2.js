@@ -22,7 +22,7 @@ export const uuid = 'fa2eb'
 export const ref = '6N43-2'
 export const refs = {
   'fr-fr': ['6N43-2'],
-  'fr-ch': []
+  'fr-ch': ['9NO4-5']
 }
 export default function TableauCriteresDeDivisibilite () {
   Exercice.call(this)

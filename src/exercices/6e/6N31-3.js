@@ -28,7 +28,7 @@ export const uuid = 'ab793'
 export const ref = '6N31-3'
 export const refs = {
   'fr-fr': ['6N31-3'],
-  'fr-ch': []
+  'fr-ch': ['9NO7-6']
 }
 export default function ArrondirUneValeur () {
   Exercice.call(this)

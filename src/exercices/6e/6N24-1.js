@@ -17,7 +17,7 @@ export const uuid = 'ec005'
 export const ref = '6N24-1'
 export const refs = {
   'fr-fr': ['6N24-1'],
-  'fr-ch': []
+  'fr-ch': ['9NO10-5']
 }
 export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 () {
   Exercice.call(this)
