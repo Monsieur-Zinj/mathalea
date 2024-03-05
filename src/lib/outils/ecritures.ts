@@ -90,12 +90,11 @@ export function ecritureNombreRelatifc (a: string | number) {
  * //+3 ou -3
  * @author Rémi Angot et Jean-claude Lhote pour le support des fractions
  */
-export function ecritureAlgebrique (a: string | number | FractionEtendue | Decimal) {
+export function ecritureAlgebrique (a: number | FractionEtendue | Decimal) {
   if (typeof a === 'string') {
     window.notify('ecritureAlgebrique() n\'accepte pas les string.', { argument: a })
-    a = Number(a)
-  }
-  if (a instanceof FractionEtendue) {
+    return a
+  } else if (a instanceof FractionEtendue) {
     return a.texFSD
   } else if (typeof a === 'number') {
     if (a >= 0) {
@@ -109,7 +108,10 @@ export function ecritureAlgebrique (a: string | number | FractionEtendue | Decim
     } else {
       return texNombre(a, 7)
     }
-  } else window.notify('ecritureAlgebrique : type de valeur non prise en compte', { valeur: a })
+  } else {
+    window.notify('ecritureAlgebrique() : type de valeur non prise en compte', { argument: a })
+    return ''
+  }
 }
 
 /**
