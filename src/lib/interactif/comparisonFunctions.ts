@@ -62,7 +62,7 @@ export function cleanStringBeforeParse (aString: string) {
     .replaceAll(',', '.')
 }
 
-type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex' | 'foisUn'
+type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex' | 'foisUn' | 'unites'
 
 /**
  * Nettoie la saisie des \\dfrac en les remplaçant par des \frac comprises par ComputeEngine
@@ -151,6 +151,8 @@ export function generateCleaner (operations: CleaningOperation[]): (str: string)
         return cleanLatex
       case 'foisUn':
         return cleanMultipliyByOne
+      case 'unites':
+        return cleanUnity
       default:
         throw new Error(`Unsupported cleaning operation: ${operation}`)
     }
@@ -235,17 +237,24 @@ export function calculCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  const saisieClean = cleanStringBeforeParse(input)
-  const reponseClean = cleanStringBeforeParse(goodAnswer)
+  const clean = generateCleaner(['virgules', 'espaces', 'parentheses', 'puissances', 'fractions'])
+  const saisieClean = clean(input)
+  const reponseClean = clean(goodAnswer)
   return { isOk: engine.parse(saisieClean).isSame(engine.parse(reponseClean)) }
 }
 
+/**
+ * Pour comparer des sommes sans se préoccuper de l'ordre des termes
+ * @param {string} input
+ * @param {string} goodAnswer
+ */
 export function canonicalAddCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  const saisieClean = cleanStringBeforeParse(input)
-  const reponseClean = cleanStringBeforeParse(goodAnswer)
+  const clean = generateCleaner(['virgules', 'fractions', 'parentheses', 'puissances'])
+  const saisieClean = clean(input)
+  const reponseClean = clean(goodAnswer)
   return { isOk: engine.parse(reponseClean, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] }).isSame(engine.parse(saisieClean, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })) }
 }
 
@@ -259,8 +268,9 @@ export function factorisationCompare (input: string, goodAnswer:string): ResultT
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  const aCleaned = input.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
-  const bCleaned = goodAnswer.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+  const clean = generateCleaner(['puissances', 'virgules', 'fractions', 'parentheses'])
+  const aCleaned = clean(input)
+  const bCleaned = clean(goodAnswer)
   const saisieParsed = engine.parse(aCleaned, { canonical: true })
   const reponseParsed = engine.parse(bCleaned, { canonical: true })
   if (saisieParsed == null || reponseParsed == null) {
@@ -295,8 +305,9 @@ export const developmentCompare = function (input: string, goodAnswer:string) {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  const aCleaned = input.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
-  const bCleaned = goodAnswer.replaceAll('²', '^2').replaceAll(',', '.').replaceAll('dfrac', 'frac')
+  const clean = generateCleaner(['puissances', 'virgules', 'fractions', 'parentheses', 'foisUn'])
+  const aCleaned = clean(input)
+  const bCleaned = clean(goodAnswer)
   const saisieParsed = engine.parse(aCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
   const reponseParsed = engine.parse(bCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
   if (saisieParsed == null || reponseParsed == null) {
@@ -316,7 +327,8 @@ export function hmsCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  const cleanInput = cleanUnity(input)
+  const clean = generateCleaner(['unites'])
+  const cleanInput = clean(input)
   const inputHms = Hms.fromString(cleanInput)
   const goodAnswerHms = Hms.fromString(goodAnswer)
   return { isOk: goodAnswerHms.isTheSame(inputHms) }
@@ -341,33 +353,6 @@ export function expandedFormCompare (input: string, goodAnswer: string): ResultT
   const isOk = reponseParsed.isSame(saisieParsed) && (isSomme || isNumber)
   return { isOk }
 }
-
-/**
- * comparaison d'expression développées et réduite pour les tests d'Éric Elter
- * @param {string} input
- * @param {string} goodAnswer
- * @return ResultType
- */
-export function expandedAndReductedCompare (input: string, goodAnswer: {expr: string, strict: boolean}): ResultType {
-  const expr = goodAnswer.expr
-  let clean
-  let feedback = ''
-  if (!goodAnswer.strict) {
-    // on va virer les multiplications par 1 de variables.
-    clean = generateCleaner(['fractions', 'virgules', 'puissances', 'foisUn'])
-  } else {
-    clean = generateCleaner(['fractions', 'virgules', 'puissances'])
-  }
-  if (input.match(/\D*1[a-z]/)) feedback = 'La multiplication par 1 est inutile.<br>'
-  const saisieCleaned = clean(input)
-  const saisie = engine.parse(saisieCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
-  const answer = engine.parse(clean(expr), { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
-  console.log(`saisie : ${saisie.latex} et answer : ${answer.latex}`)
-  const isOk1 = answer.isSame(saisie)
-  const isOk2 = saisie.simplify().isSame(answer)
-  return { isOk: isOk1 && isOk2, feedback: isOk1 && isOk2 ? feedback : isOk2 ? feedback + 'L\'expression est développée correctement mais pas réduite.<br>' : feedback }
-}
-
 /**
  * comparaison de nombres décimaux bon, rien de transcendant, on compare les strings nettoyées
  * @param {string} input
@@ -378,8 +363,9 @@ export function decimalCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  const saisieClean = cleanStringBeforeParse(input)
-  const reponseClean = cleanStringBeforeParse(goodAnswer)
+  const clean = generateCleaner(['virgules', 'espaces', 'parentheses'])
+  const saisieClean = clean(input)
+  const reponseClean = clean(goodAnswer)
   return { isOk: saisieClean === reponseClean } // facile ! des Décimaux en string sont égaux si les strings sont égales.
 }
 
@@ -393,8 +379,9 @@ export function scientificCompare (input: string, goodAnswer: string): ResultTyp
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  const saisieClean = cleanStringBeforeParse(input)
-  const reponseClean = cleanStringBeforeParse(goodAnswer)
+  const clean = generateCleaner(['virgules', 'espaces', 'parentheses', 'puissances'])
+  const saisieClean = clean(input)
+  const reponseClean = clean(goodAnswer)
   if (engine.parse(saisieClean).canonical.isSame(engine.parse(reponseClean).canonical)) {
     const [mantisse] = saisieClean.split('\\times')
     if (Number(mantisse) >= 1 && Number(mantisse) < 10) {
@@ -427,6 +414,8 @@ export function textWithSpacesCompare (input: string, goodAnswer: string): Resul
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
+  // @todo transformer tout ça en fonctions de nettoyage !!!
+
   // parce qu'il vaut mieux être trop prudent que pas assez, j'applique le même traitement à goodAnswer qu'à input ;-)
   goodAnswer = goodAnswer.replaceAll('\\:', ' ') // Suppression des espaces LaTeX (présents quand on met des crochets pour les segments)
   goodAnswer = goodAnswer.replaceAll('\\left\\lbrack ', '[').replaceAll('\\right\\rbrack ', ']') // Suppression des crochets LaTeX (pour les segments)
@@ -655,6 +644,32 @@ export function intervalsCompare (input: string, goodAnswer: string) {
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // %%%%%%%%%%%%%%%%%% Fonctions dont la signature est spéciale %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+/**
+ * comparaison d'expression développées et réduite pour les tests d'Éric Elter
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @return ResultType
+ */
+export function expandedAndReductedCompare (input: string, goodAnswer: {expr: string, strict: boolean}): ResultType {
+  const expr = goodAnswer.expr
+  let clean
+  let feedback = ''
+  if (!goodAnswer.strict) {
+    // on va virer les multiplications par 1 de variables.
+    clean = generateCleaner(['fractions', 'virgules', 'puissances', 'foisUn'])
+  } else {
+    clean = generateCleaner(['fractions', 'virgules', 'puissances'])
+  }
+  if (input.match(/\D*1[a-z]/)) feedback = 'La multiplication par 1 est inutile.<br>'
+  const saisieCleaned = clean(input)
+  const saisie = engine.parse(saisieCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
+  const answer = engine.parse(clean(expr), { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
+  console.log(`saisie : ${saisie.latex} et answer : ${answer.latex}`)
+  const isOk1 = answer.isSame(saisie)
+  const isOk2 = saisie.simplify().isSame(answer)
+  return { isOk: isOk1 && isOk2, feedback: isOk1 && isOk2 ? feedback : isOk2 ? feedback + 'L\'expression est développée correctement mais pas réduite.<br>' : feedback }
+}
 
 /**
  * Comparaison de chaînes (principalement des noms de classes
