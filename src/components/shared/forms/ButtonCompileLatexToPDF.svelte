@@ -4,7 +4,7 @@
     import 'brace/theme/monokai'
 
     import type Latex from '../../../lib/Latex'
-    import { tweened } from 'svelte/motion'
+    import { tweened, type Tweened } from 'svelte/motion'
     import {
       buildImagesUrlsList,
       doesLatexNeedsPics,
@@ -13,7 +13,7 @@
       type LatexFileInfos
     } from '../../../lib/Latex'
     import Button from '../../shared/forms/Button.svelte'
-    import FormRadio from '../../shared/forms/FormRadio.svelte'
+    import { tick } from 'svelte'
 
     export let latex: Latex
     export let latexFileInfos: LatexFileInfos
@@ -21,10 +21,9 @@
     let clockAbled: boolean = false
 
     const original = 1 * 60 // TYPE NUMBER OF SECONDS HERE
-    let timer = tweened(original)
-
-    let defaultengine = 'lualatex'
-    let defaultreturn = 'pdfjs'
+    let timer: Tweened<number>
+    const defaultengine = 'lualatex'
+    const defaultreturn = 'pdfjs'
 
     // ------ dont need to modify code below
 
@@ -119,6 +118,7 @@
         formData.append('filename[]', imaUrl.split('/').slice(-1)[0])
       }
 
+      timer = tweened(original)
       clockAbled = true
       const timeValue = setInterval(() => {
         if ($timer > 0) {
@@ -163,8 +163,6 @@
         editor.getSession().setMode('ace/mode/latex')
         editor.getSession().setNewLineMode('unix')
         editor.setTheme('ace/theme/monokai')
-        editor.setOption('minLines', 10)
-        editor.setOption('maxLines', 10)
         editor.setShowPrintMargin(false)
         editor.setValue(text)
         editor.gotoLine(1)
@@ -174,20 +172,8 @@
         const imageLatex = document.getElementById('imagesLatex') as HTMLElement
         imageLatex.innerHTML = 'Nombre d\'images: ' + imagesUrls.length
         dialog.showModal()
-
-        /**
-         * Recadre le ACE Editor en fonction de la hauteur
-        */
-        setTimeout(() => {
-          const editorContainer = document.getElementById('editorContainer') as HTMLElement
-          if (editorContainer.clientHeight > editor.container.clientHeight) {
-            const lines = Math.floor(10 * editorContainer.clientHeight / editor.container.clientHeight)
-            if (lines < 50) {
-              editor.setOption('maxLines', lines)
-            }
-            editor.gotoLine(1)
-          }
-        }, 1000)
+        await tick()
+        compileToPDF()
       }
     }
 
@@ -230,75 +216,51 @@
         id="editorLatex"
     >
     <div class="mt-3 text-center">
-        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-coopmaths-warn-100">
-          <div class="h-6 w-6 text-coopmaths-warn-darkest">
-            <i class="bx bx-sm bxs-file-pdf text-[100px]" />
+        <div class="text-3xl font-medium text-coopmaths-warn-dark">
+          <span class="header">
+              <div class="absolute top-2 right-3">
+                  <button type="button" on:click={() => {
+                    dialogToDisplayToggle()
+                  }} >
+                  <i
+                      class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl bx bx-x"
+                  />
+                  </button>
+              </div>
+          </span>
+        </div>
+        <div class="font-light">
+          <div class="flex h-[80vh] flex-row max-md:portrait:flex-col">
+            <div id="editor" class='flex flex-grow flex-1'></div>
+            <div class='bg-gray-100 flex flex-grow flex-1'>
+              {#if clockAbled}
+                <div class="loader">
+                  <span><progress value={$timer / original}></progress>{$timer.toFixed(0)}s</span>
+                </div>
+              {/if}
+              <iframe title="output" width="100%" height="100%" id="pre0ifr" name="pre0ifr"></iframe>
+            </div>
           </div>
-        </div>
-        <div class="text-3xl pt-4 leading-6 font-medium text-coopmaths-warn-dark">
-        <span class="header">
-            <div class="absolute top-2 right-3">
-                <button type="button" on:click={() => {
-                  dialogToDisplayToggle()
-                }} >
-                <i
-                    class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest text-xl bx bx-x"
-                />
-                </button>
-            </div>
-        </span>
-        </div>
-        <div id="editorContainer" class="font-light h-[40vh]">
-            <div id="editor" class=''>
-            </div>
-            <div id="imagesLatex">
-            </div>
-            <div id="compilater" class='flex flex-row justify-center'>
-            Compilateur :
-            <FormRadio
-              title="Compilateur"
-              bind:valueSelected={defaultengine}
-              labelsValues={[
-                { label: 'pdflatex', value: 'pdflatex' },
-                { label: 'lualatex', value: 'lualatex' }
-              ]}
-              orientation=row
-            />
-            </div>
-            <div id="Sortie" class='flex flex-row justify-center'>
-            Sortie :
-            <FormRadio
-              title="sortie"
-              bind:valueSelected={defaultreturn}
-              labelsValues={[
-                { label: 'log', value: 'log' },
-                { label: 'pdfjs', value: 'pdfjs' },
-                { label: 'pdf', value: 'pdf' }
-              ]}
-              orientation=row
-            />
-            </div>
-            <Button
-                class="px-2 py-1 rounded-md"
-                title="Compiler en PDF"
-                on:click={compileToPDF}
-            />
-            <form id='form'>
-
-            </form>
-
-            {#if clockAbled}
-              <span><progress value={$timer / original}></progress>{$timer.toFixed(0)}s</span>
-            {/if}
-            <div class='bg-gray-100 h-[30vh] mt-2'><iframe title="output" width="100%" height="100%" id="pre0ifr" name="pre0ifr"></iframe></div>
+          <div id="imagesLatex"></div>
+          <Button
+            isDisabled={clockAbled}
+            class="px-2 py-1 rounded-md"
+            title="Compiler en PDF"
+            on:click={compileToPDF}
+          />
+          <form id='form'>
+          </form>
         </div>
     </dialog>
 
     <style>
-   .editor {
-        position: relative;
-        top: 0;
-        left: 0;
-        width: 100%;
+      .loader {
+      position:relative;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
       }
     </style>
