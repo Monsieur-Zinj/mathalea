@@ -259,7 +259,7 @@ export function fondEcran (url, x = 0, y = 0, largeur = context.fenetreMathalea2
 */
 
 /**
- * convertHexToRGB convertit une couleur en héxadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
+ * convertHexToRGB convertit une couleur en hexadécimal (sans le #) en un tableau RVB avec des valeurs entre 0 et 255.
  * @param {string} [couleur='000000'] Code couleur HTML sans le #
  * @example convertHexToRGB('f15929')=[241,89,41]
  * @author Eric Elter

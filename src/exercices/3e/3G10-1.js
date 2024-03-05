@@ -33,7 +33,6 @@ export const dateDeModifImportante = '06/02/2024'
 /**
  * Trouver les coordonnées d'un punto transformé d'un autre par une des transformations du plan
  * @author Jean-Claude Lhote (Modif des paramètres, nbQuestions modifiables par Eric Elter)
- * 3G10-1
  */
 export const uuid = 'd4088'
 export const ref = '3G10-1'
@@ -64,15 +63,15 @@ export default function TransformationsDuPlanEtCoordonnees () {
     const punto = [[]]
     const couleurs = ['brown', 'green', 'blue']
     const listeTypeDeQuestions = [[1, 2, 3, 4], [7], [8], [5, 6], [9], [10]]
-    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
-      saisie: this.sup,
-      min: 1,
-      max: 6,
-      melange: 7,
-      defaut: 7,
-      nbQuestions: this.nbQuestions * 3
-    }).map((nb) => nb - 1)
     for (let ee = 0, texte, texteCorr, xA, yA, xB, yB, xC, yC, objetsEnonce, objetsCorrection, cpt = 0; ee < this.nbQuestions && cpt < 50;) {
+      const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+        saisie: this.sup,
+        min: 1,
+        max: 6,
+        melange: 7,
+        defaut: 7,
+        nbQuestions: 3
+      }).map((nb) => nb - 1)
       let enonceAmc = ''
       texte = ''
       texteCorr = ''

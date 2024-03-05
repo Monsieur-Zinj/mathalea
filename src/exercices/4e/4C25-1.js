@@ -393,7 +393,7 @@ export default function ProblemesMultiplicatifsFractions () {
         //= =====================================================
         //= ==========énoncé indice 1 les timbres ===========
         //= =====================================================
-        pb4f[1].enonce = `${pb4f[1].prenoms} fait la collection des timbres. Elle possède des timbres Français, Japonais, Méxicains et Brésiliens. Voici la répartion des timbres :`
+        pb4f[1].enonce = `${pb4f[1].prenoms} fait la collection des timbres. Elle possède des timbres Français, Japonais, Mexicains et Brésiliens. Voici la répartion des timbres :`
         pb4f[1].enonce += `$${pb4f[1].fractions[0].texFraction}$ ${pb4f[1].fractions[1]}.  `
         pb4f[1].enonce += `$${pb4f[1].fractions[12].texFraction}$ ${pb4f[1].fractions[13]}. `
         pb4f[1].enonce += `$${pb4f[1].fractions[14].texFraction}$ ${pb4f[1].fractions[15]}. `

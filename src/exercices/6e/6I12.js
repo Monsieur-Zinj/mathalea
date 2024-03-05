@@ -144,7 +144,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     }
     largeur++
     lutins[0].codeScratch += '\\end{scratch}'
-    texte = 'Quelle figure est tracée par le stylo à l\'éxécution du programme ci-dessous ?<br>Un carreau représente 5 pas<br>Le tracé démarre à la croix bleue.<br>'
+    texte = 'Quelle figure est tracée par le stylo à l\'exécution du programme ci-dessous ?<br>Un carreau représente 5 pas<br>Le tracé démarre à la croix bleue.<br>'
     texte += "S'orienter à 90° signifie s'orienter vers la droite de l'écran.<br>"
 
     if (context.isHtml) { // On crée 2 colonnes selon le contexte html / Latex
