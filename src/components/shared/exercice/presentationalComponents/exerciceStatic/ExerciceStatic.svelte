@@ -62,7 +62,7 @@
 
   let noCorrectionAvailable = false
 
-  function handleNoCorrectionAvailable() {
+  function handleNoCorrectionAvailable () {
     noCorrectionAvailable = true
   }
 </script>
@@ -76,6 +76,7 @@
     isContentVisible = event.detail.isVisible
     isCorrectionVisible = event.detail.isVisible
   }}
+  on:exerciseRemoved
 />
 
 <div class="p-4">

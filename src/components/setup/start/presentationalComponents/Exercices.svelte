@@ -22,6 +22,7 @@
           {paramsExercice}
           indiceExercice={i}
           indiceLastExercice={exercicesParams.length - 1}
+          on:exerciseRemoved
         />
       </div>
     {/each}

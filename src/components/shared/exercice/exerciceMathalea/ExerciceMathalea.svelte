@@ -17,6 +17,7 @@
   {exerciseIndex}
   {indiceLastExercice}
   {isCorrectionVisible}
+  on:exerciseRemoved
 />
 {:else if vue === 'eleve'}
 <ExerciceMathaleaVueEleve
