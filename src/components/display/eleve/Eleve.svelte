@@ -396,7 +396,6 @@
               bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
         {#if $globalOptions.presMode === 'un_exo_par_page' && !$isMenuNeededForExercises}
-        { $globalOptions.presMode }
           {#each $exercicesParams as paramsExercice, i (paramsExercice)}
             <div class="">
               <button
