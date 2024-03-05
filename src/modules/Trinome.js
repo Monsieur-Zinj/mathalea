@@ -324,19 +324,23 @@ class Trinome {
       if (this.x1.valeurDecimale === 0) {
         if (this.a.valeurDecimale === 1) return `x(x${this.x2.oppose().simplifie().texFractionSignee})`
         else if (this.a.valeurDecimale === -1) return `-x(x${this.x2.oppose().simplifie().texFractionSignee})`
+        else if (this.a.den === 1) return `${this.a.num}x(x${this.x2.oppose().simplifie().texFractionSignee})`
         else return `${this.a.texFractionSimplifiee}x(x${this.x2.oppose().simplifie().texFractionSignee})`
       } else if (this.x2.valeurDecimale === 0) {
         if (this.a.valeurDecimale === 1) return `x(x${this.x1.oppose().simplifie().texFractionSignee})`
         else if (this.a.valeurDecimale === -1) return `-x(x${this.x1.oppose().simplifie().texFractionSignee})`
+        else if (this.a.den === 1) return `${this.a.num}x(x${this.x1.oppose().simplifie().texFractionSignee})`
         else return `${this.a.texFractionSimplifiee}x(x${this.x1.oppose().simplifie().texFractionSignee})`
       }
       if (this.a.valeurDecimale === 1) return `(x${this.x1.oppose().simplifie().texFractionSignee})(x${this.x2.oppose().simplifie().texFractionSignee})`
       else if (this.a.valeurDecimale === -1) return `-(x${this.x1.oppose().simplifie().texFractionSignee})(x${this.x2.oppose().simplifie().texFractionSignee})`
+      else if (this.a.den === 1) return `${this.a.num}(x${this.x1.oppose().simplifie().texFractionSignee})(x${this.x2.oppose().simplifie().texFractionSignee})`
       else return `${this.a.texFractionSimplifiee}(x${this.x1.oppose().simplifie().texFractionSignee})(x${this.x2.oppose().simplifie().texFractionSignee})`
-    } else {
+    } else { // EE : on suppose que this.a est nombre mais pas this.x1, ni this.x2. Dans quel cal ? Je ne sais pas.
       if (this.a.valeurDecimale === 1) return '(x-x_1)(x-x_2)'
       else if (this.a.valeurDecimale === -1) return '-(x-x_1)(x-x_2)'
-      else return `${this.a}(x-x_1)(x-x_2)`
+      else if (this.a.den === 1) return `${this.a.num}(x-x_1)(x-x_2)`
+      else return `${this.a.texFractionSimplifiee}(x-x_1)(x-x_2)`
     }
   }
 
@@ -351,7 +355,10 @@ class Trinome {
   get texFormeCanonique () {
     let result = ''
     if (this.a.valeurDecimale === -1) result = '-'
-    else if (this.a.valeurDecimale !== 1) result = this.a.texFractionSimplifiee
+    else if (this.a.valeurDecimale !== 1) {
+      if (this.a.den === 1) result = this.a.num
+      else result = this.a.texFractionSimplifiee
+    }
     if (this.alpha.valeurDecimale === 0) result += 'x^2'
     else result += `\\left(x ${this.alpha.oppose().simplifie().texFractionSignee}\\right)^2`
     result += ` ${this.beta.simplifie().texFractionSignee}`
