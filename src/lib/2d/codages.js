@@ -126,8 +126,6 @@ export function codageMediatrice (A, B, color = 'black', mark = '×') {
  * @param {Point} B Point sur l'autre côté de l'angle
  * @param {string} [color = 'black'] Couleur de la bissectrice : du type 'blue' ou du type '#f15929'
  * @param {string} [mark = 'x'] Symbole posé sur les arcs
- * @property {string} svg Sortie au format vectoriel (SVG) que l’on peut afficher dans un navigateur
- * @property {string} tikz Sortie au format TikZ que l’on peut utiliser dans un fichier LaTeX
  * @property {string} color Couleur de la bissectrice. À associer obligatoirement à colorToLatexOrHTML().
  * @property {string} mark Symbole posé sur les arcs
  * @property {Point} centre Sommet de l'angle
@@ -136,7 +134,7 @@ export function codageMediatrice (A, B, color = 'black', mark = '×') {
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
+export function CodageBissectrice (A, O, B, color = 'black', mark = 'X') {
   ObjetMathalea2D.call(this, {})
   this.color = color
   this.mark = mark
@@ -144,7 +142,10 @@ export function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
   this.depart = pointSurSegment(O, A, 1.5)
   const demiangle = angleOriente(A, O, B) / 2
   const lieu = rotation(this.depart, O, demiangle)
-
+  const a1 = codageAngle(pointSurSegment(this.centre, this.depart), O, demiangle, 1, this.mark, this.color, 1, 1)
+  const a2 = codageAngle(pointSurSegment(this.centre, lieu), O, demiangle, 1, this.mark, this.color, 1, 1)
+  return [a1, a2]
+  /*
   this.svg = function (coeff) {
     const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
     const a2 = codageAngle(pointSurSegment(this.centre, lieu, 30 / coeff), O, demiangle, 30 / coeff, this.mark, this.color, 1, 1)
@@ -159,7 +160,7 @@ export function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
     const a1 = codageAngle(pointSurSegment(this.centre, this.depart, 1.5 / context.scale), O, demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
     const a2 = codageAngle(pointSurSegment(this.centre, lieu, 1.5 / context.scale), O, demiangle, 1.5 / context.scale, this.mark, this.color, 1, 1)
     return a1.tikz() + '\n' + a2.tikz() + '\n'
-  }
+  } */
 }
 
 /**
@@ -175,7 +176,7 @@ export function CodageBissectrice (A, O, B, color = 'black', mark = 'x') {
  * @return {CodageBissectrice}
  */
 // JSDOC Validee par EE Juin 2022
-export function codageBissectrice (A, O, B, color = 'black', mark = 'x') {
+export function codageBissectrice (A, O, B, color = 'black', mark = 'X') {
   return new CodageBissectrice(A, O, B, color, mark)
 }
 
@@ -893,7 +894,6 @@ export function codageSegments (mark = '||', color = 'black', ...args) {
  */
 // JSDOC Validee par EE Juin 2022
 export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', color = 'black', epaisseur = 1, opacite = 1, couleurDeRemplissage = 'none', opaciteDeRemplissage = 0.2, mesureOn = false, texteACote = '', tailleTexte = 1, { echelleMark = 1, angleArrondi = 0 } = {}) {
-//  ObjetMathalea2D.call(this, {})
   this.color = color
   this.debut = debut
   this.centre = centre
