@@ -69,6 +69,51 @@ export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string
   })
 }
 
+export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], metaUrl: string, prefsOverride?: Partial<Prefs>) {
+  Object.assign(prefs, prefsOverride)
+  const filename = fileURLToPath(metaUrl)
+  const testsSuiteDescription = '' // Ajoute une description intermédiaire dans le stdout si besoin
+  const fileLogger = getFileLogger(path.basename(metaUrl))
+  store.set('fileLogger', fileLogger)
+  describe(testsSuiteDescription, async () => {
+    let page: Page, result: boolean
+    let stop = false
+
+    beforeEach(({ skip }) => {
+      if (stop) skip()
+    })
+
+    // cf https://vitest.dev/guide/test-context.html pour l'argument passé
+    afterEach(async () => {
+      if (prefs.pauseOnError && !result && page) {
+        await page.pause()
+        stop = true
+      }
+    })
+
+    if (prefs.browsers !== undefined) {
+      for (const browserName of prefs.browsers) {
+        for (const test of tests) {
+          it(`${test.name} works with ${browserName}`, async ({ skip }) => {
+            if (stop) return skip()
+            try {
+              if (page === undefined) page = await getDefaultPage({ browserName })
+              result = false
+              const promise = test(page)
+              if (!(promise instanceof Promise)) throw Error(`${filename} ne contient pas de fonction test qui prend une page et retourne une promesse`)
+              result = await promise
+            } catch (error: unknown) {
+              result = false
+              // faut attendre que l'écriture se termine (sinon on se retrouve en pause avant
+              // d'avoir le message d'erreur et on sait pas pourquoi ça a planté)
+              await logError(error)
+            }
+          })
+        }
+      }
+    }
+  })
+}
 export async function getQuestions (page: Page, urlExercice: string) {
   const questionSelector = 'div#exo0 div.mb-5 div.container>li'
 
