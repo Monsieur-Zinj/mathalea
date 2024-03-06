@@ -28,7 +28,7 @@ export const uuid = '65bd7'
 export const ref = '6G32'
 export const refs = {
   'fr-fr': ['6G32'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-25']
 }
 export default function SymetrieAxialeProprietes () {
   Exercice.call(this)

@@ -25,7 +25,7 @@ export const uuid = '5f115'
 export const ref = '6G43'
 export const refs = {
   'fr-fr': ['6G43'],
-  'fr-ch': []
+  'fr-ch': ['9ES7-6']
 }
 export default function DenombrerCubes () {
   Exercice.call(this)

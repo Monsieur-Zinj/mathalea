@@ -26,7 +26,7 @@ export const uuid = '65288'
 export const ref = '6P11-2'
 export const refs = {
   'fr-fr': ['6P11-2'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-11']
 }
 export default function ProportionnaliteParLineariteTableau () {
   Exercice.call(this)

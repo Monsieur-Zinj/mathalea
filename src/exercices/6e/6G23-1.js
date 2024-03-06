@@ -27,7 +27,7 @@ export const uuid = 'c7f7a'
 export const ref = '6G23-1'
 export const refs = {
   'fr-fr': ['6G23-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES5-4']
 }
 export default function MesurerUnAngle () {
   Exercice.call(this)

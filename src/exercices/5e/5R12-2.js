@@ -23,7 +23,7 @@ export const uuid = 'ab968'
 export const ref = '5R12-2'
 export const refs = {
   'fr-fr': ['5R12-2'],
-  'fr-ch': []
+  'fr-ch': ['9FA1-7']
 }
 export default function ReperagePointDuPlan () {
   Exercice.call(this)

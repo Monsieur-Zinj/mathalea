@@ -13,7 +13,7 @@ export const uuid = 'e8f0b'
 export const ref = '6G10-2'
 export const refs = {
   'fr-fr': ['6G10-2'],
-  'fr-ch': []
+  'fr-ch': ['9ES1-3']
 }
 export default function UtiliserLeCodagePourDecrire6e () {
   this.classe = 6

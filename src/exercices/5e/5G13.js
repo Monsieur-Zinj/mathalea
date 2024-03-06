@@ -29,7 +29,7 @@ export const uuid = '07d1a'
 export const ref = '5G13'
 export const refs = {
   'fr-fr': ['5G13'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-24']
 }
 export default function ConservationTransformation () {
   Exercice.call(this)

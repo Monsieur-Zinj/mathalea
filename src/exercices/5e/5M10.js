@@ -29,7 +29,7 @@ export const uuid = 'd6cd1'
 export const ref = '5M10'
 export const refs = {
   'fr-fr': ['5M10'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-5']
 }
 export default function AireDuParallelogramme () {
   Exercice.call(this)

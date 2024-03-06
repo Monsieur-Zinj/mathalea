@@ -18,7 +18,7 @@ export const uuid = '0d4be'
 export const ref = '6M30-0'
 export const refs = {
   'fr-fr': ['6M30-0'],
-  'fr-ch': []
+  'fr-ch': ['9GM3-1']
 }
 export default function VolumesPavesParDenombrement () {
   Exercice.call(this)

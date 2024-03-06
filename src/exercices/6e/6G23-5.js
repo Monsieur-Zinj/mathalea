@@ -35,7 +35,7 @@ export const uuid = '329fe'
 export const ref = '6G23-5'
 export const refs = {
   'fr-fr': ['6G23-5'],
-  'fr-ch': []
+  'fr-ch': ['9ES5-8']
 }
 export default function CalculerUnAngle () {
   Exercice.call(this)

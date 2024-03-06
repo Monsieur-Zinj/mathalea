@@ -19,7 +19,7 @@ export const uuid = '2be1d'
 export const ref = '6C13-3'
 export const refs = {
   'fr-fr': ['6C13-3'],
-  'fr-ch': []
+  'fr-ch': ['9FA2-2']
 }
 
 class OperationsReciproques extends Exercice {

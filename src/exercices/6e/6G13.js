@@ -32,7 +32,7 @@ export const uuid = '2203a'
 export const ref = '6G13'
 export const refs = {
   'fr-fr': ['6G13'],
-  'fr-ch': []
+  'fr-ch': ['9ES4-1']
 }
 export default class TracerQuadrilatèresParticuliers extends Exercice {
   constructor () {

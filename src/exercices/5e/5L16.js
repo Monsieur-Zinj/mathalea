@@ -71,7 +71,7 @@ export const uuid = 'e2e64'
 export const ref = '5L16'
 export const refs = {
   'fr-fr': ['5L16'],
-  'fr-ch': []
+  'fr-ch': ['9FA2-8']
 }
 export default function SimplifierEcritureLitterale () {
   Exercice.call(this)

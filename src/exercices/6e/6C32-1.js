@@ -27,7 +27,7 @@ export const uuid = 'e906e'
 export const ref = '6C32-1'
 export const refs = {
   'fr-fr': ['6C32-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-8']
 }
 export default class ExerciceProblemesComplexes extends Exercice {
   constructor () {

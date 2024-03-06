@@ -20,7 +20,7 @@ export const uuid = '02320'
 export const ref = '6G51-1'
 export const refs = {
   'fr-fr': ['6G51-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES1-4']
 }
 export default class ReconnaitreDesPointsAlignes extends Exercice {
   constructor () {

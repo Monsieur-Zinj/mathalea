@@ -16,7 +16,7 @@ export const uuid = 'e9d29'
 export const ref = '6G24'
 export const refs = {
   'fr-fr': ['6G24'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-1']
 }
 export default function Transformations6e () {
   Transformations.call(this)

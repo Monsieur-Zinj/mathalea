@@ -16,7 +16,7 @@ export const uuid = 'ec32b'
 export const ref = '5G11'
 export const refs = {
   'fr-fr': ['5G11'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-7']
 }
 export default function Transformations5e () {
   Transformations.call(this)

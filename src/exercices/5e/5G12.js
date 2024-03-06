@@ -32,7 +32,7 @@ export const uuid = '76ea9'
 export const ref = '5G12'
 export const refs = {
   'fr-fr': ['5G12'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-21']
 }
 export default function PavageEtDemiTour2D () {
   Exercice.call(this)

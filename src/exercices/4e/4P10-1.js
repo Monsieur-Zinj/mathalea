@@ -23,7 +23,7 @@ export const uuid = 'c668a'
 export const ref = '4P10-1'
 export const refs = {
   'fr-fr': ['4P10-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-15']
 }
 export default function GraphiquesEtProportionnalite2 () {
   Exercice.call(this)

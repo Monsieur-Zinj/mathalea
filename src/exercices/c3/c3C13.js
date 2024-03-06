@@ -17,7 +17,7 @@ export const uuid = 'b0311'
 export const ref = 'c3C13'
 export const refs = {
   'fr-fr': ['c3C13'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-16']
 }
 
 export default class QuestionsPrixCM extends QuestionsPrix {

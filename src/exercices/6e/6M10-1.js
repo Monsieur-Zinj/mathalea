@@ -24,7 +24,7 @@ export const uuid = '9a5fe'
 export const ref = '6M10-1'
 export const refs = {
   'fr-fr': ['6M10-1'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-9']
 }
 export default function ProblemesAiresRectangles () {
   Exercice.call(this)

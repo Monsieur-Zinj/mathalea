@@ -17,7 +17,7 @@ export const uuid = 'aa997'
 export const ref = '5P10'
 export const refs = {
   'fr-fr': ['5P10'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-3']
 }
 
 // une fonction pour la justification

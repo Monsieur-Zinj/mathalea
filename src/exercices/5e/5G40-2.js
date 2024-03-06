@@ -22,7 +22,7 @@ export const uuid = '588fe'
 export const ref = '5G40-2'
 export const refs = {
   'fr-fr': ['5G40-2'],
-  'fr-ch': []
+  'fr-ch': ['9ES2-2']
 }
 export default function ParallelogrammeAPartirDUneFigure () {
   Exercice.call(this)

@@ -12,7 +12,7 @@ export const uuid = '3cb1d'
 export const ref = '6M12'
 export const refs = {
   'fr-fr': ['6M12'],
-  'fr-ch': []
+  'fr-ch': ['9GM2-1']
 }
 export default function Reglages6M12 () {
   ExerciceConversionsLongueurs.call(this)

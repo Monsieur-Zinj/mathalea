@@ -471,7 +471,7 @@ export const uuid = 'b0f4e'
 export const ref = '6P12'
 export const refs = {
   'fr-fr': ['6P12'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-12']
 }
 export default function ProportionnaliteParCoefDeProportionnalite () {
   let question

@@ -15,7 +15,7 @@ export const uuid = '837cd'
 export const ref = '6P13-1'
 export const refs = {
   'fr-fr': ['6P13-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-14']
 }
 export default function CompleterUneFacture () {
   Exercice.call(this)

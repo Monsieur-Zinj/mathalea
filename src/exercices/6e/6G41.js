@@ -24,7 +24,7 @@ export const uuid = 'a8e0f'
 export const ref = '6G41'
 export const refs = {
   'fr-fr': ['6G41'],
-  'fr-ch': []
+  'fr-ch': ['9ES7-1']
 }
 export default function RepresenterUnSolide () {
   Exercice.call(this) // Héritage de la classe Exercice ()

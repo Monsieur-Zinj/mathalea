@@ -33,7 +33,7 @@ export const uuid = 'ff2cc'
 export const ref = '6G23-4'
 export const refs = {
   'fr-fr': ['6G23-4'],
-  'fr-ch': []
+  'fr-ch': ['9ES5-7']
 }
 export default function MesurerUnAngleAvecRapporteur () {
   Exercice.call(this)

@@ -37,7 +37,7 @@ export const uuid = '5999f'
 export const ref = '6M11-2'
 export const refs = {
   'fr-fr': ['6M11-2'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-8']
 }
 export default function PerimetreOuAireDeFiguresComposees () {
   Exercice.call(this)

@@ -21,7 +21,7 @@ export const uuid = '4dadb'
 export const ref = '5R12-1'
 export const refs = {
   'fr-fr': ['5R12-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA1-6']
 }
 
 // Type simplifié pour la sauvegarde de la réponse

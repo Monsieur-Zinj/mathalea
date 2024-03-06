@@ -16,7 +16,7 @@ export const uuid = 'bcbe1'
 export const ref = '5G31-1'
 export const refs = {
   'fr-fr': ['5G31-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES2-10']
 }
 export default function ConstructibiliteDesTrianglesAngles () {
   this.exo = '5G31-1'

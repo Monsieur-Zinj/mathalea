@@ -25,7 +25,7 @@ export const uuid = '4e52e'
 export const ref = '6G33'
 export const refs = {
   'fr-fr': ['6G33'],
-  'fr-ch': []
+  'fr-ch': ['9ES4-6']
 }
 export default function ReconnaitreQuadrilatereParticulier () {
   Exercice.call(this)

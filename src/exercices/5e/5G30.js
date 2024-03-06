@@ -7,7 +7,7 @@ export const uuid = '2b6a2'
 export const ref = '5G30'
 export const refs = {
   'fr-fr': ['5G30'],
-  'fr-ch': []
+  'fr-ch': ['9ES2-6']
 }
 export default function UtiliserLeCodagePourDecrire5e () {
   this.classe = 5

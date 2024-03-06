@@ -13,7 +13,7 @@ export const uuid = 'adfb5'
 export const ref = '6G24-2'
 export const refs = {
   'fr-fr': ['6G24-2'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-13']
 }
 export default class SymetrieAxialeFigure6e extends ConstruireParSymetrie {
   constructor () {
