@@ -26,7 +26,7 @@ export default function QuotientEntierQuiVaBienParFraction () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
-  this.formatInteractif = 'fraction'
+  this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])
