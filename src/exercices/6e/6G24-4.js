@@ -27,7 +27,7 @@ export const uuid = '07f8a'
 export const ref = '6G24-4'
 export const refs = {
   'fr-fr': ['6G24-4'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-15']
 }
 export default function CompleterParSymetrie6e () {
   Exercice.call(this)

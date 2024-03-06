@@ -36,7 +36,7 @@ export const uuid = '4ffdb'
 export const ref = '4G12'
 export const refs = {
   'fr-fr': ['4G12'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-23']
 }
 export default function SerieDeTransformations () {
   Exercice.call(this)

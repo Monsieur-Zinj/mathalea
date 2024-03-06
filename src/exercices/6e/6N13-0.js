@@ -20,7 +20,7 @@ export const uuid = '5d1e2'
 export const ref = '6N13-0'
 export const refs = {
   'fr-fr': ['6N13-0'],
-  'fr-ch': []
+  'fr-ch': ['9GM2-4']
 }
 export default class sensDesPrefixes extends Exercice {
   constructor () {

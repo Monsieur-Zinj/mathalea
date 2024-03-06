@@ -25,7 +25,7 @@ export const uuid = '34e3c'
 export const ref = '6G23'
 export const refs = {
   'fr-fr': ['6G23'],
-  'fr-ch': []
+  'fr-ch': ['9ES5-3']
 }
 export default function ConstruireUnAngle () {
   Exercice.call(this)

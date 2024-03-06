@@ -13,7 +13,7 @@ export const uuid = 'c46e8'
 export const ref = '6G52-2'
 export const refs = {
   'fr-fr': ['6G52-2'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-7']
 }
 export default class ProprietesParallelesPerpendiculaires2 extends ProprietesParallelesPerpendiculaires {
   constructor () {

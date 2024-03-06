@@ -30,7 +30,7 @@ export const uuid = 'd14bc'
 export const ref = '6G12-1'
 export const refs = {
   'fr-fr': ['6G12-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-4']
 }
 export default class ParalleleEtPerpendiculaires extends Exercice {
 //

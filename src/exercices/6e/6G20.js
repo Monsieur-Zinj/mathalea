@@ -21,7 +21,7 @@ export const uuid = '90e1a'
 export const ref = '6G20'
 export const refs = {
   'fr-fr': ['6G20'],
-  'fr-ch': []
+  'fr-ch': ['9ES2-5']
 }
 export default function NommerEtCoderDesPolygones () {
   Exercice.call(this)

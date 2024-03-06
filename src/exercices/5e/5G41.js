@@ -36,7 +36,7 @@ export const uuid = '37e37'
 export const ref = '5G41'
 export const refs = {
   'fr-fr': ['5G41'],
-  'fr-ch': []
+  'fr-ch': ['9ES4-5']
 }
 export default function ConstructionsParallelogrammesParticuliers () {
   Exercice.call(this)

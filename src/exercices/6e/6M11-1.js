@@ -34,7 +34,7 @@ export const uuid = 'd1513'
 export const ref = '6M11-1'
 export const refs = {
   'fr-fr': ['6M11-1'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-4']
 }
 export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   Exercice.call(this)

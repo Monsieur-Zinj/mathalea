@@ -25,7 +25,7 @@ export const uuid = 'd81c6'
 export const ref = '6G10-1'
 export const refs = {
   'fr-fr': ['6G10-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES1-2']
 }
 export default function DescriptionSegmentDroiteDemiDroite () {
   Exercice.call(this)

@@ -26,7 +26,7 @@ export const uuid = '73630'
 export const ref = '6G23-3'
 export const refs = {
   'fr-fr': ['6G23-3'],
-  'fr-ch': []
+  'fr-ch': ['9ES5-6']
 }
 export default function TracerTriangle2Angles () {
   Exercice.call(this)

@@ -17,7 +17,7 @@ export const uuid = 'ec3cc'
 export const ref = 'c3C13-1'
 export const refs = {
   'fr-fr': ['c3C13-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-17']
 }
 export default function QuestionsMassesCM () {
   QuestionsMasses.call(this)

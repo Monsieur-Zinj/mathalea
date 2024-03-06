@@ -19,7 +19,7 @@ export const uuid = '8812e'
 export const ref = '5G42'
 export const refs = {
   'fr-fr': ['5G42'],
-  'fr-ch': []
+  'fr-ch': ['9ES2-3']
 }
 export default function DemonstrationsParallelogrammes () {
   Exercice.call(this)

@@ -847,7 +847,7 @@ export const uuid = 'f7a14'
 export const ref = '6P11'
 export const refs = {
   'fr-fr': ['6P11'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-9']
 }
 export default function ProportionnaliteParLinearite () {
   let question

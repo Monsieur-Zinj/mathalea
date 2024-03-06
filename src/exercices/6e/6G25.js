@@ -24,7 +24,7 @@ export const uuid = 'd7052'
 export const ref = '6G25'
 export const refs = {
   'fr-fr': ['6G25'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-5']
 }
 export default function ConstruireMediatrices6e () {
   Exercice.call(this)

@@ -16,7 +16,7 @@ export const uuid = 'b36df'
 export const ref = '6G42'
 export const refs = {
   'fr-fr': ['6G42'],
-  'fr-ch': []
+  'fr-ch': ['9ES7-4']
 }
 export default function UtiliserVocabulairePave () {
   Solide6e.call(this)

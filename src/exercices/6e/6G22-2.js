@@ -31,7 +31,7 @@ export const uuid = 'fe08e'
 export const ref = '6G22-2'
 export const refs = {
   'fr-fr': ['6G22-2'],
-  'fr-ch': []
+  'fr-ch': ['9ES5-2']
 }
 export default class ReconnaitreUnAngleParticulier extends Exercice {
   constructor () {

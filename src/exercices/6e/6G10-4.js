@@ -35,7 +35,7 @@ export const uuid = '03b49'
 export const ref = '6G10-4'
 export const refs = {
   'fr-fr': ['6G10-4'],
-  'fr-ch': []
+  'fr-ch': ['9ES1-9']
 }
 
 function ajouterAlternatives (fonction, reponses) {

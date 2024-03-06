@@ -36,7 +36,7 @@ export const uuid = 'e10d1'
 export const ref = '6G22'
 export const refs = {
   'fr-fr': ['6G22'],
-  'fr-ch': []
+  'fr-ch': ['9ES5-1']
 }
 export default function NommerUnAngle () {
   Exercice.call(this)

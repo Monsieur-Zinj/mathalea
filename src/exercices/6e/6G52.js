@@ -30,7 +30,7 @@ export const uuid = '5bac3'
 export const ref = '6G52'
 export const refs = {
   'fr-fr': ['6G52'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-6']
 }
 export default class TracerCarresRectangleslongueurDonnees extends Exercice {
   constructor () {

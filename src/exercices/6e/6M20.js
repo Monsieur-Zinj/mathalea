@@ -38,7 +38,7 @@ export const uuid = '06b1a'
 export const ref = '6M20'
 export const refs = {
   'fr-fr': ['6M20'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-3']
 }
 export default function AireDeTriangles () {
   Exercice.call(this)

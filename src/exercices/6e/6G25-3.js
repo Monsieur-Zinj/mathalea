@@ -34,7 +34,7 @@ export const uuid = '328b1'
 export const ref = '6G25-3'
 export const refs = {
   'fr-fr': ['6G25-3'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-20']
 }
 export default function PavageEtReflexion2d () {
   Exercice.call(this)

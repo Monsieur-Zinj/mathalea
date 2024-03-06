@@ -37,7 +37,7 @@ export const uuid = '33ac2'
 export const ref = '6M31'
 export const refs = {
   'fr-fr': ['6M31'],
-  'fr-ch': []
+  'fr-ch': ['9GM2-3']
 }
 export default function ExerciceConversionsVolumes () {
   Exercice.call(this)

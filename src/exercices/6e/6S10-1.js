@@ -29,7 +29,7 @@ export const uuid = 'adac4'
 export const ref = '6S10-1'
 export const refs = {
   'fr-fr': ['6S10-1'],
-  'fr-ch': []
+  'fr-ch': ['9FA1-2']
 }
 export default function LireUnDiagramme () {
   Exercice.call(this)

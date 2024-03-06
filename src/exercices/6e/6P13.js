@@ -37,7 +37,7 @@ export const uuid = '064ce'
 export const ref = '6P13'
 export const refs = {
   'fr-fr': ['6P13'],
-  'fr-ch': []
+  'fr-ch': ['9FA3-13']
 }
 export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this)

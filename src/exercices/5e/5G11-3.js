@@ -25,7 +25,7 @@ export const uuid = '34032'
 export const ref = '5G11-3'
 export const refs = {
   'fr-fr': ['5G11-3'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-8']
 }
 export default function ConstruireSymetriquePoint5e () {
   Exercice.call(this)

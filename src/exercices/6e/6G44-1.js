@@ -40,7 +40,7 @@ export const amcType = 'qcmMono'
 export const ref = '6G44-1'
 export const refs = {
   'fr-fr': ['6G44-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES7-8']
 }
 export const uuid = '051aa'
 export default function ReconnaitreDesSolides () {

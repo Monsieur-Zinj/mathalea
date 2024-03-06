@@ -27,7 +27,7 @@ export const uuid = '796f3'
 export const ref = '5G22'
 export const refs = {
   'fr-fr': ['5G22'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-9']
 }
 export default function DroiteRemarquableDuTriangle () {
   Exercice.call(this)

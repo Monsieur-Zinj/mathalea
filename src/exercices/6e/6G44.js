@@ -31,7 +31,7 @@ export const uuid = 'da6a4'
 export const ref = '6G44'
 export const refs = {
   'fr-fr': ['6G44'],
-  'fr-ch': []
+  'fr-ch': ['9ES7-7']
 }
 export default function NombreDeFacesEtDAretes () {
   Exercice.call(this)

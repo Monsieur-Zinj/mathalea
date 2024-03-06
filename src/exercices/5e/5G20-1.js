@@ -18,7 +18,7 @@ export const uuid = 'c3781'
 export const ref = '5G20-1'
 export const refs = {
   'fr-fr': ['5G20-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES2-7']
 }
 export default function VocabulaireDesTriangles () {
   Exercice.call(this)

@@ -11,7 +11,7 @@ export const uuid = 'ce9ef'
 export const ref = '5G10-1'
 export const refs = {
   'fr-fr': ['5G10-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-3']
 }
 export default class SymetrieAxialePoint5e extends ConstruireParSymetrie {
   constructor () {

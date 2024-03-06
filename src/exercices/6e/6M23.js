@@ -14,7 +14,7 @@ export const uuid = '6225c'
 export const ref = '6M23'
 export const refs = {
   'fr-fr': ['6M23'],
-  'fr-ch': []
+  'fr-ch': ['9GM2-2']
 }
 export default function Reglages6M23 () {
   ExerciceConversionsAires.call(this)

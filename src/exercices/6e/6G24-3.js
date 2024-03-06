@@ -25,7 +25,7 @@ export const uuid = '60e16'
 export const ref = '6G24-3'
 export const refs = {
   'fr-fr': ['6G24-3'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-14']
 }
 export default function ConstruireSymetriquePoint6e () {
   Exercice.call(this)

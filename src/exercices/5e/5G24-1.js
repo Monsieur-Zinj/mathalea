@@ -22,7 +22,7 @@ export const uuid = '10148'
 export const ref = '5G24-1'
 export const refs = {
   'fr-fr': ['5G24-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES2-8']
 }
 export default function TrianglesEgaux () {
   Exercice.call(this)

@@ -32,7 +32,7 @@ export const uuid = '3acc1'
 export const ref = '5G22-1'
 export const refs = {
   'fr-fr': ['5G22-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES3-10']
 }
 export default function ProprietesMediatrice () {
   Exercice.call(this)

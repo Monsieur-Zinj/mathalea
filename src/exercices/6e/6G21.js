@@ -34,7 +34,7 @@ export const uuid = 'e0bc9'
 export const ref = '6G21'
 export const refs = {
   'fr-fr': ['6G21'],
-  'fr-ch': []
+  'fr-ch': ['9ES4-7']
 }
 export default function ConstruireUnTriangle () {
   Exercice.call(this)

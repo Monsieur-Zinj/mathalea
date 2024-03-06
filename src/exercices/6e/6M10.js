@@ -15,7 +15,7 @@ export const uuid = '83be1'
 export const ref = '6M10'
 export const refs = {
   'fr-fr': ['6M10'],
-  'fr-ch': []
+  'fr-ch': ['9GM1-6']
 }
 export default function Reglages6M10 () {
   ExercicePerimetresEtAires.call(this)

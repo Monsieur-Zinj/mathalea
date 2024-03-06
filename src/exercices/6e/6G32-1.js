@@ -28,7 +28,7 @@ export const uuid = 'cd69a'
 export const ref = '6G32-1'
 export const refs = {
   'fr-fr': ['6G32-1'],
-  'fr-ch': []
+  'fr-ch': ['9ES6-26']
 }
 export default function SymetrieAxialeConservation1 () {
   Exercice.call(this)

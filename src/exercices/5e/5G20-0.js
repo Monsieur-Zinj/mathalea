@@ -1,5 +1,5 @@
 import ConstruireUnTriangle from '../6e/6G21.js'
-export const titre = 'Construire un triangle aux instruments'
+export const titre = 'Construire un triangle avec les instruments'
 export const interactifReady = false
 
 /**
