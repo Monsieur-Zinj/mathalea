@@ -205,7 +205,7 @@ export function Plot (x, y, {
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity=${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '') {
+    if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage[1] !== '') {
       tableauOptions.push(`fill=${this.couleurDeRemplissage[1]}`)
     }
     let optionsDraw = []
