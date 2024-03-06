@@ -100,7 +100,7 @@ function cleanSpaces (str: string): string {
  * @param {string} str
  */
 function cleanParenthses (str: string): string {
-  return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1').replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
+  return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1').replaceAll('\\lparen', '(').replaceAll('\\rparen', ')').replaceAll('\\left\\lbrack', '[').replaceAll('\\right\\rbrack', ']')
 }
 
 /**
@@ -522,14 +522,15 @@ export function powerCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
+  const clean = generateCleaner(['virgules', 'puissances'])
   let formatOK: boolean = false
   let formatKO: boolean = false
-  const nombreSaisi = input.split('^')
+  const nombreSaisi = clean(input).split('^')
   const mantisseSaisie = nombreSaisi[0].replace(/[()]/g, '')
   // const mantisseS = Number(mantisseSaisie)
   const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : '1'
   // const expoS = Number(expoSaisi)
-  const nombreAttendu = goodAnswer.split('^')
+  const nombreAttendu = clean(goodAnswer).split('^')
   const mantisseReponse = nombreAttendu[0].replace(/[()]/g, '')
   const mantisseR = Number(mantisseReponse)
   const expoReponse = nombreAttendu[1] ? nombreAttendu[1].replace(/[{}]/g, '') : '1'
@@ -598,9 +599,10 @@ export function setsCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  const cleanUp = (s: string) => s.replace('{.}', '.').replace(',', '.')
-  const elements1 = cleanUp(input).split(';').sort((a: string, b: string) => Number(a) - Number(b))
-  const elements2 = cleanUp(goodAnswer).split(';').sort((a: string, b: string) => Number(a) - Number(b))
+  const clean = generateCleaner(['virgules'])
+  // const cleanUp = (s: string) => s.replace('{.}', '.').replace(',', '.') // @fixme vérifier si on a besoin d'éliminer ce {.} ? si oui, l'intégrer au cleauner 'virgules'
+  const elements1 = clean(input).split(';').sort((a: string, b: string) => Number(a) - Number(b))
+  const elements2 = clean(goodAnswer).split(';').sort((a: string, b: string) => Number(a) - Number(b))
   if (elements1.length !== elements2.length) return { isOk: false }
   let ok = true
   for (let i = 0; i < elements1.length; i++) {
@@ -622,9 +624,9 @@ export function intervalsCompare (input: string, goodAnswer: string) {
     goodAnswer = String(goodAnswer)
   }
   let result = true
-  const cleanUp = (s: string) => s.replaceAll('{,}', '.').replaceAll(',', '.').replaceAll('\\left\\lbrack', '[').replaceAll('\\right\\rbrack', ']')
-  input = cleanUp(input)
-  goodAnswer = cleanUp(goodAnswer)
+  const clean = generateCleaner(['virgules', 'parentheses'])
+  input = clean(input)
+  goodAnswer = clean(goodAnswer)
   const intervallesSaisie = input.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
   const intervallesReponse = goodAnswer.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
   if (intervallesReponse != null && intervallesSaisie != null) {
@@ -780,7 +782,8 @@ export function intervalStrictCompare (input: string, goodAnswer: { borneInf: nu
 } {
   // Si on veut accepter une expressio :
   // const inputNumber = Number(engine.parse(cleanStringBeforeParse(input)).N())
-  const inputNumber = Number(cleanStringBeforeParse(input))
+  const clean = generateCleaner(['virgules', 'fractions', 'espaces'])
+  const inputNumber = Number(clean(input))
   if (Number.isNaN(inputNumber)) return { isOk: false }
   if (inputNumber > goodAnswer.borneInf && inputNumber < goodAnswer.borneSup) return { isOk: true }
   return { isOk: false }
@@ -796,7 +799,8 @@ export function intervalCompare (input: string, goodAnswer: { borneInf: number, 
   isOk: boolean,
   feedback?: string
 } {
-  const inputNumber = Number(engine.parse(cleanStringBeforeParse(input)).numericValue)
+  const clean = generateCleaner(['virgules', 'espaces', 'fractions'])
+  const inputNumber = Number(engine.parse(clean(input)).numericValue)
   if (Number.isNaN(inputNumber)) return { isOk: false }
   if (inputNumber >= goodAnswer.borneInf && inputNumber <= goodAnswer.borneSup) return { isOk: true }
   return { isOk: false }
