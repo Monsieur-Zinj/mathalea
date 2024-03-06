@@ -13,7 +13,7 @@
       type LatexFileInfos
     } from '../../../lib/Latex'
     import Button from '../../shared/forms/Button.svelte'
-    import { tick } from 'svelte'
+    import { onDestroy, onMount, tick } from 'svelte'
 
     export let latex: Latex
     export let latexFileInfos: LatexFileInfos
@@ -24,6 +24,20 @@
     let timer: Tweened<number>
     const defaultengine = 'lualatex'
     const defaultreturn = 'pdfjs'
+
+    onMount(() => {
+      function handleKeyDown (event: KeyboardEvent) {
+        const isSaveShortcut = (event.ctrlKey || event.metaKey) && event.key === 's'
+        if (isSaveShortcut) {
+          event.preventDefault()
+          compileToPDF()
+        }
+      }
+      window.addEventListener('keydown', handleKeyDown)
+      onDestroy(() => {
+        window.removeEventListener('keydown', handleKeyDown)
+      })
+    })
 
     // ------ dont need to modify code below
 
