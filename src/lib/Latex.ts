@@ -215,10 +215,7 @@ class Latex {
       contents.preamble += '\n\\usepackage[margin=1cm]{geometry}'
       contents.preamble += '\n\\pagestyle{empty}'
       contents.preamble += '\n\\usepackage{enumitem}'
-      contents.preamble += '\n\\usepackage{fontspec}'
-      contents.preamble += '\n\\usepackage{unicode-math}'
-      contents.preamble += '\n\\setmainfont{Arial}'
-      contents.preamble += '\n\\setmathfont{STIX Two Math}'
+      contents.preamble += '\n\\usepackage{arev}'
       if (contents.content.includes('pspicture')) {
         contents.preamble += '\n\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}'
         contents.preamble += '\n\\usepackage{pst-eucl}'
@@ -278,14 +275,14 @@ class Latex {
         contents.contentCorr += contentVersion.contentCorr
       }
       if (style === 'Can') {
-        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${genericPreamble}\n\n`
+        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(contents.content)}\n\n`
         contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
         contents.intro += '\n\\begin{document}'
         contents.intro += '\n\\setcounter{nbEx}{1}'
         contents.intro += '\n\\pageDeGardeCan{nbEx}'
         contents.intro += '\n\\clearpage'
       } else {
-        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${genericPreamble}\n\n`
+        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(contents.content)}\n\n`
         contents.preamble += `\\Theme[${style}]{nombres}{${title}}{${reference}}{${subtitle}}`
         contents.intro += '\n\\begin{document}\n'
       }
@@ -510,6 +507,7 @@ export function format (text: string): string {
   return text
     .replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
     .replace(/<br>/g, '\\\\')
+    .replace(/€/g, '\\euro')
     .replace(/\\\\\s*\n\n/gm, '\\\\')
 }
 
@@ -528,6 +526,14 @@ function getUrlFromExercice (ex: TypeExercice) {
   if (ex.correctionDetaillee !== undefined) url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')
   if (ex.nbCols !== undefined) url.searchParams.append('cols', ex.nbCols.toString())
   return url
+}
+
+function addPackages (content: string, isFullPackages = false) {
+  let packages = genericPreamble
+  if (isFullPackages || content.includes('\\euro')) {
+    packages += '\n\\usepackage[gen]{eurosym}'
+  }
+  return packages
 }
 
 export default Latex
