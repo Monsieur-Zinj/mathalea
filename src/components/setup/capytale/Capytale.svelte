@@ -148,7 +148,11 @@
     }
     switch (status) {
       case 'eleve':
-        url.searchParams.append('v', 'eleve')
+        if ($canOptions.isChoosen) {
+          url.searchParams.append('v', 'can')
+        } else {
+          url.searchParams.append('v', 'eleve')
+        }
         break
       default:
         break
