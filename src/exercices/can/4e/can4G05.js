@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../../lib/outils/embellissements'
 import { extraireRacineCarree } from '../../../lib/outils/calculs'
 import { texRacineCarree } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
@@ -7,12 +7,11 @@ import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer la diagonale d’un carré'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '09/09/2021'
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can4G05
- * Date de publication sptembre 2021
 */
 export const uuid = '66672'
 export const ref = 'can4G05'
@@ -30,7 +29,6 @@ export default function DiagonaleCarre () {
 
   this.nouvelleVersion = function () {
     let a, c2, reductible, reduction, entiere
-    a = randint(1, 10)//
     switch (choice(['a', 'b'])) {
       case 'a':
         a = randint(1, 10)//
@@ -39,14 +37,14 @@ export default function DiagonaleCarre () {
         reductible = reduction[0] !== 1
         this.question = `Calculer la valeur exacte de la longueur de la diagonale d'un carré de côté $${a}$.`
 
-        this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $${a}$ et de diagonale $d$, on a :<br>
+        this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $${a}$ et de diagonale $d$, on a :<br><br>
     $\\begin{aligned}\n
-    ${a}^2+${a}^2&=d^2\\\\\n
-    d^2&=2\\times ${a}^2\\\\\n
-    d&=\\sqrt{2\\times ${a}^2}\\\\\n
-    d&=\\sqrt{${c2}}
-    ${reductible ? '\\\\\nd&=' + texRacineCarree(c2) : ''}
-       \n\\end{aligned}$
+    d^2&=${a}^2+${a}^2\\\\
+    d^2&=2\\times ${a}^2\\\\
+    d&=\\sqrt{2\\times ${a}^2}
+    ${reductible ? '\\\\d&=\\sqrt{{' + c2 + '}}' : '\\\\d&=' + miseEnEvidence('\\sqrt{' + c2 + '}')}
+    ${reductible ? '\\\\d&=' + miseEnEvidence(texRacineCarree(c2)) : ''}
+       \\end{aligned}$
    `
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
    On calcule le double du carré du côté du carré,
@@ -71,35 +69,31 @@ export default function DiagonaleCarre () {
        d^2&=${a}+${a}\\\\
        d^2&=${c2}\\\\
        d&=\\sqrt{${c2}}\\\\
-       d&=${texRacineCarree(c2)}
-       \\end{aligned}$
-      
-      `
+       d&=${miseEnEvidence(texRacineCarree(c2))}
+       \\end{aligned}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
        On calcule le double du carré du côté du carré, soit
-       $2\\times (\\sqrt{${a}})^2=2\\times ${a}=${c2}$, puis on en prend la racine carrée, soit $${texRacineCarree(c2)}$.    `)
+       $2\\times (\\sqrt{${a}})^2=2\\times ${a}=${c2}$, puis on en prend la racine carrée, soit $${texRacineCarree(c2)}$.    `, 'blue')
         } else {
           this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $c=\\sqrt{${a}}$
-       et de diagonale $d$, on a :<br>
-
+       et de diagonale $d$, on a :<br><br>
        $\\begin{aligned}
        c^2+c^2&=d^2\\\\
        \\sqrt{${a}}^2+\\sqrt{${a}}^2&=d^2\\\\
        d^2&=${a}+${a}\\\\
-       d^2&=${c2}\\\\
-       d&=\\sqrt{${c2}}
-       ${reductible ? '\\\\\nd&=' + texRacineCarree(c2) : ''}
-       \n\\end{aligned}$
-            `
+       d^2&=${c2}
+       ${reductible ? '\\\\d&=\\sqrt{{' + c2 + '}}' : '\\\\d&=' + miseEnEvidence('\\sqrt{' + c2 + '}')}
+       ${reductible ? '\\\\d&=' + miseEnEvidence(texRacineCarree(c2)) : ''}
+       \\end{aligned}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
        On calcule le double du carré du côté du carré,
-       soit $2\\times (\\sqrt{${a}})^2=2\\times ${a}=${c2}$, puis on en prend la racine carrée.    `)
+       soit $2\\times (\\sqrt{${a}})^2=2\\times ${a}=${c2}$, puis on en prend la racine carrée.    `, 'blue')
         }
 
         this.reponse = [`\\sqrt{${c2}}`, `${Math.sqrt(c2)}`, texRacineCarree(c2)]
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
 }

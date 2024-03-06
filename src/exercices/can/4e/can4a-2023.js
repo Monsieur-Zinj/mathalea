@@ -766,7 +766,7 @@ export default function SujetCAN2023Quatrieme () {
           reponse = (a + b) * c
 
           if (context.isHtml) {
-            texte = `Quel est le résultat de ce programme de calcul lorsque le nombre de départ est $${a}$.`
+            texte = `Quel est le résultat de ce programme de calcul lorsque le nombre de départ est $${a}$ ?`
             texte += '<br> Nombre de départ <br>'
             texte += `${sp(8)}$\\downarrow$<br>`
             texte += '$\\begin{array}{|l|}\n'
@@ -779,9 +779,7 @@ export default function SujetCAN2023Quatrieme () {
          `
             texte += 'Résultat'
           } else {
-            texte = `Quel est le résultat de ce programme de calcul lorsque le nombre de départ est $${a}$.<br>
-          
-          `
+            texte = `Quel est le résultat de ce programme de calcul lorsque le nombre de départ est $${a}$ ?<br>`
             texte += '\\medskip'
             texte += '\\fbox{'
             texte += '\\parbox{0.45\\linewidth}{'
@@ -1055,7 +1053,6 @@ export default function SujetCAN2023Quatrieme () {
           reponse = c
           texte = `Ce pavé droit a un volume de $${v}$ cm$^3$.<br>
             Quelle est sa hauteur ? <br>`
-
           texte += '<br>' + mathalea2d({
             xmin: -1.5,
             ymin: -1,

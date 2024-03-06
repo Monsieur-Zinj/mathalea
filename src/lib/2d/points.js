@@ -241,7 +241,7 @@ export function plot (x, y, {
 export function TracePoint (...points) {
   ObjetMathalea2D.call(this, {})
   this.taille = 3
-  this.tailleTikz = this.taille / 30
+  this.tailleTikz = this.taille / 15
   this.epaisseur = 1
   this.opacite = 0.8
   this.style = 'x'
@@ -250,6 +250,7 @@ export function TracePoint (...points) {
   let ymin = 1000
   let ymax = -1000
   let lePoint
+  console.log(points)
   if (typeof points[points.length - 1] === 'string') {
     this.color = colorToLatexOrHTML(points[points.length - 1])
     points.length--

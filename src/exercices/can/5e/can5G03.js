@@ -61,9 +61,9 @@ export default function CompterlesSymetriquesCan5e () {
       objetsEnonce.push(papier)
       const O = point(3, 3, 'O')
       d = tracePoint(O, context.isHtml ? 'blue' : 'black')
+      console.log(d)
       d.epaisseur = 2
       d.style = '+'
-      d.color = 'none'
       objetsEnonce.push(d)
       pointsPossibles = papier.listeCoords.slice()
       while (pointsPossibles.length > 1) { // si il n'en reste qu'un, on ne peut pas trouver de symétrique
@@ -139,6 +139,4 @@ export default function CompterlesSymetriquesCan5e () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Type d\'axes', 4, '1 : Axe vertical\n2 : Axe horizontal\n3 : Axe oblique\n4 : Mélange']
-  // this.besoinFormulaire2Numerique = ['Type de papier pointé', 4, '1 : Carrés\n2 : Hexagones\n3 : Triangles équilatéraux\n4 : Mélange']
 }

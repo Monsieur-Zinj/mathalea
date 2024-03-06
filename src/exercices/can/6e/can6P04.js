@@ -10,10 +10,10 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-/*!
+/**
  * @author Jean-Claude Lhote
  * Créé pendant l'été 2021
- * Référence can6P04 Complété par des corrections de Gilles Mora
+ * Complété par des corrections de Gilles Mora
  */
 export const uuid = 'da0c1'
 export const ref = 'can6P04'
@@ -38,7 +38,7 @@ export default function AppliquerUnPourcentage () {
         this.correction = `$10${sp(1)}\\%$ de $${a} = 0,1 \\times ${a}=${texNombre(this.reponse)}$`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Prendre $10${sp(1)}\\%$  d'une quantité revient à la diviser par $10$.<br>
-        Ainsi, $10${sp(1)}\\%$ de $${a} = \\dfrac{${a}}{10}=${texNombre(this.reponse)}$.`)
+        Ainsi, $10${sp(1)}\\%$ de $${a} = \\dfrac{${a}}{10}=${texNombre(this.reponse)}$.`, 'blue')
         break
 
       case 2:// prendre  20%, 30%, 40%......
@@ -51,7 +51,7 @@ export default function AppliquerUnPourcentage () {
         Prendre $${p}${sp(1)}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10${sp(1)}\\%$  de $${a}$.<br>
         Comme $10${sp(1)}\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10${sp(1)}\\%$  d'une quantité, on la divise par $10$), alors
         $${p}${sp(1)}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${this.reponse}$.
-       `)
+       `, 'blue')
         break
       case 3:
         p = randint(2, 9) * 10
@@ -62,23 +62,24 @@ export default function AppliquerUnPourcentage () {
           this.correction = `$50${sp(1)}\\%$  de $${a} = ${this.reponse}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
             Prendre $50${sp(1)}\\%$  d'une quantité revient à la diviser par $2$.<br>
-            Ainsi, $${p}${sp(1)}\\%$ de $${a} = ${a}\\div 2=${this.reponse}$.`)
+            Ainsi, $${p}${sp(1)}\\%$ de $${a} = ${a}\\div 2=${this.reponse}$.`, 'blue')
         } else {
           this.correction = `$${p}${sp(1)}\\%$ de $${a} = ${this.reponse}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Prendre $${p}${sp(1)}\\%$  de $${a}$ revient à prendre $${p / 10}\\times 10${sp(1)}\\%$  de $${a}$.<br>
           Comme $10${sp(1)}\\%$  de $${a}$ vaut $${a / 10}$ (pour prendre $10${sp(1)}\\%$ d'une quantité, on la divise par $10$), alors
           $${p}${sp(1)}\\%$ de $${a}=${p / 10}\\times ${a / 10}=${this.reponse}$.
-         `)
+         `, 'blue')
         }
         break
-      case 4: // prende 1%
+      case 4: // prendre 1%
         a = randint(100, 999)
         this.reponse = calculANePlusJamaisUtiliser(a / 100)
         this.question = `Calculer $1${sp(1)}\\%$ de $${a}$.`
-        this.correction = texteEnCouleur(`<br> Mentalement : <br>
+        this.correction = `$1${sp(1)}\\%$ de $${a} = 0,01 \\times ${a}=${texNombre(this.reponse)}$`
+        this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Prendre $1${sp(1)}\\%$  d'une quantité revient à la diviser par $100$.<br>
-        Ainsi, $1${sp(1)}\\%$ de $${a} = \\dfrac{${a}}{100}=${texNombre(this.reponse)}$.`)
+        Ainsi, $1${sp(1)}\\%$ de $${a} = \\dfrac{${a}}{100}=${texNombre(this.reponse)}$.`, 'blue')
         break
 
       case 5:// prendre  25%, 50%, 75%......
@@ -91,17 +92,17 @@ export default function AppliquerUnPourcentage () {
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
         Prendre $25${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par $4$.<br>
         $${p}${sp(1)}\\%$ de $${a}=\\dfrac{${a}}{4}=${this.reponse}$.
-       `)
+       `, 'blue')
         } else if (p === 75) {
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Prendre $75${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par 4 et à multiplier le résultat par $3$.<br>
           Comme $25${sp(1)}\\%$  de $${a}$ vaut $${calculANePlusJamaisUtiliser(a / 4)}$, alors
           $75${sp(1)}\\%$ de $${a}=${calculANePlusJamaisUtiliser(a / 4)}\\times 3=${this.reponse}$.
-         `)
+         `, 'blue')
         } else {
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Prendre $50${sp(1)}\\%$  d'une quantité revient à la diviser par $2$.<br>
-          Ainsi, $50${sp(1)}\\%$ de $${a} = \\dfrac{${a}}{2}=${this.reponse}$.`)
+          Ainsi, $50${sp(1)}\\%$ de $${a} = \\dfrac{${a}}{2}=${this.reponse}$.`, 'blue')
         }
         break
       case 6:
@@ -113,19 +114,19 @@ export default function AppliquerUnPourcentage () {
           this.correction = `$5${sp(1)}\\%$  de $${a} = ${this.reponse}$.`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
             Prendre $5${sp(1)}\\%$  d'une quantité revient à la diviser par $20$ soit la diviser par $10$ puis par $2$.<br>
-            Ainsi, $5${sp(1)}\\%$ de $${a} = ${a}\\div 10 \\div 2=${this.reponse * 2}\\div 2=${this.reponse}$.`)
+            Ainsi, $5${sp(1)}\\%$ de $${a} = ${a}\\div 10 \\div 2=${this.reponse * 2}\\div 2=${this.reponse}$.`, 'blue')
         } else if (p === 10) {
           this.correction = `$10${sp(1)}\\%$ de $${a} = ${this.reponse}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Prendre $10${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par $10$, alors
           $10${sp(1)}\\%$ de $${a}=\\dfrac{${a}}{10}=${this.reponse}$.
-         `)
+         `, 'blue')
         } else {
           this.correction = `$20${sp(1)}\\%$ de $${a} = ${this.reponse}$`
           this.correction += texteEnCouleur(`<br> Mentalement : <br>
           Prendre $20${sp(1)}\\%$  de $${a}$ revient à diviser $${a}$ par $5$ soit diviser par $10$ puis multiplier le résultat par $2$.<br>
           Donc $20${sp(1)}\\%$ de $${a}=\\dfrac{${a}}{10}\\times 2=${calculANePlusJamaisUtiliser(this.reponse / 2)}\\times 2=${this.reponse}$.
-         `)
+         `, 'blue')
         }
         break
     }

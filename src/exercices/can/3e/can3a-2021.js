@@ -87,7 +87,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
 
@@ -115,7 +115,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -132,7 +132,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -150,7 +150,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -229,7 +229,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -254,7 +254,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -291,7 +291,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -418,7 +418,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -455,7 +455,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -520,7 +520,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$'
+            texte += ' $\\ldots$'
           }
           nbChamps = 1
           break
@@ -674,7 +674,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
           } else {
-            texte += '$\\ldots$ L '
+            texte += ' $\\ldots$ L '
           }
           nbChamps = 1
           break
@@ -987,7 +987,7 @@ export default function SujetCAN20213ieme () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           } else {
-            texte += '$\\ldots$ '
+            texte += ' $\\ldots$ '
           }
           nbChamps = 1
           break

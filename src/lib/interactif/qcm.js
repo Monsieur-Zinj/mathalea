@@ -130,7 +130,7 @@ export function propositionsQcm (exercice, i) {
   if (!context.isHtml) {
     texte += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
     texteCorr += nbCols === 1 ? '\t' : `\n\n\\begin{multicols}{${nbCols}}\n\t`
-    texte += '\\\\\n\t'
+    // texte += '\\\\\n\t'
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
       texte += `$\\square\\;$ ${exercice.autoCorrection[i].propositions[rep].texte}`
       if (exercice.autoCorrection[i].propositions[rep].statut) {
