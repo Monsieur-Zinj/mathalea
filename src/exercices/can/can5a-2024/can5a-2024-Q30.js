@@ -19,7 +19,6 @@ export const uuid = '5dcca'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -91,9 +90,9 @@ export default class NomExercice extends Exercice {
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ cm$^2$'
     if (this.interactif) {
-      this.optionsChampTexte = { texteApres: 'cm$^2$' }
+      this.optionsChampTexte = { texteApres: 'cm$^2$.' }
     } else {
-      this.question += ' $\\ldots $ cm$^2$<br>'
+      this.question += ' $\\ldots $ cm$^2$.'
     }
   }
 }

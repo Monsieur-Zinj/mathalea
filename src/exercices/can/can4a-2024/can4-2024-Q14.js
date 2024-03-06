@@ -10,7 +10,6 @@ export const uuid = 'cfd87'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -19,6 +18,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
+    this.optionsChampTexte = { texteApres: '.' }
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
   }

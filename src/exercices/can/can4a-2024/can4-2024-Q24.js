@@ -21,14 +21,17 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecVariable
     this.formatInteractif = 'calcul'
-    this.optionsChampTexte = { texteAvant: '$=$' }
+    this.optionsChampTexte = { texteAvant: '$=$', texteApres: '.' }
+
     this.canOfficielle = true
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.reponse = ['16x-5']//, '12\\times x-5'
-      this.question = 'Réduis $2x-5+14x$ '
+      this.question = 'Réduis'
+      this.question += this.interactif ? ' : ' : ' '
+      this.question += '$2x-5+14x$ '
       this.correction = `$2x-5+14x=${miseEnEvidence('16x-5')}$`
     } else {
       const lettre = choice(['a', 'b', 'x', 'y'])
@@ -36,13 +39,14 @@ export default class NomExercice extends Exercice {
       const b = randint(2, 9)
       const c = randint(2, 9)
       const d = randint(2, 9)
+      this.question = 'Réduire' + (this.interactif ? ' : ' : ' ')
       if (choice([true, false])) {
         this.reponse = printlatex(`${a + c}*${lettre}+(${b + d})`)
-        this.question = `Réduire   $${a}${lettre}+${b}+${c}${lettre}+${d}$ `
+        this.question += `$${a}${lettre}+${b}+${c}${lettre}+${d}$ `
         this.correction = ` $${a}${lettre}+${b}+${c}${lettre}+${d}=${a}${lettre}+${c}${lettre}+${b}+${d}=${miseEnEvidence(this.reponse)}$`
       } else {
         this.reponse = printlatex(`${a + c}*${lettre}+${b}`)
-        this.question = `Réduis   $${a}${lettre}+${b}+${c}${lettre}$`
+        this.question = `$${a}${lettre}+${b}+${c}${lettre}$`
         this.correction = ` $${a}${lettre}+${b}+${c}${lettre}=${a}${lettre}+${c}${lettre}+${b}=${miseEnEvidence(this.reponse)}$`
       }
     }
