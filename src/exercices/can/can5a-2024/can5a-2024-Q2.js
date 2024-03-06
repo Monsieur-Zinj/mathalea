@@ -12,7 +12,6 @@ export const uuid = 'b34f7'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
@@ -21,6 +20,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
+    this.optionsChampTexte = { texteAvant: ' est : ', texteApres: '.' }
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
   }
@@ -51,8 +51,5 @@ export default class NomExercice extends Exercice {
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
-    if (this.interactif) {
-      this.question += ' $=$'
-    }
   }
 }

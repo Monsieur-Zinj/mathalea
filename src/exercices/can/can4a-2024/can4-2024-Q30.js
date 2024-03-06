@@ -21,7 +21,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
-    this.optionsChampTexte = { texteApres: 'cm$^2$' }
+    this.optionsChampTexte = { texteApres: 'cm$^2$.' }
     this.canOfficielle = true
   }
 
@@ -52,7 +52,7 @@ export default class NomExercice extends Exercice {
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ cm$^2$'
     if (!this.interactif) {
-      this.question += ' $\\ldots$ cm$^2$'
+      this.question += ' $\\ldots$ cm$^2$.'
     }
   }
 }
