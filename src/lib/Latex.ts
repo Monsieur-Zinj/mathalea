@@ -245,6 +245,9 @@ class Latex {
       if (contents.content.includes('\\tkzText')) {
         contents.preamble += '\n\\usepackage{tkz-fct}'
       }
+      if (contents.content.includes('\\begin{scratch}')) {
+        contents.preamble += '\n\\usepackage{scratch3}'
+      }
       const [latexCmds, latexPackages] = this.getContentLatex()
       for (const pack of latexPackages) {
         if (pack === 'bclogo') {

@@ -9,15 +9,14 @@ import Exercice from '../../deprecatedExercice.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Travailler les répétitions (Scratch)'
+export const dateDePublication = '24/10/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-/*!
+/**
  * @author Jean-Claude Lhote
- * publié le 24/10/2021
- * Référence can5A01
  */
 export const uuid = 'af3c8'
 export const ref = 'can5A01'

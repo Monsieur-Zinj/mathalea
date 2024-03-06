@@ -15,13 +15,11 @@ export const titre = 'Lire graphiquement une fonction affine*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora (2F10-02)
- * Référence
 */
 export const uuid = 'f554f'
 export const ref = 'can3F08'
@@ -64,12 +62,12 @@ style: 'margin: auto'
     if (egal(a * 1000 / d, Math.round(a * 1000 / d))) {
       this.reponse.push(`${calculANePlusJamaisUtiliser(a / d)}x${ecritureAlgebrique(b)}`)
     }
-    this.correction = `<br> $f$ est de la forme
+    this.correction = `$f$ est de la forme
     $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale)
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>
     L'ordonnée à l'origine  est $b=${b}$ et :`
     this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=
-    ${deprecatedTexFraction(miseEnEvidence(a, 'red'), miseEnEvidence(d, 'green'))}$`)
+    ${deprecatedTexFraction(miseEnEvidence(a, 'blue'), miseEnEvidence(d, 'green'))}$`)
     this.correction += `On en déduit que la fonction $f$ est définie par : $f(x)=${miseEnEvidence(`${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(b)}`)}$ .<br>`
     if (a > 0) {
       s1 = segment(0, b - a, -d, b - a, 'green')

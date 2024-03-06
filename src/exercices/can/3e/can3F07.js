@@ -13,13 +13,11 @@ export const titre = 'Lire graphiquement une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora (2F10-02)
- * Référence can3F07
 */
 export const uuid = '82f73'
 export const ref = 'can3F07'
@@ -49,7 +47,7 @@ export default function LectureGraphiqueFonctionAffine1 () {
         `
 
     this.reponse = [`${a}x+${b}`]
-    this.correction = `<br> $f$ est de la forme
+    this.correction = `$f$ est de la forme
     $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale)
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>
     On a  $b=${b}$ et :`
