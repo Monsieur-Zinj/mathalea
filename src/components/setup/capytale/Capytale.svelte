@@ -745,7 +745,6 @@ function addExercise (uuid: string) {
           </div> -->
           <div class="pl-2 pt-2">
             <ButtonToggle
-              isDisabled={$canOptions.isChoosen}
               titles={[
                 'Les élèves peuvent répondre une seule fois',
                 'Les élèves peuvent répondre plusieurs fois'

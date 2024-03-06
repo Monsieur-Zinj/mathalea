@@ -138,7 +138,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
           console.log(`Bouton score #buttonScoreEx${exercice.indice} non trouvé`)
         }
       }
-    } else if (canOptions.isChoosen && mode === 'review') {
+    } else if (canOptions.isChoosen && (mode === 'review' || workflow !== 'current')) {
       console.log('On charge les réponses pour le CAN')
       canOptionsStore.update((l) => {
         l.state = 'solutions'
@@ -187,9 +187,9 @@ export function sendToCapytaleSaveStudentAssignment ({ indiceExercice, assignmen
       exerciceGraded: indiceExercice,
       // Des données globales concernant le travail de l'élève : temps passé, etc... Format à définir.
       // Les données fournies remplacent complètement les données précédemment sauvegardées.
-      assignmentData
+      assignmentData,
       // Indique que l'activité est terminée et doit être verrouillée pour l'élève : workflow = 'finished'
-      // final?: boolean;
+      final: get(canOptionsStore).isChoosen && get(globalOptions).oneShot
     }
     console.log('Message envoyé à Capytale', data)
     const promiseSaveStudentAssignment = rpc.call('saveStudentAssignment', data)
