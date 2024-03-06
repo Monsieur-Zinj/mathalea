@@ -2,7 +2,6 @@ import Decimal from 'decimal.js'
 import { equal, round } from 'mathjs'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { fraction } from '../../modules/fractions.js'
 import { egal } from '../../modules/outils.js'
 import { miseEnEvidence } from './embellissements.js'
 import { arrondi } from './nombres'
@@ -129,7 +128,7 @@ export function ecritureAlgebriqueSauf1 (a: FractionEtendue | number | Decimal) 
   if (equal(a, 1)) return '+'
   else if (equal(a, -1)) return '-'
   else if (typeof a === 'number') return ecritureAlgebrique(a)
-  else window.notify('ecritureAlgebriqueSauf1 : type de valeur non prise en compte')
+  else window.notify('ecritureAlgebriqueSauf1 : type de valeur non prise en compte', {})
 }
 
 /**
@@ -193,7 +192,7 @@ export function ecritureParentheseSiNegatif (a: Decimal | number | FractionEtend
  * // (-3x)
  * @author Rémi Angot
  */
-export function ecritureParentheseSiMoins (expr: string | number) {
+export function ecritureParentheseSiMoins (expr: string | number| FractionEtendue) {
   if (typeof expr === 'string' && expr[0] === '-') return `(${expr})`
   else if (typeof expr === 'string') return expr // Il faut sortir si c'est un string, il n'y a rien à faire de plus !
   else if (typeof expr === 'number' && expr < 0) return `(${stringNombre(expr, 7)})`
@@ -231,7 +230,7 @@ export function calculAligne (numero: number, etapes: number[]) {
 export function egalOuApprox (a: number | FractionEtendue | Decimal, precision: number) {
   if (a instanceof FractionEtendue) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-errors
+    // @ ts-expect-errors
     return egal(a.num / a.den, arrondi(a.num / a.den, precision)) ? '=' : '\\approx'
   } else if (a instanceof Decimal) {
     return a.eq(a.toDP(precision)) ? '=' : '\\approx'

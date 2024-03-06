@@ -70,14 +70,14 @@ export default function Calculercoordonneesproduitvecteurs () {
           texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}\\\\${vy}\\end{pmatrix}$.<br>`
           texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}${ecritureAlgebrique(k)}\\overrightarrow{v}$.`
 
-          texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(vx)}\\\\${uy}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$ soit $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
+          texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(vx)}\\\\${uy}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$,  soit $\\overrightarrow{w}\\begin{pmatrix}${wx.texFSD}\\\\${wy.texFSD}\\end{pmatrix}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr = 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
             texteCorr += 'On sait d\'après le cours que $k\\overrightarrow{v}\\begin{pmatrix}k \\times x\'\\\\k \\times y\'\\end{pmatrix}$ et que $\\overrightarrow{u}+\\overrightarrow{v}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
             texteCorr += 'Appliqué aux données de l\'énoncé :<br><br>'
-            texteCorr += `$${k}\\overrightarrow{v}\\begin{pmatrix}${k}\\times${ecritureParentheseSiNegatif(vx)}\\\\${k}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$ soit $${k}\\overrightarrow{v}\\begin{pmatrix}${k * vx}\\\\${k * vy}\\end{pmatrix}$.<br><br>`
-            texteCorr += `$\\overrightarrow{u}${ecritureAlgebrique(k)}\\overrightarrow{v}\\begin{pmatrix}${ux}+${ecritureParentheseSiNegatif(k * vx)}\\\\${uy}+${ecritureParentheseSiNegatif(k * vy)}\\end{pmatrix}$.<br><br>`
-            texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
+            texteCorr += `$${k}\\overrightarrow{v}\\begin{pmatrix}${k}\\times${ecritureParentheseSiNegatif(vx)}\\\\${k}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$, soit $${k}\\overrightarrow{v}\\begin{pmatrix}${k * vx}\\\\${k * vy}\\end{pmatrix}$.<br><br>`
+            texteCorr += `$\\overrightarrow{u}${ecritureAlgebrique(k)}\\overrightarrow{v}\\begin{pmatrix}${ux}+${ecritureParentheseSiNegatif(k * vx)}\\\\${uy}+${ecritureParentheseSiNegatif(k * vy)}\\end{pmatrix}$<br><br>`
+            texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx.texFSD}\\\\${wy.texFSD}\\end{pmatrix}$.<br>`
           }
         }
           break
@@ -97,28 +97,28 @@ export default function Calculercoordonneesproduitvecteurs () {
           wx = vx.produitFraction(k.multiplieEntier(a)).ajouteEntier(ux).simplifie()
           wy = vy.produitFraction(k.multiplieEntier(a)).ajouteEntier(uy).simplifie()
 
-          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\[0.7em]${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFraction}\\\\[0.7em]${vy}\\end{pmatrix}$.<br>`
-          texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}${signe(a)}${k.texFraction}\\overrightarrow{v}$.`
+          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\[0.7em]${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFSD}\\\\[0.7em]${vy.texFSD}\\end{pmatrix}$.<br>`
+          texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}${signe(a)}${k.texFSD}\\overrightarrow{v}$.`
 
-          texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}${signe(a)}${k.texFraction}\\times${vx.texFraction}\\\\[0.7em]${uy}${signe(a)}${k.texFraction}\\times${vy.texFSP}\\end{pmatrix}$ soit $\\overrightarrow{w}\\begin{pmatrix}${wx.texFraction}\\\\[0.7em]${wy.texFraction}\\end{pmatrix}$.`
+          texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}${signe(a)}${k.texFSD}\\times${vx.texFSD}\\\\[0.7em]${uy}${signe(a)}${k.texFSD}\\times${vy.texFSP}\\end{pmatrix}$ soit $\\overrightarrow{w}\\begin{pmatrix}${wx.texFSD}\\\\[0.7em]${wy.texFSD}\\end{pmatrix}$.`
           if (this.correctionDetaillee) {
             texteCorr = 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
             texteCorr += 'On sait d\'après le cours que $k\\overrightarrow{v}\\begin{pmatrix}k \\times x\'\\\\k \\times y\'\\end{pmatrix}$ et que $\\overrightarrow{u}+\\overrightarrow{v}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
             texteCorr += 'Appliqué aux données de l\'énoncé :<br><br>'
-            texteCorr += `$${texFractionReduite(frac1[0] * a, frac1[1])}\\overrightarrow{v}\\begin{pmatrix}${texFractionReduite(frac1[0] * a, frac1[1])}\\times${vx.texFraction}\\\\[0.7em]${texFractionReduite(frac1[0] * a, frac1[1])}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$ soit $${texFractionReduite(frac1[0] * a, frac1[1])}\\overrightarrow{v}\\begin{pmatrix}${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\\\[0.7em]${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\end{pmatrix}$.<br><br>`
+            texteCorr += `$${texFractionReduite(frac1[0] * a, frac1[1])}\\overrightarrow{v}\\begin{pmatrix}${texFractionReduite(frac1[0] * a, frac1[1])}\\times${vx.texFSD}\\\\[0.7em]${texFractionReduite(frac1[0] * a, frac1[1])}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$ soit $${texFractionReduite(frac1[0] * a, frac1[1])}\\overrightarrow{v}\\begin{pmatrix}${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\\\[0.7em]${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\end{pmatrix}$.<br><br>`
             if (a < 0 && vy > 0) {
-              texteCorr += `$\\overrightarrow{u}${signe(a)}${k.texFraction}\\overrightarrow{v}\\begin{pmatrix}${ux}+\\left(${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\right)\\\\[0.7em]${uy}+\\left(${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\right)\\end{pmatrix}$.<br><br>`
+              texteCorr += `$\\overrightarrow{u}${signe(a)}${k.texFSD}\\overrightarrow{v}\\begin{pmatrix}${ux}+\\left(${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\right)\\\\[0.7em]${uy}+\\left(${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\right)\\end{pmatrix}$.<br><br>`
             }
             if (a > 0 && vy > 0) {
-              texteCorr += `$\\overrightarrow{u}${signe(a)}${k.texFraction}\\overrightarrow{v}\\begin{pmatrix}${ux}+${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\\\[0.7em]${uy}+${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\end{pmatrix}$.<br><br>`
+              texteCorr += `$\\overrightarrow{u}${signe(a)}${k.texFSD}\\overrightarrow{v}\\begin{pmatrix}${ux}+${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\\\[0.7em]${uy}+${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\end{pmatrix}$<br><br>`
             }
             if (a < 0 && vy < 0) {
-              texteCorr += `$\\overrightarrow{u}${signe(a)}${k.texFraction}\\overrightarrow{v}\\begin{pmatrix}${ux}+\\left(${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\right)\\\\[0.7em]${uy}+${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\end{pmatrix}$.<br><br>`
+              texteCorr += `$\\overrightarrow{u}${signe(a)}${k.texFSD}\\overrightarrow{v}\\begin{pmatrix}${ux}+\\left(${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\right)\\\\[0.7em]${uy}+${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\end{pmatrix}$<br><br>`
             }
             if (a > 0 && vy < 0) {
-              texteCorr += `$\\overrightarrow{u}${signe(a)}${k.texFraction}\\overrightarrow{v}\\begin{pmatrix}${ux}+${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\\\[0.7em]${uy}+\\left(${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\right)\\end{pmatrix}$.<br><br>`
+              texteCorr += `$\\overrightarrow{u}${signe(a)}${k.texFSD}\\overrightarrow{v}\\begin{pmatrix}${ux}+${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\\\[0.7em]${uy}+\\left(${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\right)\\end{pmatrix}$<br><br>`
             }
-            texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx.texFraction}\\\\[0.7em]${wy.texFraction}\\end{pmatrix}$.<br>`
+            texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx.texFSD}\\\\[0.7em]${wy.texFSD}\\end{pmatrix}$.<br>`
           }
         }
           break
@@ -145,17 +145,17 @@ export default function Calculercoordonneesproduitvecteurs () {
           } else {
             texteCorr = ''
           }
-          texteCorr += `$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$ soit $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\end{pmatrix}$.<br><br>`
-          texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
+          texteCorr += `$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$, soit $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\end{pmatrix}$.<br><br>`
+          texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
           if (this.correctionDetaillee) {
             texteCorr += 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
             texteCorr += 'On sait d\'après le cours que $k\\overrightarrow{v}\\begin{pmatrix}k \\times x\'\\\\k \\times y\'\\end{pmatrix}$ et que $\\overrightarrow{u}+\\overrightarrow{v}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
             texteCorr += 'Appliqué aux données de l\'énoncé :<br><br>'
-            texteCorr += `$${k}\\overrightarrow{CD}\\begin{pmatrix}${k}\\times${ecritureParentheseSiNegatif(xD - xC)}\\\\${k}\\times${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$ soit $${k}\\overrightarrow{CD}\\begin{pmatrix}${k * (xD - xC)}\\\\${k * (yD - yC)}\\end{pmatrix}$.<br><br>`
-            texteCorr += `$\\overrightarrow{AB}${ecritureAlgebrique(k)}\\overrightarrow{CD}\\begin{pmatrix}${xB - xA}+${ecritureParentheseSiNegatif(k * (xD - xC))}\\\\${yB - yA}+${ecritureParentheseSiNegatif(k * (yD - yC))}\\end{pmatrix}$.<br><br>`
-            texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
+            texteCorr += `$${k}\\overrightarrow{CD}\\begin{pmatrix}${k}\\times${ecritureParentheseSiNegatif(xD - xC)}\\\\${k}\\times${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$, soit $${k}\\overrightarrow{CD}\\begin{pmatrix}${k * (xD - xC)}\\\\${k * (yD - yC)}\\end{pmatrix}$.<br><br>`
+            texteCorr += `$\\overrightarrow{AB}${ecritureAlgebrique(k)}\\overrightarrow{CD}\\begin{pmatrix}${xB - xA}+${ecritureParentheseSiNegatif(k * (xD - xC))}\\\\${yB - yA}+${ecritureParentheseSiNegatif(k * (yD - yC))}\\end{pmatrix}$<br><br>`
+            texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx.texFSD}\\\\${wy.texFSD}\\end{pmatrix}$.<br>`
           } else {
-            texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${xB - xA}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(xD - xC)}\\\\${yB - yA}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$ soit $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
+            texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${xB - xA}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(xD - xC)}\\\\${yB - yA}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$ soit $\\overrightarrow{w}\\begin{pmatrix}${wx.texFSD}\\\\${wy.texFSD}\\end{pmatrix}$.<br>`
           }
         }
           break
