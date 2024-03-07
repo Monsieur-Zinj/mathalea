@@ -218,7 +218,7 @@ export function numberCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  const clean = generateCleaner(['espaces', 'virgules', 'parentheses'])
+  const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions'])
   const inputParsed = engine.parse(clean(input))
   if (input.includes('frac') && inputParsed.isInteger) {
     return { isOk: inputParsed.isEqual(engine.parse(clean(goodAnswer))), feedback: `La fraction $${input}$ aurait pu être simplifiée en $${inputParsed.latex}$<br>` }

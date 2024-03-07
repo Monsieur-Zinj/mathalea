@@ -10,7 +10,7 @@ import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteracti
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range } from '../../lib/outils/nombres'
-import { functionXyCompare } from '../../lib/interactif/comparisonFunctions'
+import { functionXyCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']
@@ -142,7 +142,7 @@ export default function EcrireUneExpressionNumerique () {
             }
           } else if (nbval === 2) texteCorr += `Pour $x=${val1}$ et $y=${val2}$ :<br> ${expc}`
           else texteCorr += `Pour $x=${val1}$ :<br>${expc}`
-          reponse = parseInt(expc.split('=')[expc.split('=').length - 1].replace('$', ''))
+          reponse = expc.split('=')[expc.split('=').length - 1].replace('$', '')
 
           // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
           const textCorrSplit = texteCorr.split('=')
@@ -167,7 +167,7 @@ export default function EcrireUneExpressionNumerique () {
           if (!this.litteral) texteCorr = `${expc}`
           else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}`
           else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
-          reponse = parseInt(expc.split('=')[expc.split('=').length - 1])
+          reponse = expc.split('=')[expc.split('=').length - 1]
           break
       }
       if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version, expf) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
@@ -210,7 +210,7 @@ export default function EcrireUneExpressionNumerique () {
             }
           } else {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' Résultat : ' })
-            setReponse(this, i, reponse)
+            handleAnswers(this, i, { reponse: { value: reponse, compare: numberCompare } })
           }
         }
         // on doit donner la traduction en français de l'expression (liste déroulante pour l'interactif et AMCOpen
