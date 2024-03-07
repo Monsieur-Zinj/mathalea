@@ -47,7 +47,7 @@ export default class NomExercice extends Exercice {
       const a = choice(triplet)
       objets.push(
         latexParCoordonnees(`${a[1]}\\text{ cm}`, milieu(A, B).x, milieu(A, B).y + 0.4, 'black', 0, 0, '')
-        , latexParCoordonnees(`${a[0]} \\text{ cm}`, milieu(B, C).x + 0.5, milieu(B, C).y, 'black', 0, 0, ''),
+        , latexParCoordonnees(`${a[0]} \\text{ cm}`, milieu(B, C).x + 0.6, milieu(B, C).y, 'black', 0, 0, ''),
         labelPoint(A, B, C), codageAngleDroit(A, B, C))
       this.reponse = `\\sqrt{${a[2]}}`
       this.question = mathalea2d({
