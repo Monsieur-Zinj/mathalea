@@ -57,21 +57,6 @@ export default function DivisionFraction () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    /*    const typesDeQuestionsDisponibles = this.sup === 1
-      ? [choice([1, 2, 3]), 4, 5]
-      : [7, 8, 9]
-    const listeTypeDeQuestions = (!this.sup2)
-      ? combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-      : gestionnaireFormulaireTexte({
-        saisie: this.sup3,
-        min: 1,
-        max: 9,
-        defaut: 10,
-        melange: 10,
-        nbQuestions: this.nbQuestions,
-        listeOfCase: [4, 8, 6, 2, 5, 10, 7, 9, 3]
-      }) */
-
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       min: this.sup === 1 ? 1 : 7,
@@ -80,7 +65,6 @@ export default function DivisionFraction () {
       melange: 10,
       nbQuestions: this.nbQuestions
     })
-    console.log(listeTypeDeQuestions)
     for (
       let i = 0, texte, texteCorr, cpt = 0, a, b, q;
       i < this.nbQuestions && cpt < 50;

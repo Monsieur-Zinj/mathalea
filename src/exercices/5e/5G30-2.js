@@ -185,7 +185,6 @@ export default function ExercicesAnglesAIC () {
           const texteCorr = `Par définition, les angles marqués ${reponse}.`
           texte += mathalea2d(Object.assign({ scale: 0.4 }, paramsEnonce), objetsEnonce)
           exercice = { texte, texteCorr }
-          console.log(i, reponseCorrecte, propositions)
           propositions.push({
             texte: 'alternes-internes',
             statut: reponseCorrecte === 'alternes-internes'

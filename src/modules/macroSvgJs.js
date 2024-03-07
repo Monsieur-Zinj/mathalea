@@ -369,7 +369,6 @@ export function SVG_machine_maths (id_du_div, w, h, nom, etape1, etape2, etape3,
       }
       if (etape1 !== '') {
         machine_etape1 = mon_svg.text(etape1).font(prop_font_etape)
-        console.log('etape1' + etape1)
         w_machine_etape1 = machine_etape1.length()
         machine_etape1.clear()
       } else {
