@@ -100,7 +100,13 @@ function cleanSpaces (str: string): string {
  * @param {string} str
  */
 function cleanParenthses (str: string): string {
-  return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1').replaceAll('\\lparen', '(').replaceAll('\\rparen', ')').replaceAll('\\left\\lbrack', '[').replaceAll('\\right\\rbrack', ']')
+  return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1')
+    .replaceAll('\\lparen', '(')
+    .replaceAll('\\rparen', ')')
+    .replaceAll('\\left\\lbrack', '[')
+    .replaceAll('\\right\\rbrack', ']')
+    .replaceAll('\\right\\lbrack', '[')
+    .replaceAll('\\left\\rbrack', ']')
 }
 
 /**
@@ -627,8 +633,8 @@ export function intervalsCompare (input: string, goodAnswer: string) {
   const clean = generateCleaner(['virgules', 'parentheses'])
   input = clean(input)
   goodAnswer = clean(goodAnswer)
-  const intervallesSaisie = input.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
-  const intervallesReponse = goodAnswer.match(/\[-?\d.?\d?;-?\d.?\d?]/g)
+  const intervallesSaisie = input.match(/[[\]]-?\d.?\d?;-?\d.?\d?[[\]]/g)
+  const intervallesReponse = goodAnswer.match(/[[\]]-?\d.?\d?;-?\d.?\d?[[\]]/g)
   if (intervallesReponse != null && intervallesSaisie != null) {
     for (let i = 0; i < intervallesReponse.length; i++) {
       const [borneInfRep, borneSupRep] = intervallesReponse[i].match(/-?\d\.?\d?/g) as string[]
