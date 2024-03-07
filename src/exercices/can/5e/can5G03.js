@@ -61,7 +61,6 @@ export default function CompterlesSymetriquesCan5e () {
       objetsEnonce.push(papier)
       const O = point(3, 3, 'O')
       d = tracePoint(O, context.isHtml ? 'blue' : 'black')
-      console.log(d)
       d.epaisseur = 2
       d.style = '+'
       objetsEnonce.push(d)

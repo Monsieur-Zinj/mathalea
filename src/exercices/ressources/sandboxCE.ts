@@ -567,7 +567,6 @@ class ComputeEngineSandbox {
           const button = buttons.find((el) => el?.checked)
           if (button) {
             const separator = button.value
-            console.log(inputSep.value)
             if (separator === 'virgule') {
               MathfieldElement.decimalSeparator = ','
               jsonChange({ from: '.', to: ',', json: saisieExp })
