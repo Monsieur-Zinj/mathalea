@@ -191,9 +191,9 @@ export default function PavagesEtTransformations () {
       }
     }
     for (let i = 0; i < quad.length; i++) {
-      objetsEnonce.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', 'black', 1, 'middle', false))
+      objetsEnonce.push(quad[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 0, 'black', 1, 'milieu', false))
       quadCorr[i].color = colorToLatexOrHTML(assombrirOuEclaircir('gray', 50))
-      objetsCorrection.push(quadCorr[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 'milieu', assombrirOuEclaircir('gray', 50), 1, 'middle', false))
+      objetsCorrection.push(quadCorr[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 0, assombrirOuEclaircir('gray', 50), 1, 'milieu', false))
     }
 
     context.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
