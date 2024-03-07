@@ -225,14 +225,14 @@ export function Polygone (...points) {
       this.couleurDesHachures = colorToLatexOrHTML('black')
       this.hachures = false
     }
-    this.nom = this.listePoints.join()
+    this.nom = this.listePoints.map(el => el.nom).join('')
   } else {
     if (typeof points[points.length - 1] === 'string') {
       this.color = points[points.length - 1]
       points.splice(points.length - 1, 1)
     }
     this.listePoints = points
-    this.nom = this.listePoints.join()
+    this.nom = this.listePoints.map(el => el.nom).join('')
     this.couleurDeRemplissage = colorToLatexOrHTML('none')
     this.couleurDesHachures = colorToLatexOrHTML('none') // Rajout EE du 22/02/2024 pour 6N22 cas 3
     this.hachures = false

@@ -114,7 +114,7 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
     }
       break
   }
-  const pointA1 = matrice.multiplieVecteur(pointA)
-  const pointA2 = matriceChangementDeRepere.multiplieVecteur(pointA1)
+  const pointA1 = matrice.multiplieVecteur(pointA).map(el => Number(el))
+  const pointA2 = matriceChangementDeRepere.multiplieVecteur(pointA1).map(el => Number(el)) // Pour ne pas retourner des points avec comme coordonnées des FractionEtendue
   return pointA2
 }
