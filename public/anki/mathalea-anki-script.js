@@ -2,7 +2,7 @@
   Author: Guillaume Valmont
   Date : November 5, 2023
   Licence: CC-BY-SA 4.0
-  https://forge.aeif.fr/anki-templates/mathalea
+  https://forge.apps.education.fr/anki-templates/mathalea
 */
 
 // v1.1.8 - https://github.com/SimonLammer/anki-persistence/blob/584396fea9dea0921011671a47a0fdda19265e62/script.js

@@ -250,7 +250,6 @@ export function TracePoint (...points) {
   let ymin = 1000
   let ymax = -1000
   let lePoint
-  console.log(points)
   if (typeof points[points.length - 1] === 'string') {
     this.color = colorToLatexOrHTML(points[points.length - 1])
     points.length--
