@@ -7,16 +7,15 @@ import {
 } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Déterminer une équation de tangente'
 
-// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '16/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '16/12/2021'
+export const dateDeModifImportante = '07/03/2024'
 
 /**
  * Description didactique de l'exercice
  * @author
- * Référence
 */
 export const uuid = '4c8c7'
 export const ref = '1AN11'
@@ -26,24 +25,17 @@ export const refs = {
 }
 export default function Equationdetangente () {
   Exercice.call(this)
-  this.consigne = ''
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.sup = parseInt(this.sup)
+  this.sup = 2
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    let typesDeQuestionsDisponibles = [1, 2]
-    if (this.sup === 1) {
-      typesDeQuestionsDisponibles = [1]
-    }
-    if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [2]
-    }
+    const typesDeQuestionsDisponibles = [this.sup]
     const listeTypeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
@@ -73,8 +65,6 @@ export default function Equationdetangente () {
           texteCorr += ` \\iff& p=${b} ${ecritureAlgebriqueSauf1(-c)} \\times ${ecritureParentheseSiNegatif(a)}  \\\\`
           texteCorr += ` \\iff& p=${b} ${ecritureAlgebriqueSauf1(-c * a)}   \\\\`
           texteCorr += ` \\iff& p=${b - c * a}\\\\`
-          texteCorr += '\\end{aligned}$'
-          texteCorr += `<br>On peut conclure que : $(T) : y=${reduireAxPlusB(c, b - c * a)}$.`
           break
         case 1 :// 'formule':
           a = randint(-5, 5)
@@ -92,14 +82,13 @@ export default function Equationdetangente () {
           texteCorr += `(T) : y&=${c}(x-${ecritureParentheseSiNegatif(a)})${ecritureAlgebrique(b)}&\\text{On remplace les valeurs connues.}\\\\ `
           if (a < 0) { texteCorr += `(T) : y&=${c}(x${ecritureAlgebrique(-a)})${ecritureAlgebrique(b)}&\\text{On simplifie l'expression.}\\\\ ` }
           texteCorr += `(T) : y&=${reduireAxPlusB(c, -a * c)}${ecritureAlgebrique(b)}&\\text{On développe.}\\\\ `
-
-          texteCorr += '\\end{aligned}$'
-          texteCorr += `<br>On peut conclure que : $(T) : y=${reduireAxPlusB(c, b - c * a)}$.`
           break
       }
+      texteCorr += '\\end{aligned}$'
+      texteCorr += `<br>On peut conclure que : $(T) : ${miseEnEvidence(`y=${reduireAxPlusB(c, b - c * a)}`)}$.`
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, a, b, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -108,5 +97,5 @@ export default function Equationdetangente () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-  this.besoinFormulaireNumerique = ['Consigne ', 2, '1 : avec formule. 2 : avec démonstration.']
+  this.besoinFormulaireNumerique = ['Consigne ', 2, '1 : Avec formule\n2 : Avec démonstration']
 }
