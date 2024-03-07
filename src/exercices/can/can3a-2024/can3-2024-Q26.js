@@ -59,7 +59,7 @@ export default class NomExercice extends Exercice {
     objets.push(labelPoint(B2, B), AB)
     const d = droite(A, B2)
 
-    const Texte2 = latexParCoordonnees(`${Valeur[0]} \\text{ cm}`, milieu(A3, B3).x, milieu(A3, B3).y + 0.5, 'black', 0, 0, '')
+    const Texte2 = latexParCoordonnees(`${Valeur[0]} \\text{ cm}`, milieu(A3, B3).x, milieu(A3, B3).y + 0.7, 'black', 0, 0, '')
     for (let i = 1; i < b; i++) {
       pointsSurAB2.push(point(i * 7 / b, 0), point(i * 7 / b, 0))
       const Texte1 = latexParCoordonnees('x \\text{ cm}', 3 / b, -1.5, 'black', 0, 0, '')
