@@ -224,6 +224,9 @@ export function numberCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
+  if (input === '') {
+    return { isOk: false, feedback: 'Un nombre doit être saisi' }
+  }
   const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions'])
   const inputParsed = engine.parse(clean(input))
   if (input.includes('frac') && inputParsed.isInteger) {
