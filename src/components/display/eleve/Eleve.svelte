@@ -268,7 +268,7 @@
         verifQuestionMathLive(
           exercices[indiceExercice[i]],
           indiceQuestionInExercice[i]
-        )?.resultat === 'OK'
+        )?.isOk
     } else if (type === 'qcm') {
       resultsByQuestion[i] =
         verifQuestionQcm(

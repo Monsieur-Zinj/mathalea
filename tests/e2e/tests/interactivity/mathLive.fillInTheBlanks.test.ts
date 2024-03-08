@@ -7,6 +7,9 @@ async function test6N203 (page: Page) {
 
   for (const question of questions) {
     const mathField = question.mathField
+    console.log(`Que contient MathField ? ${mathField}`)
+    console.log(`${mathField.includes('&lt') ? ' trouvé <' : mathField.includes('&gt') ? 'trouvé >' : 'rien trouvé'}`)
+    const signe = mathField.includes('&lt') ? '<' : '>'
     const cleanMathField = mathField.replaceAll('\\,', '')
     const regex = /(\d+)/g
     const [, numString, denString] = cleanMathField.match(regex) as [string, string, string]
@@ -20,8 +23,8 @@ async function test6N203 (page: Page) {
       a = Math.floor(num / den) - 1
       b = Math.floor(num / den) + 1
     }
-    // @fixme trouver un moyen de mettre le focus sur le premier placeholder dans remplisLesBlancs()
-    const reponse = [b.toString(), a.toString()] // J'ai inversé l'ordre parce que le focus se place automatiquement sur le deuxième placeholder !
+    console.log(signe)
+    const reponse = signe === '<' ? [a.toString(), b.toString()] : [b.toString(), a.toString()] // J'ai inversé l'ordre parce que le focus se place automatiquement sur le deuxième placeholder !
     await inputAnswer(page, question, reponse)
   }
   await checkFeedback(page, questions)
@@ -50,8 +53,7 @@ async function test5R211 (page: Page) {
       b = Number(stringB)
       c = a + b
     }
-    // @fixme remettre de l'ordre dans les réponses lorsque le focus ne sera plus sur le dernier placeholder
-    const reponse = [c.toString(), a.toString(), b.toString()]
+    const reponse = [a.toString(), b.toString(), c.toString()]
     await inputAnswer(page, question, reponse)
   }
   await checkFeedback(page, questions)
