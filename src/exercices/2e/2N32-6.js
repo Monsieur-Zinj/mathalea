@@ -14,7 +14,7 @@ export const uuid = '91dc4'
 export const ref = '2N32-6'
 export const refs = {
   'fr-fr': ['2N32-6'],
-  'fr-ch': []
+  'fr-ch': ['11NO1-9']
 }
 export default function IdentitesRemarquablesEtRacineCarree () {
   Exercice.call(this)

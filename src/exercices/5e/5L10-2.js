@@ -23,7 +23,7 @@ export const uuid = '12bb6'
 export const ref = '5L10-2'
 export const refs = {
   'fr-fr': ['5L10-2'],
-  'fr-ch': ['9FA2-5']
+  'fr-ch': ['9FA2-5', '10FA1-8']
 }
 export default function TraduireUnProgrammeDeCalcul () {
   Exercice.call(this)

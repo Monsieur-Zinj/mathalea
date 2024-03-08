@@ -29,7 +29,7 @@ export const uuid = '93f13'
 export const ref = '2F10-2'
 export const refs = {
   'fr-fr': ['2F10-2'],
-  'fr-ch': []
+  'fr-ch': ['11FA8-13']
 }
 export default function Lecturefonctionaffine () {
   Exercice.call(this)

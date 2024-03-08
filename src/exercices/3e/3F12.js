@@ -23,7 +23,7 @@ export const uuid = '02116'
 export const ref = '3F12'
 export const refs = {
   'fr-fr': ['3F12'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-9', '11FA8-3']
 }
 export default function FonctionsCalculsDImages () {
   Exercice.call(this)

@@ -23,7 +23,7 @@ export const uuid = '46234'
 export const ref = '5L12-1'
 export const refs = {
   'fr-fr': ['5L12-1'],
-  'fr-ch': []
+  'fr-ch': ['10FA1-14']
 }
 export default function ReduireDinstinctionSommeProduit () {
   Exercice.call(this)

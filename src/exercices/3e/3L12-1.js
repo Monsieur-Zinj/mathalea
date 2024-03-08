@@ -26,7 +26,7 @@ export const uuid = 'be157'
 export const ref = '3L12-1'
 export const refs = {
   'fr-fr': ['3L12-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA2-12']
 }
 export default function DevelopperIdentitesRemarquables3 () {
   Exercice.call(this)

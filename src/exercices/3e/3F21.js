@@ -13,7 +13,7 @@ export const uuid = 'b4c0d'
 export const ref = '3F21'
 export const refs = {
   'fr-fr': ['3F21'],
-  'fr-ch': []
+  'fr-ch': ['11FA8-9']
 }
 export default function LectureExpressionFonctionsLineaires () {
   LectureExpressionFonctionsAffines.call(this)

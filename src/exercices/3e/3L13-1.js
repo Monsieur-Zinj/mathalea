@@ -30,7 +30,7 @@ export const uuid = '1802d'
 export const ref = '3L13-1'
 export const refs = {
   'fr-fr': ['3L13-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA6-5']
 }
 export default function ExerciceEquation1Tiret2 () {
   Exercice.call(this)

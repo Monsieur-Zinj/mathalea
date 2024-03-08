@@ -25,7 +25,7 @@ export const uuid = '76230'
 export const ref = '3S21'
 export const refs = {
   'fr-fr': ['3S21'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-14']
 }
 export default function CalculProbaExperience2Epreuves3e () {
   Exercice.call(this)

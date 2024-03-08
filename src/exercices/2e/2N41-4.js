@@ -21,7 +21,7 @@ export const uuid = '877a9'
 export const ref = '2N41-4'
 export const refs = {
   'fr-fr': ['2N41-4'],
-  'fr-ch': []
+  'fr-ch': ['11FA2-10']
 }
 export default function DevelopperIdentitesRemarquables3 () {
   Exercice.call(this)
@@ -153,7 +153,7 @@ export default function DevelopperIdentitesRemarquables3 () {
           reponse = [`${deprecatedTexFraction(ns * ns, ds * ds)}x^2+${deprecatedTexFraction(2 * ns * a, ds)}x+${a * a}`, `${texFractionReduite(ns * ns, ds * ds)}x^2+${texFractionReduite(2 * ns * a, ds)}x+${a * a}`]
           break
       }
-      texte += ajouteChampTexteMathLive(this, i,'inline', { texteAvant: ' $=$ ' })
+      texte += ajouteChampTexteMathLive(this, i, 'inline', { texteAvant: ' $=$ ' })
       setReponse(this, i, reponse)
       if (this.questionJamaisPosee(i, typesDeQuestions, a)) {
         // Si la question n'a jamais été posée, on en créé une autre

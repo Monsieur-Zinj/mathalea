@@ -26,7 +26,7 @@ export const uuid = 'b8afd'
 export const ref = '3S14'
 export const refs = {
   'fr-fr': ['3S14'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-11']
 }
 
 export default function CalculerCaracteristiques () {

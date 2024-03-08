@@ -40,7 +40,7 @@ export const uuid = 'cc129'
 export const ref = '4L10-1'
 export const refs = {
   'fr-fr': ['4L10-1'],
-  'fr-ch': []
+  'fr-ch': ['10FA1-15']
 }
 export default function ReductionsPiegesClassiques () {
   Exercice.call(this)

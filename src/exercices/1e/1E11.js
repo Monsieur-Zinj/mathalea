@@ -21,7 +21,7 @@ export const uuid = '0fbd1'
 export const ref = '1E11'
 export const refs = {
   'fr-fr': ['1E11'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-9']
 }
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this)

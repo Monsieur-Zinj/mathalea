@@ -28,7 +28,7 @@ export const uuid = '8ac93'
 export const ref = '4G12-1'
 export const refs = {
   'fr-fr': ['4G12-1'],
-  'fr-ch': ['9ES6-17']
+  'fr-ch': ['9ES6-17', '10ES2-6']
 }
 export default function TrouverLaTransformations () {
   Exercice.call(this)

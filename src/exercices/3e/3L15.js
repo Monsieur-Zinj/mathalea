@@ -26,7 +26,7 @@ export const uuid = '231d2'
 export const ref = '3L15'
 export const refs = {
   'fr-fr': ['3L15'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-4']
 }
 export default function ExerciceEquations () {
   Exercice.call(this)

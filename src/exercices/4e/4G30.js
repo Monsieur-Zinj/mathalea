@@ -15,7 +15,7 @@ export const uuid = '18a21'
 export const ref = '4G30'
 export const refs = {
   'fr-fr': ['4G30'],
-  'fr-ch': []
+  'fr-ch': ['11GM3-1']
 }
 export default function Thales2D4e () {
   Thales2D.call(this)

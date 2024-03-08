@@ -18,7 +18,7 @@ export const uuid = '41f23'
 export const ref = '5C12-2'
 export const refs = {
   'fr-fr': ['5C12-2'],
-  'fr-ch': []
+  'fr-ch': ['10FA2-1']
 }
 export default class DistributiviteNumerique extends Exercice {
   constructor () {

@@ -24,7 +24,7 @@ export const uuid = '3bfb6'
 export const ref = '4G11'
 export const refs = {
   'fr-fr': ['4G11'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-9']
 }
 export default function PavageEtTranslation2d () {
   Exercice.call(this)

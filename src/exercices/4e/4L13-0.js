@@ -19,7 +19,7 @@ export const uuid = '5a6f2'
 export const ref = '4L13-0'
 export const refs = {
   'fr-fr': ['4L13-0'],
-  'fr-ch': []
+  'fr-ch': ['10FA3-9']
 }
 export default function MettreEnEquationSansResoudre () {
   Exercice.call(this)

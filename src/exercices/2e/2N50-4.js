@@ -24,7 +24,7 @@ export const uuid = 'cf5b7'
 export const ref = '2N50-4'
 export const refs = {
   'fr-fr': ['2N50-4'],
-  'fr-ch': []
+  'fr-ch': ['11FA6-10']
 }
 export default function ModeliserEquationsGeometrie () {
   Exercice.call(this)

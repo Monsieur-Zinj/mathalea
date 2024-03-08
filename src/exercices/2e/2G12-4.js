@@ -22,7 +22,7 @@ export const uuid = 'd633a'
 export const ref = '2G12-4'
 export const refs = {
   'fr-fr': ['2G12-4'],
-  'fr-ch': []
+  'fr-ch': ['11GM1-7']
 }
 export default function NaturePolygone () {
   Exercice.call(this)

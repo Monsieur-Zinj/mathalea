@@ -22,7 +22,7 @@ export const uuid = '04b0a'
 export const ref = '2N41-6'
 export const refs = {
   'fr-fr': ['2N41-6'],
-  'fr-ch': []
+  'fr-ch': ['11FA2-13']
 }
 export default function DevelopperIdentitesRemarquables2 () {
   Exercice.call(this)

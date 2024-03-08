@@ -28,7 +28,7 @@ export const uuid = '43cea'
 export const ref = '4C22-1'
 export const refs = {
   'fr-fr': ['4C22-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-5']
 }
 export default function ExerciceTrouverInverse () {
   Exercice.call(this)

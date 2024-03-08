@@ -24,7 +24,7 @@ export const uuid = '603a8'
 export const ref = '3L10'
 export const refs = {
   'fr-fr': ['3L10'],
-  'fr-ch': []
+  'fr-ch': ['11FA1-1']
 }
 export default function OpposeExpression () {
   Exercice.call(this)

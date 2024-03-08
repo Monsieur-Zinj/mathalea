@@ -13,7 +13,7 @@ export const uuid = '8b18b'
 export const ref = '4L13-1'
 export const refs = {
   'fr-fr': ['4L13-1'],
-  'fr-ch': ['9FA2-9']
+  'fr-ch': ['9FA2-9', '10FA3-10']
 }
 export default function FormeLitteraleIntroduireUneLettre () {
   Exercice.call(this)

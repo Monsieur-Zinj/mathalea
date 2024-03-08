@@ -33,7 +33,7 @@ export const uuid = '85d2d'
 export const ref = '5L12'
 export const refs = {
   'fr-fr': ['5L12'],
-  'fr-ch': []
+  'fr-ch': ['10FA1-12']
 }
 export default function ReduireUneExpressionLitterale () {
   Exercice.call(this)

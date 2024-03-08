@@ -16,7 +16,7 @@ export const uuid = 'ce00c'
 export const ref = '4L15-1'
 export const refs = {
   'fr-fr': ['4L15-1'],
-  'fr-ch': []
+  'fr-ch': ['10FA3-5', '11FA6-3']
 }
 export default function EquationsFractions () {
   EqResolvantesThales.call(this)

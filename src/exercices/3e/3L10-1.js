@@ -26,7 +26,7 @@ export const uuid = '815eb'
 export const ref = '3L10-1'
 export const refs = {
   'fr-fr': ['3L10-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA1-2']
 }
 export default function ParenthesesPrecedesDeMoinsOuPlus () {
   Exercice.call(this)

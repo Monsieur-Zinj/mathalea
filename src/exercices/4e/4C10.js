@@ -20,7 +20,7 @@ export const uuid = '745ba'
 export const ref = '4C10'
 export const refs = {
   'fr-fr': ['4C10'],
-  'fr-ch': []
+  'fr-ch': ['10NO4-1']
 }
 export default function ProduitsEtQuotientRelatifs () {
   Exercice.call(this)

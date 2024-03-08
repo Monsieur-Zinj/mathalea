@@ -20,7 +20,7 @@ export const uuid = '501f9'
 export const ref = '4L12'
 export const refs = {
   'fr-fr': ['4L12'],
-  'fr-ch': []
+  'fr-ch': ['11FA4-1']
 }
 export default function EquivalenceProgrammesCalcul () {
   Exercice.call(this)

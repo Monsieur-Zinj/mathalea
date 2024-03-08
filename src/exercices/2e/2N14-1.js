@@ -23,7 +23,7 @@ export const uuid = '25fb4'
 export const ref = '2N14-1'
 export const refs = {
   'fr-fr': ['2N14-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO1-1']
 }
 export default function EnsembleDeNombres () {
   Exercice.call(this)

@@ -23,7 +23,7 @@ export const uuid = '516d1'
 export const ref = '4G20-6'
 export const refs = {
   'fr-fr': ['4G20-6'],
-  'fr-ch': []
+  'fr-ch': ['10NO3-4']
 }
 export default function CalculValeurApprocheeRacineCarree () {
   Exercice.call(this)

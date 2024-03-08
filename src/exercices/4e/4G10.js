@@ -16,7 +16,7 @@ export const uuid = 'cf7ce'
 export const ref = '4G10'
 export const refs = {
   'fr-fr': ['4G10'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-1']
 }
 export default function Transformations4e () {
   Transformations.call(this)

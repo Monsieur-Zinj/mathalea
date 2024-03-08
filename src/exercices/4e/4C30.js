@@ -25,7 +25,7 @@ export const uuid = 'f5dcf'
 export const ref = '4C30'
 export const refs = {
   'fr-fr': ['4C30'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-3']
 }
 export default function PuissancesDeDix () {
   Exercice.call(this)

@@ -35,7 +35,7 @@ export const uuid = 'f4d29'
 export const ref = '6M31-2'
 export const refs = {
   'fr-fr': ['6M31-2'],
-  'fr-ch': []
+  'fr-ch': ['10GM3-6']
 }
 export default function UnitesDeVolumesEtDeCapacite () {
   Decimal.set({ toExpNeg: -10 }) // Pour permettre aux petits nombres de s'afficher sans puissances de 10.

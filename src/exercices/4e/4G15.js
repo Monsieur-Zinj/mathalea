@@ -19,7 +19,7 @@ export const uuid = '0da6a'
 export const ref = '4G15'
 export const refs = {
   'fr-fr': ['4G15'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-7']
 }
 export default function TransformationsDeTriangle () {
   Exercice.call(this)

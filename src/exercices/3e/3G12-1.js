@@ -16,7 +16,7 @@ export const uuid = '034f1'
 export const ref = '3G12-1'
 export const refs = {
   'fr-fr': ['3G12-1'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-12']
 }
 export default function PavagesEtRotation () {
   PavagesEtTransformations.call(this)

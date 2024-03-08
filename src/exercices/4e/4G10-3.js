@@ -14,7 +14,7 @@ export const uuid = '6ddc5'
 export const ref = '4G10-3'
 export const refs = {
   'fr-fr': ['4G10-3'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-4']
 }
 export default function ImagePtParTranslation4e () {
   ImagePtParTranslation.call(this)

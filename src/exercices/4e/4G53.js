@@ -13,7 +13,7 @@ export const uuid = 'b6cbe'
 export const ref = '4G53'
 export const refs = {
   'fr-fr': ['4G53'],
-  'fr-ch': []
+  'fr-ch': ['10GM2-2', '11GM2-1']
 }
 export default function CalculDeVolumes4e () {
   CalculDeVolumes.call(this)

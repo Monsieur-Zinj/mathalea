@@ -13,7 +13,7 @@ export const uuid = '8f56e'
 export const ref = '2N12-2'
 export const refs = {
   'fr-fr': ['2N12-2'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-8']
 }
 export default function PuissancesEncadrement2nde () {
   PuissancesEncadrement.call(this)

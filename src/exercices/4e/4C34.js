@@ -71,7 +71,7 @@ export const uuid = '2d79c'
 export const ref = '4C34'
 export const refs = {
   'fr-fr': ['4C34'],
-  'fr-ch': []
+  'fr-ch': ['10NO6-1']
 }
 export default function PrioritesEtRelatifsEtPuissances () {
   Exercice.call(this)

@@ -202,7 +202,7 @@ export const uuid = 'ff67d'
 export const ref = '5S13-2'
 export const refs = {
   'fr-fr': ['5S13-2'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-2']
 }
 export default function CalculerDesFrequences () {
   Exercice.call(this)

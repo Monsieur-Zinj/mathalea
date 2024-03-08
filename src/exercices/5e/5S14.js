@@ -26,7 +26,7 @@ export const uuid = 'ab91d'
 export const ref = '5S14'
 export const refs = {
   'fr-fr': ['5S14'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-4']
 }
 export default function CalculerDesMoyennes () {
   Exercice.call(this)

@@ -22,7 +22,7 @@ export const uuid = 'cd2f2'
 export const ref = '3L13-4'
 export const refs = {
   'fr-fr': ['3L13-4'],
-  'fr-ch': []
+  'fr-ch': ['11FA6-9']
 }
 export default class problemes extends Exercice {
   constructor () {

@@ -25,7 +25,7 @@ export const uuid = '31760'
 export const ref = '2G12-3'
 export const refs = {
   'fr-fr': ['2G12-3'],
-  'fr-ch': []
+  'fr-ch': ['11GM1-6']
 }
 export default function Parallélogramme () {
   Exercice.call(this)

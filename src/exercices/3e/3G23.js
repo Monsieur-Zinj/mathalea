@@ -34,7 +34,7 @@ export const uuid = '91513'
 export const ref = '3G23'
 export const refs = {
   'fr-fr': ['3G23'],
-  'fr-ch': []
+  'fr-ch': ['11GM3-6']
 }
 export default function TrianglesEgaux () {
   Exercice.call(this)

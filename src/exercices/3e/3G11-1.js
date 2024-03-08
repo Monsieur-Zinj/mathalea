@@ -19,7 +19,7 @@ export const uuid = '1ebf7'
 export const ref = '3G11-1'
 export const refs = {
   'fr-fr': ['3G11-1'],
-  'fr-ch': []
+  'fr-ch': ['11ES3-4']
 }
 export default class HomothetieRapport extends Exercice {
   constructor () {

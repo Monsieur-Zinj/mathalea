@@ -15,7 +15,7 @@ export const uuid = 'acb80'
 export const ref = '3G43'
 export const refs = {
   'fr-fr': ['3G43'],
-  'fr-ch': []
+  'fr-ch': ['11GM2-4']
 }
 export default function CalculDeVolumes3e () {
   CalculDeVolumes.call(this)

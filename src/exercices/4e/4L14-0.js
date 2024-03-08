@@ -15,7 +15,7 @@ export const uuid = 'a1c9a'
 export const ref = '4L14-0'
 export const refs = {
   'fr-fr': ['4L14-0'],
-  'fr-ch': []
+  'fr-ch': ['10FA3-2', '11FA6-1']
 }
 export default function TesterSiUnNombreEstSolutionDUneEquation () {
   Exercice.call(this)

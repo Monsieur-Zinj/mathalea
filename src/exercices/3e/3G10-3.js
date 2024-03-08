@@ -23,7 +23,7 @@ export const uuid = '19ce6'
 export const ref = '3G10-3'
 export const refs = {
   'fr-fr': ['3G10-3'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-8']
 }
 export default function ConstruireRotationPoint3e () {
   Exercice.call(this)

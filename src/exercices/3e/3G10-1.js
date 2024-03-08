@@ -38,7 +38,7 @@ export const uuid = 'd4088'
 export const ref = '3G10-1'
 export const refs = {
   'fr-fr': ['3G10-1'],
-  'fr-ch': []
+  'fr-ch': ['11ES3-1']
 }
 export default function TransformationsDuPlanEtCoordonnees () {
   Exercice.call(this)

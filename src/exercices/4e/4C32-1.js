@@ -21,7 +21,7 @@ export const uuid = '762fe'
 export const ref = '4C32-1'
 export const refs = {
   'fr-fr': ['4C32-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-17']
 }
 export default function CalculsAvecPuissancesDeDix () {
   Exercice.call(this)

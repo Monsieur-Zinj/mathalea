@@ -29,7 +29,7 @@ export const uuid = '0b020'
 export const ref = '4C10-7'
 export const refs = {
   'fr-fr': ['4C10-7'],
-  'fr-ch': []
+  'fr-ch': ['10NO4-9']
 }
 export default function ExerciceOperationsRelatifs () {
   Exercice.call(this)

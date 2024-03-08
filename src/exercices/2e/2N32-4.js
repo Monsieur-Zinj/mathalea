@@ -19,7 +19,7 @@ export const uuid = '12b72'
 export const ref = '2N32-4'
 export const refs = {
   'fr-fr': ['2N32-4'],
-  'fr-ch': []
+  'fr-ch': ['11NO1-7']
 }
 export default function SimplifierUneSommeDeRacinesCarrees () {
   Exercice.call(this)

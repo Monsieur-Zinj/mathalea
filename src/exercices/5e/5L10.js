@@ -28,7 +28,7 @@ export const uuid = '3c1f7'
 export const ref = '5L10'
 export const refs = {
   'fr-fr': ['5L10'],
-  'fr-ch': ['9FA2-3']
+  'fr-ch': ['9FA2-3', '10FA1-4']
 }
 export default function ÉcrireUneExpressionLitterale () {
   Exercice.call(this)

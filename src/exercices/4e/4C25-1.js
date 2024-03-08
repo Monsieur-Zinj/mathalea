@@ -20,7 +20,7 @@ export const uuid = '7ba8b'
 export const ref = '4C25-1'
 export const refs = {
   'fr-fr': ['4C25-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-10']
 }
 export default function ProblemesMultiplicatifsFractions () {
   Exercice.call(this)

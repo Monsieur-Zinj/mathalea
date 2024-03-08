@@ -14,7 +14,7 @@ export const uuid = '7d429'
 export const ref = '5S13-1'
 export const refs = {
   'fr-fr': ['5S13-1'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-3']
 }
 export default function CalculEffectifFrequence5e () {
   calculEffectifFrequence.call(this)

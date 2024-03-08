@@ -9,7 +9,7 @@ export const uuid = '26ea7'
 export const ref = '4S10'
 export const refs = {
   'fr-fr': ['4S10'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-1']
 }
 export default function ConstruireUnDiagramme4e () {
   ConstruireUnDiagramme.call(this)

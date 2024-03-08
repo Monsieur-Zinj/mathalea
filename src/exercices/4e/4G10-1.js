@@ -16,7 +16,7 @@ export const uuid = '7b40c'
 export const ref = '4G10-1'
 export const refs = {
   'fr-fr': ['4G10-1'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-2']
 }
 export default function TransformationsDuPlanEtCoordonnees4e () {
   TransformationsDuPlanEtCoordonnees.call(this)

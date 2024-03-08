@@ -23,7 +23,7 @@ export const uuid = 'eea67'
 export const ref = '3G20-1'
 export const refs = {
   'fr-fr': ['3G20-1'],
-  'fr-ch': []
+  'fr-ch': ['11GM3-8']
 }
 export default function ProblemesThales () {
   Exercice.call(this)

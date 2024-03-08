@@ -19,7 +19,7 @@ export const uuid = '57f44'
 export const ref = '3L15-1'
 export const refs = {
   'fr-fr': ['3L15-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-5']
 }
 export default function ResoudreEquatioeX2EgalA () {
   Exercice.call(this)

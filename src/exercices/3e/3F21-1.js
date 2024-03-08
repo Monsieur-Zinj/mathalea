@@ -34,7 +34,7 @@ export const uuid = 'e5ddd'
 export const ref = '3F21-1'
 export const refs = {
   'fr-fr': ['3F21-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA8-10']
 }
 export default function LectureExpressionFonctionsAffines () {
   Exercice.call(this)

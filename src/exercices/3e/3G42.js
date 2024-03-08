@@ -32,7 +32,7 @@ export const uuid = '8c803'
 export const ref = '3G42'
 export const refs = {
   'fr-fr': ['3G42'],
-  'fr-ch': []
+  'fr-ch': ['11GM2-3']
 }
 export default function VolumeBoule () {
   Exercice.call(this)

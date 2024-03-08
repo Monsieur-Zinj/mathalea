@@ -28,7 +28,7 @@ export const uuid = 'ecf62'
 export const ref = '3L14'
 export const refs = {
   'fr-fr': ['3L14'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-1']
 }
 export default function ResoudreUneEquationProduitNul () {
   Exercice.call(this)

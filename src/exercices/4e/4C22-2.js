@@ -30,7 +30,7 @@ export const uuid = '55354'
 export const ref = '4C22-2'
 export const refs = {
   'fr-fr': ['4C22-2'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-7']
 }
 export default function ExerciceDiviserFractions () {
   Exercice.call(this)

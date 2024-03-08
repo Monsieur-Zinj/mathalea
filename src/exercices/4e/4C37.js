@@ -19,7 +19,7 @@ export const uuid = '67432'
 export const ref = '4C37'
 export const refs = {
   'fr-fr': ['4C37'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-10']
 }
 export default class SignePuissance extends Exercice {
   constructor () {

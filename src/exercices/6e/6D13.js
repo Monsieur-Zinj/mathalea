@@ -26,7 +26,7 @@ export const uuid = '4f8f4'
 export const ref = '6D13'
 export const refs = {
   'fr-fr': ['6D13'],
-  'fr-ch': []
+  'fr-ch': ['10GM3-5']
 }
 export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false) {
   Exercice.call(this)

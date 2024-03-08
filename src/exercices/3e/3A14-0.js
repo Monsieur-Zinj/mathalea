@@ -26,7 +26,7 @@ export const uuid = '2e22a'
 export const ref = '3A14-0'
 export const refs = {
   'fr-fr': ['3A14-0'],
-  'fr-ch': []
+  'fr-ch': ['11GM2-2']
 }
 export default function DesChocolatsDansDesBoites () {
   Exercice.call(this)

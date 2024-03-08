@@ -26,7 +26,7 @@ export const uuid = '3de81'
 export const ref = '1E11-5'
 export const refs = {
   'fr-fr': ['1E11-5'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-11']
 }
 export default function Resolutionavecdelta () {
   Exercice.call(this)

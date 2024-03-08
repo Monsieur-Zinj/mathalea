@@ -15,7 +15,7 @@ export const uuid = '4fd42'
 export const ref = '4C10-1'
 export const refs = {
   'fr-fr': ['4C10-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO4-3']
 }
 export default function SigneProduitRelatifs () {
   SigneProduitQuotientRelatifs.call(this)

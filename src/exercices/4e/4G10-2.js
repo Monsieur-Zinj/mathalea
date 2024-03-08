@@ -24,7 +24,7 @@ export const uuid = '6a2dd'
 export const ref = '4G10-2'
 export const refs = {
   'fr-fr': ['4G10-2'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-3']
 }
 
 function segmente (point, image) {

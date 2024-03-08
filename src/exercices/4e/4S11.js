@@ -25,7 +25,7 @@ export const uuid = '7c068'
 export const ref = '4S11'
 export const refs = {
   'fr-fr': ['4S11'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-9']
 }
 export default function DeterminerDesMedianes () {
   Exercice.call(this)

@@ -14,7 +14,7 @@ export const uuid = 'fb1a4'
 export const ref = '2N31-9'
 export const refs = {
   'fr-fr': ['2N31-9'],
-  'fr-ch': []
+  'fr-ch': ['11NO1-3']
 }
 export default function NotationPuissanceEn2nde () {
   NotationPuissance.call(this)

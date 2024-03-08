@@ -21,7 +21,7 @@ export const uuid = '82313'
 export const ref = '3L11-3'
 export const refs = {
   'fr-fr': ['3L11-3'],
-  'fr-ch': []
+  'fr-ch': ['11FA2-4']
 }
 export default function DistributiviteSimpleDoubleReduction () {
   Exercice.call(this)

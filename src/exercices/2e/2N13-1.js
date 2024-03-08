@@ -12,7 +12,7 @@ export const uuid = 'bba9b'
 export const ref = '2N13-1'
 export const refs = {
   'fr-fr': ['2N13-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO3-7']
 }
 export default function ArrondirUneValeur2nde () {
   ArrondirUneValeur.call(this)
