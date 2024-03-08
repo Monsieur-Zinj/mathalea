@@ -15,7 +15,6 @@ export const amcType = 'qcmMono'
 /**
  * Reconnaître une fonction affine
 * @author Stéphane Guyon
-* 2F20
 */
 export const uuid = '90998'
 export const ref = '2F10-1'
@@ -25,7 +24,6 @@ export const refs = {
 }
 export default function Reconnaitrefonctionaffine () {
   Exercice.call(this)
-  this.titre = titre
   this.video = ''
   this.consigne = 'Déterminer, en expliquant, si les fonctions suivantes sont, ou non, des fonctions affines.'
   this.nbCols = 1
