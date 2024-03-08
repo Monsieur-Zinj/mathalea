@@ -6,6 +6,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import Exercice from '../Exercice'
+import { intervalsCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Lecture graphique de domaine de définition'
 export const interactifReady = true
@@ -33,6 +34,8 @@ export default class LectureEnsebleDef extends Exercice {
     this.nbQuestions = 1
     this.sup = 1
     this.besoinFormulaireNumerique = ['Niveau', 3]
+    this.formatChampTexte = 'clavierDeBase'
+    this.compare = intervalsCompare
   }
 
   nouvelleVersion () {
@@ -161,6 +164,5 @@ export default class LectureEnsebleDef extends Exercice {
     this.question = mathalea2d(Object.assign({}, fixeBordures([repere])), [repere, courbeAvecTrace]) + 'Quel est l\'ensemble de définition de la fonction représentée ci-dessus ?'
     this.correction = `L'ensemble de définition de la fonction est $${ouvertGauche ? ']' : '['}${xmin};${xmax}${ouvertDroit ? '[' : ']'}$.`
     this.reponse = `${ouvertGauche ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${ouvertDroit ? '\\right\\lbrack' : '\\right\\rbrack'}`
-    this.formatInteractif = 'texte'
   }
 }
