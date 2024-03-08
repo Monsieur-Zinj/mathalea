@@ -14,7 +14,7 @@ export const uuid = '1abc6'
 export const ref = '5L14-1'
 export const refs = {
   'fr-fr': ['5L14-1'],
-  'fr-ch': []
+  'fr-ch': ['10FA1-3', '11FA1-5']
 }
 export default function CalculerUneExpressionLitterale () {
   EcrireUneExpressionNumerique.call(this)

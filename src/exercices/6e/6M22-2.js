@@ -32,7 +32,7 @@ export const uuid = 'ff386'
 export const ref = '6M22-2'
 export const refs = {
   'fr-fr': ['6M22-2'],
-  'fr-ch': []
+  'fr-ch': ['10GM1-3']
 }
 export default function Perimetre_aire_et_portions_de_disques () {
   Exercice.call(this)

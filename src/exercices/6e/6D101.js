@@ -23,7 +23,7 @@ export const uuid = '6b3e4'
 export const ref = '6D101'
 export const refs = {
   'fr-fr': ['6D101'],
-  'fr-ch': []
+  'fr-ch': ['10GM3-2']
 }
 export default function HeuresDecimales () {
   Exercice.call(this)

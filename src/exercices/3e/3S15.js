@@ -23,7 +23,7 @@ export const uuid = '36e68'
 export const ref = '3S15'
 export const refs = {
   'fr-fr': ['3S15'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-12']
 }
 export default function CalculerEtendues () {
   Exercice.call(this)

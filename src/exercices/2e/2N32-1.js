@@ -16,7 +16,7 @@ export const uuid = '55cc0'
 export const ref = '2N32-1'
 export const refs = {
   'fr-fr': ['2N32-1'],
-  'fr-ch': []
+  'fr-ch': ['11NO1-4']
 }
 export default function ExistenceDUneRacineCarree () {
   Exercice.call(this)

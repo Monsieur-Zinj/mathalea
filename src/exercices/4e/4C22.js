@@ -30,7 +30,7 @@ export const uuid = '72ce7'
 export const ref = '4C22'
 export const refs = {
   'fr-fr': ['4C22'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-6']
 }
 export default function ExerciceMultiplierFractions () {
   Exercice.call(this)

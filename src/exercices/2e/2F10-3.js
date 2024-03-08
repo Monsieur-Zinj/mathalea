@@ -22,7 +22,7 @@ export const uuid = 'c360e'
 export const ref = '2F10-3'
 export const refs = {
   'fr-fr': ['2F10-3'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-15']
 }
 export default function Representerfonctionaffine () {
   Exercice.call(this)

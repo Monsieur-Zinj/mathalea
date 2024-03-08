@@ -12,7 +12,7 @@ export const uuid = '1188b'
 export const ref = '4L14-2'
 export const refs = {
   'fr-fr': ['4L14-2'],
-  'fr-ch': []
+  'fr-ch': ['10FA3-4', '11FA6-2']
 }
 export default function TesterSiUnNombreEstSolutionDUneEquationDeg2 () {
   TesterSiUnNombreEstSolutionDUneEquation.call(this)

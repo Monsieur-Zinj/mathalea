@@ -41,7 +41,7 @@ export const uuid = '22412'
 export const ref = '3L13-3'
 export const refs = {
   'fr-fr': ['3L13-3'],
-  'fr-ch': []
+  'fr-ch': ['11FA6-6']
 }
 export default class ProblemesEnEquation extends Exercice {
   constructor () {

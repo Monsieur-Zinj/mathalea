@@ -30,7 +30,7 @@ export const uuid = 'edb61'
 export const ref = '5P13'
 export const refs = {
   'fr-fr': ['5P13'],
-  'fr-ch': []
+  'fr-ch': ['10FA4-1']
 }
 export default function EchellesProblemes () {
   Exercice.call(this)

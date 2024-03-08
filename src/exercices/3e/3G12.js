@@ -33,7 +33,7 @@ export const uuid = '442e0'
 export const ref = '3G12'
 export const refs = {
   'fr-fr': ['3G12'],
-  'fr-ch': []
+  'fr-ch': ['10ES2-11']
 }
 export default function PavageEtRotation2D () {
   Exercice.call(this)

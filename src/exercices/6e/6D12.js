@@ -30,7 +30,7 @@ export const uuid = 'e960d'
 export const ref = '6D12'
 export const refs = {
   'fr-fr': ['6D12'],
-  'fr-ch': []
+  'fr-ch': ['10GM3-4']
 }
 export default function CalculsDeDureesOuHoraires () {
   Exercice.call(this)

@@ -22,7 +22,7 @@ export const uuid = '53762'
 export const ref = '2N52-1'
 export const refs = {
   'fr-fr': ['2N52-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-2']
 }
 export default function EquationsProduitsNuls2 () {
   Exercice.call(this)

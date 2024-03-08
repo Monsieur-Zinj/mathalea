@@ -22,7 +22,7 @@ export const uuid = 'ed2ee'
 export const ref = '2N12-3'
 export const refs = {
   'fr-fr': ['2N12-3'],
-  'fr-ch': []
+  'fr-ch': ['10NO3-5']
 }
 export default function EncadrerRacineCarreeEntre2Entiers () {
   Exercice.call(this)

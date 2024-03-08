@@ -24,7 +24,7 @@ export const uuid = '7cf81'
 export const ref = '3L11-7'
 export const refs = {
   'fr-fr': ['3L11-7'],
-  'fr-ch': []
+  'fr-ch': ['11FA2-8']
 }
 export default function CarreDoubleDistributivite () {
   Exercice.call(this)

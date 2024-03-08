@@ -14,7 +14,7 @@ export const uuid = 'b1777'
 export const ref = '2G33-1'
 export const refs = {
   'fr-fr': ['2G33-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA9-8']
 }
 export default function Alignementdetroispoints () {
   Exercice.call(this)

@@ -14,7 +14,7 @@ export const uuid = 'bb6d5'
 export const ref = '2N52-2'
 export const refs = {
   'fr-fr': ['2N52-2'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-6']
 }
 export default function FactoriserIdentitesRemarquables2 () {
   Exercice.call(this)

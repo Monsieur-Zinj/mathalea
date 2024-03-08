@@ -23,7 +23,7 @@ export const uuid = '5f5a6'
 export const ref = '3L11-4'
 export const refs = {
   'fr-fr': ['3L11-4'],
-  'fr-ch': []
+  'fr-ch': ['11FA3-2']
 }
 export default function FactoriserParNombreOux () {
   Exercice.call(this)

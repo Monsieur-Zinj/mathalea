@@ -27,7 +27,7 @@ export const uuid = '0bcef'
 export const ref = '3P10'
 export const refs = {
   'fr-fr': ['3P10'],
-  'fr-ch': []
+  'fr-ch': ['10FA4-5']
 }
 export default function EvolutionsEnPourcentage () {
   Exercice.call(this)

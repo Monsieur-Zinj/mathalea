@@ -12,7 +12,7 @@ export const uuid = 'dc7ba'
 export const ref = '6M25'
 export const refs = {
   'fr-fr': ['6M25'],
-  'fr-ch': []
+  'fr-ch': ['10GM1-4']
 }
 export default function ConnaitreFormulesDePerimetreEtAires () {
   Exercice.call(this)

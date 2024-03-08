@@ -25,7 +25,7 @@ export const uuid = '93df9'
 export const ref = '4C30-2'
 export const refs = {
   'fr-fr': ['4C30-2'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-4']
 }
 export default function EcritureDecimalePuissanceDe10 () {
   Exercice.call(this)

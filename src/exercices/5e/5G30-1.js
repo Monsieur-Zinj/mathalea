@@ -28,7 +28,7 @@ export const uuid = 'd12db'
 export const ref = '5G30-1'
 export const refs = {
   'fr-fr': ['5G30-1'],
-  'fr-ch': []
+  'fr-ch': ['11ES2-1']
 }
 export default function EgaliteDAngles () {
   Exercice.call(this)

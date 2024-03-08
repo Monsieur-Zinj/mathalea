@@ -14,7 +14,7 @@ export const uuid = '74eac'
 export const ref = '3G20'
 export const refs = {
   'fr-fr': ['3G20'],
-  'fr-ch': []
+  'fr-ch': ['11GM3-4']
 }
 export default function Thales2D3e () {
   this.level = 3

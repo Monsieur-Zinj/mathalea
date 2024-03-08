@@ -34,7 +34,7 @@ export const uuid = '2471d'
 export const ref = '6C30-1'
 export const refs = {
   'fr-fr': ['6C30-1'],
-  'fr-ch': ['9NO1-10']
+  'fr-ch': ['9NO1-10', '10NO5-1']
 }
 export default function MultiplierDecimauxPar101001000 () {
   Exercice.call(this)

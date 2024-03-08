@@ -19,7 +19,7 @@ export const uuid = 'cdcc1'
 export const ref = '4C10-4'
 export const refs = {
   'fr-fr': ['4C10-4'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-2']
 }
 export default function ExerciceQuotientsRelatifs () {
   Exercice.call(this)

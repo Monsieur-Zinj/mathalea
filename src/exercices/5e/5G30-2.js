@@ -74,7 +74,7 @@ export const uuid = '19812'
 export const ref = '5G30-2'
 export const refs = {
   'fr-fr': ['5G30-2'],
-  'fr-ch': []
+  'fr-ch': ['11ES2-2']
 }
 export default function ExercicesAnglesAIC () {
   Exercice.call(this)

@@ -18,7 +18,7 @@ export const uuid = 'ef686'
 export const ref = '2N42-1'
 export const refs = {
   'fr-fr': ['2N42-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA5-3']
 }
 export default function ExprimerEnFonctionDesAutres () {
   Exercice.call(this)

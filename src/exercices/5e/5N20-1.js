@@ -30,7 +30,7 @@ export const uuid = '75f80'
 export const ref = '5N20-1'
 export const refs = {
   'fr-fr': ['5N20-1'],
-  'fr-ch': []
+  'fr-ch': ['10NO5-3']
 }
 export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
   Exercice.call(this)

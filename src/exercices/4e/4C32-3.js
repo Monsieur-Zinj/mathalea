@@ -17,7 +17,7 @@ export const uuid = '051c7'
 export const ref = '4C32-3'
 export const refs = {
   'fr-fr': ['4C32-3'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-6']
 }
 export default function ProblemesPuissancesDe10EtConversions () {
   Exercice.call(this)

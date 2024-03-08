@@ -34,7 +34,7 @@ export const uuid = '799c4'
 export const ref = '4L20'
 export const refs = {
   'fr-fr': ['4L20'],
-  'fr-ch': []
+  'fr-ch': ['10FA3-7']
 }
 export default function ExerciceEquation1 () {
   Exercice.call(this)

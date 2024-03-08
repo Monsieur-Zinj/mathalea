@@ -20,7 +20,7 @@ export const uuid = '86db6'
 export const ref = '5S20'
 export const refs = {
   'fr-fr': ['5S20'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-5']
 }
 export default function PlacerProbabilites () {
   Exercice.call(this)

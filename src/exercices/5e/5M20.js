@@ -13,7 +13,7 @@ export const uuid = 'e26ca'
 export const ref = '5M20'
 export const refs = {
   'fr-fr': ['5M20'],
-  'fr-ch': []
+  'fr-ch': ['10GM2-1']
 }
 export default function CalculDeVolumes5e () {
   CalculDeVolumes.call(this)

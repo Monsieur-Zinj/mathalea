@@ -23,7 +23,7 @@ export const uuid = 'a2ac2' // @todo à changer dans un nouvel exo (utiliser pnp
 export const ref = '2F22-1'// @todo à modifier aussi
 export const refs = {
   'fr-fr': ['2F22-1'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-17']
 }
 // une liste de nœuds pour définir une fonction Spline
 const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },

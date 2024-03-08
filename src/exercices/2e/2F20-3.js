@@ -31,7 +31,7 @@ export const uuid = '573f2'
 export const ref = '2F20-3'
 export const refs = {
   'fr-fr': ['2F20-3'],
-  'fr-ch': []
+  'fr-ch': ['11FA9-4']
 }
 export default function LecturesGraphiques () {
   Exercice.call(this)

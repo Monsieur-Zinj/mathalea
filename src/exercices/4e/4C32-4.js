@@ -24,7 +24,7 @@ export const uuid = '8b399'
 export const ref = '4C32-4'
 export const refs = {
   'fr-fr': ['4C32-4'],
-  'fr-ch': []
+  'fr-ch': ['10NO2-7', '11NO1-1']
 }
 export default function CalculsPuissancesDe10 () {
   Exercice.call(this)

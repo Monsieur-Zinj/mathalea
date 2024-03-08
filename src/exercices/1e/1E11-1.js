@@ -19,7 +19,7 @@ export const uuid = '731f0'
 export const ref = '1E11-1'
 export const refs = {
   'fr-fr': ['1E11-1'],
-  'fr-ch': []
+  'fr-ch': ['11FA10-8']
 }
 export default function CalculerDiscriminant () {
   Exercice.call(this)

@@ -21,7 +21,7 @@ export const uuid = '0bd00'
 export const ref = '2N41-7a'
 export const refs = {
   'fr-fr': ['2N41-7a'],
-  'fr-ch': []
+  'fr-ch': ['11FA3-5']
 }
 // fonction de comparaison de deux expressions factorisées
 // @todo à déplacer dans comparisonFunctions.ts lors de la fusion de handleAnswer

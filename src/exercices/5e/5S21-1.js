@@ -15,7 +15,7 @@ export const uuid = '850b0'
 export const ref = '5S21-1'
 export const refs = {
   'fr-fr': ['5S21-1'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-7']
 }
 export default function ProbabilitesSimples () {
   Exercice.call(this)

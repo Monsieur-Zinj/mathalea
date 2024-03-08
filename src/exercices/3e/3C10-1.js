@@ -15,7 +15,7 @@ export const uuid = 'eb865'
 export const ref = '3C10-1'
 export const refs = {
   'fr-fr': ['3C10-1'],
-  'fr-ch': []
+  'fr-ch': ['11NO1-2']
 }
 export default function EcritureDecimalePuissance3e () {
   EcritureDecimalePuissance.call(this)

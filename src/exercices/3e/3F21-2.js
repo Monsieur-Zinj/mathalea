@@ -29,7 +29,7 @@ export const uuid = 'b8b33'
 export const ref = '3F21-2'
 export const refs = {
   'fr-fr': ['3F21-2'],
-  'fr-ch': []
+  'fr-ch': ['11FA9-3']
 }
 export default function DeterminerFonctionAffine () {
   Exercice.call(this)

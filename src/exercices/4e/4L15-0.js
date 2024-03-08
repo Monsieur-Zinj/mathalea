@@ -18,7 +18,7 @@ export const uuid = 'df5a3'
 export const ref = '4L15-0'
 export const refs = {
   'fr-fr': ['4L15-0'],
-  'fr-ch': []
+  'fr-ch': ['10FA3-8']
 }
 export default function TrouverErreurResolEqDeg1 () {
   Exercice.call(this)

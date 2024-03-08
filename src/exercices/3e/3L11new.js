@@ -43,7 +43,7 @@ export const uuid = 'db2e0'
 export const ref = '3L11'
 export const refs = {
   'fr-fr': ['3L11'],
-  'fr-ch': []
+  'fr-ch': ['10FA2-2', '11FA2-2']
 }
 export default function ExerciceDevelopper () {
   Exercice.call(this)

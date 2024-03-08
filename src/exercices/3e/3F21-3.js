@@ -32,7 +32,7 @@ export const uuid = '056fa'
 export const ref = '3F21-3'
 export const refs = {
   'fr-fr': ['3F21-3'],
-  'fr-ch': []
+  'fr-ch': ['11FA8-12']
 }
 export default function PenteEtOrdonneeOrigineDroite () {
   Exercice.call(this)

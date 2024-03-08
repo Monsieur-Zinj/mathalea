@@ -10,7 +10,7 @@ export const uuid = '7ba64'
 export const ref = '4S20'
 export const refs = {
   'fr-fr': ['4S20'],
-  'fr-ch': []
+  'fr-ch': ['11NO2-10']
 }
 export default function FonctionsVocabulaireProbabilite4e () {
   FonctionsProbabilite1.call(this)

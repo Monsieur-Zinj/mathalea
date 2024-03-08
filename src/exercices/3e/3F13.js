@@ -25,7 +25,7 @@ export const uuid = '8117d'
 export const ref = '3F13'
 export const refs = {
   'fr-fr': ['3F13'],
-  'fr-ch': []
+  'fr-ch': ['11FA7-4']
 }
 export default function AntecedentGraphique () {
   Exercice.call(this)

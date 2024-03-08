@@ -32,7 +32,7 @@ export const uuid = 'ec059'
 export const ref = '2F20-2'
 export const refs = {
   'fr-fr': ['2F20-2'],
-  'fr-ch': []
+  'fr-ch': ['11FA9-2']
 }
 export default function CalculPointSurCourbe () {
   Exercice.call(this)

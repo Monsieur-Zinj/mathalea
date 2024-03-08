@@ -28,7 +28,7 @@ export const uuid = '5621b'
 export const ref = '2F21-1'
 export const refs = {
   'fr-fr': ['2F21-1'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-16', '11FA9-10']
 }
 export default function ModeliserParUneFonction () {
   Exercice.call(this)

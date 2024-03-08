@@ -23,7 +23,7 @@ export const uuid = 'f6853'
 export const ref = '3L11-2'
 export const refs = {
   'fr-fr': ['3L11-2'],
-  'fr-ch': []
+  'fr-ch': ['10FA1-13']
 }
 export default function ReductionSiPossible () {
   Exercice.call(this)

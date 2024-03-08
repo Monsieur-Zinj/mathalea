@@ -14,7 +14,7 @@ export const uuid = '3b7ee'
 export const ref = '2N41-3'
 export const refs = {
   'fr-fr': ['2N41-3'],
-  'fr-ch': []
+  'fr-ch': ['11FA2-9']
 }
 export default function DevelopperIdentitesRemarquables32nde () {
   DevelopperIdentitesRemarquables3.call(this)

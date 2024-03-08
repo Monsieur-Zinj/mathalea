@@ -24,7 +24,7 @@ export const uuid = '0eecd'
 export const ref = '3F10-1'
 export const refs = {
   'fr-fr': ['3F10-1'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-5']
 }
 export default function VocabulaireNotationsFonctions () {
   Exercice.call(this)

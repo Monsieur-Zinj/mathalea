@@ -29,7 +29,7 @@ export const uuid = 'b428e'
 export const ref = '4F12'
 export const refs = {
   'fr-fr': ['4F12'],
-  'fr-ch': []
+  'fr-ch': ['10FA5-2']
 }
 export default function ExploiterRepresentationGraphique () {
   Exercice.call(this)
