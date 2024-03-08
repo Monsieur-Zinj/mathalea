@@ -100,14 +100,14 @@ export default function TransformationsDuPlanEtCoordonnees () {
         yA = randint(-7, 7, -1)
         if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
         punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
-        punto[0] = punto[0].map(e => e.toNumber()) // supprime les fractions étendues, on revient à la notation décimale
+        punto[0] = punto[0].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         compteur = 0
         while ((punto[0][0] < -9 || punto[0][0] > 9 || punto[0][1] < -9 || punto[0][1] > 9) && compteur < 20) { // on teste si A est dans la fenêtre sinon on en choisit un autre
           xA = randint(-7, 7, [0]) // Point A
           yA = randint(-7, 7, -1)
           if (xA === xO && yA === yO) xA = randint(-7, 7, [0, xO])
           punto[0] = imagePointParTransformation(choixTransformation[0], [xA, yA], [xO, yO], [xO, yO], k[0])
-          punto[0] = punto[0].map(e => e.toNumber()) // supprime les fractions étendues, on revient à la notation décimale
+          punto[0] = punto[0].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           compteur++
         }
         /*
@@ -126,10 +126,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
         if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
         if (choixTransformation[1] > 4) {
           punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
-          punto[1] = punto[1].map(e => e.toNumber()) // supprime les fractions étendues, on revient à la notation décimale
+          punto[1] = punto[1].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         } else {
           punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO])
-          punto[1] = punto[1].map(e => e.toNumber()) // supprime les fractions étendues, on revient à la notation décimale
+          punto[1] = punto[1].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         } // si c'est une symétrie, l'axe passe par O'
         compteur = 0
         while ((punto[1][0] < -9 || punto[1][0] > 9 || punto[1][1] < -9 || punto[1][1] > 9) && compteur < 20) { // on teste si on est dans les clous, sinon on choisit un autre punto B
@@ -138,10 +138,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (xB === xO && yB === yO) xB = randint(-7, 7, [0, xO, xA])
           if (choixTransformation[1] > 4) {
             punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xA, yA], [xA, yA], k[1])
-            punto[1] = punto[1].map(e => e.toNumber()) // supprime les fractions étendues, on revient à la notation décimale
+            punto[1] = punto[1].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           } else {
             punto[1] = imagePointParTransformation(choixTransformation[1], [xB, yB], [xO, yO])
-            punto[1] = punto[1].map(e => e.toNumber()) // supprime les fractions étendues, on revient à la notation décimale
+            punto[1] = punto[1].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           } // si c'est une symétrie, l'axe passe par O'
           compteur++
         }
@@ -160,10 +160,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
         if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
         if (choixTransformation[2] > 4) {
           punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2])
-          punto[2] = punto[2].map(e => e.toNumber()) // supprime les fractions étendues, on revient à la notation décimale
+          punto[2] = punto[2].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         } else {
           punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO])
-          punto[2] = punto[2].map(e => e.toNumber()) // supprime les fractions étendues, on revient à la notation décimale
+          punto[2] = punto[2].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
         } // si c'est une symétrie, l'axe passe par O'
         compteur = 0
         while ((punto[2][0] < -9 || punto[2][0] > 9 || punto[2][1] < -9 || punto[2][1] > 9) && compteur < 20) { // on vérifie que C est dans le repère sinon on change le punto C.
@@ -172,10 +172,10 @@ export default function TransformationsDuPlanEtCoordonnees () {
           if (xC === xO && yC === yO) xC = randint(-7, 7, [0, xO, xA, xB])
           if (choixTransformation[2] > 4) {
             punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xB, yB], [xB, yB], k[2])
-            punto[2] = punto[2].map(e => e.toNumber()) // supprime les fractions étendues, on revient à la notation décimale
+            punto[2] = punto[2].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           } else {
             punto[2] = imagePointParTransformation(choixTransformation[2], [xC, yC], [xO, yO])
-            punto[2] = punto[2].map(e => e.toNumber()) // supprime les fractions étendues, on revient à la notation décimale
+            punto[2] = punto[2].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           } // si c'est une symétrie, l'axe passe par O'
           compteur++
         }
