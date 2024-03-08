@@ -26,18 +26,18 @@
     const defaultreturn = 'pdfjs'
 
     onMount(() => {
-      function handleKeyDown (event: KeyboardEvent) {
-        const isSaveShortcut = (event.ctrlKey || event.metaKey) && event.key === 's'
-        if (isSaveShortcut) {
-          event.preventDefault()
-          compileToPDF()
-        }
-      }
       window.addEventListener('keydown', handleKeyDown)
-      onDestroy(() => {
-        window.removeEventListener('keydown', handleKeyDown)
-      })
     })
+    onDestroy(() => {
+      window.removeEventListener('keydown', handleKeyDown)
+    })
+    function handleKeyDown (event: KeyboardEvent) {
+      const isSaveShortcut = (event.ctrlKey || event.metaKey) && event.key === 's'
+      if (isSaveShortcut) {
+        event.preventDefault()
+        compileToPDF()
+      }
+    }
 
     // ------ dont need to modify code below
 
