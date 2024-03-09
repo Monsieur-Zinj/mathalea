@@ -101,6 +101,7 @@ function cleanSpaces (str: string): string {
  */
 function cleanParenthses (str: string): string {
   return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1')
+    .replaceAll(/\\lparen(\+?-?\d+)\\rparen/g, '$1')
     .replaceAll('\\lparen', '(')
     .replaceAll('\\rparen', ')')
     .replaceAll('\\left\\lbrack', '[')
