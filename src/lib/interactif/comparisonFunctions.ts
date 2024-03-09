@@ -302,7 +302,7 @@ export function factorisationCompare (input: string, goodAnswer:string): ResultT
     }
   } else {
     // @fixme Est-ce qu'une division finale est bien représentative d'une expression factorisée (une division, c'est une multiplication par l'inverse, donc a le même statut que Multiply en théorie)
-    isOk2 = ['Multiply', 'Square', 'Power', 'Divide'].includes(head)
+    isOk2 = ['Multiply', 'Square', 'Power', 'Divide'].includes(head) || head.match(/[a-z]/) != null
   }
   return { isOk: isOk1 && isOk2 }
 }

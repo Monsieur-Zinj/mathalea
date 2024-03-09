@@ -7,10 +7,11 @@ import { demiDroite, segment, segmentAvecExtremites } from '../../../lib/2d/segm
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
-import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { texPrix } from '../../../lib/format/style'
 import { abs, arrondi, range1 } from '../../../lib/outils/nombres'
 import { sp } from '../../../lib/outils/outilString.js'
+import { factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
 import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
@@ -21,7 +22,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'CAN Seconde sujet 2023'
 export const interactifReady = true
@@ -147,24 +148,25 @@ export default function SujetCAN2023Seconde () {
           n = couplenm[0]
           m = couplenm[1] * choice([-1, 1])
           f = choice(['a', 'b', 'y', 'x'])
-          reponse = [`${f}(${n}+${m}${f})`, `${f}(${m}${f}+${n})`]
+          handleAnswers(this, index, { reponse: { value: `${f}(${n}${ecritureAlgebrique(m)}${f})`, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
+          // reponse = [`${f}(${n}+${m}${f})`, `${f}(${m}${f}+${n})`]
           if (choice([true, false])) {
             texte = ` Factoriser $${n}${f}${ecritureAlgebrique(m)}${f}^2$`
-            texteCorr = `$x$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
+            texteCorr = `$${f}$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
           En effet :<br>
-          $${n}${f}${ecritureAlgebrique(m)}${f}^2=\\underbrace{${f}\\times ${n}}_{${n}${f}} ${m < 0 ? '-' : '+'}\\underbrace{${f}\\times ${m}${f}}_{${m}${f}^2}=${f}(${n}${ecritureAlgebrique(m)}${f})$`
+          $${n}${f}${ecritureAlgebrique(m)}${f}^2=\\underbrace{${f}\\times ${n}}_{${n}${f}} ${m < 0 ? '-' : '+'}\\underbrace{${f}\\times ${ecritureParentheseSiNegatif(m)}${f}}_{${m}${f}^2}=${f}(${n}${ecritureAlgebrique(m)}${f})$`
           } else {
             texte = ` Factoriser $${m}${f}^2+${n}${f}$`
-            texteCorr = `$x$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
+            texteCorr = `$${f}$ est un facteur commun aux deux termes : $${n}${f}$ et $${abs(m)}${f}^2$.<br>
           En effet :<br>
-          $${m}${f}^2+${n}${f}=\\underbrace{${f}\\times ${m}${f}}_{${m}${f}^2}+\\underbrace{${f}\\times ${n}}_{${n}${f}} =${f}(${m}${f}+${n})$`
+          $${m}${f}^2+${n}${f}=\\underbrace{${f}\\times ${ecritureParentheseSiNegatif(m)}${f}}_{${m}${f}^2}+\\underbrace{${f}\\times ${n}}_{${n}${f}} =${f}(${m}${f}+${n})$`
           }
 
           this.canEnonce = texte
           this.canReponseACompleter = ''
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
-            setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          //  setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
