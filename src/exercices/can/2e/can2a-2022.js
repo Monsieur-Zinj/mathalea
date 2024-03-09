@@ -264,7 +264,7 @@ export default function SujetCAN2022Seconde () {
           On tire une boule au hasard.<br>
           Quelle est la probabilité de tirer une boule noire ?`
           reponse = f
-          texteCorr = `Puisqu'il s'agit d'une situation d'équiprobabilté, la probabilité  est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
+          texteCorr = `Puisqu'il s'agit d'une situation d'équiprobabilité, la probabilité  est donnée par le quotient : $\\dfrac{\\text{Nombre de boules noires}}{\\text{Nombre total de boules}}=${f.texFraction}${f.texSimplificationAvecEtapes()}$.`
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
