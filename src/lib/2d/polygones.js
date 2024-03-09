@@ -2,7 +2,7 @@ import earcut from 'earcut'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { randint } from '../../modules/outils.js'
-import { arrondi } from '../outils/nombres'
+import { arrondi, rangeMinMax } from '../outils/nombres'
 import { Point, point, pointAdistance, pointSurSegment } from './points.js'
 import { longueur, segment, vecteur } from './segmentsVecteurs.js'
 import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.ts'
@@ -779,7 +779,7 @@ export function parallelogramme2points1hauteur (NOM, A, B, h) {
   B.nom = NOM[1]
   let H = rotation(B, A, 90)
   H = pointSurSegment(A, H, h)
-  const D = translation(H, homothetie(vecteur(A, B), A, randint(-4, 4, 0) / 10), NOM[3])
+  const D = translation(H, homothetie(vecteur(A, B), A, randint(-5, 5, rangeMinMax(-2, 2)) / 10), NOM[3])
   const C = translation(D, vecteur(A, B), NOM[2])
   return polygoneAvecNom(A, B, C, D)
 }
