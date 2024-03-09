@@ -8,7 +8,6 @@ export const dateDeModifImportante = '21/09/2023'
 
 /**
  * @author Jean-Claude Lhote
-  * Référence 5L14-1
 */
 export const uuid = '1abc6'
 export const ref = '5L14-1'
@@ -19,7 +18,6 @@ export const refs = {
 export default function CalculerUneExpressionLitterale () {
   EcrireUneExpressionNumerique.call(this)
   this.version = 4
-  this.titre = titre
   this.litteral = true
   this.sup4 = '2-3-4-5'
 }
