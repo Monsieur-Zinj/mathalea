@@ -41,7 +41,6 @@ export const refs = {
 }
 export default function VocabulaireDivisionEuclidienne () {
   Exercice.call(this)
-  this.titre = titre
   this.spacing = 1
   this.nbQuestions = 5
   this.sup = 1

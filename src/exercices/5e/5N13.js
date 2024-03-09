@@ -13,7 +13,7 @@ import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const amcReady = true
-export const amcType = 'AMCOpen'
+export const amcType = ['AMCOpen', 'AMCNum', 'qcmMult', 'qcmMono']
 export const interactifReady = true
 export const interactifType = ['mathLive', 'qcm']
 
@@ -34,18 +34,21 @@ export default function Exercice_fractions_simplifier (max = 11) {
   Exercice.call(this)
   this.sup = max // Correspond au facteur commun
   this.sup2 = false
-  this.consigne = 'Simplifier les fractions suivantes.'
   this.spacing = 2
   this.spacingCorr = 3
 
   this.nouvelleVersion = function () {
     this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
+    this.amcType = this.sup3 ? (!this.sup2 ? 'qcmMult' : 'qcmMono') : (!this.sup2 ? 'AMCOpen' : 'AMCNum')
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.consigne = this.sup3
       ? ''
       : this.sup2 ? 'Simplifier les fractions suivantes au maximum.' : 'Simplifier les fractions suivantes.'
+    if (this.nbQuestions === 1) {
+      this.consigne = this.consigne.replace('les fractions suivantes', 'la fraction suivante')
+    }
     const liste_fractions = [
       [1, 2],
       [1, 3],
@@ -91,16 +94,17 @@ export default function Exercice_fractions_simplifier (max = 11) {
 
       enleveElement(liste_fractions, fraction) // Il n'y aura pas 2 fois la même réponse
       const tabDiviseursDek = listeDesDiviseurs(k)
+      const fractionInitale = new FractionEtendue(k * a, k * b).texFraction
       if (this.interactifType === 'qcm') {
         texte = 'Parmi les fractions proposées ci-dessous, '
         texte += (tabDiviseursDek.length > 2 && !this.sup2) ? 'lesquelles sont ' : 'laquelle est '
         if (this.sup2) texte += 'la fraction la plus simplifiée de '
         else texte += 'une fraction simplifiée de '
-        texte += `$${new FractionEtendue(k * a, k * b).texFraction}$ ? `
+        texte += `$${fractionInitale}$ ? `
       } else {
         texte =
                 '$ ' +
-                new FractionEtendue(k * a, k * b).texFraction +
+                fractionInitale +
                 ' = ' +
                 deprecatedTexFraction('\\phantom{00000000000000}', '') +
                 ' = ' +
@@ -110,11 +114,14 @@ export default function Exercice_fractions_simplifier (max = 11) {
       texteCorr = ''
       for (let ee = tabDiviseursDek.length - 2; ee >= 0; ee--) {
         texteCorr += '$ ' +
-                new FractionEtendue(k * a, k * b).texFraction +
+                fractionInitale +
                 ' = ' +
                 deprecatedTexFraction(new Decimal(k).div(tabDiviseursDek[ee]) + ' \\times ' + new Decimal(a).mul(tabDiviseursDek[ee]), new Decimal(k).div(tabDiviseursDek[ee]) + ' \\times ' + new Decimal(b).mul(tabDiviseursDek[ee])) +
                 ' = ' +
-                miseEnEvidence(new FractionEtendue(new Decimal(a).mul(tabDiviseursDek[ee]), new Decimal(b).mul(tabDiviseursDek[ee])).texFraction) +
+                (!this.sup2 || ee === 0 // On met tout en couleur qd on veut toutes les simplifications ou seulement la dernière si simplification maximale
+                  ? miseEnEvidence(new FractionEtendue(new Decimal(a).mul(tabDiviseursDek[ee]), new Decimal(b).mul(tabDiviseursDek[ee])).texFraction)
+                  : new FractionEtendue(new Decimal(a).mul(tabDiviseursDek[ee]), new Decimal(b).mul(tabDiviseursDek[ee])).texFraction
+                ) +
                 ' $<br>'
       }
       if (this.sup2 || this.interactifType === 'qcm') {
@@ -122,13 +129,13 @@ export default function Exercice_fractions_simplifier (max = 11) {
       } else {
         reponse = new FractionEtendue(k * a, k * b)
       }
-      if (this.interactifType === 'qcm') {
+      if (this.interactifType === 'qcm' || this.amcType === 'qcmMult' || this.amcType === 'qcmMono') {
         let fractionsFausses = [[a, b - 1], [a, b + 1], [a + 1, b - 1], [a + 1, b], [a + 1, b + 1]]
         if (a !== 1) fractionsFausses.push([a - 1, b - 1], [a - 1, b], [a - 1, b + 1])
 
         fractionsFausses = shuffle(fractionsFausses)
         this.autoCorrection[i] = {
-          enonce: 'la question n°' + i + ' est posée ici',
+          enonce: texte,
           propositions: [
             {
               texte: '$' + reponse.toLatex() + '$',
@@ -192,15 +199,15 @@ export default function Exercice_fractions_simplifier (max = 11) {
         const monQcm = propositionsQcm(this, i) // Les deux paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice.
         texte += monQcm.texte
       } else {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-        // Pour AMC question AmcOpen
-        this.autoCorrection[i] = { enonce: texte, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+        if (this.amcType === 'AMCOpen') this.autoCorrection[i] = { enonce: `Simplfier $${fractionInitale}$ en détaillant la simplification.`, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
+        if (this.amcType === 'AMCNum' && context.isAmc) texte = `Simplifier, de façon maximale, $${fractionInitale}$.`
       }
       if ((this.interactif && context.isHtml) || this.sup3) texte = texte.replace(' \\dfrac{\\phantom{00000000000000}}{} = \\dfrac{\\phantom{0000}}{}', '')
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        if (this.interactifType !== 'qcm') {
+        if (this.interactifType === 'mathLive' || this.amcType === 'AMCNum') {
           if (this.sup2) {
             setReponse(this, i, reponse, { formatInteractif: 'fraction' })
           } else {
