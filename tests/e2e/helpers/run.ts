@@ -140,7 +140,7 @@ export async function getQuestions (page: Page, urlExercice: string) {
   return questions
 }
 
-async function waitForKatex (page: Page) {
+export async function waitForKatex (page: Page) {
   await page.evaluate(() => {
     const katexRenderedHandler = () => {
       window.katexRendered = true

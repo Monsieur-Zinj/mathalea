@@ -34,7 +34,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const callback = reponses.callback
   try {
     const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme' && key !== 'feedback')
-    console.log(`reponses entrie 0 : ${variables[0]} et variables[0][0] : ${variables[0][0]}`)
+    // console.log(`reponses entrie 0 : ${variables[0]} et variables[0][0] : ${variables[0][0]}`)
     if (callback != null && typeof callback === 'function') { // Là c'est une correction custom ! Celui qui passe une callback doit savoir ce qu'il fait !
       return callback(exercice, i, variables, reponses.bareme)
     }
