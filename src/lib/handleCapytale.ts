@@ -141,6 +141,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     } else if (canOptions.isChoosen && (mode === 'review' || workflow !== 'current')) {
       console.log('On charge les réponses pour le CAN')
       canOptionsStore.update((l) => {
+        l.solutionsMode = 'gathered'
         l.state = 'solutions'
         return l
       })
