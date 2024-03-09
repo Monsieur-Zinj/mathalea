@@ -10,7 +10,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
 
-export const titre = 'Déterminer une probabilté dans un tableau de probabilités'
+export const titre = 'Déterminer une probabilité dans un tableau de probabilités'
 export const dateDePublication = '06/07/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'

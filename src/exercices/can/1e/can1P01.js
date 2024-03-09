@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 
-export const titre = 'Écrire une probabilté avec les notations'
+export const titre = 'Écrire une probabilité avec les notations'
 export const dateDePublication = '21/07/2022'
 export const interactifReady = true
 export const interactifType = 'mathLive'
