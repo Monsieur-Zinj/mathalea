@@ -7,8 +7,6 @@ async function test6N203 (page: Page) {
 
   for (const question of questions) {
     const mathField = question.mathField
-    console.log(`Que contient MathField ? ${mathField}`)
-    console.log(`${mathField.includes('&lt') ? ' trouvé <' : mathField.includes('&gt') ? 'trouvé >' : 'rien trouvé'}`)
     const signe = mathField.includes('&lt') ? '<' : '>'
     const cleanMathField = mathField.replaceAll('\\,', '')
     const regex = /(\d+)/g
@@ -23,7 +21,6 @@ async function test6N203 (page: Page) {
       a = Math.floor(num / den) - 1
       b = Math.floor(num / den) + 1
     }
-    console.log(signe)
     const reponse = signe === '<' ? [a.toString(), b.toString()] : [b.toString(), a.toString()] // J'ai inversé l'ordre parce que le focus se place automatiquement sur le deuxième placeholder !
     await inputAnswer(page, question, reponse)
   }
