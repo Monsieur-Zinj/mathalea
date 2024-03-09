@@ -144,30 +144,45 @@ export default function EcrireUneExpressionNumerique () {
           else texteCorr += `Pour $x=${val1}$ :<br>${expc}`
           reponse = expc.split('=')[expc.split('=').length - 1].replace('$', '')
 
+          if (this.litteral) {
           // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
-          const textCorrSplit = texteCorr.split('=')
-          let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
-          aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+            const textCorrSplit = texteCorr.split('=')
+            let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+            aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
 
-          texteCorr = ''
-          for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
-            texteCorr += textCorrSplit[ee] + '='
-          }
-          texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+            texteCorr = ''
+            for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+              texteCorr += textCorrSplit[ee] + '='
+            }
+            texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
           // Fin de cette uniformisation
-
+          }
           break
         }
         case 4:
-          if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
-          this.consigne = ''
-          if (!this.litteral) texte = `${expn}`
-          else if (nbval === 2) texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
-          else texte = `Pour $x=${val1}$, calculer ${expn}.`
-          if (!this.litteral) texteCorr = `${expc}`
-          else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}`
-          else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
-          reponse = expc.split('=')[expc.split('=').length - 1]
+          {
+            if (expn.indexOf('ou') > 0) expn = expn.substring(0, expn.indexOf('ou') - 1) // on supprime la deuxième expression fractionnaire
+            this.consigne = ''
+            if (!this.litteral) texte = `${expn}`
+            else if (nbval === 2) texte = `Pour $x=${val1}$ et $y=${val2}$, calculer ${expn}.`
+            else texte = `Pour $x=${val1}$, calculer ${expn}.`
+            if (!this.litteral) texteCorr = `${expc}`
+            else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}`
+            else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
+            reponse = expc.split('=')[expc.split('=').length - 1]
+
+            // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+            const textCorrSplit = texteCorr.split('=')
+            let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+            aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+            texteCorr = ''
+            for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+              texteCorr += textCorrSplit[ee] + '='
+            }
+            texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+          // Fin de cette uniformisation
+          }
           break
       }
       if ((this.questionJamaisPosee(i, nbOperations, nbval, this.version, expf) && !this.litteral) || (this.litteral && this.questionJamaisPosee(i, nbOperations, nbval, this.version, resultats[4]))) { // Si la question n'a jamais été posée, on en créé une autre
