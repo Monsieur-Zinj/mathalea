@@ -169,7 +169,7 @@ export default function EcrireUneExpressionNumerique () {
             if (!this.litteral) texteCorr = `${expc}`
             else if (nbval === 2) texteCorr = `Pour $x=${val1}$ et $y=${val2}$ :<br>${expc}`
             else texteCorr = `Pour $x=${val1}$ :<br>${expc}`
-            reponse = expc.split('=')[expc.split('=').length - 1]
+            reponse = expc.split('=')[expc.split('=').length - 1].replace('$', '')
 
             // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
             const textCorrSplit = texteCorr.split('=')
