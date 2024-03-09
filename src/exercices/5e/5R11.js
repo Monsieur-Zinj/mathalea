@@ -3,14 +3,14 @@ import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { labelPoint } from '../../lib/2d/textes.ts'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Lire l\'abscisse relative d\'un point'
 export const interactifReady = true
@@ -113,18 +113,21 @@ export default function LireAbscisseRelative () {
 
       texte = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
       if (!context.isAmc && this.interactif) {
-        texte += `${l1}(` + ajouteChampTexteMathLive(this, 3 * i, 'largeur10 inline nospacebefore', { texteApres: '  )' }) + sp(20)
-        texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur10 inline nospacebefore', {
-          texte: `${l2}(`,
-          texteApres: '  )'
-        }) + sp(20)
-        texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur10 inline nospacebefore', {
-          texte: `${l3}(`,
-          texteApres: '  )'
-        })
-        setReponse(this, 3 * i, abs1)
-        setReponse(this, 3 * i + 1, abs2)
-        setReponse(this, 3 * i + 2, abs3)
+        texte += remplisLesBlancs(this, i, `${l1}(%{champ1})\\quad ${l2}(%{champ2})\\quad ${l3}(%{champ3})`, '', '\\ldots')
+        //   texte += `${l1}(` + ajouteChampTexteMathLive(this, 3 * i, 'largeur10 inline nospacebefore', { texteApres: '  )' }) + sp(20)
+        //   texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur10 inline nospacebefore', {
+        //     texte: `${l2}(`,
+        //     texteApres: '  )'
+        //   }) + sp(20)
+        //   texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur10 inline nospacebefore', {
+        //     texte: `${l3}(`,
+        //     texteApres: '  )'
+        //   })
+        // J'ai fait le choix volontaire de ne pas mettre de fonction de comparaison : c'est donc calculCompare qui va s'imposer
+        // j'ai aussi omis le paramêtre suivant {formatInteractif: 'fillInTheBlank'}, c'est la fonction verifQuestionMathlive qui va se débrouiller à partir des noms champ1 et suivants
+        handleAnswers(this, i, { champ1: { value: String(abs1) }, champ2: { value: String(abs2) }, champ3: { value: String(abs3) } })
+        // setReponse(this, 3 * i + 1, abs2)
+        //  setReponse(this, 3 * i + 2, abs3)
       } else {
         this.autoCorrection[i] = {
           enonce: '',
