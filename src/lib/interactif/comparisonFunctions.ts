@@ -100,7 +100,8 @@ function cleanSpaces (str: string): string {
  * @param {string} str
  */
 function cleanParenthses (str: string): string {
-  return str.replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1')
+  return str.replaceAll(/\\lparen(\+?-?\d+,?\.?\d*)\\rparen/g, '$1')
+    .replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1')
     .replaceAll(/\\lparen(\+?-?\d+)\\rparen/g, '$1')
     .replaceAll('\\lparen', '(')
     .replaceAll('\\rparen', ')')
