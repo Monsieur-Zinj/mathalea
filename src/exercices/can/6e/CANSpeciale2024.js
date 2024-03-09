@@ -758,7 +758,9 @@ export default function CourseAuxNombresSpeciale2024 () {
           texte = `$f(x)=${a}x+${texNombre(2024)}$<br>
          Calculer $f(${c})$.`
           reponse = a * c + 2024
-          texteCorr = `$f(${c})=${a}\\times ${c}+${texNombre(2024)}=${a * c}+${texNombre(2024)}=${miseEnEvidence(texNombre(reponse))}$`
+          texteCorr = `$f(${c})=${a}\\times ${c}+${texNombre(2024)}$`
+          texteCorr = `$f(${c})=${a * c}+${texNombre(2024)}$`
+          texteCorr = `$f(${c})=${miseEnEvidence(texNombre(reponse))}$`
           setReponse(this, index, reponse)
           texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: sp(10) + `$f(${c})=$` })
           this.listeCanEnonces.push(texte)
@@ -2074,7 +2076,7 @@ export default function CourseAuxNombresSpeciale2024 () {
           if (a === -2 || a === 2) { reponse = [`${a}\\times x`, `${a}x`] }
           texte = `Soit $f$ la fonction linéaire vérifiant $f(${texNombre(2024)})=${texNombre(a * 2024, 0)}$.<br>
           Compléter : $f(x)=$ `
-          texteCorr = `${reponse}Une fonction linéaire est une fonction de la forme $f(x)=ax$.<br>
+          texteCorr = `Une fonction linéaire est une fonction de la forme $f(x)=ax$.<br>
           Comme $f(${texNombre(2024)})=${texNombre(a * 2024)}$, on a $${texNombre(a * 2024, 0)}=a\\times ${texNombre(2024)}$, soit $a=${a}$.<br>
           On obtient donc : $f(x)=${miseEnEvidence(`${rienSi1(a)}x`)}$.`
           setReponse(this, index, reponse)
