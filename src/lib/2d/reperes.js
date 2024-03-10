@@ -257,7 +257,7 @@ export function DroiteGraduee ({
  * @param {number} [parametres.pointEpaisseur = 2] Épaisseur des points de la liste pointListe
  * @param {boolean?} [parametres.labelsPrincipaux = true] Présence (ou non) des labels numériques principaux
  * @param {boolean?} [parametres.labelsSecondaires = false] Présence (ou non) des labels numériques secondaires
- * @param {number} [parametres.step1 = 1] Pas des labels numériques principaux
+ * @param {array?} [parametres.labelListe = []] Liste de labels à mettre sous l'axe comme, par exemple, [[2.8,'x'],[3.1,'y']]. Les noms se placent en-dessous de l'axe. * @param {number} [parametres.step1 = 1] Pas des labels numériques principaux
  * @param {number} [parametres.step2 = 1] Pas des labels numériques secondaires
  * @param {number} [parametres.labelDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels et l'axe
  * @param {number} [parametres.labelCustomDistance = (axeHauteur + 10) / context.pixelsParCm] Distance entre les labels de labelListe et l'axe

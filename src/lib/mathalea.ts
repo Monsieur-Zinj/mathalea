@@ -617,9 +617,13 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
       }
       if (exercice.formatInteractif !== 'fillInTheBlank') {
-        exercice.listeQuestions.push(
-          exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {})
-        )
+        if (exercice.formatInteractif !== 'qcm') {
+          exercice.listeQuestions.push(
+            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {})
+          )
+        } else {
+          exercice.listeQuestions.push(exercice.question)
+        }
       } else {
         // La question doit contenir une unique variable %{champ1}
         if (exercice.interactif) {
