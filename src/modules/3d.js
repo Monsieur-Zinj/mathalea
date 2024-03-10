@@ -922,6 +922,7 @@ export function cone3d (centre, sommet, rayon, generatrices = 18) {
  * @param {boolean} [affichageAxe = true] Permet (ou pas) l'affichage de l'axe du cône.
  * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base du cône : du type 'blue' ou du type '#f15929'
  * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
+ * @param {boolean} affichageCentre Affiche ou pas le centre du cône.
  * @property {Point3d} centre centre de la base du cône
  * @property {Point3d} sommet Sommet du cône
  * @property {Vecteur3d} rayon Rayon de la base du cône
@@ -933,7 +934,7 @@ export function cone3d (centre, sommet, rayon, generatrices = 18) {
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @class
  */
-function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray') {
+function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray', affichageCentre = true) {
   ObjetMathalea2D.call(this, {})
   this.centre = centre
   this.sommet = sommet
@@ -950,7 +951,7 @@ function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, co
   }
   const p = polygone3d(ptsBase, this.color)
   // this.c2d = pyramide3d(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
-  this.c2d = pyramide3d(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
+  this.c2d = pyramide3d(p, this.sommet, this.color, affichageCentre ? this.centre : undefined, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
 }
 
 /**
@@ -962,6 +963,7 @@ function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, co
  * @param {boolean} [affichageAxe = true] Permet (ou pas) l'affichage de l'axe du cône.
  * @param {string} [colorAxe = 'black'] Couleur de l'axe et du centre de la base du cône : du type 'blue' ou du type '#f15929'
  * @param {string} [colorCone = 'gray'] Couleur du cône : du type 'blue' ou du type '#f15929'
+ * @param {boolean} affichageCentre Affiche ou pas le centre du cône.
  * @example cone3d(A,B,v) // Créé un cône de centre A, de sommet B et dont le rayon correspond au vecteur v
  * @example cone3d(A,B,v,'red') // Créé un cône de centre A, de sommet B et dont le rayon correspond au vecteur v, la couleur du cône en fil de fer est rouge
  * @example cone3d(A,B,v,'red',true,'green') // Créé un cône de centre A, de sommet B et dont le rayon correspond au vecteur v, la couleur du cône en fil de fer est rouge, l'axe est affiché en vert
@@ -969,8 +971,8 @@ function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, co
  * @author Eric Elter
  * @return {Cone3d}
  */
-export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = false, colorAxe = 'black', colorCone = 'gray') {
-  return new Cone3d(centre, sommet, rayon, color, affichageAxe, colorAxe, colorCone)
+export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = false, colorAxe = 'black', colorCone = 'gray', affichageCentre = true) {
+  return new Cone3d(centre, sommet, rayon, color, affichageAxe, colorAxe, colorCone, affichageCentre)
 }
 
 /**
@@ -2140,7 +2142,7 @@ export function sensDeRotation3d (axe, rayon, angle, epaisseur, color) {
  * LA TRANSLATION
  *
  * @author Jean-Claude Lhote
- * @param {Point3d} point3D Pour l'instant on ne translate qu'un point3d ou un polygone3d
+ * @param {Point3d | Polygone3d} point3D Pour l'instant on ne translate qu'un point3d ou un polygone3d
  * @param {Vecteur3d} vecteur3D
  */
 export function translation3d (point3D, vecteur3D) {
