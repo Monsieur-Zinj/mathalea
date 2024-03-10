@@ -101,16 +101,16 @@ export default class DecrireAssemblageDeSolides extends Exercice {
         points3D.push(point3d(rayon * Math.cos(alpha * i + (n > 5 ? 0.5 : 0)), rayon * Math.sin(alpha * i + (n > 5 ? 0.5 : 0)), 0))
       }
       const base2 = polygone3d(points3D)
-      const corps = prisme3d(base2, O1)
-      const base1 = translation3d(base2, vecteur3d(O, O1))
+      const base1 = translation3d(base2, vecteur3d(O2, O1))
+      const prisme = prisme3d(base2, vecteur3d(O1, O2))
       const chapeau1AvecPrisme = pyramide3d(base1, s1)
       const chapeau1SansPrisme = pyramide3d(base2, s1)
-      const chapeau2 = pyramide3d(base2, s2)
-      const v = vecteur3d(0, rayon, 0)
-      const cylindre = cylindre3d(O2, O1, v, v, 'black', false, false, false)
-      const cone1 = cone3d(O1, s1, v, 'black', false, undefined, 'white', false)
-      const cone1bis = cone3d(O2, s1, v, 'black', false, undefined, 'white', false)
-      const cone2 = cone3d(O2, s2, v, 'black', false, undefined, 'white', false)
+      const chapeau2 = pyramide3d(base2, s2, undefined, undefined, undefined, undefined, undefined, undefined, undefined, false)
+      const v = vecteur3d(0, -rayon, 0)
+      const cylindre = cylindre3d(O2, O1, v, v, 'black', false, false, false, 'black', false, 'lightgray', chapeau === 'bas')
+      const cone1AvecCylindre = cone3d(O1, s1, v, 'black', false, undefined, 'white', false)
+      const cone1SansCylindre = cone3d(O2, s1, v, 'black', false, undefined, 'white', false)
+      const cone2 = cone3d(O2, s2, v, 'black', false, undefined, 'white', false, false)
       this.correction = 'Ce solide est composé '
       switch (tronc) {
         case 'prisme':
@@ -119,22 +119,22 @@ export default class DecrireAssemblageDeSolides extends Exercice {
             case 'haut':
               this.correction += `avec au-dessus une pyramide à base ${this.getTypeBase(n)}.`
               for (let i = 0; i < n; i++) {
-                corps.base2.c2d[i].isVisible = false
+                prisme.base1.c2d[i].isVisible = false
               }
               objets.push(...chapeau1AvecPrisme.c2d)
               break
             case 'bas':
               this.correction += `avec en dessous une pyramide à base ${this.getTypeBase(n)}.`
               for (let i = 0; i < n; i++) {
-                corps.base1.c2d[i].isVisible = false
+                prisme.base2.c2d[i].isVisible = false
               }
               objets.push(...chapeau2.c2d)
               break
             case 'les deux':
               this.correction += `au milieu avec une pyramide au dessus et une autre en dessous, toutes les deux à base ${this.getTypeBase(n)}.`
               for (let i = 0; i < n; i++) {
-                corps.base1.c2d[i].isVisible = false
-                corps.base2.c2d[i].isVisible = false
+                prisme.base1.c2d[i].isVisible = false
+                prisme.base2.c2d[i].isVisible = false
               }
               objets.push(...chapeau1AvecPrisme.c2d)
               objets.push(...chapeau2.c2d)
@@ -143,14 +143,14 @@ export default class DecrireAssemblageDeSolides extends Exercice {
               notify('Chapeau inconnu dans 6G44-2', { exercice: this, tronc, chapeau })
               break
           }
-          objets.push(...corps.c2d)
+          objets.push(...prisme.c2d)
           break
         case 'cylindre':
           this.correction += 'd\'un cylindre '
           switch (chapeau) {
             case 'haut':
               this.correction += 'avec un cône au-dessus.'
-              objets.push(...cone1.c2d)
+              objets.push(...cone1AvecCylindre.c2d)
               break
             case 'bas':
               this.correction += 'avec un cône en dessous.'
@@ -158,7 +158,7 @@ export default class DecrireAssemblageDeSolides extends Exercice {
               break
             case 'les deux':
               this.correction += 'au milieu avec un cône au-dessus et un autre en dessous.'
-              objets.push(...cone1.c2d)
+              objets.push(...cone1AvecCylindre.c2d)
               objets.push(...cone2.c2d)
               break
             default:
@@ -174,8 +174,8 @@ export default class DecrireAssemblageDeSolides extends Exercice {
           break
         case 'cylindre sans':
           this.correction += 'de deux cônes ayant la même base.'
-          objets.push(...cone1bis.c2d)
           objets.push(...cone2.c2d)
+          objets.push(...cone1SansCylindre.c2d)
           break
         default:
           notify('Tronc inconnu dans 6G44-2', { exercice: this, tronc })

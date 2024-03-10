@@ -934,7 +934,7 @@ export function cone3d (centre, sommet, rayon, generatrices = 18) {
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @class
  */
-function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray', affichageCentre = true) {
+function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
   ObjetMathalea2D.call(this, {})
   this.centre = centre
   this.sommet = sommet
@@ -951,7 +951,7 @@ function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, co
   }
   const p = polygone3d(ptsBase, this.color)
   // this.c2d = pyramide3d(p, this.sommet, this.color, this.centre, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
-  this.c2d = pyramide3d(p, this.sommet, this.color, affichageCentre ? this.centre : undefined, affichageAxe, this.colorAxe, false, true, this.colorCone).c2d
+  this.c2d = pyramide3d(p, this.sommet, this.color, affichageCentre ? this.centre : undefined, affichageAxe, this.colorAxe, false, true, this.colorCone, affichageBase).c2d
 }
 
 /**
@@ -971,8 +971,8 @@ function Cone3d (centre, sommet, rayon, color = 'black', affichageAxe = true, co
  * @author Eric Elter
  * @return {Cone3d}
  */
-export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = false, colorAxe = 'black', colorCone = 'gray', affichageCentre = true) {
-  return new Cone3d(centre, sommet, rayon, color, affichageAxe, colorAxe, colorCone, affichageCentre)
+export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = false, colorAxe = 'black', colorCone = 'gray', affichageCentre = true, affichageBase = true) {
+  return new Cone3d(centre, sommet, rayon, color, affichageAxe, colorAxe, colorCone, affichageCentre, affichageBase)
 }
 
 /**
@@ -989,6 +989,7 @@ export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = f
  * @param {string} [colorAxe = 'black'] Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
  * @param {boolean} [cylindreColore = false] Permet (ou pas) de colorier le cylindre
  * @param {string} [colorCylindre = 'lightgray'] Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'blue' ou du type '#f15929'
+ * @param {boolean} [avecFaceHaut = true] Permet (ou pas) d'afficher la face haut du cylindre
  * @property {Point3d} centrebase1 Centre de la première base
  * @property {Point3d} centrebase2 Centre de la seconde base
  * @property {Vecteur3d} rayon1 Vecteur correspondant au rayon de la première base
@@ -1007,7 +1008,7 @@ export function cone3d (centre, sommet, rayon, color = 'black', affichageAxe = f
  * @author Jean-Claude Lhote (optimisé par Eric Elter)
  * @class
  */
-function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray') {
+function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray', avecFaceHaut = true) {
   ObjetMathalea2D.call(this, {})
   this.centrebase1 = centrebase1
   this.centrebase2 = centrebase2
@@ -1103,7 +1104,8 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
   s = segment(c4.listePoints[c2.listePoints.length - 1], c2.listePoints[c2.listePoints.length - 1], this.color)
   this.c2d.push(s)
 
-  this.c2d.push(c1, c2, c3, c4)
+  this.c2d.push(c1, c2)
+  if (avecFaceHaut) this.c2d.push(c3, c4)
 
   if (this.affichageCentreBases) {
     this.c2d.push(tracePoint(this.centrebase1.c2d, this.centrebase2.c2d, this.colorAxe))
@@ -1143,6 +1145,7 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
  * @param {string} [colorAxe = 'black'] Couleur de l'axe et des centres respectifs de chaque base du cylindre : du type 'blue' ou du type '#f15929'
  * @param {boolean} [cylindreColore = false] Permet (ou pas) de colorier le cylindre
  * @param {string} [colorCylindre = 'lightgray'] Couleur du cylindre (avec gestion intégrée de la nuance de couleurs): du type 'blue' ou du type '#f15929'
+ * @param {boolean} [avecFaceHaut = true] Permet (ou pas) d'afficher la face haut du cylindre
  * @example cylindre3d(A, B, v, v, 'blue')
  * // Retourne un cylindre à bords bleus dont les bases ont pour centre respectif A et B et le rayon est donné par le vecteur v.
  * @example cylindre3d(A, B, v, v, 'green', false, true, true, 'red', true, 'lightblue')
@@ -1151,8 +1154,8 @@ function Cylindre3d (centrebase1, centrebase2, rayon1, rayon2, color = 'black', 
  * @author Jean-Claude Lhote (optimisé par Eric Elter)
  * @return {Cylindre3d}
  */
-export function cylindre3d (centrebase1, centrebase2, rayon, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray') {
-  return new Cylindre3d(centrebase1, centrebase2, rayon, rayon2, color, affichageGeneratrices, affichageCentreBases, affichageAxe, colorAxe, cylindreColore, colorCylindre)
+export function cylindre3d (centrebase1, centrebase2, rayon, rayon2, color = 'black', affichageGeneratrices = true, affichageCentreBases = false, affichageAxe = false, colorAxe = 'black', cylindreColore = false, colorCylindre = 'lightgray', avecFaceHaut = true) {
+  return new Cylindre3d(centrebase1, centrebase2, rayon, rayon2, color, affichageGeneratrices, affichageCentreBases, affichageAxe, colorAxe, cylindreColore, colorCylindre, avecFaceHaut)
 }
 
 /**
@@ -1358,7 +1361,7 @@ export function pyramide3d (base, vecteur, color = 'black') {
  * @class
  */
 class Pyramide3d {
-  constructor (base, sommet, color, centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray') {
+  constructor (base, sommet, color, centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
     ObjetMathalea2D.call(this, {})
 
     base.color = colorToLatexOrHTML(color)
@@ -1475,8 +1478,10 @@ class Pyramide3d {
       }
     }
 
-    for (let i = 0; i < this.base.listePoints.length; i++) {
-      this.c2d.push(aretesBase[i].c2d)
+    if (affichageBase) {
+      for (let i = 0; i < this.base.listePoints.length; i++) {
+        this.c2d.push(aretesBase[i].c2d)
+      }
     }
 
     if (this.centre !== undefined && this.centre.constructor === Point3d) {
@@ -1565,8 +1570,8 @@ class Pyramide3d {
  * @example pyramide3d(c,A,'red',B,true,'green',false,true,'blue') // Créé un CONE de cercle c et de sommet A et dont les "arêtes" sont rouges, le centre affiché est B, l'axe affiché est vert et le cône est peint en vert
  * @return {Pyramide3d}
  */
-export function pyramide3d (base, sommet, color = 'black', centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray') {
-  return new Pyramide3d(base, sommet, color, centre, affichageAxe, colorAxe, affichageNom, estCone, colorCone)
+export function pyramide3d (base, sommet, color = 'black', centre, affichageAxe = false, colorAxe = 'black', affichageNom = false, estCone = false, colorCone = 'gray', affichageBase = true) {
+  return new Pyramide3d(base, sommet, color, centre, affichageAxe, colorAxe, affichageNom, estCone, colorCone, affichageBase)
 }
 
 /**
