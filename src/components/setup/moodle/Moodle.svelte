@@ -51,6 +51,8 @@
           paramUrl += `s2\\=${param[key]}&`
         } else if (key === 'sup3') {
           paramUrl += `s3\\=${param[key]}&`
+        } else if (key === 'sup4') {
+          paramUrl += `s4\\=${param[key]}&`
         } else if (key === 'nbQuestions') {
           paramUrl += `n\\=${param[key]}&`
         } else if (key !== 'alea' && key !== 'id') {
