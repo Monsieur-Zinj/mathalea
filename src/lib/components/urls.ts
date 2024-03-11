@@ -71,7 +71,7 @@ export function buildMathAleaURL (
   if (view === 'can') {
     // paramètres spécifiques à la can dans l'URL
     url
-      .addParam('canD', can.durationInMinutes.toString())
+      .addParam('canD', (can.durationInMinutes ?? 1).toString())
       .addParam('canT', can.subTitle.toString())
       .addParam('canSA', can.solutionsAccess ? '1' : '0')
       .addParam('canSM', can.solutionsMode)
