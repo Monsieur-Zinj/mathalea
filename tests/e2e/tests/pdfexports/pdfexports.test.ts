@@ -2,8 +2,21 @@ import { runSeveralTests, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
 import JSZip from 'jszip'
 import fs from 'fs/promises'
+import referentielStatic from '../../../../src/json/referentielStatic.json'
+import { type JSONReferentielObject } from '../../../../src/lib/types/referentiels'
 import uuidToUrl from '../../../../src/json/uuidsToUrl.json'
 import { logError as lgE, log as lg, getFileLogger } from '../../helpers/log'
+
+const allStaticReferentiels: JSONReferentielObject = {
+  ...referentielStatic
+}
+
+// on supprime les entrées par thèmes qui entraîne des doublons
+delete allStaticReferentiels['Brevet des collèges par thèmes - APMEP']
+delete allStaticReferentiels['BAC par thèmes - APMEP']
+delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
+delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
+delete allStaticReferentiels['E3C par thèmes - APMEP']
 
 const logPDF = getFileLogger('exportPDF', { append: true })
 
@@ -113,6 +126,26 @@ async function findUuid (filter : string) {
   })
 }
 
+async function findStatic (filter : string) {
+  const uuids = Object.entries(allStaticReferentiels)
+  const uuidsDNB = uuids[0][1]
+  const uuidsFound : [string, string][] = []
+
+  Object.entries(uuidsDNB).forEach(([, value]) => {
+    const values = Object.values(value)
+    values.forEach((val) => {
+      if (typeof val === 'object') {
+        if (Object.prototype.hasOwnProperty.call(val, 'uuid')) {
+          if (val.uuid !== undefined && typeof val.uuid === 'string' && val.uuid.startsWith(filter)) {
+            uuidsFound.push([val.uuid, val.uuid])
+          }
+        }
+      }
+    })
+  })
+  return uuidsFound
+}
+
 async function testAll (page: Page, filter: string) {
   // const urlExercice = 'http://localhost:5173/alea/?uuid=322a0&id=6C10-0&alea=QrHL&v=latex'
 
@@ -184,7 +217,7 @@ async function testRunAll (filter: string) {
 
 async function testRunAllLots (filter: string) {
   // return testAll(page, '6e/6G23')
-  const uuids = await findUuid(filter)
+  const uuids = filter.includes('dnb') ? await findStatic(filter) : await findUuid(filter)
   for (let i = 0; i < uuids.length && i < 300; i += 10) {
     const ff : ((page: Page) => Promise<boolean>)[] = []
     for (let k = i; k < i + 10 && k < uuids.length; k++) {
@@ -194,8 +227,9 @@ async function testRunAllLots (filter: string) {
         page.on('console', msg => {
           logPDF(msg.text())
         })
+        const hostname = 'https://coopmaths.fr/alea/' // http://localhost:5173/alea/
         log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
-        const resultReq = await getLatexFile(page, `http://localhost:5173/alea/?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&v=latex`)
+        const resultReq = await getLatexFile(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&v=latex`)
         log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[k][1]}`)
         return resultReq === 'OK'
       }
@@ -214,8 +248,10 @@ async function testRunAllLots (filter: string) {
 // runTest(test5e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 // runTest(test4e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
 // runTest(test3e, import.meta.url, { pauseOnError: false, silent: false, debug: false })
-testRunAllLots('can')
-testRunAllLots('3e')
-testRunAllLots('4e')
-testRunAllLots('5e')
-testRunAllLots('6e')
+
+// testRunAllLots('can')
+// testRunAllLots('3e')
+// testRunAllLots('4e')
+// testRunAllLots('5e')
+// testRunAllLots('6e')
+testRunAllLots('dnb_2023')
