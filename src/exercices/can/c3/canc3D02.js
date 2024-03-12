@@ -1,3 +1,5 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { hmsCompare } from '../../../lib/interactif/comparisonFunctions'
 import { cercle } from '../../../lib/2d/cercle.js'
 import { point } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
@@ -7,7 +9,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { personne } from '../../../lib/outils/Personne'
 import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Lire une durée'
 export const dateDePublication = '4/11/2021'
@@ -30,7 +32,8 @@ export default function LireUneDuree () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierHms
+  this.compare = hmsCompare
   this.nouvelleVersion = function () {
     let h1, m1, h2, m2, enonce
     const matinOuSoir = choice(['matin', 'soir'])
@@ -94,7 +97,7 @@ export default function LireUneDuree () {
     (context.isHtml ? '</td></tr></table>' : '\\end{multicols}\n') +
           'Combien de temps cela a-t-il duré ?'
     this.reponse = `${h2 - h1}h ${m2 - m1}`
-    this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de $${calculANePlusJamaisUtiliser((m2 - m1) / 5)}$ graduations soit $${m2 - m1}$ minutes.<br>`
+    this.correction = `On regarde de combien de graduations la grande aiguille a avancé : elle a avancé de $${Math.round((m2 - m1) / 5)}$ graduations soit $${m2 - m1}$ minutes.<br>`
     this.correction += 'Ensuite on regarde si la petite aiguille a avancé d\'au moins une graduation.<br>'
     if (h2 === h1) {
       this.correction += `Ce n'est pas le cas, donc il s'est écoulé seulement $0$ h $${m2 - m1}$ minutes.`

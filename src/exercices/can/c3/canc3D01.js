@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { cercle } from '../../../lib/2d/cercle.js'
 import { point } from '../../../lib/2d/points.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
@@ -6,6 +7,7 @@ import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.j
 import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
+import { hmsCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Lire l\'heure'
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true
@@ -29,7 +31,8 @@ export default function LireHeure () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierHms
+  this.compare = hmsCompare
   this.nouvelleVersion = function () {
     const horloge = []
     const O = point(0, 0)

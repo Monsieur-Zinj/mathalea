@@ -1,3 +1,5 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { hmsCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
@@ -21,7 +23,8 @@ export default function AjouterDesDurees () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierHms
+  this.compare = hmsCompare
   if (!this.interactif) {
     this.question += ' $\\ldots$ minutes'
   }
