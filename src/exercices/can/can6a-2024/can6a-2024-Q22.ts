@@ -15,7 +15,7 @@ export const uuid = 'eb9d6'
  * Référence
 */
 
-export default class NomExercice extends Exercice {
+export default class AbscisseEnDemiBis extends Exercice {
   constructor () {
     super()
     this.titre = titre

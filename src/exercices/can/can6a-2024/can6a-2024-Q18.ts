@@ -17,7 +17,7 @@ export const uuid = '693b3'
  * @author Jean-Claude Lhote
  * Référence
 */
-export default class NomExercice extends Exercice {
+export default class AireTrapezeRectangle extends Exercice {
   constructor () {
     super()
     this.titre = titre

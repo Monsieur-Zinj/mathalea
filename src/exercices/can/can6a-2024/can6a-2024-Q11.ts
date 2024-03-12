@@ -13,7 +13,7 @@ export const uuid = 'e1faf'
  * @author Jean-Claude Lhote
  * Référence
 */
-export default class NomExercice extends Exercice {
+export default class CompareDecimalFraction extends Exercice {
   constructor () {
     super()
     this.titre = titre
