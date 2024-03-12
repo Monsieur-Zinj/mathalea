@@ -98,7 +98,8 @@ export default function CalculDAngleFigureComplexe () {
             xmin: -1,
             ymin: -1,
             xmax: D.x + 1,
-            ymax: Math.max(C.y, D.y) + 1
+            ymax: Math.max(C.y, D.y) + 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
           }, objetsMathalea)
           if (!this.sup) {
             texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${B.nom + A.nom + C.nom}}=${BAC}^\\circ$.`
@@ -112,11 +113,12 @@ export default function CalculDAngleFigureComplexe () {
               xmin: -1,
               ymin: -2,
               xmax: D.x + 1,
-              ymax: Math.max(C.y, D.y) + 1
+              ymax: Math.max(C.y, D.y) + 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, t1c, t2, c1, c2, a1, a2, labels, texte1, texte2)
           }
-          texteCorr += `<br>$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$ donc $\\cos\\left(\\widehat{${B.nom + A.nom + C.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}\\quad$ `
-          texteCorr += `soit $\\quad\\cos(${BAC}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}\\quad$ et $\\quad ${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\cos(${BAC}^\\circ)}\\approx${texNombre(AC, 1)}$ cm.`
+          texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$. <br> Donc $\\cos\\left(\\widehat{${B.nom + A.nom + C.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}$ <br>`
+          texteCorr += `Soit $\\cos(${BAC}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}$ <br> $${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\cos(${BAC}^\\circ)}\\approx${texNombre(AC, 1)}$ cm.`
           if (this.correctionDetaillee) {
             const texte3 = texteSurSegment('adjacent', C, A)
             const texte4 = texteSurSegment('opposé', A, D, 'black')
@@ -124,13 +126,14 @@ export default function CalculDAngleFigureComplexe () {
               xmin: -1,
               ymin: -1,
               xmax: D.x + 1,
-              ymax: Math.max(C.y, D.y) + 1
+              ymax: Math.max(C.y, D.y) + 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, t1, t2c, c1, c2, a3, a4, a5, labels, texte3, texte4)
           }
-          texteCorr += `<br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}\\quad$ `
-          texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}^\\circ$.`
-          texteCorr += `<br>La somme des angles d'un triangle est égale à $180^\\circ$ donc $\\widehat{${B.nom + C.nom + A.nom}}=180^\\circ-90^\\circ-${BAC}^\\circ=${90 - BAC}^\\circ$.`
-          texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${90 - ACD}^\\circ$.`
+          texteCorr += `<br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$. <br> Donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}$ <br>`
+          texteCorr += `Soit $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}$ <br> $\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}^\\circ$.<br>`
+          texteCorr += `La somme des angles d'un triangle est égale à $180^\\circ$.<br> Donc $\\widehat{${B.nom + C.nom + A.nom}}=180^\\circ-90^\\circ-${BAC}^\\circ=${90 - BAC}^\\circ$.<br>`
+          texteCorr += `De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${90 - ACD}^\\circ$.<br>`
           if (this.interactif) {
             setReponse(this, 3 * i, ACD)
             setReponse(this, 3 * i + 1, 90 - BAC)
@@ -160,7 +163,8 @@ export default function CalculDAngleFigureComplexe () {
             xmin: -1,
             ymin: -1,
             xmax: D.x + 1,
-            ymax: Math.max(C.y, D.y) + 1
+            ymax: Math.max(C.y, D.y) + 1,
+            optionsTikz: 'baseline=(current bounding box.north)'
           }, objetsMathalea)
           if (!this.sup) {
             texte += `<br>On a $${B.nom + A.nom} = ${texNombre(BA, 1)}$ cm, $${A.nom + D.nom} = ${texNombre(AD, 1)}$ cm et $\\widehat{${A.nom + C.nom + B.nom}}=${ACB}^\\circ$.`
@@ -174,12 +178,13 @@ export default function CalculDAngleFigureComplexe () {
               xmin: -1,
               ymin: -2,
               xmax: D.x + 1,
-              ymax: Math.max(C.y, D.y) + 1
+              ymax: Math.max(C.y, D.y) + 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, t1c, t2, c1, c2, a1, a2, labels, texte1, texte2)
             texteCorr += '<br>'
           }
-          texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$ donc $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}\\quad$ `
-          texteCorr += `soit $\\quad\\sin(${ACB}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}\\quad$ et $\\quad ${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\sin(${ACB}^\\circ)}\\approx${texNombre(AC, 1)}$ cm.`
+          texteCorr += `$${C.nom + B.nom + A.nom}$ est rectangle en $${B.nom}$.<br> Donc $\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=\\dfrac{${B.nom + A.nom}}{${A.nom + C.nom}}$ <br>`
+          texteCorr += `Soit $\\sin(${ACB}^\\circ)=\\dfrac{${texNombre(BA, 1)}}{${A.nom + C.nom}}$ <br> $${A.nom + C.nom}=\\dfrac{${texNombre(BA, 1)}}{\\sin(${ACB}^\\circ)}\\approx${texNombre(AC, 1)}$ cm.`
           if (this.correctionDetaillee) {
             const texte3 = texteSurSegment('adjacent', C, A)
             const texte4 = texteSurSegment('opposé', A, D, 'black')
@@ -187,12 +192,13 @@ export default function CalculDAngleFigureComplexe () {
               xmin: -1,
               ymin: -1,
               xmax: D.x + 1,
-              ymax: Math.max(C.y, D.y) + 1
+              ymax: Math.max(C.y, D.y) + 1,
+              optionsTikz: 'baseline=(current bounding box.north)'
             }, t1, t2c, c1, c2, a3, a4, a5, labels, texte3, texte4)
           }
-          texteCorr += `<br><br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$ donc $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}\\quad$ `
-          texteCorr += `soit $\\quad\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\quad$ et $\\quad\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}^\\circ$.`
-          texteCorr += `<br><br>La somme des angles d'un triangle est égale à $180^\\circ$ donc $\\widehat{${B.nom + A.nom + C.nom}}=180^\\circ-90^\\circ-${ACB}^\\circ=${90 - ACB}^\\circ$.`
+          texteCorr += `<br><br>$${C.nom + A.nom + D.nom}$ est rectangle en $${A.nom}$. <br> $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)=\\dfrac{${A.nom + D.nom}}{${A.nom + C.nom}}$<br>`
+          texteCorr += `Soit $\\tan\\left(\\widehat{${A.nom + C.nom + D.nom}}\\right)\\approx\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}$ <br> $\\widehat{${A.nom + C.nom + D.nom}}\\approx\\text{arctan}\\left(\\dfrac{${texNombre(AD, 1)}}{${texNombre(AC, 1)}}\\right)\\approx${ACD}^\\circ$.`
+          texteCorr += `<br><br>La somme des angles d'un triangle est égale à $180^\\circ$. <br> Donc $\\widehat{${B.nom + A.nom + C.nom}}=180^\\circ-90^\\circ-${ACB}^\\circ=${90 - ACB}^\\circ$.`
           texteCorr += `<br>De même, $\\widehat{${C.nom + D.nom + A.nom}}\\approx 180^\\circ-90^\\circ-${ACD}^\\circ$ et donc $\\widehat{${C.nom + D.nom + A.nom}}\\approx${90 - ACD}^\\circ$.`
           if (this.interactif) {
             setReponse(this, 3 * i, ACD)
