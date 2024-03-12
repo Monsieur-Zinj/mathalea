@@ -118,13 +118,14 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           }
           const [nbBonnesReponses, nbReponses] = bareme(points)
           if (mfe.getValue().length > 0 && typeof exercice.answers === 'object') {
-            const prompts = mfe.getPrompts()
+            /*    const prompts = mfe.getPrompts()
             const answers = []
             for (const prompt of prompts) {
               answers.push([prompt, mfe.getPromptValue(prompt)])
             }
             exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = Object.assign({}, Object.fromEntries(answers))
-            // exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.getValue()
+         */
+            exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.getValue()
           }
           if (spanReponseLigne != null) {
             spanReponseLigne.innerHTML = nbBonnesReponses === nbReponses ? '😎' : '☹️'
