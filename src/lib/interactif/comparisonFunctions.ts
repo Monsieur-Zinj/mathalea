@@ -678,10 +678,10 @@ export function expandedAndReductedCompare (input: string, goodAnswer: {expr: st
   const saisieCleaned = clean(input)
   const saisie = engine.parse(saisieCleaned, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
   const answer = engine.parse(clean(expr), { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
-  console.log(`saisie : ${saisie.latex} et answer : ${answer.latex}`)
-  const isOk1 = answer.isSame(saisie)
-  const isOk2 = saisie.simplify().isSame(answer)
-  return { isOk: isOk1 && isOk2, feedback: isOk1 && isOk2 ? feedback : isOk2 ? feedback + 'L\'expression est développée correctement mais pas réduite.<br>' : feedback }
+  // console.log(`saisie : ${saisie.latex} et answer : ${answer.latex}`)
+  const isOk1 = saisie.isSame(answer)
+  const isOk2 = saisie.isEqual(answer)
+  return { isOk: isOk1 && isOk2, feedback: isOk1 && isOk2 ? feedback : isOk2 ? feedback + 'L\'expression est développée mais pas réduite.<br>' : feedback }
 }
 
 /**
