@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -25,7 +26,7 @@ export default function SuiteSurDroiteGraduee () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierDeBase
   this.nbQuestions = 1
   this.nouvelleVersion = function () {
     const a = randint(1, 6) // choix de la table = écart entre deux graduations

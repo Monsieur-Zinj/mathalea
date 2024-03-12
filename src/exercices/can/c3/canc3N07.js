@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { sp } from '../../../lib/outils/outilString.js'
@@ -28,7 +29,6 @@ export const refs = {
 export default function DecompositionNombre () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur12 inline'
   this.tailleDiaporama = 2
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -36,6 +36,7 @@ export default function DecompositionNombre () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    const formatChampTexte = 'largeur12 inline ' + KeyboardType.clavierDeBase
     let texte, texteCorr, c, d, u, n, um
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2])) {
@@ -46,9 +47,9 @@ export default function DecompositionNombre () {
           n = c * 100 + d * 10 + u
           if (choice([true, false])) {
             if (this.interactif) {
-              texte = `Compléter : <br>$${n}=$` + ajouteChampTexteMathLive(this, 2 * i, 'largeur12 inline') + 'centaine(s)'
+              texte = `Compléter : <br>$${n}=$` + ajouteChampTexteMathLive(this, 2 * i, formatChampTexte) + 'centaine(s)'
               texte += ` ${sp(1)}   `
-              texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur12 inline') + 'unité(s)'
+              texte += ajouteChampTexteMathLive(this, 2 * i + 1, formatChampTexte) + 'unité(s)'
               setReponse(this, 2 * i, c)
               setReponse(this, 2 * i + 1, d * 10 + u)
             } else {
@@ -61,9 +62,9 @@ export default function DecompositionNombre () {
             this.canReponseACompleter = `$${n}=\\ldots$ centaine(s)  $\\ldots$ unité(s)`
           } else {
             if (this.interactif) {
-              texte = `Compléter : <br>$${n}=$` + ajouteChampTexteMathLive(this, 2 * i, 'largeur12 inline') + 'dizaine(s)'
+              texte = `Compléter : <br>$${n}=$` + ajouteChampTexteMathLive(this, 2 * i, formatChampTexte) + 'dizaine(s)'
               texte += ` ${sp(1)}   `
-              texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur12 inline') + 'unité(s)'
+              texte += ajouteChampTexteMathLive(this, 2 * i + 1, formatChampTexte) + 'unité(s)'
               setReponse(this, 2 * i, c * 10 + d)
               setReponse(this, 2 * i + 1, u)
             } else {
@@ -84,9 +85,9 @@ export default function DecompositionNombre () {
           n = um * 1000 + c * 100 + d * 10 + u
           if (choice([true, false])) {
             if (this.interactif) {
-              texte = `Compléter : <br>$${texNombre(n)}=$` + ajouteChampTexteMathLive(this, 2 * i, 'largeur12 inline') + 'centaine(s)'
+              texte = `Compléter : <br>$${texNombre(n)}=$` + ajouteChampTexteMathLive(this, 2 * i, formatChampTexte) + 'centaine(s)'
               texte += ` ${sp(1)}   `
-              texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur12 inline') + 'unité(s)'
+              texte += ajouteChampTexteMathLive(this, 2 * i + 1, formatChampTexte) + 'unité(s)'
               setReponse(this, 2 * i, um * 10 + c)
               setReponse(this, 2 * i + 1, d * 10 + u)
             } else {
@@ -99,9 +100,9 @@ export default function DecompositionNombre () {
             this.canReponseACompleter = `$${texNombre(n)}=\\ldots$ centaine(s)  $\\ldots$ unité(s)`
           } else {
             if (this.interactif) {
-              texte = `Compléter : <br>$${texNombre(n)}=$` + ajouteChampTexteMathLive(this, 2 * i, 'largeur12 inline') + 'dizaine(s)'
+              texte = `Compléter : <br>$${texNombre(n)}=$` + ajouteChampTexteMathLive(this, 2 * i, formatChampTexte) + 'dizaine(s)'
               texte += ` ${sp(1)}   `
-              texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur12 inline') + 'unité(s)'
+              texte += ajouteChampTexteMathLive(this, 2 * i + 1, formatChampTexte) + 'unité(s)'
               setReponse(this, 2 * i, um * 100 + c * 10 + d)
               setReponse(this, 2 * i + 1, u)
             } else {

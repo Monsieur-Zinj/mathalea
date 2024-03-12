@@ -1,5 +1,7 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Arrondir à l\'unité'
 export const interactifReady = true
@@ -23,16 +25,16 @@ export default function ArrondiUnite () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierDeBase
   this.consigne = ''
 
   this.nouvelleVersion = function () {
     const a = randint(1, 20)
     const b = randint(0, 9, 5)
     const c = randint(0, 9, b)
-    const d = calculANePlusJamaisUtiliser(a + b * 0.1 + c * 0.01)
-    this.question = `Quel est l'arrondi à l'unité de $${texNombre(d)}$ ?`
-    this.correction = `$${texNombre(d)} \\approx ${Math.round(d)}$`
+    const d = arrondi(a + b * 0.1 + c * 0.01, 2)
+    this.question = `Quel est l'arrondi à l'unité de $${texNombre(d, 2)}$ ?`
+    this.correction = `$${texNombre(d, 2)} \\approx ${Math.round(d)}$`
     this.reponse = Math.round(d)
     this.canEnonce = this.question
     this.canReponseACompleter = ''

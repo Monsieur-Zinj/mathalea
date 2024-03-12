@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { numTrie } from '../../../lib/outils/nombres'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
@@ -23,7 +24,7 @@ export default function PlusGrandNombreEntier () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierDeBase
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)
