@@ -41,11 +41,14 @@
   })
 
   function removeMF (text: string) {
+    if (typeof text !== 'string') return ''
+    if (text.includes('placeholder')) return cleanFillInTheBlanks(text)
     const regex = /<math-field[^>]*>[^]*?<\/math-field>/g
     return text.replace(regex, ' ... ')
   }
 
   function cleanFillInTheBlanks (text: string) {
+    if (typeof text !== 'string') return ''
     return text.replace(/\\placeholder\[(.*?)\]\[(.*?)\]\[(.*?)\]/g, '')
   }
 </script>
