@@ -4,6 +4,8 @@
   import NavBar from '../../shared/header/NavBar.svelte'
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../../../lib/mathalea.js'
   import type TypeExercice from '../../../exercices/Exercice'
+  import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
+
 
   const copyCode = async () => {
     const preElt = document.querySelector('pre')
@@ -39,6 +41,7 @@
   let exercices: TypeExercice[]
 
   async function initExercices () {
+    content = '';
     mathaleaUpdateExercicesParamsFromUrl()
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     let i = 0
@@ -60,19 +63,23 @@
         }
       }
       paramUrl = paramUrl.slice(0, -1)
+      let graine = useAlea ? '' : `graine\\="${param['alea']}" `
       content += `:: ${param.id} - ${exercices[i].titre} - ${exercices[i].nbQuestions} ${exercices[i].nbQuestions > 1 ? 'questions' : 'question'} ::\n`
       content += '<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
-      content += `<mathalea-moodle url\\="${paramUrl}" />\n`
+      content += `<mathalea-moodle url\\="${paramUrl}" ${graine}/>\n`
       content += '{\n'
       content += '=%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*\n'
       content += '####<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
-      content += `<mathalea-moodle url\\="${paramUrl}" correction />\n`
+      content += `<mathalea-moodle url\\="${paramUrl}" ${graine}correction />\n`
       content += '}\n\n'
       i++
     }
   }
-
-  initExercices()
+  let useAlea = true;
+  $: {
+    useAlea
+    initExercices()
+  }
 
 </script>
 
@@ -93,7 +100,18 @@
     </p>
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
 
-    <div class="flex flex-row w-full justify-center md:justify-start items-center">
+    <div class="flex flex-col justify-center items-center space-y-2">
+      <div class="pl-4 pt-4">
+        <ButtonToggleAlt
+            title={'Utiliser des exercices aléatoires'}
+            bind:value={useAlea}
+            explanations={[
+              'Chaque élève aura des exercices différents.',
+              'Tous les élèves auront le même exercice'
+            ]}
+          />
+      </div>
+
       <button
         type="submit"
         on:click={downloadCode}
