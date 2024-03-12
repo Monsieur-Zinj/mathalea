@@ -132,6 +132,10 @@ const basicKeys = {
     display: '$\\geqslant$',
     insert: '$$\\geqslant$$'
   },
+  IN: {
+    display: '$\\in$',
+    insert: '$$\\in$$'
+  },
   AST: {
     display: '*',
     insert: '$$\\ast$$'

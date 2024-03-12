@@ -23,6 +23,8 @@ export enum KeyboardType {
   // eslint-disable-next-line no-unused-vars
   clavierDeBaseAvecVariable = 'clavierDeBaseAvecVariable',
   // eslint-disable-next-line no-unused-vars
+  clavierEnsemble = 'clavierEnsemble',
+  // eslint-disable-next-line no-unused-vars
   clavierFullOperations = 'clavierFullOperations',
   // eslint-disable-next-line no-unused-vars
   alphanumericAvecEspace = 'alphanumericAvecEspace',
@@ -65,6 +67,8 @@ export const convertKeyboardTypeToBlocks = (type : KeyboardType): BlockForKeyboa
       return ['numbers2', 'basicOperations']
     case KeyboardType.clavierDeBaseAvecVariable:
       return ['numbers', 'basicOperations', 'variables']
+    case KeyboardType.clavierEnsemble:
+      return ['numbersX', 'ensemble']
     case KeyboardType.clavierFullOperations:
       return ['numbers', 'fullOperations']
     case KeyboardType.alphanumeric:

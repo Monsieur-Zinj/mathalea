@@ -19,6 +19,10 @@ const numbersCaps2: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', '='],
   block: [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, 'COMMA', '=']
 }
+const numbersCapsX: CompleteKeysList = {
+  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', 'xMath'],
+  block: [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, 'COMMA', 'xMath']
+}
 const numbersOperationsCaps: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', 'PI', 'DIV', 'MULT', 'SUB', 'ADD'],
   block: [7, 8, 9, 'DIV', 4, 5, 6, 'MULT', 1, 2, 3, 'SUB', 0, 'COMMA', 'PI', 'ADD']
@@ -46,6 +50,10 @@ const basicOperationCaps2: CompleteKeysList = {
 const fullOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'FRAC', '=', '(', ')', 'SQRT', 'SQ', 'CUBE', 'POW', 'POW10', 'DEG', 'PERCENT', 'SEMICOLON'],
   block: ['ADD', 'SUB', 'SQ', 'SQRT', 'MULT', 'DIV', 'CUBE', 'DEG', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
+}
+const ensembleCaps = {
+  inline: ['UNION', 'INTER', 'INFTY', 'EMPTY', 'PROB'],
+  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER']
 }
 const hmsCaps: CompleteKeysList = {
   inline: ['HOUR', 'MIN', 'SEC'],
@@ -118,6 +126,12 @@ export const specialKeys: KeyboardBlock = {
 }
 export const numbers: KeyboardBlock = {
   keycaps: numbersCaps,
+  cols: 3,
+  title: 'Nombres',
+  isUnits: false
+}
+export const numbersX: KeyboardBlock = {
+  keycaps: numbersCapsX,
   cols: 3,
   title: 'Nombres',
   isUnits: false
@@ -218,6 +232,13 @@ export const areas: KeyboardBlock = {
   isUnits: true
 }
 
+export const ensemble: KeyboardBlock = {
+  keycaps: ensembleCaps,
+  cols: 3,
+  title: 'Ensembles',
+  isUnits: false
+}
+
 export const volumes: KeyboardBlock = {
   keycaps: volumesCaps,
   cols: 2,
@@ -241,22 +262,24 @@ export const masses: KeyboardBlock = {
 
 // eslint-disable-next-line no-unused-vars
 export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>]: KeyboardBlock } = {
-  numbers,
-  numbers2,
-  numbersOperations,
-  numbersOperationsX,
-  greek,
-  trigo,
-  hms,
-  fullOperations,
+  advanced,
+  areas,
   basicOperations,
   basicOperations2,
   basicOperationsPlus,
-  variables,
-  advanced,
-  lengths,
-  areas,
-  volumes,
   capacities,
-  masses
+  ensemble,
+  greek,
+  fullOperations,
+  hms,
+  lengths,
+  masses,
+  numbers,
+  numbersX,
+  numbers2,
+  numbersOperations,
+  numbersOperationsX,
+  trigo,
+  variables,
+  volumes
 }
