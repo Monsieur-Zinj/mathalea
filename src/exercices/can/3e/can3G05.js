@@ -45,7 +45,7 @@ export default function Trigo () {
     const alpha = randint(0, 135)
     const B = rotation(pointAdistance(A, a, 0), A, alpha, nom[1])
     const C = similitude(A, B, 90, b / a, nom[2])
-    const pol = polygoneAvecNom(A, B, C)
+    const pol = polygoneAvecNom(A, B, C, 10 * c / 170) // 10 *c / 170 => on arrête à 10 pixels du points...  lié à pixelsParCm: 170 / c plus bas
     const objets = []
     objets.push(segment(A, B), segment(B, C), segment(A, C), codageAngleDroit(A, B, C))
     objets.push(afficheLongueurSegment(A, B, 'black', 0.5, ''), afficheLongueurSegment(B, C, 'black', 0.5, ''), afficheLongueurSegment(C, A, 'black', 0.5, ''))
@@ -102,6 +102,8 @@ export default function Trigo () {
         this.reponse = `\\dfrac{${b}}{${a}}`
         break
     }
+
+    console.log('pixelsParCm:' + 170 / c + ':scale:' + 4 / c + 'amplitude:' + 0.5)
     this.question += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.05 * c, rymin: -0.05 * c, rxmax: 0.05 * c, rymax: 0.05 * c }), {
       pixelsParCm: 170 / c,
       mainlevee: false,
