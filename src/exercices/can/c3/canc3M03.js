@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
@@ -25,7 +26,7 @@ export default function CalculAvecUnite () {
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatInteractif = 'calcul'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierDeBase
   this.nouvelleVersion = function () {
     const prefixes = ['k', 'h', 'da', '', 'd', 'c', 'm']
 

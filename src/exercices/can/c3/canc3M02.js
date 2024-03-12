@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { codageAngleDroit } from '../../../lib/2d/angles.js'
 import { codageSegments } from '../../../lib/2d/codages.js'
 import { milieu, point } from '../../../lib/2d/points.js'
@@ -28,7 +29,7 @@ export default function ProblemesDeLongueursEtPerimetreCM () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierDeBase
   this.optionsChampTexte = { texteApres: ' cm' }
   this.nouvelleVersion = function () {
     let choix; let a; let b; let A; let B; let C; let D; let objets = []; let s1; let s2; let s3; let s4
