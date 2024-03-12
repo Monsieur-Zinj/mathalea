@@ -86,7 +86,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           if (mfe == null) {
             throw Error('verifQuestionMathlive: type fillInTheBlank ne trouve pas le mathfieldElement dans le dom : ' + JSON.stringify({ selecteur: `math-field#champTexteEx${exercice.numeroExercice}Q${i}` }))
           }
-          let resultat = 'OK'
           const points = []
           const saisies = {}
           let feedback = ''
@@ -103,7 +102,6 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
               mfe.setPromptState(key, 'correct', true)
             } else {
               points.push(0)
-              resultat = 'KO'
               mfe.setPromptState(key, 'incorrect', true)
             }
             if (result.feedback != null) feedback += result.feedback
@@ -131,7 +129,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             spanReponseLigne.innerHTML = nbBonnesReponses === nbReponses ? '😎' : '☹️'
           }
           // le feedback est déjà assuré par la fonction feedback(), donc on le met à ''
-          return { isOk: resultat, feedback, score: { nbBonnesReponses, nbReponses } }
+          return { isOk: nbBonnesReponses === nbReponses, feedback, score: { nbBonnesReponses, nbReponses } }
         }
       }
     }
