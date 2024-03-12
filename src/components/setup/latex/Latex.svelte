@@ -105,8 +105,8 @@ import {
   let timerId: ReturnType<typeof setTimeout> | undefined
   afterUpdate(() => {
     if (timerId === undefined) {
-      timerId = setTimeout(() => {
-        updateLatex()
+      timerId = setTimeout(async () => {
+        await updateLatex()
         mathaleaRenderDiv(divText)
         timerId = undefined
       }, 1000)
