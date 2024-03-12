@@ -15,5 +15,5 @@ export const keyboardState = writable<{
   isInLine: false,
   idMathField: '',
   alphanumericLayout: 'AlphaLow',
-  blocks: ['numbersOperations']
+  blocks: ['numbers', 'fullOperations']
 })

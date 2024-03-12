@@ -42,6 +42,7 @@
     exercises = await Promise.all(buildExercisesList())
     // interactivité
     if ($canOptions.isInteractive) {
+      $globalOptions.beta = true
       $keyboardState.isVisible = true
       if (!('ontouchstart' in window)) {
         $keyboardState.isInLine = true
