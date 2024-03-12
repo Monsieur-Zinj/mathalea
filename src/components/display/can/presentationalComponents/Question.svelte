@@ -54,6 +54,8 @@
         $keyboardState.idMathField = mf.id
         window.setTimeout(() => {
           mf.focus()
+          // @ToFix Je remets le clavier visible pour les fillInTheBlanks mais en fait je ne sais pas ce qui les rend invisibles
+          $keyboardState.isVisible = true
         }, 0)
       }
     }
