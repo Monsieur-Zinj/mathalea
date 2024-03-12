@@ -2,7 +2,7 @@ import { milieu, point, tracePoint } from '../../lib/2d/points.js'
 import { cone as cone2d, sphere2d } from '../../lib/2d/projections3d.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie } from '../../lib/2d/transformations.js'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import {
   arc3d,
@@ -21,9 +21,9 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import Exercice from '../Exercice'
 
 export const titre = 'Reconnaître des solides'
 export const dateDePublication = '24/09/2022'
@@ -43,15 +43,33 @@ export const refs = {
   'fr-ch': ['9ES7-8', '10ES1-1', '11ES1-1']
 }
 export const uuid = '051aa'
-export default function ReconnaitreDesSolides () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.formatChampTexte = 'largeur15 inline'
-  this.sup = '8' // Type de question
-  this.sup2 = false // qcm
-  this.sup3 = false // axes
-  const solides = ['prisme', 'pyramide', 'cône', 'cylindre', 'pavé droit', 'cube', 'sphère']
-  this.nouvelleVersion = function () {
+export default class ReconnaitreDesSolides extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 5
+    this.formatChampTexte = 'largeur15 inline'
+    this.sup = '8' // Type de question
+    this.sup2 = false // qcm
+    this.sup3 = false // axes
+    this.besoinFormulaireTexte = [
+      'Type de solides', [
+        'Nombres séparés par des tirets',
+        '1 : Prisme',
+        '2 : Pyramide',
+        '3 : Cône',
+        '4 : Cylindre',
+        '5 : Pavé',
+        '6 : Cube',
+        '7 : Sphère',
+        '8 : Mélange'
+      ].join('\n')
+    ]
+    this.besoinFormulaire2CaseACocher = ['QCM']
+    this.besoinFormulaire3CaseACocher = ['Avec les axes']
+  }
+
+  nouvelleVersion () {
+    const solides = ['prisme', 'pyramide', 'cône', 'cylindre', 'pavé droit', 'cube', 'sphère']
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
     const isAxe = this.sup3
     this.listeQuestions = []
@@ -66,12 +84,10 @@ export default function ReconnaitreDesSolides () {
       nbQuestions: this.nbQuestions,
       melange: 8,
       saisie: this.sup
-    })
+    }).map(e => Number(e))
 
-    for (let j = 0, k = 0, choix; j < this.nbQuestions && k < 50; k++) {
-      // const type = typeDeQuestion[j].split(',')
-      // choix = parseInt(type[0])
-      choix = typeDeQuestion[j]
+    for (let j = 0, k = 0; j < this.nbQuestions && k < 50; k++) {
+      const choix = typeDeQuestion[j]
       context.anglePerspective = 30
       const objets = []
       let reponseQcm
@@ -80,19 +96,15 @@ export default function ReconnaitreDesSolides () {
       const a1 = isAxe ? arete3d(point3d(0, 0, 0), point3d(1, 0, 0), 'green').c2d : vide2d() // il n'est pas prudent d'envoyer des  {} à mathalea2d()
       const a2 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 1, 0), 'red').c2d : vide2d() // j'ai créé l'objet vide() exprès.
       const a3 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 0, 1), 'blue').c2d : vide2d() // l'objet vide() ne fait pas planter fixeBordures... {} oui.
-      // a1, a2, a3 sont des objets 2d ou vides.
-      // axe=1 -> base dans XY ;  axe=2 -> base dans YZ ; axe=3 -> base dans XZ ;
-      // let axe = ((choix >= 1 && choix <= 5) ? (type.length > 1 ? parseInt(type[1]) : randint(1, 3)) : 0)
-      // console.log('axe' + axe + ':' + solides[choix - 1])
-      // let axe = ((choix >= 1 && choix <= 5) ? (type.length > 1 ? parseInt(type[1]) : randint(1, 3)) : 0)
+
       let axe = (choix >= 1 && choix <= 5) ? randint(1, 3) : 0
 
       // nombre de sommets de la base.
-      // const n = (choix < 3 ? (type.length > 2 ? parseInt(type[2]) : randint(3, 8)) : (choix === 5 || choix === 6 ? 4 : 0))
       const n = choix < 3 ? randint(3, 8) : (choix === 5 || choix === 6 ? 4 : 0)
 
       let prisme, pyra, cone, cylindre, pave, sphere
-      switch (solides[choix - 1]) {
+      const solide = solides[choix - 1]
+      switch (solide) {
         case 'prisme': // Prisme  ?
         case 'pyramide': // Pyramides  ?
           {
@@ -127,7 +139,7 @@ export default function ReconnaitreDesSolides () {
               const base = polygone3d(points3XZ)
               const k2 = vecteur3d(0, -6, 0)
               const p2 = point3d(0, -6, 0)
-              if (choix === 1) {
+              if (solide === 'prisme') {
                 prisme = prisme3d(base, k2)
               } else {
                 pyra = pyramide3d(base, p2)
@@ -146,7 +158,7 @@ export default function ReconnaitreDesSolides () {
               const k1 = vecteur3d(3, 0, 0)
               const p1 = point3d(3, 0, 0)
 
-              if (choix === 1) {
+              if (solide === 'prisme') {
                 prisme = prisme3d(base, k1)
               } else {
                 pyra = pyramide3d(base, p1)
@@ -164,21 +176,21 @@ export default function ReconnaitreDesSolides () {
               const base = polygone3d(points3XY)
               const k3 = vecteur3d(0, 0, 3)
               const p3 = point3d(0, 0, 3)
-              if (choix === 1) {
+              if (solide === 'prisme') {
                 prisme = prisme3d(base, k3)
               } else {
                 pyra = pyramide3d(base, p3)
               }
             }
           }
-          if (choix === 1) {
+          if (solide === 'prisme') {
             objets.push(...prisme.c2d)
           } else {
             objets.push(...pyra.c2d)
           }
 
-          this.reponse = choix === 1 ? ['prisme', 'prisme droit'] : 'pyramide'
-          this.correction = choix === 1 ? `Prisme droit avec une base ayant $${prisme.base1.listePoints.length}$ sommets.` : `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.`// et selon l'axe=$${axe}$`
+          this.reponse = solide === 'prisme' ? ['prisme', 'prisme droit'] : 'pyramide'
+          this.correction = solide === 'prisme' ? `Prisme droit avec une base ayant $${prisme.base1.listePoints.length}$ sommets.` : `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.`// et selon l'axe=$${axe}$`
 
           break
         case 'cône': // cone  ?
@@ -269,13 +281,13 @@ export default function ReconnaitreDesSolides () {
           }
           objets.push(...cylindre.c2d)
           this.reponse = ['cylindre', 'cylindre de révolution']
-          this.correction = premiereLettreEnMajuscule(solides[choix - 1]) + ' de révolution.'
+          this.correction = premiereLettreEnMajuscule(solide) + ' de révolution.'
 
           break
         case 'pavé droit': // pavé droit
         case 'cube': // cube
         {
-          if (choix === 6) {
+          if (solide === 'cube') {
             axe = 2 // cube quel que soit l'axe
           }
           const points3XY = []
@@ -310,11 +322,11 @@ export default function ReconnaitreDesSolides () {
             points3YZ.push(...points3DRota)
 
             const base = polygone3d(points3YZ)
-            if (choix === 6) {
-              const k1 = point3d(3, 0, 0)
+            if (solide === 'cube') {
+              const k1 = vecteur3d(3, 0, 0)
               pave = prisme3d(base, k1)
             } else {
-              pave = prisme3d(base, point3d(5, 0, 0))
+              pave = prisme3d(base, vecteur3d(5, 0, 0))
             }
           } else {
             // base sur le plan XY
@@ -329,24 +341,24 @@ export default function ReconnaitreDesSolides () {
             pave = prisme3d(base, k3)
           }
           objets.push(...pave.c2d)
-          this.reponse = solides[choix - 1]
-          reponseQcm = solides[choix - 1]
-          this.correction = premiereLettreEnMajuscule(solides[choix - 1]) + '.'
+          this.reponse = solide
+          reponseQcm = solide
+          this.correction = premiereLettreEnMajuscule(solide) + '.'
 
           break
         }
         case 'sphère': // sphère
           sphere = sphere2d({ centre: point(0, 0), Rx: 2, color: 'black' })
           objets.push(sphere)
-          this.reponse = solides[choix - 1]
-          this.correction = premiereLettreEnMajuscule(solides[choix - 1]) + '.'
+          this.reponse = solide
+          this.correction = premiereLettreEnMajuscule(solide) + '.'
 
           break
       }
       // console.log(j + ':' + choix + ':' + ':' + n + ':' + axe)
       if (this.questionJamaisPosee(j, choix, n, axe)) {
-        reponseQcm = solides[choix - 1]
-        if (this.sup2) this.reponse = solides[choix - 1] // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
+        reponseQcm = solide
+        if (this.sup2) this.reponse = solide // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
 
         objets.push(a1, a2, a3)
         this.question = mathalea2d(Object.assign({}, fixeBordures(objets), {
@@ -400,19 +412,4 @@ export default function ReconnaitreDesSolides () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Type de solides', [
-      'Nombres séparés par des tirets',
-      '1 : Prisme',
-      '2 : Pyramide',
-      '3 : Cône',
-      '4 : Cylindre',
-      '5 : Pavé',
-      '6 : Cube',
-      '7 : Sphère',
-      '8 : Mélange'
-    ].join('\n')
-  ]
-  this.besoinFormulaire2CaseACocher = ['QCM']
-  this.besoinFormulaire3CaseACocher = ['Avec les axes']
 }
