@@ -198,13 +198,14 @@ class Latex {
       } else if (style === 'ProfMaquetteQrcode') {
         for (let i = 1; i < nbVersions + 1; i++) {
           const contentVersion = this.getContentForAVersionProfMaquette(i, true)
-          contents.content += `\n\\begin{Maquette}[Fiche, CorrigeFin]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}\n`
+          contents.content += `\n\\begin{Maquette}[Fiche, CorrigeApres=false, CorrigeFin=true]{Niveau=${subtitle || ' '},Classe=${reference || ' '},Date= ${nbVersions > 1 ? 'v' + i : ' '} ,Theme=${title || 'Exercices'}}\n`
           contents.content += contentVersion
           contents.content += '\n\\end{Maquette}'
           contents.contentCorr = ''
         }
       }
-      contents.preamble = '\\documentclass[a4paper,11pt,fleqn]{article}'
+      contents.preamble = `% @see : ${window.location.href}`
+      contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
       contents.preamble += '\n\\usepackage{ProfCollege}'
       contents.preamble += '\n\\usepackage{ProfMaquette}'
       contents.preamble += '\n\\usepackage{qrcode}'
@@ -244,6 +245,13 @@ class Latex {
       }
       if (contents.content.includes('\\begin{scratch}')) {
         contents.preamble += '\n\\usepackage{scratch3}'
+      }
+      if (contents.content.includes('\\og ')) {
+        // gestion des guillements pour les sujets DNB
+        contents.preamble += '\n\\providecommand{\\og}{}'
+        contents.preamble += '\n\\renewcommand\\og{\\text{\\guillemotleft}~}'
+        contents.preamble += '\n\\providecommand{\\fg}{}'
+        contents.preamble += '\n\\renewcommand\\fg{~\\text{\\guillemotright}}'
       }
       const [latexCmds, latexPackages] = this.getContentLatex()
       for (const pack of latexPackages) {

@@ -221,7 +221,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       if (param.uuid.substring(0, 4) === 'dnb_') examen = 'DNB'
       if (param.uuid.substring(0, 4) === 'e3c_') examen = 'E3C'
       if (param.uuid.substring(0, 4) === 'bac_') examen = 'BAC'
-      exercices.push({ typeExercice: 'statique', content, contentCorr, annee, lieu, mois, numeroInitial, examen })
+      exercices.push({ typeExercice: 'statique', uuid: param.uuid, content, contentCorr, annee, lieu, mois, numeroInitial, examen })
     } else {
       const exercice = await mathaleaLoadExerciceFromUuid(param.uuid)
       if (typeof exercice === 'undefined') continue

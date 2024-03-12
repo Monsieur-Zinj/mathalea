@@ -128,18 +128,22 @@ async function findUuid (filter : string) {
 
 async function findStatic (filter : string) {
   const uuids = Object.entries(allStaticReferentiels)
-  const uuidsDNB = uuids[0][1]
+  // les clés de allStaticReferentiels sont les thèmes (types)
+  // [
+  //   "Brevet des collèges par année - APMEP",
+  //   "BAC par année - APMEP",
+  //   "CRPE (2015-2019) par année - COPIRELEM",
+  //   "CRPE (2022-2023) par année",
+  //   "E3C par specimen - APMEP",
+  // ]
+  const uuidsDNB = uuids[0][1] // on conserve uniquement les exercices DNB
   const uuidsFound : [string, string][] = []
-
   Object.entries(uuidsDNB).forEach(([, value]) => {
+    // les keys sont les années, elles ne nous intéressent pas ici!
     const values = Object.values(value)
     values.forEach((val) => {
-      if (typeof val === 'object') {
-        if (Object.prototype.hasOwnProperty.call(val, 'uuid')) {
-          if (val.uuid !== undefined && typeof val.uuid === 'string' && val.uuid.startsWith(filter)) {
-            uuidsFound.push([val.uuid, val.uuid])
-          }
-        }
+      if (val !== null && typeof val === 'object' && 'uuid' in val && typeof val.uuid === 'string' && val.uuid.startsWith(filter)) {
+        uuidsFound.push([val.uuid, val.uuid])
       }
     })
   })
