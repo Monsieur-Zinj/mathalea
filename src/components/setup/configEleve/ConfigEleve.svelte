@@ -23,7 +23,6 @@
   } from '../../../lib/components/clipboard'
   import { buildMathAleaURL } from '../../../lib/components/urls'
   import type { NumericRange } from '../../../lib/types'
-  import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
   // pour les tabs
   import { Tab, initTE } from 'tw-elements'
 
@@ -80,14 +79,6 @@
     window.open(url, '_blank')?.focus()
   }
 
-  // Gestion du clavier
-  let isBetaKeyboard: boolean = true
-  $globalOptions.beta = isBetaKeyboard
-  function handleKeyboard () {
-    $globalOptions.beta = isBetaKeyboard
-    displayKeyboardToggle(!isBetaKeyboard)
-  }
-
   // Gestion de la graine
   let isDataRandom: boolean = false
   function handleSeed () {
@@ -104,7 +95,6 @@
   function toggleCan () {
     if ($canOptions.isChoosen) {
       $globalOptions.setInteractive = '1'
-      isBetaKeyboard = true
     }
   }
 </script>
@@ -449,25 +439,6 @@
                 'Tous les élèves auront des pages identiques.'
               ]}
               on:toggle={handleSeed}
-            />
-          </div>
-        </div>
-        <div class="pb-2">
-          <div
-            class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Clavier
-          </div>
-          <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggleAlt
-              title={'Clavier expérimental'}
-              bind:value={isBetaKeyboard}
-              id={'config-eleve-clavier-experimental'}
-              explanations={[
-                'Nouveau clavier en test.',
-                "On reste sur l'ancien clavier."
-              ]}
-              on:toggle={handleKeyboard}
             />
           </div>
         </div>

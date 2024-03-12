@@ -24,7 +24,6 @@
   import { answersFromCapytale, assignmentDataFromCapytale, sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
   import { millisecondToMinSec } from '../../../lib/components/time'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
-  import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
   let state: CanState = 'start'
   let exercises: TypeExercice[] = []
   let questions: string[] = []
@@ -37,15 +36,11 @@
   let answers: string[] = []
   let recordedTimeFromCapytale: number
   onMount(async () => {
-    displayKeyboardToggle(false)
     // reconstitution des exercices
     exercises = await Promise.all(buildExercisesList())
     // interactivité
     if ($canOptions.isInteractive) {
       $keyboardState.isVisible = true
-      if (!('ontouchstart' in window)) {
-        $keyboardState.isInLine = true
-      }
       for (const param of exercises) {
         param.interactif = true
       }

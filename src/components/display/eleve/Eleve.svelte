@@ -34,7 +34,6 @@
   import FlipCard from './FlipCard.svelte'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
-  import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
   import { buildExercisesList, splitExercisesIntoQuestions } from '../../../lib/components/exercisesUtils'
 
   let currentIndex: number = 0
@@ -216,7 +215,6 @@
     if ($globalOptions.recorder === 'capytale') {
       $globalOptions.isInteractiveFree = false
     }
-    displayKeyboardToggle(!$globalOptions.beta)
   })
 
   onDestroy(() => {
