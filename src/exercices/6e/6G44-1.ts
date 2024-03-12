@@ -97,7 +97,7 @@ export default class ReconnaitreDesSolides extends Exercice {
       const a2 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 1, 0), 'red').c2d : vide2d() // j'ai créé l'objet vide() exprès.
       const a3 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 0, 1), 'blue').c2d : vide2d() // l'objet vide() ne fait pas planter fixeBordures... {} oui.
 
-      let axe = (choix >= 1 && choix <= 5) ? randint(1, 3) : 0
+      let axe = choix === 1 ? randint(1, 2) : (choix > 1 && choix <= 5) ? randint(1, 3) : 0
 
       // nombre de sommets de la base.
       const n = choix < 3 ? randint(3, 8) : (choix === 5 || choix === 6 ? 4 : 0)
@@ -118,33 +118,7 @@ export default class ReconnaitreDesSolides extends Exercice {
               points3XZ.push(point3d(rayon * Math.cos(alpha * i), 5, rayon * Math.sin(alpha * i), true))
               points3YZ.push(point3d(-1, rayon * Math.cos(alpha * i), rayon * Math.sin(alpha * i)))
             }
-            if (axe === 3) {
-              // base sur le plan YZ
-              if (n === 3 || n === 4 || n === 7 || n === 8) {
-                const points3DRota = []
-                for (let i = 0; i < points3XY.length; i++) {
-                  if (n === 3) {
-                    points3DRota.push(rotation3d(points3XZ[i], droite3d(point3d(0, 0, 0), vecteur3d(0, 1, 0)), -90, 'red'))
-                  } else if (n === 4) {
-                    points3DRota.push(rotation3d(points3XZ[i], droite3d(point3d(0, 0, 0), vecteur3d(0, 1, 0)), -45 + (i === 0 ? 30 : (i === 1 ? -30 : 0)), 'red'))
-                  } else if (n === 7) {
-                    points3DRota.push(rotation3d(points3XZ[i], droite3d(point3d(0, 0, 0), vecteur3d(0, 1, 0)), -30, 'red'))
-                  } else if (n === 8) {
-                    points3DRota.push(rotation3d(points3XZ[i], droite3d(point3d(0, 0, 0), vecteur3d(0, 1, 0)), -30, 'red'))
-                  }
-                }
-                points3XZ.length = 0
-                points3XZ.push(...points3DRota)
-              }
-              const base = polygone3d(points3XZ)
-              const k2 = vecteur3d(0, -6, 0)
-              const p2 = point3d(0, -6, 0)
-              if (solide === 'prisme') {
-                prisme = prisme3d(base, k2)
-              } else {
-                pyra = pyramide3d(base, p2)
-              }
-            } else if (axe === 2) {
+            if (axe === 2) {
               // base sur le plan YZ
               if (n === 4) {
                 const points3DRota = []
