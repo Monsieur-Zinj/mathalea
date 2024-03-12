@@ -1,6 +1,6 @@
 import prefs from './prefs.js'
 import { fileURLToPath } from 'node:url'
-import { afterEach, beforeEach, describe, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { getDefaultPage } from './browser.js'
 import { getFileLogger, logError } from './log.js'
 import type { Locator, Page } from 'playwright'
@@ -102,11 +102,13 @@ export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], me
               const promise = test(page)
               if (!(promise instanceof Promise)) throw Error(`${filename} ne contient pas de fonction test qui prend une page et retourne une promesse`)
               result = await promise
+              expect(result).toBe(true) // si le résultat n'est pas bon, ça lève une exception
             } catch (error: unknown) {
               result = false
               // faut attendre que l'écriture se termine (sinon on se retrouve en pause avant
               // d'avoir le message d'erreur et on sait pas pourquoi ça a planté)
               await logError(error)
+              expect(result).toBe(true) // il faut cependant renvoyer l'exception...
             }
           })
         }

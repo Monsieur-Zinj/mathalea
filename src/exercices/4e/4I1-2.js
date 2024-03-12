@@ -253,12 +253,12 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
         val3 = calculANePlusJamaisUtiliser(360 / n)
 
         if (bonneReponse !== 2) {
-          lutins[0].codeScratch += `\\blockvariable{mettre \\ovalvariable*{longueur} à \\ovalnum{${val1}}}
+          lutins[0].codeScratch += `\\blockvariable{mettre \\selectmenu*{longueur} à \\ovalnum{${val1}}}
           \\blockrepeat{répéter jusqu'à ce que \\booloperator{\\ovalvariable{longueur}>\\ovalnum{${val2}}}}
           {
           \\blockmove{avancer de \\ovalvariable{longueur} pas}\n`
         } else {
-          lutins[0].codeScratch += `\\blockvariable{mettre \\ovalvariable*{longueur} à \\ovalnum{${val2}}}
+          lutins[0].codeScratch += `\\blockvariable{mettre \\selectmenu*{longueur} à \\ovalnum{${val2}}}
           \\blockrepeat{répéter jusqu'à ce que \\booloperator{\\ovalvariable{longueur}<\\ovalnum{${val1}}}}
           {
           \\blockmove{avancer de \\ovalvariable{longueur} pas}\n`
