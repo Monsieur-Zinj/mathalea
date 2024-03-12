@@ -628,9 +628,13 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         // La question doit contenir une unique variable %{champ1}
         if (exercice.interactif) {
           exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank ' + exercice.formatChampTexte || '', '\\ldots'))
-          handleAnswers(exercice, i, { champ1: { value: exercice.reponse, compare } }, { formatInteractif: 'fillInTheBlank' })
+          if (typeof exercice.reponse === 'object' && 'champ1' in exercice.reponse) {
+            handleAnswers(exercice, i, exercice.reponse, { formatInteractif: 'fillInTheBlank' })
+          } else {
+            handleAnswers(exercice, i, { champ1: { value: exercice.reponse, compare } }, { formatInteractif: 'fillInTheBlank' })
+          }
         } else {
-          exercice.listeQuestions.push(exercice.question ?? '')
+          exercice.listeQuestions.push(remplisLesBlancs(exercice, i, exercice.question, 'fillInTheBlank ' + exercice.formatChampTexte || '', '\\ldots'))
         }
       }
       exercice.listeCorrections.push(exercice.correction ?? '')
