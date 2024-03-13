@@ -53,10 +53,14 @@ export async function urlToQRCodeOnWithinImgTag (
     }
   }
   QRCode.toDataURL(currentURL, options, (err: Error, url: string) => {
-    if (err) throw err
     const img = document.getElementById(imageId)
     if (img) {
-      img.setAttribute('src', url)
+      if (err) {
+        const errorText = document.createTextNode('QR-Code impossible à créer')
+        img.replaceWith(errorText)
+      } else {
+        img.setAttribute('src', url)
+      }
     } else {
       throw new Error(`Can't find image with this ID: ${imageId} in document...`)
     }
