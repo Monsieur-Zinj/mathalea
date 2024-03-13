@@ -1,6 +1,5 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -99,7 +98,7 @@ export default function EgalitesEntreFractions () {
         }
         switch (choix) {
           case 0 :
-            texte = `$${deprecatedTexFraction(a, b)} = ${deprecatedTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+            texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
               const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{%{num2}}{${d}}$`
               texte = remplisLesBlancs(this, i, content)
@@ -112,37 +111,37 @@ export default function EgalitesEntreFractions () {
               { formatInteractif: 'fillInTheBlank' }
               )
             } else {
-              texte += `$${deprecatedTexFraction('\\phantom{0000}', d)}$`
+              texte += `$${stringTexFraction('\\phantom{0000}', d)}$`
             }
-            texteCorr = `$${deprecatedTexFraction(a, b)} = ${deprecatedTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${deprecatedTexFraction(c, d)}$`
+            texteCorr = `$${stringTexFraction(a, b)} = ${stringTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${stringTexFraction(c, d)}$`
             if (context.isAmc) {
               this.autoCorrection[i] = {}
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `$${deprecatedTexFraction(c, d)}$`,
+                  texte: `$${stringTexFraction(c, d)}$`,
                   statut: true
                 },
                 {
-                  texte: `$${deprecatedTexFraction(a, d)}$`,
+                  texte: `$${stringTexFraction(a, d)}$`,
                   statut: false
                 },
                 {
-                  texte: `$${deprecatedTexFraction((k - 1) * a, d)}$`,
+                  texte: `$${stringTexFraction((k - 1) * a, d)}$`,
                   statut: false
                 },
                 {
-                  texte: `$${deprecatedTexFraction((k + 1) * a, d)}$`,
+                  texte: `$${stringTexFraction((k + 1) * a, d)}$`,
                   statut: false
                 },
                 {
-                  texte: `$${deprecatedTexFraction(Math.abs(d - a), d)}$`,
+                  texte: `$${stringTexFraction(Math.abs(d - a), d)}$`,
                   statut: false
                 }
               ]
             }
             break
           case 1 :
-            texte = `$${deprecatedTexFraction(a, b)} = ${deprecatedTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+            texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
               const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{${c}}{%{den2}}$`
               texte = remplisLesBlancs(this, i, content)
@@ -155,18 +154,18 @@ export default function EgalitesEntreFractions () {
               { formatInteractif: 'fillInTheBlank' }
               )
             } else {
-              texte += `$${deprecatedTexFraction(c, '\\phantom{0000}')}$`
+              texte += `$${stringTexFraction(c, '\\phantom{0000}')}$`
             }
-            texteCorr = `$${deprecatedTexFraction(a, b)} = ${deprecatedTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${deprecatedTexFraction(c, d)}$`
+            texteCorr = `$${stringTexFraction(a, b)} = ${stringTexFraction(a + miseEnEvidence('\\times' + k), b + miseEnEvidence('\\times' + k))} = ${stringTexFraction(c, d)}$`
             if (context.isAmc) {
               this.autoCorrection[i] = {}
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `$${deprecatedTexFraction(c, d)}$`,
+                  texte: `$${stringTexFraction(c, d)}$`,
                   statut: true
                 },
                 {
-                  texte: `$${deprecatedTexFraction(c, b)}$`,
+                  texte: `$${stringTexFraction(c, b)}$`,
                   statut: false
                 },
                 {
@@ -174,7 +173,7 @@ export default function EgalitesEntreFractions () {
                   statut: false
                 },
                 {
-                  texte: `$${deprecatedTexFraction(c, (k + 1) * b)}$`,
+                  texte: `$${stringTexFraction(c, (k + 1) * b)}$`,
                   statut: false
                 },
                 {
@@ -199,54 +198,54 @@ export default function EgalitesEntreFractions () {
         } else {
           choix = this.sup2 % 2
         }
-        switch (choix) {
+        switch (0) {
           case 0 : // Recherche du numérateur
             if (this.interactif && context.isHtml) {
-              const content = `${a} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{%{num2}}{${d}}$`
+              const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}$`
               texte = remplisLesBlancs(this, i, content)
               setReponse(this, i, {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-                num1: { value: a },
-                den1: { value: 1 },
-                num2: { value: a * d }
+                champ1: { value: a },
+                champ2: { value: 1 },
+                champ3: { value: a * d }
               },
               { formatInteractif: 'fillInTheBlank' }
               )
             } else {
-              texte = `$${a} = ${deprecatedTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${deprecatedTexFraction('\\phantom{0000}', d)}$`
+              texte = `$${a} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${stringTexFraction('\\phantom{0000}', d)}$`
             }
             if (this.interactif && this.interactifType !== 'mathLive') {
               texte = `$${a} = \\ldots$`
             }
-            texteCorr = `$${a} = \\dfrac{${a}}{1} =${deprecatedTexFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${deprecatedTexFraction(c, d)}$`
+            texteCorr = `$${a} = \\dfrac{${a}}{1} =${stringTexFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${stringTexFraction(c, d)}$`
             if (context.isAmc) {
               this.autoCorrection[i] = {}
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `$${deprecatedTexFraction(c, d)}$`,
+                  texte: `$${stringTexFraction(c, d)}$`,
                   statut: true
                 },
                 {
-                  texte: `$${deprecatedTexFraction(a, d)}$`,
+                  texte: `$${stringTexFraction(a, d)}$`,
                   statut: false
                 },
                 {
-                  texte: `$${deprecatedTexFraction(d + a, d)}$`,
+                  texte: `$${stringTexFraction(d + a, d)}$`,
                   statut: false
                 },
                 {
-                  texte: `$${deprecatedTexFraction(Math.abs(d - a), d)}$`,
+                  texte: `$${stringTexFraction(Math.abs(d - a), d)}$`,
                   statut: false
                 },
                 {
-                  texte: `$${deprecatedTexFraction((a + 1) * d, d)}$`,
+                  texte: `$${stringTexFraction((a + 1) * d, d)}$`,
                   statut: false
                 }
               ]
             }
             break
           case 1 :
-            texte = `$${a} = ${deprecatedTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
+            texte = `$${a} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
               const content = `${a} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{%{${c}}}{%{den2}}$`
               texte = remplisLesBlancs(this, i, content)
@@ -259,33 +258,33 @@ export default function EgalitesEntreFractions () {
               { formatInteractif: 'fillInTheBlank' }
               )
             } else {
-              texte += `$${deprecatedTexFraction(c, '\\phantom{0000}')}$`
+              texte += `$${stringTexFraction(c, '\\phantom{0000}')}$`
             }
             if (this.interactif && this.interactifType !== 'mathLive') {
               texte = `$${a} = \\ldots$`
             }
-            texteCorr = `$${a} = \\dfrac{${a}}{1} =${deprecatedTexFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${deprecatedTexFraction(c, d)}$`
+            texteCorr = `$${a} = \\dfrac{${a}}{1} =${stringTexFraction(a + miseEnEvidence('\\times' + d), '1' + miseEnEvidence('\\times' + d))} = ${stringTexFraction(c, d)}$`
             if (context.isAmc) {
               this.autoCorrection[i] = {}
               this.autoCorrection[i].propositions = [
                 {
-                  texte: `$${deprecatedTexFraction(c, d)}$`,
+                  texte: `$${stringTexFraction(c, d)}$`,
                   statut: true
                 },
                 {
-                  texte: `$${deprecatedTexFraction(c, c - a)}$`,
+                  texte: `$${stringTexFraction(c, c - a)}$`,
                   statut: false
                 },
                 {
-                  texte: `$${deprecatedTexFraction(c, a)}$`,
+                  texte: `$${stringTexFraction(c, a)}$`,
                   statut: false
                 },
                 {
-                  texte: `$${deprecatedTexFraction(c, c + a)}$`,
+                  texte: `$${stringTexFraction(c, c + a)}$`,
                   statut: false
                 },
                 {
-                  texte: `$${deprecatedTexFraction(c, c * a)}$`,
+                  texte: `$${stringTexFraction(c, c * a)}$`,
                   statut: false
                 }
               ]
@@ -303,4 +302,8 @@ export default function EgalitesEntreFractions () {
   }
   this.besoinFormulaireNumerique = ['Valeur maximale du facteur commun', 99]
   this.besoinFormulaire2Numerique = ['Type de questions', 3, '1 : Numérateur imposé\n2 : Dénominateur imposé\n3 : Mélange']
+}
+
+function stringTexFraction (a, b) {
+  return `\\dfrac{${a}}{${b}}`
 }
