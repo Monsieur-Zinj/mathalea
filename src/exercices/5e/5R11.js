@@ -11,6 +11,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Lire l\'abscisse relative d\'un point'
 export const interactifReady = true
@@ -113,21 +114,10 @@ export default function LireAbscisseRelative () {
 
       texte = mathalea2d({ xmin: abs0 - 0.5, xmax: abs0 + 22, ymin: -1, ymax: 1, scale: 0.75 }, objets)
       if (!context.isAmc && this.interactif) {
-        texte += remplisLesBlancs(this, i, `${l1}(%{champ1})\\quad ${l2}(%{champ2})\\quad ${l3}(%{champ3})`, '', '\\ldots')
-        //   texte += `${l1}(` + ajouteChampTexteMathLive(this, 3 * i, 'largeur10 inline nospacebefore', { texteApres: '  )' }) + sp(20)
-        //   texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur10 inline nospacebefore', {
-        //     texte: `${l2}(`,
-        //     texteApres: '  )'
-        //   }) + sp(20)
-        //   texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur10 inline nospacebefore', {
-        //     texte: `${l3}(`,
-        //     texteApres: '  )'
-        //   })
+        texte += remplisLesBlancs(this, i, `${l1}(%{champ1})\\quad ${l2}(%{champ2})\\quad ${l3}(%{champ3})`, KeyboardType.clavierDeBaseAvecFraction, '\\ldots')
         // J'ai fait le choix volontaire de ne pas mettre de fonction de comparaison : c'est donc calculCompare qui va s'imposer
         // j'ai aussi omis le paramêtre suivant {formatInteractif: 'fillInTheBlank'}, c'est la fonction verifQuestionMathlive qui va se débrouiller à partir des noms champ1 et suivants
         handleAnswers(this, i, { champ1: { value: String(abs1) }, champ2: { value: String(abs2) }, champ3: { value: String(abs3) } })
-        // setReponse(this, 3 * i + 1, abs2)
-        //  setReponse(this, 3 * i + 2, abs3)
       } else {
         this.autoCorrection[i] = {
           enonce: '',
