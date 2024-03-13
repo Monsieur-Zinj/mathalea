@@ -6,7 +6,7 @@ import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPoint } from '../../lib/2d/textes.ts'
 import { projectionOrtho, rotation, similitude } from '../../lib/2d/transformations.js'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, shuffleLettres } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
@@ -70,13 +70,16 @@ export default function ExprimerCosSinTan () {
       const a = point(0, 0)
       const b = point(randint(3, 7), 0)
       const c = similitude(b, a, 90, randint(3, 7) / longueur(a, b))
+      const angleRot = randint(0, 360)
       const p1 = polygone(a, b, c)
-      const p2 = rotation(p1, a, randint(0, 360))
+      const p2 = rotation(p1, a, angleRot)
       const A = p2.listePoints[0]
       const B = p2.listePoints[1]
       const C = p2.listePoints[2]
       const codage = codageAngleDroit(B, A, C)
-      const nom = creerNomDePolygone(4, ['DQJ']) // J est enlevé car à côté du I, difficile de faire la différence
+      let nom = creerNomDePolygone(4, ['DQJ']) // J est enlevé car à côté du I, difficile de faire la différence
+      nom = shuffleLettres(nom)
+
       // const nom = ['A', 'B', 'C', 'H'] // Pratique pour le débuggage
       A.nom = nom[0]
       B.nom = nom[1]
