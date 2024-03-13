@@ -27,6 +27,19 @@ export interface LatexFileInfos {
   nbVersions: number
 }
 
+export type contentsType = {
+  preamble: string
+  intro: string
+  content: string
+  contentCorr: string
+}
+
+export type latexFileType = {
+  contents: contentsType
+  latexWithoutPreamble: string
+  latexWithPreamble: string
+}
+
 interface ExoContent {
   content?: string
   serie?: string
@@ -184,8 +197,8 @@ class Latex {
     return content
   }
 
-  async getContents (style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can', nbVersions: number = 1, title: string = '', subtitle: string = '', reference: string = ''): Promise<{ preamble: string, intro: string, content: string; contentCorr: string }> {
-    const contents = { preamble: '', intro: '', content: '', contentCorr: '' }
+  async getContents (style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can', nbVersions: number = 1, title: string = '', subtitle: string = '', reference: string = ''): Promise<contentsType> {
+    const contents: contentsType = { preamble: '', intro: '', content: '', contentCorr: '' }
     if (style === 'ProfMaquette' || style === 'ProfMaquetteQrcode') {
       if (style === 'ProfMaquette') {
         for (let i = 1; i < nbVersions + 1; i++) {
@@ -310,8 +323,7 @@ class Latex {
     reference,
     subtitle,
     style,
-    nbVersions,
-    withPreamble = true
+    nbVersions
   }: {
     title: string
     reference: string
@@ -319,23 +331,23 @@ class Latex {
     style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
     nbVersions: number
     withPreamble?: boolean
-  }) {
+  }): Promise<latexFileType> {
     const contents = await this.getContents(style, nbVersions, title, subtitle, reference)
     const preamble = contents.preamble
     const intro = contents.intro
     const content = contents.content
     const contentCorr = contents.contentCorr
-    let result = ''
-    if (withPreamble) result += preamble
-    result += intro
-    result += content
+    let latexWithoutPreamble = ''
+    latexWithoutPreamble += intro
+    latexWithoutPreamble += content
     if (style === 'ProfMaquette' || style === 'ProfMaquetteQrcode') {
-      result += '\n\\end{document}'
+      latexWithoutPreamble += '\n\\end{document}'
     } else {
-      result += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
-      result += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
+      latexWithoutPreamble += '\n\n\\clearpage\n\n\\begin{Correction}' + contentCorr + '\n\\clearpage\n\\end{Correction}\n\\end{document}'
+      latexWithoutPreamble += '\n\n% Local Variables:\n% TeX-engine: luatex\n% End:'
     }
-    return result
+    const latexWithPreamble = preamble + latexWithoutPreamble
+    return { contents, latexWithoutPreamble, latexWithPreamble }
   }
 
   getContentLatex () {

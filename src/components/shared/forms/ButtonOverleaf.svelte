@@ -1,16 +1,16 @@
 <script lang="ts">
-  import type Latex from '../../../lib/Latex'
   import {
     buildImagesUrlsList,
     doesLatexNeedsPics,
     getExosContentList,
     getPicsNames,
-    type LatexFileInfos
+    type latexFileType
   } from '../../../lib/Latex'
+  import type TypeExercice from '../../../exercices/Exercice'
 
-  export let latex: Latex
-  export let latexFileInfos: LatexFileInfos
   export let disabled: boolean
+  export let exercices: TypeExercice[]
+  export let latexFile: latexFileType
 
   let textForOverleafInput: HTMLInputElement
   let imagesUrls = [] as string[]
@@ -21,20 +21,14 @@
    * -- encodage du contenu du code LaTeX de la feuille d'exercices
    */
   async function copyDocumentToOverleaf () {
-    const contents = await latex.getContents(
-      latexFileInfos.style,
-      latexFileInfos.nbVersions
-    )
-    const picsWanted = doesLatexNeedsPics(contents)
-    const exosContentList = getExosContentList(latex.exercices)
+    const picsWanted = doesLatexNeedsPics(latexFile.contents)
+    const exosContentList = getExosContentList(exercices)
     const picsNames = getPicsNames(exosContentList)
     imagesUrls = picsWanted
       ? buildImagesUrlsList(exosContentList, picsNames)
       : []
-
-    const text = await latex.getFile(latexFileInfos)
     textForOverleafInput.value =
-      'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(text)))
+      'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(latexFile.latexWithPreamble)))
   }
 </script>
 
