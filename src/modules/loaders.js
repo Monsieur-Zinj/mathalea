@@ -384,10 +384,13 @@ function handleClickOnKeyboardToggle (event) {
 function handleFocusMathField (event) {
   if (get(globalOptions).beta) {
     const mf = event.target
+    const isFillInTheBlanks = mf.classList.contains('fillInTheBlanks')
+    const isNotFillInTheBlanksAndReadOnly = !isFillInTheBlanks && mf.readOnly
+    const isCorrected = isNotFillInTheBlanksAndReadOnly || mf.classList.contains('corrected')
     getKeyboardShortcusts(mf)
     keyboardState.update((value) => {
       return {
-        isVisible: true && (!mf.readOnly || mf.classList.contains('fillInTheBlanks')), // Les fiilInTheBlanks sont toujours readOnly
+        isVisible: true && !isCorrected, // Les fiilInTheBlanks sont toujours readOnly
         isInLine: value.isInLine,
         idMathField: event.target.id,
         alphanumericLayout: value.alphanumericLayout,

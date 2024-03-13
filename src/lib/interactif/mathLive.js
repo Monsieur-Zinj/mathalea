@@ -104,6 +104,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
               points.push(0)
               mfe.setPromptState(key, 'incorrect', true)
             }
+            mfe.classList.add('corrected')
             if (result.feedback != null) feedback += result.feedback
           }
           if (typeof reponses.feedback === 'function') {
