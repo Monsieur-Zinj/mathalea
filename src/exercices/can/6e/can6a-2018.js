@@ -15,6 +15,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import FractionEtendue from '../../../modules/FractionEtendue'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { min, round } from 'mathjs'
@@ -498,11 +499,11 @@ export default function SujetCAN20186ieme () {
           b = randint(2, 9)
           c = choice([0, 2])
 
-          reponse = a * b * truc[c][1]
-          texte = `Quel est le nombre $${a}$ fois plus grand que $${b}$ ${truc[c][0]} ?`
-          texteCorr = `Le nombre $${a}$ fois plus grand que $${b}$ ${truc[c][0]} est $${a}\\times ${b}\\times ${texNombre(truc[c][1])}=${miseEnEvidence(texNombre(a * b * truc[c][1]))}$.`
+          reponse = new FractionEtendue(a * b * truc[c][1], 1)
+          texte = `Quel est le nombre $${texNombre(a, 0)}$ fois plus grand que $${b}$ ${truc[c][0]} ?`
+          texteCorr = `Le nombre $${texNombre(a, 0)}$ fois plus grand que $${b}$ ${truc[c][0]} est $${texNombre(a, 0)}\\times ${b}\\times ${texNombre(truc[c][1])}=${miseEnEvidence(texNombre(a * b * truc[c][1]))}$.`
 
-          setReponse(this, index, reponse, { formatInteractif: 'calcul' })
+          setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
