@@ -7,7 +7,6 @@ import { afficheLongueurSegment } from '../../../lib/2d/codages.js'
 import { codageAngle } from '../../../lib/2d/angles.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { sp } from '../../../lib/outils/outilString'
 export const titre = 'Calculer l\'aire d\'un triangle rectangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'

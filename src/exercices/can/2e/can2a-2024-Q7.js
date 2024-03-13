@@ -5,7 +5,6 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { sp } from '../../../lib/outils/outilString'
 export const titre = 'Déterminer un coefficient multiplicateur ou un taux d\'évolution'
 export const interactifReady = true
 export const interactifType = 'mathLive'

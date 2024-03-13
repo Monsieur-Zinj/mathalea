@@ -1,7 +1,6 @@
 import Exercice from '../Exercice'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Tracer un rectangle'
 export const dateDePublication = '4/11/2023'
@@ -48,7 +47,7 @@ class ConstructionRectangle extends Exercice {
     texteCorr += '<br>Dans cette animation, on va tracer un quadrilatère avec 3 angles droits mais on n\'aurait pu aussi ne faire qu\'un angle droit et tracer des côtés opposés parallèles.'
     const figureCorrection = createAnimationConstructionRectangle()
     const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
-    this.question = enonce + emplacementPourFigure + ajouteFeedback(this, 0)
+    this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
@@ -59,7 +58,7 @@ class ConstructionRectangle extends Exercice {
     const resultat = []
     let feedback = ''
     // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le triangle est tracé)
-    const divFeedback = document.querySelector(`#feedback${this.numeroExercice}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement
     const { isValid, message } = this.figure.checkAngle({ angle: 90, label1: 'A', label2: 'B', label3: 'C' })
     resultat.push(isValid ? 'OK' : 'KO')
     if (message !== '') { feedback += message + '<br>' }

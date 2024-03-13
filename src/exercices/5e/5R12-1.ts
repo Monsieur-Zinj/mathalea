@@ -4,7 +4,6 @@ import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils.js'
 import type TextByPosition from 'apigeom/src/elements/text/TextByPosition.js'
 import { context } from '../../modules/context'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Placer des points dans un repère'
 export const dateDePublication = '27/10/2023'
@@ -84,7 +83,7 @@ class ReperagePointDuPlan extends Exercice {
     const texteCorr = figureCorr.getStaticHtml()
 
     if (context.isHtml) {
-      this.question = enonce + emplacementPourFigure + ajouteFeedback(this, 0)
+      this.question = enonce + emplacementPourFigure
       this.correction = texteCorr
     } else {
       this.question = enonce + `\n\n\\bigskip\n\\Reperage[Plan,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
