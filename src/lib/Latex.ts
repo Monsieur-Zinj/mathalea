@@ -240,6 +240,9 @@ class Latex {
       if (contents.content.includes('\\euro')) {
         contents.preamble += '\n\\usepackage[gen]{eurosym}'
       }
+      if (contents.content.includes('\\ang')) {
+        contents.preamble += '\n\\usepackage{siunitx}'
+      }
       if (contents.content.includes('\\np{') || contents.content.includes('\\numprint{')) {
         contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
       }
@@ -529,6 +532,7 @@ export function format (text: string): string {
   if (text === undefined) return ''
   return text
     .replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
+    .replace(/(\d+)\s*°/g, '\\ang{$1}')
     .replace(/<br>/g, '\\\\')
     .replace(/€/g, '\\euro')
     .replace(/\\\\\s*\n\n/gm, '\\\\')
@@ -555,6 +559,9 @@ function addPackages (content: string, isFullPackages = false) {
   let packages = genericPreamble
   if (isFullPackages || content.includes('\\euro')) {
     packages += '\n\\usepackage[gen]{eurosym}'
+  }
+  if (isFullPackages || content.includes('\\ang')) {
+    packages += '\n\\usepackage{siunitx}'
   }
   return packages
 }
