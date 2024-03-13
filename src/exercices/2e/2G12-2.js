@@ -14,8 +14,8 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
-import { ComputeEngine } from '@cortex-js/compute-engine'
-const ce = new ComputeEngine()
+import { equalFractionCompare } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -107,39 +107,41 @@ export default function Milieu () {
       On peut représenter la situation avec les données de l'énoncé : <br>`
       switch (typesDeQuestions) {
         case 1:// cas simple du milieu
-          {
-            xM = new FractionEtendue(xA + xB, 2)
-            yM = new FractionEtendue(yA + yB, 2)// .simplifie()
-            objets.push(g, T, L, s, o, I, J)
-            // setReponse(this, i, {
-            // bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            //  x: { value: xM.valeurDecimale },
-            // y: { value: yM.valeurDecimale }
-            //  },
-            //  { formatInteractif: 'fillInTheBlank' })
-            const compareFraction = (a, b) => ce.parse(a.replace('\\dfrac', '\\frac')).isEqual(ce.parse(b.replace('\\dfrac', '\\frac')))
-            setReponse(this, i, {
-              bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-              x: { value: xM.toString(), compare: compareFraction },
-              y: { value: yM.toString(), compare: compareFraction }
-            },
-            { formatInteractif: 'fillInTheBlank' })
+          xM = new FractionEtendue(xA + xB, 2)
+          yM = new FractionEtendue(yA + yB, 2)// .simplifie()
+          objets.push(g, T, L, s, o, I, J)
+          // setReponse(this, i, {
+          // bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+          //  x: { value: xM.valeurDecimale },
+          // y: { value: yM.valeurDecimale }
+          //  },
+          //  { formatInteractif: 'fillInTheBlank' })
+          setReponse(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            x: { value: xM.texFraction, compare: equalFractionCompare },
+            y: { value: yM.texFraction, compare: equalFractionCompare }
+          },
+          { formatInteractif: 'fillInTheBlank' })
 
-            texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
-            texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
-            texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$. `
-            if (this.interactif) { texte += '<br>' + remplisLesBlancs(this, i, `${M.nom}\\Bigg(%{x};%{y}\\Bigg)`) }
-            if (this.correctionDetaillee) {
-              texteCorr = corrD
-              texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures(objets)), objets)
-            } else {
-              texteCorr = ''
-            }
-            texteCorr += 'On applique les formules avec les données de l\'énoncé  : <br><br>'
-            texteCorr += `$\\begin{cases}x_${M.nom}=\\dfrac{x_${A.nom}+x_${B.nom}}{2}=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xB)}}{2}=\\dfrac{${texNombre(xA + xB)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.5em]y_${M.nom}=\\dfrac{y_${A.nom}+y_${B.nom}}{2}=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yB)}}{2}=\\dfrac{${texNombre(yA + yB)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
-            texteCorr += `  <br>Ainsi : $${M.nom}\\left(${xM.simplifie().texFSD}\\,;\\,${yM.simplifie().texFSD}\\right)$ ou 
-          $${M.nom}\\left(${texNombre((xA + xB) / 2, 1)}\\,;\\,${texNombre((yA + yB) / 2, 1)}\\right)$<br> `
+          texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
+          texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$. `
+          if (this.interactif) {
+            texte += '<br>' + remplisLesBlancs(this, i,
+              `${M.nom}\\Bigg(%{x};%{y}\\Bigg)`,
+              KeyboardType.clavierDeBaseAvecFraction
+            )
           }
+          if (this.correctionDetaillee) {
+            texteCorr = corrD
+            texteCorr += mathalea2d(Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures(objets)), objets)
+          } else {
+            texteCorr = ''
+          }
+          texteCorr += 'On applique les formules avec les données de l\'énoncé  : <br><br>'
+          texteCorr += `$\\begin{cases}x_${M.nom}=\\dfrac{x_${A.nom}+x_${B.nom}}{2}=\\dfrac{${xA}+${ecritureParentheseSiNegatif(xB)}}{2}=\\dfrac{${texNombre(xA + xB)}}{2}${xM.texSimplificationAvecEtapes()}\\\\[0.5em]y_${M.nom}=\\dfrac{y_${A.nom}+y_${B.nom}}{2}=\\dfrac{${yA}+${ecritureParentheseSiNegatif(yB)}}{2}=\\dfrac{${texNombre(yA + yB)}}{2}${yM.texSimplificationAvecEtapes()}\\end{cases}$`
+          texteCorr += `  <br>Ainsi : $${M.nom}\\left(${xM.simplifie().texFSD}\\,;\\,${yM.simplifie().texFSD}\\right)$ ou 
+          $${M.nom}\\left(${texNombre((xA + xB) / 2, 1)}\\,;\\,${texNombre((yA + yB) / 2, 1)}\\right)$<br> `
           break
         case 2: // cas où on connaît A et I, on cherche B
           xM = new Decimal(xA + xB).div(2)
