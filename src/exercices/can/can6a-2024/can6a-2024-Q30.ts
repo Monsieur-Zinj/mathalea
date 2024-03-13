@@ -25,8 +25,8 @@ export default class QuestionDeDifference extends Exercice {
   }
 
   nouvelleVersion () {
-    let nbCarteGagnee
-    let nbCarteTotale
+    let nbCarteGagnee: number
+    let nbCarteTotale: number
     if (this.canOfficielle) {
       nbCarteGagnee = 6
       nbCarteTotale = 11

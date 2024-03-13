@@ -29,7 +29,7 @@ export default class EncadreParDeuxEntiers extends Exercice {
   }
 
   nouvelleVersion () {
-    let decimal: number
+    let decimal: Decimal
     if (this.canOfficielle) {
       decimal = new Decimal('19.3')
     } else {

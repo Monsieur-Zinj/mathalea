@@ -25,7 +25,7 @@ export default class DivisionParCinq extends Exercice {
   }
 
   nouvelleVersion () {
-    let dividende
+    let dividende: number
     if (this.canOfficielle) {
       dividende = 120
     } else {

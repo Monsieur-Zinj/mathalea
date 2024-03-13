@@ -27,9 +27,9 @@ export default class CompleterUnLitre extends Exercice {
   }
 
   nouvelleVersion () {
-    let capacite
-    let reste
-    let unite
+    let capacite: number
+    let reste: number
+    let unite: string
     if (this.canOfficielle) {
       capacite = 25
       reste = 75
