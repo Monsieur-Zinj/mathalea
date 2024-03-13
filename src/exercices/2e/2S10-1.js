@@ -7,6 +7,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Connaître les différentes écritures d\'une proportion'
@@ -103,7 +104,7 @@ export default function DiffentesEcrituresProportions () {
 
           texte = 'Écrire sous la forme d\'une écriture fractionnaire de dénominateur $100$, puis sous la forme d\'un pourcentage.<br>'
           if (this.interactif) {
-            texte += remplisLesBlancs(this, i, `$${texNombre(dec, 4)}=\\dfrac{%{num1}}{%{num2}}=%{num3}\\%`, 'college6e', '\\ldots\\ldots')
+            texte += remplisLesBlancs(this, i, `$${texNombre(dec, 4)}=\\dfrac{%{num1}}{%{num2}}=%{num3}\\%`, KeyboardType.clavierDeBase, '\\ldots\\ldots')
           } else {
             if (context.isHtml) {
               texte += ''
@@ -124,7 +125,7 @@ export default function DiffentesEcrituresProportions () {
         case 'Pourcentage':
           texte = 'Écrire sous forme décimale, puis sous la forme d\'une écriture fractionnaire de dénominateur $100$.<br>'
           if (this.interactif) {
-            texte += remplisLesBlancs(this, i, `$${texNombre(pourc, 4)}\\,\\%=%{num1}=\\dfrac{%{num2}}{%{num3}}`, 'college6e', '\\ldots\\ldots')
+            texte += remplisLesBlancs(this, i, `$${texNombre(pourc, 4)}\\,\\%=%{num1}=\\dfrac{%{num2}}{%{num3}}`, KeyboardType.clavierDeBase, '\\ldots\\ldots')
           } else {
             if (context.isHtml) {
               texte += ''
@@ -145,7 +146,7 @@ export default function DiffentesEcrituresProportions () {
         case 'Fraction':
           texte = 'Écrire sous forme décimale, puis sous la forme d\'un pourcentage.<br>'
           if (this.interactif) {
-            texte += remplisLesBlancs(this, i, `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=%{num1}=%{num2}\\%`, 'college6e', '\\ldots\\ldots')
+            texte += remplisLesBlancs(this, i, `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=%{num1}=%{num2}\\%`, KeyboardType.clavierDeBase, '\\ldots\\ldots')
           } else {
             if (context.isHtml) {
               texte += ''
@@ -161,7 +162,7 @@ export default function DiffentesEcrituresProportions () {
           }
 
           texteCorr = `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${miseEnEvidence(texNombre(f, 4))}=${miseEnEvidence(texNombre(f * 100, 4))}\\,\\%$`
-          setReponse(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], num1: { value: f.toFixed(4) }, num2: { value: (f * 100).toFixed(4) }, num3: { value: String(100) } }, { formatInteractif: 'fillInTheBlank' })
+          setReponse(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], num1: { value: f.toFixed(4) }, num2: { value: (f * 100).toFixed(4) } }, { formatInteractif: 'fillInTheBlank' })
           break
       }
 
