@@ -387,7 +387,7 @@ function handleFocusMathField (event) {
     getKeyboardShortcusts(mf)
     keyboardState.update((value) => {
       return {
-        isVisible: true && !mf.readOnly,
+        isVisible: true && (!mf.readOnly || mf.classList.contains('fillInTheBlanks')), // Les fiilInTheBlanks sont toujours readOnly
         isInLine: value.isInLine,
         idMathField: event.target.id,
         alphanumericLayout: value.alphanumericLayout,
