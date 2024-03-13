@@ -198,7 +198,7 @@ export default function EgalitesEntreFractions () {
         } else {
           choix = this.sup2 % 2
         }
-        switch (0) {
+        switch (choix) {
           case 0 : // Recherche du numérateur
             if (this.interactif && context.isHtml) {
               const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}$`
