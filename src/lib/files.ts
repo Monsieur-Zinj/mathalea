@@ -1,8 +1,8 @@
 import JSZip from 'jszip'
 import JSZipUtils from 'jszip-utils'
 import { saveAs } from 'file-saver'
-import type Latex from './Latex'
-import { buildImagesUrlsList, doesLatexNeedsPics, getExosContentList, getPicsNames, type LatexFileInfos } from './Latex'
+import { buildImagesUrlsList, doesLatexNeedsPics, getExosContentList, getPicsNames, type latexFileType } from './Latex'
+import type TypeExercice from '../exercices/Exercice'
 
 export function downloadZip (filesUrls: string[], zipFileName: string) {
   const zip = new JSZip()
@@ -32,14 +32,12 @@ export function downloadZip (filesUrls: string[], zipFileName: string) {
  * @param {LatexFileInfos} filesInfo paramètres du fichier LaTeX à générer
  * @author sylvain
  */
-export async function downloadTexWithImagesZip (zipFileName: string, latex: Latex, latexFileInfos: LatexFileInfos) {
+export async function downloadTexWithImagesZip (zipFileName: string, latexFile: latexFileType, exercices: TypeExercice[]) {
   const zip = new JSZip()
-  const text = await latex.getFile(latexFileInfos)
-  const contents = await latex.getContents(latexFileInfos.style, latexFileInfos.nbVersions)
-  const withImages = doesLatexNeedsPics(contents)
-  const exosContentList = getExosContentList(latex.exercices)
+  const withImages = doesLatexNeedsPics(latexFile.contents)
+  const exosContentList = getExosContentList(exercices)
   const picsNames = getPicsNames(exosContentList)
-  zip.file('main.tex', text)
+  zip.file('main.tex', latexFile.latexWithPreamble)
   if (withImages) {
     const urls = buildImagesUrlsList(exosContentList, picsNames)
     const imagesFolder = zip.folder('images')

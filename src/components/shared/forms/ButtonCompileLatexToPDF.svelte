@@ -171,14 +171,14 @@
           ? buildImagesUrlsList(exosContentList, picsNames)
           : []
 
-        const text = await latex.getFile(latexFileInfos)
+        const { latexWithPreamble } = await latex.getFile(latexFileInfos)
 
         const editor = ace.edit('editor')
         editor.getSession().setMode('ace/mode/latex')
         editor.getSession().setNewLineMode('unix')
         editor.setTheme('ace/theme/monokai')
         editor.setShowPrintMargin(false)
-        editor.setValue(text)
+        editor.setValue(latexWithPreamble)
         editor.gotoLine(1)
 
         resetIframe()

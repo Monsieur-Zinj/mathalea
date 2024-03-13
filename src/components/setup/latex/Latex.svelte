@@ -19,7 +19,8 @@ import {
     getExosContentList,
     getPicsNames,
     doesLatexNeedsPics,
-    makeImageFilesUrls
+    makeImageFilesUrls,
+    type latexFileType
   } from '../../../lib/Latex'
   import Button from '../../shared/forms/Button.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
@@ -51,7 +52,7 @@ import {
   }
   let dialogLua: HTMLDialogElement
   let exercices: TypeExercice[]
-  let latexWithoutPreamble: string = ''
+  let latexFile: latexFileType = { contents: { preamble: '', intro: '', content: '', contentCorr: '' }, latexWithoutPreamble: '', latexWithPreamble: '' }
   let isExerciceStaticInTheList = false
   let downloadPicsModal: HTMLElement
   let picsWanted: boolean
@@ -71,14 +72,14 @@ import {
       }
     }
     latex.addExercices(exercices.filter((ex) => ex.typeExercice !== 'html'))
-    const contents = await latex.getContents(style, nbVersions)
-    picsWanted = doesLatexNeedsPics(contents)
+    latexFile.contents = await latex.getContents(style, nbVersions)
+    picsWanted = doesLatexNeedsPics(latexFile.contents)
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
   }
 
   async function updateLatex () {
     try {
-      latexWithoutPreamble = await latex.getFile({
+      latexFile = await latex.getFile({
         title,
         reference,
         subtitle,
@@ -88,7 +89,7 @@ import {
       })
     } catch (error) {
       console.error('Erreur lors de la création du code LaTeX :', error)
-      latexWithoutPreamble = '% Erreur à signaler'
+      latexFile.latexWithoutPreamble = '% Erreur à signaler'
     }
   }
 
@@ -149,14 +150,7 @@ import {
 
   const copyDocument = async () => {
     try {
-      const text = await latex.getFile({
-        title,
-        reference,
-        subtitle,
-        style,
-        nbVersions
-      })
-      await navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(latexFile.latexWithPreamble)
       dialogLua.showModal()
       setTimeout(() => {
         dialogLua.close()
@@ -355,14 +349,8 @@ import {
             <div slot="button1">
               <ButtonOverleaf
                 class="flex w-full flex-col justify-center"
-                {latex}
-                latexFileInfos={{
-                  title,
-                  reference,
-                  subtitle,
-                  style,
-                  nbVersions
-                }}
+                {latexFile}
+                {exercices}
                 disabled={false}
               />
             </div>
@@ -419,14 +407,7 @@ import {
                 class="px-2 py-1 rounded-md"
                 idLabel="downloadFullArchive"
                 on:click={() => {
-                  const filesInfo = {
-                    title,
-                    reference,
-                    subtitle,
-                    style,
-                    nbVersions
-                  }
-                  downloadTexWithImagesZip('coopmaths', latex, filesInfo)
+                  downloadTexWithImagesZip('coopmaths', latexFile, exercices)
                 }}
                 title="Archive complète"
               />
@@ -511,7 +492,7 @@ import {
     <pre
       class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto text-xs"
       >
-      {latexWithoutPreamble}
+      {latexFile.latexWithoutPreamble}
     </pre>
   </section>
   <footer>
