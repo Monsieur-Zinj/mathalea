@@ -60,7 +60,7 @@ class ConstructionParallelogramme extends Exercice {
     this.answers[this.idApigeom] = this.figure.json
     const resultat = []
     let feedback = ''
-    const divFeedback = document.querySelector(`#feedback${this.idApigeom}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement
     const { isValid, message } = this.figure.checkParallel({ label1: 'AB', label2: 'CD' })
     resultat.push(isValid ? 'OK' : 'KO')
     if (message !== '') { feedback += message + '<br>' }

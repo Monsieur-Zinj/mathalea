@@ -9,7 +9,6 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { grille } from '../../../lib/2d/reperes.js'
 import { segment, segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { sp } from '../../../lib/outils/outilString'
 export const titre = 'Déterminer la longueur d\'une ligne brisée'
 export const interactifReady = true
 export const interactifType = 'mathLive'

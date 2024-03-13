@@ -4,7 +4,6 @@ import figureApigeom from '../../lib/figureApigeom'
 import { creerNomDePolygone } from '../../lib/outils/outilString'
 import { randint } from '../../modules/outils'
 import { mathaleaRenderDiv } from '../../lib/mathalea'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Tracer un triangle à partir de longueurs des 3 côtés'
 export const dateDePublication = '29/10/2023'
@@ -64,7 +63,7 @@ class ConstructionTriangle extends Exercice {
     texteCorr += `<br>$${labelC}${labelA}=${b}$ donc $${labelC}$ est sur le cercle de centre $${labelA}$ et de rayon $${b}$.`
     const figureCorrection = createAnimationConstructionTriangle(this.triangle)
     const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
-    this.question = enonce + emplacementPourFigure + ajouteFeedback(this, 0)
+    this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
@@ -74,7 +73,7 @@ class ConstructionTriangle extends Exercice {
     this.answers[this.idApigeom] = this.figure.json
     let resultat = []
     // 1 point par distance correcte + 2 points si tout est correct (on ne vérifie pas que le triangle est tracé)
-    const divFeedback = document.querySelector(`#feedback${this.numeroExercice}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement
     let feedback = ''
     const [labelA, labelB, labelC] = this.triangle.label.split('') as [string, string, string]
     const [a, b, c] = [this.triangle.a, this.triangle.b, this.triangle.c]

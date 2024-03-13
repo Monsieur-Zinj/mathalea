@@ -2,7 +2,6 @@ import Exercice from '../Exercice'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Tracer un carré de dimension donnée'
 export const dateDePublication = '10/11/2023'
@@ -51,7 +50,7 @@ class ConstructionCarre2 extends Exercice {
     texteCorr += '<br>Dans cette animation, on va tracer un quadrilatère avec 3 angles droits et deux côtés consécutifs de même longueur mais on n\'aurait pu aussi ne faire qu\'un angle droit et tracer des côtés opposés parallèles.'
     const figureCorrection = createAnimationConstructionCarre(this.cote)
     const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
-    this.question = enonce + emplacementPourFigure + ajouteFeedback(this, 0)
+    this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 

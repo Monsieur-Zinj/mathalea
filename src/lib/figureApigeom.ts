@@ -1,8 +1,9 @@
 import type Exercice from '../exercices/Exercice'
 import type Figure from 'apigeom'
 import { context } from '../modules/context'
+import { ajouteFeedback } from './interactif/questionMathLive'
 
-export default function figureApigeom ({ exercice, idApigeom, figure, animation = false }: { exercice: Exercice, idApigeom: string, figure: Figure, animation?: boolean}) {
+export default function figureApigeom ({ exercice, idApigeom, figure, animation = false, question = 0 }: { exercice: Exercice, idApigeom: string, figure: Figure, animation?: boolean, question?: number}) {
   if (!context.isHtml) return ''
   // Styles par défaut
   figure.isDynamic = !!exercice.interactif
@@ -37,5 +38,5 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
     }
   })
 
-  return `<div class="m-6" id="${idApigeom}"></div><div class="m-6 text-coopmaths-struct" id="feedback${idApigeom}"></div>`
+  return `<div class="m-6" id="${idApigeom}"></div>` + ajouteFeedback(exercice, question)
 }

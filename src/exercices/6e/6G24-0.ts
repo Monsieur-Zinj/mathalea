@@ -23,7 +23,6 @@ import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { reflectOverLineCoord } from 'apigeom/src/elements/calculus/Coords'
 import { codageMilieu } from '../../lib/2d/codages'
 import type Line from 'apigeom/src/elements/lines/Line'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Construire des symétriques de points'
 export const dateDePublication = '07/01/2024'
@@ -290,8 +289,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         }
         this.figures[i].options.limitNumberOfElement.set('Point', 1)
         this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
-        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figures[i] })
-        this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure + ajouteFeedback(this, i))
+        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figures[i], question: i })
+        this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
       } else {
         this.listeQuestions.push(enonce + '<br><br>' + mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objets))
       }

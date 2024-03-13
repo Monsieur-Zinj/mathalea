@@ -3,7 +3,6 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { sp } from '../../../lib/outils/outilString'
 export const titre = 'Compléter une égalité '
 export const interactifReady = true
 export const interactifType = 'mathLive'
