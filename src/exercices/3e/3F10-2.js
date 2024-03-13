@@ -1,15 +1,15 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
-import Decimal from 'decimal.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -157,6 +157,7 @@ export default function CalculsImagesFonctions () {
               tagImage = false
               break
           }
+          setReponse(this, i, reponses[i])
           break
         case 'affine':
           switch (sousChoix[i]) {
@@ -194,6 +195,7 @@ export default function CalculsImagesFonctions () {
               tagImage = false
               break
           }
+          setReponse(this, i, reponses[i])
           break
         case 'polynôme':
           ant = x
@@ -227,47 +229,55 @@ export default function CalculsImagesFonctions () {
               reponses[i] = m * x ** 2 - n * x + y
               break
           }
+          setReponse(this, i, reponses[i])
           break
         case 'fraction':
           ant = x
           switch (sousChoix[i] % 4) {
             case 0:
-              if (n !== x) m = n - x
-              else m = n ** 2 - x
+              if (n !== x) m = n - x // n différent de 0 donc m + x différent de zéro
+              else m = n ** 2 - x // idem
               enonce = `Soit $f$ la fonction qui à $x$ associe $\\dfrac{x}{x${ecritureAlgebrique(m)}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${x}}{${x + m}}=${texNombre(x / (x + m))}$`
-              reponses[i] = new Decimal(x).div(x + m)
+              correction = `$f(x)=\\dfrac{x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${x}}{${x + m}}$`
+              reponses[i] = new FractionEtendue(x, x + m)
               break
             case 1:
-              if (n !== x) m = n - x
+              if (n !== x) m = n - x // n différent de 0 donc m + x différent de zéro
               else m = n ** 2 - x
               enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x}{x${ecritureAlgebrique(m)}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{${m}x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x}${ecritureAlgebrique(m)}}=${texNombre(m * x / (x + m))}$`
-              reponses[i] = new Decimal(m * x).div(x + m)
+              correction = `$f(x)=\\dfrac{${rienSi1(m)}x}{x${ecritureAlgebrique(m)}}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x}${ecritureAlgebrique(m)}}=\\dfrac{${m * x}}{${x + m}}`
+              reponses[i] = new FractionEtendue(m * x, x + m)
+              correction += reponses[i].estEntiere ? `=${reponses[i].simplifie().texFraction}$` : '$'
               break
             case 2:
-              if (n !== x) m = n - x
+              if (n !== x) m = n - x // // n différent de 0 donc m + x différent de zéro et x différent de zéro
               else m = n ** 2 - x
               enonce = `Soit $f$ telle que $f(x)=\\dfrac{${m}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
-              correction = `$f(x)=\\dfrac{${m}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}^2+${n}\\times ${ecritureParentheseSiNegatif(x)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(m)}\\times ${ecritureParentheseSiNegatif(x)}}=\\dfrac{${m * x ** 2}${ecritureAlgebrique(n * x)}}{${x ** 2}${ecritureAlgebrique(m * x)}}=\\dfrac{${m * x ** 2 + n * x}}{${x ** 2 + m * x}}=${texNombre((m * x ** 2 + n * x) / (x ** 2 + m * x))}$`
-              reponses[i] = new Decimal(m * x ** 2 + n * x).div(x ** 2 + m * x)
+              correction = `$f(x)=\\dfrac{${rienSi1(m)}x^2+${n}x}{x^2${ecritureAlgebrique(m)}x}$ donc ici on a : $f(${x})=\\dfrac{${m}\\times ${ecritureParentheseSiNegatif(x)}^2+${n}\\times ${ecritureParentheseSiNegatif(x)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(m)}\\times ${ecritureParentheseSiNegatif(x)}}=\\dfrac{${m * x ** 2}${ecritureAlgebrique(n * x)}}{${x ** 2}${ecritureAlgebrique(m * x)}}=\\dfrac{${m * x ** 2 + n * x}}{${x ** 2 + m * x}}=\\dfrac{${m * x + n}}{${x + m}}$`
+              reponses[i] = new FractionEtendue(m * x ** 2 + n * x, x ** 2 + m * x)
               break
             case 3:
-              if (n !== x) m = n - x
-              else m = n ** 2 - x
+              if (n !== x && n !== 2 * x) m = n - x // x - m = 2x - n donc différent de zéro
+              else if (n ** 2 !== 2 * x) m = n ** 2 - x // x-m = 2x - n**2 donc différent de zéro
+              else m = n + x // x-m = n donc différent de zéro
               enonce = `Soit $f: x \\longmapsto \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$. ${sp(5)} Quelle est l'image de $${x}$ ?<br>`
-              correction = `$f(x)= \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$ donc ici on a : $f(${x})= \\dfrac{${x}${ecritureAlgebrique(-m)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(-2 * m)}\\times ${ecritureParentheseSiNegatif(x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}=\\dfrac{${-1}}{${x + m}}=${texNombre(-1 / (x + m), 2)}$`
-              reponses[i] = new Decimal(-1).div(x + m)
+              correction = `$f(x)= \\dfrac{x${ecritureAlgebrique(-m)}}{x^2${ecritureAlgebrique(-2 * m)}x+${m * m}}$`
+              correction += `donc ici on a : $f(${x})= \\dfrac{${x}${ecritureAlgebrique(-m)}}{${ecritureParentheseSiNegatif(x)}^2${ecritureAlgebrique(-2 * m)}\\times ${ecritureParentheseSiNegatif(x)}+${m * m}}`
+              correction += `=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}`
+              reponses[i] = new FractionEtendue(1, x - m)
+              correction += `=${reponses[i].texFSD}$`
+
               break
           }
+          setReponse(this, i, reponses[i], { formatInteractif: 'fractionEgale' })
           break
       }
       if (this.interactif) {
         if (tagImage) {
-          texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: `$f(${ant})=$` })
+          texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$f(${ant})=$` })
         } else {
-          texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur25 inline', {
-            texte: '$f($',
+          texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', {
+            texteAvant: '$f($',
             texteApres: `$)=${img}$`
           })
         }
@@ -276,11 +286,10 @@ export default function CalculsImagesFonctions () {
       }
 
       if (tagImage) {
-        texteCorr = correction + '<br>' + `$f(${ant})=${miseEnEvidence(texNombre(reponses[i], 5))}$`
+        texteCorr = correction + '<br>' + `$f(${ant})=${miseEnEvidence(reponses[i] instanceof FractionEtendue ? reponses[i].simplifie().texFSD : texNombre(reponses[i], 5))}$`
       } else {
-        texteCorr = correction + '<br>' + `$f(${miseEnEvidence(texNombre(reponses[i], 5))})=${img}$`
+        texteCorr = correction + '<br>' + `$f(${miseEnEvidence(reponses[i] instanceof FractionEtendue ? reponses[i].simplifie().texFSD : texNombre(reponses[i], 5))})=${img}$`
       }
-      setReponse(this, i, reponses[i])
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
