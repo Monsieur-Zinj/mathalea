@@ -268,7 +268,7 @@ export class TexteParPoint extends ObjetMathalea2D {
       ]
     } else if (ancrageDeRotation === 'gauche') {
       this.bordures = [A.x,
-        A.y - 2 * (lt * sx),
+        A.y - 2 * (lt * sx) - 2.5, // EE : rajout du -1 pour la sortie LaTeX du 6S10 (phacophères est le mot le plus long)
         A.x + 2 * (lt * cx),
         A.y
       ]
