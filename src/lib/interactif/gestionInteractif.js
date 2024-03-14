@@ -46,7 +46,7 @@ export function exerciceInteractif (exercice /** Exercice */, divScore /** HTMLD
   if (exercice.interactifType === 'qcm_mathLive') return verifExerciceQcmMathLive(exercice, divScore, buttonScore)
 }
 
-function verifExerciceQcmMathLive (exercice /** Exercice */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
+export function verifExerciceQcmMathLive (exercice /** Exercice */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
   // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
   let nbQuestionsValidees = 0
   let nbQuestionsNonValidees = 0

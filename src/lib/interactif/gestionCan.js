@@ -25,6 +25,13 @@ export function gestionCan (exercice) {
           if (exercice.interactifType === 'custom') {
             resultat = exercice.correctionInteractive(i)
           }
+          if (exercice.interactifType === 'qcm_mathLive') {
+            if (exercice.autoCorrection[i]?.propositions != null) {
+              resultat = verifQuestionQcm(exercice, i)
+            } else {
+              resultat = verifQuestionMathLive(this, i)
+            }
+          }
           // Mise en couleur du numéro de la question dans le menu du haut
           if (resultat === 'OK') {
             document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
