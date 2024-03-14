@@ -31,5 +31,5 @@
   {trash}
 />
 <FullscreenButton
-  {setFullScreen}
+  callback={setFullScreen}
 />
