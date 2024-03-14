@@ -3,7 +3,7 @@ import { traceBarre } from '../../lib/2d/diagrammes.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
@@ -18,7 +18,6 @@ export const interactifType = 'qcm'
  * Lire un diagramme en barres
  * @author Erwan Duplessy
  * Conversion Amc et interactif par Jean-Claude Lhote
- * Référence 6S10
  */
 
 export const uuid = '17bce'
@@ -136,10 +135,9 @@ export default function LectureDiagrammeBarre () {
         propc.push({ texte: `entre ${coef * borne} et ${(borne + 10) * coef}`, statut: false, reponse: reponsec })
       }
     }
-    this.introduction += mathalea2d({ xmin: -5, xmax: 11, ymin: -4, ymax: 11, pixelsParCm: 30, scale: 0.5 },
-      r,
-      lstElementGraph
-    )
+
+    this.introduction += mathalea2d(Object.assign({ zoom: 1, scale: 0.5 }, fixeBordures([r, ...lstElementGraph])), r, lstElementGraph)
+
     // debut de la correction
     // question 1
     this.listeCorrections[0] = 'Les animaux les plus nombreux sont les ' + lstAnimauxExo[lstNombresAnimaux.indexOf(nMax)] + '.<br>'
