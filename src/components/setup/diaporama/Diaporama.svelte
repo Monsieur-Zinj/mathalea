@@ -34,6 +34,7 @@
   import NavBar from '../../shared/header/NavBar.svelte'
   import type { InterfaceParams, NumberRange } from '../../../lib/types'
   import { shuffle, listOfRandomIndexes } from '../../../lib/components/shuffle'
+  import FullscreenButton from '../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte';
 
   const divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -501,7 +502,7 @@
           'correction' + i
         ) as HTMLDivElement
 
-        if (diapocellDiv === null){
+        if (diapocellDiv === null) {
           // ca sert à rien de continuer
           continue
         }
@@ -837,16 +838,6 @@
     updateExercices()
   }
 
-  function switchFullScreen () {
-    isFullScreen = !isFullScreen
-    if (isFullScreen) {
-      const app = document.querySelector('#diaporama')
-      app?.requestFullscreen()
-    } else {
-      document.exitFullscreen()
-    }
-  }
-
   function handleQuit () {
     mathaleaHandleComponentChange('diaporama', '')
     // $selectedExercises.isActive = false
@@ -920,25 +911,7 @@
                 </div>
               </div>
             </div>
-            <div
-              class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct"
-            >
-              Plein écran
-              <div class="flex flex-row px-4 justify-start">
-                <button
-                  id="diaporama-plein-ecran"
-                  type="button"
-                  on:click={switchFullScreen}
-                  class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-                >
-                  <i
-                    class="bx text-2xl {isFullScreen
-                      ? 'bx-exit-fullscreen'
-                      : 'bx-fullscreen'}"
-                  />
-                </button>
-              </div>
-            </div>
+            <FullscreenButton/>
           </div>
           <div
             class="flex text-lg font-bold mb-2 text-coopmaths-struct dark:text-coopmathsdark-struct"
