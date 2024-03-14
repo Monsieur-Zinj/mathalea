@@ -38,7 +38,7 @@ async function readInfos (dirPath) {
         if (file.match(/\.jsx?|\.ts$/) &&
           !file.startsWith('_') &&
           file !== 'deprecatedExercice.js' &&
-          file !== 'MetaExercice.ts' &&
+          file !== 'MetaExerciceCan.ts' &&
           file !== 'Exercice.ts') {
           const infos = {}
           const data = await fs.readFile(filePath, 'utf8')
@@ -61,6 +61,7 @@ async function readInfos (dirPath) {
           } else {
             if (!filePath.includes('beta') &&
               !filePath.includes('/apps/') &&
+              !filePath.includes('a-2024') &&
               !filePath.includes('/ressources/')
             ) {
               console.error('\x1b[31m%s\x1b[0m', `ref non trouvé dans ${filePath}`)
