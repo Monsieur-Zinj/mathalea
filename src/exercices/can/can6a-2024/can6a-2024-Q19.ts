@@ -3,14 +3,13 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import Decimal from 'decimal.js'
-import { choice } from '../../../lib/outils/arrayOutils'
-export const titre = 'Soustraction pas facile'
+export const titre = 'Soustraire un décimal à un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'dcd81'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Jean-Claude Lhote
+ * @author  Gilles Mora
  * Référence
 */
 export default class SoustractionPasFacile extends Exercice {
@@ -21,27 +20,35 @@ export default class SoustractionPasFacile extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
     this.canOfficielle = true
+    this.optionsChampTexte = { texteAvant: ' $=$' }
+    this.formatChampTexte = 'largeur01'
   }
 
   nouvelleVersion () {
     let a:Decimal
     let b: Decimal
-    let c: Decimal
+    let partieEntiere:number
+    let partieDec: Decimal
     if (this.canOfficielle) {
-      a = new Decimal('50')
-      b = new Decimal('3.5')
-      c = new Decimal('2')
+      a = new Decimal('10')
+      partieEntiere = 7
+      partieDec = new Decimal('0.6')
+      b = new Decimal(partieEntiere).add(partieDec)
     } else {
-      const [aa, cc] = choice([[25, 4], [50, 2], [250, 4], [500, 2]])
-      a = new Decimal(aa)
-      c = new Decimal(cc)
-      b = new Decimal(randint(2, 9) * 2 + 1).div(2)
+      a = new Decimal(randint(1, 5) * 10)
+      partieEntiere = randint(11, 89, [20, 30, 40, 50, 60, 70, 80])
+      partieDec = new Decimal(randint(1, 9)).div(10)
+      b = new Decimal(randint(11, 89, [20, 30, 40, 50, 60, 70, 80])).div(10)
     }
-    this.reponse = a.mul(b).mul(c).toFixed(0)
-    this.question = `$${texNombre(a, 0)}\\times ${texNombre(b, 1)}\\times ${texNombre(c, 0)}$`
+    this.reponse = a.sub(b).toFixed(1)
+    this.question = `$${texNombre(a, 0)}- ${texNombre(b, 1)}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
-    this.correction = `On peut commencer par calculer $${texNombre(a, 0)}}\\times ${texNombre(c, 0)}=${texNombre(a.mul(c), 0)}$<br>`
-    this.correction += `puis on effectue $${texNombre(a.mul(c), 0)}\\times ${texNombre(b, 1)}= ${miseEnEvidence(this.reponse)}`
+    this.correction = `On décompose pour calculer plus simplement : <br>
+    $\\begin{aligned}
+     ${texNombre(a, 0)}- ${texNombre(b, 1)}&= ${texNombre(a, 0)}- ${b.floor()}-${texNombre(b.sub(b.floor()), 1)}\\\\
+     &=${texNombre(a.sub(b.floor()), 0)}-${texNombre(b.sub(b.floor()), 1)}\\\\
+     &=${miseEnEvidence(texNombre(a.sub(b), 1))}
+     \\end{aligned}$`
   }
 }

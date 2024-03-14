@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
-export const titre = 'Multiplier facilement'
+export const titre = 'Multiplier astucieusement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'd149d'
@@ -13,14 +13,16 @@ export const uuid = 'd149d'
  * @author Jean-Claude Lhote
  * Référence
 */
-export default class MultiplicationFacile extends Exercice {
+export default class SoustractionDecimaux extends Exercice {
   constructor () {
     super()
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
+    this.optionsChampTexte = { texteAvant: ' $=$' }
     this.canOfficielle = true
+    this.formatChampTexte = 'largeur01'
   }
 
   nouvelleVersion () {
@@ -41,7 +43,7 @@ export default class MultiplicationFacile extends Exercice {
     this.question = `$${texNombre(a, 0)}\\times ${texNombre(b, 1)}\\times ${texNombre(c, 0)}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
-    this.correction = `On peut commencer par calculer $${texNombre(a, 0)}}\\times ${texNombre(c, 0)}=${texNombre(a.mul(c), 0)}$<br>`
-    this.correction += `puis on effectue $${texNombre(a.mul(c), 0)}\\times ${texNombre(b, 1)}= ${miseEnEvidence(this.reponse)}`
+    this.correction = `On  commence par calculer $${texNombre(a, 0)}\\times ${texNombre(c, 0)}=${texNombre(a.mul(c), 0)}$, puis `
+    this.correction += `on effectue $${texNombre(a.mul(c), 0)}\\times ${texNombre(b, 1)}= ${miseEnEvidence(this.reponse)}$.`
   }
 }

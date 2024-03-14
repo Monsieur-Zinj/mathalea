@@ -3,7 +3,7 @@ import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-export const titre = 'Division par 5'
+export const titre = 'Diviser par 5'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '17db4'
@@ -21,7 +21,7 @@ export default class DivisionParCinq extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
-    this.canOfficielle = false
+    this.canOfficielle = true
   }
 
   nouvelleVersion () {
@@ -37,7 +37,12 @@ export default class DivisionParCinq extends Exercice {
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = texNombre(dividende / 5, 0)
-    this.correction = 'Pour diviser par 5, on peut diviser par 10 puis multiplier le résultat par 2 :<br>'
-    this.correction += `$${texNombre(dividende, 0)}\\div 5=(${texNombre(dividende, 0)}\\div 10)\\times 2=${texNombre(dividende / 10, 0)}\\times 2=${miseEnEvidence(this.reponse)}$`
+    this.correction = 'Pour diviser par $5$, on peut diviser par $10$ puis multiplier le résultat par $2$ :<br>'
+    this.correction += `
+    $\\begin{aligned}
+    ${texNombre(dividende, 0)}\\div 5&=(${texNombre(dividende, 0)}\\div 10)\\times 2\\\\
+    &=${texNombre(dividende / 10, 0)}\\times 2\\\\
+    &=${miseEnEvidence(this.reponse)}
+    \\end{aligned}$`
   }
 }

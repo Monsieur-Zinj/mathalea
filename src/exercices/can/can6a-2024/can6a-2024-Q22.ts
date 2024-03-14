@@ -5,7 +5,7 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-export const titre = 'Abscisse en demis'
+export const titre = 'Déterminer une abscisse sur une droite graduée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'eb9d6'
@@ -41,7 +41,7 @@ export default class AbscisseEnDemiBis extends Exercice {
     this.question = 'Quelle est l\'abscisse du point A ?<br>'
     this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ ua'
+    this.canReponseACompleter = ''
     this.reponse = String(x)
     this.correction = `L'abscisse du point A est $${miseEnEvidence(texNombre(x, 1))}$.<br>`
   }

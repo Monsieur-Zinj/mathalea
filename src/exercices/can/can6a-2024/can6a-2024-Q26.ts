@@ -5,7 +5,7 @@ import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
 import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 
-export const titre = 'Addition décimaux à piège'
+export const titre = 'Additionner des décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'cc48b'
@@ -44,6 +44,10 @@ export default class AjouteDecimauxPieges extends Exercice {
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = texNombre(a.add(b), 2)
-    this.correction = `$${texNombre(a, 2)}+${texNombre(b, 1)}=${texNombre(a, 2)}+${texNombre(b, 2, true)}=${miseEnEvidence(this.reponse)}$`
+    this.correction = `On peut calculer ainsi : <br>
+    $\\begin{aligned}
+    ${texNombre(a, 2)}+${texNombre(b, 1)}&=${texNombre(a, 2)}+${texNombre(b, 2, true)}\\\\
+    &=${miseEnEvidence(this.reponse)}
+    \\end{aligned}$`
   }
 }
