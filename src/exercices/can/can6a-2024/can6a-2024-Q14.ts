@@ -20,7 +20,6 @@ export default class MultiplieDixieme extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'fillInTheBlank'
     this.canOfficielle = true
-    this.compare = numberCompare
   }
 
   nouvelleVersion () {
@@ -33,7 +32,7 @@ export default class MultiplieDixieme extends Exercice {
       puissance = randint(1, 2)
       nb = randint(3, 8) * 10 + randint(1, 9) * 10 ** (puissance - 1)
     }
-    this.reponse = texNombre(1 / (10 ** puissance), 3)
+    this.reponse = { champ1: { value: texNombre(1 / (10 ** puissance), 3), compare: numberCompare } }
     this.question = `\\text{Complète : }${texNombre(nb, 0)}\\times %{champ1}=${texNombre(nb / (10 ** puissance), 3)}`
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = `$${texNombre(nb, 0)}\\times \\ldots=${texNombre(nb / (10 ** puissance), 3)}$`
