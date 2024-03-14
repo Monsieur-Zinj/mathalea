@@ -18,9 +18,10 @@
     indiceExercice,
     indiceLastExercice,
     interactifReady: false,
-    randomReady: true,
+    randomReady: false,
     settingsReady: false,
-    correctionReady: false
+    correctionReady: false,
+    isHidable: false
   }
 
   onMount(async () => {
