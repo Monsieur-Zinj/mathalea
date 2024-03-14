@@ -20,7 +20,7 @@ export default class CompareDecimalFraction extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'qcm'
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {
@@ -40,10 +40,12 @@ export default class CompareDecimalFraction extends Exercice {
       this.reponse = '3,4'
       this.correction = `Le plus grand nombre est : $${miseEnEvidence(texNombre(3.4, 1))}$.`
     } else {
-      num = randint(6, 9)
-      den = randint(2, 9, num)
-      nbA = randint(21, 49, [20, 40]) / 10
-      nbB = num / den
+      do {
+        num = randint(7, 15)
+        den = randint(2, 5)
+        nbA = randint(21, 49, [20, 40]) / 10
+        nbB = num / den
+      } while (Math.abs(nbA - nbB) <= 1)
       a = texNombre(nbA, 1)
       b = `\\dfrac{${num}}{${den}}`
     }
