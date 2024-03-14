@@ -22,7 +22,7 @@ export default class CompleterUnLitre extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = 'largeur01'
-    this.canOfficielle = false
+    this.canOfficielle = true
     this.compare = numberCompare
   }
 
@@ -49,10 +49,10 @@ export default class CompleterUnLitre extends Exercice {
           break
       }
     }
-    this.question = `\\text{Complète : }${String(capacite)}~${unite}+%{champ1}~${unite}=1~L`
-    this.canEnonce = 'Complète'
-    this.canReponseACompleter = `$${String(capacite)}~${unite}+\\ldots~${unite}=1~L$`
+    this.question = `\\text{Complète : ${String(capacite)}\\,${unite}}+%{champ1}\\,\\text{${unite}} =1\\, \\text{L}`
+    this.canEnonce = 'Complète.'
+    this.canReponseACompleter = `$${String(capacite)}~${unite}+\\ldots\\,${unite}=1~L$`
     this.reponse = String(reste)
-    this.correction = `Il faut ajouter $${miseEnEvidence(String(reste))}~${unite}$ à $${String(capacite)}~${unite}$ pour faire $1~L$, car $1~L=${String(reste + capacite)}~${unite}$.`
+    this.correction = `Il faut ajouter $${miseEnEvidence(String(reste))}$ ${unite} à $${String(capacite)}$ ${unite} pour faire $1$ L, car $1$ L $=${String(reste + capacite)}$ ${unite}.`
   }
 }

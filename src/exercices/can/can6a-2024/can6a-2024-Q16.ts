@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
-export const titre = 'Pourcentage facile'
+export const titre = 'Calculer avec un pourcentage'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '67c9a'
@@ -45,14 +45,15 @@ export default class PourcentageFacile extends Exercice {
     const num = ratios[p][0]
     const den = ratios[p][1]
     this.reponse = (p * distance / 100).toFixed(0)
-    this.question = `$${texNombre(p, 0)}\\%$ de $${texNombre(distance, 0)}$ ${unite}`
+    this.question = `$${texNombre(p, 0)}\\,\\%$ de $${texNombre(distance, 0)}$ ${unite}`
     this.canEnonce = this.question
-    this.canReponseACompleter = `$\\ldots$${unite}`
-    this.correction = `$${String(p)}\\%$ correspond à la fraction $\\dfrac{${num}}{${den}}.<br>`
+    this.canReponseACompleter = `$\\ldots$ ${unite}`
+    this.correction = `Prendre $${String(p)}\\,\\%$ d'une quantité revient à la diviser par $${ratios[p][1]}$. <br>
+    En effet $\\dfrac{${num}}{${den}}=${String(p)}\\,\\%$.<br>`
     if (p === 25 || p === 50) {
-      this.correction += `Donc, on divise $${texNombre(distance, 0)}$ par $${den}$ : $${texNombre(distance, 0)}\\div ${den}=${miseEnEvidence(this.reponse)}$ ${unite}.`
+      this.correction += `Donc, on divise $${texNombre(distance, 0)}$ par $${den}$, soit  $${texNombre(distance, 0)}\\div ${den}=${miseEnEvidence(this.reponse)}$ ${unite}.`
     } else {
-      this.correction += `Donc, on divise $${texNombre(distance, 0)}$ par $${den}$ et on multuiplie par $${num}$ : $${texNombre(distance, 0)}\\div ${den} \\times ${num}=${texNombre(distance / den, 0)}\\times ${num}=${miseEnEvidence(this.reponse)}$ ${unite}.`
+      this.correction += `Donc, on divise $${texNombre(distance, 0)}$ par $${den}$ et on multuiplie par $${num}$, soit $${texNombre(distance, 0)}\\div ${den} \\times ${num}=${texNombre(distance / den, 0)}\\times ${num}=${miseEnEvidence(this.reponse)}$ ${unite}.`
     }
   }
 }

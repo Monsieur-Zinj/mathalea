@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { prenom } from '../../../lib/outils/Personne'
-export const titre = 'Billes multipliées'
+export const titre = 'Calculer un nombre de billes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '70cb3'
@@ -44,6 +44,7 @@ export default class BillesMultipliees extends Exercice {
     this.canEnonce = this.question
     this.question += `${quidams[1]} a ` + (this.interactif ? '' : '$\\ldots$ billes.')
     this.canReponseACompleter = `${quidams[1]} a $\\ldots$ billes.`
-    this.correction = `${quidams[1]} a ${coeff} fois plus de billes que ${quidams[0]} donc : $${coeff}\\times ${nbBilles}=${miseEnEvidence(this.reponse)}$`
+    this.correction = `${quidams[1]} a $${coeff}$ fois plus de billes que ${quidams[0]}.<br>
+    Comme $${coeff}\\times ${nbBilles}=${this.reponse}$, ${quidams[1]} a donc $${miseEnEvidence(this.reponse)}$ billes.`
   }
 }
