@@ -37,19 +37,23 @@ export default class MetaExercice extends Exercice {
         this.listeCorrections[indexQuestion] = (Question.correction)
         this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
         this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
-        if (Question.formatInteractif !== 'qcm') {
+        if (Question.formatInteractif === 'qcm') {
+          this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
+        } else if (Question.formatInteractif === 'fillInTheBlank') {
+          this.listeQuestions[indexQuestion] = remplisLesBlancs(this, indexQuestion, Question.question, 'fillInTheBlank', '\\ldots')
+          handleAnswers(this, indexQuestion, Question.reponse, { formatInteractif: 'fillInTheBlank' })
+        } else {
+          this.listeQuestions[indexQuestion] = Question.question + ajouteChampTexteMathLive(this, indexQuestion, Question.formatChampTexte ?? '', Question.optionsChampTexte ?? {})
           if (Question.compare == null) {
             handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } }, { formatInteractif: Question.formatInteractif } || {})
           } else {
-            handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, compare: Question.compare } }, { formatInteractif: Question.formatInteractif } || {})
+            handleAnswers(this, indexQuestion, {
+              reponse: {
+                value: Question.reponse,
+                compare: Question.compare
+              }
+            }, { formatInteractif: Question.formatInteractif } || {})
           }
-          if (Question.formatInteractif !== 'fillInTheBlank') {
-            this.listeQuestions[indexQuestion] = Question.question + ajouteChampTexteMathLive(this, indexQuestion, Question.formatChampTexte || '', Question.optionsChampTexte || {})
-          } else {
-            this.listeQuestions[indexQuestion] = remplisLesBlancs(this, indexQuestion, Question.question, 'fillInTheBlank', '\\ldots')
-          }
-        } else {
-          this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
         }
       } else {
         //* ***************** Question Exo classique *****************//
@@ -61,28 +65,19 @@ export default class MetaExercice extends Exercice {
         // fin d'alimentation des listes de question et de correction pour cette question
         // this.formatChampTexte = Question.formatChampTexte
         // this.formatInteractif = Question.formatInteractif
-        if (Question.compare == null && Question.formatInteractif !== 'qcm') {
+        if (Question.formatInteractif === 'fillInTheBlank') {
+          handleAnswers(this, indexQuestion, Question.listeQuestions[0].reponse, { formatInteractif: 'fillInTheBlank' })
+        } else if (Question.formatInteractif === 'qcm') {
+          this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
+        } else if (Question.compare == null) {
           handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } }, { formatInteractif: Question.formatInteractif })
         } else {
-          if (Question.formatInteractif === 'fillInTheBlank') {
-            handleAnswers(this, indexQuestion, {
-              champ1: {
-                value: Question.reponse,
-                compare: Question.compare
-              }
-            }, { formatInteractif: 'fillInTheBlank' })
-          } else {
-            if (Question.formatInteractif !== 'qcm') {
-              handleAnswers(this, indexQuestion, {
-                reponse: {
-                  value: Question.reponse,
-                  compare: Question.compare
-                }
-              }, { formatInteractif: 'calcul' })
-            } else {
-              this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
+          handleAnswers(this, indexQuestion, {
+            reponse: {
+              value: Question.reponse,
+              compare: Question.compare
             }
-          }
+          }, { formatInteractif: 'calcul' })
         }
       }
 

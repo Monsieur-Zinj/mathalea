@@ -29,7 +29,7 @@ export function gestionCan (exercice) {
             if (exercice.autoCorrection[i]?.propositions != null) {
               resultat = verifQuestionQcm(exercice, i)
             } else {
-              resultat = verifQuestionMathLive(this, i)
+              resultat = verifQuestionMathLive(this, i).isOk ? 'OK' : 'KO'
             }
           }
           // Mise en couleur du numéro de la question dans le menu du haut

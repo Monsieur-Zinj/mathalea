@@ -25,7 +25,6 @@ export default class EncadreParDeuxEntiers extends Exercice {
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = 'largeur01'
     this.canOfficielle = true
-    this.compare = numberCompare
   }
 
   nouvelleVersion () {
