@@ -279,7 +279,6 @@
               <div class="pl-2 pt-4">
                 <ButtonToggleAlt
                   title={"Modifier l'interactivité"}
-                  isDisabled={$globalOptions.setInteractive === '0'}
                   bind:value={$globalOptions.isInteractiveFree}
                   id={'config-eleve-interactif-permis-toggle'}
                   explanations={[
