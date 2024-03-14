@@ -39,6 +39,19 @@
   let isSettingsVisible = true
   let isInteractif = exercise.interactif
   const interactifReady = exercise.interactifReady
+  const exerciceHasNoSettings = !exercise.nbQuestionsModifiable &&
+         !exercise.besoinFormulaireCaseACocher &&
+         !exercise.besoinFormulaireNumerique &&
+         !exercise.besoinFormulaireTexte &&
+         !exercise.besoinFormulaire2CaseACocher &&
+          !exercise.besoinFormulaire2Numerique &&
+          !exercise.besoinFormulaire2Texte &&
+          !exercise.besoinFormulaire3CaseACocher &&
+          !exercise.besoinFormulaire3Numerique &&
+          !exercise.besoinFormulaire3Texte &&
+          !exercise.besoinFormulaire4CaseACocher &&
+          !exercise.besoinFormulaire4Numerique &&
+          !exercise.besoinFormulaire4Texte
   let isExerciceChecked = false
   const id: string = $exercicesParams[exerciseIndex]?.id
     ? exercise.id
@@ -85,7 +98,7 @@
         headerProps.randomReady = false
       }
     } else {
-      headerProps.settingsReady = true
+      headerProps.settingsReady = !exerciceHasNoSettings
       headerProps.isSortable = true
       headerProps.isDeletable = true
       headerProps.isHidable = true
@@ -159,18 +172,10 @@
         }
       }
       mathaleaRenderDiv(divExercice)
-      if (!exercise.nbQuestionsModifiable &&
-       !exercise.besoinFormulaireCaseACocher &&
-       !exercise.besoinFormulaireNumerique &&
-       !exercise.besoinFormulaireTexte &&
-       !exercise.besoinFormulaire2CaseACocher &&
-        !exercise.besoinFormulaire2Numerique &&
-        !exercise.besoinFormulaire2Texte &&
-        !exercise.besoinFormulaire3CaseACocher &&
-        !exercise.besoinFormulaire3Numerique &&
-        !exercise.besoinFormulaire3Texte
+      if (exerciceHasNoSettings
       ) {
         isSettingsVisible = false
+        // headerProps.settingsReady = false
       }
     }
     // affectation du zoom pour les figures scratch
