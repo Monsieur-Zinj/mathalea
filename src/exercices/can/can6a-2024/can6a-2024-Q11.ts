@@ -20,7 +20,7 @@ export default class CompareDecimalFraction extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'qcm'
-    this.canOfficielle = false
+    this.canOfficielle = true
   }
 
   nouvelleVersion () {
@@ -72,7 +72,7 @@ export default class CompareDecimalFraction extends Exercice {
     }
 
     this.canEnonce = 'Entoure le plus grand nombre.'
-    this.canReponseACompleter = `${a} ${sp(7)} ${b}`
+    this.canReponseACompleter = `$${a}$ ${sp(7)} $${b}$`
     this.reponse = nbA > nbB ? a : b
     this.correction = `Le plus grand nombre est : $${miseEnEvidence(this.reponse)}$.<br><br>`
     if (nbA > nbB) {
@@ -80,8 +80,13 @@ export default class CompareDecimalFraction extends Exercice {
         this.correction += `En effet : $\\dfrac{${num}}{${den}}=${texNombre((num / den), 0)}$`
       } else {
         if (num > den) {
-          this.correction += `En effet : $\\dfrac{${num}}{${den}}=\\dfrac{${num - (num % den)}}{${den}}+\\dfrac{${num % den}}{${den}} = ${texNombre(Math.floor(num / den), 0)} +\\dfrac{${num % den}}{${den}}$,<br>or $\\dfrac{${num % den}}{${den}}<1$,<br><br>`
-          this.correction += `donc $\\dfrac{${num}}{${den}}<${Math.ceil(num / den).toFixed(0)}$.`
+          this.correction += `Comme : <br>
+          $\\begin{aligned}
+          \\dfrac{${num}}{${den}}&=\\dfrac{${num - (num % den)}}{${den}}+\\dfrac{${num % den}}{${den}} \\\\
+          &= ${texNombre(Math.floor(num / den), 0)} +\\dfrac{${num % den}}{${den}}
+          \\end{aligned}$<br>
+           et  $\\dfrac{${num % den}}{${den}}<1$,`
+          this.correction += ` alors $\\dfrac{${num}}{${den}}<${Math.ceil(num / den).toFixed(0)}$.`
         } else {
           this.correction += `En effet : $${num}<${den}$ donc $\\dfrac{${num}}{${den}}<1$`
         }
@@ -90,8 +95,11 @@ export default class CompareDecimalFraction extends Exercice {
       if (Number.isInteger(num / den)) {
         this.correction += `En effet : $\\dfrac{${num}}{${den}}=${texNombre(num / den, 0)}$`
       } else {
-        this.correction += `En effet : $\\dfrac{${num}}{${den}}=\\dfrac{${num - (num % den)}}{${den}}+\\dfrac{${num % den}}{${den}} = ${texNombre(Math.floor(num / den), 0)} +\\dfrac{${num % den}}{${den}}$,<br><br>`
-        this.correction += `donc $\\dfrac{${num}}{${den}}>${Math.floor(num / den).toFixed(0)}$.`
+        this.correction += `Comme : <br>
+        $\\begin{aligned}\\dfrac{${num}}{${den}}&=\\dfrac{${num - (num % den)}}{${den}}+\\dfrac{${num % den}}{${den}} \\\\
+        &= ${texNombre(Math.floor(num / den), 0)} +\\dfrac{${num % den}}{${den}}
+        \\end{aligned}$<br> `
+        this.correction += `alors $\\dfrac{${num}}{${den}}>${Math.floor(num / den).toFixed(0)}$.`
       }
     }
   }

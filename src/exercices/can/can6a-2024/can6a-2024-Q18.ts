@@ -70,6 +70,6 @@ export default class AireTrapezeRectangle extends Exercice {
     this.canReponseACompleter = '$\\ldots$ ua'
     this.reponse = ((petiteBase + grandeBase) * hauteur / 2).toFixed(0)
     this.correction = `On commence par compter le nombre de carreaux entier, puis on ajoute les carreaux qui se complètent. <br>
-    L'aire de la figure A est égale à $${miseEnEvidence(this.reponse)}$ ua.<br>`
+    L'aire de la figure A est égale à $${miseEnEvidence(this.reponse)}$ ua.`
   }
 }

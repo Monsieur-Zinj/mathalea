@@ -42,6 +42,6 @@ export default class AbscisseEnDemis extends Exercice {
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = String(x)
-    this.correction = `L'abscisse du point A est $${miseEnEvidence(texNombre(x, 1))}$.<br>`
+    this.correction = `L'abscisse du point A est $${miseEnEvidence(texNombre(x, 1))}$.`
   }
 }
