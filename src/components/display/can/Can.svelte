@@ -188,7 +188,17 @@
     console.log('answersFromCapytale', answersFromCapytale)
     for (const exercise of answersFromCapytale) {
       if (exercise.answers !== undefined) {
-        const answersOfExercise = Object.values(exercise.answers)
+        const answersOfExercise : string[] = []
+        const keysAns = Object.keys(exercise.answers)
+        for ( let i = 0; i< exercise.numberOfQuestions ; i++) {
+          const numberQ = keysAns.findIndex( e=> e.endsWith(`Q${i}`))
+          if ( numberQ < 0 ){
+            answersOfExercise[i] = ''
+          } else {
+            answersOfExercise[i] = exercise.answers[keysAns[numberQ]]
+          }
+        }
+        // const answersOfExercise = Object.values(exercise.answers)
         answers = answers.concat(answersOfExercise)
       }
     }
