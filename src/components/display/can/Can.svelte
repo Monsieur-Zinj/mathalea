@@ -114,6 +114,16 @@
         // si le typ est `custom` on est sûr que `correctionInteractive` existe
         // d'où le ! après `correctionInteractive`
         resultsByQuestion[i] = exercice.correctionInteractive!(i) === 'OK'
+      } else if (type === 'qcm_mathLive') {
+        // @ts-expect-error typage pour les QCM
+        if (exercice.autoCorrection[indiceQuestionInExercice[i]]?.propositions != null) {
+          resultsByQuestion[i] =
+                  verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === 'OK'
+        } else {
+          resultsByQuestion[i] =
+                  verifQuestionMathLive(exercice, indiceQuestionInExercice[i])
+                    ?.isOk
+        }
       }
     }
     // Désactiver l'interactivité avant l'affichage des solutions
