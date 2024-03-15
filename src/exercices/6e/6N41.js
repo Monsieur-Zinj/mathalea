@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
@@ -74,9 +74,8 @@ export default function EgalitesEntreFractions () {
       this.nbQuestions
     )
     for (
-      let i = 0, fraction, a, b, c, d, k, choix, texte, texteCorr;
-      i < this.nbQuestions;
-      i++
+      let i = 0, cpt = 0, fraction, a, b, c, d, k, choix, texte, texteCorr;
+      i < this.nbQuestions && cpt < 50;
     ) {
       if (listeTypeDeQuestions[i] === 1) {
         // égalité entre 2 fractions
@@ -100,16 +99,14 @@ export default function EgalitesEntreFractions () {
           case 0 :
             texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{%{num2}}{${d}}$`
-              texte = remplisLesBlancs(this, i, content)
-              setReponse(this, i, {
+              const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}`
+              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              handleAnswers(this, i, {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-                num1: { value: `${a}\\times ${k}` },
-                den1: { value: `${b}\\times ${k}` },
-                num2: { value: c }
-              },
-              { formatInteractif: 'fillInTheBlank' }
-              )
+                champ1: { value: `${a}\\times ${k}` },
+                champ2: { value: `${b}\\times ${k}` },
+                champ3: { value: String(c) }
+              })
             } else {
               texte += `$${stringTexFraction('\\phantom{0000}', d)}$`
             }
@@ -143,16 +140,14 @@ export default function EgalitesEntreFractions () {
           case 1 :
             texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{${c}}{%{den2}}$`
-              texte = remplisLesBlancs(this, i, content)
-              setReponse(this, i, {
+              const content = `\\dfrac{${a}}{${b}} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{${c}}{%{champ3}}`
+              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              handleAnswers(this, i, {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-                num1: { value: `${a}\\times ${k}` },
-                den1: { value: `${b}\\times ${k}` },
-                den2: { value: d }
-              },
-              { formatInteractif: 'fillInTheBlank' }
-              )
+                champ1: { value: `${a}\\times ${k}` },
+                champ2: { value: `${b}\\times ${k}` },
+                champ3: { value: String(d) }
+              })
             } else {
               texte += `$${stringTexFraction(c, '\\phantom{0000}')}$`
             }
@@ -201,16 +196,14 @@ export default function EgalitesEntreFractions () {
         switch (choix) {
           case 0 : // Recherche du numérateur
             if (this.interactif && context.isHtml) {
-              const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}$`
-              texte = remplisLesBlancs(this, i, content)
-              setReponse(this, i, {
+              const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{%{champ3}}{${d}}`
+              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              handleAnswers(this, i, {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-                champ1: { value: a },
-                champ2: { value: 1 },
-                champ3: { value: a * d }
-              },
-              { formatInteractif: 'fillInTheBlank' }
-              )
+                champ1: { value: String(a) },
+                champ2: { value: '1' },
+                champ3: { value: String(a * d) }
+              })
             } else {
               texte = `$${a} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${stringTexFraction('\\phantom{0000}', d)}$`
             }
@@ -247,16 +240,14 @@ export default function EgalitesEntreFractions () {
           case 1 :
             texte = `$${a} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
             if (this.interactif && context.isHtml) {
-              const content = `${a} = \\dfrac{%{num1}}{%{den1}} = \\dfrac{%{${c}}}{%{den2}}$`
-              texte = remplisLesBlancs(this, i, content)
-              setReponse(this, i, {
+              const content = `${a} = \\dfrac{%{champ1}}{%{champ2}} = \\dfrac{${c}}{%{champ3}}`
+              texte = remplisLesBlancs(this, i, content, 'fillInTheBlank', '\\ldots')
+              handleAnswers(this, i, {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-                num1: { value: a },
-                den1: { value: 1 },
-                den2: { value: d }
-              },
-              { formatInteractif: 'fillInTheBlank' }
-              )
+                champ1: { value: String(a) },
+                champ2: { value: '1' },
+                champ3: { value: String(d) }
+              })
             } else {
               texte += `$${stringTexFraction(c, '\\phantom{0000}')}$`
             }
@@ -295,8 +286,12 @@ export default function EgalitesEntreFractions () {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = `Parmi les fractions suivantes, laquelle est égale à ${texte.split('=')[0]}$ ?`
       }
-      this.listeQuestions.push(texte)
-      this.listeCorrections.push(texteCorr)
+      if (this.questionJamaisPosee(i, a, d)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
     }
     listeQuestionsToContenu(this)
   }
