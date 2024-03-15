@@ -12,7 +12,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'qcmMult'
-export const titre = 'Vocabulaire et notations des fonctions (généralités)'
+export const titre = 'Utiliser le vocabulaire et les notations des fonctions (généralités)'
 
 /**
 * Répndre à des questions sur les fonctions.
@@ -29,20 +29,18 @@ export const refs = {
 export default function VocabulaireNotationsFonctions () {
   Exercice.call(this)
   this.sup = 2
-  this.consigne = ''
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
   this.spacing = 2
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
+  this.consigne = 'Cocher toutes les réponses correctes.'
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    this.consigne = 'Cocher toutes les réponses correctes.'
 
     let typesDeQuestionsDisponibles
     const r = repere({ xMin: -10, xMax: 10, yMin: -10, yMax: 10 })
