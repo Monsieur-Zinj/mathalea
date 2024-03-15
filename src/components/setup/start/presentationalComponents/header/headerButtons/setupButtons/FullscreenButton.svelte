@@ -9,7 +9,7 @@
   const appId = 'appComponent'
   let isFullScreen = false
 
-  function switchFullScreen () {
+  const switchFullScreen = () => {
     isFullScreen = !isFullScreen
     const element: HTMLElement | null = document.getElementById(appId)
     if (element === null) {
@@ -35,12 +35,13 @@
       }
     }
   }
-  function isFullscreenEnabled (element: HTMLElement): element is HTMLElement & {
+
+  const isFullscreenEnabled = (element: HTMLElement): element is HTMLElement & {
     requestFullscreen?(): Promise<void>
     mozRequestFullScreen?(): Promise<void>
     webkitRequestFullscreen?(): Promise<void>
     msRequestFullscreen?(): Promise<void>
-  } {
+  } => {
     return (
       'requestFullscreen' in element ||
       'mozRequestFullScreen' in element ||
@@ -48,7 +49,8 @@
       'msRequestFullscreen' in element
     )
   }
-  function handleFullScreenError (error: Error) {
+
+  const handleFullScreenError = (error: Error) => {
     console.error('Accès au plein écran refusé', error)
     showDialogForLimitedTime('notifDialog', 2000, 'Accès au plein écran refusé')
   }
