@@ -124,6 +124,19 @@ export default function ProblemesTrigoLongueur () {
       const baitaInteractif = lettresGrecques[choixBeta][1]
       const sensV = choice([-1, 1])
       const sensH = choice([-1, 1])
+      numB = randint(1, 26, [4, 5, 15, 23, 24, 25])
+      numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numB])
+      numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numC])
+      numA = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numC, numS])
+      numH = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numS])
+      numR = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numS, numH])
+      const lR = lettreDepuisChiffre(numR)
+      const lB = lettreDepuisChiffre(numB)
+      const lC = lettreDepuisChiffre(numC)
+      const lS = lettreDepuisChiffre(numS)
+      const lA = lettreDepuisChiffre(numA)
+      const lH = lettreDepuisChiffre(numH)
+
       switch (listeTypeQuestions[i]) {
         case 1:
           objets = []
@@ -134,17 +147,17 @@ export default function ProblemesTrigoLongueur () {
           taille = arrondi(Math.round(distance * (Math.tan(beta * Math.PI / 180) - Math.tan(alpha * Math.PI / 180))))
           numA = randint(1, 26, [4, 5, 15, 23, 24, 25])
           ordA = sensV * randint(5, 9)
-          A = point(0, ordA, lettreDepuisChiffre(numA))
+          A = point(0, ordA, lA)
           numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
-          B = point(0, 0, lettreDepuisChiffre(numB))
-          AB = lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)
-          BA = lettreDepuisChiffre(numB) + lettreDepuisChiffre(numA)
+          B = point(0, 0, lB)
+          AB = lA + lB
+          BA = lB + lA
           numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
           absC = sensH * randint(5, 9)
-          C = point(absC, 0, lettreDepuisChiffre(numC), sensH > 0 ? sensV > 0 ? 'below left' : 'above left' : sensV > 0 ? 'below right' : 'above right')
+          C = point(absC, 0, lC, sensH > 0 ? sensV > 0 ? 'below left' : 'above left' : sensV > 0 ? 'below right' : 'above right')
           numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
           absS = randint(3, 7)
-          S = point(absC + sensH * absS, 0, lettreDepuisChiffre(numS))
+          S = point(absC + sensH * absS, 0, lS)
           p = polygoneAvecNom(A, B, S)
           R = polygoneAvecNom(point(absC, -1 * sensV), point(absC + sensH * absS, -1 * sensV), point(absC + sensH * absS, ordA + sensV), point(absC, ordA + sensV))
           R[0].color = colorToLatexOrHTML('blue')
@@ -156,11 +169,11 @@ export default function ProblemesTrigoLongueur () {
           objets.push(texteSurSegment(`${stringNombre(distance)} m`, sensH * sensV < 0 ? B : A, sensH * sensV < 0 ? A : B, 'black', -0.5))
 
           texte = 'Un géomètre veut mesurer la largeur d\'une rivière, représentée par le rectangle, dans le schéma ci-dessous.<br>'
-          texte += `Pour cela, il remarque une souche notée $${lettreDepuisChiffre(numS)}$ sur la rive opposée.<br>`
-          texte += `Il a placé un cône sur sa rive en face de la souche, son emplacement est noté $${lettreDepuisChiffre(numC)}$.<br>`
-          texte += `Ensuite, il s'est éloigné de la berge en restant aligné avec la souche $${lettreDepuisChiffre(numS)}$ et le cône $${lettreDepuisChiffre(numC)}$ jusqu'à un endroit où il place un bâton noté $${lettreDepuisChiffre(numB)}$.<br>`
-          texte += `Du bâton, il effectue un quart de tour et s'éloigne d'une distance de $${distance}$ m jusqu'à son appareil de mesure noté $${lettreDepuisChiffre(numA)}$.<br>`
-          texte += `À l'aide de son appareil, il mesure l'angle $\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numC)}}$ noté $${alfa}$  et l'angle $\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}$ noté $${baita}$.`
+          texte += `Pour cela, il remarque une souche notée $${lS}$ sur la rive opposée.<br>`
+          texte += `Il a placé un cône sur sa rive en face de la souche, son emplacement est noté $${lC}$.<br>`
+          texte += `Ensuite, il s'est éloigné de la berge en restant aligné avec la souche $${lS}$ et le cône $${lC}$ jusqu'à un endroit où il place un bâton noté $${lB}$.<br>`
+          texte += `Du bâton, il effectue un quart de tour et s'éloigne d'une distance de $${distance}$ m jusqu'à son appareil de mesure noté $${lA}$.<br>`
+          texte += `À l'aide de son appareil, il mesure l'angle $\\widehat{${lB}${lA}${lC}}$ noté $${alfa}$  et l'angle $\\widehat{${lB}${lA}${lS}}$ noté $${baita}$.`
           texte += '<br>(Le schéma ci-dessous n\'est pas en vraie grandeur et ne respecte pas les proportions.)'
           texte += '<br>' + mathalea2d({
             xmin: min(-sensH, absC + sensH * (absS + 1)),
@@ -172,10 +185,10 @@ export default function ProblemesTrigoLongueur () {
           }, objets) //  1O est le max de ordA+1 : ainsi le cadre a toujours proportionnellement la même hauteur, bien que la figure change de hauteur.
           enonceInit = texte
           if (this.sup) {
-            enonceAMC = `<br>${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$ en fonction de $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}$ et de $${alfa}$.`
+            enonceAMC = `<br>${numAlpha(j)}Exprimer $${lB}${lC}$ en fonction de $${lA}${lB}$ et de $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lB}${lC}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                                     `${AB}\\times tan(${alfaInteractif})`,
                                     `${BA}\\times tan(${alfaInteractif})`,
@@ -204,10 +217,10 @@ export default function ProblemesTrigoLongueur () {
             }
 
             j++
-            enonceAMC = `${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}$ en fonction de $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}$ et de $${baita}$.`
+            enonceAMC = `${numAlpha(j)}Exprimer $${lB}${lS}$ en fonction de $${lA}${lB}$ et de $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lB}${lS}=$` })
               setReponse(this, i + ii, [
                                     `${AB}\\times tan(${baitaInteractif})`,
                                     `${BA}\\times tan(${baitaInteractif})`,
@@ -236,10 +249,10 @@ export default function ProblemesTrigoLongueur () {
             }
             j++
           }
-          enonceAMC = `${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}$ en fonction de $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}$, de $${alfa}$ et de $${baita}$.`
+          enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lS}$ en fonction de $${lA}${lB}$, de $${alfa}$ et de $${baita}$.`
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}=$` })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lC}${lS}=$` })
             setReponse(this, i + ii, [ // La liste n'est pas exhaustive et ne remplace, hélas, pas du calcul formel.
                                 `${AB}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
                                 `${BA}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
@@ -318,19 +331,19 @@ export default function ProblemesTrigoLongueur () {
             pixelsParCm: 20,
             scale: 0.5
           }, objets) + '<br>'
-          texteCorr += `${numAlpha(j)}Dans le triangle $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$ rectangle en $${lettreDepuisChiffre(numB)}$ on a : $\\tan(${alfa})=\\dfrac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}}{${AB}}$ d'où $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=${AB}\\times \\tan(${alfa})$.<br>`
+          texteCorr += `${numAlpha(j)}Dans le triangle $${lA}${lB}${lC}$ rectangle en $${lB}$ on a : $\\tan(${alfa})=\\dfrac{${lB}${lC}}{${AB}}$ d'où $${lB}${lC}=${AB}\\times \\tan(${alfa})$.<br>`
           j++
           if (this.sup) {
             texteCorr += `${numAlpha(j)}`
             j++
           }
-          texteCorr += `Dans le triangle $${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}$ rectangle en $${lettreDepuisChiffre(numB)}$ on a : $\\tan(${baita})=\\dfrac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}}{${AB}}$ d'où $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}=${AB}\\times \\tan(${baita})$.<br>`
+          texteCorr += `Dans le triangle $${lA}${lB}${lS}$ rectangle en $${lB}$ on a : $\\tan(${baita})=\\dfrac{${lB}${lS}}{${AB}}$ d'où $${lB}${lS}=${AB}\\times \\tan(${baita})$.<br>`
           if (this.sup) {
             texteCorr += `${numAlpha(j)}`
             j++
           }
-          texteCorr += `Comme $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}=${AB}\\times \\tan(${baita})$ et $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=${AB}\\times \\tan(${alfa})$, alors $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}=${AB}\\times(\\tan(${baita})-\\tan(${alfa}))$.<br>`
-          texteCorr += `${numAlpha(j)}Donc $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}=${distance}${sp()} m\\times(\\tan(${beta}^\\circ)-\\tan(${alpha}^\\circ))\\approx ${taille}${sp()}\\text{m}$.<br>`
+          texteCorr += `Comme $${lB}${lS}=${AB}\\times \\tan(${baita})$ et $${lB}${lC}=${AB}\\times \\tan(${alfa})$, alors $${lC}${lS}=${AB}\\times(\\tan(${baita})-\\tan(${alfa}))$.<br>`
+          texteCorr += `${numAlpha(j)}Donc $${lC}${lS}=${distance}${sp()} m\\times(\\tan(${beta}^\\circ)-\\tan(${alpha}^\\circ))\\approx ${taille}${sp()}\\text{m}$.<br>`
 
           break
         case 2:
@@ -438,19 +451,14 @@ export default function ProblemesTrigoLongueur () {
           else if (taille < 50) index = 1
           else if (taille < 100) index = 2
           else index = 3
-          numA = randint(1, 26, [4, 5, 15, 23, 24, 25])
-          A = point(0, 0, lettreDepuisChiffre(numA))
-          numB = randint(1, 26, [4, 5, 15, 23, 24, 25, numA])
+          A = point(0, 0, lA)
           ordA = sensH * (randint(10, 14))
-          B = pointAdistance(A, ordA, 0, lettreDepuisChiffre(numB))
-          numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB])
+          B = pointAdistance(A, ordA, 0, lB)
           absC = choice([2.5, 3, 3.5])
-          C = pointAdistance(A, absC, 90, lettreDepuisChiffre(numC))
-          numR = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC])
-          R = pointAdistance(B, absC, 90, lettreDepuisChiffre(numR))
-          numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numA, numB, numC, numR])
+          C = pointAdistance(A, absC, 90, lC)
+          R = pointAdistance(B, absC, 90, lR)
           absS = randint(7, 11)
-          S = pointAdistance(B, absS, 90, lettreDepuisChiffre(numS))
+          S = pointAdistance(B, absS, 90, lS)
           p = polygoneAvecNom(A, B, R, S, C)
           objets.push(p[1], p[0], segment(C, B), segment(C, R), codageAngleDroit(C, A, B), codageAngleDroit(A, B, R), codageAngleDroit(C, R, S))
           objets.push(afficheMesureAngle(B, C, S, 'black', 3, `${alfa}`), afficheMesureAngle(A, B, C, 'black', 2, `${baita}`), afficheMesureAngle(B, C, R, 'black', 2, `${baita}`))
@@ -461,7 +469,7 @@ export default function ProblemesTrigoLongueur () {
           enonceInit = texte
           j = 0
           if (this.sup) {
-            texte = `<br>$${lettreDepuisChiffre(numC)}$ représente l'œil de l'observateur, $[${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}]$ représente cet${objet[index][2]} ${objet[index][0]}.<br>`
+            texte = `<br>$${lC}$ représente l'œil de l'observateur, $[${lB}${lS}]$ représente cet${objet[index][2]} ${objet[index][0]}.<br>`
             texte += '(Le schéma ci-dessous n\'est pas en vraie grandeur et ne respecte pas les proportions.)<br>'
             texte += mathalea2d({
               xmin: min(-sensH, ordA + sensH),
@@ -512,7 +520,7 @@ export default function ProblemesTrigoLongueur () {
               iiAMC++
             }
             j++
-            enonceAMC = `${numAlpha(j)}En déduire la mesure de l'angle $\\widehat{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}}$, arrondie au centième près.`
+            enonceAMC = `${numAlpha(j)}En déduire la mesure de l'angle $\\widehat{${lR}${lC}${lS}}$, arrondie au centième près.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore', { texteApres: '$^\\circ$' })
@@ -539,7 +547,7 @@ export default function ProblemesTrigoLongueur () {
               iiAMC++
             }
             j++
-            enonceAMC = `${numAlpha(j)}Calculer alors la longueur $${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numS)}$, arrondie au cm près.`
+            enonceAMC = `${numAlpha(j)}Calculer alors la longueur $${lR}${lS}$, arrondie au cm près.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore unites[longueurs]')
@@ -565,7 +573,7 @@ export default function ProblemesTrigoLongueur () {
                   texte: '',
                   statut: '',
                   reponse: {
-                    texte: `Longueur en mètres, calculée au centième près, de $${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numS)}$ : `,
+                    texte: `Longueur en mètres, calculée au centième près, de $${lR}${lS}$ : `,
                     valeur: [arrondi(taille - hauteur)],
                     alignement: 'center',
                     param: {
@@ -633,17 +641,17 @@ export default function ProblemesTrigoLongueur () {
             scale: 0.5
           }, objets)
           texteCorr += this.sup ? `<br>${numAlpha(j)}` : '<br>'
-          texteCorr += `Dans le triangle $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numB)}$ rectangle en $${lettreDepuisChiffre(numR)}$, $\\tan(${baita})=\\dfrac{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numB)}}{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}}$.<br>D'où $${baita}=\\arctan(\\dfrac{${texNombre(hauteur)}}{${texNombre(distance)}})\\approx ${texNombre(beta, 2)}^\\circ$.<br>`
+          texteCorr += `Dans le triangle $${lC}${lR}${lB}$ rectangle en $${lR}$, $\\tan(${baita})=\\dfrac{${lR}${lB}}{${lC}${lR}}$.<br>D'où $${baita}=\\arctan(\\dfrac{${texNombre(hauteur)}}{${texNombre(distance)}})\\approx ${texNombre(beta, 2)}^\\circ$.<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `$\\widehat{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}}=${alfa}-${baita}\\approx ${texNombre(alpha - beta, 2)}^\\circ$<br>`
+          texteCorr += `$\\widehat{${lR}${lC}${lS}}=${alfa}-${baita}\\approx ${texNombre(alpha - beta, 2)}^\\circ$<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `Dans le triangle $${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}$ rectangle en $${lettreDepuisChiffre(numC)}$, $\\tan(\\widehat{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}})=\\dfrac{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numS)}}{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}}$.<br>`
-          texteCorr += `D'où $${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numS)}=${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numR)}\\times \\tan(\\widehat{${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}})\\approx ${distance}${sp()}\\text{m}\\times \\tan(${texNombre(alpha - beta, 2)}^\\circ)\\approx ${texNombre(taille - hauteur)}${sp()}\\text{m}$<br>`
+          texteCorr += `Dans le triangle $${lR}${lC}${lS}$ rectangle en $${lC}$, $\\tan(\\widehat{${lR}${lC}${lS}})=\\dfrac{${lR}${lS}}{${lC}${lR}}$.<br>`
+          texteCorr += `D'où $${lR}${lS}=${lC}${lR}\\times \\tan(\\widehat{${lR}${lC}${lS}})\\approx ${distance}${sp()}\\text{m}\\times \\tan(${texNombre(alpha - beta, 2)}^\\circ)\\approx ${texNombre(taille - hauteur)}${sp()}\\text{m}$<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `$${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}=${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numR)}+${lettreDepuisChiffre(numR)}${lettreDepuisChiffre(numS)}\\approx${texNombre(hauteur)}${sp()}\\text{m}+${texNombre(taille - hauteur)}${sp()}\\text{m}=${texNombre(taille)}${sp()}\\text{m}\\approx${texNombre(Math.round(taille))}${sp()}\\text{m}$<br>`
+          texteCorr += `$${lB}${lS}=${lB}${lR}+${lR}${lS}\\approx${texNombre(hauteur)}${sp()}\\text{m}+${texNombre(taille - hauteur)}${sp()}\\text{m}=${texNombre(taille)}${sp()}\\text{m}\\approx${texNombre(Math.round(taille))}${sp()}\\text{m}$<br>`
           texteCorr += `Cet${objet[index][2]} ${objet[index][0]} mesure environ $${texNombre(Math.round(taille))}$ m de hauteur.`
           break
         case 4:
@@ -653,16 +661,16 @@ export default function ProblemesTrigoLongueur () {
           distance = randint(5, 10)
           taille = beta * distance
           numB = randint(1, 26, [4, 5, 15, 23, 24, 25])
-          B = point(0, 0, lettreDepuisChiffre(numB))
+          B = point(0, 0, lB)
           numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numB])
           absS = sensH * (randint(4, 6))
-          S = pointAdistance(B, absS, 0, lettreDepuisChiffre(numS))
+          S = pointAdistance(B, absS, 0, lS)
           numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numS])
           absC = sensH * (randint(10, 14))
-          C = pointAdistance(B, absC, 0, lettreDepuisChiffre(numC))
+          C = pointAdistance(B, absC, 0, lC)
           numA = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numS, numC])
           ordA = (randint(10, 14))
-          A = pointAdistance(C, ordA, 90, lettreDepuisChiffre(numA))
+          A = pointAdistance(C, ordA, 90, lA)
           p = polygoneAvecNom(B, S, C, A)
           objets.push(p[1], p[0], segment(A, S), codageAngleDroit(B, C, A))
           objets.push(afficheMesureAngle(C, B, A, 'black', 2, `${alfa}`), afficheMesureAngle(C, S, A, 'black', 2, `${baita}`))
@@ -684,12 +692,12 @@ export default function ProblemesTrigoLongueur () {
               pixelsParCm: 20,
               scale: 0.5
             }, objets)
-            enonceAMC += `<br>${numAlpha(j)}Exprimer $h$ en fonction de $${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}$ et $${baita}$ puis en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$ et $${alfa}$.`
+            enonceAMC += `<br>${numAlpha(j)}Exprimer $h$ en fonction de $${lS}${lC}$ et $${baita}$ puis en fonction de $${lB}${lC}$ et $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
               texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
-              AB = lettreDepuisChiffre(numS) + lettreDepuisChiffre(numC)
-              BA = lettreDepuisChiffre(numC) + lettreDepuisChiffre(numS)
+              AB = lS + lC
+              BA = lC + lS
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                                     `${AB}\\times tan(${baitaInteractif})`,
                                     `${BA}\\times tan(${baitaInteractif})`,
@@ -702,8 +710,8 @@ export default function ProblemesTrigoLongueur () {
               { formatInteractif: 'texte' })
               ii++
               texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
-              AB = lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)
-              BA = lettreDepuisChiffre(numC) + lettreDepuisChiffre(numB)
+              AB = lB + lC
+              BA = lC + lB
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                                     `${AB}\\times tan(${alfaInteractif})`,
                                     `${BA}\\times tan(${alfaInteractif})`,
@@ -731,12 +739,12 @@ export default function ProblemesTrigoLongueur () {
               iiAMC++
             }
             j++
-            enonceAMC = `${numAlpha(j)}En déduire $${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}$ en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}$, $${alfa}$ et $${baita}$.`
+            enonceAMC = `${numAlpha(j)}En déduire $${lS}${lC}$ en fonction de $${lB}${lS}$, $${alfa}$ et $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}=$` })
-              AB = lettreDepuisChiffre(numS) + lettreDepuisChiffre(numB)
-              BA = lettreDepuisChiffre(numB) + lettreDepuisChiffre(numS)
+              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lS}${lC}=$` })
+              AB = lS + lB
+              BA = lB + lS
               setReponse(this, i + ii, [ // Aucune exhaustivité hélas
                                     `\\frac{${AB}\\times tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
                                     `\\frac{${BA}\\times tan(${alfaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
@@ -768,10 +776,10 @@ export default function ProblemesTrigoLongueur () {
               iiAMC++
             }
             j++
-            enonceAMC = `${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}$ en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}$, $${alfa}$ et $${baita}$.`
+            enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lA}$ en fonction de $${lB}${lS}$, $${alfa}$ et $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}=$` })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lC}${lA}=$` })
               setReponse(this, i + ii, [ // Aucune exhaustivité hélas
                                     `\\frac{${AB}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
                                     `\\frac{${BA}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
@@ -887,17 +895,17 @@ export default function ProblemesTrigoLongueur () {
           }, objets)
           j = 0
           texteCorr += this.sup ? `<br>${numAlpha(j)}` : '<br>'
-          texteCorr += `Dans le triangle $${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}$ rectangle en $${lettreDepuisChiffre(numC)}$, $\\tan(${baita})=\\dfrac{h}{${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}}$.<br>D'où $h=${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}\\times \\tan(${baita})$.<br>`
-          texteCorr += `Dans le triangle $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}$ rectangle en $${lettreDepuisChiffre(numC)}$, $\\tan(${alfa})=\\dfrac{h}{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}}$.<br>D'où $h=${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times \\tan(${alfa})$.<br>`
+          texteCorr += `Dans le triangle $${lS}${lC}${lA}$ rectangle en $${lC}$, $\\tan(${baita})=\\dfrac{h}{${lS}${lC}}$.<br>D'où $h=${lS}${lC}\\times \\tan(${baita})$.<br>`
+          texteCorr += `Dans le triangle $${lB}${lC}${lA}$ rectangle en $${lC}$, $\\tan(${alfa})=\\dfrac{h}{${lB}${lC}}$.<br>D'où $h=${lB}${lC}\\times \\tan(${alfa})$.<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `Or $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}+${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}$ donc $h=(${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}+${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)})\\times \\tan(${alfa})$.<br>`
-          texteCorr += `On en déduit que $${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}\\times \\tan(${baita})=(${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}+${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)})\\times \\tan(${alfa})$ soit $${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}\\times \\tan(${baita})=${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}\\times \\tan(${alfa})+${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}\\times \\tan(${alfa})$.<br>`
-          texteCorr += `D'où $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}\\times \\tan(${alfa})=${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}\\times \\tan(${baita})-${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}\\times \\tan(${alfa})=${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}\\times(\\tan(${baita})-\\tan(${alfa}))$.<br>`
-          texteCorr += `Et $${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}=\\dfrac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}\\times \\tan(${alfa})}{\\tan(${baita})-\\tan(${alfa})}$.<br>`
+          texteCorr += `Or $${lB}${lC}=${lB}${lS}+${lS}${lC}$ donc $h=(${lB}${lS}+${lS}${lC})\\times \\tan(${alfa})$.<br>`
+          texteCorr += `On en déduit que $${lS}${lC}\\times \\tan(${baita})=(${lB}${lS}+${lS}${lC})\\times \\tan(${alfa})$ soit $${lS}${lC}\\times \\tan(${baita})=${lB}${lS}\\times \\tan(${alfa})+${lS}${lC}\\times \\tan(${alfa})$.<br>`
+          texteCorr += `D'où $${lB}${lS}\\times \\tan(${alfa})=${lS}${lC}\\times \\tan(${baita})-${lS}${lC}\\times \\tan(${alfa})=${lS}${lC}\\times(\\tan(${baita})-\\tan(${alfa}))$.<br>`
+          texteCorr += `Et $${lS}${lC}=\\dfrac{${lB}${lS}\\times \\tan(${alfa})}{\\tan(${baita})-\\tan(${alfa})}$.<br>`
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `Ainsi $h=${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}\\times \\tan(${baita})=\\dfrac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}\\times \\tan(${alfa})\\times \\tan(${baita})}{\\tan(${baita})-\\tan(${alfa})}$.<br>`
+          texteCorr += `Ainsi $h=${lS}${lC}\\times \\tan(${baita})=\\dfrac{${lB}${lS}\\times \\tan(${alfa})\\times \\tan(${baita})}{\\tan(${baita})-\\tan(${alfa})}$.<br>`
           texteCorr += this.sup ? '' : 'Application numérique : <br>'
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
@@ -905,7 +913,7 @@ export default function ProblemesTrigoLongueur () {
           texteCorr += this.sup ? `La hauteur de la falaise est de $${Math.round(taille)}${sp()}\\text{m}$.<br>` : ''
           j++
           texteCorr += this.sup ? `${numAlpha(j)}` : ''
-          texteCorr += `$${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numC)}=\\dfrac{${distance}${sp()}\\text{m}\\times \\tan(${alpha}^\\circ)}{\\tan(${alpha + 5}^\\circ)-\\tan(${alpha}^\\circ)}\\approx ${texNombre(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}${sp()}\\text{m}$.<br>`
+          texteCorr += `$${lS}${lC}=\\dfrac{${distance}${sp()}\\text{m}\\times \\tan(${alpha}^\\circ)}{\\tan(${alpha + 5}^\\circ)-\\tan(${alpha}^\\circ)}\\approx ${texNombre(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}${sp()}\\text{m}$.<br>`
           texteCorr += this.sup ? `L'observateur se trouve à $${texNombre(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m de la falaise lors du deuxième relevé.<br>` : ''
           texteCorr += this.sup ? '' : `La hauteur de la falaise est de $${Math.round(taille)}$ m et l'observateur se trouve à $${texNombre(Math.round(taille / Math.tan((alpha + 5) * Math.PI / 180)))}$ m de celle-ci lors du deuxième relevé.<br>`
           break
@@ -917,19 +925,15 @@ export default function ProblemesTrigoLongueur () {
           taille = randint(20, 50) * 100
           distance = Math.round(taille * Math.sin((beta - alpha) * Math.PI / 180) / Math.sin(alpha * Math.PI / 180) / Math.sin(beta * Math.PI / 180))
           taille = Math.round(distance * Math.sin(alpha * Math.PI / 180) * Math.sin(beta * Math.PI / 180) / Math.sin((beta - alpha) * Math.PI / 180))
-          numB = randint(1, 26, [4, 5, 15, 23, 24, 25])
-          B = point(0, 0, lettreDepuisChiffre(numB))
-          numC = randint(1, 26, [4, 5, 15, 23, 24, 25, numB])
+
+          B = point(0, 0, lB)
           absC = sensH * randint(4, 6)
-          C = pointAdistance(B, absC, 0, lettreDepuisChiffre(numC))
-          numS = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numC])
+          C = pointAdistance(B, absC, 0, lC)
           absS = sensH * randint(10, 14)
-          S = pointAdistance(B, absS, 0, lettreDepuisChiffre(numS))
-          numA = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numC, numS])
+          S = pointAdistance(B, absS, 0, lS)
           ordA = randint(5, 9)
-          A = pointAdistance(S, ordA, 90, lettreDepuisChiffre(numA))
-          numH = randint(1, 26, [4, 5, 15, 23, 24, 25, numB, numC, numS, numA])
-          H = projectionOrtho(C, droite(B, A), 'H', sensH > 0 ? 'above left' : 'above right')
+          A = pointAdistance(S, ordA, 90, lA)
+          H = projectionOrtho(C, droite(B, A), lH, sensH > 0 ? 'above left' : 'above right')
           p = polygoneAvecNom(B, C, S, A)
           objets.push(p[1], p[0], segment(H, C), segment(A, C), codageAngleDroit(B, S, A), codageAngleDroit(C, H, A))
           objets.push(afficheMesureAngle(S, B, A, 'black', 2, `${alfa}`), afficheMesureAngle(S, C, A, 'black', 2, `${baita}`))
@@ -937,10 +941,10 @@ export default function ProblemesTrigoLongueur () {
           objets.push(texteSurSegment(`${stringNombre(distance)} m`, B, C, 'black', -sensH * 0.5), labelPoint(H), texteParPosition('h', milieu(S, A).x + sensH * 0.5, milieu(S, A).y, 0, 'black', 2, 'middle', true))
 
           texte = 'Un voyageur approche d\'une montagne. Il aimerait en calculer la hauteur.<br>'
-          texte += `Pour cela, il utilise un théodolite en un point $${lettreDepuisChiffre(numB)}$ qui lui permet de mesurer l'angle $${alfa}$ vertical formé par le sommet $${lettreDepuisChiffre(numA)}$ de la montagne, le point $${lettreDepuisChiffre(numB)}$ et la base de la montagne $${lettreDepuisChiffre(numS)}$.<br>`
-          texte += `Il parcourt ensuite $${distance}$ m en direction de la montagne et effectue une nouvelle mesure de l'angle $${baita}$ en un point $${lettreDepuisChiffre(numC)}$.<br>`
+          texte += `Pour cela, il utilise un théodolite en un point $${lB}$ qui lui permet de mesurer l'angle $${alfa}$ vertical formé par le sommet $${lA}$ de la montagne, le point $${lB}$ et la base de la montagne $${lS}$.<br>`
+          texte += `Il parcourt ensuite $${distance}$ m en direction de la montagne et effectue une nouvelle mesure de l'angle $${baita}$ en un point $${lC}$.<br>`
           texte += '(Le schéma ci-dessous n\'est pas en vraie grandeur et ne respecte pas les proportions.)<br>'
-          texte += `  On donne : $${alfa}=${alpha}^\\circ$, $${baita}=${beta}^\\circ$ et $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}=${distance}$ m.<br>`
+          texte += `  On donne : $${alfa}=${alpha}^\\circ$, $${baita}=${beta}^\\circ$ et $${lB}${lC}=${distance}$ m.<br>`
           texte += mathalea2d({
             xmin: min(-sensH, absS + sensH),
             ymin: -1,
@@ -951,176 +955,176 @@ export default function ProblemesTrigoLongueur () {
           }, objets)
           enonceInit = texte
           if (this.sup) {
-            enonceAMC = `${numAlpha(j)}Exprimer la mesure de l'angle $\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}$ en fonction de $${baita}$.`
+            enonceAMC = `${numAlpha(j)}Exprimer la mesure de l'angle $\\widehat{${lC}${lA}${lS}}$ en fonction de $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
               texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}\\widehat{CAS}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
-                                    `90-${baitaInteractif}`],
+                    `90-${baitaInteractif}`],
               { formatInteractif: 'texte' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                                    [
-                                      {
-                                        texte: '',
-                                        statut: 2,
-                                        enonce: enonceInit + '<br>' + enonceAMC,
-                                        sanslignes: true
-                                      }
-                                    ]
+                    [
+                      {
+                        texte: '',
+                        statut: 2,
+                        enonce: enonceInit + '<br>' + enonceAMC,
+                        sanslignes: true
+                      }
+                    ]
               }
               iiAMC++
             }
-            enonceAMC = `${numAlpha(j + 1)}Exprimer la mesure de l'angle $\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}$ en fonction de $${alfa}$.`
+            enonceAMC = `${numAlpha(j + 1)}Exprimer la mesure de l'angle $\\widehat{${lB}${lA}${lS}}$ en fonction de $${alfa}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}\\widehat{${lB}${lA}${lS}}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
-                                    `90-${alfaInteractif}`],
+                    `90-${alfaInteractif}`],
               { formatInteractif: 'texte' })
               ii++
             } else if (context.isAmc) {
               propositionsAMC[iiAMC] = {
                 type: 'AMCOpen',
                 propositions:
-                                    [
-                                      {
-                                        texte: '',
-                                        statut: 2,
-                                        enonce: enonceAMC,
-                                        sanslignes: true
-                                      }
-                                    ]
+                    [
+                      {
+                        texte: '',
+                        statut: 2,
+                        enonce: enonceAMC,
+                        sanslignes: true
+                      }
+                    ]
               }
               iiAMC++
             }
             j += 2
           }
-          enonceAMC = `${numAlpha(j)}Montrer que $\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numH)}}=${baita}-${alfa}$.`
+          enonceAMC = `${numAlpha(j)}Montrer que $\\widehat{${lC}${lA}${lH}}=${baita}-${alfa}$.`
           texte += '<br>' + enonceAMC
           if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                                [
-                                  {
-                                    texte: '',
-                                    statut: this.sup ? 2 : 4,
-                                    enonce: this.sup ? enonceAMC : enonceInit + '<br>' + enonceAMC,
-                                    sanslignes: true
-                                  }
-                                ]
+                  [
+                    {
+                      texte: '',
+                      statut: this.sup ? 2 : 4,
+                      enonce: this.sup ? enonceAMC : enonceInit + '<br>' + enonceAMC,
+                      sanslignes: true
+                    }
+                  ]
             }
             iiAMC++
           }
           j++
           if (this.sup) {
-            enonceAMC = `${numAlpha(j)}Dans le triangle $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}${lettreDepuisChiffre(numA)}$, exprimer $CA$ en fonction de $CH$.`
+            enonceAMC = `${numAlpha(j)}Dans le triangle $${lC}${lH}${lA}$, exprimer $${lC}${lA}$ en fonction de $${lC}${lH}$.`
           } else {
-            enonceAMC = `${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}$ en fonction de $${lettreDepuisChiffre(numH)}$.`
+            enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lA}$ en fonction de $${lH}$.`
           }
           texte += '<br>' + enonceAMC
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}CA=$` })
             setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
-                                `\\frac{CH}{sin(${baitaInteractif}-${alfaInteractif})}`,
-                                `\\frac{HC}{sin(${baitaInteractif}-${alfaInteractif})}`],
+                  `\\frac{CH}{sin(${baitaInteractif}-${alfaInteractif})}`,
+                  `\\frac{HC}{sin(${baitaInteractif}-${alfaInteractif})}`],
             { formatInteractif: 'texte' })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                                [
-                                  {
-                                    texte: '',
-                                    statut: 2,
-                                    enonce: enonceAMC,
-                                    sanslignes: true
-                                  }
-                                ]
+                  [
+                    {
+                      texte: '',
+                      statut: 2,
+                      enonce: enonceAMC,
+                      sanslignes: true
+                    }
+                  ]
             }
             iiAMC++
           }
           j++
           if (this.sup) {
-            enonceAMC = `${numAlpha(j)}Dans le triangle $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}$, exprimer $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}$ en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$.`
+            enonceAMC = `${numAlpha(j)}Dans le triangle $${lB}${lC}${lH}$, exprimer $${lC}${lH}$ en fonction de $${lB}${lC}$.`
           } else {
-            enonceAMC = `${numAlpha(j)}Exprimer $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}$ en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$.`
+            enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lH}$ en fonction de $${lB}${lC}$.`
           }
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}=$` })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lC}${lH}=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
-                                `${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${alfaInteractif})`,
-                                `sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}`,
-                                `${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}\\times sin(${alfaInteractif})`,
-                                `sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}`],
+                  `${lB}${lC}\\times sin(${alfaInteractif})`,
+                  `sin(${alfaInteractif})\\times ${lB}${lC}`,
+                  `${lC}${lB}\\times sin(${alfaInteractif})`,
+                  `sin(${alfaInteractif})\\times ${lC}${lB}`],
             { formatInteractif: 'texte' })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                                [
-                                  {
-                                    texte: '',
-                                    statut: 2,
-                                    enonce: enonceAMC,
-                                    sanslignes: true
-                                  }
-                                ]
+                  [
+                    {
+                      texte: '',
+                      statut: 2,
+                      enonce: enonceAMC,
+                      sanslignes: true
+                    }
+                  ]
             }
             iiAMC++
           }
           j++
           if (this.sup) {
-            enonceAMC = `${numAlpha(j)}En déduire $h$ en fonction de $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}$, puis en fonction de $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}$ et enfin en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$.`
+            enonceAMC = `${numAlpha(j)}En déduire $h$ en fonction de $${lC}${lA}$, puis en fonction de $${lC}${lH}$ et enfin en fonction de $${lB}${lC}$.`
           } else {
-            enonceAMC = `${numAlpha(j)}En déduire $h$ en fonction de $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}$.`
+            enonceAMC = `${numAlpha(j)}En déduire $h$ en fonction de $${lB}${lC}$.`
           }
           texte += '<br>' + enonceAMC
           enonceAMC += this.sup ? '<br>' : ''
           if (this.interactif) {
             texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhaustivité hélas
-                                `${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})`,
-                                `sin(${baitaInteractif})\\times ${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numC)}`,
-                                `${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}\\times sin(${baitaInteractif})`,
-                                `sin(${baitaInteractif})\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}`],
+                  `${lA}${lC}\\times sin(${baitaInteractif})`,
+                  `sin(${baitaInteractif})\\times ${lA}${lC}`,
+                  `${lC}${lA}\\times sin(${baitaInteractif})`,
+                  `sin(${baitaInteractif})\\times ${lC}${lA}`],
             { formatInteractif: 'texte' })
             ii++
             texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
-                                `\\frac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                                `\\frac{${lettreDepuisChiffre(numH)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                                `\\frac{sin(${baitaInteractif}\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                                `\\frac{sin(${baitaInteractif}\\times ${lettreDepuisChiffre(numH)}${lettreDepuisChiffre(numC)} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`],
+                  `\\frac{${lC}${lH}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                  `\\frac{${lH}${lC}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                  `\\frac{sin(${baitaInteractif}\\times ${lC}${lH} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                  `\\frac{sin(${baitaInteractif}\\times ${lH}${lC} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`],
             { formatInteractif: 'texte' })
             ii++
             texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
-                                `\\frac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                                `\\frac{sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                                `\\frac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
-                                `\\frac{sin(${alfaInteractif})\\times ${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`],
+                  `\\frac{${lB}${lC}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                  `\\frac{sin(${alfaInteractif})\\times ${lB}${lC}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                  `\\frac{${lC}${lB}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
+                  `\\frac{sin(${alfaInteractif})\\times ${lC}${lB}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`],
             { formatInteractif: 'texte' })
             ii++
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
               type: 'AMCOpen',
               propositions:
-                                [
-                                  {
-                                    texte: '',
-                                    statut: 5,
-                                    enonce: enonceAMC,
-                                    sanslignes: true
-                                  }
-                                ]
+                  [
+                    {
+                      texte: '',
+                      statut: 5,
+                      enonce: enonceAMC,
+                      sanslignes: true
+                    }
+                  ]
             }
             iiAMC++
           }
@@ -1163,18 +1167,18 @@ export default function ProblemesTrigoLongueur () {
             scale: 0.5
           }, objets)
           if (this.sup) {
-            texteCorr += `${numAlpha(j)}Dans le triangle $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numA)}$ rectangle en $${lettreDepuisChiffre(numS)}$, les angles aigus sont complémentaires donc $\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=90-${baita}$.<br>`
-            texteCorr += `${numAlpha(j + 1)}Dans le triangle $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numA)}$ rectangle en $${lettreDepuisChiffre(numS)}$, pour la même raison $\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=90-${alfa}$.<br>`
+            texteCorr += `${numAlpha(j)}Dans le triangle $${lC}${lS}${lA}$ rectangle en $${lS}$, les angles aigus sont complémentaires donc $\\widehat{${lC}${lA}${lS}}=90-${baita}$.<br>`
+            texteCorr += `${numAlpha(j + 1)}Dans le triangle $${lB}${lS}${lA}$ rectangle en $${lS}$, pour la même raison $\\widehat{${lB}${lA}${lS}}=90-${alfa}$.<br>`
             j += 2
           }
-          texteCorr += `${numAlpha(j)}On sait que $\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=90-${baita}$ et $\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=90-${alfa}$.<br>Donc $\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numH)}}=\\widehat{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}-\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numS)}}=90-${alfa}-(90-${baita})=\\cancel{90}-${alfa}-\\cancel{90}+${baita}=${baita}-${alfa}$.<br>`
+          texteCorr += `${numAlpha(j)}On sait que $\\widehat{${lC}${lA}${lS}}=90-${baita}$ et $\\widehat{${lB}${lA}${lS}}=90-${alfa}$.<br>Donc $\\widehat{${lC}${lA}${lH}}=\\widehat{${lB}${lA}${lS}}-\\widehat{${lC}${lA}${lS}}=90-${alfa}-(90-${baita})=\\cancel{90}-${alfa}-\\cancel{90}+${baita}=${baita}-${alfa}$.<br>`
           j++
-          texteCorr += `${numAlpha(j)}Dans le triangle $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}${lettreDepuisChiffre(numA)}$ rectangle en $${lettreDepuisChiffre(numH)}$, $\\sin(\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numH)}})=\\dfrac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}}{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}}$ d'où $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}=\\dfrac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}}{\\sin(\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}${lettreDepuisChiffre(numH)}})}=\\dfrac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}}{\\sin(${baita}-${alfa})}$.<br>`
+          texteCorr += `${numAlpha(j)}Dans le triangle $${lC}${lH}${lA}$ rectangle en $${lH}$, $\\sin(\\widehat{${lC}${lA}${lH}})=\\dfrac{${lC}${lH}}{${lC}${lA}}$ d'où $${lC}${lA}=\\dfrac{${lC}${lH}}{\\sin(\\widehat{${lC}${lA}${lH}})}=\\dfrac{${lC}${lH}}{\\sin(${baita}-${alfa})}$.<br>`
           j++
-          texteCorr += `${numAlpha(j)}Dans le triangle $${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}$ rectangle en $${lettreDepuisChiffre(numH)}$, $\\sin(\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numH)}})=\\dfrac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}}{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}}$ d'où $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}=${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times \\sin(\\widehat{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numH)}})=${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times \\sin(${alfa})$.<br>`
+          texteCorr += `${numAlpha(j)}Dans le triangle $${lB}${lC}${lH}$ rectangle en $${lH}$, $\\sin(\\widehat{${lC}${lB}${lH}})=\\dfrac{${lC}${lH}}{${lB}${lC}}$ d'où $${lC}${lH}=${lB}${lC}\\times \\sin(\\widehat{${lC}${lB}${lH}})=${lB}${lC}\\times \\sin(${alfa})$.<br>`
           j++
 
-          texteCorr += `${numAlpha(j)}Dans le triangle $${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numS)}${lettreDepuisChiffre(numA)}$ rectangle en $${lettreDepuisChiffre(numS)}$, $h=${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numA)}\\times \\sin(${baita})=\\dfrac{${lettreDepuisChiffre(numC)}${lettreDepuisChiffre(numH)}}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})=\\dfrac{${lettreDepuisChiffre(numB)}${lettreDepuisChiffre(numC)}\\times \\sin(${alfa})}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})$<br>`
+          texteCorr += `${numAlpha(j)}Dans le triangle $${lC}${lS}${lA}$ rectangle en $${lS}$, $h=${lC}${lA}\\times \\sin(${baita})=\\dfrac{${lC}${lH}}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})=\\dfrac{${lB}${lC}\\times \\sin(${alfa})}{\\sin(${baita}-${alfa})}\\times \\sin(${baita})$<br>`
 
           j++
           texteCorr += `${numAlpha(j)}Application numérique : $h=\\dfrac{${distance}${sp()}\\text{m}\\times \\sin(${alpha}^\\circ)}{\\sin(${beta}^\\circ-${alpha}^\\circ)}\\times \\sin(${beta}^\\circ)$`
@@ -1294,7 +1298,7 @@ export default function ProblemesTrigoLongueur () {
           propositions: propositionsAMC
         }
       }
-      if (this.questionJamaisPosee(i, texte, distance, alfa, baita, beta, alpha, taille, A, B, S, C, R, p, O, H, M, R2, Axe, normalV, normalH, P, HP, Sph, OP, PoleNord, PoleSud, hauteur, teta, index)) {
+      if (this.questionJamaisPosee(i, alfa, baita, beta, alpha)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
