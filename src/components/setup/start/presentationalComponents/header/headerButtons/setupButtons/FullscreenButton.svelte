@@ -18,21 +18,42 @@
       if (typeof callback === 'function') callback(isFullScreen)
       if (isFullScreen) {
         if (element !== null && isFullscreenEnabled(element)) {
-          if (element.requestFullscreen) {
-            element.requestFullscreen().catch(handleFullScreenError)
-          } else if (element.mozRequestFullScreen) {
-            element.mozRequestFullScreen().catch(handleFullScreenError)
-          } else if (element.webkitRequestFullscreen) {
-            element.webkitRequestFullscreen().catch(handleFullScreenError)
-          } else if (element.msRequestFullscreen) {
-            element.msRequestFullscreen().catch(handleFullScreenError)
-          }
+          requestFullScreen(element)
         } else {
           handleFullScreenError(new Error('Plein écran non disponible'))
         }
       } else {
-        document.exitFullscreen()
+        exitFullScreen()
       }
+    }
+  }
+
+  const requestFullScreen = (element: HTMLElement & {
+    requestFullscreen?(): Promise<void>
+    mozRequestFullScreen?(): Promise<void>
+    webkitRequestFullscreen?(): Promise<void>
+    msRequestFullscreen?(): Promise<void>
+  }) => {
+    if (element.requestFullscreen) {
+      element.requestFullscreen().catch(handleFullScreenError)
+    } else if (element.mozRequestFullScreen) {
+      element.mozRequestFullScreen().catch(handleFullScreenError)
+    } else if (element.webkitRequestFullscreen) {
+      element.webkitRequestFullscreen().catch(handleFullScreenError)
+    } else if (element.msRequestFullscreen) {
+      element.msRequestFullscreen().catch(handleFullScreenError)
+    }
+  }
+
+  const exitFullScreen = () => {
+    if (document.exitFullscreen) {
+      document.exitFullscreen().catch(handleFullScreenError)
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen().catch(handleFullScreenError)
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen().catch(handleFullScreenError)
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen().catch(handleFullScreenError)
     }
   }
 
