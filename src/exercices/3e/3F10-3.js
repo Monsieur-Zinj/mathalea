@@ -7,15 +7,19 @@ import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../lib/outils/ecriture
 import { sp } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
+import { range } from '../../lib/outils/nombres'
+
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'qcmMult'
-export const titre = 'Vocabulaire et notations des fonctions'
+export const titre = 'Utiliser le vocabulaire et les notations des fonctions'
 export const dateDePublication = '29/09/2022'
+export const dateDeModifImportante = '15/03/2024'
+
 /**
 * Répondre à des questions sur les fonctions.
 * @author Gilles Mora
@@ -30,7 +34,7 @@ export const refs = {
 export default function VocabulaireNotationsFonctions2 () {
   Exercice.call(this)
   this.sup = 5
-  this.consigne = ''
+  this.consigne = 'Cocher toutes les réponses correctes.'
   this.spacing = 1.5
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
@@ -39,7 +43,6 @@ export default function VocabulaireNotationsFonctions2 () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    let typesDeQuestionsDisponibles
 
     const r = repere({
       xMin: -5,
@@ -51,246 +54,247 @@ export default function VocabulaireNotationsFonctions2 () {
       axeYStyle: '->'
     })
     const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-    switch (this.sup) {
-      case 1: // vocabulaire1
-        typesDeQuestionsDisponibles = ['Traduire une égalité par une phrase']
-        break
-      case 2: // vocabulaire2
-        typesDeQuestionsDisponibles = ['Traduire une phrase par une égalité']
-        break
-      case 3: // graphique
-        typesDeQuestionsDisponibles = ['Interprétation graphique']
-        break
-      case 4: // avec x
-        typesDeQuestionsDisponibles = ['Expression littérale']
-        break
-      case 5: // mélange
-        typesDeQuestionsDisponibles = ['Traduire une égalité par une phrase', 'Traduire une phrase par une égalité', 'Interprétation graphique', 'Expression littérale']
-        break
-    }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    // const nom = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-    // const PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
-    for (let i = 0, choix, texte, texteCorr, x, y, A, d, t, fonction1, nomF = [], PointC = [], listeFonction = [], cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (listeTypeDeQuestions[i]) {
-        case 'Traduire une égalité par une phrase':
+    const typeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 5,
+      nbQuestions: this.nbQuestions
+    })
+    const choixDesQuestions = []
+    choixDesQuestions.push(combinaisonListes(this.interactif ? range(5) : range(3), this.nbQuestions))
+    choixDesQuestions.push(combinaisonListes(range(4), this.nbQuestions))
+    choixDesQuestions.push(combinaisonListes(range(3), this.nbQuestions))
+    choixDesQuestions.push(combinaisonListes(!this.interactif && !context.isAmc ? range(4) : range(2), this.nbQuestions))
+
+    const indice = [0, 0, 0, 0]
+    for (let i = 0, texte, texteCorr, x, y, A, d, t, fonction1, nomF = [], PointC = [], listeFonction = [], cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
+      switch (typeDeQuestions[i]) {
+        case 1 : // 'Traduire une égalité par une phrase':
           x = randint(-9, 9, [0, 1, -1])
           y = randint(-9, 9, x)
-          if (this.interactif) { choix = randint(0, 5) } else { choix = randint(0, 3) }
-          if (choix === 0) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}image${sp(1)}».`
-            if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
-            texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
-            $\\bullet$ L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.<br>
-            $\\bullet$ $${x}$ a pour image $${y}$ par la focntion $${nomF}$.
-            `
-            this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.`,
-                statut: true
-              },
-              {
-                texte: `L'image de $${y}$ par la fonction $${nomF}$ est $${x}$.`,
-                statut: false
-              },
-              {
-                texte: ` $${x}$ est l'image $${y}$ par la fonction $${nomF}$.`,
-                statut: false
-              },
-              {
-                texte: `$${x}$ a pour image $${y}$ par la focntion $${nomF}$.`,
-                statut: true
-              }
-            ]
-          } else if (choix === 1) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}image${sp(1)}».`
-            if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
-            if (this.interactif) {
+          switch (choixDesQuestions[0][indice[0]]) {
+            case 0 : {
+              texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}image${sp(1)}».`
+              // if (this.interactif) { //  texte += '<br>Une ou plusieurs réponses correctes.' }
               texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
+            $\\bullet$ L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.<br>
+            $\\bullet$ $${x}$ a pour image $${y}$ par la fonction $${nomF}$.
+            `
+              this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.`,
+                  statut: true
+                },
+                {
+                  texte: `L'image de $${y}$ par la fonction $${nomF}$ est $${x}$.`,
+                  statut: false
+                },
+                {
+                  texte: ` $${x}$ est l'image de $${y}$ par la fonction $${nomF}$.`,
+                  statut: false
+                },
+                {
+                  texte: `$${x}$ a pour image $${y}$ par la fonction $${nomF}$.`,
+                  statut: true
+                }
+              ]
+              break
+            }
+            case 1: {
+              texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}image${sp(1)}».`
+              // if (this.interactif) { //  texte += '<br>Une ou plusieurs réponses correctes.' }
+              if (this.interactif) {
+                texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             Par la fonction $${nomF}$,  $${x}$  a pour image $${y}$.
             `
-            } else {
-              texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
+              } else {
+                texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $\\bullet$ L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.<br>
-            $\\bullet$ $${x}$ a pour image $${y}$ par la focntion $${nomF}$.}
+            $\\bullet$ $${x}$ a pour image $${y}$ par la fonction $${nomF}$.}
             `
-            }
-            this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `Par la fonction $${nomF}$,  $${x}$  a pour image $${y}$.`,
-                statut: true
-              },
-              {
-                texte: `L'image de $${y}$ par la fonction $${nomF}$ est $${x}$.`,
-                statut: false
-              },
-              {
-                texte: `Par la fonction $${nomF}$, $${x}$ est l'image $${y}$.`,
-                statut: false
-              },
-              {
-                texte: `$${y}$ a pour image $${x}$ par la focntion $${nomF}$.`,
-                statut: false
               }
-
-            ]
-          } else if (choix === 2) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}antécédent${sp(1)}».`
-            if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
-            texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
+              this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `Par la fonction $${nomF}$,  $${x}$  a pour image $${y}$.`,
+                  statut: true
+                },
+                {
+                  texte: `L'image de $${y}$ par la fonction $${nomF}$ est $${x}$.`,
+                  statut: false
+                },
+                {
+                  texte: `Par la fonction $${nomF}$, $${x}$ est l'image de $${y}$.`,
+                  statut: false
+                },
+                {
+                  texte: `$${y}$ a pour image $${x}$ par la fonction $${nomF}$.`,
+                  statut: false
+                }
+              ]
+              break
+            }
+            case 2 : {
+              texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}antécédent${sp(1)}».`
+              // if (this.interactif) { //  texte += '<br>Une ou plusieurs réponses correctes.' }
+              texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $\\bullet$ Un antécédent de $${y}$ par la fonction $${nomF}$ est $${x}$.<br>
             $\\bullet$ $${x}$ est un antécédent de $${y}$ par la fonction $${nomF}$.
             `
-            this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `Un antécédent de $${x}$ par la fonction $${nomF}$ est $${y}$.`,
-                statut: false
-              },
-              {
-                texte: `Un antécédent de $${y}$ par la fonction $${nomF}$ est $${x}$.`,
-                statut: true
-              },
-              {
-                texte: ` $${x}$ est un antécédent de $${y}$ par la fonction $${nomF}$.`,
-                statut: true
-              },
-              {
-                texte: `$${x}$ a pour antécédent $${y}$ par la focntion $${nomF}$.`,
-                statut: false
-              }
-            ]
-          } else if (choix === 3) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}antécédent${sp(1)}».`
-            if (this.interactif) { texte += '<br>Une ou plusieurs réponses correctes.' }
-            if (this.interactif) {
-              texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
+              this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `Un antécédent de $${x}$ par la fonction $${nomF}$ est $${y}$.`,
+                  statut: false
+                },
+                {
+                  texte: `Un antécédent de $${y}$ par la fonction $${nomF}$ est $${x}$.`,
+                  statut: true
+                },
+                {
+                  texte: ` $${x}$ est un antécédent de $${y}$ par la fonction $${nomF}$.`,
+                  statut: true
+                },
+                {
+                  texte: `$${x}$ a pour antécédent $${y}$ par la fonction $${nomF}$.`,
+                  statut: false
+                }
+              ]
+              break
+            }
+            case 3 : {
+              texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase contenant le mot «${sp(1)}antécédent${sp(1)}».`
+              // if (this.interactif) { //  texte += '<br>Une ou plusieurs réponses correctes.' }
+              if (this.interactif) {
+                texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             Par la fonction $${nomF}$,  $${y}$  a pour antécédent $${x}$.
             `
-            } else {
-              texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
+              } else {
+                texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $\\bullet$ Un antécédent de $${y}$ par la fonction $${nomF}$ est $${x}$.<br>
-            $\\bullet$ $${x}$ est un antécédent de $${y}$ par la focntion $${nomF}$.
+            $\\bullet$ $${x}$ est un antécédent de $${y}$ par la fonction $${nomF}$.
             `
-            }
-            this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `Par la fonction $${nomF}$, $${y}$ a pour antécédent $${x}$.`,
-                statut: true
-              },
-              {
-                texte: `Un antécédent de $${x}$ par la fonction $${nomF}$ est $${y}$.`,
-                statut: false
-              },
-              {
-                texte: `Par la fonction $${nomF}$, $${x}$ a pour antécédent $${y}$.`,
-                statut: false
-              },
-              {
-                texte: `$${y}$ est un antécédent de $${x}$ par la fonction $${nomF}$.`,
-                statut: false
               }
-            ]
-          } else if (choix === 4) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase.`
-            texte += '<br>Une ou plusieurs réponses correctes.'
-            texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
+              this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `Par la fonction $${nomF}$, $${y}$ a pour antécédent $${x}$.`,
+                  statut: true
+                },
+                {
+                  texte: `Un antécédent de $${x}$ par la fonction $${nomF}$ est $${y}$.`,
+                  statut: false
+                },
+                {
+                  texte: `Par la fonction $${nomF}$, $${x}$ a pour antécédent $${y}$.`,
+                  statut: false
+                },
+                {
+                  texte: `$${y}$ est un antécédent de $${x}$ par la fonction $${nomF}$.`,
+                  statut: false
+                }
+              ]
+              break
+            }
+            case 4 : {
+              texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase.`
+              //  texte += '<br>Une ou plusieurs réponses correctes.'
+              texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $\\bullet$ Un antécédent de $${y}$ par la fonction $${nomF}$ est $${x}$.<br>
             $\\bullet$ L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.<br>
             $\\bullet$ $${y}$ est l'image de $${x}$ par la fonction $${nomF}$.
             `
-            this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `Un antécédent de $${y}$ par la fonction $${nomF}$ est $${x}$.`,
-                statut: true
-              },
-              {
-                texte: `L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.`,
-                statut: true
-              },
-              {
-                texte: ` $${y}$ est l'image de $${x}$ par la fonction $${nomF}$.`,
-                statut: true
-              },
-              {
-                texte: `$${x}$ a pour antécédent $${y}$ par la focntion $${nomF}$.`,
-                statut: false
-              }
-            ]
-          } else if (choix === 5) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase.`
-            texte += '<br>Une ou plusieurs réponses correctes.'
-            texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
+              this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `Un antécédent de $${y}$ par la fonction $${nomF}$ est $${x}$.`,
+                  statut: true
+                },
+                {
+                  texte: `L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.`,
+                  statut: true
+                },
+                {
+                  texte: ` $${y}$ est l'image de $${x}$ par la fonction $${nomF}$.`,
+                  statut: true
+                },
+                {
+                  texte: `$${x}$ a pour antécédent $${y}$ par la fonction $${nomF}$.`,
+                  statut: false
+                }
+              ]
+              break
+            }
+            case 5 : {
+              texte = `Traduire l'égalité  $${nomF}(${x})=${y}$ par une phrase.`
+              //  texte += '<br>Une ou plusieurs réponses correctes.'
+              texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $${x}$ a pour image $${y}$ par la fonction $${nomF}$.
             `
-            this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `$${y}$ est un antécédent de $${x}$ par la fonction $${nomF}$.`,
-                statut: false
-              },
-              {
-                texte: ` $${x}$ a pour image $${y}$ par la fonction $${nomF}$.`,
-                statut: true
-              },
-              {
-                texte: ` $${y}$ a pour image  $${x}$ par la fonction $${nomF}$.`,
-                statut: false
-              },
-              {
-                texte: `$${x}$ a pour antécédent $${y}$ par la focntion $${nomF}$.`,
-                statut: false
-              }
-            ]
+              this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${y}$ est un antécédent de $${x}$ par la fonction $${nomF}$.`,
+                  statut: false
+                },
+                {
+                  texte: ` $${x}$ a pour image $${y}$ par la fonction $${nomF}$.`,
+                  statut: true
+                },
+                {
+                  texte: ` $${y}$ a pour image  $${x}$ par la fonction $${nomF}$.`,
+                  statut: false
+                },
+                {
+                  texte: `$${x}$ a pour antécédent $${y}$ par la fonction $${nomF}$.`,
+                  statut: false
+                }
+              ]
+              break
+            }
           }
           break
-        case 'Traduire une phrase par une égalité':
+        case 2 : // 'Traduire une phrase par une égalité':
           x = randint(-9, 9, [0, 1, -1])
           y = randint(-9, 9, x)
-          choix = randint(0, 4)
-          if (choix === 0) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.<br>
+          switch (choixDesQuestions[1][indice[1]]) {
+            case 0 : {
+              texte = `L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.<br>
             Traduire cette phrase par une égalité.`
-          }
-          if (choix === 1) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = ` $${x}$ est un antécédent de $${y}$ par la fonction $${nomF}$.<br>
+              break
+            }
+            case 1 : {
+              texte = ` $${x}$ est un antécédent de $${y}$ par la fonction $${nomF}$.<br>
             Traduire cette phrase par une égalité.`
-          }
+              break
+            }
+            case 2 : {
+              texte = ` $${y}$ a pour antécédent  $${x}$ par la fonction $${nomF}$.<br>
+            Traduire cette phrase par une égalité.`
+              break
+            }
+            case 3 : {
+              texte = ` $${y}$ est l'image de  $${x}$ par la fonction $${nomF}$.<br>
+            Traduire cette phrase par une égalité.`
+              break
+            }
+            case 4 : {
+              texte = ` Un antécédent de $${y}$ par la fonction $${nomF}$ est  $${x}$.<br>
+            Traduire cette phrase par une égalité.`
 
-          if (choix === 2) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = ` $${y}$ a pour antécédent  $${x}$ par la fonction $${nomF}$.<br>
-            Traduire cette phrase par une égalité.`
+              break
+            }
           }
-          if (choix === 3) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = ` $${y}$ est l'image de  $${x}$ par la fonction $${nomF}$.<br>
-            Traduire cette phrase par une égalité.`
-          }
-          if (choix === 4) {
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = ` Un antécédent de $${y}$ par la fonction $${nomF}$ est  $${x}$.<br>
-            Traduire cette phrase par une égalité.`
-          }
-
           texteCorr = `L'égalité traduisant cette phrase est : $${nomF}(${x})=${y}$
             `
           this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
@@ -307,215 +311,223 @@ export default function VocabulaireNotationsFonctions2 () {
           ]
           break
 
-        case 'Interprétation graphique':
+        case 3 : // 'Interprétation graphique':
           x = randint(-4, 4, [0, 1, -1])
           y = randint(-3, 3, x)
-          choix = randint(0, 3)
-          if (choix === 0) {
-            PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            A = point(x, y, `${PointC}`)
-            A.positionLabel = 'above'
-            d = droiteParPointEtPente(A, randint(-3, 3, 0) / 2, '', 'red')
-            d.epaisseur = 3
-            A.epaisseur = 3
-            t = tracePoint(A, 'blue')
-            t.epaisseur = 2
+          switch (choixDesQuestions[2][indice[2]]) {
+            case 0 : {
+              PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
 
-            texte = `La fonction $${nomF}$ est représentée par la droite rouge ci-dessous.<br>
+              A = point(x, y, `${PointC}`)
+              A.positionLabel = 'above'
+              d = droiteParPointEtPente(A, randint(-3, 3, 0) / 2, '', 'red')
+              d.epaisseur = 3
+              A.epaisseur = 3
+              t = tracePoint(A, 'blue')
+              t.epaisseur = 2
+
+              texte = `La fonction $${nomF}$ est représentée par la droite rouge ci-dessous.<br>
             Le point $${PointC}$ est sur la droite. Donner l'égalité correspondante.<br>`
-            texte += mathalea2d({ xmin: -5.1, ymin: -4.1, xmax: 5.1, ymax: 4.1, pixelsParCm: 30, scale: 0.7 }, r, d, o, t, labelPoint(A))
-            texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
+              texte += mathalea2d({ xmin: -5.1, ymin: -4.1, xmax: 5.1, ymax: 4.1, pixelsParCm: 30, scale: 0.7 }, r, d, o, t, labelPoint(A))
+              texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
             `
-            this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `$${nomF}(${x})=${y}$`,
-                statut: true
-              },
-              {
-                texte: `$${nomF}(${y})=${x}$`,
-                statut: false
-              }
-            ]
-          } else if (choix === 1) {
-            PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `Le point $${PointC}(${x}\\;;\\;${y})$  est un point de la courbe représentant la fonction $${nomF}$.<br>
+              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${nomF}(${x})=${y}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${nomF}(${y})=${x}$`,
+                  statut: false
+                }
+              ]
+              break
+            }
+            case 1 : {
+              PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
+
+              texte = `Le point $${PointC}(${x}\\;;\\;${y})$  est un point de la courbe représentant la fonction $${nomF}$.<br>
               Donner l'égalité correspondante.`
-            texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$.
+              texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$.
               `
-            this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `$${nomF}(${x})=${y}$`,
-                statut: true
-              },
-              {
-                texte: `$${nomF}(${y})=${x}$`,
-                statut: false
-              }
-            ]
-          } else if (choix === 2) {
-            PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = ` La courbe représentant la fonction $${nomF}$ passe par le point $${PointC}(${x}\\;;\\;${y})$.<br>
+              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${nomF}(${x})=${y}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${nomF}(${y})=${x}$`,
+                  statut: false
+                }
+              ]
+              break
+            }
+            case 2 : {
+              PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
+
+              texte = ` La courbe représentant la fonction $${nomF}$ passe par le point $${PointC}(${x}\\;;\\;${y})$.<br>
               Donner l'égalité correspondante. `
-            texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
+              texteCorr = `L'égalité traduisant que $${PointC}$ est sur la courbe représentant $${nomF}$ est : $${nomF}(${x})=${y}$
               `
-            this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `$${nomF}(${x})=${y}$`,
-                statut: true
-              },
-              {
-                texte: `$${nomF}(${y})=${x}$`,
-                statut: false
-              }
-            ]
-          } else if (choix === 3) {
-            PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
-            nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-            texte = `
+              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${nomF}(${x})=${y}$`,
+                  statut: true
+                },
+                {
+                  texte: `$${nomF}(${y})=${x}$`,
+                  statut: false
+                }
+              ]
+              break
+            }
+            case 3 : {
+              PointC = choice(['A', 'B', 'C', 'D', 'M', 'R', 'S', 'T'])
+
+              texte = `
            Les coordonnées du point $${PointC}$ de la courbe représentant $${nomF}$ vérifient $${nomF}(${x})=${y}$.<br>
            Quelles sont les coordonnées du point $${PointC}$ ? `
-            texteCorr = `L'égalité $${nomF}(${x})=${y}$ permet d'affirmer que le point  $${PointC}(${x}\\;;\\;${y})$ est sur la courbe représentant $${nomF}$.
+              texteCorr = `L'égalité $${nomF}(${x})=${y}$ permet d'affirmer que le point  $${PointC}(${x}\\;;\\;${y})$ est sur la courbe représentant $${nomF}$.
               `
-            this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
-            this.autoCorrection[i].enonce = `${texte}\n`
-            this.autoCorrection[i].propositions = [
-              {
-                texte: `$${PointC}(${x}\\;;\\;${y})$`,
-                statut: true
-              },
-              {
-                texte: `$${PointC}(${y};${x})$`,
-                statut: false
-              }
-            ]
+              this.autoCorrection[i] = { options: { ordered: false, horizontal: true } }
+              this.autoCorrection[i].enonce = `${texte}\n`
+              this.autoCorrection[i].propositions = [
+                {
+                  texte: `$${PointC}(${x}\\;;\\;${y})$`,
+                  statut: true
+                },
+                {
+                  texte: `$${PointC}(${y};${x})$`,
+                  statut: false
+                }
+              ]
+            }
           }
-
           break
 
-        case 'Expression littérale':
+        case 4 : // 'Expression littérale':
           x = randint(-9, 9, [0, 1, -1])
           y = randint(-9, 9, x)
 
           listeFonction = [`${x}x`, `${x}x^2`, `${reduireAxPlusB(x, y)}`, `${reduirePolynomeDegre3(0, x, 0, y)}`]
           fonction1 = choice(listeFonction)
           if (!this.interactif && !context.isAmc) {
-            choix = randint(0, 4)
-            if (choix === 0) {
-              nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-              texte = `$x$ a pour image $${fonction1}$ par la fonction $${nomF}$.<br>
+            switch (choixDesQuestions[3][indice[3]]) {
+              case 0 : {
+                texte = `$x$ a pour image $${fonction1}$ par la fonction $${nomF}$.<br>
               Traduire cette phrase par une égalité.`
-            }
-            if (choix === 1) {
-              nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-              texte = ` L'image de $x$ par la fonction $${nomF}$ est $${fonction1}$.<br>
+                break
+              }
+              case 1 : {
+                texte = ` L'image de $x$ par la fonction $${nomF}$ est $${fonction1}$.<br>
               Traduire cette phrase par une égalité.`
-            }
-
-            if (choix === 2) {
-              nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-              texte = `Par la fonction $${nomF}$, $${fonction1}$ est l'image de $x$.<br>
+                break
+              }
+              case 2 : {
+                texte = `Par la fonction $${nomF}$, $${fonction1}$ est l'image de $x$.<br>
               Traduire cette phrase par une égalité.`
-            }
-            if (choix === 3) {
-              nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-              texte = ` $${fonction1}$ est l'image de  $x$ par la fonction $${nomF}$.<br>
+                break
+              }
+              case 3 : {
+                texte = ` $${fonction1}$ est l'image de  $x$ par la fonction $${nomF}$.<br>
               Traduire cette phrase par une égalité.`
-            }
-            if (choix === 4) {
-              nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-              texte = ` La fonction $${nomF}$ associe, à tout nombre $x$, le nombre $${fonction1}$.<br>
+                break
+              }
+              case 4 : {
+                texte = ` La fonction $${nomF}$ associe, à tout nombre $x$, le nombre $${fonction1}$.<br>
               Traduire cette phrase par une égalité.`
+                break
+              }
             }
-
             texteCorr = `L'égalité traduisant cette phrase est : $${nomF}(x)=${fonction1}.$
               `
           } else {
-            choix = randint(0, 2)
-            if (choix === 0) {
-              nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-              texte = `$x$ a pour image $${fonction1}$ par la fonction $${nomF}$.<br>
+            switch (choixDesQuestions[3][indice[3]]) {
+              case 0 : {
+                texte = `$x$ a pour image $${fonction1}$ par la fonction $${nomF}$.<br>
              Alors :`
-              texte += '<br>Une ou plusieurs réponses correctes.'
-              this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
-              this.autoCorrection[i].enonce = `${texte}\n`
-              this.autoCorrection[i].propositions = [
-                {
-                  texte: `$${nomF}(x)=${fonction1}$`,
-                  statut: true
-                },
-                {
-                  texte: `$x$ est l'image de $${fonction1}$ par la fonction $${nomF}$`,
-                  statut: false
-                },
-                {
-                  texte: `Par la fonction $${nomF}$,  $${fonction1}$ a pour image $x$. `,
-                  statut: false
-                }
-              ]
-              texteCorr = `$x$ a pour image $${fonction1}$ par la fonction $${nomF}$.<br>
+                //  texte += '<br>Une ou plusieurs réponses correctes.'
+                this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
+                this.autoCorrection[i].enonce = `${texte}\n`
+                this.autoCorrection[i].propositions = [
+                  {
+                    texte: `$${nomF}(x)=${fonction1}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$x$ est l'image de $${fonction1}$ par la fonction $${nomF}$`,
+                    statut: false
+                  },
+                  {
+                    texte: `Par la fonction $${nomF}$,  $${fonction1}$ a pour image $x$. `,
+                    statut: false
+                  }
+                ]
+                texteCorr = `$x$ a pour image $${fonction1}$ par la fonction $${nomF}$.<br>
               Alors :<br>
               $${nomF}(x)=${fonction1}$
               `
-            } else if (choix === 1) {
-              nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-              texte = ` L'image de $x$ par la fonction $${nomF}$ est $${fonction1}$.<br>
+                break
+              }
+              case 1 : {
+                texte = ` L'image de $x$ par la fonction $${nomF}$ est $${fonction1}$.<br>
               Alors :`
-              texte += '<br>Une ou plusieurs réponses correctes.'
-              this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
-              this.autoCorrection[i].enonce = `${texte}\n`
-              this.autoCorrection[i].propositions = [
-                {
-                  texte: `$${nomF}(${fonction1})=x$`,
-                  statut: false
-                },
-                {
-                  texte: `$x$ a pour image $${fonction1}$ par la fonction $${nomF}$`,
-                  statut: true
-                },
-                {
-                  texte: `Par la fonction $${nomF}$,  $x$ est l'image de $${fonction1}$. `,
-                  statut: false
-                }
-              ]
-              texteCorr = ` L'image de $x$ par la fonction $${nomF}$ est $${fonction1}$.<br>
+                //  texte += '<br>Une ou plusieurs réponses correctes.'
+                this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
+                this.autoCorrection[i].enonce = `${texte}\n`
+                this.autoCorrection[i].propositions = [
+                  {
+                    texte: `$${nomF}(${fonction1})=x$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$x$ a pour image $${fonction1}$ par la fonction $${nomF}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `Par la fonction $${nomF}$,  $x$ est l'image de $${fonction1}$. `,
+                    statut: false
+                  }
+                ]
+                texteCorr = ` L'image de $x$ par la fonction $${nomF}$ est $${fonction1}$.<br>
               Alors :<br>
               $x$ a pour image $${fonction1}$ par la fonction $${nomF}$.
               `
-            } else if (choix === 2) {
-              nomF = choice(['f', 'g', 'h', 'u', 'v', 'w', 'p', 'm', 't', 'k'])
-              texte = `Par la fonction $${nomF}$, $${fonction1}$ est l'image de $x$.<br>
+                break
+              }
+              case 2 : {
+                texte = `Par la fonction $${nomF}$, $${fonction1}$ est l'image de $x$.<br>
               Alors :`
-              texte += '<br>Une ou plusieurs réponses correctes.'
-              this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
-              this.autoCorrection[i].enonce = `${texte}\n`
-              this.autoCorrection[i].propositions = [
-                {
-                  texte: `$${nomF}(x)=${fonction1}$`,
-                  statut: true
-                },
-                {
-                  texte: `$x$ a pour image $${fonction1}$ par la fonction $${nomF}$`,
-                  statut: true
-                },
-                {
-                  texte: `L'image de $${fonction1}$ par la fonction $${nomF}$ est $x$`,
-                  statut: false
-                }
-              ]
-              texteCorr = `Par la fonction $${nomF}$, $${fonction1}$ est l'image de $x$.<br>
+                //  texte += '<br>Une ou plusieurs réponses correctes.'
+                this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
+                this.autoCorrection[i].enonce = `${texte}\n`
+                this.autoCorrection[i].propositions = [
+                  {
+                    texte: `$${nomF}(x)=${fonction1}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$x$ a pour image $${fonction1}$ par la fonction $${nomF}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `L'image de $${fonction1}$ par la fonction $${nomF}$ est $x$`,
+                    statut: false
+                  }
+                ]
+                texteCorr = `Par la fonction $${nomF}$, $${fonction1}$ est l'image de $x$.<br>
               Alors :<br>
               $\\bullet$ $${nomF}(x)=${fonction1}$, <br>
               $\\bullet$ $x$ a pour image $${fonction1}$ par la fonction $${nomF}$.
               `
+                break
+              }
             }
           }
           break
@@ -526,15 +538,21 @@ export default function VocabulaireNotationsFonctions2 () {
       if (this.questionJamaisPosee(i, x, y)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        indice[typeDeQuestions[i] - 1]++
         i++
       }
       cpt++
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Choix des questions',
-    5,
-    '1 : Traduire une égalité par une phrase\n2 : Traduire une phrase par une égalité\n3 : Interprétation graphique\n4 : Expression littérale\n5 : Mélange'
+  this.besoinFormulaireTexte = [
+    'Type de questions', [
+      'Nombres séparés par des tirets',
+      '1 : Traduire une égalité par une phrase',
+      '2 : Traduire une phrase par une égalité',
+      '3 : Interprétation graphique',
+      '4 : Expression littérale',
+      '5 : Mélange'
+    ].join('\n')
   ]
 }
