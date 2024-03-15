@@ -503,8 +503,9 @@ export function AxeY (
 ) {
   ObjetMathalea2D.call(this, {})
   const objets = []
-
-  objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 0, color, 1, 'droite', false, 1))
+  if (titre !== '') {
+    objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 0, color, 1, 'milieu', false, 1))
+  }
   const ordonnee = segment(-1, ymin.valueOf(), -1, ymax.valueOf(), color)
   ordonnee.styleExtremites = '->'
   ordonnee.epaisseur = epaisseur

@@ -259,24 +259,25 @@ export class TexteParPoint extends ObjetMathalea2D {
     const angle = Math.PI * orientation / 180
     const cx = Math.cos(angle)
     const sx = Math.sin(angle)
-    const lt = texte.length * 0.1 * scale
+    const ratioLettreCm = 0.2
+    const longueurTexte = texte.length * ratioLettreCm * scale
     if (ancrageDeRotation === 'milieu') {
-      this.bordures = [A.x - lt * cx,
-        A.y - lt * sx,
-        A.x + lt * cx,
-        A.y + lt * sx
+      this.bordures = [A.x - longueurTexte * cx,
+        A.y - longueurTexte * sx,
+        A.x + longueurTexte * cx,
+        A.y + longueurTexte * sx
       ]
     } else if (ancrageDeRotation === 'gauche') {
       this.bordures = [A.x,
-        A.y - 2 * (lt * sx) - 2.5, // EE : rajout du -1 pour la sortie LaTeX du 6S10 (phacophères est le mot le plus long)
-        A.x + 2 * (lt * cx),
+        A.y - 2 * (longueurTexte * sx),
+        A.x + 2 * (longueurTexte * cx),
         A.y
       ]
     } else {
-      this.bordures = [A.x - 2 * lt * cx,
+      this.bordures = [A.x - 2 * longueurTexte * cx,
         A.y,
         A.x,
-        A.y + 2 * (lt * sx)
+        A.y + 2 * (longueurTexte * sx)
       ]
     }
 
