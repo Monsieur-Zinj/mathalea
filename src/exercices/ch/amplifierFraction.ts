@@ -28,11 +28,6 @@ export default class AmplifierOuReduireFraction extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    if (this.interactif) {
-      this.consigne = 'Dans le résultat intermédiaire, on peut laisser les fractions sous forme irréductible.'
-    } else {
-      this.consigne = ''
-    }
 
     let typeQuestionsDisponibles: ('amplifier' | 'simplifier')[]
     if (this.sup === 1) {
