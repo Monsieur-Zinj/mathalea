@@ -67,7 +67,8 @@ export default function LectureDiagrammeBarre () {
       xMax: 10,
       yMin: 0,
       axeXStyle: '',
-      yLegende: "Nombre d'individus"
+      yLegende: "Nombre d'individus",
+      yLegendePosition: [2, 10.5]
     })
 
     switch (this.sup) {
