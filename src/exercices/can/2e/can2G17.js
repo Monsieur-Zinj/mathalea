@@ -84,8 +84,8 @@ export default function VecteurDirEqCart () {
     let saisie2 = champTexte2.value.replace(',', '.')
     saisie1 = saisie1.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
     saisie2 = saisie2.replace(/\((\+?-?\d+)\)/, '$1') // Pour les nombres négatifs, supprime les parenthèses
-    const x0 = this.autoCorrection[2 * i].reponse.valeur[0]
-    const y0 = this.autoCorrection[2 * i + 1].reponse.valeur[0]
+    const x0 = this.autoCorrection[2 * i].reponse.valeur.reponse.value
+    const y0 = this.autoCorrection[2 * i + 1].reponse.valeur.reponse.value
     const x = Number(saisie1)
     const y = Number(saisie2)
     let resultat
