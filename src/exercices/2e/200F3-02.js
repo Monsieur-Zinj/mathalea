@@ -7,6 +7,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import Exercice from '../Exercice'
 import { intervalsCompare } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Lecture graphique de domaine de définition'
 export const interactifReady = true
@@ -34,7 +35,7 @@ export default class LectureEnsebleDef extends Exercice {
     this.nbQuestions = 1
     this.sup = 1
     this.besoinFormulaireNumerique = ['Niveau', 3]
-    this.formatChampTexte = 'clavierDeBase'
+    this.formatChampTexte = KeyboardType.clavierEnsemble
     this.compare = intervalsCompare
   }
 
