@@ -75,7 +75,7 @@ export async function copyEmbeddedCodeToClipboard (dialogId: string, url: URL, s
       throw error
     }
   } else {
-    finalUrl = crypted ? encrypt(document.URL + url) : document.URL + url
+    finalUrl = crypted ? encrypt(url.toString()) : url.toString()
   }
   const embeddedCode =
   `<iframe
