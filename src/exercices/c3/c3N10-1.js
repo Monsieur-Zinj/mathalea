@@ -621,7 +621,7 @@ export default function RecomposerEntierC3 () {
     for (let k = 0; k < this.nombreDeChamps[i]; k++) {
       champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${k + this.premierChamp[i]}`)
       saisies[k] = champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
-      resultatOK = resultatOK && parseInt(saisies[k]) === parseInt(this.autoCorrection[this.premierChamp[i] + k].reponse.valeur[0])
+      resultatOK = resultatOK && parseInt(saisies[k]) === parseInt(this.autoCorrection[this.premierChamp[i] + k].reponse.valeur.reponse.value)
     }
     if (resultatOK) {
       divFeedback.innerHTML += '😎'

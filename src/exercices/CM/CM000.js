@@ -139,7 +139,7 @@ export default function TablesAdditionsSoustractions () {
       }
 
       this.autoCorrection[i].reponse.param = {
-        digits: nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur[0]),
+        digits: nombreDeChiffresDansLaPartieEntiere(this.autoCorrection[i].reponse.valeur.reponse.value),
         decimals: 0,
         signe: false,
         exposantNbChiffres: 0,

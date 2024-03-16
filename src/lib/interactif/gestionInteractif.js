@@ -428,10 +428,11 @@ export function setReponse (exercice, i, valeurs, {
       formatInteractif,
       precision
     }
-    exercice.autoCorrection[i].reponse.valeur = reponses
+    exercice.autoCorrection[i].reponse.valeur = reponses // On n'a rien changé pour AMC, on continue de passer un array dont seule la première valeur est utile
     return
   }
   // Ici on est en context non Amc, donc s'il y a un setReponse, c'est pour html interactif.
+  // On va transformer le l'objetReponse pour handleAnswers(), il n'y
   let laReponseDemandee
   switch (formatInteractif) {
     case 'tableauMathlive':

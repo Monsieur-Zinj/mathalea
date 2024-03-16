@@ -19,8 +19,8 @@ export const interactifReady = true
 export const interactifType = 'custom'
 
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const uuid = 'a2ac2' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
-export const ref = '2F22-1'// @todo à modifier aussi
+export const uuid = 'a2ac2'
+export const ref = '2F22-1'
 export const refs = {
   'fr-fr': ['2F22-1'],
   'fr-ch': ['10FA5-17']
@@ -243,10 +243,10 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i * 3 + k}`)
       const reponseEleve = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * 3 + k}`)?.value
       if (reponseEleve != null) {
-        if (this.autoCorrection[i * 3 + k] != null && this.autoCorrection[i * 3 + k].reponse != null && Array.isArray(this.autoCorrection[i * 3 + k].reponse.valeur)) {
+        if (this.autoCorrection[i * 3 + k] != null && this.autoCorrection[i * 3 + k].reponse != null) {
           switch (k) {
             case 0:
-              if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+              if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value)) {
                 spanResultat.innerHTML = '😎'
                 resultat1 = 'OK'
               } else {
@@ -255,8 +255,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
               }
               break
             case 1:
-              if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur[0]) ||
-                (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+              if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value) ||
+                (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value)) {
                 spanResultat.innerHTML = '😎'
                 resultat2 = 'OK'
               } else {
@@ -266,16 +266,16 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
               break
             case 2:
             // Si l'élève répond autre chose qu'un nombre, il faut blinder ici !
-              if (isNaN(Number(reponseEleve.replace(',', '.'))) || isNaN(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
-                if (isNaN(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+              if (isNaN(Number(reponseEleve.replace(',', '.'))) || isNaN(this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value)) {
+                if (isNaN(this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value)) {
                   window.notify('La réponse ne sont pas des number', {
-                    reponse: this.autoCorrection[i * 3 + k].reponse.valeur[0]
+                    reponse: this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value
                   })
                 }
                 spanResultat.innerHTML = '☹️'
                 resultat3 = 'KO'
               } else {
-                if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur[0])) {
+                if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value)) {
                   spanResultat.innerHTML = '😎'
                   resultat3 = 'OK'
                 } else {
