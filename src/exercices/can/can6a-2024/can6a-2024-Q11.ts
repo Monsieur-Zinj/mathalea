@@ -31,7 +31,7 @@ export default class CompareDecimalFraction extends Exercice {
     let num: number
     let den: number
     if (this.canOfficielle) {
-      a = '3{,}4'
+      a = texNombre(3.4, 1)
       b = '\\dfrac{7}{3}'
       nbA = 3.4
       nbB = 7 / 3

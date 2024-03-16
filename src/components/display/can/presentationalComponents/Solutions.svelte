@@ -49,7 +49,7 @@
 
   function cleanFillInTheBlanks (text: string) {
     if (typeof text !== 'string') return ''
-    return text.replace(/\\placeholder\[(.*?)\]\[(.*?)\]\[(.*?)\]/g, '')
+    return text.replace(/\\placeholder\[(.*?)\]\[(.*?)\]\[(.*?)\]/g, '').replaceAll('$', '')
   }
 </script>
 
@@ -93,7 +93,7 @@
               class="text-coopmaths-warn-800 dark:text-coopmathsdark-warn font-bold"
               >{answers[current] === undefined
                 ? 'aucune'
-                : '$' + cleanFillInTheBlanks(answers[current]) + '$'}
+                : ('$' + cleanFillInTheBlanks(answers[current]) + '$')}
             </span>
           </div>
         {/if}

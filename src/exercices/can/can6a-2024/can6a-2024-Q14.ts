@@ -20,6 +20,7 @@ export default class MultiplieDixieme extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'fillInTheBlank'
     this.canOfficielle = true
+    this.consigne = 'Complete :'
   }
 
   nouvelleVersion () {
@@ -33,7 +34,7 @@ export default class MultiplieDixieme extends Exercice {
       nb = randint(3, 8) * 10 + randint(1, 9) * 10 ** (puissance - 1)
     }
     this.reponse = { champ1: { value: texNombre(1 / (10 ** puissance), 3), compare: numberCompare } }
-    this.question = `\\text{Complète : }${texNombre(nb, 0)}\\times %{champ1}=${texNombre(nb / (10 ** puissance), 3)}`
+    this.question = `${texNombre(nb, 0)}\\times %{champ1}=${texNombre(nb / (10 ** puissance), 3)}`
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = `$${texNombre(nb, 0)}\\times \\ldots=${texNombre(nb / (10 ** puissance), 3)}$`
     this.correction = `Le chiffre des unités du nombre de départ est devenu le chiffre des ${puissance === 1 ? 'dixièmes' : puissance === 2 ? 'centièmes' : 'millièmes'}.<br>C'est donc que le nombre a été multiplié par $1$ ${puissance === 1 ? 'dixième' : puissance === 2 ? 'centième' : 'millième'}.<br>`
