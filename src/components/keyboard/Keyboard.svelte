@@ -62,6 +62,7 @@
     for (const block of value.blocks) {
       if (block !== 'alphanumeric') myKeyboard.add(keyboardBlocks[block])
     }
+    myKeyboard.checkSmallLayoutAllowed()
     unitsBlocks.length = 0
     usualBlocks.length = 0
     for (const block of myKeyboard.blocks) {
