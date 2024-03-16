@@ -8,7 +8,7 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../../modules/2
 import { texteParPoint } from '../../../lib/2d/textes'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
-export const titre = 'Aire d\'un trapèze rectangle'
+export const titre = 'Déterminer l\'aire  d\'un trapèze rectangle en ua'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '693b3'
@@ -33,14 +33,17 @@ export default class AireTrapezeRectangle extends Exercice {
   nouvelleVersion () {
     let hauteur: number
     let grandeBase: number
+    let petiteBase: number
     if (this.canOfficielle) {
       hauteur = 2
       grandeBase = 5
+      petiteBase = 3
     } else {
-      hauteur = randint(1, 3) * 2
+      hauteur = randint(1, 2) * 2
       grandeBase = randint(2 + hauteur, 6 + hauteur)
+      petiteBase = Math.random() < 0.5 ? grandeBase - (hauteur / 2) : grandeBase - hauteur
     }
-    const petiteBase = Math.random() < 0.5 ? grandeBase - (hauteur / 2) : grandeBase - hauteur
+    
     const grille = new Grille(0, 0, grandeBase + 2, hauteur + 2, 'gray', 1, 1)
     const A = new Point(1, 1)
     const B = new Point(1 + grandeBase, 1)
@@ -66,6 +69,7 @@ export default class AireTrapezeRectangle extends Exercice {
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ ua'
     this.reponse = ((petiteBase + grandeBase) * hauteur / 2).toFixed(0)
-    this.correction = `L'aire de la figure A est égale à $${miseEnEvidence(this.reponse)}$ ua.<br>`
+    this.correction = `On commence par compter le nombre de carreaux entier, puis on ajoute les carreaux qui se complètent. <br>
+    L'aire de la figure A est égale à $${miseEnEvidence(this.reponse)}$ ua.`
   }
 }

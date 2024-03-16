@@ -38,25 +38,42 @@
 
   $: {
     if (visible) {
-      const mf = questionContainer?.querySelector('math-field') as MathfieldElement
-      if (mf) {
-        // ToDo : gérer les QCM
-        mf.addEventListener('input', (e) => {
-          if (e instanceof InputEvent && e.data === 'insertLineBreak') {
-            nextQuestion()
-          }
-          if (mf.value !== '') {
-            $canOptions.questionGetAnswer[index] = true
-          } else {
+      if (questionContainer) {
+        const mf = questionContainer?.querySelector('math-field') as MathfieldElement
+        if (mf) {
+          // ToDo : gérer les QCM
+          mf.addEventListener('input', (e) => {
+            if (e instanceof InputEvent && e.data === 'insertLineBreak') {
+              nextQuestion()
+            }
+            if (mf.value !== '') {
+              $canOptions.questionGetAnswer[index] = true
+            } else {
+              $canOptions.questionGetAnswer[index] = false
+            }
+          })
+          $keyboardState.idMathField = mf.id
+          window.setTimeout(() => {
+            mf.focus()
+            // @ToFix Je remets le clavier visible pour les fillInTheBlanks mais en fait je ne sais pas ce qui les rend invisibles
+            $keyboardState.isVisible = true
+          }, 0)
+        } else {
+          // on n'a pas trouvé de math-field, c'est pas du mathlive !
+          const qcm = questionContainer?.querySelectorAll('input')
+          if (qcm == null || qcm.length < 2) {
+            window.notify('Question.svelte vérifie un qcm qui n\'a pas 2 inputs minimum ou alors, il n\'y a pas d\'input', { qcm: JSON.stringify(qcm) })
             $canOptions.questionGetAnswer[index] = false
+          } else {
+            for (const box of qcm) {
+              box.addEventListener('click', el => {
+                if (el.currentTarget?.checked) {
+                  $canOptions.questionGetAnswer[index] = true
+                }
+              })
+            }
           }
-        })
-        $keyboardState.idMathField = mf.id
-        window.setTimeout(() => {
-          mf.focus()
-          // @ToFix Je remets le clavier visible pour les fillInTheBlanks mais en fait je ne sais pas ce qui les rend invisibles
-          $keyboardState.isVisible = true
-        }, 0)
+        }
       }
     }
   }

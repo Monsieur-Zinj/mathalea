@@ -3,7 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
-export const titre = 'Voiture qui roule'
+export const titre = 'Calculer une distance à partir d\'une vitesse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '63897'
@@ -21,7 +21,7 @@ export default class AbscisseEnDemis extends Exercice {
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
     this.optionsChampTexte = { texteApres: ' km' }
-    this.canOfficielle = false
+    this.canOfficielle = true
   }
 
   nouvelleVersion () {
@@ -39,14 +39,14 @@ export default class AbscisseEnDemis extends Exercice {
     const h = Math.floor(duree)
     this.question = `Une voiture roule à $${vitesse} \\text{ km/h}$.<br>`
     this.canEnonce = this.question
-    this.question += `En $${String(h)}$h$30$min elle parcourt `
+    this.question += `En $${String(h)}$ h $30$ min elle parcourt `
     if (!this.interactif) {
       this.question += '$\\ldots\\ldots$ km'
     }
     this.canReponseACompleter = `En $${String(h)}$h$30$min, elle parcourt $\\ldots\\ldots$ km.`
     this.reponse = String(distance)
     this.correction = `En $${String(h)}$h, elle parcourt $${String(h)}\\times ${String(vitesse)}\\text{ km}=${texNombre(h * vitesse, 0)}\\text{ km}$.<br>`
-    this.correction += `En $30$min, elle parcourt $${String(vitesse)}\\text{ km}\\div 2=${texNombre(vitesse / 2, 0)}\\text{ km}$.<br>`
-    this.correction += `Donc en $${String(h)}$h$30$min, elle parcourt $${texNombre(h * vitesse, 0)} \\text{ km}+${texNombre(vitesse / 2, 0)}\\text{ km}=${miseEnEvidence(texNombre(distance, 0))}\\text{ km}$. `
+    this.correction += `En $30$ min, elle parcourt $${String(vitesse)}\\text{ km}\\div 2=${texNombre(vitesse / 2, 0)}\\text{ km}$.<br>`
+    this.correction += `Donc en $${String(h)}$ h $30$ min, elle parcourt $${texNombre(h * vitesse, 0)} \\text{ km}+${texNombre(vitesse / 2, 0)}\\text{ km}=${miseEnEvidence(texNombre(distance, 0))}\\text{ km}$. `
   }
 }

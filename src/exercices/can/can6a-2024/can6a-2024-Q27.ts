@@ -8,7 +8,7 @@ import { segment, Segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'
 import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
 
-export const titre = 'Fraction d\'aire'
+export const titre = 'Déterminer une fraction d\'aire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '32d25'
@@ -95,12 +95,12 @@ export default class FractionDeRectangle extends Exercice {
     }
     triangle.couleurDeRemplissage = colorToLatexOrHTML('gray')
     const objets = this.canOfficielle ? [rectangle, ...segments, triangle, diag1] : [rectangle, ...segments, triangle, diag1, diag2]
-    this.question = 'Quelle fraction de l\'aire est grisée ?<br>'
+    this.question = 'Quelle fraction de l\'aire du rectangle est grisée ?<br>'
     this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     this.canEnonce = this.question
-    this.canReponseACompleter = '$\\ldots$ ua'
+    this.canReponseACompleter = ''
     this.reponse = `\\dfrac{1}{${nbCase * factor}}`
     this.correction = `La fraction de l'aire du rectangle qui est grisée est $${miseEnEvidence(`\\dfrac{1}{${nbCase * factor}}`)}$.<br>`
-    this.correction += `En effect, il y a ${nbCase} carrés dans le rectangle et la zone grisée couvre ${factor === 2 ? 'la moitié du carré' : 'le quart d\'un carré'}.<br>Donc il y a $${nbCase}\\times ${factor === 2 ? 2 : 4} = ${nbCase * factor}$ fois l'aire grisée dans le rectangle.<br> On en déduit que l'aire grisée est égale à $\\dfrac{1}{${nbCase * factor}}$ de l'aire du rectangle.`
+    this.correction += `En effet, il y a ${nbCase} carrés dans le rectangle et la zone grisée couvre ${factor === 2 ? 'la moitié d\'un carré' : 'le quart d\'un carré'}.<br>Il y a donc  $${nbCase}\\times ${factor === 2 ? 2 : 4} = ${nbCase * factor}$ fois l'aire grisée dans le rectangle.<br> On en déduit que l'aire grisée est égale à $\\dfrac{1}{${nbCase * factor}}$ de l'aire du rectangle.`
   }
 }

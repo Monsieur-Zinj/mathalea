@@ -31,7 +31,7 @@ export default class CompareDecimalFraction extends Exercice {
     let num: number
     let den: number
     if (this.canOfficielle) {
-      a = '3{,}4'
+      a = texNombre(3.4, 1)
       b = '\\dfrac{7}{3}'
       nbA = 3.4
       nbB = 7 / 3
@@ -40,10 +40,12 @@ export default class CompareDecimalFraction extends Exercice {
       this.reponse = '3,4'
       this.correction = `Le plus grand nombre est : $${miseEnEvidence(texNombre(3.4, 1))}$.`
     } else {
-      num = randint(6, 9)
-      den = randint(2, 9, num)
-      nbA = randint(21, 49, [20, 40]) / 10
-      nbB = num / den
+      do {
+        num = randint(7, 15)
+        den = randint(2, 5)
+        nbA = randint(21, 49, [20, 40]) / 10
+        nbB = num / den
+      } while (Math.abs(nbA - nbB) <= 1)
       a = texNombre(nbA, 1)
       b = `\\dfrac{${num}}{${den}}`
     }
@@ -72,7 +74,7 @@ export default class CompareDecimalFraction extends Exercice {
     }
 
     this.canEnonce = 'Entoure le plus grand nombre.'
-    this.canReponseACompleter = `${a} ${sp(7)} ${b}`
+    this.canReponseACompleter = `$${a}$ ${sp(7)} $${b}$`
     this.reponse = nbA > nbB ? a : b
     this.correction = `Le plus grand nombre est : $${miseEnEvidence(this.reponse)}$.<br><br>`
     if (nbA > nbB) {
@@ -80,8 +82,13 @@ export default class CompareDecimalFraction extends Exercice {
         this.correction += `En effet : $\\dfrac{${num}}{${den}}=${texNombre((num / den), 0)}$`
       } else {
         if (num > den) {
-          this.correction += `En effet : $\\dfrac{${num}}{${den}}=\\dfrac{${num - (num % den)}}{${den}}+\\dfrac{${num % den}}{${den}} = ${texNombre(Math.floor(num / den), 0)} +\\dfrac{${num % den}}{${den}}$,<br>or $\\dfrac{${num % den}}{${den}}<1$,<br><br>`
-          this.correction += `donc $\\dfrac{${num}}{${den}}<${Math.ceil(num / den).toFixed(0)}$.`
+          this.correction += `Comme : <br>
+          $\\begin{aligned}
+          \\dfrac{${num}}{${den}}&=\\dfrac{${num - (num % den)}}{${den}}+\\dfrac{${num % den}}{${den}} \\\\
+          &= ${texNombre(Math.floor(num / den), 0)} +\\dfrac{${num % den}}{${den}}
+          \\end{aligned}$<br>
+           et  $\\dfrac{${num % den}}{${den}}<1$,`
+          this.correction += ` alors $\\dfrac{${num}}{${den}}<${Math.ceil(num / den).toFixed(0)}$.`
         } else {
           this.correction += `En effet : $${num}<${den}$ donc $\\dfrac{${num}}{${den}}<1$`
         }
@@ -90,8 +97,11 @@ export default class CompareDecimalFraction extends Exercice {
       if (Number.isInteger(num / den)) {
         this.correction += `En effet : $\\dfrac{${num}}{${den}}=${texNombre(num / den, 0)}$`
       } else {
-        this.correction += `En effet : $\\dfrac{${num}}{${den}}=\\dfrac{${num - (num % den)}}{${den}}+\\dfrac{${num % den}}{${den}} = ${texNombre(Math.floor(num / den), 0)} +\\dfrac{${num % den}}{${den}}$,<br><br>`
-        this.correction += `donc $\\dfrac{${num}}{${den}}>${Math.floor(num / den).toFixed(0)}$.`
+        this.correction += `Comme : <br>
+        $\\begin{aligned}\\dfrac{${num}}{${den}}&=\\dfrac{${num - (num % den)}}{${den}}+\\dfrac{${num % den}}{${den}} \\\\
+        &= ${texNombre(Math.floor(num / den), 0)} +\\dfrac{${num % den}}{${den}}
+        \\end{aligned}$<br> `
+        this.correction += `alors $\\dfrac{${num}}{${den}}>${Math.floor(num / den).toFixed(0)}$.`
       }
     }
   }

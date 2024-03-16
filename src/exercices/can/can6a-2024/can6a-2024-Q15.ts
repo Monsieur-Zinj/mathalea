@@ -8,7 +8,7 @@ import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { latexParCoordonnees } from '../../../lib/2d/textes'
 import { codageAngleDroit } from '../../../lib/2d/angles'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-export const titre = 'Périmètre du rectangle'
+export const titre = 'Calculer le périmètre d\'un rectangle'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '53eb1'
@@ -60,9 +60,9 @@ export default class PerimetreRectangle extends Exercice {
     this.question = mathalea2d(Object.assign({ scale: grandeBase > 5 ? 0.75 : 1, style: 'display: block', pixelsParCm: grandeBase > 5 ? 20 : 30 }, fixeBordures(objets)), objets)
     this.question += 'Le périmètre de ce rectangle est égal à ' + (this.interactif ? '' : '$\\ldots$ cm.')
 
-    this.canEnonce = mathalea2d(Object.assign({ scale: grandeBase > 5 ? 0.75 : 1, style: 'display: block', pixelsParCm: grandeBase > 5 ? 20 : 30 }, fixeBordures(objets)), objets)
+    this.canEnonce = mathalea2d(Object.assign({ scale: grandeBase > 5 ? 0.6 : 0.9, style: 'display: block', pixelsParCm: grandeBase > 5 ? 20 : 30 }, fixeBordures(objets)), objets)
     this.canReponseACompleter = 'Le périmètre de ce rectangle est égal à $\\ldots$ cm.'
     this.reponse = String((hauteur + grandeBase) * 2)
-    this.correction = `Le périmètre du rectangle est égal à : $(${String(grandeBase)}+${String(hauteur)})\\times 2=${String(grandeBase + hauteur)}\\times 2 = ${miseEnEvidence(this.reponse)}$.<br>`
+    this.correction = `Le périmètre du rectangle est égal à : <br>$(${String(grandeBase)}+${String(hauteur)})\\times 2=${String(grandeBase + hauteur)}\\times 2 = ${miseEnEvidence(this.reponse)}$.`
   }
 }

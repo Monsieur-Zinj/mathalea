@@ -4,7 +4,7 @@ import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
-export const titre = 'Moitié'
+export const titre = 'Calculer la moitié d\'un entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '21c40' // prochain uuid : 63897
@@ -22,7 +22,7 @@ export default class Moitie extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
-    this.canOfficielle = false
+    this.canOfficielle = true
     this.compare = numberCompare
   }
 
@@ -34,7 +34,7 @@ export default class Moitie extends Exercice {
       entier = (1 + randint(2, 4) * 2) * 10 + randint(1, 4) * 2
     }
     const moitie = entier >> 1
-    this.question = `La moitié de ${entier}`
+    this.question = `La moitié de $${entier}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     this.reponse = texNombre(moitie, 0)

@@ -114,6 +114,37 @@
         // si le typ est `custom` on est sûr que `correctionInteractive` existe
         // d'où le ! après `correctionInteractive`
         resultsByQuestion[i] = exercice.correctionInteractive!(i) === 'OK'
+      } else if (type === 'qcm_mathLive') {
+        // @ts-expect-error typage pour les QCM
+        if (exercice.autoCorrection[indiceQuestionInExercice[i]]?.propositions != null) {
+          resultsByQuestion[i] =
+                  verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === 'OK'
+          // @ts-expect-error typage pour les QCM
+          const propositions = exercice.autoCorrection[indiceQuestionInExercice[i]].propositions
+          const qcmAnswers: string[] = []
+          // @ts-expect-error typage pour les QCM
+          propositions.forEach((proposition, indice: number) => {
+            if (
+              exercice.answers![
+                `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}R${indice}`
+              ] === '1'
+            ) {
+              qcmAnswers.push(proposition.texte)
+            }
+          })
+        answers.push(qcmAnswers.join(' ; '))
+        } else {
+          resultsByQuestion[i] =
+                  verifQuestionMathLive(exercice, indiceQuestionInExercice[i])
+                    ?.isOk
+          if (resultsByQuestion[i] && exercice.score !== undefined) { exercice.score++ }
+          // récupération de la réponse
+          answers.push(
+            exercice.answers![
+              `Ex${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`
+            ]
+          )
+        }
       }
     }
     // Désactiver l'interactivité avant l'affichage des solutions

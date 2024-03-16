@@ -25,7 +25,6 @@ export default class EncadreParDeuxEntiers extends Exercice {
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = 'largeur01'
     this.canOfficielle = true
-    this.compare = numberCompare
   }
 
   nouvelleVersion () {
@@ -33,14 +32,15 @@ export default class EncadreParDeuxEntiers extends Exercice {
     if (this.canOfficielle) {
       decimal = new Decimal('19.3')
     } else {
-      decimal = new Decimal(randint(2, 7) * 10 + randint(2, 8)).div(10)
+      decimal = new Decimal(randint(100, 400) + randint(2, 8)).div(10)
     }
     const entierInf = decimal.floor()
     const entierSup = decimal.ceil()
-    this.question = `\\text{Encadre ${texNombre(decimal, 1)} par deux entiers consécutifs : }%{champ1}\\lt ${texNombre(decimal, 1)}\\lt %{champ2}`
-    this.canEnonce = 'Complète'
-    this.canReponseACompleter = `$\\ldots \\lt ${texNombre(decimal, 1)} \\lt \\ldots$`
+    this.consigne = `Encadre $${texNombre(decimal, 1)}$ par deux entiers consécutifs : `
+    this.question = `%{champ1}\\lt ${texNombre(decimal, 1)}\\lt %{champ2}`
+    this.canEnonce = 'Encadre par deux entiers consécutifs.'
+    this.canReponseACompleter = `$\\ldots < ${texNombre(decimal, 1)} < \\ldots$`
     this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf, compare: numberCompare }, champ2: { value: entierSup, compare: numberCompare } }
-    this.correction = `$${miseEnEvidence(texNombre(entierInf, 0))} \\lt ${texNombre(decimal, 1)} \\lt ${miseEnEvidence(texNombre(entierSup, 0))}$`
+    this.correction = `$${miseEnEvidence(texNombre(entierInf, 0))} < ${texNombre(decimal, 1)} < ${miseEnEvidence(texNombre(entierSup, 0))}$`
   }
 }
