@@ -1,3 +1,4 @@
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer avec un programme de calcul'
@@ -23,7 +24,7 @@ export default function ProgrammeCalculInverse () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const a = randint(2, 20)
     const b = randint(2, 5)

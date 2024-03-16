@@ -1,5 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Déterminer un nombre à partir d’une phrase'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +23,7 @@ export default function CalculsAutomatiques () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const a = choice([50, 100, 40, 10, 20, 60, 200, 1000, 500])
     if (choice([true, false])) {
