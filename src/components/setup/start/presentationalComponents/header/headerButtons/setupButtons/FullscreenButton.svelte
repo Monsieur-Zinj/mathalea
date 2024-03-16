@@ -12,18 +12,18 @@
   const switchFullScreen = () => {
     isFullScreen = !isFullScreen
     const element: HTMLElement | null = document.getElementById(appId)
-    if (element === null) {
+    if (element == null) { // Bugsnag a remonté un cas où il était undefined o_O
       handleFullScreenError(new Error(`#${appId} non trouvé`))
     } else {
       if (typeof callback === 'function') callback(isFullScreen)
-      if (isFullScreen) {
-        if (element !== null && isFullscreenEnabled(element)) {
+      if (isFullscreenEnabled(element)) {
+        if (isFullScreen) {
           requestFullScreen(element)
         } else {
-          handleFullScreenError(new Error('Plein écran non disponible'))
+          exitFullScreen()
         }
       } else {
-        exitFullScreen()
+        handleFullScreenError(new Error('Plein écran non disponible'))
       }
     }
   }
