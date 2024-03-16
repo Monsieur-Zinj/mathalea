@@ -520,7 +520,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     freezeUrl.set(true)
   }
 
-  if (v === 'can') {
+  if (v === 'can' || get(globalOptions).recorder === 'capytale') {
     canOptions.update(e => {
       e.durationInMinutes = canDuration
       e.isInteractive = canIsInteractive

@@ -167,6 +167,17 @@
     if ($globalOptions.beta) {
       url.searchParams.append('beta', '1')
     }
+    if ($canOptions.isChoosen) {
+      if ($canOptions.durationInMinutes !== 0) {
+        url.searchParams.append('canD', $canOptions.durationInMinutes.toString())
+      }
+      if ($canOptions.subTitle !== '') {
+        url.searchParams.append('canT', $canOptions.subTitle)
+      }
+      if ($canOptions.solutionsAccess) {
+        url.searchParams.append('canSM', $canOptions.solutionsMode)
+      }
+    }
     window.open(url, '_blank')?.focus()
   }
   /**
@@ -394,6 +405,10 @@ function addExercise (uuid: string) {
                       // http://localhost:5173/alea/?uuid=01873&id=6C20&uuid=99522&id=6C22&uuid=64422&id=6C23&v=confeleve&v=eleve&title=&es=11101
                       let url = urlFeuilleEleve.replace('&v=confeleve', '')
                       url = url.replace('&v=eleve', '&recorder=capytale')
+                      if (url.includes('v=can')) {
+                        $canOptions.isChoosen = true
+                      }
+                      url = url.replace('&v=can', '&recorder=capytale')
                       const options = mathaleaUpdateExercicesParamsFromUrl(url)
                       if (options !== null) {
                         globalOptions.update(() => {
