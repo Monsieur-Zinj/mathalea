@@ -34,16 +34,17 @@ export default class MetaExercice extends Exercice {
       Question.nouvelleVersion()
       //* ************ Question Exo simple *************//
       if (Question.listeQuestions.length === 0) { // On est en présence d'un exo simple
+        const consigne = Question.consigne == null ? '' : Question.consigne + '<br>'
         this.listeCorrections[indexQuestion] = (Question.correction)
         this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
         this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
         if (Question.formatInteractif === 'qcm') {
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
         } else if (Question.formatInteractif === 'fillInTheBlank') {
-          this.listeQuestions[indexQuestion] = remplisLesBlancs(this, indexQuestion, Question.question, 'fillInTheBlank', '\\ldots')
+          this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, 'fillInTheBlank', '\\ldots')
           handleAnswers(this, indexQuestion, Question.reponse, { formatInteractif: 'fillInTheBlank' })
         } else {
-          this.listeQuestions[indexQuestion] = Question.question + ajouteChampTexteMathLive(this, indexQuestion, Question.formatChampTexte ?? '', Question.optionsChampTexte ?? {})
+          this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, Question.formatChampTexte ?? '', Question.optionsChampTexte ?? {})
           if (Question.compare == null) {
             handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } }, { formatInteractif: Question.formatInteractif } || {})
           } else {
@@ -90,27 +91,10 @@ export default class MetaExercice extends Exercice {
         // qcm
         const monQcm = propositionsQcm(this, indexQuestion) // update les références HTML
         this.listeCanReponsesACompleter[indexQuestion] = monQcm.texte
-        this.listeQuestions[indexQuestion] = this.autoCorrection[indexQuestion].enonce + monQcm.texte
+        const consigne = this.consigne == null ? '' : this.consigne + '<br>s'
+        this.listeQuestions[indexQuestion] = consigne + this.autoCorrection[indexQuestion].enonce + monQcm.texte
         this.listeCorrections[indexQuestion] = monQcm.texteCorr
       }
-
-      /* let texte = Question.question
-      if (this.interactif) {
-        if (this.formatInteractif === 'fillInTheBlank') {
-          texte = remplisLesBlancs(this, indexQuestion, texte, 'fillInTheBlank', '\\ldots')
-        } else {
-          if (this.formatInteractif !== 'qcm') {
-            texte += ajouteChampTexteMathLive(this, indexQuestion, Question.formatChampTexte ?? '', Question.optionsChampTexte || {})
-          }
-        }
-      }
-      */
-      //  this.canEnonce = Question.canEnonce
-      // this.canReponseACompleter = ''
-      // this.listeCanEnonces.push(Question.canEnonce!)
-      // this.listeCanReponsesACompleter.push(Question.canReponseACompleter!)
-      // this.listeQuestions.push(texte!)
-      // this.listeCorrections.push(Question.correction!)
       indexQuestion++
     }
   }

@@ -36,7 +36,8 @@ export default class EncadreParDeuxEntiers extends Exercice {
     }
     const entierInf = decimal.floor()
     const entierSup = decimal.ceil()
-    this.question = `\\text{Encadre ${texNombre(decimal, 1)} par deux entiers consécutifs : }%{champ1}\\lt ${texNombre(decimal, 1)}\\lt %{champ2}`
+    this.consigne = `Encadre $${texNombre(decimal, 1)}$ par deux entiers consécutifs : `
+    this.question = `%{champ1}\\lt ${texNombre(decimal, 1)}\\lt %{champ2}`
     this.canEnonce = 'Encadre par deux entiers consécutifs.'
     this.canReponseACompleter = `$\\ldots < ${texNombre(decimal, 1)} < \\ldots$`
     this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf, compare: numberCompare }, champ2: { value: entierSup, compare: numberCompare } }
