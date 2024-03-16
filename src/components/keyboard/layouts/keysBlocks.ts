@@ -212,7 +212,7 @@ export const greek: KeyboardBlock = {
 
 export const compare: KeyboardBlock = {
   keycaps: compareCaps,
-  cols: 2,
+  cols: 1,
   title: 'Comparaison',
   isUnits: false
 }

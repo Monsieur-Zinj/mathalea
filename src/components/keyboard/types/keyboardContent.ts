@@ -88,6 +88,19 @@ export class Keyboard {
    */
   numberOfKeys = (): number =>
     this.numberOfKeysPerBlock().reduce((prev, current) => prev + current)
+
+  /**
+   * Décide si on passe le bloc des touches spéciales sur deux colonnes
+   * lorsqu'on a que deux touches par bloc
+   * (utile dans la cas de clavier cotenant très peu de touches)
+   */
+  checkSmallLayoutAllowed = (): void => {
+    const maximumNbKeysPerBlock = this.numberOfKeysPerBlock().slice(1).reduce((prev, current) => prev < current ? current : prev, 0)
+    if (maximumNbKeysPerBlock <= 2) {
+      // le premier bloc est celui des touches spéciales, on le passe en deux colonnes.
+      this.blocks[0].cols = 2
+    }
+  }
 }
 
 export const inLineBlockWidth = (
