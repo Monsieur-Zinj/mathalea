@@ -1,6 +1,11 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../deprecatedExercice.js'
+import Exercice from '../../Exercice'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import { context } from '../../../modules/context'
+import { listeQuestionsToContenu } from '../../../modules/outils'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 export const titre = 'Comparer deux fractions*'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,12 +20,18 @@ export const refs = {
   'fr-fr': ['can6C44'],
   'fr-ch': []
 }
-export default function ComparerFraction () {
-  Exercice.call(this)
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
-  this.tailleDiaporama = 2
-  this.nouvelleVersion = function () {
+export default class ComparerFraction extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.tailleDiaporama = 2
+  }
+
+  nouvelleVersion () {
+    this.listeQuestions = []
+    this.listeCorrections = []
+    this.autoCorrection = []
+    this.consigne = 'Compléter avec $>$ ou $<$.'
     const listeFractions1 = [[7, 8, 11, 8], [5, 8, 7, 8], [4, 11, 7, 11], [2, 11, 10, 11],
       [8, 15, 13, 15], [14, 33, 17, 33], [34, 45, 37, 45], [18, 35, 19, 35], [14, 47, 37, 47], [11, 35, 31, 35],
       [12, 25, 16, 25], [15, 19, 17, 19], [8, 15, 11, 15], [14, 27, 17, 27],
@@ -36,26 +47,54 @@ export default function ComparerFraction () {
     this.formatChampTexte = 'largeur12 inline'
     this.formatInteractif = 'texte'
 
-    const fraction1 = choice(listeFractions1)
-    const fraction2 = choice(listeFractions2)
-    const a = choice([new FractionEtendue(fraction1[0], fraction1[1])], [new FractionEtendue(fraction1[2], fraction1[3])])
-    const b = choice([new FractionEtendue(fraction2[0], fraction2[1])], [new FractionEtendue(fraction2[2], fraction2[3])])
-    if (choice([true, false])) { // <plus petit que 1>
-      this.question = 'Compléter avec $>$ ou $<$ : <br>'
-      this.question += `$${a.texFraction}$ $\\ldots$ $${b.texFraction}$`
-      this.correction = `$${a.texFraction} <1$ et $${b.texFraction}>1$.<br>
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      const fraction1 = choice(listeFractions1)
+      const fraction2 = choice(listeFractions2)
+      const a = choice([new FractionEtendue(fraction1[0], fraction1[1])], [new FractionEtendue(fraction1[2], fraction1[3])])
+      const b = choice([new FractionEtendue(fraction2[0], fraction2[1])], [new FractionEtendue(fraction2[2], fraction2[3])])
+      if (choice([true, false])) { // <plus petit que 1>
+        this.question = 'Compléter avec $>$ ou $<$ : <br>'
+        this.question += `$${a.texFraction}$ $\\ldots$ $${b.texFraction}$`
+        texte = remplisLesBlancs(this, i, `${a.texFraction}\\quad %{champ1} \\quad ${b.texFraction}`, KeyboardType.clavierCompare)
+        handleAnswers(this, i,
+          {
+            champ1: { value: '<' }
+          }
+        )
+        this.correction = `$${a.texFraction} <1$ et $${b.texFraction}>1$.<br>
       On en déduit : $${a.texFraction}<${b.texFraction}$.`
-      this.reponse = '<'
-      this.canEnonce = 'Compléter avec $>$ ou $<$.'
-      this.canReponseACompleter = `$${a.texFraction}$ $\\ldots$ $${b.texFraction}$`
-    } else { // >
-      this.question = 'Compléter avec $>$ ou $<$ : <br>'
-      this.question += `$${b.texFraction}$ $\\ldots$ $${a.texFraction}$`
-      this.correction = `$${b.texFraction} >1$ et $${a.texFraction}<1$.<br>
+        this.reponse = '<'
+        this.canEnonce = 'Compléter avec $>$ ou $<$.'
+        this.canReponseACompleter = `$${a.texFraction}$ $\\ldots$ $${b.texFraction}$`
+      } else { // >
+        this.question = 'Compléter avec $>$ ou $<$ : <br>'
+        this.question += `$${b.texFraction}$ $\\ldots$ $${a.texFraction}$`
+        texte = remplisLesBlancs(this, i, `${b.texFraction}\\quad %{champ1} \\quad ${a.texFraction}`, KeyboardType.clavierCompare)
+        handleAnswers(this, i,
+          {
+            champ1: { value: '>' }
+          }
+        )
+        this.correction = `$${b.texFraction} >1$ et $${a.texFraction}<1$.<br>
       On en déduit : $${b.texFraction}>${a.texFraction}$.`
-      this.reponse = '>'
-      this.canEnonce = 'Compléter avec $>$ ou $<$.'
-      this.canReponseACompleter = `$${b.texFraction}$ $\\ldots$ $${a.texFraction}$`
+        this.reponse = '>'
+        this.canEnonce = 'Compléter avec $>$ ou $<$.'
+        this.canReponseACompleter = `$${b.texFraction}$ $\\ldots$ $${a.texFraction}$`
+      }
+      if (this.questionJamaisPosee(i, a.texFraction, b.texFraction)) {
+        this.listeCorrections.push(this.correction)
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+        if (context.isHtml) {
+          this.listeQuestions.push(texte)
+        } else {
+          this.listeQuestions.push(this.canReponseACompleter)
+        }
+        i++
+      }
+      cpt++
     }
+    listeQuestionsToContenu(this)
   }
 }

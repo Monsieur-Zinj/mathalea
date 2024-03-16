@@ -52,8 +52,8 @@ const fullOperationCaps: CompleteKeysList = {
   block: ['ADD', 'SUB', 'SQ', 'SQRT', 'MULT', 'DIV', 'CUBE', 'DEG', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
 }
 const ensembleCaps = {
-  inline: ['UNION', 'INTER', 'INFTY', 'EMPTY', 'PROB'],
-  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER']
+  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER'] as KeysList,
+  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER'] as KeysList
 }
 const hmsCaps: CompleteKeysList = {
   inline: ['HOUR', 'MIN', 'SEC'],
@@ -62,6 +62,11 @@ const hmsCaps: CompleteKeysList = {
 const greekCaps: CompleteKeysList = {
   inline: ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA', 'OMEGA'],
   block: ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA', 'OMEGA']
+}
+
+const compareCaps: CompleteKeysList = {
+  inline: ['LESS', 'GREAT'],
+  block: ['LESS', 'GREAT']
 }
 
 const trigoCaps: CompleteKeysList = {
@@ -205,6 +210,13 @@ export const greek: KeyboardBlock = {
   isUnits: false
 }
 
+export const compare: KeyboardBlock = {
+  keycaps: compareCaps,
+  cols: 2,
+  title: 'Comparaison',
+  isUnits: false
+}
+
 export const trigo: KeyboardBlock = {
   keycaps: trigoCaps,
   cols: 1,
@@ -268,6 +280,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   basicOperations2,
   basicOperationsPlus,
   capacities,
+  compare,
   ensemble,
   greek,
   fullOperations,

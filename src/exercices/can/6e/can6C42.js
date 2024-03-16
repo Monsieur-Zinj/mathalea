@@ -1,6 +1,11 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import Exercice from '../../deprecatedExercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import Exercice from '../../Exercice'
+import FractionEtendue from '../../../modules/FractionEtendue'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { context } from '../../../modules/context'
+import { listeQuestionsToContenu } from '../../../modules/outils'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Comparer une fraction avec 1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -15,12 +20,18 @@ export const refs = {
   'fr-fr': ['can6C42'],
   'fr-ch': []
 }
-export default function ComparerFraction () {
-  Exercice.call(this)
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
-  this.tailleDiaporama = 2
-  this.nouvelleVersion = function () {
+export default class ComparerFractionAUn extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.tailleDiaporama = 2
+  }
+
+  nouvelleVersion () {
+    this.listeQuestions = []
+    this.listeCorrections = []
+    this.autoCorrection = []
+    this.consigne = 'Compléter avec $>$ ou $<$.'
     const listeFractions1 = [[7, 8, 11, 8], [5, 8, 7, 8], [4, 11, 7, 11], [2, 11, 10, 11],
       [8, 15, 13, 15], [14, 33, 17, 33], [34, 45, 37, 45], [18, 35, 19, 35], [14, 47, 37, 47], [11, 35, 31, 35],
       [12, 25, 16, 25], [15, 19, 17, 19], [8, 15, 11, 15], [14, 27, 17, 27],
@@ -33,29 +44,50 @@ export default function ComparerFraction () {
       [13, 10, 12, 13], [27, 12, 35, 12], [21, 11, 25, 11],
       [14, 5, 11, 5], [7, 3, 11, 3]
     ]
-    this.formatChampTexte = 'largeur12 inline'
-    this.formatInteractif = 'texte'
-
-    const fraction1 = choice(listeFractions1)
-    const fraction2 = choice(listeFractions2)
-    const a = choice([new FractionEtendue(fraction1[0], fraction1[1])], [new FractionEtendue(fraction1[2], fraction1[3])])
-    const b = choice([new FractionEtendue(fraction2[0], fraction2[1])], [new FractionEtendue(fraction2[2], fraction2[3])])
-    if (choice([true, false])) { // plus petit que 1
-      this.question = 'Compléter avec $>$ ou $<$ : <br>'
-      this.question += `$${a.texFraction}$ $\\ldots$ $1$`
-      this.correction = `Le numérateur de $${a.texFraction}$ est plus petit que son dénominateur. <br>
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      const fraction1 = choice(listeFractions1)
+      const fraction2 = choice(listeFractions2)
+      const a = choice([new FractionEtendue(fraction1[0], fraction1[1])], [new FractionEtendue(fraction1[2], fraction1[3])])
+      const b = choice([new FractionEtendue(fraction2[0], fraction2[1])], [new FractionEtendue(fraction2[2], fraction2[3])])
+      if (choice([true, false])) { // plus petit que 1
+        texte = remplisLesBlancs(this, i, `${a.texFraction}\\quad %{champ1} \\quad 1`, KeyboardType.clavierCompare)
+        this.correction = `Le numérateur de $${a.texFraction}$ est plus petit que son dénominateur. <br>
           On en déduit :    $${a.texFraction} <1$.`
-      this.reponse = '<'
-      this.canEnonce = 'Compléter avec $>$ ou $<$.'
-      this.canReponseACompleter = `$${a.texFraction}$ $\\ldots$ $1$`
-    } else { // plus grand que 1
-      this.question = 'Compléter avec $>$ ou $<$ : <br>'
-      this.question += `$${b.texFraction}$ $\\ldots$ $1$`
-      this.correction = `Le numérateur de $${b.texFraction}$ est plus grand que son dénominateur. <br>
+        this.reponse = '<'
+        handleAnswers(this, i,
+          {
+            champ1: { value: '<' }
+          }
+        )
+        this.canEnonce = 'Compléter avec $>$ ou $<$.'
+        this.canReponseACompleter = `$${a.texFraction}$ $\\ldots$ $1$`
+      } else { // plus grand que 1
+        texte = remplisLesBlancs(this, i, `${b.texFraction}\\quad %{champ1} \\quad 1`, KeyboardType.clavierCompare)
+        this.correction = `Le numérateur de $${b.texFraction}$ est plus grand que son dénominateur. <br>
             On en déduit :    $${b.texFraction} >1$.`
-      this.reponse = '>'
-      this.canEnonce = 'Compléter avec $>$ ou $<$.'
-      this.canReponseACompleter = `$${b.texFraction}$ $\\ldots$ $1$`
+        handleAnswers(this, i,
+          {
+            champ1: { value: '>' }
+          }
+        )
+        this.reponse = '>'
+        this.canEnonce = 'Compléter avec $>$ ou $<$.'
+        this.canReponseACompleter = `$${b.texFraction}$ $\\ldots$ $1$`
+      }
+      if (this.questionJamaisPosee(i, a.texFraction, b.texFraction)) {
+        this.listeCorrections.push(this.correction)
+        this.listeCanEnonces.push(this.canEnonce)
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter)
+        if (context.isHtml) {
+          this.listeQuestions.push(texte)
+        } else {
+          this.listeQuestions.push(this.canReponseACompleter)
+        }
+        i++
+      }
+      cpt++
     }
+    listeQuestionsToContenu(this)
   }
 }

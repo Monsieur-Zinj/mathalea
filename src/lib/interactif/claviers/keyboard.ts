@@ -13,6 +13,8 @@ export enum KeyboardType {
   // eslint-disable-next-line no-unused-vars
   clavierDeBase = 'clavierDeBase',
   // eslint-disable-next-line no-unused-vars
+  clavierCompare = 'clavierCompare',
+  // eslint-disable-next-line no-unused-vars
   clavierDeBaseAvecX = 'clavierDeBaseAvecX',
   // eslint-disable-next-line no-unused-vars
   clavierDeBaseAvecFraction = 'clavierDeBaseAvecFraction',
@@ -57,6 +59,8 @@ export const convertKeyboardTypeToBlocks = (type : KeyboardType): BlockForKeyboa
       return ['numbers', 'fullOperations', 'greek', 'trigo']
     case KeyboardType.clavierHms:
       return ['numbers', 'hms']
+    case KeyboardType.clavierCompare:
+      return ['compare']
     case KeyboardType.lycee:
       return ['numbers', 'fullOperations', 'variables', 'advanced']
     case KeyboardType.college6eme:

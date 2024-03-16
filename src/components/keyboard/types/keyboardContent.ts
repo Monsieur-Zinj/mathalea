@@ -12,6 +12,7 @@ export type BlockForKeyboard =
   | 'basicOperations2'
   | 'basicOperationsPlus'
   | 'capacities'
+  | 'compare'
   | 'ensemble'
   | 'fullOperations'
   | 'greek'
