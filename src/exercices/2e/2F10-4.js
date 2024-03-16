@@ -2,13 +2,14 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { texteGras } from '../../lib/format/style'
-import { abs, arrondi } from '../../lib/outils/nombres'
+import { abs } from '../../lib/outils/nombres'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une fonction affine'
 export const interactifReady = true
@@ -68,7 +69,7 @@ export default function Determinerfonctionaffine () {
           d = k * c + p
           m = new FractionEtendue(b - d, a - c).simplifie()
           texte = ` Déterminer l'expression algébrique de la fonction affine $f$ définie sur $\\mathbb R$, sachant que
-                        $f(${a})=${b}$ et que $f(${c})=${d}$.`
+                        $f(${a})=${b}$ et que $f(${c})=${d}$.<br>`
           if (context.isDiaporama) {
             texteCorr = `$f(x)=${rienSi1(m.toNumber())}x${m.texFraction * a - b === 0 ? '' : `${ecritureAlgebrique(b - m.texFraction * a)}`}$`
           } else {
@@ -91,11 +92,7 @@ export default function Determinerfonctionaffine () {
 
               texteCorr += `On en déduit $f(x)=${rienSi1(m.toNumber())}x${m.texFraction * a - b === 0 ? '' : `${ecritureAlgebrique(b - m.texFraction * a)}`}$.`
             }
-            reponse = [`${m.texFraction}x+${p}`]
-            setReponse(this, i, reponse)
-            if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: '$f(x)=$' })
-            }
+            reponse = `${m.texFraction}x+${p}`
           }
           break
         case 2:
@@ -118,7 +115,7 @@ export default function Determinerfonctionaffine () {
             d = k2 * c + p
           }
           texte = ` Déterminer l'expression algébrique de la fonction affine $f$ définie sur $\\mathbb R$, sachant que
-                          $f(${a})=${b}$ et que $f(${c})=${d}$.`
+                          $f(${a})=${b}$ et que $f(${c})=${d}$.<br>`
           if (context.isDiaporama) {
             if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {
               texteCorr = ` $f(x)=${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}$.`
@@ -156,17 +153,7 @@ export default function Determinerfonctionaffine () {
                 texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x.`
               }
             }
-            reponse = [`\\dfrac{${b - d}}{${a - c}}x+\\dfrac{${b * (a - c) - (b - d) * a}}{${a - c}}`,
-                            `${arrondi((b - d) / (a - c), 3)}x+\\dfrac{${b * (a - c) - (b - d) * a}}{${a - c}}`,
-                            `=\\dfrac{${b - d}}{${a - c}}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-                            `${arrondi((b - d) / (a - c), 3)}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-                            `${m.texFraction}x+${pfraction.texFraction}`,
-                            `${m.texFraction}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-                            `${arrondi((b - d) / (a - c), 3)}x+${pfraction.texFraction}`]
-            setReponse(this, i, reponse)
-            if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texteAvant: '$f(x)=$' })
-            }
+            reponse = `${m.texFraction}x+${pfraction.texFraction}`
           }
           break
         case 3:
@@ -179,7 +166,7 @@ export default function Determinerfonctionaffine () {
           d = k2 * c + p
           m = new FractionEtendue(b - d, a - c).simplifie()
           pfraction = new FractionEtendue(b * (a - c) - (b - d) * a, a - c).simplifie()
-          texte = `Déterminer, en détaillant les calculs, l'expression algébrique de la fonction affine $f$ dont la représentation  graphique $\\mathscr{C_f}$ passe par les points $A(${a};${b})$ et $B(${c};${d})$.`
+          texte = `Déterminer, en détaillant les calculs, l'expression algébrique de la fonction affine $f$ dont la représentation  graphique $\\mathscr{C_f}$ passe par les points $A(${a};${b})$ et $B(${c};${d})$.<br>`
           if (context.isDiaporama) {
             if ((b * (a - c) - (b - d) * a) * (a - c) > 0) {
               texteCorr = ` $f(x)=${texFractionReduite(b - d, a - c)}x+${texFractionReduite(b * (a - c) - (b - d) * a, a - c)}$.`
@@ -219,19 +206,13 @@ export default function Determinerfonctionaffine () {
                 texteCorr += `Ainsi, $f(x)=${texFractionReduite(b - d, a - c)}x.`
               }
             }
-            reponse = [`\\dfrac{${b - d}}{${a - c}}x+\\dfrac{${b * (a - c) - (b - d) * a}}{${a - c}}`,
-                            `${arrondi((b - d) / (a - c), 3)}x+\\dfrac{${b * (a - c) - (b - d) * a}}{${a - c}}`,
-                            `=\\dfrac{${b - d}}{${a - c}}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-                            `${arrondi((b - d) / (a - c), 3)}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-                            `${m.texFraction}x+${pfraction.texFraction}`,
-                            `${m.texFraction}x+${arrondi((b * (a - c) - (b - d) * a) / (a - c), 3)}`,
-                            `${arrondi((b - d) / (a - c), 3)}x+${pfraction.texFraction}`]
-            setReponse(this, i, reponse)
-            if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texteAvant: '$f(x)=$' })
-            }
+            reponse = `${m.texFraction}x+${pfraction.texFraction}`
           }
           break
+      }
+      handleAnswers(this, i, { champ1: { value: { fonction: reponse, variable: 'x' }, compare: functionCompare } })
+      if (this.interactif) {
+        texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
       }
       if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
         // Si la question n'a jamais été posée, on en créé une autre
