@@ -231,7 +231,8 @@ async function testRunAllLots (filter: string) {
         page.on('console', msg => {
           logPDF(msg.text())
         })
-        const hostname = 'https://coopmaths.fr/alea/' // http://localhost:5173/alea/
+        const local = true
+        const hostname = local ? 'http://localhost:5173/alea/' : 'https://coopmaths.fr/alea/'
         log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
         const resultReq = await getLatexFile(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&v=latex`)
         log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[k][1]}`)

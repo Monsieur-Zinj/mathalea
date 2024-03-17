@@ -440,6 +440,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { uuid, id }
       newListeExercice[indiceExercice].uuid = uuid // string
       newListeExercice[indiceExercice].id = id // string
+      newListeExercice[indiceExercice].interactif = '0' // par défaut
     } else if (entry[0] === 'id' && !previousEntryWasUuid) {
       // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
       indiceExercice++
@@ -462,8 +463,8 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       newListeExercice[indiceExercice].alea = entry[1]
     } else if (entry[0] === 'cols') {
       newListeExercice[indiceExercice].cols = parseInt(entry[1])
-    } else if (entry[0] === 'i' && entry[1] === '1') {
-      newListeExercice[indiceExercice].interactif = '1'
+    } else if (entry[0] === 'i' && (entry[1] === '0' || entry[1] === '1')) {
+      newListeExercice[indiceExercice].interactif = entry[1]
     } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {
       newListeExercice[indiceExercice].cd = entry[1]
     } else if (entry[0] === 'v') {

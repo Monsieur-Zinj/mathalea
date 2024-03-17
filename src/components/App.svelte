@@ -41,6 +41,22 @@
     )
   }
 
+  // let InterfaceExercicesParams : any
+  // exercicesParams.subscribe(value => {
+  //   console.log('exercicesParams updated')
+  //   if (InterfaceExercicesParams){
+  //     if (JSON.stringify(InterfaceExercicesParams) !== JSON.stringify(value)){
+  //       console.log('exercicesParams updated and difference')
+  //       console.log(JSON.stringify(InterfaceExercicesParams))
+  //     }
+  //     InterfaceExercicesParams = value    
+  //   } else {
+  //     InterfaceExercicesParams = value
+  //   }     
+  //   console.log(JSON.stringify(value)) 
+  // })
+
+
   // Gestion des recorders (Moodle, Capytale, etc. )
   // Lorsque la page d'accueil est dans un iFrame, l'URL est bloquée et les boutons d'exports cachés
   const url = new URL(window.location.href)

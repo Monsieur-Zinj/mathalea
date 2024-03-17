@@ -5,7 +5,7 @@
     exercicesParams,
     changes
   } from '../../../../../lib/stores/generalStore'
-  import { afterUpdate, onMount, tick, onDestroy } from 'svelte'
+  import { afterUpdate, beforeUpdate, onMount, tick, onDestroy } from 'svelte'
   import seedrandom from 'seedrandom'
   import {
     prepareExerciceCliqueFigure,
@@ -25,6 +25,10 @@
   import type { HeaderProps } from '../../../../../lib/types/ui'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
+  import { scratchZoomUpdate } from '../../../../../lib/renderScratch'
+  import type { InterfaceParams } from '../../../../../lib/types'
+  import { get } from 'svelte/store'
+
   export let exercise: Exercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
@@ -33,7 +37,19 @@
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
-  let columnsCount = $exercicesParams[exerciseIndex].cols || 1
+  let interfaceParams : InterfaceParams = get(exercicesParams)[exerciseIndex]
+  let exercicesNumber : number =  get(exercicesParams).length
+
+  const subscribeExercicesParamsStore = exercicesParams.subscribe(value =>{
+    if (JSON.stringify(value[exerciseIndex]) !== JSON.stringify(interfaceParams)){
+      interfaceParams = value[exerciseIndex]
+    }
+    if (exercicesNumber !==  value.length){
+      exercicesNumber =  value.length
+    }
+  })
+
+  let columnsCount = interfaceParams.cols || 1
   let isVisible = true
   let isContentVisible = true
   let isSettingsVisible = true
@@ -53,19 +69,15 @@
           !exercise.besoinFormulaire4Numerique &&
           !exercise.besoinFormulaire4Texte
   let isExerciceChecked = false
-  const id: string = $exercicesParams[exerciseIndex]?.id
+  const id: string = interfaceParams?.id
     ? exercise.id
       ? exercise.id.replace('.js', '').replace('.ts', '')
       : ''
     : ''
   const generateTitleAddendum = (): string => {
-    const ranks = exercisesUuidRanking($exercicesParams)
-    const counts = uuidCount($exercicesParams)
-    if (
-      $exercicesParams[exerciseIndex] &&
-      $exercicesParams[exerciseIndex].uuid &&
-      counts[$exercicesParams[exerciseIndex].uuid] > 1
-    ) {
+    const ranks = exercisesUuidRanking(get(exercicesParams))
+    const counts = uuidCount(get(exercicesParams))
+    if ( interfaceParams && interfaceParams.uuid && counts[interfaceParams.uuid] > 1 ) {
       return '|' + ranks[exerciseIndex]
     } else {
       return ''
@@ -107,7 +119,7 @@
     headerProps.correctionExists = exercise.listeCorrections.length > 0
     headerProps.title = exercise.titre + generateTitleAddendum()
     headerProps.indiceExercice = exerciseIndex
-    headerProps.indiceLastExercice = $exercicesParams.length
+    headerProps.indiceLastExercice = exercicesNumber
     headerProps.isSettingsVisible = isSettingsVisible
     headerProps = headerProps
   }
@@ -128,11 +140,17 @@
   })
 
   onDestroy(() => {
+    log('ondestroy' + exercise.id)
     // Détruit l'objet exercice pour libérer la mémoire
     for (const prop of Object.keys(exercise)) {
       Reflect.deleteProperty(exercise, prop)
     }
+    document.removeEventListener('newDataForAll', newData)
+    document.removeEventListener('setAllInteractif', setAllInteractif)
+    document.removeEventListener('removeAllInteractif', removeAllInteractif)
+    document.removeEventListener('updateAsyncEx', forceUpdate)
     unsubscribeToChangesStore()
+    subscribeExercicesParamsStore()
   })
 
   async function forceUpdate () {
@@ -141,7 +159,19 @@
     await adjustMathalea2dFiguresWidth()
   }
 
+  function log (str : string) {
+    let debug = false 
+    if (debug) {
+      console.log(str)
+    }
+  }
+
+  beforeUpdate( ()=>{
+    log('beforeUpdate:' + exercise.id)
+  })
+
   onMount(async () => {
+    log('onMount:'  + exercise.id)
     document.addEventListener('newDataForAll', newData)
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
@@ -152,6 +182,7 @@
   })
 
   afterUpdate(async () => {
+    log('afterUpdate:' + exercise.id)
     if (exercise) {
       await tick()
       if (isInteractif) {
@@ -180,26 +211,7 @@
     }
     // affectation du zoom pour les figures scratch
     if (divExercice != null) {
-      const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
-      for (const scratchDiv of scratchDivs) {
-        const svgDivs = scratchDiv.getElementsByTagName('svg')
-        for (const svg of svgDivs) {
-          if (svg.hasAttribute('data-width') === false) {
-            const originalWidth = svg.getAttribute('width')
-            svg.dataset.width = originalWidth ?? '0'
-          }
-          if (svg.hasAttribute('data-height') === false) {
-            const originalHeight = svg.getAttribute('height')
-            svg.dataset.height = originalHeight ?? '0'
-          }
-          const w =
-            Number(svg.getAttribute('data-width')) * Number($globalOptions.z)
-          const h =
-            Number(svg.getAttribute('data-height')) * Number($globalOptions.z)
-          svg.setAttribute('width', String(w))
-          svg.setAttribute('height', String(h))
-        }
-      }
+      scratchZoomUpdate(divExercice)
     }
     // Evènement indispensable pour pointCliquable par exemple
     const exercicesAffiches = new window.Event('exercicesAffiches', {
@@ -239,40 +251,45 @@
   }
 
   function handleNewSettings (event: CustomEvent) {
+    log('handleNewSettings:' + JSON.stringify(event.detail))
     if (event.detail.nbQuestions) {
       exercise.nbQuestions = event.detail.nbQuestions
-      $exercicesParams[exerciseIndex].nbQuestions = exercise.nbQuestions
+      interfaceParams.nbQuestions = exercise.nbQuestions
     }
     if (event.detail.duration) {
       exercise.duration = event.detail.duration
-      $exercicesParams[exerciseIndex].duration = exercise.duration
+      interfaceParams.duration = exercise.duration
     }
     if (event.detail.sup !== undefined) {
       exercise.sup = event.detail.sup
-      $exercicesParams[exerciseIndex].sup = mathaleaHandleSup(exercise.sup)
+      interfaceParams.sup = mathaleaHandleSup(exercise.sup)
     }
     if (event.detail.sup2 !== undefined) {
       exercise.sup2 = event.detail.sup2
-      $exercicesParams[exerciseIndex].sup2 = mathaleaHandleSup(exercise.sup2)
+      interfaceParams.sup2 = mathaleaHandleSup(exercise.sup2)
     }
     if (event.detail.sup3 !== undefined) {
       exercise.sup3 = event.detail.sup3
-      $exercicesParams[exerciseIndex].sup3 = mathaleaHandleSup(exercise.sup3)
+      interfaceParams.sup3 = mathaleaHandleSup(exercise.sup3)
     }
     if (event.detail.sup4 !== undefined) {
       exercise.sup4 = event.detail.sup4
-      $exercicesParams[exerciseIndex].sup4 = mathaleaHandleSup(exercise.sup4)
+      interfaceParams.sup4 = mathaleaHandleSup(exercise.sup4)
     }
     if (event.detail.alea !== undefined) {
       exercise.seed = event.detail.alea
-      $exercicesParams[exerciseIndex].alea = exercise.seed
+      interfaceParams.alea = exercise.seed
     }
     if (event.detail.correctionDetaillee !== undefined) {
       exercise.correctionDetaillee = event.detail.correctionDetaillee
-      $exercicesParams[exerciseIndex].cd = exercise.correctionDetaillee
+      interfaceParams.cd = exercise.correctionDetaillee
         ? '1'
         : '0'
     }
+    exercicesParams.update(list => {
+      list[exerciseIndex] = interfaceParams
+      return list
+    })
     if (isExerciceChecked) {
       // Si on change des réglages alors qu'on a déjà une note à l'exercice
       // alors on part sur de nouvelles données ainsi on efface le score et les réponses proposées
@@ -296,12 +313,34 @@
       mathaleaHandleExerciceSimple(exercise, Boolean(isInteractif))
     }
     exercise.interactif = isInteractif
-    if ($exercicesParams[exerciseIndex] != null) {
-      $exercicesParams[exerciseIndex].alea = exercise.seed
-      $exercicesParams[exerciseIndex].interactif = isInteractif ? '1' : '0'
-      $exercicesParams[exerciseIndex].cols =
-        columnsCount > 1 ? columnsCount : undefined
+    if (interfaceParams.alea !== exercise.seed && exercise.seed!==undefined) {
+      // on met à jour le storer seulement si besoin
+      exercicesParams.update(list => {
+        list[exerciseIndex].alea =  exercise.seed
+        return list
+      })
     }
+    if (interfaceParams.interactif !== (isInteractif ? '1' : '0')) {
+       // on met à jour le storer seulement si besoin
+      exercicesParams.update(list => {
+        list[exerciseIndex].interactif =  isInteractif ? '1' : '0'
+        return list
+      })
+    }
+    if (interfaceParams.cols !== columnsCount) {
+      // on met à jour le storer seulement si besoin
+      if (columnsCount === 1 && interfaceParams.cols !== undefined){
+        exercicesParams.update(list => {
+          list[exerciseIndex].cols =  undefined
+          return list
+        })
+      } else if (columnsCount > 1 && interfaceParams.cols !== columnsCount ){
+        exercicesParams.update(list => {
+          list[exerciseIndex].cols =  columnsCount
+          return list
+        })
+      }
+    }  
     exercise.numeroExercice = exerciseIndex
     if (
       exercise.typeExercice !== 'simple' &&

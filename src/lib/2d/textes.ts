@@ -14,9 +14,9 @@ export const tikzAncrages = {
   droite: 'east'
 }
 export const svgAncrages = {
-  gauche: 'start',
+  gauche: 'end',
   milieu: 'middle',
-  droite: 'end'
+  droite: 'start'
 }
 /**
  * Associe à tous les points passés en paramètre, son label, défini préalablement en Latex. Par exemple, si besoin de nommer le point A_1.

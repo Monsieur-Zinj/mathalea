@@ -26,8 +26,12 @@ export default function renderScratch (selector = '') {
   })
 }
 
-export function scratchZoomUpdate () {
-  const scratchDivs = document.getElementsByClassName('scratchblocks')
+export function scratchZoomUpdate (htmlElement) {
+  if (htmlElement === null || htmlElement === undefined) {
+    // sur le document entier
+    htmlElement = document
+  }
+  const scratchDivs = htmlElement.querySelectorAll('.scratchblocks')
   for (const scratchDiv of scratchDivs) {
     const svgDivs = scratchDiv.getElementsByTagName('svg')
     for (const svg of svgDivs) {
