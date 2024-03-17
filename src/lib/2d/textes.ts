@@ -259,7 +259,7 @@ export class TexteParPoint extends ObjetMathalea2D {
     const angle = Math.PI * orientation / 180
     const cx = Math.cos(angle)
     const sx = Math.sin(angle)
-    const ratioLettreCm = 0.2
+    const ratioLettreCm = 0.25
     const longueurTexte = texte.length * ratioLettreCm * scale
     if (ancrageDeRotation === 'milieu') {
       this.bordures = [A.x - longueurTexte * cx,
