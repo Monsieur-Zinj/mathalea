@@ -483,167 +483,176 @@
    * @author sylvain
    */
   async function setSize () {
-    for (let i = 0; i < nbOfVues; i++) {
-      if (typeof divQuestion[i] !== 'undefined') {
-        mathaleaRenderDiv(divQuestion[i], -1)
-        const diapocellDiv = document.getElementById(
-          'diapocell' + i
-        ) as HTMLDivElement
-        const textcellDiv = document.getElementById(
-          'textcell' + i
-        ) as HTMLDivElement
-        const consigneDiv = document.getElementById(
-          'consigne' + i
-        ) as HTMLDivElement
-        const questionDiv = document.getElementById(
-          'question' + i
-        ) as HTMLDivElement
-        const correctionDiv = document.getElementById(
-          'correction' + i
-        ) as HTMLDivElement
+    const zoomByVues = Array.apply(null, Array(nbOfVues)).map(Number.prototype.valueOf, 0)
+    for (let kk = 0; kk < 2 ; kk++) {
+      // premiere passe : on selectionne le meilleur zoom par vue (size)
+      // deuxième passe : on applique le zoom minimum des différentes vues
+      const zoomMin = Math.min(...zoomByVues)
+      for (let i = 0; i < nbOfVues; i++) {
+        if (typeof divQuestion[i] !== 'undefined') {
+          mathaleaRenderDiv(divQuestion[i], -1)
+          const diapocellDiv = document.getElementById(
+            'diapocell' + i
+          ) as HTMLDivElement
+          const textcellDiv = document.getElementById(
+            'textcell' + i
+          ) as HTMLDivElement
+          const consigneDiv = document.getElementById(
+            'consigne' + i
+          ) as HTMLDivElement
+          const questionDiv = document.getElementById(
+            'question' + i
+          ) as HTMLDivElement
+          const correctionDiv = document.getElementById(
+            'correction' + i
+          ) as HTMLDivElement
 
-        if (diapocellDiv === null) {
-          // ca sert à rien de continuer
-          continue
-        }
+          if (diapocellDiv === null) {
+            // ca sert à rien de continuer
+            continue
+          }
 
-        const svgDivs = diapocellDiv?.getElementsByClassName('mathalea2d')
-        const textcellWidth = textcellDiv?.clientWidth
-        const textcellHeight = textcellDiv?.clientHeight
-        // Donner la bonne taille aux figures
-        if (svgDivs != null && svgDivs.length !== 0 && questionDiv !== null) {
-          const nbOfSVG = svgDivs.length
-          const optimalSVGWidth = textcellWidth * 0.9
-          const coefHeight = isCorrectionVisible ? 0.33 : 0.66
-          const optimalSVGHeigth = textcellHeight * coefHeight
-          for (let k = 0; k < nbOfSVG; k++) {
-            const startingWidth = svgDivs[k].clientWidth
-            const startingHeight = svgDivs[k].clientHeight
-            const rw = optimalSVGWidth / startingWidth
-            const rh = optimalSVGHeigth / startingHeight
-            if (startingHeight * rw < optimalSVGHeigth) {
-              // console.log('rh -> height:' + rh)
-              // console.log('rw -> height (win):' + rw)
-              svgDivs[k].setAttribute(
-                'width',
-                (optimalSVGWidth * currentZoom).toString()
-              )
-              svgDivs[k].setAttribute(
-                'height',
-                (svgDivs[k].clientHeight * rw * currentZoom).toString()
-              )
-            } else {
-              // console.log('rw -> height:' + rw)
-              // console.log('rh -> height (win):' + rh)
-              svgDivs[k].setAttribute(
-                'height',
-                (optimalSVGHeigth * currentZoom).toString()
-              )
-              svgDivs[k].setAttribute(
-                'width',
-                (svgDivs[k].clientWidth * rh * currentZoom).toString()
-              )
-            }
-            svgDivs[k].removeAttribute('style')
-
-            const finalWidth = svgDivs[k].clientWidth
-            const finalHeight = svgDivs[k].clientHeight
-            const widthCoef = finalWidth / startingWidth
-            const heightCoef = finalHeight / startingHeight
-            // console.log('rw -> widthCoef:' + widthCoef)
-            // console.log('rh -> heightCoef:' + heightCoef)
-
-            /** on cherche le parent de la figure SVG */
-            const svgContainerDivs = svgDivs[k].closest(
-              '.svgContainer'
-            ) as HTMLDivElement
-            if (svgContainerDivs) {
-              svgContainerDivs.classList.add('flex')
-              svgContainerDivs.classList.add('justify-center')
-              svgContainerDivs.style.display = ''
-
-              /** on ajuste les étiquettes divLatex */
-              const divLatexDivs =
-                svgContainerDivs.getElementsByClassName('divLatex') ?? []
-              for (let i = 0; i < divLatexDivs.length; i++) {
-                const divLatex = divLatexDivs[i] as HTMLDivElement
-                const originalTop = parseFloat(
-                  divLatex.style.top.replace('px', '')
+          const svgDivs = diapocellDiv?.getElementsByClassName('mathalea2d')
+          const textcellWidth = textcellDiv?.clientWidth
+          const textcellHeight = textcellDiv?.clientHeight
+          // Donner la bonne taille aux figures
+          // console.log('zoom:' + currentZoom)
+          if (svgDivs != null && svgDivs.length !== 0 && questionDiv !== null) {
+            const nbOfSVG = svgDivs.length
+            const optimalSVGWidth = textcellWidth * 0.9
+            const coefHeight = isCorrectionVisible ? 0.33 : 0.66
+            const optimalSVGHeigth = textcellHeight * coefHeight
+            for (let k = 0; k < nbOfSVG; k++) {
+              const startingWidth = svgDivs[k].clientWidth
+              const startingHeight = svgDivs[k].clientHeight
+              const rw = optimalSVGWidth / startingWidth
+              const rh = optimalSVGHeigth / startingHeight
+              if (startingHeight * rw < optimalSVGHeigth) {
+                // console.log('rh -> height:' + rh)
+                // console.log('rw -> height (win):' + rw)
+                svgDivs[k].setAttribute(
+                  'width',
+                  (optimalSVGWidth * currentZoom).toString()
                 )
-                const originalLeft = parseFloat(
-                  divLatex.style.left.replace('px', '')
+                svgDivs[k].setAttribute(
+                  'height',
+                  (svgDivs[k].clientHeight * rw * currentZoom).toString()
                 )
-                divLatex.style.top =
-                  (originalTop * heightCoef).toString() + 'px'
-                divLatex.style.left =
-                  (originalLeft * widthCoef).toString() + 'px'
+              } else {
+                // console.log('rw -> height:' + rw)
+                // console.log('rh -> height (win):' + rh)
+                svgDivs[k].setAttribute(
+                  'height',
+                  (optimalSVGHeigth * currentZoom).toString()
+                )
+                svgDivs[k].setAttribute(
+                  'width',
+                  (svgDivs[k].clientWidth * rh * currentZoom).toString()
+                )
+              }
+              svgDivs[k].removeAttribute('style')
+
+              const finalWidth = svgDivs[k].clientWidth
+              const finalHeight = svgDivs[k].clientHeight
+              const widthCoef = finalWidth / startingWidth
+              const heightCoef = finalHeight / startingHeight
+              // console.log('rw -> widthCoef:' + widthCoef)
+              // console.log('rh -> heightCoef:' + heightCoef)
+
+              /** on cherche le parent de la figure SVG */
+              const svgContainerDivs = svgDivs[k].closest(
+                '.svgContainer'
+              ) as HTMLDivElement
+              if (svgContainerDivs) {
+                svgContainerDivs.classList.add('flex')
+                svgContainerDivs.classList.add('justify-center')
+                svgContainerDivs.style.display = ''
+
+                /** on ajuste les étiquettes divLatex */
+                const divLatexDivs =
+                  svgContainerDivs.getElementsByClassName('divLatex') ?? []
+                for (let i = 0; i < divLatexDivs.length; i++) {
+                  const divLatex = divLatexDivs[i] as HTMLDivElement
+                  const originalTop = parseFloat(
+                    divLatex.style.top.replace('px', '')
+                  )
+                  const originalLeft = parseFloat(
+                    divLatex.style.left.replace('px', '')
+                  )
+                  divLatex.style.top =
+                    (originalTop * heightCoef).toString() + 'px'
+                  divLatex.style.left =
+                    (originalLeft * widthCoef).toString() + 'px'
+                }
               }
             }
           }
-        }
 
-        // Donner la bonne taille au texte
-        let consigneHeight,
-          correctionHeight,
-          questionHeight,
-          questionWidth,
-          consigneWidth,
-          correctionWidth: number
-        let size = 300
-        for (let i = 0; i < 3; i++) {
-          /* on fait trois boucles par pas de 50, puis 10, puis 2 pour accélerer la recherche */
-          const delta = i === 0 ? 50 : i === 1 ? 10 : 2
-          size = i === 0 ? size : i === 1 ? size + 50 : size + 10
+          // Donner la bonne taille au texte
+          let consigneHeight,
+            correctionHeight,
+            questionHeight,
+            questionWidth,
+            consigneWidth,
+            correctionWidth: number
+          let size = 300
+          for (let i = 0; i < 3; i++) {
+            /* on fait trois boucles par pas de 50, puis 10, puis 2 pour accélerer la recherche */
+            const delta = i === 0 ? 50 : i === 1 ? 10 : 2
+            size = i === 0 ? size : i === 1 ? size + 50 : size + 10
+            size = (kk == 1 ? zoomMin : size)
+            do {
+              // console.log('size:' + size)
+              size = size - delta
+              // console.log('size:' + size)
+              if (questionDiv !== null) {
+                questionDiv.style.fontSize = size + 'px'
+                questionHeight = questionDiv.clientHeight
+                questionWidth =
+                  questionDiv.scrollWidth > questionDiv.clientWidth
+                    ? questionDiv.scrollWidth
+                    : questionDiv.clientWidth
+              } else {
+                questionHeight = 0
+                questionWidth = 0
+              }
+              if (consigneDiv !== null) {
+                consigneDiv.style.fontSize = size + 'px'
+                consigneHeight = consigneDiv.clientHeight
+                consigneWidth = consigneDiv.clientWidth
+              } else {
+                consigneHeight = 0
+                consigneWidth = 0
+              }
+              if (correctionDiv !== null) {
+                correctionDiv.style.fontSize = size + 'px'
+                correctionHeight = correctionDiv.clientHeight
+                correctionWidth = correctionDiv.clientWidth
+              } else {
+                correctionHeight = 0
+                correctionWidth = 0
+              }
+            } while (
+              size > 6 /* pour éviter la boucle infinie */ && kk === 0 && 
+              (questionWidth > textcellWidth ||
+                consigneWidth > textcellWidth ||
+                correctionWidth > textcellWidth ||
+                questionHeight + consigneHeight + correctionHeight >
+                  textcellHeight)
+            )
+            // console.log('stop size:' + size)
+          }
 
-          do {
-            size = size - delta
-            // console.log('size:' + size)
-            if (questionDiv !== null) {
-              questionDiv.style.fontSize = size + 'px'
-              questionHeight = questionDiv.clientHeight
-              questionWidth =
-                questionDiv.scrollWidth > questionDiv.clientWidth
-                  ? questionDiv.scrollWidth
-                  : questionDiv.clientWidth
-            } else {
-              questionHeight = 0
-              questionWidth = 0
-            }
-            if (consigneDiv !== null) {
-              consigneDiv.style.fontSize = size + 'px'
-              consigneHeight = consigneDiv.clientHeight
-              consigneWidth = consigneDiv.clientWidth
-            } else {
-              consigneHeight = 0
-              consigneWidth = 0
-            }
-            if (correctionDiv !== null) {
-              correctionDiv.style.fontSize = size + 'px'
-              correctionHeight = correctionDiv.clientHeight
-              correctionWidth = correctionDiv.clientWidth
-            } else {
-              correctionHeight = 0
-              correctionWidth = 0
-            }
-          } while (
-            size > 6 /* pour éviter la boucle infinie */ &&
-            (questionWidth > textcellWidth ||
-              consigneWidth > textcellWidth ||
-              correctionWidth > textcellWidth ||
-              questionHeight + consigneHeight + correctionHeight >
-                textcellHeight)
-          )
-          // console.log('stop size:' + size)
-        }
-
-        if (questionDiv !== null) {
-          questionDiv.style.fontSize = currentZoom * size + 'px'
-        }
-        if (consigneDiv !== null) {
-          consigneDiv.style.fontSize = currentZoom * size + 'px'
-        }
-        if (correctionDiv !== null) {
-          correctionDiv.style.fontSize = currentZoom * size + 'px'
+          if (questionDiv !== null) {
+            questionDiv.style.fontSize = currentZoom * size + 'px'
+          }
+          if (consigneDiv !== null) {
+            consigneDiv.style.fontSize = currentZoom * size + 'px'
+          }
+          if (correctionDiv !== null) {
+            correctionDiv.style.fontSize = currentZoom * size + 'px'
+          }
+          zoomByVues[i] = size
         }
       }
     }
