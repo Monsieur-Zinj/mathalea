@@ -14,7 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
@@ -375,13 +375,14 @@ export default function NoteLaCouleur6e () {
       if (this.sup % 2 === 0) reponseCouleur[0] = '(' + lePlateau.traducNum(couleurs[0]) + ') ' + couleurs[0]
       texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteEnCouleurEtGras(reponseCouleur[0])} `
-      texte += !this.interactif ? '' : 'Couleur n°1 : ' + choixDeroulant(this, q, 0, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
+      texte += !this.interactif ? '' : 'Couleur n°1 : ' + choixDeroulant(this, q * couleurs.length, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
+      handleAnswers(this, q * couleurs.length, { reponse: { value: couleurs[0] } }, { formatInteractif: 'listeDeroulante' })
       for (let i = 1; i < couleurs.length; i++) {
         if (this.sup % 2 === 0) reponseCouleur[i] = '(' + lePlateau.traducNum(couleurs[i]) + ') ' + couleurs[i]
         texteCorr += `${texteEnCouleurEtGras(reponseCouleur[i])} `
-        texte += !this.interactif ? '' : 'Couleur n°' + (i + 1) + ' : ' + choixDeroulant(this, q, i, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
+        texte += !this.interactif ? '' : 'Couleur n°' + (i + 1) + ' : ' + choixDeroulant(this, q * couleurs.length + i, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
+        handleAnswers(this, q * couleurs.length + i, { reponse: { value: couleurs[i] } }, { formatInteractif: 'listeDeroulante' })
       }
-      setReponse(this, q, [reponseCouleur])
       lutin.animation = `<radialGradient id="Ball" cx="8" cy="-3" r="20" gradientUnits="userSpaceOnUse">
     <stop offset="0" style="stop-color:#FFFF99"/>
     <stop offset="1" style="stop-color:#FF9400"/>

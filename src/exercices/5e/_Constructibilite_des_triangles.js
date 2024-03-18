@@ -334,16 +334,16 @@ export default function ConstructibiliteDesTriangles () {
               texte += `${triangle.getNom()} tel que ${triangle.getAngles()[0]} $= ${texNombre(triangle.a1)}^\\circ$ ; `
               switch (operation) {
                 case 'triple':
-                  a2 = calculANePlusJamaisUtiliser((180 - a1) / 4)
-                  a3 = calculANePlusJamaisUtiliser(3 * a2)
+                  a2 = (180 - a1) / 4
+                  a3 = 3 * a2
                   break
                 case 'quadruple':
-                  a2 = calculANePlusJamaisUtiliser((180 - a1) / 5)
-                  a3 = calculANePlusJamaisUtiliser(4 * a2)
+                  a2 = (180 - a1) / 5
+                  a3 = 4 * a2
                   break
                 case 'quart':
-                  a2 = calculANePlusJamaisUtiliser(4 * (180 - a1) / 5)
-                  a3 = calculANePlusJamaisUtiliser(a2 / 4)
+                  a2 = 4 * (180 - a1) / 5
+                  a3 = a2 / 4
                   break
               }
               triangle.a2 = a2
@@ -362,16 +362,16 @@ export default function ConstructibiliteDesTriangles () {
               texte += `${triangle.getNom()} tel que ${triangle.getAngles()[1]} $= ${texNombre(triangle.a2)}^\\circ$ ; `
               switch (operation) {
                 case 'triple':
-                  a1 = calculANePlusJamaisUtiliser((180 - a2) / 4)
-                  a3 = calculANePlusJamaisUtiliser(3 * a1)
+                  a1 = (180 - a2) / 4
+                  a3 = 3 * a1
                   break
                 case 'quadruple':
-                  a1 = calculANePlusJamaisUtiliser((180 - a2) / 5)
-                  a3 = calculANePlusJamaisUtiliser(4 * a1)
+                  a1 = (180 - a2) / 5
+                  a3 = 4 * a1
                   break
                 case 'quart':
-                  a1 = calculANePlusJamaisUtiliser(4 * (180 - a2) / 5)
-                  a3 = calculANePlusJamaisUtiliser(a1 / 4)
+                  a1 = 4 * (180 - a2) / 5
+                  a3 = a1 / 4
                   break
               }
               triangle.a1 = a1
@@ -392,16 +392,16 @@ export default function ConstructibiliteDesTriangles () {
           break
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i,triangle.getNom())) { // Si la question n'a jamais été posée, on en créé une autre
         const propositionsDuQcm = [
           {
             texte: `Le triangle ${triangle.getNom()} est constructible`,
-            statut: !(listeTypeDeQuestions[i] === 2 || listeTypeDeQuestions[i] === 7),
+            statut: !(listeTypeDeQuestions[i] === 3 || listeTypeDeQuestions[i] === 7),
             feedback: (this.exo === this.beta + '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
           },
           {
             texte: `Le triangle ${triangle.getNom()} n'est pas constructible`,
-            statut: (listeTypeDeQuestions[i] === 2 || listeTypeDeQuestions[i] === 7),
+            statut: (listeTypeDeQuestions[i] === 3 || listeTypeDeQuestions[i] === 7),
             feedback: (this.exo === this.beta + '5G21-1') ? 'Effectue la somme des longueurs les plus petites et compare-la à la plus grande longueur.' : 'Effectue la somme des angles du triangle.'
           },
           {

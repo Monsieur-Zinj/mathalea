@@ -10,7 +10,7 @@ import { context } from '../../modules/context.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Appartient ou n\'appartient pas ?'
 export const dateDePublication = '05/10/2022'
 export const dateDeModifImportante = '4/10/2023'
@@ -141,8 +141,8 @@ export default class constructionElementaire extends Exercice {
         if (this.interactif) {
           colonne2 +=
             numAlpha(questind) +
-            `$${points[ind].nom}${sp(3)}$` + choixDeroulant(this, i * this.sup2 + k, 0, ['∈', '∉'], '...') + `$${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<span id="resultatCheckEx${numeroExercice}Q${i * this.sup2 + k}"></span><br>`
-          setReponse(this, i * this.sup2 + k, sol === '\\notin' ? '∉' : '∈')
+            `$${points[ind].nom}${sp(3)}$` + choixDeroulant(this, i * this.sup2 + k, ['∈', '∉'], '...') + `$${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$<span id="resultatCheckEx${numeroExercice}Q${i * this.sup2 + k}"></span><br>`
+          handleAnswers(this, i * this.sup2 + k, { reponse: { value: sol === '\\notin' ? '∉' : '∈' } }, { formatInteractif: 'listeDeroulante' })
         } else {
           const enonce = `$${points[ind].nom}${sp(3)}\\ldots\\ldots\\ldots${sp(3)}${lettre[0]}${points[ind1].nom}${points[ind2].nom}${lettre[1]}$`
           colonne2 += numAlpha(questind) + enonce + '<br>'

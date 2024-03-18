@@ -6,7 +6,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range } from '../../lib/outils/nombres'
@@ -89,7 +89,7 @@ export default function EcrireUneExpressionNumerique () {
       expn += expn[expn.length - 1] !== '$' ? '$' : ''
       expc = resultats[2]
       nbval = resultats[3]
-      const expNom = resultats[5]
+      const expNom = this.litteral ? resultats[6].split(' ')[1] : resultats[5] // Le split, c'est pour virer le déterminant.
       switch (this.version) {
         case 1:
           this.consigne = 'Traduire la phrase par un calcul (il n\'est pas demandé d\'effectuer ce calcul).'
@@ -244,8 +244,8 @@ export default function EcrireUneExpressionNumerique () {
                 ]
               }
           } else {
-            texte += sp(10) + choixDeroulant(this, i, 0, combinaisonListes(['somme', 'différence', 'produit', 'quotient'], 1), 'une réponse')
-            setReponse(this, i, expNom, { formatInteractif: 'texte' })
+            texte += sp(10) + choixDeroulant(this, i, combinaisonListes(['somme', 'différence', 'produit', 'quotient'], 1), 'une réponse')
+            handleAnswers(this, i, { reponse: { value: expNom } }, { formatInteractif: 'listeDeroulante' })
           }
         }
         // on doit donner une expression littérale => handleAnswer avec functionXyCompare. ou amcOpen

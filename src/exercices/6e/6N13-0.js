@@ -3,7 +3,7 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Connaître les préfixes utilisés dans les unités'
 export const interactifReady = true
@@ -84,14 +84,14 @@ export default class sensDesPrefixes extends Exercice {
         case 'OnPartDuPrefixe':
           texte = `${prefixe} : $\\dotfill$`
           texteCorr = `${prefixe} : $${calcul}$`
-          if (this.interactif) texte = `${prefixe} : ` + choixDeroulant(this, i, 0, choixDeroulantCalculs, 'une réponse')
-          setReponse(this, i, calcul.replace('\\div', '÷').replace('\\times', '✕').replaceAll('~', ' '))
+          handleAnswers(this, i, { reponse: { value: calcul.replace('\\div', '÷').replace('\\times', '✕').replaceAll('~', ' ') } }, { formatInteractif: 'listeDeroulante' })
+          if (this.interactif) texte = `${prefixe} : ` + choixDeroulant(this, i, choixDeroulantCalculs, 'une réponse')
           break
         case 'OnPartDuCalcul':
           texte = `$${calcul}$ : $\\dotfill$`
           texteCorr = `$${calcul}$ : ${prefixe}`
-          if (this.interactif) texte = `$${calcul}$ : ` + choixDeroulant(this, i, 0, shuffle(choixDeroulantprefixes), 'une réponse')
-          setReponse(this, i, prefixe)
+          handleAnswers(this, i, { reponse: { value: prefixe } }, { formatInteractif: 'listeDeroulante' })
+          if (this.interactif) texte = `$${calcul}$ : ` + choixDeroulant(this, i, shuffle(choixDeroulantprefixes), 'une réponse')
           break
       }
       if (this.questionJamaisPosee(i, prefixe)) {
