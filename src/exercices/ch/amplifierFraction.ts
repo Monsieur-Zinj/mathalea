@@ -2,7 +2,8 @@ import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { texNombre } from '../../../src/lib/outils/texNombre'
 
 export const titre = 'Amplifier ou simplifier une fraction'
 export const dateDePublication = '14/03/2024'
@@ -43,6 +44,7 @@ export default class AmplifierOuReduireFraction extends Exercice {
     const b = randint(2, 12, a)
     const c = randint(2, 12, [a, b])
     const multipleDe10 = choice([20, 30, 40])
+    this.comment = 'Dans cet exercice, le numérateur et le dénominateur de la fraction réduite sont choisis entre 2 et 12 et le coefficient multiplicateur est choisi entre 2-12 ou 20, 30 et 40.'
     const coefficients = combinaisonListes([multipleDe10, a, b, c], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
@@ -52,11 +54,11 @@ export default class AmplifierOuReduireFraction extends Exercice {
       const k = coefficients[i]
       switch (listeTypeQuestions[i]) {
         case 'amplifier':
-          texte = `Amplifier la fraction $\\dfrac{${num}}{${den}}$ par ${k}`
-          texteCorr = `La fraction $\\dfrac{${num}}{${den}}$ amplifiée par ${k} donne $\\dfrac{${num} \\times ${k}}{${den} \\times ${k}}=\\dfrac{${num * k}}{${den * k}}$.`
+          texte = `Amplifier la fraction $\\dfrac{${num}}{${den}}$ par $${texNombre(k, 0)}$`
+          texteCorr = `La fraction $\\dfrac{${num}}{${den}}$ amplifiée par $${texNombre(k, 0)}$ donne $\\dfrac{${num} \\times ${k}}{${den} \\times ${k}}=\\dfrac{${num * k}}{${den * k}}$.`
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}} = \\dfrac{%{champ1}}{%{champ2}}`)
-            setReponse(this, i, {
+            handleAnswers(this, i, {
               bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
               champ1: { value: String(k * num) },
               champ2: { value: String(k * den) }
@@ -68,11 +70,11 @@ export default class AmplifierOuReduireFraction extends Exercice {
           }
           break
         case 'simplifier':
-          texte = `Simplifier la fraction $\\dfrac{${num * k}}{${den * k}}$ par ${k}`
-          texteCorr = `La fraction $\\dfrac{${num * k}}{${den * k}}$ simplifiée par ${k} donne $\\dfrac{${num * k} \\div ${k}}{${den * k} \\div ${k}}=\\dfrac{${num}}{${den}}$.`
+          texte = `Simplifier la fraction $\\dfrac{${num * k}}{${den * k}}$ par $${texNombre(k, 0)}$`
+          texteCorr = `La fraction $\\dfrac{${num * k}}{${den * k}}$ simplifiée par $${texNombre(k, 0)}$ donne $\\dfrac{${num * k} \\div ${k}}{${den * k} \\div ${k}}=\\dfrac{${num}}{${den}}$.`
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i, `\\dfrac{${num * k}}{${den * k}} = \\dfrac{%{champ1}}{%{champ2}}`)
-            setReponse(this, i, {
+            handleAnswers(this, i, {
               bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
               champ1: { value: String(num) },
               champ2: { value: String(den) }
