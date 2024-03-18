@@ -11,6 +11,7 @@ import { listeQuestionsToContenuSansNumero, randint, calculANePlusJamaisUtiliser
 // Ici ce sont les fonctions de la librairie maison 2d.js qui gèrent tout ce qui est graphique (SVG/tikz) et en particulier ce qui est lié à l'objet lutin
 import { allerA, angleScratchTo2d, avance, baisseCrayon, creerLutin, leveCrayon, orienter, tournerD, tournerG } from '../../modules/2dLutin.js'
 import { scratchblock } from '../../modules/scratchblock.js'
+import { setCliqueFigure } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'
@@ -48,6 +49,7 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     const objetsCorrection = []
     const paramsCorrection = {}
     const paramsEnonces = {}
+    this.autoCorrection[0] = {}
 
     const choix = choice([
       'polygonesReguliers',
@@ -512,31 +514,30 @@ export default function AlgoTortue () { // ça c'est la classe qui permet de cr�
     } else {
       texte += '\\end{minipage} '
     }
-    if (context.isAmc) {
-      this.autoCorrection[0] = {
-        enonce: texte,
-        propositions: [
-          {
-            texte: 'figure 1',
-            statut: false
-          },
-          {
-            texte: 'figure 2',
-            statut: false
-          },
-          {
-            texte: 'figure 3',
-            statut: false
-          },
-          {
-            texte: 'figure 4',
-            statut: false
-          }
-        ],
-        options: { ordered: true }
-      }
-      this.autoCorrection[0].propositions[ordreLutins.indexOf(bonneReponse)].statut = true
+    this.autoCorrection[0] = {
+      enonce: texte,
+      propositions: [
+        {
+          texte: 'figure 1',
+          statut: false
+        },
+        {
+          texte: 'figure 2',
+          statut: false
+        },
+        {
+          texte: 'figure 3',
+          statut: false
+        },
+        {
+          texte: 'figure 4',
+          statut: false
+        }
+      ],
+      options: { ordered: true }
     }
+    this.autoCorrection[0].propositions[ordreLutins.indexOf(bonneReponse)].statut = true
+    setCliqueFigure(this.autoCorrection[0])
     this.indiceBonneFigure = ordreLutins.indexOf(bonneReponse)
     // Ici, la figure contient la grille, le point de départ et le lutin qui s'anime sur sa trace...
     texteCorr += `La bonne figure est la figure ${this.indiceBonneFigure + 1}`

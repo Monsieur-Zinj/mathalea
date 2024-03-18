@@ -3,9 +3,12 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import Decimal from 'decimal.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
+import { numberCompare } from '../../lib/interactif/comparisonFunctions'
+import { texNombre } from '../../../src/lib/outils/texNombre'
 
 export const titre = 'Associer puissances de 10 et préfixes'
 export const interactifReady = true
@@ -46,18 +49,17 @@ export default class PuissancesEtPrefixe extends Exercice {
       const exposant = listeExposants[i][0]
       const prefixe = listeExposants[i][1]
       const description = listeExposants[i][2]
+      const reponseDecimale = Decimal(10).pow(exposant)
       if (this.sup === 1) {
-        texte = `$10^{${exposant}}$` + choixDeroulant(this, i, 0, shuffle(['nano', 'micro', 'milli', 'centi', 'déci', 'déca', 'hecto', 'kilo', 'méga', 'giga', 'téra']), 'une réponse')
-        setReponse(this, i, prefixe)
+        texte = `$10^{${exposant}}$` + choixDeroulant(this, i, shuffle(['nano', 'micro', 'milli', 'centi', 'déci', 'déca', 'hecto', 'kilo', 'méga', 'giga', 'téra']), 'une réponse')
+        handleAnswers(this, i, { reponse: { value: prefixe } }, { formatInteractif: 'listeDeroulante' })
         texteCorr = `$10^{${exposant}}$, c'est ${description} donc le préfixe correspondant est ${texteEnCouleurEtGras(prefixe)}.`
       } else {
         texte = this.interactif
           ? `Le préfixe ${prefixe} est associé à : ` + ajouteChampTexteMathLive(this, i, 'texte')
           : `${prefixe}`
-        if (exposant !== 1) setReponse(this, i, `10^{${exposant}}`)
-        else setReponse(this, i, ['10^{1}', '10'])
-
-        texteCorr = `Le préfixe ${prefixe} est associé à ${description}, soit $${miseEnEvidence(`10^{${exposant}}`)}$.`
+        handleAnswers(this, i, { reponse: { value: `10^{${exposant}}`, compare: numberCompare } }, { formatInteractif: 'mathlive' })
+        texteCorr = `Le préfixe ${prefixe} est associé à ${description}, soit $${miseEnEvidence(`10^{${exposant}}`)}$ ou $${miseEnEvidence(texNombre(reponseDecimale, 9))}$.`
       }
       if (context.isAmc) {
         this.autoCorrection[i].enonce = this.sup === 1 ? `Quel est le préfixe correspondant à $10^{${exposant}}$ ? $\\ldots$ ` : `Quelle est la puissance de 10 correspondant au préfixe ${prefixe} ? $\\ldots$ `

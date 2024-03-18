@@ -5,7 +5,7 @@ import { grille } from '../../lib/2d/reperes.js'
 import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPointEchelle } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, symetrieAxiale, translation } from '../../lib/2d/transformations.js'
-import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { choice, shuffle, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { texcolors } from '../../lib/format/style'
 import { lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.js'
@@ -15,7 +15,7 @@ import { context } from '../../modules/context.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { colorToLatexOrHTML, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { range } from '../../lib/outils/nombres'
 
 export const dateDePublication = '3/12/2021'
@@ -148,9 +148,9 @@ export default function TrouverLaTransformations () {
           }
         }
       case 'rot90': // la position du centre dépend du sens de rotation et de départ et arrivee.
-        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$ d'angle $90^\\circ$ dans le sens ${leSens ? 'direct' : 'indirect'}.`
-        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)} d'angle $90^\\circ$ dans le sens  ${leSens ? 'direct' : 'indirect'}.`
-        texteInteractif = `la rotation de centre ${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)} d'angle 90° dans le sens ${leSens ? 'direct' : 'indirect'}`
+        texteCorr = `La figure ${texteEnCouleurEtGras(depart, texcolors(num + 8))} a pour image la figure ${texteEnCouleurEtGras(arrivee, texcolors(num + 9))} par la rotation de centre $${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}$, d'angle $90^\\circ$ dans le sens ${leSens ? 'inverse des aiguilles d\'une montre' : 'des aiguilles d\'une montre'}.`
+        texte = `La figure ${sp(1)}\\ldots${sp(1)} a pour image la figure ${sp(1)}\\ldots${sp(1)} par la rotation de centre ${sp(1)}\\ldots${sp(1)}, d'angle $90^\\circ$ dans le sens  ${leSens ? 'inverse des aiguilles d\'une montre' : 'des aiguilles d\'une montre'}.`
+        texteInteractif = `la rotation de centre ${Est ? (leSens ? noeuds[arrivee + 1].nom : noeuds[arrivee].nom) : (leSens ? noeuds[arrivee].nom : noeuds[arrivee + 6].nom)}, d'angle 90° dans le sens ${leSens ? 'inverse des aiguilles d\'une montre' : 'des aiguilles d\'une montre'}`
         centre = Est ? (leSens ? noeuds[arrivee + 1] : noeuds[arrivee]) : (leSens ? noeuds[arrivee] : noeuds[arrivee + 6])
         if (poly1 != null) {
           animation = rotationAnimee(poly1, centre, leSens ? 90 : -90, 'begin="0s" dur="5s" repeatCount="indefinite"')
@@ -275,57 +275,66 @@ export default function TrouverLaTransformations () {
       const textePossible = []
       const texteCorrPossible = []
       const reponsePossible = []
+      const propositions = []
+      const objetEnonce = []
       for (let k = 0; k < 4; k++) {
         // On va mettre dans les propositions toutes les transformations possibles pour passer de transfo|k].depart à transfo[k].arrivee
-        const propositions = []
+        propositions[k] = []
         for (const transforme of typeDeTransfos) {
           switch (transforme) {
             case 'rot90':
-              trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
-              propositions.push(
-                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`
-              )
               trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, false, 12, polys[transfos[k].depart])
-              propositions.push(
+              propositions[k].push(
                             `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens des aiguilles d'une montre`
+              )
+              trans = definitElements('rot90', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
+              propositions[k].push(
+                            `la rotation de centre ${trans.centre.nom}, d'angle 90° dans le sens inverse des aiguilles d'une montre`
               )
               break
             case 'trans':
             //    trans = definitElements('trans', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
-              propositions.push(
+              propositions[k].push(
                             `la translation transformant ${noeuds[transfos[k].depart].nom} en ${noeuds[transfos[k].arrivee].nom}`
               )
               break
             case 'rot180':
             //    trans = definitElements('rot180', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
-              propositions.push(
+              propositions[k].push(
                             `la symétrie dont le centre est le milieu de [${noeuds[transfos[k].arrivee].nom}${(transfos[k].arrivee - transfos[k].depart === 6) ? noeuds[transfos[k].arrivee + 1].nom : noeuds[transfos[k].arrivee + 6].nom}]`
               )
               break
 
             case 'symax':
             //    trans = definitElements('symax', transfos[k].depart, transfos[k].arrivee, true, 12, polys[transfos[k].depart])
-              propositions.push(
+              propositions[k].push(
                             `la symétrie d'axe (${noeuds[transfos[k].arrivee].nom}${(transfos[k].arrivee - transfos[k].depart === 6) ? noeuds[transfos[k].arrivee + 1].nom : noeuds[transfos[k].arrivee + 6].nom})`
               )
               break
           }
         }
-
+        objetEnonce.push({
+          textePossible: this.interactif
+            ? `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ? `
+            : `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ?`,
+          texteCorrPossible: transfos[k].texteCorr,
+          reponsePossible: transfos[k].texteInteractif
+        })
         textePossible.push(this.interactif
-          ? `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ? ` + choixDeroulant(this, k, i, propositions, 'une réponse')
+          ? `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ? `
           : `Quelle transformation permet de passer de la figure ${transfos[k].depart} à la figure ${transfos[k].arrivee} ?`)
         texteCorrPossible.push(transfos[k].texteCorr)
         reponsePossible.push(transfos[k].texteInteractif)
       }
+      shuffle2tableaux(objetEnonce, propositions)
       for (let ee = 0; ee < nbSousQuestions; ee++) {
         texte += ee > 0 ? '<br>' : ''
         texte += nbSousQuestions > 1 ? numAlpha(ee) : ''
-        texte += textePossible[listeQuestionsPossibles[ee]]
+        texte += objetEnonce[ee].textePossible + choixDeroulant(this, i * nbSousQuestions + ee, propositions[ee], 'une réponse')
         texteCorr += ee > 0 ? '<br>' : ''
         texteCorr += nbSousQuestions > 1 ? numAlpha(ee) : ''
-        texteCorr += texteCorrPossible[listeQuestionsPossibles[ee]]
-        setReponse(this, i * nbSousQuestions + ee, reponsePossible[ee], { formatInteractif: 'texte' })
+        texteCorr += objetEnonce[ee].texteCorrPossible
+        handleAnswers(this, i * nbSousQuestions + ee, { reponse: { value: objetEnonce[ee].reponsePossible } }, { formatInteractif: 'listeDeroulante' })
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

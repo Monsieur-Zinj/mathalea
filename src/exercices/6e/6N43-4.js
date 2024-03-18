@@ -5,11 +5,11 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { context } from '../../modules/context.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Trouver des phrases avec les mots : divisible, diviseur et multiple'
 export const interactifReady = true
-export const interactifType = 'listeDeroulante'
+export const interactifType = 'custom'
 
 /**
  * Compléter des phrases avec les mots divisible, divieur et multiple
@@ -31,6 +31,10 @@ export default function DivisibleDiviseurMultiple () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.listePackages = 'xlop'
+  this.setReponse = function (i, listeBonnesReponses) {
+    this.autoCorrection[i] = {}
+    this.autoCorrection[i].listeReponses = listeBonnesReponses
+  }
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -61,68 +65,111 @@ export default function DivisibleDiviseurMultiple () {
 
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6] // On créé 3 types de questions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr; i < this.nbQuestions; i++) {
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 1:
-          texte = '... est divisible par ...'
-          if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'est divisible par' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
-          }
-          texteCorr = `$${texNombre(a)}$ est divisible par $${texNombre(b)}$ ou $${texNombre(a)}$ est divisible par $${texNombre(q)}$.`
-          setReponse(this, i, [[nombreAvecEspace(a), nombreAvecEspace(b)], [nombreAvecEspace(a), nombreAvecEspace(q)]])
-          break
-        case 2:
-          texte = '... est un diviseur de ...'
-          if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'est un diviseur de' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
-          }
-          texteCorr = `$${texNombre(b)}$ est un diviseur de $${texNombre(a)}$ ou $${texNombre(q)}$ est un diviseur de $${texNombre(a)}$.`
-          setReponse(this, i, [[nombreAvecEspace(b), nombreAvecEspace(a)], [nombreAvecEspace(q), nombreAvecEspace(a)]])
-          break
-        case 3:
-          texte = '... est un multiple de ...'
-          if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'est un multiple de' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
-          }
-          texteCorr = `$${texNombre(a)}$ est un multiple de $${texNombre(b)}$ ou $${texNombre(a)}$ est un multiple de $${texNombre(q)}$.`
-          setReponse(this, i, [[nombreAvecEspace(a), nombreAvecEspace(b)], [nombreAvecEspace(a), nombreAvecEspace(q)]])
-          break
-        case 4:
-          texte = '... n\'est pas divisible par ...'
-          if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'n\'est pas divisible par' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
-          }
-          texteCorr = `$${texNombre(a1)}$ n'est pas divisible par $${texNombre(b)}$ ou $${texNombre(a1)}$ n'est pas divisible par $${texNombre(q)}$.`
-          setReponse(this, i, [[nombreAvecEspace(a1), nombreAvecEspace(b)], [nombreAvecEspace(a1), nombreAvecEspace(q)]])
-          break
-        case 5:
-          texte = '... n\'est pas un diviseur de ...'
-          if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'n\'est pas un diviseur de' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
-          }
-          texteCorr = `$${texNombre(b)}$ n'est pas un diviseur de $${texNombre(a1)}$ ou $${texNombre(q)}$ n'est pas un diviseur de $${texNombre(a1)}$.`
-          setReponse(this, i, [[nombreAvecEspace(b), nombreAvecEspace(a1)], [nombreAvecEspace(q), nombreAvecEspace(a1)]])
-          break
-        case 6:
-          texte = '... n\'est pas un multiple de ...'
-          if (this.interactif) {
-            texte = choixDeroulant(this, i, 0, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'n\'est pas un multiple de' + choixDeroulant(this, i, 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
-          }
-          texteCorr = `$${texNombre(a1)}$ n'est pas un multiple de $${texNombre(b)}$ ou $${texNombre(a1)}$ est n'est pas un multiple de $${texNombre(q)}$.`
-          setReponse(this, i, [[nombreAvecEspace(a1), nombreAvecEspace(b)], [nombreAvecEspace(a1), nombreAvecEspace(q)]])
-          break
+      if (listeTypeDeQuestions[i] === 1) {
+        texte = '... est divisible par ...'
+        if (this.interactif) {
+          texte = choixDeroulant(this, 2 * i, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'est divisible par' + choixDeroulant(this, 2 * i + 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
+        }
+        texteCorr = `$${texNombre(a)}$ est divisible par $${texNombre(b)}$ ou $${texNombre(a)}$ est divisible par $${texNombre(q)}$.`
+        this.setReponse(i, [[nombreAvecEspace(a), nombreAvecEspace(b)], [nombreAvecEspace(a), nombreAvecEspace(q)]])
+      } else if (listeTypeDeQuestions[i] === 2) {
+        texte = '... est un diviseur de ...'
+        if (this.interactif) {
+          texte = choixDeroulant(this, 2 * i, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'est un diviseur de' + choixDeroulant(this, 2 * i + 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
+        }
+        texteCorr = `$${texNombre(b)}$ est un diviseur de $${texNombre(a)}$ ou $${texNombre(q)}$ est un diviseur de $${texNombre(a)}$.`
+        this.setReponse(i, [[nombreAvecEspace(b), nombreAvecEspace(a)], [nombreAvecEspace(q), nombreAvecEspace(a)]])
+      } else if (listeTypeDeQuestions[i] === 3) {
+        texte = '... est un multiple de ...'
+        if (this.interactif) {
+          texte = choixDeroulant(this, 2 * i, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'est un multiple de' + choixDeroulant(this, 2 * i + 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
+        }
+        texteCorr = `$${texNombre(a)}$ est un multiple de $${texNombre(b)}$ ou $${texNombre(a)}$ est un multiple de $${texNombre(q)}$.`
+        this.setReponse(i, [[nombreAvecEspace(a), nombreAvecEspace(b)], [nombreAvecEspace(a), nombreAvecEspace(q)]])
+      } else if (listeTypeDeQuestions[i] === 4) {
+        texte = '... n\'est pas divisible par ...'
+        if (this.interactif) {
+          texte = choixDeroulant(this, 2 * i, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'n\'est pas divisible par' + choixDeroulant(this, 2 * i + 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
+        }
+        texteCorr = `$${texNombre(a1)}$ n'est pas divisible par $${texNombre(b)}$ ou $${texNombre(a1)}$ n'est pas divisible par $${texNombre(q)}$.`
+        this.setReponse(i, [[nombreAvecEspace(a1), nombreAvecEspace(b)], [nombreAvecEspace(a1), nombreAvecEspace(q)],
+          [nombreAvecEspace(b), nombreAvecEspace(a1)], // réponses absurdes mais vraies !
+          [nombreAvecEspace(q), nombreAvecEspace(a1)],
+          [nombreAvecEspace(b), nombreAvecEspace(a)], // réponses absurdes mais vraies !
+          [nombreAvecEspace(q), nombreAvecEspace(a)]
+        ])
+      } else if (listeTypeDeQuestions[i] === 5) {
+        texte = '... n\'est pas un diviseur de ...'
+        if (this.interactif) {
+          texte = choixDeroulant(this, 2 * i, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'n\'est pas un diviseur de' + choixDeroulant(this, 2 * i + 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
+        }
+        texteCorr = `$${texNombre(b)}$ n'est pas un diviseur de $${texNombre(a1)}$ ou $${texNombre(q)}$ n'est pas un diviseur de $${texNombre(a1)}$.`
+        this.setReponse(i, [[nombreAvecEspace(b), nombreAvecEspace(a1)], [nombreAvecEspace(q), nombreAvecEspace(a1)],
+          [nombreAvecEspace(a1), nombreAvecEspace(b)],
+          [nombreAvecEspace(a1), nombreAvecEspace(q)],
+          [nombreAvecEspace(a), nombreAvecEspace(b)],
+          [nombreAvecEspace(a), nombreAvecEspace(q)]// réponses absurdes mais vraies
+        ])
+      } else {
+        texte = '... n\'est pas un multiple de ...'
+        if (this.interactif) {
+          texte = choixDeroulant(this, 2 * i, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)]) + 'n\'est pas un multiple de' + choixDeroulant(this, 2 * i + 1, [nombreAvecEspace(a1), nombreAvecEspace(a), nombreAvecEspace(b), nombreAvecEspace(q)])
+        }
+        texteCorr = `$${texNombre(a1)}$ n'est pas un multiple de $${texNombre(b)}$ ou $${texNombre(a1)}$ est n'est pas un multiple de $${texNombre(q)}$.`
+        this.setReponse(i, [[nombreAvecEspace(a1), nombreAvecEspace(b)], [nombreAvecEspace(a1), nombreAvecEspace(q)],
+          [nombreAvecEspace(b), nombreAvecEspace(a1)], // réponses absurdes mais vraies !
+          [nombreAvecEspace(q), nombreAvecEspace(a1)],
+          [nombreAvecEspace(b), nombreAvecEspace(a)], // réponses absurdes mais vraies !
+          [nombreAvecEspace(q), nombreAvecEspace(a)]
+        ])
       }
-
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
-        // texte = '<div class="ui form>' + texte + '</div>'
-        this.listeQuestions.push(texte)
-        this.listeCorrections.push(texteCorr)
-        i++
-      }
-      cpt++
+      texte += ajouteFeedback(this, 2 * i + 1)
+      // Si la question n'a jamais été posée, on en crée une autre
+      // texte = '<div class="ui form>' + texte + '</div>'
+      this.listeQuestions.push(texte)
+      this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this)
+  }
+  this.correctionInteractive = function (i) {
+    const select1 = document.querySelector(`#ex${this.numeroExercice}Q${2 * i}`)
+    const select2 = document.querySelector(`#ex${this.numeroExercice}Q${2 * i + 1}`)
+    let isOk = false
+    let feedback = ''
+    if (select1?.value != null && select2.value != null) {
+      const choix1 = select1.value
+      const choix2 = select2.value
+      for (let possibilites = 0; possibilites < 2; possibilites++) {
+        if (choix1 === this.autoCorrection[i].listeReponses[possibilites][0] && choix2 === this.autoCorrection[i].listeReponses[possibilites][1]) {
+          isOk = true
+          break
+        }
+      }
+      if (!isOk && this.autoCorrection[i].listeReponses.length > 2) {
+        for (let possibilites = 2; possibilites < this.autoCorrection[i].listeReponses.length; possibilites++) {
+          if (choix1 === this.autoCorrection[i].listeReponses[possibilites][0] && choix2 === this.autoCorrection[i].listeReponses[possibilites][1]) {
+            isOk = false
+            feedback = 'C\'est vrai, mais c\'est sans rapport avec une des divisions posées.'
+            break
+          }
+        }
+      }
+    } else {
+      isOk = false
+    }
+    const spanReponseLigne = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${2 * i + 1}`)
+    if (spanReponseLigne == null) window.notify('Pas trouvé le spanReponseLigne dans 6N43-4', {})
+    if (isOk) {
+      spanReponseLigne.innerHTML = '😎'
+    } else {
+      spanReponseLigne.innerHTML = '☹️'
+    }
+    if (feedback !== '') {
+      const divFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${2 * i + 1}`)
+      divFeedback.innerHTML = feedback
+    }
+    return isOk ? 'OK' : 'KO'
   }
 }

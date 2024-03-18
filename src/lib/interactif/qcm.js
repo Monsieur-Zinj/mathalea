@@ -112,6 +112,9 @@ export function propositionsQcm (exercice, i) {
   if (context.isAmc) return { texte: '', texteCorr: '' }
   if (context.isHtml) {
     espace = '&emsp;'
+    if (exercice?.autoCorrection[i].reponse == null) exercice.autoCorrection[i].reponse = {}
+    if (exercice.autoCorrection[i].reponse.param == null) exercice.autoCorrection[i].reponse.param = {}
+    exercice.autoCorrection[i].reponse.param.formatInteractif = 'qcm'
   } else {
     espace = '\\qquad '
   }
