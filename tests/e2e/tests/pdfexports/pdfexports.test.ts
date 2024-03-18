@@ -40,7 +40,9 @@ async function readZip (file: fs.FileHandle): Promise<Map<string, string>> {
   const unzippedFiles = await zipper.loadAsync(buffer)
   const entries = Object.keys(unzippedFiles.files)
   for (const _filename of entries) {
-    files.set(_filename, await unzippedFiles.files[_filename].async('string'))
+    if (_filename !== 'images/') {
+      files.set(_filename.replace('images/', ''), await unzippedFiles.files[_filename].async('string'))
+    }
   }
   return files
 }
@@ -50,15 +52,23 @@ async function getLatexFile (page: Page, urlExercice: string) {
   page.setDefaultTimeout(100000)
 
   await page.goto(urlExercice)
-  await page.reload()
+  // await page.reload()
   await page.click('input#Style2') // style maquette
+
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
   const downloadPromise = page.waitForEvent('download')
   await page.click('button#downloadFullArchive')
-  // page.on('download', download => download.path().then(console.log));
-
+  //
   const download = await downloadPromise
-  // console.log(download.suggestedFilename())
+
+  const downloadError = await download.failure()
+  if (downloadError !== null) {
+    console.log('Error happened on download:', downloadError)
+    throw new Error(downloadError)
+  }
+
+  console.log(download.suggestedFilename())
 
   const uuid = (new URL(urlExercice)).searchParams.get('uuid')
 
@@ -231,7 +241,7 @@ async function testRunAllLots (filter: string) {
         page.on('console', msg => {
           logPDF(msg.text())
         })
-        const local = true
+        const local = false
         const hostname = local ? 'http://localhost:5173/alea/' : 'https://coopmaths.fr/alea/'
         log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
         const resultReq = await getLatexFile(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&v=latex`)
@@ -259,4 +269,12 @@ async function testRunAllLots (filter: string) {
 // testRunAllLots('4e')
 // testRunAllLots('5e')
 // testRunAllLots('6e')
-testRunAllLots('dnb_2023')
+testRunAllLots('dnb_2022')
+// testRunAllLots('2e')
+// testRunAllLots('dnb_2023_06_asie_5') // une image
+// testRunAllLots('dnb_2023_06_etrangers_4')
+// testRunAllLots('dnb_2023_06_metropole_2')
+// testRunAllLots('dnb_2023_06_polynesie_3')
+// testRunAllLots('dnb_2023_09_metropole_5')
+// testRunAllLots('dnb_2023_09_polynesie_1')
+// testRunAllLots('dnb_2023_12_caledonie_2')
