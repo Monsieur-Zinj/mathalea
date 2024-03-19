@@ -86,7 +86,7 @@ export function CibleCarree ({
   let numero
   // Si un numéro est donné, alors on l'ajoute en filigrane.
   if (typeof (num) !== 'undefined') {
-    numero = texteParPosition(num, this.x - this.rang * this.taille / 4, this.y - this.rang * this.taille / 4, 'milieu', this.colorNum, 1, 'middle', false, this.opaciteNum)
+    numero = texteParPosition(num, this.x - this.rang * this.taille / 4, this.y - this.rang * this.taille / 4, 0, this.colorNum, 1, 'milieu', false, this.opaciteNum)
     // numero.opacite = 0.1 TOTALEMENT INUTILE CAR NON FONCTIONNEL
     numero.taille = 30 * this.taille
     numero.contour = true
@@ -96,8 +96,8 @@ export function CibleCarree ({
   // la grille de la cible
   objets.push(grille(arrondi(this.x - this.rang * this.taille / 2), arrondi(this.y - this.rang * this.taille / 2), arrondi(this.x + this.rang * this.taille / 2), arrondi(this.y + this.rang * this.taille / 2), this.color, this.opacite, this.taille, false))
   for (let i = 0; i < rang; i++) {
-    lettre = texteParPosition(lettreDepuisChiffre(1 + i), this.x - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, this.y - (this.rang + 1) * this.taille / 2, 'milieu', 'blue', 0.5, 0.1)
-    chiffre = texteParPosition(i + 1, this.x - (this.rang + 1) * this.taille / 2, this.y - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 'milieu', 'blue', 0.5)
+    lettre = texteParPosition(lettreDepuisChiffre(1 + i), this.x - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, this.y - (this.rang + 1) * this.taille / 2, 0, 'blue', 0.5, 0.1)
+    chiffre = texteParPosition(i + 1, this.x - (this.rang + 1) * this.taille / 2, this.y - this.rang * this.taille / 2 + (2 * i + 1) * this.taille / 2, 0, 'blue', 0.5)
     lettre.taille = 10 * this.taille
     chiffre.taille = 10 * this.taille
     objets.push(lettre)
@@ -235,7 +235,7 @@ export function CibleRonde ({ x = 0, y = 0, rang = 3, num, taille = 0.3, color =
     rayon = segment(centre, rotation(azimut, centre, 45 * i), this.color)
     rayon.opacite = this.opacite
     objets.push(rayon)
-    objets.push(texteParPoint(lettreDepuisChiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 'milieu'))
+    objets.push(texteParPoint(lettreDepuisChiffre(1 + i), rotation(azimut2, centre, 45 * i + 22.5), 0))
   }
   for (let i = 0; i < this.rang; i++) {
     c = cercle(centre, arrondi(this.taille * (1 + i)), this.color)
@@ -351,7 +351,7 @@ export function CibleCouronne ({
       objets.push(rayons[j - 1])
     }
     if (label) {
-      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 'milieu', 'black', 1, 'middle', true)
+      numero = texteParPoint(lettreDepuisChiffre(1 + i), rotation(milieu(azimut, azimut2), centre, arcPlein / nbDivisions / 2), 0, 'black', 1, 'milieu', true)
       numero.contour = true
       objets.push(numero)
     }

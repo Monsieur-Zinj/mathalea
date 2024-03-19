@@ -67,7 +67,7 @@ export default function VariationsCourbe () {
           Tk = tracePoint(A0, A1, A2)
           Tk.epaisseur = 2
           nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           r1 = repere({
             xMin: x0 - 1,
             yMin: Math.min(y2 - 1, y0 - 1),
@@ -147,7 +147,7 @@ export default function VariationsCourbe () {
           Tk = tracePoint(A0, A1, A2)
           Tk.epaisseur = 2
           nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           r1 = repere({
             xMin: x0 - 1,
             yMin: y1 - 2,
@@ -228,7 +228,7 @@ export default function VariationsCourbe () {
           Tk = tracePoint(A0, A1, A2, A3)
           Tk.epaisseur = 2
           nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           r1 = repere({
             xMin: x0 - 1,
             yMin: Math.min(y1 - 1, y3 - 1),
@@ -309,7 +309,7 @@ export default function VariationsCourbe () {
           Tk = tracePoint(A0, A1, A2, A3)
           Tk.epaisseur = 2
           nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           r1 = repere({
             xMin: x0 - 1,
             yMin: Math.min(y2 - 1, y0 - 1),
@@ -393,7 +393,7 @@ export default function VariationsCourbe () {
           Tk = tracePoint(A0, A1, A2, A3, A4)
           Tk.epaisseur = 2
           nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           r1 = repere({
             xMin: x0 - 1,
             yMin: Math.min(y2 - 1, y0 - 1, y4 - 1),
@@ -477,7 +477,7 @@ export default function VariationsCourbe () {
           Tk = tracePoint(A0, A1, A2, A3, A4)
           Tk.epaisseur = 2
           nom = choice(nomF)
-          o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+          o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
           r1 = repere({
             xMin: x0 - 1,
             yMin: Math.min(y1 - 2, y3 - 2),
@@ -560,7 +560,7 @@ export default function VariationsCourbe () {
 
             Tk = tracePoint(A0, A1, A2, A3)
             Tk.epaisseur = 2
-            o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+            o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
 
             r1 = repere({
               xMin: 0,
@@ -654,7 +654,7 @@ export default function VariationsCourbe () {
 
             Tk = tracePoint(A0, A1, A2, A3)
             Tk.epaisseur = 2
-            o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+            o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
 
             r1 = repere({
               xMin: 0,

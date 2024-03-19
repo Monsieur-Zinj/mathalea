@@ -164,9 +164,9 @@ export default function ModeliseInequations () {
             poly1.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             poly2.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
             objets.push(segment(A, B), segment(B, C), segment(D, A), segment(C, D), labelPoint(A, B, C, D, M), poly1, poly2)
-            objets.push(texteParPosition('x', milieu(A, M).x, milieu(A, M).y - 0.7, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`${texNombre(l)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`${texNombre(L)}`, milieu(C, D).x, milieu(C, D).y + 0.5, 'milieu', 'black', 1, 'middle', true))
+            objets.push(texteParPosition('x', milieu(A, M).x, milieu(A, M).y - 0.7, 0, 'black', 1, 'milieu', true),
+              texteParPosition(`${texNombre(l)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 0, 'black', 1, 'milieu', true),
+              texteParPosition(`${texNombre(L)}`, milieu(C, D).x, milieu(C, D).y + 0.5, 0, 'black', 1, 'milieu', true))
 
             texte = ` Soit $ABCD$ un rectangle tel que $AD=${l}$ et $DC=${L}$.<br>
             $M$ est un point du segment $[AB]$. On note $AM=x$.<br>
@@ -225,10 +225,10 @@ export default function ModeliseInequations () {
             poly.couleurDeRemplissage = colorToLatexOrHTML('lightgray')
 
             objets.push(poly, segmentEA)
-            objets.push(texteParPosition('x', milieu(G, F).x - 0.5, milieu(G, F).y, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition('x', milieu(G, A).x, milieu(G, A).y - 0.5, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`x+${texNombre(b)}`, milieu(B, C).x + 1, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`${texNombre(a)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true)
+            objets.push(texteParPosition('x', milieu(G, F).x - 0.5, milieu(G, F).y, 0, 'black', 1, 'milieu', true),
+              texteParPosition('x', milieu(G, A).x, milieu(G, A).y - 0.5, 0, 'black', 1, 'milieu', true),
+              texteParPosition(`x+${texNombre(b)}`, milieu(B, C).x + 1, milieu(B, C).y, 0, 'black', 1, 'milieu', true),
+              texteParPosition(`${texNombre(a)}`, milieu(A, B).x, milieu(A, B).y - 0.5, 0, 'black', 1, 'milieu', true)
             )
 
             texte = ` On considère la figure ci-dessous (l'unité est le centimètre). <br>
@@ -277,10 +277,10 @@ export default function ModeliseInequations () {
             const poly3 = polygone([G, E, F], 'black')
             poly3.couleurDeRemplissage = colorToLatexOrHTML('#75ee7e')
             objets.push(poly1, poly2, poly3, segmentFH, codageAngleDroit(F, H, E))
-            objets.push(texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.7, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`${texNombre(a)}`, milieu(G, A).x - 0.8, milieu(G, A).y, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`${texNombre(a)}`, milieu(B, C).x, milieu(B, C).y - 0.7, 'milieu', 'black', 1, 'middle', true),
-              texteParPosition(`${texNombre(b)}`, milieu(F, H).x + 0.5, milieu(F, H).y, 'milieu', 'black', 1, 'middle', true)
+            objets.push(texteParPosition('x', milieu(A, B).x, milieu(A, B).y - 0.7, 0, 'black', 1, 'milieu', true),
+              texteParPosition(`${texNombre(a)}`, milieu(G, A).x - 0.8, milieu(G, A).y, 0, 'black', 1, 'milieu', true),
+              texteParPosition(`${texNombre(a)}`, milieu(B, C).x, milieu(B, C).y - 0.7, 0, 'black', 1, 'milieu', true),
+              texteParPosition(`${texNombre(b)}`, milieu(F, H).x + 0.5, milieu(F, H).y, 0, 'black', 1, 'milieu', true)
             )
 
             texte = ` On considère la figure ci-dessous sur laquelle les longueurs sont en cm. <br>

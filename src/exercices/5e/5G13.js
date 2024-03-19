@@ -198,8 +198,8 @@ export default function ConservationTransformation () {
       // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
       paramsEnonce = { xmin, ymin, xmax, ymax, pixelsParCm: 20, scale: 1 }
       // On ajoute les noms des droites si besoin
-      if (listeTypeDeTransformations[i] === 'symetrieAxiale') objetsEnonceEtCorr.push(texteParPoint('$(d)$', positionLabelDroite(d, paramsEnonce), 'milieu', 'black', 1, 'middle', true))
-      if (listeTypeDeQuestions[i] === 'parallelisme') objetsEnonceEtCorr.push(texteParPoint('$(d_1)$', positionLabelDroite(d1, paramsEnonce), 'milieu', 'black', 1, 'middle', true))
+      if (listeTypeDeTransformations[i] === 'symetrieAxiale') objetsEnonceEtCorr.push(texteParPoint('$(d)$', positionLabelDroite(d, paramsEnonce), 0, 'black', 1, 'milieu', true))
+      if (listeTypeDeQuestions[i] === 'parallelisme') objetsEnonceEtCorr.push(texteParPoint('$(d_1)$', positionLabelDroite(d1, paramsEnonce), 0, 'black', 1, 'milieu', true))
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += mathalea2d(Object.assign({}, fixeBordures([objetsEnonceOnly, objetsEnonceEtCorr])), objetsEnonceOnly, objetsEnonceEtCorr)
 

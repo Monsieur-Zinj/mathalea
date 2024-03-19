@@ -70,12 +70,12 @@ export default function RelationDeThales () {
       MNC.id = `M2D_${numeroExercice}_${i}_2`
       const m = pointSurSegment(M, N, -0.5)
       const n = pointSurSegment(N, M, -0.5)
-      const marqueNomM = texteParPoint(nomM, m, 'milieu', 'black', 1, 'middle', true)
-      const marqueNomN = texteParPoint(nomN, n, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomM = texteParPoint(nomM, m, 0, 'black', 1, 'milieu', true)
+      const marqueNomN = texteParPoint(nomN, n, 0, 'black', 1, 'milieu', true)
       const a = pointSurSegment(A, B, -0.5)
       const b = pointSurSegment(B, A, -0.5)
-      const marqueNomA = texteParPoint(nomA, a, 'milieu', 'black', 1, 'middle', true)
-      const marqueNomB = texteParPoint(nomB, b, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomA = texteParPoint(nomA, a, 0, 'black', 1, 'milieu', true)
+      const marqueNomB = texteParPoint(nomB, b, 0, 'black', 1, 'milieu', true)
       let c
       if (k < 0) {
         if (angle(A, C, N) < angle(N, C, A)) {
@@ -86,7 +86,7 @@ export default function RelationDeThales () {
       } else {
         c = similitude(A, C, -180 + angleOriente(A, C, B) / 2, 1 / longueur(A, C) * 0.5)
       }
-      const marqueNomC = texteParPoint(nomC, c, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomC = texteParPoint(nomC, c, 0, 'black', 1, 'milieu', true)
 
       texte = 'Sur la figure suivante : '
       if (k > 0) {

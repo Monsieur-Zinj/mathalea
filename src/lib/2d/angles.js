@@ -441,7 +441,7 @@ export function codageAngle (A, O, angle, taille = 0.8, mark = '', color = 'blac
 export function NomAngleParPosition (nom, x, y, color, s) {
   ObjetMathalea2D.call(this, {})
   const objets = []
-  objets.push(texteParPosition(nom, x, y, 'milieu', color, 1, 'middle', true))
+  objets.push(texteParPosition(nom, x, y, 0, color, 1, 'milieu', true))
   const s1 = segment(x - 0.6, y + 0.4 - s / 10, x + 0.1, y + 0.4 + s / 10, color)
   const s2 = segment(x + 0.1, y + 0.4 + s / 10, x + 0.8, y + 0.4 - s / 10, color)
   objets.push(s1, s2)

@@ -53,7 +53,7 @@ export default function Representerfonctionaffine () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    const o = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.5, -0.5, 0, 'black', 1)
     for (let i = 0, a, b, r, c, d, tA, lA, tB, lB, xA, yA, xB, yB, f, lC, typesDeQuestions, texte, texteCorr, cadre, cadreFenetreSvg, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       typesDeQuestions = listeTypeDeQuestions[i]
