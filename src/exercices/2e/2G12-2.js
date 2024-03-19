@@ -90,9 +90,9 @@ export default function Milieu () {
       B.nom = nom[1]
       M.nom = nom[2]
 
-      I = texteParPosition('I', 1, -0.5, 'milieu', 'black', 1)
-      J = texteParPosition('J', -0.5, 1, 'milieu', 'black', 1)
-      o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      I = texteParPosition('I', 1, -0.5, 0, 'black', 1)
+      J = texteParPosition('J', -0.5, 1, 0, 'black', 1)
+      o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       s = segment(A, B, 'blue')
 
       s.epaisseur = 2

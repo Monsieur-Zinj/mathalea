@@ -43,7 +43,7 @@ export default function EtudierGraphiqueParite () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, A, B, s1, s2, s3, s4, a, b, c, f, r, rC, x, C, traceAetB, labA1, labA0, labB0, lA, lB = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
-      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       switch (typesDeQuestions) {
         case 1:// Cas f(x)=ax+b
           a = randint(-2, 2, [0])
@@ -370,8 +370,8 @@ export default function EtudierGraphiqueParite () {
 
           B = point(x, 1 / (a * x + b))
           A = point(-x, 1 / (-a * x + b))
-          lA = texteParPosition('$M\'$', -x + (a > 0 ? -1 : 1), 1 / (-a * x + b) + (a > 0 ? 0.5 : -0.5), 'milieu', 'red', 1.5)
-          lB = texteParPosition('$M$', x - (a > 0 ? -1 : 1), 1 / (a * x + b) + (a > 0 ? 0.5 : -0.5), 'milieu', 'red', 1.5)
+          lA = texteParPosition('$M\'$', -x + (a > 0 ? -1 : 1), 1 / (-a * x + b) + (a > 0 ? 0.5 : -0.5), 0, 'red', 1.5)
+          lB = texteParPosition('$M$', x - (a > 0 ? -1 : 1), 1 / (a * x + b) + (a > 0 ? 0.5 : -0.5), 0, 'red', 1.5)
 
           traceAetB = tracePoint(A, B, 'red') // objet qui contient les croix des points
 
@@ -433,13 +433,13 @@ export default function EtudierGraphiqueParite () {
 
           B = point(2 * x, 1 / (a * x))
           A = point(-2 * x, -1 / (a * x))
-          labA0 = texteParPosition('$-x$', -2 * x - 0.2, -0.8, 'milieu', 'red', 1)
+          labA0 = texteParPosition('$-x$', -2 * x - 0.2, -0.8, 0, 'red', 1)
           // labA0 = latexParCoordonnees('-x', -2*x - 0.2, -0.8, 'red', 20, 10, 'white', 8)
-          labB0 = texteParPosition('$x$', 2 * x - 0.2, -0.8, 'milieu', 'red', 1)
+          labB0 = texteParPosition('$x$', 2 * x - 0.2, -0.8, 0, 'red', 1)
           // labB0 = latexParCoordonnees('x', 2 * x, -0.8, 'red', 20, 10, 'white', 8)
-          lA = texteParPosition('$M\'$', 2 * (-x) - 0.2, 0.5, 'milieu', 'red', 1)
+          lA = texteParPosition('$M\'$', 2 * (-x) - 0.2, 0.5, 0, 'red', 1)
           // lA = latexParCoordonnees('M\'', 2 * (-x), -1 / (a * x), 'red', 15, 10, 'white', 7)
-          lB = texteParPosition('$M$', 2 * (x) - 0.2, 0.5, 'milieu', 'red', 1)
+          lB = texteParPosition('$M$', 2 * (x) - 0.2, 0.5, 0, 'red', 1)
           // lB = latexParCoordonnees('M', 2 * (x), 1 / (a * x), 'red', 15, 10, 'white', 7)
           labA1 = latexParCoordonnees('f(-x)=-f(x)', 3, 3, 'red', 80, 10, '', 14)
           traceAetB = tracePoint(A, B, 'red') // objet qui contient les croix des points

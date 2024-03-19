@@ -299,7 +299,7 @@ export function Droite (arg1, arg2, arg3, arg4, arg5) {
     if (this.nom.includes('$')) {
       leNom = latexParCoordonnees(this.nom, absNom, ordNom, this.color, 0, 0, '', 8)
     } else {
-      leNom = texteParPosition(this.nom, absNom, ordNom, 'milieu', this.color, 1, 'middle', true)
+      leNom = texteParPosition(this.nom, absNom, ordNom, 0, this.color, 1, 'milieu', true)
     }
   }
 

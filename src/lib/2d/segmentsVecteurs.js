@@ -94,7 +94,7 @@ export function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
   this.angle = angle
   this.taille = taille
   const objets = []
-  const t = texteParPosition(this.nom, this.x, this.y, -this.angle, this.color, this.taille, 'middle', true)
+  const t = texteParPosition(this.nom, this.x, this.y, -this.angle, this.color, this.taille, 'milieu', true)
   const M = point(this.x, this.y)
   const P = point(M.x + 0.25 * this.nom.length, M.y)
   const M0 = similitude(P, M, 90 + this.angle, 2 / this.nom.length)

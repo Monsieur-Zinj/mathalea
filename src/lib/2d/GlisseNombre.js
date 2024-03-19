@@ -31,7 +31,7 @@ export function GlisseNombre (nombre = '', decalage = 0) {
   const placeDansTableau = (texte, colonne, ligne, vertical = false, couleur = 'black') => {
     let textePlaceDansTableau = ''
     if (vertical) {
-      textePlaceDansTableau = texteParPosition(texte, A.x + (colonne + 0.5) * largeurColonne, A.y - 0.9 * hauteurPremiereLigne, -90, couleur, 1, 'start')
+      textePlaceDansTableau = texteParPosition(texte, A.x + (colonne + 0.5) * largeurColonne, A.y - 0.9 * hauteurPremiereLigne, -90, couleur, 1, 'gauche')
     } else {
       textePlaceDansTableau = texteParPosition(texte, A.x + (colonne + 0.5) * largeurColonne, A.y - (ligne - 0.5) * hauteurLigne - hauteurPremiereLigne, 0, couleur)
     }
@@ -74,8 +74,8 @@ export function GlisseNombre (nombre = '', decalage = 0) {
       objets.push(chiffre)
       chiffresADecaler.push(chiffre2)
     }
-    const texte1 = texteParPosition(',', A.x + 6.9 * largeurColonne, A.y - 0.3 * hauteurLigne - hauteurPremiereLigne, 'milieu', '#f15929', 3)
-    const texte2 = texteParPosition(',', A.x + 6.9 * largeurColonne, A.y - 1.3 * hauteurLigne - hauteurPremiereLigne, 'milieu', '#f15929', 3)
+    const texte1 = texteParPosition(',', A.x + 6.9 * largeurColonne, A.y - 0.3 * hauteurLigne - hauteurPremiereLigne, 0, '#f15929', 3)
+    const texte2 = texteParPosition(',', A.x + 6.9 * largeurColonne, A.y - 1.3 * hauteurLigne - hauteurPremiereLigne, 0, '#f15929', 3)
     texte1.isVisible = false
     texte2.isVisible = false
     texte1.gras = true
@@ -84,7 +84,7 @@ export function GlisseNombre (nombre = '', decalage = 0) {
     objets.push(texte2)
   } else if (decalage < 0) { // pas de partie décimale mais une division alors virgule pour le 2e nombre
     if (context.isHtml) {
-      const texte2 = texteParPosition(',', A.x + 6.9 * largeurColonne, A.y - 1.3 * hauteurLigne - hauteurPremiereLigne, 'milieu', '#f15929', 3)
+      const texte2 = texteParPosition(',', A.x + 6.9 * largeurColonne, A.y - 1.3 * hauteurLigne - hauteurPremiereLigne, 0, '#f15929', 3)
       texte2.isVisible = false
       texte2.gras = true
       objets.push(apparitionAnimee(texte2, 6, 0.2))

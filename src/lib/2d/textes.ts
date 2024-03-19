@@ -14,9 +14,9 @@ export const tikzAncrages = {
   droite: 'east'
 }
 export const svgAncrages = {
-  gauche: 'end',
+  gauche: 'start',
   milieu: 'middle',
-  droite: 'start'
+  droite: 'end'
 }
 /**
  * Associe à tous les points passés en paramètre, son label, défini préalablement en Latex. Par exemple, si besoin de nommer le point A_1.
@@ -206,13 +206,13 @@ export function deplaceLabel (p: Polygone, nom: string, positionLabel: string) {
 /**
  * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
  * texteParPoint('mon texte',A,45) // Écrit 'mon texte' centré sur A avec une rotation de 45°
- * orientation est très mal choisi ! ça peut être un nombre ou un string
- * Si oriention est un nombre, alors c'est l'angle de rotation, et il faut positionner le centre de rotation ancrageDeRotation
- * Soit c'est 'milieu' et là, je ne vois pas le rapport mais ancrageDeRotation n'est pas utilisé.
- * ancrageDeRotation est à prendre parmi ['middle', 'start', 'end'] les valeurs 'gauche' et 'droite' sont absolument sans effet !
+ * texteParPoint('mon texte',A, 0, 'black', 1, 'gauche',true, 0.5) // écrit le texte à droite du point A car le point d'ancrage est à gauche
+ *  // couleur du texte en noir, avec une taille normale et une police mathématique et une opacité de 50%
+ * oriention est un nombre, c'est l'angle de rotation (0 par défaut), et il faut positionner le centre de rotation avec ancrageDeRotation (milieu par défaut)
+ * ancrageDeRotation est à prendre parmi ['milieu', 'gauche', 'droite']
  * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
  * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
- * @author Rémi Angot
+ * @author Rémi Angot rectifié par Jean-Claude Lhote
  */
 export class TexteParPoint extends ObjetMathalea2D {
   texte: string
@@ -330,7 +330,17 @@ export class TexteParPoint extends ObjetMathalea2D {
     }
   }
 }
-
+/**
+ * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
+ * texteParPoint('mon texte',A,45) // Écrit 'mon texte' centré sur A avec une rotation de 45°
+ * texteParPoint('mon texte',A, 0, 'black', 1, 'gauche',true, 0.5) // écrit le texte à droite du point A car le point d'ancrage est à gauche
+ *  // couleur du texte en noir, avec une taille normale et une police mathématique et une opacité de 50%
+ * oriention est un nombre, c'est l'angle de rotation (0 par défaut), et il faut positionner le centre de rotation avec ancrageDeRotation (milieu par défaut)
+ * ancrageDeRotation est à prendre parmi ['milieu', 'gauche', 'droite']
+ * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
+ * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
+ * @author Rémi Angot rectifié par Jean-Claude Lhote
+ */
 export function texteParPoint (texte: string, A: Point, orientation:number = 0, color:string = 'black', scale:number = 1, ancrageDeRotation:'milieu'|'droite'|'gauche' = 'milieu', mathOn:boolean = false, opacite:number = 1) {
   return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, opacite)
 }
@@ -408,14 +418,14 @@ export function texteParPositionEchelle (texte:string, x:number, y:number, orien
 }
 
 /**
- * texteParPosition('mon texte',x,y) // Écrit 'mon texte' avec le point de coordonnées (x,y) au centre du this.texte.
- *
- * texteParPosition('mon texte',x,y,'gauche') // Écrit 'mon texte' à gauche du point de coordonnées (x,y) (qui sera la fin du texte)
- *
- * texteParPosition('mon texte',x,y,'droite') // Écrit 'mon texte' à droite du point de coordonnées (x,y) (qui sera le début du texte)
- *
- * texteParPosition('mon texte',x,y,45) // Écrit 'mon texte'  centré sur le point de coordonnées (x,y) avec une rotation de 45°
- *
+ * texteParPosition('mon texte',x,y) // Écrit 'mon texte' avec (x,y) au centre du texte
+ * texteParPoint('mon texte',x,y,45) // Écrit 'mon texte' centré sur A avec une rotation de 45°
+ * orientation est très mal choisi ! ça peut être un nombre ou un string
+ * Si oriention est un nombre, alors c'est l'angle de rotation, et il faut positionner le centre de rotation ancrageDeRotation
+ * ancrageDeRotation est à prendre parmi ['milieu', 'gauche', 'droite'] les valeurs 'gauche' et 'droite' sont absolument sans effet !
+ * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
+ * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
+ * @author Rémi Angot
  * @param {string} texte // Le texte qu'on veut afficher
  * @param {number} x // L'abscisse de la position initiale du texte
  * @param {number} y // L'ordonnée de la position initiale du texte

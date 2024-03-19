@@ -73,15 +73,15 @@ export default function ConstruireUnAngle () {
       A = point(0, 0)
       B = point(5, 0)
       B = rotation(B, A, anglerot)
-      Apos = texteParPoint(p[1], similitude(B, A, -90, 0.1), 'milieu', 'black', 1, 'middle', true)
-      Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.9), signe[i] * 90, 0.1), 'milieu', 'black', 1, 'middle', true)
+      Apos = texteParPoint(p[1], similitude(B, A, -90, 0.1), 0, 'black', 1, 'milieu', true)
+      Bpos = texteParPoint(p[0], similitude(A, homothetie(B, A, 0.9), signe[i] * 90, 0.1), 0, 'black', 1, 'milieu', true)
 
       s = segment(A, B)
       s.styleExtremites = '|-'
       s.epaisseur = 2
       s.tailleExtremites = 1.5
       C = rotation(B, A, angle)
-      Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.9), -signe[i] * 90, 0.1), 'milieu', 'black', 1, 'middle', true)
+      Cpos = texteParPoint(p[2], similitude(A, homothetie(C, A, 0.9), -signe[i] * 90, 0.1), 0, 'black', 1, 'milieu', true)
       fleche = sensDeRotation(B, A, signe[i])
       s2 = segment(A, C)
       s2.styleExtremites = '|-'

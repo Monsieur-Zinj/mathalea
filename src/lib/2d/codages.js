@@ -295,11 +295,11 @@ export function AfficheLongueurSegment (A, B, color = 'black', d = 0.5, unite = 
   this.bordures = [O.x - 0.5, O.y - 0.5, O.x + 0.5, O.y + 0.5] // C'est n'importe quoi, mais de toute façon, le segment a ses bordures, lui !
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, (this.distance * 20) / coeff)
-    return texteParPoint(longueurSeg, N, angle, this.color, 1, 'middle', false).svg(coeff)
+    return texteParPoint(longueurSeg, N, angle, this.color, 1, 'milieu', false).svg(coeff)
   }
   this.tikz = function () {
     const N = pointSurSegment(O, M, this.distance / context.scale)
-    return texteParPoint(longueurSeg, N, angle, this.color, 1, 'middle', false).tikz()
+    return texteParPoint(longueurSeg, N, angle, this.color, 1, 'milieu', false).tikz()
   }
 }
 
@@ -357,11 +357,11 @@ export function TexteSurSegment (texte, A, B, color = 'black', d = 0.5, horizont
   }
   this.svg = function (coeff) {
     const N = pointSurSegment(O, M, this.distance * 20 / coeff)
-    return texteParPoint(this.texte, N, angle, this.color, this.scale, 'middle', this.mathOn).svg(coeff)
+    return texteParPoint(this.texte, N, angle, this.color, this.scale, 'milieu', this.mathOn).svg(coeff)
   }
   this.tikz = function () {
     const N = pointSurSegment(O, M, this.distance / context.scale)
-    return texteParPoint(this.texte, N, angle, this.color, this.scale, 'middle', this.mathOn).tikz()
+    return texteParPoint(this.texte, N, angle, this.color, this.scale, 'milieu', this.mathOn).tikz()
   }
 }
 
@@ -926,7 +926,7 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
     objets.push(t)
   }
   if (mesureOn && texteACote === '') {
-    const t = texteParPoint(mesure, M, 'milieu', this.color, this.tailleTexte)
+    const t = texteParPoint(mesure, M, 0, this.color, this.tailleTexte)
     objets.push(t)
   } else if (texteACote !== '') {
     if (texteACote.includes('$')) {
@@ -934,99 +934,7 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
       const label = latexParPoint(texteACote.substring(1, texteACote.length - 1), M, this.color)
       label.colorBackground = colorToLatexOrHTML('transparent') // transparent
       objets.push(label)
-    } else objets.push(texteParPoint(texteACote, M, 'milieu', this.color, this.tailleTexte))
+    } else objets.push(texteParPoint(texteACote, M, 0, this.color, this.tailleTexte))
   }
-  /* this.svg = function (coeff) {
-    let code = ''
-    const objets = []
-    const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
-    const P = rotation(depart, this.centre, this.angle / 2)
-    const M = pointSurSegment(this.centre, P, this.taille + 0.6 * 20 / coeff)
-    const d = droite(this.centre, P)
-    d.isVisible = false
-    const mesure = arrondi(Math.abs(angle), this.angleArrondi) + '°'
-    const arcangle = arc(depart, this.centre, this.angle, this.couleurDeRemplissage !== 'none', this.couleurDeRemplissage, this.color)
-    arcangle.isVisible = false
-    arcangle.opacite = this.opacite
-    arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    objets.push(arcangle)
-    if (this.mark !== '') {
-      const t = texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color, this.echelleMark)
-      t.isVisible = false
-      objets.push(t)
-    }
-    if (mesureOn && this.texteACote === '') {
-      const t = texteParPoint(mesure, M, 'milieu', this.color, this.tailleTexte)
-      t.isVisible = false
-      objets.push(t)
-    }
-
-    if (this.texteACote !== '') objets.push(texteParPoint(this.texteACote, M, 'milieu', this.color, this.tailleTexte))
-
-    for (const objet of objets) {
-      code += '\n\t' + objet.svg(coeff)
-    }
-    if (objets.length > 1) {
-      code = `<g id="${this.id}">${code}</g>`
-    } else {
-      this.id = arcangle.id // Dans le cas où il n'y a pas de groupe, on récupère l'id
-    }
-    return code
-  }
-
-  this.svgml = function (coeff, amp) {
-    let code = ''
-    const depart = pointSurSegment(this.centre, this.debut, this.taille * 20 / context.pixelsParCm)
-    const P = rotation(depart, this.centre, this.angle / 2)
-    const M = pointSurSegment(this.centre, P, taille + 0.6 * 20 / coeff)
-    const mesure = Math.round(Math.abs(angle)) + '°'
-    const d = droite(this.centre, P)
-    d.isVisible = false
-    const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
-    arcangle.opacite = this.opacite
-    arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color, this.tailleTexte).svg(coeff) + '\n'
-    if (mesureOn && this.texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).svg(coeff) + '\n'
-    if (this.texteACote !== '') code += texteParPoint(this.texteACote, M, 'milieu', this.color, this.tailleTexte).svg(coeff) + '\n'
-    code += arcangle.svgml(coeff, amp)
-    return code
-  }
-  this.tikz = function () {
-    let code = ''
-    const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
-    const P = rotation(depart, this.centre, this.angle / 2)
-    const M = pointSurSegment(this.centre, P, taille + 0.6 / context.scale)
-    const mesure = Math.round(Math.abs(angle)) + '°'
-    const d = droite(this.centre, P)
-    d.isVisible = false
-    const arcangle = arc(depart, this.centre, this.angle, this.couleurDeRemplissage !== 'none', this.couleurDeRemplissage, this.color)
-    arcangle.opacite = this.opacite
-    arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, P, 90 - d.angleAvecHorizontale, this.color, this.tailleTexte).tikz() + '\n'
-    if (mesureOn && this.texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
-    if (this.texteACote !== '') code += texteParPoint(this.texteACote, M, 'milieu', this.color, this.tailleTexte).tikz() + '\n'
-    code += arcangle.tikz()
-    return code
-  }
-  this.tikzml = function (amp) {
-    let code = ''
-    const depart = pointSurSegment(this.centre, this.debut, this.taille / context.scale)
-    const M = rotation(depart, this.centre, this.angle / 2)
-    const mesure = Math.round(Math.abs(angle)) + '°'
-    const d = droite(this.centre, M)
-    d.isVisible = false
-    const arcangle = arc(depart, this.centre, this.angle, false, this.couleurDeRemplissage, this.color)
-    arcangle.opacite = this.opacite
-    arcangle.epaisseur = this.epaisseur
-    arcangle.opaciteDeRemplissage = this.opaciteDeRemplissage
-    if (this.mark !== '') code += texteParPoint(mark, M, 90 - d.angleAvecHorizontale, this.color, this.tailleTexte).tikz() + '\n'
-    if (mesureOn && this.texteACote === '') code += texteParPoint(mesure, M, 'milieu', this.color).tikz() + '\n'
-    if (this.texteACote !== '') code += texteParPoint(this.texteACote, M, 'milieu', this.color, this.tailleTexte).tikz() + '\n'
-    code += arcangle.tikzml(amp)
-    return code
-  } */
   return objets
 }

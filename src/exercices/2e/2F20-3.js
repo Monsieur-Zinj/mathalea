@@ -58,7 +58,7 @@ export default function LecturesGraphiques () {
     let antecedentTrouve
     let enonceAMC = ''
     const reponses = []
-    const origine = texteParPosition('O', -0.5, -0.5, 'milieu', 'black', 1, 'middle', true)
+    const origine = texteParPosition('O', -0.5, -0.5, 0, 'black', 1, 'milieu', true)
     let antecedents = []
     let s = []
     const r = repere({

@@ -504,7 +504,7 @@ export function AxeY (
   ObjetMathalea2D.call(this, {})
   const objets = []
   if (titre !== '') {
-    objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 0, color, 1, 'milieu', false, 1))
+    objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 0, color, 1, 0, false, 1))
   }
   const ordonnee = segment(-1, ymin.valueOf(), -1, ymax.valueOf(), color)
   ordonnee.styleExtremites = '->'
@@ -597,8 +597,8 @@ export function LabelY (ymin = 1, ymax = 20, step = 1, color = 'black', pos = -0
       texteParPoint(
         stringNombre(y * coeff, 3),
         point(pos, y),
-        'gauche',
-        color, 1, 'middle', true
+        0,
+        color, 1, 'gauche', true
       )
     )
   }
@@ -1486,7 +1486,7 @@ export function Repere ({
       let l
       if (typeof x === 'number') {
         if (x >= xMin && x <= xMax) {
-          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 'milieu', 'black', 0.8, 'middle', false)
+          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 0, 'black', 0.8, 'milieu', false)
           //   l.isVisible = false
           objets.push(l)
         }
@@ -1509,7 +1509,7 @@ export function Repere ({
       let l
       if (typeof y === 'number') {
         if (y >= yMin && y <= yMax) {
-          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 'milieu', 'black', 0.8, 'middle', false)
+          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 0, 'black', 0.8, 'milieu', false)
           //  l.isVisible = false
           objets.push(l)
         }

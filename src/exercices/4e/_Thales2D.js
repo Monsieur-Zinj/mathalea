@@ -100,7 +100,7 @@ export default function Thales2D () {
       } else {
         posM = pointSurSegment(M, N, -0.5)
       }
-      const marqueNomM = texteParPoint(nomM, posM, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomM = texteParPoint(nomM, posM, 0, 'black', 1, 'milieu', true)
 
       let posN
       if (k > 0) {
@@ -112,19 +112,19 @@ export default function Thales2D () {
       } else {
         posN = pointSurSegment(N, M, -0.5)
       }
-      const marqueNomN = texteParPoint(nomN, posN, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomN = texteParPoint(nomN, posN, 0, 'black', 1, 'milieu', true)
 
       const a = pointSurSegment(A, B, -0.5)
       const b = pointSurSegment(B, A, -0.5)
-      const marqueNomA = texteParPoint(nomA, a, 'milieu', 'black', 1, 'middle', true)
-      const marqueNomB = texteParPoint(nomB, b, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomA = texteParPoint(nomA, a, 0, 'black', 1, 'milieu', true)
+      const marqueNomB = texteParPoint(nomB, b, 0, 'black', 1, 'milieu', true)
       let posC
       if (k < 0) {
         posC = similitude(A, C, -angleOriente(N, C, A) / 2, 1 / longueur(A, C) * 0.5)
       } else {
         posC = similitude(A, C, -180 + angleOriente(A, C, B) / 2, 1 / longueur(A, C) * 0.5)
       }
-      const marqueNomC = texteParPoint(nomC, posC, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomC = texteParPoint(nomC, posC, 0, 'black', 1, 'milieu', true)
 
       texte = `Sur la figure suivante, $${nomA + nomC}=${ac}~\\text{cm}$, $${nomA + nomB}=${ab}~\\text{cm}$, $${nomC + nomM}=${texNombre(Math.abs(k) * ac)}~\\text{cm}$, $${nomC + nomN}=${texNombre(Math.abs(k) * bc)}~\\text{cm}$ et $(${nomA + nomB})//(${nomM + nomN})$.<br>`
       if (!this.interactif) {
