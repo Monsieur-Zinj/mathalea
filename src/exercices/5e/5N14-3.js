@@ -108,8 +108,6 @@ export default function EqResolvantesThales () {
     this.nbQuestions = 4
   }
   this.sup = 1 // Niveau de difficulté
-  this.consigne = 'Les égalités suivantes sont-elles vraies ? Justifier.'
-
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   context.isHtml ? this.spacing = 3 : this.spacing = 2
@@ -123,6 +121,8 @@ export default function EqResolvantesThales () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+
+    this.consigne = this.nbQuestions > 1 ? 'Les égalités suivantes sont-elles vraies ? Justifier.' : 'L\'égalité suivante est-elle vraie ? Justifier.'
 
     const listeTypeDeQuestions = Number(this.sup < 4) ? Array(this.nbQuestions).fill(Number(this.sup)) : Array(this.nbQuestions).fill(0).map(() => randint(1, 3))
 
