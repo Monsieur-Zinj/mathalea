@@ -249,7 +249,13 @@ class Latex {
       if (contents.content.includes('\\begin{bclogo}') || contents.content.includes('\\fcolorbox{nombres}')) {
         contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
       }
-      if (contents.content.includes(',decorate,decoration=')) {
+      if (contents.content.includes('\\begin{tikzpicture}')) {
+        contents.preamble += '\n\\usepackage{tikz}'
+      }
+      if (contents.content.includes('\\begin{axis}')) {
+        contents.preamble += '\n\\usepackage{pgfplots}'
+      }
+      if (contents.content.includes('decorate,decoration=') || (contents.content.includes('decorate, decoration='))) {
         contents.preamble += '\n\\usetikzlibrary{decorations.pathmorphing}'
       }
       if (contents.content.includes('\\tkzText')) {
@@ -261,13 +267,32 @@ class Latex {
       if (contents.content.includes('\\degre') ||
           contents.content.includes('\\og') ||
           contents.content.includes('\\up{') ||
-          contents.content.includes('\\no ')) {
-        // gestion des copmmandes pour les sujets DNB : 2023-2022
+          contents.content.includes('\\ieme{') ||
+          contents.content.includes('\\no')) {
+        // gestion des commandes pour les sujets DNB : 2023-2022
         contents.preamble += '\n\\usepackage[french]{babel}'
       }
       if (contents.content.includes('\\red')) {
         // gestion des couleurs pour les sujets DNB : 2023
-        contents.preamble += '\n\\usepackage{pstcol}'
+        contents.preamble += '\n\\usepackage{xcolor}'
+      }
+      if (contents.content.includes('\\starredbullet')) {
+        // gestion des commandes pour les sujets DNB : 2023
+        contents.preamble += '\n\\usepackage{MnSymbol}'
+        contents.preamble += '\n\\newcommand\\starredbullet{\\medstar}'
+      }
+      if (contents.content.includes('\\R') || contents.content.includes('\\N')) {
+        // gestion des commandes pour les sujets DNB : 2023
+        contents.preamble += '\n\\newcommand\\R{\\mathbb{R}}'
+        contents.preamble += '\n\\newcommand\\N{\\mathbb{N}}'
+      }
+      if (contents.content.includes('\\backslashbox')) {
+        // gestion des commandes pour les sujets DNB : 2023
+        contents.preamble += '\n\\usepackage{slashbox}'
+      }
+      if (contents.content.includes('\\ds')) {
+        // gestion des commandes pour les sujets DNB : 2023
+        contents.preamble += '\\newcommand{\\ds}{\\displaystyle}'
       }
       if (contents.content.includes('\\diagbox{')) {
         // gestion des commandes pour les sujets DNB : 2023
