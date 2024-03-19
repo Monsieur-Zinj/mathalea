@@ -62,7 +62,7 @@ export function cleanStringBeforeParse (aString: string) {
     .replaceAll(',', '.')
 }
 
-type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex' | 'foisUn' | 'unites'
+type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex' | 'foisUn' | 'unites' | 'mathrm'
 
 /**
  * Nettoie la saisie des \\dfrac en les remplaçant par des \frac comprises par ComputeEngine
@@ -111,6 +111,10 @@ function cleanParenthses (str: string): string {
     .replaceAll('\\left\\rbrack', ']')
 }
 
+function cleanMathRm (str: string): string {
+  return str.replace(/\\mathrm\{(\w+)\}/g, '$1')
+}
+
 /**
  * Nettoie le latex \text{} mis pour séparer le nombre de l'unité en mode texte
  * @param {string} str
@@ -153,6 +157,8 @@ export function generateCleaner (operations: CleaningOperation[]): (str: string)
         return cleanParenthses
       case 'puissances':
         return cleanPower
+      case 'mathrm':
+        return cleanMathRm
       case 'divisions':
         return cleanDivisions
       case 'latex':
@@ -409,6 +415,9 @@ export function scientificCompare (input: string, goodAnswer: string): ResultTyp
  * @return ResultType
  */
 export function textCompare (input: string, goodAnswer: string): ResultType {
+  const cleaner = generateCleaner(['parentheses', 'mathrm'])
+  input = cleaner(input)
+  goodAnswer = cleaner(goodAnswer)
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
