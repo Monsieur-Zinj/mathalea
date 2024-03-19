@@ -38,9 +38,10 @@
   "scripts": {
     "start": "pnpm makeJson && vite",
     "build": "pnpm makeJson && vite build",
-    "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenu.js",
+    "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenu.js && node tasks/updateMenuCH",
     "getNewUuid": "pnpm makeJson",
     "updateMenu": "pnpm makeJson",
+    "updateMenuCH": "pnpm makeJson",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "transpile": "tsc > journal.log",
