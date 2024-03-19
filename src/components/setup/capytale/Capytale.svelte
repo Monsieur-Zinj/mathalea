@@ -409,13 +409,18 @@ function addExercise (uuid: string) {
                         $canOptions.isChoosen = true
                       }
                       url = url.replace('&v=can', '&recorder=capytale')
-                      const options = mathaleaUpdateExercicesParamsFromUrl(url)
-                      if (options !== null) {
-                        globalOptions.update(() => {
-                          return options
-                        })
-                      } else {
-                        alert('URL non valide !')
+                      url = url.replace(/es=\d/g, 'es=1') // Force la vue 1 page par exercice
+                      if (url.includes('coopmaths.fr/alea')) {
+                        const options = mathaleaUpdateExercicesParamsFromUrl(url)
+                        if (options !== null) {
+                          globalOptions.update(() => {
+                            return options
+                          })
+                        } else {
+                          alert('URL non valide !')
+                        }
+                        // On maintient Capytale car l'import d'une url non valide créé un objet globalOptions vide
+                        $globalOptions.recorder = 'capytale'
                       }
                       urlFeuilleEleve = ''
                     }}
