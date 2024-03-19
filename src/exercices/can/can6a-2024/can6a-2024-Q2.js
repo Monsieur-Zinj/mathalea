@@ -1,10 +1,8 @@
 import Exercice from '../../Exercice'
-import { choice } from '../../../lib/outils/arrayOutils'
-import Decimal from 'decimal.js'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-export const titre = 'Multiplier par 1,5 ou 2,5 ou ...'
+import { randint } from '../../../modules/outils.js'
+export const titre = 'Ajouter un nombre se finissant par 9'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'c3d56'
@@ -26,21 +24,18 @@ export default class NomExercice extends Exercice {
   }
 
   nouvelleVersion () {
+    let a, b
     if (this.canOfficielle) {
-      this.reponse = 10
-      this.question = '$4\\times 2,5$ '
-      this.correction = `$4\\times 2,5=${miseEnEvidence(10)}$`
-      this.canEnonce = '$4\\times 2,5$'
-      this.canReponseACompleter = ''
+      a = 35
+      b = 19
     } else {
-      const couple = choice([[4, 25], [2, 15], [4, 15], [2, 55], [2, 65], [4, 5], [4, 35], [2, 75]])
-      const a = couple[0]
-      const b = couple[1] / 10
-      this.reponse = new Decimal(a).mul(b)
-      this.question = `$${a} \\times ${texNombre(b, 1)}$ `
-      this.correction = `$${a} \\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(this.reponse, 1))}$`
-      this.canEnonce = `$${a} \\times ${texNombre(b, 1)}$`
-      this.canReponseACompleter = ''
+      a = randint(3, 6) * 10 + randint(3, 8)
+      b = randint(1, 3) * 10 + 9
     }
+    this.reponse = String(a + b)
+    this.question = `$${a}+${b}$`
+    this.correction = `$${a}+${b}=${a}+(${b + 1}-1)=(${a}+${b + 1})-1=${a + b + 1}-1=${miseEnEvidence(this.reponse)}$`
+    this.canEnonce = this.question
+    this.canReponseACompleter = ''
   }
 }
