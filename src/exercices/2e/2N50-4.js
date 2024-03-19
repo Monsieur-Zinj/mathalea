@@ -57,8 +57,8 @@ export default function ModeliserEquationsGeometrie () {
           D = point(0, 6, 'D')
 
           objets.push(segment(A, B), segment(B, C), segment(D, A), segment(C, D), labelPoint(A, B, C, D))
-          objets.push(texteParPosition(`x+${texNombre(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${texNombre(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteParPosition(`x+${texNombre(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 0, 'black', 1, 'milieu', true),
+            texteParPosition(`${texNombre(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 0, 'black', 1, 'milieu', true))
 
           texte = ` Un rectangle a pour largeur $${d}$ cm et pour longueur $x$ cm.<br>
             En ajoutant $${a}$ cm à la longueur de ce rectangle, on obtient un nouveau rectangle dont le périmètre est $${b}$ cm.<br>
@@ -92,8 +92,8 @@ export default function ModeliserEquationsGeometrie () {
           D = point(0, 6, 'D')
 
           objets.push(segment(A, B), segment(B, C), segment(D, A), segment(C, D), labelPoint(A, B, C, D))
-          objets.push(texteParPosition(`x+${texNombre(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${texNombre(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteParPosition(`x+${texNombre(a)}`, milieu(C, D).x + 0, milieu(C, D).y + 0.7, 0, 'black', 1, 'milieu', true),
+            texteParPosition(`${texNombre(d)}`, milieu(A, D).x - 0.5, milieu(A, D).y, 0, 'black', 1, 'milieu', true))
           texte = ` Un rectangle a pour largeur $${d}$ cm et pour longueur $x$ cm.<br>
              En ajoutant $${a}$ cm à la longueur de ce rectangle, on obtient un nouveau rectangle dont l'aire est $${b}$ cm$^2$.<br>
               Quelle est la longueur $x$ du rectangle initial ? <br>
@@ -123,8 +123,8 @@ export default function ModeliserEquationsGeometrie () {
           B = point(10, 0, 'B', 'below')
           C = point(0, 6, 'C')
           objets.push(segment(A, B), segment(B, C), segment(A, C), labelPoint(A, B, C), codageAngleDroit(B, A, C))
-          objets.push(texteParPosition(`${texNombre(a)}`, milieu(A, B).x + 0, milieu(A, B).y - 0.5, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteParPosition(`${texNombre(a)}`, milieu(A, B).x + 0, milieu(A, B).y - 0.5, 0, 'black', 1, 'milieu', true),
+            texteParPosition('x', milieu(A, C).x - 0.5, milieu(A, C).y, 0, 'black', 1, 'milieu', true))
           texte = ` Un triangle $ABC$ est rectangle en $A$. On a $AB= ${a}$ cm  et $AC= x$ cm.<br>
          Sachant que le carré de son hypoténuse est $${b}$, déterminer la valeur exacte de $x$. `
           texteCorr = ' On réalise une petite figure à main levée pour visualiser la situation :<br>'
@@ -160,10 +160,10 @@ export default function ModeliserEquationsGeometrie () {
           P = point(0, 6, 'P')
 
           objets.push(segment(M, N), segment(N, P), segment(M, P), labelPoint(M, N, P), codageAngleDroit(N, M, P))
-          objets.push(texteParPosition(`${texNombre(a)}`, milieu(M, P).x - 0.5, milieu(M, P).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition('x', milieu(M, N).x + 0, milieu(M, N).y - 0.5, 'milieu', 'black', 1, 'middle', true),
+          objets.push(texteParPosition(`${texNombre(a)}`, milieu(M, P).x - 0.5, milieu(M, P).y, 0, 'black', 1, 'milieu', true),
+            texteParPosition('x', milieu(M, N).x + 0, milieu(M, N).y - 0.5, 0, 'black', 1, 'milieu', true),
             texteSurSegment(`$x+${texNombre(b)}$`, P, N, 'black', 0.5))
-          // texteParPosition(`$$x+$$${texNombre(b)}`, milieu(P, N).x + 1, milieu(P, N).y, 0, 'black', 2, 'middle', true))
+          // texteParPosition(`$$x+$$${texNombre(b)}`, milieu(P, N).x + 1, milieu(P, N).y, 0, 'black', 2, 'milieu'', true))
           texte = ` Un triangle $MNP$ est rectangle en $M$. On a $MP= ${a}$ cm  et $MN= x$ cm.<br>
              L'hypoténuse du triangle $MNP$ mesure  $${b}$ cm de plus que le côté $[MN]$.<br>
              Déterminer la valeur de $x$ sous la forme d'une fraction irréductible ou d'un nombre entier le cas échéant. `
@@ -225,7 +225,7 @@ export default function ModeliserEquationsGeometrie () {
           F = point(15, -1, 'F')
 
           objets.push(segment(A, D), segmentAvecExtremites(E, F), segment(A, B), segment(B, C), segment(D, C), segment(D, H), codageAngleDroit(A, B, C), codageAngleDroit(B, C, D), labelPoint(A, H, D, B, C), codageAngleDroit(B, H, D))
-          objets.push(texteSurSegment(`${stringNombre(b)} cm`, D, C, 'black', +0.5), texteSurSegment(`${stringNombre(a)} cm`, E, F, 'black', -0.5), texteParPosition('x', milieu(B, C).x + 0.5, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteSurSegment(`${stringNombre(b)} cm`, D, C, 'black', +0.5), texteSurSegment(`${stringNombre(a)} cm`, E, F, 'black', -0.5), texteParPosition('x', milieu(B, C).x + 0.5, milieu(B, C).y, 0, 'black', 1, 'milieu', true))
 
           texte = ' $ABCD$ est un trapèze rectangle.<br> '
 
@@ -265,9 +265,9 @@ export default function ModeliserEquationsGeometrie () {
           E = point(5, 10, 'E')
 
           objets.push(segment(A, B), segment(B, C), segment(C, D), segment(A, D), segment(E, C), segment(E, D), segment(E, H), codageAngleDroit(E, H, C), labelPoint(A, H, D, B, C, E), codageSegments('//', 'blue', D, E, E, C))
-          objets.push(texteParPosition(`${texNombre(a)}`, milieu(B, C).x + 0.4, milieu(B, C).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`${texNombre(b)}`, milieu(E, H).x + 0.4, milieu(E, H).y, 'milieu', 'black', 1, 'middle', true),
-            texteParPosition(`x + ${texNombre(c)}`, milieu(A, B).x + 0.4, milieu(A, B).y - 0.4, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteParPosition(`${texNombre(a)}`, milieu(B, C).x + 0.4, milieu(B, C).y, 0, 'black', 1, 'milieu', true),
+            texteParPosition(`${texNombre(b)}`, milieu(E, H).x + 0.4, milieu(E, H).y, 0, 'black', 1, 'milieu', true),
+            texteParPosition(`x + ${texNombre(c)}`, milieu(A, B).x + 0.4, milieu(A, B).y - 0.4, 0, 'black', 1, 'milieu', true))
 
           texte = ` La figure ci-dessous (qui n'est pas à l'échelle) est composée d'un rectangle $ABCD$ et d'un triangle isocèle $DEC$. <br>
         L'unité est le mètre.<br> ` +
@@ -309,7 +309,7 @@ export default function ModeliserEquationsGeometrie () {
           L = point(0, -1, 'L')
 
           objets.push(segment(A, B), segment(A, E), segmentAvecExtremites(K, L), segment(E, M), segment(M, D), segment(B, C), segment(D, C), codageAngleDroit(B, M, D), codageAngleDroit(M, B, C), codageAngleDroit(B, C, D), codageAngleDroit(C, D, M), labelPoint(A, M, B, C, D, E), codageSegments('//', 'blue', A, E, E, M, A, M), codageSegments('/', 'blue', M, B, B, C, C, D, D, M))
-          objets.push(texteParPosition('$x$', milieu(A, M).x, milieu(A, M).y - 0.3, 0, 'black', 2, 'middle', true), texteParPosition(`${texNombre(a)}`, milieu(A, B).x, milieu(A, B).y - 1.5, 'milieu', 'black', 1, 'middle', true))
+          objets.push(texteParPosition('$x$', milieu(A, M).x, milieu(A, M).y - 0.3, 0, 'black', 2, 'milieu', true), texteParPosition(`${texNombre(a)}`, milieu(A, B).x, milieu(A, B).y - 1.5, 0, 'black', 1, 'milieu', true))
 
           texte = `$[AB]$ est un segment de longueur $${a}$ et $M$ est un point de ce segment.<br>
       Du même côté du segment $[AB]$, on trace le triangle équilatéral $AME$ et le carré $MBCD$.<br>

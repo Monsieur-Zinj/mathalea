@@ -75,14 +75,14 @@ export default function ModeliserParUneFonction () {
             const P = prenomM()
             const T = randint(30, 70)
             const e = randint(25, 30)
-            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', -0.3, -0.3, 0, 'black', 1)
             const A = point(0.5 * (c - a) / (b - d), 0.1 * (a + b * (c - a) / (b - d)))
             const Ax = point(A.x, 0)
             const sAAx = segment(A, Ax)
             sAAx.epaisseur = 2
             sAAx.pointilles = 5
-            const TexteX = texteParPosition('Nombre de séances', 13, 0.5, 'milieu', 'black', 1.5)
-            const TexteY = texteParPosition('Prix (€)', 1.3, 11.5, 'milieu', 'black', 1.5)
+            const TexteX = texteParPosition('Nombre de séances', 13, 0.5, 0, 'black', 1.5)
+            const TexteY = texteParPosition('Prix (€)', 1.3, 11.5, 0, 'black', 1.5)
             const r1 = repere({
               xMin: 0,
               yMin: 0,
@@ -200,7 +200,7 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
             const d = randint(50, 400)// nbre km
             const prix = new Decimal(c).mul(d).add(a)// prix payé
             const prix2 = Math.round(prix, 0)
-            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', -0.3, -0.3, 0, 'black', 1)
             const A = point(0.01 * (prix - a) / c, 0.01 * prix)
             const Ax = point(A.x, 0)
             const Ay = point(0, A.y)
@@ -210,10 +210,10 @@ Avec la formule B, ${P} pourra faire au maximum $${Math.floor((T - c) / d)}$ sé
             sAAx.pointilles = 5
             sAAy.epaisseur = 2
             sAAy.pointilles = 5
-            const TexteX = texteParPosition('km', 9, 0.5, 'milieu', 'black', 1.5)
-            const TexteY = texteParPosition('Prix (€)', 1.2, 5.5, 'milieu', 'black', 1.5)
-            const TexteVal1 = texteParPosition(`${texNombre(d, 0)}`, 0.01 * (prix - a) / c, -1, 'milieu', 'black', 1.5)
-            const TexteVal2 = texteParPosition(`${stringNombre(prix, 2)}`, -1.8, prix * 0.01, 'milieu', 'black', 1.5)
+            const TexteX = texteParPosition('km', 9, 0.5, 0, 'black', 1.5)
+            const TexteY = texteParPosition('Prix (€)', 1.2, 5.5, 0, 'black', 1.5)
+            const TexteVal1 = texteParPosition(`${texNombre(d, 0)}`, 0.01 * (prix - a) / c, -1, 0, 'black', 1.5)
+            const TexteVal2 = texteParPosition(`${stringNombre(prix, 2)}`, -1.8, prix * 0.01, 0, 'black', 1.5)
             const r1 = repere({
               xMin: 0,
               yMin: 0,
@@ -293,16 +293,16 @@ On retrouve ce résultat graphiquement. Ci-dessous, la droite bleue représente 
             const a1 = Math.round(a * 100) / 100 //
             const b = randint(30, 80)
             const v = randint(70, 100) //
-            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
-            const TexteX = texteParPosition('v (en km/h)', 12, 0.5, 'milieu', 'black', 1.5)
-            const TexteY = texteParPosition('d (en m)', 1.8, 9.5, 'milieu', 'black', 1.5)
+            const o = texteParPosition('$O$', -0.3, -0.3, 0, 'black', 1)
+            const TexteX = texteParPosition('v (en km/h)', 12, 0.5, 0, 'black', 1.5)
+            const TexteY = texteParPosition('d (en m)', 1.8, 9.5, 0, 'black', 1.5)
             const A = point(0.1 * Math.sqrt(a * b), 0.1 * b)
             const Ax = point(A.x, 0)
             const sAAx = segment(A, Ax)
             sAAx.epaisseur = 2
             sAAx.pointilles = 5
-            const TexteVal1 = texteParPosition(`${texNombre(Math.round(Math.sqrt(b * a), 0))}`, A.x, -1, 'milieu', 'black', 1.5)
-            const TexteVal2 = texteParPosition(`${texNombre(b, 0)}`, -1.5, A.y, 'milieu', 'black', 1.5)
+            const TexteVal1 = texteParPosition(`${texNombre(Math.round(Math.sqrt(b * a), 0))}`, A.x, -1, 0, 'black', 1.5)
+            const TexteVal2 = texteParPosition(`${texNombre(b, 0)}`, -1.5, A.y, 0, 'black', 1.5)
             const r1 = repere({
               xMin: 0,
               yMin: 0,
@@ -378,16 +378,16 @@ Voici la courbe représentative de la fonction $d$ avec la solution de la questi
             const b = choice([40, 50, 80, 100])
             const c = randint(31, 49) * 100 //
             const d = randint(30, 39) * 10
-            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
-            const TexteX = texteParPosition('Prix de l\'abonnement (en €)', 11, -2, 'milieu', 'black', 1.5)
-            const TexteY = texteParPosition('Nombre d\'abonnés', 1.5, 10.5, 'milieu', 'black', 1.5)
+            const o = texteParPosition('$O$', -0.3, -0.3, 0, 'black', 1)
+            const TexteX = texteParPosition('Prix de l\'abonnement (en €)', 11, -2, 0, 'black', 1.5)
+            const TexteY = texteParPosition('Nombre d\'abonnés', 1.5, 10.5, 0, 'black', 1.5)
             const A = point(0.05 * (a - c) / b, 0.001 * c)
             const Ax = point(A.x, 0)
             const sAAx = segment(A, Ax)
             sAAx.epaisseur = 2
             sAAx.pointilles = 5
-            const TexteVal1 = texteParPosition(`${stringNombre((a - c) / b, 1)}`, A.x, -1.5, 'milieu', 'black', 1.5)
-            const TexteVal2 = texteParPosition(`${c}`, -2.5, A.y, 'milieu', 'black', 1.5)
+            const TexteVal1 = texteParPosition(`${stringNombre((a - c) / b, 1)}`, A.x, -1.5, 0, 'black', 1.5)
+            const TexteVal2 = texteParPosition(`${c}`, -2.5, A.y, 0, 'black', 1.5)
             const r1 = repere({
               xMin: 0,
               yMin: 0,
@@ -492,16 +492,16 @@ Pour avoir $${texNombre(c)}$ abonnés, la directrice des abonnements doit fixer 
             const prix1 = Math.round(prix * 100) / 100
             const P = prenom()
             const nom = choice(nomF)
-            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
-            const TexteX = texteParPosition('Nombre de litres', 11, -1.7, 'milieu', 'black', 1.5)
-            const TexteY = texteParPosition('Prix payé (en €)', 1.2, 11.5, 'milieu', 'black', 1.5)
+            const o = texteParPosition('$O$', -0.3, -0.3, 0, 'black', 1)
+            const TexteX = texteParPosition('Nombre de litres', 11, -1.7, 0, 'black', 1.5)
+            const TexteY = texteParPosition('Prix payé (en €)', 1.2, 11.5, 0, 'black', 1.5)
             const A = point(0.2 * d, 0.08 * prix)
             const Ax = point(A.x, 0)
             const sAAx = segment(A, Ax)
             sAAx.epaisseur = 2
             sAAx.pointilles = 5
-            const TexteVal1 = texteParPosition(`${texNombre(d, 2)}`, A.x, -1, 'milieu', 'black', 1.5)
-            const TexteVal2 = texteParPosition(`${stringNombre(prix, 2)}`, -2, A.y, 'milieu', 'black', 1.5)
+            const TexteVal1 = texteParPosition(`${texNombre(d, 2)}`, A.x, -1, 0, 'black', 1.5)
+            const TexteVal2 = texteParPosition(`${stringNombre(prix, 2)}`, -2, A.y, 0, 'black', 1.5)
             const r1 = repere({
               xMin: 0,
               yMin: 0,
@@ -629,9 +629,9 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const c = new Decimal(randint(-39, -25)).div(10)
             const P = prenomM()
             const nom = choice(nomF)
-            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
-            const TexteX = texteParPosition('Temps (en s)', 6, -0.7, 'milieu', 'black', 1.2)
-            const TexteY = texteParPosition('Hauter (en m)', 1.5, 7, 'milieu', 'black', 1.2)
+            const o = texteParPosition('$O$', -0.3, -0.3, 0, 'black', 1)
+            const TexteX = texteParPosition('Temps (en s)', 6, -0.7, 0, 'black', 1.2)
+            const TexteY = texteParPosition('Hauter (en m)', 1.5, 7, 0, 'black', 1.2)
             const r1 = repere({
               xMin: 0,
               yMin: 0,
@@ -711,9 +711,9 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const a5 = randint(56, 65) * 10
             const b5 = b4 + 5
             const nom = choice(nomF)
-            const o = texteParPosition('$O$', 0, 15.5, 'milieu', 'black', 1)
-            const TexteX = texteParPosition('Pression artérielle en mmHg', 150 * 0.03, 155 * 0.2, 'milieu', 'black', 1.2)
-            const TexteY = texteParPosition('Temps (en ms)', 670 * 0.03, 72 * 0.2, 'milieu', 'black', 1.2)
+            const o = texteParPosition('$O$', 0, 15.5, 0, 'black', 1)
+            const TexteX = texteParPosition('Pression artérielle en mmHg', 150 * 0.03, 155 * 0.2, 0, 'black', 1.2)
+            const TexteY = texteParPosition('Temps (en ms)', 670 * 0.03, 72 * 0.2, 0, 'black', 1.2)
 
             const r1 = repere({
               xMin: 0,
@@ -827,7 +827,7 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const b = randint(-10, -5) / 10 //
             const h = choice([11, 12, 13, 17, 18]) //
             const nom = choice(nomF)
-            const o = texteParPosition('$O$', -0.3, -0.3, 'milieu', 'black', 1)
+            const o = texteParPosition('$O$', -0.3, -0.3, 0, 'black', 1)
             const f = x => a * x * exp(b * x)
             const fprime = x => (a + a * b * x) * exp(b * x)
             const Cg = droiteParPointEtPente(point(0, 5), 0, '', 'red')
@@ -880,10 +880,10 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             sCCx.pointilles = 5
             const sBxCx = segment(Bx, Cx, 'red')
             sBxCx.epaisseur = 5
-            const Texte1 = texteParPosition(`Max = ${stringNombre(Math.round(f(s0) * 100) / 100)}`, -3, A.y, 'milieu', 'red', 1.2)
-            const Texte2 = texteParPosition(`${stringNombre(Math.round(s0 * 10) / 10)}`, A.x, -1.3, 'milieu', 'red', 1.2)
-            const Texte3 = texteParPosition(`${stringNombre(Math.round(s1 * 10) / 10)}`, B.x, -1.3, 'milieu', 'red', 1.2)
-            const Texte4 = texteParPosition(`${stringNombre(Math.round(s2 * 10) / 10)}`, C.x, -1.3, 'milieu', 'red', 1.2)
+            const Texte1 = texteParPosition(`Max = ${stringNombre(Math.round(f(s0) * 100) / 100)}`, -3, A.y, 0, 'red', 1.2)
+            const Texte2 = texteParPosition(`${stringNombre(Math.round(s0 * 10) / 10)}`, A.x, -1.3, 0, 'red', 1.2)
+            const Texte3 = texteParPosition(`${stringNombre(Math.round(s1 * 10) / 10)}`, B.x, -1.3, 0, 'red', 1.2)
+            const Texte4 = texteParPosition(`${stringNombre(Math.round(s2 * 10) / 10)}`, C.x, -1.3, 0, 'red', 1.2)
             const graphique = mathalea2d({
               xmin: -2,
               xmax: 16,

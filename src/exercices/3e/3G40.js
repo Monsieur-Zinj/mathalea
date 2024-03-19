@@ -74,8 +74,8 @@ export default function ReperageSurLaSphere () {
     const PoleSud = rotation3d(point3d(0, 0, -11.5), droiteRot, inclinaison)
     PoleSud.c2d.visible = false
     PoleSud.c2d.nom = 'Sud'
-    const Pn = texteParPoint('Nord', PoleNord.c2d, 'milieu', 'brown')
-    const Ps = texteParPoint('Sud', PoleSud.c2d, 'milieu', 'brown')
+    const Pn = texteParPoint('Nord', PoleNord.c2d, 0, 'brown')
+    const Ps = texteParPoint('Sud', PoleSud.c2d, 0, 'brown')
     Pn.taille = 15
     Pn.positionLabel = 'above'
     Ps.taille = 15
@@ -126,11 +126,11 @@ export default function ReperageSurLaSphere () {
     const P = []
     const EstouOuest = []
     const NordouSud = []
-    const E = texteParPoint('Est', rotation3d(point3d(13.2, 0, 0, true, 'Est'), droiteRot, inclinaison).c2d, 'milieu', 'brown')
+    const E = texteParPoint('Est', rotation3d(point3d(13.2, 0, 0, true, 'Est'), droiteRot, inclinaison).c2d, 0, 'brown')
     E.taille = 15
     E.color = colorToLatexOrHTML('brown')
     E.positionLabel = 'above'
-    const W = texteParPoint('Ouest', rotation3d(point3d(-12, 0, 0, true, 'Ouest'), droiteRot, inclinaison).c2d, 'milieu', 'brown')
+    const W = texteParPoint('Ouest', rotation3d(point3d(-12, 0, 0, true, 'Ouest'), droiteRot, inclinaison).c2d, 0, 'brown')
     W.taille = 15
     W.color = colorToLatexOrHTML('brown')
     W.positionLabel = 'below left'

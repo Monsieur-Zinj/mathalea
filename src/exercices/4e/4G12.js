@@ -314,7 +314,7 @@ export default function SerieDeTransformations () {
 
       for (let x = 0; x < 5; x++) {
         for (let y = 0, numero; y < 5; y++) {
-          numero = texteParPointEchelle(Number(x * 6 + y).toString(), point(x * 3.2 + 1.6, y * 3.2 + 1.6), 'milieu', context.isHtml ? 'yellow' : 'black', 1.2, 'middle', true, 0.4)
+          numero = texteParPointEchelle(Number(x * 6 + y).toString(), point(x * 3.2 + 1.6, y * 3.2 + 1.6), 0, context.isHtml ? 'yellow' : 'black', 1.2, 'milieu', true, 0.4)
           numero.contour = context.isHtml
           numero.couleurDeRemplissage = colorToLatexOrHTML('black')
           numero.opacite = context.isHtml ? 0.5 : 1
@@ -334,7 +334,7 @@ export default function SerieDeTransformations () {
 
       for (let x = 0; x < 6; x++) {
         for (let y = 0, label; y < 6; y++) {
-          label = texteParPointEchelle(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 'milieu', context.isHtml ? 'red' : 'black', 1.2, 'middle', true, 0.4)
+          label = texteParPointEchelle(noeuds[x * 6 + y].nom, translation(noeuds[x * 6 + y], vecteur(0.3, 0.3)), 0, context.isHtml ? 'red' : 'black', 1.2, 'milieu', true, 0.4)
           label.contour = context.isHtml
           label.couleurDeRemplissage = colorToLatexOrHTML('black')
           label.opacite = context.isHtml ? 0.8 : 1

@@ -133,12 +133,12 @@ export default function ReciproqueThales () {
       t2.id = `M2D_${numeroExercice}_t2`
       const m = pointSurSegment(M, N, -0.5)
       const n = pointSurSegment(N, M, -0.5)
-      const marqueNomM = texteParPoint(s4, m, 'milieu', 'black', 1, 'middle', true)
-      const marqueNomN = texteParPoint(s5, n, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomM = texteParPoint(s4, m, 0, 'black', 1, 'milieu', true)
+      const marqueNomN = texteParPoint(s5, n, 0, 'black', 1, 'milieu', true)
       const c = pointSurSegment(C, B, -0.5)
       const b = pointSurSegment(B, C, -0.5)
-      const marqueNomC = texteParPoint(s3, c, 'milieu', 'black', 1, 'middle', true)
-      const marqueNomB = texteParPoint(s2, b, 'milieu', 'black', 1, 'middle', true)
+      const marqueNomC = texteParPoint(s3, c, 0, 'black', 1, 'milieu', true)
+      const marqueNomB = texteParPoint(s2, b, 0, 'black', 1, 'milieu', true)
       const xMin = Math.min(A.x, B.x, C.x, M.x, N.x) - 1
       const xMax = Math.max(A.x, B.x, C.x, M.x, N.x) + 1
       const yMin = Math.min(A.y, B.y, C.y, M.y, N.y) - 1

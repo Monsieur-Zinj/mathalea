@@ -146,7 +146,7 @@ export default function ColorierDeplacement () {
       lstObjet.push(texteParPosition(txt, xGrilleMin + j + 0.5, yGrilleMax + 0.5, 'milieu', 'black', 1)) // affiche de A à J... en haut de la grille
     }
     for (let i = 0; i < (yGrilleMax - yGrilleMin); i++) {
-      lstObjet.push(texteParPosition(String(i), xGrilleMin - 0.25, yGrilleMax - i - 0.5, 'gauche', 'black', 1)) // affiche de 0 à 9... à gauche de la grille
+      lstObjet.push(texteParPosition(String(i), xGrilleMin - 0.25, yGrilleMax - i - 0.5, 0, 'black', 1, 'droite')) // affiche de 0 à 9... à gauche de la grille
     }
 
     texte += 'Au départ, le lutin est situé dans la case grisée. Chaque déplacement se fait dans une case adjacente. Exécuter le programme.<br><br>'

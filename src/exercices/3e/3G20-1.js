@@ -128,7 +128,7 @@ export default function ProblemesThales () {
         sBD = segment(B, D)
         sCote = segment(point(N.x - 1.3, N.y), point(D.x - 1.3, D.y))
         sCote.styleExtremites = '<->'
-        texte1 = texteParPoint('?', milieu(point(N.x - 1.5, N.y), point(D.x - 1.5, D.y)), 'gauche')
+        texte1 = texteParPoint('?', milieu(point(N.x - 1.5, N.y), point(D.x - 1.5, D.y)), 0, 'black', 1, 'gauche')
         texte2 = texteSurSegment(BD + ' cm', B, D)
         texte3 = texteSurSegment(stringNombre(MN) + ' cm', M, N)
         texte4 = texteSurSegment(BC + ' cm', B, C)
