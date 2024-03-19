@@ -344,9 +344,10 @@
     exercise.numeroExercice = exerciseIndex
     if (
       exercise.typeExercice !== 'simple' &&
-      typeof exercise.nouvelleVersion === 'function'
+      typeof exercise.nouvelleVersionWrapper === 'function'
     ) {
-      exercise.nouvelleVersion(exerciseIndex)
+      console.log(exercise)
+      exercise.nouvelleVersionWrapper(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams()
     await adjustMathalea2dFiguresWidth()

@@ -170,8 +170,8 @@
     $exercicesParams[exerciseIndex].interactif = isInteractif ? '1' : '0'
     $exercicesParams[exerciseIndex].cols = columnsCount > 1 ? columnsCount : undefined
     exercise.numeroExercice = exerciseIndex
-    if (exercise !== undefined && exercise.typeExercice !== 'simple' && typeof exercise.nouvelleVersion === 'function') {
-      exercise.nouvelleVersion(exerciseIndex)
+    if (exercise !== undefined && exercise.typeExercice !== 'simple' && typeof exercise.nouvelleVersionWrapper === 'function') {
+      exercise.nouvelleVersionWrapper(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     await adjustMathalea2dFiguresWidth()

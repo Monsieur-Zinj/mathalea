@@ -201,6 +201,11 @@ export default class Exercice {
     this.listeAvecNumerotation = true
   }
 
+  nouvelleVersionWrapper (numeroExercice?: number): void {
+    this.reinit()
+    this.nouvelleVersion(numeroExercice)
+  }
+
   nouvelleVersion (numeroExercice?: number): void {
     console.log(numeroExercice)
   }

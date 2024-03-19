@@ -23,7 +23,7 @@ export function exerciceSimpleToContenu (exercice) {
           approx: 0
         })
       }
-      exercice.nouvelleVersion()
+      exercice.nouvelleVersionWrapper()
       i++
     }
   }

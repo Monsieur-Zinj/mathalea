@@ -53,7 +53,7 @@
       if (exercice.typeExercice === 'simple') {
         mathaleaHandleExerciceSimple(exercice, false)
       }
-      if (exercice.nouvelleVersion != null) exercice.nouvelleVersion()
+      if (exercice.nouvelleVersionWrapper != null) exercice.nouvelleVersionWrapper()
       if (exercice.amcType == null) {
         // l'exercice n'est pas disponible AMC
         exercicesARetirer.push(exercice.uuid)
@@ -110,7 +110,7 @@
           if (exo.typeExercice === 'simple') {
             mathaleaHandleExerciceSimple(exo, false)
           }
-          if (exo.nouvelleVersion != null) exo.nouvelleVersion()
+          if (exo.nouvelleVersionWrapper != null) exo.nouvelleVersionWrapper()
         }
       }
     }
@@ -284,7 +284,7 @@
               on:click={() => {
                 exercice.seed = mathaleaGenerateSeed()
                 seedrandom(exercice.seed, { global: true })
-                if (exercice.nouvelleVersion != null) exercice.nouvelleVersion()
+                if (exercice.nouvelleVersionWrapper != null) exercice.nouvelleVersionWrapper()
                 $exercicesParams[i].alea = exercice.seed
                 mathaleaUpdateUrlFromExercicesParams()
               }}

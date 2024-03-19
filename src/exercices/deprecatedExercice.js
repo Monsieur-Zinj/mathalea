@@ -112,6 +112,21 @@ export default function Exercice () {
   this.answers = {} // Stockage des réponses des élèves pour les envoyer à un serveur qui les enregistrera (Moodle, Capytale, LaboMep...)
   this.keyboard = ['numbers', 'basicOperations', 'variables']
 
+  this.nouvelleVersionWrapper = function (numeroExercice) {
+    this.reinit()
+    this.nouvelleVersion(numeroExercice)
+  }
+
+  this.nouvelleVersion = function (numeroExercice) {
+    console.log(numeroExercice)
+  }
+
+  this.reinit = function () {
+    this.listeQuestions = [] // Liste de questions
+    this.listeCorrections = [] // Liste de questions corrigées
+    this.listeArguments = []
+    this.autoCorrection = []
+  }
   /**
      * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
      * @param {int} i indice de la question
