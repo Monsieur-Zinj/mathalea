@@ -1,4 +1,4 @@
-import FractionEtendue from '../modules/FractionEtendue'
+import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
 
 /**
  *
@@ -113,8 +113,7 @@ export default function Exercice () {
   this.keyboard = ['numbers', 'basicOperations', 'variables']
 
   this.nouvelleVersionWrapper = function (numeroExercice) {
-    this.reinit()
-    this.nouvelleVersion(numeroExercice)
+    exportedNouvelleVersionWrapper.call(this, numeroExercice)
   }
 
   this.nouvelleVersion = function (numeroExercice) {
@@ -122,69 +121,13 @@ export default function Exercice () {
   }
 
   this.reinit = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.listeArguments = []
-    this.autoCorrection = []
+    exportedReinit.call(this)
   }
-  /**
-     * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
-     * @param {int} i indice de la question
-     * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
-     * @returns {boolean} true si la question n'a jamais été posée
-     */
+
   this.questionJamaisPosee = function (i, ...args) {
-    if (i === 0) this.listeArguments = []
-    let argsConcatenes = ''
-    for (const arg of args) {
-      if (arg !== undefined) argsConcatenes += (arg instanceof FractionEtendue ? arg.texFraction : arg.toString())
-    }
-    if (this.listeArguments.indexOf(argsConcatenes) > -1) {
-      return false
-    } else {
-      this.listeArguments.push(argsConcatenes)
-      return true
-    }
+    exportedQuestionJamaisPosee.call(this, i, ...args)
   }
   this.applyNewSeed = function () {
-    const seed = generateSeed({
-      includeUpperCase: true,
-      includeNumbers: true,
-      length: 4,
-      startsWithLowerCase: false
-    })
-    this.seed = seed
+    exportedApplyNewSeed.call(this)
   }
-}
-
-/**
- *
- * @param {{ includeUpperCase: boolean, includeNumbers: boolean, length: number, startsWithLowerCase: boolean }} paramsSeed
- * @returns string
- */
-function generateSeed (paramsSeed) {
-  let a = 10
-  const b = 'abcdefghijklmnopqrstuvwxyz'
-  let c = ''
-  let d = 0
-  let e = '' + b
-  if (paramsSeed) {
-    if (paramsSeed.startsWithLowerCase) {
-      c = b[Math.floor(Math.random() * b.length)]
-      d = 1
-    }
-    if (paramsSeed.length) {
-      a = paramsSeed.length
-    }
-    if (paramsSeed.includeUpperCase) {
-      e += b.toUpperCase()
-    }
-    if (paramsSeed.includeNumbers) {
-      e += '1234567890'
-    }
-  }
-  for (; d < a; d++) {
-    c += e[Math.floor(Math.random() * e.length)]
-  }
-  return c
 }
