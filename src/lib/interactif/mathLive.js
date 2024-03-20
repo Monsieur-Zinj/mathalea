@@ -25,7 +25,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             param: exercice.autoCorrection[i].reponse
         })}`)
   }
-  const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif ?? 'calcul'
+  const formatInteractif = exercice.autoCorrection[i].reponse.param.formatInteractif ?? 'mathlive'
   const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${i}`)
   // On compare le texte avec la réponse attendue en supprimant les espaces pour les deux
   let champTexte
@@ -42,38 +42,35 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       if (variables[0][0].match(/L\dC\d/)) {
         // Je traîte le cas des tableaux à part : une question pour de multiples inputs mathlive !
         // on pourra faire d'autres formats interactifs sur le même modèle
-        if (formatInteractif === 'tableauMathlive') {
-          const points = []
-          let resultat = 'OK'
-          const table = document.querySelector(`table#tabMathliveEx${exercice.numeroExercice}Q${i}`)
-          if (table == null) {
-            throw Error('verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom' + JSON.stringify({ selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` }))
-          }
-          const cellules = Object.entries(reponses).filter(([key]) => key.match(/L\dC\d/) != null)
-          for (let k = 0; k < cellules.length; k++) {
-            const [key, reponse] = cellules[k]
-            const compareFunction = reponse.compare ?? calculCompare
-            const inputs = Array.from(table.querySelectorAll('math-field'))
-            const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`)
-            const spanFedback = table.querySelector(`span#feedbackEx${exercice.numeroExercice}Q${i}${key}`)
-            // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
-            const result = compareFunction(input.value, reponse.value)
-            if (result.isOk) {
-              points.push(1)
-              spanFedback.innerHTML = '😎'
-            } else {
-              points.push(0)
-              resultat = 'KO'
-              spanFedback.innerHTML = '☹️'
-            }
-            if (input.value.length > 0 && typeof exercice.answers === 'object') {
-              exercice.answers[`Ex${exercice.numeroExercice}Q${i}${key}`] = input.value
-            }
-          }
-
-          const [nbBonnesReponses, nbReponses] = bareme(points)
-          return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }
+        const points = []
+        let resultat = 'OK'
+        const table = document.querySelector(`table#tabMathliveEx${exercice.numeroExercice}Q${i}`)
+        if (table == null) {
+          throw Error('verifQuestionMathlive: type tableauMathlive ne trouve pas le tableau dans le dom' + JSON.stringify({ selecteur: `table#tabMathliveEx${exercice.numeroExercice}Q${i}` }))
         }
+        const cellules = Object.entries(reponses).filter(([key]) => key.match(/L\dC\d/) != null)
+        for (let k = 0; k < cellules.length; k++) {
+          const [key, reponse] = cellules[k]
+          const compareFunction = reponse.compare ?? calculCompare
+          const inputs = Array.from(table.querySelectorAll('math-field'))
+          const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`)
+          const spanFedback = table.querySelector(`span#resultatCheckEx${exercice.numeroExercice}Q${i}${key}`)
+          // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
+          const result = compareFunction(input.value, reponse.value)
+          if (result.isOk) {
+            points.push(1)
+            spanFedback.innerHTML = '😎'
+          } else {
+            points.push(0)
+            resultat = 'KO'
+            spanFedback.innerHTML = '☹️'
+          }
+          if (input.value.length > 0 && typeof exercice.answers === 'object') {
+            exercice.answers[`Ex${exercice.numeroExercice}Q${i}${key}`] = input.value
+          }
+        }
+        const [nbBonnesReponses, nbReponses] = bareme(points)
+        return { isOk: resultat, feedback: '', score: { nbBonnesReponses, nbReponses } }
       } else {
         if (variables[0][0].match(/champ\d/) || formatInteractif === 'fillInTheBlank') { // on n'aurait plus besoin de formatInteractif si on respecte la convention de nommage champ1, champ2...
           // Le format fillInTheBlank requiert un "objetReponse" avec le format objet.

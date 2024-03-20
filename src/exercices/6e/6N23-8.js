@@ -4,8 +4,9 @@ import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { format } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import Decimal from 'decimal.js'
+import { numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Donner l\'écriture décimale d\'une fraction décimale'
 export const interactifReady = true
@@ -87,9 +88,9 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
       switch (typesDeQuestions) {
         case 2: // fraction décimale -> écriture décimale
           consi[1] = true
-          setReponse(this, i, n)
-          texte = `$${texFraction(texNombre(a), texNombre(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-          texteCorr = '$ ' + texFraction(texNombre(a), texNombre(b)) + ' = ' + texNombre(n) + ' $'
+          handleAnswers(this, i, { reponse: { value: texNombre(n, 3), compare: numberCompare } }, { formatInteractif: 'mathlive' })
+          texte = `$${texFraction(String(a), String(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          texteCorr = '$ ' + texFraction(String(a), String(b)) + ' = ' + texNombre(n, 3) + ' $'
           this.autoCorrection[i].reponse.param.digits = 5
           this.autoCorrection[i].reponse.param.decimals = 3
           break
@@ -112,15 +113,15 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           } else if (nbdigits === 1 && b === 10) {
             precision = randint(2, 3)
           }
-          setReponse(this, i, {
+          handleAnswers(this, i, {
             bareme: (listePoints) => [listePoints[0], 1],
-            num: { value: String(a) }
+            champ1: { value: String(a) }
           },
-          { formatInteractif: 'fillInTheBlank' }
+          { formatInteractif: 'mathlive' }
           )
 
           if (this.interactif) {
-            texte = remplisLesBlancs(this, i, `${texNombre(n, precision, true)} = \\dfrac{%{num}}{$${texNombre(b)}}`, 'fillInTheBlanks')
+            texte = remplisLesBlancs(this, i, `${texNombre(n, precision, true)} = \\dfrac{%{champ1}}{$${texNombre(b)}}`, 'fillInTheBlanks')
           } else {
             texte = `$${texNombre(n, precision, true)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
           }

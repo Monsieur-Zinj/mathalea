@@ -47,7 +47,7 @@ export default function CalculImageQuotient () {
     const e = a * x + b
     const f = c * x + d
     const expression = `\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}`
-    const frac = new FractionEtendue(e, f)
+    const maFraction = new FractionEtendue(e, f)
     this.reponse = new FractionEtendue(a * x + b, c * x + d).simplifie()
     this.question = `On considère la fonction $f$ définie par $f(x)= ${expression}$. <br>
         Calculer $f(${x})$.`
@@ -57,12 +57,12 @@ export default function CalculImageQuotient () {
     }
 
     this.correction = `$f(${x})=\\dfrac{${a === 1 ? `${x}` : `${a}\\times ${ecritureParentheseSiNegatif(x)}`}${ecritureAlgebrique(b)}}{${c === 1 ? `${x}` : `${c}\\times ${ecritureParentheseSiNegatif(x)}`}${ecritureAlgebrique(d)}}
-          =${frac}${frac.texSimplificationAvecEtapes()}$.<br>
-          Ainsi, $f(${x})=${miseEnEvidence(frac.texFractionSimplifiee)}$.<br><br>`
+          =${maFraction.texFraction}${maFraction.texSimplificationAvecEtapes()}$.<br>
+          Ainsi, $f(${x})=${miseEnEvidence(maFraction.texFractionSimplifiee)}$.<br><br>`
     this.correction += texteEnCouleur(` Mentalement : <br>
           On calcule  le numérateur et le dénominateur pour $x=${x}$, soit
            $ ${a}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(b)}=${a * x + b}$ et $${c}\\times ${ecritureParentheseSiNegatif(x)}${ecritureAlgebrique(d)}=${c * x + d}$.<br>
-           On obtient le quotient que l'on simplifie éventuellement : $${frac.texFractionSimplifiee}$.
+           On obtient le quotient que l'on simplifie éventuellement : $${maFraction.texFractionSimplifiee}$.
     `, 'blue')
 
     this.canEnonce = this.question// 'Compléter'

@@ -92,7 +92,7 @@ export default function ExerciceDevelopper () {
           // ne pas écrire 1x
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
+          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times ${ecritureParentheseSiNegatif(b)}$`
           reponse = `${reduireAxPlusB(k * a, k * b, inconnue)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
           reponse1 = 0
@@ -100,9 +100,9 @@ export default function ExerciceDevelopper () {
           reponse3 = k * b
           break
         case '(ax+b)×k':
-          texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times ${ecritureParentheseSiNegatif(k)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times ${ecritureParentheseSiNegatif(k)}$<br>
+          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times ${ecritureParentheseSiNegatif(b)}$`
           reponse = `${reduireAxPlusB(k * a, k * b, inconnue)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
           reponse1 = 0
@@ -110,9 +110,9 @@ export default function ExerciceDevelopper () {
           reponse3 = k * b
           break
         case '(ax+b)×kx':
-          texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiMoins(k + inconnue)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiMoins(k + inconnue)}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiMoins(k + inconnue)}\\times${ecritureParentheseSiNegatif(b)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times ${ecritureParentheseSiMoins(k + inconnue)}$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times ${ecritureParentheseSiMoins(k + inconnue)}$<br>
+          $${lettreDepuisChiffre(i + 1)}=${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiMoins(k + inconnue)}\\times ${ecritureParentheseSiNegatif(b)}$`
           reponse = `${reduirePolynomeDegre3(0, k * a, k * b, 0, inconnue)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
           reponse1 = k * a
@@ -132,7 +132,7 @@ export default function ExerciceDevelopper () {
         case 'k(ax+b)+c':
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})${ecritureAlgebrique(c)}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}(${reduireAxPlusB(a, b, inconnue)})${ecritureAlgebrique(c)}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times${ecritureParentheseSiMoins(reduireAxPlusB(a, 0, inconnue))}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}$`
+          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins(reduireAxPlusB(a, 0, inconnue))}+${ecritureParentheseSiNegatif(k)}\\times ${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}$`
 
           reponse = `${reduireAxPlusB(k * a, k * b + c, inconnue)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(k * a, k * b, inconnue)}${ecritureAlgebrique(c)}=${reponse}$.`
@@ -146,7 +146,7 @@ export default function ExerciceDevelopper () {
         case 'c+k(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
-          $${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
+          $${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times ${ecritureParentheseSiNegatif(b)}$`
           reponse = `${reduireAxPlusB(k * a, k * b + c, inconnue)}`
           texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k * a)}${inconnue}${ecritureAlgebrique(k * b)}=${reponse}$.`
           if (this.sup2 === 1) {
