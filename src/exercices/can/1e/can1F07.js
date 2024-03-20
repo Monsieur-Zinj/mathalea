@@ -34,7 +34,7 @@ export default function AxeSymetrieParabole () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
-    let a, x1, x2, somme, moinsb, b, c, f, alpha, beta
+    let a, x1, x2, somme, moinsb, b, c, maFraction, alpha, beta
     switch (choice([1, 2, 3])) {
       case 1:// forme factorisée
         a = randint(-9, 9, 0)
@@ -69,7 +69,7 @@ export default function AxeSymetrieParabole () {
         b = randint(-9, 9)
         c = randint(-10, 10)
         moinsb = new Decimal(-b)
-        f = fraction(-b, 2 * a)
+        maFraction = fraction(-b, 2 * a)
         this.question = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par :
       $f(x)=${reduirePolynomeDegre3(0, a, b, c)}$. <br>
       
@@ -83,10 +83,10 @@ export default function AxeSymetrieParabole () {
     On obtient alors  $x=-\\dfrac{${b}}{2\\times ${ecritureParentheseSiNegatif(a)}}$, soit $x=\\dfrac{${-b}}{${2 * a}}${simplificationDeFractionAvecEtapes(-b, 2 * a)}$. `
         if (moinsb.div(2 * a) < 0) {
           this.reponse = [`x=${moinsb.div(2 * a)}`, `x=\\dfrac{${moinsb}}{${2 * a}}`,
-          `x+${moinsb.div(-2 * a)}=0`, `x+\\dfrac{${moinsb}}{${-2 * a}}=0`, `x=${f}`, `x+${-f}=0`]
+          `x+${moinsb.div(-2 * a)}=0`, `x+\\dfrac{${moinsb}}{${-2 * a}}=0`, `x=${maFraction.texFraction}`, `x+${-maFraction.texFraction}=0`]
         } else {
           this.reponse = [`x=${moinsb.div(2 * a)}`, `x=\\dfrac{${moinsb}}{${2 * a}}`, `x-\\dfrac{${moinsb}}{${2 * a}}=0`,
-         `x-${moinsb.div(2 * a)}=0`, `x=${f}`, `x-${f}=0`]
+         `x-${moinsb.div(2 * a)}=0`, `x=${maFraction.texFraction}`, `x-${maFraction.texFraction}=0`]
         }
         break
 
