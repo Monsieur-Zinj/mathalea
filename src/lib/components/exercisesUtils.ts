@@ -40,14 +40,16 @@ export const buildExercisesList = (filter: string[] = []): Promise<TypeExercice>
       const p = new Promise<TypeExercice>((resolve) => {
         // console.log('id' + paramsExercice.id)
         const exo = new Exercice()
-        exo.titre = `Uuid ${paramsExercice.uuid} - Exercice statique`
-        exo.listeQuestions[0] = `Uuid ${paramsExercice.uuid} - Exercice statique: pas de question chargée<br>`
-        exo.listeCorrections[0] = `Uuid ${paramsExercice.uuid} -Exercice statique: pas de question chargée<br>`
+        exo.titre = `Uuid ${paramsExercice.uuid}`
+        exo.listeQuestions[0] = `Uuid ${paramsExercice.uuid}<br>`
+        exo.listeCorrections[0] = `Uuid ${paramsExercice.uuid}<br>`
         exo.nbQuestions = 1
         const foundResource = retrieveResourceFromUuid(allStaticReferentiels, paramsExercice.uuid)
         if (isStaticType(foundResource)) {
           exo.listeQuestions[0] = exo.listeQuestions[0] + `<br>
           <img src="${foundResource.png || ''}" style="width: calc(100% * {zoomFactor}" alt="énoncé" />`
+          exo.listeCorrections[0] = exo.listeCorrections[0] + `<br>
+          <img src="${foundResource.pngCor || ''}" style="width: calc(100% * {zoomFactor}" alt="correction" />`
         }
         mathaleaHandleParamOfOneExercice(exo, paramsExercice)
         if (options.setInteractive === '1' && exo?.interactifReady) {
