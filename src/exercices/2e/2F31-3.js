@@ -44,10 +44,10 @@ export default function Variationsapartirtableau () {
       y1 = randint(-12, -2)// 3 images des antécédents 1ère ligne tableau
       y2 = randint(y1 + 2, y1 + 10)// 3 images des antécédents 1ère ligne tableau
       y3 = randint(y1 + 2, y2 - 2, [y2])// 3 images des antécédents 1ère ligne tableau
-      a1 = randint(x1 + 1, x1 + 4) // 1er antécédent dont on doit comparer l'image
-      a2 = randint(a1 + 1, x2 - 1) // 2eme antécédent dont on doit comparer l'image
-      a3 = randint(x2 + 1, x3 - 6) // 3eme antécédent dont on doit comparer l'image
-      a4 = randint(a3 + 1, x3 - 1) // 4eme antécédent dont on doit comparer l'image
+      a1 = randint(x1 + 1, x1 + 4, [x1, x2, x3]) // 1er antécédent dont on doit comparer l'image
+      a2 = randint(a1 + 1, x2 - 1, [x1, x2, x3]) // 2eme antécédent dont on doit comparer l'image
+      a3 = randint(x2 + 1, x3 - 6, [x1, x2, x3]) // 3eme antécédent dont on doit comparer l'image
+      a4 = randint(a3 + 1, x3 - 1, [x1, x2, x3]) // 4eme antécédent dont on doit comparer l'image
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':// parabole en U ; 2 images sur intervalle où f croissant
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a2})$.<br><br>`
