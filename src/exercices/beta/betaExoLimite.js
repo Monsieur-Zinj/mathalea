@@ -36,7 +36,7 @@ export default function NomExercice () {
       let x = [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5]
       // Étape n°2 : On mélange les possibilités
       x = shuffle(x)
-      // Étape n°3 : On choisi un nombre aléatoire de discontinuités
+      // Étape n°3 : on choisit un nombre aléatoire de discontinuités
       // Il pourra y avoir de 0 à 3 discontinuité sauf pour la première question où il y aura toujours au moins une discontinuité
       x = x.slice(0, choice([i !== 0 ? 0 : 2, 1, 1, 2, 2, 3]))
       // Étape n°4 : On tri les discontinuités dans l'ordre croissant

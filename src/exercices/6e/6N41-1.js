@@ -60,7 +60,7 @@ export default function ExerciceLabyrintheFractionsEgales () {
       const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
       const laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
       laby.niveau = parseInt(this.sup2) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
-      const monchemin = laby.choisitChemin(laby.niveau) // On choisi un chemin
+      const monchemin = laby.choisitChemin(laby.niveau) // on choisit un chemin
       laby.murs2d = laby.construitMurs(monchemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monchemin) // On trace le chemin solution
       const table = randint(1, 7) + 1

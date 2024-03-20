@@ -254,7 +254,7 @@ export default class ProblemesEnEquation extends Exercice {
           intro += `Le programme de calcul effectué par ${quidam[0]} se traduit par : $(x+${b})\\times ${a}$.<br>`
           intro += `Le programme de calcul effectué par ${quidam[1]} se traduit par : $(x+${d})\\times ${c}$.<br>`
           intro += 'L\'égalité des résultats se traduit par l\'équation suivante :<br>'
-          conclusion = `<br>${quidam[0]} et ${quidam[1]} on donc choisi au départ le nombre ${x}.`
+          conclusion = `<br>${quidam[0]} et ${quidam[1]} ont donc choisi au départ le nombre ${x}.`
           figure = ''
           verification = `<br>Vérification :
           <br>
@@ -301,7 +301,7 @@ export default class ProblemesEnEquation extends Exercice {
           intro += `Le programme de calcul effectué par ${quidam[0]} se traduit par : $(x+${b})\\times ${a}$.<br>`
           intro += `Le programme de calcul effectué par ${quidam[1]} se traduit par : $${c}x + ${d}$.<br>`
           intro += 'L\'égalité des résultats se traduit par l\'équation suivante :<br>'
-          conclusion = `<br>${quidam[0]} et ${quidam[1]} on donc choisi au départ le nombre ${x}.`
+          conclusion = `<br>${quidam[0]} et ${quidam[1]} ont donc choisi au départ le nombre ${x}.`
           figure = ''
           verification = `<br>Vérification :
           <br>
