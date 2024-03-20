@@ -390,7 +390,7 @@ export function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horiz
   this.color = color
   this.extremite1 = A
   this.extremite2 = B
-  this.distance = -d
+  this.distance = texte[0] === '$' ? -3 * d : -d
   this.texte = texte
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
