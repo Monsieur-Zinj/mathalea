@@ -23,7 +23,6 @@ export const dateDePublication = '04/11/2021'
 /**
  * Presentation didactique : Par combien multiplier un nombre pour que le chiffre des unités devienne le chiffre des ...
  * @author Eric Elter (inspiré par Aude Duvold)
- * Référence 6C30-6
  */
 export const uuid = '18559'
 export const ref = '6C30-6'
@@ -70,7 +69,6 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
     listeChoixAlea = combinaisonListes(listeChoixAlea, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const choixAlea = listeChoixAlea[0]
-      console.log(choixAlea)
       listeChoixAlea.splice(0, 1)
       const centaine = randint(0, 1) === 0 ? choice(rangeMinMax(0, 9)) : 0
       const dizaine = choice(rangeMinMax(0, 9), [centaine])
