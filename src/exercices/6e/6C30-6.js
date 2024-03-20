@@ -4,10 +4,10 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message.js'
 import { abs, range, rangeMinMax } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString.js'
-import { texNombre3 } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { min } from 'mathjs'
 import { context } from '../../modules/context.js'
@@ -70,43 +70,44 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
     listeChoixAlea = combinaisonListes(listeChoixAlea, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const choixAlea = listeChoixAlea[0]
+      console.log(choixAlea)
       listeChoixAlea.splice(0, 1)
       const centaine = randint(0, 1) === 0 ? choice(rangeMinMax(0, 9)) : 0
       const dizaine = choice(rangeMinMax(0, 9), [centaine])
       const unite = choice(rangeMinMax(0, 9), [centaine, dizaine])
       const dixieme = (this.sup) ? 0 : choice(rangeMinMax(0, 9), [centaine, dizaine, unite])
       const centieme = ((randint(0, 1) !== 0) || (this.sup)) ? 0 : choice(rangeMinMax(0, 9), [centaine, dizaine, unite, dixieme])
-      const exemple = calculANePlusJamaisUtiliser(centaine * 100 + dizaine * 10 + unite + dixieme / 10 + centieme / 100)
-      if (this.sup2 & !this.interactif & !context.isAmc) {
-        texte = `Voici un nombre : $${texNombre3(exemple)}$.<br>`
+      const exemple = centaine * 100 + dizaine * 10 + unite + dixieme / 10 + centieme / 100
+      if (this.sup2 && !this.interactif && !context.isAmc) {
+        texte = `Voici un nombre : $${texNombre(exemple, 2)}$.<br>`
         texte += `${numAlpha(0)} Entourer le chiffre des unités de ce nombre.<br>`
         texte += `${numAlpha(1)} Compléter les phrases suivantes.<br>`
-        texte += `Multiplier $${texNombre3(exemple)}$ par $${texNombre3(calculANePlusJamaisUtiliser(10 ** (choixAlea - 3)))}$, c'est trouver le nombre $\\ldots\\ldots\\ldots$ fois plus $\\ldots\\ldots\\ldots$ que $${texNombre3(exemple)}$.<br>`
-        texte += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des $\\ldots\\ldots\\ldots\\ldots\\ldots$ et donc $${texNombre3(exemple)} \\times ${texNombre3(calculANePlusJamaisUtiliser(10 ** (choixAlea - 3)))} =\\ldots\\ldots\\ldots\\ldots$<br>`
+        texte += `Multiplier $${texNombre(exemple, 2)}$ par $${texNombre(10 ** (choixAlea - 3), 3)}$, c'est trouver le nombre $\\ldots\\ldots\\ldots$ fois plus $\\ldots\\ldots\\ldots$ que $${texNombre(exemple, 2)}$.<br>`
+        texte += `Le chiffre des unités de $${texNombre(exemple, 2)}$ devient, alors, le chiffre des $\\ldots\\ldots\\ldots\\ldots\\ldots$ et donc $${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} =\\ldots\\ldots\\ldots\\ldots$<br>`
 
-        texteCorr = `${numAlpha(0)} $${unite}$ est le chiffre des unités de $${texNombre3(exemple)}$.<br>`
-        texteCorr += `${numAlpha(1)} Multiplier $${texNombre3(exemple)}$ par $${texNombre3(calculANePlusJamaisUtiliser(10 ** (choixAlea - 3)))}$, c'est trouver le nombre ${texteEnCouleurEtGras(texNombre3(calculANePlusJamaisUtiliser(10 ** abs(choixAlea - 3))))} fois plus `
+        texteCorr = `${numAlpha(0)} $${unite}$ est le chiffre des unités de $${texNombre(exemple, 2)}$.<br>`
+        texteCorr += `${numAlpha(1)} Multiplier $${texNombre(exemple, 2)}$ par $${texNombre(10 ** (choixAlea - 3), 3)}$, c'est trouver le nombre ${texteEnCouleurEtGras(texNombre(10 ** Math.abs(choixAlea - 3), 0))} fois plus `
         texteCorr += choixAlea - 3 > 0 ? `${texteEnCouleurEtGras('grand')} ` : `${texteEnCouleurEtGras('petit')} `
-        texteCorr += `que $${texNombre3(exemple)}$.<br>`
-        texteCorr += `Le chiffre des unités de $${texNombre3(exemple)}$ devient, alors, le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])} et donc $${texNombre3(exemple)} \\times ${texNombre3(calculANePlusJamaisUtiliser(10 ** (choixAlea - 3)))} =$ ${texteEnCouleurEtGras(texNombre3(exemple * calculANePlusJamaisUtiliser(10 ** (choixAlea - 3))))}.<br>`
+        texteCorr += `que $${texNombre(exemple, 2)}$.<br>`
+        texteCorr += `Le chiffre des unités de $${texNombre(exemple, 2)}$ devient, alors, le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])} et donc $${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} =$ ${texteEnCouleurEtGras(texNombre(exemple * 10 ** (choixAlea - 3), 5))}.<br>`
       } else {
         texte = `Par combien multiplier un nombre pour que tous ses chiffres changent de position et que le chiffre des unités devienne le chiffre des ${choixUnites[choixAlea]} ?`
 
-        texteCorr = `Prenons un exemple : ${texNombre3(exemple)}.<br>`
-        texteCorr += `$${texNombre3(exemple)} \\times ${texNombre3(calculANePlusJamaisUtiliser(10 ** (choixAlea - 3)))} = ${texNombre3(exemple * calculANePlusJamaisUtiliser(10 ** (choixAlea - 3)))}$<br>`
-        texteCorr += `Si on veut que son chiffre des ${texteEnCouleurEtGras('unités')} devienne le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])}, on doit multiplier le nombre par ${texteEnCouleurEtGras(texNombre3(calculANePlusJamaisUtiliser(10 ** (choixAlea - 3))))}.`
+        texteCorr = `Prenons un exemple : ${texNombre(exemple, 2)}.<br>`
+        texteCorr += `$${texNombre(exemple, 2)} \\times ${texNombre(10 ** (choixAlea - 3), 3)} = ${texNombre(exemple * 10 ** (choixAlea - 3), 5)}$<br>`
+        texteCorr += `Si on veut que son chiffre des ${texteEnCouleurEtGras('unités')} devienne le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])}, on doit multiplier le nombre par ${texteEnCouleurEtGras(texNombre(10 ** (choixAlea - 3), 3))}.`
 
         const aleaFaux = range(6, [3, choixAlea])
         enleveElement(aleaFaux)
         const choixAleaFaux = []
-        for (let kk = 0; kk < 6; kk++) {
-          choixAleaFaux.push(texNombre3(calculANePlusJamaisUtiliser(10 ** (aleaFaux[kk] - 3))))
+        for (let kk = 0; kk < 5; kk++) {
+          choixAleaFaux.push(texNombre(10 ** (aleaFaux[kk] - 3), 3))
         }
         this.autoCorrection[i] = {}
         this.autoCorrection[i].enonce = `${texte}\n`
         this.autoCorrection[i].propositions = [
           {
-            texte: `$${texNombre3(calculANePlusJamaisUtiliser(10 ** (choixAlea - 3)))}$`,
+            texte: `$${texNombre(10 ** (choixAlea - 3), 3)}$`,
             statut: true
           },
           {
