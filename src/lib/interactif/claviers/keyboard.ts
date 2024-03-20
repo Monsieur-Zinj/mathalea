@@ -42,6 +42,8 @@ export enum KeyboardType {
   volume = 'volume',
   // eslint-disable-next-line no-unused-vars
   masse = 'masse',
+  // eslint-disable-next-line no-unused-vars
+  clavierProbabilite = 'clavierProbabilite'
 }
 
 export const convertToKeyboardTypeEnum = (str: string): KeyboardType | undefined => {
@@ -79,6 +81,8 @@ export const convertKeyboardTypeToBlocks = (type : KeyboardType): BlockForKeyboa
       return ['numbers']
     case KeyboardType.clavierFullOperations:
       return ['numbers', 'fullOperations']
+    case KeyboardType.clavierProbabilite:
+      return ['numbers', 'probabilite']
     case KeyboardType.alphanumeric:
       return ['alphanumeric']
     case KeyboardType.alphanumericAvecEspace:

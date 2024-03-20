@@ -6,6 +6,7 @@ import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Écrire une probabilité avec les notations'
 export const dateDePublication = '21/07/2022'
@@ -56,7 +57,7 @@ export default function ProbabilitesNotation () {
             En utilisant les événements $F$ et $R$, compléter avec une probabilité :<br>
             `
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -78,7 +79,7 @@ export default function ProbabilitesNotation () {
             }
             texte += ' En utilisant les événements $F$ et $R$, compléter  avec une probabilité :<br>'
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -99,7 +100,7 @@ export default function ProbabilitesNotation () {
             }
             texte += ' En utilisant les événements $F$ et $R$, compléter avec une probabilité :<br>'
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -116,7 +117,7 @@ export default function ProbabilitesNotation () {
             this.canEnonce += ` Dans ce lycée, il y a $${p1}\\,\\%$ de garçons demi-pensionnaires.
             `
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -137,7 +138,7 @@ export default function ProbabilitesNotation () {
             }
             texte += ' En utilisant les événements $F$ et $R$, compléter avec une probabilité :<br>'
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -174,7 +175,7 @@ export default function ProbabilitesNotation () {
               this.canEnonce += `Parmi les pommes provenant du fournisseur A,  $${p1}\\,\\%$  sont commercialisables.`
             }
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -196,7 +197,7 @@ export default function ProbabilitesNotation () {
               this.canEnonce += `Parmi les pommes provenant du fournisseur A,  $${p3}\\,\\%$ ne sont pas  commercialisables.`
             }
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -218,7 +219,7 @@ export default function ProbabilitesNotation () {
               this.canEnonce += `Parmi les pommes commercialisables,  $${p5}$ $\\%$  proviennent du fournisseur A.`
             }
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -240,7 +241,7 @@ export default function ProbabilitesNotation () {
               this.canEnonce += `Parmi les pommes non commercialisables,  $${p5}$ $\\%$ proviennent du fournisseur B.`
             }
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -256,7 +257,7 @@ export default function ProbabilitesNotation () {
               En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br> `
             this.canEnonce += ` $${p5}\\,\\%$ des pommes  proviennent du fournisseur A et sont commercialisables.`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -273,7 +274,7 @@ export default function ProbabilitesNotation () {
             En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br> `
             this.canEnonce += ` $${p5}\\,\\%$ des pommes  proviennent du fournisseur B et sont commercialisables.`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -289,7 +290,7 @@ export default function ProbabilitesNotation () {
           En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br>`
             this.canEnonce += ` $${p5}\\,\\%$ des pommes  proviennent du fournisseur A et ne sont pas commercialisables.`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -325,7 +326,7 @@ export default function ProbabilitesNotation () {
               this.canEnonce += `Parmi les personnes malades,  $${p1}\\,\\%$  ont un test positif.`
             }
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -348,7 +349,7 @@ export default function ProbabilitesNotation () {
               this.canEnonce += ` $${p1}\\,\\%$ des personnes non malades ont un test négatif.`
             }
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -372,7 +373,7 @@ export default function ProbabilitesNotation () {
               this.canEnonce += `$${p3}\\,\\%$ des personnes testées positives ne sont pas malades.`
             }
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -394,7 +395,7 @@ export default function ProbabilitesNotation () {
               this.canEnonce += `Si le test est négatif,  la personne est malade dans $${p3}\\,\\%$  des cas.`
             }
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -411,7 +412,7 @@ export default function ProbabilitesNotation () {
             this.canEnonce += ` Dans $${p3}\\,\\%$ des cas, le test est positif et la personne est malade.`
 
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
@@ -429,7 +430,7 @@ export default function ProbabilitesNotation () {
             this.canEnonce += `$${p3}\\,\\%$ des personnes ont un test positif alors qu'elles ne sont pas malades.`
 
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 ' + KeyboardType.clavierProbabilite)
             } else {
               texte += '$\\ldots\\ldots $'
             }
