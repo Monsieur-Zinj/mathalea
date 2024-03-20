@@ -102,7 +102,7 @@ export default function ImageFonctionsRefs () {
           texteCorr = `$${nom}(${texNombre(nombre, 0)}) = ${miseEnEvidence(deprecatedTexFraction(1, nombre))} = ${miseEnEvidence(texNombre(solution, 6))}$`
           break
       }
-      const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre, 0)})$` : `l'image de $${texNombre(nombre, 0)}$ par la fonction $${nom}$`
+      const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre, 6)})$` : `l'image de $${texNombre(nombre, 6)}$ par la fonction $${nom}$`
       listePhrases[i] && (texteCorr += `<br>L'image de $${texNombre(nombre, 0)}$ par la fonction $${nom}$ est donc $${miseEnEvidence(texNombre(solution, 6))}$.`)
       texte = `Soit $${nom}$ la fonction ${listeTypeQuestions[i]}.<br>
       
