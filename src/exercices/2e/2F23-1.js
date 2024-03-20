@@ -49,7 +49,7 @@ export default class EtudeTrinome extends Exercice {
     p.defFormeFactorisee(a, x1, x2)
     this.introduction = `Soit $f$ la fonction définie sur $\\mathbb{R}$ par $f(x)=${p.texFormeCanonique}$.<br>
     On note $\\mathscr{C}_f$ sa courbe représentative dans un repère.`
-    const question1 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${rienSi1(p.a)}x^2${ecritureAlgebrique(p.b)}x${x1 === 0 || x2 === 0 ? '' : `${ecritureAlgebrique(p.c)}`}$.`
+    const question1 = `Montrer que $f(x)$ peut aussi s'écrire $f(x)=${rienSi1(p.a)}x^2${ecritureAlgebrique(p.b)}x${x1 === 0 || x2 === 0 ? '' : `${(p.c).texFractionSignee}`}$.`
     const etapesDeveloppement = p.arrayTexDevelopperFormeCanonique
     let correction1 = `On développe l'expression donnée : <br>$\\begin{aligned}
     f(x)&=${p.texFormeCanonique}\\\\
@@ -57,7 +57,7 @@ export default class EtudeTrinome extends Exercice {
    ${a !== 1 ? `&=${etapesDeveloppement[1]}\\\\` : '\\\\'}
  &=${etapesDeveloppement[2]}
  \\end{aligned}$`
-    correction1 += `<br>On en déduit que $f(x)$ peut s'écrire $f(x)=${rienSi1(p.a)}x^2${ecritureAlgebrique(p.b)}x${x1 === 0 || x2 === 0 ? '' : `${ecritureAlgebrique(p.c)}`}$.`
+    correction1 += `<br>On en déduit que $f(x)$ peut s'écrire $f(x)=${rienSi1(p.a)}x^2${ecritureAlgebrique(p.b)}x${x1 === 0 || x2 === 0 ? '' : `${(p.c).texFractionSignee}`}$.`
     let question2, correction2
     if (this.sup === 3) {
       question2 = 'Factoriser $f(x)$.'
