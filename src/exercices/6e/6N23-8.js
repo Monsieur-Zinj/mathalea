@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { format } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Decimal from 'decimal.js'
 
 export const titre = 'Donner l\'écriture décimale d\'une fraction décimale'
@@ -112,15 +112,15 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           } else if (nbdigits === 1 && b === 10) {
             precision = randint(2, 3)
           }
-          setReponse(this, i, {
+          handleAnswers(this, i, {
             bareme: (listePoints) => [listePoints[0], 1],
-            num: { value: String(a) }
+            champ1: { value: String(a) }
           },
-          { formatInteractif: 'fillInTheBlank' }
+          { formatInteractif: 'mathlive' }
           )
 
           if (this.interactif) {
-            texte = remplisLesBlancs(this, i, `${texNombre(n, precision, true)} = \\dfrac{%{num}}{$${texNombre(b)}}`, 'fillInTheBlanks')
+            texte = remplisLesBlancs(this, i, `${texNombre(n, precision, true)} = \\dfrac{%{champ1}}{$${texNombre(b)}}`, 'fillInTheBlanks')
           } else {
             texte = `$${texNombre(n, precision, true)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
           }
