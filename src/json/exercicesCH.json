@@ -1,25 +1,26 @@
 {
   "": {
-    "url": "can/Ex/canExC02.js",
+    "url": "can/5e/can5a-2023.js",
     "tags": [],
-    "uuid": "30cc1",
+    "uuid": "312eb",
     "id": "",
-    "titre": "produit de nombres complexes",
-    "datePublication": "26/10/2021",
+    "titre": "CAN 5e sujet 2023",
+    "datePublication": "03/04/2023",
+    "dateModification": "24/10/2021",
     "features": {
       "interactif": {
         "isActive": true,
         "type": "'mathLive'"
       },
       "amc": {
-        "isActive": true,
-        "type": "AMCHybride"
+        "isActive": false,
+        "type": ""
       }
     },
     "typeExercice": "alea"
   },
   "10ES1-1": {
-    "url": "6e/6G44-1.js",
+    "url": "6e/6G44-1.ts",
     "tags": [],
     "uuid": "051aa",
     "id": "11ES1-1",
@@ -1219,7 +1220,7 @@
     "tags": [],
     "uuid": "0eecd",
     "id": "10FA5-5",
-    "titre": "Vocabulaire et notations des fonctions (généralités)",
+    "titre": "Utiliser le vocabulaire et les notations des fonctions (généralités)",
     "features": {
       "interactif": {
         "isActive": true,
@@ -1255,8 +1256,9 @@
     "tags": [],
     "uuid": "4daef",
     "id": "11FA7-1",
-    "titre": "Vocabulaire et notations des fonctions",
+    "titre": "Utiliser le vocabulaire et les notations des fonctions",
     "datePublication": "29/09/2022",
+    "dateModification": "15/03/2024",
     "features": {
       "interactif": {
         "isActive": true,
@@ -2579,7 +2581,7 @@
     "typeExercice": "alea"
   },
   "11ES1-1": {
-    "url": "6e/6G44-1.js",
+    "url": "6e/6G44-1.ts",
     "tags": [],
     "uuid": "051aa",
     "id": "11ES1-1",
@@ -3818,8 +3820,9 @@
     "tags": [],
     "uuid": "4daef",
     "id": "11FA7-1",
-    "titre": "Vocabulaire et notations des fonctions",
+    "titre": "Utiliser le vocabulaire et les notations des fonctions",
     "datePublication": "29/09/2022",
+    "dateModification": "15/03/2024",
     "features": {
       "interactif": {
         "isActive": true,
@@ -5369,20 +5372,20 @@
     "typeExercice": "alea"
   },
   "9ES2-10": {
-    "url": "5e/5G31-1.js",
+    "url": "5e/5G31-2.js",
     "tags": [],
-    "uuid": "bcbe1",
+    "uuid": "c2f77",
     "id": "9ES2-10",
-    "titre": "Justifier la construction des triangles via les angles",
-    "dateModification": "10/12/2023",
+    "titre": "Déterminer un angle dans un triangle et sa nature",
+    "datePublication": "11/01/2023",
     "features": {
       "interactif": {
-        "isActive": true,
-        "type": "'qcm'"
+        "isActive": false,
+        "type": ""
       },
       "amc": {
-        "isActive": true,
-        "type": "AMCHybride"
+        "isActive": false,
+        "type": ""
       }
     },
     "typeExercice": "alea"
@@ -6742,7 +6745,7 @@
     "typeExercice": "alea"
   },
   "9ES7-8": {
-    "url": "6e/6G44-1.js",
+    "url": "6e/6G44-1.ts",
     "tags": [],
     "uuid": "051aa",
     "id": "11ES1-1",
@@ -7211,12 +7214,13 @@
     "typeExercice": "alea"
   },
   "9FA3-17": {
-    "url": "c3/c3C13-1.js",
+    "url": "6e/6P14.js",
     "tags": [],
-    "uuid": "ec3cc",
+    "uuid": "4c6e2",
     "id": "9FA3-17",
-    "titre": "Résoudre des problèmes de masses",
-    "datePublication": "02/11/2021",
+    "titre": "Agrandir ou réduire des figures, d'après une situation de proportionnalité",
+    "datePublication": "13/03/2022",
+    "dateModification": "11/02/2024",
     "features": {
       "interactif": {
         "isActive": true,
@@ -8229,11 +8233,11 @@
     "typeExercice": "alea"
   },
   "9NO11-7": {
-    "url": "6e/6N23-3.js",
+    "url": "6e/6N23-2.js",
     "tags": [],
-    "uuid": "23c48",
+    "uuid": "12773",
     "id": "9NO11-7",
-    "titre": "Lire une abscisse décimale grâce à des zooms successifs",
+    "titre": "Lire des abscisses décimales sous trois formes",
     "dateModification": "22/11/2022",
     "features": {
       "interactif": {
@@ -9755,7 +9759,7 @@
     "features": {
       "interactif": {
         "isActive": true,
-        "type": "'listeDeroulante'"
+        "type": "'custom'"
       },
       "amc": {
         "isActive": false,
