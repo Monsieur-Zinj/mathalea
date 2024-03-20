@@ -125,7 +125,7 @@ export default function Exercice () {
   }
 
   this.questionJamaisPosee = function (i, ...args) {
-    exportedQuestionJamaisPosee.call(this, i, ...args)
+    return exportedQuestionJamaisPosee.call(this, i, ...args)
   }
   this.applyNewSeed = function () {
     exportedApplyNewSeed.call(this)
