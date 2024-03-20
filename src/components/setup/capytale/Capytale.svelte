@@ -43,7 +43,6 @@
   import handleCapytale from '../../../lib/handleCapytale'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
-  import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
   import { canOptions } from '../../../lib/stores/canStore'
   import ButtonToggleAlt from '../../../components/shared/forms/ButtonToggleAlt.svelte'
 
@@ -164,9 +163,7 @@
       'es',
       buildEsParams(presMode)
     )
-    if ($globalOptions.beta) {
-      url.searchParams.append('beta', '1')
-    }
+
     if ($canOptions.isChoosen) {
       if ($canOptions.durationInMinutes !== 0) {
         url.searchParams.append('canD', $canOptions.durationInMinutes.toString())
@@ -201,7 +198,6 @@
     // Réglage du vecteur de translation pour le dé au loading
     const root = document.documentElement
     root.style.setProperty('--vect', 'calc((100vw / 10) * 0.5)')
-    displayKeyboardToggle(!$globalOptions.beta)
   })
   addEventListener('popstate', urlToDisplay)
 
@@ -300,17 +296,9 @@ function addExercise (uuid: string) {
     document.dispatchEvent(newDataForAll)
   }
 
-  // Gestion du clavier
-  let isBetaKeyboard: boolean = $globalOptions.beta ?? false
-  function handleKeyboard () {
-    $globalOptions.beta = isBetaKeyboard
-    displayKeyboardToggle(!isBetaKeyboard)
-  }
-
   function toggleCan () {
     if ($canOptions.isChoosen) {
       $globalOptions.setInteractive = '1'
-      isBetaKeyboard = true
     }
   }
 </script>
@@ -896,20 +884,6 @@ function addExercise (uuid: string) {
               isDisabled={$canOptions.isChoosen}
               titles={['Accès aux corrections', 'Pas de corrections']}
               bind:value={$globalOptions.isSolutionAccessible}
-            />
-          </div>
-        </div>
-        <div class="pb-2">
-          <div
-            class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
-          >
-            Clavier expérimental
-          </div>
-          <div class="flex flex-row justify-start items-center px-4">
-            <ButtonToggle
-              titles={['Nouveau clavier en test', 'Ancien clavier']}
-              bind:value={isBetaKeyboard}
-              on:toggle={handleKeyboard}
             />
           </div>
         </div>

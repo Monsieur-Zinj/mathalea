@@ -55,7 +55,7 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
   isInteractiveFree: true,
   oneShot: false,
   twoColumns: false,
-  beta: true
+  beta: false
 })
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can

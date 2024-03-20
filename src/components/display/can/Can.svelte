@@ -24,9 +24,8 @@
   import { answersFromCapytale, assignmentDataFromCapytale, sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
   import { millisecondToMinSec } from '../../../lib/components/time'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
-  import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
   import type { InterfaceResultExercice } from '../../../lib/types'
-  
+
   let state: CanState = 'start'
   let exercises: TypeExercice[] = []
   let questions: string[] = []
@@ -39,16 +38,12 @@
   let answers: string[] = []
   let recordedTimeFromCapytale: number
   onMount(async () => {
-    displayKeyboardToggle(false)
     // reconstitution des exercices
     exercises = await Promise.all(buildExercisesList())
     // interactivité
     if ($canOptions.isInteractive) {
       $globalOptions.beta = true
       $keyboardState.isVisible = true
-      if (!('ontouchstart' in window)) {
-        $keyboardState.isInLine = true
-      }
       for (const param of exercises) {
         param.interactif = true
       }
@@ -134,7 +129,7 @@
               qcmAnswers.push(proposition.texte)
             }
           })
-        answers.push(qcmAnswers.join(' ; '))
+          answers.push(qcmAnswers.join(' ; '))
         } else {
           resultsByQuestion[i] =
                   verifQuestionMathLive(exercice, indiceQuestionInExercice[i])
@@ -156,9 +151,9 @@
     const resultsByExerciceArray : InterfaceResultExercice[] = []
     for (let i = 0; i < exercises.length; i++) {
       const exercise = exercises[i]
-      for (let q = 0; q < exercise.nbQuestions; q++){
+      for (let q = 0; q < exercise.nbQuestions; q++) {
         const ans : { [key: string]: string } = {}
-        ans[`Ex${i}Q${q}`]=  exercise.answers![`Ex${i}Q${q}`]
+        ans[`Ex${i}Q${q}`] = exercise.answers![`Ex${i}Q${q}`]
         const quest : InterfaceResultExercice = {
           uuid: exercise.uuid,
           title: exercise.titre,
@@ -233,9 +228,9 @@
       if (exercise.answers !== undefined) {
         const answersOfExercise : string[] = []
         const keysAns = Object.keys(exercise.answers)
-        for ( let i = 0; i< exercise.numberOfQuestions ; i++) {
-          const numberQ = keysAns.findIndex( e=> e.endsWith(`Q${i}`))
-          if ( numberQ < 0 ){
+        for (let i = 0; i < exercise.numberOfQuestions; i++) {
+          const numberQ = keysAns.findIndex(e => e.endsWith(`Q${i}`))
+          if (numberQ < 0) {
             answersOfExercise[i] = ''
           } else {
             answersOfExercise[i] = exercise.answers[keysAns[numberQ]]

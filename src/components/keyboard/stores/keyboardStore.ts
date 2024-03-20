@@ -12,7 +12,7 @@ export const keyboardState = writable<{
   blocks: BlockForKeyboard[]
 }>({
   isVisible: false,
-  isInLine: false,
+  isInLine: !('ontouchstart' in window),
   idMathField: '',
   alphanumericLayout: 'AlphaLow',
   blocks: ['numbers', 'fullOperations']
