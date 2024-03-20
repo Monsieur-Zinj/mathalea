@@ -11,7 +11,6 @@ export function exportedReinit (this: Exercice) {
   this.listeCorrections = [] // Liste de questions corrigées
   this.listeArguments = []
   this.autoCorrection = []
-  console.log(this)
 }
 
 export function exportedApplyNewSeed (this: Exercice) {
