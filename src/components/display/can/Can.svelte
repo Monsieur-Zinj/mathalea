@@ -42,7 +42,6 @@
     exercises = await Promise.all(buildExercisesList())
     // interactivité
     if ($canOptions.isInteractive) {
-      $globalOptions.beta = true
       $keyboardState.isVisible = true
       for (const param of exercises) {
         param.interactif = true

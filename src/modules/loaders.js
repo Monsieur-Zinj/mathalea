@@ -210,9 +210,6 @@ export async function loadMathLive () {
       mf.classList.add('ml-1')
       mf.addEventListener('focus', handleFocusMathField)
       mf.addEventListener('focusout', handleFocusOutMathField)
-      /* Mgu obliger de rajouter le click sur le bouton clavier , car si on ferme le clavier, on clique sur le bouton, et rien ne se passe */
-      const buttonKeyboard = mf.shadowRoot?.querySelector('.ML__virtual-keyboard-toggle')
-      if (buttonKeyboard) buttonKeyboard.addEventListener('click', clickButtonMathField)
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
@@ -234,18 +231,6 @@ export async function loadMathLive () {
     )
     document.dispatchEvent(domExerciceInteractifReady)
   }
-  if (window.self === window.top) {
-    if (get(globalOptions).beta) {
-      window.mathVirtualKeyboard.addEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
-    } else {
-      window.mathVirtualKeyboard.removeEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
-    }
-  }
-}
-
-function handleClickOnKeyboardToggle (event) {
-  event.preventDefault()
-  event.stopPropagation()
 }
 
 function handleFocusMathField (event) {
@@ -263,23 +248,6 @@ function handleFocusMathField (event) {
       blocks: 'keyboard' in mf.dataset ? mf.dataset.keyboard.split(' ') : ['numbers', 'fullOperations', 'variables']
     }
   })
-}
-
-function clickButtonMathField (event) {
-  if (get(globalOptions).beta) {
-    const mf = event.target?.getRootNode()?.host
-    if (mf) {
-      keyboardState.update((value) => {
-        return {
-          isVisible: true && !mf.readOnly,
-          isInLine: value.isInLine,
-          idMathField: mf.id,
-          alphanumericLayout: value.alphanumericLayout,
-          blocks: 'keyboard' in mf.dataset ? mf.dataset.keyboard.split(' ') : ['numbers', 'fullOperations', 'variables']
-        }
-      })
-    }
-  }
 }
 
 function handleFocusOutMathField () {
