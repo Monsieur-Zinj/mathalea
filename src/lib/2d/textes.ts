@@ -257,27 +257,30 @@ export class TexteParPoint extends ObjetMathalea2D {
       if (!Number.isNaN(texte)) texte = stringNombre(texte, 3)
     }
     const angle = Math.PI * orientation / 180
+    // constantes utilisée pour le calcul des bordures
     const cx = Math.cos(angle)
     const sx = Math.sin(angle)
     const ratioLettreCm = 0.25
+    const epaisseurTexte = 0.3 * scale
     const longueurTexte = texte.length * ratioLettreCm * scale
+    // définition des bordures suivant le point d'ancrage
     if (ancrageDeRotation === 'milieu') {
       this.bordures = [A.x - longueurTexte * cx,
-        A.y - longueurTexte * sx,
+        A.y - longueurTexte * sx - epaisseurTexte,
         A.x + longueurTexte * cx,
-        A.y + longueurTexte * sx
+        A.y + longueurTexte * sx + epaisseurTexte
       ]
     } else if (ancrageDeRotation === 'gauche') {
       this.bordures = [A.x,
-        A.y - 2 * (longueurTexte * sx),
+        A.y - 2 * (longueurTexte * sx) - epaisseurTexte,
         A.x + 2 * (longueurTexte * cx),
-        A.y
+        A.y + epaisseurTexte
       ]
     } else {
       this.bordures = [A.x - 2 * longueurTexte * cx,
-        A.y,
+        A.y - epaisseurTexte,
         A.x,
-        A.y + 2 * (longueurTexte * sx)
+        A.y + 2 * (longueurTexte * sx) + epaisseurTexte
       ]
     }
 
