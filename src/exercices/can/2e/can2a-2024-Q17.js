@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fractionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Rendre une fraction irréductible'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,13 +21,14 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fraction'
+    this.formatInteractif = 'calcul'
+    this.compare = fractionCompare
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.question = 'Rendre irréductible la fraction $\\dfrac{15}{20}$.<br>'
-      this.reponse = new FractionEtendue(3, 4)
+      this.reponse = new FractionEtendue(3, 4).texFraction
       this.correction = `$\\begin{aligned}
       \\dfrac{15}{20}&=\\dfrac{5\\times 3}{5\\times 4}\\\\
       &=${miseEnEvidence('\\dfrac{3}{4}')}
@@ -41,7 +43,7 @@ export default class NomExercice extends Exercice {
       \\dfrac{${b.n * k1}}{${b.d * k1}}&=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}\\\\
       &=${miseEnEvidence(b.texFraction)}
       \\end{aligned}$`
-      this.reponse = b.simplifie()
+      this.reponse = b.simplifie().texFraction
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

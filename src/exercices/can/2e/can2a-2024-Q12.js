@@ -7,6 +7,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { texteParPosition } from '../../../lib/2d/textes'
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fractionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Déterminer une abscisse'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,12 +25,13 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fractionEgale'
+    this.formatInteractif = 'calcul'
+    this.compare = fractionCompare
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = new FractionEtendue(13, 5)
+      this.reponse = new FractionEtendue(13, 5).texFraction
       this.question = 'Abscisse du point $A$<br>'
       this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 15, ymax: 1.5, scale: 0.7, style: 'margin: auto' }, texteParPosition('A', 5.5, 0.9, 'milieu', 'blue', 1.5), droiteGraduee({
         Unite: 7,
@@ -52,7 +54,7 @@ export default class NomExercice extends Exercice {
     } else {
       if (choice([true, false])) {
         const a = choice([1, 3, 5, 6, 7, 9, 10, 11]) // numérateur
-        this.reponse = new FractionEtendue(a, 4)
+        this.reponse = new FractionEtendue(a, 4).texFraction
         this.question = 'Determiner l\'abscisse du point $A$.<br>'
         this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('A', 3 * a / 4, 0.9, 'milieu', 'blue', 2), droiteGraduee({
           Unite: 3,
@@ -74,7 +76,7 @@ export default class NomExercice extends Exercice {
         this.correction = `L'abscisse du point $A$ est $\\dfrac{${a}}{${4}}=${miseEnEvidence(texNombre(this.reponse))}$.`
       } else {
         const a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
-        this.reponse = new FractionEtendue(a, 5)
+        this.reponse = new FractionEtendue(a, 5).texFraction
         this.question = 'Determiner l\'abscisse du point $A$.<br>'
         this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('A', 3 * a / 5, 0.9, 'milieu', 'blue', 2), droiteGraduee({
           Unite: 3,
