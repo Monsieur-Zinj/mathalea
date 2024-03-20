@@ -240,6 +240,12 @@ export default function ExerciceEquationASolutionEntiere () {
       this.canEnonce = 'Résoudre l\'équation ' + this.listeQuestions[0] + '.'
       this.correction = this.listeCorrections[0]
       this.canReponseACompleter = ''
+      this.listeCanEnonces = []
+      this.listeCanReponsesACompleter = []
+      for (const enonce of this.listeQuestions) {
+        this.listeCanEnonces.push('Résoudre l\'équation ' + enonce + '.')
+        this.listeCanReponsesACompleter.push('')
+      }
     }
   }
   this.besoinFormulaireCaseACocher = ['Avec des nombres relatifs']
