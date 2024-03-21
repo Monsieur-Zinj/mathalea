@@ -3,7 +3,6 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
@@ -15,6 +14,7 @@ import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { texNombre } from '../../lib/outils/texNombre.ts'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 
 export const titre = 'Déterminer une équation réduite à partir de sa représentation graphique'
 export const interactifReady = true
@@ -92,17 +92,17 @@ export default function Lecturegraphiquedeaetb () {
         }, r, c, o)// On trace le graphique
         if (a === 0) {
           texteCorr = 'On observe que la droite est horizontale. '
-          texteCorr += `<br>La droite est l'ensemble des points ayant comme ordonnée : $${b}$ `
-          texteCorr += `<br>L'équation réduite de cette droite est donc : $y=${b}$`
+          texteCorr += `<br>La droite est l'ensemble des points ayant comme ordonnée : $${texNombre(b, 1)}$ `
+          texteCorr += `<br>L'équation réduite de cette droite est donc : $y=${texNombre(b, 1)}$`
         } else {
           texteCorr = 'On sait que l\'équation réduite d\'une droite non verticale est de la forme : $y= ax+b$ avec $a$ et $b$ deux réels non tous deux nuls.<br>'
           texteCorr += 'Le premier coefficient à lire graphiquement est $b$, l\'ordonnée à l\'origine de la droite.<br>'
           texteCorr += 'C\'est l\'ordonnée du point d\'intersection de la droite avec l\'axe des ordonnées.<br>'
-          texteCorr += `On lit ici que le point $(0;${b}) \\in (d)$.<br>`
-          texteCorr += `On peut alors conclure que l'ordonnée à l'origine est : $b=${b}$. <br>`
+          texteCorr += `On lit ici que le point $(0;${texNombre(b, 1)}) \\in (d)$.<br>`
+          texteCorr += `On peut alors conclure que l'ordonnée à l'origine est : $b=${texNombre(b, 1)}$. <br>`
           texteCorr += 'On peut lire ensuite le coefficient directeur $a$ de la droite $(d)$.<br>'
           texteCorr += 'On sait que $a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}$'
-          texteCorr += `<br>En lisant le déplacement vertical correspondant à un déplacement horizontal d'une unité, on lit : <br>$a=\\dfrac{${texNombre(a)}}{1}=${a}$`
+          texteCorr += `<br>En lisant le déplacement vertical correspondant à un déplacement horizontal d'une unité, on lit : <br>$a=\\dfrac{${texNombre(a, 1)}}{1}=${texNombre(a, 1)}$`
           texteCorr += '<br>On peut en déduire que l\'équation réduite de la droite $(d)$ est :'
 
           texteCorr += `$y=${reduireAxPlusB(a, b)}$`
@@ -190,6 +190,7 @@ export default function Lecturegraphiquedeaetb () {
         a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
         b = randint(-5, 5) // ordonnée à l'origine
         d = randint(2, 5, 3) // dénominateur coefficient directeur
+        const coeffDir = new FractionEtendue(a, d)
         if (a === 0 && b === 0) {
           a = 1
           d = 3
@@ -227,18 +228,18 @@ export default function Lecturegraphiquedeaetb () {
         }, r, c, o)// On trace le graphique
         if (a === 0) {
           texteCorr = 'On observe que la droite est horizontale. '
-          texteCorr += `<br>La droite est l'ensemble des points ayant comme ordonnée : $${b}$ `
-          texteCorr += `<br>L'équation réduite de cette droite est donc : $y=${b}$`
+          texteCorr += `<br>La droite est l'ensemble des points ayant comme ordonnée : $${texNombre(b, 1)}$ `
+          texteCorr += `<br>L'équation réduite de cette droite est donc : $y=${texNombre(b, 1)}$`
         } else {
           texteCorr = 'On sait que l\'équation réduite d\'une droite non verticale est de la forme : $y= ax+b$ avec $a$ et $b$ deux réels non tous deux nuls.<br>'
           texteCorr += 'Le premier coefficient à lire graphiquement est $b$, l\'ordonnée à l\'origine de la droite.<br>'
           texteCorr += 'C\'est l\'ordonnée du point d\'intersection de la droite avec l\'axe des ordonnées.<br>'
-          texteCorr += `On lit ici que : $A(0;${b}) \\in (d)$.<br>`
-          texteCorr += `On peut alors conclure que l'ordonnée à l'origine est : $b=${b}$. <br>`
+          texteCorr += `On lit ici que : $A(0;${texNombre(b, 1)}) \\in (d)$.<br>`
+          texteCorr += `On peut alors conclure que l'ordonnée à l'origine est : $b=${texNombre(b, 1)}$. <br>`
           texteCorr += 'On peut lire ensuite le coefficient directeur $a$ de la droite $(d)$.<br>'
           texteCorr += 'On sait que $a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}$'
           texteCorr += '<br>On cherche un déplacement horizontal correspondant à un déplacement vertical entier.'
-          texteCorr += `<br>On lit que pour un déplacement vers la droite de ${d} unités, il faut `
+          texteCorr += `<br>On lit que pour un déplacement vers la droite de ${texNombre(d, 1)} unités, il faut `
 
           if (a > 0) {
             texteCorr += 'monter de '
@@ -247,9 +248,9 @@ export default function Lecturegraphiquedeaetb () {
             texteCorr += 'descendre de '
           }
           texteCorr += `${abs(a)} unités.`
-          texteCorr += `<br>Il vient : $a=\\dfrac{${a}}{${d}}`
+          texteCorr += `<br>Il vient : $a=\\dfrac{${texNombre(a, 1)}}{${texNombre(d, 1)}}`
           if (pgcd(a, d) !== 1) {
-            texteCorr += `=${texFractionReduite(a, d)}`
+            texteCorr += `=${coeffDir.texFractionSimplifiee}`
           }
           texteCorr += '$'
 
@@ -259,7 +260,7 @@ export default function Lecturegraphiquedeaetb () {
           } else if (a === -d) {
             texteCorr += `-x${b !== 0 ? ecritureAlgebrique(b) : ''}`
           } else {
-            texteCorr += `${texFractionReduite(a, d)}x`
+            texteCorr += `${coeffDir.texFractionSimplifiee}x`
             if (b !== 0) {
               texteCorr += `${ecritureAlgebrique(b)}=${reduireAxPlusB(new Decimal(a).div(d), b)}`
             }
