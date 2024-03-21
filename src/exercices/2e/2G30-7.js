@@ -14,6 +14,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { texNombre } from '../../lib/outils/texNombre.ts'
 
 export const titre = 'Déterminer une équation réduite à partir de sa représentation graphique'
 export const interactifReady = true
@@ -101,7 +102,7 @@ export default function Lecturegraphiquedeaetb () {
           texteCorr += `On peut alors conclure que l'ordonnée à l'origine est : $b=${b}$. <br>`
           texteCorr += 'On peut lire ensuite le coefficient directeur $a$ de la droite $(d)$.<br>'
           texteCorr += 'On sait que $a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}$'
-          texteCorr += `<br>En lisant le déplacement vertical correspondant à un déplacement horizontal d'une unité, on lit : <br>$a=\\dfrac{\\text{Dénivelé vertical}}{1}=${a}$`
+          texteCorr += `<br>En lisant le déplacement vertical correspondant à un déplacement horizontal d'une unité, on lit : <br>$a=\\dfrac{${texNombre(a)}}{1}=${a}$`
           texteCorr += '<br>On peut en déduire que l\'équation réduite de la droite $(d)$ est :'
 
           texteCorr += `$y=${reduireAxPlusB(a, b)}$`
