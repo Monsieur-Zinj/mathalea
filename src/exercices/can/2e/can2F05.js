@@ -1,7 +1,8 @@
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import Exercice from '../../deprecatedExercice.js'
+import Exercice from '../../Exercice'
 import { fraction } from '../../../modules/fractions.js'
-import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
+import { context } from '../../../modules/context'
 export const titre = 'Déterminer un antécédent avec la racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,17 +21,20 @@ export const refs = {
   'fr-fr': ['can2F05'],
   'fr-ch': []
 }
-export default function AntecedentFonctionRacine () {
-  Exercice.call(this)
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
-  this.tailleDiaporama = 2
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur15 inline'
-  this.nouvelleVersion = function () {
+export default class AntecedentFonctionRacine extends Exercice {
+  constructor () {
+    super()
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+    this.tailleDiaporama = 2
+    this.formatChampTexte = 'largeur15 inline'
+  }
+
+  nouvelleVersion () {
+    if (context.isHtml) this.spacingCorr = 2
     const m = randint(2, 5)
-    const p = calculANePlusJamaisUtiliser(randint(1, 4) * m)
-    const a = calculANePlusJamaisUtiliser(randint(5, 10) * m)
+    const p = randint(1, 4) * m
+    const a = randint(5, 10) * m
     const maFraction = fraction(a - p, m)
     this.question = `Déterminer l'antécédent de $${a}$
     par la fonction $f$ définie sur $\\mathbb{R}_+$ par : $f(x)=${m}\\sqrt{x}+${p}$.`
@@ -38,15 +42,15 @@ export default function AntecedentFonctionRacine () {
 Pour résoudre cette équation, on isole la racine carrée dans le membre de gauche.<br>
 
     $\\begin{aligned}
-    ${m}\\sqrt{x}+${p}&=${a}\\\\
-    ${m}\\sqrt{x}+${p}${miseEnEvidence(-p, 'blue')}&=${a}${miseEnEvidence(-p, 'blue')}\\\\
-    \\dfrac{${m}\\sqrt{x}}{${miseEnEvidence(m, 'blue')}}&=\\dfrac{${a - p}}{${miseEnEvidence(m, 'blue')}}\\\\
-    \\sqrt{x}&=${maFraction.texFractionSimplifiee}{\\text{ On cherche le nombre dont la racine carrée vaut }}${maFraction.texFractionSimplifiee} \\\\
-    x&=${miseEnEvidence(maFraction.texFractionSimplifiee ** 2)}
+    ${m}\\sqrt{x}+${p}&=${a}\\\\[2ex]
+    ${m}\\sqrt{x}+${p}~${miseEnEvidence(-p, 'blue')}&=${a}~${miseEnEvidence(-p, 'blue')}\\\\[2ex]
+    \\dfrac{${m}\\sqrt{x}}{${miseEnEvidence(m, 'blue')}}&=\\dfrac{${a - p}}{${miseEnEvidence(m, 'blue')}}\\\\[2ex]
+    \\sqrt{x}&=${maFraction.simplifie().texFSD}{\\qquad\\text{ On cherche le nombre dont la racine carrée vaut }}${maFraction.simplifie().texFSD} \\\\[2ex]
+    x&=${miseEnEvidence(maFraction.puissanceFraction(2).simplifie().texFraction)}
     \\end{aligned}$
     `
-    this.reponse = maFraction.texFractionSimplifiee ** 2
-    this.canEnonce = this.question// 'Compléter'
+    this.reponse = maFraction.puissanceFraction(2)
+    this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
 }
