@@ -4,7 +4,7 @@ import { randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { fractionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Déterminer une proportion'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'calcul'
-    this.compare = fractionCompare
+    this.compare = equalFractionCompare
   }
 
   nouvelleVersion () {
