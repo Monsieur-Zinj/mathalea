@@ -24,8 +24,6 @@
   import { answersFromCapytale, assignmentDataFromCapytale, sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
   import { millisecondToMinSec } from '../../../lib/components/time'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
-  import type { InterfaceResultExercice } from '../../../lib/types'
-
   let state: CanState = 'start'
   let exercises: TypeExercice[] = []
   let questions: string[] = []
@@ -81,6 +79,7 @@
       } else if (type === 'qcm') {
         resultsByQuestion[i] =
           verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === 'OK'
+        if (resultsByQuestion[i] && exercice.score !== undefined) { exercice.score++ }
         // récupération de la réponse
         // @ts-expect-error typage pour les QCM
         const propositions = exercice.autoCorrection[indiceQuestionInExercice[i]].propositions
@@ -147,34 +146,24 @@
     for (const param of exercises) {
       param.interactif = false
     }
-    const resultsByExerciceArray : InterfaceResultExercice[] = []
     for (let i = 0; i < exercises.length; i++) {
       const exercise = exercises[i]
-      for (let q = 0; q < exercise.nbQuestions; q++) {
-        const ans : { [key: string]: string } = {}
-        ans[`Ex${i}Q${q}`] = exercise.answers![`Ex${i}Q${q}`]
-        const quest : InterfaceResultExercice = {
+      resultsByExercice.update((l) => {
+        l[exercise.numeroExercice as number] = {
           uuid: exercise.uuid,
           title: exercise.titre,
           indice: exercise.numeroExercice as number,
           state: 'done',
           alea: exercise.seed,
-          answers: ans,
-          numberOfPoints: (resultsByQuestion[q] ? 1 : 0),
-          numberOfQuestions: 1,
-          bestScore: (resultsByQuestion[q] ? 1 : 0),
-          resultsByQuestion: [resultsByQuestion[q]],
+          answers: exercise.answers,
+          numberOfPoints: exercise.score || 0,
+          numberOfQuestions: exercise.nbQuestions,
+          bestScore: exercise.score,
+          resultsByQuestion,
           duration: Math.floor($canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds)
         }
-        resultsByExerciceArray.push(quest)
-      }
-      resultsByExercice.update((l) => {
-        // console.log('resultsByExercice')
-        // console.log(JSON.stringify(resultsByExerciceArray))
-        l = resultsByExerciceArray
         return l
       })
-
       if (i === exercises.length - 1 && $globalOptions.recorder === 'capytale') {
         sendToCapytaleSaveStudentAssignment({
           indiceExercice: 'all',

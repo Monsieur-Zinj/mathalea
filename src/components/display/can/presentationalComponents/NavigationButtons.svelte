@@ -18,7 +18,7 @@
       if (endButtonDiv) {
         endButtonDiv.removeAttribute('disabled')
       }
-    }, 30 * 1000)
+    }, 5 * 1000)
   })
 
   let direction
