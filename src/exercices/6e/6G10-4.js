@@ -12,7 +12,7 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { context } from '../../modules/context.js'
 import { clone } from 'mathjs'
@@ -53,6 +53,7 @@ function longueurAlternative (longueur) {
   return longueur.slice(1) + longueur.slice(0, 1)
 }
 
+const mots = ['un diamètre', 'le diamètre', 'un rayon', 'le rayon', 'une corde']
 // @todo relire la définition de cette fonction et la déplacer
 function segmentAlternatif (reponses) {
   if (reponses[0] != null) {
@@ -172,7 +173,6 @@ export default function VocabulaireDuCercle () {
           sens: sensDesQuestions[i * nbSousQuestions + 4]
         }
       ]
-      questions = shuffle(questions).slice(0, nbSousQuestions)
       const propositionsUnRayonEst = []
       for (const question of questions) {
         const texteProposition = question.nom
@@ -201,6 +201,7 @@ export default function VocabulaireDuCercle () {
           break
         }
       }
+      questions = shuffle(questions).slice(0, nbSousQuestions)
       for (const question of questions) {
         let enonce
         const propositionsEE = []
@@ -293,6 +294,8 @@ export default function VocabulaireDuCercle () {
           }
         }
         texte += '<br>'
+        texte += ajouteFeedback(this, i)
+
         if (this.correctionDetaillee) texteCorr += '<br>'
         j++
       }
