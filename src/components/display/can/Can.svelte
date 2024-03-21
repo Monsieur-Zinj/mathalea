@@ -24,6 +24,8 @@
   import { answersFromCapytale, assignmentDataFromCapytale, sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
   import { millisecondToMinSec } from '../../../lib/components/time'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
+  import type { InterfaceResultExercice } from '../../../lib/types'
+  
   let state: CanState = 'start'
   let exercises: TypeExercice[] = []
   let questions: string[] = []
@@ -146,33 +148,44 @@
     for (const param of exercises) {
       param.interactif = false
     }
-    for (let i = 0; i < exercises.length; i++) {
+    const resultsByExerciceArray : InterfaceResultExercice[] = []
+    for (let i = 0, ind = 0; i < exercises.length; i++) {
       const exercise = exercises[i]
-      resultsByExercice.update((l) => {
-        l[exercise.numeroExercice as number] = {
+      for (let q = 0; q < exercise.nbQuestions; q++) {
+        const ans : { [key: string]: string } = {} 
+        ans[`Ex${i}Q${q}`] = exercise.answers![`Ex${i}Q${q}`]
+        const quest : InterfaceResultExercice = {
           uuid: exercise.uuid,
           title: exercise.titre,
           indice: exercise.numeroExercice as number,
           state: 'done',
           alea: exercise.seed,
-          answers: exercise.answers,
-          numberOfPoints: exercise.score || 0,
-          numberOfQuestions: exercise.nbQuestions,
-          bestScore: exercise.score,
-          resultsByQuestion,
+          answers: ans,
+          numberOfPoints: (resultsByQuestion[ind] ? 1 : 0),
+          numberOfQuestions: 1,
+          bestScore: (resultsByQuestion[ind] ? 1 : 0),
+          resultsByQuestion: [resultsByQuestion[ind]],
           duration: Math.floor($canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds)
         }
-        return l
-      })
-      if (i === exercises.length - 1 && $globalOptions.recorder === 'capytale') {
-        sendToCapytaleSaveStudentAssignment({
-          indiceExercice: 'all',
-          assignmentData: {
-            duration: Math.floor($canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds),
-            resultsByQuestion
-          }
-        })
+        ind++
+        resultsByExerciceArray.push(quest)
       }
+    }
+    resultsByExercice.update((l) => {
+      // console.log('resultsByExercice')
+      // console.log(JSON.stringify(resultsByExerciceArray))
+      l = resultsByExerciceArray
+      return l
+    })
+
+    if ($globalOptions.recorder === 'capytale') {
+      sendToCapytaleSaveStudentAssignment({
+        indiceExercice: 'all',
+        assignmentData: {
+          duration: Math.floor($canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds),
+          resultsByQuestion
+        }
+      })
     }
   }
 
