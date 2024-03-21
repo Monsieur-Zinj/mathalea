@@ -1,6 +1,4 @@
 import './styleSandbox.scss'
-import { CLAVIER_LYCEE, raccourcisLycee } from '../../lib/interactif/claviers/lycee'
-
 import { MathfieldElement, type Expression } from 'mathlive'
 import { ComputeEngine, type BoxedExpression } from '@cortex-js/compute-engine'
 
@@ -398,15 +396,12 @@ class ComputeEngineSandbox {
     // MathfieldElement.fontsDirectory = '../assets/fonts'
     // MathfieldElement.soundsDirectory = '../assets/sounds'
     MathfieldElement.decimalSeparator = ','
-    mathVirtualKeyboard.layouts = CLAVIER_LYCEE
 
     // On crée les deux inputs Mathlive et on active le clavier au focus (on le vire au focusout)
     const saisie = new MathfieldElement()
     const reponse = new MathfieldElement()
     saisie.mathVirtualKeyboardPolicy = 'manual'
     reponse.mathVirtualKeyboardPolicy = 'manual'
-    saisie.inlineShortcuts = raccourcisLycee
-    reponse.inlineShortcuts = raccourcisLycee
     saisie.addEventListener('focusin', () => mathVirtualKeyboard.show())
     reponse.addEventListener('focusin', () => mathVirtualKeyboard.show())
     saisie.addEventListener('focusout', () => mathVirtualKeyboard.hide())
