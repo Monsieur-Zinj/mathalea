@@ -84,7 +84,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
   // Listen for all console events and handle errors
   page.on('console', msg => {
     // if (msg.type() === 'error') {
-    if (!msg.text().includes('[vite]')) {
+    if (!msg.text().includes('[vite]') && !msg.text().includes('[bugsnag] Loaded!')) {
       if (!msg.text().includes('<HeaderExercice>')) {
         messages.push(page.url() + ' ' + msg.text())
       }
@@ -101,7 +101,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
   // Paramètres ça va les refermer puisqu'ils sont ouverts par défaut
   const buttonParam = page.getByRole('button', { name: 'Changer les paramètres de l\'' })
   await buttonParam.click()
-  // Actualier
+  // Actualier (nouvelle énoncé)
   const buttonRefresh = page.locator('i.bx-refresh').nth(1)
   await buttonRefresh.highlight()
   await buttonRefresh.click({ clickCount: 3 })
@@ -161,8 +161,6 @@ async function findStatic (filter : string) {
   return uuidsFound
 }
 
-const alea = 'e906e'
-
 async function testRunAllLots (filter: string) {
   // return testAll(page, '6e/6G23')
   const uuids = filter.includes('dnb') ? await findStatic(filter) : await findUuid(filter)
@@ -175,8 +173,7 @@ async function testRunAllLots (filter: string) {
         page.on('console', msg => {
           logConsole(msg.text())
         })
-        const local = true
-        const hostname = local ? 'http://localhost:5173/alea/' : 'https://coopmaths.fr/alea/'
+        const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
         log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
         const resultReq = await getConsoleTest(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}`)
         log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[k][1]}`)
@@ -189,7 +186,23 @@ async function testRunAllLots (filter: string) {
   }
 }
 
-testRunAllLots('6e/6')
-testRunAllLots('5e/5')
-testRunAllLots('4e/4')
-testRunAllLots('3e/3')
+const alea = 'e906e'
+const local = true
+
+if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined) {
+  // utiliser pour les tests d'intégration
+  const filter = (process.env.NIV as string).replaceAll(' ', '')
+  log(filter)
+  testRunAllLots(filter)
+} else {
+  // testRunAllLots('can')
+  testRunAllLots('6e/6N2')
+  // testRunAllLots('5e')
+  // testRunAllLots('4e')
+  // testRunAllLots('3e')
+  // testRunAllLots('2e')
+  // testRunAllLots('1e')
+}
+
+
+
