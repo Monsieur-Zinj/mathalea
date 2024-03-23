@@ -1,0 +1,46 @@
+import Exercice from '../../Exercice'
+import { randint } from '../../../modules/outils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
+
+export const titre = 'Encadrer une racine carrée par deux entiers consécutifs'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const uuid = 'fa173'
+/**
+ * Modèle d'exercice très simple pour la course aux nombres
+ * @author Gilles Mora
+ * Référence
+*/
+
+export default class EncadreRacParDeuxEntiers extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+    this.formatInteractif = 'fillInTheBlank'
+    this.formatChampTexte = 'largeur01'
+    this.canOfficielle = false
+  }
+
+  nouvelleVersion () {
+    let nbre: number
+    if (this.canOfficielle) {
+      nbre = 70
+    } else {
+      nbre = randint(26, 99, [36, 49, 64, 81])
+    }
+    const entierInf = Math.floor(Math.sqrt(nbre))
+    const entierSup = Math.ceil(Math.sqrt(nbre))
+    this.consigne = 'Compléter par deux entiers consécutifs : '
+    this.question = `%{champ1}\\lt \\sqrt{${texNombre(nbre, 0)}}\\lt %{champ2}`
+    this.canEnonce = 'Compléter par deux entiers consécutifs.'
+    this.canReponseACompleter = `$\\ldots < \\sqrt{${texNombre(nbre, 1)}} < \\ldots$`
+    this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf, compare: numberCompare }, champ2: { value: entierSup, compare: numberCompare } }
+    this.correction = `Comme $${texNombre(entierInf ** 2, 0)} < ${texNombre(nbre, 0)} < ${texNombre(entierSup ** 2, 0)}$, alors 
+    $${miseEnEvidence(texNombre(entierInf, 0))} < \\sqrt{${texNombre(nbre, 0)}} < ${miseEnEvidence(texNombre(entierSup, 0))}$.`
+  }
+}
