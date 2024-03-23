@@ -89,7 +89,6 @@ export default function CalculerDesMoyennes () {
         })
       }
       if (context.isAmc) {
-        reponse = reponse.simplifie()
         this.autoCorrection[i] = {
           enonce: texte,
           options: { multicols: true, barreseparation: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
