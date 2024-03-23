@@ -368,6 +368,7 @@ export function setReponse (exercice, i, valeurs, {
     formatInteractif,
     precision
   }
+  if (exercice.formatInteractif === 'qcm') return
   if (formatInteractif === undefined) formatInteractif = 'calcul'
   let reponses = []
   const url = new URL(window.location.href)
