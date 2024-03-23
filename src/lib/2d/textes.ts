@@ -1,4 +1,3 @@
-import katex from 'katex'
 import { colorToLatexOrHTML, ObjetMathalea2D, Vide2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { arrondi } from '../outils/nombres'
@@ -296,7 +295,7 @@ export class TexteParPoint extends ObjetMathalea2D {
       if (!this.point.positionLabel) {
         this.point.positionLabel = 'above'
       }
-      return latexParPoint(this.texte.substring(1, this.texte.length - 1), this.point, this.color[0], this.texte.length * 8, 12, '', 8).svg()
+      return latex2d(this.texte.substring(1, this.texte.length - 1), this.point.x, this.point.y, { color: this.color[0], orientation: this.orientation }).svg()
     } else {
       let code = ''
       let style = ''
@@ -522,6 +521,7 @@ export function latexParPoint (texte: string, A:Point, color:string = 'black', l
  * @param {string} [colorBackground] Couleur du fond de la box. Chaine vide pour un fond transparent.
  * @param {number} [tailleCaracteres] Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
  * @return LatexParCoordonnees
+ * @deprecated Utiliser la fonction latex2d() beaucoup plus évoluée.
  * @class
  */
 export class LatexParCoordonnees extends ObjetMathalea2D {
@@ -533,6 +533,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
   texte: string
   bordures: [number, number, number, number]
   taille: string
+  orientation: number
   constructor (texte: string, x: number, y: number, color: string, largeur: number, hauteur: number, colorBackground: string = '', tailleCaracteres: number = 8) {
     super()
     this.x = x
@@ -542,6 +543,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
     this.colorBackground = colorBackground
     this.color = colorToLatexOrHTML(color)
     this.texte = texte
+    this.orientation = 0 // dans latexParCoordonnees le latex ne peux pas tourner (on n'a pas d'argument pour ça et c'est pour cela qu'il y a latex2d() !)
     this.bordures = [this.x - (this.texte.length ?? 0) * 0.2, this.y - 0.02 * this.hauteur, this.x + (this.texte.length ?? 0) * 0.2, this.y + 0.02 * this.hauteur]
     if (tailleCaracteres > 19) this.taille = '\\huge'
     else if (tailleCaracteres > 16) this.taille = '\\LARGE'
@@ -563,18 +565,18 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
     }
   }
 
-  // taille = ''
+  // Eh oui ! le svg() de latexParCoordonnees est un objet. En fait, cela va produire un div mais plus tard : dans la fonction mathalea2d().
   svg () {
-    let divLatex
-    if (this.colorBackground !== '' && this.colorBackground !== 'none') {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%);">${katex.renderToString('\\colorbox{' + colorToLatexOrHTML(this.colorBackground)[0] + '}{ ' + this.taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
-    } else {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%);">${katex.renderToString('\\color{' + this.color[0] + '}' + this.taille + ' ' + this.texte + '')}</div>`
+    return {
+      latex: this.texte,
+      x: this.x,
+      y: this.y,
+      opacity: this.opacite,
+      orientation: this.orientation,
+      letterSize: this.taille.substring(1),
+      color: this.color[0],
+      backgroundColor: this.colorBackground
     }
-    /* const thisX = this.x
-      const thisY = this.y
-      return { divLatex, thisX, thisY } */
-    return { divLatex, x: this.x, y: this.y }
   }
 
   tikz () {
@@ -588,6 +590,17 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
   }
 }
 
+/**
+ * @deprecated utiliser latex2d() à la place (plus récent et plus facile d'usage)
+ * @param texte
+ * @param x
+ * @param y
+ * @param color
+ * @param largeur // paramètre inutile
+ * @param hauteurLigne // paramètre inutile
+ * @param colorBackground
+ * @param tailleCaracteres
+ */
 export function latexParCoordonnees (texte: string, x:number, y:number, color:string = 'black', largeur: number = 50, hauteurLigne:number = 20, colorBackground:string = '', tailleCaracteres:number = 8) {
   if (texte === '') return vide2d()
   else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
@@ -699,4 +712,49 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
 export function latexParCoordonneesBox (texte: string, x:number, y:number, color:string = 'black', largeur:number = 50, hauteurLigne:number = 20, colorBackground:string = 'white', tailleCaracteres:number = 8, options:{anchor: string, dx: string, dy: string}) {
   if (texte === '') return vide2d()
   else return new LatexParCoordonneesBox(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
+}
+
+type LetterSizeType = 'tiny'|'small'|'scriptsize'|'footnotesize'|'large'|'Large'|'LARGE'|'huge'
+type DivLatex = {orientation: number, color: string, backgroundColor: string, latex: string, letterSize: string, opacity: number}
+
+export class Latex2d extends ObjetMathalea2D {
+  color: [string, string]
+  backgroundColor: [string, string]
+  letterSize: LetterSizeType
+  latex: string
+  x: number
+  y: number
+  opacity: number
+  orientation: number
+  constructor (latex: string, x: number, y: number, options: {color: string, backgroundColor: string, letterSize: LetterSizeType, orientation: number, opacity: number}) {
+    super()
+    this.color = colorToLatexOrHTML(options.color ?? 'black')
+    this.backgroundColor = colorToLatexOrHTML(options.backgroundColor ?? '')
+    this.letterSize = options.letterSize ?? 'normalsize'
+    this.orientation = options.orientation ?? 0
+    this.opacity = options.opacity ?? 1
+    this.latex = latex
+    this.x = x
+    this.y = y
+  }
+
+  svg (): DivLatex {
+    return { latex: this.latex, x: this.x, y: this.y, opacity: this.opacity, orientation: this.orientation, letterSize: this.letterSize, color: this.color[0], backgroundColor: this.backgroundColor[0] }
+  }
+
+  // @todo ajouter opacity, orientation au tikz.
+  tikz () {
+    return this.colorBackground !== ''
+      ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox ${this.colorBackground[1]} {\\${this.letterSize}  \\color${this.color[1]}{$${this.latex}$}}};`
+      : `\\draw (${this.x},${this.y}) node[anchor = center] {\\${this.letterSize} \\color${this.color[1]}{$${this.latex}$}};`
+  }
+}
+
+export function latex2d (latex: string, x: number, y: number, options: {color: string, backgroundColor: string, letterSize: LetterSizeType, orientation: number, opacity: number}) {
+  const color = options.color ?? 'black'
+  const backgroundColor = options.backgroundColor ?? ''
+  const letterSize = options.letterSize ?? 'normalsize'
+  const orientation = options.orientation ?? 0
+  const opacity = options.opacity ?? 1
+  return new Latex2d(latex, x, y, { color, backgroundColor, letterSize, orientation, opacity })
 }

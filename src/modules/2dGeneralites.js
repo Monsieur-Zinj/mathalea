@@ -1,4 +1,5 @@
 import { context } from './context.js'
+import katex from 'katex'
 
 /*
   MathALEA2D
@@ -88,13 +89,17 @@ export function mathalea2d (
             const code = objets.svg(pixelsParCm)
             if (typeof code === 'string') {
               codeSvg = '\t' + objets.svg(pixelsParCm) + '\n'
-            } else {
+            } else { // on a à faire à un divLatex.
+              if (typeof code !== 'object') {
+                window.notify('Dans mathalea2d, la méthode svg() de l\'objet a renvoyé quelque chose d\'inconnu', { code })
+                return codeSvg
+              }
               const xSvg = (code.x - xmin) * pixelsParCm * zoom
               const ySvg = -(code.y - ymax) * pixelsParCm * zoom
-              const part1 = code.divLatex.substring(0, 81) // MGU CODE DANGEREUX... on coupe au guillement mais non pris
-              const part2 = code.divLatex.substring(82) // MGU CODE DANGEREUX... on ne prend pas le guillement
-              const codeHtml = part1 + ` top: ${ySvg}px; left: ${xSvg}px;" data-top=${ySvg} data-left=${xSvg}` + part2
-              divsLatex.push(codeHtml)
+              const divOuterHtml = code.backgroundColor !== ''
+                ? `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\colorbox{' + code.backgroundColor + '}{\\' + code.letterSize + ' {\\color{' + code.color + '}$' + code.latex + '$}}')}</div>`
+                : `<div class="divLatex" style="position: absolute; top: ${ySvg}px; left: ${xSvg}px; transform: translate(-50%,-50%) rotate(${code.orientation}deg); opacity: ${code.opacity};" data-top=${ySvg} data-left=${xSvg}>${katex.renderToString('\\color{' + code.color + '} \\' + code.letterSize + ' ' + code.latex + '')}</div>`
+              divsLatex.push(divOuterHtml)
             }
           } else {
             window.notify('Un problème avec ce mathalea2d, la liste des objets contient un truc louche', { objets: JSON.stringify(objets) })
