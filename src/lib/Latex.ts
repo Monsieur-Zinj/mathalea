@@ -230,6 +230,7 @@ class Latex {
       contents.preamble += '\n\\pagestyle{empty}'
       contents.preamble += '\n\\usepackage{enumitem}'
       contents.preamble += '\n\\usepackage{arev}'
+      contents.preamble += '\n\\usepackage[french]{babel}'
       if (contents.content.includes('pspicture')) {
         contents.preamble += '\n\\usepackage{pstricks,pst-plot,pst-tree,pstricks-add}'
         contents.preamble += '\n\\usepackage{pst-eucl}'
