@@ -418,11 +418,7 @@ export function TexteSurArc (texte, A, B, angle, color = 'black', d = 0.5, horiz
     } else {
       angle = 180 - s.angleAvecHorizontale
     }
-    if (this.texte.charAt(0) === '$') {
-      return latexParPoint(this.texte.substr(1, this.texte.length - 2), N, this.color, this.texte * 8, 12, '').svg(coeff)
-    } else {
-      return texteParPoint(this.texte, N, horizontal ? 0 : angle, this.color).svg(coeff)
-    }
+    return texteParPoint(this.texte, N, horizontal ? 0 : angle, this.color).svg(coeff)
   }
   this.tikz = function () {
     const N = pointSurSegment(p, Omega, this.distance / context.scale)
