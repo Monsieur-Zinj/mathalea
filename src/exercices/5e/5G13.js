@@ -105,7 +105,7 @@ export default function ConservationTransformation () {
           imageB = symetrieAxiale(B, d, `${B.nom}'`)
           imageC = symetrieAxiale(C, d, `${C.nom}'`)
           if (listeTypeDeQuestions[i] === 'parallelisme') {
-            objetsCorrectionOnly.push(...droiteAvecNomLatex(droite(symetrieAxiale(point(d1.x1, d1.y1), d), symetrieAxiale(point(d1.x2, d1.y2), d), '', '#f15929'), '$(d_1\')$'))
+            objetsCorrectionOnly.push(...droiteAvecNomLatex(droite(symetrieAxiale(point(d1.x1, d1.y1), d), symetrieAxiale(point(d1.x2, d1.y2), d)), '(d_1\')', '#f15929'))
           }
           figureRetournee = false
           break
