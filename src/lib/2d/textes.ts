@@ -715,17 +715,34 @@ export function latexParCoordonneesBox (texte: string, x:number, y:number, color
 }
 
 type LetterSizeType = 'tiny'|'small'|'scriptsize'|'footnotesize'|'large'|'Large'|'LARGE'|'huge'
-type DivLatex = {orientation: number, color: string, backgroundColor: string, latex: string, letterSize: string, opacity: number}
+type DivLatex = {x: number, y: number, latex: string, orientation: number, color: string, backgroundColor: string, latex: string, letterSize: string, opacity: number}
 
+/**
+ * crée un obiet mathalea2D qui affiche du latex et qui peut tourner contrairement à latexParCoordonnees qui est horizontal
+ */
 export class Latex2d extends ObjetMathalea2D {
   color: [string, string]
-  backgroundColor: [string, string]
+  backgroundColor: [string, string]|string
   letterSize: LetterSizeType
   latex: string
   x: number
   y: number
   opacity: number
   orientation: number
+
+  /**
+   * Les paramètres obligatoires (ne pas mettre de $ $ dans le latex !
+   * @param latex
+   * @param x
+   * @param y
+   * @param options
+   * @param options.color la couleur du texte
+   * @param options.backgroundColor la couleur de fond
+   * @param options.letterSize la taille des caractères en texte latex sans l'antislash
+   * @param options.orientation l'angle de rotation en degrés
+   * @param options.opacity l'opacité du texte // @fixme non encore implémenté
+   *
+   */
   constructor (latex: string, x: number, y: number, options: {color: string, backgroundColor: string, letterSize: LetterSizeType, orientation: number, opacity: number}) {
     super()
     this.color = colorToLatexOrHTML(options.color ?? 'black')
@@ -744,13 +761,27 @@ export class Latex2d extends ObjetMathalea2D {
 
   // @todo ajouter opacity, orientation au tikz.
   tikz () {
-    return this.colorBackground !== ''
-      ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox ${this.colorBackground[1]} {\\${this.letterSize}  \\color${this.color[1]}{$${this.latex}$}}};`
+    return this.backgroundColor !== ''
+      ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox ${this.backgroundColor[1]} {\\${this.letterSize}  \\color${this.color[1]}{$${this.latex}$}}};`
       : `\\draw (${this.x},${this.y}) node[anchor = center] {\\${this.letterSize} \\color${this.color[1]}{$${this.latex}$}};`
   }
 }
 
-export function latex2d (latex: string, x: number, y: number, options: {color: string, backgroundColor: string, letterSize: LetterSizeType, orientation: number, opacity: number}) {
+/**
+ * crée un obiet mathalea2D qui affiche du latex et qui peut tourner contrairement à latexParCoordonnees qui est horizontal
+ * Les paramètres obligatoires (ne pas mettre de $ $ dans le latex !
+ * @param latex
+ * @param x
+ * @param y
+ * @param options
+ * @param options.color la couleur du texte
+ * @param options.backgroundColor la couleur de fond
+ * @param options.letterSize la taille des caractères en texte latex sans l'antislash
+ * @param options.orientation l'angle de rotation en degrés
+ * @param options.opacity l'opacité du texte // @fixme non encore implémenté
+ *
+ */
+export function latex2d (latex: string, x: number, y: number, options: {color?: string, backgroundColor?: string, letterSize?: LetterSizeType, orientation?: number, opacity?: number}) {
   const color = options.color ?? 'black'
   const backgroundColor = options.backgroundColor ?? ''
   const letterSize = options.letterSize ?? 'normalsize'
