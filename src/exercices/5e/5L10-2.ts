@@ -2,8 +2,8 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -25,25 +25,15 @@ export const refs = {
   'fr-fr': ['5L10-2'],
   'fr-ch': ['9FA2-5', '10FA1-8']
 }
-export default function TraduireUnProgrammeDeCalcul () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacingCorr = 1
-  this.spacing = 1
-  this.interactif = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
-  this.amcReady = amcReady
+export default class TraduireUnProgrammeDeCalcul extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 2
+    this.besoinFormulaireCaseACocher = ['Résultat développé']
+    this.sup = true
+  }
 
-  this.besoinFormulaireCaseACocher = ['Résultat développé']
-  this.sup = true
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -51,18 +41,20 @@ export default function TraduireUnProgrammeDeCalcul () {
     const typeDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
       const a = randint(4, 11)
       const b = randint(2, 11)
       const c = randint(2, 11)
       const d = randint(2, 5)
       // Le programme équivalent est de la forme Ax + B
-      let A
-      let B
+      let A = 0
+      let B = 0
       switch (listeTypeDeQuestions[i]) {
         case 1: // (x+a)*b+c
           texte = 'Voici un programme de calcul : \n'
-          texte += itemize([`Ajoute ${a}`, `Multiplie par ${b}`, `Ajoute ${c}`])
+          texte += itemize(['Choisir un nombre', `Ajouter ${a}`, `Multiplier par ${b}`, `Ajouter ${c}`])
           texte += 'Si on note $x$ le nombre de départ, quel est le résultat du programme de calcul ?'
           texteCorr = `$x\\xrightarrow{+${a}} x+${a}\\xrightarrow{\\times  ${b}}(x+${a})\\times  ${b}`
           if (this.sup) texteCorr += `=${b}x+${a * b}`
@@ -95,7 +87,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           break
         case 2: // (ax+b)*c
           texte = 'Voici un programme de calcul : \n'
-          texte += itemize([`Multiplie par ${a}`, `Ajoute ${b}`, `Multiplie par ${c}`])
+          texte += itemize(['Choisir un nombre', `Multiplier par ${a}`, `Ajouter ${b}`, `Multiplier par ${c}`])
           texte += 'Si on note $y$ le nombre de départ, quel est le résultat du programme de calcul ?'
           texteCorr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times ${c}`
           if (this.sup) texteCorr += `=${a * c}y+${b * c}`
@@ -126,7 +118,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           break
         case 3: // ax+b-2x
           texte = 'Voici un programme de calcul : \n'
-          texte += itemize([`Multiplie par ${a}`, `Ajoute ${b}`, 'Enlève le double du nombre de départ'])
+          texte += itemize(['Choisir un nombre', `Multiplier par ${a}`, `Ajouter ${b}`, 'Soustraire le double du nombre de départ'])
           texte += 'Si on note $a$ le nombre de départ, quel est le résultat du programme de calcul ?'
           texteCorr = `$a\\xrightarrow{\\times  ${a}} ${a}a\\xrightarrow{+${b}}${a}a+${b} \\xrightarrow{-2a}${a}a+${b}-2a=${a - 2}a+${b}$`
           texteCorr += '<br>'
@@ -155,7 +147,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           break
         case 4: // ax+b+3x
           texte = 'Voici un programme de calcul : \n'
-          texte += itemize([`Multiplie par ${a}`, `Ajoute ${b}`, 'Ajoute le triple du nombre de départ'])
+          texte += itemize(['Choisir un nombre', `Multiplier par ${a}`, `Ajouter ${b}`, 'Ajouter le triple du nombre de départ'])
           texte += 'Si on note $t$ le nombre de départ, quel est le résultat du programme de calcul ?'
           texteCorr = `$t\\xrightarrow{\\times  ${a}} ${a}t\\xrightarrow{+${b}}${a}t+${b} \\xrightarrow{+3t}${a}t+${b}+3t=${a + 3}t+${b}$`
           texteCorr += '<br>'
@@ -184,7 +176,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           break
         case 5: // (ax+b)*c-d
           texte = 'Voici un programme de calcul : \n'
-          texte += itemize([`Multiplie par ${a}`, `Ajoute ${b}`, `Multiplie par ${c}`, `Enlève ${d}`])
+          texte += itemize(['Choisir un nombre', `Multiplier par ${a}`, `Ajouter ${b}`, `Multiplier par ${c}`, `Retrancher ${d}`])
           texte += 'Si on note $x$ le nombre de départ, quel est le résultat du programme de calcul ?'
           texteCorr = `$x\\xrightarrow{\\times  ${a}} ${a}x\\xrightarrow{+${b}}${a}x+${b} \\xrightarrow{\\times  ${c}}(${a}x+${b})\\times  ${c}`
           if (this.sup) texteCorr += `=${a * c}x+${b * c}`
@@ -217,7 +209,7 @@ export default function TraduireUnProgrammeDeCalcul () {
           break
         case 6: // (ax+b)*c+x
           texte = 'Voici un programme de calcul : \n'
-          texte += itemize([`Multiplie par ${a}`, `Ajoute ${b}`, `Multiplie par ${c}`, 'Ajoute le nombre de départ'])
+          texte += itemize(['Choisir un nombre', `Multiplier par ${a}`, `Ajouter ${b}`, `Multiplier par ${c}`, 'Ajouter le nombre de départ'])
           texte += 'Si on note $y$ le nombre de départ, quel est le résultat du programme de calcul ?'
           texteCorr = `$y\\xrightarrow{\\times  ${a}} ${a}y\\xrightarrow{+${b}}${a}y+${b} \\xrightarrow{\\times  ${c}}(${a}y+${b})\\times  ${c}`
           if (this.sup) texteCorr += `=${a * c}y+${b * c}`
