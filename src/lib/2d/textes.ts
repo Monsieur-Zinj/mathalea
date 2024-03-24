@@ -295,7 +295,7 @@ export class TexteParPoint extends ObjetMathalea2D {
       if (!this.point.positionLabel) {
         this.point.positionLabel = 'above'
       }
-      return latex2d(this.texte.substring(1, this.texte.length - 1), this.point.x, this.point.y, { color: this.color[0], orientation: this.orientation }).svg()
+      return latex2d(this.texte.substring(1, this.texte.length - 1), this.point.x, this.point.y, { color: this.color[0], orientation: this.orientation, letterSize: 'footnotesize' }).svg()
     } else {
       let code = ''
       let style = ''
