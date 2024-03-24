@@ -62,7 +62,7 @@ export function cleanStringBeforeParse (aString: string) {
     .replaceAll(',', '.')
 }
 
-type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex' | 'foisUn' | 'unites' | 'mathrm'
+type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex' | 'foisUn' | 'unites' | 'doubleEspaces'| 'mathrm'
 
 /**
  * Nettoie la saisie des \\dfrac en les remplaçant par des \frac comprises par ComputeEngine
@@ -93,6 +93,19 @@ function cleanComas (str: string): string {
  */
 function cleanSpaces (str: string): string {
   return str.replaceAll(/\s/g, '').replaceAll(/\\,/g, '')
+}
+
+/**
+ * Réduit les espaces doubles ou triples à de simples espaces mais ne supprime pas les simples espaces
+ * supprime aussi les espaces simples en début et fin de saisie
+ */
+function cleanDoubleSpaces (str: string): string {
+  while (str.includes('  ')) {
+    str = str.replace('  ', ' ')
+  }
+  if (str[0] === ' ') str = str.substring(1, str.length)
+  if (str[str.length - 1] === ' ') str = str.substring(0, str.length - 1)
+  return str
 }
 
 /**
@@ -133,6 +146,10 @@ function cleanPower (str: string): string {
     .replaceAll('^{}', '') // les exposants vides, il n'aime pas ça non plus
 }
 
+/**
+ * transforme \text{truc} en truc utiliser cleanUnity si le \text{} est au milieu de la chaine.
+ * @param str
+ */
 function cleanLatex (str:string): string {
   const text = str.match(/(\\text\{)(.*)}/)
   if (text && text?.length > 2) return text[2]
@@ -167,6 +184,8 @@ export function generateCleaner (operations: CleaningOperation[]): (str: string)
         return cleanMultipliyByOne
       case 'unites':
         return cleanUnity
+      case 'doubleEspaces':
+        return cleanDoubleSpaces
       default:
         throw new Error(`Unsupported cleaning operation: ${operation}`)
     }
@@ -426,6 +445,7 @@ export function textCompare (input: string, goodAnswer: string): ResultType {
 
 /**
  * comparaison de textes avec espaces comme son nom l'indique : avec un nettoyage adapté à la situation
+ * Utilise String.localeCompare() pour les spécificité du langage local utilisé.
  * @param {string} input
  * @param {string} goodAnswer
  * @return ResultType
@@ -435,21 +455,9 @@ export function textWithSpacesCompare (input: string, goodAnswer: string): Resul
     goodAnswer = String(goodAnswer)
   }
   // @todo transformer tout ça en fonctions de nettoyage !!!
-
-  // parce qu'il vaut mieux être trop prudent que pas assez, j'applique le même traitement à goodAnswer qu'à input ;-)
-  goodAnswer = goodAnswer.replaceAll('\\:', ' ') // Suppression des espaces LaTeX (présents quand on met des crochets pour les segments)
-  goodAnswer = goodAnswer.replaceAll('\\left\\lbrack ', '[').replaceAll('\\right\\rbrack ', ']') // Suppression des crochets LaTeX (pour les segments)
-  while (goodAnswer.includes('  ')) goodAnswer = goodAnswer.replace('  ', ' ') // Pour enlever tous les doubles espaces
-  goodAnswer = goodAnswer.replaceAll('\\text{', '').replaceAll('}', '').replaceAll('$', '') // Supprimer le \text{....} mis par MathLive
-  if (goodAnswer[0] === ' ') goodAnswer = goodAnswer.substring(1, goodAnswer.length) // Supprimer l'eventuel espace en début de ligne
-  if (goodAnswer[goodAnswer.length - 1] === ' ') goodAnswer = goodAnswer.substring(0, goodAnswer.length - 1) // Supprimer l'éventuel espace en fin de ligne
-
-  input = input.replaceAll('\\:', ' ') // Suppression des espaces LaTeX (présents quand on met des crochets pour les segments)
-  input = input.replaceAll('\\left\\lbrack ', '[').replaceAll('\\right\\rbrack ', ']') // Suppression des crochets LaTeX (pour les segments)
-  while (input.includes('  ')) input = input.replace('  ', ' ') // Pour enlever tous les doubles espaces
-  input = input.replaceAll('\\text{', '').replaceAll('}', '').replaceAll('$', '') // Supprimer le \text{....} mis par MathLive
-  if (input[0] === ' ') input = input.substring(1, input.length) // Supprimer l'eventuel espace en début de ligne
-  if (input[input.length - 1] === ' ') input = input.substring(0, input.length - 1) // Supprimer l'éventuel espace en fin de ligne
+  const clean = generateCleaner(['virgules', 'parentheses', 'latex', 'doubleEspaces'])
+  goodAnswer = clean(goodAnswer)
+  input = clean(input)
   const result = input.localeCompare(goodAnswer)
   return { isOk: result === 0 }
 }
