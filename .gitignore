@@ -18,6 +18,7 @@ tests/e2e/logs
 updatefile
 # Dictionnaires générés
 src/json/referentielStatic.json
+src/json/referentielStaticCH.json
 
 src/json/exercices.json
 src/json/exercicesCH.json
