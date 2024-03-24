@@ -18,20 +18,15 @@ tests/e2e/logs
 updatefile
 # Dictionnaires générés
 src/json/referentielStatic.json
-src/json/referentielGeometrieDynamique.json
 
 src/json/exercices.json
-src/json/exercicesCH.json
 
 src/json/exercicesNonInteractifs.json
-src/json/exercicesNonInteractifsCH.json
 
 src/json/referentiel2022.json
-src/json/referentiel2022CH.json
 
 src/json/refToUuid.json
-src/json/refToUuidCH.json
 
 src/json/uuidsToUrl.json
-src/json/uuidsToUrlCH.json
 
+src/json/referentielGeometrieDynamique.json
