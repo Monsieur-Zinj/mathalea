@@ -2,8 +2,8 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { listeQuestionsToContenu, randint, itemize } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
+import Exercice from '../Exercice'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -25,25 +25,15 @@ export const refs = {
   'fr-fr': ['5L10-2'],
   'fr-ch': ['9FA2-5', '10FA1-8']
 }
-export default function TraduireUnProgrammeDeCalcul () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
-  this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacingCorr = 1
-  this.spacing = 1
-  this.interactif = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
-  this.amcReady = amcReady
+export default class TraduireUnProgrammeDeCalcul extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 2
+    this.besoinFormulaireCaseACocher = ['Résultat développé']
+    this.sup = true
+  }
 
-  this.besoinFormulaireCaseACocher = ['Résultat développé']
-  this.sup = true
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -51,7 +41,9 @@ export default function TraduireUnProgrammeDeCalcul () {
     const typeDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
       const a = randint(4, 11)
       const b = randint(2, 11)
       const c = randint(2, 11)
