@@ -91,7 +91,7 @@ export default function DivisionsEuclidiennesEgalite () {
           break
       }
       texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
-        texte: 'Quotient : ',
+        texteAvant: 'Quotient : ',
         texteApres: sp(5)
       })
       texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline ' + KeyboardType.clavierDeBase, { texteAvant: ' Reste : ' })

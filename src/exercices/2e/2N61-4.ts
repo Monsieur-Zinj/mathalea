@@ -640,8 +640,8 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
           lgt: 10
         })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
-        let gauche
-        let droite
+        let gauche: string
+        let droite: string
         if (-d / c < -b / a) { // Si la première racine est la valeur interdite, on la prive à gauche
           gauche = `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty${separateur} ${fractionMba} \\right${pDroite} \\backslash \\{${fractionMdc}\\} $.`
           correctionInteractifGauche = [`]-\\infty${separateur}${fractionMba}${pDroite}\\backslash\\{${fractionMdc}\\}`, `]-\\infty${separateur}${fractionMdc}[\\bigcup]${fractionMdc}${separateur}${fractionMba}${pDroite}`]
@@ -654,7 +654,7 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
           correctionInteractifDroite = [`${pGauche}${fractionMba}${separateur}+\\infty[\\backslash\\{${fractionMdc}\\}`, `${pGauche}${fractionMba}${separateur}${fractionMdc}[\\bigcup]${fractionMdc}${separateur}+\\infty[`]
         }
         if ((signes[i] === '<' || signes[i] === '≤')) {
-          if (c > 0) {
+          if (a > 0) {
             texteCorr += gauche
             correctionInteractif = correctionInteractifGauche
           } else {
@@ -662,7 +662,7 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
             correctionInteractif = correctionInteractifDroite
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
-          if (a * c > 0) {
+          if (a > 0) {
             texteCorr += droite
             correctionInteractif = correctionInteractifDroite
           } else {

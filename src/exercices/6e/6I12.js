@@ -207,8 +207,8 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
         lutins[ordreLutins[i]],
         depart[ordreLutins[i]],
         grille(-0.5, -0.5, largeur, hauteur + 1, 'gray', 0.5, 0.5),
-        texteParPoint('10 pas', point(0.5, hauteur + 0.2), 'milieu', 'black', 1),
-        texteParPoint(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.8), 'milieu', 'black', 1),
+        texteParPoint('10 pas', point(0.5, hauteur + 0.2), 0, 'black', 1),
+        texteParPoint(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.8), 0, 'black', 1),
         echelle)
     }
     if (context.isHtml) {

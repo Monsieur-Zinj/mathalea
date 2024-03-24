@@ -46,24 +46,6 @@ export default function CalculerUnAngle () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    /*
-            let QuestionsDisponibles = []
-
-            if (!this.sup) { // Si aucune liste n'est saisie
-              QuestionsDisponibles = rangeMinMax(1, 15)
-            } else {
-              if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-                QuestionsDisponibles[0] = contraindreValeur(1, 15, this.sup, 15)
-              } else {
-                QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-                for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-                  QuestionsDisponibles[i] = contraindreValeur(1, 15, parseInt(QuestionsDisponibles[i]), 15) // parseInt en fait un tableau d'entiers
-                }
-              }
-            }
-            if (compteOccurences(QuestionsDisponibles, 15) > 0) QuestionsDisponibles = rangeMinMax(1, 14) // Teste si l'utilisateur a choisi tout
-            QuestionsDisponibles = combinaisonListes(QuestionsDisponibles, this.nbQuestions)
-        */
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 14,
       defaut: 15,
@@ -73,7 +55,6 @@ export default function CalculerUnAngle () {
       saisie: this.sup
     })
     const partagesPossiblesAngle90 = combinaisonListes([2, 3, 5, 6, 9, 10], this.nbQuestions)
-
     for (let i = 0, QCas6 = 0, somAngle, choixAngD, choixAngC, numA, numB, numC, numD, numE, texte, texteCorr, tabAngle, partageAngle, pointsPartage, choixPartage, reponse, A, B, B1, C, C1, D, D1, E, AB, AC, AD, sensRot, posA, posB, posC, posD, angB, angC, angD, paramsEnonce; i < this.nbQuestions; i++) {
       texte = ''
       texteCorr = ''
@@ -342,9 +323,9 @@ export default function CalculerUnAngle () {
       // Début de la consigne selon les cas
       if ([1, 2, 11, 12].indexOf(QuestionsDisponibles[i]) !== -1) texte += 'Quelle'
       else if (QuestionsDisponibles[i] === 3) texte += `Sachant que les points $${lettreDepuisChiffre(numC)}$, $${lettreDepuisChiffre(numA)}$ et $${lettreDepuisChiffre(numB)}$ sont alignés, quelle`
-      else if ([4, 5].indexOf(QuestionsDisponibles[i]) !== -1) texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ mesure ${abs(angC)}°, quelle`
+      else if ([4, 5].indexOf(QuestionsDisponibles[i]) !== -1) texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ mesure $${abs(angC)}°$, quelle`
       else if ([6, 7, 8, 9, 10].indexOf(QuestionsDisponibles[i]) !== -1) texte += `Sachant que l'angle ${QuestionsDisponibles[i] < 9 ? 'droit' : 'plat'} $\\widehat{${lettreDepuisChiffre(numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numB)}}$ est partagé en ${partageAngle} angles égaux, quelle`
-      else if (QuestionsDisponibles[i] === 13) texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ mesure ${abs(choixAngD * partageAngle)}° et est partagé en ${partageAngle} angles égaux, quelle`
+      else if (QuestionsDisponibles[i] === 13) texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ mesure $${abs(choixAngD * partageAngle)}°$ et est partagé en ${partageAngle} angles égaux, quelle`
       else if (QuestionsDisponibles[i] === 14) texte += `Sachant que l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ est partagé en ${partageAngle} angles égaux, quelle`
 
       if (QuestionsDisponibles[i] !== 14) texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre([8, 13].indexOf(QuestionsDisponibles[i]) !== -1 ? numB : numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
@@ -361,7 +342,7 @@ export default function CalculerUnAngle () {
         if ([6, 9].indexOf(QuestionsDisponibles[i]) !== -1) {
           texteCorr += `L'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ mesure : $${miseEnEvidence(reponse + '°')}$.<br>`
         } else if ([7, 8, 10].indexOf(QuestionsDisponibles[i]) !== -1) {
-          texteCorr += `L'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(QuestionsDisponibles[i] === 8 ? numB : numC)}}$ est composé de ${choixPartage} angles égaux de ${arrondi(abs(angC) / partageAngle)}° chacun et donc mesure : $${choixPartage}\\times${arrondi(abs(angC) / partageAngle)}°=${sp()}${miseEnEvidence(abs(reponse) + '°')}$.<br>`
+          texteCorr += `L'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(QuestionsDisponibles[i] === 8 ? numB : numC)}}$ est composé de ${choixPartage} angles égaux de $${arrondi(abs(angC) / partageAngle)}°$ chacun et donc mesure : $${choixPartage}\\times${arrondi(abs(angC) / partageAngle)}°=${sp()}${miseEnEvidence(abs(reponse) + '°')}$.<br>`
         }
       } else if (QuestionsDisponibles[i] === 11) {
         texteCorr += `L'angle $\\widehat{${lettreDepuisChiffre(numD) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numC)}}$ mesure : $`
@@ -381,7 +362,6 @@ export default function CalculerUnAngle () {
       }
 
       // paramètres de la fenêtre Mathalea2d pour l'énoncé
-      // paramsEnonce = { xmin: -3 + min(A.x, B1.x, C1.x, D1.x, E.x), ymin: -3 + min(A.y, B1.y, C1.y, D1.y, E.y), xmax: 3 + max(A.x, B1.x, C1.x, D1.x, E.x), ymax: 3 + max(A.y, B1.y, C1.y, D1.y, E.y), pixelsParCm: 20, scale: 1, mainlevee: false }
       paramsEnonce = Object.assign({
         pixelsParCm: 20,
         scale: context.isHtml ? 1 : 0.5,

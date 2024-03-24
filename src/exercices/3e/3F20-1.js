@@ -184,7 +184,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       const pointilles = polyline([projeteY, M, projeteX], 'red')
       pointilles.pointilles = 2
       pointilles.epaisseur = 1
-      const coordonnees = texteParPoint(`(${antecedent0};${image0})`, point(M.x + 0.2, M.y), 'droite')
+      const coordonnees = texteParPoint(`(${antecedent0};${image0})`, point(M.x + 0.2, M.y), 0, 'black', 1, 'gauche')
       switch (listeTypesDeQuestions[i]) {
         // On détermine l'image à partir de l'expression générale de la fonction
         case 'imageParExpression':
@@ -444,7 +444,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           const pointilles = polyline([projeteY, M, projeteX], 'red')
           pointilles.pointilles = 2
           pointilles.epaisseur = 1
-          const coordonnees = texteParPoint(`(${antecedent0};${image0})`, point(M.x + 0.2, M.y), 'droite')
+          const coordonnees = texteParPoint(`(${antecedent0};${image0})`, point(M.x + 0.2, M.y), 0, 'black', 1, 'gauche')
           const N = point(antecedent2 * xUnite, coeffRationnel ? image2.valeurDecimale * yUnite : image2 * yUnite)
           const u = tracePoint(N)
           const projeteNX = point(N.x, 0)
@@ -453,10 +453,10 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           pointilles.pointilles = 2
           pointilles.epaisseur = 1
           const positionCoord = antecedent2 < 0 ? N.x - 0.5 : N.x + 0.5
-          const orientationCoord = antecedent2 < 0 ? 'gauche' : 'droite'
+          const orientationCoord = antecedent2 < 0 ? 'droite' : 'gauche'
           const coordonneesN = coeffRationnel
-            ? texteParPoint(`(${stringNombre(antecedent2)};${image2})`, point(positionCoord, N.y), orientationCoord)
-            : texteParPoint(`(${antecedent2};${image2})`, point(positionCoord, N.y), orientationCoord)
+            ? texteParPoint(`(${stringNombre(antecedent2)};${image2})`, point(positionCoord, N.y), 0, 'black', 1, orientationCoord)
+            : texteParPoint(`(${antecedent2};${image2})`, point(positionCoord, N.y), 0, 'black', 1, orientationCoord)
           texte += `La droite représentant la fonction affine $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$ et par le point de coordonnées $(${stringNombre(antecedent2)};${image2})$.<br>`
           texte += `Donner l'expression de  $${nomFonction}(x)$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
           texte += '<br>'

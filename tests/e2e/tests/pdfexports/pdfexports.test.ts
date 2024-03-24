@@ -116,16 +116,14 @@ async function getLatexFile (page: Page, urlExercice: string) {
   }).then(blob => {
     log(resultReq)
     return blob.arrayBuffer()
+  }).then(buffer => {
+    fs.writeFile(UPLOAD_FOLDER + '/' + id + '_' + uuid + (resultReq === 'OK' ? '.pdf' : '.log'), new Uint8Array(buffer))
+  }).catch((err) => {
+    logError('Error occured' + err)
+    logError(err.name)
+    resultReq = 'KO'
+    logError(resultReq)
   })
-    .then(buffer => {
-      fs.writeFile(UPLOAD_FOLDER + '/' + id + '_' + uuid + (resultReq === 'OK' ? '.pdf' : '.log'), new Uint8Array(buffer))
-    })
-    .catch((err) => {
-      logError('Error occured' + err)
-      logError(err.name)
-      resultReq = 'KO'
-      logError(resultReq)
-    })
   return resultReq
 }
 
@@ -241,7 +239,7 @@ async function testRunAllLots (filter: string) {
         page.on('console', msg => {
           logPDF(msg.text())
         })
-        const local = false
+        const local = true
         const hostname = local ? 'http://localhost:5173/alea/' : 'https://coopmaths.fr/alea/'
         log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
         const resultReq = await getLatexFile(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&v=latex`)
@@ -269,7 +267,9 @@ async function testRunAllLots (filter: string) {
 // testRunAllLots('4e')
 // testRunAllLots('5e')
 // testRunAllLots('6e')
-testRunAllLots('dnb_2022')
+// testRunAllLots('dnb_2021')
+// testRunAllLots('dnb_2022')
+// testRunAllLots('dnb_2023')
 // testRunAllLots('2e')
 // testRunAllLots('dnb_2023_06_asie_5') // une image
 // testRunAllLots('dnb_2023_06_etrangers_4')
@@ -278,3 +278,12 @@ testRunAllLots('dnb_2022')
 // testRunAllLots('dnb_2023_09_metropole_5')
 // testRunAllLots('dnb_2023_09_polynesie_1')
 // testRunAllLots('dnb_2023_12_caledonie_2')
+
+// testRunAllLots('dnb_2021_06_etrangers_2')
+// testRunAllLots('dnb_2021_06_polynesie_5')
+testRunAllLots('dnb_2021_06_metropole_4')
+// testRunAllLots('dnb_2021_06_asie_1')
+// testRunAllLots('dnb_2021_06_asie_3')
+// testRunAllLots('dnb_2021_06_asie_5')
+// testRunAllLots('dnb_2021_06_polynesie_1')
+// testRunAllLots('dnb_2021_06_polynesie_4')

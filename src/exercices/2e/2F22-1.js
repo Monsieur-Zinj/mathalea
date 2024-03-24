@@ -133,8 +133,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       const reponse1 = solutions1.length === 0 ? 'aucune' : `${solutions1.join(';')}`
       const horizontale1 = droiteParPointEtPente(point(0, y1), 0, '', 'green')
       const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', 'green')
-      const nomD1 = texteParPosition(`$y=${y1}$`, bornes.xMax + 1.5, y1 + 0.3, 'milieu', 'green', 1.5)
-      const nomD2 = texteParPosition(`$y=${texNombre(y2, 1)}$`, bornes.xMax + 1.5, y2 + 0.3, 'milieu', 'green', 1.5)
+      const nomD1 = texteParPosition(`$y=${y1}$`, bornes.xMax + 1.5, y1 + 0.3, 0, 'green', 1.5)
+      const nomD2 = texteParPosition(`$y=${texNombre(y2, 1)}$`, bornes.xMax + 1.5, y2 + 0.3, 0, 'green', 1.5)
       horizontale1.epaisseur = 2
       horizontale1.pointilles = 2
       horizontale2.pointilles = 2
@@ -213,7 +213,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       objetsCorrection1.push(repere1, courbeCorrection)
       objetsCorrection2.push(repere1, courbeATracer)
 
-      const origine = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const origine = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       texte = `Voici la représentation graphique $\\mathscr{C}_f$ d'une fonction $f$ définie sur $[${theSpline.x[0]}\\,;\\,${theSpline.x[theSpline.n - 1]}]$.<br>`
       texte += mathalea2d(Object.assign({
         scale: 0.6,

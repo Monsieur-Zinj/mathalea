@@ -24,7 +24,8 @@
   import { answersFromCapytale, assignmentDataFromCapytale, sendToCapytaleSaveStudentAssignment } from '../../../lib/handleCapytale'
   import { millisecondToMinSec } from '../../../lib/components/time'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
-  import displayKeyboardToggle from '../../../lib/displayKeyboardToggle'
+  import type { InterfaceResultExercice } from '../../../lib/types'
+  
   let state: CanState = 'start'
   let exercises: TypeExercice[] = []
   let questions: string[] = []
@@ -37,16 +38,11 @@
   let answers: string[] = []
   let recordedTimeFromCapytale: number
   onMount(async () => {
-    displayKeyboardToggle(false)
     // reconstitution des exercices
     exercises = await Promise.all(buildExercisesList())
     // interactivité
     if ($canOptions.isInteractive) {
-      $globalOptions.beta = true
       $keyboardState.isVisible = true
-      if (!('ontouchstart' in window)) {
-        $keyboardState.isInLine = true
-      }
       for (const param of exercises) {
         param.interactif = true
       }
@@ -85,6 +81,7 @@
       } else if (type === 'qcm') {
         resultsByQuestion[i] =
           verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === 'OK'
+        if (resultsByQuestion[i] && exercice.score !== undefined) { exercice.score++ }
         // récupération de la réponse
         // @ts-expect-error typage pour les QCM
         const propositions = exercice.autoCorrection[indiceQuestionInExercice[i]].propositions
@@ -132,7 +129,7 @@
               qcmAnswers.push(proposition.texte)
             }
           })
-        answers.push(qcmAnswers.join(' ; '))
+          answers.push(qcmAnswers.join(' ; '))
         } else {
           resultsByQuestion[i] =
                   verifQuestionMathLive(exercice, indiceQuestionInExercice[i])
@@ -151,33 +148,44 @@
     for (const param of exercises) {
       param.interactif = false
     }
-    for (let i = 0; i < exercises.length; i++) {
+    const resultsByExerciceArray : InterfaceResultExercice[] = []
+    for (let i = 0, ind = 0; i < exercises.length; i++) {
       const exercise = exercises[i]
-      resultsByExercice.update((l) => {
-        l[exercise.numeroExercice as number] = {
+      for (let q = 0; q < exercise.nbQuestions; q++) {
+        const ans : { [key: string]: string } = {} 
+        ans[`Ex${i}Q${q}`] = exercise.answers![`Ex${i}Q${q}`]
+        const quest : InterfaceResultExercice = {
           uuid: exercise.uuid,
           title: exercise.titre,
           indice: exercise.numeroExercice as number,
           state: 'done',
           alea: exercise.seed,
-          answers: exercise.answers,
-          numberOfPoints: exercise.score || 0,
-          numberOfQuestions: exercise.nbQuestions,
-          bestScore: exercise.score,
-          resultsByQuestion,
+          answers: ans,
+          numberOfPoints: (resultsByQuestion[ind] ? 1 : 0),
+          numberOfQuestions: 1,
+          bestScore: (resultsByQuestion[ind] ? 1 : 0),
+          resultsByQuestion: [resultsByQuestion[ind]],
           duration: Math.floor($canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds)
         }
-        return l
-      })
-      if (i === exercises.length - 1 && $globalOptions.recorder === 'capytale') {
-        sendToCapytaleSaveStudentAssignment({
-          indiceExercice: 'all',
-          assignmentData: {
-            duration: Math.floor($canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds),
-            resultsByQuestion
-          }
-        })
+        ind++
+        resultsByExerciceArray.push(quest)
       }
+    }
+    resultsByExercice.update((l) => {
+      // console.log('resultsByExercice')
+      // console.log(JSON.stringify(resultsByExerciceArray))
+      l = resultsByExerciceArray
+      return l
+    })
+
+    if ($globalOptions.recorder === 'capytale') {
+      sendToCapytaleSaveStudentAssignment({
+        indiceExercice: 'all',
+        assignmentData: {
+          duration: Math.floor($canOptions.durationInMinutes * 60 - $canOptions.remainingTimeInSeconds),
+          resultsByQuestion
+        }
+      })
     }
   }
 
@@ -221,9 +229,9 @@
       if (exercise.answers !== undefined) {
         const answersOfExercise : string[] = []
         const keysAns = Object.keys(exercise.answers)
-        for ( let i = 0; i< exercise.numberOfQuestions ; i++) {
-          const numberQ = keysAns.findIndex( e=> e.endsWith(`Q${i}`))
-          if ( numberQ < 0 ){
+        for (let i = 0; i < exercise.numberOfQuestions; i++) {
+          const numberQ = keysAns.findIndex(e => e.endsWith(`Q${i}`))
+          if (numberQ < 0) {
             answersOfExercise[i] = ''
           } else {
             answersOfExercise[i] = exercise.answers[keysAns[numberQ]]

@@ -51,6 +51,11 @@ const fullOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'FRAC', '=', '(', ')', 'SQRT', 'SQ', 'CUBE', 'POW', 'POW10', 'DEG', 'PERCENT', 'SEMICOLON'],
   block: ['ADD', 'SUB', 'SQ', 'SQRT', 'MULT', 'DIV', 'CUBE', 'DEG', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
 }
+
+const probabiliteCaps: CompleteKeysList = {
+  inline: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE'],
+  block: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+}
 const ensembleCaps = {
   inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER'] as KeysList,
   block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER'] as KeysList
@@ -196,6 +201,13 @@ export const fullOperations: KeyboardBlock = {
   isUnits: false
 }
 
+export const probabilite: KeyboardBlock = {
+  keycaps: probabiliteCaps,
+  cols: 9,
+  title: 'Probabilités',
+  isUnits: false
+}
+
 export const hms: KeyboardBlock = {
   keycaps: hmsCaps,
   cols: 1,
@@ -292,6 +304,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   numbers2,
   numbersOperations,
   numbersOperationsX,
+  probabilite,
   trigo,
   variables,
   volumes

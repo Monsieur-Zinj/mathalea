@@ -75,10 +75,10 @@ export default function ConstruireMediatrices6e () {
 
     const objetsEnonce = []
     const objetsCorrection = []
-    const nomA1 = texteParPoint(noms[0], translation(A1, homothetie(vecteur(A2, A1), A, 0.5 / norme(vecteur(A2, A1)))), 'milieu', 'black', 1, '', true)
-    const nomA2 = texteParPoint(noms[1], translation(A2, homothetie(vecteur(A1, A2), A, 0.5 / norme(vecteur(A2, A1)))), 'milieu', 'black', 1, '', true)
-    const nomB1 = texteParPoint(noms[2], translation(B1, homothetie(vecteur(B2, B1), A, 0.5 / norme(vecteur(B2, B1)))), 'milieu', 'black', 1, '', true)
-    const nomB2 = texteParPoint(noms[3], translation(B2, homothetie(vecteur(B1, B2), A, 0.5 / norme(vecteur(B2, B1)))), 'milieu', 'black', 1, '', true)
+    const nomA1 = texteParPoint(noms[0], translation(A1, homothetie(vecteur(A2, A1), A, 0.5 / norme(vecteur(A2, A1)))), 0, 'black', 1, 'milieu', true)
+    const nomA2 = texteParPoint(noms[1], translation(A2, homothetie(vecteur(A1, A2), A, 0.5 / norme(vecteur(A2, A1)))), 0, 'black', 1, 'milieu', true)
+    const nomB1 = texteParPoint(noms[2], translation(B1, homothetie(vecteur(B2, B1), A, 0.5 / norme(vecteur(B2, B1)))), 0, 'black', 1, 'milieu', true)
+    const nomB2 = texteParPoint(noms[3], translation(B2, homothetie(vecteur(B1, B2), A, 0.5 / norme(vecteur(B2, B1)))), 0, 'black', 1, 'milieu', true)
 
     const cellule = celluleAlea(6)
     result = dansLaCibleCarree(I.x, I.y, 6, 0.6, cellule)
@@ -103,8 +103,8 @@ export default function ConstruireMediatrices6e () {
     const params = fixeBordures([nomA1, nomA2, nomB1, nomB2, point(cible.x - 2.5, cible.y - 2.5), point(cible.x + 2.5, cible.y + 2.5)])
     params.pixelsParCm = 20
     params.scale = 0.7
-    objetsCorrection.push(texteParPoint('(d)', positionLabelDroite(medA, params), 'milieu', 'black', 1, 'middle', true))
-    objetsCorrection.push(texteParPoint('(d\')', positionLabelDroite(medB, params), 'milieu', 'black', 1, 'middle', true))
+    objetsCorrection.push(texteParPoint('(d)', positionLabelDroite(medA, params), 0, 'black', 1, 'milieu', true))
+    objetsCorrection.push(texteParPoint('(d\')', positionLabelDroite(medB, params), 0, 'black', 1, 'milieu', true))
 
     this.autoCorrection = [
       {

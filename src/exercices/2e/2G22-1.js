@@ -62,7 +62,7 @@ export default function RepresenterUnVecteur () {
       h1 = segment(A, H, 'blue')
       h2 = segment(B, H, 'green')
       O = point(0, 0)// On définit et on trace le point O
-      o = texteParPosition('O', -0.3, -0.3, 'milieu', 'blue', 1)
+      o = texteParPosition('O', -0.3, -0.3, 0, 'blue', 1)
       I = point(1, 0)// On définit sans tracer le point I
       J = point(0, 1)// On définit sans tracer le point J
       k = vecteur(O, I).representant(O, 'blue') // Variable qui trace [OI] en bleu

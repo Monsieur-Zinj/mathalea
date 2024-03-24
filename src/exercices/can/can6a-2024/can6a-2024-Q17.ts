@@ -7,13 +7,13 @@ import { prenom } from '../../../lib/outils/Personne'
 export const titre = 'Calculer un nombre de billes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '70cb3'
+export const uuid = '1b6cc'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
- * @author Jean-Claude Lhote
+ * @author Gilles Mora
  * Référence
 */
-export default class BillesMultipliees extends Exercice {
+export default class BillesMultiplieesCM2 extends Exercice {
   constructor () {
     super()
     this.titre = titre

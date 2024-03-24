@@ -16,8 +16,7 @@ import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '.
 export const titre = 'Résoudre un problème en utilisant des fractions'
 
 /**
- * * résoudre un problème additif de fractions niv 5e
- * * 5N20-0
+ * * Résoudre un problème additif de fractions niv 5e
  * @author Sébastien Lozano
  */
 export const uuid = 'b6250'
@@ -113,7 +112,7 @@ export default function ProblemesAdditifsFractions5e () {
       // let q1a = randint(1,5); // indice pour faire varier la 1ere question sur la destination
       // let q1b = randint(1,5,[q1a]); // indice pour faire varier la 2eme question sur la destination
       let nbVolsTotal
-      let destinationsVols = [['l\'', 'Afrique'], ['l\'', 'Asie'], ['l\'', 'Amerique'], ['l\'', 'Europe'], ['la', ' France']]
+      let destinationsVols = [['l\'', 'Afrique'], ['l\'', 'Asie'], ['l\'', 'Amérique'], ['l\'', 'Europe'], ['la', ' France']]
       destinationsVols = shuffle(destinationsVols)
       do {
         nbVolsTotal = randint(200, 600)
@@ -329,6 +328,4 @@ ${texteEnCouleur(`${situations[k].last_question[3]} vers ${situations[k].cat3.de
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }

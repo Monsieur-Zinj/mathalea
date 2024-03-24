@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Compléter une égalité '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,12 +20,13 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fractionEgale'
+    this.formatInteractif = 'calcul'
+    this.compare = equalFractionCompare
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = new FractionEtendue(17, 3)
+      this.reponse = new FractionEtendue(17, 3).texFraction
       this.question = 'Compléter : $3\\times \\ldots =17$'
       this.optionsChampTexte = { texteAvant: '$3\\times$', texteApres: '$=17$' }
       if (this.interactif) {
@@ -38,7 +40,7 @@ export default class NomExercice extends Exercice {
     } else {
       const a = choice([11, 13, 17, 19])
       const b = choice([3, 6, 7, 9])
-      this.reponse = new FractionEtendue(a, b)
+      this.reponse = new FractionEtendue(a, b).texFraction
       this.question = `Compléter : $${b}\\times \\ldots =${a}$`
       this.optionsChampTexte = { texteAvant: `$${b}\\times $`, texteApres: `$=${a}$` }
       if (this.interactif) {

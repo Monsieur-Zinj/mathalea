@@ -596,7 +596,7 @@ export class BoiteBuilder {
     if (textIn.length > 0) {
       this.text = textIn.includes('\\')
         ? latexParCoordonnees(textIn, (this.xMin + this.xMax) / 2, (this.yMin + this.yMax) / 2, color ?? 'black', 50, 0, '', (size ?? 1) * 10)
-        : texteParPosition(textIn, (this.xMin + this.xMax) / 2, (this.yMin + this.yMax) / 2, 'milieu', color ?? 'black', size)
+        : texteParPosition(textIn, (this.xMin + this.xMax) / 2, (this.yMin + this.yMax) / 2, 0, color ?? 'black', size)
       this.text.opacite = opacity ?? 1
     }
     return this
@@ -808,7 +808,7 @@ export function NommePolygone (p, nom = '', k = 0.5, color = 'black') {
   for (const pt of p.listePoints) {
     const P = pointSurSegment(G, pt, longueur(G, pt) + (context.isHtml ? k * 20 / context.pixelsParCm : k / context.scale))
     P.positionLabel = 'center'
-    objets.push(texteParPoint(pt.nom, P, 'milieu', color, 1, 'middle', true))
+    objets.push(texteParPoint(pt.nom, P, 0, color, 1, 'milieu', true))
     xMin = Math.min(xMin, P.x - 0.5)
     xMax = Math.max(xMax, P.x + 0.5)
     yMin = Math.min(yMin, P.y - 0.5)

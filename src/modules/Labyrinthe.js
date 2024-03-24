@@ -214,7 +214,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     s1 = segment(point(-3, 4 + choix * 3), point(0, 4 + choix * 3), 'green')
     s1.epaisseur = 3
     objets.push(s1)
-    objets.push(texteParPoint('Départ', point(-1.5, 2.5 + choix * 3), 'milieu', 'blue', taille, 0, false))
+    objets.push(texteParPoint('Départ', point(-1.5, 2.5 + choix * 3), 0, 'blue', taille, 'milieu', false))
 
     // les croix centrales communes à A et B
     for (let i = 1; i < nbColonnes; i++) {
@@ -257,7 +257,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     }
     // Le texte
     for (let i = 1; i <= nbLignes; i++) {
-      objets.push(texteParPoint(`Sortie ${i}`, point(3 * nbColonnes + 1.5, 2.5 + 3 * nbLignes - 3 * i), 'milieu', 'blue', taille, 0, false))
+      objets.push(texteParPoint(`Sortie ${i}`, point(3 * nbColonnes + 1.5, 2.5 + 3 * nbLignes - 3 * i), 0, 'blue', taille, 'milieu', false))
     }
     return objets
   }
@@ -323,6 +323,7 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     }
     for (let a = 1; a < nbColonnes + 1; a++) {
       for (let b = 0; b < nbLignes; b++) {
+        0
         trouve = false
         for (let k = 0; k < monChemin.length; k++) {
           if (monChemin[k][0] === a && monChemin[k][1] === b) trouve = true
@@ -339,9 +340,9 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     for (let a = 1; a < nbColonnes + 1; a++) {
       for (let b = 0; b < nbLignes; b++) {
         if (typeof (nombres[a - 1][b]) === 'number') {
-          objets.push(texteParPointEchelle(nombreAvecEspace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 'milieu', 'black', taille, 0, true, scaleFigure))
+          objets.push(texteParPointEchelle(nombreAvecEspace(nombres[a - 1][b]), point(-1.5 + a * 3, 2.5 + b * 3), 0, 'black', taille, 'milieu', true, scaleFigure))
         } else if (typeof (nombres[a - 1][b]) === 'string') { // écriture mode Maths
-          objets.push(texteParPositionEchelle(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 'milieu', 'black', taille, 0, true, scaleFigure))
+          objets.push(texteParPositionEchelle(nombres[a - 1][b], -1.5 + a * 3, 2.5 + b * 3, 0, 'black', taille, 'milieu', true, scaleFigure))
         } else {
           objets.push(latexParCoordonnees(nombres[a - 1][b].texFraction, -1.5 + a * 3, 2.5 + b * 3, 'black', 20, 20, 'white', Math.max(6, 9 * taille)))
         }

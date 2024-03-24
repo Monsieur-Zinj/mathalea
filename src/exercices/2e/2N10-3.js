@@ -16,7 +16,9 @@ export const refs = {
   'fr-fr': ['2N10-3'],
   'fr-ch': []
 }
-export default function PlacerPointsAbscissesFractionnaires2nde () {
-  PlacerPointsAbscissesFractionnaires.call(this)
-  this.sup = 5
+export default class PlacerPointsAbscissesFractionnaires2nde extends PlacerPointsAbscissesFractionnaires {
+  constructor () {
+    super()
+    this.sup = 5
+  }
 }

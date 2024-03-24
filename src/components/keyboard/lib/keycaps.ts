@@ -47,8 +47,12 @@ const basicKeys = {
     insert: '^3'
   },
   POW: {
-    display: '$x^\\square$',
+    display: '$\\square^\\square$',
     insert: '#@^{#0}'
+  },
+  INDICE: {
+    display: '$\\square_\\square$',
+    insert: '#@_{#0}'
   },
   POW10: {
     display: '$\\times10^\\square$',
@@ -82,6 +86,10 @@ const basicKeys = {
   ')': {
     display: ')',
     insert: '\\rparen'
+  },
+  PARENTHESES: {
+    display: '()',
+    insert: '\\lparen#0\\rparen'
   },
   '{': {
     display: '{',
@@ -395,6 +403,10 @@ const basicKeys = {
   PROB: {
     display: '$P_{\\square}({\\square})$',
     insert: '$$P_{#0}({#1})$$'
+  },
+  OVERLINE: {
+    display: '$\\overline{\\square}$',
+    insert: '$$\\overline{#0}$$'
   }
 }
 

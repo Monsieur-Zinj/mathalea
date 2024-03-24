@@ -42,18 +42,17 @@ export default class MetaExercice extends Exercice {
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
         } else if (Question.formatInteractif === 'fillInTheBlank') {
           this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, 'fillInTheBlank', '\\ldots')
-          handleAnswers(this, indexQuestion, Question.reponse, { formatInteractif: 'fillInTheBlank' })
+          if (Question.compare === null || Question.compare === undefined) {
+            handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } }, { formatInteractif: 'fillInTheBlank' })
+          } else {
+            handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, compare: Question.compare } }, { formatInteractif: 'fillInTheBlank' } || {})
+          }
         } else {
           this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, Question.formatChampTexte ?? '', Question.optionsChampTexte ?? {})
-          if (Question.compare == null) {
+          if (Question.compare === null || Question.compare === undefined) {
             handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } }, { formatInteractif: Question.formatInteractif } || {})
           } else {
-            handleAnswers(this, indexQuestion, {
-              reponse: {
-                value: Question.reponse,
-                compare: Question.compare
-              }
-            }, { formatInteractif: Question.formatInteractif } || {})
+            handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, compare: Question.compare } }, { formatInteractif: Question.formatInteractif } || {})
           }
         }
       } else {
@@ -67,10 +66,10 @@ export default class MetaExercice extends Exercice {
         // this.formatChampTexte = Question.formatChampTexte
         // this.formatInteractif = Question.formatInteractif
         if (Question.formatInteractif === 'fillInTheBlank') {
-          handleAnswers(this, indexQuestion, Question.listeQuestions[0].reponse, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, indexQuestion, { reponse: { value: Question.listeQuestions[0].reponse } }, { formatInteractif: 'fillInTheBlank' })
         } else if (Question.formatInteractif === 'qcm') {
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-        } else if (Question.compare == null) {
+        } else if (Question.compare == null || Question.compare === undefined) {
           handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } }, { formatInteractif: Question.formatInteractif })
         } else {
           handleAnswers(this, indexQuestion, {

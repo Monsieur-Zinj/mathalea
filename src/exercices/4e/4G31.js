@@ -19,4 +19,5 @@ export default function ReciproqueThales4eme () {
   ReciproqueThales.call(this)
   this.quatrieme = true
   this.titre = titre
+  this.besoinFormulaire3Numerique = false
 }

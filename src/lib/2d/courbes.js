@@ -31,7 +31,7 @@ export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textA
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
+    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.color).svg(coeff)
   }
   this.tikz = function () {
     const x0 = this.x / this.xscale
@@ -45,7 +45,7 @@ export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textA
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 0, this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 0, this.color).tikz()
   }
   this.svgml = function (coeff, amp) {
     const x0 = this.x / this.xscale
@@ -59,7 +59,7 @@ export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textA
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
+    return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.color).svg(coeff)
   }
   this.tikzml = function (amp) {
     const x0 = this.x / this.xscale
@@ -73,7 +73,7 @@ export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textA
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 0, this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 0, this.color).tikz()
   }
 }
 
@@ -107,7 +107,7 @@ export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOr
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
+    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.color).svg(coeff)
   }
   this.tikz = function () {
     const x0 = this.x / this.xscale
@@ -121,7 +121,7 @@ export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOr
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikz() + '\t\n' + Sy.tikz() + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 0, this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 0, this.color).tikz()
   }
   this.svgml = function (coeff, amp) {
     const x0 = this.x / this.xscale
@@ -135,7 +135,7 @@ export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOr
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 'milieu', this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 'milieu', this.color).svg(coeff)
+    return '\t\n' + Sx.svgml(coeff, amp) + '\t\n' + Sy.svgml(coeff, amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.color).svg(coeff)
   }
   this.tikzml = function (amp) {
     const x0 = this.x / this.xscale
@@ -149,7 +149,7 @@ export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOr
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 'milieu', this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 'milieu', this.color).tikz()
+    return '\t\n' + Sx.tikzml(amp) + '\t\n' + Sy.tikzml(amp) + '\t\n' + texteParPosition(this.textAbs, x0, -1 / context.scale, 0, this.color).tikz() + '\t\n' + texteParPosition(this.textOrd, -1 / context.scale, y0, 0, this.color).tikz()
   }
 }
 

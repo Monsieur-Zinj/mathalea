@@ -9,10 +9,10 @@
  * Il permet aussi de générer un uuid pour un nouvel exercice
  * Il faut lancer ce script après avoir créé un nouvel exercice
  * Ce script s'appuie sur emptyRef2022.json qui contient les niveaux et les catégories
- * Les titres des niveaux, thèmes et sous-thèmes sont gérés dans src/levelsThemesList.json
+ * Les titres des niveaux, thèmes et sous-thèmes sont gérés dans src/json/levelsThemesList.json
  *
  * Pour ajouter un nouveau chapitre, il faut donc l'écrire dans emptyRef2022.json puis éventuellement
- * mettre à jour src/levelsThemesList.json ou src/codeToLevelList.json
+ * mettre à jour src/json/levelsThemesList.json ou src/json/codeToLevelList.json
  *
  * ToDo : arrêter l'utilisation de referentielRessources.json
  *

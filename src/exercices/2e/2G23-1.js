@@ -10,6 +10,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { translation } from '../../lib/2d/transformations.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -145,7 +146,7 @@ export default function ImagePtParTranslation () {
           texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 12, ymax: 5, pixelsParCm: 20, scale: 0.5, zoom: 1.75 }, objets) // On trace le graphique de la solution
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteAvant: `<br><br>L'image du point $${nomPD}$ est :` })
+            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline ' + KeyboardType.alphanumeric, { texteAvant: `<br><br>L'image du point $${nomPD}$ est :` })
           }
 
           const VecDepl = vecteur(ExtrVec.x - OrigVec.x, ExtrVec.y - OrigVec.y) // Crée le vecteur déplacement
@@ -234,7 +235,7 @@ export default function ImagePtParTranslation () {
           texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 12, ymax: 5, pixelsParCm: 20, scale: 0.5, zoom: 1.75 }, objets) // On trace le graphique de la solution
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteAvant: `<br><br>L'image du segment $[${nomPDSeg}${nomPASeg}]$ est :` })
+            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline ' + KeyboardType.alphanumeric, { texteAvant: `<br><br>L'image du segment $[${nomPDSeg}${nomPASeg}]$ est :` })
           }
 
           const nomVecDepl = VecDepl.representantNomme(PtDepartSeg, nomOR + nomEXT, 1, 'green') // Affiche le nom du vecteur déplacement
@@ -268,7 +269,7 @@ export default function ImagePtParTranslation () {
             ? `Le segment $${miseEnEvidence(`[${nomSOLPDSeg}${nomSOLPASeg}]`)}$ est l'image du segment $[${nomPDSeg}${nomPASeg}]$ par la translation de vecteur $\\overrightarrow{${nomOR}${nomEXT}}$.`
             : `Le segment $${miseEnEvidence(`[${nomSOLPDSeg}${nomSOLPASeg}]`)}$ est l'image du segment $[${nomPDSeg}${nomPASeg}]$ par la translation qui transforme $${nomOR}$ en $${nomEXT}$.`
           texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 12, ymax: 5, pixelsParCm: 20, scale: 0.5, zoom: 1.75 }, objetsCorr) // On trace le graphique de la solution
-          const tousNomsSegments = [`\\left\\lbrack ${nomSOLPDSeg}${nomSOLPASeg}\\right\\rbrack`, `\\left\\lbrack ${nomSOLPASeg}${nomSOLPDSeg}\\right\\rbrack`]
+          const tousNomsSegments = [`[${nomSOLPDSeg}${nomSOLPASeg}]`, `[${nomSOLPASeg}${nomSOLPDSeg}]`]
           setReponse(this, i, tousNomsSegments, { formatInteractif: 'texte' })
         }
           break
@@ -382,7 +383,7 @@ export default function ImagePtParTranslation () {
           texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 12, ymax: 5, pixelsParCm: 20, scale: 0.5, zoom: 1.75 }, objets) // On trace le graphique de la solution
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteAvant: `<br><br>L'image du triangle $${nomPD1Tri}${nomPD2Tri}${nomPD3Tri}$ est :` })
+            texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline ' + KeyboardType.alphanumeric, { texteAvant: `<br><br>L'image du triangle $${nomPD1Tri}${nomPD2Tri}${nomPD3Tri}$ est :` })
           }
 
           // Vecteur natif

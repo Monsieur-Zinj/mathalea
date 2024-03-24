@@ -1,13 +1,13 @@
 import { choice, combinaisonListes2 } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
-import { texNombre } from '../../lib/outils/texNombre'
+import { texNombre, stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { max } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fractionCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
@@ -216,7 +216,7 @@ export default function SommeFractionsDecimales () {
               signe: false
             })
           } else {
-            setReponse(this, i, { bareme: (listePoints) => [listePoints[0], 1], resultat: { value: reponseAMC, compare: numberCompare } }, { formatInteractif: 'fillInTheBlank' })
+            handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: stringNombre(reponseAMC, 3), compare: numberCompare } }, { formatInteractif: 'mathlive' })
           }
 
           break
@@ -229,7 +229,7 @@ export default function SommeFractionsDecimales () {
               formatInteractif: 'fraction'
             })
           } else {
-            setReponse(this, i, { bareme: (listePoints) => [listePoints[0], 1], resultat: { value: fractionResultat, compare: fractionCompare } }, { formatInteractif: 'fillInTheBlank' })
+            handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: fractionResultat, compare: fractionCompare } }, { formatInteractif: 'mathlive' })
           }
           break
         case 3 :
@@ -249,35 +249,22 @@ export default function SommeFractionsDecimales () {
               })
             }
           } else {
-            setReponse(this, i, {
+            handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-              resultat: { value: reponseAMC, compare: numberCompare },
-              calcul: { value: fractionResultat, compare: fractionCompare }
-            }, { formatInteractif: 'fillInTheBlank' })
-            /*
-            setReponse(this, 2 * i, new FractionEtendue(numAMC, denAMC), {
-              digitsNum: nombreDeChiffresDe(numAMC),
-              digitsDen: nombreDeChiffresDe(denAMC) + 1,
-              signe: false,
-              formatInteractif: 'fraction'
-            })
-            setReponse(this, 2 * i + 1, reponseAMC, {
-              digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
-              decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
-              signe: false
-            })
-             */
+              champ1: { value: fractionResultat, compare: fractionCompare },
+              champ2: { value: stringNombre(reponseAMC, 3), compare: numberCompare }
+            }, { formatInteractif: 'mathlive' })
           }
           break
       }
 
       if (this.interactif) {
         if (this.sup2 === 3) {
-          texte += remplisLesBlancs(this, i, '= ~  %{calcul} ~ = ~ %{resultat}', 'inline college6', '\\ldots\\ldots')
+          texte += remplisLesBlancs(this, i, '= ~  %{champ1} ~ = ~ %{champ2}', 'inline college6', '\\ldots\\ldots')
           //   texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
         //  texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
         } else {
-          texte += remplisLesBlancs(this, i, '= %{resultat}', 'inline college6', '\\ldots\\ldots')
+          texte += remplisLesBlancs(this, i, '= %{champ1}', 'inline college6', '\\ldots\\ldots')
           // texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
         }
       }

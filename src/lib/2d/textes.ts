@@ -1,4 +1,3 @@
-import katex from 'katex'
 import { colorToLatexOrHTML, ObjetMathalea2D, Vide2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { arrondi } from '../outils/nombres'
@@ -14,9 +13,9 @@ export const tikzAncrages = {
   droite: 'east'
 }
 export const svgAncrages = {
-  gauche: 'end',
+  gauche: 'start',
   milieu: 'middle',
-  droite: 'start'
+  droite: 'end'
 }
 /**
  * Associe à tous les points passés en paramètre, son label, défini préalablement en Latex. Par exemple, si besoin de nommer le point A_1.
@@ -206,13 +205,13 @@ export function deplaceLabel (p: Polygone, nom: string, positionLabel: string) {
 /**
  * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
  * texteParPoint('mon texte',A,45) // Écrit 'mon texte' centré sur A avec une rotation de 45°
- * orientation est très mal choisi ! ça peut être un nombre ou un string
- * Si oriention est un nombre, alors c'est l'angle de rotation, et il faut positionner le centre de rotation ancrageDeRotation
- * Soit c'est 'milieu' et là, je ne vois pas le rapport mais ancrageDeRotation n'est pas utilisé.
- * ancrageDeRotation est à prendre parmi ['middle', 'start', 'end'] les valeurs 'gauche' et 'droite' sont absolument sans effet !
+ * texteParPoint('mon texte',A, 0, 'black', 1, 'gauche',true, 0.5) // écrit le texte à droite du point A car le point d'ancrage est à gauche
+ *  // couleur du texte en noir, avec une taille normale et une police mathématique et une opacité de 50%
+ * oriention est un nombre, c'est l'angle de rotation (0 par défaut), et il faut positionner le centre de rotation avec ancrageDeRotation (milieu par défaut)
+ * ancrageDeRotation est à prendre parmi ['milieu', 'gauche', 'droite']
  * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
  * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
- * @author Rémi Angot
+ * @author Rémi Angot rectifié par Jean-Claude Lhote
  */
 export class TexteParPoint extends ObjetMathalea2D {
   texte: string
@@ -257,27 +256,30 @@ export class TexteParPoint extends ObjetMathalea2D {
       if (!Number.isNaN(texte)) texte = stringNombre(texte, 3)
     }
     const angle = Math.PI * orientation / 180
+    // constantes utilisée pour le calcul des bordures
     const cx = Math.cos(angle)
     const sx = Math.sin(angle)
     const ratioLettreCm = 0.25
+    const epaisseurTexte = 0.3 * scale
     const longueurTexte = texte.length * ratioLettreCm * scale
+    // définition des bordures suivant le point d'ancrage
     if (ancrageDeRotation === 'milieu') {
       this.bordures = [A.x - longueurTexte * cx,
-        A.y - longueurTexte * sx,
+        A.y - longueurTexte * sx - epaisseurTexte,
         A.x + longueurTexte * cx,
-        A.y + longueurTexte * sx
+        A.y + longueurTexte * sx + epaisseurTexte
       ]
     } else if (ancrageDeRotation === 'gauche') {
       this.bordures = [A.x,
-        A.y - 2 * (longueurTexte * sx),
+        A.y - 2 * (longueurTexte * sx) - epaisseurTexte,
         A.x + 2 * (longueurTexte * cx),
-        A.y
+        A.y + epaisseurTexte
       ]
     } else {
       this.bordures = [A.x - 2 * longueurTexte * cx,
-        A.y,
+        A.y - epaisseurTexte,
         A.x,
-        A.y + 2 * (longueurTexte * sx)
+        A.y + 2 * (longueurTexte * sx) + epaisseurTexte
       ]
     }
 
@@ -293,7 +295,7 @@ export class TexteParPoint extends ObjetMathalea2D {
       if (!this.point.positionLabel) {
         this.point.positionLabel = 'above'
       }
-      return latexParPoint(this.texte.substring(1, this.texte.length - 1), this.point, this.color[0], this.texte.length * 8, 12, '', 8).svg()
+      return latex2d(this.texte.substring(1, this.texte.length - 1), this.point.x, this.point.y, { color: this.color[0], orientation: this.orientation }).svg()
     } else {
       let code = ''
       let style = ''
@@ -330,7 +332,17 @@ export class TexteParPoint extends ObjetMathalea2D {
     }
   }
 }
-
+/**
+ * texteParPoint('mon texte',A) // Écrit 'mon texte' avec A au centre du texte
+ * texteParPoint('mon texte',A,45) // Écrit 'mon texte' centré sur A avec une rotation de 45°
+ * texteParPoint('mon texte',A, 0, 'black', 1, 'gauche',true, 0.5) // écrit le texte à droite du point A car le point d'ancrage est à gauche
+ *  // couleur du texte en noir, avec une taille normale et une police mathématique et une opacité de 50%
+ * oriention est un nombre, c'est l'angle de rotation (0 par défaut), et il faut positionner le centre de rotation avec ancrageDeRotation (milieu par défaut)
+ * ancrageDeRotation est à prendre parmi ['milieu', 'gauche', 'droite']
+ * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
+ * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
+ * @author Rémi Angot rectifié par Jean-Claude Lhote
+ */
 export function texteParPoint (texte: string, A: Point, orientation:number = 0, color:string = 'black', scale:number = 1, ancrageDeRotation:'milieu'|'droite'|'gauche' = 'milieu', mathOn:boolean = false, opacite:number = 1) {
   return new TexteParPoint(texte, A, orientation, color, scale, ancrageDeRotation, mathOn, opacite)
 }
@@ -408,14 +420,14 @@ export function texteParPositionEchelle (texte:string, x:number, y:number, orien
 }
 
 /**
- * texteParPosition('mon texte',x,y) // Écrit 'mon texte' avec le point de coordonnées (x,y) au centre du this.texte.
- *
- * texteParPosition('mon texte',x,y,'gauche') // Écrit 'mon texte' à gauche du point de coordonnées (x,y) (qui sera la fin du texte)
- *
- * texteParPosition('mon texte',x,y,'droite') // Écrit 'mon texte' à droite du point de coordonnées (x,y) (qui sera le début du texte)
- *
- * texteParPosition('mon texte',x,y,45) // Écrit 'mon texte'  centré sur le point de coordonnées (x,y) avec une rotation de 45°
- *
+ * texteParPosition('mon texte',x,y) // Écrit 'mon texte' avec (x,y) au centre du texte
+ * texteParPoint('mon texte',x,y,45) // Écrit 'mon texte' centré sur A avec une rotation de 45°
+ * orientation est très mal choisi ! ça peut être un nombre ou un string
+ * Si oriention est un nombre, alors c'est l'angle de rotation, et il faut positionner le centre de rotation ancrageDeRotation
+ * ancrageDeRotation est à prendre parmi ['milieu', 'gauche', 'droite'] les valeurs 'gauche' et 'droite' sont absolument sans effet !
+ * Si mathOn est true, la chaine est traitée par texteParPoint mais avec une police se rapprochant de la police Katex (quelques soucis d'alignement des caractères sur certains navigateurs)
+ * Si le texte commence et finit par des $ la chaine est traitée par latexParPoint
+ * @author Rémi Angot
  * @param {string} texte // Le texte qu'on veut afficher
  * @param {number} x // L'abscisse de la position initiale du texte
  * @param {number} y // L'ordonnée de la position initiale du texte
@@ -509,6 +521,7 @@ export function latexParPoint (texte: string, A:Point, color:string = 'black', l
  * @param {string} [colorBackground] Couleur du fond de la box. Chaine vide pour un fond transparent.
  * @param {number} [tailleCaracteres] Taille de la police utilisée de 5 = \small à 20=\huge... agit sur la box en en modifiant les paramètres hauteur et largeur
  * @return LatexParCoordonnees
+ * @deprecated Utiliser la fonction latex2d() beaucoup plus évoluée.
  * @class
  */
 export class LatexParCoordonnees extends ObjetMathalea2D {
@@ -520,6 +533,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
   texte: string
   bordures: [number, number, number, number]
   taille: string
+  orientation: number
   constructor (texte: string, x: number, y: number, color: string, largeur: number, hauteur: number, colorBackground: string = '', tailleCaracteres: number = 8) {
     super()
     this.x = x
@@ -529,6 +543,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
     this.colorBackground = colorBackground
     this.color = colorToLatexOrHTML(color)
     this.texte = texte
+    this.orientation = 0 // dans latexParCoordonnees le latex ne peux pas tourner (on n'a pas d'argument pour ça et c'est pour cela qu'il y a latex2d() !)
     this.bordures = [this.x - (this.texte.length ?? 0) * 0.2, this.y - 0.02 * this.hauteur, this.x + (this.texte.length ?? 0) * 0.2, this.y + 0.02 * this.hauteur]
     if (tailleCaracteres > 19) this.taille = '\\huge'
     else if (tailleCaracteres > 16) this.taille = '\\LARGE'
@@ -550,18 +565,18 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
     }
   }
 
-  // taille = ''
+  // Eh oui ! le svg() de latexParCoordonnees est un objet. En fait, cela va produire un div mais plus tard : dans la fonction mathalea2d().
   svg () {
-    let divLatex
-    if (this.colorBackground !== '' && this.colorBackground !== 'none') {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%);">${katex.renderToString('\\colorbox{' + colorToLatexOrHTML(this.colorBackground)[0] + '}{ ' + this.taille + ' {\\color{' + this.color[0] + '}$' + this.texte + '$}}')}</div>`
-    } else {
-      divLatex = `<div class="divLatex" style="position: absolute; transform: translate(-50%,-50%);">${katex.renderToString('\\color{' + this.color[0] + '}' + this.taille + ' ' + this.texte + '')}</div>`
+    return {
+      latex: this.texte,
+      x: this.x,
+      y: this.y,
+      opacity: this.opacite,
+      orientation: this.orientation,
+      letterSize: this.taille.substring(1),
+      color: this.color[0],
+      backgroundColor: this.colorBackground
     }
-    /* const thisX = this.x
-      const thisY = this.y
-      return { divLatex, thisX, thisY } */
-    return { divLatex, x: this.x, y: this.y }
   }
 
   tikz () {
@@ -575,6 +590,17 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
   }
 }
 
+/**
+ * @deprecated utiliser latex2d() à la place (plus récent et plus facile d'usage)
+ * @param texte
+ * @param x
+ * @param y
+ * @param color
+ * @param largeur // paramètre inutile
+ * @param hauteurLigne // paramètre inutile
+ * @param colorBackground
+ * @param tailleCaracteres
+ */
 export function latexParCoordonnees (texte: string, x:number, y:number, color:string = 'black', largeur: number = 50, hauteurLigne:number = 20, colorBackground:string = '', tailleCaracteres:number = 8) {
   if (texte === '') return vide2d()
   else return new LatexParCoordonnees(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres)
@@ -686,4 +712,80 @@ export class LatexParCoordonneesBox extends ObjetMathalea2D {
 export function latexParCoordonneesBox (texte: string, x:number, y:number, color:string = 'black', largeur:number = 50, hauteurLigne:number = 20, colorBackground:string = 'white', tailleCaracteres:number = 8, options:{anchor: string, dx: string, dy: string}) {
   if (texte === '') return vide2d()
   else return new LatexParCoordonneesBox(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
+}
+
+type LetterSizeType = 'tiny'|'small'|'scriptsize'|'footnotesize'|'large'|'Large'|'LARGE'|'huge'
+type DivLatex = {x: number, y: number, latex: string, orientation: number, color: string, backgroundColor: string, latex: string, letterSize: string, opacity: number}
+
+/**
+ * crée un obiet mathalea2D qui affiche du latex et qui peut tourner contrairement à latexParCoordonnees qui est horizontal
+ */
+export class Latex2d extends ObjetMathalea2D {
+  color: [string, string]
+  backgroundColor: [string, string]|string
+  letterSize: LetterSizeType
+  latex: string
+  x: number
+  y: number
+  opacity: number
+  orientation: number
+
+  /**
+   * Les paramètres obligatoires (ne pas mettre de $ $ dans le latex !
+   * @param latex
+   * @param x
+   * @param y
+   * @param options
+   * @param options.color la couleur du texte
+   * @param options.backgroundColor la couleur de fond
+   * @param options.letterSize la taille des caractères en texte latex sans l'antislash
+   * @param options.orientation l'angle de rotation en degrés
+   * @param options.opacity l'opacité du texte // @fixme non encore implémenté
+   *
+   */
+  constructor (latex: string, x: number, y: number, options: {color: string, backgroundColor: string, letterSize: LetterSizeType, orientation: number, opacity: number}) {
+    super()
+    this.color = colorToLatexOrHTML(options.color ?? 'black')
+    this.backgroundColor = colorToLatexOrHTML(options.backgroundColor ?? '')
+    this.letterSize = options.letterSize ?? 'normalsize'
+    this.orientation = options.orientation ?? 0
+    this.opacity = options.opacity ?? 1
+    this.latex = latex
+    this.x = x
+    this.y = y
+  }
+
+  svg (): DivLatex {
+    return { latex: this.latex, x: this.x, y: this.y, opacity: this.opacity, orientation: this.orientation, letterSize: this.letterSize, color: this.color[0], backgroundColor: this.backgroundColor[0] }
+  }
+
+  // @todo ajouter opacity, orientation au tikz.
+  tikz () {
+    return this.backgroundColor !== ''
+      ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox ${this.backgroundColor[1]} {\\${this.letterSize}  \\color${this.color[1]}{$${this.latex}$}}};`
+      : `\\draw (${this.x},${this.y}) node[anchor = center] {\\${this.letterSize} \\color${this.color[1]}{$${this.latex}$}};`
+  }
+}
+
+/**
+ * crée un obiet mathalea2D qui affiche du latex et qui peut tourner contrairement à latexParCoordonnees qui est horizontal
+ * Les paramètres obligatoires (ne pas mettre de $ $ dans le latex !
+ * @param latex
+ * @param x
+ * @param y
+ * @param options
+ * @param options.color la couleur du texte
+ * @param options.backgroundColor la couleur de fond
+ * @param options.letterSize la taille des caractères en texte latex sans l'antislash
+ * @param options.orientation l'angle de rotation en degrés
+ * @param options.opacity l'opacité du texte // @fixme non encore implémenté
+ *
+ */
+export function latex2d (latex: string, x: number, y: number, options: {color?: string, backgroundColor?: string, letterSize?: LetterSizeType, orientation?: number, opacity?: number}) {
+  const color = options.color ?? 'black'
+  const backgroundColor = options.backgroundColor ?? ''
+  const letterSize = options.letterSize ?? 'normalsize'
+  const orientation = options.orientation ?? 0
+  const opacity = options.opacity ?? 1
+  return new Latex2d(latex, x, y, { color, backgroundColor, letterSize, orientation, opacity })
 }

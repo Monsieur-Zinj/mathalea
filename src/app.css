@@ -7,6 +7,9 @@
 math-field::part(menu-toggle) {
   display: none;
 }
+math-field::part(virtual-keyboard-toggle) {
+  display: none;
+}
 math-field.fillInTheBlanks {
   @apply bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus
 }

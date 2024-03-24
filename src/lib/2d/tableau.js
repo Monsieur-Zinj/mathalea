@@ -40,7 +40,7 @@ function flecheH (D, A, texte, h = 1) {
       t = latexParCoordonnees(texte.texte, M.x, M.y + (h > 0 ? 0.5 : -0.8), color, 50, 20, '', 10)
     } else {
       const math = texte.math ?? false
-      t = texteParPosition(texte.texte, M.x, M.y + (h > 0 ? 0.5 : -0.8), 'milieu', color, 1, 'middle', math)
+      t = texteParPosition(texte.texte, M.x, M.y + (h > 0 ? 0.5 : -0.8), 0, color, 1, 0, math)
       t.gras = texte.gras ?? false
     }
     objets.push(t)
@@ -81,7 +81,7 @@ function flecheV (D, A, texte, h = 1, flip = false) {
     if (texte.latex) {
       t = latexParCoordonnees(texte.texte, M.x + h, M.y - 0.6, color, 50, 20, '', 10)
     } else {
-      t = texteParPosition(texte.texte, M.x + h, M.y - 0.6, flip ? 'droite' : 'milieu', color, 1, 'middle', math)
+      t = texteParPosition(texte.texte, M.x + h, M.y - 0.6, 0, color, 1, flip ? 'droite' : 0, math)
       t.gras = texte.gras ?? false
     }
     objets.push(t)
@@ -151,7 +151,7 @@ export class Tableau {
         } else {
           const color = ligne1[i + 1].color ?? 'black'
           const math = ligne1[i + 1].math ?? false
-          const texte = texteParPosition(ligne1[i + 1].texte ?? '', x + largeur / 2, A.y + 1.4 * hauteur, 'milieu', color, 1.2, 'middle', math)
+          const texte = texteParPosition(ligne1[i + 1].texte ?? '', x + largeur / 2, A.y + 1.4 * hauteur, 0, color, 1.2, 'milieu', math)
           texte.gras = ligne1[i + 1].gras ?? false
           objets.push(texte)
         }
@@ -162,7 +162,7 @@ export class Tableau {
         } else {
           const color = ligne2[i + 1].color ?? 'black'
           const math = ligne2[i + 1].math ?? false
-          const texte = texteParPosition(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, 'milieu', color, 1.2, 'middle', math)
+          const texte = texteParPosition(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, 0, color, 1.2, 'milieu', math)
           texte.gras = ligne2[i + 1].gras ?? false
           objets.push(texte)
         }
@@ -176,7 +176,7 @@ export class Tableau {
       } else {
         const color = ligne1[0].color ?? 'black'
         const math = ligne1[0].math ?? false
-        const texte = texteParPosition(ligne1[0].texte ?? '', A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 'milieu', color, 1.2, 'middle', math)
+        const texte = texteParPosition(ligne1[0].texte ?? '', A.x + largeurTitre / 2, A.y + 1.4 * hauteur, 0, color, 1.2, 'milieu', math)
         texte.gras = ligne1[0].gras ?? false
         objets.push(texte)
       }
@@ -187,7 +187,7 @@ export class Tableau {
       } else {
         const color = ligne2[0].color ?? 'black'
         const math = ligne2[0].math ?? false
-        const texte = texteParPosition(ligne2[0].texte ?? '', A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 'milieu', color, 1.2, 'middle', math)
+        const texte = texteParPosition(ligne2[0].texte ?? '', A.x + largeurTitre / 2, A.y + 0.4 * hauteur, 0, color, 1.2, 'milieu', math)
         texte.gras = ligne2[0].gras ?? false
         objets.push(texte)
       }

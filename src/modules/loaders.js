@@ -1,38 +1,6 @@
 import loadjs from 'loadjs'
 import { context } from './context.js'
 import { UserFriendlyError } from './messages.js'
-import {
-  CLAVIER_HMS,
-  raccourcisHMS
-} from '../lib/interactif/claviers/clavierHms.js'
-import {
-  CLAVIER_LYCEE,
-  raccourcisLycee
-} from '../lib/interactif/claviers/lycee.js'
-import {
-  CLAVIER_COLLEGE,
-  raccourcisCollege
-} from '../lib/interactif/claviers/college.js'
-import {
-  CLAVIER_COLLEGE6EME,
-  raccourcis6eme
-} from '../lib/interactif/claviers/college6eme.js'
-import {
-  CLAVIER_GRECTRIGO,
-  raccourcisTrigo
-} from '../lib/interactif/claviers/trigo.js'
-import {
-  clavierUNITES,
-  raccourcisUnites
-} from '../lib/interactif/claviers/claviersUnites.js'
-import {
-  CLAVIER_ENSEMBLE,
-  raccourcisEnsemble
-} from '../lib/interactif/claviers/ensemble.js'
-import {
-  CLAVIER_NUMERATION,
-  raccourcisNumeration
-} from '../lib/interactif/claviers/numeration'
 import { keyboardState } from '../components/keyboard/stores/keyboardStore'
 import { get } from 'svelte/store'
 import { globalOptions } from '../lib/stores/generalStore'
@@ -191,111 +159,10 @@ export async function loadMathLive () {
   const champs = document.getElementsByTagName('math-field')
   if (champs.length > 0) {
     await import('mathlive')
-    window.mathVirtualKeyboard.targetOrigin = '*'
-    window.mathVirtualKeyboard.alphabeticLayout = 'azerty'
     for (const mf of champs) {
-      let clavier = []
-      let raccourcis = {}
       mf.mathVirtualKeyboardPolicy = 'manual'
-      /*
-      if (isInIframe && !isInCapytale) {
-        mf.mathVirtualKeyboardPolicy = 'sandboxed'
-      }
-      */
-      // Suppression du menu secondaire
       mf.menuItems = []
       mf.virtualKeyboardTargetOrigin = '*'
-      // mf.addEventListener('focusout', () => window.mathVirtualKeyboard.hide())
-      // Gestion des claviers personnalisés
-      if (mf.classList.contains('clavierHms')) {
-        clavier.push(CLAVIER_HMS)
-        raccourcis = { ...raccourcisHMS, ...raccourcis }
-      }
-      if (mf.classList.contains('lycee')) {
-        clavier.push(CLAVIER_LYCEE)
-        raccourcis = { ...raccourcisLycee, ...raccourcis }
-      }
-      if (mf.classList.contains('college6eme')) {
-        clavier.push(CLAVIER_COLLEGE6EME)
-        raccourcis = { ...raccourcis6eme, ...raccourcis }
-      }
-      if (mf.classList.contains('grecTrigo')) {
-        clavier.push(CLAVIER_GRECTRIGO)
-        raccourcis = { ...raccourcisTrigo, ...raccourcis }
-      }
-      if (mf.classList.contains('ensemble')) {
-        clavier.push(CLAVIER_ENSEMBLE)
-        raccourcis = { ...raccourcisEnsemble, ...raccourcis }
-      }
-      if (mf.classList.contains('alphanumeric')) {
-        clavier.push('alphabetic')
-        mf.onInlineShortcut = (_mf, s) => {
-          if (/^[A-Z]{2}/.test(s)) {
-            const m = s.match(/^([A-Z]{2})/)
-            if (m) {
-              return `\\mathrm{${m[1]}}`
-            }
-          }
-          return ''
-        }
-      }
-      if (mf.classList.contains('numeration')) {
-        clavier.push(CLAVIER_NUMERATION)
-        raccourcis = { ...raccourcisNumeration, ...raccourcis }
-      }
-      if (mf.classList.contains('alphanumericAvecEspace')) {
-        clavier.push('alphabetic')
-        mf.mathModeSpace = '\\:' // Permet d'accepter la saisie d'espaces
-        mf.defaultMode = 'text' // Permet d'avoir toujours du texte (peu importe ce qui est saisi)
-        mf.onInlineShortcut = (_mf, s) => {
-          if (/^[A-Z]{2}/.test(s)) {
-            const m = s.match(/^([A-Z]{2})/)
-            if (m) {
-              return `\\mathrm{${m[1]}}`
-            }
-          }
-          return ''
-        }
-        // mf.smartMode = true // Permet d'avoir du texte quand il reconnait qu'il y en a : Commande dangereuse car à la fin, on obtient du mode text mélangé à du mode math
-      }
-      if (mf.classList.contains('clavierDeBase')) {
-        clavier.push(CLAVIER_COLLEGE)
-        raccourcis = { ...raccourcis }
-      }
-
-      if (mf.className.includes('nite') || mf.className.includes('nité')) {
-        // Gestion du clavier Unites
-        const listeParamClavier = mf.classList
-        let index = 0
-        while (
-          !listeParamClavier[index].includes('nites') &&
-          !listeParamClavier[index].includes('nités')
-        ) {
-          index++
-        }
-        // récupère tous les mots de listeParamClavier[index]
-        const contenuUnites = listeParamClavier[index].match(/[a-zA-Z]+/g)
-        // vire le mot 'unités'
-        contenuUnites.shift()
-
-        clavier.push(...clavierUNITES(contenuUnites))
-        raccourcis = { ...raccourcisUnites, ...raccourcis }
-      }
-      if (clavier.length === 0) {
-        //    mf.addEventListener('focusin', () => { window.mathVirtualKeyboard.layouts = 'default' }) // EE : Laisser ce commentaire pour connaitre le nom du clavier par défaut
-        clavier = CLAVIER_COLLEGE
-        raccourcis = { ...raccourcisCollege, ...raccourcis }
-      } else if (clavier.length === 1) {
-        clavier = clavier[0]
-      }
-
-      if (!get(globalOptions).beta) {
-        mf.addEventListener('focusin', () => {
-          window.mathVirtualKeyboard.layouts = clavier
-        })
-        mf.inlineShortcuts = raccourcis
-      }
-
       let style = 'font-size: 20px;'
       if (mf.classList.contains('inline')) {
         if (mf.classList.contains('nospacebefore')) {
@@ -343,9 +210,6 @@ export async function loadMathLive () {
       mf.classList.add('ml-1')
       mf.addEventListener('focus', handleFocusMathField)
       mf.addEventListener('focusout', handleFocusOutMathField)
-      /* Mgu obliger de rajouter le click sur le bouton clavier , car si on ferme le clavier, on clique sur le bouton, et rien ne se passe */
-      const buttonKeyboard = mf.shadowRoot?.querySelector('.ML__virtual-keyboard-toggle')
-      if (buttonKeyboard) buttonKeyboard.addEventListener('click', clickButtonMathField)
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
@@ -367,54 +231,23 @@ export async function loadMathLive () {
     )
     document.dispatchEvent(domExerciceInteractifReady)
   }
-  if (window.self === window.top) {
-    if (get(globalOptions).beta) {
-      window.mathVirtualKeyboard.addEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
-    } else {
-      window.mathVirtualKeyboard.removeEventListener('before-virtual-keyboard-toggle', handleClickOnKeyboardToggle)
-    }
-  }
-}
-
-function handleClickOnKeyboardToggle (event) {
-  event.preventDefault()
-  event.stopPropagation()
 }
 
 function handleFocusMathField (event) {
-  if (get(globalOptions).beta) {
-    const mf = event.target
-    const isFillInTheBlanks = mf.classList.contains('fillInTheBlanks')
-    const isNotFillInTheBlanksAndReadOnly = !isFillInTheBlanks && mf.readOnly
-    const isCorrected = isNotFillInTheBlanksAndReadOnly || mf.classList.contains('corrected')
-    getKeyboardShortcusts(mf)
-    keyboardState.update((value) => {
-      return {
-        isVisible: true && !isCorrected, // Les fiilInTheBlanks sont toujours readOnly
-        isInLine: value.isInLine,
-        idMathField: event.target.id,
-        alphanumericLayout: value.alphanumericLayout,
-        blocks: 'keyboard' in mf.dataset ? mf.dataset.keyboard.split(' ') : ['numbers', 'fullOperations', 'variables']
-      }
-    })
-  }
-}
-
-function clickButtonMathField (event) {
-  if (get(globalOptions).beta) {
-    const mf = event.target?.getRootNode()?.host
-    if (mf) {
-      keyboardState.update((value) => {
-        return {
-          isVisible: true && !mf.readOnly,
-          isInLine: value.isInLine,
-          idMathField: mf.id,
-          alphanumericLayout: value.alphanumericLayout,
-          blocks: 'keyboard' in mf.dataset ? mf.dataset.keyboard.split(' ') : ['numbers', 'fullOperations', 'variables']
-        }
-      })
+  const mf = event.target
+  const isFillInTheBlanks = mf.classList.contains('fillInTheBlanks')
+  const isNotFillInTheBlanksAndReadOnly = !isFillInTheBlanks && mf.readOnly
+  const isCorrected = isNotFillInTheBlanksAndReadOnly || mf.classList.contains('corrected')
+  getKeyboardShortcusts(mf)
+  keyboardState.update((value) => {
+    return {
+      isVisible: true && !isCorrected, // Les fiilInTheBlanks sont toujours readOnly
+      isInLine: value.isInLine,
+      idMathField: event.target.id,
+      alphanumericLayout: value.alphanumericLayout,
+      blocks: 'keyboard' in mf.dataset ? mf.dataset.keyboard.split(' ') : ['numbers', 'fullOperations', 'variables']
     }
-  }
+  })
 }
 
 function handleFocusOutMathField () {

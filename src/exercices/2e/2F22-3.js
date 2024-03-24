@@ -166,7 +166,7 @@ export default class BetaModeleSpline extends Exercice {
         deriveeDroit: noeud.deriveeDroit * coeffX * coeffY,
         isVisible: noeud.isVisible
       }))
-      const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+      const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1)
       const maSpline = spline(nuage)
       const fonctionD = x => maSpline.derivee(x)
       const choixInteractif = randint(0, 1)

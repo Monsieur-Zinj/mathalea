@@ -4,6 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer avec des fractions '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,12 +23,13 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.formatInteractif = 'fractionEgale'
+    this.formatInteractif = 'calcul'
+    this.compare = equalFractionCompare
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = new FractionEtendue(22, 7)
+      this.reponse = new FractionEtendue(22, 7).texFraction
       this.question = '$3+\\dfrac{1}{7}$ '
       this.correction = `$\\begin{aligned}
       3+\\dfrac{1}{7} &= \\dfrac{3 \\times 7}{7} + \\dfrac{1}{7}\\\\

@@ -240,7 +240,7 @@ function diagrammeCalculsFrequences (typeReponseAttendue = 0) {
 function ratiosCalculsProbabilites () {
   const urne = combinaisonListes(['jaune', 'verte', 'bleue', 'rouge', 'noire']).slice(0, randint(2, 3))
   let totalRatios = urne.length + randint(1, 15)
-  const ratios = listeEntiersSommeConnue(urne.length, totalRatios, 1) // On choisi au hasard les ratios
+  const ratios = listeEntiersSommeConnue(urne.length, totalRatios, 1) // on choisit au hasard les ratios
   if (gcd(...ratios) !== 1) {
     for (let j = 0; j < urne.length; j++) {
       ratios[j] = ratios[j] / gcd(...ratios)
@@ -337,7 +337,7 @@ function probabilitesCalculsRatios () {
 function ratios2EpreuvesCalculsProbabilites () {
   const urne = combinaisonListes(['jaune', 'verte', 'bleue', 'rouge', 'noire']).slice(0, randint(2, 3))
   let totalRatios = urne.length + randint(0, 3)
-  const ratios = listeEntiersSommeConnue(urne.length, totalRatios, 1) // On choisi au hasard les ratios
+  const ratios = listeEntiersSommeConnue(urne.length, totalRatios, 1) // on choisit au hasard les ratios
   if (gcd(...ratios) !== 1) {
     for (let j = 0; j < urne.length; j++) {
       ratios[j] = ratios[j] / gcd(...ratios)
@@ -412,8 +412,8 @@ function ratioPiece2EpreuvesCalculsProbabilites () {
   const urne2 = combinaisonListes(['Pile', 'Face']).slice(0, 2)
   let totalRatios1 = urne1.length + randint(0, 3)
   const totalRatios2 = urne2.length
-  const ratios1 = listeEntiersSommeConnue(urne1.length, totalRatios1, 1) // On choisi au hasard les ratios
-  const ratios2 = listeEntiersSommeConnue(urne2.length, totalRatios2, 1) // On choisi au hasard les ratios
+  const ratios1 = listeEntiersSommeConnue(urne1.length, totalRatios1, 1) // on choisit au hasard les ratios
+  const ratios2 = listeEntiersSommeConnue(urne2.length, totalRatios2, 1) // on choisit au hasard les ratios
   if (gcd(...ratios1) !== 1) {
     for (let j = 0; j < urne1.length; j++) {
       ratios1[j] = ratios1[j] / gcd(...ratios1)

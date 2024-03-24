@@ -505,7 +505,7 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
       texte += mathalea2d(paramsEnonces,
         lutins[ordreLutins[i]],
         depart[ordreLutins[i]],
-        texteParPoint(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.8), 'milieu', 'black', 1)
+        texteParPoint(`figure ${i + 1}`, point((lutins[ordreLutins[i]].xMax - lutins[ordreLutins[i]].xMin) / 2, -0.8), 0, 'black', 1)
       )
       if (i === 1) texte += '<br>'
     }

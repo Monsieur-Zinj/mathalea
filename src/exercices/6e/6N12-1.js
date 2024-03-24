@@ -11,7 +11,6 @@ export const dateDePublication = '05/11/2021'
 /**
  * Presentation didactique : Par combien multiplier un entier pour que le chiffre des unités devienne le chiffre des ...
  * @author Eric Elter (inspiré par Aude Duvold)
- * Référence 6N12-1
  */
 
 export const uuid = '89c0c'
