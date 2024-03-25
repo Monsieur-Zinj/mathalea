@@ -103,7 +103,6 @@ export default function Trigo () {
         break
     }
 
-    console.log('pixelsParCm:' + 170 / c + ':scale:' + 4 / c + 'amplitude:' + 0.5)
     this.question += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objets, { rxmin: -0.05 * c, rymin: -0.05 * c, rxmax: 0.05 * c, rymax: 0.05 * c }), {
       pixelsParCm: 170 / c,
       mainlevee: false,
