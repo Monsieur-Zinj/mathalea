@@ -26,7 +26,7 @@ export default class NomExercice extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = new FractionEtendue(17, 3).texFraction
+      this.reponse = new FractionEtendue(17, 3)
       this.question = 'Compléter : $3\\times \\ldots =17$'
       this.optionsChampTexte = { texteAvant: '$3\\times$', texteApres: '$=17$' }
       if (this.interactif) {
@@ -40,7 +40,7 @@ export default class NomExercice extends Exercice {
     } else {
       const a = choice([11, 13, 17, 19])
       const b = choice([3, 6, 7, 9])
-      this.reponse = new FractionEtendue(a, b).texFraction
+      this.reponse = new FractionEtendue(a, b)
       this.question = `Compléter : $${b}\\times \\ldots =${a}$`
       this.optionsChampTexte = { texteAvant: `$${b}\\times $`, texteApres: `$=${a}$` }
       if (this.interactif) {
