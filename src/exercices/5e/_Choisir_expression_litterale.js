@@ -272,6 +272,7 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
           expf = `La somme du quotient de $${nombreAvecEspace(a)}$ par $${l2}$ et du quotient de $${nombreAvecEspace(c)}$ par $${l1}$`
           expl = `$${texNombre(a)}\\div ${l2}+${texNombre(c)}\\div ${l1}$ ou $\\dfrac{${texNombre(a)}}{${l2}}+\\dfrac{${texNombre(c)}}{${l1}}$`
           expc = `$${texNombre(a)}\\div ${l2}+${texNombre(c)}\\div ${l1}=${texNombre(a)}\\div ${texNombre(b)}+${texNombre(c)}\\div ${texNombre(d)} = ${texNombre(a / b)}+${texNombre(c / d)} = ${texNombre(a / b + c / d)}$`
+          lastOp = 'addition'
           break
         case 13: // a/b-c/d
           d = val2

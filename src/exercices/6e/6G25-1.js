@@ -379,7 +379,7 @@ export default function SymetrieAxialePavageTriangulaire () {
           break
       }
       d[i] = droite(M, N, '', couleurs[i])
-      dLatex[i] = droiteAvecNomLatex(d[i], `(d_${i + 1})`)
+      dLatex[i] = droiteAvecNomLatex(d[i], `(d_${i + 1})`, couleurs[i])
       dLatex[i].epaisseur = 3
       dLatex[i].opacite = 0.6
 

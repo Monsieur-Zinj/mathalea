@@ -71,7 +71,7 @@ export default function OpposeDeFraction () {
         e = fraction(c, b)
         this.question = `Quel est l'inverse de $-\\dfrac{${b}}{${c}}$ ?`
         this.correction = `Deux nombres sont inverses l'un de l'autre lorsque leur produit vaut $1$.<br>
-        Ainsi, l'inverse de $-\\dfrac{${b}}{${c}}$ est $-${e.texFraction}$ car $-${d.texFraction}}\\times \\left(-${e.texFraction}\\right)=1$ .`
+        Ainsi, l'inverse de $-\\dfrac{${b}}{${c}}$ est $-${e.texFraction}$ car $-${d.texFraction}\\times \\left(-${e.texFraction}\\right)=1$ .`
         this.reponse = e.oppose()
         break
     }
