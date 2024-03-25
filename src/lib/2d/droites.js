@@ -18,8 +18,8 @@ import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } fr
  * @param {string} color
  * @returns {[Droite, LatexParCoordonnees|Vide2d]}
  */
-export function droiteAvecNomLatex (d, nom, color) { // nom est un latexParCoordonnees
-  d.color = colorToLatexOrHTML(color)
+export function droiteAvecNomLatex (d, nom, color = 'black') { // nom est un latexParCoordonnees
+  d.color = colorToLatexOrHTML(color ?? 'black')
   let absNom, ordNom
   if (egal(d.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
     absNom = -d.c / d.a + 0.8 // l'abscisse du label est décalé de 0.8
