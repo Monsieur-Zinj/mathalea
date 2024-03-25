@@ -50,7 +50,7 @@ export function tableauDeVariation ({
   escpl = 5,
   deltacl = 0.8,
   colors = [],
-  scale = 0.5
+  scale = 0.75
 }) {
   if (context.isHtml) {
     const hauteurLignes = context.pixelsParCm
@@ -648,7 +648,7 @@ export function tableauDeVariation ({
       const texte = latex.texte
       const xTexte = arrondi(latex.x * context.pixelsParCm, 1)
       const yTexte = arrondi(-latex.y * context.pixelsParCm, 1)
-      divsTexte.push(` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%)" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(texte)}</div>`)
+      divsTexte.push(` <div class="divLatex" style="position: absolute; top: ${yTexte}px; left: ${xTexte}px;transform: translate(-50%,-50%) scale(${scale})" data-top="${yTexte}" data-left="${xTexte}">${katex.renderToString(texte)}</div>`)
     }
     // Si l'on de définit pas rxmin, rymin, rxmax et rymax, ceux-ci sont fixés par défaut à -0.5 et +0.5, ce qui s'ajoute aux marges déjà prévues pour les segments de -0.2 et +0.2
     // voilà d'où vient le décallage de 0.7 enregistré sur la position des latex par rapport au cadre !
@@ -1139,10 +1139,10 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
     tabInit: [
       ligneDerivee
         ? [
-            [nomVariable, 3, 10], [nomDerivee, 3, 10], [nomFonction, 3, 10]
+            [nomVariable, 1.5, 10], [nomDerivee, 2, 10], [nomFonction, 3, 10]
           ]
         : [
-            [nomVariable, 3, 10], [nomFonction, 3, 10]
+            [nomVariable, 1.5, 10], [nomFonction, 3, 10]
           ],
       premiereLigne
     ],
