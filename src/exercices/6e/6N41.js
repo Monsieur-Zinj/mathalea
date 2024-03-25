@@ -3,8 +3,9 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import engine from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Compléter les égalités entre fractions simples'
 export const amcReady = true
@@ -202,8 +203,51 @@ export default function EgalitesEntreFractions () {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
                 champ1: { value: String(a) },
                 champ2: { value: '1' },
-                champ3: { value: String(a * d) }
+                champ3: { value: String(a * d) },
+                callback: (exercice, question) => {
+                  let isOk1, feedback
+                  const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`)
+                  const num1 = mfe.getPromptValue('champ1')
+                  const den1 = mfe.getPromptValue('champ2')
+                  const num2 = mfe.getPromptValue('champ3')
+                  if (num1.includes('\\times')) {
+                    const n = engine.parse(num1)
+                    const d = engine.parse(den1)
+                    const n2 = engine.parse(`${a * d}`)
+                    const d2 = engine.parse(`${d}`)
+                    isOk1 = n.isEqual(n2) && d.isEqual(d2)
+                  } else {
+                    isOk1 = num1 === String(a) && den1 === '1'
+                  }
+                  if (isOk1) {
+                    mfe.setPromptState('champ1', 'correct', true)
+                    mfe.setPromptState('champ2', 'correct', true)
+                  } else {
+                    mfe.setPromptState('champ1', 'incorrect', false)
+                    mfe.setPromptState('champ2', 'incorrect', false)
+                  }
+                  const isOk2 = engine.parse(`${a}\\times ${d}`).isEqual(engine.parse(num2))
+                  if (isOk2) {
+                    mfe.setPromptState('champ3', 'correct', true)
+                  } else {
+                    mfe.setPromptState('champ3', 'incorrect', false)
+                  }
+                  feedback = isOk1 ? '' : 'Le calcul intermédiaire est faux.<br>'
+                  feedback += isOk2 ? '' : 'Le résultat final est faux.'
+                  const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
+                  if (spanReponseLigne != null) {
+                    spanReponseLigne.innerHTML = isOk1 && isOk2 ? '😎' : '☹️'
+                  }
+
+                  const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${question}`)
+                  if (feedback != null && spanFeedback != null && feedback.length > 0) {
+                    spanFeedback.innerHTML = '💡 ' + feedback
+                    spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
+                  }
+                  return { isOk: isOk1 && isOk2, feedback, score: { nbBonnesReponses: (isOk1 ? 1 : 0) + (isOk2 ? 1 : 0), nbReponses: 2 } }
+                }
               })
+              texte += ajouteFeedback(this, i)
             } else {
               texte = `$${a} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = ${stringTexFraction('\\phantom{0000}', d)}$`
             }
