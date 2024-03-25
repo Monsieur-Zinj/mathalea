@@ -1,5 +1,5 @@
 import { glisseNombre } from '../../lib/2d/GlisseNombre.js'
-import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
