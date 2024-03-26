@@ -33,7 +33,7 @@ export default class NomExercice extends Exercice {
       Ainsi, <br><br>
       $\\begin{aligned}
       \\dfrac{13}{35}-\\dfrac{2}{7}&=\\dfrac{13}{35}-\\dfrac{10}{35}\\\\
-      &=${miseEnEvidence(this.reponse)}
+      &=${miseEnEvidence(this.reponse.texFraction)}
       \\end{aligned}$`
     } else {
       const a = choice(obtenirListeFractionsIrreductibles())
@@ -52,7 +52,7 @@ export default class NomExercice extends Exercice {
       &=\\dfrac{${a.n * c}-${b.n}}{${b.d}}\\\\
       &=${miseEnEvidence(this.reponse)}${this.reponse.texSimplificationAvecEtapes()}
       \\end{aligned}$<br>
-      Par conséquent, $ ${a.texFraction}-${b.texFraction}= ${miseEnEvidence(new FractionEtendue(a.n * c - b.n, b.d).simplifie())}$.`
+      Par conséquent, $ ${a.texFraction}-${b.texFraction}= ${miseEnEvidence(new FractionEtendue(a.n * c - b.n, b.d).simplifie().texFraction)}$.`
       } else {
         this.reponse = new FractionEtendue(b.n - a.n * c, b.d)
         this.question = `$ ${b.texFraction}-${a.texFraction}$`
@@ -62,9 +62,9 @@ export default class NomExercice extends Exercice {
        &= ${b.texFraction}-\\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}\\\\
       &=${b.texFraction}-${a.reduire(c).texFraction}\\\\
       &=\\dfrac{${b.n}-${a.n * c}}{${b.d}}\\\\
-      &=${miseEnEvidence(this.reponse)}${this.reponse.texSimplificationAvecEtapes()}
+      &=${miseEnEvidence((this.reponse).texFraction)}${this.reponse.texSimplificationAvecEtapes()}
       \\end{aligned}$<br>
-      Par conséquent, $ ${b.texFraction}-${a.texFraction}= ${miseEnEvidence(new FractionEtendue(b.n - a.n * c, b.d).simplifie())}$.`
+      Par conséquent, $ ${b.texFraction}-${a.texFraction}= ${miseEnEvidence(new FractionEtendue(b.n - a.n * c, b.d).simplifie().texFraction)}$.`
       }
     }
     this.canEnonce = this.question
