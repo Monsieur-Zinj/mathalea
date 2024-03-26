@@ -24,8 +24,8 @@ export default function EncadrerAvecFctRef () {
   this.consigne = ''
   this.nbQuestions = 3
   // this.nbQuestionsModifiable = false
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
+  this.nbCols = 1 // Uniquement pour la sortie LaTeX
+  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 5
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2.2 : this.spacingCorr = 1
@@ -319,7 +319,7 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
           if (N === 1) { // cas x<a ou x>a
             const a = choice([
               randint(-10, 10),
-              10 * randint(-10, 10)
+              randint(11, 20) * choice([-1, 1])
             ])
             const inférieur = choice([true, false]) // x < a ou x > a ?
             if (inférieur) {
@@ -360,11 +360,11 @@ Si $x${symbole}${a}$ alors,  $x^3${symbole} ${Math.pow(a, 3)}$.`
             while (a === b) {
               a = choice([
                 randint(-10, 10),
-                10 * randint(-10, 10)
+                randint(11, 20) * choice([-1, 1])
               ])
               b = choice([
                 randint(-10, 10),
-                10 * randint(-10, 10)
+                randint(11, 20) * choice([-1, 1])
               ])
             }
             if (a > b) {
