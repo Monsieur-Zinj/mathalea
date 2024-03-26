@@ -87,6 +87,12 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       listeOfCase: typesDeQuestionsDisponibles,
       melange: this.lycee ? 11 : 9
     })
+    this.sup = contraindreValeur(1, 3, this.sup, 1)
+    const listeTypeDeCoeff = this.sup === 1
+      ? combinaisonListes([1], this.nbQuestions)
+      : this.sup === 2
+        ? combinaisonListes([1], this.nbQuestions)
+        : combinaisonListes([1, 2], this.nbQuestions)
     const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     const antecedents = []
     for (let i = 0, texteAMC, valeurAMC, texte2AMC, valeur2AMC, texte3AMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -95,7 +101,6 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       valeur2AMC = ''
       const elementAmc = {}
       const nomFonction = String.fromCharCode(102 + i)
-      this.sup = contraindreValeur(1, 3, this.sup, 1)
       let texte = ''
       let texteCorr = ''
       // valeur associée à image0 pour le calcul de coefficient : image0 = coefficient * antecedent0
@@ -104,19 +109,12 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       const antecedent0 = 2 * randint(2, 5) + 1
       const ordonneeOrigine = randint(-10, 10, [0])
       let coefficient, image
-      switch (this.sup) {
+      switch (listeTypeDeCoeff[i]) {
         case 1:
           coefficient = randint(2, 8) * choice([-1, 1])
           break
         case 2:
           coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
-          break
-        case 3:
-          if (Math.random() < 0.5) {
-            coefficient = randint(2, 8) * choice([-1, 1])
-          } else {
-            coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
-          }
           break
       }
       const coeffRationnel = coefficient instanceof FractionEtendue
