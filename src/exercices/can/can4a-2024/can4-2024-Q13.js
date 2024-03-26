@@ -30,7 +30,7 @@ export default class NomExercice extends Exercice {
       this.question = `On tire une boule au hasard dans une urne contenant $3$ boules rouges et $5$ boules noires. <br>
       Quelle est la probabilité de tirer une boule rouge ? `
       this.correction = `Il y a $3$ boules rouges sur un total de $8$ boules. <br>
-      La probabilité de tirer une boule rouge est donc  $${miseEnEvidence(this.reponse)}$.`
+      La probabilité de tirer une boule rouge est donc  $${miseEnEvidence(this.reponse.texFraction)}$.`
     } else {
       const a = randint(2, 10)
       const b = randint(2, 10)
@@ -38,7 +38,7 @@ export default class NomExercice extends Exercice {
       this.question = `On tire une boule au hasard dans une urne contenant $${a}$ boules rouges et $${b}$ boules noires. <br>
       Quelle est la probabilité de tirer une boule rouge ? `
       this.correction = `Il y a $${a}$ boules rouges sur un total de $${a + b}$ boules. <br>
-      La probabilité de tirer une boule rouge est donc  $${miseEnEvidence(this.reponse)}${this.reponse.texSimplificationAvecEtapes()}$.`
+      La probabilité de tirer une boule rouge est donc  $${miseEnEvidence(this.reponse.texFraction)}${this.reponse.texSimplificationAvecEtapes()}$.`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

@@ -47,9 +47,9 @@ export default class NomExercice extends Exercice {
        $\\begin{aligned}
        \\dfrac{${a}}{${b}}\\div \\dfrac{${c}}{${d}}&=\\dfrac{${a}}{${b}}\\times \\dfrac{${d}}{${c}}\\\\
       &=\\dfrac{${a}\\times ${d}}{${b}\\times${c}}\\\\
-      &=${miseEnEvidence(this.reponse)}
+      &=${miseEnEvidence((this.reponse).texFraction)}
       \\end{aligned}$<br>
-      Ainsi, $\\dfrac{${a}}{${b}}\\div \\dfrac{${c}}{${d}}=${miseEnEvidence(new FractionEtendue(a * d, b * c).simplifie())}$
+      Ainsi, $\\dfrac{${a}}{${b}}\\div \\dfrac{${c}}{${d}}=${miseEnEvidence(new FractionEtendue(a * d, b * c).simplifie().texFraction)}$
       `
     }
     this.canEnonce = this.question
