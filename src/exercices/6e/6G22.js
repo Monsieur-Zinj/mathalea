@@ -17,6 +17,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Nommer un angle'
 export const interactifType = ['qcm', 'mathLive']
@@ -25,6 +26,7 @@ export const amcType = 'AMCHybride'
 export const amcReady = true
 
 export const dateDePublication = '13/04/2022'
+export const dateModification = '26/03/2024'
 
 /**
  * Nommer un angle
@@ -261,7 +263,7 @@ export default function NommerUnAngle () {
         texte += this.sup > 1 ? `${jj === 0 ? '' : '<br>'}${numAlpha(jj)}` : ''
         texte += texteAMC
         if (this.interactif && this.interactifType === 'mathLive') {
-          texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur25')
+          texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur25 ' + KeyboardType.angles)
         }
         setReponse(this, i * this.sup + jj, resultat, { formatInteractif: 'texte' })
         objetsCorrection.push(codageAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true), segmentsCorrection)

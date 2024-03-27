@@ -7,6 +7,7 @@ export type AlphanumericPages = 'AlphaUp' | 'AlphaLow' | 'Numeric'
 export type BlockForKeyboard =
   | 'alphanumeric'
   | 'advanced'
+  | 'angles'
   | 'areas'
   | 'basicOperations'
   | 'basicOperations2'
@@ -28,6 +29,10 @@ export type BlockForKeyboard =
   | 'trigo'
   | 'variables'
   | 'volumes'
+  | 'uppercaseAToH'
+  | 'uppercaseIToP'
+  | 'uppercaseQToW'
+  | 'uppercaseXToZ'
 
 export interface CompleteKeysList {
   inline: KeysList

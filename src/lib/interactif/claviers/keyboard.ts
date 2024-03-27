@@ -43,7 +43,9 @@ export enum KeyboardType {
   // eslint-disable-next-line no-unused-vars
   masse = 'masse',
   // eslint-disable-next-line no-unused-vars
-  clavierProbabilite = 'clavierProbabilite'
+  clavierProbabilite = 'clavierProbabilite',
+  // eslint-disable-next-line no-unused-vars
+  angles = 'angles'
 }
 
 export const convertToKeyboardTypeEnum = (str: string): KeyboardType | undefined => {
@@ -93,8 +95,10 @@ export const convertKeyboardTypeToBlocks = (type : KeyboardType): BlockForKeyboa
       return ['numbers', 'areas']
     case KeyboardType.volume:
       return ['numbers', 'volumes', 'capacities']
-    case KeyboardType.masse :
+    case KeyboardType.masse:
       return ['numbers', 'masses']
+    case KeyboardType.angles:
+      return ['angles', 'uppercaseXToZ', 'uppercaseQToW', 'uppercaseIToP', 'uppercaseAToH']
     default:
       throw new Error("This error shouldn't occur. Clavier type: '" + type + "'")
   }
