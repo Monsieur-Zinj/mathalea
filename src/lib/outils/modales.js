@@ -99,7 +99,7 @@ export function modalTexteLong (numeroExercice, titre, texte, labelBouton = 'Aid
  * @author Rémi Angot
  */
 export function modalUrl (numeroExercice, url, labelBouton = 'Aide', icone = 'info circle') {
-  const contenu = `<iframe width="100%" height="600"  src="${url}" frameborder="0" ></iframe>`
+  const contenu = `<iframe width="100%" height="600"  loading="lazy" src="${url}" frameborder="0" ></iframe>`
   return creerModal(numeroExercice, contenu, labelBouton, icone)
 }
 
