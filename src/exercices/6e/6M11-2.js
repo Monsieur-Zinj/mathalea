@@ -295,7 +295,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           } else {
             texteCorr = `La figure est un carré de côté ${stringNombre(c, 1)} cm auquel il faut enlever un triangle de ${stringNombre(c, 1)} cm de base et ${stringNombre(h, 1)} cm de hauteur.<br>`
             texteCorr += this.sup4 !== 2 ? `$\\mathcal{P}=${texNombre(c, 1)}+${texNombre(c, 1)}+${texNombre(c, 1)}+${texNombre(h1, 1)}+${texNombre(h2, 1)}=${miseEnEvidence(texNombre(3 * c + h1 + h2, 1))}${sp()}${texTexte('cm')}$<br>` : ''
-            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(c, 1)}\\times${texNombre(c, 1)})-(${texNombre(c, 1)}\\times${h}\\div2)=${texNombre(c * c, 2)}-${texNombre((c * h) / 2, 2)}=${miseEnEvidence(texNombre(c ** 2 - (c * h) / 2, 2))}${sp()}${texTexte('cm')}^2$<br>` : ''
+            texteCorr += this.sup4 !== 1 ? `$\\mathcal{A}=(${texNombre(c, 1)}\\times${texNombre(c, 1)})-(${texNombre(c, 1)}\\times${texNombre(h, 1)}\\div2)=${texNombre(c * c, 2)}-${texNombre((c * h) / 2, 2)}=${miseEnEvidence(texNombre(c ** 2 - (c * h) / 2, 2))}${sp()}${texTexte('cm')}^2$<br>` : ''
           }
           perimetre = arrondi(3 * c + h1 + h2, 1)
           aire = arrondi(c ** 2 - (c * h) / 2, 2)
