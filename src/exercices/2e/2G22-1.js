@@ -24,7 +24,7 @@ export default function RepresenterUnVecteur () {
   Exercice.call(this)
   this.nbQuestions = 2
   this.nbCols = 2
-  this.nbColsCorr = 2
+  this.nbColsCorr = 1
   this.sup = 1 //
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -100,7 +100,8 @@ export default function RepresenterUnVecteur () {
         xmin: -9,
         ymin: -9,
         xmax: 9,
-        ymax: 9
+        ymax: 9,
+        scale: 0.4
       }, r, l, k, j, s, o, nomi, nomj, nomAB, h1, h2, labelA, labelB
       //, t
       )// On trace le graphique
