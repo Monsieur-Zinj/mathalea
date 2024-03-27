@@ -11,12 +11,13 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import Grandeur from '../../modules/Grandeur'
+// import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const dateDePublication = '09/04/2022'
-export const titre = 'Problèmes d\'aires de rectangles'
+export const dateDeModifImportante = '27/03/2024'
+export const titre = 'Résoudre des problèmes d\'aires de rectangles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -338,7 +339,8 @@ export default function ProblemesAiresRectangles () {
   function prepareProblemeAire (objetsEnonce, rectangles, typeDeGrille, longueursHorizontales, longueursVerticales, aires, xBordures, yBordures, nombreTotalEtapes, etapeAireInconnue) {
     const [texte, alternance, numeroteur, listeCellules] = dessineCheminAires(objetsEnonce, rectangles, typeDeGrille, longueursHorizontales, longueursVerticales, aires, xBordures, yBordures, nombreTotalEtapes, etapeAireInconnue)
     const [texteCorr, rep] = redigeCorrection(rectangles, longueursHorizontales, longueursVerticales, aires, nombreTotalEtapes, etapeAireInconnue, alternance, numeroteur, listeCellules)
-    const reponse = new Grandeur(rep[0], rep[1])
+    // const reponse = new Grandeur(rep[0], rep[1])
+    const reponse = rep[0]
     return [texte, texteCorr, reponse]
   }
 
