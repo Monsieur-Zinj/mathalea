@@ -108,7 +108,7 @@ function createAnimationConstructionRectangle () : Figure {
   description.text = 'On place le point $D$ à l\'intersection des deux cercles.'
   const D = figure.create('PointIntersectionCC', { circle1: c1, circle2: c2, label: 'D', n: 2 })
   figure.saveState()
-  description.text = 'On peut cacher les cercles et tracer le parallélogrammz.'
+  description.text = 'On peut cacher les cercles et tracer le parallélogramme.'
   c1.hide()
   c2.hide()
   figure.create('Polygon', { points: [A, B, C, D] })
