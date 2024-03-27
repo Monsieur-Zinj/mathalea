@@ -26,13 +26,11 @@ export const amcType = 'AMCHybride'
 export const amcReady = true
 
 export const dateDePublication = '13/04/2022'
-export const dateModification = '26/03/2024'
+export const dateModification = '27/03/2024'
 
 /**
  * Nommer un angle
- * Ref 6G22
  * @author Eric Elter
- * Publié le 13/04/2022
  */
 export const uuid = 'e10d1'
 export const ref = '6G22'
@@ -256,7 +254,7 @@ export default function NommerUnAngle () {
             ymax: 1.2,
             pixelsParCm: 20,
             scale: 0.5,
-            style: 'display:inline'
+            style: 'display:inline-block'
           }, marquageAngleConsigne)
           : `${couleurRemplissageAngle[1]}`
         texteAMC += ((this.interactif || context.isAmc) && this.interactifType === 'qcm') ? '.' : `${sp()}?`
@@ -277,7 +275,7 @@ export default function NommerUnAngle () {
             ymax: 1.2,
             pixelsParCm: 20,
             scale: 0.5,
-            style: 'display:inline'
+            style: 'display:inline-block'
           }, marquageAngleConsigne)
           : `${couleurRemplissageAngle[1]}`
         texteCorr += ` se nomme, au choix : $${this.sup3 ? miseEnEvidence(resultat[0], 'black') : miseEnEvidence(resultat[0], couleurRemplissageAngle[0])}$`
