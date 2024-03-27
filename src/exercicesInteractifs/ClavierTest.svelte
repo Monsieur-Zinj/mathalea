@@ -3,21 +3,20 @@
     import HeaderExerciceVueProf from '../components/shared/exercice/shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
     import { ajouteChampTexteMathLive } from '../lib/interactif/questionMathLive'
     import { loadMathLive } from '../modules/loaders'
-    import {afterUpdate} from 'svelte'
-    import { KeyboardType, convertToKeyboardTypeEnum, convertKeyboardTypeToBlocks } from '../lib/interactif/claviers/keyboard'
-  
+    import { afterUpdate } from 'svelte'
+    import { KeyboardType, convertToKeyboardCategory, convertKeyboardTypeToBlocks } from '../lib/interactif/claviers/keyboard'
+
     export let indiceExercice
     export let indiceLastExercice
-  
+
     export const titre = 'Test du clavier'
     export const ref = 'Clavier'
-    export const refs = {  
-      'fr-fr': ['Clavier'],  
+    export const refs = {
+      'fr-fr': ['Clavier'],
       'fr-ch': []
     }
     export const uuid = 'clavier'
-  
-  
+
     const headerExerciceProps = {
       title: '',
       isInteractif: false,
@@ -26,28 +25,27 @@
       randomReady: false,
       correctionReady: false
     }
-  
+
     const exercice = new Exercice()
-    exercice.id ='clavierTest'
+    exercice.id = 'clavierTest'
     exercice.numeroExercice = indiceExercice
     exercice.interactif = true
-    let claviers = Object.values(KeyboardType)
+    const claviers = Object.values(KeyboardType)
     let clavierSelected = KeyboardType.clavierFullOperations
-  
-    
-    afterUpdate(()=>{
+
+    afterUpdate(() => {
       loadMathLive()
     })
   </script>
-  
+
   <HeaderExerciceVueProf
     {indiceExercice}
     {indiceLastExercice}
     id="clavier"
     {...headerExerciceProps}
   />
-  
-  <br>  
+
+  <br>
   Les types de clavier:
   <select bind:value={clavierSelected}>
       {#each claviers as clavier}
@@ -56,13 +54,12 @@
           </option>
       {/each}
   </select>
-  
-  <br>Nombre de blocs de touches :  {convertKeyboardTypeToBlocks(convertToKeyboardTypeEnum(clavierSelected)).length}
-  <br>Liste de blocs : {convertKeyboardTypeToBlocks(convertToKeyboardTypeEnum(clavierSelected)).join('; ')} 
-  
+
+  <br>Nombre de blocs de touches :  {convertKeyboardTypeToBlocks(convertToKeyboardCategory(clavierSelected)).length}
+  <br>Liste de blocs : {convertKeyboardTypeToBlocks(convertToKeyboardCategory(clavierSelected)).join('; ')}
+
   <br><br>
   Exemple:
   <br><br><pre>ajouteChampTexteMathLive(exercice, i, KeyboardType.{clavierSelected}) </pre>
   <br><br>Et le résultat:
-  <div>{@html ajouteChampTexteMathLive(exercice, 0, convertToKeyboardTypeEnum(clavierSelected))}</div>
-  
+  <div>{@html ajouteChampTexteMathLive(exercice, 0, convertToKeyboardCategory(clavierSelected))}</div>
