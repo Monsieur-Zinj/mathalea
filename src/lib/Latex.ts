@@ -574,6 +574,8 @@ export function format (text: string): string {
     .replace(/<br>/g, '\\\\')
     .replace(/€/g, '\\euro')
     .replace(/\\\\\s*\n\n/gm, '\\\\')
+    .replace('«', '\\og{}')
+    .replace('»', '\\fg{}')
 }
 
 function getUrlFromExercice (ex: TypeExercice) {
