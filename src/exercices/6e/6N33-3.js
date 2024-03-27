@@ -7,6 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -17,7 +18,6 @@ export const titre = 'Résoudre des problèmes avec des calculs de pourcentages'
 /**
  * Calculer le montant d'une réduction donnée en pourcentage d'un prix initial
  * @author Jean-Claude Lhote
- * Référence 6N33-3
  */
 export const uuid = 'd67e9'
 export const ref = '6N33-3'
@@ -62,7 +62,7 @@ export default function AppliquerUnPourcentage () {
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' €' })
           texteCorr = `On doit calculer $${pourcent[i]}${sp()}\\%$ de $${prix[i]}$${sp()}€ :<br>`
           texteCorr += `$${pourcent[i]}${sp()}\\%\\text{ de }${prix[i]}=${deprecatedTexFraction(pourcent[i], 100)}\\times${prix[i]}=(${pourcent[i]}\\times${prix[i]})\\div100=${texNombre(pourcent[i] * prix[i])}\\div100=${texNombre(montant)}$<br>`
-          texteCorr += `Le montant de la réduction est de $${texPrix(montant)}$${sp()}€.`
+          texteCorr += `Le montant de la réduction est de $${miseEnEvidence(texPrix(montant))}$${sp()}€.`
           setReponse(this, i, montant, { formatInteractif: 'calcul', digits: 5, decimals: 2, signe: false })
           break
         case 2:
@@ -73,7 +73,7 @@ export default function AppliquerUnPourcentage () {
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' g' })
           texteCorr = `On doit calculer $${pourcent[i]}${sp()}\\%$ de $${masse[i]}$ grammes :<br>`
           texteCorr += `$${pourcent[i]}${sp()}\\%\\text{ de }${masse[i]}=${deprecatedTexFraction(pourcent[i], 100)}\\times${masse[i]}=(${pourcent[i]}\\times${masse[i]})\\div100=${texNombre(pourcent[i] * masse[i])}\\div100=${texNombre(montant)}$<br>`
-          texteCorr += `La masse a augmenté de $${texNombre(montant)}$ g.`
+          texteCorr += `La masse a augmenté de $${miseEnEvidence(texNombre(montant))}$ g.`
           setReponse(this, i, montant, { formatInteractif: 'calcul', digits: 4, decimals: 2, signe: false })
           break
       }

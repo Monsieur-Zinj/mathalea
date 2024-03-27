@@ -20,7 +20,6 @@ export const amcType = 'AMCNum'
  *
  * Par défaut la division du nombre par le dénominateur est inférieure à 11
  * @author Rémi Angot + Jean-Claude Lhote
- * référence 6N33
  */
 export const uuid = 'ddb83'
 export const ref = '6N33'
@@ -96,8 +95,8 @@ export default function FractionDUnNombre () {
         if (calculANePlusJamaisUtiliser(n / b - arrondi(n / b, 4)) === 0) {
           texteCorr += `$${deprecatedTexFraction(
                         a,
-                        miseEnEvidence(b)
-                    )}\\times${n}=${n}\\div${miseEnEvidence(b)}=${texNombre(
+                        miseEnEvidence(b, 'blue')
+                    )}\\times${n}=${n}\\div${miseEnEvidence(b, 'blue')}=${texNombre(
                         calculANePlusJamaisUtiliser(n / b)
                     )}$`
         } else { // si résultat décimal
@@ -111,9 +110,9 @@ export default function FractionDUnNombre () {
           // si n/b décimal calcul (n/b)*a
           texteCorr += `$${deprecatedTexFraction(
                         a,
-                        miseEnEvidence(b)
+                        miseEnEvidence(b, 'blue')
                     )}\\times${n}=(${n}\\div${miseEnEvidence(
-                        b
+                        b, 'blue'
                     )})\\times${a}=${texNombre(
                         calculANePlusJamaisUtiliser(n / b)
                     )}\\times${a}=${texNombre(calculANePlusJamaisUtiliser((n / b) * a))}$<br>`
@@ -122,22 +121,22 @@ export default function FractionDUnNombre () {
             // si n/b non décimal, alors on se rabat sur (n*a)/b
             texteCorr += ` $${deprecatedTexFraction(
                             a,
-                            miseEnEvidence(b)
+                            miseEnEvidence(b, 'blue')
                         )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-                            b
+                            b, 'blue'
                         )}=${calculANePlusJamaisUtiliser(n * a)}\\div${miseEnEvidence(
-                            b
+                            b, 'blue'
                         )}=${texNombre(calculANePlusJamaisUtiliser((n / b) * a))}$<br>`
           } else {
             // si autre méthode et résultat fractionnaire calcul (n*a)/b
             texteCorr += ` $${deprecatedTexFraction(
                             a,
-                            miseEnEvidence(b)
+                            miseEnEvidence(b, 'blue')
                         )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-                            b
+                            b, 'blue'
                         )}=${calculANePlusJamaisUtiliser(n * a)}\\div${miseEnEvidence(
-                            b
-                        )}=${deprecatedTexFraction(n * a, miseEnEvidence(b))}$<br>`
+                            b, 'blue'
+                        )}=${deprecatedTexFraction(n * a, miseEnEvidence(b, 'blue'))}$<br>`
           }
           j = true
         }
@@ -149,10 +148,10 @@ export default function FractionDUnNombre () {
           // Si autres méthodes et si (a*n)/b décimal calcul (n*a)/b
           texteCorr += ` $${deprecatedTexFraction(
                         a,
-                        miseEnEvidence(b)
+                        miseEnEvidence(b, 'blue')
                     )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-                        b
-                    )}=${calculANePlusJamaisUtiliser(n * a)}\\div${miseEnEvidence(b)}=${texNombre(
+                        b, 'blue'
+                    )}=${calculANePlusJamaisUtiliser(n * a)}\\div${miseEnEvidence(b, 'blue')}=${texNombre(
                         calculANePlusJamaisUtiliser((n / b) * a)
                     )}$<br>`
         } else {
@@ -160,21 +159,21 @@ export default function FractionDUnNombre () {
           if (this.sup2 && !j) {
             texteCorr += ` $${deprecatedTexFraction(
                             a,
-                            miseEnEvidence(b)
+                            miseEnEvidence(b, 'blue')
                         )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
-                            b
+                            b, 'blue'
                         )}=${calculANePlusJamaisUtiliser(n * a)}\\div${miseEnEvidence(
-                            b
-                        )}=${deprecatedTexFraction(n * a, miseEnEvidence(b))}$<br>`
+                            b, 'blue'
+                        )}=${deprecatedTexFraction(n * a, miseEnEvidence(b, 'blue'))}$<br>`
           }
         }
         // si autre méthode et a/b décimal calcul (a/b)*n
         if ((b === 2 || b === 4 || b === 5 || b === 8 || b === 10) && this.sup2) {
           texteCorr += ` $${deprecatedTexFraction(
                         a,
-                        miseEnEvidence(b)
+                        miseEnEvidence(b, 'blue')
                     )}\\times${n}=(${a}\\div${miseEnEvidence(
-                        b
+                        b, 'blue'
                     )})\\times${n}=${texNombre(
                         calculANePlusJamaisUtiliser(a / b)
                     )}\\times${n}=${texNombre(calculANePlusJamaisUtiliser((n / b) * a))}$`
@@ -192,7 +191,20 @@ export default function FractionDUnNombre () {
         this.autoCorrection[i].reponse.param.digits = 2
         this.autoCorrection[i].reponse.param.decimals = 0
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
+      if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

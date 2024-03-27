@@ -25,9 +25,7 @@ export const dateDePublication = '26/04/2022'
 
 /**
  * Mesurer un angle avec rapporteur déjà en place
- * Ref 6G23-4
  * @author Eric Elter
- * Publié le 27/04/2022
  */
 export const uuid = 'ff2cc'
 export const ref = '6G23-4'
@@ -37,7 +35,6 @@ export const refs = {
 }
 export default function MesurerUnAngleAvecRapporteur () {
   Exercice.call(this)
-  this.consigne = ''
   this.nbQuestions = 1
   this.sup = 1
   this.sup2 = 7
