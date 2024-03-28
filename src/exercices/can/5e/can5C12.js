@@ -1,7 +1,7 @@
+import FractionEtendue from '../../../modules/FractionEtendue'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
-import { calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer la fraction d’entier'
 export const interactifReady = true
@@ -26,11 +26,12 @@ export default function FractionDEntierQuiVaBien () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur25 inline'
+  this.formatInteractif = 'fraction'
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])
     const b = a.d * c
-    this.reponse = calculANePlusJamaisUtiliser(a.n * c)
+    this.reponse = new FractionEtendue(a.n * c, 1)
     this.question = `Calculer $${a.texFraction}\\times ${b}$ sous la forme d'un entier.`
     if (a.n === 1) {
       this.correction = `$${a.texFraction}\\times ${b}=${a.n * c}$<br><br>`
