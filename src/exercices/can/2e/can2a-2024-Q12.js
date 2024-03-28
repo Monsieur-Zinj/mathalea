@@ -54,7 +54,8 @@ export default class NomExercice extends Exercice {
     } else {
       if (choice([true, false])) {
         const a = choice([1, 3, 5, 6, 7, 9, 10, 11]) // numérateur
-        this.reponse = new FractionEtendue(a, 4).texFraction
+        const fracResultat = new FractionEtendue(a, 4)
+        this.reponse = fracResultat.texFraction
         this.question = 'Determiner l\'abscisse du point $A$.<br>'
         this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('A', 3 * a / 4, 0.9, 'milieu', 'blue', 2), droiteGraduee({
           Unite: 3,
@@ -73,10 +74,11 @@ export default class NomExercice extends Exercice {
           step1: 1,
           step2: 1
         }))
-        this.correction = `L'abscisse du point $A$ est $\\dfrac{${a}}{${4}}=${miseEnEvidence(texNombre(this.reponse))}$.`
+        this.correction = `L'abscisse du point $A$ est $\\dfrac{${a}}{${4}}=${miseEnEvidence(texNombre(fracResultat.valeurDecimale, 2))}$.`
       } else {
         const a = choice([1, 2, 3, 4, 6, 7, 8, 9]) // numérateur
-        this.reponse = new FractionEtendue(a, 5).texFraction
+        const fracResultat = new FractionEtendue(a, 5)
+        this.reponse = fracResultat.texFraction
         this.question = 'Determiner l\'abscisse du point $A$.<br>'
         this.question += mathalea2d({ xmin: -1, ymin: -1.5, xmax: 14, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, texteParPosition('A', 3 * a / 5, 0.9, 'milieu', 'blue', 2), droiteGraduee({
           Unite: 3,
@@ -95,7 +97,7 @@ export default class NomExercice extends Exercice {
           step1: 1,
           step2: 1
         }))
-        this.correction = `L'abscisse du point $A$ est $\\dfrac{${a}}{${5}}=${miseEnEvidence(texNombre(this.reponse))}$.`
+        this.correction = `L'abscisse du point $A$ est $\\dfrac{${a}}{${5}}=${miseEnEvidence(texNombre(fracResultat.valeurDecimale, 1))}$.`
       }
     }
     this.canEnonce = this.question

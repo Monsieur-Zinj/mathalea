@@ -4,7 +4,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'cos et sin associés à un réel $x$'
 export const interactifReady = true
@@ -40,140 +41,140 @@ export default function MesurePrincipale () {
     const typeQuestionsDisponibles = [
       {
         texte: '$\\cos\\big(x+\\pi\\big)=$',
-        reponse: '-cos(x)',
+        reponse: '-\\cos(x)',
         texteCorr: '$\\cos(x+\\pi)=-\\cos(x)$'
       },
 
       {
         texte: '$\\cos\\big(x-\\pi\\big)=$',
-        reponse: '-cos(x)',
+        reponse: '-\\cos(x)',
         texteCorr: '$\\cos(x-\\pi)=-\\cos(x)$'
       },
       {
         texte: '$\\cos\\left(x+\\dfrac{\\pi}{2}\\right)=$',
-        reponse: '-sin(x)',
+        reponse: '-\\sin(x)',
         texteCorr: '$\\cos\\left(x+\\dfrac{\\pi}{2}\\right)=-\\sin(x)$'
       },
       {
         texte: '$\\cos\\left(\\dfrac{\\pi}{2}-x\\right)=$',
-        reponse: 'sin(x)',
+        reponse: '\\sin(x)',
         texteCorr: '$\\cos\\left(\\dfrac{\\pi}{2}-x\\right)=\\sin(x)$'
       },
       {
         texte: '$\\cos\\big(x-5\\pi\\big)=$',
-        reponse: '-cos(x)',
+        reponse: '-\\cos(x)',
         texteCorr: '$\\cos(x-5\\pi)=-\\cos(x)$'
       },
       {
         texte: '$\\cos\\big(x-3\\pi\\big)=$',
-        reponse: '-cos(x)',
+        reponse: '-\\cos(x)',
         texteCorr: '$\\cos(x-3\\pi)=-\\cos(x)$'
       },
       {
         texte: '$\\cos\\big(x+5\\pi\\big)=$',
-        reponse: '-cos(x)',
+        reponse: '-\\cos(x)',
         texteCorr: '$\\cos(x+5\\pi)=-\\cos(x)$'
       },
       {
         texte: '$\\cos\\big(x+3\\pi\\big)=$',
-        reponse: '-cos(x)',
+        reponse: '-\\cos(x)',
         texteCorr: '$\\cos(x+3\\pi)=-\\cos(x)$'
       },
       {
         texte: '$\\sin\\big(x+\\pi\\big)=$',
-        reponse: '-sin(x)',
+        reponse: '-\\sin(x)',
         texteCorr: '$\\sin(x+\\pi)=-\\sin(x)$'
       },
       {
         texte: '$\\sin\\big(x+3\\pi\\big)=$',
-        reponse: '-sin(x)',
+        reponse: '-\\sin(x)',
         texteCorr: '$\\sin(x+3\\pi)=-\\sin(x)$'
       },
       {
         texte: '$\\sin\\big(x+5\\pi\\big)=$',
-        reponse: '-sin(x)',
+        reponse: '-\\sin(x)',
         texteCorr: '$\\sin(x+5\\pi)=-\\sin(x)$'
       },
       {
         texte: '$\\sin\\big(x-\\pi\\big)=$',
-        reponse: '-sin(x)',
+        reponse: '-\\sin(x)',
         texteCorr: '$\\sin(x-\\pi)=-\\sin(x)$'
       },
       {
         texte: '$\\sin\\big(x-3\\pi\\big)=$',
-        reponse: '-sin(x)',
+        reponse: '-\\sin(x)',
         texteCorr: '$\\sin(x-3\\pi)=-\\sin(x)$'
       },
       {
         texte: '$\\sin\\big(x-5\\pi\\big)=$',
-        reponse: '-sin(x)',
+        reponse: '-\\sin(x)',
         texteCorr: '$\\sin(x-5\\pi)=-\\sin(x)$'
       },
       {
         texte: '$\\sin\\left(x+\\dfrac{\\pi}{2}\\right)=$',
-        reponse: 'cos(x)',
+        reponse: '\\cos(x)',
         texteCorr: '$\\sin\\left(x+\\dfrac{\\pi}{2}\\right)=\\cos(x)$'
       },
       {
         texte: '$\\sin\\left(\\dfrac{\\pi}{2}-x\\right)=$',
-        reponse: 'cos(x)',
+        reponse: '\\cos(x)',
         texteCorr: '$\\sin\\left(\\dfrac{\\pi}{2}-x\\right)=\\cos(x)$'
       },
       {
         texte: '$\\sin\\big(x+2\\pi\\big)=$',
-        reponse: 'sin(x)',
+        reponse: '\\sin(x)',
         texteCorr: '$\\sin(x+2\\pi)=\\sin(x)$'
       },
       {
         texte: '$\\sin\\big(x+4\\pi\\big)=$',
-        reponse: 'sin(x)',
+        reponse: '\\sin(x)',
         texteCorr: '$\\sin(x+4\\pi)=\\sin(x)$'
       },
       {
         texte: '$\\sin\\big(x-2\\pi\\big)=$',
-        reponse: 'sin(x)',
+        reponse: '\\sin(x)',
         texteCorr: '$\\sin(x-2\\pi)=\\sin(x)$'
       },
       {
         texte: '$\\sin\\big(x-4\\pi\\big)=$',
-        reponse: 'sin(x)',
+        reponse: '\\sin(x)',
         texteCorr: '$\\sin(x-4\\pi)=\\sin(x)$'
       },
       {
         texte: '$\\cos\\big(x+4\\pi\\big)=$',
-        reponse: 'cos(x)',
+        reponse: '\\cos(x)',
         texteCorr: '$\\cos(x+4\\pi)=\\cos(x)$'
       },
       {
         texte: '$\\cos\\big(x-2\\pi\\big)=$',
-        reponse: 'cos(x)',
+        reponse: '\\cos(x)',
         texteCorr: '$\\cos(x-2\\pi)=\\cos(x)$'
       },
       {
         texte: '$\\cos\\big(x+2\\pi\\big)=$',
-        reponse: 'cos(x)',
+        reponse: '\\cos(x)',
         texteCorr: '$\\cos(x+2\\pi)=\\cos(x)$'
       },
       {
         texte: '$\\cos\\big(x-4\\pi\\big)=$',
-        reponse: 'cos(x)',
+        reponse: '\\cos(x)',
         texteCorr: '$\\cos(x-4\\pi)=\\cos(x)$'
       },
       {
         texte: '$\\cos\\big(-x\\big)=$',
-        reponse: 'cos(x)',
+        reponse: '\\cos(x)',
         texteCorr: '$\\cos(-x)=\\cos(x)$'
       },
       {
         texte: '$\\sin\\big(-x\\big)=$',
-        reponse: '-sin(x)',
+        reponse: '-\\sin(x)',
         texteCorr: '$\\sin(-x)=-\\sin(x)$'
       }
     ]
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       texte = listeTypeQuestions[i].texte
-      setReponse(this, i, listeTypeQuestions[i].reponse)
+      handleAnswers(this, i, { reponse: { value: { fonction: listeTypeQuestions[i].reponse, variable: 'x' }, compare: functionCompare } }, { formatInteractif: 'mathlive' })
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore grecTrigo') // n'ajoute rien si on n'est pas en interactif
       if (!this.interactif) texte += '$\\ldots$'
 

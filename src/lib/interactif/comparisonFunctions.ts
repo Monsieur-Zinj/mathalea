@@ -887,6 +887,11 @@ export function functionCompare (input: string, goodAnswer: {fonction: string, v
     goodAnswer = { fonction: goodAnswer, variable: 'x' }
   }
   const clean = generateCleaner(['virgules', 'parentheses', 'fractions', 'divisions'])
+  if (input.match(/sin|cos|tan/)) {
+    input = input.replace('\\sin', 'sin').replace('sin', '\\sin') // Le premier pour virer le \ afin de ne pas le doubler
+    input = input.replace('\\cos', 'cos').replace('cos', '\\cos') // Le premier pour virer le \ afin de ne pas le doubler
+    input = input.replace('\\tan', 'tan').replace('tan', '\\tan') // Le premier pour virer le \ afin de ne pas le doubler
+  }
   const cleanInput = clean(input)
   const inputParsed = engine.parse(cleanInput)
   const inputFn = inputParsed.compile()
@@ -898,7 +903,9 @@ export function functionCompare (input: string, goodAnswer: {fonction: string, v
   const [a, b, c] = [Math.random(), Math.random(), Math.random()]
   for (const x of [a, b, c]) {
     const variable = Object.fromEntries([[goodAnswer.variable, x]])
-    isOk = isOk && Math.abs(inputFn(variable) - goodAnswerFn(variable)) < 1e-10
+    const y1 = inputFn(variable)
+    const y2 = goodAnswerFn(variable)
+    isOk = isOk && Math.abs(y1 - y2) < 1e-10
   }
   return { isOk }
 }
@@ -913,8 +920,10 @@ export function functionXyCompare (input: string, goodAnswer: {fonction: string,
     goodAnswer = { fonction: goodAnswer, variables: ['x', 'y'] }
   }
   const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions', 'divisions'])
+  // Pour l'instant les fonctions trigo saisies au clavier ne sont pas les fonction trigo latex.
   const cleanInput = clean(input)
   const inputParsed = engine.parse(cleanInput)
+
   const inputFn = inputParsed.compile()
   const cleanAnswer = clean(goodAnswer.fonction)
   const goodAnswerFn = engine.parse(cleanAnswer).compile()
