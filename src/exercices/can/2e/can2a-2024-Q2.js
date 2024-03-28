@@ -27,14 +27,14 @@ export default class NomExercice extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = '0'
+      this.reponse = 0
       this.question = ' $50-55+5$'
       this.correction = `$50-55+5=${miseEnEvidence(0)}$`
     } else {
       const a = choice([35, 45, 55, 65])
       const b = a + choice([5, 10])
       const c = randint(5, 10)
-      this.reponse = String(a - b + c)
+      this.reponse = a - b + c
       this.question = ` $${a}-${b}+${c}$`
       this.correction = `$${a}-${b}+${c}=${miseEnEvidence(texNombre(this.reponse, 0))}$`
       this.canEnonce = this.question
