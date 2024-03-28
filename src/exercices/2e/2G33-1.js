@@ -55,17 +55,17 @@ export default function Alignementdetroispoints () {
           texteCorr += '<br>On peut donc calculer leur coefficient directeur respectif.'
           texteCorr += '<br>On sait d\'après le cours, que le coefficient directeur de la droite $(AB)$, si $x_A\\neq x_B$ est  : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
           texteCorr += '<br>On applique avec les données de l\'énoncé pour chacune des deux droites : '
-          texteCorr += `<br>$\\bullet  (AB)$ : $m_1=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n1, d1)}`
+          texteCorr += `<br><br>$\\bullet  (AB)$ : $m_1=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n1, d1)}`
           if ((pgcd(n1, d1) !== 1 || d1 === 1 || d1 < 0) && n1 !== 0) {
             texteCorr += `=${texFractionReduite(n1, d1)}`
           }
           texteCorr += '$'
-          texteCorr += `<br>$\\bullet  (AC)$ : $m_2=\\dfrac{${yC}-${ecritureParentheseSiNegatif(yA)}}{${xC}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n2, d2)}`
+          texteCorr += `<br><br>$\\bullet  (AC)$ : $m_2=\\dfrac{${yC}-${ecritureParentheseSiNegatif(yA)}}{${xC}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n2, d2)}`
           if ((pgcd(n2, d2) !== 1 || d2 === 1 || d2 < 0) && n2 !== 0) {
             texteCorr += `=${texFractionReduite(n2, d2)}`
           }
           texteCorr += '$'
-          texteCorr += '<br>On onserve que $m_1 \\neq m_2$. '
+          texteCorr += '<br><br>On observe que $m_1 \\neq m_2$. '
           texteCorr += '<br>Les droites $(AB)$ et $(AC)$ ne sont donc pas parallèles. '
           texteCorr += '<br>Les points $A$, $B$ et $C$ ne sont pas alignés. '
 
@@ -88,19 +88,19 @@ export default function Alignementdetroispoints () {
           texteCorr += '<br>On peut donc calculer leur coefficient directeur respectif.'
           texteCorr += '<br>On sait d\'après le cours, que le coefficient directeur de la droite $(AB)$, si $x_A\\neq x_B$ est  : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
           texteCorr += '<br>On applique avec les données de l\'énoncé pour chacune des deux droites : '
-          texteCorr += `<br>$\\bullet  (AB)$ : $m_1=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n1, d1)}`
+          texteCorr += `<br><br>$\\bullet  (AB)$ : $m_1=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n1, d1)}`
           if ((pgcd(n1, d1) !== 1 || d1 === 1 || d1 < 0) && n1 !== 0) {
             texteCorr += `=${texFractionReduite(n1, d1)}`
           }
           texteCorr += '$'
 
-          texteCorr += `<br>$\\bullet  (AC)$ : $m_2=\\dfrac{${yC}-${ecritureParentheseSiNegatif(yA)}}{${xC}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n2, d2)}`
+          texteCorr += `<br><br>$\\bullet  (AC)$ : $m_2=\\dfrac{${yC}-${ecritureParentheseSiNegatif(yA)}}{${xC}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n2, d2)}`
           if ((pgcd(n2, d2) !== 1 || d2 === 1 || d2 < 0) && n2 !== 0) {
             texteCorr += `=${texFractionReduite(n2, d2)}`
           }
           texteCorr += '$'
 
-          texteCorr += '<br>On onserve que $m_1 = m_2$. '
+          texteCorr += '<br><br>On observe que $m_1 = m_2$. '
           texteCorr += '<br>Les droites $(AB)$ et $(AC)$ ont le même coefficient directeur, elles sont donc parallèles. '
           texteCorr += '<br>Le point $A$ appartenant aux deux droites parallèles, $(AB)$ et $(AC)$ sont des droites confondues.'
           texteCorr += '<br>On en déduit que les points $A$, $B$ et $C$ sont alignés. '
