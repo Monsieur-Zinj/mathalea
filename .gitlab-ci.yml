@@ -38,6 +38,7 @@ default:
     - pnpm config set store-dir .pnpm-store
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
+    - sleep 60
 
 .testCI:
   extends: .install_dependencies

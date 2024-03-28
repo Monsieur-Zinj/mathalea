@@ -339,6 +339,11 @@ export function scratchblock (stringLatex) {
             texte = translatex(chaine, 12 + index, compteAccolades)
             resultat = [`[${texte[0]} v]`, texte[1] + 1, texte[2] - 1]
             break
+          case '\\selectmenu*':
+            compteAccolades++
+            texte = translatex(chaine, 13 + index, compteAccolades)
+            resultat = [`[${texte[0]} v] `, texte[1] + 1, texte[2] - 1]
+            break
           default:
             string = chaine.substring(index).split(regex1)[0]
             resultat = [string, string.length + index, compteAccolades]
@@ -366,13 +371,16 @@ export function scratchblock (stringLatex) {
     codeScratch = '<pre class=\'blocks\'>'
     index = 0
     fin = false
-    while (!fin) {
+    let k = 0
+    while (!fin && k < 300) {
       result = translatex(stringLatex, index, compteur)
       codeScratch += result[0]
       index = result[1]
       compteur = result[2]
       if (compteur === 0) fin = true
+      k++ // MGu pour éviter la boucle infinie
     }
+    if (!fin) window.notify('Il y a un problème avec le scratchblock, une commande certainement non gérée : ' + JSON.stringify(stringLatex))
     codeScratch += '</pre>\n'
   }
   return codeScratch
