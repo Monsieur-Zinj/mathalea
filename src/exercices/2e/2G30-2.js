@@ -79,9 +79,9 @@ export default function EquationReduiteDeDroites () {
         texteCorr += '<br>Au final, $(AB) : y='
         if (d * yA - n * xA === 0) { // cas où p=0
           if (n === d) { // cas où m=1 et p=0
-            texteCorr += 'x'
+            texteCorr += 'x$'
           } else if (n === -d) { // cas où m=-1 et p=0
-            texteCorr += '-x'
+            texteCorr += '-x$'
           } else if ((pgcd(n, d) !== 1 || d === 1) && n !== 0) { // m entier  non nul ou fraction réductible
             texteCorr += `${texFractionReduite(n, d)}x$`
           } else { // m fraction irréductible
