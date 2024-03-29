@@ -149,7 +149,8 @@ export default function EquationReduiteDeDroites () {
         texteCorr += '$'
         texteCorr += '<br>L\'équation de la droite $(AB)$ est de la forme : $y='
         if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
-          texteCorr += `${texFractionReduite(n, d)}x`
+          if (n / d === 1) texteCorr += 'x'
+          else texteCorr += `${texFractionReduite(n, d)}x`
         } else {
           // eslint-disable-next-line no-empty
           if (n === 0) {
