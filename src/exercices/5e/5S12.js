@@ -233,7 +233,7 @@ export default function ConstruireUnDiagramme () {
         break
       case 3:
         texte += `${tableauColonneLigne(entete, ['\\text{Effectifs}'], lstNombresAnimaux)}<br><br>`
-        texte += 'Représenter ces données par un diagramme en barres.<br>'
+        texte += 'Représenter ces données par un diagramme en bâtons.<br>'
         coef = 1
         switch (parseInt(this.sup2)) {
           case 1:
@@ -325,6 +325,6 @@ export default function ConstruireUnDiagramme () {
   }
   this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : Deux espèces\n2 : Trois espèces\n3 : Quatre espèces']
   this.besoinFormulaire2Numerique = ['Valeurs numériques', 2, '1 : Entre 1 et 100\n2 : Entre 100 et 1 000']
-  this.besoinFormulaire3Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en barres\n4 : Diagramme cartésien\n5 : Au hasard']
+  this.besoinFormulaire3Numerique = ['Type de diagramme', 5, '1 : Diagramme circulaire\n2 : Diagramme semi-circulaire\n3 : Diagramme en bâtons\n4 : Diagramme cartésien\n5 : Au hasard']
   this.besoinFormulaire4CaseACocher = ['Valeur exactes', true]
 }

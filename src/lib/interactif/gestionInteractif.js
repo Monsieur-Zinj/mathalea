@@ -98,6 +98,14 @@ export function exerciceInteractif (exercice, divScore, buttonScore) {
         resultat = verifQuestionMathLive(exercice, i)
         nbQuestionsValidees += resultat.score.nbBonnesReponses
         nbQuestionsNonValidees += resultat.score.nbReponses - resultat.score.nbBonnesReponses
+        if (resultat.feedback !== '') {
+          const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${i}`)
+          if (spanFeedback != null) {
+            spanFeedback.innerHTML = '💡 ' + resultat.feedback
+            spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
+          }
+        }
+
         break
     }
   }
