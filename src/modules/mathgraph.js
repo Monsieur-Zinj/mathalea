@@ -69,6 +69,7 @@ async function mg32Display (container, exo) {
   // si on avait déjà chargé mtgApp, faut virer le doc avant de le remettre
   if (mtgApp) mtgApp.removeDoc(idDoc)
   mtgApp = await loadMG32(container, svgOptions, mtgOptions)
+  // console.log('figure chargée')
   const idDocCorr = MG32codeBase64corr ? `MG32svgcorr${indexExo}` : ''
   if (idDocCorr) {
     container = document.getElementById(`MG32divcorr${indexExo}`)
@@ -104,8 +105,11 @@ export async function mg32DisplayAll (exos) {
   // on passe ça à setList, ça sert de contrôle d'intégrité, mais c'est pas vraiment nécessaire,
   // on pourrait directement appeler mg32Display avec le n° d'index
   setList(exos)
+  // console.log('setList(exos)')
   return Promise.all(listeExos.map((exo, i) => {
     const elt = document.getElementById(`MG32div${i}`)
+    // console.log('elt')
+    // console.log('mg32Display(elt, exo)')
     return elt ? mg32Display(elt, exo) : null
   }))
 }

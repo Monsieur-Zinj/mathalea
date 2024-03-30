@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer l\'opposé ou l\'inverse d\'une fraction'
 export const interactifReady = true
@@ -20,7 +21,8 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fractionEgale'
+    this.formatInteractif = 'calcul'
+    this.compare = equalFractionCompare
     this.optionsChampTexte = { texteAvant: 'est', texteApres: '.' }
     this.canOfficielle = true
   }
@@ -47,6 +49,7 @@ export default class NomExercice extends Exercice {
         L'inverse de $\\dfrac{${a[0]}}{${a[1]}}$ est  $${miseEnEvidence(this.reponse.texFSD)}$ car $\\dfrac{${a[0]}}{${a[1]}}\\times ${this.reponse.texFSD}=1$.`
       }
     }
+    this.reponse = this.reponse.texFSD
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
