@@ -175,7 +175,7 @@ function findThemes (obj, path) {
 
 findThemes(referentiel2022, [])
 
-readInfos(exercicesDir, uuidMap)
+readInfos(exercicesDir)
   .then(() => {
     let uuidToUrl = Array.from(uuidMap.entries())
       .sort((a, b) => a[1].localeCompare(b[1]))
