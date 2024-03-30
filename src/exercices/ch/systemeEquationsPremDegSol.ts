@@ -4,11 +4,13 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
+import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante.js'
 import { textCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Vérifier si un couple est solution d\'un système linéaire de deux équations à deux inconnues'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
+export const amcReady = true
+export const amcType = 'qcmMono'
 export const dateDePublication = '28/03/2024'
 export const uuid = 'ccb71'
 
@@ -260,21 +262,23 @@ export default class systemeEquationsPremDegSol extends Exercice {
         \\[\\begin{cases}\\begin{aligned}${eqToLatex([0, 0, verifEq(eqFinale1, solPropX, solPropY)[0], 0, 0, verifEq(eqFinale1, solPropX, solPropY)[1]], listeVar, true, 1)}\\\\${eqToLatex([0, 0, verifEq(eqFinale2, solPropX, solPropY)[0], 0, 0, verifEq(eqFinale2, solPropX, solPropY)[1]], listeVar, true, 1)}\\end{aligned}\\end{cases}\\]`
       }
       let rep = ''
+      const substring = listeTypeQuestions[i].substring(3)
+      if (substring === 'E1Ne2') {
+        rep = choix[0]
+      } else if (substring === 'Ne1E2') {
+        rep = choix[1]
+      } else if (substring === 'Ne1Ne2') {
+        rep = choix[2]
+      } else {
+        rep = choix[3]
+      }
       if (this.interactif) {
         texte = texte + choixDeroulant(this, i, choix, 'une réponse')
-        const substring = listeTypeQuestions[i].substring(3)
-        if (substring === 'E1Ne2') {
-          rep = choix[0]
-        } else if (substring === 'Ne1E2') {
-          rep = choix[1]
-        } else if (substring === 'Ne1Ne2') {
-          rep = choix[2]
-        } else {
-          rep = choix[3]
-        }
         handleAnswers(this, i, { reponse: { value: rep, compare: textCompare } }, { formatInteractif: 'listeDeroulante' })
+      } else {
+        const options = { ordered: true, vertical: true }
+        listeDeroulanteToQcm(this, i, choix, rep, options)
       }
-      const substring = listeTypeQuestions[i].substring(3)
       if (substring === 'E1Ne2') {
         texteCorr = texteCorr + choix[0]
       } else if (substring === 'Ne1E2') {
