@@ -4,6 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Soustraire deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -20,7 +21,8 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fractionEgale'
+    this.formatInteractif = 'calcul'
+    this.compare = equalFractionCompare
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.canOfficielle = true
   }
@@ -33,7 +35,7 @@ export default class NomExercice extends Exercice {
       Ainsi, <br><br>
       $\\begin{aligned}
       \\dfrac{13}{35}-\\dfrac{2}{7}&=\\dfrac{13}{35}-\\dfrac{10}{35}\\\\
-      &=${miseEnEvidence(this.reponse.texFraction)}
+      &=${miseEnEvidence(this.reponse)}
       \\end{aligned}$`
     } else {
       const a = choice(obtenirListeFractionsIrreductibles())
@@ -67,6 +69,7 @@ export default class NomExercice extends Exercice {
       Par conséquent, $ ${b.texFraction}-${a.texFraction}= ${miseEnEvidence(new FractionEtendue(b.n - a.n * c, b.d).simplifie().texFraction)}$.`
       }
     }
+    this.reponse = this.reponse.texFraction
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

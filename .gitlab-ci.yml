@@ -17,6 +17,7 @@ stages:
 - build-projet
 - playwright-test
 
+
 sast:
   stage: test
 include:
@@ -45,7 +46,9 @@ default:
   image: mcr.microsoft.com/playwright:v1.42.1-jammy
   stage: playwright-test
   rules:
-  - if: $CI_COMMIT_BRANCH == "main"
+  - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
+    when: never
+  - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_request_event"
     when: always
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
     when: always
@@ -93,9 +96,10 @@ build:
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm build
     - echo "$CI_COMMIT_AUTHOR"
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: always
-    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_request_event"
       when: always
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: always
+    - when: never

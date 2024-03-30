@@ -60,7 +60,7 @@ function logSerializer (logger: Logger, ...args: unknown[]) {
     if (!Array.isArray(args) || !args.length) return logger(Error('fonction de log appelée sans argument'))
     args.unshift(prefix)
     logger(...args)
-    fileLogger(...args)
+    if (fileLogger) fileLogger(...args)
   }
 
   // on veut passer après les appels précédents (pas forcément terminés si on mix sync/async),

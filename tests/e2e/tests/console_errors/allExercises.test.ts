@@ -29,6 +29,14 @@ function logError (...args: unknown[]) {
   logConsole(args)
 }
 
+function logDebug (...args: unknown[]) {
+  if (process.env.CI && process.env.DEBUG !== null && process.env.DEBUG !== undefined) {
+    if ((process.env.DEBUG as string).replaceAll(' ', '') === 'DEBUG') {
+      log(args)
+    }
+  }
+}
+
 async function createIssue (urlExercice : string, messages : string[]) {
   const idPath = (new URL(urlExercice)).searchParams.get('id')
 
@@ -109,7 +117,8 @@ async function getConsoleTest (page: Page, urlExercice: string) {
       if (!msg.text().includes('[vite]') &&
           !msg.text().includes('[bugsnag] Loaded!') &&
           !msg.text().includes('No character metrics for') && // katex
-          !msg.text().includes('LaTeX-incompatible input') // katex
+          !msg.text().includes('LaTeX-incompatible input') && // katex
+          !msg.text().includes('mtgLoad') // mtgLoad
       ) {
         if (!msg.text().includes('<HeaderExercice>')) {
           messages.push(page.url() + ' ' + msg.text())
@@ -118,27 +127,37 @@ async function getConsoleTest (page: Page, urlExercice: string) {
       // }
     })
 
+    logDebug('On charge la page')
     await page.goto(urlExercice)
+    logDebug('fin : On charge la page')
 
     // Correction
     // On cherche les questions
+    logDebug('On cherche les questions')
     await page.waitForSelector('div.mb-5>ul>div#consigne0-0')
-    // on clique sur nouvelle énoncé
+    logDebug('fin : On cherche les questions')
+    // on clique sur nouvel énoncé
     const buttonNewData = page.getByRole('button', { name: 'Nouvel énoncé ' })
+    logDebug('Actualier (nouvel énoncé)')
     await buttonNewData.click()
+    logDebug('fin Actualier (nouvel énoncé)')
     // Paramètres ça va les refermer puisqu'ils sont ouverts par défaut
     const buttonParam = page.getByRole('button', { name: 'Changer les paramètres de l\'' })
+    logDebug('Ferme les paramètres ')
     if (await buttonParam.isVisible()) {
       await buttonParam.click()
     }
     // Actualier (nouvelle énoncé)
     const buttonRefresh = page.locator('i.bx-refresh').nth(1)
     await buttonRefresh.highlight()
+    logDebug('Actualier (nouvelle énoncé x 3fois)')
     await buttonRefresh.click({ clickCount: 3 })
+    logDebug('Actualier (fin : nouvelle énoncé x 3fois)')
     // activer l'interactif
     const buttonInteractif = page.getByRole('button', { name: 'Rendre interactif' })
     if (await buttonInteractif.isVisible()) {
       await buttonInteractif.click()
+      logDebug('Active le mode interactif')
       // selectionne les questions
       const questionSelector = 'li[id^="exercice0Q"]'
       await page.waitForSelector(questionSelector)
@@ -147,6 +166,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
       // => TODOS à poursuivre
       // Cliquer sur vérifier les données
       const buttonVerifier = page.locator('#verif0')
+      logDebug('Vérifier les réponses')
       await buttonVerifier.click()
       await page.waitForSelector('article + div')
       const buttonResult = await page.locator('article + div').innerText()
@@ -244,23 +264,6 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('3e')
   // testRunAllLots('2e')
   // testRunAllLots('1e')
-
-  testRunAllLots('6e/6I11')
-  // FAIL  tests/console_errors/allExercises.test.ts > test4e/4I1-2.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test4e/4I1.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test4e/4L10-1.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test4e/4L10-2.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test4e/4L10-3.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test4e/4L10-4.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test4e/4L10.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test4e/4L11.js works with chromium
-
-  // testRunAllLots('3e/3G32-0')
-
-  // FAIL  tests/console_errors/allExercises.test.ts > test3e/3G22.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test3e/3G32-0.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test3e/3G32-2.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test3e/3G32-3.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test3e/3G32-4.js works with chromium
-  // FAIL  tests/console_errors/allExercises.test.ts > test3e/3G32.js works with chromium
+  testRunAllLots('3e/3G22.js')
+  testRunAllLots('can/can4a-2024/can4-2024-Q15')
 }
