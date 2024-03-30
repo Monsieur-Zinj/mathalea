@@ -71,3 +71,38 @@ export function choixDeroulant (exercice, i, choix, type = 'nombre', style = '')
   result += `</select><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
   return result
 }
+
+/**
+ * Fonction pour transformer une liste déroulante en QCM (pour AMC, la version interactive n'a que peu d'intérêt)
+ * @param {Exercice} exercice
+ * @param {number} question
+ * @param {string[]} choix
+ * @param {string} reponse
+ * @param {object} options // options.vertical pour présenter les réponses, options.ordered pour modifier l'ordre
+ * passer toutes les options possibles pour AMC (lastChoice par exemple utile si pas ordonné pour dire où s'arrête le mélange voir le wiki concernant AMC).
+ */
+export function listeDeroulanteToQcm (exercice, question, choix, reponse, options) {
+  if (exercice == null || question >= exercice.nbQuestions || choix == null || reponse == null) {
+    window.notify('Il manque des paramètres pour transformer la liste déroulante en qcm', { exercice, question, choix, reponse })
+    return
+  }
+  if (!choix.some(el => el === reponse)) {
+    window.notify('La réponse doit faire partie de la liste !', { choix, reponse })
+    return
+  }
+  const vertical = options?.vertical ?? true // Par défaut c'est vertical comme une liste déroulante mais on peut passer vertical = false
+  const ordered = options?.ordered ?? true // Par défaut ce sera le même ordre que la liste déroulante
+  if (exercice.autoCorrection == null || !Array.isArray(exercice.autoCorrection)) {
+    exercice.autoCorrection = []
+  }
+  if (exercice.autoCorrection[question] == null) exercice.autoCorrection[question] = {}
+  exercice.autoCorrection[question].propositions = {}
+  exercice.autoCorrection[question].options = { vertical, ordered, ...options }
+  exercice.autoCorrection[question].propositions = []
+  for (let j = 0; j < choix.length; j++) {
+    exercice.autoCorrection[question].propositions.push({
+      texte: choix[j],
+      statut: choix[j] === reponse // il n'y a qu'une bonne réponse, et elle doit correspondre à l'un des choix.
+    })
+  }
+}
