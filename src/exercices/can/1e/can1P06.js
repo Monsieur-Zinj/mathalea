@@ -9,6 +9,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Déterminer une probabilité dans un tableau de probabilités'
 export const dateDePublication = '06/07/2022'
@@ -62,7 +63,7 @@ export default function CalculProbaTableau () {
           } else {
             texte += 'Déterminer $P_A(B)$. '
           }
-          texteCorr = ` $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}=\\dfrac{${texNombre(pAinterB, 2)}}{${texNombre(pA, 2)}}=\\dfrac{${texNombre(pAinterB * 100, 0)}}{${texNombre(pA * 100, 0)}}$
+          texteCorr = ` $P_A(B)=\\dfrac{P(A\\cap B)}{P(A)}=\\dfrac{${texNombre(pAinterB, 2)}}{${texNombre(pA, 2)}}=${miseEnEvidence(`\\dfrac{${texNombre(pAinterB * 100, 0)}}{${texNombre(pA * 100, 0)}}`)}$
       `
           reponse = new FractionEtendue(pAinterB, pA)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
@@ -75,9 +76,9 @@ export default function CalculProbaTableau () {
             texte += '<br>Calculer $P(B)$. '
             texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
           } else {
-            texte += 'Déterminer $P_A(B)$. '
+            texte += 'Déterminer $P(B)$. '
           }
-          texteCorr = ` $P(B)=${texNombre(pB, 2)}$`
+          texteCorr = ` $P(B)=${miseEnEvidence(texNombre(pB, 2))}$`
           reponse = pB
           setReponse(this, i, reponse)
           this.canEnonce += `${tableau}<br>`
@@ -92,7 +93,7 @@ export default function CalculProbaTableau () {
           } else {
             texte += 'Déterminer $P(\\overline{B})$. '
           }
-          texteCorr = ` $P(\\overline{B})=${texNombre(1 - pB, 2)}$
+          texteCorr = ` $P(\\overline{B})=${miseEnEvidence(texNombre(1 - pB, 2))}$
       `
           reponse = (new Decimal(pB)).mul(-1).add(1)
           setReponse(this, i, reponse)
@@ -107,7 +108,7 @@ export default function CalculProbaTableau () {
           } else {
             texte += ' Déterminer $P(A\\cap B)$. '
           }
-          texteCorr = ` $P(A\\cap B))=${texNombre(pAinterB, 2)}$ `
+          texteCorr = ` $P(A\\cap B))=${miseEnEvidence(texNombre(pAinterB, 2))}$ `
           reponse = pAinterB
           setReponse(this, i, reponse)
           this.canEnonce += `${tableau}<br>`
@@ -122,7 +123,7 @@ export default function CalculProbaTableau () {
           } else {
             texte += '  Déterminer $P(A\\cap \\overline{B})$. '
           }
-          texteCorr = ` $P(A\\cap \\overline{B})=${texNombre(pA - pAinterB, 2)}$ `
+          texteCorr = ` $P(A\\cap \\overline{B})=${miseEnEvidence(texNombre(pA - pAinterB, 2))}$ `
           reponse = (new Decimal(pA)).sub(pAinterB)
           setReponse(this, i, reponse)
           this.canEnonce += `${tableau}<br>`
@@ -137,7 +138,7 @@ export default function CalculProbaTableau () {
           } else {
             texte += `${sp(5)}Déterminer $P(\\overline{A}\\cap B)$. `
           }
-          texteCorr = ` $P(\\overline{A}\\cap B)=${texNombre(pB - pAinterB, 2)}$ `
+          texteCorr = ` $P(\\overline{A}\\cap B)=${miseEnEvidence(texNombre(pB - pAinterB, 2))}$ `
           reponse = (new Decimal(pB)).sub(pAinterB)
           setReponse(this, i, reponse)
           this.canEnonce += `${tableau}<br>`
@@ -152,7 +153,7 @@ export default function CalculProbaTableau () {
           } else {
             texte += ' Déterminer $P_B(A)$. '
           }
-          texteCorr = ` $P_B(A)=\\dfrac{P(A\\cap B)}{P(B)}=\\dfrac{${texNombre(pAinterB, 2)}}{${texNombre(pB, 2)}}=\\dfrac{${texNombre(pAinterB * 100, 0)}}{${texNombre(pB * 100, 0)}}$
+          texteCorr = ` $P_B(A)=\\dfrac{P(A\\cap B)}{P(B)}=\\dfrac{${texNombre(pAinterB, 2)}}{${texNombre(pB, 2)}}=${miseEnEvidence(`\\dfrac{${texNombre(pAinterB * 100, 0)}}{${texNombre(pB * 100, 0)}}`)}$
         `
           reponse = new FractionEtendue(pAinterB, pB)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
@@ -167,7 +168,7 @@ export default function CalculProbaTableau () {
           } else {
             texte += 'Déterminer $P_B(\\overline{A})$. '
           }
-          texteCorr = ` $P_B(\\overline{A})=\\dfrac{P(\\overline{A}\\cap B)}{P(B)}=\\dfrac{${texNombre(pB - pAinterB, 2)}}{${texNombre(pB, 2)}}=\\dfrac{${texNombre((pB - pAinterB) * 100, 0)}}{${texNombre(pB * 100, 0)}}$
+          texteCorr = ` $P_B(\\overline{A})=\\dfrac{P(\\overline{A}\\cap B)}{P(B)}=\\dfrac{${texNombre(pB - pAinterB, 2)}}{${texNombre(pB, 2)}}=${miseEnEvidence(`\\dfrac{${texNombre((pB - pAinterB) * 100, 0)}}{${texNombre(pB * 100, 0)}}`)}$
           `
           reponse = new FractionEtendue(pB - pAinterB, pB)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
@@ -183,7 +184,7 @@ export default function CalculProbaTableau () {
           } else {
             texte += '       Déterminer $P_{\\overline{B}}(\\overline{A})$. '
           }
-          texteCorr = ` $P_{\\overline{B}}(\\overline{A})=\\dfrac{P(\\overline{A}\\cap \\overline{B})}{P(\\overline{B})}=\\dfrac{${texNombre(pAbarreinterBbarre, 2)}}{${texNombre(1 - pB, 2)}}=\\dfrac{${texNombre(pAbarreinterBbarre * 100, 0)}}{${texNombre((1 - pB) * 100, 0)}}$ `
+          texteCorr = ` $P_{\\overline{B}}(\\overline{A})=\\dfrac{P(\\overline{A}\\cap \\overline{B})}{P(\\overline{B})}=\\dfrac{${texNombre(pAbarreinterBbarre, 2)}}{${texNombre(1 - pB, 2)}}=${miseEnEvidence(`\\dfrac{${texNombre(pAbarreinterBbarre * 100, 0)}}{${texNombre((1 - pB) * 100, 0)}}`)}$ `
           reponse = new FractionEtendue(pAbarreinterBbarre, 1 - pB)
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           this.canEnonce += `${tableau}<br>`
