@@ -112,9 +112,10 @@ export default function ProblemesTrigoLongueur () {
 
     let ii = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     let iiAMC // Cet indice permet de gérer les numéros de champs AMC car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
-    for (let i = 0, texte, numA, ordA, numB, numC, numR, absC, numS, absS, numH, AB, BA, propositionsAMC, enonceAMC, enonceInit, texteCorr, reponse, j, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, iiInitial, texte, numA, ordA, numB, numC, numR, absC, numS, absS, numH, AB, BA, propositionsAMC, enonceAMC, enonceInit, texteCorr, reponse, j, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       propositionsAMC = []
       iiAMC = 0
+      iiInitial = ii // ça c'est pour revenir au même index si on ne pousse pas la question !
       if (i % 3 === 0) listeDeNomsDePolygones = ['QD']
       const choixAlpha = randint(0, 7)
       const alfa = lettresGrecques[choixAlpha][1] // context.isHtml ? lettresGrecques[choixAlpha][0] : // on passe tout en latex
@@ -657,7 +658,7 @@ export default function ProblemesTrigoLongueur () {
         case 4:
           objets = []
           alpha = randint(25, 45)
-          beta = Math.tan(alpha * Math.PI / 180) * Math.tan((alpha + 1) * Math.PI / 180) / (Math.tan((alpha + 1) * Math.PI / 180) - Math.tan(alpha * Math.PI / 180))
+          beta = Math.tan(alpha * Math.PI / 180) * Math.tan((alpha + 5) * Math.PI / 180) / (Math.tan((alpha + 5) * Math.PI / 180) - Math.tan(alpha * Math.PI / 180))
           distance = randint(5, 10)
           taille = beta * distance
           numB = randint(1, 26, [4, 5, 15, 23, 24, 25])
@@ -1303,6 +1304,10 @@ export default function ProblemesTrigoLongueur () {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
+        ii-- // si on pousse la question, il ne faut pas que l'incrément de i et de ii se cumulent !
+        iiAMC--
+      } else {
+        ii = iiInitial // on ne pousse pas la question, ii reprend la valeur qu'il avait avant la question
       }
       cpt++
     }

@@ -295,7 +295,7 @@ export class TexteParPoint extends ObjetMathalea2D {
       if (!this.point.positionLabel) {
         this.point.positionLabel = 'above'
       }
-      return latex2d(this.texte.substring(1, this.texte.length - 1), this.point.x, this.point.y, { color: this.color[0], orientation: this.orientation }).svg()
+      return latex2d(this.texte.substring(1, this.texte.length - 1), this.point.x, this.point.y, { color: this.color[0], orientation: this.orientation, letterSize: 'footnotesize' }).svg()
     } else {
       let code = ''
       let style = ''
@@ -714,8 +714,8 @@ export function latexParCoordonneesBox (texte: string, x:number, y:number, color
   else return new LatexParCoordonneesBox(texte, x, y, color, largeur, hauteurLigne, colorBackground, tailleCaracteres, options)
 }
 
-type LetterSizeType = 'tiny'|'small'|'scriptsize'|'footnotesize'|'large'|'Large'|'LARGE'|'huge'
-type DivLatex = {x: number, y: number, latex: string, orientation: number, color: string, backgroundColor: string, latex: string, letterSize: string, opacity: number}
+type LetterSizeType = 'tiny'|'small'|'scriptsize'|'footnotesize'|'large'|'Large'|'LARGE'|'huge'|'normalsize'
+type DivLatex = {x: number, y: number, orientation: number, color: string, backgroundColor: string, latex: string, letterSize: string, opacity: number}
 
 /**
  * crée un obiet mathalea2D qui affiche du latex et qui peut tourner contrairement à latexParCoordonnees qui est horizontal
@@ -746,7 +746,7 @@ export class Latex2d extends ObjetMathalea2D {
   constructor (latex: string, x: number, y: number, options: {color: string, backgroundColor: string, letterSize: LetterSizeType, orientation: number, opacity: number}) {
     super()
     this.color = colorToLatexOrHTML(options.color ?? 'black')
-    this.backgroundColor = colorToLatexOrHTML(options.backgroundColor ?? '')
+    this.backgroundColor = options.backgroundColor == null || options.backgroundColor === '' ? '' : options.backgroundColor
     this.letterSize = options.letterSize ?? 'normalsize'
     this.orientation = options.orientation ?? 0
     this.opacity = options.opacity ?? 1
@@ -783,7 +783,7 @@ export class Latex2d extends ObjetMathalea2D {
  */
 export function latex2d (latex: string, x: number, y: number, options: {color?: string, backgroundColor?: string, letterSize?: LetterSizeType, orientation?: number, opacity?: number}) {
   const color = options.color ?? 'black'
-  const backgroundColor = options.backgroundColor ?? ''
+  const backgroundColor = options.backgroundColor == null || options.backgroundColor === '' || options.backgroundColor === 'none' ? 'none' : options.backgroundColor
   const letterSize = options.letterSize ?? 'normalsize'
   const orientation = options.orientation ?? 0
   const opacity = options.opacity ?? 1

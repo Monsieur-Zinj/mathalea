@@ -24,7 +24,7 @@ export default function RepresenterUnVecteur () {
   Exercice.call(this)
   this.nbQuestions = 2
   this.nbCols = 2
-  this.nbColsCorr = 2
+  this.nbColsCorr = 1
   this.sup = 1 //
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -51,7 +51,7 @@ export default function RepresenterUnVecteur () {
       A = point(xA, yA)
       B = point(xB, yB)
       AB = vecteur(A, B)
-      r = repere()// On définit le repère
+      r = repere({ axesEpaisseur: 1 })// On définit le repère
       posLabelA = homothetie(B, A, -0.7 / longueur(A, B), '', 'center') // pour positionner les noms des points aux extrémités proprement
       posLabelB = homothetie(A, B, -0.7 / longueur(A, B), '', 'center')
       labelA = latexParPoint('A', posLabelA, 'red', 10, 12, '')
@@ -62,20 +62,20 @@ export default function RepresenterUnVecteur () {
       h1 = segment(A, H, 'blue')
       h2 = segment(B, H, 'green')
       O = point(0, 0)// On définit et on trace le point O
-      o = texteParPosition('O', -0.3, -0.3, 0, 'blue', 1)
+      o = texteParPosition('O', -0.3, -0.3, 0, 'blue', 0.5, 'milieu', true)
       I = point(1, 0)// On définit sans tracer le point I
       J = point(0, 1)// On définit sans tracer le point J
       k = vecteur(O, I).representant(O, 'blue') // Variable qui trace [OI] en bleu
       j = vecteur(O, J).representant(O, 'blue')// Variable qui trace [OJ] en bleu
-      s.epaisseur = 2// Variable qui grossit le tracé du vecteur AB
+      s.epaisseur = 1.5// Variable qui grossit le tracé du vecteur AB
       s.color = colorToLatexOrHTML('red')
-      k.epaisseur = 2// Variable qui grossit le tracé du vecteur OI
-      j.epaisseur = 2// Variable qui grossit le tracé du vecteur OJ
-      h1.epaisseur = 2// Variable qui grossit le tracé bleu
-      h2.epaisseur = 2// Variable qui grossit le tracé bleu
-      nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0, 'blue')
-      nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0, 'blue')
-      nomAB = AB.representantNomme(A, 'u', 2, 'red')
+      k.epaisseur = 1.1// Variable qui grossit le tracé du vecteur OI
+      j.epaisseur = 1.1// Variable qui grossit le tracé du vecteur OJ
+      h1.epaisseur = 1.5// Variable qui grossit le tracé bleu
+      h2.epaisseur = 1.5// Variable qui grossit le tracé bleu
+      nomi = nomVecteurParPosition('i', 0.5, -0.7, 0.7, 0, 'blue')
+      nomj = nomVecteurParPosition('j', -0.7, 0.5, 0.7, 0, 'blue')
+      nomAB = AB.representantNomme(A, 'u', 0.7, 'red')
       if (this.sup === 1) {
         l = labelPoint(A, 'red')// Variable qui trace les nom s A et B
         //  t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
@@ -100,7 +100,8 @@ export default function RepresenterUnVecteur () {
         xmin: -9,
         ymin: -9,
         xmax: 9,
-        ymax: 9
+        ymax: 9,
+        scale: 0.4
       }, r, l, k, j, s, o, nomi, nomj, nomAB, h1, h2, labelA, labelB
       //, t
       )// On trace le graphique

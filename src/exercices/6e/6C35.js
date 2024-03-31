@@ -1,12 +1,11 @@
 /* eslint-disable camelcase */
 
-import { max } from 'mathjs'
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { jourAuHasard } from '../../lib/outils/dateEtHoraires'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 import { range, rangeMinMax } from '../../lib/outils/nombres'
@@ -24,12 +23,8 @@ export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-// Gestion de la date de publication initiale
 export const dateDePublication = '24/04/2021'
-
-// Gestion de la date de modification importante
-export const dateDeModifImportante = '16/11/2021'
-// Passage sur 2 colonnes en sortie HTML
+export const dateDeModifImportante = '27/03/2024'
 
 /**
  * Associer huit (ou quatre) problèmes à huit (ou quatre) types de modélisation différents
@@ -37,7 +32,6 @@ export const dateDeModifImportante = '16/11/2021'
  * Autre option : faire trouver la méthode de résolution sans utiliser de schéma de modélisation (fait par EE)
  *                et en choisissant le nombre de problèmes (limité à 8 toutefois)
  * @author Mireille Gain, 24 avril 2021
- * Référence 6C35
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '4e89b'
@@ -73,7 +67,6 @@ export function objet () {
 
 export default function ModelisationProblemes () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.sup = 2
@@ -87,7 +80,7 @@ export default function ModelisationProblemes () {
 
   this.nouvelleVersion = function () {
     const presenceSchemas = this.sup3 === 3 && !context.isDiaporama
-    let nbSchemas = 8
+    // const nbSchemas = 8
     if (this.sup3 === 1) {
       this.consigne = 'Trouver l\'opération qui permet de résoudre le problème. Il n\'est pas demandé d\'effectuer le calcul.'
     } else if (this.sup3 === 2) {
@@ -99,52 +92,56 @@ export default function ModelisationProblemes () {
     this.listeCorrections = []
     this.autoCorrection = []
     let colorA, colorB
-    let lettres
     const schemas = []
     let brouilleLesCartes
     let typesDeQuestionsDisponibles
     let correctionSansSchema = ''
     let correctionSansSchemaLatex = ''
-    switch (parseInt(this.sup2)) {
+    switch (this.sup2) {
       case 1:
-        nbSchemas = 4
+        // nbSchemas = 3
         typesDeQuestionsDisponibles = rangeMinMax(1, 4, [choice(rangeMinMax(1, 4))])
         colorA = 'black'
-        lettres = shuffle(['A', 'B', 'C'])
         brouilleLesCartes = shuffle(range(2))
         break
       case 2:
-        nbSchemas = 4
+        // nbSchemas = 4
         typesDeQuestionsDisponibles = [5, 6, 7, 8]
         colorB = 'black'
-        lettres = shuffle(['A', 'B', 'C', 'D'])
         brouilleLesCartes = shuffle(range(3))
         break
       case 3:
-        nbSchemas = 8
+        // nbSchemas = 8
         typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
         colorA = 'red'
         colorB = 'blue'
-        lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])
         brouilleLesCartes = shuffle(range(7))
         break
       case 4:
-        nbSchemas = 8
+        // nbSchemas = 8
         typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
         colorA = 'black'
         colorB = 'black'
-        lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'])
         brouilleLesCartes = shuffle(range(7))
         break
-      default :
+     /* default :
         nbSchemas = max(parseInt(nbSchemas), 1)
         typesDeQuestionsDisponibles = shuffle([1, 2, 3, 4, 5, 6, 7, 8]).slice(0, nbSchemas)
         colorA = 'black'
         colorB = 'black'
         lettres = shuffle(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']).slice(0, this.nbQuestions)
-        brouilleLesCartes = shuffle(range(this.nbQuestions - 1))
+        brouilleLesCartes = shuffle(range(this.nbQuestions - 1)) */
     }
     const listeTypeDeQuestions = shuffle(typesDeQuestionsDisponibles)
+    const lettres = []
+    lettres[brouilleLesCartes.indexOf(0)] = 'A'
+    lettres[brouilleLesCartes.indexOf(1)] = 'B'
+    lettres[brouilleLesCartes.indexOf(2)] = 'C'
+    lettres[brouilleLesCartes.indexOf(3)] = 'D'
+    lettres[brouilleLesCartes.indexOf(4)] = 'E'
+    lettres[brouilleLesCartes.indexOf(5)] = 'F'
+    lettres[brouilleLesCartes.indexOf(6)] = 'G'
+    lettres[brouilleLesCartes.indexOf(7)] = 'H'
     const b1 = randint(15, 50)
     let c1 = randint(5, 9)
     const c3 = randint(5, 9)
@@ -178,7 +175,6 @@ export default function ModelisationProblemes () {
     for (let i = 0, o, colonne1, texteCorr; i < listeTypeDeQuestions.length; i++) {
       colonne1 = ''
       texteCorr = ''
-
       switch (listeTypeDeQuestions[i]) {
         case 1:{
           o = choice([1, 2])
@@ -197,7 +193,7 @@ export default function ModelisationProblemes () {
           C1 = point(12, 4)
           D1 = point(0, 4)
           p1 = polygone([A1, B1, C1, D1], colorA)
-          p1.epaisseur = 3
+          p1.epaisseur = context.isHtml ? 3 : 2
           traitHorizontal1 = segment(point(0, 2), point(12, 2))
           traitVertical1 = segment(point(6, 2), point(6, 4))
           tb1 = texteParPosition('?', 6, 1)
@@ -233,7 +229,7 @@ export default function ModelisationProblemes () {
           C2 = point(12, 4)
           D2 = point(0, 4)
           p2 = polygone([A2, B2, C2, D2], colorA)
-          p2.epaisseur = 3
+          p2.epaisseur = context.isHtml ? 3 : 2
           traitHorizontal2 = segment(point(0, 2), point(12, 2))
           traitHorizontal22 = segment(point(0, 4.5), point(12, 4.5))
           traitHorizontal22.styleExtremites = '<->'
@@ -276,7 +272,7 @@ export default function ModelisationProblemes () {
           C3 = point(12, 4)
           D3 = point(0, 4)
           p3 = polygone([A3, B3, C3, D3], colorA)
-          p3.epaisseur = 3
+          p3.epaisseur = context.isHtml ? 3 : 2
           traitHorizontal3 = segment(point(0, 2), point(12, 2))
           traitVertical3 = segment(point(6, 2), point(6, 4))
           tb3 = texteParPosition(b5, 6, 1)
@@ -311,7 +307,7 @@ export default function ModelisationProblemes () {
           C4 = point(12, 4)
           D4 = point(0, 4)
           p4 = polygone([A4, B4, C4, D4], colorA)
-          p4.epaisseur = 3
+          p4.epaisseur = context.isHtml ? 3 : 2
           traitHorizontal4 = segment(point(0, 2), point(12, 2))
           traitHorizontal42 = segment(point(0, 4.5), point(12, 4.5))
           traitHorizontal42.styleExtremites = '<->'
@@ -353,7 +349,7 @@ export default function ModelisationProblemes () {
           C5 = point(12, 4)
           D5 = point(0, 4)
           p5 = polygone([A5, B5, C5, D5], colorB)
-          p5.epaisseur = 3
+          p5.epaisseur = context.isHtml ? 3 : 2
           traitHorizontal5 = segment(point(0, 2), point(12, 2))
           traitHorizontal52 = segment(point(0, 4.7), point(12, 4.7))
           traitHorizontal52.styleExtremites = '<->'
@@ -395,7 +391,7 @@ export default function ModelisationProblemes () {
           C6 = point(12, 4)
           D6 = point(0, 4)
           p6 = polygone([A6, B6, C6, D6], colorB)
-          p6.epaisseur = 3
+          p6.epaisseur = context.isHtml ? 3 : 2
           traitHorizontal6 = segment(point(0, 2), point(12, 2))
           traitVertical6 = segment(point(6, 2), point(6, 4))
           tb6 = texteParPosition('?', 6, 1)
@@ -430,7 +426,7 @@ export default function ModelisationProblemes () {
           C7 = point(12, 4)
           D7 = point(0, 4)
           p7 = polygone([A7, B7, C7, D7], colorB)
-          p7.epaisseur = 3
+          p7.epaisseur = context.isHtml ? 3 : 2
           traitHorizontal7 = segment(point(0, 2), point(12, 2))
           traitHorizontal72 = segment(point(0, 4.7), point(12, 4.7))
           traitHorizontal72.styleExtremites = '<->'
@@ -472,7 +468,7 @@ export default function ModelisationProblemes () {
           C8 = point(12, 4)
           D8 = point(0, 4)
           p8 = polygone([A8, B8, C8, D8], colorB)
-          p8.epaisseur = 3
+          p8.epaisseur = context.isHtml ? 3 : 2
           traitHorizontal8 = segment(point(0, 2), point(12, 2))
           traitVertical8 = segment(point(6, 2), point(6, 4))
           tb8 = texteParPosition(b7, 6, 1)
@@ -502,7 +498,7 @@ export default function ModelisationProblemes () {
       } else if (this.sup3 === 2) {
         texteCorr += 'Cet énoncé peut être associé avec le schéma ci-dessous.<br>' + schemas[brouilleLesCartes[i]]
       } else {
-        texteCorr += `Cet énoncé est associé avec le schéma ${lettres[i]}.`
+        texteCorr += `Cet énoncé est associé avec le schéma ${texteEnCouleurEtGras(lettres[i])}.`
         handleAnswers(this, i, { reponse: { value: lettres[i], compare: upperCaseCompare } }, { formatInteractif: 'calcul' })
         if (this.correctionDetaillee) {
           texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
@@ -545,13 +541,15 @@ export default function ModelisationProblemes () {
           listeSchemas[0].join(context.isHtml ? '<br>' : '\\\\\n'), listeSchemas[1].join(context.isHtml ? '<br>' : '\\\\\n')
         ),
         deuxColonnes(
-          listeSchemas[2].join(context.isHtml ? '<br>' : '\\\\\n'), listeSchemas[3].join(context.isHtml ? '<br>' : '\\\\\n')
+          this.sup2 === 1 ? (context.isHtml ? '<br>' : '') : listeSchemas[2].join(context.isHtml ? '<br>' : '\\\\\n'),
+          this.sup2 === 1 ? listeSchemas[2].join(context.isHtml ? '<br>' : '\\\\\n') : listeSchemas[3].join(context.isHtml ? '<br>' : '\\\\\n')
         )
       )
     }
     // listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2 : Valeurs identiques dans tous les exercices']
-  this.besoinFormulaire2Numerique = ['Sélection de problèmes', 4, '1 : 3 problèmes basés sur les mêmes nombres\n2 : 4 problèmes basés sur les mêmes nombres\n3 : 8 problèmes (par groupe de 4, avec distinction de 2 couleurs)\n4 : 8 problèmes mélangés (sans distinction de couleurs)\n5 : Nombre de problèmes choisi par l\'utilisateur']
+  // this.besoinFormulaire2Numerique = ['Sélection de problèmes', 4, '1 : 3 problèmes basés sur les mêmes nombres\n2 : 4 problèmes basés sur les mêmes nombres\n3 : 8 problèmes (par groupe de 4, avec distinction de 2 couleurs)\n4 : 8 problèmes mélangés (sans distinction de couleurs)\n5 : Nombre de problèmes choisi par l\'utilisateur']
+  this.besoinFormulaire2Numerique = ['Sélection de problèmes', 4, '1 : 3 problèmes basés sur les mêmes nombres\n2 : 4 problèmes basés sur les mêmes nombres\n3 : 8 problèmes (par groupe de 4, avec distinction de 2 couleurs)\n4 : 8 problèmes mélangés (sans distinction de couleurs)']
   this.besoinFormulaire3Numerique = ['Variante avec les schémas', 4, '1 : Sans schéma\n2 : Schémas dans la correction (non interactif)\n3 : Schémas dans l\'énoncé et la correction']
 }

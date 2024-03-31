@@ -36,7 +36,6 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
   Exercice.call(this)
   this.sup = max // Correspond au facteur commun
   this.sup3 = false // Si false alors le résultat n'est pas en fraction simplifiée
-  this.consigne = 'Calculer.'
   this.spacing = 2
   this.spacingCorr = 3
   this.nbQuestions = 4
@@ -44,10 +43,13 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 5) {
   this.interactif = true
   this.nouvelleVersion = function () {
     if (this.sup3) {
-      this.consigne = 'Calculer et simplifier au maximum le résultat.'
+      this.consigne = 'Calculer'
+      this.consigne += this.interactif ? ' au brouillon et indiquer seulement le résultat final simplifié au maximum.' : ' et simplifier au maximum le résultat.'
     } else {
-      this.consigne = 'Calculer.'
+      this.consigne = 'Calculer'
+      this.consigne += this.interactif ? ' au brouillon et indiquer seulement le résultat final.' : '.'
     }
+
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

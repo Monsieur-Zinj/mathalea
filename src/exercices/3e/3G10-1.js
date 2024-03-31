@@ -194,7 +194,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
         couleurDroite = context.isHtml ? couleurs[i] : 'black'
         switch (choixTransformation[i]) {
           case 1: // symétrie axiale
-            droited1Latex = droiteAvecNomLatex(droiteParPointEtPente(O, 1, '', couleurDroite), '(d_1)')
+            droited1Latex = droiteAvecNomLatex(droiteParPointEtPente(O, 1, '', couleurDroite), '(d_1)', couleurDroite)
             droited1 = droited1Latex[0]
             droited1.isVisible = true
             droited1.epaisseur = 2
@@ -231,7 +231,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 2: // symétrie axiale
-            droited2Latex = droiteAvecNomLatex(droiteParPointEtPente(O, -1, '', couleurDroite), '(d_2)')
+            droited2Latex = droiteAvecNomLatex(droiteParPointEtPente(O, -1, '', couleurDroite), '(d_2)', couleurDroite)
             droited2 = droited2Latex[0]
             droited2.isVisible = true
             droited2.epaisseur = 2
@@ -268,7 +268,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 3: // symétrie axiale
-            droitedLatex = droiteAvecNomLatex(droiteHorizontaleParPoint(O, '', couleurDroite), '(d)')
+            droitedLatex = droiteAvecNomLatex(droiteHorizontaleParPoint(O, ''), '(d)', couleurDroite)
             droited = droitedLatex[0]
             droited.isVisible = true
             droited.epaisseur = 2
@@ -304,7 +304,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
 
           case 4: // symétrie axiale
-            droitedprimeLatex = droiteAvecNomLatex(droiteVerticaleParPoint(O, '', couleurDroite), '(d\')')
+            droitedprimeLatex = droiteAvecNomLatex(droiteVerticaleParPoint(O, '', couleurDroite), '(d\')', couleurDroite)
             droitedprime = droitedprimeLatex[0]
             droitedprime.isVisible = true
             droitedprime.epaisseur = 2

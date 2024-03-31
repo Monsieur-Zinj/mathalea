@@ -1,6 +1,7 @@
+import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-import {  mathalea2d } from '../../../modules/2dGeneralites'
+import { mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { point, tracePoint } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
@@ -8,6 +9,7 @@ import { droite } from '../../../lib/2d/droites'
 import { repere } from '../../../lib/2d/reperes'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { labelPoint, texteParPosition } from '../../../lib/2d/textes'
+import { equalityCompare } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une équation réduite de droite'
 export const interactifReady = true
@@ -25,9 +27,10 @@ export default class EquationReduite extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
+    this.formatInteractif = 'mathlive'
     this.formatChampTexte = 'largeur01'
-    this.canOfficielle = false
+    this.canOfficielle = true
+    this.compare = equalityCompare
   }
 
   nouvelleVersion () {
@@ -83,10 +86,15 @@ export default class EquationReduite extends Exercice {
     const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, o, d, r1, traceB, traceA, labelPoint(A), labelPoint(B))
     this.question = 'Déterminer l\'équation réduite de la droite $(AB)$.<br>    '
     this.question += `${objet}<br>`
-    this.reponse = [`y={${coeffDir.texFractionSimplifiee}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`]
-    this.correction = `La droite est horizontale. On en déduit que son coefficient directeur est $m=0$.<br>
-          Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $y={${coeffDir.texFractionSimplifiee}x + ${yA}$.
-         `
+    this.reponse = { membre1: { fonction: 'y', variable: 'y' }, membre2: { fonction: `${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`, variable: 'x' }, strict: false }
+    this.correction = `En utilisant les deux points $A$ et $B$, on détermine le coefficient directeur $m$ de la droite : <br>
+    $m=\\dfrac{y_B-y_A}{x_B-x_A}=${coeffDir.texFractionSimplifiee}$.<br>
+         L' ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est `
+
+    this.correction += `${yA !== 0
+? `$${miseEnEvidence(`y=${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`)}$.`
+         : `$${miseEnEvidence(`y=${coeffDir.texFractionSimplifiee}x`)}$.`}
+`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

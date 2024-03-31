@@ -168,6 +168,10 @@
 
   beforeUpdate(() => {
     log('beforeUpdate:' + exercise.id)
+    if (JSON.stringify(get(exercicesParams)[exerciseIndex]) !== JSON.stringify(interfaceParams)){
+      // interface à changer car un exercice a été supprimé au dessus...
+      interfaceParams = get(exercicesParams)[exerciseIndex]
+    }
   })
 
   onMount(async () => {

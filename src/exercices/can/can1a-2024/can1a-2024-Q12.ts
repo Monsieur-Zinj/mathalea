@@ -5,7 +5,6 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures'
-//import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 export const titre = 'Factoriser avec un facteur commun'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -35,8 +34,6 @@ export default class Fatorisation1 extends Exercice {
     $\\begin{aligned}(2x-1)^2-4(2x-1)&=(2x-1)((2x-1)-4)\\\\
     &=${miseEnEvidence('(2x-1)(2x-5)')}\\end{aligned}$`
     } else {
-      // const listeValeurs = [[2, 1, -6], [2, -1, -4]]//
-      // const val = choice(listeValeurs)
       const a = randint(2, 3)
       const b = randint(-6, 6, 0)
       const c = randint(-5, 5, [0, 1, b, -b, -1])

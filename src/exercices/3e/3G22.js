@@ -172,7 +172,8 @@ export default function AgrandissementReduction () {
           // le 2e argument à true sert à recalculer les rand() éventuels contenus dans les formules,
           // à priori inutile ici (car on initialise une figure), mais ça mange pas de pain
           mtg32App.calculate(idDoc, true)
-          return mtg32App.display(idDoc)
+          const mt = mtg32App.display(idDoc)
+          return mt
         }
         break
       }
@@ -689,14 +690,7 @@ export default function AgrandissementReduction () {
     }
 
     if (context.isHtml) {
-      const divMtg = document.createElement('div')
-      const svg = document.createElement('svg')
-      svg.id = `svgMtg${this.numeroExercice}`
-      divMtg.id = `MG32div${this.numeroExercice}`
-      // divMtg.style.display = 'none'
-      divMtg.appendChild(svg)
-      // divMtg.setAttribute('MG32codeBase64', codeBase64)
-      texte += divMtg.outerHTML
+      texte += `<div id="MG32div${numeroExercice}"><svg id="svgMtg${numeroExercice}"></svg></div>`
 
       // eslint-disable-next-line @typescript-eslint/no-this-alias
       const that = this
@@ -705,8 +699,20 @@ export default function AgrandissementReduction () {
         // console.log(`listener${numeroExercice}`)
         const div = document.getElementById(`MG32div${numeroExercice}`)
         if (div) {
+          document.removeEventListener('exercicesAffiches', listener)
+          // stop le lancment de l'affichage
+          if (that.timeoutHandle) {
+            clearTimeout(that.timeoutHandle)
+            that.timeoutHandle = null
+            // console.log('stop that.timeoutHandle')
+          }
+
           // console.log(`divMtg${numeroExercice}`)
-          mg32DisplayAll([that])
+          that.timeoutHandle = setTimeout(async () => {
+            // console.log('start mg32DisplayAll')
+            mg32DisplayAll([that])
+            // console.log('end mg32DisplayAll')
+          }, 200)
         }
       }
       document.addEventListener('exercicesAffiches', listener)
@@ -716,6 +722,8 @@ export default function AgrandissementReduction () {
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
+  this.started = false
+  this.timeoutHandle = null
   this.besoinFormulaireNumerique = ['Type de questions', 3, ' 1 : Calcul d\'aires et de volumes\n 2 : Problème complexe\n 3 : Mélange']
   this.besoinFormulaire2Numerique = ['Coefficient de réduction (Calcul d\'aires et de volumes)', 3, ' 1 : Décimal\n 2 : Non décimal\n 3 : Mélange']
 }

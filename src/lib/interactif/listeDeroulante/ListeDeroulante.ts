@@ -1,6 +1,7 @@
 // et notre css
 import './listeDeroulante.scss'
 import { MathfieldElement } from 'mathlive'
+import type Exercice from '../../../exercices/Exercice'
 type EventListener = (event?: Event) => void
 type KeyboardEventListener = (event: KeyboardEvent) => void
 
@@ -40,6 +41,7 @@ type AllChoicesType = AllChoiceType[]
 function setPointEventsToNone (htmlString: string) {
   return htmlString.replaceAll('pointer-events:auto', 'pointer-events:none')
 }
+
 /**
  * La fonction qui affiche l'un des choix, que ce soit du texte, du latex ou une image.
  * @param {HTMLLIElement} li l'élément de liste qui doit contenir le choix

@@ -48,7 +48,9 @@ export function Vecteur (arg1, arg2, nom = '') {
   }
   this.representant = function (A, color = 'black') {
     const B = point(A.x + this.x, A.y + this.y)
-    return segment(A, B, color, '|->')
+    const s = segment(A, B, color, '->')
+    s.tailleExtremites = 5
+    return s
   }
   this.representantNomme = function (A, nom, taille = 1, color = 'black') {
     let s, v
@@ -97,12 +99,12 @@ export function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
   const t = texteParPosition(this.nom, this.x, this.y, -this.angle, this.color, this.taille, 'milieu', true)
   const M = point(this.x, this.y)
   const P = point(M.x + 0.25 * this.nom.length, M.y)
-  const M0 = similitude(P, M, 90 + this.angle, 2 / this.nom.length)
+  const M0 = similitude(P, M, 90 + this.angle, 1.5)
   const M1 = rotation(translation(M0, vecteur(P, M)), M0, this.angle)
-  const M2 = rotation(M1, M0, 180)
+  const M2 = similitude(M1, M0, 180, 1.5)
   const s = segment(M1, M2, this.color)
   s.styleExtremites = '->'
-  s.tailleExtremites = 2
+  s.tailleExtremites = 3
   objets.push(t, s)
   const bordures = fixeBordures(objets)
   this.bordures = [bordures.xmin, bordures.ymin, bordures.xmax, bordures.ymax]
@@ -448,10 +450,14 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
     }
 
     if (this.styleExtremites.length > 1) {
-      if (this.styleExtremites.includes('[') || this.styleExtremites.includes(']')) {
-        tableauOptions.push('{' + this.styleExtremites + '}')
+      if (this.styleExtremites === '->') {
+        tableauOptions.push('>=latex,->')
       } else {
-        tableauOptions.push(this.styleExtremites)
+        if (this.styleExtremites.includes('[') || this.styleExtremites.includes(']')) {
+          tableauOptions.push('{' + this.styleExtremites + '}')
+        } else {
+          tableauOptions.push(this.styleExtremites)
+        }
       }
     }
     if (tableauOptions.length > 0) {

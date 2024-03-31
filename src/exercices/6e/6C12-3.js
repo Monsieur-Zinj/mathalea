@@ -16,15 +16,13 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 
 export const titre = 'Trouver les informations utiles ou inutiles pour résoudre des problèmes'
-
-// Gestion de la date de publication initiale
 export const dateDePublication = '01/12/2021'
+export const dateDeModifImportante = '28/03/2024'
 
 /**
  * Trouver les informations utiles ou inutiles pour résoudre des problèmes
  * On peut choisir des problèmes qui n'ont pas de solution.
  * @author Eric Elter
-* Référence 6C12-3
  */
 export const uuid = '7fb24'
 export const ref = '6C12-3'
@@ -33,7 +31,6 @@ export const refs = {
   'fr-ch': ['9NO16-2']
 }
 export default function ExerciceInformationsProblemes () {
-  // Multiplier deux nombres
   Exercice.call(this)
   this.sup = 1
   this.sup2 = 11
@@ -935,7 +932,7 @@ export default function ExerciceInformationsProblemes () {
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1 + 2} ans`,
-                  statut: this.sup === 1
+                  statut: this.sup !== 1
                 },
                 {
                   texte: `${nb2}`,
@@ -943,7 +940,7 @@ export default function ExerciceInformationsProblemes () {
                 },
                 {
                   texte: `${nb3} ans`,
-                  statut: this.sup === 1
+                  statut: this.sup !== 1
                 },
                 {
                   texte: `${nb4} m`,
@@ -1063,7 +1060,7 @@ export default function ExerciceInformationsProblemes () {
                 },
                 {
                   texte: `${nb2} fois`,
-                  statut: this.sup === 1
+                  statut: this.sup !== 1
                 },
                 {
                   texte: `${nb3}`,
@@ -1071,7 +1068,7 @@ export default function ExerciceInformationsProblemes () {
                 },
                 {
                   texte: `${nb4} €`,
-                  statut: this.sup === 1
+                  statut: this.sup !== 1
                 },
                 {
                   texte: `${nb5} min`,
@@ -1316,7 +1313,7 @@ export default function ExerciceInformationsProblemes () {
                 },
                 {
                   texte: `${nb3} tonnes`,
-                  statut: this.sup === 1
+                  statut: this.sup !== 1
                 },
                 {
                   texte: `${nb4} conteneurs`,
@@ -1324,7 +1321,7 @@ export default function ExerciceInformationsProblemes () {
                 },
                 {
                   texte: `${nb5} tonnes`,
-                  statut: this.sup === 1
+                  statut: this.sup !== 1
                 }
               ]
               break

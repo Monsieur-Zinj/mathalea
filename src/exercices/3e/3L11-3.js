@@ -2,9 +2,11 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, randint, printlatex } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { reduireAxPlusB, reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
+import { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser la distributivité (simple ou double) et réduire'
 export const interactifReady = true
@@ -56,7 +58,7 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${c}*x+(${e})*(${a}*x+(${b}))`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${c}*x+(${e * a})*x+(${e * b})`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${c + e * a}*x+(${e * b})`)}$`
-          reponse = printlatex(`${c + e * a}*x+(${e * b})`)
+          reponse = reduireAxPlusB(c + e * a, e * b, 'x')
           coeffa = 0
           coeffb = c + e * a
           coeffc = e * b
@@ -66,7 +68,7 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${e}*x+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${e}*x+(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * c}*x^2+(${e + b * c + a * d})*x+(${b * d})`)}$`
-          reponse = printlatex(`${a * c}*x^2+(${e + b * c + a * d})*x+(${b * d})`)
+          reponse = reduirePolynomeDegre3(0, a * c, e + b * c + a * d, b * d, 'x')
           coeffa = a * c
           coeffb = e + b * c + a * d
           coeffc = b * d
@@ -76,7 +78,7 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${e}+(${a}*x+(${b}))*(${c}x+(${d}))`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${e}+(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * c}*x^2+(${b * c + a * d})*x+(${e + b * d})`)}$`
-          reponse = printlatex(`${a * c}*x^2+(${b * c + a * d})*x+(${e + b * d})`)
+          reponse = reduirePolynomeDegre3(0, a * c, b * c + a * d, e + b * d, 'x')
           coeffa = a * c
           coeffb = b * c + a * d
           coeffc = e + b * d
@@ -87,7 +89,7 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${e}-(${printlatex(`(${a * c})*x^2+(${a * d})*x+(${b * c})*x+(${b * d})`)})$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${e}+(${-1 * a * c})*x^2+(${-1 * a * d})*x+(${-1 * b * c})*x+(${-1 * b * d})`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${-1 * a * c}*x^2+(${-1 * b * c - a * d})*x+(${e - b * d})`)}$`
-          reponse = printlatex(`${-1 * a * c}*x^2+(${-1 * b * c - a * d})*x+(${e - b * d})`)
+          reponse = reduirePolynomeDegre3(0, -1 * a * c, -1 * b * c - a * d, e - b * d, 'x')
           coeffa = -1 * a * c
           coeffb = -1 * b * c - a * d
           coeffc = e - b * d
@@ -100,7 +102,7 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${printlatex(`${a}*x`)}\\times${b})(${printlatex(`${c}*x+(${d})`)})$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * b}*x`)}\\times(${printlatex(`${c}*x+(${d})`)})$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`${a * b * c}*x^2+(${a * b * d})*x`)}$`
-          reponse = printlatex(`${a * b * c}*x^2+(${a * b * d})*x`)
+          reponse = reduirePolynomeDegre3(0, a * b * c, a * b * d, 0, 'x')
           coeffa = a * b * c
           coeffb = a * b * d
           coeffc = 0
@@ -112,14 +114,14 @@ export default function DistributiviteSimpleDoubleReduction () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`(${e * a})*x+(${e * b})`)}-(${printlatex(`${d}+(${c})*x`)})$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`(${e * a})*x+(${e * b})+(${-d})+(${-c})*x`)}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${printlatex(`(${e * a - c})*x+(${e * b - d})`)}$`
-          reponse = printlatex(`(${e * a - c})*x+(${e * b - d})`)
+          reponse = reduireAxPlusB(e * a - c, e * b - d, 'x')
           coeffa = 0
           coeffb = e * a - c
           coeffc = e * b - d
           break
       }
       if (!context.isAmc && this.interactif) {
-        setReponse(this, i, reponse)
+        handleAnswers(this, i, { reponse: { value: reponse, compare: expandedAndReductedCompare } }, { formatInteractif: 'mathlive' })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
       } else {
         this.autoCorrection[i] = {

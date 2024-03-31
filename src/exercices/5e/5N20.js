@@ -12,6 +12,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 import { texNombre } from '../../lib/outils/texNombre'
 
+export const dateDeModifImportante = '25/03/2024'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
@@ -28,7 +29,6 @@ export const titre = 'Additionner ou soustraire deux fractions (dénominateurs m
  *
  * On peut paramétrer de n'avoir que des soustractions.
  * @author Rémi Angot
- * 5N20
  */
 export const uuid = 'd5ee3'
 export const ref = '5N20'
@@ -41,8 +41,6 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
   this.sup = max // Correspond au facteur commun
   this.sup2 = 3 // Si 1 alors il n'y aura pas de soustraction
   this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
-  this.titre = titre
-  this.consigne = 'Calculer.'
   this.spacing = 2
   this.spacingCorr = 2
   this.nbQuestions = 5
@@ -50,29 +48,25 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
 
   this.nouvelleVersion = function () {
     if (this.sup3 && !context.isAmc) {
-      this.consigne = 'Calculer et simplifier au maximum le résultat.'
+      this.consigne = 'Calculer'
+      this.consigne += this.interactif ? ' au brouillon et indiquer seulement le résultat final simplifié au maximum.' : ' et simplifier au maximum le résultat.'
     } else {
-      if (this.interactif && !context.isAmc) {
-        this.consigne = 'Calculer.'
-      } else if (context.isAmc) {
+      if (context.isAmc) {
         this.consigne = 'Calculer et choisir parmi les réponses proposées la bonne réponse.'
-      } else if (!this.sup3) {
-        this.consigne = 'Calculer.'
+      } else {
+        this.consigne = 'Calculer'
+        this.consigne += this.interactif ? ' au brouillon et indiquer seulement le résultat final.' : '.'
       }
     }
-    this.sup = parseInt(this.sup)
-    this.sup2 = parseInt(this.sup2)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let listeTypeDeQuestions
     if (this.sup2 === 1) {
       listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions)
-    }
-    if (this.sup2 === 2) {
+    } else if (this.sup2 === 2) {
       listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions)
-    }
-    if (this.sup2 === 3) {
+    } else {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
     }
     for (let i = 0, a, b, c, d, k, s, ordreDesFractions, texte, texteCorr; i < this.nbQuestions;) {
@@ -141,13 +135,13 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           texteCorr = `$${f1.texFraction}+${f2.texFraction}=`
 
           if (this.level !== 6) {
-            texteCorr += `\\dfrac{${a}${miseEnEvidence('\\times ' + k)}}{${b}${miseEnEvidence('\\times ' + k)}}+${f2.texFraction}=${fraction(a * k, b * k).texFraction}+${f2.texFraction}=`
+            texteCorr += `\\dfrac{${a}${miseEnEvidence('\\times ' + k, 'blue')}}{${b}${miseEnEvidence('\\times ' + k, 'blue')}}+${f2.texFraction}=${fraction(a * k, b * k).texFraction}+${f2.texFraction}=`
           }
           texteCorr += `\\dfrac{${a * k}+${c}}{${d}}=${fraction(a * k + c, d).texFraction}$`
         } else {
           texteCorr = `$${f2.texFraction}+${f1.texFraction}=`
           if (this.level !== 6) {
-            texteCorr += `${f2.texFraction}+\\dfrac{${a}${miseEnEvidence('\\times ' + k)}}{${b}${miseEnEvidence('\\times ' + k)}}=${f2.texFraction}+${fraction(a * k, b * k).texFraction}=`
+            texteCorr += `${f2.texFraction}+\\dfrac{${a}${miseEnEvidence('\\times ' + k, 'blue')}}{${b}${miseEnEvidence('\\times ' + k, 'blue')}}=${f2.texFraction}+${fraction(a * k, b * k).texFraction}=`
           }
           texteCorr += `\\dfrac{${c}+${a * k}}{${d}}=${fraction(a * k + c, d).texFraction}$`
         }
@@ -155,7 +149,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (this.sup3) {
           s = pgcd(a * k + c, d)
           if (s !== 1) {
-            texteCorr += `$=\\dfrac{${(a * k + c) / s}${miseEnEvidence('\\times ' + s)}}{${d / s}${miseEnEvidence('\\times ' + s)}}=${fraction((a * k + c) / s, d / s).texFractionSimplifiee}$`
+            texteCorr += `$=\\dfrac{${(a * k + c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((a * k + c) / s, d / s).texFractionSimplifiee}$`
           }
         }
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
@@ -210,13 +204,13 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if ((a / b) > (c / d)) {
           texteCorr = `$${f1.texFraction}-${f2.texFraction}=`
           if (this.level !== 6) {
-            texteCorr += `\\dfrac{${a}${miseEnEvidence('\\times ' + k)}}{${b}${miseEnEvidence('\\times ' + k)}}-${f2.texFraction}=${fraction(a * k, b * k).texFraction}-${f2.texFraction}=`
+            texteCorr += `\\dfrac{${a}${miseEnEvidence('\\times ' + k, 'blue')}}{${b}${miseEnEvidence('\\times ' + k, 'blue')}}-${f2.texFraction}=${fraction(a * k, b * k).texFraction}-${f2.texFraction}=`
           }
           texteCorr += `\\dfrac{${a * k}-${c}}{${d}}=${fraction(a * k - c, d).texFraction}$`
         } else {
           texteCorr = `$${f2.texFraction}-${f1.texFraction}=`
           if (this.level !== 6) {
-            texteCorr += `${f2.texFraction}-\\dfrac{${a}${miseEnEvidence('\\times ' + k)}}{${b}${miseEnEvidence('\\times ' + k)}}=${f2.texFraction}-${fraction(a * k, b * k).texFraction}=\\dfrac{${c}-${a * k}}{${d}}=`
+            texteCorr += `${f2.texFraction}-\\dfrac{${a}${miseEnEvidence('\\times ' + k, 'blue')}}{${b}${miseEnEvidence('\\times ' + k, 'blue')}}=${f2.texFraction}-${fraction(a * k, b * k).texFraction}=\\dfrac{${c}-${a * k}}{${d}}=`
           }
           texteCorr += `${fraction(c - a * k, d).texFraction}$`
         }
@@ -226,7 +220,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           if (abs(a * k - c) % d === 0) { // si la fraction peut-être un nombre entier
             texteCorr += `$=${texNombre(abs(a * k - c) / d, 0)}$`
           } else if (s !== 1) {
-            texteCorr += `$=\\dfrac{${abs(a * k - c) / s}${miseEnEvidence('\\times ' + s)}}{${d / s}${miseEnEvidence('\\times ' + s)}}=${fraction((abs(a * k - c) / s), d / s).texFractionSimplifiee}$`
+            texteCorr += `$=\\dfrac{${abs(a * k - c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((abs(a * k - c) / s), d / s).texFractionSimplifiee}$`
           }
         }
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
@@ -246,6 +240,17 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
       }
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
 
       if (this.questionJamaisPosee(i, a, k, b, c)) {
         this.listeQuestions.push(texte)

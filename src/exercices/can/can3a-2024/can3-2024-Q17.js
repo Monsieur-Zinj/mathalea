@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +20,8 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fractionEgale'
+    this.formatInteractif = 'calcul'
+    this.compare = equalFractionCompare
     this.canOfficielle = true
   }
 
@@ -70,6 +72,7 @@ On en déduit que la probabilité d'obtenir un nombre premier est : $${miseEnEvi
         this.reponse = new FractionEtendue(b + 4, a)
       }
     }
+    this.reponse = this.reponse.texFraction
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }

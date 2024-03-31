@@ -6,6 +6,7 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -17,7 +18,6 @@ export const titre = 'Calculer mentalement le pourcentage d\'un nombre'
 /**
  * Calculer 10, 20, 30, 40 ou 50% d'un nombre
  * @author Rémi Angot + Jean-Claude Lhote
- * 6N33-1
  * Ajout niveau 2 + 1 correction différente cgrolleau 03/2021
  */
 export const uuid = '66756'
@@ -96,6 +96,19 @@ $${p}~\\%~\\text{de }${n}= ${calculANePlusJamaisUtiliser(p / 10)} \\times ${n}\\
         this.autoCorrection[i].reponse.param.digits = 3
         this.autoCorrection[i].reponse.param.decimals = 1
       }
+
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
       if (this.questionJamaisPosee(i, p, n)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

@@ -23,7 +23,8 @@ import { assombrirOuEclaircir, colorToLatexOrHTML, mathalea2d } from '../../modu
 import { context } from '../../modules/context.js'
 import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -457,8 +458,8 @@ export default function Transformations () {
             break
         }
 
-        setReponse(this, i, images[i])
-        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
+        handleAnswers(this, i, { reponse: { value: images[i], compare: numberCompare } }, { formatInteractif: 'mathlive' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
       }
       const graphique = mathalea2d({
         xmin: -4.5,

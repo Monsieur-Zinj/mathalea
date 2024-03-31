@@ -565,6 +565,7 @@ export function makeImageFilesUrls (exercices: TypeExercice[]) {
  * Pour les exercices Mathalea on a des conventions pour les sauts de ligne qui fonctionnent en HTML comme en LaTeX
  * * `<br>` est remplacé par un saut de paragraphe
  * * `<br><br>` est remplacé par un saut de paragraphe et un medskip
+ *  Le \\euro mange l'espace qui vient après lui, d'où la nécessité d'insérer un espace insécable s'il y en avait un avant le replacement.
  */
 export function format (text: string): string {
   if (text === undefined) return ''
@@ -572,8 +573,11 @@ export function format (text: string): string {
     .replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
     .replace(/(\d+)\s*°/g, '\\ang{$1}')
     .replace(/<br>/g, '\\\\')
-    .replace(/€/g, '\\euro')
+    .replace(/( )?€( )/g, '\\,\\euro{}~')
+    .replace(/( )?€/g, '\\,\\euro{}')
     .replace(/\\\\\s*\n\n/gm, '\\\\')
+    .replace('«', '\\og{}')
+    .replace('»', '\\fg{}')
 }
 
 function getUrlFromExercice (ex: TypeExercice) {

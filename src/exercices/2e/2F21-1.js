@@ -595,27 +595,32 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
           $\\bullet$ En vendant $${a}$ € son menu (prix initialement proposé), il sert $${b}$ couverts.<br>
           $\\bullet$ Chaque hausse de $1$ € du prix du menu diminue le nombre de couverts de $${c}$.<br>
           On note $x$ le montant de la hausse proposée du prix du menu (en €) par rapport au
-          prix initial qui était de $${a}$ €. On admet que $0 \\leqslant x \\leqslant ${d}$.`
+          prix initial qui était de $${a}$ € et $${nom}(x)$ la recette correspondante. <br>
+          On admet que $0 \\leqslant x \\leqslant ${d}$.`
             question1 = `Donner l'ensemble de définition de la fonction $${nom}$.`
             question2 = ` Pour une hausse  de $${h}$ €, donner le prix du menu, le nombre de couverts servis et la recette (en €) du restaurateur (obtenu par le produit du prix d'un menu par le nombre de couverts servis).`
             question3 = ' Exprimer en fonction de $x$ le prix du menu après une hausse de $x$ €.'
             question4 = ' Exprimer en fonction de $x$ le nombre de couverts servis après une hausse de $x$ €.'
-            question5 = ` En déduire la recette $${nom}(x)$ réalisée après une hausse du prix du menu de $x$ € et montrer qu’il peut
-            s’exprimer sous la forme :  $${nom}(x) = ${-c}x^2 + ${b - a * c}x + ${a * b}$.
+            question5 = ` En déduire la recette $${nom}(x)$ réalisée après une hausse du prix du menu de $x$ € et montrer qu’elle peut
+            s’exprimer sous la forme :  $${nom}(x) = ${-c}x^2 + ${b - a * c}x + ${texNombre(a * b, 0)}$.
            `
             correction1 = ` L'ensemble de définition est donné par l'énoncé ($0 \\leqslant x \\leqslant ${d}$). <br>
             L'ensemble de définition de $${nom}$ est donc $[0\\,;\\,${d}]$.`
 
             correction2 = ` Après une hausse de $${h}$ € :<br>
             $\\bullet$  le prix du menu est $${a}+${h}=${a + h}$ € ;<br>
-            $\\bullet$  le nombre de couverts est $${b}-10\\times ${h}=${b - 10 * h}$ ;<br>
-            $\\bullet$  la recette  est $${a + h}\\times ${b - 10 * h}=${(a + h) * (b - 10 * h)}$.`
+            $\\bullet$  le nombre de couverts est $${b}-${c}\\times ${h}=${b - c * h}$ ;<br>
+            $\\bullet$  la recette  est $${a + h}\\times ${b - c * h}=${texNombre((a + h) * (b - c * h), 0)}$ €.`
 
             correction3 = `Le prix du menu après une augmentation de $x$ € est $${a}+x$.`
 
             correction4 = ` Puisqu'à chaque hausse de $1$ €, le nombre de couverts diminue de $${c}$, on en déduit que le nombre de couverts après une hausse de $x$  € est $${b}-${c}\\times x$ soit $${b}-${c}x$.`
 
-            correction5 = ` La recette est donnée par le produit du prix d'un menu par le nombre de menu, soit $(${a}+x)\\times (${b}-${c}x)=${a * b}-${a * c}x+${b}x-${c}x^2=-${c}x^2+${b - a * c}x+${a * b}$.
+            correction5 = ` La recette est donnée par le produit du prix d'un menu par le nombre de menu, soit : <br>
+             $\\begin{aligned}
+             (${a}+x)\\times (${b}-${c}x)&=${texNombre(a * b, 0)}-${a * c}x+${b}x-${c}x^2\\\\
+             &=-${c}x^2+${b - a * c}x+${texNombre(a * b, 0)}
+             \\end{aligned}$
          `
             this.listeQuestions = [question1, question2, question3, question4, question5]
             this.listeCorrections = [correction1, correction2, correction3, correction4, correction5]
@@ -959,14 +964,14 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             const m = new Decimal(randint(27, 38, 30)).add(choice([0.2, 0.4, 0.6, 0.8])) // kg de grains mangés par jour
             const p = 5 * m * randint(6, 11)// capacité du silo
             const j = randint(15, 25, 20)// nbre de jours pour l'image
-            const ant = p - m * randint(12, 17)
+            const ant = m.mul(-1).mul(randint(12, 17)).add(p)// p - m * randint(12, 17)
             const rest = randint(251, 299)
 
             this.introduction = `  Un éleveur de poulets décide de remplir son silo à grains.<br>
              En notant $t$ le nombre de jours écoulés après avoir rempli son silo à grains et $f(t)$ la masse (en kg) restante 
             au bout de $t$ jours, on a : $f(t)=${texNombre(p, 0)}-${texNombre(m, 1)}t$<br>`
             question1 = `  ${numAlpha(0)} Calculer l'image de $${j}$ par $f$. Interpréter le résultat dans le contexte de l'exercice.<br>
-            ${numAlpha(1)} Calculer l'antécédent de $${texNombre(ant, 0)}$ par $f$.<br>`
+            ${numAlpha(1)} Calculer l'antécédent de $${texNombre(ant, 1)}$ par $f$.<br>`
             question2 = `Sachant que l'éleveur avait rempli son silo au maximum de sa capacité, quelle est la contenance (en kg) du silo ?<br>
            `
             question3 = `  Au bout de combien de jours, l'éleveur sera-t-il à court de grains ? Justifier.<br>
@@ -979,14 +984,14 @@ On considère la fonction $${nom}$ qui associe à chaque valeur de $x$, le prix 
             On notera $g$ cette fonction. `
             correction1 = `  ${numAlpha(0)} $f(${j})=${texNombre(p, 0)}-${texNombre(m, 1)}\\times ${j}=${texNombre(p - m * j, 2)}$.<br>
             Au bout de $${j}$ jours, il reste $${texNombre(p - m * j, 2)}$ kg de grains dans le silo.<br><br>
-          ${numAlpha(1)} L'antécédent de $${texNombre(ant, 0)}$ est la solution de l'équation $f(x)=${texNombre(ant, 0)}$. <br><br>
+          ${numAlpha(1)} L'antécédent de $${texNombre(ant, 1)}$ est la solution de l'équation $f(x)=${texNombre(ant, 1)}$. <br><br>
           $\\begin{aligned}
-          ${texNombre(p, 0)}-${texNombre(m, 1)}t&=${texNombre(ant, 0)}\\\\
-          -${texNombre(m, 1)}t&=${texNombre(ant, 0)}-${texNombre(p, 0)}\\\\
+          ${texNombre(p, 0)}-${texNombre(m, 1)}t&=${texNombre(ant, 1)}\\\\
+          -${texNombre(m, 1)}t&=${texNombre(ant, 1)}-${texNombre(p, 0)}\\\\
          t&=\\dfrac{${texNombre(ant - p, 1)}}{-${texNombre(m, 1)}}\\\\
-         t&=${texNombre((p - ant) / m, 0)}
+         t&=${texNombre((p - ant) / m, 1)}
           \\end{aligned}$<br>
-          L'antécédent de $${texNombre(ant, 0)}$ est $${texNombre((p - ant) / m, 0)}$.
+          L'antécédent de $${texNombre(ant, 1)}$ est $${texNombre((p - ant) / m, 1)}$.
 `
             correction2 = ` La contenance du silo est donnée par $f(0)$. <br>
           Comme $f(0)=${texNombre(p, 0)}-${texNombre(m, 1)}\\times 0=${texNombre(p, 0)}$, la contenance du silo est $${texNombre(p, 0)}$ kg.

@@ -1,57 +1,111 @@
 import type { MathfieldElement } from 'mathlive'
 import type { BlockForKeyboard } from '../../../components/keyboard/types/keyboardContent'
 
-export enum KeyboardType {
-  // eslint-disable-next-line no-unused-vars
-  clavierHms = 'clavierHms',
-  // eslint-disable-next-line no-unused-vars
-  lycee = 'lycee',
-  // eslint-disable-next-line no-unused-vars
-  grecTrigo = 'grecTrigo',
-  // eslint-disable-next-line no-unused-vars
-  college6eme = 'college6eme',
-  // eslint-disable-next-line no-unused-vars
-  clavierDeBase = 'clavierDeBase',
-  // eslint-disable-next-line no-unused-vars
-  clavierCompare = 'clavierCompare',
-  // eslint-disable-next-line no-unused-vars
-  clavierDeBaseAvecX = 'clavierDeBaseAvecX',
-  // eslint-disable-next-line no-unused-vars
-  clavierDeBaseAvecFraction = 'clavierDeBaseAvecFraction',
-  // eslint-disable-next-line no-unused-vars
-  clavierDeBaseAvecFractionPuissanceCrochets = 'clavierDeBaseAvecFractionPuissanceCrochets',
-  // eslint-disable-next-line no-unused-vars
-  clavierDeBaseAvecEgal = 'clavierDeBaseAvecEgal',
-  // eslint-disable-next-line no-unused-vars
-  clavierDeBaseAvecVariable = 'clavierDeBaseAvecVariable',
-  // eslint-disable-next-line no-unused-vars
-  clavierNumbers = 'clavierNumbers',
-  // eslint-disable-next-line no-unused-vars
-  clavierEnsemble = 'clavierEnsemble',
-  // eslint-disable-next-line no-unused-vars
-  clavierFullOperations = 'clavierFullOperations',
-  // eslint-disable-next-line no-unused-vars
-  alphanumericAvecEspace = 'alphanumericAvecEspace',
-  // eslint-disable-next-line no-unused-vars
-  alphanumeric = 'alphanumeric',
-  // eslint-disable-next-line no-unused-vars
-  longueur = 'longueur',
-  // eslint-disable-next-line no-unused-vars
-  aire = 'aire',
-  // eslint-disable-next-line no-unused-vars
-  volume = 'volume',
-  // eslint-disable-next-line no-unused-vars
-  masse = 'masse',
-  // eslint-disable-next-line no-unused-vars
-  clavierProbabilite = 'clavierProbabilite'
-}
+// export enum KeyboardType {
+//   // eslint-disable-next-line no-unused-vars
+//   clavierHms = 'clavierHms',
+//   // eslint-disable-next-line no-unused-vars
+//   lycee = 'lycee',
+//   // eslint-disable-next-line no-unused-vars
+//   grecTrigo = 'grecTrigo',
+//   // eslint-disable-next-line no-unused-vars
+//   college6eme = 'college6eme',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierDeBase = 'clavierDeBase',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierCompare = 'clavierCompare',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierDeBaseAvecX = 'clavierDeBaseAvecX',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierDeBaseAvecFraction = 'clavierDeBaseAvecFraction',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierDeBaseAvecFractionPuissanceCrochets = 'clavierDeBaseAvecFractionPuissanceCrochets',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierDeBaseAvecEgal = 'clavierDeBaseAvecEgal',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierDeBaseAvecVariable = 'clavierDeBaseAvecVariable',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierNumbers = 'clavierNumbers',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierEnsemble = 'clavierEnsemble',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierFullOperations = 'clavierFullOperations',
+//   // eslint-disable-next-line no-unused-vars
+//   alphanumericAvecEspace = 'alphanumericAvecEspace',
+//   // eslint-disable-next-line no-unused-vars
+//   alphanumeric = 'alphanumeric',
+//   // eslint-disable-next-line no-unused-vars
+//   longueur = 'longueur',
+//   // eslint-disable-next-line no-unused-vars
+//   aire = 'aire',
+//   // eslint-disable-next-line no-unused-vars
+//   volume = 'volume',
+//   // eslint-disable-next-line no-unused-vars
+//   masse = 'masse',
+//   // eslint-disable-next-line no-unused-vars
+//   clavierProbabilite = 'clavierProbabilite',
+//   // eslint-disable-next-line no-unused-vars
+//   angles = 'angles'
+// }
 
-export const convertToKeyboardTypeEnum = (str: string): KeyboardType | undefined => {
-  const type = KeyboardType[str as keyof typeof KeyboardType]
+const KEYBOARD_CATEGORIES = [
+  'clavierHms',
+  'lycee',
+  'grecTrigo',
+  'college6eme',
+  'clavierDeBase',
+  'clavierCompare',
+  'clavierDeBaseAvecX',
+  'clavierDeBaseAvecFraction',
+  'clavierDeBaseAvecFractionPuissanceCrochets',
+  'clavierDeBaseAvecEgal',
+  'clavierDeBaseAvecVariable',
+  'clavierNumbers',
+  'clavierEnsemble',
+  'clavierFullOperations',
+  'alphanumericAvecEspace',
+  'alphanumeric',
+  'longueur',
+  'aire',
+  'volume',
+  'masse',
+  'clavierProbabilite',
+  'angles'
+] as const
+
+export type KeyboardCategory = (typeof KEYBOARD_CATEGORIES)[number] // on crée le type à partir du tableau de strings comme un union type de toutes les strings
+
+/**
+ * Détermine si un type de clavier passé en paramètre est bien connu
+ * @param category type de clavier à vérifier
+ * @returns `true` si le type de clavier est dans la liste
+ */
+export const isKeyboardCategory = (
+  category: unknown
+): category is KeyboardCategory =>
+  category !== null &&
+  typeof category === 'string' &&
+  KEYBOARD_CATEGORIES.includes(category as KeyboardCategory)
+
+type KbType = Record<KeyboardCategory, unknown>
+type PartialKbType = Partial<KbType>
+export const KeyboardType: PartialKbType = KEYBOARD_CATEGORIES.reduce(
+  (obj, key) => {
+    return { ...obj, [key]: key }
+  },
+  {}
+)
+
+export const convertToKeyboardCategory = (
+  str: string
+): KeyboardCategory | undefined => {
+  const type = isKeyboardCategory(str) ? str : undefined
   return type
 }
 
-export const convertKeyboardTypeToBlocks = (type : KeyboardType): BlockForKeyboard[] => {
+export const convertKeyboardTypeToBlocks = (
+  type: KeyboardCategory
+): BlockForKeyboard[] => {
   switch (type) {
     case KeyboardType.clavierDeBase:
       return ['numbersOperations']
@@ -82,7 +136,14 @@ export const convertKeyboardTypeToBlocks = (type : KeyboardType): BlockForKeyboa
     case KeyboardType.clavierFullOperations:
       return ['numbers', 'fullOperations']
     case KeyboardType.clavierProbabilite:
-      return ['numbers', 'probabilite']
+      return [
+        'numbers',
+        'probabilite',
+        'uppercaseXToZ',
+        'uppercaseQToW',
+        'uppercaseIToP',
+        'uppercaseAToH'
+      ]
     case KeyboardType.alphanumeric:
       return ['alphanumeric']
     case KeyboardType.alphanumericAvecEspace:
@@ -93,35 +154,50 @@ export const convertKeyboardTypeToBlocks = (type : KeyboardType): BlockForKeyboa
       return ['numbers', 'areas']
     case KeyboardType.volume:
       return ['numbers', 'volumes', 'capacities']
-    case KeyboardType.masse :
+    case KeyboardType.masse:
       return ['numbers', 'masses']
+    case KeyboardType.angles:
+      return [
+        'angles',
+        'uppercaseXToZ',
+        'uppercaseQToW',
+        'uppercaseIToP',
+        'uppercaseAToH'
+      ]
     default:
-      throw new Error("This error shouldn't occur. Clavier type: '" + type + "'")
+      throw new Error(
+        "This error shouldn't occur. Clavier type: '" + type + "'"
+      )
   }
 }
 
-export const buildDataKeyboardFromStyle = (style : string) : BlockForKeyboard[] => {
+export const buildDataKeyboardFromStyle = (
+  style: string
+): BlockForKeyboard[] => {
   // traitement
   if (style === '') {
     // clavier basique
     return ['numbers', 'fullOperations', 'variables']
   } else {
-    const blocks : BlockForKeyboard[] = []
+    const blocks: BlockForKeyboard[] = []
     const styleValues = style?.split(' ')
     for (const value of styleValues) {
-      const type = convertToKeyboardTypeEnum(value)
-      if (type !== undefined) {
-        blocks.push(...convertKeyboardTypeToBlocks(type))
+      if (isKeyboardCategory(value)) {
+        blocks.push(...convertKeyboardTypeToBlocks(value))
       } else {
         // peut-être des unités... du style unites[longueurs,aires]
         if (value.startsWith('unit') || value.startsWith('Unit')) {
           // extraire les informations entre les [...] pour avoir les unités
           const unitValuesMatches = value.match(/\[(.*?)\]/g)
-          const unitValues = unitValuesMatches?.map(e => e.slice(1, -1)).join(',').split(',').map((s) => s.toLowerCase().replace(/[s]$/, '')) || []// tout en minuscule et virer les 's' à la fin
+          const unitValues =
+            unitValuesMatches
+              ?.map((e) => e.slice(1, -1))
+              .join(',')
+              .split(',')
+              .map((s) => s.toLowerCase().replace(/[s]$/, '')) || [] // tout en minuscule et virer les 's' à la fin
           for (const v of unitValues) {
-            const type = convertToKeyboardTypeEnum(v)
-            if (type !== undefined) {
-              blocks.push(...convertKeyboardTypeToBlocks(type))
+            if (isKeyboardCategory(v)) {
+              blocks.push(...convertKeyboardTypeToBlocks(v))
             }
           }
         }
@@ -139,15 +215,15 @@ export const buildDataKeyboardFromStyle = (style : string) : BlockForKeyboard[] 
 }
 
 type Shortcut = {
-  mode: 'math' | 'text';
-  value: string;
+  mode: 'math' | 'text'
+  value: string
 }
 
 type ShortcutsByKeyboards = {
   [keyboard: string]: {
-    [key: string]: Shortcut | string;
-  };
-};
+    [key: string]: Shortcut | string
+  }
+}
 
 export function getKeyboardShortcusts (mf: MathfieldElement): void {
   let keyboardShortcuts = { ...shortcutsByKeyboards.default }
@@ -155,9 +231,16 @@ export function getKeyboardShortcusts (mf: MathfieldElement): void {
   if (keyboards == null) return
   for (const keyboard of keyboards) {
     if (keyboard in shortcutsByKeyboards) {
-      keyboardShortcuts = { ...keyboardShortcuts, ...shortcutsByKeyboards[keyboard] }
+      keyboardShortcuts = {
+        ...keyboardShortcuts,
+        ...shortcutsByKeyboards[keyboard]
+      }
     }
-    if (['lengths', 'volumes', 'capacities', 'masses', 'areas'].includes(keyboard as KeyboardType)) {
+    if (
+      ['lengths', 'volumes', 'capacities', 'masses', 'areas'].includes(
+        keyboard as KeyboardCategory
+      )
+    ) {
       keyboardShortcuts = { ...keyboardShortcuts, ...shortcutsByKeyboards.unit }
     }
   }

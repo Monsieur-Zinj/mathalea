@@ -38,7 +38,7 @@
   "scripts": {
     "start": "pnpm makeJson && vite",
     "build": "pnpm makeJson && vite build",
-    "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenu.js && node tasks/updateMenuCH",
+    "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenu.js && node tasks/updateMenuInternational",
     "getNewUuid": "pnpm makeJson",
     "updateMenu": "pnpm makeJson",
     "updateMenuCH": "pnpm makeJson",

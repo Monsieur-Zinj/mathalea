@@ -3,6 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer une probabilité'
 export const interactifReady = true
@@ -20,13 +21,14 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fractionEgale'
+    this.formatInteractif = 'calcul'
+    this.compare = equalFractionCompare
     this.canOfficielle = true
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = new FractionEtendue(3, 8)
+      this.reponse = new FractionEtendue(3, 8).texFraction
       this.question = `On tire une boule au hasard dans une urne contenant $3$ boules rouges et $5$ boules noires. <br>
       Quelle est la probabilité de tirer une boule rouge ? `
       this.correction = `Il y a $3$ boules rouges sur un total de $8$ boules. <br>
@@ -34,11 +36,11 @@ export default class NomExercice extends Exercice {
     } else {
       const a = randint(2, 10)
       const b = randint(2, 10)
-      this.reponse = new FractionEtendue(a, a + b)
+      this.reponse = new FractionEtendue(a, a + b).texFraction
       this.question = `On tire une boule au hasard dans une urne contenant $${a}$ boules rouges et $${b}$ boules noires. <br>
       Quelle est la probabilité de tirer une boule rouge ? `
       this.correction = `Il y a $${a}$ boules rouges sur un total de $${a + b}$ boules. <br>
-      La probabilité de tirer une boule rouge est donc  $${miseEnEvidence(this.reponse)}${this.reponse.texSimplificationAvecEtapes()}$.`
+      La probabilité de tirer une boule rouge est donc  $${miseEnEvidence(this.reponse)}${new FractionEtendue(a, a + b).texSimplificationAvecEtapes()}$.`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

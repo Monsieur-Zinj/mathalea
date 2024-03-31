@@ -262,7 +262,7 @@ export function shuffleLettres (txt: string) {
  *
  * @see https://stackoverflow.com/questions/18194745/shuffle-multiple-javascript-arrays-in-the-same-way
  */
-export function shuffle2tableaux<T> (obj1: T[], obj2: T[]): void {
+export function shuffle2tableaux<T, U> (obj1: T[], obj2: U[]): void {
   let index = obj1.length
   let rnd, tmp1, tmp2
 

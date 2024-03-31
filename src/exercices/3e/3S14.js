@@ -98,7 +98,7 @@ export default function CalculerCaracteristiques () {
           }
           const tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes) // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
           initAMC = OutilsStats.texteTirages2D(nombreDes, nombreTirages, nombreFaces, tirages, this.sup3) + '<br>' // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
-          texte += initAMC
+          texte += initAMC + '<br>'
           let questind = 0
           for (let k = 0; k < typeQuestions.length; k++) {
             approxAMC[questind] = 0
@@ -156,7 +156,7 @@ export default function CalculerCaracteristiques () {
           }
           const notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
           initAMC = OutilsStats.texteNotes(notes) + '<br>'
-          texte += initAMC
+          texte += initAMC + '<br>'
           let questind = 0
           for (let k = 0; k < typeQuestions.length; k++) {
             approxAMC[questind] = 0
@@ -225,7 +225,7 @@ export default function CalculerCaracteristiques () {
           const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
           const temperatures = unMoisDeTemperature(temperaturesDeBase[mois - 1], mois, annee) // on récupère une série de température correspondant à 1 mois d'une année (série brute)
           initAMC = OutilsStats.texteTemperatures(annee, mois, temperatures)
-          texte += initAMC
+          texte += initAMC + '<br>'
           let questind = 0
           for (let k = 0; k < typeQuestions.length; k++) {
             if (typeQuestions[k] === 1) {
@@ -314,7 +314,7 @@ export default function CalculerCaracteristiques () {
             salaires[0][1]++
           }
           initAMC = OutilsStats.texteSalaires(salaires, ['\\hspace{0.3cm}Ouvrier\\hspace{0.3cm}', 'Ouvrier qualifié', '\\hspace{0.5cm}Cadre\\hspace{0.5cm}', 'Cadre supérieur', 'Dirigeant'])
-          texte += initAMC
+          texte += initAMC + '<br>'
           let questind = 0
           for (let k = 0; k < typeQuestions.length; k++) {
             if (typeQuestions[k] === 1) {
@@ -383,7 +383,7 @@ export default function CalculerCaracteristiques () {
             pointures[0][1]++
           }
           initAMC = OutilsStats.texteSalaires(pointures, [], 'pointures')
-          texte += initAMC
+          texte += initAMC + '<br>'
           let questind = 0
           for (let k = 0; k < typeQuestions.length; k++) {
             if (typeQuestions[k] === 1) {
@@ -452,7 +452,7 @@ export default function CalculerCaracteristiques () {
             notes[0][1]++
           }
           initAMC = OutilsStats.texteSalaires(notes, [], 'notes')
-          texte += initAMC
+          texte += initAMC + '<br>'
           let questind = 0
           for (let k = 0; k < typeQuestions.length; k++) {
             if (typeQuestions[k] === 1) {

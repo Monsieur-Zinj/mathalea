@@ -7,7 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { calculCompare } from '../../lib/interactif/comparisonFunctions'
 
@@ -99,23 +99,23 @@ export default function RecomposerEntierC3 () {
       let formule = ''
       const listeReponses = []
       const completeLesPuissances = function (k, i, morceaux, exposantMorceaux) {
-        formule += `(${morceaux[i][k]}\\times %{place${k}})+`
-        const nameProperty = `place${k}`
+        formule += `(${morceaux[i][k]}\\times %{champ${k + 1}})+`
+        const nameProperty = `champ${k + 1}`
         listeReponses.push([nameProperty, { value: String(10 ** exposantMorceaux[i][k]), compare: calculCompare }])
       }
       const completeLesMantisses = function (k, i, morceaux, exposantMorceaux, nombreDeChiffresDec) {
-        formule += `(%{place${k}}\\times${texNombre(10 ** exposantMorceaux[i][k], nombreDeChiffresDec)})+`
-        const nameProperty = `place${k}`
+        formule += `(%{champ${k + 1}}\\times${texNombre(10 ** exposantMorceaux[i][k], nombreDeChiffresDec)})+`
+        const nameProperty = `champ${k + 1}`
         listeReponses.push([nameProperty, { value: morceaux[i][k], compare: calculCompare }])
       }
       const chiffreDes = function (k, i, morceaux, exposantMorceaux) {
-        formule += `\\quad%{place${k}}\\quad\\text{${glossaire[exposantMorceaux[i][k] + 3][Number(morceaux[i][k]) > 1 ? 1 : 0]}}\\quad+`
-        const nameProperty = `place${k}`
+        formule += `\\quad%{champ${k + 1}}\\quad\\text{${glossaire[exposantMorceaux[i][k] + 3][Number(morceaux[i][k]) > 1 ? 1 : 0]}}\\quad+`
+        const nameProperty = `champ${k + 1}`
         listeReponses.push([nameProperty, { value: morceaux[i][k], compare: calculCompare }])
       }
       const trouveLeNombre = function (nombre, nombreDeChiffresDec) {
-        formule = ': %{place0}+' // Le '+' c'est parce qu'il y en a dans toutes les autres formules et que le dernier caractère est supprimé
-        listeReponses.push(['place0', { value: nombre.div(10 ** nombreDeChiffresDec).toString(), compare: calculCompare }])
+        formule = ': %{champ1}+' // Le '+' c'est parce qu'il y en a dans toutes les autres formules et que le dernier caractère est supprimé
+        listeReponses.push(['champ1', { value: nombre.div(10 ** nombreDeChiffresDec).toString(), compare: calculCompare }])
       }
       const morcelleNombre = function (i, nombreStr, melange, morceaux, exposantMorceaux) {
         for (let k = 0; k < nbChiffres; k++) {
@@ -403,7 +403,7 @@ export default function RecomposerEntierC3 () {
       // if (this.interactif) {
       texte += remplisLesBlancs(this, i, formule.substring(0, formule.length - 1), 'inline college6eme largeur01 nospacebefore', blanc)
       // bareme est une fonction qui retourne [nbBonnesReponses, nbReponses]
-      setReponse(this, i, Object.assign({ bareme: (listePoints) => [Math.floor(somme(listePoints) / listePoints.length), 1] }, Object.fromEntries(listeReponses)), { formatInteractif: 'fillInTheBlank' })
+      handleAnswers(this, i, Object.assign({ bareme: (listePoints) => [Math.floor(somme(listePoints) / listePoints.length), 1] }, Object.fromEntries(listeReponses)), { formatInteractif: 'fillInTheBlank' })
       //   }
       texte = texte.substring(0, texte.length - 1) + '$'
       texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'

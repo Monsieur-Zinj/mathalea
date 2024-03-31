@@ -3,7 +3,7 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { polyline } from '../../lib/2d/polygones.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { texteParPoint } from '../../lib/2d/textes.ts'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import { pgcd, premierAvec } from '../../lib/outils/primalite'
@@ -70,11 +70,16 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       listeOfCase: typesDeQuestionsDisponibles,
       melange: 9
     })
+    this.sup = contraindreValeur(1, 3, this.sup, 1)
+    const listeTypeDeCoeff = this.sup === 1
+      ? combinaisonListes([1], this.nbQuestions)
+      : this.sup === 2
+        ? combinaisonListes([1], this.nbQuestions)
+        : combinaisonListes([1, 2], this.nbQuestions)
     const antecedents = []
     for (let i = 0, texteAMC, valeurAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const elementAmc = {}
       const nomFonction = String.fromCharCode(102 + i)
-      this.sup = contraindreValeur(1, 3, this.sup, 1)
       let texte = ''
       let texteCorr = ''
       // valeur associée à image0 pour le calcul de coefficient : image0 = coefficient * antecedent0
@@ -82,19 +87,12 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       // ce sont antecedent et image qui seront à calculer.
       const antecedent0 = 2 * randint(2, 10) + 1
       let coefficient, image
-      switch (this.sup) {
+      switch (listeTypeDeCoeff[i]) {
         case 1:
           coefficient = randint(2, 10) * choice([-1, 1])
           break
         case 2:
           coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
-          break
-        case 3:
-          if (Math.random() < 0.5) {
-            coefficient = randint(2, 10) * choice([-1, 1])
-          } else {
-            coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
-          }
           break
       }
       let imageString, formatInteractif

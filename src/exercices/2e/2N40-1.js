@@ -1,4 +1,4 @@
-import TraduireUnProgrammeDeCalcul from '../5e/5L10-2.js'
+import TraduireUnProgrammeDeCalcul from '../5e/5L10-2'
 export const titre = 'Traduire un programme de calcul par une expression littérale'
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -16,6 +16,5 @@ export const refs = {
   'fr-fr': ['2N40-1'],
   'fr-ch': []
 }
-export default function TraduireUnProgrammeDeCalcul2e () {
-  TraduireUnProgrammeDeCalcul.call(this)
+export default class TraduireUnProgrammeDeCalcul2e extends TraduireUnProgrammeDeCalcul {
 }

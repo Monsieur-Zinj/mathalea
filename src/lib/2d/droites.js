@@ -11,13 +11,15 @@ import { homothetie, projectionOrtho, rotation, symetrieAxiale, translation } fr
 
 /**
  * Afin de régler le problème des noms de droites en latex qui ne peuvent se fondre dans le svg, cette fonction retourne un Array de deux objets :
- * Le premier est la droite (avec toutes ses propriétés et méthodes
- * Le deuxième est un objet texteParPosition ou latexParCoordonnees
- * @param d
- * @param nom
- * @returns {*[]}
+ * Le premier est la droite (avec toutes ses propriétés et méthodes)
+ * Le deuxième est un objet latexParCoordonnees
+ * @param {Droite} d
+ * @param {string} nom
+ * @param {string} color
+ * @returns {[Droite, LatexParCoordonnees|Vide2d]}
  */
-export function droiteAvecNomLatex (d, nom) { // nom est un latexParCoordonnees
+export function droiteAvecNomLatex (d, nom, color = 'black') { // nom est un latexParCoordonnees
+  d.color = colorToLatexOrHTML(color ?? 'black')
   let absNom, ordNom
   if (egal(d.b, 0, 0.05)) { // ax+c=0 x=-c/a est l'équation de la droite
     absNom = -d.c / d.a + 0.8 // l'abscisse du label est décalé de 0.8

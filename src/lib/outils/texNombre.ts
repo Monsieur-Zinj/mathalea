@@ -71,6 +71,7 @@ export function numberFormat (nb: number) {
 export function texNombre (nb: number | Decimal, precision: number, completerZeros = false, aussiCompleterEntiers = false) {
   if (typeof nb === 'string') {
     window.notify('texNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
+    nb = Number(nb)
   }
   const result = afficherNombre(nb, precision, 'texNombre', completerZeros, aussiCompleterEntiers)
   return result.replace(',', '{,}').replace(/\s+/g, '\\,')

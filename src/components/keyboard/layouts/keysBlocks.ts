@@ -53,12 +53,12 @@ const fullOperationCaps: CompleteKeysList = {
 }
 
 const probabiliteCaps: CompleteKeysList = {
-  inline: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE'],
-  block: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+  inline: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '='],
+  block: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '=']
 }
-const ensembleCaps = {
-  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER'] as KeysList,
-  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER'] as KeysList
+const ensembleCaps: CompleteKeysList = {
+  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER'],
+  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER']
 }
 const hmsCaps: CompleteKeysList = {
   inline: ['HOUR', 'MIN', 'SEC'],
@@ -93,6 +93,32 @@ const advancedCaps: CompleteKeysList = {
     'COMP', 'REAL', 'RATIO', 'REL', 'INTEG'
   ]
 }
+
+const anglesCaps: CompleteKeysList = {
+  inline: ['ANG', 'DEG', 'QUOTE', '='],
+  block: ['ANG', 'DEG', 'QUOTE', '=']
+}
+
+const aToHCaps: CompleteKeysList = {
+  inline: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+  block: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+}
+
+const iToPCaps: CompleteKeysList = {
+  inline: ['I', 'J', 'K', 'L', 'M', 'N', 'O', 'P'],
+  block: ['I', 'J', 'K', 'L', 'M', 'N', 'O', 'P']
+}
+
+const qToWCaps: CompleteKeysList = {
+  inline: ['Q', 'R', 'S', 'T', 'U', 'V', 'W'],
+  block: ['Q', 'R', 'S', 'T', 'U', 'V', 'W']
+}
+
+const xToZCaps: CompleteKeysList = {
+  inline: ['X', 'Y', 'Z'],
+  block: ['X', 'Y', 'Z']
+}
+
 // @ts-expect-error Problème de typage
 const lengthUnitsKeys = Object.keys(keys).filter(k => k.includes('LENGTH')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const lengthsCaps: CompleteKeysList = {
@@ -203,7 +229,7 @@ export const fullOperations: KeyboardBlock = {
 
 export const probabilite: KeyboardBlock = {
   keycaps: probabiliteCaps,
-  cols: 9,
+  cols: 3,
   title: 'Probabilités',
   isUnits: false
 }
@@ -284,9 +310,45 @@ export const masses: KeyboardBlock = {
   isUnits: true
 }
 
+export const angles: KeyboardBlock = {
+  keycaps: anglesCaps,
+  cols: 1,
+  title: 'Angles',
+  isUnits: false
+}
+
+export const uppercaseAToH: KeyboardBlock = {
+  keycaps: aToHCaps,
+  cols: 2,
+  title: 'Majuscules: A à H',
+  isUnits: false
+}
+
+export const uppercaseIToP: KeyboardBlock = {
+  keycaps: iToPCaps,
+  cols: 2,
+  title: 'Majuscules: I à P',
+  isUnits: false
+}
+
+export const uppercaseQToW: KeyboardBlock = {
+  keycaps: qToWCaps,
+  cols: 2,
+  title: 'Majuscules: Q à W',
+  isUnits: false
+}
+
+export const uppercaseXToZ: KeyboardBlock = {
+  keycaps: xToZCaps,
+  cols: 1,
+  title: 'Majuscules: X à Z',
+  isUnits: false
+}
+
 // eslint-disable-next-line no-unused-vars
 export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>]: KeyboardBlock } = {
   advanced,
+  angles,
   areas,
   basicOperations,
   basicOperations2,
@@ -307,5 +369,9 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   probabilite,
   trigo,
   variables,
-  volumes
+  volumes,
+  uppercaseAToH,
+  uppercaseIToP,
+  uppercaseQToW,
+  uppercaseXToZ
 }

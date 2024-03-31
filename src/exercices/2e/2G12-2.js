@@ -13,7 +13,7 @@ import Exercice from '../deprecatedExercice.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { equalFractionCompare } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -110,19 +110,19 @@ export default function Milieu () {
           xM = new FractionEtendue(xA + xB, 2)
           yM = new FractionEtendue(yA + yB, 2)// .simplifie()
           objets.push(g, T, L, s, o, I, J)
-          setReponse(this, i, {
+          handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            x: { value: xM.texFraction, compare: equalFractionCompare },
-            y: { value: yM.texFraction, compare: equalFractionCompare }
+            champ1: { value: xM.texFraction, compare: equalFractionCompare },
+            champ2: { value: yM.texFraction, compare: equalFractionCompare }
           },
-          { formatInteractif: 'fillInTheBlank' })
+          { formatInteractif: 'mathlive' })
 
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
           texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$. `
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i,
-              `${M.nom}\\Bigg(%{x};%{y}\\Bigg)`,
+              `${M.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
               KeyboardType.clavierDeBaseAvecFraction
             )
           }
@@ -142,18 +142,18 @@ export default function Milieu () {
           yM = new Decimal(yA + yB).div(2)
 
           objets.push(g, T, L, s, o, I, J)
-          setReponse(this, i, {
+          handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            x: { value: new Decimal(xM).mul(2).sub(xA) },
-            y: { value: new Decimal(yM).mul(2).sub(yA) }
-          }, { formatInteractif: 'fillInTheBlank' })
+            champ1: { value: new Decimal(xM).mul(2).sub(xA).toString(), compare: numberCompare },
+            champ2: { value: new Decimal(yM).mul(2).sub(yA).toString(), compare: numberCompare }
+          }, { formatInteractif: 'mathlive' })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += `  $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${M.nom}\\left(${texNombre(xM, 1)}\\,;\\,${texNombre(yM, 1)}\\right)$`
           texte += `<br>Déterminer les coordonnées du point $${B.nom}$ tel que $${M.nom}$ soit le milieu du segment $[${A.nom}${B.nom}]$. `
 
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i,
-              `${B.nom}\\Bigg(%{x};%{y}\\Bigg)`,
+              `${B.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
               KeyboardType.clavierDeBaseAvecFraction
             )
           }
@@ -202,15 +202,15 @@ export default function Milieu () {
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${Ax.texFSD}\\,;\\,${Ay.texFSD}\\right)$ et $${B.nom}\\left(${Bx.texFSD}\\,;\\,${By.texFSD}\\right)$`
           texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$.`
-          setReponse(this, i, {
+          handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-            x: { value: xM.toLatex(), compare: equalFractionCompare },
-            y: { value: yM.toLatex(), compare: equalFractionCompare }
+            champ1: { value: xM.texFraction, compare: equalFractionCompare },
+            champ2: { value: yM.texFraction, compare: equalFractionCompare }
           },
-          { formatInteractif: 'fillInTheBlank' })
+          { formatInteractif: 'mathlive' })
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i,
-              `${M.nom}\\Bigg(%{x};%{y}\\Bigg)`,
+              `${M.nom}\\Bigg(%{champ1};%{champ2}\\Bigg)`,
               KeyboardType.clavierDeBaseAvecFraction
             )
           }

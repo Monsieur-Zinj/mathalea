@@ -79,9 +79,9 @@ export default function EquationReduiteDeDroites () {
         texteCorr += '<br>Au final, $(AB) : y='
         if (d * yA - n * xA === 0) { // cas où p=0
           if (n === d) { // cas où m=1 et p=0
-            texteCorr += 'x'
+            texteCorr += 'x$'
           } else if (n === -d) { // cas où m=-1 et p=0
-            texteCorr += '-x'
+            texteCorr += '-x$'
           } else if ((pgcd(n, d) !== 1 || d === 1) && n !== 0) { // m entier  non nul ou fraction réductible
             texteCorr += `${texFractionReduite(n, d)}x$`
           } else { // m fraction irréductible
@@ -149,7 +149,8 @@ export default function EquationReduiteDeDroites () {
         texteCorr += '$'
         texteCorr += '<br>L\'équation de la droite $(AB)$ est de la forme : $y='
         if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
-          texteCorr += `${texFractionReduite(n, d)}x`
+          if (n / d === 1) texteCorr += 'x'
+          else texteCorr += `${texFractionReduite(n, d)}x`
         } else {
           // eslint-disable-next-line no-empty
           if (n === 0) {

@@ -8,14 +8,14 @@ import { randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
-export const titre = 'Lire un diagramme en barres'
+export const titre = 'Lire un diagramme en bâtons'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
 /**
- * Lire un diagramme en barres
+ * Lire un diagramme en bâtons
  * @author Erwan Duplessy
  * Conversion Amc et interactif par Jean-Claude Lhote
  */
@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['6S10'],
   'fr-ch': ['9FA1-1']
 }
-export default function LectureDiagrammeBarre () {
+export default function LectureDiagrammeBaton () {
   Exercice.call(this)
   this.consigne = "Répondre aux questions à l'aide du graphique."
   this.nbQuestions = 1

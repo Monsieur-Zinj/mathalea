@@ -57,7 +57,7 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
     \\end{array}
     $<br>
     `
-      if (this.interactif) texte += "<br><br> <em>S'il y a plusieurs réponses, séparer-les avec le point-virgule</em>.<br>"
+      if (this.interactif) texte += "<br><br> <em>S'il y a plusieurs réponses, les séparer avec le point-virgule</em>.<br>"
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -127,7 +127,7 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
         )
       }
 
-      let texte3 = `Déterminer le(s) antécédent(s) de $${a}$ par la fonction $f$.`
+      let texte3 = `Déterminer l'antécédent ou les antécédents de $${a}$ par la fonction $f$.`
       const texteCorr3 = `$${a}$ a un seul antécédent par la fonction $f$ qui est $${d}$, on note $f(${d})=${a}$.`
       setReponse(this, i * 6 + 2, d)
       texte3 += ajouteChampTexteMathLive(this, i * 6 + 2)
@@ -155,7 +155,7 @@ export default function ImageAntecedentDepuisTableauOuFleche () {
         )
       }
 
-      let texte4 = `Déterminer le(s) antécédent(s) de $${d}$ par la fonction $f$.`
+      let texte4 = `Déterminer l'antécédent ou les antécédents de $${d}$ par la fonction $f$.`
       const texteCorr4 = `$${d}$ a deux antécédents par la fonction $f$ qui sont $${c}$ et $${e}$, on note $f(${c})=f(${e})=${d}$.`
       setReponse(this, i * 6 + 3, [`${c};${e}`, `${e};${c}`], { formatInteractif: 'texte' })
       texte4 += ajouteChampTexteMathLive(this, i * 6 + 3)

@@ -130,16 +130,8 @@ export default function NaturePolygone () {
       yAcCarre = (yC - yA) * (yC - yA)
       xBcCarre = (xC - xB) * (xC - xB)
       yBcCarre = (yC - yB) * (yC - yB)
-      xAbCarre = (xB - xA) * (xB - xA)
-      yAbCarre = (yB - yA) * (yB - yA)
       xAdCarre = (xD - xA) * (xD - xA)
       yAdCarre = (yD - yA) * (yD - yA)
-      abCarre = xAbCarre + yAbCarre
-      xBcCarre = (xC - xB) * (xC - xB)
-      xAcCarre = (xC - xA) * (xC - xA)
-      yAcCarre = (yC - yA) * (yC - yA)
-      xBcCarre = (xC - xB) * (xC - xB)
-      yBcCarre = (yC - yB) * (yC - yB)
       acCarre = xAcCarre + yAcCarre
       bcCarre = xBcCarre + yBcCarre
       A = point(xA, yA, 'A')
@@ -275,7 +267,7 @@ export default function NaturePolygone () {
           texteCorr += `<br>$${A.nom}${B.nom}${C.nom}${D.nom}$ est donc un parallélogramme.`
           texteCorr += `<br><br>On calcule maintenant les longueurs de deux cotés consécutifs : $[${A.nom}${B.nom}]$ et $[${A.nom}${D.nom}]$ par exemple.`
           texteCorr += `<br>$\\bullet$  $${A.nom}${B.nom}=\\sqrt{\\left(${xB}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yB}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAbCarre}+${yAbCarre}}
-          =\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`
+          =\\sqrt{${texNombre(abCarre)}}$<br>`
 
           texteCorr += `$\\bullet$  $${A.nom}${C.nom}=\\sqrt{\\left(${xC}-${ecritureParentheseSiNegatif(xA)}\\right)^{2}+\\left(${yC}-${ecritureParentheseSiNegatif(yA)}\\right)^{2}}=\\sqrt{${xAcCarre}+${yAcCarre}}
           =\\sqrt{${texNombre(xAcCarre + yAcCarre)}}$<br>`

@@ -61,7 +61,7 @@ export function setListeDeroulante (objetReponse) {
 }
 
 /**
- *
+ * Cette fonction vérifie les réponses de chaque question en appelant la fonction associée à son formatInteractif ('mathlive', 'listeDeroulante', 'cliqueFigure', 'qcm')
  * @param {Exercice} exercice
  * @param {HTMLDivElement} divScore
  * @param {HTMLButtonElement} buttonScore
@@ -98,97 +98,26 @@ export function exerciceInteractif (exercice, divScore, buttonScore) {
         resultat = verifQuestionMathLive(exercice, i)
         nbQuestionsValidees += resultat.score.nbBonnesReponses
         nbQuestionsNonValidees += resultat.score.nbReponses - resultat.score.nbBonnesReponses
+        if (resultat.feedback !== '') {
+          const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${i}`)
+          if (spanFeedback != null) {
+            spanFeedback.innerHTML = '💡 ' + resultat.feedback
+            spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
+          }
+        }
         break
     }
   }
-  const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
-  uichecks.forEach(function (uicheck) {
-    uicheck.classList.add('read-only')
-  })
   return afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, buttonScore)
 }
-/*
-export function verifExerciceQcmMathLive (exercice , divScore , divButton) {
-  // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
-  let nbQuestionsValidees = 0
-  let nbQuestionsNonValidees = 0
-  exercice.answers = {}
-  for (let i = 0; i < exercice.autoCorrection.length; i++) {
-    if (exercice?.autoCorrection[i]?.propositions === undefined) {
-      // mathlive
-      const resultat = verifQuestionMathLive(exercice, i)
-      nbQuestionsValidees += resultat.score.nbBonnesReponses
-      nbQuestionsNonValidees += resultat.score.nbReponses - resultat.score.nbBonnesReponses
-    } else {
-      // qcm
-      const resultat = verifQuestionQcm(exercice, i)
-      resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
-    }
-  }
-  const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
-  uichecks.forEach(function (uicheck) {
-    uicheck.classList.add('read-only')
-  })
-  return afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
-}
 
-function verifExerciceMathLive (exercice , divScore, divButton ) {
-  let nbBonnesReponses = 0
-  let nbMauvaisesReponses = 0
-  const besoinDe2eEssai = false
-  let resultat
-  for (let i = 0; i < exercice.autoCorrection.length; i++) { // i est un nombre !
-    resultat = verifQuestionMathLive(exercice, i)
-    nbBonnesReponses += resultat.score.nbBonnesReponses
-    nbMauvaisesReponses += resultat.score.nbReponses - resultat.score.nbBonnesReponses // Il reste à gérer le 2e essai
-    const feedback = resultat.feedback
-    let feedbackString = ''
-    if (feedback != null) {
-      feedbackString = typeof feedback === 'string' ? feedback : typeof feedback === 'function' ? feedback() : ''
-    }
-    if (feedbackString !== '') {
-      const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${i}`)
-      if (spanFeedback != null) {
-        spanFeedback.innerHTML = '💡 ' + feedbackString
-        spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
-      }
-    }
-  }
-  if (!besoinDe2eEssai) {
-    return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, divButton)
-  }
-}
-
-function verifExerciceQcm (exercice , divScore , divButton ) {
-  // On vérifie le type si jamais il a été changé après la création du listenner (voir 5R20)
-  let nbQuestionsValidees = 0
-  let nbQuestionsNonValidees = 0
-  exercice.answers = {}
-  for (let i = 0; i < exercice.autoCorrection.length; i++) {
-    const resultat = verifQuestionQcm(exercice, i)
-    resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
-  }
-  const uichecks = document.querySelectorAll(`.ui.checkbox.ex${exercice.numeroExercice}`)
-  uichecks.forEach(function (uicheck) {
-    uicheck.classList.add('read-only')
-  })
-  return afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
-}
-
-function verifExerciceListeDeroulante (exercice , divScore, divButton) {
-  let nbQuestionsValidees = 0
-  let nbQuestionsNonValidees = 0
-  const selects = document.querySelectorAll(`select[id^="ex${exercice.numeroExercice}"]`)
-  selects.forEach(function (select) {
-    select.disabled = true
-  })
-  for (let i = 0; i < exercice.autoCorrection.length; i++) {
-    const resultat = verifQuestionListeDeroulante(exercice, i)
-    resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++
-  }
-  return afficheScore(exercice, nbQuestionsValidees, nbQuestionsNonValidees, divScore, divButton)
-}
-*/
+/**
+ * Le cas à part : un exercice custom fournit une fonction correctionInteractive qui doit corriger toutes les questions et s'occuper du feedback
+ * @param exercice
+ * @param divScore
+ * @param buttonScore
+ * @return {{numberOfPoints, numberOfQuestions: *}}
+ */
 function verifExerciceCustom (exercice /** Exercice */, divScore /** HTMLDivElement */, buttonScore /** HTMLButtonElement */) {
   let nbBonnesReponses = 0
   let nbMauvaisesReponses = 0
@@ -241,17 +170,6 @@ export function prepareExerciceCliqueFigure (exercice /** Exercice */) {
     }
   }
 }
-/*
-function verifExerciceCliqueFigure (exercice , divScore, buttonScore ) {
-  // Gestion de la correction
-  let nbBonnesReponses = 0
-  let nbMauvaisesReponses = 0
-  for (let i = 0; i < exercice.nbQuestions; i++) {
-    verifQuestionCliqueFigure(exercice, i) === 'OK' ? nbBonnesReponses++ : nbMauvaisesReponses++
-  }
-  return afficheScore(exercice, nbBonnesReponses, nbMauvaisesReponses, divScore, buttonScore)
-}
- */
 
 function verifQuestionCliqueFigure (exercice, i) {
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
@@ -493,7 +411,7 @@ export function setReponse (exercice, i, valeurs, {
       precision
     }
     exercice.autoCorrection[i].reponse.valeur = reponses // On n'a rien changé pour AMC, on continue de passer un array dont seule la première valeur est utile
-    return
+    return // La réponse est prête pour AMC
   }
   // Ici on est en context non Amc, donc s'il y a un setReponse, c'est pour html interactif.
   // On va transformer le l'objetReponse pour handleAnswers(), il n'y
@@ -814,6 +732,10 @@ export function handleAnswers (exercice, question, reponses, {
   formatInteractif = 'mathlive',
   precision = null
 } = {}) {
+  if (context.isAmc) {
+    window.notify('handleAnswers() ne doit pas être appelée pour l\'export AMC ! il faut ajouter un test de context dans l\'exercice ou utiliser setReponse()!', { refExercice: exercice.ref })
+    return
+  }
   if (question === 0) exercice.autoCorrection = []
   if (!(reponses instanceof Object)) throw Error(`handleAnswer() reponses doit être un objet : ${reponses}`)
   const url = new URL(window.location.href)

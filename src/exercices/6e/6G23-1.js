@@ -16,12 +16,11 @@ export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Mesurer un angle sans rapporteur sur l\'énoncé'
+export const titre = 'Estimer un angle sans rapporteur sur l\'énoncé'
 
 /**
- * Construire un angle
+ * Estimer un angle
  * @author Jean-Claude Lhote
- * Référence 6G23
  */
 export const uuid = 'c7f7a'
 export const ref = '6G23-1'

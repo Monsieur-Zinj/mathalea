@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { rienSi1, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
@@ -307,13 +307,13 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
             x3 = b
             x2 = randint(-9, 9, [x1, x3])
           }
-          texte = `$${a}x-${ecritureParentheseSiNegatif(
+          texte = `$${rienSi1(a)}x-${ecritureParentheseSiNegatif(
             a * b
           )}=x^2-${ecritureParentheseSiNegatif(
             b
           )}x~$ pour $~x=${x1}~$ , pour $~x=${x2}~$ puis pour $~x=${x3}$`
           texteCorr = `Pour $x=${x1}$ : <br>`
-          texteCorr += `$${a}x-${ecritureParentheseSiNegatif(
+          texteCorr += `$${rienSi1(a)}x-${ecritureParentheseSiNegatif(
             a * b
           )}=${a}\\times ${ecritureParentheseSiNegatif(
             x1
@@ -326,12 +326,12 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
           )}\\times ${ecritureParentheseSiNegatif(x1)}=${x1 * x1}-${ecritureParentheseSiNegatif(b * x1)}=${x1 * x1 - b * x1}$<br>`
           texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br>'
           texteCorr += `${texteEnCouleur(
-            `$x=${x1}$ est donc solution de l'équation $${a}x-${ecritureParentheseSiNegatif(
+            `$x=${x1}$ est donc solution de l'équation $${rienSi1(a)}x-${ecritureParentheseSiNegatif(
               a * b
             )}=x^2-${ecritureParentheseSiNegatif(b)}x~$`
           )}<br><br>`
           texteCorr += `Pour $x=${x2}$ : <br>`
-          texteCorr += `$${a}x-${ecritureParentheseSiNegatif(
+          texteCorr += `$${rienSi1(a)}x-${ecritureParentheseSiNegatif(
             a * b
           )}=${a}\\times ${ecritureParentheseSiNegatif(
             x2
@@ -342,7 +342,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
           )}\\times ${ecritureParentheseSiNegatif(x2)}=${x2 * x2}-${ecritureParentheseSiNegatif(b * x2)}=${x2 * x2 - b * x2}$<br>`
           texteCorr += `$${a * x2 - a * b}\\not=${x2 * x2 - b * x2}$ donc l'égalité n'est pas vraie.<br>`
           texteCorr += `${texteEnCouleur(
-            `$x=${x2}$ n'est donc pas solution de l'équation $${a}x-${ecritureParentheseSiNegatif(
+            `$x=${x2}$ n'est donc pas solution de l'équation $${rienSi1(a)}x-${ecritureParentheseSiNegatif(
               a * b
             )}=x^2-${ecritureParentheseSiNegatif(b)}x~$`
           )}<br><br>`
@@ -358,7 +358,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
           )}\\times ${ecritureParentheseSiNegatif(x3)}=${x3 * x3}-${ecritureParentheseSiNegatif(b * x3)}=${x3 * x3 - b * x3}$<br>`
           texteCorr += 'On trouve le même résultat pour le membre de gauche et pour le membre de droite donc l\'égalité est vraie.<br>'
           texteCorr += `${texteEnCouleur(
-            `$x=${x3}$ est donc solution de l'équation $${a}x-${ecritureParentheseSiNegatif(
+            `$x=${x3}$ est donc solution de l'équation $${rienSi1(a)}x-${ecritureParentheseSiNegatif(
               a * b
             )}=x^2-${ecritureParentheseSiNegatif(b)}x~$`
           )}`
@@ -482,7 +482,7 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
           } else {
             do {
               a = randint(-9, 9, [0, 1])
-              b = randint(-9, 9, [0, a])
+              b = randint(-9, 9, [0, a, 1])
               x1 = a
               x3 = b
               x2 = randint(-9, 9, [x1, x3])

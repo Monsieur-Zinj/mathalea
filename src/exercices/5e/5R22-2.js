@@ -31,12 +31,12 @@ export default function ExerciceSimplificationSommeAlgebrique (max = 20) {
   Exercice.call(this)
   this.sup = max
   this.sup2 = 3
-  this.consigne = 'Écrire sous la forme d\'une expression algébrique sans parenthèses puis calculer.'
   this.nbCols = 3
   this.nbColsCorr = 2
   this.nbQuestions = 9 // pour équilibrer les colonnes
 
   this.nouvelleVersion = function () {
+    this.consigne = this.interactif ? 'Calculer (mentalement ou au brouillon) et indiquer seulement le résultat final.' : 'Écrire sous la forme d\'une expression algébrique sans parenthèses puis calculer.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
