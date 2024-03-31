@@ -486,7 +486,7 @@ export default class ProblemesEnEquation extends Exercice {
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
-          enonce: texte + 'ddddddd<br>',
+          enonce: texte + '\\\\',
           enonceAvant: false,
           propositions: [
             {

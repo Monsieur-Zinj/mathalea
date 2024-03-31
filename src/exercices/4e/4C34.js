@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { nombreDeChiffresDansLaPartieEntiere, range1 } from '../../lib/outils/nombres'
+import { nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDe, range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
@@ -12,7 +12,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCHybride'
 
 export const titre = 'Calculer en utilisant les priorités opératoires et les puissances'
 export const dateDePublication = '23/01/2023'
@@ -183,18 +183,40 @@ export default function PrioritesEtRelatifsEtPuissances () {
           setReponse(this, i, reponse)
           texte += ' =' + ajouteChampTexteMathLive(this, i, 'inline largeur 25')
         } else if (context.isAmc) {
-          this.autoCorrection[i].enonce = texte
-          this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: 3 }]
-          this.autoCorrection[i].reponse = {
-            texte: 'résultat',
-            valeur: reponse,
-            param: {
-              digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)),
-              decimals: 0,
-              signe: true,
-              exposantNbChiffres: 0,
-              exposantSigne: false
-            }
+          this.autoCorrection[i] = {
+            enonce: texte,
+            enonceAvant: false,
+            propositions: [
+              {
+                type: 'AMCOpen',
+                propositions: [{
+                  enonce: texte + '\\\\',
+                  texte: texteCorr,
+                  statut: 3,
+                  pointilles: true,
+                  multicolsBegin: true
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  multicolsEnd: true,
+                  reponse: {
+                    texte: 'résultat',
+                    valeur: reponse,
+                    param: {
+                      digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)),
+                      decimals: 0,
+                      signe: true,
+                      exposantNbChiffres: 0,
+                      exposantSigne: false
+                    }
+                  }
+                }]
+              }
+            ]
           }
         }
         this.listeQuestions.push(texte)

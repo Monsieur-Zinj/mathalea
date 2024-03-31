@@ -15,7 +15,7 @@ export const interactifReady = false
 // remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
 export const interactifType = 'custom'
 export const amcReady = true
-export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCHybride'
 
 /**
  * Symétrie centrale sur papier pointé
@@ -142,34 +142,46 @@ export default function CompleterParSymetrie5e () {
         : 'Voici une grille contenant des points et un centre de symétrie.<br>Ajouter un minimum de points afin que chacun des points ait son symétrique par rapport à O.<br>'
       texteCorr = ''
       // On prépare la figure...
-      texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7 }, ...objetsEnonce, ...pointsCliquables[i], labelPoint(O))
+      texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5 }, ...objetsEnonce, ...pointsCliquables[i], labelPoint(O))
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
       texteCorr += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5 }, ...objetsEnonce, ...objetsCorrection, labelPoint(O))
-      if (context.isAmc) {
-        this.autoCorrection[i] = {
-          enonce: texte,
-          propositions: [
-            {
-              texte: texteCorr,
-              statut: 1,
-              feedback: '',
-              sanscadre: false
-            }
-          ],
-          reponse: {
-            valeur: [pointsEnPlusCorr.length],
-            param: {
-              digits: 2,
-              signe: false,
-              decimals: 0,
-              vertical: true
-            }
+
+      if (this.questionJamaisPosee(i, nbCouplesChoisis, nbCouplesComplets, pointsChoisis[0][0], pointsChoisis[0][1])) {
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: '',
+            enonceAvant: false,
+            propositions: [
+              {
+                type: 'AMCOpen',
+                propositions: [{
+                  enonce: texte,
+                  texte: texteCorr,
+                  statut: 1,
+                  pointilles: true
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Nombre de points ajoutés',
+                    valeur: [pointsEnPlusCorr.length],
+                    param: {
+                      digits: 2,
+                      signe: false,
+                      decimals: 0
+                    }
+                  }
+                }]
+              }
+            ]
           }
         }
-      }
-      if (this.questionJamaisPosee(i, nbCouplesChoisis, nbCouplesComplets, pointsChoisis[0][0], pointsChoisis[0][1])) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

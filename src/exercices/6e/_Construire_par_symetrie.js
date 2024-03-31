@@ -73,7 +73,7 @@ export default class ConstruireParSymetrie extends Exercice {
       count = 0
       do { // on vérifie que le point est du bon côté et à distance suffisante de la droite.
         if (lieu[1] === 'sur') B = pointSurDroite(d, randint(-6, 6))
-        else B = point(randint(-8, 8, A.x), randint(-8, 8, A.y))
+        else B = point(randint(-8, 8, Math.round(A.x)), randint(-8, 8, Math.round(A.y)))
         pB = projectionOrtho(B, d)
         hB = longueur(B, pB)
         count++
@@ -84,7 +84,7 @@ export default class ConstruireParSymetrie extends Exercice {
       count = 0
       do { // on vérifie que le point est du bon côté et à distance suffisante de la droite.
         if (lieu[2] === 'sur') C = pointSurDroite(d, randint(-8, 8))
-        else C = point(randint(-8, 8, [A.x, B.x]), randint(-8, 8, [A.y, B.y]))
+        else C = point(randint(-8, 8, [Math.round(A.x), Math.round(B.x)]), randint(-8, 8, [Math.round(A.y), Math.round(B.y)]))
         pC = projectionOrtho(C, d)
         hC = longueur(C, pC)
         count++

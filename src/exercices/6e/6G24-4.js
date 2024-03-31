@@ -15,7 +15,7 @@ export const interactifReady = false
 // remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
 export const interactifType = 'custom'
 export const amcReady = true
-export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCHybride'
 
 /**
  * Symétrie axiale sur papier pointé
@@ -171,37 +171,50 @@ export default function CompleterParSymetrie6e () {
         }
       }
       texte = context.isAmc
-        ? 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>Écrire le nombre de points ajoutés dans le cadre. Coder ensuite ce nombre de points.<br>'
+        ? 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>Écrire le nombre de points ajoutés dans le cadre et coder numériquement ce nombre.<br>'
         : 'Voici une grille contenant des points et un axe de symétrie.<br>Ajouter un minimum de points afin que la figure soit symétrique par rapport à l\'axe.<br>'
       // On prépare la figure...
-      texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.7 }, ...objetsEnonce[i], ...pointsCliquables[i])
+      texte += mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5 }, ...objetsEnonce[i], ...pointsCliquables[i])
       if (this.interactif && context.isHtml) {
         texte += `<div id="resultatCheckEx${this.numeroExercice}Q${i}"></div>`
       }
       texteCorr = mathalea2d({ xmin: -1, ymin: -1, xmax: 11, ymax: 11, scale: 0.5, style: 'inline' }, ...objetsEnonce, ...objetsCorrection[i])
-      if (context.isAmc) {
-        this.autoCorrection[i] = {
-          enonce: texte,
-          propositions: [
-            {
-              texte: texteCorr,
-              statut: 1,
-              feedback: '',
-              sanscadre: false
-            }
-          ],
-          reponse: {
-            valeur: [pointsEnPlusCorr.length],
-            param: {
-              digits: 2,
-              signe: false,
-              decimals: 0,
-              vertical: true
-            }
+
+      if (this.questionJamaisPosee(i, nbCouplesChoisis, nbCouplesComplets, pointsChoisis[0][0], pointsChoisis[0][1])) {
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: '',
+            enonceAGauche: true,
+            enonceAvant: false,
+            propositions: [
+              {
+                type: 'AMCOpen',
+                propositions: [{
+                  enonce: texte,
+                  texte: texteCorr,
+                  statut: 1,
+                  pointilles: true
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: 'Nombre de points ajoutés',
+                    valeur: [pointsEnPlusCorr.length],
+                    param: {
+                      digits: 2,
+                      signe: false,
+                      decimals: 0
+                    }
+                  }
+                }]
+              }
+            ]
           }
         }
-      }
-      if (this.questionJamaisPosee(i, nbCouplesChoisis, nbCouplesComplets, pointsChoisis[0][0], pointsChoisis[0][1])) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

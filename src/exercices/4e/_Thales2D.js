@@ -19,7 +19,7 @@ import Grandeur from '../../modules/Grandeur'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2'
+export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer des longueurs avec le théorème de Thalès'
@@ -233,30 +233,56 @@ export default function Thales2D () {
         // Il n'y a qu'une seule question donc test inutile...
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: [{ texte: texteCorr, statut: 4, feedback: '' }],
-            reponse: {
-              texte: `$\\hspace{21pt}${nomM + nomN}$`,
-              valeur: reponse,
-              param: {
-                digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse)) + 1,
-                decimals: 1,
-                approx: 0,
-                signe: false,
-                exposantNbChiffres: 0
+            enonce: '',
+            enonceAvant: false,
+            options: { multicolsAll: true },
+            propositions: [
+              {
+                type: 'AMCOpen',
+                propositions: [{
+                  enonce: texte,
+                  texte: texteCorr,
+                  statut: 4,
+                  pointilles: true
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `$\\hspace{21pt}${nomM + nomN}$`,
+                    valeur: [reponse.toFixed(1)],
+                    param: {
+                      digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse.toFixed(1))) + 1,
+                      decimals: 1,
+                      approx: 0,
+                      signe: false,
+                      exposantNbChiffres: 0
+                    }
+                  }
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  reponse: {
+                    texte: `$\\hspace{21pt}${nomC + nomB}$`,
+                    valeur: [reponse2.toFixed(1)],
+                    param: {
+                      digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse2)) + 1,
+                      decimals: 1,
+                      approx: 0,
+                      signe: false,
+                      exposantNbChiffres: 0
+                    }
+                  }
+                }]
               }
-            },
-            reponse2: {
-              texte: `$\\hspace{21pt}${nomC + nomB}$`,
-              valeur: reponse2,
-              param: {
-                digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(reponse2)) + 1,
-                decimals: 1,
-                approx: 0,
-                signe: false,
-                exposantNbChiffres: 0
-              }
-            }
+            ]
           }
         }
         // Si la question n'a jamais été posée, on en créé une autre

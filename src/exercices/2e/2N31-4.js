@@ -3,7 +3,7 @@ export const titre = 'Calculer en utilisant les priorités opératoires et les p
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCHybrides'
 
 /**
  * Clone de 4C34 pour les 2nde

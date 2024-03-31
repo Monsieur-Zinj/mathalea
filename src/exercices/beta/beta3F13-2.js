@@ -15,6 +15,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
+ * Un exercice pour délirer façon escape game
  * @author Jean-Claude Lhote
  * publié le  15/11/2020
  * ref 3F13-2

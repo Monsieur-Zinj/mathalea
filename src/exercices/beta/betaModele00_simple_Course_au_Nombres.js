@@ -1,5 +1,6 @@
 import Exercice from '../Exercice'
 import { randint } from '../../modules/outils.js'
+import { texNombre } from '../../lib/outils/texNombre'
 export const titre = 'Somme de deux entiers'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,8 +26,8 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
     const a = randint(1, 10)
     const b = randint(1, 10)
-    this.question = `$${a}+${b}$`
-    this.correction = `$${a} + ${b} = ${a + b}$`
+    this.question = `$${texNombre(a, 0)}+${texNombre(b, 0)}$`
+    this.correction = `$${texNombre(a, 0)} + ${texNombre(b, 0)} = ${texNombre(a + b, 0)}$`
     this.reponse = a + b
   }
 }

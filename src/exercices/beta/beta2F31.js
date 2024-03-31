@@ -6,6 +6,7 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Croissance de fonction ?'
+export const uuid = '12a4b'
 
 /**
  * Description didactique de l'exercice
@@ -42,12 +43,12 @@ export default function CroissanceDeFonction () {
             x1 = Math.ceil((-8 - b) / a)
             x0 = Math.floor((8 - b) / a)
           }
-          texteCorr = 'La fonction représentée est une fonction affine. Toute fonction affine est monotone.'
+          texteCorr = 'La fonction représentée est une fonction affine. Toute fonction affine est monotone.<br>'
           if (a < 0) {
-            texteCorr += '<br>Nous pouvons voir sur le zoom ci-dessous que le coefficient de cette fonction est négatif.<br>'
+            texteCorr += 'Nous pouvons voir sur le zoom ci-dessous que le coefficient de cette fonction est négatif.<br>'
             texteCorr += `La fonction est donc décroissante sur  $\\mathbb{R}$ et donc en particulier sur $[${x0};${x1}]$.<br>`
           } else {
-            texteCorr += '<br>Nous pouvons voir sur le zoom ci-dessous que le coefficient de cette fonction est positif.<br>'
+            texteCorr += 'Nous pouvons voir sur le zoom ci-dessous que le coefficient de cette fonction est positif.<br>'
             texteCorr += `La fonction est donc croissante sur  $\\mathbb{R}$ et donc en particulier sur $[${x0};${x1}]$.<br>`
           }
           f = x => a * x + b
@@ -66,7 +67,7 @@ export default function CroissanceDeFonction () {
           }
           f = x => x ** 2
           graph = courbe(f, { repere: r, step: 0.2, xMin: -3.2, xMax: 3.3, yMin: -11, yMax: 11 })
-          texteCorr = 'La fonction étudiée est la fonction carré. Nous savons que cette fonction est décroissante sur $\\mathbb{R^-}$ et croissante sur $\\mathbb{R^+}$'
+          texteCorr = 'La fonction étudiée est la fonction carré.<br> Nous savons que cette fonction est décroissante sur $\\mathbb{R^-}$ et croissante sur $\\mathbb{R^+}$'
           if (x0 === -3) {
             texteCorr += `la fonction est donc décroissante sur $[${x0};${x1}]$.`
           } else {
