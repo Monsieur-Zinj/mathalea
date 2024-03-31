@@ -78,11 +78,11 @@ export default class AgrandirReduireFigure extends Exercice {
       propositionsAMC = []
       iiAMC = 0
       objets = []
-      coefAgrandissement = [1.5, 2, 3, 5, 0.5, 0.25, 0.75]
+      coefAgrandissement = [1.5, 2, 3, 0.5, 0.25, 0.75]
       coefReduction = [new FractionEtendue(1, 2), new FractionEtendue(1, 4), new FractionEtendue(3, 4)]
-      choixAgrandissementOuReduction = randint(0, 6)
+      choixAgrandissementOuReduction = randint(0, 5)
       A = point(0, 0)
-      absB = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9]) : 2 * randint(4, 7)
+      absB = choixAgrandissementOuReduction < 4 ? randint(4, 8, [6]) : 2 * randint(3, 6)
 
       switch (listeTypeQuestions[i]) {
         case 1:
@@ -165,7 +165,7 @@ export default class AgrandirReduireFigure extends Exercice {
           }
           texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}$ implique de multiplier toutes les longueurs par ce coefficient`
           if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
+            texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 3].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 3].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
@@ -173,7 +173,7 @@ export default class AgrandirReduireFigure extends Exercice {
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += ` ou bien $(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1), 2)} \\times 3=${texNombre(reponse, 2)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += ` ou bien $${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse, 2)}$`
+            texteCorr += ` ou bien $${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 3].den}=${texNombre(reponse, 2)}$`
           }
           texteCorr += `<br>Le triangle équilatéral issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}$ possède donc des côtés de longueur $${miseEnEvidence(texNombre(reponse, 2))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
@@ -273,7 +273,7 @@ export default class AgrandirReduireFigure extends Exercice {
           }
           texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}$ implique de multiplier toutes les longueurs par ce coefficient`
           if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
+            texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 3].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 3].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
@@ -281,7 +281,7 @@ export default class AgrandirReduireFigure extends Exercice {
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += ` ou bien $(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1), 2)} \\times 3=${texNombre(reponse, 2)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += ` ou bien $${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse, 2)}$`
+            texteCorr += ` ou bien $${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 3].den}=${texNombre(reponse, 2)}$`
           }
           texteCorr += `<br>Le carré issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du carré ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}$ possède donc des côtés de longueur $${miseEnEvidence(texNombre(reponse, 2))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
@@ -431,7 +431,7 @@ export default class AgrandirReduireFigure extends Exercice {
           }
           texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}$ implique de multiplier toutes les longueurs par ce coefficient`
           if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
+            texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 3].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 3].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
@@ -443,9 +443,9 @@ export default class AgrandirReduireFigure extends Exercice {
             texteCorr += `${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1), 2)} \\times 3=${texNombre(reponse1, 2)}$`
             texteCorr += `${sp(10)}$(${absD} \\div 4) \\times 3=${texNombre(arrondi(absD / 4, 1), 2)} \\times 3=${texNombre(reponse2, 2)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += `${sp(10)} ou bien ${sp(10)}$${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse, 2)}$`
-            texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1, 2)}$`
-            texteCorr += `${sp(10)}$${absD} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse2, 2)}$`
+            texteCorr += `${sp(10)} ou bien ${sp(10)}$${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 3].den}=${texNombre(reponse, 2)}$`
+            texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 3].den}=${texNombre(reponse1, 2)}$`
+            texteCorr += `${sp(10)}$${absD} \\div ${coefReduction[choixAgrandissementOuReduction - 3].den}=${texNombre(reponse2, 2)}$`
           }
           texteCorr += `<br>Le triangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse, 2))}$ ; $${miseEnEvidence(texNombre(reponse1, 2))}$ et $${miseEnEvidence(texNombre(reponse2, 2))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
@@ -578,7 +578,7 @@ export default class AgrandirReduireFigure extends Exercice {
           texteCorr += `Multiplions toutes les longueurs connues du triangle actuel par $${coefAgrandissement[choixAgrandissementOuReduction]}$`
 
           if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += `, ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
+            texteCorr += `, ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 3].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 3].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += `.<br>$${absB} \\times ${coefAgrandissement[choixAgrandissementOuReduction]}=${texNombre(reponse, 2)}${sp(10)}$`
@@ -587,8 +587,8 @@ export default class AgrandirReduireFigure extends Exercice {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1), 2)} \\times 3=${texNombre(reponse, 2)}$`
             texteCorr += `${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1), 2)} \\times 3=${texNombre(reponse1, 2)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += `${sp(10)} ou bien ${sp(10)}$${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse, 2)}$`
-            texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1, 2)}$`
+            texteCorr += `${sp(10)} ou bien ${sp(10)}$${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 3].den}=${texNombre(reponse, 2)}$`
+            texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 3].den}=${texNombre(reponse1, 2)}$`
           }
           texteCorr += `<br>Le triangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}$ possède donc des côtés de longueur respective $${texNombre(reponse2, 2)}$ ; $${miseEnEvidence(texNombre(reponse1, 2))}$ et $${miseEnEvidence(texNombre(reponse, 2))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
@@ -719,7 +719,7 @@ export default class AgrandirReduireFigure extends Exercice {
           }
           texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}$ implique de multiplier toutes les longueurs par ce coefficient`
           if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
+            texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 3].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 3].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
@@ -729,8 +729,8 @@ export default class AgrandirReduireFigure extends Exercice {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absB} \\div 4) \\times 3=${texNombre(arrondi(absB / 4, 1), 2)} \\times 3=${texNombre(reponse, 2)}$`
             texteCorr += `${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1), 2)} \\times 3=${texNombre(reponse1, 2)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += `${sp(10)} ou bien ${sp(10)}$${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse, 2)}$`
-            texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1, 2)}$`
+            texteCorr += `${sp(10)} ou bien ${sp(10)}$${absB} \\div ${coefReduction[choixAgrandissementOuReduction - 3].den}=${texNombre(reponse, 2)}$`
+            texteCorr += `${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 3].den}=${texNombre(reponse1, 2)}$`
           }
           texteCorr += `<br>Le rectangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse, 2))}$ et $${miseEnEvidence(texNombre(reponse1, 2))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
@@ -845,7 +845,7 @@ export default class AgrandirReduireFigure extends Exercice {
           texteCorr += `Multiplions toutes les longueurs connues du triangle actuel par $${coefAgrandissement[choixAgrandissementOuReduction]}$`
 
           if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 4].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 4].den}$`
+            texteCorr += ` ou bien, comme $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}=${coefReduction[choixAgrandissementOuReduction - 3].texFraction}$, cela revient à diviser toutes les longueurs par $${coefReduction[choixAgrandissementOuReduction - 3].den}$`
             texteCorr += choixAgrandissementOuReduction === 6 ? ' puis multiplier chacun de ces résultats par 3' : ''
           }
           texteCorr += '.<br>'
@@ -853,7 +853,7 @@ export default class AgrandirReduireFigure extends Exercice {
           if (choixAgrandissementOuReduction === 6) {
             texteCorr += `${sp(10)} ou bien ${sp(10)}$(${absC} \\div 4) \\times 3=${texNombre(arrondi(absC / 4, 1), 2)} \\times 3=${texNombre(reponse1, 2)}$`
           } else if (choixAgrandissementOuReduction >= 4) {
-            texteCorr += `${sp(10)} ou bien ${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 4].den}=${texNombre(reponse1, 2)}$`
+            texteCorr += `${sp(10)} ou bien ${sp(10)}$${absC} \\div ${coefReduction[choixAgrandissementOuReduction - 3].den}=${texNombre(reponse1, 2)}$`
           }
           texteCorr += `<br>Le rectangle issu d'un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du rectangle ${nom} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction], 2)}$ possède donc des côtés de longueur respective $${miseEnEvidence(texNombre(reponse, 2))}$ et $${miseEnEvidence(texNombre(reponse1, 2))}$.`
           texteCorr += '<br>En voici, une réalisation ci-dessous.'
