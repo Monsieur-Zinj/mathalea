@@ -56,6 +56,7 @@ export default class AgrandirReduireFigure extends Exercice {
     this.nbQuestions = 4
     this.spacingCorr = 1
     this.spacing = 2
+    this.consigne = 'Dans cet exercices, toutes les longueurs sont données en cm.'
   }
 
   nouvelleVersion () {
