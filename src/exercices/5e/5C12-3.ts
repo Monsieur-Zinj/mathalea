@@ -154,10 +154,10 @@ class DistributiviteNumerique extends Exercice {
       this.rep5[i] = correctionTableau[5]
       if (this.interactif) {
         if (cinqChamps) {
-          const code = sp(2) + remplisLesBlancs(this, i, `= ${texNombre(k, 0)} \\times %{place1} ${listeTypeDeQuestions[i] % 2 === 1 ? '+' : '-'} ${texNombre(k, 0)} \\times %{place2} = %{place3} ${listeTypeDeQuestions[i] % 2 === 1 ? '+' : '-'} %{place4} = %{place5}`, 'ml-2')
+          const code = sp(2) + remplisLesBlancs(this, i, `= ${texNombre(k, 0)} \\times %{champ1} ${listeTypeDeQuestions[i] % 2 === 1 ? '+' : '-'} ${texNombre(k, 0)} \\times %{champ2} = %{champ3} ${listeTypeDeQuestions[i] % 2 === 1 ? '+' : '-'} %{champ4} = %{champ5}`, 'ml-2')
           texte += code
         } else {
-          const code = sp(2) + remplisLesBlancs(this, i, ` = ${texNombre(k, 0)} \\times (%{place1} ${listeTypeDeQuestions[i] % 2 === 1 ? '+' : '-'} %{place2}) = ${texNombre(k, 0)} \\times %{place3} = %{place4}`, 'ml-2')
+          const code = sp(2) + remplisLesBlancs(this, i, ` = ${texNombre(k, 0)} \\times (%{champ1} ${listeTypeDeQuestions[i] % 2 === 1 ? '+' : '-'} %{champ2}) = ${texNombre(k, 0)} \\times %{champ3} = %{champ4}`, 'ml-2')
           texte += code
         }
         texte += ajouteFeedback(this, i)
@@ -218,17 +218,17 @@ class DistributiviteNumerique extends Exercice {
     this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
     // C'est dommage d'utiliser ce divFeedback pour y mettre juste un smiley !
     const divFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
-    const test1 = ce.parse(mf.getPromptValue('place1')).isSame(ce.parse(`${this.rep1[i]}`))
-    const test2 = ce.parse(mf.getPromptValue('place2')).isSame(ce.parse(`${this.rep2[i]}`))
-    const test3 = ce.parse(mf.getPromptValue('place3')).isSame(ce.parse(`${this.rep3[i]}`))
-    const test4 = ce.parse(mf.getPromptValue('place4')).isSame(ce.parse(`${this.rep4[i]}`))
-    mf.setPromptState('place1', test1 ? 'correct' : 'incorrect', true)
-    mf.setPromptState('place2', test2 ? 'correct' : 'incorrect', true)
-    mf.setPromptState('place3', test3 ? 'correct' : 'incorrect', true)
-    mf.setPromptState('place4', test4 ? 'correct' : 'incorrect', true)
+    const test1 = ce.parse(mf.getPromptValue('champ1')).isSame(ce.parse(`${this.rep1[i]}`))
+    const test2 = ce.parse(mf.getPromptValue('champ2')).isSame(ce.parse(`${this.rep2[i]}`))
+    const test3 = ce.parse(mf.getPromptValue('champ3')).isSame(ce.parse(`${this.rep3[i]}`))
+    const test4 = ce.parse(mf.getPromptValue('champ4')).isSame(ce.parse(`${this.rep4[i]}`))
+    mf.setPromptState('champ1', test1 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('champ2', test2 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('champ3', test3 ? 'correct' : 'incorrect', true)
+    mf.setPromptState('champ4', test4 ? 'correct' : 'incorrect', true)
     if (this.typeQuestion[i] === 1) {
-      const test5 = ce.parse(mf.getPromptValue('place5')).isSame(ce.parse(`${this.rep5[i]}`))
-      mf.setPromptState('place5', test5 ? 'correct' : 'incorrect', true)
+      const test5 = ce.parse(mf.getPromptValue('champ5')).isSame(ce.parse(`${this.rep5[i]}`))
+      mf.setPromptState('champ5', test5 ? 'correct' : 'incorrect', true)
       if (test1 && test2 && test3 && test4) { // question à 5 champs test5 est pour la réponse finale
         result.push('OK')
         if (divFeedback) divFeedback.innerHTML = '😎'

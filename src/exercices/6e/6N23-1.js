@@ -77,16 +77,16 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           ecritureDecimale = texNombre(arrondi(u + d / 10 + c / 100, 2))
           texteCorr = `$${fraction(n, 100).texFraction}=${u}+${fraction(d, 10).texFraction}+${fraction(c, 100).texFraction}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            const content = `${fraction(n, 100).texFraction}~=~ %{unite} + \\dfrac{%{dixieme}}{10} + \\dfrac{%{centieme}}{100}~=~%{ecritureDecimale}`
+            const content = `${fraction(n, 100).texFraction}~=~ %{champ1} + \\dfrac{%{champ2}}{10} + \\dfrac{%{champ3}}{100}~=~%{champ4}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
-              unite: { value: u },
-              dixieme: { value: d },
-              centieme: { value: c },
-              ecritureDecimale: { value: arrondi(u + d / 10 + c / 100, 2) }
+              champ1: { value: u },
+              champ2: { value: d },
+              champ3: { value: c },
+              champ4: { value: arrondi(u + d / 10 + c / 100, 2) }
             },
-            { formatInteractif: 'fillInTheBlank' }
+            { formatInteractif: 'mathlive' }
             )
           } else {
             texte = `$${fraction(n, 100).texFraction}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(context.isAmc ? 'b' : '\\ldots\\ldots', '10')}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', '100')}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
@@ -174,16 +174,16 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                         100
                     )}+${texFraction(d, 10)}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            const content = `${fraction(n, 100).texFraction}~=~ %{unite} + \\dfrac{%{centieme}}{100} + \\dfrac{%{dixieme}}{10}~=~%{ecritureDecimale}`
+            const content = `${fraction(n, 100).texFraction}~=~ %{champ1} + \\dfrac{%{champ2}}{100} + \\dfrac{%{champ3}}{10}~=~%{champ4}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
-              unite: { value: u },
-              dixieme: { value: d },
-              centieme: { value: c },
-              ecritureDecimale: { value: arrondi(u + d / 10 + c / 100, 2) }
+              champ1: { value: u },
+              champ3: { value: d },
+              champ2: { value: c },
+              champ4: { value: arrondi(u + d / 10 + c / 100, 2) }
             },
-            { formatInteractif: 'fillInTheBlank' }
+            { formatInteractif: 'mathlive' }
             )
           } else {
             texte = `$${texFraction(n, '100')}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(
@@ -274,15 +274,15 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
                         '10'
                     )}+${texFraction(c, '100')}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            const content = `\\dfrac{%{num}}{%{den}}~=~ ${u} + \\dfrac{${d}}{10} + \\dfrac{${c}}{100}~=~%{ecritureDecimale}`
+            const content = `\\dfrac{%{champ1}}{%{champ2}}~=~ ${u} + \\dfrac{${d}}{10} + \\dfrac{${c}}{100}~=~%{champ3}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
-              num: { value: n },
-              den: { value: 100 },
-              ecritureDecimale: { value: arrondi(u + d / 10 + c / 100, 2) }
+              champ1: { value: n },
+              champ2: { value: 100 },
+              champ3: { value: arrondi(u + d / 10 + c / 100, 2) }
             },
-            { formatInteractif: 'fillInTheBlank' }
+            { formatInteractif: 'mathlive' }
             )
           } else {
             texte = `$${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(
@@ -334,13 +334,13 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
         case 4: // u = .../10
           texteCorr = `$${u}=${texFraction(10 * u, '10')}$`
           if (this.interactif && !context.isAmc) {
-            const content = `${u}~=~\\dfrac{%{dixieme}}{10}`
+            const content = `${u}~=~\\dfrac{%{champ1}}{10}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
-              dixieme: { value: u * 10 }
+              champ1: { value: u * 10 }
             },
-            { formatInteractif: 'fillInTheBlank' }
+            { formatInteractif: 'mathlive' }
             )
           } else {
             texte = `$${u}=${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '10')}$`
@@ -372,13 +372,13 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
         case 5: // u = .../100
           texteCorr = `$${u}=${texFraction(100 * u, '100')}$`
           if (this.interactif && !context.isAmc) {
-            const content = `${u}~=~\\dfrac{%{centieme}}{100}`
+            const content = `${u}~=~\\dfrac{%{champ1}}{100}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * 2, 2],
-              centieme: { value: u * 100 }
+              champ1: { value: u * 100 }
             },
-            { formatInteractif: 'fillInTheBlank' }
+            { formatInteractif: 'mathlive' }
             )
           } else {
             texte = `$${u}=${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}$`
@@ -410,16 +410,16 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           ecritureDecimale = texNombre(arrondi(n / 10, 1))
           texteCorr = `$${texFraction(n, 10)}=${u * 10 + d}+${texFraction(c, 10)}+${texFraction(0, 100)}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            const content = `\\dfrac{${n}}{10}~=~ %{unite} + \\dfrac{%{dixieme}}{10} + \\dfrac{%{centieme}}{100}~=~%{ecritureDecimale}`
+            const content = `\\dfrac{${n}}{10}~=~ %{champ1} + \\dfrac{%{champ2}}{10} + \\dfrac{%{champ3}}{100}~=~%{champ4}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] * listePoints[1] * listePoints[2] + listePoints[3], 2],
-              unite: { value: u * 10 + d },
-              dixieme: { value: c },
-              centieme: { value: 0 },
-              ecritureDecimale: { value: arrondi(u * 10 + d + c / 10, 2) }
+              champ1: { value: u * 10 + d },
+              champ2: { value: c },
+              champ3: { value: 0 },
+              champ4: { value: arrondi(u * 10 + d + c / 10, 2) }
             },
-            { formatInteractif: 'fillInTheBlank' }
+            { formatInteractif: 'mathlive' }
             )
           } else {
             texte = `$${texFraction(n, 10)}=${context.isAmc ? 'a' : '\\ldots\\ldots'}+${texFraction(context.isAmc ? 'b' : '\\ldots\\ldots', 10)}+${texFraction(context.isAmc ? 'c' : '\\ldots\\ldots', 100)}=${context.isAmc ? 'd' : '\\ldots\\ldots'}$`
@@ -504,14 +504,14 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
           ecritureDecimale = texNombre(arrondi(u + d / 10, 1))
           texteCorr = `$${texFraction(n, '100')}=${u}+${texFraction(d, '10')}=${ecritureDecimale}$`
           if (this.interactif && !context.isAmc) {
-            const content = `\\dfrac{%{num}}{100}~=~ ${u} + \\dfrac{${d}}{10}~=~%{ecritureDecimale}`
+            const content = `\\dfrac{%{champ1}}{100}~=~ ${u} + \\dfrac{${d}}{10}~=~%{champ2}`
             texte = remplisLesBlancs(this, i, content)
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-              num: { value: n },
-              ecritureDecimale: { value: arrondi(u + d / 10, 1) }
+              champ1: { value: n },
+              champ2: { value: arrondi(u + d / 10, 1) }
             },
-            { formatInteractif: 'fillInTheBlank' }
+            { formatInteractif: 'mathlive' }
             )
           } else {
             texte = `$${texFraction(context.isAmc ? 'a' : '\\ldots\\ldots', '100')}=${u}+${texFraction(d, '10')}=${context.isAmc ? 'b' : '\\ldots\\ldots'}$`
