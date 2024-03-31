@@ -5,7 +5,7 @@ import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
@@ -104,7 +104,7 @@ export default function DiffentesEcrituresProportions () {
 
           texte = 'Écrire sous la forme d\'une écriture fractionnaire de dénominateur $100$, puis sous la forme d\'un pourcentage.<br>'
           if (this.interactif) {
-            texte += remplisLesBlancs(this, i, `$${texNombre(dec, 4)}=\\dfrac{%{num1}}{%{num2}}=%{num3}\\%`, KeyboardType.clavierDeBase, '\\ldots\\ldots')
+            texte += remplisLesBlancs(this, i, `$${texNombre(dec, 4)}=\\dfrac{%{champ1}}{%{champ2}}=%{champ3}\\%`, KeyboardType.clavierDeBase, '\\ldots\\ldots')
           } else {
             if (context.isHtml) {
               texte += ''
@@ -119,13 +119,13 @@ export default function DiffentesEcrituresProportions () {
             }
           }
           texteCorr = `$${texNombre(dec, 4)}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}=${miseEnEvidence(texNombre(pourc, 3))} \\,\\%$`
-          setReponse(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], num1: { value: pourc.toFixed(4) }, num2: { value: String(100) }, num3: { value: pourc.toFixed(4) } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2], champ1: { value: pourc.toFixed(4) }, champ2: { value: String(100) }, champ3: { value: pourc.toFixed(4) } }, { formatInteractif: 'mathlive' })
           break
 
         case 'Pourcentage':
           texte = 'Écrire sous forme décimale, puis sous la forme d\'une écriture fractionnaire de dénominateur $100$.<br>'
           if (this.interactif) {
-            texte += remplisLesBlancs(this, i, `$${texNombre(pourc, 4)}\\,\\%=%{num1}=\\dfrac{%{num2}}{%{num3}}`, KeyboardType.clavierDeBase, '\\ldots\\ldots')
+            texte += remplisLesBlancs(this, i, `$${texNombre(pourc, 4)}\\,\\%=%{champ1}=\\dfrac{%{champ2}}{%{champ3}}`, KeyboardType.clavierDeBase, '\\ldots\\ldots')
           } else {
             if (context.isHtml) {
               texte += ''
@@ -140,13 +140,13 @@ export default function DiffentesEcrituresProportions () {
             }
           }
           texteCorr = `$${texNombre(pourc, 3)}\\,\\%=${miseEnEvidence(texNombre(dec, 4))}=\\dfrac{${miseEnEvidence(texNombre(pourc, 3))}}{${miseEnEvidence(100)}}$`
-          setReponse(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1] * listePoints[2], 2], num1: { value: dec.toFixed(4) }, num2: { value: pourc.toFixed(4) }, num3: { value: String(100) } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1] * listePoints[2], 2], champ1: { value: dec.toFixed(4) }, champ2: { value: pourc.toFixed(4) }, champ3: { value: String(100) } }, { formatInteractif: 'mathlive' })
 
           break
         case 'Fraction':
           texte = 'Écrire sous forme décimale, puis sous la forme d\'un pourcentage.<br>'
           if (this.interactif) {
-            texte += remplisLesBlancs(this, i, `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=%{num1}=%{num2}\\%`, KeyboardType.clavierDeBase, '\\ldots\\ldots')
+            texte += remplisLesBlancs(this, i, `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=%{champ1}=%{champ2}\\%`, KeyboardType.clavierDeBase, '\\ldots\\ldots')
           } else {
             if (context.isHtml) {
               texte += ''
@@ -162,7 +162,7 @@ export default function DiffentesEcrituresProportions () {
           }
 
           texteCorr = `$\\dfrac{${texNombre(n, 0)}}{${texNombre(d, 0)}}=${miseEnEvidence(texNombre(f, 4))}=${miseEnEvidence(texNombre(f * 100, 4))}\\,\\%$`
-          setReponse(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], num1: { value: f.toFixed(4) }, num2: { value: (f * 100).toFixed(4) } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0] + listePoints[1], 2], champ1: { value: f.toFixed(4) }, champ2: { value: (f * 100).toFixed(4) } }, { formatInteractif: 'mathlive' })
           break
       }
 

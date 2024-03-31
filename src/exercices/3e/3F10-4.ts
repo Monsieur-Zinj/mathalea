@@ -135,18 +135,18 @@ class LireImageParApiGeom extends Exercice {
     const xs = this.X.map(el => texNombre(el, 1))
 
     if (this.interactif) {
-      const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'college6eme nospacebefore', true, {})
+      const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'clavierDeBase', true, {})
       enonce += '<br>' + tabMathlive.output
     } else {
       if (context.isHtml) {
-        const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'college6eme nospacebefore', false, {})
+        const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'clavierDeBase', false, {})
         enonce += tabMathlive.output
       } else {
         const tabVideTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs.map(() => ''), 1, true, this.numeroExercice, 0)
         enonce += tabVideTex
       }
     }
-    const tableauValeur = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2, nbColonnes }, 'college6eme nospacebefore', false, {})
+    const tableauValeur = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2, nbColonnes }, 'clavierDeBase', false, {})
     const tabValeurTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs, 1, true, this.numeroExercice, 0)
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')

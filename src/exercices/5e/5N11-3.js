@@ -59,14 +59,14 @@ export default function FractionVersPourcentage () {
       percenti = Math.round(num * 100 / den)
       if (this.sup === 1) {
         this.interactifType = 'custom'
-        texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{num1}}{%{den1}}=\\dfrac{%{num2}}{100}=%{percent}\\%`, 'college6e', '\\ldots\\ldots')
+        texte = remplisLesBlancs(this, i, `\\dfrac{${num}}{${den}}=\\dfrac{%{champ1}}{%{champ2}}=\\dfrac{%{champ3}}{100}=%{percent}\\%`, 'college6e', '\\ldots\\ldots')
         texte += ajouteFeedback(this, i)
         if (den < 100) {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\times${100 / den}}}{${den}{\\color{blue}\\times${100 / den}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         } else {
           texteCorr = `$\\dfrac{${num}}{${texNombre(den)}}=\\dfrac{${num}{\\color{blue}\\div${den / 100}}}{${den}{\\color{blue}\\div${den / 100}}}=\\dfrac{${percenti}}{100}=${percenti}~\\%$`
         }
-        setReponse(this, i, { num1: { value: '' }, num2: { value: String(percenti) }, percent: { value: String(percenti) } }, { formatInteractif: 'fillInTheBlank', digits: 3, decimals: 0 })
+        setReponse(this, i, { champ1: { value: '' }, champ2: { value: String(percenti) }, champ3: { value: String(percenti) } }, { formatInteractif: 'fillInTheBlank', digits: 3, decimals: 0 })
       } else {
         this.interactifType = 'mathLive'
         texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
@@ -95,9 +95,9 @@ export default function FractionVersPourcentage () {
     } else {
       this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
       const spanResultat = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q${i}`)
-      const num1 = mf.getPromptValue('num1')
-      const num2 = mf.getPromptValue('num2')
-      const den1 = mf.getPromptValue('den1')
+      const num1 = mf.getPromptValue('champ1')
+      const num2 = mf.getPromptValue('champ3')
+      const den1 = mf.getPromptValue('champ2')
       const percent = mf.getPromptValue('percent')
       const test1 = ce.parse(`\\frac{${num1.replace(',', '.')}}{${den1}}`, { canonical: true }).isEqual(ce.parse(`\\frac{${reponseAttendue}}{${100}}`))
       const test1Bis = ce.parse(den1).isEqual(ce.parse('100'))
