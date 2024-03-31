@@ -5,7 +5,7 @@ import { nommePolygone, polygone } from '../../lib/2d/polygones.js'
 import { longueur } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation, similitude } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { arrondi } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -19,7 +19,7 @@ import engine from '../../lib/interactif/comparisonFunctions'
 import { ordreAlphabetique } from '../../lib/outils/ecritures'
 
 export const titre = 'Calculer une longueur avec le théorème de Pythagore'
-export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCHybride'
 export const amcReady = true
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -215,16 +215,46 @@ export default function Pythagore2D () {
         }
         texteCorr = redaction[0]
         texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[longueurs]', { texteApres: '<em class="ml-2">(Une unité de longueur est attendue.)</em>' })) : ''
-        context.isAmc
-          ? setReponse(this, i, reponse)
-          : setReponse(this, i, new Grandeur(reponse, 'cm'), {
+        if (this.interactif) {
+          setReponse(this, i, new Grandeur(reponse, 'cm'), {
             formatInteractif: 'unites',
             precision: 1
           })
+        }
 
         if (context.isAmc) {
-          this.autoCorrection[i].propositions = [{ statut: 3, texte: texteCorr }]
-          this.autoCorrection[i].enonce = 'Calculer la longueur manquante.\\\\' + texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            enonceAvant: false,
+            propositions: [
+              {
+                type: 'AMCOpen',
+                propositions: [{
+                  enonce: 'Calculer la longueur manquante.\\\\',
+                  statut: 3,
+                  pointilles: true,
+                  multicolsBegin: true
+                }]
+              },
+              {
+                type: 'AMCNum',
+                propositions: [{
+                  texte: '',
+                  statut: '',
+                  multicolsEnd: true,
+                  reponse: {
+                    texte: texte + 'longueur arrondie à 0,1 cm : ',
+                    valeur: [reponse.toFixed(1)],
+                    param: {
+                      digits: Math.max(nombreDeChiffresDe(reponse), 2),
+                      decimals: 1,
+                      signe: false
+                    }
+                  }
+                }]
+              }
+            ]
+          }
         }
       } else {
         const hypotenuse = [`\\mathrm{${ordreAlphabetique(B.nom + C.nom)}}^2`, `\\mathrm{${ordreAlphabetique(C.nom + B.nom)}}^2`]

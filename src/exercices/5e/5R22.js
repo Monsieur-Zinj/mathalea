@@ -19,7 +19,7 @@ export const titre = 'Effectuer un enchaînement d\'additions et de soustraction
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
-export const amcType = 'AMCOpenNum'
+export const amcType = 'AMCHybride'
 
 /**
  * Effectuer la somme ou la différence de plusieurs relatifs
@@ -139,52 +139,78 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
           setReponse(this, i, a + s1 * b + s2 * c + s3 * d + s4 * e, { signe: true })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: this.consigne + '<br>' + texte,
+              enonce: '',
+              enonceAvant: false,
+              options: { multicols: true },
               propositions: [
                 {
-                  texte: texteCorr,
-                  statut: 3,
-                  feedback: ''
+                  type: 'AMCOpen',
+                  propositions: [{
+                    enonce: this.consigne + '<br>' + texte,
+                    texte: texteCorr,
+                    statut: 3,
+                    pointilles: true
+                  }]
+                },
+                {
+                  type: 'AMCNum',
+                  propositions: [{
+                    texte: '',
+                    statut: '',
+                    reponse: {
+                      texte: 'Résultat',
+                      valeur: [a + s1 * b + s2 * c + s3 * d + s4 * e],
+                      param: {
+                        digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + s1 * b + s2 * c + s3 * d + s4 * e)),
+                        decimals: 0,
+                        signe: true,
+                        exposantNbChiffres: 0,
+                        exposantSigne: false,
+                        approx: 0
+                      }
+                    }
+                  }]
                 }
-              ],
-              reponse: {
-                texte: 'résultat',
-                valeur: a + s1 * b + s2 * c + s3 * d + s4 * e,
-                param: {
-                  digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + s1 * b + s2 * c + s3 * d + s4 * e)),
-                  decimals: 0,
-                  signe: true,
-                  exposantNbChiffres: 0,
-                  exposantSigne: false,
-                  approx: 0
-                }
-              }
+              ]
             }
           }
         } else {
           setReponse(this, i, a + b + c + d + e, { signe: true })
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: this.consigne + '<br>' + texte,
+              enonce: '',
+              enonceAvant: false,
+              options: { multicols: true },
               propositions: [
                 {
-                  texte: texteCorr,
-                  statut: 3,
-                  feedback: ''
+                  type: 'AMCOpen',
+                  propositions: [{
+                    enonce: this.consigne + '<br>' + texte,
+                    texte: texteCorr,
+                    statut: 3,
+                    pointilles: true
+                  }]
+                },
+                {
+                  type: 'AMCNum',
+                  propositions: [{
+                    texte: '',
+                    statut: '',
+                    reponse: {
+                      texte: 'Résultat',
+                      valeur: [a + b + c + d + e],
+                      param: {
+                        digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b + c + d + e)),
+                        decimals: 0,
+                        signe: true,
+                        exposantNbChiffres: 0,
+                        exposantSigne: false,
+                        approx: 0
+                      }
+                    }
+                  }]
                 }
-              ],
-              reponse: {
-                texte: 'résultat',
-                valeur: a + b + c + d + e,
-                param: {
-                  digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b + c + d + e)),
-                  decimals: 0,
-                  signe: true,
-                  exposantNbChiffres: 0,
-                  exposantSigne: false,
-                  approx: 0
-                }
-              }
+              ]
             }
           }
         }

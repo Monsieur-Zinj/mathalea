@@ -14,7 +14,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Déterminer une fonction affine'
 export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2'
+export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -130,25 +130,65 @@ export default function LectureExpressionFonctionsAffines () {
     }
     if (context.isAmc) {
       this.autoCorrection[0] = {
-        enonce: "Déterminer l'expression  de la fonction représentée ci-dessous : <br>" + mathalea2d({
-          xmin,
-          ymin,
-          xmax,
-          ymax,
-          pixelsParCm: 30,
-          scale: 0.5
-        }, objets2d) + '<br>',
-        propositions: [{ texte: explain, statut: 2 }],
-        reponse: {
-          texte: 'coefficient',
-          valeur: pente[0],
-          param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
-        },
-        reponse2: {
-          texte: "ordonnée \\\\\nà l'origine",
-          valeur: listeDroites[0][0],
-          param: { digits: 1, decimals: 0, signe: true, exposantNbChiffres: 0, exposantSigne: false, approx: 0 }
-        }
+        enonce: '',
+        enonceAvant: false,
+        options: { multicolsAll: true },
+        propositions: [
+          {
+            type: 'AMCOpen',
+            propositions: [{
+              enonce: "Déterminer l'expression  de la fonction représentée ci-dessous : \\\\" + mathalea2d({
+                xmin,
+                ymin,
+                xmax,
+                ymax,
+                pixelsParCm: 30,
+                scale: 0.5
+              }, objets2d),
+              texte: explain,
+              statut: 2,
+              pointilles: true
+            }]
+          },
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: '',
+              statut: '',
+              reponse: {
+                texte: 'Coefficient',
+                valeur: [pente[0]],
+                param: {
+                  digits: 1,
+                  decimals: 0,
+                  signe: true,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
+              }
+            }]
+          },
+          {
+            type: 'AMCNum',
+            propositions: [{
+              texte: '',
+              statut: '',
+              reponse: {
+                texte: 'Ordonnée à l\'origine',
+                valeur: [listeDroites[0][0]],
+                param: {
+                  digits: 1,
+                  decimals: 0,
+                  signe: true,
+                  exposantNbChiffres: 0,
+                  exposantSigne: false,
+                  approx: 0
+                }
+              }
+            }]
+          }
+        ]
       }
     }
   }

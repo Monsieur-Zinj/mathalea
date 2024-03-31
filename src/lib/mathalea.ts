@@ -613,7 +613,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
             value,
             compare
           }
-        }, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
+        }, { formatInteractif: exercice.formatInteractif ?? 'mathlive' })
       } else {
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
       }

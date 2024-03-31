@@ -1,7 +1,7 @@
 import LectureExpressionFonctionsAffines from './3F21-1.js'
 export const titre = 'Déterminer une fonction linéaire'
 export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2'
+export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

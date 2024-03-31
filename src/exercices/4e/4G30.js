@@ -1,6 +1,6 @@
 import Thales2D from './_Thales2D.js'
 export const amcReady = true
-export const amcType = 'AMCOpenNum✖︎2'
+export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Calculer des longueurs avec le théorème de Thalès'
