@@ -38,14 +38,14 @@
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
   let interfaceParams : InterfaceParams = get(exercicesParams)[exerciseIndex]
-  let exercicesNumber : number =  get(exercicesParams).length
+  let exercicesNumber : number = get(exercicesParams).length
 
-  const subscribeExercicesParamsStore = exercicesParams.subscribe(value =>{
-    if (JSON.stringify(value[exerciseIndex]) !== JSON.stringify(interfaceParams)){
+  const subscribeExercicesParamsStore = exercicesParams.subscribe(value => {
+    if (JSON.stringify(value[exerciseIndex]) !== JSON.stringify(interfaceParams)) {
       interfaceParams = value[exerciseIndex]
     }
-    if (exercicesNumber !==  value.length){
-      exercicesNumber =  value.length
+    if (exercicesNumber !== value.length) {
+      exercicesNumber = value.length
     }
   })
 
@@ -77,7 +77,7 @@
   const generateTitleAddendum = (): string => {
     const ranks = exercisesUuidRanking(get(exercicesParams))
     const counts = uuidCount(get(exercicesParams))
-    if ( interfaceParams && interfaceParams.uuid && counts[interfaceParams.uuid] > 1 ) {
+    if (interfaceParams && interfaceParams.uuid && counts[interfaceParams.uuid] > 1) {
       return '|' + ranks[exerciseIndex]
     } else {
       return ''
@@ -160,13 +160,13 @@
   }
 
   function log (str : string) {
-    let debug = false 
+    const debug = false
     if (debug) {
       console.log(str)
     }
   }
 
-  beforeUpdate( ()=>{
+  beforeUpdate(() => {
     log('beforeUpdate:' + exercise.id)
     if (JSON.stringify(get(exercicesParams)[exerciseIndex]) !== JSON.stringify(interfaceParams)){
       // interface à changer car un exercice a été supprimé au dessus...
@@ -175,7 +175,7 @@
   })
 
   onMount(async () => {
-    log('onMount:'  + exercise.id)
+    log('onMount:' + exercise.id)
     document.addEventListener('newDataForAll', newData)
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
@@ -317,40 +317,40 @@
       mathaleaHandleExerciceSimple(exercise, Boolean(isInteractif))
     }
     exercise.interactif = isInteractif
-    if (interfaceParams.alea !== exercise.seed && exercise.seed!==undefined) {
+    if (interfaceParams.alea !== exercise.seed && exercise.seed !== undefined) {
       // on met à jour le storer seulement si besoin
       exercicesParams.update(list => {
-        list[exerciseIndex].alea =  exercise.seed
+        list[exerciseIndex].alea = exercise.seed
         return list
       })
     }
     if (interfaceParams.interactif !== (isInteractif ? '1' : '0')) {
-       // on met à jour le storer seulement si besoin
+      // on met à jour le storer seulement si besoin
       exercicesParams.update(list => {
-        list[exerciseIndex].interactif =  isInteractif ? '1' : '0'
+        list[exerciseIndex].interactif = isInteractif ? '1' : '0'
         return list
       })
     }
     if (interfaceParams.cols !== columnsCount) {
       // on met à jour le storer seulement si besoin
-      if (columnsCount === 1 && interfaceParams.cols !== undefined){
+      if (columnsCount === 1 && interfaceParams.cols !== undefined) {
         exercicesParams.update(list => {
-          list[exerciseIndex].cols =  undefined
+          list[exerciseIndex].cols = undefined
           return list
         })
-      } else if (columnsCount > 1 && interfaceParams.cols !== columnsCount ){
+      } else if (columnsCount > 1 && interfaceParams.cols !== columnsCount) {
         exercicesParams.update(list => {
-          list[exerciseIndex].cols =  columnsCount
+          list[exerciseIndex].cols = columnsCount
           return list
         })
       }
-    }  
+    }
     exercise.numeroExercice = exerciseIndex
     if (
       exercise.typeExercice !== 'simple' &&
-      typeof exercise.nouvelleVersion === 'function'
+      typeof exercise.nouvelleVersionWrapper === 'function'
     ) {
-      exercise.nouvelleVersion(exerciseIndex)
+      exercise.nouvelleVersionWrapper(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams()
     await adjustMathalea2dFiguresWidth()

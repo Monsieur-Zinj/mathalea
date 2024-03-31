@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type Grandeur from '../modules/Grandeur'
-import FractionEtendue from '../modules/FractionEtendue'
+import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
 
 /**
  *
@@ -199,73 +199,17 @@ export default class Exercice {
     this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
     this.answers = {}
     this.listeAvecNumerotation = true
-
-    /**
-   * Compare chaque nouvelle version d'un exercice aux précédentes pour s'assurer de ne pas avoir deux exercices identiques
-   * @param {int} i indice de la question
-   * @param  {...any} args toutes les variables pertinentes qui "résumeraient" la question
-   * @returns {boolean} true si la question n'a jamais été posée
-   */
   }
+
+  nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)
 
   nouvelleVersion (numeroExercice?: number): void {
     console.log(numeroExercice)
   }
 
-  reinit () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.listeArguments = []
-    this.autoCorrection = []
-  }
+  reinit = exportedReinit.bind(this as Exercice)
 
-  applyNewSeed () {
-    const seed = generateSeed({
-      includeUpperCase: true,
-      includeNumbers: true,
-      length: 4,
-      startsWithLowerCase: false
-    })
-    this.seed = seed
-  }
+  applyNewSeed = exportedApplyNewSeed.bind(this as Exercice)
 
-  questionJamaisPosee (i: number, ...args:(string|number|FractionEtendue)[]) {
-    if (i === 0) this.listeArguments = []
-    let argsConcatenes = ''
-    for (const arg of args) {
-      if (arg !== undefined) argsConcatenes += (arg instanceof FractionEtendue ? arg.texFraction : arg.toString())
-    }
-    if (this.listeArguments != null && this.listeArguments.indexOf(argsConcatenes) > -1) {
-      return false
-    } else if (this.listeArguments != null) {
-      this.listeArguments.push(argsConcatenes)
-      return true
-    }
-  }
-}
-
-function generateSeed ({ includeUpperCase = true, includeNumbers = true, length = 4, startsWithLowerCase = false }: { includeUpperCase?: boolean, includeNumbers?: boolean, length?: number, startsWithLowerCase?: boolean } = {}) {
-  let a = 10
-  const b = 'abcdefghijklmnopqrstuvwxyz'
-  let c = ''
-  let d = 0
-  let e = '' + b
-  if (startsWithLowerCase) {
-    c = b[Math.floor(Math.random() * b.length)]
-    d = 1
-  }
-  if (length) {
-    a = length
-  }
-  if (includeUpperCase) {
-    e += b.toUpperCase()
-  }
-  if (includeNumbers) {
-    e += '1234567890'
-  }
-
-  for (; d < a; d++) {
-    c += e[Math.floor(Math.random() * e.length)]
-  }
-  return c
+  questionJamaisPosee = exportedQuestionJamaisPosee.bind(this as Exercice)
 }

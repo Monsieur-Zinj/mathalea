@@ -75,7 +75,7 @@ class Latex {
         exercice.seed = seed
         if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
         seedrandom(seed, { global: true })
-        if (typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion()
+        if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
       }
     }
     if (style === 'Can') {
@@ -161,7 +161,7 @@ class Latex {
       exercice.seed = seed
       if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
       seedrandom(seed, { global: true })
-      if (typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion()
+      if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
     }
     for (const exercice of this.exercices) {
       content += `\n% @see : ${getUrlFromExercice(exercice)}`

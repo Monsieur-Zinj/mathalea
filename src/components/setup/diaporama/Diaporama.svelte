@@ -150,7 +150,7 @@
           mathaleaHandleExerciceSimple(exercice, false)
         }
         seedrandom(exercice.seed, { global: true })
-        exercice.nouvelleVersion?.()
+        exercice.nouvelleVersionWrapper?.()
         let consigne: string = ''
         if ($selectedExercises.indexes.includes(k)) {
           if (exercice.introduction) {

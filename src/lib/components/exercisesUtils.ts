@@ -121,8 +121,8 @@ export const splitExercisesIntoQuestions = (
       seedrandom(exercice.seed, { global: true })
     }
     exercice.numeroExercice = k
-    if (exercice.nouvelleVersion !== undefined) {
-      exercice.nouvelleVersion(k)
+    if (exercice.nouvelleVersionWrapper !== undefined) {
+      exercice.nouvelleVersionWrapper(k)
     }
     isCorrectionVisible[k] = false
     const cumulConsignesCorrections = []

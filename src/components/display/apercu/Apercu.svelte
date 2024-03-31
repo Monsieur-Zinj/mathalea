@@ -89,7 +89,7 @@
           mathaleaHandleExerciceSimple(exercice, false)
         }
         seedrandom(exercice.seed, { global: true })
-        exercice.nouvelleVersion?.()
+        exercice.nouvelleVersionWrapper?.()
         if ($selectedExercises.indexes.includes(k)) {
           questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
           corrections[idVue] = [
