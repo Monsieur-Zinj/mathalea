@@ -39,7 +39,8 @@ async function readInfos (dirPath, uuidMap, exercicesNonInteractifs, refToUuid, 
           !file.startsWith('_') &&
           file !== 'deprecatedExercice.js' &&
           file !== 'MetaExerciceCan.ts' &&
-          file !== 'Exercice.ts'
+          file !== 'Exercice.ts' &&
+          file !== 'exerciseMethods.ts'
         ) {
           const infos = {}
           const data = await fs.readFile(filePath, 'utf8')

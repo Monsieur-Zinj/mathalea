@@ -12,6 +12,9 @@ export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 export const dateDePublication = '28/03/2024'
 export const uuid = 'fade2'
+export const refs = {
+  'fr-ch': ['11FA6-3']
+}
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
