@@ -26,40 +26,65 @@ export default class EvolutionPourcentages extends Exercice {
   nouvelleVersion () {
     const a = this.canOfficielle ? 10 : randint(10, 30)
     const b = this.canOfficielle ? 20 : randint(35, 60)
-
+    const choix = this.canOfficielle ? 1 : randint(1, 2)
     if (this.canOfficielle) {
       this.reponse = 'VRAI'
-    } else {
-      this.reponse = 'VRAI'
     }
-    this.correction = `Le coefficient multiplicateur global est le produit des coefficients multiplicateurs.<br>
+    if (choix === 1) {
+      this.correction = `Le coefficient multiplicateur global est le produit des coefficients multiplicateurs.<br>
     Le coefficient multiplicateur associé à une augmentation de $${a}\\,\\%$ est $${texNombre(1 + a / 100, 2)}$ et celui associé à une diminution de 
     $${b}\\,\\%$ est $${texNombre(1 - b / 100, 2)}$.<br> 
     Le coefficient multiplicateur gobal est  $${texNombre(1 + a / 100, 2)}\\times ${texNombre(1 - b / 100, 2)}$ dans un cas ou $${texNombre(1 - b / 100, 2)}\\times ${texNombre(1 + a / 100, 2)}$ dans l'autre cas, ce qui revient strictement au même. 
     <br>
   L'affirmation est donc  ${texteEnCouleurEtGras('VRAIE')}.`
+      this.reponse = 'VRAI'
+      this.autoCorrection[0] = {
+        options: { ordered: true },
+        propositions: [
+          {
+            texte: 'VRAI ',
+            statut: true
+          },
+          {
+            texte: 'FAUX',
+            statut: false
+          }
+        ]
 
-    this.autoCorrection[0] = {
-      options: { ordered: true },
-      propositions: [
-        {
-          texte: 'VRAI ',
-          statut: true
-        },
-        {
-          texte: 'FAUX',
-          statut: false
-        }
-      ]
+      }
+      const qcm = propositionsQcm(this, 0)
 
-    }
-    const qcm = propositionsQcm(this, 0)
-
-    this.question = `Augmenter un prix de $${a}\\,\\%$ puis le  diminuer de $${b}\\,\\%$ revient à le
+      this.question = `Augmenter un prix de $${a}\\,\\%$ puis le  diminuer de $${b}\\,\\%$ revient à le
     diminuer de $${b}\\,\\%$  puis à l’augmenter $${a}\\,\\%$.` + qcm.texte
 
-    this.canEnonce = `Augmenter un prix de $${a}\\,\\%$ puis le  diminuer de $${b}\\,\\%$ revient à le
+      this.canEnonce = `Augmenter un prix de $${a}\\,\\%$ puis le  diminuer de $${b}\\,\\%$ revient à le
     diminuer de $${b}\\,\\%$  puis à l’augmenter $${a}\\,\\%$.`
-    this.canReponseACompleter = '$\\Box$ VRAI <br>$\\Box$ FAUX'
+      this.canReponseACompleter = '$\\Box$ VRAI <br>$\\Box$ FAUX'
+    } else {
+      this.reponse = 'FAUX'
+      this.correction = `Une augmentation de $${a}\\,\\%$ n'est pas compensée par une baisse de $${a}\\,\\%$.<br>
+  L'affirmation est donc  ${texteEnCouleurEtGras('FAUSSE')}.`
+
+      this.autoCorrection[0] = {
+        options: { ordered: true },
+        propositions: [
+          {
+            texte: 'VRAI ',
+            statut: false
+          },
+          {
+            texte: 'FAUX',
+            statut: true
+          }
+        ]
+
+      }
+      const qcm = propositionsQcm(this, 0)
+
+      this.question = `Un prix augmente de $${a}\\,\\%$. <br>Pour retrouver son prix initial, il suffit de lui appliquer une baisse  de $${a}\\,\\%$. ` + qcm.texte
+
+      this.canEnonce = `Un prix augmente de $${a}\\,\\%$. <br>Pour retrouver son prix initial, il suffit de lui appliquer une baisse  de $${b}\\,\\%$. `
+      this.canReponseACompleter = '$\\Box$ VRAI <br>$\\Box$ FAUX'
+    }
   }
 }
