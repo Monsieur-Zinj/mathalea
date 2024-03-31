@@ -13,6 +13,9 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const dateDePublication = '28/03/2024'
 export const uuid = 'ccb71'
+export const refs = {
+  'fr-ch': ['11FA6-1']
+}
 
 /**
  * Description didactique de l'exercice

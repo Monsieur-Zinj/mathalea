@@ -10,6 +10,9 @@ export const dateDePublication = '14/03/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '0e77e'
+export const refs = {
+  'fr-ch': ['9NO12-10']
+}
 
 /**
  * Description didactique de l'exercice
