@@ -47,6 +47,7 @@ export default class ReconnaitreDesSolides extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 5
+    this.nbCols = 4
     this.formatChampTexte = 'largeur15 inline'
     this.sup = '8' // Type de question
     this.sup2 = false // qcm
@@ -69,25 +70,25 @@ export default class ReconnaitreDesSolides extends Exercice {
   }
 
   nouvelleVersion () {
+    const maxTentativesParQuestion = 50
     const solides = ['prisme', 'pyramide', 'cône', 'cylindre', 'pavé droit', 'cube', 'sphère']
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
     const isAxe = this.sup3
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    this.nbQuestions = Math.min(this.nbQuestions, 50) // Comme il n'y a que 70 questions différentes on limite pour éviter que la boucle ne cherche trop longtemps
     this.consigne = this.nbQuestions === 1 || context.vue === 'diap' ? 'Donner le nom de ce solide.' : 'Donner le nom de chacun des solides.'
 
     const typeDeQuestion = gestionnaireFormulaireTexte({
       max: 7,
       defaut: 8,
-      nbQuestions: this.nbQuestions,
+      nbQuestions: this.nbQuestions * maxTentativesParQuestion,
       melange: 8,
       saisie: this.sup
     }).map(e => Number(e))
 
     for (let j = 0, k = 0; j < this.nbQuestions && k < 50; k++) {
-      const choix = typeDeQuestion[j]
+      const choix = typeDeQuestion[k]
       context.anglePerspective = 30
       const objets = []
       let reponseQcm
@@ -329,7 +330,6 @@ export default class ReconnaitreDesSolides extends Exercice {
 
           break
       }
-      // console.log(j + ':' + choix + ':' + ':' + n + ':' + axe)
       if (this.questionJamaisPosee(j, choix, n, axe)) {
         reponseQcm = solide
         if (this.sup2) this.reponse = solide // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
