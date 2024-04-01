@@ -13,9 +13,12 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
+- playwright-pdf
 - test
+- variable
 - build-projet
 - playwright-test
+
 
 
 sast:
@@ -40,6 +43,38 @@ default:
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
     - sleep 60
+
+.testCIPDF:
+  image: guironne/tex-live-nodejs
+  before_script:
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
+    - pnpm exec playwright install --with-deps chromium
+    - nohup pnpm start &
+    - sleep 60
+  stage: playwright-pdf
+  rules:
+  - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+    when: always
+  - if: $CI_PIPELINE_SOURCE == "schedule"
+    when: always
+  - when: never
+  retry:
+    max: 2
+    when: runner_system_failure
+  artifacts:
+    when: always
+    paths:
+      - tests/e2e/logs
+      - updatefile
+    expire_in: 120 day
+
+variable:
+  stage: variable
+  script:
+  - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+  - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
+  - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
+  when: always
 
 .testCI:
   extends: .install_dependencies
@@ -89,6 +124,11 @@ testCan:
   script:
     - NIV=can pnpm test:e2e:console_errors
 
+test6ePDF:
+  extends: .testCIPDF
+  script:
+    - NIV=6e/6C10.js pnpm test:e2e:pdfexports
+
 build:
   extends: .testCI
   stage: build-projet
@@ -98,7 +138,7 @@ build:
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
       when: never
-    - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == "main"
       when: always
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: always
