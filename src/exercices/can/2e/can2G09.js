@@ -1,5 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { sp } from '../../../lib/outils/outilString.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Déterminer le coefficient de colinéarité entre deux vecteurs'
@@ -26,18 +27,18 @@ export default function VecteursColineaires () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
     const p = choice([-2, 2, 3, 4, -4, -3])
     const ux = randint(1, 5)
     const uy = randint(1, 5)
     const vx = p * ux
     const vy = p * uy
-    this.question = `Dans un repère orthonormé $(O,\\vec i,\\vec j)$, on a :<br>
+    this.question = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, on a :<br>
        $\\vec{u}\\left(${ux}${sp(1)} ; ${sp(1)} ${uy}\\right)$ et $\\vec{v}\\left(${vx}${sp(1)} ; ${sp(1)} a\\right)$<br>
-      Pour quelle valeur de $a$, les vecteurs $\\vec{u}$ et $\\vec{v}$ sont colinéaires ?`
+      Pour quelle valeur de $a$, les vecteurs $\\vec{u}$ et $\\vec{v}$ sont-ils colinéaires ?`
     this.correction = `Les deux vecteurs sont colinéaires, donc il existe un réel $k$ tel que $\\vec{v}=k\\times \\vec{u}$.<br>
-       Comme $${vx}=${p}\\times ${ux}$, alors $y_{\\vec{v}}=${p}\\times${uy}=${p * uy}$, donc $a=${p * uy}$.`
+       Comme $${vx}=${p}\\times ${ux}$, alors $y_{\\vec{v}}=${p}\\times${uy}=${p * uy}$, donc $a=${miseEnEvidence(`${p * uy}`)}$.`
     this.reponse = vy
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = '$a=\\ldots$'

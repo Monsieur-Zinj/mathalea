@@ -4,6 +4,7 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { arrondi } from '../../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 export const titre = 'Calculer les coordonnées du milieu'
@@ -27,7 +28,7 @@ export default function CalculCoordonneesMilieu () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d
     const nom = creerNomDePolygone(2, 'PQDO')
@@ -38,15 +39,15 @@ export default function CalculCoordonneesMilieu () {
         c = randint(-10, 10)
         d = randint(-10, 10, 0)
         this.question = `Dans un repère du plan, on donne $${nom[0]}(${a}\\,;\\,${c})$ et $${nom[1]}(${b}\\,;\\,${d})$.<br>
-        Déterminer les coordonnées du milieu de $[${nom[0] + nom[1]}]$ sous forme décimale.`
-        this.optionsChampTexte = { texteApres: '' }
-        this.correction = `Les coordonnées du milieu sont  données par :
+        Déterminer les coordonnées du milieu $M$ de $[${nom[0] + nom[1]}]$ sous forme décimale.<br><br>`
+        this.optionsChampTexte = { texteAvant: '$M$ a pour coordonnées :' }
+        this.correction = `Les coordonnées du milieu $M$ sont données par :
         $\\left(\\dfrac{${a}+${b}}{2}\\,;\\,\\dfrac{${c}+${d}}{2}\\right)=
         \\left(\\dfrac{${texNombre(a + b, 0)}}{2}\\,;\\,\\dfrac{${texNombre(c + d, 0)}}{2}\\right)=
-        (${texNombre((a + b) / 2, 1)}\\,;\\,${texNombre((c + d) / 2, 1)})$<br>`
+        ${miseEnEvidence('(')} ${miseEnEvidence(`${texNombre((a + b) / 2, 1)}`)}\\,${miseEnEvidence(';')}\\,${miseEnEvidence(`${texNombre((c + d) / 2, 1)}`)} ${miseEnEvidence(')')}$<br><br>`
         this.correction += texteEnCouleur(` Mentalement : <br>
-       On calcule les moyennes des abscisses et des orodonnées des deux points.
-         `)
+        On calcule les moyennes des abscisses et des ordonnées des deux points.
+         `, 'blue')
         this.reponse = `(${arrondi((a + b) / 2, 1)};${arrondi((c + d) / 2, 1)})`
 
         break
@@ -55,19 +56,19 @@ export default function CalculCoordonneesMilieu () {
         b = randint(-9, 9, 0)
 
         this.question = `Dans un repère du plan d'origine $O$, on donne $${nom[0]}(${a}\\,;\\,${b})$.<br>
-        Déterminer les coordonnées du milieu de $[O${nom[0]}]$ sous forme décimale.`
-        this.optionsChampTexte = { texteApres: '' }
-        this.correction = `Comme les coordonnées du point $O$ sont $(0\\,;\\,0)$, les coordonnées du milieu sont  données par :
+        Déterminer les coordonnées du milieu $M$ de $[O${nom[0]}]$ sous forme décimale.<br><br>`
+        this.optionsChampTexte = { texteAvant: '$M$ a pour coordonnées :' }
+        this.correction = `Comme les coordonnées du point $O$ sont $(0\\,;\\,0)$, les coordonnées du milieu $M$ sont données par :
         $\\left(\\dfrac{0+${ecritureParentheseSiNegatif(a)}}{2}\\,;\\,\\dfrac{0+${ecritureParentheseSiNegatif(b)}}{2}\\right)
-        =(${texNombre((a) / 2)};${texNombre((b) / 2)})$<br>`
+        =${miseEnEvidence('(')} ${miseEnEvidence(`${texNombre((a) / 2)}`)}\\,${miseEnEvidence(';')}\\,${miseEnEvidence(`${texNombre((b) / 2)}`)} ${miseEnEvidence(')')}$<br><br>`
         this.correction += texteEnCouleur(` Mentalement : <br>
        Puisque le premier point est l'origine du repère, les coordonnées du milieu sont données par la moitié de l'abscisse et de l'ordonnée du deuxième point.
-         `)
+         `, 'blue')
         this.reponse = `(${arrondi((a) / 2, 1)};${arrondi((b) / 2, 1)})`
 
         break
     }
-    this.canEnonce = this.question// 'Compléter'
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }
