@@ -59,7 +59,6 @@ export default class PointsCourbe extends Exercice {
 
     }
     const qcm = propositionsQcm(this, 0)
-
     this.question = `Affirmation : <br>
     Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ ` + qcm.texte
 
