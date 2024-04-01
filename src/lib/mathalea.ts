@@ -135,7 +135,7 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
     // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
     // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
     // L'extension doit-être visible donc on l'enlève avant de la remettre...
-    let module: any
+    let module
     if (isCan === 'can') {
       if (filename != null && filename.includes('.ts')) {
         module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
@@ -589,31 +589,29 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     if (exercice.nouvelleVersionWrapper && typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.question))) {
       if (exercice.compare != null) {
+        let reponse = {}
         let value: string | Grandeur | string[]
         if (typeof exercice.reponse !== 'string') {
           if (exercice.reponse instanceof FractionEtendue) {
-            value = exercice.reponse.texFraction
+            reponse = { reponse: { value: exercice.reponse.texFraction, compare } }
           } else if (exercice.reponse instanceof Decimal) {
-            value = exercice.reponse.toString()
+            reponse = { reponse: { value: exercice.reponse.toString(), compare } }
           } else if (exercice.reponse instanceof Grandeur) {
-            value = exercice.reponse
+            reponse = { reponse: { value: exercice.reponse, compare } }
           } else if (typeof exercice.reponse === 'object') {
-            value = exercice.reponse
+            reponse = exercice.reponse
           } else if (Array.isArray(exercice.reponse)) {
-            value = [...exercice.reponse]
+            reponse = { reponse: { value: exercice.reponse[0] } }
           } else {
             window.notify(`MathaleaHandleExerciceSimple n'a pas réussi à déterminer le type de exercice.reponse, dans ${exercice?.numeroExercice + 1} - ${exercice.titre} ${JSON.stringify(exercice.reponse)}, on Stingifie, mais c'est sans doute une erreur à rectifier`, { exercice: JSON.stringify(exercice) })
-            value = String(exercice.reponse) // valeur par défaut on transforme tout en string.
+            reponse = { reponse: { value: String(exercice.reponse), compare } }
           }
         } else {
-          value = exercice.reponse
+          reponse = { reponse: { value: exercice.reponse, compare } }
         }
-        handleAnswers(exercice, i, {
-          reponse: {
-            value,
-            compare
-          }
-        }, { formatInteractif: exercice.formatInteractif ?? 'mathlive' })
+        handleAnswers(exercice, i,
+          reponse
+          , { formatInteractif: exercice.formatInteractif ?? 'mathlive' })
       } else {
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
       }

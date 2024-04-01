@@ -2,6 +2,7 @@ import { handleAnswers } from '../lib/interactif/gestionInteractif'
 import Exercice from './Exercice'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../lib/interactif/qcm'
+import { numberCompare } from '../lib/interactif/comparisonFunctions'
 
 export const interactifType = 'qcm_mathLive'
 export const interactifReady = true
@@ -43,9 +44,22 @@ export default class MetaExercice extends Exercice {
         } else if (Question.formatInteractif === 'fillInTheBlank') {
           this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, 'fillInTheBlank', '\\ldots')
           if (Question.compare === null || Question.compare === undefined) {
-            handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } }, { formatInteractif: 'fillInTheBlank' })
+            if (typeof Question.reponse === 'string') {
+              handleAnswers(this, indexQuestion, { champ1: { value: Question.reponse, compare: numberCompare } }, { formatInteractif: 'mathlive' })
+            } else if (typeof Question.reponse === 'object') {
+              handleAnswers(this, indexQuestion, Question.reponse, { formatInteractif: 'mathlive' })
+            } else {
+              window.notify('Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu', { reponse: Question.reponse })
+            }
           } else {
-            handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, compare: Question.compare } }, { formatInteractif: 'fillInTheBlank' } || {})
+            const compare = Question.compare
+            if (typeof Question.reponse === 'string') {
+              handleAnswers(this, indexQuestion, { champ1: { value: Question.reponse, compare } }, { formatInteractif: 'mathlive' })
+            } else if (typeof Question.reponse === 'object') {
+              handleAnswers(this, indexQuestion, Question.reponse, { formatInteractif: 'mathlive' })
+            } else {
+              window.notify('Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu', { reponse: Question.reponse })
+            }
           }
         } else {
           this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, Question.formatChampTexte ?? '', Question.optionsChampTexte ?? {})
@@ -66,18 +80,18 @@ export default class MetaExercice extends Exercice {
         // this.formatChampTexte = Question.formatChampTexte
         // this.formatInteractif = Question.formatInteractif
         if (Question.formatInteractif === 'fillInTheBlank') {
-          handleAnswers(this, indexQuestion, { reponse: { value: Question.listeQuestions[0].reponse } }, { formatInteractif: 'fillInTheBlank' })
+          handleAnswers(this, indexQuestion, Question.listeQuestions[0].reponse.valeur, { formatInteractif: 'mathlive' })
         } else if (Question.formatInteractif === 'qcm') {
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-        } else if (Question.compare == null || Question.compare === undefined) {
-          handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } }, { formatInteractif: Question.formatInteractif })
+        } else if (Question.compare == null) {
+          handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, compare: numberCompare } }, { formatInteractif: 'mathlive' })
         } else {
           handleAnswers(this, indexQuestion, {
             reponse: {
               value: Question.reponse,
               compare: Question.compare
             }
-          }, { formatInteractif: 'calcul' })
+          }, { formatInteractif: 'mathlive' })
         }
       }
 
