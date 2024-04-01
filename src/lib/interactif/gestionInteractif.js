@@ -309,9 +309,9 @@ export function setReponse (exercice, i, valeurs, {
     } else { // Il n'y a qu'une valeur, on uniformise le format : reponses est une liste de une seule valeur
       reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
       if (valeurs.num === undefined) {
-        signe = valeurs < 0 ? true : signe // on teste si elle est négative, si oui, on force la case signe pour AMC
+        signe = valeurs < 0 ? true : Boolean(signe) // on teste si elle est négative, si oui, on force la case signe pour AMC
       } else {
-        signe = valeurs.signe === -1 ? true : signe // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+        signe = valeurs.signe === -1 ? true : Boolean(signe) // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
       }
     }
   }
