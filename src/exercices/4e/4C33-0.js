@@ -170,7 +170,7 @@ export default function NotationPuissance () {
         }
       }
 
-      texte += this.interactif ? ' = ' + ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true }) : ''
+      texte += this.interactif ? ' = ' + ajouteChampTexteMathLive(this, i, 'inline largeur01', { tailleExtensible: true }) : ''
       if (this.sup === 3) texte += '.'
 
       if (context.isAmc) {

@@ -887,11 +887,7 @@ export function functionCompare (input: string, goodAnswer: {fonction: string, v
     goodAnswer = { fonction: goodAnswer, variable: 'x' }
   }
   const clean = generateCleaner(['virgules', 'parentheses', 'fractions', 'divisions'])
-  if (input.match(/sin|cos|tan/)) {
-    input = input.replace('\\sin', 'sin').replace('sin', '\\sin') // Le premier pour virer le \ afin de ne pas le doubler
-    input = input.replace('\\cos', 'cos').replace('cos', '\\cos') // Le premier pour virer le \ afin de ne pas le doubler
-    input = input.replace('\\tan', 'tan').replace('tan', '\\tan') // Le premier pour virer le \ afin de ne pas le doubler
-  }
+
   const cleanInput = clean(input)
   const inputParsed = engine.parse(cleanInput)
   const inputFn = inputParsed.compile()
