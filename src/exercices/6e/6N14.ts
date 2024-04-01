@@ -23,7 +23,6 @@ export const dateDeModifImportante = '15/01/2024'
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '87479'
-export const ref = '6N14'
 export const refs = {
   'fr-fr': ['6N14'],
   'fr-ch': ['9NO10-1']

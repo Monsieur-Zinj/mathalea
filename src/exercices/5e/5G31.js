@@ -51,7 +51,6 @@ Correction de quelques coquilles
  * Référence 5G31
  */
 export const uuid = 'dc8c9'
-export const ref = '5G31'
 export const refs = {
   'fr-fr': ['5G31'],
   'fr-ch': ['9ES2-9']

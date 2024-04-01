@@ -23,7 +23,6 @@ export const titre = 'Calcul du discriminant d\'une équation du second degré'
  * Référence 1E10
 */
 export const uuid = 'feb39'
-export const ref = '1E10'
 export const refs = {
   'fr-fr': ['1E10'],
   'fr-ch': ['11FA10-7']

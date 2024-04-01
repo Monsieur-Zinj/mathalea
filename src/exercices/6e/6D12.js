@@ -27,7 +27,6 @@ export const dateDeModifImportante = '09/10/2023' // Correction détaillée
  * @author Rémi Angot
  */
 export const uuid = 'e960d'
-export const ref = '6D12'
 export const refs = {
   'fr-fr': ['6D12'],
   'fr-ch': ['10GM3-4']

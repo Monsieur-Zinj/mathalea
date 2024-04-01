@@ -12,7 +12,6 @@ export const dateDePublication = '4/12/2021'
  * Référence 6G26 clone Symétrie axiale de 4G12
  */
 export const uuid = 'd7da5'
-export const ref = '6G26'
 export const refs = {
   'fr-fr': ['6G26'],
   'fr-ch': []

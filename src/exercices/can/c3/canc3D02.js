@@ -22,7 +22,6 @@ export const interactifType = 'mathLive'
  * Référence canc3D01
  */
 export const uuid = '0861b'
-export const ref = 'canc3D02'
 export const refs = {
   'fr-fr': ['canc3D02'],
   'fr-ch': []

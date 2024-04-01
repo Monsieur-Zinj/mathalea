@@ -20,7 +20,6 @@ export const dateDeModifImportante = '03/10/2023'
  * Référence 4C24
  */
 export const uuid = '612b9'
-export const ref = '4C24'
 export const refs = {
   'fr-fr': ['4C24'],
   'fr-ch': ['9NO12-9']

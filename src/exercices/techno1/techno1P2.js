@@ -12,7 +12,6 @@ export const interactifType = 'mathLive'
  */
 
 export const uuid = 'eb1e8'
-export const ref = 'techno1P2'
 export const refs = {
   'fr-fr': ['techno1P2'],
   'fr-ch': []

@@ -17,7 +17,6 @@ export const amcType = 'AMCHybride'
  * Référence 3F10
  */
 export const uuid = 'b92da'
-export const ref = '3F10'
 export const refs = {
   'fr-fr': ['3F10'],
   'fr-ch': ['10FA5-4']

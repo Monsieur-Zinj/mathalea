@@ -14,7 +14,6 @@ export const titre = 'Rendre irréductible une fraction'
  * @author Sébastien Lozano
  */
 export const uuid = 'a6667'
-export const ref = '3A11'
 export const refs = {
   'fr-fr': ['3A11'],
   'fr-ch': ['9NO12-8']

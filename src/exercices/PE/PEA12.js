@@ -17,7 +17,6 @@ export const dateDePublication = '31/10/2021'
 * @author Jean-Claude Lhote pour les opérations posées et Rémi Angot pour la correction détaillée
 */
 export const uuid = '3441e'
-export const ref = 'PEA12'
 export const refs = {
   'fr-fr': ['PEA12'],
   'fr-ch': []

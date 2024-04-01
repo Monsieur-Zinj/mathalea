@@ -16,7 +16,6 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
  * Référence HPC103
 */
 export const uuid = 'a868f'
-export const ref = 'HPC103'
 export const refs = {
   'fr-fr': ['HPC103'],
   'fr-ch': []

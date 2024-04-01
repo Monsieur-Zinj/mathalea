@@ -17,7 +17,6 @@ export const dateDePublication = '11/06/2022'
  * Référence can1L07
 */
 export const uuid = 'c1168'
-export const ref = 'can1L07'
 export const refs = {
   'fr-fr': ['can1L07'],
   'fr-ch': []

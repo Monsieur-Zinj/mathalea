@@ -13,7 +13,6 @@ export const amcType = 'AMCHybride'
  * Pas de version LaTeX
  */
 export const uuid = 'cf7ce'
-export const ref = '4G10'
 export const refs = {
   'fr-fr': ['4G10'],
   'fr-ch': ['10ES2-1']

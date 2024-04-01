@@ -6,7 +6,6 @@ export const interactifReady = false
  * @author Guillaume Valmont
  */
 export const uuid = '26ea7'
-export const ref = '4S10'
 export const refs = {
   'fr-fr': ['4S10'],
   'fr-ch': ['10FA5-1']

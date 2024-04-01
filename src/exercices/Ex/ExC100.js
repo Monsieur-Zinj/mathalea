@@ -14,7 +14,6 @@ export const dateDePublication = '30/10/2021'
  * Référence ExC100
 */
 export const uuid = '8e72e'
-export const ref = 'ExC100'
 export const refs = {
   'fr-fr': ['ExC100'],
   'fr-ch': []

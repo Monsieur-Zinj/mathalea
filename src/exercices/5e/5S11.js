@@ -13,7 +13,6 @@ export const interactifType = 'qcm'
  * Fix export interactif et AMC Sébastien LOZANO
  */
 export const uuid = '9926a'
-export const ref = '5S11'
 export const refs = {
   'fr-fr': ['5S11'],
   'fr-ch': []

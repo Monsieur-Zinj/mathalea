@@ -16,7 +16,6 @@ export const titre = 'Convertir des durées'
  * Référence 6D10
  */
 export const uuid = '8b0f9'
-export const ref = '6D10'
 export const refs = {
   'fr-fr': ['6D10'],
   'fr-ch': ['10GM3-1']

@@ -29,7 +29,6 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot modifications par Jean-Claude Lhote (Correction optimisée par Eric Elter)
  */
 export const uuid = 'f6ea7'
-export const ref = '5R22'
 export const refs = {
   'fr-fr': ['5R22'],
   'fr-ch': ['9NO9-15']

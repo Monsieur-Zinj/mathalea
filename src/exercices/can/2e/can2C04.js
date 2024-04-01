@@ -13,7 +13,6 @@ export const interactifType = 'mathLive'
 export const titre = 'Calculer avec les identités remarquables*'
 
 export const uuid = '69522'
-export const ref = 'can2C04'
 export const refs = {
   'fr-fr': ['can2C04'],
   'fr-ch': []

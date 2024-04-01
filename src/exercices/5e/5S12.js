@@ -26,7 +26,6 @@ export const titre = 'Représenter des données par un diagramme'
  * @author Mickael Guironnet - Jean-Claude Lhote
  */
 export const uuid = 'd3ca7'
-export const ref = '5S12'
 export const refs = {
   'fr-fr': ['5S12'],
   'fr-ch': ['9FA1-4']

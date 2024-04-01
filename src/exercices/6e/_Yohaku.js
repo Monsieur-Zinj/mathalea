@@ -11,7 +11,6 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 
 export const uuid = '3a377'
-export const ref = 'Yohaku'
 export const refs = {
   'fr-fr': ['Yohaku'],
   'fr-ch': []

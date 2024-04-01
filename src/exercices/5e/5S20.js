@@ -17,7 +17,6 @@ export const titre = 'Placer un événement sur une échelle de probabilités'
  */
 // Source : https://pedagogie.ac-guadeloupe.fr/sites/default/files/File/flouvet/ra16_c4_math_probabilite_flash_pdf_69131.pdf
 export const uuid = '86db6'
-export const ref = '5S20'
 export const refs = {
   'fr-fr': ['5S20'],
   'fr-ch': ['11NO2-5']

@@ -12,7 +12,6 @@ export const titre = 'Lire l\'abscisse entière d\'un point (grands nombres)'
  * Référence 6N10
  */
 export const uuid = 'c0fb1'
-export const ref = 'c3N11'
 export const refs = {
   'fr-fr': ['c3N11'],
   'fr-ch': []

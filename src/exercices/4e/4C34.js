@@ -68,7 +68,6 @@ export const dateDeModifImportante = '17/09/2023'
  * Ajout de l'interactivité par Guillaume Valmont le 2021-11-20
  */
 export const uuid = '2d79c'
-export const ref = '4C34'
 export const refs = {
   'fr-fr': ['4C34'],
   'fr-ch': ['10NO6-1']

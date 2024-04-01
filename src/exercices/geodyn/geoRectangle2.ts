@@ -14,7 +14,6 @@ export const interactifType = 'custom'
  * Références geoRectangle2
  */
 
-export const ref = 'rectangle2'
 export const refs = {
   'fr-fr': ['rectangle2'],
   'fr-ch': []

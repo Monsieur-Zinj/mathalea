@@ -22,7 +22,6 @@ export const dateDeModifImportante = '11/10/2023'// j'ai enlevé c. J'ai ajoute 
  * Référence can1F05
  */
 export const uuid = '053d7'
-export const ref = 'can1F05'
 export const refs = {
   'fr-fr': ['can1F05'],
   'fr-ch': []

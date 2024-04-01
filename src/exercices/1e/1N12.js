@@ -14,7 +14,6 @@ export const dateDePublication = '30/11/2021'
  * Référence 1N12
 */
 export const uuid = 'cfac9'
-export const ref = '1N12'
 export const refs = {
   'fr-fr': ['1N12'],
   'fr-ch': []

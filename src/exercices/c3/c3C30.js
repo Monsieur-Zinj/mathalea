@@ -10,7 +10,6 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  */
 export const uuid = '7fa0e'
-export const ref = 'c3C30'
 export const refs = {
   'fr-fr': ['c3C30'],
   'fr-ch': []

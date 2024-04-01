@@ -16,7 +16,6 @@ export const interactifType = 'mathLive'
  * Date de publication
 */
 export const uuid = 'c9d15'
-export const ref = 'can3S05'
 export const refs = {
   'fr-fr': ['can3S05'],
   'fr-ch': []

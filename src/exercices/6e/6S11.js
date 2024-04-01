@@ -15,7 +15,6 @@ export const titre = 'Organiser des données dans un tableau'
 // source : http://www.ac-grenoble.fr/savoie/pedagogie/docs_pedas/ogd_c2_c3/ogd_c2_c3.pdf
 
 export const uuid = '99d95'
-export const ref = '6S11'
 export const refs = {
   'fr-fr': ['6S11'],
   'fr-ch': ['9FA1-3']

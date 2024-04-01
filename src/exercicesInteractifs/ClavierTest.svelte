@@ -10,8 +10,7 @@
     export let indiceLastExercice
 
     export const titre = 'Test du clavier'
-    export const ref = 'Clavier'
-    export const refs = {
+        export const refs = {
       'fr-fr': ['Clavier'],
       'fr-ch': []
     }

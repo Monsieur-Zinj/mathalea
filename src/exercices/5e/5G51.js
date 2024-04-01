@@ -18,7 +18,6 @@ export const titre = 'Compléter une représentation en perspective cavalière'
  * @author Mireille Gain, s'inspirant fortement de Jean-Claude Lhote
  */
 export const uuid = 'a013f'
-export const ref = '5G51'
 export const refs = {
   'fr-fr': ['5G51'],
   'fr-ch': ['9ES7-2']

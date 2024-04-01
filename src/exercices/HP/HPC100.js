@@ -13,7 +13,6 @@ export const titre = 'Division de polynômes'
  * Référence
 */
 export const uuid = 'ad6a2'
-export const ref = 'HPC100'
 export const refs = {
   'fr-fr': ['HPC100'],
   'fr-ch': []

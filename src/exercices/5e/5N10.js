@@ -21,7 +21,6 @@ export const dateDePublication = '16/03/2022'
  * Référence 5N10
  */
 export const uuid = '91d72'
-export const ref = '5N10'
 export const refs = {
   'fr-fr': ['5N10'],
   'fr-ch': ['9NO10-2']

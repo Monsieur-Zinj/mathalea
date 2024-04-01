@@ -19,7 +19,6 @@ export const titre = 'Programmer des déplacements absolus (Scratch)'
  * Ajout AMC : Janvier 2022 par EE
  */
 export const uuid = 'c8fe9'
-export const ref = '6I10'
 export const refs = {
   'fr-fr': ['6I10'],
   'fr-ch': []

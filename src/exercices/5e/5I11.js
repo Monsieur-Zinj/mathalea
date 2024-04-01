@@ -6,7 +6,6 @@ export const interactifType = 'listeDeroulante'
 export const dateDeModifImportante = '27/12/2023'
 
 export const uuid = 'a7650'
-export const ref = '5I11'
 export const refs = {
   'fr-fr': ['5I11'],
   'fr-ch': []

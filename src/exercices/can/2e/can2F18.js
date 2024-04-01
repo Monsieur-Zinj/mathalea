@@ -17,7 +17,6 @@ export const titre = 'Déterminer un extremum graphiquement'
  * Référence can2F18
 */
 export const uuid = '5a908'
-export const ref = 'can2F18'
 export const refs = {
   'fr-fr': ['can2F18'],
   'fr-ch': []

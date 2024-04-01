@@ -36,7 +36,6 @@ export const titre = 'Calculer une longueur dans un triangle rectangle en utilis
  * combinaisonListes des questions par Guillaume Valmont le 23/05/2022
  */
 export const uuid = 'bd6b1'
-export const ref = '3G30'
 export const refs = {
   'fr-fr': ['3G30'],
   'fr-ch': []

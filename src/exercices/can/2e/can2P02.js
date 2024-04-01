@@ -13,7 +13,6 @@ export const interactifType = 'mathLive'
  * Date de publication septembre 2021
 */
 export const uuid = '38207'
-export const ref = 'can2P02'
 export const refs = {
   'fr-fr': ['can2P02'],
   'fr-ch': []

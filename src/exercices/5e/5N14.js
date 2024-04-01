@@ -22,7 +22,6 @@ export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 * rendu interactif + AMC par Jean-Claude Lhote
 */
 export const uuid = '234a7'
-export const ref = '5N14'
 export const refs = {
   'fr-fr': ['5N14'],
   'fr-ch': ['9NO12-5']

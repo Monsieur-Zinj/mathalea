@@ -16,7 +16,6 @@ export const amcType = 'AMCHybride'
  */
 
 export const uuid = 'c28e5'
-export const ref = '6N32'
 export const refs = {
   'fr-fr': ['6N32'],
   'fr-ch': ['9NO10-12']

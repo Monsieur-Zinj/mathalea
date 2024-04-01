@@ -10,7 +10,6 @@ export const amcType = 'AMCHybride'
  * référence 4G31
  */
 export const uuid = '4dce8'
-export const ref = '4G31'
 export const refs = {
   'fr-fr': ['4G31'],
   'fr-ch': []

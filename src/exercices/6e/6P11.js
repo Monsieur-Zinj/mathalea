@@ -844,7 +844,6 @@ fois ${texteEnCouleur(stringNombre(liste[alea1].qtt_surface[alea3]), 'blue')}${s
 // _______ Fin des fonctions correspondants aux situations problèmes _____
 
 export const uuid = 'f7a14'
-export const ref = '6P11'
 export const refs = {
   'fr-fr': ['6P11'],
   'fr-ch': ['9FA3-9']

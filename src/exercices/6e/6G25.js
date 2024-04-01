@@ -21,7 +21,6 @@ export const amcType = 'AMCOpen'
  * Publié le 30/11/2020
  */
 export const uuid = 'd7052'
-export const ref = '6G25'
 export const refs = {
   'fr-fr': ['6G25'],
   'fr-ch': ['9ES3-5']

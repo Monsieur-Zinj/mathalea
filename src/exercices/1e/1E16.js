@@ -17,7 +17,6 @@ export const titre = 'Résoudre une inéquation du second degré'
  * Référence 1E11
  */
 export const uuid = '77bcc'
-export const ref = '1E16'
 export const refs = {
   'fr-fr': ['1E16'],
   'fr-ch': []

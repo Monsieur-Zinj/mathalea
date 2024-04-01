@@ -29,7 +29,6 @@ export const dateDeModifImportante = '10/10/2022'
  * Ajout de questions possibles le 10/10/2022 par Guillaume Valmont
  */
 export const uuid = 'b16c6'
-export const ref = '4A12'
 export const refs = {
   'fr-fr': ['4A12'],
   'fr-ch': ['9NO4-22']

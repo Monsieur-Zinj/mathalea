@@ -16,7 +16,6 @@ export const dateDeModifImportante = '09/05/2023'
 * Date de publication
 */
 export const uuid = 'f0c23'
-export const ref = 'techno1P4'
 export const refs = {
   'fr-fr': ['techno1P4'],
   'fr-ch': []

@@ -32,7 +32,6 @@ export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèle
  * 3G21
  */
 export const uuid = '3451c'
-export const ref = '3G21'
 export const refs = {
   'fr-fr': ['3G21'],
   'fr-ch': ['11GM3-5']

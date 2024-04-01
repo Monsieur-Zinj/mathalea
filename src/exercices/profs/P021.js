@@ -4,7 +4,6 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Interpollation par splines avec tangentes'
-export const ref = 'P021'
 export const refs = {
   'fr-fr': ['P021'],
   'fr-ch': []

@@ -10,7 +10,6 @@ export const titre = 'Compter les cubes manquants'
  * Créé pendant l'été 2021
  */
 export const uuid = '5571c'
-export const ref = 'can6G03'
 export const refs = {
   'fr-fr': ['can6G03'],
   'fr-ch': []

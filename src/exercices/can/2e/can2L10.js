@@ -16,7 +16,6 @@ export const dateDePublication = '04/01/2023'
 */
 
 export const uuid = '0bb5f'
-export const ref = 'can2L10'
 export const refs = {
   'fr-fr': ['can2L10'],
   'fr-ch': []

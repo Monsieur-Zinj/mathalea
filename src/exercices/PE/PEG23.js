@@ -12,7 +12,6 @@ export const dateDePublication = '1/11/2021'
  * Référence PEG23
 */
 export const uuid = 'b976a'
-export const ref = 'PEG23'
 export const refs = {
   'fr-fr': ['PEG23'],
   'fr-ch': []

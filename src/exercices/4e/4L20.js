@@ -31,7 +31,6 @@ export const amcType = 'AMCHybride'
  * 4L20 et 3L13
  */
 export const uuid = '799c4'
-export const ref = '4L20'
 export const refs = {
   'fr-fr': ['4L20'],
   'fr-ch': ['10FA3-7']

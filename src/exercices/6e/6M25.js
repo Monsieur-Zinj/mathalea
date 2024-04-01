@@ -9,7 +9,6 @@ export const titre = 'Connaître le cours sur le périmètre et l\'aire'
  * Référence 6M25
  */
 export const uuid = 'dc7ba'
-export const ref = '6M25'
 export const refs = {
   'fr-fr': ['6M25'],
   'fr-ch': ['10GM1-4']

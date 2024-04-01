@@ -26,7 +26,6 @@ export const dateDePublication = '10/07/2021'
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '99522'
-export const ref = '6C22'
 export const refs = {
   'fr-fr': ['6C22'],
   'fr-ch': ['9NO16-4']

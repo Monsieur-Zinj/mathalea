@@ -13,7 +13,6 @@ export const interactifType = 'custom'
  * @author Rémi Angot
  */
 
-export const ref = 'elements1'
 export const refs = {
   'fr-fr': ['elements1'],
   'fr-ch': []

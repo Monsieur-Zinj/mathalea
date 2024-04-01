@@ -21,7 +21,6 @@ export const titre = 'Trouver l\'image d\'une figure par une translation dans un
  * Trouver une figure image dans un pavage par une translation. 6 pavages différents.
  */
 export const uuid = '3bfb6'
-export const ref = '4G11'
 export const refs = {
   'fr-fr': ['4G11'],
   'fr-ch': ['10ES2-9']

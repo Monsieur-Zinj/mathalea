@@ -16,7 +16,6 @@ export const amcType = 'qcmMono'
  * Référence can6C01
  */
 export const uuid = 'de779'
-export const ref = 'can6C01'
 export const refs = {
   'fr-fr': ['can6C01'],
   'fr-ch': []

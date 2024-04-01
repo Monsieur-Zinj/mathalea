@@ -22,7 +22,6 @@ export const amcType = 'AMCHybride'
  * @author Rémi Angot
  */
 export const uuid = '2ba53'
-export const ref = '6N21'
 export const refs = {
   'fr-fr': ['6N21'],
   'fr-ch': ['9NO11-4']

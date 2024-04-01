@@ -7,7 +7,6 @@ export const dateDePublication = '03/04/2022'
  * @author Guillaume Valmont
  */
 export const uuid = '7ba64'
-export const ref = '4S20'
 export const refs = {
   'fr-fr': ['4S20'],
   'fr-ch': ['11NO2-10']

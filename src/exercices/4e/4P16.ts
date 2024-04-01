@@ -19,7 +19,6 @@ export const dateDePublication = '23/05/2022'
  * Référence 4P16
  */
 export const uuid = '63cdb'
-export const ref = '4P16'
 export const refs = {
   'fr-fr': ['4P16'],
   'fr-ch': ['10FA4-4']

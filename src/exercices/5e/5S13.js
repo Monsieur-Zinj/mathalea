@@ -27,7 +27,6 @@ export const dateDeModifImportante = '28/02/2022'
  * @author Jean-Claude Lhote (Interactif et AMC par EE)
  */
 export const uuid = '8cdd5'
-export const ref = '5S13'
 export const refs = {
   'fr-fr': ['5S13'],
   'fr-ch': ['11NO2-1']

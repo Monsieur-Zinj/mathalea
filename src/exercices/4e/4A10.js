@@ -10,7 +10,6 @@ export const amcType = 'qcmMono'
  * reference 4A10
  */
 export const uuid = 'bdb18'
-export const ref = '4A10'
 export const refs = {
   'fr-fr': ['4A10'],
   'fr-ch': []

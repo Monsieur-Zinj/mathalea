@@ -10,7 +10,6 @@ export const amcType = 'AMCHybride'
 /** */
 // 5G10
 export const uuid = 'da157'
-export const ref = '5G10'
 export const refs = {
   'fr-fr': ['5G10'],
   'fr-ch': ['9ES6-2']

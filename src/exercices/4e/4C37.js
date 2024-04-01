@@ -16,7 +16,6 @@ export const dateDePublication = '30/06/2022' // La date de publication initiale
  * Référence 4C37
 */
 export const uuid = '67432'
-export const ref = '4C37'
 export const refs = {
   'fr-fr': ['4C37'],
   'fr-ch': ['10NO2-10']

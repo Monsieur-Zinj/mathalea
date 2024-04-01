@@ -23,7 +23,6 @@ export const dateDeModifImportante = '19/08/2023'
  * @author Mickael Guironnet
  */
 export const uuid = 'b8afd'
-export const ref = '3S14'
 export const refs = {
   'fr-fr': ['3S14'],
   'fr-ch': ['11NO2-11']

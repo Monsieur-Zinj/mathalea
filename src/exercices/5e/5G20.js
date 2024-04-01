@@ -6,7 +6,6 @@ export const interactifReady = false
  * @author Jean-Claude Lhote
  */
 export const uuid = 'a808d'
-export const ref = '5G20'
 export const refs = {
   'fr-fr': ['5G20'],
   'fr-ch': []

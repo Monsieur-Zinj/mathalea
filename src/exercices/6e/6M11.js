@@ -31,7 +31,6 @@ export const interactifReady = true
  * Référence 6M11
  */
 export const uuid = 'eb45a'
-export const ref = '6M11'
 export const refs = {
   'fr-fr': ['6M11'],
   'fr-ch': ['9GM1-2']

@@ -26,7 +26,6 @@ export const titre = 'Trouver l\'équation d\'une parabole'
  * référence 1E12
  */
 export const uuid = '392b3'
-export const ref = '1E12'
 export const refs = {
   'fr-fr': ['1E12'],
   'fr-ch': []

@@ -5,8 +5,7 @@
   import { fixeBordures, mathalea2d } from '../modules/2dGeneralites'
 
   export const titre = 'Interpolation par splines (avec formulaire)'
-  export const ref = 'P022'
-  export const refs = {  
+    export const refs = {  
     'fr-fr': ['P022'],  
     'fr-ch': []
   }

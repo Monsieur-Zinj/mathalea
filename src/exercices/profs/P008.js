@@ -2,7 +2,6 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import Operation from '../../modules/operations.js'
 export const titre = 'Opérations posées'
-export const ref = 'P008'
 export const refs = {
   'fr-fr': ['P008'],
   'fr-ch': []

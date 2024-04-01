@@ -25,7 +25,6 @@ export const dateDeModifImportante = '09/03/2023'
  * Rendu interactif par Guillaume Valmont le 18/03/2022
  */
 export const uuid = 'ecf62'
-export const ref = '3L14'
 export const refs = {
   'fr-fr': ['3L14'],
   'fr-ch': ['11FA10-1']

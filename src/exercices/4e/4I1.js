@@ -18,7 +18,6 @@ export const titre = 'Dessiner avec scratch'
  */
 
 export const uuid = '33c9a'
-export const ref = '4I1'
 export const refs = {
   'fr-fr': ['4I1'],
   'fr-ch': []

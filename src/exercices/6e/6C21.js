@@ -11,7 +11,6 @@ export const titre = 'Effectuer divisions euclidiennes - Niveau 2'
 */
 
 export const uuid = 'bbcac'
-export const ref = '6C21'
 export const refs = {
   'fr-fr': ['6C21'],
   'fr-ch': ['9NO3-4']

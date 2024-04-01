@@ -15,7 +15,6 @@ export const dateDePublication = '28/12/2022'
  * @author Rémi Angot
  * Référence 1N13
 */
-export const ref = '1N13'
 export const refs = {
   'fr-fr': ['1N13'],
   'fr-ch': []

@@ -6,7 +6,6 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Interpollation de Catmull-Rom'
-export const ref = 'P014'
 export const refs = {
   'fr-fr': ['P014'],
   'fr-ch': []

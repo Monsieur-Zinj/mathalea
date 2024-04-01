@@ -11,7 +11,6 @@ export const titre = 'Trouver l’image d’un point par une  transformation 3e'
  * Référence can3G02
  */
 export const uuid = '8e651'
-export const ref = 'can3G02'
 export const refs = {
   'fr-fr': ['can3G02'],
   'fr-ch': []

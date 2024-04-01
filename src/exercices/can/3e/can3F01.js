@@ -15,7 +15,6 @@ export const titre = 'Lire une image graphiquement'
  * Référence can3F01
 */
 export const uuid = '966a6'
-export const ref = 'can3F01'
 export const refs = {
   'fr-fr': ['can3F01'],
   'fr-ch': []

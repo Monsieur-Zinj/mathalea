@@ -29,7 +29,6 @@ export const amcType = 'AMCOpen'
  * Ajout AMC : Janvier 2022 par EE
  */
 export const uuid = 'be1e4'
-export const ref = '6N31'
 export const refs = {
   'fr-fr': ['6N31'],
   'fr-ch': ['9NO7-4']

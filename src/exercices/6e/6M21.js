@@ -74,7 +74,6 @@ function translationPuisRotationAnimees (...args) {
 }
 
 export const uuid = '95313'
-export const ref = '6M21'
 export const refs = {
   'fr-fr': ['6M21'],
   'fr-ch': ['9GM1-10']

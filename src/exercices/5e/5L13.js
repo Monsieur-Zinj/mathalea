@@ -20,7 +20,6 @@ export const amcType = 'AMCOpen'
  * @author Rémi Angot
  */
 export const uuid = '1bce3'
-export const ref = '5L13'
 export const refs = {
   'fr-fr': ['5L13'],
   'fr-ch': ['10FA1-11']

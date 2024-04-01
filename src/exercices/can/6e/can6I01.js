@@ -34,7 +34,6 @@ export const interactifReady = true
  * @author Jean-Claude Lhote
  */
 export const uuid = '667d1'
-export const ref = 'can6I01'
 export const refs = {
   'fr-fr': ['can6I01'],
   'fr-ch': []

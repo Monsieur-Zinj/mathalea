@@ -8,7 +8,6 @@ import Alea2iep from '../../modules/Alea2iep.js'
 import { contraindreValeur } from '../../modules/outils.js'
 
 export const titre = 'Construction animée d\'un triangle'
-export const ref = 'P011'
 export const refs = {
   'fr-fr': ['P011'],
   'fr-ch': []

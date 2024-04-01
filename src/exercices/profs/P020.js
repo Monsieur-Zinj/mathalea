@@ -4,7 +4,6 @@ import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Encodeur de texte'
-export const ref = 'P020'
 export const refs = {
   'fr-fr': ['P020'],
   'fr-ch': []

@@ -11,7 +11,6 @@ export const amcType = 'AMCOpen'
  * Date de publication : 13/08/2021
  */
 export const uuid = 'dd1c9'
-export const ref = '4L11'
 export const refs = {
   'fr-fr': ['4L11'],
   'fr-ch': []

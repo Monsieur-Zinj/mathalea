@@ -18,7 +18,6 @@ export const amcType = 'AMCHybride'
  */
 export const dateDePublication = '22/06/2022'
 export const uuid = 'c0d5f'
-export const ref = 'can2G16'
 export const refs = {
   'fr-fr': ['can2G16'],
   'fr-ch': []

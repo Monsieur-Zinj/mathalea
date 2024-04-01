@@ -20,7 +20,6 @@ export const dateDeModifImportante = '20/12/2023'
  * @author Jean-claude Lhote (Mode QCM et alternance numérateur / dénominateur)
  */
 export const uuid = '06633'
-export const ref = '6N41'
 export const refs = {
   'fr-fr': ['6N41'],
   'fr-ch': ['9NO12-1']
