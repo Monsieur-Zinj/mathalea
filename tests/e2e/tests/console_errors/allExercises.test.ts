@@ -1,21 +1,9 @@
 import { runSeveralTests } from '../../helpers/run.js'
 import type { Page } from 'playwright'
 import { logError as lgE, log as lg, getFileLogger } from '../../helpers/log'
-import referentielStatic from '../../../../src/json/referentielStatic.json'
-import { type JSONReferentielObject } from '../../../../src/lib/types/referentiels'
-import uuidToUrl from '../../../../src/json/uuidsToUrl.json'
 import prefs from '../../helpers/prefs.js'
-
-const allStaticReferentiels: JSONReferentielObject = {
-  ...referentielStatic
-}
-
-// on supprime les entrées par thèmes qui entraîne des doublons
-delete allStaticReferentiels['Brevet des collèges par thèmes - APMEP']
-delete allStaticReferentiels['BAC par thèmes - APMEP']
-delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
-delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
-delete allStaticReferentiels['E3C par thèmes - APMEP']
+import { findStatic, findUuid } from '../../helpers/filter.js'
+import { createIssue } from '../../helpers/issue.js'
 
 const logConsole = getFileLogger('exportConsole', { append: true })
 
@@ -35,63 +23,6 @@ function logDebug (...args: unknown[]) {
       log(args)
     }
   }
-}
-
-async function createIssue (urlExercice : string, messages : string[]) {
-  const idPath = (new URL(urlExercice)).searchParams.get('id')
-
-  const formData = new FormData()
-  const title = 'TI bug: ' + idPath
-  formData.append('title', title)
-  formData.append('description', '```' + urlExercice + '\n' + messages.join('\n') + '```')
-  formData.append('labels', 'testIntegration')
-
-  // issues?search=foo&in=title
-  let existIssue = true
-  const headers = new Headers()
-  headers.append('PRIVATE-TOKEN', 'glpat-7HAP-zfe6c461w6muAgV')
-  await fetch(`https://forge.apps.education.fr/api/v4/projects/451/issues?search=${title}&in=title`, {
-    method: 'GET',
-    headers,
-    signal: AbortSignal.timeout(60 * 1000)
-  }).then((res : Response) => {
-    log('response.status =' + res.status)
-    if (res.status === 200) {
-      return res.json()
-    }
-  }).then(data => {
-    if (data instanceof Array && data.length === 0) {
-      const ouvert = data.find(ticket => ticket.state === 'opened')
-      if (ouvert) {
-        existIssue = false
-      } else {
-        log('Issued existed : ' + JSON.stringify(ouvert))
-      }
-    }
-  }).catch((err) => {
-    logError('Error occured' + err)
-    logError(err.name)
-  })
-
-  if (existIssue) {
-    return
-  }
-
-  // curl --header "PRIVATE-TOKEN:glpat-7HAP-zfe6c461w6muAgV" --request POST --verbose --url "https://forge.apps.education.fr/api/v4/projects/451/issues?title=TItest&labels=TIlabels"
-
-  await fetch('https://forge.apps.education.fr/api/v4/projects/451/issues', {
-    method: 'POST',
-    headers,
-    body: formData,
-    signal: AbortSignal.timeout(60 * 1000)
-  }).then((res : Response) => {
-    log('response.status =' + res.status)
-    if (res.status === 201) {
-      log('issue sended:' + urlExercice)
-    } else {
-      log('error to send issue:' + urlExercice)
-    }
-  })
 }
 
 async function getConsoleTest (page: Page, urlExercice: string) {
@@ -175,7 +106,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
     if (messages.length > 0) {
       logError(messages)
       logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
-      await createIssue(urlExercice, messages)
+      await createIssue(urlExercice, messages, ['console'], log)
       return 'KO'
     }
   } catch (error) {
@@ -185,41 +116,10 @@ async function getConsoleTest (page: Page, urlExercice: string) {
     messages.push('erreur:' + message)
     logError(messages)
     logError(`Il y a ${messages.length} erreurs : ${messages.join('\n')}`)
-    await createIssue(urlExercice, messages)
+    await createIssue(urlExercice, messages, ['console'], log)
     return 'KO'
   }
   return 'OK'
-}
-
-async function findUuid (filter : string) {
-  const uuids = Object.entries(uuidToUrl)
-  return uuids.filter(function (uuid) {
-    return uuid[1].startsWith(filter)
-  })
-}
-
-async function findStatic (filter : string) {
-  const uuids = Object.entries(allStaticReferentiels)
-  // les clés de allStaticReferentiels sont les thèmes (types)
-  // [
-  //   "Brevet des collèges par année - APMEP",
-  //   "BAC par année - APMEP",
-  //   "CRPE (2015-2019) par année - COPIRELEM",
-  //   "CRPE (2022-2023) par année",
-  //   "E3C par specimen - APMEP",
-  // ]
-  const uuidsDNB = uuids[0][1] // on conserve uniquement les exercices DNB
-  const uuidsFound : [string, string][] = []
-  Object.entries(uuidsDNB).forEach(([, value]) => {
-    // les keys sont les années, elles ne nous intéressent pas ici!
-    const values = Object.values(value)
-    values.forEach((val) => {
-      if (val !== null && typeof val === 'object' && 'uuid' in val && typeof val.uuid === 'string' && val.uuid.startsWith(filter)) {
-        uuidsFound.push([val.uuid, val.uuid])
-      }
-    })
-  })
-  return uuidsFound
 }
 
 async function testRunAllLots (filter: string) {
