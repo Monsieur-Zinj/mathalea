@@ -24,11 +24,12 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.canOfficielle = true
+    this.compare = equalFractionCompare
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.formatInteractif = 'calcul'
+      this.formatInteractif = 'mathlive'
       this.compare = equalFractionCompare
       this.reponse = new FractionEtendue(7, 10).texFraction
       this.question = 'Complète : <br> $7$ dm $=$ '
@@ -36,31 +37,29 @@ export default class NomExercice extends Exercice {
       Ainsi, pour passer des "dm" au "m", on divise par $10$.<br>
         Comme $7\\div 10 =0,7$, alors $7$ dm$=${miseEnEvidence('0,7')}$ m. `
       this.canReponseACompleter = ' $7$ dm $=\\ldots$ m'
-      this.reponse = this.reponse.texFraction
     } else {
       if (choice([true, false])) {
-        this.formatInteractif = 'calcul'
+        this.formatInteractif = 'mathlive'
         this.compare = equalFractionCompare
         const a = randint(3, 15)
-        this.reponse = new FractionEtendue(a, 10)
+        this.reponse = new FractionEtendue(a, 10).texFraction
         this.question = `Complète : <br>$${a}$ dm $=$`
         this.correction = `
          Comme $1$ m $=10$ dm, alors $1$ dm $=0,1$ m.<br>
         Ainsi, pour passer des "dm" au "m", on divise par $10$.<br>
       Comme $${a}\\div 10 =${texNombre(a / 10, 1)}$, alors $${a}$ dm$=${miseEnEvidence(texNombre(a / 10, 1))}$ m.  `
         this.canReponseACompleter = `$${a}$ dm $=\\ldots$ m`
-        this.reponse = this.reponse.texFraction
       } else {
-        this.formatInteractif = 'calcul'
+        this.formatInteractif = 'mathlive'
         this.compare = numberCompare
         const a = randint(15, 60)
-        this.reponse = a * 100
+        this.reponse = String(a * 100)
         this.question = `Complète : <br> $${texNombre(a, 0)}$ m $=$ `
         if (this.interactif) {
           this.optionsChampTexte = { texteApres: 'cm' }
         } else { this.question += `${context.isHtml ? '$\\ldots$ cm' : ''}` }
         this.correction = ` Comme $1$ m $=100$ cm,  pour passer des "m" au "cm", on multiplie par $100$.<br>
-            Comme $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${miseEnEvidence(texNombre(this.reponse, 0))}$ cm.`
+            Comme $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${miseEnEvidence(texNombre(a * 100, 0))}$ cm.`
         this.canReponseACompleter = ` $${texNombre(a, 0)}$ m $= \\ldots$ cm`
       }
     }
