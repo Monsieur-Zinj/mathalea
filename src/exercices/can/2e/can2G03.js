@@ -6,6 +6,7 @@ import { similitude } from '../../../lib/2d/transformations.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
@@ -63,7 +64,7 @@ export default function CalculHypotenusePythagore () {
         $${nom[0]}${nom[1]}^2+${nom[1]}${nom[2]}^2=${nom[0]}${nom[2]}^2$, soit
         $${a}^2+${b}^2=x^2$, d'où $x=\\sqrt{${a}^2+${b}^2}=\\sqrt{${a ** 2 + b ** 2}}$
        <br>
-       Ainsi, $a=${a ** 2 + b ** 2}$.`
+       Ainsi, $a=${miseEnEvidence(a ** 2 + b ** 2)}$.`
         this.reponse = calculANePlusJamaisUtiliser(a ** 2 + b ** 2)
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$a=\\ldots$'
@@ -71,7 +72,7 @@ export default function CalculHypotenusePythagore () {
       case 'b':
         a = randint(1, 10)//
         b = randint(2, 10, [4, 9])//
-        if (a ** 2 + b === 9 || a ** 2 + b === 16 || a ** 2 + b === 25 || a ** 2 + b === 36 || a ** 2 + b === 49) {
+        if (a ** 2 + b === 4 || a ** 2 + b === 9 || a ** 2 + b === 16 || a ** 2 + b === 25 || a ** 2 + b === 36 || a ** 2 + b === 49) {
           this.question = `$${nom[0]}${nom[1]}${nom[2]}$ est un triangle rectangle en $${nom[0]}$.<br>
         $${nom[0]}${nom[1]}=${a}$ ; $${nom[0]}${nom[2]}=\\sqrt{${b}}$.<br>
         
@@ -80,7 +81,7 @@ export default function CalculHypotenusePythagore () {
         (donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant)`
           this.correction = ` En utilisant le théorème de Pythagore dans $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[0]}$, on obtient :<br>
                $${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2=${nom[1]}${nom[2]}^2$, <br>
-               soit $${a}^2+\\sqrt{${b}}^2=${nom[1]}${nom[2]}^2$, d'où $${nom[1]}${nom[2]}^2=${a * a + b}$ soit $${nom[1]}${nom[2]}=\\sqrt{${a * a + b}}=${Math.sqrt(a * a + b)}$.
+               soit $${a}^2+\\sqrt{${b}}^2=${nom[1]}${nom[2]}^2$, d'où $${nom[1]}${nom[2]}^2=${a * a + b}$ soit $${nom[1]}${nom[2]}=\\sqrt{${a * a + b}}=${miseEnEvidence(`${Math.sqrt(a * a + b)}`)}$.
              <br>`
           this.reponse = calculANePlusJamaisUtiliser(Math.sqrt(a ** 2 + b))
         } else {
@@ -93,7 +94,7 @@ export default function CalculHypotenusePythagore () {
           (donner le résultat sous la forme $\\sqrt{a}$ ou d'un nombre entier le cas échéant)`
           this.correction = ` En utilisant le théorème de Pythagore dans $${nom[0]}${nom[1]}${nom[2]}$ rectangle en $${nom[0]}$, on obtient :<br>
                  $${nom[0]}${nom[1]}^2+${nom[0]}${nom[2]}^2=${nom[1]}${nom[2]}^2$, <br>
-                 soit $${a}^2+\\sqrt{${b}}^2=${nom[1]}${nom[2]}^2$, d'où $${nom[1]}${nom[2]}^2=${a * a + b}$ soit $${nom[1]}${nom[2]}=\\sqrt{${a * a + b}}$.
+                 soit $${a}^2+\\sqrt{${b}}^2=${nom[1]}${nom[2]}^2$, d'où $${nom[1]}${nom[2]}^2=${a * a + b}$ soit $${nom[1]}${nom[2]}=${miseEnEvidence(`\\sqrt{${a * a + b}}`)}$.
                <br>`
           this.reponse = `\\sqrt{${a ** 2 + b}}`
         }

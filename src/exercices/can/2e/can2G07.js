@@ -1,11 +1,8 @@
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
-import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import { sp } from '../../../lib/outils/outilString.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { randint } from '../../../modules/outils.js'
 
 export const titre = 'Déterminer les coordonnées d’un vecteur'
 export const interactifReady = true
@@ -27,11 +24,10 @@ export const refs = {
 }
 export default function CoordonneesVecteur1 () {
   Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
-  this.listeAvecNumerotation = false
-
+  this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
     const xA = randint(-5, 5)
     const yA = randint(-5, 5)
@@ -41,23 +37,16 @@ export default function CoordonneesVecteur1 () {
 
     const yB = yA + uy
 
-    this.listeQuestions = [` Dans un repère orthonormé, on donne les points suivants :
-    ${texteCentre(`$A\\left(${xA}${sp(1)} ; ${sp(1)} ${yA}\\right)$ et $B\\left(${xB}${sp(1)} ; ${sp(1)}${yB}\\right)$`)}
-Quelles sont les coordonnées du vecteur $\\overrightarrow{AB}$ ?
- ${this.interactif ? '$\\Bigg($' + ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : ''}
- ${this.interactif ? ';' + ajouteChampTexteMathLive(this, 1, 'largeur10 inline') + sp(2) : ''}
- ${this.interactif ? '$\\Bigg)$' : ''}`]
-    this.listeCorrections = [`On sait d'après le cours, que si $A(x_A${sp(1)} ; ${sp(1)}y_A)$ et $B(x_B${sp(1)} ; ${sp(1)} y_B)$ sont deux points dans un repère, alors on a : $\\overrightarrow{AB}(x_B-x_A  ${sp(1)} ; ${sp(1)} y_B-y_A)$<br>
-    En appliquant  aux données de l'énoncé, on obtient  : $\\overrightarrow{AB}(${xB}-${ecritureParentheseSiNegatif(xA)} ${sp(1)} ; ${sp(1)} ${yB}-${ecritureParentheseSiNegatif(yA)})$<br>
-    Ce qui donne au final : $\\overrightarrow{AB}(${xB - xA} ${sp(1)} ; ${sp(1)} ${yB - yA})$`]
-    setReponse(this, 0, ux)
-    setReponse(this, 1, uy)
-    listeQuestionsToContenuSansNumero(this)
-    this.canEnonce = ` Dans un repère orthonormé, on donne les points suivants :<br>
+    this.question = `Dans un repère orthonormé, on donne les points suivants :
+    $A\\left(${xA}${sp(1)} ; ${sp(1)}${yA}\\right)$ et $B\\left(${xB}${sp(1)} ; ${sp(1)}${yB}\\right)$.<br>
+    Déterminer les coordonnées du vecteur $\\overrightarrow{AB}$.<br><br>`
+    this.optionsChampTexte = { texteAvant: '$\\overrightarrow{AB}$ a pour coordonnées :' }
+    this.correction = `On sait d'après le cours, que si $A(x_A${sp(1)} ; ${sp(1)}y_A)$ et $B(x_B${sp(1)} ; ${sp(1)} y_B)$ sont deux points dans un repère, alors on a : $\\overrightarrow{AB}(x_B-x_A  ${sp(1)} ; ${sp(1)} y_B-y_A)$.<br>
+    En appliquant aux données de l'énoncé, on obtient  : $\\overrightarrow{AB}(${xB}-${ecritureParentheseSiNegatif(xA)} ${sp(1)} ; ${sp(1)} ${yB}-${ecritureParentheseSiNegatif(yA)})$.<br>
+    Les coordonnées du vecteur $\\overrightarrow{AB}$ sont donc $${miseEnEvidence('(')} ${miseEnEvidence(`${xB - xA}`)}\\,${miseEnEvidence(';')}\\,${miseEnEvidence(`${yB - yA}`)} ${miseEnEvidence(')')}$.`
+    this.reponse = `(${xB - xA};${yB - yA})`
 
-   $A\\left(${xA}${sp(1)} ; ${sp(1)} ${yA}\\right)$ et $B\\left(${xB}${sp(1)} ; ${sp(1)}${yB}\\right)$.<br>
-   
-Quelles sont les coordonnées du vecteur $\\overrightarrow{AB}$ ?`
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }

@@ -30,7 +30,7 @@ export const refs = {
 export default function CoeffDirDroite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur10 inline'
   this.formatInteractif = 'fractionEgale'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -97,26 +97,15 @@ export default function CoeffDirDroite () {
         objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o)
         objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
 
-        this.question = `Donner le coefficient directeur $m$ de la droite.<br>
-
-        `
-        this.question += `${objet}<br>
-
-        `
+        this.question = `Donner le coefficient directeur $m$ de la droite.<br><br>`
+        this.question += `${objet}<br>`
+        this.optionsChampTexte = { texteAvant: '$m =$' }
         if (yB === yA) {
-          this.correction = `La droite est horizontale. On en déduit que $m=0$.
-       `
+          this.correction = `La droite est horizontale. On en déduit que $m=${miseEnEvidence('0')}$.`
         } else {
-          this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
-    $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${yA}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${m.texSimplificationAvecEtapes()}$.
-<br>
-
-`
-          this.correction += `
-
-          ${objetC}<br>
-
-          `
+          this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par :<br><br>
+            $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${yB}-${yA}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${miseEnEvidence(m.texSimplificationAvecEtapes())}$.<br><br>`
+          this.correction += `${objetC}<br>`
         }
         break
 
@@ -179,26 +168,15 @@ export default function CoeffDirDroite () {
         objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o)
         objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
 
-        this.question = `Donner le coefficient directeur $m$ de la droite.<br>
-
-          `
-        this.question += `${objet}<br>
-
-          `
+        this.question = `Donner le coefficient directeur $m$ de la droite.<br><br>`
+        this.question += `${objet}<br>`
+        this.optionsChampTexte = { texteAvant: '$m =$' }
         if (yB === yA) {
-          this.correction = `La droite est horizontale. On en déduit que $m=0$.
-         `
+          this.correction = `La droite est horizontale. On en déduit que $m=${miseEnEvidence('0')}$.`
         } else {
-          this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
-      $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${2 * yB}-${ecritureParentheseSiNegatif(2 * yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(2 * (yB - yA), 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${m.texSimplificationAvecEtapes()}$.
-  <br>
-
-  `
-          this.correction += `
-
-            ${objetC}<br>
-
-            `
+          this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par :<br><br>
+            $m=\\dfrac{y_B-y_A}{x_B-x_A}=\\dfrac{${2 * yB}-${ecritureParentheseSiNegatif(2 * yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=\\dfrac{${miseEnEvidence(2 * (yB - yA), 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${miseEnEvidence(m.texSimplificationAvecEtapes())}$.<br><br>`
+          this.correction += `${objetC}<br>`
         }
         break
     }

@@ -1,10 +1,8 @@
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { randint } from '../../../modules/outils.js'
 
 export const titre = 'Déterminer le déterminant de deux vecteurs'
 export const interactifReady = true
@@ -26,11 +24,11 @@ export const refs = {
 }
 export default function DeterminantVecteur () {
   Exercice.call(this)
+  this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur10 inline'
   this.listeAvecNumerotation = false
-
   this.nouvelleVersion = function () {
     const vx = randint(-5, 5)
     const vy = randint(-5, 5)
@@ -38,23 +36,16 @@ export default function DeterminantVecteur () {
     const uy = randint(-5, 5)
     const det = ux * vy - uy * vx
 
-    this.listeQuestions = [` Dans un repère orthonormé, on donne deux vecteurs :<br>
-   $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$<br>
- Le déterminant des vecteurs $\\vec{u}$ et $\\vec{v}$, vaut $Det\\left(\\vec{u};\\vec{v}\\right)=$
- ${this.interactif ? ajouteChampTexteMathLive(this, 0, 'largeur10 inline') + sp(2) : sp(5)}  `]
-    this.listeCorrections = [`On sait d'après le cours, que <br>
-    Si  $\\vec{u}\\begin{pmatrix}x \\\\ y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x' \\\\ y'\\end{pmatrix}$<br>
-    $\\text{Det}\\left(\\vec{u};\\vec{v}\\right)=\\begin{vmatrix}x&x'\\\\y&y'\\end{vmatrix}=xy'-x'y$ <br>
-   En appliquant à l'énoncé :  $\\begin{vmatrix}${ux}&${vx}\\\\${uy}&${vy}\\end{vmatrix}=${ux}\\times ${ecritureParentheseSiNegatif(vy)}-${ecritureParentheseSiNegatif(vx)}\\times${ecritureParentheseSiNegatif(vy)}=${ux * vy - vx * uy}$ <br>
-   `]
-    setReponse(this, 0, det)
-    listeQuestionsToContenuSansNumero(this)
-    this.canEnonce = ` Dans un repère orthonormé, on donne deux vecteurs :<br>
+    this.question = `Dans un repère orthonormé, on donne les vecteurs $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$.<br>
+      Calculer le déterminant des vecteurs $\\vec{u}$ et $\\vec{v}$.<br><br>`
+    this.optionsChampTexte = { texteAvant: '$det\\left(\\vec{u}\\,;\\,\\vec{v}\\right)=$' }
+    this.correction = `On sait d'après le cours que si $\\vec{u}\\begin{pmatrix}x \\\\ y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x' \\\\ y'\\end{pmatrix}$, alors :<br><br>
+      $det\\left(\\vec{u}\\,;\\,\\vec{v}\\right)=\\begin{vmatrix}x&x'\\\\y&y'\\end{vmatrix}=xy'-x'y$.<br><br>
+      En appliquant à l'énoncé :<br><br>
+      $det\\left(\\vec{u}\\,;\\,\\vec{v}\\right)=\\begin{vmatrix}${ux}&${vx}\\\\${uy}&${vy}\\end{vmatrix}=${ux}\\times ${ecritureParentheseSiNegatif(vy)}-${ecritureParentheseSiNegatif(vx)}\\times${ecritureParentheseSiNegatif(vy)}=${miseEnEvidence(`${ux * vy - vx * uy}`)}$.<br>`
+    this.reponse = `${ux * vy - vx * uy}`
 
-    $\\vec{u}(${ux}\\;;\\;${uy})$ et $\\vec{v}(${vx}\\;;\\;${vy})$<br>
-    
- Calculer le déterminant des vecteurs $\\vec{u}$ et $\\vec{v}$.
-   `
+    this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''
   }
 }
