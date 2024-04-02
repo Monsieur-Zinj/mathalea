@@ -17,7 +17,6 @@ export const titre = 'Comparer deux fractions (dénominateurs multiples)'
 /**
 * Comparer deux fractions dont les dénominateurs sont multiples (avec un coefficient paramétrable qui est par défaut inférieur à 11)
 * @author Rémi Angot
-* 5N14
 * Ajout du paramètre d'inclusion de nombres négatifs le 14/08/2021 : Guillaume Valmont
 * rendu interactif + AMC par Jean-Claude Lhote
 */
@@ -66,9 +65,9 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
       const autreFraction = new FractionEtendue(k * fraction.num + ecart, k * fraction.den)
       const ordreDesFractions = Math.random() < 0.5
       if (ordreDesFractions) {
-        texte = remplisLesBlancs(this, i, `${fraction.texFSD}\\quad%{champ1}\\quad${autreFraction.texFSD}`, 'College6e', '\\quad\\ldots\\quad')
+        texte = remplisLesBlancs(this, i, `${fraction.texFSD}\\quad%{champ1}\\quad${autreFraction.texFSD}`, 'clavierCompare', '\\quad\\ldots\\quad')
       } else {
-        texte = remplisLesBlancs(this, i, `${autreFraction.texFSD}\\quad%{champ1}\\quad${fraction.texFSD}`, 'College6e', '\\quad\\ldots\\quad')
+        texte = remplisLesBlancs(this, i, `${autreFraction.texFSD}\\quad%{champ1}\\quad${fraction.texFSD}`, 'clavierCompare', '\\quad\\ldots\\quad')
       }
       if (!context.isHtml) {
         texte = texte.replace('\\quad$ et $\\quad', '\\ldots\\ldots\\ldots')
@@ -100,11 +99,7 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
       } else {
         handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, compare: textCompare } }, { formatInteractif: 'fillInTheBlank' })
       }
-      /*
-      if (this.interactif && !context.isAmc) {
-        texte = propositionsQcm(this, i).texte
-      }
- */
+
       if (this.questionJamaisPosee(i, fractionAbsolue.num, fractionAbsolue.den, k)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
