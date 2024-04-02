@@ -468,6 +468,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
 // _______ Fin des fonctions correspondants aux situations problèmes _____
 
 export const uuid = 'b0f4e'
+export const ref = '6P12'
 export const refs = {
   'fr-fr': ['6P12'],
   'fr-ch': ['9FA3-12']

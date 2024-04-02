@@ -24,6 +24,7 @@ export const titre = 'Résoudre des problèmes de grandeurs composées et de con
  * Référence : 4P10
  */
 export const uuid = '72c5a'
+export const ref = '4P10'
 export const refs = {
   'fr-fr': ['4P10'],
   'fr-ch': ['10FA4-2']

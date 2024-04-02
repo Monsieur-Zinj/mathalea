@@ -23,6 +23,7 @@ export const dateDeModifImportante = '14/05/2022'
  * Ajout d'une option "Mélange" par Guillaume Valmont le 14/05/2022
  */
 export const uuid = '4f8f4'
+export const ref = '6D13'
 export const refs = {
   'fr-fr': ['6D13'],
   'fr-ch': ['10GM3-5']

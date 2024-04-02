@@ -12,6 +12,7 @@ export const titre = 'Calculer des longueurs avec le théorème de Thalès'
 */
 
 export const uuid = '18a21'
+export const ref = '4G30'
 export const refs = {
   'fr-fr': ['4G30'],
   'fr-ch': ['11GM3-1']

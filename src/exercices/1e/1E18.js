@@ -19,6 +19,7 @@ export const dateDeModifImportante = '5/11/2023'
  * @author Rémi Angot
  */
 export const uuid = 'b9252'
+export const ref = '1E18'
 export const refs = {
   'fr-fr': ['1E18'],
   'fr-ch': []

@@ -23,6 +23,7 @@ export const titre = 'Factoriser, si possible, un polynôme du second degré'
  * Référence 1E13
  */
 export const uuid = '334ca'
+export const ref = '1E13'
 export const refs = {
   'fr-fr': ['1E13'],
   'fr-ch': ['11FA10-12']

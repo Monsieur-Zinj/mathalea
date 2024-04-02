@@ -31,6 +31,7 @@ export const titre = 'Reconnaître des triangles égaux dans différentes config
  * @author Jean-Claude Lhote et Sébastien Lozano (Rendu QCM et interactif par EE)
  */
 export const uuid = '91513'
+export const ref = '3G23'
 export const refs = {
   'fr-fr': ['3G23'],
   'fr-ch': ['11GM3-6']

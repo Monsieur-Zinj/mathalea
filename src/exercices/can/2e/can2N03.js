@@ -12,6 +12,7 @@ export const dateDePublication = '26/10/2023'
  * Référence can2N03
 */
 export const uuid = 'e356a'
+export const ref = 'can2N03'
 export const refs = {
   'fr-fr': ['can2N03'],
   'fr-ch': []

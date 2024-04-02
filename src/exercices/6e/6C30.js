@@ -28,6 +28,7 @@ export const titre = 'Poser des multiplications de nombres décimaux'
  * Référence 6C30
  */
 export const uuid = '52939'
+export const ref = '6C30'
 export const refs = {
   'fr-fr': ['6C30'],
   'fr-ch': ['9NO8-8']

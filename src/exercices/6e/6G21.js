@@ -31,6 +31,7 @@ export const titre = 'Construire un triangle avec les instruments'
  * @author Guironnet Refactoring et ajout des cas 4 à 10.
  */
 export const uuid = 'e0bc9'
+export const ref = '6G21'
 export const refs = {
   'fr-fr': ['6G21'],
   'fr-ch': ['9ES4-7']

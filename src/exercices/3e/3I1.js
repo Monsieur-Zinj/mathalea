@@ -10,6 +10,7 @@ export const titre = 'Instruction conditionnelle (scratch)'
  * @author Erwan Duplessy
  */
 export const uuid = '8cbd6'
+export const ref = '3I1'
 export const refs = {
   'fr-fr': ['3I1'],
   'fr-ch': []

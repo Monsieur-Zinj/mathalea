@@ -11,6 +11,7 @@ export const amcType = 'AMCNum'
  * Référence 6G44 clone à 4 question de can6G06
  */
 export const uuid = '86ea3'
+export const ref = 'can6G06'
 export const refs = {
   'fr-fr': ['can6G06'],
   'fr-ch': []

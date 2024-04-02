@@ -4,6 +4,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero } from '../../modules/outils.js'
 
 export const titre = 'Tracer des droites graduées'
+export const ref = 'P003'
 export const refs = {
   'fr-fr': ['P003'],
   'fr-ch': []

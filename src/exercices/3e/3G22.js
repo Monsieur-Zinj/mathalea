@@ -16,6 +16,7 @@ export const titre = 'Connaître les effets des agrandissements/réductions sur 
 * @author Jean-Claude Lhote
 */
 export const uuid = '960f9'
+export const ref = '3G22'
 export const refs = {
   'fr-fr': ['3G22'],
   'fr-ch': []

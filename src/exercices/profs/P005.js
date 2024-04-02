@@ -7,6 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 export const titre = 'Grilles décimales'
+export const ref = 'P005'
 export const refs = {
   'fr-fr': ['P005'],
   'fr-ch': []

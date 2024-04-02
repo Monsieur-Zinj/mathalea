@@ -9,6 +9,7 @@ export const interactifType = 'qcm'
  * 5A11 (clone de 6N43-2)
  */
 export const uuid = 'a55d2'
+export const ref = '5A11'
 export const refs = {
   'fr-fr': ['5A11'],
   'fr-ch': []

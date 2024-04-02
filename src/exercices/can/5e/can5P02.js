@@ -19,6 +19,7 @@ export const amcType = 'AMCNum'
 */
 export const dateDeModifImportante = '17/02/2023'
 export const uuid = 'bd5d1'
+export const ref = 'can5P02'
 export const refs = {
   'fr-fr': ['can5P02'],
   'fr-ch': []

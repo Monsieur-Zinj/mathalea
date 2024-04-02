@@ -16,6 +16,7 @@ export const titre = 'Factoriser un polynôme du second degré avec racines enti
  * Référence 1E14
  */
 export const uuid = 'a8e1b'
+export const ref = '1E14'
 export const refs = {
   'fr-fr': ['1E14'],
   'fr-ch': ['11FA10-13']

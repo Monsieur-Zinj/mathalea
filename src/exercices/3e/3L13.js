@@ -15,6 +15,7 @@ export const titre = 'Résoudre une équation du premier degré'
  * 4L20 et 3L13
  */
 export const uuid = 'f239f'
+export const ref = '3L13'
 export const refs = {
   'fr-fr': ['3L13'],
   'fr-ch': ['11FA6-4']

@@ -11,6 +11,7 @@ export const titre = 'Déterminer les termes d\'une suite définie de façon exp
  * @author Gaelle Morvan
  */
 export const uuid = 'f0c2d'
+export const ref = '1N10'
 export const refs = {
   'fr-fr': ['1N10'],
   'fr-ch': []

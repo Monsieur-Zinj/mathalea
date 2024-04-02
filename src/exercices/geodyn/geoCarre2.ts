@@ -14,6 +14,7 @@ export const interactifType = 'custom'
  * Références geoCarre2
  */
 
+export const ref = 'carre2'
 export const refs = {
   'fr-fr': ['carre2'],
   'fr-ch': []

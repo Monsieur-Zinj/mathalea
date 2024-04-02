@@ -30,6 +30,7 @@ export const amcType = 'AMCHybride'
  * Rajout par EE d'un quatrième paramètre, de l'interactif et de l'AMC
  */
 export const uuid = '442e0'
+export const ref = '3G12'
 export const refs = {
   'fr-fr': ['3G12'],
   'fr-ch': ['10ES2-11']

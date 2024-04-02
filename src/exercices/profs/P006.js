@@ -9,6 +9,7 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser } from '../../modules/outils.js'
 
 export const titre = 'Placer un nombre décimal avec des zooms successifs'
+export const ref = 'P006'
 export const refs = {
   'fr-fr': ['P006'],
   'fr-ch': []

@@ -16,6 +16,7 @@ export const dateDePublication = '1/11/2021'
  * Référence PEG21
 */
 export const uuid = '838fb'
+export const ref = 'PEG21'
 export const refs = {
   'fr-fr': ['PEG21'],
   'fr-ch': []

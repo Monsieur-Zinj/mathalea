@@ -13,6 +13,7 @@ export const titre = 'Calculs de dérivées'
  * Référence 1F10
 */
 export const uuid = '2af1c'
+export const ref = '1F10'
 export const refs = {
   'fr-fr': ['1F10'],
   'fr-ch': []

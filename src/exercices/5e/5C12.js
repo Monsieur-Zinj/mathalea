@@ -17,6 +17,7 @@ export const titre = 'Calculer en respectant les priorités opératoires'
  * @author Jean-Claude Lhote
  */
 export const uuid = 'e61fc'
+export const ref = '5C12'
 export const refs = {
   'fr-fr': ['5C12'],
   'fr-ch': ['9NO6-2']

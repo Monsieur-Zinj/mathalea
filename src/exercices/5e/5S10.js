@@ -8,6 +8,7 @@ export const interactifReady = false
  * Publié le 08/08/2021
  */
 export const uuid = '60eb8'
+export const ref = '5S10'
 export const refs = {
   'fr-fr': ['5S10'],
   'fr-ch': []

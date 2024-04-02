@@ -16,6 +16,7 @@ export const interactifType = 'qcm'
  * Date de publication 24/10/2021
 */
 export const uuid = 'e7754'
+export const ref = 'can3L04'
 export const refs = {
   'fr-fr': ['can3L04'],
   'fr-ch': []

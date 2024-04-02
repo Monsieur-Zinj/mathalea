@@ -22,6 +22,7 @@ export const interactifType = 'mathLive'
  * @author Jean-Claude Lhote
  */
 export const uuid = '76230'
+export const ref = '3S21'
 export const refs = {
   'fr-fr': ['3S21'],
   'fr-ch': ['11NO2-14']

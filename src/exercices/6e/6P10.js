@@ -22,6 +22,7 @@ export const amcType = 'qcmMono'
  * référence 6P10
  */
 export const uuid = '850d5'
+export const ref = '6P10'
 export const refs = {
   'fr-fr': ['6P10'],
   'fr-ch': ['9FA3-1']

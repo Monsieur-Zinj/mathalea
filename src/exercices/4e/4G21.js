@@ -16,6 +16,7 @@ export const interactifReady = true
  * 4G21
  */
 export const uuid = 'ab5d4'
+export const ref = '4G21'
 export const refs = {
   'fr-fr': ['4G21'],
   'fr-ch': ['11GM1-3']

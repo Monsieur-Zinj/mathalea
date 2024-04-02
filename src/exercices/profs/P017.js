@@ -14,6 +14,7 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { context } from '../../modules/context.js'
 export const titre = 'Encadrer l\'aire d\'un disque'
+export const ref = 'P017'
 export const refs = {
   'fr-fr': ['P017'],
   'fr-ch': []

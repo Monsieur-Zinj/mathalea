@@ -13,6 +13,7 @@ export const amcType = 'AMCNum'
  * @author Gilles Mora
  */
 export const uuid = '59365'
+export const ref = 'can3C11'
 export const refs = {
   'fr-fr': ['can3C11'],
   'fr-ch': []

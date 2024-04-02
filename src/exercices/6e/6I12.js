@@ -32,6 +32,7 @@ export const amcType = 'qcmMono'
 
 export const titre = 'Trouver le bon tracé avec Scratch'
 export const uuid = 'e9cac'
+export const ref = '6I12'
 export const refs = {
   'fr-fr': ['6I12'],
   'fr-ch': []

@@ -29,6 +29,7 @@ export const titre = 'Poser additions, soustractions et multiplications de nombr
  * Référence 6C10
  */
 export const uuid = 'cfa6a'
+export const ref = '6C10'
 export const refs = {
   'fr-fr': ['6C10'],
   'fr-ch': ['9NO3-1']

@@ -23,6 +23,7 @@ const math = create(all)
  */
 
 export const uuid = '89071'
+export const ref = 'HPC102'
 export const refs = {
   'fr-fr': ['HPC102'],
   'fr-ch': []

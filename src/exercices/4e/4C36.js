@@ -24,6 +24,7 @@ export const dateDeModifImportante = '18/06/2022'
  * Reformulation de l'énoncé et ajout de problèmes avec des puissances de 10 par Guillaume Valmont le 18/06/2022
 */
 export const uuid = '975cc'
+export const ref = '4C36'
 export const refs = {
   'fr-fr': ['4C36'],
   'fr-ch': ['10NO2-13']

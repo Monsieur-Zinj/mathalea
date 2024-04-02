@@ -29,6 +29,7 @@ export const titre = 'Note la couleur (scratch)'
  * A faire : ajouter d'autres niveaux avec des instructions conditionnelles, des blocs définis...
  */
 export const uuid = '0e016'
+export const ref = '6I11'
 export const refs = {
   'fr-fr': ['6I11'],
   'fr-ch': []

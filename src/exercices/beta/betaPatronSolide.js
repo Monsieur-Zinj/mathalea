@@ -9,6 +9,7 @@ export const titre = 'Compléter des patrons de solides'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '865e9'
+export const ref = 'betaPatronSolide'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '16/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 

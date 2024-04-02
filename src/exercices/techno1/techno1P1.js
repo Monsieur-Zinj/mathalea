@@ -12,6 +12,7 @@ export const amcReady = true
  */
 
 export const uuid = 'c988f'
+export const ref = 'techno1P1'
 export const refs = {
   'fr-fr': ['techno1P1'],
   'fr-ch': []

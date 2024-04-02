@@ -8,6 +8,7 @@ import {
 } from '../../modules/outils.js'
 
 export const titre = 'Faire des camemberts pour travailler les fractions'
+export const ref = 'P012'
 export const refs = {
   'fr-fr': ['P012'],
   'fr-ch': []

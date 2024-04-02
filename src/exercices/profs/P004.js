@@ -8,6 +8,7 @@ import { calculANePlusJamaisUtiliser, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Droites graduées avec zoom'
+export const ref = 'P004'
 export const refs = {
   'fr-fr': ['P004'],
   'fr-ch': []

@@ -5,6 +5,7 @@ export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const uuid = '71dd8'
+export const ref = '4L10'
 export const refs = {
   'fr-fr': ['4L10'],
   'fr-ch': []

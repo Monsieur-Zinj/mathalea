@@ -21,6 +21,7 @@ export const amcType = 'AMCNum'
  * 5N110
  */
 export const uuid = 'b2c55'
+export const ref = '5N110'
 export const refs = {
   'fr-fr': ['5N110'],
   'fr-ch': ['9NO14-11']

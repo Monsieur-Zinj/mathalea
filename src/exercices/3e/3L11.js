@@ -41,7 +41,8 @@ export const amcReady = true
  * 4L10 et 3L11
  */
 export const uuid = '77a62'
-// // export const refs = {
+// export const ref = '3L11'
+// export const refs = {
 //  'fr-fr': ['3L11'],
 //   'fr-ch': []
 //  }

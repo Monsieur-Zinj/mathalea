@@ -9,6 +9,7 @@ export const titre = 'Décomposer en produit de facteurs premiers'
  * Référence can5C10
  */
 export const uuid = '1b91d'
+export const ref = 'can5C10'
 export const refs = {
   'fr-fr': ['can5C10'],
   'fr-ch': []

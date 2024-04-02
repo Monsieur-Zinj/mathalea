@@ -13,6 +13,7 @@ export const amcReady = true
  * Référence can6M13
  */
 export const uuid = '59144'
+export const ref = 'can6M13'
 export const refs = {
   'fr-fr': ['can6M13'],
   'fr-ch': []

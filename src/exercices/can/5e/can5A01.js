@@ -19,6 +19,7 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  */
 export const uuid = 'af3c8'
+export const ref = 'can5A01'
 export const refs = {
   'fr-fr': ['can5A01'],
   'fr-ch': []

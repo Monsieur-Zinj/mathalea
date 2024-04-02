@@ -25,6 +25,7 @@ export const dateDeModifImportante = '19/11/2023'
 * Ajout de la possibilité de choisir séparément chaque cas par Eric Elter le 19/11/2023
 */
 export const uuid = '3c1f7'
+export const ref = '5L10'
 export const refs = {
   'fr-fr': ['5L10'],
   'fr-ch': ['9FA2-3', '10FA1-4']

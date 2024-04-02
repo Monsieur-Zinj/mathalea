@@ -11,6 +11,7 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = 'efeee'
+export const ref = 'betaTexNombre'
 const bmath = create(all)
 
 bmath.config({ number: 'BigNumber' })

@@ -13,6 +13,7 @@ export const titre = 'Partager une quantité en deux ou trois parts selon un rat
  * Date de publication : 24/07/2021
 */
 export const uuid = '60910'
+export const ref = '5P12'
 export const refs = {
   'fr-fr': ['5P12'],
   'fr-ch': ['9NO14-9']

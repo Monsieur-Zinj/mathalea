@@ -33,6 +33,7 @@ export const titre = 'Utiliser les propriétés des droites parallèles et perpe
  * publié le 22/11/2020
  */
 export const uuid = '6a336'
+export const ref = '6G14'
 export const refs = {
   'fr-fr': ['6G14'],
   'fr-ch': ['9ES3-11']

@@ -10,6 +10,7 @@ export const dateDePublication = '13/11/2021'
  * Complété par des corrections de Gilles Mora
  */
 export const uuid = 'a2bbc'
+export const ref = 'can6P05'
 export const refs = {
   'fr-fr': ['can6P05'],
   'fr-ch': []

@@ -20,6 +20,7 @@ export const amcType = 'AMCNum'
  * Référence 4C35
  */
 export const uuid = '125bd'
+export const ref = '4C35'
 export const refs = {
   'fr-fr': ['4C35'],
   'fr-ch': ['10NO2-12']

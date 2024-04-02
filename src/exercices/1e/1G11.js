@@ -20,6 +20,7 @@ export const dateDePublication = '20/04/2022' // La date de publication initiale
  * Référence
  */
 export const uuid = 'a720c'
+export const ref = '1G11'
 export const refs = {
   'fr-fr': ['1G11'],
   'fr-ch': []

@@ -10,6 +10,7 @@ export const titre = 'Utiliser le cosinus pour calculer une longueur dans un tri
  * 4G40 Exercice refait avec mathalea2d l'ancien exo MG32 porte la référence 4G40-MG32
  */
 export const uuid = '3303a'
+export const ref = '4G40'
 export const refs = {
   'fr-fr': ['4G40'],
   'fr-ch': []

@@ -18,6 +18,7 @@ export const interactifType = 'mathLive'
  * Référence CM003
  */
 export const uuid = '9db38'
+export const ref = 'CM003'
 export const refs = {
   'fr-fr': ['CM003'],
   'fr-ch': []

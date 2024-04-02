@@ -21,6 +21,7 @@ export const interactifType = 'mathLive'
  * Référence 6D11
  */
 export const uuid = '5f315'
+export const ref = '6D11'
 export const refs = {
   'fr-fr': ['6D11'],
   'fr-ch': ['10GM3-3']

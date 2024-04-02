@@ -24,6 +24,7 @@ export const titre = 'Addition de deux entiers relatifs'
  * 5R20
  */
 export const uuid = 'cbc26'
+export const ref = '5R20'
 export const refs = {
   'fr-fr': ['5R20'],
   'fr-ch': ['9NO9-6']

@@ -13,6 +13,7 @@ export const amcType = 'AMCNum'
  * Référence can6C19
  */
 export const uuid = 'd656b'
+export const ref = 'can6C19'
 export const refs = {
   'fr-fr': ['can6C19'],
   'fr-ch': []

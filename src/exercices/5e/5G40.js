@@ -26,6 +26,7 @@ export const dateDeModifImportante = '08/05/2022'
  * Publié le 30/11/2020
  */
 export const uuid = 'b611a'
+export const ref = '5G40'
 export const refs = {
   'fr-fr': ['5G40'],
   'fr-ch': ['9ES4-4']

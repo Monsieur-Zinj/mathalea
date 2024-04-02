@@ -36,6 +36,7 @@ export const titre = 'Effectuer des divisions euclidiennes'
  * Référence 6C11
  */
 export const uuid = '2da81'
+export const ref = '6C11'
 export const refs = {
   'fr-fr': ['6C11'],
   'fr-ch': ['9NO3-3']

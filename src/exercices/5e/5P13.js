@@ -27,6 +27,7 @@ export const dateDePublication = '10/08/2022'
  * Référence 5P13
  */
 export const uuid = 'edb61'
+export const ref = '5P13'
 export const refs = {
   'fr-fr': ['5P13'],
   'fr-ch': ['10FA4-1']

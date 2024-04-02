@@ -14,6 +14,7 @@ export const amcType = 'AMCNum'
 * Date de publication
 */
 export const uuid = 'c7270'
+export const ref = 'techno1P3'
 export const refs = {
   'fr-fr': ['techno1P3'],
   'fr-ch': []

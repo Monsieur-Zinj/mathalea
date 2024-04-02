@@ -8,6 +8,7 @@ export const dateDePublication = '03/04/2022'
  * reference 5S22
  */
 export const uuid = 'df72b'
+export const ref = '5S22'
 export const refs = {
   'fr-fr': ['5S22'],
   'fr-ch': ['11NO2-8']

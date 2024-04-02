@@ -23,6 +23,7 @@ export const dateDeModifImportante = '21/06/2023' // EE : Rajout d'un paramètre
  * Référence 3L15
  */
 export const uuid = '231d2'
+export const ref = '3L15'
 export const refs = {
   'fr-fr': ['3L15'],
   'fr-ch': ['11FA10-4']

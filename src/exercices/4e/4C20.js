@@ -11,6 +11,7 @@ export const amcType = 'qcmMono'
  * Publié le 14/08/2021
  */
 export const uuid = 'd7e11'
+export const ref = '4C20'
 export const refs = {
   'fr-fr': ['4C20'],
   'fr-ch': []

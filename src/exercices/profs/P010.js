@@ -12,6 +12,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, printlatex, xcas 
 import Exercice from '../deprecatedExercice.js'
 
 export const titre = 'Étude de fonctions de degré 3'
+export const ref = 'P010'
 export const refs = {
   'fr-fr': ['P010'],
   'fr-ch': []

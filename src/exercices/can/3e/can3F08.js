@@ -22,6 +22,7 @@ export const dateDePublication = '25/10/2021' // La date de publication initiale
  * @author Gilles Mora (2F10-02)
 */
 export const uuid = 'f554f'
+export const ref = 'can3F08'
 export const refs = {
   'fr-fr': ['can3F08'],
   'fr-ch': []

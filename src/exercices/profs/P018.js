@@ -3,6 +3,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Pyramide from '../../modules/pyramide.js'
 export const titre = 'Générateur de pyramides'
+export const ref = 'P018'
 export const refs = {
   'fr-fr': ['P018'],
   'fr-ch': []

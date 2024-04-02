@@ -23,6 +23,7 @@ export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '6c8a1'
+export const ref = '6N20'
 export const refs = {
   'fr-fr': ['6N20'],
   'fr-ch': ['9NO10-9']

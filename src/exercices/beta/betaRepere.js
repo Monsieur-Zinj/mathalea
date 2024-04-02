@@ -5,6 +5,7 @@ import Exercice from '../Exercice'
 
 export const titre = 'essai de RepereBuilder'
 export const uuid = '95699'
+export const ref = 'betaRepere'
 export const dateDePublication = '22/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 // export const uuid = '' // @todo à changer dans un nouvel exo (utiliser pnpm getNewUuid)
 // export const ref = 'betaRepere'// @todo à modifier aussi

@@ -34,6 +34,7 @@ export const titre = 'Effectuer divisions décimales'
  * Référence 6C31
  */
 export const uuid = '294bb'
+export const ref = '6C31'
 export const refs = {
   'fr-fr': ['6C31'],
   'fr-ch': ['9NO8-14']

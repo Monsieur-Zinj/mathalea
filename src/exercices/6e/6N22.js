@@ -23,6 +23,7 @@ export const dateDeModifImportante = '07/03/2023' // Une date de modification im
  * @author Rémi Angot (Modifié par EE : rajout d'un paramètre)
  */
 export const uuid = 'c75b6'
+export const ref = '6N22'
 export const refs = {
   'fr-fr': ['6N22'],
   'fr-ch': ['9NO13-2']

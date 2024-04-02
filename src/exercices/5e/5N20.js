@@ -31,6 +31,7 @@ export const titre = 'Additionner ou soustraire deux fractions (dénominateurs m
  * @author Rémi Angot
  */
 export const uuid = 'd5ee3'
+export const ref = '5N20'
 export const refs = {
   'fr-fr': ['5N20'],
   'fr-ch': ['9NO13-6']

@@ -17,6 +17,7 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
  * @author Jean-Claude Lhote
  */
 export const uuid = '04f53'
+export const ref = '3S20'
 export const refs = {
   'fr-fr': ['3S20'],
   'fr-ch': ['11NO2-13']

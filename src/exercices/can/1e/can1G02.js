@@ -9,6 +9,7 @@ export const dateDePublication = '01/06/2022'
  * @author Stéphane et cie
  */
 export const uuid = '2dd6a'
+export const ref = 'can1G02'
 export const refs = {
   'fr-fr': ['can1G02'],
   'fr-ch': []

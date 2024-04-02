@@ -10,6 +10,7 @@ import { randint, enumerate, enumerateSansPuceSansNumero } from '../../modules/o
 export const dateDePublication = '14/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 export const titre = 'Puzzles géométriques avec animation'
+export const ref = 'P015'
 export const refs = {
   'fr-fr': ['P015'],
   'fr-ch': []

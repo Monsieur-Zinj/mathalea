@@ -16,6 +16,7 @@ export const dateDePublication = '19/07/2022'
  * Date de publication
 */
 export const uuid = 'afbda'
+export const ref = 'can5P07'
 export const refs = {
   'fr-fr': ['can5P07'],
   'fr-ch': []

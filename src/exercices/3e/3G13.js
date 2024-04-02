@@ -31,6 +31,7 @@ export const dateDeModifImportante = '29/01/2023' //  Par EE
  * @author Frédéric PIOU
 */
 export const uuid = '6f383'
+export const ref = '3G13'
 export const refs = {
   'fr-fr': ['3G13'],
   'fr-ch': ['11ES3-5']

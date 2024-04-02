@@ -30,6 +30,7 @@ export const dateDeModifImportante = '11/11/2021'
  * Ajout possibilité correction non détaillée le 11/11/2021 par Mireille Gain
  */
 export const uuid = 'b6982'
+export const ref = '5R21'
 export const refs = {
   'fr-fr': ['5R21'],
   'fr-ch': ['9NO9-13']

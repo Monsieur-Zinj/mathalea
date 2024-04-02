@@ -13,6 +13,7 @@ export const interactifType = 'custom'
  * Références geoParallelogramme2
  */
 
+export const ref = 'parallelogramme2'
 export const refs = {
   'fr-fr': ['parallelogramme2'],
   'fr-ch': []

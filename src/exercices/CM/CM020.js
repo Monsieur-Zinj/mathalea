@@ -9,6 +9,7 @@ export const titre = 'Générateur de compte est bon version semi-aléatoire'
  * Dans cette version, il est possible de choisir 1,2,3,4 ou 5 nombres du tirage et de contraindre la cible entre deux valeurs
  */
 export const uuid = 'fec06'
+export const ref = 'CM020'
 export const refs = {
   'fr-fr': ['CM020'],
   'fr-ch': []

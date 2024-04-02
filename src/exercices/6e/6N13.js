@@ -12,6 +12,7 @@ export const amcType = 'AMCNum'
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '3eae0'
+export const ref = '6N13'
 export const refs = {
   'fr-fr': ['6N13'],
   'fr-ch': ['10GM3-7']

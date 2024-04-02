@@ -22,6 +22,7 @@ export const dateDeModifImportante = '02/02/2024'
  * Ajout de l'alternance entre effectif total pair et impair le 18/08/2021 : Guilllaume Valmont
  */
 export const uuid = '7c068'
+export const ref = '4S11'
 export const refs = {
   'fr-fr': ['4S11'],
   'fr-ch': ['11NO2-9']

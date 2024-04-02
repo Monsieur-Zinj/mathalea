@@ -7,6 +7,7 @@ export const amcType = 'AMCNum'
 
 export const dateDePublication = '04/04/2022'
 
+export const ref = '5P14'
 export const refs = {
   'fr-fr': ['5P14'],
   'fr-ch': []

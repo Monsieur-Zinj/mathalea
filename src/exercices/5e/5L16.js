@@ -68,6 +68,7 @@ function compliquerCompare (input, goodAnswer) {
  * Ajout du paramètre de procédure inverse par Guillaume Valmont le 18/06/2022
  */
 export const uuid = 'e2e64'
+export const ref = '5L16'
 export const refs = {
   'fr-fr': ['5L16'],
   'fr-ch': ['9FA2-8']

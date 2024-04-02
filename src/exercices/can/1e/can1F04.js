@@ -22,6 +22,7 @@ export const dateDePublication = '09/06/2022' // La date de publication initiale
  * Référence can1L04
  */
 export const uuid = '0f0de'
+export const ref = 'can1F04'
 export const refs = {
   'fr-fr': ['can1F04'],
   'fr-ch': []

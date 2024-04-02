@@ -21,6 +21,7 @@ export const amcReady = true
  * @author Rémi Angot (AMC par Eric Elter)
  */
 export const uuid = '603a8'
+export const ref = '3L10'
 export const refs = {
   'fr-fr': ['3L10'],
   'fr-ch': ['11FA1-1']

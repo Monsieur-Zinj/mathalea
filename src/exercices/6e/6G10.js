@@ -18,6 +18,7 @@ export const amcType = 'AMCOpen'
  * Référence 6G10
  */
 export const uuid = '8f5d3'
+export const ref = '6G10'
 export const refs = {
   'fr-fr': ['6G10'],
   'fr-ch': ['9ES1-1']

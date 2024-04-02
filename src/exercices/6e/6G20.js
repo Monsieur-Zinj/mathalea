@@ -18,6 +18,7 @@ export const dateDeModifImportante = '10/01/2024'
  * Placer les sommets et les égalités de longueur...
  */
 export const uuid = '90e1a'
+export const ref = '6G20'
 export const refs = {
   'fr-fr': ['6G20'],
   'fr-ch': ['9ES2-5']
