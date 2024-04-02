@@ -12,7 +12,6 @@ export function toutPourUnPoint (listePoints) {
  * @returns {{feedback: string, score: {nbBonnesReponses: (number|number), nbReponses: (number|number)}, isOk: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, resultat: string}|{feedback: string, score: {nbBonnesReponses: number, nbReponses: number}, isOk: string}|*|{feedback: string, score: {nbBonnesReponses: (number), nbReponses: number}, resultat: string}}
  */
 export function verifQuestionMathLive (exercice, i, writeResult = true) {
-  console.log(i)
   if (exercice.autoCorrection[i].reponse == null) {
     throw Error(`verifQuestionMathlive appelé sur une question sans réponse: ${JSON.stringify({
             exercice,

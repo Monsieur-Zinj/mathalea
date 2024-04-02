@@ -148,9 +148,12 @@
         }
         if (exercice.typeExercice === 'simple') {
           mathaleaHandleExerciceSimple(exercice, false)
+        } else {
+          // Mgu pas sûr de l'utilité de ça!
+          // seedrandom(exercice.seed, { global: true })
+          exercice.nouvelleVersionWrapper?.()
         }
-        seedrandom(exercice.seed, { global: true })
-        exercice.nouvelleVersionWrapper?.()
+        
         let consigne: string = ''
         if ($selectedExercises.indexes.includes(k)) {
           if (exercice.introduction) {
