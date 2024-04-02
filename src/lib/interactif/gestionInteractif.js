@@ -286,6 +286,7 @@ export function setReponse (exercice, i, valeurs, {
     formatInteractif,
     precision
   }
+  if (Array.isArray(valeurs)) window.notifyLocal('setReponse a reçu un Array de reponses, il faut en finir avec ça', { valeurs })
   if (exercice.formatInteractif === 'qcm') return
   if (formatInteractif === undefined) formatInteractif = 'calcul'
   let reponses = []

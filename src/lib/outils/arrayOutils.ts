@@ -2,6 +2,7 @@ import { egal, epsilon } from '../../modules/outils.js'
 declare global {
   interface Window {
     notify: (message: string, object: unknown) => void;
+    notifyLocal: (message: string, object: unknown) => void;
   }
 }
 /**

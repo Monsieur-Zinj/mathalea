@@ -25,6 +25,22 @@ if (document.location.hostname === 'coopmaths.fr') {
   handleBugsnag()
 }
 
+export function notifyLocal (error: string|Error, metadatas: Metadatas) {
+  if (window.location.href.includes('.fr')) return
+  if (typeof error === 'string') {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
+    if (error.includes(tropDeChiffres) && !window.Bugsnag) {
+      console.error(error + '\nIl y a un risque d\'erreur d\'approximation (la limite est de 15 chiffres significatifs)\nnb : ' + metadatas.nb + '\nprecision (= nombre de décimales demandé) : ' + metadatas.precision)
+    }
+    error = Error(error).message
+  }
+  const message = 'Ce message ne sera pas envoyé à Bugsnag dans la version en ligne, mais il faut traiter le problème !'
+  showDialogForLimitedTime('notifDialog', 5000, message + ' : <br>' + error.toString() + JSON.stringify(metadatas))
+  console.error(message, error)
+  if (metadatas) console.info('avec les metadatas', metadatas)
+  console.info('Paramètres des exercices', get(exercicesParams))
+}
 /**
  * Une fonction à importer dans les fichiers typescript si on veut faire du window.notify() on utilise notify().
  * @param error
@@ -56,3 +72,6 @@ export function notify (error: string|Error, metadatas: Metadatas) {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
 window.notify = notify
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+window.notifyLocal = notifyLocal
