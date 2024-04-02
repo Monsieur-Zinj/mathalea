@@ -577,16 +577,12 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
  */
 export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteractif: boolean, numeroExercice?: number) {
   if (numeroExercice !== undefined) exercice.numeroExercice = numeroExercice
-  exercice.autoCorrection = []
+  exercice.reinit()
   exercice.interactif = isInteractif
-  exercice.listeQuestions = []
-  exercice.listeCorrections = []
-  exercice.listeCanEnonces = []
-  exercice.listeCanReponsesACompleter = []
   for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
     const compare = exercice.compare == null ? calculCompare : exercice.compare
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
-    if (exercice.nouvelleVersionWrapper && typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper(numeroExercice)
+    if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.question))) {
       if (exercice.compare != null) {
         let reponse = {}

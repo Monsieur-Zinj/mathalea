@@ -7,8 +7,10 @@ export function exportedNouvelleVersionWrapper (this: Exercice, numeroExercice?:
 }
 
 export function exportedReinit (this: Exercice) {
-  this.listeQuestions = [] // Liste de questions
-  this.listeCorrections = [] // Liste de questions corrigées
+  this.listeQuestions = []
+  this.listeCorrections = []
+  this.listeCanEnonces = []
+  this.listeCanReponsesACompleter = []
   this.listeArguments = []
   this.autoCorrection = []
 }
