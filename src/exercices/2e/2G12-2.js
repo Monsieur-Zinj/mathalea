@@ -14,7 +14,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { equalFractionCompare } from '../../lib/interactif/comparisonFunctions'
+import { equalFractionCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
@@ -22,7 +22,6 @@ export const interactifType = 'mathLive'
 export const titre = 'Calculer et utiliser les coordonnées du milieu d\'un segment dans un repère'
 export const dateDeModifImportante = '04/12/2023'
 /**
- * 2G12-2
  * @author Stéphane Guyon modif Gilles Mora
  */
 export const uuid = '4b25a'
@@ -33,8 +32,6 @@ export const refs = {
 }
 export default function Milieu () {
   Exercice.call(this)
-  this.titre = titre
-  this.sup = parseInt(this.sup)
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -42,21 +39,17 @@ export default function Milieu () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
     let typesDeQuestionsDisponibles = [1, 2, 3]; let typesDeQuestions
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
-    }
-    if (this.sup === 2) {
+    } else if (this.sup === 2) {
       typesDeQuestionsDisponibles = [3]
-    }
-    if (this.sup === 3) {
+    } else if (this.sup === 3) {
       typesDeQuestionsDisponibles = [2]
-    }
-    if (this.sup === 4) {
+    } else if (this.sup === 4) {
       typesDeQuestionsDisponibles = [1, 2, 3]
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
