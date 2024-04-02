@@ -25,7 +25,8 @@
   import { millisecondToMinSec } from '../../../lib/components/time'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
   import type { InterfaceResultExercice } from '../../../lib/types'
-  
+  import { context } from '../../../modules/context'
+
   let state: CanState = 'start'
   let exercises: TypeExercice[] = []
   let questions: string[] = []
@@ -38,6 +39,7 @@
   let answers: string[] = []
   let recordedTimeFromCapytale: number
   onMount(async () => {
+    context.isDiaporama = true
     // reconstitution des exercices
     exercises = await Promise.all(buildExercisesList())
     // interactivité
@@ -152,7 +154,7 @@
     for (let i = 0, ind = 0; i < exercises.length; i++) {
       const exercise = exercises[i]
       for (let q = 0; q < exercise.nbQuestions; q++) {
-        const ans : { [key: string]: string } = {} 
+        const ans : { [key: string]: string } = {}
         ans[`Ex${i}Q${q}`] = exercise.answers![`Ex${i}Q${q}`]
         const quest : InterfaceResultExercice = {
           uuid: exercise.uuid,
