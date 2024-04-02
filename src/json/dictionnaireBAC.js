@@ -797,7 +797,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet1_ameriquenord_1_cor.tex',
-    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables alétoires']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
   bac_2022_05_sujet1_ameriquenord_2: {
     annee: '2022',
@@ -1213,7 +1213,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet2_etrangers_1_cor.tex',
-    tags: ['QCM', 'Convexité', 'Exponentielle', 'Primitive']
+    tags: ['QCM', 'Convexité', 'Exponentielle', 'Primitives']
   },
   bac_2022_05_sujet2_etrangers_2: {
     annee: '2022',
@@ -1317,7 +1317,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet2_metropole_1.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet2_metropole_1_cor.tex',
-    tags: ['Probabilites Conditionnelles', 'Loi binomiale']
+    tags: ['Probabilités Conditionnelles', 'Loi binomiale']
   },
   bac_2022_05_sujet2_metropole_2: {
     annee: '2022',
@@ -1369,7 +1369,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1_cor.tex',
-    tags: [' QCM', 'Logarithme', 'Exponentielle', 'Primitive']
+    tags: [' QCM', 'Logarithme', 'Exponentielle', 'Primitives']
   },
   bac_2022_05_sujet2_polynesie_2: {
     annee: '2022',
@@ -1787,7 +1787,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_1_cor.tex',
-    tags: ['']
+    tags: ['Equations différentielles','Exponentielle','']
   },
   bac_2024_01_sujet0_2: {
     annee: '2024',
@@ -1799,7 +1799,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_2_cor.tex',
-    tags: ['']
+    tags: ['Primitives','Python','Suites','Exponentielle']
   },
   bac_2024_01_sujet0_3: {
     annee: '2024',
@@ -1811,7 +1811,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_3_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles','Variables aléatoires','Loi binomiale']
   },
   bac_2024_01_sujet0_4: {
     annee: '2024',
@@ -1823,7 +1823,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_4_cor.tex',
-    tags: ['']
+    tags: ['Espace','QCM']
   },
   bac_2024_01_sujet0_5: {
     annee: '2024',
@@ -1835,7 +1835,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_5.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_5_cor.tex',
-    tags: ['']
+    tags: ['Fonctions trigonométriques','Convexité','QCM','Combinatoire','Loi binomiale']
   },
   bac_2024_01_sujet0_6: {
     annee: '2024',
@@ -1847,7 +1847,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_6.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_6_cor.tex',
-    tags: ['']
+    tags: ['Vrai/Faux','Suites']
   },
   bac_2024_01_sujet0_7: {
     annee: '2024',
@@ -1859,7 +1859,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_7.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_7_cor.tex',
-    tags: ['']
+    tags: ['Exponentielle','Logarithme']
   },
   bac_2024_01_sujet0_8: {
     annee: '2024',
@@ -1871,7 +1871,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_8.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_8_cor.tex',
-    tags: ['']
+    tags: ['Suites','Python']
   },
 
   bac_2023_03_sujet1_ameriquenord_1: {
