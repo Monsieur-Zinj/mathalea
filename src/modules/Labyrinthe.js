@@ -323,7 +323,6 @@ export function Labyrinthe ({ nbLignes = 3, nbColonnes = 6, scaleFigure = 1 } = 
     }
     for (let a = 1; a < nbColonnes + 1; a++) {
       for (let b = 0; b < nbLignes; b++) {
-        0
         trouve = false
         for (let k = 0; k < monChemin.length; k++) {
           if (monChemin[k][0] === a && monChemin[k][1] === b) trouve = true

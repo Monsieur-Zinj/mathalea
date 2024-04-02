@@ -1,23 +1,27 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { pgcd } from '../../lib/outils/primalite'
 import { labyrinthe } from '../../modules/Labyrinthe.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { numberCompare } from '../../lib/interactif/comparisonFunctions'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { abs, rangeMinMax } from '../../lib/outils/nombres'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
+export const dateDePublication = '11/12/2020'
+export const dateDeModifImportante = '02/04/2024'
 
 export const titre = 'Parcourir un labyrinthe de fractions égales'
 
 /**
  * @author Jean-Claude Lhote (remaniée par EE pour la prise en compte du nb de lignes et de colonnes du labyrinthe)
- * Publié le 11/12/2020
- * Ref : 6N41-1
  * Parcourir un labyrinthe de fractions en passant par des fractions égales.
  */
 export const uuid = 'f8a4d'
@@ -28,14 +32,10 @@ export const refs = {
 }
 export default function ExerciceLabyrintheFractionsEgales () {
   Exercice.call(this)
-  this.consigne = ''
   this.niveau = '6e'
   this.nbQuestions = 1
-  // this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
-  this.pas_de_version_HMTL = false
   this.sup2 = 3
   this.sup = 10
   this.sup3 = 1
@@ -63,32 +63,29 @@ export default function ExerciceLabyrintheFractionsEgales () {
       const monchemin = laby.choisitChemin(laby.niveau) // on choisit un chemin
       laby.murs2d = laby.construitMurs(monchemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monchemin) // On trace le chemin solution
-      const table = randint(1, 7) + 1
+      const table = randint(2, 8)
       let num = randint(1, 2 * table - 1)
       while (pgcd(num, table) !== 1) {
         num = randint(2, 2 * table - 1)
       }
 
       const maximum = this.sup
-      texte = `Trouver la sortie en ne passant que par les cases contenant des fractions égales à $${texFractionReduite(num, table)}$.`
+      texte = `Trouver la sortie en ne passant que par les cases contenant des fractions égales à $${new FractionEtendue(num, table).simplifie().texFSD}$.`
       texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
-      // Zone de construction du tableau de nombres : S'ils sont sur monchemin et seulement si, ils doivent vérifier la consigne
-      let listeMultiples = []
 
-      for (let i = 2; i <= maximum; i++) {
-        listeMultiples.push(table * i)
-      }
+      // Zone de construction du tableau de nombres : S'ils sont sur monchemin et seulement s'ils doivent vérifier la consigne
+      let listeMultiples = rangeMinMax(2, maximum, [table])
       listeMultiples = combinaisonListes(listeMultiples, nbC * nbL)
+
       for (let i = 0; i < nbC * nbL; i++) {
-        mesfractions.push(fraction(calculANePlusJamaisUtiliser(num * listeMultiples[i] / table), listeMultiples[i]))
+        mesfractions.push(new FractionEtendue(num * listeMultiples[i], table * listeMultiples[i]))
       }
       for (let i = 0; i < nbC * nbL; i++) {
         switch (randint(1, 3)) {
-          case 1: mesfractions.push(fraction(listeMultiples[i], num * listeMultiples[i] / table))
+          case 1: mesfractions.push(new FractionEtendue(table, num).multiplieEntier(listeMultiples[i]))
             break
-          case 2: mesfractions.push(fraction(calculANePlusJamaisUtiliser(num * listeMultiples[i] / table), listeMultiples[i] - table))
-            break
-          case 3: mesfractions.push(fraction(calculANePlusJamaisUtiliser(num * listeMultiples[i] / table), listeMultiples[i] - table))
+          case 2:
+          case 3 : mesfractions.push(new FractionEtendue(num * listeMultiples[i], table * abs(listeMultiples[i] - table)))
             break
         }
       }
@@ -99,6 +96,13 @@ export default function ExerciceLabyrintheFractionsEgales () {
       if (context.isAmc) texte += ' Laisser dans le labyrinthe les traces du chemin parcouru.'
       texte += '<br>' + mathalea2d(params, laby.murs2d, laby.nombres2d)
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
+      if (this.interactif) {
+        texte += '<br>La sortie porte le numéro : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 nospacebefore inline clavierDeBase')
+        handleAnswers(this, 2 * i, { reponse: { value: nbL - monchemin[monchemin.length - 1][1], compare: numberCompare } })
+        texte += `<br><br>Combien de cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ contient le chemin pour sortir ? ` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 nospacebefore inline clavierDeBase')
+        handleAnswers(this, 2 * i + 1, { reponse: { value: monchemin.length, compare: numberCompare } })
+        texteCorr += `<br>Il y a $${miseEnEvidence(monchemin.length)}$ cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ dans le chemin pour sortir.`
+      }
       if (context.isAmc) {
         this.autoCorrection[0] = {
           enonce: 'ici la (ou les) question(s) est(sont) posée(s)',
