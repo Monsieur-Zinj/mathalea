@@ -69,6 +69,7 @@ export function numberFormat (nb: number) {
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
 export function texNombre (nb: number | Decimal, precision: number, completerZeros = false, aussiCompleterEntiers = false) {
+  if (precision == null) window.notifyLocal('Il faut 2 arguments à texNombre ! La précision attendue est obligatoire !', { nombre: nb, precision })
   if (typeof nb === 'string') {
     window.notify('texNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
     nb = Number(nb)
