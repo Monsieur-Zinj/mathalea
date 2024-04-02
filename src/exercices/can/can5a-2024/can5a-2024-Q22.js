@@ -38,7 +38,7 @@ export default class NomExercice extends Exercice {
       const c = new FractionEtendue(a[2], a[3])
       this.reponse = new FractionEtendue(a[0] + a[2], a[3])
       this.question = `$${b.texFraction}+${c.texFraction} ${this.interactif ? '=' : ''}$`
-      this.correction = `$${b.texFraction}+${c.texFraction}=${miseEnEvidence(this.reponse)}$`
+      this.correction = `$${b.texFraction}+${c.texFraction}=${miseEnEvidence(this.reponse.texFraction)}$`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\dfrac{\\ldots}{\\ldots}$'

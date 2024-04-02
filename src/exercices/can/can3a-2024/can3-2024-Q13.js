@@ -28,9 +28,7 @@ export default class NomExercice extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = [printlatex('14x^2-10x+12'), printlatex('-10x+12+14x^2'), printlatex('14x^2+12-10x'),
-        printlatex('-10x+14x^2+12'), printlatex('12-10x+14x^2'), printlatex('12+14x^2-10x')
-      ]
+      this.reponse = printlatex('14x^2-10x+12')
       this.question = 'Réduis : $8x^2-9x-x+6x^2+12$   '
       this.correction = `$\\begin{aligned}
       8x^2-9x-x+6x^2+12&=\\underbrace{8x^2+6x^2}_{14x^2}\\underbrace{-9x-x}_{-10x}+12\\\\
@@ -49,15 +47,15 @@ export default class NomExercice extends Exercice {
       $${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2${signe(e)}x$ `
 
         if (b + e === 0) {
-          this.reponse = printlatex(`${texNombre(a + d)}x^2+${texNombre(c)}`)
+          this.reponse = printlatex(`${texNombre(a + d, 0)}x^2+${texNombre(c, 0)}`)
           this.correction = `$\\begin{aligned}
-          ${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2+x&=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c)}\\\\
+          ${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c, 0)}+${rienSi1(d)}x^2+x&=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c, 0)}\\\\
           &=${miseEnEvidence(this.reponse)}
           \\end{aligned}$`
         } else {
-          this.reponse = printlatex(`${texNombre(a + d)}x^2+${texNombre(b + e)}x+${texNombre(c)}`)
+          this.reponse = printlatex(`${texNombre(a + d, 0)}x^2+${texNombre(b + e, 0)}x+${texNombre(c, 0)}`)
           this.correction = `$\\begin{aligned}
-          ${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2+x&=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c)}\\\\
+          ${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c, 0)}+${rienSi1(d)}x^2+x&=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c, 0)}\\\\
           &=${miseEnEvidence(this.reponse)}
           \\end{aligned}$`
         }

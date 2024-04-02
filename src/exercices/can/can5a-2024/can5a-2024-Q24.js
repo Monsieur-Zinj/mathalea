@@ -42,7 +42,7 @@ export default class NomExercice extends Exercice {
       this.reponse = b
       this.question = `Simplifie au maximum $${a.texFraction}$.<br>
       `
-      this.correction = `$${a.texFraction}=\\dfrac{${fraction[0]}\\times \\cancel{${k}}}{${fraction[1]}\\times \\cancel{${k}}}=${miseEnEvidence(this.reponse)}$
+      this.correction = `$${a.texFraction}=\\dfrac{${fraction[0]}\\times \\cancel{${k}}}{${fraction[1]}\\times \\cancel{${k}}}=${miseEnEvidence(this.reponse.texFraction)}$
       `
     }
     this.canEnonce = this.question
