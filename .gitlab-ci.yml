@@ -45,10 +45,10 @@ default:
     - sleep 60
 
 .testCIPDF:
-  image: guironne/tex-live-nodejs
+  image: guironne/tex-live-nodejs-playwright
+  # - pnpm exec playwright install --with-deps chromium
   before_script:
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
-    - pnpm exec playwright install --with-deps chromium
     - nohup pnpm start &
     - sleep 60
   stage: playwright-pdf
