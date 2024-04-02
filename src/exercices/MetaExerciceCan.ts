@@ -1,8 +1,11 @@
-import { handleAnswers } from '../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../lib/interactif/gestionInteractif'
 import Exercice from './Exercice'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../lib/interactif/qcm'
 import { numberCompare } from '../lib/interactif/comparisonFunctions'
+import Grandeur from '../modules/Grandeur'
+import Decimal from 'decimal.js'
+import FractionEtendue from '../modules/FractionEtendue'
 
 export const interactifType = 'qcm_mathLive'
 export const interactifReady = true
@@ -35,39 +38,68 @@ export default class MetaExercice extends Exercice {
       Question.nouvelleVersion()
       //* ************ Question Exo simple *************//
       if (Question.listeQuestions.length === 0) { // On est en présence d'un exo simple
-        const consigne = Question.consigne == null ? '' : Question.consigne + '<br>'
+        const consigne = Question.consigne === '' ? '' : Question.consigne + '<br>'
         this.listeCorrections[indexQuestion] = (Question.correction)
         this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
         this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
-        if (Question.formatInteractif === 'qcm') {
-          this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-        } else if (Question.formatInteractif === 'fillInTheBlank') {
+        const formatChampTexte = Question.formatChampTexte ?? ''
+        const optionsChampTexte = Question.optionsChampTexte ?? {}
+        if (Question.formatInteractif === 'fillInTheBlank' || (typeof Question.reponse === 'object' && 'champ1' in Question.reponse)) {
           this.listeQuestions[indexQuestion] = consigne + remplisLesBlancs(this, indexQuestion, Question.question, 'fillInTheBlank', '\\ldots')
-          if (Question.compare === null || Question.compare === undefined) {
-            if (typeof Question.reponse === 'string') {
-              handleAnswers(this, indexQuestion, { champ1: { value: Question.reponse, compare: numberCompare } }, { formatInteractif: 'mathlive' })
-            } else if (typeof Question.reponse === 'object') {
-              handleAnswers(this, indexQuestion, Question.reponse, { formatInteractif: 'mathlive' })
-            } else {
-              window.notify('Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu', { reponse: Question.reponse })
-            }
+          if (typeof Question.reponse === 'string') {
+            handleAnswers(this, indexQuestion, {
+              champ1: {
+                value: Question.reponse,
+                compare: Question.compare ?? numberCompare
+              }
+            }, { formatInteractif: 'mathlive' })
+          } else if (typeof Question.reponse === 'object') {
+            handleAnswers(this, indexQuestion, Question.reponse, { formatInteractif: 'mathlive' })
+          } else {
+            window.notify('Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu', { reponse: Question.reponse })
+          }
+        } else if (Question.formatInteractif === 'qcm') {
+          this.listeQuestions[indexQuestion] = consigne + Question.question
+          this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
+        } else {
+          if (Question.compare == null) {
+            setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
           } else {
             const compare = Question.compare
-            if (typeof Question.reponse === 'string') {
-              handleAnswers(this, indexQuestion, { champ1: { value: Question.reponse, compare } }, { formatInteractif: 'mathlive' })
+            if (typeof Question.reponse === 'string' || typeof Question.reponse === 'number') {
+              const reponse = String(Question.reponse)
+              handleAnswers(this, indexQuestion, {
+                reponse: {
+                  value: reponse,
+                  compare
+                }
+              }, { formatInteractif: 'mathlive' })
             } else if (typeof Question.reponse === 'object') {
-              handleAnswers(this, indexQuestion, Question.reponse, { formatInteractif: 'mathlive' })
+              const reponse = Question.reponse
+              if (reponse instanceof FractionEtendue) {
+                handleAnswers(this, indexQuestion, {
+                  reponse: {
+                    value: reponse.texFraction,
+                    compare
+                  }
+                }, { formatInteractif: 'mathlive' })
+              } else if (reponse instanceof Decimal) {
+                handleAnswers(this, indexQuestion, {
+                  reponse: {
+                    value: reponse.toString(),
+                    compare
+                  }
+                }, { formatInteractif: 'mathlive' })
+              } else if (reponse instanceof Grandeur) {
+                handleAnswers(this, indexQuestion, { reponse: { value: reponse, compare } }, { formatInteractif: 'mathlive' })
+              } else {
+                handleAnswers(this, indexQuestion, reponse, { formatInteractif: 'mathlive' })
+              }
             } else {
-              window.notify('Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu', { reponse: Question.reponse })
+              window.notify('Erreur avec cette question qui contient une reponse au format inconnu', { reponse: Question.reponse })
             }
           }
-        } else {
-          this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, Question.formatChampTexte ?? '', Question.optionsChampTexte ?? {})
-          if (Question.compare === null || Question.compare === undefined) {
-            handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse } }, { formatInteractif: Question.formatInteractif } || {})
-          } else {
-            handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, compare: Question.compare } }, { formatInteractif: Question.formatInteractif } || {})
-          }
+          this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, formatChampTexte, optionsChampTexte)
         }
       } else {
         //* ***************** Question Exo classique *****************//

@@ -30,7 +30,7 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.reponse = new FractionEtendue(2, 7)
       this.question = '$\\dfrac{9}{7}=1+ \\text{?}$ '
-      this.correction = `$\\dfrac{9}{7}=\\dfrac{7}{7}+\\dfrac{2}{7}=1+${miseEnEvidence(this.reponse)}$`
+      this.correction = `$\\dfrac{9}{7}=\\dfrac{7}{7}+\\dfrac{2}{7}=1+${miseEnEvidence(this.reponse.texFraction)}$`
     } else {
       const listeFractions = [[4, 3, 1, 1, 3], [10, 7, 1, 3, 7], [12, 7, 1, 5, 7],
         [9, 4, 2, 1, 4], [17, 7, 2, 3, 7], [16, 3, 5, 1, 3], [17, 3, 5, 2, 3],
@@ -41,7 +41,7 @@ export default class NomExercice extends Exercice {
       const frac1 = new FractionEtendue(a[0], a[1])
       this.reponse = new FractionEtendue(a[3], a[4])
       this.question = `$${frac1.texFraction}=${Math.floor(a[0] / a[1])} + \\text{?}$  `
-      this.correction = `$${frac1.texFraction}=\\dfrac{${a[0] - a[3]}}{${a[1]}}+\\dfrac{${a[3]}}{${a[4]}}=${a[2]}+${miseEnEvidence(this.reponse)}$`
+      this.correction = `$${frac1.texFraction}=\\dfrac{${a[0] - a[3]}}{${a[1]}}+\\dfrac{${a[3]}}{${a[4]}}=${a[2]}+${miseEnEvidence(this.reponse.texFraction)}$`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = '? $=\\dfrac{\\ldots}{\\ldots}$'

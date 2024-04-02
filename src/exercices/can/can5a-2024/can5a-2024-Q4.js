@@ -24,14 +24,14 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.compare = intervalStrictCompare
-    this.formatInteractif = 'calcul' // 'intervalleStrict'
+    this.formatInteractif = 'mathlive' // 'intervalleStrict'
     this.canOfficielle = true
   }
 
   nouvelleVersion () {
     const valInf = this.canOfficielle ? 3 : randint(1, 10)
     const valSup = this.canOfficielle ? new Decimal(3.1) : choice([new Decimal(valInf).add(0.1), new Decimal(valInf).add(0.01)])
-    this.reponse = { borneInf: valInf, borneSup: valSup }
+    this.reponse = { reponse: { value: { borneInf: valInf, borneSup: valSup }, compare: intervalStrictCompare } }
     this.question = 'Complète par un nombre. <br>'
     if (this.interactif) {
       this.optionsChampTexte = { texteAvant: `$${valInf} < $`, texteApres: `$<${texNombre(valSup, 2)}  $` }

@@ -41,7 +41,7 @@ export default class NomExercice extends Exercice {
     const a = this.canOfficielle ? 2 : randint(1, 5) * 2
     const k = this.canOfficielle ? new FractionEtendue(3, 2) : new FractionEtendue(choice([3, 5, 7, 9, 11]), 2)
 
-    this.reponse = k
+    this.reponse = k.texFraction
     this.question = ' Complète. <br>'
     this.question += mathalea2d({ xmin: -1.6, ymin: -1, xmax: 5, ymax: 1, pixelsParCm: 30, scale: 0.7 }, labelPoint(A, B),
       latexParCoordonnees(this.interactif ? '\\times\\text{ ?}' : '\\times \\ldots', 1.5, 0.5, 'black', 1, 20, '', 8),
@@ -57,6 +57,5 @@ export default class NomExercice extends Exercice {
       latexParCoordonnees('\\fbox{ 2 }', -0.7, 0, 'black', 1, 20, '', 8), segAB,
       latexParCoordonnees('\\fbox{ 3 }', 3.7, 0, 'black', 1, 20, '', 8)
     )
-    this.reponse = this.reponse.texNombre
   }
 }
