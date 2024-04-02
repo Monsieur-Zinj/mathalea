@@ -25,8 +25,12 @@ if (document.location.hostname === 'coopmaths.fr') {
   handleBugsnag()
 }
 
+function isDevMode () {
+  return window.location.href.startsWith('http://localhost')
+}
+
 export function notifyLocal (error: string|Error, metadatas: Metadatas) {
-  if (window.location.href.includes('.fr')) return
+  if (!isDevMode()) return
   if (typeof error === 'string') {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
