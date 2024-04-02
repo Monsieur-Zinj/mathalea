@@ -8,14 +8,16 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { sp } from '../../lib/outils/outilString'
+import { context } from '../../modules/context'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Effectuer des calculs de fractions (à dénominateurs multiples) un peu complexes'
 
 export const dateDePublication = '12/05/2023'
-export const dateDeModifImportante = '02/03/2024'
+export const dateDeModifImportante = '02/04/2024'
 
+// Modifié le 2/4/24 pour permettre d'utiliser cet exercice sans connaitre les nombres négatifs (+ suppression des fonctions dépréciées)
 /**
  * Effectuer des calculs mêlant fractions (dont un dénominateur est un multiple de l'autre) et priorités opératoires simples .
  *
@@ -23,7 +25,7 @@ export const dateDeModifImportante = '02/03/2024'
  *
  * Pour ne pas surcharger la difficulté, le coefficient est limité à 2, 3, 4 ou 5.
 
- * @author Mireille Gain / Rémi Angot pour le paramètre sans relatifs
+ * @author Mireille Gain
  */
 export const uuid = '75f80'
 export const ref = '5N20-1'
@@ -57,6 +59,10 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
       this.consigne += this.interactif ? ' au brouillon et indiquer seulement le résultat final.' : '.'
     }
 
+    if (context.isDiaporama) {
+      this.consigne = ''
+    }
+
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -80,6 +86,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
       negOuPos = randint(1, 2)
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1': // Calculs du type a/b + n * c/bk lorsque negOuPos === 1 et du type a/b - n * c/bk lorsque negOuPos === 2
+          if (this.sup4) negOuPos = 1
           if (negOuPos === 1) {
             if (ordreDesFractions === 1) { // La fraction de dénominateur plus grand est la deuxième
               //     texte = `$${new FractionEtendue(a, b)}+ ${n} \\times  ${new FractionEtendue(c, d)}$`
@@ -180,7 +187,16 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
           }
           break
         case 'type2': // Calculs du type :     a/b - (c/b + e/bk)
-
+          if (this.sup4) {
+            let max = 9
+            while (a < c * e || a < c + e / k || a % b === 0) {
+              a = randint(1, max)
+              b = randint(2, 9, a)
+              c = randint(1, 9)
+              e = randint(1, 9)
+              max++
+            }
+          }
           if (ordreDesFractions === 2) {
             texte = `$${new FractionEtendue(a, b).texFSD}- \\Big(${new FractionEtendue(c, b).texFSD} + ${new FractionEtendue(e, d).texFSD}\\Big)$`
           } else {
@@ -238,6 +254,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
           }
           break
         case 'type3': // Calculs du type a/b + n (pour retravailler le fait qu'un entier est une fraction) lorsque negOuPos === 2 et du type a/b - n lorsque negOuPos === 1
+          if (this.sup4) negOuPos = 2
           if (negOuPos === 2) {
             texte = `$${new FractionEtendue(a, b).texFSD} + ${n}$`
             texteCorr = `$${new FractionEtendue(a, b).texFSD} + ${n}=`
@@ -272,6 +289,15 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
           }
           break
         case 'type4': // Calculs du type a/b - c/bk + e/b
+          if (this.sup4) {
+            let max = 9
+            while (a * k - c + e * k < 0) {
+              a = randint(1, max)
+              c = randint(1, 9)
+              e = randint(1, 9)
+              max++
+            }
+          }
           texte = `$${new FractionEtendue(a, b).texFSD}-${new FractionEtendue(c, d).texFSD}+${new FractionEtendue(e, b).texFSD}$`
 
           texteCorr = `$${new FractionEtendue(a, b).texFSD}-${new FractionEtendue(c, d).texFSD}+${new FractionEtendue(e, b).texFSD}=`
