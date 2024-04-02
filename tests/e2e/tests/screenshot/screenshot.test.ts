@@ -2,7 +2,7 @@ import { runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
 
 async function test (page: Page) {
-  const uuid = '745ba'
+  const uuid = Object.entries(process.env).filter(([key]) => key === 'UUID').map(el => el[1])[0]
   const urlExercice = `http://localhost:5173/alea/?uuid=${uuid}`
   await page.goto(urlExercice)
   await page.screenshot({ path: `screenshots/${uuid}/prof.png` })
