@@ -31,6 +31,8 @@ export class Yohaku {
   taille:number
   Case:number|undefined
   cellules: string[]
+  cellulesEE: FractionEtendue[]
+  sommesCellules: FractionEtendue[]
   cellulesPreremplies: string[]
   resultats:string[]
   operation:'addition'|'multiplication'
@@ -59,6 +61,8 @@ export class Yohaku {
     this.type = type
     this.cellules = cellules ?? []
     this.cellulesPreremplies = []
+    this.cellulesEE = []
+    this.sommesCellules = []
     this.clavier = KeyboardType.clavierDeBase
     if (this.cellules.length === 0) {
       const den = randint(2, valeurMax)
@@ -76,10 +80,39 @@ export class Yohaku {
             this.cellules.push(reduireAxPlusB(randint(1, valeurMax), randint(1, valeurMax), 'x'))
             this.clavier = KeyboardType.clavierDeBaseAvecVariable
             break
-          case 'fractions dénominateurs multiples':
-            this.cellules.push(fraction(randint(1, valeurMax), den).texFraction.replace('dfrac', 'frac'))
+          case 'fractions dénominateurs multiples': { // EE : Modif pour 4C21-2 afin que les sommes des lignes ne soient pas identiques aux sommes des colonnes
+            let testFraction = new FractionEtendue(randint(1, valeurMax), den)
+            let sommeFractions:FractionEtendue
+            if (i + 1 >= this.taille) {
+              if ((i + 1) % this.taille === 1) {
+                sommeFractions = new FractionEtendue(0, 1)
+                for (let ee = 0; ee < this.taille; ee++) {
+                  sommeFractions = sommeFractions.sommeFraction(this.cellulesEE[ee + this.taille * Math.floor(ee / this.taille)])
+                }
+                this.sommesCellules.push(sommeFractions)
+              }
+              if (i >= this.taille * (this.taille - 1)) {
+                let fractionsEgales :boolean
+                do {
+                  fractionsEgales = false
+                  testFraction = new FractionEtendue(randint(1, valeurMax), den)
+                  sommeFractions = new FractionEtendue(0, 1)
+                  for (let ee = 0; ee < this.taille - 1; ee++) {
+                    sommeFractions = sommeFractions.sommeFraction(this.cellulesEE[i % this.taille + this.taille * ee])
+                  }
+                  sommeFractions = sommeFractions.sommeFraction(testFraction)
+                  for (let ee = 0; ee < this.sommesCellules.length; ee++) {
+                    fractionsEgales = fractionsEgales || this.sommesCellules[ee].isEqual(sommeFractions)
+                  }
+                } while (fractionsEgales)
+                this.sommesCellules.push(sommeFractions)
+              }
+            }
+            this.cellulesEE.push(testFraction)
+            this.cellules.push(testFraction.texFSD.replace('dfrac', 'frac'))
             this.clavier = KeyboardType.clavierDeBaseAvecFraction
             break
+          }
           case 'fractions positives dénominateurs premiers':
             this.cellules.push(fraction(randint(1, valeurMax), Number(choice([2, 3, 5, 7]))).texFraction.replace('dfrac', 'frac'))
             this.clavier = KeyboardType.clavierDeBaseAvecFraction
