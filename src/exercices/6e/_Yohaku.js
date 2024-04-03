@@ -3,6 +3,7 @@ import Exercice from '../deprecatedExercice.js'
 import { Yohaku } from '../../lib/outils/Yohaku'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { context } from '../../modules/context.js'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
@@ -22,6 +23,7 @@ export const dateDeModificationImportante = '16/12/2023'
  * @constructor
  */
 export default function FabriqueAYohaku () {
+  this.exoCustomResultat = true
   Exercice.call(this)
   this.nbQuestions = 3
   this.sup = 30
@@ -61,6 +63,7 @@ export default function FabriqueAYohaku () {
         : `Trouve les ${mot} à mettre dans les cases vides pour que les produits de chaque ligne et chaque colonne soient exacts.`
       this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot} qui conviennent (plusieurs solutions possibles).<br>`
       texte = yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: this.interactif, classes: '' })
+      texte += ajouteFeedback(this, i)
       texteCorr = 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br><br>'
       yohaku.solution = true
       texteCorr += yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: false })
@@ -102,6 +105,7 @@ export default function FabriqueAYohaku () {
     let cell
     const spanResultat = []
     const saisies = []
+    const divFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${i}`)
     for (let l = 0; l < taille; l++) {
       spanResultat[l] = []
       for (let c = 0; c < taille; c++) {
@@ -124,8 +128,15 @@ export default function FabriqueAYohaku () {
         }
       }
     }
-    let resultat
-    if (this.saisieCoherente(saisies, taille, i)) {
+    const resultats = this.saisieCoherente(saisies, taille, i)
+    let resultat = 'OK'
+    let feedback = ''
+    for (const [data, value] of Object.entries(resultats)) {
+      feedback += `${data.replace('Colonne', 'Colonne ').replace('Ligne', 'Ligne ')} ${value ? 'correcte' : 'incorrecte'}.<br>`
+      resultat = value ? resultat : 'KO'
+    }
+
+    if (resultat === 'OK') {
       for (let l = 0; l < taille; l++) {
         for (let c = 0; c < taille; c++) {
           if (spanResultat[l][c] != null) {
@@ -133,7 +144,6 @@ export default function FabriqueAYohaku () {
           }
         }
       }
-      resultat = 'OK'
     } else {
       for (let l = 0; l < taille; l++) {
         for (let c = 0; c < taille; c++) {
@@ -144,36 +154,43 @@ export default function FabriqueAYohaku () {
       }
       resultat = 'KO'
     }
-    return resultat
+    divFeedback.innerHTML = feedback
+    return [
+      resultats.Ligne1 ? 'OK' : 'KO',
+      resultats.Ligne2 ? 'OK' : 'KO',
+      resultats.Colonne1 ? 'OK' : 'KO',
+      resultats.Colonne2 ? 'OK' : 'KO'
+    ]
   }
 
   this.saisieCoherente = function (saisies, taille, question) {
     const engine = new ComputeEngine()
-    let resultatOK = true
-    const test = function (yohaku, i, valeurs, resultatOK) {
+    const test = function (yohaku, i, valeurs) {
+      let resultatOK
       const resultVal = engine.parse(yohaku[question].operate(valeurs))
       const resultatAttendu = engine.parse(yohaku[question].resultats[i])
       if (yohaku.type === 'littéraux') {
-        resultatOK = resultatOK && resultVal.isSame(resultatAttendu)
+        resultatOK = resultVal.isSame(resultatAttendu)
       } else {
-        resultatOK = resultatOK && resultVal.isEqual(resultatAttendu)
+        resultatOK = resultVal.isEqual(resultatAttendu)
       }
       return resultatOK
     }
+    let result = {}
     for (let i = 0; i < taille; i++) {
       const valeurs = []
       for (let j = 0; j < taille; j++) {
         valeurs.push(saisies[i + j * taille] ?? '0')
       }
-      resultatOK = test(this.yohaku, i, valeurs, resultatOK)
+      result = Object.assign(result, Object.fromEntries([[`Colonne${i + 1}`, test(this.yohaku, i, valeurs)]]))
     }
     for (let i = taille; i < taille * 2; i++) {
       const valeurs = []
       for (let j = 0; j < taille; j++) {
         valeurs.push(saisies[(i - taille) * taille + j] ?? '0')
       }
-      resultatOK = test(this.yohaku, i, valeurs, resultatOK)
+      result = Object.assign(result, Object.fromEntries([[`Ligne${i - taille + 1}`, test(this.yohaku, i, valeurs)]]))
     }
-    return resultatOK
+    return result
   }
 }
