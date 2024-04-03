@@ -9,7 +9,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
-export const titre = 'Déterminer graphiquement la valeur de b avec une parabole'
+export const titre = 'Déterminer graphiquement la valeur de $b$ avec une parabole'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
