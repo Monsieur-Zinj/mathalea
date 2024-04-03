@@ -32,15 +32,17 @@ export const refs = {
 }
 export default function ReduireExp () {
   Exercice.call(this)
+  this.compare = expandedAndReductedCompare
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = expandedAndReductedCompare
+
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
     this.formatChampTexte = 'largeur15 inline'
     let a, b, c, choix, d, e
+    let reponse
     switch (randint(1, 3)) {
       case 1: // ax+bx+c
         choix = choice([1, 2, 3])// 1,2
@@ -71,7 +73,7 @@ export default function ReduireExp () {
           $${rienSi1(b)}x+${texNombre(c)}${rienSi1(a)}x$.`
           this.correction = `$${rienSi1(b)}x+${texNombre(c)}${rienSi1(a)}x=(${a}${b})x+${c}=${texNombre((a + b))}x+${texNombre(c)}$`
         }
-        this.reponse = reduireAxPlusB(a + b, c, 'x')
+        reponse = reduireAxPlusB(a + b, c, 'x')
 
         break
 
@@ -88,7 +90,7 @@ export default function ReduireExp () {
 
           if (b + e === 0) {
             this.correction = `$${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2+x=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c)}=${texNombre((a + d))}x^2+${texNombre(c)}$`
-            this.reponse = printlatex(`${texNombre(a + d)}x^2+${texNombre(c)}`)
+            reponse = printlatex(`${texNombre(a + d)}x^2+${texNombre(c)}`)
           } else {
             this.correction = `$${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2+x=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c)}=${texNombre((a + d))}x^2+${texNombre((b + e))}x+${texNombre(c)}$`
           }
@@ -106,14 +108,14 @@ export default function ReduireExp () {
             this.correction = `$${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2+x=
             (${a}${ecritureAlgebrique(d)})x^2+(${b}${ecritureAlgebrique(e)})x${ecritureAlgebrique(c)}=
             ${ecritureAlgebrique(b + e)}x+${texNombre(c)}$`
-            this.reponse = printlatex(`${texNombre(b + e)}x+${texNombre(c)}`)
+            reponse = printlatex(`${texNombre(b + e)}x+${texNombre(c)}`)
           } else {
             this.correction = `$${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2+x=
             (${a}${ecritureAlgebrique(d)})x^2+(${b}${ecritureAlgebrique(e)})x${ecritureAlgebrique(c)}=
             ${rienSi1(a + d)}x^2${ecritureAlgebrique(b + e)}x+${texNombre(c)}$`
           }
         }
-        this.reponse = reduirePolynomeDegre3(0, a + d, b + e, c, 'x')
+        reponse = reduirePolynomeDegre3(0, a + d, b + e, c, 'x')
 
         break
 
@@ -127,7 +129,7 @@ export default function ReduireExp () {
             $${rienSi1(a)}x\\times${b}x$.`
           } else { this.question = `Écrire le plus simplement possible : <br>$${rienSi1(a)}x\\times(${b}x)$.` }
           if (b > 0) { this.correction = `$${rienSi1(a)}x\\times${b}x=(${texNombre(a)}\\times  ${ecritureParentheseSiNegatif(b)})x^2=${texNombre(a * b)}x^2$` } else { this.correction = `$${rienSi1(a)}x\\times (${b}x)=(${texNombre(a)}\\times  ${ecritureParentheseSiNegatif(b)})x^2=${texNombre((a * b))}x^2$` }
-          this.reponse = reduirePolynomeDegre3(0, a * b, 0, 0, 'x')
+          reponse = reduirePolynomeDegre3(0, a * b, 0, 0, 'x')
         }
         if (choix === 2) {
           a = randint(-9, 9, 0)
@@ -135,11 +137,11 @@ export default function ReduireExp () {
           this.question = `Écrire le plus simplement possible : <br>
           $${rienSi1(a)}x\\times${ecritureParentheseSiNegatif(b)}$.`
           this.correction = `$${rienSi1(a)}x\\times${ecritureParentheseSiNegatif(b)}=${texNombre(a * b)}x$`
-          this.reponse = reduireAxPlusB(a * b, 0, 'x')
+          reponse = reduireAxPlusB(a * b, 0, 'x')
         }
         break
     }
-    this.reponse = { expr: this.reponse, strict: false }
+    this.reponse = { reponse: { value: { expr: reponse, strict: false }, compare: expandedAndReductedCompare } }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

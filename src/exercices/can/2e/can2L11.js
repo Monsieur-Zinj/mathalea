@@ -58,7 +58,7 @@ export default function ExprimerVariable () {
           }
         }
 
-        this.reponse = { membre1: { fonction: var1, variable: var1 }, membre2: { fonction: `\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}`, variable: var2 }, strict: true }
+        this.reponse = { reponse: { value: { membre1: { fonction: var1, variable: var1 }, membre2: { fonction: `\\dfrac{${reduireAxPlusB(-b, c, var2)}}{${a}}`, variable: var2 }, strict: true }, compare: equalityCompare } }
       } else {
         this.question = ` On donne la relation  : $${rienSi1(a)}${var1}${ecritureAlgebriqueSauf1(b)}${var2}=${c}$.<br>
         
@@ -76,7 +76,7 @@ export default function ExprimerVariable () {
           }
         }
 
-        this.reponse = { membre1: { fonction: var2, variable: var2 }, membre2: { fonction: `\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`, variable: var1 }, strict: true }
+        this.reponse = { reponse: { value: { membre1: { fonction: var2, variable: var2 }, membre2: { fonction: `\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`, variable: var1 }, strict: true }, compare: equalityCompare } }
       }
     }
 

@@ -39,7 +39,7 @@ export default class EquationReduite extends Exercice {
     const xB = 3
     const yB = this.canOfficielle ? 1 : yA + randint(-2, 2, 0)
     const coeffDir = new FractionEtendue(yB - yA, xB - xA)
-    const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
+    const o = texteParPosition('O', -0.3, -0.3, 0, 'black', 1, 'milieu', true, 1)
     const A = point(xA, yA, 'A', 'above left')
     const B = point(xB, yB, 'B')
     const Bx = point(B.x, A.y)
@@ -86,7 +86,7 @@ export default class EquationReduite extends Exercice {
     const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, o, d, r1, traceB, traceA, labelPoint(A), labelPoint(B))
     this.question = 'Déterminer l\'équation réduite de la droite $(AB)$.<br>    '
     this.question += `${objet}<br>`
-    this.reponse = { membre1: { fonction: 'y', variable: 'y' }, membre2: { fonction: `${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`, variable: 'x' }, strict: false }
+    this.reponse = { reponse: { value: { membre1: { fonction: 'y', variable: 'y' }, membre2: { fonction: `${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`, variable: 'x' }, strict: false }, compare: equalityCompare } }
     this.correction = `En utilisant les deux points $A$ et $B$, on détermine le coefficient directeur $m$ de la droite : <br>
     $m=\\dfrac{y_B-y_A}{x_B-x_A}=${coeffDir.texFractionSimplifiee}$.<br>
          L' ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est `
