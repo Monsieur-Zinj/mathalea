@@ -4,7 +4,7 @@ import { combinaisonListesSansChangerOrdre, enleveElementBis } from '../../../li
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Exercice from '../../deprecatedExercice.js'
-import uuidToUrl from '../../../json/uuidsToUrl.json'
+import uuidToUrl from '../../../json/uuidsToUrlFR.json'
 import { mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
 export const titre = 'Choix aléatoires des questions'
 export const interactifReady = true

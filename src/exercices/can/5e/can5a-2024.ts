@@ -37,7 +37,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '57e63'
 // export const refMAISPASMAINTENANT = 'can5a-2024'
-// export const refs = {
+// export const refsMAISPASMAINTENANT = {
 //  'fr-fr': ['can5a-2024'],
 //   'fr-ch': []
 //  }

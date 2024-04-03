@@ -37,7 +37,7 @@ export const interactifReady = true
 export const interactifType = 'qcm_mathLive'
 export const uuid = '28c21'
 // export const refMAISPASMAINTENANT = 'canc3a-2024'
-// export const refs = {
+// export const refsMAISPASMAINTENANT = {
 //  'fr-fr': ['can6a-2024'],
 //   'fr-ch': []
 //  }

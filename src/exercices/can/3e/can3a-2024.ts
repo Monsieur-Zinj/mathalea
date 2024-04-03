@@ -37,7 +37,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'f3ceb'
 // export const refMAISPASMAINTENANT = 'can3a-2024'
-// export const refs = {
+// export const reefsMAISPASMAINTENANT = {
 //  'fr-fr': ['can3a-2024'],
 //   'fr-ch': []
 //  }
