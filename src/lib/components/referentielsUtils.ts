@@ -1,5 +1,5 @@
 import type { InterfaceReferentiel } from '../types'
-import referentiel from '../../json/referentiel2022.json'
+import referentiel from '../../json/referentiel2022FR.json'
 import referentielStatic from '../../json/referentielStatic.json'
 import referentiel2nd from '../../json/referentiel2nd.json'
 import codeList from '../../json/codeToLevelList.json'

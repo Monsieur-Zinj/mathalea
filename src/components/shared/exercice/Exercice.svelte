@@ -7,7 +7,7 @@
   import { SvelteComponent, onMount } from 'svelte'
   import { globalOptions } from '../../../lib/stores/generalStore'
   import type { InterfaceParams } from '../../../lib/types'
-  import uuidToUrl from '../../../json/uuidsToUrl.json'
+  import uuidToUrl from '../../../json/uuidsToUrlFR.json'
   import ExerciceStatic from './presentationalComponents/exerciceStatic/ExerciceStatic.svelte'
   import Exercice from '../../../exercices/Exercice'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'

@@ -1,6 +1,6 @@
 import referentielStatic from '../../../src/json/referentielStatic.json'
 import { type JSONReferentielObject } from '../../../src/lib/types/referentiels'
-import uuidToUrl from '../../../src/json/uuidsToUrl.json'
+import uuidToUrl from '../../../src/json/uuidsToUrlFR.json'
 
 const allStaticReferentiels: JSONReferentielObject = {
   ...referentielStatic

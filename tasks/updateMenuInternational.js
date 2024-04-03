@@ -127,7 +127,7 @@ async function readInfos (dirPath, uuidMap, exercicesNonInteractifs, refToUuid, 
                 }
                 infos.typeExercice = 'alea'
                 if (infos.id !== undefined) {
-                  exercicesShuffled[infos.id] = infos
+                  exercicesShuffled[infos.id] = { ...infos }
                   refToUuid[infos.id] = infos.uuid
                 }
               })
@@ -215,8 +215,10 @@ const createFiles = function (referentiel, uuidMap, exercicesShuffled, exercices
       }
     }
   }
-  fs.writeFile('src/json/referentielGeometrieDynamique' + codePays + '.json', JSON.stringify(referentiel['Géométrie dynamique'], null, 2))
-  delete referentiel['Géométrie dynamique']
+  if (codePays === 'FR') {
+    fs.writeFile('src/json/referentielGeometrieDynamique.json', JSON.stringify(referentiel['Géométrie dynamique'], null, 2))
+    delete referentiel['Géométrie dynamique']
+  }
   fs.writeFile('src/json/referentiel2022' + codePays + '.json', JSON.stringify(referentiel, null, 2).replaceAll('"c3"', '"CM1/CM2"'))
 }
 
@@ -236,6 +238,21 @@ const referentiel2022 = JSON.parse(emptyRef2022)
 
 const exercicesDir = './src/exercices'
 
+const uuidMapCH = new Map()
+const exercicesNonInteractifsCH = []
+const exercicesShuffledCH = {}
+const refToUuidCH = {}
+readInfos(exercicesDir, uuidMapCH, exercicesNonInteractifsCH, refToUuidCH, exercicesShuffledCH, 'fr-ch')
+  .then(() => {
+    createFiles(referentielCH, uuidMapCH, exercicesShuffledCH, exercicesNonInteractifsCH, refToUuidCH, 'CH')
+  })
+  .then(() => {
+    console.log('CH: uuidsToUrl et referentiel ont été mis à jour')
+  })
+  .catch((err) => {
+    console.error(err)
+  })
+
 const uuidMapFR = new Map()
 const exercicesNonInteractifsFR = []
 const exercicesShuffledFR = {}
@@ -247,21 +264,6 @@ readInfos(exercicesDir, uuidMapFR, exercicesNonInteractifsFR, refToUuidFR, exerc
   })
   .then(() => {
     console.log('FR: uuidsToUrl, referentiel et referentielGeometrieDynamique ont été mis à jour')
-  })
-  .catch((err) => {
-    console.error(err)
-  })
-
-const uuidMapCH = new Map()
-const exercicesNonInteractifsCH = []
-const exercicesShuffledCH = {}
-const refToUuidCH = {}
-readInfos(exercicesDir, uuidMapCH, exercicesNonInteractifsCH, refToUuidCH, exercicesShuffledCH, 'fr-ch')
-  .then(() => {
-    createFiles(referentielCH, uuidMapCH, exercicesShuffledCH, exercicesNonInteractifsCH, refToUuidCH, 'CH')
-  })
-  .then(() => {
-    console.log('CH: uuidsToUrl, referentiel et referentielGeometrieDynamique ont été mis à jour')
   })
   .catch((err) => {
     console.error(err)

@@ -1,5 +1,5 @@
 // Ce store est dédié au stockage des référentiels et des outils de leur évolution
-import referentielAlea from '../../json/referentiel2022.json'
+import referentielAlea from '../../json/referentiel2022FR.json'
 import referentielExams from '../../json/referentielStatic.json'
 import referentielProfs from '../../json/referentielProfs.json'
 import referentielRessources from '../../json/referentielRessources.json'
