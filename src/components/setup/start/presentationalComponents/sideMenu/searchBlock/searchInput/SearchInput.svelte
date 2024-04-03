@@ -7,7 +7,12 @@
     type ExerciceItemInReferentiel,
     type ResourceAndItsPath,
     type ToolItemInReferentiel,
-    type Level
+    type Level,
+
+    isStaticType,
+
+    isExamItemInReferentiel
+
   } from '../../../../../../../lib/types/referentiels'
   import {
     allFilters,
@@ -24,6 +29,7 @@
   import Chip from './Chip.svelte'
   import type { Unsubscriber } from 'svelte/store'
   import Button from '../../../../../../../components/shared/forms/Button.svelte'
+  import { sortArrayOfResourcesBasedOnProp, sortArrayOfResourcesBasedOnYearAndMonth } from '../../../../../../../lib/components/sorting'
   export let origin: ResourceAndItsPath[]
   export let results: ResourceAndItsPath[] = []
   export let addExercise: (uuid: string, id: string) => void
@@ -77,7 +83,40 @@
       results.length = 0
     } else {
       const resultsWithDuplicates = getResults(input)
-      results = getUniques(resultsWithDuplicates)
+      const unsortedResults = getUniques(resultsWithDuplicates)
+      // on ordonne la liste de recherche
+      // tri des exercices par type
+      let nonStatics: ResourceAndItsPath[] = []
+      let statics: ResourceAndItsPath[] = []
+      const others: ResourceAndItsPath[] = []
+      for (const item of unsortedResults) {
+        if (isExerciceItemInReferentiel(item.resource)) {
+          nonStatics.push(item)
+        } else if (isStaticType(item.resource)) {
+          statics.push(item)
+        } else {
+          others.push(item)
+        }
+      }
+      // ordonner les exercices dans chaque catégorie :
+      // -- année/mois décroissant pour examens
+      // -- id ordre alpha pour les exercices
+      nonStatics = [...sortArrayOfResourcesBasedOnProp(nonStatics, 'id')]
+      statics = [...sortArrayOfResourcesBasedOnYearAndMonth(statics, 'desc')].sort((eltA, eltB) => {
+        // ranger dans les sujets d'examens identiques par numéro d'exercices croissant
+        const nameA = eltA.resource.uuid.slice(0, -1)
+        const nameB = eltB.resource.uuid.slice(0, -1)
+        if (nameA.localeCompare(nameB) === 0) {
+          if (isExamItemInReferentiel(eltA.resource) && (isExamItemInReferentiel(eltB.resource))) {
+            return parseInt(eltA.resource.numeroInitial) - parseInt(eltB.resource.numeroInitial)
+          } else {
+            return 0
+          }
+        } else {
+          return 0
+        }
+      })
+      results = [...nonStatics, ...statics, ...others]
     }
   }
 

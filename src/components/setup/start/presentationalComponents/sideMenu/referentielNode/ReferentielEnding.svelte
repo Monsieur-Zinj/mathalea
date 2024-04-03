@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy, onMount } from 'svelte'
+  import { onDestroy } from 'svelte'
   import {
     isExerciceItemInReferentiel,
     resourceHasMonth,
@@ -45,23 +45,20 @@
   })
 
   let endingTitre = ''
-  
+
   $: {
     if (isExerciceItemInReferentiel(ending)) {
       endingTitre = ending.titre
-      if (endingTitre.includes('$')){
-        const regexp = /(['$])(.*?)\1/g;
+      if (endingTitre.includes('$')) {
+        const regexp = /(['$])(.*?)\1/g
         const matchs = endingTitre.match(regexp)
         matchs?.forEach(match => {
-          endingTitre = endingTitre.replace(match, katex.renderToString(match.replaceAll('$','')))
-        });
+          endingTitre = endingTitre.replace(match, katex.renderToString(match.replaceAll('$', '')))
+        })
       }
-      
     }
     selectedCount = countOccurences()
   }
-  
-
 
   onDestroy(unsubscribeToExerciceParams)
 
