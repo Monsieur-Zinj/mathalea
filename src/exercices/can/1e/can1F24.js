@@ -7,11 +7,9 @@ import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-
 import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-
-export const titre = 'Lire graphiquement la valeur  $b$ dans $ax^2+b$'
+export const titre = 'Lire graphiquement la valeur de $a$ dans $ax^2+b$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -21,15 +19,14 @@ export const dateDePublication = '17/06/2022' // La date de publication initiale
 /**
  *
  * @author Gilles Mora
- * Référence can1F06
+ * Référence can1F24
  */
-export const uuid = '26b38'
-export const ref = 'can1F06'
+export const uuid = '2ccca'
 export const refs = {
-  'fr-fr': ['can1F06'],
+  'fr-fr': ['can1F24'],
   'fr-ch': []
 }
-export default function LectureGraphiqueParaboleB () {
+export default function LectureGraphiqueParaboleA () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur01 inline'
@@ -74,9 +71,9 @@ export default function LectureGraphiqueParaboleB () {
 
             f = x => a * x ** 2 + b
 
-            texte = ` $f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
+            texte = ` $f$ est définie par $f(x)=ax^2+${b}$ .<br>
                         `
-            texte += `Déterminer la valeur de  $b$.<br>
+            texte += `Déterminer la valeur de $a$.<br>
             
             ` + mathalea2d({
                 xmin: -6,
@@ -108,9 +105,9 @@ export default function LectureGraphiqueParaboleB () {
 
             f = x => a * x ** 2 + b
 
-            texte = `$f$ est définie par $f(x)=${a}x^2+b$ .<br>
+            texte = `$f$ est définie par $f(x)=ax^2${ecritureAlgebrique(b)}$ .<br>
             `
-            texte += `Déterminer la valeur de $b$.<br>
+            texte += `Déterminer la valeur de $a$.<br>
             
             ` + mathalea2d({
                 xmin: -6,
@@ -123,14 +120,13 @@ export default function LectureGraphiqueParaboleB () {
               }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$b=$' })
-            setReponse(this, i, b)
+            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline nospacebefore', { texteAvant: '$a=$' })
+            setReponse(this, i, a)
           }
 
-          texteCorr = `La valeur de $b$ est donnée par l'image de $0$ par la fonction $f$.<br>
-          On lit $f(0)=${b}$. D'où, $b=${miseEnEvidence(b)}$.<br>
-           On obtient alors $f(x)=${rienSi1(a)}x^2${ecritureAlgebrique(b)}$.<br>
-          `
+          texteCorr = `La valeur de $a$ s'obtient (par exemple) grâce à l'image de $1$ par la fonction $f$.<br>
+          On lit $f(1)=${f(1)}$. D'où, $a\\times 1^2${ecritureAlgebrique(b)}=${f(1)}$, soit $a=${miseEnEvidence(a)}$.<br>
+          Ainsi, $f(x)=${rienSi1(a)}x^2${ecritureAlgebrique(b)}$.`
           break
 
         case 2:// cas parabole a<0
@@ -163,15 +159,13 @@ export default function LectureGraphiqueParaboleB () {
 
             f = x => a * x ** 2 + b
 
-            texte = `$f$ est définie par $f(x)=${a}x^2+b$ .<br>
+            texte = `$f$ est définie par $f(x)=ax^2${ecritureAlgebrique(b)}$ .<br>
             `
-            texte += `Déterminer la valeur de $b$.<br>
-            
-            ` +
+            texte += 'Déterminer la valeur de $a$.<br>' +
                             mathalea2d({
                               xmin: -6,
                               xmax: 6,
-                              ymin: -4.5,
+                              ymin: -4.2,
                               ymax: 4,
                               pixelsParCm: 25,
                               scale: 0.6,
@@ -198,14 +192,14 @@ export default function LectureGraphiqueParaboleB () {
 
             f = x => a * x ** 2 + b
 
-            texte = `$f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
+            texte = `$f$ est définie par $f(x)=ax^2${ecritureAlgebrique(b)}$ .<br>
             `
-            texte += `Déterminer la valeur de $b$.<br>
+            texte += `Déterminer la valeur de $a$.<br>
             
             ` + mathalea2d({
                 xmin: -6,
                 xmax: 6,
-                ymin: -7.1,
+                ymin: -7.2,
                 ymax: 1,
                 pixelsParCm: 25,
                 scale: 0.6,
@@ -213,14 +207,13 @@ export default function LectureGraphiqueParaboleB () {
               }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$b=$' })
-            setReponse(this, i, b)
+            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$a=$' })
+            setReponse(this, i, a)
           }
 
-          texteCorr = `La valeur de $b$ est donnée par l'image de $0$ par la fonction $f$.<br>
-          On lit $f(0)=${b}$. D'où, $b=${miseEnEvidence(b)}$. <br>
-          On obtient alors $f(x)=${rienSi1(a)}x^2${ecritureAlgebrique(b)}$.<br>
-          `
+          texteCorr = `La valeur de $a$ s'obtient grâce à l'image de $1$ par la fonction $f$.<br>
+          On lit $f(1)=${f(1)}$. D'où, $a\\times 1^2${ecritureAlgebrique(b)}=${f(1)}$, soit $a=${miseEnEvidence(a)}$.<br>
+          Ainsi, $f(x)=${rienSi1(a)}x^2${ecritureAlgebrique(b)}$.`
           break
       }
 
@@ -233,6 +226,6 @@ export default function LectureGraphiqueParaboleB () {
     }
     listeQuestionsToContenu(this)
     this.canEnonce = texte
-    this.canReponseACompleter = '$b=\\ldots$'
+    this.canReponseACompleter = '$a=\\ldots$'
   }
 }
