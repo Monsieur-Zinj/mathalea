@@ -7,11 +7,15 @@ import type { MathfieldElement } from 'mathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
 
-export const titre = 'Tables de multiplications « à l\'envers »'
+export const titre = 'Connaître les tables de multiplications « à l\'envers »'
 export const dateDePublication = '4/4/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ac64a'
+export const refs = {
+  'fr-fr': ['6C10-9'],
+  'fr-ch': []
+}
 
 /**
  * @author Rémi Angot
