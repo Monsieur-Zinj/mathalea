@@ -22,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {
@@ -37,16 +37,6 @@ export default class NomExercice extends Exercice {
     prog0 += '\\blockmove{attendre \\ovalmove{2} secondes}\n'
     prog0 += '}\n'
     prog0 += '\\end{scratch}<br>'
-    let prog1 = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
-    prog1 += '\\blockinit{quand \\greenflag est cliqué}\n'
-    prog1 += '\\blockrepeat{répéter \\ovalnum{4} fois}\n'
-    prog1 += '{\n'
-    prog1 += '\\blockpen{stylo en position d\'écriture} \n'
-    prog1 += '\\blockmove{avancer de \\ovalnum{100} pas}\n'
-    prog1 += '\\blockmove{tourner \\turnright{} de \\ovalnum{90} degrés}\n'
-    prog1 += '}\n'
-    prog1 += '\\end{scratch}<br>'
-
     let prog2 = '\\begin{scratch}[print,fill,blocks,scale=0.8]\n'
     prog2 += '\\blockinit{quand \\greenflag est cliqué}\n'
     prog2 += '\\blockrepeat{répéter \\ovalnum{4} fois}\n'
@@ -90,20 +80,8 @@ export default class NomExercice extends Exercice {
       this.canReponseACompleter = '$\\ldots$ pas'
       if (this.interactif) { this.optionsChampTexte = { texteApres: 'pas ' } }
     } else {
-      const choix = choice(['a', 'b', 'c', 'd', 'e'])//
+      const choix = choice(['a', 'b', 'c', 'd'])//
       if (choix === 'a') {
-        this.formatInteractif = 'texte'
-        this.reponse = ['carré', 'carre', 'Carré', 'carré de côté 100', 'carré de côté 100 pas']
-        this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.alphanumericAvecEspace
-        this.question = `${scratchblock(prog1)}`
-        if (this.interactif) {
-          this.question += 'La nature de la figure tracée est  un  '
-        } else { this.question += 'La nature de la figure tracée est : ' }
-        this.correction = `La figure obtenue est $${miseEnEvidence('carré')}$.`
-        this.canEnonce = this.question
-        this.canReponseACompleter = '$\\ldots$'
-      }
-      if (choix === 'b') {
         this.formatInteractif = 'calcul'
         this.reponse = 90
         this.question = `${scratchblock(prog2)}`
@@ -114,7 +92,7 @@ export default class NomExercice extends Exercice {
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\ldots$'
       }
-      if (choix === 'c') {
+      if (choix === 'b') {
         this.formatInteractif = 'calcul'
         this.reponse = 120
         this.question = `${scratchblock(prog3)}`
@@ -127,12 +105,12 @@ export default class NomExercice extends Exercice {
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\ldots$'
       }
-      if (choix === 'd') {
+      if (choix === 'c') {
         this.formatInteractif = 'calcul'
         this.reponse = 2
         this.question = `${scratchblock(prog4)}`
 
-        this.question += 'Quel nombre doit-on écrire à la place des pointillés pour tracer un triangle rectangle ?'
+        this.question += 'Quel nombre doit-on écrire à la place des pointillés pour tracer un  rectangle ?'
 
         this.correction = `
       La boucle contient le tracé d'une longueur et d'une largeur du rectangle. <br>
@@ -140,7 +118,7 @@ export default class NomExercice extends Exercice {
         this.canEnonce = this.question
         this.canReponseACompleter = '$\\ldots$'
       }
-      if (choix === 'e') {
+      if (choix === 'd') {
         this.formatInteractif = 'calcul'
         this.reponse = a * n
         this.question = `${scratchblock(prog0)}`

@@ -697,7 +697,7 @@ export class Trace extends ObjetMathalea2D {
      */
   constructor (spline, {
     repere,
-    step = 0.1,
+    step = 0.25,
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = true,

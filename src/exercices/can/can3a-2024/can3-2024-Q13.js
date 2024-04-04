@@ -1,11 +1,12 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { printlatex, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { signe } from '../../../lib/outils/nombres'
-import { ecritureAlgebrique, rienSi1 } from '../../../lib/outils/ecritures'
+import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { expandedAndReductedCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,16 +24,18 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecVariable
     this.optionsChampTexte = { texteAvant: '$=$' }
-    this.canOfficielle = true
+    this.canOfficielle = false
+    this.compare = expandedAndReductedCompare
   }
 
   nouvelleVersion () {
+    let reponse
     if (this.canOfficielle) {
-      this.reponse = printlatex('14x^2-10x+12')
+      reponse = '14x^2-10x+12'
       this.question = 'Réduis : $8x^2-9x-x+6x^2+12$   '
       this.correction = `$\\begin{aligned}
       8x^2-9x-x+6x^2+12&=\\underbrace{8x^2+6x^2}_{14x^2}\\underbrace{-9x-x}_{-10x}+12\\\\
-      &=${miseEnEvidence('14x^2-10x+12')}
+      &=${miseEnEvidence(reponse)}
       \\end{aligned}$
      `
     } else {
@@ -47,16 +50,16 @@ export default class NomExercice extends Exercice {
       $${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c)}+${rienSi1(d)}x^2${signe(e)}x$ `
 
         if (b + e === 0) {
-          this.reponse = printlatex(`${texNombre(a + d, 0)}x^2+${texNombre(c, 0)}`)
+          reponse = reduirePolynomeDegre3(0, a + d, 0, c, 'x')
           this.correction = `$\\begin{aligned}
           ${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c, 0)}+${rienSi1(d)}x^2+x&=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c, 0)}\\\\
-          &=${miseEnEvidence(this.reponse)}
+          &=${miseEnEvidence(reponse)}
           \\end{aligned}$`
         } else {
-          this.reponse = printlatex(`${texNombre(a + d, 0)}x^2+${texNombre(b + e, 0)}x+${texNombre(c, 0)}`)
+          reponse = reduirePolynomeDegre3(0, a + d, b + e, c, 'x')
           this.correction = `$\\begin{aligned}
           ${rienSi1(a)}x^2+${rienSi1(b)}x+${texNombre(c, 0)}+${rienSi1(d)}x^2+x&=(${a} + ${d})x^2+(${b}${ecritureAlgebrique(e)})x+${texNombre(c, 0)}\\\\
-          &=${miseEnEvidence(this.reponse)}
+          &=${miseEnEvidence(reponse)}
           \\end{aligned}$`
         }
       }
@@ -70,23 +73,24 @@ export default class NomExercice extends Exercice {
       $${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2${signe(e)}x$ `
 
         if (a + d === 0) {
-          this.reponse = printlatex(`${texNombre(b + e)}x+${texNombre(c)}`)
+          reponse = reduireAxPlusB(b + e, c, 'x')
           this.correction = `$\\begin{aligned}
           ${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2+x&=
         (${a}${ecritureAlgebrique(d)})x^2+(${b}${ecritureAlgebrique(e)})x${ecritureAlgebrique(c)}\\\\
-        &=${miseEnEvidence(this.reponse)}
+        &=${miseEnEvidence(reponse)}
         \\end{aligned}$`
         } else {
-          this.reponse = printlatex(`${texNombre(a + d)}x^2${texNombre(b + e)}x+${texNombre(c)}`)
+          reponse = reduirePolynomeDegre3(0, a + d, b + e, c, 'x')
           this.correction = `$\\begin{aligned}
           ${rienSi1(a)}x^2${ecritureAlgebrique(b)}x${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}x^2+x&=
         (${a}${ecritureAlgebrique(d)})x^2+(${b}${ecritureAlgebrique(e)})x${ecritureAlgebrique(c)}\\\\
-        &=${miseEnEvidence(this.reponse)}
+        &=${miseEnEvidence(reponse)}
           \\end{aligned}$`
         }
       }
     }
 
+    this.reponse = { reponse: { value: { expr: reponse, strict: false }, compare: expandedAndReductedCompare } }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     if (!this.interactif) {

@@ -24,15 +24,17 @@ export default class EncadreParDeuxEntiers extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = 'largeur01'
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {
     let decimal: Decimal
+    let partieDecimale: Decimal
     if (this.canOfficielle) {
       decimal = new Decimal('19.3')
     } else {
-      decimal = new Decimal(randint(100, 400) + randint(2, 8)).div(10)
+      partieDecimale = new Decimal(randint(2, 8)).div(10)
+      decimal = new Decimal(randint(11, 99)).add(partieDecimale)
     }
     const entierInf = decimal.floor()
     const entierSup = decimal.ceil()
