@@ -41,7 +41,7 @@ export default class nomExercice extends Exercice {
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
       defaut: 9,
-      max: 9,
+      max: 99,
       min: 2,
       enleveDoublons: true
     }) as number[]
@@ -93,9 +93,9 @@ export default class nomExercice extends Exercice {
 
         )
       } else {
-        texte = `$${a * b}= \\quad \\times \\quad$`
+        texte = `$${a * b}= \\ldots\\ldots \\times \\ldots\\ldots$`
       }
-      const texteCorr = `$${a * b}=${miseEnEvidence(a)} \\times ${miseEnEvidence(b)}$`
+      const texteCorr = `$${a * b}=${miseEnEvidence(String(a))} \\times ${miseEnEvidence(String(b))}$`
 
       if (this.questionJamaisPosee(i, a * b)) {
         this.listeQuestions.push(texte)
