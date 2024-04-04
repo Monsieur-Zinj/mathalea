@@ -349,7 +349,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2021/tex/bac_2021_06_asie_3.tex',
     urlcor: 'static/bac/2021/tex/bac_2021_06_asie_3_cor.tex',
-    tags: ['Dénombrement', 'Variable aléatoire', 'Loi binomiale']
+    tags: ['Dénombrement', 'Variables aléatoires', 'Loi binomiale']
   },
   bac_2021_06_asie_4: {
     annee: '2021',
@@ -409,7 +409,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2021/tex/bac_2021_06_asie_8.tex',
     urlcor: 'static/bac/2021/tex/bac_2021_06_asie_8_cor.tex',
-    tags: ['Variable aléatoire', 'Loi binomiale', 'Dénombrement']
+    tags: ['Variables aléatoires', 'Loi binomiale', 'Dénombrement']
   },
   bac_2021_06_asie_9: {
     annee: '2021',
@@ -505,7 +505,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2021/tex/bac_2021_06_etrangers_6.tex',
     urlcor: 'static/bac/2021/tex/bac_2021_06_etrangers_6_cor.tex',
-    tags: ['QCM', 'Suites', 'Variable aléatoire']
+    tags: ['QCM', 'Suites', 'Variables aléatoires']
   },
   bac_2021_06_etrangers_7: {
     annee: '2021',
@@ -541,7 +541,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2021/tex/bac_2021_06_etrangers_9.tex',
     urlcor: 'static/bac/2021/tex/bac_2021_06_etrangers_9_cor.tex',
-    tags: ['Logarithme', 'Variable aléatoire']
+    tags: ['Logarithme', 'Variables aléatoires']
   },
   bac_2021_06_metropole_1: {
     annee: '2021',
@@ -1252,7 +1252,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet2_etrangers_4.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet2_etrangers_4_cor.tex',
-    tags: ['Variable aléatoire', 'Loi binomiale']
+    tags: ['Variables aléatoires', 'Loi binomiale']
   },
   bac_2022_05_sujet2_madagascar_1: {
     annee: '2022',
@@ -1317,7 +1317,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet2_metropole_1.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet2_metropole_1_cor.tex',
-    tags: ['Probabilités Conditionnelles', 'Loi binomiale']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2022_05_sujet2_metropole_2: {
     annee: '2022',
@@ -1787,7 +1787,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_1_cor.tex',
-    tags: ['Equations différentielles','Exponentielle','']
+    tags: ['Équations différentielles','Exponentielle','']
   },
   bac_2024_01_sujet0_2: {
     annee: '2024',
