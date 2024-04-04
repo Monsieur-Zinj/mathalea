@@ -250,6 +250,8 @@ export function afficheScore (exercice /** Exercice */, nbBonnesReponses /** num
  * @param {number} i numéro de la question
  * @param {any} valeurs Attention à ce que vous mettez ici : ça doit être en accord avec le formatInteractif ! pas de texNombre ou de stringNombre !
  * @param {object} options
+ * @deprecated Dans la mesure du possible, utiliser handleAnswers après avoir consulter la doc
+ * @see https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Rendre-un-exercice-interactif
  */
 
 export function setReponse (exercice, i, valeurs, {
