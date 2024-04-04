@@ -91,7 +91,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
     const listeTypeDeCoeff = this.sup === 1
       ? combinaisonListes([1], this.nbQuestions)
       : this.sup === 2
-        ? combinaisonListes([1], this.nbQuestions)
+        ? combinaisonListes([2], this.nbQuestions)
         : combinaisonListes([1, 2], this.nbQuestions)
     const listeTypesDeQuestions = combinaisonListes(questionsDisponibles, this.nbQuestions)
     const antecedents = []
