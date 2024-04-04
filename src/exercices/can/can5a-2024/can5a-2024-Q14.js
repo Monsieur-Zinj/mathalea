@@ -62,7 +62,7 @@ export default class NomExercice extends Exercice {
     } else {
       const choix = choice([true, false])
       const a = new Decimal(choice(['0.25', '0.75', '1.25', '1.5', '1.75', '2.25', '2.75']))
-      const b = new Decimal(randint(1, 14, [2, 4, 6, 8, 10, 12])).mul(2).div(10)
+      const b = new Decimal(randint(1, 14, [5, 10])).mul(2).div(10)
       const d = droiteGraduee({
         Unite: 3,
         Min: 0,

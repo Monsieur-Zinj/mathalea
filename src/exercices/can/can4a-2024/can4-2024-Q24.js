@@ -1,8 +1,9 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { printlatex, randint } from '../../../modules/outils'
+import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { reduireAxPlusB } from '../../../lib/outils/ecritures'
 
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
@@ -21,33 +22,39 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecVariable
     this.formatInteractif = 'calcul'
-    this.optionsChampTexte = { texteAvant: '$=$', texteApres: '.' }
-
+    this.optionsChampTexte = { texteAvant: ' $=$', texteApres: '.' }
     this.canOfficielle = true
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.reponse = ['16x-5']//, '12\\times x-5'
+      this.reponse = `${reduireAxPlusB(16, -5)}`
       this.question = 'Réduis'
-      this.question += this.interactif ? ' : ' : ' '
-      this.question += '$2x-5+14x$ '
+      this.question += this.interactif ? ' : <br> ' : ' '
+      this.question += '$2x-5+14x$'
       this.correction = `$2x-5+14x=${miseEnEvidence('16x-5')}$`
     } else {
-      const lettre = choice(['a', 'b', 'x', 'y'])
       const a = randint(2, 9)
       const b = randint(2, 9)
       const c = randint(2, 9)
       const d = randint(2, 9)
-      this.question = 'Réduire' + (this.interactif ? ' : ' : ' ')
+      this.question = 'Réduire ' + (this.interactif ? ' : <br> ' : ' ')
       if (choice([true, false])) {
-        this.reponse = printlatex(`${a + c}*${lettre}+(${b + d})`)
-        this.question += `$${a}${lettre}+${b}+${c}${lettre}+${d}$ `
-        this.correction = ` $${a}${lettre}+${b}+${c}${lettre}+${d}=${a}${lettre}+${c}${lettre}+${b}+${d}=${miseEnEvidence(this.reponse)}$`
+        this.reponse = `${reduireAxPlusB(a + c, b + d)}`
+        this.question += `$${a}x+${b}+${c}x+${d}$ `
+        this.correction = ` On réduit l'expression :<br>
+        $\\begin{aligned}
+        ${a}x+${b}+${c}x+${d}&=${a}x+${c}x+${b}+${d}\\\\
+        &=${miseEnEvidence(this.reponse)}
+        \\end{aligned}$`
       } else {
-        this.reponse = printlatex(`${a + c}*${lettre}+${b}`)
-        this.question = `$${a}${lettre}+${b}+${c}${lettre}$`
-        this.correction = ` $${a}${lettre}+${b}+${c}${lettre}=${a}${lettre}+${c}${lettre}+${b}=${miseEnEvidence(this.reponse)}$`
+        this.reponse = `${reduireAxPlusB(a + c, b)}`
+        this.question += `$${a}x+${b}+${c}x$`
+        this.correction = ` On réduit l'expression :<br>
+        $\\begin{aligned}
+        ${a}x+${b}+${c}x&=${a}x+${c}x+${b}\\\\
+        &=${miseEnEvidence(this.reponse)}
+        \\end{aligned}$`
       }
     }
     this.canEnonce = this.question

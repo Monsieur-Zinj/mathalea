@@ -37,7 +37,7 @@ export default class NomExercice extends Exercice {
       const a = new Decimal(randint(1, 9)).add(d).add(c)
       const k = choice([10, 100, 1000])
       this.reponse = a.mul(k)
-      this.question = `$${texNombre(a, 3)}\\times ${k} ${this.interactif ? '=' : ''}$`
+      this.question = `$${texNombre(a, 3)}\\times ${texNombre(k, 0)} ${this.interactif ? '=' : ''}$`
       this.correction = `$${texNombre(a, 3)}\\times ${k}=${miseEnEvidence(texNombre(a * k, 2))}$ `
       this.canEnonce = this.question
       this.canReponseACompleter = ''
