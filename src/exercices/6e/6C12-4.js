@@ -23,6 +23,7 @@ export const titre = 'Résoudre des problèmes avec des informations inutiles'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '01/03/2022'
+export const dateDeModifImportante = '04/04/2024'
 
 /**
  * Résoudre des problèmes dont certaines informations sont inutiles.
@@ -352,7 +353,7 @@ export default function ExerciceInformationsProblemes () {
           nb3 = randint(5, 9)
           nb4 = choice([10, 20, 50])
           nb5 = 4 * randint(12, 24)
-          reponse2 = nb4 - nb2
+          reponse2 = arrondi(nb4 - nb2)
           nb2 = texPrix(nb2)
           texte += `${quidam2} vient de lire en ${nb1} un manga qu'elle avait payé $${nb2}$ €. `
           texte += `Elle a remarqué que sur chaque page, il y avait exactement $${nb3}$ cases. `

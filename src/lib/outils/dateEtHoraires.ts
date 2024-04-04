@@ -50,7 +50,7 @@ export function minToHour (minutes: number) {
  *
  */
 export function minToHeuresMinutes (minutes: number) {
-  return [Math.ceil(minutes / 60), (minutes % 60)]
+  return [Math.floor(minutes / 60), (minutes % 60)]
 }
 
 /**
