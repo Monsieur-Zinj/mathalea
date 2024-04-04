@@ -73,9 +73,12 @@ class Latex {
       if (exercice != null) {
         const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
         exercice.seed = seed
-        if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
-        seedrandom(seed, { global: true })
-        if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
+        if (exercice.typeExercice === 'simple') {
+          mathaleaHandleExerciceSimple(exercice, false) 
+        } else {
+          seedrandom(seed, { global: true })
+          if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
+        }
       }
     }
     if (style === 'Can') {
