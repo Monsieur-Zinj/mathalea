@@ -219,7 +219,11 @@ class Latex {
       }
       contents.preamble = `% @see : ${window.location.href}`
       contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
-      contents.preamble += '\n\\usepackage{ProfCollege}'
+      if (contents.content.includes('\\Engrenages[') || // exo : 3A12
+          contents.content.includes('\\Propor[')) { // exo : 6P15
+        // à mettre avant ProfMaquette
+        contents.preamble += '\n\\usepackage{ProfCollege}'
+      }
       contents.preamble += '\n\\usepackage{ProfMaquette}'
       contents.preamble += '\n\\usepackage{qrcode}'
       contents.preamble += '\n\\usepackage[luatex]{hyperref}'
@@ -241,8 +245,20 @@ class Latex {
       if (contents.content.includes('\\euro')) {
         contents.preamble += '\n\\usepackage[gen]{eurosym}'
       }
-      if (contents.content.includes('\\ang')) {
+      if (contents.content.includes('\\ang') || contents.content.includes('\\num{')) {
         contents.preamble += '\n\\usepackage{siunitx}'
+      }
+      if (contents.content.includes('\\begin{multicols}')) {
+        contents.preamble += '\n\\usepackage{multicol}'
+      }
+      if (contents.content.includes('\\cancel{')) {
+        contents.preamble += '\n\\usepackage{cancel}'
+      }
+      if (contents.content.includes('\\cellcolor')) {
+        contents.preamble += '\n\\usepackage{colortbl}'
+      }
+      if (contents.content.includes('\\draw[color={')) {
+        contents.preamble += '\n\\usepackage[svgnames,dvipsnames]{xcolor}'
       }
       if (contents.content.includes('\\np{') || contents.content.includes('\\np[') || contents.content.includes('\\numprint{')) {
         contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
