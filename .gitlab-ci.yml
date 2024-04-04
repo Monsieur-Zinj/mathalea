@@ -13,13 +13,11 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-- playwright-pdf
 - test
 - variable
 - build-projet
 - playwright-test
-
-
+- playwright-pdf
 
 sast:
   stage: test
@@ -48,13 +46,12 @@ default:
   image: guironne/tex-live-nodejs-playwright
   # - pnpm exec playwright install --with-deps chromium
   before_script:
-    - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
     - sleep 60
   stage: playwright-pdf
   rules:
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
-    when: always
+    when: manual
   - if: $CI_PIPELINE_SOURCE == "schedule"
     when: always
   - when: never
@@ -86,7 +83,7 @@ variable:
   - if: $CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "merge_request_event"
     when: always
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
-    when: always
+    when: manual
   - if: $CI_PIPELINE_SOURCE == "schedule"
     when: always
   - when: never
@@ -119,15 +116,35 @@ test3e:
   script:
     - NIV=3e/3 pnpm test:e2e:console_errors
 
-testCan:
+testCan6e5e4e3e:
   extends: .testCI
   script:
-    - NIV=can pnpm test:e2e:console_errors
+    - NIV=can/6e^can/5e^can/4e^can/3e pnpm test:e2e:console_errors
+
+testCan2e1e:
+  extends: .testCI
+  script:
+    - NIV=can/2e^can/1e pnpm test:e2e:console_errors
 
 test6ePDF:
   extends: .testCIPDF
   script:
-    - NIV=6e/6C10.js pnpm test:e2e:pdfexports
+    - NIV=6e/6 pnpm test:e2e:pdfexports
+
+test5ePDF:
+  extends: .testCIPDF
+  script:
+    - NIV=5e/5 pnpm test:e2e:pdfexports
+
+test4ePDF:
+  extends: .testCIPDF
+  script:
+    - NIV=4e/4 pnpm test:e2e:pdfexports
+
+test3ePDF:
+  extends: .testCIPDF
+  script:
+    - NIV=3e/3 pnpm test:e2e:pdfexports
 
 build:
   extends: .testCI

@@ -43,7 +43,9 @@ export function notifyLocal (error: string|Error, metadatas: Metadatas) {
   showDialogForLimitedTime('notifDialog', 5000, message + ' : <br>' + error.toString() + JSON.stringify(metadatas))
   console.error(message, error)
   if (metadatas) console.info('avec les metadatas', metadatas)
+  if (metadatas) console.info(JSON.stringify(metadatas))
   console.info('Paramètres des exercices', get(exercicesParams))
+  console.trace()
 }
 /**
  * Une fonction à importer dans les fichiers typescript si on veut faire du window.notify() on utilise notify().

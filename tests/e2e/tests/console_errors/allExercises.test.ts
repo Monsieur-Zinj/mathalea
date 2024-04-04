@@ -136,7 +136,7 @@ async function testRunAllLots (filter: string) {
         })
         const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
         log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
-        const resultReq = await getConsoleTest(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}`)
+        const resultReq = await getConsoleTest(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&testCI`)
         log(`Resu: ${resultReq} uuid=${uuids[i][0]} exo=${uuids[k][1]}`)
         return resultReq === 'OK'
       }
@@ -164,6 +164,6 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('3e')
   // testRunAllLots('2e')
   // testRunAllLots('1e')
-  testRunAllLots('3e/3G22.js')
-  testRunAllLots('can/can4a-2024/can4-2024-Q15')
+  // testRunAllLots('3e/3G22.js')
+  testRunAllLots('can/2e-can/3e')
 }

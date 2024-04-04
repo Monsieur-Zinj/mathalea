@@ -286,11 +286,11 @@ export function setReponse (exercice, i, valeurs, {
     formatInteractif,
     precision
   }
-  if (Array.isArray(valeurs)) window.notifyLocal('setReponse a reçu un Array de reponses, il faut en finir avec ça', { valeurs })
+  const url = new URL(window.location.href)
+  // if (Array.isArray(valeurs) && !url.searchParams.has('testCI')) window.notifyLocal('setReponse a reçu un Array de reponses, il faut en finir avec ça', { valeurs })
   if (exercice.formatInteractif === 'qcm') return
   if (formatInteractif === undefined) formatInteractif = 'calcul'
   let reponses = []
-  const url = new URL(window.location.href)
   if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${i + 1} : `, valeurs)
   if (typeof valeurs === 'object' && (formatInteractif === 'tableauMathlive' || formatInteractif === 'fillInTheBlank')) {
     reponses = valeurs

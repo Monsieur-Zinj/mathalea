@@ -263,5 +263,5 @@ function handleFocusOutMathField () {
         return newValue
       })
     }
-  }, 0)
+  }, 200)
 }
