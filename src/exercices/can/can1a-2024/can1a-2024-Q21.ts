@@ -28,18 +28,18 @@ export default class SommeTermesSG extends Exercice {
     const choix = choice([true, false])
     let premierTerme = choice(['1', 'q'])
     if (this.canOfficielle) {
-      this.reponse = `\\dfrac{1-q^{${n}+1}}{1-q}$`
       premierTerme = '1'
     } else {
-      this.reponse = choix === true ? '$\\dfrac{1-q^{17}}{1-q}$' : '$\\dfrac{1-q^{16}}{1-q}$'
     }
     this.correction = `Il s'agit de la somme des termes d'une suite géométrique de raison $q$ et de premier terme ${premierTerme === '1' ? '$1$ ' : '$q$ '}.<br>
    Comme cette somme se calcule par $\\dfrac{1-q^{\\text{nombre de termes}}}{1-q}$, 
    on obtient ${premierTerme === '1'
 ? `$1+q+q^2+\\ldots+q^{${n}}=${miseEnEvidence(`\\dfrac{1-q^{${n + 1}}}{1-q}`)}$ `
    : `$q+q^2+\\ldots+q^{${n}}=${miseEnEvidence(`\\dfrac{1-q^{${n}}}{1-q}`)}$ `}`
+    const question = `$q\\neq 1$ <br>${premierTerme === '1' ? `$1+q+q^2+\\ldots+q^{${n}}=$ ` : `$q+q^2+\\ldots+q^{${n}}=$ `}`
     this.autoCorrection[0] = {
       options: { ordered: true },
+      enonce: question,
       propositions: [
         {
           texte: `$\\dfrac{1-q^{${n}}}{1-q}$ `,
@@ -54,8 +54,7 @@ export default class SommeTermesSG extends Exercice {
     }
     const qcm = propositionsQcm(this, 0)
 
-    this.question = `$q\\neq 1$ <br>
-    ${premierTerme === '1' ? `$1+q+q^2+\\ldots+q^{${n}}=$ ` : `$q+q^2+\\ldots+q^{${n}}=$ `}` + qcm.texte
+    this.question = question + qcm.texte
 
     this.canEnonce = `$q\\neq 1$ <br>
     ${premierTerme === '1' ? `$1+q+q^2+\\ldots+q^{${n}}=$ ` : `$q+q^2+\\ldots+q^{${n}}=$ `}`

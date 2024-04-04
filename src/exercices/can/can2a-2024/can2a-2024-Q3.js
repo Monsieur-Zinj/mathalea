@@ -39,7 +39,7 @@ export default class NomExercice extends Exercice {
       const b = randint(-3, 3, 0)
       const c = randint(1, 2)
       const d = randint(-5, 5, [0, b])
-      this.question = `Développer et réduire l'expression $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$.`
+      this.question = `Développer et réduire l'expression $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$.<br>`
       this.correction = `$\\begin{aligned}
       (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})&=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}\\\\
       &=${miseEnEvidence(reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d))}
@@ -47,7 +47,7 @@ export default class NomExercice extends Exercice {
       this.correction += `<br>Le terme en $x^2$ vient de $${rienSi1(a)}x\\times ${ecritureParentheseSiNegatif(c)}x=${rienSi1(a * c)}x^2$.`
       this.correction += `<br>Le terme en $x$ vient de la somme de $${rienSi1(a)}x \\times ${ecritureParentheseSiNegatif(d)}$ et de $${b} \\times ${ecritureParentheseSiNegatif(c)}x$.`
       this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
-      this.reponse = [`${a * c}x^2+${b * c + a * d}x+${b * d}`]
+      this.reponse = `${a * c}x^2+${b * c + a * d}x+${b * d}`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

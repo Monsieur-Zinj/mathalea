@@ -6,7 +6,7 @@ import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation } from '../../lib/2d/transformations.js'
 import { triangle2points1hauteur } from '../../lib/2d/triangle.js'
 import { combinaisonListes, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
-import { arrondi } from '../../lib/outils/nombres'
+import { abs, arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -16,6 +16,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer l\'aire de triangles'
 export const interactifReady = true
@@ -23,7 +24,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-export const dateDeModifImportante = '12/04/2023'
+export const dateDeModifImportante = '04/04/2024'
 
 /**
  * Calculer l'aire de 3 triangles dont une hauteur est tracée.
@@ -32,7 +33,6 @@ export const dateDeModifImportante = '12/04/2023'
  *
  * @author Rémi Angot conversion mathalea2d Jean-Claude Lhote
  * Ajout de la possibilité de choisir le nombre de questions par Guillaume Valmont le 08/05/2022
- * Référence 6M20
  */
 export const uuid = '06b1a'
 export const ref = '6M20'
@@ -42,11 +42,6 @@ export const refs = {
 }
 export default function AireDeTriangles () {
   Exercice.call(this)
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.titre = titre
   this.spacing = 2
   // eslint-disable-next-line no-undef
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
@@ -92,17 +87,19 @@ export default function AireDeTriangles () {
       objetsEnonce.length = 0
       objetsCorrection.length = 0
       A.nom = nom[(i * 4) % NB_LETTRES]
-      B = rotation(point(cotes[i], 0), A, randint(-60, 60), nom[(i * 4 + 1) % NB_LETTRES])
-      if (listeTypeQuestions[i] === 'extérieur') {
-        d = longueur(A, B) + randint(6, 9) / 3
-      } else {
-        d = calculANePlusJamaisUtiliser(randint(6, Math.round(longueur(A, B) * 10 - 6)) / 10)
-      }
-      triH = triangle2points1hauteur(A, B, hauteurs[i], d, 2)
-      H = triH.pied
+      do {
+        B = rotation(point(cotes[i], 0), A, randint(-60, 60), nom[(i * 4 + 1) % NB_LETTRES])
+        if (listeTypeQuestions[i] === 'extérieur') {
+          d = longueur(A, B) + randint(6, 9) / 3
+        } else {
+          d = calculANePlusJamaisUtiliser(randint(6, Math.round(longueur(A, B) * 10 - 6)) / 10)
+        }
+        triH = triangle2points1hauteur(A, B, hauteurs[i], d, 2)
+        H = triH.pied
+        triangle = triH.triangle
+        C = triangle.listePoints[2]
+      } while (abs(longueur(H, C) - longueur(B, C)) < 0.2 || abs(longueur(H, C) - longueur(A, C)) < 0.2) // EE : Pour éviter que la hauteur ait la même longueur arrondie que les segments issus du même sommet que celui de la hauteur.
       H.nom = nom[(i * 4 + 3) % NB_LETTRES]
-      triangle = triH.triangle
-      C = triangle.listePoints[2]
       C.nom = nom[(i * 4 + 2) % NB_LETTRES]
       polynom = polygoneAvecNom(A, H, B, C)
       hauteurpoly = segment(C, H)
@@ -134,11 +131,11 @@ export default function AireDeTriangles () {
           mainlevee: false
         }, objetsCorrection) + '<br>'
       } else texteCorr = ''
-      texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${texNombre(
+      texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${miseEnEvidence(texNombre(
                 calculANePlusJamaisUtiliser((cotes[i] * hauteurs[i]) / 2)
-            )}~\\text{cm}^2$`
+            ))}~\\text{cm}^2$`
       setReponse(this, i, new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), { formatInteractif: 'unites' })
-      texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[aires]', { texteAvant: `Aire du triangle ${A.nom}${B.nom}${C.nom} :` })
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore unites[aires]', { texteAvant: `Aire du triangle ${A.nom}${B.nom}${C.nom} :` })
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + `<br>Aire de ${A.nom}${B.nom}${C.nom} en cm$^2$ :`, // Si vide, l'énoncé est celui de l'exercice.
