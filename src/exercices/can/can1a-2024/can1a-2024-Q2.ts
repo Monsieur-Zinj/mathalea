@@ -29,12 +29,14 @@ export default class PointsCourbe extends Exercice {
     const a = this.canOfficielle ? -1 : randint(-5, 5, 0)
     const abs = this.canOfficielle ? -2 : randint(-3, 3, 0)
     const ord = this.canOfficielle ? 3 : choice([abs ** 2 + a, abs ** 2 + a + choice([-1, 1])])
-
+    // ça sert à rien c'est un qcm, les réponses sont gérées par les cases à cocher.
+    /*
     if (this.canOfficielle) {
       this.reponse = 'VRAI'
     } else {
       this.reponse = ord === abs ** 2 + a ? 'VRAI' : 'FAUX'
     }
+     */
     this.correction = `Le point $A$ est sur la parabole si son ordonnée est égale à l'image de son abscisse. <br>
     $\\begin{aligned}
         f(${abs})&=${ecritureParentheseSiNegatif(abs)}^2${ecritureAlgebrique(a)}\\\\
@@ -42,10 +44,15 @@ export default class PointsCourbe extends Exercice {
         \\end{aligned}$
         <br>
         ${abs ** 2 + a === ord
-? `Le point $A$ est bien sur la parabole.<br> L\'affirmation est ${texteEnCouleurEtGras('VRAIE')}`
-        : `Puisque $${abs ** 2 + a} \\neq ${ord}$, le point $A$ n'est pas sur la parabole. <br>L\'affirmation est ${texteEnCouleurEtGras('FAUSSE')}`}`
+? `Le point $A$ est bien sur la parabole.<br> L'affirmation est ${texteEnCouleurEtGras('VRAIE')}`
+        : `Puisque $${abs ** 2 + a} \\neq ${ord}$, le point $A$ n'est pas sur la parabole. <br>L'affirmation est ${texteEnCouleurEtGras('FAUSSE')}`}`
+
+    this.question = `Affirmation : <br>
+    Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ `
+    // c'est ça qui fait le this.reponse !
     this.autoCorrection[0] = {
       options: { ordered: true },
+      enonce: this.question,
       propositions: [
         {
           texte: 'VRAI ',
@@ -56,11 +63,9 @@ export default class PointsCourbe extends Exercice {
           statut: ord !== abs ** 2 + a
         }
       ]
-
     }
     const qcm = propositionsQcm(this, 0)
-    this.question = `Affirmation : <br>
-    Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ ` + qcm.texte
+    this.question += qcm.texte
 
     this.canEnonce = `Affirmation : <br>
     Le point $A(${abs}\\,;\\,${ord})$ appartient à la parabole d'équation $y=${reduirePolynomeDegre3(0, 1, 0, a)}$ `
