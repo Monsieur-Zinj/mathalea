@@ -36,14 +36,14 @@ export default class equationAxeSymetrie extends Exercice {
       x1 = -8
       x2 = 6
       axe = -1
-      this.reponse = `$x=${axe}$`
-    } else {
-      this.reponse = `$x=${axe}$`
     }
+    const question = `Soit $f\\,:\\,x\\longmapsto ${x2 === 0 ? `x(${reduireAxPlusB(1, -x1)})` : `(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})`} $<br>
+    La représentation graphique $\\mathscr{C}_f$ a pour axe de symétrie la droite d’équation :`
     this.correction = `Les racines de ce polynôme du second degré sont $x_1=${x1}$ et $x_2=${x2}$.<br>
     L'axe de symétrie est donné par la moyenne des racines : $x=\\dfrac{x_1+x_2}{2}$, soit $x=\\dfrac{${x1}+${ecritureParentheseSiNegatif(x2)}}{2}$, c'est-à-dire $${miseEnEvidence(`x=${axe}`)}$.`
     this.autoCorrection[0] = {
       options: { ordered: false },
+      enonce: question,
       propositions: [
         {
           texte: `$x=${axe}$`,
@@ -62,8 +62,7 @@ export default class equationAxeSymetrie extends Exercice {
     }
     const qcm = propositionsQcm(this, 0)
 
-    this.question = `Soit $f\\,:\\,x\\longmapsto ${x2 === 0 ? `x(${reduireAxPlusB(1, -x1)})` : `(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})`} $<br>
-    La représentation graphique $\\mathscr{C}_f$ a pour axe de symétrie la droite d’équation :` + qcm.texte
+    this.question = question + qcm.texte
 
     this.canEnonce = `Soit $f\\,:\\,x\\longmapsto ${x2 === 0 ? `x(${reduireAxPlusB(1, -x1)})` : `(${reduireAxPlusB(1, -x1)})(${reduireAxPlusB(1, -x2)})`} $<br>
     La représentation graphique $\\mathscr{C}_f$ a pour axe de symétrie la droite d’équation :`
