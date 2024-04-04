@@ -594,7 +594,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
             reponse = { reponse: { value: exercice.reponse.toString(), compare } }
           } else if (exercice.reponse instanceof Grandeur) {
             reponse = { reponse: { value: exercice.reponse, compare } }
-          } else if (typeof exercice.reponse === 'object') {
+          } else if (typeof exercice.reponse === 'object') { // Si c'est handleAnswer qu'on veut utiliser directement avec un fillInTheBlank par exemple, on met l'objet reponse complet dans this.reponse
             reponse = exercice.reponse
           } else if (Array.isArray(exercice.reponse)) {
             reponse = { reponse: { value: exercice.reponse[0] } }
