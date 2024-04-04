@@ -11,6 +11,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { fraction } from '../../modules/fractions.js'
 import { texNombre } from '../../lib/outils/texNombre'
+import { sp } from '../../lib/outils/outilString'
 
 export const dateDeModifImportante = '25/03/2024'
 export const amcReady = true
@@ -120,12 +121,12 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         /*************************************************************************/
         ordreDesFractions = randint(1, 2)
         if (ordreDesFractions === 1) {
-          texte = `$${f1.texFraction}+${f2.texFraction}=$`
+          texte = `$${f1.texFraction}+${f2.texFraction}$`
           /** ****************** AMC question/questionmult ********************************/
           this.autoCorrection[i].enonce = `${texte}\n`
           /*******************************************************************************/
         } else {
-          texte = `$${f2.texFraction}+${f1.texFraction}=$`
+          texte = `$${f2.texFraction}+${f1.texFraction}$`
           /** ****************** AMC question/questionmult ******************************/
           this.autoCorrection[i].enonce = `${texte}\n`
           /*******************************************************************************/
@@ -194,9 +195,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
 
         /*********************************************************************************/
         if ((a / b) > (c / d)) {
-          texte = `$${f1.texFraction}-${f2.texFraction}=$`
+          texte = `$${f1.texFraction}-${f2.texFraction}$`
         } else {
-          texte = `$${f2.texFraction}-${f1.texFraction}=$`
+          texte = `$${f2.texFraction}-${f1.texFraction}$`
           /** ****************** AMC question/questionmult ******************************/
 
           /*****************************************************************************/
@@ -234,7 +235,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           }
         }
       }
-      if (context.isHtml && this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i)
+      if (context.isHtml && this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       texte = texte.replaceAll('$$', ' ')
       texteCorr = texteCorr.replaceAll('$$', ' ')
       if (context.isAmc) {

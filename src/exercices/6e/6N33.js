@@ -8,6 +8,7 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Calculer la fraction d\'un nombre'
 export const interactifReady = true
@@ -88,7 +89,7 @@ export default function FractionDUnNombre () {
       if (this.sup || context.isAmc) n = b * k
       else if (randint(0, 1) === 0) n = b * k
       else n = randint(10, b * 11)
-      texte = `$${deprecatedTexFraction(a, b)}\\times${n}=$`
+      texte = `$${deprecatedTexFraction(a, b)}\\times${n}$`
       texteCorr = ''
       if (a === 1) {
         // Si n * 1/b
@@ -184,7 +185,7 @@ export default function FractionDUnNombre () {
       if (n * a % b !== 0 && !context.isAmc) {
         setReponse(this, i, [calculANePlusJamaisUtiliser(n * a / b), deprecatedTexFraction(n * a, b)])
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

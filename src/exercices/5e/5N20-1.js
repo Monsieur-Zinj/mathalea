@@ -317,7 +317,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: sp() + '$=$' })
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
       const textCorrSplit = texteCorr.split('=')

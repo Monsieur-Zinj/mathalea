@@ -69,7 +69,7 @@ export default function FractionDuneQuantite () {
           den = choixdenh[i]
           num = randint(2, den - 1)
           frac = fraction(num, den)
-          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, 'largeur01 inline', { texteApres: ' minutes' })}<br>`
+          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, 'largeur01 inline college6eme', { texteApres: ' minutes' })}<br>`
           if (this.sup2) {
             texte += 'Cette fraction est représentée ci-dessous :<br>'
             const figure = frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue')
@@ -85,7 +85,7 @@ export default function FractionDuneQuantite () {
           den = choixdenh[i]
           num = randint(2, 3 * den, den)
           frac = fraction(num, den)
-          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, 'largeur01 inline', { texteApres: ' minutes' })}<br>`
+          texte = `À combien de minutes correspondent $${frac.texFraction}$ d'heure ? ${ajouteChampTexteMathLive(this, index, 'largeur01 inline college6eme', { texteApres: ' minutes' })}<br>`
           if (this.sup2) {
             texte += 'Cette fraction est représentée ci-dessous :<br>'
             const figure = frac.representation(2.5, 2.5, 2, 0, 'gateau', 'blue')
@@ -110,13 +110,13 @@ export default function FractionDuneQuantite () {
           texte = `Une tablette de chocolat a une masse totale de $${masse}$ grammes. Quelqu'un en a déjà consommé les $${frac.texFractionSimplifiee}$.<br>`
           choix = nbQuestions3[indiceNbQuestions3]
           if (choix === 1) {
-            texte += `Quelle masse de chocolat a été consommée ? ${ajouteChampTexteMathLive(this, index, 'largeur01 inline', { texteApres: ' g' })}<br>`
+            texte += `Quelle masse de chocolat a été consommée ? ${ajouteChampTexteMathLive(this, index, 'largeur01 inline college6eme', { texteApres: ' g' })}<br>`
             texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${deprecatedTexFraction(1, denIrred)}$ de la tablette représente une masse de $${texNombre(masse / denIrred, 2)}$ grammes.<br>`
             texteCorr += `Ici, il y a $${frac.texFractionSimplifiee}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${texNombre(masse / denIrred, 2)}=${texNombre(numIrred * masse / denIrred, 2)}$.<br>`
             texteCorr += `La masse de chocolat consommée est $${miseEnEvidence(texNombre(numIrred * masse / denIrred, 2))}$ grammes.`
             setReponse(this, index, arrondi(numIrred * masse / denIrred, 2))
           } else {
-            texte += `Quelle masse de chocolat reste-t-il ? ${ajouteChampTexteMathLive(this, index, 'largeur01 inline', { texteApres: ' g' })}<br>`
+            texte += `Quelle masse de chocolat reste-t-il ? ${ajouteChampTexteMathLive(this, index, 'largeur01 inline college6eme', { texteApres: ' g' })}<br>`
             texteCorr = `Comme la tablette a une masse de $${masse}$ grammes, $${deprecatedTexFraction(1, denIrred)}$ de la tablette représente une masse de $${texNombre(masse / denIrred, 2)}$ grammes.<br>`
             texteCorr += `Ici, il y a $${frac.texFractionSimplifiee}$ de la tablette qui a été consommé, ce qui représente $${numIrred}$ fois plus, soit $${numIrred}\\times${texNombre(masse / denIrred, 2)}=${texNombre(numIrred * masse / denIrred, 2)}$.<br>`
             texteCorr += `La masse de chocolat consommée est $${texNombre(numIrred * masse / denIrred, 2)}$ grammes.<br>`
@@ -152,11 +152,11 @@ export default function FractionDuneQuantite () {
           if (longueur >= 200) texte += 's'
           texte += ` de longueur est coupé à $${frac.texFractionSimplifiee}$ de sa longueur.<br>`
           texte += 'Calculer la longueur de chacun des morceaux en mètres.<br>'
-          texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline nospacebefore', {
+          texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline nospacebefore college6eme', {
             texteAvant: 'Morceau le plus long : ',
             texteApres: ' m'
           }) + '<br>'
-          texte += ajouteChampTexteMathLive(this, index + 1, 'largeur01 inline nospacebefore', {
+          texte += ajouteChampTexteMathLive(this, index + 1, 'largeur01 inline nospacebefore college6eme', {
             texteAvant: 'Morceau le plus court : ',
             texteApres: ' m'
           }) + '<br>'
