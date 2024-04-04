@@ -180,8 +180,6 @@ export default function VocabulaireDivisionEuclidienne () {
         }
         setReponse(this, i, ReponsesCorrectes, { formatInteractif: 'ignorerCasse' })
         if (context.isAmc) {
-          //   this.autoCorrection[i].propositions = [{ texte: this.listeCorrections[i], statut: '1' }] // Ici, une seule ligne pour chaque zone de texte
-
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
             {

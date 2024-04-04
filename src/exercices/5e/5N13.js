@@ -199,7 +199,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
         const monQcm = propositionsQcm(this, i) // Les deux paramètres sont obligatoires et désignent, respectivement, l'exercice appelant, le numéro de la question dans la programmation de l'exercice.
         texte += monQcm.texte
       } else {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction')
         if (this.amcType === 'AMCOpen') this.autoCorrection[i] = { enonce: `Simplfier $${fractionInitale}$ en détaillant la simplification.`, propositions: [{ texte: texteCorr, statut: 1, feedback: '' }] }
         if (this.amcType === 'AMCNum' && context.isAmc) texte = `Simplifier, de façon maximale, $${fractionInitale}$.`
       }

@@ -121,7 +121,7 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
       this.reponsesAttendues[i] = { entier, numPartieDecimale: numPartieFrac, den, ecritureDecimale: ecriDec.replace(',', '.') }
 
       if (this.interactif) {
-        texte = `<math-field data-keyboard="numbers basicOperations" class="fillInTheBlanks invisible" readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
+        texte = `<math-field data-keyboard="college6eme" class="fillInTheBlanks invisible" readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
         ${frac.texFraction} =~\\placeholder[n]{} + \\dfrac{\\placeholder[num]{}}{\\placeholder[den]{}} =~\\placeholder[ecritureDecimale]{}
       </math-field><span class="ml-2" id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
         texte += ajouteFeedback(this, i)
