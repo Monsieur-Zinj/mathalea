@@ -189,7 +189,14 @@ export default function can6eAll () {
     async function loadAllQuests (exercice, numeros) {
       const promises = []
       for (let q = 0; q < numeros.length; q++) {
-        promises.push(loadQuest(exercice, `can6${numeros[q]}`, q))
+        if (q===0){
+          /**MGu
+           * On est obligé car la première question (indice:0) dans HandleAnswers réinitialise : exercice.autoCorrection
+           */
+          await loadQuest(exercice, `can6${numeros[q]}`, q)
+        } else {
+          promises.push(loadQuest(exercice, `can6${numeros[q]}`, q))
+        }
       }
 
       await Promise.all(promises)
