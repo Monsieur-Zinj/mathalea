@@ -17,10 +17,11 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '30/04/2023' // EE : Rajout de 2 paramètres
+export const dateDePublication = '30/05/2021'
 
 /**
  * Résoudre un problème de proportionnalité avec linéarité via tableau
- * @MireilleGain, 30 mai 2021
+ * @author MireilleGain
  */
 export const uuid = '65288'
 export const ref = '6P11-2'
@@ -101,22 +102,26 @@ export default function ProportionnaliteParLineariteTableau () {
             texte = `${prenom()} achète $${np}$ ${np === 1 ? o.slice(0, -1) : o} pour $${texPrix(pp)}$ €. Combien faudrait-il payer pour en acheter $${ng}$ ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: `Nombre de ${o}` }, { texte: stringNombre(np, 0), math: true }, {
+              ligne1: [{ texte: `\\text{Nombre de ${o}}`, latex: true }, { texte: stringNombre(np, 0), math: true, latex: true }, {
                 texte: stringNombre(ng, 0),
-                math: true
+                math: true,
+                latex: true
               }],
-              ligne2: [{ texte: 'Prix (en euros)' }, {
+              ligne2: [{ texte: '\\text{Prix (en euros)}', latex: true }, {
                 texte: `${stringNombre(pp, 2, true, false)}`,
-                math: true
+                math: true,
+                latex: true
               }, {
                 texte: `${stringNombre(pg, 2, true, false)}`,
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }],
               flecheHaut: [[1, 2, {
-                texte: '×' + stringNombre(cm, 0),
+                texte: '\\times' + stringNombre(cm, 0),
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }]]
@@ -134,22 +139,26 @@ export default function ProportionnaliteParLineariteTableau () {
             texte = `${prenom()} achète $${texMasse(pp)}$ kg de ${o} pour $${texPrix(np)}$ €. Quelle masse de ${o} pourrait être achetée avec $${ng}$ € ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: `Prix des ${o} (en euros)` }, {
+              ligne1: [{ texte: `\\text{Prix des ${o} (en euros)}`, latex: true }, {
                 texte: stringNombre(np, 0),
-                math: true
-              }, { texte: stringNombre(ng, 0), math: true }],
-              ligne2: [{ texte: `Masse des ${o} (en kg)` }, {
+                math: true,
+                latex: true
+              }, { texte: stringNombre(ng, 0), math: true, latex: true }],
+              ligne2: [{ texte: `\\text{Masse des }${o}\\text{ (en kg)}`, latex: true }, {
                 texte: `${stringNombre(pp, 3, true, false)}`,
-                math: true
+                math: true,
+                latex: true
               }, {
                 texte: `${stringNombre(pg, 3, true, false)}`,
                 math: true,
+                latex: true,
                 color: '#f15929',
                 gras: true
               }],
               flecheHaut: [[1, 2, {
-                texte: '×' + stringNombre(cm, 0),
+                texte: '\\times' + stringNombre(cm, 0),
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }]]
@@ -163,26 +172,29 @@ export default function ProportionnaliteParLineariteTableau () {
             ng = np * cm
             pp = new Decimal(randint(11, 48)).mul(np).div(10)
             pg = pp.mul(cm)
-            texte = `$${np}$ objets occupent un volume de $${texNombre(pp, 1, false)}$ cm³. Quel volume serait occupé par $${ng}$ de ces objets ? `
+            texte = `$${np}$ objets occupent un volume de $${texNombre(pp, 1, false)}$ cm$^3$. Quel volume serait occupé par $${ng}$ de ces objets ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: 'Nombre d\'objets' }, { texte: stringNombre(np, 0), math: true }, {
+              ligne1: [{ texte: '\\text{Nombre d\'objets}', latex: true }, { texte: stringNombre(np, 0), math: true, latex: true }, {
                 texte: stringNombre(ng, 0),
-                math: true
-              }],
-              ligne2: [{ texte: 'Volume des objets (en cm³)' }, {
-                texte: `${stringNombre(pp, 1)}`,
-                math: true
-              }, { texte: `${stringNombre(pg, 1)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, {
-                texte: '×' + stringNombre(cm, 0),
                 math: true,
+                latex: true
+              }],
+              ligne2: [{ texte: '\\text{Volume des objets (en cm}^2\\text{)}', latex: true }, {
+                texte: `${stringNombre(pp, 1)}`,
+                math: true,
+                latex: true
+              }, { texte: `${stringNombre(pg, 1)}`, math: true, latex: true, gras: true, color: '#f15929' }],
+              flecheHaut: [[1, 2, {
+                texte: '\\times' + stringNombre(cm, 0),
+                math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }]]
             })
             setReponse(this, i, pg)
-            texteApres = 'cm³'
+            texteApres = 'cm$^3$'
           }
           break
 
@@ -198,19 +210,22 @@ export default function ProportionnaliteParLineariteTableau () {
             texte = `${prenom()} achète $${ng}$ ${ng === 1 ? o.slice(0, -1) : o} pour $${texPrix(pg)}$ €. Combien faudrait-il payer pour en acheter $${np}$ ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: `Nombre de ${o}` }, { texte: stringNombre(ng, 0) }, { texte: stringNombre(np, 0) }],
-              ligne2: [{ texte: 'Prix (en euros)' }, {
+              ligne1: [{ texte: `\\text{Nombre de ${o}}`, latex: true }, { texte: stringNombre(ng, 0) }, { texte: stringNombre(np, 0) }],
+              ligne2: [{ texte: '\\text{Prix (en euros)}', latex: true }, {
                 texte: `${stringNombre(pg, 2, true, false)}`,
-                math: true
+                math: true,
+                latex: true
               }, {
                 texte: `${stringNombre(pp, 2, true, false)}`,
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }],
               flecheHaut: [[1, 2, {
-                texte: '÷' + stringNombre(cm, 0),
+                texte: '\\div' + stringNombre(cm, 0),
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }]]
@@ -223,26 +238,29 @@ export default function ProportionnaliteParLineariteTableau () {
             ng = np * cm
             pp = np * randint(40, 60)
             pg = cm * pp
-            texte = `${prenom()} peint une surface de $${stringNombre(pg, 0)}$ m² en $${ng}$ jours. Quelle surface serait peinte en $${np}$ ${np === 1 ? 'jour' : 'jours'} ? `
+            texte = `${prenom()} peint une surface de $${stringNombre(pg, 0)}$ m$^2$ en $${ng}$ jours. Quelle surface serait peinte en $${np}$ ${np === 1 ? 'jour' : 'jours'} ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: 'Durée (en jours)' }, { texte: stringNombre(ng, 0), math: true }, {
+              ligne1: [{ texte: '\\text{Durée (en jours)}', latex: true }, { texte: stringNombre(ng, 0), math: true, latex: true }, {
                 texte: stringNombre(np, 0),
-                math: true
-              }],
-              ligne2: [{ texte: 'Surface peinte (en m²)' }, {
-                texte: `${stringNombre(pg, 0)}`,
-                math: true
-              }, { texte: `${stringNombre(pp, 0)}`, math: true, gras: true, color: '#f15929' }],
-              flecheHaut: [[1, 2, {
-                texte: '÷' + stringNombre(cm, 0),
                 math: true,
+                latex: true
+              }],
+              ligne2: [{ texte: '\\text{Surface peinte (en m}^2\\text{)}', latex: true }, {
+                texte: `${stringNombre(pg, 0)}`,
+                math: true,
+                latex: true
+              }, { texte: `${stringNombre(pp, 0)}`, math: true, latex: true, gras: true, color: '#f15929' }],
+              flecheHaut: [[1, 2, {
+                texte: '\\div' + stringNombre(cm, 0),
+                math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }]]
             })
             setReponse(this, i, pp)
-            texteApres = 'm²'
+            texteApres = 'm$^2$'
           } else {
             index = randint(0, 7)
             np = randint(1, 10)
@@ -254,22 +272,26 @@ export default function ProportionnaliteParLineariteTableau () {
             texte = `${prenom()} achète $${texMasse(pg)}$ kg de ${o} pour $${texPrix(ng)}$ €. Quelle masse pourrait être achetée avec $${np}$ € ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: `Prix des ${o} (en euros)` }, {
+              ligne1: [{ texte: `\\text{Prix des ${o} (en euros)}`, latex: true }, {
                 texte: stringNombre(ng, 0),
-                math: true
-              }, { texte: stringNombre(np, 0), math: true }],
-              ligne2: [{ texte: `Masse des ${o} (en kg)` }, {
+                math: true,
+                latex: true
+              }, { texte: stringNombre(np, 0), math: true, latex: true }],
+              ligne2: [{ texte: `\\text{Masse des }${o}\\text{ (en kg)}`, latex: true }, {
                 texte: `${stringNombre(pg, 3, true, false)}`,
-                math: true
+                math: true,
+                latex: true
               }, {
                 texte: `${stringNombre(pp, 3, true, false)}`,
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }],
               flecheHaut: [[1, 2, {
-                texte: '÷' + stringNombre(cm, 0),
+                texte: '\\div' + stringNombre(cm, 0),
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }]]
@@ -291,30 +313,35 @@ export default function ProportionnaliteParLineariteTableau () {
             texte = `${prenom()} achète $${np}$ ${np === 1 ? o.slice(0, -1) : o} pour $${texPrix(pp)}$ €. Combien faudrait-il payer pour en acheter $${ng}$ ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: `Nombre de ${o}` }, { texte: stringNombre(np, 0), math: true }, {
+              ligne1: [{ texte: `\\text{Nombre de ${o}}`, latex: true }, { texte: stringNombre(np, 0), math: true, latex: true }, {
                 texte: '1',
-                math: true
-              }, { texte: stringNombre(ng, 0), math: true }],
-              ligne2: [{ texte: 'Prix (en euros)' }, {
+                math: true,
+                latex: true
+              }, { texte: stringNombre(ng, 0), math: true, latex: true }],
+              ligne2: [{ texte: '\\text{Prix (en euros)}', latex: true }, {
                 texte: `${stringNombre(pp, 2, true, false)}`,
-                math: true
+                math: true,
+                latex: true
               }, {
                 texte: `${stringNombre(pu, 2, true, false)}`,
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }, {
                 texte: `${stringNombre(pg, 2, true, false)}`,
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }],
               flecheHaut: [[1, 2, {
-                texte: '÷' + stringNombre(np, 0),
+                texte: '\\div' + stringNombre(np, 0),
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
-              }], [2, 3, { texte: '×' + stringNombre(ng, 0), math: true, gras: true, color: '#f15929' }]]
+              }], [2, 3, { texte: '\\times' + stringNombre(ng, 0), math: true, latex: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pg)
             texteApres = '€'
@@ -324,31 +351,35 @@ export default function ProportionnaliteParLineariteTableau () {
             pp = pu * np
             ng = randint(2, 10, [np, 2 * np, 3 * np, 4 * np, 5 * np, np / 2, np / 3, np / 4, np / 5])
             pg = pu * ng
-            texte = `${prenom()} peint une surface de $${stringNombre(pp, 0)}$ m² en $${np}$ jours. Quelle surface serait peinte en $${ng}$ jours ? `
+            texte = `${prenom()} peint une surface de $${stringNombre(pp, 0)}$ m$^2$ en $${np}$ jours. Quelle surface serait peinte en $${ng}$ jours ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: 'Durée (en jours)' }, { texte: stringNombre(np, 0), math: true }, {
+              ligne1: [{ texte: '\\text{Durée (en jours)}', latex: true }, { texte: stringNombre(np, 0), math: true, latex: true }, {
                 texte: '1',
-                math: true
-              }, { texte: stringNombre(ng, 0), math: true }],
-              ligne2: [{ texte: 'Surface peinte (en m²)' }, {
+                math: true,
+                latex: true
+              }, { texte: stringNombre(ng, 0), math: true, latex: true }],
+              ligne2: [{ texte: '\\text{Surface peinte (en m}^2\\text{)}', latex: true }, {
                 texte: stringNombre(pp, 0),
-                math: true
-              }, { texte: stringNombre(pu, 0), math: true, gras: true, color: '#f15929' }, {
+                math: true,
+                latex: true
+              }, { texte: stringNombre(pu, 0), math: true, latex: true, gras: true, color: '#f15929' }, {
                 texte: stringNombre(pg, 0),
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }],
               flecheHaut: [[1, 2, {
-                texte: '÷' + stringNombre(np, 0),
+                texte: '\\div' + stringNombre(np, 0),
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
-              }], [2, 3, { texte: '×' + stringNombre(ng, 0), math: true, gras: true, color: '#f15929' }]]
+              }], [2, 3, { texte: '\\times' + stringNombre(ng, 0), math: true, latex: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pg)
-            texteApres = 'm²'
+            texteApres = 'm$^2$'
           } else {
             index = randint(0, 7)
             pu = objets[index][1].mul(randint(8, 12)).div(10)
@@ -360,30 +391,35 @@ export default function ProportionnaliteParLineariteTableau () {
             texte = `${prenom()} achète $${texMasse(pp)}$ kg de ${o} pour $${texPrix(np)}$ €. Quelle masse de ${o} pourrait être achetée avec $${ng}$ € ? `
             monTableau = tableau({
               largeurTitre: 10,
-              ligne1: [{ texte: `Prix des ${o} (en euros)` }, { texte: stringNombre(np, 0), math: true }, {
+              ligne1: [{ texte: `\\text{Prix des ${o} (en euros)}`, latex: true }, { texte: stringNombre(np, 0), math: true, latex: true }, {
                 texte: '1',
-                math: true
-              }, { texte: stringNombre(ng, 0), math: true }],
-              ligne2: [{ texte: `Masse des ${o} (en kg)` }, {
+                math: true,
+                latex: true
+              }, { texte: stringNombre(ng, 0), math: true, latex: true }],
+              ligne2: [{ texte: `\\text{Masse des }${o}\\text{ (en kg)}`, latex: true }, {
                 texte: `${stringNombre(pp, 3, true, false)}`,
-                math: true
+                math: true,
+                latex: true
               }, {
                 texte: `${stringNombre(pu, 3, true, false)}`,
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }, {
                 texte: `${stringNombre(pg, 3, true, false)}`,
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
               }],
               flecheHaut: [[1, 2, {
-                texte: '÷' + stringNombre(np, 0),
+                texte: '\\div' + stringNombre(np, 0),
                 math: true,
+                latex: true,
                 gras: true,
                 color: '#f15929'
-              }], [2, 3, { texte: '×' + stringNombre(ng, 0), math: true, gras: true, color: '#f15929' }]]
+              }], [2, 3, { texte: '\\times' + stringNombre(ng, 0), math: true, latex: true, gras: true, color: '#f15929' }]]
             })
             setReponse(this, i, pg)
             texteApres = 'kg'
