@@ -255,7 +255,11 @@ class FractionEtendue {
 
     this.texFractionSR = `\\dfrac{${signeMoinsEnEvidence(num)}}{${signeMoinsEnEvidence(den)}}`
 
-    this.texFSD = signe === 0 ? '0' : signe === -1 ? Math.abs(den) === 1 ? '-' + texNombre(Math.abs(num), 0) : `-\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}` : Math.abs(den) === 1 ? String(texNombre(Math.abs(num), 0)) : `\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`
+    this.texFSD = signe === 0
+      ? '0'
+      : signe === -1
+        ? (Math.abs(den) === 1 ? '-' + texNombre(Math.abs(num), 0) : `-\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`)
+        : (Math.abs(den) === 1 ? texNombre(Math.abs(num), 0) : `\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`)
 
     this.texFractionSignee = signe === -1 ? this.texFSD : '+' + this.texFSD
 
