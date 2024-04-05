@@ -1,4 +1,4 @@
-import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
@@ -12,7 +12,7 @@ export const amcReady = true
 export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const dateDeModifImportante = '20/12/2023'
+export const dateDeModifImportante = '05/04/2024'
 
 /**
  * Écrire une fraction avec un nouveau dénominateur qui est un multiple de son dénominateur (ce multiple est inférieur à une valeur maximale de 11 par défaut)
@@ -37,7 +37,7 @@ export default function EgalitesEntreFractions () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const listeFractions = [
+    let listeFractions = [
       [1, 2],
       [1, 3],
       [2, 3],
@@ -70,6 +70,7 @@ export default function EgalitesEntreFractions () {
       [7, 10],
       [9, 10]
     ] // Couples de nombres premiers entre eux
+    listeFractions = shuffle(listeFractions)
     const listeTypeDeQuestions = combinaisonListes(
       [1, 1, 1, 1, 2],
       this.nbQuestions
@@ -80,7 +81,7 @@ export default function EgalitesEntreFractions () {
     ) {
       if (listeTypeDeQuestions[i] === 1) {
         // égalité entre 2 fractions
-        fraction = choice(listeFractions) //
+        fraction = listeFractions[i % listeFractions.length] //
         a = fraction[0]
         b = fraction[1]
         if (this.modeQcm) {
@@ -90,7 +91,7 @@ export default function EgalitesEntreFractions () {
         }
         c = k * a
         d = k * b
-        enleveElement(listeFractions, fraction) // Il n'y aura pas 2 fois la même fraction de départ
+
         if (this.sup2 === 3) {
           choix = i % 2
         } else {
@@ -330,7 +331,7 @@ export default function EgalitesEntreFractions () {
       if (context.isAmc) {
         this.autoCorrection[i].enonce = `Parmi les fractions suivantes, laquelle est égale à ${texte.split('=')[0]}$ ?`
       }
-      if (this.questionJamaisPosee(i, a, d)) {
+      if (this.questionJamaisPosee(i, a, b, c, d)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
