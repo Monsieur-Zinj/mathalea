@@ -527,7 +527,8 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
 /**
  * comparaison de fraction à l'identique (pour les fraction irréductibles par exemple)
  * @param {string} input
- * @param {string} goodAnswer
+ * @param {string} goodAnswer // Doit être au format texFSD ! le signe devant, numérateur et dénominateur positifs !!!
+ *
  * @return ResultType
  */
 export function fractionCompare (input: string, goodAnswer: string): ResultType {
@@ -536,8 +537,20 @@ export function fractionCompare (input: string, goodAnswer: string): ResultType 
   }
   const clean = generateCleaner(['espaces', 'fractions'])
   const inputParsed = engine.parse(clean(input), { canonical: false })
+  let newFraction
+  if (inputParsed.head === 'Divide') {
+    const num = inputParsed.op1.numericValue
+    const den = inputParsed.op2.numericValue
+    if (num * den < 0) {
+      newFraction = engine.parse(`-\\frac{${Math.abs(num)}}{${Math.abs(den)}}`, { canonical: false })
+    } else {
+      newFraction = engine.parse(`\\frac{${Math.abs(num)}}{${Math.abs(den)}}`, { canonical: false })
+    }
+  } else {
+    newFraction = inputParsed
+  }
   const goodAnswerParsed = engine.parse(clean(goodAnswer), { canonical: false })
-  return { isOk: inputParsed.isSame(goodAnswerParsed) }
+  return { isOk: newFraction.isSame(goodAnswerParsed) }
 }
 
 /**
