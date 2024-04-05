@@ -114,15 +114,16 @@ export const splitExercisesIntoQuestions = (
 
   for (const [k, exercice] of exercices.entries()) {
     exercice.score = 0
+    exercice.numeroExercice = k
     if (exercice.typeExercice === 'simple') {
       mathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
+    } else {
+      if (exercice.nouvelleVersionWrapper !== undefined) {
+        exercice.nouvelleVersionWrapper(k)
+      }
     }
     if (exercice.seed !== undefined) {
       seedrandom(exercice.seed, { global: true })
-    }
-    exercice.numeroExercice = k
-    if (exercice.nouvelleVersionWrapper !== undefined) {
-      exercice.nouvelleVersionWrapper(k)
     }
     isCorrectionVisible[k] = false
     const cumulConsignesCorrections = []
