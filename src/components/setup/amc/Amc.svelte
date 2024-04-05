@@ -52,8 +52,9 @@
       seedrandom(exercice.seed, { global: true })
       if (exercice.typeExercice === 'simple') {
         mathaleaHandleExerciceSimple(exercice, false)
+      } else {
+        if (exercice.nouvelleVersionWrapper != null) exercice.nouvelleVersionWrapper()
       }
-      if (exercice.nouvelleVersionWrapper != null) exercice.nouvelleVersionWrapper()
       if (exercice.amcType == null) {
         // l'exercice n'est pas disponible AMC
         exercicesARetirer.push(exercice.uuid)
@@ -109,8 +110,9 @@
           seedrandom(exo.seed, { global: true })
           if (exo.typeExercice === 'simple') {
             mathaleaHandleExerciceSimple(exo, false)
+          } else {
+            if (exo.nouvelleVersionWrapper != null) exo.nouvelleVersionWrapper()
           }
-          if (exo.nouvelleVersionWrapper != null) exo.nouvelleVersionWrapper()
         }
       }
     }

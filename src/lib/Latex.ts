@@ -74,7 +74,7 @@ class Latex {
         const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
         exercice.seed = seed
         if (exercice.typeExercice === 'simple') {
-          mathaleaHandleExerciceSimple(exercice, false) 
+          mathaleaHandleExerciceSimple(exercice, false)
         } else {
           seedrandom(seed, { global: true })
           if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
@@ -162,9 +162,13 @@ class Latex {
       if (exercice.typeExercice === 'statique') continue
       const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
       exercice.seed = seed
-      if (exercice.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercice, false)
+      if (exercice.typeExercice === 'simple') {
+        mathaleaHandleExerciceSimple(exercice, false)
+      }
       seedrandom(seed, { global: true })
-      if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
+      if (exercice.typeExercice !== 'simple') {
+        if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
+      }
     }
     for (const exercice of this.exercices) {
       content += `\n% @see : ${getUrlFromExercice(exercice)}`
