@@ -1787,7 +1787,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_1_cor.tex',
-    tags: ['Équations différentielles','Exponentielle','']
+    tags: ['Équations différentielles', 'Exponentielle', '']
   },
   bac_2024_01_sujet0_2: {
     annee: '2024',
@@ -1799,7 +1799,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_2_cor.tex',
-    tags: ['Primitives','Python','Suites','Exponentielle']
+    tags: ['Primitives', 'Python', 'Suites', 'Exponentielle']
   },
   bac_2024_01_sujet0_3: {
     annee: '2024',
@@ -1811,7 +1811,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_3_cor.tex',
-    tags: ['Probabilités conditionnelles','Variables aléatoires','Loi binomiale']
+    tags: ['Probabilités conditionnelles', 'Variables aléatoires', 'Loi binomiale']
   },
   bac_2024_01_sujet0_4: {
     annee: '2024',
@@ -1823,7 +1823,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_4_cor.tex',
-    tags: ['Espace','QCM']
+    tags: ['Espace', 'QCM']
   },
   bac_2024_01_sujet0_5: {
     annee: '2024',
@@ -1835,7 +1835,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_5.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_5_cor.tex',
-    tags: ['Fonctions trigonométriques','Convexité','QCM','Combinatoire','Loi binomiale']
+    tags: ['Fonctions trigonométriques', 'Convexité', 'QCM', 'Combinatoire', 'Loi binomiale']
   },
   bac_2024_01_sujet0_6: {
     annee: '2024',
@@ -1847,7 +1847,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_6.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_6_cor.tex',
-    tags: ['Vrai/Faux','Suites']
+    tags: ['Vrai/Faux', 'Suites']
   },
   bac_2024_01_sujet0_7: {
     annee: '2024',
@@ -1859,7 +1859,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_7.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_7_cor.tex',
-    tags: ['Exponentielle','Logarithme']
+    tags: ['Exponentielle', 'Logarithme']
   },
   bac_2024_01_sujet0_8: {
     annee: '2024',
@@ -1871,7 +1871,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_01_sujet0_8.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_01_sujet0_8_cor.tex',
-    tags: ['Suites','Python']
+    tags: ['Suites', 'Python']
   },
 
   bac_2023_03_sujet1_ameriquenord_1: {
@@ -1885,7 +1885,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2023/tex/bac_2023_03_sujet1_ameriquenord_1.tex',
     urlcor: 'static/bac/2023/tex/bac_2023_03_sujet1_ameriquenord_1_cor.tex',
-    tags: ['Probabilités conditionnelles','Loi binomiale']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2023_03_sujet1_ameriquenord_2: {
     annee: '2023',
@@ -1898,7 +1898,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2023/tex/bac_2023_03_sujet1_ameriquenord_2.tex',
     urlcor: 'static/bac/2023/tex/bac_2023_03_sujet1_ameriquenord_2_cor.tex',
-    tags: ['Exponentielle','TVI','Convexité']
+    tags: ['Exponentielle', 'TVI', 'Convexité']
   },
   bac_2023_03_sujet1_ameriquenord_3: {
     annee: '2023',
@@ -1924,7 +1924,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2023/tex/bac_2023_03_sujet1_ameriquenord_4.tex',
     urlcor: 'static/bac/2023/tex/bac_2023_03_sujet1_ameriquenord_4_cor.tex',
-    tags: ['Suites,'Python']
+    tags: ['Suites', 'Python']
   },
   bac_2023_03_sujet1_asie_1: {
     annee: '2023',
@@ -1937,7 +1937,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2023/tex/bac_2023_03_sujet1_asie_1.tex',
     urlcor: 'static/bac/2023/tex/bac_2023_03_sujet1_asie_1_cor.tex',
-    tags: ['Suites,'Python']
+    tags: ['Suites', 'Python']
   },
   bac_2023_03_sujet1_asie_2: {
     annee: '2023',
@@ -1976,7 +1976,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2023/tex/bac_2023_03_sujet1_asie_4.tex',
     urlcor: 'static/bac/2023/tex/bac_2023_03_sujet1_asie_4_cor.tex',
-    tags: ['QCM','Probabilités conditionnelles']
+    tags: ['QCM', 'Probabilités conditionnelles']
   },
   bac_2023_03_sujet1_etrangers_groupe1_1: {
     annee: '2023',
