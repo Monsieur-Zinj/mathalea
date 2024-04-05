@@ -135,15 +135,15 @@ export default function ProblemeDeRatio () {
               texteCorr += `${quidam.prenom} doit ajouter un volume d'eau de : $${deprecatedTexFraction(y + '\\times' + k * x, x)}=${y * k}\\text{ cL} $.`
             }
           } else { // On mélange du sirop, du jus de fruit et de la limonade.
-            texte += `${quidam.prenom} prépare un coktail à base de sirop  ${sirops[index % 5]}, de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse pour ses amis. ${premiereLettreEnMajuscule(article)} mélange les trois ingrédients dans le ratio $~${x}~:~${y}~:~${z}$.<br>`
+            texte += `${quidam.prenom} prépare un cocktail à base de sirop  ${sirops[index % 5]}, de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse pour ses amis. ${premiereLettreEnMajuscule(article)} mélange les trois ingrédients dans le ratio $~${x}~:~${y}~:~${z}$.<br>`
             if (choice([true, false])) {
               texte += `${premiereLettreEnMajuscule(article)} désire préparer $${total}\\text{ cL} $ de boisson. Quelle quantité de sirop, de jus et d'eau gazeuse doit-${article} mélanger ?`
-              texteCorr += `Si ${quidam.prenom} mélange selon le ratio donné $${x}\\text{ cL} $ de sirop ${sirops[index % 5]}, $${y}\\text{ cL} $ de jus ${jusdefruit[index2 % 5]} et $${z}\\text{ cL} $ d'eau gazeuse ${article} obtiendra $${x + y + z}\\text{ cL} $ de coktail.<br>`
-              texteCorr += `${premiereLettreEnMajuscule(article)} veut obtenir $${total}\\text{ cL} $ $=${miseEnEvidence(k)}\\times ${x + y + z}\\text{ cL} $ de coktail.<br>`
+              texteCorr += `Si ${quidam.prenom} mélange selon le ratio donné $${x}\\text{ cL} $ de sirop ${sirops[index % 5]}, $${y}\\text{ cL} $ de jus ${jusdefruit[index2 % 5]} et $${z}\\text{ cL} $ d'eau gazeuse ${article} obtiendra $${x + y + z}\\text{ cL} $ de cocktail.<br>`
+              texteCorr += `${premiereLettreEnMajuscule(article)} veut obtenir $${total}\\text{ cL} $ $=${miseEnEvidence(k)}\\times ${x + y + z}\\text{ cL} $ de cocktail.<br>`
               texteCorr += `Donc pour cela, ${article} doit mélanger $${miseEnEvidence(k)}\\times ${x}\\text{ cL} $$=${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]}, $${miseEnEvidence(k)}\\times ${y}\\text{ cL} $$=${k * y}\\text{ cL} $ de jus ${jusdefruit[index2 % 5]} et $${miseEnEvidence(k)}\\times ${z}\\text{ cL} $$=${k * z}\\text{ cL} $ d'eau gazeuse.`
             } else {
-              texte += `${premiereLettreEnMajuscule(article)} verse $${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]}. Quelle quantité de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse doit-${article} ajouter et quelle quantité de coktail obtiendra-t-${article} ?`
-              texteCorr += `Pour ce coktail le sirop ${sirops[index % 5]}, le jus ${jusdefruit[index2 % 5]} et l'eau gazeuse sont dans un ratio de $${x}~:~${y}~:~${z}$<br>`
+              texte += `${premiereLettreEnMajuscule(article)} verse $${k * x}\\text{ cL} $ de sirop ${sirops[index % 5]}. Quelle quantité de jus ${jusdefruit[index2 % 5]} et d'eau gazeuse doit-${article} ajouter et quelle quantité de cocktail obtiendra-t-${article} ?`
+              texteCorr += `Pour ce cocktail le sirop ${sirops[index % 5]}, le jus ${jusdefruit[index2 % 5]} et l'eau gazeuse sont dans un ratio de $${x}~:~${y}~:~${z}$<br>`
               texteCorr += `ce qui signifie que $${deprecatedTexFraction('\\text{Volume de sirop en cL}', x + '\\text{ cL}')}=${deprecatedTexFraction('\\text{Volume de jus de fruit en cL}', y + '\\text{ cL}')}=${deprecatedTexFraction("\\text{Volume d'eau gazeuse en cL}", z + '\\text{ cL}')}$<br>`
               texteCorr += `Avec la valeur numérique : $${deprecatedTexFraction(k * x + '\\text{ cL}', x + '\\text{ cL}')}=${deprecatedTexFraction('\\text{Volume de jus de fruit en cL}', y + '\\text{ cL}')}=${deprecatedTexFraction("\\text{Volume d'eau gazeuse en cL}", z + '\\text{ cL}')}$.<br>`
               texteCorr += `${quidam.prenom} en déduit que le volume de jus ${jusdefruit[index2 % 5]} est : $${deprecatedTexFraction(k * x + '\\times' + y, x)}\\text{ cL}=${y * k}\\text{ cL}$.<br>`
