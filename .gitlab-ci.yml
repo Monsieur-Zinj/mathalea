@@ -75,7 +75,7 @@ variable:
 
 .testCI:
   extends: .install_dependencies
-  image: mcr.microsoft.com/playwright:v1.42.1-jammy
+  image: mcr.microsoft.com/playwright:v1.43.0-jammy
   stage: playwright-test
   rules:
   - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
