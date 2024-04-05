@@ -407,7 +407,7 @@ export function exportQcmAmc (exercice, idExo) {
                   rep.param.exposantPuissance = 1000 // Nb volontairement grand pour faire comprendre à l'utilisateur AMC qu'il y a eu une erreur de programmation lors de la conception de l'exercice.
                 }
                 if (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion) {
-                  texQr += `\\begin{questionmultx}{Enonce-${ref}/${lettreDepuisChiffre(idExo + 1)}} \n `
+                  texQr += `\\begin{questionmultx}{Enonce-${ref}/${lettreDepuisChiffre(idExo + 1)}${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
                   texQr += `${autoCorrection[j].enonce} \n` // Enonce de la question
                   texQr += '\\end{questionmultx}'
                 }
@@ -451,7 +451,7 @@ export function exportQcmAmc (exercice, idExo) {
                 valeurAMCNum = rep.valeur[0]
 
                 if (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion) {
-                  texQr += `\\begin{questionmultx}{Enonce-${ref}/${lettreDepuisChiffre(idExo + 1)}} \n `
+                  texQr += `\\begin{questionmultx}{Enonce-${ref}/${lettreDepuisChiffre(idExo + 1)}${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
                   texQr += `${autoCorrection[j].enonce} \n` // Enonce de la question
                   texQr += '\\end{questionmultx}'
                 }
@@ -538,7 +538,7 @@ export function exportQcmAmc (exercice, idExo) {
 
                 // Rajout EE 27/12/2022 : Si on veut que l'énoncé soit après le numéro de la question
                 if (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion) {
-                  texQr += `\\begin{questionmultx}{Enonce-${ref}/${lettreDepuisChiffre(idExo + 1)}} \n `
+                  texQr += `\\begin{questionmultx}{Enonce-${ref}/${lettreDepuisChiffre(idExo + 1)}${lettreDepuisChiffre(idExo + 1)}-${id + 10}} \n `
                   texQr += `${autoCorrection[j].enonce} \n`
                   texQr += '\\end{questionmultx}'
                 }
@@ -552,7 +552,6 @@ export function exportQcmAmc (exercice, idExo) {
                     texQr += '0'
                   }
                   texQr += 'pt}\\begin{multicols}{2}\n'
-                  //  if (qr > 0) texQr += '\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
                 }
 
                 if ((qr > 0) || (qr === 0 && autoCorrection[j].enonceApresNumQuestion !== undefined && autoCorrection[j].enonceApresNumQuestion)) texQr += '\n\\def\\AMCbeginQuestion#1#2{}\\AMCquestionNumberfalse'
