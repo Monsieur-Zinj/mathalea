@@ -232,7 +232,7 @@ export default function LectureGraphiqueParaboleB () {
       cpt++
     }
     listeQuestionsToContenu(this)
-    this.canEnonce = texte
-    this.canReponseACompleter = '$b=\\ldots$'
+    this.listeCanEnonces.push(texte)
+    this.listeCanReponsesACompleter.push('$b=\\ldots$')
   }
 }
