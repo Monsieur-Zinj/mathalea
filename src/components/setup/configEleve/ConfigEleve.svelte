@@ -21,6 +21,7 @@
     copyLinkToClipboard,
     copyEmbeddedCodeToClipboard
   } from '../../../lib/components/clipboard'
+  import { downloadRedirectFile } from '../../../lib/components/redirectFile'
   import { buildMathAleaURL } from '../../../lib/components/urls'
   import type { NumericRange } from '../../../lib/types'
   // pour les tabs
@@ -554,6 +555,33 @@
                   availableLinkFormats[currentLinkFormat].toolTipsMessage +
                   ')'}
                 buttonIcon={'bx-code-alt'}
+                buttonSecondIcon={availableLinkFormats[currentLinkFormat].icon}
+              />
+            </div>
+          </div>
+          <div class="flex flex-col justify-center items-center px-2">
+            <div
+              class="text-coopmaths-struct-lightest dark:text-coopmathsdark-struct-light font-semibold"
+            >
+              Fichier
+            </div>
+            <div class="my-1">
+              <ModalActionWithDialog
+                on:display={() =>
+                  downloadRedirectFile(
+                    'downlaodRedirectFileDialog',
+                    buildMathAleaURL($canOptions.isChoosen ? 'can' : 'eleve'),
+                    $globalOptions.title ? $globalOptions.title : 'mathAlea',
+                    availableLinkFormats[currentLinkFormat].isShort,
+                    availableLinkFormats[currentLinkFormat].isEncrypted
+                  )}
+                message="Le téléchargement va début dans quelques instants."
+                messageError="Impossible de télécharger le fichier !"
+                dialogId="downlaodRedirectFileDialog"
+                tooltipMessage={'Fichier de redirection (lien ' +
+                  availableLinkFormats[currentLinkFormat].toolTipsMessage +
+                  ')'}
+                buttonIcon={'bx-file'}
                 buttonSecondIcon={availableLinkFormats[currentLinkFormat].icon}
               />
             </div>
