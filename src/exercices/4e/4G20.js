@@ -31,6 +31,7 @@ export const interactifType = 'mathLive'
  * @return {{isOk: boolean, feedback: string}}
  */
 export function pythagoreCompare (input, goodAnswer) {
+  input = input.replaceAll(/([A-Z]{2})/g, '\\mathrm{$1}')
   const parsedInput = engine.parse(input)
   const parsedAnswer = engine.parse(goodAnswer)
   if (parsedAnswer.head === 'Equal') {
