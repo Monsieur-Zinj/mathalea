@@ -227,7 +227,8 @@ class Latex {
       contents.preamble = `% @see : ${window.location.href}`
       contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
       if (contents.content.includes('\\Engrenages[') || // exo : 3A12
-          contents.content.includes('\\Propor[')) { // exo : 6P15
+          contents.content.includes('\\Propor[') || // exo : 6P15
+          contents.content.includes('\\Reperage[')) { // exo 5R12-1
         // à mettre avant ProfMaquette
         contents.preamble += '\n\\usepackage{ProfCollege}'
       }
