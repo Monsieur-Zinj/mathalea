@@ -3,14 +3,14 @@ import { point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
 import { texteGras } from '../../lib/format/style'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { min, max } from 'mathjs'
+import { fraction } from '../../modules/fractions'
 export const titre = 'Représentation graphique d\'une fonction affine'
 export const dateDeModifImportante = '08/05/2023'
 
@@ -24,20 +24,17 @@ export const refs = {
   'fr-fr': ['2F10-3'],
   'fr-ch': ['10FA5-15']
 }
-export default function Representerfonctionaffine () {
-  Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 ? 'la fonction affine suivante  $f$ définie' : 'les fonctions affines suivantes  $f$ définies') + ' sur $\\mathbb R$ par :'
-  this.nbQuestions = 3 // On complète le nb de questions
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.tailleDiaporama = 3
-  this.video = ''
-  this.spacing = 1
-  this.spacingCorr = 1
-  this.sup = 1
+export default class Representerfonctionaffine extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 ? 'la fonction affine suivante  $f$ définie' : 'les fonctions affines suivantes  $f$ définies') + ' sur $\\mathbb R$ par :'
+    this.nbQuestions = 3 // On complète le nb de questions
+    this.tailleDiaporama = 3
+    this.sup = 1
+    this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange des deux cas précédents']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
@@ -53,8 +50,8 @@ export default function Representerfonctionaffine () {
     }
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    const o = texteParPosition('O', -0.5, -0.5, 0, 'black', 1)
-    for (let i = 0, a, b, r, c, d, tA, lA, tB, lB, xA, yA, xB, yB, f, lC, typesDeQuestions, texte, texteCorr, cadre, cadreFenetreSvg, cpt = 0;
+    const textO = texteParPosition('O', -0.5, -0.5, 0, 'black', 1)
+    for (let i = 0, a, b, r, c, d, tA, lA, tB, lB, xA, yA, xB, yB, f, typesDeQuestions, texte, texteCorr, cadre, cadreFenetreSvg, cpt = 0;
       i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
       typesDeQuestions = listeTypeDeQuestions[i]
       switch (typesDeQuestions) {
@@ -118,7 +115,7 @@ export default function Representerfonctionaffine () {
               texteCorr += `Sa représentation graphique est donc une droite parallèle à l'axe des abscisses, d'équation $y=${yA}$.<br>`
             }
             texteCorr += mathalea2d(cadreFenetreSvg,
-              lA, lB, r, c, tA, tB, o) }
+              lA, lB, r, c, tA, tB, textO) }
           texteCorr += `<br>${texteGras('Remarque')} : pour tracer la droite, on peut aussi utiliser le coefficient directeur de la droite ($${a}$) et son ordonnée à l'origine ($${b}$).<br>`
           break
 
@@ -172,12 +169,11 @@ export default function Representerfonctionaffine () {
             lA = labelPoint(A1, 'red')// Variable qui trace les nom s A et B
             tB = tracePoint(B1, 'red') // Variable qui trace les points avec une croix
             lB = labelPoint(B1, 'red')// Variable qui trace les nom s A et B
-            // lC = labelPoint(f, 'C_f')// Variable qui trace les nom s A et B
 
             r = repere(cadre)// On définit le repère
             texteCorr += mathalea2d(
               cadreFenetreSvg,
-              r, c, tA, lA, tB, lB, lC, o)
+              r, c, tA, lA, tB, lB, textO)
             // On trace le graphique
             texteCorr += `<br>${texteGras('Remarque')} : pour tracer la droite, on peut aussi utiliser le coefficient directeur de la droite ($${texFractionReduite(a, d)}$) et son ordonnée à l'origine ($${b}$).<br>`
           }
@@ -194,5 +190,9 @@ export default function Representerfonctionaffine () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange des deux cas précédents']
+}
+
+function texFractionReduite (a, b) {
+  const frac = fraction(a, b)
+  return frac.simplifie().toLatex()
 }
