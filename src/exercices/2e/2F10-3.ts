@@ -27,7 +27,7 @@ export const interactifType = 'custom'
 export const uuid = 'c360e'
 export const ref = '2F10-3'
 export const refs = {
-  'fr-fr': ['2F10-3'],
+  'fr-fr': ['2F10-3', '3F20-3'],
   'fr-ch': ['10FA5-15']
 }
 export default class Representerfonctionaffine extends Exercice {
@@ -203,7 +203,7 @@ export default class Representerfonctionaffine extends Exercice {
       }
 
       if (this.interactif) {
-        const figure = new Figure({ xMin: -5, yMin: -5, width: 300, height: 300 })
+        const figure = new Figure({ xMin: -5.5, yMin: -5.5, width: 330, height: 330 })
         this.figures[i] = figure
         figure.setToolbar({ tools: ['POINT', 'LINE', 'DRAG', 'REMOVE'], position: 'top' })
         figure.create('Grid')
