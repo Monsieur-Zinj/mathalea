@@ -121,7 +121,7 @@ export default function DistributiviteSimpleDoubleReduction () {
           break
       }
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: expandedAndReductedCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: false }, compare: expandedAndReductedCompare } }, { formatInteractif: 'mathlive' })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
       } else {
         this.autoCorrection[i] = {
