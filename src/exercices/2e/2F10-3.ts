@@ -1,7 +1,9 @@
-import { droite } from '../../lib/2d/droites.js'
-import { point, tracePoint } from '../../lib/2d/points.js'
+import figureApigeom from '../../lib/figureApigeom'
+import Figure from 'apigeom'
+import { Droite, droite } from '../../lib/2d/droites.js'
+import { TracePoint, point, tracePoint } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
+import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
@@ -11,11 +13,15 @@ import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { min, max } from 'mathjs'
 import { fraction } from '../../modules/fractions'
+import { context } from '../../modules/context'
+
 export const titre = 'Représentation graphique d\'une fonction affine'
-export const dateDeModifImportante = '08/05/2023'
+export const dateDeModifImportante = '06/04/2024'
+export const interactifReady = true
+export const interactifType = 'custom'
 
 /**
-* @author Stéphane Guyon (mise à jour avec les cas Gilles Mora)
+* @author Stéphane Guyon (mise à jour avec les cas Gilles Mora + figure interactive Rémi Angot)
 * 2F10-3
 */
 export const uuid = 'c360e'
@@ -25,20 +31,24 @@ export const refs = {
   'fr-ch': ['10FA5-15']
 }
 export default class Representerfonctionaffine extends Exercice {
+  figures!: Figure[]
+  coefficients!: [number, number][]
   constructor () {
     super()
-    this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 ? 'la fonction affine suivante  $f$ définie' : 'les fonctions affines suivantes  $f$ définies') + ' sur $\\mathbb R$ par :'
+    this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 || context.isDiaporama ? 'la fonction affine suivante  $f$ définie' : 'les fonctions affines suivantes  $f$ définies') + ' sur $\\mathbb R$ par :'
     this.nbQuestions = 3 // On complète le nb de questions
     this.tailleDiaporama = 3
     this.sup = 1
     this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange des deux cas précédents']
   }
 
-  nouvelleVersion () {
+  nouvelleVersion (numeroExercice: number) {
+    this.figures = []
+    this.coefficients = []
     this.sup = parseInt(this.sup)
     this.listeQuestions = []
     this.listeCorrections = []
-    let typesDeQuestionsDisponibles = []
+    let typesDeQuestionsDisponibles: (1|2)[] = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
     }
@@ -51,15 +61,24 @@ export default class Representerfonctionaffine extends Exercice {
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const textO = texteParPosition('O', -0.5, -0.5, 0, 'black', 1)
-    for (let i = 0, a, b, r, c, d, tA, lA, tB, lB, xA, yA, xB, yB, f, typesDeQuestions, texte, texteCorr, cadre, cadreFenetreSvg, cpt = 0;
-      i < this.nbQuestions && cpt < 50;) { // on rajoute les variables dont on a besoin
-      typesDeQuestions = listeTypeDeQuestions[i]
-      switch (typesDeQuestions) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let a: number, b: number, d: number,
+        xA: number, yA: number, xB: number, yB: number,
+        droiteAB: Droite,
+        cadre: { xMin: number, yMin: number, xMax: number, yMax: number },
+        monRepere: unknown,
+        tA: TracePoint, tB: TracePoint,
+        lA: unknown, lB: unknown,
+        cadreFenetreSvg: unknown,
+        f: (x: number) => number,
+        texte, texteCorr: string
+      switch (listeTypeDeQuestions[i]) {
         case 1:
           {
             f = (x) => a * x + b
             a = randint(0, 3, [0]) * choice([-1, 1])// coefficient non nul a de la fonction affine
             b = randint(0, 3, [0]) * choice([-1, 1])// ordonnée à l'origine b non nulle de la fonction affine
+            this.coefficients[i] = [a, b]
             f = (x) => a * x + b
 
             xA = 0
@@ -69,9 +88,9 @@ export default class Representerfonctionaffine extends Exercice {
 
             const A = point(xA, yA, 'A')
             const B = point(xB, yB, 'B')
-            c = droite(A, B)
-            c.color = colorToLatexOrHTML('red')
-            c.epaisseur = 2
+            droiteAB = droite(A, B)
+            droiteAB.color = colorToLatexOrHTML('red')
+            droiteAB.epaisseur = 2
 
             cadre = {
               xMin: min(-5, xA - 1, xB - 1),
@@ -89,7 +108,7 @@ export default class Representerfonctionaffine extends Exercice {
               scale: 0.6
             }
 
-            r = repere(cadre)
+            monRepere = repere(cadre)
 
             tA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
             tB = tracePoint(B, 'red') // Variable qui trace les points avec une croix
@@ -114,8 +133,9 @@ export default class Representerfonctionaffine extends Exercice {
               texteCorr = 'On observe que $f$ est une fonction constante.<br>'
               texteCorr += `Sa représentation graphique est donc une droite parallèle à l'axe des abscisses, d'équation $y=${yA}$.<br>`
             }
+            // @ts-expect-error mathalea2d n'est pas typé
             texteCorr += mathalea2d(cadreFenetreSvg,
-              lA, lB, r, c, tA, tB, textO) }
+              lA, lB, monRepere, droiteAB, tA, tB, textO) }
           texteCorr += `<br>${texteGras('Remarque')} : pour tracer la droite, on peut aussi utiliser le coefficient directeur de la droite ($${a}$) et son ordonnée à l'origine ($${b}$).<br>`
           break
 
@@ -129,6 +149,7 @@ export default class Representerfonctionaffine extends Exercice {
               d = randint(2, 5)
             }
             f = (x) => a / d * x + b
+            this.coefficients[i] = [a / d, b]
             xA = 0 // Abscisse de A
             yA = f(xA)// Ordonnée de A
             xB = d
@@ -136,9 +157,9 @@ export default class Representerfonctionaffine extends Exercice {
 
             const A1 = point(xA, yA, 'A')
             const B1 = point(xB, yB, 'B')
-            c = droite(A1, B1)
-            c.color = colorToLatexOrHTML('red')
-            c.epaisseur = 2
+            droiteAB = droite(A1, B1)
+            droiteAB.color = colorToLatexOrHTML('red')
+            droiteAB.epaisseur = 2
 
             cadre = {
               xMin: min(-5, xA - 1, xB - 1),
@@ -170,14 +191,28 @@ export default class Representerfonctionaffine extends Exercice {
             tB = tracePoint(B1, 'red') // Variable qui trace les points avec une croix
             lB = labelPoint(B1, 'red')// Variable qui trace les nom s A et B
 
-            r = repere(cadre)// On définit le repère
+            monRepere = repere(cadre)// On définit le repère
             texteCorr += mathalea2d(
+              // @ts-expect-error mathalea2d n'est pas typé
               cadreFenetreSvg,
-              r, c, tA, lA, tB, lB, textO)
+              monRepere, droiteAB, tA, lA, tB, lB, textO)
             // On trace le graphique
             texteCorr += `<br>${texteGras('Remarque')} : pour tracer la droite, on peut aussi utiliser le coefficient directeur de la droite ($${texFractionReduite(a, d)}$) et son ordonnée à l'origine ($${b}$).<br>`
           }
           break
+      }
+
+      if (this.interactif) {
+        const figure = new Figure({ xMin: -5, yMin: -5, width: 300, height: 300 })
+        this.figures[i] = figure
+        figure.setToolbar({ tools: ['POINT', 'LINE', 'DRAG', 'REMOVE'], position: 'top' })
+        figure.create('Grid')
+        figure.options.color = 'blue'
+        figure.options.thickness = 2
+        figure.snapGrid = true
+        const idApigeom = `apigeomEx${numeroExercice}F${i}`
+        texte += figureApigeom({ exercice: this, idApigeom, figure, question: i })
+        if (figure.ui) figure.ui.send('LINE')
       }
 
       if (this.questionJamaisPosee(i, a, b)) {
@@ -190,9 +225,43 @@ export default class Representerfonctionaffine extends Exercice {
     }
     listeQuestionsToContenu(this)
   }
+
+  correctionInteractive = (i?: number) => {
+    if (i === undefined) return 'KO'
+    let result: 'OK'|'KO' = 'KO'
+    const figure = this.figures[i]
+    if (this.answers == null) this.answers = {}
+    // Sauvegarde de la réponse pour Capytale
+    this.answers[`#apigeomEx${this.numeroExercice}F${i}`] = figure.json
+    figure.isDynamic = false
+    figure.divButtons.style.display = 'none'
+    figure.divUserMessage.style.display = 'none'
+    const lines = [...figure.elements.values()].filter(e => e.type.includes('Line'))
+    const [a, b] = this.coefficients[i]
+    const point1 = { x: 0, y: b }
+    const point2 = { x: 1, y: a + b }
+    const { isValid } = figure.checkLine({ point1, point2 })
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
+    if (divFeedback != null) {
+      if (isValid && lines.length === 1) {
+        divFeedback.innerHTML = '😎'
+        result = 'OK'
+      } else {
+        const p = document.createElement('p')
+        p.innerText = '☹️'
+        if (lines.length === 0) {
+          p.innerHTML += ' Aucune droite n\'a été tracée.'
+        } else if (lines.length > 1) {
+          p.innerHTML += ' Il ne faut tracer qu\'une seule droite.'
+        }
+        divFeedback.insertBefore(p, divFeedback.firstChild)
+      }
+    }
+    return result
+  }
 }
 
-function texFractionReduite (a, b) {
+function texFractionReduite (a: number, b: number) {
   const frac = fraction(a, b)
   return frac.simplifie().toLatex()
 }
