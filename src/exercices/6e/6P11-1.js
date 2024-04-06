@@ -1,5 +1,5 @@
-import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { choice, combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   arrondi,
   nombreDeChiffresDansLaPartieDecimale,
@@ -15,16 +15,15 @@ import { checkSum, listeQuestionsToContenu, randint } from '../../modules/outils
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
-export let titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'
+export const titre = 'Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '23/02/2022'
+export const dateDeModifImportante = '06/04/2024'
 
 /**
  * Résoudre un problème relevant de la proportionnalité avec les propriétés de linéarité
- * * 6P11-1
  * @author Sébastien Lozano (et Eric Elter pour divers enrichissements)
  */
 
@@ -36,21 +35,14 @@ export const refs = {
 }
 export default function ProportionnaliteParLineariteBis () {
   Exercice.call(this)
-  this.beta = false
-  if (this.beta) {
-    this.nbQuestions = 3
-  } else {
-    this.nbQuestions = 1
-  }
 
-  this.consigne = ''
   context.isHtml ? this.spacing = 2 : this.spacing = 1
 
   this.nbCols = 1
   this.nbColsCorr = 1
-  if (context.isAmc) {
+  /*  if (context.isAmc) {
     titre = 'Résoudre un problème relevant de la proportionnalité'
-  }
+  } */
 
   this.nouvelleVersion = function () {
     const tabHash = []
@@ -120,10 +112,14 @@ export default function ProportionnaliteParLineariteBis () {
         nMax = randint(10, 19, [n3, n5])
       } while (n4 === 1)
       const situation = situations[sousChoix[i]]
-      const consigneQuestions = shuffle([n3, n4, n5])
+      // const consigneQuestions = shuffle([n3, n4, n5])
+      const consigneQuestions = [n3, n4, n5]
+      const prenomlisteEE = [prenomliste[2], prenomliste[3], prenomliste[4]]
+      shuffle2tableaux(consigneQuestions, prenomlisteEE)
+
       texte = `${situation.lieu}, ${prenomliste[0]} achète $${n1}$ ${pluriel(n1, situation)} et paie $${texPrix(n1 * situation.pu)}$${sp()}€.
       <br>${prenomliste[1]} achète $${n2}$ ${pluriel(n2, situation)} et paie $${texPrix(n2 * situation.pu)}$${sp()}€.`
-      const enonceQ1 = `<br>${numAlpha(k++)} Combien paiera ${prenomliste[2]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i, 'largeur25 inline', { texteApres: sp(2) + '€' })}`
+      const enonceQ1 = `<br>${numAlpha(k++)} Combien paiera ${prenomlisteEE[0]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i, 'largeur25 inline', { texteApres: sp(2) + '€' })}`
       let enonceAMC = texte + '<br>' + enonceQ1
       texte += enonceQ1
       const propositionsAMC = [
@@ -145,7 +141,7 @@ export default function ProportionnaliteParLineariteBis () {
           }]
         }
       ]
-      enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomliste[3]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur25 inline', { texteApres: sp(2) + '€' })}`
+      enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomlisteEE[1]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur25 inline', { texteApres: sp(2) + '€' })}`
       texte += '<br>' + enonceAMC
       propositionsAMC.push(
         {
@@ -166,7 +162,7 @@ export default function ProportionnaliteParLineariteBis () {
           }]
         }
       )
-      enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomliste[4]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 2, 'largeur25 inline', { texteApres: sp(2) + '€' })}`
+      enonceAMC = `${numAlpha(k++)} Combien paiera ${prenomlisteEE[2]} pour $${consigneQuestions[k - 1]}$ ${pluriel(consigneQuestions[k - 1], situation)} ? ${ajouteChampTexteMathLive(this, 4 * i + 2, 'largeur25 inline', { texteApres: sp(2) + '€' })}`
       texte += '<br>' + enonceAMC
       propositionsAMC.push(
         {
@@ -217,15 +213,18 @@ export default function ProportionnaliteParLineariteBis () {
         <br> Pour $${n2}$ ${pluriel(n2, situation)}, on paie $${texPrix(n2 * situation.pu)}$${sp()}€.`
       const texteCorrn3 = `
         <br> Donc pour $${n1}$ ${pluriel(n3, situation)} $+$ $${n2}$ ${pluriel(n3, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ + $${texPrix(n2 * situation.pu)}$${sp()}€.
-        <br> ${texteEnCouleurEtGras(`${prenomliste[2]} paiera donc $${miseEnEvidence(texPrix(n3 * situation.pu))}$${sp()}€ pour $${miseEnEvidence(n3)}$ ${pluriel(n3, situation)}.`)}
+        <br> $${texPrix(n1 * situation.pu)}$${sp()}€ + $${texPrix(n2 * situation.pu)}$${sp()}€ = $${texPrix(n3 * situation.pu)}$${sp()}€
+        <br> ${prenomliste[2]} paiera donc $${miseEnEvidence(texPrix(n3 * situation.pu))}$${sp()}€ pour $${n3}$ ${pluriel(n3, situation)}.
         <br>`
       const texteCorrn4 = `
         <br> Donc pour $${n1}$ ${pluriel(n3, situation)} $-$ $${n2}$ ${pluriel(n4, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€ - $${texPrix(n2 * situation.pu)}$${sp()}€.
-        <br> ${texteEnCouleurEtGras(`${prenomliste[3]} paiera donc $${miseEnEvidence(texPrix(n4 * situation.pu))}$${sp()}€ pour $${miseEnEvidence(n4)}$ ${pluriel(n4, situation)}.`)}
+        <br> $${texPrix(n1 * situation.pu)}$${sp()}€ - $${texPrix(n2 * situation.pu)}$${sp()}€ = $${texPrix(n4 * situation.pu)}$${sp()}€
+        <br> ${prenomliste[3]} paiera donc $${miseEnEvidence(texPrix(n4 * situation.pu))}$${sp()}€ pour $${n4}$ ${pluriel(n4, situation)}.
         <br>`
       const texteCorrn5 = `
         <br> Donc pour $${choixMult}\\times${choixN}$ ${pluriel(n5, situation)}, on paie $${choixMult}\\times${texPrix(choixN * situation.pu)}$${sp()}€.
-        <br> ${texteEnCouleurEtGras(`${prenomliste[4]} paiera donc $${miseEnEvidence(texPrix(n5 * situation.pu))}$${sp()}€ pour $${miseEnEvidence(n5)}$ ${pluriel(n5, situation)}.`)}
+        <br> $${choixMult}\\times${texPrix(choixN * situation.pu)}$${sp()}€ = $${texPrix(n5 * situation.pu)}$${sp()}€
+        <br> ${prenomliste[4]} paiera donc $${miseEnEvidence(texPrix(n5 * situation.pu))}$${sp()}€ pour $${n5}$ ${pluriel(n5, situation)}.
         <br>`
       for (let kk = 0; kk < 3; kk++) {
         texteCorr += `<br>${numAlpha(kCorr++)} ` + texteCorrInit
@@ -246,8 +245,7 @@ export default function ProportionnaliteParLineariteBis () {
         <br> Par exemple, pour $${n1}$ ${pluriel(n1, situation)}, on paie $${texPrix(n1 * situation.pu)}$${sp()}€.
         <br> Donc $1$ ${situation.achat_sing} coûte $${texPrix(n1 * situation.pu)}$${sp()}€ $\\div ${n1} = ${texPrix(situation.pu)}$${sp()}€.
         <br> Pour $${texPrix(nMax * situation.pu)}$${sp()}€, nous aurons donc $${texPrix(nMax * situation.pu)}$ ${sp()}€ $\\div ${texPrix(situation.pu)}$${sp()}€ $= ${nMax}$.
-        <br> ${texteEnCouleurEtGras(`Avec $${miseEnEvidence(texPrix(nMax * situation.pu))}$${sp()}€, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`)}
-        `
+        <br> Avec $${miseEnEvidence(texPrix(nMax * situation.pu))}$${sp()}€, ${prenomliste[5]} peut donc acheter $${miseEnEvidence(nMax)}$ ${pluriel(nMax, situation)}.`
 
       if (tabHash.indexOf(checkSum(prenomliste[3], n3, n2, nMax)) === -1) { // Si la question n'a jamais été posée, on en crée une autre
         tabHash.push(checkSum(prenomliste[3], n3, n2, nMax))
