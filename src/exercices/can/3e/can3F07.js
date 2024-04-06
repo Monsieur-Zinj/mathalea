@@ -9,6 +9,7 @@ import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
+import { expandedAndReductedCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Lire graphiquement une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -30,8 +31,9 @@ export default function LectureGraphiqueFonctionAffine1 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
+  this.compare = expandedAndReductedCompare
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline nospacebefore'
   this.nouvelleVersion = function () {
     const o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
     let s1, s2
@@ -40,13 +42,13 @@ export default function LectureGraphiqueFonctionAffine1 () {
 
     const rep = repere({ xMin: -5, yMin: -5, xMax: 5, yMax: 5 })
     this.formatInteractif = 'calcul'
-    this.question = '$f$ est une fonction affine définie par $f(x)=...$<br>'
+    this.question = `$f$ est une fonction affine${this.interactif ? '.' : ' définie par $f(x)=\\ldots$'}<br>`
     this.question += `
     ${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 20, scale: 0.7, style: 'margin: auto' },
         rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}
         `
-
-    this.reponse = [`${a}x+${b}`]
+    this.optionsChampTexte = { texteAvant: '$f(x)=$' }
+    this.reponse = { reponse: { value: { expr: `${reduireAxPlusB(a, b)}`, strict: false }, compare: expandedAndReductedCompare } }
     this.correction = `$f$ est de la forme
     $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale)
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>
@@ -78,13 +80,10 @@ export default function LectureGraphiqueFonctionAffine1 () {
        , texteParPosition(a, 1.5, b + a / 2, 0, 'red', 1, 'middle', true))}<br>`
     }
     this.canEnonce = `$f$ est une fonction affine. <br>
-
     Exprimer $f(x)$ en fonction de $x$.`
     this.canEnonce += `
-    ${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 20, scale: 0.7, style: 'margin: auto' },
-        rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}
-        
-        `
+    ${mathalea2d({ xmin: -5, ymin: -5.2, xmax: 5, ymax: 5, pixelsParCm: 20, scale: 0.7, style: 'margin: auto' },
+        rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}`
     this.canReponseACompleter = '$f(x)=\\ldots$'
   }
 }
