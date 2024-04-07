@@ -32,15 +32,15 @@ import Question30 from '../can2a-2024/can2a-2024-Q30.js'
 import MetaExercice from '../../MetaExerciceCan.js'
 import Exercice from '../../Exercice'
 
-export const titre = 'CAN 2nde sujet 2024'
+export const titre = 'CAN Seconde sujet 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '94d21'
-// export const refAMODIFIERPLUSTARD = 'can2a-2024'
-// export const refsMAISPASMAINTENANT = {
-//  'fr-fr': ['can2a-2024'],
-//   'fr-ch': []
-//  }
+export const refs = {
+  'fr-fr': ['can2a-2024'],
+  'fr-ch': []
+}
+export const dateDePublication = '07/04/2024'
 
 /**
  * Annales CAN 2024

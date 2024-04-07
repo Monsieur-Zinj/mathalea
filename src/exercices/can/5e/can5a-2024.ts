@@ -32,15 +32,15 @@ import Question30 from '../can5a-2024/can5a-2024-Q30.js'
 import MetaExercice from '../../MetaExerciceCan.js'
 import Exercice from '../../Exercice'
 
-export const titre = 'CAN cinquième sujet 2024'
+export const titre = 'CAN 5e sujet 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '57e63'
-// export const refMAISPASMAINTENANT = 'can5a-2024'
-// export const refsMAISPASMAINTENANT = {
-//  'fr-fr': ['can5a-2024'],
-//   'fr-ch': []
-//  }
+export const refs = {
+  'fr-fr': ['can5a-2024'],
+  'fr-ch': []
+}
+export const dateDePublication = '07/04/2024'
 
 /**
  * Annales CAN 2024

@@ -36,12 +36,11 @@ export const titre = 'CAN CM2 sujet 2024'
 export const interactifReady = true
 export const interactifType = 'qcm_mathLive'
 export const uuid = '28c21'
-// export const refMAISPASMAINTENANT = 'canc3a-2024'
-// export const refsMAISPASMAINTENANT = {
-//  'fr-fr': ['can6a-2024'],
-//   'fr-ch': []
-//  }
-
+export const refs = {
+  'fr-fr': ['canc3a-2024'],
+  'fr-ch': []
+}
+export const dateDePublication = '07/04/2024'
 /**
  * Annales CAN 2024
  * @author Gilles Mora

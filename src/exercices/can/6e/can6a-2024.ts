@@ -32,16 +32,15 @@ import Question30 from '../can6a-2024/can6a-2024-Q30.js'
 import MetaExercice from '../../MetaExerciceCan.js'
 import Exercice from '../../Exercice'
 
-export const titre = 'CAN sixième sujet 2024'
+export const titre = 'CAN 6e sujet 2024'
 export const interactifReady = true
 export const interactifType = 'qcm_mathLive'
 export const uuid = '648dd'
-// export const refMAISPASMAINTENANT = 'can6a-2024'
-// export const refsMAISPASMAINTENANT = {
-//  'fr-fr': ['can6a-2024'],
-//   'fr-ch': []
-//  }
-
+export const refs = {
+  'fr-fr': ['can6a-2024'],
+  'fr-ch': []
+}
+export const dateDePublication = '07/04/2024'
 /**
  * Annales CAN 2024
  * @author Gilles Mora
