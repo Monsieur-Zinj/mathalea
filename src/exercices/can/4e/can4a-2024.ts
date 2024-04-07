@@ -36,11 +36,11 @@ export const titre = 'CAN 4e sujet 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '82764'
-// export const refMAISPASMAINTENANT = 'can4a-2024'
-// export const refsMAISPASMAINTENANT = {
-//  'fr-fr': ['can4a-2024'],
-//   'fr-ch': []
-//  }
+export const refs = {
+  'fr-fr': ['can4a-2024'],
+  'fr-ch': []
+}
+export const dateDePublication = '07/04/2024'
 
 /**
  * Annales CAN 2024

@@ -32,16 +32,15 @@ import Question30 from '../can3a-2024/can3-2024-Q30.js'
 import MetaExercice from '../../MetaExerciceCan'
 import Exercice from '../../Exercice'
 
-export const titre = 'CAN troisième sujet 2024'
+export const titre = 'CAN 3e sujet 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'f3ceb'
-// export const refMAISPASMAINTENANT = 'can3a-2024'
-// export const reefsMAISPASMAINTENANT = {
-//  'fr-fr': ['can3a-2024'],
-//   'fr-ch': []
-//  }
-
+export const refs = {
+  'fr-fr': ['can3a-2024'],
+  'fr-ch': []
+}
+export const dateDePublication = '07/04/2024'
 /**
  * Annales CAN 2024
  * @author Gilles Mora
