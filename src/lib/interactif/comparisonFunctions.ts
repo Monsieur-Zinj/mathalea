@@ -668,8 +668,8 @@ export function intervalsCompare (input: string, goodAnswer: string) {
   const clean = generateCleaner(['virgules', 'parentheses'])
   input = clean(input)
   goodAnswer = clean(goodAnswer)
-  const intervallesSaisie = input.match(/[[\]]-?\d.?\d?;-?\d.?\d?[[\]]/g)
-  const intervallesReponse = goodAnswer.match(/[[\]]-?\d.?\d?;-?\d.?\d?[[\]]/g)
+  const intervallesSaisie = input.match(/(?:\]|\[)(.*?)(?:\s*;\s*)(.*?)(?:\]|\[)/g)
+  const intervallesReponse = goodAnswer.match(/(?:\]|\[)(.*?)(?:\s*;\s*)(.*?)(?:\]|\[)/g)
   if (intervallesReponse != null && intervallesSaisie != null) {
     for (let i = 0; i < intervallesReponse.length; i++) {
       const [borneInfRep, borneSupRep] = intervallesReponse[i].match(/-?\d\.?\d?/g) as string[]
