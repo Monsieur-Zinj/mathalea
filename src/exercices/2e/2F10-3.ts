@@ -27,19 +27,24 @@ export const interactifType = 'custom'
 export const uuid = 'c360e'
 export const ref = '2F10-3'
 export const refs = {
-  'fr-fr': ['2F10-3', '3F20-3'],
+  'fr-fr': ['2F10-3'],
   'fr-ch': ['10FA5-15']
 }
 export default class Representerfonctionaffine extends Exercice {
   figures!: Figure[]
   coefficients!: [number, number][]
+  level: 3 | 2 = 2
   constructor () {
     super()
     this.consigne = 'Représenter graphiquement ' + (this.nbQuestions === 1 || context.isDiaporama ? 'la fonction affine suivante  $f$ définie' : 'les fonctions affines suivantes  $f$ définies') + ' sur $\\mathbb R$ par :'
     this.nbQuestions = 3 // On complète le nb de questions
     this.tailleDiaporama = 3
     this.sup = 1
-    this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange des deux cas précédents']
+    if (this.level === 3) {
+      this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange des deux cas précédents']
+    } else {
+      this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Valeurs entières\n2 : Valeurs entières et demis pour le coefficient directeur\n3 : Mélange des deux cas précédents']
+    }
   }
 
   nouvelleVersion (numeroExercice: number) {
@@ -142,7 +147,12 @@ export default class Representerfonctionaffine extends Exercice {
         case 2: // cas du coefficient directeur fractionnaire
           { a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
             b = randint(-5, 5, [0]) // ordonnée à l'origine non nulle
-            d = randint(2, 5) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+            if (this.level === 3) {
+              d = 2
+              a = randint(-5, 5, [0, -4, -2, 2, 4]) // numérateur coefficient directeur non nul
+            } else {
+              d = randint(2, 5) // dénominateur coefficient directeur non multiple du numérateur pour éviter nombre entier
+            }
             while (pgcd(a, d) !== 1) {
               a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
               b = randint(-5, 5, [0]) // ordonnée à l'origine non nulle
@@ -210,6 +220,8 @@ export default class Representerfonctionaffine extends Exercice {
         figure.options.color = 'blue'
         figure.options.thickness = 2
         figure.snapGrid = true
+        figure.dx = 0.5
+        figure.dy = 0.5
         const idApigeom = `apigeomEx${numeroExercice}F${i}`
         texte += figureApigeom({ exercice: this, idApigeom, figure, question: i })
         if (figure.ui) figure.ui.send('LINE')
