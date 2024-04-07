@@ -22,7 +22,7 @@ export default class CompleterUnLitre extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'fillInTheBlank'
     this.formatChampTexte = 'largeur01'
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {

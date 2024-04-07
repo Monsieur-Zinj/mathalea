@@ -21,7 +21,7 @@ export default class AbscisseEnDemis extends Exercice {
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
     this.optionsChampTexte = { texteApres: ' km' }
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {

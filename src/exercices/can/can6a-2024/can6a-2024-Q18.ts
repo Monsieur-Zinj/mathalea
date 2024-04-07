@@ -26,7 +26,7 @@ export default class AireTrapezeRectangle extends Exercice {
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
     this.optionsChampTexte = { texteApres: ' ua' }
-    this.canOfficielle = true
+    this.canOfficielle = false
     this.compare = numberCompare
   }
 

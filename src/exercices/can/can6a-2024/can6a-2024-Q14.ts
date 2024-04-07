@@ -19,7 +19,7 @@ export default class MultiplieDixieme extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'fillInTheBlank'
-    this.canOfficielle = true
+    this.canOfficielle = false
     this.consigne = 'Complete :'
   }
 

@@ -22,7 +22,7 @@ export default class CompareNombre extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     this.formatInteractif = 'qcm'
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {

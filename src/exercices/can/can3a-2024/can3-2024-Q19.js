@@ -23,7 +23,7 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: ' est égal à : ' }
     this.formatInteractif = 'calcul'
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {

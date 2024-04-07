@@ -22,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'calcul'
-    this.canOfficielle = true
+    this.canOfficielle = false
     // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })
   }
 

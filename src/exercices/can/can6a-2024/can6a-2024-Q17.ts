@@ -22,7 +22,7 @@ export default class BillesMultiplieesCM2 extends Exercice {
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
     this.optionsChampTexte = { texteApres: ' billes.' }
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {

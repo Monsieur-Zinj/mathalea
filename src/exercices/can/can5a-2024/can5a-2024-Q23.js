@@ -24,7 +24,7 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.compare = numberCompare
     this.nbQuestions = 1
-    this.canOfficielle = true
+    this.canOfficielle = false
     this.formatInteractif = 'mathlive'
   }
 

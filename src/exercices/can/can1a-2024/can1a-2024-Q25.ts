@@ -16,7 +16,7 @@ export default class puissances1 extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.canOfficielle = true
+    this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase

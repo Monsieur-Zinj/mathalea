@@ -19,7 +19,7 @@ export default class SoustractionPasFacile extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
-    this.canOfficielle = true
+    this.canOfficielle = false
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.formatChampTexte = 'largeur01'
   }

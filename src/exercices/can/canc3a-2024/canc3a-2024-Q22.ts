@@ -23,7 +23,7 @@ export default class AbscisseEnDemiBisCM2 extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {

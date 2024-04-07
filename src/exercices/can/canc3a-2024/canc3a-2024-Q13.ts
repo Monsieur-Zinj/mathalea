@@ -22,7 +22,7 @@ export default class CoutBDEtRomansCM2 extends Exercice {
     this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteApres: '€' }
     this.formatChampTexte = 'largeur01'
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {

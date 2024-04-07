@@ -20,7 +20,7 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteApres: ' bouquets' }
     this.formatInteractif = 'calcul'
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {

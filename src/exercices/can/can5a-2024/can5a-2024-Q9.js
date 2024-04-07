@@ -23,7 +23,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
-    this.canOfficielle = true
+    this.canOfficielle = false
     this.compare = equalFractionCompare
   }
 

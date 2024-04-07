@@ -28,7 +28,7 @@ export default class NomExercice extends Exercice {
     this.optionsChampTexte = { texteApres: 'cm', texteAvant: '$AB=$' }
     this.formatInteractif = 'calcul'
     this.compare = functionCompare
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {

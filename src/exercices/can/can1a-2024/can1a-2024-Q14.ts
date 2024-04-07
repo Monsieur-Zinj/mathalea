@@ -29,7 +29,7 @@ export default class EquationReduite extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'mathlive'
     this.formatChampTexte = 'largeur01'
-    this.canOfficielle = true
+    this.canOfficielle = false
     this.compare = equalityCompare
   }
 

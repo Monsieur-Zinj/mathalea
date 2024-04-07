@@ -21,7 +21,7 @@ export default class SoustractionDecimaux extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.canOfficielle = true
+    this.canOfficielle = false
     this.formatChampTexte = 'largeur01'
   }
 

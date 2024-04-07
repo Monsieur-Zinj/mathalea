@@ -26,7 +26,7 @@ export default class PerimetreRectangle extends Exercice {
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
     this.optionsChampTexte = { texteApres: ' cm' }
-    this.canOfficielle = true
+    this.canOfficielle = false
     this.compare = numberCompare
   }
 

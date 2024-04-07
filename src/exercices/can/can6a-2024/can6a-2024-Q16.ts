@@ -20,7 +20,7 @@ export default class PourcentageFacile extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01 nospacebefore'
-    this.canOfficielle = true
+    this.canOfficielle = false
   }
 
   nouvelleVersion () {
