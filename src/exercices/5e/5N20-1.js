@@ -16,9 +16,9 @@ export const interactifType = 'mathLive'
 export const titre = 'Effectuer des calculs de fractions (à dénominateurs multiples) un peu complexes'
 
 export const dateDePublication = '12/05/2023'
-export const dateDeModifImportante = '02/04/2024'
-
+export const dateDeModifImportante = '07/04/2024'
 // Modifié le 2/4/24 pour permettre d'utiliser cet exercice sans connaitre les nombres négatifs (+ suppression des fonctions dépréciées)
+
 /**
  * Effectuer des calculs mêlant fractions (dont un dénominateur est un multiple de l'autre) et priorités opératoires simples .
  *
@@ -183,7 +183,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
               if (ordreDesFractions === 1) {
                 reponse = { num: a * k - n * c, den: d, compare: numberCompare }
               } else {
-                reponse = { num: n * a * k - c, den: d, compare: numberCompare }
+                reponse = { num: c - n * a * k, den: d, compare: numberCompare }
               }
             }
           }
