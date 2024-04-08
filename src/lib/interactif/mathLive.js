@@ -142,7 +142,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
     const saisie = champTexte.value
     let isOk = false
     let ii = 0
-    let reponse, feedback
+    let reponse; let feedback = ''
     reponses = reponses.reponse
     const compare = reponses.compare ?? calculCompare
     if (Array.isArray(reponses.value)) {
@@ -165,7 +165,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
         isOk = true
         feedback = check.feedback ?? ''
       } else if (check.feedback) {
-        feedback = check.feedback
+        feedback = check.feedback ?? ''
       }
     }
     spanReponseLigne.innerHTML = ''
