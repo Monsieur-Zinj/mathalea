@@ -6,6 +6,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante.js'
 import { textCompare } from '../../lib/interactif/comparisonFunctions'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre = 'Vérifier si un couple est solution d\'un système linéaire de deux équations à deux inconnues'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
@@ -33,11 +34,7 @@ export default class systemeEquationsPremDegSol extends Exercice {
   }
 
   nouvelleVersion () {
-    if (this.nbQuestions === 1) {
-      this.consigne = 'Cocher la bonne réponse.'
-    } else {
-      this.consigne = 'Cocher les bonnes réponses.'
-    }
+    this.consigne = 'Déterminer si le couple proposé est solution du système d\'équations.'
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -275,21 +272,13 @@ export default class systemeEquationsPremDegSol extends Exercice {
       } else {
         rep = choix[3]
       }
+      texteCorr = texteCorr + `<br> ${texteEnCouleurEtGras(`${rep}`)}`
       if (this.interactif) {
         texte = texte + choixDeroulant(this, i, choix, 'une réponse')
         handleAnswers(this, i, { reponse: { value: rep, compare: textCompare } }, { formatInteractif: 'listeDeroulante' })
       } else {
         const options = { ordered: true, vertical: true }
         listeDeroulanteToQcm(this, i, choix, rep, options)
-      }
-      if (substring === 'E1Ne2') {
-        texteCorr = texteCorr + choix[0]
-      } else if (substring === 'Ne1E2') {
-        texteCorr = texteCorr + choix[1]
-      } else if (substring === 'Ne1Ne2') {
-        texteCorr = texteCorr + choix[2]
-      } else {
-        texteCorr = texteCorr + choix[3]
       }
       if (this.questionJamaisPosee(i, solX, solY)) {
         this.listeQuestions.push(texte)
