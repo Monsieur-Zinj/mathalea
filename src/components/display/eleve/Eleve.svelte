@@ -568,7 +568,6 @@
                   <div class="text-coopmaths-corpus pl-2 pb-2">
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html question}
-                    <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
                   </div>
                 </div>
                 {#if isCorrectionVisible[k]}
@@ -676,7 +675,6 @@
                     <div class="text-coopmaths-corpus pl-2">
                       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                       {@html question}
-                      <span id={`resultatCheckEx${indiceExercice[k]}Q${k}`} />
                     </div>
                   </div>
                   {#if isCorrectionVisible[k]}
