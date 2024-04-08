@@ -38,7 +38,10 @@ export default class raisonSuiteG extends Exercice {
       this.reponse = new Decimal(b).div(a)
     }
     this.question = `$(u_n)$ est une suite géométrique telle que $u_0=${a}$ et $u_1=${b}$<br>`
+    this.question += 'La raison de cette suite est : '
     this.correction = `La raison de la suite est donnée par le quotient $\\dfrac{u_1}{u_0}=\\dfrac{${b}}{${a}}=${miseEnEvidence(texNombre(this.reponse, 0))}$.`
+
+    if (!this.interactif) { this.question += ' $\\ldots$' }
     this.canEnonce = this.question
     this.canReponseACompleter = 'La raison de cette suite est $\\ldots$'
   }
