@@ -1004,7 +1004,7 @@ export function equalityCompare (input: string, goodAnswer: {membre1:{fonction: 
     })
     return {
       isOk: isOk1 && isOk2,
-      feedback: 'La réponse serait peut-être acceptée en mode équivalence, mais nous ne l\'avaons pas encore programmé'
+      feedback: ''
     }
   }
 }
