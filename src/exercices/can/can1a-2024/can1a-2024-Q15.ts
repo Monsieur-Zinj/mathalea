@@ -1,7 +1,6 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 export const titre = 'Calculer un terme d\'une suite définie par récurrence'
@@ -53,7 +52,7 @@ export default class termeSuite extends Exercice {
       $\\begin{aligned}
       u_2&=${a}\\times u_1 ${ecritureAlgebrique(b)}\\\\
       u_2&=${a}\\times ${ecritureParentheseSiNegatif(a * u0 + b)} ${ecritureAlgebrique(b)}\\\\
-      &=${miseEnEvidence(this.reponse)}     
+      &=${miseEnEvidence(this.reponse.toFixed(0))}     
       \\end{aligned}$`
     this.canEnonce = `Soit la suite $(u_n)$ définie  par $u_0 = ${u0}$ et pour $n \\in \\mathbb{N}$, 
       $u_{n+1} = ${a}u_n ${ecritureAlgebrique(b)}$.`
