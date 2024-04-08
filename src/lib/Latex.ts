@@ -299,12 +299,33 @@ class Latex {
       }
       if (contents.content.includes('\\red')) {
         // gestion des couleurs pour les sujets DNB : 2023
-        contents.preamble += '\n\\usepackage{xcolor}'
+        contents.preamble += '\n\\usepackage{pst-fun}'
+      }
+      if (contents.content.includes('\\multirow{')) {
+        // gestion pour les sujets DNB : 2021
+        contents.preamble += '\n\\usepackage{multirow}'
+      }
+      if (contents.content.includes('\\ovalbox{') ||
+          contents.content.includes('\\txtbox{')) {
+        // gestion pour les sujets DNB : 2021
+        contents.preamble += '\n\\usepackage{fancybox}'
+        if (contents.content.includes('\\txtbox{')) contents.preamble += '\n\\newcommand{\\txtbox}{\\ovalnum}'
+      }
+      if (contents.content.includes('\\ding{') ||
+          contents.content.includes('\\decoone')) {
+        // pour les sujets DNB : 2023 / 2021
+        contents.preamble += '\n\\usepackage{pifont}'
+        if (contents.content.includes('\\decoone')) contents.preamble += '\n\\newcommand{\\decoone}{\\ding{87}}'
       }
       if (contents.content.includes('\\starredbullet')) {
         // gestion des commandes pour les sujets DNB : 2023
         contents.preamble += '\n\\usepackage{MnSymbol}'
         contents.preamble += '\n\\newcommand\\starredbullet{\\medstar}'
+      }
+      if (contents.content.includes('\\decosix')) {
+        // gestion des commandes pour les sujets DNB : 2021
+        contents.preamble += '\n\\providecommand\\decosix{}'
+        contents.preamble += '\n\\renewcommand\\decosix{$\\bullet$}'
       }
       if (contents.content.includes('\\R') || contents.content.includes('\\N')) {
         // gestion des commandes pour les sujets DNB : 2023

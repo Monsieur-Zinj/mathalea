@@ -14,8 +14,8 @@
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
 - test
-- variable
 - build-projet
+- playwright-testCanEleve
 - playwright-test
 - playwright-pdf
 
@@ -65,14 +65,6 @@ default:
       - tests/e2e/logs
       - updatefile
     expire_in: 120 day
-
-variable:
-  stage: variable
-  script:
-  - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
-  - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
-  - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
-  when: always
 
 .testCI:
   extends: .install_dependencies
@@ -151,6 +143,9 @@ build:
   extends: .testCI
   stage: build-projet
   script:
+    - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+    - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
+    - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm build
     - echo "$CI_COMMIT_AUTHOR"
   rules:
@@ -161,3 +156,21 @@ build:
     - if: $CI_COMMIT_BRANCH == "guironne-jobs"
       when: always
     - when: never
+  artifacts:
+    when: on_failure
+
+playwright-testCanEleve:
+  extends: .testCI
+  stage: playwright-testCanEleve
+  script:
+    - pnpm test:e2e:views
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
+      when: never
+    - if: $CI_COMMIT_BRANCH == "main"
+      when: always
+    - if: $CI_COMMIT_BRANCH == "guironne-jobs"
+      when: always
+    - when: never
+  artifacts:
+    when: on_failure
