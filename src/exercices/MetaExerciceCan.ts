@@ -1,6 +1,6 @@
 import { handleAnswers, setReponse } from '../lib/interactif/gestionInteractif'
 import Exercice from './Exercice'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../lib/interactif/qcm'
 import { numberCompare } from '../lib/interactif/comparisonFunctions'
 import Grandeur from '../modules/Grandeur'
@@ -99,11 +99,11 @@ export default class MetaExercice extends Exercice {
               window.notify('Erreur avec cette question qui contient une reponse au format inconnu', { reponse: Question.reponse })
             }
           }
-          this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, formatChampTexte, optionsChampTexte)
+          this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, formatChampTexte, optionsChampTexte) + ajouteFeedback(this, indexQuestion)
         }
       } else {
         //* ***************** Question Exo classique *****************//
-        this.listeQuestions[indexQuestion] = (Question.listeQuestions[0])
+        this.listeQuestions[indexQuestion] = Question.listeQuestions[0] + ajouteFeedback(this, indexQuestion)
         this.listeCorrections[indexQuestion] = (Question.listeCorrections[0])
         this.listeCanEnonces[indexQuestion] = (Question.listeCanEnonces[0])
         this.listeCanReponsesACompleter[indexQuestion] = (Question.listeCanReponsesACompleter[0])
@@ -127,12 +127,7 @@ export default class MetaExercice extends Exercice {
         }
       }
 
-      if (Question?.autoCorrection[0]?.propositions === undefined) {
-        // mathlive
-        // update les références HTML
-        this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll(`champTexteEx${this.numeroExercice}Q${0}`, `champTexteEx${this.numeroExercice}Q${indexQuestion}`)
-        this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll(`resultatCheckEx${this.numeroExercice}Q${0}`, `resultatCheckEx${this.numeroExercice}Q${indexQuestion}`)
-      } else {
+      if (Question?.autoCorrection[0]?.propositions != null) {
         // qcm
         const monQcm = propositionsQcm(this, indexQuestion) // update les références HTML
         this.listeCanReponsesACompleter[indexQuestion] = monQcm.texte
