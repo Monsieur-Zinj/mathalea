@@ -173,7 +173,6 @@
       <Alphanumeric {clickKeycap} {pageType} />
     {:else}
       <div class={isInLine ? 'relative px-10' : 'py-2 md:py-0'}>
-        {#key [[...unitsBlocks, ...usualBlocks].map(e => e.title).join(), pages.map((e, i) => 'p' + i + ':' + e.map(f => f.title).join()).join(), isInLine].join()}
         <KeyboardPage
           unitsBlocks={[...unitsBlocks].reverse()}
           usualBlocks={[...usualBlocks].reverse()}
@@ -182,7 +181,6 @@
           {innerWidth}
           {clickKeycap}
         />
-        {/key}
         <!-- Boutons de navigation entre les pages : vers la DROITE -->
         <button
           id="kb-nav-right"

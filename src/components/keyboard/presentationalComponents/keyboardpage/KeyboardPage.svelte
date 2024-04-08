@@ -4,17 +4,27 @@
   import { GAP_BETWEEN_BLOCKS, SM_BREAKPOINT, getMode } from '../../lib/sizes'
   import type { KeyCap } from '../../types/keycap'
   import BlockOfKeycapsWithPagination from './keyboardblock/BlockOfKeycapsWithPagination.svelte'
+  import { afterUpdate, beforeUpdate } from 'svelte';
 
   export let innerWidth: number
   export let unitsBlocks: KeyboardBlock[]
   export let usualBlocks: KeyboardBlock[]
   export let page: KeyboardBlock[]
-  const blocks: KeyboardBlock[] =
+  let blocks: KeyboardBlock[] =
     unitsBlocks.length > 1 ? [...usualBlocks] : [...unitsBlocks, ...usualBlocks]
   export let clickKeycap: (data: KeyCap, event: MouseEvent) => void
   export let isInLine: boolean
   // // $: blocksToBeDisplayed = isInLine ? [...page] : [...blocks]
   $: blockgapsize = GAP_BETWEEN_BLOCKS[getMode(innerWidth, isInLine)]
+
+  beforeUpdate(() => {
+    //if (debug) console.log('beforeUpdate KeyboardPage)
+    blocks = unitsBlocks.length > 1 ? [...usualBlocks] : [...unitsBlocks, ...usualBlocks]
+  })
+
+  afterUpdate(()=>{
+    //if (debug) console.log('afterUpdate KeyboardPage)
+  })
   
 </script>
 

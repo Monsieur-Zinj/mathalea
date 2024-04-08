@@ -230,24 +230,10 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('4e')
   // testRunAllLots('5e')
   // testRunAllLots('6e')
-  // testRunAllLots('2e')
-  // testRunAllLots('1e')
-  // testRunAllLots('dnb_2021')
-  // testRunAllLots('dnb_2022')
-  // testRunAllLots('dnb_2023')
-  testRunAllLots('2e/2F31-2.js')
-  // testRunAllLots('2e/beta2N31-5.js')
-  // testRunAllLots('can/3e/can3a-2024.ts')
-  // testRunAllLots('can/4e/can4a-2024.ts')
-  // testRunAllLots('can/can4a-2024/can4-2024-Q15.js')
-
-// 30/03/2024  03:39    <DIR>          dnb_2021_06_asie_1_1711762739703-739577898
-// 30/03/2024  03:39    <DIR>          dnb_2021_06_asie_3_1711762759528-525824501
-// 30/03/2024  03:39    <DIR>          dnb_2021_06_asie_5_1711762780372-620677948
-// 30/03/2024  00:22    <DIR>          dnb_2021_06_metropole_4_1711750920762-755264607
-// 30/03/2024  03:38    <DIR>          dnb_2021_06_metropole_4_1711762720140-549600192
-// 30/03/2024  04:07    <DIR>          dnb_2021_06_metropole_4_1711764453290-530846842
-// 30/03/2024  03:52    <DIR>          dnb_2022_09_polynesie_3_1711763564448-537884891
-// 30/03/2024  04:00    <DIR>          dnb_2023_06_etrangers_4_1711764044321-552754688
-// 30/03/2024  04:06    <DIR>          dnb_2023_12_caledonie_2_1711764393407-286666611
+  testRunAllLots('2e')
+  testRunAllLots('1e')
+  testRunAllLots('dnb_2021')
+  testRunAllLots('dnb_2022')
+  testRunAllLots('dnb_2023')
+  testRunAllLots('c3')
 }
