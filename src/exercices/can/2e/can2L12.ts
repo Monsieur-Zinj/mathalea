@@ -32,7 +32,7 @@ export default class FatorisationEgR extends Exercice {
   }
 
   nouvelleVersion () {
-    switch (choice([1, 3])) {
+    switch (choice([1, 2, 3])) {
       case 1 :// (ax+b)^2
         {
           const a = randint(1, 2)
