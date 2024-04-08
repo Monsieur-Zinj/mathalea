@@ -6,7 +6,8 @@ import { lcm } from 'mathjs'
 import { texNombre } from '../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-export const titre = 'Résoudre un système linéaire de deux équations à deux inconnues'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+export const titre = 'Résoudre un système linéaire de deux équations à deux inconnues par combinaison linéaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '21/03/2024'
@@ -301,7 +302,7 @@ export default class systemeEquationsPremDeg extends Exercice {
         texteCorr = texteCorr + `On résout l'équation et on obtient $${varElim}=${texNombre([solX, solY][indexVarElim], 0)}$. `
       }
 
-      texteCorr = texteCorr + `La solution du système est $S=\\{(${texNombre(solX, 0)};${texNombre(solY, 1)})\\}$.`
+      texteCorr = texteCorr + `La solution du système est $${miseEnEvidence(`S=\\{(${texNombre(solX, 0)};${texNombre(solY, 1)})\\}`)}$.`
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i, 'S=\\{(%{champ1};%{champ2})\\}')
         handleAnswers(this, i, {

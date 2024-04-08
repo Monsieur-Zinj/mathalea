@@ -8,6 +8,7 @@ import Decimal from 'decimal.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 export const titre = 'Situation de proportionnalité avec des échelles'
 export const dateDePublication = '15/03/2024'
 export const interactifReady = true
@@ -118,7 +119,7 @@ export default class EchellesCartes extends Exercice {
             texteCorr += '\n\n\\Propor[Math,Stretch=2,largeur=15, GrandeurA=Dist. carte ($\\text{cm}$),GrandeurB=Dist. réelle ($\\text{km}$)]{'
             texteCorr += `${premiereLigneCarte[0]}/${deuxiemeLigneCarte[0]},${premiereLigneCarte[0]}/${deuxiemeLigneCarte[1]}}<br>`
           }
-          texteCorr += `<br> et en utilisant le produit en croix, on obtient que $d=${texNombre(echelleKm, 3)} \\times ${texNombre(dCarte, 3)} \\div 1  = ${texNombre(dReelleKm, 3)}\\,\\text{km}$.`
+          texteCorr += `<br> et en utilisant le produit en croix, on obtient que $d=${texNombre(echelleKm, 3)} \\times ${texNombre(dCarte, 3)} \\div 1  = ${miseEnEvidence(`${texNombre(dReelleKm, 3)}\\,\\text{km}`)}$.`
           if (this.interactif && context.isHtml) {
             texte += '<br>La distance réelle est de ' + remplisLesBlancs(this, i, '%{champ1}') + '$\\,\\text{km}.$'
             handleAnswers(this, i, {
@@ -141,7 +142,7 @@ export default class EchellesCartes extends Exercice {
             texteCorr += '\n\n\\Propor[Math,Stretch=2,largeur=15, GrandeurA=Dist. carte ($\\text{cm}$),GrandeurB=Dist. réelle ($\\text{km}$)]{'
             texteCorr += `${premiereLigneReelle[0]}/${deuxiemeLigneReelle[0]},${premiereLigneReelle[1]}/${deuxiemeLigneReelle[1]}}<br>`
           }
-          texteCorr += `<br> et en utilisant le produit en croix, on obtient que $d=1 \\times   ${texNombre(dReelleKm, 3)} \\div ${texNombre(echelleKm, 3)} = ${texNombre(dCarte, 3)}\\,\\text{cm}$.`
+          texteCorr += `<br> et en utilisant le produit en croix, on obtient que $d=1 \\times   ${texNombre(dReelleKm, 3)} \\div ${texNombre(echelleKm, 3)} = ${miseEnEvidence(`${texNombre(dCarte, 3)}\\,\\text{cm}`)}$.`
           if (this.interactif && context.isHtml) {
             texte += '<br> La distance sur la carte est de ' + remplisLesBlancs(this, i, '%{champ1}') + '$\\,\\text{cm}$.'
             handleAnswers(this, i, {
@@ -164,7 +165,7 @@ export default class EchellesCartes extends Exercice {
             texteCorr += '\n\n\\Propor[Math,Stretch=2,largeur=15, GrandeurA=Dist. carte ($\\text{cm}$),GrandeurB=Dist. réelle ($\\text{km}$)]{'
             texteCorr += `${premiereLigneEchelle[0]}/${deuxiemeLigneEchelle[0]},${premiereLigneEchelle[1]}/${deuxiemeLigneEchelle[1]}}<br>`
           }
-          texteCorr += `<br> donc $d=${texNombre(dReelleKm, 3)} \\div  ${texNombre(dCarte, 3)}=${texNombre(echelleKm, 3)}\\,\\text{km}$. Ce qui signifie que $1\\,\\text{cm}$ sur la carte correspond à $${texNombre(echelleKm, 3)}\\,\\text{km}=${texNombre(echelle, 3)}\\,\\text{cm}$ en réalité. L'échelle de la carte est $1:${texNombre(echelle, 3)}$.`
+          texteCorr += `<br> donc $d=${texNombre(dReelleKm, 3)} \\div  ${texNombre(dCarte, 3)}=${texNombre(echelleKm, 3)}\\,\\text{km}$. Ce qui signifie que $1\\,\\text{cm}$ sur la carte correspond à $${texNombre(echelleKm, 3)}\\,\\text{km}=${texNombre(echelle, 3)}\\,\\text{cm}$ en réalité. L'échelle de la carte est $${miseEnEvidence(`1:${texNombre(echelle, 3)}`)}$.`
           if (this.interactif && context.isHtml) {
             texte += '<br>L\'échelle de la carte est' + remplisLesBlancs(this, i, '%{champ1}\\text{:}%{champ2}.')
             handleAnswers(this, i, {
