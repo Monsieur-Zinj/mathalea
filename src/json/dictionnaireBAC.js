@@ -2561,7 +2561,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2023/tex/bac_2023_03_sujet2_reunion_1.tex',
     urlcor: 'static/bac/2023/tex/bac_2023_03_sujet2_reunion_1_cor.tex',
-    tags: ['Probabilités conditionnelles','Loi binimiale']
+    tags: ['Probabilités conditionnelles','Loi binomiale']
   },
   bac_2023_03_sujet2_reunion_2: {
     annee: '2023',
