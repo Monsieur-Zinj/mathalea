@@ -30,7 +30,7 @@ export default function PlusOuMoins6ieme () {
   this.formatChampTexte = 'largeur15 inline'
   this.nouvelleVersion = function () {
     let a, b, c, prenom1, prenom2, choix1, reponse1, reponse2, choix, prix1, prix2, choix2, m1, m2
-    switch (choice([1, 1, 1, 2, 3, 3, 3])) {
+    switch (choice([1, 1, 1, 2, 3, 3, 3])) { //
       case 1:
         choix = choice(['a', 'b', 'c', 'd'])//
         choix1 = choice([true, false])
@@ -39,8 +39,8 @@ export default function PlusOuMoins6ieme () {
         while (prenom2 === prenom1) {
           prenom2 = prenomM()
         }
-        a = new Decimal(randint(71, 119, [80, 90, 100, 110])).div(10)
-        b = new Decimal(choice([15, 25, 35, 45, 55, 65])).div(10)
+        a = new Decimal(randint(81, 119, [80, 90, 100, 110])).div(10)
+        b = new Decimal(choice([15, 25, 35, 45, 55])).div(10)
         c = new Decimal(b).div(100)
         if (choix === 'a') {
           reponse1 = new Decimal(a).add(b)
