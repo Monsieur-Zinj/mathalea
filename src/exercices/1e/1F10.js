@@ -1,11 +1,19 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
-import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
+import {
+  reduireAxPlusB,
+  reduirePolynomeDegre3
+} from '../../lib/outils/ecritures'
+import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { simplify, parse, derivative } from 'mathjs'
-const math = { simplify, parse, derivative }
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { context } from '../../modules/context'
+import { texNombre } from '../../lib/outils/texNombre'
 export const titre = 'Calculs de dérivées'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Calculs de dérivés
@@ -21,17 +29,14 @@ export const refs = {
 export default function CalculsDeDerives () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
   this.nbQuestions = 6
   this.nbCols = 2 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
   this.sup = 1
-  // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
-  const reglesDeSimplifications = math.simplify.rules.slice()
-  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
-  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
-  //    reglesDeSimplifications.push({l:"-(n1*v^2)",r:"-n1*v^2"})
   this.nouvelleVersion = function () {
+    const quoi = this.nbQuestions === 1 ? 'la dérivée de la fonction suivante' : 'les dérivées des fonctions suivantes'
+    this.consigne = 'Donner ' + quoi
+
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -47,90 +52,105 @@ export default function CalculsDeDerives () {
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, texte, texteCorr, a, b, c, n, m, expression, ensembleDerivation, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, c, n, m, expression, derivee, ensembleDerivation, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 'a':
           a = randint(-10, 10, 0)
           expression = `${a}`
+          derivee = '0'
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'ax+b':
           a = randint(-10, 10, 0)
           b = randint(-10, 10, 0)
-          expression = `${a}x  ${ecritureAlgebrique(b)}`
+          derivee = String(a)
+          expression = reduireAxPlusB(a, b, 'x')
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'ax2+bx+c':
           a = randint(-10, 10, 0)
           b = randint(-10, 10, 0)
           c = randint(-10, 10, 0)
-          expression = `${rienSi1(a)} x^2  ${ecritureAlgebriqueSauf1(b)} x  ${ecritureAlgebrique(c)}`
+          derivee = reduireAxPlusB(2 * a, b)
+          expression = reduirePolynomeDegre3(0, a, b, c, 'x')
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'xn':
           n = randint(2, 10)
           expression = `x^${n}`
+          derivee = `${n}${n === 2 ? 'x' : `x^${n - 1}`}`
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'xn+1/x':
           n = randint(2, 10)
-          expression = `x^${n}+1/x`
+          expression = `x^${n}+\\dfrac{1}{x}`
+          derivee = `${n}${n === 2 ? 'x' : `x^${n - 1}`}-\\dfrac{1}{x^2}`
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
           break
         case 'xn+1/xm':
           n = randint(2, 10)
           m = randint(2, 10, m)
-          expression = `x^${n}+1/x^${m}`
+          expression = `x^${n}+\\dfrac{1}{x^${m}}`
+          derivee = `${n}${n === 2 ? 'x' : `x^${n - 1}`}-\\dfrac{${m}}{x^${m + 1}}`
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
           break
         case 'xn+xm':
           n = randint(2, 10)
-          m = randint(2, 10, m)
+          m = randint(2, 10, n)
           expression = `x^${n}+x^${m}`
+          derivee = `${n}${n === 2 ? 'x' : `x^${n - 1}`}+${m}${m === 2 ? 'x' : `x^${m - 1}`}`
           ensembleDerivation = '\\mathbb{R}'
           break
         case 'axn':
           a = randint(-10, 10, [0, 1, -1])
           n = randint(2, 10)
           expression = `${a}x^${n}`
+          derivee = `${texNombre(a * n, 0)}${n === 2 ? 'x' : `x^${n - 1}`}`
           ensembleDerivation = '\\mathbb{R}'
           break
         case '1/x':
-          expression = '1/x'
+          expression = '\\dfrac{1}{x}'
+          derivee = '\\dfrac{-1}{x^2}'
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
+
           break
         case 'a/x':
           a = randint(-10, 10, [0, 1])
-          expression = `${a}/x`
+          expression = `\\dfrac{${a}}{x}`
+          derivee = `\\dfrac{${texNombre(-a, 0)}}{x^2}`
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
           break
         case '1/xn':
           n = randint(2, 10)
-          expression = `${1}/x^${n}`
+          expression = `\\dfrac{${1}}{x^${n}}`
+          derivee = `-\\dfrac{${n}}{x^${n + 1}}`
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
           break
         case 'a/xn':
           a = randint(-10, 10, [1, 0])
           n = randint(2, 10)
-          expression = `${a}/x^${n}`
+          expression = `\\dfrac{${a}}{x^${n}}`
+          derivee = `-\\dfrac{${texNombre(a * n, 0)}}{x^${n + 1}}`
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
           break
         case 'racine(x)':
-          expression = 'sqrt(x)'
+          expression = '\\sqrt(x)'
+          derivee = '\\dfrac{1}{2\\sqrt{x}}'
           ensembleDerivation = ']0,+\\infty['
           break
         case 'racine(ax)':
           a = randint(2, 10, [4, 9])
-          expression = `sqrt(${rienSi1(a)}x)`
+          expression = `\\sqrt(${a}x)`
+          derivee = `\\dfrac{${a}}{2\\sqrt{x}}`
           ensembleDerivation = ']0,+\\infty['
           break
       }
 
-      texte = `$${lettreMinusculeDepuisChiffre(i + 6)}:x\\longmapsto ${math.parse(expression).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
-      texteCorr = `$${lettreMinusculeDepuisChiffre(i + 6)}$ est dérivable sur $${ensembleDerivation}$ et $ ${lettreMinusculeDepuisChiffre(i + 6)}':x\\longmapsto ${math.simplify(math.derivative(expression, 'x'), reglesDeSimplifications).toTex({ implicit: 'hide' }).replaceAll('\\cdot', '')}$`
-
-      texte = texte.replaceAll('frac', 'dfrac')
-      texteCorr = texteCorr.replaceAll('frac', 'dfrac')
+      texte = `$${lettreMinusculeDepuisChiffre(i + 6)}:x\\longmapsto ${expression}$` + sp(10) + ';' + sp(10) + remplisLesBlancs(this, i, `${lettreMinusculeDepuisChiffre(i + 6)}':x\\longmapsto %{champ1}`)
+      texteCorr = `$${lettreMinusculeDepuisChiffre(i + 6)}$ est dérivable sur $${ensembleDerivation}$ et $ ${lettreMinusculeDepuisChiffre(i + 6)}':x\\longmapsto ${derivee}$`
+      if (!context.isAmc) {
+        handleAnswers(this, i, { champ1: { value: { fonction: derivee, variable: 'x' }, compare: functionCompare } }, { formatInteractif: 'mathlive' })
+      }
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
