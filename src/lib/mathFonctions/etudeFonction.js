@@ -620,9 +620,9 @@ export function tableauDeVariation ({
           break
         case 'Ima': // ajouter des valeurs sur la flèche...
 
-          if (tabLines[index][3] !== '') {
-            texte = tabLines[index][3]
-            long = tabLines[index][4]
+          if (tabLines[index][4] !== '') {
+            texte = tabLines[index][4]
+            long = tabLines[index][3]
             textes.push(sortieTexte(latexContent(texte), lgt + deltacl + escpl * ((tabLines[index][1] - 1) + (tabLines[index][2] - 1)) / 2, yLine + tabInit0[i][1] * hauteurLignes * demiIntervalle))
           }
           index++
@@ -707,7 +707,7 @@ export function tableauDeVariation ({
     codeLatex += '}' + '\n\t'
     for (let i = 0; i < tabLines.length; i++) {
       type = tabLines[i][0]
-      if (type === 'Val' || type === 'Ima') {
+      if (type === 'Val') {
         codeLatex += `\\tkzTab${type}`
         for (let j = 1; j < tabLines[i].length - 1; j++) { // pas de $ ici non plus, car il y a des paramètres qui sont autre chose que des expressions
           // les expressions à mettre sur les flèches ou au bout de celles-ci doivent avoir leur $ $
@@ -715,6 +715,12 @@ export function tableauDeVariation ({
             tabLines[i][j] = `{${tabLines[i][j]}}`
           }
           codeLatex += `{${tabLines[i][j]}},`
+        }
+        codeLatex += '\n\t'
+      } else if (type === 'Ima') {
+        codeLatex += `\\tkzTab${type}`
+        for (let j = 1; j < tabLines[i].length; j++) {
+          codeLatex += `{${tabLines[i][j]}}`
         }
         codeLatex += '\n\t'
       } else if (type === 'Var') { // pas de $ ajoutés ici car il y a des commandes... les expressions doivent avoir leur propres $ $
@@ -1107,7 +1113,7 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
     variationD = variations[i + 1]
     if (variationG.variation === variationD.variation) {
       tabLineVariations.push('R/', 10)
-      tabLinesImage.push(['Ima', i + 1, i + 3, stringNombre(fonction(variationG.xD), 3)])
+      tabLinesImage.push(['Ima', i + 1, i + 3, i + 2, stringNombre(fonction(variationG.xD), 3)])
     } else {
       tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), 3)}`, 10)
     }

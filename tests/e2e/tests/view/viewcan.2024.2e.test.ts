@@ -235,12 +235,12 @@ async function testEleveViewPre2 (page: Page) {
   const page1 = await page1Promise
   await inputAnswerById(page1, '0Q0', '10')
   await page1.locator('#exercice0Q0 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q0').innerText())
+  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q0').first().innerText())
 
   await page1.locator('#champTexteEx0Q1').focus()
   await page1.locator('.key--0').click()
   await page1.locator('#exercice0Q1 > div > button').click()
-  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q1').innerText())
+  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q1').first().innerText())
 
   await inputAnswerById(page1, '0Q2', 'x^2+11x+28')
   await page1.locator('#exercice0Q2 > div > button').click()
@@ -586,5 +586,5 @@ if (process.env.CI) {
   // runTest(testCanView, import.meta.url, { pauseOnError: true })
   // runTest(testEleveView, import.meta.url, { pauseOnError: true })
   runTest(testEleveViewPre2, import.meta.url, { pauseOnError: true })
-  // runTest(testEleveViewPre3, import.meta.url, { pauseOnError: true })
+  runTest(testEleveViewPre3, import.meta.url, { pauseOnError: true })
 }

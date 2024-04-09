@@ -3,7 +3,7 @@ import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { decimalToScientifique, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { round } from 'mathjs'
@@ -88,9 +88,9 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
             // La ligne suivante est une concaténation conditionnelle : si il n'y a pas d'arrondi à faire on termine le calcul sinon on ajoute une ligne pour l'approximation
             texteCorr += egalOuApprox(prod[0][0], 2) === '=' ? '\\\\\n\\end{aligned}$<br>' : `&\\approx ${texNombre(round(prod[0][0], 2))} \\times 10^{${prod[0][1] + somme}}\\\\\n\\end{aligned}$<br>(avec la mantisse arrondie au centième) <br>`
           } else {
-            texteCorr = `$ ${texNombre(a[0])} \\times 10^{${texNombre(c[0])}} \\times ${texNombre(b[0])} \\times 10^{${texNombre(c[1])}} ${egalOuApprox()} ${texNombre(round(decimalToScientifique(prod[0])[0], 2))} \\times 10^{${calculANePlusJamaisUtiliser(decimalToScientifique(prod[0])[1] + somme)}} $  (avec la mantisse arrondie au centième) <br>`
+            texteCorr = `$ ${texNombre(a[0])} \\times 10^{${texNombre(c[0])}} \\times ${texNombre(b[0])} \\times 10^{${texNombre(c[1])}} ${egalOuApprox()} ${texNombre(round(decimalToScientifique(prod[0])[0], 2))} \\times 10^{${(decimalToScientifique(prod[0])[1] + somme)}} $  (avec la mantisse arrondie au centième) <br>`
           }
-          reponse = `${texNombre(prod[0][0], 2)}\\times 10^{${prod[0][1] + somme}}`
+          reponse = `${prod[0][0].toFixed(2)}e${prod[0][1] + somme}`
 
           break
         case 2:
@@ -100,7 +100,7 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
           } else {
             texteCorr += 'CorrTest2'
           }
-          reponse = 'Test 2'
+          reponse = 'Test 2e5'
           break
         case 3:
           texte = `Texte3 ${b[0]}` // b<-1
@@ -109,7 +109,7 @@ export default class CalculerAvecEcritureScientifique extends Exercice {
           } else {
             texteCorr = texte + 'CorrTest3'
           }
-          reponse = 'test 3'
+          reponse = 'test 3e6'
           break
       }
       texte += ajouteChampTexteMathLive(this, i)
