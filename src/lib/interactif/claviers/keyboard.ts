@@ -87,7 +87,7 @@ export const isKeyboardCategory = (
   typeof category === 'string' &&
   KEYBOARD_CATEGORIES.includes(category as KeyboardCategory)
 
-type KbType = Record<KeyboardCategory, unknown>
+type KbType = Record<KeyboardCategory, string>
 type PartialKbType = Partial<KbType>
 export const KeyboardType: PartialKbType = KEYBOARD_CATEGORIES.reduce(
   (obj, key) => {
