@@ -10,8 +10,9 @@ import RectangleFractionDiagram from 'apigeom/src/elements/diagrams/RectangleFra
 import minus from 'apigeom/src/assets/svg/minus.svg'
 import plus from 'apigeom/src/assets/svg/plus.svg'
 import erase from 'apigeom/src/assets/svg/erase.svg'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"
 export const interactifReady = true
@@ -121,9 +122,7 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
       this.reponsesAttendues[i] = { entier, numPartieDecimale: numPartieFrac, den, ecritureDecimale: ecriDec.replace(',', '.') }
 
       if (this.interactif) {
-        texte = `<math-field data-keyboard="college6eme" class="fillInTheBlanks invisible" readonly style="font-size:2em" id="champTexteEx${this.numeroExercice}Q${i}">
-        ${frac.texFraction} =~\\placeholder[n]{} + \\dfrac{\\placeholder[num]{}}{\\placeholder[den]{}} =~\\placeholder[ecritureDecimale]{}
-      </math-field><span class="ml-2" id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
+        texte = remplisLesBlancs(this, i, `${frac.texFraction} =~\\placeholder[n]{} + \\dfrac{\\placeholder[num]{}}{\\placeholder[den]{}} =~\\placeholder[ecritureDecimale]{}`, KeyboardType.clavierNumbers)
         texte += ajouteFeedback(this, i)
       }
       if (this.questionJamaisPosee(i, num, den)) {
