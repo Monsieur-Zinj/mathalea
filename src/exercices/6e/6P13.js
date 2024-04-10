@@ -1,15 +1,17 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message.js'
-import { arrondi, nombreDeChiffresDansLaPartieDecimale } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { numberCompare } from '../../lib/interactif/comparisonFunctions'
+import { texNombre } from '../../lib/outils/texNombre'
+import { egalOuApprox } from '../../lib/outils/ecritures'
 
 export const titre = 'Augmenter ou diminuer d\'un pourcentage'
 export const interactifReady = true
@@ -51,9 +53,101 @@ export default function AugmenterEtReduireDunPourcentage () {
   this.video = '' // Id YouTube ou url
   this.interactifType = 'mathLive'
   this.listePackages = 'bclogo'
+  function nombreDecimales (prMin, prMax, n) {
+    let pourcent
+    if (n === 0) {
+      do {
+        pourcent = randint(1, 9) * 10
+      } while (pourcent < prMin || pourcent > prMax)
+    } else if (n === 1) {
+      do {
+        pourcent = choice([10, 20, 25, 30, 50, 60, 70, 75])
+      } while (pourcent < prMin || pourcent > prMax)
+    } else if (n === 2) {
+      do {
+        pourcent = randint(1, 9) + randint(1, 9) * 10
+      } while (pourcent < prMin || pourcent > prMax)
+    } else {
+      do {
+        pourcent = (randint(10, 90) * 100 + randint(1, 9) * 10) / 100
+      } while (pourcent < prMin || pourcent > prMax)
+    }
+    return pourcent
+  }
+  const situationsAugmentations = [
+    {
+      quoi: 'Le loyer de l\'appartement de',
+      quoiReponse: 'son loyer',
+      verbe: 'il augmente',
+      moitieMin: 250,
+      moitieMax: 500,
+      prMin: 2,
+      prMax: 15
+    },
+    {
+      quoi: 'L\'abonnement à la salle de sport de',
+      quoiReponse: 'son abonnement',
+      verbe: 'il augmente',
+      moitieMin: 15,
+      moitieMax: 40,
+      prMin: 2,
+      prMax: 10
+    },
+    {
+      quoi: 'Les frais de scolarité de',
+      quoiReponse: 'ses frais de scolarité',
+      verbe: 'ils augmentent',
+      moitieMin: 200,
+      moitieMax: 400,
+      prMin: 5,
+      prMax: 20
+    },
+    {
+      quoi: 'Les frais de transport annuels de',
+      quoiReponse: 'ses frais de transport',
+      verbe: 'ils augmentent',
+      moitieMin: 500,
+      moitieMax: 800,
+      prMin: 5,
+      prMax: 15
+    }
+  ]
+  const situationsReductions = [
+    {
+      quoi: 'Un billet d\'avion',
+      quoiReponse: 'son billet d\'avion',
+      moitieMin: 50,
+      moitieMax: 100,
+      prMin: 10,
+      prMax: 60
+    },
+    {
+      quoi: 'Un pantalon',
+      quoiReponse: 'son pantalon',
+      moitieMin: 25,
+      moitieMax: 40,
+      prMin: 10,
+      prMax: 70
+    },
+    {
+      quoi: 'Un billet de cinéma',
+      quoiReponse: 'son billet de cinéma',
+      moitieMin: 3,
+      moitieMax: 6,
+      prMin: 20,
+      prMax: 50
+    },
+    {
+      quoi: 'Un gâteau au chocolat',
+      quoiReponse: 'son gâteau au chocolat',
+      moitieMin: 15,
+      moitieMax: 25,
+      prMin: 10,
+      prMax: 40
+    }
+  ]
 
   this.nouvelleVersion = function () {
-    const n = this.sup - 1
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -67,47 +161,27 @@ export default function AugmenterEtReduireDunPourcentage () {
     const typeQuestionsDisponibles = ['augmentation', 'réduction'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
 
-    let billet, loyer // prix du billet, loyer de l'appart
-    let pr, pa // pourcentage réduction, pourcentage augmentation
-    let mr, ma // montant réduction, montant augmentation
-    let final1, final2 // prix final 1 , prix final 2
-    let prenom1, prenom2 // choix aleatoire des prenoms
-    function nombreDecimales (n) {
-      if (n === 0) {
-        pr = randint(1, 6) * 10
-        pa = randint(1, 3) * 10
-      } else if (n === 1) {
-        pr = choice([10, 20, 25, 30, 50, 60, 70, 75])
-        pa = choice([10, 20, 25, 30])
-      } else if (n === 2) {
-        pr = randint(21, 39, [30])
-        pa = randint(2, 9)
-      } else {
-        pr = calculANePlusJamaisUtiliser((randint(40, 60) * 100 + randint(1, 9) * 10) / 100)
-        pa = calculANePlusJamaisUtiliser((randint(1, 9) * 10 + randint(1, 9)) / 10)
-      }
-    }
-
     for (let i = 0, texte, texteCorr, enonceInit, enonceAMC, propositionsAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
-      prenom1 = prenomM()
-      prenom2 = prenomF()
-      billet = arrondi(2 * randint(50, 100), 0)
-      loyer = arrondi(2 * randint(251, 449, [300, 350, 400]), 0)
+      const prenom1 = prenomM()
+      const prenom2 = prenomF()
+      let prixIntial, prixFinal
 
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'réduction':
-          nombreDecimales(n)
-          mr = calculANePlusJamaisUtiliser(pr * billet / 100)
-          final1 = calculANePlusJamaisUtiliser(billet - mr)
-          texte = `Un billet d'avion coûte ${billet} ${sp()}€. ${prenom1} bénéficie d'une réduction de $${pr} ${sp()}\\%$.`
+        case 'réduction': {
+          const situation = choice(situationsReductions)
+          const pourcent = nombreDecimales(situation.prMin, situation.prMax, this.sup - 1)
+          prixIntial = 2 * randint(situation.moitieMin, situation.moitieMax)
+          const montantReduction = pourcent * prixIntial / 100
+          prixFinal = prixIntial - montantReduction
+          texte = `${situation.quoi} coûte $${prixIntial}$${sp(1)}€. ${prenom1} bénéficie d'une réduction de $${pourcent}${sp(1)}\\%$.`
           enonceInit = texte
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de la réduction est :` : `${numAlpha(0)} Calculer le montant de la réduction.`
           texte = enonceInit + '<br>' + enonceAMC
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline nospacebefore', { texteApres: ' €.' }) : ''
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline nospacebefore', { texteApres: ' €.' })
           texte += '<br>'
-          if (!context.isAmc) {
-            setReponse(this, 2 * i, mr, { formatInteractif: 'calcul' })
+          if (!context.isAmc && this.interactif) {
+            handleAnswers(this, 2 * i, { reponse: { value: String(montantReduction), compare: numberCompare } }, { formatInteractif: 'mathlive' })
           } else {
             propositionsAMC = [
               {
@@ -117,7 +191,7 @@ export default function AugmenterEtReduireDunPourcentage () {
                     texte: texteCorr,
                     reponse: {
                       texte: enonceAMC,
-                      valeur: [mr],
+                      valeur: [montantReduction],
                       param: {
                         digits: 5,
                         decimals: 2,
@@ -131,11 +205,11 @@ export default function AugmenterEtReduireDunPourcentage () {
               }
             ]
           }
-          enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom1} paiera son billet :` : `${numAlpha(1)} Calculer le prix du billet de ${prenom1}.`
+          enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom1} paiera ${situation.quoiReponse} :` : `${numAlpha(1)} Calculer le prix de ${situation.quoiReponse}.`
           texte += enonceAMC
           texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline nospacebefore', { texteApres: ' €.' }) : ''
           if (!context.isAmc) {
-            setReponse(this, 2 * i + 1, final1)
+            handleAnswers(this, 2 * i + 1, { reponse: { value: String(prixFinal), compare: numberCompare } }, { formatInteractif: 'mathlive' })
           } else {
             propositionsAMC.push(
               {
@@ -145,7 +219,7 @@ export default function AugmenterEtReduireDunPourcentage () {
                     texte: '',
                     reponse: {
                       texte: enonceAMC,
-                      valeur: [final1],
+                      valeur: [prixFinal],
                       param: {
                         digits: 5,
                         decimals: 2,
@@ -159,24 +233,26 @@ export default function AugmenterEtReduireDunPourcentage () {
               }
             )
           }
-          texteCorr = `${numAlpha(0)} Le montant de la réduction est : $${billet} ${sp()}€ \\times ${pr} \\div 100$` + sp(1)
-          texteCorr += nombreDeChiffresDansLaPartieDecimale(mr) < 3 ? '$ =$' : '$ \\approx$'
-          texteCorr += texteEnCouleurEtGras(` $${texPrix(mr)} ${sp()}€$.<br>`)
-          texteCorr += `${numAlpha(1)} Finalement, ${prenom1} paiera son billet : $${billet} ${sp()}€ - ${texPrix(mr)} ${sp()}€ =$` + sp(1)
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final1)} ${sp()}€$.`)
+          texteCorr = `${numAlpha(0)} Le montant de la réduction est : $${prixIntial}~€ \\times ${pourcent} \\div 100${egalOuApprox(montantReduction, 2)}`
+          texteCorr += miseEnEvidence(`${texPrix(montantReduction)}~€`) + '$.<br>'
+          texteCorr += `${numAlpha(1)} Finalement, ${prenom1} paiera ${situation.quoiReponse} : $${prixIntial}~€-${texPrix(montantReduction)}~€=`
+          texteCorr += miseEnEvidence(`${texPrix(prixFinal)}~€`) + '$.'
+        }
           break
-        case 'augmentation':
-          nombreDecimales(n)
-          calculANePlusJamaisUtiliser(ma = pa * loyer / 100)
-          calculANePlusJamaisUtiliser(final2 = loyer + ma)
+        case 'augmentation': {
+          const situation = choice(situationsAugmentations)
+          const pourcent = nombreDecimales(situation.prMin, situation.prMax, this.sup - 1)
+          prixIntial = 2 * randint(situation.moitieMin, situation.moitieMax)
+          const montantAugmentation = pourcent * prixIntial / 100
+          prixFinal = prixIntial + montantAugmentation
 
-          enonceInit = `Le loyer de l'appartement de ${prenom2} coûte ${loyer} ${sp()}€. Au 1er janvier, il augmente de $${pa} ${sp()}\\%$.`
+          enonceInit = `${situation.quoi} ${prenom2} coûte $${prixIntial}~€$. Au 1er janvier, ${situation.verbe} de $${texNombre(pourcent, 1)}~\\%$.`
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de l'augmentation est :` : `${numAlpha(0)} Calculer le montant de l'augmentation.`
           texte = enonceInit + '<br>' + enonceAMC
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline nospacebefore', { texteApres: ' €.' }) : ''
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline nospacebefore', { texteApres: ' €.' })
           texte += '<br>'
           if (!context.isAmc) {
-            setReponse(this, 2 * i, ma)
+            handleAnswers(this, 2 * i, { reponse: { value: texNombre(montantAugmentation, 2), compare: numberCompare } }, { formatInteractif: 'mathlive' })
           } else {
             propositionsAMC = [
               {
@@ -186,7 +262,7 @@ export default function AugmenterEtReduireDunPourcentage () {
                     texte: texteCorr,
                     reponse: {
                       texte: enonceAMC,
-                      valeur: [ma],
+                      valeur: [montantAugmentation],
                       param: {
                         digits: 5,
                         decimals: 2,
@@ -200,11 +276,11 @@ export default function AugmenterEtReduireDunPourcentage () {
               }
             ]
           }
-          enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer :` : `${numAlpha(1)} Calculer le montant du loyer de ${prenom2}.`
+          enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(1)} Au 1er janvier, ${prenom2} paiera ${situation.quoiReponse} :` : `${numAlpha(1)} Calculer le montant au 1er janvier de ${situation.quoiReponse}.`
           texte += enonceAMC
           texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline nospacebefore', { texteApres: ' €.' }) : ''
           if (!context.isAmc) {
-            setReponse(this, 2 * i + 1, final2)
+            handleAnswers(this, 2 * i + 1, { reponse: { value: texNombre(prixFinal, 2), compare: numberCompare } }, { formatInteractif: 'mathlive' })
           } else {
             propositionsAMC.push(
               {
@@ -214,7 +290,7 @@ export default function AugmenterEtReduireDunPourcentage () {
                     texte: texteCorr,
                     reponse: {
                       texte: enonceAMC,
-                      valeur: [final2],
+                      valeur: [prixFinal],
                       param: {
                         digits: 5,
                         decimals: 2,
@@ -228,14 +304,14 @@ export default function AugmenterEtReduireDunPourcentage () {
               }
             )
           }
-          texteCorr = `${numAlpha(0)} Le montant de l'augmentation est :     $${loyer} ${sp()}€ \\times ${pa} \\div 100$` + sp(1)
-          texteCorr += nombreDeChiffresDansLaPartieDecimale(ma) < 3 ? '$ =$' : '$ \\approx$'
-          texteCorr += texteEnCouleurEtGras(` $${texPrix(ma)} ${sp()}€$.<br>`)
-          texteCorr += `${numAlpha(1)} Finalement, ${prenom2} paiera son loyer : $${loyer} ${sp()}€ + ${texPrix(ma)} ${sp()}€ =$` + sp(1)
-          texteCorr += texteEnCouleurEtGras(`$${texPrix(final2)} ${sp()}€$.`)
+          texteCorr = `${numAlpha(0)} Le montant de l'augmentation est :     $${prixIntial}~€ \\times ${texNombre(pourcent, 1)} \\div 100${egalOuApprox(montantAugmentation, 2)}`
+          texteCorr += miseEnEvidence(`${texPrix(montantAugmentation)}~€`) + '$.<br>'
+          texteCorr += `${numAlpha(1)} Finalement, ${prenom2} paiera ${situation.quoiReponse} : $${prixIntial}~€+${texPrix(montantAugmentation)}~€ =`
+          texteCorr += miseEnEvidence(`${texPrix(prixFinal)}~€`) + '$.'
+        }
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, prixIntial, prixFinal)) {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isAmc) {
           this.autoCorrection[i] = {
