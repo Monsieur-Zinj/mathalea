@@ -66,8 +66,8 @@
     // /!\ TODO : gérer les cas 'listeDeroulante', 'cliqueFigure' et 'custom'
     for (let i = 0; i < questions.length; i++) {
       const exercice = exercises[indiceExercice[i]]
-      const type = exercice.interactifType
-      if (type === 'mathLive') {
+      const type = exercice.autoCorrection[indiceQuestionInExercice[i]].reponse.param.formatInteractif
+      if (type === 'mathlive') {
         resultsByQuestion[i] =
           verifQuestionMathLive(exercice, indiceQuestionInExercice[i])
             ?.isOk
