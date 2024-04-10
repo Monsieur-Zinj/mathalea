@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
-  ecritureAlgebrique,
+  ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3
@@ -62,7 +62,7 @@ export default function CalculFonctionDeriveeUnsurU () {
         p = randint(-10, 10, 0)
         this.question = `Soit $f$ la fonction définie  par : <br>
 
-                   $f(x)=\\dfrac{1}{${p}${ecritureAlgebrique(m)}x}$.<br>
+                   $f(x)=\\dfrac{1}{${p}${ecritureAlgebriqueSauf1(m)}x}$.<br>
 
                     Déterminer  $f'(x)$.<br>     `
         if (this.interactif) { this.question += '$f\'(x)=$' }
