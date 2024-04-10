@@ -113,7 +113,7 @@
         // si le typ est `custom` on est sûr que `correctionInteractive` existe
         // d'où le ! après `correctionInteractive`
         resultsByQuestion[i] = exercice.correctionInteractive!(i) === 'OK'
-      } else if (type === 'qcm_mathLive') {
+      } else if (type === 'qcm_mathLive') { // @fixme ce type ne devrait plus exister : la question est soit un qcm, soit mathlive, mais c'est déjà traîté au dessus.
         // @ts-expect-error typage pour les QCM
         if (exercice.autoCorrection[indiceQuestionInExercice[i]]?.propositions != null) {
           resultsByQuestion[i] =
