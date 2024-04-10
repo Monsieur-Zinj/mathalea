@@ -562,6 +562,7 @@ async function testEleveViewPre3 (page: Page) {
   await page1.locator('#exercice0Q27 > div > div:last-child > button').click()
   await page1.locator('#questionTitleID227 > div > .bg-coopmaths-warn').isVisible()
   await page1.locator('#questionTitleID228').click()
+  await page1.locator('#champTexteEx0Q28').focus()
   await page1.locator('.key--3').click()
   await page1.locator('#exercice0Q28 > div > div:last-child > button').click()
   await page1.locator('#questionTitleID228 > div > .bg-coopmaths-warn').isVisible()
@@ -585,6 +586,6 @@ if (process.env.CI) {
 } else {
   // runTest(testCanView, import.meta.url, { pauseOnError: true })
   // runTest(testEleveView, import.meta.url, { pauseOnError: true })
-  runTest(testEleveViewPre2, import.meta.url, { pauseOnError: true })
+  // runTest(testEleveViewPre2, import.meta.url, { pauseOnError: true })
   runTest(testEleveViewPre3, import.meta.url, { pauseOnError: true })
 }
