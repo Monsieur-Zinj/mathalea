@@ -735,14 +735,14 @@ export function handleAnswers (exercice, question, reponses, {
   formatInteractif = 'mathlive',
   precision = null
 } = {}) {
-  if (context.isAmc) {
-    window.notify('handleAnswers() ne doit pas être appelée pour l\'export AMC ! il faut ajouter un test de context dans l\'exercice ou utiliser setReponse()!', { refExercice: exercice.ref })
+  if (context.isAmc) { // handleAnswer ne s'occupe pas de l'export AMC
     return
   }
-  if (question === 0) exercice.autoCorrection = []
+  if (!exercice.interactif) return // handleAnswers ne sert à rien si l'exerice n'est pas en mode interactif
+  if (exercice.autoCorrection == null) exercice.autoCorrection = []
   if (!(reponses instanceof Object)) throw Error(`handleAnswer() reponses doit être un objet : ${reponses}`)
   const url = new URL(window.location.href)
-  if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${question + 1} : `, reponses)
+  if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${question + 1} : `, JSON.stringify(reponses))
   if (exercice.autoCorrection[question] === undefined) {
     exercice.autoCorrection[question] = {}
   }
