@@ -4,6 +4,7 @@ import { DroiteGraduee } from '../../../lib/2d/reperes'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
+import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une abscisse sur une droite graduée'
 export const interactifReady = true
@@ -23,6 +24,7 @@ export default class AbscisseEnDemis extends Exercice {
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
     this.canOfficielle = false
+    this.compare = equalFractionCompare
   }
 
   nouvelleVersion () {
@@ -35,13 +37,13 @@ export default class AbscisseEnDemis extends Exercice {
     }
     const a2 = a1 + delta
     const x = a2 + 0.5
+    this.reponse = { reponse: { value: `\\frac{${2 * a2 + 1}}{2}`, compare: equalFractionCompare } }
     const drGrad = new DroiteGraduee({ Unite: 2, Min: a1 - 1, Max: a2 + 1, thickSec: true, thickSecDist: 0.5, labelsPrincipaux: false, labelListe: [[a1, String(a1)], [a2, String(a2)]], pointListe: [[x, 'A']] })
     const objets = [drGrad]
     this.question = 'Quelle est l\'abscisse du point A ?<br>'
     this.question += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     this.canEnonce = this.question
     this.canReponseACompleter = ''
-    this.reponse = String(x)
     this.correction = `L'abscisse du point A est $${miseEnEvidence(texNombre(x, 1))}$.`
   }
 }
