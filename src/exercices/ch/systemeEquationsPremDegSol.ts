@@ -7,7 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante.js'
 import { textCompare } from '../../lib/interactif/comparisonFunctions'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-export const titre = 'Vérifier si un couple est solution d\'un système linéaire de deux équations à deux inconnues'
+export const titre = 'Tester si un couple de points vérifie un système de deux équations à deux inconnues.'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 export const amcReady = true
@@ -15,7 +15,8 @@ export const amcType = 'qcmMono'
 export const dateDePublication = '28/03/2024'
 export const uuid = 'ccb71'
 export const refs = {
-  'fr-ch': ['11FA6-1']
+  'fr-ch': ['11FA6-1'],
+  'fr-fr': ['2G34-3']
 }
 
 /**

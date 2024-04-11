@@ -13,10 +13,10 @@ export const titre = 'Problèmes avec les systèmes d\'équations du premier deg
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '21/03/2024'
-export const uuid = '1b828'
+export const uuid = '6fbf9'
 export const refs = {
-  'fr-ch': ['11FA6-11'],
-  'fr-fr': []
+  'fr-ch': ['11FA6-8'],
+  'fr-fr': ['2G34-8']
 }
 // export const dateDeModifImportante = '24/10/2021'
 
