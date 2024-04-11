@@ -14,13 +14,12 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '04/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-
+export const dateDeModifImportante = '11/04/2024'
 export const titre = 'Tracer un triangle dont on connaît une longueur et 2 angles (angles aigus et/ou obtus)'
 
 /**
  * Tracer un triangle dont on connaît une longueur et 2 angles (angles aigus et/ou obtus)
  * @author Mickael Guironnet - Rémi Angot
- * Références 6G23-2 et 5G20-2git
  */
 export const uuid = '73630'
 export const ref = '6G23-3'
@@ -30,8 +29,6 @@ export const refs = {
 }
 export default function TracerTriangle2Angles () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 3
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -82,7 +79,7 @@ export default function TracerTriangle2Angles () {
       texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(c)}$ cm, $\\widehat{${p[1] + p[0] + p[2]
         }}=${angle1}^\\circ$ et $\\widehat{${p[0] + p[1] + p[2]
         }}=${angle2}^\\circ$.`
-      texte += `<br> Mesurer $${p[0] + p[2]}$,  $${p[1] + p[2]}$ et $\\widehat{${p[0] + p[2] + p[1]}}$`
+      texte += `<br> Mesurer $${p[0] + p[2]}$,  $${p[1] + p[2]}$ et $\\widehat{${p[0] + p[2] + p[1]}}$.`
 
       // on construit le segment
       const A0 = point(0, 0, p[0], 'left')
@@ -137,9 +134,9 @@ export default function TracerTriangle2Angles () {
         texteCorr += '<br><br>'
       }
       if (!this.sup) {
-        texteCorr += `$${p[0] + p[2]}\\approx${texNombre(longueur(A3, C, 2))}$ cm et $${p[1] + p[2]}\\approx${texNombre(longueur(B3, C, 2))}$ cm`
+        texteCorr += `$${p[0] + p[2]}\\approx${texNombre(longueur(A3, C, 1))}$ cm, $${p[1] + p[2]}\\approx${texNombre(longueur(B3, C, 1))}$ cm`
         texteCorr += ` et $\\widehat{${p[1] + p[2] + p[0]
-          }}=${180 - angle1 - angle2}^\\circ$ `
+          }}=${180 - angle1 - angle2}^\\circ$.`
       }
       const anim = new Alea2iep()
       anim.triangle1longueur2angles(p, c, angle1, angle2, true, true) // description et longueur
