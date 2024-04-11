@@ -4,6 +4,7 @@ import {
   initTE
 } from 'tw-elements'
   import { exercicesParams, darkMode } from '../../../lib/stores/generalStore'
+  import { get } from 'svelte/store'
   import {
     mathaleaGetExercicesFromParams,
     mathaleaRenderDiv,
@@ -24,7 +25,7 @@ import {
   } from '../../../lib/Latex'
   import Button from '../../shared/forms/Button.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
-  import { afterUpdate, onMount } from 'svelte'
+  import { afterUpdate, beforeUpdate, onMount } from 'svelte'
   import ModalMessageBeforeAction from '../../shared/modal/ModalMessageBeforeAction.svelte'
   import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'
   import { showDialogForLimitedTime } from '../../../lib/components/dialogs.js'
@@ -43,6 +44,8 @@ import {
     | 'ProfMaquette'
     | 'ProfMaquetteQrcode'
     | 'Can' = 'Coopmaths'
+  let policeOptions: 'StandardPolice'| 'DysPolice' = 'StandardPolice'
+  let correctionOptions: 'AvecCorrection' | 'SansCorrection' = 'AvecCorrection'
   const imgStylePartialUrls = {
     Coopmaths: 'images/exports/export-coopmaths',
     Classique: 'images/exports/export-classique',
@@ -60,18 +63,19 @@ import {
   let picsNames: picFile[][] = []
   let exosContentList: Exo[] = []
   let divText: HTMLDivElement
+  let promise: Promise<void> 
+
   const latex = new Latex()
 
   async function initExercices () {
+    console.log('initExercices')
     mathaleaUpdateExercicesParamsFromUrl()
-    exercices = await mathaleaGetExercicesFromParams($exercicesParams)
-    for (const exercice of exercices) {
-      if (exercice.typeExercice === 'statique') {
-        isExerciceStaticInTheList = true
-        break
-      }
-    }
+    const interfaceParams =  get(exercicesParams)
+    interfaceParams.forEach( e => e.interactif = '0' )
+    mathaleaUpdateUrlFromExercicesParams(interfaceParams)
+    exercices = await mathaleaGetExercicesFromParams(interfaceParams)
     latex.addExercices(exercices.filter((ex) => ex.typeExercice !== 'html'))
+    isExerciceStaticInTheList = latex.isExerciceStaticInTheList()
     latexFile.contents = await latex.getContents(style, nbVersions)
     picsWanted = doesLatexNeedsPics(latexFile.contents)
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
@@ -79,6 +83,7 @@ import {
 
   async function updateLatex () {
     try {
+      // console.log('updateLatex')
       latexFile = await latex.getFile({
         title,
         reference,
@@ -87,32 +92,46 @@ import {
         nbVersions,
         withPreamble: false
       })
+      // console.log('fin updateLatex')
     } catch (error) {
       console.error('Erreur lors de la création du code LaTeX :', error)
       latexFile.latexWithoutPreamble = '% Erreur à signaler'
     }
   }
 
-  onMount(() => {
+  $: {
+    if (latex.exercices.length > 0 ) {
+      console.log('title ou reference')
+      title = title
+      reference = reference
+      subtitle = subtitle
+      style = style
+      nbVersions = nbVersions
+      promise = updateLatex()
+      // promise = new Promise((resolve) => setTimeout(resolve, 10000))
+    }
+  }
+
+  onMount(async () => {
     initTE({ Carousel })
-    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    // console.log('onMount')
+    promise = initExercices().then(()=> updateLatex())
     downloadPicsModal = document.getElementById(
-      'downloadPicsModal'
+       'downloadPicsModal'
     ) as HTMLElement
     document.addEventListener('updateAsyncEx', updateLatex)
     mathaleaRenderDiv(divText)
+    // console.log('fin onMount')
   })
 
-  let timerId: ReturnType<typeof setTimeout> | undefined
-  afterUpdate(() => {
-    if (timerId === undefined) {
-      timerId = setTimeout(async () => {
-        await updateLatex()
-        mathaleaRenderDiv(divText)
-        timerId = undefined
-      }, 1000)
-    }
+  beforeUpdate(async ()=>{
+    // console.log('beforeUpdate')
   })
+
+  afterUpdate(async () => {
+    // console.log('afterUpdate')
+  })
+
 
   /* ============================================================================
   *
@@ -131,6 +150,7 @@ import {
    * @author sylvain
    */
   function handleActionFromDownloadPicsModal () {
+    console.log('handleActionFromDownloadPicsModal')
     const imagesFilesUrls = makeImageFilesUrls(exercices)
     downloadZip(imagesFilesUrls, 'images.zip')
     downloadPicsModal.style.display = 'none'
@@ -140,13 +160,12 @@ import {
    * Gérer l'affichage du modal : on donne la liste des images par exercice
    */
   function handleDownloadPicsModalDisplay () {
+    console.log('handleDownloadPicsModalDisplay')
     exosContentList = getExosContentList(exercices)
     picsNames = getPicsNames(exosContentList)
     downloadPicsModal.style.display = 'block'
   }
   //= ===================== Fin Modal figures ====================================
-
-  initExercices()
 
   const copyDocument = async () => {
     try {
@@ -219,6 +238,11 @@ import {
           >
             Mise en page
           </h5>
+          <h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Modèle
+          </h6>
           <FormRadio
             title="Style"
             bgColor="bg-coopmaths-canvas-dark"
@@ -239,6 +263,36 @@ import {
               }
             ]}
           />
+          <!--<h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Options
+          </h6>
+          <FormRadio
+            title="CorrectionOptions"
+            bgColor="bg-coopmaths-canvas-dark"
+            orientation={'col'}
+            bind:valueSelected={correctionOptions}
+            labelsValues={[
+              { label: 'Avec correction', value: 'AvecCorrection' },
+              { label: 'Sans correction', value: 'SansCorrection' }
+            ]}
+          />
+          <h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Police de caractères
+          </h6>
+          <FormRadio
+            title="PoliceOptions"
+            bgColor="bg-coopmaths-canvas-dark"
+            orientation={'col'}
+            bind:valueSelected={policeOptions}
+            labelsValues={[
+              { label: 'Standard', value: 'StandardPolice' },
+              { label: 'Dys', value: 'DysPolice' }
+            ]}
+          />-->
         </div>
         <!-- Carousel de vignette pour les aperçus -->
         <div class="flex justify-center w-full md:w-1/3">
@@ -292,7 +346,7 @@ import {
           <input
             type="text"
             id="export-latex-reference-input"
-            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
+            class=" border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
             placeholder={style === 'Coopmaths' || style === 'ProfMaquetteQrcode' || style === 'ProfMaquette'
               ? 'Référence'
               : 'Haut de page gauche'}
@@ -315,7 +369,7 @@ import {
         <input
           type="number"
           id="export-latex-nb-versions-input"
-          class="border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           name="numberOfVersions"
           maxlength="2"
           min="1"
@@ -347,12 +401,16 @@ import {
               ligne.
             </div>
             <div slot="button1">
+              {#await promise}
+                <p>...Chargement en cours</p>
+              {:then}
               <ButtonOverleaf
                 class="flex w-full flex-col justify-center"
                 {latexFile}
                 {exercices}
                 disabled={false}
               />
+              {/await}
             </div>
           </SimpleCard>
           <SimpleCard title={'Compiler le code pour avoir un fichier PDF (version béta)'}>
@@ -361,6 +419,9 @@ import {
               le nouveau compilateur en ligne (serveur TexLive.net).
             </div>
             <div slot="button1">
+              {#await promise}
+                <p>...Chargement en cours</p>
+              {:then}
               <ButtonCompileLatexToPDF
                 class="flex w-full flex-col justify-center"
                 {latex}
@@ -370,8 +431,9 @@ import {
                   subtitle,
                   style,
                   nbVersions
-                }}
+                }}              
               />
+              {/await}
             </div>
           </SimpleCard>
           <SimpleCard title={'Copier le code'} icon={'bx-copy-alt'}>
@@ -380,6 +442,9 @@ import {
               logiciel.
             </div>
             <div slot="button1">
+              {#await promise}
+                <p>...Chargement en cours</p>
+              {:then}
               <ModalActionWithDialog
                 on:display={() => {
                   copyLaTeXCodeToClipBoard('copyPasteModal')
@@ -391,28 +456,41 @@ import {
                 classForButton="px-2 py-1 rounded-md"
                 title="Code seul"
               />
+              {/await}
             </div>
             <div slot="button2">
+              {#await promise}
+                <p>...Chargement en cours</p>
+              {:then}
               <Button
                 class="px-2 py-1 rounded-md"
                 title="Code + préambule"
                 on:click={copyDocument}
               />
+              {/await}
             </div>
           </SimpleCard>
           <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
             <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
             <div slot="button1">
+              {#await promise}
+                <p>...Chargement en cours</p>
+              {:then}
               <Button
                 class="px-2 py-1 rounded-md"
                 idLabel="downloadFullArchive"
-                on:click={() => {
+                on:click={async () => {
+                  await promise
                   downloadTexWithImagesZip('coopmaths', latexFile, exercices)
                 }}
                 title="Archive complète"
               />
+              {/await}
             </div>
             <div slot="button2">
+              {#await promise}
+                <p>...Chargement en cours</p>
+              {:then}
               <Button
                 class="inline-block px-2 py-1 rounded-md"
                 idLabel="downloadPicsButton"
@@ -420,6 +498,7 @@ import {
                 title="Uniquement les figures"
                 isDisabled={!picsWanted}
               />
+              {/await}
             </div>
           </SimpleCard>
         </div>

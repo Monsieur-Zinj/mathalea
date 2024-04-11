@@ -14,7 +14,7 @@ export function downloadZip (filesUrls: string[], zipFileName: string) {
       }
       const splitUrl = url.split('/')
       const fileName = splitUrl[splitUrl.length - 1]
-      zip.file(fileName, data, { binary: true })
+      zip.file(fileName, data ?? '', { binary: true })
       count++
       if (count === filesUrls.length) {
         zip.generateAsync({ type: 'blob' }).then((content) => {
@@ -49,7 +49,7 @@ export async function downloadTexWithImagesZip (zipFileName: string, latexFile: 
         }
         const splitUrl = url.split('/')
         const fileName = splitUrl[splitUrl.length - 1]
-        imagesFolder.file(fileName, data, { binary: true })
+        imagesFolder?.file(fileName, data ?? '', { binary: true })
         count++
         if (count === urls.length) {
           zip.generateAsync({ type: 'blob' }).then((content) => {
