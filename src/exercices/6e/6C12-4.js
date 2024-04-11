@@ -1056,11 +1056,11 @@ export default function ExerciceInformationsProblemes () {
           quidam2 = choice(['Hong-Kong', 'Rio de Janeiro', 'Auckland', 'Sidney', 'Kuala Lumpur'])
           nb1 = randint(85, 153)
           nb2 = randint(67, 86)
-          nb3 = randint(7, 15)
+          nb3 = randint(23, 30) // Masse d'un gros conteneur
           nb4 = randint(7, 26)
-          nb5 = randint(80, 120)
-          nb5 = arrondi(nb4 * nb5 / 100)
-          reponse2 = arrondi(nb5 / nb4, 3)
+          nb = arrondi(randint(140, 210) / 10, 1) // Masse d'un petit conteneur
+          nb5 = arrondi(nb * nb4, 1)
+          reponse2 = nb
           nb5 = texNombre(nb5)
 
           texte += `Un cargo mesurant $${nb1}$ m transporte $${nb2}$ gros conteneurs de $${nb3}$ tonnes chacun ${quidam} à ${quidam2}. `
