@@ -134,8 +134,9 @@ async function testEleveView (page: Page) {
   await page.locator('#presentation0').click()
   await page.locator('#Interactif1').click()
   const page1Promise = page.waitForEvent('popup')
-  await page.getByRole('button', { name: 'Visualiser' }).click()
+  page.getByRole('button', { name: 'Visualiser' }).click()
   const page1 = await page1Promise
+  log('#champTexteEx0Q0')
   await page1.locator('#champTexteEx0Q0').focus()
   await inputAnswerById(page1, '0Q0', '10')
   await page1.locator('#champTexteEx0Q1').focus()
@@ -209,7 +210,6 @@ async function testEleveView (page: Page) {
   await page1.locator('#champTexteEx0Q29').focus()
   await inputAnswerById(page1, '0Q29', '[-5;2]')
   log('Vérifier les questions')
-  await page1.locator('#buttonScoreEx0').focus()
   await page1.locator('#buttonScoreEx0').click()
   await page1.waitForSelector('#consigne0-29 + div', { timeout: 50000 })
   const buttonResult = await page1.locator('#consigne0-29 + div').innerText()
@@ -584,8 +584,9 @@ if (process.env.CI) {
   runTest(testEleveViewPre2, import.meta.url, { pauseOnError: false })
   runTest(testEleveViewPre3, import.meta.url, { pauseOnError: false })
 } else {
+  prefs.headless = true
   // runTest(testCanView, import.meta.url, { pauseOnError: true })
-  // runTest(testEleveView, import.meta.url, { pauseOnError: true })
+  runTest(testEleveView, import.meta.url, { pauseOnError: true })
   // runTest(testEleveViewPre2, import.meta.url, { pauseOnError: true })
-  runTest(testEleveViewPre3, import.meta.url, { pauseOnError: true })
+  // runTest(testEleveViewPre3, import.meta.url, { pauseOnError: true })
 }

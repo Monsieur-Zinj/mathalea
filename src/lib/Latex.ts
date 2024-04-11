@@ -55,6 +55,10 @@ class Latex {
     this.exercices = []
   }
 
+  isExerciceStaticInTheList () {
+    return this.exercices.some(e => e.typeExercice === 'statique')
+  }
+
   addExercices (exercices: TypeExercice[]) {
     this.exercices.push(...exercices)
   }
@@ -271,11 +275,18 @@ class Latex {
       if (contents.content.includes('\\np{') || contents.content.includes('\\np[') || contents.content.includes('\\numprint{')) {
         contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
       }
+      if (contents.content.includes('\\pscurve')) {
+        contents.preamble += '\n\\usepackage{pstricks}'
+      }
       if (contents.content.includes('\\begin{bclogo}') || contents.content.includes('\\fcolorbox{nombres}')) {
         contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
       }
       if (contents.content.includes('\\begin{tikzpicture}')) {
         contents.preamble += '\n\\usepackage{tikz}'
+      }
+      if (contents.content.includes('\\vect')) {
+        // DBN 2019 juillet polynésie
+        contents.preamble += '\n\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}'
       }
       if (contents.content.includes('\\begin{axis}')) {
         contents.preamble += '\n\\usepackage{pgfplots}'
@@ -326,6 +337,21 @@ class Latex {
         // gestion des commandes pour les sujets DNB : 2021
         contents.preamble += '\n\\providecommand\\decosix{}'
         contents.preamble += '\n\\renewcommand\\decosix{$\\bullet$}'
+      }
+      if (contents.content.includes('\\begin{figure}')) {
+        // gestion des commandes pour les sujets DNB : dnb_2019_09_polynesie_6
+        contents.preamble += `\\n% supprime les figures flottantes du DNB
+        \\makeatletter
+        \\def\\provideenvironment{\\@star@or@long\\provide@environment}
+        \\def\\provide@environment#1{%
+          \\@ifundefined{#1}%
+            {\\def\\reserved@a{\\newenvironment{#1}}}%
+            {\\def\reserved@a{\\renewenvironment{dummy@environ}}}%
+          \\reserved@a
+        }
+        \\def\\dummy@environ{}
+        \\makeatother
+        \\provideenvironment{figure}{}{}\\renewenvironment{figure}{}{}`
       }
       if (contents.content.includes('\\R') || contents.content.includes('\\N')) {
         // gestion des commandes pour les sujets DNB : 2023
