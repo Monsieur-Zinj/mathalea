@@ -7,14 +7,14 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
 import { textCompare } from '../../lib/interactif/comparisonFunctions'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-export const titre = 'Interpréter graphiquement un système de deux équations du premier degré'
+export const titre = 'Déterminer la position relative de deux droites à l\'aide de leur équation et en déduire le nombre de solution d\'un système d\'équations'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 export const dateDePublication = '08/04/2024'
 export const uuid = '2eee3'
 export const refs = {
-  'fr-ch': ['11FA6-12'],
-  'fr-fr': []
+  'fr-ch': ['11FA6-3'],
+  'fr-fr': ['2G34-2']
 }
 // export const dateDeModifImportante = '24/10/2021'
 
