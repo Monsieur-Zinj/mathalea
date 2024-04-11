@@ -34,7 +34,6 @@ export const refs = {
 export default function VocabulaireNotationsFonctions2 () {
   Exercice.call(this)
   this.sup = 5
-  this.consigne = 'Cocher toutes les réponses correctes.'
   this.spacing = 1.5
   this.nbQuestions = 3
   this.nbQuestionsModifiable = true
@@ -43,6 +42,7 @@ export default function VocabulaireNotationsFonctions2 () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    this.consigne = this.interactif ? 'Cocher toutes les réponses correctes.' : ''
 
     const r = repere({
       xMin: -5,
