@@ -126,11 +126,11 @@ export default function ReciproqueThales () {
       const B = point(x2, y2)
       const C = point(x3, y3)
       const t1 = polygone(A, B, C)
-      t1.id = `M2D_${numeroExercice}_t1`
+      t1.id = `M2D_${numeroExercice}_Q${i}_t1`
       const M = homothetie(B, A, k)
       const N = homothetie(C, A, k)
       const t2 = polygone(A, M, N)
-      t2.id = `M2D_${numeroExercice}_t2`
+      t2.id = `M2D_${numeroExercice}_Q${i}_t2`
       const m = pointSurSegment(M, N, -0.5)
       const n = pointSurSegment(N, M, -0.5)
       const marqueNomM = texteParPoint(s4, m, 0, 'black', 1, 'milieu', true)
@@ -233,25 +233,25 @@ export default function ReciproqueThales () {
         }
 
         const epaisseurTriangle = (k < 0) ? 2 : 6 // En cas de configuration papillon il est inutile de changer l'épaisseur
-        const boutonAideMathalea2d = creerBoutonMathalea2d(numeroExercice,
-                    `if (document.getElementById('M2D_${numeroExercice}_t1').dataset.colorie == undefined || (document.getElementById('M2D_${numeroExercice}_t1').dataset.colorie == 'false')){
-          document.getElementById('M2D_${numeroExercice}_t1').style.stroke = 'blue';
-          document.getElementById('M2D_${numeroExercice}_t2').style.stroke = 'red';
-          document.getElementById('M2D_${numeroExercice}_t1').style.opacity = .5;
-          document.getElementById('M2D_${numeroExercice}_t1').style.strokeWidth = ${epaisseurTriangle};
-          document.getElementById('M2D_${numeroExercice}_t2').style.opacity = 1;
-          document.getElementById('M2D_${numeroExercice}_t2').style.strokeWidth = 2;
-          document.getElementById('M2D_${numeroExercice}_t1').dataset.colorie = 'dejaEnCouleur';
-          document.getElementById('btnMathALEA2d_${numeroExercice}').classList.add('active');
+        const boutonAideMathalea2d = creerBoutonMathalea2d(`${numeroExercice}_Q${i}`,
+                    `if (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == undefined || (document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie == 'false')){
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.stroke = 'blue';
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t2').style.stroke = 'red';
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.opacity = .5;
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.strokeWidth = ${epaisseurTriangle};
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t2').style.opacity = 1;
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t2').style.strokeWidth = 2;
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie = 'dejaEnCouleur';
+          document.getElementById('btnMathALEA2d_${numeroExercice}_Q${i}').classList.add('active');
         } else {
-          document.getElementById('M2D_${numeroExercice}_t1').style.stroke = 'black';
-          document.getElementById('M2D_${numeroExercice}_t2').style.stroke = 'black';
-          document.getElementById('M2D_${numeroExercice}_t1').style.opacity = 1;
-          document.getElementById('M2D_${numeroExercice}_t1').style.strokeWidth = 1;
-          document.getElementById('M2D_${numeroExercice}_t2').style.opacity = 1;
-          document.getElementById('M2D_${numeroExercice}_t2').style.strokeWidth = 1;
-          document.getElementById('M2D_${numeroExercice}_t1').dataset.colorie = 'false';
-          document.getElementById('btnMathALEA2d_${numeroExercice}').classList.remove('active');
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.stroke = 'black';
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t2').style.stroke = 'black';
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.opacity = 1;
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').style.strokeWidth = 1;
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t2').style.opacity = 1;
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t2').style.strokeWidth = 1;
+          document.getElementById('M2D_${numeroExercice}_Q${i}_t1').dataset.colorie = 'false';
+          document.getElementById('btnMathALEA2d_${numeroExercice}_Q${i}').classList.remove('active');
   
         }
         `,
