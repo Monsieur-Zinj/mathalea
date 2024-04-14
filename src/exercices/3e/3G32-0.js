@@ -37,7 +37,6 @@ export const dateDePublication = '05/03/2022'
  * Triangle rectangle inscrit dans un triangle rectangle @author Rémi Angot
  * Fusion des exercices @author Guillaume Valmont
  * Interactivité des exercices, aléatoirisation des figures et des points dans les exos, AMC-isation de tous les exos @author Eric Elter
- * Référence 3G32-0
  */
 export const uuid = '2045e'
 export const ref = '3G32-0'
@@ -161,11 +160,11 @@ export default function ProblemesTrigoLongueur () {
           S = point(absC + sensH * absS, 0, lS)
           p = polygoneAvecNom(A, B, S)
           R = polygoneAvecNom(point(absC, -1 * sensV), point(absC + sensH * absS, -1 * sensV), point(absC + sensH * absS, ordA + sensV), point(absC, ordA + sensV))
-          R[0].color = colorToLatexOrHTML('blue')
-          R[0].couleurDeRemplissage = colorToLatexOrHTML('blue')
+          R[0].color = context.isHtml ? colorToLatexOrHTML('blue') : colorToLatexOrHTML('lightgray')
+          R[0].couleurDeRemplissage = R[0].color
           R[0].opaciteDeRemplissage = 0.5
           R[0].opacite = 0.5
-          objets.push(p[1], p[0], R[0], segment(A, C), codageAngleDroit(A, B, C), labelPoint(C))
+          objets.push(R[0], p[1], p[0], segment(A, C), codageAngleDroit(A, B, C), labelPoint(C))
           objets.push(afficheMesureAngle(B, A, C, 'black', 1, `${alfa}`), afficheMesureAngle(B, A, S, 'black', 2, `${baita}`))
           objets.push(texteSurSegment(`${stringNombre(distance)} m`, sensH * sensV < 0 ? B : A, sensH * sensV < 0 ? A : B, 'black', -0.5))
 
