@@ -36,12 +36,11 @@ export const titre = 'CAN première sujet 2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = '640f2'
-// export const refMAISPASMAINTENANT = 'can3a-2024'
-// export const refsMAISPASMAINTENANT = {
-//  'fr-fr': ['can3a-2024'],
-//   'fr-ch': []
-//  }
-
+export const refs = {
+  'fr-fr': ['can1a-2024'],
+  'fr-ch': []
+}
+export const dateDePublication = '14/04/2024'
 /**
  * Annales CAN 2024
  * @author Gilles Mora

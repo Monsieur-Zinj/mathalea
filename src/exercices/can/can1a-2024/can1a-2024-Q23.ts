@@ -22,7 +22,7 @@ export default class solutionInequation extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
     this.formatInteractif = 'calcul'
     this.compare = intervalsCompare
   }
