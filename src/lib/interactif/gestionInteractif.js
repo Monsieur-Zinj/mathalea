@@ -738,7 +738,6 @@ export function handleAnswers (exercice, question, reponses, {
   if (context.isAmc) { // handleAnswer ne s'occupe pas de l'export AMC
     return
   }
-  if (!exercice.interactif) return // handleAnswers ne sert à rien si l'exerice n'est pas en mode interactif
   if (exercice.autoCorrection == null) exercice.autoCorrection = []
   if (!(reponses instanceof Object)) throw Error(`handleAnswer() reponses doit être un objet : ${reponses}`)
   const url = new URL(window.location.href)
