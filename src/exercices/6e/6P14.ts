@@ -52,7 +52,7 @@ class AgrandirReduireFigure extends Exercice {
         '7 : Mélange'
       ].join('\n')
     ]
-    this.besoinFormulaire2Texte = ['Longueur maximum dans la figure à produire (5 minimum)']
+    this.besoinFormulaire2Texte = ['Longueur maximum dans la figure à produire (5 minimum)', '']
     this.sup = 7
     this.sup2 = '15'
     this.nbQuestions = 4
@@ -60,7 +60,7 @@ class AgrandirReduireFigure extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion: ()=>void = function () {
+  nouvelleVersion = function (): void {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeQuestions = gestionnaireFormulaireTexte({
@@ -74,7 +74,7 @@ class AgrandirReduireFigure extends Exercice {
     const texteAgrandissementOuReduction = [[' agrandissement', 'e réduction'], ['l\'agrandissement demandé', 'la réduction demandée']] // Ne pas supprimer le 'e'
     let ii = 0 // Cet indice permet de gérer les numéros de champs interactifs car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     let iiAMC // Cet indice permet de gérer les numéros de champs AMC car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200;) {
       let texte, texteCorr, absBFinal, coeffFinal, longueurMax
       do {
         texte = ''
@@ -174,7 +174,7 @@ class AgrandirReduireFigure extends Exercice {
             texteCorr += '<br>En voici, une réalisation ci-dessous.'
             objets.push(polygoneCorr, codageSegments('|||', 'blue', polygoneCorr.listePoints), afficheLongueurSegment(sensRotation < 0 ? A : BCorr, sensRotation < 0 ? BCorr : A, 'red', 0.5, '', true), nommePolygone(polygoneCorr, nomCorr))
             texteCorr += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
-            longueurMax = Math.max(absB, reponse)
+            longueurMax = reponse
           }
             break
           case 2: { // Carré
@@ -265,7 +265,7 @@ class AgrandirReduireFigure extends Exercice {
             objets.push(polygoneCorr, codageSegments('|||', 'blue', polygoneCorr.listePoints), afficheLongueurSegment(A, BCorr, 'red', 0.5, '', true), nommePolygone(polygoneCorr, nomCorr))
             objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
             texteCorr += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
-            longueurMax = Math.max(absB, reponse)
+            longueurMax = reponse
           }
             break
           case 3: { // Triangle avec coefficient de réduction ou d'agrandissement
@@ -413,7 +413,7 @@ class AgrandirReduireFigure extends Exercice {
             objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
             objets.push(afficheLongueurSegment(angleOriente(BCorr, CCorr, A) > 0 ? CCorr : A, angleOriente(BCorr, CCorr, A) > 0 ? A : CCorr, 'red', 0.5, '', true))
             texteCorr += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
-            longueurMax = Math.max(absB, absC, absD, reponse, reponse1, reponse2)
+            longueurMax = Math.max(reponse, reponse1, reponse2)
           }
             break
           case 4: { // Triangle avec longueur initiale et longueur finale
@@ -537,7 +537,7 @@ class AgrandirReduireFigure extends Exercice {
             objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
             objets.push(afficheLongueurSegment(angleOriente(BCorr, CCorr, A) > 0 ? CCorr : A, angleOriente(BCorr, CCorr, A) > 0 ? A : CCorr, 'red', 0.5, '', true))
             texteCorr += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
-            longueurMax = Math.max(absB, absC, absD, reponse, reponse1, reponse2)
+            longueurMax = Math.max(reponse, reponse1, reponse2)
           }
             break
           case 5: { // Rectangle avec coefficient de réduction ou d'agrandissement
@@ -662,7 +662,7 @@ class AgrandirReduireFigure extends Exercice {
             objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
             objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
             texteCorr += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
-            longueurMax = Math.max(absB, absC, reponse, reponse1)
+            longueurMax = Math.max(reponse, reponse1)
           }
             break
           default: { // Rectangle avec longueur initiale et longueur finale
@@ -766,7 +766,7 @@ class AgrandirReduireFigure extends Exercice {
             objets.push(afficheLongueurSegment(angleOriente(A, BCorr, CCorr) > 0 ? BCorr : CCorr, angleOriente(A, BCorr, CCorr) > 0 ? CCorr : BCorr, 'red', 0.5, '', true))
             objets.push(codageAngleDroit(A, BCorr, CCorr), codageAngleDroit(DCorr, CCorr, BCorr), codageAngleDroit(A, DCorr, CCorr), codageAngleDroit(BCorr, A, DCorr))
             texteCorr += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
-            longueurMax = Math.max(absB, absC, reponse, reponse1)
+            longueurMax = Math.max(reponse, reponse1)
           }
             break
         }
@@ -779,7 +779,8 @@ class AgrandirReduireFigure extends Exercice {
             propositions: propositionsAMC
           }
         }
-      } while (longueurMax > longueurMaximum)
+        cpt++
+      } while (longueurMax > longueurMaximum && cpt < 200)
       if (this.questionJamaisPosee(i, absBFinal, coeffFinal, listeTypeQuestions[i])) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
