@@ -11,12 +11,13 @@ export const titre = 'Résoudre une équation trigonométrique'
 export const dateDePublication = '20/11/2023'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 export const dateDeModifImportante = '20/02/2024'
 
 /**
  * Résoudre une équation trigonométrique
  * @author Rémi Angot
- * Références 3G30-2
  */
 export const uuid = 'f13e3'
 export const ref = '3G30-2'
