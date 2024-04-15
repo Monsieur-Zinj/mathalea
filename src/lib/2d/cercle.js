@@ -287,6 +287,7 @@ export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage =
 // JSDOC Validee par EE Juin 2022
 export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
   ObjetMathalea2D.call(this, {})
+  this.typeObjet = 'arc'
   this.color = colorToLatexOrHTML(color)
   this.couleurDeRemplissage = colorToLatexOrHTML(couleurDeRemplissage)
   this.opaciteDeRemplissage = opaciteDeRemplissage
