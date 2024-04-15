@@ -25,13 +25,14 @@ export function gestionCan (exercice) {
           if (exercice.interactifType === 'custom') {
             resultat = exercice.correctionInteractive(i)
           }
-          if (exercice.interactifType === 'qcm_mathLive') {
-            if (exercice.autoCorrection[i]?.propositions != null) {
+          if (exercice.interactifType === 'qcm_mathLive') throw Error('qcm_mathLive ça n\'existe pas comme formatInteractif, c\'est qcm ou mathlive')
+          /*  if (exercice.autoCorrection[i]?.propositions != null) {
               resultat = verifQuestionQcm(exercice, i)
             } else {
               resultat = verifQuestionMathLive(this, i).isOk ? 'OK' : 'KO'
             }
           }
+           */
           // Mise en couleur du numéro de la question dans le menu du haut
           if (resultat === 'OK') {
             document.getElementById(`btnMenuexercice${exercice.numeroExercice}Q${i}`).classList.add('green')
