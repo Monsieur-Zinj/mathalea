@@ -257,7 +257,7 @@ export default class systemeEquationsPremDegSol extends Exercice {
       const eqFinale2 = eqInt2Droite.concat(eqInt2Gauche)
       const nomVal1 = nomVal12.concat(nomVal11)
       const nomVal2 = nomVal22.concat(nomVal21)
-      texte = texte + ` Le couple $(${texNombre(solPropX, 0)};${texNombre(solPropY, 0)})$ est-il solution du système $${printSystem(eqToLatex(eqFinale1, nomVal1, true), eqToLatex(eqFinale2, nomVal2, true))}$`
+      texte = texte + ` Le couple $(${texNombre(solPropX, 0)};${texNombre(solPropY, 0)})$ est-il solution du système $${printSystem(eqToLatex(eqFinale1, nomVal1, true), eqToLatex(eqFinale2, nomVal2, true))}$ ?`
       if (this.correctionDetaillee) {
         texteCorr = texteCorr + `On substitue le couple (${texNombre(solPropX, 0)};${texNombre(solPropY, 0)}) dans les équations du système :<br> \\[\\begin{cases}\\begin{aligned}${eqToLatex(eqFinale1, listeVal1, true, 1)}\\\\${eqToLatex(eqFinale2, listeVal2, true, 1)}\\end{aligned}\\end{cases}\\] On réduit les membres de gauche et de droite des deux équations
         \\[\\begin{cases}\\begin{aligned}${eqToLatex([0, 0, verifEq(eqFinale1, solPropX, solPropY)[0], 0, 0, verifEq(eqFinale1, solPropX, solPropY)[1]], listeVar, true, 1)}\\\\${eqToLatex([0, 0, verifEq(eqFinale2, solPropX, solPropY)[0], 0, 0, verifEq(eqFinale2, solPropX, solPropY)[1]], listeVar, true, 1)}\\end{aligned}\\end{cases}\\]`

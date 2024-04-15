@@ -6,14 +6,14 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-export const titre = 'Interpréter graphiquement un système de deux équations du premier degré'
+export const titre = 'Résoudre un système linéaire de deux équations à deux inconnues par substitution'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
 export const dateDePublication = '08/04/2024'
 export const uuid = '521b6'
 export const refs = {
   'fr-ch': ['11FA6-5'],
-  'fr-fr': ['2G34-6']
+  'fr-fr': ['2G34-7']
 }
 // export const dateDeModifImportante = '24/10/2021'
 

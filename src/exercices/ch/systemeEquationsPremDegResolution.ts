@@ -35,9 +35,9 @@ export default class systemeEquationsPremDeg extends Exercice {
 
   nouvelleVersion () {
     if (this.nbQuestions === 1) {
-      this.consigne = 'Résoudre le système d\'équations suivant :'
+      this.consigne = 'Résoudre le système d\'équations suivant par combinaison linéaire :'
     } else {
-      this.consigne = 'Résoudre les systèmes d\'équations suivants :'
+      this.consigne = 'Résoudre les systèmes d\'équations suivants par combinaison linéaire :'
     }
     this.listeQuestions = []
     this.listeCorrections = []
