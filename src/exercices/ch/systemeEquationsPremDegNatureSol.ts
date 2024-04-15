@@ -15,7 +15,7 @@ export const dateDePublication = '28/03/2024'
 export const uuid = 'fade2'
 export const refs = {
   'fr-ch': ['11FA6-7'],
-  'fr-fr': ['2G34-7']
+  'fr-fr': ['2G34-8']
 }
 // export const dateDeModifImportante = '24/10/2021'
 

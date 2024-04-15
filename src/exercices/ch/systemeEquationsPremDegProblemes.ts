@@ -16,7 +16,7 @@ export const dateDePublication = '21/03/2024'
 export const uuid = '6fbf9'
 export const refs = {
   'fr-ch': ['11FA6-8'],
-  'fr-fr': ['2G34-8']
+  'fr-fr': ['2G34-9']
 }
 // export const dateDeModifImportante = '24/10/2021'
 
@@ -169,7 +169,7 @@ export default class systemeEquationsPremDeg extends Exercice {
           }
           break
         case 'p2':
-          texte = `Le périmètre d'un terrain rectangulaire mesure $${String(perimetre)
+          texte = `Le périmètre d'un terrain rectangulaire vaut $${String(perimetre)
           }\\,\\text{m}$. Si on ${sLargeur[1]} la largeur d'un terrain rectangulaire de $${String(abs(cLargeur))}\\,\\text{m}$ et on 
          ${sLongueur[1]} la longueur de $${String(abs(cLongueur))}\\,\\text{m}$, l'aire du terrain ${diffAireSigneTexte} de $${String(abs(diffAire))}\\,\\text{m}^2$. Déterminer les mesures du terrain ?`
           texteCorr = texteCorr + `On pose \\[\\begin{cases}\\begin{aligned}x&=\\text{Largeur initiale}\\\\ y&=\\text{Longeur initiale}\\end{aligned}\\end{cases}\\] On a le système suivant avec la première équation obtenue par l'égalité sur l'aire et la deuxième sur le périmètre :<br> \\[${printSystem(eqToLatex([1, 0, 0, 1, 0, diffAire], [`(x${sLargeur[0] + String(abs(cLargeur))})(y${sLongueur[0] + String(abs(cLongueur))})`, 'y', '', 'xy', 'y', ''], true), eqToLatex([2, 2, 0, 0, 0, perimetre], ['x', 'y', '', 'x', 'y', ''], true))}\\] On le résout le système et on obtient d'abord que $x=${largeur}\\,\\text{m}$ et $y=${longueur}\\,\\text{m}$. La largeur du terrain vaut $${miseEnEvidence(`${largeur}\\,\\text{m}`)}$ et sa longueur $${miseEnEvidence(`${longueur}\\,\\text{m}`)}$.`
