@@ -7,7 +7,7 @@ import Grandeur from '../modules/Grandeur'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../modules/FractionEtendue'
 
-export const interactifType = 'qcm_mathLive'
+export const interactifType = 'mathLive'
 export const interactifReady = true
 
 export default class MetaExercice extends Exercice {

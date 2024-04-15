@@ -34,7 +34,7 @@ import Exercice from '../../Exercice'
 
 export const titre = 'CAN CM2 sujet 2024'
 export const interactifReady = true
-export const interactifType = 'qcm_mathLive'
+export const interactifType = 'mathLive'
 export const uuid = '28c21'
 export const refs = {
   'fr-fr': ['canc3a-2024'],

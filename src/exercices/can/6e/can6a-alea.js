@@ -8,7 +8,7 @@ import uuidToUrl from '../../../json/uuidsToUrlFR.json'
 import { mathaleaLoadExerciceFromUuid } from '../../../lib/mathalea'
 export const titre = 'Choix aléatoires des questions'
 export const interactifReady = true
-export const interactifType = 'qcm_mathLive'
+export const interactifType = 'mathLive'
 export const amcReady = false
 
 /*!
@@ -189,8 +189,8 @@ export default function can6eAll () {
     async function loadAllQuests (exercice, numeros) {
       const promises = []
       for (let q = 0; q < numeros.length; q++) {
-        if (q===0){
-          /**MGu
+        if (q === 0) {
+          /** MGu
            * On est obligé car la première question (indice:0) dans HandleAnswers réinitialise : exercice.autoCorrection
            */
           await loadQuest(exercice, `can6${numeros[q]}`, q)
