@@ -44,8 +44,8 @@ import {
     | 'ProfMaquette'
     | 'ProfMaquetteQrcode'
     | 'Can' = 'Coopmaths'
-  let policeOptions: 'StandardPolice'| 'DysPolice' = 'StandardPolice'
-  let correctionOptions: 'AvecCorrection' | 'SansCorrection' = 'AvecCorrection'
+  const policeOptions: 'StandardPolice'| 'DysPolice' = 'StandardPolice'
+  const correctionOptions: 'AvecCorrection' | 'SansCorrection' = 'AvecCorrection'
   const imgStylePartialUrls = {
     Coopmaths: 'images/exports/export-coopmaths',
     Classique: 'images/exports/export-classique',
@@ -63,15 +63,14 @@ import {
   let picsNames: picFile[][] = []
   let exosContentList: Exo[] = []
   let divText: HTMLDivElement
-  let promise: Promise<void> 
+  let promise: Promise<void>
 
   const latex = new Latex()
 
   async function initExercices () {
-    console.log('initExercices')
     mathaleaUpdateExercicesParamsFromUrl()
-    const interfaceParams =  get(exercicesParams)
-    interfaceParams.forEach( e => e.interactif = '0' )
+    const interfaceParams = get(exercicesParams)
+    interfaceParams.forEach(e => { e.interactif = '0' })
     mathaleaUpdateUrlFromExercicesParams(interfaceParams)
     exercices = await mathaleaGetExercicesFromParams(interfaceParams)
     latex.addExercices(exercices.filter((ex) => ex.typeExercice !== 'html'))
@@ -100,8 +99,7 @@ import {
   }
 
   $: {
-    if (latex.exercices.length > 0 ) {
-      console.log('title ou reference')
+    if (latex.exercices.length > 0) {
       title = title
       reference = reference
       subtitle = subtitle
@@ -115,23 +113,22 @@ import {
   onMount(async () => {
     initTE({ Carousel })
     // console.log('onMount')
-    promise = initExercices().then(()=> updateLatex())
+    promise = initExercices().then(() => updateLatex())
     downloadPicsModal = document.getElementById(
-       'downloadPicsModal'
+      'downloadPicsModal'
     ) as HTMLElement
     document.addEventListener('updateAsyncEx', updateLatex)
     mathaleaRenderDiv(divText)
     // console.log('fin onMount')
   })
 
-  beforeUpdate(async ()=>{
+  beforeUpdate(async () => {
     // console.log('beforeUpdate')
   })
 
   afterUpdate(async () => {
     // console.log('afterUpdate')
   })
-
 
   /* ============================================================================
   *
@@ -150,7 +147,6 @@ import {
    * @author sylvain
    */
   function handleActionFromDownloadPicsModal () {
-    console.log('handleActionFromDownloadPicsModal')
     const imagesFilesUrls = makeImageFilesUrls(exercices)
     downloadZip(imagesFilesUrls, 'images.zip')
     downloadPicsModal.style.display = 'none'
@@ -160,7 +156,6 @@ import {
    * Gérer l'affichage du modal : on donne la liste des images par exercice
    */
   function handleDownloadPicsModalDisplay () {
-    console.log('handleDownloadPicsModalDisplay')
     exosContentList = getExosContentList(exercices)
     picsNames = getPicsNames(exosContentList)
     downloadPicsModal.style.display = 'block'
@@ -431,7 +426,7 @@ import {
                   subtitle,
                   style,
                   nbVersions
-                }}              
+                }}
               />
               {/await}
             </div>
