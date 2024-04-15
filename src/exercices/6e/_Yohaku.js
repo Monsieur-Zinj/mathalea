@@ -64,7 +64,9 @@ export default function FabriqueAYohaku () {
       this.introduction += `<br>Compléter ${this.nbQuestions === 1 ? 'la' : 'chaque'} grille avec des ${mot} qui conviennent (plusieurs solutions possibles).<br>`
       texte = yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: this.interactif, classes: '' })
       texte += ajouteFeedback(this, i)
-      texteCorr = 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br><br>'
+      texteCorr = Case == null
+        ? 'La grille ci-dessous n\'est donnée qu\'à titre d\'exemple, il y a d\'autres solutions.<br><br>'
+        : ''
       yohaku.solution = true
       texteCorr += yohaku.representation({ numeroExercice: this.numeroExercice, question: i, isInteractif: false })
       /*
