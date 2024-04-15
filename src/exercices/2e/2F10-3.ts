@@ -14,6 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { min, max } from 'mathjs'
 import { fraction } from '../../modules/fractions'
 import { context } from '../../modules/context'
+import { abs } from '../../lib/outils/nombres'
 
 export const titre = 'Représentation graphique d\'une fonction affine'
 export const dateDeModifImportante = '06/04/2024'
@@ -40,11 +41,9 @@ export default class Representerfonctionaffine extends Exercice {
     this.nbQuestions = 3 // On complète le nb de questions
     this.tailleDiaporama = 3
     this.sup = 1
-    if (this.level === 3) {
-      this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange des deux cas précédents']
-    } else {
-      this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Valeurs entières\n2 : Valeurs entières et demis pour le coefficient directeur\n3 : Mélange des deux cas précédents']
-    }
+    this.sup2 = 1
+    this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Valeurs entières\n2 : Valeurs fractionnaires\n3 : Mélange des deux cas précédents']
+    this.besoinFormulaire2Numerique = ['Choix de la correction', 2, '1 : Avec coefficient directeur et ordonnée à l\'origine\n2 :Avec deux points']
   }
 
   nouvelleVersion (numeroExercice: number) {
@@ -54,6 +53,7 @@ export default class Representerfonctionaffine extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     let typesDeQuestionsDisponibles: (1|2)[] = []
+
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]
     }
@@ -81,14 +81,14 @@ export default class Representerfonctionaffine extends Exercice {
         case 1:
           {
             f = (x) => a * x + b
-            a = randint(0, 3, [0]) * choice([-1, 1])// coefficient non nul a de la fonction affine
+            a = randint(0, 4) * choice([-1, 1])// coefficient non nul a de la fonction affine
             b = randint(0, 3, [0]) * choice([-1, 1])// ordonnée à l'origine b non nulle de la fonction affine
             this.coefficients[i] = [a, b]
             f = (x) => a * x + b
 
             xA = 0
             yA = f(xA)
-            xB = randint(1, 3) * choice([-1, 1])// Abscisse de B
+            xB = this.sup2 === 1 ? 1 : randint(1, 3) * choice([-1, 1])// Abscisse de B
             yB = f(xB)// Ordonnée de B
 
             const A = point(xA, yA, 'A')
@@ -126,17 +126,30 @@ export default class Representerfonctionaffine extends Exercice {
             tB.epaisseur = 2
 
             texte = `$f(x)=${reduireAxPlusB(a, b)}$ <br>`
-            if (a !== 0) {
-              texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
-              texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
-              texteCorr += `Comme $f(${xA})=${yA}$, on a  $A(${xA};${yA}) \\in \\mathcal{C_f}$.<br>`
-              texteCorr += 'On cherche un deuxième point, et on prend un antécédent au hasard :<br>'
-              texteCorr += `Soit $x=${xB}$ :<br>`
-              texteCorr += `On calcule : $f(${xB})=${a} \\times ${ecritureParentheseSiNegatif(xB)}${ecritureAlgebrique(b)}=${yB}$.<br>`
-              texteCorr += `On en déduit que $B(${xB};${yB}) \\in \\mathcal{C_f}$.<br>`
+            texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
+            if (this.sup2 === 1) {
+              if (a !== 0) {
+                texteCorr += `La droite a pour équation $y=${reduireAxPlusB(a, b)}$. <br>
+              L'ordonnée à l'origine est $${b}$, on place donc le point $A$ de coordonnées $(0\\,;\\,${b})$.<br>
+             Le coefficient directeur est égal à $${a}$. En se décalant d'une unité vers la droite à partir du point $A$, on ${a > 0 ? 'monte' : 'descend'} de $${abs(a)}$ ${a === 1 || a === -1 ? 'unité' : 'unités'}. <br>
+             On obtient alors le point $B$. <br>
+             On trace la droite $(AB)$.`
+              } else {
+                texteCorr += `Il s'agit d'une fonction affine particulière constante ($f(x)=0x${ecritureAlgebrique(b)}$).<br>
+              L'ordonnée à l'origine est $${b}$, on place donc le point $A$ de coordonnées $(0\\,;\\,${b})$.<br>
+              Le coefficient directeur de la droite est nul, on trace la droite horizontale qui passe par $A$.`
+              }
             } else {
-              texteCorr = 'On observe que $f$ est une fonction constante.<br>'
-              texteCorr += `Sa représentation graphique est donc une droite parallèle à l'axe des abscisses, d'équation $y=${yA}$.<br>`
+              if (a !== 0) {
+                texteCorr += `Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>
+                Comme $f(${xA})=${yA}$, on a  $A(${xA};${yA}) \\in \\mathcal{C_f}$.<br>
+                On cherche un deuxième point, et on prend un antécédent au hasard :<br>
+                Soit $x=${xB}$ :<br>On calcule : $f(${xB})=${a} \\times ${ecritureParentheseSiNegatif(xB)}${ecritureAlgebrique(b)}=${yB}$.<br>
+                On en déduit que $B(${xB};${yB}) \\in \\mathcal{C_f}$.<br>`
+              } else {
+                texteCorr = 'On observe que $f$ est une fonction constante.<br>'
+                texteCorr += `Sa représentation graphique est donc une droite parallèle à l'axe des abscisses, d'équation $y=${yA}$.<br>`
+              }
             }
             // @ts-expect-error mathalea2d n'est pas typé
             texteCorr += mathalea2d(cadreFenetreSvg,
@@ -155,7 +168,7 @@ export default class Representerfonctionaffine extends Exercice {
             }
             while (pgcd(a, d) !== 1) {
               a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
-              b = randint(-5, 5, [0]) // ordonnée à l'origine non nulle
+              b = randint(-4, 4, [0]) // ordonnée à l'origine non nulle
               d = randint(2, 5)
             }
             f = (x) => a / d * x + b
@@ -187,14 +200,20 @@ export default class Representerfonctionaffine extends Exercice {
             }
 
             texte = `$f(x)=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$ <br>`
-
             texteCorr = 'On sait que la représentation graphique d\'une fonction affine est une droite.<br>'
-            texteCorr += 'Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>'
-            texteCorr += `Comme $f(${xA})=${yA}$, on a : $A(${xA};${yA}) \\in \\mathcal{C_f}$.<br>`
-            texteCorr += 'On cherche un deuxième point, et on prend un antécédent qui facilite les calculs :<br>'
-            texteCorr += `Par exemple $x=${xB}$ :<br>`
-            texteCorr += `On calcule : $f(${xB})=${texFractionReduite(a, d)} \\times ${ecritureParentheseSiNegatif(xB)}${ecritureAlgebrique(b)}=${yB}$.<br>`
-            texteCorr += `On en déduit que $B(${xB};${yB}) \\in \\mathcal{C_f}$.<br>`
+            if (this.sup2 === 1) {
+              texteCorr += `La droite a pour équation $y=${texFractionReduite(a, d)}x ${ecritureAlgebrique(b)}$. <br>
+              L'ordonnée à l'origine est $${b}$, on place donc le point $A$ de coordonnées $(0\\,;\\,${b})$.<br>
+             Le coefficient directeur est égal à $${texFractionReduite(a, d)}$. En se décalant de $${d}$ unités vers la droite à partir du point $A$, on ${a > 0 ? 'monte' : 'descend'} de $${abs(a)}$  ${a === 1 || a === -1 ? 'unité' : 'unités'}. <br>
+             On obtient alors le point $B$. <br>
+             On trace la droite $(AB)$.`
+            } else {
+              texteCorr += `Il suffit donc de déterminer les coordonnées de deux points pour pouvoir représenter $f$.<br>
+            Comme $f(${xA})=${yA}$, on a : $A(${xA};${yA}) \\in \\mathcal{C_f}$.<br>
+            On cherche un deuxième point, et on prend un antécédent qui facilite les calculs :<br>
+            Par exemple $x=${xB}$ :<br>
+            On calcule : $f(${xB})=${texFractionReduite(a, d)} \\times ${ecritureParentheseSiNegatif(xB)}${ecritureAlgebrique(b)}=${yB}$.<br>On en déduit que $B(${xB};${yB}) \\in \\mathcal{C_f}$.<br>`
+            }
 
             tA = tracePoint(A1, 'red') // Variable qui trace les points avec une croix
             lA = labelPoint(A1, 'red')// Variable qui trace les nom s A et B
@@ -207,7 +226,6 @@ export default class Representerfonctionaffine extends Exercice {
               cadreFenetreSvg,
               monRepere, droiteAB, tA, lA, tB, lB, textO)
             // On trace le graphique
-            texteCorr += `<br>${texteGras('Remarque')} : pour tracer la droite, on peut aussi utiliser le coefficient directeur de la droite ($${texFractionReduite(a, d)}$) et son ordonnée à l'origine ($${b}$).<br>`
           }
           break
       }
