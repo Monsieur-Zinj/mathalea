@@ -210,108 +210,118 @@ export class Yohaku {
      * @returns {string}
      */
   representation ({ numeroExercice, question, isInteractif, classes = '' }:{numeroExercice: number, question: number, isInteractif: boolean, classes: string}) {
+    const dimension = this.taille
+    const largeurARemplir = this.taille + 1 // 1 de plus que dimension pour la colonne/ligne résultat.
+    // première case ; l'opération
     const tabEnteteColonnes = [this.operation === 'addition' ? '+' : '\\times']
     const couleur = context.isHtml ? '' : '\\cellcolor{lightgray}'
-    for (let i = 0; i < this.taille; i++) {
+    // suite des entêtes de colonnes
+    for (let i = 0; i < dimension; i++) {
       tabEnteteColonnes.push(`\\text{Colonne ${i + 1}}`)
     }
     tabEnteteColonnes.push(`\\text{${this.operation === 'addition' ? 'Sommes' : 'Produits'}}`)
-    const laCase = this.Case == null ? null : (this.Case % this.taille) + (Math.floor(this.Case / this.taille) * (this.taille + 1))
-
+    // Les entêtes de lignes
     const tabEnteteLignes: string[] = []
-    for (let i = 0; i < this.taille; i++) {
+    for (let i = 0; i < dimension; i++) {
       tabEnteteLignes.push(`\\text{Ligne ${i + 1}}`)
     }
     tabEnteteLignes.push(`\\text{${this.operation === 'addition' ? 'Sommes' : 'Produits'}}`)
-
+    // Y a-t-il une case prédéfinie ?
+    const laCase = this.Case == null
+      ? null
+      : (this.Case % dimension) + (Math.floor(this.Case / dimension) * (largeurARemplir))
+    // La partie centrale du tableau : dimension + 1 pour les résultats.
     const tabLignes: string[] = []
-    let j = 0
-    let k = 0
-    for (let i = 0; i < (this.taille + 1) ** 2; i++) {
-      if (this.solution) {
-        if (i % (this.taille + 1) < this.taille) {
-          if (i < (this.taille + 1) * (this.taille)) {
+    let j = 0 // Pour indexer le numéro de ligne
+    let k = 0 // Pour indexer les valeurs utilisées de la grille
+    for (let i = 0; i < (largeurARemplir) ** 2; i++) { // i parcourt la partie centrale (dimension+1)²
+      if (this.solution) { // On remplit toutes les cases avec les valeurs stockées
+        if (i % (largeurARemplir) < dimension) {
+          if (i < (largeurARemplir) * (dimension)) {
             const cellule = this.cellules[k]
             tabLignes.push(cellule)
             k++
           } else {
-            if (j < this.taille * 2) {
-              tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+            if (j < dimension * 2) {
+              tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
               j++
             }
           }
         } else {
-          if (j < this.taille * 2) {
-            tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+          if (j < dimension * 2) {
+            tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
             j++
           }
         }
-      } else {
-        if (this.Case == null) {
-          if (this.cellulesPreremplies[k] != null) {
-            if (i % (this.taille + 1) < this.taille) {
-              if (i < (this.taille + 1) * (this.taille)) {
+      } else { // Ici on met des chaines vides et éventuellement la case prédéfinie pour rendre la solution unique
+        if (this.Case == null) { // numéro de case aléatoire prédéfinie undefined
+          if (this.cellulesPreremplies[k] != null) { // Il peut y avoir des cases prédéfinies quand même par exemple 3 sur 4 pour une CAN à une réponse
+            if (i % (largeurARemplir) < dimension) {
+              if (i < (largeurARemplir) * (dimension)) {
                 tabLignes.push(this.cellulesPreremplies[k])
                 k++
               } else {
-                if (j < this.taille * 2) {
-                  tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+                if (j < dimension * 2) {
+                  tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
                   j++
                 }
               }
             } else {
-              if (j < this.taille * 2) {
-                tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+              if (j < dimension * 2) {
+                tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
                 j++
               }
             }
-          } else {
-            if (i % (this.taille + 1) < this.taille) {
-              if (i < (this.taille + 1) * (this.taille)) {
+          } else { // On met une chaine vide donc case à compléter
+            if (i % (largeurARemplir) < dimension) {
+              if (i < (largeurARemplir) * (dimension)) {
                 tabLignes.push('')
+                k++
               } else {
-                if (j < this.taille * 2) {
-                  tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+                if (j < dimension * 2) {
+                  tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
                   j++
                 }
               }
             } else {
-              if (j < this.taille * 2) {
-                tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+              if (j < dimension * 2) {
+                tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
                 j++
               }
             }
           }
         } else {
-          if (i % (this.taille + 1) < this.taille) {
+          if (i % (largeurARemplir) < dimension) {
             if (i === laCase) {
               const cellule = this.cellules[k]
               k++
               tabLignes.push(cellule)
             } else {
-              if (i < (this.taille + 1) * (this.taille)) {
+              if (i < (largeurARemplir) * (dimension)) {
                 if (this.cellulesPreremplies[k] != null) {
                   tabLignes.push(this.cellulesPreremplies[k])
                   k++
                 } else {
                   tabLignes.push('')
+                  k++
                 }
               } else {
-                if (j < this.taille * 2) {
-                  tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+                if (j < dimension * 2) {
+                  tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
                   j++
                 }
               }
             }
           } else {
-            if (j < this.taille * 2) {
-              tabLignes.push(`${couleur}${this.resultats[(j + this.taille) % (this.taille * 2)]}`)
+            if (j < dimension * 2) {
+              tabLignes.push(`${couleur}${this.resultats[(j + dimension) % (dimension * 2)]}`)
               j++
             }
           }
         }
       }
     }
+    // dernière case
     tabLignes.push(`${context.isHtml ? '' : couleur}///////`)
     if (context.isHtml && isInteractif) {
       const tab = AddTabDbleEntryMathlive.create(numeroExercice, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEnteteColonnes, tabEnteteLignes, tabLignes), classes + ' ' + this.clavier, isInteractif, {})
