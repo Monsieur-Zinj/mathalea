@@ -793,7 +793,7 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
         }
       }
       if (Array.isArray(correctionInteractif)) {
-        correctionInteractif.map(c => c.replaceAll('dfrac', 'frac')).replace('bigcup', 'cup')
+        correctionInteractif.map(c => c.replaceAll('dfrac', 'frac').replace('bigcup', 'cup'))
       } else {
         correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac').replace('bigcup', 'cup')
       }
