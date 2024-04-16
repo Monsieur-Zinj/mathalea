@@ -76,9 +76,11 @@ class AgrandirReduireFigure extends Exercice {
     let iiAMC // Cet indice permet de gérer les numéros de champs AMC car ces champs ne sont pas de nombre égal selon les listeTypeQuestions[i].
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200;) {
       let texte, texteCorr, absBFinal, coeffFinal, longueurMax
+      const indexQuestion = ii
       do {
         texte = ''
         texteCorr = ''
+        ii = indexQuestion
         const propositionsAMC = []
         iiAMC = 0
         const objets = []
@@ -157,6 +159,7 @@ class AgrandirReduireFigure extends Exercice {
                   }
                 }]
               }
+              iiAMC++
             }
             texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
             if (choixAgrandissementOuReduction >= 4) {
@@ -247,6 +250,7 @@ class AgrandirReduireFigure extends Exercice {
                   }
                 }]
               }
+              iiAMC++
             }
             texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
             if (choixAgrandissementOuReduction >= 4) {
@@ -387,6 +391,7 @@ class AgrandirReduireFigure extends Exercice {
                   }
                 }]
               }
+              iiAMC++
             }
             texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
             if (choixAgrandissementOuReduction >= 4) {
@@ -512,6 +517,7 @@ class AgrandirReduireFigure extends Exercice {
                   }
                 }]
               }
+              iiAMC++
             }
             texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} implique de multiplier toutes les longueurs par un coefficient de proportionnalité. Trouvons ce coefficient.<br>`
             texteCorr += `Pour trouver ce coefficient, divisons la longueur connue du futur triangle par sa longueur associée dans le triangle actuel : $${texNombre(reponse2)} \\div ${absD} = ${coefAgrandissement[choixAgrandissementOuReduction]}$. Le coefficient de proportionnalité est donc $${coefAgrandissement[choixAgrandissementOuReduction]}$.<br>`
@@ -637,6 +643,7 @@ class AgrandirReduireFigure extends Exercice {
                   }
                 }]
               }
+              iiAMC++
             }
             texteCorr = `Effectuer un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ implique de multiplier toutes les longueurs par ce coefficient`
             if (choixAgrandissementOuReduction >= 4) {
