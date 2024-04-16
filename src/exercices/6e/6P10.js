@@ -10,16 +10,16 @@ import { context } from '../../modules/context.js'
 import Decimal from 'decimal.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+
 export const titre = 'Reconnaître une situation de proportionnalité'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = true
 export const amcType = 'qcmMono'
-
+export const dateDeModifImportante = '16/04/2024'
 /**
  * Exercice sur la notion de proportionnalité (ou pas)
  * @author Jean-Claude Lhote
- * référence 6P10
  */
 export const uuid = '850d5'
 export const ref = '6P10'
@@ -37,6 +37,7 @@ export default function ProportionnalitePasProportionnalite () {
   this.nbColsModifiable = false
   this.nbColsCorrModifiable = false
   this.sup = 6
+  this.sup2 = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -44,33 +45,12 @@ export default function ProportionnalitePasProportionnalite () {
     this.autoCorrection = []
     let bonneReponse
 
-    this.nbQuestions > 1 ? this.consigne = 'Répondre aux questions posées en justifiant.' : this.consigne = 'Répondre à la question posée en justifiant.'
+    this.consigne = this.interactif ? 'Cocher la bonne réponse.' : this.nbQuestions > 1 ? 'Répondre aux questions posées en justifiant.' : 'Répondre à la question posée en justifiant.'
     const listeIndexDisponibles = [0, 1, 2, 3, 4]
     const listeIndex = combinaisonListes(
       listeIndexDisponibles,
       this.nbQuestions
     )
-    /*
-    let listeChoixDisponibles = []
-    if (!this.sup || this.sup === 'NaN') { // Si aucune liste n'est saisie
-      listeChoixDisponibles = [1, 2, 3, 4, 5]
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est qu'il y a qu'une expression
-        listeChoixDisponibles[0] = this.sup
-      } else {
-        listeChoixDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < listeChoixDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          listeChoixDisponibles[i] = contraindreValeur(1, 6, parseInt(listeChoixDisponibles[i]), 6)
-        }
-      }
-    }
-    if (compteOccurences(listeChoixDisponibles, 6) > 0) listeChoixDisponibles = rangeMinMax(1, 5) // Teste si l'utilisateur a choisi tout
-
-    const listeChoix = combinaisonListes(
-      listeChoixDisponibles,
-      this.nbQuestions
-    )
-      */
 
     const listeChoix = gestionnaireFormulaireTexte({
       max: 5,
@@ -180,7 +160,7 @@ export default function ProportionnalitePasProportionnalite () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      switch (parseInt(listeChoix[i])) {
+      switch (listeChoix[i]) {
         case 1: // Achat
           if (listeProportionnelOuPas[compteurProportionnelsOuPas]) {
             index1 = listeIndex[i]
@@ -195,7 +175,6 @@ export default function ProportionnalitePasProportionnalite () {
             p = y * randint(2, 5)
             z = pu.mul(p)
             texte = `${prenoms[0]} achète ${listeDeLieux[index1]} des ${objet}.<br>`
-            // texte += parseInt('p')
             texte += `Elle  repart avec ${y} ${objet} pour $${texPrix(somme)}$${sp()}€.<br> ${prenoms[1]} achète quant à lui, au même endroit ${p} ${objet} pour $${texPrix(z)}$${sp()}€.<br>`
             texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée  ?<br>`
             texteCorr = `${prenoms[0]} dépense $${miseEnEvidence(texPrix(somme), 'blue')}$${sp()}€.<br>`
@@ -332,12 +311,14 @@ export default function ProportionnalitePasProportionnalite () {
             {
               texte: 'non',
               statut: bonneReponse !== 'oui'
-            },
-            {
-              texte: 'je ne sais pas',
-              statut: false
             }
           ]
+          if (this.sup2) {
+            this.autoCorrection[i].propositions.push({
+              texte: 'je ne sais pas',
+              statut: false
+            })
+          }
           if (this.interactif) {
             texte += propositionsQcm(this, i).texte
           }
@@ -352,4 +333,5 @@ export default function ProportionnalitePasProportionnalite () {
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
   this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Achat\n2 : Distance\n3 : Âge\n4 : Épidémie\n5 : Catalogue (tableau de proportionnalité)\n6 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Avec \'je ne sais pas\' dans le QCM']
 }
