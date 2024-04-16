@@ -11,7 +11,8 @@ import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { intervalsCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -566,7 +567,7 @@ export default function ExerciceInequationProduit () {
             correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`
           }
         }
-        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac').replace('bigcup', 'cup')
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       // Génère la consigne (texte) et la correction (texteCorr) pour les questions de type '(ax+b)²(cx+d)<0'                                   Type 5        //
@@ -673,19 +674,18 @@ export default function ExerciceInequationProduit () {
             ]
           }
         }
-        if (Array.isArray(correctionInteractif)) {
-          for (let kk = 0; kk < correctionInteractif.length; kk++) {
-            correctionInteractif[kk] = correctionInteractif[kk].replaceAll('dfrac', 'frac')
-          }
-        } else {
-          correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
-        }
       }
-
+      if (Array.isArray(correctionInteractif)) {
+        for (let kk = 0; kk < correctionInteractif.length; kk++) {
+          correctionInteractif[kk] = correctionInteractif[kk].replaceAll('dfrac', 'frac')
+        }
+      } else {
+        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+      }
       if (this.interactif && !context.isAmc) {
         texte += `<br> ${texteGras('Saisir S, l\'ensemble des solutions de cette inéquation.')}${sp(10)}`
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur50 lycee nospacebefore', { texteAvant: '<br>S = ' })
-        setReponse(this, i, correctionInteractif, { formatInteractif: 'texte' })
+        handleAnswers(this, i, { reponse: { value: correctionInteractif, compare: intervalsCompare } }, { formatInteractif: 'mathlive' })
         if (i === 0) {
           texte += lampeMessage({
             titre: 'Quelques commandes pratiques pour le clavier : ',

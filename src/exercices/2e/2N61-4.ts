@@ -6,9 +6,10 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outil
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { intervalsCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -792,13 +793,13 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
         }
       }
       if (Array.isArray(correctionInteractif)) {
-        correctionInteractif.map(c => c.replaceAll('dfrac', 'frac'))
+        correctionInteractif.map(c => c.replaceAll('dfrac', 'frac')).replace('bigcup', 'cup')
       } else {
-        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac')
+        correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac').replace('bigcup', 'cup')
       }
       if (this.interactif && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: '<br>S = ' })
-        setReponse(this, i, correctionInteractif, { formatInteractif: 'texte' })
+        handleAnswers(this, i, { reponse: { value: correctionInteractif, compare: intervalsCompare } }, { formatInteractif: 'mathlive' })
       }
       if (this.questionJamaisPosee(i, a, b, c, e, d)) {
         this.listeQuestions.push(texte)

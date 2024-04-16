@@ -666,7 +666,7 @@ export function intervalsCompare (input: string, goodAnswer: string) {
   }
   const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
   input = clean(input)
-  goodAnswer = clean(goodAnswer)
+  goodAnswer = clean(goodAnswer).replaceAll('bigcup', 'cup').replaceAll('bigcap', 'cap')
   let isOk1: boolean = true
   let isOk2: boolean = true
   let feedback: string = ''
