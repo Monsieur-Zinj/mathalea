@@ -34,6 +34,10 @@ export default function can6eAll () {
     if (this.debug) console.log(str)
   }
 
+  this.nouvelleVersionWrapper = function () {
+    this.nouvelleVersion()
+  }
+
   this.nouvelleVersion = function () {
     this.questionJamaisPosee(0, this.seed, this.sup, this.sup2, this.sup3, this.interactif, this.nbQuestions)
     if (this.lastCallback === this.listeArguments[0]) {

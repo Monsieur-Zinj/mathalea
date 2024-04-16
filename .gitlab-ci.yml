@@ -13,6 +13,7 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
+- playwright-pdf
 - test
 - build-projet
 - playwright-testCanEleve
@@ -23,6 +24,7 @@ sast:
   stage: test
 include:
 - template: Security/SAST.gitlab-ci.yml
+
 
 default:
   image: node:18.16.0
@@ -118,6 +120,26 @@ testCan2e1e:
   extends: .testCI
   script:
     - NIV=can/2e^can/1e pnpm test:e2e:console_errors
+
+testCan2e1ePDF:
+  extends: .testCIPDF
+  script:
+    - NIV=can/2e^can/1e pnpm test:e2e:pdfexports
+
+testCan6e5e4e3ePDF:
+  extends: .testCIPDF
+  script:
+    - NIV=can/6e^can/5e^can/4e^can/3e pnpm test:e2e:pdfexports
+
+testDNB20132017PDF:
+  extends: .testCIPDF
+  script:
+    - NIV=dnb_2013^dnb_2014^dnb_2015^dnb_2016^dnb_2017 pnpm test:e2e:pdfexports
+
+testDNB20182023PDF:
+  extends: .testCIPDF
+  script:
+    - NIV=dnb_2018^dnb_2019^dnb_2020^dnb_2021^dnb_2022^dnb_2023 pnpm test:e2e:pdfexports
 
 test6ePDF:
   extends: .testCIPDF

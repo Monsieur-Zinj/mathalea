@@ -21,11 +21,13 @@ import {
     getPicsNames,
     doesLatexNeedsPics,
     makeImageFilesUrls,
-    type latexFileType
+    type latexFileType,
+    type LatexFileInfos
+
   } from '../../../lib/Latex'
   import Button from '../../shared/forms/Button.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
-  import { afterUpdate, beforeUpdate, onMount } from 'svelte'
+  import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import ModalMessageBeforeAction from '../../shared/modal/ModalMessageBeforeAction.svelte'
   import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'
   import { showDialogForLimitedTime } from '../../../lib/components/dialogs.js'
@@ -34,18 +36,21 @@ import {
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
 
-  let nbVersions = 1
-  let title = ''
-  let reference = ''
-  let subtitle = ''
-  let style:
-    | 'Coopmaths'
-    | 'Classique'
-    | 'ProfMaquette'
-    | 'ProfMaquetteQrcode'
-    | 'Can' = 'Coopmaths'
-  const policeOptions: 'StandardPolice'| 'DysPolice' = 'StandardPolice'
-  const correctionOptions: 'AvecCorrection' | 'SansCorrection' = 'AvecCorrection'
+  /**
+   * Toutes les variables configurables par l'interface WEB
+   * qui adaptent la sortie PDF
+   */
+  const latexFileInfos : LatexFileInfos = {
+    title : '',
+    reference: '',
+    subtitle: '',
+    style: 'Coopmaths',
+    fontOption: 'StandardFont',
+    correctionOption: 'AvecCorrection',
+    qrcodeOption: 'SansQrcode',
+    nbVersions: 1
+  }
+
   const imgStylePartialUrls = {
     Coopmaths: 'images/exports/export-coopmaths',
     Classique: 'images/exports/export-classique',
@@ -68,6 +73,7 @@ import {
   const latex = new Latex()
 
   async function initExercices () {
+    // console.log('initExercices')
     mathaleaUpdateExercicesParamsFromUrl()
     const interfaceParams = get(exercicesParams)
     interfaceParams.forEach(e => { e.interactif = '0' })
@@ -75,51 +81,122 @@ import {
     exercices = await mathaleaGetExercicesFromParams(interfaceParams)
     latex.addExercices(exercices.filter((ex) => ex.typeExercice !== 'html'))
     isExerciceStaticInTheList = latex.isExerciceStaticInTheList()
-    latexFile.contents = await latex.getContents(style, nbVersions)
+    latexFile.contents = await latex.getContents(latexFileInfos)
     picsWanted = doesLatexNeedsPics(latexFile.contents)
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
   }
 
-  async function updateLatex () {
-    try {
-      // console.log('updateLatex')
-      latexFile = await latex.getFile({
-        title,
-        reference,
-        subtitle,
-        style,
-        nbVersions,
-        withPreamble: false
+
+  async function updateLatexWithAbortController () {
+    const clone = UpdateController.update()
+    if (clone.signal?.aborted) {
+      return Promise.reject(new DOMException('Aborted in updateLatexWithAbortController', 'AbortError'))
+    }
+
+    return new Promise<void>(async (resolve, reject) => {
+      // Listen for abort event on signal
+      const rej = () => {
+        log('reject')
+        clone.signal?.removeEventListener('abort', rej)
+        reject(new DOMException('Aborted in updateLatexWithAbortController', 'AbortError'))
+      }
+      clone.signal?.addEventListener('abort', rej)
+      // Something fake async
+      await updateLatex(clone).then(()=> {
+        clone.signal?.removeEventListener('abort', rej)
+        log('Promise resolu')
+        resolve()
+      }).catch(err => {
+        reject(new DOMException(`Aborted : ${err.message}`, 'AbortError'))
       })
-      // console.log('fin updateLatex')
+    })
+  }
+
+  async function updateLatex (clone : LatexFileInfos ) {
+    try {
+      log('updateLatex')
+      // await new Promise((resolve) => setTimeout(resolve, 10000))
+      latexFile = await latex.getFile(clone)    
+      log('fin updateLatex')
     } catch (error) {
+      if ( error instanceof DOMException && error.name === 'AbortError'){
+        // nouvelle demande de fichier LATEX demandée
+        throw error
+      }
       console.error('Erreur lors de la création du code LaTeX :', error)
       latexFile.latexWithoutPreamble = '% Erreur à signaler'
     }
   }
 
+  class UpdateController {
+    static controller : AbortController | undefined
+    static update(){
+      if (UpdateController.controller === undefined) {
+        UpdateController.controller = new AbortController()
+      } else {
+        UpdateController.controller.abort()
+        UpdateController.controller = new AbortController()
+      }
+      const clone = structuredClone(latexFileInfos)
+      clone.signal = UpdateController.controller.signal
+      return clone
+    } 
+  }
+
+  let debug = false
+  function log (str : string) {
+    if (debug) {
+      console.log(str)
+    }
+  }
+  
   $: {
-    if (latex.exercices.length > 0) {
-      title = title
-      reference = reference
-      subtitle = subtitle
-      style = style
-      nbVersions = nbVersions
-      promise = updateLatex()
-      // promise = new Promise((resolve) => setTimeout(resolve, 10000))
+    if (latex.exercices.length > 0 ) {
+      log('update')      
+      latexFileInfos.title = latexFileInfos.title
+      latexFileInfos.reference = latexFileInfos.reference
+      latexFileInfos.subtitle = latexFileInfos.subtitle
+      latexFileInfos.style = latexFileInfos.style
+      latexFileInfos.nbVersions = latexFileInfos.nbVersions
+      latexFileInfos.fontOption = latexFileInfos.fontOption
+      latexFileInfos.correctionOption = latexFileInfos.correctionOption
+      latexFileInfos.qrcodeOption = latexFileInfos.qrcodeOption
+      promise = updateLatexWithAbortController().catch(err => {
+        if (err.name === 'AbortError') {
+          log('Promise Aborted');
+        } else {
+          log('Promise Rejected');
+        }
+      })
     }
   }
 
+
+  async function forceUpdate () {
+    log('forceUpdate')
+    latexFileInfos.title = latexFileInfos.title
+  }
+  
   onMount(async () => {
     initTE({ Carousel })
     // console.log('onMount')
-    promise = initExercices().then(() => updateLatex())
+    promise = initExercices().then(()=> updateLatexWithAbortController()).catch(err => {
+        if (err.name === 'AbortError') {
+          log('Promise Aborted');
+        } else {
+          log('Promise Rejected');
+        }
+      })
     downloadPicsModal = document.getElementById(
       'downloadPicsModal'
     ) as HTMLElement
-    document.addEventListener('updateAsyncEx', updateLatex)
+    document.addEventListener('updateAsyncEx', forceUpdate)
     mathaleaRenderDiv(divText)
     // console.log('fin onMount')
+  })
+
+  onDestroy(async() => {
+    document.removeEventListener('updateAsyncEx', forceUpdate)
   })
 
   beforeUpdate(async () => {
@@ -147,6 +224,7 @@ import {
    * @author sylvain
    */
   function handleActionFromDownloadPicsModal () {
+    // console.log('handleActionFromDownloadPicsModal')
     const imagesFilesUrls = makeImageFilesUrls(exercices)
     downloadZip(imagesFilesUrls, 'images.zip')
     downloadPicsModal.style.display = 'none'
@@ -156,6 +234,7 @@ import {
    * Gérer l'affichage du modal : on donne la liste des images par exercice
    */
   function handleDownloadPicsModalDisplay () {
+    // console.log('handleDownloadPicsModalDisplay')
     exosContentList = getExosContentList(exercices)
     picsNames = getPicsNames(exosContentList)
     downloadPicsModal.style.display = 'block'
@@ -242,7 +321,7 @@ import {
             title="Style"
             bgColor="bg-coopmaths-canvas-dark"
             orientation={'col'}
-            bind:valueSelected={style}
+            bind:valueSelected={latexFileInfos.style}
             labelsValues={[
               { label: 'Coopmaths', value: 'Coopmaths' },
               { label: 'Classique', value: 'Classique' },
@@ -258,16 +337,17 @@ import {
               }
             ]}
           />
-          <!--<h6
+          {#if latexFileInfos.style==='ProfMaquette'}
+          <h6
             class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
           >
             Options
           </h6>
           <FormRadio
-            title="CorrectionOptions"
+            title="correctionOption"
             bgColor="bg-coopmaths-canvas-dark"
             orientation={'col'}
-            bind:valueSelected={correctionOptions}
+            bind:valueSelected={latexFileInfos.correctionOption}
             labelsValues={[
               { label: 'Avec correction', value: 'AvecCorrection' },
               { label: 'Sans correction', value: 'SansCorrection' }
@@ -279,15 +359,31 @@ import {
             Police de caractères
           </h6>
           <FormRadio
-            title="PoliceOptions"
+            title="fontOption"
             bgColor="bg-coopmaths-canvas-dark"
             orientation={'col'}
-            bind:valueSelected={policeOptions}
+            bind:valueSelected={latexFileInfos.fontOption}
             labelsValues={[
-              { label: 'Standard', value: 'StandardPolice' },
-              { label: 'Dys', value: 'DysPolice' }
+              { label: 'Standard', value: 'StandardFont' },
+              { label: 'Dys', value: 'DysFont' }
             ]}
-          />-->
+          />
+          <h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+           Qrcode
+          </h6>
+          <FormRadio
+            title="qrcodeOption"
+            bgColor="bg-coopmaths-canvas-dark"
+            orientation={'col'}
+            bind:valueSelected={latexFileInfos.qrcodeOption}
+            labelsValues={[
+              { label: 'Avec', value: 'AvecQrcode' },
+              { label: 'Sans', value: 'SansQrcode' }
+            ]}
+          />
+          {/if}
         </div>
         <!-- Carousel de vignette pour les aperçus -->
         <div class="flex justify-center w-full md:w-1/3">
@@ -307,8 +403,8 @@ import {
                 data-te-carousel-active
               >
                 <img
-                  src={`${imgStylePartialUrls[style]}-thumb1.png`}
-                  alt="{style} image-1"
+                  src={`${imgStylePartialUrls[latexFileInfos.style]}-thumb1.png`}
+                  alt="{latexFileInfos.style} image-1"
                   class="block h-auto w-full rounded-r-lg"
                 />
               </div>
@@ -318,8 +414,8 @@ import {
                 data-te-carousel-item
               >
                 <img
-                  src={`${imgStylePartialUrls[style]}-thumb2.png`}
-                  alt="{style} image-2"
+                  src={`${imgStylePartialUrls[latexFileInfos.style]}-thumb2.png`}
+                  alt="{latexFileInfos.style} image-2"
                   class="block h-auto w-full rounded-r-lg"
                 />
               </div>
@@ -334,29 +430,29 @@ import {
             type="text"
             id="export-latex-titre-input"
             class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder={style === 'Can' ? 'Course aux nombres' : 'Titre'}
-            bind:value={title}
-            disabled={style === 'Can'}
+            placeholder={latexFileInfos.style === 'Can' ? 'Course aux nombres' : 'Titre'}
+            bind:value={latexFileInfos.title}
+            disabled={latexFileInfos.style === 'Can'}
           />
           <input
             type="text"
             id="export-latex-reference-input"
             class=" border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder={style === 'Coopmaths' || style === 'ProfMaquetteQrcode' || style === 'ProfMaquette'
+            placeholder={latexFileInfos.style === 'Coopmaths' || latexFileInfos.style === 'ProfMaquetteQrcode' || latexFileInfos.style === 'ProfMaquette'
               ? 'Référence'
               : 'Haut de page gauche'}
-            bind:value={reference}
-            disabled={style === 'Can'}
+            bind:value={latexFileInfos.reference}
+            disabled={latexFileInfos.style === 'Can'}
           />
           <input
             type="text"
             id="export-latex-soustitre-input"
             class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
-            placeholder={style === 'Coopmaths' || style === 'ProfMaquetteQrcode' || style === 'ProfMaquette'
+            placeholder={latexFileInfos.style === 'Coopmaths' || latexFileInfos.style === 'ProfMaquetteQrcode' || latexFileInfos.style === 'ProfMaquette'
               ? 'Sous-titre / Chapitre'
               : 'Pied de page droit'}
-            bind:value={subtitle}
-            disabled={style === 'Can'}
+            bind:value={latexFileInfos.subtitle}
+            disabled={latexFileInfos.style === 'Can'}
           />
         </div>
       </SimpleCard>
@@ -369,7 +465,7 @@ import {
           maxlength="2"
           min="1"
           max="20"
-          bind:value={nbVersions}
+          bind:value={latexFileInfos.nbVersions}
         />
       </SimpleCard>
     </div>
@@ -397,7 +493,7 @@ import {
             </div>
             <div slot="button1">
               {#await promise}
-                <p>...Chargement en cours</p>
+                <p>Chargement en cours...</p>
               {:then}
               <ButtonOverleaf
                 class="flex w-full flex-col justify-center"
@@ -415,18 +511,12 @@ import {
             </div>
             <div slot="button1">
               {#await promise}
-                <p>...Chargement en cours</p>
+                <p>Chargement en cours...</p>
               {:then}
               <ButtonCompileLatexToPDF
                 class="flex w-full flex-col justify-center"
                 {latex}
-                latexFileInfos={{
-                  title,
-                  reference,
-                  subtitle,
-                  style,
-                  nbVersions
-                }}
+                {latexFileInfos}          
               />
               {/await}
             </div>
@@ -438,7 +528,7 @@ import {
             </div>
             <div slot="button1">
               {#await promise}
-                <p>...Chargement en cours</p>
+                <p>Chargement en cours...</p>
               {:then}
               <ModalActionWithDialog
                 on:display={() => {
@@ -455,7 +545,7 @@ import {
             </div>
             <div slot="button2">
               {#await promise}
-                <p>...Chargement en cours</p>
+                <p></p>
               {:then}
               <Button
                 class="px-2 py-1 rounded-md"
@@ -467,10 +557,7 @@ import {
           </SimpleCard>
           <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
             <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
-            <div slot="button1">
-              {#await promise}
-                <p>...Chargement en cours</p>
-              {:then}
+            <div slot="button1">            
               <Button
                 class="px-2 py-1 rounded-md"
                 idLabel="downloadFullArchive"
@@ -479,12 +566,11 @@ import {
                   downloadTexWithImagesZip('coopmaths', latexFile, exercices)
                 }}
                 title="Archive complète"
-              />
-              {/await}
+              />              
             </div>
             <div slot="button2">
               {#await promise}
-                <p>...Chargement en cours</p>
+                <p></p>
               {:then}
               <Button
                 class="inline-block px-2 py-1 rounded-md"
@@ -540,7 +626,7 @@ import {
     >
       <!-- eslint-disable-next-line svelte/no-at-html-tags -->
       {@html messageForCopyPasteModal}
-      {#if style === 'ProfMaquette'}
+      {#if latexFileInfos.style === 'ProfMaquette'}
         <p class="mt-4">
           Il faut mettre à jour votre distribution LaTeX pour avoir la dernière
           version du package <em
@@ -566,7 +652,11 @@ import {
     <pre
       class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto text-xs"
       >
-      {latexFile.latexWithoutPreamble}
+      {#await promise}
+        <p>Chargement en cours...</p>
+      {:then}
+        {latexFile.latexWithoutPreamble}
+      {/await}
     </pre>
   </section>
   <footer>

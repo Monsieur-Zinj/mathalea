@@ -66,12 +66,9 @@ export default function CoeffDirecteurDroite () {
         rep = repere({ xMin: -5, yMin: -5, xMax: 5, yMax: 5 })
         this.formatInteractif = 'calcul'
         this.question = `Donner le coefficient directeur de la droite.<br><br>
-        
         `
         this.question += `
-        ${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 18, scale: 0.6, style: 'margin: auto' }, rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }))}
-        
-        <br>`
+        ${mathalea2d({ xmin: -5, ymin: -5, xmax: 5, ymax: 5, pixelsParCm: 18, scale: 0.6, style: 'margin: auto' }, rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }))}`
         this.correction = `Le coefficient directeur est $~${miseEnEvidence(`${a}`)}$.`
         this.reponse = a
 
