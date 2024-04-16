@@ -35,9 +35,9 @@ export default class PointsCourbe extends Exercice {
       B = 0.9
       AinterB = 0.18
     } else {
-      A = randint(1, 4) / 10
+      A = randint(2, 4) / 10
       B = randint(5, 9) / 10
-      AinterB = choice([A * B, A * B + choice([-0.1, 0.1, 0.01])])
+      AinterB = choice([A * B, A * B + choice([-0.05, 0.05])])
     }
     const isEqual = texNombre(AinterB, 2) === texNombre(A * B, 2)
     this.correction = `$A$ et $B$ sont indépendants si $P(A\\cap B)=P(A)\\times P(B)$.<br>
