@@ -5,7 +5,7 @@ import { egal, randint, printlatex, listeQuestionsToContenuSansNumero } from '..
 import { context } from '../../modules/context.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { calculCompare, canonicalAddCompare, developmentCompare } from '../../lib/interactif/comparisonFunctions'
 import { toutPourUnPoint } from '../../lib/interactif/mathLive.js'
@@ -177,9 +177,9 @@ export default function TableDoubleDistributivite () {
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '
       texteCorr += `Développement réduit : $${lettreDepuisChiffre(i + 1)} = ${developpements.reduit}$`
       // texteCorr += context.isHtml ? '<br>' : '\\par\\bigskip'
-      setReponse(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: calculCompare }, L1C2: { value: L1C2, compare: calculCompare }, L2C1: { value: L2C1, compare: calculCompare }, L2C2: { value: L2C2, compare: calculCompare } }, { formatInteractif: 'tableauMathlive' })
-      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: developmentCompare } })
-      handleAnswers(this, 3 * i + 2, { reponse: { value: developpements.reduit, compare: canonicalAddCompare } })
+      handleAnswers(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: calculCompare }, L1C2: { value: L1C2, compare: calculCompare }, L2C1: { value: L2C1, compare: calculCompare }, L2C2: { value: L2C2, compare: calculCompare } }, { formatInteractif: 'mathlive' })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: developmentCompare } }, { formatInteractif: 'mathlive' })
+      handleAnswers(this, 3 * i + 2, { reponse: { value: developpements.reduit, compare: canonicalAddCompare } }, { formatInteractif: 'mathlive' })
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre
