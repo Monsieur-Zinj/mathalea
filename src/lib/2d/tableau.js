@@ -340,7 +340,7 @@ export function tableau (...args) {
 export function tableauColonneLigne (tabEntetesColonnes,
   tabEntetesLignes,
   tabLignes,
-  arraystretch,
+  arraystretch = 1,
   math = true,
   exo = randint(0, 9999999),
   question = randint(0, 9999999),
@@ -519,19 +519,19 @@ export function tableau2x2 ({ L0C0, L0C1, L1C0, L1C1 }, numeroExercice, question
   } else {
     tableau = '$\\renewcommand{\\arraystretch}{1.5}\n\\begin{array}{|c|c|}\n\\hline'
     if (L0C0 != null && L0C0.content !== '') {
-      tableau += `${L0C0.background != null ? '\\cellcolor{' + L0C0.background + '}' : ''} ${L0C0.content} `
+      tableau += `${L0C0.background !== null && L0C0.background !== undefined ? '\\cellcolor{' + L0C0.background + '}' : ''} ${L0C0.content} `
     }
     tableau += ' & '
     if (L0C1 != null && L0C1.content !== '') {
-      tableau += `${L0C1.background != null ? '\\cellcolor{' + L0C0.background + '}' : ''} ${L0C1.content} `
+      tableau += `${L0C1.background != null && L0C1.background !== undefined ? '\\cellcolor{' + L0C1.background + '}' : ''} ${L0C1.content} `
     }
     tableau += '\\\\\n \\hline\n '
     if (L1C0 != null && L1C0.content !== '') {
-      tableau += `${L1C0.background != null ? '\\cellcolor{' + L0C0.background + '}' : ''} ${L1C0.content} `
+      tableau += `${L1C0.background !== null && L1C0.background !== undefined ? '\\cellcolor{' + L1C0.background + '}' : ''} ${L1C0.content} `
     }
     tableau += ' & '
     if (L1C1 != null && L1C1.content !== '') {
-      tableau += `${L1C1.background != null ? '\\cellcolor{' + L0C0.background + '}' : ''} ${L1C1.content} `
+      tableau += `${L1C1.background !== null && L1C1.background !== undefined ? '\\cellcolor{' + L1C1.background + '}' : ''} ${L1C1.content} `
     }
     tableau += '\\\\\n \\hline\n '
     tableau += '\\end{array}\n\\renewcommand{\\arraystretch}{1}$'

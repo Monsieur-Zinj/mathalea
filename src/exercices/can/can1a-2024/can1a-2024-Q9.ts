@@ -36,7 +36,7 @@ export default class EncadreRacParDeuxEntiers extends Exercice {
     const entierInf = Math.floor(Math.sqrt(nbre))
     const entierSup = Math.ceil(Math.sqrt(nbre))
     this.consigne = 'Compléter par deux entiers consécutifs : '
-    this.question = `%{champ1}\\lt \\sqrt{${texNombre(nbre, 0)}}\\lt %{champ2}`
+    this.question = `%{champ1} < \\sqrt{${texNombre(nbre, 0)}} < %{champ2}`
     this.canEnonce = 'Compléter par deux entiers consécutifs.'
     this.canReponseACompleter = `$\\ldots < \\sqrt{${texNombre(nbre, 1)}} < \\ldots$`
     this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf, compare: numberCompare }, champ2: { value: entierSup, compare: numberCompare } }

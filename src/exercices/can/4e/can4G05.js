@@ -38,15 +38,14 @@ export default function DiagonaleCarre () {
         this.question = `Calculer la valeur exacte de la longueur de la diagonale d'un carré de côté $${a}$.`
 
         this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $${a}$ et de diagonale $d$, on a :<br><br>
-    $\\begin{aligned}\n
+    $\\begin{aligned}
     d^2&=${a}^2+${a}^2\\\\
     d^2&=2\\times ${a}^2\\\\
     d&=\\sqrt{2\\times ${a}^2}
     ${reductible ? '\\\\d&=\\sqrt{{' + c2 + '}}' : '\\\\d&=' + miseEnEvidence('\\sqrt{' + c2 + '}')}
     ${reductible ? '\\\\d&=' + miseEnEvidence(texRacineCarree(c2)) : ''}
-       \\end{aligned}$
-   `
-        this.correction += texteEnCouleur(`<br> Mentalement : <br>
+       \\end{aligned}$<br>`
+        this.correction += texteEnCouleur(`Mentalement : <br>
    On calcule le double du carré du côté du carré,
    soit $2\\times ${a}^2=2\\times ${a ** 2}=${c2}$, puis on en prend la racine carrée.    `)
         this.reponse = [`\\sqrt{${c2}}`, texRacineCarree(c2)]
@@ -70,8 +69,8 @@ export default function DiagonaleCarre () {
        d^2&=${c2}\\\\
        d&=\\sqrt{${c2}}\\\\
        d&=${miseEnEvidence(texRacineCarree(c2))}
-       \\end{aligned}$`
-          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+       \\end{aligned}$<br>`
+          this.correction += texteEnCouleur(`Mentalement : <br>
        On calcule le double du carré du côté du carré, soit
        $2\\times (\\sqrt{${a}})^2=2\\times ${a}=${c2}$, puis on en prend la racine carrée, soit $${texRacineCarree(c2)}$.    `, 'blue')
         } else {
@@ -84,8 +83,8 @@ export default function DiagonaleCarre () {
        d^2&=${c2}
        ${reductible ? '\\\\d&=\\sqrt{{' + c2 + '}}' : '\\\\d&=' + miseEnEvidence('\\sqrt{' + c2 + '}')}
        ${reductible ? '\\\\d&=' + miseEnEvidence(texRacineCarree(c2)) : ''}
-       \\end{aligned}$`
-          this.correction += texteEnCouleur(`<br> Mentalement : <br>
+       \\end{aligned}$<br>`
+          this.correction += texteEnCouleur(`Mentalement : <br>
        On calcule le double du carré du côté du carré,
        soit $2\\times (\\sqrt{${a}})^2=2\\times ${a}=${c2}$, puis on en prend la racine carrée.    `, 'blue')
         }

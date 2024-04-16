@@ -48,12 +48,11 @@ export default class NomExercice extends Exercice {
      Pour écrire $${a.texFraction}$ avec le même dénominateur que $${b.texFraction}$,
      on multiplie son numérateur et son dénominateur par $${c}$.<br><br>
      $\\begin{aligned}
-     ${a.texFraction} + ${b.texFraction}=& \\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}+ ${b.texFraction}\\\\
+     ${a.texFraction} + ${b.texFraction}&= \\dfrac{${a.n}\\times ${c}}{${a.d}\\times ${c}}+ ${b.texFraction}\\\\
      &=${a.reduire(c).texFraction} + ${b.texFraction}\\\\
      &=\\dfrac{${a.n * c}+${b.n}}{${b.d}}\\\\
      &=${miseEnEvidence(`\\dfrac{${a.n * c + b.n}}{${b.d}}`)}
-     ${pgcd(a.n * c + b.n, b.d) === 1 ? '' : `\\\\&${a.sommeFraction(b).texSimplificationAvecEtapes()}`}    
-     \\end{aligned}$`
+     ${pgcd(a.n * c + b.n, b.d) === 1 ? '\\end{aligned}$' : `\\\\&${a.sommeFraction(b).texSimplificationAvecEtapes()}\\end{aligned}$`}`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

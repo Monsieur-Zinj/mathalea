@@ -9,6 +9,7 @@ import { findStatic, findUuid } from '../../helpers/filter'
 import { createIssue } from '../../helpers/issue'
 
 const logPDF = getFileLogger('exportPDF', { append: true })
+const logPackage = getFileLogger('exportPackage', { append: true })
 
 function log (...args: unknown[]) {
   lg(args)
@@ -52,8 +53,8 @@ async function getLatexFile (page: Page, urlExercice: string) {
 
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
-  const downloadPromise = page.waitForEvent('download')
-  await page.click('button#downloadFullArchive')
+  const downloadPromise = page.waitForEvent('download', { timeout: 50000 })
+  page.click('button#downloadFullArchive')
   //
   const download = await downloadPromise
 
@@ -195,9 +196,15 @@ async function testRunAllLots (filter: string) {
       const myName = 'test' + uuids[k][1]
       const f = async function (page: Page) {
         // Listen for all console logs
-        page.on('console', msg => {
-          logPDF(msg.text())
-        })
+        if (k === i) {
+          // seulement sur la première page Web, les autres c'est la même en faite
+          page.on('console', msg => {
+            logPDF(msg.text())
+            if (msg.text().includes('PACKAGETEST:')) {
+              logPackage(msg.text())
+            }
+          })
+        }
         const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
         log(`uuid=${uuids[k][0]} exo=${uuids[k][1]} i=${k} / ${uuids.length}`)
         const resultReq = await getLatexFile(page, `${hostname}?uuid=${uuids[k][0]}&id=${uuids[k][1].substring(0, uuids[k][1].lastIndexOf('.')) || uuids[k][1]}&alea=${alea}&v=latex&testCI`)
@@ -225,18 +232,23 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   log(filter)
   testRunAllLots(filter)
 } else {
-  // testRunAllLots('can')
-  // testRunAllLots('3e')
-  // testRunAllLots('4e')
-  // testRunAllLots('5e')
-  // testRunAllLots('6e')
-  // testRunAllLots('2e')
-  // testRunAllLots('1e')
+  testRunAllLots('dnb_2013')
+  testRunAllLots('dnb_2014')
+  testRunAllLots('dnb_2015')
+  testRunAllLots('dnb_2016')
+  testRunAllLots('dnb_2017')
   testRunAllLots('dnb_2018')
   testRunAllLots('dnb_2019')
   testRunAllLots('dnb_2020')
   testRunAllLots('dnb_2021')
   testRunAllLots('dnb_2022')
   testRunAllLots('dnb_2023')
-  // testRunAllLots('c3')
+  testRunAllLots('c3')
+  testRunAllLots('can')
+  testRunAllLots('3e')
+  testRunAllLots('4e')
+  testRunAllLots('5e')
+  testRunAllLots('6e')
+  testRunAllLots('2e')
+  testRunAllLots('1e')
 }

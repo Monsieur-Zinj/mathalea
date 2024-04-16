@@ -13,10 +13,10 @@
 
 export function tikzMachineMaths (nom, etape1, etape2, etape3, xLigne1, xLigne2, yLigne1, yLigne2) {
   // tous les textes sont en mode maths !!!
-
   return `
+  \\setbox0\\box\\csname@mpfootins\\endcsname
   \\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
-  \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
+  \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm,scale=0.8]
   \\draw [line width=3pt,color=frvzsz] (-4,4)-- (2,4);
   \\draw [line width=3pt,color=frvzsz] (2,4)-- (2,0);
   \\draw [line width=3pt,color=frvzsz] (2,0)-- (-4,0);
@@ -24,18 +24,19 @@ export function tikzMachineMaths (nom, etape1, etape2, etape3, xLigne1, xLigne2,
   \\draw [line width=3pt,color=frvzsz] (-4,2)-- (-5,2);
   \\draw [line width=3pt,color=frvzsz] (-5,2.4)-- (-5,1.6);
   \\draw [->,line width=3pt,color=frvzsz] (2,2) -- (3,2);
-  \\node[text width=3cm,text centered, scale=1.8] at(-1,3.5){$\\mathbf{machine\\,${nom}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-1,2.8){$\\mathbf{${etape1}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-1,2.3){$${etape2}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-1,1.6){$${etape3}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-8,2.5) {$\\mathbf{${xLigne1}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(-8,1.5) {$\\mathbf{${xLigne2}}$};
+  \\node[text centered] at(-1,3.5){\\Large $\\mathbf{machine\\,${nom}}$};
+  \\node[text centered] at(-1,2.8){\\Large $\\mathbf{${etape1}}$};
+  \\node[text centered] at(-1,2.3){\\Large $${etape2}$};
+  \\node[text width=3cm,text centered] at(-1,1.6){\\Large  $${etape3}$};
+  \\node[text width=3cm,text centered] at(-9,2.5) {\\Large  $\\mathbf{${xLigne1}}$};
+  \\node[text width=3cm,text centered] at(-9,1.5) {\\Large $\\mathbf{${xLigne2}}$};
   \\fill [line width=3pt,color=frvzsz] (-6,2) -- (-6.5,1) -- (-5.5,2) -- (-6.5,3) -- cycle;
   %\\fill [line width=3pt,color=frvzsz] (1,2) -- (0.5,1) -- (1.5,2) -- (0.5,3) -- cycle;
-  \\node[text width=3cm,text centered, scale=1.5] at(5.5,2.5) {$\\mathbf{${yLigne1}}$};
-  \\node[text width=3cm,text centered, scale=1.5] at(5.5,1.5) {$\\mathbf{${yLigne2}}$};
+  \\node[text centered] at(5.5,2.5) {\\Large  $\\mathbf{${yLigne1}}$};
+  \\node[text centered] at(5.5,1.5) {\\Large  $\\mathbf{${yLigne2}}$};
   \\fill [line width=3pt,color=frvzsz] (3.5,2) -- (3,1) -- (4,2) -- (3,3) -- cycle;
   \\end{tikzpicture}
+  \\global\\setbox\\csname@mpfootins\\endcsname\\box0
   `
 }
 
@@ -54,6 +55,7 @@ export function tikzMachineDiag (nom, xAnt, etapesExpressions) {
   let sortie = ''
   sortie += `
   \\definecolor{frvzsz}{rgb}{0.9450980392156862,0.34901960784313724,0.1607843137254902}
+  \\setbox0\\box\\csname@mpfootins\\endcsname
   \\begin{tikzpicture}[line cap=round,line join=round,>=triangle 45,x=1cm,y=1cm]
   \\draw [line width=3pt,color=frvzsz] (` + xInit + ',0.5) -- (' + (xInit + pas) + ',0.5) -- (' + (xInit + pas) + ',-0.5) -- (' + xInit + `,-0.5) -- cycle;
   \\node[text width=3cm,text centered, scale=1] at(` + (xInit + 0.5) + `,0){$${xAnt}$};
@@ -168,6 +170,7 @@ export function tikzMachineDiag (nom, xAnt, etapesExpressions) {
   }
   sortie += `
   \\end{tikzpicture}
+  \\global\\setbox\\csname@mpfootins\\endcsname\\box0
   `
   return sortie
 }
