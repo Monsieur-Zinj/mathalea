@@ -1,11 +1,16 @@
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { numberCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Encadrer un entier'
-
+export const interactifType = 'mathLive'
+export const interactifReady = true
+export const dateDeModificationImportante = '16/04/2024'
 /**
 * * Encadrer un nombre entier par deux entier consécutifs
 * * 6N11-3
@@ -60,30 +65,26 @@ function myNombres (nbChiffres) {
       sortie = mmc.toString() + mmd.toString() + mmu.toString() + mc.toString() + md.toString() + mu.toString() + c.toString() + d.toString() + u.toString()
       break
   }
-  return sortie
+  return Number(sortie)
 }
 
 // une fonction pour les correction à la precision près
 function encadrementCorr (nb, precision) {
   if (precision === 1) {
-    return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision - precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`
+    return [Math.trunc(nb / precision) * precision - precision, Math.trunc(nb / precision) * precision + precision]
   } else if (precision === 10 || precision === 100) {
     if (nb % precision === 0) {
-      return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision - precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`
+      return [Math.trunc(nb / precision) * precision - precision, Math.trunc(nb / precision) * precision + precision]
     } else {
-      return `$${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision))} < ${texNombre(nb)} < ${miseEnEvidence(texNombre(Math.trunc(nb / precision) * precision + precision))}$`
+      return [Math.trunc(nb / precision) * precision, Math.trunc(nb / precision) * precision + precision]
     }
   }
 }
 export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
   Exercice.call(this)
-  this.beta = false
-  this.sup = 1
-  if (this.beta) {
-    this.nbQuestions = 6
-  } else {
-    this.nbQuestions = 3
-  }
+  this.sup = '1'
+  this.sup2 = '2'
+  this.nbQuestions = 3
 
   this.consigne = ''
 
@@ -93,143 +94,37 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
-  let typesDeQuestionsDisponibles
-
   this.nouvelleVersion = function () {
-    if (this.beta) {
-      typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
-    } else {
-      typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3]), choice([4, 5])])
-    }
-
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
+    const nbChiffres = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 7, defaut: 3, nbQuestions: this.nbQuestions, melange: 7 })
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, nbQuestions: this.nbQuestions, melange: 4 })
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // pour la précision d'encadrement
-      let precision
-
-      this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
-      switch (this.sup) {
-        case 1:
-          this.consigne = 'Compléter avec le nombre entier qui précède et le nombre entier qui suit.'
-          precision = 1
-          break
-        case 2:
-          this.consigne = 'Compléter avec le multiple de 10 qui précède et le multiple de 10 qui suit.'
-          precision = 10
-          break
-        case 3:
-          this.consigne = 'Compléter avec le multiple de 100 qui précède et le multiple de 100 qui suit.'
-          precision = 100
-          break
-      }
-
-      // pour les situations, autant de situations que de cas dans le switch !
-      const situations = [
-        { // case 0 -->
-          nombre: Number(myNombres(4))
-        },
-        { // case 1 -->
-          nombre: Number(myNombres(5))
-        },
-        { // case 2 -->
-          nombre: Number(myNombres(6))
-        },
-        { // case 3 -->
-          nombre: Number(myNombres(7))
-        },
-        { // case 4 -->
-          nombre: Number(myNombres(8))
-        },
-        { // case 5 -->
-          nombre: Number(myNombres(9))
-        }
-      ]
-
-      const enonces = []
-      for (let k = 0; k < situations.length; k++) {
-        enonces.push({
-          enonce: `
-          $\\ldots < ${texNombre(situations[k].nombre)} < \\ldots$
-          `,
-          question: '',
-          correction: `
-          ${encadrementCorr(situations[k].nombre, precision)}
-          `
-        })
-      }
-
+      const precision = Number(listeTypeDeQuestions[i])
+      const pDix = 10 ** (precision - 1)
+      const nombre = myNombres(nbChiffres[i] + 3)
       // autant de case que d'elements dans le tableau des situations
-      switch (listeTypeDeQuestions[i]) {
-        case 0:
-          texte = `${enonces[0].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
-          break
+      const [inf, sup] = encadrementCorr(nombre, pDix)
+      switch (pDix) {
         case 1:
-          texte = `${enonces[1].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
+          texte = 'Compléter avec le nombre entier qui précède et le nombre entier qui suit :'
           break
-        case 2:
-          texte = `${enonces[2].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          }
+        case 10:
+          texte = 'Compléter avec le multiple de 10 qui précède et le multiple de 10 qui suit :'
           break
-        case 3:
-          texte = `${enonces[3].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[3].correction}`
-          }
-          break
-        case 4:
-          texte = `${enonces[4].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[4].correction}`
-          }
-          break
-        case 5:
-          texte = `${enonces[5].enonce}`
-          if (this.beta) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[5].correction}`
-          }
+        case 100:
+          texte = 'Compléter avec le multiple de 100 qui précède et le multiple de 100 qui suit :'
           break
       }
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+      texte += remplisLesBlancs(this, i, `%{champ1}<${texNombre(nombre, 0)}<%{champ2}`, 'fillInThBlank')
+      texteCorr = `$${miseEnEvidence(texNombre(inf, 0))}<${texNombre(nombre, 0)}<${miseEnEvidence(texNombre(sup, 0))}$`
+      handleAnswers(this, i, { champ1: { value: String(inf), compare: numberCompare }, champ2: { value: String(sup), compare: numberCompare } }, { formatInteractif: 'mathlive' })
+
+      if (this.questionJamaisPosee(i, nombre)) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -238,6 +133,6 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de 10\n3 : Encadrer entre deux multiples consécutifs de 100']
-  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
+  this.besoinFormulaireTexte = ['Type de question (nombres séparés par des tirets', '1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de 10\n3 : Encadrer entre deux multiples consécutifs de 100\n4 : Mélange']
+  this.besoinFormulaire2Texte = ['Difficulté (nombres séparés par des tirets)', '1 : 4 chiffres\n2 : 5 chiffres\n3 : 6 chiffres\n4 : 7 chiffres\n5 : 8 chiffres\n6 : 9 chiffres\n7 : Mélange']
 }
