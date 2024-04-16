@@ -144,7 +144,7 @@ export default function FactoriserIdentitesRemarquables2 () {
       reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
       texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
 
-      handleAnswers(this, i, { reponse: { value: reponseAttendue, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
+      handleAnswers(this, i, { reponse: { value: reponseAttendue, compare: factorisationCompare } }, { formatInteractif: 'mathlive' })
       if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

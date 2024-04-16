@@ -5,9 +5,9 @@ import { randint, listeQuestionsToContenuSansNumero } from '../../modules/outils
 import { context } from '../../modules/context.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { numberCompare } from '../../lib/interactif/comparisonFunctions'
+import { equalFractionCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../lib/outils/texNombre'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -110,7 +110,7 @@ export default function TableauProportion () {
           texteCorr += tableauColonneLigne(['~', '\\text{Garçons}', '\\text{Filles}', '\\text{Total}'],
             ['\\text{Première générale}', '\\text{Première technologique}', '\\text{Total}'],
             [`${miseEnEvidence(GAetG)}`, `${miseEnEvidence(FetG)}`, `${miseEnEvidence(totalG)}`, `${miseEnEvidence(GAetT)}`, `${miseEnEvidence(FetT)}`, `${miseEnEvidence(totalT)}`, `${miseEnEvidence(totalGA)}`, `${miseEnEvidence(totalF)}`, `${miseEnEvidence(total)}`], 1, true, this.numeroExercice, i)
-          setReponse(this, index, {
+          handleAnswers(this, index, {
             bareme: toutPourUn,
             L1C1: { value: GAetG, compare: numberCompare },
             L1C2: { value: FetG, compare: numberCompare },
@@ -122,7 +122,7 @@ export default function TableauProportion () {
             L3C2: { value: totalF, compare: numberCompare },
             L3C3: { value: total, compare: numberCompare }
           },
-          { formatInteractif: 'tableauMathlive' })
+          { formatInteractif: 'mathlive' })
           increment = 1
           break
         case 2: // tableau à utiliser
@@ -133,26 +133,26 @@ export default function TableauProportion () {
             [`${GAetG}`, `${FetG}`, `${totalG}`, `${GAetT}`, `${FetT}`, `${totalT}`, `${totalGA}`, `${totalF}`, `${total}`])
 
           texte += `<br><br>${numAlpha(0)}  Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves de ce lycée ?<br>`
-          setReponse(this, index, choix ? new FractionEtendue(FetT, total) : new FractionEtendue(GAetT, total), { formatInteractif: 'fractionEgale' })
+          handleAnswers(this, index, { reponse: { value: choix ? new FractionEtendue(FetT, total).texFraction : new FractionEtendue(GAetT, total).texFraction, compare: equalFractionCompare } }, { formatInteractif: 'mathlive' })
           texte += `Sous la forme d'une fraction : ${this.interactif ? '' : '$\\ldots$'}`
           texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
-          setReponse(this, index + 1, FetT * 100 / total, { formatInteractif: 'calcul' })
+          handleAnswers(this, index + 1, { reponse: { value: texNombre(FetT * 100 / total, 0), compare: numberCompare } }, { formatInteractif: 'mathlive' })
           texte += `<br>Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : ${this.interactif ? '' : '$\\ldots\\,\\%$'}`
           texte += ajouteChampTexteMathLive(this, index + 1, 'inline largeur01', { texteApres: '%' })
 
           texte += `<br><br>${numAlpha(1)} Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves en première technologique ?<br>`
-          setReponse(this, index + 2, choix ? new FractionEtendue(FetT, totalT) : new FractionEtendue(GAetT, totalT), { formatInteractif: 'fractionEgale' })
+          handleAnswers(this, index + 2, { reponse: { value: choix ? new FractionEtendue(FetT, totalT).texFraction : new FractionEtendue(GAetT, totalT).texFraction, compare: equalFractionCompare } }, { formatInteractif: 'mathlive' })
           texte += `Sous la forme d'une fraction : ${this.interactif ? '' : '$\\ldots$'}`
           texte += ajouteChampTexteMathLive(this, index + 2, 'inline largeur01')
-          setReponse(this, index + 3, choix ? arrondi(FetT * 100 / totalT, 0) : arrondi(GAetT * 100 / totalT, 0), { formatInteractif: 'calcul' })
+          handleAnswers(this, index + 3, { reponse: { value: choix ? arrondi(FetT * 100 / totalT, 0) : arrondi(GAetT * 100 / totalT, 0), compare: numberCompare } }, { formatInteractif: 'mathlive' })
           texte += `<br>Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : ${this.interactif ? '' : '$\\ldots\\,\\%$'}`
           texte += ajouteChampTexteMathLive(this, index + 3, 'inline largeur01', { texteApres: '%' })
 
           texte += `<br><br>${numAlpha(2)}  Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les ${choix ? 'filles' : 'garçons'} ?<br>`
-          setReponse(this, index + 4, choix ? new FractionEtendue(FetT, totalF) : new FractionEtendue(GAetT, totalGA), { formatInteractif: 'fractionEgale' })
+          handleAnswers(this, index + 4, { reponse: { value: choix ? new FractionEtendue(FetT, totalF).texFraction : new FractionEtendue(GAetT, totalGA).texFraction, compare: equalFractionCompare } }, { formatInteractif: 'mathlive' })
           texte += `Sous la forme d'une fraction : ${this.interactif ? '' : '$\\ldots$'}`
           texte += ajouteChampTexteMathLive(this, index + 4, 'inline largeur01')
-          setReponse(this, index + 5, choix ? arrondi(FetT * 100 / totalF, 0) : arrondi(GAetT * 100 / totalGA, 0), { formatInteractif: 'calcul' })
+          handleAnswers(this, index + 5, { reponse: { value: choix ? arrondi(FetT * 100 / totalF, 0) : arrondi(GAetT * 100 / totalGA, 0), compare: numberCompare } }, { formatInteractif: 'mathlive' })
           texte += `<br>Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : ${this.interactif ? '' : '$\\ldots\\,\\%$'}`
           texte += ajouteChampTexteMathLive(this, index + 5, 'inline largeur01', { texteApres: '%' })
 
