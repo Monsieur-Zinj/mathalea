@@ -33,7 +33,7 @@ export default class DistanceEtVitesse extends Exercice {
        ${texNombre(13500, 0)}$ m.<br>
        Sa vitesse est donc $${miseEnEvidence(texNombre(13.5, 1))}$ km/h.`
     } else {
-      const listeHeureDistance = [[5500, 20, 3, 15.5], [6500, 20, 3, 19.5],
+      const listeHeureDistance = [[5500, 20, 3, 16.5], [6500, 20, 3, 19.5],
         [3500, 15, 4, 14], [4500, 15, 4, 18]]// distance, temps, fois plus, reponse
       const choix = choice(listeHeureDistance)
       this.reponse = choix[3]

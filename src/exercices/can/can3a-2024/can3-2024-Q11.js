@@ -41,10 +41,17 @@ export default class NomExercice extends Exercice {
       \\end{aligned}$<br>
       La solution de l'équation est : $${miseEnEvidence(this.reponse)}$.`
     } else {
-      const a = randint(2, 6)
+      let a = randint(2, 6)
       this.reponse = randint(-5, 5, [-1, 0, 1])
-      const c = randint(-7, 7, [0])
-      const b = c - a * this.reponse
+      let c = randint(-7, 7, [0])
+      let b = c - a * this.reponse
+      do {
+        a = randint(2, 6)
+        this.reponse = randint(-5, 5, [-1, 0, 1])
+        c = randint(-7, 7, [0])
+        b = c - a * this.reponse
+      }
+      while (b === 0)
       this.question = `$${a}x${ecritureAlgebrique(b)}=${c}$`
       this.correction = `On procède par étapes successives :<br>
       On commence par isoler $${a}x$ dans le membre de gauche en ajoutant
