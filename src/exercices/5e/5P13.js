@@ -12,9 +12,12 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { min } from 'mathjs'
 import Grandeur from '../../modules/Grandeur'
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { context } from '../../modules/context'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 export const titre = 'Utiliser ou trouver des échelles d\'un plan'
 
@@ -24,7 +27,6 @@ export const dateDePublication = '10/08/2022'
 /**
  * Utiliser ou trouver des échelles dans diverses situations
  * @author Eric Elter
- * Référence 5P13
  */
 export const uuid = 'edb61'
 export const ref = '5P13'
@@ -50,24 +52,6 @@ export default function EchellesProblemes () {
     this.consigne += this.nbQuestions === 1 ? chaqueCe[1] : chaqueCe[0]
     this.consigne += ' problème, lié à une échelle sur un plan.'
     // Fin de l'ébauche de la consigne en fonction des possibilités
-
-    /*
-        let listeDesProblemes = []
-        if (!this.sup) { // Si aucune liste n'est saisie
-          listeDesProblemes = rangeMinMax(1, 4)
-        } else {
-          if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-            listeDesProblemes[0] = contraindreValeur(1, 4, this.sup, 4)
-          } else {
-            listeDesProblemes = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-            for (let i = 0; i < listeDesProblemes.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-              listeDesProblemes[i] = contraindreValeur(1, 4, parseInt(listeDesProblemes[i]), 4) // parseInt en fait un tableau d'entiers
-            }
-          }
-        }
-        if (compteOccurences(listeDesProblemes, 4) > 0) listeDesProblemes = rangeMinMax(1, 3) // Teste si l'utilisateur a choisi tout
-        listeDesProblemes = combinaisonListes(listeDesProblemes, this.nbQuestions)
-        */
 
     const listeDesProblemes = gestionnaireFormulaireTexte({
       max: 3,
@@ -121,10 +105,8 @@ export default function EchellesProblemes () {
           texteCorr += `Or, $${deprecatedTexFraction(nb1Unite1, nb2Unite1)}=${deprecatedTexFraction(texNombre(nb1Unite1) + sp(2) + miseEnEvidence('\\div ' + sp(2) + texNombre(nb1Unite1), 'blue'), texNombre(nb2Unite1, 2) + sp(2) + miseEnEvidence('\\div ' + sp(2) + texNombre(nb1Unite1, 2), 'blue'))}=${reponse.simplifie().texFraction}$. `
           texteCorr += `Donc l'échelle du plan ${echelleQ[1]}  ${quidam[2]} ${quidam[0]} de ${quidam2} est de : $${deprecatedTexFraction(miseEnEvidence(1), miseEnEvidence(texNombre(reponse.simplifie().den)))}$.<br>`
           texteCorr += `Remarque : cela signifie que, sur le plan ${echelleQ[1]}  ${quidam[2]} ${quidam[0]} de ${quidam2}, $1$ ${unite1} représente $${texNombre(reponse.simplifie().den)}$ ${unite1} en réalité, et donc $1$ ${unite1} représente $${texNombre(reponse.simplifie().den / Math.pow(10, min(Math.floor(Math.log10(reponse.simplifie().den)), 6)), 2)}$ ${unite2} en réalité.`
-          if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true })
-            setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
-          }
+          texte += ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true })
+          setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
           break
         case 2:
           quidam = choice(Famille)
@@ -139,7 +121,9 @@ export default function EchellesProblemes () {
           nb2Unite2 = nb1Unite1 * echelleQUnite2
           reponse = nb2Unite2
           texte += `Le plan ${echelleQ[1]} ${quidam[2]} ${quidam[0]} de ${quidam2} a une échelle de $${deprecatedTexFraction(1, echelleQ[0])}$. ${quidam2} mesure, sur ce plan, un segment de $${texNombre(nb1Unite1, 2)}$ ${unite1}.
-            À quelle distance réelle, ce segment correspond-il ?`
+            À quelle distance réelle`
+          texte += context.isAmc ? (' (en ' + unite2 + ')') : ''
+          texte += ', ce segment correspond-il ?'
           texteCorr += `Une échelle de $${deprecatedTexFraction(1, echelleQ[0])}$ signifie que $1$ ${unite1} sur le plan représente $${texNombre(echelleQ[0])}$ ${unite1} en réalité, soit $${texNombre(echelleQUnite2, 2)}$ ${unite2}.<br>`
           texteCorr += `$${texNombre(nb1Unite1)}$ ${unite1} étant $${texNombre(nb1Unite1)}$ fois plus grand que $1$ ${unite1}, alors la distance réelle est $${texNombre(nb1Unite1)}$ fois plus grande que $${texNombre(echelleQUnite2, 2)}$ ${unite2}. ${sp(10)} `
           texteCorr += `$${texNombre(nb1Unite1)}\\times${texNombre(echelleQUnite2, 2)}$ ${unite2} $= ${texNombre(reponse, 2)}$ ${unite2}.<br>`
@@ -147,6 +131,8 @@ export default function EchellesProblemes () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
             setReponse(this, i, new Grandeur(reponse, unite2), { formatInteractif: 'unites' })
+          } else if (context.isAmc) {
+            setReponse(this, i, reponse)
           }
           break
         case 3:
@@ -163,7 +149,9 @@ export default function EchellesProblemes () {
           nb2Unite1 = nb2
           reponse = nb1Unite1
           texte += `Le plan ${echelleQ[1]} ${quidam[2]} ${quidam[0]} de ${quidam2} a une échelle de $${deprecatedTexFraction(1, echelleQ[0])}$. ${quidam2} trace, sur ce plan, un segment qui représente $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité.
-              Quelle est la longueur du segment tracé sur le plan par ${quidam2} ?`
+              Quelle est la longueur`
+          texte += context.isAmc ? (' (en ' + unite1 + ')') : ''
+          texte += ` du segment tracé sur le plan par ${quidam2} ?`
           texteCorr += `Une échelle de $${deprecatedTexFraction(1, echelleQ[0])}$ signifie que $1$ ${unite1} sur le plan représente $${texNombre(echelleQ[0])}$ ${unite1} en réalité, soit $${texNombre(echelleQUnite2, 2)}$ ${unite2}.<br>`
           texteCorr += `Cherchons par combien multiplier $${texNombre(echelleQUnite2, 2)}$ ${unite2} pour obtenir $${texNombre(nb2Unite2, 3)}$ ${unite2}. $${sp(10)} ${texNombre(nb2Unite2, 2)}\\div${texNombre(echelleQUnite2, 2)}=${texNombre(nb1Unite1)}$<br>`
           texteCorr += `$${deprecatedTexFraction(1, echelleQ[0])}=${deprecatedTexFraction(1 + miseEnEvidence('\\times' + texNombre(nb1Unite1), 'blue'), texNombre(echelleQ[0]) + miseEnEvidence('\\times' + texNombre(nb1Unite1), 'blue'))}=${deprecatedTexFraction(nb1Unite1, nb2Unite1)}$ et donc une distance de $${texNombre(nb2Unite1)}$ ${unite1} ($${texNombre(nb2Unite2)}$ ${unite2}) est représentée par un segment de $${texNombre(nb1Unite1)}$ ${unite1}.<br>`
@@ -171,6 +159,8 @@ export default function EchellesProblemes () {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline unites[longueurs]')
             setReponse(this, i, new Grandeur(reponse, unite1), { formatInteractif: 'unites' })
+          } else if (context.isAmc) {
+            setReponse(this, i, reponse)
           }
           break
       }

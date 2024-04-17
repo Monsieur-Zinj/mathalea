@@ -15,6 +15,8 @@ import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Résoudre des problèmes de proportionnalité avec la linéarité (avec ou sans un tableau)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
 
 export const dateDeModifImportante = '30/04/2023' // EE : Rajout de 2 paramètres
 export const dateDePublication = '30/05/2021'
