@@ -275,7 +275,7 @@ export default function ProportionnalitePasProportionnalite () {
           for (let j = 0; j <= tirages.length; j++) texte += '|c'
           texte += `|}\\hline  \\text{${objet}}`
           for (let j = 0; j < tirages.length; j++) texte += `&${tirages[j][0]}`
-          texte += `\\\\\\hline \\text{Prix (en $${sp()}€$})`
+          texte += '\\\\\\hline \\text{Prix (en €})'
           for (let j = 0; j < tirages.length; j++) { texte += `&${texPrix(tirages[j][1])}` }
           texte += '\\\\\\hline\\end{array}$<br> <br>'
           texte += `Le prix des ${objet} est-il proportionnel à la quantité achetée ?<br>`

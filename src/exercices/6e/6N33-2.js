@@ -121,7 +121,7 @@ export default function CalculerUnPourcentage () {
         mainlevee: false,
         amplitude: 1
       }, ...objets)
-      setReponse(this, i, p3, { formatInteractif: 'calcul', digits: 5, decimals: 2, signe: false })
+      setReponse(this, i, p3, { formatInteractif: 'calcul', digits: 3, decimals: 0, signe: false })
 
       if (this.questionJamaisPosee(i, moy1, moy2, moy3)) {
         // Si la question n'a jamais été posée, on en crée une autre

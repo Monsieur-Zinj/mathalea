@@ -119,7 +119,7 @@ export default function EchellesProblemes () {
           nb2 = nb1 * echelleQ[0]
           unite2 = tableauUnites[Math.floor(min(Math.log10(echelleQ[0]) + Math.floor(Math.log10(nb1)), 6))]
           nb2Unite2 = nb1Unite1 * echelleQUnite2
-          reponse = nb2Unite2
+          reponse = arrondi(nb2Unite2, 0)
           texte += `Le plan ${echelleQ[1]} ${quidam[2]} ${quidam[0]} de ${quidam2} a une échelle de $${deprecatedTexFraction(1, echelleQ[0])}$. ${quidam2} mesure, sur ce plan, un segment de $${texNombre(nb1Unite1, 2)}$ ${unite1}.
             À quelle distance réelle`
           texte += context.isAmc ? (' (en ' + unite2 + ')') : ''
@@ -147,7 +147,7 @@ export default function EchellesProblemes () {
           echelleQUnite2 = echelleQ[0] / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 5))
           nb2Unite2 = nb1 * echelleQUnite2
           nb2Unite1 = nb2
-          reponse = nb1Unite1
+          reponse = arrondi(nb1Unite1, 0)
           texte += `Le plan ${echelleQ[1]} ${quidam[2]} ${quidam[0]} de ${quidam2} a une échelle de $${deprecatedTexFraction(1, echelleQ[0])}$. ${quidam2} trace, sur ce plan, un segment qui représente $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité.
               Quelle est la longueur`
           texte += context.isAmc ? (' (en ' + unite1 + ')') : ''

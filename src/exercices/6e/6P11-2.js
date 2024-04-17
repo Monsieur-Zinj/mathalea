@@ -479,6 +479,6 @@ export default function ProportionnaliteParLineariteTableau () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Multiplication\n2 : Division\n3 : Passage par l\'unité\n4 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Avec tableau dans la consigne']
+  this.besoinFormulaire2CaseACocher = ['Avec tableau dans la correction']
   this.besoinFormulaire3CaseACocher = ['Avec des situations de non-proportionnalité']
 }

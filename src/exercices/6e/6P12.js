@@ -9,6 +9,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 
 export const titre = 'Résoudre des problèmes de proportionnalité en utilisant la proportionnalité simple'
+export const dateDePublication = '11/08/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = 'true'
@@ -19,8 +20,6 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote // pour l'exercice 6P11 original
  * @author CGrolleau // pour avoir ajouté des situations de proportionnalité en 03/2021
  * @author Guillaume Valmont // pour avoir fait la transition coefficient de linéarité -> coefficient de proportionnalité en 08/2021
- * référence 6P12
- * Publié le 11/08/2021
  * Relecture : Novembre 2021 par EE
  */
 
@@ -205,7 +204,9 @@ function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
 
   return {
     qtexte: texte,
-    qtexteCorr: texteCorr
+    qtexteCorr: texteCorr,
+    qreponseAMC: 'Réponse en € :',
+    qreponse: calculANePlusJamaisUtiliser(x * y / n)
   }
 }
 
@@ -257,7 +258,9 @@ ${texteEnCouleurEtGras('Conclusion : ', 'black')} ${prenoms[0]} doit utiliser ${
   setReponse(exo, i, quantiteReponse)
   return {
     qtexte: texte,
-    qtexteCorr: texteCorr
+    qtexteCorr: texteCorr,
+    qreponseAMC: 'Réponse en grammes :',
+    qreponse: quantiteReponse
   }
 }
 
@@ -325,7 +328,9 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   setReponse(exo, i, calculANePlusJamaisUtiliser(quantite / volumeInitial * volumeFinal))
   return {
     qtexte: texte,
-    qtexteCorr: texteCorr
+    qtexteCorr: texteCorr,
+    qreponseAMC: `Réponse en ${liste[alea1].unite_solute} :`,
+    qreponse: calculANePlusJamaisUtiliser(quantite / volumeInitial * volumeFinal)
   }
 }
 
@@ -375,7 +380,9 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
   setReponse(exo, i, calculANePlusJamaisUtiliser(liste[alea1].vitesse[alea2] * dureeR * facteur))
   return {
     qtexte: texte,
-    qtexteCorr: texteCorr
+    qtexteCorr: texteCorr,
+    qreponseAMC: 'Réponse en km :',
+    qreponse: calculANePlusJamaisUtiliser(liste[alea1].vitesse[alea2] * dureeR * facteur)
   }
 }
 
@@ -401,7 +408,9 @@ function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dan
   setReponse(exo, i, calculANePlusJamaisUtiliser(distanceCarte2 * distanceReel / distanceCarte))
   return {
     qtexte: texte,
-    qtexteCorr: texteCorr
+    qtexteCorr: texteCorr,
+    qreponseAMC: 'Réponse en km :',
+    qreponse: calculANePlusJamaisUtiliser(distanceCarte2 * distanceReel / distanceCarte)
   }
 }
 
@@ -461,7 +470,9 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
   setReponse(exo, i, calculANePlusJamaisUtiliser(quantite * surfaceFinale / surfaceInitiale, 3))
   return {
     qtexte: texte,
-    qtexteCorr: texteCorr
+    qtexteCorr: texteCorr,
+    qreponseAMC: `Réponse en ${liste[alea1].unite} :`,
+    qreponse: calculANePlusJamaisUtiliser(quantite * surfaceFinale / surfaceInitiale, 3)
   }
 }
 
@@ -491,24 +502,6 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    /*
-        let listeIndexSituationsDisponible = []
-        if (!this.sup2) { // Si aucune liste n'est saisie
-          listeIndexSituationsDisponible = rangeMinMax(1, 6)
-        } else {
-          if (typeof (this.sup2) === 'number') { // Si c'est un nombre, c'est que le nombre a été saisi dans la barre d'adresses
-            listeIndexSituationsDisponible[0] = contraindreValeur(1, 7, this.sup2, 7)
-          } else {
-            listeIndexSituationsDisponible = this.sup2.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-            for (let i = 0; i < listeIndexSituationsDisponible.length; i++) { // on a un tableau avec des strings : ['1', '5', '2','toto','45']
-              listeIndexSituationsDisponible[i] = contraindreValeur(1, 7, parseInt(listeIndexSituationsDisponible[i]), 7) // parseInt en fait un tableau d'entiers
-            }
-          }
-        }
-        if (compteOccurences(listeIndexSituationsDisponible, 7) > 0) listeIndexSituationsDisponible = rangeMinMax(1, 6) // Teste si l'utilisateur a choisi tout
-
-        const listeIndexSituations = combinaisonListes(listeIndexSituationsDisponible, this.nbQuestions)
-        */
 
     const listeIndexSituations = gestionnaireFormulaireTexte({
       max: 6,
@@ -525,7 +518,7 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
       } else {
         versionSimplifiee = false
       }
-      switch (parseInt(listeIndexSituations[i])) {
+      switch (listeIndexSituations[i]) {
         case 1:
           question = questionAchat(this, i)
           break
@@ -545,9 +538,29 @@ export default function ProportionnaliteParCoefDeProportionnalite () {
           question = questionRecouvrirSurface(this, i)
           break
       }
-      if (this.questionJamaisPosee(i, listeIndexSituations[i], this.autoCorrection[i].reponse.valeur.reponse.value, this.autoCorrection[i].enonce)) { // Si la question n'a jamais été posée, on la garde.
+
+      if (this.questionJamaisPosee(i, listeIndexSituations[i], question.qreponse)) { // Si la question n'a jamais été posée, on la garde.
         this.listeQuestions.push(question.qtexte)
         this.listeCorrections.push(question.qtexteCorr)
+        if (context.isAmc) {
+          this.autoCorrection[i] = {
+            enonce: question.qtexte + '<br>' + question.qreponseAMC,
+            propositions: [
+              {
+                texte: 'ce qui est affiché dans le corrigé AMC' // Si vide, le texte est la correction de l'exercice.
+              }
+            ],
+            reponse: {
+              texte: 'le texte affiché au dessus du formulaire numerique dans AMC', // facultatif
+              valeur: [question.qreponse], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+              param: {
+              // digits: 3, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
+              // decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
+                signe: false // (présence d'une case + ou - pour AMC)
+              }
+            }
+          }
+        }
         i++
       }
       cpt++
