@@ -96,6 +96,7 @@ export default function CalculDAngleFigureComplexe () {
           }
           texte = mathalea2d({
             xmin: -1,
+            scale: 0.6,
             ymin: -1,
             xmax: D.x + 1,
             ymax: Math.max(C.y, D.y) + 1,
@@ -111,6 +112,7 @@ export default function CalculDAngleFigureComplexe () {
             const texte2 = texteSurSegment('adjacent', A, B, 'black', 1)
             texteCorr += mathalea2d({
               xmin: -1,
+              scale: 0.6,
               ymin: -2,
               xmax: D.x + 1,
               ymax: Math.max(C.y, D.y) + 1,
@@ -124,6 +126,7 @@ export default function CalculDAngleFigureComplexe () {
             const texte4 = texteSurSegment('opposé', A, D, 'black')
             texteCorr += '<br><br>' + mathalea2d({
               xmin: -1,
+              scale: 0.6,
               ymin: -1,
               xmax: D.x + 1,
               ymax: Math.max(C.y, D.y) + 1,
@@ -161,6 +164,7 @@ export default function CalculDAngleFigureComplexe () {
           }
           texte = mathalea2d({
             xmin: -1,
+            scale: 0.6,
             ymin: -1,
             xmax: D.x + 1,
             ymax: Math.max(C.y, D.y) + 1,
@@ -176,6 +180,7 @@ export default function CalculDAngleFigureComplexe () {
             const texte2 = texteSurSegment('opposé', A, B, 'black', 1)
             texteCorr += mathalea2d({
               xmin: -1,
+              scale: 0.6,
               ymin: -2,
               xmax: D.x + 1,
               ymax: Math.max(C.y, D.y) + 1,
@@ -190,6 +195,7 @@ export default function CalculDAngleFigureComplexe () {
             const texte4 = texteSurSegment('opposé', A, D, 'black')
             texteCorr += '<br><br>' + mathalea2d({
               xmin: -1,
+              scale: 0.6,
               ymin: -1,
               xmax: D.x + 1,
               ymax: Math.max(C.y, D.y) + 1,
@@ -232,9 +238,9 @@ export default function CalculDAngleFigureComplexe () {
               propositions: [{
                 texte: '',
                 statut: '',
-                multicolsBegin: true,
+                // multicolsBegin: true,
                 reponse: {
-                  texte: numAlpha(0) + `<br>Valeur arrondie à l'unité de $\\widehat{${A.nom + C.nom + D.nom}}$`,
+                  texte: numAlpha(0) + `Valeur arrondie à l'unité de $\\widehat{${A.nom + C.nom + D.nom}}$`,
                   valeur: ACD,
                   alignement: 'center',
                   param: {
@@ -252,7 +258,7 @@ export default function CalculDAngleFigureComplexe () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: numAlpha(1) + typesDeQuestion === 'BA-AD-BAC' ? `Valeur arrondie à l'unité  de $\\widehat{${B.nom + C.nom + A.nom}}$` : `Valeur arrondie à l'unité de $\\widehat{${B.nom + A.nom + C.nom}}$`,
+                  texte: numAlpha(1) + (typesDeQuestion === 'BA-AD-BAC' ? `Valeur arrondie à l'unité  de $\\widehat{${B.nom + C.nom + A.nom}}$` : `Valeur arrondie à l'unité de $\\widehat{${B.nom + A.nom + C.nom}}$`),
                   valeur: typesDeQuestion === 'BA-AD-BAC' ? 90 - BAC : 90 - ACB,
                   alignement: 'center',
                   param: {
@@ -269,7 +275,7 @@ export default function CalculDAngleFigureComplexe () {
               propositions: [{
                 texte: '',
                 statut: '',
-                multicolsEnd: true,
+                // multicolsEnd: true,
                 reponse: {
                   texte: numAlpha(2) + `Valeur arrondie à l'unité  de $\\widehat{${C.nom + D.nom + A.nom}}$`,
                   valeur: 90 - ACD,
