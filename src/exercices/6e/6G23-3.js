@@ -11,6 +11,7 @@ import { labelPoint } from '../../lib/2d/textes.ts'
 import { arrondi } from '../../lib/outils/nombres'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { context } from '../../modules/context.js'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '04/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -52,44 +53,50 @@ export default function TracerTriangle2Angles () {
       saisie: this.sup3
     })
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 100; cpt++) {
       if (i % 5 === 0) listeDeNomsDePolygones = ['PQD']
 
-      const c = (randint(40, 70) / 10)
-      const b = (randint(40, 80) / 10)
-      let ang1
+      const loAC = (randint(40, 80) / 10)
+      let angBAC, loAB
       if (listeTypesDeQuestions[i] === 1) {
-        ang1 = randint(20, 80)
+        angBAC = randint(20, 80)
+        const borneMax = arrondi(10 * loAC / Math.cos(angBAC * Math.PI / 180.0), 0)
+        console.log(borneMax)
+        loAB = (randint(Math.min(arrondi(borneMax * 0.8, 0), 40), borneMax) / 10)
       } else {
-        ang1 = randint(90, 140)
+        angBAC = randint(90, 140)
+        loAB = (randint(40, 70) / 10)
       }
-      const a = (Math.sqrt(c * c + b * b - 2 * c * b * Math.cos(ang1 * Math.PI / 180.0)))
-      const ang2 = arrondi(180 * Math.acos((b * b - a * a - c * c) / (-2 * a * c)) / Math.PI, 0)
+      const loBC = (Math.sqrt(loAB * loAB + loAC * loAC - 2 * loAB * loAC * Math.cos(angBAC * Math.PI / 180.0)))
+      const angACB = arrondi(180 * Math.acos((loAB * loAB - loBC * loBC - loAC * loAC) / (-2 * loBC * loAC)) / Math.PI, 0)
+      if (angACB > 90) {
+        console.log('warning')
+      }
       let angle1, angle2
       if (randint(0, 1) === 0) {
-        angle1 = ang1
-        angle2 = ang2
+        angle1 = angBAC
+        angle2 = angACB
       } else {
-        angle1 = ang2
-        angle2 = ang1
+        angle1 = angACB
+        angle2 = angBAC
       }
 
       const p = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(p)
-      texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(c)}$ cm, $\\widehat{${p[1] + p[0] + p[2]
+      texte = `Tracer un triangle $${p}$ tel que $${p[0] + p[1]}=${texNombre(loAC)}$ cm, $\\widehat{${p[1] + p[0] + p[2]
         }}=${angle1}^\\circ$ et $\\widehat{${p[0] + p[1] + p[2]
         }}=${angle2}^\\circ$.`
       texte += `<br> Mesurer $${p[0] + p[2]}$,  $${p[1] + p[2]}$ et $\\widehat{${p[0] + p[2] + p[1]}}$.`
 
       // on construit le segment
       const A0 = point(0, 0, p[0], 'left')
-      const B0 = point(c, 0, p[1], 'right')
+      const B0 = point(loAC, 0, p[1], 'right')
       const s0 = segmentAvecExtremites(A0, B0)
       const t0 = afficheLongueurSegment(B0, A0)
 
       // on construit l'angle à gauche
       const A1 = point(B0.x + 4, 0, p[0], 'left')
-      const B1 = point(A1.x + c, 0, p[1], 'right')
+      const B1 = point(A1.x + loAC, 0, p[1], 'right')
       const s1 = segment(A1, B1)
       s1.styleExtremites = '-|'
       const c1 = rotation(B1, A1, angle1)
@@ -99,7 +106,7 @@ export default function TracerTriangle2Angles () {
 
       // on construit l'angle à droite
       const A2 = point(B1.x + 4, 0, p[0], 'left')
-      const B2 = point(A2.x + c, 0, p[1], 'right')
+      const B2 = point(A2.x + loAC, 0, p[1], 'right')
       const s2 = segment(A2, B2)
       const c2g = rotation(B2, A2, angle1)
       const C2g = pointSurSegment(c2g, A2, -3)
@@ -111,7 +118,7 @@ export default function TracerTriangle2Angles () {
 
       // on construit le triangle
       const A3 = point(B2.x + 4, 0, p[0], 'left')
-      const B3 = point(A3.x + c, 0, p[1], 'right')
+      const B3 = point(A3.x + loAC, 0, p[1], 'right')
 
       const s3 = segment(A3, B3)
       const c3g = rotation(B3, A3, angle1)
@@ -129,20 +136,22 @@ export default function TracerTriangle2Angles () {
 
       texteCorr = ''
       if (this.sup2) {
-        texteCorr += 'Voici les étapes de la construction :'
-        texteCorr += mathalea2d({ xmin: -1, xmax: Math.max(C.x, B3.x) + 1, ymin: -1, ymax: C.y + 1 }, s0, s1, s1g, s2, s2g, s2d, s3, segment(A3, C), segment(B3, C), t0, t1g, t2d, t3g, t3d, l)
+        texteCorr += 'Voici les étapes de la construction : <br>'
+        texteCorr += mathalea2d({ xmin: -1, xmax: Math.max(C.x, B3.x) + 1, ymin: -1, ymax: C.y + 1, scale: 2.5 / loAC }, s0, s1, s1g, s2, s2g, s2d, s3, segment(A3, C), segment(B3, C), t0, t1g, t2d, t3g, t3d, l)
         texteCorr += '<br><br>'
       }
       if (!this.sup) {
-        texteCorr += `$${p[0] + p[2]}\\approx${texNombre(longueur(A3, C, 1))}$ cm, $${p[1] + p[2]}\\approx${texNombre(longueur(B3, C, 1))}$ cm`
+        texteCorr += `$${p[0] + p[2]}\\approx${texNombre(longueur(A3, C, 2))}$ cm, $${p[1] + p[2]}\\approx${texNombre(longueur(B3, C, 2))}$ cm`
         texteCorr += ` et $\\widehat{${p[1] + p[2] + p[0]
           }}=${180 - angle1 - angle2}^\\circ$.`
       }
-      const anim = new Alea2iep()
-      anim.triangle1longueur2angles(p, c, angle1, angle2, true, true) // description et longueur
-      texteCorr += anim.htmlBouton(this.numeroExercice, i)
+      if (context.isHtml) {
+        const anim = new Alea2iep()
+        anim.triangle1longueur2angles(p, loAC, angle1, angle2, true, true) // description et longueur
+        texteCorr += anim.htmlBouton(this.numeroExercice, i)
+      }
 
-      if (this.questionJamaisPosee(i, angle1, angle2)) {
+      if (this.questionJamaisPosee(i, angle1 < angle2 ? angle1 : angle2, angle1 > angle2 ? angle1 : angle2)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

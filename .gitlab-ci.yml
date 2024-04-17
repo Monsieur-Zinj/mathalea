@@ -44,18 +44,29 @@ default:
     - nohup pnpm start &
     - sleep 60
 
-.testCIPDF:
-  image: guironne/tex-live-nodejs-playwright
+.install_dependenciesPDF:
   before_script:
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - pnpm exec playwright install --with-deps chromium # dernière version playwright.
     - nohup pnpm start &
     - sleep 60
+  
+.install_dependenciesPDFDNB:
+  before_script:
+    - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
+    - pnpm exec playwright install --with-deps chromium # dernière version playwright.
+    - nohup pnpm start &
+    - sleep 60
+
+.testCIPDF:
+  image: guironne/tex-live-nodejs-playwright
+  extends: .install_dependenciesPDF
   stage: playwright-pdf
   rules:
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
     when: manual
-  - if: $CI_PIPELINE_SOURCE == "schedule"
+  - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "PDF"
     when: always
   - when: never
   retry:
@@ -79,7 +90,7 @@ default:
     when: always
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
     when: manual
-  - if: $CI_PIPELINE_SOURCE == "schedule"
+  - if: $CI_PIPELINE_SOURCE == "schedule" && $CI_TEST_MA == "CONSOLE"
     when: always
   - when: never
   retry:
@@ -131,15 +142,26 @@ testCan6e5e4e3ePDF:
   script:
     - NIV=can/6e^can/5e^can/4e^can/3e pnpm test:e2e:pdfexports
 
-testDNB20132017PDF:
-  extends: .testCIPDF
+testDNB20132015PDF:
+  extends: 
+    - .testCIPDF
+    - .install_dependenciesPDFDNB
   script:
-    - NIV=dnb_2013^dnb_2014^dnb_2015^dnb_2016^dnb_2017 pnpm test:e2e:pdfexports
+    - NIV=dnb_2013^dnb_2014^dnb_2015 pnpm test:e2e:pdfexports
 
-testDNB20182023PDF:
-  extends: .testCIPDF
+testDNB20162019PDF:
+  extends: 
+    - .testCIPDF
+    - .install_dependenciesPDFDNB
   script:
-    - NIV=dnb_2018^dnb_2019^dnb_2020^dnb_2021^dnb_2022^dnb_2023 pnpm test:e2e:pdfexports
+    - NIV=dnb_2016^dnb_2017^dnb_2018^dnb_2019 pnpm test:e2e:pdfexports
+
+testDNB20202024PDF:
+  extends: 
+    - .testCIPDF
+    - .install_dependenciesPDFDNB
+  script:
+    - NIV=dnb_2020^dnb_2021^dnb_2022^dnb_2023 pnpm test:e2e:pdfexports
 
 test6ePDF:
   extends: .testCIPDF
