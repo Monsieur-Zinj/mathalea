@@ -158,7 +158,7 @@ export class Polynome {
               maj = egal(c, 0, 1e-15) ? '' : `${coeffD}`
               break
             default:
-              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^${i}`
+              maj = egal(c, 0, 1e-15) ? '' : `${coeffD}x^{${i}}`
           }
           break
         }
@@ -169,7 +169,7 @@ export class Polynome {
           maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x`
           break
         default:
-          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^${i}`
+          maj = egal(c, 0, 1e-15) ? '' : `${ecritureAlgebriqueSauf1(c)}x^{${i}}`
           break
       }
       res = maj + res
