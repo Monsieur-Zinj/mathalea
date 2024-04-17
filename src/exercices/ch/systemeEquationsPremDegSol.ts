@@ -31,7 +31,7 @@ export default class systemeEquationsPremDegSol extends Exercice {
     this.nbQuestions = 3
     this.sup = 3
     this.correctionDetailleeDisponible = true
-    this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Niveau 1\n2 : Niveau 2\n4 : Mélange']
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Niveau 1\n2 : Niveau 2\n3 : Mélange']
   }
 
   nouvelleVersion () {
