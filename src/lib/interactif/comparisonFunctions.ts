@@ -676,7 +676,7 @@ export function intervalsCompare (input: string, goodAnswer: string) {
   const borneAndOpReponse = goodAnswer.match(extractBornesAndOp)
   const crochetsSaisie = input.match(extractCrochets)
   const crochetsReponse = goodAnswer.match(extractCrochets)
-  if (borneAndOpSaisie != null) {
+  if (borneAndOpSaisie != null && borneAndOpReponse != null && crochetsSaisie != null && crochetsReponse != null) {
     if (borneAndOpSaisie.length !== borneAndOpReponse.length) {
       return { isOk: false }
     }
